@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------|------+------+------+------+------+                    |------+------+------+------+------+------|
  * |   G  |LShift|   A  |   S  |   D  |   F  |-------.    ,-------| Ctl-H| Ctl-J| Ctl-K| Ctl-L| Ctl-;| PGDN |
  * |------|------+------+------+------+------+       |    |       |------+------+------+------+------+------|
- * | LCtrl|  Z   |   X  |   C  |   V  |   B  |-------|    |-------| Ctl-N| Ctl-M| Ctl-,| Ctl-.| Ctl-/| Right|
+ * | LCtrl|  Z   |   X  |   C  |   V  |   B  |-------|    |-------| Ctl-N| Ctl-M| Ctl-,| Ctl-.| Ctl-/|   M  |
  * `-----------------------------------------/       /     \Enter \-----------------------------------------'
  *            | TRNS |      | ESC  | LAlt | /Space  /       \      \  |PrnScr|      |      | FF14 |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,       KC_7,       KC_8,          KC_9,         KC_0,          KC_EQL,
   KC_T,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,                      RCTL(KC_Y), RCTL(KC_U), RCTL(KC_I),    RCTL(KC_O),   RCTL(KC_P),    KC_PGUP,
   KC_G,   KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,                      RCTL(KC_H), RCTL(KC_J), RCTL(KC_K),    RCTL(KC_L),   RCTL(KC_SCLN), KC_PGDN,
-  KC_LCTRL, KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, RCTL(KC_N), RCTL(KC_M), RCTL(KC_COMM), RCTL(KC_DOT), RCTL(KC_SLSH), KC_RIGHT,
+  KC_LCTRL, KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, RCTL(KC_N), RCTL(KC_M), RCTL(KC_COMM), RCTL(KC_DOT), RCTL(KC_SLSH), KC_M,
                    _______, XXXXXXX, _______, _______, _______, _______, _______,    KC_PSCR,    _______,       TO(_FF14)
 )
 };
