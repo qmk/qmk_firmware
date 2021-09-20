@@ -4,3 +4,4 @@
 #undef DEBOUNCE
 #define DEBOUNCE 3
 #define QMK_KEYS_PER_SCAN 12
+#define RGBLIGHT_SLEEP
