@@ -1,7 +1,6 @@
 """Creates a compilation database for the given keyboard build.
 """
 
-import itertools
 import json
 import os
 import re
@@ -24,6 +23,16 @@ def system_libs(binary: str) -> List[Path]:
     """
     cli.log.debug("searching for system library directory for binary: %s", binary)
     bin_path = shutil.which(binary)
+
+    # Actually query xxxxxx-gcc to find its include paths.
+    if binary.endswith("gcc") or binary.endswith("g++"):
+        result = cli.run([binary, '-E', '-Wp,-v', '-'], capture_output=True, check=True, input='\n')
+        paths = []
+        for line in result.stderr.splitlines():
+            if line.startswith(" "):
+                paths.append(Path(line.strip()).resolve())
+        return paths
+
     return list(Path(bin_path).resolve().parent.parent.glob("*/include")) if bin_path else []
 
 
@@ -55,7 +64,8 @@ def parse_make_n(f: Iterator[str]) -> List[Dict[str, str]]:
                 # we have a hit!
                 this_cmd = m.group(1)
                 args = shlex.split(this_cmd)
-                args += ['-I%s' % s for s in system_libs(args[0])]
+                for s in system_libs(args[0]):
+                    args += ['-isystem', '%s' % s]
                 new_cmd = ' '.join(shlex.quote(s) for s in args if s != '-mno-thumb-interwork')
                 records.append({"directory": str(QMK_FIRMWARE.resolve()), "command": new_cmd, "file": this_file})
                 state = 'start'
