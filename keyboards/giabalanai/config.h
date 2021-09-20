@@ -301,7 +301,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-#    define B5_AUDIO  // use EX1 = PB5 = PIN9 as Audio output
+#    define AUDIO_PIN B5  // use EX1 = PB5 = PIN9 as Audio output
 // #define DAC_SAMPLE_MAX 32768U
 #    define DAC_SAMPLE_MAX 65535U
 // #define AUDIO_CLICKY
@@ -329,6 +329,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifdef MIDI_ENABLE
 #    define MIDI_ADVANCED
+// Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
+#    define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
 
 /*

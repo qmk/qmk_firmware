@@ -32,9 +32,6 @@
 extern midi_config_t midi_config;
 uint8_t midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
 
-// Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
-#define MIDI_INITIAL_VELOCITY 117
-
 // UNISON flags
 static bool melody_dyad_high = false;  //  true when +1 octave unison dyad is enabled.
 static bool melody_dyad_low  = false;  //  true when -1 octave unison dyad is enabled.
