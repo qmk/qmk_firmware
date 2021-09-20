@@ -27,7 +27,7 @@
 #endif
 
 #ifndef PMW3360_CLOCK_SPEED
-#    define PMW3360_CLOCK_SPEED 70000000
+#    define PMW3360_CLOCK_SPEED 2000000
 #endif
 
 #ifndef PMW3360_SPI_LSBFIRST

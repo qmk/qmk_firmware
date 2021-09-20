@@ -19,6 +19,15 @@
 #include "print.h"
 #include "debug.h"
 
+#define PIMORONI_TRACKBALL_REG_LED_RED 0x00
+#define PIMORONI_TRACKBALL_REG_LED_GRN 0x01
+#define PIMORONI_TRACKBALL_REG_LED_BLU 0x02
+#define PIMORONI_TRACKBALL_REG_LED_WHT 0x03
+#define PIMORONI_TRACKBALL_REG_LEFT    0x04
+#define PIMORONI_TRACKBALL_REG_RIGHT   0x05
+#define PIMORONI_TRACKBALL_REG_UP      0x06
+#define PIMORONI_TRACKBALL_REG_DOWN    0x07
+
 static uint16_t precision = 128;
 
 float pimoroni_trackball_get_precision(void) { return ((float)precision / 128); }
