@@ -1,7 +1,6 @@
 # JKB65 RGB
 
-
-‌<img src="https://jadookb.com/themes/custom-5125/JKB65.JPG" width="70%" height="70%" />
+![JKB65RGB](https://i.imgur.com/CKtVyyI.jpg)
 
 A 65% hotswap in switch RGB keyboard from JadooKB.
 
