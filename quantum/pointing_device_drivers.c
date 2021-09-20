@@ -75,7 +75,7 @@ report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
     mouse_report.x = data.x;
     mouse_report.y = data.y;
 
-    mouse_report.buttons = pointing_device_handle_buttons(data.button, POINTING_DEVICE_BUTTON1);
+    mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, data.button, POINTING_DEVICE_BUTTON1);
 
     return mouse_report;
 }
@@ -111,9 +111,9 @@ report_mouse_t cirque_trackpad_get_report(report_mouse_t mouse_report) {
         is_z_down = (bool)touchData.zValue;
         if (!touchData.zValue) {
             if (timer_elapsed(mouse_timer) < TAPPING_CHECK && mouse_timer != 0) {
-                mouse_report.buttons = pointing_device_handle_buttons(true, POINTING_DEVICE_BUTTON1);
+                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
             } else if (mouse_timer == 0) {
-                mouse_report.buttons = pointing_device_handle_buttons(false, POINTING_DEVICE_BUTTON1);
+                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
             }
         }
         mouse_timer = timer_read();
@@ -149,7 +149,7 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
             error_count = 0;
 
             if (!(pimoroni_data.click & 128)) {
-                mouse_report.buttons = pointing_device_handle_buttons(false, POINTING_DEVICE_BUTTON1);
+                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
                 if (!debounce) {
                     x_offset += pimoroni_trackball_get_offsets(pimoroni_data.right, pimoroni_data.left, PIMORONI_TRACKBALL_SCALE);
                     y_offset += pimoroni_trackball_get_offsets(pimoroni_data.down, pimoroni_data.up, PIMORONI_TRACKBALL_SCALE);
@@ -159,7 +159,7 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
                     debounce--;
                 }
             } else {
-                mouse_report.buttons = pointing_device_handle_buttons(true, POINTING_DEVICE_BUTTON1);
+                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
                 debounce = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
             }
         } else {

@@ -76,4 +76,4 @@ void           pointing_device_init_kb(void);
 void           pointing_device_init_user(void);
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report);
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report);
-uint8_t        pointing_device_handle_buttons(bool pressed, pointing_device_buttons_t button);
+uint8_t        pointing_device_handle_buttons(uint8_t buttons, bool pressed, pointing_device_buttons_t button);
