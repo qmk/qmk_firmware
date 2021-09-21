@@ -31,8 +31,22 @@ __attribute__ ((weak)) bool oled_task_keymap(void) {return true;}
 
 // Do sane defaults for regular oled rendering
 void oled_task_user(void) {
-    if (oled_task_keymap()) {
-        render_status_lite(0, 0);
+    if (is_oled_on()) {
+        if (oled_task_keymap()) {
+            render_status_lite(0, 0);
+        }
+    }
+}
+
+// Make sure oled sleeps timely
+void housekeeping_task_oled(void) {
+    // If we are not master; sync the oled state
+    if (!is_keyboard_master()) {
+        if ((userspace_runtime.oled_on) && (!is_oled_on())) {
+            oled_on();
+        } else if ((!userspace_runtime.oled_on) && (is_oled_on())) {
+            oled_off();
+        }
     }
 }
 #endif

@@ -18,6 +18,8 @@
 
 // Contain the main oled writer here 
 void oled_task_user(void);
+// Function to keep in housekeeping
+void housekeeping_task_oled(void);
 // Some generic rendering functions
 void render_qmk_logo(uint8_t row, uint8_t col);
 void render_layer(uint8_t row, uint8_t col, uint8_t top_layer);

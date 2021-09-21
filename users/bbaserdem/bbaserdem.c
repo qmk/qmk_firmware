@@ -28,12 +28,14 @@
 |*-----KEYBOARD CONFIG-----*|
 \*-------------------------*/
 userspace_config_t userspace_config;
+userspace_runtime_t userspace_runtime;
 
 /*---------------------------------*\
 |*----SPLIT KEYBOARD TRANSPORT-----*|
 \*---------------------------------*/
 #ifdef SPLIT_KEYBOARD
 userspace_config_t transport_userspace_config;
+userspace_runtime_t transport_userspace_runtime;
 
 // Translate the RPC data to the local variable
 void userspace_config_sync(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
@@ -43,26 +45,38 @@ void userspace_config_sync(uint8_t in_buflen, const void* in_data, uint8_t out_b
     }
     // There is no data to send back; so no output handling
 }
+void userspace_runtime_sync(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+    // Copy incoming data to local variable
+    if (in_buflen == sizeof(transport_userspace_runtime)) {
+        memcpy(&transport_userspace_runtime, in_data, in_buflen);
+    }
+    // There is no data to send back; so no output handling
+}
 
 // Either send or receive the correct data
-void userspace_config_transport_update(void) {
+void userspace_transport_update(void) {
     if (is_keyboard_master()) {
         // If we are the main device; we want to send info.
         transport_userspace_config.raw = userspace_config.raw;
+#       ifdef OLED_ENABLE
+        transport_userspace_runtime.oled_on = is_oled_on();
+#       endif // OLED_ENABLE
     } else {
         // If we are the secondary device; we want to receive info, and save to eeprom.
         userspace_config.raw = transport_userspace_config.raw;
+        userspace_runtime.raw = transport_userspace_runtime.raw;
     }
 }
 
 // Initiate the protocol on sync
-void userspace_config_transport_sync(void) {
+void userspace_transport_sync(void) {
     if (is_keyboard_master()) {
         // Keep track of the last state
         static userspace_config_t last_userspace_config;
+        static userspace_runtime_t last_userspace_runtime;
         bool needs_sync = false;
 
-        // Check if the state values are different
+        // Check if the config values are different
         if (memcmp(&transport_userspace_config, &last_userspace_config, sizeof(transport_userspace_config))) {
             needs_sync = true;
             memcpy(&last_userspace_config, &transport_userspace_config, sizeof(transport_userspace_config));
@@ -70,7 +84,19 @@ void userspace_config_transport_sync(void) {
 
         // Perform the sync if requested
         if (needs_sync) {
-            transaction_rpc_send(RPC_ID_USERSPACE_SYNC, sizeof(transport_userspace_config), &transport_userspace_config);
+            transaction_rpc_send(RPC_ID_CONFIG_SYNC, sizeof(transport_userspace_config), &transport_userspace_config);
+            needs_sync = false;
+        }
+
+        // Check if the runtime values are different
+        if (memcmp(&transport_userspace_runtime, &last_userspace_runtime, sizeof(transport_userspace_runtime))) {
+            needs_sync = true;
+            memcpy(&last_userspace_runtime, &transport_userspace_runtime, sizeof(transport_userspace_runtime));
+        }
+
+        // Perform the sync if requested
+        if (needs_sync) {
+            transaction_rpc_send(RPC_ID_RUNTIME_SYNC, sizeof(transport_userspace_runtime), &transport_userspace_runtime);
             needs_sync = false;
         }
     }
@@ -117,7 +143,8 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
 
     // Split keyboard halves communication
 #   ifdef SPLIT_KEYBOARD
-    transaction_register_rpc(RPC_ID_USERSPACE_SYNC, userspace_config_sync);
+    transaction_register_rpc( RPC_ID_CONFIG_SYNC, userspace_config_sync );
+    transaction_register_rpc(RPC_ID_RUNTIME_SYNC, userspace_runtime_sync);
 #   endif // SPLIT_KEYBOARD
 
     // Backlight LED
@@ -148,19 +175,29 @@ __attribute__ ((weak)) void housekeeping_task_keymap(void) {}
 void housekeeping_task_user(void) {
     // Check eeprom every now and then
     static userspace_config_t prev_userspace_config;
+    static userspace_runtime_t prev_userspace_runtime;
     static fast_timer_t throttle_timer = 0;
 
+    // Do transport stuff
 #   ifdef SPLIT_KEYBOARD
-    userspace_config_transport_update();
-    userspace_config_transport_sync();
+    userspace_transport_update();
+    userspace_transport_sync();
 #   endif // SPLIT_KEYBOARD
 
-    // Throttled task
-    if (timer_elapsed_fast(throttle_timer) >= EEPROM_CHECK_INTERVAL_MS) {
+    // Throttled tasks
+    if (timer_elapsed_fast(throttle_timer) >= HOUSEKEEPING_THROTTLE_INTERVAL_MS) {
+        // Refresh timer
         throttle_timer = timer_read_fast();
+        // Check userspace config for eeprom updates
         if (prev_userspace_config.raw != userspace_config.raw) {
             eeconfig_update_user(userspace_config.raw);
             prev_userspace_config.raw = userspace_config.raw;
+        }
+        // Check runtime config for updates
+        if (prev_userspace_runtime.raw != userspace_runtime.raw) {
+#           ifdef OLED_ENABLE
+            housekeeping_task_oled();
+#           endif // OLED_ENABLE
         }
     }
 
