@@ -17,7 +17,7 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 MIDI_ENABLE = yes           # MIDI support
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 
 SRC += analog.c
