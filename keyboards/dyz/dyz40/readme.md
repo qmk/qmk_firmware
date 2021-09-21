@@ -1,7 +1,8 @@
 # dyz40
 
+![pcb](https://i.imgur.com/XFYzF94h.jpg)
+
 40% 13u hotswap with multiple layouts for bottom row
-![pcb](https://i.imgur.com/XFYzF94.jpg)
 
 -   Keyboard Maintainer: [dayatz](https://github.com/dayatz)
 -   Hardware Supported: ATMega32u4
