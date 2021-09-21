@@ -19,8 +19,7 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 UNICODE_ENABLE = no         # Unicode
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = no           # Audio output
 NO_USB_STARTUP_CHECK = yes  # Disable initialization only when usb is plugged in
 BLUETOOTH_ENABLE = yes
 BLUETOOTH_DRIVER = RN42
-
