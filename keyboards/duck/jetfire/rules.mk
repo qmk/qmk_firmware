@@ -20,7 +20,7 @@ BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 BACKLIGHT_DRIVER = custom
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 UNICODE_ENABLE = no         # Unicode
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = no           # Audio output
 
 CUSTOM_MATRIX = yes
 SRC += indicator_leds.c \

@@ -21,6 +21,6 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
 UNICODE_ENABLE = no         # Unicode
-AUDIO_ENABLE = yes          # Audio output on port B6
+AUDIO_ENABLE = yes          # Audio output
 SPLIT_KEYBOARD = yes
 LTO_ENABLE = yes
