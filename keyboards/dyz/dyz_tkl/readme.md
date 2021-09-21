@@ -1,7 +1,8 @@
 # dyz_tkl
 
-TKL pcb that fits most of the boards, support 2 sides of USB and multipler layouts for F row.
-![pcb](https://i.imgur.com/5OYWF0M.jpg)
+![pcb](https://i.imgur.com/5OYWF0Mh.jpg)
+
+TKL pcb that fits most of the boards, support 2 sides of USB and multiple layouts for F row.
 
 -   Keyboard Maintainer: [dayatz](https://github.com/dayatz)
 -   Hardware Supported: ATMega32u4
