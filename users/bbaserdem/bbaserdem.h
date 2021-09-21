@@ -53,26 +53,13 @@
 #endif // OLED_ENABLE
 
 // Structure to keep runtime info on encoder state
-/*
 typedef union {
-    uint16_t raw;
+    uint32_t raw;
     struct {
-        uint8_t base    :4; // (9:4) The encoder state on most layers; regular function
-        uint8_t rgb     :4; // (5:3) The encoder state on media layer; controls light
-        uint8_t point   :4; // (4:2) The encoder state on mouse layer; moves pointer
-        uint8_t         :4; // Padding
+        bool oled_on;
     };
-} encoder_state_t;
+} userspace_runtime_t;
 
-// Structure to contain userspace config in total
-typedef union {
-    uint64_t raw;
-    struct {
-        encoder_state_t encoder[2];
-        uint8_t layout;
-    };
-} userspace_config_t;
-*/
 typedef union {
     uint32_t raw;
     struct {
@@ -88,7 +75,8 @@ typedef union {
 } userspace_config_t;
 
 // Broadcast us to everyone else
-extern userspace_config_t userspace_config;
+extern userspace_runtime_t  userspace_runtime;
+extern userspace_config_t   userspace_config;
 
 // Function definitions that can be accessed through specific keymaps
 // Runs before all initialization

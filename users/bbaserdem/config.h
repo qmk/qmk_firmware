@@ -35,15 +35,14 @@
 #endif
 
 // Some of my own settings
-# define EEPROM_CHECK_INTERVAL_MS 250
+# define HOUSEKEEPING_THROTTLE_INTERVAL_MS 250
 
 // Split transport settings
 #ifdef SPLIT_KEYBOARD
 #   define SPLIT_TRANSPORT_MIRROR
 #   define SPLIT_LAYER_STATE_ENABLE
-#   define SPLIT_OLED_ENABLE
 #   define SPLIT_MODS_ENABLE
-#   define SPLIT_TRANSACTION_IDS_USER RPC_ID_USERSPACE_SYNC, USER_SYNC_OLED, USER_SYNC_UNUSED
+#   define SPLIT_TRANSACTION_IDS_USER RPC_ID_CONFIG_SYNC, RPC_ID_RUNTIME_SYNC, RPC_ID_KEYMAP_SYNC
 #   define SPLIT_LED_STATE_ENABLE
 #   ifdef WPM_ENABLE
 #       define SPLIT_WPM_ENABLE
@@ -112,8 +111,8 @@
 
 // OLED definitions
 #ifdef OLED_ENABLE
-    // Timeout in one minute
-#   define OLED_TIMEOUT 60000
+    // Timeout does not work for split secondary board; i implemented it myself
+#   define OLED_TIMEOUT 30000
     // Fade out the screen when timing out
 #   define OLED_FADE_OUT
 #   define OLED_FADE_OUT_INTERVAL 5
