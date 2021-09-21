@@ -3,7 +3,8 @@
 
 # Python development requirements
 codeowners
-nose2
 flake8
+ghapi
+nose2
 pep8-naming
 yapf
