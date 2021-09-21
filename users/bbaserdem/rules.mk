@@ -36,9 +36,9 @@ RGBLIGHT_ENABLE = no    # LED strip, but there is RGB_MATRIX instead
 TAP_DANCE_ENABLE = no   # Tap dance keys; i don't use tap dance
 
 # These features can be disabled at whim
-NKRO_ENABLE := yes      # Default is 6KRO
-VELOCIKEY_ENABLE = yes # Speed effects change with typing speed
-WPM_ENABLE = yes       # Get WPM reports as you type
+NKRO_ENABLE ?= yes      # Default is 6KRO
+VELOCIKEY_ENABLE ?= yes # Speed effects change with typing speed
+WPM_ENABLE ?= yes       # Get WPM reports as you type
 
 # Manually configure these on each keyboard individually
 # AUDIO_ENABLE            # Audio stuff
