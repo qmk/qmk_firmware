@@ -115,7 +115,7 @@
 #   define OLED_TIMEOUT 30000
     // Fade out the screen when timing out
 #   define OLED_FADE_OUT
-#   define OLED_FADE_OUT_INTERVAL 5
+#   define OLED_FADE_OUT_INTERVAL 15
 #endif // OLED_ENABLE
 
 // OLED definitions

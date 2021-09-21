@@ -41,6 +41,7 @@ void oled_task_user(void) {
 // Make sure oled sleeps timely
 void housekeeping_task_oled(void) {
     // If we are not master; sync the oled state
+    /*
     if (!is_keyboard_master()) {
         if ((userspace_runtime.oled_on) && (!is_oled_on())) {
             oled_on();
@@ -48,6 +49,7 @@ void housekeeping_task_oled(void) {
             oled_off();
         }
     }
+    */
 }
 #endif
 
@@ -66,30 +68,30 @@ void render_qmk_logo(uint8_t row, uint8_t col) {
 }
 
 void render_layer(uint8_t row, uint8_t col, uint8_t top_layer) {
-    // Write the layer state
+    // Write the layer state; 17 chars
     oled_set_cursor(col, row);
     oled_write("Layer: ", false);
     switch (top_layer) {
         case _BASE:
-            oled_write("Default", false);
+            oled_write("Default   ", false);
             break;
         case _CHAR:
-            oled_write("Sp. Chars", false);
+            oled_write("Sp. Chars ", false);
             break;
         case _GAME:
-            oled_write("Gaming", false);
+            oled_write("Gaming    ", false);
             break;
         case _MEDI:
-            oled_write("Media Ctr", false);
+            oled_write("Media Ctr ", false);
             break;
         case _NAVI:
             oled_write("Navigation", false);
             break;
         case _SYMB:
-            oled_write("Symbols", false);
+            oled_write("Symbols   ", false);
             break;
         case _NUMB:
-            oled_write("Numpad", false);
+            oled_write("Numpad    ", false);
             break;
         case _FUNC:
             oled_write("Funct Keys", false);
@@ -101,24 +103,22 @@ void render_layer(uint8_t row, uint8_t col, uint8_t top_layer) {
             oled_write("Music Mode", false);
             break;
         default:
-            oled_write("???", false);
+            oled_write("?? N/A ?? ", false);
     }
-    oled_advance_page(true);
 }
 
 void render_modifiers_lite(uint8_t row, uint8_t col, uint8_t mods) {
-    // Write the modifier state
+    // Write the modifier state, 16 characters
     oled_set_cursor(col, row);
     oled_write((mods & MOD_MASK_SHIFT  ) ? "Shft " : "     ", false);
     oled_write((mods & MOD_MASK_CTRL   ) ? "Ctrl " : "     ", false);
     oled_write((mods & MOD_MASK_ALT    ) ? "Alt"   : "   ",   false);
     oled_write((mods & MOD_BIT(KC_RALT)) ? "G "    : "  ",    false);
     oled_write((mods & MOD_MASK_GUI    ) ? "Meta " : "    ",  false);
-    oled_advance_page(true);
 }
 
-// Renders the encoder state, 14 characters
 void render_encoder(uint8_t row, uint8_t col, uint8_t index, uint8_t layer) {
+    // Renders the encoder state, 14 characters
     oled_set_cursor(col, row);
 
 #   ifdef ENCODER_ENABLE
@@ -129,7 +129,6 @@ void render_encoder(uint8_t row, uint8_t col, uint8_t index, uint8_t layer) {
 #   else // ENCODER_ENABLE
     oled_write("No enc. avail.", false);
 #   endif // ENCODER_ENABLE
-    oled_advance_page(true);
 }
 
 void render_wpm(uint8_t row, uint8_t col) {
@@ -144,12 +143,11 @@ void render_wpm(uint8_t row, uint8_t col) {
 #   else // WPM_ENABLE
     oled_write("WPM: N/A", false);
 #   endif // WPM_ENABLE
-    oled_advance_page(true);
 }
 
 // Writes the currently used OLED display layout
 void render_keymap(uint8_t row, uint8_t col, bool isLite) {
-    // Render the oled layout
+    // Render the oled layout; lite is 11, regular is 14 characters
     oled_set_cursor(col, row);
     if (isLite) {
         oled_write("KM: ", false);
@@ -169,8 +167,6 @@ void render_keymap(uint8_t row, uint8_t col, bool isLite) {
     }
     if (isLite) {
         oled_write(" ", false);
-    } else {
-        oled_advance_page(true);
     }
 }
 #endif // !KEYBOARD_splitkb_kyria_rev1
@@ -178,6 +174,7 @@ void render_keymap(uint8_t row, uint8_t col, bool isLite) {
 // Writes the currently used OLED display layout
 #ifdef RGB_MATRIX_ENABLE
 void render_rgb_lite(uint8_t row, uint8_t col) {
+    // Writes the currently used OLED display layout, 19 characters
     static char rgb_temp4[4] = {0};
     // Render the oled layout
     oled_set_cursor(col, row);
@@ -193,7 +190,6 @@ void render_rgb_lite(uint8_t row, uint8_t col) {
     oled_write(" v", false);
     itoa(rgb_matrix_get_val(), rgb_temp4, 10);
     oled_write(rgb_temp4, false);
-    oled_advance_page(true);
 }
 #endif // RGB_MATRIX_ENABLE
 
@@ -224,7 +220,6 @@ void render_status_lite(uint8_t row, uint8_t col) {
     render_wpm(row + 2, col + 11);
 
     // Line 4: Encoder states
-    oled_write("Encoder: ", false);
 #   ifdef SPLIT_KEYBOARD
     if (is_keyboard_left()) {
         render_encoder(row + 3, col + 0, 0, this_layer);
