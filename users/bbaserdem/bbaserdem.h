@@ -56,7 +56,7 @@
 typedef union {
     uint32_t raw;
     struct {
-        bool oled_on;
+        bool test;
     };
 } userspace_runtime_t;
 
