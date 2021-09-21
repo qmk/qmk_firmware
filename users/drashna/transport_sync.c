@@ -23,7 +23,8 @@ extern unicode_config_t unicode_config;
 #endif
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
-extern bool delayed_tasks_run;
+extern audio_config_t audio_config;
+extern bool           delayed_tasks_run;
 #endif
 #if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform)
 extern bool tap_toggling;
@@ -32,7 +33,6 @@ extern bool tap_toggling;
 extern bool swap_hands;
 #endif
 extern userspace_config_t userspace_config;
-extern audio_config_t     audio_config;
 
 __attribute__((aligned(8))) typedef struct {
     bool audio_enable;
