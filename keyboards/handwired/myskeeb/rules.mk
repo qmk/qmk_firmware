@@ -23,4 +23,3 @@ SPLIT_KEYBOARD = yes        # Enables split keyboard support
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 NO_USB_STARTUP_CHECK = yes
-TAP_DANCE_ENABLE = yes

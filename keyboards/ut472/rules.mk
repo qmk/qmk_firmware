@@ -20,4 +20,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = yes
-TAP_DANCE_ENABLE = no      # Enable tap dance feature
