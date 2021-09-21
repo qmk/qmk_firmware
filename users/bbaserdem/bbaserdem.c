@@ -58,7 +58,7 @@ void userspace_transport_update(void) {
     if (is_keyboard_master()) {
         // If we are the main device; we want to send info.
         transport_userspace_config.raw = userspace_config.raw;
-        transport_userspace_runtime.oled_on = userspace_runtime.raw;
+        transport_userspace_runtime.raw = userspace_runtime.raw;
     } else {
         // If we are the secondary device; we want to receive info, and save to eeprom.
         userspace_config.raw = transport_userspace_config.raw;
@@ -173,7 +173,6 @@ __attribute__ ((weak)) void housekeeping_task_keymap(void) {}
 void housekeeping_task_user(void) {
     // Check eeprom every now and then
     static userspace_config_t prev_userspace_config;
-    static userspace_runtime_t prev_userspace_runtime;
     static fast_timer_t throttle_timer = 0;
 
     // Do transport stuff
