@@ -29,7 +29,7 @@ def ping_maintainers(cli):
         from ghapi.all import GhApi
 
         ghapi = GhApi(owner=cli.args.owner, repo=cli.args.repo)
-        pr = ghapi.pulls(cli.args.pr)
+        pr = ghapi.pulls.get(cli.args.pr)
 
         if not pr.draft:
             for team in pr.requested_teams:
