@@ -26,7 +26,7 @@
  * represents the switch matrix.
  */
 
-#define zzzz KC_TRNS
+#define zzzz KC_NO
 
 #define LAYOUT_625uC( \
     k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k311, \
