@@ -113,13 +113,13 @@ static void render_status(void) {
         case 0:
             oled_write_P(PSTR("Default\n"), false);
             break;
-        case 2:
+        case 1:
             oled_write_P(PSTR("Lower\n"), false);
             break;
-        case 3:
+        case 2:
             oled_write_P(PSTR("Raise\n"), false);
             break;
-        case 4:
+        case 3:
             oled_write_P(PSTR("Adjust\n"), false);
             break;
         default:
