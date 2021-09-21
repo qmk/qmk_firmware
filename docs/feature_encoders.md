@@ -107,3 +107,16 @@ You could even support three encoders using only three pins (one per encoder) ho
 #define ENCODERS_PAD_B { B2, B3, B3 }
 ```
 Here rotating Encoder 0 `B1 B2` and Encoder 1 `B1 B3` could be interpreted as rotating Encoder 2 `B2 B3` or `B3 B2` depending on the timing. This may still be a useful configuration depending on your use case 
+
+## Change Resolution
+
+You can change the resolution(s) of encoder(s) by `encoder_set_resolution` function while using your keyboard.
+The resolution, i.e. the number of pulses/counts per each detent varies depending on the encoder model. You should set the appropriate constant value to `ENCODER_RESOLUTION` if you know the specification of the encoder to be used, but this function is useful if you are distributing pre-assembled PCBs with pre-programmed firmware and you don't know what kind of encoders the users will use.
+
+For example, by assigning this function to a custom keycode,  its users can freely choose the resolution. 
+In most cases, a suitable resolution value is 4, which is the default for QMK, or 2 for some Alps encoders.
+
+```c
+void encoder_set_resolution(uint8_t index, uint8_t resolution);
+    // index : use 0 if one encoder only available
+```
