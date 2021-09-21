@@ -1,0 +1,18 @@
+# dyz_tkl
+
+TKL pcb that fits most of the boards, support 2 sides of USB and multipler layouts for F row.
+![pcb](https://i.imgur.com/5OYWF0M.jpg)
+
+-   Keyboard Maintainer: [dayatz](https://github.com/dayatz)
+-   Hardware Supported: ATMega32u4
+-   Hardware Availability: Local Indonesia GB and will available publicly in the future.
+
+Make example for this keyboard (after setting up your build environment):
+
+    make dyz/dyz_tkl:default
+
+Flashing example for this keyboard:
+
+    make dyz/dyz_tkl:default:flash
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
