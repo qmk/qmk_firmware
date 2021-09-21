@@ -767,19 +767,20 @@ ifeq ($(strip $(USBPD_ENABLE)), yes)
 endif
 
 BLUETOOTH_ENABLE ?= no
-VALID_BLUETOOTH_DRIVER_TYPES = AdafruitBLE RN42 custom
+VALID_BLUETOOTH_DRIVER_TYPES := AdafruitBLE RN42 custom
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     ifeq ($(filter $(strip $(BLUETOOTH_DRIVER)),$(VALID_BLUETOOTH_DRIVER_TYPES)),)
         $(error "$(BLUETOOTH_DRIVER)" is not a valid Bluetooth driver type)
     endif
     OPT_DEFS += -DBLUETOOTH_ENABLE
     NO_USB_STARTUP_CHECK := yes
+    COMMON_VPATH += $(DRIVER_PATH)/bluetooth
     SRC += outputselect.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), AdafruitBLE)
         OPT_DEFS += -DMODULE_ADAFRUIT_BLE
         SRC += analog.c
-        SRC += $(LUFA_DIR)/adafruit_ble.cpp
+        SRC += $(DRIVER_PATH)/bluetooth/adafruit_ble.cpp
         QUANTUM_LIB_SRC += spi_master.c
     endif
 
