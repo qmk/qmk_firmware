@@ -311,7 +311,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
             tap_code(KC_PGUP);
         }
     }
-    return true;
+    return false;
 }
 #endif
 DELETE THIS LINE TO UNCOMMENT (2/2) */
