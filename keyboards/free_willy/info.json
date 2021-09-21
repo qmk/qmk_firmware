@@ -2,8 +2,6 @@
     "keyboard_name": "free willy",
     "url": "https://www.squashkb.com/product/free-willy",
     "maintainer": "tsquash",
-    "width": 10,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

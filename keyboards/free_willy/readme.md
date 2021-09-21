@@ -1,6 +1,6 @@
 # Free Willy
 
-![Free Willy](https://imgur.com/a/RTpMSZ6)
+![Free Willy](https://i.imgur.com/JBNV3Hk.png)
 
 Free willy is an ortholinear, 36 key keyboard featuring HHKB like corner blockers.
 
@@ -10,13 +10,12 @@ Free willy is an ortholinear, 36 key keyboard featuring HHKB like corner blocker
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb free_willy -km default
+    make free_willy:default
     
 To reset the keyboard, jump the reset and ground pins located on the pro micro.
 
-Install example for this keyboard:
+Flashing example for this keyboard:
 
-    qmk flash -kb free_willy -km default
-
+    make free_willy:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
