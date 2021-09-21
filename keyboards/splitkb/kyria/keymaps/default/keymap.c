@@ -291,10 +291,7 @@ void oled_task_user(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-        return false;
-    }
+bool encoder_update_user(uint8_t index, bool clockwise) {
 
     if (index == 0) {
         // Volume control
