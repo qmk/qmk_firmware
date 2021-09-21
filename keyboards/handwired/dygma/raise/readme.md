@@ -1,8 +1,6 @@
 # Raise
 
-<a href="http://www.dygma.com">
-  <img src="https://cdn.shopify.com/s/files/1/0374/9448/9228/files/Dygma-Raise-Hero2.png" width="600">
-</a>
+![](https://cdn.shopify.com/s/files/1/0374/9448/9228/files/Dygma-Raise-Hero2.png)
 
 * Keyboard Maintainer: [ibash](https://github.com/ibash)
 * Hardware Supported: [F411 Blackpill](https://github.com/WeActTC/MiniSTM32F4x1) with the [Dygma Raise](http://www.dygma.com)
