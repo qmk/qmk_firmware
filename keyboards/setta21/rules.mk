@@ -17,7 +17,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = no         # Unicode
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
-TAP_DANCE_ENABLE = no
 OLED_ENABLE = no
 USE_I2C = no
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE

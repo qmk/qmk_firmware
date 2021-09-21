@@ -10,7 +10,6 @@ EXTRAKEY_ENABLE = yes       # Audio control and System control
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-TAP_DANCE_ENABLE = no
 ENCODER_ENABLE = yes
 OLED_ENABLE = no
 RGB_MATRIX_ENABLE = yes
