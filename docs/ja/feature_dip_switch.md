@@ -1,8 +1,8 @@
 # DIP スイッチ
 
 <!---
-  original document: 0.9.43:docs/feature_dip_switch.md
-  git diff 0.9.43 HEAD -- docs/feature_dip_switch.md | cat
+  original document: 0.14.14:docs/feature_dip_switch.md
+  git diff 0.14.14 HEAD -- docs/feature_dip_switch.md | cat
 -->
 
 DIP スイッチは、以下を `rules.mk` に追加することでサポートされます:
@@ -12,17 +12,17 @@ DIP スイッチは、以下を `rules.mk` に追加することでサポート�
 さらに、以下を `config.h` に追加します:
 
 ```c
-// Connects each switch in the dip switch to the GPIO pin of the MCU
+// DIP スイッチの各スイッチを MCU の GPIO ピンに接続する
 #define DIP_SWITCH_PINS { B14, A15, A10, B9 }
-// For split keyboards, you can separately define the right side pins
+// 分割キーボードの場合、右側のピンを個別に定義できます
 #define DIP_SWITCH_PINS_RIGHT { ... }
 ```
 
 あるいは
 
 ```c
-// Connect each switch in the DIP switch to an unused intersections in the key matrix.
-#define DIP_SWITCH_MATRIX_GRID { {0,6}, {1,6}, {2,6} } // List of row and col pairs
+// DIP スイッチの各スイッチをキーマトリクスの未使用の交点に接続する
+#define DIP_SWITCH_MATRIX_GRID { {0,6}, {1,6}, {2,6} } // 行と列のペアのリスト
 ```
 
 ## コールバック
@@ -31,7 +31,7 @@ DIP スイッチは、以下を `rules.mk` に追加することでサポート�
 
 ```c
 bool dip_switch_update_kb(uint8_t index, bool active) { 
-    if !(dip_switch_update_user(index, active)) { return false; }
+    if (!dip_switch_update_user(index, active)) { return false; }
     return true;
 }
 ```

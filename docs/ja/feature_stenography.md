@@ -1,8 +1,8 @@
 # QMK での速記 :id=stenography-in-qmk
 
 <!---
-  original document: 0.13.15:docs/feature_stenography.md
-  git diff 0.13.15 HEAD -- docs/feature_stenography.md | cat
+  original document: 0.14.14:docs/feature_stenography.md
+  git diff 0.14.14 HEAD -- docs/feature_stenography.md | cat
 -->
 
 [速記](https://en.wikipedia.org/wiki/Stenotype)は裁判所のレポート、字幕および耳が不自由な人のためのリアルタイムの文字起こしで最もよく使われる記述方法です。速記では単語はスペル、音声およびショートカット(短い)ストロークが混在する音節ごとに音節化されます。プロの速記者は、標準的なタイピングで通常見られる負担を掛けずに、はるかに少ないエラー(99.9%より高い精度)で、200-300 WPM に到達できます。
@@ -133,3 +133,17 @@ bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t 
 | `STN_RES1` | (GeminiPR のみ) |
 | `STN_RES2` | (GeminiPR のみ) |
 | `STN_PWR` | (GeminiPR のみ) |
+1本の指で2つのキーを押したくない場合は、組み合わせたキーコードを使うことができます。これらは `keymap_steno.h` でも定義されており、両方のキーが押された、または放されたと報告されます。これらのキーコードを使うには、`config.h` ファイルで `STENO_COMBINEDMAP`  を定義します。
+|Combined key   | Key1   | Key 2    |
+|---------------|--------|----------|
+|STN_S3         | STN_S1 | STN_S2   |
+|STN_TKL        | STN_TL | STN_KL   |
+|STN_PWL        | STN_PL | STN_WL   |
+|STN_HRL        | STN_HL | STN_RL   |
+|STN_FRR        | STN_FR | STN_RR   |
+|STN_PBR        | STN_PR | STN_BR   |
+|STN_LGR        | STN_LR | STN_GR   |
+|STN_TSR        | STN_TR | STN_SR   |
+|STN_DZR        | STN_DR | STN_ZR   |
+|STN_AO         | STN_A  | STN_O    |
+|STN_EU         | STN_E  | STN_U    |

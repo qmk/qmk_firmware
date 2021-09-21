@@ -1,11 +1,11 @@
 # コマンド
 
 <!---
-  original document: 0.8.94:docs/feature_command.md
-  git diff 0.8.94 HEAD -- docs/feature_command.md | cat
+  original document: 0.14.14:docs/feature_command.md
+  git diff 0.14.14 HEAD -- docs/feature_command.md | cat
 -->
 
-コマンド(旧称:マジック)は、ファームウェアを書き込んだり、[ブートマジック](ja/feature_bootmagic.md)を使うためにプラグを抜いたりすることなくキーボードの挙動を変更する方法です。この機能と[ブートマジックキーコード](feature_bootmagic.md#keycodes)には多くの重複があります。可能な限り、コマンドでは無くブートマジックキーコードの機能を使うことをお勧めします。
+コマンド(旧称:マジック)は、ファームウェアを書き込んだり、[ブートマジックライト](ja/feature_bootmagic.md)を使うためにプラグを抜いたりすることなくキーボードの挙動を変更する方法です。この機能と[マジックキーコード](ja/feature_bootmagic.md#keycodes)には多くの重複があります。可能な限り、コマンドでは無くブートマジックキーコードの機能を使うことをお勧めします。
 
 一部のキーボードではコマンドがデフォルトで無効になっています。その場合、`rules.mk` 内で明示的に有効にする必要があります:
 
