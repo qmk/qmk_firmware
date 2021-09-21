@@ -58,9 +58,7 @@ void userspace_transport_update(void) {
     if (is_keyboard_master()) {
         // If we are the main device; we want to send info.
         transport_userspace_config.raw = userspace_config.raw;
-#       ifdef OLED_ENABLE
-        transport_userspace_runtime.oled_on = is_oled_on();
-#       endif // OLED_ENABLE
+        transport_userspace_runtime.oled_on = userspace_runtime.raw;
     } else {
         // If we are the secondary device; we want to receive info, and save to eeprom.
         userspace_config.raw = transport_userspace_config.raw;
@@ -192,12 +190,6 @@ void housekeeping_task_user(void) {
         if (prev_userspace_config.raw != userspace_config.raw) {
             eeconfig_update_user(userspace_config.raw);
             prev_userspace_config.raw = userspace_config.raw;
-        }
-        // Check runtime config for updates
-        if (prev_userspace_runtime.raw != userspace_runtime.raw) {
-#           ifdef OLED_ENABLE
-            housekeeping_task_oled();
-#           endif // OLED_ENABLE
         }
     }
 

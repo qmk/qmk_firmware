@@ -38,20 +38,6 @@ void oled_task_user(void) {
     }
 }
 
-// Make sure oled sleeps timely
-void housekeeping_task_oled(void) {
-    // If we are not master; sync the oled state
-    /*
-    if (!is_keyboard_master()) {
-        if ((userspace_runtime.oled_on) && (!is_oled_on())) {
-            oled_on();
-        } else if ((!userspace_runtime.oled_on) && (is_oled_on())) {
-            oled_off();
-        }
-    }
-    */
-}
-
 /*-------------------------*\
 |*---RENDERING FUNCTIONS---*|
 \*-------------------------*/
