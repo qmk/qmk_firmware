@@ -1,4 +1,4 @@
-#include "signum.h"
+#include QMK_KEYBOARD_H
 
 #define M0(kc) MT(MOD_HYPR, kc)
 #define M1(kc) MT(MOD_LGUI, kc)
