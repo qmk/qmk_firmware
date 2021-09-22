@@ -2,8 +2,6 @@
     "keyboard_name": "Battleship Gamepad",
     "url": "https://github.com/abraini-Nascent/battleship_gamepad",
     "maintainer": "arbraini",
-    "width": 8.5,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
