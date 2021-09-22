@@ -5,7 +5,7 @@ MCU = atmega32u4
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-AUDIO_ENABLE        = yes  # Audio output on port C6
+AUDIO_ENABLE        = yes  # Audio output
 BACKLIGHT_ENABLE    = no   # Enable keyboard backlight functionality
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 COMMAND_ENABLE      = no   # Commands for debug and configuration

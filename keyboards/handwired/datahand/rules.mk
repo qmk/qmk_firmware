@@ -13,7 +13,7 @@ COMMAND_ENABLE    = yes  # Commands for debug and configuration
 NKRO_ENABLE       = yes  # USB Nkey Rollover
 BACKLIGHT_ENABLE  = no   # Enable keyboard backlight functionality
 UNICODE_ENABLE    = no   # Unicode
-AUDIO_ENABLE      = no   # Audio output on port C6
+AUDIO_ENABLE      = no   # Audio output
 CUSTOM_MATRIX     = yes  # We definitely have a nonstandard matrix
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
