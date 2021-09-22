@@ -65,7 +65,7 @@ It can also be mitigated by increasing [`TAP_CODE_DELAY`](config_options.md#beha
 
 ### Changing tap function
 
-Basic keycode limitation with Mod-Tap can be worked around by intercepting it in `process_record_user`. For example, shifted keycode `KC_DQUO` cannot be used with `MT()` because it is a 16-bit keycode alias of `LSFT(KC_QUOT)`. But the following custom code can be used to intercept the "tap" function to manually send `KC_DQUO`:
+Basic keycode limitation with Mod-Tap can be worked around by intercepting it in `process_record_user`. For example, shifted keycode `KC_DQUO` cannot be used with `MT()` because it is a 16-bit keycode alias of `LSFT(KC_QUOT)`. Modifier on `KC_DQUO` will be masked by `MT()`. But the following custom code can be used to intercept the "tap" function to manually send `KC_DQUO`:
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -114,7 +114,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-Enabling `IGNORE_MOD_TAP_INTERRUPT` is recommended for using Mod-Tap on alphanumeric keys to avoid hold function taking precendence when the next key is pressed quickly. See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for more details.
+Enabling `IGNORE_MOD_TAP_INTERRUPT` is recommended when using Mod-Tap on alphanumeric keys to avoid hold function taking precendence when the next key is pressed quickly. See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for more details.
 
 ### Changing both tap and hold
 
