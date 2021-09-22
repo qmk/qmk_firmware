@@ -1,6 +1,7 @@
 # Wren
 
-![Wren](https://raw.githubusercontent.com/walterhanley/wren-keyboard/main/images/author-layout.png)
+![Wren PCB](https://raw.githubusercontent.com/walterhanley/wren-keyboard/main/images/wren-universal.png)
+![Wren Layout](https://raw.githubusercontent.com/walterhanley/wren-keyboard/main/images/author-layout.png)
 
 A split ergonomic "system keyboard" aimed at providing numpad and nav cluster functionality. For more information, please see the [project repo](https://github.com/walterhanley/wren-keyboard).
 
@@ -20,8 +21,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Briefly press the button on the front of the PCB below the microcontroler
 * **Keycode in layout**: Press the key mapped to `RESET` if it is available
