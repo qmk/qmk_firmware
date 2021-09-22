@@ -1,6 +1,6 @@
 # kk980
 
-![kk980](https://i.imgur.com/MQA6FXb.jpg)
+![kk980](https://i.imgur.com/NDsBMR6.jpg)
 
 A hotswap 98% RGB Mechanical keyboard.
 
