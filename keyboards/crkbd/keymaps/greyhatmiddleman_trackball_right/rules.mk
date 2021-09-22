@@ -11,8 +11,3 @@ ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
 endif
 
 OLED_ENABLE = yes
-ifeq ($(strip $(OLED_ENABLE)), yes)
-    OLED_DRIVER = SSD1306
-    OPT_DEFS += -DOLED_ENABLE
-    OPT_DEFS += -DSPLIT_OLED_ENABLE
-endif
