@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2020 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -32,12 +32,8 @@
 #define MCUCONF_H
 
 #define STM32L4xx_MCUCONF
-#define STM32L412_MCUCONF
-#define STM32L422_MCUCONF
 #define STM32L432_MCUCONF
 #define STM32L433_MCUCONF
-#define STM32L442_MCUCONF
-#define STM32L443_MCUCONF
 
 /*
  * HAL driver system settings.
@@ -52,16 +48,13 @@
 #define STM32_HSE_ENABLED                   FALSE
 #define STM32_LSE_ENABLED                   FALSE
 #define STM32_MSIPLL_ENABLED                FALSE
-#define STM32_ADC_CLOCK_ENABLED             TRUE
-#define STM32_USB_CLOCK_ENABLED             TRUE
-#define STM32_SAI1_CLOCK_ENABLED            TRUE
-#define STM32_SAI2_CLOCK_ENABLED            TRUE
 #define STM32_MSIRANGE                      STM32_MSIRANGE_4M
 #define STM32_MSISRANGE                     STM32_MSISRANGE_4M
 #define STM32_SW                            STM32_SW_PLL
 #define STM32_PLLSRC                        STM32_PLLSRC_HSI16
 #define STM32_PLLM_VALUE                    4
 #define STM32_PLLN_VALUE                    80
+#define STM32_PLLPDIV_VALUE                 0
 #define STM32_PLLP_VALUE                    7
 #define STM32_PLLQ_VALUE                    4
 #define STM32_PLLR_VALUE                    4
@@ -73,29 +66,22 @@
 #define STM32_MCOPRE                        STM32_MCOPRE_DIV1
 #define STM32_LSCOSEL                       STM32_LSCOSEL_NOCLOCK
 #define STM32_PLLSAI1N_VALUE                72
+#define STM32_PLLSAI1PDIV_VALUE             6
 #define STM32_PLLSAI1P_VALUE                7
 #define STM32_PLLSAI1Q_VALUE                6
 #define STM32_PLLSAI1R_VALUE                6
-#define STM32_PLLSAI2N_VALUE                72
-#define STM32_PLLSAI2P_VALUE                7
-#define STM32_PLLSAI2R_VALUE                6
 
 /*
  * Peripherals clock sources.
  */
 #define STM32_USART1SEL                     STM32_USART1SEL_SYSCLK
 #define STM32_USART2SEL                     STM32_USART2SEL_SYSCLK
-#define STM32_USART3SEL                     STM32_USART3SEL_SYSCLK
-#define STM32_UART4SEL                      STM32_UART4SEL_SYSCLK
-#define STM32_UART5SEL                      STM32_UART5SEL_SYSCLK
 #define STM32_LPUART1SEL                    STM32_LPUART1SEL_SYSCLK
 #define STM32_I2C1SEL                       STM32_I2C1SEL_SYSCLK
-#define STM32_I2C2SEL                       STM32_I2C2SEL_SYSCLK
 #define STM32_I2C3SEL                       STM32_I2C3SEL_SYSCLK
 #define STM32_LPTIM1SEL                     STM32_LPTIM1SEL_PCLK1
 #define STM32_LPTIM2SEL                     STM32_LPTIM2SEL_PCLK1
 #define STM32_SAI1SEL                       STM32_SAI1SEL_OFF
-#define STM32_SAI2SEL                       STM32_SAI2SEL_OFF
 #define STM32_CLK48SEL                      STM32_CLK48SEL_HSI48
 #define STM32_ADCSEL                        STM32_ADCSEL_SYSCLK
 #define STM32_SWPMI1SEL                     STM32_SWPMI1SEL_PCLK1
@@ -127,7 +113,6 @@
 
 #define STM32_IRQ_USART1_PRIORITY           12
 #define STM32_IRQ_USART2_PRIORITY           12
-#define STM32_IRQ_USART3_PRIORITY           12
 #define STM32_IRQ_LPUART1_PRIORITY          12
 
 /*
@@ -198,7 +183,6 @@
 /*
  * PWM driver system settings.
  */
-#define STM32_PWM_USE_ADVANCED              FALSE
 #define STM32_PWM_USE_TIM1                  FALSE
 #define STM32_PWM_USE_TIM2                  FALSE
 #define STM32_PWM_USE_TIM15                 FALSE
@@ -218,9 +202,13 @@
 #define STM32_SERIAL_USE_USART1             FALSE
 #define STM32_SERIAL_USE_USART2             FALSE
 #define STM32_SERIAL_USE_LPUART1            FALSE
-#define STM32_SERIAL_USART1_PRIORITY        12
-#define STM32_SERIAL_USART2_PRIORITY        12
-#define STM32_SERIAL_LPUART1_PRIORITY       12
+
+/*
+ * SIO driver system settings.
+ */
+#define STM32_SIO_USE_USART1                FALSE
+#define STM32_SIO_USE_USART2                FALSE
+#define STM32_SIO_USE_LPUART1               FALSE
 
 /*
  * SPI driver system settings.
