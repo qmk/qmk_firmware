@@ -35,7 +35,7 @@
 #define UNUSED_PINS
 
 /* joystick configuration */
-#define JOYSTICK_BUTTON_COUNT 1
+#define JOYSTICK_BUTTON_COUNT 25
 #define JOYSTICK_AXES_COUNT 2
 #define JOYSTICK_AXES_RESOLUTION 10
 
