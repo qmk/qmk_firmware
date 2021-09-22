@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT_default( \
+#define LAYOUT( \
     K00, K01, K02, K23, K03, K43, \
     K10, K11, K12, K13, \
     K20, K21, K22,      \
