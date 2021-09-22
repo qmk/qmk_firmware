@@ -31,3 +31,4 @@ bool     get_autoshift_state(void);
 uint16_t get_autoshift_timeout(void);
 void     set_autoshift_timeout(uint16_t timeout);
 void     autoshift_matrix_scan(void);
+bool     get_auto_shifted_key(uint16_t keycode, keyrecord_t *record);

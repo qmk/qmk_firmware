@@ -130,7 +130,7 @@ void matrix_init_user(void) {
     #endif
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
@@ -169,7 +169,7 @@ void oled_task_user(void) {
     // oled_write_ln(encoder_debug, false);
   }
 }
-#endif //OLED_DRIVER_ENABLE
+#endif //OLED_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
@@ -218,7 +218,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     lastIndex = index;
     if (clockwise) {
         counter++;
@@ -227,4 +227,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         counter--;
         tap_code(KC_PGUP);
     }
+    return true;
 }

@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (clockwise) {
       tap_code(KC_MS_WH_UP);
@@ -25,6 +25,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_MS_WH_DOWN);
     }
   }
+    return true;
 }
 
 //

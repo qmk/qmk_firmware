@@ -126,8 +126,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-//SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
-#ifdef OLED_DRIVER_ENABLE
+//SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
@@ -286,12 +286,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-#endif // OLED_DRIVER_ENABLE
+#endif // OLED_ENABLE
 
 
 // Rotary encoder related code
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { // Encoder on master side
     if(IS_LAYER_ON(_RAISE)) { // on Raise layer
       // Cursor control
@@ -326,5 +326,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       }
     }
   }
+    return true;
 }
 #endif
