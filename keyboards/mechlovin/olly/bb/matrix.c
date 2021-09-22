@@ -32,35 +32,7 @@ static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 #endif
 
 // matrix code
-
-#ifdef DIRECT_PINS
-
-static void init_pins(void) {
-    for (int row = 0; row < MATRIX_ROWS; row++) {
-        for (int col = 0; col < MATRIX_COLS; col++) {
-            pin_t pin = direct_pins[row][col];
-            if (pin != NO_PIN) {
-                setPinInputHigh(pin);
-            }
-        }
-    }
-}
-
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
-    matrix_row_t last_row_value = current_matrix[current_row];
-    current_matrix[current_row] = 0;
-
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-        pin_t pin = direct_pins[current_row][col_index];
-        if (pin != NO_PIN) {
-            current_matrix[current_row] |= readPin(pin) ? 0 : (MATRIX_ROW_SHIFTER << col_index);
-        }
-    }
-
-    return (last_row_value != current_matrix[current_row]);
-}
-
-#elif (DIODE_DIRECTION == COL2ROW)
+#if (DIODE_DIRECTION == COL2ROW)
 
 static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
