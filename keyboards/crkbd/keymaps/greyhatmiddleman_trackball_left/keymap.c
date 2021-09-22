@@ -100,7 +100,7 @@ void oled_render_layer_state(void) {
         break;
     default:
         oled_write_ln_P(PSTR(""), false);
-	break;
+        break;
     }
 }
 
