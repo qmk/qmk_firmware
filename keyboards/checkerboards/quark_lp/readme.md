@@ -1,6 +1,6 @@
 # Quark_LP
 
-![Quark_LP](https://i.imgur.com/a/sEgvKRW.jpg)
+![Quark_LP](https://i.imgur.com/EgdbzxE.png)
 
 The Quark LP PCB is compatible with Cherry Low-Profile switches and Kailh Choc switches, and is drop-in compatible with the OLKB Planck board. 
 
