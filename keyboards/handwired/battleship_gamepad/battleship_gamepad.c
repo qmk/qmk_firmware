@@ -1,4 +1,4 @@
-/* Copyright 2020 Andrew Braini
+/* Copyright 2021 Andrew Braini
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,3 +15,8 @@
  */
 
 #include "battleship_gamepad.h"
+
+/* joystick button code (thumbstick pressed) */
+void keyboard_pre_init_user(void) {
+	setPinInputHigh(F6);
+}
