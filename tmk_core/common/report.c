@@ -21,7 +21,7 @@
 #include "util.h"
 #include <string.h>
 
-#ifdef USB_6KRO_ENABLE
+#ifdef RING_BUFFERED_6KRO_REPORT_ENABLE
 #    define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
 #    define RO_SUB(a, b) ((a - b + KEYBOARD_REPORT_KEYS) % KEYBOARD_REPORT_KEYS)
 #    define RO_INC(a)    RO_ADD(a, 1)
@@ -64,7 +64,7 @@ uint8_t get_first_key(report_keyboard_t* keyboard_report) {
         return i << 3 | biton(keyboard_report->nkro.bits[i]);
     }
 #endif
-#ifdef USB_6KRO_ENABLE
+#ifdef RING_BUFFERED_6KRO_REPORT_ENABLE
     uint8_t i = cb_head;
     do {
         if (keyboard_report->keys[i] != 0) {
@@ -109,7 +109,7 @@ bool is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key) {
  * FIXME: Needs doc
  */
 void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code) {
-#ifdef USB_6KRO_ENABLE
+#ifdef RING_BUFFERED_6KRO_REPORT_ENABLE
     int8_t i     = cb_head;
     int8_t empty = -1;
     if (cb_count) {
@@ -176,7 +176,7 @@ void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code) {
  * FIXME: Needs doc
  */
 void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code) {
-#ifdef USB_6KRO_ENABLE
+#ifdef RING_BUFFERED_6KRO_REPORT_ENABLE
     uint8_t i = cb_head;
     if (cb_count) {
         do {
