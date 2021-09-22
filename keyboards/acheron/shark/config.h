@@ -145,10 +145,6 @@ B0, which is unconnected on the PCB
  *
  */
 
-/* key combination for magic key command */
-/* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
-
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
