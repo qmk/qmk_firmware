@@ -65,8 +65,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CMD_TAB:
         if (record->event.pressed) {
             register_code(KC_LCMD);
-            register_code(KC_TAB);
-            unregister_code(KC_TAB);
+            tap_code(KC_TAB);
             layer_on(2);
         } else {
             unregister_code(KC_LCMD);
@@ -88,53 +87,45 @@ void matrix_scan_user(void) {
 
     // Cancel task CTRL+C
     SEQ_ONE_KEY(KC_C) {
-      SEND_STRING(SS_LCTL("c"));
+      tap_code16(C(KC_C));
     }
     // copy
     SEQ_ONE_KEY(KC_Y) {
-      SEND_STRING(SS_LCMD("c"));
+      tap_code16(G(KC_C));
     }
     // cut
     SEQ_ONE_KEY(KC_X) {
-      SEND_STRING(SS_LCMD("x"));
+      tap_code16(G(KC_X));
     }
     // paste
     SEQ_ONE_KEY(KC_P) {
-      SEND_STRING(SS_LCMD("v"));
+      tap_code16(G(KC_V));
     }
     // undo
     SEQ_ONE_KEY(KC_U) {
-      SEND_STRING(SS_LCMD("z"));
+      tap_code16(G(KC_Z));
     }
     // redo
     SEQ_ONE_KEY(KC_R) {
-      SEND_STRING(SS_LCMD(SS_LSFT("z")));
+      tap_code16(S(G(KC_Z)));
     }
     // delete line
     SEQ_TWO_KEYS(KC_D, KC_D) {
       register_code(KC_LGUI);
 
-      register_code(KC_RIGHT);
-      unregister_code(KC_RIGHT);
+      tap_code(KC_RIGHT);
 
-      register_code(KC_BSPACE);
-      unregister_code(KC_BSPACE);
+      tap_code(KC_BSPACE);
 
       unregister_code(KC_LGUI);
     }
     // go to the beginning of the string
     SEQ_ONE_KEY(KC_H) {
-      register_code(KC_LCMD);
-      register_code(KC_LEFT);
-      unregister_code(KC_LEFT);
-      unregister_code(KC_LCMD);
+      tap_code16(G(KC_LEFT));
     }
     // go to the end of the string
     SEQ_ONE_KEY(KC_L) {
-      register_code(KC_LCMD);
-      register_code(KC_RIGHT);
-      unregister_code(KC_RIGHT);
-      unregister_code(KC_LCMD);
+      tap_code16(G(KC_RIGHT));
     }
   }
 }
