@@ -20,7 +20,6 @@ n/* Copyright 2021 Colin Lam (Ploopy Corporation)
 #include "adns5050.h"
 #include "wait.h"
 #include "debug.h"
-#include "print.h"
 #include "gpio.h"
 
 // Registers
@@ -43,10 +42,6 @@ n/* Copyright 2021 Colin Lam (Ploopy Corporation)
 #define REG_PRODUCT_ID2    0x3e
 #define REG_INV_REV_ID     0x3f
 #define REG_MOTION_BURST   0x63
-
-#ifdef CONSOLE_ENABLE
-void print_byte(uint8_t byte) { dprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }
-#endif
 
 void adns5050_init(void) {
     // Initialize the ADNS serial pins.

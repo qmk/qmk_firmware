@@ -49,10 +49,6 @@
 #    error "No chip select pin defined -- missing ADNS5050_CS_PIN"
 #endif
 
-#ifdef CONSOLE_ENABLE
-void print_byte(uint8_t byte);
-#endif
-
 typedef struct {
     int8_t dx;
     int8_t dy;

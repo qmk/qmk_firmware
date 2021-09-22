@@ -40,6 +40,10 @@
 #    define PIMORONI_TRACKBALL_TIMEOUT 100
 #endif
 
+#ifndef PIMORONI_TRACKBALL_DEBUG_INTERVAL
+#    define PIMORONI_TRACKBALL_DEBUG_INTERVAL 100
+#endif
+
 typedef struct {
     uint8_t left;
     uint8_t right;

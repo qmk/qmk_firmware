@@ -54,7 +54,9 @@ uint16_t        scale_data = 1024;
 void cirque_trackpad_clear_flags(void);
 void cirque_trackpad_enable_feed(bool feedEnable);
 
+#ifdef CONSOLE_ENABLE
 void print_byte(uint8_t byte) { xprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }
+#endif
 
 /*  Logical Scaling Functions */
 // Clips raw coordinates to "reachable" window of sensor
@@ -101,7 +103,9 @@ void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count) {
     if (touchpad_init) {
         i2c_writeReg(CIRQUE_TRACKPAD_ADDR << 1, cmdByte, NULL, 0, CIRQUE_TRACKPAD_TIMEOUT);
         if (i2c_readReg(CIRQUE_TRACKPAD_ADDR << 1, cmdByte, data, count, CIRQUE_TRACKPAD_TIMEOUT) != I2C_STATUS_SUCCESS) {
+#ifdef CONSOLE_ENABLE
             dprintf("error right touchpad\n");
+#endif
             touchpad_init = false;
         }
         i2c_stop();
@@ -114,7 +118,9 @@ void RAP_Write(uint8_t address, uint8_t data) {
 
     if (touchpad_init) {
         if (i2c_writeReg(CIRQUE_TRACKPAD_ADDR << 1, cmdByte, &data, sizeof(data), CIRQUE_TRACKPAD_TIMEOUT) != I2C_STATUS_SUCCESS) {
+#ifdef CONSOLE_ENABLE
             dprintf("error right touchpad\n");
+#endif
             touchpad_init = false;
         }
         i2c_stop();

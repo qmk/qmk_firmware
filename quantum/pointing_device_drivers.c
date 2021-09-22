@@ -27,7 +27,9 @@ report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
     report_adns5050_t data = adns5050_read_burst();
 
     if (data.dx != 0 || data.dy != 0) {
+#    ifdef CONSOLE_ENABLE
         if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
+#    endif
 
         mouse_report.x = data.dx;
         mouse_report.y = data.dy;
@@ -70,7 +72,9 @@ const pointing_device_driver_t pointing_device_driver = {
 report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
     report_analog_joystick_t data = analog_joystick_read();
 
+#    ifdef CONSOLE_ENABLE
     if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
+#    endif
 
     mouse_report.x = data.x;
     mouse_report.y = data.y;
@@ -160,7 +164,7 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
                 }
             } else {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
-                debounce = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
+                debounce             = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
             }
         } else {
             error_count++;
@@ -195,7 +199,9 @@ report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
 
         // Set timer if new motion
         if ((MotionStart == 0) && data.isMotion) {
+#    ifdef CONSOLE_ENABLE
             if (debug_mouse) dprintf("Starting motion.\n");
+#    endif
             MotionStart = timer_read();
         }
         mouse_report.x = constrain(data.dx, -127, 127);
