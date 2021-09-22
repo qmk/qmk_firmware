@@ -6,6 +6,4 @@ ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
 endif
 
 OLED_ENABLE = yes
-ifeq ($(strip $(OLED_ENABLE)), yes)
-    OLED_DRIVER = SSD1306
-endif
+OLED_DRIVER = SSD1306
