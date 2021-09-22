@@ -25,4 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 
-#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+#define PIMORONI_TRACKBALL_ENABLE
+#define PIMORONI_TRACKBALL_CLICK
+// orientation pimoroni text on top and trackball text at the bottom
+#define PIMORONI_TRACKBALL_ROTATE
+#define PIMORONI_TRACKBALL_INVERT_X
+
+#define SPLIT_OLED_ENABLE
+#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c""
