@@ -22,7 +22,7 @@ make redox_w:default
 Example of flashing this keyboard:
 
 ```sh
-make redox_w/rev1:default:avrdude
+make redox_w:default:avrdude
 ```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

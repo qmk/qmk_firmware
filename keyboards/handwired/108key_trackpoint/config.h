@@ -7,7 +7,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    QMK
 #define PRODUCT         108Key-Trackpoint
-#define DESCRIPTION     A 108 key ANSI keyboard with a trackpoint and three mouse buttons
 
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 23
@@ -61,13 +60,7 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for commkand */
-#define IS_COMMAND() ( \
-  keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-

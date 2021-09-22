@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ortholinear Keyboards
 #define PRODUCT         The Preonic Keyboard
-#define DESCRIPTION     A compact ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -45,23 +44,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-
 #define BACKLIGHT_BREATHING     // LED breathing
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 5
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* ws2812 RGB LED */
 //#define RGB_DI_PIN D1
@@ -89,6 +82,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_FUNCTION
 //#define DYNAMIC_MACRO_ENABLE    // Enable if you need to use the macro functionality
 //#define SPACE_CADET             // Parenthesis on L/R shift
-
 
 #endif

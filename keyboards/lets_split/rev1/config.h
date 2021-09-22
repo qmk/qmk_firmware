@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Wootpatoot
 #define PRODUCT         Lets Split v1
-#define DESCRIPTION     A split keyboard for the cheap makers
 
 /* key matrix size */
 // Rows are doubled-up
@@ -36,6 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
 // #define MATRIX_COL_PINS { B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
 
+#define DIODE_DIRECTION COL2ROW
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
@@ -43,17 +44,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
+
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3

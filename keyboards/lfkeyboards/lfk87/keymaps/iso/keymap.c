@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// readability
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 enum keymap_layout {
     VANILLA = 0,
     FUNC,         // 0x02
@@ -87,36 +83,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
   [SETTINGS] = LAYOUT_tkl_iso(
     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,       XXXXXXX, XXXXXXX, XXXXXXX, \
-    KC_FN0,  KC_FN3,  KC_FN4,  KC_FN5,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,  BL_TOGG,      RGB_TOG, RGB_VAI, XXXXXXX, \
+    F(0),    F(3),    F(4),    F(5),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,  BL_TOGG,      RGB_TOG, RGB_VAI, XXXXXXX, \
     MU_MOD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,               RGB_MOD, RGB_VAD, XXXXXXX, \
-    AU_TOG,  KC_FN3,  KC_FN5,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,                                   \
-    KC_FN7,  XXXXXXX, KC_FN4,  KC_FN6,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX,          KC_FN0,                RGB_HUI,          \
-    XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, KC_FN0,       RGB_SAD, RGB_HUD, RGB_SAI  \
+    AU_TOG,  F(3),    F(5),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,                                   \
+    F(7),    XXXXXXX, F(4),    F(6),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX,          F(0),                  RGB_HUI,          \
+    XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, F(0),         RGB_SAD, RGB_HUD, RGB_SAI  \
   ),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    ACTION_FUNCTION(LFK_CLEAR),                               // FN0 - reset layers
-    ACTION_FUNCTION(LFK_ESC_TILDE),                           // FN1 - esc+shift = ~, else escape
-    ACTION_FUNCTION(LFK_LED_TEST),                            // FN2 - cycle through LEDs for testing
-    ACTION_FUNCTION(LFK_CLICK_FREQ_HIGHER),                   // FN3 - Increase Freq of audio click
-    ACTION_FUNCTION(LFK_CLICK_FREQ_LOWER),                    // FN4 - Decrease Freq of audio click
-    ACTION_FUNCTION(LFK_CLICK_TIME_LONGER),                   // FN5 - Increase length of audio click
-    ACTION_FUNCTION(LFK_CLICK_TIME_SHORTER),                  // FN6 - Decrease length of audio click
-    ACTION_FUNCTION(LFK_CLICK_TOGGLE),                        // FN7 - Toggle audio click
-    ACTION_FUNCTION(LFK_LED_TEST),                            // FN8 - cycle through LEDs for testing
-    ACTION_FUNCTION(LFK_DEBUG_SETTINGS),                      // FN9 - prints LED and click settings to HID
+    [0] = ACTION_FUNCTION(LFK_CLEAR),                               // FN0 - reset layers
+    [3] = ACTION_FUNCTION(LFK_CLICK_FREQ_HIGHER),                   // FN3 - Increase Freq of audio click
+    [4] = ACTION_FUNCTION(LFK_CLICK_FREQ_LOWER),                    // FN4 - Decrease Freq of audio click
+    [5] = ACTION_FUNCTION(LFK_CLICK_TIME_LONGER),                   // FN5 - Increase length of audio click
+    [6] = ACTION_FUNCTION(LFK_CLICK_TIME_SHORTER),                  // FN6 - Decrease length of audio click
+    [7] = ACTION_FUNCTION(LFK_CLICK_TOGGLE),                        // FN7 - Toggle audio click
   };
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-      }
-    return MACRO_NONE;
-};
-
 
 void matrix_init_user(void) {
     // This keymap only has a single base layer, so reset the default if needed
@@ -124,16 +106,4 @@ void matrix_init_user(void) {
         eeconfig_update_default_layer(1);
         default_layer_set(1);
     }
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

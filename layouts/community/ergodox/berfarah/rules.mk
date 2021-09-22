@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE   = no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 COMMAND_ENABLE     = no
 SLEEP_LED_ENABLE   = yes
 FORCE_NKRO        ?= yes
@@ -14,6 +14,3 @@ ifeq (${FORCE_NKRO},yes)
 OPT_DEFS += -DFORCE_NKRO
 endif
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

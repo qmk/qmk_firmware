@@ -14,46 +14,68 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_COMBO_H
-#define PROCESS_COMBO_H
+#pragma once
 
-#include <stdint.h>
 #include "progmem.h"
 #include "quantum.h"
+#include <stdint.h>
 
-typedef struct
-{
-    const uint16_t *keys;
-    uint16_t keycode;        
-#ifdef EXTRA_EXTRA_LONG_COMBOS
-    uint32_t state;
-#elif EXTRA_LONG_COMBOS
-    uint16_t state;
+#ifdef EXTRA_SHORT_COMBOS
+#    define MAX_COMBO_LENGTH 6
+#elif defined(EXTRA_EXTRA_LONG_COMBOS)
+#    define MAX_COMBO_LENGTH 32
+#elif defined(EXTRA_LONG_COMBOS)
+#    define MAX_COMBO_LENGTH 16
 #else
-    uint8_t state;
+#    define MAX_COMBO_LENGTH 8
 #endif
-    uint16_t timer;
-#ifdef COMBO_ALLOW_ACTION_KEYS
-    keyrecord_t prev_record;
+
+#ifndef COMBO_KEY_BUFFER_LENGTH
+#    define COMBO_KEY_BUFFER_LENGTH MAX_COMBO_LENGTH
+#endif
+#ifndef COMBO_BUFFER_LENGTH
+#    define COMBO_BUFFER_LENGTH 4
+#endif
+
+typedef struct {
+    const uint16_t *keys;
+    uint16_t        keycode;
+#ifdef EXTRA_SHORT_COMBOS
+    uint8_t state;
 #else
-    uint16_t prev_key;
+    bool disabled;
+    bool active;
+#    if defined(EXTRA_EXTRA_LONG_COMBOS)
+    uint32_t state;
+#    elif defined(EXTRA_LONG_COMBOS)
+    uint16_t state;
+#    else
+    uint8_t state;
+#    endif
 #endif
 } combo_t;
 
-
-#define COMBO(ck, ca)       {.keys = &(ck)[0], .keycode = (ca)}
-#define COMBO_ACTION(ck)    {.keys = &(ck)[0]}
+#define COMBO(ck, ca) \
+    { .keys = &(ck)[0], .keycode = (ca) }
+#define COMBO_ACTION(ck) \
+    { .keys = &(ck)[0] }
 
 #define COMBO_END 0
-#ifndef COMBO_COUNT
-#define COMBO_COUNT 0
-#endif
 #ifndef COMBO_TERM
-#define COMBO_TERM TAPPING_TERM
+#    define COMBO_TERM 50
 #endif
+#ifndef COMBO_HOLD_TERM
+#    define COMBO_HOLD_TERM TAPPING_TERM
+#endif
+
+/* check if keycode is only modifiers */
+#define KEYCODE_IS_MOD(code) (IS_MOD(code) || (code >= QK_MODS && code <= QK_MODS_MAX && !(code & QK_BASIC_MAX)))
 
 bool process_combo(uint16_t keycode, keyrecord_t *record);
-void matrix_scan_combo(void);
-void process_combo_event(uint8_t combo_index, bool pressed);
+void combo_task(void);
+void process_combo_event(uint16_t combo_index, bool pressed);
 
-#endif
+void combo_enable(void);
+void combo_disable(void);
+void combo_toggle(void);
+bool is_combo_enabled(void);

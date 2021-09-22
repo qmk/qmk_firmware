@@ -1,12 +1,9 @@
-#ifndef KEYBOARDS_ERGODOX_CONFIG_H_
-#define KEYBOARDS_ERGODOX_CONFIG_H_
+#pragma once
 
-#include QMK_KEYBOARD_CONFIG_H
-
-#undef MOUSEKEY_DELAY          
-#undef MOUSEKEY_INTERVAL       
-#undef MOUSEKEY_MAX_SPEED      
-#undef MOUSEKEY_TIME_TO_MAX    
+#undef MOUSEKEY_DELAY
+#undef MOUSEKEY_INTERVAL
+#undef MOUSEKEY_MAX_SPEED
+#undef MOUSEKEY_TIME_TO_MAX
 
 #define MOUSEKEY_DELAY          100
 #define MOUSEKEY_INTERVAL       20
@@ -28,8 +25,6 @@
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
-    keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
+    get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
+    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
-
-#endif /* KEYBOARDS_ERGODOX_CONFIG_H_ */

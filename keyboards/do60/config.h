@@ -21,12 +21,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4453 // DS for Doyu Studios
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Shopkey by Doyu Studio
 #define PRODUCT         Do60
-#define DESCRIPTION     Do60 Keyboard PCB by Doyu Studio
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -46,6 +45,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B6, D4, B1, B7, F4, B4, D7, D6, B3, B0 }
 #define UNUSED_PINS
 
+#define LED_CAPS_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
+
 /* Backlight Setup */
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 6
@@ -55,7 +57,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* RGB Underglow
  * F5 PIN for DO60's pre-soldered WS2812 LEDs
@@ -71,11 +73,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-  keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 #define TAPPING_TERM 200
 

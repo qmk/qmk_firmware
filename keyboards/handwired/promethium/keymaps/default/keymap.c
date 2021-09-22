@@ -57,10 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
 
-// Fillers to make layering clearer
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-#define G(x) LGUI(x)
 #define KC_WWWB KC_WWW_BACK
 #define KC_WWWF KC_WWW_FORWARD
 
@@ -88,7 +84,6 @@ enum glow_modes {
 uint8_t glow_mode = GLOW_MIN;
 
 void turn_off_capslock(void);
-extern keymap_config_t keymap_config;
 
 // layers, ordering is important!
 enum layers {
@@ -991,7 +986,7 @@ void process_doublespace(bool pressed, bool *isactive, bool *otheractive, bool *
 }
 #endif
 
-uint32_t layer_state_set_kb(uint32_t state)
+layer_state_t layer_state_set_user(layer_state_t state)
 {
   // turn on punc layer if both fun & num are on
   if ((state & ((1UL<<_NUM) | (1UL<<_FUN))) == ((1UL<<_NUM) | (1UL<<_FUN))) {
@@ -1281,7 +1276,7 @@ void set_output_user(uint8_t output) {
 }
 
 void matrix_init_user() {
-  _delay_ms(500); // give time for usb to initialize
+  wait_ms(500); // give time for usb to initialize
 
   set_unicode_input_mode(UC_LNX);
 

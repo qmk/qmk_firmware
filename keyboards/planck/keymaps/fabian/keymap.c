@@ -38,9 +38,6 @@ enum planck_keycodes {
   EXT_PLV
 };
 
-#define XXXXXXX KC_NO
-#define _______ KC_TRNS
-
 #define CTL_ESC CTL_T(KC_ESC)  // Tap for Escape, hold for Control
 #define HPR_TAB ALL_T(KC_TAB)  // Tap for Tab, hold for Hyper (Super+Ctrl+Alt+Shift)
 #define MEH_GRV MEH_T(KC_GRV)  // Tap for Backtick, hold for Meh (Ctrl+Alt+Shift)
@@ -188,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
@@ -268,7 +265,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -294,7 +291,7 @@ void encoder_update(bool clockwise) {
   }
 }
 
-void dip_update(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
   switch (index) {
     case 0:
       if (active) {
@@ -319,6 +316,7 @@ void dip_update(uint8_t index, bool active) {
         #endif
       }
    }
+    return true;
 }
 
 void matrix_scan_user(void) {

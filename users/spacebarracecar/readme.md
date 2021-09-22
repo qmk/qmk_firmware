@@ -14,7 +14,7 @@ I'm using the US Ansi layout however I'm living in Germany which means that ever
 - The keycodes are handled by the `process_record_user` function which is now located in [spacebarracecar.c](spacebarracecar.c). To change keyboard specific configuration `process_record_keymap` is used (see [drashna userspace readme](../drashna/readme.md) for better explanation).
 - There is a predefined `_DEADKEY` layer in [spacebarracecar.h](spacebarracecar.h) under `enum userspace_layers`. Shifted CU_QUOT enables the dead key layer, just like KC_QUOT would when using the US International layout. (See `enum userspace_custom_keycodes` for more explanation).
 - On Windows grave and circonflexe are defined as dead keys when using the standard german layout. Those are automatically escaped when using the custom keycodes. `CU_ESCT` can be used to enable/disable this behavior.
-- For a complete example see my [fc660c](../../keyboards/fc660c/keymaps/spacebarracecar/keymap.c) or [planck](../../keyboards/planck/keymaps/spacebarracecar/keymap.c) keymaps.
+- For a complete example see my [planck](../../keyboards/planck/keymaps/spacebarracecar/keymap.c) keymap.
 
 ### How it works
 

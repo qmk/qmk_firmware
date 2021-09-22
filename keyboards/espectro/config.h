@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MECHKEYS
 #define PRODUCT         Espectro
-#define DESCRIPTION     96% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -38,24 +37,23 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define LED_NUM_LOCK_PIN B0
+#define LED_CAPS_LOCK_PIN B2
+#define LED_SCROLL_LOCK_PIN B1
+#define LED_PIN_ON_STATE 0
+
 /* number of backlight levels */
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 5
 
-
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
@@ -67,4 +65,3 @@
 #define RGBLIGHT_ANIMATIONS
 
 #endif
-

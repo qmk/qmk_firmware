@@ -34,9 +34,6 @@ enum custom_keycodes {
 #define _RAISE 2
 */
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_ortho_6x16(
   /* Qwerty
@@ -153,16 +150,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
   }
   return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    QMK Community
 #define PRODUCT         Pteron Keyboard
-#define DESCRIPTION     Pteron Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -23,12 +22,4 @@
 #define DIODE_DIRECTION ROW2COL
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5  // 5 is default
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
+#define DEBOUNCE 5  // 5 is default

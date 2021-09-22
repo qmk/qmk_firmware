@@ -17,12 +17,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #pragma once
 
-/* Use I2C or Serial, not both */
-
-#define USE_SERIAL
-// #define USE_I2C
+//#define USE_MATRIX_I2C
 
 /* Select hand configuration */
 
@@ -30,10 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-// Underglow
-/*
-#undef RGBLED_NUM
-#define RGBLED_NUM 14    // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_SLEEP
-*/
+//#define OLED_DRIVER
+
+#define USE_SERIAL_PD2
+
+#define TAPPING_FORCE_HOLD
+#define TAPPING_TERM 100

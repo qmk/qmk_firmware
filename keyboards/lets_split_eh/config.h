@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0E41
 #define MANUFACTURER    That-Canadian
 #define PRODUCT         Lets Split Eh?
-#define DESCRIPTION     An on-board component Lets Split w/ USB-C
 
 /* key matrix size */
 // Rows are doubled-up
@@ -34,11 +32,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-#endif
+#define DEBOUNCE 5

@@ -25,8 +25,6 @@ enum letssplit_keycodes {
 #define TG_NKRO MAGIC_TOGGLE_NKRO     // Toggle NKRO
 #define CTLESC MT(MOD_LCTL, KC_ESC)    // Hold for left Ctrl, tap for Esc
 #define SHFTENT MT(MOD_RSFT, KC_ENT)    // Hold for right Shift, tap for Enter
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

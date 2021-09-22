@@ -19,16 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#include QMK_KEYBOARD_CONFIG_H
-#include "config_common.h"
-
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFC51
-#define PRODUCT_ID      0x0058
+#define VENDOR_ID       0x04D8
+#define PRODUCT_ID      0xEB2D
 #define DEVICE_VER      0x0100
-#define MANUFACTURER    F_YUUCHI
+#define MANUFACTURER    liliums
 #define PRODUCT         Lily58
-#define DESCRIPTION     Lily58 is 6×4+5keys column-staggered split keyboard.
 
 /* key matrix size */
 // Rows are doubled-up
@@ -39,31 +35,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
 
-#define CATERINA_BOOTLOADER
-
-/* define tapping term */
-#define TAPPING_TERM 100
+#define SOFT_SERIAL_PIN D2
+#define SERIAL_USE_MULTI_TRANSACTION
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+//#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+//#define LOCKING_RESYNC_ENABLE
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-
-#define RGBLED_NUM 14    // Number of LEDs
+#define RGBLED_NUM 12    // Number of LEDs
 
 /*
  * Feature disable options

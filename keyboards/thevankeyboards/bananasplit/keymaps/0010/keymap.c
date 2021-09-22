@@ -67,7 +67,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ______,  ______,  ______,           ______,  RESET, ______,                 ______,         ______,  ______, ______, KC_PGDN \
 ),
 };
-
-
-const uint16_t PROGMEM fn_actions[] = {
-};

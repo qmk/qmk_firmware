@@ -1,4 +1,4 @@
-# 1upkeyboards 60% RGB
+# 1up60rgb 60% RGB
 
 Firmware for custom keyboard PCB with 60% key layout.
 

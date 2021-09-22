@@ -40,73 +40,94 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <avr/interrupt.h>
 #include "serial.h"
 
-
-#if defined(SERIAL_UART_RTS_LO) && defined(SERIAL_UART_RTS_HI)
-    // Buffer state
-    //   Empty:           RBUF_SPACE == RBUF_SIZE(head==tail)
-    //   Last 1 space:    RBUF_SPACE == 2
-    //   Full:            RBUF_SPACE == 1(last cell of rbuf be never used.)
-    #define RBUF_SPACE()   (rbuf_head < rbuf_tail ?  (rbuf_tail - rbuf_head) : (RBUF_SIZE - rbuf_head + rbuf_tail))
-    // allow to send
-    #define rbuf_check_rts_lo() do { if (RBUF_SPACE() > 2) SERIAL_UART_RTS_LO(); } while (0)
-    // prohibit to send
-    #define rbuf_check_rts_hi() do { if (RBUF_SPACE() <= 2) SERIAL_UART_RTS_HI(); } while (0)
-#else
-    #define rbuf_check_rts_lo()
-    #define rbuf_check_rts_hi()
+#ifndef SERIAL_UART_BAUD
+#    define SERIAL_UART_BAUD 9600
 #endif
 
+#define SERIAL_UART_UBRR (F_CPU / (16UL * SERIAL_UART_BAUD) - 1)
+#define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
+#define SERIAL_UART_RXD_VECT USART1_RX_vect
 
-void serial_init(void)
-{
-    SERIAL_UART_INIT();
+#ifndef SERIAL_UART_INIT_CUSTOM
+#    define SERIAL_UART_INIT_CUSTOM \
+        /* enable TX */             \
+        UCSR1B = _BV(TXEN1);        \
+        /* 8-bit data */            \
+        UCSR1C = _BV(UCSZ11) | _BV(UCSZ10);
+#endif
+
+#if defined(SERIAL_UART_RTS_LO) && defined(SERIAL_UART_RTS_HI)
+// Buffer state
+//   Empty:           RBUF_SPACE == RBUF_SIZE(head==tail)
+//   Last 1 space:    RBUF_SPACE == 2
+//   Full:            RBUF_SPACE == 1(last cell of rbuf be never used.)
+#    define RBUF_SPACE() (rbuf_head < rbuf_tail ? (rbuf_tail - rbuf_head) : (RBUF_SIZE - rbuf_head + rbuf_tail))
+// allow to send
+#    define rbuf_check_rts_lo()                         \
+        do {                                            \
+            if (RBUF_SPACE() > 2) SERIAL_UART_RTS_LO(); \
+        } while (0)
+// prohibit to send
+#    define rbuf_check_rts_hi()                          \
+        do {                                             \
+            if (RBUF_SPACE() <= 2) SERIAL_UART_RTS_HI(); \
+        } while (0)
+#else
+#    define rbuf_check_rts_lo()
+#    define rbuf_check_rts_hi()
+#endif
+
+void serial_init(void) {
+    do {
+        // Set baud rate
+        UBRR1L = SERIAL_UART_UBRR;
+        UBRR1L = SERIAL_UART_UBRR >> 8;
+        SERIAL_UART_INIT_CUSTOM;
+    } while (0);
 }
 
 // RX ring buffer
-#define RBUF_SIZE   256
+#define RBUF_SIZE 256
 static uint8_t rbuf[RBUF_SIZE];
 static uint8_t rbuf_head = 0;
 static uint8_t rbuf_tail = 0;
 
-uint8_t serial_recv(void)
-{
+uint8_t serial_recv(void) {
     uint8_t data = 0;
     if (rbuf_head == rbuf_tail) {
         return 0;
     }
 
-    data = rbuf[rbuf_tail];
+    data      = rbuf[rbuf_tail];
     rbuf_tail = (rbuf_tail + 1) % RBUF_SIZE;
     rbuf_check_rts_lo();
     return data;
 }
 
-int16_t serial_recv2(void)
-{
+int16_t serial_recv2(void) {
     uint8_t data = 0;
     if (rbuf_head == rbuf_tail) {
         return -1;
     }
 
-    data = rbuf[rbuf_tail];
+    data      = rbuf[rbuf_tail];
     rbuf_tail = (rbuf_tail + 1) % RBUF_SIZE;
     rbuf_check_rts_lo();
     return data;
 }
 
-void serial_send(uint8_t data)
-{
-    while (!SERIAL_UART_TXD_READY) ;
+void serial_send(uint8_t data) {
+    while (!SERIAL_UART_TXD_READY)
+        ;
     SERIAL_UART_DATA = data;
 }
 
 // USART RX complete interrupt
-ISR(SERIAL_UART_RXD_VECT)
-{
+ISR(SERIAL_UART_RXD_VECT) {
     uint8_t next = (rbuf_head + 1) % RBUF_SIZE;
     if (next != rbuf_tail) {
         rbuf[rbuf_head] = SERIAL_UART_DATA;
-        rbuf_head = next;
+        rbuf_head       = next;
     }
     rbuf_check_rts_hi();
 }

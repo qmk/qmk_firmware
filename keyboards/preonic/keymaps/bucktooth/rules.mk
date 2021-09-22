@@ -1,6 +1,6 @@
 
 
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = no         # Console for debug(+400)
@@ -15,6 +15,3 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

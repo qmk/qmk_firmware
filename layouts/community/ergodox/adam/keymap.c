@@ -11,9 +11,6 @@
 #define SFLOCK 11 // symbols arrows and F keys on F held down
 #define SJLOCK 12 // same as Flock but with fall thru J and mapped to J held down
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Sends macro when key is tapped, presses mod when key is held
 #define tap_mod_macro(record, mod, macro) ( ((record)->event.pressed) ? \
      ( ((record)->tap.count <= 0 || (record)->tap.interrupted) ? MACRO(D(mod), END) : MACRO_NONE ) : \
@@ -129,33 +126,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______,_______, TO(BASE)
         )
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-        [1] = ACTION_LAYER_TAP_KEY(FLOCK,KC_F),
-        [2] = ACTION_LAYER_TAP_KEY(JLOCK,KC_J),
-        [11] = ACTION_LAYER_TAP_KEY(FLOCK,LSFT(KC_F)),
-        [12] = ACTION_LAYER_TAP_KEY(JLOCK,LSFT(KC_J))
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-        // MACRODOWN only works in this function
-        switch(id) {
-        case 0:
-                if (record->event.pressed) {
-                        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-                }
-                break;
-        }
-
-        return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {

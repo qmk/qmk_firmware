@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x00C6
 #define MANUFACTURER    PeiorisBoards
 #define PRODUCT         QC60
-#define DESCRIPTION     Split 60% staggered keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -16,9 +15,7 @@
 #define MATRIX_COLS 8
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D0

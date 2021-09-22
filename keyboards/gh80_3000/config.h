@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    farmakon
 #define PRODUCT         GH80-3000
-#define DESCRIPTION     GH80-3000 Mechanical Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 11
@@ -30,18 +29,13 @@
 #endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS

@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef PRIME_EXL_H
-#define PRIME_EXL_H
+//#ifndef PRIME_EXL_H
+//#define PRIME_EXL_H
 
 #include "quantum.h"
 
@@ -37,4 +37,4 @@
 	{ K090,  K091,  K092,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }  \
 }
 
-#endif
+//#endif

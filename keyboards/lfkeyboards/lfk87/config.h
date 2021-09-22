@@ -25,10 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    LFKeyboards
 #define PRODUCT         LFK87
-#define DESCRIPTION     QMK keyboard firmware for LFK87
 
 #define DIODE_DIRECTION COL2ROW
-
 
 #ifdef LFK_TKL_REV_A
 /* RevB Matrix config */
@@ -52,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define AUDIO_VOICES
-#define C6_AUDIO
+#define AUDIO_PIN C6
 
 #define BACKLIGHT_LEVELS 10
 #define BACKLIGHT_PWM_MAP {2, 4, 8, 16, 40, 55, 70, 128, 200, 255}
@@ -66,7 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 200
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -110,11 +108,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true

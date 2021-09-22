@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xCEEB
-#define PRODUCT_ID      0x0510
+#define VENDOR_ID       0x3430 // "40"
+#define PRODUCT_ID      0x4D68 // "M68"
 #define DEVICE_VER      0x0101
 #define MANUFACTURER    di0ib
 #define PRODUCT         MF68
-#define DESCRIPTION     Magicforce 68 with programmable PCB replacement
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -52,9 +51,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
 
+// #define RGB_DI_PIN E2
+// #ifdef RGB_DI_PIN
+//   #define RGBLED_NUM 16
+//   #define RGBLIGHT_HUE_STEP 8
+//   #define RGBLIGHT_SAT_STEP 8
+//   #define RGBLIGHT_VAL_STEP 8
+//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+// /*== all animations enable ==*/
+//   #define RGBLIGHT_ANIMATIONS
+// /*== or choose animations ==*/
+//   #define RGBLIGHT_EFFECT_BREATHING
+//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//   #define RGBLIGHT_EFFECT_SNAKE
+//   #define RGBLIGHT_EFFECT_KNIGHT
+//   #define RGBLIGHT_EFFECT_CHRISTMAS
+//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//   #define RGBLIGHT_EFFECT_RGB_TEST
+//   #define RGBLIGHT_EFFECT_ALTERNATING
+// #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -98,11 +118,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true

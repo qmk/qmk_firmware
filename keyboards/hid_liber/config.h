@@ -25,17 +25,18 @@
 #define PRODUCT_ID      0xB919
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    "bpiphany"
-#define USBSTR_MANUFACTURER 'b', '\x00', 'p', '\x00', 'i', '\x00', 'p', '\x00', 'h', '\x00', 'a', '\x00', 'n', '\x00', 'y', '\x00'
 #define PRODUCT         "HIDLiberation"
-#define USBSTR_PRODUCT 'H', '\x00', 'I', '\x00', 'D', '\x00', ' ', '\x00', 'L', '\x00', 'i', '\x00', 'b', '\x00', 'e', '\x00', 'r', '\x00', 'a', '\x00', 't', '\x00', 'i', '\x00', 'o', '\x00', 'n', '\x00'
-#define DESCRIPTION     "HID Liberation powered by QMK"
 
 /* key matrix size */
 #define MATRIX_ROWS 18
 #define MATRIX_COLS 8
 
 // HID Liberation Device uses custom matrix code to accomodate a 74HC238 3 to 8 decoder on pins B1, B2 and B3.
-#define DIODE_DIRECTION CUSTOM_MATRIX
+//#define DIODE_DIRECTION
+
+#define LED_CAPS_LOCK_PIN B5
+#define LED_SCROLL_LOCK_PIN B6
+#define LED_PIN_ON_STATE 0
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
@@ -45,7 +46,7 @@
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -84,11 +85,6 @@
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -143,28 +139,5 @@
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-/*
- * MIDI options
- */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
 
 #endif

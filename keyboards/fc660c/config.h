@@ -21,21 +21,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4853 /* HS */
 #define PRODUCT_ID      0x660C
 #define DEVICE_VER      0x0100
-#define MANUFACTURER    QMK
-#define PRODUCT         Leopold FC660C with QMK
-#define DESCRIPTION     Leopold FC660C with Hasu alternative controller using QMK
+#define MANUFACTURER    Hasu
+#define PRODUCT         FC660C
 
 /* key matrix size */
-#define MATRIX_ROWS 8
+#define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
-#define DIODE_DIRECTION CUSTOM_MATRIX
+//#define DIODE_DIRECTION
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
+
+#define LED_CAPS_LOCK_PIN B6
+#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 // #define BACKLIGHT_LEVELS  1
@@ -44,20 +46,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_PIN B7
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY  0
+#define DEBOUNCE  0
 #define TAPPING_TERM      175
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 // #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 // #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-
 
 /*
  * Feature disable options

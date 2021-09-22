@@ -1,8 +1,4 @@
-#ifndef REV5_CONFIG_H
-#define REV5_CONFIG_H
+#pragma once
 
-#include "config_common.h"
-
+#define PRODUCT_ID 0xAE01
 #define DEVICE_VER 0x0005
-
-#endif

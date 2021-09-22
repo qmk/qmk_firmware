@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    40percent.club
 #define PRODUCT         ut47
-#define DESCRIPTION     An awesome 40% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -35,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { D7, E6, B4, B5, B6, B2, B3, B1, F7, F6, F5, F4 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 // #define BACKLIGHT_PIN B7
@@ -43,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -53,32 +52,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /* Enable GNAP matrix serial output */
 #define GNAP_ENABLE
-
-/* USART configuration */
-#ifdef __AVR_ATmega32U4__
-#      define SERIAL_UART_BAUD 9600
-#      define SERIAL_UART_DATA UDR1
-#      define SERIAL_UART_UBRR (F_CPU / (16UL * SERIAL_UART_BAUD) - 1)
-#      define SERIAL_UART_RXD_VECT USART1_RX_vect
-#      define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
-#      define SERIAL_UART_INIT() do { \
-            /* baud rate */ \
-            UBRR1L = SERIAL_UART_UBRR; \
-            /* baud rate */ \
-            UBRR1H = SERIAL_UART_UBRR >> 8; \
-            /* enable TX */ \
-            UCSR1B = _BV(TXEN1); \
-            /* 8-bit data */ \
-            UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
-            sei(); \
-        } while(0)
-#   else
-#       error "USART configuration is needed."
-#endif

@@ -4,13 +4,21 @@ If you're using a 60% keyboard, or any other layout with no F-row, you will have
 
 ## Usage
 
-Replace the `KC_GRAVE` key in your keymap (usually to the left of the `1` key) with `KC_GESC`. When pressed it will behave like `KC_ESC`, but with Shift or GUI held it will send `KC_GRAVE`.
+Replace the `KC_GRAVE` key in your keymap (usually to the left of the `1` key) with `KC_GESC`. Most of the time this key will output `KC_ESC` when pressed. However, when Shift or GUI are held down it will output `KC_GRV` instead.
+
+## What Your OS Sees
+
+If Mary presses GESC on her keyboard, the OS will see an KC_ESC character. Now if Mary holds Shift down and presses GESC it will output `~`, or a shifted backtick. Now if she holds GUI/CMD/WIN, it will output a simple <code>&#96;</code> character.
 
 ## Keycodes
 
 |Key      |Aliases    |Description                                                       |
 |---------|-----------|------------------------------------------------------------------|
 |`KC_GESC`|`GRAVE_ESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
+
+### Caveats
+
+On macOS, Command+<code>&#96;</code> is by default mapped to "Move focus to next window" so it will not output a backtick. Additionally, Terminal always recognises this shortcut to cycle between windows, even if the shortcut is changed in the Keyboard preferences.
 
 ## Configuration
 

@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
 #define FN MO(_FN)
 #define TODO KC_NO
 
@@ -74,24 +73,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
   ),
   */
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-  switch (id) {
-  case 0:
-    if (record->event.pressed) {
-      register_code(KC_RSFT);
-    }
-    else {
-      unregister_code(KC_RSFT);
-    }
-    break;
-  }
-  return MACRO_NONE;
 };

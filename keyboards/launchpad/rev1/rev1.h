@@ -3,10 +3,7 @@
 
 #include "../launchpad.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
-
-//void promicro_bootloader_jmp(bool program);
 
 #define LAYOUT( \
 	K00, K01, \

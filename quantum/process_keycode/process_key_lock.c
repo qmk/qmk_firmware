@@ -14,41 +14,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "inttypes.h"
-#include "stdint.h"
+#include <inttypes.h>
+#include <stdint.h>
 #include "process_key_lock.h"
 
 #define BV_64(shift) (((uint64_t)1) << (shift))
-#define GET_KEY_ARRAY(code) (((code) < 0x40) ? key_state[0] : \
-                             ((code) < 0x80) ? key_state[1] : \
-                             ((code) < 0xC0) ? key_state[2] : key_state[3])
-#define GET_CODE_INDEX(code) (((code) < 0x40) ? (code) : \
-                              ((code) < 0x80) ? (code) - 0x40 : \
-                              ((code) < 0xC0) ? (code) - 0x80 : (code) - 0xC0)
-#define KEY_STATE(code)  (GET_KEY_ARRAY(code) & BV_64(GET_CODE_INDEX(code))) == BV_64(GET_CODE_INDEX(code))
-#define SET_KEY_ARRAY_STATE(code, val) do { \
-    switch (code) { \
-        case 0x00 ... 0x3F: \
-            key_state[0] = (val); \
-            break; \
-        case 0x40 ... 0x7F: \
-            key_state[1] = (val); \
-            break; \
-        case 0x80 ... 0xBF: \
-            key_state[2] = (val); \
-            break; \
-        case 0xC0 ... 0xFF: \
-            key_state[3] = (val); \
-            break; \
-    } \
-} while(0)
+#define GET_KEY_ARRAY(code) (((code) < 0x40) ? key_state[0] : ((code) < 0x80) ? key_state[1] : ((code) < 0xC0) ? key_state[2] : key_state[3])
+#define GET_CODE_INDEX(code) (((code) < 0x40) ? (code) : ((code) < 0x80) ? (code)-0x40 : ((code) < 0xC0) ? (code)-0x80 : (code)-0xC0)
+#define KEY_STATE(code) (GET_KEY_ARRAY(code) & BV_64(GET_CODE_INDEX(code))) == BV_64(GET_CODE_INDEX(code))
+#define SET_KEY_ARRAY_STATE(code, val) \
+    do {                               \
+        switch (code) {                \
+            case 0x00 ... 0x3F:        \
+                key_state[0] = (val);  \
+                break;                 \
+            case 0x40 ... 0x7F:        \
+                key_state[1] = (val);  \
+                break;                 \
+            case 0x80 ... 0xBF:        \
+                key_state[2] = (val);  \
+                break;                 \
+            case 0xC0 ... 0xFF:        \
+                key_state[3] = (val);  \
+                break;                 \
+        }                              \
+    } while (0)
 #define SET_KEY_STATE(code) SET_KEY_ARRAY_STATE(code, (GET_KEY_ARRAY(code) | BV_64(GET_CODE_INDEX(code))))
 #define UNSET_KEY_STATE(code) SET_KEY_ARRAY_STATE(code, (GET_KEY_ARRAY(code)) & ~(BV_64(GET_CODE_INDEX(code))))
 #define IS_STANDARD_KEYCODE(code) ((code) <= 0xFF)
 
 // Locked key state. This is an array of 256 bits, one for each of the standard keys supported qmk.
-uint64_t key_state[4] = { 0x0, 0x0, 0x0, 0x0 };
-bool watching = false;
+uint64_t key_state[4] = {0x0, 0x0, 0x0, 0x0};
+bool     watching     = false;
 
 // Translate any OSM keycodes back to their unmasked versions.
 static inline uint16_t translate_keycode(uint16_t keycode) {
@@ -135,4 +132,3 @@ bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
         return !(IS_STANDARD_KEYCODE(translated_keycode) && KEY_STATE(translated_keycode));
     }
 }
-

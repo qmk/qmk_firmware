@@ -1,10 +1,14 @@
 # AJP10304 Custom Atreus50 Layout
-# Also available for the Planck and JJ40
+# Also available for the Planck, Shark, Quark and JJ40
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
 
 **Note:** The below tables assume a UK layout.
+
+#### Flashing
+
+`make handwired/atreus50:ajp10304:flash`
 
 ##### Main Qwerty Layer
 
@@ -43,13 +47,13 @@ Activated when `Lower` is held in the above `qwerty` layer.
 | Shift |  \|  |  `¬  |  #~  |  '@  |  -_  |      |      |  =+  |  #~  |  [{  |  ]}  |  '@  |Shift |
 |       |      |      |      |Lower | Del  | Ctrl | Alt  |Space |      | Next | Vol- | Vol+ | Play |
 
- ##### Raise Layer
- Activated when `Raise` is held in the above `qwerty` layer.
+##### Raise Layer
+Activated when `Raise` is held in the above `qwerty` layer.
 
- * Preferred layer for typing brackets.
- * Allows for cursor navigation to be used solely with the right hand.
- * WRDSEL: Select the word where the cursor is.
- * |< and >|: Apply `ctrl` to `left` and `right` respectively for word jumping.
+* Preferred layer for typing brackets.
+* Allows for cursor navigation to be used solely with the right hand.
+* WRDSEL: Select the word where the cursor is.
+* |< and >|: Apply `ctrl` to `left` and `right` respectively for word jumping.
 
 |       |      |      |      |      |      |      |      |       |      |      |      |       |      |
 | :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---: | :---:| :---:| :---:| :---: | :---:|
@@ -98,11 +102,20 @@ Activated when `fn` and `raise` held together.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |      |      |
 | :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ESC   |      |      |      |      |      |      |      |      |      |      |      |      |      |
+| ESC   |      |      |      |      |      |      |      |      |      | BTN3 |      |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
 |       |      |      |      |      |      | Ctrl | Alt  |      |      |      |      |      |      |
 
+##### Number Pad Layout
+Activated when holding `Esc` key.
 
-##Program Command
-teensy_loader_cli -w -mmcu=atmega32u4 handwired_atreus50_ajp10304.hex
+|       |      |      |      |      |      |      |      |      |      |      |      |      |      |
+| :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
+|       |      |      |      |      |      |      |      |NMLOCK|   7  |   8  |   9  |   /  |      |
+|       |      |      |      |      |      |      |      |      |   4  |   5  |   6  |   *  |      |
+|       |      |      |      |      |      |      |      |      |   1  |   2  |   3  |   +  |      |
+|       |      |      |      |      |      | Ctrl | Alt  |      |   0  |   .  |   ,  |   -  |      |
+
+
+

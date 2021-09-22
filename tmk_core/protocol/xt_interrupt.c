@@ -38,18 +38,16 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdbool.h>
 #include <avr/interrupt.h>
-#include <util/delay.h>
 #include "xt.h"
 #include "wait.h"
-#include "print.h"
+#include "debug.h"
 
 static inline uint8_t pbuf_dequeue(void);
-static inline void pbuf_enqueue(uint8_t data);
-static inline bool pbuf_has_data(void);
-static inline void pbuf_clear(void);
+static inline void    pbuf_enqueue(uint8_t data);
+static inline bool    pbuf_has_data(void);
+static inline void    pbuf_clear(void);
 
-void xt_host_init(void)
-{
+void xt_host_init(void) {
     XT_INT_INIT();
     XT_INT_OFF();
 
@@ -61,7 +59,7 @@ void xt_host_init(void)
     /* soft reset: pull clock line down for 20ms */
     XT_DATA_LO();
     XT_CLOCK_LO();
-    _delay_ms(20);
+    wait_ms(20);
 
     /* input mode with pullup */
     XT_CLOCK_IN();
@@ -71,8 +69,7 @@ void xt_host_init(void)
 }
 
 /* get data received by interrupt */
-uint8_t xt_host_recv(void)
-{
+uint8_t xt_host_recv(void) {
     if (pbuf_has_data()) {
         return pbuf_dequeue();
     } else {
@@ -80,8 +77,7 @@ uint8_t xt_host_recv(void)
     }
 }
 
-ISR(XT_INT_VECT)
-{
+ISR(XT_INT_VECT) {
     /*
      * XT signal format consits of 10 or 9 clocks and sends start bits and 8-bit data,
      * which should be read on falling edge of clock.
@@ -93,15 +89,13 @@ ISR(XT_INT_VECT)
      *
      * https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-XT-Keyboard-Protocol
      */
-    static enum {
-        START, BIT0, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7
-    } state = START;
-    static uint8_t data = 0;
+    static enum { START, BIT0, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7 } state = START;
+    static uint8_t data                                                         = 0;
 
     uint8_t dbit = XT_DATA_READ();
 
     // This is needed if using PCINT which can be called on both falling and rising edge
-    //if (XT_CLOCK_READ()) return;
+    // if (XT_CLOCK_READ()) return;
 
     switch (state) {
         case START:
@@ -110,14 +104,13 @@ ISR(XT_INT_VECT)
             break;
         case BIT0 ... BIT7:
             data >>= 1;
-            if (dbit)
-                data |= 0x80;
+            if (dbit) data |= 0x80;
             break;
     }
     if (state++ == BIT7) {
         pbuf_enqueue(data);
         state = START;
-        data = 0;
+        data  = 0;
     }
     return;
 }
@@ -129,45 +122,45 @@ ISR(XT_INT_VECT)
 static uint8_t pbuf[PBUF_SIZE];
 static uint8_t pbuf_head = 0;
 static uint8_t pbuf_tail = 0;
-static inline void pbuf_enqueue(uint8_t data)
-{
+
+static inline void pbuf_enqueue(uint8_t data) {
     uint8_t sreg = SREG;
     cli();
     uint8_t next = (pbuf_head + 1) % PBUF_SIZE;
     if (next != pbuf_tail) {
         pbuf[pbuf_head] = data;
-        pbuf_head = next;
+        pbuf_head       = next;
     } else {
-        print("pbuf: full\n");
+        dprintf("pbuf: full\n");
     }
     SREG = sreg;
 }
-static inline uint8_t pbuf_dequeue(void)
-{
+
+static inline uint8_t pbuf_dequeue(void) {
     uint8_t val = 0;
 
     uint8_t sreg = SREG;
     cli();
     if (pbuf_head != pbuf_tail) {
-        val = pbuf[pbuf_tail];
+        val       = pbuf[pbuf_tail];
         pbuf_tail = (pbuf_tail + 1) % PBUF_SIZE;
     }
     SREG = sreg;
 
     return val;
 }
-static inline bool pbuf_has_data(void)
-{
+
+static inline bool pbuf_has_data(void) {
     uint8_t sreg = SREG;
     cli();
     bool has_data = (pbuf_head != pbuf_tail);
-    SREG = sreg;
+    SREG          = sreg;
     return has_data;
 }
-static inline void pbuf_clear(void)
-{
+
+static inline void pbuf_clear(void) {
     uint8_t sreg = SREG;
     cli();
     pbuf_head = pbuf_tail = 0;
-    SREG = sreg;
+    SREG                  = sreg;
 }

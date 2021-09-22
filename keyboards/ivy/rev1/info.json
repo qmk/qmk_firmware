@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "IVY",
+    "url": "",
+    "maintainer": "That-Canadian",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x":0, "y":0},
+                {"x":1, "y":0},
+                {"x":2, "y":0}
+            ]
+        }
+    }
+}

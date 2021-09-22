@@ -27,10 +27,34 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
+/*
+ * Keyboard Matrix Assignments
+ *
+ * Change this to how you wired your keyboard
+ * COLS: AVR pins used for columns, left to right
+ * ROWS: AVR pins used for rows, top to bottom
+ * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
+ *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
+ *
+*/
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+
+#define MATRIX_ROW_PINS { C15, C14, A10, A9, A8 }
+#define MATRIX_COL_PINS { B8,  B2,  B10, A0, A1, A2, B0, A3, B1, A6, A7, B12, C13, B11, B9 }
+#define UNUSED_PINS
+
+#define ENCODERS_PAD_A { B13 }
+#define ENCODERS_PAD_B { B14 }
+
 
 //Audio
 #undef AUDIO_VOICES
-#undef C6_AUDIO
+#undef AUDIO_PIN
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
+
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
@@ -56,19 +80,9 @@
 #define micro_oled_rotate_180
 
 #endif
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 6
+// #define DEBOUNCE 6
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
@@ -96,11 +110,6 @@
  */
 //#define FORCE_NKRO
 
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-	keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -118,29 +127,6 @@
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-/*
- * MIDI options
- */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-
-#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 /* Haptic Driver initialization settings
  * Feedback Control Settings */
@@ -148,12 +134,24 @@
 #define FB_BRAKEFACTOR 6 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
 #define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 
+/* default 3V ERM vibration motor voltage and library*/
+#if FB_ERM_LRA == 0
+#define RATED_VOLTAGE 3
+#define V_RMS 2.3
+#define V_PEAK 3.30
+/* Library Selection */
+#define LIB_SELECTION 4 /* For Empty:0' TS2200 library A to D:1-5, LRA Library: 6 */
+
+/* default 2V LRA voltage and library */
+#elif FB_ERM_LRA == 1
 #define RATED_VOLTAGE 2
 #define V_RMS 2.0
 #define V_PEAK 2.85
-#define F_LRA 205
+#define F_LRA 200
 /* Library Selection */
 #define LIB_SELECTION 6 /* For Empty:0' TS2200 library A to D:1-5, LRA Library: 6 */
+
+#endif
 
 /* Control 1 register settings */
 #define DRIVE_TIME 25
@@ -179,14 +177,14 @@
 #define ZC_DET_TIME 0
 #define AUTO_CAL_TIME 3
 
-//#define WS2812_LED_N 2
-//#define RGBLED_NUM WS2812_LED_N
-//#define WS2812_TIM_N 2
-//#define WS2812_TIM_CH 2
-//#define PORT_WS2812     GPIOA
-//#define PIN_WS2812      15
-//#define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA stream for TIMx_UP (look up in reference manual under DMA Channel selection)
-//#define WS2812_DMA_CHANNEL 7                  // DMA channel for TIMx_UP
-//#define WS2812_EXTERNAL_PULLUP
+#define RGBLIGHT_ANIMATIONS
+
+#define RGBLED_NUM 10
+#define RGB_DI_PIN B5
+#define DRIVER_LED_TOTAL RGBLED_NUM
+
+// #define RGB_MATRIX_KEYPRESSES
+
+#define SOLENOID_PIN A14
 
 #endif

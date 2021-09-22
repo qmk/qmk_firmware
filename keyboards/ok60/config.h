@@ -21,12 +21,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4B36 // K6 - ok60
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    OK60
 #define PRODUCT         OK60
-#define DESCRIPTION     qmk keyboard firmware for OK60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -52,7 +51,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -65,11 +64,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 #define RGB_DI_PIN F6
 #define RGBLIGHT_ANIMATIONS

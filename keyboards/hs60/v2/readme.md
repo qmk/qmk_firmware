@@ -5,14 +5,33 @@ HS60 V2.0
 
 This is a standard fixed layout 60% PCB. It comes in three variants; ISO, ANSI and HHKB and support full per-key RGB.
 
-Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [github](https://github.com/yiancar)  
+Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)  
 Hardware Supported: HS60 ISO, ANSI and HHKB PCBs with STM32F303CC   
 Hardware Availability: http://groupbuys.mechboards.co.uk/shop/hs60-hotswap-60-pcb/   
 
 Due to the RGB implementation, the HS60 is currently not compatible with community layouts.
 
+## Instructions
+
+### Build
+
 Make example for this keyboard (after setting up your build environment):
 
-    make hs60/v2:default
+    make hs60/v2/<layout>:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
+
+### Reset
+
+- Unplug
+- Hold Escape
+- Plug In
+- Unplug
+- Release Escape
+
+### Flash
+
+- Unplug
+- Hold Escape
+- Plug In
+- Flash using QMK Toolbox or dfu-util (`make hs60/v2/<layout>:<keymap>:dfu-util`)

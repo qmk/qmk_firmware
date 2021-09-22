@@ -38,11 +38,6 @@ enum minivan_keycodes {
 
 #include "dynamic_macro.h"
 
-// Fillers to make keymaps cleaner looking
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUMPAD] = LAYOUT_numpad_4x4( /* Numpad */
     KC_KP_7, KC_KP_8, KC_KP_9,   KC_KP_PLUS, \
@@ -74,10 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______, _______, \
     _______,                          _______
   ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 #ifdef AUDIO_ENABLE
@@ -154,7 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case NUMPAD_LOCK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_numpad, false, 0);
+          PLAY_SONG(tone_numpad);
         #endif
         persistant_default_layer_set(1UL<<_NUMPAD);
       }
@@ -163,7 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case NAVIGATION_LOCK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_navigation, false, 0);
+          PLAY_SONG(tone_navigation);
         #endif
         persistant_default_layer_set(1UL<<_NAVIGATION);
       }
@@ -172,7 +163,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case EXCEL_LOCK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_excel, false, 0);
+          PLAY_SONG(tone_excel);
         #endif
         persistant_default_layer_set(1UL<<_EXCEL);
       }

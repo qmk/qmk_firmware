@@ -1,23 +1,17 @@
-#ifndef SPLIT_KEYBOARD_UTIL_H
-#define SPLIT_KEYBOARD_UTIL_H
+#pragma once
 
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "eeconfig.h"
 
-#define SLAVE_I2C_ADDRESS           0x32
+#include "matrix.h"
 
 extern volatile bool isLeftHand;
 
-// slave version of matix scan, defined in matrix.c
-void matrix_slave_scan(void);
+void matrix_master_OLED_init(void);
+void split_pre_init(void);
+void split_post_init(void);
 
-void split_keyboard_setup(void);
-bool has_usb(void);
-void keyboard_slave_loop(void);
-
-void matrix_master_OLED_init (void);
-
-#endif
+bool transport_master_if_connected(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]);
+bool is_transport_connected(void);

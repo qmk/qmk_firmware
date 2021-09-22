@@ -1,5 +1,4 @@
-BACKLIGHT_ENABLE = no
-AUDIO_ENABLE = yes
-RGBLIGHT_ENABLE = yes
-DEBUG_ENABLE = no
-CONSOLE_ENABLE = no
+# Bootloader selection
+BOOTLOADER = caterina
+
+SPLIT_KEYBOARD = yes

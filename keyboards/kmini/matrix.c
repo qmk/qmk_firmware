@@ -1,4 +1,4 @@
-/* Copyright 2018 Maarten Dekkers <maartenwut@gmail.com>
+/* Copyright 2018 Evy Dekkers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,8 +27,8 @@
 
 
 /* Set 0 if debouncing isn't needed */
-#ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
+#ifndef DEBOUNCE
+#   define DEBOUNCE 5
 #endif
 
 #define COL_SHIFTER ((uint32_t)1)
@@ -98,7 +98,7 @@ uint8_t matrix_scan(void)
         }
     }
 
-    if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
+    if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCE)) {
         for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
             matrix[i] = matrix_debouncing[i];
         }
@@ -112,7 +112,7 @@ uint8_t matrix_scan(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & ((matrix_row_t)1<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline
@@ -126,7 +126,7 @@ void matrix_print(void)
     print("\nr/c 0123456789ABCDEFGHIJKLMNOPQRSTUV  \n");
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
+        print_hex8(row); print(": ");
         print_bin_reverse32(matrix_get_row(row));
         print("\n");
     }
