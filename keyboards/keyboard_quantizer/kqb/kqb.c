@@ -48,7 +48,7 @@ bool bmp_config_overwrite(bmp_api_config_t const *const config_on_storage,
     keyboard_config->mode = SINGLE;
     memcpy(&keyboard_config->device_info, &default_config.device_info,
            sizeof(keyboard_config->device_info));
-    keyboard_config->param_peripheral.max_interval  = 30;
+    keyboard_config->param_peripheral.max_interval  = 8;
     keyboard_config->param_peripheral.min_interval  = 8;
     keyboard_config->param_peripheral.slave_latency = 7;
 
