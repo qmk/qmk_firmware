@@ -1,6 +1,6 @@
-![Default Layout](https://github.com/walterhanley/wren-keyboard/blob/main/images/author-layout.png?raw=true)
+![Author's Layout](https://github.com/walterhanley/wren-keyboard/blob/main/images/author-layout.png?raw=true)
 
-# The Author's Wren Layout
+# Author's Wren Layout
 
 This is my personal Wren layout, which includes a few layers and macros that 
 I find useful. It started as a clone of the default keymap, but will likely
