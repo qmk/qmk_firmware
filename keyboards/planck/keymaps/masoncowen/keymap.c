@@ -31,9 +31,9 @@ enum planck_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ZWFP] = LAYOUT_planck_grid(
-  KC_Z , KC_W , KC_F , KC_P , KC_Q , KC_NO , KC_NO , KC_J , KC_L , KC_U , KC_Y , KC_BSPC ,
-  KC_A , KC_R , KC_S , KC_T , KC_G , KC_NO , KC_NO , KC_K , KC_N , KC_E , KC_I , KC_O ,
-  KC_X , KC_V , KC_C , KC_D , KC_B , KC_NO , KC_NO , KC_M , KC_H , KC_DOT , KC_COMM , KC_NUHS ,
+  KC_Z , KC_W , KC_F , KC_P , KC_Q , KC_NO , KC_NO , KC_J , KC_L , KC_U , KC_Y , OSL(_NUMNAV) ,
+  KC_A , KC_R , KC_S , KC_T , KC_G , KC_NO , KC_NO , KC_M , KC_N , KC_E , KC_I , KC_O ,
+  KC_X , KC_V , KC_C , KC_D , KC_B , KC_NO , KC_NO , KC_K , KC_H , KC_DOT , KC_COMM , KC_NUHS ,
   KC_NO , KC_NO , KC_ESC , KC_SPC , OSM(MOD_LCTL) , KC_NO , KC_NO , KC_BSPC , OSM(MOD_LSFT) , OSM(MOD_LALT) , KC_NO , KC_NO
 ),
 
