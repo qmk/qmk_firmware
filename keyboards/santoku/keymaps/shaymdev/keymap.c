@@ -35,9 +35,10 @@ enum santoku_keycodes
 	TESTV
 };
 
-enum combos
+enum combos //match combo_count in config.h
 {
 	JK_ESC,
+	EU_ENT,
 	MCOMMA_FORWARDHISTORY,
 	NM_BACKHISTORY,
 	HJ_CLOSETAB,
@@ -117,8 +118,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_ESC,  KC_QUOT, KC_COMM, KC_DOT,	  KC_P,    KC_Y,         KC_F,    KC_G,   KC_C,      KC_R,   KC_L,    KC_SLSH, \
 			KC_TAB, GUI_T(KC_A), ALT_T(KC_O), KC_E, KC_U,  KC_I,         KC_D,    KC_H,   KC_T,      KC_N,   KC_S,    KC_MINS, \
 //MIRYOKU KC_TAB, GUI_T(KC_A), ALT_T(KC_O), CTL_T(KC_E), SFT_T(KC_U), KC_I,         KC_D, SFT_T(KC_H), CTL_T(KC_T), ALT_T(KC_N), GUI_T(KC_S),    KC_MINS, !ADD SLASH CHAR!
-			KC_EQL,  KC_SCLN, KC_Q,    KC_J,  	  KC_K,    KC_X,         KC_B,    KC_M,   KC_W,      KC_V,   KC_Z,    KC_BSLS \
-			XXXXXXX, XXXXXXX, XXXXXXX, TT(LOWER), KC_LSFT, KC_LCTL,      KC_BSPC, KC_SPC, TT(RAISE), XXXXXX, XXXXXXX, XXXXXXX 
+			KC_EQL,  KC_SCLN, KC_Q,    KC_J,  	  KC_K,    KC_X,         KC_B,    KC_M,   KC_W,      KC_V,   KC_Z,    KC_BSLS, \
+			 						   TT(LOWER), KC_LSFT, KC_LCTL,      KC_BSPC, KC_SPC, TT(RAISE)
+// 			XXXXXXX, XXXXXXX, XXXXXXX, TT(LOWER), KC_LSFT, KC_LCTL,      KC_BSPC, KC_SPC, TT(RAISE), XXXXXX, XXXXXXX, XXXXXXX 
 //!MIRYOKU* XXXXXXX, XXXXXXX, XXXXXXX, TT(LOWER), KC_LSFT, KC_ENT,       KC_BSPC, KC_SPC, TT(RAISE), XXXXXX, XXXXXXX, XXXXXXX 
 			//xxxxx, KC_ENT,  KC_LALT, TT(LOWER), KC_LSFT, KC_LCTL,      KC_BSPC, KC_SPC, TT(RAISE), KC_DEL, KC_LGUI, XXXXXXX
 			),
@@ -127,65 +129,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    	  KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,    KC_BSPC, \
 			KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    	  KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT, \
 			KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    	  KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_LGUI,\
-			XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,     _______, _______, _______, XXXXXX, XXXXXXX, XXXXXXX
+			                           _______, _______, _______,     _______, _______, _______
 			),
 
 	[_LOWER] = LAYOUT( \
 			_______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_AMPR,     _______, KC_P7,   KC_P8,   KC_P9,  KC_PMNS, _______, \
 			_______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_ASTR, 	  _______, KC_P4,   KC_P5,   KC_P6,  KC_PPLS, _______, \
 			_______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_GRV,      _______, KC_P1,   KC_P2,   KC_P3,  KC_PENT, _______, \
-		    XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,     KC_DEL,  _______, KC_KP_0, XXXXXX, XXXXXXX, XXXXXXX
+		                               _______, _______, _______,     KC_DEL,  _______, KC_KP_0
 			),
 
 	[_RAISE] = LAYOUT( \
 			_______, KC_PSCR, KC_HOME, KC_UP,   KC_END,  KC_PGUP,     KC_VOLU, KC_F7,   KC_F8,   KC_F9,  KC_F10,  XXXXXXX,\
 			KC_CAPS, KC_INS,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,     KC_VOLD, KC_F4,   KC_F5,   KC_F6,  KC_F11,  XXXXXXX,\
 			_______, KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     KC_MUTE, KC_F1,   KC_F2,   KC_F3,  KC_F12,  XXXXXXX,\
-			XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,     _______, _______, _______, XXXXXX, XXXXXXX, XXXXXXX
+			                           _______, _______, _______,     _______, _______, _______
 			),
 
 	[_ADJUST] =  LAYOUT( \
 			TO_DV, RESET,   _______, _______, _______, _______,       _______, _______, _______, _______, _______, KC_DEL,  \
 			RGB_TOG, RGB_MOD, VLK_TOG, AU_ON,   AU_OFF,  AG_NORM,     AG_SWAP,  QWERTY,  DVORAK, _______, _______, _______, \
 			RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,     _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY,  \
-			XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,     _______, _______, _______, XXXXXX,  XXXXXXX, XXXXXXX
+			                           _______, _______, _______,     _______, _______, _______
 			)
-
-
-
-/////////////////////////TYE's maps/////////////////////////////
-	[_QWERTY] = { /*QWERTY*/
-		/*
-		   SWITCH TO THIS FORMAT/SHORTCUT????:  KC_A,      L(MOUSE,KC_S), L(MIDDLE,KC_D), GUI(KC_F),       CTL(KC_G),
-https://docs.qmk.fm/#/faq_keymap?id=arrow-on-right-modifier-keys-with-dual-role <-- User VIM nav arrow key without layer??? Tap and hold?
-*/
-		{KC_TAB,              KC_Q,              KC_W,     KC_E,    KC_R,     KC_T,   KC_Y,         KC_U,       KC_I,    KC_O,   KC_P,                  KC_BSLS },
-		{MT(MOD_LGUI,KC_ESC), MT(MOD_LCTL,KC_A), KC_S,     KC_D,    KC_F,     KC_G,   KC_H,         KC_J,       KC_K,    KC_L,   MT(MOD_RCTL,KC_SCLN),  MT(MOD_RGUI,KC_QUOT)},
-		{KC_LSFT,             MT(MOD_LALT,KC_Z), KC_X,     KC_C,    KC_V,     KC_B,   KC_N,         KC_M,       KC_COMM, KC_DOT, MT(MOD_RALT,KC_SLSH),  KC_RSFT },
-		{XXXXXXX,             XXXXXXX,           XXXXXXX,  LT(_FUNC,KC_BSPC), KC_SPC, ONETAPALTTAB, TT(_NAVIGATION), TT(_SYMBOL),  KC_ENT, XXXXXXX,    XXXXXXX,   XXXXXXX }
-	},
-
-	[_SYMBOL] = {/*SYMBOL*/
-		{KC_GRV,               KC_EXLM,              KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_CIRC,  KC_AMPR, KC_ASTR,    KC_LPRN, KC_RPRN,              KC_MINS },
-		{MT(MOD_LGUI,KC_ESC),  MT(MOD_LCTL,KC_1),    KC_2,    KC_3,    KC_4,    KC_5,     KC_6,     KC_7,    KC_8,       KC_9,    MT(MOD_RCTL,KC_0),    MT(MOD_RGUI,KC_EQL) },
-		{KC_LSFT,              MT(MOD_LALT,KC_BSLS), KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR,  KC_LBRC,  KC_RBRC, KC_COMM,    KC_DOT,  MT(MOD_RALT,KC_SLSH), KC_RSFT },
-		{XXXXXXX,              XXXXXXX,              XXXXXXX, KC_BSPC, KC_SPC,  XXXXXXX,  _______,  _______, KC_ENT,    XXXXXXX, XXXXXXX,              XXXXXXX }
-	},
-
-	[_NAVIGATION] = {/*NAVIGATION*/
-		{KC_TAB,              XXXXXXX,                RCTL(KC_RGHT),  XXXXXXX,  XXXXXXX,     XXXXXXX,       KC_HOME,       KC_PGDN,      KC_PGUP,  KC_END,   RCTL(KC_TAB), XXXXXXX  },
-		{MT(MOD_LGUI,KC_ESC), KC_LCTL,                XXXXXXX,        XXXXXXX,  KC_MS_WH_DOWN,     OVERVIEW,      KC_LEFT,       KC_DOWN,      KC_UP,    KC_RGHT,  KC_RCTL,      KC_RGUI  },
-		{KC_LSFT,             MT(MOD_LALT,OVERVIEW),  XXXXXXX,        XXXXXXX,  KC_MS_WH_UP,       RCTL(KC_LEFT), LGUI(KC_LBRC), LGUI(KC_RBRC),LGUI(LSFT(KC_EQL)),  LGUI(LSFT(KC_MINS)),  KC_RALT,      KC_RSFT  },
-		{XXXXXXX,             XXXXXXX,                XXXXXXX,        KC_DEL,   KC_SPC,      OVERVIEW,      _______,       _______,      KC_ENT,  XXXXXXX,  XXXXXXX,      XXXXXXX  }
-	},
-
-	[_FUNC] = {/*FUNCTION*/
-		{XXXXXXX, XXXXXXX,            XXXXXXX, XXXXXXX, KC_F11,  KC_F12,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,               XXXXXXX  },
-		{MT(MOD_LGUI,KC_ESC), MT(MOD_LCTL,KC_F1), KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   MT(MOD_RCTL,KC_F10),   MT(MOD_RGUI,KC_ESC)  },
-		{MT(KC_LSFT,KC_CAPS), MT(MOD_LALT,KC_F6), KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_LALT,               KC_RSFT  },
-		{XXXXXXX, XXXXXXX,            XXXXXXX, XXXXXXX,KC_SPC ,  XXXXXXX,  XXXXXXX, XXXXXXX, RESET,   XXXXXXX, XXXXXXX,               XXXXXXX  }
-	}
-
 };
 
 
