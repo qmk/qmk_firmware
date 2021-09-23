@@ -2,8 +2,6 @@
     "keyboard_name": "BM60 RGB",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layout_aliases": {
       "LAYOUT": "LAYOUT_60_ansi_arrow"
     },
@@ -78,4 +76,3 @@
     }
     ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
-

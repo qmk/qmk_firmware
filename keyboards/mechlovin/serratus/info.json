@@ -2,8 +2,6 @@
     "keyboard_name": "Serratus",
     "url": "",
     "maintainer": "Mechlovin' Studio",
-    "width": 18.25,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

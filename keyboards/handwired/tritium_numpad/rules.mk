@@ -17,6 +17,5 @@ RGBLIGHT_ENABLE = no   # Enable keyboard underlight functionality (+4870)
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality (+1150)
 AUDIO_ENABLE = no
 UNICODE_ENABLE = no 		# Unicode
-BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 
 LAYOUTS = numpad_6x4 ortho_6x4

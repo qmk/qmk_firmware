@@ -2,8 +2,6 @@
     "keyboard_name": "GameBuddy1_M",
     "url": "www.clawboards.xyz",
     "maintainer": "AAClawson (AlisGraveNil)",
-    "width": 7,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -38,4 +36,3 @@
         }
     }
 }
-
