@@ -29,6 +29,13 @@ $(info QMK Firmware $(QMK_VERSION))
 endif
 endif
 
+# Determine which qmk cli to use
+ifeq (,$(shell which qmk))
+    QMK_BIN = bin/qmk
+else
+    QMK_BIN = qmk
+endif
+
 # avoid 'Entering|Leaving directory' messages
 MAKEFLAGS += --no-print-directory
 
@@ -86,8 +93,8 @@ clean:
 
 .PHONY: distclean
 distclean: clean
-	echo -n 'Deleting *.bin and *.hex ... '
-	rm -f *.bin *.hex
+	echo -n 'Deleting *.bin, *.hex, and *.uf2 ... '
+	rm -f *.bin *.hex *.uf2
 	echo 'done.'
 
 #Compatibility with the old make variables, anything you specify directly on the command line
@@ -245,11 +252,20 @@ define PARSE_RULE
     else
         $$(info make: *** No rule to make target '$1'. Stop.)
         $$(info |)
-        $$(info |  QMK's make format recently changed to use folder locations and colons:)
-        $$(info |     make project_folder:keymap[:target])
-        $$(info |  Examples:)
-        $$(info |     make dz60:default)
-        $$(info |     make planck/rev6:default:flash)
+        $$(info | QMK's make format is:)
+        $$(info |     make keyboard_folder:keymap_folder[:target])
+        $$(info |)
+        $$(info | Where `keyboard_folder` is the path to the keyboard relative to)
+        $$(info | `qmk_firmware/keyboards/`, and `keymap_folder` is the name of the)
+        $$(info | keymap folder under that board's `keymaps/` directory.)
+        $$(info |)
+        $$(info | Examples:)
+        $$(info |     keyboards/dz60, keyboards/dz60/keymaps/default)
+        $$(info |       -> make dz60:default)
+        $$(info |       -> qmk compile -kb dz60 -km default)
+        $$(info |     keyboards/planck/rev6, keyboards/planck/keymaps/default)
+        $$(info |       -> make planck/rev6:default:flash)
+        $$(info |       -> qmk flash -kb planck/rev6 -km default)
         $$(info |)
     endif
 endef
@@ -384,7 +400,7 @@ define PARSE_KEYMAP
     # Format it in bold
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     # Specify the variables that we are passing forward to submake
-    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY)
+    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY) QMK_BIN=$$(QMK_BIN)
     # And the first part of the make command
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
@@ -501,8 +517,8 @@ endef
 %:
 	# Check if we have the CMP tool installed
 	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
-	# Ensure that bin/qmk works.
-	if ! bin/qmk hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; exit 1; fi
+	# Ensure that $(QMK_BIN) works.
+	if ! $(QMK_BIN) hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; exit 1; fi
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
 	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
@@ -541,29 +557,14 @@ git-submodule:
 	git submodule sync --recursive
 	git submodule update --init --recursive --progress
 
+# Generate the version.h file
+ifdef SKIP_GIT
+VERSION_H_FLAGS := --skip-git
+endif
 ifdef SKIP_VERSION
+VERSION_H_FLAGS := --skip-all
 SKIP_GIT := yes
 endif
-
-# Generate the version.h file
-ifndef SKIP_GIT
-    GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
-    CHIBIOS_VERSION := $(shell cd lib/chibios && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
-    CHIBIOS_CONTRIB_VERSION := $(shell cd lib/chibios-contrib && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
-else
-    GIT_VERSION := NA
-    CHIBIOS_VERSION := NA
-    CHIBIOS_CONTRIB_VERSION := NA
-endif
-ifndef SKIP_VERSION
-BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
-else
-BUILD_DATE := 2020-01-01-00:00:00
-endif
-
-$(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define CHIBIOS_VERSION "$(CHIBIOS_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define CHIBIOS_CONTRIB_VERSION "$(CHIBIOS_CONTRIB_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o quantum/version.h)
 
 include $(ROOT_DIR)/testlist.mk

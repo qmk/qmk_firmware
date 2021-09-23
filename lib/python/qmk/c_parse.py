@@ -8,7 +8,7 @@ from milc import cli
 from qmk.comment_remover import comment_remover
 
 default_key_entry = {'x': -1, 'y': 0, 'w': 1}
-single_comment_regex = re.compile(r' */[/*].*$')
+single_comment_regex = re.compile(r'\s+/[/*].*$')
 multi_comment_regex = re.compile(r'/\*(.|\n)*?\*/', re.MULTILINE)
 
 
@@ -74,7 +74,6 @@ def find_layouts(file):
                     key['matrix'] = matrix_locations[key['label']]
 
             parsed_layouts[macro_name] = {
-                'key_count': len(parsed_layout),
                 'layout': parsed_layout,
                 'filename': str(file),
             }

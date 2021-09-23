@@ -18,16 +18,26 @@ Hardware configurations using Arm-based microcontrollers or different sizes of O
 
 ## Usage
 
-To enable the OLED feature, there are three steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
+To enable the OLED feature, there are two steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
 
 ```make
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+```
+
+## OLED type
+|OLED Driver        |Supported Device           |
+|-------------------|---------------------------|
+|SSD1306 (default)  |For both SSD1306 and SH1106|
+
+e.g.
+```make
+OLED_DRIVER = SSD1306
 ```
 
 Then in your `keymap.c` file, implement the OLED task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
 
 ```c
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -114,7 +124,7 @@ static void fade_display(void) {
 In split keyboards, it is very common to have two OLED displays that each render different content and are oriented or flipped differently. You can do this by switching which content to render by using the return value from `is_keyboard_master()` or `is_keyboard_left()` found in `split_util.h`, e.g:
 
 ```c
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -145,6 +155,8 @@ void oled_task_user(void) {
 |`OLED_FONT_WIDTH`          |`6`              |The font width                                                                                                            |
 |`OLED_FONT_HEIGHT`         |`8`              |The font height (untested)                                                                                                |
 |`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.           |
+|`OLED_FADE_OUT`            |*Not defined*    |Enables fade out animation. Use together with `OLED_TIMEOUT`.                                                             |
+|`OLED_FADE_OUT_INTERVAL`   |`0`              |The speed of fade out animation, from 0 to 15. Larger values are slower.                                                  |
 |`OLED_SCROLL_TIMEOUT`      |`0`              |Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                     |
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*    |Scroll timeout direction is right when defined, left when undefined.                                                      |
 |`OLED_IC`                  |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                       |
@@ -261,10 +273,24 @@ void oled_write(const char *data, bool invert);
 void oled_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
-// Useful for moving the screen in preparation for new drawing 
+// Useful for moving the screen in preparation for new drawing
 // oled_scroll_left or oled_scroll_right should be preferred for all cases of moving a static
 // image such as a logo or to avoid burn-in as it's much, much less cpu intensive
 void oled_pan(bool left);
+
+// Returns a pointer to the requested start index in the buffer plus remaining
+// buffer length as struct
+oled_buffer_reader_t oled_read_raw(uint16_t start_index);
+
+// Writes a string to the buffer at current cursor position
+void oled_write_raw(const char *data, uint16_t size);
+
+// Writes a single byte into the buffer at the specified index
+void oled_write_raw_byte(const char data, uint16_t index);
+
+// Sets a specific pixel on or off
+// Coordinates start at top-left and go right and down for positive x and y
+void oled_write_pixel(uint8_t x, uint8_t y, bool on);
 
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
@@ -277,22 +303,8 @@ void oled_write_P(const char *data, bool invert);
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
 
-// Returns a pointer to the requested start index in the buffer plus remaining
-// buffer length as struct
-oled_buffer_reader_t oled_read_raw(uint16_t start_index);
-
-// Writes a string to the buffer at current cursor position
-void oled_write_raw(const char *data, uint16_t size);
-
-// Writes a single byte into the buffer at the specified index
-void oled_write_raw_byte(const char data, uint16_t index);
-
 // Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
-
-// Sets a specific pixel on or off
-// Coordinates start at top-left and go right and down for positive x and y
-void oled_write_pixel(uint8_t x, uint8_t y, bool on);
 
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on
@@ -343,6 +355,14 @@ bool oled_scroll_left(void);
 // Turns off display scrolling
 // Returns true if the screen was not scrolling or stops scrolling
 bool oled_scroll_off(void);
+
+// Returns true if the oled is currently scrolling, false if it is
+// not
+bool is_oled_scrolling(void);
+
+// Inverts the display
+// Returns true if the screen was or is inverted
+bool oled_invert(bool invert);
 
 // Returns the maximum number of characters that will fit on a line
 uint8_t oled_max_chars(void);
