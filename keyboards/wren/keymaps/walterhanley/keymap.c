@@ -88,14 +88,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // when keycode NSEAL is released
             }
             break;
-        case QMKURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/\n");
-            } else {
-                // when keycode QMKURL is released
-            }
-            break;
     }
     return true;
 }
