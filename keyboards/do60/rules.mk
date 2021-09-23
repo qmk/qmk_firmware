@@ -5,7 +5,7 @@ MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 
 # Build Options
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = no           # Audio output
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 COMMAND_ENABLE = no         # Commands for debug and configuration
