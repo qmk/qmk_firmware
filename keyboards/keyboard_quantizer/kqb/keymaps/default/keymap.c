@@ -279,10 +279,6 @@ void mouse_report_hook(mouse_parse_result_t const* report) {
     mouse_send_flag      = true;
     report_mouse_t mouse = pointing_device_get_report();
 
-    if (layer_state != 0) {
-        mouse.buttons = 0;
-    }
-
     static int16_t x_rem;
     static int16_t y_rem;
 
