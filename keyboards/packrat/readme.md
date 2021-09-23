@@ -4,7 +4,7 @@
 
 Full Gallery: https://imgur.com/gallery/fZklCG6
 
-Packrat is an 11u wide ortholinear keyboard featuring multiple bottom row options.   
+Packrat is an 11u wide ortholinear keyboard featuring multiple bottom row options and top-centered rotary encoder support.
 
 * Keyboard Maintainer: [H. Bond](https://github.com/drhigsby)
 * Hardware Supported: Dubba175 (https://github.com/drhigsby/packrat)
