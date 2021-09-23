@@ -117,37 +117,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case H1:
       if (record->event.pressed) {
-        SEND_STRING("# ")
+        SEND_STRING("# ");
       }
       break;
     case H2:
       if (record->event.pressed) {
-        SEND_STRING("## ")
+        SEND_STRING("## ");
       }
       break;
     case H3:
       if (record->event.pressed) {
-        SEND_STRING("### ")
+        SEND_STRING("### ");
       }
       break;
     case TAGGED:
       if (record->event.pressed) {
-        SEND_STRING("Tagged: ")
+        SEND_STRING("Tagged: ");
       }
       break;
     case SEEALSO:
       if (record->event.pressed) {
-        SEND_STRING("## See also"SS_TAP(X_ENTER))
+        SEND_STRING("## See also"SS_TAP(X_ENTER));
       }
       break;
     case GRAPH:
       if (record->event.pressed) {
-        SEND_STRING("graph ")
+        SEND_STRING("graph ");
       }
       break;
     case MARROW:
       if (record->event.pressed) {
-        SEND_STRING("--> ")
+        SEND_STRING("--> ");
       }
       break;
     case CHECK:
@@ -157,7 +157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MERMAID:
       if (record->event.pressed) {
-        SEND_STRING("```mermaid"SS_TAP(X_ENTER))
+        SEND_STRING("```mermaid"SS_TAP(X_ENTER));
       }
       break;
   }
