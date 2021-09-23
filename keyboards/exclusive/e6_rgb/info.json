@@ -142,7 +142,7 @@
                 {"label":"Win", "x":12.5, "y":4}
             ]
         },
-        "LAYOUT_allleds": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
