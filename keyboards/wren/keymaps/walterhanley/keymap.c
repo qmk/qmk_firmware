@@ -22,8 +22,8 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE
-    _SYMBOL
+    _BASE,
+    _SYMBOL,
     _NAV
 };
 
@@ -67,7 +67,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code(KC_TAB);
         } else {
-            tap_code(S(KC_TAB));
+            tap_code(KC_TAB);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {

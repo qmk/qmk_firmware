@@ -20,8 +20,8 @@ enum layer_names {
     _BASE
 };
 
-/* This layout preserves the entire keyboard matrix, but only includes keycodes  
- * for a numpad/nav cluster configuration. Depending on your configuration, you 
+/* This layout preserves the entire keyboard matrix, but only includes keycodes
+ * for a numpad/nav cluster configuration. Depending on your configuration, you
  * may need to replace some of the existing KC_NO values with actual keycodes.
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -40,7 +40,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code(KC_TAB);
         } else {
-            tap_code(S(KC_TAB));
+            tap_code(KC_TAB);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
