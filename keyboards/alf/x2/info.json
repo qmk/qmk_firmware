@@ -81,7 +81,7 @@
             ]
         },
 
-        "LAYOUT_2u_split_arrows": {
+        "LAYOUT_all": {
             "layout": [
                 {"x":1.5, "y":0},
                 {"x":2.5, "y":0},
