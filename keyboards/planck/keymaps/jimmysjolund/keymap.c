@@ -338,6 +338,7 @@ bool dip_update_user(uint8_t index, bool active) {
         #endif
       }
    }
+    return false;
 }
 
 void matrix_scan_user(void) {
