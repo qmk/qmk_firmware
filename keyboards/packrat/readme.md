@@ -1,6 +1,8 @@
 # Packrat
 
-![Packrat(https://i.imgur.com/ )
+![Packrat(https://i.imgur.com/t6vWYIb.jpeg)
+
+Full Gallery: https://imgur.com/gallery/fZklCG6
 
 Packrat is an 11u wide ortholinear keyboard featuring multiple bottom row options.   
 
