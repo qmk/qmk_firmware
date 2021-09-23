@@ -313,7 +313,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 
-void dip_update(uint8_t index, bool active) {
+bool dip_update_user(uint8_t index, bool active) {
   switch (index) {
     case 0:
       if (active) {
