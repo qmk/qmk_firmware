@@ -113,10 +113,9 @@ static bool in_alttab = false; // does an ALT-TAB, for windows cycling, without 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_DVORAK] = LAYOUT( \
-			//TODO: Enter, Alt, Del, Gui
 			//Consider miryoku style modifiers... homerow left->right super(aka gui), alt, ctrl, shift
 			KC_ESC,  KC_QUOT, KC_COMM, KC_DOT,	  KC_P,    KC_Y,         KC_F,    KC_G,   KC_C,      KC_R,   KC_L,    KC_SLSH, \
-			KC_TAB,  KC_A,    KC_O,    KC_E,   	  KC_U,    KC_I,         KC_D,    KC_H,   KC_T,      KC_N,   KC_S,    KC_MINS, \
+			KC_TAB, GUI_T(KC_A), ALT_T(KC_O), KC_E, KC_U,  KC_I,         KC_D,    KC_H,   KC_T,      KC_N,   KC_S,    KC_MINS, \
 //MIRYOKU KC_TAB, GUI_T(KC_A), ALT_T(KC_O), CTL_T(KC_E), SFT_T(KC_U), KC_I,         KC_D, SFT_T(KC_H), CTL_T(KC_T), ALT_T(KC_N), GUI_T(KC_S),    KC_MINS, !ADD SLASH CHAR!
 			KC_EQL,  KC_SCLN, KC_Q,    KC_J,  	  KC_K,    KC_X,         KC_B,    KC_M,   KC_W,      KC_V,   KC_Z,    KC_BSLS \
 			XXXXXXX, XXXXXXX, XXXXXXX, TT(LOWER), KC_LSFT, KC_LCTL,      KC_BSPC, KC_SPC, TT(RAISE), XXXXXX, XXXXXXX, XXXXXXX 
@@ -135,8 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			_______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_AMPR,     _______, KC_P7,   KC_P8,   KC_P9,  KC_PMNS, _______, \
 			_______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_ASTR, 	  _______, KC_P4,   KC_P5,   KC_P6,  KC_PPLS, _______, \
 			_______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_GRV,      _______, KC_P1,   KC_P2,   KC_P3,  KC_PENT, _______, \
-			XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,     _______, _______, KC_KP_0, XXXXXX, XXXXXXX, XXXXXXX
-//!MIRY*    XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,     KC_DEL,  _______, KC_KP_0, XXXXXX, XXXXXXX, XXXXXXX
+		    XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,     KC_DEL,  _______, KC_KP_0, XXXXXX, XXXXXXX, XXXXXXX
 			),
 
 	[_RAISE] = LAYOUT( \
