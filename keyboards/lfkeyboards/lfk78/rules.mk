@@ -12,12 +12,11 @@ COMMAND_ENABLE = no             # Commands for debug and configuration
 NKRO_ENABLE = yes               # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = yes          # Enable keyboard backlight functionality
 BACKLIGHT_DRIVER = custom
-AUDIO_ENABLE = no               # Audio output on port C6
+AUDIO_ENABLE = no               # Audio output
 UNICODE_ENABLE = no             # Unicode
 RGBLIGHT_ENABLE = yes           # Enable WS2812 RGB underlight.
 RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lfkeyboards, not qmk base
 SLEEP_LED_ENABLE = yes          # Breathing sleep LED during USB suspend
-TAP_DANCE_ENABLE = no
 
 ISSI_ENABLE = yes               # If the I2C pullup resistors aren't install this must be disabled
 WATCHDOG_ENABLE = no            # Resets keyboard if matrix_scan isn't run every 250ms
