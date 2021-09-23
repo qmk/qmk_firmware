@@ -179,7 +179,11 @@ void bmp_keyboard_task(void)
     const bmp_api_config_t * config = BMPAPI->app.get_config();
 
     if (is_keyboard_master()) {
+#ifndef PROCESS_MATRIX_REVERSE
         for (uint8_t r = 0; r < config->matrix.rows; r++) {
+#else
+        for (int r = config->matrix.rows - 1; r >= 0; r--) {
+#endif
             matrix_row = matrix_get_row(r);
             matrix_change = matrix_row ^ matrix_prev[r];
             if (matrix_change) {
