@@ -2,9 +2,9 @@
 
 Firmware for the GSKT-00 PCB
 
-Keyboard Maintainer: [KapCave](https://github.com/nachie)  
-Hardware Supported: GSKT-00 PCB
-Hardware Availability: [KapCave](https://kapcave.com/products/gskt-00-pcb-usb-c)
+* Keyboard Maintainer: [KapCave](https://github.com/nachie)
+* Hardware Supported: GSKT-00 PCB
+* Hardware Availability: [KapCave](https://kapcave.com/products/gskt-00-pcb-usb-c)
 
 Make example for this keyboard (after setting up your build environment):
 
