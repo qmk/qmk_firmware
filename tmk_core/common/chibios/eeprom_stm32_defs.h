@@ -52,7 +52,7 @@
 #    elif defined(STM32F103xE) || defined(STM32F411xE)
 #        define FEE_MCU_FLASH_SIZE 512  // Size in Kb
 #    elif defined(STM32F405xG)
-#        define FEE_MCU_FLASH_SIZE 1024 // Size in Kb
+#        define FEE_MCU_FLASH_SIZE 1024  // Size in Kb
 #    endif
 #endif
 
