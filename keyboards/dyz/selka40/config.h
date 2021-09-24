@@ -40,21 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { C7, C6, B6, B5 }
-#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, E6, B7, D5, D3, D2, D1, D0 }
-#define UNUSED_PINS
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN B4
-#define RGBLED_NUM 14
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_RGB_TEST
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
