@@ -3,9 +3,9 @@
 Firmware for the Paladin64 ALPS64 PCB, with underglow and an optional
 trackpoint module.
 
-Keyboard Maintainer: [KapCave](https://github.com/nachie)  
-Hardware Supported: Paladin64 ALPS PCB 
-Hardware Availability: [KapCave](https://kapcave.com/products/paladin64-pcb)
+* Keyboard Maintainer: [KapCave](https://github.com/nachie)
+* Hardware Supported: Paladin64 ALPS PCB
+* Hardware Availability: [KapCave](https://kapcave.com/products/paladin64-pcb)
 
 Make example for this keyboard (after setting up your build environment):
 
