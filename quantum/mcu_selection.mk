@@ -138,6 +138,11 @@ ifneq ($(findstring STM32F042, $(MCU)),)
 
   # UF2 settings
   UF2_FAMILY ?= STM32F0
+
+  # Stack sizes: Since this chip has limited RAM capacity, the stack area needs to be reduced.
+  # This ensures that the EEPROM page buffer fits into RAM
+  USE_PROCESS_STACKSIZE = 0x600
+  USE_EXCEPTIONS_STACKSIZE = 0x300
 endif
 
 ifneq ($(findstring STM32F072, $(MCU)),)
