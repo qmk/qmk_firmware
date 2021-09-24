@@ -108,6 +108,12 @@ def generate_config_items(kb_info_json, config_h_lines):
                 config_h_lines.append(f'#ifndef {key}')
                 config_h_lines.append(f'#   define {key} {value}')
                 config_h_lines.append(f'#endif // {key}')
+        elif key_type == 'bcd_version':
+            (major, minor, revision) = config_value.split('.')
+            config_h_lines.append('')
+            config_h_lines.append(f'#ifndef {config_key}')
+            config_h_lines.append(f'#   define {config_key} 0x{major.zfill(2)}{minor}{revision}')
+            config_h_lines.append(f'#endif // {config_key}')
         else:
             config_h_lines.append('')
             config_h_lines.append(f'#ifndef {config_key}')
