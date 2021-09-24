@@ -26,7 +26,7 @@
     #include "rev3.h"
 #elif KEYBOARD_mechlovin_adelais_standard_led_arm_rev2
     #include "rev2.h"
-#elif KEYBOARD_mechlovin_adelais_standard_led__armrev3
+#elif KEYBOARD_mechlovin_adelais_standard_led_arm_rev3
     #include "rev3.h"
 #elif KEYBOARD_mechlovin_adelais_standard_led_arm_rev4
     #include "rev4.h"
