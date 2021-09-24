@@ -5,7 +5,7 @@ PCB designed for kbnordic.se
 * Keyboard Maintainer: [4pplet](https://github.com/4pplet)
 * Hardware Supported: nordic60
 
-Make example for this keyboard (after setting up your build environment):
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 
     make kbnordic/nordic60/rev_a:default
 
