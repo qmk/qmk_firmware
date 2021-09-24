@@ -1,4 +1,4 @@
-/* Copyright 2020 Team Mechlovin
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,20 +16,11 @@
 
 #pragma once
 
-#include "quantum.h"
+#define HAL_USE_I2C TRUE
 
-#ifdef KEYBOARD_mechlovin_adelais_rgb_led_rev1
-    #include "rev1.h"
-#elif KEYBOARD_mechlovin_adelais_rgb_led_rev2
-    #include "rev2.h"
-#elif KEYBOARD_mechlovin_adelais_rgb_led_rev3
-    #include "rev3.h"
-#elif KEYBOARD_mechlovin_adelais_standard_led_arm_rev2
-    #include "rev2.h"
-#elif KEYBOARD_mechlovin_adelais_standard_led__armrev3
-    #include "rev3.h"
-#elif KEYBOARD_mechlovin_adelais_standard_led_arm_rev4
-    #include "rev4.h"
-#elif KEYBOARD_mechlovin_adelais_standard_led_avr_rev1
-    #include "rev1.h"
-#endif
+#define PAL_USE_CALLBACKS FALSE
+
+#define PAL_USE_WAIT FALSE
+
+#include_next <halconf.h>
+
