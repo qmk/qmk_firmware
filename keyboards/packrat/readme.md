@@ -1,6 +1,6 @@
 # Packrat
 
-![Packrat](https://i.imgur.com/t6vWYIb.jpeg)
+![Packrat](https://i.imgur.com/t6vWYIbh.jpeg)
 
 Full Gallery: https://imgur.com/gallery/fZklCG6
 
