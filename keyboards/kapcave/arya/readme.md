@@ -2,9 +2,9 @@
 
 Firmware for the KapCave Arya Keyboard
 
-Keyboard Maintainer: [KapCave](https://github.com/nachie)  
-Hardware Supported: Arya PCB
-Hardware Availability: [KapCave](https://kapcave.com/products/arya-pcb)
+* Keyboard Maintainer: [KapCave](https://github.com/nachie)
+* Hardware Supported: Arya PCB
+* Hardware Availability: [KapCave](https://kapcave.com/products/arya-pcb)
 
 Make example for this keyboard (after setting up your build environment):
 
