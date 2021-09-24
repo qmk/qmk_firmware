@@ -37,13 +37,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };
-
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-    setPinOutput(B2);
-    writePinLow(B2);
-  } else {
-    setPinInput(B2);
-    writePinLow(B2);
-  }
-}
