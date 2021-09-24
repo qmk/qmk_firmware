@@ -31,10 +31,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
- bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-     return true;
- }
-
  void matrix_init_user() {
    steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
  }
