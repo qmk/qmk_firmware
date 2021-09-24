@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "util.h"
 #include "matrix.h"
-#include "debounce.h"
 #include "quantum.h"
 
 #ifdef DIRECT_PINS
