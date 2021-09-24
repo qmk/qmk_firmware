@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 enum layers{
   _BASE,
