@@ -151,13 +151,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_GAMING_2] = LAYOUT_split_3x5_3(
 /*
  ,------.------.------.------.------.            ,------.------.------.------.------.
- | ↓↓↓  |      |      |      |      |            | T    | [ {  | ] }  |      |      |
+ | ↓↓↓  |      |      |      | T    |            |      | F7   | F8   | F9   | F10  |
  |      |      |      |      |      |            |      |      |      |      |      |
  |------+------+------+------+------|            |------+------+------+------+------|
- | ↓↓↓  |      |      |      |      |            | G    | \ |  |      |      |      |
+ | ↓↓↓  |      |      |      | G    |            |      | \ |  | [ {  | ] }  |      |
  |      |      |      |      |      |            |      |      |      |      |      |
  |------+------+------+------+------|            |------+------+------+------+------|
- | ↓↓↓  |      |      |      |      |            | B    |      |      |      | ↓↓↓  |
+ | ↓↓↓  |      |      |      | B    |            | F11  | F12  |      |      | ↓↓↓  |
  |      |      |      |      |      |            |      |      |      |      |      |
  `------'------'------'------'------'            `------'------'------'------'------'
                          .------.------.      .------.------.
@@ -165,9 +165,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          |      |      |      |      |      |
                          '------'------'      '------'------'
 */
-  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_T,    KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
-  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_G,    KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX,
-  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_B,    XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,
+  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_T,         XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,
+  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_G,         XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, XXXXXXX,
+  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_B,         KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_TRNS,
                      XXXXXXX, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, XXXXXXX
 ),
 };
