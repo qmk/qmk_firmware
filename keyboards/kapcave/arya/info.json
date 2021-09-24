@@ -2,8 +2,6 @@
     "keyboard_name": "Arya", 
     "url": "https://kapcave.com/products/arya", 
     "maintainer": "nachie", 
-    "width": 20, 
-    "height": 14.0, 
     "layouts": {
         "LAYOUT": {
             "layout": [
