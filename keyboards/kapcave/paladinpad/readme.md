@@ -2,9 +2,9 @@
 
 Firmware for the PaladinPad, with underglow.
 
-Keyboard Maintainer: [KapCave](https://github.com/nachie)  
-Hardware Supported: PaladinPad 
-Hardware Availability: [KapCave](https://kapcave.com/products/paladinpad-pcb)
+* Keyboard Maintainer: [KapCave](https://github.com/nachie)
+* Hardware Supported: PaladinPad
+* Hardware Availability: [KapCave](https://kapcave.com/products/paladinpad-pcb)
 
 Make example for this keyboard (after setting up your build environment):
 
