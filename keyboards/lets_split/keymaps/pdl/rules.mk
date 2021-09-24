@@ -1,1 +1,1 @@
-SRC += pdl.c
+USER_NAME = pdl
