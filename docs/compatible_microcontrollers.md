@@ -27,6 +27,7 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [STM32F103](https://www.st.com/en/microcontrollers-microprocessors/stm32f103.html)
  * [STM32F303](https://www.st.com/en/microcontrollers-microprocessors/stm32f303.html)
  * [STM32F401](https://www.st.com/en/microcontrollers-microprocessors/stm32f401.html)
+ * [STM32F405](https://www.st.com/en/microcontrollers-microprocessors/stm32f405-415.html)
  * [STM32F407](https://www.st.com/en/microcontrollers-microprocessors/stm32f407-417.html)
  * [STM32F411](https://www.st.com/en/microcontrollers-microprocessors/stm32f411.html)
  * [STM32F446](https://www.st.com/en/microcontrollers-microprocessors/stm32f446.html)
