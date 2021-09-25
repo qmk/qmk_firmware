@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0xD4D2
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    GG Keyboards
-#define PRODUCT         Genesis
+#define PRODUCT         Genesis Solder
 
 /* key matrix size */
 #define MATRIX_ROWS 6
