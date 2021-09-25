@@ -24,10 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    zigotica
 #define PRODUCT         z12
-#define DESCRIPTION     micro pad with 6x MX/Choc v[1|2] switches, \
-                                       4x 6x6mm momentary buttons, \
-                                       2x EC11 rotary encoders and \
-                                       1x 128x32 OLED display
 
 #define ENCODERS_PAD_A { B4, B2 }
 #define ENCODERS_PAD_B { B5, B6 }
