@@ -1,7 +1,7 @@
 {
     "keyboard_name": "e6_rgb",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "yulei",
     "layout_aliases": {
         "LAYOUT_60_wkl_split_bs": "LAYOUT_60_tsangan_hhkb"
     },
