@@ -102,10 +102,10 @@ The IS31FL3733 IC's have on-chip resistors that can be enabled to allow for de-g
 |----------------------|-------------|
 | `PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
 | `PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
-| `PUR_3KR` | The 3k Ohm resistor used at all the times |
-| `PUR_4KR` | The 4k Ohm resistor used at all the times |
-| `PUR_8KR` | The 8k Ohm resistor used at all the times |
-| `PUR_16KR` | The 16k Ohm resistor used at all the times |
+| `PUR_3KR` | The 3k Ohm resistor used at all times |
+| `PUR_4KR` | The 4k Ohm resistor used at all times |
+| `PUR_8KR` | The 8k Ohm resistor used at all times |
+| `PUR_16KR` | The 16k Ohm resistor used at all times |
 | `PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
 
 Here is an example using 2 drivers.
