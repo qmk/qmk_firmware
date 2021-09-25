@@ -206,8 +206,7 @@ bool showedJump = true;
         static const char PROGMEM lime_logo[] = {
             0x80, 0x81, 0x82, 0x83, 0x84,
             0xA0, 0xA1, 0xA2, 0xA3, 0xA4,
-            0xC0, 0xC1, 0xC2, 0xC3, 0xC4,
-            0x00, 0x00, 0x00, 0x00, 0x00
+            0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0
         };
 
         oled_write_P(lime_logo, false);
@@ -347,9 +346,7 @@ bool showedJump = true;
             }
         }
 
-        /* this fixes the screen on and off bug */
         if (current_wpm > 0) {
-            oled_on();
             anim_sleep = timer_read32();
         } else if(timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
             oled_off();
