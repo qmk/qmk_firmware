@@ -49,8 +49,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIRECT_PINS_RIGHT  { \
     { F4, F5, F6, F7, E6 }, \
-    { D3,B6,B2,B3,B1 }, \
-    { D7,C6,D4,D0,D1}, \
+    { D3, B6, B2, B3, B1 }, \
+    { D7, C6, D4, D0, D1 }, \
     { B5, B4, NO_PIN, NO_PIN, NO_PIN } \
 }
 
