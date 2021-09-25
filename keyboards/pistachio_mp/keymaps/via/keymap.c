@@ -23,10 +23,13 @@ enum layer_names {
     _RESERVE_1
 };
 
+const keypos_t ENC_CW = {.row = 3, .col = 3};
+const keypos_t ENC_CCW = {.row = 4, .col = 1};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT(
-                                           KC_MPLY,
+    [_BASE] = LAYOUT_via(
+                               KC_P0,KC_P1,KC_MPLY,
     LT(_FN, KC_NLCK),  KC_PSLS,  KC_PAST,  KC_PMNS,
     KC_P7,             KC_P8,    KC_P9,
     KC_P4,             KC_P5,    KC_P6,    KC_PPLS,
@@ -34,8 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P0,                       KC_PDOT,  KC_PENT
     ),
     /* Fn */
-    [_FN] = LAYOUT(
-                                KC_NO,
+    [_FN] = LAYOUT_via(
+                    KC_P2,KC_P3,KC_NO,
     KC_NO,   KC_NO,   KC_NO,    KC_NO,
     RGB_HUI, RGB_SAI, RGB_VAI,
     RGB_HUD, RGB_SAD, RGB_VAD,  RGB_TOG,
@@ -43,8 +46,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,            KC_NO,    KC_NO
     ),
     /* Reserve */
-    [_RESERVE_0] = LAYOUT(
-                                KC_TRNS,
+    [_RESERVE_0] = LAYOUT_via(
+                KC_VOLU,KC_VOLD,KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
@@ -52,8 +55,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,          KC_TRNS,  KC_TRNS
     ),
     /* Reserve */
-    [_RESERVE_1] = LAYOUT(
-                                KC_TRNS,
+    [_RESERVE_1] = LAYOUT_via(
+                KC_VOLU,KC_VOLD,KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
@@ -63,12 +66,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
+    int l = get_highest_layer(layer_state);
     if (index == 0) {
-        // Volume control
         if (clockwise) {
-            tap_code(KC_VOLU);
+            tap_code16(keymap_key_to_keycode(l, ENC_CW));
         } else {
-            tap_code(KC_VOLD);
+            tap_code16(keymap_key_to_keycode(l, ENC_CCW));
         }
     }
     return true;
