@@ -1,7 +1,7 @@
 {
     "keyboard_name": "FLX Virgo",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "mechmerlin",
     "layouts": {
         "LAYOUT": {
             "layout": [
