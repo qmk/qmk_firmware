@@ -148,8 +148,7 @@ void IS31FL3731_init(uint8_t addr) {
 
     // enable software shutdown
     IS31FL3731_write_register(addr, ISSI_REG_SHUTDOWN, 0x00);
-#ifdef ISSI_3731_DEGHOST
-    // set enable or leave off de-ghosting of the array
+#ifdef ISSI_3731_DEGHOST // set to enable de-ghosting of the array
     IS31FL3731_write_register(addr, ISSI_REG_GHOST_IMAGE_PREVENTION, 0x10);
 #endif
 
