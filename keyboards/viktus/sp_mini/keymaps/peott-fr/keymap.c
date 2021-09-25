@@ -27,7 +27,7 @@ enum custom_layers {
 // Layers defined by function
 #define LHAND LT(_LHAND,KC_SPC)
 #define RHAND LT(_RHAND,KC_BSPC)
-#define NUM TG(3)
+#define NUM TG(_NUM)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_BASE] = LAYOUT_all(
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			),
         [_NUM] = LAYOUT_all(
 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 	KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, KC_NO, KC_NO, KC_NO, KC_F13,
-			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 	KC_P7, KC_P8, KC_P9, KC_PPLS, KC_NO, KC_NO, KC_NO, KC_NO,
+			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 	KC_P7, KC_P8, KC_P9, KC_PPLS, KC_NO, KC_NO, KC_NO, NUM,
 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 	KC_P4, KC_P5, KC_P6, KC_PCMM, KC_NO, KC_NO, KC_NO,
 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 	KC_P1, KC_P2, KC_P3, KC_PEQL, KC_NO, KC_NO,
 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,           KC_P0, KC_PDOT, KC_PENT, KC_NO, KC_NO, KC_NO
