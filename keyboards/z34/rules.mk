@@ -25,8 +25,6 @@ HD44780_ENABLE = no        # Enable support for HD44780 based LCDs
 SPLIT_KEYBOARD = yes       # Split common
 LTO_ENABLE = yes           # Enables Link Time Optimization (LTO) which reduces the compiled size
 # There are no extra pins, so we make sure to disable OLED and Encoders
-OLED_DRIVER_ENABLE = no    # Enables the use of OLED displays
+OLED_ENABLE = no    	   # Enables the use of OLED displays
 ENCODER_ENABLE = no        # Enables the use of encoders
-
-DEFAULT_FOLDER = z34
 
