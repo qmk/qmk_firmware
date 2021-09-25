@@ -6,6 +6,13 @@
     -   The Uni v1 and v2 (pro_micro)
 -   Hardware Availability: [https://www.stenokeyboards.com](https://www.stenokeyboards.com)
 
+# Bootloader
+
+Enter the bootloader by:
+
+* **Physical reset button**: On the Uni v3, briefly press the button on the back of the PCB.
+* **Reset Pads**: Uni v1 and v2 have pins/pads you must short instead (RST to GND).
+
 Make examples for this keyboard (after setting up your build environment):
 
     make the_uni/pro_micro:default
