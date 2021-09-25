@@ -28,7 +28,7 @@ void led_init_ports(void) {
   setPinOutput(B2);
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     writePin(D1, layer_state_cmp(state, 1));
     writePin(D0, layer_state_cmp(state, 2));
     writePin(C1, layer_state_cmp(state, 3));
