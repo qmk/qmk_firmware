@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "CMM.Studio Saka68",
+    "keyboard_name": "CMM.Studio Saka68 Hotswap",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "CMMS-Freather",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_68_ansi"
     },
