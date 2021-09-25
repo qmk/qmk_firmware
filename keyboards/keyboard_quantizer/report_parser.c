@@ -15,9 +15,6 @@ typedef struct {
                  uint8_t len);
 } report_parser_table_t;
 
-__attribute__((weak)) void system_report_hook(uint16_t report) {}
-__attribute__((weak)) void consumer_report_hook(uint16_t report) {}
-
 void keyboard_report_parser(hid_report_member_t const *member,
                             uint8_t const *data, uint8_t len);
 void mouse_report_parser(hid_report_member_t const *member, uint8_t const *data,
@@ -222,9 +219,18 @@ void system_report_parser(hid_report_member_t const *member,
   uint16_t result = 0;
   uint16_t bit_idx = 0;
 
-  if (member != NULL) {
+  while (member != NULL) {
     result = parse_value(member, data, &bit_idx);
-    system_report_hook(result);
+
+    if (result != 0) {
+      if (member->global.report_size == 1) {
+        system_report_hook(member->local.usage);
+      } else {
+        system_report_hook(result);
+      }
+    }
+
+    member = member->next;
   }
 }
 
@@ -233,8 +239,17 @@ void consumer_report_parser(hid_report_member_t const *member,
   uint16_t result;
   uint16_t bit_idx = 0;
 
-  if (member != NULL) {
+  while (member != NULL) {
     result = parse_value(member, data, &bit_idx);
-    consumer_report_hook(result);
+
+    if (result != 0) {
+      if (member->global.report_size == 1) {
+        consumer_report_hook(member->local.usage);
+      } else {
+        consumer_report_hook(result);
+      }
+    }
+
+    member = member->next;
   }
 }

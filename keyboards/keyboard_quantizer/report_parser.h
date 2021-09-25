@@ -23,4 +23,6 @@ bool parse_report(uint8_t interface, uint8_t const *report, uint8_t len);
 // default hooks are defined in keyboard_quantizer.c
 void keyboard_report_hook(keyboard_parse_result_t const *report);
 void mouse_report_hook(mouse_parse_result_t const *report);
+void system_report_hook(uint16_t report);
+void consumer_report_hook(uint16_t report);
 
