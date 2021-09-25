@@ -19,9 +19,8 @@ NKRO_ENABLE = no             # USB Nkey Rollover
 BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 RGBLIGHT_CUSTOM_DRIVER = yes # RGB code is implemented in lfkeyboards, not qmk base
-AUDIO_ENABLE = no            # Audio output on port C6
+AUDIO_ENABLE = no            # Audio output
 UNICODE_ENABLE = no          # Unicode
-TAP_DANCE_ENABLE = no
 
 ISSI_ENABLE = yes            # If the I2C pullup resistors aren't installed this must be disabled
 WATCHDOG_ENABLE = no         # Resets keyboard if matrix_scan() isn't run every 250ms
