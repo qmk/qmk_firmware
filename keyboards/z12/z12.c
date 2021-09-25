@@ -17,7 +17,7 @@
 #include "z12.h"
 
 #ifdef ENCODER_ENABLE
-void encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) { // LEFT
         // Scroll
@@ -34,5 +34,6 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
             tap_code_delay(KC_VOLD, 10);
         }
     }
+    return false;
 }
 #endif
