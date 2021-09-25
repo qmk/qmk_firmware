@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    zigotica
 #define PRODUCT         z34
-#define DESCRIPTION     z34 is a split mechanical keyboard with 34x Choc v1 switches, \
-                        distributed in a "3x5 + 2 thumbs per hand" layout, \
-                        It uses no diodes ala ferris.
 
 /* key matrix size */
 #define MATRIX_ROWS 8
