@@ -16,6 +16,7 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
+
 enum dz65rgb_layers {
     _QWERTY,
     _FN,
@@ -23,12 +24,15 @@ enum dz65rgb_layers {
     _FULL_DIR
 };
 
+
 #define CPS_CTL     CTL_T(KC_CAPS)
 #define D_DIR       LT(_DIR, KC_D)
 #define FN          MO(_FN)
 #define F_DIR       MO(_FULL_DIR)
 #define F_WORD      A(KC_RIGHT)
 #define B_WORD      A(KC_LEFT)
+#define MOD         LT(_FN, KC_SPC)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -37,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP,
         CPS_CTL, KC_A,    KC_S,    D_DIR,   KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_PGDN,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                    KC_RGUI, KC_RCTL, FN,      KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LALT, KC_LGUI,                            MOD,                       KC_RGUI, KC_RCTL, FN,      KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     [_DIR] = LAYOUT_65_ansi(
