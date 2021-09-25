@@ -2,8 +2,11 @@
     "keyboard_name": "Genesis",
     "url": "",
     "maintainer": "Spooknik",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"K00 (C5,F0)", "x":0, "y":0},
                 {"label":"K01 (C5,F1)", "x":2, "y":0},
