@@ -21,5 +21,4 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output
 
-#COMBO_ENABLE = yes
 #SRC +=  .nicola.c \

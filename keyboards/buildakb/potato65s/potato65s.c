@@ -1,5 +1,5 @@
-/* Copyright 2017 MechMerlin
-
+/* Copyright 2021 Maelkk
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -14,7 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-
-// place overrides here
+#include "potato65s.h"
