@@ -15,5 +15,4 @@
  */
 #pragma once
 
-#include "quantum.h"
 #include "3_0.h"
