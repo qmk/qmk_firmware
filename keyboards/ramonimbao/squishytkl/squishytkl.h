@@ -34,7 +34,7 @@
     k85, k86, k87, k88, k89, k8A, k8B, k8C, k8D, k8E, k8F, k8G, k8H, k8I,   k4K, k4L, k4M, \
     k95, k96, k97, k98, k99, k9A, k9B, k9C, k9D, k9E, k9F, k9G, k9H, k9J,   k5K, k5L, k5M, \
     kA5, kA6, kA7, kA8, kA9, kAA, kAB, kAC, kAD, kAE, kAF, kAG,      kAI, \
-    kB5,      kB7, kB8, kB9, kBA, kBB, kBC, kBD, kBE, kBF, kBG,      kbI,        k6O, \
+    kB5,      kB7, kB8, kB9, kBA, kBB, kBC, kBD, kBE, kBF, kBG,      kBI,        k6O, \
     kC5, kC6, kC7,                kCD,                kCF, kCG, kCI, kCJ,   k7N, k7O, k7P \
 ) { \
     { k00, k01, k02, k03, k04, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ }, \
@@ -82,7 +82,7 @@
     k85, k86, k87, k88, k89, k8A, k8B, k8C, k8D, k8E, k8F, k8G, k8H, k8I, k8J,   k4K, k4L, k4M, \
     k95, k96, k97, k98, k99, k9A, k9B, k9C, k9D, k9E, k9F, k9G, k9H,             k5K, k5L, k5M, \
     kA5, kA6, kA7, kA8, kA9, kAA, kAB, kAC, kAD, kAE, kAF, kAG, kAI, k9J, \
-    kB5,      kB7, kB8, kB9, kBA, kBB, kBC, kBD, kBE, kBF, kBG, kBI, kbJ,             k6O, \
+    kB5,      kB7, kB8, kB9, kBA, kBB, kBC, kBD, kBE, kBF, kBG, kBI, kBJ,             k6O, \
     kC5, kC6, kC7, kC8, kC9,           kCD,      kCE, kCF, kCG, kCI, kCJ,        k7N, k7O, k7P \
 ) { \
     { k00, k01, k02, k03, k04, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ }, \
@@ -96,7 +96,7 @@
     { ___, ___, ___, ___, ___, k85, k86, k87, k88, k89, k8A, k8B, k8C, k8D, k8E, k8F, k8G, k8H, k8I, k8J, ___, ___, ___, ___, ___, ___ }, \
     { ___, ___, ___, ___, ___, k95, k96, k97, k98, k99, k9A, k9B, k9C, k9D, k9E, k9F, k9G, k9H, ___, k9J, ___, ___, ___, ___, ___, ___ }, \
     { ___, ___, ___, ___, ___, kA5, kA6, kA7, kA8, kA9, kAA, kAB, kAC, kAD, kAE, kAF, kAG, ___, kAI, ___, ___, ___, ___, ___, ___, ___ }, \
-    { ___, ___, ___, ___, ___, kB5, ___, kB7, kB8, kB9, kBA, kBB, kBC, kBD, kBE, kBF, kBG, ___, kBI, kbJ, ___, ___, ___, ___, ___, ___ }, \
+    { ___, ___, ___, ___, ___, kB5, ___, kB7, kB8, kB9, kBA, kBB, kBC, kBD, kBE, kBF, kBG, ___, kBI, kBJ, ___, ___, ___, ___, ___, ___ }, \
     { ___, ___, ___, ___, ___, kC5, kC6, kC7, kC8, kC9, ___, ___, ___, kCD, kCE, kCF, kCG, ___, kCI, kCJ, ___, ___, ___, ___, ___, ___ }, \
     { ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ } \
 }
