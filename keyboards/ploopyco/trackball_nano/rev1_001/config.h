@@ -29,7 +29,7 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define DIRECT_PINS {}
+#define DIRECT_PINS {{NO_PIN}}
 
 // These pins are not broken out, and cannot be used normally.
 // They are set as output and pulled high, by default

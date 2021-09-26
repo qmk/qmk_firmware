@@ -156,16 +156,3 @@
 // Row 4
 #define BE_BSLS ALGR(BE_LABK) // (backslash)
 #define BE_TILD ALGR(BE_EQL)  // ~
-
-// DEPRECATED
-#define BE_AMP  BE_AMPR
-#define BE_APOS BE_QUOT
-#define BE_PARA BE_SECT
-#define BE_MU   BE_MICR
-#define BE_LESS BE_LABK
-#define BE_OVRR BE_DEG
-#define BE_UMLT BE_DIAE
-#define BE_GRTR BE_RABK
-#define BE_LSBR BE_LBRC
-#define BE_RSBR BE_RBRC
-#define BE_TILT BE_TILD

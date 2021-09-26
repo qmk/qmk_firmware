@@ -2,8 +2,6 @@
     "keyboard_name": "we27", 
     "url": "", 
     "maintainer": "@wekey.dev", 
-    "width": 5, 
-    "height": 6.25, 
     "layouts": {
         "LAYOUT_numpad_6x5": {
             "layout": [

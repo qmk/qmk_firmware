@@ -5,8 +5,9 @@
 #
 MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
 EXTRAKEY_ENABLE = no        # Audio control and System control(+450)
-RGB_MATRIX_ENABLE = yes     # Enable RGB Matrix. 
-OLED_DRIVER_ENABLE = yes
+RGB_MATRIX_ENABLE = yes     # Enable RGB Matrix.
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = yes    # Breathing sleep LED during USB suspend
