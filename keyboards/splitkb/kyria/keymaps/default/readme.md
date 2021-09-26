@@ -71,7 +71,7 @@ First thing to notice is the presence of blank keys. To fill in the blank keys a
 
 The base layer is starting to form but there remains some flaws. One glaring issue is the position of Control. Control is a very commonly used function but the key on which it sits right now is way too tucked in under the hand to be able to press it comfortably with either the thumb or the pinky from resting position. In fact, installing a rotary encoder there is a common move among Kyria users and I guarantee you that activating Control by holding down a rotary encoder does not spark joy. Instead, let's employ a popular trick that involves remapping the current Caps Lock key, which is positioned at a comfortable position on the keyboard, to Control. 
 
-We can go further though; a variant of this trick makes the Control key produce Escape when tapped. This is called a “modtap”. There is no use to tapping Control by itself without chording it with another key and there is no use to holding down the Esc key so why not combine the two into a single key?
+We can go further though; a variant of this trick makes the Control key produce Escape when tapped. This is called a “modtap”. There is no use to tapping Control by itself without chording it with another key (except for very special use cases like PhpStorm's "Run Anything" tool, which you can access via Nav or Function layer) and there is no use to holding down the Esc key so why not combine the two into a single key?
 
 All of this leaves us with three blank keys.
 
