@@ -62,6 +62,9 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
             return;
         }
     }
+    if (keycode > 0xFF) {
+        return;
+    }
 
     for (uint8_t i = 1; i < KEYLOGGER_LENGTH; i++) {
         keylog_str[i - 1] = keylog_str[i];
