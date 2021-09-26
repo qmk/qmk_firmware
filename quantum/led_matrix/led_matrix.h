@@ -166,7 +166,7 @@ typedef struct {
     void (*flush)(void);
 } led_matrix_driver_t;
 
-inline bool led_matrix_check_finished_leds(uint8_t led_idx) {
+static inline bool led_matrix_check_finished_leds(uint8_t led_idx) {
 #if defined(LED_MATRIX_SPLIT)
     if (is_keyboard_left()) {
         uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
