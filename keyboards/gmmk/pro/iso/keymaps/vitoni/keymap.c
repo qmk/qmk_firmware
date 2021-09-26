@@ -123,4 +123,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
     return state;
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RESET:  // when activating RESET mode for flashing
+            if (record->event.pressed) {
+                rgb_matrix_set_color_all(63, 0, 0);
+                rgb_matrix_driver.flush();
+            }
+            return true;
+    }
+    return true; // Process all other keycodes normally
+}
 #endif // RGB_MATRIX_ENABLE
