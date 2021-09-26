@@ -41,6 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 3
+#define USB_POLLING_INTERVAL_MS 1
 
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN E6
