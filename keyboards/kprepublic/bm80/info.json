@@ -2,8 +2,6 @@
     "keyboard_name": "bm80",
     "url": "",
     "maintainer": "peepeetee",
-    "width": 18.25,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
