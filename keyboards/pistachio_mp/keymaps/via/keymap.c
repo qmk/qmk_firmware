@@ -26,6 +26,21 @@ enum layer_names {
 const keypos_t ENC_CW = {.row = 3, .col = 3};
 const keypos_t ENC_CCW = {.row = 4, .col = 1};
 
+#define LAYOUT_via( \
+         ECW,ECCW, K07, \
+    K00, K01, K02, K03, \
+    K04, K05, K06,      \
+    K08, K09, K10, K11, \
+    K12, K13, K14,      \
+    K15,      K16, K17 ) { \
+    { K00,   K01,   K02,   K03 }, \
+    { K04,   K05,   K06,   K07 }, \
+    { K08,   K09,   K10,   K11 }, \
+    { K12,   K13,   K14,   ECCW }, \
+    { K15,   ECW,   K16,   K17 }, \
+}
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT_via(
