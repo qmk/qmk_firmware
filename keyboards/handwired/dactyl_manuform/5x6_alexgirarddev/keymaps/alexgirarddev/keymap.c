@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LGUI,      KC_UP,        KC_DOWN,                                                                                                                                    KC_LEFT,      KC_RIGHT,     KC_APPLICATION,
                                                KC_SPC,       KC_LSHIFT,                                                                          RED,          GREEN,
                                                                            BLUE,         KC_BSPACE,                  KC_DELETE,    SYMBOL,
-                                                                           RED,          TO(_GAME),                  TO(_QWERTY),    _____________
+                                                                           RED,          TO(_GAME),                  TO(_QWERTY),    KC_F12
   ),
    [_GAME] = LAYOUT_5x6_alexgirarddev(
      //_____________,_____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,_____________,
@@ -112,11 +112,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_BLUE] = LAYOUT_5x6_alexgirarddev(
   //RCTL(KC_F16), RCTL(KC_F17), RCTL(KC_F18), RCTL(KC_F19), RCTL(KC_F20), RCTL(KC_F21),                                           RGUI(KC_F19), RGUI(KC_F20), RGUI(KC_F21), RGUI(KC_F22), RGUI(KC_F23), RGUI(KC_F24),
-    _____________,_____________,_____________,_____________,_____________,_____________,                                           _____________,KC_F10       ,KC_F11       ,KC_F12       ,_____________,_____________,
-    _____________,_____________,_____________,_____________,_____________,_____________,                                           _____________,KC_F7        ,KC_F8        ,KC_F9        ,_____________,_____________,
-    _____________,_____________,_____________,        KC_F4,        KC_F5,        KC_F6,                                           _____________,KC_F4        ,KC_F5        ,KC_F6        ,_____________,_____________,
-    _____________, R_AC(KC_F19), R_AC(KC_F20), R_AC(KC_F21), R_AC(KC_F22), R_AC(KC_F23),                                           _____________,KC_F1        ,KC_F2        ,KC_F3        ,_____________,_____________,
-    _____________,_____________,_____________,                                                                                                                               _____________,_____________,_____________,
+    R_GS(KC_F13) ,R_GS(KC_F14) ,R_GS(KC_F15) ,R_GS(KC_F16) ,R_GS(KC_F17) ,R_GS(KC_F18) ,                                           _____________,KC_F10       ,KC_F11       ,KC_F12       ,_____________,KC_CAPSLOCK  ,
+    _____________,R_GS(KC_F19) ,R_GS(KC_F20) ,R_GS(KC_F21) ,R_GS(KC_F22) ,R_GS(KC_F23) ,                                           _____________,KC_F7        ,KC_F8        ,KC_F9        ,_____________,KC_NUMLOCK   ,
+    _____________,R_GS(KC_F24) ,R_CG(KC_F13) ,R_CG(KC_F14) ,R_CG(KC_F15) ,R_CG(KC_F16) ,                                           _____________,KC_F4        ,KC_F5        ,KC_F6        ,_____________,KC_SCROLLLOCK,
+    _____________,R_CG(KC_F17) ,R_CG(KC_F18) ,R_CG(KC_F19) ,R_CG(KC_F20) ,R_CG(KC_F21) ,                                           _____________,KC_F1        ,KC_F2        ,KC_F3        ,_____________,_____________,
+    _____________,R_CG(KC_F22) ,R_CG(KC_F23) ,                                                                                                                               _____________,_____________,_____________,
                                               _____________,_____________,                                                                      _____________,_____________,
                                                                           _____________,_____________,              _____________,_____________,
                                                                           _____________,_____________,              _____________,_____________
@@ -187,6 +187,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef OLED_DRIVER_ENABLE
 static void render_status(void) {
     switch (get_highest_layer(layer_state)) {
         case _MAIN:
@@ -213,4 +214,13 @@ static void render_status(void) {
     }
 }
 
+
 void oled_task_user(void) { render_status(); }
+#endif
+
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (!clockwise) { tap_code(KC_VOLU); }
+    else {
+        tap_code(KC_VOLD);
+    }
+}
