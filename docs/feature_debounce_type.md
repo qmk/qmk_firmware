@@ -92,15 +92,6 @@ susceptible to noise, you must choose a debounce method that will also mitigate 
 ## Debounce algorithms supported by QMK
 
 QMK supports multiple debounce algorithms through its debounce API.
-The logic for which debounce method called is below. It checks various defines that you have set in ```rules.mk```
-
-```
-DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
-DEBOUNCE_TYPE?= sym_defer_g
-ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
-    QUANTUM_SRC += $(DEBOUNCE_DIR)/$(strip $(DEBOUNCE_TYPE)).c
-endif
-```
 
 ### Debounce selection
 
@@ -140,11 +131,3 @@ You have the option to implement you own debouncing algorithm. To do this:
 * Debouncing occurs after every raw matrix scan.
 * Use num_rows rather than MATRIX_ROWS, so that split keyboards are supported correctly.
 * If the algorithm might be applicable to other keyboards, please consider adding it to ```quantum/debounce```
-
-### Old names
-The following old names for existing algorithms will continue to be supported, however it is recommended to use the new names instead.
-
-* sym_g - old name for sym_defer_g
-* eager_pk - old name for sym_eager_pk
-* sym_pk - old name for sym_defer_pk
-* eager_pr - old name for sym_eager_pr

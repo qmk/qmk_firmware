@@ -172,7 +172,12 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color_all = IS31FL3737_set_color_all,
 };
 #    else
-static void flush(void) { IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_2); }
+static void flush(void) {
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2) && (DRIVER_ADDR_2 != DRIVER_ADDR_1)  // provides backward compatibility
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#        endif
+}
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
@@ -186,10 +191,18 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #    include "spi_master.h"
 static void init(void) {
     spi_init();
-    AW20216_init();
+    AW20216_init(DRIVER_1_CS, DRIVER_1_EN);
+#    ifdef DRIVER_2_CS
+    AW20216_init(DRIVER_2_CS, DRIVER_2_EN);
+#    endif
 }
 
-static void flush(void) { AW20216_update_pwm_buffers(); }
+static void flush(void) {
+    AW20216_update_pwm_buffers(DRIVER_1_CS, 0);
+#    ifdef DRIVER_2_CS
+    AW20216_update_pwm_buffers(DRIVER_2_CS, 1);
+#    endif
+}
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = init,

@@ -1,0 +1,37 @@
+{
+    "keyboard_name": "GameBuddy1_0",
+    "url": "www.clawboards.xyz",
+    "maintainer": "AlisGraveNil",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"K00 (D1,F5)", "x":0, "y":0},
+                {"label":"K01 (D1,F6)", "x":1, "y":0},
+                {"label":"K02 (D1,F7)", "x":2, "y":0},
+                {"label":"K03 (D1,B1)", "x":3, "y":0},
+                {"label":"K04 (D1,C6)", "x":4, "y":0},
+                {"label":"K05 (D1,D7)", "x":5, "y":0},
+                {"label":"K10 (D0,F5)", "x":0, "y":1},
+                {"label":"K11 (D0,F6)", "x":1, "y":1},
+                {"label":"K12 (D0,F7)", "x":2, "y":1},
+                {"label":"K13 (D0,B1)", "x":3, "y":1},
+                {"label":"K14 (D0,C6)", "x":4, "y":1},
+                {"label":"K15 (D0,D7)", "x":5, "y":1},
+                {"label":"K20 (E6,F5)", "x":0, "y":2, "w":2},
+                {"label":"K22 (E6,F7)", "x":2, "y":2},
+                {"label":"K23 (E6,B1)", "x":3, "y":2},
+                {"label":"K24 (E6,C6)", "x":4, "y":2},
+                {"label":"K25 (E6,D7)", "x":5, "y":2},
+                {"label":"K30 (B3,F5)", "x":0, "y":3},
+                {"label":"K31 (B3,F6)", "x":1, "y":3},
+                {"label":"K32 (B3,F7)", "x":2, "y":3},
+                {"label":"K33 (B3,B1)", "x":3, "y":3},
+                {"label":"K34 (B3,C6)", "x":4, "y":3},
+                {"label":"K35 (B3,D7)", "x":5, "y":3},
+                {"label":"K46 (B2,B6)", "x":6, "y":3, "h":2},
+                {"label":"K44 (B2,C6)", "x":4, "y":4},
+                {"label":"K45 (B2,D7)", "x":5, "y":4}
+            ]
+        }
+    }
+}

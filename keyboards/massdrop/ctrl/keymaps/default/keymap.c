@@ -39,14 +39,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-};
-
 #define MODS_SHIFT  (get_mods() & MOD_MASK_SHIFT)
 #define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
 #define MODS_ALT    (get_mods() & MOD_MASK_ALT)

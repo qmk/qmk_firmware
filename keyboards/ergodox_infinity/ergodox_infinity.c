@@ -137,13 +137,6 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
-    matrix_scan_user();
-}
-
 __attribute__ ((weak)) void ergodox_board_led_on(void) {}
 
 __attribute__ ((weak)) void ergodox_right_led_1_on(void) {}
@@ -191,7 +184,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 #ifdef LED_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 // The numbers in the comments are the led numbers DXX on the PCB
 /* Refer to IS31 manual for these locations
  *  driver

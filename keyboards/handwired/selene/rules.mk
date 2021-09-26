@@ -8,7 +8,7 @@ BOOTLOADER = stm32-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
@@ -20,5 +20,4 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 WS2812_DRIVER = bitbang
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output

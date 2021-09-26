@@ -37,6 +37,7 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+/* Hold ESC on start up to clear EEPROM and boot into bootloader mode */
 #define BOOTMAGIC_LITE_ROW 1
 #define BOOTMAGIC_LITE_COLUMN 3
 
@@ -72,3 +73,6 @@
 
 /* Set debounce time to 5ms */
 #define DEBOUNCE 5
+
+/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
+// #define FORCE_NKRO

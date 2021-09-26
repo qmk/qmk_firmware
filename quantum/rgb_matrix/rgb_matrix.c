@@ -92,7 +92,7 @@ __attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) { return hsv_to_rgb(hsv
 #endif
 
 #if !defined(RGB_MATRIX_STARTUP_MODE)
-#    ifndef DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#    ifdef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #        define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 #    else
 // fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
@@ -243,11 +243,11 @@ void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
     }
 #endif  // RGB_MATRIX_KEYREACTIVE_ENABLED
 
-#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
+#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_TYPING_HEATMAP)
     if (rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEATMAP) {
         process_rgb_matrix_typing_heatmap(row, col);
     }
-#endif  // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
+#endif  // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_TYPING_HEATMAP)
 }
 
 void rgb_matrix_test(void) {
@@ -501,8 +501,9 @@ void rgb_matrix_init(void) {
 
 void rgb_matrix_set_suspend_state(bool state) {
 #ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-    if (state) {
-        rgb_matrix_set_color_all(0, 0, 0);  // turn off all LEDs when suspending
+    if (state && !suspend_state) {  // only run if turning off, and only once
+        rgb_task_render(0);         // turn off all LEDs when suspending
+        rgb_task_flush(0);          // and actually flash led state to LEDs
     }
     suspend_state = state;
 #endif

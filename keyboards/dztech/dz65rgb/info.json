@@ -2,8 +2,6 @@
     "keyboard_name": "dz65rgb",
     "url": "",
     "maintainer": "dztech",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

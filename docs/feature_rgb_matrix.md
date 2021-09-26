@@ -52,7 +52,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -64,7 +64,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3`).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3`).
 
 ---
 ### IS31FL3733 :id=is31fl3733
@@ -122,7 +122,7 @@ Currently only 4 drivers are supported, but it would be trivial to support all 8
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -134,7 +134,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/led/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
 
 ---
 ### IS31FL3737 :id=is31fl3737
@@ -186,7 +186,7 @@ Currently only 2 drivers are supported, but it would be trivial to support all 4
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -198,7 +198,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1` for now).
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1` for now).
 
 ---
 
@@ -287,7 +287,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
+const aw_led __flash g_aw_leds[DRIVER_LED_TOTAL] = {
 /* Each AW20216 channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
  * See drivers/awinic/aw20216.h for the mapping between register offsets and
@@ -562,7 +562,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 ```
 
-For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix_animations/`
+For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix/animations/`.
 
 
 ## Colors :id=colors
@@ -742,29 +742,41 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-### Suspended state :id=suspended-state
-To use the suspend feature, make sure that `#define RGB_DISABLE_WHEN_USB_SUSPENDED true` is added to the `config.h` file. 
+#### Examples :id=indicator-examples
 
-Additionally add this to your `<keyboard>.c`:
+This example sets the modifiers to be a specific color based on the layer state.  You can use a switch case here, instead, if you would like.  This uses HSV and then converts to RGB, because this allows the brightness to be limited (important when using the WS2812 driver).
 
 ```c
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    HSV hsv = {0, 255, 255};
+    
+    if (layer_state_is(layer_state, 2)) {
+        hsv = {130, 255, 255};
+    } else {
+        hsv = {30, 255, 255};
+    }
+    
+    if (hsv.v > rgb_matrix_get_val()) {
+        hsv.v = rgb_matrix_get_val();
+    }
+    RGB rgb = hsv_to_rgb(hsv);
+    
+    for (uint8_t i = led_min; i <= led_max; i++) {
+        if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x01 == LED_FLAG_MODIFIER
+            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+        }
+    }
 }
 ```
-or add this to your `keymap.c`:
-```c
-void suspend_power_down_user(void) {
-    rgb_matrix_set_suspend_state(true);
-}
 
-void suspend_wakeup_init_user(void) {
-    rgb_matrix_set_suspend_state(false);
+If you want to indicate a Host LED status (caps lock, num lock, etc), you can use something like this to light up the caps lock key: 
+
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(5, 255, 255, 255); // assuming caps lock is at led #5
+    } else {
+        RGB_MATRIX_INDICATOR_SET_COLOR(5, 0, 0, 0);
+    }
 }
 ```

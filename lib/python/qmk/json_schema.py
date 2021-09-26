@@ -2,6 +2,7 @@
 """
 import json
 from collections.abc import Mapping
+from functools import lru_cache
 from pathlib import Path
 
 import hjson
@@ -17,11 +18,15 @@ def json_load(json_file):
     try:
         return hjson.load(json_file.open(encoding='utf-8'))
 
-    except json.decoder.JSONDecodeError as e:
+    except (json.decoder.JSONDecodeError, hjson.HjsonDecodeError) as e:
         cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
+        exit(1)
+    except Exception as e:
+        cli.log.error('Unknown error attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
         exit(1)
 
 
+@lru_cache(maxsize=0)
 def load_jsonschema(schema_name):
     """Read a jsonschema file from disk.
     """
@@ -36,8 +41,9 @@ def load_jsonschema(schema_name):
     return json_load(schema_path)
 
 
-def create_validator(schema):
-    """Creates a validator for the given schema id.
+@lru_cache(maxsize=0)
+def compile_schema_store():
+    """Compile all our schemas into a schema store.
     """
     schema_store = {}
 
@@ -48,6 +54,14 @@ def create_validator(schema):
             continue
         schema_store[schema_data['$id']] = schema_data
 
+    return schema_store
+
+
+@lru_cache(maxsize=0)
+def create_validator(schema):
+    """Creates a validator for the given schema id.
+    """
+    schema_store = compile_schema_store()
     resolver = jsonschema.RefResolver.from_schema(schema_store['qmk.keyboard.v1'], store=schema_store)
 
     return jsonschema.Draft7Validator(schema_store[schema], resolver=resolver).validate

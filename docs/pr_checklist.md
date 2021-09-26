@@ -93,6 +93,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - default (and via) keymaps should be "pristine"
     - bare minimum to be used as a "clean slate" for another user to develop their own user-specific keymap
     - standard layouts preferred in these keymaps, if possible
+    - default keymap should not enable VIA -- the VIA integration documentation requires a keymap called `via`
 - submitters can have a personal (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
 - Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)

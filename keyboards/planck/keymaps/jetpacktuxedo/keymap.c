@@ -190,7 +190,7 @@ uint16_t muse_tempo = 20;
 
 extern float clicky_rand;
 
-bool encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (is_clicky_on()) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -241,7 +241,7 @@ bool encoder_update(bool clockwise) {
     return true;
 }
 
-void dip_update(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
   switch (index) {
     case 0:
       if (active) {
@@ -273,6 +273,7 @@ void dip_update(uint8_t index, bool active) {
         clicky_off();
       }
    }
+   return true;
 }
 
 void matrix_scan_user(void) {
