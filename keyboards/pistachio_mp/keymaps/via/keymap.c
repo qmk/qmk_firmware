@@ -23,8 +23,9 @@ enum layer_names {
     _RESERVE_1
 };
 
-const keypos_t ENC_CW = {.row = 3, .col = 3};
-const keypos_t ENC_CCW = {.row = 4, .col = 1};
+static uint8_t encoder_state = 0;
+static const keypos_t ENC_CW = {.row = 3, .col = 3};
+static const keypos_t ENC_CCW = {.row = 4, .col = 1};
 
 #define LAYOUT_via( \
          ECW,ECCW, K07, \
@@ -44,7 +45,7 @@ const keypos_t ENC_CCW = {.row = 4, .col = 1};
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT_via(
-                               KC_P0,KC_P1,KC_MPLY,
+                           KC_VOLU,KC_VOLD,KC_MPLY,
     LT(_FN, KC_NLCK),  KC_PSLS,  KC_PAST,  KC_PMNS,
     KC_P7,             KC_P8,    KC_P9,
     KC_P4,             KC_P5,    KC_P6,    KC_PPLS,
@@ -53,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Fn */
     [_FN] = LAYOUT_via(
-                    KC_P2,KC_P3,KC_NO,
+                KC_VOLU,KC_VOLD,KC_NO,
     KC_NO,   KC_NO,   KC_NO,    KC_NO,
     RGB_HUI, RGB_SAI, RGB_VAI,
     RGB_HUD, RGB_SAD, RGB_VAD,  RGB_TOG,
@@ -79,16 +80,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,          KC_TRNS,  KC_TRNS
     ),
 };
+
 #ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    int l = get_highest_layer(layer_state);
-    if (index == 0) {
-        if (clockwise) {
-            tap_code16(keymap_key_to_keycode(l, ENC_CW));
-        } else {
-            tap_code16(keymap_key_to_keycode(l, ENC_CCW));
-        }
+void encoder_action_unregister(void) {
+    if (encoder_state) {
+        keyevent_t encoder_event = (keyevent_t) {
+            .key = encoder_state >> 1 ? ENC_CW : ENC_CCW,
+            .pressed = false,
+            .time = (timer_read() | 1)
+        };
+        encoder_state = 0;
+        action_exec(encoder_event);
     }
-    return true;
+    return;
 }
+
+void encoder_action_register(uint8_t index, bool clockwise) {
+    keyevent_t encoder_event = (keyevent_t) {
+        .key = clockwise ? ENC_CW : ENC_CCW,
+        .pressed = true,
+        .time = (timer_read() | 1)
+    };
+    encoder_state = (clockwise ^ 1) | (clockwise << 1);
+    action_exec(encoder_event);
+    return;
+}
+
+void matrix_scan_kb(void) {
+    encoder_action_unregister();
+    matrix_scan_user();
+    return;
+}
+
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    encoder_action_register(index, clockwise);
+    // don't return user actions, because they are in the keymap
+    // encoder_update_user(index, clockwise);
+    return true;
+};
 #endif
