@@ -95,7 +95,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //#define FORCE_NKRO
 
-/*
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 
@@ -124,4 +123,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
