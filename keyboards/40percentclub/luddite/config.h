@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x1001
 #define MANUFACTURER    di0ib
 #define PRODUCT         Luddite
-#define DESCRIPTION     Luddite Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8

@@ -29,15 +29,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         { KC_LEFT, KC_DOWN, KC_RGHT }
     }
 };
-
-void matrix_init_user(void) {
-}
-
-// Override if necessary
-/*
-void encoder_one_update(bool clockwise) {
-}
-
-void encoder_two_update(bool clockwise) {
-}
-//*/

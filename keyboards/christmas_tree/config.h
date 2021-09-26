@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3070
 #define MANUFACTURER    Maple Computing
 #define PRODUCT         Christmas Tree
-#define DESCRIPTION     A tiny 6 key macro pad, in the shape of a christmas tree
 
 /* key matrix size */
 #define MATRIX_ROWS 6

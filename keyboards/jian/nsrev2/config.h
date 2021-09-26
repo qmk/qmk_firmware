@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0210
 #define MANUFACTURER    KgOfHedgehogs
 #define PRODUCT         Huma
-#define DESCRIPTION     An ergo keyboard
 
 /* key matrix size */
 // Rows are doubled-up

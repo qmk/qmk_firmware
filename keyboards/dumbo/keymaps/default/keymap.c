@@ -130,7 +130,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _NN, _MS, _SP);
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {
@@ -189,7 +189,7 @@ void oled_task_user(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // master side thumb encoder
         // Volume control
@@ -226,5 +226,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_HOME);
         }
     }
+    return true;
 }
 #endif

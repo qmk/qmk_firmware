@@ -1,7 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
-#include "bootloader.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_ergodox(  // layer 0 : default
@@ -13,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LGUI , KC_GRV,KC_LEFT,KC_RGHT,KC_LALT,
                                           KC_NO , KC_NO  ,
                                                KC_NO  ,
-                                     KC_BSPC,KC_DEL ,KC_FN23,
+                                     KC_BSPC,KC_DEL ,TO(3),
         // right hand
              KC_RBRC , KC_6,   KC_7 ,  KC_8,   KC_9,   KC_0,   KC_MINS,
              KC_END  , KC_Y,   KC_U ,  KC_I,   KC_O,   KC_P,   MT(MOD_RCTL, KC_BSLS),
@@ -34,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        KC_TRNS,KC_TRNS,
                                            KC_TRNS,
-                                 KC_TRNS,KC_TRNS,KC_FN1,
+                                 KC_TRNS,KC_TRNS,TO(0),
         // right hand
              KC_F12, KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_TRNS,
              KC_TRNS,KC_EXLM,LSFT(KC_COMM),LSFT(KC_DOT),KC_EQL,KC_AMPR, KC_TRNS,
@@ -55,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                       KC_TRNS,KC_TRNS,
                                            KC_TRNS,
-                                 KC_TRNS,KC_TRNS,KC_FN1 ,
+                                 KC_TRNS,KC_TRNS,TO(0) ,
         // right hand
              KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
              KC_TRNS ,KC_TRNS,  KC_HOME,  KC_TRNS,  KC_TRNS, KC_END ,KC_TRNS,
@@ -68,14 +65,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     LAYOUT_ergodox(  // layer 3 : teensy bootloader functions
         // left hand
-        KC_FN0, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+        RESET, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                       KC_TRNS,KC_TRNS,
                                            KC_TRNS,
-                                 KC_TRNS,KC_TRNS,KC_FN1 ,
+                                 KC_TRNS,KC_TRNS,TO(0) ,
         // right hand
              KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
              KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -110,53 +107,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };
-
-/* id for user defined functions */
-enum function_id {
-    TEENSY_KEY,
-};
-
-/*
- * Fn action definition
- */
-const uint16_t PROGMEM fn_actions[] = {
-   	[0]   =  ACTION_FUNCTION(TEENSY_KEY),                    // FN0 - Teensy key
-	[1]   =  ACTION_LAYER_SET(0, ON_PRESS),              
-	[23]  =  ACTION_LAYER_SET(3, ON_PRESS),
-        [24]  =  ACTION_LAYER_SET(2, ON_PRESS),   
-	[26]  =  ACTION_LAYER_SET(1, ON_PRESS),
-};
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
-
-void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
-{
-   
-    if (id == TEENSY_KEY) {
-        clear_keyboard();
-        print("\n\nJump to bootloader... ");
-        wait_ms(250);
-        bootloader_jump(); // should not return
-        print("not supported.\n");
-    }
-}

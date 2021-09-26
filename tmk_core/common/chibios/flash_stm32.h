@@ -16,15 +16,17 @@
  * Modifications for QMK and STM32F303 by Yiancar
  */
 
-#ifndef __FLASH_STM32_H
-#define __FLASH_STM32_H
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "ch.h"
-#include "hal.h"
+#include <stdint.h>
+
+#ifdef FLASH_STM32_MOCKED
+extern uint8_t FlashBuf[MOCK_FLASH_SIZE];
+#endif
 
 typedef enum { FLASH_BUSY = 1, FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_ERROR_OPT, FLASH_COMPLETE, FLASH_TIMEOUT, FLASH_BAD_ADDRESS } FLASH_Status;
 
@@ -36,10 +38,7 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data);
 
 void FLASH_Unlock(void);
 void FLASH_Lock(void);
-void FLASH_ClearFlag(uint32_t FLASH_FLAG);
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* __FLASH_STM32_H */

@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
 }
@@ -25,7 +25,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 void oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_ln_P(PSTR("ANAVI Macro Pad 8"), false);
-  oled_write_P(PSTR("Active layer:"), false);
+  oled_write_P(PSTR("Active layer: "), false);
 
   switch (get_highest_layer(layer_state)) {
     case _MAIN:

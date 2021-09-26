@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    blindassassin111
 #define PRODUCT         Omnikey Blackheart PCB
-#define DESCRIPTION     Teensy++ Board for Omnikey keyboards
 
 /* key matrix size */
 #define MATRIX_ROWS 6
