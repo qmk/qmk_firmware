@@ -15,7 +15,7 @@ ENCODER_ENABLE = yes       # Enables the use of encoders
 SLEEP_LED_ENABLE = no      # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no           # USB Nkey Rollover
-BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality on B7 by default
+BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no          # Audio outpu
 LTO_ENABLE = yes           # Enables Link Time Optimization (LTO) which reduces the compiled size
