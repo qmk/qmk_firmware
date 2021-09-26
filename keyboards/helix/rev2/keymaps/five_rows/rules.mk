@@ -31,7 +31,6 @@ ifneq ($(strip $(HELIX)),)
     $(if $(SHOW_PARCE),$(info parse -$1-))  #debug
     ifeq ($(strip $1),dispoff)
         OLED_ENABLE = no
-        OLED_DRIVER_ENABLE = no
         LED_BACK_ENABLE = no
         LED_UNDERGLOW_ENABLE = no
     endif

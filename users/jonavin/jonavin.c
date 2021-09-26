@@ -45,6 +45,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     };
 #endif  // TD_LSFT_CAPSLOCK_ENABLE
 
+// RGB NIGHT MODE
+#ifdef RGB_MATRIX_ENABLE
+    static bool rgb_nightmode = false;
+
+    // Turn on/off NUM LOCK if current state is different
+    void activate_rgb_nightmode (bool turn_on) {
+        if (rgb_nightmode != turn_on) {
+            rgb_nightmode = !rgb_nightmode;
+        }
+    }
+
+    bool get_rgb_nightmode(void) {
+        return rgb_nightmode;
+    }
+#endif // RGB_MATRIX_ENABLE
+
 // TIMEOUTS
 #ifdef IDLE_TIMEOUT_ENABLE
     static uint16_t timeout_timer = 0;
@@ -192,7 +208,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else  unregister_code16(keycode);
         break;
 #endif // IDLE_TIMEOUT_ENABLE
-
+#ifdef RGB_MATRIX_ENABLE
+    case RGB_NITE:
+        if(record->event.pressed) {
+            rgb_nightmode = !rgb_nightmode;
+        } else  unregister_code16(keycode);
+        break;
+#endif // RGB_MATRIX_ENABLE
     default:
         if (record->event.pressed) {
             #ifdef RGB_MATRIX_ENABLE

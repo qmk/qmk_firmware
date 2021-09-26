@@ -2,8 +2,6 @@
     "keyboard_name": "mammoth20x",
     "url": "https://shop.wuquestudio.com/",
     "maintainer": "spbgzh",
-    "width": 4,
-    "height": 6,
     "layouts": {
         "LAYOUT_default": {
             "layout": [
