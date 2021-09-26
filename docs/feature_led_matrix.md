@@ -49,7 +49,7 @@ Here is an example using 2 drivers.
 
 !> Note the parentheses, this is so when `LED_DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)` will give very different results than `rand() % LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL`.
 
-For split keyboards using LED_MATRIX_SPLIT with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `DRIVER_ADDR_1` for one and `DRIVER_2_LED_TOTAL` for the other one. Then, in `g_is31_leds`, fill out the correct driver index (0 or 1). If using one address, use `DRIVER_ADDR_1` for both, and use index 0 for `g_is31_leds`.
+For split keyboards using `LED_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `DRIVER_ADDR_1` for one and `DRIVER_ADDR_2` for the other one. Then, in `g_is31_leds`, fill out the correct driver index (0 or 1). If using one address, use `DRIVER_ADDR_1` for both, and use index 0 for `g_is31_leds`.
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
@@ -235,7 +235,6 @@ static bool my_cool_effect2_complex_run(effect_params_t* params) {
   for (uint8_t i = led_min; i < led_max; i++) {
     led_matrix_set_value(i, some_global_state++);
   }
-
   return led_matrix_check_finished_leds(led_max);
 }
 static bool my_cool_effect2(effect_params_t* params) {
