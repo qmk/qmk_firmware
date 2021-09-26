@@ -22,6 +22,5 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 UNICODE_ENABLE = no         # Unicode
-#BLUETOOTH_ENABLE = Yes # Enable Bluetooth with the Adafruit EZ-Key HID
 BLUETOOTH = AdafruitBLE
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = no           # Audio output

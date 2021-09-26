@@ -244,14 +244,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 #endif // LED_MATRIX_CUSTOM_EFFECT_IMPLS
 ```
 
-For inspiration and examples, check out the built-in effects under `quantum/led_matrix_animations/`
-
-
-
-
-
-
-
+For inspiration and examples, check out the built-in effects under `quantum/led_matrix/animations/`.
 
 
 ## Additional `config.h` Options :id=additional-configh-options
