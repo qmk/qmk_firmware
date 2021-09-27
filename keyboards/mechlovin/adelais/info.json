@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Adelais",
     "url": "",
-    "maintainer": "Team Mechlovin'",
+    "maintainer": "mechlovin",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_alice_split_bs"
     },
