@@ -23,7 +23,7 @@ enum layer_names {
   CONFIG,
   LAYOUT_CHG,
   QWERTY_MOD,
-#elif defined(KEYBOARD_ergodone)
+#elif defined(KEYBOARD_ktec_ergodone)
   FKEYS,
   CTRL_NAV,
   SHIFT_NAV,

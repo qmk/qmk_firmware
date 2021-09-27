@@ -7,56 +7,56 @@ enum custom_keycodes {
 };
 
 bool led_update_user(led_t led_state) {
-  writePin(CAPSLOCK_LED_PIN, led_state.caps_lock);
+  writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
   return false;
 }
 
 void led_show_variable_status(bool value) {
   if (value) {
-    writePinHigh(NUMLOCK_LED_PIN);
+    writePinHigh(LED_NUM_LOCK_PIN);
     wait_ms(BLINKING_INTERVAL);
-    writePinLow(NUMLOCK_LED_PIN);
+    writePinLow(LED_NUM_LOCK_PIN);
     wait_ms(BLINKING_INTERVAL);
-    writePinHigh(NUMLOCK_LED_PIN);
+    writePinHigh(LED_NUM_LOCK_PIN);
     wait_ms(BLINKING_INTERVAL);
-    writePinLow(NUMLOCK_LED_PIN);
+    writePinLow(LED_NUM_LOCK_PIN);
     wait_ms(BLINKING_INTERVAL);
-    writePinHigh(NUMLOCK_LED_PIN);
+    writePinHigh(LED_NUM_LOCK_PIN);
     wait_ms(BLINKING_INTERVAL);
-    writePinLow(NUMLOCK_LED_PIN);
+    writePinLow(LED_NUM_LOCK_PIN);
   } else {
-    writePinHigh(SCROLLLOCK_LED_PIN);
+    writePinHigh(LED_SCROLL_LOCK_PIN);
     wait_ms(BLINKING_INTERVAL);
-    writePinLow(SCROLLLOCK_LED_PIN);
+    writePinLow(LED_SCROLL_LOCK_PIN);
     wait_ms(BLINKING_INTERVAL);
-    writePinHigh(SCROLLLOCK_LED_PIN);
+    writePinHigh(LED_SCROLL_LOCK_PIN);
     wait_ms(BLINKING_INTERVAL);
-    writePinLow(SCROLLLOCK_LED_PIN);
+    writePinLow(LED_SCROLL_LOCK_PIN);
     wait_ms(BLINKING_INTERVAL);
-    writePinHigh(SCROLLLOCK_LED_PIN);
+    writePinHigh(LED_SCROLL_LOCK_PIN);
     wait_ms(BLINKING_INTERVAL);
-    writePinLow(SCROLLLOCK_LED_PIN);
+    writePinLow(LED_SCROLL_LOCK_PIN);
   }
 }
 
 void blink_all_leds(void) {
-  writePinHigh(NUMLOCK_LED_PIN);
-  writePinHigh(SCROLLLOCK_LED_PIN);
+  writePinHigh(LED_NUM_LOCK_PIN);
+  writePinHigh(LED_SCROLL_LOCK_PIN);
   wait_ms(BLINKING_INTERVAL);
-  writePinLow(NUMLOCK_LED_PIN);
-  writePinLow(SCROLLLOCK_LED_PIN);
+  writePinLow(LED_NUM_LOCK_PIN);
+  writePinLow(LED_SCROLL_LOCK_PIN);
   wait_ms(BLINKING_INTERVAL);
-  writePinHigh(NUMLOCK_LED_PIN);
-  writePinHigh(SCROLLLOCK_LED_PIN);
+  writePinHigh(LED_NUM_LOCK_PIN);
+  writePinHigh(LED_SCROLL_LOCK_PIN);
   wait_ms(BLINKING_INTERVAL);
-  writePinLow(NUMLOCK_LED_PIN);
-  writePinLow(SCROLLLOCK_LED_PIN);
+  writePinLow(LED_NUM_LOCK_PIN);
+  writePinLow(LED_SCROLL_LOCK_PIN);
   wait_ms(BLINKING_INTERVAL);
-  writePinHigh(NUMLOCK_LED_PIN);
-  writePinHigh(SCROLLLOCK_LED_PIN);
+  writePinHigh(LED_NUM_LOCK_PIN);
+  writePinHigh(LED_SCROLL_LOCK_PIN);
   wait_ms(BLINKING_INTERVAL);
-  writePinLow(NUMLOCK_LED_PIN);
-  writePinLow(SCROLLLOCK_LED_PIN);
+  writePinLow(LED_NUM_LOCK_PIN);
+  writePinLow(LED_SCROLL_LOCK_PIN);
   
   layer_state_set_user(layer_state);
 }
@@ -67,17 +67,17 @@ void keyboard_pre_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  writePinLow(NUMLOCK_LED_PIN);
-  writePinLow(SCROLLLOCK_LED_PIN);
+  writePinLow(LED_NUM_LOCK_PIN);
+  writePinLow(LED_SCROLL_LOCK_PIN);
   switch (get_highest_layer(state)) {
     case MEDIA:
     case WORKMAN:
-      writePinHigh(SCROLLLOCK_LED_PIN);
+      writePinHigh(LED_SCROLL_LOCK_PIN);
     case BASE:
-      writePinHigh(NUMLOCK_LED_PIN);
+      writePinHigh(LED_NUM_LOCK_PIN);
       break;
     case NUMPAD:
-      writePinHigh(SCROLLLOCK_LED_PIN);
+      writePinHigh(LED_SCROLL_LOCK_PIN);
       break;
   }
   return state;
