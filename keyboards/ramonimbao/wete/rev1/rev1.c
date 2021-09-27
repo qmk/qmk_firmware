@@ -1,4 +1,4 @@
-#include "wete.h"
+#include "rev1.h"
 
 void keyboard_pre_init_user(void) {
     // Initialize indicator LED pins
