@@ -12,7 +12,7 @@ void dance_key_one (qk_tap_dance_state_t *state, void *user_data) {
         reset_tap_dance (state);
     } else if (state->count == 2) {
         cycle_unicode_input_mode(+1);
-        reset_tap_dance (state);//
+        reset_tap_dance (state);
     }
 }
 
