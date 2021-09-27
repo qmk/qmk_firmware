@@ -31,4 +31,4 @@ Pteron36 uses community layout, hence there is no need for separate keymap folde
 
 The VIA keymap is working as intended. 
 
-  make pteron36:via 
+    make pteron36:via
