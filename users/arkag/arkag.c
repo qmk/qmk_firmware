@@ -393,9 +393,7 @@ void matrix_scan_user(void) {
 
     // start fancy functions
     SEQ_TWO_KEYS(KC_V, KC_P) {
-      SEND_STRING("ggvG}x:set paste");
-      tap_code(KC_ENT);
-      tap_code(KC_I);
+      SEND_STRING("ggvG}x:set paste\ni");
       pri_mod_keystroke(KC_V);
     }
     SEQ_THREE_KEYS(KC_C, KC_C, KC_ENT) {
