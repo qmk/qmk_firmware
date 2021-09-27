@@ -90,7 +90,7 @@
     { K80, K81, K82, KC_NO, KC_NO, K85, KC_NO, K87 }, \
     { K90, KC_NO, K92, K93, K94, K95, KC_NO, K97 }, \
 }
-#define LAYOUT_65_iso_blocker_all( \
+#define LAYOUT_65_iso_blocker_bs_sp( \
     K00, K10, K01, K11, K02, K12, K03, K13, K04, K14, K05, K15, K06, K26, K17, K07, \
     K20, K30, K21, K31, K22, K32, K23, K33, K24, K34, K25, K35, K36, K46, K37, \
     K40, K50, K41, K51, K42, K52, K43, K53, K44, K54, K45, K55, K47, K57, \
