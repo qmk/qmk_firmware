@@ -1,1 +1,0 @@
-# The keymap for krush65 solder layout iso blocker with split backspace and split spacebar
