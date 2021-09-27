@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Delphine",
     "url": "",
-    "maintainer": "Team Mechlovin'",
+    "maintainer": "mechlovin",
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [
@@ -62,5 +62,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
