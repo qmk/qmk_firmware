@@ -1,20 +1,19 @@
-# rev2
+# Wete R2
 
-![rev2](imgur.com image replace me!)
+![Wete R2](https://i.imgur.com/WKFe7T8l.png)
 
-*A short description of the keyboard/project*
+Round two of the Wete keyboard. Now uses the ATmega32u4, adds an encoder, and switches the indicator LEDs to RGB.
 
-* Keyboard Maintainer: [Ramon Imbao](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
+* Hardware Supported: ATmega32u4
 
 Make example for this keyboard (after setting up your build environment):
 
-    make rev2:default
+    make ramonimbao/wete/rev2:default
 
 Flashing example for this keyboard:
 
-    make rev2:default:flash
+    make ramonimbao/wete/rev2:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -22,6 +21,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Bootmagic reset**: Hold down the upper left key and plug in the keyboard
+* **Physical reset button**: Briefly press the reset button on the back of the PCB.
 * **Keycode in layout**: Press the key mapped to `RESET` if it is available
