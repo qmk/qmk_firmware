@@ -73,5 +73,3 @@
     { K30,   KC_NO, K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C,   K3D,   K3E   }, \
     { K40,   KC_NO, K42,   KC_NO, K44,   KC_NO, K46,   KC_NO, K48,   KC_NO, K4A,   KC_NO, KC_NO, KC_NO, K4E   }, \
 }
-
-#define LAYOUT_all LAYOUT_alice_split_bs
