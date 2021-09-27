@@ -1,14 +1,14 @@
 # MCU name
 MCU = atmega32u4
 
-# Bootloader
+# Bootloader selection
 BOOTLOADER = atmel-dfu
 
 
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = lite	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 CONSOLE_ENABLE = no	# Console for debug
 COMMAND_ENABLE = no    # Commands for debug and configuration
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
