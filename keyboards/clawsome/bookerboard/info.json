@@ -1,7 +1,7 @@
 {
     "keyboard_name": "bookerboard",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "AlisGraveNil",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -20,5 +20,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
