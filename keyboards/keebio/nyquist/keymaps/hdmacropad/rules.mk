@@ -1,0 +1,2 @@
+LAYOUTS = numpad_5x6
+SPLIT_KEYBOARD = no
