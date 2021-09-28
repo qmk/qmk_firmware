@@ -11,6 +11,7 @@
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 // https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold#tapping-force-hold
 #define TAPPING_FORCE_HOLD
+#define TAPPING_FORCE_HOLD_PER_KEY
 
 /*
   allow the microdox board to work with either controller plugged in
@@ -26,6 +27,7 @@
 #define FORCE_NKRO
 
 // https://beta.docs.qmk.fm/using-qmk/software-features/feature_combo
+#define COMBO_VARIABLE_LEN // http://combos.gboards.ca/docs/install/#combos
+#define COMBO_TERM 50 // http://combos.gboards.ca/docs/install/#combos
 #define COMBO_ALLOW_ACTION_KEYS
-#define COMBO_VARIABLE_LEN
 #define COMBO_PERMISSIVE_HOLD

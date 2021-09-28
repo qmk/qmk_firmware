@@ -31,7 +31,6 @@ enum layers {
 #define FUN_SPC LT(_FUNCTION,KC_SPC)
 #define G2_SPC LT(_GAMING_2,KC_SPC)
 #define CMD_TAB CMD_T(KC_TAB)
-#define CTL_SPC CTL_T(KC_SPC)
 
 /* misc mods */
 #define GAMING TG(_GAMING)
@@ -200,5 +199,22 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         return TAPPING_TERM + 150;
     default:
         return TAPPING_TERM;
+    }
+}
+
+// https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case HOME_J:
+        case HOME_K:
+        case HOME_L:
+        case KC_H:
+        case HOME_DWN:
+        case HOME_UP:
+        case HOME_RGT:
+        case KC_LEFT:
+            return false;
+        default:
+            return true;
     }
 }
