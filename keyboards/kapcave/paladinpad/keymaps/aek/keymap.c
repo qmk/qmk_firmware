@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		       KC_P0, KC_PDOT, KC_PENT), 
 
     /* FUNCTION */
-	LAYOUT_numpad_AEK(
+	LAYOUT_numpad_aek(
 		KC_TRNS, RGB_TOG, RGB_MOD, KC_TRNS,
         RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS,
         RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS,
