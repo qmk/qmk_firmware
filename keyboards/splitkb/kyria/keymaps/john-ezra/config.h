@@ -16,19 +16,17 @@
 
 #pragma once
 
+#define OLED_FONT_H "keyboards/splitkb/kyria/keymaps/john-ezra/glcdfont.c"
+#define OLED_FONT_END 255
+
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-  #define RGBLIGHT_EFFECT_TWINKLE
-
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
+  #define RGBLIGHT_HUE_STEP 5
+  #define RGBLIGHT_SAT_STEP 5
+  #define RGBLIGHT_VAL_STEP 5
   #define RGBLIGHT_LIMIT_VAL 150
 #endif
 

@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        FIND,    KC_Z,    KC_R,    KC_L,    KC_D,    KC_W,                                         KC_Y,    KC_P,    KC_U,    KC_X,    KC_Q, KC_BSLS,
     CPY_PST,    KC_H,    KC_N,    KC_T,    KC_S,    KC_C,                                         KC_B,    KC_I,    KC_E,    KC_O,    KC_A,  KC_GRV,
        UNDO,    KC_K,    KC_V,    KC_M,    KC_F,    KC_G, ALT_ESC, MSS_CTL,   MSS_CTL, ALT_ESC,   KC_J, KC_SCLN, KC_COMM,  KC_DOT, KC_SLSH, KC_QUOT,
-                                NUMPAD,  KC_ENT,   LOWER,  KC_SPC, BSP_CMD,   TAB_CMD, SFT_ENT,  RAISE,  KC_DEL, KC_CAPS
+                                NUMPAD, SFT_ENT,   LOWER,  KC_SPC, BSP_CMD,   TAB_CMD, SFT_ENT,  RAISE,  KC_DEL, KC_CAPS
 ),
 
 /*
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
 [_ADJUST] = LAYOUT(
-    RESET,   _______, _______, _______, _______, _______,                                     _______, NK_TOGG, _______, _______, _______,    HNTS,
+    RESET,   _______, _______, _______, _______, _______,                                     _______, NK_TOGG, CG_TOGG, _______, _______,    HNTS,
     _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     _______, KC_BRIU, KC_BRID, _______, _______, _______,
     _______, _______, RGB_SAD, RGB_HUD, RGB_VAD,RGB_RMOD,_______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
                               _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______
