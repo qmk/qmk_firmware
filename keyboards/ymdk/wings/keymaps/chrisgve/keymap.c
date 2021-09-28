@@ -24,16 +24,16 @@ enum wings_layers {
 };
 
 
-#define CPS_CTL         CTL_T(KC_CAPS)
+#define CPS_CTL         LCTL_T(KC_CAPS)
 #define D_DIR           LT(_DIR, KC_D)
 #define FN              MO(_FN)
 #define F_DIR           MO(_FULL_DIR)
 #define F_WORD          A(KC_RIGHT)
 #define B_WORD          A(KC_LEFT)
 // #define L_MOD           LGUI_T(KC_SPC)
-// #define R_MOD           RGUI_T(KC_SPC)
+#define R_MOD           RCTL_T(KC_SPC)
 #define L_MOD           LT(_FN, KC_SPC)
-#define R_MOD           LT(_FN, KC_SPC)
+// #define R_MOD           LT(_FN, KC_SPC)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
