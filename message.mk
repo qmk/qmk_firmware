@@ -88,6 +88,7 @@ endef
 MSG_AVAILABLE_KEYMAPS = $(eval $(call GENERATE_MSG_AVAILABLE_KEYMAPS))$(MSG_AVAILABLE_KEYMAPS_ACTUAL)
 
 MSG_CHECK_FILESIZE = Checking file size of $(TARGET).$(FIRMWARE_FORMAT)
+MSG_CHECK_FILESIZE_SKIPPED = (Firmware size check does not yet support $(MCU_ORIG); skipping)
 MSG_FILE_TOO_BIG = $(ERROR_COLOR)The firmware is too large!$(NO_COLOR) $(CURRENT_SIZE)/$(MAX_SIZE) ($(OVER_SIZE) bytes over)\n
 MSG_FILE_TOO_SMALL = The firmware is too small! $(CURRENT_SIZE)/$(MAX_SIZE)\n
 MSG_FILE_JUST_RIGHT = The firmware size is fine - $(CURRENT_SIZE)/$(MAX_SIZE) ($(PERCENT_SIZE)%%, $(FREE_SIZE) bytes free)\n
