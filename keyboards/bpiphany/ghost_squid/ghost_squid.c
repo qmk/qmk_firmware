@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ghost_squid.h"
 
-void matrix_init_kb(void) {}
-
-void matrix_scan_kb(void) {}
-
 void keyboard_pre_init_kb(void) {
     setPinOutput(D0);
     writePinLow(D0);
