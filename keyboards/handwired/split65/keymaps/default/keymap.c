@@ -66,7 +66,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // OLED Code copied from https://github.com/qmk/qmk_firmware/blob/master/keyboards/kyria/keymaps/default/keymap.c
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }
