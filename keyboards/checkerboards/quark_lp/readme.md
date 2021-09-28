@@ -10,7 +10,7 @@ The Quark LP PCB is compatible with Cherry Low-Profile switches and Kailh Choc s
 
 Make example for this keyboard (after setting up your build environment):
 
-    make checkerboards:quark_lp:default
+    make checkerboards/quark_lp:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
