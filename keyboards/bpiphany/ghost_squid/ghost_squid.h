@@ -17,20 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "matrix.h"
 #include "quantum.h"
 
-inline void num_led_on(void)  { DDRC |=  (1<<5); PORTC &= ~(1<<5); }
-inline void num_led_off(void) { DDRC &= ~(1<<5); PORTC &= ~(1<<5); }
-
-inline void caps_led_on(void)  { DDRC |=  (1<<6); PORTC &= ~(1<<6); }
-inline void caps_led_off(void) { DDRC &= ~(1<<6); PORTC &= ~(1<<6); }
-
-inline void scroll_led_on(void)  { DDRB |=  (1<<7); PORTB &= ~(1<<7); }
-inline void scroll_led_off(void) { DDRB &= ~(1<<7); PORTB &= ~(1<<7); }
-
-inline void fn_led_on(void)  { DDRD |=  (1<<0); PORTD &= ~(1<<0); }
-inline void fn_led_off(void) { DDRD &= ~(1<<0); PORTD &= ~(1<<0); }
+#define fn_led_on() writePinLow(D0)
+#define fn_led_off() writePinHigh(D0)
 
 #define  ___ KC_NO
 

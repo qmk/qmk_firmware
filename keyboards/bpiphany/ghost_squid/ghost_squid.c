@@ -17,64 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ghost_squid.h"
 
-__attribute__ ((weak))
-void matrix_init_user(void) {
-};
+void matrix_init_kb(void) {}
 
-__attribute__ ((weak))
-void matrix_scan_user(void) {
+void matrix_scan_kb(void) {}
+
+void keyboard_pre_init_kb(void) {
+    setPinOutput(D0);
+    writePinLow(D0);
+    fn_led_off();
+    
+    keyboard_pre_init_user();
 }
-
-__attribute__ ((weak))
-bool process_action_user(keyrecord_t *record) {
-    return true;
-}
-
-/* __attribute__ ((weak)) */
-/* void led_set_user(uint8_t usb_led) { */
-/* } */
-
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	matrix_scan_user();
-}
-
-bool process_action_kb(keyrecord_t *record) {
-	return process_action_user(record);
-}
-
-void led_set_kb(uint8_t usb_led) {
-	led_set_user(usb_led);
-}
-
-void led_set_user(uint8_t usb_led) {
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-		num_led_on();
-	} else {
-		num_led_off();
-	}
-
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		caps_led_on();
-	} else {
-		caps_led_off();
-	}
-
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-		scroll_led_on();
-	} else {
-		scroll_led_off();
-	}
-}
-
-extern inline void num_led_on(void);
-extern inline void num_led_off(void);
-extern inline void caps_led_on(void);
-extern inline void caps_led_off(void);
-extern inline void scroll_led_on(void);
-extern inline void scroll_led_off(void);
-extern inline void fn_led_on(void);
-extern inline void fn_led_off(void);
