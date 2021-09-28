@@ -205,6 +205,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 // https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case NUM_BSPC:
+        case FUN_SPC:
         case HOME_J:
         case HOME_K:
         case HOME_L:
