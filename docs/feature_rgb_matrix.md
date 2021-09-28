@@ -742,6 +742,24 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
+Layer indicator of configured keys on each of them:
+```c
+void rgb_matrix_indicators_user(void) {
+    if (get_highest_layer(layer_state) > 0) {
+        for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+            for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+                if (g_led_config.matrix_co[row][col] != NO_LED &&
+                g_led_config.matrix_co[row][col] >= led_min &&
+                g_led_config.matrix_co[row][col] <= led_max &&
+                keymap_key_to_keycode(layer, (keypos_t){col,row}) > KC_TRNS) {
+                    rgb_matrix_set_color(g_led_config.matrix_co[row][col], RGB_PINK);
+				}
+            }
+        }
+    }
+}
+```
+
 #### Examples :id=indicator-examples
 
 This example sets the modifiers to be a specific color based on the layer state.  You can use a switch case here, instead, if you would like.  This uses HSV and then converts to RGB, because this allows the brightness to be limited (important when using the WS2812 driver).
