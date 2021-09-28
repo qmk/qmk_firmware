@@ -20,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x4847 //HG
-#define PRODUCT_ID   0x5054 //PT
-#define DEVICE_VER   0x0001
+#define VENDOR_ID 0x4847   // HG
+#define PRODUCT_ID 0x5054  // PT
+#define DEVICE_VER 0x0001
 #define MANUFACTURER Harshit Goel
-#define PRODUCT      Pteron36
+#define PRODUCT Pteron36
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -36,21 +36,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Change this to how you wired your keyboard
  * COLS: AVR pins used for columns, left to right
  * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
+ * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on
+ * diode) ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { E6, D7, B4, B5 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3,  B2 }
+#define MATRIX_ROW_PINS \
+  { E6, D7, B4, B5 }
+#define MATRIX_COL_PINS \
+  { F6, F7, B1, B3, B2 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
 /*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
+ * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in
+ * your rules.mk, and define SOFT_SERIAL_PIN.
  */
- #define USE_SERIAL
+#define USE_SERIAL
 #define SOFT_SERIAL_PIN D3  // or D1, D2, D3, E6
 
 //#define LED_NUM_LOCK_PIN B0
@@ -70,7 +73,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
 //#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+//#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched
+//off when the host goes to sleep */
 /*== all animations enable ==*/
 //#    define RGBLIGHT_ANIMATIONS
 /*== or choose animations ==*/
@@ -91,13 +95,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 //#endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is
+ * not needed */
 #define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
+ */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
@@ -111,8 +117,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Force NKRO
  *
  * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
+ * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in
+ * the makefile for this to work.)
  *
  * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
  * until the next keyboard reset.
@@ -122,8 +128,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
  * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
+ * bootmagic, NKRO mode will always be enabled until it is toggled again during
+ * a power-up.
  *
  */
 //#define FORCE_NKRO
@@ -154,29 +160,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // for via
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
 
-#define VIAL_KEYBOARD_UID {0xD6, 0x68, 0xF2, 0x55, 0x9B, 0x48, 0x07, 0x6E}
-#define VIAL_UNLOCK_COMBO_ROWS { 0, 4 }
-#define VIAL_UNLOCK_COMBO_COLS { 0, 0 }
+#define VIAL_KEYBOARD_UID \
+  { 0xD6, 0x68, 0xF2, 0x55, 0x9B, 0x48, 0x07, 0x6E }
+#define VIAL_UNLOCK_COMBO_ROWS \
+  { 0, 4 }
+#define VIAL_UNLOCK_COMBO_COLS \
+  { 0, 0 }
 
-//for encoder
-//left encoder
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F4 }
+// for encoder
+// left encoder
+#define ENCODERS_PAD_A \
+  { F5 }
+#define ENCODERS_PAD_B \
+  { F4 }
 
-//right encoder
-#define ENCODERS_PAD_A_RIGHT { F4 }
-#define ENCODERS_PAD_B_RIGHT { F5 }
+// right encoder
+#define ENCODERS_PAD_A_RIGHT \
+  { F4 }
+#define ENCODERS_PAD_B_RIGHT \
+  { F5 }
 
-//default trans keycode.
-#define VIAL_ENCODER_DEFAULT { KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS}
+// default trans keycode.
+#define VIAL_ENCODER_DEFAULT                                                \
+  {                                                                         \
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      \
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      \
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS                \
+  }
 
-//overwrite default tapping behaviour
+// overwrite default tapping behaviour
 #define IGNORE_MOD_TAP_INTERRUPT
-//RGB Underglow
+// RGB Underglow
 #define RGB_DI_PIN B6
 #define RGBLED_NUM 17
 #define RGBLIGHT_SPLIT
 #define RGBLIGHT_EFFECT_KNIGHT
 
-//EE Handness
+// EE Handness
 #define EE_HANDS
