@@ -113,7 +113,7 @@ static void render_layers(void) {
 				   oled_set_cursor(15, 7);
 				   oled_write_raw_P(inactive[3], sizeof(inactive));
 			   break;
-			 case 2:
+			 case 1:
 			     oled_set_cursor(15, 4);
 			     oled_write_raw_P(inactive[0], sizeof(inactive));
 		    	 oled_set_cursor(15, 5);
@@ -123,7 +123,7 @@ static void render_layers(void) {
 			     oled_set_cursor(15, 7);
 			     oled_write_raw_P(lower[1], sizeof(lower));
 				 break;
-			 case 3:
+			 case 2:
 					 oled_set_cursor(15, 4);
 					 oled_write_raw_P(inactive[0], sizeof(inactive));
 					 oled_set_cursor(15, 5);
@@ -133,7 +133,7 @@ static void render_layers(void) {
 					 oled_set_cursor(15, 7);
 					 oled_write_raw_P(inactive[3], sizeof(inactive));
 				 break;
-			 case 4:
+			 case 3:
 				   oled_set_cursor(15, 4);
 				 	 oled_write_raw_P(adjust[0], sizeof(adjust));
 					 oled_set_cursor(15, 5);
