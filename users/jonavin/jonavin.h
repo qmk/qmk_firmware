@@ -36,7 +36,9 @@ enum custom_user_keycodes {
   KC_WINLCK,    //Toggles Win key on and off
   RGB_TOI,      // Timeout idle time up
   RGB_TOD,      // Timeout idle time down
-  RGB_NITE      // Turns off all rgb but allow rgb indicators to work
+  RGB_NITE,     // Turns off all rgb but allow rgb indicators to work
+
+  NEW_SAFE_RANGE  // new safe range for keymap level custom keycodes
 };
 
 #define KC_CAD	LALT(LCTL(KC_DEL))
@@ -67,6 +69,14 @@ enum custom_user_keycodes {
 
     uint8_t get_selected_layer(void);
     void encoder_action_layerchange(bool clockwise);
+
+    #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
+        void encoder_action_rgb_speed(bool clockwise);
+        void encoder_action_rgb_hue(bool clockwise);
+        void encoder_action_rgb_saturation(bool clockwise);
+        void encoder_action_rgb_brightness(bool clockwise);
+        void encoder_action_rgb_mode(bool clockwise);
+    #endif // RGB_MATRIX_ENABLE / RGBLIGHT_ENABLE
 #endif // ENCODER_ENABLE
 
 
