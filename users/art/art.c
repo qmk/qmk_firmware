@@ -52,87 +52,90 @@ void translate_string(char *in) {
   if (layer_state_is(WORKMAN)) {
     int isUpperCase = 0;
     for (int i = 0; i < strlen(in); i++) {
-      if (isupper(in[i])) {
-        if (in[i] == 'P') {
-          in[i] = ':';
-          continue;
-        }
+      char toPrint = in[i];
+      if (isupper(toPrint)) {
+      //   if (toPrint == 'P') {
+      //     SEND_STRING(":");
+      //     continue;
+      //   }
 
         isUpperCase = 1;
-        in[i] = tolower(in[i]);
+        toPrint = tolower(toPrint);
       }
-      switch (in[i]) {
-        case ':':
-          in[i] = 'I';
-          break;         
+      switch (toPrint) {
+        // case ':':
+        //   toPrint = 'I';
+        //   break;
+
         case 'w':
-          in[i] = 'd';
+          toPrint = 'd';
           break; 
         case 'e':
-          in[i] = 'r';
+          toPrint = 'r';
           break; 
         case 'r':
-          in[i] = 'w';
+          toPrint = 'w';
           break; 
         case 't':
-          in[i] = 'b';
+          toPrint = 'b';
           break; 
         case 'y':
-          in[i] = 'j';
+          toPrint = 'j';
           break; 
         case 'u':
-          in[i] = 'f';
+          toPrint = 'f';
           break; 
         case 'i':
-          in[i] = 'u';
+          toPrint = 'u';
           break; 
         case 'o':
-          in[i] = 'p';
+          toPrint = 'p';
           break; 
         case 'p':
-          in[i] = ';';
+          toPrint = ';';
           break; 
 
         case 'd':
-          in[i] = 'h';
+          toPrint = 'h';
           break; 
         case 'f':
-          in[i] = 't';
+          toPrint = 't';
           break; 
         case 'h':
-          in[i] = 'y';
+          toPrint = 'y';
           break; 
         case 'j':
-          in[i] = 'n';
+          toPrint = 'n';
           break; 
         case 'k':
-          in[i] = 'e';
+          toPrint = 'e';
           break; 
         case 'l':
-          in[i] = 'o';
+          toPrint = 'o';
           break; 
         case ';':
-          in[i] = 'i';
+          toPrint = 'i';
           break; 
 
         case 'b':
-          in[i] = 'm';
+          toPrint = 'm';
           break; 
         case 'n':
-          in[i] = 'k';
+          toPrint = 'k';
           break; 
         case 'm':
-          in[i] = 'l';
+          toPrint = 'l';
           break; 
       }
-
       if (isUpperCase) {
         isUpperCase = 0;
-        in[i] = toupper(in[i]);
+        toPrint = toupper(toPrint);
       }
+      send_char(toPrint);
     }
+  } else {
+    send_string(in);
   }
-  send_string(in);
 }
 
 void send_string_remembering_length(char *string) {
