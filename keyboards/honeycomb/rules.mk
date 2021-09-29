@@ -19,7 +19,6 @@ CUSTOM_MATRIX = yes    # Remote matrix from the wireless bridge
 NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 MIDI_ENABLE = no              # MIDI support
-UNICODE_ENABLE = YES 		# Unicode
 
 # # project specific files
 SRC += matrix.c serial_uart.c

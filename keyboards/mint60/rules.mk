@@ -18,7 +18,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
-UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes

@@ -20,6 +20,5 @@ COMMAND_ENABLE = no     # Commands for debug and configuration
 NKRO_ENABLE = yes       # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes   # Enable keyboard underlight functionality
-UNICODE_ENABLE = no     # Unicode
 LEADER_ENABLE = yes
 

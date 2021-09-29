@@ -18,7 +18,6 @@ CUSTOM_MATRIX = yes    # Custom matrix file for the HHKB
 # NKRO_ENABLE = yes       # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 MIDI_ENABLE = no              # MIDI support
-# UNICODE_ENABLE = yes    # Unicode
 
 
 # HHKB_RN42_ENABLE = yes  # Enable support for hasu's BT alt controller -- code borrowed from tmk source tree.
