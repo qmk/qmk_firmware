@@ -273,7 +273,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [COMBOS] = LAYOUT_ergodox(  
   // -----------------------------------------------------left hand-----------------------------------------------------
-  TILD_BLOCK,       PRESCRIPTION,     QUOTES_RU,        _______,          FOURS,            SM_READPNT,       _______,
+  TILD_BLOCK,       _______,          QUOTES_RU,        _______,          _______,          SM_READPNT,       _______,
   _______,          _______,          _______,          NEUTRAL_COPY,     _______,          BEAT_BROWSER,     _______,
   _______,          ADMINS,           SARCASM,          ALL_BEST,         CTRL_CTV,         _______,
   _______,          _______,          _______,          CTRL_CAV,         _______,          LMB_SPAM,         _______,

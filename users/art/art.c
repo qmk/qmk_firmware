@@ -1,5 +1,6 @@
 #include "art.h"
 #include "string.h"
+#include "ctype.h"
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -45,6 +46,84 @@ void switch_lang(void) {
     SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
     wait_ms(10);
   }
+}
+
+void translate_string(char *in) {
+  if (layer_state_is(WORKMAN)) {
+    int isUpperCase = 0;
+    for (int i = 0; i < strlen(in); i++) {
+      if (isupper(in[i])) {
+        isUpperCase = 1;
+        in[i] = tolower(in[i]);
+      }
+      switch (in[i]) {
+        case 'w':
+          in[i] = 'd';
+          break; 
+        case 'e':
+          in[i] = 'r';
+          break; 
+        case 'r':
+          in[i] = 'w';
+          break; 
+        case 't':
+          in[i] = 'b';
+          break; 
+        case 'y':
+          in[i] = 'j';
+          break; 
+        case 'u':
+          in[i] = 'f';
+          break; 
+        case 'i':
+          in[i] = 'u';
+          break; 
+        case 'o':
+          in[i] = 'p';
+          break; 
+        case 'p':
+          in[i] = ';';
+          break; 
+
+        case 'd':
+          in[i] = 'h';
+          break; 
+        case 'f':
+          in[i] = 't';
+          break; 
+        case 'h':
+          in[i] = 'y';
+          break; 
+        case 'j':
+          in[i] = 'n';
+          break; 
+        case 'k':
+          in[i] = 'e';
+          break; 
+        case 'l':
+          in[i] = 'o';
+          break; 
+        case ';':
+          in[i] = 'i';
+          break; 
+
+        case 'b':
+          in[i] = 'm';
+          break; 
+        case 'n':
+          in[i] = 'k';
+          break; 
+        case 'm':
+          in[i] = 'l';
+          break; 
+      }
+      if (isUpperCase) {
+        isUpperCase = 0;
+        in[i] = toupper(in[i]);
+      }
+    }
+  }
+  send_string(in);
 }
 
 void send_string_remembering_length(char *string) {
@@ -548,222 +627,205 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case ADMINS:
       if (record->event.pressed) {
-        send_shifted_strings_add("admin", "/aurora/status");
-      }
-      break;
-    case PRESCRIPTION:
-      if (record->event.pressed) {
-        SEND_STRING("55\t12122019\t");
-        char_to_bspace = 8;
-      }
-      break;
-    case FOURS:
-      if (record->event.pressed) {
-        SEND_STRING("4444333322221111");
-        wait_ms(copy_delay);
-        SEND_STRING("\t1");
-        wait_ms(copy_delay);
-        SEND_STRING("\t1222123");
-        wait_ms(copy_delay);
-        SEND_STRING("\n");
-        char_to_bspace = 16;
+        send_string_remembering_length("admin");
       }
       break;
       
-  case G_ADD:
-    if (record->event.pressed) {
-      send_string_remembering_length("git add ");
-    }
-    break;
-  case G_BRCH:
-    if (record->event.pressed) {
-      send_shifted_strings_add("git branch ", "-d ");
-    }
-    break;
-  case G_C:
-    if (record->event.pressed) {
-      send_string_remembering_length("git c[Heckout/heRRy-pick/Ommit]");
-      layer_on(GIT_C);
-    }
-    break;
-  case G_CHEC:
-    if (!record->event.pressed) {
-      bool shifted = get_mods() & MOD_MASK_SHIFT;
-      clear_mods();
-            
-      press_n_times(26, KC_BSPACE);
-      SEND_STRING("heckout ");
-      char_to_bspace = 13;
-      if (shifted) {
-        SEND_STRING("-b ");
-        char_to_bspace = 16;
+    case G_ADD:
+      if (record->event.pressed) {
+        send_string_remembering_length("git add ");
       }
-      layer_off(GIT_C);
-    }
-    break;
-  case G_CHER:
-    if (!record->event.pressed) {
-      press_n_times(26, KC_BSPACE);
-      SEND_STRING("herry-pick ");
-      char_to_bspace = 16;
-      layer_off(GIT_C);
-    }
-    break;
-  case G_COMM:
-    if (!record->event.pressed) {
-      bool ctrled = get_mods() & MOD_MASK_CTRL;
-      bool shifted = get_mods() & MOD_MASK_SHIFT;
-      clear_mods();
-
-      press_n_times(26, KC_BSPACE);
-      SEND_STRING("ommit ");
-      char_to_bspace = 11;
-      layer_off(GIT_C);
-
-      if (ctrled) {
-        return false;
+      break;
+    case G_BRCH:
+      if (record->event.pressed) {
+        // send_shifted_strings_add("git branch ", "-d ");
+        translate_string("qwertyuiop[]asdfghjkl;'zxcvbnm,./`1234567890-=QWERTYUIOP{}!@#$^&*()_+ASDFGHJKL:ZXCVBNM<>?"); //, "-d "
       }
-
-      SEND_STRING("-");
-      char_to_bspace = 15;
-      if (shifted) {
-        SEND_STRING("a");
-        char_to_bspace = 16;
+      break;
+    case G_C:
+      if (record->event.pressed) {
+        send_string_remembering_length("git c[Heckout/heRRy-pick/Ommit]");
+        layer_on(GIT_C);
       }
-      SEND_STRING("m \"\"" SS_TAP(X_LEFT));
-      char_to_del = 1;
-    }
-    break;
-  case G_DEV:
-    if (record->event.pressed) {
-      send_shifted_strings("develop", "master");
-    }
-    break;
-  case G_DIFF:
-    if (record->event.pressed) {
-      send_string_remembering_length("git diff ");
-    }
-    break;	
-  case G_FTCH:
-    if (record->event.pressed) {
-      send_string_remembering_length("git fetch ");
-    }
-    break;
-  case G_LOG:
-    if (record->event.pressed) {
-      send_string_remembering_length("git log ");
-    }
-    break;
-  case G_MERG:
-    if (record->event.pressed) {
-      send_string_remembering_length("git merge ");
-    }
-    break;
-  case G_PULL:
-    if (record->event.pressed) {
-      send_string_remembering_length("git pull ");
-    }
-    break;
-  case G_PUSH:
-    if (record->event.pressed) {
-      send_string_remembering_length("git push -u ");
-    }
-    break;
-  case G_R:
-    if (!record->event.pressed) {
-      send_string_remembering_length("git re[Set/Vert/Base -i]");
-      layer_on(GIT_R);
-    }
-    break;
-  case G_RBASE:
-    if (!record->event.pressed) {
-      press_n_times(18, KC_BSPACE);
-      SEND_STRING("base -i ");
-      char_to_bspace = 14;
-      layer_off(GIT_R);
-    }
-    break;
-  case G_RVERT:
-    if (!record->event.pressed) {
-      press_n_times(18, KC_BSPACE);
-      SEND_STRING("vert ");
-      char_to_bspace = 11;
-      layer_off(GIT_R);
-    }
-    break;
-  case G_RST:
-    if (!record->event.pressed) {
-      bool shifted = get_mods() & MOD_MASK_SHIFT;
-      clear_mods();
-
-      press_n_times(18, KC_BSPACE);
-      SEND_STRING("set ");
-      char_to_bspace = 10;
-
-      if (shifted) {
-        SEND_STRING("--hard ");
-        char_to_bspace = 17;
-      }
-      layer_off(GIT_R);
-    }
-    break;
-  case G_S:
-    if (!record->event.pressed) {
-      send_string_remembering_length("git s[taSh/How/taTus]");
-      layer_on(GIT_S);			
-    }
-    break;
-  case G_SHOW:
-    if (!record->event.pressed) {
-      press_n_times(16, KC_BSPACE);
-      SEND_STRING("how ");
-      char_to_bspace = 9;
-      layer_off(GIT_S);
-    }
-    break;			
-  case G_STSH:
-    if (!record->event.pressed) {
-      bool shifted = get_mods() & MOD_MASK_SHIFT;
-      clear_mods();
-
-      press_n_times(16, KC_BSPACE);
-      SEND_STRING("tash ");
-      char_to_bspace = 10;
-
-      if (shifted) {
+      break;
+    case G_CHEC:
+      if (!record->event.pressed) {
+        bool shifted = get_mods() & MOD_MASK_SHIFT;
         clear_mods();
-        SEND_STRING("apply ");
-
+              
+        press_n_times(26, KC_BSPACE);
+        SEND_STRING("heckout ");
+        char_to_bspace = 13;
+        if (shifted) {
+          SEND_STRING("-b ");
+          char_to_bspace = 16;
+        }
+        layer_off(GIT_C);
+      }
+      break;
+    case G_CHER:
+      if (!record->event.pressed) {
+        press_n_times(26, KC_BSPACE);
+        SEND_STRING("herry-pick ");
         char_to_bspace = 16;
+        layer_off(GIT_C);
       }
+      break;
+    case G_COMM:
+      if (!record->event.pressed) {
+        bool ctrled = get_mods() & MOD_MASK_CTRL;
+        bool shifted = get_mods() & MOD_MASK_SHIFT;
+        clear_mods();
 
-      layer_off(GIT_S);
-    }
-    break;		
-  case G_STAT:
-    if (!record->event.pressed) {
-      press_n_times(16, KC_BSPACE);
-      SEND_STRING("tatus ");
-      char_to_bspace = 11;
-      layer_off(GIT_S);
-    }
-    break;
+        press_n_times(26, KC_BSPACE);
+        SEND_STRING("ommit ");
+        char_to_bspace = 11;
+        layer_off(GIT_C);
 
-  case CTL_ALT_START ... CTL_ALT_END:
-    if (record->event.pressed) {
-      if (is_win) {
-        register_code16(LCTL(keycode - CTL_ALT_START));
-      } else {
-        register_code16(LALT(keycode - CTL_ALT_START));
+        if (ctrled) {
+          return false;
+        }
+
+        SEND_STRING("-");
+        char_to_bspace = 15;
+        if (shifted) {
+          SEND_STRING("a");
+          char_to_bspace = 16;
+        }
+        SEND_STRING("m \"\"" SS_TAP(X_LEFT));
+        char_to_del = 1;
       }
-    } else {
-      if (is_win) {
-        unregister_code16(LCTL(keycode - CTL_ALT_START));
-      } else {
-        unregister_code16(LALT(keycode - CTL_ALT_START));
+      break;
+    case G_DEV:
+      if (record->event.pressed) {
+        send_shifted_strings("develop", "master");
       }
-    }
-    break;
+      break;
+    case G_DIFF:
+      if (record->event.pressed) {
+        send_string_remembering_length("git diff ");
+      }
+      break;	
+    case G_FTCH:
+      if (record->event.pressed) {
+        send_string_remembering_length("git fetch ");
+      }
+      break;
+    case G_LOG:
+      if (record->event.pressed) {
+        send_string_remembering_length("git log ");
+      }
+      break;
+    case G_MERG:
+      if (record->event.pressed) {
+        send_string_remembering_length("git merge ");
+      }
+      break;
+    case G_PULL:
+      if (record->event.pressed) {
+        send_string_remembering_length("git pull ");
+      }
+      break;
+    case G_PUSH:
+      if (record->event.pressed) {
+        send_string_remembering_length("git push -u ");
+      }
+      break;
+    case G_R:
+      if (!record->event.pressed) {
+        send_string_remembering_length("git re[Set/Vert/Base -i]");
+        layer_on(GIT_R);
+      }
+      break;
+    case G_RBASE:
+      if (!record->event.pressed) {
+        press_n_times(18, KC_BSPACE);
+        SEND_STRING("base -i ");
+        char_to_bspace = 14;
+        layer_off(GIT_R);
+      }
+      break;
+    case G_RVERT:
+      if (!record->event.pressed) {
+        press_n_times(18, KC_BSPACE);
+        SEND_STRING("vert ");
+        char_to_bspace = 11;
+        layer_off(GIT_R);
+      }
+      break;
+    case G_RST:
+      if (!record->event.pressed) {
+        bool shifted = get_mods() & MOD_MASK_SHIFT;
+        clear_mods();
+
+        press_n_times(18, KC_BSPACE);
+        SEND_STRING("set ");
+        char_to_bspace = 10;
+
+        if (shifted) {
+          SEND_STRING("--hard ");
+          char_to_bspace = 17;
+        }
+        layer_off(GIT_R);
+      }
+      break;
+    case G_S:
+      if (!record->event.pressed) {
+        send_string_remembering_length("git s[taSh/How/taTus]");
+        layer_on(GIT_S);			
+      }
+      break;
+    case G_SHOW:
+      if (!record->event.pressed) {
+        press_n_times(16, KC_BSPACE);
+        SEND_STRING("how ");
+        char_to_bspace = 9;
+        layer_off(GIT_S);
+      }
+      break;			
+    case G_STSH:
+      if (!record->event.pressed) {
+        bool shifted = get_mods() & MOD_MASK_SHIFT;
+        clear_mods();
+
+        press_n_times(16, KC_BSPACE);
+        SEND_STRING("tash ");
+        char_to_bspace = 10;
+
+        if (shifted) {
+          clear_mods();
+          SEND_STRING("apply ");
+
+          char_to_bspace = 16;
+        }
+
+        layer_off(GIT_S);
+      }
+      break;		
+    case G_STAT:
+      if (!record->event.pressed) {
+        press_n_times(16, KC_BSPACE);
+        SEND_STRING("tatus ");
+        char_to_bspace = 11;
+        layer_off(GIT_S);
+      }
+      break;
+
+    case CTL_ALT_START ... CTL_ALT_END:
+      if (record->event.pressed) {
+        if (is_win) {
+          register_code16(LCTL(keycode - CTL_ALT_START));
+        } else {
+          register_code16(LALT(keycode - CTL_ALT_START));
+        }
+      } else {
+        if (is_win) {
+          unregister_code16(LCTL(keycode - CTL_ALT_START));
+        } else {
+          unregister_code16(LALT(keycode - CTL_ALT_START));
+        }
+      }
+      break;
   }
 
   return process_record_keymap(keycode, record);
