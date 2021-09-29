@@ -14,18 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "f411.h"
+#pragma once
 
-void matrix_init_sub_kb(void) { setPinInputHigh(A0); }
-
-void matrix_scan_sub_kb(void) {
-    if (!readPin(A0)) {
-        reset_keyboard();
-    }
-}
-
-bool usb_vbus_state(void) {
-    setPinInputLow(USB_VBUS_PIN);
-    wait_us(5);
-    return readPin(USB_VBUS_PIN);
-}
+#include "5x6_right.h"
