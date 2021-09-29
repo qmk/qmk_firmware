@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sendchar.h"
 #include "eeconfig.h"
 #include "action_layer.h"
+#include "action_util.h"
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
@@ -443,6 +444,11 @@ void keyboard_task(void) {
         action_exec(TICK);
 
 MATRIX_LOOP_END:
+
+#if defined(REGISTER_MULTIPLE_KEYEVENTS_ENABLE)
+    send_keyboard_report_immediate();
+    send_keyboard_report_buffered_unregister_keys();
+#endif
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_scan_perf_task();

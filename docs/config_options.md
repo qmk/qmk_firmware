@@ -418,6 +418,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Key combo feature
 * `NKRO_ENABLE`
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+* `REGISTER_MULTIPLE_KEYEVENTS_ENABLE`
+  * This allows for multiple key presses and or releases per USB hid report by combining all key state changes of a single matrix scan before reporting to host.
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
 * `KEY_OVERRIDE_ENABLE`

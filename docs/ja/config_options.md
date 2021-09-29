@@ -371,6 +371,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * キーコンボ機能
 * `NKRO_ENABLE`
   * USB N-キーロールオーバー - これが動作しない場合は、ここを見てください: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+* `REGISTER_MULTIPLE_KEYEVENTS_ENABLE`
 * `AUDIO_ENABLE`
   * オーディオサブシステムを有効にします。
 * `RGBLIGHT_ENABLE`
