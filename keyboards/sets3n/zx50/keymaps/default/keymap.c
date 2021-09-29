@@ -161,157 +161,131 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_A:
             if (record->event.pressed) {
                 current_alpha_oled = 'A';
-            } else {
             }
             break;
         case KC_B:
             if (record->event.pressed) {
                 current_alpha_oled = 'B';
-            } else {
             }
             break;
         case KC_C:
             if (record->event.pressed) {
                 current_alpha_oled = 'C';
-            } else {
             }
             break;
         case KC_D:
             if (record->event.pressed) {
                 current_alpha_oled = 'D';
-            } else {
             }
             break;
         case KC_E:
             if (record->event.pressed) {
                 current_alpha_oled = 'E';
-            } else {
             }
             break;
         case KC_F:
             if (record->event.pressed) {
                 current_alpha_oled = 'F';
-            } else {
             }
             break;
         case KC_G:
             if (record->event.pressed) {
                 current_alpha_oled = 'G';
-            } else {
             }
             break;
         case KC_H:
             if (record->event.pressed) {
                 current_alpha_oled = 'H';
-            } else {
             }
             break;
         case KC_I:
             if (record->event.pressed) {
                 current_alpha_oled = 'I';
-            } else {
             }
             break;
         case KC_J:
             if (record->event.pressed) {
                 current_alpha_oled = 'J';
-            } else {
             }
             break;
         case KC_K:
             if (record->event.pressed) {
                 current_alpha_oled = 'K';
-            } else {
             }
             break;
         case KC_L:
             if (record->event.pressed) {
                 current_alpha_oled = 'L';
-            } else {
             }
             break;
         case KC_M:
             if (record->event.pressed) {
                 current_alpha_oled = 'M';
-            } else {
             }
             break;
         case KC_N:
             if (record->event.pressed) {
                 current_alpha_oled = 'N';
-            } else {
             }
             break;
         case KC_O:
             if (record->event.pressed) {
                 current_alpha_oled = 'O';
-            } else {
             }
             break;
         case KC_P:
             if (record->event.pressed) {
                 current_alpha_oled = 'P';
-            } else {
             }
             break;
         case KC_Q:
             if (record->event.pressed) {
                 current_alpha_oled = 'Q';
-            } else {
             }
             break;
         case KC_R:
             if (record->event.pressed) {
                 current_alpha_oled = 'R';
-            } else {
             }
             break;
         case KC_S:
             if (record->event.pressed) {
                 current_alpha_oled = 'S';
-            } else {
             }
             break;
         case KC_T:
             if (record->event.pressed) {
                 current_alpha_oled = 'T';
-            } else {
             }
             break;
         case KC_U:
             if (record->event.pressed) {
                 current_alpha_oled = 'U';
-            } else {
             }
             break;
         case KC_V:
             if (record->event.pressed) {
                 current_alpha_oled = 'V';
-            } else {
             }
             break;
         case KC_W:
             if (record->event.pressed) {
                 current_alpha_oled = 'W';
-            } else {
             }
             break;
         case KC_X:
             if (record->event.pressed) {
                 current_alpha_oled = 'X';
-            } else {
             }
             break;
         case KC_Y:
             if (record->event.pressed) {
                 current_alpha_oled = 'Y';
-            } else {
             }
             break;
         case KC_Z:
             if (record->event.pressed) {
                 current_alpha_oled = 'Z';
-            } else {
             }
             break;
 #ifdef EMAIL_ENABLE

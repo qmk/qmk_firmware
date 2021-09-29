@@ -1,6 +1,6 @@
 # zx50
 
-![zx50](https://i.imgur.com/ahuuwwp.jpg)
+![zx50](https://i.imgur.com/ahuuwwph.jpg)
 
 A hotswap Mechanical keyboard pcb support 50.
 
