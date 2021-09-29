@@ -6,7 +6,7 @@
 #define VENDOR_ID       0x21FF
 #define PRODUCT_ID      0xAA99
 #define DEVICE_VER      0x0002
-#define MANUFACTURER    westfoxtrot
+#define MANUFACTURER    cablecardesigns
 #define PRODUCT         cypher
 #define DESCRIPTION     QMK Firmware for rev6 Cypher PCB
 
