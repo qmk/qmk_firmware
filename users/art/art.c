@@ -53,10 +53,18 @@ void translate_string(char *in) {
     int isUpperCase = 0;
     for (int i = 0; i < strlen(in); i++) {
       if (isupper(in[i])) {
+        if (in[i] == 'P') {
+          in[i] = ':';
+          continue;
+        }
+
         isUpperCase = 1;
         in[i] = tolower(in[i]);
       }
       switch (in[i]) {
+        case ':':
+          in[i] = 'I';
+          break;         
         case 'w':
           in[i] = 'd';
           break; 
