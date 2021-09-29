@@ -21,6 +21,9 @@
 #include "timer.h"
 #include <stddef.h>
 
+// hid mouse reports cannot exceed -127 to 127, so constrain to that value
+#define constrain_hid(amt) ((amt) < -127 ? -127 : ((amt) > 127 ? 127 : (amt)))
+
 // get_report functions should probably be moved to their respective drivers.
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
 report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
@@ -51,8 +54,8 @@ const pointing_device_driver_t pointing_device_driver = {
 report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
     report_adns9800_t sensor_report = adns9800_get_report();
 
-    int8_t clamped_x = CLAMP_HID(sensor_report.x);
-    int8_t clamped_y = CLAMP_HID(sensor_report.y);
+    int8_t clamped_x = constrain_hid(sensor_report.x);
+    int8_t clamped_y = constrain_hid(sensor_report.y);
 
     mouse_report.x = clamped_x;
     mouse_report.y = clamped_y;
@@ -204,8 +207,8 @@ report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
 #    endif
             MotionStart = timer_read();
         }
-        mouse_report.x = constrain(data.dx, -127, 127);
-        mouse_report.y = constrain(data.dy, -127, 127);
+        mouse_report.x = constrain_hid(data.dx);
+        mouse_report.y = constrain_hid(data.dy);
     }
 
     return mouse_report;

@@ -81,4 +81,3 @@ report_pmw3360_t pmw3360_read_burst(void);
 
 #define degToRad(angleInDegrees) ((angleInDegrees)*M_PI / 180.0)
 #define radToDeg(angleInRadians) ((angleInRadians)*180.0 / M_PI)
-#define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
