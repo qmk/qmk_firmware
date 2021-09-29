@@ -215,6 +215,8 @@
 |`KC_MEDIA_REWIND`      |`KC_MRWD`                     |前の曲へ                                 |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
 |`KC_BRIGHTNESS_UP`     |`KC_BRIU`                     |画面の明るさアップ                       |✔            |✔            |✔                |
 |`KC_BRIGHTNESS_DOWN`   |`KC_BRID`                     |画面の明るさダウン                       |✔            |✔            |✔                |
+|`KC_SHOW_ALL_WINDOWS`  |`KC_WDWS`                     |Show All Windows (macOS Mission Control)|             |✔            |                 |
+|`KC_SHOW_ALL_APPS`     |`KC_APPS`                     |Show All Apps (macOS Launchpad)         |             |✔            |                 |
 
 <sup>1. Linux カーネル HID ドライバは [ほぼ全てのキーコード](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c) を識別しますが、デフォルトの関連付けは デスクトップ環境/ウィンドウマネージャによって決まります。</sup><br/>
 <sup>2. F13-F15 として取り扱われます。</sup><br/>

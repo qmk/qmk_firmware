@@ -226,6 +226,8 @@
 |`KC_MEDIA_REWIND`      |`KC_MRWD`  |前の曲へ              |
 |`KC_BRIGHTNESS_UP`     |`KC_BRIU`  |画面の明るさアップ    |
 |`KC_BRIGHTNESS_DOWN`   |`KC_BRID`  |画面の明るさダウン    |
+|`KC_SHOW_ALL_WINDOWS`  |`KC_WDWS`  |Show All Windows (macOS Mission Control)|
+|`KC_SHOW_ALL_APPS`     |`KC_APPS`  |Show All Apps (macOS Launchpad)         |
 
 ## テンキー
 

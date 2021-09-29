@@ -134,6 +134,8 @@
 #define X_MRWD X_MEDIA_REWIND
 #define X_BRIU X_BRIGHTNESS_UP
 #define X_BRID X_BRIGHTNESS_DOWN
+#define X_WDWS X_SHOW_ALL_WINDOWS
+#define X_APPS X_SHOW_ALL_APPS
 
 /* System Specific */
 #define X_BRMU X_PAUSE
@@ -360,6 +362,8 @@
 #define X_MEDIA_REWIND       bc
 #define X_BRIGHTNESS_UP      bd
 #define X_BRIGHTNESS_DOWN    be
+#define X_SHOW_ALL_WINDOWS   bf
+#define X_SHOW_ALL_APPS      e8
 
 /* Mouse Buttons (unallocated range in HID spec) */
 #ifdef VIA_ENABLE

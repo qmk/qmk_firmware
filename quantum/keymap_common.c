@@ -63,7 +63,8 @@ action_t action_for_keycode(uint16_t keycode) {
         case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
             action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(keycode));
             break;
-        case KC_AUDIO_MUTE ... KC_BRIGHTNESS_DOWN:
+        case KC_AUDIO_MUTE ... KC_SHOW_ALL_WINDOWS:
+        case KC_SHOW_ALL_APPS:
             action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
             break;
 #endif

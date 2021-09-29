@@ -222,6 +222,8 @@ _Static_assert(KC_WREF == 185, "");
 _Static_assert(KC_WFAV == 186, "");
 _Static_assert(KC_BRIU == 189, "");
 _Static_assert(KC_BRID == 190, "");
+_Static_assert(KC_WDWS == 191, "");
+_Static_assert(KC_APPS == 232, "");
 _Static_assert(KC_MPRV == 172, "");
 _Static_assert(KC_MNXT == 171, "");
 _Static_assert(KC_MUTE == 168, "");
