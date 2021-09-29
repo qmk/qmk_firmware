@@ -17,7 +17,6 @@ Make example for this keyboard (after setting up your build environment):
     make tkw/grandiceps:default
     make tkw/grandiceps/rev2:default
 
-
 Flashing example for this keyboard:
 
     make tkw/grandiceps:default:flash
@@ -30,5 +29,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset buttons**: Hold down the BOOT0 button and then briefly press the NRST button on the BlackPill PCB.
 * **Keycode in layout**: Press the key mapped to `RESET` if it is available
