@@ -1,4 +1,4 @@
-/* Copyright 2021 Jonavin Eng
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,11 +16,4 @@
 
 #pragma once
 
-// Standard encoder position.  Set to 1 for top right optional position
-#define ENCODER_DEFAULTACTIONS_INDEX 0
-
-// Increase layers to 6 for VIA
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
-// Remove line below for vertical layout
-#define LANDSCAPE_MODE
+#include "5x6_right.h"

@@ -1,4 +1,4 @@
-/* Copyright 2021 Jonavin Eng
+/* Copyright 2021 Thys de Wet
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,14 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
-// Standard encoder position.  Set to 1 for top right optional position
-#define ENCODER_DEFAULTACTIONS_INDEX 0
+#undef DEVICE_VER
+#define DEVICE_VER 0x0002
+#undef PRODUCT
+#define PRODUCT Grandiceps Split rev2
 
-// Increase layers to 6 for VIA
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
-// Remove line below for vertical layout
-#define LANDSCAPE_MODE
+#define SPLIT_HAND_PIN B3
+#define EEPROM_I2C_24LC64
