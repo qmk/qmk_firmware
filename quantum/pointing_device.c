@@ -92,10 +92,10 @@ __attribute__((weak)) void pointing_device_task(void) {
 #    endif
 #endif
     // Support Inverting the X and Y Axises
-#if defined(POINTNG_DEVICE_INVERT_X)
+#if defined(POINTING_DEVICE_INVERT_X)
     mouseReport.x = -mouseReport.x;
 #endif
-#if defined(POINTNG_DEVICE_INVERT_Y)
+#if defined(POINTING_DEVICE_INVERT_Y)
     mouseReport.y = -mouseReport.y;
 #endif
 
