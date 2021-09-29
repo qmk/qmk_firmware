@@ -106,7 +106,7 @@ __attribute__((weak)) void pointing_device_task(void) {
     // combine with mouse report to ensure that the combined is sent correctly
 #ifdef MOUSEKEY_ENABLE
     report_mouse_t mousekey_report = mousekey_get_report();
-    mouseReport.buttons |= mousekey_report.buttons;
+    mouseReport.buttons = mouseReport.buttons|mousekey_report.buttons;
 #endif
     pointing_device_send();
 }
