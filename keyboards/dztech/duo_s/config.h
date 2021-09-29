@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    DZTECH
 #define PRODUCT         DUO-S
-#define DESCRIPTION     65% Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
