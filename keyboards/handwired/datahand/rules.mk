@@ -12,7 +12,6 @@ CONSOLE_ENABLE    = yes  # Console for debug(+400)
 COMMAND_ENABLE    = yes  # Commands for debug and configuration
 NKRO_ENABLE       = yes  # USB Nkey Rollover
 BACKLIGHT_ENABLE  = no   # Enable keyboard backlight functionality
-UNICODE_ENABLE    = no   # Unicode
 AUDIO_ENABLE      = no   # Audio output
 CUSTOM_MATRIX     = yes  # We definitely have a nonstandard matrix
 
