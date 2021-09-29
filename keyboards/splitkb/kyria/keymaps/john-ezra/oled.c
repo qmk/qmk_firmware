@@ -434,19 +434,19 @@ void render_wpm_large(void) {
 							return;
 					}
 					if(timer_elapsed(timer) > graph_refresh_interval){  //check if it's been long enough before refreshing graph
-						x = 62 - ((currwpm / max_wpm) * 62);  // main calculation to plot graph line
+						x = 63 - ((currwpm / max_wpm) * 63);  // main calculation to plot graph line
 						for(int i = 0; i <= graph_line_thickness - 1; i++){  //first draw actual value line
 							oled_write_pixel(1, x + i, true);
 						}
 						if(vert_line){  //then fill in area below the value line
 							if(vert_count == vert_interval){
 								vert_count = 0;
-								while(x <= 62){
+								while(x <= 63){
 									oled_write_pixel(1, x, true);
 									x++;
 								}
 							} else {
-								for(int i = 62; i > x; i--){
+								for(int i = 63; i > x; i--){
 									if(i % graph_area_fill_interval == 0){
 										oled_write_pixel(1, i, true);
 									}
@@ -454,7 +454,7 @@ void render_wpm_large(void) {
 								vert_count++;
 							}
 						} else {
-							for(int i = 62; i > x; i--){
+							for(int i = 63; i > x; i--){
 								if(i % graph_area_fill_interval == 0){
 									oled_write_pixel(1, i, true);
 								}
