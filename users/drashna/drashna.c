@@ -73,11 +73,6 @@ void                       matrix_init_user(void) {
 
     matrix_init_secret();
     matrix_init_keymap();
-#if defined(AUDIO_ENABLE) && defined(SPLIT_KEYBOARD)
-    if (!is_keyboard_master()) {
-        stop_all_notes();
-    }
-#endif
 }
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
@@ -236,6 +231,7 @@ void                       matrix_slave_scan_user(void) {
 #        if !defined(NO_MUSIC_MODE)
     music_task();
 #        endif
+#        ifdef AUDIO_INIT_DELAY
     if (!is_keyboard_master()) {
         static uint16_t delayed_task_timer = 0;
         if (!delayed_tasks_run) {
@@ -247,6 +243,7 @@ void                       matrix_slave_scan_user(void) {
             }
         }
     }
+#        endif
 #    endif
 #    ifdef SEQUENCER_ENABLE
     sequencer_task();
