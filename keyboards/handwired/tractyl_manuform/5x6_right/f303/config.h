@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define PRODUCT Tractyl Manuform(5x6) BlackPill
+#define PRODUCT Tractyl Manuform(5x6) Proton C
 
 // wiring of each half
 #define MATRIX_COL_PINS \
