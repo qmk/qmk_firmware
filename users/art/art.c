@@ -125,6 +125,7 @@ void translate_string(char *in) {
           in[i] = 'l';
           break; 
       }
+
       if (isUpperCase) {
         isUpperCase = 0;
         in[i] = toupper(in[i]);
@@ -140,7 +141,7 @@ void send_string_remembering_length(char *string) {
 }
 
 void send_shifted_strings(char *string1, char *string2) {
-  if ( get_mods() & MOD_MASK_SHIFT ) {
+  if (get_mods() & MOD_MASK_SHIFT) {
     clear_mods();
     send_string_remembering_length(string2);
   } else {
@@ -379,7 +380,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case CTRL_LCTV:
       if (record->event.pressed) {
-        if ( get_mods() & MOD_MASK_SHIFT ) {
+        if (get_mods() & MOD_MASK_SHIFT) {
           //Firefox
           clear_mods();
           SEND_STRING(SS_LCTL("lc"));
@@ -387,7 +388,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING(SS_LCTL("P"));
           wait_ms(incognito_delay);
           SEND_STRING(SS_LCTL("v") SS_TAP(X_ENTER));
-        } else if ( get_mods() & MOD_MASK_CTRL ) {
+        } else if (get_mods() & MOD_MASK_CTRL) {
           //Chrome
           clear_mods();
           SEND_STRING(SS_LCTL("lc"));
