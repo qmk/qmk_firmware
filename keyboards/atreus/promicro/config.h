@@ -29,10 +29,6 @@
  *
 */
 
-/* key matrix size*/
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 11
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F4, B2, B4, B5 }
 #if defined(PCBDOWN)
