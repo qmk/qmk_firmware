@@ -54,18 +54,18 @@ void translate_string(char *in) {
     for (int i = 0; i < strlen(in); i++) {
       char toPrint = in[i];
       if (isupper(toPrint)) {
-      //   if (toPrint == 'P') {
-      //     SEND_STRING(":");
-      //     continue;
-      //   }
+        if (toPrint == 'P') {
+          SEND_STRING(":");
+          continue;
+        }
 
         isUpperCase = 1;
         toPrint = tolower(toPrint);
       }
       switch (toPrint) {
-        // case ':':
-        //   toPrint = 'I';
-        //   break;
+        case ':':
+          toPrint = 'I';
+          break;
 
         case 'w':
           toPrint = 'd';
