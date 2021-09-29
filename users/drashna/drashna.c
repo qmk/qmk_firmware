@@ -222,9 +222,6 @@ bool hasAllBitsInMask(uint8_t value, uint8_t mask) {
 }
 
 #ifdef SPLIT_KEYBOARD
-#    if defined(AUDIO_ENABLE)
-bool delayed_tasks_run = false;
-#    endif
 __attribute__((weak)) void matrix_slave_scan_keymap(void) {}
 void                       matrix_slave_scan_user(void) {
 #    if defined(AUDIO_ENABLE)
@@ -233,6 +230,7 @@ void                       matrix_slave_scan_user(void) {
 #        endif
 #        ifdef AUDIO_INIT_DELAY
     if (!is_keyboard_master()) {
+        static bool delayed_tasks_run = false;
         static uint16_t delayed_task_timer = 0;
         if (!delayed_tasks_run) {
             if (!delayed_task_timer) {
