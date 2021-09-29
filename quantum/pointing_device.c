@@ -46,6 +46,9 @@ __attribute__((weak)) uint8_t pointing_device_handle_buttons(uint8_t buttons, bo
 
 __attribute__((weak)) void pointing_device_init(void) {
     pointing_device_driver.init();
+#ifdef POINTING_DEVICE_MOTION_PIN
+    setPinInputHigh(POINTING_DEVICE_MOTION_PIN);
+#endif
     pointing_device_init_kb();
     pointing_device_init_user();
 }
@@ -67,6 +70,9 @@ __attribute__((weak)) void pointing_device_send(void) {
 
 __attribute__((weak)) void pointing_device_task(void) {
     // Gather report info
+#ifdef POINTING_DEVICE_MOTION_PIN
+    if (!readPin(POINTING_DEVICE_MOTION_PIN))
+#endif
     mouseReport = pointing_device_driver.get_report(mouseReport);
 
     // Support rotation of the sensor data
