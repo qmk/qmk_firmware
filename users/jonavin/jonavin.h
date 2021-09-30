@@ -38,6 +38,13 @@ enum custom_user_keycodes {
   RGB_TOD,      // Timeout idle time down
   RGB_NITE,     // Turns off all rgb but allow rgb indicators to work
 
+// EMOTICONS,
+  EMO_SHRUG,    // ¯\_(ツ)_/¯
+  EMO_CONFUSE,  // (°_°)
+  EMD_SAD,      // (T_T)
+  EMO_NERVOUS,  // (~_~;)
+  EMO_JOY,      // (^o^)丿
+
   NEW_SAFE_RANGE  // new safe range for keymap level custom keycodes
 };
 

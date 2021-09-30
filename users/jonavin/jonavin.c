@@ -298,6 +298,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else  unregister_code16(keycode);
         break;
 #endif // RGB_MATRIX_ENABLE
+
+#ifdef EMOTICON_ENABLE
+    case EMO_SHRUG:
+        if (record->event.pressed)  SEND_STRING("¯\_(ツ)_/¯");
+            else unregister_code16(keycode);
+        break;
+    case EMO_CONFUSE:
+        if (record->event.pressed)  SEND_STRING("(°_°)");
+            else unregister_code16(keycode);
+        break;
+    case EMD_SAD:
+        if (record->event.pressed)  SEND_STRING("(T_T)");
+            else unregister_code16(keycode);
+        break;
+    case EMO_NERVOUS:
+        if (record->event.pressed)  SEND_STRING("(~_~;)");
+            else unregister_code16(keycode);
+        break;
+    case EMO_JOY:
+        if (record->event.pressed)  SEND_STRING("(^o^)丿");
+            else unregister_code16(keycode);
+        break;
+#endif // EMOTICON_ENABLE
+
     default:
         if (record->event.pressed) {
             #ifdef RGB_MATRIX_ENABLE
