@@ -42,7 +42,11 @@ bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, 
 
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
-#    define NUMBER_OF_ENCODERS (sizeof((pin_t[])ENCODERS_PAD_A) / sizeof(pin_t))
+// if no pads for right half are defined, we assume the keyboard is symmetric (i.e. same pads)
+#    ifndef ENCODERS_PAD_A_RIGHT
+#        define ENCODERS_PAD_A_RIGHT ENCODERS_PAD_A
+#    endif
+#    define NUMBER_OF_ENCODERS ((sizeof((pin_t[])ENCODERS_PAD_A) + (sizeof((pin_t[])ENCODERS_PAD_A_RIGHT)) / sizeof(pin_t))
 #endif  // ENCODER_ENABLE
 
 #ifdef BACKLIGHT_ENABLE
