@@ -28,9 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define UNUSED_PINS \
     { C15 }
-// B2 used for BOOT1, has internal pull down?
-// A9 has internal pull-down
-// A11 and A12 are used for USB sense.  DO NOT USE.
 
 #define DIODE_DIRECTION     COL2ROW
 

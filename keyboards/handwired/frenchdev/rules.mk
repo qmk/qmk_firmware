@@ -15,9 +15,7 @@ COMMAND_ENABLE   = yes # Commands for debug and configuration
 CUSTOM_MATRIX    = yes # Custom matrix file (taken and adapted from the ErgoDox EZ to handle custom number of columns)
 SLEEP_LED_ENABLE = no # Breathing sleep LED during USB suspend
 NKRO_ENABLE      = yes # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-UNICODE_ENABLE   = yes # Unicode
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no
 

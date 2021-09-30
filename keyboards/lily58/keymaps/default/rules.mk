@@ -11,7 +11,6 @@ NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: ht
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output
-UNICODE_ENABLE = no         # Unicode
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 OLED_ENABLE= yes     # OLED display
