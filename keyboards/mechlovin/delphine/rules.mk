@@ -20,5 +20,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = ortho_6x4
+LAYOUTS = numpad_6x4 ortho_6x4
+
 DEFAULT_FOLDER = mechlovin/delphine/mono_led

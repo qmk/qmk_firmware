@@ -149,8 +149,8 @@ def is_keymap_dir(keymap, c=True, json=True, additional_files=None):
     for file in files:
         if (keymap / file).is_file():
             if additional_files:
-                for file in additional_files:
-                    if not (keymap / file).is_file():
+                for additional_file in additional_files:
+                    if not (keymap / additional_file).is_file():
                         return False
 
             return True
