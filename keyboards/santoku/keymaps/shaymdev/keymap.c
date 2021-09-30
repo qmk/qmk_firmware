@@ -26,24 +26,15 @@ enum santoku_keycodes
 {
 	DVORAK = SAFE_RANGE,
 	QWERTY,
-	SYMBOL,
-	NAVIGATION,
-	FUNC,
 	ONETAPALTTAB,
-	OVERVIEW,
 	TAPHOLDKEYTEST,
-	TESTV
 };
 
 enum combos //match combo_count in config.h
 {
-	JK_ESC,
+	AO_ESC,
 	EU_ENT,
-	MCOMMA_FORWARDHISTORY,
-	NM_BACKHISTORY,
-	HJ_CLOSETAB,
-	YU_PREVTAB,
-	UI_NEXTTAB
+	HT_ALT, //not working for hold
 };
 
 #define TO_DV TO(_DVORAK)
@@ -51,27 +42,19 @@ enum combos //match combo_count in config.h
 #define RAISE MO(_RAISE)
 #define SFT_U SFT_T(KC_U) //TO SHORTEN THINGS UP IN LAYOUT MAP? MAKE A BUNCH OF THESE
 
-const uint16_t PROGMEM jk_combo[]     = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM ao_combo[]     = {KC_A, KC_O, COMBO_END}; //not working... probably due to tapping term and interrupt stuff for home row mod
 const uint16_t PROGMEM eu_combo[]     = {KC_E, KC_U, COMBO_END};
-const uint16_t PROGMEM mcomma_combo[] = {KC_M, KC_COMM, COMBO_END};
-const uint16_t PROGMEM nm_combo[]     = {KC_N, KC_M, COMBO_END};
-const uint16_t PROGMEM hj_combo[]     = {KC_H, KC_J, COMBO_END};
-const uint16_t PROGMEM yu_combo[]     = {KC_Y, KC_U, COMBO_END};
-const uint16_t PROGMEM ui_combo[]     = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM ht_combo[]	  = {KC_H, KC_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-	[JK_ESC]                = COMBO_ACTION(jk_combo),
+	[AO_ESC]                = COMBO_ACTION(ao_combo),
 	[EU_ENT]                = COMBO_ACTION(eu_combo),
-	[UI_NEXTTAB]            = COMBO_ACTION(ui_combo),
-	[YU_PREVTAB]            = COMBO_ACTION(yu_combo),
-	[HJ_CLOSETAB]           = COMBO_ACTION(hj_combo),
-	[NM_BACKHISTORY]        = COMBO_ACTION(nm_combo),
-	[MCOMMA_FORWARDHISTORY] = COMBO_ACTION(mcomma_combo)
+	[HT_ALT]                = COMBO_ACTION(ht_combo)
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
-    case JK_ESC:
+    case AO_ESC:
       if (pressed) {
         tap_code16(KC_ESC);
       }
@@ -81,36 +64,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code16(KC_ENT);
       }
       break;
-    case UI_NEXTTAB:
+    case HT_ALT:
       if (pressed) {
-        tap_code16(LCTL(KC_PGDN));
-      }
-      break;
-    case YU_PREVTAB:
-      if (pressed) {
-        tap_code16(LCTL(KC_PGUP));
-      }
-      break;
-    case HJ_CLOSETAB:
-      if (pressed) {
-        tap_code16(LCTL(KC_W));
-      }
-      break;
-    case NM_BACKHISTORY:
-      if (pressed) {
-        tap_code16(LALT(KC_LEFT));
-      }
-      break;
-    case MCOMMA_FORWARDHISTORY:
-      if (pressed) {
-        tap_code16(LALT(KC_RGHT));
+        tap_code16(KC_LALT);
       }
       break;
   }
 }
 
 static bool in_alttab = false; // does an ALT-TAB, for windows cycling, without an alt key
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_DVORAK] = LAYOUT( \
@@ -119,10 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_TAB, GUI_T(KC_A), ALT_T(KC_O), KC_E, KC_U,  KC_I,         KC_D,    KC_H,   KC_T,      KC_N,   KC_S,    KC_MINS, \
 //MIRYOKU KC_TAB, GUI_T(KC_A), ALT_T(KC_O), CTL_T(KC_E), SFT_T(KC_U), KC_I,         KC_D, SFT_T(KC_H), CTL_T(KC_T), ALT_T(KC_N), GUI_T(KC_S),    KC_MINS, !ADD SLASH CHAR!
 			KC_EQL,  KC_SCLN, KC_Q,    KC_J,  	  KC_K,    KC_X,         KC_B,    KC_M,   KC_W,      KC_V,   KC_Z,    KC_BSLS, \
-			 						   TT(LOWER), KC_LSFT, KC_LCTL,      GUI_T(KC_BSPC), ALT_T(KC_SPC), TT(RAISE)
-// 			XXXXXXX, XXXXXXX, XXXXXXX, TT(LOWER), KC_LSFT, KC_LCTL,      KC_BSPC, KC_SPC, TT(RAISE), XXXXXX, XXXXXXX, XXXXXXX 
+			 						   TT(LOWER), KC_LSFT, KC_LCTL,      KC_BSPC, ALT_T(KC_SPC), TT(RAISE)
 //!MIRYOKU* XXXXXXX, XXXXXXX, XXXXXXX, TT(LOWER), KC_LSFT, KC_ENT,       KC_BSPC, KC_SPC, TT(RAISE), XXXXXX, XXXXXXX, XXXXXXX 
-			//xxxxx, KC_ENT,  KC_LALT, TT(LOWER), KC_LSFT, KC_LCTL,      KC_BSPC, KC_SPC, TT(RAISE), KC_DEL, KC_LGUI, XXXXXXX
 			),
 
 	[_QWERTY] = LAYOUT( \
@@ -134,9 +94,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_LOWER] = LAYOUT( \
 			_______, 	  KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_AMPR,     _______, KC_P7,   KC_P8,   KC_P9,  KC_PMNS, _______, \
-			ONETAPALTTAB, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_ASTR, 	  _______, KC_P4,   KC_P5,   KC_P6,  KC_PPLS, _______, \
+			ONETAPALTTAB, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_ASTR, 	   _______, KC_P4,   KC_P5,   KC_P6,  KC_PPLS, _______, \
 			_______, 	  KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_GRV,      _______, KC_P1,   KC_P2,   KC_P3,  KC_PENT, _______, \
-		                               _______, _______, _______,     KC_DEL,  _______, KC_KP_0
+		                               _______, _______, _______,          KC_DEL,  _______, KC_KP_0
 			),
 
 	[_RAISE] = LAYOUT( \
@@ -157,14 +117,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
-            //tap_code(KC_PGDN);
-            tap_code(KC_WH_U);
-            tap_code(KC_WH_U);
             tap_code(KC_WH_U);
         } else {
-            //tap_code(KC_PGUP);
-            tap_code(KC_WH_D);
-            tap_code(KC_WH_D);
             tap_code(KC_WH_D);
         }
 	return true;
@@ -179,6 +133,14 @@ void keyboard_post_init_user(void) {
 	debug_mouse=false;
 	//ps2_mouse_set_remote_mode();
 }
+
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &delete_key_override,
+    NULL // Null terminate the array of overrides!
+};
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -203,13 +165,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     			}
 			break;
 
-		case TESTV:
-			SEND_STRING(SS_TAP(X_V));
-			return false;
-
 		case RESET:
-			//oled_write_ln_P(PSTR("RESETORFLASH"), true);
-			_delay_ms(1000);
+			oled_write_ln_P(PSTR("RESETORFLASH"), true);
+			_delay_ms(1500);
 			break;
 
 		case ONETAPALTTAB:
@@ -223,17 +181,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 					// Do not release Alt here, or it will be impossible to switch more than one window:
 					// alt-tab-tab will be interpreted as alt-tab, then tab
 				}
-			}
-			return false;
-			break;
-
-		case OVERVIEW:
-			// Macro to handle overview mode. Enter overview, wait, then skip to window after current window
-			if (record->event.pressed) {
-				SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_F5));
-				SEND_STRING(SS_UP(X_LGUI));
-				_delay_ms(500);
-				SEND_STRING(SS_TAP(X_DOWN));
 			}
 			return false;
 			break;
@@ -272,7 +219,7 @@ void oled_task_user(void) {
 		oled_write_ln_P(PSTR("  Santoku Keyboard"), false);
 		oled_write_ln_P(PSTR("       by Tye"), false);
 		oled_write_ln_P(PSTR(""), false);
-		oled_write_ln_P(PSTR("    Hello, world."), false);
+		oled_write_ln_P(PSTR("    Hello, Shay."), false);
 		if (timer_read() > 7500) {
 			show_vanity_text = false;
 		}
@@ -284,7 +231,7 @@ void oled_task_user(void) {
 	else {
 		uint8_t wpm = get_current_wpm();
 		if (wpm < 20) {
-			oled_write("CrOS  ", false);
+			oled_write("      ", false);
 		}
 		else {
 			char wpm_display[9];
@@ -294,6 +241,13 @@ void oled_task_user(void) {
 
 		// Host Keyboard Layer Status
 		switch (get_highest_layer(layer_state)) {
+			case _DVORAK:
+				oled_write_P(PSTR("DVORAK\n"), false); //maybe just list the tap mods and combos
+				oled_write_ln_P(PSTR(""), false);
+				oled_write_ln_P(PSTR("ES  ',.py | fgcrl/"), false);
+				oled_write_ln_P(PSTR("TB  aoeui | dhtns-"), false);
+				oled_write_ln_P(PSTR("=   ;qjkx | bmwvz\\"), false);
+				break;
 			case _QWERTY:
 				oled_write_P(PSTR("QWERTY\n"), false);
 				oled_write_ln_P(PSTR(""), false);
@@ -301,26 +255,26 @@ void oled_task_user(void) {
 				oled_write_ln_P(PSTR("ES  asdfg | hjkl;'"), false);
 				oled_write_ln_P(PSTR("SH  zxcvb | nm,./"), false);
 				break;
-			case _SYMBOL:
-				oled_write_P(PSTR("   Symbol   \n"), true);
+			case _LOWER:
+				oled_write_P(PSTR("   Lower   \n"), true);
 				oled_write_ln_P(PSTR(""), false);
-				oled_write_ln_P(PSTR(" `  !@#$% | ^&*()-"), false);
-				oled_write_ln_P(PSTR("ES  12345 | 67890="), false);
-				oled_write_ln_P(PSTR("SH  \\_+{} | [],./"), false);
+				oled_write_ln_P(PSTR(" `  !@{}& |  789-"), false);
+				oled_write_ln_P(PSTR("ES  #$()* |  456+"), false);
+				oled_write_ln_P(PSTR("SH  %^[]` |  123E"), false);
 				break;
-			case _NAVIGATION:
-				oled_write_P(PSTR(" Navigation \n"), true);
+			case _RAISE:
+				oled_write_P(PSTR(" Raise \n"), true);
 				oled_write_ln_P(PSTR(""), false);
-				oled_write_ln_P(PSTR("   | HM PD PU EN NT"), false);
-				oled_write_ln_P(PSTR("   | << vv ^^ >>"), false);
-				oled_write_ln_P(PSTR("ov | D[ D] D+ D-"), false);
+				oled_write_ln_P(PSTR("Pr H ^ E PU|V+ F789"), false);
+				oled_write_ln_P(PSTR("In < V > PD|V- F456"), false);
+				oled_write_ln_P(PSTR("NL         |Mu F123"), false);
 				break;
-			case _FUNC:
-				oled_write_P(PSTR("  Function  \n"), true);
+			case _ADJUST:
+				oled_write_P(PSTR("  Adjust  \n"), true);
 				oled_write_ln_P(PSTR(""), false);
-				oled_write_ln_P(PSTR("          |"), false);
-				oled_write_ln_P(PSTR("ES F12345 | 67890"), false);
-				oled_write_ln_P(PSTR("CP F      | ab"), false);
+				oled_write_ln_P(PSTR("esc rst |"), false);
+				oled_write_ln_P(PSTR("        |  qw dv"), false);
+				oled_write_ln_P(PSTR("        |"), false);
 				break;
 			default:
 				oled_write_ln_P(PSTR("Undefined"), false);
@@ -337,3 +291,7 @@ void oled_task_user(void) {
 }
 #endif
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+	state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+	return state;
+}
