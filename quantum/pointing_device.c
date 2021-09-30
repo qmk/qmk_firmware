@@ -32,7 +32,7 @@ __attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new, report_m
 
 __attribute__((weak)) void           pointing_device_init_kb(void) {}
 __attribute__((weak)) void           pointing_device_init_user(void) {}
-__attribute__((weak)) report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) { return mouse_report; }
+__attribute__((weak)) report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) { return pointing_device_task_user(mouse_report); }
 __attribute__((weak)) report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) { return mouse_report; }
 
 __attribute__((weak)) uint8_t pointing_device_handle_buttons(uint8_t buttons, bool pressed, uint8_t button) {
@@ -73,9 +73,9 @@ __attribute__((weak)) void pointing_device_task(void) {
 #ifdef POINTING_DEVICE_MOTION_PIN
     if (!readPin(POINTING_DEVICE_MOTION_PIN))
 #endif
-    mouseReport = pointing_device_driver.get_report(mouseReport);
+        mouseReport = pointing_device_driver.get_report(mouseReport);
 
-    // Support rotation of the sensor data
+        // Support rotation of the sensor data
 #if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
     int8_t x = mouseReport.x, y = mouseReport.y;
 #    if defined(POINTING_DEVICE_ROTATION_90)
@@ -101,12 +101,10 @@ __attribute__((weak)) void pointing_device_task(void) {
 
     // allow kb to intercept and modify report
     mouseReport = pointing_device_task_kb(mouseReport);
-    // Separately, allow user to intercept and modify data
-    mouseReport = pointing_device_task_user(mouseReport);
     // combine with mouse report to ensure that the combined is sent correctly
 #ifdef MOUSEKEY_ENABLE
     report_mouse_t mousekey_report = mousekey_get_report();
-    mouseReport.buttons = mouseReport.buttons|mousekey_report.buttons;
+    mouseReport.buttons            = mouseReport.buttons | mousekey_report.buttons;
 #endif
     pointing_device_send();
 }
