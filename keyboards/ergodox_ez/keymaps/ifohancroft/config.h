@@ -19,5 +19,5 @@
 // place overrides here
 #define USB_POLLING_INTERVAL_MS 1
 #define FORCE_NKRO
-#undef DEBOUNCE
-#define DEBOUNCE 5
+// #undef DEBOUNCE
+// #define DEBOUNCE 5
