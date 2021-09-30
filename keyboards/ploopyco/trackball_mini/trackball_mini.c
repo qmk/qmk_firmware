@@ -67,12 +67,7 @@ uint8_t OptLowPin = OPT_ENC1;
 bool debug_encoder = false;
 bool     is_drag_scroll    = false;
 
-__attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int8_t h, int8_t v) {
-    mouse_report->h = h;
-    mouse_report->v = v;
-}
-
-__attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
+void process_wheel(report_mouse_t* mouse_report) {
     // If the mouse wheel was just released, do not scroll.
     if (timer_elapsed(lastMidClick) < SCROLL_BUTT_DEBOUNCE)
         return;
@@ -100,12 +95,7 @@ __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
     if (dir == 0)
         return;
 
-    process_wheel_user(mouse_report, mouse_report->h, (int8_t)(mouse_report->v + (dir * OPT_SCALE)));
-}
-
-__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
-    mouse_report->x = x;
-    mouse_report->y = y;
+    mouse_report->v = (int8_t)(dir * OPT_SCALE);
 }
 
 void pointing_device_init_kb(void) {
@@ -116,7 +106,6 @@ void pointing_device_init_kb(void) {
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    process_mouse_user(&mouse_report, mouse_report.x, mouse_report.y);
 
     if (is_drag_scroll) {
         mouse_report.h = mouse_report.x;
@@ -130,7 +119,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         mouse_report.y = 0;
     }
 
-    return mouse_report;
+    return pointing_device_task_user(mouse_report);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {

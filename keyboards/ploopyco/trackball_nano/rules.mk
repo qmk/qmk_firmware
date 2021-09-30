@@ -22,7 +22,4 @@ POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = adns5050
 MOUSEKEY_ENABLE = no        # Mouse keys
 
-QUANTUM_LIB_SRC += analog.c
-SRC += opt_encoder.c
-
 DEFAULT_FOLDER = ploopyco/trackball_nano/rev1_001

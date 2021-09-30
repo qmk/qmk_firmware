@@ -66,13 +66,7 @@ uint8_t  OptLowPin         = OPT_ENC1;
 bool     debug_encoder     = false;
 bool     is_drag_scroll    = false;
 
-__attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int8_t h, int8_t v) {
-    mouse_report->h = h;
-    mouse_report->v = v;
-}
-
-__attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
-    // TODO: Replace this with interrupt driven code,  polling is S L O W
+void process_wheel(report_mouse_t* mouse_report) {
     // Lovingly ripped from the Ploopy Source
 
     // If the mouse wheel was just released, do not scroll.
@@ -100,12 +94,7 @@ __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
     int dir = opt_encoder_handler(p1, p2);
 
     if (dir == 0) return;
-    process_wheel_user(mouse_report, mouse_report->h, (int8_t)(mouse_report->v + (dir * OPT_SCALE)));
-}
-
-__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
-    mouse_report->x = x;
-    mouse_report->y = y;
+    mouse_report->v = (int8_t)(dir * OPT_SCALE);
 }
 
 __attribute__((weak)) report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
@@ -123,8 +112,7 @@ __attribute__((weak)) report_mouse_t pointing_device_task_kb(report_mouse_t mous
         mouse_report.y = 0;
     }
 
-    process_mouse_user(&mouse_report, mouse_report.x, mouse_report.y);
-    return mouse_report;
+    return pointing_device_task_user(mouse_report);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
