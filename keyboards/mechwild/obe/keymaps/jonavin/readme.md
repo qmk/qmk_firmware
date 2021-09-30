@@ -36,3 +36,4 @@ EMOTICON_ENABLE
     - adds EMO_ keycodes for text emojis
     
 ## All layers diagram
+![image](https://user-images.githubusercontent.com/71780717/135513328-51d0d761-a6b9-4d2e-863e-33fcb2682e14.png)
