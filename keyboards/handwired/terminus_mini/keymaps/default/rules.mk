@@ -9,7 +9,6 @@ CONSOLE_ENABLE = no         # Console for debug(+400)
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
