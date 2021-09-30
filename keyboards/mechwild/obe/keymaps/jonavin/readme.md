@@ -14,17 +14,20 @@ Features
     - left spacebar Backspace
 - add double tap of Left Shift to toggle Caps Lock
 
+
 rules.mk OPTIONS - Active features from userspace
+--------------------------------------------------
+
 STARTUP_NUMLOCK_ON = yes
-    - turns on NUMLOCK by default
+- turns on NUMLOCK by default
 
 ENCODER_DEFAULTACTIONS_ENABLE = yes
-    - Enabled default encoder funtions
-        - holding Left shift, change layers
-        - holding right shift, Navigate page up/down
-        - holding Left Ctrl, navigate prev/next word
-        - holding Left Alt, change media prev/next track
-        - default is change volume
+- Enables default encoder funtions
+    - holding Left shift, change layers
+    - holding right shift, Navigate page up/down
+    - holding Left Ctrl, navigate prev/next word
+    - holding Left Alt, change media prev/next track
+    - default is change volume
   
 TD_LSFT_CAPSLOCK_ENABLE = yes
     - This will enable double tap on Left Shift to toggle CAPSLOCK when using KC_LSFTCAPS
