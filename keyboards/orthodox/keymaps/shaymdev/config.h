@@ -22,17 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* Use I2C or Serial, not both */
-
 #define USE_SERIAL
 // #define USE_I2C
 
-/* Select hand configuration */
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
 #define EE_HANDS
 
 #undef RGBLED_NUM
-#define RGBLED_NUM 10
+#define RGBLED_NUM 14
 // #define RGBLIGHT_ANIMATIONS
 
 #define RGBLIGHT_EFFECT_BREATHING
@@ -61,9 +57,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TERM 220
-
-
-// #define NO_ACTION_MACRO //Drashna, on QMK issue 3224, 
-// #define NO_ACTION_FUNCTION
-
 
