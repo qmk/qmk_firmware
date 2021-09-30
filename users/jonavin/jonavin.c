@@ -301,7 +301,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef EMOTICON_ENABLE
     case EMO_SHRUG:
-        if (record->event.pressed)  SEND_STRING("¯\_(ツ)_/¯");
+        if (record->event.pressed)  SEND_STRING("¯\\_(ツ)_/¯");
             else unregister_code16(keycode);
         break;
     case EMO_CONFUSE:
