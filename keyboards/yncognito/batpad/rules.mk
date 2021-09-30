@@ -19,5 +19,4 @@ NKRO_ENABLE = yes             # USB Nkey Rollover
 BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
-UNICODE_ENABLE = no          # Unicode
 AUDIO_ENABLE = no            # Audio output

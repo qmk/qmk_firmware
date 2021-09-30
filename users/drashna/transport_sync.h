@@ -19,4 +19,14 @@
 
 #include "drashna.h"
 
+__attribute__((aligned(8))) typedef struct {
+    bool audio_enable;
+    bool audio_clicky_enable;
+    bool tap_toggling;
+    bool unicode_mode;
+    bool swap_hands;
+} user_runtime_config_t;
+
+extern user_runtime_config_t user_state;
+
 void keyboard_post_init_transport_sync(void);
