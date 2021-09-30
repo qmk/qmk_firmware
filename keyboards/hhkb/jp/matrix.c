@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "timer.h"
 #include "matrix.h"
+#include "avr/timer_avr.h"
 #include "hhkb_avr.h"
 #include <avr/wdt.h>
 #include "suspend.h"
@@ -69,15 +70,17 @@ void matrix_init(void)
     for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix1[i] = 0x00;
     matrix = _matrix0;
     matrix_prev = _matrix1;
+
+    matrix_init_quantum();
 }
 
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-}
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
 
-void matrix_scan_kb(void) {
-  matrix_scan_user();
-}
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
 
 uint8_t matrix_scan(void)
 {

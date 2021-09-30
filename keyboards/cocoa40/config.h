@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    recompile keys
 #define PRODUCT         cocoa40
-#define DESCRIPTION     A 40% keyboard for programmers.
 
 /* key matrix size */
 #define MATRIX_ROWS 8

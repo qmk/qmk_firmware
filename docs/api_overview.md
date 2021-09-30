@@ -1,6 +1,6 @@
 # QMK API
 
-The QMK API provides an asynchronous API that Web and GUI tools can use to compile arbitrary keymaps for any keyboard supported by [QMK](http://qmk.fm/). The stock keymap template supports all QMK keycodes that do not require supporting C code. Keyboard maintainers can supply their own custom templates to enable more functionality.
+The QMK API provides an asynchronous API that Web and GUI tools can use to compile arbitrary keymaps for any keyboard supported by [QMK](https://qmk.fm/). The stock keymap template supports all QMK keycodes that do not require supporting C code. Keyboard maintainers can supply their own custom templates to enable more functionality.
 
 ## App Developers
 

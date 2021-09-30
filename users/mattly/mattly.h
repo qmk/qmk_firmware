@@ -20,11 +20,17 @@
 #include "quantum.h"
 
 enum {
-    _QWERTY,
+    _BASE_MAC,
+    _OVER_WIN,
     _NAVNUM,
+    _NAVNUM_WIN,
     _SYMBOL,
     _FUNCT,
+    _FUNCT_WIN,
 };
+
+// == System
+#define TOG_WIN TG(_OVER_WIN)
 
 // == Thumbs
 // left hand
@@ -32,7 +38,6 @@ enum {
 #define TAB_NUM LT(_NAVNUM, KC_TAB)
 #define SPC_SFT MT(MOD_LSFT, KC_SPC)
 #define ENT_SYM LT(_SYMBOL, KC_ENT)
-
 
 // right hand
 #define SPC_SFT MT(MOD_LSFT, KC_SPC)
@@ -45,52 +50,63 @@ enum {
 
 // == QWERTY
 // left hand home row
-#define A_CTRL  MT(MOD_LCTL, KC_A)
-#define S_ALT   MT(MOD_LALT, KC_S)
-#define D_GUI   MT(MOD_LGUI, KC_D)
-#define F_SHFT  MT(MOD_LSFT, KC_F)
+#define A_CTL  MT(MOD_LCTL, KC_A)
+#define A_GUI  MT(MOD_LGUI, KC_A)
+#define S_ALT  MT(MOD_LALT, KC_S)
+#define D_GUI  MT(MOD_LGUI, KC_D)
+#define D_CTL  MT(MOD_LCTL, KC_D)
+#define F_SFT  MT(MOD_LSFT, KC_F)
 // left hand aux
-#define W_CTRL MT(MOD_LCTL, KC_W)
+#define W_CTL  MT(MOD_LCTL, KC_W)
+#define W_GUI  MT(MOD_LGUI, KC_W)
 #define E_ALT  MT(MOD_LALT, KC_E)
 #define R_GUI  MT(MOD_LGUI, KC_R)
+#define R_CTL  MT(MOD_LCTL, KC_R)
 
 // right hand home row
-#define J_SHFT  MT(MOD_RSFT, KC_J)
+#define J_SFT   MT(MOD_RSFT, KC_J)
 #define K_GUI   MT(MOD_RGUI, KC_K)
+#define K_CTL   MT(MOD_RCTL, KC_K)
 #define L_ALT   MT(MOD_RALT, KC_L)
 #define MINSCTL MT(MOD_RCTL, KC_MINS)
+#define MINSGUI MT(MOD_RGUI, KC_MINS)
 // right hand aux
 #define U_GUI   MT(MOD_RGUI, KC_U)
+#define U_CTL   MT(MOD_RCTL, KC_U)
 #define I_ALT   MT(MOD_RALT, KC_I)
-#define O_CTRL  MT(MOD_RCTL, KC_O)
+#define O_CTL   MT(MOD_RCTL, KC_O)
+#define O_GUI   MT(MOD_RGUI, KC_O)
 
 // == OS X default keys
 // movement by word
-#define BWORD   LALT(KC_LEFT)
-#define FWORD   LALT(KC_RIGHT)
+#define M_BWORD LALT(KC_LEFT)
+#define W_BWORD LCTL(KC_LEFT)
+#define M_FWORD LALT(KC_RIGHT)
+#define W_FWORD LCTL(KC_RIGHT)
 
 // gui navigation
-#define NWIN    LGUI(KC_GRV)        // Next Window
-#define PWIN    LGUI(LSFT(KC_GRV))  // Prev Window
-#define NTAB    LGUI(LSFT(KC_RBRC)) // Next Tab
-#define PTAB    LGUI(LSFT(KC_LBRC)) // Prev Tab
-#define NAVBACK LGUI(KC_LBRC)       // Navigate Forward
-#define NAVFWD  LGUI(KC_RBRC)       // Navigate Back
-
-// my personal mappings to window manager commands
-#define XALLWIN HYPR(KC_F14)
-#define XDESKTP HYPR(KC_F15)
-#define XNXTSPC HYPR(KC_F16)
-#define XPRVSPC HYPR(KC_F17)
-#define XNOTIFY HYPR(KC_F18)
+#define M_NXWIN  LGUI(KC_GRV)        // Next Window
+#define W_NXWIN LALT(KC_TAB)
+#define M_PVWIN  LGUI(LSFT(KC_GRV))  // Prev Window
+#define W_PVWIN LALT(LSFT(KC_TAB))
+#define M_NXTAB  LGUI(LSFT(KC_RBRC)) // Next Tab
+#define W_NXTAB LCTL(KC_PGDN)
+#define M_PVTAB  LGUI(LSFT(KC_LBRC)) // Prev Tab
+#define W_PVTAB LCTL(KC_PGUP)
+#define M_NAVBK LGUI(KC_LBRC)       // Navigate Forward
+#define W_NAVBK LALT(KC_LEFT)
+#define M_NAVFW LGUI(KC_RBRC)       // Navigate Back
+#define W_NAVFW LALT(KC_RIGHT)
 
 // == UNDERGLOW
 #ifdef RGBLIGHT_ENABLE
-#define HSV_CAPS     60, 255, 255
-#define HSV_DEFAULT  30, 255, 255
-#define HSV_SYMBOL   18, 255, 255
+#define HSV_CAPS     55, 255, 255
+#define HSV_ERR      30, 196, 196
+#define HSV_MAC      20, 255, 128
+#define HSV_WIN      10, 255, 128
+#define HSV_SYMBOL  235, 255, 255
 #define HSV_NAVNUM  250, 255, 255
-#define HSV_FUNCT   238, 255, 255
+#define HSV_FUNCT   210, 255, 255
 #define HSV_RESET   180, 255, 255
 #endif
 

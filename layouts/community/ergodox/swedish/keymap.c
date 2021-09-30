@@ -66,14 +66,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_DEL,           KC_Q,           KC_W,          KC_E,    KC_R,    KC_T,   TG(SYMB),
     KC_BSPC,          KC_A,           KC_S,          KC_D,    KC_F,    KC_G,
     KC_LSFT,          CTL_T(KC_Z),    KC_X,          KC_C,    KC_V,    KC_B,   ALL_T(KC_NO),
-    LT(SYMB,SE_APOS), SE_ACUT,        LALT(KC_LSFT), KC_LEFT, KC_RGHT,
+    LT(SYMB,SE_QUOT), SE_ACUT,        LALT(KC_LSFT), KC_LEFT, KC_RGHT,
                                           ALT_T(KC_APP),  KC_LGUI,
                                                           KC_HOME,
                                            KC_SPC,KC_BSPC,KC_END,
     // right hand
          KC_RGHT,      KC_6,   KC_7,   KC_8,    KC_9,    KC_0,              SE_PLUS,
-         TG(SYMB),     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,              SE_AA,
-                       KC_H,   KC_J,   KC_K,    KC_L,    LT(MDIA, SE_OSLH), GUI_T(SE_AE),
+         TG(SYMB),     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,              SE_ARNG,
+                       KC_H,   KC_J,   KC_K,    KC_L,    LT(MDIA, SE_ODIA), GUI_T(SE_ADIA),
          MEH_T(KC_NO), KC_N,   KC_M,   KC_COMM, KC_DOT,  CTL_T(SE_MINS),    KC_RSFT,
                                KC_UP,  KC_DOWN, SE_CIRC, SE_ASTR,           TT(SYMB),
          KC_ALGR,        CTL_T(KC_ESC),
@@ -165,24 +165,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_WBAK
 ),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
-        case 1:
-        if (record->event.pressed) { // For resetting EEPROM
-          eeconfig_init();
-        }
-        break;
-      }
-    return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

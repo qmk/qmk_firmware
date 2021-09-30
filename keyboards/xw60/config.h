@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Drclick
 #define PRODUCT         XW60
-#define DESCRIPTION     qmk keyboard firmware for XW60
 
 /* key matrix size */
 #define MATRIX_ROWS 5

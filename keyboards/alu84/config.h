@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ALU84_CONFIG_H
-#define ALU84_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -25,27 +24,42 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MECHKEYS
 #define PRODUCT         ALU84
-#define DESCRIPTION     75% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
 
-/* key matrix pins */
+/*
+ * Keyboard Matrix Assignments
+ *
+ * Change this to how you wired your keyboard
+ * COLS: AVR pins used for columns, left to right
+ * ROWS: AVR pins used for rows, top to bottom
+ * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
+ *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
+ *
+ */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D5, B7 }
 #define MATRIX_COL_PINS { F0, F1, E6, C7, C6, F5, D4, B1, B0, B5, B4, D7, D6, B3, F4, F6 }
 #define UNUSED_PINS
 
-/* COL2ROW or ROW2COL */
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* number of backlight levels */
 #define BACKLIGHT_PIN B6
-#ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_BREATHING
+
+#define RGB_DI_PIN E2
+#if defined(RGBLIGHT_ENABLE)
+#    define RGBLED_NUM 16
+#    define RGBLIGHT_HUE_STEP 10
+#    define RGBLIGHT_SAT_STEP 10
+#    define RGBLIGHT_VAL_STEP 10
+#    define RGBLIGHT_ANIMATIONS
 #endif
 
-/* Set 0 if debouncing isn't needed */
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
@@ -53,16 +67,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define RGB_DI_PIN E2
-#ifdef RGB_DI_PIN
-#define RGBLED_NUM 16
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 10
-#define RGBLIGHT_VAL_STEP 10
-
-#define RGBLIGHT_ANIMATIONS
-
-#endif
-
-#endif

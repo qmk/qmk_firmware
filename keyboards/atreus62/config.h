@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Profet
 #define PRODUCT         Atreus62
-#define DESCRIPTION     q.m.k. keyboard firmware for Atreus62
 
 /* key matrix size */
 // Rows are doubled-up

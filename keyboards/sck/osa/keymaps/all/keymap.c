@@ -15,13 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-//enum custom_keycodes {
-//  QMKBEST = SAFE_RANGE,
-//  QMKURL
-//};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /* Keymap BASE: (Base Layer) Default Layer
    * .----.,----------------------------------------------------------------------.
@@ -36,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *       |CAPS|    | Alt | Space | Fn |     | Space | Alt |               | Ctrl|
    *       `----------------------------------------------------------------------'
    */
-[0] = LAYOUT_all( /* OSA Base */
+[0] = LAYOUT_alice_split_bs( /* OSA Base */
 	KC_DEL,   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,   KC_5,   KC_6,              KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_GRV,  KC_BSLS,
 	KC_PGUP,  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,    					 KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
 	KC_PGDN,  KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,    					 KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
@@ -56,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *       |CAPS|    | Alt | Space | Fn |     | Space | Alt |               | Ctrl|
    *       `----------------------------------------------------------------------'
    */
-[1] = LAYOUT_all( /* OSA Layer 1 */
+[1] = LAYOUT_alice_split_bs( /* OSA Layer 1 */
 	KC_SLCK,   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,   KC_5,   KC_6,              KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_GRV,  KC_BSLS,
 	KC_NLCK,  KC_TAB,  KC_Q,    KC_UP,   KC_E,    KC_R,   KC_T,    					 KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
 	KC_CLCK,  KC_LCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_F,   KC_G,    					 KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN, KC_QUOT,          KC_ENT,
@@ -64,40 +57,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	          KC_LCTL,          KC_LALT,          KC_SPC, _______,                   KC_SPC,                    KC_RALT,                            KC_RCTL
   ),
 };
-
-
-
-
-//bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//  switch (keycode) {
-//    case QMKBEST:
-//      if (record->event.pressed) {
-//        // when keycode QMKBEST is pressed
-//        SEND_STRING("QMK is the best thing ever!");
-//      } else {
-//       // when keycode QMKBEST is released
-//      }
-//      break;
-//    case QMKURL:
-//      if (record->event.pressed) {
-//        // when keycode QMKURL is pressed
-//       SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-//      } else {
-//        // when keycode QMKURL is released
-//     }
-//      break;
-//  }
-//  return true;
-//}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

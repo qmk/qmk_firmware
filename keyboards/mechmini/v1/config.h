@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MECHKEYS
 #define PRODUCT         Mechmini
-#define DESCRIPTION     40% modular keyboard
 
 /* matrix size */
 #define MATRIX_ROWS 4

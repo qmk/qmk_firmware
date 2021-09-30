@@ -1,8 +1,8 @@
 # PS/2 マウスサポート :id=ps2-mouse-support
 
 <!---
-  original document: 0.8.147:docs/feature_ps2_mouse.md
-  git diff 0.8.147 HEAD -- docs/feature_ps2_mouse.md | cat
+  original document: 0.13.17:docs/feature_ps2_mouse.md
+  git diff 0.13.17 HEAD -- docs/feature_ps2_mouse.md | cat
 -->
 
 PS/2 マウス (例えばタッチパッドあるいはトラックポイント)を複合デバイスとしてキーボードに接続することができます。
@@ -210,7 +210,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 この機能を有効にするには、以下のようにスクロールボタンマスクを設定する必要があります:
 
 ```c
-#define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BUTTON_MIDDLE) /* Default */
+#define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BTN_MIDDLE) /* Default */
 ```
 
 スクロールボタン機能を無効にするには:
@@ -290,4 +290,14 @@ X 軸と Y 軸を反転するには、以下を config.h に配置します:
 /* マウスレポートをデバッグするには */
 #define PS2_MOUSE_DEBUG_HID
 #define PS2_MOUSE_DEBUG_RAW
+```
+
+### 動作フック :id=movement-hook
+
+ホストに送信される前にキーマップでマウスの動作を処理します。使用例として、
+ノイズのフィルタリング、加速の追加、レイヤーの自動アクティブ化が含まれます。
+使用するには、キーマップで次の関数を定義します:
+
+```c
+void ps2_mouse_moved_user(report_mouse_t *mouse_report);
 ```

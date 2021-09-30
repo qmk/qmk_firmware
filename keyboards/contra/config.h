@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Cartel
 #define PRODUCT         Contra
-#define DESCRIPTION     Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
