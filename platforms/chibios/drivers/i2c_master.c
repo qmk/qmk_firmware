@@ -102,7 +102,7 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
     i2cStart(&I2C_DRIVER, &i2cconfig);
 
     uint8_t complete_packet[length + 1];
-    for (uint8_t i = 0; i < length; i++) {
+    for (uint16_t i = 0; i < length; i++) {
         complete_packet[i + 1] = data[i];
     }
     complete_packet[0] = regaddr;
@@ -116,7 +116,7 @@ i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* da
     i2cStart(&I2C_DRIVER, &i2cconfig);
 
     uint8_t complete_packet[length + 2];
-    for (uint8_t i = 0; i < length; i++) {
+    for (uint16_t i = 0; i < length; i++) {
         complete_packet[i + 2] = data[i];
     }
     complete_packet[0] = regaddr >> 8;
