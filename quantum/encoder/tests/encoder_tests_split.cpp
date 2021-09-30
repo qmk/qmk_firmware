@@ -6,17 +6,17 @@
 #include <stdio.h>
 
 extern "C" {
-    #include "encoder.h"
-    #include "encoder/tests/mock_split.h"
+#include "encoder.h"
+#include "encoder/tests/mock_split.h"
 }
 
 struct update {
     int8_t index;
-    bool clockwise;
+    bool   clockwise;
 };
 
 uint8_t uidx = 0;
-update updates[32];
+update  updates[32];
 
 bool isLeftHand;
 
@@ -36,12 +36,12 @@ bool setAndRead(pin_t pin, bool val) {
 }
 
 class EncoderTest : public ::testing::Test {
-    protected:
+   protected:
     void SetUp() override {
         uidx = 0;
         for (int i = 0; i < 32; i++) {
             pinIsInputHigh[i] = 0;
-            pins[i] = 0;
+            pins[i]           = 0;
         }
     }
 };
@@ -92,7 +92,7 @@ TEST_F(EncoderTest, TestOneClockwiseRightSent) {
     uint8_t slave_state[2] = {0};
     encoder_state_raw(slave_state);
 
-    EXPECT_EQ((int8_t) slave_state[0], -1);
+    EXPECT_EQ((int8_t)slave_state[0], -1);
 }
 
 /* this test will not work after the previous test.
@@ -106,7 +106,6 @@ TEST_F(EncoderTest, TestOneClockwiseRightSent) {
 //     isLeftHand = true;
 //     encoder_init();
 
-
 //     uint8_t slave_state[2] = {255, 0};
 //     encoder_update_raw(slave_state);
 
@@ -118,7 +117,6 @@ TEST_F(EncoderTest, TestOneClockwiseRightSent) {
 TEST_F(EncoderTest, TestOneCounterClockwiseRightReceived) {
     isLeftHand = true;
     encoder_init();
-
 
     uint8_t slave_state[2] = {0, 0};
     encoder_update_raw(slave_state);
