@@ -31,9 +31,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _RAISE 4
 #define _ADJUST 16
 
+enum combos //match combo_count in config.h
+{
+	EU_ENT,
+};
+
+const uint16_t PROGMEM eu_combo[]     = {KC_E, KC_U, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+	[EU_ENT]                = COMBO_ACTION(eu_combo),
+};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case EU_ENT:
+      if (pressed) {
+        tap_code16(KC_ENT);
+      }
+      break;
+  }
+}
+
+
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
   QWERTY,
+  VELOCI
 };
 
 #define LOWER MO(_LOWER)
@@ -44,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [_DVORAK] = LAYOUT( \
-  KC_ESC,  KC_QUOT, KC_COMM, KC_DOT, KC_P,    KC_Y,                                                                       KC_F,    KC_G,   KC_C,  KC_R,   KC_L,    KC_SLSH, \
-  KC_TAB,  KC_A,    KC_O,    KC_E,   KC_U,    KC_I,    KC_ENT,             KC_LALT,         KC_DEL,            KC_LGUI,   KC_D,    KC_H,   KC_T,  KC_N,   KC_S,    KC_MINS, \
-  KC_EQL,  KC_SCLN, KC_Q,    KC_J,   KC_K,    KC_X,    TT(LOWER), KC_LSFT, KC_LCTL,         KC_BSPC, KC_SPC,   TT(RAISE), KC_B,    KC_M,   KC_W,  KC_V,   KC_Z,    KC_BSLS \
+  KC_ESC,  KC_QUOT, KC_COMM, KC_DOT, KC_P,    KC_Y,                                                                            KC_F,    KC_G,   KC_C,  KC_R,   KC_L,    KC_SLSH, \
+  KC_TAB, GUI_T(KC_A), ALT_T(KC_O), KC_E, KC_U,  KC_I, KC_ENT,             KC_LALT,         KC_DEL,                 KC_LGUI,   KC_D,    KC_H,   KC_T,  KC_N,   KC_S,    KC_MINS, \
+  KC_EQL,  KC_SCLN, KC_Q,    KC_J,   KC_K,    KC_X,    TT(LOWER), KC_LSFT, KC_LCTL,         KC_BSPC, ALT_T(KC_SPC), TT(RAISE), KC_B,    KC_M,   KC_W,  KC_V,   KC_Z,    KC_BSLS \
 ),
 
 [_QWERTY] = LAYOUT( \
@@ -69,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] =  LAYOUT( \
     TO_DV, RESET,   _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, KC_SLEP,  \
-  RGB_TOG, RGB_MOD, VLK_TOG, AU_ON,   AU_OFF,  AG_NORM, _______,          _______,          _______,          _______, AG_SWAP,  QWERTY,  DVORAK, _______, _______, _______, \
+  RGB_TOG, RGB_MOD, VLK_TOG,  AU_ON,   AU_OFF,  AG_NORM, _______,          _______,          _______,          _______, AG_SWAP,  QWERTY,  DVORAK, _______, _______, _______, \
   RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______,          _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
 )
 
@@ -83,6 +106,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     setPinInput(B0);
 // #endif
 // };
+
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &delete_key_override,
+    NULL // Null terminate the array of overrides!
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -98,6 +129,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+//   case VELOCI:
+// #ifdef VELOCIKEY_ENABLE
+//     velocikey_toggle();
+//     return false;
+// #endif
+//     break;
   }
   return true;
 }

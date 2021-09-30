@@ -32,8 +32,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 #undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 10
+// #define RGBLIGHT_ANIMATIONS
+
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_KNIGHT
+
 // #define RGBLED_SPLIT { 5, 5 }
 #undef RGB_DI_PIN
 #define RGB_DI_PIN D3
@@ -50,3 +56,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                   SONG(DVORAK_SOUND) \
                                 }
 #endif
+
+#define COMBO_COUNT 1
+
+#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_TERM 220
+
+
+// #define NO_ACTION_MACRO //Drashna, on QMK issue 3224, 
+// #define NO_ACTION_FUNCTION
+
+
