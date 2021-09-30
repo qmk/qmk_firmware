@@ -17,11 +17,11 @@
 #pragma once
 
 
-#ifdef RGB_MATRIX_ENABLE
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED
-    
-    #define _INDICATOR_COLOR RGB_RED
-    
-    #define LED_TAB 	30
-    #define LED_CAPS 	45
+#if defined(RGB_MATRIX_ENABLE)
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+
+#define _INDICATOR_COLOR RGB_RED
+
+#define LED_TAB 	30
+#define LED_CAPS 	45
 #endif
