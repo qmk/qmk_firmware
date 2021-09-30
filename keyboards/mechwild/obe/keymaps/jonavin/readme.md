@@ -1,0 +1,38 @@
+# Jonavin's MechWild Orange Boy Ergo keymap
+
+-->  This keymap makes user of user/jonavin userspace 
+
+Features
+  - Split spacebars, Split Backspace
+
+- Add Fn layer keys from Glorious Core mapping that's missing in the default qmk mapping
+- Add PrtScr, Scroll Lock, Break, NumLock to Fn layer
+- Implement Win key lock using Fn+Win 
+- Layer 2 (LOWER) when right B is held -- for emoticons
+- Layer 3 (RAISE) mod on Caps Lock with double-tap to switch to this layer, double tap to switch back
+    - provides arrows on WASD and additional nav keys + right hand numpad with 00; an be used for Alt Code entry
+    - left spacebar Backspace
+- add double tap of Left Shift to toggle Caps Lock
+
+rules.mk OPTIONS - Active features from userspace
+STARTUP_NUMLOCK_ON = yes
+    - turns on NUMLOCK by default
+
+ENCODER_DEFAULTACTIONS_ENABLE = yes
+    - Enabled default encoder funtions
+        - holding Left shift, change layers
+        - holding right shift, Navigate page up/down
+        - holding Left Ctrl, navigate prev/next word
+        - holding Left Alt, change media prev/next track
+        - default is change volume
+  
+TD_LSFT_CAPSLOCK_ENABLE = yes
+    - This will enable double tap on Left Shift to toggle CAPSLOCK when using KC_LSFTCAPS
+
+IDLE_TIMEOUT_ENABLE = yes
+    - Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
+
+EMOTICON_ENABLE
+    - adds EMO_ keycodes for text emojis
+    
+## All layers diagram
