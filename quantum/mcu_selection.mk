@@ -81,7 +81,7 @@ ifneq ($(findstring MK20DX256, $(MCU)),)
   BOARD ?= PJRC_TEENSY_3_1
 endif
 
-ifneq ($(findstring MK66F18, $(MCU)),)
+ifneq ($(findstring MK66FX1M0, $(MCU)),)
   # Cortex version
   MCU = cortex-m4
 
