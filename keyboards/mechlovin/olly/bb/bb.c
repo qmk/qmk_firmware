@@ -23,9 +23,6 @@ void led_init_ports(void) {
   setPinOutput(D1);
   setPinOutput(C1);
   setPinOutput(C6);
-  setPinOutput(B0);
-  setPinOutput(B1);
-  setPinOutput(B2);
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
