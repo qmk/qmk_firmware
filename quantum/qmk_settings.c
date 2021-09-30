@@ -19,6 +19,7 @@ static void auto_shift_timeout_apply(void) {
     set_autoshift_timeout(QS.auto_shift_timeout);
 }
 
+#ifdef MOUSEKEY_ENABLE
 static void mousekey_apply(void) {
     mk_delay = QS.mousekey_delay / 10;
     mk_interval = QS.mousekey_interval;
@@ -29,6 +30,7 @@ static void mousekey_apply(void) {
     mk_wheel_max_speed   = QS.mousekey_wheel_max_speed;
     mk_wheel_time_to_max = QS.mousekey_wheel_time_to_max;
 }
+#endif
 
 static const qmk_settings_proto_t protos[] PROGMEM = {
    DECLARE_SETTING(1, grave_esc_override),
@@ -39,6 +41,7 @@ static const qmk_settings_proto_t protos[] PROGMEM = {
    DECLARE_SETTING(6, osk_timeout),
    DECLARE_SETTING(7, tapping_term),
    DECLARE_SETTING(8, tapping),
+#ifdef MOUSEKEY_ENABLE
    DECLARE_SETTING_CB(9, mousekey_delay, mousekey_apply),
    DECLARE_SETTING_CB(10, mousekey_interval, mousekey_apply),
    DECLARE_SETTING_CB(11, mousekey_move_delta, mousekey_apply),
@@ -48,6 +51,7 @@ static const qmk_settings_proto_t protos[] PROGMEM = {
    DECLARE_SETTING_CB(15, mousekey_wheel_interval, mousekey_apply),
    DECLARE_SETTING_CB(16, mousekey_wheel_max_speed, mousekey_apply),
    DECLARE_SETTING_CB(17, mousekey_wheel_time_to_max, mousekey_apply),
+#endif
    DECLARE_SETTING(18, tap_code_delay),
    DECLARE_SETTING(19, tap_hold_caps_delay),
 };
@@ -95,6 +99,7 @@ void qmk_settings_reset(void) {
     QS.osk_tap_toggle = ONESHOT_TAP_TOGGLE;
     QS.osk_timeout = ONESHOT_TIMEOUT;
 
+#ifdef MOUSEKEY_ENABLE
     QS.mousekey_delay = MOUSEKEY_DELAY;
     QS.mousekey_interval = MOUSEKEY_INTERVAL;
     QS.mousekey_move_delta = MOUSEKEY_MOVE_DELTA;
@@ -104,6 +109,7 @@ void qmk_settings_reset(void) {
     QS.mousekey_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
     QS.mousekey_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
     QS.mousekey_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
+#endif
 
     QS.combo_term = COMBO_TERM;
     QS.tapping_term = TAPPING_TERM;
