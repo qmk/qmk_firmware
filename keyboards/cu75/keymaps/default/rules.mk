@@ -10,7 +10,6 @@ CONSOLE_ENABLE = no            # Console for debug
 COMMAND_ENABLE = no            # Commands for debug and configuration
 NKRO_ENABLE = yes               # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = yes           # Disable keyboard backlight functionality
-MIDI_ENABLE = no                # MIDI controls
 AUDIO_ENABLE = no               # Audio output
 RGBLIGHT_ENABLE = yes          	# Disable RGB underlight
 RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not WS2812
