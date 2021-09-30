@@ -29,10 +29,10 @@
 #endif
 
 // Sensor defs
-#define OPT_ENC1 F0
-#define OPT_ENC2 F4
-#define OPT_ENC1_MUX 0
-#define OPT_ENC2_MUX 4
+#define OPT_ENC1 F4
+#define OPT_ENC2 F0
+#define OPT_ENC1_MUX 4
+#define OPT_ENC2_MUX 0
 
 void process_mouse(report_mouse_t* mouse_report);
 void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y);
