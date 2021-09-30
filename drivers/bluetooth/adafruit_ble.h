@@ -53,6 +53,7 @@ extern uint32_t adafruit_ble_read_battery_voltage(void);
 
 extern bool adafruit_ble_set_mode_leds(bool on);
 extern bool adafruit_ble_set_power_level(int8_t level);
+extern bool adafruit_ble_set_battery_level(uint8_t level);
 
 #ifdef __cplusplus
 }
