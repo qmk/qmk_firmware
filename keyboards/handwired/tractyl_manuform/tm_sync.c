@@ -17,7 +17,6 @@
 #include "tractyl_manuform.h"
 #include "transactions.h"
 #include <string.h>
-#include "drivers/sensors/pmw3360.h"
 
 kb_config_data_t  kb_config;
 kb_mouse_report_t sync_mouse_report;
