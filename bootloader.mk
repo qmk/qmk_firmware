@@ -34,6 +34,8 @@
 #     stm32duino   STM32Duino (STM32F103x8)
 #     stm32-dfu    STM32 USB DFU in ROM
 #     apm32-dfu    APM32 USB DFU in ROM
+# RISC-V:
+#     gd32v-dfu    GD32V USB DFU in ROM
 #
 # BOOTLOADER_SIZE can still be defined manually, but it's recommended
 # you add any possible configuration to this list
@@ -124,6 +126,13 @@ ifeq ($(strip $(BOOTLOADER)), apm32-dfu)
     # Options to pass to dfu-util when flashing
     DFU_ARGS ?= -d 314B:0106 -a 0 -s 0x08000000:leave
     DFU_SUFFIX_ARGS ?= -v 314B -p 0106
+endif
+ifeq ($(strip $(BOOTLOADER)), gd32v-dfu)
+    OPT_DEFS += -DBOOTLOADER_GD32V_DFU
+
+    # Options to pass to dfu-util when flashing
+    DFU_ARGS ?= -d 28E9:0189 -a 0 -s 0x08000000:leave
+    DFU_SUFFIX_ARGS ?= -v 28E9 -p 0189
 endif
 ifeq ($(strip $(BOOTLOADER)), kiibohd)
     OPT_DEFS += -DBOOTLOADER_KIIBOHD

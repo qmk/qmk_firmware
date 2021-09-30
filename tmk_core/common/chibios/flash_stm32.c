@@ -23,6 +23,11 @@
 #    define FLASH_SR_WRPERR FLASH_SR_WRPRTERR
 #endif
 
+#if defined(MCU_GD32V)
+/* GigaDevice GD32VF103 is a STM32F103 clone at heart. */
+#    include "gd32v_compatibility.h"
+#endif
+
 #if defined(STM32F4XX)
 #    define FLASH_SR_PGERR (FLASH_SR_PGSERR | FLASH_SR_PGPERR | FLASH_SR_PGAERR)
 
