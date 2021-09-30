@@ -5,7 +5,6 @@
 Features
   - Split spacebars, Split Backspace
 
-- Add Fn layer keys from Glorious Core mapping that's missing in the default qmk mapping
 - Add PrtScr, Scroll Lock, Break, NumLock to Fn layer
 - Implement Win key lock using Fn+Win 
 - Layer 2 (LOWER) when right B is held -- for emoticons
