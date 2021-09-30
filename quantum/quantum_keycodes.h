@@ -66,6 +66,8 @@ enum quantum_keycodes {
     QK_STENO                = 0x5A00,
     QK_STENO_BOLT           = 0x5A30,
     QK_STENO_GEMINI         = 0x5A31,
+    QK_STENO_COMB           = 0x5A32,
+    QK_STENO_COMB_MAX       = 0x5A3C,
     QK_STENO_MAX            = 0x5A3F,
     // 0x5C00 - 0x5FFF are reserved, see below
     QK_MOD_TAP             = 0x6000,
@@ -514,6 +516,48 @@ enum quantum_keycodes {
     // RGB underglow/matrix (continued)
     RGB_MODE_TWINKLE,
 
+    // Key Overrides
+    KEY_OVERRIDE_TOGGLE,
+    KEY_OVERRIDE_ON,
+    KEY_OVERRIDE_OFF,
+
+    // Additional magic key
+    MAGIC_TOGGLE_GUI,
+
+    // Programmable Button
+    PROGRAMMABLE_BUTTON_1,
+    PROGRAMMABLE_BUTTON_2,
+    PROGRAMMABLE_BUTTON_3,
+    PROGRAMMABLE_BUTTON_4,
+    PROGRAMMABLE_BUTTON_5,
+    PROGRAMMABLE_BUTTON_6,
+    PROGRAMMABLE_BUTTON_7,
+    PROGRAMMABLE_BUTTON_8,
+    PROGRAMMABLE_BUTTON_9,
+    PROGRAMMABLE_BUTTON_10,
+    PROGRAMMABLE_BUTTON_11,
+    PROGRAMMABLE_BUTTON_12,
+    PROGRAMMABLE_BUTTON_13,
+    PROGRAMMABLE_BUTTON_14,
+    PROGRAMMABLE_BUTTON_15,
+    PROGRAMMABLE_BUTTON_16,
+    PROGRAMMABLE_BUTTON_17,
+    PROGRAMMABLE_BUTTON_18,
+    PROGRAMMABLE_BUTTON_19,
+    PROGRAMMABLE_BUTTON_20,
+    PROGRAMMABLE_BUTTON_21,
+    PROGRAMMABLE_BUTTON_22,
+    PROGRAMMABLE_BUTTON_23,
+    PROGRAMMABLE_BUTTON_24,
+    PROGRAMMABLE_BUTTON_25,
+    PROGRAMMABLE_BUTTON_26,
+    PROGRAMMABLE_BUTTON_27,
+    PROGRAMMABLE_BUTTON_28,
+    PROGRAMMABLE_BUTTON_29,
+    PROGRAMMABLE_BUTTON_30,
+    PROGRAMMABLE_BUTTON_31,
+    PROGRAMMABLE_BUTTON_32,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -538,9 +582,13 @@ enum quantum_keycodes {
 #define HYPR(kc) (QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | (kc))
 #define MEH(kc) (QK_LCTL | QK_LSFT | QK_LALT | (kc))
 #define LCAG(kc) (QK_LCTL | QK_LALT | QK_LGUI | (kc))
-#define SGUI(kc) (QK_LGUI | QK_LSFT | (kc))
-#define SCMD(kc) SGUI(kc)
-#define SWIN(kc) SGUI(kc)
+#define LSG(kc) (QK_LSFT | QK_LGUI | (kc))
+#define SGUI(kc) LSG(kc)
+#define SCMD(kc) LSG(kc)
+#define SWIN(kc) LSG(kc)
+#define LAG(kc) (QK_LALT | QK_LGUI | (kc))
+#define RSG(kc) (QK_RSFT | QK_RGUI | (kc))
+#define RAG(kc) (QK_RALT | QK_RGUI | (kc))
 #define LCA(kc) (QK_LCTL | QK_LALT | (kc))
 #define LSA(kc) (QK_LSFT | QK_LALT | (kc))
 #define RSA(kc) (QK_RSFT | QK_RALT | (kc))
@@ -683,6 +731,7 @@ enum quantum_keycodes {
 
 #define GUI_OFF MAGIC_NO_GUI
 #define GUI_ON MAGIC_UNNO_GUI
+#define GUI_TOG MAGIC_TOGGLE_GUI
 
 #define GE_SWAP MAGIC_SWAP_GRAVE_ESC
 #define GE_NORM MAGIC_UNSWAP_GRAVE_ESC
@@ -760,14 +809,18 @@ enum quantum_keycodes {
 #define CMD_T(kc) LCMD_T(kc)
 #define WIN_T(kc) LWIN_T(kc)
 
-#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)                         // Left Control + Shift e.g. for gnome-terminal
-#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)              // Meh is a less hyper version of the Hyper key -- doesn't include GUI, so just Left Control + Shift + Alt
-#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)             // Left Control + Alt + GUI
-#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)             // Right Control + Alt + GUI
+#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)  // Left Control + Shift e.g. for gnome-terminal
+#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)  // Meh is a less hyper version of the Hyper key -- doesn't include GUI, so just Left Control + Shift + Alt
+#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)  // Left Control + Alt + GUI
+#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)  // Right Control + Alt + GUI
 #define HYPR_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc)  // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
-#define SGUI_T(kc) MT(MOD_LGUI | MOD_LSFT, kc)                        // Left Shift + GUI
-#define SCMD_T(kc) SGUI_T(kc)
-#define SWIN_T(kc) SGUI_T(kc)
+#define LSG_T(kc) MT(MOD_LSFT | MOD_LGUI, kc)  // Left Shift + GUI
+#define SGUI_T(kc) LSG_T(kc)
+#define SCMD_T(kc) LSG_T(kc)
+#define SWIN_T(kc) LSG_T(kc)
+#define LAG_T(kc) MT(MOD_LALT | MOD_LGUI, kc)  // Left Alt + GUI
+#define RSG_T(kc) MT(MOD_RSFT | MOD_RGUI, kc)  // Right Shift + GUI
+#define RAG_T(kc) MT(MOD_RALT | MOD_RGUI, kc)  // Right Alt + GUI
 #define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc)  // Left Control + Alt
 #define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)  // Left Shift + Alt
 #define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)  // Right Shift + Alt
@@ -792,7 +845,7 @@ enum quantum_keycodes {
 
 #define UC_M_MA UNICODE_MODE_MAC
 #define UNICODE_MODE_OSX UNICODE_MODE_MAC  // Deprecated alias
-#define UC_M_OS UNICODE_MODE_MAC           // Deprecated alias
+#define UC_M_OS UNICODE_MODE_MAC  // Deprecated alias
 #define UC_M_LN UNICODE_MODE_LNX
 #define UC_M_WI UNICODE_MODE_WIN
 #define UC_M_BS UNICODE_MODE_BSD
@@ -835,3 +888,39 @@ enum quantum_keycodes {
 #define OS_TOGG ONESHOT_TOGGLE
 #define OS_ON ONESHOT_ENABLE
 #define OS_OFF ONESHOT_DISABLE
+
+// Programmable Button aliases
+#define PB_1 PROGRAMMABLE_BUTTON_1
+#define PB_2 PROGRAMMABLE_BUTTON_2
+#define PB_3 PROGRAMMABLE_BUTTON_3
+#define PB_4 PROGRAMMABLE_BUTTON_4
+#define PB_5 PROGRAMMABLE_BUTTON_5
+#define PB_6 PROGRAMMABLE_BUTTON_6
+#define PB_7 PROGRAMMABLE_BUTTON_7
+#define PB_8 PROGRAMMABLE_BUTTON_8
+#define PB_9 PROGRAMMABLE_BUTTON_9
+#define PB_10 PROGRAMMABLE_BUTTON_10
+#define PB_11 PROGRAMMABLE_BUTTON_11
+#define PB_12 PROGRAMMABLE_BUTTON_12
+#define PB_13 PROGRAMMABLE_BUTTON_13
+#define PB_14 PROGRAMMABLE_BUTTON_14
+#define PB_15 PROGRAMMABLE_BUTTON_15
+#define PB_16 PROGRAMMABLE_BUTTON_16
+#define PB_17 PROGRAMMABLE_BUTTON_17
+#define PB_18 PROGRAMMABLE_BUTTON_18
+#define PB_19 PROGRAMMABLE_BUTTON_19
+#define PB_20 PROGRAMMABLE_BUTTON_20
+#define PB_21 PROGRAMMABLE_BUTTON_21
+#define PB_22 PROGRAMMABLE_BUTTON_22
+#define PB_23 PROGRAMMABLE_BUTTON_23
+#define PB_24 PROGRAMMABLE_BUTTON_24
+#define PB_25 PROGRAMMABLE_BUTTON_25
+#define PB_26 PROGRAMMABLE_BUTTON_26
+#define PB_27 PROGRAMMABLE_BUTTON_27
+#define PB_28 PROGRAMMABLE_BUTTON_28
+#define PB_29 PROGRAMMABLE_BUTTON_29
+#define PB_30 PROGRAMMABLE_BUTTON_30
+#define PB_31 PROGRAMMABLE_BUTTON_31
+#define PB_32 PROGRAMMABLE_BUTTON_32
+#define PROGRAMMABLE_BUTTON_MIN PROGRAMMABLE_BUTTON_1
+#define PROGRAMMABLE_BUTTON_MAX PROGRAMMABLE_BUTTON_32

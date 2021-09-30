@@ -2,8 +2,6 @@
     "keyboard_name": "Quackfire",
     "url": "https://github.com/evyd13/quackfire-controller",
     "maintainer": "evyd13",
-    "width": 18.5,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

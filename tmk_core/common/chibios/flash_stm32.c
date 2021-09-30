@@ -16,26 +16,34 @@
  * Modifications for QMK and STM32F303 by Yiancar
  */
 
-#if defined(EEPROM_EMU_STM32F303xC)
-#    define STM32F303xC
-#    include "stm32f3xx.h"
-#elif defined(EEPROM_EMU_STM32F103xB)
-#    define STM32F103xB
-#    include "stm32f1xx.h"
-#elif defined(EEPROM_EMU_STM32F072xB)
-#    define STM32F072xB
-#    include "stm32f0xx.h"
-#elif defined(EEPROM_EMU_STM32F042x6)
-#    define STM32F042x6
-#    include "stm32f0xx.h"
-#else
-#    error "not implemented."
-#endif
-
+#include <hal.h>
 #include "flash_stm32.h"
 
 #if defined(EEPROM_EMU_STM32F103xB)
 #    define FLASH_SR_WRPERR FLASH_SR_WRPRTERR
+#endif
+
+#if defined(EEPROM_EMU_STM32F401xC)
+#    define FLASH_SR_PGERR (FLASH_SR_PGSERR | FLASH_SR_PGPERR | FLASH_SR_PGAERR)
+
+#    define FLASH_KEY1 0x45670123U
+#    define FLASH_KEY2 0xCDEF89ABU
+
+static uint8_t ADDR2PAGE(uint32_t Page_Address) {
+    switch (Page_Address) {
+        case 0x08000000 ... 0x08003FFF:
+            return 0;
+        case 0x08004000 ... 0x08007FFF:
+            return 1;
+        case 0x08008000 ... 0x0800BFFF:
+            return 2;
+        case 0x0800C000 ... 0x0800FFFF:
+            return 3;
+    }
+
+    // TODO: bad times...
+    return 7;
+}
 #endif
 
 /* Delay definition */
@@ -68,7 +76,9 @@ FLASH_Status FLASH_GetStatus(void) {
 
     if ((FLASH->SR & FLASH_SR_WRPERR) != 0) return FLASH_ERROR_WRP;
 
+#if defined(FLASH_OBR_OPTERR)
     if ((FLASH->SR & FLASH_OBR_OPTERR) != 0) return FLASH_ERROR_OPT;
+#endif
 
     return FLASH_COMPLETE;
 }
@@ -110,15 +120,24 @@ FLASH_Status FLASH_ErasePage(uint32_t Page_Address) {
 
     if (status == FLASH_COMPLETE) {
         /* if the previous operation is completed, proceed to erase the page */
+#if defined(FLASH_CR_SNB)
+        FLASH->CR &= ~FLASH_CR_SNB;
+        FLASH->CR |= FLASH_CR_SER | (ADDR2PAGE(Page_Address) << FLASH_CR_SNB_Pos);
+#else
         FLASH->CR |= FLASH_CR_PER;
         FLASH->AR = Page_Address;
+#endif
         FLASH->CR |= FLASH_CR_STRT;
 
         /* Wait for last operation to be completed */
         status = FLASH_WaitForLastOperation(EraseTimeout);
         if (status != FLASH_TIMEOUT) {
-            /* if the erase operation is completed, disable the PER Bit */
+            /* if the erase operation is completed, disable the configured Bits */
+#if defined(FLASH_CR_SNB)
+            FLASH->CR &= ~(FLASH_CR_SER | FLASH_CR_SNB);
+#else
             FLASH->CR &= ~FLASH_CR_PER;
+#endif
         }
         FLASH->SR = (FLASH_SR_EOP | FLASH_SR_PGERR | FLASH_SR_WRPERR);
     }
@@ -141,6 +160,11 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
         status = FLASH_WaitForLastOperation(ProgramTimeout);
         if (status == FLASH_COMPLETE) {
             /* if the previous operation is completed, proceed to program the new data */
+
+#if defined(FLASH_CR_PSIZE)
+            FLASH->CR &= ~FLASH_CR_PSIZE;
+            FLASH->CR |= FLASH_CR_PSIZE_0;
+#endif
             FLASH->CR |= FLASH_CR_PG;
             *(__IO uint16_t*)Address = Data;
             /* Wait for last operation to be completed */
@@ -161,9 +185,11 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
  * @retval None
  */
 void FLASH_Unlock(void) {
-    /* Authorize the FPEC Access */
-    FLASH->KEYR = FLASH_KEY1;
-    FLASH->KEYR = FLASH_KEY2;
+    if (FLASH->CR & FLASH_CR_LOCK) {
+        /* Authorize the FPEC Access */
+        FLASH->KEYR = FLASH_KEY1;
+        FLASH->KEYR = FLASH_KEY2;
+    }
 }
 
 /**
@@ -174,18 +200,4 @@ void FLASH_Unlock(void) {
 void FLASH_Lock(void) {
     /* Set the Lock Bit to lock the FPEC and the FCR */
     FLASH->CR |= FLASH_CR_LOCK;
-}
-
-/**
- * @brief  Clears the FLASH's pending flags.
- * @param  FLASH_FLAG: specifies the FLASH flags to clear.
- *   This parameter can be any combination of the following values:
- *     @arg FLASH_FLAG_PGERR: FLASH Programming error flag flag
- *     @arg FLASH_FLAG_WRPERR: FLASH Write protected error flag
- *     @arg FLASH_FLAG_EOP: FLASH End of Programming flag
- * @retval None
- */
-void FLASH_ClearFlag(uint32_t FLASH_FLAG) {
-    /* Clear the flags */
-    FLASH->SR = FLASH_FLAG;
 }

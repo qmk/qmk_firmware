@@ -19,12 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "crkbd.h"
-#if defined(KEYBOARD_crkbd_rev1_legacy)
-#    include "legacy.h"
-#elif defined(KEYBOARD_crkbd_rev1_common)
-#    include "common.h"
-#endif
-
 #include "quantum.h"
 
 // clang-format off

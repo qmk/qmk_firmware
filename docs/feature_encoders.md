@@ -38,6 +38,12 @@ It can also be defined per-encoder, by instead defining:
 #define ENCODER_RESOLUTIONS { 4, 2 }
 ```
 
+For 4× encoders you also can assign default position if encoder skips pulses when it changes direction. For example, if your encoder send high level on both pins by default, define this:
+
+```c
+#define ENCODER_DEFAULT_POS 0x3
+```
+
 ## Split Keyboards
 
 The above is enough for split keyboards that are symmetrical, i.e. the halves have the same number of encoders and they are on the same pins.
@@ -88,7 +94,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_UP);
         }
     }
-    return true;
+    return false;
 }
 ```
 

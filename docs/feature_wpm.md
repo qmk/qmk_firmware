@@ -45,6 +45,7 @@ bool wpm_keycode_user(uint16_t keycode) {
 
 Additionally, if `WPM_ALLOW_COUNT_REGRESSION` is defined, there is the `uint8_t wpm_regress_count(uint16_t keycode)` function that allows you to decrease the WPM. This is useful if you want to be able to penalize certain keycodes (or even combinations). 
 
+```c
 __attribute__((weak)) uint8_t wpm_regress_count(uint16_t keycode) {
     bool weak_modded = (keycode >= QK_LCTL && keycode < QK_LSFT) || (keycode >= QK_RCTL && keycode < QK_RSFT);
     
@@ -60,3 +61,4 @@ __attribute__((weak)) uint8_t wpm_regress_count(uint16_t keycode) {
         return 1;
     }
 }
+```

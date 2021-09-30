@@ -74,7 +74,7 @@ default.keymap: None -> default
 
     qmk config compile
 
-### 単一キーの例
+### 単一キーの例 :id=single-key-example
 
     qmk config compile.keyboard
 

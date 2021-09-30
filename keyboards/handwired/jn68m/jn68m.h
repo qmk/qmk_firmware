@@ -13,37 +13,37 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef JN68M_H
-#define JN68M_H
+
+#pragma once
 
 #include "quantum.h"
 
+#define XXX KC_NO
+
 #define LAYOUT( \
-  K1 , K2 , K3 , K4 , K5 , K6 , K7 , K8 , K9 , K10, K11, K12, K13, K14,      K67, K68,\
-  K16, K17, K18, K19, K20, K21, K22, K23, K24, K25, K26, K27, K28, K29,      K69, K70,\
-  K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K40, K41, K42, \
-  K43, K44, K45, K46, K47, K48, K49, K50, K51, K52,      K53, K54,           K55, \
-  K56, K57, K58,           K59,                K60,      K61, K63,      K64, K65, K66 \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D,      k0E, k0F, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D,      k1E, k1F, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39,      k3B, k3C,           k3E, \
+    k40, k41, k42,           k45,                k49,      k4B, k4C,      k4D, k4E, k4F \
 ) { \
-  { K1 , K2 , K3 , K4 , K5 , K6 , K7 , K8 , K9 , K10, K11, K12, K13, K14, K67, K68 }, \
-  { K16, K17, K18, K19, K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K69, K70 }, \
-  { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K40, K41, K42,KC_NO,KC_NO,KC_NO}, \
-  { K43, K44, K45, K46, K47, K48, K49, K50, K51, K52,KC_NO,K53, K54,KC_NO,K55,KC_NO}, \
-  { K56, K57, K58,KC_NO,KC_NO,K59,KC_NO,KC_NO,KC_NO,K60,KC_NO,K61, K63, K64, K65, K66} \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, XXX, XXX, XXX }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, XXX, k3B, k3C, XXX, k3E, XXX }, \
+    { k40, k41, k42, XXX, XXX, k45, XXX, XXX, XXX, k49, XXX, k4B, k4C, k4D, k4E, k4F } \
 }
 
 #define LAYOUT_splitbs( \
-  K1 , K2 , K3 , K4 , K5 , K6 , K7 , K8 , K9 , K10, K11, K12, K13, K14, K15,      K67, K68,\
-  K16, K17, K18, K19, K20, K21, K22, K23, K24, K25, K26, K27, K28, K29,           K69, K70,\
-  K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K40, K41, K42, \
-  K43, K44, K45, K46, K47, K48, K49, K50, K51, K52,      K53, K54,                K55, \
-  K56, K57, K58,           K59,                K60,      K61, K63,           K64, K65, K66 \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k2D,      k0E, k0F, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D,           k1E, k1F, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39,      k3B, k3C,                k3E, \
+    k40, k41, k42,           k45,                k49,      k4B, k4C,           k4D, k4E, k4F \
 ) { \
-  { K1 , K2 , K3 , K4 , K5 , K6 , K7 , K8 , K9 , K10, K11, K12, K13, K14, K67, K68 }, \
-  { K16, K17, K18, K19, K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K69, K70 }, \
-  { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K40, K41, K42, K15,KC_NO,KC_NO}, \
-  { K43, K44, K45, K46, K47, K48, K49, K50, K51, K52,KC_NO,K53, K54,KC_NO,K55,KC_NO}, \
-  { K56, K57, K58,KC_NO,KC_NO,K59,KC_NO,KC_NO,KC_NO,K60,KC_NO,K61, K63, K64, K65, K66} \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, XXX, XXX }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, XXX, k3B, k3C, XXX, k3E, XXX }, \
+    { k40, k41, k42, XXX, XXX, k45, XXX, XXX, XXX, k49, XXX, k4B, k4C, k4D, k4E, k4F } \
 }
-
-#endif

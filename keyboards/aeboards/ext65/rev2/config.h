@@ -51,11 +51,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //SPI
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
+#define WS2812_SPI_SCK_PAL_MODE 0
+#define WS2812_SPI_SCK_PIN B13
 #define WS2812_EXTERNAL_PULLUP
 
 // I2C OLED defines
-#define I2C1_SCL 8
-#define I2C1_SDA 9
+#define I2C1_SCL_PIN B8
+#define I2C1_SDA_PIN B9
 
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1

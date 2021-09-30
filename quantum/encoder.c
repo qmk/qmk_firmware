@@ -155,6 +155,11 @@ static bool encoder_update(int8_t index, uint8_t state) {
         encoder_update_kb(index, ENCODER_CLOCKWISE);
     }
     encoder_pulses[index] %= resolution;
+#ifdef ENCODER_DEFAULT_POS
+    if ((state & 0x3) == ENCODER_DEFAULT_POS) {
+        encoder_pulses[index] = 0;
+    }
+#endif
     return changed;
 }
 

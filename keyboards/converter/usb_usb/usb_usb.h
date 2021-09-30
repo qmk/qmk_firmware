@@ -15,10 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef USB_USB_H
-#define USB_USB_H
+#pragma once
 
 #include "quantum.h"
+
+#define XXX KC_NO
 
 #define ______ KC_TRNS
 
@@ -63,46 +64,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * TODO: use same keycode to pass through instead of KC_NO?
  */
 #define LAYOUT_all( \
-            K68,K69,K6A,K6B,K6C,K6D,K6E,K6F,K70,K71,K72,K73,                                              \
-    K29,    K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,      K46,K47,K48,  K81,K80,K7F,K66, K75,     \
-    K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,K89,K2A,  K49,K4A,K4B,  K53,K54,K55,K56, K78,K79, \
-    K2B,K14,K1A,K08,K15,K17,K1C,K18,K0C,K12,K13,K2F,K30,    K31,  K4C,K4D,K4E,  K5F,K60,K61,K57, K76,K7A, \
-    K39,K04,K16,K07,K09,K0A,K0B,K0D,K0E,K0F,K33,K34,    K32,K28,                K5C,K5D,K5E,K85, K77,K7C, \
-    KE1,K64,K1D,K1B,K06,K19,K05,K11,K10,K36,K37,K38,    K87,KE5,      K52,      K59,K5A,K5B,K67, K74,K7D, \
-    KE0,KE3,KE2,K8B,K91,    K2C,    K90,K8A,K88,KE6,KE7,K65,KE4,  K50,K51,K4F,  K62,    K63,K58, K7E,K7B  \
+              k68, k69, k6A, k6B, k6C, k6D, k6E, k6F, k70, k71, k72, k73, \
+    k29,      k3A, k3B, k3C, k3D, k3E, k3F, k40, k41, k42, k43, k44, k45,       k46, k47, k48,  k81, k80, k7F, k66,  k75, \
+\
+    k35, k1E, k1F, k20, k21, k22, k23, k24, k25, k26, k27, k2D, k2E, k89, k2A,  k49, k4A, k4B,  k53, k54, k55, k56,  k78, k79, \
+    k2B, k14, k1A, k08, k15, k17, k1C, k18, k0C, k12, k13, k2F, k30, k31,       k4C, k4D, k4E,  k5F, k60, k61, k57,  k76, k7A, \
+    k39, k04, k16, k07, k09, k0A, k0B, k0D, k0E, k0F, k33, k34, k32, k28,                       k5C, k5D, k5E, k85,  k77, k7C, \
+    kE1, k64, k1D, k1B, k06, k19, k05, k11, k10, k36, k37, k38, k87, kE5,            k52,       k59, k5A, k5B, k67,  k74, k7D, \
+    kE0, kE3, kE2, k8B, k91,      k2C, k90, k8A, k88, kE6, kE7, k65, kE4,       k50, k51, k4F,  k62,      k63, k58,  k7E, k7B \
 ) { \
-    { KC_NO, KC_NO, KC_NO, KC_NO, K04,   K05,   K06,   K07,      /* 00-07 */ \
-      K08,   K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F    }, /* 08-0F */ \
-    { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,      /* 10-17 */ \
-      K18,   K19,   K1A,   K1B,   K1C,   K1D,   K1E,   K1F    }, /* 18-1F */ \
-    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,      /* 20-27 */ \
-      K28,   K29,   K2A,   K2B,   K2C,   K2D,   K2E,   K2F    }, /* 28-2F */ \
-    { K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,      /* 30-37 */ \
-      K38,   K39,   K3A,   K3B,   K3C,   K3D,   K3E,   K3F    }, /* 38-3F */ \
-    { K40,   K41,   K42,   K43,   K44,   K45,   K46,   K47,      /* 40-47 */ \
-      K48,   K49,   K4A,   K4B,   K4C,   K4D,   K4E,   K4F    }, /* 48-4F */ \
-    { K50,   K51,   K52,   K53,   K54,   K55,   K56,   K57,      /* 50-57 */ \
-      K58,   K59,   K5A,   K5B,   K5C,   K5D,   K5E,   K5F    }, /* 58-5F */ \
-    { K60,   K61,   K62,   K63,   K64,   K65,   K66,   K67,      /* 60-67 */ \
-      K68,   K69,   K6A,   K6B,   K6C,   K6D,   K6E,   K6F    }, /* 68-6F */ \
-    { K70,   K71,   K72,   K73,   K74,   K75,   K76,   K77,      /* 70-77 */ \
-      K78,   K79,   K7A,   K7B,   K7C,   K7D,   K7E,   K7F    }, /* 78-7F */ \
-    { K80,   K81,   KC_NO, KC_NO, KC_NO, K85,   KC_NO, K87,      /* 80-87 */ \
-      K88,   K89,   K8A,   K8B,   KC_NO, KC_NO, KC_NO, KC_NO  }, /* 88-8F */ \
-    { K90,   K91,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    /* 90-97 */ \
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  }, /* 98-9F */ \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    /* A0-A7 */ \
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  }, /* A8-AF */ \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    /* B0-B7 */ \
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  }, /* B8-BF */ \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    /* C0-C7 */ \
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  }, /* C8-CF */ \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    /* D0-D7 */ \
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  }, /* D8-DF */ \
-    { KE0,   KE1,   KE2,   KE3,   KE4,   KE5,   KE6,   KE7,      /* E0-E7 */ \
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  }, /* E8-EF */ \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    /* F0-F7 */ \
-      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  }, /* F8-FF */ \
+    { XXX, XXX, XXX, XXX, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, k2F }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F }, \
+    { k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C, k4D, k4E, k4F }, \
+    { k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, k5A, k5B, k5C, k5D, k5E, k5F }, \
+    { k60, k61, k62, k63, k64, k65, k66, k67, k68, k69, k6A, k6B, k6C, k6D, k6E, k6F }, \
+    { k70, k71, k72, k73, k74, k75, k76, k77, k78, k79, k7A, k7B, k7C, k7D, k7E, k7F }, \
+    { k80, k81, XXX, XXX, XXX, k85, XXX, k87, k88, k89, k8A, k8B, XXX, XXX, XXX, XXX }, \
+    { k90, k91, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { kE0, kE1, kE2, kE3, kE4, kE5, kE6, kE7, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX } \
 }
 
 /* ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
@@ -121,21 +107,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
 #define LAYOUT_ansi( \
-    K29,K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,      K46,K47,K48,                   \
-    K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,K2A,  K49,K4A,K4B,  K53,K54,K55,K56, \
-    K2B,K14,K1A,K08,K15,K17,K1C,K18,K0C,K12,K13,K2F,K30,K31,  K4C,K4D,K4E,  K5F,K60,K61,     \
-    K39,K04,K16,K07,K09,K0A,K0B,K0D,K0E,K0F,K33,K34,    K28,                K5C,K5D,K5E,K57, \
-    KE1,K1D,K1B,K06,K19,K05,K11,K10,K36,K37,K38,        KE5,      K52,      K59,K5A,K5B,     \
-    KE0,KE3,KE2,        K2C,                KE6,KE7,K65,KE4,  K50,K51,K4F,  K62,    K63,K58  \
-) LAYOUT_all( \
-                  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                                                \
-    K29,          K3A,   K3B,   K3C,   K3D,   K3E,   K3F,   K40,   K41,   K42,   K43,   K44,   K45,             K46,   K47,   K48,      KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,        \
-    K35,   K1E,   K1F,   K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K2D,   K2E,   KC_NO, K2A,      K49,   K4A,   K4B,      K53,   K54,   K55,   K56,      KC_NO, KC_NO, \
-    K2B,   K14,   K1A,   K08,   K15,   K17,   K1C,   K18,   K0C,   K12,   K13,   K2F,   K30,          K31,      K4C,   K4D,   K4E,      K5F,   K60,   K61,   K57,      KC_NO, KC_NO, \
-    K39,   K04,   K16,   K07,   K09,   K0A,   K0B,   K0D,   K0E,   K0F,   K33,   K34,          KC_NO, K28,                              K5C,   K5D,   K5E,   KC_NO,    KC_NO, KC_NO, \
-    KE1,   KC_NO, K1D,   K1B,   K06,   K19,   K05,   K11,   K10,   K36,   K37,   K38,          KC_NO, KE5,             K52,             K59,   K5A,   K5B,   KC_NO,    KC_NO, KC_NO, \
-    KE0,   KE3,   KE2,   KC_NO, KC_NO,        K2C,          KC_NO, KC_NO, KC_NO, KE6,   KE7,   K65,   KE4,      K50,   K51,   K4F,      K62,          K63,   K58,      KC_NO, KC_NO  \
-)
+    k29,      k3A, k3B, k3C, k3D, k3E, k3F, k40, k41, k42, k43, k44, k45,  k46, k47, k48, \
+\
+    k35, k1E, k1F, k20, k21, k22, k23, k24, k25, k26, k27, k2D, k2E, k2A,  k49, k4A, k4B,  k53, k54, k55, k56, \
+    k2B, k14, k1A, k08, k15, k17, k1C, k18, k0C, k12, k13, k2F, k30, k31,  k4C, k4D, k4E,  k5F, k60, k61, \
+    k39, k04, k16, k07, k09, k0A, k0B, k0D, k0E, k0F, k33, k34,      k28,                  k5C, k5D, k5E, k57, \
+    kE1,      k1D, k1B, k06, k19, k05, k11, k10, k36, k37, k38,      kE5,       k52,       k59, k5A, k5B, \
+    kE0, kE3, kE2,                k2C,                kE6, kE7, k65, kE4,  k50, k51, k4F,  k62,      k63, k58 \
+) { \
+    { XXX, XXX, XXX, XXX, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, k2F }, \
+    { k30, k31, XXX, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F }, \
+    { k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C, k4D, k4E, k4F }, \
+    { k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, k5A, k5B, k5C, k5D, k5E, k5F }, \
+    { k60, k61, k62, k63, XXX, k65, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,}, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,}, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { kE0, kE1, kE2, kE3, kE4, kE5, kE6, kE7, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX } \
+}
 
 /* ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
  * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|
@@ -153,21 +149,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
 #define LAYOUT_iso( \
-    K29,    K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,  K46,K47,K48,                   \
-    K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,K2A,  K49,K4A,K4B,  K53,K54,K55,K56, \
-    K2B,K14,K1A,K08,K15,K17,K1C,K18,K0C,K12,K13,K2F,K30,K28,  K4C,K4D,K4E,  K5F,K60,K61,K57, \
-    K39,K04,K16,K07,K09,K0A,K0B,K0D,K0E,K0F,K33,K34,K32,                    K5C,K5D,K5E,     \
-    KE1,K64,K1D,K1B,K06,K19,K05,K11,K10,K36,K37,K38,    KE5,      K52,      K59,K5A,K5B,K58, \
-    KE0,KE3,KE2,        K2C,                KE6,KE7,K65,KE4,  K50,K51,K4F,  K62,    K63      \
-) LAYOUT_all( \
-                  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                                                \
-    K29,          K3A,   K3B,   K3C,   K3D,   K3E,   K3F,   K40,   K41,   K42,   K43,   K44,   K45,             K46,   K47,   K48,      KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,        \
-    K35,   K1E,   K1F,   K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K2D,   K2E,   KC_NO, K2A,      K49,   K4A,   K4B,      K53,   K54,   K55,   K56,      KC_NO, KC_NO, \
-    K2B,   K14,   K1A,   K08,   K15,   K17,   K1C,   K18,   K0C,   K12,   K13,   K2F,   K30,          K32,      K4C,   K4D,   K4E,      K5F,   K60,   K61,   K57,      KC_NO, KC_NO, \
-    K39,   K04,   K16,   K07,   K09,   K0A,   K0B,   K0D,   K0E,   K0F,   K33,   K34,          K32,   K28,                              K5C,   K5D,   K5E,   KC_NO,    KC_NO, KC_NO, \
-    KE1,   K64,   K1D,   K1B,   K06,   K19,   K05,   K11,   K10,   K36,   K37,   K38,          KC_NO, KE5,             K52,             K59,   K5A,   K5B,   KC_NO,    KC_NO, KC_NO, \
-    KE0,   KE3,   KE2,   KC_NO, KC_NO,        K2C,          KC_NO, KC_NO, KC_NO, KE6,   KE7,   K65,   KE4,      K50,   K51,   K4F,      K62,          K63,   K58,      KC_NO, KC_NO  \
-)
+    k29,      k3A, k3B, k3C, k3D, k3E, k3F, k40, k41, k42, k43, k44, k45,  k46, k47, k48, \
+\
+    k35, k1E, k1F, k20, k21, k22, k23, k24, k25, k26, k27, k2D, k2E, k2A,  k49, k4A, k4B,  k53, k54, k55, k56, \
+    k2B, k14, k1A, k08, k15, k17, k1C, k18, k0C, k12, k13, k2F, k30, k28,  k4C, k4D, k4E,  k5F, k60, k61, k57, \
+    k39, k04, k16, k07, k09, k0A, k0B, k0D, k0E, k0F, k33, k34, k32,                       k5C, k5D, k5E, \
+    kE1, k64, k1D, k1B, k06, k19, k05, k11, k10, k36, k37, k38,      kE5,       k52,       k59, k5A, k5B, k58, \
+    kE0, kE3, kE2,           k2C,                     kE6, kE7, k65, kE4,  k50, k51, k4F,  k62,      k63 \
+) { \
+    { XXX, XXX, XXX, XXX, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, k2F }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F }, \
+    { k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C, k4D, k4E, k4F }, \
+    { k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, k5A, k5B, k5C, k5D, k5E, k5F }, \
+    { k60, k61, k62, k63, k64, k65, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,}, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,}, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { kE0, kE1, kE2, kE3, kE4, kE5, kE6, kE7, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX } \
+}
 
 /* ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
  * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|
@@ -185,19 +191,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
 #define LAYOUT_jis( \
-    K29,    K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,      K46,K47,K48,                   \
-    K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,K89,K2A,  K49,K4A,K4B,  K53,K54,K55,K56, \
-    K2B,K14,K1A,K08,K15,K17,K1C,K18,K0C,K12,K13,K2F,K30,    K28,  K4C,K4D,K4E,  K5F,K60,K61,K57, \
-    K39,K04,K16,K07,K09,K0A,K0B,K0D,K0E,K0F,K33,K34,K32,                        K5C,K5D,K5E,     \
-    KE1,K1D,K1B,K06,K19,K05,K11,K10,K36,K37,K38,        K87,KE5,      K52,      K59,K5A,K5B,K58, \
-    KE0,KE3,KE2,K8B,    K2C,        K8A,K88,KE6,KE7,K65,KE4,      K50,K51,K4F,  K62,    K63      \
-) LAYOUT_all( \
-                  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    \
-    K29,          K3A,   K3B,   K3C,   K3D,   K3E,   K3F,   K40,   K41,   K42,   K43,   K44,   K45,             K46,   K47,   K48,      KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,        \
-    K35,   K1E,   K1F,   K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K2D,   K2E,   K89,   K2A,      K49,   K4A,   K4B,      K53,   K54,   K55,   K56,      KC_NO, KC_NO, \
-    K2B,   K14,   K1A,   K08,   K15,   K17,   K1C,   K18,   K0C,   K12,   K13,   K2F,   K30,          K32,      K4C,   K4D,   K4E,      K5F,   K60,   K61,   K57,      KC_NO, KC_NO, \
-    K39,   K04,   K16,   K07,   K09,   K0A,   K0B,   K0D,   K0E,   K0F,   K33,   K34,          K32,   K28,                              K5C,   K5D,   K5E,   KC_NO,    KC_NO, KC_NO, \
-    KE1,   KC_NO, K1D,   K1B,   K06,   K19,   K05,   K11,   K10,   K36,   K37,   K38,          K87,   KE5,             K52,             K59,   K5A,   K5B,   KC_NO,    KC_NO, KC_NO, \
-    KE0,   KE3,   KE2,   K8B,   KC_NO,        K2C,          KC_NO, K8A,   K88,   KE6,   KE7,   K65,   KE4,      K50,   K51,   K4F,      K62,          K63,   K58,      KC_NO, KC_NO  \
-)
-#endif
+    k29,      k3A, k3B, k3C, k3D, k3E, k3F, k40, k41, k42, k43, k44, k45,       k46, k47, k48, \
+\
+    k35, k1E, k1F, k20, k21, k22, k23, k24, k25, k26, k27, k2D, k2E, k89, k2A,  k49, k4A, k4B,  k53, k54, k55, k56, \
+    k2B, k14, k1A, k08, k15, k17, k1C, k18, k0C, k12, k13, k2F, k30, k28,       k4C, k4D, k4E,  k5F, k60, k61, k57, \
+    k39, k04, k16, k07, k09, k0A, k0B, k0D, k0E, k0F, k33, k34, k32,                            k5C, k5D, k5E, \
+    kE1,      k1D, k1B, k06, k19, k05, k11, k10, k36, k37, k38, k87, kE5,            k52,       k59, k5A, k5B, k58, \
+    kE0, kE3, kE2, k8B,      k2C,           k8A, k88, kE6, kE7, k65, kE4,       k50, k51, k4F,  k62,      k63 \
+) { \
+    { XXX, XXX, XXX, XXX, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, k2F }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F }, \
+    { k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C, k4D, k4E, k4F }, \
+    { k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, k5A, k5B, k5C, k5D, k5E, k5F }, \
+    { k60, k61, k62, k63, k64, k65, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,}, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,}, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, k87, k88, k89, k8A, k8B, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { kE0, kE1, kE2, kE3, kE4, kE5, kE6, kE7, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX } \
+}
