@@ -484,7 +484,7 @@ check-size:
 	fi
 else
 check-size:
-	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
 endif
 
 check-md5:
