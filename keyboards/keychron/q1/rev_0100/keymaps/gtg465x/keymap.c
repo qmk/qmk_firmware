@@ -16,8 +16,9 @@
 
 #include QMK_KEYBOARD_H
 
+// clang-format off
 
-enum layers{
+enum layers {
   MAC_BASE,
   MAC_FN,
   WIN_BASE,
@@ -25,7 +26,7 @@ enum layers{
 };
 
 enum custom_keycodes {
-  KC_MISSION_CONTROL = SAFE_RANGE,
+  KC_MISSION_CONTROL = USER00,
   KC_LAUNCHPAD
 };
 
@@ -69,6 +70,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS)
 
 };
+
+// clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
