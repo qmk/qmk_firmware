@@ -392,6 +392,10 @@ void matrix_scan_user(void) {
     // end format functions
 
     // start fancy functions
+    SEQ_TWO_KEYS(KC_V, KC_P) {
+      SEND_STRING("ggvG}x:set paste\ni");
+      pri_mod_keystroke(KC_V);
+    }
     SEQ_THREE_KEYS(KC_C, KC_C, KC_ENT) {
       surround_type(6, KC_GRAVE, false);
       pri_mod_keystroke(KC_V);
