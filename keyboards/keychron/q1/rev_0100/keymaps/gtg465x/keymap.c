@@ -19,15 +19,19 @@
 // clang-format off
 
 enum layers {
-  MAC_BASE,
-  MAC_FN,
-  WIN_BASE,
-  WIN_FN
+    MAC_BASE,
+    MAC_FN,
+    WIN_BASE,
+    WIN_FN
 };
 
 enum custom_keycodes {
-  KC_MISSION_CONTROL = USER00,
-  KC_LAUNCHPAD
+#ifdef VIA_ENABLE
+    KC_MISSION_CONTROL = USER00,
+#else
+    KC_MISSION_CONTROL = SAFE_RANGE,
+#endif
+    KC_LAUNCHPAD
 };
 
 #define KC_MCTL KC_MISSION_CONTROL
