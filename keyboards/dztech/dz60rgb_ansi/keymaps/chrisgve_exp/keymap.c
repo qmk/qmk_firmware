@@ -32,6 +32,7 @@ enum ansi_layers {
 #define F_DIR       MO(_FULL_DIR)
 #define F_WORD      A(KC_RIGHT)
 #define B_WORD      A(KC_LEFT)
+#define S_SHIFT     SFT_T(KC_S)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY_MAC] = LAYOUT_60_ansi(
@@ -45,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DIR] = LAYOUT_60_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, F_WORD,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, F_DIR,   _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,
+        _______, _______, S_SHIFT, _______, F_DIR,   _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,
         _______,          _______, _______, _______, B_WORD,  _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, _______
     ),
