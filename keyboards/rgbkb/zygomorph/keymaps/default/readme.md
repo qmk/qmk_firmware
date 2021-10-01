@@ -95,10 +95,10 @@ RGBLIGHT_ANIMATIONS = yes   # LED animations
 RGB_MATRIX_ENABLE = no      # Enable per-key coordinate based RGB effects. Do not enable with RGBlight (+8500)
 RGB_MATRIX_KEYPRESSES = no  # Enable reactive per-key effects. Can be very laggy (+1500)
 RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
-UNICODE_ENABLE = no         # Unicode
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 ENCODER_ENABLE = yes        # Enable rotary encoder (+90)
-OLED_DRIVER_ENABLE = yes    # Enable the OLED Driver (+5000)
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306    # Enable the OLED Driver (+5000)
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
 
 

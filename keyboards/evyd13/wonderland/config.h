@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Evyd13
 #define PRODUCT         Wonderland
-#define DESCRIPTION     "QMK Firmware for the Wonderland"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -43,6 +42,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
+
+#define LED_NUM_LOCK_PIN B1
+#define LED_CAPS_LOCK_PIN B2
+#define LED_SCROLL_LOCK_PIN B3
+#define LED_PIN_ON_STATE 0
 
 /* Backlight configuration
  */

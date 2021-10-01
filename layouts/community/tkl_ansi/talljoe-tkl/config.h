@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include QMK_KEYBOARD_CONFIG_H
-
 #define ENABLE_GAME_LAYER
 
 #define TEMPLATE_TKL(\

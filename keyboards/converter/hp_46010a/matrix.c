@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "timer.h"
-#include "LUFA/Drivers/Peripheral/SPI.h"
+#include <LUFA/Drivers/Peripheral/SPI.h>
 
 #include "config.h"
 
@@ -220,7 +220,7 @@ void matrix_print(void)
     print("\nr/c 01234567\n");
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
+        print_hex8(row); print(": ");
         print_bin_reverse8(matrix_get_row(row));
         print("\n");
     }

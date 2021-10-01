@@ -1,8 +1,8 @@
 # QMK のコードの理解
 
 <!---
-  original document: 0.9.55:docs/understanding_qmk.md
-  git diff 0.9.55 HEAD -- docs/understanding_qmk.md | cat
+  original document: 0.13.15:docs/understanding_qmk.md
+  git diff 0.13.15 HEAD -- docs/understanding_qmk.md | cat
 -->
 
 このドキュメントでは、QMK ファームウェアがどのように機能するかを非常に高いレベルから説明しようとしています。基本的なプログラミングの概念を理解していることを前提としていますが、(実例を示す必要がある場合を除き) C に精通していることを前提にはしていません。以下のドキュメントの基本的な知識があることを前提としています。
@@ -147,7 +147,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * [`bool process_haptic(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/2cee371bf125a6ec541dd7c5a809573facc7c456/drivers/haptic/haptic.c#L216)
       * [`bool process_record_kb(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/keyboards/clueboard/card/card.c#L20)
          * [`bool process_record_user(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/keyboards/clueboard/card/keymaps/default/keymap.c#L58)
-      * [`bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/rgb_matrix.c#L139)
       * [`bool process_midi(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_midi.c#L81)
       * [`bool process_audio(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_audio.c#L19)
       * [`bool process_steno(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_steno.c#L160)

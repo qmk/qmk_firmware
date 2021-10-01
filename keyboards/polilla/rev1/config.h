@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x6166  // af
 #define PRODUCT_ID 0x0010

@@ -27,85 +27,49 @@ enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
 
 #define LAYOUT_moonlander_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
     ) \
     LAYOUT_moonlander_wrapper( \
         KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,        UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS, \
-        KC_TAB,  K01,     K02,     K03,     K04,     K05,   TG(_DIABLO),TG(_DIABLO),   K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-        KC_C1R3, K11,     K12,     K13,     K14,     K15,  TG(_GAMEPAD),TG(_GAMEPAD),  K16,     K17,     K18,     K19,     K1A,     RALT_T(KC_QUOT), \
+        KC_TAB,  K01,     K02,     K03,     K04,     K05,   TG_DBLO,TG_DBLO,   K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
+        KC_C1R3, K11,     K12,     K13,     K14,     K15,  TG_GAME,TG_GAME,  K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
         KC_MLSF, CTL_T(K21), K22,  K23,     K24,     K25,                              K26,     K27,     K28,     K29,  RCTL_T(K2A),KC_MRSF, \
         KC_GRV,  OS_MEH,  OS_HYPR, KC_LBRC, KC_RBRC,          KC_NO,          KC_DEL,           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E), \
                                             KC_SPC,  BK_LWER, OS_LALT,        OS_RGUI, DL_RAIS, KC_ENT \
     )
 
-#define LAYOUT_moonlander_base_wrapper(...) LAYOUT_moonlander_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper(...) LAYOUT_moonlander_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    [_QWERTY] = LAYOUT_moonlander_base_wrapper(
+    [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
         _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
         _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
         _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
     ),
 
-    [_COLEMAK] = LAYOUT_moonlander_base_wrapper(
+    [_DEFAULT_LAYER_2] = LAYOUT_base_wrapper(
+        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
+        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
+        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    ),
+    [_DEFAULT_LAYER_3] = LAYOUT_base_wrapper(
         _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
         _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
         _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
     ),
 
-    [_DVORAK] = LAYOUT_moonlander_base_wrapper(
+    [_DEFAULT_LAYER_4] = LAYOUT_base_wrapper(
         _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
         _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
         _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
     ),
 
-    [_WORKMAN] = LAYOUT_moonlander_base_wrapper(
-        _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
-        _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
-        _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
-    ),
-
-    [_NORMAN] = LAYOUT_moonlander_base_wrapper(
-        _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
-        _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
-        _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
-    ),
-
-    [_MALTRON] = LAYOUT_moonlander_base_wrapper(
-        _________________MALTRON_L1________________, _________________MALTRON_R1________________,
-        _________________MALTRON_L2________________, _________________MALTRON_R2________________,
-        _________________MALTRON_L3________________, _________________MALTRON_R3________________
-    ),
-
-    [_EUCALYN] = LAYOUT_moonlander_base_wrapper(
-        _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
-        _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
-        _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
-    ),
-
-    [_CARPLAX] = LAYOUT_moonlander_base_wrapper(
-        _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
-        _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
-        _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
-    ),
-
-#ifdef _MODS
-    [_MODS] = LAYOUT_moonlander_wrapper(
-        _______, _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, _______,
-        KC_LSFT, _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______, KC_RSFT,
-        _______, KC_MEH,  KC_HYPR, _______, _______,          _______,        _______,          _______, _______, _______, _______, _______,
-                                            KC_LALT, _______, _______,        _______, _______, KC_RGUI
-    ),
-#endif
 
     [_GAMEPAD] = LAYOUT_moonlander_wrapper(
         KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_4, HYPR(KC_Q),                 KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,
         KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                    UC_SHRG, UC_DISA, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,    KC_TRNS,            TG(_GAMEPAD), KC_I,    KC_O,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,    KC_TRNS,            TG_GAME, KC_I,    KC_O,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,                                      KC_N,    KC_M,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_GRV,  KC_U,    KC_I,    KC_Y,    KC_T,             KC_PSCR,                 _______,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
                                             KC_V,    KC_SPC,  KC_H,                    KC_NO, KC_NO,  KC_SWAP_NUM
@@ -196,14 +160,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-#    ifndef RGB_MATRIX_INDICATOR_SET_COLOR
-#        define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) rgb_matrix_set_color(i, r, g, b)
-void rgb_matrix_indicators_user(void) {
-    #else
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-#    endif
-    if (g_suspend_state || !rgb_matrix_config.enable) return;
-
     if (layer_state_is(_GAMEPAD)) {
         RGB_MATRIX_INDICATOR_SET_COLOR(11, 0x00, 0xFF, 0x00);  // Q
         RGB_MATRIX_INDICATOR_SET_COLOR(16, 0x00, 0xFF, 0xFF);  // W
@@ -214,51 +171,39 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         RGB_MATRIX_INDICATOR_SET_COLOR(22, 0x00, 0xFF, 0xFF);  // D
         RGB_MATRIX_INDICATOR_SET_COLOR(27, 0x7A, 0x00, 0xFF);  // F
 
-        RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 10 : 15), 0xFF, 0xFF, 0xFF);  // 1
-        RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 15 : 10), 0x00, 0xFF, 0x00);  // 2
+        RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 15 : 10), 0xFF, 0xFF, 0xFF);  // 1
+        RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 10 : 15), 0x00, 0xFF, 0x00);  // 2
         RGB_MATRIX_INDICATOR_SET_COLOR(20, 0x7A, 0x00, 0xFF);                                          // 3
     }
 
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(layer_state|default_layer_state)) {
-            case _QWERTY:
-                rgb_matrix_layer_helper(HSV_CYAN, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+            case _DEFAULT_LAYER_1:
+                rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
-            case _COLEMAK:
-                rgb_matrix_layer_helper(HSV_MAGENTA, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+            case _DEFAULT_LAYER_2:
+                rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
-            case _DVORAK:
-                rgb_matrix_layer_helper(HSV_SPRINGGREEN, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+            case _DEFAULT_LAYER_3:
+                rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
-            case _WORKMAN:
-                rgb_matrix_layer_helper(HSV_GOLDENROD, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                break;
-            case _NORMAN:
-                rgb_matrix_layer_helper(HSV_CORAL, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                break;
-            case _MALTRON:
-                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                break;
-            case _EUCALYN:
-                rgb_matrix_layer_helper(HSV_PINK, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                break;
-            case _CARPLAX:
-                rgb_matrix_layer_helper(HSV_BLUE, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+            case _DEFAULT_LAYER_4:
+                rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
             case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
                 break;
         }
     }

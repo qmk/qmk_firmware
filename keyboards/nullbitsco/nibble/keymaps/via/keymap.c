@@ -14,12 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "via_extras.h"
 
-#define _BASE     0
-#define _VIA1     1
-#define _VIA2     2
-#define _VIA3     3
+enum layer_names {
+  _BASE,
+  _VIA1,
+  _VIA2,
+  _VIA3
+};
 
 #define KC_DISC_MUTE KC_F23
 #define KC_DISC_DEAF KC_F24
@@ -50,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_VIA1] = LAYOUT_all(
-              RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_HOME,  KC_INS,
+              RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,  KC_END,
     RGB_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -100,7 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         tap_code(KC_DISC_MUTE);
         if (!rgblight_is_enabled()) break;
-        
+
         if (muted) {
           rgblight_enable_noeeprom();
         } else {
@@ -133,7 +134,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (!is_alt_tab_active) {
           is_alt_tab_active = true;
           register_code(KC_LALT);
-        } 
+        }
         alt_tab_timer = timer_read();
         register_code(KC_TAB);
       } else {
@@ -142,9 +143,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     default:
-    break;    
+    break;
   }
 return true;
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+  // Encoder is mapped to volume functions by default
+  if (clockwise) {
+    tap_code(KC_VOLU);
+  } else {
+    tap_code(KC_VOLD);
+  }
+    return true;
 }
 
 void matrix_init_user(void) {

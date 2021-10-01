@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ortholinear Keyboards
 #define PRODUCT         The Subatomic Keyboard
-#define DESCRIPTION     A compact ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -38,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 // #define AUDIO_VOICES
-// #define C6_AUDIO
+// #define AUDIO_PIN C6
 
 #define BACKLIGHT_PIN B7
 

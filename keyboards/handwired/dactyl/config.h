@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Adereth
 #define PRODUCT         Dactyl
-#define DESCRIPTION     An ortholinear, split, 3D-curved keyboard with thumb clusters.
 
 #define DIODE_DIRECTION ROW2COL
 #define MATRIX_ROWS 6

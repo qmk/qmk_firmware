@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AlisGraveNil
 #define PRODUCT         The Coupe
-#define DESCRIPTION     A 61-key/60% QMK-powered custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 10

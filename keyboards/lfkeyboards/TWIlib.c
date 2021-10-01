@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "TWIlib.h"
-#include "util/delay.h"
+#include <util/delay.h>
 #include "print.h"
 
 // Global transmit buffer

@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Play Keyboard
 #define PRODUCT         pk60
-#define DESCRIPTION     A 60% keyboard PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

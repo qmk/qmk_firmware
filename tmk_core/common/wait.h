@@ -1,5 +1,19 @@
-#ifndef WAIT_H
-#define WAIT_H
+/* Copyright 2021 QMK
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#pragma once
 
 #include <inttypes.h>
 
@@ -7,39 +21,10 @@
 extern "C" {
 #endif
 
-#if defined(__AVR__)
-#    include <util/delay.h>
-#    define wait_ms(ms) _delay_ms(ms)
-#    define wait_us(us) _delay_us(us)
-#elif defined PROTOCOL_CHIBIOS
-#    include "ch.h"
-#    define wait_ms(ms)                     \
-        do {                                \
-            if (ms != 0) {                  \
-                chThdSleepMilliseconds(ms); \
-            } else {                        \
-                chThdSleepMicroseconds(1);  \
-            }                               \
-        } while (0)
-#    define wait_us(us)                     \
-        do {                                \
-            if (us != 0) {                  \
-                chThdSleepMicroseconds(us); \
-            } else {                        \
-                chThdSleepMicroseconds(1);  \
-            }                               \
-        } while (0)
-#elif defined PROTOCOL_ARM_ATSAM
-#    include "clks.h"
-#    define wait_ms(ms) CLK_delay_ms(ms)
-#    define wait_us(us) CLK_delay_us(us)
-#else  // Unit tests
-void wait_ms(uint32_t ms);
-#    define wait_us(us) wait_ms(us / 1000)
+#if __has_include_next("_wait.h")
+#    include_next "_wait.h" /* Include the platforms _wait.h */
 #endif
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif
