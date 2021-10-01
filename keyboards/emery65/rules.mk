@@ -4,6 +4,7 @@ MCU = STM32F072
 # Bootloader selection
 BOOTLOADER = stm32-dfu
 
+# Wildcard to allow APM32 MCU
 DFU_SUFFIX_ARGS = -v FFFF -p FFFF
 
 # Do not put the microcontroller into power saving mode
