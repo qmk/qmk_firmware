@@ -34,7 +34,6 @@ enum combos //match combo_count in config.h
 {
 	AO_ESC,
 	EU_ENT,
-	HT_ALT, //not working for hold
 };
 
 #define TO_DV TO(_DVORAK)
@@ -44,12 +43,10 @@ enum combos //match combo_count in config.h
 
 const uint16_t PROGMEM ao_combo[]     = {KC_A, KC_O, COMBO_END}; //not working... probably due to tapping term and interrupt stuff for home row mod
 const uint16_t PROGMEM eu_combo[]     = {KC_E, KC_U, COMBO_END};
-const uint16_t PROGMEM ht_combo[]	  = {KC_H, KC_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 	[AO_ESC]                = COMBO_ACTION(ao_combo),
-	[EU_ENT]                = COMBO_ACTION(eu_combo),
-	[HT_ALT]                = COMBO_ACTION(ht_combo)
+	[EU_ENT]                = COMBO_ACTION(eu_combo)
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -62,11 +59,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case EU_ENT:
       if (pressed) {
         tap_code16(KC_ENT);
-      }
-      break;
-    case HT_ALT:
-      if (pressed) {
-        tap_code16(KC_LALT);
       }
       break;
   }
