@@ -19,5 +19,8 @@
 // place overrides here
 #define USB_POLLING_INTERVAL_MS 1
 #define FORCE_NKRO
+#undef TAPPING_TOGGLE
+#define TAPPING_TOGGLE 2
 // #undef DEBOUNCE
 // #define DEBOUNCE 5
+
