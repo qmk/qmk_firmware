@@ -48,10 +48,13 @@ enum custom_user_keycodes {
   NEW_SAFE_RANGE  // new safe range for keymap level custom keycodes
 };
 
-#define KC_CAD	LALT(LCTL(KC_DEL))
+#define KC_CAD  LALT(LCTL(KC_DEL))
 #define KC_AF4	LALT(KC_F4)
 #define KC_TASK	LCTL(LSFT(KC_ESC))
-
+#define CT_PGUP RCTL(KC_PGUP)
+#define CT_PGDN RCTL(KC_PGDN)
+#define CT_HOME RCTL(KC_HOME)
+#define CT_END  RCTL(KC_END)
 
 #ifdef TD_LSFT_CAPSLOCK_ENABLE
     // Tap Dance Definitions
