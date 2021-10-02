@@ -220,11 +220,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
     case MSS_CTL:
-      if (record->tap.count && record->event.pressed) {
+      if (record->event.pressed && record->tap.count) {
           tap_code16(C(KC_UP));
           return false;
-      } else if (record->event.pressed) {
-          return true;
       }
       break;
     case UNDO:  // Tap to Undo, Tap with GUI to Redo
