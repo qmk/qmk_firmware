@@ -32,13 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define OLED_TIMEOUT 10000
 #endif
 
-#ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_ANIMATIONS
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-#endif
-
 #ifdef ENCODER_ENABLE
   // EC11K encoders have a different resolution than other EC11 encoders.
   // When using the default resolution of 4, if you notice your encoder skipping
