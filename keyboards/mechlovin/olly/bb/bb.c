@@ -1,4 +1,4 @@
-/* Copyright 2021 John Ezra
+/* Copyright 2021 mechlovin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,27 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "bb.h"
 
-#define OLED_FONT_H "keyboards/splitkb/kyria/keymaps/john-ezra/glcdfont.c"
-#define OLED_FONT_END 255
-#define OLED_TIMEOUT 30000
-#define OLED_DISPLAY_128X64
 
-#ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_HUE_STEP 5
-  #define RGBLIGHT_SAT_STEP 5
-  #define RGBLIGHT_VAL_STEP 5
-  #define RGBLIGHT_LIMIT_VAL 150
-#endif
+void led_init_ports(void) {
+  setPinOutput(C0);
+  setPinOutput(D0);
+  setPinOutput(D1);
+  setPinOutput(C1);
+  setPinOutput(C6);
+}
 
-#undef DEBOUNCE
-#define DEBOUNCE 1
+__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(D1, layer_state_cmp(state, 1));
+    writePin(D0, layer_state_cmp(state, 2));
+    writePin(C1, layer_state_cmp(state, 3));
+    writePin(C0, layer_state_cmp(state, 4));
+    writePin(C6, layer_state_cmp(state, 5));
 
-#define TAPPING_TERM 125
-
-#define SPLIT_WPM_ENABLE
-
-#define USB_POLLING_INTERVAL_MS 1
-
-#define DEBUG_MATRIX_SCAN_RATE
+    return state;
+}
