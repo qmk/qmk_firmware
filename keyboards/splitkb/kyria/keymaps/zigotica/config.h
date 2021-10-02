@@ -16,6 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
 #define MASTER_RIGHT// EE_HANDS MASTER_RIGHT
 
 // these should work better for homerow modifiers
