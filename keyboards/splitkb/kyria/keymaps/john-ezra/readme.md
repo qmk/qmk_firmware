@@ -3,7 +3,8 @@
 As is, the firmware will be too large if using the standard bootloader.  Removing `DEBOUNCE_TYPE = sym_eager_pk` from the `rules.mk` should get the size under the limit.
 
 If nanoBoot is not going to be used, delete or comment out the following from your `rules.mk`:
-```BOOTLOADER = hid        
+```make
+BOOTLOADER = hid
 BOOTLOADER_SIZE = 512
 PROGRAM_CMD = 	$(HID_BOOTLOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
 ```
