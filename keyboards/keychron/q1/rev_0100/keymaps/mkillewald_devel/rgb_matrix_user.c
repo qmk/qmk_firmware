@@ -27,7 +27,7 @@ const uint8_t led_index_alphas[] = {
 
 const uint8_t led_index_macos_fn[] = {
 	  LED_ESC, LED_INS,
-    LED_Q, LED_W, LED_E, LED_R, LED_T,
+    LED_TAB, LED_Q, LED_W, LED_E, LED_R, LED_T,
     LED_A, LED_S, LED_D, LED_F, LED_G, LED_HOME
 };
 
