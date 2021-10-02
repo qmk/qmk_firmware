@@ -24,18 +24,18 @@ enum layers{
 };
 
 enum custom_keycodes {
-  KC_MISSION_CONTROL = SAFE_RANGE,
-  KC_LAUNCHPAD,
-//  KC_SCREENSHOT,
-//  KC_LOCKSCREEN
+#if defined(VIA_ENABLE)
+    KC_MISSION_CONTROL = USER00,
+#else
+    KC_MISSION_CONTROL = SAFE_RANGE,
+#endif
+    KC_LAUNCHPAD
 };
 
 #define KC_MCTL KC_MISSION_CONTROL
 #define KC_LPAD KC_LAUNCHPAD
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
-//#define KC_SCRSHT KC_SCREENSHOT
-//#define KC_LKSCRN KC_LOCKSCREEN
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -89,50 +89,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 host_consumer_send(0);
             }
             return false;  // Skip all further processing of this key
-//        case KC_SCREENSHOT:
-//            if (record->event.pressed) {
-//            	  SEND_STRING(SS_LGUI(SS_LSFT("3")));
-//            } else {
-//                host_consumer_send(0);
-//            }
-//            return false;  // Skip all further processing of this key
-//       case KC_LOCKSCREEN:
-//            if (record->event.pressed) {
-//            	  SEND_STRING(SS_LGUI(SS_LCTL("q")));
-//            } else {
-//                host_consumer_send(0);
-//            }
-//            return false;  // Skip all further processing of this key
         default:
             return true;  // Process all other keycodes normally
     }
 }
 
-#ifdef RGB_MATRIX_ENABLE
-/**
- * Called after RBG effect render.
- */
-void rgb_matrix_indicators_user() {
-    if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-        rgb_matrix_set_color_all(0x0, 0x0, 0x0);
-    }
-
-    if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(LED_CAPS, _INDICATOR_COLOR);
-        rgb_matrix_set_color(LED_TAB, _INDICATOR_COLOR);
-    }
-
-//    if (IS_LAYER_ON(_FN1)) {
-//        rgb_matrix_set_color(LED_FN, _INDICATOR_COLOR);
-//        rgb_matrix_set_color(LED_F1, _INDICATOR_COLOR);
+//#if defined(RGB_MATRIX_ENABLE)
+///**
+// * Called after RBG effect render.
+// */
+//void rgb_matrix_indicators_user() {
+//    if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+//        rgb_matrix_set_color_all(0x0, 0x0, 0x0);
 //    }
 //
-//    if (IS_LAYER_ON(_MO2)) {
-//        rgb_matrix_set_color(LED_F2, _INDICATOR_COLOR);
+//    if (host_keyboard_led_state().caps_lock) {
+//        rgb_matrix_set_color(LED_CAPS, _INDICATOR_COLOR);
+//        rgb_matrix_set_color(LED_TAB, _INDICATOR_COLOR);
 //    }
 //
-//    if (IS_LAYER_ON(_MO3)) {
-//        rgb_matrix_set_color(LED_F3, _INDICATOR_COLOR);
-//    }
-}
-#endif // RGB_MATRIX_ENABLE
+////    if (IS_LAYER_ON(_FN1)) {
+////        rgb_matrix_set_color(LED_FN, _INDICATOR_COLOR);
+////        rgb_matrix_set_color(LED_F1, _INDICATOR_COLOR);
+////    }
+////
+////    if (IS_LAYER_ON(_MO2)) {
+////        rgb_matrix_set_color(LED_F2, _INDICATOR_COLOR);
+////    }
+////
+////    if (IS_LAYER_ON(_MO3)) {
+////        rgb_matrix_set_color(LED_F3, _INDICATOR_COLOR);
+////    }
+//}
+//#endif // RGB_MATRIX_ENABLE
