@@ -4,14 +4,28 @@
 #include "wait.h"
 #include "print.h"
 #include "debug.h"
+#ifdef SPLIT_KEYBOARD
+#    include "split_common/split_util.h"
+#endif
 
 #ifndef MATRIX_IO_DELAY
 #    define MATRIX_IO_DELAY 30
 #endif
 
+#ifdef SPLIT_KEYBOARD
+#    define ROWS_PER_HAND (MATRIX_ROWS / 2)
+#else
+#    define ROWS_PER_HAND (MATRIX_ROWS)
+#endif
+
 /* matrix state(1:on, 0:off) */
 matrix_row_t raw_matrix[MATRIX_ROWS];
 matrix_row_t matrix[MATRIX_ROWS];
+
+#ifdef SPLIT_KEYBOARD
+// row offsets for each hand
+uint8_t thisHand, thatHand;
+#endif
 
 #ifdef MATRIX_MASKED
 extern const matrix_row_t matrix_mask[];
@@ -95,6 +109,8 @@ __attribute__((weak)) void matrix_init_custom(void) {}
 
 __attribute__((weak)) bool matrix_scan_custom(matrix_row_t current_matrix[]) { return true; }
 
+__attribute__((weak)) uint8_t matrix_post_scan_custom(void) { return false; };
+
 __attribute__((weak)) void matrix_init(void) {
     matrix_init_custom();
 
@@ -104,9 +120,12 @@ __attribute__((weak)) void matrix_init(void) {
         matrix[i]     = 0;
     }
 
-#ifndef SPLIT_KEYBOARD
-    debounce_init(MATRIX_ROWS);
+#ifdef SPLIT_KEYBOARD
+    thisHand = isLeftHand ? 0 : (ROWS_PER_HAND);
+    thatHand = ROWS_PER_HAND - thisHand;
 #endif
+
+    debounce_init(ROWS_PER_HAND);
 
     matrix_init_quantum();
 }
@@ -114,9 +133,13 @@ __attribute__((weak)) void matrix_init(void) {
 __attribute__((weak)) uint8_t matrix_scan(void) {
     bool changed = matrix_scan_custom(raw_matrix);
 
-#ifndef SPLIT_KEYBOARD
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+#ifdef SPLIT_KEYBOARD
+    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
+    changed = (changed || matrix_post_scan_custom());
+#else
+    debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
 #endif
+
     matrix_scan_quantum();
     return changed;
 }

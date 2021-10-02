@@ -63,7 +63,7 @@ extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
 #ifdef SPLIT_KEYBOARD
 // row offsets for each hand
-uint8_t thisHand, thatHand;
+extern uint8_t thisHand, thatHand;
 #endif
 
 // user-defined overridable functions
