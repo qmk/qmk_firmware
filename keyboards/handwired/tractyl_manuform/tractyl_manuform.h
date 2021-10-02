@@ -43,9 +43,12 @@ typedef struct {
     uint16_t device_cpi;
 } kb_config_data_t;
 
-__attribute__((aligned(16))) typedef struct {
-    int8_t x;
-    int8_t y;
+typedef union {
+    uint16_t raw;
+    struct {
+        int8_t x :8;
+        int8_t y :8;
+    };
 } kb_mouse_report_t;
 
 extern kb_mouse_report_t sync_mouse_report;

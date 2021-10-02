@@ -113,6 +113,8 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
             sync_mouse_report.x = mouse_report.x;
             sync_mouse_report.y = mouse_report.y;
         }
+        sync_mouse_report.x = 0;
+        sync_mouse_report.y = 0;
     }
     return mouse_report;
 }

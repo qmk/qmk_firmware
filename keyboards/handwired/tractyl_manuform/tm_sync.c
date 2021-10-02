@@ -20,13 +20,13 @@
 
 kb_config_data_t  kb_config;
 kb_mouse_report_t sync_mouse_report;
+uint16_t          transport_mouse_report;
 
 void kb_pointer_sync_handler(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
-    if (target2initiator_buffer_size == sizeof(sync_mouse_report)) {
-        memcpy(target2initiator_buffer, &sync_mouse_report, sizeof(sync_mouse_report));
+    if (target2initiator_buffer_size == sizeof(transport_mouse_report)) {
+        memcpy(target2initiator_buffer, &transport_mouse_report, sizeof(transport_mouse_report));
     }
-    sync_mouse_report.x = 0;
-    sync_mouse_report.y = 0;
+    sync_mouse_report.raw = transport_mouse_report;
 }
 
 void kb_config_sync_handler(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
@@ -46,7 +46,6 @@ void kb_config_sync_handler(uint8_t initiator2target_buffer_size, const void* in
 
 void keyboard_pre_init_sync(void) {
     memset(&kb_config, 0, sizeof(kb_config));
-    memset(&sync_mouse_report, 0, sizeof(sync_mouse_report));
 }
 
 void keyboard_post_init_sync(void) {
