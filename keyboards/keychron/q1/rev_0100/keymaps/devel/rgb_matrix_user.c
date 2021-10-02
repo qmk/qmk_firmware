@@ -26,7 +26,7 @@ const uint8_t led_index_alphas[] = {
 };
 
 const uint8_t led_index_macos_fn[] = {
-	  LEC_ESC, LED_INS,
+	  LED_ESC, LED_INS,
     LED_Q, LED_W, LED_E, LED_R, LED_T,
     LED_A, LED_S, LED_D, LED_F, LED_G, LED_HOME
 };
@@ -46,7 +46,7 @@ void rgb_matrix_indicators_user(void) {
     }
 #endif  // CAPS_LOCK_INDICATOR_COLOR
 #ifdef MACOS_FN_INDICATOR_COLOR
-    if (layer_state_is(1) {
+    if (layer_state_is(1)) {
     	  rgb_matrix_set_color_macos_fn(MACOS_FN_INDICATOR_COLOR);
     }
 #endif  // MACOS_FN_INDICATOR_COLOR

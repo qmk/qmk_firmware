@@ -23,9 +23,5 @@
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED    
 #    define CAPS_LOCK_INDICATOR_COLOR RGB_RED
 #    define CAPS_LOCK_INDICATOR_LIGHT_TAB
-#    define MACOS_FN_INDICATOR_COLOR RBG_ORANGE    
-//    #define LED_ESC 	0
-//    #define LED_TAB 	30
-//    #define LED_CAPS 	45
-//    #define LEC_FN 		77
+#    define MACOS_FN_INDICATOR_COLOR RGB_ORANGE    
 #endif

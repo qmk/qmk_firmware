@@ -93,32 +93,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;  // Process all other keycodes normally
     }
 }
-
-//#if defined(RGB_MATRIX_ENABLE)
-///**
-// * Called after RBG effect render.
-// */
-//void rgb_matrix_indicators_user() {
-//    if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-//        rgb_matrix_set_color_all(0x0, 0x0, 0x0);
-//    }
-//
-//    if (host_keyboard_led_state().caps_lock) {
-//        rgb_matrix_set_color(LED_CAPS, _INDICATOR_COLOR);
-//        rgb_matrix_set_color(LED_TAB, _INDICATOR_COLOR);
-//    }
-//
-////    if (IS_LAYER_ON(_FN1)) {
-////        rgb_matrix_set_color(LED_FN, _INDICATOR_COLOR);
-////        rgb_matrix_set_color(LED_F1, _INDICATOR_COLOR);
-////    }
-////
-////    if (IS_LAYER_ON(_MO2)) {
-////        rgb_matrix_set_color(LED_F2, _INDICATOR_COLOR);
-////    }
-////
-////    if (IS_LAYER_ON(_MO3)) {
-////        rgb_matrix_set_color(LED_F3, _INDICATOR_COLOR);
-////    }
-//}
-//#endif // RGB_MATRIX_ENABLE
