@@ -28,6 +28,10 @@ KEYCODES:
 - KC_WINLCK       toggles LGui/Win key lock
 - RGB_TOI         Increase Timeout idle time threshold
 - RGB_TOD         Decrease Timeout idle time threshold
+- CT_PGUP         Ctrl-PgUp
+- CT_PGDN         Ctrl-PgDn
+- CT_HOME         Ctrl-HOme
+- CT_END          Ctrl-End
 - 
  When EMOTICON_ENABLE = yes
 -   EMO_SHRUG       ¯\_(ツ)_/¯
