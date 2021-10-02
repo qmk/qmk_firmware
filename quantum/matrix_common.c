@@ -104,7 +104,9 @@ __attribute__((weak)) void matrix_init(void) {
         matrix[i]     = 0;
     }
 
+#ifndef SPLIT_KEYBOARD
     debounce_init(MATRIX_ROWS);
+#endif
 
     matrix_init_quantum();
 }
@@ -112,8 +114,9 @@ __attribute__((weak)) void matrix_init(void) {
 __attribute__((weak)) uint8_t matrix_scan(void) {
     bool changed = matrix_scan_custom(raw_matrix);
 
+#ifndef SPLIT_KEYBOARD
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-
+#endif
     matrix_scan_quantum();
     return changed;
 }
