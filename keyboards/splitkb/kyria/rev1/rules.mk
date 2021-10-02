@@ -6,14 +6,3 @@ RGB_MATRIX_ENABLE = no     # Enable keyboard RGB matrix (do not use together wit
 RGB_MATRIX_DRIVER = WS2812 # RGB matrix driver support
 
 RGB_MATRIX_SUPPORTED = yes
-
-
-ifeq ($(strip $(CTPC)), yes)
-  CONVERT_TO_PROTON_C=yes
-endif
-
-ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
-    DEFAULT_FOLDER = splitkb/kyria/rev1/proton_c
-else
-    DEFAULT_FOLDER = splitkb/kyria/rev1
-endif

@@ -10,7 +10,8 @@ Hardware Availability: [splitkb.com](https://splitkb.com) and partners.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make splitkb/kyria:default
+    make splitkb/kyria/rev1:default
+    make splitkb/kyria/rev1/proton_c:default
 
 Example of flashing this keyboard:
 
