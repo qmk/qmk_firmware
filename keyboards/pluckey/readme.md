@@ -1,6 +1,6 @@
 # Pluckey
 
-![pluckey](https://gist.githubusercontent.com/floookay/ea7313862e407c9b5aaea3d6ed3ce233/raw/4c37d31cb414b9a7709810434a3b68f4b9b9c0dc/skeleton%2520sunshine.jpg)
+![pluckey](https://gist.githubusercontent.com/floookay/ea7313862e407c9b5aaea3d6ed3ce233/raw/1757078b1adf7ac4d51d74f445107bdb46e013a3/sandwich%2520angle.jpg)
 
 The pluckey is an ergodox like split keyboard with moderate columnal stagger and a horizontal space key.
 

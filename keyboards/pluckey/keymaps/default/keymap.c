@@ -25,8 +25,7 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    M_ARROW,
-    M_DTHIS
+    M_ARROW
 };
 
 #define MO_LOW MO(_LOWER)
@@ -47,14 +46,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,                         KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_PSCR, \
         _______, _______, _______, _______, KC_PIPE, KC_UNDS, KC_LPRN,                        KC_RPRN, KC_PLUS, KC_PIPE, _______, _______, _______, _______, \
         _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_LPRN,                        KC_RPRN, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
-        _______, _______, _______, _______, _______, _______, M_ARROW, KC_PGUP,      KC_PGDN, M_DTHIS, _______, _______, _______, _______, _______, _______, \
+        _______, _______, _______, _______, _______, _______, M_ARROW, KC_PGUP,      KC_PGDN, _______, _______, _______, _______, _______, _______, _______, \
                           _______, _______, MO_CURR,     _______,   KC_DEL,             _______,   _______,     MO_ADJU, _______, _______                    \
     ),
     [_RAISE] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______,                        _______, _______, _______, KC_PGUP, _______, _______, _______, \
         _______, _______, _______, KC_VOLU, _______, _______, KC_LPRN,                        KC_RPRN, _______, KC_BTN4, KC_UP,   KC_BTN5, _______, _______, \
-        _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_LPRN,                        KC_RPRN, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______,  \
-        _______, _______, _______, KC_VOLD, _______, _______, M_ARROW, KC_PGUP,      KC_PGDN, M_DTHIS, _______, _______, KC_PGDN, _______, _______, _______, \
+        _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_LPRN,                        KC_RPRN, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______, \
+        _______, _______, _______, KC_VOLD, _______, _______, M_ARROW, KC_PGUP,      KC_PGDN, _______, _______, _______, KC_PGDN, _______, _______, _______, \
                           _______, _______, MO_ADJU,     _______,   KC_DEL,             _______,   _______,     MO_CURR, _______, _______                    \
     ),
     [_ADJUST] = LAYOUT(
@@ -62,30 +61,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______,                        _______, _______, _______, KC_WH_U, _______, _______, _______, \
         _______, _______, _______, _______, _______, _______, _______,                        _______, _______, KC_WH_L, KC_WH_D, KC_WH_R, _______, _______, \
         _______, _______, _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______, _______, \
-                          _______, _______, _______,     _______,   KC_CLR,            _______,   _______,     _______, _______, _______                    \
+                          _______, _______, _______,     _______,   KC_CLR,            _______,   _______,     _______, _______, _______                     \
     )
-    /*
-    [_TEMPLATE] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______, _______, \
-                          _______, _______, _______,     _______,   _______,            _______,   _______,     _______, _______, _______                    \
-    )
-    */
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // PHP Macros
         case M_ARROW:
             if (record->event.pressed) {
                 SEND_STRING("->");
-            }
-            break;
-        case M_DTHIS:
-            if (record->event.pressed) {
-                SEND_STRING("$this->");
             }
             break;
     }
@@ -94,42 +78,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0 || index == 1) {
-        switch (layer_state) {
-            case _BASE:
-                if (clockwise) {
-                    tap_code(KC_VOLU);
-                } else {
-                    tap_code(KC_VOLD);
-                }
-                break;
-            case _LOWER:
-                if (clockwise) {
-                    tap_code16(LCTL(KC_Y));
-                } else {
-                    tap_code16(LCTL(KC_Z));
-                }
-                break;
-            case _RAISE:
-                if (clockwise) {
-                    tap_code(KC_WH_U);
-                } else {
-                    tap_code(KC_WH_D);
-                }
-                break;
-            case _ADJUST:
-                if (clockwise) {
-                    tap_code(KC_LEFT);
-                } else {
-                    tap_code(KC_RGHT);
-                }
-                break;
-            default:
-                break;
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
         }
     }
-    return true;
+    else if (index == 1) {
+        if (clockwise) {
+            tap_code(KC_WH_U);
+        } else {
+            tap_code(KC_WH_D);
+        }
+    }
 }
 
 #endif
