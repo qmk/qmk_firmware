@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Key matrix pin           0    1,   2,  3,  4,  5,  6,   7,   8,  9, 10, 11, 12,  13, 14, 15, 16 */
 #define MATRIX_ROW_PINS { C12, C10, A10, A8, C8, C9 }
-#define MATRIX_COL_PINS { B15,  C6,  C7, A3, A1, C3, C1, B14, B13, A9, B3, B4, A2, C11, A0, C0, C2 }
+#define MATRIX_COL_PINS { B15,  C6,  C7, A3, A1, C3, C1, B14, B13, A9, B3, B4, A0, C11, A2, C0, C2 }
 
 /* Direction of diode (COL2ROW or ROW2COL) */
 #define DIODE_DIRECTION ROW2COL
@@ -62,6 +62,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Use the redragon version to get the Redragon logo instead of the qmk logo */
 #define OLED_FONT_H "lib/glcdfont_redragon.c"
+
+/* The pin connected to the data pin of the LEDs */
+#define RGB_DI_PIN C14
+
+/* The number of LEDs connected */
+#define DRIVER_LED_TOTAL 24
+
+/* RGB Matrix config */
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 225
+#define DISABLE_RGB_MATRIX_ALPHAS_MODS
+#define DISABLE_RGB_MATRIX_BAND_SAT
+#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+#define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+#define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+#define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+#define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#define DISABLE_RGB_MATRIX_CYCLE_SPIRAL
+#define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
 
 /* EEPROM size */
 #define EEPROM_PAGE_SIZE
