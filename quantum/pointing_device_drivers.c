@@ -95,17 +95,17 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = NULL
 };
 // clang-format on
-#elif defined(POINTING_DEVICE_DRIVER_cirque_trackpad)
+#elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle)
 #    ifndef TAPPING_CHECK
 #        define TAPPING_CHECK 200
 #    endif
 
-report_mouse_t cirque_trackpad_get_report(report_mouse_t mouse_report) {
-    tm040040_data_t touchData = cirque_trackpad_read_data();
+report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
+    pinnacle_data_t touchData = cirque_pinnacle_read_data();
     static uint16_t x = 0, y = 0, mouse_timer = 0;
     static bool     is_z_down = false;
 
-    cirque_trackpad_scale_data(&touchData, cirque_trackpad_get_scale(), cirque_trackpad_get_scale());  // Scale coordinates to arbitrary X, Y resolution
+    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());  // Scale coordinates to arbitrary X, Y resolution
 
     if (x && y && touchData.xValue && touchData.yValue) {
         mouse_report.x = (int8_t)(touchData.xValue - x);
@@ -134,10 +134,10 @@ report_mouse_t cirque_trackpad_get_report(report_mouse_t mouse_report) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = cirque_trackpad_init,
-    .get_report = cirque_trackpad_get_report,
-    .set_cpi    = cirque_trackpad_set_scale,
-    .get_cpi    = cirque_trackpad_get_scale
+    .init       = cirque_pinnacle_init,
+    .get_report = cirque_pinnacle_get_report,
+    .set_cpi    = cirque_pinnacle_set_scale,
+    .get_cpi    = cirque_pinnacle_get_scale
 };
 // clang-format on
 

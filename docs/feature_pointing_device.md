@@ -78,19 +78,19 @@ The Analog Joystick is an analog (ADC) driven sensor.  There are a variety of jo
 To use the Cirque Trackpad sensor, add this to your `rules.mk`:
 
 ```make
-POINTING_DEVICE_DRIVER = cirque_trackpad
+POINTING_DEVICE_DRIVER = cirque_pinnacle
 ```
 
-This supports the TM040040, TM035035 and the TM023023 trackpads. These are I2C or SPI compatible, however the driver is written explicitly for I2C and the TM040040, currently.
+This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the TM040040, TM035035 and the TM023023 trackpads. These are I2C or SPI compatible, however the driver is written explicitly for I2C (and the TM040040), currently.
 
 | Setting                  | Description                                                                     | Default |
 |--------------------------|---------------------------------------------------------------------------------|---------|
-|`CIRQUE_TRACKPAD_ADDR`    | (Required) Sets the I2C Address for the Cirque Trackpad                         | `0x2A`  |
-|`CIRQUE_TRACKPAD_TIMEOUT` | (Optional) The timeout for i2c communication with the trackpad in milliseconds. | `20`    |
-|`CIRQUE_TRACKPAD_X_LOWER` | (Optional) The minimum reachable X value on the sensor.                         | `127`   |
-|`CIRQUE_TRACKPAD_X_UPPER` | (Optional) The maximum reachable X value on the sensor.                         | `1919`  |
-|`CIRQUE_TRACKPAD_Y_LOWER` | (Optional) The minimum reachable Y value on the sensor.                         | `63`    |
-|`CIRQUE_TRACKPAD_Y_UPPER` | (Optional) The maximum reachable Y value on the sensor.                         | `1471`  |
+|`CIRQUE_PINNACLE_ADDR`    | (Required) Sets the I2C Address for the Cirque Trackpad                         | `0x2A`  |
+|`CIRQUE_PINNACLE_TIMEOUT` | (Optional) The timeout for i2c communication with the trackpad in milliseconds. | `20`    |
+|`CIRQUE_PINNACLE_X_LOWER` | (Optional) The minimum reachable X value on the sensor.                         | `127`   |
+|`CIRQUE_PINNACLE_X_UPPER` | (Optional) The maximum reachable X value on the sensor.                         | `1919`  |
+|`CIRQUE_PINNACLE_Y_LOWER` | (Optional) The minimum reachable Y value on the sensor.                         | `63`    |
+|`CIRQUE_PINNACLE_Y_UPPER` | (Optional) The maximum reachable Y value on the sensor.                         | `1471`  |
 
 Default Scaling/CPI is 1024.
 

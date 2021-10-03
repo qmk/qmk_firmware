@@ -29,9 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #elif defined(POINTING_DEVICE_DRIVER_analog_joystick)
 #    include "analog.h"
 #    include "drivers/sensors/analog_joystick.h"
-#elif defined(POINTING_DEVICE_DRIVER_cirque_trackpad)
+#elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle)
 #    include "i2c_master.h"
-#    include "drivers/sensors/cirque_trackpad.h"
+#    include "drivers/sensors/cirque_pinnacle.h"
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 #    include "i2c_master.h"
 #    include "drivers/sensors/pimoroni_trackball.h"

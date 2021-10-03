@@ -1,5 +1,5 @@
 // Copyright (c) 2018 Cirque Corp. Restrictions apply. See: www.cirque.com/sw-license
-#include "cirque_trackpad.h"
+#include "cirque_pinnacle.h"
 #include "print.h"
 #include "debug.h"
 #include "wait.h"
@@ -47,12 +47,11 @@
 #define FEEDCONFIG_2_VALUE   0x1C  // 0x1F for normal functionality 0x1E for intellimouse disabled
 #define Z_IDLE_COUNT_VALUE   0x05
 
-tm040040_data_t touchData = {0};
 bool            touchpad_init;
 uint16_t        scale_data = 1024;
 
-void cirque_trackpad_clear_flags(void);
-void cirque_trackpad_enable_feed(bool feedEnable);
+void cirque_pinnacle_clear_flags(void);
+void cirque_pinnacle_enable_feed(bool feedEnable);
 
 #ifdef CONSOLE_ENABLE
 void print_byte(uint8_t byte) { xprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }
@@ -61,24 +60,24 @@ void print_byte(uint8_t byte) { xprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' 
 /*  Logical Scaling Functions */
 // Clips raw coordinates to "reachable" window of sensor
 // NOTE: values outside this window can only appear as a result of noise
-void ClipCoordinates(tm040040_data_t* coordinates) {
-    if (coordinates->xValue < CIRQUE_TRACKPAD_X_LOWER) {
-        coordinates->xValue = CIRQUE_TRACKPAD_X_LOWER;
-    } else if (coordinates->xValue > CIRQUE_TRACKPAD_X_UPPER) {
-        coordinates->xValue = CIRQUE_TRACKPAD_X_UPPER;
+void ClipCoordinates(pinnacle_data_t* coordinates) {
+    if (coordinates->xValue < CIRQUE_PINNACLE_X_LOWER) {
+        coordinates->xValue = CIRQUE_PINNACLE_X_LOWER;
+    } else if (coordinates->xValue > CIRQUE_PINNACLE_X_UPPER) {
+        coordinates->xValue = CIRQUE_PINNACLE_X_UPPER;
     }
-    if (coordinates->yValue < CIRQUE_TRACKPAD_Y_LOWER) {
-        coordinates->yValue = CIRQUE_TRACKPAD_Y_LOWER;
-    } else if (coordinates->yValue > CIRQUE_TRACKPAD_Y_UPPER) {
-        coordinates->yValue = CIRQUE_TRACKPAD_Y_UPPER;
+    if (coordinates->yValue < CIRQUE_PINNACLE_Y_LOWER) {
+        coordinates->yValue = CIRQUE_PINNACLE_Y_LOWER;
+    } else if (coordinates->yValue > CIRQUE_PINNACLE_Y_UPPER) {
+        coordinates->yValue = CIRQUE_PINNACLE_Y_UPPER;
     }
 }
 
-uint16_t cirque_trackpad_get_scale(void) { return scale_data; }
-void     cirque_trackpad_set_scale(uint16_t scale) { scale_data = scale; }
+uint16_t cirque_pinnacle_get_scale(void) { return scale_data; }
+void     cirque_pinnacle_set_scale(uint16_t scale) { scale_data = scale; }
 
 // Scales data to desired X & Y resolution
-void cirque_trackpad_scale_data(tm040040_data_t* coordinates, uint16_t xResolution, uint16_t yResolution) {
+void cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResolution, uint16_t yResolution) {
     uint32_t xTemp = 0;
     uint32_t yTemp = 0;
 
@@ -88,12 +87,12 @@ void cirque_trackpad_scale_data(tm040040_data_t* coordinates, uint16_t xResoluti
     yTemp = coordinates->yValue;
 
     // translate coordinates to (0, 0) reference by subtracting edge-offset
-    xTemp -= CIRQUE_TRACKPAD_X_LOWER;
-    yTemp -= CIRQUE_TRACKPAD_Y_LOWER;
+    xTemp -= CIRQUE_PINNACLE_X_LOWER;
+    yTemp -= CIRQUE_PINNACLE_Y_LOWER;
 
     // scale coordinates to (xResolution, yResolution) range
-    coordinates->xValue = (uint16_t)(xTemp * xResolution / CIRQUE_TRACKPAD_X_RANGE);
-    coordinates->yValue = (uint16_t)(yTemp * yResolution / CIRQUE_TRACKPAD_Y_RANGE);
+    coordinates->xValue = (uint16_t)(xTemp * xResolution / CIRQUE_PINNACLE_X_RANGE);
+    coordinates->yValue = (uint16_t)(yTemp * yResolution / CIRQUE_PINNACLE_Y_RANGE);
 }
 
 /*  RAP Functions */
@@ -101,8 +100,8 @@ void cirque_trackpad_scale_data(tm040040_data_t* coordinates, uint16_t xResoluti
 void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count) {
     uint8_t cmdByte = READ_MASK | address;  // Form the READ command byte
     if (touchpad_init) {
-        i2c_writeReg(CIRQUE_TRACKPAD_ADDR << 1, cmdByte, NULL, 0, CIRQUE_TRACKPAD_TIMEOUT);
-        if (i2c_readReg(CIRQUE_TRACKPAD_ADDR << 1, cmdByte, data, count, CIRQUE_TRACKPAD_TIMEOUT) != I2C_STATUS_SUCCESS) {
+        i2c_writeReg(CIRQUE_PINNACLE_ADDR << 1, cmdByte, NULL, 0, CIRQUE_PINNACLE_TIMEOUT);
+        if (i2c_readReg(CIRQUE_PINNACLE_ADDR << 1, cmdByte, data, count, CIRQUE_PINNACLE_TIMEOUT) != I2C_STATUS_SUCCESS) {
 #ifdef CONSOLE_ENABLE
             dprintf("error right touchpad\n");
 #endif
@@ -117,7 +116,7 @@ void RAP_Write(uint8_t address, uint8_t data) {
     uint8_t cmdByte = WRITE_MASK | address;  // Form the WRITE command byte
 
     if (touchpad_init) {
-        if (i2c_writeReg(CIRQUE_TRACKPAD_ADDR << 1, cmdByte, &data, sizeof(data), CIRQUE_TRACKPAD_TIMEOUT) != I2C_STATUS_SUCCESS) {
+        if (i2c_writeReg(CIRQUE_PINNACLE_ADDR << 1, cmdByte, &data, sizeof(data), CIRQUE_PINNACLE_TIMEOUT) != I2C_STATUS_SUCCESS) {
 #ifdef CONSOLE_ENABLE
             dprintf("error right touchpad\n");
 #endif
@@ -128,13 +127,13 @@ void RAP_Write(uint8_t address, uint8_t data) {
 }
 
 // Clears Status1 register flags (SW_CC and SW_DR)
-void cirque_trackpad_clear_flags() {
+void cirque_pinnacle_clear_flags() {
     RAP_Write(STATUS_1, 0x00);
     wait_us(50);
 }
 
 // Enables/Disables the feed
-void cirque_trackpad_enable_feed(bool feedEnable) {
+void cirque_pinnacle_enable_feed(bool feedEnable) {
     uint8_t temp;
 
     RAP_ReadBytes(FEEDCONFIG_1, &temp, 1);  // Store contents of FeedConfig1 register
@@ -154,7 +153,7 @@ void cirque_trackpad_enable_feed(bool feedEnable) {
 void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
     uint8_t ERAControlValue = 0xFF;
 
-    cirque_trackpad_enable_feed(false);  // Disable feed
+    cirque_pinnacle_enable_feed(false);  // Disable feed
 
     RAP_Write(ERA_HIGH_BYTE, (uint8_t)(address >> 8));     // Send upper byte of ERA address
     RAP_Write(ERA_LOW_BYTE, (uint8_t)(address & 0x00FF));  // Send lower byte of ERA address
@@ -169,7 +168,7 @@ void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
 
         RAP_ReadBytes(ERA_VALUE, data + i, 1);
 
-        cirque_trackpad_clear_flags();
+        cirque_pinnacle_clear_flags();
     }
 }
 
@@ -177,7 +176,7 @@ void ERA_ReadBytes(uint16_t address, uint8_t* data, uint16_t count) {
 void ERA_WriteByte(uint16_t address, uint8_t data) {
     uint8_t ERAControlValue = 0xFF;
 
-    cirque_trackpad_enable_feed(false);  // Disable feed
+    cirque_pinnacle_enable_feed(false);  // Disable feed
 
     RAP_Write(ERA_VALUE, data);  // Send data byte to be written
 
@@ -191,10 +190,10 @@ void ERA_WriteByte(uint16_t address, uint8_t data) {
         RAP_ReadBytes(ERA_CONTROL, &ERAControlValue, 1);
     } while (ERAControlValue != 0x00);
 
-    cirque_trackpad_clear_flags();
+    cirque_pinnacle_clear_flags();
 }
 
-void cirque_trackpad_set_adc_attenuation(uint8_t adcGain) {
+void cirque_pinnacle_set_adc_attenuation(uint8_t adcGain) {
     uint8_t temp = 0x00;
 
     ERA_ReadBytes(0x0187, &temp, 1);
@@ -205,7 +204,7 @@ void cirque_trackpad_set_adc_attenuation(uint8_t adcGain) {
 }
 
 // Changes thresholds to improve detection of fingers
-void cirque_trackpad_tune_edge_sensitivity(void) {
+void cirque_pinnacle_tune_edge_sensitivity(void) {
     uint8_t temp = 0x00;
 
     ERA_ReadBytes(0x0149, &temp, 1);
@@ -218,11 +217,11 @@ void cirque_trackpad_tune_edge_sensitivity(void) {
 }
 
 /*  Pinnacle-based TM040040 Functions  */
-void cirque_trackpad_init(void) {
+void cirque_pinnacle_init(void) {
     i2c_init();
     touchpad_init = true;
     // Host clears SW_CC flag
-    cirque_trackpad_clear_flags();
+    cirque_pinnacle_clear_flags();
 
     // Host configures bits of registers 0x03 and 0x05
     RAP_Write(SYSCONFIG_1, SYSCONFIG_1_VALUE);
@@ -234,19 +233,19 @@ void cirque_trackpad_init(void) {
     // Host sets z-idle packet count to 5 (default is 30)
     RAP_Write(Z_IDLE_COUNT, Z_IDLE_COUNT_VALUE);
 
-    cirque_trackpad_set_adc_attenuation(0xFF);
-    cirque_trackpad_tune_edge_sensitivity();
-    cirque_trackpad_enable_feed(true);
+    cirque_pinnacle_set_adc_attenuation(0xFF);
+    cirque_pinnacle_tune_edge_sensitivity();
+    cirque_pinnacle_enable_feed(true);
 }
 
 // Reads XYZ data from Pinnacle registers 0x14 through 0x17
 // Stores result in tm040040_data_t struct with xValue, yValue, and zValue members
-tm040040_data_t cirque_trackpad_read_data(void) {
+pinnacle_data_t cirque_pinnacle_read_data(void) {
     uint8_t         data[6] = {0};
-    tm040040_data_t result  = {0};
+    pinnacle_data_t result  = {0};
     RAP_ReadBytes(PACKET_BYTE_0, data, 6);
 
-    cirque_trackpad_clear_flags();
+    cirque_pinnacle_clear_flags();
 
     result.buttonFlags = data[0] & 0x3F;
     result.xValue      = data[2] | ((data[4] & 0x0F) << 8);
