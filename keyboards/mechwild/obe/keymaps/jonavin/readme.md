@@ -8,6 +8,7 @@ Features
 - Add PrtScr, Scroll Lock, Break, NumLock to Fn layer
 - Implement Win key lock using Fn+Win 
 - Layer 2 (LOWER) when right B is held -- for emoticons
+- Layer 2 RGB functions
 - Layer 3 (RAISE) mod on Caps Lock with double-tap to switch to this layer, double tap to switch back
     - provides arrows on WASD and additional nav keys + right hand numpad with 00; an be used for Alt Code entry
     - left spacebar Backspace
@@ -38,5 +39,5 @@ EMOTICON_ENABLE
     - adds EMO_ keycodes for text emojis
     
 ## All layers diagram
-![image](https://user-images.githubusercontent.com/71780717/135699192-c02b399b-4ea8-468c-bde0-81364188a039.png)
+![image](https://user-images.githubusercontent.com/71780717/135770721-ab263532-f645-4903-99cb-749549944e15.png)
 
