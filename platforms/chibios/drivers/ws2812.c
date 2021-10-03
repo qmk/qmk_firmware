@@ -44,7 +44,7 @@
 // These are chosen to be conservative and avoid problems rather than for maximum throughput
 
 #ifndef T1H
-#    define T1H 900           // Width of a 1 bit in ns
+#    define T1H 900  // Width of a 1 bit in ns
 #endif
 
 #ifndef T1L
@@ -52,7 +52,7 @@
 #endif
 
 #ifndef T0H
-#    define T0H 350           // Width of a 0 bit in ns
+#    define T0H 350  // Width of a 0 bit in ns
 #endif
 
 #ifndef T0L
