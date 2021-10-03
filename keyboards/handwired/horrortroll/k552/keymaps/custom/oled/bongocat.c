@@ -205,6 +205,7 @@ static void render_bongocat(void) {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
         }
     };
+
     static const char PROGMEM prep[][ANIM_SIZE] = {
         {
         //Prepare - 128x32
@@ -242,6 +243,7 @@ static void render_bongocat(void) {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
         }
     };
+
     static const char PROGMEM tap[TAP_FRAMES][ANIM_SIZE] = {
         {
         //Tap left - 128x32
@@ -321,10 +323,12 @@ static void render_bongocat(void) {
             current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
             oled_write_raw_P(idle[abs((IDLE_FRAMES - 1) - current_idle_frame)], ANIM_SIZE);
         }
+
         if (get_current_wpm() > IDLE_SPEED && get_current_wpm() < ANIM_WPM_LOWER) {
             // oled_write_raw_P(prep[abs((PREP_FRAMES-1)-current_prep_frame)], ANIM_SIZE); // uncomment if IDLE_FRAMES >1
             oled_write_raw_P(prep[0], ANIM_SIZE);  // remove if IDLE_FRAMES >1
         }
+
         if (get_current_wpm() >= ANIM_WPM_LOWER) {
             current_tap_frame = (current_tap_frame + 1) % TAP_FRAMES;
             oled_write_raw_P(tap[abs((TAP_FRAMES - 1) - current_tap_frame)], ANIM_SIZE);
@@ -336,10 +340,12 @@ static void render_bongocat(void) {
 
     if (get_current_wpm() > ANIM_WPM_LOWER) {
         oled_on();  // not essential but turns on animation OLED with any alpha keypress
+
         if (timer_elapsed32(bongo_timer) > curr_anim_duration) {
             bongo_timer = timer_read32();
             animation_phase();
         }
+
         bongo_sleep = timer_read32();
     } else {
         if (timer_elapsed32(bongo_sleep) > OLED_TIMEOUT) {

@@ -15,11 +15,13 @@ uint16_t startup_timer;
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     startup_timer = timer_read();
     wave_timer = timer_read();
+
     return rotation;
 }
 
 void oled_task_user(void) {
     static bool finished_logo = false;
+
     if ((timer_elapsed(startup_timer) < 5000) && !finished_logo) {
         render_logo();
     } else {
@@ -27,10 +29,13 @@ void oled_task_user(void) {
         led_t led_usb_state = host_keyboard_led_state();
         static uint8_t old_layer;
         uint8_t layer = get_highest_layer(layer_state | default_layer_state);
+
         if (layer != old_layer) {
             oled_clear();
         }
+
         old_layer = layer;
+
         switch (layer) {
             case _BASE:
                 render_bongocat();

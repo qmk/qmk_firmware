@@ -18,6 +18,7 @@ static const uint8_t PROGMEM bar_lut[8] = {0, 16, 24, 56, 60, 124, 126, 255};
 
 #define BAR_KEY_WEIGHT 128
 #define BAR_KEY_DECAY_MAX 18
+
 static uint8_t bar_key_decay = BAR_KEY_DECAY_MAX;
 
 // clang-format off
@@ -43,9 +44,9 @@ static const char PROGMEM code_to_name[0xFF] = {
 // clang-format on
 
 void add_keylog(uint16_t keycode) {
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-            (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) ||
-            (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
+    if ((keycode >= QK_MOD_TAP   && keycode <= QK_MOD_TAP_MAX)   ||
+        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) ||
+        (keycode >= QK_MODS      && keycode <= QK_MODS_MAX)) {
         keycode = keycode & 0xFF;
     } else if (keycode > 0xFF) {
         keycode = 0;
@@ -53,6 +54,7 @@ void add_keylog(uint16_t keycode) {
 
     if (keycode < (sizeof(code_to_name) / sizeof(char))) {
         char log_char = pgm_read_byte(&code_to_name[keycode]);
+
         for (uint8_t j = 0; j < OLED_FONT_WIDTH; j++) {
             const uint8_t glyph_line = pgm_read_byte(&font[log_char * OLED_FONT_WIDTH + j]);
             next_log_byte[j] = glyph_line;
@@ -66,6 +68,7 @@ bool process_record_user_oled(uint16_t keycode, keyrecord_t *record) {
         add_keylog(keycode);
 
         uint8_t t = next_bar_val + BAR_KEY_WEIGHT;
+
         if (t < next_bar_val) {
             next_bar_val = 255;
         } else {
@@ -74,6 +77,7 @@ bool process_record_user_oled(uint16_t keycode, keyrecord_t *record) {
 
         bar_key_decay = BAR_KEY_DECAY_MAX;
     }
+
     return true;
 }
 
