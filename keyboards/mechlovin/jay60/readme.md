@@ -1,6 +1,6 @@
 # jay60
 
-![jay60](imgur.com image replace me!)
+![jay60](https://i.imgur.com/FVg59LUl.png)
 
 Jay60 PCB, 60
 * Keyboard Maintainer: [Mechlovin'](https://mechlovin.studio)
