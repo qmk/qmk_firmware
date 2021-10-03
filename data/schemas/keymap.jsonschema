@@ -5,6 +5,7 @@
     "type": "object",
     "properties": {
         "author": {"type": "string"},
+        "config": {"$ref": "qmk.keyboard.v1"},
         "keyboard": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keyboard_overrides": {"$ref": "qmk.keyboard.v1"},
         "keymap": {"$ref": "qmk.definitions.v1#/text_identifier"},

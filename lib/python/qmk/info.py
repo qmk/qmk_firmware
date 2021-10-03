@@ -123,6 +123,9 @@ def get_keyboard_overrides(keyboard, keymap=None):
         if 'keyboard_overrides' in keymap_json:
             return keymap_json['keyboard_overrides']
 
+        if 'config' in keymap_json:
+            return keymap_json['config']
+
 
 def _extract_features(info_data, rules):
     """Find all the features enabled in rules.mk.
