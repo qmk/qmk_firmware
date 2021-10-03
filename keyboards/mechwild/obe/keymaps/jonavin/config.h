@@ -28,13 +28,6 @@
 #define TAPPING_TERM 180
 
 #ifdef RGBLIGHT_ENABLE
-/* ws2812 RGB LED */
-#define RGB_DI_PIN E6
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 16    // Number of LEDs
-#define RGBLED_SPLIT { 8, 8 }
-#define RGBLIGHT_LED_MAP { 1, 2, 3, 12, 13, 14, 15, 0, 7, 6, 5, 4, 11, 10, 9, 8 }
-
     #define RGBLIGHT_LAYERS
     #define RGBLIGHT_SLEEP
 #endif // RGBLIGHT_ENABLE
