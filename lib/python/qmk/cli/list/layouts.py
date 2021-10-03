@@ -2,7 +2,6 @@
 """
 from milc import cli
 
-import qmk.keymap
 from qmk.decorators import automagic_keyboard
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.info import info_json
