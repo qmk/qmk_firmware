@@ -228,6 +228,7 @@ def generate_c(keymap_json):
                     macro_fragment = macro_fragment.replace('\r\n', r'\n')
                     macro_fragment = macro_fragment.replace('\n', r'\n')
                     macro_fragment = macro_fragment.replace('\r', r'\n')
+                    macro_fragment = macro_fragment.replace('\t', r'\t')
                     macro_fragment = macro_fragment.replace('"', r'\"')
 
                     macro.append(f'"{macro_fragment}"')
