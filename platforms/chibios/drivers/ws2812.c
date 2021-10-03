@@ -44,19 +44,19 @@
 // These are chosen to be conservative and avoid problems rather than for maximum throughput
 
 #ifndef T1H
-#define T1H 900           // Width of a 1 bit in ns
+#    define T1H 900           // Width of a 1 bit in ns
 #endif
 
 #ifndef T1L
-#define T1L (1250 - T1H)  // Width of a 1 bit in ns
+#    define T1L (1250 - T1H)  // Width of a 1 bit in ns
 #endif
 
 #ifndef T0H
-#define T0H 350           // Width of a 0 bit in ns
+#    define T0H 350           // Width of a 0 bit in ns
 #endif
 
 #ifndef T0L
-#define T0L (1250 - T0H)  // Width of a 0 bit in ns
+#    define T0L (1250 - T0H)  // Width of a 0 bit in ns
 #endif
 
 // The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
