@@ -28,6 +28,23 @@
 #define TAPPING_TERM 180
 
 #ifdef RGBLIGHT_ENABLE
+    // Define RGB_DI_PIN if not defien and associated define
+    #ifndef RGB_DI_PIN
+        #define RGB_DI_PIN A0
+        #define RGBLIGHT_HUE_STEP 8
+        #define RGBLIGHT_SAT_STEP 8
+        #define RGBLIGHT_VAL_STEP 8
+        #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+        #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+        #define RGBLIGHT_ANIMATIONS
+    #endif
+
+    // Redefine number of LED
+    #ifdef RGBLED_NUM
+        #undef RGBLED_NUM
+    #endif // DEBUG
+    #define RGBLED_NUM 30
+
     #define RGBLIGHT_LAYERS
     #define RGBLIGHT_SLEEP
 #endif // RGBLIGHT_ENABLE
