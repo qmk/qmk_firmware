@@ -222,9 +222,15 @@ def generate_c(keymap_json):
 
         for i, macro_array in enumerate(keymap_json['macros']):
             macro = []
+
             for macro_fragment in macro_array:
                 if isinstance(macro_fragment, str):
-                    macro.append('"' + macro_fragment.replace('"', r'\"') + '"')
+                    macro_fragment = macro_fragment.replace('\r\n', r'\n')
+                    macro_fragment = macro_fragment.replace('\n', r'\n')
+                    macro_fragment = macro_fragment.replace('\r', r'\n')
+                    macro_fragment = macro_fragment.replace('"', r'\"')
+
+                    macro.append(f'"{macro_fragment}"')
 
                 elif isinstance(macro_fragment, dict):
                     newstring = []
@@ -252,8 +258,10 @@ def generate_c(keymap_json):
 
                     macro.append(''.join(newstring))
 
+            new_macro = "".join(macro)
+            new_macro = new_macro.replace('""', '')
             macro_txt.append(f'            case MACRO_{i}:')
-            macro_txt.append(f'                SEND_STRING({"".join(macro)});')
+            macro_txt.append(f'                SEND_STRING({new_macro});')
             macro_txt.append('                return false;')
 
         macro_txt.append('        }')
