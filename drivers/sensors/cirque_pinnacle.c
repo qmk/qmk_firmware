@@ -4,10 +4,6 @@
 #include "debug.h"
 #include "wait.h"
 
-// Masks for Cirque Register Access Protocol (RAP)
-#define WRITE_MASK           0x80
-#define READ_MASK            0xA0
-
 // Registers for RAP
 #define FIRMWARE_ID          0x00
 #define FIRMWARE_VERSION_C   0x01
@@ -47,11 +43,13 @@
 #define FEEDCONFIG_2_VALUE   0x1C  // 0x1F for normal functionality 0x1E for intellimouse disabled
 #define Z_IDLE_COUNT_VALUE   0x05
 
-bool            touchpad_init;
-uint16_t        scale_data = 1024;
+bool     touchpad_init;
+uint16_t scale_data = 1024;
 
 void cirque_pinnacle_clear_flags(void);
 void cirque_pinnacle_enable_feed(bool feedEnable);
+void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count);
+void RAP_Write(uint8_t address, uint8_t data);
 
 #ifdef CONSOLE_ENABLE
 void print_byte(uint8_t byte) { xprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }
@@ -93,37 +91,6 @@ void cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResoluti
     // scale coordinates to (xResolution, yResolution) range
     coordinates->xValue = (uint16_t)(xTemp * xResolution / CIRQUE_PINNACLE_X_RANGE);
     coordinates->yValue = (uint16_t)(yTemp * yResolution / CIRQUE_PINNACLE_Y_RANGE);
-}
-
-/*  RAP Functions */
-// Reads <count> Pinnacle registers starting at <address>
-void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count) {
-    uint8_t cmdByte = READ_MASK | address;  // Form the READ command byte
-    if (touchpad_init) {
-        i2c_writeReg(CIRQUE_PINNACLE_ADDR << 1, cmdByte, NULL, 0, CIRQUE_PINNACLE_TIMEOUT);
-        if (i2c_readReg(CIRQUE_PINNACLE_ADDR << 1, cmdByte, data, count, CIRQUE_PINNACLE_TIMEOUT) != I2C_STATUS_SUCCESS) {
-#ifdef CONSOLE_ENABLE
-            dprintf("error right touchpad\n");
-#endif
-            touchpad_init = false;
-        }
-        i2c_stop();
-    }
-}
-
-// Writes single-byte <data> to <address>
-void RAP_Write(uint8_t address, uint8_t data) {
-    uint8_t cmdByte = WRITE_MASK | address;  // Form the WRITE command byte
-
-    if (touchpad_init) {
-        if (i2c_writeReg(CIRQUE_PINNACLE_ADDR << 1, cmdByte, &data, sizeof(data), CIRQUE_PINNACLE_TIMEOUT) != I2C_STATUS_SUCCESS) {
-#ifdef CONSOLE_ENABLE
-            dprintf("error right touchpad\n");
-#endif
-            touchpad_init = false;
-        }
-        i2c_stop();
-    }
 }
 
 // Clears Status1 register flags (SW_CC and SW_DR)
@@ -218,7 +185,12 @@ void cirque_pinnacle_tune_edge_sensitivity(void) {
 
 /*  Pinnacle-based TM040040 Functions  */
 void cirque_pinnacle_init(void) {
+#if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
+    spi_init();
+#elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c)
     i2c_init();
+#endif
+
     touchpad_init = true;
     // Host clears SW_CC flag
     cirque_pinnacle_clear_flags();
@@ -239,7 +211,7 @@ void cirque_pinnacle_init(void) {
 }
 
 // Reads XYZ data from Pinnacle registers 0x14 through 0x17
-// Stores result in tm040040_data_t struct with xValue, yValue, and zValue members
+// Stores result in pinnacle_data_t struct with xValue, yValue, and zValue members
 pinnacle_data_t cirque_pinnacle_read_data(void) {
     uint8_t         data[6] = {0};
     pinnacle_data_t result  = {0};

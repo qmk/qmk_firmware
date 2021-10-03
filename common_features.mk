@@ -107,7 +107,7 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/mousekey.c
 endif
 
-VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_pinnacle pmw3360 pimoroni_trackball custom
+VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_pinnacle_i2c cirque_pinnacle_spi pmw3360 pimoroni_trackball custom
 POINTING_DEVICE_DRIVER ?= custom
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)
@@ -128,9 +128,14 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
             OPT_DEFS += -DSTM32_ADC -DHAL_USE_ADC=TRUE
             LIB_SRC += analog.c
-        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle)
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_i2c)
             OPT_DEFS += -DSTM32_I2C -DHAL_USE_I2C=TRUE
+            SRC += drivers/sensors/cirque_pinnacle.c
             QUANTUM_LIB_SRC += i2c_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_spi)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            SRC += drivers/sensors/cirque_pinnacle.c
+            QUANTUM_LIB_SRC += spi_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_I2C=TRUE
             QUANTUM_LIB_SRC += i2c_master.c

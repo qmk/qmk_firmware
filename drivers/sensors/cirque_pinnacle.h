@@ -3,7 +3,7 @@
 #pragma once
 
 #include <stdint.h>
-#include "i2c_master.h"
+#include <stdbool.h>
 
 // Convenient way to store and access measurements
 typedef struct {
@@ -20,10 +20,6 @@ void            cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_
 uint16_t        cirque_pinnacle_get_scale(void);
 void            cirque_pinnacle_set_scale(uint16_t scale);
 
-// Cirque's 7-bit I2C Slave Address
-#ifndef CIRQUE_PINNACLE_ADDR
-#    define CIRQUE_PINNACLE_ADDR 0x2A
-#endif
 #ifndef CIRQUE_PINNACLE_TIMEOUT
 #    define CIRQUE_PINNACLE_TIMEOUT 20
 #endif
@@ -46,4 +42,33 @@ void            cirque_pinnacle_set_scale(uint16_t scale);
 #endif
 #ifndef CIRQUE_PINNACLE_Y_RANGE
 #    define CIRQUE_PINNACLE_Y_RANGE (CIRQUE_PINNACLE_Y_UPPER - CIRQUE_PINNACLE_Y_LOWER)
+#endif
+
+#if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c)
+#    include "i2c_master.h"
+// Cirque's 7-bit I2C Slave Address
+#    ifndef CIRQUE_PINNACLE_ADDR
+#        define CIRQUE_PINNACLE_ADDR 0x2A
+#    endif
+#elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
+#    include "spi_master.h"
+#    ifndef CIRQUE_PINNACLE_CLOCK_SPEED
+#        define CIRQUE_PINNACLE_CLOCK_SPEED 10000000
+#    endif
+#    ifndef CIRQUE_PINNACLE_SPI_LSBFIRST
+#        define CIRQUE_PINNACLE_SPI_LSBFIRST false
+#    endif
+#    ifndef CIRQUE_PINNACLE_SPI_MODE
+#        define CIRQUE_PINNACLE_SPI_MODE 1
+#    endif
+#    ifndef CIRQUE_PINNACLE_SPI_DIVISOR
+#        ifdef __AVR__
+#            define CIRQUE_PINNACLE_SPI_DIVISOR (F_CPU / CIRQUE_PINNACLE_CLOCK_SPEED)
+#        else
+#            define CIRQUE_PINNACLE_SPI_DIVISOR 64
+#        endif
+#        ifndef CIRQUE_PINNACLE_SPI_CS_PIN
+#            error "No Chip Select pin has been defined -- missing CIRQUE_PINNACLE_SPI_CS_PIN define"
+#        endif
+#    endif
 #endif
