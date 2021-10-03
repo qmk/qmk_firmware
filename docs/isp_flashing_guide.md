@@ -241,7 +241,7 @@ The High fuse can be 0xD9 or 0x99. The difference is that 0xD9 disables JTAG, wh
 
 To set this add `-U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0xC3:m` to your command.  So the final command should look something like: 
 
-    avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0xC3:m
+    avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:bootloader_atmega32u4_1.0.0.hex:i -U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0xC3:m
 
 For Caterina on the `atmega32u4`, these are the fuse settings that you want: 
 
@@ -253,7 +253,7 @@ For Caterina on the `atmega32u4`, these are the fuse settings that you want:
 
 To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m` to your command.  So the final command should look something like: 
 
-    avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m
+    avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:Caterina-promicro16.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m
 
 
 If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](https://www.engbedded.com/fusecalc/) to find a better value for you.
