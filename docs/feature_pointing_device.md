@@ -104,7 +104,11 @@ This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the 
 
 | SPI Setting              | Description                                                                     | Default |
 |--------------------------|---------------------------------------------------------------------------------|---------|
-|`CIRQUE_PINNACLE_ADDR`    | (Required) Sets the I2C Address for the Cirque Trackpad                         | `0x2A`  |
+|`CIRQUE_PINNACLE_CLOCK_SPEED`  | (Optional) Sets the clock speed that the sensor runs at.               | `1000000`     |
+|`CIRQUE_PINNACLE_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`       |
+|`CIRQUE_PINNACLE_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `1`           |
+|`CIRQUE_PINNACLE_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_      |
+|`CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
 
 Default Scaling/CPI is 1024.
 
