@@ -62,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_CAPS_LOCK_PIN B9
 
 /* RGB settings, uncomment this define to enable RGB */
-//#define RGB_DI_PIN A0
+#define RGB_DI_PIN A0
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 10
 #    define RGBLIGHT_HUE_STEP 8
