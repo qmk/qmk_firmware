@@ -2,7 +2,7 @@
 
 ![jay60](https://i.imgur.com/FVg59LUl.png)
 
-Jay60 PCB, 60
+Jay60 PCB, Unikorn PCB compatible
 * Keyboard Maintainer: [Mechlovin'](https://mechlovin.studio)
 * Hardware Supported: Jay60, Atmega32A
 * Hardware Availability: [Mechlovin'](https://mechlovin.studio)
