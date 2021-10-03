@@ -17,6 +17,11 @@
 #include QMK_KEYBOARD_H
 #include "jonavin.h"
 
+#ifdef RGBLIGHT_ENABLE
+    // Custom RGB Colours
+    #define RGB_OBE_BOW 0x00, 0xE4, 0xFF // colour for matching keycaps
+#endif // RGBLIGHT_ENABLE
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
@@ -48,3 +53,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
+
+#ifdef RGBLIGHT_ENABLE
+
+    enum custom_rgblight_layers
+    {
+        _rgbCAPS,
+        _rgbWINLOCK,
+        _rgbFN,
+        _rgbNUMPAD,
+    };
+
+    // Optional RGB Light Mapping
+        const rgblight_segment_t PROGMEM _rgb_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+        {14, 1, HSV_RED}
+    );
+    const rgblight_segment_t PROGMEM _rgb_winlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+        {13, 1, HSV_PURPLE}
+    );
+    const rgblight_segment_t PROGMEM _rgb_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+        {9, 2, HSV_ORANGE},
+        {12, 2, HSV_ORANGE}
+    );
+    // Light LEDs 9 & 10 in cyan when keyboard layer 1 is active
+    const rgblight_segment_t PROGMEM _rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+        {4, 3, HSV_PURPLE},
+        {9, 3, HSV_PURPLE}
+    );
+
+    const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+        _rgb_capslock_layer,
+        _rgb_winlock_layer,
+        _rgb_fn_layer,
+        _rgb_numpad_layer
+    );
+
+    bool led_update_user(led_t led_state) {
+        rgblight_set_layer_state(_rgbCAPS, led_state.caps_lock);
+        rgblight_set_layer_state(_rgbWINLOCK, keymap_config.no_gui);
+        return true;
+    }
+
+    layer_state_t layer_state_set_user(layer_state_t state) {
+        rgblight_set_layer_state(_rgbFN, layer_state_cmp(state, _FN1));
+        rgblight_set_layer_state(_rgbNUMPAD, layer_state_cmp(state, _LOWER));
+        return state;
+    }
+#endif // RGBLIGHT_ENABLE
+
+void keyboard_post_init_keymap(void) {
+    // keyboard_post_init_user() moved to userspace
+    #ifdef RGBLIGHT_ENABLE
+        rgblight_mode(1); // single colour mode
+        rgblight_setrgb(RGB_OBE_BOW); // Default startup colour
+        rgblight_layers = _rgb_layers;
+    #endif
+}
