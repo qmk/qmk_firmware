@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6163
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Lyso1
-#define PRODUCT         lck75r2
+#define PRODUCT         lck75
 
 /* key matrix size */
 #define MATRIX_ROWS 6
