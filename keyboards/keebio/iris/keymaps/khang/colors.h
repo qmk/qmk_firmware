@@ -1,3 +1,5 @@
+#pragma once
+
 #define MINIMAL_BASEx(hue,sat) \
     rgblight_sethsv_range(hue, sat, 0, 0, 12); \
     rgblight_sethsv_range(hue, sat, 100, 5, 7)
