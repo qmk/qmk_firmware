@@ -51,7 +51,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 }
 
-void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t layer, bool (*is_keycode)(uint8_t), uint8_t red, uint8_t green, uint8_t blue) {
+void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t layer, bool (*is_keycode)(uint16_t), uint8_t red, uint8_t green, uint8_t blue) {
     for (uint8_t i = led_min; i < led_max; i++) {
         uint16_t keycode = keymap_key_to_keycode(layer, led_index_key_position[i]);
         if ((*is_keycode)(keycode)) {
@@ -60,7 +60,7 @@ void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t l
     }
 }
 
-bool is_caps_lock_indicator(uint8_t keycode) {
+bool is_caps_lock_indicator(uint16_t keycode) {
 #ifdef CAPS_LOCK_INDICATOR_LIGHT_ALPHAS
     return (KC_A <= keycode && keycode <= KC_Z) || keycode == KC_CAPS;
 #else
@@ -68,4 +68,4 @@ bool is_caps_lock_indicator(uint8_t keycode) {
 #endif
 }
 
-bool is_transparent(uint8_t keycode) { return keycode == KC_TRNS; }
+bool is_transparent(uint16_t keycode) { return keycode == KC_TRNS; }
