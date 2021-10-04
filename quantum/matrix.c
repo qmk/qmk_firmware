@@ -70,10 +70,6 @@ extern uint8_t thisHand, thatHand;
 __attribute__((weak)) void matrix_init_pins(void);
 __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
 __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
-#ifdef SPLIT_KEYBOARD
-__attribute__((weak)) void matrix_slave_scan_kb(void) { matrix_slave_scan_user(); }
-__attribute__((weak)) void matrix_slave_scan_user(void) {}
-#endif
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
@@ -307,37 +303,6 @@ void matrix_init(void) {
 __attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     transport_master(master_matrix, slave_matrix);
     return true;  // Treat the transport as always connected
-}
-
-bool matrix_post_scan(void) {
-    bool changed = false;
-    if (is_keyboard_master()) {
-        matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
-        if (transport_master_if_connected(matrix + thisHand, slave_matrix)) {
-            for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                if (matrix[thatHand + i] != slave_matrix[i]) {
-                    matrix[thatHand + i] = slave_matrix[i];
-                    changed              = true;
-                }
-            }
-        } else {
-            // reset other half if disconnected
-            for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                matrix[thatHand + i] = 0;
-                slave_matrix[i]      = 0;
-            }
-
-            changed = true;
-        }
-
-        matrix_scan_quantum();
-    } else {
-        transport_slave(matrix + thatHand, matrix + thisHand);
-
-        matrix_slave_scan_kb();
-    }
-
-    return changed;
 }
 #endif
 
