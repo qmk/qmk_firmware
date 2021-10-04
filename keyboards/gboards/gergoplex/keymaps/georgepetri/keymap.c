@@ -75,21 +75,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap 1: Special characters layer
      *
      * ,-------------------------------.      ,-------------------------------.
-     * |    !  |  @  |  {  |  }  |  |  |      |  `  |  ~  |     |     |   \   |
+     * |    !  |  @  |  {  |  }  |  |  |      |  `  |  -  |  =  |  /  |   \   |
      * |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
-     * |    #  |  $  |  (  |  )  | RMB |      |  +  |  -  |  /  |  *  |   '   |
+     * |    #  |  $  |  (  |  )  | RMB |      | LFT | DWN | UP  | RGT |   '   |
      * |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
-     * |    %  |  ^  |  [  |  ]  | LMB |      |  &  |  =  |  ,  |  .  |   -   |
+     * |    %  |  ^  |  [  |  ]  | LMB |      |  &  |  ~  |  +  |  *  |       |
      * `-------------------------------'      `-------------------------------'
      *     .-------------------------.          .-----------------.
-     *     | ComboToggle |  ;  |  =  |          |  =  |  ;  | DEL |
+     *     | ComboToggle |  ;  |  =  |          |  =  |     | DEL |
      *     '-------------------------'          '-----------------'
      */
     [_SPECIAL] = LAYOUT_split_3x5_3(
-         KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,          KC_GRV,  KC_TILD, KC_TRNS, KC_TRNS, KC_BSLS,
-         KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_BTN2,          KC_PLUS, KC_MINS, KC_SLSH, KC_ASTR, KC_QUOT,
-         KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_BTN1,          KC_AMPR, KC_EQL,  KC_COMM, KC_DOT,  KC_MINS,
-                            CMB_TOG, KC_SCLN, KC_EQL,          KC_EQL, KC_SCLN, KC_DEL),
+         KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,          KC_GRV,  KC_MINS, KC_EQL , KC_SLSH, KC_BSLS,
+         KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_BTN2,          KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_QUOT,
+         KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_BTN1,          KC_AMPR, KC_TILD, KC_PLUS, KC_ASTR, KC_TRNS,
+                            CMB_TOG, KC_SCLN, KC_EQL,          KC_EQL , KC_TRNS, KC_DEL),
 
     /* Keymap 2: Numbers/Function/Motion layer
      *
