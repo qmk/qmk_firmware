@@ -395,7 +395,6 @@ static void rgb_task_flush(uint8_t effect) {
 }
 
 void rgb_matrix_task(void) {
-    //eeconfig_flush_rgb_matrix_task();
     rgb_task_timers();
 
     // Ideally we would also stop sending zeros to the LED driver PWM buffers
