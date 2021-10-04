@@ -1,10 +1,6 @@
 // Gergoplex specfic combos
 
-COMB(opBacksl,    KC_BSLS,          KC_O, KC_P)
-COMB(hjLess,      KC_LT,            KC_H, KC_J)
-COMB(klGreat,     KC_GT,            KC_K, KC_L)
-COMB(xcDash,      KC_MINS,          KC_X, KC_C)
-COMB(mcUnds,      KC_UNDS,          KC_M, KC_COMM)
-COMB(nmQuot,      KC_QUOT,          KC_N, KC_M)
-
-SUBS(pasta,       "I'd just like to interject for a moment.",       KC_H, KC_J, KC_K, KC_L)
+COMB(hjEnt,         KC_ENT,         KC_H, KC_J)
+COMB(loDel,         KC_DEL,         KC_L, KC_O)
+COMB(pscBspace,     KC_BSPC,        KC_P, KC_SCLN)
+COMB(fgEsc,         KC_ESC,         KC_F, KC_G)
