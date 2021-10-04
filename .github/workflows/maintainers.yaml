@@ -1,0 +1,28 @@
+name: Ping maintainers
+
+on:
+    pull_request:
+
+jobs:
+    maintainer_ping:
+        runs-on: ubuntu-latest
+
+        container: qmkfm/qmk_cli
+
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+
+            - uses: trilom/file-changes-action@v1.2.4
+              id: file_changes
+              with:
+                  output: " "
+                  fileOutput: " "
+
+            - name: Install dependencies
+              run: pip3 install -r requirements-dev.txt
+
+            - name: Ping maintainers and request reviews
+              shell: "bash {0}"
+              run: qmk ping-maintainers --pr ${{ github.event.number }} ${{ steps.file_changes.outputs.files }}
