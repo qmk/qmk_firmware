@@ -41,43 +41,58 @@
 static bool oled_pet_should_jump = false;
 #endif
 
+/* Should be overridden by the keymap to render the OLED contents. For split
+ * keyboards, this function is only called on the master side.
+ */
 __attribute__((weak)) void oled_task_keymap(const oled_keyboard_state_t *keyboard_state) {}
 
 bool oled_task_user(void) {
-    static const uint16_t TIMEOUT_MILLIS = 60000 /* 1 min */;
+#if defined(SPLIT_KEYBOARD)
+    if (is_keyboard_master()) {
+#endif
+        /* Custom OLED timeout implementation that only considers user activity.
+         * Allows the OLED to turn off in the middle of a continuous animation.
+         */
+        static const uint16_t TIMEOUT_MILLIS = 60000 /* 1 min */;
 
-    /* Custom OLED timeout implementation that only considers user activity.
-     * Allows the OLED to turn off in the middle of a continuous animation.
-     */
-    bool on = is_oled_on();
-    if (last_input_activity_elapsed() < TIMEOUT_MILLIS) {
-        if (!on) {
-            oled_on();
+        bool on = is_oled_on();
+        if (last_input_activity_elapsed() < TIMEOUT_MILLIS) {
+            if (!on) {
+                oled_on();
+            }
+            oled_keyboard_state_t keyboard_state = {
+                .mods = get_mods(),
+                .leds = host_keyboard_led_state(),
+                .wpm  = get_current_wpm(),
+            };
+            oled_task_keymap(&keyboard_state);
+        } else if (on) {
+            oled_off();
         }
-        oled_keyboard_state_t keyboard_state = {
-            .mods = get_mods(),
-            .leds = host_keyboard_led_state(),
-            .wpm  = get_current_wpm(),
+#if defined(SPLIT_KEYBOARD)
+    } else {
+        /* Display logo embedded at standard location in the OLED font on the
+         * slave side. By default, this is a "QMK firmware" logo, but many
+         * keyboards substitute their own logo. Occupies 21x3 character cells.
+         *
+         * Since the slave display buffer never changes, we don't need to worry
+         * about oled_render incorrectly turning the OLED on. Instead, we rely
+         * on SPLIT_OLED_ENABLE to propagate OLED on/off status from master.
+         */
+        static const char PROGMEM logo[] = {
+            // clang-format off
+            0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+            0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+            0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+            0x00,
+            // clang-format on
         };
-        oled_task_keymap(&keyboard_state);
-    } else if (on) {
-        oled_off();
+
+        oled_write_P(logo, /*invert=*/false);
     }
+#endif
 
     return false;
-}
-
-void render_oled_logo(void) {
-    static const char PROGMEM logo[] = {
-        // clang-format off
-        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-        0x00,
-        // clang-format on
-    };
-
-    oled_write_P(logo, /*invert=*/false);
 }
 
 void render_oled_layers(void) {

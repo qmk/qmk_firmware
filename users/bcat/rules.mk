@@ -1,5 +1,10 @@
-# Enable Bootmagic Lite to consistently reset to bootloader and clear EEPROM.
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+# Enable Bootmagic Lite for keyboards that don't have an easily accessible
+# reset button, but keep it disabled for all others to reduce firmware size.
+ifneq ($(filter $(strip $(KEYBOARD)),ai03/polaris dz60 kbdfans/kbd67/hotswap),)
+	BOOTMAGIC_ENABLE = yes
+else
+	BOOTMAGIC_ENABLE = no
+endif
 
 # Enable media keys on all keyboards.
 EXTRAKEY_ENABLE = yes

@@ -30,12 +30,6 @@ typedef struct {
     uint8_t wpm;
 } oled_keyboard_state_t;
 
-/* Renders the logo embedded at the "standard" location in the OLED font at the
- * cursor. By default, this is a "QMK Firmware" logo, but many keyboards put
- * their own logo here instead. Occupies 21x3 character cells.
- */
-void render_oled_logo(void);
-
 /* Note: Functions below assume a vertical OLED that is 32px (5 chars) wide. */
 
 /* Renders layer status at the cursor. Occupies 5x1 character cells. */

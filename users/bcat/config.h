@@ -46,6 +46,11 @@
  */
 #    undef OLED_TIMEOUT
 #    define OLED_DISABLE_TIMEOUT
+
+#    if defined(SPLIT_KEYBOARD)
+/* Sync OLED on/off state between halves of split keyboards. */
+#        define SPLIT_OLED_ENABLE
+#    endif
 #endif
 
 #if defined(RGB_MATRIX_ENABLE)
