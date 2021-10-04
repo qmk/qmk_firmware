@@ -38,20 +38,20 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         case WIN_BASE:
 #ifdef CAPS_LOCK_INDICATOR_COLOR
             if (host_keyboard_led_state().caps_lock) {
-                rgb_matrix_set_color_by_keycode(current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR, led_min, led_max);
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
             }
 #endif
             break;
         case MAC_FN:
         case WIN_FN:
 #ifdef FN_LAYER_TRANSPARENT_KEYS_OFF
-            rgb_matrix_set_color_by_keycode(current_layer, is_transparent, RGB_OFF, led_min, led_max);
+            rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_transparent, RGB_OFF);
 #endif
             break;
     }
 }
 
-void rgb_matrix_set_color_by_keycode(uint8_t layer, bool (*is_keycode)(uint8_t), uint8_t red, uint8_t green, uint8_t blue, uint8_t led_min, uint8_t led_max) {
+void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t layer, bool (*is_keycode)(uint8_t), uint8_t red, uint8_t green, uint8_t blue) {
     for (uint8_t i = led_min; i < led_max; i++) {
         uint16_t keycode = keymap_key_to_keycode(layer, led_index_key_position[i]);
         if ((*is_keycode)(keycode)) {
