@@ -8,8 +8,8 @@ enum keyboard_layers {
     _UP
 };
 
-#include "colors.c"
-#include "extrakeys.c"
+#include "colors.h"
+#include "extrakeys.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
