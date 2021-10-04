@@ -121,7 +121,6 @@ void eeconfig_update_handedness(bool val);
     }                                                                      \
     static inline void eeconfig_flush_##name(bool force) {                 \
         if (force || dirty_##name) {                                       \
-            print("ee_flush\n"); \
             eeprom_update_block(&config, offset, sizeof(config));          \
             dirty_##name = false;                                          \
         }                                                                  \
