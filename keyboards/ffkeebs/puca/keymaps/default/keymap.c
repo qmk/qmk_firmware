@@ -35,20 +35,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT(
-        KC_MUTE,         KC_PGUP, KC_PGDN,
-		TG(1),  KC_PSLS, KC_PAST, KC_PMNS,
-		KC_7,   KC_8,    KC_9,    KC_PPLS,     KC_PPLS,
-		KC_4,   KC_5,    KC_6,    KC_PIPE,
-		KC_1,   KC_2,    KC_3,    KC_KP_ENTER, KC_KP_ENTER,
-		KC_0,   MC_00,   KC_PDOT, KC_PDOT,     KC_P0),
-    LAYOUT(
-        KC_TRNS,          KC_TRNS, KC_TRNS,
-		TG(0),   KC_NLCK, RGB_HUI, RGB_HUD,
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
+    [0] = LAYOUT(
+        KC_MUTE,          KC_PGUP,  KC_PGDN,
+		TG(1),  KC_PSLS,  KC_PAST,  KC_PMNS,
+		KC_7,   KC_8,     KC_9,     KC_PPLS,     KC_PPLS,
+		KC_4,   KC_5,     KC_6,     KC_PIPE,
+		KC_1,   KC_2,     KC_3,     KC_KP_ENTER, KC_KP_ENTER,
+		KC_0,   MC_00,    KC_PDOT,  KC_PDOT,     KC_0
+		),
+    [1] = LAYOUT(
+        KC_TRNS,          RGB_HUI, RGB_VAI,
+		TG(0),   RGB_TOG, RGB_HUD, RGB_VAD,
+		KC_PGUP, KC_UP,   KC_PGDN, KC_TRNS, KC_TRNS,
+		KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS,
+		KC_INS,  KC_HOME, KC_END,  KC_TRNS, KC_TRNS,
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+		)
 };
 
 // Encoder
@@ -160,6 +162,7 @@ static void render_anim(void) {
 			animation_phase();
 		}
     }
+	
 void oled_task_user(void) {
     render_anim();
     oled_set_cursor(0, 6);
