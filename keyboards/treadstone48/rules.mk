@@ -20,7 +20,6 @@ AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
 
 MOUSEKEY_ENABLE = yes       # Mouse keys
-TAP_DANCE_ENABLE = no
 
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 OLED_ENABLE = yes

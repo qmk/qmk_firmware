@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Aozora",
     "url": "https://salmoncat.studio/pages/aozora-%E9%9D%92%E7%A9%BA-6-9-21-7-10-21",
-    "maintainer": "Food",
+    "maintainer": "Phooood",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -77,5 +77,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
