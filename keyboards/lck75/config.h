@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x7856
 #define PRODUCT_ID      0x6163
-#define DEVICE_VER      0x0001
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    Lyso1
 #define PRODUCT         lck75r2
 
@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*                        0    1    2    3    4    5    6    7    8    9   10  11  12  13  14  15*/
 #define MATRIX_ROW_PINS { C2, C3, C7, C4, C6, C5 }
-#define MATRIX_COL_PINS { A0, B0, A1, B1, A2, B2, A3, B3, A4, B4, A5, A6, A7, D6, D5, D7 }
+#define MATRIX_COL_PINS { A0, B0, A1, B1, A2, B2, A3, B3, A4, B4, A5, A6, A7, D7, D6, D5 }
 #define UNUSED_PINS
 
 #define ENCODERS_PAD_B { D1 }
