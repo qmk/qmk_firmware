@@ -2,7 +2,7 @@
 
 ![Quark_Squared](https://i.imgur.com/zYH25zQ.png)
 
-The Quark² PCB is a hotswap version of the Quark PCB. Just like the OG, it has a modified layout than a traditonal 4x12 ortholinear keyboard. 
+The Quark² PCB is a hotswap version of the Quark PCB. Just like the OG, it has a modified layout than a traditonal 4x12 and 5x12 ortholinear keyboard. 
 
 * Keyboard Maintainer: [Nasp](https://github.com/npspears)
 * Hardware Supported: Planck
