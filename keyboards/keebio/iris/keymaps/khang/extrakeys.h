@@ -1,3 +1,5 @@
+#pragma once
+
 enum my_keycodes {
     ______ = SAFE_RANGE,
     HYPR1, HYPR2, HYPR3, HYPR4, HYPR5, HYPR6, HYPR7, HYPR8, HYPR9, HYPR0,
