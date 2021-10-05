@@ -35,6 +35,7 @@ This keymap aims to do 3 things:
 - caps + f2 = media play/pause
 - caps + f3 = media next
 - caps + shift = caps lock
+- caps + home = system sleep
 
 ### Layer 2 (fn Layer)
 
