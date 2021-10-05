@@ -15,7 +15,9 @@ If there are any inconsistencies with these recommendations, you're best off [cr
         - a board designer naming their keyboard with uppercase letters is not enough justification
 - valid license headers on all `*.c` and `*.h` source files
     - GPL2/GPL3 recommended for consistency
+    - an example GPL2+ license header may be copied and modified from the bottom of this document
     - other licenses are permitted, however they must be GPL-compatible and must allow for redistribution. Using a different license will almost certainly delay a PR getting merged.
+    - missing license headers will prevent PR merge due to ambiguity with license compatibility
 - QMK Codebase "best practices" followed
     - this is not an exhaustive list, and will likely get amended as time goes by
     - `#pragma once` instead of `#ifndef` include guards in header files
@@ -137,3 +139,23 @@ Thanks for contributing!
 In general, we want to see two (or more) approvals that are meaningful (e.g. that have inspected code) before a PR will be considered for merge. These reviews are not limited to collaborators -- any community member willing to put in the time is welcomed (and encouraged). The only difference is that your checkmark won't be green, and that's fine! 
 
 Additionally, PR reviews are something that is done in our free time. We are not paid nor compensated for the time we spend reviewing, as it is a labor of love. As such, this means that it can take time for us to get to your Pull Request.  Things like family, or life can get in the way of us getting to PRs, and burnout is a serious concern. The QMK firmware repository averages 200 PRs opened and 200 PRs merged every month, so please have patience.
+
+## Example GPLv2 Header
+
+```
+/* Copyright 2021 Your Name (@yourgithub)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+```
