@@ -1,5 +1,9 @@
 # US ANSI シフト記号
 
+<!---
+  original document: 0.13.23:docs/keycodes_us_ansi_shifted.md
+  git diff 0.13.23 HEAD -- docs/keycodes_us_ansi_shifted.md | cat
+-->
 これらのキーコードは、標準の US ANSI 配列のキーボードで「シフトされる」文字に対応します。これらのキーコードは自身のキーコードを持たず、`LSFT(kc)` の単なるショートカットであり、記号自体ではなく Shift キー抜きのキーコードと左 Shift キーを送信します。
 
 ## 注意書き
