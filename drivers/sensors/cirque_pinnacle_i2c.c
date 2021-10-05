@@ -3,6 +3,7 @@
 #include "i2c_master.h"
 #include "print.h"
 #include "debug.h"
+#include "stdio.h"
 
 // Masks for Cirque Register Access Protocol (RAP)
 #define WRITE_MASK 0x80
