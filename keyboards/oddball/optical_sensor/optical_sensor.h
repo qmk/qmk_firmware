@@ -17,7 +17,7 @@
 /* common interface for opitcal sensors */
 
 #if defined ADNS_9800
-    #include "../adns/adns.h"
+    #include "drivers/sensors/adns9800.h"
     #define config_optical_sensor_t config_adns_t
     #define report_optical_sensor_t report_adns_t
     #define optical_sensor_init adns_init

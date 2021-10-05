@@ -1,1 +1,1 @@
-SPLIT_KEYBOARD = yes
+DEFAULT_FOLDER = crkbd/rev1

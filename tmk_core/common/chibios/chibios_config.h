@@ -15,7 +15,9 @@
  */
 #pragma once
 
-#define SPLIT_USB_DETECT  // Force this on for now
+#ifndef USB_VBUS_PIN
+#    define SPLIT_USB_DETECT  // Force this on when dedicated pin is not used
+#endif
 
 #if defined(STM32F1XX)
 #    define USE_GPIOV1

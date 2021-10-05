@@ -2,6 +2,9 @@
 MCU = STM32F303
 BOARD = QMK_PROTON_C
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating
 # backlight effects.
@@ -11,14 +14,14 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 #   comment out to disable the options.
 #
 BACKLIGHT_ENABLE = no              # Enable keyboard backlight functionality
-BOOTMAGIC_ENABLE = lite            # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes              # Mouse keys
 EXTRAKEY_ENABLE = yes              # Audio control and System control
 CONSOLE_ENABLE = no                # Console for debug
 COMMAND_ENABLE = no                # Commands for debug and configuration
 SLEEP_LED_ENABLE = no              # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes                  # USB Nkey Rollover
-AUDIO_ENABLE = no                  # Audio output on port C6
+AUDIO_ENABLE = no                  # Audio output
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 RGBLIGHT_ENABLE = yes              # Underglow RGB
 WS2812_DRIVER = pwm                # Underglow RGB Driver
@@ -30,6 +33,6 @@ LAYOUTS = 68_ansi
 # project specific files
 SRC +=  keyboards/wilba_tech/wt_main.c \
         keyboards/wilba_tech/wt_rgb_backlight.c \
-        drivers/issi/is31fl3733.c \
+        drivers/led/issi/is31fl3733.c \
         quantum/color.c
-QUANTUM_LIB_SRC += drivers/chibios/i2c_master.c
+QUANTUM_LIB_SRC += i2c_master.c

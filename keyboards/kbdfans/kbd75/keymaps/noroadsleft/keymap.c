@@ -1,4 +1,4 @@
-/* Copyright 2020 James Young (@noroadsleft)
+/* Copyright 2020-2021 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,8 +15,6 @@
  */
 
 #include "noroadsleft.h"
-//#include "version.h"
-#include "sendstring_dvorak.h"
 
 #define LAYOUT_75_ansi_wkl( \
     K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, \
@@ -35,19 +33,12 @@
 }
 
 enum layer_names {
-    _QW,
     _DV,
+    _QW,
     _Q2,
     _FN,
     _SY
 };
-
-enum custom_keycodes {
-    GO_Q2 = KEYMAP_SAFE_RANGE,
-    Q2_ENT
-};
-
-unsigned char q2InputMode = 0;
 
 // Tap Dance declarations
 enum tap_dances {
@@ -65,14 +56,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define FN_CAPS LT(_FN,KC_CAPS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QW] = LAYOUT_75_ansi_wkl(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, MO(_SY),
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC, KC_HOME,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
-        FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
-        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, TD(LAG),                                     KC_SPC,                                      TD(RAG), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
-    ),
     [_DV] = LAYOUT_75_ansi_wkl(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, MO(_SY),
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC,          KC_BSPC, KC_HOME,
@@ -81,11 +64,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,          KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,             KC_RSFT, KC_UP,   KC_END,
         KC_LCTL, TD(LAG),                                     KC_SPC,                                      TD(RAG), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
+    [_QW] = LAYOUT_75_ansi_wkl(
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, MO(_SY),
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC, KC_HOME,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
+        FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
+        KC_LCTL, TD(LAG),                                     KC_SPC,                                      TD(RAG), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+    ),
     [_Q2] = LAYOUT_75_ansi_wkl(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          Q2_ENT,           _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, KC_LALT,                                     _______,                                     KC_RALT, _______, _______, _______, _______
     ),
@@ -98,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,                                     _______,                                     _______, _______, _______, _______, _______
     ),
     [_SY] = LAYOUT_75_ansi_wkl(
-        _______, TO(_QW), TO(_DV), _______, GO_Q2,   _______, _______, _______, RESET,   EEP_RST, DEBUG,   _______, VRSN,    _______, _______, _______,
+        _______, TO(_DV), TO(_QW), _______, TG(_Q2), _______, _______, _______, RESET,   EEP_RST, DEBUG,   _______, VRSN,    _______, _______, _______,
         _______, _______, M_MDSWP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DEL,  _______,
         _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
@@ -110,103 +101,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool led_update_user(led_t led_state) {
     writePin(B2, !led_state.caps_lock);
     return false;
-}
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case G_PUSH:
-            if (record->event.pressed) {
-                SEND_STRING("git push origin ");
-            };
-            return false;
-        case G_FTCH:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_SHIFT ) {
-                    clear_mods();
-                    SEND_STRING("git pull upstream ");
-                } else {
-                    SEND_STRING("git fetch upstream ");
-                }
-            };
-            return false;
-        case G_BRCH:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_SHIFT ) {
-                    clear_mods();
-                    SEND_STRING("master");
-                } else {
-                    SEND_STRING("$(git branch-name)");
-                }
-            };
-            return false;
-        case GO_Q2:
-            if (record->event.pressed) {
-                layer_move(_QW);
-                layer_on(_Q2);
-            };
-            return false;
-        case Q2_ENT:
-            if (record->event.pressed) {
-                if (q2InputMode == 0) {
-                    tap_code(KC_ENT);
-                    q2InputMode = 1;
-                    layer_on(_DV);
-                    //layer_on(_Q2);
-                } else if (q2InputMode == 1) {
-                    tap_code(KC_ENT);
-                    q2InputMode = 0;
-                    layer_off(_DV);
-                } else {
-                    tap_code(KC_ENT);
-                }
-            };
-            return false;
-        case KC_ESC:
-            if (record->event.pressed) {
-                if (q2InputMode > 0) {
-                    tap_code(KC_ESC);
-                    q2InputMode = 0;
-                    layer_off(_DV);
-                } else {
-                    tap_code(KC_ESC);
-                }
-            };
-            return false;
-        case KC_GRV:
-            if (IS_LAYER_ON(_Q2) == true) {
-                if (record->event.pressed) {
-                    if (q2InputMode == 0) {
-                        tap_code(KC_GRV);
-                        q2InputMode = 2;
-                        layer_on(_DV);
-                    } else if (q2InputMode == 1) {
-                        tap_code(KC_GRV);
-                        q2InputMode = 2;
-                    } else {
-                        tap_code(KC_GRV);
-                        q2InputMode = 0;
-                        layer_off(_DV);
-                    }
-                    return false;
-                }
-            };
-            return true;
-        case KC_Z:
-            if (record->event.pressed) {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    register_code(KC_NUBS);
-                } else {
-                    register_code(KC_Z);
-                }
-            } else {
-                if ( get_mods() & MOD_MASK_RALT ) {
-                    unregister_code(KC_NUBS);
-                } else {
-                    unregister_code(KC_Z);
-                }
-            };
-            return false;
-        default:
-            return true;
-    }
 }
