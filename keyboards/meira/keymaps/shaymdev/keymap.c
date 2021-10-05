@@ -16,10 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "lighting.h"
 
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
 
 enum meira_layers {
   _QWERTY,
@@ -166,25 +162,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //TODO: There is a bunch of stuff in here that just came over from the meira default back when I first got it. TODO would be to get LEDs working and cleanup/modernize the rest of this file
 
-// Setting ADJUST layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_mode(RGB_current_mode);
-#endif
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -296,7 +273,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             rgblight_mode(RGB_current_mode);
             rgblight_step();
-            RGB_current_mode = rgblight_config.mode;
         }
         return false;
         break;
@@ -309,6 +285,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void led_set_user(uint8_t usb_led) {
-
-}
