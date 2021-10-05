@@ -5,6 +5,7 @@ import fileinput
 from pathlib import Path
 import re
 import shutil
+from distutils.dir_util import copy_tree
 
 from qmk.commands import git_get_username
 import qmk.path
@@ -121,10 +122,10 @@ def copy_templates(keyboard_type, keyboard_path):
     keyboard_basename = keyboard_path.name
 
     cli.log.info('Copying base template files...')
-    shutil.copytree(template_base_path / 'base', keyboard_path)
+    copy_tree(str(template_base_path / 'base'), str(keyboard_path))
 
     cli.log.info(f'Copying {{fg_cyan}}{keyboard_type}{{fg_reset}} template files...')
-    shutil.copytree(template_base_path / keyboard_type, keyboard_path, dirs_exist_ok=True)
+    copy_tree(str(template_base_path / keyboard_type), str(keyboard_path))
 
     cli.log.info(f'Renaming {{fg_cyan}}keyboard.[ch]{{fg_reset}} to {{fg_cyan}}{keyboard_basename}.[ch]{{fg_reset}}...')
     shutil.move(keyboard_path / 'keyboard.c', keyboard_path / f'{keyboard_basename}.c')
