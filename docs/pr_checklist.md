@@ -161,7 +161,7 @@ Additionally, PR reviews are something that is done in our free time. We are not
  */
 ```
 
-Or, optionally, using SPDX identifier instead:
+Or, optionally, using [SPDX identifier](https://spdx.org/licenses/) instead:
 
 ```
 // Copyright 2021 Your Name (@yourgithub)
