@@ -16,12 +16,6 @@
 
 #include "bcat.h"
 
-#include <stdbool.h>
-#include <stdint.h>
-
-#include "action.h"
-#include "action_layer.h"
-#include "keycode.h"
 #include "quantum.h"
 
 static int8_t alt_tab_layer = -1;

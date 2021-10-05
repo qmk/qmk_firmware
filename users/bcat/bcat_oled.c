@@ -16,19 +16,8 @@
 
 #include "bcat_oled.h"
 
-#include <stdbool.h>
-#include <stdint.h>
-
-#include "action_util.h"
-#include "bcat.h"
-#include "host.h"
-#include "keycode.h"
-#include "led.h"
-#include "oled_driver.h"
-#include "progmem.h"
 #include "quantum.h"
-#include "timer.h"
-#include "wpm.h"
+#include "bcat.h"
 
 #if defined(BCAT_OLED_PET)
 #    include "bcat_oled_pet.h"
