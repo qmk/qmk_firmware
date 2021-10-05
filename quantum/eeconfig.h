@@ -125,9 +125,9 @@ void eeconfig_update_handedness(bool val);
             dirty_##name = false;                                          \
         }                                                                  \
     }                                                                      \
-    static inline void eeconfig_flush_##name##_task(void) {                \
+    static inline void eeconfig_flush_##name##_task(uint16_t timeout) {    \
         static uint16_t flush_timer = 0;                                   \
-        if (timer_elapsed(flush_timer) > 1000) {                           \
+        if (timer_elapsed(flush_timer) > timeout) {                        \
             eeconfig_flush_##name(false);                                  \
             flush_timer = timer_read();                                    \
         }                                                                  \
