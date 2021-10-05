@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Adjust| Ctrl |  Alt |  GUI |||||||| Lower| Space|                    | Enter| Raise||||||||CG_INV| Down |  Up  |CG_NOR|
    * ,----------------------------------------------------------------------------------------------------------------------.
    */
-  [_LOWER] = LAYOUT(
+  [_LOWER] = LAYOUT( \
     KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_LCBR,             KC_RCBR, KC_F6,       KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,  \
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_UNDS,             KC_PLUS, KC_CIRC,     KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE, \
     KC_TAB,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_PGUP,             KC_PGDN, KC_H,        KC_J,    KC_K,    KC_L,    KC_COLN, KC_QUOT, \
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Ctrl |  GUI |  ALt |  GUI |||||||| Lower| Space|                    | Enter| Raise|||||||| Home |PageDn|PageUp|  End |
    * ,----------------------------------------------------------------------------------------------------------------------.
    */
-  [_RAISE] = LAYOUT(
+  [_RAISE] = LAYOUT( \
     KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_LCBR,                        KC_RCBR, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,  \
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_UNDS,                        KC_PLUS, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE, \
     KC_TAB,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_DEL ,                        KC_BSPC, KC_H,    KC_J,    KC_K,    KC_L,    KC_COLN, KC_DQT , \
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      ||||||||      |      |                    |      |      ||||||||      |      |      |      |
    * ,----------------------------------------------------------------------------------------------------------------------.
    */
-  [_ADJUST] = LAYOUT(
+  [_ADJUST] = LAYOUT( \
     RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
