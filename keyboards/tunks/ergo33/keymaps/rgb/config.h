@@ -20,5 +20,8 @@
  * No external LED PCB: 10
  * External LED PCB: 14
  */
-#define RGBLED_NUM 10
+#if defined(RGBLED_NUM)
+#    undef RGBLED_NUM
+#    define RGBLED_NUM 10
+#endif
 #define RGBLIGHT_ANIMATIONS

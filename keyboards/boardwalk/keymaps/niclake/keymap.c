@@ -37,7 +37,7 @@ enum custom_keycodes {
 #define FN MO(_FN)
 #define NUM TT(_NUM)
 #define ADJ MO(_ADJ)
-#define MACWIN AG_TOGG
+#define MACWIN MAGIC_TOGGLE_ALT_GUI
 #define RGB_ON RGB_MODE_PLAIN
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* ADJUST + RGB Control
      * .-----------------------------------------------------------------------------------------------------------------------------.
-     * |        | Static | Breath | Rainbw | Swirl  | Gradnt | Test   |        |        |        |        |        |        |        |
+     * |        | Static | Breath | Rainbw | Swirl  | Gradnt | Twnkle | Test   |        |        |        |        |        |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
      * |        | On/Off | ModeUp | Hue Up | Sat Up | Val Up |        |        |        |        |        |        | RESET  |        |
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
@@ -140,11 +140,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          '-----------------------------------------------------------------------------------------------------------'
      */
     [_ADJ] = LAYOUT_ortho_hhkb(
-        _______, RGB_ON,  RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_G, RGB_M_T, _______, _______, _______, _______, _______, _______, _______,
-        _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI,  RGB_VAI, _______, _______, _______, _______, _______, _______, RESET,   _______,
-        _______, MACWIN,  _______, RGB_HUD, RGB_SAD,  RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, COLEMAK, QWERTY,  _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                 _______, _______, _______, _______,           _______, _______,          _______, _______, _______, _______
+        XXXXXXX, RGB_ON,  RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_G, RGB_M_TW, RGB_M_T, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI,  RGB_VAI, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX,
+        XXXXXXX, MACWIN,  XXXXXXX, RGB_HUD, RGB_SAD,  RGB_VAD, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, COLEMAK, QWERTY,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX,  XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
-
 };

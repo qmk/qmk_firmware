@@ -27,6 +27,7 @@ This will require a new communication protocol, as the current one is limited.
 */
 
 #include "remote_kb.h"
+#include "uart.h"
 
 uint8_t
  msg[UART_MSG_LEN],
