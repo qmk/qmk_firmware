@@ -50,60 +50,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-
-
-
-void led_set_user(uint8_t usb_led) {
-
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		DDRF |= (1 << 0); PORTF &= ~(1 << 0);
-	} else {
-		DDRF &= ~(1 << 0); PORTF &= ~(1 << 0);
-	}
-}
-void keyboard_post_init_user(void) {
-    // Customise these values to desired behaviour
-    //debug_enable = true;
-    //debug_matrix = true;
-    //debug_keyboard = true;
-    //debug_mouse = true;
-}
-
-void encoder_update_user(uint8_t index, bool clockwise) {
-    /*  Custom encoder control - handles CW/CCW turning of encoder
-     *  Default behavior:
-     *    main layer:
-     *       CW: move mouse right
-     *      CCW: move mouse left
-     *    other layers:
-     *       CW: = (equals/plus - increase slider in Adobe products)
-     *      CCW: - (minus/underscore - decrease slider in adobe products)
-     */
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {
             case 0:
                 // main layer - move mouse right (CW) and left (CCW)
                 if (clockwise) {
-                   // tap_code(KC_MS_R);
-		   tap_code(KC_VOLU);
+                    tap_code_delay(KC_VOLU, 10);
                 } else {
-                   // tap_code(KC_MS_L);
-		   tap_code(KC_VOLD);
+                    tap_code_delay(KC_VOLD, 10);
                 }
                 break;
-
             default:
                 // other layers - =/+ (quals/plus) (CW) and -/_ (minus/underscore) (CCW)
                 if (clockwise) {
-                    register_code(KC_LCTL);
-                    tap_code(KC_EQL);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(KC_EQL));
                 } else {
-                    register_code(KC_LCTL);
-                    tap_code(KC_MINS);
-                    unregister_code(KC_LCTL);
+                    tap_code(C(KC_MINS));
                 }
                 break;
         }
     }
+    return false;
 }

@@ -1,8 +1,8 @@
 # Krush65 solder
 
-![satxri6key](https://cdn.shopify.com/s/files/1/0299/9497/5365/files/4_-_2BS9fH2_2048x2048.jpg)
+![Krush65](https://cdn.shopify.com/s/files/1/0299/9497/5365/files/4_-_2BS9fH2_2048x2048.jpg)
 
-A 65% keyboard PCB made and sold by SawnsProjects with Nuxros in [mechkey.store] (https://mechkey.store/blogs/store-updates/introducing-krush-65). 
+A 65% keyboard PCB made and sold by SawnsProjects with Nuxros in [mechkey.store](https://mechkey.store/blogs/store-updates/introducing-krush-65). 
 
 * Keyboard Maintainer: [Mai The San](https://github.com/MaiTheSan)
 * Hardware Supported: Krush65

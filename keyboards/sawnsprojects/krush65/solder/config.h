@@ -22,7 +22,7 @@
 #define PRODUCT_ID      0x6B31
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MaiTheSan
-#define PRODUCT         Krush
+#define PRODUCT         Krush65 - Solder
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -38,6 +38,8 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+/* Caps Lock */
+#define LED_CAPS_LOCK_PIN F0
 
 /* rotary */
 #define ENCODERS_PAD_A { D0 }
@@ -54,14 +56,4 @@
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
     #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
-//     #define RGBLIGHT_EFFECT_BREATHING
-//     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//     #define RGBLIGHT_EFFECT_SNAKE
-//     #define RGBLIGHT_EFFECT_KNIGHT
-//     #define RGBLIGHT_EFFECT_CHRISTMAS
-//     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//     #define RGBLIGHT_EFFECT_RGB_TEST
-//     #define RGBLIGHT_EFFECT_ALTERNATING
 #endif

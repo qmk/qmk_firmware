@@ -17,18 +17,38 @@
 #include "solder.h"
 #include "encoder_actions.h"
 
-void matrix_init_kb(void) {
-  setPinOutput(F0);
-  matrix_init_user();
-}
-
-void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinLow(F0);
-  } else {
-    writePinHigh(F0);
-  }
-
-	led_set_user(usb_led);
+   /*  Custom encoder control - handles CW/CCW turning of encoder
+     *  Default behavior:
+     *    main layer:
+     *       CW: move mouse right
+     *      CCW: move mouse left
+     *    other layers:
+     *       CW: = (equals/plus - increase slider in Adobe products)
+     *      CCW: - (minus/underscore - decrease slider in adobe products)
+     */
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
+    if (index == 0) {
+        switch (get_highest_layer(layer_state)) {
+#ifdef MOUSEKEY_ENABLE
+            case 0:
+                // main layer - move mouse right (CW) and left (CCW)
+                if (clockwise) {
+                    tap_code(KC_MS_R);
+                } else {
+                    tap_code(KC_MS_L);
+                }
+                break;
+#endif
+            default:
+                // other layers - =/+ (quals/plus) (CW) and -/_ (minus/underscore) (CCW)
+                if (clockwise) {
+                    tap_code(KC_EQL);
+                } else {
+                    tap_code(KC_MINS);
+                }
+                break;
+        }
+    }
+    return true;
 }

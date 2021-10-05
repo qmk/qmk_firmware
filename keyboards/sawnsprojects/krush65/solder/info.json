@@ -2,8 +2,6 @@
     "keyboard_name": "Krush65 Solder",
     "url": "",
     "maintainer": "MaiTheSan",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
