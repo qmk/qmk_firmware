@@ -30,12 +30,9 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
 
 	# OLED pets (animated critters that react to typing) take up a lot of
 	# firmware space, so only compile one, and only if requested.
-	ifeq ($(strip $(BCAT_OLED_PET)), isda)
-		SRC += bcat_oled_pet_isda.c
-		OPT_DEFS += -DBCAT_OLED_PET
-	endif
-	ifeq ($(strip $(BCAT_OLED_PET)), luna)
-		SRC += bcat_oled_pet_luna.c
+	BCAT_OLED_PET ?= no
+	ifneq ($(strip $(BCAT_OLED_PET)), no)
+		SRC += bcat_oled_pet_$(strip $(BCAT_OLED_PET)).c
 		OPT_DEFS += -DBCAT_OLED_PET
 	endif
 endif
