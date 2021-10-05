@@ -2,11 +2,8 @@
     "keyboard_name": "booster",
     "url": "",
     "maintainer": "qmk",
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT_numpad_5x4": {
-            "key_count": 17,
             "layout": [
                 {"label":"K00 (D1,C7)", "x":0, "y":0},
                 {"label":"K01 (D1,D4)", "x":1, "y":0},

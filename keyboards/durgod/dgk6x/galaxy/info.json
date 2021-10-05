@@ -2,8 +2,6 @@
   "keyboard_name": "DURGOD Galaxy",
   "url": "https://www.amazon.com/Galaxy-75-Modular-Mechanical-Keyboard/dp/B08PDRD8MP",
   "maintainer": "dkjer",
-  "width": 16,
-  "height": 6,
     "layouts": {
         "LAYOUT_75_ansi": {
             "layout": [

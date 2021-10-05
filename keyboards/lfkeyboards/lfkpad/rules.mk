@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 # Build Options
@@ -26,10 +19,7 @@ NKRO_ENABLE = no             # USB Nkey Rollover
 BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 RGBLIGHT_CUSTOM_DRIVER = yes # RGB code is implemented in lfkeyboards, not qmk base
-BLUETOOTH_ENABLE = no        # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE = no            # Audio output on port C6
-UNICODE_ENABLE = no          # Unicode
-TAP_DANCE_ENABLE = no
+AUDIO_ENABLE = no            # Audio output
 
 ISSI_ENABLE = yes            # If the I2C pullup resistors aren't installed this must be disabled
 WATCHDOG_ENABLE = no         # Resets keyboard if matrix_scan() isn't run every 250ms

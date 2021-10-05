@@ -2,8 +2,6 @@
     "keyboard_name": "Chiron Keyboard",
     "url": "",
     "maintainer": "musl",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

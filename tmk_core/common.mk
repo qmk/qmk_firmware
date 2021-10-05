@@ -63,8 +63,8 @@ ifeq ($(strip $(NKRO_ENABLE)), yes)
     endif
 endif
 
-ifeq ($(strip $(USB_6KRO_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DUSB_6KRO_ENABLE
+ifeq ($(strip $(RING_BUFFERED_6KRO_REPORT_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DRING_BUFFERED_6KRO_REPORT_ENABLE
 endif
 
 ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
