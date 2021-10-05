@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void keyboard_post_init_keymap(void) {
     // keyboard_post_init_user() moved to userspace
     #ifdef RGBLIGHT_ENABLE
-        rgblight_mode(1); // single colour mode
+        rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
         rgblight_setrgb(RGB_OBE_BOW); // Default startup colour
         rgblight_layers = _rgb_layers;
     #endif
