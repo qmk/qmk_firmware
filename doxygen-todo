@@ -18,10 +18,4 @@ quantum/serial_link/protocol
 quantum/serial_link/system
 quantum/serial_link/tests
 quantum/tools
-quantum/visualizer
-quantum/visualizer/resources
 drivers
-drivers/ugfx
-drivers/ugfx/gdisp
-drivers/ugfx/gdisp/is31fl3731c
-drivers/ugfx/gdisp/st7565
