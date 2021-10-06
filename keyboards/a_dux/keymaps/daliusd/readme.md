@@ -4,12 +4,12 @@ This are my principles for layout:
 
 * I am using Callum style layout. Here you can read explanation by
   Callum himself and his reasoning for not using mod-tap:
-  <../../../../users/callum/readme.md>
+  [here](../../../../users/callum/readme.md)
 
 * There should be only one way to type key. Key can be on
   different layer but it must maintain its physical location.
 
-* The less feature are used the better.
+* The less features are used the better.
 
 * trilayer is cool.
 
