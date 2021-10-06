@@ -170,9 +170,9 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 
 | Setting                       | Description                                                           | Default       |
 |-------------------------------|-----------------------------------------------------------------------|---------------|
-|`POINTING_DEVICE_ROTATION_90`  | (Optional) Rotates the X and Y data by 90 degrees.                    | _not defined_ |
-|`POINTING_DEVICE_ROTATION_180` | (Optional) Rotates the X and Y data by 90 degrees.                    | _not defined_ |
-|`POINTING_DEVICE_ROTATION_270` | (Optional) Rotates the X and Y data by 90 degrees.                    | _not defined_ |
+|`POINTING_DEVICE_ROTATION_90`  | (Optional) Rotates the X and Y data by  90 degrees.                   | _not defined_ |
+|`POINTING_DEVICE_ROTATION_180` | (Optional) Rotates the X and Y data by 180 degrees.                   | _not defined_ |
+|`POINTING_DEVICE_ROTATION_270` | (Optional) Rotates the X and Y data by 270 degrees.                   | _not defined_ |
 |`POINTING_DEVICE_INVERT_X`     | (Optional) Inverts the X axis report.                                 | _not defined_ |
 |`POINTING_DEVICE_INVERT_Y`     | (Optional) Inverts the Y axis report.                                 | _not defined_ |
 |`POINTING_DEVICE_MOTION_PIN`   | (Optional) If supported, will only read from sensor if pin is active. | _not defined_ |

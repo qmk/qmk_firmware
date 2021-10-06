@@ -34,6 +34,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 #    include "i2c_master.h"
 #    include "drivers/sensors/pimoroni_trackball.h"
+// support for legacy pimoroni defines
+#    ifdef PIMORONI_TRACKBALL_INVERT_X
+#        define POINTING_DEVICE_INVERT_X
+#    endif
+#    ifdef PIMORONI_TRACKBALL_INVERT_Y
+#        define POINTING_DEVICE_INVERT_Y
+#    endif
+#    ifdef PIMORONI_TRACKBALL_ROTATE
+#        define POINTING_DEVICE_ROTATION_90
+#    endif
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
 #    include "spi_master.h"
 #    include "drivers/sensors/pmw3360.h"
