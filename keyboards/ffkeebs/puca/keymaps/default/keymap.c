@@ -35,29 +35,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_MUTE,          KC_PGUP,  KC_PGDN,
+                KC_MUTE,          KC_PGUP,  KC_PGDN,
 		TG(1),  KC_PSLS,  KC_PAST,  KC_PMNS,
-		KC_7,   KC_8,     KC_9,     KC_PPLS,     KC_PPLS,
+		KC_7,   KC_8,     KC_9,     KC_PPLS,  KC_PPLS,
 		KC_4,   KC_5,     KC_6,     KC_PIPE,
-		KC_1,   KC_2,     KC_3,     KC_KP_ENTER, KC_KP_ENTER,
-		KC_0,   MC_00,    KC_PDOT,  KC_PDOT,     KC_0
+		KC_1,   KC_2,     KC_3,     KC_ENTER, KC_ENTER,
+		KC_0,   KC_0,     MC_00,    KC_PDOT,  KC_BSPC
 		),
     [1] = LAYOUT(
-        KC_TRNS,          RGB_HUI, RGB_VAI,
-		TG(0),   RGB_TOG, RGB_HUD, RGB_VAD,
+                KC_TRNS,          RGB_HUI, RGB_VAI,
+	        TG(1),   RGB_TOG, RGB_HUD, RGB_VAD,
 		KC_PGUP, KC_UP,   KC_PGDN, KC_TRNS, KC_TRNS,
 		KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS,
 		KC_INS,  KC_HOME, KC_END,  KC_TRNS, KC_TRNS,
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+		KC_ESC,  KC_ESC,  KC_TRNS, KC_TRNS, KC_TRNS
 		)
 };
 
 // Encoder
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
-        tap_code(KC_PGDN);  // Right
+        tap_code(KC_VOLU);  // Right
     } else {
-        tap_code(KC_PGUP);  // Left
+        tap_code(KC_VOLD);  // Left
     }
 }
 
@@ -71,7 +71,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_
 #define IDLE_FRAMES 2
 #define IDLE_SPEED 40 // below this wpm value your animation will idle
 
-#define ANIM_FRAME_DURATION 200 // how long each frame lasts in ms
+#define ANIM_FRAME_DURATION 400 // how long each frame lasts in ms
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
 #define ANIM_SIZE 636 // number of bytes in array, minimize for adequate firmware size, max is 1024
 
