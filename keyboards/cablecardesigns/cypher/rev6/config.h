@@ -1,3 +1,5 @@
+// Copyright 2021 Cable Car Designs (@westfoxtrot)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
 #include "config_common.h"
@@ -8,7 +10,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    cablecardesigns
 #define PRODUCT         cypher
-#define DESCRIPTION     QMK Firmware for rev6 Cypher PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 10

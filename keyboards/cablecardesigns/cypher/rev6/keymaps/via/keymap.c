@@ -1,3 +1,5 @@
+// Copyright 2021 Cable Car Designs (@westfoxtrot)
+// SPDX-License-Identifier: GPL-2.0-or-later
 /* VIA Layout > http://www.keyboard-layout-editor.com/#/gists/0e8d4957e77f3179aa09bd6e195f7afa */
 
 #include QMK_KEYBOARD_H
