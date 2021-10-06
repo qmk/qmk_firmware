@@ -3,7 +3,6 @@
 #include <hal.h>
 #include <string.h>
 #include "eeconfig.h"
-#include "serial_link/system/serial_link.h"
 
 #define RED_PIN 1
 #define GREEN_PIN 2

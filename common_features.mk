@@ -13,8 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SERIAL_PATH := $(QUANTUM_PATH)/serial_link
-
 QUANTUM_SRC += \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/send_string.c \
@@ -361,17 +359,6 @@ ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
     SRC += $(TMK_DIR)/protocol/serial_uart.c
-endif
-
-ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
-    SERIAL_SRC := $(wildcard $(SERIAL_PATH)/protocol/*.c)
-    SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
-    SERIAL_DEFS += -DSERIAL_LINK_ENABLE
-    COMMON_VPATH += $(SERIAL_PATH)
-
-    SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
-    OPT_DEFS += $(SERIAL_DEFS)
-    VAPTH += $(SERIAL_PATH)
 endif
 
 VARIABLE_TRACE ?= no

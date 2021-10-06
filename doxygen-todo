@@ -13,9 +13,5 @@ quantum/api
 quantum/audio
 quantum/keymap_extras
 quantum/process_keycode
-quantum/serial_link
-quantum/serial_link/protocol
-quantum/serial_link/system
-quantum/serial_link/tests
 quantum/tools
 drivers

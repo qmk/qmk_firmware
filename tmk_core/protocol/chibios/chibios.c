@@ -43,9 +43,6 @@
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
 #endif
-#ifdef SERIAL_LINK_ENABLE
-#    include "serial_link/system/serial_link.h"
-#endif
 #ifdef MIDI_ENABLE
 #    include "qmk_midi.h"
 #endif
@@ -154,15 +151,25 @@ void protocol_init(void) {
     setup_midi();
 #endif
 
+<<<<<<< HEAD
 #ifdef SERIAL_LINK_ENABLE
     init_serial_link();
 #endif
 
+<<<<<<< HEAD
+=======
+#ifdef VISUALIZER_ENABLE
+    visualizer_init();
+#endif
+
+=======
+>>>>>>> 44bce33c5 (Remove SERIAL_LINK)
+>>>>>>> 1caabb52e (Remove SERIAL_LINK)
     host_driver_t *driver = NULL;
 
     /* Wait until the USB or serial link is active */
     while (true) {
-#if defined(WAIT_FOR_USB) || defined(SERIAL_LINK_ENABLE)
+#if defined(WAIT_FOR_USB)
         if (USB_DRIVER.state == USB_ACTIVE) {
             driver = &chibios_driver;
             break;
@@ -170,13 +177,6 @@ void protocol_init(void) {
 #else
         driver = &chibios_driver;
         break;
-#endif
-#ifdef SERIAL_LINK_ENABLE
-        if (is_serial_link_connected()) {
-            driver = get_serial_link_driver();
-            break;
-        }
-        serial_link_update();
 #endif
         wait_ms(50);
     }
@@ -209,9 +209,6 @@ void protocol_task(void) {
         print("[s]");
         while (USB_DRIVER.state == USB_SUSPENDED) {
             /* Do this in the suspended state */
-#    ifdef SERIAL_LINK_ENABLE
-            serial_link_update();
-#    endif
             suspend_power_down();  // on AVR this deep sleeps for 15ms
             /* Remote wakeup */
             if (suspend_wakeup_condition()) {
