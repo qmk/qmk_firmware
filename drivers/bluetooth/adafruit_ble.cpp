@@ -558,7 +558,7 @@ void adafruit_ble_task(void) {
         state.last_battery_update = timer_read();
 
         state.vbat = analogReadPin(BATTERY_LEVEL_PIN);
-        adafruit_ble_set_battery_level(100); // ???
+        adafruit_ble_set_battery_level(100);  // ???
     }
 #endif
 }
@@ -705,7 +705,7 @@ bool adafruit_ble_set_power_level(int8_t level) {
 
 bool adafruit_ble_set_battery_level(uint8_t level) {
     char cmd[18];
-    if(!state.configured) {
+    if (!state.configured) {
         return false;
     }
 
