@@ -6,7 +6,7 @@
 MDLOADER_CLI ?= mdloader
 
 define EXEC_MDLOADER
-	$(MDLOADER_CLI) --first --download $(BUILD_DIR)/$(TARGET).bin --restart --forceeep=y
+	$(MDLOADER_CLI) --first --download $(BUILD_DIR)/$(TARGET).bin --restart
 endef
 
 mdloader: bin
