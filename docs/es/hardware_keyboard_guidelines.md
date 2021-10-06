@@ -142,8 +142,6 @@ El año debe ser el primer año en que se crea el archivo. Si el trabajo se hizo
 
 El núcleo de QMC está licenciado bajo la [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html). Si estás enviando binarios para los procesadores AVR puedes elegir cualquiera [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) o [GPLv3](https://www.gnu.org/licenses/gpl.html). Si estás enviando binarios para ARM procesadores debes elegir [GPL Versión 3](https://www.gnu.org/licenses/gpl.html) para cumplir con los [ChibiOS](https://www.chibios.org) licencia GPLv3.
 
-Si tu teclado hace uso de la [uGFX](https://gfx.io) características dentro de QMK debes cumplir con la [Licencia de uGFX](https://ugfx.io/license.html), que requiere una licencia comercial separada antes de vender un dispositivo que contiene uGFX.
-
 ## Detalles técnicos
 
 Si estás buscando más información sobre cómo hacer que su teclado funcione con QMK, [echa un vistazo a la sección hardware](hardware.md)!

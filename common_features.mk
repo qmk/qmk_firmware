@@ -450,10 +450,6 @@ ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
     SRC += apa102.c
 endif
 
-ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-    CIE1931_CURVE := yes
-endif
-
 ifeq ($(strip $(CIE1931_CURVE)), yes)
     OPT_DEFS += -DUSE_CIE1931_CURVE
     LED_TABLES := yes

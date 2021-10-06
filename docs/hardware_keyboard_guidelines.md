@@ -255,8 +255,6 @@ The year should be the first year the file is created. If work was done to that 
 
 The core of QMK is licensed under the [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html). If you are shipping binaries for AVR processors you may choose either [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) or [GPLv3](https://www.gnu.org/licenses/gpl.html). If you are shipping binaries for ARM processors you must choose [GPL Version 3](https://www.gnu.org/licenses/gpl.html) to comply with the [ChibiOS](https://www.chibios.org) GPLv3 license.
 
-If your keyboard makes use of the [uGFX](https://ugfx.io) features within QMK you must comply with the [uGFX License](https://ugfx.io/license.html), which requires a separate commercial license before selling a device containing uGFX.
-
 ## Technical Details
 
 If you're looking for more information on making your keyboard work with QMK, [check out the hardware section](hardware.md)!
