@@ -125,10 +125,6 @@ This allows you output audio on the C6 pin (needs abstracting). See the [audio p
 
 Use this to debug changes to variable values, see the [tracing variables](unit_testing.md#tracing-variables) section of the Unit Testing page for more information.
 
-`API_SYSEX_ENABLE`
-
-This enables using the Quantum SYSEX API to send strings (somewhere?)
-
 `KEY_LOCK_ENABLE`
 
 This enables [key lock](feature_key_lock.md).

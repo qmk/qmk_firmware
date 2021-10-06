@@ -237,5 +237,3 @@ void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
 bool led_update_user(led_t led_state);
 bool led_update_kb(led_t led_state);
-
-void api_send_unicode(uint32_t unicode);

@@ -46,14 +46,6 @@ else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
 endif
 
-ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
-    OPT_DEFS += -DAPI_SYSEX_ENABLE
-    OPT_DEFS += -DAPI_ENABLE
-    MIDI_ENABLE=yes
-    SRC += $(QUANTUM_DIR)/api/api_sysex.c
-    SRC += $(QUANTUM_DIR)/api.c
-endif
-
 ifeq ($(strip $(COMMAND_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/command.c
     OPT_DEFS += -DCOMMAND_ENABLE
