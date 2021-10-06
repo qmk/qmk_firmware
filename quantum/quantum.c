@@ -25,10 +25,6 @@
 #    include "backlight.h"
 #endif
 
-#ifdef API_ENABLE
-#    include "api.h"
-#endif
-
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"
 #endif
@@ -467,14 +463,6 @@ void matrix_scan_quantum() {
 #ifdef HD44780_ENABLED
 #    include "hd44780.h"
 #endif
-
-void api_send_unicode(uint32_t unicode) {
-#ifdef API_ENABLE
-    uint8_t chunk[4];
-    dword_to_bytes(unicode, chunk);
-    MT_SEND_DATA(DT_UNICODE, chunk, 5);
-#endif
-}
 
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
