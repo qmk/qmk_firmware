@@ -33,12 +33,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───────┴───┴───┘
      */
     [0] = LAYOUT_numpad_6x5(
-        KC_GRAVE,  KC_ESC,  KC_TAB,  MO(1),   KC_BSPC,
-        KC_COMMA,  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
-        KC_LGUI,   KC_P7,   KC_P8,   KC_P9,
-        KC_LALT,   KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
-        KC_LSHIFT, KC_P1,   KC_P2,   KC_P3,
-        KC_LCTRL,  KC_P0,            KC_PDOT, KC_PENT
+        KC_GRV,  KC_ESC, KC_TAB,  MO(1),   KC_BSPC,
+        KC_COMM, KC_NUM, KC_PSLS, KC_PAST, KC_PMNS,
+        KC_LGUI, KC_P7,  KC_P8,   KC_P9,
+        KC_LALT, KC_P4,  KC_P5,   KC_P6,   KC_PPLS,
+        KC_LSFT, KC_P1,  KC_P2,   KC_P3,
+        KC_LCTL, KC_P0,           KC_PDOT, KC_PENT
     ),
 
     /*
