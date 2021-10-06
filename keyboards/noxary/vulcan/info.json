@@ -2,8 +2,6 @@
     "keyboard_name": "vulcan", 
     "url": "https://noxary.co/products/vulcan-pro-base", 
     "maintainer": "ai03", 
-    "width": 15, 
-    "height": 5, 
     "layouts": {
         "LAYOUT": {
             "layout": [

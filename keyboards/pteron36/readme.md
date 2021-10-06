@@ -20,12 +20,15 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Default Keymap and Miryoku Layout support
 
-The keyboard was designed with miryoku layout in mind. The default layout is very basic and does not have much use. I will be opening a pr to make the keyboard available with miryoku layout soon. Currently to build the keyboard with miryoku you will have to checkout latest miryoku qmk repo, and add the keyboard folder there manually. After copying the folder run the following command
+The keyboard was designed with miryoku layout in mind. The default layout is very basic and does not have much use, modify the keymap as you see fit. Build keyboard with manna-harbour_miryoku as keymap, qmk should compile the firmare without any issue.
 
-  make pteron36:manna-harbour_miryoku 
-  
+    make pteron36:manna-harbour_miryoku
+
 Add miryoku params as required.
+Pteron36 uses community layout, hence there is no need for separate keymap folder for any keymap that support 5x3_3 layout.
 
-## OLED and RotaryEncoder
+## VIA support
 
-I am working on adding OLED and RotaryEncoder support in keyboard config. 
+The VIA keymap is working as intended. 
+
+    make pteron36:via

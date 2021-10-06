@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = no         # Console for debug(+400)

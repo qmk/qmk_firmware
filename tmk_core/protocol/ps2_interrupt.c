@@ -40,11 +40,19 @@ POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include <stdbool.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
+
+#if defined(__AVR__)
+#    include <avr/interrupt.h>
+#elif defined(PROTOCOL_CHIBIOS)  // TODO: or STM32 ?
+// chibiOS headers
+#    include "ch.h"
+#    include "hal.h"
+#endif
+
 #include "ps2.h"
 #include "ps2_io.h"
 #include "print.h"
+#include "wait.h"
 
 #define WAIT(stat, us, err)     \
     do {                        \
@@ -61,12 +69,30 @@ static inline void    pbuf_enqueue(uint8_t data);
 static inline bool    pbuf_has_data(void);
 static inline void    pbuf_clear(void);
 
+#if defined(PROTOCOL_CHIBIOS)
+void ps2_interrupt_service_routine(void);
+void palCallback(void *arg) { ps2_interrupt_service_routine(); }
+
+#    define PS2_INT_INIT()                             \
+        { palSetLineMode(PS2_CLOCK, PAL_MODE_INPUT); } \
+        while (0)
+#    define PS2_INT_ON()                                                \
+        {                                                               \
+            palEnableLineEvent(PS2_CLOCK, PAL_EVENT_MODE_FALLING_EDGE); \
+            palSetLineCallback(PS2_CLOCK, palCallback, NULL);           \
+        }                                                               \
+        while (0)
+#    define PS2_INT_OFF()                   \
+        { palDisableLineEvent(PS2_CLOCK); } \
+        while (0)
+#endif  // PROTOCOL_CHIBIOS
+
 void ps2_host_init(void) {
     idle();
     PS2_INT_INIT();
     PS2_INT_ON();
     // POR(150-2000ms) plus BAT(300-500ms) may take 2.5sec([3]p.20)
-    //_delay_ms(2500);
+    // wait_ms(2500);
 }
 
 uint8_t ps2_host_send(uint8_t data) {
@@ -77,7 +103,7 @@ uint8_t ps2_host_send(uint8_t data) {
 
     /* terminate a transmission if we have */
     inhibit();
-    _delay_us(100);  // 100us [4]p.13, [5]p.50
+    wait_us(100);  // 100us [4]p.13, [5]p.50
 
     /* 'Request to Send' and Start bit */
     data_lo();
@@ -86,7 +112,6 @@ uint8_t ps2_host_send(uint8_t data) {
 
     /* Data bit[2-9] */
     for (uint8_t i = 0; i < 8; i++) {
-        _delay_us(15);
         if (data & (1 << i)) {
             parity = !parity;
             data_hi();
@@ -98,7 +123,7 @@ uint8_t ps2_host_send(uint8_t data) {
     }
 
     /* Parity bit */
-    _delay_us(15);
+    wait_us(15);
     if (parity) {
         data_hi();
     } else {
@@ -108,7 +133,7 @@ uint8_t ps2_host_send(uint8_t data) {
     WAIT(clock_lo, 50, 5);
 
     /* Stop bit */
-    _delay_us(15);
+    wait_us(15);
     data_hi();
 
     /* Ack */
@@ -132,7 +157,7 @@ uint8_t ps2_host_recv_response(void) {
     // Command may take 25ms/20ms at most([5]p.46, [3]p.21)
     uint8_t retry = 25;
     while (retry-- && !pbuf_has_data()) {
-        _delay_ms(1);
+        wait_ms(1);
     }
     return pbuf_dequeue();
 }
@@ -148,7 +173,7 @@ uint8_t ps2_host_recv(void) {
     }
 }
 
-ISR(PS2_INT_VECT) {
+void ps2_interrupt_service_routine(void) {
     static enum {
         INIT,
         START,
@@ -218,6 +243,10 @@ RETURN:
     return;
 }
 
+#if defined(__AVR__)
+ISR(PS2_INT_VECT) { ps2_interrupt_service_routine(); }
+#endif
+
 /* send LED state to keyboard */
 void ps2_host_set_led(uint8_t led) {
     ps2_host_send(0xED);
@@ -232,8 +261,13 @@ static uint8_t     pbuf[PBUF_SIZE];
 static uint8_t     pbuf_head = 0;
 static uint8_t     pbuf_tail = 0;
 static inline void pbuf_enqueue(uint8_t data) {
+#if defined(__AVR__)
     uint8_t sreg = SREG;
     cli();
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysLockFromISR();
+#endif
+
     uint8_t next = (pbuf_head + 1) % PBUF_SIZE;
     if (next != pbuf_tail) {
         pbuf[pbuf_head] = data;
@@ -241,31 +275,66 @@ static inline void pbuf_enqueue(uint8_t data) {
     } else {
         print("pbuf: full\n");
     }
+
+#if defined(__AVR__)
     SREG = sreg;
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysUnlockFromISR();
+#endif
 }
 static inline uint8_t pbuf_dequeue(void) {
     uint8_t val = 0;
 
+#if defined(__AVR__)
     uint8_t sreg = SREG;
     cli();
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysLock();
+#endif
+
     if (pbuf_head != pbuf_tail) {
         val       = pbuf[pbuf_tail];
         pbuf_tail = (pbuf_tail + 1) % PBUF_SIZE;
     }
+
+#if defined(__AVR__)
     SREG = sreg;
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysUnlock();
+#endif
 
     return val;
 }
 static inline bool pbuf_has_data(void) {
+#if defined(__AVR__)
     uint8_t sreg = SREG;
     cli();
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysLock();
+#endif
+
     bool has_data = (pbuf_head != pbuf_tail);
-    SREG          = sreg;
+
+#if defined(__AVR__)
+    SREG = sreg;
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysUnlock();
+#endif
     return has_data;
 }
 static inline void pbuf_clear(void) {
+#if defined(__AVR__)
     uint8_t sreg = SREG;
     cli();
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysLock();
+#endif
+
     pbuf_head = pbuf_tail = 0;
-    SREG                  = sreg;
+
+#if defined(__AVR__)
+    SREG = sreg;
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysUnlock();
+#endif
 }

@@ -215,7 +215,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-bool encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (muse_mode) {
         if (IS_LAYER_ON(_RAISE)) {
             if (clockwise) {
@@ -273,7 +273,7 @@ bool music_mask_user(uint16_t keycode) {
         return true;
     }
 }
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     palClearPad(GPIOB, 8);
     palClearPad(GPIOB, 9);
     uint8_t layer = biton32(state);
