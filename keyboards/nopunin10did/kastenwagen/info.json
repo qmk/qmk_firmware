@@ -3,8 +3,6 @@
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/kastenwagen",
     "maintainer": "NoPunIn10Did",
     "manufacturer": "NoPunIn10Did",
-    "width": 18.25,
-    "height": 4,
     "layouts": {
         "LAYOUT_1840": {
             "layout": [
