@@ -1,12 +1,14 @@
 # Lime Keyboard
 
-![LimeKeyboard version 1](https://www.simonepellegrino.com/)
+![Lime Keyboard](https://github.com/HellSingCoder/LimeKeyboard/blob/main/media/lime_keyboard.jpeg?raw=true)
 
-Lime is 6×4+6 keys column-staggered split keyboard. Based on Sofle with a hint of Lily58, Corne and Helix keyboards.
+Lime is a 6×4+6 keys column-staggered split keyboard with encoder and joystick support. Based on [Lily58](https://github.com/kata0510/Lily58), [Corne](https://github.com/foostan/crkbd), [Helix](https://github.com/MakotoKurauchi/helix) and [Sofle](https://github.com/josefadamcik/SofleKeyboard) keyboards. This board features a reversible PCB, OLEDs, Underglow and Bluetooth support. The PCB has holes for floating or screwed mounts but can be also mounted with a gasket.
+
+The Lime keyboard was created by [HellTM](https://github.com/HellSingCoder) with the help of the QMK and custom keyboard community.
 
 Build guide and a build log not available yet
 
-* Keyboard Maintainer: [HellSingCoder](https://www.simonepellegrino.com/) [GitHub: HellSingCoder](https://github.com/HellSingCoder)  
+* Keyboard Maintainer: [HellSingCoder](https://www.simonepellegrino.com/) (GitHub: [HellTM](https://github.com/HellSingCoder))
 * Hardware Supported: LimeKeyboard PCB, ProMicro  
 * Hardware Availability: [PCB & Case Data](https://github.com/HellSingCoder/LimeKeyboard)
 
@@ -23,7 +25,10 @@ Flash the default keymap:
 
     make lime:default:avrdude
 
-Press reset button on he keyboard when asked.
+Press reset button on he keyboard when asked. You can do that in 3 ways:
+* **Physical reset button**: Briefly press the button near the TRRS connector on the PCB - if you haven't installed one, short the pads instead
+* **Keycode in layout**: Press the key mapped to `RESET` (`Lower` + `Raise` + `Esc` on the default layout)
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 
 Disconnect the first half, connect the second one and repeat the process.
 
