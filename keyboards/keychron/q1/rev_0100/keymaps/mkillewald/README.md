@@ -12,7 +12,7 @@ and adds:
 
 ## Changelog:
 
-v1.0.2  October 7, 2021
+v1.0.1  October 7, 2021
 - Mission Control and Launchpad custom keycodes are now defined using the VIA user keycodes range so thay can be labeled properly in VIA (adopted change from gtg465x)
 
 v1.0.0  September 30, 2021
