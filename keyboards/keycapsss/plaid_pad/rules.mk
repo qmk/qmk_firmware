@@ -2,7 +2,7 @@
 MCU = atmega328p
 
 # Bootloader selection
-BOOTLOADER = usbasploader
+BOOTLOADER = USBasp
 
 # Build Options
 #   change yes to no to disable
@@ -22,4 +22,4 @@ AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = ortho_4x4
 
-DEFAULT_FOLDER = keycapsss/plaid_pad/rev1
+DEFAULT_FOLDER = keycapsss/plaid_pad/rev3
