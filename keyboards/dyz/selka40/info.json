@@ -23,7 +23,7 @@
         "device_ver": "0x0001"
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"Esc", "x":1.03, "y":2.45},
                 {"label":"Q", "x":2.03, "y":2.45},
