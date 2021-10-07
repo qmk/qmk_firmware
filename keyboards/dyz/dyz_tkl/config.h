@@ -23,11 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    dyz
 #define PRODUCT         dyz_TKL
 
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
-
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
