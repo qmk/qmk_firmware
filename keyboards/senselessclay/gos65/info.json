@@ -3,7 +3,7 @@
     "url": "https://senselessclay.com/",
     "maintainer": "hadi",
     "layouts": {
-      "LAYOUT_all": {
+      "LAYOUT": {
           "layout": [
               {"x": 0, "y": 0},
               {"x": 1, "y": 0},
