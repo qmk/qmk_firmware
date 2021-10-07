@@ -17,14 +17,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jp.h"
 
-extern keymap_config_t keymap_config;
-
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-rgblight_config_t RGB_current_config;
-#endif
-
 enum layer_number {
     _QWERTY = 0,
     _ADJUST
@@ -106,7 +98,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (record->event.pressed) {
             eeconfig_update_rgblight_default();
             rgblight_enable();
-            RGB_current_config = rgblight_config;
           }
         #endif
         break;
