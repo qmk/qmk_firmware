@@ -678,6 +678,12 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_sethsv(h, s, v)`                |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
 |`rgb_matrix_sethsv_noeeprom(h, s, v)`       |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 
+### Rendering Flag
+|Function                      |Description                            |
+|------------------------------|---------------------------------------|
+|`rgb_matrix_get_flags()`      |Gets current flag status as a bitmask. |
+|`rgb_matrix_set_flags(flags)` |Sets the current flag status.          |
+
 ### Query Current Status :id=query-current-status
 |Function                         |Description                |
 |---------------------------------|---------------------------|
@@ -772,9 +778,15 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 If you want to indicate a Host LED status (caps lock, num lock, etc), you can use something like this to light up the caps lock key: 
 
 ```c
+void keyboard_post_init_user(void) {
+    // enable all led types but indicator LEDs
+    rgb_matrix_set_flags(LED_FLAG_MODIFIER|LED_FLAG_UNDERGLOW|LED_FLAG_KEYLIGHT);
+}
+
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    // Assuming that the sixth LED has the indicator flag only, and is at the caps lock location:
     if (host_keyboard_led_state().caps_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(5, 255, 255, 255); // assuming caps lock is at led #5
+        RGB_MATRIX_INDICATOR_SET_COLOR(5, 255, 255, 255);
     } else {
         RGB_MATRIX_INDICATOR_SET_COLOR(5, 0, 0, 0);
     }
