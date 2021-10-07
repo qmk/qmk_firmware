@@ -13,8 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SERIAL_PATH := $(QUANTUM_PATH)/serial_link
-
 QUANTUM_SRC += \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/send_string.c \
@@ -29,6 +27,7 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/keyboard.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c \
+    $(QUANTUM_DIR)/usb_device_state.c \
     $(QUANTUM_DIR)/logging/debug.c \
     $(QUANTUM_DIR)/logging/sendchar.c \
 
@@ -43,14 +42,6 @@ ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
     CONSOLE_ENABLE = yes
 else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
-endif
-
-ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
-    OPT_DEFS += -DAPI_SYSEX_ENABLE
-    OPT_DEFS += -DAPI_ENABLE
-    MIDI_ENABLE=yes
-    SRC += $(QUANTUM_DIR)/api/api_sysex.c
-    SRC += $(QUANTUM_DIR)/api.c
 endif
 
 ifeq ($(strip $(COMMAND_ENABLE)), yes)
@@ -82,7 +73,7 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
     SRC += $(QUANTUM_DIR)/audio/audio.c ## common audio code, hardware agnostic
-    SRC += $(QUANTUM_DIR)/audio/driver_$(PLATFORM_KEY)_$(strip $(AUDIO_DRIVER)).c
+    SRC += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/audio_$(strip $(AUDIO_DRIVER)).c
     SRC += $(QUANTUM_DIR)/audio/voices.c
     SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
@@ -127,6 +118,12 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
+ifeq ($(strip $(PROGRAMMABLE_BUTTON_ENABLE)), yes)
+    OPT_DEFS += -DPROGRAMMABLE_BUTTON_ENABLE
+    SRC += $(QUANTUM_DIR)/programmable_button.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_programmable_button.c
+endif
+
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
@@ -157,31 +154,45 @@ else
       # Automatically provided by avr-libc, nothing required
     else ifeq ($(PLATFORM),CHIBIOS)
       ifeq ($(MCU_SERIES), STM32F3xx)
+        OPT_DEFS += -DEEPROM_DRIVER
+        COMMON_VPATH += $(DRIVER_PATH)/eeprom
+        SRC += eeprom_driver.c
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
         OPT_DEFS += -DEEPROM_EMU_STM32F303xC
-        OPT_DEFS += -DSTM32_EEPROM_ENABLE
       else ifeq ($(MCU_SERIES), STM32F1xx)
+        OPT_DEFS += -DEEPROM_DRIVER
+        COMMON_VPATH += $(DRIVER_PATH)/eeprom
+        SRC += eeprom_driver.c
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
         OPT_DEFS += -DEEPROM_EMU_STM32F103xB
-        OPT_DEFS += -DSTM32_EEPROM_ENABLE
       else ifeq ($(MCU_SERIES)_$(MCU_LDSCRIPT), STM32F0xx_STM32F072xB)
+        OPT_DEFS += -DEEPROM_DRIVER
+        COMMON_VPATH += $(DRIVER_PATH)/eeprom
+        SRC += eeprom_driver.c
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
         OPT_DEFS += -DEEPROM_EMU_STM32F072xB
-        OPT_DEFS += -DSTM32_EEPROM_ENABLE
+      else ifneq ($(filter $(MCU_SERIES)_$(MCU_LDSCRIPT),STM32F4xx_STM32F401xC STM32F4xx_STM32F411xE STM32F4xx_STM32F405xG),)
+        OPT_DEFS += -DEEPROM_DRIVER
+        COMMON_VPATH += $(DRIVER_PATH)/eeprom
+        SRC += eeprom_driver.c
+        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
+        SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+        OPT_DEFS += -DEEPROM_EMU_STM32F401xC
       else ifeq ($(MCU_SERIES)_$(MCU_LDSCRIPT), STM32F0xx_STM32F042x6)
-
         # Stack sizes: Since this chip has limited RAM capacity, the stack area needs to be reduced.
         # This ensures that the EEPROM page buffer fits into RAM
         USE_PROCESS_STACKSIZE = 0x600
         USE_EXCEPTIONS_STACKSIZE = 0x300
 
+        OPT_DEFS += -DEEPROM_DRIVER
+        COMMON_VPATH += $(DRIVER_PATH)/eeprom
+        SRC += eeprom_driver.c
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
         OPT_DEFS += -DEEPROM_EMU_STM32F042x6
-        OPT_DEFS += -DSTM32_EEPROM_ENABLE
       else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
         OPT_DEFS += -DEEPROM_DRIVER
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
@@ -350,17 +361,6 @@ ifeq ($(strip $(PRINTING_ENABLE)), yes)
     SRC += $(TMK_DIR)/protocol/serial_uart.c
 endif
 
-ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
-    SERIAL_SRC := $(wildcard $(SERIAL_PATH)/protocol/*.c)
-    SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
-    SERIAL_DEFS += -DSERIAL_LINK_ENABLE
-    COMMON_VPATH += $(SERIAL_PATH)
-
-    SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
-    OPT_DEFS += $(SERIAL_DEFS)
-    VAPTH += $(SERIAL_PATH)
-endif
-
 VARIABLE_TRACE ?= no
 ifneq ($(strip $(VARIABLE_TRACE)),no)
     SRC += $(QUANTUM_DIR)/variable_trace.c
@@ -435,10 +435,6 @@ endif
 ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
     COMMON_VPATH += $(DRIVER_PATH)/led
     SRC += apa102.c
-endif
-
-ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-    CIE1931_CURVE := yes
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
@@ -743,5 +739,29 @@ ifeq ($(strip $(USBPD_ENABLE)), yes)
             OPT_DEFS += -DUSBPD_CUSTOM
             # Board designers can add their own driver to $(SRC)
         endif
+    endif
+endif
+
+BLUETOOTH_ENABLE ?= no
+VALID_BLUETOOTH_DRIVER_TYPES := AdafruitBLE RN42 custom
+ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
+    ifeq ($(filter $(strip $(BLUETOOTH_DRIVER)),$(VALID_BLUETOOTH_DRIVER_TYPES)),)
+        $(error "$(BLUETOOTH_DRIVER)" is not a valid Bluetooth driver type)
+    endif
+    OPT_DEFS += -DBLUETOOTH_ENABLE
+    NO_USB_STARTUP_CHECK := yes
+    COMMON_VPATH += $(DRIVER_PATH)/bluetooth
+    SRC += outputselect.c
+
+    ifeq ($(strip $(BLUETOOTH_DRIVER)), AdafruitBLE)
+        OPT_DEFS += -DMODULE_ADAFRUIT_BLE
+        SRC += analog.c
+        SRC += $(DRIVER_PATH)/bluetooth/adafruit_ble.cpp
+        QUANTUM_LIB_SRC += spi_master.c
+    endif
+
+    ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
+        OPT_DEFS += -DMODULE_RN42
+        SRC += $(TMK_DIR)/protocol/serial_uart.c
     endif
 endif

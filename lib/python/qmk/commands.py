@@ -28,13 +28,16 @@ def _find_make():
     return make_cmd
 
 
-def create_make_target(target, parallel=1, **env_vars):
+def create_make_target(target, dry_run=False, parallel=1, **env_vars):
     """Create a make command
 
     Args:
 
         target
             Usually a make rule, such as 'clean' or 'all'.
+
+        dry_run
+            make -n -- don't actually build
 
         parallel
             The number of make jobs to run in parallel
@@ -52,10 +55,10 @@ def create_make_target(target, parallel=1, **env_vars):
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
 
-    return [make_cmd, *get_make_parallel_args(parallel), *env, target]
+    return [make_cmd, *(['-n'] if dry_run else []), *get_make_parallel_args(parallel), *env, target]
 
 
-def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
+def create_make_command(keyboard, keymap, target=None, dry_run=False, parallel=1, **env_vars):
     """Create a make compile command
 
     Args:
@@ -68,6 +71,9 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
 
         target
             Usually a bootloader.
+
+        dry_run
+            make -n -- don't actually build
 
         parallel
             The number of make jobs to run in parallel
@@ -84,7 +90,7 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
     if target:
         make_args.append(target)
 
-    return create_make_target(':'.join(make_args), parallel, **env_vars)
+    return create_make_target(':'.join(make_args), dry_run=dry_run, parallel=parallel, **env_vars)
 
 
 def get_git_version(current_time, repo_dir='.', check_dir='.'):

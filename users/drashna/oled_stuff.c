@@ -62,6 +62,9 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
             return;
         }
     }
+    if (keycode > 0xFF) {
+        return;
+    }
 
     for (uint8_t i = 1; i < KEYLOGGER_LENGTH; i++) {
         keylog_str[i - 1] = keylog_str[i];
@@ -250,6 +253,17 @@ extern bool tap_toggling;
 #endif
 
 void render_user_status(void) {
+#ifdef AUDIO_ENABLE
+    bool is_audio_on = false, is_clicky_on = false;
+#    ifdef SPLIT_KEYBOARD
+
+    is_audio_on  = user_state.audio_enable;
+    is_clicky_on = user_state.audio_clicky_enable;
+#    else
+    is_audio_on  = is_audio_on();
+    is_clicky_on = is_clicky_on();
+#    endif
+#endif
     oled_write_P(PSTR(OLED_RENDER_USER_NAME), false);
 #if !defined(OLED_DISPLAY_128X64)
     oled_write_P(PSTR(" "), false);
@@ -265,11 +279,11 @@ void render_user_status(void) {
 #endif
 #ifdef AUDIO_ENABLE
     static const char PROGMEM audio_status[2][3] = {{0xE0, 0xE1, 0}, {0xE2, 0xE3, 0}};
-    oled_write_P(audio_status[is_audio_on()], false);
+    oled_write_P(audio_status[is_audio_on], false);
 
 #    ifdef AUDIO_CLICKY
     static const char PROGMEM audio_clicky_status[2][3] = {{0xF4, 0xF5, 0}, {0xF6, 0xF7, 0}};
-    oled_write_P(audio_clicky_status[is_clicky_on() && is_audio_on()], false);
+    oled_write_P(audio_clicky_status[is_clicky_on && is_audio_on], false);
 #        if !defined(OLED_DISPLAY_128X64)
     oled_write_P(PSTR(" "), false);
 #        endif
@@ -370,7 +384,7 @@ void render_status_secondary(void) {
     /* Show Keyboard Layout  */
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
-#if !defined(OLED_DISPLAY_128X64) && defined(WPM_ENABLE)
+#if !defined(OLED_DISPLAY_128X64) && defined(WPM_ENABLE) && !defined(CONVERT_TO_PROTON_C)
     render_wpm(2);
 #endif
     // render_keylock_status(host_keyboard_leds());

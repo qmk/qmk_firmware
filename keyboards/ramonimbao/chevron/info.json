@@ -5,6 +5,7 @@
 =======
     "url": "",
     "maintainer": "ramonimbao",
+<<<<<<< HEAD
 >>>>>>> 72540f7d837550d2c54f4069b11b1e5d9fcf374c
 =======
     "url": "",
@@ -12,6 +13,8 @@
 >>>>>>> e675a9fc606ee124c196bf029bf6da5c40f7f15d
     "width": 14.5,
     "height": 5,
+=======
+>>>>>>> a8866a9dcab46711d0844bf23e91a8c7cd155069
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

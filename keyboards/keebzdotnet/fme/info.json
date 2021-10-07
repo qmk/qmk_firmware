@@ -2,8 +2,6 @@
     "keyboard_name": "FMe",
     "url": "",
     "maintainer": "keebzdotnet",
-    "height": 4,
-    "width": 5,
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

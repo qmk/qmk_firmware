@@ -1,9 +1,7 @@
 {
     "keyboard_name": "sprh",
     "maintainer": "eye oh designs",
-    "height": 5,
     "url": "",
-    "width": 17.25,
     "layouts": {
         "LAYOUT_default": {
             "layout": [
