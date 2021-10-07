@@ -1,4 +1,5 @@
-/* Copyright 2021 @ Grayson Carr
+/* Copyright 2021 @ Grayson Carr 
+ * This file has been modified by Mike Killewald
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,55 +17,65 @@
 
 #include QMK_KEYBOARD_H
 #include "rgb_matrix_user.h"
+#include "keymap_user.h"
 
-// clang-format off
+keypos_t led_index_key_position[DRIVER_LED_TOTAL];
 
-const uint8_t led_index_alphas[] = {
-    LED_Q, LED_W, LED_E, LED_R, LED_T, LED_Y, LED_U, LED_I, LED_O, LED_P,
-    LED_A, LED_S, LED_D, LED_F, LED_G, LED_H, LED_J, LED_K, LED_L,
-    LED_Z, LED_X, LED_C, LED_V, LED_B, LED_N, LED_M
-};
+void rgb_matrix_init_user(void) {
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            uint8_t led_index = g_led_config.matrix_co[row][col];
+            if (led_index != NO_LED) {
+                led_index_key_position[led_index] = (keypos_t){.row = row, .col = col};
+            }
+        }
+    }
+}
 
-const uint8_t led_index_macos_fn[] = {
-    LED_ESC, LED_INS,
-    LED_TAB, LED_Q, LED_W, LED_E, LED_R, LED_T,
-    LED_A, LED_S, LED_D, LED_F, LED_G, LED_HOME
-};
-
-// clang-format on
-
-void rgb_matrix_indicators_user(void) {
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    uint8_t current_layer = get_highest_layer(layer_state);
+    switch (current_layer) {
+        case MAC_BASE:
+        case WIN_BASE:
 #ifdef CAPS_LOCK_INDICATOR_COLOR
-    if (host_keyboard_led_state().caps_lock && (layer_state_is(0) || layer_state_is(2))) {
-        rgb_matrix_set_color(LED_CAPS, CAPS_LOCK_INDICATOR_COLOR);
-#    ifdef CAPS_LOCK_INDICATOR_LIGHT_TAB
-        rgb_matrix_set_color(LED_TAB, CAPS_LOCK_INDICATOR_COLOR);
-#    endif
-#    ifdef CAPS_LOCK_INDICATOR_LIGHT_ALPHAS
-        rgb_matrix_set_color_alphas(CAPS_LOCK_INDICATOR_COLOR);
-#    endif
-    }
-#endif  // CAPS_LOCK_INDICATOR_COLOR
-
-#ifdef MACOS_FN_INDICATOR_COLOR
-    if (layer_state_is(1)) {
-        rgb_matrix_set_color_macos_fn(MACOS_FN_INDICATOR_COLOR);
-    }
-#endif  // MACOS_FN_INDICATOR_COLOR
-}
-
-void rgb_matrix_set_color_macos_fn(uint8_t red, uint8_t green, uint8_t blue) {
-    uint8_t led_count = sizeof(led_index_macos_fn) / sizeof(led_index_macos_fn[0]);
-    rgb_matrix_set_color_leds(led_index_macos_fn, led_count, red, green, blue);
-}
-
-void rgb_matrix_set_color_alphas(uint8_t red, uint8_t green, uint8_t blue) {
-    uint8_t led_count = sizeof(led_index_alphas) / sizeof(led_index_alphas[0]);
-    rgb_matrix_set_color_leds(led_index_alphas, led_count, red, green, blue);
-}
-
-void rgb_matrix_set_color_leds(const uint8_t led_index[], uint8_t led_count, uint8_t red, uint8_t green, uint8_t blue) {
-    for (uint8_t i = 0; i < led_count; i++) {
-        rgb_matrix_set_color(led_index[i], red, green, blue);
+            if (host_keyboard_led_state().caps_lock) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
+            }
+#endif
+            break;
+        case MAC_FN:
+        case WIN_FN:
+#ifdef FN_LAYER_COLOR
+            rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_not_transparent, FN_LAYER_COLOR);
+#endif
+#ifdef FN_LAYER_TRANSPARENT_KEYS_OFF
+            rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_transparent, RGB_OFF);
+#endif
+            break;
     }
 }
+
+void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t layer, bool (*is_keycode)(uint16_t), uint8_t red, uint8_t green, uint8_t blue) {
+    for (uint8_t i = led_min; i < led_max; i++) {
+        uint16_t keycode = keymap_key_to_keycode(layer, led_index_key_position[i]);
+        if ((*is_keycode)(keycode)) {
+            rgb_matrix_set_color(i, red, green, blue);
+        }
+    }
+}
+
+bool is_caps_lock_indicator(uint16_t keycode) {
+#ifdef CAPS_LOCK_INDICATOR_LIGHT_TAB
+    bool indicator = keycode == KC_TAB || keycode == KC_CAPS;
+#else
+    bool indicator = keycode == KC_CAPS;
+#endif 
+#ifdef CAPS_LOCK_INDICATOR_LIGHT_ALPHAS
+    return (KC_A <= keycode && keycode <= KC_Z) || indicator;
+#else
+    return indicator;
+#endif
+}
+
+bool is_transparent(uint16_t keycode) { return keycode == KC_TRNS; }
+bool is_not_transparent(uint16_t keycode) { return !(keycode == KC_TRNS); }

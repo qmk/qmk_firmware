@@ -1,5 +1,4 @@
 /* Copyright 2021 @ Grayson Carr
- * This file has been modified by Mike Killewald
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +16,13 @@
 
 #pragma once
 
-void rgb_matrix_init_user(void);
+// clang-format off
 
-void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t layer, bool (*is_keycode)(uint16_t), uint8_t red, uint8_t green, uint8_t blue);
+enum layers {
+    MAC_BASE,
+    MAC_FN,
+    WIN_BASE,
+    WIN_FN
+};
 
-bool is_caps_lock_indicator(uint16_t keycode);
-bool is_transparent(uint16_t keycode);
-bool is_not_transparent(uint16_t keycode);
-
+// clang-format on

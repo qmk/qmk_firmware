@@ -1,4 +1,5 @@
-/* Copyright 2021 @ Mike Killewald
+/* Copyright 2021 @ Grayson Carr
+ * This file has been modified by Mike Killewald
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +18,16 @@
 #pragma once
 
 
-#if defined(RGB_MATRIX_ENABLE)
+#ifdef RGB_MATRIX_ENABLE
 //#    define RGB_MATRIX_KEYPRESSES
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+//#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED    
+
 #    define CAPS_LOCK_INDICATOR_COLOR RGB_RED
+#    define CAPS_LOCK_INDICATOR_LIGHT_ALPHAS
 #    define CAPS_LOCK_INDICATOR_LIGHT_TAB
-#    define MACOS_FN_INDICATOR_COLOR RGB_ORANGE    
+
+#    define FN_LAYER_COLOR RGB_ORANGE
+//#    define FN_LAYER_TRANSPARENT_KEYS_OFF
 #endif
