@@ -111,12 +111,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *     |      |      |      |      |      |/       /         \      \ |      |      |      |      |      |
  *      `----------------------------------------'            '------''----------------------------------'
  */
-[_RAISE] = LAYOUT( \
-  _______, _______ , _______ , _______ , _______ , _______,                        _______,  _______ ,  _______ ,  _______ ,  _______ , _______, \
-  _______, KC_INS,   KC_PSCR,  KC_APP,   XXXXXXX,  XXXXXXX,                        KC_PGUP,  KC_PRVWD,  KC_UP,     KC_NXTWD,  XXXXXXX, XXXXXXX, \
-  _______, KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX,  XXXXXXX,                        KC_PGDN,  KC_LEFT,   KC_DOWN,   KC_RGHT,   XXXXXXX,   XXXXXXX, \
-  _______, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,    _______,  XXXXXXX,  KC_LSTRT,  KC_DLINE,   KC_LEND,   XXXXXXX,  XXXXXXX, \
-         _______, _______, _______, _______, _______, _______,                  _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+[_RAISE] = LAYOUT(
+  _______, _______ , _______ , _______ , _______ , _______,                        _______,  _______ ,  _______ ,  _______ ,  _______ , _______,
+  _______, KC_INS,   KC_PSCR,  KC_APP,   XXXXXXX,  XXXXXXX,                        KC_PGUP,  KC_PRVWD,  KC_UP,     KC_NXTWD,  XXXXXXX, XXXXXXX,
+  _______, KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX,  XXXXXXX,                        KC_PGDN,  KC_LEFT,   KC_DOWN,   KC_RGHT,   XXXXXXX,   XXXXXXX,
+  _______, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,    _______,  XXXXXXX,  KC_LSTRT,  KC_DLINE,   KC_LEND,   XXXXXXX,  XXXXXXX,
+         _______, _______, _______, _______, _______, _______,                  _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* LOWER
@@ -133,12 +133,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *     |      |      |      |      |      |/       /         \      \ |      |      |      |      |      |
  *      `----------------------------------------'            '------''----------------------------------'
  */
-[_LOWER] = LAYOUT( \
-  _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                           KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,\
-  _______,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                            KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_F12, \
-  _______,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE, \
-  _______,  KC_EQL,  KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,       _______, KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, KC_GRV, \
-         _______, _______, _______, _______, _______, _______,              _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+[_LOWER] = LAYOUT(
+  _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                           KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+  _______,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                            KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_F12,
+  _______,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
+  _______,  KC_EQL,  KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,       _______, KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, KC_GRV,
+         _______, _______, _______, _______, _______, _______,              _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* ADJUST
@@ -155,12 +155,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *     |      |      |      |      |      |/       /         \      \ |      |      |      |      |      |
  *      `----------------------------------------'            '------''----------------------------------'
  */
-  [_ADJUST] = LAYOUT( \
-  RESET,   XXXXXXX,    XXXXXXX,   XXXXXXX,          XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, KC_QWERTY,  XXXXXXX,   XXXXXXX,          CG_TOGG, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX,    XXXXXXX,   KC_JOYSTICK_DEBUG,XXXXXXX, XXXXXXX,                       XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX,    XXXXXXX,   KC_COLEMAK,       XXXXXXX, XXXXXXX, XXXXXXX,     _______, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, \
-         _______, CG_TOGG, XXXXXXX, XXXXXXX,    XXXXXXX, KC_THUMB_SWAP,                  XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  [_ADJUST] = LAYOUT(
+  RESET,   XXXXXXX,    XXXXXXX,   XXXXXXX,          XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, KC_QWERTY,  XXXXXXX,   XXXXXXX,          CG_TOGG, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX,    XXXXXXX,   KC_JOYSTICK_DEBUG,XXXXXXX, XXXXXXX,                       XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX,    XXXXXXX,   KC_COLEMAK,       XXXXXXX, XXXXXXX, XXXXXXX,     _______, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+         _______, CG_TOGG, XXXXXXX, XXXXXXX,    XXXXXXX, KC_THUMB_SWAP,                  XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 };
 
@@ -680,7 +680,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-/* Encoders */
+/* The default rotary encoder code can be found at the bottom of qmk_firmware/keyboards/lime/rev1/rev1.c
+ * These default settings can be overriden by your own settings in your keymap.c
+ * For your convenience, here's a copy of those settings so that you can uncomment them if you wish to apply your own modifications.
+ * DO NOT edit the rev1.c file; instead override the weakly defined default functions by your own.
+ */
+
+/* DELETE THIS LINE TO UNCOMMENT (1/2)
+
+// Encoders
 #ifdef ENCODER_ENABLE
     bool encoder_update_user(uint8_t index, bool clockwise) {
 
@@ -700,3 +708,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 #endif
+
+#endif
+DELETE THIS LINE TO UNCOMMENT (2/2) */

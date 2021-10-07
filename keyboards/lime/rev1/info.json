@@ -2,8 +2,6 @@
     "keyboard_name": "Lime",
     "url": "https://github.com/HellSingCoder/LimeKeyboard",
     "maintainer": "HellSingCoder",
-    "width": 15.5,
-    "height": 11.2,
     "layouts": {
         "LAYOUT": {
             "layout": [
