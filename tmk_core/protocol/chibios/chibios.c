@@ -151,20 +151,6 @@ void protocol_init(void) {
     setup_midi();
 #endif
 
-<<<<<<< HEAD
-#ifdef SERIAL_LINK_ENABLE
-    init_serial_link();
-#endif
-
-<<<<<<< HEAD
-=======
-#ifdef VISUALIZER_ENABLE
-    visualizer_init();
-#endif
-
-=======
->>>>>>> 44bce33c5 (Remove SERIAL_LINK)
->>>>>>> 1caabb52e (Remove SERIAL_LINK)
     host_driver_t *driver = NULL;
 
     /* Wait until the USB or serial link is active */

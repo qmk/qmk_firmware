@@ -508,20 +508,6 @@ MATRIX_LOOP_END:
     adb_mouse_task();
 #endif
 
-<<<<<<< HEAD
-#ifdef SERIAL_LINK_ENABLE
-    serial_link_update();
-#endif
-
-<<<<<<< HEAD
-=======
-#ifdef VISUALIZER_ENABLE
-    visualizer_update(default_layer_state, layer_state, visualizer_get_mods(), host_keyboard_leds());
-#endif
-
-=======
->>>>>>> 44bce33c5 (Remove SERIAL_LINK)
->>>>>>> 1caabb52e (Remove SERIAL_LINK)
 #ifdef POINTING_DEVICE_ENABLE
     pointing_device_task();
 #endif
