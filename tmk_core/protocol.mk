@@ -8,19 +8,19 @@ endif
 
 ifeq ($(strip $(PS2_USE_BUSYWAIT)), yes)
     SRC += protocol/ps2_busywait.c
-    SRC += protocol/ps2_io_avr.c
+    SRC += protocol/ps2_io.c
     OPT_DEFS += -DPS2_USE_BUSYWAIT
 endif
 
 ifeq ($(strip $(PS2_USE_INT)), yes)
     SRC += protocol/ps2_interrupt.c
-    SRC += protocol/ps2_io_$(PLATFORM_KEY).c
+    SRC += protocol/ps2_io.c
     OPT_DEFS += -DPS2_USE_INT
 endif
 
 ifeq ($(strip $(PS2_USE_USART)), yes)
     SRC += protocol/ps2_usart.c
-    SRC += protocol/ps2_io_$(PLATFORM_KEY).c
+    SRC += protocol/ps2_io.c
     OPT_DEFS += -DPS2_USE_USART
 endif
 
