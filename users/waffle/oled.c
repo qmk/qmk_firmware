@@ -17,8 +17,8 @@
 #include "waffle.h"
 #include <stdio.h>
 static uint32_t oled_timer = 0;
-static int num_keypresses = 0;
-static int flower_frame = 0;
+uint8_t num_keypresses = 0;
+uint8_t flower_frame = 0;
 uint8_t current_idle_frame = 0;
 uint8_t current_tap_frame = 0;
 uint8_t current_frame = 0;
@@ -191,14 +191,12 @@ static void render_bongo(void) {
     }
 
     if (get_current_wpm() != 000) {
-        oled_on();
         if (timer_elapsed32(anim_timer) > BONGO_FELIX_FRAME_DURATION) {
             anim_timer = timer_read32();
             animation_phase();
         }
         anim_sleep = timer_read32();
-    } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) { oled_off();
-    } else if (timer_elapsed32(anim_timer) > BONGO_FELIX_FRAME_DURATION) {
+    }  else if (timer_elapsed32(anim_timer) > BONGO_FELIX_FRAME_DURATION) {
         anim_timer = timer_read32();
         animation_phase();
     }

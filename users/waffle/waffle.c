@@ -121,17 +121,8 @@ void cycle_white(void){
 }
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-__attribute__((weak)) void suspend_power_down_user(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
 #ifdef OLED_ENABLE
+__attribute__((weak)) void suspend_power_down_user(void) {
     oled_off();
-#endif
-}
-
-__attribute__((weak)) void suspend_wakeup_init_user(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
 }
 #endif

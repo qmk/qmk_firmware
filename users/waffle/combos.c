@@ -16,8 +16,8 @@
 
 #include "waffle.h"
 #ifdef OLED_ENABLE
-static int num_keypresses = 0;
-static int current_frame = 0;
+extern uint8_t num_keypresses = 0;
+extern uint8_t current_frame = 0;
 #endif
 
 const uint16_t PROGMEM ru_combo[] = {KC_R, KC_U, COMBO_END};

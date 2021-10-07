@@ -97,7 +97,6 @@ enum userspace_custom_keycodes {
     UNIT2,
     TABLE1,
     TABLE2,
-    LENNY,
     DANCE,
     SHRUG,
 #endif
