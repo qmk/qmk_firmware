@@ -1,4 +1,4 @@
-## mkillewald's Keychron Q1 keymap
+## mkillewald's Keychron Q1 keymap (rev_0100)
 
 This keymap builds on the keymap by gtg465x which added: 
 
@@ -9,6 +9,7 @@ and adds:
 
 - Caps Lock indicator
 
+#### USE AT YOUR OWN RISK
 
 ## Changelog:
 
