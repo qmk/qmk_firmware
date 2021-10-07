@@ -11,22 +11,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
 #pragma once
-#include QMK_KEYBOARD_H
-#include "rows.h"
+#include "zigotica.h"
 
-#ifdef TAP_DANCE_ENABLE
-#    include "tapdances.h"
-#endif
-
-#ifdef COMBO_ENABLE
-#    include "combos.h"
-#endif
-
-enum userspace_layers {
-    BASE = 0,
-    _NUM,
-    _NAV,
-    _SYM,
-    _FN,
-};
