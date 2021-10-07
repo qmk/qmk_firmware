@@ -34,7 +34,7 @@ char keylog_str[KEYLOG_LEN] = {};
 uint8_t  keylogs_str_idx = 0;
 uint16_t log_timer = 0;
 
-void render_wpm(void) {
+void render_wpm(void) { //thanks to sigprof/drashna for this
     uint8_t n = get_current_wpm();
     char wpm_counter[6];
     wpm_counter[5] = '\0';
@@ -53,12 +53,12 @@ void render_wpm_num(void) {
     oled_write(wpm_string, false);
 }
 
-void render_qmk_logo(void) {
+void render_qmk_logo(void) { //qmk logo
     static const char PROGMEM font_qmk_logo[16] = {0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0};
     oled_write_P(font_qmk_logo, false);
 };
 
-void render_keyboard(void) {
+void render_keyboard(void) { //split keyboard
     static const char PROGMEM font_keyboard[16] = {0xba, 0xbb, 0xbc, 0xbd, 0xbe, 0xda, 0xdb, 0xdc, 0xdd, 0xde, 0};
     oled_write_P(font_keyboard, false);
 };
@@ -83,7 +83,7 @@ void render_mod_gui(void) { // win symbol
     oled_write_P(font_gui, false);
 };
 
-void render_prompt(void) {
+void render_prompt(void) { //layer state indicator
     bool blink = (timer_read() % 1000) < 500;
         if (layer_state_is(1)) {        oled_write_ln_P(blink ? PSTR("> lo_") : PSTR("> lo "), false);
         } else if (layer_state_is(2)) { oled_write_ln_P(blink ? PSTR("> hi_") : PSTR("> hi "), false);
@@ -91,7 +91,7 @@ void render_prompt(void) {
         } else {                        oled_write_ln_P(blink ? PSTR("> _ ") : PSTR(">     "), false); }
 };
 
-void render_mod_status(void) {
+void render_mod_status(void) { //active modifier indicator
     bool blink = (timer_read() % 1000) < 500;
     uint8_t modifiers = get_mods() | get_oneshot_mods();
         if (modifiers & MOD_MASK_CTRL) {            oled_write_ln_P(blink ? PSTR("$ ctl") : PSTR("$ _  "), false);
@@ -101,7 +101,7 @@ void render_mod_status(void) {
         } else {                                    oled_write_ln_P(blink ? PSTR("$ _  ") : PSTR("$    "), false); }
 }
 
-void render_keylock_status(uint8_t led_usb_state) {
+void render_keylock_status(uint8_t led_usb_state) { //active keylock indicator (caps, num, scroll)
     bool blink = (timer_read() % 1000) < 500;
         if (led_usb_state & (1 << USB_LED_CAPS_LOCK)) {             oled_write_ln_P(blink ? PSTR("% cap") : PSTR("% _  "), false);
         } else if (led_usb_state & (1 << USB_LED_NUM_LOCK)) {       oled_write_ln_P(blink ? PSTR("% num") : PSTR("% _  "), false);
@@ -126,9 +126,9 @@ void add_keylog(uint16_t keycode) {
 }
 
 void update_log(void) { if (timer_elapsed(log_timer) > 750) { add_keylog(0); } }
-void render_keylogger(void) { oled_write(keylog_str, false); }
+void render_keylogger(void) { oled_write(keylog_str, false); } //keylogger data
 
-void render_keylogger_status(void) {
+void render_keylogger_status(void) { //keylogger prompt
     bool blink = (timer_read() % 1000) < 500;
     oled_write_ln_P(blink ? PSTR("~ _") : PSTR("~  "), false);
 }
@@ -177,7 +177,7 @@ void render_main(void) {
   render_keylogger_status();
 }
 
-static void render_bongo(void) {
+static void render_bongo(void) { //solid-filled bongo cat animation
     void animation_phase(void) {
         if (get_current_wpm() <= BONGO_IDLE_SPEED) {
             current_idle_frame = (current_idle_frame + 1) % BONGO_IDLE_FRAMES;
@@ -204,7 +204,7 @@ static void render_bongo(void) {
 
 void render_cat(void) { render_bongo(); }
 
-static void render_felix(int FELIX_X, int FELIX_Y) {
+static void render_felix(int FELIX_X, int FELIX_Y) { //felix the dog - modified from luna
     void animation_phase (void) {
         if (isJumping || !showedJump) {
             oled_set_cursor(FELIX_X, FELIX_Y + 2);
@@ -246,7 +246,7 @@ void animation_run(void) {
     }
 }
 
-static void render_anim_num(void) {
+static void render_anim_num(void) { //number pad animation
     if (anim_phase == true) {
         current_tap_frame = (current_tap_frame + 1) % LAYER_TAP_FRAMES;
 	oled_write_raw_P(tap_num[abs((LAYER_TAP_FRAMES-1)-current_tap_frame)], LAYER_SIZE);
@@ -255,7 +255,7 @@ static void render_anim_num(void) {
     animation_run();
 }
 
-static void render_anim_sym(void) {
+static void render_anim_sym(void) { //angry symbols animation
     if (anim_phase == true) {
         current_tap_frame = (current_tap_frame + 1) % (LAYER_TAP_FRAMES + 1);
         oled_write_raw_P(tap_sym[abs((LAYER_TAP_FRAMES - 1) - current_tap_frame)], XANIM_SIZE);
@@ -264,7 +264,7 @@ static void render_anim_sym(void) {
     animation_run();
 }
 
-static void render_anim_sys(void) {
+static void render_anim_sys(void) { //system console like animation
     if (anim_phase == true) {
         current_tap_frame = (current_tap_frame + 1) % (LAYER_TAP_FRAMES + 1);
         oled_write_raw_P(tap_sys[abs((LAYER_TAP_FRAMES - 1) - current_tap_frame)], LAYER_SIZE);
@@ -290,7 +290,7 @@ void render_secondary(void) {
     }
 }
 
-void flower_anim(void) { oled_write_raw_P(plant_anim[current_frame], FLOWER_SIZE); }
+void flower_anim(void) { oled_write_raw_P(plant_anim[current_frame], FLOWER_SIZE); } //flower animation that grows as you type
 
 #ifdef KEYBOARD_crkbd
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {

@@ -15,7 +15,7 @@
  */
 
 #include "waffle.h"
-#ifdef RANDICT
+#ifdef RANDICT //front ridingqwerty's random word generator
 #include "dict.h"
 uint16_t rand_key;
 bool randword_seed = false;
@@ -32,7 +32,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     process_record_user_oled(keycode, record);
 #endif
     switch (keycode) {
-        case CP_PSTE:
+        case CP_PSTE: //copy/paste on hold/release
             if (record->event.pressed) { tap_code16(C(KC_C)); } else {
                 tap_code16(C(KC_V));
                 tap_code(KC_ENT); }
@@ -51,14 +51,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        case MT(MOD_LSFT, KC_F23):
+        case MT(MOD_LSFT, KC_F23): //allows for shift mod-tap on already shifted keycode
             if (record->tap.count > 0) {
             if (record->event.pressed) { register_code16(KC_EXLM); } else { unregister_code16(KC_EXLM); }
             return false;
             }
             break;
 
-        case MT(MOD_RSFT, KC_F24):
+        case MT(MOD_RSFT, KC_F24): //allows for shift mod-tap on already shifted keycode
             if (record->tap.count > 0) {
             if (record->event.pressed) { register_code16(KC_RPRN); } else { unregister_code16(KC_RPRN); }
             return false;

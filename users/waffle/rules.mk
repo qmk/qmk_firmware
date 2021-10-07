@@ -1,16 +1,17 @@
 BOOTMAGIC_ENABLE = yes # Enable Bootmagic Lite
-EXTRAKEY_ENABLE = yes
-MOUSEKEY_ENABLE = yes
-NRKO_ENABLE = yes
+EXTRAKEY_ENABLE = yes # Audio control and System control
+MOUSEKEY_ENABLE = yes # Mouse keys
+NRKO_ENABLE = yes # USB Nkey Rollover
+CONSOLE_ENABLE = no # Console for debug
+COMMAND_ENABLE = no # Commands for debug and configuration
 COMBO_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 LTO_ENABLE = yes
-CONSOLE_ENABLE = no
-COMMAND_ENABLE = no
 UNICODEMAP_ENABLE = yes
 RANDICT = yes
 VIA_ENABLE = yes
 
+# User specific files
 SRC +=  waffle.c \
 	tapdance.c \
 	combos.c \

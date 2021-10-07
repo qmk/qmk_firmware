@@ -62,7 +62,7 @@ combo_t key_combos[COMBO_COUNT] = {
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
-        case XC_CLICK:
+        case XC_CLICK: //selects first search result
             if (pressed) {
                 register_code(KC_TAB);
                 register_code(KC_ENT);
@@ -74,7 +74,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             break;
 
 #ifdef OLED_ENABLE
-        case FLWR_RESET:
+        case FLWR_RESET: //reset flower animation
             if (pressed) {
                 num_keypresses = 0;
                 current_frame = 0;
