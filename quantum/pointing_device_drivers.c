@@ -96,8 +96,19 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
-#    ifndef TAPPING_CHECK
-#        define TAPPING_CHECK 200
+#    ifndef CIRQUE_PINNACLE_TAPPING_TERM
+#        ifdef TAPPING_TERM_PER_KEY
+#            define CIRQUE_PINNACLE_TAPPING_TERM get_tapping_term(KC_BTN1, NULL)
+#        else
+#            ifdef TAPPING_TERM
+#                define CIRQUE_PINNACLE_TAPPING_TERM TAPPING_TERM
+#            else
+#                define CIRQUE_PINNACLE_TAPPING_TERM 200
+#            endif
+#        endif
+#    endif
+#    ifndef CIRQUE_PINNACLE_TOUCH_DEBOUNCE
+#        define CIRQUE_PINNACLE_TOUCH_DEBOUNCE (CIRQUE_PINNACLE_TAPPING_TERM * 8)
 #    endif
 
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
@@ -117,7 +128,7 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     if ((bool)touchData.zValue != is_z_down) {
         is_z_down = (bool)touchData.zValue;
         if (!touchData.zValue) {
-            if (timer_elapsed(mouse_timer) < TAPPING_CHECK && mouse_timer != 0) {
+            if (timer_elapsed(mouse_timer) < CIRQUE_PINNACLE_TAPPING_TERM && mouse_timer != 0) {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
             } else if (mouse_timer == 0) {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
@@ -125,7 +136,7 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
         }
         mouse_timer = timer_read();
     }
-    if (timer_elapsed(mouse_timer) > (2 * TAPPING_CHECK)) {
+    if (timer_elapsed(mouse_timer) > (CIRQUE_PINNACLE_TOUCH_DEBOUNCE)) {
         mouse_timer = 0;
     }
 

@@ -90,13 +90,15 @@ POINTING_DEVICE_DRIVER = cirque_pinnacle_spi
 
 This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the TM040040, TM035035 and the TM023023 trackpads. These are I2C or SPI compatible, and both configurations are supported.
 
-| Setting                  | Description                                                                     | Default |
-|--------------------------|---------------------------------------------------------------------------------|---------|
-|`CIRQUE_PINNACLE_TIMEOUT` | (Optional) The timeout for i2c communication with the trackpad in milliseconds. | `20`    |
-|`CIRQUE_PINNACLE_X_LOWER` | (Optional) The minimum reachable X value on the sensor.                         | `127`   |
-|`CIRQUE_PINNACLE_X_UPPER` | (Optional) The maximum reachable X value on the sensor.                         | `1919`  |
-|`CIRQUE_PINNACLE_Y_LOWER` | (Optional) The minimum reachable Y value on the sensor.                         | `63`    |
-|`CIRQUE_PINNACLE_Y_UPPER` | (Optional) The maximum reachable Y value on the sensor.                         | `1471`  |
+| Setting                         | Description                                                                     | Default               |
+|---------------------------------|---------------------------------------------------------------------------------|-----------------------|
+|`CIRQUE_PINNACLE_TIMEOUT`        | (Optional) The timeout for i2c communication with the trackpad in milliseconds. | `20`                  |
+|`CIRQUE_PINNACLE_X_LOWER`        | (Optional) The minimum reachable X value on the sensor.                         | `127`                 |
+|`CIRQUE_PINNACLE_X_UPPER`        | (Optional) The maximum reachable X value on the sensor.                         | `1919`                |
+|`CIRQUE_PINNACLE_Y_LOWER`        | (Optional) The minimum reachable Y value on the sensor.                         | `63`                  |
+|`CIRQUE_PINNACLE_Y_UPPER`        | (Optional) The maximum reachable Y value on the sensor.                         | `1471`                |
+|`CIRQUE_PINNACLE_TAPPING_TERM`   | (Optional) Length of time that a touch can be to be considered a tap.           | `TAPPING_TERM`/`200`  |
+|`CIRQUE_PINNACLE_TOUCH_DEBOUNCE` | (Optional) Length of time that a touch can be to be considered a tap.           | `TAPPING_TERM`/`200`  |
 
 | I2C Setting              | Description                                                                     | Default |
 |--------------------------|---------------------------------------------------------------------------------|---------|
