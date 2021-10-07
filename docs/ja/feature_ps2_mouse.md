@@ -99,11 +99,6 @@ PS2_USE_USART = yes
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 
-#define PS2_CLOCK_DDR PORTx_ADDRESS(PS2_CLOCK_PIN)
-#define PS2_CLOCK_BIT (PS2_CLOCK_PIN & 0xF)
-#define PS2_DATA_DDR PORTx_ADDRESS(PS2_DATA_PIN)
-#define PS2_DATA_BIT (PS2_DATA_PIN & 0xF)
-
 /* 同期、奇数パリティ、1-bit ストップ、8-bit データ、立ち下がりエッジでサンプル */
 /* CLOCK の DDR を入力としてスレーブに設定 */
 #define PS2_USART_INIT() do {   \
