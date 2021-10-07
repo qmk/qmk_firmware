@@ -84,10 +84,6 @@ bool adb_host_psw(void) { return psw_in(); }
 uint16_t adb_host_kbd_recv(void) { return adb_host_talk(ADB_ADDR_KEYBOARD, ADB_REG_0); }
 
 #ifdef ADB_MOUSE_ENABLE
-__attribute__((weak)) void adb_mouse_init(void) { return; }
-
-__attribute__((weak)) void adb_mouse_task(void) { return; }
-
 uint16_t adb_host_mouse_recv(void) { return adb_host_talk(ADB_ADDR_MOUSE, ADB_REG_0); }
 #endif
 
