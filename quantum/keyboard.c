@@ -43,9 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SERIAL_MOUSE_ENABLE
 #    include "serial_mouse.h"
 #endif
-#ifdef ADB_MOUSE_ENABLE
-#    include "adb.h"
-#endif
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
 #endif
@@ -322,9 +319,6 @@ void keyboard_init(void) {
 #ifdef SERIAL_MOUSE_ENABLE
     serial_mouse_init();
 #endif
-#ifdef ADB_MOUSE_ENABLE
-    adb_mouse_init();
-#endif
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
@@ -502,10 +496,6 @@ MATRIX_LOOP_END:
 
 #ifdef SERIAL_MOUSE_ENABLE
     serial_mouse_task();
-#endif
-
-#ifdef ADB_MOUSE_ENABLE
-    adb_mouse_task();
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE
