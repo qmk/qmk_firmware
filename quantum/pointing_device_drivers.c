@@ -114,13 +114,14 @@ const pointing_device_driver_t pointing_device_driver = {
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     pinnacle_data_t touchData = cirque_pinnacle_read_data();
     static uint16_t x = 0, y = 0, mouse_timer = 0;
+    int8_t          report_x = 0, report_y = 0;
     static bool     is_z_down = false;
 
     cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());  // Scale coordinates to arbitrary X, Y resolution
 
     if (x && y && touchData.xValue && touchData.yValue) {
-        mouse_report.x = (int8_t)(touchData.xValue - x);
-        mouse_report.y = (int8_t)(touchData.yValue - y);
+        report_x = (int8_t)(touchData.xValue - x);
+        report_y = (int8_t)(touchData.yValue - y);
     }
     x = touchData.xValue;
     y = touchData.yValue;
@@ -130,8 +131,11 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
         if (!touchData.zValue) {
             if (timer_elapsed(mouse_timer) < CIRQUE_PINNACLE_TAPPING_TERM && mouse_timer != 0) {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
-            } else if (mouse_timer == 0) {
+                pointing_device_set_report(mouse_report);
+                pointing_device_send();
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+                pointing_device_set_report(mouse_report);
+                pointing_device_send();
             }
         }
         mouse_timer = timer_read();
@@ -139,6 +143,8 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     if (timer_elapsed(mouse_timer) > (CIRQUE_PINNACLE_TOUCH_DEBOUNCE)) {
         mouse_timer = 0;
     }
+    mouse_report.x = report_x;
+    mouse_report.y = report_y;
 
     return mouse_report;
 }
