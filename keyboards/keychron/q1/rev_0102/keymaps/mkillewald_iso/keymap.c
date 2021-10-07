@@ -25,8 +25,12 @@ enum layers{
 };
 
 enum custom_keycodes {
-  KC_MISSION_CONTROL = SAFE_RANGE,
-  KC_LAUNCHPAD,
+#ifdef VIA_ENABLE
+    KC_MISSION_CONTROL = USER00,
+#else
+    KC_MISSION_CONTROL = SAFE_RANGE,
+#endif
+    KC_LAUNCHPAD
 };
 
 #define KC_MCTL KC_MISSION_CONTROL
