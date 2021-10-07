@@ -348,6 +348,8 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 ## Flags :id=flags
 
+The flags can be used to control what LEDs are used for some effects, as well as to determine if they're used for animations at all.  And the flag is a bitmask, so the LED can be multiple LED types, at once (not typical, though). 
+
 |Define                      |Value |Description                                      |
 |----------------------------|------|-------------------------------------------------|
 |`HAS_FLAGS(bits, flags)`    |*n/a* |Evaluates to `true` if `bits` has all `flags` set|
@@ -792,3 +794,46 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 }
 ```
+
+
+Additionally, you can use the flags setting to change what LEDs are animated.  For instance, you can redefine the RGB Toggle keycode to do this, and this will cycle between all the LEDs being used, the alphas/mods/indicators, or just the underglow LEDs being used for animations.
+
+```c
+void process_record_user(uint16_t keycode, keyrecord_t *recorde) {
+    switch (keycode) {
+        case RGB_TOG:
+            if (record->event.pressed) {
+                switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL:
+                        {
+                            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                            rgb_matrix_set_color_all(0, 0, 0);
+                        }
+                        break;
+                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR):
+                        {
+                            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                            rgb_matrix_set_color_all(0, 0, 0);
+                        }
+                        break;
+                    case LED_FLAG_UNDERGLOW:
+                        {
+                            rgb_matrix_set_flags(LED_FLAG_NONE);
+                            rgb_matrix_disable_noeeprom();
+                        }
+                        break;
+                    default:
+                        {
+                            rgb_matrix_set_flags(LED_FLAG_ALL);
+                            rgb_matrix_enable_noeeprom();
+                        }
+                        break;
+                }
+            }
+            return false;
+    }
+    return true;
+}
+```
+
+?> Note: Any LEDs that are disabled due to flag usage must be manually cleaned up.  They are not turned off (except for the initial frame after changing), so they will render the last color that was assigned to them.
