@@ -1,4 +1,4 @@
-# mkillewald's Keychron Q1 keymap
+## mkillewald's Keychron Q1 keymap
 
 This keymap builds on the keymap by gtg465x which added: 
 
@@ -10,7 +10,7 @@ and adds:
 - Caps Lock indicator
 
 
-Changelog:
+## Changelog:
 
 v1.0.2  October 7, 2021
 - Mission Control and Launchpad custom keycodes are now defined using the VIA user keycodes range so thay can be labeled properly in VIA (adopted change from gtg465x)
