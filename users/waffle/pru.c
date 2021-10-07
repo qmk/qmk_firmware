@@ -15,7 +15,7 @@
  */
 
 #include "waffle.h"
-#ifdef RANDICT //front ridingqwerty's random word generator
+#ifdef RANDICT //from ridingqwerty's random word generator
 #include "dict.h"
 uint16_t rand_key;
 bool randword_seed = false;
@@ -76,7 +76,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case DANCE:
             if (record->event.pressed) { send_unicode_hex_string("༼ つ ◕_◕ ༽つ"); } break;
         case SHRUG:
-            if (record->event.pressed) { send_unicode_hex_string("¯\_(ツ)_/¯"); } break;
+            if (record->event.pressed) { send_unicode_hex_string("¯\\_(ツ)_/¯"); } break;
 #endif
 #ifdef RANDICT
         case RWORD:
