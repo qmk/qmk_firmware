@@ -111,10 +111,7 @@ enum userspace_custom_keycodes {
     RWORD,
 #endif
     ALT_TAB,
-    MAKE,
-    SECRET1,
-    SECRET2,
-    SECRET3
+    MAKE
 };
 
 #ifdef UNICODEMAP_ENABLE
