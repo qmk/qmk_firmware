@@ -8,3 +8,16 @@ This keymap builds on the keymap by gtg465x which added:
 and adds:
 
 - Caps Lock indicator
+
+
+Changelog:
+
+v1.0.2  October 7, 2021
+- Mission Control and Launchpad custom keycodes are now defined using the VIA user keycodes range so thay can be labeled properly in VIA (adopted change from gtg465x)
+
+v1.0.0  September 30, 2021
+- Initial release built upon keymap by Grayson Carr (gtg465x)
+- defined Mission Control (F3) and Launchpad (F4) keycodes for macOs
+- RGB backlight turns off when computer sleeps
+- added Caps Lock indicator lighting both the Caps Lock and Tab LEDs for better effect on non-backlit keycaps
+    
