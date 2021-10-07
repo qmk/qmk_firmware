@@ -26,4 +26,4 @@ LTO_ENABLE = yes            # Smaller (and slightly faster) firmware
 CUSTOM_MATRIX = lite
 
 SRC += mcp23018.c matrix.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_MASTER_DRIVER_REQUIRED := yes

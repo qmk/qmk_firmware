@@ -31,7 +31,8 @@ RGB_MATRIX_DRIVER = custom
 
 SRC += k_type-rgbdriver.c
 
-QUANTUM_LIB_SRC += i2c_master.c is31fl3733-dual.c
+QUANTUM_LIB_SRC += is31fl3733-dual.c
+I2C_MASTER_DRIVER_REQUIRED := yes
 
 LAYOUTS = tkl_ansi
 

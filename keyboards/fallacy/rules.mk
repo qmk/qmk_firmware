@@ -23,6 +23,6 @@ AUDIO_ENABLE = no           # Audio output
 # project specific files
 SRC += indicators.c \
        drivers/led/issi/is31fl3731-simple.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_MASTER_DRIVER_REQUIRED := yes
 
 LAYOUTS = alice alice_split_bs

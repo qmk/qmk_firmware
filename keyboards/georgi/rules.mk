@@ -13,4 +13,6 @@ COMMAND_ENABLE      = no
 NKRO_ENABLE			= yes
 
 EXTRAFLAGS += -flto
-SRC += matrix.c i2c_master.c sten.c
+SRC += matrix.c sten.c
+I2C_MASTER_DRIVER_REQUIRED := yes
+

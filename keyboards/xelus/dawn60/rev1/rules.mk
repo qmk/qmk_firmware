@@ -35,4 +35,4 @@ SRC +=	keyboards/wilba_tech/wt_main.c \
 		drivers/led/issi/is31fl3731.c \
 		ws2812.c
 
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_MASTER_DRIVER_REQUIRED := yes

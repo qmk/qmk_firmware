@@ -24,4 +24,4 @@ NO_USB_STARTUP_CHECK = yes
 LTO_ENABLE = yes
 
 SRC += matrix.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_MASTER_DRIVER_REQUIRED := yes

@@ -126,7 +126,7 @@ else
   else ifeq ($(strip $(EEPROM_DRIVER)), i2c)
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_I2C
     COMMON_VPATH += $(DRIVER_PATH)/eeprom
-    QUANTUM_LIB_SRC += i2c_master.c
+    I2C_MASTER_DRIVER_REQUIRED := yes
     SRC += eeprom_driver.c eeprom_i2c.c
   else ifeq ($(strip $(EEPROM_DRIVER)), spi)
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_SPI
@@ -227,7 +227,7 @@ endif
         OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3731-simple.c
-        QUANTUM_LIB_SRC += i2c_master.c
+        I2C_MASTER_DRIVER_REQUIRED := yes
     endif
 endif
 
@@ -264,35 +264,35 @@ endif
         OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3731.c
-        QUANTUM_LIB_SRC += i2c_master.c
+        I2C_MASTER_DRIVER_REQUIRED := yes
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3733)
         OPT_DEFS += -DIS31FL3733 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3733.c
-        QUANTUM_LIB_SRC += i2c_master.c
+        I2C_MASTER_DRIVER_REQUIRED := yes
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3737)
         OPT_DEFS += -DIS31FL3737 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3737.c
-        QUANTUM_LIB_SRC += i2c_master.c
+        I2C_MASTER_DRIVER_REQUIRED := yes
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3741)
         OPT_DEFS += -DIS31FL3741 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3741.c
-        QUANTUM_LIB_SRC += i2c_master.c
+        I2C_MASTER_DRIVER_REQUIRED := yes
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), CKLED2001)
         OPT_DEFS += -DCKLED2001 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led
         SRC += ckled2001.c
-        QUANTUM_LIB_SRC += i2c_master.c
+        I2C_MASTER_DRIVER_REQUIRED := yes
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), WS2812)
@@ -394,7 +394,7 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
 
     # add extra deps
     ifeq ($(strip $(WS2812_DRIVER)), i2c)
-        QUANTUM_LIB_SRC += i2c_master.c
+        I2C_MASTER_DRIVER_REQUIRED := yes
     endif
 endif
 
@@ -484,8 +484,8 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
         ifeq ($(PLATFORM),AVR)
             ifneq ($(NO_I2C),yes)
-                QUANTUM_LIB_SRC += i2c_master.c \
-                                   i2c_slave.c
+                I2C_MASTER_DRIVER_REQUIRED := yes
+                QUANTUM_LIB_SRC += i2c_slave.c
             endif
         endif
 
@@ -510,7 +510,7 @@ ifeq ($(strip $(HAPTIC_ENABLE)),yes)
 
     ifneq ($(filter DRV2605L, $(HAPTIC_DRIVER)), )
         SRC += DRV2605L.c
-        QUANTUM_LIB_SRC += i2c_master.c
+        I2C_MASTER_DRIVER_REQUIRED := yes
         OPT_DEFS += -DDRV2605L
     endif
 
@@ -537,7 +537,7 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
         OPT_DEFS += -DOLED_DRIVER_$(strip $(shell echo $(OLED_DRIVER) | tr '[:lower:]' '[:upper:]'))
         ifeq ($(strip $(OLED_DRIVER)), SSD1306)
             SRC += ssd1306_sh1106.c
-            QUANTUM_LIB_SRC += i2c_master.c
+            I2C_MASTER_DRIVER_REQUIRED := yes
         endif
     endif
 endif
@@ -548,6 +548,26 @@ ifeq ($(strip $(ST7565_ENABLE)), yes)
     COMMON_VPATH += $(DRIVER_PATH)/lcd
     QUANTUM_LIB_SRC += spi_master.c
     SRC += st7565.c
+endif
+
+VALID_I2C_MASTER_DRIVER_TYPES := bitbang vendor custom
+
+I2C_MASTER_DRIVER ?= vendor
+ifeq ($(strip $(I2C_MASTER_DRIVER_REQUIRED)), yes)
+    ifeq ($(filter $(I2C_MASTER_DRIVER),$(VALID_I2C_MASTER_DRIVER_TYPES)),)
+        $(error I2C_MASTER_DRIVER="$(I2C_MASTER_DRIVER)" is not a valid i2c driver)
+    endif
+
+    OPT_DEFS += -DI2C_MASTER_DRIVER_$(strip $(shell echo $(I2C_MASTER_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+    ifeq ($(strip $(I2C_MASTER_DRIVER)), vendor)
+        QUANTUM_LIB_SRC += i2c_master.c
+    else ifeq ($(strip $(I2C_MASTER_DRIVER)), bitbang)
+        QUANTUM_LIB_SRC += i2c_master_$(strip $(I2C_MASTER_DRIVER)).c
+        COMMON_VPATH += $(DRIVER_PATH)/i2c_bitbang
+    else
+        QUANTUM_LIB_SRC += i2c_master_$(strip $(I2C_MASTER_DRIVER)).c
+    endif
 endif
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)

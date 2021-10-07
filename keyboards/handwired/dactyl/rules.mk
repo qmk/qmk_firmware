@@ -21,5 +21,5 @@ SLEEP_LED_ENABLE        = no
 RGBLIGHT_ENABLE         = no
 
 # project specific files
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_MASTER_DRIVER_REQUIRED := yes
 SRC += matrix.c

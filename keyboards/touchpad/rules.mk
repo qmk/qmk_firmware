@@ -22,4 +22,5 @@ CUSTOM_MATRIX = yes
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-SRC += matrix.c i2c_master.c
+SRC += matrix.c
+I2C_MASTER_DRIVER_REQUIRED := yes

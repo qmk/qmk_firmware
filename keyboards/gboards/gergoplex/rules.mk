@@ -15,4 +15,4 @@ LAYOUTS = split_3x5_3
 
 DEBOUNCE_TYPE = sym_eager_pr
 SRC += matrix.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_MASTER_DRIVER_REQUIRED := yes

@@ -19,5 +19,6 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes		# Enable keyboard RGB underglow
 
-QUANTUM_LIB_SRC += i2c_master.c drivers/led/issi/is31fl3731.c
+QUANTUM_LIB_SRC += drivers/led/issi/is31fl3731.c
+I2C_MASTER_DRIVER_REQUIRED := yes
 LAYOUTS = 65_ansi_blocker 65_ansi_blocker_split_bs

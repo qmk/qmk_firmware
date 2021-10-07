@@ -1,5 +1,5 @@
-SRC = matrix.c \
-      i2c_master.c
+SRC = matrix.c
+I2C_MASTER_DRIVER_REQUIRED := yes
 
 # MCU name
 MCU = atmega328p

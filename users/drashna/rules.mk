@@ -75,7 +75,7 @@ ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
     POINTING_DEVICE_ENABLE := yes
     OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
     SRC += drivers/sensors/pimoroni_trackball.c
-    QUANTUM_LIB_SRC += i2c_master.c
+    I2C_MASTER_DRIVER_REQUIRED := yes
 endif
 
 CUSTOM_SPLIT_TRANSPORT_SYNC ?= yes

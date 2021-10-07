@@ -20,5 +20,5 @@ RGBLIGHT_ENABLE = no
 CUSTOM_MATRIX = yes
 
 # project specific files
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_MASTER_DRIVER_REQUIRED := yes
 SRC += matrix.c

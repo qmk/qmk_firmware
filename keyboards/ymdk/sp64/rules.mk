@@ -22,4 +22,4 @@ CUSTOM_MATRIX = yes
 WS2812_DRIVER = i2c
 
 SRC += matrix.c 
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_MASTER_DRIVER_REQUIRED := yes
