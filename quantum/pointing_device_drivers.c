@@ -95,7 +95,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = NULL
 };
 // clang-format on
-#elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle)
+#elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
 #    ifndef TAPPING_CHECK
 #        define TAPPING_CHECK 200
 #    endif
