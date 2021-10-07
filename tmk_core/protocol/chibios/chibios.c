@@ -153,7 +153,7 @@ void protocol_init(void) {
 
     host_driver_t *driver = NULL;
 
-    /* Wait until the USB or serial link is active */
+    /* Wait until USB is active */
     while (true) {
 #if defined(WAIT_FOR_USB)
         if (USB_DRIVER.state == USB_ACTIVE) {
