@@ -830,6 +830,29 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
     return ret;
 }
 
+i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
+    TIMEOUT_START_TIME_TYPE init_timeout_counter = TIMEOUT_GET_COUNTER();
+    i2c_status_t            ret                  = i2c_only_start_condition_raw(init_timeout_counter, timeout);
+    if (ret == I2C_STATUS_SUCCESS) {
+        ret = i2c_write_raw(devaddr | I2C_WRITE, timeout, init_timeout_counter);
+        if (ret == I2C_STATUS_SUCCESS) {
+            init_timeout_counter = TIMEOUT_GET_COUNTER();
+            ret                  = i2c_write_raw(regaddr >> 8, timeout, init_timeout_counter);
+            if (ret == I2C_STATUS_SUCCESS) {
+                init_timeout_counter = TIMEOUT_GET_COUNTER();
+                ret                  = i2c_write_raw(regaddr & 0xff, timeout, init_timeout_counter);
+                for (uint16_t i = 0; i < length && ret == I2C_STATUS_SUCCESS; i++) {
+                    init_timeout_counter = TIMEOUT_GET_COUNTER();
+                    ret                  = i2c_write_raw(data[i], timeout, init_timeout_counter);
+                }
+            }
+        }
+    }
+
+    i2c_stop();
+    return ret;
+}
+
 i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
     TIMEOUT_START_TIME_TYPE init_timeout_counter = TIMEOUT_GET_COUNTER();
     i2c_status_t            ret                  = i2c_only_start_condition_raw(init_timeout_counter, timeout);
@@ -852,6 +875,45 @@ i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16
     }
     ret = i2c_write_raw(devaddr | I2C_READ, timeout, init_timeout_counter);
 
+    for (uint16_t i = 0; i < length && ret >= 0; i++) {
+        ret = i2c_read_acknack_raw(timeout, i == (length - 1));
+        if (ret >= 0) {
+            data[i] = ret;
+        }
+    }
+
+error:
+    i2c_stop();
+
+    return (ret < 0) ? ret : I2C_STATUS_SUCCESS;
+}
+
+i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
+    TIMEOUT_START_TIME_TYPE init_timeout_counter = TIMEOUT_GET_COUNTER();
+    i2c_status_t            ret                  = i2c_only_start_condition_raw(init_timeout_counter, timeout);
+    if (ret != I2C_STATUS_SUCCESS) {
+        goto error;
+    }
+    ret = i2c_write_raw(devaddr | I2C_WRITE, timeout, init_timeout_counter);
+    if (ret != I2C_STATUS_SUCCESS) {
+        goto error;
+    }
+    init_timeout_counter = TIMEOUT_GET_COUNTER();
+    ret                  = i2c_write_raw(regaddr >> 8, timeout, init_timeout_counter);
+    if (ret != I2C_STATUS_SUCCESS) {
+        goto error;
+    }
+    init_timeout_counter = TIMEOUT_GET_COUNTER();
+    ret                  = i2c_write_raw(regaddr & 0xFF, timeout, init_timeout_counter);
+    if (ret != I2C_STATUS_SUCCESS) {
+        goto error;
+    }
+    init_timeout_counter = TIMEOUT_GET_COUNTER();
+    ret                  = i2c_only_start_condition_raw(init_timeout_counter, timeout);
+    if (ret != I2C_STATUS_SUCCESS) {
+        goto error;
+    }
+    ret = i2c_write_raw(devaddr | I2C_READ, timeout, init_timeout_counter);
     for (uint16_t i = 0; i < length && ret >= 0; i++) {
         ret = i2c_read_acknack_raw(timeout, i == (length - 1));
         if (ret >= 0) {
