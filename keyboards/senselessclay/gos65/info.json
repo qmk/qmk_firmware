@@ -2,8 +2,6 @@
     "keyboard_name": "gos65",
     "url": "https://senselessclay.com/",
     "maintainer": "hadi",
-    "width": 16, 
-    "height": 5, 
     "layouts": {
       "LAYOUT_all": {
           "layout": [
