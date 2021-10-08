@@ -29,7 +29,7 @@
 #endif
 
 #ifndef ADAFRUIT_BLE_SCK_DIVISOR
-#    define ADAFRUIT_BLE_SCK_DIVISOR 2 // 4MHz SCK/8MHz CPU, calculated for Feather 32U4 BLE
+#    define ADAFRUIT_BLE_SCK_DIVISOR 2  // 4MHz SCK/8MHz CPU, calculated for Feather 32U4 BLE
 #endif
 
 #define SAMPLE_BATTERY
