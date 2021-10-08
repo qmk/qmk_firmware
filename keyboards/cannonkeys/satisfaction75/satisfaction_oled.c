@@ -101,50 +101,6 @@ static void draw_line_v(uint8_t x, uint8_t y, uint8_t len) {
     }
 }
 
-void draw_clock() {
-    oled_set_cursor(0, 0);
-    oled_write(get_date(), false);
-    oled_set_cursor(0, 2);
-    oled_write(get_time(), false);
-
-    oled_set_cursor(12, 0);
-    oled_write_P(PSTR(" ENC "), false);
-    oled_write(get_enc_mode(), true);
-
-    oled_set_cursor(13, 1);
-    oled_write_P(PSTR("LAYER "), false);
-    oled_write_char(get_highest_layer(layer_state) + 0x30, true);
-
-    led_t led_state = host_keyboard_led_state();
-    oled_set_cursor(15, 3);
-    oled_write_P(PSTR("CAPS"), led_state.caps_lock);
-
-    if (clock_set_mode) {
-        switch (time_config_idx) {
-            case 0:  // hour
-            default:
-                draw_line_h(0, 25, 10);
-                break;
-            case 1:  // minute
-                draw_line_h(18, 25, 10);
-                break;
-            case 2:  // year
-                draw_line_h(0, 9, 24);
-                break;
-            case 3:  // month
-                draw_line_h(30, 9, 10);
-                break;
-            case 4:  // day
-                draw_line_h(48, 9, 10);
-                break;
-        }
-    }
-
-    // bodge extra lines for invert layer and enc mode
-    draw_line_v(101, 0, 8);
-    draw_line_v(113, 8, 8);
-}
-
 void draw_default() {
     oled_write_P(PSTR("LAYER "), false);
     oled_write_char(get_highest_layer(layer_state) + 0x30, true);
@@ -195,6 +151,50 @@ void draw_default() {
     // bodge extra lines for invert layer and enc mode
     draw_line_v(35, 0, 8);
     draw_line_v(71, 0, 8);
+}
+
+void draw_clock() {
+    oled_set_cursor(0, 0);
+    oled_write(get_date(), false);
+    oled_set_cursor(0, 2);
+    oled_write(get_time(), false);
+
+    oled_set_cursor(12, 0);
+    oled_write_P(PSTR(" ENC "), false);
+    oled_write(get_enc_mode(), true);
+
+    oled_set_cursor(13, 1);
+    oled_write_P(PSTR("LAYER "), false);
+    oled_write_char(get_highest_layer(layer_state) + 0x30, true);
+
+    led_t led_state = host_keyboard_led_state();
+    oled_set_cursor(15, 3);
+    oled_write_P(PSTR("CAPS"), led_state.caps_lock);
+
+    if (clock_set_mode) {
+        switch (time_config_idx) {
+            case 0:  // hour
+            default:
+                draw_line_h(0, 25, 10);
+                break;
+            case 1:  // minute
+                draw_line_h(18, 25, 10);
+                break;
+            case 2:  // year
+                draw_line_h(0, 9, 24);
+                break;
+            case 3:  // month
+                draw_line_h(30, 9, 10);
+                break;
+            case 4:  // day
+                draw_line_h(48, 9, 10);
+                break;
+        }
+    }
+
+    // bodge extra lines for invert layer and enc mode
+    draw_line_v(101, 0, 8);
+    draw_line_v(113, 8, 8);
 }
 
 #endif
