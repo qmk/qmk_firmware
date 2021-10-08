@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Kiko <kikosdesignlab@gmail.com>
+Copyright 2021 Swiftrax <swiftrax@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -47,9 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-/*EEPROM for via*/
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
 /*RGB TINGS*/
 #define RGB_DI_PIN E6
