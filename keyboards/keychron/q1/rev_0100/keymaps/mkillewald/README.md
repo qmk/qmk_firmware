@@ -8,7 +8,7 @@ This keymap builds on the keymap by Grayson Carr (gtg465x) but adds a couple mor
 - Caps Lock RGB indicator
     - the Caps Lock key will light when Caps Lock is enabled. RGB mode must be toggled on. If you don't want an RGB mode active, you can turn the brightness all the way off and the Caps Lock indicator will remain at full brightness.
  
-    - the following options are available 
+    - the following options are available:
         - #define CAPS_LOCK_INDICATOR_COLOR [color] in config.h to set the backlight color used for the indicator when Caps Lock is enabled (default: red)
         - Fn+Z will toggle lighting the TAB key when Caps Lock is enabled. This is useful with non backlit keycaps/legends. (default: off)
         - Fn+X will toggle lighting all the alpha keys when Caps Lock is enabled. (default: off)
@@ -16,7 +16,7 @@ This keymap builds on the keymap by Grayson Carr (gtg465x) but adds a couple mor
 - Dynamic Fn layer RGB indicator
     - When the Fn key is held down, any keys defined on the Fn layer in VIA will be highlighted with RGB backlight
     
-    - the following options are available
+    - the following options are available:
         - #define FN_LAYER_COLOR [color] in config.h to set a static color for defined keys (default: orange)
         - Fn+C will toggle turning off RGB for keys with no definition (default: RGB off)
         - Fn+V will toggle lighting the defined Fn layer keys with the static color set with the FN_LAYER_COLOR system define (default: static color off)
