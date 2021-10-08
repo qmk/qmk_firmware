@@ -77,7 +77,7 @@ void rgb_matrix_indicators_user(void)
 
 void sdep_send(const uint8_t *cmd, uint8_t len) {
 	
-    spi_start(AdafruitBleCSPin, false, 0, 2);
+    spi_start(ADAFRUIT_BLE_CS_PIN, false, 0, 2);
     uint8_t cnt = 200;
     bool     ready      = false;
 
@@ -88,7 +88,7 @@ void sdep_send(const uint8_t *cmd, uint8_t len) {
         }
         spi_stop();
         wait_us(25);
-        spi_start(AdafruitBleCSPin, false, 0, 2);
+        spi_start(ADAFRUIT_BLE_CS_PIN, false, 0, 2);
     } while (cnt--);
 
     if (ready) {
