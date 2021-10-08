@@ -27,8 +27,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     [LAYER_DEFAULT] = LAYOUT(
         KC_MPLY,  KC_VOLU,  KY_RHAND,
-        KY_MICM,  KC_VOLD,  KY_MICU,
-        KY_LOCK,  KC_MUTE,  LY_FN1
+        KY_LOCK,  KC_VOLD,  KY_MICU,
+        LY_FN1,   KC_MUTE,  KY_MICM
     ),
     [LAYER_FUNCTION_1] = LAYOUT(
         EEP_RST,  _______,  RESET,
