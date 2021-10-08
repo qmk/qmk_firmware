@@ -234,8 +234,6 @@ QMK が提供する機能の量を考えれば、新しいユーザーが混乱�
 
 QMK のコア部分は [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html) でライセンスされます。AVR マイコン用のバイナリを提供する場合は、[GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) か、[GPLv3](https://www.gnu.org/licenses/gpl.html) のどちらかから選択出来ます。ARM マイコン用のバイナリを提供する場合は、 [ChibiOS](https://www.chibios.org) の GPLv3 ライセンスに準拠するため、[GPL Version 3](https://www.gnu.org/licenses/gpl.html) を選択しなければいけません。
 
-[uGFX](https://ugfx.io) を使用している場合は、[uGFX License](https://ugfx.io/license.html) に準拠する必要があります。uGFX を利用したデバイスを販売するには個別に商用ライセンスを取得しなければいけません。
-
 ## 技術的な詳細
 
 キーボードを QMK で動作させるための詳細は[ハードウェア](ja/hardware.md)を参照して下さい！

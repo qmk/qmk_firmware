@@ -187,7 +187,7 @@ Receive multiple bytes from the selected SPI device.
 
 ### `i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)`
 
-Writes to a register on the I2C device.
+Writes to a register with an 8-bit address on the I2C device.
 
 #### Arguments
 
@@ -208,15 +208,59 @@ Writes to a register on the I2C device.
 
 ---
 
+### `i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)`
+
+Writes to a register with a 16-bit address (big endian) on the I2C device.
+
+#### Arguments
+
+ - `uint8_t devaddr`  
+   The 7-bit I2C address of the device.
+ - `uint16_t regaddr`  
+   The register address to write to.
+ - `uint8_t *data`  
+   A pointer to the data to transmit.
+ - `uint16_t length`  
+ The number of bytes to write. Take care not to overrun the length of `data`.
+ - `uint16_t timeout`  
+   The time in milliseconds to wait for a response from the target device.
+
+#### Return Value
+
+`I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
+
+---
+
 ### `i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)`
 
-Reads from a register on the I2C device.
+Reads from a register with an 8-bit address on the I2C device.
 
 #### Arguments
 
  - `uint8_t devaddr`  
    The 7-bit I2C address of the device.
  - `uint8_t regaddr`  
+   The register address to read from.
+ - `uint16_t length`  
+ The number of bytes to read. Take care not to overrun the length of `data`.
+ - `uint16_t timeout`  
+   The time in milliseconds to wait for a response from the target device.
+
+#### Return Value
+
+`I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
+
+---
+
+### `i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)`
+
+Reads from a register with a 16-bit address (big endian) on the I2C device.
+
+#### Arguments
+
+ - `uint8_t devaddr`  
+   The 7-bit I2C address of the device.
+ - `uint16_t regaddr`  
    The register address to read from.
  - `uint16_t length`  
  The number of bytes to read. Take care not to overrun the length of `data`.

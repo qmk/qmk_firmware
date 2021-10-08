@@ -16,23 +16,21 @@
 // These are the pin assignments for the 32u4 boards.
 // You may define them to something else in your config.h
 // if yours is wired up differently.
-#ifndef AdafruitBleResetPin
-#    define AdafruitBleResetPin D4
+#ifndef ADAFRUIT_BLE_RST_PIN
+#    define ADAFRUIT_BLE_RST_PIN D4
 #endif
 
-#ifndef AdafruitBleCSPin
-#    define AdafruitBleCSPin B4
+#ifndef ADAFRUIT_BLE_CS_PIN
+#    define ADAFRUIT_BLE_CS_PIN B4
 #endif
 
-#ifndef AdafruitBleIRQPin
-#    define AdafruitBleIRQPin E6
+#ifndef ADAFRUIT_BLE_IRQ_PIN
+#    define ADAFRUIT_BLE_IRQ_PIN E6
 #endif
 
-#ifndef AdafruitBleSpiClockSpeed
-#    define AdafruitBleSpiClockSpeed 4000000UL  // SCK frequency
+#ifndef ADAFRUIT_BLE_SCK_DIVISOR
+#    define ADAFRUIT_BLE_SCK_DIVISOR 2  // 4MHz SCK/8MHz CPU, calculated for Feather 32U4 BLE
 #endif
-
-#define SCK_DIVISOR (F_CPU / AdafruitBleSpiClockSpeed)
 
 #define SAMPLE_BATTERY
 #define ConnectionUpdateInterval 1000 /* milliseconds */
@@ -145,7 +143,7 @@ static bool at_command_P(const char *cmd, char *resp, uint16_t resplen, bool ver
 
 // Send a single SDEP packet
 static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
-    spi_start(AdafruitBleCSPin, false, 0, SCK_DIVISOR);
+    spi_start(ADAFRUIT_BLE_CS_PIN, false, 0, ADAFRUIT_BLE_SCK_DIVISOR);
     uint16_t timerStart = timer_read();
     bool     success    = false;
     bool     ready      = false;
@@ -159,7 +157,7 @@ static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
         // Release it and let it initialize
         spi_stop();
         wait_us(SdepBackOff);
-        spi_start(AdafruitBleCSPin, false, 0, SCK_DIVISOR);
+        spi_start(ADAFRUIT_BLE_CS_PIN, false, 0, ADAFRUIT_BLE_SCK_DIVISOR);
     } while (timer_elapsed(timerStart) < timeout);
 
     if (ready) {
@@ -192,7 +190,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
     bool     ready      = false;
 
     do {
-        ready = readPin(AdafruitBleIRQPin);
+        ready = readPin(ADAFRUIT_BLE_IRQ_PIN);
         if (ready) {
             break;
         }
@@ -200,7 +198,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
     } while (timer_elapsed(timerStart) < timeout);
 
     if (ready) {
-        spi_start(AdafruitBleCSPin, false, 0, SCK_DIVISOR);
+        spi_start(ADAFRUIT_BLE_CS_PIN, false, 0, ADAFRUIT_BLE_SCK_DIVISOR);
 
         do {
             // Read the command type, waiting for the data to be ready
@@ -209,7 +207,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
                 // Release it and let it initialize
                 spi_stop();
                 wait_us(SdepBackOff);
-                spi_start(AdafruitBleCSPin, false, 0, SCK_DIVISOR);
+                spi_start(ADAFRUIT_BLE_CS_PIN, false, 0, ADAFRUIT_BLE_SCK_DIVISOR);
                 continue;
             }
 
@@ -235,7 +233,7 @@ static void resp_buf_read_one(bool greedy) {
         return;
     }
 
-    if (readPin(AdafruitBleIRQPin)) {
+    if (readPin(ADAFRUIT_BLE_IRQ_PIN)) {
         struct sdep_msg msg;
 
     again:
@@ -246,7 +244,7 @@ static void resp_buf_read_one(bool greedy) {
                 dprintf("recv latency %dms\n", TIMER_DIFF_16(timer_read(), last_send));
             }
 
-            if (greedy && resp_buf.peek(last_send) && readPin(AdafruitBleIRQPin)) {
+            if (greedy && resp_buf.peek(last_send) && readPin(ADAFRUIT_BLE_IRQ_PIN)) {
                 goto again;
             }
         }
@@ -297,16 +295,16 @@ static bool ble_init(void) {
     state.configured   = false;
     state.is_connected = false;
 
-    setPinInput(AdafruitBleIRQPin);
+    setPinInput(ADAFRUIT_BLE_IRQ_PIN);
 
     spi_init();
 
     // Perform a hardware reset
-    setPinOutput(AdafruitBleResetPin);
-    writePinHigh(AdafruitBleResetPin);
-    writePinLow(AdafruitBleResetPin);
+    setPinOutput(ADAFRUIT_BLE_RST_PIN);
+    writePinHigh(ADAFRUIT_BLE_RST_PIN);
+    writePinLow(ADAFRUIT_BLE_RST_PIN);
     wait_ms(10);
-    writePinHigh(AdafruitBleResetPin);
+    writePinHigh(ADAFRUIT_BLE_RST_PIN);
 
     wait_ms(1000);  // Give it a second to initialize
 
@@ -509,7 +507,7 @@ void adafruit_ble_task(void) {
     resp_buf_read_one(true);
     send_buf_send_one(SdepShortTimeout);
 
-    if (resp_buf.empty() && (state.event_flags & UsingEvents) && readPin(AdafruitBleIRQPin)) {
+    if (resp_buf.empty() && (state.event_flags & UsingEvents) && readPin(ADAFRUIT_BLE_IRQ_PIN)) {
         // Must be an event update
         if (at_command_P(PSTR("AT+EVENTSTATUS"), resbuf, sizeof(resbuf))) {
             uint32_t mask = strtoul(resbuf, NULL, 16);

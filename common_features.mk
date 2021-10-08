@@ -13,8 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SERIAL_PATH := $(QUANTUM_PATH)/serial_link
-
 QUANTUM_SRC += \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/send_string.c \
@@ -46,14 +44,6 @@ else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
 endif
 
-ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
-    OPT_DEFS += -DAPI_SYSEX_ENABLE
-    OPT_DEFS += -DAPI_ENABLE
-    MIDI_ENABLE=yes
-    SRC += $(QUANTUM_DIR)/api/api_sysex.c
-    SRC += $(QUANTUM_DIR)/api.c
-endif
-
 ifeq ($(strip $(COMMAND_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/command.c
     OPT_DEFS += -DCOMMAND_ENABLE
@@ -83,7 +73,7 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
     SRC += $(QUANTUM_DIR)/audio/audio.c ## common audio code, hardware agnostic
-    SRC += $(QUANTUM_DIR)/audio/driver_$(PLATFORM_KEY)_$(strip $(AUDIO_DRIVER)).c
+    SRC += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/audio_$(strip $(AUDIO_DRIVER)).c
     SRC += $(QUANTUM_DIR)/audio/voices.c
     SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
@@ -371,17 +361,6 @@ ifeq ($(strip $(PRINTING_ENABLE)), yes)
     SRC += $(TMK_DIR)/protocol/serial_uart.c
 endif
 
-ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
-    SERIAL_SRC := $(wildcard $(SERIAL_PATH)/protocol/*.c)
-    SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
-    SERIAL_DEFS += -DSERIAL_LINK_ENABLE
-    COMMON_VPATH += $(SERIAL_PATH)
-
-    SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
-    OPT_DEFS += $(SERIAL_DEFS)
-    VAPTH += $(SERIAL_PATH)
-endif
-
 VARIABLE_TRACE ?= no
 ifneq ($(strip $(VARIABLE_TRACE)),no)
     SRC += $(QUANTUM_DIR)/variable_trace.c
@@ -456,10 +435,6 @@ endif
 ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
     COMMON_VPATH += $(DRIVER_PATH)/led
     SRC += apa102.c
-endif
-
-ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-    CIE1931_CURVE := yes
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)

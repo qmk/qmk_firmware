@@ -3,7 +3,6 @@ FULL_TESTS := $(TEST_LIST)
 
 include $(ROOT_DIR)/quantum/debounce/tests/testlist.mk
 include $(ROOT_DIR)/quantum/sequencer/tests/testlist.mk
-include $(ROOT_DIR)/quantum/serial_link/tests/testlist.mk
 include $(ROOT_DIR)/quantum/encoder/tests/testlist.mk
 include $(ROOT_DIR)/tmk_core/common/test/testlist.mk
 
