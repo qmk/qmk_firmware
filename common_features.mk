@@ -174,7 +174,7 @@ else
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
         OPT_DEFS += -DEEPROM_EMU_STM32F072xB
-      else ifneq ($(filter $(MCU_SERIES)_$(MCU_LDSCRIPT),STM32F4xx_STM32F401xC STM32F4xx_STM32F411xE STM32F4xx_STM32F405xG),)
+      else ifneq ($(filter $(MCU_SERIES)_$(MCU_LDSCRIPT),STM32F4xx_STM32F401xC STM32F4xx_STM32F401xE STM32F4xx_STM32F411xE STM32F4xx_STM32F405xG),)
         OPT_DEFS += -DEEPROM_DRIVER
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
         SRC += eeprom_driver.c
