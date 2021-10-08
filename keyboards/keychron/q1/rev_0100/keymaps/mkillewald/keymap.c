@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Grayson Carr
+/* Copyright 2021 @ Mike Killewald
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,17 +22,31 @@
 
 // clang-format off
 
+/* globals */
+bool caps_lock_light_tab = false;
+bool caps_lock_light_alphas = false;
+bool fn_layer_transparent_keys_off = true;
+bool fn_layer_color_enable = false;
+
 enum custom_keycodes {
 #ifdef VIA_ENABLE
     KC_MISSION_CONTROL = USER00,
 #else
     KC_MISSION_CONTROL = SAFE_RANGE,
 #endif
-    KC_LAUNCHPAD
+    KC_LAUNCHPAD,
+    KC_LIGHT_TAB_TOGGLE,
+    KC_LIGHT_ALPHAS_TOGGLE,
+    KC_FN_LAYER_TRANSPARENT_KEYS_TOGGLE,
+    KC_FN_LAYER_COLOR_TOGGLE
 };
 
 #define KC_MCTL KC_MISSION_CONTROL
 #define KC_LPAD KC_LAUNCHPAD
+#define KC_LTTOG KC_LIGHT_TAB_TOGGLE
+#define KC_LATOG KC_LIGHT_ALPHAS_TOGGLE
+#define KC_TKTOG KC_FN_LAYER_TRANSPARENT_KEYS_TOGGLE
+#define KC_FCTOG KC_FN_LAYER_COLOR_TOGGLE
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
 
@@ -51,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,
      RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,
      KC_TRNS,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,            KC_TRNS,
-     KC_TRNS,            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
+     KC_TRNS,            KC_LTTOG, KC_LATOG, KC_TKTOG, KC_FCTOG, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
 
 [WIN_BASE] = LAYOUT_ansi_82(
@@ -67,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,
      RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,
      KC_TRNS,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,            KC_TRNS,
-     KC_TRNS,            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
+     KC_TRNS,            KC_LTTOG, KC_LATOG, KC_TKTOG, KC_FCTOG, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS)
 
 };
@@ -92,6 +106,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LAUNCHPAD:
             if (record->event.pressed) {
                 host_consumer_send(0x2A0);
+            } else {
+                host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
+        case KC_LIGHT_TAB_TOGGLE:
+            if (record->event.pressed) {
+                caps_lock_light_tab = !caps_lock_light_tab;
+            } else {
+                host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
+        case KC_LIGHT_ALPHAS_TOGGLE:
+            if (record->event.pressed) {
+                caps_lock_light_alphas = !caps_lock_light_alphas;
+            } else {
+                host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
+        case KC_FN_LAYER_TRANSPARENT_KEYS_TOGGLE:
+            if (record->event.pressed) {
+                fn_layer_transparent_keys_off = !fn_layer_transparent_keys_off;
+            } else {
+                host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
+        case KC_FN_LAYER_COLOR_TOGGLE:
+            if (record->event.pressed) {
+                fn_layer_color_enable = !fn_layer_color_enable;
             } else {
                 host_consumer_send(0);
             }

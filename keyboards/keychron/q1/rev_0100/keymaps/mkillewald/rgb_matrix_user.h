@@ -17,6 +17,12 @@
 
 #pragma once
 
+/* globals from keymap.c */
+bool caps_lock_light_tab;
+bool caps_lock_light_alphas;
+bool fn_layer_transparent_keys_off;
+bool fn_layer_color_enable;
+
 void rgb_matrix_init_user(void);
 
 void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t layer, bool (*is_keycode)(uint16_t), uint8_t red, uint8_t green, uint8_t blue);
