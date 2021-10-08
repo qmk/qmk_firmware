@@ -16,6 +16,58 @@
 
 #include "dosa40rgb.h"
 
+const uint8_t cm1[] = "AT+GAPSTOPADV";
+const uint8_t cm2[] = "AT+GAPDISCONNECT";
+const uint8_t cm3[] = "ATZ";
+
+void sdep_send(const uint8_t *cmd, uint8_t len) {
+
+    spi_start(AdafruitBleCSPin, false, 0, 2);
+    uint8_t cnt = 200;
+    bool     ready      = false;
+
+    do {
+        ready = spi_write(0x10) != 0xFE;
+        if (ready) {
+            break;
+        }
+        spi_stop();
+        wait_us(25);
+        spi_start(AdafruitBleCSPin, false, 0, 2);
+    } while (cnt--);
+
+    if (ready) {
+        spi_write(0x00);
+        spi_write(0x0A);
+        spi_write(len);
+        spi_transmit(cmd, len);
+    }
+
+    spi_stop();
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+    switch (keycode) {
+        case LED_EN:
+            if (record->event.pressed) {
+                DDRB = DDRB ^ 0x20;
+                PORTB &= ~(1 << 5);
+            }
+            return false;
+        case BLE_DIS:
+            if (record->event.pressed) {
+                sdep_send(cm1,sizeof(cm1));
+                sdep_send(cm2,sizeof(cm2));
+                sdep_send(cm3,sizeof(cm3));
+            }
+            return false;
+    }
+    return true;
+}
+
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
   //Key Matrix to LED Index

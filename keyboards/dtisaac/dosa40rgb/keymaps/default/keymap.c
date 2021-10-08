@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "spi_master.h"
-#include "wait.h"
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -26,13 +24,8 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    BLE_DIS = SAFE_RANGE, // Disconnect BLE
-    LED_EN, // Toggle LED
+    CUSTOM1 = KEYMAP_SAFE_RANGE, // Placeholder
 };
-
-const uint8_t cm1[] = "AT+GAPSTOPADV";
-const uint8_t cm2[] = "AT+GAPDISCONNECT";
-const uint8_t cm3[] = "ATZ";
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
@@ -72,46 +65,10 @@ void rgb_matrix_indicators_user(void)
     }
 }
 
-void sdep_send(const uint8_t *cmd, uint8_t len) {
-
-    spi_start(AdafruitBleCSPin, false, 0, 2);
-    uint8_t cnt = 200;
-    bool     ready      = false;
-
-    do {
-        ready = spi_write(0x10) != 0xFE;
-        if (ready) {
-            break;
-        }
-        spi_stop();
-        wait_us(25);
-        spi_start(AdafruitBleCSPin, false, 0, 2);
-    } while (cnt--);
-
-    if (ready) {
-        spi_write(0x00);
-        spi_write(0x0A);
-        spi_write(len);
-        spi_transmit(cmd, len);
-    }
-
-    spi_stop();
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
     switch (keycode) {
-        case LED_EN:
+        case CUSTOM1:
             if (record->event.pressed) {
-                DDRB = DDRB ^ 0x20;
-                PORTB &= ~(1 << 5);
-            }
-            return false;
-        case BLE_DIS:
-            if (record->event.pressed) {
-                sdep_send(cm1,sizeof(cm1));
-                sdep_send(cm2,sizeof(cm2));
-                sdep_send(cm3,sizeof(cm3));
             }
             return false;
     }

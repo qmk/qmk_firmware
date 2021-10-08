@@ -17,6 +17,15 @@
 #pragma once
 
 #include "quantum.h"
+#include "spi_master.h"
+#include "wait.h"
+
+// Defines the keycodes used by our macros in process_record_user
+enum keyboard_keycodes {
+    BLE_DIS = SAFE_RANGE, // Disconnect BLE
+    LED_EN, // Toggle LED
+    KEYMAP_SAFE_RANGE
+};
 
 /* This is a shortcut to help you visually see your layout.
  *
