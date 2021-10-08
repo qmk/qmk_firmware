@@ -37,10 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { B0 }
-
-#define EMCODER_DIRECTION_FLIP
+#define ENCODERS_PAD_A { B0 }
+#define ENCODERS_PAD_B { B1 }
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
