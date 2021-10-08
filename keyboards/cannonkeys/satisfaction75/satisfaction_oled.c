@@ -4,6 +4,7 @@ void draw_default(void);
 void draw_clock(void);
 
 #ifdef OLED_ENABLE
+
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_0; }
 
 __attribute__((weak)) void oled_task_user(void) {
@@ -25,7 +26,6 @@ __attribute__((weak)) void oled_task_user(void) {
             break;
     }
 }
-#endif
 
 static char* get_enc_mode(void) {
     switch (encoder_mode) {
@@ -196,3 +196,5 @@ void draw_default() {
     draw_line_v(35, 0, 8);
     draw_line_v(71, 0, 8);
 }
+
+#endif
