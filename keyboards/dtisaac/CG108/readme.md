@@ -9,11 +9,11 @@ A base full-size keyboard CG108 of DTIsaac
 
 Make example for this keyboard (after setting up your build environment):
 
-    make CG108:default
+    make cg108:default
 
 Flashing example for this keyboard:
 
-    make CG108:default:flash
+    make cg108:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
