@@ -1,12 +1,12 @@
 # Mode SixtyFive M65S
 
-![MODE65](https://raw.githubusercontent.com/Gondolindrim/file_hosting/main/mode_sixtyfive/Group_95_1024x1024.jpg)\
+![MODE65](https://raw.githubusercontent.com/Gondolindrim/file_hosting/main/mode_sixtyfive/Group_95_1024x1024.jpg)
 
-The M65S is the sodlerable PCB for the Mode SixtyFive keyboard, s sixty-five-percent high-end keyboard sold by [Mode Designs](https://shop.modedesigns.com/).
+The M65S is the solderable PCB for the Mode SixtyFive keyboard, a sixty-five-percent high-end keyboard sold by [Mode Designs](https://shop.modedesigns.com/).
 
-* Keyboard Maintainer: [Gondolindrim](https://github.com/gondolindrim)
+* Keyboard Maintainer: [Gondolindrim](https://github.com/Gondolindrim)
 * Hardware Supported: proprietary PCB using STM32F401RBT6 controller
-* Hardware Availability: you can get a Mode SixtyFive as of today (august. 2021) through the in stock sales or special groupbuy editions at https://shop.modedesigns.com/
+* Hardware Availability: you can get a Mode SixtyFive as of today (August 2021) through the in-stock sales or special group buy editions at [Mode Designs](https://shop.modedesigns.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
