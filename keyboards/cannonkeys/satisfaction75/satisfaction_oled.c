@@ -15,7 +15,6 @@ __attribute__((weak)) void oled_task_user(void) {
         draw_clock();
         return;
     }
-    // draw_clock();
     switch (oled_mode) {
         default:
         case OLED_DEFAULT:
@@ -90,13 +89,13 @@ static char* get_date(void) {
     return date_str;
 }
 
-void draw_line_h(uint8_t x, uint8_t y, uint8_t len) {
+static void draw_line_h(uint8_t x, uint8_t y, uint8_t len) {
     for (uint8_t i = 0; i < len; i++) {
         oled_write_pixel(i + x, y, true);
     }
 }
 
-void draw_line_v(uint8_t x, uint8_t y, uint8_t len) {
+static void draw_line_v(uint8_t x, uint8_t y, uint8_t len) {
     for (uint8_t i = 0; i < len; i++) {
         oled_write_pixel(x, i + y, true);
     }
