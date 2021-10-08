@@ -1,4 +1,5 @@
-/* Copyright 2021 @ Mike Killewald
+/* Copyright 2021 @ Grayson Carr
+ * This file has been modified by Mike Killewald
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +17,17 @@
 
 #pragma once
 
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
-#    define CAPS_LOCK_INDICATOR_COLOR RGB_RED
-#    define FN_LAYER_COLOR RGB_ORANGE
-#endif
+/* globals from keymap.c */
+bool caps_lock_light_tab;
+bool caps_lock_light_alphas;
+bool fn_layer_transparent_keys_off;
+bool fn_layer_color_enable;
+
+void rgb_matrix_init_user(void);
+
+void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t layer, bool (*is_keycode)(uint16_t), uint8_t red, uint8_t green, uint8_t blue);
+
+bool is_caps_lock_indicator(uint16_t keycode);
+bool is_transparent(uint16_t keycode);
+bool is_not_transparent(uint16_t keycode);
+

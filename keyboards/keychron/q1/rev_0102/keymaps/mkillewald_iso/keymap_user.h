@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Mike Killewald
+/* Copyright 2021 @ Grayson Carr
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,13 @@
 
 #pragma once
 
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
-#    define CAPS_LOCK_INDICATOR_COLOR RGB_RED
-#    define FN_LAYER_COLOR RGB_ORANGE
-#endif
+// clang-format off
+
+enum layers {
+    MAC_BASE,
+    MAC_FN,
+    WIN_BASE,
+    WIN_FN
+};
+
+// clang-format on

@@ -16,12 +16,8 @@
 
 #pragma once
 
-
-#if defined(RGB_MATRIX_ENABLE)
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-
-#define _INDICATOR_COLOR RGB_RED
-
-#define LED_TAB 	30
-#define LED_CAPS 	45
+#ifdef RGB_MATRIX_ENABLE
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define CAPS_LOCK_INDICATOR_COLOR RGB_RED
+#    define FN_LAYER_COLOR RGB_ORANGE
 #endif
