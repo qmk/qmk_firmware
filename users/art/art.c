@@ -48,11 +48,11 @@ void switch_lang(void) {
   }
 }
 
-void translate_string(char *in) {
+void send_string_with_translation(char *string) {
   if (layer_state_is(WORKMAN)) {
     int isUpperCase = 0;
-    for (int i = 0; i < strlen(in); i++) {
-      char toPrint = in[i];
+    for (int i = 0; i < strlen(string); i++) {
+      char toPrint = string[i];
       if (isupper(toPrint)) {
         if (toPrint == 'P') {
           SEND_STRING(":");
@@ -134,12 +134,12 @@ void translate_string(char *in) {
       send_char(toPrint);
     }
   } else {
-    send_string(in);
+    send_string(string);
   }
 }
 
 void send_string_remembering_length(char *string) {
-  send_string(string);
+  send_string_with_translation(string);
   char_to_bspace = strlen(string);
 }
 
@@ -650,8 +650,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case G_BRCH:
       if (record->event.pressed) {
-        // send_shifted_strings_add("git branch ", "-d ");
-        translate_string("qwertyuiop[]asdfghjkl;'zxcvbnm,./`1234567890-=QWERTYUIOP{}!@#$^&*()_+ASDFGHJKL:ZXCVBNM<>?"); //, "-d "
+        send_shifted_strings_add("git branch ", "-d ");
       }
       break;
     case G_C:
@@ -666,10 +665,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         clear_mods();
               
         press_n_times(26, KC_BSPACE);
-        SEND_STRING("heckout ");
+        send_string_with_translation("heckout ");
         char_to_bspace = 13;
         if (shifted) {
-          SEND_STRING("-b ");
+          send_string_with_translation("-b ");
           char_to_bspace = 16;
         }
         layer_off(GIT_C);
@@ -678,7 +677,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case G_CHER:
       if (!record->event.pressed) {
         press_n_times(26, KC_BSPACE);
-        SEND_STRING("herry-pick ");
+        send_string_with_translation("herry-pick ");
         char_to_bspace = 16;
         layer_off(GIT_C);
       }
@@ -690,7 +689,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         clear_mods();
 
         press_n_times(26, KC_BSPACE);
-        SEND_STRING("ommit ");
+        send_string_with_translation("ommit ");
         char_to_bspace = 11;
         layer_off(GIT_C);
 
@@ -701,10 +700,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("-");
         char_to_bspace = 15;
         if (shifted) {
-          SEND_STRING("a");
+          send_string_with_translation("a");
           char_to_bspace = 16;
         }
-        SEND_STRING("m \"\"" SS_TAP(X_LEFT));
+        send_string_with_translation("m");
+        SEND_STRING(" \"\"" SS_TAP(X_LEFT));
         char_to_del = 1;
       }
       break;
@@ -752,7 +752,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case G_RBASE:
       if (!record->event.pressed) {
         press_n_times(18, KC_BSPACE);
-        SEND_STRING("base -i ");
+        send_string_with_translation("base -i ");
         char_to_bspace = 14;
         layer_off(GIT_R);
       }
@@ -760,7 +760,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case G_RVERT:
       if (!record->event.pressed) {
         press_n_times(18, KC_BSPACE);
-        SEND_STRING("vert ");
+        send_string_with_translation("vert ");
         char_to_bspace = 11;
         layer_off(GIT_R);
       }
@@ -771,11 +771,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         clear_mods();
 
         press_n_times(18, KC_BSPACE);
-        SEND_STRING("set ");
+        send_string_with_translation("set ");
         char_to_bspace = 10;
 
         if (shifted) {
-          SEND_STRING("--hard ");
+          send_string_with_translation("--hard ");
           char_to_bspace = 17;
         }
         layer_off(GIT_R);
@@ -790,7 +790,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case G_SHOW:
       if (!record->event.pressed) {
         press_n_times(16, KC_BSPACE);
-        SEND_STRING("how ");
+        send_string_with_translation("how ");
         char_to_bspace = 9;
         layer_off(GIT_S);
       }
@@ -801,12 +801,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         clear_mods();
 
         press_n_times(16, KC_BSPACE);
-        SEND_STRING("tash ");
+        send_string_with_translation("tash ");
         char_to_bspace = 10;
 
         if (shifted) {
           clear_mods();
-          SEND_STRING("apply ");
+          send_string_with_translation("apply ");
 
           char_to_bspace = 16;
         }
@@ -817,7 +817,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case G_STAT:
       if (!record->event.pressed) {
         press_n_times(16, KC_BSPACE);
-        SEND_STRING("tatus ");
+        send_string_with_translation("tatus ");
         char_to_bspace = 11;
         layer_off(GIT_S);
       }
