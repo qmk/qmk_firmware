@@ -65,11 +65,10 @@ KEYMAP LEVEL ADDITIONAL PROCESSING FUNCTIONS
     void keyboard_post_init_keymap(void)
 
 LIST OF COMPATIBLE KEYMAPS
-    - gmmk/pro
     - gmmk/pro/ansi
     - keebio/quefrency/rev3
     - mechwild/mercutio
-    - mechwild/murphpad (*)
+    - mechwild/murphpad
     - mechwild/OBE (*)
     - nopunin10did/kastenwagen (*)
 
