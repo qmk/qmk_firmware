@@ -26,7 +26,7 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    BLE_DIS = 2, // Disconnect BLE
+    BLE_DIS = SAFE_RANGE, // Disconnect BLE
     LED_EN, // Toggle LED
 };
 
