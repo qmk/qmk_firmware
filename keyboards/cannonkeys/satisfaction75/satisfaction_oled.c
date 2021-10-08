@@ -27,6 +27,19 @@ __attribute__((weak)) void oled_task_user(void) {
     }
 }
 
+
+static void draw_line_h(uint8_t x, uint8_t y, uint8_t len) {
+    for (uint8_t i = 0; i < len; i++) {
+        oled_write_pixel(i + x, y, true);
+    }
+}
+
+static void draw_line_v(uint8_t x, uint8_t y, uint8_t len) {
+    for (uint8_t i = 0; i < len; i++) {
+        oled_write_pixel(x, i + y, true);
+    }
+}
+
 static char* get_enc_mode(void) {
     switch (encoder_mode) {
         default:
@@ -87,18 +100,6 @@ static char* get_date(void) {
     sprintf(date_str, "%04d-%02d-%02d", year, month, day);
 
     return date_str;
-}
-
-static void draw_line_h(uint8_t x, uint8_t y, uint8_t len) {
-    for (uint8_t i = 0; i < len; i++) {
-        oled_write_pixel(i + x, y, true);
-    }
-}
-
-static void draw_line_v(uint8_t x, uint8_t y, uint8_t len) {
-    for (uint8_t i = 0; i < len; i++) {
-        oled_write_pixel(x, i + y, true);
-    }
 }
 
 void draw_default() {
