@@ -70,13 +70,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case UNIT2:
             if (record->event.pressed) { send_unicode_string("≧ω≦"); } break;
         case TABLE1:
-            if (record->event.pressed) { send_unicode_hex_string("┬──┬ ノ( ゜-゜ノ)"); } break;
+            if (record->event.pressed) { send_unicode_string("┬──┬ ノ( ゜-゜ノ)"); } break;
         case TABLE2:
-            if (record->event.pressed) { send_unicode_hex_string("(╯°□°)╯︵┻━┻"); } break;
+            if (record->event.pressed) { send_unicode_string("(╯°□°)╯︵┻━┻"); } break;
             case DANCE:
-            if (record->event.pressed) { send_unicode_hex_string("༼ つ ◕_◕ ༽つ"); } break;
+            if (record->event.pressed) { send_unicode_string("༼ つ ◕_◕ ༽つ"); } break;
         case SHRUG:
-            if (record->event.pressed) { send_unicode_hex_string("¯\\_(ツ)_/¯"); } break;
+            if (record->event.pressed) { send_unicode_string("¯\\_(ツ)_/¯"); } break;
 #endif
 #ifdef RANDICT
         case RWORD:

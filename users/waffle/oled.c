@@ -24,7 +24,7 @@ uint8_t current_tap_frame = 0;
 uint8_t current_frame = 0;
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
-int current_wpm = 0;
+uint8_t current_wpm = 0;
 led_t led_usb_state;
 bool isSneaking = false;
 bool isJumping = false;
