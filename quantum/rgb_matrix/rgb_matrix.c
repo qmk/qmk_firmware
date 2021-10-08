@@ -141,6 +141,8 @@ const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
 
 EECONFIG_DEBOUNCE_HELPER(rgb_matrix, EECONFIG_RGB_MATRIX, rgb_matrix_config);
 
+void eeconfig_update_rgb_matrix(void) { eeconfig_flush_rgb_matrix(true); }
+
 void eeconfig_update_rgb_matrix_default(void) {
     dprintf("eeconfig_update_rgb_matrix_default\n");
     rgb_matrix_config.enable = 1;

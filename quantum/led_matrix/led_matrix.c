@@ -120,6 +120,8 @@ const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
 
 EECONFIG_DEBOUNCE_HELPER(led_matrix, EECONFIG_LED_MATRIX, led_matrix_eeconfig);
 
+void eeconfig_update_led_matrix(void) { eeconfig_flush_led_matrix(true); }
+
 void eeconfig_update_led_matrix_default(void) {
     dprintf("eeconfig_update_led_matrix_default\n");
     led_matrix_eeconfig.enable = 1;
