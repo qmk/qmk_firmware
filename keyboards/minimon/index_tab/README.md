@@ -20,6 +20,10 @@ To create a hex file for the Index Tab, run:
 Flash the keyboard with QMK Toolbox or run:
 
     make minimon/index_tab:default:flash
+    
+How to enter bootloader (DFU):
+
+Press the reset button on the underside of the board, near the USB port.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 Brand new to QMK? Start with the [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
