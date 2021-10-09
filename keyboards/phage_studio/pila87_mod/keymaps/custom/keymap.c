@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN]   = LAYOUT_tkl_ansi(
                 RESET,            KC_MSEL, KC_VOLD, KC_VOLU, KC_MUTE, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_MAIL, KC_WHOM, KC_CALC, KC_WSCH, RGB_RMOD, RGB_MOD, RGB_TOG,
                 NK_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SPD, RGB_SPI, _______, RGB_C_G,  RGB_D,   RGB_R_R,
-                EEP_RST, G1_HUD,  G1_HUI,  G1_SAD,  G1_SAI,  G1_VAD,  G1_VAI,  _______, _______, _______, _______, _______, _______, _______, RGB_K,    RGB_R_B, _______,
+                _______, G1_HUD,  G1_HUI,  G1_SAD,  G1_SAI,  G1_VAD,  G1_VAI,  _______, _______, _______, _______, _______, _______, _______, RGB_K,    RGB_R_B, _______,
                 _______, G2_HUD,  G2_HUI,  G2_SAD,  G2_SAI,  G2_VAD,  G2_VAI,  _______, _______, _______, _______, _______,          _______,
                 _______, G_PRE,   REF_G,   G_FLIP,  _______, _______, _______, _______, _______, _______, _______,                   _______,           RGB_VAI,
                 _______, _______, _______,                   _______,                                     _______, _______, _______, _______, RGB_HUD,  RGB_VAD, RGB_HUI
@@ -149,8 +149,8 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
 
     [_FN]   = { Orange,         Orange, Orange, ______, ______, White,  ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, \
                 Yellow, Yellow, Yellow, ______, ______, ______, ______, ______, ______, ______, ______, Orange, ______, ______, ______, ______, ______, \
-                ______, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, ______, White,  Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, ______, ______, \
-                ______, ______, ______, ______, ______, Sakura, Sakura, Sakura, Sakura, Sakura, Sakura, ______,         Orange,                         \
+                ______, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, ______, ______, Yellow, Yellow, Yellow, Yellow, Yellow, Yellow, ______, ______, \
+                ______, ______, ______, ______, ______, Sakura, Sakura, ______, Sakura, Sakura, Sakura, ______,         Orange,                         \
                 Orange, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,                 White,          White,          \
                 Green,  Green,  Green,  Green,  Green,  Green,  Green,  Green,                  Green,  Green,  Green,  Green,  Orange, Orange, Orange },
 };
@@ -314,5 +314,13 @@ void rgb_matrix_indicators_user(void) {
         case _FN:
             set_layer_color(_FN);
             break;
+    }
+
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(40, 217, 71, 115); // assuming caps lock is at led #40
+    }
+
+    if (host_keyboard_led_state().scroll_lock) {
+        rgb_matrix_set_color(89, 217, 71, 115); // assuming scroll lock is at led #89
     }
 }
