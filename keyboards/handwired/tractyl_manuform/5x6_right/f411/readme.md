@@ -4,10 +4,10 @@
 * Split Hand Pin, using PC14
 * Full Duplex Serial/USART using PA3 and PA4 on USART2
 * PWM Audio using PB1 and TIM3 and GPT on TIM4
-* PWM RGB using PA1 TIM5
+* PWM RGB using PA1 TIM2
 * pmw3360 sensor sharing PA5-PA7 on SPI1, with B0 as CS pin
 * 8KB SPI EEPROM chip sharing PA5-PA7 on SPI1 with PA4 as CS pin
-* Encoder using PA10 and PA12
+* Encoder using PA13 and PA14
 * SSD1306 OLED display (128x64) using PB8-PB9 on I2C1
 * Pull-up resistor (22k) on A10 to fix reset issue.
 
