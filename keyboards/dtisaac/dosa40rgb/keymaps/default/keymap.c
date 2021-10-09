@@ -69,6 +69,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case CUSTOM1:
             if (record->event.pressed) {
+                SEND_STRING("This macro types a string of text.");
             }
             return false;
     }
