@@ -1,6 +1,6 @@
 #include "index_tab.h"
 
-void matrix_init_kb(void) {
+void keyboard_pre__init_kb(void) {
   // Keyboard start-up code goes here
   // Runs once when the firmware starts up
   matrix_init_user();

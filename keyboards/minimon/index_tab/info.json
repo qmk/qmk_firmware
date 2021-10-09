@@ -3,7 +3,7 @@
   "vendorId": "0x4B49",
   "productId": "0x1306",
   "lighting": "qmk_rgblight",
-  "url": "",
+  "url": "https://github.com/Kyrremann/index-tab",
   "matrix": {
     "rows": 6,
     "cols": 13
