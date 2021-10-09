@@ -1,4 +1,4 @@
-## mkillewald's Keychron Q1 keymap (ANSI rev_0100) v1.0.3
+## mkillewald's Keychron Q1 keymap (ANSI rev_0100) v1.0.4
 
 This keymap builds on the keymap by Grayson Carr (gtg465x) but adds a couple more config options.
 
@@ -34,6 +34,9 @@ Note: RGB must be toggled on for all indicators to function. If you do not want 
 #### USE AT YOUR OWN RISK
 
 ## Changelog:
+
+v1.0.4  October 9, 2021
+- Caps Lock and Fn layer toggles are now stored in eeprom so settings will remain when Q1 is unplugged
 
 v1.0.3  October 8, 2021
 - now using keycode toggles instead of system defines to set the various Caps Lock and Fn Layer RGB lighting options. This allows for setting the options from user space without having to recompile.
