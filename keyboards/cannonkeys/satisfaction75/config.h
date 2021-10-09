@@ -71,14 +71,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#ifdef QWIIC_MICRO_OLED_ENABLE
-
-#undef I2C_ADDRESS_SA0_1
-#define I2C_ADDRESS_SA0_1 0b0111100
-#define LCDWIDTH      128
-#define LCDHEIGHT     32
-
-#endif
+// configure oled driver for the 128x32 oled
+#define OLED_UPDATE_INTERVAL 66 // ~15fps
 
 // Custom config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
