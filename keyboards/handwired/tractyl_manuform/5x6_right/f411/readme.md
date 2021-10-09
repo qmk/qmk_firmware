@@ -9,6 +9,7 @@
 * 8KB SPI EEPROM chip sharing PA5-PA7 on SPI1 with PA4 as CS pin
 * Encoder using PA10 and PA12
 * SSD1306 OLED display (128x64) using PB8-PB9 on I2C1
+* Pull-up resistor (22k) on A10 to fix reset issue.
 
 * Keyboard Maintainer: [Drashna Jael're](https://github.com/drashna)
 * Hardware Supported: [Design files](https://gitlab.com/keyboards1/dm_r_track/-/tree/master/boolean), [WeAct BlackPill (F411)](https://github.com/WeActTC/MiniSTM32F4x1), [PMW3360 Optical Sensor](https://www.tindie.com/products/jkicklighter/pmw3360-motion-sensor/)
