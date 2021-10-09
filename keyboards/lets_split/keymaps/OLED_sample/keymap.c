@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "LUFA/Drivers/Peripheral/TWI.h"
+#include <LUFA/Drivers/Peripheral/TWI.h>
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif

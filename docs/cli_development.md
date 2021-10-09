@@ -188,7 +188,7 @@ cli.log.info('Reading from %s and writing to %s', cli.args.filename, cli.args.ou
 
 # Testing, and Linting, and Formatting (oh my!)
 
-We use nose2, flake8, and yapf to test, lint, and format code. You can use the `pytest` and `pyformat` subcommands to run these tests:
+We use nose2, flake8, and yapf to test, lint, and format code. You can use the `pytest` and `format-py` subcommands to run these tests:
 
 ### Testing and Linting
 
@@ -196,7 +196,7 @@ We use nose2, flake8, and yapf to test, lint, and format code. You can use the `
 
 ### Formatting
 
-    qmk pyformat
+    qmk format-py
 
 ## Formatting Details
 
@@ -210,7 +210,7 @@ Our tests can be found in `lib/python/qmk/tests/`. You will find both unit and i
 
 If your PR does not include a comprehensive set of tests please add comments like this to your code so that other people know where they can help:
 
-    # TODO(unassigned/<yourGithubUsername>): Write <unit|integration> tests
+    # TODO(unassigned/<your_github_username>): Write <unit|integration> tests
 
 We use [nose2](https://nose2.readthedocs.io/en/latest/getting_started.html) to run our tests. You can refer to the nose2 documentation for more details on what you can do in your test functions.
 

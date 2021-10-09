@@ -4,7 +4,7 @@
 多家公司生产的32位单片机系列，例如Atmel, Cypress, Kinetis, NXP, ST, 和 TI等公司。
 
 ## AVR
-[Atmel](http://www.microchip.com/)公司的单片机系列。 AVR是TMK的初始支持平台。
+[Atmel](https://www.microchip.com/)公司的单片机系列。 AVR是TMK的初始支持平台。
 
 ## AZERTY
 Français (法国)标准键盘布局。用键盘的前六个字母命名。
@@ -125,7 +125,7 @@ Français (法国)标准键盘布局。用键盘的前六个字母命名。
 该术语表示在一个键已按下时按下另一个键。形式包括2KRO(双键无冲),6KRO(6键无冲),和NKRO(全键无冲)，无冲表示可同时按下而不产生冲突的键的数量。
 
 ## Scancode(扫描码)
-HID报告中的一个1字节的数字，表示一个键子。这些数字在下列文档中[HID Usage Tables](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf)该文档发布于[USB-IF](http://www.usb.org/)。
+HID报告中的一个1字节的数字，表示一个键子。这些数字在下列文档中[HID Usage Tables](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf)该文档发布于[USB-IF](https://www.usb.org/)。
 
 ## Space Cadet键盘的shift键
 一种特使的shift设置，能让你通过敲击左或右shift一次或多次键入不同的括号。

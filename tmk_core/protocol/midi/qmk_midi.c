@@ -5,7 +5,7 @@
 #include "usb_descriptor.h"
 #include "process_midi.h"
 #if API_SYSEX_ENABLE
-#    include "api.h"
+#    include "api_sysex.h"
 #endif
 
 /*******************************************************************************

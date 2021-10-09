@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Red Scarf
 #define PRODUCT         Red Scarf I
-#define DESCRIPTION     QMK for Red Scarf I number pads
 
 /* Matrix */
 #define MATRIX_ROWS 6

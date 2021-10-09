@@ -32,7 +32,7 @@
 
         // Moved pages
         '/adding_a_keyboard_to_qmk': '/hardware_keyboard_guidelines',
-        '/build_environment_setup': '/getting_started_build_tools',
+        '/build_environment_setup': '/newbs_getting_started',
         '/cli_dev_configuration': '/cli_configuration',
         '/dynamic_macros': '/feature_dynamic_macros',
         '/feature_common_shortcuts': '/feature_advanced_keycodes',
@@ -45,6 +45,8 @@
         '/tap_dance': '/feature_tap_dance',
         '/unicode': '/feature_unicode',
         '/python_development': '/cli_development',
+        '/getting_started_build_tools':'/newbs_getting_started',
+        '/tutorial':'/newbs',
       },
       basePath: '/',
       name: 'QMK Firmware',
@@ -124,6 +126,10 @@
         headings: 'h1, h2',
         title: 'Table of Contents',
       },
+      tabs: {
+        persist    : false,
+        tabComments: false,
+      },
       plugins: [
         function (hook, vm) {
           hook.beforeEach(function (html) {
@@ -146,6 +152,7 @@
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
+  <script src="//unpkg.com/docsify-tabs@1"></script>
   <script src="//unpkg.com/docsify-copy-code@2"></script>
   <script src="//unpkg.com/docsify-toc@1.0.0/dist/toc.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>

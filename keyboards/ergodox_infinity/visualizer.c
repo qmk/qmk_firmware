@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "visualizer_keyframes.h"
 #include "lcd_keyframes.h"
 #include "lcd_backlight_keyframes.h"
-#include "system/serial_link.h"
 #include "default_animations.h"
 
 static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0xFF);
@@ -177,7 +176,7 @@ static void update_emulated_leds(visualizer_state_t* state, visualizer_keyboard_
     uint8_t new_index;
     uint8_t old_index;
 
-    if (is_serial_link_master()) {
+    if (is_keyboard_master()) {
         new_index = get_led_index_master(user_data_new);
         old_index = get_led_index_master(user_data_old);
     }
