@@ -1,4 +1,4 @@
-# Default layout with VIA and custom LED effect
+# My personal keymap with VIA and custom LED effect
 
 Keymap is default 87 qwerty TKL layout
 
