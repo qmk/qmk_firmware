@@ -50,10 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define DRIVER_ADDR_1 0b0110010
-#define DRIVER_ADDR_2 0b0110010
 #define DRIVER_COUNT 1
-#define DRIVER_1_LED_TOTAL 66
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define DRIVER_LED_TOTAL 66
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
