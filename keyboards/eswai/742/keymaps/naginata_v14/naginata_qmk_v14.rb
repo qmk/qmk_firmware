@@ -1,39 +1,39 @@
 # 小書はシフト冗長を手で修正しないといけません
 
 tanda = <<ETANDA
-|き|て|し|{←}|{→}|{BS}|る|す|へ|「|」|
-ろ|け|と|か|っ  |く  |あ  |い|う|ー|’|‘|
-ほ|ひ|は|こ|そ  |た  |な  |ん|ら|れ|？|
+  |き|て|し|{←}|{→}|{BS}|る|す|へ|@|[  |
+ろ|け|と|か|っ  |く  |あ  |い|う|ー|:|]  |
+ほ|ひ|は|こ|そ  |た  |な  |ん|ら|れ|\|
 ETANDA
 
 shifted = <<ESHIFTED
-|ぬ|り|む|+{←}|+{→}|さ       |よ|え|ゆ|『|』|
-せ|め|に|ま|ち   |や   |の       |も|わ|つ|" |~ |
-ほ|ひ|を|、|み   |お   |。{Enter}|ね|ふ|れ|！|
+|ぬ|り |む|+{←}|+{→}|さ       |よ|え|ゆ|`|{{}|
+せ|め|に |ま|ち   |や   |の       |も|わ|つ|*|{}}|
+ほ|ひ|を |、|み   |お   |。{Enter}|ね|ふ|れ|_|
 ESHIFTED
 
 mode1l = <<MEND
-^{End}    |｜{改行}|/*ディ*/|^s      |・     ||||||||
-……{改行}|《{改行}|？{改行}|「{改行}|({改行}||||||||
-││{改行}|》{改行}|！{改行}|」{改行}|){改行}|||||||
+^{End}    |『』{改行}{↑}|/*ディ*/|^s            |・                             ||||||||
+……{改行}|(){改行}{↑}  |？{改行}|「」{改行}{↑}|{改行}{End}{改行}「」{改行}{↑}||||||||
+││{改行}|【】{改行}{↑}|！{改行}|{改行}{↓}    |《》{改行}{↑}                 |||||||
 MEND
 
 mode1r = <<MEND
 |||||{Home}      |+{End}{BS}|{vk1Csc079}|{Del} |{Esc 3}|  |  |
-|||||{Enter}{End}|{↑}      |+{↑}      |{↑ 5}|^i     |  |  |
-|||||{End}       |{↓}      |+{↓}      |{↓ 5}|^u     |  |
+|||||{Enter}{End}|{↑}      |+{↑}      |{↑ 5}|+{↑ 5}|  |  |
+|||||{End}       |{↓}      |+{↓}      |{↓ 5}|+{↓ 5}|  |
 MEND
 
 mode2l = <<MEND
-／{改行}|｜{改行}{End}《》{改行}{↑}|{Home}{改行}{Space 3}{End}|{Home}{改行}{Space 1}{End}|〇{改行} ||||||||
-【{改行}|〈{改行}                   |『{改行}                   |」{改行 2}「{改行}       |{Space 3}||||||||
-】{改行}|〉{改行}                   |』{改行}                   |」{改行 2}{Space}        |　　　×　　　×　　　×{改行 2}|||||||
+　　　×　　　×　　　×{改行 2}|^x『^v』{改行}{Space}+{↑}^x|{Home}{改行}{Space 3}{End}|{Home}{改行}{Space 1}{End}  |〇{改行}                   ||||||||
++{PgUp}                         |^x(^v){改行}{Space}+{↑}^x  |{Space 3}                 |^x「^v」{改行}{Space}+{↑}^x|／{改行}                   ||||||||
++{PgDn}                         |^x{BS}{Del}^v               |{Home}{BS}{Del 3}{End}    |{Home}{BS}{Del 1}{End}      |｜{改行}{End}《》{改行}{↑}|||||||
 MEND
 
 mode2r = <<MEND
-|||||+{Home}|^x    |^v     |^y     |^z       |  |  |
-|||||^c     |{→ 5}|+{→ 5}|^{PgUp}|^{PgUp 5}|  |  |
-|||||+{End} |{← 5}|+{← 5}|^{PgDn}|^{PgDn 5}|  |
+|||||+{Home}|^x   |^v   |^u     |^i     |  |  |
+|||||^c     | {→}|+{→}| {→ 5}|+{→ 5}|  |  |
+|||||+{End} | {←}|+{←}| {← 5}|+{← 5}|  |
 MEND
 
 eiji    = %w(Q W E R T  Y U I O P  A S D F G  H J K L SCLN  Z X C V B  N M COMM DOT SLSH)
@@ -270,7 +270,7 @@ end
 # 編集モード
 
 $henshu = {
-"/*ディ*/"          => ["kana", "\"dexi\""],
+"/*ディ*/"          => ["kana", "\"dhi\""],
 "？{改行}"      => ["kana"  , "\"?\"SS_TAP(X_ENTER)"],
 "！{改行}"      => ["kana"  , "\"!\"SS_TAP(X_ENTER)"],
 "{Home}"        => ["kana", "SS_TAP(X_HOME)", "SS_LCTL(\"a\")"],
@@ -299,6 +299,29 @@ $henshu = {
 "{Enter}{End}"  => ["kana", "SS_TAP(X_ENTER)SS_TAP(X_END)"],
 "{Home}{改行}{Space 3}{End}"=> ["kana", "SS_TAP(X_HOME)SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_END)", "SS_LCTL(\"a\")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_LCTL(\"e\")"], # 台マクロ
 "{Home}{改行}{Space 1}{End}"=> ["kana", "SS_TAP(X_HOME)SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_END)", "SS_LCTL(\"a\")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_LCTL(\"e\")"], # ト マクロ
+
+"+{↑ 5}" => ["kana", "SS_LSFT(SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP))"],
+"+{↓ 5}" => ["kana", "SS_LSFT(SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN))"],
+"+{PgUp}" => ["kana", "SS_LSFT(SS_TAP(X_PGUP))"],
+"+{PgDn}" => ["kana", "SS_LSFT(SS_TAP(X_PGDOWN))"],
+"^x{BS}{Del}^v" => ["kana", "SS_LCTL(\"x\")SS_TAP(X_BSPACE)SS_TAP(X_DELETE)SS_LCTL(\"v\")", "SS_LCMD(\"x\")SS_TAP(X_BSPACE)SS_TAP(X_DELETE)SS_LCMD(\"v\")"],
+"{Home}{BS}{Del 3}{End}" => ["kana", "SS_TAP(X_HOME)SS_TAP(X_BSPACE)SS_TAP(X_DELETE)SS_TAP(X_DELETE)SS_TAP(X_DELETE)SS_TAP(X_END)"],
+"{Home}{BS}{Del 1}{End}" => ["kana", "SS_TAP(X_HOME)SS_TAP(X_BSPACE)SS_TAP(X_DELETE)SS_TAP(X_END)"],
+"{→}" => ["kana", "SS_TAP(NGRT)"],
+"+{→}" => ["kana", "SS_LSFT(SS_TAP(NGRT))"],
+"{←}" => ["kana", "SS_TAP(NGLT)"],
+"+{←}" => ["kana", "SS_LSFT(SS_TAP(NGLT))"],
+"{改行}{↓}" => ["kana", "SS_TAP(X_ENTER)SS_TAP(NGDN)"],
+
+"^x(^v){改行}{Space}+{↑}^x" => ["kana", ""],
+"^x「^v」{改行}{Space}+{↑}^x" => ["kana", ""],
+"『』{改行}{↑}" => ["kana", ""],
+"(){改行}{↑}" => ["kana", ""],
+"「」{改行}{↑}" => ["kana", ""],
+"{改行}{End}{改行}「」{改行}{↑}" => ["kana", ""],
+"【】{改行}{↑}" => ["kana", ""],
+"《》{改行}{↑}" => ["kana", ""],
+"^x『^v』{改行}{Space}+{↑}^x" => ["kana", ""],
 
 "｜{改行}"      => ["uc"  , "｜", "nagitatesenn"],
 "・"            => ["uc"  , "・", "nagichuutenn"],
@@ -371,28 +394,40 @@ def outputHenshu(pk, m, k)
 end
 
 qwerty.each_with_index do |k, i|
-  next unless $henshu.key? mode1l[i]
+  unless $henshu.key? mode1l[i]
+    # puts "missing #{mode1l[i]}"
+    next
+  end
   m =  mode1l[i]
   pk = "B_J|B_K"
   outputHenshu(pk, m, k)
 end
 
 qwerty.each_with_index do |k, i|
-  next unless $henshu.key? mode1r[i]
+  unless $henshu.key? mode1r[i]
+    # puts "missing #{mode1r[i]}"
+    next
+  end
   m =  mode1r[i]
   pk = "B_D|B_F"
   outputHenshu(pk, m, k)
 end
 
 qwerty.each_with_index do |k, i|
-  next unless $henshu.key? mode2l[i]
+  unless $henshu.key? mode2l[i]
+    # puts "missing #{mode2l[i]}"
+    next
+  end
   m =  mode2l[i]
   pk = "B_M|B_COMM"
   outputHenshu(pk, m, k)
 end
 
 qwerty.each_with_index do |k, i|
-  next unless $henshu.key? mode2r[i]
+  unless $henshu.key? mode2r[i]
+    # puts "missing #{mode2r[i]}"
+    next
+  end
   m =  mode2r[i]
   pk = "B_C|B_V"
   outputHenshu(pk, m, k)
