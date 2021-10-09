@@ -38,7 +38,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 __attribute__ ((weak))
 void oled_task_user(void) {
-    oled_write_P(PSTR("BOSTON MK LAYER "), false);
+    oled_write_P(PSTR("BOSTON MK LAYER"), false);
+    oled_advance_char();
     oled_write_char(get_highest_layer(layer_state) + 0x30, true);
 
     led_t led_state = host_keyboard_led_state();
@@ -68,6 +69,10 @@ void oled_task_user(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         for (uint8_t y = 0; y < MATRIX_COLS; y++) {
             bool on = (matrix_get_row(x) & (1 << y)) > 0;
+
+            // force on for oled location
+            if((x == 0) && (y >= (MATRIX_COLS - 2))) on = 1;
+
             oled_write_pixel(MATRIX_DISPLAY_X + y + y + 2, MATRIX_DISPLAY_Y + x + x + 2, on);
             oled_write_pixel(MATRIX_DISPLAY_X + y + y + 3, MATRIX_DISPLAY_Y + x + x + 2, on);
             oled_write_pixel(MATRIX_DISPLAY_X + y + y + 2, MATRIX_DISPLAY_Y + x + x + 3, on);
@@ -83,12 +88,6 @@ void oled_task_user(void) {
     for (uint8_t y = 0; y < 12; y++) {
         oled_write_pixel(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y+y, true);
         oled_write_pixel(MATRIX_DISPLAY_X + 12, MATRIX_DISPLAY_Y+y, true);
-    }
-
-    // oled location
-    for (uint8_t x = 0; x < 6; x++) {
-        oled_write_pixel(MATRIX_DISPLAY_X + 5 + x, MATRIX_DISPLAY_Y + 2, true);
-        oled_write_pixel(MATRIX_DISPLAY_X + 5 + x, MATRIX_DISPLAY_Y + 3, true);
     }
 
     // bodge for layer number left hand side
