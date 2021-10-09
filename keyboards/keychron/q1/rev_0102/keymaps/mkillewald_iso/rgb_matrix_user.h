@@ -1,5 +1,4 @@
-/* Copyright 2021 @ Grayson Carr
- * This file has been modified by Mike Killewald
+/* Copyright 2021 @ Mike Killewald
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
