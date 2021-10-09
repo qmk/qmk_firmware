@@ -246,6 +246,9 @@ bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
 #endif
+#if defined(VIAL_ENABLE)
+            process_record_vial(keycode, record) &&
+#endif
             process_record_kb(keycode, record) &&
 #if defined(SEQUENCER_ENABLE)
             process_sequencer(keycode, record) &&
