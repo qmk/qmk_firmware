@@ -46,11 +46,11 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         case MAC_FN:
         case WIN_FN:
 #ifdef FN_LAYER_COLOR
-            if (fn_layer_color_enable) {
+            if (get_fn_layer_color_enable()) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_not_transparent, FN_LAYER_COLOR);
             }
 #endif
-            if (fn_layer_transparent_keys_off) {
+            if (get_fn_layer_transparent_keys_off()) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_transparent, RGB_OFF);
             }
             break;
@@ -69,11 +69,11 @@ void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t l
 bool is_caps_lock_indicator(uint16_t keycode) {
     bool indicator = keycode == KC_CAPS;
     
-    if (caps_lock_light_tab) {
+    if (get_caps_lock_light_tab()) {
         indicator = keycode == KC_TAB || keycode == KC_CAPS;
     }
     
-    if (caps_lock_light_alphas) {
+    if (get_caps_lock_light_alphas()) {
         return (KC_A <= keycode && keycode <= KC_Z) || indicator;
     } else {
         return indicator;
@@ -81,4 +81,4 @@ bool is_caps_lock_indicator(uint16_t keycode) {
 }
 
 bool is_transparent(uint16_t keycode) { return keycode == KC_TRNS; }
-bool is_not_transparent(uint16_t keycode) { return !(keycode == KC_TRNS); }
+bool is_not_transparent(uint16_t keycode) { return keycode != KC_TRNS; }
