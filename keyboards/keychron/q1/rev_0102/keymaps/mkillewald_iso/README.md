@@ -28,6 +28,8 @@ This keymap builds on the keymap by Grayson Carr (gtg465x) but adds a couple mor
     - USER03 (default: Fn+X) Caps Lock light alphas toggle
     - USER04 (default: Fn+C) Fn layer non-defined keys RGB toggle
     - USER05 (default: Fn+V) Fn layer defined keys static color toggle
+     
+Note: RGB must be toggled on for all indicators to function. If you do not want an RGB mode active but still want the indicators, toggle RGB on and turn the brightness all the way off. The indicators will remain at full brightness. 
     
 #### USE AT YOUR OWN RISK
 
