@@ -75,8 +75,9 @@ void rgb_matrix_indicators_user(void)
 	}
 }
 
+#define ADAFRUIT_BLE_CS_PIN  B4
+
 void sdep_send(const uint8_t *cmd, uint8_t len) {
-	
     spi_start(ADAFRUIT_BLE_CS_PIN, false, 0, 2);
     uint8_t cnt = 200;
     bool     ready      = false;
@@ -102,7 +103,6 @@ void sdep_send(const uint8_t *cmd, uint8_t len) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	
     switch (keycode) {
         case LED_EN:
             if (record->event.pressed) {
