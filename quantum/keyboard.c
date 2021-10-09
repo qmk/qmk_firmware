@@ -73,9 +73,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
 #endif
-#ifdef QWIIC_ENABLE
-#    include "qwiic.h"
-#endif
 #ifdef OLED_ENABLE
 #    include "oled_driver.h"
 #endif
@@ -304,9 +301,6 @@ void keyboard_init(void) {
 #if defined(CRC_ENABLE)
     crc_init();
 #endif
-#ifdef QWIIC_ENABLE
-    qwiic_init();
-#endif
 #ifdef OLED_ENABLE
     oled_init(OLED_ROTATION_0);
 #endif
@@ -455,10 +449,6 @@ MATRIX_LOOP_END:
 #ifdef ENCODER_ENABLE
     encoders_changed = encoder_read();
     if (encoders_changed) last_encoder_activity_trigger();
-#endif
-
-#ifdef QWIIC_ENABLE
-    qwiic_task();
 #endif
 
 #ifdef OLED_ENABLE

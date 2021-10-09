@@ -613,8 +613,6 @@ ifeq ($(strip $(ST7565_ENABLE)), yes)
     SRC += st7565.c
 endif
 
-include $(DRIVER_PATH)/qwiic/qwiic.mk
-
 ifeq ($(strip $(UCIS_ENABLE)), yes)
     OPT_DEFS += -DUCIS_ENABLE
     UNICODE_COMMON := yes
