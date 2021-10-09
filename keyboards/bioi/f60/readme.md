@@ -4,7 +4,7 @@
 
 60% PCB used in the Percent Trio HHKB
 
-* Keyboard Maintainer: [kb-elmo<mail@elmo.space>](https://github.com/yourusername)
+* Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
 * Hardware Supported: BIOI F60v1.0 PCB
 * Hardware Availability: (Ended groupbuy) https://percent.studio/trio-60
 
