@@ -22,18 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x4454 // DT
 #define PRODUCT_ID   0x4973 // Is
-#define DEVICE_VER   0x0004
+#define DEVICE_VER   0x0002
 #define MANUFACTURER DTIsaac
-#define PRODUCT      >_Dosa40
+#define PRODUCT      CG108
 
 /* key matrix size */
-#define MATRIX_ROWS 4
+#define MATRIX_ROWS 11
 #define MATRIX_COLS 11
-
-/* AdafruitBle Pin */
-#define AdafruitBleResetPin D4
-#define AdafruitBleCSPin    B4
-#define AdafruitBleIRQPin   E6
 
 /*
  * Keyboard Matrix Assignments
@@ -45,29 +40,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { B7, D7, F1, F0 }
-#define MATRIX_COL_PINS { D1, D6, D3, D2, B6, C6, C7, F7, F6, F5, F4 }
+/* key matrix pins */
+#define MATRIX_ROW_PINS { F4, F1, F0, F5, F6, F7, D4, D5, D3, D2, D0 }
+#define MATRIX_COL_PINS { C7, C6, B4, D7, B3, B2, B0, E6, B1, D1, D6 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#ifdef RGB_MATRIX_ENABLE
-#define RGB_DI_PIN D0
-#define DRIVER_LED_TOTAL 42
-#define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-// #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_PINWHEEL // Sets the default mode, if none has been set
-#endif
+#define LED_NUM_LOCK_PIN B5
+#define LED_CAPS_LOCK_PIN B6
+#define LED_SCROLL_LOCK_PIN B7
+#define LED_PIN_ON_STATE 0
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-//#define DEBOUNCE 5
+#define DEBOUNCE 5
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+#define LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+#define LOCKING_RESYNC_ENABLE
