@@ -59,20 +59,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         set_right_led_strip(0, 255, 255);
     }
-
-    uint8_t layer = biton32(layer_state);
-
-    switch (layer) {
-        case _UTIL:
-            rgb_matrix_sethsv_noeeprom(HSV_MAGENTA);
-            break;
-        case _GAME:
-            rgb_matrix_sethsv_noeeprom(HSV_SPRINGGREEN);
-            break;
-        default:
-            rgb_matrix_sethsv_noeeprom(HSV_SPRINGGREEN);
-            break;
-    }
 }
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED

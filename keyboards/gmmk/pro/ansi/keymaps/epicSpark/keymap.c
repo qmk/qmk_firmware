@@ -38,6 +38,7 @@ enum combo_events {
 enum custom_keycodes {
   KC_00 = SAFE_RANGE,
   KC_WINLCK,    //Toggles Win key on and off
+  LED_REACT,
 };
 
 typedef enum {
@@ -100,20 +101,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FN2] = LAYOUT(
         KC_ESC, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,   KC_F22,      KC_F23,  KC_F24,  KC_INS,            KC_MPLY,
-        KC_GRV, _______, _______, _______, _______, _______, _______, KC_P7,    KC_P8,   KC_P9,    KC_P0,     KC_PMNS, KC_PPLS, _______,            KC_HOME,
+        KC_GRV, TG(_FN1), _______, _______, _______, _______, _______, KC_P7,    KC_P8,   KC_P9,    KC_P0,     KC_PMNS, KC_PPLS, _______,            KC_HOME,
         KC_TAB, _______,   KC_UP, _______, _______, _______,  KC_TAB, KC_P4,    KC_P5,   KC_P6,  KC_PDOT,     _______, EEP_RST,   RESET,             KC_END,
         KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, KC_P1,    KC_P2,   KC_P3,    KC_NO,     KC_PAST,          KC_PENT,            KC_PGUP,
         _______, XXXXXXX, KC_DEL,  KC_INS, XXXXXXX, KC_MPLY, XXXXXXX,  KC_P0,   KC_00,  KC_PDOT,   KC_PSLS,     _______, KC_MFFD, KC_PGDOWN,
-        _______, KC_WINLCK, _______,                          KC_BSPC,                          _______, TO(_QWERTY), _______, KC_MPRV, KC_MRWD,   KC_MNXT
+        _______, KC_WINLCK, _______,                          KC_BSPC,                          _______, TG(_QWERTY), _______, KC_MPRV, KC_MRWD,   KC_MNXT
     ),
 
     [_FN1] = LAYOUT(
         _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_CALC,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_TOG,
-        _______, _______, RGB_VAI, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______, RESET,            KC_HOME,
-        KC_CAPS, _______, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_END,
-        _______,          _______,RGB_HUI, _______, _______, _______, KC_NLCK, _______, _______, _______, _______,          _______, RGB_MOD, KC_PGDOWN,
-        _______, KC_WINLCK, _______,                            _______,                          _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
+        _______, _______, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_NLCK, _______, _______, RESET,            KC_HOME,
+        KC_CAPS, _______, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_END,
+        _______,          RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, LED_REACT, NK_TOGG, _______, _______, _______, _______,          _______, RGB_MOD, KC_PGDOWN,
+        _______, KC_WINLCK, _______,                            _______,                          _______, TG(_QWERTY), _______, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
 
     [_GAME] = LAYOUT(
@@ -136,76 +137,82 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef ENCODER_ENABLE       // Encoder Functionality
+// #ifdef ENCODER_ENABLE       // Encoder Functionality
 
     bool encoder_update_user(uint8_t index, bool clockwise) {
-
+        uint8_t mods_state = get_mods();
         if ( clockwise ) {
-            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, Page up
+            if (mods_state & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, Page up
                 unregister_mods(MOD_BIT(KC_LSFT));
                 tap_code16(RCTL(KC_PGDN));
                 register_mods(MOD_BIT(KC_LSFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
-                    tap_code16(LCTL(KC_RGHT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
+            } else if (mods_state & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
+                tap_code16(LCTL(KC_RGHT));
+            } else if (mods_state & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
                 tap_code(KC_MEDIA_NEXT_TRACK);
-            } else if (keyboard_report->mods & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, change media next track
+            } else if (mods_state & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, change media next track
                 tap_code(KC_MEDIA_NEXT_TRACK);
-            } else if (keyboard_report->mods & MOD_BIT(KC_RALT)) {  // if holding Right Alt, fast forward media
+            } else if (mods_state & MOD_BIT(KC_RALT)) {  // if holding Right Alt, fast forward media
                 tap_code(KC_MEDIA_FAST_FORWARD);
             } else  {
                 tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
             }
         } else {
-            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
+            if (mods_state & MOD_BIT(KC_LSFT) ) {
                 unregister_mods(MOD_BIT(KC_LSFT));
                 tap_code16(RCTL(KC_PGUP));
                 register_mods(MOD_BIT(KC_LSFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
+            } else if (mods_state & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
                 tap_code16(LCTL(KC_LEFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
+            } else if (mods_state & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
                 tap_code(KC_MEDIA_PREV_TRACK);
-            } else if (keyboard_report->mods & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, change media previous track
+            } else if (mods_state & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, change media previous track
                 tap_code(KC_MEDIA_PREV_TRACK);
-            } else if (keyboard_report->mods & MOD_BIT(KC_RALT)) {  // if holding Right Alt, rewind media
+            } else if (mods_state & MOD_BIT(KC_RALT)) {  // if holding Right Alt, rewind media
                 tap_code(KC_MEDIA_REWIND);
             } else {
                 tap_code(KC_VOLD);
             }
         }
         return true;
+
     }
-#endif
+// #endif
 
 void keyboard_post_init_user(void){
-    rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
-    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_sethsv_noeeprom(HSV_SPRINGGREEN);
+    // rgb_matrix_set_color_all(RGB_SPRINGGREEN);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
 }
 
 bool _isWinKeyDisabled = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case KC_00:
-        if (record->event.pressed) {
-            // when keycode KC_00 is pressed
-            SEND_STRING("00");
-        } else {
-            // when keycode KC_00 is released
-        }
-        break;
-
-    case KC_WINLCK:
-        if (record->event.pressed) {
-            _isWinKeyDisabled = !_isWinKeyDisabled; //toggle status
-            if(_isWinKeyDisabled) {
-                process_magic(GUI_OFF, record);
+        case KC_00:
+            if (record->event.pressed) {
+                // when keycode KC_00 is pressed
+                SEND_STRING("00");
             } else {
-                process_magic(GUI_ON, record);
+                // when keycode KC_00 is released
             }
-        } else  unregister_code16(keycode);
-        break;
+            break;
+
+        case KC_WINLCK:
+            if (record->event.pressed) {
+                _isWinKeyDisabled = !_isWinKeyDisabled; //toggle status
+                if(_isWinKeyDisabled) {
+                    process_magic(GUI_OFF, record);
+                } else {
+                    process_magic(GUI_ON, record);
+                }
+            } else  { unregister_code16(keycode); }
+            break;
+
+        case LED_REACT:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
+            break;
     }
     return true;
 }
@@ -296,17 +303,17 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     }
 }
 
-void suspend_power_down_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_suspend_state(true);
-#endif  // RGB_MATRIX_ENABLE
-}
+// void suspend_power_down_user(void) {
+// #ifdef RGB_MATRIX_ENABLE
+//     rgb_matrix_set_suspend_state(true);
+// #endif  // RGB_MATRIX_ENABLE
+// }
 
-void suspend_wakeup_init_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_suspend_state(false);
-#endif  // RGB_MATRIX_ENABLE
-}
+// void suspend_wakeup_init_user(void) {
+// #ifdef RGB_MATRIX_ENABLE
+//     rgb_matrix_set_suspend_state(false);
+// #endif  // RGB_MATRIX_ENABLE
+// }
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
 
