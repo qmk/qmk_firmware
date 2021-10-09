@@ -4,7 +4,7 @@ Index Tab
 Not just another ortho-keyboard. but one catering to the northern marked with our extra letters.
 This is a 13x6 ortho keyboard; giving you enough space for all the numbers, all the F-keys, and our precious extraordinary letters.
 
-![Picture of the keyboard in the wild](https://i.imgur.com/xqJjbky.jpg)
+![Picture of the keyboard in the wild](https://raw.githubusercontent.com/Kyrremann/index-tab/master/images/rev5-dsa-vilebloom.JPG)
 
 Keyboard Maintainer: [Kyrremann](https://github.com/Kyrremann)
 
