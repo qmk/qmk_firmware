@@ -21,6 +21,14 @@ This keymap builds on the keymap by Grayson Carr (gtg465x) but adds a couple mor
         - Fn+C will toggle turning off RGB for keys with no definition (default: RGB off)
         - Fn+V will toggle lighting the defined Fn layer keys with the static color set with the FN_LAYER_COLOR system define (default: static color off)
 
+- All custom keycodes can be moved to different keys in VIA by using the ANY key with the following keycodes:
+    - USER00 (default: F3) macOS Mission Control
+    - USER01 (default: F4) macOS Launchpad
+    - USER02 (default: Fn+Z) Caps Lock light Tab toggle
+    - USER03 (default: Fn+X) Caps Lock light alphas toggle
+    - USER04 (default: Fn+C) Fn layer non-defined keys RGB toggle
+    - USER05 (default: Fn+V) Fn layer defined keys static color toggle
+    
 #### USE AT YOUR OWN RISK
 
 ## Changelog:
