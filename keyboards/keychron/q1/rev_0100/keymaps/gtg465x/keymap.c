@@ -15,18 +15,20 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "keymap_user.h"
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix_user.h"
+#endif
 
-
-enum layers{
-  MAC_BASE,
-  MAC_FN,
-  WIN_BASE,
-  WIN_FN
-};
+// clang-format off
 
 enum custom_keycodes {
-  KC_MISSION_CONTROL = SAFE_RANGE,
-  KC_LAUNCHPAD
+#ifdef VIA_ENABLE
+    KC_MISSION_CONTROL = USER00,
+#else
+    KC_MISSION_CONTROL = SAFE_RANGE,
+#endif
+    KC_LAUNCHPAD
 };
 
 #define KC_MCTL KC_MISSION_CONTROL
@@ -69,6 +71,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS)
 
 };
+
+// clang-format on
+
+void matrix_init_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_init_user();
+#endif
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {

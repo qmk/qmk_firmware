@@ -16,10 +16,13 @@
 
 #pragma once
 
-/* RGB Matrix Configuration */
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
-#    define CAPS_LOCK_INDICATOR_COLOR RGB_RED
-#    define CAPS_LOCK_INDICATOR_LIGHT_ALPHAS
-#    define FN_LAYER_TRANSPARENT_KEYS_OFF
-#endif
+// clang-format off
+
+enum layers {
+    MAC_BASE,
+    MAC_FN,
+    WIN_BASE,
+    WIN_FN
+};
+
+// clang-format on
