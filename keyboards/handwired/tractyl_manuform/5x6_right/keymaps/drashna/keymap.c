@@ -117,8 +117,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_5x6_right_wrapper(
         KC_MAKE, ___________________BLANK___________________,                      _________________ADJUST_R1_________________, KC_RST,
         VRSN,    _________________ADJUST_L1_________________,                      _________________ADJUST_R1_________________, EEP_RST,
-        UC_MOD,  _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, TG_MODS,
-        _______, _________________ADJUST_L3_________________,                      _________________ADJUST_R3_________________, KC_MPLY,
+        _______, _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, TG_MODS,
+        UC_MOD,  _________________ADJUST_L3_________________,                      _________________ADJUST_R3_________________, KC_MPLY,
                           HPT_DWLI, HPT_DWLD,                                                        TG_GAME, TG_DBLO,
                                             HPT_TOG, HPT_BUZ,                               KC_NUKE,
                                                      _______, _______,             _______,
@@ -350,7 +350,7 @@ void render_kitty(void) {
     // assumes 1 frame prep stage
     extern bool swap_hands;
     void        animation_phase(void) {
-        if (swap_hands) {
+        if (tap_toggling) {
             anim_frame_duration = 300;
             current_rtogi_frame = (current_rtogi_frame + 1) % RTOGI_FRAMES;
             oled_write_raw_P(rtogi[abs((RTOGI_FRAMES - 1) - current_rtogi_frame)], ANIM_SIZE);
