@@ -16,7 +16,7 @@ BUILD_OPTION_NAMES = \
 HARDWARE_OPTION_NAMES = \
   SLEEP_LED_ENABLE \
   BACKLIGHT_ENABLE \
-  BACKLIGHT_CUSTOM_DRIVER \
+  BACKLIGHT_DRIVER \
   RGBLIGHT_ENABLE \
   RGBLIGHT_CUSTOM_DRIVER \
   RGB_MATRIX_ENABLE \
@@ -44,13 +44,14 @@ OTHER_OPTION_NAMES = \
   AUTO_SHIFT_MODIFIERS \
   COMBO_ENABLE \
   KEY_LOCK_ENABLE \
+  KEY_OVERRIDE_ENABLE \
   LEADER_ENABLE \
   PRINTING_ENABLE \
   STENO_ENABLE \
   TAP_DANCE_ENABLE \
   VIRTSER_ENABLE \
-  OLED_DRIVER_ENABLE \
   OLED_ENABLE \
+  OLED_DRIVER \
   LED_BACK_ENABLE \
   LED_UNDERGLOW_ENABLE \
   LED_ANIMATIONS \
@@ -68,11 +69,10 @@ OTHER_OPTION_NAMES = \
   KEYLOGGER_ENABLE \
   LCD_BACKLIGHT_ENABLE \
   MACROS_ENABLED \
-  ONEHAND_ENABLE \
   PS2_MOUSE_ENABLE \
   RAW_ENABLE \
   SWAP_HANDS_ENABLE \
-  USB_6KRO_ENABLE \
+  RING_BUFFERED_6KRO_REPORT_ENABLE \
   WATCHDOG_ENABLE \
   XT_ENABLE \
   ERGOINU \
@@ -86,17 +86,23 @@ OTHER_OPTION_NAMES = \
   LTO_ENABLE
 
 define NAME_ECHO
-	@echo "  $1 = $($1)		# $(origin $1)"
+       @printf "  %-30s = %-16s # %s\\n" "$1" "$($1)" "$(origin $1)"
+
+endef
+
+define YAML_NAME_ECHO
+	@echo '  $1 : "$(strip $($1))"'
 
 endef
 
 .PHONY: show_build_options0 show_build_options
 show_build_options0:
-	@echo " KEYBOARD = $(KEYBOARD)"
-	@echo " KEYMAP   = $(KEYMAP)"
-	@echo " MCU      = $(MCU)"
-	@echo " MCU_SERIES = $(MCU_SERIES)"
-	@echo " PLATFORM = $(PLATFORM)"
+	@echo " KEYBOARD        = $(KEYBOARD)"
+	@echo " KEYMAP          = $(KEYMAP)"
+	@echo " MCU             = $(MCU)"
+	@echo " MCU_SERIES      = $(MCU_SERIES)"
+	@echo " PLATFORM        = $(PLATFORM)"
+	@echo " BOOTLOADER      = $(BOOTLOADER)"
 	@echo " FIRMWARE_FORMAT = $(FIRMWARE_FORMAT)"
 	@echo
 	@echo "Build Options:"
@@ -129,3 +135,18 @@ show_full_features: show_build_options0
 	@echo "Other Options:"
 	$(foreach A_OPTION_NAME,$(sort $(OTHER_OPTION_NAMES)),\
 		$(call NAME_ECHO,$(A_OPTION_NAME)))
+
+.PHONY: yaml_build_options
+yaml_build_options:
+	@echo '- KEYBOARD : "$(KEYBOARD)"'
+	@echo '  KEYMAP : "$(KEYMAP)"'
+	@echo '  MCU : "$(MCU)"'
+	@echo '  MCU_SERIES : "$(MCU_SERIES)"'
+	@echo '  PLATFORM : "$(PLATFORM)"'
+	@echo '  FIRMWARE_FORMAT : "$(FIRMWARE_FORMAT)"'
+	$(foreach A_OPTION_NAME,$(sort $(BUILD_OPTION_NAMES)),\
+		$(call YAML_NAME_ECHO,$(A_OPTION_NAME)))
+	$(foreach A_OPTION_NAME,$(sort $(HARDWARE_OPTION_NAMES)),\
+		$(if $($(A_OPTION_NAME)),$(call YAML_NAME_ECHO,$(A_OPTION_NAME))))
+	$(foreach A_OPTION_NAME,$(sort $(OTHER_OPTION_NAMES)),\
+		$(if $($(A_OPTION_NAME)),$(call YAML_NAME_ECHO,$(A_OPTION_NAME))))

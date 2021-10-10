@@ -1,8 +1,8 @@
 # PS/2 マウスサポート :id=ps2-mouse-support
 
 <!---
-  original document: 0.9.44:docs/feature_ps2_mouse.md
-  git diff 0.9.44 HEAD -- docs/feature_ps2_mouse.md | cat
+  original document: 0.13.17:docs/feature_ps2_mouse.md
+  git diff 0.13.17 HEAD -- docs/feature_ps2_mouse.md | cat
 -->
 
 PS/2 マウス (例えばタッチパッドあるいはトラックポイント)を複合デバイスとしてキーボードに接続することができます。
@@ -210,7 +210,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 この機能を有効にするには、以下のようにスクロールボタンマスクを設定する必要があります:
 
 ```c
-#define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BUTTON_MIDDLE) /* Default */
+#define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BTN_MIDDLE) /* Default */
 ```
 
 スクロールボタン機能を無効にするには:

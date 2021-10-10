@@ -96,8 +96,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = LAYOUT_ergodox(
        // left hand
        M(0),   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_TRNS,FR_SECT,FR_LESS,  FR_LCBR,FR_BSLS,FR_TILD,KC_TRNS,
-       KC_TRNS,FR_APOS,FR_EQL, FR_MINS,FR_LPRN,FR_PLUS,
+       KC_TRNS,FR_SECT,FR_LABK,  FR_LCBR,FR_BSLS,FR_TILD,KC_TRNS,
+       KC_TRNS,FR_QUOT,FR_EQL, FR_MINS,FR_LPRN,FR_PLUS,
        KC_TRNS,FR_GRV,FR_QUES,FR_HASH,FR_LBRC,FR_PIPE,KC_TRNS,
           FR_EURO,FR_PND,FR_DLR,KC_TRNS,KC_TRNS,
                                        KC_TRNS,KC_TRNS,
@@ -105,9 +105,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       KC_TRNS, FR_PERC, FR_AT,  FR_RCBR, FR_GRTR, FR_MU, KC_F12,
-                FR_ASTR,   FR_RPRN, FR_UNDS, FR_SLSH, FR_QUOT, KC_TRNS,
-       KC_TRNS, FR_AMP,  FR_RBRC, FR_DLR,  FR_EXLM,  FR_CIRC, KC_TRNS,
+       KC_TRNS, FR_PERC, FR_AT,  FR_RCBR, FR_RABK, FR_MICR, KC_F12,
+                FR_ASTR,   FR_RPRN, FR_UNDS, FR_SLSH, FR_DQUO, KC_TRNS,
+       KC_TRNS, FR_AMPR, FR_RBRC, FR_DLR,  FR_EXLM,  FR_CIRC, KC_TRNS,
                          KC_TRNS, KC_TRNS, KC_TRNS,  ALGR(KC_S),  KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,

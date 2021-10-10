@@ -38,6 +38,12 @@ It can also be defined per-encoder, by instead defining:
 #define ENCODER_RESOLUTIONS { 4, 2 }
 ```
 
+For 4× encoders you also can assign default position if encoder skips pulses when it changes direction. For example, if your encoder send high level on both pins by default, define this:
+
+```c
+#define ENCODER_DEFAULT_POS 0x3
+```
+
 ## Split Keyboards
 
 If you are using different pinouts for the encoders on each half of a split keyboard, you can define the pinout (and optionally, resolutions) for the right half like this:
@@ -53,15 +59,15 @@ If you are using different pinouts for the encoders on each half of a split keyb
 The callback functions can be inserted into your `<keyboard>.c`:
 
 ```c
-void encoder_update_kb(uint8_t index, bool clockwise) {
-    encoder_update_user(index, clockwise);
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    return encoder_update_user(index, clockwise);
 }
 ```
 
 or `keymap.c`:
 
 ```c
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_PGDN);
@@ -75,8 +81,11 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_UP);
         }
     }
+    return false;
 }
 ```
+
+!> If you return `true`, this will allow the keyboard level code to run, as well.  Returning `false` will override the keyboard level code.  Depending on how the keyboard level function is set up. 
 
 ## Hardware
 
