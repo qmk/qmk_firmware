@@ -228,7 +228,11 @@ static void init(void) {
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
 }
 
-static void flush(void) { IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_2); }
+static void flush(void) {
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    // Just for reference. Only first driver is used? 
+    // IS31FL3741_update_pwm_buffers(DRIVER_ADDR_2, 1);
+}
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,

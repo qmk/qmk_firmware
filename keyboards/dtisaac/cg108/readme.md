@@ -1,19 +1,19 @@
-# dosa40rgb
+# CG108
 
-![dosa40rgb](https://i.imgur.com/NfuF82nh.jpg)
+![CG108](https://i.imgur.com/AUqkNhEh.jpg)
 
-A 40 percent keyboard dosa40rgb Bluetooth Low Energy
+A base full-size keyboard CG108 of DTIsaac
 
 * Keyboard Maintainer: [DTIsaac](https://github.com/daotakisaac)
-* Hardware Supported: ATmega32U4 + AdafruitBLE SPI
+* Hardware Supported: CG108 DTIsaac
 
 Make example for this keyboard (after setting up your build environment):
 
-    make dtisaac/dosa40rgb:default
+    make dtisaac/cg108:default
 
 Flashing example for this keyboard:
 
-    make dtisaac/dosa40rgb:default:flash
+    make dtisaac/cg108:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
