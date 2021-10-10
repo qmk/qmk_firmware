@@ -23,6 +23,9 @@ uint8_t layer;
 
 bool clock_set_mode = false;
 uint8_t oled_mode = OLED_DEFAULT;
+bool oled_repaint_requested = false;
+bool oled_wakeup_requested = false;
+uint32_t oled_sleep_timer;
 
 uint8_t encoder_value = 32;
 uint8_t encoder_mode = ENC_MODE_VOLUME;
@@ -158,6 +161,7 @@ void raw_hid_receive_kb( uint8_t *data, uint8_t length )
         case id_oled_mode:
         {
           oled_mode = command_data[1];
+          oled_request_wakeup();
           break;
         }
         case id_encoder_modes:
@@ -237,10 +241,12 @@ void read_host_led_state(void) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
   state = layer_state_set_user(state);
   layer = biton32(state);
+  oled_request_wakeup();
   return state;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  oled_request_wakeup();
   switch (keycode) {
     case OLED_TOGG:
       if(!clock_set_mode){
@@ -289,6 +295,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) return false;
+    oled_request_wakeup();
   encoder_value = (encoder_value + (clockwise ? 1 : -1)) % 64;
   if (index == 0) {
     if (layer == 0){
@@ -364,6 +371,7 @@ void matrix_init_kb(void)
   rtcGetTime(&RTCD1, &last_timespec);
   backlight_init_ports();
   matrix_init_user();
+  oled_request_wakeup();
 }
 
 
@@ -373,13 +381,7 @@ void housekeeping_task_kb(void) {
 
   if (minutes_since_midnight != last_minute){
     last_minute = minutes_since_midnight;
-  }
-
-  if((oled_mode == OLED_OFF) && is_oled_on()){
-      oled_off();
-  }
-  if((oled_mode != OLED_OFF) && !is_oled_on()){
-      oled_on();
+    oled_request_repaint();
   }
 }
 
