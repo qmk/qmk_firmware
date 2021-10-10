@@ -52,7 +52,7 @@
     #ifdef RGBLED_NUM
         #undef RGBLED_NUM
     #endif // DEBUG
-    #define RGBLED_NUM 30
+    #define RGBLED_NUM 20
 
     #define RGBLIGHT_LAYERS
     #define RGBLIGHT_SLEEP

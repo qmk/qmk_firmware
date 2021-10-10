@@ -16,5 +16,4 @@ ifeq ($(strip $(COLEMAK_LAYER_ENABLE)), yes)
 endif
 ifeq ($(strip $(EMOTICON_ENABLE)), yes)
     OPT_DEFS += -DEMOTICON_ENABLE
-	UNICODE_ENABLE = yes
 endif

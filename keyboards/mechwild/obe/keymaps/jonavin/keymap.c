@@ -40,8 +40,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_LOWER] = LAYOUT(
     KC_NO,   KC_TILD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_VAD, RGB_VAI, KC_TRNS, KC_DEL,
-    RGB_HUI, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_TOG,
-    RGB_HUD, KC_NO,   KC_NO,   EMO_SHRUG,KC_NO,  KC_NO,   KC_NO,   KC_NO,   EMO_JOY, KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_TRNS,
+    RGB_HUI, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, EMO_TEARS, EMO_SAD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_TOG,
+    RGB_HUD, KC_NO,   KC_NO,   EMO_SHRUG,KC_NO,  KC_NO,   KC_NO,   EMO_JOY, EMO_JOY, KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_TRNS,
              KC_NO,   KC_NO,   KC_NO,   EMO_CONFUSE,KC_NO,KC_NO,   KC_NO,   EMO_NERVOUS,KC_NO,KC_NO,   KC_NO,   KC_NO,   RGB_MOD, KC_TRNS,
              KC_TRNS, KC_APP,  KC_TRNS,          KC_BSPC, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
@@ -58,16 +58,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     enum custom_rgblight_layers
     {
-        _rgbCAPS,
         _rgbWINLOCK,
         _rgbFN,
-        _rgbNUMPAD,
+        _rgbLOWER,
+        _rgbRAISE
     };
 
     // Optional RGB Light Mapping
-        const rgblight_segment_t PROGMEM _rgb_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {14, 1, HSV_RED}
-    );
     const rgblight_segment_t PROGMEM _rgb_winlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
         {13, 1, HSV_PURPLE}
     );
@@ -76,27 +73,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {12, 2, HSV_ORANGE}
     );
     // Light LEDs 9 & 10 in cyan when keyboard layer 1 is active
-    const rgblight_segment_t PROGMEM _rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    const rgblight_segment_t PROGMEM _rgb_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
         {4, 3, HSV_PURPLE},
         {9, 3, HSV_PURPLE}
     );
+    const rgblight_segment_t PROGMEM _rgb_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+        {4, 3, HSV_YELLOW},
+        {9, 3, HSV_YELLOW}
+    );
 
     const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-        _rgb_capslock_layer,
         _rgb_winlock_layer,
         _rgb_fn_layer,
-        _rgb_numpad_layer
+        _rgb_lower_layer,
+        _rgb_raise_layer
     );
 
     bool led_update_user(led_t led_state) {
-        rgblight_set_layer_state(_rgbCAPS, led_state.caps_lock);
         rgblight_set_layer_state(_rgbWINLOCK, keymap_config.no_gui);
         return true;
     }
 
     layer_state_t layer_state_set_user(layer_state_t state) {
         rgblight_set_layer_state(_rgbFN, layer_state_cmp(state, _FN1));
-        rgblight_set_layer_state(_rgbNUMPAD, layer_state_cmp(state, _LOWER));
+        rgblight_set_layer_state(_rgbLOWER, layer_state_cmp(state, _LOWER));
+        rgblight_set_layer_state(_rgbRAISE, layer_state_cmp(state, _RAISE));
         return state;
     }
 #endif // RGBLIGHT_ENABLE

@@ -256,7 +256,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 break;
             }
         }
-        return true;
+        return false;
     }
 #endif // ENCODER_ENABLE
 
@@ -266,7 +266,7 @@ __attribute__ ((weak))  bool process_record_keymap(uint16_t keycode, keyrecord_t
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_keymap(keycode, record)) { return false; }
-     switch (keycode) {
+    switch (keycode) {
     case KC_00:
         if (record->event.pressed) {
             // when keycode KC_00 is pressed
@@ -301,14 +301,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef EMOTICON_ENABLE
     case EMO_SHRUG:
-        if (record->event.pressed)  send_unicode_string("¯\\_(ツ)_/¯");
+        if (record->event.pressed)  SEND_STRING("¯\\_(\"/)_/¯");
             else unregister_code16(keycode);
         break;
     case EMO_CONFUSE:
-        if (record->event.pressed)  SEND_STRING("(°_°)");
+        if (record->event.pressed)  SEND_STRING("(*_*)");
             else unregister_code16(keycode);
         break;
-    case EMD_SAD:
+    case EMO_TEARS:
         if (record->event.pressed)  SEND_STRING("(T_T)");
             else unregister_code16(keycode);
         break;
@@ -317,7 +317,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else unregister_code16(keycode);
         break;
     case EMO_JOY:
-        if (record->event.pressed)  SEND_STRING("(^o^)丿");
+        if (record->event.pressed)  SEND_STRING("(^o^)");
+            else unregister_code16(keycode);
+        break;
+    case EMO_SAD:
+        if (record->event.pressed)  SEND_STRING(":'-(");
             else unregister_code16(keycode);
         break;
 #endif // EMOTICON_ENABLE
