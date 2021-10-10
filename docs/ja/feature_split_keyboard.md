@@ -64,7 +64,7 @@ QMK ファームウェアには、任意のキーボードで使用可能な一�
 2つの Pro Micro 間で GND、Vcc、さらに SCL と SDA (それぞれ 別名 PD0/ピン3 および PD1/ピン2) を TRRS ケーブルの4本のワイヤで接続します。
 
 プルアップ抵抗はキーボードの左右どちら側にも配置することができます。もし各側を単独で使いたい場合は、4つの抵抗を使い、両側にプルアップ抵抗を配置することもできます。
-接続されたシステムの総抵抗は、配置や数に関係なく、2.2k-10kOhm で仕様の範囲内であり、'理想的'には 4.7kOhm である必要があることに注意してください。
+接続されたシステムの総抵抗は、配置や数に関係なく、2.2k-10kΩ で仕様の範囲内であり、'理想的'には 4.7kΩ である必要があることに注意してください。
 
 <img alt="sk-i2c-connection-mono" src="https://user-images.githubusercontent.com/2170248/92297182-92b98580-ef77-11ea-9d7d-d6033914af43.JPG" width="50%"/>
 
@@ -120,9 +120,9 @@ SPLIT_TRANSPORT = custom
 #define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 ```
 
-これまで使われていなかった交差点にダイオードを追加すると、その場所でキーが押されていることがファームウェアに事実上伝えられることに注意してください。`MATRIX_MASKED` を定義し、キーボード設定に `matrix_row_t matrix_mask[MATRIX_ROWS]` 配列を定義することで、qmk に交差点を無視するように指示することができます。1つの値の各ビット(最下位ビットから開始)は、その交差点でのキーの押下に注意を払うかどうかを qmk に指示するために使われます。
+これまで使われていなかった交差点にダイオードを追加することは、事実上、その場所に押されているキーがあることをファームウェアに伝えることであることに注意してください。`MATRIX_MASKED` を定義し、キーボード設定に `matrix_row_t matrix_mask[MATRIX_ROWS]` 配列を定義することで、qmk に交差点を無視するように指示することができます。1つの値の各ビット(最下位ビットから開始)は、その交差点でのキーの押下に注意を払うかどうかを qmk に指示するために使われます。
 
-`MATRIX_MASKED` は `SPLIT_HAND_MATRIX_GRID` を正常に使うためには必要ありませんが、これが無いと、キーボードが接続された状態でコンピュータをサスペンドしようとすると、マトリックスが常に少なくとも1つのキー押下を報告するため、問題が発生する可能性があります。
+`MATRIX_MASKED` は `SPLIT_HAND_MATRIX_GRID` を正常に使うためには必要ありませんが、これが無いと、キーボードが接続された状態でコンピュータをサスペンドしようとするときに、マトリックスが常に少なくとも1つのキー押下を報告するという問題を経験する可能性があります。
 
 #### EEPROM による左右の設定
 
@@ -240,7 +240,7 @@ make crkbd:default:avrdude-split-left
 #define SPLIT_LED_STATE_ENABLE
 ```
 
-分割キーボードの両側でホスト LED 状態の(caps lock、num lock など)の同期を有効にします。この機能の主な目的は、ホスト LED の状態の OLED 表示などの使用をサポートできるようにすることです。この機能を有効にすると、分割通信プロトコルにオーバーヘッドが追加され、マトリックスのスキャン速度に悪影響を及ぼす可能性があります。
+分割キーボードの両側でホスト LED 状態 (caps lock、num lock など) の同期を有効にします。この機能の主な目的は、ホスト LED の状態の OLED 表示などの使用をサポートできるようにすることです。この機能を有効にすると、分割通信プロトコルにオーバーヘッドが追加され、マトリックスのスキャン速度に悪影響を及ぼす可能性があります。
 
 ```c
 #define SPLIT_MODS_ENABLE
@@ -313,7 +313,7 @@ void housekeeping_task_user(void) {
             slave_to_master_t s2m = {0};
             if(transaction_rpc_exec(USER_SYNC_A, sizeof(m2s), &m2s, sizeof(s2m), &s2m)) {
                 last_sync = timer_read32();
-                dprintf("Slave value: %d\n", s2m.s2m_data); // this will now be 11, as the slave adds 5
+                dprintf("Slave value: %d\n", s2m.s2m_data); // スレーブ側が 5 を足すので、この値は 11 になります。
             } else {
                 dprint("Slave sync failed!\n");
             }
@@ -335,9 +335,9 @@ bool transaction_rpc_recv(int8_t transaction_id, uint8_t target2initiator_buffer
 デフォルトでは、受信データと送信データはそれぞれ最大32バイトに制限されています。必要に応じてサイズを変更できます:
 
 ```c
-// Master to slave:
+// マスターからスレーブへ:
 #define RPC_M2S_BUFFER_SIZE 48
-// Slave to master:
+// スレーブからマスターへ:
 #define RPC_S2M_BUFFER_SIZE 48
 ```
 
@@ -384,7 +384,7 @@ bool transaction_rpc_recv(int8_t transaction_id, uint8_t target2initiator_buffer
 #define SPLIT_USB_DETECT
 ```
 
-このオプションは、スタートアップの挙動を変更して、マスタ/スレーブの決定時にアクティブな USB 接続を検出します。このオプションを有効にして USB 通信を行った場合、こちら側がマスターであると仮定し、そうでなければスレーブであると仮定します。
+このオプションは、スタートアップの挙動を変更して、マスタ/スレーブを移譲するためにアクティブな USB 接続に聞き耳を立てます。このオプションを有効にして USB 通信を行った場合、こちら側がマスターであると仮定し、そうでなければスレーブであると仮定します。
 
 このオプションが無い場合、物理的な USB 接続の電圧を検出できる側がマスターになります (VBUS 検出)。
 
@@ -416,7 +416,7 @@ Teensy のボードはそのままでは VBUS 検出が無いため、`SPLIT_USB
 
 * ナイフ (理想的には x-acto ナイフ)
 * はんだステーションまたはホットエアステーション
-* [PMEG2005EH](https://www.digikey.com/en/products/detail/nexperia-usa-inc/PMEG2005EH,115/1589924) などの適切なショットキーダイオード
+* [PMEG2005EH](https://www.digikey.jp/product-detail/ja/nexperia-usa-inc/PMEG2005EH115/1727-3853-1-ND/1589924) などの適切なショットキーダイオード
 
 Teensy の背面にある5Vとセンターパッドの間の小さなプリントパターンをカットする必要があります。
 
