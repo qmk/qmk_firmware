@@ -64,22 +64,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _rgbRAISE
     };
 
-    // Optional RGB Light Mapping
+    // Optional RGB Light Mapping Zones {LED Posiiton, Number of LEDs, Colour}
     const rgblight_segment_t PROGMEM _rgb_winlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {13, 1, HSV_PURPLE}
+        {1, 3, HSV_RED},
+        {15, 3, HSV_RED}
     );
     const rgblight_segment_t PROGMEM _rgb_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {9, 2, HSV_ORANGE},
-        {12, 2, HSV_ORANGE}
+        {6, 6, HSV_PURPLE}
     );
     // Light LEDs 9 & 10 in cyan when keyboard layer 1 is active
     const rgblight_segment_t PROGMEM _rgb_lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {4, 3, HSV_PURPLE},
-        {9, 3, HSV_PURPLE}
+        {4, 10, HSV_YELLOW}
     );
+
     const rgblight_segment_t PROGMEM _rgb_raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {4, 3, HSV_YELLOW},
-        {9, 3, HSV_YELLOW}
+        {3, 5, HSV_GREEN},
+        {10, 5, HSV_GREEN}
     );
 
     const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST(
