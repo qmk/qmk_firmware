@@ -31,7 +31,7 @@
  */
 #define DIRECT_PINS            \
     {                          \
-        { D4, D2, E6, D7, B6 } \
+        { D4, D2, E6, B6, D7 } \
     }
 
 // These pins are not broken out, and cannot be used normally.

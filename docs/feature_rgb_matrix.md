@@ -15,7 +15,20 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3731
 ```
 
-Configure the hardware via your `config.h`:
+You can use between 1 and 4 IS31FL3731 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
+| `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
+| `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
+| `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
+| `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
+
+Here is an example using 2 drivers.
 
 ```c
 // This is a 7-bit address, that gets left-shifted and bit 0
@@ -36,12 +49,10 @@ Configure the hardware via your `config.h`:
 
 !> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
 
-Currently only 2 drivers are supported, but it would be trivial to support all 4 combinations.
-
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -53,12 +64,10 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3`).
 
 ---
-### IS31FL3733/IS31FL3737 :id=is31fl3733is31fl3737
-
-!> For the IS31FL3737, replace all instances of `IS31FL3733` below with `IS31FL3737`.
+### IS31FL3733 :id=is31fl3733
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
@@ -67,7 +76,24 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3733
 ```
 
-Configure the hardware via your `config.h`:
+You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
+| `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
+| `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
+| `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
+| `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
+| `DRIVER_SYNC_1` | (Optional) Sync configuration for the first RGB driver | 0 |
+| `DRIVER_SYNC_2` | (Optional) Sync configuration for the second RGB driver | 0 |
+| `DRIVER_SYNC_3` | (Optional) Sync configuration for the third RGB driver | 0 |
+| `DRIVER_SYNC_4` | (Optional) Sync configuration for the fourth RGB driver | 0 |
+
+Here is an example using 2 drivers.
 
 ```c
 // This is a 7-bit address, that gets left-shifted and bit 0
@@ -81,19 +107,22 @@ Configure the hardware via your `config.h`:
 // ADDR2 represents A3:A2 of the 7-bit address.
 // The result is: 0b101(ADDR2)(ADDR1)
 #define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
+#define DRIVER_ADDR_2 0b1010011
 
 #define DRIVER_COUNT 2
-#define DRIVER_1_LED_TOTAL 64
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define DRIVER_1_LED_TOTAL 58
+#define DRIVER_2_LED_TOTAL 10
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 ```
 
-Currently only a single drivers is supported, but it would be trivial to support all 4 combinations. For now define `DRIVER_ADDR_2` as `DRIVER_ADDR_1`
+!> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+
+Currently only 4 drivers are supported, but it would be trivial to support all 8 combinations.
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -105,7 +134,71 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/led/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
+
+---
+### IS31FL3737 :id=is31fl3737
+
+There is basic support for addressable RGB matrix lighting with the I2C IS31FL3737 RGB controller. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = IS31FL3737
+```
+You can use between 1 and 2 IS31FL3737 IC's. Do not specify `DRIVER_ADDR_2` define for second IC if not present on your keyboard.
+
+Configure the hardware via your `config.h`:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
+| `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
+| `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
+
+
+Here is an example using 2 drivers.
+
+```c
+// This is a 7-bit address, that gets left-shifted and bit 0
+// set to 0 for write, 1 for read (as per I2C protocol)
+// The address will vary depending on your wiring:
+// 0000 <-> GND
+// 0101 <-> SCL
+// 1010 <-> SDA
+// 1111 <-> VCC
+// ADDR represents A3:A0 of the 7-bit address.
+// The result is: 0b101(ADDR)
+#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_ADDR_2 0b1010001
+
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 30
+#define DRIVER_2_LED_TOTAL 36
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+```
+!> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+
+Currently only 2 drivers are supported, but it would be trivial to support all 4 combinations. 
+
+Define these arrays listing all the LEDs in your `<keyboard>.c`:
+
+```c
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+/* Refer to IS31 manual for these locations
+ *   driver
+ *   |  R location
+ *   |  |       G location
+ *   |  |       |       B location
+ *   |  |       |       | */
+    {0, B_1,    A_1,    C_1},
+    ....
+}
+```
+
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1` for now).
 
 ---
 
@@ -150,6 +243,77 @@ Configure the hardware via your `config.h`:
 ```
 
 ---
+### AW20216 :id=aw20216
+There is basic support for addressable RGB matrix lighting with the SPI AW20216 RGB controller. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = AW20216
+```
+
+You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DRIVER_1_CS` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
+| `DRIVER_2_CS` | (Optional) MCU pin connected to second RGB driver chip select line  | |
+| `DRIVER_1_EN` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
+| `DRIVER_2_EN` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
+| `DRIVER_1_LED_TOTAL` | (Required) How many RGB lights are connected to first RGB driver  | |
+| `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to second RGB driver  | |
+| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
+| `AW_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
+| `AW_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
+| `AW_SPI_DIVISOR` | (Optional) Clock divisor for SPI communication (powers of 2, smaller numbers means faster communication, should not be less than 4) | 4 |
+
+Here is an example using 2 drivers.
+
+```c
+#define DRIVER_1_CS B13
+#define DRIVER_2_CS B14
+// Hardware enable lines may be connected to the same pin
+#define DRIVER_1_EN C13
+#define DRIVER_2_EN C13
+
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 66
+#define DRIVER_2_LED_TOTAL 32
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+```
+
+!> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+
+Define these arrays listing all the LEDs in your `<keyboard>.c`:
+
+```c
+const aw_led __flash g_aw_leds[DRIVER_LED_TOTAL] = {
+/* Each AW20216 channel is controlled by a register at some offset between 0x00
+ * and 0xD7 inclusive.
+ * See drivers/awinic/aw20216.h for the mapping between register offsets and
+ * driver pin locations.
+ *    driver
+ *    |  R location
+ *    |  |        G location
+ *    |  |        |        B location
+ *    |  |        |        | */
+    { 0, CS1_SW1, CS2_SW1, CS3_SW1 },
+    { 0, CS4_SW1, CS5_SW1, CS6_SW1 },
+    { 0, CS7_SW1, CS8_SW1, CS9_SW1 },
+    { 0, CS10_SW1, CS11_SW1, CS12_SW1 },
+    { 0, CS13_SW1, CS14_SW1, CS15_SW1 },
+    ...
+    { 1, CS1_SW1, CS2_SW1, CS3_SW1 },
+    { 1, CS13_SW1, CS14_SW1, CS15_SW1 },
+    { 1, CS16_SW1, CS17_SW1, CS18_SW1 },
+    { 1, CS4_SW2, CS5_SW2, CS6_SW2 },
+    ...
+};
+```
+
+---
+
+## Common Configuration :id=common-configuration
 
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
@@ -284,7 +448,6 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 
 |Define                                                 |Description                                    |
 |-------------------------------------------------------|-----------------------------------------------|
-|`#define DISABLE_RGB_MATRIX_SOLID_COLOR`               |Disables `RGB_MATRIX_SOLID_COLOR`              |
 |`#define DISABLE_RGB_MATRIX_ALPHAS_MODS`               |Disables `RGB_MATRIX_ALPHAS_MODS`              |
 |`#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN`          |Disables `RGB_MATRIX_GRADIENT_UP_DOWN`         |
 |`#define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT`       |Disables `MATRIX_GRADIENT_LEFT_RIGHT`          |
@@ -399,35 +562,36 @@ static bool my_cool_effect2(effect_params_t* params) {
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 ```
 
-For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix_animation/`
+For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix/animations/`.
 
 
 ## Colors :id=colors
 
 These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
 
-|RGB                |HSV                |
-|-------------------|-------------------|
-|`RGB_WHITE`        |`HSV_WHITE`        |
-|`RGB_RED`          |`HSV_RED`          |
-|`RGB_CORAL`        |`HSV_CORAL`        |
-|`RGB_ORANGE`       |`HSV_ORANGE`       |
-|`RGB_GOLDENROD`    |`HSV_GOLDENROD`    |
-|`RGB_GOLD`         |`HSV_GOLD`         |
-|`RGB_YELLOW`       |`HSV_YELLOW`       |
-|`RGB_CHARTREUSE`   |`HSV_CHARTREUSE`   |
-|`RGB_GREEN`        |`HSV_GREEN`        |
-|`RGB_SPRINGGREEN`  |`HSV_SPRINGGREEN`  |
-|`RGB_TURQUOISE`    |`HSV_TURQUOISE`    |
-|`RGB_TEAL`         |`HSV_TEAL`         |
-|`RGB_CYAN`         |`HSV_CYAN`         |
-|`RGB_AZURE`        |`HSV_AZURE`        |
-|`RGB_BLUE`         |`HSV_BLUE`         |
-|`RGB_PURPLE`       |`HSV_PURPLE`       |
-|`RGB_MAGENTA`      |`HSV_MAGENTA`      |
-|`RGB_PINK`         |`HSV_PINK`         |
+|RGB                  |HSV                  |
+|---------------------|---------------------|
+|`RGB_AZURE`          |`HSV_AZURE`          |
+|`RGB_BLACK`/`RGB_OFF`|`HSV_BLACK`/`HSV_OFF`|
+|`RGB_BLUE`           |`HSV_BLUE`           |
+|`RGB_CHARTREUSE`     |`HSV_CHARTREUSE`     |
+|`RGB_CORAL`          |`HSV_CORAL`          |
+|`RGB_CYAN`           |`HSV_CYAN`           |
+|`RGB_GOLD`           |`HSV_GOLD`           |
+|`RGB_GOLDENROD`      |`HSV_GOLDENROD`      |
+|`RGB_GREEN`          |`HSV_GREEN`          |
+|`RGB_MAGENTA`        |`HSV_MAGENTA`        |
+|`RGB_ORANGE`         |`HSV_ORANGE`         |
+|`RGB_PINK`           |`HSV_PINK`           |
+|`RGB_PURPLE`         |`HSV_PURPLE`         |
+|`RGB_RED`            |`HSV_RED`            |
+|`RGB_SPRINGGREEN`    |`HSV_SPRINGGREEN`    |
+|`RGB_TEAL`           |`HSV_TEAL`           |
+|`RGB_TURQUOISE`      |`HSV_TURQUOISE`      |
+|`RGB_WHITE`          |`HSV_WHITE`          |
+|`RGB_YELLOW`         |`HSV_YELLOW`         |
 
-These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Feel free to add to this list!
+These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/color.h). Feel free to add to this list!
 
 
 ## Additional `config.h` Options :id=additional-configh-options
@@ -435,9 +599,10 @@ These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blo
 ```c
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
 #define RGB_DISABLE_TIMEOUT 0 // number of milliseconds to wait until rgb automatically turns off
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // OBSOLETE: number of ticks to wait until disabling effects
-#define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
+#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
@@ -447,11 +612,13 @@ These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blo
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define RGB_MATRIX_STARTUP_SPD 127 // Sets the default animation speed, if none has been set
 #define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)
+#define RGB_MATRIX_SPLIT { X, Y } 	// (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
+                              		// If RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 ```
 
 ## EEPROM storage :id=eeprom-storage
 
-The EEPROM for it is currently shared with the RGBLIGHT system (it's generally assumed only one RGB would be used at a time), but could be configured to use its own 32bit address with:
+The EEPROM for it is currently shared with the LED Matrix system (it's generally assumed only one feature would be used at a time), but could be configured to use its own 32bit address with:
 
 ```c
 #define EECONFIG_RGB_MATRIX (uint32_t *)28
@@ -542,29 +709,74 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-### Suspended state :id=suspended-state
-To use the suspend feature, make sure that `#define RGB_DISABLE_WHEN_USB_SUSPENDED true` is added to the `config.h` file. 
+### Indicator Examples :id=indicator-examples
 
-Additionally add this to your `<keyboard>.c`:
-
+Caps Lock indicator on alphanumeric flagged keys:
 ```c
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        for (uint8_t i = led_min; i <= led_max; i++) {
+            if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
+                rgb_matrix_set_color(i, RGB_RED);
+            }
+        }
+    }
 }
 ```
-or add this to your `keymap.c`:
-```c
-void suspend_power_down_user(void) {
-    rgb_matrix_set_suspend_state(true);
-}
 
-void suspend_wakeup_init_user(void) {
-    rgb_matrix_set_suspend_state(false);
+Layer indicator on all flagged keys:
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    for (uint8_t i = led_min; i <= led_max; i++) {
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case RAISE:
+                rgb_matrix_set_color(i, RGB_BLUE);
+                break;
+            case LOWER:
+                rgb_matrix_set_color(i, RGB_YELLOW);
+                break;
+            default:
+                break;
+        }
+    }
+}
+```
+
+#### Examples :id=indicator-examples
+
+This example sets the modifiers to be a specific color based on the layer state.  You can use a switch case here, instead, if you would like.  This uses HSV and then converts to RGB, because this allows the brightness to be limited (important when using the WS2812 driver).
+
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    HSV hsv = {0, 255, 255};
+    
+    if (layer_state_is(layer_state, 2)) {
+        hsv = {130, 255, 255};
+    } else {
+        hsv = {30, 255, 255};
+    }
+    
+    if (hsv.v > rgb_matrix_get_val()) {
+        hsv.v = rgb_matrix_get_val();
+    }
+    RGB rgb = hsv_to_rgb(hsv);
+    
+    for (uint8_t i = led_min; i <= led_max; i++) {
+        if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x01 == LED_FLAG_MODIFIER
+            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+        }
+    }
+}
+```
+
+If you want to indicate a Host LED status (caps lock, num lock, etc), you can use something like this to light up the caps lock key: 
+
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(5, 255, 255, 255); // assuming caps lock is at led #5
+    } else {
+        RGB_MATRIX_INDICATOR_SET_COLOR(5, 0, 0, 0);
+    }
 }
 ```

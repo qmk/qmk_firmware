@@ -13,6 +13,7 @@ from pygments import lex
 
 import qmk.path
 from qmk.keyboard import find_keyboard_from_dir, rules_mk
+from qmk.errors import CppError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -148,8 +149,8 @@ def is_keymap_dir(keymap, c=True, json=True, additional_files=None):
     for file in files:
         if (keymap / file).is_file():
             if additional_files:
-                for file in additional_files:
-                    if not (keymap / file).is_file():
+                for additional_file in additional_files:
+                    if not (keymap / additional_file).is_file():
                         return False
 
             return True
@@ -372,7 +373,10 @@ def _c_preprocess(path, stdin=DEVNULL):
     """
     cmd = ['cpp', str(path)] if path else ['cpp']
     pre_processed_keymap = cli.run(cmd, stdin=stdin)
-
+    if 'fatal error' in pre_processed_keymap.stderr:
+        for line in pre_processed_keymap.stderr.split('\n'):
+            if 'fatal error' in line:
+                raise (CppError(line))
     return pre_processed_keymap.stdout
 
 

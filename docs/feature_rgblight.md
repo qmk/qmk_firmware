@@ -74,6 +74,7 @@ Changing the **Value** sets the overall brightness.<br>
 |`RGB_MODE_XMAS`    |`RGB_M_X` |Christmas animation mode                                            |
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red, Green, Blue test animation mode                                |
+|`RGB_MODE_TWINKLE` |`RGB_M_TW`|Twinkle animation mode                                              |
 
 !> By default, if you have both the RGB Light and the [RGB Matrix](feature_rgb_matrix.md) feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
 
@@ -118,7 +119,7 @@ if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a n
 
 Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstration.
 
-Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight.h` there is a contrast table between the old mode number and the current symbol.
+Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight/rgblight.h` there is a contrast table between the old mode number and the current symbol.
 
 ### Effect and Animation Toggles
 
@@ -309,13 +310,29 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
+You can also use `rgblight_blink_layer_repeat` to specify the amount of times the layer is supposed to blink. Using the layers from above,
+```c
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DEBUG:
+            rgblight_blink_layer_repeat(debug_enable ? 0 : 1, 200, 3);
+            break;
+    }
+}
+```
+would turn the layer 0 (or 1) on and off again three times when `DEBUG` is pressed.
+
 ### Overriding RGB Lighting on/off status
 
 Normally lighting layers are not shown when RGB Lighting is disabled (e.g. with `RGB_TOG` keycode). If you would like lighting layers to work even when the RGB Lighting is otherwise off, add `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` to your `config.h`.
 
+### Retain brightness
+
+Usually lighting layers apply their configured brightness once activated. If you would like lighting layers to retain the currently used brightness (as returned by `rgblight_get_val()`), add `#define RGBLIGHT_LAYERS_RETAIN_VAL` to your `config.h`.
+
 ## Functions
 
-If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight.h) for the full list, but the most commonly used functions include:
+If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight/rgblight.h) for the full list, but the most commonly used functions include:
 
 ### Utility Functions
 |Function                                    |Description                                                        |
@@ -436,26 +453,27 @@ rgblight_sethsv_at(HSV_GREEN, 2); // led 2
 
 These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
 
-|RGB                |HSV                |
-|-------------------|-------------------|
-|`RGB_WHITE`        |`HSV_WHITE`        |
-|`RGB_RED`          |`HSV_RED`          |
-|`RGB_CORAL`        |`HSV_CORAL`        |
-|`RGB_ORANGE`       |`HSV_ORANGE`       |
-|`RGB_GOLDENROD`    |`HSV_GOLDENROD`    |
-|`RGB_GOLD`         |`HSV_GOLD`         |
-|`RGB_YELLOW`       |`HSV_YELLOW`       |
-|`RGB_CHARTREUSE`   |`HSV_CHARTREUSE`   |
-|`RGB_GREEN`        |`HSV_GREEN`        |
-|`RGB_SPRINGGREEN`  |`HSV_SPRINGGREEN`  |
-|`RGB_TURQUOISE`    |`HSV_TURQUOISE`    |
-|`RGB_TEAL`         |`HSV_TEAL`         |
-|`RGB_CYAN`         |`HSV_CYAN`         |
-|`RGB_AZURE`        |`HSV_AZURE`        |
-|`RGB_BLUE`         |`HSV_BLUE`         |
-|`RGB_PURPLE`       |`HSV_PURPLE`       |
-|`RGB_MAGENTA`      |`HSV_MAGENTA`      |
-|`RGB_PINK`         |`HSV_PINK`         |
+|RGB                  |HSV                  |
+|---------------------|---------------------|
+|`RGB_AZURE`          |`HSV_AZURE`          |
+|`RGB_BLACK`/`RGB_OFF`|`HSV_BLACK`/`HSV_OFF`|
+|`RGB_BLUE`           |`HSV_BLUE`           |
+|`RGB_CHARTREUSE`     |`HSV_CHARTREUSE`     |
+|`RGB_CORAL`          |`HSV_CORAL`          |
+|`RGB_CYAN`           |`HSV_CYAN`           |
+|`RGB_GOLD`           |`HSV_GOLD`           |
+|`RGB_GOLDENROD`      |`HSV_GOLDENROD`      |
+|`RGB_GREEN`          |`HSV_GREEN`          |
+|`RGB_MAGENTA`        |`HSV_MAGENTA`        |
+|`RGB_ORANGE`         |`HSV_ORANGE`         |
+|`RGB_PINK`           |`HSV_PINK`           |
+|`RGB_PURPLE`         |`HSV_PURPLE`         |
+|`RGB_RED`            |`HSV_RED`            |
+|`RGB_SPRINGGREEN`    |`HSV_SPRINGGREEN`    |
+|`RGB_TEAL`           |`HSV_TEAL`           |
+|`RGB_TURQUOISE`      |`HSV_TURQUOISE`      |
+|`RGB_WHITE`          |`HSV_WHITE`          |
+|`RGB_YELLOW`         |`HSV_YELLOW`         |
 
 ```c
 rgblight_setrgb(RGB_ORANGE);
@@ -464,7 +482,7 @@ rgblight_setrgb_at(RGB_GOLD, 3);
 rgblight_sethsv_range(HSV_WHITE, 0, 6);
 ```
 
-These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Feel free to add to this list!
+These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/color.h). Feel free to add to this list!
 
 
 ## Changing the order of the LEDs

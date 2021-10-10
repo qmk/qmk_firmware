@@ -40,7 +40,7 @@ extern uint8_t note_timbre;
   alternatively, the PWM pins on PORTB can be used as only/primary speaker
 */
 
-#if defined(AUDIO_PIN) && (AUDIO_PIN != C4) && (AUDIO_PIN != C5) && (AUDIO_PIN != C6) && (AUDIO_PIN != B5) && (AUDIO_PIN != B6) && (AUDIO_PIN != B7)
+#if defined(AUDIO_PIN) && (AUDIO_PIN != C4) && (AUDIO_PIN != C5) && (AUDIO_PIN != C6) && (AUDIO_PIN != B5) && (AUDIO_PIN != B6) && (AUDIO_PIN != B7) && (AUDIO_PIN != D5)
 #    error "Audio feature enabled, but no suitable pin selected as AUDIO_PIN - see docs/feature_audio under the AVR settings for available options."
 #endif
 
@@ -94,7 +94,7 @@ extern uint8_t note_timbre;
 #    error "Audio feature: the pin selected as AUDIO_PIN_ALT is not supported."
 #endif
 
-#if (AUDIO_PIN == B5) || (AUDIO_PIN == B6) || (AUDIO_PIN == B7) || (AUDIO_PIN_ALT == B5) || (AUDIO_PIN_ALT == B6) || (AUDIO_PIN_ALT == B7)
+#if (AUDIO_PIN == B5) || (AUDIO_PIN == B6) || (AUDIO_PIN == B7) || (AUDIO_PIN_ALT == B5) || (AUDIO_PIN_ALT == B6) || (AUDIO_PIN_ALT == B7) || (AUDIO_PIN == D5)
 #    define AUDIO2_PIN_SET
 #    define AUDIO2_TIMSKx TIMSK1
 #    define AUDIO2_TCCRxA TCCR1A
@@ -129,6 +129,16 @@ extern uint8_t note_timbre;
 #        define AUDIO2_OCRxy OCR1C
 #        define AUDIO2_PIN B7
 #        define AUDIO2_TIMERx_COMPy_vect TIMER1_COMPC_vect
+#    elif (AUDIO_PIN == D5) && defined(__AVR_ATmega32A__)
+#        pragma message "Audio support for ATmega32A is experimental and can cause crashes."
+#        undef AUDIO2_TIMSKx
+#        define AUDIO2_TIMSKx TIMSK
+#        define AUDIO2_COMxy0 COM1A0
+#        define AUDIO2_COMxy1 COM1A1
+#        define AUDIO2_OCIExy OCIE1A
+#        define AUDIO2_OCRxy OCR1A
+#        define AUDIO2_PIN D5
+#        define AUDIO2_TIMERx_COMPy_vect TIMER1_COMPA_vect
 #    endif
 #endif
 

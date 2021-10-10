@@ -6,26 +6,28 @@ Si aún no lo has hecho, debes leer las [Pautas de teclados](hardware_keyboard_g
 
 ## Añadir tu Teclado AVR a QMK
 
-QMK tiene varias características para simplificar el trabajo con teclados AVR. Para la mayoría de los teclados no tienes que escribir ni una sola línea de código. Para empezar, ejecuta el archivo `util/new_keyboard.sh`:
+QMK tiene varias características para simplificar el trabajo con teclados AVR. Para la mayoría de los teclados no tienes que escribir ni una sola línea de código. Para empezar, ejecuta `qmk new-keyboard`:
 
 ```
-$ ./util/new_keyboard.sh
-Generating a new QMK keyboard directory
+$ qmk new-keyboard
+Ψ Generating a new QMK keyboard directory
 
-Keyboard Name: mycoolkb
-Keyboard Type [avr]: 
-Your Name [John Smith]: 
+Keyboard Name: mycoolkeeb
+Keyboard Type:
+        1. avr
+        2. ps2avrgb
+Please enter your choice:  [1]
+Your Name: [John Smith]
+Ψ Copying base template files...
+Ψ Copying avr template files...
+Ψ Renaming keyboard.[ch] to mycoolkeeb.[ch]...
+Ψ Replacing %YEAR% with 2021...
+Ψ Replacing %KEYBOARD% with mycoolkeeb...
+Ψ Replacing %YOUR_NAME% with John Smith...
 
-Copying base template files... done
-Copying avr template files... done
-Renaming keyboard files... done
-Replacing %KEYBOARD% with mycoolkb... done
-Replacing %YOUR_NAME% with John Smith... done
-
-Created a new keyboard called mycoolkb.
-
-To start working on things, cd into keyboards/mycoolkb,
-or open the directory in your favourite text editor.
+Ψ Created a new keyboard called mycoolkeeb.
+Ψ To start working on things, `cd` into keyboards/mycoolkeeb,
+Ψ or open the directory in your preferred text editor.
 ```
 
 Esto creará todos los archivos necesarios para tu nuevo teclado, y rellenará la configuración con valores predeterminados. Ahora sólo tienes que personalizarlo para tu teclado. 

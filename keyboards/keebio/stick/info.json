@@ -2,8 +2,6 @@
     "keyboard_name": "The Stick",
     "url": "https://keeb.io",
     "maintainer": "nooges",
-    "width": 12,
-    "height": 1,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define L_ADJUST (1<<_ADJUST)
 #define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #include <stdio.h>
 #include <string.h>
 

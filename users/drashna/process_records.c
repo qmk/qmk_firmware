@@ -19,18 +19,17 @@
 
 uint16_t copy_paste_timer;
 
-__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
-
-__attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
-
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's record handier if not processed here
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
+bool                       process_record_user(uint16_t keycode, keyrecord_t *record) {
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %b, time: %5u, int: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif  // KEYLOGGER_ENABLE
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     process_record_user_oled(keycode, record);
 #endif  // OLED
 
@@ -46,15 +45,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case KC_QWERTY ... KC_WORKMAN:
+        case FIRST_DEFAULT_LAYER_KEYCODE ... LAST_DEFAULT_LAYER_KEYCODE:
             if (record->event.pressed) {
                 uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
                 if (!mods) {
-                    set_single_persistent_default_layer(keycode - KC_QWERTY);
+                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE);
+#if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 3)
                 } else if (mods & MOD_MASK_SHIFT) {
-                    set_single_persistent_default_layer(keycode - KC_QWERTY + 4);
+                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE + 4);
+#    if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 7)
+
                 } else if (mods & MOD_MASK_CTRL) {
-                    set_single_persistent_default_layer(keycode - KC_QWERTY + 8);
+                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE + 8);
+#    endif
+#endif
                 }
             }
             break;
@@ -79,15 +83,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
                 }
                 send_string_with_delay_P(PSTR("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP), TAP_CODE_DELAY);
-#ifdef RGB_MATRIX_SPLIT_RIGHT
-                send_string_with_delay_P(PSTR(" RGB_MATRIX_SPLIT_RIGHT=yes"), TAP_CODE_DELAY);
-#    ifndef OLED_DRIVER_ENABLE
-                send_string_with_delay_P(PSTR(" OLED_DRIVER_ENABLE=no"), TAP_CODE_DELAY);
-#    endif
+#ifdef CONVERT_TO_PROTON_C
+                send_string_with_delay_P(PSTR(" -e CTPC=yes"), TAP_CODE_DELAY);
 #endif
                 send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
             }
-
             break;
 
         case VRSN:  // Prints firmware version
@@ -202,3 +202,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+__attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
+void                       post_process_record_user(uint16_t keycode, keyrecord_t *record) { post_process_record_keymap(keycode, record); }
