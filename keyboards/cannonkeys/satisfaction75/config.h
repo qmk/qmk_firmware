@@ -74,6 +74,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // configure oled driver for the 128x32 oled
 #define OLED_UPDATE_INTERVAL 66 // ~15fps
 
+// OLED_TIMEOUT is incompatible with the OLED_OFF mode
+#define OLED_TIMEOUT 0
+
+// OLED timeout reimplemented in the keyboard-specific code
+#define CUSTOM_OLED_TIMEOUT 60000
+
 // Custom config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 // Custom config Usage:
