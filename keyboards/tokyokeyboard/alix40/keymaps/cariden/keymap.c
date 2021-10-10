@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |RCtrl|     |     |     |     |     |      |WDel |Raise|     |     |     |Home |
     └─────┴─────┘     └─────┴─────┴─────┘      └─────┴─────┴─────┘     └─────┴─────┘
         */
-    [_LOWER]= LAYOUT_40_alix(
+    [_LOWER] = LAYOUT_40_alix(
         KC_TILD,     KC_EXLM, KC_AT,    KC_HASH,  KC_DLR,    KC_PERC,       KC_CIRC,       KC_AMPR,  KC_ASTR,   KC_LPRN,  KC_RPRN,  KC_DEL,  \
         KC_GRV,      KC_1,    KC_2,     KC_3,     KC_4,      KC_5,          KC_6,          KC_7,     KC_8,      KC_9,     KC_0,     KC_BSLS, \
         _______,     KC_LCBR, KC_RCBR,  KC_LBRC,  KC_RBRC,   SGUI(KC_S),    _______,       _______,  KC_MINS,   KC_UNDS,  KC_EQL,   KC_PLUS, \
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |     |     |     |     |Lower|     |      |     |     |     |     |     |     |
     └─────┴─────┘     └─────┴─────┴─────┘      └─────┴─────┴─────┘     └─────┴─────┘
     */
-    [_RAISE]= LAYOUT_40_alix(
+    [_RAISE] = LAYOUT_40_alix(
         _______,   KC_F1,    KC_F2,   KC_F3,     KC_F4,     _______,       KC_PGUP,   _______,    KC_UP,     _______,   _______,   _______, \
 		KC_CAPS,   KC_F5,    KC_F6,   KC_F7,     KC_F8,     _______,       KC_PGDN,   KC_LEFT,    KC_DOWN,   KC_RIGHT,  _______,   KC_PIPE, \
 		_______,   KC_F9,    KC_F10,  KC_F11,    KC_F12,    _______,       _______,   _______,    _______,   _______,   _______,   _______, \
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |     |     |     |     |     |     |      |     |     |     |     |     |     |
     └─────┴─────┘     └─────┴─────┴─────┘      └─────┴─────┴─────┘     └─────┴─────┘
     */
-    [_MEDIA]= LAYOUT_40_alix(
+    [_MEDIA] = LAYOUT_40_alix(
         DM_RSTP,  DM_REC1,   DM_REC2,   _______,   _______,    _______,       _______,   KC_MPLY,  KC_VOLU, KC_MUTE, _______,   KC_MSEL, \
 		_______,  DM_PLY1,   DM_PLY2,   _______,   _______,    _______,       _______,   KC_MPRV,  KC_VOLD, KC_MNXT, _______,   _______, \
 		_______,  _______,   _______,   _______,   _______,    _______,       _______,   _______,  _______, _______, _______,   _______, \
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |     |     |     |     |     |     |      |     |     |     |     |     |     |
     └─────┴─────┘     └─────┴─────┴─────┘      └─────┴─────┴─────┘     └─────┴─────┘
     */
-    [_ADJUST]= LAYOUT_40_alix(
+    [_ADJUST] = LAYOUT_40_alix(
         _______,   _______,   _______,   _______,   _______,    _______,        _______,   _______,    _______,   _______,   _______,   RESET,   \
 		_______,   RGB_TOG,   RGB_MOD,   RGB_HUI,   RGB_SAI,    RGB_VAI,        _______,   QWERTY,     COLEMAK,   _______,   _______,   _______, \
 		_______,   _______,   _______,   _______,   _______,    _______,        _______,   OUT_AUTO,   OUT_USB,   OUT_BT,    _______,   _______, \
