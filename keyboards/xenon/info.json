@@ -1,12 +1,13 @@
 {
-    "keyboard_name": "Xenon",
-    "url": "https://github.com/narinari/xenon-keyboard",
-    "maintainer": "Kyrremann",
-    "width": 6,
-    "height": 5,
-    "layouts": {
-        "LAYOUT": {
-            "layout": []
-        }
-    }
+  "keyboard_name": "Xenon",
+  "url": "https://github.com/narinari/xenon-keyboard",
+  "maintainer": "Kyrremann",
+  "diode_direction": "COL2ROW",
+  "matrix_pins": {
+    "rows": ["D4", "C6", "D7", "E6", "B4"]
+    "cols": ["B2", "B3", "B1", "F7", "F6", "F5", "F4"]
+  },
+  "layouts": {
+    "LAYOUT": []
+  }
 }

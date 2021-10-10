@@ -17,14 +17,6 @@
 
 #include "quantum.h"
 
-/* This a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
 #define LAYOUT( \
     L00, L01, L02, L03, L04, L05,                     R06, R07, R08, R09, R10, R11, \
     L12, L13, L14, L15, L16, L17,                     R18, R19, R20, R21, R22, R23, \
