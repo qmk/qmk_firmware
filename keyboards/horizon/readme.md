@@ -2,7 +2,7 @@
 
 ![Horizon](https://i.imgur.com/zR0wnA6.jpg)
 
-A simple 52-key (14x4) ortholinear keyboard, powered by an Arduino Pro Micro.
+A simple 52-key (4x14) ortholinear keyboard, powered by an Arduino Pro Micro.
 
 * Keyboard Maintainer: [Steven Karrmann](https://github.com/skarrmann)
 * Hardware Supported: Horizon PCBs, Arduino Pro Micro
