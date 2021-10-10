@@ -103,6 +103,11 @@
 #define ISSI_SCAL_GREEN_OFF 0x00
 #define ISSI_SCAL_BLUE_OFF 0x00
 
+#ifndef ISSI_SCAL_LED
+#    define ISSI_SCAL_LED 0xFF
+#endif
+#define ISSI_SCAL_LED_OFF 0x00
+
 // Set buffer sizes
 #define ISSI_MAX_LEDS 72
 #define ISSI_SCALING_SIZE 72
