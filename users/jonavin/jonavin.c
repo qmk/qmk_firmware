@@ -324,7 +324,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed)  SEND_STRING(":'-(");
             else unregister_code16(keycode);
         break;
-#endif // EMOTICON_ENABLE
+    #endif // EMOTICON_ENABLE
 
     default:
         if (record->event.pressed) {

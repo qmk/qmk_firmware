@@ -40,10 +40,10 @@ enum custom_user_keycodes {
 
   EMO_SHRUG,    // ¯\_("/)_/¯
   EMO_CONFUSE,  // (*_*)
-  EMO_TEARS,    // (T_T)
+  EMO_SAD,      // :'-(
   EMO_NERVOUS,  // (~_~;)
   EMO_JOY,      // (^o^)
-  EMO_SAD,      // :'-(
+  EMO_TEARS,    // (T_T)
 
   NEW_SAFE_RANGE  // new safe range for keymap level custom keycodes
 };
