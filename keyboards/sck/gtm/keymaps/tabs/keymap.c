@@ -14,11 +14,11 @@ void matrix_init_user(void) {
   debug_config.enable = 1;
 }
 
-void encoder_update_user(int8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
       tap_code16(C(KC_T));
     } else {
       tap_code16(C(KC_W));
     }
+    return true;
 }
-

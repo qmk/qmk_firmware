@@ -19,11 +19,9 @@ These functions allow you to activate layers in various ways. Note that layers a
 
 ### Caveats :id=caveats
 
-Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Specifically, dual function keys like `LT` and `MT` use a 16 bit keycode. 4 bits are used for the function identifier, the next 12 are divided into the parameters. Layer Tap uses 4 bits for the layer (and is why it's limited to layers 0-16, actually), while Mod Tap does the same, 4 bits for the identifier, 4 bits for which mods are used, and all of them use 8 bits for the keycode. Because of this, the keycode used is limited to `0xFF` (0-255), which are the basic keycodes only. 
+Currently, the `layer` argument of `LT()` is limited to layers 0-15, and the `kc` argument to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. This is because QMK uses 16-bit keycodes, of which 4 bits are used for the function identifier and 4 bits for the layer, leaving only 8 bits for the keycode.
 
 Expanding this would be complicated, at best. Moving to a 32-bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
-
-Additionally, if at least one right-handed modifier is specified in a Mod Tap or Layer Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two.
 
 ## Working with Layers :id=working-with-layers
 
@@ -74,10 +72,9 @@ There are a number of functions (and variables) related to how you can use or ma
 | [`update_tri_layer(x, y, z)`](ref_functions.md#update_tri_layerx-y-z) | Checks if layers `x` and `y` are both on, and sets `z` based on that (on if both on, otherwise off). |
 | [`update_tri_layer_state(state, x, y, z)`](ref_functions.md#update_tri_layer_statestate-x-y-z) | Does the same as `update_tri_layer(x, y, z)`, but from `layer_state_set_*` functions. |
 
+In addition to the functions that you can call, there are a number of callback functions that get called every time the layer changes. This passes the layer state to the function, where it can be read or modified.
 
-In additional to the functions that you can call, there are a number of callback functions that get called every time the layer changes. This passed the layer state to the function, which can be read or modified.
-
-|Callbacks                                     |Description                                                                                    |
+|Callback                                             |Description                                                                             |
 |-----------------------------------------------------|----------------------------------------------------------------------------------------|
 | `layer_state_set_kb(layer_state_t state)`           | Callback for layer functions, for keyboard.                                            |
 | `layer_state_set_user(layer_state_t state)`         | Callback for layer functions, for users.                                               |
@@ -86,9 +83,9 @@ In additional to the functions that you can call, there are a number of callback
 
 ?> For additional details on how you can use these callbacks, check out the [Layer Change Code](custom_quantum_functions.md#layer-change-code) document.
 
-|Check functions                                                  |Description                                                                   |
-|-------------------------------------------|------------------------------------------------------------------------------|
-| `layer_state_cmp(cmp_layer_state, layer)` | This checks the `cmp_layer_state` to see if the specific `layer` is enabled. This is meant for use with the layer callbacks. |
-| `layer_state_is(layer)`                   | This checks the layer state to see if the specific `layer` is enabled. (calls `layer_state_cmp` for the global layer state). |
+It is also possible to check the state of a particular layer using the following functions and macros.
 
-!> There is `IS_LAYER_ON(layer)` as well, however the `layer_state_cmp` function has some additional handling to ensure that on layer 0 that it returns the correct value. Otherwise, if you check to see if layer 0 is on, you may get an incorrect value returned. 
+|Function                         |Description                                                                                      |Aliases
+|---------------------------------|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| `layer_state_is(layer)`         | Checks if the specified `layer` is enabled globally.                                            | `IS_LAYER_ON(layer)`, `IS_LAYER_OFF(layer)`                           |
+| `layer_state_cmp(state, layer)` | Checks `state` to see if the specified `layer` is enabled. Intended for use in layer callbacks. | `IS_LAYER_ON_STATE(state, layer)`, `IS_LAYER_OFF_STATE(state, layer)` |

@@ -9,21 +9,33 @@ The following use [LUFA](https://www.fourwalledcubicle.com/LUFA.php) as the USB 
 * [ATmega16U2](https://www.microchip.com/wwwproducts/en/ATmega16U2) / [ATmega32U2](https://www.microchip.com/wwwproducts/en/ATmega32U2)
 * [ATmega16U4](https://www.microchip.com/wwwproducts/en/ATmega16U4) / [ATmega32U4](https://www.microchip.com/wwwproducts/en/ATmega32U4)
 * [AT90USB64](https://www.microchip.com/wwwproducts/en/AT90USB646) / [AT90USB128](https://www.microchip.com/wwwproducts/en/AT90USB1286)
+* [AT90USB162](https://www.microchip.com/wwwproducts/en/AT90USB162)
 
 Certain MCUs which do not have native USB will use [V-USB](https://www.obdev.at/products/vusb/index.html) instead:
 
 * [ATmega32A](https://www.microchip.com/wwwproducts/en/ATmega32A)
 * [ATmega328P](https://www.microchip.com/wwwproducts/en/ATmega328P)
+* [ATmega328](https://www.microchip.com/wwwproducts/en/ATmega328)
 
 ## ARM
 
-You can also use any ARM chip with USB that [ChibiOS](http://www.chibios.org) supports. Most have plenty of flash. Known to work are:
+You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) supports. Most have plenty of flash. Known to work are:
 
 ### STMicroelectronics (STM32)
 
  * [STM32F0x2](https://www.st.com/en/microcontrollers-microprocessors/stm32f0x2.html)
  * [STM32F103](https://www.st.com/en/microcontrollers-microprocessors/stm32f103.html)
  * [STM32F303](https://www.st.com/en/microcontrollers-microprocessors/stm32f303.html)
+ * [STM32F401](https://www.st.com/en/microcontrollers-microprocessors/stm32f401.html)
+ * [STM32F407](https://www.st.com/en/microcontrollers-microprocessors/stm32f407-417.html)
+ * [STM32F411](https://www.st.com/en/microcontrollers-microprocessors/stm32f411.html)
+ * [STM32F446](https://www.st.com/en/microcontrollers-microprocessors/stm32f446.html)
+ * [STM32G431](https://www.st.com/en/microcontrollers-microprocessors/stm32g4x1.html)
+ * [STM32G474](https://www.st.com/en/microcontrollers-microprocessors/stm32g4x4.html)
+ * [STM32L412](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
+ * [STM32L422](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
+ * [STM32L433](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x3.html)
+ * [STM32L443](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x3.html)
 
 ### NXP (Kinetis)
 

@@ -19,12 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
+#define VENDOR_ID       0x3265
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Yushakobo
 #define PRODUCT         HelixPico
-#define DESCRIPTION     A split keyboard for the cheap makers
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
@@ -78,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-  #define B5_AUDIO
+  #define AUDIO_PIN B5
 #endif
 
 /* ws2812 RGB LED */

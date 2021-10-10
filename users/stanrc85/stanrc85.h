@@ -22,6 +22,7 @@ enum my_layers {
 #define CA_SCLN LCA(KC_SCLN)
 #define KC_CTLE LCTL_T(KC_ESC)
 #define LT_SPCF LT(_FN1_60, KC_SPC)
+#define LT_BPCF LT(_FN1_60, KC_BSPC)
 #define TD_TESC TD(TD_ESC)
 #define TD_TWIN TD(TD_WIN)
 #define TD_TCTL TD(TD_RCTL)

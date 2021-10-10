@@ -1,0 +1,10 @@
+// Vim-Mode combos
+
+COMB(weEsc,      KC_ESC,          KC_W, KC_E)
+COMB(sdBspc,     KC_BSPC,         KC_S, KC_D)
+COMB(dfTab,      KC_TAB,          KC_D, KC_F)
+COMB(cvEnt,      KC_ENT,          KC_C, KC_V)
+COMB(uiEsc,      KC_ESC,          KC_U, KC_I)
+COMB(jkCol,      KC_COLN,         KC_J, KC_K)
+COMB(hnEnt,      KC_ENT,          KC_H, KC_N)
+ 

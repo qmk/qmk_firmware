@@ -29,7 +29,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 ```
 
-`raw_hid_receive` can receive variable size packets from host with maximum length `RAW_EPSIZE`. `raw_hid_send` on the other hand can send packets to host of exactly `RAW_EPSIZE` length, therefore it should be used with data of length `RAW_EPSIZE`.
+These two functions send and receive packets of length `RAW_EPSIZE` bytes to and from the host (32 on LUFA/ChibiOS/V-USB, 64 on ATSAM).
 
 Make sure to flash raw enabled firmware before proceeding with working on the host side.
 
@@ -44,7 +44,11 @@ To connect your host computer to your keyboard with raw HID you need four pieces
 3. Usage Page
 4. Usage
 
-The first two can easily be found in your keyboard's `config.h` in the keyboard's main directory under `VENDOR_ID` and `PRODUCT_ID`. **Usage Page** is **`0xFF60`** and **Usage** is **`0x0061`**.
+The first two can easily be found in your keyboard's `config.h` in the keyboard's main directory under `VENDOR_ID` and `PRODUCT_ID`.
+
+The final two can be overridden in your keyboard's `config.h` in the keyboard's main directory by redefining the values: `#define RAW_USAGE_PAGE 0xFF60` and `#define RAW_USAGE_ID 0x61`.
+
+By default, **Usage Page** is `0xFF60` and **Usage** is `0x61`.
 
 ### Building your host
 

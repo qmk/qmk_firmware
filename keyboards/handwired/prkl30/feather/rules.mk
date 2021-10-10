@@ -5,20 +5,13 @@ MCU = atmega32u4
 F_CPU = 8000000
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable
 #
 BLUETOOTH = AdafruitBLE
-BOOTMAGIC_ENABLE  = yes     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 ENCODER_ENABLE = yes
 MOUSEKEY_ENABLE  = no       # Mouse keys
 EXTRAKEY_ENABLE  = no       # Audio control and System control

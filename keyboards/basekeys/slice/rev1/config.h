@@ -1,6 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+Copyright 2020 2Moons
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,11 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    2Moons
 #define PRODUCT         Slice
-#define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 10
-#define MATRIX_COLS 18
+#define MATRIX_COLS 9
 
 // wiring of each half
 #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }

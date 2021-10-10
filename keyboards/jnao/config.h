@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maple Computing
 #define PRODUCT         JNAO Keyboard
-#define DESCRIPTION     A no-frills ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -50,3 +49,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
