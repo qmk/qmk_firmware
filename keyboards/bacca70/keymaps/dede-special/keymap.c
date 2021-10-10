@@ -17,18 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 // Windows mods
-#define GRV_CTL MOD_LCTL(KC_GRV)
-#define BLS_CTL MOD_RCTL(KC_BSLS)
-#define TAB_ALT MOD_LALT(KC_TAB)
+#define GRV_CTL MT(MOD_LCTL, KC_GRV)
+#define BLS_CTL MT(MOD_RCTL, KC_BSLS)
+#define TAB_ALT MT(MOD_LALT, KC_TAB)
 
 // MacOS mods
-#define GRV_GUI MOD_LGUI(KC_GRV)
-#define BLS_GUI MOD_RGUI(KC_BSLS)
-#define TAB_CTL MOD_LCTL(KC_TAB)
+#define GRV_GUI MT(MOD_LGUI, KC_GRV)
+#define BLS_GUI MT(MOD_RGUI, KC_BSLS)
+#define TAB_CTL MT(MOD_LCTL, KC_TAB)
 
 // mod tap bracket shifts
-#define LBR_SFT MOD_LSFT(KC_LBRC)
-#define RBR_SFT MOD_RSFT(KC_RBRC)
+#define LBR_SFT MT(MOD_LSFT, KC_LBRC)
+#define RBR_SFT MT(MOD_RSFT, KC_RBRC)
 
 // Arrow/TenKey/Media Keys/Reset hold with Backspace tap
 #define BSPC_LR LT(3, KC_BSPC)
