@@ -43,11 +43,12 @@ void encoder_action_register(uint8_t index, bool clockwise) {
     action_exec(encoder_event);
 }
 
-void matrix_scan_user(void) {
+void matrix_scan_kb(void) {
     encoder_action_unregister();
+    matrix_scan_user();
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
     encoder_action_register(index, clockwise);
     return true;
 };
