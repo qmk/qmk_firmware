@@ -26,6 +26,13 @@
 #if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3741)
 #    include "i2c_master.h"
 
+// TODO: Remove this at some later date
+#    if defined(DRIVER_ADDR_1) && defined(DRIVER_ADDR_2)
+#        if DRIVER_ADDR_1 == DRIVER_ADDR_2
+#            error "Setting DRIVER_ADDR_2 == DRIVER_ADDR_1 is obsolete. If you are only using one ISSI driver, set DRIVER_COUNT to 1 and remove DRIVER_ADDR_2"
+#        endif
+#    endif
+
 static void init(void) {
     i2c_init();
 
