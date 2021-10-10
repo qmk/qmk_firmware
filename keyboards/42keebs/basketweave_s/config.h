@@ -21,8 +21,8 @@
 #define VENDOR_ID       0x6B62
 #define PRODUCT_ID      0x6869
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Clackery
-#define PRODUCT         Basketweave
+#define MANUFACTURER    42. Keebs
+#define PRODUCT         Basketweave-S
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -50,10 +50,9 @@
  */
 // #define GRAVE_ESC_CTRL_OVERRIDE
 
-#define ENCODERS_PAD_A { B3 }
-#define ENCODERS_PAD_B { B4 }
+#define ENCODERS_PAD_A { B3, D1 }
+#define ENCODERS_PAD_B { B4, D0 }
 #define ENCODER_RESOLUTION 4
-#define ENCODER_DIRECTION_FLIP
 #define TAP_CODE_DELAY 10
 
 /* Bootmagic Lite key configuration */
