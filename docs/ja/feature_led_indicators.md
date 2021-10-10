@@ -1,10 +1,10 @@
 # LED インジケータ
 
 <!---
-  original document: 0.14.14:docs/feature_led_indicators.md
-  git diff 0.14.14 HEAD -- docs/feature_led_indicators.md | cat
+  original document: 0.14.22:docs/feature_led_indicators.md
+  git diff 0.14.22 HEAD -- docs/feature_led_indicators.md | cat
 -->
-?>  現在のところ、この機能は分割キーボードではサポートされません。
+?>  この機能を分割型キーボードの左右両側で使うためには、追加の設定が必要になります。詳細は [Data sync options](feature_split_keyboard.md#data-sync-options) を参照してください。
 
 QMK は HID 仕様で定義された5つの LED の読み取りメソッドを提供します:
 
