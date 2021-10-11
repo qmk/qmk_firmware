@@ -9,6 +9,7 @@ The differences are as follows:
 
 === Layer 0 (`_BASE`)
 Mostly stock + CAPS goes to layer `_MOV`.
+FN toggles the layer `_RGB`.
 
 === Layer 1 (`_MOV`), accessed by pressing `CAPS` on layer `_BASE`
 [%header]
