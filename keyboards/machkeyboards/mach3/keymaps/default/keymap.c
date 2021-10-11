@@ -22,24 +22,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     BL_INC,    BL_DEC,    BL_BRTG
   )
 };
-
-void keyboard_pre_init_user(void) {
-  setPinOutput(F5);
-  writePinHigh(F5);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}
