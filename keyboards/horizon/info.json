@@ -2,8 +2,6 @@
   "keyboard_name": "Horizon",
   "url": "https://github.com/skarrmann/horizon",
   "maintainer": "Steven Karrmann",
-  "width": 14,
-  "height": 4,
   "layouts": {
     "LAYOUT": {
       "layout": [
