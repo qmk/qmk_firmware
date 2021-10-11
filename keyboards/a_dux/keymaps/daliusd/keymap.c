@@ -333,11 +333,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case TM_SRCH:
             if (!record->event.pressed) return true;
-            SEND_STRING(TMUX_PREFIX SS_DOWN(X_TAB) SS_UP(X_TAB));
+            SEND_STRING(TMUX_PREFIX "\t");
             return false;
         case TM_URL:
             if (!record->event.pressed) return true;
-            SEND_STRING(TMUX_PREFIX SS_DOWN(X_LCTL) "u" SS_UP(X_LCTL));
+            SEND_STRING(TMUX_PREFIX SS_LCTL("u"));
             return false;
     }
     return true;
