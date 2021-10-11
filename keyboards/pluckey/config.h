@@ -55,7 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* communication between sides */
 #define USE_SERIAL
-#define SERIAL_USE_MULTI_TRANSACTION
 #define SOFT_SERIAL_PIN D2
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
