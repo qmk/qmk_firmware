@@ -42,6 +42,8 @@ int16_t cum_x = 0;
 int16_t cum_y = 0;
 int16_t sensor_x = 0;
 int16_t sensor_y = 0;
+int16_t frequent_count = 0;
+
 
 // Thresholds help to move only horizontal or vertical. When accumulated distance reaches threshold, only move one discrete value in direction with bigger delta.
 uint8_t	carret_threshold = 48;		 // higher means slower
@@ -118,7 +120,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-        LCTL(KC_UP),    LCTL(KC_DOWN),      LCTL(KC_LEFT),  LCTL(KC_RIGHT),
+        LCTL(KC_UP),    LCTL(KC_DOWN),      KC_CAPS,  LCTL(KC_RIGHT),
         KC_ESC,         MO(_FN2),           KC_BTN3,        KC_MOUSEMODE_SCROLL_ON_PRESS,
         KC_BTN1,    LALT(KC_Y)    ,   MO(_FN),        LGUI(LSFT(KC_A)),                    KC_BTN2
     ),
@@ -213,12 +215,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             track_mode = cursor_mode;
             return false;
         case KC_MOUSEMODE_SCROLL:
+            cum_x = 0;
+            cum_y = 0;
             track_mode = scroll_mode;
             return false;
         case KC_MOUSEMODE_SCROLL_ON_PRESS:
             if (record->event.pressed) {
+                cum_x = 0;
+                cum_y = 0;
                 track_mode = scroll_mode;
             } else {
+                cum_x = 0;
+                cum_y = 0;
                 track_mode = cursor_mode;
             }
             return false;
@@ -366,8 +374,10 @@ void handle_pointing_device_modes(void){
         int sign_y = move_y >= 0 ? 1 : -1;
         mouse_move_y_left = sign_y * ((move_y * sign_y) - (int)(move_y*sign_y));
 		mouse_report.y = CLAMP_HID((int)move_y);
-
-        mouse_scroll_need_move = true;
+        // if (mouse_report.y != 0 && mouse_report.x != 0) { frequent_count ++;}
+        // mouse_report.v = (mouse_report.y != 0 && mouse_report.x != 0) ? ((frequent_count % 100 == 0) ? (frequent_count % 200 == 0 ? -1 : 1) : 0) : 0 ;
+        mouse_scroll_need_move = mouse_scroll_need_move || (mouse_report.y != 0 && mouse_report.x != 0);
+        last_v = 0;
         break;
     case carret_mode:
         cur_factor = carret_threshold;
@@ -382,9 +392,11 @@ void handle_pointing_device_modes(void){
                 uprintf("mouse_report.h %d\n",mouse_report.h);
                 #endif
             } else {
+                // mouse_report.v = (reverse_scroll_y ? -1 : 1) * sign(cum_y) * (abs(cum_x) + abs(cum_y)) / cur_factor * (sign(cum_y)>0 ? 5 : 1) + (sign(cum_y)==sign(last_v) ? last_v / 2 : 0);
                 mouse_report.v = (reverse_scroll_y ? -1 : 1) * sign(cum_y) * (abs(cum_x) + abs(cum_y)) / cur_factor * (sign(cum_y)>0 ? 5 : 1) + (sign(cum_y)==sign(last_v) ? last_v / 2 : 0);
                 if (mouse_scroll_need_move) {
-                    mouse_report.y = (mouse_v_plus? +1 : -1) * 1;
+                    // mouse_report.y = (mouse_v_plus? +1 : -1) *  (reverse_scroll_y ? -1 : 1);
+                    // mouse_report.y = (mouse_v_plus? +1 : -1) * 20 * ( scroll_threshold / 14 ) * (reverse_scroll_y ? -1 : 1);
                     mouse_v_plus = !mouse_v_plus;
                     if (mouse_v_plus == true) {
                         mouse_scroll_need_move = false;
