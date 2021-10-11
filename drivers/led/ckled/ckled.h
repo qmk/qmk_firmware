@@ -26,7 +26,7 @@ typedef struct ckled_led {
     uint8_t b;
 } __attribute__((packed)) ckled_led;
 
-extern const ckled_led g_ckled_leds[DRIVER_LED_TOTAL];
+extern const ckled_led __flash g_ckled_leds[DRIVER_LED_TOTAL];
 
 void CKLED_init(uint8_t addr);
 bool CKLED_write_register(uint8_t addr, uint8_t reg, uint8_t data);
