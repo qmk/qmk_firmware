@@ -15,4 +15,4 @@ This layout is  WIP for me as I use my shiny new keyboard more and more. I will 
 * I use emacs, which could account for some of the oddities in my layout and macros
 
 ## Build
-To build the default keymap, simply run `make xd60:kmontag42`.
+To build the default keymap, simply run `make xiudi/xd60:kmontag42`.
