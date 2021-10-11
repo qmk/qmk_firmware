@@ -1,4 +1,5 @@
 /* Copyright 2018 James Laird-Wah
+ * Copyright 2021 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -77,9 +78,19 @@ static void init(void) {
 #        if defined(DRIVER_ADDR_2)
     IS31FL3737_init(DRIVER_ADDR_2);
 #        endif
-
 #    elif defined(IS31FL3741)
     IS31FL3741_init(DRIVER_ADDR_1);
+#    elif defined(CKLED)
+    CKLED_init(DRIVER_ADDR_1);
+#        if defined(DRIVER_ADDR_2)
+    CKLED_init(DRIVER_ADDR_2);
+#        endif
+#        if defined(DRIVER_ADDR_3)
+    CKLED_init(DRIVER_ADDR_3);
+#        endif
+#        if defined(DRIVER_ADDR_4)
+    CKLED_init(DRIVER_ADDR_4);
+#        endif
 #    endif
 
     for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
@@ -94,6 +105,8 @@ static void init(void) {
         IS31FL3737_set_led_control_register(index, enabled, enabled, enabled);
 #    elif defined(IS31FL3741)
         IS31FL3741_set_led_control_register(index, enabled, enabled, enabled);
+#    elif defined(CKLED)
+        CKLED_set_led_control_register(index, enabled, enabled, enabled);
 #    endif
     }
 
@@ -127,9 +140,19 @@ static void init(void) {
 #        if defined(DRIVER_ADDR_2)
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_2, 1);
 #        endif
-
 #    elif defined(IS31FL3741)
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
+#    elif defined(CKLED)
+    CKLED_update_led_control_registers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    CKLED_update_led_control_registers(DRIVER_ADDR_2, 1);
+#        endif
+#        if defined(DRIVER_ADDR_3)
+    CKLED_update_led_control_registers(DRIVER_ADDR_3, 2);
+#        endif
+#        if defined(DRIVER_ADDR_4)
+    CKLED_update_led_control_registers(DRIVER_ADDR_4, 3);
+#        endif
 #    endif
 }
 
@@ -189,7 +212,6 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = IS31FL3737_set_color,
     .set_color_all = IS31FL3737_set_color_all,
 };
-
 #    elif defined(IS31FL3741)
 static void flush(void) {
     IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
@@ -203,6 +225,26 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .flush = flush,
     .set_color = IS31FL3741_set_color,
     .set_color_all = IS31FL3741_set_color_all,
+};
+#    elif defined(CKLED)
+static void flush(void) {
+    CKLED_update_pwm_buffers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    CKLED_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#        endif
+#        if defined(DRIVER_ADDR_3)
+    CKLED_update_pwm_buffers(DRIVER_ADDR_3, 2);
+#        endif
+#        if defined(DRIVER_ADDR_4)
+    CKLED_update_pwm_buffers(DRIVER_ADDR_4, 3);
+#        endif
+}
+
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init = init,
+    .flush = flush,
+    .set_color = CKLED_set_color,
+    .set_color_all = CKLED_set_color_all,
 };
 #    endif
 
