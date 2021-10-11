@@ -284,10 +284,8 @@ void matrix_init(void) {
     matrix_init_pins();
 
     // initialize matrix state: all keys off
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        raw_matrix[i] = 0;
-        matrix[i]     = 0;
-    }
+    memset(matrix, 0, sizeof(matrix));
+    memset(raw_matrix, 0, sizeof(raw_matrix));
 
     debounce_init(ROWS_PER_HAND);
 

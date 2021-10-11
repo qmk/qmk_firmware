@@ -115,6 +115,7 @@ include $(INFO_RULES_MK)
 # Check for keymap.json first, so we can regenerate keymap.c
 include build_json.mk
 
+# Pull in keymap level rules.mk
 ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     # Look through the possible keymap folders until we find a matching keymap.c
     ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
@@ -345,6 +346,7 @@ ifeq ("$(USER_NAME)","")
 endif
 USER_PATH := users/$(USER_NAME)
 
+# Pull in user level rules.mk
 -include $(USER_PATH)/rules.mk
 ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
@@ -355,6 +357,23 @@ endif
 
 # Disable features that a keyboard doesn't support
 -include disable_features.mk
+
+# Pull in post_rules.mk files from all our subfolders
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_1)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_2)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_3)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_4)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_5)/post_rules.mk
+endif
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
@@ -409,12 +428,6 @@ endif
 PROJECT_DEFS := $(OPT_DEFS)
 PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
 PROJECT_CONFIG := $(CONFIG_H)
-
-ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-    VISUALIZER_DIR = $(QUANTUM_DIR)/visualizer
-    VISUALIZER_PATH = $(QUANTUM_PATH)/visualizer
-    include $(VISUALIZER_PATH)/visualizer.mk
-endif
 
 CONFIG_H += $(POST_CONFIG_H)
 ALL_CONFIGS := $(PROJECT_CONFIG) $(CONFIG_H)

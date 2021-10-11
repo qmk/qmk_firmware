@@ -12,11 +12,11 @@ COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = yes          # USB Nkey Rollover
 UNICODE_ENABLE = no       # Unicode
 KEY_LOCK_ENABLE = no
+CTPC = yes
 
-
-BOOTLOADER = hid
-BOOTLOADER_SIZE = 512
-PROGRAM_CMD = 	$(HID_BOOTLOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
+# BOOTLOADER = hid
+# BOOTLOADER_SIZE = 512
+# PROGRAM_CMD = 	$(HID_BOOTLOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
 # TAP_DANCE_ENABLE = yes
 
 WPM_ENABLE = yes

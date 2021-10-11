@@ -29,6 +29,7 @@ enum hid_report_ids {
     REPORT_ID_MOUSE,
     REPORT_ID_SYSTEM,
     REPORT_ID_CONSUMER,
+    REPORT_ID_PROGRAMMABLE_BUTTON,
     REPORT_ID_NKRO,
     REPORT_ID_JOYSTICK,
     REPORT_ID_DIGITIZER
@@ -194,6 +195,11 @@ typedef struct {
     uint8_t  report_id;
     uint16_t usage;
 } __attribute__((packed)) report_extra_t;
+
+typedef struct {
+    uint8_t  report_id;
+    uint32_t usage;
+} __attribute__((packed)) report_programmable_button_t;
 
 typedef struct {
 #ifdef MOUSE_SHARED_EP

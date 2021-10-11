@@ -25,7 +25,7 @@
 
 #        include "hal.h"
 #        if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX)
-#            define APA102_NOPS (100 / (1000000000L / (STM32_SYSCLK / 4)))  // This calculates how many loops of 4 nops to run to delay 100 ns
+#            define APA102_NOPS (100 / (1000000000L / (CPU_CLOCK / 4)))  // This calculates how many loops of 4 nops to run to delay 100 ns
 #        else
 #            error("APA102_NOPS configuration required")
 #            define APA102_NOPS 0  // this just pleases the compile so the above error is easier to spot
