@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void oled_render_capslock(bool caps_on);
 void oled_render_mods(void);
 void oled_render_keylog(void);

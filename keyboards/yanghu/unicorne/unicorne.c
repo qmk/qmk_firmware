@@ -64,7 +64,7 @@ led_config_t g_led_config = {{
 // clang-format on
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 // OLED shared code
 // The oled is vertical. Need to rotate 270 degrees.
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
