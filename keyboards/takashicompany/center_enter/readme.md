@@ -2,7 +2,9 @@
 
 ![image](https://raw.githubusercontent.com/takashicompany/center-enter/master/images/qmk.jpg)
 
-*A short description of the keyboard/project*
+A 30% keyboard with the enter key placed in the center.
+Option to install a rotary encoder is also available.
+VIA (Remap) is also supported.
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
 * Hardware Supported: Center x Enter PCB, Pro Micro
