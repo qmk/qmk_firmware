@@ -146,5 +146,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
 
-#define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT

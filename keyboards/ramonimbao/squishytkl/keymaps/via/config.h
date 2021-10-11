@@ -23,3 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // I'd like that option though. Below also works.
 // #define DYNAMIC_KEYMAP_LAYER_COUNT 2
 // #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
+
+/* QoL improvements */
+#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
