@@ -34,7 +34,7 @@ KEYCODES:
 - CT_END          Ctrl-End
 - 
  When EMOTICON_ENABLE = yes
--   EMO_SHRUG       ¯\_("/)_/¯
+-   EMO_SHRUG       `\_("/)_/`
 -   EMO_CONFUSE     (*_*)
 -   EMD_TEARS       (T_T)
 -   EMO_NERVOUS     (~_~;)
