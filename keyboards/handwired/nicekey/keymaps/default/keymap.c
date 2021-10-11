@@ -121,7 +121,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         switch (keycode) {
             case RANDOM_STRING_MACRO:
-                send_string_with_delay_P(sentences[i], RANDOM_STRING_DELAY);
+                send_string_with_delay_P((PGM_P)pgm_read_word(&(sentences[i])), RANDOM_STRING_DELAY);
                 tap_code(KC_ENT);
 
                 return false;
