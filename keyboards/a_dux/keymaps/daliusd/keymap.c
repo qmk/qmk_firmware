@@ -251,6 +251,7 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     case OS_GUI:
     case OS_TMUX:
     case OS_MISC:
+    case KC_LSFT:
         return true;
     default:
         return false;
