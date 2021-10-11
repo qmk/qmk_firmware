@@ -73,8 +73,7 @@
 #   define WS2812_DMA_CHANNEL 3
 
     // OLED related code
-#   ifdef OLED_DRIVER_ENABLE
-#       define OLED_TIMEOUT 50000
+#   ifdef OLED_ENABLE
 #       define OLED_UPDATE_INTERVAL 100
 #   endif
     

@@ -22,10 +22,6 @@
  */
 
 // Allow hooking into the RGB matrix indications using keymap code
-// Allow to turn off global handling
-__attribute__ ((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
-    return false;
-}
 
 // Modulates the brightness of indicator 
 RGB helper_dimmer(uint8_t r, uint8_t g, uint8_t b) {
@@ -62,6 +58,10 @@ void helper_painter(uint8_t led_min, uint8_t led_max, RGB col, uint8_t side) {
     }
 }
 
+// Allow to turn off global handling
+__attribute__ ((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+    return false;
+}
 // Set RGB state depending on layer
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t thisInd = 3;
