@@ -71,14 +71,6 @@
 #define WS2812_DMA_CHANNEL 5
 #define WS2812_EXTERNAL_PULLUP
 
-/* OLED display */
-#define I2C_DRIVER I2CD1
-#define I2C1_SCL_BANK GPIOB
-#define I2C1_SCL 6
-#define I2C1_SCL_PAL_MODE 4
-#define I2C1_SDA_BANK GPIOB
-#define I2C1_SDA 7
-#define I2C1_SDA_PAL_MODE 4
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

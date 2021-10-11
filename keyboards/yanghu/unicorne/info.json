@@ -2,8 +2,6 @@
   "keyboard_name": "Unicorne",
   "url": "https://github.com/yanghu/unicorne",
   "maintainer": "yanghu",
-  "width": 15,
-  "height": 4.7,
   "layouts": {
     "LAYOUT_unicorne": {
       "layout": [
