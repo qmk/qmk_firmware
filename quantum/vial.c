@@ -475,7 +475,7 @@ static void on_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[VIAL_TAP_DANCE_ENTRIES];
+qk_tap_dance_action_t tap_dance_actions[VIAL_TAP_DANCE_ENTRIES] = { };
 
 /* Load timings from eeprom into custom_tapping_term */
 static void reload_tap_dance(void) {
@@ -493,7 +493,7 @@ static void reload_tap_dance(void) {
 #endif
 
 #ifdef VIAL_COMBO_ENABLE
-combo_t key_combos[VIAL_COMBO_ENTRIES];
+combo_t key_combos[VIAL_COMBO_ENTRIES] = { };
 uint16_t key_combos_keys[VIAL_COMBO_ENTRIES][5];
 
 static void reload_combo(void) {
