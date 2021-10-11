@@ -17,7 +17,6 @@ CUSTOM_MATRIX = yes    # Remote matrix from the wireless bridge
 # SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
-MIDI_ENABLE = no              # MIDI support
 
 # # project specific files
 SRC += matrix.c serial_uart.c
