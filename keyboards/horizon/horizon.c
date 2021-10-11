@@ -1,4 +1,4 @@
-/* Copyright 2020 Jay Greco
+/* Copyright 2021 Steven Karrmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,25 +13,5 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "bitc_led.h"
 
-void set_bitc_LED(uint8_t mode) {
-    switch(mode) {
-        case LED_ON:
-            setPinOutput(PIN_LED);
-            writePin(PIN_LED, GPIO_STATE_HIGH);
-        break;
-
-        case LED_DIM:
-            setPinInput(PIN_LED);
-        break;
-
-        case LED_OFF:
-            setPinOutput(PIN_LED);
-            writePin(PIN_LED, GPIO_STATE_LOW);
-        break;
-
-        default:
-        break;
-    }
-}
+#include "horizon.h"
