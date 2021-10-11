@@ -6,6 +6,7 @@ Features
   - Split spacebars, Split Backspace
   - RGB Winlock indicator (requires LED stripto be installed)
   - RGB Layer indicators: FN/MO1 - Purple; LOWER/MO2 - Yellow; RAISE/MO3/NumPad - Green
+  - quick demo https://youtu.be/EzL1Fjkr3m0
 
 - Add PrtScr, Scroll Lock, Break, NumLock to Fn layer
 - Implement Win key lock using Fn+Win 
