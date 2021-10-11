@@ -1,0 +1,123 @@
+# Copyright 2021 Manna Harbour
+# https://github.com/manna-harbour/miryoku
+
+name: 'Main'
+on:
+  workflow_call:
+    inputs:
+      keyboard:
+        type: string
+        default: '["default"]'
+      alphas:
+        type: string
+        default: '["default"]'
+      nav:
+        type: string
+        default: '["default"]'
+      clipboard:
+        type: string
+        default: '["default"]'
+      layers:
+        type: string
+        default: '["default"]'
+      mapping:
+        type: string
+        default: '["default"]'
+      rules:
+        type: string
+        default: '["default"]'
+      custom_config:
+        type: string
+        default: '["default"]'
+      merge:
+        type: string
+        default: '["default"]'
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    container: qmkfm/qmk_cli
+    strategy:
+      fail-fast: false
+      matrix:
+        keyboard: ${{ fromJSON(inputs.keyboard) }}
+        alphas: ${{ fromJSON(inputs.alphas) }}
+        nav: ${{ fromJSON(inputs.nav) }}
+        clipboard: ${{ fromJSON(inputs.clipboard) }}
+        layers: ${{ fromJSON(inputs.layers) }}
+        mapping: ${{ fromJSON(inputs.mapping) }}
+        rules: ${{ fromJSON(inputs.rules) }}
+        custom_config: ${{ fromJSON(inputs.custom_config) }}
+        merge: ${{ fromJSON(inputs.merge) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Merge branches
+        if: ${{ matrix.merge != '' && matrix.merge != 'default' }}
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git fetch --unshallow
+          revert=`git log --grep='^\[miryoku-github\]' --pretty='format:%H' | tr '\n' ' '`
+          git revert $revert
+          for merge in ${{ matrix.merge }}
+          do
+            user=`echo "$merge" | cut -f 1 -d '/'`
+            repo=`echo "$merge" | cut -f 2 -d '/'`
+            branch=`echo "$merge" | cut -f 3- -d '/'`
+            remote="$user-$repo"
+            git remote add "$remote" "https://github.com/$user/$repo.git"
+            git fetch "$remote" "$branch"
+            git merge "$remote/$branch"
+            git remote remove "$remote"
+            git status
+          done
+      - name: Submodules
+        run: make git-submodule
+      - name: Process inputs
+        id: inputs
+        run: |
+          artifact_dir="artifacts"
+          mkdir "$artifact_dir"
+          user='users/manna-harbour_miryoku'
+          rules="$user/custom_rules.mk"
+          config="$user/custom_config.h"
+
+          artifact_build_name=`echo "miryoku_qmk ${{ matrix.keyboard }}" | tr '/' '_'`
+          for option in "alphas=${{ matrix.alphas }}" "nav=${{ matrix.nav }}" "clipboard=${{ matrix.clipboard }}" "layers=${{ matrix.layers }}" "mapping=${{ matrix.mapping }}"
+          do
+            if ! expr "$option" : '.*=default$'
+            then
+                artifact_build_name="$artifact_build_name "`echo "$option" | tr '=' '_'`
+                option=`echo "MIRYOKU_$option" | tr 'a-z' 'A-Z'`
+                echo "$option" >> "$rules"
+            fi
+          done
+          if [ -n "${{ matrix.rules }}" -a "${{ matrix.rules }}" != 'default' ]
+          then
+            artifact_build_name="$artifact_build_name rules_"`echo "${{ matrix.rules }}" | md5sum | cut -d ' ' -f 1`
+            echo "${{ matrix.rules }}" >> "$rules"
+          fi
+          if [ -n "${{ matrix.custom_config }}" -a "${{ matrix.custom_config }}" != 'default' ]
+          then
+            artifact_build_name="$artifact_build_name config_"`echo "${{ matrix.custom_config }}" | md5sum | cut -d ' ' -f 1`
+            echo "${{ matrix.custom_config }}" >> "$config"
+          fi
+          cp "$rules" "$config" "$artifact_dir"
+          if [ -n "${{ matrix.merge }}" -a "${{ matrix.merge }}" != 'default' ]
+          then
+            artifact_build_name="$artifact_build_name merge_"`echo "${{ matrix.merge }}" | md5sum | cut -d ' ' -f 1`
+          fi
+          artifact_build_name=`echo $artifact_build_name | tr ' ' '-'`
+          echo "artifact_build_name=$artifact_build_name" >> $GITHUB_OUTPUT
+          echo "artifact_dir=$artifact_dir" >> $GITHUB_OUTPUT
+      - name: Build
+        run: qmk compile -kb ${{ matrix.keyboard }} -km manna-harbour_miryoku
+      - name: Copy firmware
+        run: |
+          cp *manna-harbour_miryoku* "${{ steps.inputs.outputs.artifact_dir }}"
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.inputs.outputs.artifact_build_name }}
+          path: ${{ steps.inputs.outputs.artifact_dir }}
+        continue-on-error: true

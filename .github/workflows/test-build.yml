@@ -1,0 +1,14 @@
+# Copyright 2021 Manna Harbour
+# https://github.com/manna-harbour/miryoku
+
+name: 'Test Build'
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  build:
+    if: github.repository_owner == 'manna-harbour'
+    uses: ./.github/workflows/main.yml
+    with:
+      keyboard: '["crkbd"]'
