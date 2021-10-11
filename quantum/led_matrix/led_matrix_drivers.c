@@ -136,7 +136,6 @@ static void flush(void) {
 #                endif
 #            endif
 #        endif
-#    endif
 }
 
 const led_matrix_driver_t led_matrix_driver = {
@@ -145,4 +144,5 @@ const led_matrix_driver_t led_matrix_driver = {
     .set_value     = IS31FL3733_set_value,
     .set_value_all = IS31FL3733_set_value_all,
 };
+#    endif
 #endif
