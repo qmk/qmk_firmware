@@ -1,0 +1,38 @@
+# Copyright 2021 Manna Harbour
+# https://github.com/manna-harbour/miryoku
+
+name: 'Test All Configs'
+on:
+  - workflow_dispatch
+jobs:
+  build:
+    if: github.repository_owner == 'manna-harbour'
+    uses: ./.github/workflows/main.yml
+    with:
+      keyboard: '["crkbd"]'
+      alphas: '[
+        "default",
+        "azerty",
+        "colemak",
+        "colemakdhk",
+        "dvorak",
+        "halmak",
+        "workman",
+        "qwerty",
+        "qwertz"
+      ]'
+      nav: '[
+        "default",
+        "vi",
+        "invertedt"
+      ]'
+      clipboard: '[
+        "default",
+        "fun",
+        "mac",
+        "win"
+      ]'
+      layers: '[
+        "default",
+        "flip"
+      ]'

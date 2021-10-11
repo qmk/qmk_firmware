@@ -1,0 +1,12 @@
+# Copyright 2022 Manna Harbour
+# https://github.com/manna-harbour/miryoku
+
+name: 'Build Example 𝑥MK'
+on:
+  - workflow_dispatch
+jobs:
+  build:
+    uses: ./.github/workflows/main.yml
+    with:
+      keyboard: '["converter/xmk"]'
+      merge: '["manna-harbour/qmk_firmware/xmk"]'

@@ -1,0 +1,113 @@
+# Copyright 2021 Manna Harbour
+# https://github.com/manna-harbour/miryoku
+
+name: 'Build Inputs'
+on:
+  workflow_dispatch:
+    inputs:
+      keyboard:
+        description: 'Keyboard'
+        required: true
+      alphas:
+        description: 'Miryoku Alphas'
+        required: false
+        default: 'default'
+        type: choice
+        options:
+        - "default"
+        - "AZERTY"
+        - "BEAKL15"
+        - "Colemak"
+        - "ColemakDHK"
+        - "Dvorak"
+        - "Halmak"
+        - "QWERTY"
+        - "QWERTZ"
+        - "Workman"
+      nav:
+        description: 'Miryoku Nav'
+        required: false
+        default: 'default'
+        type: choice
+        options:
+        - "default"
+        - "invertedT"
+        - "vi"
+      clipboard:
+        description: 'Miryoku Clipboard'
+        required: false
+        default: 'default'
+        type: choice
+        options:
+        - "default"
+        - "fun"
+        - "Mac"
+        - "Win"
+      layers:
+        description: 'Miryoku Layers'
+        required: false
+        default: 'default'
+        type: choice
+        options:
+        - "default"
+        - "flip"
+      mapping:
+        description: 'Miryoku Mapping'
+        required: false
+        default: 'default'
+      rules:
+        description: 'custom_rules.mk'
+        required: false
+        default: 'default'
+      custom_config:
+        description: 'custom_config.h'
+        required: false
+        default: 'default'
+      merge:
+        description: 'Merge QMK Branches'
+        required: false
+        default: 'default'
+jobs:
+  process-inputs:
+    runs-on: ubuntu-latest
+    outputs:
+      keyboard: ${{ steps.process-inputs.outputs.keyboard }}
+      alphas: ${{ steps.process-inputs.outputs.alphas }}
+      nav: ${{ steps.process-inputs.outputs.nav }}
+      clipboard: ${{ steps.process-inputs.outputs.clipboard }}
+      layers: ${{ steps.process-inputs.outputs.layers }}
+      mapping: ${{ steps.process-inputs.outputs.mapping }}
+      rules: ${{ steps.process-inputs.outputs.rules }}
+      custom_config: ${{ steps.process-inputs.outputs.custom_config }}
+      merge: ${{ steps.process-inputs.outputs.merge }}
+    steps:
+      - name: Process inputs
+        id: process-inputs
+        run: |
+          set-output()
+          {
+            json=`echo "$2" | jq -cnR 'inputs | split(",";"")'`
+            echo "$1=$json" >> $GITHUB_OUTPUT
+          }
+          set-output "keyboard" "${{ github.event.inputs.keyboard }}"
+          set-output "alphas" "${{ github.event.inputs.alphas }}"
+          set-output "nav" "${{ github.event.inputs.nav }}"
+          set-output "clipboard" "${{ github.event.inputs.clipboard }}"
+          set-output "layers" "${{ github.event.inputs.layers }}"
+          set-output "mapping" "${{ github.event.inputs.mapping }}"
+          set-output "rules" "${{ github.event.inputs.rules }}"
+          set-output "custom_config" "${{ github.event.inputs.custom_config }}"
+          set-output "merge" "${{ github.event.inputs.merge }}"
+  build:
+    uses: ./.github/workflows/main.yml
+    needs: process-inputs
+    with:
+      keyboard: ${{ needs.process-inputs.outputs.keyboard }}
+      alphas: ${{ needs.process-inputs.outputs.alphas }}
+      nav: ${{ needs.process-inputs.outputs.nav }}
+      clipboard: ${{ needs.process-inputs.outputs.clipboard }}
+      layers: ${{ needs.process-inputs.outputs.layers }}
+      mapping: ${{ needs.process-inputs.outputs.mapping }}
+      rules: ${{ needs.process-inputs.outputs.rules }}
+      custom_config: ${{ needs.process-inputs.outputs.custom_config }}
+      merge: ${{ needs.process-inputs.outputs.merge }}
