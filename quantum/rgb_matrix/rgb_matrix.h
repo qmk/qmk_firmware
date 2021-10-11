@@ -1,6 +1,7 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2017 Jack Humbert
  * Copyright 2018 Yiancar
+ * Copyright 2021 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,6 +38,8 @@
 #    include "aw20216.h"
 #elif defined(WS2812)
 #    include "ws2812.h"
+#elif defined(CKLED)
+#    include "ckled.h"
 #endif
 
 #ifndef RGB_MATRIX_LED_FLUSH_LIMIT

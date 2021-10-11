@@ -1,4 +1,5 @@
 /* Copyright 2018 James Laird-Wah
+ * Copyright 2021 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +24,7 @@
  * be here if shared between boards.
  */
 
-#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3741)
+#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3741) || defined(CKLED)
 
 #    include "i2c_master.h"
 
@@ -45,7 +46,7 @@ static void init(void) {
 #            define DRIVER_SYNC_1 0
 #        endif
     IS31FL3733_init(DRIVER_ADDR_1, DRIVER_SYNC_1);
-#        if defined DRIVER_ADDR_2 && (DRIVER_ADDR_1 != DRIVER_ADDR_2)
+#        if defined(DRIVER_ADDR_2) && (DRIVER_ADDR_1 != DRIVER_ADDR_2)
 #            ifndef DRIVER_SYNC_2
 #                define DRIVER_SYNC_2 0
 #            endif
@@ -68,8 +69,19 @@ static void init(void) {
 #        if defined(DRIVER_ADDR_2) && (DRIVER_ADDR_2 != DRIVER_ADDR_1)  // provides backward compatibility
     IS31FL3737_init(DRIVER_ADDR_2);
 #        endif
-#    else
+#    elif defined(IS31FL3741)
     IS31FL3741_init(DRIVER_ADDR_1);
+#    elif defined(CKLED)
+    CKLED_init(DRIVER_ADDR_1);
+#        if defined(DRIVER_ADDR_2)
+    CKLED_init(DRIVER_ADDR_2);
+#        endif
+#        if defined(DRIVER_ADDR_3)
+    CKLED_init(DRIVER_ADDR_3);
+#        endif
+#        if defined(DRIVER_ADDR_4)
+    CKLED_init(DRIVER_ADDR_4);
+#        endif
 #    endif
     for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
         bool enabled = true;
@@ -80,8 +92,10 @@ static void init(void) {
         IS31FL3733_set_led_control_register(index, enabled, enabled, enabled);
 #    elif defined(IS31FL3737)
         IS31FL3737_set_led_control_register(index, enabled, enabled, enabled);
-#    else
+#    elif defined(IS31FL3741)
         IS31FL3741_set_led_control_register(index, enabled, enabled, enabled);
+#    elif defined(CKLED)
+        CKLED_set_led_control_register(index, enabled, enabled, enabled);
 #    endif
     }
     // This actually updates the LED drivers
@@ -112,8 +126,19 @@ static void init(void) {
 #        if defined(DRIVER_ADDR_2) && (DRIVER_ADDR_2 != DRIVER_ADDR_1)  // provides backward compatibility
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_2, 1);
 #        endif
-#    else
+#    elif defined(IS31FL3741)
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
+#    elif defined(CKLED)
+    CKLED_update_led_control_registers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    CKLED_update_led_control_registers(DRIVER_ADDR_2, 1);
+#        endif
+#        if defined(DRIVER_ADDR_3)
+    CKLED_update_led_control_registers(DRIVER_ADDR_3, 2);
+#        endif
+#        if defined(DRIVER_ADDR_4)
+    CKLED_update_led_control_registers(DRIVER_ADDR_4, 3);
+#        endif
 #    endif
 }
 
@@ -171,14 +196,39 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = IS31FL3737_set_color,
     .set_color_all = IS31FL3737_set_color_all,
 };
-#    else
-static void flush(void) { IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_2); }
+#    elif defined(IS31FL3741)
+static void flush(void) {
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2) && (DRIVER_ADDR_2 != DRIVER_ADDR_1)  // provides backward compatibility
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#        endif
+}
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
     .set_color = IS31FL3741_set_color,
     .set_color_all = IS31FL3741_set_color_all,
+};
+#    elif defined(CKLED)
+static void flush(void) {
+    CKLED_update_pwm_buffers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    CKLED_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#        endif
+#        if defined(DRIVER_ADDR_3)
+    CKLED_update_pwm_buffers(DRIVER_ADDR_3, 2);
+#        endif
+#        if defined(DRIVER_ADDR_4)
+    CKLED_update_pwm_buffers(DRIVER_ADDR_4, 3);
+#        endif
+}
+
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init = init,
+    .flush = flush,
+    .set_color = CKLED_set_color,
+    .set_color_all = CKLED_set_color_all,
 };
 #    endif
 
