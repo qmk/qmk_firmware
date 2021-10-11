@@ -570,6 +570,7 @@ void render_layout(uint8_t row, uint8_t col, uint8_t mods, bool isLeft) {
         },{ 0x00,0x00,0x00,0x00,0x00,0x00,0xf8,0x08,0xf8,0x08,0xf0,0x00,0x70,0x88,
             0x88,0x88,0x71,0x00,0x70,0x88,0x88,0x48,0xff,0x00,0x70,0xa8,0xa8,0xa8,
             0xb0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xce,0xe7,0x00,0x00}};
+    uint8_t this_layout = userspace_config.layout % 3;
 
     // Render the requested image on the given column and row 
     // Don't grab highest layer; instead compare from top to bottom.
@@ -582,7 +583,7 @@ void render_layout(uint8_t row, uint8_t col, uint8_t mods, bool isLeft) {
         } else if (layer_state_cmp(layer_state, _FUNC)) {
             draw_image(row, col, func7_L);
         } else if (layer_state_cmp(layer_state, _NUMB)) {
-            switch (userspace_config.layout % 3) {
+            switch (this_layout) {
                 case 0: // Dvorak
                     if (mods & MOD_MASK_SHIFT) {
                         draw_image(row, col, numb6_L_dvor_shift);
@@ -618,7 +619,7 @@ void render_layout(uint8_t row, uint8_t col, uint8_t mods, bool isLeft) {
         } else if (layer_state_cmp(layer_state, _CHAR)) {
             draw_image(row, col, char1_L);
         } else {
-            switch (userspace_config.layout % 3) {
+            switch (this_layout) {
                 case 0: // Dvorak
                     if (mods & MOD_MASK_SHIFT) {
                         draw_image(row, col, base0_L_dvor_shift);
@@ -654,7 +655,7 @@ void render_layout(uint8_t row, uint8_t col, uint8_t mods, bool isLeft) {
         if (layer_state_cmp(layer_state, _MUSI)) {
             draw_image(row, col, musi9_R);
         } else if (layer_state_cmp(layer_state, _SYMB)) {
-            switch (userspace_config.layout % 3) {
+            switch (this_layout) {
                 case 0: // Dvorak
                     draw_image(row, col, symb5_R_dvor);
                     break;
@@ -682,7 +683,7 @@ void render_layout(uint8_t row, uint8_t col, uint8_t mods, bool isLeft) {
         } else if (layer_state_cmp(layer_state, _CHAR)) {
             draw_image(row, col, char1_R);
         } else {
-            switch (userspace_config.layout % 3) {
+            switch (this_layout) {
                 case 0: // Dvorak
                     if (mods & MOD_MASK_SHIFT) {
                         draw_image(row, col, base0_R_dvor_shift);

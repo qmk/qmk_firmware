@@ -22,6 +22,8 @@
 
 // For custom indicators
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
+// RGB sleep implementation
+void housekeeping_task_rgb(void);
 // Hook into shutdown code
 void shutdown_rgb(void);
 void suspend_wakeup_init_rgb(void);

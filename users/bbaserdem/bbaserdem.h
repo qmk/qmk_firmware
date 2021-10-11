@@ -56,7 +56,7 @@
 typedef union {
     uint32_t raw;
     struct {
-        bool test;
+        bool rgb_sleep;
     };
 } userspace_runtime_t;
 

@@ -67,7 +67,7 @@ void userspace_transport_update(void) {
 }
 
 // Initiate the protocol on sync
-void userspace_transport_sync(void) {
+void userspace_transport_sync(bool force_sync) {
     if (is_keyboard_master()) {
         // Keep track of the last state
         static userspace_config_t last_userspace_config;
@@ -79,9 +79,8 @@ void userspace_transport_sync(void) {
             needs_sync = true;
             memcpy(&last_userspace_config, &transport_userspace_config, sizeof(transport_userspace_config));
         }
-
         // Perform the sync if requested
-        if (needs_sync) {
+        if (needs_sync || force_sync) {
             transaction_rpc_send(RPC_ID_CONFIG_SYNC, sizeof(transport_userspace_config), &transport_userspace_config);
             needs_sync = false;
         }
@@ -93,7 +92,7 @@ void userspace_transport_sync(void) {
         }
 
         // Perform the sync if requested
-        if (needs_sync) {
+        if (needs_sync || force_sync) {
             transaction_rpc_send(RPC_ID_RUNTIME_SYNC, sizeof(transport_userspace_runtime), &transport_userspace_runtime);
             needs_sync = false;
         }
@@ -135,14 +134,32 @@ __attribute__ ((weak)) void keyboard_post_init_keymap(void) {}
 __attribute__ ((weak)) void keyboard_post_init_user(void) {
     // Fix beginning base layer, in case some other firmware was flashed
     //  set_single_persistent_default_layer(_BASE);
-    
-    // Initialize userspace config
-    userspace_config.raw = eeconfig_read_user();
+
+    // Unicode mode
+#   ifdef UNICODEMAP_ENABLE
+    set_unicode_input_mode(UC_LNX);
+#   endif // UNICODEMAP_ENABLE
 
     // Split keyboard halves communication
 #   ifdef SPLIT_KEYBOARD
+    // Register the transactions
     transaction_register_rpc( RPC_ID_CONFIG_SYNC, userspace_config_sync );
     transaction_register_rpc(RPC_ID_RUNTIME_SYNC, userspace_runtime_sync);
+    // Load default config values
+    if (is_keyboard_master()) { 
+        // If we are main; load from eeconfig
+        userspace_config.raw = eeconfig_read_user();
+        // And update the transport variable
+        userspace_transport_update();
+        // Do one forced transfer to sync halves
+        userspace_transport_sync(true);
+    } else {
+        // Just sync the data received
+        userspace_transport_update();
+    }
+#   else // SPLIT_KEYBOARD
+    // If we are not split; just load from eeprom
+    userspace_config.raw = eeconfig_read_user();
 #   endif // SPLIT_KEYBOARD
 
     // Backlight LED
@@ -154,11 +171,6 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
 #   ifdef RGBLIGHT_ENABLE
     keyboard_post_init_underglow();
 #   endif // RGBLIGHT_ENABLE
-
-    // Unicode mode
-#   ifdef UNICODEMAP_ENABLE
-    set_unicode_input_mode(UC_LNX);
-#   endif // UNICODEMAP_ENABLE
 
     // Keymap specific stuff
     keyboard_post_init_keymap();
@@ -174,23 +186,30 @@ void housekeeping_task_user(void) {
     // Check eeprom every now and then
     static userspace_config_t prev_userspace_config;
     static fast_timer_t throttle_timer = 0;
+    static bool init_flag = true;
 
-    // Do transport stuff
-#   ifdef SPLIT_KEYBOARD
-    userspace_transport_update();
-    userspace_transport_sync();
-#   endif // SPLIT_KEYBOARD
+    // Read this if we never read it before
+    if (init_flag) {
+        init_flag = false;
+        prev_userspace_config.raw = eeconfig_read_user();
+    }
 
-    // Throttled tasks
+    // Throttled tasks here
     if (timer_elapsed_fast(throttle_timer) >= HOUSEKEEPING_THROTTLE_INTERVAL_MS) {
         // Refresh timer
         throttle_timer = timer_read_fast();
         // Check userspace config for eeprom updates
-        if (prev_userspace_config.raw != userspace_config.raw) {
+        if (memcmp(&prev_userspace_config, &userspace_config, sizeof(userspace_config))) {
+            memcpy(&prev_userspace_config, &userspace_config, sizeof(userspace_config));
             eeconfig_update_user(userspace_config.raw);
-            prev_userspace_config.raw = userspace_config.raw;
         }
     }
+
+    // Do transport stuff
+#   ifdef SPLIT_KEYBOARD
+    userspace_transport_update();
+    userspace_transport_sync(false);
+#   endif // SPLIT_KEYBOARD
 
     // Hook to keymap code
     housekeeping_task_keymap();
