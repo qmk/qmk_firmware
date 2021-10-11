@@ -139,9 +139,9 @@ static void flush(void) {
 }
 
 const led_matrix_driver_t led_matrix_driver = {
-    .init          = init,
-    .flush         = flush,
-    .set_value     = IS31FL3733_set_value,
+    .init = init,
+    .flush = flush,
+    .set_value = IS31FL3733_set_value,
     .set_value_all = IS31FL3733_set_value_all,
 };
 #    endif
