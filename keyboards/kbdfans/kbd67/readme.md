@@ -2,11 +2,11 @@
 
 A 65% keyboard sold in several variants supporting KBDFan's different 65% lineups each with their own different revisions.  
 
-1. [Rev1](rev1/): Released in early 2018. Atmega32u4 soldered keyboard. Sold under the name "KBD65".  
-2. [HotSwap](hotswap/): Released in late 2018. Atmega32U4 hotswap single layout keyboard. 
+1. [Rev1](rev1/): Released in early 2018. Atmega32u4 soldered keyboard. Sold under the name "KBD65".
+2. [HotSwap](hotswap/): Released in late 2018. Atmega32U4 hotswap single layout keyboard.
 3. [Rev2](rev2/): Released in April/May 2019. Atmega32u4 soldered keyboard.
 4. [MKII](mkii_soldered/): Released in September 2019, designed by ai03. Atmega32u4 soldered keyboard. ESD Protected
-5. [MKII RGB V1](mkiirgb/v1/): Released in September 2019. Arm hotswap board. 
+5. [MKII RGB V1](mkiirgb/v1/): Released in September 2019. Arm hotswap board.
 6. [MKII RGB V2](mkiirgb/v2/): Released in December 2019. Atmega32u4 hotswap board. ESD Protected.
 6. [MKII RGB V2*](mkiirgb/v3/): Released in March 2021. Atmega32u4 hotswap board. ESD Protected. Uses LUFA bootloader and different inswitch RGB implementation. No visible markings differentiating it from the previous V2.
 
