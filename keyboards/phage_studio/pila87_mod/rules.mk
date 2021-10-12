@@ -1,8 +1,6 @@
 # MCU name
 MCU = STM32F103
 
-MCU_LDSCRIPT = pila87_mod_f103
-
 # Bootloader selection
 BOOTLOADER = stm32duino
 

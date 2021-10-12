@@ -17,9 +17,10 @@ Make sure to flash STM32duino (Maplee 003) first:
 ```
 **Warning:**
 ```
-Before using this QMK firmware, you need to soldering those below:
+Before using this QMK firmware, you need these thing below:
 - 1 Quartz Crystal (SMD 3225) 8 Mhz
 - 2 Capacitor 0603 18pF (or 22pF)
+- 1 ST-Link v2 to connect SWD and flash jumploader
 ```
 Make example for this keyboard (after setting up your build environment):
 
