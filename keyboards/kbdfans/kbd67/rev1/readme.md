@@ -1,6 +1,6 @@
 # KBD67 rev1
 
-65% keyboard with RGB underglow originally sold for the Tofu 65 and Tada 68 keyboards.   
+65% keyboard with RGB underglow originally sold for the Tofu 65 and Tada 68 keyboards.
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 * Hardware Supported: KBD67 PCB (Sometimes sold under the name "KBD65")  
