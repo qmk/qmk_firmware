@@ -49,15 +49,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,  
         _______, _______, _______,                            _______,                            _______, _______,          _______, _______, _______)
 };
-
-uint32_t held_keycode_timer = 0;
-uint16_t mapped_code = 0;
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) mapped_code = KC_VOLU;
-    else mapped_code = KC_VOLD;
-    register_code(mapped_code);
-    held_keycode_timer = timer_read32();
-    while (timer_elapsed32(held_keycode_timer) < MEDIA_KEY_DELAY) ;
-    unregister_code(mapped_code);
-    return true;
-}
