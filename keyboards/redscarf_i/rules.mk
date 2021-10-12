@@ -17,6 +17,5 @@ SLEEP_LED_ENABLE  = no      # Breathing sleep LED during USB suspend
 BACKLIGHT_ENABLE  = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE   = no      # Enable keyboard RGB underglow
 AUDIO_ENABLE      = no      # Audio output
-UNICODE_ENABLE    = no      # Unicode
 
 LAYOUTS = ortho_5x4 ortho_6x4 numpad_5x4 numpad_6x4
