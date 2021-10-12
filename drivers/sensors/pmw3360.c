@@ -20,7 +20,7 @@
 #include "wait.h"
 #include "debug.h"
 #include "print.h"
-#include "pmw3360_firmware.h"
+#include PMW3360_FIRMWARE_H
 
 // Registers
 #define REG_Product_ID 0x00
@@ -72,6 +72,10 @@
 #define REG_Lift_Config 0x63
 #define REG_Raw_Data_Burst 0x64
 #define REG_LiftCutoff_Tune2 0x65
+
+#ifndef MAX_CPI
+#    define MAX_CPI 0x77  // limits to 0--119, should be max cpi/100
+#endif
 
 bool _inBurst = false;
 
@@ -128,7 +132,7 @@ uint8_t spi_read_adv(uint8_t reg_addr) {
 }
 
 void pmw3360_set_cpi(uint16_t cpi) {
-    uint8_t cpival = constrain((cpi / 100) - 1, 0, 0x77);  // limits to 0--119
+    uint8_t cpival = constrain((cpi / 100) - 1, 0, MAX_CPI);
 
     spi_start_adv();
     spi_write_adv(REG_Config1, cpival);
@@ -218,7 +222,7 @@ bool pmw3360_check_signature(void) {
     uint8_t pid      = spi_read_adv(REG_Product_ID);
     uint8_t iv_pid   = spi_read_adv(REG_Inverse_Product_ID);
     uint8_t SROM_ver = spi_read_adv(REG_SROM_ID);
-    return (pid == 0x42 && iv_pid == 0xBD && SROM_ver == 0x04);  // signature for SROM 0x04
+    return (pid == firmware_signature[0] && iv_pid == firmware_signature[1] && SROM_ver == firmware_signature[2]);  // signature for SROM 0x04
 }
 
 report_pmw3360_t pmw3360_read_burst(void) {

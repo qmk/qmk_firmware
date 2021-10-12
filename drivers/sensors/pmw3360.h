@@ -46,6 +46,10 @@
 #    endif
 #endif
 
+#ifndef PMW3360_FIRMWARE_H
+#    define PMW3360_FIRMWARE_H "pmw3360_firmware.h"
+#endif
+
 #ifndef ROTATIONAL_TRANSFORM_ANGLE
 #    define ROTATIONAL_TRANSFORM_ANGLE 0x00
 #endif
