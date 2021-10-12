@@ -16,7 +16,7 @@ Features
     - provides arrows on WASD and additional nav keys + right hand numpad with 00; an be used for Alt Code entry
     - left spacebar Backspace
 - add double tap of Left Shift to toggle Caps Lock
-- Uo arrow is also Shift when held
+- Up arrow is also Shift when held
 
 
 rules.mk OPTIONS - Active features from userspace
