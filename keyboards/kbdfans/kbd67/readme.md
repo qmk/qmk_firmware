@@ -8,7 +8,7 @@ A 65% keyboard sold in several variants supporting KBDFan's different 65% lineup
 4. [MKII](mkii_soldered/): Released in September 2019, designed by ai03. Atmega32u4 soldered keyboard. ESD Protected
 5. [MKII RGB V1](mkiirgb/v1/): Released in September 2019. Arm hotswap board. 
 6. [MKII RGB V2](mkiirgb/v2/): Released in December 2019. Atmega32u4 hotswap board. ESD Protected.
-6. [MKII RGB V2*](mkiirgb/v3/): Released in March 2021. Atmega32u4 hotswap board. ESD Protected. Uses LUFA bootloader and different inswitch RGB implementation. No visible markings differentiating it from the previous V2. 
+6. [MKII RGB V2*](mkiirgb/v3/): Released in March 2021. Atmega32u4 hotswap board. ESD Protected. Uses LUFA bootloader and different inswitch RGB implementation. No visible markings differentiating it from the previous V2.
 
  **Firmware files are SPECIFIC to each board. Firmware files from one, will not work on the other.** Please use the `.hex` or `.bin` appropriate for your board.
 
