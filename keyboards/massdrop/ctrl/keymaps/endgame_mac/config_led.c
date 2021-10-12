@@ -1,3 +1,7 @@
+// Copyright 2021 Randall Shutt (@rshutt)
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #ifdef RGB_MATRIX_ENABLE
 #include "ctrl.h"
 
