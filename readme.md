@@ -1,11 +1,11 @@
-# ZSA's fork of QMK Firmware 
+# ZSA's fork of QMK Firmware
 
 [![Current Version](https://img.shields.io/github/tag/ErgoDox-EZ/qmk_firmware.svg)](https://github.com/ErgoDox-EZ/qmk_firmware/tags)
 [![Build Status](https://travis-ci.org/ErgoDox-EZ/qmk_firmware.svg?branch=master)](https://travis-ci.org/ErgoDox-EZ/qmk_firmware)
 [![GitHub contributors](https://img.shields.io/github/contributors/ErgoDox-EZ/qmk_firmware.svg)](https://github.com/ErgoDox-EZ/qmk_firmware/pulse/monthly)
 [![GitHub forks](https://img.shields.io/github/forks/ErgoDox-EZ/qmk_firmware.svg?style=social&label=Fork)](https://github.com/ErgoDox-EZ/qmk_firmware/)
 
-This purpose of this fork is maintain a clean repo that only contains the keyboard code that we need, and as little else as possible.  This is to keep it lightweight, since we only need a couple of keyboards. This is the repo that the EZ Configurator will pull from. 
+This purpose of this fork is maintain a clean repo that only contains the keyboard code that we need, and as little else as possible.  This is to keep it lightweight, since we only need a couple of keyboards. This is the repo that the EZ Configurator will pull from.
 ## Documentation
 
 * [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
@@ -24,7 +24,7 @@ You can request changes by making a fork and opening a [pull request](https://gi
 ## Building
 
 To set up the local build enviroment to create the firmware image manually, head to the [Newbs guide from QMK](https://docs.qmk.fm/#/newbs).
-And instead of using just `qmk setup`, you will want to run this instead: 
+And instead of using just `qmk setup`, you will want to run this instead:
 
 ```sh
 qmk setup zsa/qmk_firmware -b firmware20
@@ -49,8 +49,8 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
     - [https://github.com/qmk/qmk_firmware/commits/master/lib](https://github.com/qmk/qmk_firmware/commits/master/lib)
     - These folders are the important ones for maintaining the repo and keeping it properly up to date. Most, but not all, changes on this list should be pulled into our repo.
 4. `git merge (hash|tag)`
-    - `git rm -rf docs users layouts .vscode` to remove the docs and user code that we don't want. 
-    - To remove all of the keyboard exept the ones we want: 
+    - `git rm -rf docs users layouts .vscode` to remove the docs and user code that we don't want.
+    - To remove all of the keyboard exept the ones we want:
       ```sh
       find ./keyboards -mindepth 1 -maxdepth 1 -type d -not -name ergodox_ez -not -name planck -not -name moonlander -exec git rm -rf '{}' \;`
       find ./keyboards/planck -mindepth 1 -maxdepth 1 -type d -not -name ez -not -name keymaps -exec git rm -rf '{}' \;
@@ -62,7 +62,7 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
     - Resolve merge conflicts, and commit.
 
 4. Commit update
-   * Include commit info in `[changelog.md](http://changelog.md)` 
+   * Include commit info in `[changelog.md](http://changelog.md)`
 5. Open Pull request, and include information about the commit
 
 ## Strategy

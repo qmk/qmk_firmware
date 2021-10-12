@@ -291,10 +291,10 @@ static void flush(void) {
     i2c_led_q_run();
 }
 
-void md_rgb_matrix_indicators(void) {
+void md_rgb_matrix_indicators_advanced(uint8_t led_min, uint8_t led_max) {
     uint8_t kbled = keyboard_leds();
     if (kbled && rgb_matrix_config.enable) {
-        for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++) {
+        for (uint8_t i = led_min; i < led_max; i++) {
             if (
 #    if USB_LED_NUM_LOCK_SCANCODE != 255
                 (led_map[i].scan == USB_LED_NUM_LOCK_SCANCODE && (kbled & (1 << USB_LED_NUM_LOCK))) ||

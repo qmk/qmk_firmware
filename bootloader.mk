@@ -21,18 +21,19 @@
 # Current options:
 #
 # AVR:
-#     halfkay     PJRC Teensy
-#     caterina    Pro Micro (Sparkfun/generic)
-#     atmel-dfu   Atmel factory DFU
-#     lufa-dfu    LUFA DFU
-#     qmk-dfu     QMK DFU (LUFA + blinkenlight)
-#     bootloadHID HIDBootFlash compatible (ATmega32A)
-#     USBasp      USBaspLoader (ATmega328P)
+#     halfkay      PJRC Teensy
+#     caterina     Pro Micro (Sparkfun/generic)
+#     atmel-dfu    Atmel factory DFU
+#     lufa-dfu     LUFA DFU
+#     qmk-dfu      QMK DFU (LUFA + blinkenlight)
+#     qmk-hid      QMK HID (LUFA + blinkenlight)
+#     bootloadhid  HIDBootFlash compatible (ATmega32A)
+#     usbasploader USBaspLoader (ATmega328P)
 # ARM:
-#     kiibohd     Input:Club Kiibohd bootloader (only used on their boards)
-#     stm32duino  STM32Duino (STM32F103x8)
-#     stm32-dfu   STM32 USB DFU in ROM
-#     apm32-dfu   APM32 USB DFU in ROM
+#     kiibohd      Input:Club Kiibohd bootloader (only used on their boards)
+#     stm32duino   STM32Duino (STM32F103x8)
+#     stm32-dfu    STM32 USB DFU in ROM
+#     apm32-dfu    APM32 USB DFU in ROM
 #
 # BOOTLOADER_SIZE can still be defined manually, but it's recommended
 # you add any possible configuration to this list
@@ -67,6 +68,11 @@ ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
         BOOTLOADER_SIZE = 8192
     endif
 endif
+ifeq ($(strip $(BOOTLOADER)), qmk-hid)
+    OPT_DEFS += -DBOOTLOADER_QMK_HID
+    OPT_DEFS += -DBOOTLOADER_HID
+    BOOTLOADER_SIZE = 4096
+endif
 ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
     ifeq ($(strip $(MCU)), atmega32u4)
@@ -80,11 +86,11 @@ ifeq ($(strip $(BOOTLOADER)), caterina)
     OPT_DEFS += -DBOOTLOADER_CATERINA
     BOOTLOADER_SIZE = 4096
 endif
-ifeq ($(strip $(BOOTLOADER)), bootloadHID)
+ifneq (,$(filter $(BOOTLOADER), bootloadhid bootloadHID))
     OPT_DEFS += -DBOOTLOADER_BOOTLOADHID
     BOOTLOADER_SIZE = 4096
 endif
-ifeq ($(strip $(BOOTLOADER)), USBasp)
+ifneq (,$(filter $(BOOTLOADER), usbasploader USBasp))
     OPT_DEFS += -DBOOTLOADER_USBASP
     BOOTLOADER_SIZE = 4096
 endif
