@@ -154,7 +154,7 @@
                 {"label":"k4e", "x":15, "y":4}
             ]
         },
-        "LAYOUT_Split_left_shift":{
+        "LAYOUT_split_left_shift":{
             "layout": [
                 {"label":"k00", "x":0, "y":0},
                 {"label":"k01", "x":1, "y":0},
