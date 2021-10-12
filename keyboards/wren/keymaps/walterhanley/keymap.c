@@ -19,6 +19,10 @@
 bool is_cmd_tab_active = false;
 uint16_t cmd_tab_timer = 0;
 
+// Alt-tab tablesetting
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
+
 // Defines keycode alias
 #define ECTL LCTL_T(KC_ESC)
 #define EGUI LGUI_T(KC_ESC)
@@ -87,23 +91,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
-        if (clockwise) {
-            if (!is_cmd_tab_active) {
-                is_cmd_tab_active = true;
-                register_code(KC_LGUI);
+        // Encoder functionality for _MAC layer
+        if (IS_LAYER_ON(_MAC))
+        {
+            if (clockwise) {
+                if (!is_cmd_tab_active) {
+                    is_cmd_tab_active = true;
+                    register_code(KC_LGUI);
+                }
+                cmd_tab_timer = timer_read();
+                tap_code16(KC_TAB);
+            } else {
+                if (!is_cmd_tab_active) {
+                    is_cmd_tab_active = true;
+                    register_code(KC_LGUI);
+                }
+                cmd_tab_timer = timer_read();
+                tap_code16(S(KC_TAB));
             }
-            cmd_tab_timer = timer_read();
-            tap_code16(KC_TAB);
-        } else {
-            if (!is_cmd_tab_active) {
-                is_cmd_tab_active = true;
-                register_code(KC_LGUI);
+        }
+        // Encoder functionality for _WIN layer
+        else if (IS_LAYER_ON(_WIN)) {
+            if (clockwise) {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LALT);
+                }
+                alt_tab_timer = timer_read();
+                tap_code16(KC_TAB);
+            } else {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LALT);
+                }
+                alt_tab_timer = timer_read();
+                tap_code16(S(KC_TAB));
             }
-            cmd_tab_timer = timer_read();
-            tap_code16(S(KC_TAB));
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
@@ -134,6 +159,12 @@ void matrix_scan_user(void) {
         if (timer_elapsed(cmd_tab_timer) > 1000) {
             unregister_code(KC_LGUI);
             is_cmd_tab_active = false;
+        }
+    }
+    if (is_alt_tab_active) {
+        if (timer_elapsed(alt_tab_timer) > 1000) {
+            unregister_code(KC_LALT);
+            is_alt_tab_active = false;
         }
     }
 }
