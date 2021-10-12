@@ -2,8 +2,11 @@
     "keyboard_name": "PLX",
     "url": "https://peac.design/",
     "maintainer": "2Moons",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_60_ansi_tsangan"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_60_ansi_tsangan": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
