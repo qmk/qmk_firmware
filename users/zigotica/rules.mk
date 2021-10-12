@@ -8,3 +8,7 @@ ifeq ($(strip $(COMBO_ENABLE)), yes)
     SRC += combos.c
 endif
 
+ifeq ($(strip $(OLED_ENABLE)), yes)
+    SRC += oled.c
+endif
+

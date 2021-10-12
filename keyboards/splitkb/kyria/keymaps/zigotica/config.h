@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 300
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
   #define OLED_DISPLAY_128X64
   #define OLED_TIMEOUT 10000
 #endif
@@ -42,4 +42,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // Also, flip direction
   #define ENCODER_DIRECTION_FLIP
 #endif
-
