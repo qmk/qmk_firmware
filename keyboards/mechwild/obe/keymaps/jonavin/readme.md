@@ -1,6 +1,6 @@
 # Jonavin's MechWild Orange Boy Ergo keymap
 
--->  This keymap makes user of user/jonavin userspace 
+-->  This keymap makes use of user/jonavin userspace 
 
 Features
   - Split spacebars, Split Backspace
@@ -16,6 +16,7 @@ Features
     - provides arrows on WASD and additional nav keys + right hand numpad with 00; an be used for Alt Code entry
     - left spacebar Backspace
 - add double tap of Left Shift to toggle Caps Lock
+- Uo arrow is also Shift when held
 
 
 rules.mk OPTIONS - Active features from userspace
@@ -42,5 +43,4 @@ EMOTICON_ENABLE
     - adds EMO_ keycodes for text emojis
     
 ## All layers diagram
-![image](https://user-images.githubusercontent.com/71780717/135770721-ab263532-f645-4903-99cb-749549944e15.png)
-
+![image](https://user-images.githubusercontent.com/71780717/137009548-0d260f96-e3a9-4064-a897-9968ce461b38.png)
