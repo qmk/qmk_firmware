@@ -18,6 +18,5 @@ COMBO_ENABLE = yes         # Key combo feature
 NKRO_ENABLE = yes          # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no          # Audio output
-UNICODE_ENABLE = no        # Unicode
 RGBLIGHT_ENABLE = yes      # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no      # Breathing sleep LED during USB suspend

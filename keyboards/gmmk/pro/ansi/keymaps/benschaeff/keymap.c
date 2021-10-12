@@ -70,86 +70,58 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-bool encoder_update_user(uint8_t index, bool clockwise) 
-{
-  if (get_mods() & MODS_ALT_MASK) 
-	{
-			if (clockwise)
-			{
-				tap_code(KC_TAB);
-			} 
-			else 
-			{
-				tap_code16(S(KC_TAB));
-			}
-	} 
-	else if (get_mods() & MODS_CTRL_MASK) 
-  {
-    if (clockwise) 
-    {
-      tap_code(KC_TAB);
-    } 
-    else 
-    {
-      tap_code16(S(KC_TAB));
-
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (get_mods() & MODS_ALT_MASK) {
+        if (clockwise) {
+            tap_code(KC_TAB);
+        } else {
+            tap_code16(S(KC_TAB));
+        }
+    } else if (get_mods() & MODS_CTRL_MASK) {
+        if (clockwise) {
+            tap_code(KC_TAB);
+        } else {
+            tap_code16(S(KC_TAB));
+        }
+    } else if(IS_LAYER_ON(FNLAYER)) {
+        if (clockwise) {
+            tap_code(KC_MEDIA_NEXT_TRACK);
+        } else {
+            tap_code(KC_MEDIA_PREV_TRACK);
+        }
+    } else {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
     }
-  }
-  else if(IS_LAYER_ON(FNLAYER))
-    {
-      if(clockwise)
-      {
-        tap_code(KC_MEDIA_NEXT_TRACK);
-      }
-      else
-      {
-        tap_code(KC_MEDIA_PREV_TRACK);
-      }
-    }
-    else
-    {
-      if (clockwise) 
-      {
-        tap_code(KC_VOLU);
-      } 
-      else 
-      {
-        tap_code(KC_VOLD);
-      }
-
-    }
-    return true;
-
+    return false;
 }
-  void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    switch(get_highest_layer(layer_state))
-    {  // special handling per layer
-            case 0:  //layer one
-                if (host_keyboard_led_state().caps_lock)     
-                    rgb_matrix_set_color_all(255,0,0);
-                else
-                    rgb_matrix_set_color_all(0,255,56);
-            break;
 
-            case 1:
-            
-                 for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) 
-                    {
-                        RGB_MATRIX_INDICATOR_SET_COLOR(i,0,0,0);
-                    }
-                RGB_MATRIX_INDICATOR_SET_COLOR(0, 0, 0, 255) //esc
-                RGB_MATRIX_INDICATOR_SET_COLOR(6, 0, 0, 255) //f1
-                RGB_MATRIX_INDICATOR_SET_COLOR(8, 0, 0, 255) //q
-                RGB_MATRIX_INDICATOR_SET_COLOR(14, 0, 0, 255) //w
-                RGB_MATRIX_INDICATOR_SET_COLOR(20, 0, 0, 255) //e
-                RGB_MATRIX_INDICATOR_SET_COLOR(15, 0, 0, 255) //s
-                RGB_MATRIX_INDICATOR_SET_COLOR(26, 0, 0, 255) //f
-                RGB_MATRIX_INDICATOR_SET_COLOR(49, 0, 0, 255) //R_Alt
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    switch(get_highest_layer(layer_state)) {
+    // special handling per layer
+        case 0:  //layer one
+            if (host_keyboard_led_state().caps_lock)     
+                rgb_matrix_set_color_all(255,0,0);
+            else
+                rgb_matrix_set_color_all(0,255,56);
             break;
-
-            default:
-                break;
+        case 1:
+            for (uint8_t i = led_min; i < led_max; i++) {
+                 RGB_MATRIX_INDICATOR_SET_COLOR(i,0,0,0);
+            }
+            RGB_MATRIX_INDICATOR_SET_COLOR(0, 0, 0, 255) //esc
+            RGB_MATRIX_INDICATOR_SET_COLOR(6, 0, 0, 255) //f1
+            RGB_MATRIX_INDICATOR_SET_COLOR(8, 0, 0, 255) //q
+            RGB_MATRIX_INDICATOR_SET_COLOR(14, 0, 0, 255) //w
+            RGB_MATRIX_INDICATOR_SET_COLOR(20, 0, 0, 255) //e
+            RGB_MATRIX_INDICATOR_SET_COLOR(15, 0, 0, 255) //s
+            RGB_MATRIX_INDICATOR_SET_COLOR(26, 0, 0, 255) //f
+            RGB_MATRIX_INDICATOR_SET_COLOR(49, 0, 0, 255) //R_Alt
             break;
-}
-    
+        default:
+            break;
+    }
 }

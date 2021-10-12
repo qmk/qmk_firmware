@@ -17,7 +17,5 @@ KEYBOARD_LOCK_ENABLE = yes	# Allow locking of keyboard via magic key
 # SLEEP_LED_ENABLE = yes	# Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes			# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 # BACKLIGHT_ENABLE = yes	# Enable keyboard backlight functionality
-MIDI_ENABLE = no              # MIDI support
-# UNICODE_ENABLE = YES		# Unicode
 
 LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift 60_tsangan_hhkb

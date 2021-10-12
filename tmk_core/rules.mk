@@ -479,8 +479,8 @@ check-size:
 			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
 		    else \
 			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
-		    fi \
-		fi \
+		    fi ; \
+		fi ; \
 	fi
 else
 check-size:
