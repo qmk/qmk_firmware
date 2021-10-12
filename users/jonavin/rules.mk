@@ -11,3 +11,9 @@ endif
 ifeq ($(strip $(STARTUP_NUMLOCK_ON)), yes)
     OPT_DEFS += -DSTARTUP_NUMLOCK_ON
 endif
+ifeq ($(strip $(COLEMAK_LAYER_ENABLE)), yes)
+    OPT_DEFS += -DCOLEMAK_LAYER_ENABLE
+endif
+ifeq ($(strip $(EMOTICON_ENABLE)), yes)
+    OPT_DEFS += -DEMOTICON_ENABLE
+endif

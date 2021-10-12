@@ -1,8 +1,6 @@
 {
     "keyboard_name": "model-v",
     "maintainer": "matthewdias",
-    "width": 12.75,
-    "height": 4,
     "layouts": {
         "LAYOUT_split": {
             "layout": [

@@ -1,7 +1,5 @@
 {
     "keyboard_name": "Ducky One 2 Mini",
-    "width": 14,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT_iso": "LAYOUT_60_iso"
     },

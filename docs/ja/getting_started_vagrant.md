@@ -29,7 +29,7 @@ Vagrant 以外に、適切なプロバイダがインストールされ、その
 コマンドラインでプログラムしたい場合は、Vagranfile の ['modifyvm'] 行のコメントを解除して Linux への USB パススルーを有効にし、dfu-util/dfu-programmer のようなコマンドラインツールを使ってプログラムすることができます。あるいは Teensy CLI バージョンをインストールすることができます。
 
 ## Vagrantfile の概要
-開発環境は QMK Docker イメージ、`qmkfm/base_container` を実行するように設定されています。これはシステム間の予測可能性が保証されるだけでなく、CI 環境もミラーされます。
+開発環境は QMK Docker イメージ、`qmkfm/qmk_cli` を実行するように設定されています。これはシステム間の予測可能性が保証されるだけでなく、CI 環境もミラーされます。
 
 ## FAQ
 

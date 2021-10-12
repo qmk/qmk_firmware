@@ -100,7 +100,7 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         select_row(current_row);
-        matrix_output_select_delay();
+        matrix_output_unselect_delay(current_row, changed);
 
         matrix_row_t cols = read_cols();
         changed |= (current_matrix[current_row] != cols);
@@ -108,9 +108,8 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
 
         unselect_rows();
         //this internally calls matrix_io_delay()
-        matrix_output_unselect_delay();
+        matrix_output_unselect_delay(current_row, changed);
     }
 
     return changed;
 }
-

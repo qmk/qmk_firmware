@@ -303,37 +303,8 @@ define PARSE_KEYBOARD
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
-    # this might be needed, but in a different form
-    #KEYMAPS := $$(sort $$(filter-out $$(KEYBOARD_FOLDER_1) $$(KEYBOARD_FOLDER_2) \
-        $$(KEYBOARD_FOLDER_3) $$(KEYBOARD_FOLDER_4) $$(KEYBOARD_FOLDER_5), $$(KEYMAPS)))
 
-    KEYBOARD_LAYOUTS :=
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-
+    KEYBOARD_LAYOUTS := $(shell $(QMK_BIN) list-layouts --keyboard $1)
     LAYOUT_KEYMAPS :=
     $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
 
@@ -557,29 +528,14 @@ git-submodule:
 	git submodule sync --recursive
 	git submodule update --init --recursive --progress
 
+# Generate the version.h file
+ifdef SKIP_GIT
+VERSION_H_FLAGS := --skip-git
+endif
 ifdef SKIP_VERSION
+VERSION_H_FLAGS := --skip-all
 SKIP_GIT := yes
 endif
-
-# Generate the version.h file
-ifndef SKIP_GIT
-    GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
-    CHIBIOS_VERSION := $(shell cd lib/chibios && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
-    CHIBIOS_CONTRIB_VERSION := $(shell cd lib/chibios-contrib && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
-else
-    GIT_VERSION := NA
-    CHIBIOS_VERSION := NA
-    CHIBIOS_CONTRIB_VERSION := NA
-endif
-ifndef SKIP_VERSION
-BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
-else
-BUILD_DATE := 2020-01-01-00:00:00
-endif
-
-$(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define CHIBIOS_VERSION "$(CHIBIOS_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
-$(shell echo '#define CHIBIOS_CONTRIB_VERSION "$(CHIBIOS_CONTRIB_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o quantum/version.h)
 
 include $(ROOT_DIR)/testlist.mk

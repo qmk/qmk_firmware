@@ -2,8 +2,6 @@
     "keyboard_name": "spooky",
     "url": "https://boardsource.xyz/store/5f783f6da2c1b43e37ca0795",
     "maintainer": "boardsource",
-    "width": 3,
-    "height": 2,
     "layouts": {
         "LAYOUT_ortho_2x3": {
             "layout": [

@@ -32,7 +32,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #define TAP_SPEED 40
 #define ANIM_FRAME_DURATION 200
 #define ANIM_SIZE 512
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
