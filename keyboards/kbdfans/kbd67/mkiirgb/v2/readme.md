@@ -2,9 +2,9 @@
 
 A hotswap 65% keyboard with USB C, inswitch RGB, and ESD protection.
 
-Originally sold as a replacement PCB for the kbd67mkii when the V1 PCB failed. 
+Originally sold as a replacement PCB for the kbd67mkii when the V1 PCB failed.
 
-It has since been sold along with the D64 and KBD67 Lite R1/R2. 
+It has since been sold along with the D64 and KBD67 Lite R1/R2.
 
 * Keyboard Maintainer: [moyi4681](https://github.com/moyi4681)
 * Hardware Supported: KBD67 Mk.II RGB V2
