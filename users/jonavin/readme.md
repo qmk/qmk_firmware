@@ -32,6 +32,7 @@ KEYCODES:
 - CT_PGDN         Ctrl-PgDn
 - CT_HOME         Ctrl-HOme
 - CT_END          Ctrl-End
+- KC_SFTUP        RShift when held, Up arrow when tapped
 - 
  When EMOTICON_ENABLE = yes
 -   EMO_SHRUG       `\_("/)_/`
@@ -39,6 +40,7 @@ KEYCODES:
 -   EMD_TEARS       (T_T)
 -   EMO_NERVOUS     (~_~;)
 -   EMO_JOY         (^o^)
+-   EMO_SAD         :'-(
 
 
 AVAILABLE ENCODER ACTIONS:
