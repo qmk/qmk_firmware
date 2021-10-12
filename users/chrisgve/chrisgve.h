@@ -19,19 +19,20 @@
 
 // Custom layers
 enum CHRISGVE_layers {
-    _QWERTY_MAC,
-    _MAC_NAV_1,
-    _MAC_NAV_2,
-    _QWERTY_LINUX,
-    _LINUX_NAV_1,
-    _LINUX_NAV_2,
-    _QWERTY_WIN,
-    _WIN_NAV_1,
-    _WIN_NAV_2,
-    _ADJUST,
-    _CONFIG,
-    _TMUX,
-    _VIM,
+    _QWERTY_MAC,    // QWERTY Mac base layout
+    _MAC_NAV_1,     // Mac Navigation layer 1
+    _MAC_NAV_2,     // Mac Navigation layer 2
+    _QWERTY_LINUX,  // QWERTY Linux base layout
+    _LINUX_NAV_1,   // Linux Navigation layer 1
+    _LINUX_NAV_2,   // Linux Navigation layer 2
+    _QWERTY_WIN,    // QWERTY Windows base layout
+    _WIN_NAV_1,     // Windows Navigation layer 1
+    _WIN_NAV_2,     // Windows Navigation layer 2
+    _ADJUST,        // Adjust layer, with function and media keys
+    _CONFIG,        // Keyboard configuation layer
+    _TMUX,          // TMux layer
+    _VIM,           // VIM layer
+    _NUM,           // Numerical layer (for 40% layouts)
 };
 
 // Custom keys
@@ -66,38 +67,40 @@ enum custom_keycodes {
 #define THREE_NOP   TWO_NOP, XXXXXXX
 #define FOUR_NOP    THREE_NOP, XXXXXXX
 #define FIVE_NOP    FOUR_NOP, XXXXXXX
-#define SIX_NOP     FIVE_NOP, XXXXXXX
+#define SIX_NP     FIVE_NOP, XXXXXXX
 #define SEVEN_NOP   SIX_NOP, XXXXXXX
+
 #define KC_FUNC     KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12
 
 #define CPS_CTL     CTL_T(KC_CAPS)
 #define ADJUST      MO(_ADJUST)
 #define CONFIG      MO(_CONFIG)
 #define TMUX        LT(_TMUX, KC_SCLN)
-#define VIM         LT(_VIM, KC_V;)
+#define VIM         LT(_VIM, KC_V)
 #define S_SHIFT     SFT_T(KC_S)
+#define R_SHIFT     RSFT_T(KC_BSLS)
 
 #define DF_MAC      DF(_QWERTY_MAC)
 #define DF_WIN      DF(_QWERTY_WIN)
-#define DF_LINUX    DF(_QWERTY_LINUX)
+#define DF_LNX      DF(_QWERTY_LINUX)
 
 // Mac only definitions
 #define M_NAV_1     LT(_MAC_NAV_1, KC_D)
 #define M_NAV_2     MO(_MAC_NAV_2)
-#define M_F_WORD    A(KC_RIGHT)
-#define M_B_WORD    A(KC_LEFT)
+#define M_F_WRD     A(KC_RIGHT)
+#define M_B_WRD     A(KC_LEFT)
 
 // Linux only definitions
 #define L_NAV_1     LT(_LINUX_NAV_1, KC_D)
-#define L_NAV_2     MO(_LINUS_NAV_2)
-#define L_F_WORD    A(KC_RIGHT)
-#define L_B_WORD    A(KC_LEFT)
+#define L_NAV_2     MO(_LINUX_NAV_2)
+#define L_F_WRD     A(KC_RIGHT)
+#define L_B_WRD     A(KC_LEFT)
 
 // Windows only definitions
 #define W_NAV_1     LT(_WIN_NAV_1, KC_D)
 #define W_NAV_2     MO(_WIN_NAV_2)
-#define W_F_WORD    C(KC_RIGHT)
-#define W_B_WORD    C(KC_LEFT)
+#define W_F_WRD     C(KC_RIGHT)
+#define W_B_WRD     C(KC_LEFT)
 
 
 // VIM only definitions
@@ -159,8 +162,8 @@ enum custom_keycodes {
  * Q -> NK_ON
  * W -> NK_OFF
  * E -> EEP_RST
- * A -> GE_SWAP
- * S -> GE_NORM
+ * A -> AG_NORM
+ * S -> AG_SWAP
  * D -> DEBUG
  * F -> RGB_MOD
  * G -> RGB_HUI

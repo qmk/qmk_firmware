@@ -30,25 +30,25 @@ enum wings_layers {
 #define F_DIR           MO(_FULL_DIR)
 #define F_WORD          A(KC_RIGHT)
 #define B_WORD          A(KC_LEFT)
-// #define L_MOD           LGUI_T(KC_SPC)
 #define R_MOD           RCTL_T(KC_SPC)
 #define L_MOD           LT(_FN, KC_SPC)
-// #define R_MOD           LT(_FN, KC_SPC)
+#define S_SHIFT         SFT_T(KC_S)
+#define R_SHIFT         RSFT_T(KC_BSLS)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_all(
-    KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, _______, KC_PGUP,
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGDN,
+    KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_DEL,  KC_PGUP,
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,          KC_PGDN,
     CPS_CTL, KC_A,    KC_S,    D_DIR,   KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,                    FN,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                   KC_UP,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT,                   KC_UP,
     KC_LCTL,          KC_LGUI, L_MOD,   KC_LALT,          R_MOD,   KC_RGUI,                                              KC_LEFT, KC_DOWN, KC_RGHT
   ),
 
   [_DIR] = LAYOUT_all(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, F_WORD,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-    _______, _______, _______, _______, F_DIR,   _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,                   _______,
+    _______, _______, S_SHIFT, _______, F_DIR,   _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,                   _______,
     _______, _______, _______, _______, _______, B_WORD,  _______, _______, _______, _______, _______, _______,          _______,
     _______,          _______, _______, _______,          _______, _______,                                     _______, _______, _______
   ),
