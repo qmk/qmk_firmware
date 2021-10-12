@@ -2,7 +2,7 @@
 
 An hotswap 65% keyboard with USB C and inswitch RGB.
 
-This was released along with the kbd67mkii keyboard that featured a top mount design, and brass weight. 
+This was released along with the kbd67mkii keyboard that featured a top mount design, and brass weight.
 
 * Keyboard Maintainer: [moyi4681](https://github.com/moyi4681)
 * Hardware Supported: KBD67 Mk.II RGB V1
