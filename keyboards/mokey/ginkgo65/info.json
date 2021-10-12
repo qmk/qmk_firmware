@@ -231,7 +231,7 @@
                 {"label":"k4e", "x":15, "y":4}
             ]
         },
-        "LAYOUT_7u_Space":{
+        "LAYOUT_7u_space":{
             "layout": [
                 {"label":"k00", "x":0, "y":0},
                 {"label":"k01", "x":1, "y":0},
