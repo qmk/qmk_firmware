@@ -64,11 +64,7 @@ void IS31FL_write_single_register(uint8_t addr, uint8_t reg, uint8_t data) {
 // For writing of mulitple register entries to make use of address auto increment
 // Once the controller has been called and we have written the first bit of data
 // the controller will move to the next register meaning we can write sequential blocks.
-// input is address of controller, page address, what to write, how many entries total, how many to transfer at a time, address of first register
-bool IS31FL_write_multi_registers(uint8_t addr, uint8_t page, uint8_t *source_buffer, uint8_t buffer_size, uint8_t transfer_size, uint8_t start_reg_addr){
-	// unlock the command register and select Page to write
-	IS31FL_write_single_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, ISSI_REGISTER_UNLOCK);
-	IS31FL_write_single_register(addr, ISSI_COMMANDREGISTER, page);	
+bool IS31FL_write_multi_registers(uint8_t addr, uint8_t *source_buffer, uint8_t buffer_size, uint8_t transfer_size, uint8_t start_reg_addr){
 	// Split the buffer into chunks to transfer
     for (int i = 0; i < buffer_size; i += transfer_size) {
 	// Set the first entry of transfer buffer to the first register we want to write
@@ -91,14 +87,18 @@ bool IS31FL_write_multi_registers(uint8_t addr, uint8_t page, uint8_t *source_bu
     return true;
 }
 
+void IS31FL_unlock_register(uint8_t addr, uint8_t page){
+	// unlock the command register and select Page to write
+	IS31FL_write_single_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, ISSI_REGISTER_UNLOCK);
+	IS31FL_write_single_register(addr, ISSI_COMMANDREGISTER, page);
+}	
+
 void IS31FL_common_init(uint8_t addr, uint8_t ssr) {
 	// Setup phase, need to take out of software shutdown and configure
 	// Spread Spectrum Register is passed and to be set as per data sheet
 
-    // Unlock the command register.
-    IS31FL_write_single_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, ISSI_REGISTER_UNLOCK);
-    // Select Function Register
-    IS31FL_write_single_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
+    // Unlock the command register & select Function Register
+	IS31FL_unlock_register(addr, ISSI_PAGE_FUNCTION);
     // Set Configuration Register to remove Software shutdown
     IS31FL_write_single_register(addr, ISSI_REG_CONFIGURATION, ISSI_CONFIGURATION);
     // Set Golbal Current Control Register
@@ -124,8 +124,10 @@ void IS31FL_common_init(uint8_t addr, uint8_t ssr) {
 
 void IS31FL_common_update_pwm_register(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
+	// Queue up the correct page
+	IS31FL_unlock_register(addr, ISSI_PAGE_PWM);
 	// Hand off the update to IS31FL_write_multi_registers
-	IS31FL_write_multi_registers(addr, ISSI_PAGE_PWM, g_pwm_buffer[index], ISSI_MAX_LEDS, ISSI_PWM_TRF_SIZE, ISSI_PWM_REG_1ST);
+	IS31FL_write_multi_registers(addr, g_pwm_buffer[index], ISSI_MAX_LEDS, ISSI_PWM_TRF_SIZE, ISSI_PWM_REG_1ST);
 	// Update flags that pwm_buffer has been updated
     g_pwm_buffer_update_required[index] = false;
     }
@@ -133,8 +135,10 @@ void IS31FL_common_update_pwm_register(uint8_t addr, uint8_t index) {
 
 void IS31FL_common_update_scaling_register(uint8_t addr, uint8_t index) {
     if (g_scaling_buffer_update_required[index]) {
+	// Queue up the correct page
+	IS31FL_unlock_register(addr, ISSI_PAGE_SCALING);
 	// Hand off the update to IS31FL_write_multi_registers
-	IS31FL_write_multi_registers(addr, ISSI_PAGE_SCALING, g_scaling_buffer[index], ISSI_SCALING_SIZE, ISSI_SCALING_TRF_SIZE, ISSI_SCL_REG_1ST);
+	IS31FL_write_multi_registers(addr, g_scaling_buffer[index], ISSI_SCALING_SIZE, ISSI_SCALING_TRF_SIZE, ISSI_SCL_REG_1ST);
 	// Update flags that scaling_buffer has been updated
     g_scaling_buffer_update_required[index] = false;
     }
