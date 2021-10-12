@@ -13,7 +13,7 @@ A 65% keyboard sold in several variants supporting KBDFan's different 65% lineup
  **Firmware files are SPECIFIC to each board. Firmware files from one, will not work on the other.** Please use the `.hex` or `.bin` appropriate for your board.
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [moyi4681](https://github.com/moyi4681)
-* Hardware Supported: KBD67 rev1, rev2, hotswap, mkii, mkiirgb v1, mkiirgb v2, etc. 
+* Hardware Supported: KBD67 rev1, rev2, hotswap, mkii, mkiirgb v1, mkiirgb v2, etc.
 * Hardware Availability: KBDFans
 
 Make examples for this keyboard (after setting up your build environment):
