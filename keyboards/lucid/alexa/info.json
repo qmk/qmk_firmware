@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Alexa",
-    "url": "http://www.makerkeyboards.com",
-    "maintainer": "Maker Keyboards",
+    "url": "https://www.makerkeyboards.com/products/alexa",
+    "maintainer": "mrnoisytiger",
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
