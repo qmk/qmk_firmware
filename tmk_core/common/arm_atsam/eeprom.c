@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "eeprom.h"
+#include "samd51j18a.h"
 
 #ifndef EEPROM_SIZE
 #    include "eeconfig.h"
@@ -22,15 +22,48 @@
 #endif
 
 __attribute__((aligned(4))) static uint8_t buffer[EEPROM_SIZE];
+volatile uint8_t *smart_eeprom = (uint8_t *) SEEPROM_ADDR;
+
+bool smart_eeprom_enabled(void) {
+    return NVMCTRL->SEESTAT.bit.PSZ > 0 && NVMCTRL->SEESTAT.bit.SBLK > 0;
+}
+
+bool wait_for_eeprom_ready(void) {
+    int timeout = 10000;
+    while (NVMCTRL->SEESTAT.bit.BUSY && timeout > 0) {
+        timeout -= 1;
+    };
+    return !NVMCTRL->SEESTAT.bit.BUSY;
+}
 
 uint8_t eeprom_read_byte(const uint8_t *addr) {
     uintptr_t offset = (uintptr_t)addr;
-    return buffer[offset];
+    if (offset >= EEPROM_SIZE) {
+        return 0;
+    }
+
+    if (!smart_eeprom_enabled()) {
+        return buffer[offset];
+    }
+
+    wait_for_eeprom_ready();
+    return smart_eeprom[offset];
 }
 
 void eeprom_write_byte(uint8_t *addr, uint8_t value) {
     uintptr_t offset = (uintptr_t)addr;
-    buffer[offset]   = value;
+    if (offset >= EEPROM_SIZE) {
+        return;
+    }
+
+    if (!smart_eeprom_enabled()) {
+        buffer[offset] = value;
+        return;
+    }
+
+    if (wait_for_eeprom_ready()) {
+        smart_eeprom[offset] = value;
+    }
 }
 
 uint16_t eeprom_read_word(const uint16_t *addr) {
