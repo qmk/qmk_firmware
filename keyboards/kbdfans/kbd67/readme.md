@@ -1,6 +1,6 @@
 # KBD67
 
-A 65% keyboard sold in several variants supporting KBDFan's different 65% lineups each with their own different revisions.  
+A 65% keyboard sold in several variants supporting KBDFan's different 65% lineups each with their own different revisions.
 
 1. [Rev1](rev1/): Released in early 2018. Atmega32u4 soldered keyboard. Sold under the name "KBD65".
 2. [HotSwap](hotswap/): Released in late 2018. Atmega32U4 hotswap single layout keyboard.
