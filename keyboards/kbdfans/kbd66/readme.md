@@ -2,7 +2,7 @@
 
 ![KBD66](https://i.imgur.com/qtLuL2o.jpg)
 
-A 66 key keyboard from KBDFans modeled after the FC660m. 
+A 66 key keyboard from KBDFans modeled after the FC660m.
 
 * Keyboard Maintainer: [Alex](https://github.com/allo-world)  
 * Hardware Supported: KBD66, ATmega32U4  
