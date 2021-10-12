@@ -16,9 +16,8 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no            # USB Nkey Rollover
-BACKLIGHT_ENABLE = yes   
-BACKLIGHT_DRIVER = pwm
+BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-RGB_MATRIX_ENABLE = no
-UNICODE_ENABLE = yes        # Unicode
 AUDIO_ENABLE = no           # Audio output
+UNICODE_ENABLE = yes
+BACKLIGHT_DRIVER = pwm

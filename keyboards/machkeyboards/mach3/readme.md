@@ -3,9 +3,9 @@
 A 3x3 macropad with RGB underglow. 
 Note: It sets an output pin to high, which is the alimentation of the backlight circuit.
 
-Keyboard Maintainer: [etiennelepagel](https://github.com/etiennelepagel)  
-Hardware Supported: Mach 3 from Mach Keyboards
-Hardware Availability: [Mach Keyboards Official Website](https://machkeyboards.com/)
+* Keyboard Maintainer: [etiennelepagel](https://github.com/etiennelepagel)
+* Hardware Supported: Mach 3 from Mach Keyboards
+* Hardware Availability: [Mach Keyboards Official Website](https://machkeyboards.com/)
 
 ## Bootloader
 
