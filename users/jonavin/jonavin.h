@@ -55,6 +55,7 @@ enum custom_user_keycodes {
 #define CT_PGDN RCTL(KC_PGDN)
 #define CT_HOME RCTL(KC_HOME)
 #define CT_END  RCTL(KC_END)
+#define KC_SFTUP    RSFT_T(KC_UP) // Shift when held, Up arrow when tapped
 
 #ifdef TD_LSFT_CAPSLOCK_ENABLE
     // Tap Dance Definitions
