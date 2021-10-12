@@ -1,6 +1,6 @@
-# numpad20 handwired
+# Nozbe Macropad handwired
 
-Custom handwired 20 key numpad.
+4 key custom PCB macropad.
 
 Keyboard Maintainer: [Leon Omelan](https://github.com/rozPierog)  
 Hardware Supported: Custom handwired 4 key (or 3 key + rotary encoder) pad  
