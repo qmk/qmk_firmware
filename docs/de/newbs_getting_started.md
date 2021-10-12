@@ -18,7 +18,7 @@ Wenn Du es vorziehst mit einer grafischen Oberfläche zu entwickeln kannst Du au
 
 Du wirst ein Programm benötigen, mit dem Du **plain text** (= reiner Text) Dateien bearbeiten und speichern kannst. Wenn Du Windows benutzt, reicht dafür schon das normale `Notepad` und für Linux z.B. `gedit` oder `leafpad`. Beide sind sehr rudimentäre Editoren deren Funktionsumfang aber vollkommen ausreicht. Für macOS' standard `TextEdit` muss man ein bisschen vorsichtig sein und darauf achten, beim Speichern explizit unter _Format_ die Option _Reiner Text_ auszuwählen.
 
-Ansonsten ist es empfehlenswert, einen Editor herunterzuladen der für die Programmierung und das Bearbeiten von Code ausgelegt ist wie z.b [Notepad++](http://notepad-plus-plus.org/), [Sublime Text](https://www.sublimetext.com/) oder [VS Code](https://code.visualstudio.com/).
+Ansonsten ist es empfehlenswert, einen Editor herunterzuladen der für die Programmierung und das Bearbeiten von Code ausgelegt ist wie z.b [Notepad++](https://notepad-plus-plus.org/), [Sublime Text](https://www.sublimetext.com/) oder [VS Code](https://code.visualstudio.com/).
 
 ?> Immer noch unsicher, welcher Text Editor der Richtige für Dich ist? Laurence Bradford hat eine hervorragende [Einleitung](https://learntocodewith.me/programming/basics/text-editors/) zu dem Thema geschrieben (auf Englisch).
 
@@ -44,7 +44,7 @@ Wir haben versucht, die Installation der Entwicklungsumgebung für QMK so einfac
 
 Du wirst MSYS2 (o.Ä.) und Git benötigen.
 
-* Befolge die Installationsanleitung auf der [MSYS2 Homepage](http://www.msys2.org)
+* Befolge die Installationsanleitung auf der [MSYS2 Homepage](https://www.msys2.org)
 * Schließe alle offenen MSYS2 Fenster und öffne ein neues MSYS2 MinGW 64-bit Terminal
 * Installiere Git mit dem Kommando: `pacman -S git`
 

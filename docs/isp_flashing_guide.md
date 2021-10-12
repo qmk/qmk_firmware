@@ -45,6 +45,7 @@ You'll need one of the following to actually perform the ISP flashing (followed 
 
 * [SparkFun PocketAVR](https://www.sparkfun.com/products/9825) - (USB Tiny)
 * [USBtinyISP AVR Programmer Kit](https://www.adafruit.com/product/46) - (USB Tiny)
+* [USBasp](https://www.fischl.de/usbasp/) - (usbasp)
 * [Teensy 2.0](https://www.pjrc.com/store/teensy.html) - (avrisp)
 * [Pro Micro](https://www.sparkfun.com/products/12640)  - (avrisp)
 * [Bus Pirate](https://www.adafruit.com/product/237) - (buspirate)
@@ -81,6 +82,15 @@ This is pretty straight-forward - we'll be connecting like-things to like-things
     PocketAVR MISO <-> Keyboard B3 (MISO)
     PocketAVR VCC  <-> Keyboard VCC
     PocketAVR GND  <-> Keyboard GND
+
+### USBasp
+
+    USBasp RST  <-> Keyboard RESET
+    USBasp SCLK <-> Keyboard B1 (SCLK)
+    USBasp MOSI <-> Keyboard B2 (MOSI)
+    USBasp MISO <-> Keyboard B3 (MISO)
+    USBasp VCC  <-> Keyboard VCC
+    USBasp GND  <-> Keyboard GND
 
 ### Teensy 2.0
 
@@ -246,7 +256,7 @@ To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m` to your 
     avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m
 
 
-If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](http://www.engbedded.com/fusecalc/) to find a better value for you.
+If you are using a different controller or want different configuration, you can use [this AVR Fuse Calculator](https://www.engbedded.com/fusecalc/) to find a better value for you.
 
 ## Help 
 

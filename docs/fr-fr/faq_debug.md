@@ -6,13 +6,13 @@ Cette page détaille diverses questions fréquemment posées par les utilisateur
 
 ## `hid_listen` ne reconnaît pas de périphérique
 
-Lorsque la console de débugage sur votre périphérique n'est pas prêt, vous obtiendrez un message similaire :
+Lorsque la console de débugage sur votre périphérique n'est pas prêt, vous obtiendrez un message similaire:
 
 ```
 Waiting for device:.........
 ```
 
-Une fois le périphérique connecté, *hid_listen* le trouve et vous obtiendrez ce message :
+Une fois le périphérique connecté, *hid_listen* le trouve et vous obtiendrez ce message:
 
 ```
 Waiting for new device:.........................
@@ -61,7 +61,7 @@ Vous ne voulez probablement pas "briquer" votre clavier, rendre impossible d'éc
 
 - Si votre map de clavier n'inclut pas de RESET, pour entrer en mode DFU, vous devrez appuyer sur le bouton reset du PCB. Cela implique que vous devrez certainement dévisser certaines pièces de votre clavier pour y accéder.
 - Modifier les fichiers tmk_core / common peut rendre le clavier inutilisable
-- Si un fichier .hex trop large est la cause du problème : `make dfu` supprime le bloc puis teste la taille (il ne fait pas les choses dans le bon ordre), ce qui provoque une erreur. En résultat, le flash n’aura pas été fait et le clavier restera en mode DFU.
+- Si un fichier .hex trop large est la cause du problème: `make dfu` supprime le bloc puis teste la taille (il ne fait pas les choses dans le bon ordre), ce qui provoque une erreur. En résultat, le flash n’aura pas été fait et le clavier restera en mode DFU.
 - Pour finir, notez que la taille maximale d'un fichier .hex sur un Plank est de 7000h (28672 decimal)
 
 ```
@@ -93,8 +93,8 @@ https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switc
 
 Sans circuit de réinitialisation vous allez avoir des résultats inconsistants à cause de la mauvaise initialisation du matériel. Regardez le schéma du circuit du TPM754.
 
-- http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
-- http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
+- https://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
+- https://www.mikrocontroller.net/attachment/52583/tpm754.pdf
 
 ## Impossible de lire la colonne de la matrice après 16
 
@@ -102,7 +102,7 @@ Utilisez `1UL<<16` à la place de `1<<16` dans `read_cols()` du fichier [matrix.
 
 En C, `1` implique un type [int] qui est [16 bits] pour les AVR, ce qui implique que vous ne pouvez pas décaler à gauche de plus de 15. Si vous utilisez `1<<16`, vous aurez un résultat non attendu de zéro. Vous devez donc utiliser un type [unsigned long] en utilisant `1UL`.
 
-http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
+https://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
 ## Les touches spéciales ne fonctionnent pas (Touche Système, Touches de contrôle du son)
 
@@ -118,12 +118,12 @@ Sous Windows, activez l'option `Permettre au périphérique de sortir l'ordinate
 
 Appuyer sur n'importe quelle touche en mode veille devrait sortir l'ordinateur de veille.
 
-## Vous utilisez un Arduino ?
+## Vous utilisez un Arduino?
 
 **Faites attention au fait que le nommage des pin d'un Arduino diffère de la puce**. Par exemple, la pin `D0` n'est pas `PD0`. Vérifiez le circuit avec la fiche technique.
 
-- http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
-- http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
+- https://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
+- https://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
 
 Les Arduino Leonardo et micro ont des **ATMega32U4** et peuvent être utilisés avec TMK, mais le bootloader Arduino peut causer des problèmes.
 

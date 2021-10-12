@@ -19,3 +19,6 @@
 #ifdef KEYBOARD_afternoonlabs_breeze_rev0
 #    include "rev0.h"
 #endif
+#ifdef KEYBOARD_afternoonlabs_breeze_rev1
+#    include "rev1.h"
+#endif
