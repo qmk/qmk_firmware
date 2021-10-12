@@ -95,7 +95,7 @@ void IS31FL_unlock_register(uint8_t addr, uint8_t page){
 
 void IS31FL_common_init(uint8_t addr, uint8_t ssr) {
 	// Setup phase, need to take out of software shutdown and configure
-	// Spread Spectrum Register is passed and to be set as per data sheet
+	// ISSI_SSR_x is passed to allow Master / Slave setting where applicable
 
     // Unlock the command register & select Function Register
 	IS31FL_unlock_register(addr, ISSI_PAGE_FUNCTION);
