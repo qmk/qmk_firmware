@@ -10,7 +10,7 @@ This is the Pila87 / XM87 Pro made by the Phage Studio
 
 **Bootloader:**
 ```
-Make sure to flash STM32duino (Maplee 003) first:
+Make sure to flash STM32duino (Maple 003) first:
 - First way: Press FN + Esc at the same times on user mode
 - Second way: Hold B key and plug in USB cable
 - Third way: Hold Esc key and plug in USB cable (this way will reset EEPROM)
