@@ -1,5 +1,5 @@
 OLED_DRIVER_ENABLE = no
-RGBLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = yes
 COMMAND_ENABLE = no # https://beta.docs.qmk.fm/using-qmk/advanced-keycodes/feature_command
 NKRO_ENABLE = yes # usb nkey rollover
 FORCE_NKRO = yes

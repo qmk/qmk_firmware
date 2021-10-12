@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "g/keymap_combo.h" // enables combos.def support
+#include "bit-c_led.h" // enables micro-controller led confirguration
 
 enum layers {
     _COLEMAK_DH,
@@ -36,22 +37,22 @@ enum layers {
 #define GAMING TG(_GAMING)
 
 /* home row mods */
-#define HOME_A CTL_T(KC_A)
-#define HOME_R OPT_T(KC_R)
-#define HOME_S CMD_T(KC_S)
-#define HOME_T SFT_T(KC_T)
-#define HOME_BT CTL_T(KC_GRV)
-#define HOME_N SFT_T(KC_N)
-#define HOME_E CMD_T(KC_E)
-#define HOME_I OPT_T(KC_I)
-#define HOME_O CTL_T(KC_O)
-#define HOME_DWN SFT_T(KC_DOWN)
-#define HOME_UP CMD_T(KC_UP)
-#define HOME_RGT OPT_T(KC_RGHT)
-#define HOME_J SFT_T(KC_J)
-#define HOME_K CMD_T(KC_K)
-#define HOME_L OPT_T(KC_L)
-#define HOME_QT CTL_T(KC_QUOT)
+#define HOME_A SFT_T(KC_A)
+#define HOME_R CTL_T(KC_R)
+#define HOME_S OPT_T(KC_S)
+#define HOME_T CMD_T(KC_T)
+#define HOME_BT SFT_T(KC_GRV)
+#define HOME_N CMD_T(KC_N)
+#define HOME_E OPT_T(KC_E)
+#define HOME_I CTL_T(KC_I)
+#define HOME_O SFT_T(KC_O)
+#define HOME_DWN CMD_T(KC_DOWN)
+#define HOME_UP OPT_T(KC_UP)
+#define HOME_RGT CTL_T(KC_RGHT)
+#define HOME_J CMD_T(KC_J)
+#define HOME_K OPT_T(KC_K)
+#define HOME_L CTL_T(KC_L)
+#define HOME_QT SFT_T(KC_QUOT)
 
 /* layer definitions */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -62,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  |      |      |      |      |      |            |      |      |      |      |      |
  |------+------+------+------+------|            |------+------+------+------+------|
  | A    | R    | S    | T    | G    |            | M    | N    | E    | I    | O    |
- | CTL  | OPT  | CMD  | SFT  |      |            |      | SFT  | CMD  | OPT  | CTL  |
+ | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
  |------+------+------+------+------|            |------+------+------+------+------|
  | Z    | X    | C    | D    | V    |            | K    | H    | , <  | . >  | / ?  |
  |      |      |      |      |      |            |      |      |      |      |      |
@@ -85,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  |      |      |      |      |      |            |      |      |      |      |      |
  |------+------+------+------+------|            |------+------+------+------+------|
  | ` ~  |      |      |      |      |            | H    | J    | K    | L    | ' "  |
- | CTL  | OPT  | CMD  | SFT  |      |            |      | SFT  | CMD  | OPT  | CTL  |
+ | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
  |------+------+------+------+------|            |------+------+------+------+------|
  |      |      |      |      |      |            | - _  | = +  | [ {  | ] }  | \ |  |
  |      |      |      |      |      |            |      |      |      |      |      |
@@ -96,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          '------'------'      '------'------'
 */
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,     KC_8,    KC_9,     KC_0,
-  HOME_BT, KC_LOPT, KC_LCMD, KC_LSFT, XXXXXXX,      KC_H,    HOME_J,   HOME_K,  HOME_L,   HOME_QT,
+  HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_H,    HOME_J,   HOME_K,  HOME_L,   HOME_QT,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,   KC_LBRC, KC_RBRC,  KC_BSLS,
                     XXXXXXX, KC_ESC,  KC_TRNS,      KC_TRNS, KC_TRNS,  XXXXXXX
 ),
@@ -108,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  |      |      |      |      |      |            |      |      |      |      |      |
  |------+------+------+------+------|            |------+------+------+------+------|
  |      |      |      |      |      |            | ←    | ↓    | ↑    | →    |      |
- | CTL  | OPT  | CMD  | SFT  |      |            |      | SFT  | CMD  | OPT  | CTL  |
+ | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
  |------+------+------+------+------|            |------+------+------+------+------|
  | RGB  | RGB  | RGB  | RGB- | RGB+ |            | F11  | F12  |      |      | GAME |
  | TGGL | RMOD | MOD  |      |      |            |      |      |      |      |      |
@@ -119,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          '------'------'      '------'------'
 */
   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,    KC_F8,   KC_F9,    KC_F10,
-  KC_LCTL, KC_LOPT,  KC_LGUI, KC_LSFT, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, KC_LCTL,
+  KC_LSFT, KC_LCTL,  KC_LGUI, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, KC_LSFT,
   RGB_TOG, RGB_RMOD, RGB_MOD, RGB_VAD, RGB_VAI,      KC_F11,  KC_F12,   XXXXXXX, XXXXXXX,  GAMING,
                      XXXXXXX, KC_ESC,  KC_DEL,       KC_TRNS, KC_TRNS,  XXXXXXX
 ),
@@ -196,7 +197,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case HOME_E:
     case HOME_I:
     case HOME_O:
-        return TAPPING_TERM + 150;
+        return TAPPING_TERM + 50;
     default:
         return TAPPING_TERM;
     }
@@ -219,4 +220,26 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
         default:
             return true;
     }
+}
+
+
+/* custom lighting configuration */
+void led_set_kb(uint8_t usb_led) {
+    if (usb_led & (1<<USB_LED_CAPS_LOCK))
+        set_bit_c_LED(LED_DIM);
+    else
+        set_bit_c_LED(LED_OFF);
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _GAMING:
+    case _GAMING_2:
+        rgblight_setrgb (0x00,  0x00, 0xFF);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_setrgb (0x00,  0xFF, 0xFF);
+        break;
+    }
+  return state;
 }
