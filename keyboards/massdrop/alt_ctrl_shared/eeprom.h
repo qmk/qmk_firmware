@@ -25,6 +25,7 @@ void load_saved_settings(void) {
     gcr_desired = kb_config.gcr_desired;
     led_lighting_mode = kb_config.led_lighting_mode;
     keymap_config.nkro = kb_config.nkro;
+    led_enabled = kb_config.led_enabled;
 
     bool prev_led_animation_breathing = led_animation_breathing;
     led_animation_breathing = kb_config.led_animation_breathing;
@@ -37,7 +38,6 @@ void load_saved_settings(void) {
     led_animation_direction = kb_config.led_animation_direction;
     led_animation_speed = kb_config.led_animation_speed;
 
-    bool led_enabled = kb_config.led_enabled;
     I2C3733_Control_Set(led_enabled);
 
 #ifdef CONSOLE_ENABLE
@@ -114,6 +114,21 @@ void gcr_desired_increase(void) {
 void gcr_desired_decrease(void) {
     int brightness = kb_config.gcr_desired - LED_GCR_STEP;
     kb_config.gcr_desired = brightness < 0 ? 0 : brightness;
+    sync_settings();
+}
+
+void gcr_desired_low(void) {
+    kb_config.gcr_desired = LED_GCR_STEP;
+    sync_settings();
+}
+
+void gcr_desired_med(void) {
+    kb_config.gcr_desired = 48;
+    sync_settings();
+}
+
+void gcr_desired_high(void) {
+    kb_config.gcr_desired = LED_GCR_MAX;
     sync_settings();
 }
 
