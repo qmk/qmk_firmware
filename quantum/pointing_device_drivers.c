@@ -111,23 +111,6 @@ const pointing_device_driver_t pointing_device_driver = {
 #        define CIRQUE_PINNACLE_TOUCH_DEBOUNCE (CIRQUE_PINNACLE_TAPPING_TERM * 8)
 #    endif
 
-// hacky hack for handing tap
-#    ifndef CIRQUE_PINNACLE_TAPPING_TERM
-uint8_t pointing_device_handle_buttons(uint8_t buttons, bool pressed, pointing_device_buttons_t button) {
-    report_mouse_t report = pointing_device_get_report();
-    if (pressed) {
-        buttons |= 1 << (button);
-    } else {
-        buttons &= ~(1 << (button));
-    }
-    report.buttons = buttons;
-    pointing_device_set_report(report);
-    pointing_device_send();
-
-    return buttons;
-}
-#endif
-
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     pinnacle_data_t touchData = cirque_pinnacle_read_data();
     static uint16_t x = 0, y = 0, mouse_timer = 0;
@@ -148,7 +131,14 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
         if (!touchData.zValue) {
             if (timer_elapsed(mouse_timer) < CIRQUE_PINNACLE_TAPPING_TERM && mouse_timer != 0) {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
+                pointing_device_set_report(mouse_report);
+                pointing_device_send();
+#    if TAP_CODE_DELAY > 0
+                wait_ms(TAP_CODE_DELAY);
+#    endif
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+                pointing_device_set_report(mouse_report);
+                pointing_device_send();
             }
         }
         mouse_timer = timer_read();
