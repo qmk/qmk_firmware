@@ -1,7 +1,8 @@
-# Nazzer's Keychron Q1 VIA with Encoder Support Keymap for rev0100 ANSI
+# Nazzer's Keychron Q1 VIA with Encoder Support
 
 - Enables EC11 rotary encoder with pins mapped to B7 and E6
-- Map top right key pushbutton to KC_MUTE
+- Encoder is mapped to KC_VOLU and KC_VOLD (Volume Up and Volume Down)
+- Map top right key pushbutton to KC_MUTE (Mute / Unmute)
 
 ## Changelog
 
