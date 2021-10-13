@@ -19,33 +19,33 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef struct ckled_led {
+typedef struct ckled2001_led {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) ckled_led;
+} __attribute__((packed)) ckled2001_led;
 
 extern const ckled_led g_ckled_leds[DRIVER_LED_TOTAL];
 
-void CKLED_init(uint8_t addr);
-bool CKLED_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-bool CKLED_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
+void CKLED2001_init(uint8_t addr);
+bool CKLED2001_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+bool CKLED2001_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
-void CKLED_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
-void CKLED_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void CKLED2001_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void CKLED2001_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-void CKLED_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
+void CKLED2001_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void CKLED_update_pwm_buffers(uint8_t addr, uint8_t index);
-void CKLED_update_led_control_registers(uint8_t addr, uint8_t index);
+void CKLED2001_update_pwm_buffers(uint8_t addr, uint8_t index);
+void CKLED2001_update_led_control_registers(uint8_t addr, uint8_t index);
 
-void CKLED_return_normal(uint8_t addr);
-void CKLED_shutdown(uint8_t addr);
+void CKLED2001_return_normal(uint8_t addr);
+void CKLED2001_shutdown(uint8_t addr);
 
 /*--------Registers Page Define------------*/
 #define CONFIGURE_CMD_PAGE      0xFD
@@ -60,7 +60,7 @@ void CKLED_shutdown(uint8_t addr);
 #define	mskSW_NORMAL_MODE       (0x1<<0)
 
 #define DRIVER_ID_REG           0x11
-#define CKLED_ID            	0x8A
+#define CKLED2001_ID            0x8A
 
 #define PDU_REG                 0x13
 #define mskSET_CA_CB_CHANNEL    0xAA
@@ -132,7 +132,6 @@ void CKLED_shutdown(uint8_t addr);
 #define LED_CURRENT_TUNE_FIRST_ADDR         0x00
 #define LED_CURRENT_TUNE_LAST_ADDR          0x0B
 #define LED_CURRENT_TUNE_LENGTH             0x0C
-
 
 #define A_1 0x00
 #define A_2 0x01
