@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x7865 // NA for Nazare
 #define PRODUCT_ID      0x0060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Nazare
-#define PRODUCT         Nazare60
+#define MANUFACTURER    Nazaré Engineering
+#define PRODUCT         Nazaré1-60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
