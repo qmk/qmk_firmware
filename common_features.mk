@@ -323,7 +323,7 @@ endif
 	
 	ifeq ($(strip $(RGB_MATRIX_DRIVER)), CKLED2001)
         OPT_DEFS += -DCKLED2001 -DSTM32_I2C -DHAL_USE_I2C=TRUE
-        COMMON_VPATH += $(DRIVER_PATH)/led/ckled2001
+        COMMON_VPATH += $(DRIVER_PATH)/led
         SRC += ckled2001.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
