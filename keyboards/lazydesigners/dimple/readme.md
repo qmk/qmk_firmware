@@ -4,7 +4,7 @@
 
 A 40% custom keyboard designed and produced by [LazyDesigners](http://lazydesigners.cn).
 
-Keyboard Maintainer: [Erovia](https://github.com/Erovia)  
+* Keyboard Maintainer: [Erovia](https://github.com/Erovia) / [Jacky@LAZYDESIGNERS](https://github.com/jackytrabbit)
 * Hardware Supported: Dimple by LAZYDESIGNERS
 * Hardware Availability: Check on [LAZYDESIGNERS's homepage.](http://lazydesigners.cn)
 
