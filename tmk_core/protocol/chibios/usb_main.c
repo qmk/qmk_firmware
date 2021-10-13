@@ -79,6 +79,9 @@ report_mouse_t mouse_report_blank = {0};
 #ifdef EXTRAKEY_ENABLE
 uint8_t extra_report_blank[3] = {0};
 #endif /* EXTRAKEY_ENABLE */
+#ifdef CONSOLE_ENABLE
+uint8_t console_report_blank[32] = {0};
+#endif /* EXTRAKEY_ENABLE */
 
 /* ---------------------------------------------------------
  *            Descriptors and USB driver objects
@@ -567,6 +570,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                     case HID_GET_REPORT:
                         switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0?) */
                             case KEYBOARD_INTERFACE:
+
                                 usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, sizeof(keyboard_report_sent), NULL);
                                 return TRUE;
                                 break;
@@ -577,7 +581,37 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                                 return TRUE;
                                 break;
 #endif
-
+#ifdef SHARED_EP_ENABLE
+                            case SHARED_INTERFACE:
+                                switch (usbp->setup[2]) {
+#ifdef EXTRAKEY_ENABLE
+                                    case REPORT_ID_SYSTEM:
+                                        usbSetupTransfer(usbp, (uint8_t *)&extra_report_blank, sizeof(extra_report_blank), NULL);
+                                        return TRUE;
+                                        break;
+                                    case REPORT_ID_CONSUMER:
+                                        usbSetupTransfer(usbp, (uint8_t *)&extra_report_blank, sizeof(extra_report_blank), NULL);
+                                        return TRUE;
+                                        break;
+#endif
+#ifdef NKRO_ENABLE
+                                    case REPORT_ID_NKRO:
+                                        usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, sizeof(keyboard_report_sent), NULL);
+                                        return TRUE;
+                                        break;
+#endif
+                                    default:
+                                        return FALSE;
+                                        break;
+                                }
+                                break;
+#endif
+#ifdef CONSOLE_ENABLE
+                            case CONSOLE_INTERFACE:
+                                usbSetupTransfer(usbp, (uint8_t *)&console_report_blank, sizeof(console_report_blank), NULL);
+                                return TRUE;
+                                break;
+#endif
                             default:
                                 usbSetupTransfer(usbp, NULL, 0, NULL);
                                 return TRUE;
