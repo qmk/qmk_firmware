@@ -78,13 +78,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // Zoom in/out
                 if (clockwise) {
                     register_code(KC_LGUI);
-                    register_code(KC_WH_U);
-                    unregister_code(KC_WH_U);
+                    register_code(KC_WH_D);
+                    unregister_code(KC_WH_D);
                     unregister_code(KC_LGUI);
                 } else {
                     register_code(KC_LGUI);
-                    register_code(KC_WH_D);
-                    unregister_code(KC_WH_D);
+                    register_code(KC_WH_U);
+                    unregister_code(KC_WH_U);
                     unregister_code(KC_LGUI);
                 }
             }
