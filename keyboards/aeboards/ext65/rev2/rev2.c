@@ -1,6 +1,9 @@
 #include "rev2.h"
 
-#ifdef OLED_DRIVER_ENABLE
+// Tested and verified working on ext65rev2
+void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
+
+#ifdef OLED_ENABLE
 void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
   SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);

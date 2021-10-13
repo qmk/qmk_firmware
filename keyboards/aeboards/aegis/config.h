@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEboards
 #define PRODUCT         AEboards Aegis
-#define DESCRIPTION     AEboards Aegis
 
 /* key matrix size */
 #define MATRIX_ROWS 12

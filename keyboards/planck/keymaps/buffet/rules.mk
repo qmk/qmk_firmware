@@ -1,5 +1,5 @@
 AUDIO_ENABLE      = no
-BOOTMAGIC_ENABLE  = lite
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 COMMAND_ENABLE    = no
 MOUSEKEY_ENABLE   = no
 

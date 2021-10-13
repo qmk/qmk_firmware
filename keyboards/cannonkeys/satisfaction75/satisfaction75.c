@@ -2,8 +2,8 @@
 #include "print.h"
 #include "debug.h"
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 #ifdef QWIIC_MICRO_OLED_ENABLE
 #include "micro_oled.h"
@@ -53,6 +53,11 @@ backlight_config_t kb_backlight_config = {
   .breathing = true,
   .level = BACKLIGHT_LEVELS
 };
+
+void board_init(void) {
+  SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
+  SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);
+}
 
 #ifdef VIA_ENABLE
 
@@ -239,7 +244,7 @@ void read_host_led_state(void) {
     }
 }
 
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
   state = layer_state_set_user(state);
   layer = biton32(state);
   queue_for_send = true;
@@ -295,7 +300,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-void encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
   encoder_value = (encoder_value + (clockwise ? 1 : -1)) % 64;
   queue_for_send = true;
   if (index == 0) {
@@ -320,6 +326,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
       }
     }
   }
+  return true;
 }
 
 void custom_config_reset(void){
@@ -375,7 +382,7 @@ void matrix_init_kb(void)
 }
 
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
   rtcGetTime(&RTCD1, &last_timespec);
   uint16_t minutes_since_midnight = last_timespec.millisecond / 1000 / 60;
 

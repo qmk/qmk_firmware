@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    recompile keys
 #define PRODUCT         Nomu30
-#define DESCRIPTION     recompile keys Nomu30
 
 /* key matrix size */
 #define MATRIX_ROWS 3

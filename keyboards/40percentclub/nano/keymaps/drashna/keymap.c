@@ -1,3 +1,19 @@
+/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "drashna.h"
 #include "analog.h"
 #include "pointing_device.h"
@@ -69,15 +85,15 @@ int16_t axisCoordinate(uint8_t pin, uint16_t origin) {
 
 int8_t axisToMouseComponent(uint8_t pin, int16_t origin, uint8_t maxSpeed, int8_t polarity) {
     int coordinate = axisCoordinate(pin, origin);
-    if (coordinate == 0) {
-        return 0;
-    } else {
+    if (coordinate != 0) {
         float percent = (float)coordinate / 100;
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
+        if (get_mods() & MOD_BIT(KC_LSFT)) {
             return percent * precisionSpeed * polarity * (abs(coordinate) / speedRegulator);
         } else {
             return percent * maxCursorSpeed * polarity * (abs(coordinate) / speedRegulator);
         }
+    } else {
+        return 0;
     }
 }
 

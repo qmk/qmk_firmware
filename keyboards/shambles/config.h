@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    OsciX
 #define PRODUCT         Shambles TKL
-#define DESCRIPTION     A minimalist keyboard with extra tenkeyless keys.
 
 /* key matrix size */
 #define MATRIX_ROWS 4

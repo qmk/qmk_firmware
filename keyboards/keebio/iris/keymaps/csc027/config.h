@@ -17,8 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define USE_I2C
 #define EE_HANDS
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
@@ -26,3 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
+
+#define USB_POLLING_INTERVAL_MS 1
+
+#if defined(TAP_CODE_DELAY)
+#    undef TAP_CODE_DELAY
+#endif
+#define TAP_CODE_DELAY 10
