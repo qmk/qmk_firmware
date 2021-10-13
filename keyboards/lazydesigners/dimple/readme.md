@@ -11,10 +11,12 @@ Hardware Supported: Dimple by LAZYDESIGNERS
 
 Hardware Availability: Check on [LAZYDESIGNERS's homepage.](http://lazydesigners.cn)
 
-Detail versions: 1. Dimple Round 1 in 2019 (Use dimple/staggered/Rev1)
-                 2. Dimple Round 2 Hotswap in 2021 (Use dimple/staggered/Rev2)
-                 3. Dimple Round 2 Solder in 2021 (Use dimple/staggered/Rev3)
-                 4. Dimple Round 2 OrthoStrange (Use dimple/ortho) 
+Detail versions:
+
+ 1. Dimple Round 1 in 2019 (Use dimple/staggered/Rev1)
+ 2. Dimple Round 2 Hotswap in 2021 (Use dimple/staggered/Rev2)
+ 3. Dimple Round 2 Solder in 2021 (Use dimple/staggered/Rev3)
+ 4. Dimple Round 2 OrthoStrange (Use dimple/ortho)
 
 Make example for this keyboard (after setting up your build environment):
 
