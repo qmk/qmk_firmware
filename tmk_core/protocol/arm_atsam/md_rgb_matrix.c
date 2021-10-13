@@ -341,6 +341,10 @@ uint8_t led_lighting_mode         = LED_MODE_NORMAL;
 uint8_t led_enabled               = 1;
 uint8_t led_animation_breathe_cur = BREATHE_MIN_STEP;
 uint8_t breathe_dir               = 1;
+uint8_t led_animation_circular    = 0;
+float   led_edge_brightness       = 1.0f;
+float   led_ratio_brightness      = 1.0f;
+uint8_t led_edge_mode             = LED_EDGE_MODE_ALL;
 
 static void led_run_pattern(led_setup_t* f, float* ro, float* go, float* bo, float pos) {
     float po;
@@ -398,16 +402,32 @@ static void led_run_pattern(led_setup_t* f, float* ro, float* go, float* bo, flo
     }
 }
 
+#        define RGB_MAX_DISTANCE 232.9635f
+
 static void md_rgb_matrix_config_override(int i) {
     float ro = 0;
     float go = 0;
     float bo = 0;
-
-    float po = (led_animation_orientation) ? (float)g_led_config.point[i].y / 64.f * 100 : (float)g_led_config.point[i].x / 224.f * 100;
+    float po;
 
     uint8_t highest_active_layer = biton32(layer_state);
 
-    if (led_lighting_mode == LED_MODE_KEYS_ONLY && HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+    if (led_animation_circular) {
+        // TODO: should use min/max values from LED configuration instead of
+        // hard-coded 224, 64
+        // po = sqrtf((powf(fabsf((disp.width / 2) - (led_cur->x - disp.left)), 2) + powf(fabsf((disp.height / 2) - (led_cur->y - disp.bottom)), 2))) / disp.max_distance * 100;
+        po = sqrtf((powf(fabsf((224 / 2) - (float)g_led_config.point[i].x), 2) + powf(fabsf((64 / 2) - (float)g_led_config.point[i].y), 2))) / RGB_MAX_DISTANCE * 100;
+    } else {
+        if (led_animation_orientation) {
+            po = (float)g_led_config.point[i].y / 64.f * 100;
+        } else {
+            po = (float)g_led_config.point[i].x / 224.f * 100;
+        }
+    }
+
+    if (led_edge_mode == LED_EDGE_MODE_ALTERNATE && LED_IS_EDGE_ALT(led_map[i].scan)) {
+        // Do not act on this LED (Edge alternate lighting mode)
+    } else if (led_lighting_mode == LED_MODE_KEYS_ONLY && HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
         // Do not act on this LED
     } else if (led_lighting_mode == LED_MODE_NON_KEYS_ONLY && !HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
         // Do not act on this LED
@@ -463,6 +483,26 @@ static void md_rgb_matrix_config_override(int i) {
             go *= breathe_mult;
             bo *= breathe_mult;
         }
+    }
+
+    // Adjust edge LED brightness
+    if (led_edge_brightness != 1 && LED_IS_EDGE(led_map[i].scan)) {
+        ro *= led_edge_brightness;
+        go *= led_edge_brightness;
+        bo *= led_edge_brightness;
+    }
+
+    // Adjust ratio of key vs. underglow (edge) LED brightness
+    if (LED_IS_EDGE(led_map[i].scan) && led_ratio_brightness > 1.0) {
+        // Decrease edge (underglow) LEDs
+        ro *= (2.0 - led_ratio_brightness);
+        go *= (2.0 - led_ratio_brightness);
+        bo *= (2.0 - led_ratio_brightness);
+    } else if (LED_IS_KEY(led_map[i].scan) && led_ratio_brightness < 1.0) {
+        // Decrease KEY LEDs
+        ro *= led_ratio_brightness;
+        go *= led_ratio_brightness;
+        bo *= led_ratio_brightness;
     }
 
     led_buffer[i].r = (uint8_t)ro;
