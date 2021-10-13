@@ -17,3 +17,6 @@ endif
 ifeq ($(strip $(EMOTICON_ENABLE)), yes)
     OPT_DEFS += -DEMOTICON_ENABLE
 endif
+ifeq ($(strip $(INVERT_NUMLOCK_ENABLE)), yes)
+    OPT_DEFS += -DINVERT_NUMLOCK_ENABLE
+endif

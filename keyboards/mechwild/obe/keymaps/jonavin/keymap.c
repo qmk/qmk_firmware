@@ -91,7 +91,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     bool led_update_user(led_t led_state) {
         rgblight_set_layer_state(_rgbWINLOCK, keymap_config.no_gui);
-        return true;
+        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+        #ifdef INVERT_NUMLOCK_ENABLE
+            writePin(LED_NUM_LOCK_PIN, !led_state.num_lock);   // inverse numlock indicator override
+        #else
+            writePin(LED_NUM_LOCK_PIN, led_state.num_lock);   // normal, light LED when numlock on
+        #endif // INVERT_NUMLOCK_ENABLE
+        return false;
     }
 
     layer_state_t layer_state_set_user(layer_state_t state) {
