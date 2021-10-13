@@ -127,8 +127,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch(biton32(layer_state)){
-        case 3: // VIM
+    switch(get_highest_layer(layer_state)){
+        case _VIM:
             if (index == 0) { // LEFT
                 // Cycle through buffers
                 if (clockwise) {
@@ -153,7 +153,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 }
             }
         break;
-        case 2: // BROWSER
+        case _BROWSER:
             if (index == 0) { // LEFT
                 // Cycle through Tabs
                 if (clockwise) {
@@ -176,7 +176,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 }
             }
         break;
-        case 1: // FIGMA
+        case _FIGMA:
             if (index == 0) { // LEFT
                 // Volume control.
                 if (clockwise) {
@@ -199,7 +199,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 }
             }
         break;
-        default: // TERMINAL
+        case _TERMINAL:
+        default:
             if (index == 0) { // LEFT
                 // Volume control.
                 if (clockwise) {
