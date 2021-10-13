@@ -42,5 +42,8 @@ IDLE_TIMEOUT_ENABLE = yes
 EMOTICON_ENABLE
     - adds EMO_ keycodes for text emojis
     
+INVERT_NUMLOCK_ENABLE
+    - inverts the Num lock indicator, LED is on when num lokc is off
+    
 ## All layers diagram
 ![image](https://user-images.githubusercontent.com/71780717/137009548-0d260f96-e3a9-4064-a897-9968ce461b38.png)
