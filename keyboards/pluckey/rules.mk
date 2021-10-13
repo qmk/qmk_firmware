@@ -5,8 +5,8 @@ MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 
 # Build Options
-ENCODER_ENABLE = yes		# Encoder support
-SPLIT_KEYBOARD = yes		# Split keyboard
+#   change yes to no to disable
+#
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
@@ -19,3 +19,5 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
+ENCODER_ENABLE = yes
+SPLIT_KEYBOARD = yes
