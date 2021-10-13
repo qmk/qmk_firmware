@@ -7,4 +7,4 @@
 
 ### 10/3/2021 - 1.0.1
 
-- Feature: Initial release
+- Initial release
