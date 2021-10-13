@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Vault 45", 
     "url": "", 
-    "maintainer": "qmk", 
+    "maintainer": "projectcain", 
     "width": 13, 
     "height": 4, 
     "layouts": {
