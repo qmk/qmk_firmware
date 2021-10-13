@@ -46,16 +46,23 @@
 #    endif
 #endif
 
-#ifndef PMW3360_FIRMWARE_H
-#    define PMW3360_FIRMWARE_H "pmw3360_firmware.h"
-#endif
-
 #ifndef ROTATIONAL_TRANSFORM_ANGLE
 #    define ROTATIONAL_TRANSFORM_ANGLE 0x00
 #endif
 
 #ifndef PMW3360_CS_PIN
 #    error "No chip select pin defined -- missing PMW3360_CS_PIN"
+#endif
+
+/*
+The pmw33660 and pmw3389 use the same registers and timing and such.
+The only differences between the two is the firmware used, and the
+range for the DPI. So add a semi-secret hack to allow use of the
+pmw3389's firmware blob.  Also, can set the max cpi range too.
+This should work for the 3390 and 3391 too, in theory.
+*/
+#ifndef PMW3360_FIRMWARE_H
+#    define PMW3360_FIRMWARE_H "pmw3360_firmware.h"
 #endif
 
 #ifdef CONSOLE_ENABLE
