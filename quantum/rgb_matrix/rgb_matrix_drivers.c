@@ -80,16 +80,16 @@ static void init(void) {
 #        endif
 #    elif defined(IS31FL3741)
     IS31FL3741_init(DRIVER_ADDR_1);
-#    elif defined(CKLED)
-    CKLED_init(DRIVER_ADDR_1);
+#    elif defined(CKLED2001)
+    CKLED2001_init(DRIVER_ADDR_1);
 #        if defined(DRIVER_ADDR_2)
-    CKLED_init(DRIVER_ADDR_2);
+    CKLED2001_init(DRIVER_ADDR_2);
 #        endif
 #        if defined(DRIVER_ADDR_3)
-    CKLED_init(DRIVER_ADDR_3);
+    CKLED2001_init(DRIVER_ADDR_3);
 #        endif
 #        if defined(DRIVER_ADDR_4)
-    CKLED_init(DRIVER_ADDR_4);
+    CKLED2001_init(DRIVER_ADDR_4);
 #        endif
 #    endif
 
@@ -105,8 +105,8 @@ static void init(void) {
         IS31FL3737_set_led_control_register(index, enabled, enabled, enabled);
 #    elif defined(IS31FL3741)
         IS31FL3741_set_led_control_register(index, enabled, enabled, enabled);
-#    elif defined(CKLED)
-        CKLED_set_led_control_register(index, enabled, enabled, enabled);
+#    elif defined(CKLED2001)
+        CKLED2001_set_led_control_register(index, enabled, enabled, enabled);
 #    endif
     }
 
@@ -142,16 +142,16 @@ static void init(void) {
 #        endif
 #    elif defined(IS31FL3741)
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
-#    elif defined(CKLED)
-    CKLED_update_led_control_registers(DRIVER_ADDR_1, 0);
+#    elif defined(CKLED2001)
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_1, 0);
 #        if defined(DRIVER_ADDR_2)
-    CKLED_update_led_control_registers(DRIVER_ADDR_2, 1);
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_2, 1);
 #        endif
 #        if defined(DRIVER_ADDR_3)
-    CKLED_update_led_control_registers(DRIVER_ADDR_3, 2);
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_3, 2);
 #        endif
 #        if defined(DRIVER_ADDR_4)
-    CKLED_update_led_control_registers(DRIVER_ADDR_4, 3);
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_4, 3);
 #        endif
 #    endif
 }
@@ -226,25 +226,25 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = IS31FL3741_set_color,
     .set_color_all = IS31FL3741_set_color_all,
 };
-#    elif defined(CKLED)
+#    elif defined(CKLED2001)
 static void flush(void) {
-    CKLED_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_1, 0);
 #        if defined(DRIVER_ADDR_2)
-    CKLED_update_pwm_buffers(DRIVER_ADDR_2, 1);
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_2, 1);
 #        endif
 #        if defined(DRIVER_ADDR_3)
-    CKLED_update_pwm_buffers(DRIVER_ADDR_3, 2);
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_3, 2);
 #        endif
 #        if defined(DRIVER_ADDR_4)
-    CKLED_update_pwm_buffers(DRIVER_ADDR_4, 3);
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_4, 3);
 #        endif
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
-    .set_color = CKLED_set_color,
-    .set_color_all = CKLED_set_color_all,
+    .set_color = CKLED2001_set_color,
+    .set_color_all = CKLED2001_set_color_all,
 };
 #    endif
 
