@@ -18,6 +18,7 @@
 
 #include "pointing_device.h"
 #include "debug.h"
+#include "wait.h"
 #include "timer.h"
 #include <stddef.h>
 
@@ -98,6 +99,8 @@ const pointing_device_driver_t pointing_device_driver = {
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
 #    ifndef CIRQUE_PINNACLE_TAPPING_TERM
 #        ifdef TAPPING_TERM_PER_KEY
+#            include "action.h"
+#            include "action_tapping.h"
 #            define CIRQUE_PINNACLE_TAPPING_TERM get_tapping_term(KC_BTN1, NULL)
 #        else
 #            ifdef TAPPING_TERM
@@ -161,7 +164,7 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 // clang-format on
 
-#    elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
+#elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
     static fast_timer_t throttle      = 0;
     static uint16_t     debounce      = 0;
@@ -205,7 +208,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = NULL
 };
 // clang-format on
-#    elif defined(POINTING_DEVICE_DRIVER_pmw3360)
+#elif defined(POINTING_DEVICE_DRIVER_pmw3360)
 
 static void init(void) { pmw3360_init(); }
 
@@ -222,9 +225,9 @@ report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
 
         // Set timer if new motion
         if ((MotionStart == 0) && data.isMotion) {
-#        ifdef CONSOLE_ENABLE
+#    ifdef CONSOLE_ENABLE
             if (debug_mouse) dprintf("Starting motion.\n");
-#        endif
+#    endif
             MotionStart = timer_read();
         }
         mouse_report.x = constrain_hid(data.dx);
@@ -242,7 +245,7 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = pmw3360_get_cpi
 };
 // clang-format on
-#    else
+#else
 __attribute__((weak)) void           pointing_device_driver_init(void) {}
 __attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) { return mouse_report; }
 __attribute__((weak)) uint16_t       pointing_device_driver_get_cpi(void) { return 0; }
@@ -256,4 +259,4 @@ const pointing_device_driver_t pointing_device_driver = {
     .set_cpi    = pointing_device_driver_set_cpi
 };
 // clang-format on
-#    endif
+#endif
