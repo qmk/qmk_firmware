@@ -81,7 +81,15 @@ IDLE_TIMEOUT_ENABLE = yes
 - Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
 - When enabled, use this in the keymap for an additional matrix processing:  void matrix_scan_keymap(void)
 
-- Functions:
+EMOTICON_ENABLE
+- adds EMO_ keycodes for text emojis
+    
+INVERT_NUMLOCK_ENABLE
+- inverts the Num lock indicator, LED is on when num lokc is off
+
+
+FUNCTIONS
+------------------------
 -   u16int_t get_timeout_threshold(void)            // returns the current timeout threshold
 -   void timeout_update_threshold(bool increase)    // change threshold: true = increase, false = decrease     
 -   void timeout_reset_timer(void)                  // resets timer (put in process_record_user if you override it)
