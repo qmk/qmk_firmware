@@ -38,8 +38,8 @@
 #    include "aw20216.h"
 #elif defined(WS2812)
 #    include "ws2812.h"
-#elif defined(CKLED)
-#    include "ckled.h"
+#elif defined(CKLED2001)
+#    include "ckled2001.h"
 #endif
 
 #ifndef RGB_MATRIX_LED_FLUSH_LIMIT
