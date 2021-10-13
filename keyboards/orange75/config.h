@@ -6,7 +6,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Fox-Lab
 #define PRODUCT         Orange75
-#define DESCRIPTION     Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 15

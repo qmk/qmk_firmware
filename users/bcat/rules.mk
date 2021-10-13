@@ -1,7 +1,7 @@
 SRC += bcat.c
 
 # Enable Bootmagic Lite to consistently reset to bootloader and clear EEPROM.
-BOOTMAGIC_ENABLE = lite
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 
 # Enable media keys on all keyboards.
 EXTRAKEY_ENABLE = yes
@@ -14,7 +14,7 @@ EXTRAKEY_ENABLE = yes
 NKRO_ENABLE = yes
 
 # Enable link-time optimization to reduce binary size.
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 
 # Disable unused build options on all keyboards.
 COMMAND_ENABLE = no
@@ -23,12 +23,10 @@ MOUSEKEY_ENABLE = no
 TERMINAL_ENABLE = no
 
 # Disable unused hardware options on all keyboards.
-FAUXCLICKY_ENABLE = no
 MIDI_ENABLE = no
 SLEEP_LED_ENABLE = no
 
 # Disable other unused options on all keyboards.
-API_SYSEX_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 COMBO_ENABLE = no
 KEYBOARD_LOCK_ENABLE = no

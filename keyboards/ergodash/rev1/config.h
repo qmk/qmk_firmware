@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Omkbd
 #define PRODUCT         ErgoDash
-#define DESCRIPTION     Power
 
 /* key matrix size */
 // Rows are doubled-up
@@ -46,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-#define C6_AUDIO
+#define AUDIO_PIN C6
 
 /* number of backlight levels */
 #ifdef BACKLIGHT_ENABLE

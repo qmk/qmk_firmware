@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    westfoxtrot
 #define PRODUCT         prophet
-#define DESCRIPTION     QMK Firmware for the prophet PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -31,3 +30,5 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#define SLEEP_LED_GPT_DRIVER GPTD1

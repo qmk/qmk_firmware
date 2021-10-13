@@ -26,6 +26,7 @@ To switch modes, run the switch_babble_mode() function, or a pre defined BABL_DO
     #define BABL_MAC
     #define BABL_LINUX
     #define BABL_EMACS
+    #define BABL_NANO
     #define BABL_CHROMEOS
     
     //// These enable subsets of babble macros. Disable options to save space
@@ -56,22 +57,22 @@ To switch modes, run the switch_babble_mode() function, or a pre defined BABL_DO
 
 Add the following to your keymap in process_record_user, before the main switch statement.
 ```
-  #ifdef USE_BABBLEPASTE
-       if( keycode > BABBLE_START && keycode < BABBLE_END_RANGE )  {
-          if (record->event.pressed)  { // is there a case where this isn't desired?
-            babblePaste ( keycode );
-          } else{
-            return true;
-          }
+#ifdef USE_BABBLEPASTE
+    if (keycode > BABBLE_START && keycode < BABBLE_END_RANGE) {
+        if (record->event.pressed) { 
+            babblePaste(keycode, 1);
+        } else {
+            babblePaste(keycode, 0);
         }
-  #endif
+    }
+#endif
 ```
 
 #### Add makefile rules
 
 Update your rules.mk to include the modes you want.
 
-    `SRC += babblePaste.c babl_windows.c babl_mac.c babl_vi.c babl_readmux.c  babl_chromeos.c babl_emacs.c babl_linux.c`
+    `SRC += babblePaste.c babl_windows.c babl_mac.c  babl_nano babl_vi.c babl_readmux.c  babl_chromeos.c babl_emacs.c babl_linux.c`
 
 
 #### Custom Keycodes
@@ -97,9 +98,18 @@ See the full list in babblePaste.h, or the list below
   B_LNX // switch to linux
   B_VI // switch to Vi mode
   B_EMAX //  switch mode to emacs
+  B_NANO //  switch mode to emacs
   B_READ // switch to readline /tmux mode
   B_CROM // switch to chromeos mode.
+  
+  // Swap meaning of modifier key in most ergonomic location based on babble
+  // mode. Eg Thumb gets CTL on Win/Linux, pinky gets Windows key. Reverse for 
+  // OS X.  See first line in babblepaste function.   
+  #define B_1ME BABL_PRIMARY_OS_MOD 
+  #define B_2ME BABL_SECONDARY_OS_MOD
+  #define B_3ME BABL_TERTIARY_OS_MOD
 
+// Macros
   #define B_L1C  BABL_GO_LEFT_1C
   #define B_R1C  BABL_GO_RIGHT_1C
   #define B_L1W  BABL_GO_LEFT_WORD
@@ -137,6 +147,10 @@ See the full list in babblePaste.h, or the list below
   #define B_PAPP  BABL_SWITCH_APP_LAST // previous
   #define B_CAPP  BABL_CLOSE_APP
   #define B_HELP  BABL_HELP
+  #define B_HELP  BABL_HELP
+  #define B_LOCK  BABL_LOCK
+  #define B_SCAP  BABL_SCREENCAPTURE
+  #define B_KEYB  BABL_SWITCH_KEYBOARD_LAYOUT
 
   #define B_NTAB  BABL_BROWSER_NEW_TAB
   #define B_CTAB  BABL_BROWSER_CLOSE_TAB
@@ -151,9 +165,10 @@ See the full list in babblePaste.h, or the list below
   #define B_BDEV  BABL_BROWSER_DEV_TOOLS // hard one to remember
   #define B_BRLD  BABL_BROWSER_RELOAD
   #define B_BFULL BABL_BROWSER_FULLSCREEN
-  #define B_ZIN    BABL_BROWSER_ZOOM_IN
+  #define B_ZIN   BABL_BROWSER_ZOOM_IN
   #define B_ZOUT  BABL_BROWSER_ZOOM_OUT
 
+  #define B_SAVE  BABL_APP_SAVE
   #define B_PASTV BABL_APP_PASTE_VALUES
   #define B_CALN  BABL_APP_CENTER_ALIGN
   #define B_CFMT  BABL_APP_CLEAR_FORMATTING
@@ -167,6 +182,7 @@ See the full list in babblePaste.h, or the list below
   #define B_SELR  BABL_SELECT_ROW
 
   #define B_MSEL    BABL_APP_MULTI_SELECT
+  #define B_MARK    BABL_APP_SET_MARK
   #define B_VSPLIT  BABL_SPLIT_FRAME_VERT
   #define B_VUNSPT  BABL_UNSPLIT_FRAME_VERT
   #define B_HSPLIT  BABL_SPLIT_FRAME_HORIZONTAL
@@ -175,27 +191,48 @@ See the full list in babblePaste.h, or the list below
   #define B_PRVFM   BABL_PREV_FRAME
 ```
 
+####Add babblepaste functions to your keyboard or userspace
+Functions babble_led_user() and babble_led_kb() are called when babble mode is changed. 
+```
+void babble_modeswitch_kb(uint8_t mode){
+  #ifdef USE_BABBLEPASTE
+      writePinLow(B3);      writePinLow(B2);
+      switch(mode) {
+        case(BABL_LINUX_MODE):
+          writePinHigh(B2);
+          backlight_level(1);
+          break;
+        case(BABL_MAC_MODE):  
+          writePinHigh(B3);
+          backlight_level(4);
+          break;
+      }
+      // call the user function
+    babble_modeswitch_user(mode);
+  #endif
+```
+
+
 
 ## Development FAQs
 
 **Todos**
-eeprom store state of babble_mode? or update docs so that people can change the order of the enum in
-babblespace.h?
+eeprom store state of babble_mode? or update docs so that people can change the order of the enum in babblespace.h?
 
 **You have huge ifdef stanzas instead of functions**
 This fails gracefully if you don't have all options defined. Patch if you can think how to use fewer defines.
 
-** Why not an array of arrays as a lookup instead of a function?**
+**Why not an array of arrays as a lookup instead of a function?**
 This would allow you to store the lookup table in PROGMEM.
 True, but that takes more pre-processor skill than I have, and may be less portable to ARM or other flash mappings.
 
-** Have you tested every key on every platform?**
+**Have you tested every key on every platform?**
 No. Be careful, submit a patch.
 
-** Why not update Apps at the same global level as the OS? **
+**Why not change apps App babble modes at the same global level as the OS?**
 This is only a good thing if it doesn't confuse the user. If you can show state of OS vs App, it's probably a good thing.
 
-** Can the OS tell the keyboard what mode to use? **
+**Can the OS tell the keyboard what mode to use?**
 The keyboard side is easy to do with virtser_recv & a function that updates babble_mode. It still needs a PC side app to track where the keyboard focus is.
 One could use a keyboard macro to launch an app & switch modes for that app.
 

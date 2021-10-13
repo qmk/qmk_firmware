@@ -2,7 +2,7 @@
 
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
-#include <audio/audio.h>
+#include "audio.h"
 #include "issi.h"
 #include "TWIlib.h"
 #include "lighting.h"

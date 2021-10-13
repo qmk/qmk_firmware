@@ -31,6 +31,8 @@
 */
 
 #include "wait.h"
+#include "debug.h"
+#include "timer.h"
 #include "spi_master.h"
 #include "eeprom.h"
 #include "eeprom_spi.h"
@@ -49,19 +51,6 @@
 #ifndef EXTERNAL_EEPROM_SPI_TIMEOUT
 #    define EXTERNAL_EEPROM_SPI_TIMEOUT 100
 #endif
-
-#if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
-#    include "timer.h"
-#    include "debug.h"
-#endif  // CONSOLE_ENABLE
-
-static void init_spi_if_required(void) {
-    static int done = 0;
-    if (!done) {
-        spi_init();
-        done = 1;
-    }
-}
 
 static bool spi_eeprom_start(void) { return spi_start(EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN, EXTERNAL_EEPROM_SPI_LSBFIRST, EXTERNAL_EEPROM_SPI_MODE, EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR); }
 
@@ -91,7 +80,7 @@ static void spi_eeprom_transmit_address(uintptr_t addr) {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void eeprom_driver_init(void) {}
+void eeprom_driver_init(void) { spi_init(); }
 
 void eeprom_driver_erase(void) {
 #if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
@@ -110,8 +99,6 @@ void eeprom_driver_erase(void) {
 }
 
 void eeprom_read_block(void *buf, const void *addr, size_t len) {
-    init_spi_if_required();
-
     //-------------------------------------------------
     // Wait for the write-in-progress bit to be cleared
     bool res = spi_eeprom_start();
@@ -154,8 +141,6 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
 }
 
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
-    init_spi_if_required();
-
     bool      res;
     uint8_t * read_buf    = (uint8_t *)buf;
     uintptr_t target_addr = (uintptr_t)addr;

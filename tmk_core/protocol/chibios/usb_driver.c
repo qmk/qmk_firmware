@@ -22,7 +22,7 @@
  * @{
  */
 
-#include "hal.h"
+#include <hal.h>
 #include "usb_driver.h"
 #include <string.h>
 

@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2017 WoodKeys
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,28 +13,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef WOODPAD_H
-#define WOODPAD_H
+
+#pragma once
 
 #include "quantum.h"
 
-// This a shortcut to help you visually see your layout.
-// The following is an example using the Planck MIT layout
-// The first section contains all of the arguments
-// The second converts the arguments into a two-dimensional array
-#define KEYMAP( \
+extern void numlock_led_on(void);
+extern void numlock_led_off(void);
+
+/* This is a shortcut to help you visually see your layout.
+ *
+ * The first section contains all of the arguments representing the physical
+ * layout of the board and position of the keys.
+ *
+ * The second converts the arguments into a two-dimensional array which
+ * represents the switch matrix.
+ */
+#define LAYOUT_ortho_5x4( \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, k23, \
     k30, k31, k32, k33, \
     k40, k41, k42, k43 \
-) \
-{ \
+) { \
     { k00, k01, k02, k03 }, \
     { k10, k11, k12, k13 }, \
     { k20, k21, k22, k23 }, \
     { k30, k31, k32, k33 }, \
-    { k40, k41, k42, k43 }, \
+    { k40, k41, k42, k43 } \
 }
-
-#endif
