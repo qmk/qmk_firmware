@@ -164,7 +164,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  { .id = 101, .x = -0.41, .y = -3.245, .adr = { .drv = 2, .cs = 15, .swr = 11, .swg = 10, .swb = 12 }, .scan = 255 }, \
  { .id = 102, .x = -0.41, .y = -2.06, .adr = { .drv = 2, .cs = 15, .swr = 5, .swg = 4, .swb = 6 }, .scan = 255 }, \
  { .id = 103, .x = -0.41, .y = -0.875, .adr = { .drv = 2, .cs = 15, .swr = 8, .swg = 7, .swb = 9 }, .scan = 255 }, \
- { .id = 104, .x = -0.308, .y = 0.31, .adr = { .drv = 2, .cs = 1, .swr = 2, .swg = 1, .swb = 3 }, .scan = 255 }, \
+ { .id = 104, .x = -0.308, .y = 0.31, .adr = { .drv = 2, .cs = 1, .swr = 2, .swg = 1, .swb = 3 }, .scan = 103 }, \
  { .id = 105, .x = 0.835, .y = 0.415, .adr = { .drv = 2, .cs = 3, .swr = 2, .swg = 1, .swb = 3 }, .scan = 255 }, \
  { .id = 106, .x = 1.98, .y = 0.415, .adr = { .drv = 2, .cs = 4, .swr = 2, .swg = 1, .swb = 3 }, .scan = 255 }, \
  { .id = 107, .x = 3.125, .y = 0.415, .adr = { .drv = 2, .cs = 5, .swr = 2, .swg = 1, .swb = 3 }, .scan = 255 }, \
@@ -189,4 +189,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define USB_LED_SCROLL_LOCK_SCANCODE    54
     #define USB_LED_COMPOSE_SCANCODE        255
     #define USB_LED_KANA_SCANCODE           255
+    #define USB_LED_6KRO_SCANCODE           103
 #endif //USB_LED_INDICATOR_ENABLE

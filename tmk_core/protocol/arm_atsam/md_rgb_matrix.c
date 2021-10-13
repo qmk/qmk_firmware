@@ -311,6 +311,9 @@ void md_rgb_matrix_indicators_advanced(uint8_t led_min, uint8_t led_max) {
 #    if USB_LED_KANA_SCANCODE != 255
                 (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1 << USB_LED_KANA))) ||
 #    endif  // KANA
+#    if USB_LED_6KRO_SCANCODE != 255
+                (led_map[i].scan == USB_LED_6KRO_SCANCODE && !keymap_config.nkro) ||
+#    endif  // 6KRO
                 (0)) {
                 if (rgb_matrix_get_flags() & LED_FLAG_INDICATOR) {
                     led_buffer[i].r = 255 - led_buffer[i].r;
