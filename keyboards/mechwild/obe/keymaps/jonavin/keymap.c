@@ -19,7 +19,7 @@
 
 #ifdef RGBLIGHT_ENABLE
     // Custom RGB Colours
-    #define RGB_OBE_BOW 0x00, 0xE4, 0xFF // colour for matching keycaps
+    #define RGB_OBE_BOW 187, 92, 96 // colour for matching keycaps
 #endif // RGBLIGHT_ENABLE
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -58,8 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     enum custom_rgblight_layers
     {
-        _rgbWINLOCK,
-        _rgbFN,
+        _rgbWINLOCK,   _rgbFN,
         _rgbLOWER,
         _rgbRAISE
     };
