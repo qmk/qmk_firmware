@@ -1,0 +1,5 @@
+BACKLIGHT_ENABLE = yes
+
+LAYOUTS = ortho_7x5
+
+LTO_ENABLE = yes
