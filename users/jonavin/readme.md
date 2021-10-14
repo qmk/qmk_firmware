@@ -85,7 +85,7 @@ EMOTICON_ENABLE
 - adds EMO_ keycodes for text emojis
     
 INVERT_NUMLOCK_ENABLE
-- inverts the Num lock indicator, LED is on when num lokc is off
+- inverts the Num lock indicator, LED is on when num lock is off
 
 
 FUNCTIONS
