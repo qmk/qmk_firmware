@@ -569,12 +569,12 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                 switch (usbp->setup[1]) { /* bRequest */
                     case HID_GET_REPORT:
                         switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0?) */
+#ifndef KEYBOARD_SHARED_EP
                             case KEYBOARD_INTERFACE:
-
                                 usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, sizeof(keyboard_report_sent), NULL);
                                 return TRUE;
                                 break;
-
+#endif
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
                             case MOUSE_INTERFACE:
                                 usbSetupTransfer(usbp, (uint8_t *)&mouse_report_blank, sizeof(mouse_report_blank), NULL);
@@ -594,8 +594,13 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                                         return TRUE;
                                         break;
 #endif
+#if defined(KEYBOARD_SHARED_EP) || defined(NKRO_ENABLE)
+#ifdef KEYBOARD_SHARED_EP
+                                    case REPORT_ID_KEYBOARD:
+#endif
 #ifdef NKRO_ENABLE
                                     case REPORT_ID_NKRO:
+#endif
                                         usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, sizeof(keyboard_report_sent), NULL);
                                         return TRUE;
                                         break;
