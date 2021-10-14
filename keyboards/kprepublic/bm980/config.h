@@ -49,9 +49,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-//#define LED_NUM_LOCK_PIN B0
-//#define LED_CAPS_LOCK_PIN B1
-//#define LED_SCROLL_LOCK_PIN B2
+#define LED_NUM_LOCK_PIN C6
+#define LED_CAPS_LOCK_PIN C7
+#define LED_SCROLL_LOCK_PIN E2
+
+#define LED_PIN_ON_STATE 0
 //#define LED_COMPOSE_PIN B3
 //#define LED_KANA_PIN B4
 
@@ -59,9 +61,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BACKLIGHT_LEVELS 3
 //#define BACKLIGHT_BREATHING
 
-//#define RGB_DI_PIN E2
+#define RGB_DI_PIN B0
+
+// The number of LEDs connected
+#define DRIVER_LED_TOTAL  99
 //#ifdef RGB_DI_PIN
-//#    define RGBLED_NUM 16
+#    define RGBLED_NUM 99
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
