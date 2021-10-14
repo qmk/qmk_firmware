@@ -19,11 +19,11 @@
 #include "wait.h"
 
 
-#ifndef CKLED_TIMEOUT
+#ifndef CKLED2001_TIMEOUT
 #    define CKLED2001_TIMEOUT 100
 #endif
 
-#ifndef CKLED_PERSISTENCE
+#ifndef CKLED2001_PERSISTENCE
 #    define CKLED2001_PERSISTENCE 0
 #endif
 
