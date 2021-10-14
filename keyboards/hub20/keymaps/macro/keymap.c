@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Keyboard is setup to 'wrap' the pressed key with an unused Fxx key,
 // allowing for easy differentiation from a real keyboard.
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left Encoder */
         if (clockwise) {
             register_code(KC_WRAP);
@@ -81,6 +81,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             unregister_code(KC_WRAP);
         }
     }
+    return true;
 }
 
 // Below stolen from TaranVH (https://github.com/TaranVH/2nd-keyboard/blob/master/HASU_USB/F24/keymap.c)

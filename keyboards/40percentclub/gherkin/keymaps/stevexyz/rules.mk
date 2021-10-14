@@ -1,6 +1,6 @@
 # Build Options (yes/no)
 #
-BOOTMAGIC_ENABLE = lite      # Just bootloader enabled with keys
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes        # Mouse keys
 EXTRAKEY_ENABLE = yes        # Audio control and System control
 CONSOLE_ENABLE = no          # Console for debug

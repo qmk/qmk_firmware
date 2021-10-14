@@ -18,6 +18,7 @@
 #include "timer.h"
 #include "solenoid.h"
 #include "haptic.h"
+#include "gpio.h"
 
 bool     solenoid_on      = false;
 bool     solenoid_buzzing = false;
