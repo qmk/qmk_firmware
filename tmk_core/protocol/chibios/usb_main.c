@@ -73,15 +73,24 @@ static virtual_timer_t keyboard_idle_timer;
 static void            keyboard_idle_timer_cb(void *arg);
 
 report_keyboard_t keyboard_report_sent = {{0}};
-#ifdef MOUSE_ENABLE
-report_mouse_t mouse_report_blank = {0};
-#endif /* MOUSE_ENABLE */
+report_mouse_t mouse_report_sent = {0};
+
+union {
+    uint8_t report_id;
+    report_keyboard_t keyboard;
 #ifdef EXTRAKEY_ENABLE
-uint8_t extra_report_blank[3] = {0};
-#endif /* EXTRAKEY_ENABLE */
-#ifdef CONSOLE_ENABLE
-uint8_t console_report_blank[CONSOLE_EPSIZE] = {0};
-#endif /* EXTRAKEY_ENABLE */
+    report_extra_t extra;
+#endif
+#ifdef MOUSE_ENABLE
+    report_mouse_t mouse;
+#endif
+#ifdef DIGITIZER_ENABLE
+    report_digitizer_t digitizer;
+#endif
+#ifdef JOYSTICK_ENABLE
+    joystick_report_t joystick;
+#endif
+} universal_report_blank = {0};
 
 /* ---------------------------------------------------------
  *            Descriptors and USB driver objects
@@ -577,54 +586,30 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #endif
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
                             case MOUSE_INTERFACE:
-                                usbSetupTransfer(usbp, (uint8_t *)&mouse_report_blank, sizeof(mouse_report_blank), NULL);
+                                usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
                                 return TRUE;
-                                break;
+                                break;    
 #endif
 #ifdef SHARED_EP_ENABLE
                             case SHARED_INTERFACE:
-                                switch (usbp->setup[2]) {
-#    ifdef MOUSE_SHARED_EP
-                                    case REPORT_ID_MOUSE:
-                                        usbSetupTransfer(usbp, (uint8_t *)&mouse_report_blank, sizeof(mouse_report_blank), NULL);
-                                        return TRUE;
-                                        break;
-#    endif
-#    ifdef EXTRAKEY_ENABLE
-                                    case REPORT_ID_SYSTEM:
-                                        usbSetupTransfer(usbp, (uint8_t *)&extra_report_blank, sizeof(extra_report_blank), NULL);
-                                        return TRUE;
-                                        break;
-                                    case REPORT_ID_CONSUMER:
-                                        usbSetupTransfer(usbp, (uint8_t *)&extra_report_blank, sizeof(extra_report_blank), NULL);
-                                        return TRUE;
-                                        break;
-#    endif
-#    if defined(KEYBOARD_SHARED_EP) || defined(NKRO_ENABLE)
-#        ifdef KEYBOARD_SHARED_EP
-                                    case REPORT_ID_KEYBOARD:
-#        endif
-#        ifdef NKRO_ENABLE
-                                    case REPORT_ID_NKRO:
-#        endif
-                                        usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, sizeof(keyboard_report_sent), NULL);
-                                        return TRUE;
-                                        break;
-#    endif
-                                    default:
-                                        return FALSE;
-                                        break;
+#   ifdef KEYBOARD_SHARED_EP
+                                if (usbp->setup[2] == REPORT_ID_KEYBOARD) {
+                                    usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, KEYBOARD_REPORT_SIZE, NULL);
+                                    return TRUE;
+                                    break;
                                 }
-                                break;
-#endif
-#ifdef CONSOLE_ENABLE
-                            case CONSOLE_INTERFACE:
-                                usbSetupTransfer(usbp, (uint8_t *)&console_report_blank, sizeof(console_report_blank), NULL);
-                                return TRUE;
-                                break;
-#endif
+#   endif
+#   ifdef MOUSE_SHARED_EP
+                                if (usbp->setup[2] == REPORT_ID_MOUSE) {
+                                    usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
+                                    return TRUE;
+                                    break;                       
+                                }
+#   endif
+#endif /* SHARED_EP_ENABLE */
                             default:
-                                usbSetupTransfer(usbp, NULL, 0, NULL);
+                                universal_report_blank.report_id = usbp->setup[2];
+                                usbSetupTransfer(usbp, (uint8_t *)&universal_report_blank, usbp->setup[6], NULL);
                                 return TRUE;
                                 break;
                         }
@@ -933,6 +918,7 @@ void send_mouse(report_mouse_t *report) {
         }
     }
     usbStartTransmitI(&USB_DRIVER, MOUSE_IN_EPNUM, (uint8_t *)report, sizeof(report_mouse_t));
+    mouse_report_sent = *report;
     osalSysUnlock();
 }
 
