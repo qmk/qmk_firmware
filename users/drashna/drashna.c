@@ -50,8 +50,7 @@ bool mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this
 }
 
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
-
-void keyboard_pre_init_user(void) {
+void                       keyboard_pre_init_user(void) {
     userspace_config.raw = eeconfig_read_user();
     keyboard_pre_init_keymap();
 }
@@ -59,12 +58,11 @@ void keyboard_pre_init_user(void) {
 // This allows for a global, userspace functions, and continued
 // customization of the keymap.  Use _keymap instead of _user
 // functions in the keymaps
-__attribute__((weak)) void matrix_init_keymap(void) {}
-__attribute__((weak)) void matrix_init_secret(void) {}
-
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
-void matrix_init_user(void) {
+__attribute__((weak)) void matrix_init_keymap(void) {}
+__attribute__((weak)) void matrix_init_secret(void) {}
+void                       matrix_init_user(void) {
 #if defined(BOOTLOADER_CATERINA) && defined(__AVR__)
     DDRD &= ~(1 << 5);
     PORTD &= ~(1 << 5);
@@ -78,24 +76,25 @@ void matrix_init_user(void) {
 }
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
-
-void keyboard_post_init_user(void) {
+void                       keyboard_post_init_user(void) {
 #if defined(RGBLIGHT_ENABLE)
     keyboard_post_init_rgb_light();
 #endif
 #if defined(RGB_MATRIX_ENABLE)
     keyboard_post_init_rgb_matrix();
 #endif
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
+    keyboard_post_init_transport_sync();
+#endif
     keyboard_post_init_keymap();
 }
-
-__attribute__((weak)) void shutdown_keymap(void) {}
 
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_update_pwm_buffers(void);
 #endif
 
-void shutdown_user(void) {
+__attribute__((weak)) void shutdown_keymap(void) {}
+void                       shutdown_user(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
@@ -112,23 +111,28 @@ void shutdown_user(void) {
 __attribute__((weak)) void suspend_power_down_keymap(void) {}
 
 void suspend_power_down_user(void) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     oled_off();
 #endif
     suspend_power_down_keymap();
 }
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
-
-void suspend_wakeup_init_user(void) { suspend_wakeup_init_keymap(); }
-
-__attribute__((weak)) void matrix_scan_keymap(void) {}
-
-__attribute__((weak)) void matrix_scan_secret(void) {}
+void                       suspend_wakeup_init_user(void) {
+    if (layer_state_is(_GAMEPAD)) {
+        layer_off(_GAMEPAD);
+    }
+    if (layer_state_is(_DIABLO)) {
+        layer_off(_DIABLO);
+    }
+    suspend_wakeup_init_keymap();
+}
 
 // No global matrix scan code, so just run keymap's matrix
 // scan function
-void matrix_scan_user(void) {
+__attribute__((weak)) void matrix_scan_keymap(void) {}
+__attribute__((weak)) void matrix_scan_secret(void) {}
+void                       matrix_scan_user(void) {
     static bool has_ran_yet;
     if (!has_ran_yet) {
         has_ran_yet = true;
@@ -155,16 +159,14 @@ void matrix_scan_user(void) {
 float doom_song[][2] = SONG(E1M1_DOOM);
 #endif
 
-__attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
-
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
-layer_state_t layer_state_set_user(layer_state_t state) {
+__attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
+layer_state_t                       layer_state_set_user(layer_state_t state) {
     if (!is_keyboard_master()) {
         return state;
     }
 
-    state = layer_state_set_keymap(state);
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
@@ -180,13 +182,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         }
     }
 #endif
+    state = layer_state_set_keymap(state);
     return state;
 }
 
-__attribute__((weak)) layer_state_t default_layer_state_set_keymap(layer_state_t state) { return state; }
-
 // Runs state check and changes underglow color and animation
-layer_state_t default_layer_state_set_user(layer_state_t state) {
+__attribute__((weak)) layer_state_t default_layer_state_set_keymap(layer_state_t state) { return state; }
+layer_state_t                       default_layer_state_set_user(layer_state_t state) {
     if (!is_keyboard_master()) {
         return state;
     }
@@ -201,22 +203,14 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 __attribute__((weak)) void led_set_keymap(uint8_t usb_led) {}
-
-// Any custom LED code goes here.
-// So far, I only have keyboard specific code,
-// So nothing goes here.
-void led_set_user(uint8_t usb_led) { led_set_keymap(usb_led); }
+void                       led_set_user(uint8_t usb_led) { led_set_keymap(usb_led); }
 
 __attribute__((weak)) void eeconfig_init_keymap(void) {}
-
-void eeconfig_init_user(void) {
+void                       eeconfig_init_user(void) {
     userspace_config.raw              = 0;
     userspace_config.rgb_layer_change = true;
     eeconfig_update_user(userspace_config.raw);
     eeconfig_init_keymap();
-#ifdef VIA_ENABLE
-    via_eeprom_reset();
-#endif
     keyboard_init();
 }
 
@@ -226,3 +220,39 @@ bool hasAllBitsInMask(uint8_t value, uint8_t mask) {
 
     return (value & mask) == mask;
 }
+
+#ifdef SPLIT_KEYBOARD
+__attribute__((weak)) void matrix_slave_scan_keymap(void) {}
+void                       matrix_slave_scan_user(void) {
+#    if defined(AUDIO_ENABLE)
+#        if !defined(NO_MUSIC_MODE)
+    music_task();
+#        endif
+#        ifdef AUDIO_INIT_DELAY
+    if (!is_keyboard_master()) {
+        static bool delayed_tasks_run = false;
+        static uint16_t delayed_task_timer = 0;
+        if (!delayed_tasks_run) {
+            if (!delayed_task_timer) {
+                delayed_task_timer = timer_read();
+            } else if (timer_elapsed(delayed_task_timer) > 300) {
+                audio_startup();
+                delayed_tasks_run = true;
+            }
+        }
+    }
+#        endif
+#    endif
+#    ifdef SEQUENCER_ENABLE
+    sequencer_task();
+#    endif
+#    ifdef LED_MATRIX_ENABLE
+    led_matrix_task();
+#    endif
+#    ifdef HAPTIC_ENABLE
+    haptic_task();
+#    endif
+
+    matrix_slave_scan_keymap();
+}
+#endif

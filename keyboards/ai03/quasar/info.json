@@ -2,8 +2,6 @@
     "keyboard_name": "quasar", 
     "url": "https://github.com/ai03-2725/Quasar/", 
     "maintainer": "ai03", 
-    "width": 18.5, 
-    "height": 6.75, 
     "layouts": {
         "LAYOUT": {
             "layout": [

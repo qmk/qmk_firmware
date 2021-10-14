@@ -7,7 +7,7 @@ BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = full     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
@@ -18,14 +18,13 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 SPACE_CADET_ENABLE = no     # Unneeded feature.
 
 LAYOUTS = 60_ansi
 
 # special sauce for this keyboard
-DEBOUNCE_TYPE = eager_pk    # Debounce using eager_pk.
+DEBOUNCE_TYPE = sym_eager_pk    # Debounce using eager_pk.
 CUSTOM_MATRIX = lite        # Custom matrix that polls at 7000hz instead of a measly 2000hz.
 LTO_ENABLE = yes            # smaller binary
 SRC += matrix.c

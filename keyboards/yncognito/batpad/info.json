@@ -2,11 +2,8 @@
     "keyboard_name": "batpad",
     "url": "",
     "maintainer": "qmk",
-    "width": 4,
-    "height": 2,
     "layouts": {
         "LAYOUT_ortho_2x4": {
-            "key_count": 8,
             "layout": [
                 {"label":"K00 (F4,F1)", "x":0, "y":0},
                 {"label":"K01 (F4,F0)", "x":1, "y":0},
@@ -19,5 +16,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }

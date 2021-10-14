@@ -1,6 +1,6 @@
 /* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
  * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
- * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -91,7 +91,7 @@
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 175
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define MUSIC_MAP
 
@@ -99,8 +99,9 @@
 #define DYNAMIC_KEYMAP_EEPROM_ADDR (EECONFIG_SIZE + FIRMWARE_VERSION_SIZE)
 #ifdef EEPROM_I2C
 #    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 16383
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 32
+#    define DYNAMIC_KEYMAP_LAYER_COUNT     8
 #endif
+#define VIA_QMK_RGBLIGHT_ENABLE
 
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4
