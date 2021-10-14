@@ -2,8 +2,6 @@
     "keyboard_name": "serneity65",
     "url": "https://wuque.com/",
     "maintainer": "qmk",
-    "width": 15.5,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -21,7 +19,9 @@
                 { "label": "-", "x": 11, "y": 0 },
                 { "label": "=", "x": 12, "y": 0 },
                 { "label": "Backspace", "x": 13, "y": 0 },
-                { "label": "Encode", "x": 15.5, "y": 0 },
+                { "label": "EncoderRotateL", "x": 15, "y": 0, "w": 0.5 },
+                { "label": "EncoderClick", "x": 15.5, "y": 0 },
+                { "label": "EncoderRotateR", "x": 16.5, "y": 0, "w": 0.5 },
 
                 { "label": "Tab", "x": 0, "y": 1, "w": 1.5 },
                 { "label": "Q", "x": 1.5, "y": 1 },
@@ -73,8 +73,6 @@
                 { "label": "Ctrl", "x": 0, "y": 4, "w": 1.25 },
                 { "label": "Win", "x": 1.25, "y": 4, "w": 1.25 },
                 { "label": "Alt", "x": 2.5, "y": 4, "w": 1.25 },
-                { "label": "Lrotate", "x": 15, "y": 0, "w": 0.5 },
-                { "label": "Rrotate", "x": 16.5, "y": 0, "w": 0.5 },
                 { "x": 3.75, "y": 4, "w": 2.25 },
                 { "x": 6, "y": 4, "w": 1.25 },
                 { "x": 7.25, "y": 4, "w": 2.75 },
