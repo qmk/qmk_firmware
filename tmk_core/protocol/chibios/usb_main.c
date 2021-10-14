@@ -80,7 +80,7 @@ report_mouse_t mouse_report_blank = {0};
 uint8_t extra_report_blank[3] = {0};
 #endif /* EXTRAKEY_ENABLE */
 #ifdef CONSOLE_ENABLE
-uint8_t console_report_blank[32] = {0};
+uint8_t console_report_blank[CONSOLE_EPSIZE] = {0};
 #endif /* EXTRAKEY_ENABLE */
 
 /* ---------------------------------------------------------
