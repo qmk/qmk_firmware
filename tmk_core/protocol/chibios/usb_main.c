@@ -584,6 +584,12 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #ifdef SHARED_EP_ENABLE
                             case SHARED_INTERFACE:
                                 switch (usbp->setup[2]) {
+#    ifdef MOUSE_SHARED_EP
+                                    case REPORT_ID_MOUSE:
+                                        usbSetupTransfer(usbp, (uint8_t *)&mouse_report_blank, sizeof(mouse_report_blank), NULL);
+                                        return TRUE;
+                                        break;
+#    endif
 #    ifdef EXTRAKEY_ENABLE
                                     case REPORT_ID_SYSTEM:
                                         usbSetupTransfer(usbp, (uint8_t *)&extra_report_blank, sizeof(extra_report_blank), NULL);
