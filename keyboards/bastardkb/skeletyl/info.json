@@ -2,8 +2,6 @@
     "keyboard_name": "Skeletyl",
     "url": "https://www.bastardkb.com",
     "maintainer": "Quentin Lebastard",
-    "width": 17,
-    "height": 4,
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

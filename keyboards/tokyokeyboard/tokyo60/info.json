@@ -2,8 +2,6 @@
     "keyboard_name": "Tokyo60",
     "url": "https://tokyokeyboard.com/",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_60_hhkb": {
             "layout": [{
