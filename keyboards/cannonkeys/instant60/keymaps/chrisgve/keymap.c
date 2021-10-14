@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
-// extern keymap_config_t keymap_config;
+extern keymap_config_t keymap_config;
 
 #include "chrisgve.h"
 
@@ -95,9 +95,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_60_tsangan_hhkb(
     KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,\
-    RESET,   BL_BRTG, BL_DEC,  BL_INC,  BL_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    RESET,   BL_STEP, BL_DEC,  BL_INC,  BL_TOGG, BL_BRTG, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, DEBUG,   _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______,          _______, \
     _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, KC_MUTE, _______, _______, _______,                   _______, _______,\
     _______, _______, _______,                            KC_MPLY,                            _______, _______, _______
   ),
 };
+
