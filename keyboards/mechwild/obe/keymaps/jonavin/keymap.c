@@ -39,16 +39,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TRNS,KC_WINLCK,KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS,          KC_NO,   KC_NO,   KC_HOME, KC_PGDN, KC_END
     ),
     [_LOWER] = LAYOUT(
-    KC_NO,   KC_TILD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_VAD, RGB_VAI, KC_TRNS, KC_DEL,
+    EEP_RST, KC_TILD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_VAD, RGB_VAI, KC_TRNS, KC_DEL,
     RGB_HUI, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, EMO_TEARS, EMO_SAD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_TOG,
     RGB_HUD, KC_NO,   KC_NO,   EMO_SHRUG,KC_NO,  KC_NO,   KC_NO,   KC_NO,   EMO_JOY, KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_TRNS,
              KC_NO,   KC_NO,   KC_NO,   EMO_CONFUSE,KC_NO,KC_NO,KC_TRNS,EMO_NERVOUS,KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_MOD, KC_TRNS,
              KC_TRNS, KC_APP,  KC_TRNS,          KC_BSPC, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
     [_RAISE] = LAYOUT(
-    KC_NO,   KC_TILD,  KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_PMNS, KC_PPLS, KC_PSLS, KC_DEL,
-    KC_NO,   KC_NO,    KC_HOME,KC_UP,   KC_END,  KC_PGUP, KC_NO,   KC_TAB,  KC_P4,   KC_P5,   KC_P6,   KC_NO,   KC_NO,   KC_NO,   KC_PEQL,
-    KC_NO,  TT(_RAISE),KC_LEFT,KC_DOWN, KC_RGHT, KC_PGDN, KC_NO,   KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_NO,   KC_PAST,          KC_PENT,
+    KC_NO,   KC_GRV,  KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_PMNS, KC_PPLS, KC_PSLS, KC_DEL,
+    KC_VOLU, KC_NO,   KC_HOME,KC_UP,   KC_END,  KC_PGUP, KC_NO,   KC_TAB,  KC_P4,   KC_P5,   KC_P6,   KC_NO,   KC_NO,   KC_NO,   KC_PEQL,
+    KC_VOLD,TT(_RAISE),KC_LEFT,KC_DOWN,KC_RGHT, KC_PGDN, KC_NO,   KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_NO,   KC_PAST,          KC_PENT,
              KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_P0,   KC_00,   KC_NO,   KC_PDOT, KC_PSLS, CT_PGUP, KC_TRNS,
              KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS, CT_HOME, CT_PGDN, CT_END
     )
