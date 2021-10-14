@@ -579,8 +579,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #endif
 
                             default:
-                                usbSetupTransfer(usbp, NULL, 0, NULL);
-                                return TRUE;
+                                return FALSE;
                                 break;
                         }
                         break;
