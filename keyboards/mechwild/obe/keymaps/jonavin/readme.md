@@ -4,6 +4,7 @@
 
 Features
   - Split spacebars, Split Backspace
+  - Inverted Num Lock indicator (LED on when num lock if off) 
   - RGB Winlock indicator (requires LED stripto be installed)
   - RGB Layer indicators: FN/MO1 - Purple; LOWER/MO2 - Yellow; RAISE/MO3/NumPad - Green
   - quick demo https://youtu.be/gR1awbsouLk
@@ -11,7 +12,7 @@ Features
 - Add PrtScr, Scroll Lock, Break, NumLock to Fn layer
 - Implement Win key lock using Fn+Win 
 - Layer 2 (LOWER) when right B is held -- for emoticons
-- Layer 2 RGB functions
+- Layer 2 RGB functions, and EEPROM Reset
 - Layer 3 (RAISE) mod on Caps Lock with double-tap to switch to this layer, double tap to switch back
     - provides arrows on WASD and additional nav keys + right hand numpad with 00; an be used for Alt Code entry
     - left spacebar Backspace
@@ -46,4 +47,4 @@ INVERT_NUMLOCK_ENABLE
     - inverts the Num lock indicator, LED is on when num lokc is off
     
 ## All layers diagram
-![image](https://user-images.githubusercontent.com/71780717/137009548-0d260f96-e3a9-4064-a897-9968ce461b38.png)
+![image](https://user-images.githubusercontent.com/71780717/137356366-6b23c71b-9499-473e-a1e3-c65644135fc6.png)
