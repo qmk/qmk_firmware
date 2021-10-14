@@ -1,10 +1,10 @@
-# Adelie    
+# Adelie
 
-![Adelie](https://imgur.com/sMLIIXo.png)
+![Adelie](https://imgur.com/sMLIIXoh.png)
 
 The Adelie 50% Keyboard by Abec13
 
-![layout](https://imgur.com/85Zn3Xv.png)
+![layout](https://imgur.com/85Zn3Xvh.png)
 
 * Keyboard Maintainer: [Abec13](https://github.com/abec13)
 
