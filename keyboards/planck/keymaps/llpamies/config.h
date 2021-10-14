@@ -5,5 +5,11 @@
     // #define STARTUP_SONG SONG(NO_SOUND)
 #endif
 
-#define COMBO_COUNT 12
-#define COMBO_TERM 50
+// Combos.
+#undef COMBO_COUNT // I set COMBO_LEN in keymap.c
+#define COMBO_TERM 30
+
+// Hold and tap config.
+#define TAPPING_TERM 200
+//#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT

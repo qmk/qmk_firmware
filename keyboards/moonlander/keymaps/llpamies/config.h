@@ -10,10 +10,12 @@
 #define NO_AUTO_SHIFT_NUMERIC
 #define FIRMWARE_VERSION u8"personal"
 #define RGB_MATRIX_STARTUP_SPD 60
-#define COMBO_COUNT 13
+
+// Combos.
+#undef COMBO_COUNT // I set COMBO_LEN in keymap.c
 #define COMBO_TERM 30
 
 // Hold and tap config.
-#define TAPPING_TERM 200
+#define TAPPING_TERM 100
 //#define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
