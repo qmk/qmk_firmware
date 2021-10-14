@@ -2,8 +2,6 @@
     "keyboard_name": "Vault 45", 
     "url": "", 
     "maintainer": "projectcain", 
-    "width": 13, 
-    "height": 4, 
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
