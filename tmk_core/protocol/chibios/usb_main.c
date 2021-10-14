@@ -106,7 +106,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
     static USBDescriptor desc;
     uint16_t             wValue = ((uint16_t)dtype << 8) | dindex;
     desc.ud_string              = NULL;
-    desc.ud_size                = get_usb_descriptor(wValue, wIndex, (const void **const) & desc.ud_string);
+    desc.ud_size                = get_usb_descriptor(wValue, wIndex, (const void **const)&desc.ud_string);
     if (desc.ud_string == NULL)
         return NULL;
     else
@@ -584,7 +584,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #ifdef SHARED_EP_ENABLE
                             case SHARED_INTERFACE:
                                 switch (usbp->setup[2]) {
-#ifdef EXTRAKEY_ENABLE
+#    ifdef EXTRAKEY_ENABLE
                                     case REPORT_ID_SYSTEM:
                                         usbSetupTransfer(usbp, (uint8_t *)&extra_report_blank, sizeof(extra_report_blank), NULL);
                                         return TRUE;
@@ -593,18 +593,18 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                                         usbSetupTransfer(usbp, (uint8_t *)&extra_report_blank, sizeof(extra_report_blank), NULL);
                                         return TRUE;
                                         break;
-#endif
-#if defined(KEYBOARD_SHARED_EP) || defined(NKRO_ENABLE)
-#ifdef KEYBOARD_SHARED_EP
+#    endif
+#    if defined(KEYBOARD_SHARED_EP) || defined(NKRO_ENABLE)
+#        ifdef KEYBOARD_SHARED_EP
                                     case REPORT_ID_KEYBOARD:
-#endif
-#ifdef NKRO_ENABLE
+#        endif
+#        ifdef NKRO_ENABLE
                                     case REPORT_ID_NKRO:
-#endif
+#        endif
                                         usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, sizeof(keyboard_report_sent), NULL);
                                         return TRUE;
                                         break;
-#endif
+#    endif
                                     default:
                                         return FALSE;
                                         break;
