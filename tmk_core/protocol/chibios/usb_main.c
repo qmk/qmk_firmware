@@ -571,7 +571,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                         switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0?) */
 #ifndef KEYBOARD_SHARED_EP
                             case KEYBOARD_INTERFACE:
-                                usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, sizeof(keyboard_report_sent), NULL);
+                                usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, KEYBOARD_REPORT_SIZE, NULL);
                                 return TRUE;
                                 break;
 #endif
