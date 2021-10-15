@@ -1,12 +1,9 @@
-#ifndef NICEKEY_H
-#define NICEKEY_H
+#pragma once
 
 #include "quantum.h"
 
 #define LAYOUT( \
     k00 \
-  ) { \
-    { k00 }  \
+) { \
+    { k00 } \
 }
-
-#endif

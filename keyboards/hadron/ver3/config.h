@@ -15,8 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef REV3_CONFIG_H
-#define REV3_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0003
@@ -70,16 +69,8 @@
 #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 #endif
 
-//configure qwiic micro_oled driver for the 128x32 oled
-#ifdef QWIIC_MICRO_OLED_ENABLE
-
-#undef I2C_ADDRESS_SA0_1
-#define I2C_ADDRESS_SA0_1 0b0111100
-#define LCDWIDTH      128
-#define LCDHEIGHT     32
-#define micro_oled_rotate_180
-
-#endif
+// configure oled driver for the 128x32 oled
+#define OLED_UPDATE_INTERVAL 33 // ~30fps
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 // #define DEBOUNCE 6
@@ -186,5 +177,3 @@
 // #define RGB_MATRIX_KEYPRESSES
 
 #define SOLENOID_PIN A14
-
-#endif

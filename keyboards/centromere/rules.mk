@@ -21,7 +21,6 @@ SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes		# USB Nkey Rollover
 BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 UNICODE_ENABLE = yes 		# Unicode
-BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 
 # # project specific files
 SRC += matrix.c serial_uart.c

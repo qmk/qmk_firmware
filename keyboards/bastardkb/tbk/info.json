@@ -2,8 +2,6 @@
     "keyboard_name": "The Bastard Keyboard",
     "url": "https://bastardkb.com/",
     "maintainer": "Quentin Lebastard",
-    "width": 17,
-    "height": 8,
     "layouts": {
         "LAYOUT_split_4x6_5": {
             "layout": [

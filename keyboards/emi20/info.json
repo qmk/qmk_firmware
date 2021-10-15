@@ -2,8 +2,6 @@
     "keyboard_name": "Emi20", 
     "url": "", 
     "maintainer": "Aquacylinder", 
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_5x4": {
             "layout": [

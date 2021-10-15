@@ -29,10 +29,10 @@ def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
     cur_dir = Path('keyboards')
-    rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
-    if 'DEFAULT_FOLDER' in rules:
-        keyboard = rules['DEFAULT_FOLDER']
-        rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk', rules)
+    root_rules_mk = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
+
+    if 'DEFAULT_FOLDER' in root_rules_mk:
+        keyboard = root_rules_mk['DEFAULT_FOLDER']
 
     info_data = {
         'keyboard_name': str(keyboard),
@@ -113,7 +113,7 @@ def _extract_features(info_data, rules):
         rules['BOOTMAGIC_ENABLE'] = 'on'
 
     # Skip non-boolean features we haven't implemented special handling for
-    for feature in 'HAPTIC_ENABLE', 'QWIIC_ENABLE':
+    for feature in ('HAPTIC_ENABLE',):
         if rules.get(feature):
             del rules[feature]
 

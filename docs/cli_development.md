@@ -14,7 +14,7 @@ If you intend to maintain keyboards and/or contribute to QMK, you can enable the
 
 This will allow you to see all available subcommands.  
 **Note:** You will have to install additional requirements:  
-```bash
+```
 python3 -m pip install -r requirements-dev.txt
 ```
 

@@ -2,8 +2,6 @@
   "keyboard_name": "space_space",
   "url": "",
   "maintainer": "qpockets",
-  "width": 11.5,
-  "height": 4.35,
   "layouts": {
     "LAYOUT_default": {
 	  "layout": [
