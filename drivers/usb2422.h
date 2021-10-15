@@ -38,10 +38,22 @@
 #    define USB2422_PRODUCT "QMK Hub"
 #endif
 
+/** \brief Initialises the dependent subsystems */
 void USB2422_init(void);
 
+/** \brief Push configuration to the USB2422 device */
 void USB2422_configure(void);
 
+/** \brief Reset the chip (RESET_N)
+ *
+ * NOTE:
+ * Depends on a valid USB2422_RESET_PIN configuration
+ */
 void USB2422_reset(void);
 
+/** \brief Indicates the USB state of the hub (SUSP_IND)
+ *
+ * NOTE:
+ * Depends on a valid USB2422_ACTIVE_PIN configuration
+ */
 bool USB2422_active(void);
