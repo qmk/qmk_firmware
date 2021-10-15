@@ -233,7 +233,7 @@ const rgblight_segment_t PROGMEM rgb_gaming_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 const rgblight_segment_t PROGMEM rgb_gaming2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 12, HSV_GREEN}
+    {0, 12, HSV_PURPLE}
 );
 
 // Now define the array of layers. Later layers take precedence
