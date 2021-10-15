@@ -327,7 +327,7 @@ static void USB2422_write_block(void) {
 }
 
 void USB2422_init() {
-    i2c_init(); // IC2 clk must be high at USB2422 reset release time to signal SMB configuration
+    i2c_init();  // IC2 clk must be high at USB2422 reset release time to signal SMB configuration
 }
 
 void USB2422_configure() {
@@ -350,7 +350,8 @@ void USB2422_configure() {
     config.HCMCB.reg = 20;  // 0mA
     config.MFRSL.reg = sizeof(MFRNAME) / sizeof(uint16_t);
     config.PRDSL.reg = sizeof(PRDNAME) / sizeof(uint16_t);
-    config.SERSL.reg = sizeof(SERNAME) / sizeof(uint16_t);;
+    config.SERSL.reg = sizeof(SERNAME) / sizeof(uint16_t);
+    ;
     memcpy(config.MFRSTR, MFRNAME, sizeof(MFRNAME));
     memcpy(config.PRDSTR, PRDNAME, sizeof(PRDNAME));
     memcpy(config.SERSTR, SERNAME, sizeof(SERNAME));

@@ -30,10 +30,12 @@
 #endif
 
 #ifndef USB2422_MANUFACTURER
-#    define USB2422_MANUFACTURER { 'Q', 'M', 'K' }
+#    define USB2422_MANUFACTURER \
+        { 'Q', 'M', 'K' }
 #endif
 #ifndef USB2422_PRODUCT
-#    define USB2422_PRODUCT { 'Q', 'M', 'K', ' ', 'H', 'u', 'b' }
+#    define USB2422_PRODUCT \
+        { 'Q', 'M', 'K', ' ', 'H', 'u', 'b' }
 #endif
 
 void USB2422_init(void);
