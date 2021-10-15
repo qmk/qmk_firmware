@@ -389,13 +389,13 @@ extern uint8_t usb_extra_state;
 extern uint8_t usb_extra_manual;
 extern uint8_t usb_gcr_auto;
 
-void     USB2422_init(void);
+void     USB_Hub_init(void);
+uint8_t  USB_Hub_Port_Detect_Init(void);
 void     USB_reset(void);
 void     USB_configure(void);
 uint16_t USB_active(void);
 void     USB_set_host_by_voltage(void);
 uint16_t adc_get(uint8_t muxpos);
-uint8_t  USB2422_Port_Detect_Init(void);
 void     USB_HandleExtraDevice(void);
 void     USB_ExtraSetState(uint8_t state);
 

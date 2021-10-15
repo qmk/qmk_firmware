@@ -69,7 +69,7 @@ void USB_write2422_block(void) {
     DBGC(DC_USB_WRITE2422_BLOCK_COMPLETE);
 }
 
-void USB2422_init(void) {
+void USB_Hub_init(void) {
     Gclk *   pgclk = GCLK;
     Mclk *   pmclk = MCLK;
     Port *   pport = PORT;
@@ -314,7 +314,7 @@ void USB_set_host_by_voltage(void) {
     DBGC(DC_USB_SET_HOST_BY_VOLTAGE_COMPLETE);
 }
 
-uint8_t USB2422_Port_Detect_Init(void) {
+uint8_t USB_Hub_Port_Detect_Init(void) {
     uint32_t port_detect_retry_ms;
     uint32_t tmod;
 
