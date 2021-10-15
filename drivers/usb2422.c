@@ -293,23 +293,32 @@ typedef struct {
     USB2422_PRTR12_Type     PRTR12; /**< \brief Offset: 0xFB*/
     uint8_t                 Reserved4[0x3];
     USB2422_STCD_Type       STCD; /**< \brief Offset: 0xFF*/
-} Usb2422;
+} Usb2422_t;
 
 #ifndef USB2422_ADDRESS
 #    define USB2422_ADDRESS 0x58
 #endif
+#ifndef USB2422_VENDOR_ID
+#    define USB2422_VENDOR_ID       0x04D8
+#endif
+#ifndef USB2422_PRODUCT_ID
+#    define USB2422_PRODUCT_ID      0xEEC5
+#endif
+#ifndef USB2422_DEVICE_VER
+#    define USB2422_DEVICE_VER      0x0101
+#endif
 
-Usb2422       USB2422_shadow;
-unsigned char i2c0_buf[34];
+static Usb2422_t config;
 
 static const uint16_t MFRNAME[] = {'M', 'a', 's', 's', 'd', 'r', 'o', 'p', ' ', 'I', 'n', 'c', '.'};  // Massdrop Inc.
 static const uint16_t PRDNAME[] = {'M', 'a', 's', 's', 'd', 'r', 'o', 'p', ' ', 'H', 'u', 'b'};       // Massdrop Hub
 static const uint16_t SERNAME[] = {'U', 'n', 'a', 'v', 'a', 'i', 'l', 'a', 'b', 'l', 'e'};  // Unavailable
 
 static void USB2422_write_block(void) {
+    static unsigned char i2c0_buf[34];
     unsigned char *dest = i2c0_buf;
     unsigned char *src;
-    unsigned char *base = (unsigned char *)&USB2422_shadow;
+    unsigned char *base = (unsigned char *)&config;
 
     for (src = base; src < base + 256; src += 32) {
         dest[0] = src - base;
@@ -328,8 +337,7 @@ void USB2422_init() {
 }
 
 void USB2422_configure(){
-    Usb2422 *pusb2422 = &USB2422_shadow;
-    memset(pusb2422, 0, sizeof(Usb2422));
+    memset(&config, 0, sizeof(Usb2422_t));
 
     uint16_t *serial_use    = (uint16_t *)SERNAME;                 // Default to use SERNAME from this file
     uint8_t   serial_length = sizeof(SERNAME) / sizeof(uint16_t);  // Default to use SERNAME from this file
@@ -354,26 +362,26 @@ void USB2422_configure(){
 //     }
 
     // configure Usb2422 registers
-    pusb2422->VID.reg               = 0x04D8;  // from Microchip 4/19/2018
-    pusb2422->PID.reg               = 0xEEC5;  // from Microchip 4/19/2018 = Massdrop, Inc. USB Hub
-    pusb2422->DID.reg               = 0x0101;  // BCD 01.01
-    pusb2422->CFG1.bit.SELF_BUS_PWR = 1;       // self powered for now
-    pusb2422->CFG1.bit.HS_DISABLE   = 1;       // full or high speed
-    // pusb2422->CFG2.bit.COMPOUND = 0; // compound device
-    pusb2422->CFG3.bit.STRING_EN = 1;  // strings enabled
-    // pusb2422->NRD.bit.PORT2_NR = 0; // MCU is non-removable
-    pusb2422->MAXPB.reg = 20;  // 0mA
-    pusb2422->HCMCB.reg = 20;  // 0mA
-    pusb2422->MFRSL.reg = sizeof(MFRNAME) / sizeof(uint16_t);
-    pusb2422->PRDSL.reg = sizeof(PRDNAME) / sizeof(uint16_t);
-    pusb2422->SERSL.reg = serial_length;
-    memcpy(pusb2422->MFRSTR, MFRNAME, sizeof(MFRNAME));
-    memcpy(pusb2422->PRDSTR, PRDNAME, sizeof(PRDNAME));
-    memcpy(pusb2422->SERSTR, serial_use, serial_length * sizeof(uint16_t));
-    // pusb2422->BOOSTUP.bit.BOOST=3;    //upstream port
-    // pusb2422->BOOSTDOWN.bit.BOOST1=0; // extra port
-    // pusb2422->BOOSTDOWN.bit.BOOST2=2; //MCU is close
-    pusb2422->STCD.bit.USB_ATTACH = 1;
+    config.VID.reg               = USB2422_VENDOR_ID;
+    config.PID.reg               = USB2422_PRODUCT_ID;
+    config.DID.reg               = USB2422_DEVICE_VER;  // BCD format, eg 01.01
+    config.CFG1.bit.SELF_BUS_PWR = 1;       // self powered for now
+    config.CFG1.bit.HS_DISABLE   = 1;       // full or high speed
+    // config.CFG2.bit.COMPOUND = 0; // compound device
+    config.CFG3.bit.STRING_EN = 1;  // strings enabled
+    // config.NRD.bit.PORT2_NR = 0; // MCU is non-removable
+    config.MAXPB.reg = 20;  // 0mA
+    config.HCMCB.reg = 20;  // 0mA
+    config.MFRSL.reg = sizeof(MFRNAME) / sizeof(uint16_t);
+    config.PRDSL.reg = sizeof(PRDNAME) / sizeof(uint16_t);
+    config.SERSL.reg = serial_length;
+    memcpy(config.MFRSTR, MFRNAME, sizeof(MFRNAME));
+    memcpy(config.PRDSTR, PRDNAME, sizeof(PRDNAME));
+    memcpy(config.SERSTR, serial_use, serial_length * sizeof(uint16_t));
+    // config.BOOSTUP.bit.BOOST=3;    //upstream port
+    // config.BOOSTDOWN.bit.BOOST1=0; // extra port
+    // config.BOOSTDOWN.bit.BOOST2=2; //MCU is close
+    config.STCD.bit.USB_ATTACH = 1;
 
     USB2422_write_block();
 }
