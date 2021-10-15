@@ -311,6 +311,12 @@ typedef struct {
 
 static Usb2422_t config;
 
+static void USB2422_strcpy(const char* str, USB2422_MFRSTR_Type* dest, uint8_t len){
+    for(uint8_t i = 0; i < len; i++){
+        dest[i] = str[i];
+    }
+}
+
 static void USB2422_write_block(void) {
     static unsigned char i2c0_buf[34];
     unsigned char *      dest = i2c0_buf;
@@ -331,9 +337,7 @@ void USB2422_init() {
 }
 
 void USB2422_configure() {
-    static const uint16_t MFRNAME[] = USB2422_MANUFACTURER;
-    static const uint16_t PRDNAME[] = USB2422_PRODUCT;
-    static const uint16_t SERNAME[] = {'U', 'n', 'a', 'v', 'a', 'i', 'l', 'a', 'b', 'l', 'e'};
+    static const char SERNAME[] = "Unavailable";
 
     memset(&config, 0, sizeof(Usb2422_t));
 
@@ -348,13 +352,12 @@ void USB2422_configure() {
     // config.NRD.bit.PORT2_NR = 0; // MCU is non-removable
     config.MAXPB.reg = 20;  // 0mA
     config.HCMCB.reg = 20;  // 0mA
-    config.MFRSL.reg = sizeof(MFRNAME) / sizeof(uint16_t);
-    config.PRDSL.reg = sizeof(PRDNAME) / sizeof(uint16_t);
-    config.SERSL.reg = sizeof(SERNAME) / sizeof(uint16_t);
-    ;
-    memcpy(config.MFRSTR, MFRNAME, sizeof(MFRNAME));
-    memcpy(config.PRDSTR, PRDNAME, sizeof(PRDNAME));
-    memcpy(config.SERSTR, SERNAME, sizeof(SERNAME));
+    config.MFRSL.reg = sizeof(USB2422_MANUFACTURER);
+    config.PRDSL.reg = sizeof(USB2422_PRODUCT);
+    config.SERSL.reg = sizeof(SERNAME);
+    USB2422_strcpy(USB2422_MANUFACTURER, config.MFRSTR, sizeof(USB2422_MANUFACTURER));
+    USB2422_strcpy(USB2422_PRODUCT, config.PRDSTR, sizeof(USB2422_PRODUCT));
+    USB2422_strcpy(SERNAME, config.SERSTR, sizeof(SERNAME));
     // config.BOOSTUP.bit.BOOST=3;    //upstream port
     // config.BOOSTDOWN.bit.BOOST1=0; // extra port
     // config.BOOSTDOWN.bit.BOOST2=2; //MCU is close
