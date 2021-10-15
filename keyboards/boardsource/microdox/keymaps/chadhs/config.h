@@ -34,3 +34,5 @@
 
 // https://beta.docs.qmk.fm/using-qmk/hardware-features/lighting/feature_rgblight#lighting-layers
 #define RGBLIGHT_LAYERS
+// https://beta.docs.qmk.fm/using-qmk/hardware-features/lighting/feature_rgblight#configuration
+#define RGBLIGHT_LIMIT_VAL 192
