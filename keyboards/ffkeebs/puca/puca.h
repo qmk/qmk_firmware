@@ -16,6 +16,11 @@
 
 #pragma once
 
+// K24 is 2U Plus
+// K44 is 2u Enter
+// K54 is 2u 0
+
+
 #include "quantum.h"
 
 #define LAYOUT( \
@@ -24,7 +29,8 @@
         K20,   K21,   K22,   K23,   K24,\
         K30,   K31,   K32,   K33,       \
         K40,   K41,   K42,   K43,   K44,\
-        K54,   K50,   K51,   K52,   K53 \
+        K50,   K51,   K52,   K53,       \
+        K54                             \
 ) { \
       { K00,   KC_NO, K02,   K03,   KC_NO },    \
       { K10,   K11,   K12,   K13,   KC_NO },    \
