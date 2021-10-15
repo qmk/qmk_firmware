@@ -230,6 +230,12 @@ send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
 
 Example uses include sending Unicode strings when a key is pressed, as described in [Macros](feature_macros.md).
 
+This function requires Unicode to be enabled in your `rules.mk` and an [input mode](https://beta.docs.qmk.fm/using-qmk/software-features/feature_unicode#2.-input-modes-id-input-modes) to be selected:
+
+```make
+UNICODE_ENABLE = yes
+```
+
 ### `send_unicode_hex_string()` (Deprecated)
 
 Similar to `send_unicode_string()`, but the characters are represented by their Unicode code points, written in hexadecimal and separated by spaces. For example, the table flip above would be achieved with:
