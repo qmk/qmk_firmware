@@ -40,17 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 // Configure the SSD1306OLED display
-
-// For the COMBO keys function.
-#define COMBO_TERM  40  /* time limit in milliseconds combos need to be completed */	
-#define COMBO_COUNT 6
-
-#define TAPPING_TOGGLE 2  /* How many times TT(__layer__) needs to be tapped to stick */
-#define IGNORE_MOD_TAP_INTERRUPT
-#define TAPPING_TERM 150
-//#define TAPPING_FORCE_HOLD
-//#define PERMISSIVE_HOLD
-
 //#define USE_I2C
 #define SSD1306OLED
 #define OLED_DISPLAY_128X64
