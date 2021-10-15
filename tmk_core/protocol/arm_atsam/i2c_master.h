@@ -101,4 +101,11 @@ void    i2c0_init(void);
 uint8_t i2c0_transmit(uint8_t address, uint8_t *data, uint16_t length, uint16_t timeout);
 void    i2c0_stop(void);
 
+
+// Terrible interface compatiblity...
+typedef int16_t i2c_status_t;
+
+void         i2c_init(void);
+i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout);
+
 #endif  // _I2C_MASTER_H_

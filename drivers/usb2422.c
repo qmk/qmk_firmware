@@ -1,7 +1,22 @@
+/* Copyright 2021 QMK
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#include <string.h>
 #include "usb2422.h"
 #include "i2c_master.h"
 #include "wait.h"
-#include <string.h>
 
 /* -------- USB2422_VID : (USB2422L Offset: 0x00) (R/W 16) Vendor ID -------- */
 typedef union {
@@ -88,7 +103,6 @@ typedef union {
     } bit;       /*!< Structure used for bit  access                  */
     uint8_t reg; /*!< Type      used for register access              */
 } USB2422_PDS_Type;
-
 
 /* -------- USB2422_PDB : (USB2422L Offset: 0x0B) (R/W 8) Port Diable for Bus-Powered Operation -------- */
 
@@ -295,78 +309,40 @@ typedef struct {
     USB2422_STCD_Type       STCD; /**< \brief Offset: 0xFF*/
 } Usb2422_t;
 
-#ifndef USB2422_ADDRESS
-#    define USB2422_ADDRESS 0x58
-#endif
-#ifndef USB2422_VENDOR_ID
-#    define USB2422_VENDOR_ID       0x04D8
-#endif
-#ifndef USB2422_PRODUCT_ID
-#    define USB2422_PRODUCT_ID      0xEEC5
-#endif
-#ifndef USB2422_DEVICE_VER
-#    define USB2422_DEVICE_VER      0x0101
-#endif
-
 static Usb2422_t config;
-
-static const uint16_t MFRNAME[] = {'M', 'a', 's', 's', 'd', 'r', 'o', 'p', ' ', 'I', 'n', 'c', '.'};  // Massdrop Inc.
-static const uint16_t PRDNAME[] = {'M', 'a', 's', 's', 'd', 'r', 'o', 'p', ' ', 'H', 'u', 'b'};       // Massdrop Hub
-static const uint16_t SERNAME[] = {'U', 'n', 'a', 'v', 'a', 'i', 'l', 'a', 'b', 'l', 'e'};  // Unavailable
 
 static void USB2422_write_block(void) {
     static unsigned char i2c0_buf[34];
-    unsigned char *dest = i2c0_buf;
-    unsigned char *src;
-    unsigned char *base = (unsigned char *)&config;
+    unsigned char *      dest = i2c0_buf;
+    unsigned char *      src;
+    unsigned char *      base = (unsigned char *)&config;
 
     for (src = base; src < base + 256; src += 32) {
         dest[0] = src - base;
         dest[1] = 32;
         memcpy(&dest[2], src, 32);
-        i2c0_transmit(USB2422_ADDRESS, dest, 34, 50000);
-        SERCOM0->I2CM.CTRLB.bit.CMD = 0x03;
-        while (SERCOM0->I2CM.SYNCBUSY.bit.SYSOP) {}
+        i2c_transmit(USB2422_ADDRESS, dest, 34, 50000);
         wait_us(100);
     }
 }
 
 void USB2422_init() {
-    //i2c_init();
-    i2c0_init();  // IC2 clk must be high at USB2422 reset release time to signal SMB configuration
+    i2c_init(); // IC2 clk must be high at USB2422 reset release time to signal SMB configuration
 }
 
-void USB2422_configure(){
+void USB2422_configure() {
+    static const uint16_t MFRNAME[] = USB2422_MANUFACTURER;
+    static const uint16_t PRDNAME[] = USB2422_PRODUCT;
+    static const uint16_t SERNAME[] = {'U', 'n', 'a', 'v', 'a', 'i', 'l', 'a', 'b', 'l', 'e'};
+
     memset(&config, 0, sizeof(Usb2422_t));
-
-    uint16_t *serial_use    = (uint16_t *)SERNAME;                 // Default to use SERNAME from this file
-    uint8_t   serial_length = sizeof(SERNAME) / sizeof(uint16_t);  // Default to use SERNAME from this file
-// #ifndef MD_BOOTLOADER
-//     uint32_t serial_ptrloc = (uint32_t)&_srom - 4;
-// #else                                                      // MD_BOOTLOADER
-//     uint32_t serial_ptrloc = (uint32_t)&_erom - 4;
-// #endif                                                     // MD_BOOTLOADER
-//     uint32_t serial_address = *(uint32_t *)serial_ptrloc;  // Address of bootloader's serial number if available
-
-//     if (serial_address != 0xFFFFFFFF && serial_address < serial_ptrloc)  // Check for factory programmed serial address
-//     {
-//         if ((serial_address & 0xFF) % 4 == 0)  // Check alignment
-//         {
-//             serial_use    = (uint16_t *)(serial_address);
-//             serial_length = 0;
-//             while ((*(serial_use + serial_length) > 32 && *(serial_use + serial_length) < 127) && serial_length < BOOTLOADER_SERIAL_MAX_SIZE) {
-//                 serial_length++;
-//                 DBGC(DC_USB_CONFIGURE_GET_SERIAL);
-//             }
-//         }
-//     }
 
     // configure Usb2422 registers
     config.VID.reg               = USB2422_VENDOR_ID;
     config.PID.reg               = USB2422_PRODUCT_ID;
     config.DID.reg               = USB2422_DEVICE_VER;  // BCD format, eg 01.01
-    config.CFG1.bit.SELF_BUS_PWR = 1;       // self powered for now
-    config.CFG1.bit.HS_DISABLE   = 1;       // full or high speed
+    config.CFG1.bit.SELF_BUS_PWR = 1;                   // self powered for now
+    config.CFG1.bit.HS_DISABLE   = 1;                   // full or high speed
     // config.CFG2.bit.COMPOUND = 0; // compound device
     config.CFG3.bit.STRING_EN = 1;  // strings enabled
     // config.NRD.bit.PORT2_NR = 0; // MCU is non-removable
@@ -374,10 +350,10 @@ void USB2422_configure(){
     config.HCMCB.reg = 20;  // 0mA
     config.MFRSL.reg = sizeof(MFRNAME) / sizeof(uint16_t);
     config.PRDSL.reg = sizeof(PRDNAME) / sizeof(uint16_t);
-    config.SERSL.reg = serial_length;
+    config.SERSL.reg = sizeof(SERNAME) / sizeof(uint16_t);;
     memcpy(config.MFRSTR, MFRNAME, sizeof(MFRNAME));
     memcpy(config.PRDSTR, PRDNAME, sizeof(PRDNAME));
-    memcpy(config.SERSTR, serial_use, serial_length * sizeof(uint16_t));
+    memcpy(config.SERSTR, SERNAME, sizeof(SERNAME));
     // config.BOOSTUP.bit.BOOST=3;    //upstream port
     // config.BOOSTDOWN.bit.BOOST1=0; // extra port
     // config.BOOSTDOWN.bit.BOOST2=2; //MCU is close

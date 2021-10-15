@@ -15,6 +15,27 @@
  */
 #pragma once
 
+#ifndef USB2422_ADDRESS
+#    define USB2422_ADDRESS 0x58
+#endif
+
+#ifndef USB2422_VENDOR_ID
+#    define USB2422_VENDOR_ID 0x04D8
+#endif
+#ifndef USB2422_PRODUCT_ID
+#    define USB2422_PRODUCT_ID 0xEEC5
+#endif
+#ifndef USB2422_DEVICE_VER
+#    define USB2422_DEVICE_VER 0x0101
+#endif
+
+#ifndef USB2422_MANUFACTURER
+#    define USB2422_MANUFACTURER { 'Q', 'M', 'K' }
+#endif
+#ifndef USB2422_PRODUCT
+#    define USB2422_PRODUCT { 'Q', 'M', 'K', ' ', 'H', 'u', 'b' }
+#endif
+
 void USB2422_init(void);
 
 void USB2422_configure(void);
