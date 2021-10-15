@@ -20,9 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define REV_USB2422 0x100
 
-#define USB2422_HUB_ACTIVE_GROUP 0  // PA
-#define USB2422_HUB_ACTIVE_PIN 18   // 18
-
 #define PORT_DETECT_RETRY_INTERVAL 2000
 
 #define USB_EXTRA_ADC_THRESHOLD 900

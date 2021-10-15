@@ -109,8 +109,6 @@ void USB_Hub_init(void) {
     pusb->DEVICE.QOSCTRL.bit.DQOS = 2;
     pusb->DEVICE.QOSCTRL.bit.CQOS = 2;
 
-    pport->Group[USB2422_HUB_ACTIVE_GROUP].PINCFG[USB2422_HUB_ACTIVE_PIN].bit.INEN = 1;
-
     USB2422_init();
 
     sr_exp_data.bit.HUB_CONNECT = 1;  // connect signal
@@ -152,7 +150,7 @@ void USB_configure(void) {
     DBGC(DC_USB_CONFIGURE_COMPLETE);
 }
 
-uint16_t USB_active(void) { return (PORT->Group[USB2422_HUB_ACTIVE_GROUP].IN.reg & (1 << USB2422_HUB_ACTIVE_PIN)) != 0; }
+uint16_t USB_active(void) { return USB2422_active(); }
 
 void USB_set_host_by_voltage(void) {
     // UP is upstream device (HOST)

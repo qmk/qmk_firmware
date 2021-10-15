@@ -100,6 +100,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USB2422_DEVICE_VER 0x0101
 #define USB2422_MANUFACTURER "Massdrop Inc."
 #define USB2422_PRODUCT "Massdrop Hub"
+#define USB2422_ACTIVE_PIN A18
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

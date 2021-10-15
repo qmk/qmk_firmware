@@ -15,6 +15,8 @@
  */
 #pragma once
 
+#include <stdbool.h>
+
 #ifndef USB2422_ADDRESS
 #    define USB2422_ADDRESS 0x58
 #endif
@@ -39,3 +41,7 @@
 void USB2422_init(void);
 
 void USB2422_configure(void);
+
+void USB2422_reset(void);
+
+bool USB2422_active(void);
