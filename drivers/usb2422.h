@@ -20,13 +20,13 @@
 #endif
 
 #ifndef USB2422_VENDOR_ID
-#    define USB2422_VENDOR_ID 0x04D8
+#    define USB2422_VENDOR_ID 0xFEED
 #endif
 #ifndef USB2422_PRODUCT_ID
-#    define USB2422_PRODUCT_ID 0xEEC5
+#    define USB2422_PRODUCT_ID 0x0001
 #endif
 #ifndef USB2422_DEVICE_VER
-#    define USB2422_DEVICE_VER 0x0101
+#    define USB2422_DEVICE_VER 0x0001
 #endif
 
 #ifndef USB2422_MANUFACTURER

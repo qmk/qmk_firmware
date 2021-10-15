@@ -94,6 +94,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBUG_BOOT_TRACING_PORT     PB
 #define DEBUG_BOOT_TRACING_PIN      23
 
+/* USB2422 config */
+#define USB2422_ADDRESS 0x58
+#define USB2422_VENDOR_ID 0x04D8
+#define USB2422_PRODUCT_ID 0xEEC5
+#define USB2422_DEVICE_VER 0x0101
+#define USB2422_MANUFACTURER {'M', 'a', 's', 's', 'd', 'r', 'o', 'p', ' ', 'I', 'n', 'c', '.'}
+#define USB2422_PRODUCT {'M', 'a', 's', 's', 'd', 'r', 'o', 'p', ' ', 'H', 'u', 'b'}
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
