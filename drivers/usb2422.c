@@ -17,6 +17,7 @@
 #include "usb2422.h"
 #include "i2c_master.h"
 #include "wait.h"
+#include "gpio.h"
 
 /* -------- USB2422_VID : (USB2422L Offset: 0x00) (R/W 16) Vendor ID -------- */
 typedef union {
@@ -383,7 +384,7 @@ void USB2422_reset() {
 
 bool USB2422_active() {
 #ifdef USB2422_ACTIVE_PIN
-    return read_pin(USB2422_ACTIVE_PIN);
+    return readPin(USB2422_ACTIVE_PIN);
 #else
     return 1;
 #endif
