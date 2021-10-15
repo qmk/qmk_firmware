@@ -41,7 +41,7 @@ enum combos //match combo_count in config.h
 #define RAISE MO(_RAISE)
 #define SFT_U SFT_T(KC_U) //TO SHORTEN THINGS UP IN LAYOUT MAP? MAKE A BUNCH OF THESE
 
-const uint16_t PROGMEM ao_combo[]     = {KC_A, KC_O, COMBO_END}; //not working... probably due to tapping term and interrupt stuff for home row mod
+const uint16_t PROGMEM ao_combo[]     = {GUI_T(KC_A), ALT_T(KC_O), COMBO_END};
 const uint16_t PROGMEM eu_combo[]     = {KC_E, KC_U, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -189,6 +189,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	return true;
 }
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case ALT_T(KC_O):
+        case GUI_T(KC_A):
+        case ALT_T(KC_SPC):
+            return TAPPING_TERM + 200;
+        default:
+            return TAPPING_TERM;
+    }
+}
 
 void matrix_init_user(void) {
 #ifdef USE_I2C
