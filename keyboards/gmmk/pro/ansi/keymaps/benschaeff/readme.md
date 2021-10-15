@@ -1,14 +1,14 @@
-Description  
-Pretty simple keymap with a few handy tools on a 2nd layer and rotary encoder.  
+# Description
+Pretty simple keymap with a few handy tools on a 2nd layer and rotary encoder.
 
-Encoder  
+# Encoder
 Holding tab and scrolling encoder will allow scrolling through applications, as if using alt + tab  
 Holding ctrl and scrolling encoder will allow scrolling through chrome tabs  
 FN + Encoder scroll is media next/prev  
 FN + Encoder press is media pause  
 default encoder behavior is volume up/down  
 
-Function Layer  
+# Function Layer
 FN + \ is used to put keyboard into bootloader mode  
 FN + ESC is the same as alt F4, for closing applications  
 FN + F1 is to close current browser tab  
