@@ -31,3 +31,6 @@
 #define COMBO_TERM 50 // http://combos.gboards.ca/docs/install/#combos
 #define COMBO_ALLOW_ACTION_KEYS
 #define COMBO_PERMISSIVE_HOLD
+
+// https://beta.docs.qmk.fm/using-qmk/hardware-features/lighting/feature_rgblight#lighting-layers
+#define RGBLIGHT_LAYERS

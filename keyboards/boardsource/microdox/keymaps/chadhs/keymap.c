@@ -211,6 +211,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 
 
 /* custom lighting configuration */
+// microcontroller leds
 void led_set_kb(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_CAPS_LOCK))
         set_bit_c_LED(LED_DIM);
@@ -218,15 +219,48 @@ void led_set_kb(uint8_t usb_led) {
         set_bit_c_LED(LED_OFF);
 }
 
+// underglow leds
+const rgblight_segment_t PROGMEM rgb_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 12, HSV_RED}
+);
+
+const rgblight_segment_t PROGMEM rgb_colemakdh_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 12, HSV_WHITE}
+);
+
+const rgblight_segment_t PROGMEM rgb_gaming_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 12, HSV_BLUE}
+);
+
+const rgblight_segment_t PROGMEM rgb_gaming2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 12, HSV_GREEN}
+);
+
+// Now define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    rgb_capslock_layer,
+    rgb_colemakdh_layer, // Overrides caps lock layer
+    rgb_gaming_layer,    // Overrides other layers
+    rgb_gaming2_layer    // Overrides other layers
+);
+
+void keyboard_post_init_user(void) {
+    // Enable the LED layers
+    rgblight_layers = rgb_layers;
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(0, led_state.caps_lock);
+    return true;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(1, layer_state_cmp(state, _COLEMAK_DH));
+    return state;
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case _GAMING:
-    case _GAMING_2:
-        rgblight_setrgb (0x00,  0x00, 0xFF);
-        break;
-    default: //  for any other layers, or the default layer
-        rgblight_setrgb (0x00,  0xFF, 0xFF);
-        break;
-    }
-  return state;
+    rgblight_set_layer_state(2, layer_state_cmp(state, _GAMING));
+    rgblight_set_layer_state(3, layer_state_cmp(state, _GAMING_2));
+    return state;
 }
