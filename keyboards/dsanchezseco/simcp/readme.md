@@ -1,4 +1,4 @@
-# sImCP
+# simcp
 
 ![simcp](https://raw.githubusercontent.com/dsanchezseco/sImCP/master/images/sImCP.jpeg)
 

@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x0002
 #define DEVICE_VER   0x0001
 #define MANUFACTURER dsanchezseco
-#define PRODUCT      sImCP
+#define PRODUCT      simcp
 
 #define USB_MAX_POWER_CONSUMPTION 300
 

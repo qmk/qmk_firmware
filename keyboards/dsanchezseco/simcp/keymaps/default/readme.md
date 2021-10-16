@@ -1,1 +1,1 @@
-# The default keymap for sImCP
+# The default keymap for simcp
