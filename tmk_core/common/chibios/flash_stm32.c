@@ -19,11 +19,11 @@
 #include <hal.h>
 #include "flash_stm32.h"
 
-#if defined(EEPROM_EMU_STM32F103xB)
+#if defined(STM32F1XX)
 #    define FLASH_SR_WRPERR FLASH_SR_WRPRTERR
 #endif
 
-#if defined(EEPROM_EMU_STM32F401xC)
+#if defined(STM32F4XX)
 #    define FLASH_SR_PGERR (FLASH_SR_PGSERR | FLASH_SR_PGPERR | FLASH_SR_PGAERR)
 
 #    define FLASH_KEY1 0x45670123U
