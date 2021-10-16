@@ -2,7 +2,15 @@
 
 * Keyboard Maintainer: [Sleepdealer](https://github.com/Sleepdealr)
 * Hardware Supported: Puca Pad
-* Hardware Availability: TBD
+* Hardware Availability: Puca GB
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (the encoder) 
+* **Physical reset button**: Briefly press the button on the front of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
 
 Make example for this keyboard (after setting up your build environment):
 
