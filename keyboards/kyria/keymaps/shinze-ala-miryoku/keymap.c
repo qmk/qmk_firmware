@@ -56,11 +56,6 @@
 enum layers { BASE, MBO, MEDR, NAVR, ZOO, NSSL, NSL, FUNL };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*
-   ?, B, É, P, O, È,     ^, V, D, L, J, Z, ?
-   W, A, U, I, E, ,,     C, T, S, R, N, M, ?
-   ?, À, Y, X, ., K,     ’, Q, G, G, H, F, Ç
- */
   [BASE] = LAYOUT(
       S00, S01, S02, S03, S04, S05,                         S06, S07, S08, S09, S10, S11,
       S12, S13, S14, S15, S16, S17,                         S18, S19, S20, S21, S22, S23,
@@ -105,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
   [NSSL] = LAYOUT(
       BP_DOL,  BP_DQUO, BP_PLUS,  BP_MINUS, BP_SLASH, BP_ASTR,                                 U_NA,  U_NA,    U_NA,    U_NA,    RESET,   KC_NO,
-      BP_HASH, KC_NO,   BP_RPRN,  BP_LPRN,  BP_AT,    BP_EQL,                                  U_NA,  KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL, KC_NO,
+      BP_HASH, KC_NO,   BP_LPRN,  BP_RPRN,  BP_AT,    BP_EQL,                                  U_NA,  KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL, KC_NO,
       BP_GRV,  BP_EQL,  BP_DQUO,  BP_LDAQ,  BP_RDAQ,  BP_PERC, KC_NO,   KC_NO,   KC_NO, KC_NO, U_NA,  U_NA,    U_NA,    KC_ALGR, U_NA,    KC_NO,
                                   U_NP,     U_NP,     BP_LPRN, BP_RPRN, KC_NO,   U_NA,  U_NA,  U_NA,  U_NP,    U_NP
       )
@@ -187,21 +182,13 @@ static void render_logo(void) {
     oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
 
-static const char string_to_write[2][2] = {
-    {0x03, 0x04}, // Hex values for 149, 150
-    {0xB5, 0xB6} // Hex values for 181, 182
-};
-
-
 static void render_status(void) {
-    //oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
+    oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
 
     // Host Keyboard Layer Status
     switch (get_highest_layer(layer_state)) {
         case BASE:
-            oled_write_P(PSTR("Bépo\n"), false);
-            oled_write(string_to_write[0], false);
-            oled_write(string_to_write[1], false);
+            oled_write_P(PSTR("Bepo\n"), false);
             break;
         case MBO:
             oled_write_P(PSTR("Mouse btn\n"), false);
@@ -217,10 +204,6 @@ static void render_status(void) {
             break;
         case NSSL:
             oled_write_P(PSTR("Symbols\n"), false);
-            oled_write_P(PSTR("$ \" - + / *\n"), false);
-            oled_write_P(PSTR("# _  ( ) @ =\n"), false);
-            oled_write_P(PSTR("` = \" « » %\n"), false);
-            oled_write_P(PSTR("              (  )\n"), false);
             break;
         case NSL:
             oled_write_P(PSTR("Numbers\n"), false);
