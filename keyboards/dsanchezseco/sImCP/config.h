@@ -59,6 +59,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPIN_TERM 200
 
+// increase for better key register
+#define TAP_CODE_DELAY 200
+
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 

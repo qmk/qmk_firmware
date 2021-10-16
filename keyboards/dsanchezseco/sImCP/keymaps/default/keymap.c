@@ -16,10 +16,7 @@
 #include QMK_KEYBOARD_H
 
 #define JOY_INITIAL_DELAY 20            // 20ms delay until first joystick action
-// #define JOY_REPEAT_RATE 250             //repeat every 250ms, 4 times per second.  Delete this for single press
 #define JOY_BUTTON_SINGLE_ACTION 1      //The button by itself will only act once.  Delete this to repeat while held like the directions.
-
-#define TAP_CODE_DELAY 200              // add 100ms to key release for better key register
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -85,7 +82,7 @@ void led_keypress_update(pin_t led_pin, uint16_t keycode, keyrecord_t *record) {
 }
 
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Encoder on the LEFT */
         if (clockwise) {
             tap_code16(RCTL(KC_A));
@@ -105,6 +102,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code16(RCTL(KC_D));
         }
     }
+
+    return true;
 }
 
 
