@@ -53,9 +53,9 @@ enum alias_keycodes {
     UP = LCTL(KC_K),
     DOWN = LCTL(KC_X),
     D_UP = LCTL(KC_M),
-    D_RIGHT = RCTL(KC_V),
+    D_RIGHT = LCTL(KC_R),
     D_DOWN = LCTL(KC_V),
-    D_LEFT = RCTL(KC_M),
+    D_LEFT = LCTL(KC_P),
     D_PUSH = RCTL(KC_W),
 };
 
