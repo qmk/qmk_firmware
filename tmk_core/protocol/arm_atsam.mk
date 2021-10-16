@@ -9,7 +9,8 @@ ifeq ($(RGB_MATRIX_DRIVER),custom)
   SRC += $(ARM_ATSAM_DIR)/md_rgb_matrix.c
 endif
 SRC += $(ARM_ATSAM_DIR)/main_arm_atsam.c
-SRC += $(ARM_ATSAM_DIR)/spi.c
+SRC += $(ARM_ATSAM_DIR)/shift_register.c
+SRC += $(ARM_ATSAM_DIR)/spi_master.c
 SRC += $(ARM_ATSAM_DIR)/startup.c
 
 SRC += $(ARM_ATSAM_DIR)/usb/main_usb.c
