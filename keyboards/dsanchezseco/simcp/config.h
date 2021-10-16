@@ -45,7 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { D5, D6, D7, B0, B1, B2 }
 #define MATRIX_COL_PINS { C3, C2, C1, C0, D4 }
-#define LED C4
+
+#define LED_CAPS_LOCK_PIN C4
+#define LED_PIN_ON_STATE 0
 
 #define ENCODERS_PAD_A { B3, B4, D1 }
 #define ENCODERS_PAD_B { D0, B5, C5 }
