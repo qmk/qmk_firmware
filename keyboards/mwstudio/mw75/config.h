@@ -43,9 +43,6 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
 #define RGB_DI_PIN B3
 #define RGBLIGHT_SLEEP
 
