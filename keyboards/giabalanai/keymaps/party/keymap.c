@@ -45,9 +45,6 @@ static bool melody_dyad_low  = false;  //  true when -1 octave unison dyad is en
 
 static bool melody_unison_suppress  = true;  //  true: velocity of octave unison note is suppressd to UNISON_VELOCITY_RATIO
 
-#ifdef RGB_MATRIX_ENABLE
-extern rgb_config_t rgb_matrix_config;
-#endif
 
 // To record the status of Bass Chord (single or dyad, default: dyad.)
 typedef union {
@@ -83,24 +80,6 @@ enum layer_names {
     _ADJUST,             //  for Fn keys, etc.
     _FN                  //  for changing layers, octaves, etc.
 };
-
-#ifdef RGB_MATRIX_ENABLE
-extern rgb_config_t rgb_matrix_config;
-//
-// const uint8_t convert_led_location2number[DRIVER_LED_TOTAL] = {
-//     74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63,
-//     75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86,
-//     98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88, 87,
-//     99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
-//     122, 121, 120, 119, 118, 117, 116, 115, 114, 113, 112, 111,
-//
-//     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-//     25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13,
-//     26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,     12,
-//     50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38,
-//     51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62
-// };
-#endif
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -566,7 +545,6 @@ void keyboard_post_init_user(void) {
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_sethsv(HSV_BLUE);
-    // rgb_matrix_config.hsv.v = RGB_MATRIX_MAXIMUM_BRIGHTNESS;  //  done in rgb_matrix_sethsv_eeprom_helper()
 #endif
 };
 
