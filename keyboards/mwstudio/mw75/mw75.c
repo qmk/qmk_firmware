@@ -1,4 +1,4 @@
-/* Copyright 2021 DZTECH <moyi4681@Live.cn>
+/* Copyright 2021 TW59420 <https://github.com/TW59420>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "mw75.h"
 
 led_config_t g_led_config = { {

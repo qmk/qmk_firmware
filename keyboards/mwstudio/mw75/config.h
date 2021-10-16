@@ -1,4 +1,4 @@
-/* Copyright 2021 DZTECH <moyi4681@Live.cn>
+/* Copyright 2021 TW59420 <https://github.com/TW59420>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,10 +41,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+#define DEBOUNCE 5
 
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
