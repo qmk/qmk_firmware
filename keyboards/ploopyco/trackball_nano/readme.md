@@ -2,7 +2,7 @@
 
 # Ploopy Trackball Nano
 
-![Ploopyco Trackball Nano](https://www.ploopy.co/uploads/b/113cb4122f867acc306a72a2741c5237a9b1d0db13abfe4e8e394cd466c4a311/_MG_7710_1614037372.jpg)
+![Ploopyco Trackball Nano](https://ploopy.co/wp-content/uploads/2021/06/2.jpg)
 
 It's a DIY, QMK Powered Trackball...Nano!
 
