@@ -16,6 +16,7 @@
 #include "puca.h"
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
     if (clockwise) {
         tap_code_delay(KC_VOLU, 10);  // Right
     } else {
@@ -26,7 +27,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
 
 // OLED
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 __attribute__((weak)) void oled_task_user(void) {
 // WPM-responsive animation stuff here
