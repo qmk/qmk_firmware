@@ -85,21 +85,21 @@ void led_keypress_update(pin_t led_pin, uint16_t keycode, keyrecord_t *record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Encoder on the LEFT */
         if (clockwise) {
-            tap_code16(RCTL(KC_A));
+            tap_code16(RCTL(KC_C));
         } else {
-            tap_code16(RCTL(KC_O));
+            tap_code16(RCTL(KC_F));
         }
     } else if (index == 1) { /* Encoder on the RIGHT */
         if (clockwise) {
-            tap_code16(RCTL(KC_U));
+            tap_code16(RCTL(KC_G));
         } else {
-            tap_code16(RCTL(KC_I));
+            tap_code16(RCTL(KC_Y));
         }
     } else if (index == 2) { /* Encoder on the RIGHT */
         if (clockwise) {
-            tap_code16(RCTL(KC_H));
+            tap_code16(RCTL(KC_Z));
         } else {
-            tap_code16(RCTL(KC_D));
+            tap_code16(RCTL(KC_B));
         }
     }
 
