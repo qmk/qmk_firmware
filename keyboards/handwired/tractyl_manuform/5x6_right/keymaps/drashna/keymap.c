@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_5x6_right_wrapper(
         KC_MAKE, ___________________BLANK___________________,                      _________________ADJUST_R1_________________, KC_RST,
         VRSN,    _________________ADJUST_L1_________________,                      _________________ADJUST_R1_________________, EEP_RST,
-        _______, _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, TG_MODS,
+        KEYLOCK, _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, TG_MODS,
         UC_MOD,  _________________ADJUST_L3_________________,                      _________________ADJUST_R3_________________, KC_MPLY,
                           HPT_DWLI, HPT_DWLD,                                                        TG_GAME, TG_DBLO,
                                             HPT_TOG, HPT_BUZ,                               KC_NUKE,
