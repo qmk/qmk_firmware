@@ -7,8 +7,8 @@ enum tapdance_keycodes {
 
 void dance_key_one (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF"); // ¯\_(ツ)_/¯
-        SEND_STRING(SS_TAP(X_ENTER));
+        send_unicode_string("¯\\_(ツ)_/¯");
+        tap_code(KC_ENTER);
         reset_tap_dance (state);
     } else if (state->count == 2) {
         cycle_unicode_input_mode(+1);
@@ -18,24 +18,24 @@ void dance_key_one (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_key_two (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        send_unicode_hex_string("0CA0 005F 0CA0"); // ಠ_ಠ
-        SEND_STRING(SS_TAP(X_ENTER));
+        send_unicode_string("ಠ_ಠ");
+        tap_code(KC_ENTER);
         reset_tap_dance (state);
     } else if (state->count == 2) {
-        send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B"); // (ノಠ痊ಠ)ノ彡┻━┻
-        SEND_STRING(SS_TAP(X_ENTER));
+        send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
+        tap_code(KC_ENTER);
         reset_tap_dance (state);
     } else if (state->count == 3) {
-        send_unicode_hex_string("256D 2229 256E 0028 002D 005F 002D 0029 256D 2229 256E"); // ╭∩╮(-_-)╭∩╮
-        SEND_STRING(SS_TAP(X_ENTER));
+        send_unicode_string("╭∩╮(-_-)╭∩╮");
+        tap_code(KC_ENTER);
         reset_tap_dance (state);
     } else if (state->count == 4) {
-        send_unicode_hex_string("0028 3065 FFE3 0020 00B3 FFE3 0029 3065"); // (づ￣ ³￣)づ
-        SEND_STRING(SS_TAP(X_ENTER));
+        send_unicode_string("(づ￣ ³￣)づ");
+        tap_code(KC_ENTER);
         reset_tap_dance (state);
     } else if (state->count == 5) {
-        send_unicode_hex_string("0028 FE3A FE39 FE3A 0029"); // (︺︹︺)
-        SEND_STRING(SS_TAP(X_ENTER));
+        send_unicode_string("(︺︹︺)");
+        tap_code(KC_ENTER);
         reset_tap_dance (state);
     }
 }
