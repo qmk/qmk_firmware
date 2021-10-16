@@ -1,6 +1,6 @@
 # MW75
 
-![MW75](https://i.imgur.com/TdVxYNE.jpg)
+![MW75](https://i.imgur.com/TdVxYNE.jpg?2)
 
 Support Atmega32u4 keyboard.
 
