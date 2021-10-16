@@ -2,11 +2,8 @@
     "keyboard_name": "Z-150 BH",
     "url": "",
     "maintainer": "qmk, blindassassin111",
-    "width": 21.25,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
-            "key_count": 84,
             "layout": [
                 {"label":"F1", "x":0, "y":0},
                 {"label":"F2", "x":1, "y":0},
@@ -95,7 +92,6 @@
             ]
         },
         "LAYOUT_z150_tkl": {
-            "key_count": 88,
             "layout": [
                 {"label":"F1", "x":0, "y":0},
                 {"label":"F2", "x":1, "y":0},

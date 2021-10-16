@@ -105,7 +105,10 @@ endif
 #CFLAGS += -Wundef
 #CFLAGS += -Wunreachable-code
 #CFLAGS += -Wsign-compare
+GCC_VERSION := $(shell gcc --version 2>/dev/null)
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+endif
 CFLAGS += $(CSTANDARD)
 
 # This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
@@ -137,7 +140,9 @@ endif
 #CXXFLAGS += -Wstrict-prototypes
 #CXXFLAGS += -Wunreachable-code
 #CXXFLAGS += -Wsign-compare
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+endif
 #CXXFLAGS += $(CSTANDARD)
 
 #---------------- Assembler Options ----------------
@@ -150,10 +155,12 @@ CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS)
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 ifeq ($(strip $(DEBUG_ENABLE)),yes)
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 else
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
+endif
 endif
 ifeq ($(VERBOSE_AS_CMD),yes)
 	ASFLAGS += -v
@@ -223,6 +230,12 @@ ifneq ($(filter Darwin FreeBSD,$(shell uname -s)),)
   MD5SUM = md5
 endif
 
+# UF2 format settings
+# To produce a UF2 file in your build, add to your keyboard's rules.mk:
+#      FIRMWARE_FORMAT = uf2
+UF2CONV = $(TOP_DIR)/util/uf2conv.py
+UF2_FAMILY ?= 0x0
+
 # Compiler flags to generate dependency files.
 #GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
 GENDEPFLAGS = -MMD -MP -MF $(patsubst %.o,%.td,$@)
@@ -255,6 +268,7 @@ DFU_SUFFIX_ARGS ?=
 
 elf: $(BUILD_DIR)/$(TARGET).elf
 hex: $(BUILD_DIR)/$(TARGET).hex
+uf2: $(BUILD_DIR)/$(TARGET).uf2
 cpfirmware: $(FIRMWARE_FORMAT)
 	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to qmk_firmware folder" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
@@ -283,34 +297,46 @@ gccversion :
 
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf
-	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
 	$(eval CMD=$(HEX) $< $@)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
+	@$(BUILD_CMD)
+
+%.uf2: %.hex
+	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex -o $(BUILD_DIR)/$(TARGET).uf2 -c -f $(UF2_FAMILY) >/dev/null 2>&1)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_UF2) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 %.eep: %.elf
-	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
 	$(eval CMD=$(EEP) $< $@ || exit 0)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 # Create extended listing file from ELF output file.
 %.lss: %.elf
-	@$(SILENT) || printf "$(MSG_EXTENDED_LISTING) $@" | $(AWK_CMD)
 	$(eval CMD=$(OBJDUMP) -h -S -z $< > $@)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_EXTENDED_LISTING) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 # Create a symbol table from ELF output file.
 %.sym: %.elf
-	@$(SILENT) || printf "$(MSG_SYMBOL_TABLE) $@" | $(AWK_CMD)
 	$(eval CMD=$(NM) -n $< > $@ )
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_SYMBOL_TABLE) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
 %.bin: %.elf
-	@$(SILENT) || printf "$(MSG_BIN) $@" | $(AWK_CMD)
 	$(eval CMD=$(BIN) $< $@ || exit 0)
+	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
+	@$(SILENT) || printf "$(MSG_BIN) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 	if [ ! -z "$(DFU_SUFFIX_ARGS)" ]; then \
 		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null ;\
 	fi
+	#$(SILENT) || printf "$(MSG_EXECUTING) '$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null':\n" ;\
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
 BEGIN = gccversion sizebefore
@@ -439,7 +465,7 @@ ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
 SIZE_MARGIN = 1024
 
 check-size:
-	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
 	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
 	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
@@ -458,7 +484,7 @@ check-size:
 	fi
 else
 check-size:
-	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
 endif
 
 check-md5:
@@ -476,7 +502,7 @@ $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 
 # Listing of phony targets.
 .PHONY : all dump_vars finish sizebefore sizeafter qmkversion \
-gccversion build elf hex eep lss sym coff extcoff \
+gccversion build elf hex uf2 eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
 program teensy dfu dfu-ee dfu-start \
 flash dfu-split-left dfu-split-right \
