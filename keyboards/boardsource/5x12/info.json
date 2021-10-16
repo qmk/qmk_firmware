@@ -2,10 +2,8 @@
     "keyboard_name": "boardsource 5x12",
     "url": "https://boardsource.xyz",
     "maintainer": "boardsource",
-    "width": 12,
-    "height": 5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_5x12": {
             "layout": [
                 { "label": "K01", "x": 0, "y": 0 },
                 { "label": "K02", "x": 1, "y": 0 },

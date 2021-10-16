@@ -152,6 +152,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case WORKMAN:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_WORKMAN);
+            }
+            return false;
+            break;
         case HUNGARIAN:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_HUNGARIAN);
@@ -173,7 +179,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static char receive_buffer[128] = {};
 static uint8_t receive_buffer_length = 0;
@@ -184,7 +190,19 @@ void oled_task_user(void) {
 
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
+            if (layer_state_cmp(default_layer_state, _QWERTY)) {
+                oled_write_P(PSTR("Qwerty\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _COLEMAK)) {
+                oled_write_P(PSTR("Colmak\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _DVORAK)) {
+                oled_write_P(PSTR("Dvorak\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _WORKMAN)) {
+                oled_write_P(PSTR("Workman\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _HUNGARIAN)) {
+                oled_write_P(PSTR("HUN Qwerty\n"), false);
+            } else {
+                oled_write_P(PSTR("Undefined\n"), false);
+            }
             break;
         case _LOWER:
             oled_write_P(PSTR("Lower\n"), false);

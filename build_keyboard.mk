@@ -12,6 +12,9 @@ endif
 
 include common.mk
 
+# Set the qmk cli to use
+QMK_BIN ?= qmk
+
 # Set the filename for the final firmware binary
 KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
 TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
@@ -19,6 +22,15 @@ KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
 
 # Force expansion
 TARGET := $(TARGET)
+
+ifneq ($(FORCE_LAYOUT),)
+    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+endif
+
+# Object files and generated keymap directory
+#     To put object files in current directory, use a dot (.), do NOT make
+#     this an empty or blank macro!
+KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
 # For split boards we need to set a master half.
 MASTER ?= left
@@ -90,12 +102,15 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
     include $(KEYBOARD_PATH_1)/rules.mk
 endif
 
-
 MAIN_KEYMAP_PATH_1 := $(KEYBOARD_PATH_1)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
+
+# Pull in rules from info.json
+INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_rules.mk)
+include $(INFO_RULES_MK)
 
 # Check for keymap.json first, so we can regenerate keymap.c
 include build_json.mk
@@ -131,18 +146,35 @@ ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     endif
 endif
 
+# Have we found a keymap.json?
+ifneq ("$(wildcard $(KEYMAP_JSON))", "")
+    KEYMAP_C := $(KEYMAP_OUTPUT)/src/keymap.c
+    KEYMAP_H := $(KEYMAP_OUTPUT)/src/config.h
+
+    # Load the keymap-level rules.mk if exists
+    -include $(KEYMAP_PATH)/rules.mk
+
+    # Load any rules.mk content from keymap.json
+    INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_OUTPUT)/src/rules.mk)
+    include $(INFO_RULES_MK)
+
+# Add rules to generate the keymap files - indentation here is important
+$(KEYMAP_OUTPUT)/src/keymap.c: $(KEYMAP_JSON)
+	$(QMK_BIN) json2c --quiet --output $(KEYMAP_C) $(KEYMAP_JSON)
+
+$(KEYMAP_OUTPUT)/src/config.h: $(KEYMAP_JSON)
+	$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_H)
+
+generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
+
+endif
+
 ifeq ($(strip $(CTPC)), yes)
   CONVERT_TO_PROTON_C=yes
 endif
 
 ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
-    TARGET := $(TARGET)_proton_c
-    include platforms/chibios/GENERIC_STM32_F303XC/configs/proton_c.mk
-    OPT_DEFS += -DCONVERT_TO_PROTON_C
-endif
-
-ifneq ($(FORCE_LAYOUT),)
-    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+    include platforms/chibios/boards/QMK_PROTON_C/convert_to_proton_c.mk
 endif
 
 include quantum/mcu_selection.mk
@@ -204,6 +236,7 @@ endif
 #
 #    https://docs.qmk.fm/#/feature_layouts?id=tips-for-making-layouts-keyboard-agnostic
 #
+QMK_KEYBOARD_H = $(KEYBOARD_OUTPUT)/src/default_keyboard.h
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/$(KEYBOARD_FOLDER_1).h)","")
     QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_1).h
 endif
@@ -227,6 +260,7 @@ ifdef MCU_FAMILY
     PLATFORM=CHIBIOS
     PLATFORM_KEY=chibios
     FIRMWARE_FORMAT?=bin
+    OPT_DEFS += -DMCU_$(MCU_FAMILY)
 else ifdef ARM_ATSAM
     PLATFORM=ARM_ATSAM
     PLATFORM_KEY=arm_atsam
@@ -272,6 +306,39 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
 endif
 
+# Pull in stuff from info.json
+INFO_JSON_FILES :=
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/info.json)","")
+    INFO_JSON_FILES += $(KEYBOARD_PATH_1)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/info.json)","")
+    INFO_JSON_FILES += $(KEYBOARD_PATH_2)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/info.json)","")
+    INFO_JSON_FILES += $(KEYBOARD_PATH_3)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/info.json)","")
+    INFO_JSON_FILES += $(KEYBOARD_PATH_4)/info.json
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/info.json)","")
+    INFO_JSON_FILES += $(KEYBOARD_PATH_5)/info.json
+endif
+
+CONFIG_H += $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
+
+$(KEYBOARD_OUTPUT)/src/info_config.h: $(INFO_JSON_FILES)
+	$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_config.h
+
+$(KEYBOARD_OUTPUT)/src/default_keyboard.h: $(INFO_JSON_FILES)
+	$(QMK_BIN) generate-keyboard-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/default_keyboard.h
+
+$(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
+	$(QMK_BIN) generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h
+
+generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.h $(KEYBOARD_OUTPUT)/src/layouts.h
+
+.INTERMEDIATE : generated-files
+
 # Userspace setup and definitions
 ifeq ("$(USER_NAME)","")
     USER_NAME := $(KEYMAP)
@@ -282,20 +349,26 @@ USER_PATH := users/$(USER_NAME)
 ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
 endif
+ifneq ("$(wildcard $(USER_PATH)/post_config.h)","")
+    POST_CONFIG_H += $(USER_PATH)/post_config.h
+endif
 
-# Object files directory
-#     To put object files in current directory, use a dot (.), do NOT make
-#     this an empty or blank macro!
-KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
+# Disable features that a keyboard doesn't support
+-include disable_features.mk
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
 endif
+ifneq ("$(KEYMAP_H)","")
+    CONFIG_H += $(KEYMAP_H)
+endif
 
 # project specific files
-SRC += $(KEYBOARD_SRC) \
+SRC += \
+    $(KEYBOARD_SRC) \
     $(KEYMAP_C) \
-    $(QUANTUM_SRC)
+    $(QUANTUM_SRC) \
+    $(QUANTUM_DIR)/main.c \
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
@@ -330,6 +403,7 @@ ifneq ($(strip $(PROTOCOL)),)
 else
     include $(TMK_PATH)/protocol/$(PLATFORM_KEY).mk
 endif
+-include $(TOP_DIR)/platforms/$(PLATFORM_KEY)/flash.mk
 
 # TODO: remove this bodge?
 PROJECT_DEFS := $(OPT_DEFS)
@@ -348,7 +422,7 @@ ALL_CONFIGS := $(PROJECT_CONFIG) $(CONFIG_H)
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) $(GFXDEFS) \
--DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(QMK_KEYBOARD_H)\" -DQMK_KEYBOARD_CONFIG_H=\"$(KEYBOARD_PATH_1)/config.h\" \
+-DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(QMK_KEYBOARD_H)\" \
 -DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\" \
 -DQMK_SUBPROJECT -DQMK_SUBPROJECT_H -DQMK_SUBPROJECT_CONFIG_H
 $(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
@@ -368,7 +442,14 @@ endif
 
 build: elf cpfirmware
 check-size: build
+check-md5: build
 objs-size: build
 
 include show_options.mk
 include $(TMK_PATH)/rules.mk
+
+# Ensure we have generated files available for each of the objects
+define GEN_FILES
+$1: generated-files
+endef
+$(foreach O,$(OBJ),$(eval $(call GEN_FILES,$(patsubst %.a,%.o,$(O)))))

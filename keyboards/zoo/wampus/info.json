@@ -2,8 +2,6 @@
     "keyboard_name": "zoo.haus Wampus",
     "url": "https://zoo.haus",
     "maintainer": "zoo",
-    "width": 19.75,
-    "height": 5.25, 
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

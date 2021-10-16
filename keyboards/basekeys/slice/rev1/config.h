@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    2Moons
 #define PRODUCT         Slice
-#define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 10

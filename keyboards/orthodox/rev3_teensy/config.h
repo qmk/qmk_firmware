@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    deductivemonkee
 #define PRODUCT         Monkeebs Orthodox Rev.3 (Teensy)
-#define DESCRIPTION     Bananadox
 
 /* key matrix size */
 // Rows are doubled-up
@@ -39,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 
 //REV.3 TEENSY
-#define MATRIX_ROW_PINS { B0, C6, C7, }
+#define MATRIX_ROW_PINS { B0, C6, C7 }
 #define MATRIX_COL_PINS { D2, F5, F6, D6, D7, B4, B5, B6, F7 }
 
 /* COL2ROW or ROW2COL */

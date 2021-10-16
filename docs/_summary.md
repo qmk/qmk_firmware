@@ -3,7 +3,6 @@
   * [Setup](newbs_getting_started.md)
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
-  * [Testing and Debugging](newbs_testing_debugging.md)
   * [Getting Help/Support](support.md)
   * [Other Resources](newbs_learn_more_resources.md)
   * [Syllabus](syllabus.md)
@@ -11,7 +10,8 @@
 * FAQs
   * [General FAQ](faq_general.md)
   * [Build/Compile QMK](faq_build.md)
-  * [Debugging/Troubleshooting QMK](faq_debug.md)
+  * [Troubleshooting QMK](faq_misc.md)
+  * [Debugging QMK](faq_debug.md)
   * [Keymap FAQ](faq_keymap.md)
   * [Glossary](reference_glossary.md)
 
@@ -19,6 +19,7 @@
   * [Overview](newbs_building_firmware_configurator.md)
   * [Step by Step](configurator_step_by_step.md)
   * [Troubleshooting](configurator_troubleshooting.md)
+  * [Architecture](configurator_architecture.md)
   * QMK API
     * [Overview](api_overview.md)
     * [API Documentation](api_docs.md)
@@ -29,11 +30,13 @@
     * [Overview](cli.md)
     * [Configuration](cli_configuration.md)
     * [Commands](cli_commands.md)
+    * [Tab Completion](cli_tab_complete.md)
 
 * Using QMK
   * Guides
     * [Customizing Functionality](custom_quantum_functions.md)
     * [Driver Installation with Zadig](driver_installation_zadig.md)
+    * [Easy Maker for One Offs](easy_maker.md)
     * [Keymap Overview](keymap.md)
     * Development Environments
       * [Docker Guide](getting_started_docker.md)
@@ -59,6 +62,7 @@
     * [Language-Specific Keycodes](reference_keymap_extras.md)
     * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
+    * [Magic Keycodes](keycodes_magic.md)
 
   * Advanced Keycodes
     * [Command](feature_command.md)
@@ -76,6 +80,7 @@
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
     * [Key Lock](feature_key_lock.md)
+    * [Key Overrides](feature_key_overrides.md)
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
@@ -92,6 +97,7 @@
   * Hardware Features
     * Displays
       * [HD44780 LCD Controller](feature_hd44780.md)
+      * [ST7565 LCD Driver](feature_st7565.md)
       * [OLED Driver](feature_oled_driver.md)
     * Lighting
       * [Backlight](feature_backlight.md)
@@ -100,13 +106,15 @@
       * [RGB Matrix](feature_rgb_matrix.md)
     * [Audio](feature_audio.md)
     * [Bluetooth](feature_bluetooth.md)
-    * [Bootmagic](feature_bootmagic.md)
+    * [Bootmagic Lite](feature_bootmagic.md)
     * [Custom Matrix](custom_matrix.md)
+    * [Digitizer](feature_digitizer.md)
     * [DIP Switch](feature_dip_switch.md)
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)
     * [Joystick](feature_joystick.md)
     * [LED Indicators](feature_led_indicators.md)
+    * [MIDI](feature_midi.md)
     * [Proton C Conversion](proton_c_conversion.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
@@ -119,12 +127,8 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * History
-      * [2020 Nov 28](ChangeLog/20201128.md)
-      * [2020 Aug 29](ChangeLog/20200829.md)
-      * [2020 May 30](ChangeLog/20200530.md)
-      * [2020 Feb 29](ChangeLog/20200229.md)
-      * [2019 Aug 30](ChangeLog/20190830.md)
+    * [Most Recent ChangeLog](ChangeLog/20210529.md "QMK v0.13.0 - 2021 May 29")
+    * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development
     * [ARM Debugging Guide](arm_debugging.md)
@@ -133,11 +137,13 @@
     * [Compatible Microcontrollers](compatible_microcontrollers.md)
     * [Drivers](hardware_drivers.md)
       * [ADC Driver](adc_driver.md)
+      * [Audio Driver](audio_driver.md)
       * [I2C Driver](i2c_driver.md)
       * [SPI Driver](spi_driver.md)
       * [WS2812 Driver](ws2812_driver.md)
       * [EEPROM Driver](eeprom_driver.md)
       * ['serial' Driver](serial_driver.md)
+      * [UART Driver](uart_driver.md)
     * [GPIO Controls](internals_gpio_control.md)
     * [Keyboard Guidelines](hardware_keyboard_guidelines.md)
 
@@ -159,6 +165,7 @@
     * [Contributing to QMK](contributing.md)
     * [Translating the QMK Docs](translating.md)
     * [Config Options](config_options.md)
+    * [Data Driven Configuration](data_driven_config.md)
     * [Make Documentation](getting_started_make_guide.md)
     * [Documentation Best Practices](documentation_best_practices.md)
     * [Documentation Templates](documentation_templates.md)

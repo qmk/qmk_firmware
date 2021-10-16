@@ -1,4 +1,4 @@
-# MechMerlin's Userspace v0.2.0
+# MechMerlin's Userspace v0.4.0
 
 This is a collection of my most commonly used QMK features. 
 
@@ -31,6 +31,10 @@ It is used primarily on my `LAYOUT_60_ansi` boards as my regular toggle (the 1u 
 ### KC_CTCP (Control Caps)
 
 This is just a wrapper for `CTL_T(KC_CAPS)`. This is a hold for control and tap for caps lock. 
+
+### KC_VER 
+
+Output the version of QMK Firmware on device. 
 
 ## QMK Features
 ----

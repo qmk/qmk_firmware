@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Geekboards
 #define PRODUCT         Geekboards Tester
-#define DESCRIPTION     Geekboards 8-keys macropad
 
 
 #define MATRIX_ROWS 2
@@ -25,7 +24,7 @@
 #define DEBOUNCE 3
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_AFTER_TIMEOUT 0
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES
 #define DISABLE_RGB_MATRIX_SPLASH
 #define DISABLE_RGB_MATRIX_MULTISPLASH

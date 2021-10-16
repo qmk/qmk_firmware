@@ -36,9 +36,9 @@ enum layer_number {
 };
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#if defined(SSD1306OLED) || defined(OLED_DRIVER_ENABLE)
+#if defined(SSD1306OLED) || defined(OLED_ENABLE)
 
-#    if defined(OLED_DRIVER_ENABLE)
+#    if defined(OLED_ENABLE)
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_0;
@@ -135,6 +135,7 @@ static void render_layer_status(void) {
         snprintf(buf,sizeof(buf), "%ld", layer_state);
         oled_write(buf, false);
     }
+    oled_write_P(PSTR("\n"), false);
 }
 
 #    ifdef SSD1306OLED
@@ -160,7 +161,6 @@ void render_status(void) {
 #    else
     render_layer_status();
 #    endif
-    oled_write_P(PSTR("\n"), false);
 
     // Host Keyboard LED Status
     led_t led_state = host_keyboard_led_state();

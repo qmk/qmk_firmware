@@ -11,8 +11,8 @@
 * [QMK Configurator](https://config.qmk.fm/#/test/) (网页版)
 * [Switch Hitter](https://web.archive.org/web/20190413233743/https://elitekeyboards.com/switchhitter.php) (仅Windows)
 * [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (仅Mac)
-* [Keyboard Tester](http://www.keyboardtester.com) (网页版)
-* [Keyboard Checker](http://keyboardchecker.com) (网页版)
+* [Keyboard Tester](https://www.keyboardtester.com) (网页版)
+* [Keyboard Checker](https://keyboardchecker.com) (网页版)
 
 ## 使用QMK工具箱进行调试
 

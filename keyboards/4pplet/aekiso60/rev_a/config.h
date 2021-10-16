@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    4pplet
 #define PRODUCT         AEKISO60 Rev A
-#define DESCRIPTION     A steezy KEEB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

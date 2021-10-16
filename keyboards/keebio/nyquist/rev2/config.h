@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    Keebio
 #define PRODUCT         The Nyquist Keyboard
-#define DESCRIPTION     Split 60 percent ortholinear keyboard
 
 /* key matrix size */
 // Rows are doubled-up

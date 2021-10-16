@@ -14,7 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # AJP10304 Custom 40% Layout
-# For the Planck, Shark, JJ40 and Atreus50
+# For the Planck, Shark, Quark, JJ40 and Atreus50
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
