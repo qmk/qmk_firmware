@@ -71,6 +71,28 @@ Transmit a single byte.
 
 ---
 
+### `void uart_puts(char *str)`
+
+Transmit a string.
+
+#### Arguments
+
+ - `char *str`  
+   A pointer to the string to send.
+
+---
+
+### `void uart_puts_P(const char *str)`
+
+Transmit a string from PROGMEM. NOTE: On ARM devices, this is the same as `uart_puts()`.
+
+#### Arguments
+
+ - `const char *str`  
+   A pointer to the string in program memory to send.
+
+---
+
 ### `uint8_t uart_getchar(void)`
 
 Receive a single byte.
@@ -78,6 +100,21 @@ Receive a single byte.
 #### Return Value
 
 The byte read from the receive buffer.
+
+---
+
+### `void uart_gets(char *str)`
+
+Receive a string.
+
+#### Arguments
+
+ - `char *str`  
+   A pointer to a location in memory to read the string into. Make sure you have allocated enough space for the string!
+
+#### Return Value
+
+The string read from the receive buffer.
 
 ---
 
