@@ -2,7 +2,7 @@
 
 # Ploopy Trackball Nano
 
-![Ploopyco Trackball Nano](https://www.ploopy.co/uploads/b/113cb4122f867acc306a72a2741c5237a9b1d0db13abfe4e8e394cd466c4a311/_MG_7710_1614037372.jpg)
+![Ploopyco Trackball Nano](https://ploopy.co/wp-content/uploads/2021/06/2.jpg)
 
 It's a DIY, QMK Powered Trackball...Nano!
 
@@ -28,7 +28,7 @@ Occasionally, new revisions of the PCB will be released. Every board comes with 
 
 Match the firmware that you flash onto the board with the designator on the board.
 
-# Customzing your Ploopy Nano Trackball
+# Customizing your Ploopy Nano Trackball
 
 You can change the DPI/CPI or speed of the trackball by calling `adns_set_cpi` at any time. Additionally, there is a `DPI_CONFIG` macro that will cycle through an array of options for the DPI.  This is set to 375, 750, and 1375, but can be changed. 750 is the default. 
 
