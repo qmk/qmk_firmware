@@ -66,9 +66,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (IS_LAYER_ON(_BASE)){
       if (clockwise) {
-        tap_code16(KC_WH_U);
+        tap_code16(KC_VOLU);
       } else {
-        tap_code16(KC_WH_D);
+        tap_code16(KC_VOLD);
       }
     } else if (IS_LAYER_ON(_FN1)){
       if (clockwise) {
