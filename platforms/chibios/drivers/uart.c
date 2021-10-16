@@ -41,10 +41,23 @@ void uart_init(uint32_t baud) {
 
 void uart_putchar(uint8_t c) { sdPut(&SERIAL_DRIVER, c); }
 
+void uart_puts(char *str) {
+    while (*str) {
+        uart_putchar(*str++);
+    }
+}
+
 uint8_t uart_getchar(void) {
     msg_t res = sdGet(&SERIAL_DRIVER);
 
     return (uint8_t)res;
+}
+
+void uart_gets(char *str) {
+    while (uart_available()) {
+        *str++ = uart_getchar();
+    }
+    *str = '\0';
 }
 
 bool uart_available(void) { return !sdGetWouldBlock(&SERIAL_DRIVER); }

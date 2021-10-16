@@ -28,6 +28,7 @@
 #include <avr/interrupt.h>
 
 #include "uart.h"
+#include "progmem.h"
 
 #if defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #    define UDRn UDR1
@@ -116,6 +117,21 @@ void uart_putchar(uint8_t c) {
     // sei();
 }
 
+// Transmit a string
+void uart_puts(char *str) {
+    while (*str) {
+        uart_putchar(*str++);
+    }
+}
+
+// Transmit a string from PROGMEM
+void uart_puts_P(const char *str) {
+    uint8_t c;
+    while ((c = pgm_read_byte(str++))) {
+        uart_putchar(c);
+    }
+}
+
 // Receive a byte
 uint8_t uart_getchar(void) {
     uint8_t c, i;
@@ -127,6 +143,14 @@ uint8_t uart_getchar(void) {
     c              = rx_buffer[i];
     rx_buffer_tail = i;
     return c;
+}
+
+// Receive a string
+void uart_gets(char *str) {
+    while (uart_available()) {
+        *str++ = uart_getchar();
+    }
+    *str = '\0';
 }
 
 // Return whether the number of bytes waiting in the receive buffer is nonzero.

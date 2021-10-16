@@ -68,10 +68,16 @@
 #    define SD1_CR3 0
 #endif
 
+#define uart_puts_P(str) uart_puts(str)
+
 void uart_init(uint32_t baud);
 
 void uart_putchar(uint8_t c);
 
+void uart_puts(char *str);
+
 uint8_t uart_getchar(void);
+
+void uart_gets(char *str);
 
 bool uart_available(void);
