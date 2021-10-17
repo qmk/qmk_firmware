@@ -63,6 +63,7 @@ CMakeLists.txt
 .vscode/ipch/
 .vscode/last.sql
 .vscode/launch.json
+.vscode/settings.json
 .vscode/tasks.json
 .vscode/temp.sql
 tags
