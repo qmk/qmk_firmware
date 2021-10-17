@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x4B49
 #define PRODUCT_ID      0x1306
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Minimon
 #define PRODUCT         Index Tab
 
 /* key matrix size */
@@ -52,6 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 10
 #define RGBLIGHT_SLEEP
+
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
