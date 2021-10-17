@@ -125,7 +125,7 @@ uint8_t uart_read(void) {
         ;  // wait for character
     i = rx_buffer_tail + 1;
     if (i >= RX_BUFFER_SIZE) i = 0;
-    data              = rx_buffer[i];
+    data           = rx_buffer[i];
     rx_buffer_tail = i;
     return data;
 }
