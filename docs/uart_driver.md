@@ -60,67 +60,56 @@ Initialize the UART driver. This function must be called only once, before any o
 
 ---
 
-### `void uart_putchar(uint8_t c)`
+### `void uart_write(uint8_t data)`
 
 Transmit a single byte.
 
 #### Arguments
 
- - `uint8_t c`  
-   The byte (character) to send, from 0 to 255.
+ - `uint8_t data`  
+   The byte to write.
 
 ---
 
-### `void uart_puts(char *str)`
-
-Transmit a string.
-
-#### Arguments
-
- - `char *str`  
-   A pointer to the string to send.
-
----
-
-### `void uart_puts_P(const char *str)`
-
-Transmit a string from PROGMEM. NOTE: On ARM devices, this is the same as `uart_puts()`.
-
-#### Arguments
-
- - `const char *str`  
-   A pointer to the string in program memory to send.
-
----
-
-### `uint8_t uart_getchar(void)`
+### `uint8_t uart_read(void)`
 
 Receive a single byte.
 
 #### Return Value
 
-The byte read from the receive buffer.
+The byte read from the receive buffer. This function will block if the buffer is empty (ie. no data to read).
 
 ---
 
-### `void uart_gets(char *str)`
+### `void uart_transmit(const uint8_t *data, uint16_t length)`
 
-Receive a string.
+Transmit multiple bytes.
 
 #### Arguments
 
- - `char *str`  
-   A pointer to a location in memory to read the string into. Make sure you have allocated enough space for the string!
+ - `const uint8_t *data`  
+   A pointer to the data to write from.
+ - `uint16_t length`  
+   The number of bytes to write. Take care not to overrun the length of `data`.
 
-#### Return Value
+---
 
-The string read from the receive buffer.
+### `void uart_receive(char *data, uint16_t length)`
+
+Receive multiple bytes.
+
+#### Arguments
+
+ - `uint8_t *data`  
+   A pointer to the buffer to read into.
+ - `uint16_t length`  
+   The number of bytes to read. Take care not to overrun the length of `data`.
 
 ---
 
 ### `bool uart_available(void)`
 
-Return whether the receive buffer contains data. Call this function to determine if `uart_getchar()` will return meaningful data.
+Return whether the receive buffer contains data. Call this function to determine if `uart_read()` will return meaningful data.
 
 #### Return Value
 

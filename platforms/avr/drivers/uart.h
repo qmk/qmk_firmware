@@ -28,14 +28,12 @@
 
 void uart_init(uint32_t baud);
 
-void uart_putchar(uint8_t c);
+void uart_write(uint8_t data);
 
-void uart_puts(char *str);
+uint8_t uart_read(void);
 
-void uart_puts_P(const char *str);
+void uart_transmit(const char *data, uint16_t length);
 
-uint8_t uart_getchar(void);
-
-void uart_gets(char *str);
+void uart_receive(char *data, uint16_t length);
 
 bool uart_available(void);
