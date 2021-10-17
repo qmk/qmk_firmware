@@ -16,25 +16,95 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "arm_atsam_protocol.h"
+
 #include "spi_master.h"
+#include "wait.h"
+#include "gpio.h"
+
+// #define SR_USE_BITBANG
+
+// Bodge for when spi_master is not available
+#ifdef SR_USE_BITBANG
+#    define CLOCK_DELAY 10
+
+static void bitbang_init(void) {
+    setPinOutput(SR_EXP_RCLK_PIN);
+    setPinOutput(SPI_DATAOUT_PIN);
+    setPinOutput(SPI_SCLK_PIN);
+}
+
+static bool bitbang_start(void) {
+    writePinLow(SR_EXP_RCLK_PIN);
+    return true;
+}
+
+static void bitbang_stop(void) {
+    writePinHigh(SR_EXP_RCLK_PIN);
+    return;
+}
+
+static spi_status_t bitbang_transmit(const uint8_t *data, uint16_t length) {
+    for (uint16_t i = 0; i < length; i++) {
+        uint8_t val = data[i];
+
+        // shift out lsb first
+        for (uint8_t bit = 0; bit < 8; bit++) {
+            writePin(SPI_DATAOUT_PIN, !!(val & (1 << bit)));
+            writePin(SPI_SCLK_PIN, true);
+            wait_us(CLOCK_DELAY);
+
+            writePin(SPI_SCLK_PIN, false);
+            wait_us(CLOCK_DELAY);
+        }
+    }
+    return SPI_STATUS_SUCCESS;
+}
+
+#    define spi_init bitbang_init
+#    define spi_start(a, b, c, d) bitbang_start()
+#    define spi_transmit bitbang_transmit
+#    define spi_stop bitbang_stop
+#endif
+
+// ***************************************************************
 
 sr_exp_t sr_exp_data;
 
-void SR_EXP_WriteData(void) {
+void shift_out(const uint8_t *data, uint16_t length) {
     spi_start(SR_EXP_RCLK_PIN, true, 0, 0);
 
-    spi_write(sr_exp_data.reg & 0xFF);         // Shift in bits 7-0
-    spi_write((sr_exp_data.reg >> 8) & 0xFF);  // Shift in bits 15-8
+    spi_transmit(data, length);
 
     spi_stop();
 }
 
-void SR_EXP_Init(void) {
-    // Initialize Shift Register
+void shift_enable(void) {
+    setPinOutput(SR_EXP_OE_PIN);
+    writePinLow(SR_EXP_OE_PIN);
+}
+
+void shift_disable(void) {
     setPinOutput(SR_EXP_OE_PIN);
     writePinHigh(SR_EXP_OE_PIN);
+}
 
+void shift_init(void) {
+    shift_disable();
     spi_init();
+}
+
+// ***************************************************************
+
+void SR_EXP_WriteData(void) {
+    uint8_t data[2] = {
+        sr_exp_data.reg & 0xFF,         // Shift in bits 7-0
+        (sr_exp_data.reg >> 8) & 0xFF,  // Shift in bits 15-8
+    };
+    shift_out(data, 2);
+}
+
+void SR_EXP_Init(void) {
+    shift_init();
 
     sr_exp_data.reg             = 0;
     sr_exp_data.bit.HUB_CONNECT = 0;
@@ -51,6 +121,5 @@ void SR_EXP_Init(void) {
     sr_exp_data.bit.SDB_N       = 0;
     SR_EXP_WriteData();
 
-    // Enable Shift Register output
-    writePinLow(SR_EXP_OE_PIN);
+    shift_enable();
 }

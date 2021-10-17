@@ -77,16 +77,18 @@ bool spi_start(pin_t csPin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     return true;
 }
 
-spi_status_t spi_write(uint8_t data) {
-    // TODO: needed?
+spi_status_t spi_transmit(const uint8_t *data, uint16_t length) {
     while (!(SPI_SERCOM->SPI.INTFLAG.bit.DRE)) {
         DBGC(DC_SPI_WRITE_DRE);
     }
 
-    SPI_SERCOM->SPI.DATA.bit.DATA = data;  // Shift in bits 7-0
-    while (!(SPI_SERCOM->SPI.INTFLAG.bit.TXC)) {
-        DBGC(DC_SPI_WRITE_TXC_1);
+    for (uint16_t i = 0; i < length; i++) {
+        SPI_SERCOM->SPI.DATA.bit.DATA = data[i];
+        while (!(SPI_SERCOM->SPI.INTFLAG.bit.TXC)) {
+            DBGC(DC_SPI_WRITE_TXC_1);
+        }
     }
+
     return SPI_STATUS_SUCCESS;
 }
 
@@ -100,8 +102,8 @@ void spi_stop(void) {
 
 // Not implemented yet....
 
-spi_status_t spi_read(void);
+spi_status_t spi_write(uint8_t data);
 
-spi_status_t spi_transmit(const uint8_t *data, uint16_t length);
+spi_status_t spi_read(void);
 
 spi_status_t spi_receive(uint8_t *data, uint16_t length);
