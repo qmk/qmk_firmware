@@ -27,23 +27,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SR_USE_BITBANG
 #    define CLOCK_DELAY 10
 
-static void bitbang_init(void) {
+void shift_init_impl(void) {
     setPinOutput(SR_EXP_RCLK_PIN);
     setPinOutput(SPI_DATAOUT_PIN);
     setPinOutput(SPI_SCLK_PIN);
 }
 
-static bool bitbang_start(void) {
+void shift_out_impl(const uint8_t *data, uint16_t length) {
     writePinLow(SR_EXP_RCLK_PIN);
-    return true;
-}
-
-static void bitbang_stop(void) {
-    writePinHigh(SR_EXP_RCLK_PIN);
-    return;
-}
-
-static spi_status_t bitbang_transmit(const uint8_t *data, uint16_t length) {
     for (uint16_t i = 0; i < length; i++) {
         uint8_t val = data[i];
 
@@ -57,26 +48,26 @@ static spi_status_t bitbang_transmit(const uint8_t *data, uint16_t length) {
             wait_us(CLOCK_DELAY);
         }
     }
+    writePinHigh(SR_EXP_RCLK_PIN);
     return SPI_STATUS_SUCCESS;
 }
 
-#    define spi_init bitbang_init
-#    define spi_start(a, b, c, d) bitbang_start()
-#    define spi_transmit bitbang_transmit
-#    define spi_stop bitbang_stop
-#endif
+#else
 
-// ***************************************************************
+void shift_init_impl(void) { spi_init(); }
 
-sr_exp_t sr_exp_data;
-
-void shift_out(const uint8_t *data, uint16_t length) {
+void shift_out_impl(const uint8_t *data, uint16_t length) {
     spi_start(SR_EXP_RCLK_PIN, true, 0, 0);
 
     spi_transmit(data, length);
 
     spi_stop();
 }
+#endif
+
+// ***************************************************************
+
+void shift_out(const uint8_t *data, uint16_t length) { shift_out_impl(data, length); }
 
 void shift_enable(void) {
     setPinOutput(SR_EXP_OE_PIN);
@@ -90,10 +81,12 @@ void shift_disable(void) {
 
 void shift_init(void) {
     shift_disable();
-    spi_init();
+    shift_init_impl();
 }
 
 // ***************************************************************
+
+sr_exp_t sr_exp_data;
 
 void SR_EXP_WriteData(void) {
     uint8_t data[2] = {
