@@ -102,6 +102,9 @@ uint8_t i2c0_transmit(uint8_t address, uint8_t *data, uint16_t length, uint16_t 
 void    i2c0_stop(void);
 
 // Terrible interface compatiblity...
+#define I2C_STATUS_SUCCESS (0)
+#define I2C_STATUS_ERROR (-1)
+
 typedef int16_t i2c_status_t;
 
 void         i2c_init(void);
