@@ -109,7 +109,7 @@ Receive multiple bytes.
 
 ### `bool uart_available(void)`
 
-Return whether the receive buffer contains data. Call this function to determine if `uart_read()` will return meaningful data.
+Return whether the receive buffer contains data. Call this function to determine if `uart_read()` will return data immediately.
 
 #### Return Value
 
