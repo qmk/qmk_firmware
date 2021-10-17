@@ -41,8 +41,8 @@ define HANDLE_GENERIC_FEATURE
     OPT_DEFS += -D$1_ENABLE
 endef
 
-$(foreach F,$(sort $(GENERIC_FEATURES)),\
-    $(if $($(F)_ENABLE),\
+$(foreach F,$(GENERIC_FEATURES),\
+    $(if $(filter yes, $(strip $($(F)_ENABLE))),\
         $(eval $(call HANDLE_GENERIC_FEATURE,$(F),$(shell echo $(F) | tr '[:upper:]' '[:lower:]'))) \
     ) \
 )
