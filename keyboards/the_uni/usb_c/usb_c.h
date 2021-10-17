@@ -15,22 +15,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include QMK_KEYBOARD_H
-#include "keymap_steno.h"
+#pragma once
 
-enum uni_layers {
-    _PLOVER,
-};
+#include "quantum.h"
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    [_PLOVER] = LAYOUT(
-        STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,  STN_ST3,  STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR ,
-        STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2,  STN_ST4,  STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR ,
-                          STN_N1,  STN_A,   STN_O,    STN_E,    STN_U,   STN_N2),
-
-};
-
- void matrix_init_user() {
-    steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
- }
+#define LAYOUT( \
+	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, \
+	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, \
+	            K202, K203, K204, K205, K206, K207  \
+) { \
+	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010 }, \
+	{ K100,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110 }, \
+	{ KC_NO, KC_NO, K202,  K203,  K204,  K205,  K206,  K207,  KC_NO, KC_NO, KC_NO }  \
+}
