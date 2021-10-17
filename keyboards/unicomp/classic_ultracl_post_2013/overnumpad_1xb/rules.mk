@@ -22,4 +22,5 @@ ENCODER_ENABLE = no         # Enable rotary encoder support
 AUDIO_ENABLE = no           # Audio output
 KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+mouse+extra
 
-HAPTIC_ENABLE += SOLENOID
+HAPTIC_ENABLE = yes
+HAPTIC_DRIVER = SOLENOID
