@@ -79,6 +79,8 @@ enum custom_keycodes {
 #define VIM         LT(_VIM, KC_V)
 #define S_SHIFT     SFT_T(KC_S)
 #define R_SHIFT     RSFT_T(KC_BSLS)
+#define UP_FN       LT(_ADJUST, KC_UP) // useful for 65% keyboard without FN
+#define SPC_FN      LT(_ADJUST, KC_SPC)
 
 #define DF_MAC      DF(_QWERTY_MAC)
 #define DF_WIN      DF(_QWERTY_WIN)
