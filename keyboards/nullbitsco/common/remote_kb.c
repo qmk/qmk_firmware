@@ -63,9 +63,7 @@ static void send_msg(uint16_t keycode, bool pressed) {
   msg[IDX_PRESSED] = pressed;
   msg[IDX_CHECKSUM] = chksum8(msg, UART_MSG_LEN-1);
 
-  for (int i=0; i<UART_MSG_LEN; i++) {
-    uart_write(msg[i]);
-  }
+  uart_transmit(msg, UART_MSG_LEN);
 }
 
 static void print_message_buffer(void) {
