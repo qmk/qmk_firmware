@@ -1,10 +1,5 @@
 /*
-This is the c configuration file for the keymap
-
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
-Copyright 2018 Danny Nguyen <danny@keeb.io>
-Copyright 2021 Roger Billerey-Mosier
+Copyright 2021 Peter C. Park <peter@stenokeyboards.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,7 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use I2C or Serial, not both */
+#include "quantum.h"
 
-#define USE_SERIAL
-// #define USE_I2C
+#define LAYOUT( \
+	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, \
+	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, \
+	            K202, K203, K204, K205, K206, K207  \
+) { \
+	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010 }, \
+	{ K100,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110 }, \
+	{ KC_NO, KC_NO, K202,  K203,  K204,  K205,  K206,  K207,  KC_NO, KC_NO, KC_NO }  \
+}
