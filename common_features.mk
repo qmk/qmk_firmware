@@ -496,6 +496,8 @@ ifeq ($(strip $(CRC_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(HAPTIC_ENABLE)),yes)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+
     ifneq ($(filter DRV2605L, $(HAPTIC_DRIVER)), )
         SRC += DRV2605L.c
         QUANTUM_LIB_SRC += i2c_master.c
