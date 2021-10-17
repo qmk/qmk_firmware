@@ -395,6 +395,7 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_rules.mk)","")
     include $(KEYBOARD_PATH_5)/post_rules.mk
 endif
 
+# Pull iin post_rules.mk file from the userspace folder
 ifneq ("$(wildcard $(USER_PATH)/post_rules.mk)","")
     include $(USER_PATH)/post_rules.mk
 endif
