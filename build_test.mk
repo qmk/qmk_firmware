@@ -52,6 +52,7 @@ include tests/$(TEST)/rules.mk
 endif
 
 include common_features.mk
+include generic_features.mk
 include $(TMK_PATH)/common.mk
 include $(QUANTUM_PATH)/debounce/tests/rules.mk
 include $(QUANTUM_PATH)/sequencer/tests/rules.mk

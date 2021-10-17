@@ -44,11 +44,6 @@ else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
 endif
 
-ifeq ($(strip $(COMMAND_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/command.c
-    OPT_DEFS += -DCOMMAND_ENABLE
-endif
-
 AUDIO_ENABLE ?= no
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     ifeq ($(PLATFORM),CHIBIOS)
@@ -116,12 +111,6 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     OPT_DEFS += -DPOINTING_DEVICE_ENABLE
     MOUSE_ENABLE := yes
     SRC += $(QUANTUM_DIR)/pointing_device.c
-endif
-
-ifeq ($(strip $(PROGRAMMABLE_BUTTON_ENABLE)), yes)
-    OPT_DEFS += -DPROGRAMMABLE_BUTTON_ENABLE
-    SRC += $(QUANTUM_DIR)/programmable_button.c
-    SRC += $(QUANTUM_DIR)/process_keycode/process_programmable_button.c
 endif
 
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
@@ -419,37 +408,12 @@ ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     OPT_DEFS += -DUSER_PRINT
 endif
 
-ifeq ($(strip $(WPM_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/wpm.c
-    OPT_DEFS += -DWPM_ENABLE
-endif
-
-ifeq ($(strip $(ENCODER_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/encoder.c
-    OPT_DEFS += -DENCODER_ENABLE
-endif
-
-ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
-    OPT_DEFS += -DVELOCIKEY_ENABLE
-    SRC += $(QUANTUM_DIR)/velocikey.c
-endif
-
 ifeq ($(strip $(VIA_ENABLE)), yes)
     DYNAMIC_KEYMAP_ENABLE := yes
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := lite
     SRC += $(QUANTUM_DIR)/via.c
     OPT_DEFS += -DVIA_ENABLE
-endif
-
-ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
-    OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
-    SRC += $(QUANTUM_DIR)/dynamic_keymap.c
-endif
-
-ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
-    OPT_DEFS += -DDIP_SWITCH_ENABLE
-    SRC += $(QUANTUM_DIR)/dip_switch.c
 endif
 
 VALID_MAGIC_TYPES := yes lite
@@ -602,52 +566,10 @@ ifeq ($(strip $(UNICODE_COMMON)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
 endif
 
-SPACE_CADET_ENABLE ?= yes
-ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
-    OPT_DEFS += -DSPACE_CADET_ENABLE
-endif
-
 MAGIC_ENABLE ?= yes
 ifeq ($(strip $(MAGIC_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_magic.c
     OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
-endif
-
-GRAVE_ESC_ENABLE ?= yes
-ifeq ($(strip $(GRAVE_ESC_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_grave_esc.c
-    OPT_DEFS += -DGRAVE_ESC_ENABLE
-endif
-
-ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_dynamic_macro.c
-    OPT_DEFS += -DDYNAMIC_MACRO_ENABLE
-endif
-
-ifeq ($(strip $(COMBO_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_combo.c
-    OPT_DEFS += -DCOMBO_ENABLE
-endif
-
-ifeq ($(strip $(KEY_OVERRIDE_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_key_override.c
-    OPT_DEFS += -DKEY_OVERRIDE_ENABLE
-endif
-
-ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
-    OPT_DEFS += -DTAP_DANCE_ENABLE
-endif
-
-ifeq ($(strip $(KEY_LOCK_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_key_lock.c
-    OPT_DEFS += -DKEY_LOCK_ENABLE
-endif
-
-ifeq ($(strip $(LEADER_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_leader.c
-    OPT_DEFS += -DLEADER_ENABLE
 endif
 
 ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
@@ -676,11 +598,6 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
     ifeq ($(strip $(JOYSTICK_DRIVER)), digital)
         OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
     endif
-endif
-
-DIGITIZER_ENABLE ?= no
-ifneq ($(strip $(DIGITIZER_ENABLE)), no)
-    SRC += $(QUANTUM_DIR)/digitizer.c
 endif
 
 USBPD_ENABLE ?= no
