@@ -54,8 +54,6 @@ BUILD_DIR := $(ROOT_DIR)/.build
 TEST_DIR := $(BUILD_DIR)/test
 ERROR_FILE := $(BUILD_DIR)/error_occurred
 
-MAKEFILE_INCLUDED=yes
-
 # Helper function to process the newt element of a space separated path
 # It works a bit like the traditional functional head tail
 # so the CURRENT_PATH_ELEMENT will become the new head
@@ -93,31 +91,8 @@ distclean: clean
 	rm -f *.bin *.hex *.uf2
 	echo 'done.'
 
-#Compatibility with the old make variables, anything you specify directly on the command line
-# always overrides the detected folders
-ifdef keyboard
-    KEYBOARD := $(keyboard)
-endif
-ifdef keymap
-    KEYMAP := $(keymap)
-endif
 
-# Uncomment these for debugging
-# $(info Keyboard: $(KEYBOARD))
-# $(info Keymap: $(KEYMAP))
-
-
-# Set the default goal depending on where we are running make from
-# this handles the case where you run make without any arguments
 .DEFAULT_GOAL := all:all
-ifneq ($(KEYMAP),)
-    .DEFAULT_GOAL := $(KEYBOARD):$(KEYMAP)
-else ifneq ($(KEYBOARD),)
-     # Inside a keyboard folder, build all keymaps for all subprojects
-     # Note that this is different from the old behaviour, which would
-     # build only the default keymap of the default keyboard
-    .DEFAULT_GOAL := $(KEYBOARD):all
-endif
 
 
 # Compare the start of the RULE variable with the first argument($1)
@@ -241,10 +216,6 @@ define PARSE_RULE
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(shell util/list_keyboards.sh | sort -u)),true)
         KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
-    # Otherwise use the KEYBOARD variable, which is determined either by
-    # the current directory you run make from, or passed in as an argument
-    else ifneq ($$(KEYBOARD),)
-        $$(eval $$(call PARSE_KEYBOARD,$$(KEYBOARD)))
     else
         $$(info make: *** No rule to make target '$1'. Stop.)
         $$(info |)
