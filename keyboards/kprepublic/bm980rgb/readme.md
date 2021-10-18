@@ -2,7 +2,7 @@
 
 ![bm980](https://i.imgur.com/k4NQGLx.jpeg)
 
-*A short description of the keyboard/project*
+A 1800, hotswap, in switch RGB keyboard from KPRepublic.
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: bm980
@@ -22,8 +22,8 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in one of 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB, or short the contacts beneath the f12 key
-* **Keycode in layout**: Press the key mapped to `RESET`, manufacturer's default is fn + the top right button
+* Short the two-pad footprint beneath the f12 key while the board is plugged in
+* Press the switch labled RST on the back of the PCB, near the MCU, while the board is plugged in
+* Hold the Esc key while connecting the USB cable (also erases persistent settings)
