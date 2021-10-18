@@ -230,7 +230,7 @@ static void init(void) {
 
 static void flush(void) {
     IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
-    // Just for reference. Only first driver is used? 
+    // Just for reference. Only first driver is used?
     // IS31FL3741_update_pwm_buffers(DRIVER_ADDR_2, 1);
 }
 
@@ -241,3 +241,64 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color_all = IS31FL3741_set_color_all
 };
 #endif
+
+static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+
+void matrix_init_pins(void) {
+    for (size_t i = 0; i < MATRIX_COLS; i++) {
+        setPinInputHigh(col_pins[i]);
+    }
+    for (size_t i = 0; i < MATRIX_ROWS; i++) {
+        setPinOutput(row_pins[i]);
+        writePinHigh(row_pins[i]);
+    }
+}
+
+void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+    /* Drive row pin low. */
+    writePinLow(row_pins[current_row]);
+    while (readPin(row_pins[current_row]) != 0)
+        ;
+
+    uint16_t porta = palReadPort(GPIOA);
+    uint16_t portb = palReadPort(GPIOB);
+    uint16_t portc = palReadPort(GPIOC);
+    uint16_t porth = palReadPort(GPIOH);
+
+    /* Drive row pin high again. */
+    writePinHigh(row_pins[current_row]);
+
+    /* Order of pins is: C13, C14, C15, H0, A0, A1, A2, A3, A4, A5, A6, A7, B0, B1, H1, B10, B11
+       Pin is active low, therefore we have to invert the result. */
+
+    matrix_row_t cols = ~(((portc & (0x1 << 13)) >> 13)   // C13 (0)
+                        | ((portc & (0x1 << 14)) >> 13)   // C14 (1)
+                        | ((portc & (0x1 << 15)) >> 13)   // C15 (2)
+                        | ((porth & (0x1 <<  0)) <<  3)   // H0  (3)
+                        | ((porta & (0x1 <<  0)) <<  4)   // A0  (4)
+                        | ((porta & (0x1 <<  1)) <<  4)   // A1  (5)
+                        | ((porta & (0x1 <<  2)) <<  4)   // A2  (6)
+                        | ((porta & (0x1 <<  3)) <<  4)   // A3  (7)
+                        | ((porta & (0x1 <<  4)) <<  4)   // A4  (8)
+                        | ((porta & (0x1 <<  5)) <<  4)   // A5  (9)
+                        | ((porta & (0x1 <<  6)) <<  4)   // A6  (10)
+                        | ((porta & (0x1 <<  7)) <<  4)   // A7  (11)
+                        | ((portb & (0x1 <<  0)) << 12)   // B0  (12)
+                        | ((portb & (0x1 <<  1)) << 12)   // B1  (13)
+                        | ((porth & (0x1 <<  1)) << 13)   // H1  (14)
+                        | ((portb & (0x1 << 10)) <<  5)   // B10 (15)
+                        | ((portb & (0x1 << 11)) <<  5)); // B11 (16)
+
+    current_matrix[current_row] = cols;
+
+    /* Wait until col pins are high again or 'timer' expired. */
+    // Taken from karlk90/yaemk
+    size_t counter = 0xFF;
+    while (((palReadGroup(GPIOA, 0xFF, 0) != 0xFF)
+            || ((palReadGroup(GPIOB, 0xC03, 0) != 0xC03))
+            || ((palReadGroup(GPIOC, 0xE000, 0) != 0xE000))
+            || ((palReadGroup(GPIOH, 0x3, 0) != 0x3))) && counter != 0) {
+        counter--;
+    }
+}
