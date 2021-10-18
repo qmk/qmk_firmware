@@ -330,7 +330,7 @@ ifeq ($(strip $(MCU)), risc-v)
             endif
         endif
     endif
-    
+
     # Default to compiling with picolibc for RISC-V targets if available,
     # which is available by default on current (bullseye) debian based systems.
     ifeq ($(shell $(TOOLCHAIN)gcc --specs=picolibc.specs -E - 2>/dev/null >/dev/null </dev/null ; echo $$?),0)
@@ -338,11 +338,11 @@ ifeq ($(strip $(MCU)), risc-v)
         # Note that we still link with our own linker script
         # by providing it via the -T flag above.
         TOOLCHAIN_CFLAGS = --specs=picolibc.specs
-        
+
         # Tell QMK that we are compiling with picolibc.
         OPT_DEFS += -DUSE_PICOLIBC
     endif
-    
+
     # MCU architecture flags
     MCUFLAGS = -march=$(MCU_ARCH) \
                -mabi=$(MCU_ABI) \
@@ -393,6 +393,9 @@ LDFLAGS  += $(SHARED_LDFLAGS) $(TOOLCHAIN_LDFLAGS) $(MCUFLAGS)
 
 # Tell QMK that we are hosting it on ChibiOS.
 OPT_DEFS += -DPROTOCOL_CHIBIOS
+
+# Workaround to stop ChibiOS from complaining about new GCC -- it's been fixed for 7/8/9 already
+OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1
 
 # Speed up recompilations by opt-in usage of ccache
 USE_CCACHE ?= no
