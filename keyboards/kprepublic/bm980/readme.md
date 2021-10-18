@@ -1,6 +1,6 @@
 # bm980
 
-![bm980](https://imgur.com/k4NQGLx)
+![bm980](https://i.imgur.com/k4NQGLx.jpeg)
 
 *A short description of the keyboard/project*
 
