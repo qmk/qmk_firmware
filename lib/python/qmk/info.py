@@ -113,7 +113,7 @@ def _extract_features(info_data, rules):
         rules['BOOTMAGIC_ENABLE'] = 'on'
 
     # Skip non-boolean features we haven't implemented special handling for
-    for feature in 'HAPTIC_ENABLE', 'QWIIC_ENABLE':
+    for feature in ('HAPTIC_ENABLE',):
         if rules.get(feature):
             del rules[feature]
 

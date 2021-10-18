@@ -12,13 +12,13 @@ The main prerequisite is a working `docker` or `podman` install.
 
 Acquire a local copy of the QMK's repository (including submodules):
 
-```bash
+```
 git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
 cd qmk_firmware
 ```
 
 Run the following command to build a keymap:
-```bash
+```
 util/docker_build.sh <keyboard>:<keymap>
 # For example: util/docker_build.sh planck/rev6:default
 ```
@@ -27,14 +27,14 @@ This will compile the desired keyboard/keymap and leave the resulting `.hex` or 
 
 There is also support for building _and_ flashing the keyboard straight from Docker by specifying the `target` as well:
 
-```bash
+```
 util/docker_build.sh keyboard:keymap:target
 # For example: util/docker_build.sh planck/rev6:default:flash
 ```
 
 You can also start the script without any parameters, in which case it will ask you to input the build parameters one by one, which you may find easier to use:
 
-```bash
+```
 util/docker_build.sh
 # Reads parameters as input (leave blank for all keyboards/keymaps)
 ```
@@ -42,7 +42,7 @@ util/docker_build.sh
 You can manually set which container runtime you want to use by setting the `RUNTIME` environment variable to it's name or path.
 By default docker or podman are automatically detected and docker is preferred over podman.
 
-```bash
+```
 RUNTIME="podman" util/docker_build.sh keyboard:keymap:target
 ```
 

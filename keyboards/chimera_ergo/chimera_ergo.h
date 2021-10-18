@@ -1,5 +1,4 @@
-#ifndef CHIMERA_ERGO_H
-#define CHIMERA_ERGO_H
+#pragma once
 
 #include "quantum.h"
 
@@ -43,22 +42,21 @@
 #define set_led_white   PORTF |= (1<<LED_B) | (1<<LED_R) | (1<<LED_G)
 */
 
+#define XXX KC_NO
+
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguements
 // The second converts the arguments into a two-dimensional array
 #define LAYOUT( \
-  k00, k01, k02, k03, k04, k05,      k06, k07, k08, k09, k10, k11, \
-  k12, k13, k14, k15, k16, k17,      k18, k19, k20, k21, k22, k23, \
-  k24, k25, k26, k27, k28, k29,      k30, k31, k32, k33, k34, k35, \
-  k36, k37, k38, k39, k40, k41,      k42, k43, k44, k45, k46, k47, \
-                      k48, k49,      k50, k51 \
-) \
-{ \
-	{ KC_NO, KC_NO, k26, k15, k28, k01,      k42, k31, k20, k33, KC_NO, KC_NO  }, \
-	{ k00,   KC_NO, k14, k27, k16, k36,      k47, k19, k32, k21, KC_NO, k11    }, \
-	{ k12,   k25,   k02, k39, k17, k49,      k50, k18, k44, k09, k34,   k23    }, \
-	{ k24,   k13,   k38, k04, k05, k48,      k51, k06, k07, k45, k22,   k35    },  \
-	{ k29,   k41,   k03, k40, k37, KC_NO,    k30, k43, k08, k10, k46,   KC_NO  }, \
+    k10, k05, k22, k42, k33, k34,      k37, k38, k48, k29, k49, k1B, \
+    k20, k31, k12, k03, k14, k24,      k27, k17, k08, k19, k3A, k2B, \
+    k30, k21, k02, k13, k04, k40,      k46, k07, k18, k09, k2A, k3B, \
+    k15, k44, k32, k23, k43, k41,      k06, k47, k28, k39, k4A, k16, \
+                        k35, k25,      k26, k36 \
+) { \
+    { XXX, XXX, k02, k03, k04, k05, k06, k07, k08, k09, XXX, XXX }, \
+    { k10, XXX, k12, k13, k14, k15, k16, k17, k18, k19, XXX, k1B }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B }, \
+    { k40, k41, k42, k43, k44, XXX, k46, k47, k48, k49, k4A, XXX } \
 }
-
-#endif
