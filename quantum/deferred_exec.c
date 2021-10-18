@@ -28,18 +28,19 @@ deferred_token enqueue_deferred_exec(uint32_t delay_ms, deferred_exec_callback c
 
     // Find an unused slot and claim it
     for (int i = 0; i < MAX_DEFERRED_EXECUTORS; ++i) {
-        if (executors[i].trigger_time == 0) {
+        deferred_executor_t *entry = &executors[i];
+        if (entry->trigger_time == 0) {
             // Work out the new token value
             do {
                 ++current_token;
             } while (current_token == INVALID_DEFERRED_TOKEN);  // Skip INVALID_DEFERRED_TOKEN
 
             // Set up the executor table entry
-            executors[i].token        = current_token;
-            executors[i].trigger_time = timer_read32() + delay_ms;
-            executors[i].callback     = callback;
-            executors[i].cb_arg       = cb_arg;
-            return (deferred_token)(current_token);
+            entry->token        = current_token;
+            entry->trigger_time = timer_read32() + delay_ms;
+            entry->callback     = callback;
+            entry->cb_arg       = cb_arg;
+            return (deferred_token)current_token;
         }
     }
 
@@ -49,8 +50,9 @@ deferred_token enqueue_deferred_exec(uint32_t delay_ms, deferred_exec_callback c
 
 bool extend_deferred_exec(deferred_token token, uint32_t delay_ms) {
     for (int i = 0; i < MAX_DEFERRED_EXECUTORS; ++i) {
-        if (executors[i].token == (uint16_t)token) {
-            executors[i].trigger_time = timer_read32() + delay_ms;
+        deferred_executor_t *entry = &executors[i];
+        if (entry->token == (uint16_t)token) {
+            entry->trigger_time = timer_read32() + delay_ms;
             return true;
         }
     }
@@ -59,11 +61,12 @@ bool extend_deferred_exec(deferred_token token, uint32_t delay_ms) {
 
 bool cancel_deferred_exec(deferred_token token) {
     for (int i = 0; i < MAX_DEFERRED_EXECUTORS; ++i) {
-        if (executors[i].token == (uint16_t)token) {
-            executors[i].token        = INVALID_DEFERRED_TOKEN;
-            executors[i].trigger_time = 0;
-            executors[i].callback     = NULL;
-            executors[i].cb_arg       = NULL;
+        deferred_executor_t *entry = &executors[i];
+        if (entry->token == (uint16_t)token) {
+            entry->token        = INVALID_DEFERRED_TOKEN;
+            entry->trigger_time = 0;
+            entry->callback     = NULL;
+            entry->cb_arg       = NULL;
             return true;
         }
     }
