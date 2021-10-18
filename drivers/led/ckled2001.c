@@ -131,10 +131,10 @@ void CKLED2001_init(uint8_t addr) {
 
     // Enable LEDs ON/OFF
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_CONTROL_PAGE);
-    for (int i = 0; i< LED_CONTROL_ON_OFF_LENGTH; i++) {
+    for (int i = 0; i < LED_CONTROL_ON_OFF_LENGTH; i++) {
         CKLED2001_write_register(addr, i, 0xFF);
     }
-    
+
     // Select to function page
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, FUNCTION_PAGE);
     // Setting LED driver to normal mode 
