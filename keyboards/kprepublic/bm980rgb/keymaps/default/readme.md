@@ -1,1 +1,1 @@
-# The default keymap for bm980
+# The default keymap for bm980rgb
