@@ -408,6 +408,9 @@ LDFLAGS  += $(SHARED_LDFLAGS) $(TOOLCHAIN_LDFLAGS) $(MCUFLAGS)
 # Tell QMK that we are hosting it on ChibiOS.
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 
+# Workaround to stop ChibiOS from complaining about new GCC -- it's been fixed for 7/8/9 already
+OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1
+
 # Speed up recompilations by opt-in usage of ccache
 USE_CCACHE ?= no
 ifneq ($(USE_CCACHE),no)
