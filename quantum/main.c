@@ -22,6 +22,10 @@ void protocol_setup(void);
 void protocol_init(void);
 void protocol_task(void);
 
+#ifdef DEFERRED_EXEC_ENABLE
+void deferred_exec_task(void);
+#endif // DEFERRED_EXEC_ENABLE
+
 /** \brief Main
  *
  * FIXME: Needs doc
@@ -36,6 +40,12 @@ int main(void) {
     /* Main loop */
     while (true) {
         protocol_task();
+
+#ifdef DEFERRED_EXEC_ENABLE
+        // Run deferred executions
+        deferred_exec_task();
+#endif // DEFERRED_EXEC_ENABLE
+
         housekeeping_task();
     }
 }
