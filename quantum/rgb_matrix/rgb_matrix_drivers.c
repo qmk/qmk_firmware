@@ -107,7 +107,7 @@ static void init(void) {
 #    elif defined(IS31FL3741)
         IS31FL3741_set_led_control_register(index, enabled, enabled, enabled);
 #    elif defined(CKLED2001)
-        CKLED2001_set_led_control_register(index, enabled, enabled, enabled);		
+        CKLED2001_set_led_control_register(index, enabled, enabled, enabled);
 #    endif
     }
 
@@ -144,7 +144,7 @@ static void init(void) {
 
 #    elif defined(IS31FL3741)
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
-	
+
 #    elif defined(CKLED2001)
     CKLED2001_update_led_control_registers(DRIVER_ADDR_1, 0);
 #        if defined(DRIVER_ADDR_2)

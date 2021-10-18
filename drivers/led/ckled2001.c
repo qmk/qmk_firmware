@@ -97,48 +97,48 @@ bool CKLED2001_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 }
 
 void CKLED2001_init(uint8_t addr) {
-    //** Select to function page
+    // Select to function page
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, FUNCTION_PAGE);
-    //** Setting LED driver to shutdown mode
+    // Setting LED driver to shutdown mode
     CKLED2001_write_register(addr, CONFIGURATION_REG, MSKSW_SHUT_DOWN_MODE);
-    //** Setting internal channel pulldown/pullup
+    // Setting internal channel pulldown/pullup
     CKLED2001_write_register(addr, PDU_REG, MSKSET_CA_CB_CHANNEL);
-    //** Select number of scan phase
+    // Select number of scan phase
     CKLED2001_write_register(addr, SCAN_PHASE_REG, PHASE_CHANNEL);
-    //** Setting PWM Delay Phase
+    // Setting PWM Delay Phase
     CKLED2001_write_register(addr, SLEW_RATE_CONTROL_MODE1_REG, MSKPWM_DELAY_PHASE_ENABLE);
-    //** Setting Driving/Sinking Channel Slew Rate
+    // Setting Driving/Sinking Channel Slew Rate
     CKLED2001_write_register(addr, SLEW_RATE_CONTROL_MODE2_REG, MSKDRIVING_SINKING_CHHANNEL_SLEWRATE_ENABLE);
-    //** Setting Iref
+    // Setting Iref
     CKLED2001_write_register(addr, SOFTWARE_SLEEP_REG, MSKSLEEP_DISABLE);
 
-    /*--------Set LED CONTROL PAGE (Page 0)------------*/ 
+    // Set LED CONTROL PAGE (Page 0)
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_CONTROL_PAGE);
-    for(int i = 0; i < LED_CONTROL_ON_OFF_LENGTH ; i++) {
+    for (int i = 0; i < LED_CONTROL_ON_OFF_LENGTH ; i++) {
         CKLED2001_write_register(addr, i, 0x00);
     }
 
-    /*--------Set PWM PAGE (Page 1)------------*/
+    // Set PWM PAGE (Page 1)
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_PWM_PAGE);
-    for(int i = 0; i < LED_CURRENT_TUNE_LENGTH ; i++) {
+    for (int i = 0; i < LED_CURRENT_TUNE_LENGTH ; i++) {
         CKLED2001_write_register(addr, i, 0x00);
     }
 
-    /*--------Set CURRENT PAGE (Page 4)------------*/
+    // Set CURRENT PAGE (Page 4)
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, CURRENT_TUNE_PAGE);
-    for(int i = 0; i < LED_CURRENT_TUNE_LENGTH ; i++) {
+    for (int i = 0; i < LED_CURRENT_TUNE_LENGTH ; i++) {
         CKLED2001_write_register(addr, i, 0xFF);
     }
 
-    /*--------Enable LEDs ON/OFF------------*/
+    // Enable LEDs ON/OFF
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_CONTROL_PAGE);
-    for(int i = 0; i< LED_CONTROL_ON_OFF_LENGTH ; i++) {
+    for (int i = 0; i< LED_CONTROL_ON_OFF_LENGTH ; i++) {
         CKLED2001_write_register(addr, i, 0xFF);
     }
     
-    //** Select to function page
+    // Select to function page
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, FUNCTION_PAGE);
-    //** Setting LED driver to normal mode 
+    // Setting LED driver to normal mode 
     CKLED2001_write_register(addr, CONFIGURATION_REG, MSKSW_NORMAL_MODE);
 }
 
@@ -171,20 +171,17 @@ void CKLED2001_set_led_control_register(uint8_t index, bool red, bool green, boo
 
     if (red) {
         g_led_control_registers[led.driver][control_register_r] |= (1 << bit_r);
-    } 
-    else {
+    } else {
         g_led_control_registers[led.driver][control_register_r] &= ~(1 << bit_r);
     }
     if (green) {
         g_led_control_registers[led.driver][control_register_g] |= (1 << bit_g);
-    }
-    else {
+    } else {
         g_led_control_registers[led.driver][control_register_g] &= ~(1 << bit_g);
     }
     if (blue) {
         g_led_control_registers[led.driver][control_register_b] |= (1 << bit_b);
-    }
-    else {
+    } else {
         g_led_control_registers[led.driver][control_register_b] &= ~(1 << bit_b);
     }
 
@@ -207,7 +204,7 @@ void CKLED2001_update_pwm_buffers(uint8_t addr, uint8_t index) {
 
 void CKLED2001_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_led_control_registers_update_required[index]) {
-        CKLED2001_write_register(addr,CONFIGURE_CMD_PAGE, LED_CONTROL_PAGE);
+        CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_CONTROL_PAGE);
         for (int i = 0; i < 24; i++) {
             CKLED2001_write_register(addr, i, g_led_control_registers[index][i]);
         }
@@ -216,17 +213,17 @@ void CKLED2001_update_led_control_registers(uint8_t addr, uint8_t index) {
 }
 
 void CKLED2001_return_normal(uint8_t addr) {
-    //** Select to function page
+    // Select to function page
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, FUNCTION_PAGE);
-    //** Setting LED driver to normal mode 
+    // Setting LED driver to normal mode 
     CKLED2001_write_register(addr, CONFIGURATION_REG, MSKSW_NORMAL_MODE);
 }
 
 void CKLED2001_shutdown(uint8_t addr) {
-    //** Select to function page
+    // Select to function page
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, FUNCTION_PAGE);
-    //** Setting LED driver to shutdown mode
+    // Setting LED driver to shutdown mode
     CKLED2001_write_register(addr, CONFIGURATION_REG, MSKSW_SHUT_DOWN_MODE);
-    //** Write SW Sleep Register
+    // Write SW Sleep Register
     CKLED2001_write_register(addr, SOFTWARE_SLEEP_REG, MSKSLEEP_ENABLE);
 }
