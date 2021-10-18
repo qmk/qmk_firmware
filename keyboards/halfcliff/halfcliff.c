@@ -16,7 +16,7 @@
 
 #include "halfcliff.h"
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {

@@ -18,35 +18,7 @@
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-
-enum custom_layers {
-    _BASE,
-    _FN1,
-    _LOWER,
-    _RAISE,
-};
-
-enum custom_keycodes {
-  ENCFUNC = SAFE_RANGE, // encoder function keys
-  KC_WINLCK,    //Toggles Win key on and off
-};
-
-// Tap Dance Definitions
-enum custom_tapdance {
-  TD_LSFT_CAPSLOCK,
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  // Tap once for shift, twice for Caps Lock
-  [TD_LSFT_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-};
-
-bool _isWinKeyDisabled = false;
-
-#define KC_LSFTCAPS TD(TD_LSFT_CAPSLOCK)
-#define KC_CAD	LALT(LCTL(KC_DEL))
-#define KC_AF4	LALT(KC_F4)
-#define KC_TASK	LCTL(LSFT(KC_ESC))
+#include "jonavin.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_all(
@@ -113,13 +85,12 @@ static void set_selectedkey(uint8_t idx) {
 
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_keymap(void) {
   // Call the keyboard post init code.
-    //selectedkey_rec = keyselection[selectedkey_idx];
     set_selectedkey(selectedkey_idx);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case ENCFUNC:
         if (record->event.pressed) {
@@ -128,16 +99,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // when keycode is released
         }
         break;
-    case KC_WINLCK:
-        if (record->event.pressed) {
-            _isWinKeyDisabled = !_isWinKeyDisabled; //toggle status
-            if(_isWinKeyDisabled) {
-                process_magic(GUI_OFF, record);
-            } else {
-                process_magic(GUI_ON, record);
-            }
-        } else  unregister_code16(keycode);
-        break;
     }
     return true;
 };
@@ -145,63 +106,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 #ifdef ENCODER_ENABLE       // Encoder Functionality
-    uint8_t selected_layer = 0;
+    void encoder_action_selectkey(bool clockwise) {
+        if ( clockwise ) {
+            if ( selectedkey_idx  < MAX_KEYSELECTION-1) {
+                selectedkey_idx ++;
+            } else {
+                // do nothing
+            }
+        } else if ( !clockwise ) {
+            if ( selectedkey_idx  > 0){
+                selectedkey_idx --;
+            } else {
+                // do nothing
+            }
+        }
+        set_selectedkey(selectedkey_idx);
+    }
 
     bool encoder_update_user(uint8_t index, bool clockwise) {
-        #ifdef OLED_DRIVER_ENABLE
+        #ifdef OLED_ENABLE
             oled_clear();
             oled_render();
         #endif
+        uint8_t mods_state = get_mods();
         switch (index) {
             case 0:         // This is the only encoder right now, keeping for consistency
                 switch(get_highest_layer(layer_state)){  // special handling per layer
                 case _FN1:  // on Fn layer select what the encoder does when pressed
-                    if (!keyboard_report->mods) {
-                        if ( clockwise ) {
-                            if ( selectedkey_idx  < MAX_KEYSELECTION-1) {
-                                selectedkey_idx ++;
-                            } else {
-                               // do nothing
-                            }
-                        } else if ( !clockwise ) {
-                            if ( selectedkey_idx  > 0){
-                                selectedkey_idx --;
-                            } else {
-                                // do nothing
-                            }
-                        }
-                        set_selectedkey(selectedkey_idx);
+                    if (!mods_state) {
+                        encoder_action_selectkey(clockwise);
                         break;
                     } else {
                            // continue to default
                     }
                 default:   // all other layers
-                    if ( clockwise ) {
-                        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
-                            if(selected_layer  < 3) {
-                                selected_layer ++;
-                                layer_move(selected_layer);
-                            }
-                        } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
-                             tap_code16(LCTL(KC_RGHT));
-                        } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
-                            tap_code(KC_MEDIA_NEXT_TRACK);
-                        } else  {
-                            tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
-                        }
-                    } else if ( !clockwise ) {
-                        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
-                            if (selected_layer  > 0) {
-                                selected_layer --;
-                                layer_move(selected_layer);
-                            }
-                        } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
-                            tap_code16(LCTL(KC_LEFT));
-                        } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
-                            tap_code(KC_MEDIA_PREV_TRACK);
-                        } else {
-                            tap_code(KC_VOLD);
-                        }
+                    if (mods_state & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+                        encoder_action_layerchange(clockwise);
+                    } else if (mods_state & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next/prev word
+                        encoder_action_navword(clockwise);
+                    } else if (mods_state & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next/prev track
+                        encoder_action_mediatrack(clockwise);
+                    } else  {
+                        encoder_action_volume(clockwise);   // Otherwise it just changes volume
                     }
                     break;
                 }
@@ -211,7 +157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE   // OLED Functionality
+#ifdef OLED_ENABLE   // OLED Functionality
     oled_rotation_t oled_init_user(oled_rotation_t rotation) {
         return OLED_ROTATION_180;       // flips the display 180 degrees if offhand
     }
@@ -244,7 +190,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     void oled_task_user(void) {
 
-        if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && selected_layer == 0 && get_highest_layer(layer_state) == 0 ) {
+        if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && get_selected_layer() == 0 && get_highest_layer(layer_state) == 0 ) {
             render_name();
             clear_screen = true;
         } else {
@@ -256,7 +202,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             render_logo();
             oled_set_cursor(8,2);
             char fn_str[12];
-            switch(selected_layer){
+            switch(get_selected_layer()){
                 case 0:
                     oled_write_P(PSTR("BASE"), false);
                     break;
@@ -274,9 +220,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 default:
                     oled_write_P(PSTR("Layer ?"), false);    // Should never display, here as a catchall
             }
-            oled_write_P(_isWinKeyDisabled ? PSTR(" WL") : PSTR("   "), false);
+            oled_write_P(keymap_config.no_gui ? PSTR(" WL") : PSTR("   "), false);
             oled_set_cursor(8,3);
-            if (get_highest_layer(layer_state) == selected_layer) {
+            if (get_highest_layer(layer_state) == get_selected_layer()) {
                 oled_write_P(PSTR("             "), false);
             } else {
                 switch (get_highest_layer(layer_state)) {

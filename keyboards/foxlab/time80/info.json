@@ -2,8 +2,6 @@
     "keyboard_name": "Fox Lab Time 80",
     "url": "",
     "maintainer": "lukelex",
-    "width": 18.25,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -38,19 +38,15 @@ enum custom_keycodes {
 #define KC_ADJ ADJUST
 #define KC_RST RESET
 
-#define KC_AA SE_AA
-#define KC_AE SE_AE
-#define KC_OE SE_OSLH
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_QWERTY] = LAYOUT(
 	//┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
 	 	KC_ESC,  KC_1, 	  KC_2, 	 KC_3, 	 KC_4, 	  KC_5,                				  KC_6,    KC_7,    KC_8, 	 KC_9,     KC_0,  KC_MINS,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-LT(_LOWER, KC_TAB),KC_Q,  KC_W, 	KC_E, 	 KC_R, 	  KC_T,                				  KC_Y,    KC_U, 	KC_I, 	 KC_O, 	  KC_P,   KC_AA,
+LT(_LOWER, KC_TAB),KC_Q,  KC_W, 	KC_E, 	 KC_R, 	  KC_T,                				  KC_Y,    KC_U, 	KC_I, 	 KC_O, 	  KC_P,   SE_ARNG,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-	 	KC_LSFT,  KC_A, 	KC_S, 	 KC_D, 	 KC_F, 	  KC_G,         					  KC_H, 	KC_J, 	KC_K, 	  KC_L,  KC_OE,   KC_AE,
+	 	KC_LSFT,  KC_A, 	KC_S, 	 KC_D, 	 KC_F, 	  KC_G,         					  KC_H, 	KC_J, 	KC_K, 	  KC_L,  SE_ODIA, SE_ADIA,
 	//├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
 	 	KC_LCTL,   KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,   RAISE,           KC_BSPC,  KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
 	//└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
@@ -66,7 +62,7 @@ LT(_LOWER, KC_TAB),KC_Q,  KC_W, 	KC_E, 	 KC_R, 	  KC_T,                				  KC_
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
 	  KC_TRNS,  KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS, SE_BSLS,                     		KC_TRNS, KC_LEFT,  KC_DOWN, KC_RGHT, SE_LBRC,  SE_RBRC,
 	//├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-	   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_DEL, KC_TRNS, KC_GRAVE, KC_CIRC, KC_QUOTE, SE_LESS, SE_GRTR,
+	   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_DEL, KC_TRNS, KC_GRAVE, KC_CIRC, KC_QUOTE, SE_LABK, SE_RABK,
 	//└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
 	                               	   KC_TRNS, KC_TRNS, KC_TRNS,         		    KC_TRNS, KC_TRNS, KC_TRNS
 								  // └────────┴────────┴────────┘                 └────────┴────────┴────────┘

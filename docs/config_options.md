@@ -51,8 +51,10 @@ This is a C header file that is one of the first things included, and will persi
   * the number of columns in your keyboard's matrix
 * `#define MATRIX_ROW_PINS { D0, D5, B5, B6 }`
   * pins of the rows, from top to bottom
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
 * `#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }`
   * pins of the columns, from left to right
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
 * `#define MATRIX_IO_DELAY 30`
   * the delay in microseconds when between changing matrix pin state and reading values
 * `#define UNUSED_PINS { D1, D2, D3, B1, B2, B3 }`
@@ -186,13 +188,27 @@ If you define these options you will enable the associated feature, which may in
     few ms of delay from this. But if you're doing chording on something with 3-4ms
     scan times? You probably want this.
 * `#define COMBO_COUNT 2`
-  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature.
+  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature. Or leave it undefined and programmatically set the count.
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
+* `#define COMBO_MUST_HOLD_MODS`
+  * Flag for enabling extending timeout on Combos containing modifers
+* `#define COMBO_MOD_TERM 200`
+  * Allows for extending COMBO_TERM for mod keys while mid-combo. 
+* `#define COMBO_MUST_HOLD_PER_COMBO`
+  * Flag to enable per-combo COMBO_TERM extension and `get_combo_must_hold()` function
+* `#define COMBO_TERM_PER_COMBO`
+  * Flag to enable per-combo COMBO_TERM extension and `get_combo_term()` function
+* `#define COMBO_STRICT_TIMER`
+  * Only start the combo timer on the first key press instead of on all key presses.
+* `#define COMBO_NO_TIMER`
+  * Disable the combo timer completely for relaxed combos.
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
 * `#define TAP_HOLD_CAPS_DELAY 80`
   * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
+* `#define KEY_OVERRIDE_REPEAT_DELAY 500`
+  * Sets the key repeat interval for [key overrides](feature_key_overrides.md).
 
 ## RGB Light Configuration
 
@@ -272,7 +288,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 ### Other Options
 
 * `#define USE_I2C`
-  * For using I2C instead of Serial (defaults to serial)
+  * For using I2C instead of Serial (default is serial; serial transport is supported on ARM -- I2C is AVR-only)
 
 * `#define SOFT_SERIAL_PIN D0`
   * When using serial, define this. `D0` or `D1`,`D2`,`D3`,`E6`.
@@ -280,6 +296,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define MATRIX_ROW_PINS_RIGHT { <row pins> }`
 * `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
   * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
 
 * `#define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
   * If you want to specify a different direct pinout for the right half than the left half, you can define `DIRECT_PINS_RIGHT`. Currently, the size of `DIRECT_PINS` must be the same as `DIRECT_PINS_RIGHT`.
@@ -300,13 +317,41 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define SPLIT_USB_DETECT`
   * Detect (with timeout) USB connection when delegating master/slave
   * Default behavior for ARM
-  * Required for AVR Teensy
+  * Required for AVR Teensy (without hardware mods)
 
 * `#define SPLIT_USB_TIMEOUT 2000`
   * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
 
 * `#define SPLIT_USB_TIMEOUT_POLL 10`
   * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+
+* `#define FORCED_SYNC_THROTTLE_MS 100`
+  * Deadline for synchronizing data from master to slave when using the QMK-provided split transport.
+
+* `#define SPLIT_TRANSPORT_MIRROR`
+  * Mirrors the master-side matrix on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_LAYER_STATE_ENABLE`
+  * Ensures the current layer state is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_LED_STATE_ENABLE`
+  * Ensures the current host indicator state (caps/num/scroll) is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_MODS_ENABLE`
+  * Ensures the current modifier state (normal, weak, and oneshot) is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_WPM_ENABLE`
+  * Ensures the current WPM is available on the slave when using the QMK-provided split transport.
+
+* `#define SPLIT_OLED_ENABLE`
+  * Syncs the on/off state of the OLED between the halves.
+
+* `#define SPLIT_ST7565_ENABLE`
+  * Syncs the on/off state of the ST7565 screen between the halves.
+
+* `#define SPLIT_TRANSACTION_IDS_KB .....`
+* `#define SPLIT_TRANSACTION_IDS_USER .....`
+  * Allows for custom data sync with the slave when using the QMK-provided split transport. See [custom data sync between sides](feature_split_keyboard.md#custom-data-sync) for more information.
 
 # The `rules.mk` File
 
@@ -352,8 +397,8 @@ However, this will automatically disable the legacy TMK Macros and Functions fea
   * `qmk-dfu`
   * `halfkay`
   * `caterina`
-  * `bootloadHID`
-  * `USBasp`
+  * `bootloadhid`
+  * `usbasploader`
 
 ## Feature Options :id=feature-options
 
@@ -373,8 +418,12 @@ Use these to enable or disable building certain features. The more you have enab
   * Key combo feature
 * `NKRO_ENABLE`
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+* `RING_BUFFERED_6KRO_REPORT_ENABLE`
+  * USB 6-Key Rollover - Instead of stopping any new input once 6 keys are pressed, the oldest key is released and the new key is pressed. 
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
+* `KEY_OVERRIDE_ENABLE`
+  * Enable the key override feature
 * `RGBLIGHT_ENABLE`
   * Enable keyboard underlight functionality
 * `LEADER_ENABLE`

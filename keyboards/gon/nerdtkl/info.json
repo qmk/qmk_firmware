@@ -2,11 +2,8 @@
     "keyboard_name": "GON NerD TKL",
     "url": "",
     "maintainer": "qmk",
-    "width": 18.25,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_tkl": {
-            "key_count": 90,
             "layout": [
                 {"label":"K80", "x":0, "y":0},
                 {"label":"K90", "x":2, "y":0},
