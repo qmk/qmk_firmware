@@ -1,12 +1,14 @@
 # bm980
 
-![bm980](imgur.com image replace me!)
+![bm980](https://imgur.com/k4NQGLx)
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [peepeetee](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
+* Hardware Supported: bm980
+* Hardware Availability: https://kprepublic.com/products/bm980rgb-bm980-rgb-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-firmware-full-rgb-switch-underglow-type-c
+https://www.aliexpress.com/item/1005002509519466.html
+https://item.taobao.com/item.htm?id=645862298692
 
 Make example for this keyboard (after setting up your build environment):
 
