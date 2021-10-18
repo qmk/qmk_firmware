@@ -54,20 +54,26 @@ bool extend_deferred_exec(deferred_token token, uint32_t delay_ms) {
         return false;
     }
 
+    // Find the entry corresponding to the token
     for (int i = 0; i < MAX_DEFERRED_EXECUTORS; ++i) {
         deferred_executor_t *entry = &executors[i];
         if (entry->token == (uint16_t)token) {
+            // Found it, extend the delay
             entry->trigger_time = timer_read32() + delay_ms;
             return true;
         }
     }
+
+    // Not found
     return false;
 }
 
 bool cancel_deferred_exec(deferred_token token) {
+    // Find the entry corresponding to the token
     for (int i = 0; i < MAX_DEFERRED_EXECUTORS; ++i) {
         deferred_executor_t *entry = &executors[i];
         if (entry->token == (uint16_t)token) {
+            // Found it, cancel and clear the table entry
             entry->token        = INVALID_DEFERRED_TOKEN;
             entry->trigger_time = 0;
             entry->callback     = NULL;
@@ -75,6 +81,8 @@ bool cancel_deferred_exec(deferred_token token) {
             return true;
         }
     }
+
+    // Not found
     return false;
 }
 
