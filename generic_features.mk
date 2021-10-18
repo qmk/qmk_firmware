@@ -25,6 +25,7 @@ GENERIC_FEATURES = \
     DYNAMIC_MACRO \
     ENCODER \
     GRAVE_ESC \
+    HAPTIC \
     KEY_LOCK \
     KEY_OVERRIDE \
     LEADER \

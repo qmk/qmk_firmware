@@ -495,23 +495,19 @@ ifeq ($(strip $(CRC_ENABLE)), yes)
     SRC += crc.c
 endif
 
-HAPTIC_ENABLE ?= no
-ifneq ($(strip $(HAPTIC_ENABLE)),no)
+ifeq ($(strip $(HAPTIC_ENABLE)),yes)
     COMMON_VPATH += $(DRIVER_PATH)/haptic
-    OPT_DEFS += -DHAPTIC_ENABLE
-    SRC += $(QUANTUM_DIR)/haptic.c
-    SRC += $(QUANTUM_DIR)/process_keycode/process_haptic.c
-endif
 
-ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )
-    SRC += DRV2605L.c
-    QUANTUM_LIB_SRC += i2c_master.c
-    OPT_DEFS += -DDRV2605L
-endif
+    ifneq ($(filter DRV2605L, $(HAPTIC_DRIVER)), )
+        SRC += DRV2605L.c
+        QUANTUM_LIB_SRC += i2c_master.c
+        OPT_DEFS += -DDRV2605L
+    endif
 
-ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
-    SRC += solenoid.c
-    OPT_DEFS += -DSOLENOID_ENABLE
+    ifneq ($(filter SOLENOID, $(HAPTIC_DRIVER)), )
+        SRC += solenoid.c
+        OPT_DEFS += -DSOLENOID_ENABLE
+    endif
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
