@@ -18,7 +18,7 @@
 #include QMK_KEYBOARD_H
 
 // Custom layers
-enum CHRISGVE_layers {
+enum default_layers {
     _QWERTY_MAC,    // QWERTY Mac base layout
     _MAC_NAV_1,     // Mac Navigation layer 1
     _MAC_NAV_2,     // Mac Navigation layer 2
@@ -36,17 +36,17 @@ enum CHRISGVE_layers {
 };
 
 // Custom keys
-enum custom_keycodes {
-    TM_CREATE = SAFE_RANGE,
-    TM_SEL1,
-    TM_SEL2,
-    TM_SEL3,
-    TM_SEL4,
-    TM_SEL5,
-    TM_SEL6,
-    TM_SEL7,
-    TM_SEL8,
-};
+// enum custom_keycodes {
+    // TM_CREATE = SAFE_RANGE,
+    // TM_SEL1,
+    // TM_SEL2,
+    // TM_SEL3,
+    // TM_SEL4,
+    // TM_SEL5,
+    // TM_SEL6,
+    // TM_SEL7,
+    // TM_SEL8,
+// };
 
 
 #define CHAR_MOVE   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
@@ -79,7 +79,7 @@ enum custom_keycodes {
 #define VIM         LT(_VIM, KC_V)
 #define S_SHIFT     SFT_T(KC_S)
 #define R_SHIFT     RSFT_T(KC_BSLS)
-#define UP_FN       LT(_ADJUST, KC_UP) // useful for 65% keyboard without FN
+#define END_FN      LT(_ADJUST, KC_END) // Useful for 65% without FN
 #define SPC_FN      LT(_ADJUST, KC_SPC)
 
 #define DF_MAC      DF(_QWERTY_MAC)
