@@ -84,16 +84,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  TABS | BROW |  VIM | ZOOM  |
  * |-------+------+------+-------|
  *    |-------+-------+-------|
- *    | ZOOM  | GRIDS |  FULL |
+ *    |ZOOMFIT| GRIDS |  FULL |
  *    |-------+-------+-------|
- *    |   o   |   o   |   o   |
+ *    |ZOOM100|  NEXT | COLOR |
  *    |-------+-------+-------|
  */
     [_FIGMA] = LAYOUT(
              _______, _______,
     _______, _______, _______,  _______,
     LSFT(KC_1), LCTL(KC_G), LGUI(KC_BSLS),
-    _______,      _______,      _______
+    LSFT(KC_0), KC_N,       LCTL(KC_C)
     ),
 /*
  * BROWSER Layer
