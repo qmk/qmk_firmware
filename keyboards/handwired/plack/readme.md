@@ -16,7 +16,7 @@ Building Guide :
 2. Create your own keymap on [qmk configurator](https://config.qmk.fm)
 3. Flash controller:
    - Windows/macOS: download compiled firmware from **qmk configurator** and flash with [qmk toolbox](https://github.com/qmk/qmk_toolbox)
-   - Linux: download keymap json file and flash with [qmk cli](https://github.com/qmk/qmk_cli): `sudo qmk flash path/to/your.json`
-   notes: you can use planck keymap json file, just change the `layout` to `LAYOUT_plack_2x2u` and `keyboard` to `handwired/plack` and you are good to go
+   - Linux: download keymap json file from **qmk configurator** and flash with [qmk cli](https://github.com/qmk/qmk_cli): `sudo qmk flash path/to/your.json`
+   notes: you can use planck keymap json file, just change the `layout` to `LAYOUT_plack_2x2u` (or `LAYOUT_plack` if you are using full 48 keys) and `keyboard` to `handwired/plack` and you are good to go
 
 
