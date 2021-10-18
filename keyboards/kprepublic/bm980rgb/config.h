@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define PRODUCT_ID   0xEF61
 // #define DEVICE_VER   0x0001
 // #define MANUFACTURER KPrepublic
-#define PRODUCT      bm980
+#define PRODUCT      bm980rgb
 
 /* key matrix size */
 // #define MATRIX_ROWS 6
