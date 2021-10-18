@@ -15,9 +15,9 @@ MCU_SERIES = HT32F523xx
 MCU_LDSCRIPT = HT32F52342_ANNEPRO2
 MCU_STARTUP = ht32f523xx
 
-BOARD = ANNEPRO2
+BOARD = ANNEPRO2_C15
 
-OPT_DEFS = -Wno-unused-function -fdump-rtl-dfinish -fstack-usage
+OPT_DEFS += -Wno-unused-function -fdump-rtl-dfinish -fstack-usage
 #EXTRALDFLAGS = -Wl,--print-memory-usage
 
 # Options

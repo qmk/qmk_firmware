@@ -61,7 +61,7 @@ void OVERRIDE bootloader_jump(void) {
     NVIC_SystemReset();
 }
 
-void OVERRIDE keyboard_pre_init_kb(void) {
+void keyboard_pre_init_kb(void) {
 #if HAL_USE_SPI == TRUE
     spi_init();
 #endif
@@ -83,7 +83,7 @@ void OVERRIDE keyboard_pre_init_kb(void) {
     sdStart(&SD0, &ledUartRuntimeConfig);
 }
 
-void OVERRIDE keyboard_post_init_kb(void) {
+void keyboard_post_init_kb(void) {
     // Start BLE UART
     sdStart(&SD1, &bleUartConfig);
     annepro2_ble_startup();
@@ -100,7 +100,6 @@ void OVERRIDE keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-void OVERRIDE matrix_init_kb(void) { matrix_init_user(); }
 
 void matrix_scan_kb() {
     // if there's stuff on the ble serial buffer
@@ -125,10 +124,7 @@ void matrix_scan_kb() {
     matrix_scan_user();
 }
 
-/*!
- * @returns false   processing for this keycode has been completed.
- */
-bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         if (annepro2LedStatus.matrixEnabled && annepro2LedStatus.isReactive) {
             annepro2LedForwardKeypress(record->event.key.row, record->event.key.col);
