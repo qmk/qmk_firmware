@@ -64,9 +64,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B0
 
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL  97
+#define DRIVER_LED_TOTAL  98
 //#ifdef RGB_DI_PIN
-#    define RGBLED_NUM 97
+#    define RGBLED_NUM 98
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 //#define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -79,7 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 //#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
-//#    define RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_ANIMATIONS
 /*== or choose animations ==*/
 //#    define RGBLIGHT_EFFECT_BREATHING
 //#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
