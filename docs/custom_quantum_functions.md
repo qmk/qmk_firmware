@@ -415,16 +415,20 @@ QMK has the ability to execute a callback after a specified period of time, rath
 All _deferred executor callbacks_ have a common function signature and look like:
 
 ```c
-uint32_t my_callback(void *cb_arg) {
+uint32_t my_callback(uint32_t trigger_time, void *cb_arg) {
     /* do something */
     bool repeat = my_deferred_functionality();
     return repeat ? 500 : 0;
 }
 ```
 
-The argument `cb_arg` is the same argument passed into the registration function.
+The first argument `trigger_time` is the intended time of execution. If other delays prevent executing at the exact trigger time, this allows for "catch-up" or even skipping intervals, depending on the required behaviour.
+
+The second argument `cb_arg` is the same argument passed into `defer_exec()` below, and can be used to access state information from the original call context.
 
 The return value is the number of milliseconds to use if the function should be repeated -- if the callback returns `0` then it's automatically unregistered. In the example above, a hypothetical `my_deferred_functionality()` is invoked to determine if the callback needs to be repeated -- if it does, it reschedules for a `500` millisecond delay, otherwise it informs the deferred execution background task that it's done, by returning `0`.
+
+?> Note that the returned delay will be applied to the intended trigger time, not the time of callback invocation. This allows for generally consistent timing even in the face of occasional late execution.
 
 #### Deferred executor registration
 

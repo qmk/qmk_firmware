@@ -11,9 +11,10 @@ typedef uint8_t deferred_token;
 #define INVALID_DEFERRED_TOKEN 0
 
 // Callback to execute.
-//  -- Parameter cb_arg: the callback argument specified when enqueueing the deferred executor
+//  -- Parameter trigger_time: the intended trigger time to execute the callback -- equivalent time-space as timer_read32()
+//               cb_arg: the callback argument specified when enqueueing the deferred executor
 //  -- Return value: Non-zero re-queues the callback to execute after the returned number of milliseconds. Zero cancels repeated execution.
-typedef uint32_t (*deferred_exec_callback)(void *cb_arg);
+typedef uint32_t (*deferred_exec_callback)(uint32_t trigger_time, void *cb_arg);
 
 // Configures the supplied deferred executor to be executed after the required number of milliseconds.
 //  -- Parameter delay_ms: the number of milliseconds before executing the callback

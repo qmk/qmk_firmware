@@ -32,6 +32,18 @@ static inline bool token_can_be_used(deferred_token token) {
     return true;
 }
 
+static inline deferred_token allocate_token(void) {
+    deferred_token first = ++current_token;
+    while (!token_can_be_used(current_token)) {
+        ++current_token;
+        if (current_token == first) {
+            // If we've looped back around to the first, everything is already allocated (yikes!). Need to exit with a failure.
+            return INVALID_DEFERRED_TOKEN;
+        }
+    }
+    return current_token;
+}
+
 deferred_token defer_exec(uint32_t delay_ms, deferred_exec_callback callback, void *cb_arg) {
     // Ignore queueing if it's a zero-time delay, or invalid callback
     if (delay_ms == 0 || !callback) {
@@ -42,10 +54,11 @@ deferred_token defer_exec(uint32_t delay_ms, deferred_exec_callback callback, vo
     for (int i = 0; i < MAX_DEFERRED_EXECUTORS; ++i) {
         deferred_executor_t *entry = &executors[i];
         if (entry->token == INVALID_DEFERRED_TOKEN) {
-            // Work out the new token value
-            do {
-                ++current_token;
-            } while (!token_can_be_used(current_token));  // Skip invalid or busy values
+            // Work out the new token value, dropping out if none were available
+            deferred_token token = allocate_token();
+            if(token == INVALID_DEFERRED_TOKEN) {
+                return false;
+            }
 
             // Set up the executor table entry
             entry->token        = current_token;
@@ -117,7 +130,7 @@ void deferred_exec_task(void) {
             // Check if we're supposed to execute this entry
             if (entry->token != INVALID_DEFERRED_TOKEN && ((int32_t)TIMER_DIFF_32(entry->trigger_time, now)) <= 0) {
                 // Invoke the callback and work work out if we should be requeued
-                uint32_t delay_ms = entry->callback(entry->cb_arg);
+                uint32_t delay_ms = entry->callback(entry->trigger_time, entry->cb_arg);
 
                 // Update the trigger time if we have to repeat, otherwise clear it out
                 if (delay_ms > 0) {
