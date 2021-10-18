@@ -64,9 +64,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B0
 
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL  99
+#define DRIVER_LED_TOTAL  97
 //#ifdef RGB_DI_PIN
-#    define RGBLED_NUM 99
+#    define RGBLED_NUM 97
+#define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+//#define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
+
+
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
