@@ -37,16 +37,36 @@ void raw_hid_receive(uint8_t* data, uint8_t length) {
 #define MODE_4 TO(_VIM)
 
 enum custom_keycodes {
-    VIM_SIP = SAFE_RANGE
+    VIM_SIP = SAFE_RANGE,
+    VIM_RIP,
+    VIM_NEW
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case VIM_SIP:
+        case VIM_SIP:// Search in Project
             if (record->event.pressed) {
                 register_code(KC_ESC);
                 SEND_STRING(":Ag ");
             } else { // released
+                unregister_code(KC_ESC);
+            }
+        break;
+        case VIM_RIP:// Replace in Project
+            if (record->event.pressed) {
+                register_code(KC_ESC);
+                SEND_STRING(":cdo s/a/b/g");
+            } else { // released
+                unregister_code(KC_ESC);
+            }
+        break;
+        case VIM_NEW:// New buffer
+            if (record->event.pressed) {
+                register_code(KC_ESC);
+                SEND_STRING(":vnew");
+                register_code(KC_ENT);
+            } else { // released
+                unregister_code(KC_ENT);
                 unregister_code(KC_ESC);
             }
         break;
@@ -132,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_VIM] = LAYOUT(
              _______, _______,
     _______, _______, _______,  _______,
-    VIM_SIP,      _______,      _______,
+    VIM_SIP,      VIM_RIP,      VIM_NEW,
     _______,      _______,      _______
     ),
 };
