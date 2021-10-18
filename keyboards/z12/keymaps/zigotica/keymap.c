@@ -16,9 +16,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "zigotica.h"
+#include "raw_hid.h"
+
+#ifdef RAW_ENABLE
+void raw_hid_receive(uint8_t* data, uint8_t length) {
+    layer_clear();
+    if (data[0] == 99) {
+        layer_on(_BASE);
+    }
+    else {
+        layer_on(data[0]);
+    }
+}
+#endif
 
 // Custom Keycodes
-#define MODE_1 TO(_TERMINAL)
+#define MODE_1 TO(_BASE)
 #define MODE_2 TO(_FIGMA)
 #define MODE_3 TO(_BROWSER)
 #define MODE_4 TO(_VIM)
@@ -33,8 +46,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 register_code(KC_ESC);
                 SEND_STRING(":Ag ");
-            } else {
-                // released
+            } else { // released
                 unregister_code(KC_ESC);
             }
         break;
@@ -44,10 +56,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
- * TERMINAL Layer
+ * BASE Layer
  *
  * ,-----------------------------.
- * |       | TERM | FIGM |       |
+ * |       | BASE | FIGM |       |
  * |-------+------+------+-------|
  * |  VOL  | BROW |  VIM | SCROLL|
  * |-------+------+------+-------|
@@ -57,39 +69,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    |   o   |   o   |   o   |
  *    |-------+-------+-------|
  */
-    [_TERMINAL] = LAYOUT(
+    [_BASE] = LAYOUT(
                MODE_1, MODE_2,
     ZK_MEDIA,  MODE_3, MODE_4,  _______,
     _______,      _______,      _______,
     _______,      _______,      _______
     ),
 /*
- * VIM Layer
- *
- * ,-----------------------------.
- * |       | TERM | FIGM |       |
- * |-------+------+------+-------|
- * |BUFFER | BROW |  VIM | SCROLL|
- * |-------+------+------+-------|
- *    |-------+-------+-------|
- *    |SEARCH |   o   |   o   |
- *    |-------+-------+-------|
- *    |   o   |   o   |   o   |
- *    |-------+-------+-------|
- */
-    [_VIM] = LAYOUT(
-             _______, _______,
-    _______, _______, _______,  _______,
-    VIM_SIP,      _______,      _______,
-    _______,      _______,      _______
-    ),
-/*
  * FIGMA Layer
  *
  * ,-----------------------------.
- * |       | TERM | FIGM |       |
+ * |       | BASE | FIGM |       |
  * |-------+------+------+-------|
- * |  VOL  | BROW |  VIM | ZOOM  |
+ * |  TABS | BROW |  VIM | ZOOM  |
  * |-------+------+------+-------|
  *    |-------+-------+-------|
  *    | ZOOM  | GRIDS |  FULL |
@@ -107,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * BROWSER Layer
  *
  * ,-----------------------------.
- * |       | TERM | FIGM |       |
+ * |       | BASE | FIGM |       |
  * |-------+------+------+-------|
  * |  TABS | BROW |  VIM | SCROLL|
  * |-------+------+------+-------|
@@ -121,6 +113,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              _______, _______,
     _______, _______, _______,  _______,
     G(KC_F),      G(KC_D),   G(A(KC_I)),
+    _______,      _______,      _______
+    ),
+/*
+ * VIM Layer
+ *
+ * ,-----------------------------.
+ * |       | BASE | FIGM |       |
+ * |-------+------+------+-------|
+ * |BUFFER | BROW |  VIM | SCROLL|
+ * |-------+------+------+-------|
+ *    |-------+-------+-------|
+ *    |SEARCH |   o   |   o   |
+ *    |-------+-------+-------|
+ *    |   o   |   o   |   o   |
+ *    |-------+-------+-------|
+ */
+    [_VIM] = LAYOUT(
+             _______, _______,
+    _______, _______, _______,  _______,
+    VIM_SIP,      _______,      _______,
     _______,      _______,      _______
     ),
 };
