@@ -431,7 +431,7 @@ The return value is the number of milliseconds to use if the function should be 
 Once a callback has been defined, it can be scheduled using the following API:
 
 ```c
-deferred_token my_token = enqueue_deferred_exec(1500, my_callback, NULL);
+deferred_token my_token = defer_exec(1500, my_callback, NULL);
 ```
 
 The first argument is the number of milliseconds to wait until executing `my_callback` -- in the case above, `1500` milliseconds, or 1.5 seconds.
@@ -442,7 +442,7 @@ The return value is a `deferred_token` that can consequently be used to cancel t
 
 #### Extending a deferred execution
 
-The `deferred_token` returned by `enqueue_deferred_exec()` can be used to extend a the duration a pending execution waits before it gets invoked:
+The `deferred_token` returned by `defer_exec()` can be used to extend a the duration a pending execution waits before it gets invoked:
 ```c
 // This will re-delay my_token's future execution such that it is invoked 800ms after the current time
 extend_deferred_exec(my_token, 800);
@@ -450,7 +450,7 @@ extend_deferred_exec(my_token, 800);
 
 #### Cancelling a deferred execution
 
-The `deferred_token` returned by `enqueue_deferred_exec()` can be used to cancel a pending execution before it gets invoked:
+The `deferred_token` returned by `defer_exec()` can be used to cancel a pending execution before it gets invoked:
 ```c
 // This will cancel my_token's future execution
 cancel_deferred_exec(my_token);

@@ -20,7 +20,7 @@ static uint16_t            current_token                     = 0;
 static uint32_t            last_deferred_exec_check          = 0;
 static deferred_executor_t executors[MAX_DEFERRED_EXECUTORS] = {0};
 
-deferred_token enqueue_deferred_exec(uint32_t delay_ms, deferred_exec_callback callback, void *cb_arg) {
+deferred_token defer_exec(uint32_t delay_ms, deferred_exec_callback callback, void *cb_arg) {
     // Ignore queueing if it's a zero-time delay, or invalid callback
     if (delay_ms == 0 || !callback) {
         return INVALID_DEFERRED_TOKEN;

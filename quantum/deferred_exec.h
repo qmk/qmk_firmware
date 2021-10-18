@@ -20,16 +20,16 @@ typedef uint32_t (*deferred_exec_callback)(void *cb_arg);
 //  --           callback: the executor to invoke
 //  --           cb_arg: the argument to pass to the executor, may be NULL if unused by the executor
 //  -- Return value: a token usable for cancellation, or INVALID_DEFERRED_TOKEN if an error occurred
-deferred_token enqueue_deferred_exec(uint32_t delay_ms, deferred_exec_callback callback, void *cb_arg);
+deferred_token defer_exec(uint32_t delay_ms, deferred_exec_callback callback, void *cb_arg);
 
 // Allows for extending the timeframe before an existing deferred execution is invoked.
-//  -- Parameter token: the returned value from enqueue_deferred_exec for the deferred execution you wish to extend.
+//  -- Parameter token: the returned value from defer_exec for the deferred execution you wish to extend.
 //  --           delay_ms: the new delay (with respect to the current time)
 //  -- Return value: if the token was found, and the delay was extended
 bool extend_deferred_exec(deferred_token token, uint32_t delay_ms);
 
 // Allows for cancellation of an existing deferred execution.
-//  -- Parameter token: the returned value from enqueue_deferred_exec for the deferred execution you wish to cancel.
+//  -- Parameter token: the returned value from defer_exec for the deferred execution you wish to cancel.
 //  -- Return value: if the token was found, and the executor was cancelled
 bool cancel_deferred_exec(deferred_token token);
 
