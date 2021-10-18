@@ -15,7 +15,6 @@
 */
 
 #include <string.h>
-#include "ch.h"
 #include "hal.h"
 #include "wait.h"
 #include "led.h"
@@ -176,13 +175,5 @@ void __early_init(void) {
     ht32_clock_init();
 }
 
-/**
- * @brief   Board-specific initialization code.
- * @todo    Add your board-specific code, if any.
- */
 void boardInit(void) {
-#if HAL_USE_GPT == TRUE
-    gpt_init();
-#endif
-    // spi_init();
 }

@@ -18,8 +18,8 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x04d9
-#define PRODUCT_ID 0xa290
+#define VENDOR_ID 0xfeed
+#define PRODUCT_ID 0xac15
 #define DEVICE_VER 0x1337
 #define MANUFACTURER Obins
 #define PRODUCT Anne Pro 2 QMK

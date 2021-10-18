@@ -25,15 +25,10 @@
 #include "matrix.h"
 #include "annepro2.h"
 
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
-static uint32_t     debounce_times[MATRIX_ROWS];
-
 extern ioline_t row_list[MATRIX_ROWS];
 extern ioline_t col_list[MATRIX_COLS];
 
 void matrix_init_custom(void) {
-    memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(debounce_times, 0, MATRIX_ROWS * sizeof(uint32_t));
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
@@ -62,17 +57,8 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             data |= (((port & (1 << PAL_PAD(line))) ? 0 : 1) << col);
         }
 
-        // if a key event happens <5ms before the system time rolls over,
-        // the event will "never" debounce
-        // but any event on the same row will reset the debounce timer
-        if (matrix_debouncing[row] != data) {
-            // whenever row changes restart debouncing
-            matrix_debouncing[row] = data;
-            debounce_times[row]    = timer_read32();
-        } else if (debounce_times[row] && timer_elapsed32(debounce_times[row]) >= DEBOUNCE) {
-            // when debouncing complete, update matrix
-            current_matrix[row] = matrix_debouncing[row];
-            debounce_times[row] = 0;
+        if (current_matrix[row] != data) {
+            current_matrix[row] = data;
             matrix_has_changed = true;
         }
     }

@@ -14,7 +14,6 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
   */ 
 
-#include "ch.h"
 #include "hal.h"
 #include "annepro2.h"
 #include "annepro2_ble.h"
@@ -26,10 +25,6 @@ static const SerialConfig ledUartInitConfig = {
     .speed = 115200,
 };
 
-/*
- * Some people have serial issues between main chip and led chip.
- * This code allows them to easily reduce the speed to 9600 for testing
- */
 static const SerialConfig ledUartRuntimeConfig = {
     .speed = 115200,
 };
@@ -42,7 +37,7 @@ static uint8_t ledMcuWakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7
 
 ble_capslock_t BLECapsLock = {._dummy = {0}, .caps_lock = false};
 
-void OVERRIDE bootloader_jump(void) {
+void bootloader_jump(void) {
     // Send msg to shine to boot into IAP
     annepro2SetIAP();
 
@@ -106,13 +101,6 @@ void matrix_scan_kb() {
     // read it into the capslock struct
     while (!sdGetWouldBlock(&SD1)) {
         sdReadTimeout(&SD1, (uint8_t *)&BLECapsLock, sizeof(ble_capslock_t), 10);
-
-        // if it's capslock from ble, darken led
-        if (BLECapsLock.caps_lock) {
-            // annepro2LedClearMask(MATRIX_COLS * 2);
-        } else {
-            // annepro2LedSetMask(MATRIX_COLS * 2);
-        }
     }
 
     /* While there's data from LED keyboard sent - read it. */

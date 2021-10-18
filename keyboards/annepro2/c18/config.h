@@ -18,10 +18,10 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x04d9
-#define PRODUCT_ID 0xa291
+#define VENDOR_ID 0xfeed
+#define PRODUCT_ID 0xac18
 #define DEVICE_VER 0x1337
-#define MANUFACTURER Holtek
+#define MANUFACTURER Obins
 #define PRODUCT Anne Pro 2(c18)QMK
 
 #define ANNEPRO2_C18
@@ -31,11 +31,6 @@
 #define MATRIX_COLS 14
 // layer size: MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t) = 144 bytes
 
-// Max available layers
-#define MAX_LAYERS 8
-// keymaps size: layer size * MAX_LAYERS = 1152 bytes
-
-#define KEYMAP_60_ANSI
 // Number of supported layouts
 #define NUM_LAYOUTS 4
 
@@ -51,90 +46,4 @@
 #define SPI_MOSI_PAL_MODE 5
 #define SPI_MISO_PIN A2
 #define SPI_MISO_PAL_MODE 5
-// EEPROM Config for W25X20CL
-#define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A3
-#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 16
-#define EXTERNAL_EEPROM_BYTE_COUNT 1024  // 262144
-#define EXTERNAL_EEPROM_PAGE_SIZE 256
-#define EXTERNAL_EEPROM_ADDRESS_SIZE 3
-#define EXTERNAL_EEPROM_SPI_LSBFIRST false
-#define EXTERNAL_EEPROM_SPI_MODE 3
-// HAL Config
-#define HAL_USE_SPI TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-// MCU Config
-#define HT32_SPI_USE_SPI1 TRUE
-#define HT32_SPI1_IRQ_PRIORITY 9
 #endif
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 10
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-//#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-//#define LOCKING_RESYNC_ENABLE
-
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-// #define GRAVE_ESC_CTRL_OVERRIDE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-#define FORCE_NKRO
-
-/*
- * Magic Key Options
- *
- * Magic keys are hotkey commands that allow control over firmware functions of
- * the keyboard. They are best used in combination with the HID Listen program,
- * found here: https://www.pjrc.com/teensy/hid_listen.html
- *
- * The options below allow the magic key functionality to be changed. This is
- * useful if your keyboard/keypad is missing keys and you want magic key support.
- *
- */
-
-/* key combination for magic key command */
-/*
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-*/
-
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
