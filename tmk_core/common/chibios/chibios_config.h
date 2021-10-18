@@ -49,3 +49,11 @@
 #        define USE_GPIOV1
 #    endif
 #endif
+
+#if defined(HT32)
+#    define CPU_CLOCK HT32_CK_SYS_FREQUENCY
+#    define PAL_MODE_ALTERNATE PAL_HT32_MODE_AF
+#    define PAL_OUTPUT_TYPE_OPENDRAIN (PAL_HT32_MODE_OD | PAL_HT32_MODE_DIR)
+#    define PAL_OUTPUT_TYPE_PUSHPULL PAL_HT32_MODE_DIR
+#    define PAL_OUTPUT_SPEED_HIGHEST 0
+#endif
