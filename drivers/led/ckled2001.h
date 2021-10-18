@@ -48,14 +48,14 @@ void CKLED2001_update_led_control_registers(uint8_t addr, uint8_t index);
 void CKLED2001_return_normal(uint8_t addr);
 void CKLED2001_shutdown(uint8_t addr);
 
-/*--------Registers Page Define------------*/
+// Registers Page Define
 #define CONFIGURE_CMD_PAGE 0xFD
 #define LED_CONTROL_PAGE 0x00
 #define LED_PWM_PAGE 0x01
 #define FUNCTION_PAGE 0x03
 #define CURRENT_TUNE_PAGE 0x04
 
-/*--------Function Register: address 0x00------------*/
+// Function Register: address 0x00
 #define CONFIGURATION_REG 0x00
 #define MSKSW_SHUT_DOWN_MODE (0x0 << 0)
 #define MSKSW_NORMAL_MODE (0x1 << 0)
@@ -109,7 +109,7 @@ void CKLED2001_shutdown(uint8_t addr);
 #define MSKSLEEP_ENABLE 0x02
 #define MSKSLEEP_DISABLE 0x00
 
-/*--------LED Control Registers------------*/
+// LED Control Registers
 #define LED_CONTROL_ON_OFF_FIRST_ADDR 0x0
 #define LED_CONTROL_ON_OFF_LAST_ADDR 0x17
 #define LED_CONTROL_ON_OFF_LENGTH ((LED_CONTROL_ON_OFF_LAST_ADDR - LED_CONTROL_ON_OFF_FIRST_ADDR) + 1)
@@ -124,12 +124,12 @@ void CKLED2001_shutdown(uint8_t addr);
 
 #define LED_CONTROL_PAGE_LENGTH 0x48
 
-/*--------LED Control Registers------------*/
+// LED Control Registers
 #define LED_PWM_FIRST_ADDR 0x00
 #define LED_PWM_LAST_ADDR 0xBF
 #define LED_PWM_LENGTH 0xC0
 
-/*--------Current Tune Registers------------*/
+// Current Tune Registers
 #define LED_CURRENT_TUNE_FIRST_ADDR 0x00
 #define LED_CURRENT_TUNE_LAST_ADDR 0x0B
 #define LED_CURRENT_TUNE_LENGTH 0x0C
