@@ -61,11 +61,15 @@ void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t l
 }
 
 bool is_caps_lock_indicator(uint16_t keycode) {
+    switch (keycode) {
 #ifdef CAPS_LOCK_INDICATOR_LIGHT_ALPHAS
-    return (KC_A <= keycode && keycode <= KC_Z) || keycode == KC_CAPS;
-#else
-    return keycode == KC_CAPS;
+    case KC_A ... KC_Z:
 #endif
+    case KC_CAPS:
+        return true;
+    default:
+        return false;
+    }
 }
 
 bool is_transparent(uint16_t keycode) { return keycode == KC_TRNS; }
