@@ -36,12 +36,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 keyevent_t encoder_ccw = {
-    .key = (keypos_t){.row = 13, .col = 0},
+    .key = (keypos_t){.row = 12, .col = 0},
     .pressed = false
 };
 
 keyevent_t encoder_cw = {
-    .key = (keypos_t){.row = 13, .col = 1},
+    .key = (keypos_t){.row = 12, .col = 1},
     .pressed = false
 };
 

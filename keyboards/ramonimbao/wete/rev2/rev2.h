@@ -18,6 +18,8 @@
 
 #include "quantum.h"
 
+void adjust_leds(void);
+
 #define ___ KC_NO
 
 
