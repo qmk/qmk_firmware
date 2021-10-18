@@ -399,6 +399,7 @@ VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
 
 include common_features.mk
+include generic_features.mk
 include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
 include bootloader.mk
@@ -428,12 +429,6 @@ endif
 PROJECT_DEFS := $(OPT_DEFS)
 PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
 PROJECT_CONFIG := $(CONFIG_H)
-
-ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-    VISUALIZER_DIR = $(QUANTUM_DIR)/visualizer
-    VISUALIZER_PATH = $(QUANTUM_PATH)/visualizer
-    include $(VISUALIZER_PATH)/visualizer.mk
-endif
 
 CONFIG_H += $(POST_CONFIG_H)
 ALL_CONFIGS := $(PROJECT_CONFIG) $(CONFIG_H)

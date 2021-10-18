@@ -25,10 +25,6 @@
 #    include "backlight.h"
 #endif
 
-#ifdef API_ENABLE
-#    include "api.h"
-#endif
-
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"
 #endif
@@ -145,11 +141,12 @@ void reset_keyboard(void) {
 /* Convert record into usable keycode via the contained event. */
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) {
 #ifdef COMBO_ENABLE
-    if (record->keycode) { return record->keycode; }
+    if (record->keycode) {
+        return record->keycode;
+    }
 #endif
     return get_event_keycode(record->event, update_layer_cache);
 }
-
 
 /* Convert event into usable keycode. Checks the layer cache to ensure that it
  * retains the correct keycode after a layer change, if the key is still pressed.
@@ -179,12 +176,12 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 bool pre_process_record_quantum(keyrecord_t *record) {
     if (!(
 #ifdef COMBO_ENABLE
-        process_combo(get_record_keycode(record, true), record) &&
+            process_combo(get_record_keycode(record, true), record) &&
 #endif
-        true)) {
+            true)) {
         return false;
     }
-    return true; // continue processing
+    return true;  // continue processing
 }
 
 /* Get keycode, and then call keyboard function */
@@ -467,14 +464,6 @@ void matrix_scan_quantum() {
 #ifdef HD44780_ENABLED
 #    include "hd44780.h"
 #endif
-
-void api_send_unicode(uint32_t unicode) {
-#ifdef API_ENABLE
-    uint8_t chunk[4];
-    dword_to_bytes(unicode, chunk);
-    MT_SEND_DATA(DT_UNICODE, chunk, 5);
-#endif
-}
 
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on

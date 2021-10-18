@@ -19,11 +19,16 @@
 #include <hal.h>
 #include "flash_stm32.h"
 
-#if defined(EEPROM_EMU_STM32F103xB)
+#if defined(STM32F1XX)
 #    define FLASH_SR_WRPERR FLASH_SR_WRPRTERR
 #endif
 
-#if defined(EEPROM_EMU_STM32F401xC)
+#if defined(MCU_GD32V)
+/* GigaDevice GD32VF103 is a STM32F103 clone at heart. */
+#    include "gd32v_compatibility.h"
+#endif
+
+#if defined(STM32F4XX)
 #    define FLASH_SR_PGERR (FLASH_SR_PGSERR | FLASH_SR_PGPERR | FLASH_SR_PGAERR)
 
 #    define FLASH_KEY1 0x45670123U

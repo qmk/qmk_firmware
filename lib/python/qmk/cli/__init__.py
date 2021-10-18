@@ -60,6 +60,7 @@ subcommands = [
     'qmk.cli.lint',
     'qmk.cli.list.keyboards',
     'qmk.cli.list.keymaps',
+    'qmk.cli.list.layouts',
     'qmk.cli.kle2json',
     'qmk.cli.multibuild',
     'qmk.cli.new.keyboard',

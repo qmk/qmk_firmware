@@ -41,7 +41,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 __attribute__ ((weak))
 void oled_task_user(void) {
-    oled_write_P(PSTR("LAYER "), false);
+    oled_write_P(PSTR("LAYER"), false);
+    oled_advance_char();
     oled_write_char(get_highest_layer(layer_state) + 0x30, true);
 
     led_t led_state = host_keyboard_led_state();
@@ -71,6 +72,10 @@ void oled_task_user(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         for (uint8_t y = 0; y < MATRIX_COLS; y++) {
             bool on = (matrix_get_row(x) & (1 << y)) > 0;
+
+            // force on for oled location
+            if((x == 0) && (y >= (MATRIX_COLS - 3))) on = 1;
+
             oled_write_pixel(MATRIX_DISPLAY_X + y + 2, MATRIX_DISPLAY_Y + x + 2, on);
         }
     }
@@ -83,11 +88,6 @@ void oled_task_user(void) {
     for (uint8_t y = 0; y < 9; y++) {
         oled_write_pixel(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y+y, true);
         oled_write_pixel(MATRIX_DISPLAY_X + 19, MATRIX_DISPLAY_Y+y, true);
-    }
-
-    // oled location
-    for (uint8_t x = 0; x < 3; x++) {
-        oled_write_pixel(MATRIX_DISPLAY_X + 14 + x, MATRIX_DISPLAY_Y + 2, true);
     }
 
     // bodge for layer number left hand side

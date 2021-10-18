@@ -110,6 +110,31 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
             spiConfig.tar0 |= SPIx_CTARn_BR(8);
             break;
     }
+
+#elif defined(HT32)
+    spiConfig.cr0 = SPI_CR0_SELOEN;
+    spiConfig.cr1 = SPI_CR1_MODE | 8;  // 8 bits and in master mode
+
+    if (lsbFirst) {
+        spiConfig.cr1 |= SPI_CR1_FIRSTBIT;
+    }
+
+    switch (mode) {
+        case 0:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE0;
+            break;
+        case 1:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE1;
+            break;
+        case 2:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE2;
+            break;
+        case 3:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE3;
+            break;
+    }
+
+    spiConfig.cpr = (roundedDivisor - 1) >> 1;
 #else
     spiConfig.cr1 = 0;
 

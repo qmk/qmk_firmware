@@ -4,11 +4,13 @@
 * Split Hand Pin, using PC14
 * Full Duplex Serial/USART using PA3 and PA4 on USART2
 * PWM Audio using PB1 and TIM3 and GPT on TIM4
-* PWM RGB using PA1 TIM5
+* PWM RGB using PA1 TIM2
 * pmw3360 sensor sharing PA5-PA7 on SPI1, with B0 as CS pin
 * 8KB SPI EEPROM chip sharing PA5-PA7 on SPI1 with PA4 as CS pin
-* Encoder using PA10 and PA12
+* Encoder using PA13 and PA14
 * SSD1306 OLED display (128x64) using PB8-PB9 on I2C1
+* Pull-up resistor (22k) on PA10 to fix reset issue.
+* Pull-up resistor (5.1k) on PA1 for WS2812 LED support, and wire it's VCC to the 5V pin.
 
 * Keyboard Maintainer: [Drashna Jael're](https://github.com/drashna)
 * Hardware Supported: [Design files](https://gitlab.com/keyboards1/dm_r_track/-/tree/master/boolean), [WeAct BlackPill (F411)](https://github.com/WeActTC/MiniSTM32F4x1), [PMW3360 Optical Sensor](https://www.tindie.com/products/jkicklighter/pmw3360-motion-sensor/)

@@ -36,7 +36,7 @@ Size after:
     can retry, loading that one
   - Some of the options you might specify in your keyboard's Makefile
     consume extra memory; watch out for BOOTMAGIC_ENABLE,
-    MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE
+    MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE
 - DFU tools do /not/ allow you to write into the bootloader (unless
   you throw in an extra fruit salad of options), so there is little risk
   there.

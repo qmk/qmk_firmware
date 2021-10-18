@@ -81,7 +81,7 @@ ifneq ($(findstring MK20DX256, $(MCU)),)
   BOARD ?= PJRC_TEENSY_3_1
 endif
 
-ifneq ($(findstring MK66F18, $(MCU)),)
+ifneq ($(findstring MK66FX1M0, $(MCU)),)
   # Cortex version
   MCU = cortex-m4
 
@@ -138,6 +138,11 @@ ifneq ($(findstring STM32F042, $(MCU)),)
 
   # UF2 settings
   UF2_FAMILY ?= STM32F0
+
+  # Stack sizes: Since this chip has limited RAM capacity, the stack area needs to be reduced.
+  # This ensures that the EEPROM page buffer fits into RAM
+  USE_PROCESS_STACKSIZE = 0x600
+  USE_EXCEPTIONS_STACKSIZE = 0x300
 endif
 
 ifneq ($(findstring STM32F072, $(MCU)),)
@@ -266,6 +271,38 @@ ifneq ($(findstring STM32F401, $(MCU)),)
   # Board: it should exist either in <chibios>/os/hal/boards/,
   # <keyboard_dir>/boards/, or drivers/boards/
   BOARD ?= BLACKPILL_STM32_F401
+
+  USE_FPU ?= yes
+
+  # UF2 settings
+  UF2_FAMILY ?= STM32F4
+endif
+
+ifneq ($(findstring STM32F405, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32F4xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32F405xG
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32f4xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_STM32_F405XG
 
   USE_FPU ?= yes
 
@@ -502,6 +539,37 @@ ifneq (,$(filter $(MCU),STM32L412 STM32L422))
 
   # UF2 settings
   UF2_FAMILY ?= STM32L4
+endif
+
+ifneq ($(findstring GD32VF103, $(MCU)),)
+  # RISC-V
+  MCU = risc-v
+  
+  # RISC-V extensions and abi configuration
+  MCU_ARCH = rv32imac
+  MCU_ABI = ilp32
+  MCU_CMODEL = medlow
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = GD32V
+  MCU_SERIES = GD32VF103
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/startup/RISCV-ECLIC/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= GD32VF103xB
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/RISCV-ECLIC/compilers/GCC/mk/
+  MCU_STARTUP ?= gd32vf103
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= SIPEED_LONGAN_NANO
+
+  USE_FPU ?= no
 endif
 
 ifneq (,$(filter $(MCU),at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647 at90usb1286 at90usb1287))
