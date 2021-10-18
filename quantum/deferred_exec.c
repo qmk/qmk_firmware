@@ -56,7 +56,7 @@ deferred_token defer_exec(uint32_t delay_ms, deferred_exec_callback callback, vo
         if (entry->token == INVALID_DEFERRED_TOKEN) {
             // Work out the new token value, dropping out if none were available
             deferred_token token = allocate_token();
-            if(token == INVALID_DEFERRED_TOKEN) {
+            if (token == INVALID_DEFERRED_TOKEN) {
                 return false;
             }
 
