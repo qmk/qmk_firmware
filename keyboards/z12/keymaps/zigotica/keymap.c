@@ -37,13 +37,23 @@ void raw_hid_receive(uint8_t* data, uint8_t length) {
 #define MODE_4 TO(_VIM)
 
 enum custom_keycodes {
-    VIM_SIP = SAFE_RANGE,
+    VIM_SIF = SAFE_RANGE,
+    VIM_SIP,
+    VIM_RIF,
     VIM_RIP,
     VIM_NEW
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case VIM_SIF:// Search in File
+            if (record->event.pressed) {
+                register_code(KC_ESC);
+                tap_code(KC_SLASH);
+            } else { // released
+                unregister_code(KC_ESC);
+            }
+        break;
         case VIM_SIP:// Search in Project
             if (record->event.pressed) {
                 register_code(KC_ESC);
@@ -52,10 +62,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_ESC);
             }
         break;
+        case VIM_RIF:// Replace in File
+            if (record->event.pressed) {
+                register_code(KC_ESC);
+                SEND_STRING(":%s/a/b/g");
+            } else { // released
+                unregister_code(KC_ESC);
+            }
+        break;
         case VIM_RIP:// Replace in Project
             if (record->event.pressed) {
                 register_code(KC_ESC);
-                SEND_STRING(":cdo s/a/b/g");
+                SEND_STRING(":cdo %s/a/b/g");
             } else { // released
                 unregister_code(KC_ESC);
             }
@@ -144,15 +162,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |BUFFER | BROW |  VIM | SCROLL|
  * |-------+------+------+-------|
  *    |-------+-------+-------|
- *    |SEARCH |   o   |   o   |
+ *    |SRCH FL|REPL FL|NEW BUF|
  *    |-------+-------+-------|
- *    |   o   |   o   |   o   |
+ *    |SRCH PR|REPL PR|   o   |
  *    |-------+-------+-------|
  */
     [_VIM] = LAYOUT(
              _______, _______,
     _______, _______, _______,  _______,
-    VIM_SIP,      VIM_RIP,      VIM_NEW,
-    _______,      _______,      _______
+    VIM_SIF,      VIM_RIF,      VIM_NEW,
+    VIM_SIP,      VIM_RIP,      _______
     ),
 };
