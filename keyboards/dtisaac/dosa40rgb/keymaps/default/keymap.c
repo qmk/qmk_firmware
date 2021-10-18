@@ -24,8 +24,7 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    BASE,
-	L1,
+    CUSTOM1 = KEYMAP_SAFE_RANGE, // Placeholder
 };
 
 #define L1 MO(_L1)
@@ -66,4 +65,15 @@ void rgb_matrix_indicators_user(void)
 	{
 		rgb_matrix_set_color(22, 200, 0, 200);
 	}
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CUSTOM1:
+            if (record->event.pressed) {
+                SEND_STRING("This macro types a string of text.");
+            }
+            return false;
+    }
+    return true;
 }

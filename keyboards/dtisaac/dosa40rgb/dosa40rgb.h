@@ -18,6 +18,11 @@
 
 #include "quantum.h"
 
+enum keyboard_keycodes {
+    LED_EN, // Toggle LED
+    KEYMAP_SAFE_RANGE
+};
+
 /* This is a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical

@@ -16,6 +16,21 @@
 
 #include "dosa40rgb.h"
 
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+    switch (keycode) {
+        case LED_EN:
+            if (record->event.pressed) {
+                DDRB = DDRB ^ 0x20;
+                PORTB &= ~(1 << 5);
+            }
+            return false;
+    }
+    return true;
+}
+
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
   //Key Matrix to LED Index
