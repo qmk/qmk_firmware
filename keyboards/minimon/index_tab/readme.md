@@ -1,5 +1,4 @@
-Index Tab
-=========
+# Index Tab
 
 Not just another ortho-keyboard. but one catering to the northern marked with our extra letters.
 This is a 13x6 ortho keyboard; giving you enough space for all the numbers, all the F-keys, and our precious extraordinary letters.
