@@ -70,3 +70,57 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 #endif
+
+static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+
+void matrix_init_pins(void) {
+    for (size_t i = 0; i < MATRIX_COLS; i++) {
+        setPinInputHigh(col_pins[i]);
+    }
+    for (size_t i = 0; i < MATRIX_ROWS; i++) {
+        setPinOutput(row_pins[i]);
+        writePinHigh(row_pins[i]);
+    }
+}
+
+void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+    /* Drive row pin low. */
+    writePinLow(row_pins[current_row]);
+    while (readPin(row_pins[current_row]) != 0)
+        ;
+
+    uint16_t porta = palReadPort(GPIOA);
+    uint16_t portb = palReadPort(GPIOB);
+
+    /* Drive row pin high again. */
+    writePinHigh(row_pins[current_row]);
+
+    /* Order of pins is: B2, B1, B0, A7, A6, A5, A4, A13, B7, B6, B5, B4, B3, A15, A14
+       Pin is active low, therefore we have to invert the result. */
+
+    matrix_row_t cols = ~(((portb & (0x1 <<  2)) >>  2)   // B2  (0)
+                        | ((portb & (0x1 <<  1)) >>  0)   // B1  (1)
+                        | ((portb & (0x1 <<  0)) <<  2)   // B0  (2)
+                        | ((porta & (0x1 <<  7)) >>  4)   // A7  (3)
+                        | ((porta & (0x1 <<  6)) >>  2)   // A6  (4)
+                        | ((porta & (0x1 <<  5)) >>  0)   // A5  (5)
+                        | ((porta & (0x1 <<  4)) <<  2)   // A4  (6)
+                        | ((porta & (0x1 << 13)) >>  6)   // A13 (7)
+                        | ((portb & (0x1 <<  7)) <<  1)   // B7  (8)
+                        | ((portb & (0x1 <<  6)) <<  3)   // B6  (9)
+                        | ((portb & (0x1 <<  5)) <<  5)   // B5  (10)
+                        | ((portb & (0x1 <<  4)) <<  7)   // B4  (11)
+                        | ((portb & (0x1 <<  3)) <<  9)   // B3  (12)
+                        | ((porta & (0x1 << 15)) >>  2)   // A15 (13)
+                        | ((porta & (0x1 << 14)) >>  0)); // A14 (14)
+
+    current_matrix[current_row] = cols;
+
+    /* Wait until col pins are high again or 'timer' expired. */
+    // Taken from karlk90/yaemk
+    size_t counter = 0xFF;
+    while (((palReadGroup(GPIOA, 0xE0E0, 0) != 0xE0E0) || ((palReadGroup(GPIOB, 0xFF, 0) != 0xFF))) && counter != 0) {
+        counter--;
+    }
+}
