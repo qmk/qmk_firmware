@@ -25,7 +25,6 @@
 #include "matrix.h"
 #include "annepro2.h"
 
-static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 static uint32_t     debounce_times[MATRIX_ROWS];
 
@@ -33,12 +32,11 @@ extern ioline_t row_list[MATRIX_ROWS];
 extern ioline_t col_list[MATRIX_COLS];
 
 void matrix_init_custom(void) {
-    memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(debounce_times, 0, MATRIX_ROWS * sizeof(uint32_t));
 }
 
-uint8_t matrix_scan_custom(void) {
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 	bool matrix_has_changed = false;
     // cache of input ports for columns
     static uint16_t port_cache[4];
@@ -73,7 +71,7 @@ uint8_t matrix_scan_custom(void) {
             debounce_times[row]    = timer_read32();
         } else if (debounce_times[row] && timer_elapsed32(debounce_times[row]) >= DEBOUNCE) {
             // when debouncing complete, update matrix
-            matrix[row]         = matrix_debouncing[row];
+            current_matrix[row] = matrix_debouncing[row];
             debounce_times[row] = 0;
             matrix_has_changed = true;
         }
