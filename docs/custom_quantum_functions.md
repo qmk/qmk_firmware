@@ -406,7 +406,7 @@ And you're done.  The RGB layer indication will only work if you want it to. And
 
 The `val` is the value of the data that you want to write to EEPROM.  And the `eeconfig_read_*` function return a 32 bit (DWORD) value from the EEPROM. 
 
-### Deferred Execution
+### Deferred Execution :id=deferred-execution
 
 QMK has the ability to execute a callback after a specified period of time, rather than having to manually manage timers.
 
