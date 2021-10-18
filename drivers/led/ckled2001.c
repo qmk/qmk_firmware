@@ -18,7 +18,6 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-
 #ifndef CKLED2001_TIMEOUT
 #    define CKLED2001_TIMEOUT 100
 #endif
@@ -114,25 +113,25 @@ void CKLED2001_init(uint8_t addr) {
 
     // Set LED CONTROL PAGE (Page 0)
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_CONTROL_PAGE);
-    for (int i = 0; i < LED_CONTROL_ON_OFF_LENGTH ; i++) {
+    for (int i = 0; i < LED_CONTROL_ON_OFF_LENGTH; i++) {
         CKLED2001_write_register(addr, i, 0x00);
     }
 
     // Set PWM PAGE (Page 1)
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_PWM_PAGE);
-    for (int i = 0; i < LED_CURRENT_TUNE_LENGTH ; i++) {
+    for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
         CKLED2001_write_register(addr, i, 0x00);
     }
 
     // Set CURRENT PAGE (Page 4)
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, CURRENT_TUNE_PAGE);
-    for (int i = 0; i < LED_CURRENT_TUNE_LENGTH ; i++) {
+    for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
         CKLED2001_write_register(addr, i, 0xFF);
     }
 
     // Enable LEDs ON/OFF
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_CONTROL_PAGE);
-    for (int i = 0; i< LED_CONTROL_ON_OFF_LENGTH ; i++) {
+    for (int i = 0; i< LED_CONTROL_ON_OFF_LENGTH; i++) {
         CKLED2001_write_register(addr, i, 0xFF);
     }
     
@@ -190,9 +189,8 @@ void CKLED2001_set_led_control_register(uint8_t index, bool red, bool green, boo
 
 void CKLED2001_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
-
         CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_PWM_PAGE);
-        
+
         // If any of the transactions fail we risk writing dirty PG0,
         // refresh page 0 just in case.
         if (!CKLED2001_write_pwm_buffer(addr, g_pwm_buffer[index])) {
@@ -215,7 +213,7 @@ void CKLED2001_update_led_control_registers(uint8_t addr, uint8_t index) {
 void CKLED2001_return_normal(uint8_t addr) {
     // Select to function page
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, FUNCTION_PAGE);
-    // Setting LED driver to normal mode 
+    // Setting LED driver to normal mode
     CKLED2001_write_register(addr, CONFIGURATION_REG, MSKSW_NORMAL_MODE);
 }
 
