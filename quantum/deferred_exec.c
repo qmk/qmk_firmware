@@ -10,15 +10,27 @@
 #endif
 
 typedef struct deferred_executor_t {
-    uint16_t               token;
+    deferred_token         token;
     uint32_t               trigger_time;
     deferred_exec_callback callback;
     void *                 cb_arg;
 } deferred_executor_t;
 
-static uint16_t            current_token                     = 0;
+static deferred_token      current_token                     = 0;
 static uint32_t            last_deferred_exec_check          = 0;
 static deferred_executor_t executors[MAX_DEFERRED_EXECUTORS] = {0};
+
+static inline bool token_can_be_used(deferred_token token) {
+    if (token == INVALID_DEFERRED_TOKEN) {
+        return false;
+    }
+    for (int i = 0; i < MAX_DEFERRED_EXECUTORS; ++i) {
+        if (executors[i].token == token) {
+            return false;
+        }
+    }
+    return true;
+}
 
 deferred_token defer_exec(uint32_t delay_ms, deferred_exec_callback callback, void *cb_arg) {
     // Ignore queueing if it's a zero-time delay, or invalid callback
@@ -29,18 +41,18 @@ deferred_token defer_exec(uint32_t delay_ms, deferred_exec_callback callback, vo
     // Find an unused slot and claim it
     for (int i = 0; i < MAX_DEFERRED_EXECUTORS; ++i) {
         deferred_executor_t *entry = &executors[i];
-        if (entry->trigger_time == 0) {
+        if (entry->token == INVALID_DEFERRED_TOKEN) {
             // Work out the new token value
             do {
                 ++current_token;
-            } while (current_token == INVALID_DEFERRED_TOKEN);  // Skip INVALID_DEFERRED_TOKEN
+            } while (!token_can_be_used(current_token));  // Skip invalid or busy values
 
             // Set up the executor table entry
             entry->token        = current_token;
             entry->trigger_time = timer_read32() + delay_ms;
             entry->callback     = callback;
             entry->cb_arg       = cb_arg;
-            return (deferred_token)current_token;
+            return current_token;
         }
     }
 
@@ -49,15 +61,15 @@ deferred_token defer_exec(uint32_t delay_ms, deferred_exec_callback callback, vo
 }
 
 bool extend_deferred_exec(deferred_token token, uint32_t delay_ms) {
-    // Ignore queueing if it's a zero-time delay
-    if (delay_ms == 0) {
+    // Ignore queueing if it's a zero-time delay, or the token is not valid
+    if (delay_ms == 0 || token == INVALID_DEFERRED_TOKEN) {
         return false;
     }
 
     // Find the entry corresponding to the token
     for (int i = 0; i < MAX_DEFERRED_EXECUTORS; ++i) {
         deferred_executor_t *entry = &executors[i];
-        if (entry->token == (uint16_t)token) {
+        if (entry->token == token) {
             // Found it, extend the delay
             entry->trigger_time = timer_read32() + delay_ms;
             return true;
@@ -69,10 +81,15 @@ bool extend_deferred_exec(deferred_token token, uint32_t delay_ms) {
 }
 
 bool cancel_deferred_exec(deferred_token token) {
+    // Ignore request if the token is not valid
+    if (token == INVALID_DEFERRED_TOKEN) {
+        return false;
+    }
+
     // Find the entry corresponding to the token
     for (int i = 0; i < MAX_DEFERRED_EXECUTORS; ++i) {
         deferred_executor_t *entry = &executors[i];
-        if (entry->token == (uint16_t)token) {
+        if (entry->token == token) {
             // Found it, cancel and clear the table entry
             entry->token        = INVALID_DEFERRED_TOKEN;
             entry->trigger_time = 0;
@@ -98,7 +115,7 @@ void deferred_exec_task(void) {
             deferred_executor_t *entry = &executors[i];
 
             // Check if we're supposed to execute this entry
-            if (entry->token != INVALID_DEFERRED_TOKEN && entry->trigger_time > 0 && ((int32_t)TIMER_DIFF_32(entry->trigger_time, now)) <= 0) {
+            if (entry->token != INVALID_DEFERRED_TOKEN && ((int32_t)TIMER_DIFF_32(entry->trigger_time, now)) <= 0) {
                 // Invoke the callback and work work out if we should be requeued
                 uint32_t delay_ms = entry->callback(entry->cb_arg);
 
