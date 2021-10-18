@@ -15,9 +15,9 @@ General flashing sequence:
 
 ?> Using the QMK installation script, detailed [here](newbs_getting_started.md), the required bootloadHID tools should be automatically installed.
 
-To flash via the command line, use the target `:bootloadHID` by executing the following command:
+To flash via the command line, use the target `:bootloadhid` by executing the following command:
 
-    make <keyboard>:<keymap>:bootloadHID
+    make <keyboard>:<keymap>:bootloadhid
 
 ## GUI Flashing
 
@@ -44,7 +44,7 @@ For native Windows flashing, the `bootloadHID.exe` can be used outside of the MS
 
 ### Linux Manual Installation
 1. Install libusb development dependency:
-    ```bash
+    ```
     # This depends on OS - for Debian the following works
     sudo apt-get install libusb-dev
     ```

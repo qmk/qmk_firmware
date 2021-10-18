@@ -9,23 +9,27 @@ authors = []
 
 [tool.poetry.dependencies]
 python = "^3.8"
-appdirs = "^1.4.4"
-argcomplete = "^1.12.2"
-colorama = "^0.4.4"
-dotty-dict = "^1.3.0"
-hjson = "^3.0.2"
-jsonschema = "^3.2.0"
-milc = "^1.3.0"
-Pygments = "^2.8.0"
+appdirs = "*"
+argcomplete = "*"
+colorama = "*"
+hid = "*"
+hjson = "*"
+jsonschema = ">=3"
+milc = ">=1.4.2"
+Pygments = "*"
+pyusb = "*"
+qmk-dotty-dict = "*"
+
+# This dependency is not mentioned in requirements.txt (QMK CLI is not a
+# library package that is required by the Python code in qmk_firmware), but is
+# required to build a proper nix-shell environment.
 qmk = "*"
 
 [tool.poetry.dev-dependencies]
-nose2 = "^0.10.0"
-flake8 = "^3.8.4"
-hid = "^1.0.4"
-pep8-naming = "^0.11.1"
-pyusb = "^1.1.1"
-yapf = "^0.30.0"
+nose2 = "*"
+flake8 = "*"
+pep8-naming = "*"
+yapf = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

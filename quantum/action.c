@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "keyboard.h"
 #include "mousekey.h"
+#include "programmable_button.h"
 #include "command.h"
 #include "led.h"
 #include "action_layer.h"
@@ -57,12 +58,6 @@ __attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *reco
 
 __attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) { return true; }
 
-#ifndef TAP_CODE_DELAY
-#    define TAP_CODE_DELAY 0
-#endif
-#ifndef TAP_HOLD_CAPS_DELAY
-#    define TAP_HOLD_CAPS_DELAY 80
-#endif
 /** \brief Called to execute an action.
  *
  * FIXME: Needs documentation.
@@ -993,6 +988,10 @@ void clear_keyboard_but_mods_and_keys() {
 #ifdef MOUSEKEY_ENABLE
     mousekey_clear();
     mousekey_send();
+#endif
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    programmable_button_clear();
+    programmable_button_send();
 #endif
 }
 

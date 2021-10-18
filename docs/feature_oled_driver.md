@@ -18,7 +18,7 @@ Hardware configurations using Arm-based microcontrollers or different sizes of O
 
 ## Usage
 
-To enable the OLED feature, there are three steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
+To enable the OLED feature, there are two steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
 
 ```make
 OLED_ENABLE = yes
@@ -355,6 +355,10 @@ bool oled_scroll_left(void);
 // Turns off display scrolling
 // Returns true if the screen was not scrolling or stops scrolling
 bool oled_scroll_off(void);
+
+// Returns true if the oled is currently scrolling, false if it is
+// not
+bool is_oled_scrolling(void);
 
 // Inverts the display
 // Returns true if the screen was or is inverted

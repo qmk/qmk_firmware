@@ -44,7 +44,7 @@
 #endif
 
 #ifdef COMBO_ENABLE
-  #define COMBO_COUNT 2
+  #define COMBO_COUNT 5
 #endif
 
 #define QMK_KEYS_PER_SCAN 4

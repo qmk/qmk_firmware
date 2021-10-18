@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = caterina
 
 # this is split keyboard.
@@ -29,6 +22,5 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306     # Disable OLED driver.
-UNICODE_ENABLE = no         # Unicode
 
 LTO_ENABLE = yes

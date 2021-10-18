@@ -127,9 +127,9 @@ void rgb_matrix_indicators_user(void)
 }
 
 enum encoder_modes{
-    ENCODER_MODE_ONE = 0,
+    ENCODER_MODE_ONE,
     ENCODER_MODE_TWO,
-    ENCODER_MODE_THREE,
+    ENCODER_MODE_THREE
 };
 
 keyboard_config_t keyboard_config;
@@ -264,7 +264,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         break;
 
         case KC_F22:  //change encoder mode upward
-     
         if(!encoder_direction_start){
             if(keyboard_config.encoder_mode_index < ENCODER_MODE_THREE){                
                 keyboard_config.encoder_mode_index++;

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "raw_hid.h"
+//#include "raw_hid.h"
 #define RAW_EPSIZE 8
 #include <stdio.h>
 
@@ -28,15 +28,24 @@ uint16_t wpm_graph_timer = 0;
 #ifdef COMBO_ENABLE
 enum combos {
     ZX_COPY,
-    CV_PASTE
+    CV_PASTE,
+    PB_PARENS,
+    FP_CURLY,
+    DV_SQUARE
 };
 
 const uint16_t PROGMEM copy_combo[]  = { KC_Z, KC_X, COMBO_END };
-const uint16_t PROGMEM paste_combo[] = { KC_C, KC_V, COMBO_END };
+const uint16_t PROGMEM paste_combo[] = { KC_C, KC_D, COMBO_END };
+const uint16_t PROGMEM curly_combo[] = { KC_F, KC_P, COMBO_END };
+const uint16_t PROGMEM parens_combo[] =  { KC_P, KC_B, COMBO_END };
+const uint16_t PROGMEM square_combo[] = { KC_D, KC_V, COMBO_END };
 
 combo_t key_combos[COMBO_COUNT] = {
     [ZX_COPY]  = COMBO(copy_combo, LCTL_T(KC_C)),
-    [CV_PASTE] = COMBO(paste_combo, LCTL_T(KC_V))
+    [CV_PASTE] = COMBO(paste_combo, LCTL_T(KC_V)),
+    [PB_PARENS] = COMBO(parens_combo, KC_LPRN),
+    [FP_CURLY] = COMBO(curly_combo, KC_LCBR),
+    [DV_SQUARE] = COMBO(square_combo, KC_LBRC)
 };
 #endif
 
@@ -64,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______QWERTY_L1______,                 _______QWERTY_R1______,
       _______QWERTY_L2______,                 _______QWERTY_R2______,
       _______QWERTY_L3______,                 _______QWERTY_R3______,
-              _______THUMBS_L_______,  _______THUMBS_R_______
+              _______NAKED_L___T____,  _______THUMBS_R_______
  /*           `---------------------'  `---------------------' */
     ),
     [_COLEMAK] = LAYOUT_kyria_wrapper(
@@ -78,10 +87,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  // GAME layout -- qwerty without homerow mods
     [_GAME] = LAYOUT_kyria_wrapper(
  /* ,-------------------------------------------.                              ,-------------------------------------------. */
-    KC_GRV,   _______QWERTY_L1______,                                     _______QWERTY_R1______, KC_BSLS,
-    KC_CTLBS, KC_A, KC_S, KC_D, KC_F, KC_G,                               KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
-    KC_LSFT,   _______QWERTY_L3______, KC_LCCL, KC_LALT,                   KC_ALTCL, KC_LSFT, _______QWERTY_R3______, KC_MINS,
-       KC_EQL, KC_0, _______NAKED_L___T____,   _______THUMBS_R_______, TO(_COLEMAK), KC_F12
+    KC_GRV,   _______COLEMAK_L1_____,                                     _______COLEMAK_R1_____, KC_BSLS,
+    KC_CTLBS, KC_A, KC_R, KC_S, KC_T, KC_G,                               KC_M, KC_N, KC_E, KC_I, KC_O, KC_SCLN,
+    KC_LSFT,   _______COLEMAK_L3_____, KC_LCCL, KC_LALT,                   KC_ALTCL, KC_LSFT, _______COLEMAK_R3_____, KC_MINS,
+       KC_EQL, MO(_NUM), _______NAKED_L___T____,   _______THUMBS_R_______, TO(_COLEMAK), KC_F12
  /*                        `----------------------------------'  `----------------------------------' */
     ),
     [_FN] = LAYOUT_kyria_base_wrapper(
@@ -146,7 +155,7 @@ static void send_layer_via_hid(int layer) {
 
 
 #ifdef RGBLIGHT_LAYERS
-const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_AZURE} );
+const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_RED} );
 const rgblight_segment_t PROGMEM my_colemak_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_BLUE} );
 const rgblight_segment_t PROGMEM my_game_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_RED} );
 const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 20, HSV_PINK} );
@@ -253,10 +262,10 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 static void render_logo(void) {
-  static const char PROGMEM qmk_logo[] = {
-    0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-    0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
+  /*static const char PROGMEM qmk_logo[] = {*/
+  /*  0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,*/
+  /*  0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,*/
+  /*  0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};*/
 
     static const char PROGMEM logo[] = {
         // canvas is 128x64.  need 16 padding
@@ -280,7 +289,7 @@ static void render_logo(void) {
     oled_advance_page(false);
     oled_advance_page(false);
     oled_advance_page(false);
-  oled_write_P(qmk_logo, false);
+//  oled_write_P(qmk_logo, false);
 
 #ifdef COMBO_ENABLE
     oled_write_P(PSTR("Combos enabled: "), false);
@@ -325,7 +334,7 @@ static void render_status(void) {
     // Host Keyboard Layer Status
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write_P(PSTR("Game\n"), false);
             isColemak = false;
             break;
         case _SYMBOLS:
@@ -342,10 +351,10 @@ static void render_status(void) {
             break;
         case _GAME:
             oled_write_P(PSTR("Game\n"), false);
-            isColemak = false;
+            isColemak = true;
             break;
         case _COLEMAK:
-            oled_write_P(PSTR("Colemak-DHm\n"), false);
+            oled_write_P(PSTR("Default\n"), false);
             isColemak = true;
             break;
         case _MEDIA:

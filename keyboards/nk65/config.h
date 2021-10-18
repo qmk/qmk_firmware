@@ -151,7 +151,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef FLASHSIZE_BASE
 #  define FLASHSIZE_BASE ((uint32_t)0x1FFFF7CCU) /*!< FLASH Size register base address */
 #endif
-#define EEPROM_START_ADDRESS
+#define FEE_MCU_FLASH_SIZE_IGNORE_CHECK
 #define FEE_MCU_FLASH_SIZE                              \
 ({                                                      \
     uint16_t (*flash_size) = (uint16_t*)FLASHSIZE_BASE;  \
