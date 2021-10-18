@@ -42,7 +42,7 @@ void    send_consumer(uint16_t data);
 
 #ifdef DEFERRED_EXEC_ENABLE
 void deferred_exec_task(void);
-#endif // DEFERRED_EXEC_ENABLE
+#endif  // DEFERRED_EXEC_ENABLE
 
 host_driver_t arm_atsam_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
 
@@ -367,7 +367,7 @@ int main(void) {
 #ifdef DEFERRED_EXEC_ENABLE
         // Run deferred executions
         deferred_exec_task();
-#endif // DEFERRED_EXEC_ENABLE
+#endif  // DEFERRED_EXEC_ENABLE
 
         // Run housekeeping
         housekeeping_task();
