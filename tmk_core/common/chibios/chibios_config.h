@@ -39,6 +39,25 @@
 #    endif
 #endif
 
+// GD32 compatibility
+#if defined(MCU_GD32V)
+#    define CPU_CLOCK GD32_SYSCLK
+
+#    if defined(GD32VF103)
+#        define USE_GPIOV1
+#        define USE_I2CV1
+#        define PAL_MODE_ALTERNATE_OPENDRAIN PAL_MODE_GD32_ALTERNATE_OPENDRAIN
+#        define PAL_MODE_ALTERNATE_PUSHPULL PAL_MODE_GD32_ALTERNATE_PUSHPULL
+#    endif
+#endif
+
+#if defined(GD32VF103)
+/* This chip has the same API as STM32F103, but uses different names for literally the same thing.
+ * As of 4.7.2021 QMK is tailored to use STM32 defines/names, for compatibility sake
+ * we just redefine the GD32 names. */
+#    include "gd32v_compatibility.h"
+#endif
+
 // teensy compatibility
 #if defined(MCU_KINETIS)
 #    define CPU_CLOCK KINETIS_SYSCLK_FREQUENCY

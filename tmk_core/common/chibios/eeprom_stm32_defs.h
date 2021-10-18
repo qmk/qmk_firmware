@@ -18,7 +18,7 @@
 #include <hal.h>
 
 #if !defined(FEE_PAGE_SIZE) || !defined(FEE_PAGE_COUNT)
-#    if defined(STM32F103xB) || defined(STM32F042x6)
+#    if defined(STM32F103xB) || defined(STM32F042x6) || defined(GD32VF103C8) || defined(GD32VF103CB)
 #        ifndef FEE_PAGE_SIZE
 #            define FEE_PAGE_SIZE 0x400  // Page size = 1KByte
 #        endif
@@ -45,7 +45,9 @@
 #if !defined(FEE_MCU_FLASH_SIZE)
 #    if defined(STM32F042x6)
 #        define FEE_MCU_FLASH_SIZE 32  // Size in Kb
-#    elif defined(STM32F103xB) || defined(STM32F072xB) || defined(STM32F070xB)
+#    elif defined(GD32VF103C8)
+#        define FEE_MCU_FLASH_SIZE 64  // Size in Kb
+#    elif defined(STM32F103xB) || defined(STM32F072xB) || defined(STM32F070xB) || defined(GD32VF103CB)
 #        define FEE_MCU_FLASH_SIZE 128  // Size in Kb
 #    elif defined(STM32F303xC) || defined(STM32F401xC)
 #        define FEE_MCU_FLASH_SIZE 256  // Size in Kb
