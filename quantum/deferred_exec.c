@@ -107,7 +107,7 @@ void deferred_exec_task(void) {
                     // Intentionally add just the delay to the existing trigger time -- this ensures the next
                     // invocation is with respect to the previous trigger, rather than when it got to execution. Under
                     // normal circumstances this won't cause issue, but if another executor is invoked that takes a
-                    // considerable length of time, then this
+                    // considerable length of time, then this ensures best-effort timing between invocations.
                     entry->trigger_time += delay_ms;
                 } else {
                     // If it was zero, then the callback is cancelling repeated execution. Free up the slot.
