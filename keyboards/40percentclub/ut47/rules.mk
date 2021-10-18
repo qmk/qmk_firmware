@@ -22,8 +22,3 @@ AUDIO_ENABLE = no           # Audio output
 # custom matrix setup
 CUSTOM_MATRIX = yes
 SRC += matrix.c protocol/serial_uart.c
-
-ifeq ($(strip $(LED_ENABLE)), yes)
-  OPT_DEFS += -DLED_ENABLE
-  SRC += led.c
-endif

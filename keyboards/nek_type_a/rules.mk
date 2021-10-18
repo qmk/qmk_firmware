@@ -18,10 +18,10 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = yes      # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = yes
 DEBUG_ENABLE = yes
-BLUETOOTH = AdafruitBLE
+BLUETOOTH_ENABLE = yes
+BLUETOOTH_DRIVER = AdafruitBLE
 
 SRC += matrix.c mcp23017.c

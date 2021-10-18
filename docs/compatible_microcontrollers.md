@@ -27,6 +27,7 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [STM32F103](https://www.st.com/en/microcontrollers-microprocessors/stm32f103.html)
  * [STM32F303](https://www.st.com/en/microcontrollers-microprocessors/stm32f303.html)
  * [STM32F401](https://www.st.com/en/microcontrollers-microprocessors/stm32f401.html)
+ * [STM32F405](https://www.st.com/en/microcontrollers-microprocessors/stm32f405-415.html)
  * [STM32F407](https://www.st.com/en/microcontrollers-microprocessors/stm32f407-417.html)
  * [STM32F411](https://www.st.com/en/microcontrollers-microprocessors/stm32f411.html)
  * [STM32F446](https://www.st.com/en/microcontrollers-microprocessors/stm32f446.html)
@@ -42,6 +43,7 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [MKL26Z64](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/kl-series-cortex-m0-plus/kinetis-kl2x-72-96-mhz-usb-ultra-low-power-microcontrollers-mcus-based-on-arm-cortex-m0-plus-core:KL2x)
  * [MK20DX128](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k2x-usb/kinetis-k20-50-mhz-full-speed-usb-mixed-signal-integration-microcontrollers-based-on-arm-cortex-m4-core:K20_50)
  * [MK20DX256](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k2x-usb/kinetis-k20-72-mhz-full-speed-usb-mixed-signal-integration-microcontrollers-mcus-based-on-arm-cortex-m4-core:K20_72)
+ * [MK66FX1M0](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k6x-ethernet/kinetis-k66-180-mhz-dual-high-speed-full-speed-usbs-2mb-flash-microcontrollers-mcus-based-on-arm-cortex-m4-core:K66_180)
 
 ## Atmel ATSAM
 

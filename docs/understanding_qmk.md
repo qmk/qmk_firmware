@@ -29,7 +29,6 @@ Within `keyboard_task()` you'll find code to handle:
 * [Matrix Scanning](#matrix-scanning)
 * Mouse Handling
 * Serial Link(s)
-* Visualizer
 * Keyboard status LEDs (Caps Lock, Num Lock, Scroll Lock)
 
 #### Matrix Scanning
@@ -177,10 +176,6 @@ After this is called, `post_process_record()` is called, which can be used to ha
 FIXME: This needs to be written
 
 #### Serial Link(s)
-
-FIXME: This needs to be written
-
-#### Visualizer
 
 FIXME: This needs to be written
 

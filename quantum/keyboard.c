@@ -43,9 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SERIAL_MOUSE_ENABLE
 #    include "serial_mouse.h"
 #endif
-#ifdef ADB_MOUSE_ENABLE
-#    include "adb.h"
-#endif
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
 #endif
@@ -61,12 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef STENO_ENABLE
 #    include "process_steno.h"
 #endif
-#ifdef SERIAL_LINK_ENABLE
-#    include "serial_link/system/serial_link.h"
-#endif
-#ifdef VISUALIZER_ENABLE
-#    include "visualizer/visualizer.h"
-#endif
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing_device.h"
 #endif
@@ -76,11 +67,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef JOYSTICK_ENABLE
 #    include "process_joystick.h"
 #endif
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+#    include "programmable_button.h"
+#endif
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
-#endif
-#ifdef QWIIC_ENABLE
-#    include "qwiic.h"
 #endif
 #ifdef OLED_ENABLE
 #    include "oled_driver.h"
@@ -96,9 +87,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef DIP_SWITCH_ENABLE
 #    include "dip_switch.h"
-#endif
-#ifdef STM32_EEPROM_ENABLE
-#    include "eeprom_stm32.h"
 #endif
 #ifdef EEPROM_DRIVER
 #    include "eeprom_driver.h"
@@ -246,9 +234,6 @@ void keyboard_setup(void) {
     disable_jtag();
 #endif
     print_set_sendchar(sendchar);
-#ifdef STM32_EEPROM_ENABLE
-    EEPROM_Init();
-#endif
 #ifdef EEPROM_DRIVER
     eeprom_driver_init();
 #endif
@@ -316,9 +301,6 @@ void keyboard_init(void) {
 #if defined(CRC_ENABLE)
     crc_init();
 #endif
-#ifdef QWIIC_ENABLE
-    qwiic_init();
-#endif
 #ifdef OLED_ENABLE
     oled_init(OLED_ROTATION_0);
 #endif
@@ -330,9 +312,6 @@ void keyboard_init(void) {
 #endif
 #ifdef SERIAL_MOUSE_ENABLE
     serial_mouse_init();
-#endif
-#ifdef ADB_MOUSE_ENABLE
-    adb_mouse_init();
 #endif
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
@@ -384,7 +363,6 @@ void switch_events(uint8_t row, uint8_t col, bool pressed) {
  *
  * * scan matrix
  * * handle mouse movements
- * * run visualizer code
  * * handle midi commands
  * * light LEDs
  *
@@ -473,10 +451,6 @@ MATRIX_LOOP_END:
     if (encoders_changed) last_encoder_activity_trigger();
 #endif
 
-#ifdef QWIIC_ENABLE
-    qwiic_task();
-#endif
-
 #ifdef OLED_ENABLE
     oled_task();
 #    if OLED_TIMEOUT > 0
@@ -514,18 +488,6 @@ MATRIX_LOOP_END:
     serial_mouse_task();
 #endif
 
-#ifdef ADB_MOUSE_ENABLE
-    adb_mouse_task();
-#endif
-
-#ifdef SERIAL_LINK_ENABLE
-    serial_link_update();
-#endif
-
-#ifdef VISUALIZER_ENABLE
-    visualizer_update(default_layer_state, layer_state, visualizer_get_mods(), host_keyboard_leds());
-#endif
-
 #ifdef POINTING_DEVICE_ENABLE
     pointing_device_task();
 #endif
@@ -546,6 +508,10 @@ MATRIX_LOOP_END:
 
 #ifdef DIGITIZER_ENABLE
     digitizer_task();
+#endif
+
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    programmable_button_send();
 #endif
 
     // update LED
