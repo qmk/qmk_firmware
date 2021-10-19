@@ -35,7 +35,7 @@ EECONFIG_DEBOUNCE_HELPER(md_led, EECONFIG_MD_LED, md_led_config);
 void eeconfig_update_md_led_default(void) {
     md_led_config.ver = MD_LED_CONFIG_VERSION;
 
-    gcr_desired               = 0;
+    gcr_desired               = LED_GCR_MAX;
     led_animation_orientation = 0;
     led_animation_direction   = 0;
     led_animation_breathing   = 0;
