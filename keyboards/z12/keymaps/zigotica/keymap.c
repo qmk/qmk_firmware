@@ -144,14 +144,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    |-------+-------+-------|
  *    |SEARCH | BOOKM | DEVTL |
  *    |-------+-------+-------|
- *    |   o   |   o   |   o   |
+ *    |ZOOM100| MUTE  | READ  |
  *    |-------+-------+-------|
  */
     [_BROWSER] = LAYOUT(
              _______, _______,
     _______, _______, _______,  _______,
-    G(KC_F),      G(KC_D),   G(A(KC_I)),
-    _______,      _______,      _______
+    G(KC_F),   G(KC_D),   G(A(KC_I)),
+    G(KC_0),   C(KC_M),   G(A(KC_R))
     ),
 /*
  * VIM Layer
