@@ -7,7 +7,7 @@ BOOTLOADER = caterina
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = full	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = no	    # Console for debug
@@ -19,7 +19,8 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
 
 # OLED enable
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 
 # Encoder enable
 ENCODER_ENABLE = yes
