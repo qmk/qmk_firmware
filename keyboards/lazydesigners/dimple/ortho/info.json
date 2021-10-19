@@ -52,7 +52,7 @@
               {"label":"Right", "x":10.75, "y":3}
            ]
         },
-        "LAYOUT_ortho3U": {
+        "LAYOUT_ortho_3u": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0, "w":1.25},
                 {"label":"Q", "x":1.25, "y":0},
