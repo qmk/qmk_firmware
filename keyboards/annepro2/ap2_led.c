@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include "hal.h"
 #include "annepro2.h"
-#include "qmk_ap2_led.h"
+#include "ap2_led.h"
 #include "protocol.h"
 
 annepro2Led_t       ledMask[KEY_COUNT];

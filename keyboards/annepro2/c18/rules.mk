@@ -3,7 +3,7 @@ SRC = \
 	matrix.c \
 	hardfault_handler.c \
 	annepro2_ble.c \
-	qmk_ap2_led.c \
+	ap2_led.c \
 	protocol.c
 
 # MCU

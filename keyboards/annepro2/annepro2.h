@@ -18,7 +18,7 @@
 #pragma once
 #include "quantum.h"
 #include <stdint.h>
-#include "qmk_ap2_led.h"
+#include "ap2_led.h"
 
 typedef struct __attribute__((__packed__)) {
     uint8_t _dummy[10];

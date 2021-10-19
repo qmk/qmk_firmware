@@ -18,7 +18,7 @@
 #include "annepro2.h"
 #include "annepro2_ble.h"
 #include "spi_master.h"
-#include "qmk_ap2_led.h"
+#include "ap2_led.h"
 #include "protocol.h"
 
 static const SerialConfig ledUartInitConfig = {
