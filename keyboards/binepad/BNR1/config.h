@@ -26,7 +26,6 @@
 #define PRODUCT         BNR1
 
 
-#define VIAL_KEYBOARD_UID {0xFB, 0x52, 0x5D, 0x17, 0xF3, 0x0B, 0xA3, 0x92}
 /* Key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1
