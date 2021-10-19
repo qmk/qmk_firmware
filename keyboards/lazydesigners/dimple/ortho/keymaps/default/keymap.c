@@ -44,7 +44,7 @@
         KC_NO,     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
         KC_VOLD,   KC_MUTE, KC_VOLU,          KC_TRNS, KC_NO,   KC_TRNS,          KC_NO,   KC_NO,   KC_NO
         ),
-    [2] = LAYOUT_ortho2U(
+    [2] = LAYOUT_ortho_2u(
         KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,
         KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO, 
         KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,
