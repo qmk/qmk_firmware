@@ -3,7 +3,7 @@
     "url": "http://lazydesigners.cn", 
     "maintainer": "Jacky@LAZYDESIGNERS", 
     "layouts": {
-        "LAYOUT_ortho2U": {
+        "LAYOUT_ortho_2u": {
             "layout": [
               {"label":"Esc", "x":0, "y":0, "w":1.25},
               {"label":"Q", "x":1.25, "y":0},
