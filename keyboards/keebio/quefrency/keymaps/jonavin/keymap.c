@@ -125,11 +125,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     bool led_update_user(led_t led_state) {
         rgblight_set_layer_state(_rgbCAPS, led_state.caps_lock);
 
-        #ifdef INVERT_NUMLOCK_ENABLE
+        #ifdef INVERT_NUMLOCK_INDICATOR
             rgblight_set_layer_state(_rgbNUMLOCK, !led_state.num_lock);   // inverse numlock indicator override
         #else
             rgblight_set_layer_state(_rgbNUMLOCK, led_state.num_lock);  // normal, light LED when numlock on
-        #endif // INVERT_NUMLOCK_ENABLE
+        #endif // INVERT_NUMLOCK_INDICATOR
 
         rgblight_set_layer_state(_rgbWINLOCK, keymap_config.no_gui);
         return true;

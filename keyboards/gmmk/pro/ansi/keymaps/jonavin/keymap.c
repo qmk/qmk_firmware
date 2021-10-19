@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             rgb_matrix_set_color(LED_L2, RGB_GREEN);
         }
 
-        #ifdef INVERT_NUMLOCK_ENABLE
+        #ifdef INVERT_NUMLOCK_INDICATOR
             if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {   // on if NUM lock is OFF
                 rgb_matrix_set_color(LED_L3, RGB_MAGENTA);
                 rgb_matrix_set_color(LED_L4, RGB_MAGENTA);
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 rgb_matrix_set_color(LED_L3, RGB_MAGENTA);
                 rgb_matrix_set_color(LED_L4, RGB_MAGENTA);
             }
-        #endif // INVERT_NUMLOCK_ENABLE
+        #endif // INVERT_NUMLOCK_INDICATOR
 
         if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
             rgb_matrix_set_color(LED_L5, RGB_RED);
