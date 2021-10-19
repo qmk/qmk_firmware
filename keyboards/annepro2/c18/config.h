@@ -23,16 +23,10 @@
 #define DEVICE_VER 0x1337
 #define MANUFACTURER Obins
 #define PRODUCT Anne Pro 2(c18)QMK
-
-#define ANNEPRO2_C18
-
 // key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 // layer size: MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t) = 144 bytes
-
-// Number of supported layouts
-#define NUM_LAYOUTS 4
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
