@@ -35,9 +35,7 @@ enum custom_keycodes {
     COLEMAK,
     DVORAK,
     WORKMAN,
-    BACKLIT,
-    MAC,
-    LINUX
+    BACKLIT
 };
 
 #define LOWER MO(_LOWER)

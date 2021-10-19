@@ -175,19 +175,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case MAC:
+        case CG_NORM:
             set_unicode_input_mode(UC_MAC);
-            keymap_config.raw = eeconfig_read_keymap();
-            keymap_config.swap_lctl_lgui = false;
-            eeconfig_update_keymap(keymap_config.raw);
-            clear_keyboard();
             break;
-        case LINUX:
+        case CG_SWAP:
             set_unicode_input_mode(UC_LNX);
-            keymap_config.raw = eeconfig_read_keymap();
-            keymap_config.swap_lctl_lgui = true;
-            eeconfig_update_keymap(keymap_config.raw);
-            clear_keyboard();
             break;
     }
     return true;
