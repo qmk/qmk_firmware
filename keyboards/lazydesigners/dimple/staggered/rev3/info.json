@@ -96,7 +96,7 @@
               {"label":"Right", "x":10.75, "y":3}
            ]
         },
-        "LAYOUT_7U": {
+        "LAYOUT_7u": {
             "layout": [
                     {"label":"Esc", "x":0, "y":0},
                     {"label":"Q", "x":1, "y":0},
