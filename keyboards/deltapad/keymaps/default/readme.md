@@ -1,1 +1,1 @@
-# The default keymap for super16
+# The default keymap for DELAPAD
