@@ -1,1 +1,1 @@
-# The default keymap for DELAPAD
+# The default keymap for DELTAPAD
