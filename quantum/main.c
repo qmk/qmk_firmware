@@ -25,7 +25,7 @@ void protocol_post_task(void);
 
 // Bodge as refactoring vusb sucks....
 void protocol_task(void) __attribute__((weak));
-void protocol_task(void){
+void protocol_task(void) {
     protocol_pre_task();
 
     keyboard_task();
