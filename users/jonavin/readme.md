@@ -33,6 +33,8 @@ KEYCODES:
 - CT_HOME         Ctrl-HOme
 - CT_END          Ctrl-End
 - KC_SFTUP        RShift when held, Up arrow when tapped
+- KC_RAISESPC     _RAISE layer mod when held, space when tapped
+- KC_LOWERSPC     _LOWER layer mod when held, space when tapped
 - 
  When EMOTICON_ENABLE = yes
 -   EMO_SHRUG       `\_("/)_/`
