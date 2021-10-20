@@ -367,6 +367,8 @@
 #define ES_LA_38 S(KC_1) //!
 #define ES_LA_39 S(KC_GRAVE) //°
 #define ES_LA_40 KC_GRAVE //|
+#define ES_LA_41 ALGR(KC_COMMA) //< for macOS
+#define ES_LA_42 ALGR(KC_DOT) //> for macOS
 
 // Extra CMS codes
 #define CSA_MOMEG RCTL(RSFT(KC_Q)) //Ω
