@@ -28,6 +28,8 @@ enum default_layers {
     _QWERTY_WIN,    // QWERTY Windows base layout
     _WIN_NAV_1,     // Windows Navigation layer 1
     _WIN_NAV_2,     // Windows Navigation layer 2
+    _LOWER,         // Lower layer on ortho
+    _RAISE,         // Raise layer on ortho
     _ADJUST,        // Adjust layer, with function and media keys
     _CONFIG,        // Keyboard configuation layer
     _TMUX,          // TMux layer
@@ -78,9 +80,14 @@ enum default_layers {
 #define TMUX        LT(_TMUX, KC_SCLN)
 #define VIM         LT(_VIM, KC_V)
 #define S_SHIFT     SFT_T(KC_S)
+#define A_SHIFT     SFT_T(KC_A)
 #define R_SHIFT     RSFT_T(KC_BSLS)
+#define QUT_SFT     RSFT_T(KC_QUOT)
 #define END_FN      LT(_ADJUST, KC_END) // Useful for 65% without FN
 #define SPC_FN      LT(_ADJUST, KC_SPC)
+
+#define L_MOD       LT(_FN, KC_SPC) // for split space bar, left bar
+#define R_MOD       RCTL_T(KC_SPC)  // for split space bar, right bar
 
 #define DF_MAC      DF(_QWERTY_MAC)
 #define DF_WIN      DF(_QWERTY_WIN)
