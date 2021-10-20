@@ -326,10 +326,6 @@ ifneq ($(strip $(VARIABLE_TRACE)),no)
     endif
 endif
 
-ifeq ($(strip $(LCD_ENABLE)), yes)
-    CIE1931_CURVE := yes
-endif
-
 VALID_BACKLIGHT_TYPES := pwm timer software custom
 
 BACKLIGHT_ENABLE ?= no
