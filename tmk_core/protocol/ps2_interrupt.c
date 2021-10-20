@@ -73,17 +73,17 @@ static inline void    pbuf_clear(void);
 void ps2_interrupt_service_routine(void);
 void palCallback(void *arg) { ps2_interrupt_service_routine(); }
 
-#    define PS2_INT_INIT()                             \
-        { palSetLineMode(PS2_CLOCK, PAL_MODE_INPUT); } \
+#    define PS2_INT_INIT()                                 \
+        { palSetLineMode(PS2_CLOCK_PIN, PAL_MODE_INPUT); } \
         while (0)
-#    define PS2_INT_ON()                                                \
-        {                                                               \
-            palEnableLineEvent(PS2_CLOCK, PAL_EVENT_MODE_FALLING_EDGE); \
-            palSetLineCallback(PS2_CLOCK, palCallback, NULL);           \
-        }                                                               \
+#    define PS2_INT_ON()                                                    \
+        {                                                                   \
+            palEnableLineEvent(PS2_CLOCK_PIN, PAL_EVENT_MODE_FALLING_EDGE); \
+            palSetLineCallback(PS2_CLOCK_PIN, palCallback, NULL);           \
+        }                                                                   \
         while (0)
-#    define PS2_INT_OFF()                   \
-        { palDisableLineEvent(PS2_CLOCK); } \
+#    define PS2_INT_OFF()                       \
+        { palDisableLineEvent(PS2_CLOCK_PIN); } \
         while (0)
 #endif  // PROTOCOL_CHIBIOS
 
