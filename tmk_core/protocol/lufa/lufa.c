@@ -1072,7 +1072,7 @@ void protocol_setup(void) {
     usb_device_state_init();
 }
 
-void protocol_pre_init(void) {
+void protocol_init(void) {
     setup_usb();
     sei();
 
