@@ -52,7 +52,7 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
     - `git rm -rf docs users layouts .vscode` to remove the docs and user code that we don't want.
     - To remove all of the keyboard exept the ones we want:
       ```sh
-      find ./keyboards -mindepth 1 -maxdepth 1 -type d -not -name ergodox_ez -not -name planck -not -name moonlander -exec git rm -rf '{}' \;`
+      find ./keyboards -mindepth 1 -maxdepth 1 -type d -not -name ergodox_ez -not -name planck -not -name moonlander -exec git rm -rf '{}' \;
       find ./keyboards/planck -mindepth 1 -maxdepth 1 -type d -not -name ez -not -name keymaps -exec git rm -rf '{}' \;
       ```
     - To remove all of the keymaps from folder that we don't want:
