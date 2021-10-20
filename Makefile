@@ -396,19 +396,10 @@ endef
 	if ! $(QMK_BIN) hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; exit 1; fi
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
-	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
-	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
-	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
-	if [ ! -e lib/vusb ]; then git submodule sync lib/vusb && git submodule update --depth 50 --init lib/vusb; fi
-	if [ ! -e lib/printf ]; then git submodule sync lib/printf && git submodule update --depth 50 --init lib/printf; fi
-	if [ ! -e lib/pico-sdk ]; then git submodule sync lib/pico-sdk && git submodule update --depth 50 --init lib/pico-sdk; fi
-	git submodule status --recursive 2>/dev/null | \
-	while IFS= read -r x; do \
-		case "$$x" in \
-			\ *) ;; \
-			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
-		esac \
-	done
+	git submodule sync --quiet --recursive
+	git submodule status | grep '^-' | awk '{ print $$2 }' | xargs -r git submodule update --depth 50 --init
+	git submodule foreach --quiet 'git diff-files --quiet' 2>/dev/null || printf "$(MSG_SUBMODULE_MODIFIED)"
+	git submodule status | grep -q '^+' && printf "$(MSG_SUBMODULE_DIRTY)" || true
 endif
 	rm -f $(ERROR_FILE) > /dev/null 2>&1
 	$(eval $(call PARSE_RULE,$@))
