@@ -232,7 +232,8 @@ include $(CHIBIOS)/os/rt/rt.mk
 # Other files (optional).
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
-CHIBISRC = $(STARTUPSRC) \
+PLATFORM_SRC = \
+        $(STARTUPSRC) \
         $(KERNSRC) \
         $(PORTSRC) \
         $(OSALSRC) \
@@ -247,7 +248,7 @@ CHIBISRC = $(STARTUPSRC) \
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
 
-CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
+PLATFORM_SRC := $(patsubst $(TOP_DIR)/%,%,$(PLATFORM_SRC))
 
 EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs \
@@ -278,7 +279,7 @@ endif
 
 ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
     include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
-    CHIBISRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
+    PLATFORM_SRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
     EXTRAINCDIRS += $(PLATFORMINC_CONTRIB) $(HALINC_CONTRIB) $(CHIBIOS_CONTRIB)/os/various
 endif
 
