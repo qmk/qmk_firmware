@@ -20,7 +20,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output
 POINTING_DEVICE_ENABLE = yes
 MOUSEKEY_ENABLE = yes       # Mouse keys
