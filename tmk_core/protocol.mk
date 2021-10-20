@@ -1,30 +1,5 @@
 PROTOCOL_DIR = protocol
 
-ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
-    SRC += $(PROTOCOL_DIR)/ps2_mouse.c
-    OPT_DEFS += -DPS2_MOUSE_ENABLE
-    OPT_DEFS += -DMOUSE_ENABLE
-endif
-
-ifeq ($(strip $(PS2_USE_BUSYWAIT)), yes)
-    SRC += protocol/ps2_busywait.c
-    SRC += protocol/ps2_io_avr.c
-    OPT_DEFS += -DPS2_USE_BUSYWAIT
-endif
-
-ifeq ($(strip $(PS2_USE_INT)), yes)
-    SRC += protocol/ps2_interrupt.c
-    SRC += protocol/ps2_io_$(PLATFORM_KEY).c
-    OPT_DEFS += -DPS2_USE_INT
-endif
-
-ifeq ($(strip $(PS2_USE_USART)), yes)
-    SRC += protocol/ps2_usart.c
-    SRC += protocol/ps2_io_$(PLATFORM_KEY).c
-    OPT_DEFS += -DPS2_USE_USART
-endif
-
-
 ifeq ($(strip $(SERIAL_MOUSE_MICROSOFT_ENABLE)), yes)
     SRC += $(PROTOCOL_DIR)/serial_mouse_microsoft.c
     OPT_DEFS += -DSERIAL_MOUSE_ENABLE -DSERIAL_MOUSE_MICROSOFT \
