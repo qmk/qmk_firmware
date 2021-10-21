@@ -398,12 +398,6 @@ OPT_DEFS += -DPROTOCOL_CHIBIOS
 # Workaround to stop ChibiOS from complaining about new GCC -- it's been fixed for 7/8/9 already
 OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1
 
-# Speed up recompilations by opt-in usage of ccache
-USE_CCACHE ?= no
-ifneq ($(USE_CCACHE),no)
-    CC_PREFIX ?= ccache
-endif
-
 # Construct GCC toolchain
 CC      = $(CC_PREFIX) $(TOOLCHAIN)gcc
 OBJCOPY = $(TOOLCHAIN)objcopy
