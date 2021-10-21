@@ -9,6 +9,7 @@
 #include "keyboard_report_util.hpp"
 #include "keycode.h"
 #include "test_driver.hpp"
+#include "test_logger.hpp"
 #include "test_matrix.h"
 #include "test_keymap_key.hpp"
 
@@ -29,17 +30,19 @@ void advance_time(uint32_t ms);
 using testing::_;
 
 /* This is used for dynamic dispatching keymap_key_to_keycode calls to the current active test_fixture. */
-static TestFixture* current_test_fixture = nullptr;
+TestFixture* TestFixture::m_this = nullptr;
 
 /* Override weak QMK function to allow the usage of isolated per-test keymaps in unit-tests.
  * The actual call is dynamicaly dispatched to the current active test fixture, which in turn has it's own keymap. */
 extern "C" uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t position) {
     uint16_t keycode;
-    current_test_fixture->get_keycode(layer, position, &keycode);
+    TestFixture::m_this->get_keycode(layer, position, &keycode);
     return keycode;
 }
 
 void TestFixture::SetUpTestCase() {
+    test_logger.info() << "TestFixture setup-up start." << std::endl;
+
     // The following is enough to bootstrap the values set in main
     eeconfig_init_quantum();
     eeconfig_update_debug(debug_config.raw);
@@ -47,13 +50,16 @@ void TestFixture::SetUpTestCase() {
     TestDriver driver;
     EXPECT_CALL(driver, send_keyboard_mock(_));
     keyboard_init();
+
+    test_logger.info() << "TestFixture setup-up end." << std::endl;
 }
 
 void TestFixture::TearDownTestCase() {}
 
-TestFixture::TestFixture() { current_test_fixture = this; }
+TestFixture::TestFixture() { m_this = this; }
 
 TestFixture::~TestFixture() {
+    test_logger.info() << "TestFixture clean-up start." << std::endl;
     TestDriver driver;
 
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(2);
@@ -81,7 +87,11 @@ TestFixture::~TestFixture() {
     idle_for(TAPPING_TERM * 10);
     testing::Mock::VerifyAndClearExpectations(&driver);
 
-    current_test_fixture = nullptr;
+    m_this = nullptr;
+
+    test_logger.info() << "TestFixture clean-up end." << std::endl;
+
+    print_test_log();
 }
 
 void TestFixture::add_key(KeymapKey key) {

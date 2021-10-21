@@ -26,7 +26,8 @@ $(TEST)_SRC= \
 	tests/test_common/test_driver.cpp \
 	tests/test_common/keyboard_report_util.cpp \
 	tests/test_common/test_fixture.cpp\
-	tests/test_common/test_keymap_key.cpp
+	tests/test_common/test_keymap_key.cpp\
+	tests/test_common/test_logger.cpp
 $(TEST)_SRC += $(patsubst $(ROOTDIR)/%,%,$(wildcard $(TEST_PATH)/*.cpp))
 
 $(TEST)_DEFS=$(TMK_COMMON_DEFS) $(OPT_DEFS)
