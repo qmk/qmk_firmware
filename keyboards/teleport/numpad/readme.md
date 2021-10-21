@@ -1,7 +1,5 @@
 # The Teleport NumPad
 
-The NumPad is, as the name says, a PCB for a custom NumPad, designed by The Teleport.
-
 Keyboard Maintainer: [ebastler](https://github.com/ebastler)  
 Hardware Supported: Teleport NumPad  
 Hardware Availability: [TheTeleport.de](https://www.theteleport.de/)
