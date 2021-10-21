@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "i2c_master.h"
 #include "shift_register.h"
 
-#include "./usb/usb2422.h"
+#include "./usb/usb_hub.h"
 
 #ifndef MD_BOOTLOADER
 

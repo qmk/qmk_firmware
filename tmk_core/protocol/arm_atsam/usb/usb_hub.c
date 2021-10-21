@@ -16,24 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "arm_atsam_protocol.h"
+#include "drivers/usb2422.h"
 #include <string.h>
-
-Usb2422       USB2422_shadow;
-unsigned char i2c0_buf[34];
-
-const uint16_t MFRNAME[] = {'M', 'a', 's', 's', 'd', 'r', 'o', 'p', ' ', 'I', 'n', 'c', '.'};  // Massdrop Inc.
-const uint16_t PRDNAME[] = {'M', 'a', 's', 's', 'd', 'r', 'o', 'p', ' ', 'H', 'u', 'b'};       // Massdrop Hub
-#ifndef MD_BOOTLOADER
-// Serial number reported stops before first found space character or at last found character
-const uint16_t SERNAME[] = {'U', 'n', 'a', 'v', 'a', 'i', 'l', 'a', 'b', 'l', 'e'};  // Unavailable
-#else
-// In production, this field is found, modified, and offset noted as the last 32-bit word in the bootloader space
-// The offset allows the application to use the factory programmed serial (which may differ from the physical serial label)
-// Serial number reported stops before first found space character or when max size is reached
-__attribute__((__aligned__(4))) const uint16_t SERNAME[BOOTLOADER_SERIAL_MAX_SIZE] = {'M', 'D', 'H', 'U', 'B', 'B', 'O', 'O', 'T', 'L', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'};
-// NOTE: Serial replacer will not write a string longer than given here as a precaution, so give enough
-//      space as needed and adjust BOOTLOADER_SERIAL_MAX_SIZE to match amount given
-#endif  // MD_BOOTLOADER
 
 uint8_t usb_host_port;
 
@@ -47,29 +31,7 @@ uint8_t usb_gcr_auto;
 
 uint16_t adc_extra;
 
-void USB_write2422_block(void) {
-    unsigned char *dest = i2c0_buf;
-    unsigned char *src;
-    unsigned char *base = (unsigned char *)&USB2422_shadow;
-
-    DBGC(DC_USB_WRITE2422_BLOCK_BEGIN);
-
-    for (src = base; src < base + 256; src += 32) {
-        dest[0] = src - base;
-        dest[1] = 32;
-        memcpy(&dest[2], src, 32);
-        i2c0_transmit(USB2422_ADDR, dest, 34, 50000);
-        SERCOM0->I2CM.CTRLB.bit.CMD = 0x03;
-        while (SERCOM0->I2CM.SYNCBUSY.bit.SYSOP) {
-            DBGC(DC_USB_WRITE2422_BLOCK_SYNC_SYSOP);
-        }
-        wait_us(100);
-    }
-
-    DBGC(DC_USB_WRITE2422_BLOCK_COMPLETE);
-}
-
-void USB2422_init(void) {
+void USB_Hub_init(void) {
     Gclk *   pgclk = GCLK;
     Mclk *   pmclk = MCLK;
     Port *   pport = PORT;
@@ -147,9 +109,7 @@ void USB2422_init(void) {
     pusb->DEVICE.QOSCTRL.bit.DQOS = 2;
     pusb->DEVICE.QOSCTRL.bit.CQOS = 2;
 
-    pport->Group[USB2422_HUB_ACTIVE_GROUP].PINCFG[USB2422_HUB_ACTIVE_PIN].bit.INEN = 1;
-
-    i2c0_init();  // IC2 clk must be high at USB2422 reset release time to signal SMB configuration
+    USB2422_init();
 
     sr_exp_data.bit.HUB_CONNECT = 1;  // connect signal
     sr_exp_data.bit.HUB_RESET_N = 1;  // reset high
@@ -181,62 +141,16 @@ void USB_reset(void) {
 }
 
 void USB_configure(void) {
-    Usb2422 *pusb2422 = &USB2422_shadow;
-    memset(pusb2422, 0, sizeof(Usb2422));
-
-    uint16_t *serial_use    = (uint16_t *)SERNAME;                 // Default to use SERNAME from this file
-    uint8_t   serial_length = sizeof(SERNAME) / sizeof(uint16_t);  // Default to use SERNAME from this file
-#ifndef MD_BOOTLOADER
-    uint32_t serial_ptrloc = (uint32_t)&_srom - 4;
-#else                                                      // MD_BOOTLOADER
-    uint32_t serial_ptrloc = (uint32_t)&_erom - 4;
-#endif                                                     // MD_BOOTLOADER
-    uint32_t serial_address = *(uint32_t *)serial_ptrloc;  // Address of bootloader's serial number if available
-
     DBGC(DC_USB_CONFIGURE_BEGIN);
 
-    if (serial_address != 0xFFFFFFFF && serial_address < serial_ptrloc)  // Check for factory programmed serial address
-    {
-        if ((serial_address & 0xFF) % 4 == 0)  // Check alignment
-        {
-            serial_use    = (uint16_t *)(serial_address);
-            serial_length = 0;
-            while ((*(serial_use + serial_length) > 32 && *(serial_use + serial_length) < 127) && serial_length < BOOTLOADER_SERIAL_MAX_SIZE) {
-                serial_length++;
-                DBGC(DC_USB_CONFIGURE_GET_SERIAL);
-            }
-        }
-    }
-
-    // configure Usb2422 registers
-    pusb2422->VID.reg               = 0x04D8;  // from Microchip 4/19/2018
-    pusb2422->PID.reg               = 0xEEC5;  // from Microchip 4/19/2018 = Massdrop, Inc. USB Hub
-    pusb2422->DID.reg               = 0x0101;  // BCD 01.01
-    pusb2422->CFG1.bit.SELF_BUS_PWR = 1;       // self powered for now
-    pusb2422->CFG1.bit.HS_DISABLE   = 1;       // full or high speed
-    // pusb2422->CFG2.bit.COMPOUND = 0; // compound device
-    pusb2422->CFG3.bit.STRING_EN = 1;  // strings enabled
-    // pusb2422->NRD.bit.PORT2_NR = 0; // MCU is non-removable
-    pusb2422->MAXPB.reg = 20;  // 0mA
-    pusb2422->HCMCB.reg = 20;  // 0mA
-    pusb2422->MFRSL.reg = sizeof(MFRNAME) / sizeof(uint16_t);
-    pusb2422->PRDSL.reg = sizeof(PRDNAME) / sizeof(uint16_t);
-    pusb2422->SERSL.reg = serial_length;
-    memcpy(pusb2422->MFRSTR, MFRNAME, sizeof(MFRNAME));
-    memcpy(pusb2422->PRDSTR, PRDNAME, sizeof(PRDNAME));
-    memcpy(pusb2422->SERSTR, serial_use, serial_length * sizeof(uint16_t));
-    // pusb2422->BOOSTUP.bit.BOOST=3;    //upstream port
-    // pusb2422->BOOSTDOWN.bit.BOOST1=0; // extra port
-    // pusb2422->BOOSTDOWN.bit.BOOST2=2; //MCU is close
-    pusb2422->STCD.bit.USB_ATTACH = 1;
-    USB_write2422_block();
+    USB2422_configure();
 
     adc_extra = 0;
 
     DBGC(DC_USB_CONFIGURE_COMPLETE);
 }
 
-uint16_t USB_active(void) { return (PORT->Group[USB2422_HUB_ACTIVE_GROUP].IN.reg & (1 << USB2422_HUB_ACTIVE_PIN)) != 0; }
+uint16_t USB_active(void) { return USB2422_active(); }
 
 void USB_set_host_by_voltage(void) {
     // UP is upstream device (HOST)
@@ -314,7 +228,7 @@ void USB_set_host_by_voltage(void) {
     DBGC(DC_USB_SET_HOST_BY_VOLTAGE_COMPLETE);
 }
 
-uint8_t USB2422_Port_Detect_Init(void) {
+uint8_t USB_Hub_Port_Detect_Init(void) {
     uint32_t port_detect_retry_ms;
     uint32_t tmod;
 
