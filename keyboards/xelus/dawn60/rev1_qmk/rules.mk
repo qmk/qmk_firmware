@@ -13,9 +13,9 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
-MOUSEKEY_ENABLE = no        # Mouse keys
-EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = yes        # Console for debug
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes        # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
@@ -29,12 +29,15 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. - We have custom RGB
 RGB_MATRIX_ENABLE = yes     # Enable RGB matrix effects.
 RGB_MATRIX_DRIVER = custom  # Enable RGB matrix effects.
 
+CUSTOM_MATRIX = lite
+
 COMMON_VPATH += $(DRIVER_PATH)/issi
 
 # project specific files
 SRC +=  drivers/led/issi/is31fl3731.c \
+        matrix.c \
         ws2812.c
 
-QUANTUM_LIB_SRC += i2c_master.c 
+QUANTUM_LIB_SRC += i2c_master.c
 
 LTO_ENABLE = yes

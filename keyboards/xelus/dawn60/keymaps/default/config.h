@@ -1,5 +1,8 @@
 #pragma once
 
+#define USB_POLLING_INTERVAL_MS 1
+#define QMK_KEYS_PER_SCAN 4
+
 /* enable/disable LEDs based on layout */
 // switch between split backspace (1) or normal backspace(0)
 #undef RGB_BACKLIGHT_USE_SPLIT_BACKSPACE

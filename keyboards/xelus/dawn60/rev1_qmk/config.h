@@ -28,7 +28,7 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
-//underglow
+// underglow
 #define MATRIX_ROW_PINS { B1, B3, F1, F6, F7 }
 #define MATRIX_COL_PINS { B0, D5, B2, F5, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
 #define UNUSED_PINS
@@ -59,7 +59,10 @@
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL + WS2812_LED_TOTAL)
 
 #define RGB_MATRIX_STARTUP_VAL 80
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
+#define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
 
 // enable/disable LEDs based on layout
 // switch between split backspace (1) or normal backspace(0)
