@@ -69,8 +69,11 @@ CSTANDARD = -std=gnu99
 #CXXDEFS += -D__STDC_CONSTANT_MACROS
 #CXXDEFS +=
 
-
-
+# Speed up recompilations by opt-in usage of ccache
+USE_CCACHE ?= yes
+ifneq ($(USE_CCACHE),no)
+    CC_PREFIX ?= ccache
+endif
 
 #---------------- Compiler Options C ----------------
 #  -g*:          generate debugging information
