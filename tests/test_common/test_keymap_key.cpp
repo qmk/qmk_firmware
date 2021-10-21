@@ -1,4 +1,4 @@
-/* Copyright 2017 Fred Sundvik
+/* Copyright 2021 Stefan Kerkmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,9 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "test_keymap_key.hpp"
 
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 10
-#define ONESHOT_TIMEOUT 5000
-#define ONESHOT_TAP_TOGGLE 5
+void KeymapKey::press() { press_key(this->position.col, this->position.row); }
+void KeymapKey::release() { release_key(this->position.col, this->position.row); }
