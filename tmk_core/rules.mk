@@ -70,7 +70,7 @@ CSTANDARD = -std=gnu99
 #CXXDEFS +=
 
 # Speed up recompilations by opt-in usage of ccache
-USE_CCACHE ?= yes
+USE_CCACHE ?= no
 ifneq ($(USE_CCACHE),no)
     CC_PREFIX ?= ccache
 endif
