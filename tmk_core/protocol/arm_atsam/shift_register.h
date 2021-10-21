@@ -15,28 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _SPI_H_
-#define _SPI_H_
+#pragma once
 
-/* Macros for Shift Register control */
-#define SR_EXP_RCLK_LO PORT->Group[SR_EXP_RCLK_PORT].OUTCLR.reg = (1 << SR_EXP_RCLK_PIN)
-#define SR_EXP_RCLK_HI PORT->Group[SR_EXP_RCLK_PORT].OUTSET.reg = (1 << SR_EXP_RCLK_PIN)
-#define SR_EXP_OE_N_ENA PORT->Group[SR_EXP_OE_N_PORT].OUTCLR.reg = (1 << SR_EXP_OE_N_PIN)
-#define SR_EXP_OE_N_DIS PORT->Group[SR_EXP_OE_N_PORT].OUTSET.reg = (1 << SR_EXP_OE_N_PIN)
-
-/* Determine bits to set for mux selection */
-#if SR_EXP_DATAOUT_PIN % 2 == 0
-#    define SR_EXP_DATAOUT_MUX_SEL PMUXE
-#else
-#    define SR_EXP_DATAOUT_MUX_SEL PMUXO
-#endif
-
-/* Determine bits to set for mux selection */
-#if SR_EXP_SCLK_PIN % 2 == 0
-#    define SR_EXP_SCLK_MUX_SEL PMUXE
-#else
-#    define SR_EXP_SCLK_MUX_SEL PMUXO
-#endif
+#include <stdint.h>
 
 /* Data structure to define Shift Register output expander hardware */
 /* This structure gets shifted into registers LSB first */
@@ -66,5 +47,3 @@ extern sr_exp_t sr_exp_data;
 
 void SR_EXP_WriteData(void);
 void SR_EXP_Init(void);
-
-#endif  //_SPI_H_

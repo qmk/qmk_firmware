@@ -49,22 +49,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* This Shift Register expands available hardware output lines to control additional peripherals */
 /* It uses four lines from the MCU to provide 16 output lines */
 /* Shift Register Clock configuration (MCU to ShiftRegister.RCLK) */
-#define SR_EXP_RCLK_PORT            PB
-#define SR_EXP_RCLK_PIN             14
+#define SR_EXP_RCLK_PIN          B14
 /* Shift Register Output Enable configuration (MCU to ShiftRegister.OE_N) */
-#define SR_EXP_OE_N_PORT            PB
-#define SR_EXP_OE_N_PIN             15
+#define SR_EXP_OE_PIN            B15
 /* SERCOM port to use for Shift Register SPI */
 /* DATAOUT and SCLK must be configured to use hardware pins of this port */
-#define SR_EXP_SERCOM               SERCOM2
+#define SPI_SERCOM               SERCOM2
 /* Shift Register SPI Data Out configuration (MCU.SERCOMx.PAD[0] to ShiftRegister.SER) */
-#define SR_EXP_DATAOUT_PORT         PA
-#define SR_EXP_DATAOUT_PIN          12
-#define SR_EXP_DATAOUT_MUX          2
+#define SPI_DATAOUT_PIN          A12
+#define SPI_DATAOUT_MUX          2
 /* Shift Register SPI Serial Clock configuration (MCU.SERCOMx.PAD[1] to ShiftRegister.SRCLK) */
-#define SR_EXP_SCLK_PORT            PA
-#define SR_EXP_SCLK_PIN             13
-#define SR_EXP_SCLK_MUX             2
+#define SPI_SCLK_PIN             A13
+#define SPI_SCLK_MUX             2
 
 /* Debug LED (Small LED Located near MCU) */
 #define DEBUG_LED_ENABLE            1

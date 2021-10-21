@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "adc.h"
 #include "i2c_master.h"
-#include "spi.h"
+#include "shift_register.h"
 
 #include "./usb/usb2422.h"
 
