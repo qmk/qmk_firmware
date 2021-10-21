@@ -14,17 +14,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "test_keymap_key.hpp"
+#include <iostream>
 #include "test_logger.hpp"
-#include "gtest/gtest-message.h"
-#include "gtest/gtest.h"
 
-void KeymapKey::press() {
-    test_logger.trace() << "Key pressed:  (" << +this->position.col << "," << +this->position.row << ")" << std::endl;
-    press_key(this->position.col, this->position.row);
+TestLogger test_logger;
+
+TestLogger& TestLogger::info() {
+    *this << "[ INFO     ] ";
+    return *this;
 }
 
-void KeymapKey::release() {
-    test_logger.trace() << "Key released: (" << +this->position.col << "," << +this->position.row << ")" << std::endl;
-    release_key(this->position.col, this->position.row);
+TestLogger& TestLogger::trace() {
+    *this << "[ TRACE    ] ";
+    return *this;
 }
+
+TestLogger& TestLogger::error() {
+    *this << "[ ERROR    ] ";
+    return *this;
+}
+
+void TestLogger::reset() { this->m_log.str(""); };
+
+void TestLogger::print_log() { std::cerr << this->m_log.str(); }
