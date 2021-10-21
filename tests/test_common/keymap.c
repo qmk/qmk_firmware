@@ -14,9 +14,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "quantum.h"
 
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 10
-#define ONESHOT_TIMEOUT 5000
-#define ONESHOT_TAP_TOGGLE 5
+// clang-format off
+
+const uint16_t PROGMEM
+               keymaps[][MATRIX_ROWS][MATRIX_COLS] =
+        {
+            [0] =
+                {
+                   {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+                   {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+                   {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+                   {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+                },
+};
+
+// clang-format on
