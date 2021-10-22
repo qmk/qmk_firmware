@@ -14,7 +14,7 @@ ifneq ($(findstring MKL26Z64, $(MCU)),)
   MCU_SERIES = KL2x
 
   # Linker script to use
-  # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
   MCU_LDSCRIPT ?= MKL26Z64
 
@@ -41,7 +41,7 @@ ifneq ($(findstring MK20DX128, $(MCU)),)
   MCU_SERIES = K20x
 
   # Linker script to use
-  # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
   MCU_LDSCRIPT ?= MK20DX128
 
@@ -68,7 +68,7 @@ ifneq ($(findstring MK20DX256, $(MCU)),)
   MCU_SERIES = K20x
 
   # Linker script to use
-  # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
   MCU_LDSCRIPT ?= MK20DX256
 
@@ -95,7 +95,7 @@ ifneq ($(findstring MK66F18, $(MCU)),)
   MCU_SERIES = MK66F18
 
   # Linker script to use
-  # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
   MCU_LDSCRIPT ?= MK66FX1M0
 
@@ -357,7 +357,6 @@ ifneq ($(findstring STM32F446, $(MCU)),)
 
   # Linker script to use
   # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
-  #   or <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
   #   or <keyboard_dir>/ld/
   MCU_LDSCRIPT ?= STM32F446xE
 
