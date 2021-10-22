@@ -26,6 +26,7 @@ endif
 ifeq ($(strip $(KEYBOARD)), tkc/osav2)
   SRC += rgblight_layers_osa.c
   VELOCIKEY_ENABLE=yes
+  SRC += rgb_timeout.c
 endif
 ifeq ($(strip $(KEYBOARD)), boardsource/the_mark)
   RGB_MATRIX_ENABLE = yes
