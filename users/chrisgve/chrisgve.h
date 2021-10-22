@@ -77,6 +77,8 @@ enum default_layers {
 #define CPS_CTL     CTL_T(KC_CAPS)
 #define ADJUST      MO(_ADJUST)
 #define CONFIG      MO(_CONFIG)
+#define LOWER       MO(_LOWER)
+#define RAISE       MO(_RAISE)
 #define TMUX        LT(_TMUX, KC_SCLN)
 #define VIM         LT(_VIM, KC_V)
 #define S_SHIFT     SFT_T(KC_S)
@@ -85,9 +87,13 @@ enum default_layers {
 #define QUT_SFT     RSFT_T(KC_QUOT)
 #define END_FN      LT(_ADJUST, KC_END) // Useful for 65% without FN
 #define SPC_FN      LT(_ADJUST, KC_SPC)
+#define SPC_VIM     LT(_VIM, KC_SPC)
+#define SPC_LWR     LT(_RAISE, KC_SPC)
+#define SPC_RSE     LT(_LOWER, KC_SPC)
 
 #define L_MOD       LT(_FN, KC_SPC) // for split space bar, left bar
-#define R_MOD       RCTL_T(KC_SPC)  // for split space bar, right bar
+#define R_MOD       LT(_FN, KC_SPC) // for split space bar, right bar
+//#define R_MOD       RCTL_T(KC_SPC)  // for split space bar, right bar
 
 #define DF_MAC      DF(_QWERTY_MAC)
 #define DF_WIN      DF(_QWERTY_WIN)
