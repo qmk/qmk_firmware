@@ -16,16 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-typedef union {
-  uint32_t raw;
-  struct {
-    bool top_rgb_change :1;
-    bool bottom_rgb_change :1;
-  };
-} user_config_t;
-
-user_config_t user_config;
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[0] = LAYOUT(
@@ -60,69 +50,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 };
-
-void keyboard_post_init_user(void) {
-  // Read the user config from EEPROM
-  user_config.raw = eeconfig_read_user();
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_F23:
-      if (record->event.pressed) {
-        // Do something when pressed
-        user_config.top_rgb_change ^= 1; // Toggles the status
-        eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
-      } else {
-        // Do something else when release
-      }
-      return false; // Skip all further processing of this key
-    case KC_F24:
-      if (record->event.pressed) {
-        // Do something when pressed
-        user_config.bottom_rgb_change ^= 1; // Toggles the status
-        eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
-      } else {
-        // Do something else when release
-      }
-      return false; // Skip all further processing of this key
-    default:
-      return true; // Process all other keycodes normally
-  }
-}
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) {
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
-    }
-  }
-  return true;
-}
-#endif
-
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-
-    if (user_config.top_rgb_change)
-    {
-        for (size_t i = 16; i < 83; i++)
-        {
-            RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0);
-        }
-    }
-
-    if (host_keyboard_led_state().caps_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(52, 0, 255, 255); // assuming caps lock is at led #5
-    }
-
-    if (user_config.bottom_rgb_change)
-    {
-        for (size_t i = 0; i < 16; i++)
-        {
-            RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0);
-        }
-    }
-}
