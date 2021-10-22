@@ -15,7 +15,7 @@
 
     },
     "debounce": 5,
-    "processor": "Atmega32U4",
+    "processor": "atmega32u4",
     "rgblight": {
         "led_count": 48,
         "pin": "B2",
