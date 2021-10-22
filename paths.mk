@@ -1,5 +1,3 @@
-include message.mk
-
 # Directory common source files exist
 TOP_DIR = .
 TMK_DIR = tmk_core
@@ -14,6 +12,9 @@ DRIVER_PATH = $(DRIVER_DIR)
 
 PLATFORM_DIR = platforms
 PLATFORM_PATH = $(PLATFORM_DIR)
+
+BUILDDEFS_DIR = builddefs
+BUILDDEFS_PATH = $(BUILDDEFS_DIR)
 
 BUILD_DIR := .build
 
