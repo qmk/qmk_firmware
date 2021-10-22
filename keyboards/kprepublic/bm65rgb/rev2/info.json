@@ -2,8 +2,6 @@
     "keyboard_name": "bm65rgb",
     "url": "",
     "maintainer": "bytesapart",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [
