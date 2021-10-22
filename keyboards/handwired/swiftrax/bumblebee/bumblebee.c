@@ -17,7 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bumblebee.h"
 
 // Encoder
-bool encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise))
+        return false;
     if (clockwise)
         tap_code16(KC_VOLU);
     else
@@ -50,5 +52,5 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     } else{
         rgblight_setrgb_at(0, 0, 0, 2);
     }
-    return state;
+    return layer_state_set_user(state);
 }
