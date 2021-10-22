@@ -22,8 +22,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY_MAC] = LAYOUT(
         KC_GESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         CPS_CTL, KC_A,    KC_S,    M_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,             KC_ENT,
-        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-        KC_TAB,  KC_LALT, KC_LGUI,                   SPC_LWR, SPC_RSE,           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  SLS_SFT,
+        KC_TAB,  KC_LALT, KC_LGUI,                   SPC_LWR, SPC_RSE,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
 
     [_MAC_NAV_1] = LAYOUT(
@@ -43,8 +43,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY_LINUX] = LAYOUT(
         KC_GESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         CPS_CTL, KC_A,    KC_S,    L_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,             KC_ENT,
-        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-        KC_TAB, KC_LGUI, KC_LALT,                   SPC_LWR, SPC_RSE,           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  SLS_SFT,
+        KC_TAB, KC_LGUI, KC_LALT,                    SPC_LWR, SPC_RSE,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
 
     [_LINUX_NAV_1] = LAYOUT(
@@ -64,8 +64,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY_WIN] = LAYOUT(
         KC_GESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         CPS_CTL, KC_A,    KC_S,    W_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,             KC_ENT,
-        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-        KC_TAB,  KC_LGUI, KC_LALT,                   SPC_LWR, SPC_RSE,           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  SLS_SFT,
+        KC_TAB,  KC_LGUI, KC_LALT,                   SPC_LWR, SPC_RSE,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
 
     [_WIN_NAV_1] = LAYOUT(
@@ -84,16 +84,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT(
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
-        _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC,          KC_RBRC,
+        KC_TAB,  _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC,          KC_RBRC,
         _______,          _______, _______, _______, _______, _______, _______, _______, KC_SCLN, KC_QUOT, KC_BSLS,
         _______, _______, _______,                   _______, _______,          _______, _______, _______, _______
     ),
 
     [_RAISE] = LAYOUT(
         KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-        _______, _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR,          KC_RCBR,
+        KC_TAB,  _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR,          KC_RCBR,
         _______,          _______, _______, _______, _______, _______, _______, _______, KC_COLN, KC_DQUO, KC_PIPE,
-        RESET  , _______, _______,                   _______, _______,          _______, _______, _______, _______
+        _______, _______, _______,                   _______, _______,          _______, _______, _______, _______
     ),
 
     [_CONFIG] = LAYOUT(
@@ -107,42 +107,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 extern rgblight_config_t rgblight_config;
 
-void matrix_init_user(void)
-{
-    rgblight_setrgb(0x00, 0x80, 0xFF);
+void keyboard_post_init_user(void) {
+    // Disable the underglow
+    rgblight_disable();
 }
 
 void led_set_user(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    rgblight_mode_noeeprom(1);
+    rgblight_enable();
     rgblight_setrgb(0xFF, 0xFF, 0xFF);
   } else {
-    rgblight_setrgb(0x00, 0x80, 0xFF);
+    rgblight_disable();
   }
 }
+
+bool lower_layer_state = false;
+bool raise_layer_state = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SPC_LWR:
             if (record->event.pressed) {
-                layer_on(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _CONFIG);
+                lower_layer_state = true;
             } else {
-                layer_off(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _CONFIG);
+                lower_layer_state = false;
             }
-            return false;
             break;
         case SPC_RSE:
             if (record->event.pressed) {
-                layer_on(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _CONFIG);
+                raise_layer_state = true;
             } else {
-                layer_off(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _CONFIG);
+                raise_layer_state = false;
             }
-            return false;
             break;
+    }
+    if (lower_layer_state & raise_layer_state) {
+        layer_on(_CONFIG);
+    } else {
+        layer_off(_CONFIG);
     }
     return true;
 };
