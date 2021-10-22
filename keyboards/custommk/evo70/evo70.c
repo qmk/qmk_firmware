@@ -36,9 +36,6 @@ uint8_t num_enc_modes = 8;
 uint16_t enc_cw[] =  { KC_VOLU, KC_MEDIA_NEXT_TRACK, 0, 0, 0, 0, 0, KC_WH_D };
 uint16_t enc_ccw[] = { KC_VOLD, KC_MEDIA_PREV_TRACK, 0, 0, 0, 0, 0, KC_WH_U };
 
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
 
 __attribute__((weak)) void set_custom_encoder_mode_user(bool custom_encoder_mode) {}
 
@@ -96,9 +93,3 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 	}
 	return true;
 }
-	
-
-void matrix_scan_kb(void) {
-	matrix_scan_user();
-}
-
