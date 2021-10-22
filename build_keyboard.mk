@@ -32,20 +32,6 @@ endif
 #     this an empty or blank macro!
 KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
-# For split boards we need to set a master half.
-MASTER ?= left
-ifdef master
-    MASTER = $(master)
-endif
-
-ifeq ($(MASTER),right)
-    OPT_DEFS += -DMASTER_IS_ON_RIGHT
-else
-    ifneq ($(MASTER),left)
-$(error MASTER does not have a valid value(left/right))
-    endif
-endif
-
 ifdef SKIP_VERSION
     OPT_DEFS += -DSKIP_VERSION
 endif
