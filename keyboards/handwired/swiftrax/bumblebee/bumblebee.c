@@ -15,3 +15,40 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "bumblebee.h"
+
+// Encoder
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (clockwise)
+        tap_code16(KC_VOLU);
+    else
+        tap_code16(KC_VOLD);
+    return true;
+}
+
+// Initialize all RGB indicators to 'off'
+__attribute__((weak))
+void keyboard_post_init_user(void) {
+    rgblight_setrgb_at(0, 0, 0, 0); // [..., 0] = top LED
+    rgblight_setrgb_at(0, 0, 0, 1); // [..., 1] = middle LED
+    rgblight_setrgb_at(0, 0, 0, 2); // [..., 2] = bottom LED
+}
+
+// RGB Layer Indicators
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    if (get_highest_layer(state) == 0) {
+        rgblight_setrgb_at(255, 0, 0, 0); //red
+    } else {
+        rgblight_setrgb_at(0, 0, 0, 0);
+    }
+    if (get_highest_layer(state) == 1){
+        rgblight_setrgb_at(0, 0, 255, 1); //green
+    } else{
+        rgblight_setrgb_at(0, 0, 0, 1);
+    }
+    if (get_highest_layer(state) == 2){
+        rgblight_setrgb_at(0, 255, 0, 2); //blue
+    } else{
+        rgblight_setrgb_at(0, 0, 0, 2);
+    }
+    return state;
+}
