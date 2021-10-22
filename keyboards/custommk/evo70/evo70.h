@@ -17,7 +17,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "timer.h"
 
 #define LAYOUT_default( \
 			      K11,   K61,   K12,   K13, K14, K15, K16, K17, K18,  K19, K1A, K1B,  K1C, K1D, K1E, \
