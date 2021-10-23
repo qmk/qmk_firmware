@@ -6,9 +6,9 @@
 
 A 4x4 keypad 
 
-* Keyboard Maintainer: [Richard Snijder](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Richard Snijder](https://github.com/rich239)
+* Hardware Supported: Atmel 32u4 based keypads
+
 
 Make example for this keyboard (after setting up your build environment):
 
