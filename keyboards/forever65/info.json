@@ -21,8 +21,6 @@
         "mousekey": true,
         "nkro": true
     },
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

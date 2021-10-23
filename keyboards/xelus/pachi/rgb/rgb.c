@@ -23,8 +23,8 @@ void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
 
 #ifdef RGB_MATRIX_ENABLE
 #include <i2c_master.h>
-#include "drivers/issi/is31fl3741.h"
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+#include "drivers/led/issi/is31fl3741.h"
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -228,7 +228,11 @@ static void init(void) {
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
 }
 
-static void flush(void) { IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_2); }
+static void flush(void) {
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    // Just for reference. Only first driver is used? 
+    // IS31FL3741_update_pwm_buffers(DRIVER_ADDR_2, 1);
+}
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,

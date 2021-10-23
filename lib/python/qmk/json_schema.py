@@ -2,6 +2,7 @@
 """
 import json
 from collections.abc import Mapping
+from functools import lru_cache
 from pathlib import Path
 
 import hjson
@@ -17,16 +18,21 @@ def json_load(json_file):
     try:
         return hjson.load(json_file.open(encoding='utf-8'))
 
-    except json.decoder.JSONDecodeError as e:
+    except (json.decoder.JSONDecodeError, hjson.HjsonDecodeError) as e:
         cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
+        exit(1)
+    except Exception as e:
+        cli.log.error('Unknown error attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
         exit(1)
 
 
+@lru_cache(maxsize=0)
 def load_jsonschema(schema_name):
     """Read a jsonschema file from disk.
-
-    FIXME(skullydazed/anyone): Refactor to make this a public function.
     """
+    if Path(schema_name).exists():
+        return json_load(schema_name)
+
     schema_path = Path(f'data/schemas/{schema_name}.jsonschema')
 
     if not schema_path.exists():
@@ -35,28 +41,42 @@ def load_jsonschema(schema_name):
     return json_load(schema_path)
 
 
-def keyboard_validate(data):
-    """Validates data against the keyboard jsonschema.
+@lru_cache(maxsize=0)
+def compile_schema_store():
+    """Compile all our schemas into a schema store.
     """
-    schema = load_jsonschema('keyboard')
-    validator = jsonschema.Draft7Validator(schema).validate
+    schema_store = {}
 
-    return validator(data)
+    for schema_file in Path('data/schemas').glob('*.jsonschema'):
+        schema_data = load_jsonschema(schema_file)
+        if not isinstance(schema_data, dict):
+            cli.log.debug('Skipping schema file %s', schema_file)
+            continue
+        schema_store[schema_data['$id']] = schema_data
+
+    return schema_store
 
 
-def keyboard_api_validate(data):
-    """Validates data against the api_keyboard jsonschema.
+@lru_cache(maxsize=0)
+def create_validator(schema):
+    """Creates a validator for the given schema id.
     """
-    base = load_jsonschema('keyboard')
-    relative = load_jsonschema('api_keyboard')
-    resolver = jsonschema.RefResolver.from_schema(base)
-    validator = jsonschema.Draft7Validator(relative, resolver=resolver).validate
+    schema_store = compile_schema_store()
+    resolver = jsonschema.RefResolver.from_schema(schema_store['qmk.keyboard.v1'], store=schema_store)
+
+    return jsonschema.Draft7Validator(schema_store[schema], resolver=resolver).validate
+
+
+def validate(data, schema):
+    """Validates data against a schema.
+    """
+    validator = create_validator(schema)
 
     return validator(data)
 
 
 def deep_update(origdict, newdict):
-    """Update a dictionary in place, recursing to do a deep copy.
+    """Update a dictionary in place, recursing to do a depth-first deep copy.
     """
     for key, value in newdict.items():
         if isinstance(value, Mapping):
