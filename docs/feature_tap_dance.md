@@ -393,6 +393,9 @@ void altlp_finished(qk_tap_dance_state_t *state, void *user_data) {
         case TD_DOUBLE_SINGLE_TAP: // Allow nesting of 2 parens `((` within tapping term
             tap_code16(KC_LPRN);
             register_code16(KC_LPRN);
+            break;
+        default:
+            break;
     }
 }
 
@@ -406,6 +409,9 @@ void altlp_reset(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case TD_DOUBLE_SINGLE_TAP:
             unregister_code16(KC_LPRN);
+            break;
+        default:
+            break;
     }
 }
 
