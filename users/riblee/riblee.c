@@ -190,7 +190,19 @@ void oled_task_user(void) {
 
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
+            if (layer_state_cmp(default_layer_state, _QWERTY)) {
+                oled_write_P(PSTR("Qwerty\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _COLEMAK)) {
+                oled_write_P(PSTR("Colmak\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _DVORAK)) {
+                oled_write_P(PSTR("Dvorak\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _WORKMAN)) {
+                oled_write_P(PSTR("Workman\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _HUNGARIAN)) {
+                oled_write_P(PSTR("HUN Qwerty\n"), false);
+            } else {
+                oled_write_P(PSTR("Undefined\n"), false);
+            }
             break;
         case _LOWER:
             oled_write_P(PSTR("Lower\n"), false);
