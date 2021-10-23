@@ -245,7 +245,7 @@ static void render_anim(void) {
             animation_phase();
         }
         if(timer_elapsed(anim_sleep) > SLEEP_TIMER) {
-            oled_off();
+//            oled_off();
         }
     }
 }
