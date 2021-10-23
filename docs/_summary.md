@@ -77,6 +77,7 @@
     * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
   * Software Features
+    * [Adaptive Keys](feature_adaptive_keys.md)
     * [Auto Shift](feature_auto_shift.md)
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
