@@ -204,46 +204,67 @@ If you're having issues with serial communication, you can change this value, as
 This sets the maximum number of milliseconds before forcing a synchronization of data from master to slave. Under normal circumstances this sync occurs whenever the data _changes_, for safety a data transfer occurs after this number of milliseconds if no change has been detected since the last sync. 
 
 ```c
+#define SPLIT_MAX_CONNECTION_ERRORS 10
+```
+This sets the maximum number of failed communication attempts (one per scan cycle) from the master part before it assumes that no slave part is connected. This makes it possible to use a master part without the slave part connected.
+
+Set to 0 to disable the disconnection check altogether.
+
+```c
+#define SPLIT_CONNECTION_CHECK_TIMEOUT 500
+```
+How long (in milliseconds) the master part should block all connection attempts to the slave after the communication has been flagged as disconnected (see `SPLIT_MAX_CONNECTION_ERRORS` above).
+
+One communication attempt will be allowed everytime this amount of time has passed since the last attempt. If that attempt succeeds, the communication is seen as working again.
+
+Set to 0 to disable this throttling of communications while disconnected. This can save you a couple of bytes of firmware size.
+
+
+### Data Sync Options
+
+The following sync options add overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. These can be enabled by adding the chosen option(s) to your `config.h` file.
+
+```c
 #define SPLIT_TRANSPORT_MIRROR
 ```
 
-This mirrors the master side matrix to the slave side for features that react or require knowledge of master side key presses on the slave side. The purpose of this feature is to support cosmetic use of key events (e.g. RGB reacting to keypresses). This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This mirrors the master side matrix to the slave side for features that react or require knowledge of master side key presses on the slave side. The purpose of this feature is to support cosmetic use of key events (e.g. RGB reacting to keypresses).
 
 ```c
 #define SPLIT_LAYER_STATE_ENABLE
 ```
 
-This enables syncing of the layer state between both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the currently active layer. This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables syncing of the layer state between both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the currently active layer.
 
 ```c
 #define SPLIT_LED_STATE_ENABLE
 ```
 
-This enables syncing of the Host LED status (caps lock, num lock, etc) between both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the Host LED status. This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables syncing of the Host LED status (caps lock, num lock, etc) between both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the Host LED status.
 
 ```c
 #define SPLIT_MODS_ENABLE
 ```
 
-This enables transmitting modifier state (normal, weak and oneshot) to the non primary side of the split keyboard. The purpose of this feature is to support cosmetic use of modifer state (e.g. displaying status on an OLED screen). This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables transmitting modifier state (normal, weak and oneshot) to the non primary side of the split keyboard. The purpose of this feature is to support cosmetic use of modifer state (e.g. displaying status on an OLED screen).
 
 ```c
 #define SPLIT_WPM_ENABLE
 ```
 
-This enables transmitting the current WPM to the slave side of the split keyboard. The purpose of this feature is to support cosmetic use of WPM (e.g. displaying the current value on an OLED screen). This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables transmitting the current WPM to the slave side of the split keyboard. The purpose of this feature is to support cosmetic use of WPM (e.g. displaying the current value on an OLED screen).
 
 ```c
 #define SPLIT_OLED_ENABLE
 ```
 
-This enables transmitting the current OLED on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing. This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables transmitting the current OLED on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing.
 
 ```c
 #define SPLIT_ST7565_ENABLE
 ```
 
-This enables transmitting the current ST7565 on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing. This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables transmitting the current ST7565 on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing.
 
 ### Custom data sync between sides :id=custom-data-sync
 

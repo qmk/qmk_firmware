@@ -12,7 +12,7 @@ from qmk.c_parse import c_source_files
 
 c_file_suffixes = ('c', 'h', 'cpp')
 core_dirs = ('drivers', 'quantum', 'tests', 'tmk_core', 'platforms')
-ignored = ('tmk_core/protocol/usb_hid', 'quantum/template', 'platforms/chibios')
+ignored = ('tmk_core/protocol/usb_hid', 'platforms/chibios/boards')
 
 
 def find_clang_format():

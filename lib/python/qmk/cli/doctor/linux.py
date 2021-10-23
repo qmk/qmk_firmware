@@ -82,6 +82,10 @@ def check_udev_rules():
             # dog hunter AG
             _udev_rule("2a03", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Leonardo
             _udev_rule("2a03", "0037", 'ENV{ID_MM_DEVICE_IGNORE}="1"')  # Micro
+        },
+        'hid-bootloader': {
+            _udev_rule("03eb", "2067"),  # QMK HID
+            _udev_rule("16c0", "0478")  # PJRC halfkay
         }
     }
 
@@ -114,10 +118,9 @@ def check_udev_rules():
                     cli.log.warning("{fg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
                 else:
                     # For caterina, check if ModemManager is running
-                    if bootloader == "caterina":
-                        if check_modem_manager():
-                            rc = CheckStatus.WARNING
-                            cli.log.warning("{fg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
+                    if bootloader == "caterina" and check_modem_manager():
+                        cli.log.warning("{fg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
+
                     rc = CheckStatus.WARNING
                     cli.log.warning("{fg_yellow}Missing or outdated udev rules for '%s' boards. Run 'sudo cp %s/util/udev/50-qmk.rules /etc/udev/rules.d/'.", bootloader, QMK_FIRMWARE)
 
@@ -163,6 +166,5 @@ def os_test_linux():
         return CheckStatus.OK
     else:
         cli.log.info("Detected {fg_cyan}Linux{fg_reset}.")
-        from .linux import check_udev_rules
 
         return check_udev_rules()

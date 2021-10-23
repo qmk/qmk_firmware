@@ -7,7 +7,6 @@ SPACE_CADET_ENABLE = no
 ifeq ($(strip $(KEYBOARD)), ergodox_ez)
     RGBLIGHT_ENABLE            = yes
     RGB_MATRIX_ENABLE          = yes
-    RGBLIGHT_TWINKLE           = no
     INDICATOR_LIGHTS           = no
     RGBLIGHT_STARTUP_ANIMATION = yes
     PIMORONI_TRACKBALL_ENABLE  = yes

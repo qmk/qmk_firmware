@@ -23,6 +23,15 @@ KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
 # Force expansion
 TARGET := $(TARGET)
 
+ifneq ($(FORCE_LAYOUT),)
+    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+endif
+
+# Object files and generated keymap directory
+#     To put object files in current directory, use a dot (.), do NOT make
+#     this an empty or blank macro!
+KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
+
 # For split boards we need to set a master half.
 MASTER ?= left
 ifdef master
@@ -100,21 +109,13 @@ MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 
 # Pull in rules from info.json
-INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/rules.mk)
+INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_rules.mk)
 include $(INFO_RULES_MK)
-
-ifneq ($(FORCE_LAYOUT),)
-    TARGET := $(TARGET)_$(FORCE_LAYOUT)
-endif
-
-# Object files and generated keymap directory
-#     To put object files in current directory, use a dot (.), do NOT make
-#     this an empty or blank macro!
-KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
 # Check for keymap.json first, so we can regenerate keymap.c
 include build_json.mk
 
+# Pull in keymap level rules.mk
 ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     # Look through the possible keymap folders until we find a matching keymap.c
     ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
@@ -146,12 +147,35 @@ ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     endif
 endif
 
+# Have we found a keymap.json?
+ifneq ("$(wildcard $(KEYMAP_JSON))", "")
+    KEYMAP_C := $(KEYMAP_OUTPUT)/src/keymap.c
+    KEYMAP_H := $(KEYMAP_OUTPUT)/src/config.h
+
+    # Load the keymap-level rules.mk if exists
+    -include $(KEYMAP_PATH)/rules.mk
+
+    # Load any rules.mk content from keymap.json
+    INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_OUTPUT)/src/rules.mk)
+    include $(INFO_RULES_MK)
+
+# Add rules to generate the keymap files - indentation here is important
+$(KEYMAP_OUTPUT)/src/keymap.c: $(KEYMAP_JSON)
+	$(QMK_BIN) json2c --quiet --output $(KEYMAP_C) $(KEYMAP_JSON)
+
+$(KEYMAP_OUTPUT)/src/config.h: $(KEYMAP_JSON)
+	$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_H)
+
+generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
+
+endif
+
 ifeq ($(strip $(CTPC)), yes)
   CONVERT_TO_PROTON_C=yes
 endif
 
 ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
-    include platforms/chibios/QMK_PROTON_C/convert_to_proton_c.mk
+    include platforms/chibios/boards/QMK_PROTON_C/convert_to_proton_c.mk
 endif
 
 include quantum/mcu_selection.mk
@@ -322,6 +346,7 @@ ifeq ("$(USER_NAME)","")
 endif
 USER_PATH := users/$(USER_NAME)
 
+# Pull in user level rules.mk
 -include $(USER_PATH)/rules.mk
 ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
@@ -333,14 +358,36 @@ endif
 # Disable features that a keyboard doesn't support
 -include disable_features.mk
 
+# Pull in post_rules.mk files from all our subfolders
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_1)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_2)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_3)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_4)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_5)/post_rules.mk
+endif
+
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
 endif
+ifneq ("$(KEYMAP_H)","")
+    CONFIG_H += $(KEYMAP_H)
+endif
 
 # project specific files
-SRC += $(KEYBOARD_SRC) \
+SRC += \
+    $(KEYBOARD_SRC) \
     $(KEYMAP_C) \
-    $(QUANTUM_SRC)
+    $(QUANTUM_SRC) \
+    $(QUANTUM_DIR)/main.c \
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
@@ -352,6 +399,7 @@ VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
 
 include common_features.mk
+include generic_features.mk
 include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
 include bootloader.mk
@@ -382,26 +430,20 @@ PROJECT_DEFS := $(OPT_DEFS)
 PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
 PROJECT_CONFIG := $(CONFIG_H)
 
-ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-    VISUALIZER_DIR = $(QUANTUM_DIR)/visualizer
-    VISUALIZER_PATH = $(QUANTUM_PATH)/visualizer
-    include $(VISUALIZER_PATH)/visualizer.mk
-endif
-
 CONFIG_H += $(POST_CONFIG_H)
 ALL_CONFIGS := $(PROJECT_CONFIG) $(CONFIG_H)
 
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
-$(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) $(GFXDEFS) \
+$(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) \
 -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(QMK_KEYBOARD_H)\" \
 -DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\" \
 -DQMK_SUBPROJECT -DQMK_SUBPROJECT_H -DQMK_SUBPROJECT_CONFIG_H
 $(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
 $(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
-$(KEYBOARD_OUTPUT)_SRC := $(CHIBISRC) $(GFXSRC)
-$(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS) $(GFXDEFS)
-$(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC) $(GFXINC)
+$(KEYBOARD_OUTPUT)_SRC := $(PLATFORM_SRC)
+$(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS)
+$(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC)
 $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.

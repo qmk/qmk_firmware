@@ -1,9 +1,3 @@
-# MCU name
-MCU = at90usb1286
-
-# Bootloader selection
-BOOTLOADER = halfkay
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,7 +12,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 SWAP_HANDS_ENABLE = yes
 
@@ -29,3 +22,5 @@ SPLIT_KEYBOARD = yes
 
 SRC += drivers/sensors/pmw3360.c
 QUANTUM_LIB_SRC += spi_master.c tm_sync.c
+
+DEFAULT_FOLDER = handwired/tractyl_manuform/5x6_right/teensy2pp

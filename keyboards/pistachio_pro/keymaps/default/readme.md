@@ -1,1 +1,1 @@
-# The default keymap for pistachio_mp
+# The default keymap for pistachio_pro

@@ -23,8 +23,8 @@
 #define QMK_KEYS_PER_SCAN 4
 
 /* Force NKRO on boot up */
-#define FORCE_NKRO 
+#define FORCE_NKRO
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define RGB_DISABLE_TIMEOUT 900000

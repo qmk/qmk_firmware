@@ -9,6 +9,8 @@ and this to your `config.h`:
 ```c
 // Connects each switch in the dip switch to the GPIO pin of the MCU
 #define DIP_SWITCH_PINS { B14, A15, A10, B9 }
+// For split keyboards, you can separately define the right side pins
+#define DIP_SWITCH_PINS_RIGHT { ... }
 ```
 
 or
@@ -95,7 +97,6 @@ bool dip_switch_update_mask_user(uint32_t state) {
     return true;
 }
 ```
-
 
 ## Hardware
 

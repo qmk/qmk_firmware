@@ -10,7 +10,7 @@ COMMAND_ENABLE          = no
 RGBLIGHT_ENABLE         = no
 RGB_MATRIX_ENABLE       = yes
 
-OLED_DRIVER_ENABLE      = yes
+OLED_ENABLE     = yes
 
 BOOTLOADER              = atmel-dfu
 SPLIT_TRANSPORT         = mirror

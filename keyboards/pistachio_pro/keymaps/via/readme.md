@@ -1,1 +1,1 @@
-# The via keymap for pistachio_mp
+# The via keymap for pistachio_pro

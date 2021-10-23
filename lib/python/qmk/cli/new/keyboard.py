@@ -115,9 +115,9 @@ def find_user_name():
 
 
 def copy_templates(keyboard_type, keyboard_path):
-    """Copies the template files from quantum/template to the new keyboard directory.
+    """Copies the template files from data/templates to the new keyboard directory.
     """
-    template_base_path = Path('quantum/template')
+    template_base_path = Path('data/templates')
     keyboard_basename = keyboard_path.name
 
     cli.log.info('Copying base template files...')

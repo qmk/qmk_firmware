@@ -55,7 +55,7 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
 __attribute__((weak)) void oled_task_user(void) {

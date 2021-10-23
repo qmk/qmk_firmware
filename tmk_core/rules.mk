@@ -69,8 +69,11 @@ CSTANDARD = -std=gnu99
 #CXXDEFS += -D__STDC_CONSTANT_MACROS
 #CXXDEFS +=
 
-
-
+# Speed up recompilations by opt-in usage of ccache
+USE_CCACHE ?= no
+ifneq ($(USE_CCACHE),no)
+    CC_PREFIX ?= ccache
+endif
 
 #---------------- Compiler Options C ----------------
 #  -g*:          generate debugging information
@@ -105,7 +108,10 @@ endif
 #CFLAGS += -Wundef
 #CFLAGS += -Wunreachable-code
 #CFLAGS += -Wsign-compare
+GCC_VERSION := $(shell gcc --version 2>/dev/null)
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+endif
 CFLAGS += $(CSTANDARD)
 
 # This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
@@ -137,7 +143,9 @@ endif
 #CXXFLAGS += -Wstrict-prototypes
 #CXXFLAGS += -Wunreachable-code
 #CXXFLAGS += -Wsign-compare
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+endif
 #CXXFLAGS += $(CSTANDARD)
 
 #---------------- Assembler Options ----------------
@@ -150,10 +158,12 @@ CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS)
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 ifeq ($(strip $(DEBUG_ENABLE)),yes)
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 else
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
+endif
 endif
 ifeq ($(VERBOSE_AS_CMD),yes)
 	ASFLAGS += -v
@@ -472,12 +482,12 @@ check-size:
 			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
 		    else \
 			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
-		    fi \
-		fi \
+		    fi ; \
+		fi ; \
 	fi
 else
 check-size:
-	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
 endif
 
 check-md5:

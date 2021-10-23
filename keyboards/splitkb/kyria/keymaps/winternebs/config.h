@@ -17,7 +17,7 @@
 
 #define OLED_FONT_H "keyboards/splitkb/kyria/keymaps/winternebs/glcdfont.c"
 #define OLED_FONT_END 127
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
   #define OLED_DISPLAY_128X64
 #endif
 

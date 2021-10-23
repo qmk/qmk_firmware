@@ -72,6 +72,7 @@
     * [Mod-Tap](mod_tap.md)
     * [Macros](feature_macros.md)
     * [Mouse Keys](feature_mouse_keys.md)
+    * [Programmable Button](feature_programmable_button.md)
     * [Space Cadet Shift](feature_space_cadet.md)
     * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
@@ -108,6 +109,7 @@
     * [Bluetooth](feature_bluetooth.md)
     * [Bootmagic Lite](feature_bootmagic.md)
     * [Custom Matrix](custom_matrix.md)
+    * [Digitizer](feature_digitizer.md)
     * [DIP Switch](feature_dip_switch.md)
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)

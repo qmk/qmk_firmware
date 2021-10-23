@@ -127,7 +127,7 @@ To ensure compatibility with the USBasploader bootloader, make sure this block i
 
 ```make
 # Bootloader selection
-BOOTLOADER = USBasp
+BOOTLOADER = usbasploader
 ```
 
 Compatible flashers:
@@ -153,13 +153,13 @@ To ensure compatibility with the bootloadHID bootloader, make sure this block is
 
 ```make
 # Bootloader selection
-BOOTLOADER = bootloadHID
+BOOTLOADER = bootloadhid
 ```
 
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [bootloadHID CLI](https://www.obdev.at/products/vusb/bootloadhid.html) / `:bootloadHID` target in QMK (recommended command line)
+* [bootloadHID CLI](https://www.obdev.at/products/vusb/bootloadhid.html) / `:bootloadhid` target in QMK (recommended command line)
 * [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash)
 
 Flashing sequence:
@@ -298,7 +298,7 @@ Flashing sequence:
 
 ## tinyuf2
 
-Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on the F411 blackpill.
+Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on the F401/F411 blackpill.
 
 The `rules.mk` setting for this bootloader is `tinyuf2`, and can be specified at the keymap or user level.
 

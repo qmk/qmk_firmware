@@ -21,7 +21,7 @@ CONSOLE_ENABLE = no                # Console for debug
 COMMAND_ENABLE = no                # Commands for debug and configuration
 SLEEP_LED_ENABLE = no              # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes                  # USB Nkey Rollover
-AUDIO_ENABLE = no                  # Audio output on port C6
+AUDIO_ENABLE = no                  # Audio output
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 RGBLIGHT_ENABLE = yes              # Underglow RGB
 WS2812_DRIVER = pwm                # Underglow RGB Driver
@@ -35,4 +35,4 @@ SRC +=  keyboards/wilba_tech/wt_main.c \
         keyboards/wilba_tech/wt_rgb_backlight.c \
         drivers/led/issi/is31fl3733.c \
         quantum/color.c
-QUANTUM_LIB_SRC += drivers/chibios/i2c_master.c
+QUANTUM_LIB_SRC += i2c_master.c

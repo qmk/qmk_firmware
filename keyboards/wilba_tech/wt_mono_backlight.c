@@ -20,7 +20,7 @@
 #include "wt_rgb_backlight_keycodes.h" // reuse these for now
 
 #include <avr/interrupt.h>
-#include "drivers/avr/i2c_master.h"
+#include "i2c_master.h"
 
 #include "progmem.h"
 #include "quantum/color.h"

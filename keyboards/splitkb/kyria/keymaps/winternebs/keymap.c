@@ -189,7 +189,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 #endif
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 bool left = false;
 bool right = false;
 bool lastl = false;
@@ -200,7 +200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	#ifdef CONSOLE_ENABLE
 	uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u, total: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.key.col + 10 * record->event.key.row);
 	#endif
-	#ifdef OLED_DRIVER_ENABLE
+	#ifdef OLED_ENABLE
 	if(record->event.pressed){
 		uint8_t n = record->event.key.col + 10 * record->event.key.row;
 		if (n<40) {
@@ -250,7 +250,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }

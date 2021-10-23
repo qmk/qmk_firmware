@@ -1,6 +1,6 @@
+#pragma once
+
 #ifdef ISSI_ENABLE
-#ifndef ISSI_H
-#define ISSI_H
 
 typedef struct ISSIDeviceStruct{
     uint8_t fn_dirty;       // function registers need to be resent
@@ -36,5 +36,4 @@ void writeRegister8(uint8_t device, uint8_t frame, uint8_t reg, uint8_t data);
 void activateLED(uint8_t matrix, uint8_t cx, uint8_t cy, uint8_t pwm);
 void update_issi(uint8_t device_addr, uint8_t blocking);
 
-#endif
 #endif

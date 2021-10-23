@@ -10,7 +10,7 @@ If you want to use single color LED's you should use the [LED Matrix Subsystem](
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3731
 ```
@@ -71,7 +71,7 @@ Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet]
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3733
 ```
@@ -141,7 +141,7 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3737 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3737
 ```
@@ -206,7 +206,7 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 ```
@@ -226,7 +226,7 @@ Configure the hardware via your `config.h`:
 
 There is basic support for APA102 based addressable LED strands. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = APA102
 ```
@@ -246,7 +246,7 @@ Configure the hardware via your `config.h`:
 ### AW20216 :id=aw20216
 There is basic support for addressable RGB matrix lighting with the SPI AW20216 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = AW20216
 ```
@@ -562,7 +562,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 ```
 
-For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix_animations/`
+For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix/animations/`.
 
 
 ## Colors :id=colors
@@ -738,6 +738,45 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             default:
                 break;
         }
+    }
+}
+```
+
+#### Examples :id=indicator-examples
+
+This example sets the modifiers to be a specific color based on the layer state.  You can use a switch case here, instead, if you would like.  This uses HSV and then converts to RGB, because this allows the brightness to be limited (important when using the WS2812 driver).
+
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    HSV hsv = {0, 255, 255};
+    
+    if (layer_state_is(layer_state, 2)) {
+        hsv = {130, 255, 255};
+    } else {
+        hsv = {30, 255, 255};
+    }
+    
+    if (hsv.v > rgb_matrix_get_val()) {
+        hsv.v = rgb_matrix_get_val();
+    }
+    RGB rgb = hsv_to_rgb(hsv);
+    
+    for (uint8_t i = led_min; i <= led_max; i++) {
+        if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x01 == LED_FLAG_MODIFIER
+            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+        }
+    }
+}
+```
+
+If you want to indicate a Host LED status (caps lock, num lock, etc), you can use something like this to light up the caps lock key: 
+
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(5, 255, 255, 255); // assuming caps lock is at led #5
+    } else {
+        RGB_MATRIX_INDICATOR_SET_COLOR(5, 0, 0, 0);
     }
 }
 ```

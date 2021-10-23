@@ -138,16 +138,16 @@ usbasp: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 
 BOOTLOADHID_PROGRAMMER ?= bootloadHID
 
+# bootloadHid executable has no cross platform detect methods
+# so keep running bootloadHid if the output contains "The specified device was not found"
 define EXEC_BOOTLOADHID
-	# bootloadHid executable has no cross platform detect methods
-	# so keep running bootloadHid if the output contains "The specified device was not found"
 	until $(BOOTLOADHID_PROGRAMMER) -r $(BUILD_DIR)/$(TARGET).hex 2>&1 | tee /dev/stderr | grep -v "device was not found"; do\
 		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
 		sleep 5 ;\
 	done
 endef
 
-bootloadHID: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+bootloadhid: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_BOOTLOADHID)
 
 HID_BOOTLOADER_CLI ?= hid_bootloader_cli
@@ -161,19 +161,19 @@ hid_bootloader: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 
 flash:  $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 ifneq ($(strip $(PROGRAM_CMD)),)
-	$(PROGRAM_CMD)
+	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
 else ifeq ($(strip $(BOOTLOADER)), caterina)
-	$(call EXEC_AVRDUDE)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_AVRDUDE)
 else ifeq ($(strip $(BOOTLOADER)), halfkay)
-	$(call EXEC_TEENSY)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_TEENSY)
 else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
-	$(call EXEC_DFU)
-else ifeq ($(strip $(BOOTLOADER)), USBasp)
-	$(call EXEC_USBASP)
-else ifeq ($(strip $(BOOTLOADER)), bootloadHID)
-	$(call EXEC_BOOTLOADHID)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU)
+else ifneq (,$(filter $(BOOTLOADER), usbasploader USBasp))
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_USBASP)
+else ifneq (,$(filter $(BOOTLOADER), bootloadhid bootloadHID))
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_BOOTLOADHID)
 else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
-	$(call EXEC_HID_LUFA)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_HID_LUFA)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif

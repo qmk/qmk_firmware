@@ -28,13 +28,16 @@ def _find_make():
     return make_cmd
 
 
-def create_make_target(target, parallel=1, **env_vars):
+def create_make_target(target, dry_run=False, parallel=1, **env_vars):
     """Create a make command
 
     Args:
 
         target
             Usually a make rule, such as 'clean' or 'all'.
+
+        dry_run
+            make -n -- don't actually build
 
         parallel
             The number of make jobs to run in parallel
@@ -52,10 +55,10 @@ def create_make_target(target, parallel=1, **env_vars):
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
 
-    return [make_cmd, '-j', str(parallel), *env, target]
+    return [make_cmd, *(['-n'] if dry_run else []), *get_make_parallel_args(parallel), *env, target]
 
 
-def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
+def create_make_command(keyboard, keymap, target=None, dry_run=False, parallel=1, **env_vars):
     """Create a make compile command
 
     Args:
@@ -68,6 +71,9 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
 
         target
             Usually a bootloader.
+
+        dry_run
+            make -n -- don't actually build
 
         parallel
             The number of make jobs to run in parallel
@@ -84,7 +90,7 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
     if target:
         make_args.append(target)
 
-    return create_make_target(':'.join(make_args), parallel, **env_vars)
+    return create_make_target(':'.join(make_args), dry_run=dry_run, parallel=parallel, **env_vars)
 
 
 def get_git_version(current_time, repo_dir='.', check_dir='.'):
@@ -110,6 +116,24 @@ def get_git_version(current_time, repo_dir='.', check_dir='.'):
             return current_time
 
     return current_time
+
+
+def get_make_parallel_args(parallel=1):
+    """Returns the arguments for running the specified number of parallel jobs.
+    """
+    parallel_args = []
+
+    if int(parallel) <= 0:
+        # 0 or -1 means -j without argument (unlimited jobs)
+        parallel_args.append('--jobs')
+    else:
+        parallel_args.append('--jobs=' + str(parallel))
+
+    if int(parallel) != 1:
+        # If more than 1 job is used, synchronize parallel output by target
+        parallel_args.append('--output-sync=target')
+
+    return parallel_args
 
 
 def create_version_h(skip_git=False, skip_all=False):
@@ -185,8 +209,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         make_command.append('-s')
 
     make_command.extend([
-        '-j',
-        str(parallel),
+        *get_make_parallel_args(parallel),
         '-r',
         '-R',
         '-f',
@@ -216,7 +239,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         f'VERBOSE={verbose}',
         f'COLOR={color}',
         'SILENT=false',
-        f'QMK_BIN={"bin/qmk" if "DEPRECATED_BIN_QMK" in os.environ else "qmk"}',
+        'QMK_BIN="qmk"',
     ])
 
     return make_command

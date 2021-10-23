@@ -12,7 +12,8 @@ AUDIO_ENABLE = no           # Audio output
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
-OLED_DRIVER_ENABLE = yes    # OLED display
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306    # OLED display
 ENCODER_ENABLE = yes        # Enable encoder
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE

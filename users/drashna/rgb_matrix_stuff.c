@@ -20,11 +20,6 @@
 extern led_config_t g_led_config;
 
 static uint32_t hypno_timer;
-#if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_crkbd)
-#    define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#else
-#    define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
-#endif
 
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type, uint8_t led_min, uint8_t led_max) {
     HSV hsv = {hue, sat, val};

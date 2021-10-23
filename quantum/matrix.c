@@ -25,10 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "split_common/split_util.h"
 #    include "split_common/transactions.h"
 
-#    ifndef ERROR_DISCONNECT_COUNT
-#        define ERROR_DISCONNECT_COUNT 5
-#    endif  // ERROR_DISCONNECT_COUNT
-
 #    define ROWS_PER_HAND (MATRIX_ROWS / 2)
 #else
 #    define ROWS_PER_HAND (MATRIX_ROWS)
@@ -292,10 +288,8 @@ void matrix_init(void) {
     matrix_init_pins();
 
     // initialize matrix state: all keys off
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        raw_matrix[i] = 0;
-        matrix[i]     = 0;
-    }
+    memset(matrix, 0, sizeof(matrix));
+    memset(raw_matrix, 0, sizeof(raw_matrix));
 
     debounce_init(ROWS_PER_HAND);
 
@@ -307,34 +301,30 @@ void matrix_init(void) {
 }
 
 #ifdef SPLIT_KEYBOARD
+// Fallback implementation for keyboards not using the standard split_util.c
+__attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    transport_master(master_matrix, slave_matrix);
+    return true;  // Treat the transport as always connected
+}
+
 bool matrix_post_scan(void) {
     bool changed = false;
     if (is_keyboard_master()) {
-        static uint8_t error_count;
-
+        static bool  last_connected              = false;
         matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
-        if (!transport_master(matrix + thisHand, slave_matrix)) {
-            error_count++;
+        if (transport_master_if_connected(matrix + thisHand, slave_matrix)) {
+            changed = memcmp(matrix + thatHand, slave_matrix, sizeof(slave_matrix)) != 0;
 
-            if (error_count > ERROR_DISCONNECT_COUNT) {
-                // reset other half if disconnected
-                for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                    matrix[thatHand + i] = 0;
-                    slave_matrix[i]      = 0;
-                }
+            last_connected = true;
+        } else if (last_connected) {
+            // reset other half when disconnected
+            memset(slave_matrix, 0, sizeof(slave_matrix));
+            changed = true;
 
-                changed = true;
-            }
-        } else {
-            error_count = 0;
-
-            for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                if (matrix[thatHand + i] != slave_matrix[i]) {
-                    matrix[thatHand + i] = slave_matrix[i];
-                    changed              = true;
-                }
-            }
+            last_connected = false;
         }
+
+        if (changed) memcpy(matrix + thatHand, slave_matrix, sizeof(slave_matrix));
 
         matrix_scan_quantum();
     } else {

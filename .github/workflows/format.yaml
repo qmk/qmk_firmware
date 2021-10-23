@@ -16,7 +16,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-    container: qmkfm/base_container
+    container: qmkfm/qmk_cli
 
     steps:
     - uses: rlespinasse/github-slug-action@v3.x
