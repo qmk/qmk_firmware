@@ -48,10 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define ENCODER_RESOLUTION 4
-#define ENCODERS_PAD_A { E6 }
-#define ENCODERS_PAD_B { B4 }
-#define ENCODERS_PAD_C { B6 }
-#define ENCODERS_PAD_D { B5 }
+#define ENCODERS_PAD_A { E6, B6 }
+#define ENCODERS_PAD_B { B4, B5 }
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
