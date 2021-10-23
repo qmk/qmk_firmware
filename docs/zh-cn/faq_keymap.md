@@ -5,7 +5,7 @@
 ## 我能使用的键码有哪些?
 所有可用键码收录在[键码](zh-cn/keycodes.md)页，在有更详尽的文档时，我们会更新这个链接。
 
-所有键盘实际定义在[quantum/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h).
+所有键码实际定义在[quantum/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h).
 
 ## 默认键码是什么?
 
