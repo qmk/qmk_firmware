@@ -2,8 +2,6 @@
     "keyboard_name": "Twokey",
     "url": "",
     "maintainer": "Keys of Kings",
-    "width": 2,
-    "height": 2.5,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -282,7 +282,7 @@ void test_slow_update(void) {
             if (++x >= oled_max_chars()) {
                 x = 0;
                 if (++y >= oled_max_lines()) {
-                    // The whole screen was filled - start the next phase.
+                    // The whole screen was filled - start the next phase.
                     ++phase;
                     x = y = 0;
                 }

@@ -83,11 +83,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `----------------------------------------------------------------------------'
    */
   [SETTINGS] = LAYOUT(
-    KC_FN0,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,  BL_TOGG,                  RGB_TOG, RGB_VAI, XXXXXXX, XXXXXXX, \
-    MU_MOD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_FN2,                   RGB_MOD, RGB_VAD, XXXXXXX, XXXXXXX, \
-    AU_TOG,  KC_FN1,  KC_FN3,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          RESET,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    KC_FN5,  KC_FN2,  KC_FN4,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,     RGB_HUI,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX,                            KC_FN12,                            XXXXXXX, XXXXXXX, XXXXXXX,     RGB_SAD, RGB_HUD, RGB_SAI,     XXXXXXX, XXXXXXX           \
+    F(0),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,  BL_TOGG,                  RGB_TOG, RGB_VAI, XXXXXXX, XXXXXXX, \
+    MU_MOD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, F(2),                     RGB_MOD, RGB_VAD, XXXXXXX, XXXXXXX, \
+    AU_TOG,  F(1),    F(3),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          RESET,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    F(5),    F(2),    F(4),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,     RGB_HUI,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX,                            F(12),                              XXXXXXX, XXXXXXX, XXXXXXX,     RGB_SAD, RGB_HUD, RGB_SAI,     XXXXXXX, XXXXXXX           \
   ),
 };
 
@@ -106,16 +106,4 @@ void matrix_init_user(void) {
         eeconfig_update_default_layer(1);
         default_layer_set(1);
     }
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }
