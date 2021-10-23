@@ -105,6 +105,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+// RGB configuration and setup light layer for caps on
+
 extern rgblight_config_t rgblight_config;
 
 void keyboard_post_init_user(void) {
@@ -120,6 +122,62 @@ void led_set_user(uint8_t usb_led) {
     rgblight_disable();
   }
 }
+
+// Combo configuration, to make GUI/ALT-Esc as GUI/ALT-Tab
+
+//enum combo_events {
+//    SWITCH_MAC_WIN_FWD,
+//    SWITCH_MAC_WIN_BKD,
+//    SWITCH_WIN_WIN_FWD,
+//    SWITCH_WIN_WIN_BKD,
+//    COMBO_LENGTH,
+//};
+//uint16_t COMBO_LEN = COMBO_LENGTH;
+//
+//const uint16_t PROGMEM switch_mac_win_fwd[] = {G(KC_GESC), COMBO_END};
+//const uint16_t PROGMEM switch_mac_win_bkd[] = {S(G(KC_GESC)), COMBO_END};
+//const uint16_t PROGMEM switch_win_win_fwd[] = {A(KC_GESC), COMBO_END};
+//const uint16_t PROGMEM switch_win_win_bkd[] = {S(A(KC_GESC)), COMBO_END};
+//
+//combo_t key_combos[] = {
+//    COMBO(switch_mac_win_fwd, G(KC_TAB)),
+//    COMBO(switch_mac_win_bkd, S(G(KC_TAB))),
+//    COMBO(switch_win_win_fwd, A(KC_TAB)),
+//    COMBO(switch_win_win_bkd, S(A(KC_TAB))),
+//};
+
+//combo_t key_combos[] = {
+//    [SWITCH_MAC_WIN_FWD] = COMBO_ACTION(switch_mac_win_fwd),
+//    [SWITCH_MAC_WIN_BKD] = COMBO_ACTION(switch_mac_win_bkd),
+//    [SWITCH_WIN_WIN_FWD] = COMBO_ACTION(switch_win_win_fwd),
+//    [SWITCH_WIN_WIN_FWD] = COMBO_ACTION(switch_win_win_bkd),
+//};
+
+//void process_combo_event(uint16_t combo_index, bool pressed) {
+//    switch(combo_index) {
+//        case SWITCH_MAC_WIN_FWD:
+//            if (pressed) {
+//                tap_code16(G(KC_TAB));
+//            }
+//            break;
+//        case SWITCH_MAC_WIN_BKD:
+//            if (pressed) {
+//                tap_code16(S(G(KC_TAB)));
+//            }
+//            break;
+//        case SWITCH_WIN_WIN_FWD:
+//            if (pressed) {
+//                tap_code16(A(KC_TAB));
+//            }
+//            break;
+//        case SWITCH_WIN_WIN_BKD:
+//            if (pressed) {
+//                tap_code16(S(A(KC_TAB)));
+//            }
+//            break;
+//    }
+//};
+// Allows to make both space bars to activate the layer CONFIG
 
 bool lower_layer_state = false;
 bool raise_layer_state = false;
@@ -144,7 +202,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (lower_layer_state & raise_layer_state) {
         layer_on(_CONFIG);
     } else {
-        layer_off(_CONFIG);
+        if (layer_state_is(_CONFIG)) {
+            layer_off(_CONFIG);
+        }
     }
     return true;
 };

@@ -90,7 +90,7 @@ enum default_layers {
 #define SPC_VIM     LT(_VIM, KC_SPC)
 #define SPC_LWR     LT(_LOWER, KC_SPC)
 #define SPC_RSE     LT(_RAISE, KC_SPC)
-#define SLS_SFT     SFT_T(KC_SLSH)
+#define SLS_SFT     RSFT_T(KC_SLSH)
 
 #define L_MOD       LT(_FN, KC_SPC) // for split space bar, left bar
 #define R_MOD       LT(_FN, KC_SPC) // for split space bar, right bar
