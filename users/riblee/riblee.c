@@ -175,6 +175,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case CG_NORM:
+            set_unicode_input_mode(UC_MAC);
+            break;
+        case CG_SWAP:
+            set_unicode_input_mode(UC_LNX);
+            break;
     }
     return true;
 };
