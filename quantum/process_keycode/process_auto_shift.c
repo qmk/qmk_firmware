@@ -76,9 +76,6 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
     autoshift_time              = now;
     autoshift_flags.in_progress = true;
 
-#    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
-    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-#    endif
     return false;
 }
 
