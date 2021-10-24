@@ -31,7 +31,7 @@
 
 /* key matrix pins are in subfolders v1/v2 */
 
-/* Diode dorection */
+/* Diode direction   */
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
