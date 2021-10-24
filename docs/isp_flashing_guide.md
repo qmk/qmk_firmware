@@ -55,7 +55,7 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 |`B2`  |`MOSI`  |
 |`B3`  |`MISO`  |
 
-!> Note that the `B0` pin on the Teensy should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** conenct the `RESET` pin on the Teensy to the `RESET` on the keyboard.
+!> Note that the `B0` pin on the Teensy should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Teensy to the `RESET` on the keyboard.
 
 ### SparkFun PocketAVR / USBtinyISP / USBasp
 
