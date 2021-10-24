@@ -8,7 +8,7 @@ There are several different kinds of bootloaders available for AVR microcontroll
 
 ## Hardware
 
-One of the following devices are required to perform the ISP flashing. The product links are to the official versions, however you can certainly source them elsewhere.
+One of the following devices is required to perform the ISP flashing. The product links are to the official versions, however you can certainly source them elsewhere.
 
 You'll also need some jumper wires to connect the ISP flasher and the target board. Depending on the latter, there might be a header you can connect the wires to directly, but if not you may also have to do some soldering to pads on the PCB, switch legs connected to the ISP pins, or in some scenarios directly to the MCU.
 The wiring is fairly straightforward; for the most part, you'll be connecting like to like. Refer to the target MCU's datasheet for the exact `RESET`, `SCLK`, `MOSI` and `MISO` pins.
