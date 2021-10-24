@@ -2,8 +2,6 @@
     "keyboard_name": "BM60 RGB ISO",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_60_iso_arrow": {
             "layout": [

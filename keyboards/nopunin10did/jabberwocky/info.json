@@ -3,8 +3,6 @@
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/railroad",
     "maintainer": "NoPunIn10Did",
     "manufacturer": "NoPunIn10Did",
-    "width": 24.5,
-    "height": 6.625,
     "layouts": {
         "LAYOUT_rh_any": {
             "layout": [

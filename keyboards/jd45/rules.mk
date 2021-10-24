@@ -2,13 +2,6 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 # Build Options
@@ -24,5 +17,3 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 # NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 MIDI_ENABLE = yes           # MIDI support
-# UNICODE_ENABLE = YES 		# Unicode
-BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID

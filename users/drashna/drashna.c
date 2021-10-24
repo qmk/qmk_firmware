@@ -73,11 +73,6 @@ void                       matrix_init_user(void) {
 
     matrix_init_secret();
     matrix_init_keymap();
-#if defined(AUDIO_ENABLE) && defined(SPLIT_KEYBOARD)
-    if (!is_keyboard_master()) {
-        stop_all_notes();
-    }
-#endif
 }
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
@@ -108,8 +103,11 @@ void                       shutdown_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_color_all(0xFF, 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
-
 #endif  // RGB_MATRIX_ENABLE
+#ifdef OLED_ENABLE
+    oled_off();
+#endif
+
     shutdown_keymap();
 }
 
@@ -227,16 +225,15 @@ bool hasAllBitsInMask(uint8_t value, uint8_t mask) {
 }
 
 #ifdef SPLIT_KEYBOARD
-#    if defined(AUDIO_ENABLE)
-bool delayed_tasks_run = false;
-#    endif
 __attribute__((weak)) void matrix_slave_scan_keymap(void) {}
 void                       matrix_slave_scan_user(void) {
 #    if defined(AUDIO_ENABLE)
 #        if !defined(NO_MUSIC_MODE)
     music_task();
 #        endif
+#        ifdef AUDIO_INIT_DELAY
     if (!is_keyboard_master()) {
+        static bool delayed_tasks_run = false;
         static uint16_t delayed_task_timer = 0;
         if (!delayed_tasks_run) {
             if (!delayed_task_timer) {
@@ -247,6 +244,7 @@ void                       matrix_slave_scan_user(void) {
             }
         }
     }
+#        endif
 #    endif
 #    ifdef SEQUENCER_ENABLE
     sequencer_task();

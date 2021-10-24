@@ -2,8 +2,6 @@
     "keyboard_name": "Chocolate Bar",
     "url": "https://github.com/misonoworks/chocolate-bar",
     "maintainer": "Robin Bayardo",
-    "width": 16,
-    "height": 4.25,
     "layouts": {
         "LAYOUT": {
             "layout": [
