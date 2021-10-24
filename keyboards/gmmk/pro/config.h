@@ -52,7 +52,7 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define VIAL_KEYBOARD_UID {0x81, 0xD2, 0x8A, 0x89, 0x17, 0x36, 0x53, 0x4B}
+//#define VIAL_KEYBOARD_UID {0x81, 0xD2, 0x8A, 0x89, 0x17, 0x36, 0x53, 0x4B}
 #define VIAL_UNLOCK_COMBO_ROWS { 1, 10 }
 #define VIAL_UNLOCK_COMBO_COLS { 3, 4 }
 #define VIAL_ENCODER_KEYCODE_DELAY 25

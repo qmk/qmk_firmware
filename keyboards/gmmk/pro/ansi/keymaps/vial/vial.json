@@ -2,7 +2,7 @@
   "name": "GMMK Pro",
   "vendorId": "0x320F",
   "productId": "0x5044",
-  "lighting": "none",
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 11,
     "cols": 8

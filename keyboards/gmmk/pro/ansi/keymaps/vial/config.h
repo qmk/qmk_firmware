@@ -1,4 +1,5 @@
 /* Copyright 2021 Gigahawk
+ * Modified 2021 by usrfriendly for vial-qmk
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,3 +23,9 @@
 #define DRIVER_2_LED_TOTAL 32
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
+//enable RGB Matrix Effects for Vial
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define RGB_MATRIX_KEYPRESSES
+
+//Vial Keyboard UID
+#define VIAL_KEYBOARD_UID {0x03, 0x75, 0x3D, 0xEC, 0x97, 0xC2, 0xE9, 0x9A}
