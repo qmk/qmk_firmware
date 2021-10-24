@@ -1,5 +1,6 @@
 /*
- Copyright 2020 Álvaro "Gondolindrim" Volpato <alvaro.volpato@usp.br>
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,14 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "evolv.h"
+// Copy and worked on with love from the EZ team
 
-#ifndef MEDIA_KEY_DELAY
-#     define MEDIA_KEY_DELAY 100
-#endif
+#pragma once
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
-    tap_code_delay(clockwise ? KC_VOLU : KC_VOLD, MEDIA_KEY_DELAY);
-    return true;
-}
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+
+#undef DEBOUNCE
+#define DEBOUNCE 25

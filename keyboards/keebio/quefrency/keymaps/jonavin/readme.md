@@ -17,6 +17,7 @@
     - additional RGB function key binds to arrow on Fn layer
     - Add capslock indicator, win key lock indicator
     - Fn and layer 2 indicators using RGB underglow
+    - Inverted NUM lock indicator (light on when NUM lock is off when INVERT_NUMLOCK_INDICATOR = yes in rules.mk)
 
 rules.mk OPTIONS - Active features from userspace
 STARTUP_NUMLOCK_ON = yes
