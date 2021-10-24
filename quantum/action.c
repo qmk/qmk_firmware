@@ -91,16 +91,16 @@ void action_exec(keyevent_t event) {
 #ifndef NO_ACTION_ONESHOT
     if (!keymap_config.oneshot_disable) {
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-    if (has_oneshot_layer_timed_out()) {
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-    }
-    if (has_oneshot_mods_timed_out()) {
-        clear_oneshot_mods();
-    }
+        if (has_oneshot_layer_timed_out()) {
+            clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        }
+        if (has_oneshot_mods_timed_out()) {
+            clear_oneshot_mods();
+        }
 #        ifdef SWAP_HANDS_ENABLE
-    if (has_oneshot_swaphands_timed_out()) {
-        clear_oneshot_swaphands();
-    }
+        if (has_oneshot_swaphands_timed_out()) {
+            clear_oneshot_swaphands();
+        }
 #        endif
 #    endif
     }
@@ -264,8 +264,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #    ifdef SWAP_HANDS_ENABLE
         && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)
 #    endif
-        && !keymap_config.oneshot_disable
-    ) {
+        && !keymap_config.oneshot_disable) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         do_release_oneshot = !is_oneshot_layer_active();
     }
