@@ -1,6 +1,6 @@
 # lefty
 
-![lefty](https://i.imgur.com/nMmJCJM.jpeg)
+![lefty](https://i.imgur.com/nMmJCJMh.jpeg)
 
 Half an alice used as a macropad.
 
