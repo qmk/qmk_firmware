@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "sequencer.h"
-
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -495,18 +493,9 @@ enum quantum_keycodes {
     SQ_SALL,  // 5D35
     SQ_SCLR,  // 5D36
 
-    SEQUENCER_STEP_MIN,  // 5D37
-    SEQUENCER_STEP_MAX = SEQUENCER_STEP_MIN + SEQUENCER_STEPS,
-
-    SEQUENCER_RESOLUTION_MIN,
-    SEQUENCER_RESOLUTION_MAX = SEQUENCER_RESOLUTION_MIN + SEQUENCER_RESOLUTIONS,
-
-    SEQUENCER_TRACK_MIN,
-    SEQUENCER_TRACK_MAX = SEQUENCER_TRACK_MIN + SEQUENCER_TRACKS,
-
-#define SQ_S(n) (n < SEQUENCER_STEPS ? SEQUENCER_STEP_MIN + n : KC_NO)
-#define SQ_R(n) (n < SEQUENCER_RESOLUTIONS ? SEQUENCER_RESOLUTION_MIN + n : KC_NO)
-#define SQ_T(n) (n < SEQUENCER_TRACKS ? SEQUENCER_TRACK_MIN + n : KC_NO)
+    SQ_RES,
+    SQ_STEP,
+    SQ_TRACK,
 
     // One Shot
     ONESHOT_ENABLE,

@@ -34,9 +34,6 @@ bool process_sequencer(uint16_t keycode, keyrecord_t *record) {
             case SQ_TMPU:
                 sequencer_increase_tempo();
                 return false;
-            case SEQUENCER_RESOLUTION_MIN ... SEQUENCER_RESOLUTION_MAX:
-                sequencer_set_resolution(keycode - SEQUENCER_RESOLUTION_MIN);
-                return false;
             case SQ_RESD:
                 sequencer_decrease_resolution();
                 return false;
@@ -48,12 +45,6 @@ bool process_sequencer(uint16_t keycode, keyrecord_t *record) {
                 return false;
             case SQ_SCLR:
                 sequencer_set_all_steps_off();
-                return false;
-            case SEQUENCER_STEP_MIN ... SEQUENCER_STEP_MAX:
-                sequencer_toggle_step(keycode - SEQUENCER_STEP_MIN);
-                return false;
-            case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
-                sequencer_toggle_single_active_track(keycode - SEQUENCER_TRACK_MIN);
                 return false;
         }
     }
