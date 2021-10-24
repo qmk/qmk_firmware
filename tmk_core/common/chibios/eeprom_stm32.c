@@ -34,7 +34,8 @@ static uint8_t *empty_slot;
 
 void EEPROM_Init(void) {
     /* First, load the snapshot directly from flash */
-    memcpy(DataBuf, (void*)FEE_BASE_ADDRESS, FEE_SNAPSHOT_SIZE);
+    void *volatile tmp = (void*)FEE_BASE_ADDRESS;
+    memcpy(DataBuf, (void*)tmp, FEE_SNAPSHOT_SIZE);
 
     /* Then, process writelog to update DataBuf entries */
     uint8_t *addr;
