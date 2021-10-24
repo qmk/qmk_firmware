@@ -23,8 +23,8 @@ NGKEYS naginata_keys;
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE,
     _MAC,
+    _BASE,
     _QWERTY,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー

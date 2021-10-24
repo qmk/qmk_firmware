@@ -7,9 +7,9 @@ tanda = <<ETANDA
 ETANDA
 
 shifted = <<ESHIFTED
-|ぬ|り |む|+{←}|+{→}|さ       |よ|え|ゆ|`|{{}|
+|ぬ|り |ね|+{←}|+{→}|さ       |よ|え|ゆ|`|{{}|
 せ|め|に |ま|ち   |や   |の       |も|わ|つ|*|{}}|
-ほ|ひ|を |、|み   |お   |。{Enter}|ね|ふ|れ|_|
+ほ|ひ|を |、|み   |お   |。{Enter}|む|ふ|れ|_|
 ESHIFTED
 
 mode1l = <<MEND
@@ -27,7 +27,7 @@ MEND
 mode2l = <<MEND
 　　　×　　　×　　　×{改行 2}|^x『^v』{改行}{Space}+{↑}^x|{Home}{改行}{Space 3}{End}|{Home}{改行}{Space 1}{End}  |〇{改行}                   ||||||||
 +{PgUp}                         |^x(^v){改行}{Space}+{↑}^x  |{Space 3}                 |^x「^v」{改行}{Space}+{↑}^x|／{改行}                   ||||||||
-+{PgDn}                         |^x{BS}{Del}^v               |{Home}{BS}{Del 3}{End}    |{Home}{BS}{Del 1}{End}      |｜{改行}{End}《》{改行}{↑}|||||||
++{PgDn}                         |^x{BS}{Del}^v               |{Home}{BS}{Del 3}{End}    |{Home}{BS}{Del 1}{End}      |^x｜{改行}^v《》{改行}{↑}{Space}+{↑}^x|||||||
 MEND
 
 mode2r = <<MEND
@@ -342,7 +342,7 @@ $henshu = {
 "『{改行}"      => ["uc"  , "『", "nagikakkohie"],
 "』{改行}"      => ["uc"  , "』", "nagikakkomie"],
 
-"｜{改行}{End}《》{改行}{↑}"=> ["macro", ""], # ルビ
+"^x｜{改行}^v《》{改行}{↑}{Space}+{↑}^x"=> ["macro", ""], # ルビ
 "」{改行 2}「{改行}"=> ["macro", ""],
 "」{改行 2}{Space}"=> ["macro", ""],
 "　　　×　　　×　　　×{改行 2}"=> ["macro", ""],
