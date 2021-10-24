@@ -8,6 +8,8 @@ A 9% macropad.
 * Hardware Supported: BN009 PCB (ATmega32U4)
 * Hardware Availability: [Interest Check](https://www.binepad.com/bn009)
 
+**Physical reset button**: There's a small hole at the bottom of macropad. Use the reset pin provided in box and push it hard through the hole, so that it press the reset button on  pcb.
+
 Make example for this keyboard (after setting up your build environment):
 
     make binepad/bn009:default
