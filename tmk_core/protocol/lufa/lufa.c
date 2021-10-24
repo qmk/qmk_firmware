@@ -1070,7 +1070,6 @@ void protocol_setup(void) {
 
     setup_mcu();
     usb_device_state_init();
-    keyboard_setup();
 }
 
 void protocol_init(void) {
@@ -1095,21 +1094,11 @@ void protocol_init(void) {
 #else
     USB_USBTask();
 #endif
-    /* init modules */
-    keyboard_init();
+
     host_set_driver(&lufa_driver);
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_init();
-#endif
-
-#ifdef VIRTSER_ENABLE
-    virtser_init();
-#endif
-
-    print("Keyboard start.\n");
 }
 
-void protocol_task(void) {
+void protocol_pre_task(void) {
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DeviceState == DEVICE_STATE_Suspended) {
         print("[s]");
@@ -1133,9 +1122,9 @@ void protocol_task(void) {
         suspend_wakeup_init();
     }
 #endif
+}
 
-    keyboard_task();
-
+void protocol_post_task(void) {
 #ifdef MIDI_ENABLE
     MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif

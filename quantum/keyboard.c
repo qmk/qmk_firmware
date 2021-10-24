@@ -335,6 +335,12 @@ void keyboard_init(void) {
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_init();
 #endif
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_init();
+#endif
+#ifdef VIRTSER_ENABLE
+    virtser_init();
+#endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
     debug_enable = true;
