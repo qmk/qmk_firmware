@@ -118,8 +118,8 @@ These are the [factory default bootloaders](https://www.microchip.com/content/da
 |--------------------------------------------------------------------------------------------------|------|-------------------------------|--------|-----------|
 |[ATmega16U4](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega16u4_1.0.1.hex)|`0x5E`|`0x99` / `0xD9` (JTAG disabled)|`0xF3`  |`03EB:2FF3`|
 |[ATmega32U4](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32u4_1.0.0.hex)|`0x5E`|`0x99` / `0xD9` (JTAG disabled)|`0xF3`  |`03EB:2FF4`|
-|[AT90USB64](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_at90usb64_1.0.0.hex)  |`0x41`|`0x99` / `0xD9` (JTAG disabled)|`0xFF`  |`03EB:2FF9`|
-|[AT90USB128](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_at90usb128_1.0.1.hex)|`0x41`|`0x99` / `0xD9` (JTAG disabled)|`0xFF`  |`03EB:2FFB`|
+|[AT90USB64](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_at90usb64_1.0.0.hex)  |`0x5E`|`0x9B` / `0xDB` (JTAG disabled)|`0xF3`  |`03EB:2FF9`|
+|[AT90USB128](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_at90usb128_1.0.1.hex)|`0x5E`|`0x99` / `0xD9` (JTAG disabled)|`0xF3`  |`03EB:2FFB`|
 
 ### Caterina
 
