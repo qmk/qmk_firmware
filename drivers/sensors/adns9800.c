@@ -78,7 +78,6 @@
 #define US_BEFORE_MOTION 100
 #define MSB1 0x80
 
-extern const uint16_t adns_firmware_length;
 extern const uint8_t adns_firmware_data[];
 
 void adns_spi_start(void){
@@ -145,7 +144,7 @@ void adns_init() {
 
     // send all bytes of the firmware
     unsigned char c;
-    for(int i = 0; i < adns_firmware_length; i++){
+    for(int i = 0; i < ADNS_FIRMWARE_LENGTH; i++){
         c = (unsigned char)pgm_read_byte(adns_firmware_data + i);
         spi_write(c);
         wait_us(15);
