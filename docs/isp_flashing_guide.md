@@ -17,7 +17,7 @@ The wiring is fairly straightforward; for the most part, you'll be connecting li
 
 [SparkFun Pro Micro](https://www.sparkfun.com/products/12640)
 
-To use a Pro Micro as an ISP flashing tool, you will first need to load a [special firmware](https://github.com/qmk/qmk_firmware/blob/master/util/pro_micro_ISP_B6_10.hex) onto it that emulates a hardware ISP flasher.
+To use a 5V/16MHz Pro Micro as an ISP flashing tool, you will first need to load a [special firmware](https://github.com/qmk/qmk_firmware/blob/master/util/pro_micro_ISP_B6_10.hex) onto it that emulates a hardware ISP flasher.
 
 **AVRDUDE Programmer**: `avrisp`  
 **AVRDUDE Port**: Serial
