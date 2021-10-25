@@ -168,9 +168,9 @@ const uint8_t LED_REGION_R_SIDE[] = {LED_R1, LED_R2, LED_R3, LED_R4, LED_R5, LED
         LED_ESC,                                                                                                                          LED_DEL,
                                                                                                                                                               LED_HOME,
 
-
+                 LED_A,    LED_S,    LED_D,
                                                                                                                                                               LED_END,
-                                                                                                                                          LED_LEFT, LED_DOWN, LED_RGHT
+                 LED_LWIN
     };
 
     const uint8_t LED_REGION_CAPS[] = {
