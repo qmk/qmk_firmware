@@ -1,3 +1,18 @@
+Copyright 2021 Alan Pocklington <ajp10304@gmail.com> @ajp10304
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 # AJP10304 Custom Atreus50 Layout
 # Also available for the Planck, Shark, Quark and JJ40
 
@@ -7,8 +22,7 @@ the second is the output when shift is applied.
 **Note:** The below tables assume a UK layout.
 
 #### Flashing
-
-`make handwired/atreus50:ajp10304:flash`
+Refer to the README.md of the keyboard you want to flash.
 
 ##### Main Qwerty Layer
 
@@ -102,7 +116,7 @@ Activated when `fn` and `raise` held together.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |      |      |
 | :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ESC   |      |      |      |      |      |      |      |      |      | BTN3 |      |      |      |
+| ESC   |      |      |      |      |      |      |      | W_L  | W_UP | BTN3 | W_DWN| W_R  |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
 |       |      |      |      |      |      | Ctrl | Alt  |      |      |      |      |      |      |
