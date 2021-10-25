@@ -194,7 +194,7 @@ You can also set your default keymap name. Most people use their GitHub username
 
     qmk config user.keymap=<github_username>
 
-After this you can leave those arguments off and compile your keyboard like this after creating your keymap in the next section:
+After this you can leave those arguments off and compile your keyboard like this, following the creation of your keymap in the next section:
 
     qmk compile
 
