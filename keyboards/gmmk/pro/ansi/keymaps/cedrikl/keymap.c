@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         HSV bad_hsv = hsv_cl_bad;
         bad_hsv.v   = rgb_matrix_get_val();
         RGB bad_rgb = hsv_to_rgb(bad_hsv);
-	led_t led_state = host_keyboard_led_state();
+        led_t led_state = host_keyboard_led_state();
 
         if (!led_state.num_lock) {   // on if NUM lock is OFF
             rgb_matrix_set_color(LED_R1,   bad_rgb.r, bad_rgb.g, bad_rgb.b);
