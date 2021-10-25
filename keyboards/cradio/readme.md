@@ -1,8 +1,9 @@
-# Cradio
+# Cradio keyboards
 
 ![Cradio](https://github.com/davidphilipbarr/hypergolic/raw/main/hypergarlic/ht.png)
 
-Cradio are 34-key split-keyboards designed by [@davidphilipbarr](https://github.com/davidphilipbarr), with no diodes and every key wired directly to the micro-controller pins.
+Cradio are low-profile 34-key split-keyboards designed by [@davidphilipbarr](https://github.com/davidphilipbarr), with no diodes and direct micro-controller pin wiring.
+
 
 ## Keyboard Info
 
@@ -10,7 +11,7 @@ Cradio are 34-key split-keyboards designed by [@davidphilipbarr](https://github.
 * Hardware Supported:
     * [Sweep](https://github.com/davidphilipbarr/Sweep)
     * [Hypergarlic](https://github.com/davidphilipbarr/hypergolic/tree/main/hypergarlic)
-    * (Similar 34-key designs using the same direct pins)
+    * Similar 34-key direct pin PCB designs
 
 Make examples for this keyboard (after setting up your build environment):
 
@@ -27,8 +28,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 4 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard. (With `EE_HANDS` configured, hold down the top right key on the right half to place the right controller in bootloader mode)
-* **Physical reset button**: If a reset button was installed, briefly press the button on the back of the PCB. 
-* **Short RST on MCU**: Briefly short the RST and GND pins on the microcontroller using tweezers, a paperclip, or any other conductive material.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available.
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard. (With `EE_HANDS` configured, hold down the top right key on the right half)
+* **Physical reset button**: Briefly press the reset button soldered on the PCB.
+* **Keycode in layout**: Press the key mapped to `RESET` if it is configured.
 
