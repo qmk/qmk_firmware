@@ -1,4 +1,4 @@
-# radialex
+# Radialex
 
 ![Radialex](https://github.com/takashicompany/radialex/blob/master/images/qmk.jpg?raw=true)
 
