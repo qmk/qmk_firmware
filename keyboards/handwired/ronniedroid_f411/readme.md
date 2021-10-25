@@ -7,7 +7,7 @@ A compact 50% (12x5) ortholinear keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/riblee_f411:default 
+    make handwired/ronniedroid_f411:default 
 
 Flashing example for this keyboard:
 
