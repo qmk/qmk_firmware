@@ -12,6 +12,7 @@ Cradio are low-profile 34-key split-keyboards designed by [@davidphilipbarr](htt
     * [Sweep](https://github.com/davidphilipbarr/Sweep)
     * [Hypergarlic](https://github.com/davidphilipbarr/hypergolic/tree/main/hypergarlic)
     * Variants of the same 34-key direct pin PCB
+* Hardware Availability: PCBs can be printed with gerber files from the repository
 
 Make examples for this keyboard (after setting up your build environment):
 
