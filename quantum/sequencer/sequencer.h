@@ -19,6 +19,7 @@
 #include <stdbool.h>
 #include "debug.h"
 #include "timer.h"
+#include "sequencer_keycodes.h"
 
 // Maximum number of steps: 256
 #ifndef SEQUENCER_STEPS
