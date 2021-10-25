@@ -29,10 +29,10 @@ def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
     cur_dir = Path('keyboards')
-    rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
-    if 'DEFAULT_FOLDER' in rules:
-        keyboard = rules['DEFAULT_FOLDER']
-        rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk', rules)
+    root_rules_mk = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
+
+    if 'DEFAULT_FOLDER' in root_rules_mk:
+        keyboard = root_rules_mk['DEFAULT_FOLDER']
 
     info_data = {
         'keyboard_name': str(keyboard),
@@ -691,8 +691,8 @@ def merge_info_jsons(keyboard, info_data):
 
             if layout_name in info_data['layouts']:
                 if len(info_data['layouts'][layout_name]['layout']) != len(layout['layout']):
-                    msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
-                    _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
+                    msg = 'Number of keys for %s does not match! info.json specifies %d keys, C macro specifies %d'
+                    _log_error(info_data, msg % (layout_name, len(layout['layout']), len(info_data['layouts'][layout_name]['layout'])))
                 else:
                     for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
                         existing_key.update(new_key)
