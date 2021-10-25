@@ -67,6 +67,7 @@ When using  `RGB_DISABLE_TIMEOUT` addtional options are available:
 
 * `RGB_FADE_IN` makes the RGB lights fade in instead of setting the value/brightness to 100% (implicitly due to HSV including the brightness) when resuming after RGB lights have been turned off.
 Fade in occurs when the keyboard is initialized and when the RGB brightness has been changed (e.g. suspending, fade out, etc.).
+* `RGB_DISABLE_WITH_FADE_OUT` activates fade out before the keyboard is disabled by `RGB_DISABLE_TIMEOUT`.
 
 Parameters used to define the behavior are:
 [%header]

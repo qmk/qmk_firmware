@@ -92,6 +92,11 @@ bool fade_in_ranged(const uint8_t time, const uint8_t range_min, const uint8_t r
     return scaled_sin_up(time, range_min, range_max, max_delta, &(rgb_matrix_config.hsv.v));
 }
 
+bool fade_out_ranged(const uint8_t time, const uint8_t range_min, const uint8_t range_max) {
+    static const uint8_t max_delta = 1;
+    return scaled_sin_down(time, range_min, range_max, max_delta, &(rgb_matrix_config.hsv.v));
+}
+
 /**
  * @brief Convenience method to eventually skip the value part when setting HSV.
  * @details When setting HSV this includes the value/brightness.
@@ -154,5 +159,49 @@ bool fade_in(const uint8_t time) {
     static const uint8_t range_max = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
 
     return fade_in_ranged(time, range_min, range_max);
+}
+#endif
+
+#if defined(RGB_DISABLE_WITH_FADE_OUT)
+
+/**
+ * @brief Calculates the time offset required by fade out.
+ * @details Using an arbitrary timer any point on the Sinus curve might be pointed to.
+ * The offest is calculated so that
+ * a) the point is at the highest point in the curve and the curve is failing
+ * b) the point is near the current brightness (eg. fade out might be called while on breath effect).
+ * @param[in]   time Current time usually represented by a(usually scaled) timer
+ * @return Offset required so that time matches the current brightness
+ */
+uint8_t calc_fade_out_offset(const uint8_t time) {
+    static const uint8_t range_min = 0;
+    static const uint8_t range_max = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+
+    // start at the right point in the sin() curve
+    uint8_t time_offset = offset_for_time(time, PHASE_HIGH);
+
+    // find the right offset to match the current brightness
+    for (int i = 1; i < 127; i++) {
+        const uint8_t value = scaled_sin(time + time_offset + 1, range_min, range_max);
+        if (in_range(value, range_min, range_max) && rgb_matrix_config.hsv.v < value) {
+            time_offset++;
+        } else {
+            break;
+        }
+    }
+
+    return time_offset;
+}
+
+/**
+ * @brief Decreases value/brightness until reaching 0 based on given timer.
+ * @param[in]   time A (usually scaled) timer
+ * @return Returns `true` if 0 has been reached, `false` otherwise.
+ */
+bool fade_out(const uint8_t time) {
+    static const uint8_t range_min = 0;
+    static const uint8_t range_max = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+
+    return fade_out_ranged(time, range_min, range_max);
 }
 #endif

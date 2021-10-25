@@ -65,3 +65,16 @@ uint8_t scaled_sin(const uint8_t theta, const uint8_t range_min, const uint8_t r
 * @see scaled_sin()
 */
 bool scaled_sin_up(const uint8_t thea, const uint8_t range_min, const uint8_t range_max, const uint8_t max_delta, uint8_t *value);
+
+/**
+* @brief Decreases the given value until reaching range_min.
+* The decrements occur following an downwards sinus wave (scaled from range_min to range_max).
+* @param[in]        theta       Angle (a full circle mapped to 0-255) used as input for sinus calculation.
+* @param[in]        range_min   Lower bound of range (inclusive).
+* @param[in]        range_max   Upper bound of range (inclusive).
+* @param[in]        max_delta   Maximum delta between value and range_min (due to values being integers and eventually not fully matching).
+* @param[in,out]    value       Reference of variable to be decreased
+* @return `true` if value and range_max are within a delta of 3 (chosen by fair dice rolling), `false` otherwise
+* @see scaled_sin()
+*/
+bool scaled_sin_down(const uint8_t theta, const uint8_t range_min, const uint8_t range_max, const uint8_t max_delta, uint8_t *value);

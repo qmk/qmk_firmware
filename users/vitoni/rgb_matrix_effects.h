@@ -15,6 +15,9 @@ enum states {
 #if defined(RGB_FADE_IN)
     ,FADE_IN            //!< when starting initially or before going back to REGULAR
 #endif
+#if defined(RGB_DISABLE_WITH_FADE_OUT)
+    ,FADE_OUT           //!< before supending
+#endif
     ,SUSPENDED          //!< expecting to be suspended by RGB_DISABLE_TIMEOUT any time
 };
 
@@ -58,7 +61,7 @@ uint16_t scale_2_rgb_time(const uint8_t scaled_time);
  */
 void rgb_matrix_sethsv_noeeprom_user(const uint16_t hue, const uint8_t sat, const uint8_t val);
 
-#if defined(RGB_FADE_IN)
+#if defined(RGB_FADE_IN) || defined(RGB_DISABLE_WITH_FADE_OUT)
 #   if defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS)
 #       if (RGB_MATRIX_MAXIMUM_BRIGHTNESS) < 1
 #           error "RGB_MATRIX_MAXIMUM_BRIGHTNESS must not be less than ONE"
@@ -69,7 +72,9 @@ void rgb_matrix_sethsv_noeeprom_user(const uint16_t hue, const uint8_t sat, cons
 #   else
 #       define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #   endif
+#endif
 
+#if defined(RGB_FADE_IN)
 /**
  * @brief Calculates the time offset required by fade in.
  * @details Using an arbitrary timer any point on the sine curve might be pointed to.
@@ -88,3 +93,28 @@ uint8_t calc_fade_in_offset(const uint8_t time);
  */
 bool fade_in(const uint8_t time);
 #endif
+
+#if defined(RGB_DISABLE_WITH_FADE_OUT)
+#   if !defined(RGB_DISABLE_TIMEOUT)
+#       warning "RGB_DISABLE_WITH_FADE_OUT expects RGB_DISABLE_TIMEOUT to be defined"
+#   endif
+
+/**
+ * @brief Calculates the time offset required by fade out.
+ * @details Using an arbitrary timer any point on the Sinus curve might be pointed to.
+ * The offest is calculated so that
+ * a) the point is at the highest point in the curve and the curve is failing
+ * b) the point is near the current brightness (eg. fade out might be called while on breath effect).
+ * @param[in]   time Current time usually represented by a(usually scaled) timer
+ * @return Offset required so that time matches the current brightness
+ */
+uint8_t calc_fade_out_offset(const uint8_t time);
+
+/**
+ * @brief Decreases value/brightness until reaching 0 based on given timer.
+ * @param[in]   time A (usually scaled) timer
+ * @return Returns `true` if 0 has been reached, `false` otherwise.
+ */
+bool fade_out(const uint8_t time);
+#endif
+

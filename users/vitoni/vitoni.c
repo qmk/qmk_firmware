@@ -9,7 +9,7 @@
 #include "rgb_matrix_effects.h"
 #include "utils.h"
 
-#if defined(RGB_FADE_IN)
+#if defined(RGB_FADE_IN) || defined(RGB_DISABLE_WITH_FADE_OUT)
 static uint8_t state;
 
 // flag used to indicate that offset calculation is needed to adjust the timer,
@@ -17,18 +17,46 @@ static uint8_t state;
 static bool calc_offset;
 
 void matrix_scan_user_rgb(void) {
+#if defined(RGB_DISABLE_WITH_FADE_OUT)
+    const uint8_t time = rgb_time_2_scale();
+#endif
     static uint8_t time_offset;
 
-    const uint32_t inactivity_time = last_input_activity_elapsed();
+    const uint32_t inactivity_millis = last_input_activity_elapsed();
 
-    // setting brightness to black as starting point for fade in
+#if defined(RGB_DISABLE_WITH_FADE_OUT)
+    const uint32_t fade_out_duration = scale_2_rgb_time(128);
+    const uint32_t start_fade_out_after_millis = (RGB_DISABLE_TIMEOUT) > fade_out_duration
+        ? (RGB_DISABLE_TIMEOUT) - fade_out_duration
+        : 0;
+
+    if (start_fade_out_after_millis <= inactivity_millis) {
+        update_value(&state, FADE_OUT, &calc_offset);
+    }
+#else
+    // having to set brightness "manually" to black as starting point for fade in
     // for the time when returning from suspended state
-    if (RGB_DISABLE_TIMEOUT <= inactivity_time + 15) {
+    if (RGB_DISABLE_TIMEOUT <= inactivity_millis + 15) {
         rgb_matrix_config.hsv.v = 0;
         state = SUSPENDED;
     }
+#endif
 
     switch(state) {
+#if defined(RGB_DISABLE_WITH_FADE_OUT)
+        case FADE_OUT:
+            if (calc_offset) {
+                time_offset = calc_fade_out_offset(time);
+
+                // resetting flag for subsequent calls
+                calc_offset = false;
+            }
+            if (fade_out(time + time_offset)) {
+                update_value(&state, SUSPENDED, &calc_offset);
+            }
+            break;
+#endif
+#if defined(RGB_FADE_IN)
         case FADE_IN:
             {
                 // since we want to be active, fade in should be faster than e.g. fading out
@@ -44,11 +72,13 @@ void matrix_scan_user_rgb(void) {
                 }
             }
             break;
+#endif
         default:
             break;
     }
 }
 
+#if defined(RGB_FADE_IN)
 bool process_record_user_rgb(const uint16_t keycode, const keyrecord_t *record) {
     // if we are in a non regular state we might have faded out (eventually partially)
     // so we restore brightness (to max as we don't keep track of manually changed brightness)
@@ -69,3 +99,5 @@ void suspend_wakeup_init_user(void) {
     }
 }
 #endif // defined(RGB_FADE_IN)
+
+#endif // defined(RGB_FADE_IN) || defined(RGB_DISABLE_WITH_FADE_OUT)
