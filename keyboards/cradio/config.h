@@ -58,8 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B5, B4, NO_PIN, NO_PIN, NO_PIN } \
 }
 
-
-
 #define UNUSED_PINS
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -75,6 +73,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D2
 
+/* Split handedness */
 #define EE_HANDS
 
 /* Top left key on left half */
