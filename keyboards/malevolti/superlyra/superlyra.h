@@ -18,6 +18,6 @@
 #include "quantum.h"
 
 
-#ifdef KEYBOARD_superlyra_rev1
+#ifdef KEYBOARD_malevolti_superlyra_rev1
     #include "rev1.h"
 #endif

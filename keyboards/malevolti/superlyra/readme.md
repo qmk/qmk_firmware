@@ -1,10 +1,9 @@
-# Lyra Keyboard
+# SuperLyra Keyboard
 By Domanic Calleja - https://github.com/Malevolti
 
-SuperLyra is 90 keys column-staggered ergonomic keyboard. Based on the Lyra split with the addition of a centra numpad for ambidextorous use. 
+SuperLyra is a 90 key column-staggered ergonomic keyboard. Based on the Lyra split with the addition of a centre numpad for ambidextorous use. 
 This version is a single pcb as opposed to a split, with the alphanumeric segments angled at 30 degrees to eachother.
 There is an open source PCB available via https://github.com/Malevolti/SuperLyra
-Instructions for handwiring and hand-wire specific case STLs are available for home 3d printing
 
 Make example for this keyboard (after setting up your build environment):
 
