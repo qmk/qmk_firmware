@@ -1,5 +1,4 @@
-#ifndef SANTOKU_H
-#define SANTOKU_H
+#pragma once
 
 #include "quantum.h"
 
@@ -14,7 +13,3 @@
     { K20,   K21,   K22,   K23, K24, K25, K26, K27, K28, K29,   K2A,   K2B }, \
     { KC_NO, KC_NO, KC_NO, K33, K34, K35, K36, K37, K38, KC_NO, KC_NO, KC_NO }  \
 }
-
-
-#endif
-
