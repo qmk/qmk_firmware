@@ -109,10 +109,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_CONFIG] = LAYOUT_preonic_grid(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-        RESET,   DEBUG,   _______, _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+        RESET,   DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TERM_ON, TERM_OFF,XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
     [_ADJUST] = LAYOUT_preonic_grid(
@@ -124,79 +124,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_NUM] = LAYOUT_preonic_grid(
-        _______, _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______,
-        _______, _______, _______, _______, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_PEQL,
-        _______, _______, _______, _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PAST, KC_PENT,
-        _______, _______, _______, _______, _______, _______, _______, KC_P0,   KC_P0,   KC_PDOT, KC_PSLS, _______,
-        _______, QWERTY,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_PEQL,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P1,   KC_P2,   KC_P3,   KC_PAST, KC_PENT,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P0,   KC_P0,   KC_PDOT, KC_PSLS, XXXXXXX,
+        XXXXXXX, QWERTY,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
 
 };
 
 extern rgblight_config_t rgblight_config;
 
-uint32_t    rgb_mode = 1;
-uint16_t    hue = 0;
-uint16_t    sat = 100;
-uint16_t    val = 100;
-bool        num_on = false;
-bool        caps_lock = false;
-
-void backup_hsv(void) {
-    hue = rgblight_get_hue();
-    sat = rgblight_get_sat();
-    val = rgblight_get_val();
-    rgb_mode = rgblight_get_mode();
-}
-
-void restore_hsv(void) {
-    rgblight_mode(rgb_mode);
-    rgblight_sethsv(hue, sat, val);
-}
+bool    num_on    = false;
+bool    caps_lock = false;
 
 void matrix_init_user() {
-    rgblight_enable();
+    rgblight_disable();
 }
 
 void set_num_rgb(void) {
+    rgblight_enable();
     rgblight_mode(1);
     rgblight_setrgb(0x00, 0x00, 0xFF);
 }
 
 void set_caps_rgb(void) {
+    rgblight_enable();
     rgblight_mode(1);
     rgblight_setrgb(0xFF, 0xFF, 0xFF);
-}
-
-uint32_t layer_state_set_user(uint32_t state) {
-    if (!num_on && layer_state_is(_NUM)) {
-        num_on = true;
-        if (!caps_lock) {
-            backup_hsv();
-        }
-        set_num_rgb();
-    } else if (num_on && !layer_state_is(_NUM)) {
-        num_on = false;
-        if (!caps_lock) {
-            restore_hsv();
-        } else {
-            set_caps_rgb();
-        }
-    }
-    return state;
 }
 
 void led_set_user(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
         caps_lock = true;
         if (!num_on) {
-            backup_hsv();
+            set_caps_rgb();
         }
-        set_caps_rgb();
     } else {
         caps_lock = false;
         if (!num_on) {
-            restore_hsv();
+            rgblight_disable();
+        } else {
+            set_num_rgb();
         }
     }
 }
@@ -209,12 +178,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case FN_NUM:
             if (record->tap.count == 2 && record->event.pressed) {
                 layer_on(_NUM);
+                num_on = true;
+                set_num_rgb();
                 return false;
             }
             return true; // Continue with unmatched keycodes
             break;
         case QWERTY:
             layer_off(_NUM);
+            num_on = false;
+            if (caps_lock) {
+                set_caps_rgb();
+            } else {
+                rgblight_disable();
+            }
             break;
         case SPC_LWR:
           if (record->event.pressed) {
@@ -315,8 +292,8 @@ void matrix_scan_user(void) {
 
 bool music_mask_user(uint16_t keycode) {
   switch (keycode) {
-    case RAISE:
-    case LOWER:
+    case SPC_RSE:
+    case SPC_LWR:
       return false;
     default:
       return true;
