@@ -120,16 +120,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-        if (clockwise) {
-            tap_code(KC_WH_U);
-        } else {
-            tap_code(KC_WH_D);
-        }
-	return true;
-}
-
-
 void keyboard_post_init_user(void) {
 	// Customise these values to desired behaviour
 	debug_enable=false;
