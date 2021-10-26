@@ -3,17 +3,8 @@
 # MCU name
 MCU = atmega32u4
 
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# Bootloader selection
+BOOTLOADER = atmel-dfu
 
 
 BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration(+1000)
