@@ -19,9 +19,11 @@
 #include "quantum.h"
 
 enum keyboard_keycodes {
-    LED_EN, // Toggle LED
+    LED_EN = SAFE_RANGE, // Toggle LED
     KEYMAP_SAFE_RANGE
 };
+#undef SAFE_RANGE
+#define SAFE_RANGE NKEYMAP_SAFE_RANGE
 
 /* This is a shortcut to help you visually see your layout.
  *
