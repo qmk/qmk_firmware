@@ -132,9 +132,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	static uint16_t key_timer;
-	//static bool in_cursor_mode = false;
-
 	switch (keycode) {
 		case RESET:
 			oled_write_ln_P(PSTR("RESETORFLASH"), true);

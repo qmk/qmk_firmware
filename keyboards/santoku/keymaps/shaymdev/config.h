@@ -30,6 +30,8 @@
 #define ENCODER_RESOLUTION 1
 
 #undef PS2_MOUSE_SCROLL_BTN_MASK  //shaymdev: maybe set his to middle (default?) possible good info here: https://beta.docs.qmk.fm/using-qmk/hardware-features/feature_ps2_mouse
+#define PS2_MOUSE_SCROLL_BTN_MASK (1 << PS2_MOUSE_BTN_MIDDLE)
+#undef PS2_MOUSE_SCROLL_MASK
 #define PS2_MOUSE_SCROLL_MASK 0x0F
 
 //#define PS2_MOUSE_SCROLL_BTN_SEND 500 /* Default is 300 */ //shaymdev: might want to turn this back on with scroll_btn_mask
