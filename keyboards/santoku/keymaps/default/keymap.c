@@ -16,34 +16,31 @@
 
 #include QMK_KEYBOARD_H
 
-enum santoku_layers 
-{
-	_QWERTY,
-	_SYMBOL,
-	_NAVIGATION,
-	_FUNC
+enum santoku_layers {
+    _QWERTY,
+    _SYMBOL,
+    _NAVIGATION,
+    _FUNC,
 };
 
-enum santoku_keycodes
-{
-	QWERTY = SAFE_RANGE,
-	SYMBOL,
-	NAVIGATION,
-	FUNC,
-	ONETAPALTTAB,
-	OVERVIEW,
-	TAPHOLDKEYTEST,
-	TESTV
+enum santoku_keycodes {
+    QWERTY = SAFE_RANGE,
+    SYMBOL,
+    NAVIGATION,
+    FUNC,
+    ONETAPALTTAB,
+    OVERVIEW,
+    TAPHOLDKEYTEST,
+    TESTV
 };
 
-enum combos
-{
-	JK_ESC,
-	MCOMMA_FORWARDHISTORY,
-	NM_BACKHISTORY,
-	HJ_CLOSETAB,
-	YU_PREVTAB,
-	UI_NEXTTAB
+enum combos {
+    JK_ESC,
+    MCOMMA_FORWARDHISTORY,
+    NM_BACKHISTORY,
+    HJ_CLOSETAB,
+    YU_PREVTAB,
+    UI_NEXTTAB
 };
 
 const uint16_t PROGMEM jk_combo[]     = {KC_J, KC_K, COMBO_END};
