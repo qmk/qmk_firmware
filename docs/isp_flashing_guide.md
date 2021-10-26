@@ -10,7 +10,7 @@ There are several different kinds of bootloaders available for AVR microcontroll
 
 One of the following devices is required to perform the ISP flashing. The product links are to the official versions, however you can certainly source them elsewhere.
 
-You'll also need some jumper wires to connect the ISP flasher and the target board. Depending on the latter, there might be a header you can connect the wires to directly, but if not you may also have to do some soldering to pads on the PCB, switch legs connected to the ISP pins, or in some scenarios directly to the MCU.
+You'll also need some jumper wires to connect the ISP flasher and the target board. Some boards have an ISP header with the necessary pins broken out. If not, then you will need to temorarily solder the wires to the PCB -- usually to switch pins or directly to the MCU.
 The wiring is fairly straightforward; for the most part, you'll be connecting like to like. Refer to the target MCU's datasheet for the exact `RESET`, `SCLK`, `MOSI` and `MISO` pins.
 
 ### Pro Micro as ISP
@@ -160,6 +160,8 @@ Precompiled `.hex` files are generally not available, but you can compile it you
 |[ATmega32A](https://github.com/coseyfannitutti/discipline/tree/master/doc/bootloader)|`0x1F`|`0xC0`|*n/a*   |`16C0:05DC`|
 |[ATmega328P](https://github.com/coseyfannitutti/discipad/tree/master/doc/bootloader) |`0xD7`|`0xD0`|`0x04`  |`16C0:05DC`|
 
+Note that some boards may have their own specialized build of this bootloader in a separate repository. This will usually be linked to in the board's readme.
+
 ## Flashing the Bootloader
 
 Open a new Terminal window - if you are on Windows, use MSYS2 or QMK MSYS, not the Command Prompt. Navigate to the directory your bootloader `.hex` is in. Now it's time to run the `avrdude` command.
@@ -215,6 +217,8 @@ avrdude done.  Thank you.
 ### Setting the Fuses
 
 This is a slightly more advanced topic, but may be necessary if you are switching from one bootloader to another (for example, Caterina to Atmel/QMK DFU on a Pro Micro). Fuses control some of the low-level functionality of the AVR microcontroller, such as clock speed, whether JTAG is enabled, and the size of the section of flash memory reserved for the bootloader, among other things. You can find a fuse calculator for many AVR parts [here](https://www.engbedded.com/fusecalc/).
+
+!> **WARNING:** Setting incorrect fuses may render the MCU practically unrecoverable without high voltage programming (not covered here)! Most importantly, do not change the `SPIEN` bit, as it disables the ability to ISP flash.
 
 To set the fuses, add the following to the `avrdude` command:
 
