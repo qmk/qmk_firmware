@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Tye
 #define PRODUCT         Santoku
-#define DESCRIPTION     compact split keyboard with built-in support for Trackpoints and OLED display
 
 /* diode direction */
 #define DIODE_DIRECTION COL2ROW
