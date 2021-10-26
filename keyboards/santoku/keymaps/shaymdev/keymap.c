@@ -1,13 +1,26 @@
+/* Copyright 2021 Tye (@tyetye)
+ * Copyright 2021 Shay Merrill (@shaymdev)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 #ifdef SSD1306OLED
 #include "ssd1306.h"
 #endif
 #include "ps2_mouse.h"
 extern keymap_config_t keymap_config;
-//#include "LUFA/Drivers/Peripheral/TWI.h"
-
-//#define TAPPING_FORCE_HOLD
-
 
 enum santoku_layers 
 {
@@ -194,7 +207,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case ALT_T(KC_O):
         case GUI_T(KC_A):
         case ALT_T(KC_SPC):
-            return TAPPING_TERM + 200;
+            return TAPPING_TERM + 100;
         default:
             return TAPPING_TERM;
     }
