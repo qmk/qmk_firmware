@@ -15,22 +15,16 @@
  */
 
 #include QMK_KEYBOARD_H
-#ifdef SSD1306OLED
-#include "ssd1306.h"
-#endif
-#include "ps2_mouse.h"
 extern keymap_config_t keymap_config;
 
-enum santoku_layers 
-{
+enum santoku_layers {
 	_QWERTY,
 	_SYMBOL,
 	_NAVIGATION,
 	_FUNC
 };
 
-enum santoku_keycodes
-{
+enum santoku_keycodes {
 	QWERTY = SAFE_RANGE,
 	SYMBOL,
 	NAVIGATION,
@@ -41,8 +35,7 @@ enum santoku_keycodes
 	TESTV
 };
 
-enum combos
-{
+enum combos {
 	JK_ESC,
 	MCOMMA_FORWARDHISTORY,
 	NM_BACKHISTORY,
