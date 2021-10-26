@@ -24,7 +24,7 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    CUSTOM1 = KEYMAP_SAFE_RANGE, // Placeholder
+    CUSTOM1 = SAFE_RANGE, // Placeholder
 };
 
 #define L1 MO(_L1)
