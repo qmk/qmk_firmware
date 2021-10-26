@@ -16,10 +16,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#ifdef SSD1306OLED
-#include "ssd1306.h"
-#endif
-#include "ps2_mouse.h"
+
 extern keymap_config_t keymap_config;
 
 enum santoku_layers 

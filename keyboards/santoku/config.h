@@ -17,6 +17,7 @@
 #pragma once
 
 #include "config_common.h"
+#include "ps2_mouse.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED

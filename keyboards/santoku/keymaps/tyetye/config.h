@@ -14,13 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "santoku.h"
+#pragma once
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-	if (clockwise) {
-		tap_code(KC_WH_U);
-	} else {
-		tap_code(KC_WH_D);
-	}
-	return true;
-}
+#define COMBO_TERM  40  /* time limit in milliseconds combos need to be completed */	
+#define COMBO_COUNT 6
+
+#define TAPPING_TOGGLE 2  /* How many times TT(__layer__) needs to be tapped to stick */
+#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_TERM 150
