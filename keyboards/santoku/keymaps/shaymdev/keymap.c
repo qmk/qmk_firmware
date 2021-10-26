@@ -26,10 +26,7 @@ enum santoku_layers
 	_RAISE,
 	_ADJUST,
 
-	_QWERTY,
-	_SYMBOL,
-	_NAVIGATION,
-	_FUNC
+	_QWERTY
 };
 
 enum santoku_keycodes
@@ -37,7 +34,6 @@ enum santoku_keycodes
 	DVORAK = SAFE_RANGE,
 	QWERTY,
 	ONETAPALTTAB,
-	TAPHOLDKEYTEST,
 };
 
 enum combos //match combo_count in config.h
@@ -140,23 +136,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	//static bool in_cursor_mode = false;
 
 	switch (keycode) {
-		case TAPHOLDKEYTEST:
-			if (record->event.pressed) {
-				key_timer = timer_read();  // start the timer
-				return false;              // return false to keep anything from being sent
-			} else {
-                // If key was held
-				if (timer_elapsed(key_timer) > 250) {
-						SEND_STRING(SS_TAP(X_G));
-    					return false;
-    				} else { 
-                        // if key was tapped
-						SEND_STRING(SS_TAP(X_B));
-    					return false;
-    				}
-    			}
-			break;
-
 		case RESET:
 			oled_write_ln_P(PSTR("RESETORFLASH"), true);
 			_delay_ms(1500);
@@ -198,18 +177,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         default:
             return TAPPING_TERM;
     }
-}
-
-void matrix_init_user(void) {
-#ifdef USE_I2C
-	i2c_master_init();
-#ifdef SSD1306OLED
-	// calls code for the SSD1306 OLED
-	_delay_ms(400);
-	TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-	iota_gfx_init();   // turns on the display
-#endif
-#endif
 }
 
 //#ifdef OLED_DRIVER_ENABLE
