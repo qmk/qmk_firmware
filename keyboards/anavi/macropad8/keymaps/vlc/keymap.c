@@ -16,10 +16,12 @@
 
 #include QMK_KEYBOARD_H
 
-#define _PLAY 0
-#define _FRAME 1
-#define _DVD 2
-#define _FN 3
+enum custom_layers {
+    _PLAY,
+    _FRAME,
+    _DVD,
+    _FN
+};
 
 #define KC_X0 LT(_FN, KC_ESC)
 
