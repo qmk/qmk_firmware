@@ -19,7 +19,7 @@ Flashing example for this keyboard:
 
 To reset the board into bootloader mode, do one of the following:
 
-* Short reset pads found between the hotswap sockets of SPACE1 under the PCB
+* Short reset pads located between the hotswap sockets of SPACE1 under the PCB
 * In the case of the default keymap, use the key combination Fn + PageUp
 * Hold the Esc key while connecting the USB cable (also erases persistent settings)
 
