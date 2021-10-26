@@ -4,7 +4,6 @@
 
 Cradio are low-profile 34-key split-keyboards designed by [@davidphilipbarr](https://github.com/davidphilipbarr), with no diodes and direct micro-controller pin wiring.
 
-
 ## Keyboard Info
 
 * Keyboard Maintainer: [davidphilipbarr](https://github.com/davidphilipbarr)
