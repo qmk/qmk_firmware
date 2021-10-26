@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -24,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6464
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    homebrew
+#define MANUFACTURER    Tye
 #define PRODUCT         Santoku
 #define DESCRIPTION     compact split keyboard with built-in support for Trackpoints and OLED display
 
@@ -71,7 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_MOUSE_INIT_DELAY 1000 /* Default */
 #endif
 
-#ifdef PS2_USE_USART
+#if defined(PS2_USE_BUSYWAIT) || defined (PS2_USE_USART)
 
 #define PS2_CLOCK_PORT  PORTD
 #define PS2_CLOCK_PIN   PIND
