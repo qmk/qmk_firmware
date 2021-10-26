@@ -11,6 +11,8 @@
     // fading out is timed (depending on the rgb_matrix_config.speed) to have finished before reaching RGB_DISABLE_TIMEOUT
     #define RGB_DISABLE_WITH_FADE_OUT
     #define RGB_DISABLE_WHEN_USB_SUSPENDED
+    // number of milliseconds to wait until activating RGB idle effects
+    #define RGB_IDLE_TIMEOUT 4500 // 4.5 seconds
     // fade in when we have been suspended
     #define RGB_FADE_IN
 #endif

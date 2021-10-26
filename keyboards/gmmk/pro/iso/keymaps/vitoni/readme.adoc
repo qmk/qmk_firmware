@@ -78,4 +78,20 @@ Parameters used to define the behavior are:
 | 200 (&lt;= UNIT8_MAX)
 | Maximum assumed value for brightness.
 Used to calculate lead time for fade out before suspend timeout.
+
+|===
+
+`RGB_IDLE_TIMEOUT` enables fading out after being idle for the defined time.
+
+[%header]
+|===
+|Key | Default | Description
+
+|RGB_IDLE_TIMEOUT
+|4500
+|Time in milliseconds without activity before considered to be idle.
+
+|RGB_IDLE_MINIMUM_BRIGHTNESS
+|`RGB_MATRIX_MAXIMUM_BRIGHTNESS` / 5
+|Brightness value RGB is dimmed to when starting to idle.
 |===

@@ -108,7 +108,7 @@ bool fade_out_ranged(const uint8_t time, const uint8_t range_min, const uint8_t 
  * @see rgb_matrix_sethsv_noeeprom()
  */
 void rgb_matrix_sethsv_noeeprom_user(const uint16_t hue, const uint8_t sat, const uint8_t val) {
-#if defined(RGB_FADE_IN)
+#if defined(RGB_FADE_IN) || defined(RGB_IDLE_TIMEOUT)
     rgb_matrix_config.hsv.h = hue;
     rgb_matrix_config.hsv.s = sat;
     // omitting setting the value to avoid interfering with effects
@@ -118,7 +118,7 @@ void rgb_matrix_sethsv_noeeprom_user(const uint16_t hue, const uint8_t sat, cons
 #endif
 }
 
-#if defined(RGB_FADE_IN)
+#if defined(RGB_FADE_IN) || defined(RGB_IDLE_TIMEOUT)
 /**
  * @brief Calculates the time offset required by fade in.
  * @details Using an arbitrary timer any point on the sine curve might be pointed to.
@@ -162,8 +162,7 @@ bool fade_in(const uint8_t time) {
 }
 #endif
 
-#if defined(RGB_DISABLE_WITH_FADE_OUT)
-
+#if defined(RGB_DISABLE_WITH_FADE_OUT) || defined(RGB_IDLE_TIMEOUT)
 /**
  * @brief Calculates the time offset required by fade out.
  * @details Using an arbitrary timer any point on the Sinus curve might be pointed to.
@@ -192,7 +191,9 @@ uint8_t calc_fade_out_offset(const uint8_t time) {
 
     return time_offset;
 }
+#endif
 
+#if defined(RGB_DISABLE_WITH_FADE_OUT)
 /**
  * @brief Decreases value/brightness until reaching 0 based on given timer.
  * @param[in]   time A (usually scaled) timer
@@ -205,3 +206,17 @@ bool fade_out(const uint8_t time) {
     return fade_out_ranged(time, range_min, range_max);
 }
 #endif
+
+#if defined(RGB_IDLE_TIMEOUT)
+/**
+ * @brief Decreases value/brightness until reaching `RGB_IDLE_MINIMUM_BRIGHTNESS` based on given timer.
+ * @param[in]   time A (usually scaled) timer
+ * @return Returns `true` if `RGB_IDLE_MINIMUM_BRIGHTNESS` has been reached, `false` otherwise.
+ */
+bool idle_fade_out(const uint8_t time) {
+    static const uint8_t range_min = RGB_IDLE_MINIMUM_BRIGHTNESS;
+    static const uint8_t range_max = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+
+    return fade_out_ranged(time, range_min, range_max);
+}
+#endif // RGB_IDLE_TIMEOUT

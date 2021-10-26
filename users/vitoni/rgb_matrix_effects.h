@@ -12,7 +12,11 @@
  */
 enum states {
     REGULAR             //!< when in regular use
-#if defined(RGB_FADE_IN)
+#if defined(RGB_IDLE_TIMEOUT)
+    ,IDLE_FADE_OUT      //!< when started idling
+    ,IDLE               //!< when idling
+#endif
+#if defined(RGB_FADE_IN) || defined(RGB_IDLE_TIMEOUT)
     ,FADE_IN            //!< when starting initially or before going back to REGULAR
 #endif
 #if defined(RGB_DISABLE_WITH_FADE_OUT)
@@ -61,7 +65,7 @@ uint16_t scale_2_rgb_time(const uint8_t scaled_time);
  */
 void rgb_matrix_sethsv_noeeprom_user(const uint16_t hue, const uint8_t sat, const uint8_t val);
 
-#if defined(RGB_FADE_IN) || defined(RGB_DISABLE_WITH_FADE_OUT)
+#if defined(RGB_FADE_IN) || defined(RGB_DISABLE_WITH_FADE_OUT) || defined(RGB_IDLE_TIMEOUT)
 #   if defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS)
 #       if (RGB_MATRIX_MAXIMUM_BRIGHTNESS) < 1
 #           error "RGB_MATRIX_MAXIMUM_BRIGHTNESS must not be less than ONE"
@@ -74,7 +78,7 @@ void rgb_matrix_sethsv_noeeprom_user(const uint16_t hue, const uint8_t sat, cons
 #   endif
 #endif
 
-#if defined(RGB_FADE_IN)
+#if defined(RGB_FADE_IN) || defined(RGB_IDLE_TIMEOUT)
 /**
  * @brief Calculates the time offset required by fade in.
  * @details Using an arbitrary timer any point on the sine curve might be pointed to.
@@ -98,7 +102,9 @@ bool fade_in(const uint8_t time);
 #   if !defined(RGB_DISABLE_TIMEOUT)
 #       warning "RGB_DISABLE_WITH_FADE_OUT expects RGB_DISABLE_TIMEOUT to be defined"
 #   endif
+#endif
 
+#if defined(RGB_DISABLE_WITH_FADE_OUT) || defined(RGB_IDLE_TIMEOUT)
 /**
  * @brief Calculates the time offset required by fade out.
  * @details Using an arbitrary timer any point on the Sinus curve might be pointed to.
@@ -109,7 +115,9 @@ bool fade_in(const uint8_t time);
  * @return Offset required so that time matches the current brightness
  */
 uint8_t calc_fade_out_offset(const uint8_t time);
+#endif
 
+#if defined(RGB_DISABLE_WITH_FADE_OUT)
 /**
  * @brief Decreases value/brightness until reaching 0 based on given timer.
  * @param[in]   time A (usually scaled) timer
@@ -118,3 +126,25 @@ uint8_t calc_fade_out_offset(const uint8_t time);
 bool fade_out(const uint8_t time);
 #endif
 
+#if defined(RGB_IDLE_TIMEOUT)
+#   if RGB_IDLE_TIMEOUT < 0
+#       error "RGB_IDLE_TIMEOUT must not be less than ZERO"
+#   endif
+#   if !defined(RGB_IDLE_MINIMUM_BRIGHTNESS)
+        // minimum brightness when idling
+#       define RGB_IDLE_MINIMUM_BRIGHTNESS (RGB_MATRIX_MAXIMUM_BRIGHTNESS/5)
+#   endif
+#   if RGB_IDLE_MINIMUM_BRIGHTNESS < 0
+#       error "RGB_IDLE_MINIMUM_BRIGHTNESS must not be less than ZERO"
+#   endif // RGB_IDLE_MINIMUM_BRIGHTNESS < 0
+#   if RGB_MATRIX_MAXIMUM_BRIGHTNESS <= RGB_IDLE_MINIMUM_BRIGHTNESS
+#       error "RGB_IDLE_MINIMUM_BRIGHTNESS must be less than RGB_MATRIX_MAXIMUM_BRIGHTNESS"
+#   endif // RGB_MATRIX_MAXIMUM_BRIGHTNESS <= RGB_IDLE_MINIMUM_BRIGHTNESS
+
+/**
+ * @brief Decreases value/brightness until reaching `RGB_IDLE_MINIMUM_BRIGHTNESS` based on given timer.
+ * @param[in]   time A (usually scaled) timer
+ * @return Returns `true` if `RGB_IDLE_MINIMUM_BRIGHTNESS` has been reached, `false` otherwise.
+ */
+bool idle_fade_out(const uint8_t time);
+#endif // RGB_IDLE_TIMEOUT
