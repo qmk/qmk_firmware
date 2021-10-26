@@ -2,7 +2,9 @@
 
 ![Santoku Gen 2](https://preview.redd.it/nhoapw0iipa71.jpg?width=960&crop=smart&auto=webp&s=e320ca4ef5c62676f29c2c193c00d6a6d3278e01)
 
-Design Goals:
+[Reddit intro post](https://www.reddit.com/r/ErgoMechKeyboards/comments/oisnad/i_made_this_santoku_gen_2_trackpoint_as_a/)
+
+## Design Goals:
 
 A compact keyboard that is equally useful at home or on the road. I don't have any interest in using separate boards depending on where I am.
 
@@ -14,7 +16,7 @@ It was also important to try to future-proof the design. The large garage in the
 
 
 
-Trackpoint:
+### Trackpoint:
 
 The Gen 1 Santoku forced me to rethink many of my original ideas about how to implement a Trackpoint. Much of that thinking made it into Gen 2. However, I'm not done yet and I'm already generating TODOs for Gen 3.
 
@@ -26,7 +28,7 @@ Additionally, Gen 2 allows the Trackpoint to be used between either the "UI" or 
 
 
 
-But that RIBBON CABLE!!1!!!111!:
+### But that RIBBON CABLE!!1!!!111!:
 
 Yeah, the cable. I've heard it. Yes, I used an FFC (Flat Flexible Cable) on Gen 2 also, just like Gen 1. Why???? Because, with all the other goals and limitations in mind, I still think it's the least bad solution.
 
@@ -50,7 +52,7 @@ So, what's the downside to FFC? In my opinion, the connectors are the weak link.
 
 
 
-Why make it "splittable"?
+### Why make it "splittable"?
 
 Why not just choose split or not split?**This is another design choice that I've found is really polarizing. Why not just choose one or the other? As mentioned, I designed this as my "one board to rule them all". It's my travel board, and my home desk board, and my office visit board, and my coffee shop board. I don't like switching layouts depending on where I am. I prefer a small split but my environment doesn't always allow it. When on a plane, or a packed coffee house, I may not have room to spread out. On a plane or the HSR, the seat trays are inviting disaster with the cable. Being able to combine the halves keeps things strong and compact without having to tote around a different device.
 
@@ -58,13 +60,13 @@ Why not just choose split or not split?**This is another design choice that I've
 
 
 
-Is it for sale?:
+### Is it for sale?:
 
-This isn't r/mechmarket and the Santoku is still very much what I consider a beta design. However, I might have a very small number of extra PCBs for sale. If you are an experienced builder (for example, with equipment and knowledge to solder SMD and .5mm pitch parts) and are willing to try a constantly evolving idea, please send me a PM. I am quite interested in getting *quality* feedback about the build process and general feel of the board.
+This board is currently in a closed Beta stage but I hope to get to an open distribution soon. 
 
 
-
-* Keyboard Maintainer: *TODO or TyeBHarrison?* [Tye](https://github.com/tyetye)
+## Build Info
+* Keyboard Maintainer: [Tye](https://github.com/tyetye)
 * Hardware Supported: PCB from Tye, Elite-C
 * Hardware Availability: *TODO* *Links to where you can find this hardware*
 

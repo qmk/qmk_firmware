@@ -4,10 +4,6 @@
 #endif
 #include "ps2_mouse.h"
 extern keymap_config_t keymap_config;
-//#include "LUFA/Drivers/Peripheral/TWI.h"
-
-//#define TAPPING_FORCE_HOLD
-
 
 enum santoku_layers 
 {
