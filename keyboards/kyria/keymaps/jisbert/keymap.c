@@ -19,7 +19,8 @@ enum layers {
     _QWERTY = 0,
     _LOWER,
     _RAISE,
-    _ADJUST
+    _ADJUST,
+    _NUMPAD
 };
 
 enum keycodes {
@@ -42,10 +43,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-        KC_ESC, KC_Q, KC_W, KC_E,    KC_R,       KC_T,                                                         KC_Y,        KC_U,    KC_I,    KC_O,   KC_P,    KC_NUHS,
-        KC_GRV, KC_A, KC_S, KC_D,    KC_F,       KC_G,                                                         KC_H,        KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-        KC_EQL, KC_Z, KC_X, KC_C,    KC_V,       KC_B,        SFT_T(KC_DEL),  KC_LALT, KC_TAB,  OSM(MOD_LSFT), KC_N,        KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_EMQM,
-                            KC_LGUI, KC_ATEU,    MO(_LOWER),  KC_BSPC,        KC_LCTL, KC_ENT,  KC_SPC,        MO(_RAISE),  KC_RALT, KC_APP
+        KC_ESC, KC_Q, KC_W, KC_E,    KC_R,       KC_T,                                                         KC_Y,        KC_U,        KC_I,    KC_O,   KC_P,    KC_NUHS,
+        KC_GRV, KC_A, KC_S, KC_D,    KC_F,       KC_G,                                                         KC_H,        KC_J,        KC_K,    KC_L,   KC_SCLN, KC_QUOT,
+        KC_EQL, KC_Z, KC_X, KC_C,    KC_V,       KC_B,        SFT_T(KC_DEL),  KC_LALT, KC_TAB,  OSM(MOD_LSFT), KC_N,        KC_M,        KC_COMM, KC_DOT, KC_SLSH, KC_EMQM,
+                            KC_LGUI, KC_ATEU,    MO(_LOWER),  KC_BSPC,        KC_LCTL, KC_ENT,  KC_SPC,        MO(_RAISE),  TG(_NUMPAD), KC_APP
     ),
 /*
  * Lower Layer: navigation
@@ -105,6 +106,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
+ /*
+  * Layer template
+  *
+  * ,-------------------------------------------.                              ,-------------------------------------------.
+  * |        |  F9  |  F10 |  F11 |  F12 |      |                              |  ,   |  7   |  8   |  9   |  /   |        |
+  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+  * |        |  F5  |  F6  |  F7  |  F8  |      |                              |  .   |  4   |  5   |  6   |  *   |        |
+  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+  * |        |  F1  |  F2  |  F3  |  F4  |      |      |      |  |      |      |  0   |  1   |  2   |  3   |  -   |        |
+  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+  *                        |      |      |      |      |      |  |      |      |      |      |      |
+  *                        |      |      |      |      |      |  |      |      |      |      |      |
+  *                        `----------------------------------'  `----------------------------------'
+  */
+     [_NUMPAD] = LAYOUT(
+       _______, KC_F9, KC_F10, KC_F11,  KC_F12,  _______,                                     KC_COMM, KC_P7,   KC_P8,  KC_P9, KC_PSLS, _______,
+       _______, KC_F5, KC_F6,  KC_F7,   KC_F8,   _______,                                     KC_PDOT, KC_P4,   KC_P5,  KC_P6, KC_PAST, _______,
+       _______, KC_F1, KC_F2,  KC_F3,   KC_F4,   _______, _______, _______, _______, _______, KC_P0,   KC_P1,   KC_P2,  KC_P3, KC_PMNS, _______,
+                               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+     ),
 // /*
 //  * Layer template
 //  *
