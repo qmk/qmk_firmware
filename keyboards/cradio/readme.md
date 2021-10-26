@@ -17,7 +17,7 @@ Make examples for this keyboard (after setting up your build environment):
 
     make cradio:default
 
-Firmware uses `EE_HANDS` split handedness. Each halve should be flashed once with the following:
+Firmware uses `EE_HANDS` split handedness by default. Each halve should be flashed once with the following:
 
     make cradio:default:dfu-split-left
     make cradio:default:dfu-split-right
@@ -26,7 +26,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 4 ways:
+Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at top left on the left half (0,0) and plug in the keyboard. With `EE_HANDS` configured, hold down the top right key on the right half.
 * **Physical reset button**: Briefly press the reset button soldered on the PCB.
