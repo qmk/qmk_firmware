@@ -38,17 +38,9 @@ enum default_layers {
 };
 
 // Custom keys
-// enum custom_keycodes {
-    // TM_CREATE = SAFE_RANGE,
-    // TM_SEL1,
-    // TM_SEL2,
-    // TM_SEL3,
-    // TM_SEL4,
-    // TM_SEL5,
-    // TM_SEL6,
-    // TM_SEL7,
-    // TM_SEL8,
-// };
+enum custom_keycodes {
+    QWERTY = SAFE_RANGE,  // Key that allows to fall back to the default layer
+};
 
 
 #define CHAR_MOVE   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
@@ -69,7 +61,7 @@ enum default_layers {
 #define THREE_NOP   TWO_NOP, XXXXXXX
 #define FOUR_NOP    THREE_NOP, XXXXXXX
 #define FIVE_NOP    FOUR_NOP, XXXXXXX
-#define SIX_NP     FIVE_NOP, XXXXXXX
+#define SIX_NP      FIVE_NOP, XXXXXXX
 #define SEVEN_NOP   SIX_NOP, XXXXXXX
 
 #define KC_FUNC     KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12
@@ -91,9 +83,10 @@ enum default_layers {
 #define SPC_LWR     LT(_LOWER, KC_SPC)
 #define SPC_RSE     LT(_RAISE, KC_SPC)
 #define SLS_SFT     RSFT_T(KC_SLSH)
+#define FN_NUM      LT(_ADJUST, KC_NO)
 
-#define L_MOD       LT(_FN, KC_SPC) // for split space bar, left bar
-#define R_MOD       LT(_FN, KC_SPC) // for split space bar, right bar
+#define L_MOD       LT(_ADJUST, KC_SPC) // for split space bar, left bar
+#define R_MOD       LT(_ADJUST, KC_SPC) // for split space bar, right bar
 //#define R_MOD       RCTL_T(KC_SPC)  // for split space bar, right bar
 
 #define DF_MAC      DF(_QWERTY_MAC)
