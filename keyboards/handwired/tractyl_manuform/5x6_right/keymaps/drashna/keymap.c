@@ -29,13 +29,13 @@ bool enable_acceleration = false;
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_5x6_right_wrapper( \
-     KC_ESC,  ________________NUMBER_LEFT________________,            ________________NUMBER_RIGHT_______________, UC_IRNY, \
+     KC_ESC,  ________________NUMBER_LEFT________________,            ________________NUMBER_RIGHT_______________, UC_CLUE, \
      SH_TT,   K01,    K02,      K03,     K04,     K05,                K06,     K07,     K08,     K09,     K0A,     SH_TT, \
      LALT_T(KC_TAB), K11, K12,  K13,     K14,     K15,                K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,                K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                        OS_LALT, OS_LGUI,                                                OS_RGUI, OS_RALT, \
                                 KC_MUTE, KC_GRV,                                        KC_BTN3,  \
-                                         KC_SPC,  OS_LGUI,                     KC_ENT,  \
+                                         KC_SPC,  UC_IRNY,                     KC_ENT,  \
                                          BK_LWER, TT(_MOUSE),      TT(_MOUSE), DL_RAIS  \
   )
 #define LAYOUT_base_wrapper(...)       LAYOUT_5x6_right_base(__VA_ARGS__)
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,                        KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
                           _______, _______,                                                            _______, _______,
                                             _______, _______,                                 KC_BTN3,
-                                                     KC_ACCEL, _______,               _______,
+                                                     _______, KC_ACCEL,              _______,
                                                      _______, _______,      _______, _______
     ),
     [_GAMEPAD] = LAYOUT_5x6_right(
@@ -117,8 +117,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_5x6_right_wrapper(
         KC_MAKE, ___________________BLANK___________________,                      _________________ADJUST_R1_________________, KC_RST,
         VRSN,    _________________ADJUST_L1_________________,                      _________________ADJUST_R1_________________, EEP_RST,
-        UC_MOD,  _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, TG_MODS,
-        _______, _________________ADJUST_L3_________________,                      _________________ADJUST_R3_________________, KC_MPLY,
+        KEYLOCK, _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, TG_MODS,
+        UC_MOD,  _________________ADJUST_L3_________________,                      _________________ADJUST_R3_________________, KC_MPLY,
                           HPT_DWLI, HPT_DWLD,                                                        TG_GAME, TG_DBLO,
                                             HPT_TOG, HPT_BUZ,                               KC_NUKE,
                                                      _______, _______,             _______,
@@ -142,8 +142,14 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_LOWER]           = { { RGB_MOD, RGB_RMOD}, { RGB_HUD, RGB_HUI } },
     [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _______ } },
 };
+// clang-format on
 #else
 bool encoder_update_user(uint8_t index, bool clockwise) {
+#    ifdef SWAP_HANDS_ENABLE
+    if (swap_hands) {
+        index ^= 1;
+    }
+#    endif
     if (index == 0) {
         tap_code_delay(clockwise ? KC_VOLD : KC_VOLU, 5);
     } else if (index == 1) {
@@ -152,7 +158,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
-// clang-format on
 
 #ifdef POINTING_DEVICE_ENABLE
 static uint16_t mouse_timer           = 0;
@@ -259,7 +264,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 // WPM-responsive animation stuff here
 #    define SLEEP_FRAMES 2
 #    define SLEEP_SPEED  10  // below this wpm value your animation will idle
@@ -343,9 +348,16 @@ void render_kitty(void) {
                                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x06, 0x04, 0x04, 0x04, 0x04, 0x05, 0x04, 0x04, 0x04, 0x07, 0x07, 0x07, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}};
 
     // assumes 1 frame prep stage
+#ifdef SWAP_HANDS_ENABLE
     extern bool swap_hands;
+#endif
     void        animation_phase(void) {
-        if (swap_hands) {
+#    ifdef SWAP_HANDS_ENABLE
+        if (swap_hands)
+#else
+        if (tap_toggling)
+#endif
+        {
             anim_frame_duration = 300;
             current_rtogi_frame = (current_rtogi_frame + 1) % RTOGI_FRAMES;
             oled_write_raw_P(rtogi[abs((RTOGI_FRAMES - 1) - current_rtogi_frame)], ANIM_SIZE);
