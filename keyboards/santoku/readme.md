@@ -68,7 +68,7 @@ This board is currently in a closed Beta stage but I hope to get to an open dist
 ## Build Info
 * Keyboard Maintainer: [Tye](https://github.com/tyetye)
 * Hardware Supported: PCB from Tye, Elite-C
-* Hardware Availability: *TODO* *Links to where you can find this hardware*
+* Hardware Availability: Currently in a closed beta phase before groupbuy/distribution
 
 Make example for this keyboard (after setting up your build environment):
 
