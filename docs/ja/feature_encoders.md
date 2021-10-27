@@ -1,8 +1,8 @@
 # エンコーダ
 
 <!---
-  original document: 0.14.14:docs/feature_encoders.md
-  git diff 0.14.14 HEAD -- docs/feature_encoders.md | cat
+  original document: 0.14.29:docs/feature_encoders.md
+  git diff 0.14.29 HEAD -- docs/feature_encoders.md | cat
 -->
 
 以下を `rules.mk` に追加することで基本的なエンコーダがサポートされます:
@@ -111,4 +111,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #define ENCODERS_PAD_A { B1, B1, B2 }
 #define ENCODERS_PAD_B { B2, B3, B3 }
 ```
-この時、エンコーダ 0 の `B1 B2` とエンコーダ 1 の `B1 B3` は、タイミングによっては、エンコーダ 2 の `B2 B3` や `B3 B2` の回転と解釈できます。これでも、ユースケースによっては便利な構成かもしれません。
+この時、エンコーダ 0 の `B1 B2` とエンコーダ 1 の `B1 B3` は、タイミングによっては、エンコーダ 2 の `B2 B3` や `B3 B2` の回転と解釈される可能性があります。これでも、ユースケースによっては便利な構成かもしれません。
