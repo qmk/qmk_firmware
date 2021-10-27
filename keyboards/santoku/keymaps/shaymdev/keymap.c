@@ -208,14 +208,14 @@ void oled_task_user(void) {
 		// Host Keyboard Layer Status
 		switch (get_highest_layer(layer_state)) {
 			case _DVORAK:
-				oled_write_P(PSTR("DVORAK\n"), false); //maybe just list the tap mods and combos
+				oled_write_P(PSTR("  DVORAK\n"), false); //maybe just list the tap mods and combos
 				oled_write_ln_P(PSTR(""), false);
 				oled_write_ln_P(PSTR("ES  ',.py | fgcrl/"), false);
 				oled_write_ln_P(PSTR("TB  aoeui | dhtns-"), false);
 				oled_write_ln_P(PSTR("=   ;qjkx | bmwvz\\"), false);
 				break;
 			case _QWERTY:
-				oled_write_P(PSTR("QWERTY\n"), false);
+				oled_write_P(PSTR(" QWERTY\n"), false);
 				oled_write_ln_P(PSTR(""), false);
 				oled_write_ln_P(PSTR("TB  qwert | yuiop\\"), false);
 				oled_write_ln_P(PSTR("ES  asdfg | hjkl;'"), false);

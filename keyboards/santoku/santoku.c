@@ -39,23 +39,24 @@ __attribute__((weak)) void oled_task_user(void) {
 			show_vanity_text = false;
 		}
 	} else {
-	#ifdef WPM_ENABLE
-			uint8_t n = get_current_wpm();
-			char    wpm_counter[4];
-			wpm_counter[3] = '\0';
-			wpm_counter[2] = '0' + n % 10;
-			wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-			wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
-			oled_write_P(PSTR("WPM:"), false);
-			oled_write(wpm_counter, false);
-	#endif
+#ifdef WPM_ENABLE
+		uint8_t wpm = get_current_wpm();
+		if (wpm < 20) {
+			oled_write("      ", false);
+		}
+		else {
+			char wpm_display[9];
+			sprintf(wpm_display, "WPM:%d ", get_current_wpm());
+			oled_write(wpm_display, false);
+		}
+#endif
 
 	}
 
 	// Host Keyboard Layer Status
 	switch (get_highest_layer(layer_state)) {
 		case 0:
-			oled_write_P(PSTR("QWERTY\n"), false);
+			oled_write_P(PSTR("  QWERTY\n"), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR("TB  qwert | yuiop\\"), false);
 			oled_write_ln_P(PSTR("ES  asdfg | hjkl;'"), false);
