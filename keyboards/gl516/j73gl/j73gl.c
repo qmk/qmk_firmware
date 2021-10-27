@@ -53,6 +53,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 } };
 #endif
 
-void matrix_init_kb(void) {
-	matrix_init_user();
-};
