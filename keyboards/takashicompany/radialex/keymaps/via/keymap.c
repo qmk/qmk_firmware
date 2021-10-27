@@ -15,11 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    RADIALEX = SAFE_RANGE,
-    
-};
+#define RADIALEX USER00
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
