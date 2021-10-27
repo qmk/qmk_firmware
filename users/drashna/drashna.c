@@ -103,8 +103,11 @@ void                       shutdown_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_color_all(0xFF, 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
-
 #endif  // RGB_MATRIX_ENABLE
+#ifdef OLED_ENABLE
+    oled_off();
+#endif
+
     shutdown_keymap();
 }
 
