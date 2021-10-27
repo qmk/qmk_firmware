@@ -1,6 +1,6 @@
 # meow65
 
-![meow65](https://github.com/mrninhvn/meow65-pcb/blob/main/meow-65.png)
+![meow65](https://i.imgur.com/M6PmjPGh.png)
 
 Meow65 Hotswap PCB, compatible with Meow65 & Bakeneko65 V3 Keyboard
 
