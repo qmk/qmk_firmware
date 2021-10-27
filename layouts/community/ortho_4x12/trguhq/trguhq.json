@@ -37,7 +37,7 @@
       "ANY(UC(0x16D2))",
       "ANY(UC(0x16D6))",
       "ANY(UC(0x16D7))",
-      "ANY((0x16DA))",
+      "ANY(UC(0x16DA))",
       "ANY(UC(0x16DC))",
       "ANY(UC(0x16DF))",
       "ANY(UC(0x16DE))",

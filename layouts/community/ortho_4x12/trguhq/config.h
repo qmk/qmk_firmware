@@ -1,6 +1,6 @@
 /* Ortho 4x12 Unicode Rune Layout
  *
- * Copyright 2020 trguhq
+ * Copyright 2021 trguhq
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
