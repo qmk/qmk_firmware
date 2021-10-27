@@ -160,7 +160,7 @@ extern uint8_t led_edge_mode;
 #    define LED_MODE_INDICATORS_ONLY 3
 #    define LED_MODE_MAX_INDEX LED_MODE_INDICATORS_ONLY  // Must be highest value
 
-#    define LED_EDGE_MODE_ALL  0                       // All edge LEDs are active (Must be 0)
+#    define LED_EDGE_MODE_ALL 0                        // All edge LEDs are active (Must be 0)
 #    define LED_EDGE_MODE_ALTERNATE 1                  // Alternate mode of edge LEDs are active (Intention is for 'only every other edge LED' to be active)
 #    define LED_EDGE_MODE_MAX LED_EDGE_MODE_ALTERNATE  // Must be the highest valued LED edge mode
 
