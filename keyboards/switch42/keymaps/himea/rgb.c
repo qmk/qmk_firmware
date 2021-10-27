@@ -3,6 +3,8 @@
 #define RGB_REFRESH_INTERVAL 66 /* 15fps */
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
+uint8_t is_master;
+
 LED_TYPE bg[RGBLED_NUM];
 
 bool fg[RGBLED_NUM];
