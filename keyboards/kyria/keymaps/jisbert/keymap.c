@@ -177,14 +177,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     del_mods(MOD_MASK_SHIFT);
-                    register_code(S(KC_MINS));
+                    register_code16(S(KC_MINS));
                     set_mods(mod_state);
                 } else {
                     register_code16(S(KC_1));
                 }
             } else {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_MINS);
+                    unregister_code16(S(KC_MINS));
                 } else {
                     unregister_code16(S(KC_1));
                 }
