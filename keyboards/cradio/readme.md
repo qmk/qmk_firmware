@@ -28,6 +28,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at top left on the left half (0,0) and plug in the keyboard. With `EE_HANDS` configured, hold down the top right key on the right half.
+* **Bootmagic reset**: Hold down the top left key on the left side (or the top right right key on the right side) and plug in the controller on that half. 
 * **Physical reset button**: Briefly press the reset button soldered on the PCB.
 * **Keycode in layout**: Press the key mapped to `RESET` if it is configured.
