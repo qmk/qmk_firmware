@@ -1,4 +1,4 @@
- /* Copyright 2021 Francisco Escobar
+/* Copyright 2021 jfescobar18
   * 
   * This program is free software: you can redistribute it and/or modify 
   * it under the terms of the GNU General Public License as published by 
@@ -12,7 +12,7 @@
   * 
   * You should have received a copy of the GNU General Public License 
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
-  */ 
+*/ 
 	  
 #include "undead60m.h"
 bool encoder_update_kb(uint8_t index, bool clockwise) {
