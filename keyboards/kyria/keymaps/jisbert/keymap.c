@@ -176,7 +176,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_EMQM:
             if (record->event.pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    register_code(KC_MINS);
+                    del_mods(MOD_MASK_SHIFT);
+                    register_code(S(KC_MINS));
+                    set_mods(mod_state);
                 } else {
                     register_code16(S(KC_1));
                 }
