@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include <keymap_spanish.h>
 
 enum layers {
     _QWERTY = 0,
@@ -43,10 +44,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-        KC_ESC, KC_Q, KC_W, KC_E,    KC_R,       KC_T,                                                         KC_Y,        KC_U,        KC_I,    KC_O,   KC_P,    KC_NUHS,
-        KC_GRV, KC_A, KC_S, KC_D,    KC_F,       KC_G,                                                         KC_H,        KC_J,        KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-        KC_EQL, KC_Z, KC_X, KC_C,    KC_V,       KC_B,        SFT_T(KC_DEL),  KC_LALT, KC_TAB,  OSM(MOD_LSFT), KC_N,        KC_M,        KC_COMM, KC_DOT, KC_SLSH, KC_EMQM,
-                            KC_ATEU, KC_LGUI,    MO(_LOWER),  KC_BSPC,        KC_LCTL, KC_ENT,  KC_SPC,        MO(_RAISE),  TG(_NUMPAD), KC_APP
+        KC_ESC,  ES_Q, ES_W, ES_E,    ES_R,    ES_T,                                                       ES_Y,       ES_U,        ES_I,    ES_O,   ES_P,    ES_CCED,
+        ES_MORD, ES_A, ES_S, ES_D,    ES_F,    ES_G,                                                       ES_H,       ES_J,        ES_K,    ES_L,   ES_NTIL, ES_ACUT,
+        ES_IEXL, ES_Z, ES_X, ES_C,    ES_V,    ES_B,       SFT_T(KC_DEL), KC_LALT, KC_TAB,  OSM(MOD_LSFT), ES_N,       ES_M,        ES_COMM, ES_DOT, ES_MINS, KC_EMQM,
+                             KC_ATEU, KC_LGUI, MO(_LOWER), KC_BSPC,       KC_LCTL, KC_ENT,  KC_SPC,        MO(_RAISE), TG(_NUMPAD), KC_APP
     ),
 /*
  * Lower Layer: navigation
@@ -81,10 +82,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_RAISE] = LAYOUT(
-        _______, ALGR(KC_1), S(KC_6), ALGR(KC_QUOT), ALGR(KC_NUHS), S(KC_2),                                     S(KC_4),    ALGR(KC_LBRC), ALGR(KC_RBRC), S(KC_5), ALGR(KC_2),   XXXXXXX,
-        KC_SLSH, S(KC_RBRC), KC_RBRC, S(KC_8),       S(KC_9),       S(KC_0),                                     S(KC_COMM), KC_NUBS,       S(KC_NUBS),    S(KC_7), ALGR(KC_GRV), XXXXXXX,
-        XXXXXXX, XXXXXXX,    XXXXXXX, ALGR(KC_4),    KC_LBRC,       KC_MINS, _______, _______, _______, _______, ALGR(KC_3), S(KC_LBRC),    ALGR(KC_E),    XXXXXXX, XXXXXXX,      XXXXXXX,
-                                      _______,       _______,       _______, _______, _______, _______, _______, _______,    _______,       _______
+        _______, ES_PIPE, ES_AMPR, ES_LCBR, ES_RCBR, ES_DQUO,                                     ES_DLR,  ES_LBRC, ES_RBRC, ES_PERC, ES_AT,   XXXXXXX,
+        ES_MINS, ES_ASTR, ES_PLUS, ES_LPRN, ES_RPRN, ES_EQL,                                      ES_SCLN, ES_LABK, ES_RABK, ES_SLSH, ES_BSLS, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, ES_TILD, ES_GRV,  ES_QUOT, _______, _______, _______, _______, ES_HASH, ES_CIRC, ES_EURO, XXXXXXX, XXXXXXX, XXXXXXX,
+                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
  * Adjust Layer: Function keys, RGB
@@ -160,16 +161,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     del_mods(MOD_MASK_SHIFT);
-                    register_code16(ALGR(KC_E));
+                    register_code16(ES_EURO);
                     set_mods(mod_state);
                 } else {
-                    register_code16(ALGR(KC_2));
+                    register_code16(ES_AT);
                 }
             } else {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code16(ALGR(KC_E));
+                    unregister_code16(ES_EURO);
                 } else {
-                    unregister_code16(ALGR(KC_2));
+                    unregister_code16(ES_AT);
                 }
             }
             return false;
@@ -177,16 +178,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     del_mods(MOD_MASK_SHIFT);
-                    register_code16(S(KC_MINS));
+                    register_code16(ES_QUES);
                     set_mods(mod_state);
                 } else {
-                    register_code16(S(KC_1));
+                    register_code16(ES_EXLM);
                 }
             } else {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code16(S(KC_MINS));
+                    unregister_code16(ES_QUES);
                 } else {
-                    unregister_code16(S(KC_1));
+                    unregister_code16(ES_EXLM);
                 }
             }
             return false;
