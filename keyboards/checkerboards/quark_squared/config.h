@@ -1,55 +1,19 @@
-/* Copyright 2021 Nathan Spears
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-#pragma once
-
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7070
-#define PRODUCT_ID      0x5342
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nasp
-#define PRODUCT         QUARK²
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { C5, C4, C6, C7, B7 }
-#define MATRIX_COL_PINS { B4, B5, B6, B3, C2, B2, D6, D2, D3, D4, D5, B1 }
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-// ws2812 options
-#define RGB_DI_PIN D0 // pin the DI on the ws2812 is hooked-up to
-#define RGBLIGHT_ANIMATIONS // run RGB animations
-#define RGBLED_NUM 14 // number of LEDs
-#define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
-#define RGBLIGHT_SAT_STEP 12 // units to step when in/decresing saturation
-#define RGBLIGHT_VAL_STEP 12 // units to step when in/decreasing value (brightness)
+{
+    "keyboard_name": "Quark_Squared",
+    "url": "https://www.github.com/qmk/qmk_firmware/tree/master/keyboards/checkerboards/quark_squared",
+    "maintainer": "nasp",
+    "layouts": {
+        "LAYOUT_4_2x225u": {
+            "layout": [{"label":"Tab", "x":0, "y":0}, {"label":"Q", "x":1, "y":0}, {"label":"W", "x":2, "y":0}, {"label":"E", "x":3, "y":0}, {"label":"R", "x":4, "y":0}, {"label":"T", "x":5, "y":0}, {"label":"Y", "x":6, "y":0}, {"label":"U", "x":7, "y":0}, {"label":"I", "x":8, "y":0}, {"label":"O", "x":9, "y":0}, {"label":"P", "x":10, "y":0}, {"label":"Back Space", "x":11, "y":0}, {"label":"Esc", "x":0, "y":1}, {"label":"A", "x":1, "y":1}, {"label":"S", "x":2, "y":1}, {"label":"D", "x":3, "y":1}, {"label":"F", "x":4, "y":1}, {"label":"G", "x":5, "y":1}, {"label":"H", "x":6, "y":1}, {"label":"J", "x":7, "y":1}, {"label":"K", "x":8, "y":1}, {"label":"L", "x":9, "y":1}, {"label":";", "x":10, "y":1}, {"label":"'", "x":11, "y":1}, {"label":"Shift", "x":0, "y":2}, {"label":"Z", "x":1, "y":2}, {"label":"X", "x":2, "y":2}, {"label":"C", "x":3, "y":2}, {"label":"V", "x":4, "y":2}, {"label":"B", "x":5, "y":2}, {"label":"N", "x":6, "y":2}, {"label":"M", "x":7, "y":2}, {"label":",", "x":8, "y":2}, {"label":".", "x":9, "y":2}, {"label":"/", "x":10, "y":2}, {"label":"Return", "x":11, "y":2}, {"label":"Ctrl", "x":0, "y":3, "w":1.25}, {"label":"Super", "x":1.25, "y":3, "w":1.25}, {"label":"Alt", "x":2.5, "y":3, "w":1.25}, {"x":3.75, "y":3, "w":2.25}, {"x":6, "y":3, "w":2.25}, {"label":"Alt", "x":8.25, "y":3, "w":1.25}, {"label":"Super", "x":9.5, "y":3, "w":1.25}, {"label":"Ctrl", "x":10.75, "y":3, "w":1.25}]
+        },
+        "LAYOUT_4_2u": {
+            "layout": [{"label":"Tab", "x":0, "y":0}, {"label":"Q", "x":1, "y":0}, {"label":"W", "x":2, "y":0}, {"label":"E", "x":3, "y":0}, {"label":"R", "x":4, "y":0}, {"label":"T", "x":5, "y":0}, {"label":"Y", "x":6, "y":0}, {"label":"U", "x":7, "y":0}, {"label":"I", "x":8, "y":0}, {"label":"O", "x":9, "y":0}, {"label":"P", "x":10, "y":0}, {"label":"Back Space", "x":11, "y":0}, {"label":"Esc", "x":0, "y":1}, {"label":"A", "x":1, "y":1}, {"label":"S", "x":2, "y":1}, {"label":"D", "x":3, "y":1}, {"label":"F", "x":4, "y":1}, {"label":"G", "x":5, "y":1}, {"label":"H", "x":6, "y":1}, {"label":"J", "x":7, "y":1}, {"label":"K", "x":8, "y":1}, {"label":"L", "x":9, "y":1}, {"label":";", "x":10, "y":1}, {"label":"'", "x":11, "y":1}, {"label":"Shift", "x":0, "y":2}, {"label":"Z", "x":1, "y":2}, {"label":"X", "x":2, "y":2}, {"label":"C", "x":3, "y":2}, {"label":"V", "x":4, "y":2}, {"label":"B", "x":5, "y":2}, {"label":"N", "x":6, "y":2}, {"label":"M", "x":7, "y":2}, {"label":",", "x":8, "y":2}, {"label":".", "x":9, "y":2}, {"label":"/", "x":10, "y":2}, {"label":"Return", "x":11, "y":2}, {"label":"Ctrl", "x":0, "y":3, "w":1.25}, {"label":"Alt", "x":1.25, "y":3, "w":1.25}, {"label":"Super", "x":2.5, "y":3, "w":1.25}, {"label":"&dArr;", "x":3.75, "y":3, "w":1.25}, {"x":5, "y":3, "w":2}, {"label":"&larr;", "x":7, "y":3, "w":1.25}, {"label":"&darr;", "x":8.25, "y":3, "w":1.25}, {"label":"&uarr;", "x":9.5, "y":3, "w":1.25}, {"label":"&rarr;", "x":10.75, "y":3, "w":1.25}]
+        },
+        "LAYOUT_5_2x225u": {
+            "layout": [{"label":"-", "x":0, "y":0}, {"label":"1", "x":1, "y":0}, {"label":"2", "x":2, "y":0}, {"label":"3", "x":3, "y":0}, {"label":"4", "x":4, "y":0}, {"label":"5", "x":5, "y":0}, {"label":"6", "x":6, "y":0}, {"label":"7", "x":7, "y":0}, {"label":"8", "x":8, "y":0}, {"label":"9", "x":9, "y":0}, {"label":"0", "x":10, "y":0}, {"label":"+", "x":11, "y":0}, {"label":"Tab", "x":0, "y":1}, {"label":"Q", "x":1, "y":1}, {"label":"W", "x":2, "y":1}, {"label":"E", "x":3, "y":1}, {"label":"R", "x":4, "y":1}, {"label":"T", "x":5, "y":1}, {"label":"Y", "x":6, "y":1}, {"label":"U", "x":7, "y":1}, {"label":"I", "x":8, "y":1}, {"label":"O", "x":9, "y":1}, {"label":"P", "x":10, "y":1}, {"label":"Back Space", "x":11, "y":1}, {"label":"Esc", "x":0, "y":2}, {"label":"A", "x":1, "y":2}, {"label":"S", "x":2, "y":2}, {"label":"D", "x":3, "y":2}, {"label":"F", "x":4, "y":2}, {"label":"G", "x":5, "y":2}, {"label":"H", "x":6, "y":2}, {"label":"J", "x":7, "y":2}, {"label":"K", "x":8, "y":2}, {"label":"L", "x":9, "y":2}, {"label":";", "x":10, "y":2}, {"label":"'", "x":11, "y":2}, {"label":"Shift", "x":0, "y":3}, {"label":"Z", "x":1, "y":3}, {"label":"X", "x":2, "y":3}, {"label":"C", "x":3, "y":3}, {"label":"V", "x":4, "y":3}, {"label":"B", "x":5, "y":3}, {"label":"N", "x":6, "y":3}, {"label":"M", "x":7, "y":3}, {"label":",", "x":8, "y":3}, {"label":".", "x":9, "y":3}, {"label":"/", "x":10, "y":3}, {"label":"Return", "x":11, "y":3}, {"label":"Ctrl", "x":0, "y":4, "w":1.25}, {"label":"Super", "x":1.25, "y":4, "w":1.25}, {"label":"Alt", "x":2.5, "y":4, "w":1.25}, {"x":3.75, "y":4, "w":2.25}, {"x":6, "y":4, "w":2.25}, {"label":"Alt", "x":8.25, "y":4, "w":1.25}, {"label":"Super", "x":9.5, "y":4, "w":1.25}, {"label":"Ctrl", "x":10.75, "y":4, "w":1.25}]
+        },
+        "LAYOUT_5_2u": {
+            "layout": [{"label":"-", "x":0, "y":0}, {"label":"1", "x":1, "y":0}, {"label":"2", "x":2, "y":0}, {"label":"3", "x":3, "y":0}, {"label":"4", "x":4, "y":0}, {"label":"5", "x":5, "y":0}, {"label":"6", "x":6, "y":0}, {"label":"7", "x":7, "y":0}, {"label":"8", "x":8, "y":0}, {"label":"9", "x":9, "y":0}, {"label":"0", "x":10, "y":0}, {"label":"+", "x":11, "y":0}, {"label":"Tab", "x":0, "y":1}, {"label":"Q", "x":1, "y":1}, {"label":"W", "x":2, "y":1}, {"label":"E", "x":3, "y":1}, {"label":"R", "x":4, "y":1}, {"label":"T", "x":5, "y":1}, {"label":"Y", "x":6, "y":1}, {"label":"U", "x":7, "y":1}, {"label":"I", "x":8, "y":1}, {"label":"O", "x":9, "y":1}, {"label":"P", "x":10, "y":1}, {"label":"Back Space", "x":11, "y":1}, {"label":"Esc", "x":0, "y":2}, {"label":"A", "x":1, "y":2}, {"label":"S", "x":2, "y":2}, {"label":"D", "x":3, "y":2}, {"label":"F", "x":4, "y":2}, {"label":"G", "x":5, "y":2}, {"label":"H", "x":6, "y":2}, {"label":"J", "x":7, "y":2}, {"label":"K", "x":8, "y":2}, {"label":"L", "x":9, "y":2}, {"label":";", "x":10, "y":2}, {"label":"'", "x":11, "y":2}, {"label":"Shift", "x":0, "y":3}, {"label":"Z", "x":1, "y":3}, {"label":"X", "x":2, "y":3}, {"label":"C", "x":3, "y":3}, {"label":"V", "x":4, "y":3}, {"label":"B", "x":5, "y":3}, {"label":"N", "x":6, "y":3}, {"label":"M", "x":7, "y":3}, {"label":",", "x":8, "y":3}, {"label":".", "x":9, "y":3}, {"label":"/", "x":10, "y":3}, {"label":"Return", "x":11, "y":3}, {"label":"Ctrl", "x":0, "y":4, "w":1.25}, {"label":"Super", "x":1.25, "y":4, "w":1.25}, {"label":"Alt", "x":2.5, "y":4, "w":1.25}, {"label":"&dArr;", "x":3.75, "y":4, "w":1.25}, {"x":5, "y":4, "w":2}, {"label":"&uArr;", "x":7, "y":4, "w":1.25}, {"label":"Alt", "x":8.25, "y":4, "w":1.25}, {"label":"Super", "x":9.5, "y":4, "w":1.25}, {"label":"Ctrl", "x":10.75, "y":4, "w":1.25}]
+        }
+    }
+}
