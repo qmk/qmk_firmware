@@ -2,8 +2,6 @@
     "keyboard_name": "Radialex",
     "url": "https://github.com/takashicompany/radialex",
     "maintainer": "takashicompany",
-    "width": 15,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [
