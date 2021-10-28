@@ -61,6 +61,14 @@ void matrix_scan_user_rgb(void) {
             }
             break;
         case IDLE:
+#if defined(RGB_IDLE_BREATHE)
+            if (calc_offset) {
+                // no need to calculate time_offset since we are aligned already due to IDLE_FADE_OUT
+                // resetting flag for subsequent calls
+                calc_offset = false;
+            }
+            idle_breathe(time + time_offset);
+#endif
             break;
 #endif
 #if defined(RGB_DISABLE_WITH_FADE_OUT)

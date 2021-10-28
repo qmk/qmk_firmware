@@ -219,4 +219,18 @@ bool idle_fade_out(const uint8_t time) {
 
     return fade_out_ranged(time, range_min, range_max);
 }
+
+#if defined(RGB_IDLE_BREATHE)
+/**
+ * @brief Changes value/brightness to create a breathing effect based on given timer.
+ * @details Brightness will breathe in the range starting from `RGB_IDLE_MINIMUM_BRIGHTNESS` to `RGB_IDLE_MAXIMUM_BRIGHTNESS`.
+ * @param[in]   time A (usually scaled) timer
+ */
+void idle_breathe(const uint8_t time) {
+    static const uint8_t range_min = RGB_IDLE_MINIMUM_BRIGHTNESS;
+    static const uint8_t range_max = RGB_IDLE_MAXIMUM_BRIGHTNESS;
+
+    rgb_matrix_config.hsv.v = scaled_sin(time, range_min, range_max);
+}
+#endif // RGB_IDLE_BREATHE
 #endif // RGB_IDLE_TIMEOUT

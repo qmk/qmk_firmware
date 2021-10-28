@@ -13,6 +13,8 @@
     #define RGB_DISABLE_WHEN_USB_SUSPENDED
     // number of milliseconds to wait until activating RGB idle effects
     #define RGB_IDLE_TIMEOUT 4500 // 4.5 seconds
+    // activate breathe effect when idle
+    #define RGB_IDLE_BREATHE
     // fade in when we have been suspended
     #define RGB_FADE_IN
 #endif

@@ -147,4 +147,28 @@ bool fade_out(const uint8_t time);
  * @return Returns `true` if `RGB_IDLE_MINIMUM_BRIGHTNESS` has been reached, `false` otherwise.
  */
 bool idle_fade_out(const uint8_t time);
+
+#if defined(RGB_IDLE_BREATHE)
+#   if !defined(RGB_IDLE_MAXIMUM_BRIGHTNESS)
+        // maximum brightness when idling
+#       define RGB_IDLE_MAXIMUM_BRIGHTNESS (RGB_MATRIX_MAXIMUM_BRIGHTNESS*3/5)
+#   endif
+#   if !(0 <= RGB_IDLE_MAXIMUM_BRIGHTNESS)
+#       error "RGB_IDLE_MINIMUM_BRIGHTNESS must not be less than ZERO, was: " RGB_IDLE_MAXIMUM_BRIGHTNESS
+#   endif // RGB_IDLE_MAXIMUM_BRIGHTNESS < 0
+#   if !(RGB_IDLE_MINIMUM_BRIGHTNESS < RGB_IDLE_MAXIMUM_BRIGHTNESS)
+#       error "RGB_IDLE_MINIMUM_BRIGHTNESS must be less than RGB_IDLE_MAXIMUM_BRIGHTNESS"
+#   endif // RGB_IDLE_MAXIMUM_BRIGHTNESS <= RGB_IDLE_MINIMUM_BRIGHTNESS
+#   if !(RGB_IDLE_MAXIMUM_BRIGHTNESS <= RGB_MATRIX_MAXIMUM_BRIGHTNESS)
+#       error "RGB_IDLE_MAXIMUM_BRIGHTNESS must be less than or equal to RGB_MATRIX_MAXIMUM_BRIGHTNESS"
+#   endif // RGB_MATRIX_MAXIMUM_BRIGHTNESS <= RGB_IDLE_MAXIMUM_BRIGHTNESS
+
+/**
+ * @brief Changes value/brightness to create a breathing effect based on given timer.
+ * @details Brightness will breathe in the range starting from `RGB_IDLE_MINIMUM_BRIGHTNESS` to `RGB_IDLE_MAXIMUM_BRIGHTNESS`.
+ * @param[in]   time A (usually scaled) timer
+ */
+void idle_breathe(const uint8_t time);
+#endif // RGB_IDLE_BREATHE
+
 #endif // RGB_IDLE_TIMEOUT

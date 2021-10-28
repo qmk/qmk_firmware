@@ -81,7 +81,8 @@ Used to calculate lead time for fade out before suspend timeout.
 
 |===
 
-`RGB_IDLE_TIMEOUT` enables fading out after being idle for the defined time.
+`RGB_IDLE_TIMEOUT` enables fading out after being idle for the defined time and allows
+* `RGB_IDLE_BREATHE` also activates a brethe effect while idling.
 
 [%header]
 |===
@@ -93,5 +94,11 @@ Used to calculate lead time for fade out before suspend timeout.
 
 |RGB_IDLE_MINIMUM_BRIGHTNESS
 |`RGB_MATRIX_MAXIMUM_BRIGHTNESS` / 5
-|Brightness value RGB is dimmed to when starting to idle.
+|Brightness value RGB is dimmed to when starting to idle. +
+When breathing used as the lower bound of the brightness value.
+
+|RGB_IDLE_MAXIMUM_BRIGHTNESS
+|`RGB_MATRIX_MAXIMUM_BRIGHTNESS` * 2/5
+|Upper bound of brightness value of the RGB light while breathing.
+
 |===
