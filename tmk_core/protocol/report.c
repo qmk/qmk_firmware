@@ -24,8 +24,8 @@
 #ifdef RING_BUFFERED_6KRO_REPORT_ENABLE
 #    define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
 #    define RO_SUB(a, b) ((a - b + KEYBOARD_REPORT_KEYS) % KEYBOARD_REPORT_KEYS)
-#    define RO_INC(a)    RO_ADD(a, 1)
-#    define RO_DEC(a)    RO_SUB(a, 1)
+#    define RO_INC(a) RO_ADD(a, 1)
+#    define RO_DEC(a) RO_SUB(a, 1)
 static int8_t cb_head  = 0;
 static int8_t cb_tail  = 0;
 static int8_t cb_count = 0;
