@@ -32,3 +32,7 @@ enum layer_name {
     _FN2,
     _FN3
 };
+
+enum custom_keycodes { 
+  TAP_00
+};

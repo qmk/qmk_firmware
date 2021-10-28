@@ -16,6 +16,21 @@
 
 #include "navpad_10.h"
 
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case TAP_00:
+    if (record->event.pressed){
+      tap_code(KC_P0);
+      tap_code(KC_P0);
+      }
+    break;
+  
+  default:
+    break;
+  }
+  return true; 
+}
+
 #ifdef RGB_DI_PIN
 #define LOCK_COLOR_1 HSV_TEAL
 

@@ -15,11 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes { 
-  NONE
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] =LAYOUT (\
     KC_PSCR,   KC_SLCK,   KC_PAUS,   KC_MUTE,\
@@ -27,14 +22,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   	KC_DEL,    KC_END,    KC_PGDN,   KC_P7,     KC_P8,      KC_P9,     KC_PPLS,\
                                      KC_P4,     KC_P5,      KC_P6,     KC_PPLS,\
   	S(KC_TAB), KC_UP,     KC_TAB,    KC_P1,     KC_P2,      KC_P3,     LT(1,KC_PENT),\
-  	KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_P0,     KC_P0,      KC_PDOT,   LT(1,KC_PENT) \
+  	KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_P0,     TAP_00,     KC_PDOT,   LT(1,KC_PENT) \
     ),
 
     [_FN1] =LAYOUT (\
   	RESET,     EEP_RST,   KC_NO,     KC_NO,\
-  	KC_NO,     KC_NO,     KC_NO,     KC_NLCK,   KC_QUOT,   KC_PEQL,      KC_NO,\
+  	KC_NO,     KC_NO,     KC_NO,     KC_NLCK,   KC_QUOT,   KC_PEQL,    KC_NO,\
   	KC_CAPS,   KC_NLCK,   KC_SLCK,   S(KC_9),   KC_UP,     S(KC_0),    S(KC_SPC),\
-                                     KC_LEFT,   KC_NO,     KC_RGHT,    S(KC_SPC),\
+                                     KC_LEFT,   KC_BTN3,   KC_RGHT,    S(KC_SPC),\
   	KC_TRNS,   S(KC_ENT), KC_TRNS,   KC_BSPC,   KC_DOWN,   KC_DEL,     KC_TRNS,\
   	KC_BTN1,   KC_ENT,    S(KC_SPC),LT(2,KC_SPC),KC_SPC,   KC_COMM,    KC_TRNS \
     ),
@@ -57,9 +52,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO \
     )
 };
-
-//bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//}
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
