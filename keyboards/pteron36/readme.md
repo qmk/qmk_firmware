@@ -2,11 +2,12 @@
 
 ![Pteron36](https://i.imgur.com/PuXPWYfh.jpg)
 
-A 36 key keyboard with a bit more natural thumb cluster.
+A 36-key keyboard with a bit more natural thumb cluster.
 
 * Keyboard Maintainer: [Harshit Goel](https://github.com/harshitgoel96)
 * Hardware Supported: Pteron36 using promicro.
-* Hardware Availability: Hardware is opensource, you can simply send the gerber to a PCB manufacturere and them made. File are availalbe in [pteron36 repository](https://github.com/harshitgoel96/pteron36-split-keyboard/releases/tag/v1.2.0)
+* Hardware Availability: Files are available in the [pteron36 repository](https://github.com/harshitgoel96/pteron36-split-keyboard/releases/tag/v1.2.0)
+  * The hardware is open source; you can simply send the Gerber to a PCB manufacturer and have them made.
 
 Make example for this keyboard (after setting up your build environment):
 
