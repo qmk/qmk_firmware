@@ -4,9 +4,12 @@
 
 The following options are currently available for haptic feedback in `rules.mk`:
 
-`HAPTIC_ENABLE += DRV2605L`
+```
+HAPTIC_ENABLE = yes
 
-`HAPTIC_ENABLE += SOLENOID`
+HAPTIC_DRIVER += DRV2605L
+HAPTIC_DRIVER += SOLENOID
+```
 
 ## Known Supported Hardware
 

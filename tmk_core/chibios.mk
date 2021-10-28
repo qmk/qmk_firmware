@@ -232,7 +232,8 @@ include $(CHIBIOS)/os/rt/rt.mk
 # Other files (optional).
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
-CHIBISRC = $(STARTUPSRC) \
+PLATFORM_SRC = \
+        $(STARTUPSRC) \
         $(KERNSRC) \
         $(PORTSRC) \
         $(OSALSRC) \
@@ -247,7 +248,7 @@ CHIBISRC = $(STARTUPSRC) \
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
 
-CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
+PLATFORM_SRC := $(patsubst $(TOP_DIR)/%,%,$(PLATFORM_SRC))
 
 EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs \
@@ -278,7 +279,7 @@ endif
 
 ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
     include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
-    CHIBISRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
+    PLATFORM_SRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
     EXTRAINCDIRS += $(PLATFORMINC_CONTRIB) $(HALINC_CONTRIB) $(CHIBIOS_CONTRIB)/os/various
 endif
 
@@ -330,7 +331,7 @@ ifeq ($(strip $(MCU)), risc-v)
             endif
         endif
     endif
-    
+
     # Default to compiling with picolibc for RISC-V targets if available,
     # which is available by default on current (bullseye) debian based systems.
     ifeq ($(shell $(TOOLCHAIN)gcc --specs=picolibc.specs -E - 2>/dev/null >/dev/null </dev/null ; echo $$?),0)
@@ -338,11 +339,11 @@ ifeq ($(strip $(MCU)), risc-v)
         # Note that we still link with our own linker script
         # by providing it via the -T flag above.
         TOOLCHAIN_CFLAGS = --specs=picolibc.specs
-        
+
         # Tell QMK that we are compiling with picolibc.
         OPT_DEFS += -DUSE_PICOLIBC
     endif
-    
+
     # MCU architecture flags
     MCUFLAGS = -march=$(MCU_ARCH) \
                -mabi=$(MCU_ABI) \
@@ -394,11 +395,8 @@ LDFLAGS  += $(SHARED_LDFLAGS) $(TOOLCHAIN_LDFLAGS) $(MCUFLAGS)
 # Tell QMK that we are hosting it on ChibiOS.
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 
-# Speed up recompilations by opt-in usage of ccache
-USE_CCACHE ?= no
-ifneq ($(USE_CCACHE),no)
-    CC_PREFIX ?= ccache
-endif
+# Workaround to stop ChibiOS from complaining about new GCC -- it's been fixed for 7/8/9 already
+OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1
 
 # Construct GCC toolchain
 CC      = $(CC_PREFIX) $(TOOLCHAIN)gcc
