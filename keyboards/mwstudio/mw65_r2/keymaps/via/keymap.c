@@ -52,14 +52,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) {
-    if (clockwise) {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 3));
-    } else {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 4));
+#define ENCODERS 1
+static uint8_t  encoder_state[ENCODERS] = {0};
+static keypos_t encoder_cw[ENCODERS]    = {3, 4};
+static keypos_t encoder_ccw[ENCODERS]   = {4, 4};
+
+
+void encoder_action_unregister(void) {
+#    ifdef ENCODERS
+    for (uint8_t index = 0; index < ENCODERS; ++index) {
+        if (encoder_state[index]) {
+            keyevent_t encoder_event = (keyevent_t) {
+                .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
+                .pressed = false,
+                .time = (timer_read() | 1)
+            };
+            encoder_state[index] = 0;
+            action_exec(encoder_event);
+        }
     }
-  }
-  return true;
+#    endif
 }
+
+void encoder_action_register(uint8_t index, bool clockwise) {
+    keyevent_t encoder_event = (keyevent_t) {
+        .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
+        .pressed = true,
+        .time = (timer_read() | 1)
+    };
+    encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
+    action_exec(encoder_event);
+}
+
+void matrix_scan_user(void) {
+    encoder_action_unregister();
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    encoder_action_register(index, clockwise);
+    return true;
+};
 #endif
