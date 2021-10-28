@@ -108,7 +108,7 @@ uint8_t encoder_get_resolution(uint8_t index) {
 #ifdef ENCODER_RESOLUTIONS
     return encoder_resolutions[index];
 #else
-    return resolution;
+    return encoder_resolution;
 #endif
 }
 
