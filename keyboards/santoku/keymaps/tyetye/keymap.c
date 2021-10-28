@@ -135,18 +135,15 @@ https://docs.qmk.fm/#/faq_keymap?id=arrow-on-right-modifier-keys-with-dual-role 
 
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-        if (clockwise) {
-            //tap_code(KC_PGDN);
-            tap_code(KC_WH_U);
-            tap_code(KC_WH_U);
-            tap_code(KC_WH_U);
-        } else {
-            //tap_code(KC_PGUP);
-            tap_code(KC_WH_D);
-            tap_code(KC_WH_D);
-            tap_code(KC_WH_D);
-        }
-	return true;
+    report_mouse_t currentReport = pointing_device_get_report();
+    if (clockwise) {
+	    currentReport.v = 6;
+    } else {
+	    currentReport.v = -6;
+    }
+    pointing_device_set_report(currentReport);
+    pointing_device_send();
+    return false;
 }
 
 

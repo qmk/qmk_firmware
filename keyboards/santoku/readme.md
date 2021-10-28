@@ -72,11 +72,15 @@ This board is currently in a closed Beta stage but I hope to get to an open dist
 
 Make example for this keyboard (after setting up your build environment):
 
-    make santoku:v2
+    make santoku:default
 
 Flashing example for this keyboard:
 
-    make santoku:v2:flash
+    make santoku:default:flash
+
+If you are using qmk msys you may use: 
+
+    qmk flash -kb santoku
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. vBrand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

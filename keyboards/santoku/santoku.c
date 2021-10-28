@@ -18,12 +18,16 @@
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
-	if (clockwise) {
-		tap_code(KC_WH_U);
-	} else {
-		tap_code(KC_WH_D);
-	}
-	return true;
+
+	report_mouse_t currentReport = pointing_device_get_report();
+    if (clockwise) {
+	    currentReport.v = 1;
+    } else {
+	    currentReport.v = -1;
+    }
+    pointing_device_set_report(currentReport);
+    pointing_device_send();
+    return true;
 }
 
 #ifdef OLED_ENABLE
