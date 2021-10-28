@@ -1,5 +1,7 @@
 #pragma once
 
+void virtser_init(void);
+
 /* Define this function in your code to process incoming bytes */
 void virtser_recv(const uint8_t ch);
 
