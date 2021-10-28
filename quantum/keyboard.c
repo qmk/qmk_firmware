@@ -97,6 +97,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
 #endif
+#ifdef SLEEP_LED_ENABLE
+#    include "sleep_led.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) { return last_input_modification_time; }
