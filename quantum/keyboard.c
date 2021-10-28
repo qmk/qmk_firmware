@@ -40,9 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef PS2_MOUSE_ENABLE
 #    include "ps2_mouse.h"
 #endif
-#ifdef SERIAL_MOUSE_ENABLE
-#    include "serial_mouse.h"
-#endif
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
 #endif
@@ -310,9 +307,6 @@ void keyboard_init(void) {
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
 #endif
-#ifdef SERIAL_MOUSE_ENABLE
-    serial_mouse_init();
-#endif
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
@@ -488,10 +482,6 @@ MATRIX_LOOP_END:
 
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_task();
-#endif
-
-#ifdef SERIAL_MOUSE_ENABLE
-    serial_mouse_task();
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE
