@@ -104,6 +104,14 @@ void encoder_set_resolution(uint8_t index, uint8_t resolution) {
 #endif
 }
 
+uint8_t encoder_get_resolution(uint8_t index) {
+#ifdef ENCODER_RESOLUTIONS
+    return encoder_resolutions[index];
+#else
+    return resolution;
+#endif
+}
+
 static bool encoder_update(uint8_t index, uint8_t state) {
     bool    changed = false;
     uint8_t i       = index;

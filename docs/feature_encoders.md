@@ -110,7 +110,7 @@ Here rotating Encoder 0 `B1 B2` and Encoder 1 `B1 B3` could be interpreted as ro
 
 ## Change Resolution
 
-You can change the resolution(s) of encoder(s) by `encoder_set_resolution` function while using your keyboard.
+You can set / get the resolution(s) of encoder(s) by `encoder_set_resolution` /  `encoder_get_resolution` function while using your keyboard.
 The resolution, i.e. the number of pulses/counts per each detent varies depending on the encoder model. You should set the appropriate constant value to `ENCODER_RESOLUTION` if you know the specification of the encoder to be used, but this function is useful if you are distributing pre-assembled PCBs with pre-programmed firmware and you don't know what kind of encoders the users will use.
 
 For example, by assigning this function to a custom keycode,  its users can freely choose the resolution. 
@@ -118,5 +118,6 @@ In most cases, a suitable resolution value is 4, which is the default for QMK, o
 
 ```c
 void encoder_set_resolution(uint8_t index, uint8_t resolution);
+uint8_t encoder_get_resolutioin(uint8_t index);
     // index : use 0 if one encoder only available
 ```

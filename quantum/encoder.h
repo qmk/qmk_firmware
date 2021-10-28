@@ -31,3 +31,4 @@ void encoder_update_raw(uint8_t* slave_state);
 #endif
 
 void encoder_set_resolution(uint8_t index, uint8_t resolution);
+uint8_t encoder_get_resolution(uint8_t index);
