@@ -123,6 +123,7 @@ enum custom_keycodes {
 #define AS_BM_PREV LALT(KC_P)
 #define AS_BM_NEXT LALT(KC_N)
 #define AS_BM_TOGGLE KC_F11
+#define AS_BM_LIST LSFT(KC_F11)
 
 // visual studio code shortcuts
 #define VS_FILE LCTL(KC_P)
@@ -372,7 +373,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      AS_CLOSETAB,     AS_TABLEFT,    AS_TABRIGHT,       AS_SYMBOL,            AS_CLASS,             AS_BACK,
        AS_CMT_BLOCK, KC_TRNS,         AS_BM_PREV,    AS_BM_NEXT,        KC_TRNS,              AS_CLOSETOOLWINDOW,   AS_BM_TOGGLE,
                          // bottom row
-                         KC_TRNS,     KC_TRNS,       KC_TRNS,        KC_TRNS,              KC_TRNS,
+                         KC_TRNS,     AS_BM_LIST,    KC_TRNS,        KC_TRNS,              KC_TRNS,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
