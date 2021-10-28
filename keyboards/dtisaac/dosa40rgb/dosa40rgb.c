@@ -16,6 +16,11 @@
 
 #include "dosa40rgb.h"
 
+void keyboard_pre_init_user(void) {
+    setPinOutput(B5);
+    writePinLow(B5);
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
@@ -23,8 +28,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LED_EN:
             if (record->event.pressed) {
-                DDRB = DDRB ^ 0x20;
-                PORTB &= ~(1 << 5);
+                setPinOutput(B5);
+                togglePin(B5);
             }
             return false;
     }
