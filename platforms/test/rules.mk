@@ -11,14 +11,14 @@ eeprom_stm32_large_DEFS := $(eeprom_stm32_DEFS) \
 	-DFEE_PAGE_COUNT=16
 
 eeprom_stm32_INC := \
-	$(TMK_PATH)/common/chibios/
+	$(PLATFORM_PATH)/chibios/
 eeprom_stm32_tiny_INC := $(eeprom_stm32_INC)
 eeprom_stm32_large_INC := $(eeprom_stm32_INC)
 
 eeprom_stm32_SRC := \
 	$(TOP_DIR)/drivers/eeprom/eeprom_driver.c \
-	$(TMK_PATH)/common/test/eeprom_stm32_tests.cpp \
-	$(TMK_PATH)/common/test/flash_stm32_mock.c \
-	$(TMK_PATH)/common/chibios/eeprom_stm32.c
+	$(PLATFORM_PATH)/$(PLATFORM_KEY)/eeprom_stm32_tests.cpp \
+	$(PLATFORM_PATH)/$(PLATFORM_KEY)/flash_stm32_mock.c \
+	$(PLATFORM_PATH)/chibios/eeprom_stm32.c
 eeprom_stm32_tiny_SRC := $(eeprom_stm32_SRC)
 eeprom_stm32_large_SRC := $(eeprom_stm32_SRC)

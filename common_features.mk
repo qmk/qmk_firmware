@@ -33,8 +33,10 @@ QUANTUM_SRC += \
 
 VPATH += $(QUANTUM_DIR)/logging
 # Fall back to lib/printf if there is no platform provided print
-ifeq ("$(wildcard $(TMK_PATH)/common/$(PLATFORM_KEY)/printf.mk)","")
+ifeq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/printf.mk)","")
     include $(QUANTUM_PATH)/logging/print.mk
+else
+    include $(PLATFORM_PATH)/$(PLATFORM_KEY)/printf.mk
 endif
 
 ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
