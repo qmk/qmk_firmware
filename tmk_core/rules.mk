@@ -82,6 +82,15 @@ endif
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
+ifeq ($(strip $(LTO_ENABLE)), yes)
+    ifeq ($(PLATFORM),CHIBIOS)
+        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
+        $(info If unsure, set LTO_ENABLE = no.)
+    endif
+    CDEFS += -flto
+    CDEFS += -DLTO_ENABLE
+endif
+
 DEBUG_ENABLE ?= yes
 ifeq ($(strip $(SKIP_DEBUG_INFO)),yes)
   DEBUG_ENABLE=no
