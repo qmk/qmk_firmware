@@ -10,7 +10,8 @@ endif
 
 .DEFAULT_GOAL := all
 
-include common.mk
+include paths.mk
+include $(BUILDDEFS_PATH)/message.mk
 
 # Set the qmk cli to use
 QMK_BIN ?= qmk
@@ -164,7 +165,7 @@ ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
     include platforms/chibios/boards/QMK_PROTON_C/convert_to_proton_c.mk
 endif
 
-include quantum/mcu_selection.mk
+include $(BUILDDEFS_PATH)/mcu_selection.mk
 
 # Find all the C source files to be compiled in subfolders.
 KEYBOARD_SRC :=
@@ -342,7 +343,7 @@ ifneq ("$(wildcard $(USER_PATH)/post_config.h)","")
 endif
 
 # Disable features that a keyboard doesn't support
--include disable_features.mk
+-include $(BUILDDEFS_PATH)/disable_features.mk
 
 # Pull in post_rules.mk files from all our subfolders
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_rules.mk)","")
@@ -385,10 +386,10 @@ VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
 
 include common_features.mk
-include generic_features.mk
+include $(BUILDDEFS_PATH)/generic_features.mk
 include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
-include bootloader.mk
+include $(BUILDDEFS_PATH)/bootloader.mk
 
 SRC += $(patsubst %.c,%.clib,$(LIB_SRC))
 SRC += $(patsubst %.c,%.clib,$(QUANTUM_LIB_SRC))
@@ -445,7 +446,7 @@ check-size: build
 check-md5: build
 objs-size: build
 
-include show_options.mk
+include $(BUILDDEFS_PATH)/show_options.mk
 include $(TMK_PATH)/rules.mk
 
 # Ensure we have generated files available for each of the objects
