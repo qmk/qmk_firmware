@@ -15,16 +15,6 @@
  */
  #include "canary60rgb.h"
 
-typedef void (*rgb_func_pointer)(void);
-
-static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const rgb_func_pointer inc_func, const rgb_func_pointer dec_func) {
-    if (is_shifted) {
-        dec_func();
-    } else {
-        inc_func();
-    }
-}
-
 #ifdef RGB_MATRIX_ENABLE
 const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, J_14, K_14,  L_14 },
@@ -125,32 +115,3 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 #endif
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
-    if (record->event.pressed) {
-        switch (keycode) {
-            case BL_ON:
-                handleKeycodeRGB(shifted, rgblight_increase_hue, rgblight_decrease_hue);
-                return false;
-            case BL_OFF:
-                handleKeycodeRGB(shifted, rgblight_decrease_hue, rgblight_increase_hue);
-                return false;
-            case BL_DEC:
-                handleKeycodeRGB(shifted, rgblight_decrease_val, rgblight_increase_val);
-                return false;
-            case BL_INC:
-                handleKeycodeRGB(shifted, rgblight_increase_val, rgblight_decrease_val);
-                return false;
-            case BL_TOGG:
-                rgblight_toggle();
-                return false;
-            case BL_STEP:
-                handleKeycodeRGB(shifted, rgblight_step, rgblight_step_reverse);
-                return false;
-            default:
-                return true; // Process all other keycodes normally
-        }
-    }
-    return true;
-}
