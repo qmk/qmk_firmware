@@ -100,18 +100,6 @@ ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
     TMK_COMMON_DEFS += -DSHARED_EP_ENABLE
 endif
 
-ifeq ($(strip $(LTO_ENABLE)), yes)
-    ifeq ($(PLATFORM),CHIBIOS)
-        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
-        $(info If unsure, set LTO_ENABLE = no.)
-    endif
-    EXTRAFLAGS += -flto
-    TMK_COMMON_DEFS += -DLTO_ENABLE
-    TMK_COMMON_DEFS += -DLINK_TIME_OPTIMIZATON_ENABLE
-else ifdef LINK_TIME_OPTIMIZATION_ENABLE
-    $(error The LINK_TIME_OPTIMIZATION_ENABLE flag has been renamed to LTO_ENABLE.)
-endif
-
 # Search Path
 VPATH += $(TMK_PATH)/$(COMMON_DIR)
 VPATH += $(TMK_PATH)/$(PLATFORM_COMMON_DIR)
