@@ -326,6 +326,13 @@ ifneq ($(strip $(VARIABLE_TRACE)),no)
     endif
 endif
 
+ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
+    SRC += $(PLATFORM_COMMON_DIR)/sleep_led.c
+    OPT_DEFS += -DSLEEP_LED_ENABLE
+
+    NO_SUSPEND_POWER_DOWN := yes
+endif
+
 VALID_BACKLIGHT_TYPES := pwm timer software custom
 
 BACKLIGHT_ENABLE ?= no
