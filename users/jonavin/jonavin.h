@@ -96,6 +96,8 @@ enum custom_user_keycodes {
 
     #ifdef ALTTAB_SCROLL_ENABLE
         void encoder_action_alttabscroll(bool clockwise);
+        void encoder_toggle_alttabscroll(void);
+        void encoder_tick_alttabscroll(void);
     #endif // ALTTAB_SCROLL_ENABLE
 #endif // ENCODER_ENABLE
 
