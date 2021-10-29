@@ -82,6 +82,7 @@ You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` de
 |----------|-------------|---------|
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `ISSI_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3733B only | 0 |
 | `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
