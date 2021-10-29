@@ -1,5 +1,6 @@
 // Copyright 2021 Randall Shutt (@rshutt)
 // SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "keymap.h"
 
 static uint16_t idle_timer;             // Idle LED timeout timer
