@@ -1,20 +1,23 @@
 # qoolee
 
-![qoolee](imgur.com image replace me!)
+![qoolee](https://github.com/takashicompany/qoolee/raw/master/images/qmk.jpg?raw=true)
 
-*A short description of the keyboard/project*
+QooLee is a keyboard with a 30% layout with ISO Enter.
+It can also be equipped with a rotary encoder.
+It supports hot-swapping of keyswitches with MX sockets and mounting of LEDs.
+VIA (Remap) firmware is also available.
 
-* Keyboard Maintainer: [takashicompany](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
+* Hardware Supported: PCB, Pro Micro
+* Hardware Availability: https://github.com/takashicompany/qoolee
 
 Make example for this keyboard (after setting up your build environment):
 
-    make qoolee:default
+    make takashicomoany/qoolee:default
 
 Flashing example for this keyboard:
 
-    make qoolee:default:flash
+    make takashicompany/qoolee:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
