@@ -57,7 +57,7 @@
 #endif
 
 #ifndef ISSI_PWM_FREQUENCY
-#    define ISSI_PWM_FREQUENCY 0b000 // PFS - IS31FL3733B only
+#    define ISSI_PWM_FREQUENCY 0b000  // PFS - IS31FL3733B only
 #endif
 
 // Transfer buffer for TWITransmitData()
