@@ -20,3 +20,6 @@ endif
 ifeq ($(strip $(INVERT_NUMLOCK_INDICATOR)), yes)
     OPT_DEFS += -DINVERT_NUMLOCK_INDICATOR
 endif
+ifeq ($(strip $(ALTTAB_SCROLL_ENABLE)), yes)
+    OPT_DEFS += -DALTTAB_SCROLL_ENABLE
+endif
