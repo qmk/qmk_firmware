@@ -189,7 +189,7 @@ void protocol_pre_task(void) {
             /* Remote wakeup */
             if (suspend_wakeup_condition()) {
                 usbWakeupHost(&USB_DRIVER);
-                restart_usb_driver(&USB_DRIVER);
+                if (USB_DRIVER.address == 0) restart_usb_driver(&USB_DRIVER);
             }
         }
         /* Woken up */
