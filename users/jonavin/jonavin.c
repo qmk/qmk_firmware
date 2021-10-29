@@ -224,6 +224,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 rgblight_step_reverse_noeeprom();
         }
     #endif // RGB_MATRIX_ENABLE || RGBLIGHT_ENABLE
+
+    #ifdef ALTTAB_SCROLL_ENABLE
+        bool is_tab_scrolling = false;
+        bool is_alt_tab_active = false;
+        uint16_t alt_tab_timer = 0;
+
+        void encoder_action_alttabscroll(bool clockwise) {
+            if (clockwise) {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_mods(MOD_RALT);
+                }
+                tap_code16(KC_TAB);
+            }
+            else {
+                tap_code16(S(KC_TAB));
+            }
+            alt_tab_timer = timer_read();
+        }
+
+        __attribute__((weak)) void matrix_scan_keymap(void) { return; }
+
+        void matrix_scan_user(void) {
+            matrix_scan_keymap();
+            if (is_alt_tab_active) {
+                if (timer_elapsed(alt_tab_timer) > 600) {
+                    unregister_mods(MOD_RALT);
+                    is_alt_tab_active = false;
+                }
+            }
+        }
+    #endif // ALTTAB_SCROLL_ENABLE
 #endif // ENCODER_ENABLE
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_DEFAULTACTIONS_ENABLE)       // Encoder Functionality
@@ -252,7 +284,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 #endif
                 break;
             default:
-                encoder_action_volume(clockwise);       // Otherwise it just changes volume
+                #ifdef ALTTAB_SCROLL_ENABLE
+                    if (is_tab_scrolling)
+                        encoder_action_alttabscroll(clockwise);
+                    else
+                        encoder_action_volume(clockwise);       // Otherwise it just changes volume
+                #else
+                    encoder_action_volume(clockwise);       // Otherwise it just changes volume
+                #endif // ALTTAB_SCROLL_ENABLE
                 break;
             }
         }
@@ -325,6 +364,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else unregister_code16(keycode);
         break;
     #endif // EMOTICON_ENABLE
+
+    #ifdef ALTTAB_SCROLL_ENABLE
+    case KC_TSTOG:
+        if (record->event.pressed)  is_tab_scrolling = !is_tab_scrolling;
+            else unregister_code16(keycode);
+        break;
+    #endif // ALTTAB_SCROLL_ENABLE
 
     default:
         if (record->event.pressed) {
