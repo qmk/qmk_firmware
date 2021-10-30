@@ -111,6 +111,7 @@ enum custom_keycodes {
 #define AS_CLASS LCTL(KC_N)
 #define AS_FINDUSAGE LALT(KC_F7)
 #define AS_BACK LCTL(LALT(KC_LEFT))
+#define AS_BRACKET LCTL(LSFT(KC_M))
 #define AS_GO_DECLARATION LCTL(KC_B)
 #define AS_GO_IMPLEMENTATION LCTL(LALT(KC_B))
 #define AS_CLOSETAB LCTL(KC_F4)
@@ -369,7 +370,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS,      KC_TRNS,         KC_TRNS,       KC_TRNS,           KC_TRNS,              KC_TRNS,              KC_TRNS,
-       AS_CMT_LINE,  AS_COPYLINEDOWN, AS_FINDUSAGE,  AS_GO_DECLARATION, AS_GO_IMPLEMENTATION, AS_LINE,              KC_TRNS,
+       AS_CMT_LINE,  AS_COPYLINEDOWN, AS_FINDUSAGE,  AS_GO_DECLARATION, AS_GO_IMPLEMENTATION, AS_LINE,              AS_BRACKET,
                      AS_CLOSETAB,     AS_TABLEFT,    AS_TABRIGHT,       AS_SYMBOL,            AS_CLASS,             AS_BACK,
        AS_CMT_BLOCK, KC_TRNS,         AS_BM_PREV,    AS_BM_NEXT,        KC_TRNS,              AS_CLOSETOOLWINDOW,   AS_BM_TOGGLE,
                          // bottom row
