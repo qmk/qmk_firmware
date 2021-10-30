@@ -38,12 +38,26 @@ enum custom_user_keycodes {
   RGB_TOD,      // Timeout idle time down
   RGB_NITE,     // Turns off all rgb but allow rgb indicators to work
 
+  EMO_SHRUG,    // `\_("/)_/`
+  EMO_CONFUSE,  // (*_*)
+  EMO_SAD,      // :'-(
+  EMO_NERVOUS,  // (~_~;)
+  EMO_JOY,      // (^o^)
+  EMO_TEARS,    // (T_T)
+
   NEW_SAFE_RANGE  // new safe range for keymap level custom keycodes
 };
 
-#define KC_CAD	LALT(LCTL(KC_DEL))
+#define KC_CAD  LALT(LCTL(KC_DEL))
 #define KC_AF4	LALT(KC_F4)
 #define KC_TASK	LCTL(LSFT(KC_ESC))
+#define CT_PGUP RCTL(KC_PGUP)
+#define CT_PGDN RCTL(KC_PGDN)
+#define CT_HOME RCTL(KC_HOME)
+#define CT_END  RCTL(KC_END)
+#define KC_SFTUP    RSFT_T(KC_UP) // Shift when held, Up arrow when tapped
+#define KC_RAISESPC LT(_RAISE,KC_SPC) // _RAISE layer mod when held, space when tapped
+#define KC_LOWERSPC LT(_LOWER,KC_SPC) // _LOWER layer mod when held, space when tapped
 
 
 #ifdef TD_LSFT_CAPSLOCK_ENABLE

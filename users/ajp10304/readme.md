@@ -1,4 +1,4 @@
-Copyright 2020 Alan Pocklington <ajp10304@gmail.com> @ajp10304
+Copyright 2021 Alan Pocklington <ajp10304@gmail.com> @ajp10304
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -116,7 +116,7 @@ Activated when `fn` and `raise` held together.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |
 | :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ESC   |      |      |      |      |      |      |      | BTN3 |      |      |      |
+| ESC   |      |      |      |      |      | W_L  | W_UP | BTN3 | W_DWN| W_R  |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
 |       |      |      |      |      |      |      |      |      |      |      |      |
