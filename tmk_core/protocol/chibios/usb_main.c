@@ -750,10 +750,6 @@ __attribute__((weak)) void usb_wakeup(USBDriver *usbp) {
     _usb_wakeup(usbp);
     osalSysUnlockFromISR();
 #endif
-<<<<<<< HEAD
-=======
-
->>>>>>> b1dc7cfc71f0ffbbe14e7306881ebf416b383e81
 }
 
 /* ---------------------------------------------------------
