@@ -106,9 +106,9 @@ static void init(void) {
     IS31FL3731_update_led_control_registers(LED_DRIVER_ADDR_4, 3);
 #        endif
 #    elif defined(IS31FLCOMMON)
-#		ifdef ISSI_MANUAL_SCALING
-	IS31FL_set_manual_scaling_buffer();
-#		endif
+#        ifdef ISSI_MANUAL_SCALING
+    IS31FL_set_manual_scaling_buffer();
+#        endif
     IS31FL_common_update_scaling_register(DRIVER_ADDR_1, 0);
 #        ifdef DRIVER_ADDR_2
     IS31FL_common_update_scaling_register(DRIVER_ADDR_2, 1);
@@ -183,7 +183,7 @@ const led_matrix_driver_t led_matrix_driver = {
     .set_value     = IS31FL3731_set_value,
     .set_value_all = IS31FL3731_set_value_all,
 #    elif defined(IS31FLCOMMON)
-    .set_value     = IS31FL_simple_set_brightness,
+    .set_value = IS31FL_simple_set_brightness,
     .set_value_all = IS31FL_simple_set_brigntness_all,
 #    else
     .set_value = IS31FL3733_set_value,
