@@ -121,6 +121,9 @@ static void init(void) {
     IS31FL3733_update_led_control_registers(DRIVER_ADDR_4, 3);
 #        endif
 #    elif defined(IS31FLCOMMON)
+#		ifdef ISSI_MANUAL_SCALING
+	IS31FL_set_manual_scaling_buffer();
+#		endif
     IS31FL_common_update_scaling_register(DRIVER_ADDR_1, 0);
 #        ifdef DRIVER_ADDR_2
     IS31FL_common_update_scaling_register(DRIVER_ADDR_2, 1);
