@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_LCTL , KC_LGUI ,                                                   KC_CAPS , TT(_7) ,
                                           KC_LALT , KC_SPC ,           MO(_3)  , MO(_4)   ,
                                           N_COPY  , N_CUT  ,           KC_ESC  , KC_ENTER ,
-                                          N_PASTE , N_UNDO ,           DM_REC1 , DM_PLY1
+                                          N_PASTE , N_UNDO ,           KC_BSPC , KC_DEL
   ),
 
   [_3] = LAYOUT(
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          KC_TRNS , KC_TRNS ,                                                KC_TRNS , KC_TRNS ,
                                              KC_LALT , KC_SPC  ,       KC_TRNS , KC_TRNS  ,
                                              N_COPY  , N_CUT   ,       KC_ESC  , KC_ENTER ,
-                                             N_PASTE , N_UNDO  ,       DM_REC1 , DM_PLY1
+                                             N_PASTE , N_UNDO  ,       KC_BSPC , KC_DEL
 
   ),
 
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          KC_TRNS , KC_TRNS ,                                                       KC_0 , KC_TRNS ,
                                              KC_LALT  , KC_0    ,      KC_TRNS        , KC_TRNS  ,
                                              N_COPY   , N_CUT   ,      KC_ESC         , KC_ENTER ,
-                                             N_PASTE  , N_UNDO  ,      DM_REC1        , DM_PLY1
+                                             N_PASTE  , N_UNDO  ,      KC_BSPC        , KC_DEL
 
   ),
 
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               KC_TRNS    , KC_PSCR    ,                                                         KC_F10  , KC_TRNS ,
                                                         KC_LALT     , KC_F10        ,      KC_TRNS , KC_TRNS  ,
                                                         N_COPY      , N_CUT         ,      KC_ESC  , KC_ENTER ,
-                                                        N_PASTE     , N_UNDO        ,      DM_REC1 , DM_PLY1
+                                                        N_PASTE     , N_UNDO        ,      KC_BSPC , KC_DEL
 
   ),
 
