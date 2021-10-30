@@ -837,5 +837,3 @@ void process_record_user(uint16_t keycode, keyrecord_t *recorde) {
 ```
 
 ?> Note: Any LEDs that are disabled due to flag usage must be manually cleaned up.  They are not turned off (except for the initial frame after changing), so they will render the last color that was assigned to them.
-
-?> This can be useful to continue rendering custom indicators, if you want to disable the animations.
