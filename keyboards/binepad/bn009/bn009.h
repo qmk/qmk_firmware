@@ -1,4 +1,4 @@
-/* Copyright 2021 projectcain
+/* Copyright 2020 BINEPAD
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,17 +13,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "quantum.h"
 
-#include "vault35.h"
+#define LAYOUT( \
+      k00, k01, k02, \
+      k10, k11, k12, \
+      k20, k21, k22  \
+) \
+{ \
+    { k00, k01, k02 }, \
+    { k10, k11, k12 }, \
+    { k20, k21, k22 } \
+} 
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP); 
-        }
-    }
-    return true;
-}

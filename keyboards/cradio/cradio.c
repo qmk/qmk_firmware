@@ -1,4 +1,7 @@
-/* Copyright 2021 projectcain
+/* Copyright 2018-2021
+ * ENDO Katsuhiro <ka2hiro@curlybracket.co.jp>
+ * David Philip Barr <@davidphilipbarr>
+ * Pierre Chevalier <pierrechevalier83@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,16 +17,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "vault35.h"
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP); 
-        }
-    }
-    return true;
-}
+#include "cradio.h"
