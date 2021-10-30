@@ -24,8 +24,8 @@ enum layers {
 const uint16_t PROGMEM led_adjust_combo[] = {KC_LEFT, KC_RGHT, COMBO_END};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [DEFAULT] = {
-        { KC_END,  KC_UP,   KC_MUTE },
-        { KC_LEFT, KC_DOWN, KC_RGHT }
-    }
+    [DEFAULT] = LAYOUT(
+        KC_END,  KC_UP,   KC_MUTE,
+        KC_LEFT, KC_DOWN, KC_RGHT
+    )
 };
