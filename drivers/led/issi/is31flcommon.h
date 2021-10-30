@@ -37,16 +37,22 @@
 
 #ifdef RGB_MATRIX_ENABLE
 typedef struct is31_led {
-    uint8_t driver : 2;
+    uint8_t driver;
     uint8_t r;
     uint8_t g;
     uint8_t b;
 } __attribute__((packed)) is31_led;
+
 #elif defined(LED_MATRIX_ENABLE)
 typedef struct is31_led {
-    uint8_t driver : 2;
+    uint8_t driver;
     uint8_t v;
 } __attribute__((packed)) is31_led;
+#endif
+
+#ifdef ISSI_MANUAL_SCALING
+extern const is31_led __flash g_is31_scaling[];
+void IS31FL_set_manual_scaling_buffer(void);
 #endif
 
 extern const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL];
