@@ -32,8 +32,6 @@ enum {
 #define KC_CTL_A  MT(MOD_LCTL, KC_A)     // Tap for A, hold for Control
 #define KC_SFT_Z  MT(MOD_RSFT, KC_Z)     // Tap for Z, hold for Shift
 #define KC_SFT_SL MT(MOD_RSFT, KC_SLSH)  // Tap for slash, hold for Shift
-//todo remove this
-#define KC_ALT_ENT MT(MOD_LALT, KC_ENT)  // Tap for Enter, hold for Alt (Option)
 #define KC_SPE_SPC LT(_SPECIAL, KC_SPC)  // Tap for Space, hold for Special layer
 #define KC_NUM_SPC LT(_NUMBERS, KC_SPC)  // Tap for Space, hold for Numbers layer
 
@@ -61,15 +59,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
      * | SHFT Z|  X  |  C  |  V  |  B  |      |  N  |  M  |  ,  |  .  |SHFT / |
      * `-------------------------------'      `-------------------------------'
-     *   .--------------------------.           .----------------------.
-     *   | META | ENT ALT | SPC SPE |           | SPC NUM | TAB | SHFT |
-     *   '--------------------------'           '----------------------'
+     *       .----------------------.           .----------------------.
+     *       | META | ENT | SPC SPE |           | SPC NUM | TAB | SHFT |
+     *       '----------------------'           '----------------------'
      */
     [_ALPHA] = LAYOUT_split_3x5_3(
          KC_Q,     KC_W,   KC_E,   KC_R,   KC_T,          KC_Y,   KC_U,   KC_I,     KC_O,   KC_P,
          KC_CTL_A, KC_S,   KC_D,   KC_F,   KC_G,          KC_H,   KC_J,   KC_K,     KC_L,   KC_SCLN,
          KC_SFT_Z, KC_X,   KC_C,   KC_V,   KC_B,          KC_N,   KC_M,   KC_COMMA, KC_DOT, KC_SFT_SL,
-                KC_LGUI, KC_ALT_ENT, KC_SPE_SPC,          KC_NUM_SPC, KC_TAB, KC_RSFT),
+                   KC_LGUI, KC_LALT, KC_SPE_SPC,          KC_NUM_SPC, KC_TAB, KC_RSFT),
 
     /* Keymap 1: Special characters layer
      *
@@ -126,5 +124,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_Q,     KC_W,   KC_E,   KC_R,   KC_T,          KC_Y,   KC_U,   KC_I,     KC_O,   KC_P,
          KC_CTL_A, KC_S,   KC_D,   KC_F,   KC_G,          KC_H,   KC_J,   KC_K,     KC_L,   KC_SCLN,
          KC_LSFT,  KC_Z,   KC_X,   KC_C,   KC_V,          KC_N,   KC_M,   KC_COMMA, KC_DOT, KC_SFT_SL,
-                    KC_LGUI, KC_ALT_ENT, KC_SPC,          KC_NUM_SPC, KC_TAB, KC_RSFT)
+                       KC_LGUI, KC_LALT, KC_SPC,          KC_NUM_SPC, KC_TAB, KC_RSFT)
 };
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_CTL_A:
+            return false;
+        default:
+            return true;
+    }
+}
