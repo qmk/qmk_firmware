@@ -1,6 +1,6 @@
 # MW65_R2
 
-![MW65_R2](https://i.imgur.com/QzECiuJ.jpg?2)
+![MW65_R2](https://i.imgur.com/QzECiuJh.jpg)
 
 Support Atmega32u4 keyboard.
 
