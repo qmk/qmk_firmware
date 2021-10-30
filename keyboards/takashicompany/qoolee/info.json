@@ -2,8 +2,6 @@
     "keyboard_name": "QooLee",
     "url": "https://github.com/takashicompany/qoolee",
     "maintainer": "takachicompany",
-    "width": 13,
-    "height": 3,
     "layouts": {
         "LAYOUT": {
             "layout": [
