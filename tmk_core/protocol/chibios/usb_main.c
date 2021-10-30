@@ -736,22 +736,21 @@ void init_usb_driver(USBDriver *usbp) {
     chVTObjectInit(&keyboard_idle_timer);
 }
 
-__attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
-    usbStop(usbp);
-    usbDisconnectBus(usbp);
+__attribute__((weak)) void usb_wakeup(USBDriver *usbp) {
+#if STM32_USB_USE_OTG1 || STM32_USB_USE_OTG1
+    stm32_otg_t *otgp = usbp->otg;
 
-#if USB_SUSPEND_WAKEUP_DELAY > 0
-    // Some hubs, kvm switches, and monitors do
-    // weird things, with USB device state bouncing
-    // around wildly on wakeup, yielding race
-    // conditions that can corrupt the keyboard state.
-    //
-    // Pause for a while to let things settle...
-    wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+    osalSysLockFromISR();
+    /* If clocks are gated off, turn them back on (may be the case if
+     coming out of suspend mode).*/
+    if (otgp->PCGCCTL & (PCGCCTL_STPPCLK | PCGCCTL_GATEHCLK)) {
+        /* Set to zero to un-gate the USB core clocks.*/
+        otgp->PCGCCTL &= ~(PCGCCTL_STPPCLK | PCGCCTL_GATEHCLK);
+    }
+    _usb_wakeup(usbp);
+    osalSysUnlockFromISR();
 #endif
 
-    usbStart(usbp, &usbcfg);
-    usbConnectBus(usbp);
 }
 
 /* ---------------------------------------------------------
