@@ -5,7 +5,7 @@
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    lpad
-#define PRODUCT         v1
+#define PRODUCT         mini
 #define DESCRIPTION     Keyboard
 
 /* key matrix size */
