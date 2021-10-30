@@ -14,3 +14,9 @@ endif
 ifeq ($(strip $(COLEMAK_LAYER_ENABLE)), yes)
     OPT_DEFS += -DCOLEMAK_LAYER_ENABLE
 endif
+ifeq ($(strip $(EMOTICON_ENABLE)), yes)
+    OPT_DEFS += -DEMOTICON_ENABLE
+endif
+ifeq ($(strip $(INVERT_NUMLOCK_INDICATOR)), yes)
+    OPT_DEFS += -DINVERT_NUMLOCK_INDICATOR
+endif
