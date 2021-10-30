@@ -4,8 +4,8 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    lpad+
-#define PRODUCT         v4
+#define MANUFACTURER    lpad
+#define PRODUCT         plus
 #define DESCRIPTION     Keyboard
 
 /* key matrix size */
