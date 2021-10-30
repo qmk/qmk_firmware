@@ -103,7 +103,7 @@ def info_json(keyboard):
     for layout_name, layout_json in layouts.items():
         for key in layout_json['layout']:
             if '\n' in key['label']:
-                key['label'] = key['label'].replace('\n', '')
+                key['label'] = key['label'].split('\n')[0]
 
     return info_data
 
