@@ -141,7 +141,7 @@ typedef struct led_instruction_s {
 extern led_instruction_t led_instructions[];
 
 typedef struct led_config_s {
-    uint8_t ver; // assumed to be zero on eeprom reset
+    uint8_t ver;  // assumed to be zero on eeprom reset
 
     uint8_t desired_gcr;
     uint8_t animation_breathing;

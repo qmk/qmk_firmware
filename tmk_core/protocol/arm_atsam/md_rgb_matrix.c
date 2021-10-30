@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #define FLUSH_TIMEOUT 5000
-#define EECONFIG_MD_LED ((uint8_t *)(EECONFIG_SIZE + 64))
+#define EECONFIG_MD_LED ((uint8_t*)(EECONFIG_SIZE + 64))
 #define MD_LED_CONFIG_VERSION 1
 
 #ifdef RGB_MATRIX_ENABLE
@@ -53,14 +53,10 @@ void eeconfig_update_md_led_default(void) {
     eeconfig_flush_md_led(true);
 }
 
-void md_led_changed(void) {
-    eeconfig_flag_md_led(true);
-}
+void md_led_changed(void) { eeconfig_flag_md_led(true); }
 
-//todo: use real task rather than this bodge
-void housekeeping_task_kb(void) {
-    eeconfig_flush_md_led_task(FLUSH_TIMEOUT);
-}
+// todo: use real task rather than this bodge
+void housekeeping_task_kb(void) { eeconfig_flush_md_led_task(FLUSH_TIMEOUT); }
 
 __attribute__((weak)) led_instruction_t led_instructions[] = {{.end = 1}};
 static void                             md_rgb_matrix_config_override(int i);
@@ -263,7 +259,7 @@ static void init(void) {
     if (md_led_config.ver != MD_LED_CONFIG_VERSION) {
         eeconfig_update_md_led_default();
     }
-#endif
+#    endif
 
     issi3733_prepare_arrays();
 
