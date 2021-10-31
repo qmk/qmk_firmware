@@ -43,6 +43,32 @@ enum custom_keycodes {
 };
 
 
+// RGB standard colors
+// CAPS LOCK color  - Warm white
+#define RGB_CAPS_R  0xe6
+#define RGB_CAPS_G  0x87
+#define RGB_CAPS_B  0x19
+
+// NAV 1 color - Blue
+#define RGB_NAV1_R  0x33
+#define RGB_NAV1_G  0x66
+#define RGB_NAV1_B  0xff
+
+// NAV 2 color - Purple
+#define RGB_NAV2_R  0x99
+#define RGB_NAV2_G  0x33
+#define RGB_NAV2_B  0xff
+
+// ADJ color  - Green
+#define RGB_ADJ_R   0x33
+#define RGB_ADJ_G   0xcc
+#define RGB_ADJ_B   0x33
+
+// NUM color  - Cyan
+#define RGB_NUM_R   0x00
+#define RGB_NUM_G   0xff
+#define RGB_NUM_B   0xff
+
 #define CHAR_MOVE   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
 #define LINE_MOVE   KC_HOME, KC_PGDN, KC_PGUP, KC_END
 

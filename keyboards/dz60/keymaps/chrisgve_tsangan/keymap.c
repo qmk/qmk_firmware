@@ -92,12 +92,12 @@ bool caps_lock = false;  // Indicator if caps lock is on
 bool def_layer = true;   // Indicates if the board is on a default layer
 
 void reset_rgb(void) {
-    rgblight_disable();
+    rgblight_disable_noeeprom();
 }
 
 void set_rgb(uint8_t red, uint8_t green, uint8_t blue) {
-    rgblight_enable();
-    rgblight_mode(1);
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(1);
     rgblight_setrgb(red, green, blue);
 }
 
@@ -106,19 +106,19 @@ void keyboard_post_init_user() {
 }
 
 void set_nav_1_rgb(void) {
-    set_rgb(0x33, 0x66, 0xff);
+    set_rgb(RGB_NAV1_R, RGB_NAV1_B, RGB_NAV1_G);
 }
 
 void set_nav_2_rgb(void) {
-    set_rgb(0x99, 0x33, 0xff);
+    set_rgb(RGB_NAV2_R, RGB_NAV2_B, RGB_NAV2_G);
 }
 
 void set_caps_rgb(void) {
-    set_rgb(0xe6, 0x87, 0x19); // Warm white
+    set_rgb(RGB_CAPS_R, RGB_CAPS_B, RGB_CAPS_G); // Warm white
 }
 
 void set_adj_rgb(void) {
-    set_rgb(0x33, 0xcc, 0x33);
+    set_rgb(RGB_ADJ_R, RGB_ADJ_B, RGB_ADJ_G);
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
