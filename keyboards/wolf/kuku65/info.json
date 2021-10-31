@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "ToastyStoemp",
     "layouts": {
-        "LAYOUT_65_ansi_blocker": {
+        "LAYOUT": {
             "layout": [
                 {
                     "x": 0,
