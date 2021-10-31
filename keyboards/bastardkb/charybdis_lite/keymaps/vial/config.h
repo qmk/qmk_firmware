@@ -88,10 +88,6 @@
  */
 #define IGNORE_MOD_TAP_INTERRUPT
 
-// Enable pointer acceleration, which increases the speed by ~2x for large
-// displacement, while maintaining 1x speed for slow movements.
-#define CHARYBDIS_ENABLE_POINTER_ACCELERATION
-
 #ifdef RGB_MATRIX_ENABLE
 // Unload all animations but the one used for idle, reduces memory footprint.
 #define DISABLE_RGB_MATRIX_ALPHAS_MODS
@@ -135,10 +131,6 @@
 #define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-// Disable control of RGB matrix by keycodes (must use firmware implementation
-// to control the feature).
-//#define RGB_MATRIX_DISABLE_KEYCODES
-
 // Limit maximum brightness to keep power consumption reasonable, and avoid
 // disconnects.
 #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
@@ -158,3 +150,9 @@
 #define RGB_MATRIX_STARTUP_HSV \
   RGB_MATRIX_STARTUP_HUE, RGB_MATRIX_STARTUP_SAT, RGB_MATRIX_STARTUP_VAL
 #endif  // RGB_MATRIX_ENABLE
+
+/** Charybdis-specific features. */
+
+// Enable pointer acceleration, which increases the speed by ~2x for large
+// displacement, while maintaining 1x speed for slow movements.
+#define CHARYBDIS_ENABLE_POINTER_ACCELERATION

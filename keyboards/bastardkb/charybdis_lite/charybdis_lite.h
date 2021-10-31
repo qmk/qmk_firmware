@@ -40,6 +40,66 @@
 // clang-format on
 
 #ifdef POINTING_DEVICE_ENABLE
+/** Return the current DPI value for the pointer's default mode. */
+uint32_t charybdis_get_pointer_default_dpi(void);
+
+/**
+ * Update the pointer's default DPI to the next or previous step.
+ *
+ * Increases the DPI value if `forward` is `true`, decreases it otherwise.
+ * The increment/decrement steps are equal to CHARYBDIS_DEFAULT_DPI_CONFIG_STEP.
+ *
+ * The new value is persisted in EEPROM.
+ */
+void charybdis_cycle_pointer_default_dpi(bool forward);
+
+/**
+ * Same as `charybdis_cycle_pointer_default_dpi`, but do not write to EEPROM.
+ *
+ * This means that reseting the board will revert the value to the last
+ * persisted one.
+ */
+void charybdis_cycle_pointer_default_dpi_noeeprom(bool forward);
+
+/** Return the current DPI value for the pointer's sniper-mode. */
+uint32_t charybdis_get_pointer_sniping_dpi(void);
+
+/**
+ * Update the pointer's sniper-mode DPI to the next or previous step.
+ *
+ * Increases the DPI value if `forward` is `true`, decreases it otherwise.
+ * The increment/decrement steps are equal to CHARYBDIS_SNIPING_DPI_CONFIG_STEP.
+ *
+ * The new value is persisted in EEPROM.
+ */
+void charybdis_cycle_pointer_sniping_dpi(bool forward);
+
+/**
+ * Same as `charybdis_cycle_pointer_sniping_dpi`, but do not write to EEPROM.
+ *
+ * This means that reseting the board will revert the value to the last
+ * persisted one.
+ */
+void charybdis_cycle_pointer_sniping_dpi_noeeprom(bool forward);
+
+/** Whether sniper-mode is enabled. */
+bool charybdis_get_pointer_sniping_enabled(void);
+
+/**
+ * Enable/disable sniper mode (decrease dpi to slow down the pointer for more
+ * accurate movements).
+ */
+void charybdis_set_pointer_sniping_enabled(bool enable);
+
+/** Whether drag-scroll is enabled. */
+bool charybdis_get_pointer_dragscroll_enabled(void);
+
+/**
+ * Enable/disable drag-scroll mode (pointer movements scroll horizontally and
+ * vertically instead of moving the pointer's position).
+ */
+void charybdis_set_pointer_dragscroll_enabled(bool enable);
+
 /**
  * Process raw mouse report from sensor, ie. `pointing_device_get_report()`.
  */
@@ -55,16 +115,4 @@ void process_mouse_report(report_mouse_t* mouse_report);
  *     (-127 <= x <= 127) and (-127 <= y <= 127)
  */
 void process_pmw_report(report_mouse_t* mouse_report, int16_t dx, int16_t dy);
-
-/**
- * Enable/disable sniper mode (decrease dpi to slow down the pointer for more
- * accurate movements).
- */
-void charybdis_set_pointer_sniper_mode(bool enable);
-
-/**
- * Enable/disable drag-scroll mode (pointer movements scroll horizontally and
- * vertically instead of moving the pointer's position).
- */
-void charybdis_set_pointer_dragscroll_mode(bool enable);
 #endif  // POINTING_DEVICE_ENABLE

@@ -16,11 +16,15 @@
  */
 #include QMK_KEYBOARD_H
 
+#ifdef CONSOLE_ENABLE
+#include "print.h"
+#endif  // CONSOLE_ENABLE
+
 /**
  * The default keymap is a simplified version of the Miryoku layout using
  * a QWERTY alpha base layer.
  */
-enum charybdis_default_keymap_layers {
+enum charybdis_vial_keymap_layers {
   LAYER_FIRST = 0,
   LAYER_BASE = LAYER_FIRST,
   LAYER_FUNCTION,
@@ -32,12 +36,38 @@ enum charybdis_default_keymap_layers {
   LAYER_LAST = LAYER_SYMBOLS,
 };
 
+enum charybdis_vial_keymap_keycodes {
+#ifdef VIA_ENABLE
+  USER_RESET = USER00,
+#else
+  USER_RESET = SAFE_RANGE,
+#endif  // VIA_ENABLE
+  POINTER_DEFAULT_DPI_FORWARD,
+  POINTER_SNIPING_DPI_FORWARD,
+  SNIPING_MODE,
+  SNIPING_MODE_TOGGLE,
+  DRAGSCROLL_MODE,
+  DRAGSCROLL_MODE_TOGGLE,
+  KEYMAP_SAFE_RANGE,
+};
+
+#define USR_RST USER_RESET
+#define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
+#define S_D_MOD POINTER_SNIPING_DPI_FORWARD
+#define SNIPING SNIPING_MODE
+#define SNP_TOG SNIPING_MODE_TOGGLE
+#define DRGSCRL DRAGSCROLL_MODE
+#define DRG_TOG DRAGSCROLL_MODE_TOGGLE
+
 #define ESC_MED LT(LAYER_MEDIA, KC_ESC)
 #define SPC_NAV LT(LAYER_NAVIGATION, KC_SPC)
 #define TAB_FUN LT(LAYER_FUNCTION, KC_TAB)
 #define ENT_SYM LT(LAYER_SYMBOLS, KC_ENT)
 #define BSP_NUM LT(LAYER_NUMERAL, KC_BSPC)
 #define _L_PTR(KC) LT(LAYER_POINTER, KC)
+
+/** Automatically enable sniping-mode on the pointer layer. */
+#define AUTO_SNIPING_MODE_ON_LAYER LAYER_POINTER
 
 // clang-format off
 #define LAYOUT_charybdis_3x5(...) LAYOUT_split_3x5_3(__VA_ARGS__)
@@ -51,12 +81,14 @@ enum charybdis_default_keymap_layers {
 /** Thumb clusters used on split 3x5+3 keyboards. */
 #define LAYER_ALPHAS_THUMBS_1x6         ESC_MED, SPC_NAV, TAB_FUN, ENT_SYM, BSP_NUM,   KC_NO
 
+/** Modifiers row order. */
+#define ______________GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT
+#define ______________GACS_R______________ KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
+
 /** Convenience row shorthands. */
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX
-#define ______________HOME_ROW_GACS_R______________ XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
-#define __________SHIFTED_HOME_ROW_GACS_L__________ XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT
-#define __________SHIFTED_HOME_ROW_GACS_R__________ KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX
+#define ______________HOME_ROW_GACS_L______________ ______________GACS_L______________, XXXXXXX
+#define ______________HOME_ROW_GACS_R______________ XXXXXXX, ______________GACS_R______________
 
 /**
  * Layers used on the Charybdis Nano.
@@ -75,7 +107,7 @@ enum charybdis_default_keymap_layers {
  * from the base layer to enable auto-repeat.
  */
 #define LAYER_FUNCTION_split_3x5_3                                                                 \
-    _______________DEAD_HALF_ROW_______________, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
+    USR_RST, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
     ______________HOME_ROW_GACS_L______________, KC_SLCK,   KC_F4,   KC_F5,   KC_F6,  KC_F11, \
     _______________DEAD_HALF_ROW_______________, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
                       XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
@@ -92,13 +124,14 @@ enum charybdis_default_keymap_layers {
                       _______, XXXXXXX, XXXXXXX, KC_MSTP, KC_MPLY, XXXXXXX
 
 /**
- * Mouse emulation.
+ * Mouse emulation and pointer functions. The home row mods are shifted inwards
+ * to allow same-hand cording.
  */
 #define LAYER_POINTER_split_3x5_3                                                             \
-    _______________DEAD_HALF_ROW_______________, _______________DEAD_HALF_ROW_______________, \
-    __________SHIFTED_HOME_ROW_GACS_L__________, __________SHIFTED_HOME_ROW_GACS_R__________, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-                      KC_BTN3, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN1, XXXXXXX
+    S_D_MOD, DRG_TOG, SNP_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SNP_TOG, DRG_TOG, S_D_MOD, \
+    DPI_MOD, ______________GACS_L______________, ______________GACS_R______________, DPI_MOD, \
+    _______, DRGSCRL, SNIPING, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SNIPING, DRGSCRL, _______, \
+                      KC_BTN2, KC_BTN1, KC_BTN3, KC_BTN3, KC_BTN1, XXXXXXX
 
 /**
  * Primary right-hand layer (left home thumb) is navigation and editing. Cursor
@@ -129,7 +162,7 @@ enum charybdis_default_keymap_layers {
  * `KC_RPRN`.
  */
 #define LAYER_SYMBOLS_split_3x5_3                                                             \
-    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, _______________DEAD_HALF_ROW_______________, \
+    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, USR_RST, \
     KC_COLN,  KC_DLR, KC_PERC, KC_CIRC, KC_PLUS, ______________HOME_ROW_GACS_R______________, \
     KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE, _______________DEAD_HALF_ROW_______________, \
                       KC_LPRN, KC_RPRN, KC_UNDS, _______, XXXXXXX, XXXXXXX
@@ -191,3 +224,73 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_SYMBOLS] = LAYOUT_charybdis_3x5(LAYER_SYMBOLS_split_3x5_3),
 };
 // clang-format on
+
+/** Whether SHIFT mod is enabled. */
+static bool _has_shift_mod(void) {
+#ifdef NO_ACTION_ONESHOT
+  return mod_config(get_mods()) & MOD_MASK_SHIFT;
+#else
+  return mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+#endif  // NO_ACTION_ONESHOT
+}
+
+#ifdef POINTING_DEVICE_ENABLE
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  switch (keycode) {
+    case USER_RESET:
+      if (record->event.pressed) {
+#ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+        rgb_matrix_sethsv_noeeprom(HSV_RED);
+#endif  // RGB_MATRIX_ENABLE
+      } else {
+        reset_keyboard();
+      }
+      break;
+    case POINTER_DEFAULT_DPI_FORWARD:
+      if (record->event.pressed) {
+        // Step backward if shifted, forward otherwise.
+        charybdis_cycle_pointer_default_dpi(/* forward= */ !_has_shift_mod());
+      }
+      break;
+    case POINTER_SNIPING_DPI_FORWARD:
+      if (record->event.pressed) {
+        // Step backward if shifted, forward otherwise.
+        charybdis_cycle_pointer_sniping_dpi(/* forward= */ !_has_shift_mod());
+      }
+      break;
+    case SNIPING_MODE:
+      charybdis_set_pointer_sniping_enabled(record->event.pressed);
+      break;
+    case SNIPING_MODE_TOGGLE:
+      if (record->event.pressed) {
+        charybdis_set_pointer_sniping_enabled(
+            !charybdis_get_pointer_sniping_enabled());
+      }
+      break;
+    case DRAGSCROLL_MODE:
+      charybdis_set_pointer_dragscroll_enabled(record->event.pressed);
+      break;
+    case DRAGSCROLL_MODE_TOGGLE:
+      if (record->event.pressed) {
+        charybdis_set_pointer_dragscroll_enabled(
+            !charybdis_get_pointer_dragscroll_enabled());
+      }
+      break;
+  }
+  return true;
+}
+
+#ifdef AUTO_SNIPING_MODE_ON_LAYER
+layer_state_t layer_state_set_kb(layer_state_t state) {
+  state = layer_state_set_user(state);
+  charybdis_set_pointer_sniping_enabled(
+      layer_state_cmp(state, AUTO_SNIPING_MODE_ON_LAYER));
+  return state;
+}
+#endif  // AUTO_SNIPING_MODE_ON_LAYER
+#endif  // POINTING_DEVICE_ENABLE
+
+#ifdef CONSOLE_ENABLE
+void keyboard_post_init_user(void) { debug_enable = true; }
+#endif  // CONSOLE_ENABLE
