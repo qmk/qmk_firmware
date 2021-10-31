@@ -18,6 +18,7 @@ Features
     - left spacebar Backspace
 - add double tap of Left Shift to toggle Caps Lock
 - Up arrow is also Shift when held
+- Pushing the encoder switches the default encoder scroll between volume control and Alt-Tab 
 
 
 rules.mk OPTIONS - Active features from userspace
@@ -46,5 +47,8 @@ EMOTICON_ENABLE
 INVERT_NUMLOCK_INDICATOR
     - inverts the Num lock indicator, LED is on when num lokc is off
     
+ALTTAB_SCROLL_ENABLE
+    - bind KS_TSTOG to a different key to change how this toggle happens 
+   
 ## All layers diagram
 ![image](https://user-images.githubusercontent.com/71780717/137356366-6b23c71b-9499-473e-a1e3-c65644135fc6.png)

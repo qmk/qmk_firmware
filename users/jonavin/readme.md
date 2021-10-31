@@ -35,6 +35,7 @@ KEYCODES:
 - KC_SFTUP        RShift when held, Up arrow when tapped
 - KC_RAISESPC     _RAISE layer mod when held, space when tapped
 - KC_LOWERSPC     _LOWER layer mod when held, space when tapped
+- KC_TSTOG        toggles between volume and Alt-Tab encoder control
 - 
  When EMOTICON_ENABLE = yes
 -   EMO_SHRUG       `\_("/)_/`
@@ -59,7 +60,9 @@ AVAILABLE ENCODER ACTIONS:
 - void encoder_action_rgb_saturation(bool clockwise);
 - void encoder_action_rgb_brightness(bool clockwise);
 - void encoder_action_rgb_mode(bool clockwise);
-
+-
+- void encoder_action_alttabscroll(bool clockwise)
+- void encoder_toggle_alttabscroll(void);
 
 ENABLE FEATURES your keymap rules.mk
 ---------------------------------------
@@ -88,6 +91,12 @@ EMOTICON_ENABLE
     
 INVERT_NUMLOCK_INDICATOR
 - inverts the Num lock indicator, LED is on when num lock is off
+
+ALTTAB_SCROLL_ENABLE
+- When ENCODER_DEFAULTACTIONS_ENABLE = yes, 
+    Enables Alt-Tab scrolling functions in default encoder, 
+    bind KS_TSTOG to a key to enable/disable Alt-Tab vs Volume control
+- When defining your own encoder functions use encoder_action_alttabscroll(bool clockwise) to assign the encodr action
 
 
 FUNCTIONS
