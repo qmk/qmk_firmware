@@ -6,7 +6,7 @@
 
 // Masks for Cirque Register Access Protocol (RAP)
 #define WRITE_MASK 0x80
-#define READ_MASK  0xA0
+#define READ_MASK 0xA0
 
 extern bool touchpad_init;
 
@@ -17,17 +17,18 @@ void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count) {
     if (touchpad_init) {
         if (spi_start(CIRQUE_PINNACLE_SPI_CS_PIN, CIRQUE_TRACKPAD_SPI_LSBFIRST, CIRQUE_PINNACLE_SPI_MODE, CIRQUE_PINNACLE_SPI_DIVISOR)) {
             spi_write(cmdByte);
-            spi_read(); // filler
-            spi_read(); // filler
+            spi_read();  // filler
+            spi_read();  // filler
             for (uint8_t i = 0; i < count; i++) {
-                data[i] = spi_read(); // each sepsequent read gets another register's contents
+                data[i] = spi_read();  // each sepsequent read gets another register's contents
             }
         } else {
 #ifdef CONSOLE_ENABLE
             dprintf("error right touchpad\n");
 #endif
             touchpad_init = false;
-j        }
+            j
+        }
         spi_stop();
     }
 }

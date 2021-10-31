@@ -20,6 +20,7 @@
 #include "debug.h"
 #include "timer.h"
 
+// clang-format off
 #define PIMORONI_TRACKBALL_REG_LED_RED 0x00
 #define PIMORONI_TRACKBALL_REG_LED_GRN 0x01
 #define PIMORONI_TRACKBALL_REG_LED_BLU 0x02
@@ -28,6 +29,7 @@
 #define PIMORONI_TRACKBALL_REG_RIGHT   0x05
 #define PIMORONI_TRACKBALL_REG_UP      0x06
 #define PIMORONI_TRACKBALL_REG_DOWN    0x07
+// clang-format on
 
 static uint16_t precision = 128;
 

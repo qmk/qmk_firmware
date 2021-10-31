@@ -7,7 +7,7 @@
 
 // Masks for Cirque Register Access Protocol (RAP)
 #define WRITE_MASK 0x80
-#define READ_MASK  0xA0
+#define READ_MASK 0xA0
 
 extern bool touchpad_init;
 

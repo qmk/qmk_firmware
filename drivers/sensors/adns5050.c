@@ -23,6 +23,7 @@ n/* Copyright 2021 Colin Lam (Ploopy Corporation)
 #include "gpio.h"
 
 // Registers
+// clang-format off
 #define REG_PRODUCT_ID     0x00
 #define REG_REVISION_ID    0x01
 #define REG_MOTION         0x02
@@ -42,6 +43,7 @@ n/* Copyright 2021 Colin Lam (Ploopy Corporation)
 #define REG_PRODUCT_ID2    0x3e
 #define REG_INV_REV_ID     0x3f
 #define REG_MOTION_BURST   0x63
+// clang-format on
 
 void adns5050_init(void) {
     // Initialize the ADNS serial pins.

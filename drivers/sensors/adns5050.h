@@ -22,6 +22,7 @@
 #include <stdbool.h>
 
 // CPI values
+// clang-format off
 #define CPI125  0x11
 #define CPI250  0x12
 #define CPI375  0x13
@@ -33,6 +34,7 @@
 #define CPI1125 0x19
 #define CPI1250 0x1a
 #define CPI1375 0x1b
+// clang-format on
 
 #define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
