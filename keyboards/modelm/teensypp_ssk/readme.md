@@ -2,7 +2,7 @@
 
 ![IBM Model M Space-Saving Keyboard](https://i.imgur.com/CSXrQI5.jpg)
 
-This is a QMK firmware configuration for the IBM Model M Space-Saving Keyboard (SSK). Based on [this project](https://github.com/qmk/qmk_firmware/tree/master/keyboards/converter/modelm101), it features a few slight improvements and, most importantly, a full remapping to match the SSK's matrix, which differs from its full-sized cousins. The modification is easily reversible, as no part of the keyboard is permanently changed. Just take out the replacement controller and reinstall the original, should you desire.
+This is a QMK firmware configuration for the IBM Model M Space-Saving Keyboard (SSK). Based on [this project](https://github.com/qmk/qmk_firmware/tree/master/keyboards/modelm/teensypp), it features a few slight improvements and, most importantly, a full remapping to match the SSK's matrix, which differs from its full-sized cousins. The modification is easily reversible, as no part of the keyboard is permanently changed. Just take out the replacement controller and reinstall the original, should you desire.
 
 The numpad layer (accessed with Shift + Scroll Lock as with the original controller) is mapped to layer 7 by default. All non-numpad keys are transparent.
 

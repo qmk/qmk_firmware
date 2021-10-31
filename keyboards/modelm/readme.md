@@ -20,4 +20,5 @@ The variants built for PCs differ in:
 * Connectors (8/12 pin flex, location)
 * Ground wire connector location
 
-Additionally IBM built Model M keyboards for terminals with 122 keys etc.
+Additionally IBM built Model M variants for terminals with 122 keys, the 
+space saving keyboard (SSK, 84-key) etc.
