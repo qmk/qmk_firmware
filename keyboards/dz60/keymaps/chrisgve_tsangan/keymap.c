@@ -106,19 +106,19 @@ void keyboard_post_init_user() {
 }
 
 void set_nav_1_rgb(void) {
-    set_rgb(RGB_NAV1_R, RGB_NAV1_B, RGB_NAV1_G);
+    set_rgb(RGB_NAV1_R, RGB_NAV1_G, RGB_NAV1_B);
 }
 
 void set_nav_2_rgb(void) {
-    set_rgb(RGB_NAV2_R, RGB_NAV2_B, RGB_NAV2_G);
+    set_rgb(RGB_NAV2_R, RGB_NAV2_G, RGB_NAV2_B);
 }
 
 void set_caps_rgb(void) {
-    set_rgb(RGB_CAPS_R, RGB_CAPS_B, RGB_CAPS_G); // Warm white
+    set_rgb(RGB_CAPS_R, RGB_CAPS_G, RGB_CAPS_B); // Warm white
 }
 
 void set_adj_rgb(void) {
-    set_rgb(RGB_ADJ_R, RGB_ADJ_B, RGB_ADJ_G);
+    set_rgb(RGB_ADJ_R, RGB_ADJ_G, RGB_ADJ_B);
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {

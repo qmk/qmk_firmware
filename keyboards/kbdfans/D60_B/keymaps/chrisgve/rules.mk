@@ -2,4 +2,4 @@
 # RGBLIGHT_ENABLE = yes
 
 # Bootloader selection
-BOOTLOADER = caterina
+BOOTLOADER = atmel-dfu #caterina
