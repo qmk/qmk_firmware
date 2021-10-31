@@ -85,3 +85,88 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 };
+
+extern rgblight_config_t rgblight_config;
+
+bool caps_lock = false;  // Indicator if caps lock is on
+bool def_layer = true;   // Indicates if the board is on a default layer
+
+void reset_rgb(void) {
+    rgblight_disable();
+}
+
+void set_rgb(uint8_t red, uint8_t green, uint8_t blue) {
+    rgblight_enable();
+    rgblight_mode(1);
+    rgblight_setrgb(red, green, blue);
+}
+
+void keyboard_post_init_user() {
+    reset_rgb();
+}
+
+void set_nav_1_rgb(void) {
+    set_rgb(0x33, 0x66, 0xff);
+}
+
+void set_nav_2_rgb(void) {
+    set_rgb(0x99, 0x33, 0xff);
+}
+
+void set_caps_rgb(void) {
+    set_rgb(0xe6, 0x87, 0x19); // Warm white
+}
+
+void set_adj_rgb(void) {
+    set_rgb(0x33, 0xcc, 0x33);
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    if (caps_lock) {
+        set_caps_rgb();
+    } else {
+        reset_rgb();
+    }
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch(get_highest_layer(state)) {
+        case _MAC_NAV_1:
+        case _LINUX_NAV_1:
+        case _WIN_NAV_1:
+            set_nav_1_rgb();
+            def_layer = false;
+            break;
+        case _MAC_NAV_2:
+        case _LINUX_NAV_2:
+        case _WIN_NAV_2:
+            set_nav_2_rgb();
+            def_layer = false;
+            break;
+        case _ADJUST:
+            set_adj_rgb();
+            def_layer = false;
+            break;
+        default:
+            def_layer = true;
+            if (caps_lock) {
+                set_caps_rgb();
+            } else {
+                reset_rgb();
+            } break;
+    }
+    return state;
+}
+
+void led_set_user(uint8_t usb_led) {
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        set_caps_rgb();
+        caps_lock = true;
+    } else {
+        if (def_layer) {
+            reset_rgb();
+        }
+        caps_lock = false;
+    }
+}
