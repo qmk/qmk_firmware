@@ -4,7 +4,7 @@ Pointing Device is a generic name for a feature intended to be generic: moving t
 
 To enable Pointing Device, uncomment the following line in your rules.mk:
 
-```makefile
+```make
 POINTING_DEVICE_ENABLE = yes
 ```
 

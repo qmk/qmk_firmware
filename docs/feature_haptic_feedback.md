@@ -4,9 +4,12 @@
 
 The following options are currently available for haptic feedback in `rules.mk`:
 
-`HAPTIC_ENABLE += DRV2605L`
+```
+HAPTIC_ENABLE = yes
 
-`HAPTIC_ENABLE += SOLENOID`
+HAPTIC_DRIVER += DRV2605L
+HAPTIC_DRIVER += SOLENOID
+```
 
 ## Known Supported Hardware
 
@@ -172,6 +175,7 @@ With the entry of `#define NO_HAPTIC_MOD` in config.h, the following keys will n
 
 * Usual modifier keys such as Control/Shift/Alt/Gui (For example `KC_LCTRL`)
 * `MO()` momentary keys. See also [Layers](feature_layers.md).
+* `LM()` momentary keys with mod active.
 * `LT()` layer tap keys, when held to activate a layer. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered.
 * `TT()` layer tap toggle keys, when held to activate a layer. However when tapped `TAPPING_TOGGLE` times to permanently toggle the layer, on the last tap haptic feedback is still triggered.
 * `MT()` mod tap keys, when held to keep a usual modifier key pressed. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered. See also [Mod-Tap](mod_tap.md).

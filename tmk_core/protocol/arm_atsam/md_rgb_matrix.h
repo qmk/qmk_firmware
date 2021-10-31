@@ -128,6 +128,8 @@ typedef struct led_instruction_s {
     uint32_t id1;    // Bitwise id, IDs 32-63
     uint32_t id2;    // Bitwise id, IDs 64-95
     uint32_t id3;    // Bitwise id, IDs 96-127
+    uint32_t id4;    // Bitwise id, IDs 128-159
+    uint32_t id5;    // Bitwise id, IDs 160-191
     uint8_t  layer;
     uint8_t  r;
     uint8_t  g;
@@ -146,12 +148,31 @@ extern uint8_t led_enabled;
 extern uint8_t led_animation_breathe_cur;
 extern uint8_t led_animation_direction;
 extern uint8_t breathe_dir;
+extern uint8_t led_animation_orientation;
+extern uint8_t led_animation_circular;
+extern float   led_edge_brightness;
+extern float   led_ratio_brightness;
+extern uint8_t led_edge_mode;
 
 #    define LED_MODE_NORMAL 0  // Must be 0
 #    define LED_MODE_KEYS_ONLY 1
 #    define LED_MODE_NON_KEYS_ONLY 2
 #    define LED_MODE_INDICATORS_ONLY 3
 #    define LED_MODE_MAX_INDEX LED_MODE_INDICATORS_ONLY  // Must be highest value
+
+#    define LED_EDGE_MODE_ALL 0                        // All edge LEDs are active (Must be 0)
+#    define LED_EDGE_MODE_ALTERNATE 1                  // Alternate mode of edge LEDs are active (Intention is for 'only every other edge LED' to be active)
+#    define LED_EDGE_MODE_MAX LED_EDGE_MODE_ALTERNATE  // Must be the highest valued LED edge mode
+
+#    define LED_EDGE_FULL_MODE 255  // LEDs configured with this scan code will always be on for edge lighting modes
+#    define LED_EDGE_ALT_MODE 254   // LEDs configured with this scan code will turn off in edge alternating mode
+#    define LED_EDGE_MIN_SCAN 254   // LEDs configured with scan code >= to this are assigned as edge LEDs
+#    define LED_INDICATOR_SCAN 253  // LEDs configured as dedicated indicators
+
+#    define LED_IS_KEY(scan) (scan < LED_INDICATOR_SCAN)         // Return true if an LED's scan value indicates it is a key LED
+#    define LED_IS_EDGE(scan) (scan >= LED_EDGE_MIN_SCAN)        // Return true if an LED's scan value indicates an edge LED
+#    define LED_IS_EDGE_ALT(scan) (scan == LED_EDGE_ALT_MODE)    // Return true if an LED's scan value indicates an alternate edge mode LED
+#    define LED_IS_INDICATOR(scan) (scan == LED_INDICATOR_SCAN)  // Return true if an LED's scan value indicates it is a dedicated Indicator
 
 #endif  // USE_MASSDROP_CONFIGURATOR
 

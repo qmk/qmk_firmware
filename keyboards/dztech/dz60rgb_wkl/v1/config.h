@@ -46,8 +46,6 @@
 #    define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
 #    define DRIVER_ADDR_1 0b1010000
-#    define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
-#    define DRIVER_COUNT 2
-#    define DRIVER_1_LED_TOTAL 62
-#    define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#    define DRIVER_COUNT 1
+#    define DRIVER_LED_TOTAL 62
 #endif

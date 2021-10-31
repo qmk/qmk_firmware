@@ -32,7 +32,6 @@ Submodule path 'lib/chibios': checked out '587968d6cbc2b0e1c7147540872f2a67e59ca
 Submodule path 'lib/chibios-contrib': checked out 'ede48346eee4b8d6847c19bc01420bee76a5e486'
 Submodule path 'lib/googletest': checked out 'ec44c6c1675c25b9827aacd08c02433cccde7780'
 Submodule path 'lib/lufa': checked out 'ce10f7642b0459e409839b23cc91498945119b4d'
-Submodule path 'lib/ugfx': checked out '3e97b74e03c93631cdd3ddb2ce43b963fdce19b2'
 ```
 
 You now have your QMK fork on your local machine, and you can add your keymap, compile it and flash it to your board. Once you're happy with your changes, you can add, commit, and push them to your fork like this:

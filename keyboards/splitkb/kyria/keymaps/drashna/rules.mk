@@ -17,3 +17,4 @@ KEY_LOCK_ENABLE            = no
 WPM_ENABLE                 = yes
 SWAP_HANDS_ENABLE          = yes
 LTO_ENABLE                 = no
+CTPC                       = yes

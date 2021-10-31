@@ -15,7 +15,7 @@ or send gamepad reports based on values computed by the keyboard.
 
 To use analog input you must first enable it in `rules.mk`:
 
-```makefile
+```make
 JOYSTICK_ENABLE = yes
 JOYSTICK_DRIVER = analog # or 'digital'
 ```
