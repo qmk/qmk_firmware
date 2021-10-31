@@ -407,7 +407,7 @@ Use these to enable or disable building certain features. The more you have enab
 * `MAGIC_ENABLE`
   * MAGIC actions (BOOTMAGIC without the boot)
 * `BOOTMAGIC_ENABLE`
-  * Virtual DIP switch configuration
+  * Enable Bootmagic Lite
 * `MOUSEKEY_ENABLE`
   * Mouse keys
 * `EXTRAKEY_ENABLE`
