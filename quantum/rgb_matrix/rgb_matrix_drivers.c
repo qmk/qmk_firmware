@@ -84,7 +84,7 @@ static void init(void) {
 #    elif defined(IS31FLCOMMON)
     IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
 #        if defined(DRIVER_ADDR_2)
-    IS31FL_common_init(DRIVER_ADDR_2, ISSI_SSR_2)
+    IS31FL_common_init(DRIVER_ADDR_2, ISSI_SSR_2);
 #            if defined(DRIVER_ADDR_3)
     IS31FL_common_init(DRIVER_ADDR_3, ISSI_SSR_3);
 #                if defined(DRIVER_ADDR_4)
