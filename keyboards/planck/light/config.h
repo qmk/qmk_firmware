@@ -1,5 +1,4 @@
-#ifndef LIGHT_CONFIG_H
-#define LIGHT_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -39,6 +38,3 @@
 #define DRIVER_1_LED_TOTAL 25
 #define DRIVER_2_LED_TOTAL 24
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
-
-#endif

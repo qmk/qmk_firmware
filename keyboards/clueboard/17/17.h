@@ -1,6 +1,3 @@
-#ifndef CLUEPAD_H
-#define CLUEPAD_H
+#pragma once
 
 #include "quantum.h"
-
-#endif

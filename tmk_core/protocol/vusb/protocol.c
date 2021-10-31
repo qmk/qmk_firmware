@@ -111,22 +111,15 @@ void protocol_setup(void) {
     // clock prescaler
     clock_prescale_set(clock_div_1);
 #endif
-    keyboard_setup();
 }
 
 void protocol_init(void) {
     setup_usb();
     sei();
 
-    keyboard_init();
-
     host_set_driver(vusb_driver());
 
     wait_ms(50);
-
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_init();
-#endif
 }
 
 void protocol_task(void) {

@@ -90,6 +90,10 @@
 // from its 10ms default to the 125μs minimum that USB 2.x (High Speed) allows:
 #define USB_POLLING_INTERVAL_MS 1
 
+// The Teensy 4.1 consumes about 100 mA of current at its full speed of 600 MHz
+// as per https://www.pjrc.com/store/teensy41.html
+#define USB_MAX_POWER_CONSUMPTION 100
+
 /* We use the i.MX RT1060 high-speed GPIOs (GPIO6-9) which are connected to the
  * AHB bus (AHB_CLK_ROOT), which runs at the same speed as the ARM Core Clock,
  * i.e. 600 MHz. See MIMXRT1062, page 949, 12.1 Chip-specific GPIO information.
