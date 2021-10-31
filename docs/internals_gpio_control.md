@@ -4,7 +4,7 @@ QMK has a GPIO control abstraction layer which is microcontroller agnostic. This
 
 ## Functions :id=functions
 
-The following functions can provide basic control of GPIOs and are found in `quantum/quantum.h`.
+The following functions provide basic control of GPIOs and are found in `tmk_core/common/<platform>/gpio.h`.
 
 |Function                |Description                                       | Old AVR Examples                                | Old ChibiOS/ARM Examples                        |
 |------------------------|--------------------------------------------------|-------------------------------------------------|-------------------------------------------------|

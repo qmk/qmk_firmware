@@ -1,0 +1,1 @@
+SRC += oneshot.c

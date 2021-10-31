@@ -131,11 +131,13 @@ You can override the default songs by doing something like this in your `config.
 
 ```c
 #ifdef AUDIO_ENABLE
-  #define STARTUP_SONG SONG(STARTUP_SOUND)
+#    define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 ```
 
 A full list of sounds can be found in [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) - feel free to add your own to this list! All available notes can be seen in [quantum/audio/musical_notes.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/musical_notes.h).
+
+Additionally, if you with to maintain your own list of songs (such as ones that may be copyrighted) and not have them added to the repo, you can create a `user_song_list.h` file and place it in your keymap (or userspace) folder.  This file will be automatically included, it just needs to exist.
 
 To play a custom sound at a particular time, you can define a song like this (near the top of the file):
 
@@ -164,6 +166,32 @@ The available keycodes for audio are:
 * `AU_TOG` - Toggle Audio Feature state
 
 !> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
+
+## Audio Config
+
+| Settings                        | Default              | Description                                                                   |
+|---------------------------------|----------------------|-------------------------------------------------------------------------------|
+|`AUDIO_PIN`                      | *Not defined*        |Configures the pin that the speaker is connected to.                           |
+|`AUDIO_PIN_ALT`                  | *Not defined*        |Configures the pin for a second speaker or second pin connected to one speaker.|
+|`AUDIO_PIN_ALT_AS_NEGATIVE`      | *Not defined*        |Enables support for one speaker connected to two pins.                         |
+|`AUDIO_INIT_DELAY`               | *Not defined*        |Enables delay during startup song to accomidate for USB startup issues.        |
+|`AUDIO_ENABLE_TONE_MULTIPLEXING` | *Not defined*        |Enables time splicing/multiplexing to create multiple tones simutaneously.     |
+|`STARTUP_SONG`                   | `STARTUP_SOUND`      |Plays when the keyboard starts up (audio.c)                                    |
+|`GOODBYE_SONG`                   | `GOODBYE_SOUND`      |Plays when you press the RESET key (quantum.c)                                 |
+|`AG_NORM_SONG`                   | `AG_NORM_SOUND`      |Plays when you press AG_NORM (process_magic.c)                                 |
+|`AG_SWAP_SONG`                   | `AG_SWAP_SOUND`      |Plays when you press AG_SWAP (process_magic.c)                                 |
+|`CG_NORM_SONG`                   | `AG_NORM_SOUND`      |Plays when you press CG_NORM (process_magic.c)                                 |
+|`CG_SWAP_SONG`                   | `AG_SWAP_SOUND`      |Plays when you press CG_SWAP (process_magic.c)                                 |
+|`MUSIC_ON_SONG`                  | `MUSIC_ON_SOUND`     |Plays when music mode is activated (process_music.c)                           |
+|`MUSIC_OFF_SONG`                 | `MUSIC_OFF_SOUND`    |Plays when music mode is deactivated (process_music.c)                         |
+|`MIDI_ON_SONG`                   | `MUSIC_ON_SOUND`     |Plays when midi mode is activated (process_music.c)                            |
+|`MIDI_OFF_SONG`                  | `MUSIC_OFF_SOUND`    |Plays when midi mode is deactivated (process_music.c)                          |
+|`CHROMATIC_SONG`                 | `CHROMATIC_SOUND`    |Plays when the chromatic music mode is selected (process_music.c)              |
+|`GUITAR_SONG`                    | `GUITAR_SOUND`       |Plays when the guitar music mode is selected (process_music.c)                 |
+|`VIOLIN_SONG`                    | `VIOLIN_SOUND`       |Plays when the violin music mode is selected (process_music.c)                 |
+|`MAJOR_SONG`                     | `MAJOR_SOUND`        |Plays when the major music mode is selected (process_music.c)                  |
+|`DEFAULT_LAYER_SONGS`            | *Not defined*        |Plays song when switched default layers with [`set_single_persistent_default_layer(layer)`](ref_functions.md#setting-the-persistent-default-layer)(quantum.c)       |
+|`SENDSTRING_BELL`                | *Not defined*        |Plays chime when the "enter" ("\a") character is sent (send_string.c)          |
 
 ## Tempo
 the 'speed' at which SONGs are played is dictated by the set Tempo, which is measured in beats-per-minute. Note lengths are defined relative to that.

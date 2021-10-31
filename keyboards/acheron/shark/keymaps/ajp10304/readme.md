@@ -1,5 +1,5 @@
 # AJP10304 Custom Shark Layout
-# Also available for the Planck, JJ40 and Atreus50
+# Also available for the Planck, Quark, JJ40 and Atreus50
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
@@ -7,8 +7,7 @@ the second is the output when shift is applied.
 **Note:** The below tables assume a UK layout.
 
 #### Flashing
-
-`make acheron/shark:ajp10304:flash`
+Refer to the README.md of the keyboard you want to flash.
 
 ##### Main Qwerty Layer
 
@@ -102,7 +101,7 @@ Activated when `fn` and `raise` held together.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |
 | :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ESC   |      |      |      |      |      |      |      | BTN3 |      |      |      |
+| ESC   |      |      |      |      |      | W_L  | W_UP | BTN3 | W_DWN| W_R  |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
 |       |      |      |      |      |      |      |      |      |      |      |      |
