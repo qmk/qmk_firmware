@@ -24,9 +24,9 @@
 
 enum {
     _ALPHA,   // default
+    _GAME,    // gaming
     _SPECIAL, // special characters
-    _NUMBERS, // numbers/function/motion
-    _GAME     // for gaming
+    _NUMBERS  // numbers/function/motion
 };
 
 typedef enum {
@@ -46,10 +46,8 @@ enum {
     GAME
 };
 
-// Function associated with all tap dances
 td_state_t cur_dance(qk_tap_dance_state_t *state);
 
-// Functions associated with individual tap dances
 void ql_finished(qk_tap_dance_state_t *state, void *user_data);
 void ql_reset(qk_tap_dance_state_t *state, void *user_data);
 
@@ -64,7 +62,7 @@ void ql_reset(qk_tap_dance_state_t *state, void *user_data);
      * ,-------------------------------.      ,-------------------------------.
      * |       |     |     |     |     |      |     |     |     |     |       |
      * |-------+-----+-----+-----+-----|      |-----+-----+-----+-DEL-+-BSPC--|
-     * |       |     |     |    ESC    |      |    ENT    |     |     |       |
+     * |       |     |    ESC   ESC    |      |    ENT    |     |     |       |
      * |-------+-----+-----+-RMB-+-LMB-|      |-----+-----+-----+-----+-------|
      * |       |     |     |     |     |      |     |     |     |     |       |
      * `-------------------------------'      `-------------------------------'
@@ -74,7 +72,7 @@ void ql_reset(qk_tap_dance_state_t *state, void *user_data);
      */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Keymap 0: Alpha layer
+    /* Alpha layer
      *
      * ,-------------------------------.      ,-------------------------------.
      * |     Q |  W  |  E  |  R  |  T  |      |  Y  |  U  |  I  |  O  |   P   |
@@ -84,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | SHFT Z|  X  |  C  |  V  |  B  |      |  N  |  M  |  ,  |  .  |SHFT / |
      * `-------------------------------'      `-------------------------------'
      *       .----------------------.           .----------------------.
-     *       | META | ENT | SPC SPE |           | SPC NUM | TAB | SHFT |
+     *       | META | ALT | SPC SPE |           | SPC NUM | TAB | SHFT |
      *       '----------------------'           '----------------------'
      */
     [_ALPHA] = LAYOUT_split_3x5_3(
@@ -93,7 +91,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_SFT_Z, KC_X,   KC_C,   KC_V,   KC_B,          KC_N,   KC_M,   TD(GAME), KC_DOT, KC_SFT_SL,
                    KC_LGUI, KC_LALT, KC_SPE_SPC,          KC_NUM_SPC, KC_TAB, KC_RSFT),
 
-    /* Keymap 1: Special characters layer
+    /* Gaming layer
+     *
+     * ,-------------------------------.      ,-------------------------------.
+     * |   ~   |  Q  |  W  |  E  |  R  |      |  Y  |  U  |  I  |  O  |   P   |
+     * |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
+     * |  CTRL |  A  |  S  |  D  |  F  |      |  H  |  J  |  K  |  L  |   ;   |
+     * |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
+     * |  SHFT |  Z  |  X  |  C  |  V  |      |  N  |  M  |  ,  |  .  |SHFT / |
+     * `-------------------------------'      `-------------------------------'
+     *           .------------------.           .----------------------.
+     *           | META | ALT | SPC |           | SPC NUM | TAB | SHFT |
+     *           '------------------'           '----------------------'
+     */
+    [_GAME] = LAYOUT_split_3x5_3(
+         KC_TILD,  KC_Q,   KC_W,   KC_E,   KC_R,          KC_Y,   KC_U,   KC_I,     KC_O,   KC_P,
+         KC_LCTL , KC_A,   KC_S,   KC_D,   KC_F,          KC_H,   KC_J,   KC_K,     KC_L,   KC_SCLN,
+         KC_LSFT,  KC_Z,   KC_X,   KC_C,   KC_V,          KC_N,   KC_M,   TD(GAME), KC_DOT, KC_SFT_SL,
+                       KC_LGUI, KC_LALT, KC_SPC,          KC_NUM_SPC, KC_TAB, KC_RSFT),
+
+    /* Special characters layer
      *
      * ,-------------------------------.      ,-------------------------------.
      * |    !  |  @  |  {  |  }  |  |  |      |  `  |  -  |  =  |  /  |   \   |
@@ -112,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TRNS,          KC_AMPR, KC_TILD, KC_PLUS, KC_ASTR, KC_TRNS,
                            KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
 
-    /* Keymap 2: Numbers/Function/Motion layer
+    /* Numbers/Function/Motion layer
      *
      * ,-------------------------------.      ,-------------------------------.
      * |   1   |  2  |  3  |  4  |  5  |      |  6  |  7  |  8  |  9  |   0   |
@@ -129,26 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_1,  KC_2,  KC_3,  KC_4,  KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
          KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
          KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,         KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_TRNS,
-                    KC_F11, KC_F12, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS),
-
-    /* Keymap 3: Gaming layer
-     *
-     * ,-------------------------------.      ,-------------------------------.
-     * |     Q |  W  |  E  |  R  |  T  |      |  Y  |  U  |  I  |  O  |   P   |
-     * |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
-     * | CTRL A|  S  |  D  |  F  |  G  |      |  H  |  J  |  K  |  L  |   ;   |
-     * |-------+-----+-----+-----+-----|      |-----+-----+-----+-----+-------|
-     * |  SHFT |  Z  |  X  |  C  |  V  |      |  N  |  M  |  ,  |  .  |SHFT / |
-     * `-------------------------------'      `-------------------------------'
-     *       .----------------------.           .----------------------.
-     *       | META | ENT ALT | SPC |           | SPC NUM | TAB | SHFT |
-     *       '----------------------'           '----------------------'
-     */
-    [_GAME] = LAYOUT_split_3x5_3(
-         KC_Q,     KC_W,   KC_E,   KC_R,   KC_T,          KC_Y,   KC_U,   KC_I,     KC_O,   KC_P,
-         KC_CTL_A, KC_S,   KC_D,   KC_F,   KC_G,          KC_H,   KC_J,   KC_K,     KC_L,   KC_SCLN,
-         KC_LSFT,  KC_Z,   KC_X,   KC_C,   KC_V,          KC_N,   KC_M,   TD(GAME), KC_DOT, KC_SFT_SL,
-                       KC_LGUI, KC_LALT, KC_SPC,          KC_NUM_SPC, KC_TAB, KC_RSFT)
+                    KC_F11, KC_F12, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS)
 };
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
