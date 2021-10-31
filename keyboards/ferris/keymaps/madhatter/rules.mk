@@ -1,2 +1,2 @@
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes
 TAP_DANCE_ENABLE = yes

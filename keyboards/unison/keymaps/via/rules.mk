@@ -1,5 +1,5 @@
 MOUSEKEY_ENABLE = yes
 AUDIO_ENABLE = yes
 
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes
 VIA_ENABLE = yes
