@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUM] = LAYOUT_preonic_grid(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_PEQL,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_BSPC,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P1,   KC_P2,   KC_P3,   KC_PAST, KC_PENT,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P0,   KC_P0,   KC_PDOT, KC_PSLS, XXXXXXX,
         XXXXXXX, QWERTY,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -137,44 +137,103 @@ extern rgblight_config_t rgblight_config;
 
 bool    num_on    = false;
 bool    caps_lock = false;
+bool    def_layer = true;
+bool    cfg_layer = false;
 
-void matrix_init_user() {
-    rgblight_disable();
+void reset_rgb(void) {
+    rgblight_disable_noeeprom();
 }
 
-void set_num_rgb(void) {
-    rgblight_enable();
-    rgblight_mode(1);
-    rgblight_setrgb(0x00, 0x00, 0xFF);
+void set_rgb(uint8_t red, uint8_t green, uint8_t blue) {
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(1);
+    rgblight_setrgb(red, green, blue);
+}
+
+void keyboard_post_init_user() {
+    reset_rgb();
+}
+
+void set_nav_1_rgb(void) {
+    set_rgb(RGB_NAV1_R, RGB_NAV1_G, RGB_NAV1_B);
+}
+
+void set_nav_2_rgb(void) {
+    set_rgb(RGB_NAV2_R, RGB_NAV2_G, RGB_NAV2_B);
 }
 
 void set_caps_rgb(void) {
-    rgblight_enable();
-    rgblight_mode(1);
-    rgblight_setrgb(0xFF, 0xFF, 0xFF);
+    set_rgb(RGB_CAPS_R, RGB_CAPS_G, RGB_CAPS_B); // Warm white
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        caps_lock = true;
-        if (!num_on) {
-            set_caps_rgb();
-        }
+void set_num_rgb(void) {
+    set_rgb(RGB_NUM_R, RGB_NUM_G, RGB_NUM_B);
+}
+
+void set_adj_rgb(void) {
+    set_rgb(RGB_ADJ_R, RGB_ADJ_G, RGB_ADJ_B);
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    if (caps_lock) {
+        set_caps_rgb();
     } else {
-        caps_lock = false;
-        if (!num_on) {
-            rgblight_disable();
-        } else {
-            set_num_rgb();
-        }
+        reset_rgb();
     }
+    return state;
 }
 
 bool lower_layer_state = false;
 bool raise_layer_state = false;
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch(get_highest_layer(state)) {
+        case _MAC_NAV_1:
+        case _LINUX_NAV_1:
+        case _WIN_NAV_1:
+            set_nav_1_rgb();
+            def_layer = false;
+            break;
+        case _MAC_NAV_2:
+        case _LINUX_NAV_2:
+        case _WIN_NAV_2:
+            set_nav_2_rgb();
+            def_layer = false;
+            break;
+        case _CONFIG:
+            set_adj_rgb();
+            def_layer = false;
+            break;
+        case _NUM:
+            set_num_rgb();
+            def_layer = false;
+            break;
+        default:
+            def_layer = true;
+            if (caps_lock) {
+                set_caps_rgb();
+            } else {
+                reset_rgb();
+            }
+            break;
+    }
+    return state;
+}
+
+void led_set_user(uint8_t usb_led) {
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        set_caps_rgb();
+        caps_lock = true;
+    } else {
+        if (def_layer) {
+            reset_rgb();
+        }
+        caps_lock = false;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    switch (keycode) {
         case FN_NUM:
             if (record->tap.count == 2 && record->event.pressed) {
                 layer_on(_NUM);
@@ -190,31 +249,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (caps_lock) {
                 set_caps_rgb();
             } else {
-                rgblight_disable();
+                reset_rgb();
             }
             break;
         case SPC_LWR:
-          if (record->event.pressed) {
-              lower_layer_state = true;
-          } else {
-              lower_layer_state = false;
-          }
-          break;
+            if (record->event.pressed) {
+                lower_layer_state = true;
+            } else {
+                lower_layer_state = false;
+            }
+            break;
         case SPC_RSE:
-          if (record->event.pressed) {
-              raise_layer_state = true;
-          } else {
-              raise_layer_state = false;
-          }
-          break;
-      }
-  if (lower_layer_state & raise_layer_state) {
-      layer_on(_CONFIG);
-  } else {
-      if (layer_state_is(_CONFIG)) {
-          layer_off(_CONFIG);
-      }
-  }
+            if (record->event.pressed) {
+                raise_layer_state = true;
+            } else {
+                raise_layer_state = false;
+            }
+        break;
+    }
+    if (lower_layer_state & raise_layer_state) {
+        set_adj_rgb();
+        layer_on(_CONFIG);
+    } else {
+        if (cfg_layer) {
+            layer_off(_CONFIG);
+        }
+    }
+    cfg_layer = lower_layer_state & raise_layer_state;
+    if (def_layer) {
+        reset_rgb();
+    }
     return true;
 };
 
