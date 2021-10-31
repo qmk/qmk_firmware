@@ -111,22 +111,121 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // RGB configuration and setup light layer for caps on
 
-void keyboard_post_init_user(void) {
-    // Disable the underglow
+enum generic_layer_t {
+    _DEF_L,
+    _NAV1_L,
+    _NAV2_L,
+    _ADJ_L,
+    _NUM_L,
+};
+
+bool caps_lock = false;  // Indicator if caps lock is on
+bool def_layer = true;   // Indicates if the board is on a default layer
+uint8_t cur_layer = _DEF_L;   // Current layer
+
+void reset_rgb(void) {
     rgb_matrix_disable_noeeprom();
 }
 
-void rgb_matrix_indicators_user(void) {
-    rgb_matrix_set_color_all(0x7f, 0x7f, 0x7f);
+void set_rgb(uint8_t red, uint8_t green, uint8_t blue) {
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_set_color_all(red, green, blue);
+}
+
+void keyboard_post_init_user() {
+    reset_rgb();
+}
+
+void set_nav_1_rgb(void) {
+    set_rgb(RGB_NAV1_R, RGB_NAV1_G, RGB_NAV1_B);
+}
+
+void set_nav_2_rgb(void) {
+    set_rgb(RGB_NAV2_R, RGB_NAV2_G, RGB_NAV2_B);
+}
+
+void set_caps_rgb(void) {
+    set_rgb(RGB_CAPS_R, RGB_CAPS_G, RGB_CAPS_B); // Warm white
+}
+
+void set_adj_rgb(void) {
+    set_rgb(RGB_ADJ_R, RGB_ADJ_G, RGB_ADJ_B);
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    if (caps_lock) {
+        set_caps_rgb();
+    } else {
+        reset_rgb();
+    }
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch(get_highest_layer(state)) {
+        case _MAC_NAV_1:
+        case _LINUX_NAV_1:
+        case _WIN_NAV_1:
+            cur_layer = _NAV1_L;
+            def_layer = false;
+            set_nav_1_rgb();
+            break;
+        case _MAC_NAV_2:
+        case _LINUX_NAV_2:
+        case _WIN_NAV_2:
+            cur_layer = _NAV2_L;
+            def_layer = false;
+            set_nav_2_rgb();
+            break;
+        case _ADJUST:
+            cur_layer = _ADJ_L;
+            def_layer = false;
+            set_adj_rgb();
+            break;
+        default:
+            cur_layer = _DEF_L;
+            def_layer = true;
+            if (caps_lock) {
+                set_caps_rgb();
+            } else {
+                reset_rgb();
+            }
+    }
+    return state;
 }
 
 void led_set_user(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        rgb_matrix_enable_noeeprom();
-        rgb_matrix_set_color_all(0xFF, 0xFF, 0xFF);
+        set_caps_rgb();
+        caps_lock = true;
     } else {
-        rgb_matrix_disable_noeeprom();
+        if (def_layer) {
+            reset_rgb();
+        }
+        caps_lock = false;
     }
 }
 
+void rgb_matrix_indicators_user(void) {
+    if (caps_lock) {
+        set_caps_rgb();
+    } else {
+        switch(cur_layer) {
+            case _DEF_L:
+                reset_rgb();
+                break;
+            case _NAV1_L:
+                set_nav_1_rgb();
+                break;
+            case _NAV2_L:
+                set_nav_2_rgb();
+                break;
+            case _ADJ_L:
+                set_adj_rgb();
+                break;
+            default:
+                break;
+        }
+    }
+}
 
