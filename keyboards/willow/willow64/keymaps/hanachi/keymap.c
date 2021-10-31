@@ -99,11 +99,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool led_update_user(led_t led_state) {
     if (layer == _FN1) {
-        rgblight_set_layer_state(2, IS_HOST_LED_ON(USB_LED_NUM_LOCK));
+        rgblight_set_layer_state(2, host_keyboard_led_state().caps_lock);
     } else {
         rgblight_set_layer_state(2, false);
     }
-    rgblight_set_layer_state(1, IS_HOST_LED_ON(USB_LED_CAPS_LOCK));
+    rgblight_set_layer_state(1, host_keyboard_led_state().caps_lock);
     return true;
 }
 
