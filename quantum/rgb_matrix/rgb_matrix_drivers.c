@@ -80,7 +80,7 @@ static void init(void) {
 
 #    elif defined(IS31FL3741)
     IS31FL3741_init(DRIVER_ADDR_1);
-	
+
 #    elif defined(IS31FLCOMMON)
     IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
 #        if defined(DRIVER_ADDR_2)
@@ -144,7 +144,7 @@ static void init(void) {
 
 #    elif defined(IS31FL3741)
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
-	
+
 #    elif defined(IS31FLCOMMON)
 #        ifdef ISSI_MANUAL_SCALING
     IS31FL_set_manual_scaling_buffer();
