@@ -207,19 +207,25 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 There is basic support for addressable RGB matrix lighting with a selection of I2C ISSI Lumissil RGB controllers through a shared common driver. To enable it, add this to your `rules.mk`:
 
 ```makefile
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = IS31FLCOMMON
+LED_MATRIX_ENABLE = yes
+LED_MATRIX_DRIVER = <driver name>
 ```
+
+Where `<driver name>` is the applicable LED driver chip as below
+
+| Driver Name | Data Sheet | Capability |
+|-------------|------------|------------|
+| `IS31FL3742A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3742A_DS.pdf) | 60 RGB, 30x6 Matrix |
+| `ISSIFL3743A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3743A_DS.pdf) | 66 RGB, 18x11 Matrix |
+| `IS31FL3745` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3745_DS.pdf) | 48 RGB, 18x8 Matrix |
+| `IS31FL3746A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3746A_DS.pdf) | 24 RGB, 18x4 Matrix |
+
 You can use between 1 and 4 IC's. Do not specify `DRIVER_ADDR_<N>` define for IC's if not present on your keyboard. The `DRIVER_ADDR_1` default assumes that all Address pins on the controller have been connected to GND. Drivers that have SYNC functionality have the default settings to disable if 1 driver. If more than 1 drivers then `DRIVER_ADDR_1` will be set to Master and the remaining ones set to Slave.
 
 Configure the hardware via your `config.h`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `IS31FL3742A` | If using IS31FL3742A [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3742A_DS.pdf) | |
-| `ISSIFL3743A` | If using IS31FL3743A [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3743A_DS.pdf) | |
-| `IS31FL3745` | If using IS31FL3745 [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3745_DS.pdf) | |
-| `IS31FL3746A` | If using IS31FL3746A [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3746A_DS.pdf) | |
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
 | `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
@@ -255,7 +261,6 @@ Defaults
 Here is an example using 2 drivers.
 
 ```c
-#define IS31FL3743A
 #define DRIVER_ADDR_2 0b0100001
 
 #define DRIVER_COUNT 2
@@ -263,6 +268,7 @@ Here is an example using 2 drivers.
 #define DRIVER_2_LED_TOTAL 42
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 ```
+
 !> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
 
 Currently only 4 drivers are supported, but it would be trivial to support for more. Note that using a combination of different drivers is not supported. All drivers must be of the same model.

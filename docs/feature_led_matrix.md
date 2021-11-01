@@ -72,18 +72,24 @@ There is basic support for addressable LED matrix lighting with a selection of I
 
 ```makefile
 LED_MATRIX_ENABLE = yes
-LED_MATRIX_DRIVER = IS31FLCOMMON
+LED_MATRIX_DRIVER = <driver name>
 ```
+
+Where `<driver name>` is the applicable LED driver chip as below
+
+| Driver Name | Data Sheet | Capability |
+|-------------|------------|------------|
+| `IS31FL3742A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3742A_DS.pdf) | 180 LED, 30x6 Matrix |
+| `ISSIFL3743A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3743A_DS.pdf) | 198 LED, 18x11 Matrix |
+| `IS31FL3745` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3745_DS.pdf) | 144 LED, 18x8 Matrix |
+| `IS31FL3746A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3746A_DS.pdf) | 72 LED, 18x4 Matrix |
+
 You can use between 1 and 4 IC's. Do not specify `DRIVER_ADDR_<N>` define for IC's if not present on your keyboard. The `DRIVER_ADDR_1` default assumes that all Address pins on the controller have been connected to GND. Drivers that have SYNC functionality have the default settings to disable if 1 driver. If more than 1 drivers then `DRIVER_ADDR_1` will be set to Master and the remaiing ones set to Slave.
 
 Configure the hardware via your `config.h`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `IS31FL3742A` | If using IS31FL3742A [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3742A_DS.pdf) | |
-| `ISSIFL3743A` | If using IS31FL3743A [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3743A_DS.pdf) | |
-| `IS31FL3745` | If using IS31FL3745 [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3745_DS.pdf) | |
-| `IS31FL3746A` | If using IS31FL3746A [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3746A_DS.pdf) | |
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
 | `DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
@@ -117,7 +123,6 @@ Defaults
 Here is an example using 2 drivers.
 
 ```c
-#define IS31FL3743A
 #define DRIVER_ADDR_2 0b0100001
 
 #define DRIVER_COUNT 2
