@@ -28,9 +28,6 @@
 #define MATRIX_COLS 14
 // layer size: MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t) = 144 bytes
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #if defined(ANNEPRO2_EEPROM)
 // SPI Config
 #define SPI_DRIVER SPID1

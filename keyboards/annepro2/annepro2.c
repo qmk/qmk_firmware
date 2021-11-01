@@ -56,7 +56,7 @@ void bootloader_jump(void) {
     NVIC_SystemReset();
 }
 
-void keyboard_pre_init_kb(void) {
+void keyboard_pre_init_user(void) {
 #if HAL_USE_SPI == TRUE
     spi_init();
 #endif

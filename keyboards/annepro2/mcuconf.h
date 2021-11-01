@@ -13,9 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 */
-
-#ifndef _MCUCONF_H_
-#define _MCUCONF_H_
+#pragma once
 
 #include "nvic.h"
 
@@ -68,4 +66,4 @@
 #define HT32_SPI1_IRQ_PRIORITY 9
 #endif
 
-#endif /* _MCUCONF_H_ */
+

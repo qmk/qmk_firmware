@@ -6,8 +6,7 @@
  * shine's clang formatting).
  */
 
-#ifndef PROTOCOL_INCLUDED
-#define PROTOCOL_INCLUDED
+#pragma once
 #include <inttypes.h>
 
 #define PROTOCOL_SD SD0
@@ -110,5 +109,3 @@ extern void protoSilence(protocol_t *proto);
 
 /* Transmit message */
 extern void protoTx(uint8_t cmd, const unsigned char *buf, int payloadSize, int retries);
-
-#endif

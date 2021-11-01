@@ -14,8 +14,7 @@
     limitations under the License.
 */
 
-#ifndef BOARD_H
-#define BOARD_H
+#pragma once
 /*
  * Setup for Anne Pro 2 board.
  */
@@ -71,5 +70,3 @@ extern "C" {
 }
 #endif
 #endif /* _FROM_ASM_ */
-
-#endif /* BOARD_H */
