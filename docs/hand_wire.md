@@ -191,6 +191,9 @@ The source given by Keyboard Firmware Builder is QMK, but is based on a version 
     }
    ```
 4. Save and close `keymap.c`.
+5. Navigate back to `kb/` folder, and open `kb.h`.
+6. Change the `#define KEYMAP( \` line to `#define LAYOUT( \`.
+7. Save and close `kb.h`.
 
 ## Flashing the Firmware
 
