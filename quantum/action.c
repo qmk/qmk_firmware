@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_util.h"
 #include "action.h"
 #include "wait.h"
-
 #include "keycode_config.h"
 
 #ifdef BACKLIGHT_ENABLE
