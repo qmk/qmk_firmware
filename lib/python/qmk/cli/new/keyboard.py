@@ -68,7 +68,7 @@ def new_keyboard(cli):
     # Get username
     user_name = None
     while not user_name:
-        user_name = question('Your User Name:', default=find_user_name())
+        user_name = question('Your GitHub User Name:', default=find_user_name())
 
         if not user_name:
             cli.log.error('You didn\'t provide a username, and we couldn\'t find one set in your QMK or Git configs. Please try again.')
