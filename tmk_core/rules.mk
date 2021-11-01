@@ -105,7 +105,10 @@ endif
 #CFLAGS += -Wundef
 #CFLAGS += -Wunreachable-code
 #CFLAGS += -Wsign-compare
+GCC_VERSION := $(shell gcc --version 2>/dev/null)
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+endif
 CFLAGS += $(CSTANDARD)
 
 # This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
@@ -137,7 +140,9 @@ endif
 #CXXFLAGS += -Wstrict-prototypes
 #CXXFLAGS += -Wunreachable-code
 #CXXFLAGS += -Wsign-compare
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+endif
 #CXXFLAGS += $(CSTANDARD)
 
 #---------------- Assembler Options ----------------
@@ -150,10 +155,12 @@ CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS)
+ifeq ($(findstring clang, ${GCC_VERSION}),)
 ifeq ($(strip $(DEBUG_ENABLE)),yes)
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 else
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
+endif
 endif
 ifeq ($(VERBOSE_AS_CMD),yes)
 	ASFLAGS += -v
@@ -458,7 +465,7 @@ ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
 SIZE_MARGIN = 1024
 
 check-size:
-	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
 	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
 	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
@@ -472,12 +479,12 @@ check-size:
 			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
 		    else \
 			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
-		    fi \
-		fi \
+		    fi ; \
+		fi ; \
 	fi
 else
 check-size:
-	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
 endif
 
 check-md5:

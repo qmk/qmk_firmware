@@ -1,5 +1,5 @@
 # AJP10304 Ortho 4x12 Layout
-# For Planck, Shark, JJ40 and Atreus50
+# For Planck, Shark, Quark, JJ40 and Atreus50
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
@@ -101,7 +101,7 @@ Activated when `fn` and `raise` held together.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |
 | :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ESC   |      |      |      |      |      |      |      | BTN3 |      |      |      |
+| ESC   |      |      |      |      |      | W_L  | W_UP | BTN3 | W_DWN| W_R  |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
 |       |      |      |      |      |      |      |      |      |      |      |      |

@@ -1,8 +1,8 @@
 # QMK の設定
 
 <!---
-  original document: 0.12.41:docs/config_options.md
-  git diff 0.12.41 HEAD -- docs/config_options.md | cat
+  original document: 0.13.17:docs/config_options.md
+  git diff 0.13.17 HEAD -- docs/config_options.md | cat
 -->
 
 QMK はほぼ無制限に設定可能です。可能なところはいかなるところでも、やりすぎな程、ユーザーがコードサイズを犠牲にしてでも彼らのキーボードをカスタマイズをすることを許しています。ただし、このレベルの柔軟性により設定が困難になります。
@@ -141,7 +141,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define STRICT_LAYER_RELEASE`
   * キーリリースがどのレイヤーから来たのかを覚えるのではなく、現在のレイヤースタックを使って強制的に評価されるようにします (高度なケースに使われます)
 
-## 設定可能な挙動
+## 設定可能な挙動 :id=behaviors-that-can-be-configured
 
 * `#define TAPPING_TERM 200`
   * タップがホールドになるまでの時間。500以上に設定された場合、タップ期間中にタップされたキーもホールドになります。(訳注: PERMISSIVE_HOLDも参照)
