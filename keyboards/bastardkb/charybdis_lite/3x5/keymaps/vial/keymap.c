@@ -106,7 +106,7 @@ enum charybdis_vial_keymap_keycodes {
  * column. App is on the tertiary thumb key and other thumb keys are duplicated
  * from the base layer to enable auto-repeat.
  */
-#define LAYER_FUNCTION_split_3x5_3                                                                 \
+#define LAYER_FUNCTION_split_3x5_3                                                            \
     USR_RST, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
     ______________HOME_ROW_GACS_L______________, KC_SLCK,   KC_F4,   KC_F5,   KC_F6,  KC_F11, \
     _______________DEAD_HALF_ROW_______________, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
@@ -208,7 +208,7 @@ enum charybdis_vial_keymap_keycodes {
              L10,         L11,         L12,         L13,         L14,  \
              R15,         R16,         R17,         R18,         R19,  \
       _L_PTR(L20),        L21,         L22,         L23,         L24,  \
-             R25,         R26,         R27,         R28,  _L_PTR(R29),  \
+             R25,         R26,         R27,         R28,  _L_PTR(R29), \
       __VA_ARGS__
 #define POINTER_MOD(...) _POINTER_MOD(__VA_ARGS__)
 

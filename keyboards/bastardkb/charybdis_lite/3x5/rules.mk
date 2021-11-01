@@ -13,7 +13,6 @@ MOUSEKEY_ENABLE = no   # Disable mouse keys by default, which saves some space b
 EXTRAKEY_ENABLE = yes  # Enable Audio control and System control.
 CONSOLE_ENABLE = no    # Disable console, usually used for debug purposes.
 COMMAND_ENABLE = no    # Disable commands for debug and configuration.
-# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no       # Disable USB Nkey Rollover.  Default to 6KRO.
 AUDIO_ENABLE = no      # Audio is not supported.
 RGB_MATRIX_ENABLE = no # RGB matrix is supported, but not enabled by default.
@@ -21,9 +20,10 @@ RGBLIGHT_ENABLE = no   # RGB underglow is supported, but not enabled by default.
 BACKLIGHT_ENABLE = no  # Backlight is not supported.
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend is not supported.
 
-# Charybdis is a split 3x5 keyboard with a total of 5 thumb keys.
+# Charybdis nano is a split 3x5 keyboard with a maximum of 3 thumb keys (2 on
+# the trackball side).
 SPLIT_KEYBOARD = yes
-LAYOUTS = split_3x5_3 # The default split_3x5_3 fits the Charybdis.  The last key is ignored.
+LAYOUTS = split_3x5_3 # The split_3x5_3 community layout fits the Charybdis.  The last key is ignored.
 
 # Charybdis uses a trackball.
 POINTING_DEVICE_ENABLE = yes
