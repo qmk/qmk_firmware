@@ -2,8 +2,6 @@
     "keyboard_name": "mini_elixivy",
     "url": "https://github.com/minibois/elixivy",
     "maintainer": "minibois",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout":[
