@@ -62,6 +62,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint8_t scroll_effect = 0;
 
     switch (keycode) {
+        case L_BRI ... U_T_AGCR:
+            if (record->event.pressed) {
+                md_led_changed();
+            }
+            break;
+    }
+
+    switch (keycode) {
         case L_BRI:
             if (record->event.pressed) {
                 if (LED_GCR_STEP > LED_GCR_MAX - gcr_desired) gcr_desired = LED_GCR_MAX;
