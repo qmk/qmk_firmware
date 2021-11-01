@@ -107,15 +107,3 @@ void matrix_init_user(void) {
         default_layer_set(1);
     }
 }
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

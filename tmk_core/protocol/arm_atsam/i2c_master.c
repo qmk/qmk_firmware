@@ -564,4 +564,23 @@ uint8_t i2c_led_q_run(void) {
 
     return 1;
 }
+
+__attribute__((weak)) void i2c_init(void) {
+    static bool is_initialised = false;
+    if (!is_initialised) {
+        is_initialised = true;
+
+        i2c0_init();
+    }
+}
+
+i2c_status_t i2c_transmit(uint8_t address, const uint8_t *data, uint16_t length, uint16_t timeout) {
+    uint8_t ret                 = i2c0_transmit(address, (uint8_t *)data, length, timeout);
+    SERCOM0->I2CM.CTRLB.bit.CMD = 0x03;
+    while (SERCOM0->I2CM.SYNCBUSY.bit.SYSOP) {
+        DBGC(DC_USB_WRITE2422_BLOCK_SYNC_SYSOP);
+    }
+    return ret ? I2C_STATUS_SUCCESS : I2C_STATUS_ERROR;
+}
+
 #endif  // !defined(MD_BOOTLOADER) && defined(RGB_MATRIX_ENABLE)

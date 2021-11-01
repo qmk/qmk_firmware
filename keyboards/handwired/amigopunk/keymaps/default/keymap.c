@@ -85,8 +85,9 @@ static void render_amigopunk_logo(void) {
     };
     oled_write_raw_P(amigopunk_logo, sizeof(amigopunk_logo));
 }
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_amigopunk_logo();
     /* oled_write_P(PSTR("Amigo Punk\n"), false); */
+    return false;
 }
 #endif

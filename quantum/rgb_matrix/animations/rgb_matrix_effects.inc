@@ -26,6 +26,7 @@
 #include "hue_breathing_anim.h"
 #include "hue_pendulum_anim.h"
 #include "hue_wave_anim.h"
+#include "fractal_anim.h"
 #include "typing_heatmap_anim.h"
 #include "digital_rain_anim.h"
 #include "solid_reactive_simple_anim.h"

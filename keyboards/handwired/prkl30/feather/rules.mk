@@ -5,19 +5,11 @@ MCU = atmega32u4
 F_CPU = 8000000
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable
 #
-BLUETOOTH = AdafruitBLE
 BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 ENCODER_ENABLE = yes
 MOUSEKEY_ENABLE  = no       # Mouse keys
@@ -29,3 +21,6 @@ NKRO_ENABLE  = yes          # USB Nkey Rollover - if this doesn't work, see here
 BACKLIGHT_ENABLE  = no
 AUDIO_ENABLE  = no          # This can be enabled if a speaker is connected to the expansion port. Not compatible with RGBLIGHT below
 RGBLIGHT_ENABLE  = no       # This can be enabled if a ws2812 strip is connected to the expansion port.
+
+BLUETOOTH_ENABLE = yes
+BLUETOOTH_DRIVER = AdafruitBLE

@@ -20,7 +20,18 @@ void platform_setup(void);
 
 void protocol_setup(void);
 void protocol_init(void);
-void protocol_task(void);
+void protocol_pre_task(void);
+void protocol_post_task(void);
+
+// Bodge as refactoring vusb sucks....
+void protocol_task(void) __attribute__((weak));
+void protocol_task(void) {
+    protocol_pre_task();
+
+    keyboard_task();
+
+    protocol_post_task();
+}
 
 /** \brief Main
  *
@@ -30,8 +41,10 @@ int main(void) __attribute__((weak));
 int main(void) {
     platform_setup();
     protocol_setup();
+    keyboard_setup();
 
     protocol_init();
+    keyboard_init();
 
     /* Main loop */
     while (true) {

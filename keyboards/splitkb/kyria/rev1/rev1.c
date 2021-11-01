@@ -56,9 +56,14 @@ led_config_t g_led_config = { {
 #endif
 
 #ifdef OLED_ENABLE
-__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_180;
+}
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     if (is_keyboard_master()) {
         // QMK Logo and version information
         // clang-format off
@@ -119,6 +124,7 @@ __attribute__((weak)) void oled_task_user(void) {
         // clang-format on
         oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
     }
+    return false;
 }
 #endif
 

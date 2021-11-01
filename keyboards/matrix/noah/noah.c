@@ -50,20 +50,12 @@ void rgblight_set(void) {
 }
 #endif
 
-void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__((weak))
-void matrix_init_user(void) { }
-
 void matrix_scan_kb(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_task();
 #endif
     matrix_scan_user();
 }
-
-__attribute__((weak))
-void matrix_scan_user(void) { }
 
 #ifdef RGB_MATRIX_ENABLE
 const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
