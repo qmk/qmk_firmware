@@ -474,7 +474,7 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`       |Disables `RGB_MATRIX_JELLYBEAN_RAINDROPS`      |
 |`#define DISABLE_RGB_MATRIX_HUE_BREATHING`             |Disables `RGB_MATRIX_HUE_BREATHING`            |
 |`#define DISABLE_RGB_MATRIX_HUE_PENDULUM`              |Disables `RGB_MATRIX_HUE_PENDULUM`             |
-|`#define DISABLE_RGB_MATRIX_HUE_WAVE`                  |Disables `RGB_MATRIX_HUE_WAVE `                |
+|`#define DISABLE_RGB_MATRIX_HUE_WAVE`                  |Disables `RGB_MATRIX_HUE_WAVE`                 |
 |`#define DISABLE_RGB_MATRIX_FRACTAL`                   |Disables `RGB_MATRIX_FRACTAL`                  |
 |`#define DISABLE_RGB_MATRIX_TYPING_HEATMAP`            |Disables `RGB_MATRIX_TYPING_HEATMAP`           |
 |`#define DISABLE_RGB_MATRIX_DIGITAL_RAIN`              |Disables `RGB_MATRIX_DIGITAL_RAIN`             |
