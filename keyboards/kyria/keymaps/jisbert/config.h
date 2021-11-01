@@ -31,7 +31,7 @@
 #endif
 
 #ifdef ENCODER_ENABLE
-  #define ENCODER_RESOLUTION 1
+  #define ENCODER_RESOLUTION 2
 #endif
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
