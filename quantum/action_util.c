@@ -170,7 +170,7 @@ void reset_oneshot_layer(void) {
 void clear_oneshot_layer_state(oneshot_fullfillment_t state) {
     uint8_t start_state = oneshot_layer_data;
     oneshot_layer_data &= ~state;
-    if ((!get_oneshot_layer_state() && start_state != oneshot_layer_data) || keymap_config.oneshot_disable) {
+    if ((!get_oneshot_layer_state() && start_state != oneshot_layer_data) && !keymap_config.oneshot_disable) {
         layer_off(get_oneshot_layer());
         reset_oneshot_layer();
     }
@@ -189,6 +189,7 @@ void oneshot_set(bool active) {
     if (keymap_config.oneshot_disable != active) {
         keymap_config.oneshot_disable = active;
         eeconfig_update_keymap(keymap_config.raw);
+        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         dprintf("Oneshot: active: %d\n", active);
     }
 }
