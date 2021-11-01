@@ -1,8 +1,5 @@
-#ifndef V2017_CONFIG_H
-#define V2017_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 #define DEVICE_VER 0x2017
-
-#endif

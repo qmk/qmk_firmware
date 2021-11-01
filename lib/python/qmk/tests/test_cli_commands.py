@@ -83,7 +83,7 @@ def test_hello():
 def test_format_python():
     result = check_subcommand('format-python', '--dry-run')
     check_returncode(result)
-    assert 'Python code in `bin/qmk` and `lib/python` is correctly formatted.' in result.stdout
+    assert 'Python code in `lib/python` is correctly formatted.' in result.stdout
 
 
 def test_list_keyboards():

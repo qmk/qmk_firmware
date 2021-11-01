@@ -29,6 +29,7 @@ typedef struct {
     void (*send_mouse)(report_mouse_t *);
     void (*send_system)(uint16_t);
     void (*send_consumer)(uint16_t);
+    void (*send_programmable_button)(uint32_t);
 } host_driver_t;
 
 void send_digitizer(report_digitizer_t *report);

@@ -23,10 +23,9 @@ CONSOLE_ENABLE = yes	# Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
-CUSTOM_MATRIX = no # Custom matrix file
 ENCODER_ENABLE = yes
-QWIIC_ENABLE = yes
-QWIIC_DRIVERS += MICRO_OLED
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 #BACKLIGHT_ENABLE = yes
 
 DEFAULT_FOLDER = cannonkeys/satisfaction75/rev1

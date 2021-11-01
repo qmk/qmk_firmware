@@ -16,9 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
-
+#pragma once
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6535
@@ -132,6 +130,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_DATA_PIN    PIND
 #define PS2_DATA_DDR    DDRD
 #define PS2_DATA_BIT    0
-#endif
-
 #endif

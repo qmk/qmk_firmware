@@ -27,28 +27,61 @@ endif
 OPT_OS = chibios
 CHIBIOS = $(TOP_DIR)/lib/chibios
 CHIBIOS_CONTRIB = $(TOP_DIR)/lib/chibios-contrib
-# Startup files. Try a few different locations, for compability with old versions and
-# for things hardware in the contrib repository
-STARTUP_MK = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
-ifeq ("$(wildcard $(STARTUP_MK))","")
-	STARTUP_MK = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
-	ifeq ("$(wildcard $(STARTUP_MK))","")
-		STARTUP_MK = $(CHIBIOS_CONTRIB)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
-	endif
+
+#
+# Startup, Port and Platform support selection
+##############################################################################
+
+ifeq ($(strip $(MCU)), risc-v)
+    # RISC-V Support
+    # As of 7.4.2021 there is only one supported RISC-V platform in Chibios-Contrib,
+    # therefore all required settings are hard-coded
+    STARTUP_MK = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
+    PORT_V = $(CHIBIOS_CONTRIB)/os/common/ports/RISCV-ECLIC/compilers/GCC/mk/port.mk
+    RULESPATH = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC
+    PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/GD/GD32VF103/platform.mk
+else
+    # ARM Support
+    # Startup files. Try a few different locations, for compability with old versions and
+    # for things hardware in the contrib repository
+    STARTUP_MK = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
+    ifeq ("$(wildcard $(STARTUP_MK))","")
+        STARTUP_MK = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
+        ifeq ("$(wildcard $(STARTUP_MK))","")
+            STARTUP_MK = $(CHIBIOS_CONTRIB)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
+        endif
+    endif
+
+    # Compability with old version
+    PORT_V = $(CHIBIOS)/os/rt/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+    ifeq ("$(wildcard $(PORT_V))","")
+        PORT_V = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+    endif
+
+    RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
+    ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
+        RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
+    endif
 endif
-include $(STARTUP_MK)
-# HAL-OSAL files (optional).
-include $(CHIBIOS)/os/hal/hal.mk
 
 ifeq ("$(PLATFORM_NAME)","")
-	PLATFORM_NAME = platform
+    PLATFORM_NAME = platform
 endif
 
-PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
 ifeq ("$(wildcard $(PLATFORM_MK))","")
-PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+    PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+    ifeq ("$(wildcard $(PLATFORM_MK))","")
+        PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+    endif
 endif
+
+include $(STARTUP_MK)
+include $(PORT_V)
 include $(PLATFORM_MK)
+
+#
+# Board support selection.
+##############################################################################
 
 BOARD_MK :=
 
@@ -77,13 +110,19 @@ else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/board/board
 endif
 
 ifeq ("$(wildcard $(BOARD_MK))","")
-	BOARD_MK = $(CHIBIOS)/os/hal/boards/$(BOARD)/board.mk
-	ifeq ("$(wildcard $(BOARD_MK))","")
-		BOARD_MK = $(CHIBIOS_CONTRIB)/os/hal/boards/$(BOARD)/board.mk
-	endif
+    BOARD_MK = $(CHIBIOS)/os/hal/boards/$(BOARD)/board.mk
+    ifeq ("$(wildcard $(BOARD_MK))","")
+        BOARD_MK = $(CHIBIOS_CONTRIB)/os/hal/boards/$(BOARD)/board.mk
+    endif
 endif
 
-# Bootloader address
+include $(BOARD_MK)
+
+#
+# Bootloader selection.
+##############################################################################
+
+# Set bootloader address if supplied.
 ifdef STM32_BOOTLOADER_ADDRESS
     OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
 endif
@@ -113,6 +152,10 @@ else ifneq ("$(wildcard $(BOARD_PATH)/configs/bootloader_defs.h)","")
     OPT_DEFS += -include $(BOARD_PATH)/configs/bootloader_defs.h
 endif
 
+#
+# ChibiOS config selection.
+##############################################################################
+
 # Work out the config file directories
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/chconf.h)","")
     CHCONFDIR = $(KEYBOARD_PATH_5)
@@ -130,6 +173,10 @@ else ifneq ("$(wildcard $(TOP_DIR)/platforms/boards/chibios/common/configs/chcon
     CHCONFDIR = $(TOP_DIR)/platforms/chibios/boards/common/configs
 endif
 
+#
+# HAL config selection.
+##############################################################################
+
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/halconf.h)","")
     HALCONFDIR = $(KEYBOARD_PATH_5)
 else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/halconf.h)","")
@@ -146,40 +193,10 @@ else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/common/configs/halco
     HALCONFDIR = $(TOP_DIR)/platforms/chibios/boards/common/configs
 endif
 
-# HAL-OSAL files (optional).
-include $(CHIBIOS)/os/hal/hal.mk
+#
+# Linker script selection.
+##############################################################################
 
-ifeq ("$(PLATFORM_NAME)","")
-	PLATFORM_NAME = platform
-endif
-
-PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
-ifeq ("$(wildcard $(PLATFORM_MK))","")
-PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
-endif
-include $(PLATFORM_MK)
-
-
-include $(BOARD_MK)
--include $(CHIBIOS)/os/hal/osal/rt/osal.mk         # ChibiOS <= 19.x
--include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk     # ChibiOS >= 20.x
-# RTOS files (optional).
-include $(CHIBIOS)/os/rt/rt.mk
-# Compability with old version
-PORT_V = $(CHIBIOS)/os/rt/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
-ifeq ("$(wildcard $(PORT_V))","")
-PORT_V = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
-endif
-include $(PORT_V)
-# Other files (optional).
-include $(CHIBIOS)/os/hal/lib/streams/streams.mk
-
-RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
-ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
-RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
-endif
-
-# Define linker script file here
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/ld/$(MCU_LDSCRIPT).ld)","")
@@ -202,17 +219,30 @@ else
     LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
 
+#
+# Include ChibiOS makefiles.
+##############################################################################
+
+# HAL-OSAL files (optional).
+include $(CHIBIOS)/os/hal/hal.mk
+-include $(CHIBIOS)/os/hal/osal/rt/osal.mk         # ChibiOS <= 19.x
+-include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk     # ChibiOS >= 20.x
+# RTOS files (optional).
+include $(CHIBIOS)/os/rt/rt.mk
+# Other files (optional).
+include $(CHIBIOS)/os/hal/lib/streams/streams.mk
+
 CHIBISRC = $(STARTUPSRC) \
-       $(KERNSRC) \
-       $(PORTSRC) \
-       $(OSALSRC) \
-       $(HALSRC) \
-       $(PLATFORMSRC) \
-       $(BOARDSRC) \
-       $(STREAMSSRC) \
-       $(CHIBIOS)/os/various/syscalls.c \
-       $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c \
-       $(PLATFORM_COMMON_DIR)/wait.c
+        $(KERNSRC) \
+        $(PORTSRC) \
+        $(OSALSRC) \
+        $(HALSRC) \
+        $(PLATFORMSRC) \
+        $(BOARDSRC) \
+        $(STREAMSSRC) \
+        $(CHIBIOS)/os/various/syscalls.c \
+        $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c \
+        $(PLATFORM_COMMON_DIR)/wait.c
 
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
@@ -247,9 +277,9 @@ else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs/hal
 endif
 
 ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
-	include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
-	CHIBISRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
-	EXTRAINCDIRS += $(PLATFORMINC_CONTRIB) $(HALINC_CONTRIB) $(CHIBIOS_CONTRIB)/os/various
+    include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
+    CHIBISRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
+    EXTRAINCDIRS += $(PLATFORMINC_CONTRIB) $(HALINC_CONTRIB) $(CHIBIOS_CONTRIB)/os/various
 endif
 
 #
@@ -267,61 +297,123 @@ ifneq ("$(wildcard $(BOARD_PATH)/configs/post_config.h)","")
 endif
 
 ##############################################################################
-# Compiler settings
+# Compiler and Linker configuration
 #
-CC = arm-none-eabi-gcc
-OBJCOPY = arm-none-eabi-objcopy
-OBJDUMP = arm-none-eabi-objdump
-SIZE = arm-none-eabi-size
-AR = arm-none-eabi-ar
-NM = arm-none-eabi-nm
-HEX = $(OBJCOPY) -O $(FORMAT)
-EEP =
-BIN = $(OBJCOPY) -O binary
 
-THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
+# Use defined stack sizes of the main thread in linker scripts
+LDSYMBOLS =--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
 
-COMPILEFLAGS += -fomit-frame-pointer
-COMPILEFLAGS += -falign-functions=16
-COMPILEFLAGS += -ffunction-sections
-COMPILEFLAGS += -fdata-sections
-COMPILEFLAGS += -fno-common
-COMPILEFLAGS += -fshort-wchar
-COMPILEFLAGS += $(THUMBFLAGS)
+# Shared Compiler flags for all toolchains
+SHARED_CFLAGS = -fomit-frame-pointer \
+                -ffunction-sections \
+                -fdata-sections \
+                -fno-common \
+                -fshort-wchar
 
-# FPU options default (Cortex-M4 and Cortex-M7 single precision).
-USE_FPU_OPT ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant
+# Shared Linker flags for all toolchains
+SHARED_LDFLAGS = -T $(LDSCRIPT) \
+                 -Wl,$(LDSYMBOLS) \
+                 -Wl,--gc-sections \
+                 -nostartfiles
 
-# FPU-related options
-USE_FPU ?= no
-ifneq ($(USE_FPU),no)
-  COMPILEFLAGS += $(USE_FPU_OPT)
-  OPT_DEFS += -DCORTEX_USE_FPU=TRUE
+ifeq ($(strip $(MCU)), risc-v)
+    # RISC-V toolchain specific configuration
+    # Find suitable GCC compiler
+    ifeq ($(strip $(TOOLCHAIN)),)
+        ifneq ($(shell which riscv32-unknown-elf-gcc 2>/dev/null),)
+            TOOLCHAIN = riscv32-unknown-elf-
+        else
+            ifneq ($(shell which riscv64-unknown-elf-gcc 2>/dev/null),)
+                TOOLCHAIN = riscv64-unknown-elf-
+            else
+                $(error "No RISC-V toolchain found. Can't find riscv32-unknown-elf-gcc or riscv64-unknown-elf-gcc found in your systems PATH variable. Please install a valid toolchain and make it accessible!")
+            endif
+        endif
+    endif
+    
+    # Default to compiling with picolibc for RISC-V targets if available,
+    # which is available by default on current (bullseye) debian based systems.
+    ifeq ($(shell $(TOOLCHAIN)gcc --specs=picolibc.specs -E - 2>/dev/null >/dev/null </dev/null ; echo $$?),0)
+        # Toolchain specific Compiler flags
+        # Note that we still link with our own linker script
+        # by providing it via the -T flag above.
+        TOOLCHAIN_CFLAGS = --specs=picolibc.specs
+        
+        # Tell QMK that we are compiling with picolibc.
+        OPT_DEFS += -DUSE_PICOLIBC
+    endif
+    
+    # MCU architecture flags
+    MCUFLAGS = -march=$(MCU_ARCH) \
+               -mabi=$(MCU_ABI) \
+               -mcmodel=$(MCU_CMODEL) \
+               -mstrict-align
 else
-  OPT_DEFS += -DCORTEX_USE_FPU=FALSE
+    # ARM toolchain specific configuration
+    TOOLCHAIN ?= arm-none-eabi-
+
+    # Toolchain specific Linker flags
+    TOOLCHAIN_LDFLAGS = -Wl,--no-wchar-size-warning \
+                        --specs=nano.specs
+
+    # MCU architecture flags
+    MCUFLAGS = -mcpu=$(MCU) \
+               -mthumb -DTHUMB_PRESENT \
+               -mno-thumb-interwork -DTHUMB_NO_INTERWORKING \
+               -mno-unaligned-access
+
+    # Some ARM cores like the M4 and M7 have floating point units which can be enabled
+    USE_FPU ?= no
+
+    ifneq ($(USE_FPU),no)
+        OPT_DEFS += -DCORTEX_USE_FPU=TRUE
+
+        # Default is single precision floats
+        USE_FPU_OPT ?= -mfloat-abi=hard \
+                       -mfpu=fpv4-sp-d16 \
+                       -fsingle-precision-constant
+
+        MCUFLAGS += $(USE_FPU_OPT)
+    else
+        OPT_DEFS += -DCORTEX_USE_FPU=FALSE
+    endif
 endif
 
-CFLAGS += $(COMPILEFLAGS)
+# Assembler flags
+ASFLAGS  += $(SHARED_ASFLAGS) $(TOOLCHAIN_ASFLAGS)
 
-ASFLAGS += $(THUMBFLAGS)
+# C Compiler flags
+CFLAGS   += $(SHARED_CFLAGS) $(TOOLCHAIN_CFLAGS)
 
-CXXFLAGS += $(COMPILEFLAGS)
-CXXFLAGS += -fno-rtti
+# C++ Compiler flags
+CXXFLAGS += $(CFLAGS) $(SHARED_CXXFLAGS) $(TOOLCHAIN_CXXFLAGS) -fno-rtti
 
-LDFLAGS +=-Wl,--gc-sections
-LDFLAGS +=-Wl,--no-wchar-size-warning
-LDFLAGS += -mno-thumb-interwork -mthumb
-LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
-LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
-LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
-LDFLAGS += --specs=nano.specs
+# Linker flags
+LDFLAGS  += $(SHARED_LDFLAGS) $(TOOLCHAIN_LDFLAGS) $(MCUFLAGS)
 
+# Tell QMK that we are hosting it on ChibiOS.
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 
-# Workaround to stop ChibiOS from complaining about new GCC -- it's been fixed for 7/8/9 already
-OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1
+# Speed up recompilations by opt-in usage of ccache
+USE_CCACHE ?= no
+ifneq ($(USE_CCACHE),no)
+    CC_PREFIX ?= ccache
+endif
 
-MCUFLAGS = -mcpu=$(MCU)
+# Construct GCC toolchain
+CC      = $(CC_PREFIX) $(TOOLCHAIN)gcc
+OBJCOPY = $(TOOLCHAIN)objcopy
+OBJDUMP = $(TOOLCHAIN)objdump
+SIZE    = $(TOOLCHAIN)size
+AR      = $(TOOLCHAIN)ar
+NM      = $(TOOLCHAIN)nm
+HEX     = $(OBJCOPY) -O $(FORMAT)
+EEP     =
+BIN     = $(OBJCOPY) -O binary
+
+##############################################################################
+# Make targets
+#
 
 DEBUG = gdb
 
