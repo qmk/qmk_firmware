@@ -87,7 +87,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 char wpm[10];
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     sprintf(wpm, "WPM: %03d", get_current_wpm());
 
     // Host Keyboard Layer Status
@@ -113,4 +113,5 @@ void oled_task_user(void) {
     }
     oled_write_P(PSTR(" "), false);
     oled_write(wpm, false);
+    return false;
 }

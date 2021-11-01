@@ -190,8 +190,9 @@ void render_status(void) {
     render_layer_state();
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    return false;
 }
 
 #endif

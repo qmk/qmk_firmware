@@ -421,7 +421,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return oled_init_keymap(rotation);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     update_log();
 
     if (is_keyboard_master()) {
@@ -442,4 +442,5 @@ void oled_task_user(void) {
     } else {
         render_keylock_status(host_keyboard_leds());
     }
+    return false;
 }
