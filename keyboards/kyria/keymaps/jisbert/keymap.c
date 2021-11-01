@@ -244,6 +244,9 @@ static void render_status(void) {
         case _ADJUST:
             oled_write_P(PSTR("Config.\n"), false);
             break;
+        case _NUMPAD:
+            oled_write_P(PSTR("Tecl. num.\n"), false);
+            break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
     }
