@@ -2,8 +2,6 @@
     "keyboard_name": "bm68rgb",
     "url": "",
     "maintainer": "peepeetee",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

@@ -26,7 +26,3 @@ void led_init_ports(void) {
  * Side1: Low B3
  * Side2: Low B2
  */
-void led_set_kb(uint8_t usb_led) {
-    led_set_user(usb_led);
-}
-

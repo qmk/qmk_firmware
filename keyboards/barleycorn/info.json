@@ -1,8 +1,6 @@
 {
     "keyboard_name": "Barleycorn",
     "maintainer": "Yiancar",
-    "width": 19.5,
-    "height": 5,
     "layouts": {
       "LAYOUT_all": {
         "layout": [

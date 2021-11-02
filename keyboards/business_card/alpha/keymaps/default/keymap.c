@@ -26,10 +26,6 @@ LAYOUT(/* Base */
 ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
-
-void led_set_user(uint8_t usb_led) {}
-
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);

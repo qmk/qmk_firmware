@@ -2,8 +2,6 @@
     "keyboard_name": "ikki68_aurora",
     "url": "https://ikki68.com/",
     "maintainer": "qmk",
-    "width": 17.25,
-    "height": 5,
     "layouts": {
         "LAYOUT_68_ansi": {
             "layout": [
