@@ -6,7 +6,7 @@
 #define VENDOR_ID       0x4B50
 #define PRODUCT_ID      0x1122
 #define DEVICE_VER      0x0002
-#define MANUFACTURER    KP REPUBLIC
+#define MANUFACTURER    KP Republic
 #define PRODUCT         BM60V2_poker
 #define DESCRIPTION     BM60V2_poker RGB keyboard
 
