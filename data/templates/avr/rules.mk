@@ -1,5 +1,7 @@
 # MCU name
 MCU = atmega32u4
+# Uncomment if using 3.3 V Pro Micro running at 8 MHz
+#F_CPU = 8000000
 
 # Bootloader selection
 BOOTLOADER = atmel-dfu
