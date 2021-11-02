@@ -17,6 +17,7 @@
 #include "process_haptic.h"
 #include "quantum_keycodes.h"
 #include "action_tapping.h"
+#include "usb_device_state.h"
 
 __attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -131,7 +132,7 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
         }
     }
 
-    if (haptic_get_enable()) {
+    if (haptic_get_enable() && ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state == USB_DEVICE_STATE_CONFIGURED))) {
         if (record->event.pressed) {
             // keypress
             if (haptic_get_feedback() < 2 && get_haptic_enabled_key(keycode, record)) {
