@@ -15,7 +15,7 @@ This keymap builds on the keymap by Grayson Carr (gtg465x) but adds a couple opt
     - When the Fn key is held down, any keys defined on the Fn layer in this firmware or in VIA will be highlighted with the following options:
         - #define FN_LAYER_COLOR [color] in config.h to set a static color for defined keys (default: orange)
         - Fn+C will toggle turning off RGB for keys with no definition (default: RGB off)
-        - Fn+V will toggle lighting the defined Fn layer keys with the static color set with the FN_LAYER_COLOR system define (default: static color off)
+        - Fn+V will toggle lighting the defined Fn layer keys with the static color set with FN_LAYER_COLOR (default: static color off)
 
 - All custom keycodes can be moved to different keys in VIA by using the ANY key with the following keycodes:
     - USER00 (default: F3) macOS Mission Control
@@ -37,7 +37,7 @@ v1.0.4  October 9, 2021
 - Caps Lock and Fn layer toggles are now stored in eeprom so settings will remain when Q1 is unplugged
 
 v1.0.3  October 8, 2021
-- now using keycode toggles instead of system defines to set the various Caps Lock and Fn Layer RGB lighting options. This allows for setting the options from user space without having to recompile.
+- now using keycode toggles instead of preprocessor directives to set the various Caps Lock and Fn Layer RGB lighting options. This allows for setting the options from user space without having to recompile.
 
 v1.0.2  October 7, 2021
 - adapted Grayson Carr's (gtg465x) Caps Lock alphas and dynamic Fn layer RGB routines
