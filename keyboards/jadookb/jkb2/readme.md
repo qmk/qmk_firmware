@@ -1,6 +1,6 @@
 # JKB2 osu! Macropad 
 
-![JKB65RGB](https://i.imgur.com/9f0HETUh.jpg)
+![JKB2](https://i.imgur.com/9f0HETUh.jpg)
 
 A 2% hotswap osu! Macropad from JadooKB.
 
