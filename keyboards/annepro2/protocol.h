@@ -7,7 +7,7 @@
  */
 
 #pragma once
-#include <inttypes.h>
+#include <stdint.h>
 
 #define PROTOCOL_SD SD0
 
