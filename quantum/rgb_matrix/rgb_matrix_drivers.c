@@ -23,7 +23,7 @@
  * be here if shared between boards.
  */
 
-#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3741) || defined(IS31FLCOMMON)
+#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3741) || defined(IS31FLCOMMON) || defined(CKLED2001)
 #    include "i2c_master.h"
 
 // TODO: Remove this at some later date
@@ -92,6 +92,18 @@ static void init(void) {
 #                endif
 #            endif
 #        endif
+
+#    elif defined(CKLED2001)
+    CKLED2001_init(DRIVER_ADDR_1);
+#        if defined(DRIVER_ADDR_2)
+    CKLED2001_init(DRIVER_ADDR_2);
+#            if defined(DRIVER_ADDR_3)
+    CKLED2001_init(DRIVER_ADDR_3);
+#                if defined(DRIVER_ADDR_4)
+    CKLED2001_init(DRIVER_ADDR_4);
+#                endif
+#            endif
+#        endif
 #    endif
 
     for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
@@ -108,6 +120,8 @@ static void init(void) {
         IS31FL3741_set_led_control_register(index, enabled, enabled, enabled);
 #    elif defined(IS31FLCOMMON)
         IS31FL_RGB_set_scaling_buffer(index, enabled, enabled, enabled);
+#    elif defined(CKLED2001)
+        CKLED2001_set_led_control_register(index, enabled, enabled, enabled);
 #    endif
     }
 
@@ -156,6 +170,18 @@ static void init(void) {
     IS31FL_common_update_scaling_register(DRIVER_ADDR_3, 2);
 #                if defined(DRIVER_ADDR_4)
     IS31FL_common_update_scaling_register(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
+
+#    elif defined(CKLED2001)
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    CKLED2001_update_led_control_registers(DRIVER_ADDR_4, 3);
 #                endif
 #            endif
 #        endif
@@ -254,6 +280,27 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = IS31FL_RGB_set_color,
     .set_color_all = IS31FL_RGB_set_color_all,
 };
+
+#    elif defined(CKLED2001)
+static void flush(void) {
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    CKLED2001_update_pwm_buffers(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
+}
+
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init = init,
+    .flush = flush,
+    .set_color = CKLED2001_set_color,
+    .set_color_all = CKLED2001_set_color_all,
+};
 #    endif
 
 #elif defined(AW20216)
@@ -300,6 +347,14 @@ static void flush(void) {
 
 // Set an led in the buffer to a color
 static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+    const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
+    if (!is_keyboard_left() && (i >= k_rgb_matrix_split[0])) {
+        i -= k_rgb_matrix_split[0];
+    } else if (is_keyboard_left() && (i >= k_rgb_matrix_split[0]))
+        return;
+#    endif
+
     rgb_matrix_ws2812_array[i].r = r;
     rgb_matrix_ws2812_array[i].g = g;
     rgb_matrix_ws2812_array[i].b = b;
