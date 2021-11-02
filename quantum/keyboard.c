@@ -40,9 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef PS2_MOUSE_ENABLE
 #    include "ps2_mouse.h"
 #endif
-#ifdef SERIAL_MOUSE_ENABLE
-#    include "serial_mouse.h"
-#endif
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
 #endif
@@ -96,6 +93,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef DIGITIZER_ENABLE
 #    include "digitizer.h"
+#endif
+#ifdef VIRTSER_ENABLE
+#    include "virtser.h"
+#endif
+#ifdef SLEEP_LED_ENABLE
+#    include "sleep_led.h"
 #endif
 
 static uint32_t last_input_modification_time = 0;
@@ -310,9 +313,6 @@ void keyboard_init(void) {
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
 #endif
-#ifdef SERIAL_MOUSE_ENABLE
-    serial_mouse_init();
-#endif
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
@@ -334,6 +334,12 @@ void keyboard_init(void) {
 #endif
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_init();
+#endif
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_init();
+#endif
+#ifdef VIRTSER_ENABLE
+    virtser_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -482,10 +488,6 @@ MATRIX_LOOP_END:
 
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_task();
-#endif
-
-#ifdef SERIAL_MOUSE_ENABLE
-    serial_mouse_task();
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE

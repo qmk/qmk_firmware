@@ -27,7 +27,7 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/keyboard.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/usb_device_state.c \
+    $(QUANTUM_DIR)/sync_timer.c \
     $(QUANTUM_DIR)/logging/debug.c \
     $(QUANTUM_DIR)/logging/sendchar.c \
 
@@ -232,7 +232,7 @@ endif
 endif
 
 RGB_MATRIX_ENABLE ?= no
-VALID_RGB_MATRIX_TYPES := AW20216 IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
+VALID_RGB_MATRIX_TYPES := AW20216 IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 CKLED2001 WS2812 custom
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
@@ -288,6 +288,13 @@ endif
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), CKLED2001)
+        OPT_DEFS += -DCKLED2001 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+        COMMON_VPATH += $(DRIVER_PATH)/led
+        SRC += ckled2001.c
+        QUANTUM_LIB_SRC += i2c_master.c
+    endif
+
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), WS2812)
         OPT_DEFS += -DWS2812
         WS2812_DRIVER_REQUIRED := yes
@@ -326,8 +333,11 @@ ifneq ($(strip $(VARIABLE_TRACE)),no)
     endif
 endif
 
-ifeq ($(strip $(LCD_ENABLE)), yes)
-    CIE1931_CURVE := yes
+ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
+    SRC += $(PLATFORM_COMMON_DIR)/sleep_led.c
+    OPT_DEFS += -DSLEEP_LED_ENABLE
+
+    NO_SUSPEND_POWER_DOWN := yes
 endif
 
 VALID_BACKLIGHT_TYPES := pwm timer software custom
@@ -574,6 +584,40 @@ ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     ifeq ($(strip $(AUTO_SHIFT_MODIFIERS)), yes)
         OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
     endif
+endif
+
+ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_mouse.c
+    OPT_DEFS += -DPS2_MOUSE_ENABLE
+    OPT_DEFS += -DMOUSE_ENABLE
+endif
+
+ifeq ($(strip $(PS2_USE_BUSYWAIT)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_busywait.c
+    SRC += ps2_io_avr.c
+    OPT_DEFS += -DPS2_USE_BUSYWAIT
+endif
+
+ifeq ($(strip $(PS2_USE_INT)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_interrupt.c
+    SRC += ps2_io.c
+    OPT_DEFS += -DPS2_USE_INT
+endif
+
+ifeq ($(strip $(PS2_USE_USART)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_usart.c
+    SRC += ps2_io.c
+    OPT_DEFS += -DPS2_USE_USART
+endif
+
+ifeq ($(strip $(PS2_ENABLE)), yes)
+    COMMON_VPATH += $(DRIVER_PATH)/ps2
+    COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/ps2
+    OPT_DEFS += -DPS2_ENABLE
 endif
 
 JOYSTICK_ENABLE ?= no

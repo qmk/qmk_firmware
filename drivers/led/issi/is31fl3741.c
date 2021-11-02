@@ -61,6 +61,14 @@
 #    define ISSI_PERSISTENCE 0
 #endif
 
+#ifndef ISSI_SWPULLUP
+#    define ISSI_SWPULLUP PUR_32KR
+#endif
+
+#ifndef ISSI_CSPULLUP
+#    define ISSI_CSPULLUP PUR_32KR
+#endif
+
 #define ISSI_MAX_LEDS 351
 
 // Transfer buffer for TWITransmitData()
@@ -157,7 +165,7 @@ void IS31FL3741_init(uint8_t addr) {
     // Set Golbal Current Control Register
     IS31FL3741_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
     // Set Pull up & Down for SWx CSy
-    IS31FL3741_write_register(addr, ISSI_REG_PULLDOWNUP, 0x77);
+    IS31FL3741_write_register(addr, ISSI_REG_PULLDOWNUP, ((ISSI_CSPULLUP << 4) | ISSI_SWPULLUP));
 
     // IS31FL3741_update_led_scaling_registers(addr, 0xFF, 0xFF, 0xFF);
 

@@ -69,8 +69,11 @@ CSTANDARD = -std=gnu99
 #CXXDEFS += -D__STDC_CONSTANT_MACROS
 #CXXDEFS +=
 
-
-
+# Speed up recompilations by opt-in usage of ccache
+USE_CCACHE ?= no
+ifneq ($(USE_CCACHE),no)
+    CC_PREFIX ?= ccache
+endif
 
 #---------------- Compiler Options C ----------------
 #  -g*:          generate debugging information
@@ -79,6 +82,15 @@ CSTANDARD = -std=gnu99
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
+ifeq ($(strip $(LTO_ENABLE)), yes)
+    ifeq ($(PLATFORM),CHIBIOS)
+        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
+        $(info If unsure, set LTO_ENABLE = no.)
+    endif
+    CDEFS += -flto
+    CDEFS += -DLTO_ENABLE
+endif
+
 DEBUG_ENABLE ?= yes
 ifeq ($(strip $(SKIP_DEBUG_INFO)),yes)
   DEBUG_ENABLE=no
