@@ -39,13 +39,13 @@
 
 #if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
 #    if defined(LED_MATRIX_SPLIT)
-#        define LED_MATRIX_USE_LIMITS(min, max)
-uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter;
-uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;
-if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
-uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
-if (is_keyboard_left() && (max > k_led_matrix_split[0])) max = k_led_matrix_split[0];
-if (!(is_keyboard_left()) && (min < k_led_matrix_split[0])) min = k_led_matrix_split[0];
+#        define LED_MATRIX_USE_LIMITS(min, max)                                                   \
+            uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter;                            \
+            uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;                                     \
+            if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;                                   \
+            uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;                                     \
+            if (is_keyboard_left() && (max > k_led_matrix_split[0])) max = k_led_matrix_split[0]; \
+            if (!(is_keyboard_left()) && (min < k_led_matrix_split[0])) min = k_led_matrix_split[0];
 #    else
 #        define LED_MATRIX_USE_LIMITS(min, max)                        \
             uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter; \
