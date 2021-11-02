@@ -1,8 +1,8 @@
 # QMK シラバス
 
 <!---
-  original document: 0.9.51:docs/syllabus.md
-  git diff 0.9.51 HEAD -- docs/syllabus.md | cat
+  original document: 0.14.22:docs/syllabus.md
+  git diff 0.14.22 HEAD -- docs/syllabus.md | cat
 -->
 
 このページは最初に基本を紹介し、そして、QMK に習熟するために必要な全ての概念を理解するように導くことで、QMK の知識を構築するのに役立ちます。
@@ -45,6 +45,7 @@
    * [タップダンス](ja/feature_tap_dance.md)
    * [コンボ](ja/feature_combo.md)
    * [ユーザスペース](ja/feature_userspace.md)
+   * [キーオーバーライド](ja/feature_key_overrides.md)
 
 # 上級トピック
 
@@ -58,7 +59,7 @@
 * **高度な機能**
    * [ユニコード](ja/feature_unicode.md)
    * [API](ja/api_overview.md)
-   * [ブートマジック](ja/feature_bootmagic.md)
+   * [ブートマジックライト](ja/feature_bootmagic.md)
 * **ハードウェア**
    * [キーボードがどのように動作するか](ja/how_keyboards_work.md)
    * [キーボードマトリックスの仕組み](ja/how_a_matrix_works.md)
