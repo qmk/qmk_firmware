@@ -427,7 +427,7 @@ bool oled_task_user(void) {
     if (is_keyboard_master()) {
         if (timer_elapsed32(oled_timer) > 30000) {
             oled_off();
-            return;
+            return false;
         } else {
             oled_on();
         }
