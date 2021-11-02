@@ -234,7 +234,7 @@ void eeprom_initialize(void) {
         // FlexRAM is configured as traditional RAM
         // We need to reconfigure for EEPROM usage
         kinetis_hsrun_disable();
-        FTFL->FCCOB0 = 0x80; // PGMPART = Program Partition Command
+        FTFL->FCCOB0 = 0x80;  // PGMPART = Program Partition Command
         FTFL->FCCOB3 = 0;
         FTFL->FCCOB4 = EEESPLIT | EEESIZE;
         FTFL->FCCOB5 = EEPARTITION;
