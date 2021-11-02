@@ -140,6 +140,8 @@ void protocol_setup(void) {
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 }
 
+static host_driver_t *driver = NULL;
+
 void protocol_pre_init(void) {
     /* Init USB */
     usb_event_queue_init();
@@ -148,8 +150,6 @@ void protocol_pre_init(void) {
 #ifdef MIDI_ENABLE
     setup_midi();
 #endif
-
-    host_driver_t *driver = NULL;
 
     /* Wait until USB is active */
     while (true) {
