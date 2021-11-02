@@ -17,7 +17,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT_tkl(\
+#define LAYOUT_all(\
     KF10, KF11, K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K312,    K114, K115, K116,  \
     KF20, KF21, K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213,          K214, K215, K216,  \
     KF30, KF31, K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311,       K313,                             \
