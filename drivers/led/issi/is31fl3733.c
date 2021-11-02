@@ -59,6 +59,8 @@
 
 #ifndef ISSI_PWM_FREQUENCY
 #    define ISSI_PWM_FREQUENCY 0b000  // PFS - IS31FL3733B only
+#endif
+
 #ifndef ISSI_SWPULLUP
 #    define ISSI_SWPULLUP PUR_0R
 #endif
