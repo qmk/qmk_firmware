@@ -1,5 +1,6 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2018 Jack Humbert
+ * Copyright 2021 Doni Crosby
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,6 +39,9 @@
 #define ISSI_CONF_AUDIOMODE 0x08
 
 #define ISSI_REG_PICTUREFRAME 0x01
+
+// Not defined in the datasheet -- See AN for IC
+#define ISSI_REG_GHOST_IMAGE_PREVENTION 0xC2  // Set bit 4 to enable de-ghosting
 
 #define ISSI_REG_SHUTDOWN 0x0A
 #define ISSI_REG_AUDIOSYNC 0x06
@@ -132,6 +136,9 @@ void IS31FL3731_init(uint8_t addr) {
 
     // enable software shutdown
     IS31FL3731_write_register(addr, ISSI_REG_SHUTDOWN, 0x00);
+#ifdef ISSI_3731_DEGHOST  // set to enable de-ghosting of the array
+    IS31FL3731_write_register(addr, ISSI_REG_GHOST_IMAGE_PREVENTION, 0x10);
+#endif
 
     // this delay was copied from other drivers, might not be needed
     wait_ms(10);

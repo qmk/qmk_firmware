@@ -67,8 +67,9 @@ static void render_logo(void) {
     oled_write_raw_P(nullbits_logo, sizeof(nullbits_logo));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_logo();
+    return false;
 }
 #endif
 

@@ -21,6 +21,12 @@
 
 #    include "process_auto_shift.h"
 
+#ifndef AUTO_SHIFT_DISABLED_AT_STARTUP
+#   define AUTO_SHIFT_STARTUP_STATE true    /* enabled */
+#else
+#   define AUTO_SHIFT_STARTUP_STATE false   /* disabled */
+#endif
+
 static uint16_t autoshift_time    = 0;
 static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
 static uint16_t autoshift_lastkey = KC_NO;
@@ -34,7 +40,7 @@ static struct {
     bool in_progress : 1;
     // Whether the auto-shifted keypress has been registered.
     bool holding_shift : 1;
-} autoshift_flags = {true, false, false, false};
+} autoshift_flags = {AUTO_SHIFT_STARTUP_STATE, false, false, false};
 
 /** \brief Record the press of an autoshiftable key
  *
