@@ -1,6 +1,6 @@
 # formy46
 ===
-![formy42](https://imgur.com/a/a3PWhZx)
+[formy42](https://imgur.com/a/a3PWhZx)
 
 ## Description
 A compact and multifunctional split keyboard.
