@@ -175,9 +175,7 @@ void protocol_pre_init(void) {
     print("USB configured.\n");
 }
 
-void protocol_post_init(void) {
-    host_set_driver(driver);
-}
+void protocol_post_init(void) { host_set_driver(driver); }
 
 void protocol_pre_task(void) {
     usb_event_queue_task();

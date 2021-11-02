@@ -1096,9 +1096,7 @@ void protocol_pre_init(void) {
 #endif
 }
 
-void protocol_post_init(void) {
-    host_set_driver(&lufa_driver);
-}
+void protocol_post_init(void) { host_set_driver(&lufa_driver); }
 
 void protocol_pre_task(void) {
 #if !defined(NO_USB_STARTUP_CHECK)

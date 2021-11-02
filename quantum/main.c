@@ -26,7 +26,7 @@ void protocol_post_task(void);
 
 // Bodge as refactoring this area sucks....
 void protocol_init(void) __attribute__((weak));
-void protocol_init(void){
+void protocol_init(void) {
     protocol_pre_init();
 
     keyboard_init();
