@@ -477,14 +477,14 @@ enum rgb_matrix_effects {
 };
 ```
 
-You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `config.h`:
+You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `config.h`:
 
 
-|Define                                                 |Description                                    |
-|-------------------------------------------------------|-----------------------------------------------|
+|Define                                                |Description                                   |
+|------------------------------------------------------|----------------------------------------------|
 |`#define ENABLE_RGB_MATRIX_ALPHAS_MODS`               |Enables `RGB_MATRIX_ALPHAS_MODS`              |
 |`#define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN`          |Enables `RGB_MATRIX_GRADIENT_UP_DOWN`         |
-|`#define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT`       |Enables `MATRIX_GRADIENT_LEFT_RIGHT`          |
+|`#define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT`       |Enables `RGB_MATRIX_GRADIENT_LEFT_RIGHT`      |
 |`#define ENABLE_RGB_MATRIX_BREATHING`                 |Enables `RGB_MATRIX_BREATHING`                |
 |`#define ENABLE_RGB_MATRIX_BAND_SAT`                  |Enables `RGB_MATRIX_BAND_SAT`                 |
 |`#define ENABLE_RGB_MATRIX_BAND_VAL`                  |Enables `RGB_MATRIX_BAND_VAL`                 |
@@ -507,11 +507,21 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`       |Enables `RGB_MATRIX_JELLYBEAN_RAINDROPS`      |
 |`#define ENABLE_RGB_MATRIX_HUE_BREATHING`             |Enables `RGB_MATRIX_HUE_BREATHING`            |
 |`#define ENABLE_RGB_MATRIX_HUE_PENDULUM`              |Enables `RGB_MATRIX_HUE_PENDULUM`             |
-|`#define ENABLE_RGB_MATRIX_HUE_WAVE `                 |Enables `RGB_MATRIX_HUE_WAVE `                |
+|`#define ENABLE_RGB_MATRIX_HUE_WAVE`                  |Enables `RGB_MATRIX_HUE_WAVE `                |
 |`#define ENABLE_RGB_MATRIX_FRACTAL`                   |Enables `RGB_MATRIX_FRACTAL`                  |
-|`#define ENABLE_RGB_MATRIX_PIXEL_RAIN `               |Enables `RGB_MATRIX_PIXEL_RAIN `              |
+|`#define ENABLE_RGB_MATRIX_PIXEL_RAIN`                |Enables `RGB_MATRIX_PIXEL_RAIN`               |
+
+?> These modes don't require any additional defines.
+
+|Framebuffer Defines                                   |Description                                   |
+|------------------------------------------------------|----------------------------------------------|
 |`#define ENABLE_RGB_MATRIX_TYPING_HEATMAP`            |Enables `RGB_MATRIX_TYPING_HEATMAP`           |
 |`#define ENABLE_RGB_MATRIX_DIGITAL_RAIN`              |Enables `RGB_MATRIX_DIGITAL_RAIN`             |
+
+?> These modes also require the `RGB_MATRIX_FRAMEBUFFER_EFFECTS` define to be available.
+
+|Reactive Defines                                    |Description                                   |
+|------------------------------------------------------|----------------------------------------------|
 |`#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE`     |Enables `RGB_MATRIX_SOLID_REACTIVE_SIMPLE`    |
 |`#define ENABLE_RGB_MATRIX_SOLID_REACTIVE`            |Enables `RGB_MATRIX_SOLID_REACTIVE`           |
 |`#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE`       |Enables `RGB_MATRIX_SOLID_REACTIVE_WIDE`      |
@@ -524,6 +534,9 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define ENABLE_RGB_MATRIX_MULTISPLASH`               |Enables `RGB_MATRIX_MULTISPLASH`              |
 |`#define ENABLE_RGB_MATRIX_SOLID_SPLASH`              |Enables `RGB_MATRIX_SOLID_SPLASH`             |
 |`#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH`         |Enables `RGB_MATRIX_SOLID_MULTISPLASH`        |
+
+?> These modes also require the `RGB_MATRIX_KEYPRESSES` or `RGB_MATRIX_KEYRELEASES` define to be available.
+
 
 ### RGB Matrix Effect Typing Heatmap :id=rgb-matrix-effect-typing-heatmap
 
