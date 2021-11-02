@@ -46,6 +46,9 @@
 /* NKRO */
 #define FORCE_NKRO
 
+/* turn off effects when suspended */
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+
 /* Disable a single effect */
 #define DISABLE_RGB_MATRIX_ALPHAS_MODS
 #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
