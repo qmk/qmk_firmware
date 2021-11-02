@@ -1,4 +1,3 @@
-#include QMK_KEYBOARD_H
 /* Copyright 2021 REPLACE_WITH_YOUR_NAME
  *
  * This program is free software: you can redistribute it and/or modify
