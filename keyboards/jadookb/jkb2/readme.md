@@ -1,8 +1,8 @@
-# JKB2 OSU
+# JKB2 osu! Macropad 
 
 ![JKB65RGB](https://i.imgur.com/9f0HETUh.jpg)
 
-A 2% hotswap osu macropad from JadooKB.
+A 2% hotswap osu! Macropad from JadooKB.
 
 * Keyboard Maintainer: [Wizard-GG](https://github.com/wizard-gg)
 * Hardware Supported: JKB2 OSU
