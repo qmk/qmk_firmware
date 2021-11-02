@@ -1,5 +1,23 @@
-#include "config_common.h"
+/* Copyright 2021 bululau
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
+
+#pragma once
+
+#include "config_common.h"
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
@@ -33,13 +51,7 @@
 
 #define RGB_DI_PIN B0
 #define RGBLIGHT_ANIMATIONS
-
 #define RGBLED_NUM 22        //13+9
-#define RGBLIGHT_HUE_STEP 4
-#define RGBLIGHT_SAT_STEP 4
-#define RGBLIGHT_VAL_STEP 4
-#define RGBLIGHT_SLEEP
-#define RGBLIGHT_LIMIT_VAL 255
 
 
 //encoder
@@ -49,18 +61,14 @@
 #define ENCODER_RESOLUTION 4
 
 
-#ifdef OLED_DRIVER_ENABLE
-  #define OLED_TIMEOUT 400000
-#endif
-
-//oled
-#if !defined(OLED_FONT_WIDTH)
-#    define OLED_FONT_WIDTH 6
-#endif
-
-#if !defined(OLED_FONT_HEIGHT)
-#    define OLED_FONT_HEIGHT 8
-#endif
+// #define OLED_TIMEOUT 66666
+// #define OLED_FONT_WIDTH 6
+// #define OLED_FONT_HEIGHT 8
+// #define OLED_FONT_H "./lib/glcdfont.c"
 
 /* EEPROM for via */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
+
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION

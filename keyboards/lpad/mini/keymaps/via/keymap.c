@@ -1,4 +1,19 @@
-// #include "drashna.h"
+/* Copyright 2021 bululau
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "mini.h"
 #include "oled.c"
 #include "encoder.c"
@@ -42,31 +57,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-// void pointing_device_task(void) {
-//     report_mouse_t report = pointing_device_get_report();
-
-//     // todo read as one vector
-//     if (timer_elapsed(lastCursor) > cursorTimeout) {
-//         lastCursor = timer_read();
-//         report.x   = axisToMouseComponent(B4, xOrigin, maxCursorSpeed, xPolarity);
-//         report.y   = axisToMouseComponent(B5, yOrigin, maxCursorSpeed, yPolarity);
-//     }
-//     //
-//     if (!readPin(E6)) {
-//         report.buttons |= MOUSE_BTN1;
-//     } else {
-//         report.buttons &= ~MOUSE_BTN1;
-//     }
-
-//     pointing_device_set_report(report);
-//     pointing_device_send();
-// }
-
-// void matrix_init_keymap(void) {
-//     // init pin? Is needed?
-//     setPinInputHigh(E6);
-//     // Account for drift
-//     xOrigin = analogReadPin(B4);
-//     yOrigin = analogReadPin(B5);
-// }
