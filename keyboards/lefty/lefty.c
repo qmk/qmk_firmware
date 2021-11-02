@@ -42,5 +42,6 @@ bool oled_task_kb(void) {
             oled_write_ln_P(PSTR("Undefined"), false);
     }
 
+    return true;
 }
 #endif
