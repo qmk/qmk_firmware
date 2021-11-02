@@ -115,10 +115,6 @@ void backlight_set(uint8_t level) {
 //   backlight_os_state & (1<<USB_LED_SCROLL_LOCK) ? (PORTB &= ~0b00010000) : (PORTB |= 0b00010000);
 // }
 
-// bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-//   return process_record_user(keycode, record);
-// }
-
 // U5 Pin 1, 2, 3 connected to top left LEDs
 
 // U6 Pin 1, 2, 3 connected to bottom right leds col of 3

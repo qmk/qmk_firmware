@@ -2,8 +2,6 @@
     "keyboard_name": "TouhouPad",
     "url": "https://github.com/Pimentoso/TouhouPad_v2",
     "maintainer": "Pimentoso",
-    "width": 8.25,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

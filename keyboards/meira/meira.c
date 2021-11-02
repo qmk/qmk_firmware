@@ -30,7 +30,9 @@ void matrix_init_kb(void)
 #ifdef ISSI_ENABLE
     issi_init();
 #endif
+#ifdef BACKLIGHT_ENABLE
     backlight_set(5);
+#endif
 #ifdef WATCHDOG_ENABLE
     // This is done after turning the layer LED red, if we're caught in a loop
     // we should get a flashing red light
@@ -82,11 +84,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     } else {
     }
 	return process_record_user(keycode, record);
-}
-
-void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-	led_set_user(usb_led);
 }
 
 void reset_keyboard_kb(){
