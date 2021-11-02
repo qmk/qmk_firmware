@@ -44,7 +44,7 @@
 
 #define F_CPU KINETIS_SYSCLK_FREQUENCY
 
-static int kinetis_hsrun_disable(void) {
+static inline int kinetis_hsrun_disable(void) {
 #if defined(MK66F18)
     if (SMC->PMSTAT == SMC_PMSTAT_HSRUN) {
 // First, reduce the CPU clock speed, but do not change
@@ -102,7 +102,7 @@ static int kinetis_hsrun_disable(void) {
     return 0;
 }
 
-static int kinetis_hsrun_enable(void) {
+static inline int kinetis_hsrun_enable(void) {
 #if defined(MK66F18)
     if (SMC->PMSTAT == SMC_PMSTAT_RUN) {
         // Turn HSRUN mode on
@@ -234,7 +234,7 @@ void eeprom_initialize(void) {
         // FlexRAM is configured as traditional RAM
         // We need to reconfigure for EEPROM usage
         kinetis_hsrun_disable();
-        FTFL->FCCOB0 = FTFE_FCCOB0_CCOBn_SET(0x80);  // PGMPART = Program Partition Command
+        FTFL->FCCOB0 = 0x80;  // PGMPART = Program Partition Command
         FTFL->FCCOB3 = 0;
         FTFL->FCCOB4 = EEESPLIT | EEESIZE;
         FTFL->FCCOB5 = EEPARTITION;
