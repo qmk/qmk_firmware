@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    KP Republic
 #define PRODUCT         BM60V2_poker
-#define DESCRIPTION     BM60V2_poker RGB keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
