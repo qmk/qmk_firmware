@@ -1072,7 +1072,7 @@ void protocol_setup(void) {
     usb_device_state_init();
 }
 
-void protocol_init(void) {
+void protocol_pre_init(void) {
     setup_usb();
     sei();
 
@@ -1094,7 +1094,9 @@ void protocol_init(void) {
 #else
     USB_USBTask();
 #endif
+}
 
+void protocol_post_init(void) {
     host_set_driver(&lufa_driver);
 }
 
