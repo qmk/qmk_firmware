@@ -33,14 +33,14 @@ enum custom_keycodes {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT_default(
+    [_BASE] = LAYOUT(
         RGB_MODE_FORWARD,                KC_NUMLOCK,
         KC_KP_7, KC_KP_8, KC_KP_9,       KC_DELETE,
         KC_KP_4, KC_KP_5, KC_KP_6,       KC_END,
         KC_KP_1, KC_KP_2, KC_KP_3,       KC_F13,
         KC_KP_0, MO(1),   KC_KP_DOT,     KC_KP_ENTER
     ),
-    [_SPEC] = LAYOUT_default(
+    [_SPEC] = LAYOUT(
         RGB_MODE_REVERSE,               KC_AUDIO_MUTE,
         KC_NO,   KC_NO,   KC_NO,         KC_EXAM,
         KC_NO,   KC_NO,   KC_NO,         KC_NO,
