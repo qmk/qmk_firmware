@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define VENDOR_ID    0x4346
+#define PRODUCT_ID   0x4346
 #define DEVICE_VER   0x0001
 #define MANUFACTURER marby3
 #define PRODUCT      formy46
@@ -58,11 +58,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB Matrix define */
 #define RGB_DI_PIN D3
 #ifdef RGB_MATRIX_ENABLE
-#    define RGBLED_NUM 46  // Number of LEDs
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120 // Sane brightness values so the board has enough power to operate
-#    define RGBLED_SPLIT { 23, 23 } // broken leds :(
-#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
+    #define RGBLED_NUM 46  // Number of LEDs
+    #define DRIVER_LED_TOTAL RGBLED_NUM
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120 // Sane brightness values so the board has enough power to operate
+    #define RGBLED_SPLIT { 23, 23 } // broken leds :(
+    #define RGB_MATRIX_SPLIT RGBLED_SPLIT
+/* RGB Matrix mode disabe */
+//    #define DISABLE_RGB_MATRIX_ALPHAS_MODS
+//    #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+//    #define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+    #define DISABLE_RGB_MATRIX_BREATHING
+//    #define DISABLE_RGB_MATRIX_BAND_SAT
+    #define DISABLE_RGB_MATRIX_BAND_VAL
+//    #define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+    #define DISABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+//    #define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+    #define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+//    #define DISABLE_RGB_MATRIX_CYCLE_ALL
+    #define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+    #define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
+    #define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+//    #define DISABLE_RGB_MATRIX_CYCLE_OUT_IN
+    #define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+    #define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL
+    #define DISABLE_RGB_MATRIX_CYCLE_SPIRAL
+    #define DISABLE_RGB_MATRIX_DUAL_BEACON
+    #define DISABLE_RGB_MATRIX_RAINBOW_BEACON
+    #define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+    #define DISABLE_RGB_MATRIX_RAINDROPS
+//    #define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+    #define DISABLE_RGB_MATRIX_HUE_BREATHING
+    #define DISABLE_RGB_MATRIX_HUE_PENDULUM
+    #define DISABLE_RGB_MATRIX_HUE_WAVE
+    #define DISABLE_RGB_MATRIX_TYPING_HEATMAP
+    #define DISABLE_RGB_MATRIX_DIGITAL_RAIN
+    #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+    #define DISABLE_RGB_MATRIX_SOLID_REACTIVE
+    #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+    #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+    #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+    #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+    #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+    #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+    #define DISABLE_RGB_MATRIX_SPLASH
+    #define DISABLE_RGB_MATRIX_MULTISPLASH
+    #define DISABLE_RGB_MATRIX_SOLID_SPLASH
+    #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
 /* Joystick define */
@@ -80,11 +121,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Feature disable options */
 //#define NO_DEBUG                //disable debugging
 //#define NO_PRINT                //disable printing/debugging using hid_listen
-//#define NO_ACTION_LAYER       //disable layers
+//#define NO_ACTION_LAYER         //disable layers
 //#define NO_ACTION_TAPPING       //disable tap dance and other tapping features
-//#define NO_ACTION_ONESHOT     //disable one-shot modifiers
-#define NO_ACTION_MACRO         //disable old-style macro handling using MACRO(), action_get_macro() (deprecated)
-#define NO_ACTION_FUNCTION      //disable old-style function handling using fn_actions, action_function() (deprecated)
+//#define NO_ACTION_ONESHOT       //disable one-shot modifiers
+#define NO_ACTION_MACRO           //disable old-style macro handling using MACRO(), action_get_macro() (deprecated)
+#define NO_ACTION_FUNCTION        //disable old-style function handling using fn_actions, action_function() (deprecated)
 
 
 /* Bootmagic Lite key configuration */

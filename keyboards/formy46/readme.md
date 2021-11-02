@@ -1,12 +1,12 @@
 # formy46
 ===
-![formy42](imgur.com image replace me!)
+![formy42](https://imgur.com/a/a3PWhZx)
 
 ## Description
 A compact and multifunctional split keyboard.
 
 * Keyboard Maintainer: [marby3](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Supported: *Formy46PCB, ProMicro, MX Swhitch, Choc Switch*
 * Hardware Availability: *Links to where you can find this hardware*
 
 ## Build
@@ -17,6 +17,10 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     qmk flash -kb formy46 -km default
+
+IF you want to use VIA(I have disabled the LED on VIA because of the large firmware size):
+
+    qmk flash -kb formy46 -km via
 
 If you are using Elite-C(DFU bootloader):
     qmk flash -kb formy46 -km default -bl dfu
