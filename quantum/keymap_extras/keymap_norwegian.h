@@ -150,26 +150,3 @@
 #define NO_TILD ALGR(NO_DIAE) // ~ (dead)
 // Row 4
 #define NO_MICR ALGR(NO_M)    // µ
-
-// DEPRECATED
-#define NO_AM       NO_ARNG
-#define NO_AA       NO_ARNG
-#define NO_OSLH     NO_OSTR
-#define NO_APOS     NO_QUOT
-#define NO_LESS     NO_LABK
-#define NO_QUO2     NO_DQUO
-#define NO_BULT     NO_CURR
-#define NO_GRTR     NO_RABK
-#define NO_MU       NO_MICR
-// Norwegian macOS symbols
-#define NO_ACUT_MAC NO_BSLS       // ´
-#define NO_APOS_MAC NO_LABK       // '
-#define NO_AT_MAC   NO_QUOT       // @
-#define NO_BSLS_MAC S(ALGR(NO_7)) // (backslash)
-#define NO_DLR_MAC  S(NO_4)       // $
-#define NO_GRV_MAC  ALGR(NO_BSLS) // `
-#define NO_GRTR_MAC S(NO_PIPE)    // >
-#define NO_LCBR_MAC S(ALGR(NO_8)) // {
-#define NO_LESS_MAC NO_PIPE       // <
-#define NO_PIPE_MAC ALGR(NO_7)    // |
-#define NO_RCBR_MAC S(ALGR(NO_9)) // }

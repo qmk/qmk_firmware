@@ -2,8 +2,6 @@
     "keyboard_name": "Dimple", 
     "url": "http://lazydesigners.cn", 
     "maintainer": "Erovia", 
-    "width": 12.5, 
-    "height": 4, 
     "layouts": {
         "LAYOUT": {
             "layout": [

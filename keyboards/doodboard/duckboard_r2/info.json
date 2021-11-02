@@ -2,8 +2,6 @@
     "keyboard_name": "duckboard",
     "url": "https://doodboard.xyz/",
     "maintainer": "doodboard",
-    "width": 5,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

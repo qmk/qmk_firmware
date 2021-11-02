@@ -1,7 +1,7 @@
 { avr ? true, arm ? true, teensy ? true }:
 let
   # We specify sources via Niv: use "niv update nixpkgs" to update nixpkgs, for example.
-  sources = import ./nix/sources.nix { };
+  sources = import ./util/nix/sources.nix { };
   pkgs = import sources.nixpkgs { };
 
   poetry2nix = pkgs.callPackage (import sources.poetry2nix) { };
@@ -11,7 +11,14 @@ let
   # --lock" etc. in the nix folder to adjust the contents of those
   # files if the requirements*.txt files change
   pythonEnv = poetry2nix.mkPoetryEnv {
-    projectDir = ./nix;
+    projectDir = ./util/nix;
+    overrides = poetry2nix.overrides.withDefaults (self: super: {
+      qmk = super.qmk.overridePythonAttrs(old: {
+        # Allow QMK CLI to run "bin/qmk" as a subprocess (the wrapper changes
+        # $PATH and breaks these invocations).
+        dontWrapPythonPrograms = true;
+      });
+    });
   };
 in
 
