@@ -26,4 +26,4 @@
 // key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
-// layer size: MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t) = 144 bytes
+// layer size: MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t) = 140 bytes

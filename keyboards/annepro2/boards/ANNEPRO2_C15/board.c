@@ -14,11 +14,7 @@
     limitations under the License.
 */
 
-#include <string.h>
 #include "hal.h"
-#include "wait.h"
-#include "led.h"
-#include "annepro2.h"
 
 /* ============ Private Defines ===================== */
 

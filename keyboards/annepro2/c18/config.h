@@ -26,15 +26,4 @@
 // key matrix size
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
-// layer size: MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t) = 144 bytes
-
-#if defined(ANNEPRO2_EEPROM)
-// SPI Config
-#define SPI_DRIVER SPID1
-#define SPI_SCK_PIN A0
-#define SPI_SCK_PAL_MODE 5
-#define SPI_MOSI_PIN A1
-#define SPI_MOSI_PAL_MODE 5
-#define SPI_MISO_PIN A2
-#define SPI_MISO_PAL_MODE 5
-#endif
+// layer size: MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t) = 140 bytes

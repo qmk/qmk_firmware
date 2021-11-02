@@ -60,10 +60,3 @@
 
 #define HT32_USB_USE_USB0 TRUE
 #define HT32_USB_USB0_IRQ_PRIORITY 5
-
-#if defined(ANNEPRO2_EEPROM)
-#define HT32_SPI_USE_SPI1 TRUE
-#define HT32_SPI1_IRQ_PRIORITY 9
-#endif
-
-

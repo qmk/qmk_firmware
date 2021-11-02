@@ -1,7 +1,6 @@
 # Anne Pro 2
 SRC = \
 	matrix.c \
-	hardfault_handler.c \
 	annepro2_ble.c \
 	ap2_led.c \
 	protocol.c
@@ -32,8 +31,8 @@ KEY_LOCK_ENABLE = no
 # Other featues
 BOOTMAGIC_ENABLE = yes
 CONSOLE_ENABLE = no
-COMMAND_ENABLE = yes
-RAW_ENABLE = yes
+COMMAND_ENABLE = no
+RAW_ENABLE = no
 MIDI_ENABLE = no
 VIRTSER_ENABLE = no
 COMBO_ENABLE = no

@@ -25,8 +25,12 @@ static const SerialConfig ledUartInitConfig = {
     .speed = 115200,
 };
 
+#ifndef LED_UART_BAUD_RATE
+#    define LED_UART_BAUD_RATE 115200
+#endif  // LED_UART_BAUD_RATE
+
 static const SerialConfig ledUartRuntimeConfig = {
-    .speed = 115200,
+    .speed = LED_UART_BAUD_RATE,
 };
 
 static const SerialConfig bleUartConfig = {
@@ -56,16 +60,13 @@ void bootloader_jump(void) {
     NVIC_SystemReset();
 }
 
-void keyboard_pre_init_user(void) {
-#if HAL_USE_SPI == TRUE
-    spi_init();
-#endif
+void keyboard_pre_init_kb(void) {
     // Start LED UART
     sdStart(&SD0, &ledUartInitConfig);
     /* Let the LED chip settle a bit before switching the mode.
      * That helped at least one person. */
     wait_ms(15);
-    sdWrite(&SD0, ledMcuWakeup, 11);
+    sdWrite(&SD0, ledMcuWakeup, sizeof(ledMcuWakeup));
 
     // wait to receive response from wakeup
     wait_ms(15);
@@ -76,6 +77,7 @@ void keyboard_pre_init_user(void) {
     while (!sdGetWouldBlock(&SD0)) sdGet(&SD0);
 
     sdStart(&SD0, &ledUartRuntimeConfig);
+    keyboard_pre_init_user();
 }
 
 void keyboard_post_init_kb(void) {

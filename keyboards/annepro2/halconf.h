@@ -25,9 +25,4 @@
 
 #define SERIAL_USB_BUFFERS_SIZE 256
 
-#if defined(ANNEPRO2_EEPROM)
-#define HAL_USE_SPI TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-#endif
-
 #include_next <halconf.h>

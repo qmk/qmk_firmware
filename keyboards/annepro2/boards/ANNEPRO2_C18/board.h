@@ -22,7 +22,6 @@
 /*
  * Board identifier.
  */
-#define ANNEPRO2
 #define BOARD_NAME                  "Anne Pro 2"
 
 #define HT32F52342
