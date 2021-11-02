@@ -532,7 +532,7 @@ ifneq (,$(filter $(MCU),STM32L412 STM32L422))
   # <keyboard_dir>/boards/, or drivers/boards/
   BOARD ?= GENERIC_STM32_L412XB
 
-  PLATFORM_NAME ?= platform_l412_l422
+  PLATFORM_NAME ?= platform_l432
 
   USE_FPU ?= yes
 
@@ -543,7 +543,7 @@ endif
 ifneq ($(findstring GD32VF103, $(MCU)),)
   # RISC-V
   MCU = risc-v
-
+  
   # RISC-V extensions and abi configuration
   MCU_ARCH = rv32imac
   MCU_ABI = ilp32
