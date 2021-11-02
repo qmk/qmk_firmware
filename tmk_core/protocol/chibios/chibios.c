@@ -140,7 +140,7 @@ void protocol_setup(void) {
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 }
 
-void protocol_init(void) {
+void protocol_pre_init(void) {
     /* Init USB */
     usb_event_queue_init();
     init_usb_driver(&USB_DRIVER);
@@ -173,9 +173,9 @@ void protocol_init(void) {
     wait_ms(50);
 
     print("USB configured.\n");
-
-    host_set_driver(driver);
 }
+
+void protocol_post_init(void) { host_set_driver(driver); }
 
 void protocol_pre_task(void) {
     usb_event_queue_task();
