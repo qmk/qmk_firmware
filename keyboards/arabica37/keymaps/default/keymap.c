@@ -177,7 +177,6 @@ bool oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-    return false;
   }
 
 
@@ -196,5 +195,6 @@ bool oled_task_user(void) {
     } else {
         render_logo();  // Renders a static logo
     }
+    return false;
 }
 #endif
