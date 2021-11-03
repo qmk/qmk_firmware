@@ -24,13 +24,15 @@
 #include "debug.h"
 #include "matrix.h"
 
+typedef uint16_t matrix_col_t;
+
 /*
  *     col: { B11, B10, B2, B1, A7, B0 }
  *     row: { A10, A9, A8, B15, C13, C14, C15, A2 }
  */
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_COLS];
+static matrix_col_t matrix_debouncing[MATRIX_COLS];
 static bool         debouncing      = false;
 static uint16_t     debouncing_time = 0;
 
@@ -66,7 +68,7 @@ void matrix_init(void) {
     palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLDOWN);
 
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_row_t));
+    memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_col_t));
 
     matrix_init_quantum();
 }
@@ -74,7 +76,7 @@ void matrix_init(void) {
 uint8_t matrix_scan(void) {
     // actual matrix
     for (int col = 0; col < MATRIX_COLS; col++) {
-        matrix_row_t data = 0;
+        matrix_col_t data = 0;
 
         // strobe col { B11, B10, B2, B1, A7, B0 }
         switch (col) {
