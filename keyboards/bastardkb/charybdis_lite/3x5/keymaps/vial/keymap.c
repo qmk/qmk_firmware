@@ -107,9 +107,9 @@ enum charybdis_vial_keymap_keycodes {
  * from the base layer to enable auto-repeat.
  */
 #define LAYER_FUNCTION_split_3x5_3                                                            \
-    USR_RST, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
+    _______________DEAD_HALF_ROW_______________, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
     ______________HOME_ROW_GACS_L______________, KC_SLCK,   KC_F4,   KC_F5,   KC_F6,  KC_F11, \
-    _______________DEAD_HALF_ROW_______________, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
+    XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, USR_RST, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
                       XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
 
 /**
@@ -162,9 +162,9 @@ enum charybdis_vial_keymap_keycodes {
  * `KC_RPRN`.
  */
 #define LAYER_SYMBOLS_split_3x5_3                                                             \
-    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, USR_RST, \
+    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, _______________DEAD_HALF_ROW_______________, \
     KC_COLN,  KC_DLR, KC_PERC, KC_CIRC, KC_PLUS, ______________HOME_ROW_GACS_R______________, \
-    KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE, _______________DEAD_HALF_ROW_______________, \
+    KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE, USR_RST, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, \
                       KC_LPRN, KC_RPRN, KC_UNDS, _______, XXXXXXX, XXXXXXX
 
 /**
