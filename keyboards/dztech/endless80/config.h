@@ -20,7 +20,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    dztech
 #define PRODUCT         endless80
-#define DESCRIPTION     endless80 keyboard
 
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
