@@ -171,7 +171,7 @@ void write_layer_state(void) {
     oled_advance_page(true);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         write_layer_state();
         oled_write_ln(read_keylog(), false);
@@ -179,6 +179,7 @@ void oled_task_user(void) {
     } else {
         oled_write(read_logo(), false);
     }
+    return false;
 }
 #endif  // OLED_ENABLE
 

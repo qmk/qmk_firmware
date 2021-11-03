@@ -174,7 +174,7 @@ void draw_brightness_icon(int key_position, int row) {
     oled_write_P(ICON_BRIGHTNESS_1, false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // Host Keyboard Layer Status
     static const char PROGMEM ICON_LAYER[] = {0x80, 0x81, 0x82, 0x83, 0};
     static const char PROGMEM ICON_ENCODER[] = {0x84, 0x85, 0x86, 0x87, 0};
@@ -229,6 +229,7 @@ void oled_task_user(void) {
             break;
     }
 
+    return false;
 }
 
 #endif
