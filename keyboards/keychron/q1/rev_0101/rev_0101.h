@@ -20,8 +20,7 @@
 
 #define xxx KC_NO
 
-#ifdef VIA_ENABLE
-    #define LAYOUT_ansi_82( \
+#define LAYOUT_all( \
         K00,       K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K4E, K0E, \
         K10, K11,  K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,      K1E, \
         K20, K21,  K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D,      K2E, \
@@ -36,8 +35,7 @@
         { K40, xxx,  K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B,  K4C, K4D, K4E }, \
         { K50, K51,  K52, xxx, xxx, xxx, K56, K57, K58, xxx, K5A, K5B,  K5C, K5D, K5E }  \
     }
-#else
-    #define LAYOUT_ansi_82( \
+#define LAYOUT_ansi_82( \
         K00,       K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K4E, K0E, \
         K10, K11,  K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,      K1E, \
         K20, K21,  K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D,      K2E, \
@@ -52,4 +50,3 @@
         { K40, xxx,  K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B,  K4C, K4D, K4E }, \
         { K50, K51,  K52, xxx, xxx, xxx, K56, xxx, xxx, xxx, K5A, K5B,  K5C, K5D, K5E }  \
     }
-#endif
