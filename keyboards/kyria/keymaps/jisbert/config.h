@@ -16,6 +16,7 @@
 
 #pragma once
 
+#define ONESHOT_TAP_TOGGLE 2
 #define TAPPING_TOGGLE 1
 
 #ifdef OLED_DRIVER_ENABLE
