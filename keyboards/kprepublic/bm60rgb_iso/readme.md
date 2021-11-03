@@ -10,7 +10,7 @@ A 60% ISO hotswap inswitch RGB keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make kprepublic/bm60rgb_iso:default
+    make kprepublic/bm60rgb_iso/rev1:default
 
 Flashing example for this keyboard:
 
