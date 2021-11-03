@@ -22,6 +22,10 @@
 /** Vial configuration. */
 #define VIAL_KEYBOARD_UID \
   { 0x6D, 0xA5, 0xCD, 0x8D, 0xC7, 0x3D, 0x7B, 0xA8 }
+#define VIAL_UNLOCK_COMBO_ROWS \
+  { 0, 5 }
+#define VIAL_UNLOCK_COMBO_COLS \
+  { 0, 0 }
 
 /** Disable unused features. */
 #define NO_ACTION_ONESHOT
