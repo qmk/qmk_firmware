@@ -34,8 +34,7 @@
 #define UNUSED_PINS
 
 /* via plus layer */
-// #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-// #define DYNAMIC_KEYMAP_LAYER_COUNT 5
+#define DYNAMIC_KEYMAP_LAYER_COUNT 7
 
 
 #define ENCODERS_PAD_B { C6, F5, F0 }
@@ -46,7 +45,7 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-// #define OLED_FONT_H "./lib/glcdfont.c"
+#define OLED_TIMEOUT 100000
 
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3
@@ -61,22 +60,15 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define RGB_DI_PIN B0
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
-// #define RGB_DI_PIN B0
-// #define DRIVER_LED_TOTAL 23 //一共有多少个灯，64+12个底灯﻿
-// #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 #define RGBLED_NUM 30
-// #define RGBLIGHT_HUE_STEP 8
-// #define RGBLIGHT_SAT_STEP 8
-// #define RGBLIGHT_VAL_STEP 8
-// #define RGBLIGHT_SLEEP
-// #define RGBLIGHT_LIMIT_VAL 255
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_LIMIT_VAL 255
 #endif
 
-/* EEPROM for via */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5

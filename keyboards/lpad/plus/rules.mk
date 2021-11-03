@@ -18,6 +18,7 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 KEY_LOCK_ENABLE = no
 ENCODER_ENABLE = yes
+OLED_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
 TAP_DANCE_ENABLE = no   #Reduce firmware size
 COMBO_ENABLE = no  #Reduce firmware size

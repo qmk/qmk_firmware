@@ -61,13 +61,13 @@
 #define ENCODER_RESOLUTION 4
 
 
-// #define OLED_TIMEOUT 66666
+#define OLED_TIMEOUT 100000
 // #define OLED_FONT_WIDTH 6
 // #define OLED_FONT_HEIGHT 8
 // #define OLED_FONT_H "./lib/glcdfont.c"
 
 /* EEPROM for via */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
+#define DYNAMIC_KEYMAP_LAYER_COUNT 7
 
 
 #define NO_ACTION_MACRO
