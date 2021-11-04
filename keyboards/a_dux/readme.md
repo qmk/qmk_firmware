@@ -16,11 +16,11 @@ Thank you [Perce](https://madebyperce.com/) for the logo.
 
 ## Keyboard Info
 
-* Keyboard Maintainer: [tapioki](https://github.com/tapioki)
+* Keyboard Maintainer: [@tapioki](https://github.com/tapioki)
 * Hardware Supported: Architeuthis Dux
-* Hardware Availability: [GitHub](https://github.com/tapioki/cephalopoda/tree/main/Architeuthis%20dux)
+* Hardware Availability: Order PCBs with gerber files from the [repository](https://github.com/tapioki/cephalopoda/tree/main/Architeuthis%20dux)
 
-Make examples for this keyboard (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
     make a_dux:default
 
