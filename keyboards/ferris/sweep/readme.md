@@ -25,7 +25,7 @@ Keyboard uses [Handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboar
     make ferris/sweep:default:avrdude-split-left
     make ferris/sweep:default:avrdude-split-right
 
-QMK [Toolbox 0.1.1](http://qmk.fm/toolbox) or newer can also be used to set EEPROM handedness. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
+[QMK Toolbox](http://qmk.fm/toolbox) can also be used to set EEPROM handedness. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
 
 ## Bootloader
 
