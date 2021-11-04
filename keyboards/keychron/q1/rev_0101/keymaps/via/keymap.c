@@ -67,16 +67,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS)
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-                tap_code_delay(dynamic_keymap_get_keycode(biton32(default_layer_state), 5, 8), 10);
-        } else {
-                tap_code_delay(dynamic_keymap_get_keycode(biton32(default_layer_state), 5, 7), 10);
+#if defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
+
+#define ENCODERS 1
+static uint8_t  encoder_state[ENCODERS] = {0};
+static keypos_t encoder_cw[ENCODERS]    = { 8, 5 };
+static keypos_t encoder_ccw[ENCODERS]  = { 7, 5 };
+
+void encoder_action_unregister(void) {
+    for (int index = 0; index < ENCODERS; ++index) {
+        if (encoder_state[index]) {
+            keyevent_t encoder_event = (keyevent_t) {
+                .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
+                .pressed = false,
+                .time = (timer_read() | 1)
+            };
+            encoder_state[index] = 0;
+            action_exec(encoder_event);
         }
     }
-    return false;
 }
+
+void encoder_action_register(uint8_t index, bool clockwise) {
+    keyevent_t encoder_event = (keyevent_t) {
+        .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
+        .pressed = true,
+        .time = (timer_read() | 1)
+    };
+    encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
+    action_exec(encoder_event);
+}
+
+void matrix_scan_user(void) {
+    encoder_action_unregister();
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    encoder_action_register(index, clockwise);
+    return false;
+};
+
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
