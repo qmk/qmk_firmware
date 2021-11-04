@@ -99,6 +99,12 @@ def info_json(keyboard):
     # Check that the reported matrix size is consistent with the actual matrix size
     _check_matrix(info_data)
 
+    # Remove newline characters from layout labels
+    for layout_name, layout_json in layouts.items():
+        for key in layout_json['layout']:
+            if '\n' in key['label']:
+                key['label'] = key['label'].split('\n')[0]
+
     return info_data
 
 
