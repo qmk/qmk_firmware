@@ -352,6 +352,8 @@ Now open your dev environment and live a squiggly-free life.
 This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
 Use the `-b`/`--browser` flag to automatically open the local webserver in your default browser.
 
+This command runs `docsify serve` if `docsify-cli` is installed (which provides live reload), otherwise Python's builtin HTTP server module will be used.
+
 **Usage**:
 
 ```
