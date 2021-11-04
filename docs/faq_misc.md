@@ -49,10 +49,6 @@ First you have to compile firmware with the build option `NKRO_ENABLE` in **Make
 
 Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work and you will need to switch to **6KRO** mode, in particular when you are in BIOS.
 
-If your firmware was built with `BOOTMAGIC_ENABLE` you need to turn its switch on by `BootMagic` **N** command(`Space+N` by default). This setting is stored in EEPROM and kept over power cycles.
-
-https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
-
 
 ## TrackPoint Needs Reset Circuit (PS/2 Mouse Support)
 Without reset circuit you will have inconsistent result due to improper initialization of the hardware. See circuit schematic of TPM754:

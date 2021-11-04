@@ -421,12 +421,12 @@ endif
 ifeq ($(strip $(VIA_ENABLE)), yes)
     DYNAMIC_KEYMAP_ENABLE := yes
     RAW_ENABLE := yes
-    BOOTMAGIC_ENABLE := lite
+    BOOTMAGIC_ENABLE := yes
     SRC += $(QUANTUM_DIR)/via.c
     OPT_DEFS += -DVIA_ENABLE
 endif
 
-VALID_MAGIC_TYPES := yes lite
+VALID_MAGIC_TYPES := yes
 BOOTMAGIC_ENABLE ?= no
 ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
   ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
