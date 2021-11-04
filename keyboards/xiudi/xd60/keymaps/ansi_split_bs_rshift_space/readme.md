@@ -1,6 +1,7 @@
 # Split Space Keymap for XIUDI's 60% XD60 PCB
 
-![Split Space Keymap for XD60](https://imgur.com/a/tw1X6XE)
+![Split Space Keymap for XD60](https://user-images.githubusercontent.com/39789796/140330345-2ccde096-dad5-49d0-b8a7-b231180018e6.png)
+
 
 * Keyboard Maintainer: [mizuho1998](https://github.com/mizuho1998)
 * Hardware Supported: xd60 PCB rev3
