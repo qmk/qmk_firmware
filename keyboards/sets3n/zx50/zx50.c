@@ -15,3 +15,36 @@
  */
 
 #include "zx50.h"
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
+    if (index == 0) {
+        switch (get_highest_layer(layer_state)) {
+            case 0:    // Base Volume
+                if (clockwise) {
+                    tap_code(KC_UP);
+                } else {
+                    tap_code(KC_DOWN);
+                }
+                break;
+            case 1:    // Func Brightness
+                if (clockwise) {
+                    tap_code(KC_BRIU);
+                } else {
+                    tap_code(KC_BRID);
+                }
+                break;
+            case 2:    // Func Brightness
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+                }
+                break;
+        }
+    }
+    return true;
+}
+#endif
+

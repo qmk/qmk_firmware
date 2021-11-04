@@ -1,5 +1,4 @@
-/*
- * Copyright 2021 Sets3n/Сэцэн
+/* Copyright 2021 Sets3n/Сэцэн
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

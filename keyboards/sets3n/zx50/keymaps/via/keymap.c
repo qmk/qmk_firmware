@@ -1,4 +1,4 @@
-/* Copyright 2021 sets3n/Сэцэн
+/* Copyright 2021 Sets3n/Сэцэн
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -106,47 +106,6 @@ bool led_update_user(led_t led_state) {
 
     return true;
 }
-
-void eeconfig_init_kb(void) {  // EEPROM is getting reset!
-    rgblight_enable();                      // Enable RGB by default
-    rgblight_mode(RGBLIGHT_MODE_RGB_TEST);  // set to RGBLIGHT_MODE_RGB_TEST by default
-
-    eeconfig_update_kb(0);
-    eeconfig_init_user();
-}
-
-// int16_t encoder_val = 64;
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        switch (get_highest_layer(layer_state)) {
-            case 0:    // Base Volume
-                if (clockwise) {
-                    tap_code(KC_UP);
-                } else {
-                    tap_code(KC_DOWN);
-                }
-                break;
-            case 1:    // Func Brightness
-                if (clockwise) {
-                    tap_code(KC_BRIU);
-
-                } else {
-                    tap_code(KC_BRID);
-                }
-                break;
-            case 2:    // Func Brightness
-                if (clockwise) {
-                    tap_code(KC_VOLU);
-
-                } else {
-                    tap_code(KC_VOLD);
-                }
-                break;
-        }
-    }
-    return true;
-}
-
 
 
 #ifdef WPM_ENABLE
