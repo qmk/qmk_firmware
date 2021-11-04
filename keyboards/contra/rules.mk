@@ -14,9 +14,8 @@ CONSOLE_ENABLE = no        # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
-UNICODE_ENABLE = no         # Unicode
-AUDIO_ENABLE = no           # Audio output on port C6
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = planck_mit ortho_4x12
 LAYOUTS_HAS_RGB = no
