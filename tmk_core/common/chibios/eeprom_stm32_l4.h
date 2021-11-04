@@ -13,12 +13,12 @@
  * This files are free to use from http://engsta.com/stm32-flash-memory-eeprom-emulator/ by
  * Artur F.
  *
- * Modifications for QMK and STM32L432 by lalalademaxiya1
+ * Modifications for QMK and STM32L432 by lalalademaxiya1 & lokher
  *
- * This library assumes 8-bit data locations. To add a new MCU, please provide the flash
- * page size and the total flash size in Kb. The number of available pages must be a multiple
- * of 2. Only one page for the total EEPROM size.
- * This library also assumes that the pages are not used by the firmware.
+ * To add a new MCU, please provide the flash page size and the total flash size in Kb. 
+ * The number of available pages must be at least two. Only one page for the total EEPROM size.
+ * It is recommend to set the number of log page to 3~5 times of data page for better Wear leveling.
+ *
  */
 
 #pragma once
