@@ -184,7 +184,7 @@ The Haptic Exclusion is implemented as `__attribute__((weak)) bool get_haptic_en
 ### NO_HAPTIC_MOD
 With the entry of `#define NO_HAPTIC_MOD` in config.h, the following keys will not trigger feedback:
 
-* Usual modifier keys such as Control/Shift/Alt/Gui (For example `KC_LCTRL`)
+* Usual modifier keys such as Control/Shift/Alt/Gui (For example `KC_LCTL`)
 * `MO()` momentary keys. See also [Layers](feature_layers.md).
 * `LM()` momentary keys with mod active.
 * `LT()` layer tap keys, when held to activate a layer. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered.

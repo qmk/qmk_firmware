@@ -277,8 +277,8 @@ void process_action(keyrecord_t *record, action_t action) {
             if (event.pressed) {
                 if (mods) {
                     if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
-                        // e.g. LSFT(KC_LGUI): we don't want the LSFT to be weak as it would make it useless.
-                        // This also makes LSFT(KC_LGUI) behave exactly the same as LGUI(KC_LSFT).
+                        // e.g. LSFT(KC_LEFT_GUI): we don't want the LSFT to be weak as it would make it useless.
+                        // This also makes LSFT(KC_LEFT_GUI) behave exactly the same as LGUI(KC_LEFT_SHIFT).
                         // Same applies for some keys like KC_MEH which are declared as MEH(KC_NO).
                         add_mods(mods);
                     } else {
@@ -410,7 +410,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     } else {
                         if (tap_count > 0) {
                             dprint("MODS_TAP: Tap: unregister_code\n");
-                            if (action.layer_tap.code == KC_CAPS) {
+                            if (action.layer_tap.code == KC_CAPS_LOCK) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
                             } else {
                                 wait_ms(TAP_CODE_DELAY);
@@ -609,7 +609,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     } else {
                         if (tap_count > 0) {
                             dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
-                            if (action.layer_tap.code == KC_CAPS) {
+                            if (action.layer_tap.code == KC_CAPS_LOCK) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
                             } else {
                                 wait_ms(TAP_CODE_DELAY);
@@ -786,37 +786,37 @@ void register_code(uint8_t code) {
         return;
     }
 #ifdef LOCKING_SUPPORT_ENABLE
-    else if (KC_LOCKING_CAPS == code) {
+    else if (KC_LOCKING_CAPS_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         // Resync: ignore if caps lock already is on
         if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) return;
 #    endif
-        add_key(KC_CAPSLOCK);
+        add_key(KC_CAPS_LOCK);
         send_keyboard_report();
         wait_ms(100);
-        del_key(KC_CAPSLOCK);
+        del_key(KC_CAPS_LOCK);
         send_keyboard_report();
     }
 
-    else if (KC_LOCKING_NUM == code) {
+    else if (KC_LOCKING_NUM_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)) return;
 #    endif
-        add_key(KC_NUMLOCK);
+        add_key(KC_NUM_LOCK);
         send_keyboard_report();
         wait_ms(100);
-        del_key(KC_NUMLOCK);
+        del_key(KC_NUM_LOCK);
         send_keyboard_report();
     }
 
-    else if (KC_LOCKING_SCROLL == code) {
+    else if (KC_LOCKING_SCROLL_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK)) return;
 #    endif
-        add_key(KC_SCROLLLOCK);
+        add_key(KC_SCROLL_LOCK);
         send_keyboard_report();
         wait_ms(100);
-        del_key(KC_SCROLLLOCK);
+        del_key(KC_SCROLL_LOCK);
         send_keyboard_report();
     }
 #endif
@@ -882,34 +882,34 @@ void unregister_code(uint8_t code) {
         return;
     }
 #ifdef LOCKING_SUPPORT_ENABLE
-    else if (KC_LOCKING_CAPS == code) {
+    else if (KC_LOCKING_CAPS_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         // Resync: ignore if caps lock already is off
         if (!(host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK))) return;
 #    endif
-        add_key(KC_CAPSLOCK);
+        add_key(KC_CAPS_LOCK);
         send_keyboard_report();
-        del_key(KC_CAPSLOCK);
+        del_key(KC_CAPS_LOCK);
         send_keyboard_report();
     }
 
-    else if (KC_LOCKING_NUM == code) {
+    else if (KC_LOCKING_NUM_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK))) return;
 #    endif
-        add_key(KC_NUMLOCK);
+        add_key(KC_NUM_LOCK);
         send_keyboard_report();
-        del_key(KC_NUMLOCK);
+        del_key(KC_NUM_LOCK);
         send_keyboard_report();
     }
 
-    else if (KC_LOCKING_SCROLL == code) {
+    else if (KC_LOCKING_SCROLL_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         if (!(host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK))) return;
 #    endif
-        add_key(KC_SCROLLLOCK);
+        add_key(KC_SCROLL_LOCK);
         send_keyboard_report();
-        del_key(KC_SCROLLLOCK);
+        del_key(KC_SCROLL_LOCK);
         send_keyboard_report();
     }
 #endif
@@ -952,9 +952,9 @@ void tap_code_delay(uint8_t code, uint16_t delay) {
 
 /** \brief Tap a keycode with the default delay.
  *
- * \param code The basic keycode to tap. If `code` is `KC_CAPS`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
+ * \param code The basic keycode to tap. If `code` is `KC_CAPS_LOCK`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
  */
-void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY); }
+void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY); }
 
 /** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
@@ -1078,7 +1078,7 @@ bool is_tap_action(action_t action) {
         case ACT_LAYER_TAP:
         case ACT_LAYER_TAP_EXT:
             switch (action.layer_tap.code) {
-                case KC_NO ... KC_RGUI:
+                case KC_NO ... KC_RIGHT_GUI:
                 case OP_TAP_TOGGLE:
                 case OP_ONESHOT:
                     return true;
@@ -1086,7 +1086,7 @@ bool is_tap_action(action_t action) {
             return false;
         case ACT_SWAP_HANDS:
             switch (action.swap.code) {
-                case KC_NO ... KC_RGUI:
+                case KC_NO ... KC_RIGHT_GUI:
                 case OP_SH_TAP_TOGGLE:
                     return true;
             }

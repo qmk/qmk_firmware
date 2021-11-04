@@ -87,7 +87,7 @@ __attribute__((weak)) void unicode_input_start(void) {
     // UNICODE_KEY_LNX (which is usually Ctrl-Shift-U) might not work
     // correctly in the shifted case.
     if (unicode_config.input_mode == UC_LNX && unicode_saved_caps_lock) {
-        tap_code(KC_CAPSLOCK);
+        tap_code(KC_CAPS_LOCK);
     }
 
     unicode_saved_mods = get_mods();  // Save current mods
@@ -103,9 +103,9 @@ __attribute__((weak)) void unicode_input_start(void) {
         case UC_WIN:
             // For increased reliability, use numpad keys for inputting digits
             if (!unicode_saved_num_lock) {
-                tap_code(KC_NUMLOCK);
+                tap_code(KC_NUM_LOCK);
             }
-            register_code(KC_LALT);
+            register_code(KC_LEFT_ALT);
             tap_code(KC_KP_PLUS);
             break;
         case UC_WINC:
@@ -125,13 +125,13 @@ __attribute__((weak)) void unicode_input_finish(void) {
         case UC_LNX:
             tap_code(KC_SPACE);
             if (unicode_saved_caps_lock) {
-                tap_code(KC_CAPSLOCK);
+                tap_code(KC_CAPS_LOCK);
             }
             break;
         case UC_WIN:
-            unregister_code(KC_LALT);
+            unregister_code(KC_LEFT_ALT);
             if (!unicode_saved_num_lock) {
-                tap_code(KC_NUMLOCK);
+                tap_code(KC_NUM_LOCK);
             }
             break;
         case UC_WINC:
@@ -150,16 +150,16 @@ __attribute__((weak)) void unicode_input_cancel(void) {
         case UC_LNX:
             tap_code(KC_ESCAPE);
             if (unicode_saved_caps_lock) {
-                tap_code(KC_CAPSLOCK);
+                tap_code(KC_CAPS_LOCK);
             }
             break;
         case UC_WINC:
             tap_code(KC_ESCAPE);
             break;
         case UC_WIN:
-            unregister_code(KC_LALT);
+            unregister_code(KC_LEFT_ALT);
             if (!unicode_saved_num_lock) {
-                tap_code(KC_NUMLOCK);
+                tap_code(KC_NUM_LOCK);
             }
             break;
     }

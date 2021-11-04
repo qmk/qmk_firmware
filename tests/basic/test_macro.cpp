@@ -29,9 +29,9 @@ TEST_F(Macro, PlayASimpleMacro) {
     InSequence s;
     press_key(8, 0);
     uint32_t current_time = timer_read32();
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT))).AT_TIME(0);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_H))).AT_TIME(0);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT))).AT_TIME(0);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT))).AT_TIME(0);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT, KC_H))).AT_TIME(0);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT))).AT_TIME(0);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).AT_TIME(0);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_E))).AT_TIME(0);
     // The macro system could actually skip these empty keyboard reports
@@ -45,9 +45,9 @@ TEST_F(Macro, PlayASimpleMacro) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).AT_TIME(0);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_SPACE))).AT_TIME(0);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).AT_TIME(0);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT))).AT_TIME(100);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_W))).AT_TIME(100);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT))).AT_TIME(100);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT))).AT_TIME(100);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT, KC_W))).AT_TIME(100);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT))).AT_TIME(100);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).AT_TIME(100);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_O)))
         // BUG: The timer should not really have advanced 10 ms here
@@ -63,9 +63,9 @@ TEST_F(Macro, PlayASimpleMacro) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).AT_TIME(160);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_D))).AT_TIME(170);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).AT_TIME(180);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT))).AT_TIME(190);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_1))).AT_TIME(200);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT))).AT_TIME(210);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT))).AT_TIME(190);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT, KC_1))).AT_TIME(200);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT))).AT_TIME(210);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).AT_TIME(220);
     run_one_scan_loop();
 }
