@@ -2,7 +2,7 @@
 
 ![Split Space Keymap for XD60](https://imgur.com/a/tw1X6XE)
 
-* Keyboard Maintainer: [mizuhof](https://github.com/mizuho1998)
+* Keyboard Maintainer: [mizuho1998](https://github.com/mizuho1998)
 * Hardware Supported: xd60 PCB rev3
 
 Make example for this keyboard (after setting up your build environment):
