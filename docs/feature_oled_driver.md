@@ -146,6 +146,11 @@ void oled_task_user(void) {
 
 ## Basic Configuration
 
+These configuration options should be placed in `config.h`. Example:
+```c
+#define OLED_BRIGHTNESS 128
+```
+
 |Define                     |Default          |Description                                                                                                               |
 |---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
 |`OLED_DISPLAY_ADDRESS`     |`0x3C`           |The i2c address of the OLED Display                                                                                       |
