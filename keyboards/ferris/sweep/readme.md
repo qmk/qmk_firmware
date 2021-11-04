@@ -12,7 +12,7 @@ A version of the Ferris keyboard that uses a daughterboard, designed by the fant
 	* Ferris sweep (With pro-micro. Comes in a couple of PCB edge cuts shapes, but with identical pinout)
 * Hardware Availability: @iamnotyourbroom in the 40% discord chat server may have some spares for you.
 
-Make examples for this keyboard (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
     make ferris/sweep:default
 
