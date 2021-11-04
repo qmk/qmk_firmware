@@ -17,12 +17,16 @@ Make examples for this keyboard (after setting up your build environment):
 
     make cradio:default
 
-Firmware uses `EE_HANDS` split handedness by default. Each halve should be flashed once with the following:
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Setting Handedness
+
+Keyboard uses [Handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default. The make commands are:
 
     make cradio:default:dfu-split-left
     make cradio:default:dfu-split-right
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+QMK [Toolbox 0.1.1](http://qmk.fm/toolbox) or newer can also be used to set EEPROM handedness. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
 
 ## Bootloader
 
