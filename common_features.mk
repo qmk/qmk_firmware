@@ -27,7 +27,7 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/keyboard.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/usb_device_state.c \
+    $(QUANTUM_DIR)/sync_timer.c \
     $(QUANTUM_DIR)/logging/debug.c \
     $(QUANTUM_DIR)/logging/sendchar.c \
 
@@ -331,6 +331,13 @@ ifneq ($(strip $(VARIABLE_TRACE)),no)
     ifneq ($(strip $(MAX_VARIABLE_TRACE_SIZE)),)
         OPT_DEFS += -DMAX_VARIABLE_TRACE_SIZE=$(strip $(MAX_VARIABLE_TRACE_SIZE))
     endif
+endif
+
+ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
+    SRC += $(PLATFORM_COMMON_DIR)/sleep_led.c
+    OPT_DEFS += -DSLEEP_LED_ENABLE
+
+    NO_SUSPEND_POWER_DOWN := yes
 endif
 
 VALID_BACKLIGHT_TYPES := pwm timer software custom

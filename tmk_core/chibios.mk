@@ -42,6 +42,11 @@ ifeq ($(strip $(MCU)), risc-v)
     PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/GD/GD32VF103/platform.mk
 else
     # ARM Support
+    CHIBIOS_PORT ?=
+    ifeq ("$(CHIBIOS_PORT)","")
+        CHIBIOS_PORT = ARMv$(ARMV)-M
+    endif
+
     # Startup files. Try a few different locations, for compability with old versions and
     # for things hardware in the contrib repository
     STARTUP_MK = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
@@ -52,15 +57,24 @@ else
         endif
     endif
 
-    # Compability with old version
-    PORT_V = $(CHIBIOS)/os/rt/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+    # Port files. Try a few different locations, for compability with old versions and
+    # for things hardware in the contrib repository
+    PORT_V = $(CHIBIOS)/os/common/ports/$(CHIBIOS_PORT)/compilers/GCC/mk/port.mk
     ifeq ("$(wildcard $(PORT_V))","")
-        PORT_V = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+        PORT_V = $(CHIBIOS)/os/rt/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+        ifeq ("$(wildcard $(PORT_V))","")
+            PORT_V = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+        endif
     endif
 
-    RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
+    # Rules location. Try a few different locations, for compability with old versions and
+    # for things hardware in the contrib repository
+    RULESPATH = $(CHIBIOS)/os/common/ports/$(CHIBIOS_PORT)/compilers/GCC
     ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
-        RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
+        RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
+        ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
+            RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
+        endif
     endif
 endif
 

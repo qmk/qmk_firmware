@@ -43,6 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Temporary solution for matrix delay */
 #define IGNORE_ATOMIC_BLOCK
 
+/* Avoid out-of-bounds errors when SmartEEPROM is not enabled */
+#define EEPROM_SIZE 1024
+
 /* MCU Port name definitions */
 #define PA 0
 #define PB 1

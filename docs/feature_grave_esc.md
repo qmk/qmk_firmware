@@ -4,7 +4,7 @@ If you're using a 60% keyboard, or any other layout with no F-row, you will have
 
 ## Usage
 
-Replace the `KC_GRAVE` key in your keymap (usually to the left of the `1` key) with `KC_GESC`. Most of the time this key will output `KC_ESC` when pressed. However, when Shift or GUI are held down it will output `KC_GRV` instead.
+Replace the `KC_GRV` key in your keymap (usually to the left of the `1` key) with `KC_GESC`. Most of the time this key will output `KC_ESC` when pressed. However, when Shift or GUI are held down it will output `KC_GRV` instead.
 
 ## What Your OS Sees
 
