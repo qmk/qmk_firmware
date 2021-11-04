@@ -15,3 +15,28 @@
  */
 
 #include "pandora.h"
+
+// Encoder rotate function
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    /* First encoder */
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_AUDIO_VOL_UP);
+        } else {
+            tap_code(KC_AUDIO_VOL_DOWN);
+        }
+    }
+    return true;
+}
+// Encoder click function
+bool dip_switch_update_user(uint8_t index, bool active) {
+    switch (index) {
+    /* First encoder */
+    case 0:
+        if (active) {
+            tap_code(KC_MEDIA_PLAY_PAUSE);
+        }
+        break;
+    }
+    return true;
+}

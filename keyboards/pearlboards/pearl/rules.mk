@@ -19,8 +19,7 @@ NKRO_ENABLE = yes            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 AUDIO_ENABLE = yes           # Audio output
-DIP_SWITCH_ENABLE = no
-ENCODER_ENABLE = no
-OLED_DRIVER_ENABLE = no      # Future release
+HAPTIC_ENABLE = yes
+HAPTIC_ENABLE = DRV2605L
+
 LTO_ENABLE = yes
-HAPTIC_ENABLE += DRV2605L

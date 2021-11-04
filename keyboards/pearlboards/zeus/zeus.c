@@ -14,4 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- #include "zeus.h"
+#include "zeus.h"
+
+// Encoder rotate function
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    /* First encoder */
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_AUDIO_VOL_UP);
+        } else {
+            tap_code(KC_AUDIO_VOL_DOWN);
+        }
+    }
+    return true;
+}
