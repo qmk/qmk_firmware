@@ -77,7 +77,6 @@
 #define US_BEFORE_MOTION 100
 #define MSB1 0x80
 
-extern const uint8_t firmware_data[];
 
 void adns9800_spi_start(void) { spi_start(ADNS9800_CS_PIN, false, ADNS9800_SPI_MODE, ADNS9800_SPI_DIVISOR); }
 
