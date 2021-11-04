@@ -30,8 +30,8 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Keyboard uses [Handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default. The make commands are:
 
-    make a_dux:default:avrdude-split-left
-    make a_dux:default:avrdude-split-right
+    make a_dux:default:dfu-split-left
+    make a_dux:default:dfu-split-right
 
 QMK [Toolbox 0.1.1](http://qmk.fm/toolbox) or newer can also be used to set EEPROM handedness. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
 
