@@ -1,14 +1,15 @@
 # bm980rgb
 
-![bm980rgb](https://i.imgur.com/k4NQGLx.jpeg)
+![bm980rgb](https://i.imgur.com/k4NQGLxh.jpeg)
 
 A 1800, hotswap, in switch RGB keyboard from KPRepublic.
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: bm980
-* Hardware Availability: https://kprepublic.com/products/bm980rgb-bm980-rgb-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-firmware-full-rgb-switch-underglow-type-c
-https://www.aliexpress.com/item/1005002509519466.html
-https://item.taobao.com/item.htm?id=645862298692
+* Hardware Availability:
+  * https://kprepublic.com/products/bm980rgb-bm980-rgb-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-firmware-full-rgb-switch-underglow-type-c
+  * https://www.aliexpress.com/item/1005002509519466.html
+  * https://item.taobao.com/item.htm?id=645862298692
 
 Make example for this keyboard (after setting up your build environment):
 
