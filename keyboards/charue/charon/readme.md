@@ -1,12 +1,12 @@
-# charon
+# Charon
 
-![charon](imgur.com image replace me!)
+![Charon](https://i.imgur.com/fnQLZ2T.jpg)
 
-*A short description of the keyboard/project*
+A 65% with blocker Keyboard kit made and sold by Charue Design. [More info on charue-design.com](https://charue-design.com/)
 
-* Keyboard Maintainer: [Charue Design](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [ILWrites](https://github.com/PiKeeb)
+* Hardware Supported: [Charon PCB](https://charue-design.com/collections/charon/)
+* Hardware Availability: [Charue Design](https://charue-design.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
