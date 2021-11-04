@@ -8,7 +8,7 @@ AKA A. dux, A.D., "Giant squid"
 
 Thank you [Perce](https://madebyperce.com/) for the logo.
 
-## Cases can be found here:
+## Cases Options
 
 * [Flat Case](https://github.com/madebyperce/aduxcase)
 * [Tented Case](https://github.com/jdart/adux-tent)
@@ -24,15 +24,22 @@ Make examples for this keyboard (after setting up your build environment):
 
     make a_dux:default
 
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Setting Handedness
+
+Keyboard uses [Handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default. The make commands are:
+
     make a_dux:default:avrdude-split-left
     make a_dux:default:avrdude-split-right
+
+QMK [Toolbox 0.1.1](http://qmk.fm/toolbox) or newer can also be used to set EEPROM handedness. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
 
 ## Bootloader
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard. (With `EE_HANDS` configured, hold down the top right key on the right half to place the right controller in bootloader mode)
-* **Physical reset**: Briefly short the RST and GND pins on the microcontroller using tweezers, a paperclip, or any other conductive material.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Bootmagic reset**: Hold down the top left key on the left half (or the top right right key on the right half) and plug in the controller on that side.
+* **Physical reset pins**: Briefly short the RST and GND pins on the microcontroller using tweezers, a paperclip, or any other conductive material.
+* **Keycode in layout**: Press the key mapped to `RESET` if it is configured.
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
