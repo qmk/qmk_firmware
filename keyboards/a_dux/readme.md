@@ -8,7 +8,7 @@ AKA A. dux, A.D., "Giant squid"
 
 Thank you [Perce](https://madebyperce.com/) for the logo.
 
-## Cases Options
+## Case Options
 
 * [Flat Case](https://github.com/madebyperce/aduxcase)
 * [Tented Case](https://github.com/jdart/adux-tent)
