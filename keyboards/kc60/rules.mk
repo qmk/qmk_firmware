@@ -19,6 +19,5 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-KEYBOARD_LOCK_ENABLE = yes  # Allow locking of keyboard via magic key
 
 LAYOUTS = 60_ansi

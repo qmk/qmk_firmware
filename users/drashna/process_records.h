@@ -46,6 +46,7 @@ enum userspace_custom_keycodes {
     UC_TABL,                                  // ┬─┬ノ( º _ ºノ)
     UC_SHRG,                                  // ¯\_(ツ)_/¯
     UC_DISA,                                  // ಠ_ಠ
+    KEYLOCK,                                  // Locks keyboard by unmounting driver
     NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
 };
 
