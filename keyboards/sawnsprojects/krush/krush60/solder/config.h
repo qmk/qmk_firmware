@@ -21,7 +21,7 @@
 #define VENDOR_ID       0x5350
 #define PRODUCT_ID      0x6B32
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    MaiTheSan
+#define MANUFACTURER    SawnsProjects
 #define PRODUCT         Krush60 - Solder
 
 /* key matrix size */
