@@ -1,3 +1,6 @@
+// Copyright 2021 Cory Ginsberg (@coryginsberg)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 // #define TAPPING_TOGGLE 2
