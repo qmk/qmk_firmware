@@ -167,6 +167,10 @@ void matrix_scan_user(void) {
         SEQ_ONE_KEY(KC_S) {
             tap_code16(G(C(S(KC_4))));
         }
+        // Record Screen
+        SEQ_TWO_KEYS(KC_S, KC_S) {
+            tap_code16(S(G(KC_5)));
+        }
         // 1Pass browser
         SEQ_ONE_KEY(KC_A) {
             tap_code16(G(A(KC_BSLS)));
@@ -186,6 +190,14 @@ void matrix_scan_user(void) {
         // Auto format
         SEQ_ONE_KEY(KC_ENT) {
             tap_code16(S(G(A(KC_F))));
+        }
+        // Focus file tree
+        SEQ_ONE_KEY(KC_TAB) {
+            tap_code16(G(KC_1));
+        }
+        // Caps-lock
+        SEQ_TWO_KEYS(KC_TAB, KC_TAB) {
+            tap_code16(KC_CAPS);
         }
     }
 }
