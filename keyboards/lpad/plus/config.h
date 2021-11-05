@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    lpad
 #define PRODUCT         plus
-#define DESCRIPTION     Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
