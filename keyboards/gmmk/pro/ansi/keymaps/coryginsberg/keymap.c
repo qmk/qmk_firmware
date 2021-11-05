@@ -1,5 +1,5 @@
 /* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
-   Copyright 2021 Cory Ginsberg <cory.ginsberg1@gmail.com>
+   Copyright 2021 Cory Ginsberg (@coryginsberg)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
