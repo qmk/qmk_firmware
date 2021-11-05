@@ -12,7 +12,7 @@ A 65% keyboard sold in several variants.
 
 Make examples for this keyboard (after setting up your build environment):
 
-    make sawnsprojects/krush65/solder:default
+    make sawnsprojects/krush/krush65/solder:default
 
 ## Bootloader
 
