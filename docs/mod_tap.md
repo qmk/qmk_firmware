@@ -61,6 +61,80 @@ You may also run into issues when using Remote Desktop Connection on Windows. Be
 To fix this, open Remote Desktop Connection, click on "Show Options", open the the "Local Resources" tab, and in the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
 It can also be mitigated by increasing [`TAP_CODE_DELAY`](config_options.md#behaviors-that-can-be-configured).
 
+## Intercepting Mod-Taps
+
+### Changing tap function
+
+The basic keycode limitation with Mod-Tap can be worked around by intercepting it in `process_record_user`. For example, shifted keycode `KC_DQUO` cannot be used with `MT()` because it is a 16-bit keycode alias of `LSFT(KC_QUOT)`. Modifiers on `KC_DQUO` will be masked by `MT()`. But the following custom code can be used to intercept the "tap" function to manually send `KC_DQUO`:
+
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LCTL_T(KC_DQUO):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_DQUO); // Send KC_DQUO on tap
+                return false;        // Return false to ignore further processing of key
+            }
+            break;
+    }
+    return true;
+}
+```
+
+### Changing hold function
+
+Likewise, the same custom code can also be used to intercept the hold function to send custom user key code. The following example uses `LT(0, kc)` (layer-tap key with no practical use because layer 0 is always active) to add cut, copy and paste function to X,C and V keys when they are held down:
+
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(0,KC_X):
+            if (record->tap.count && record->event.pressed) {
+                return true;         // Return true for normal processing of tap keycode
+            } else if (record->event.pressed) {
+                tap_code16(C(KC_X)); // Intercept hold function to send Ctrl-X
+            }
+            return false;
+        case LT(0,KC_C):
+            if (record->tap.count && record->event.pressed) {
+                return true;         // Return true for normal processing of tap keycode
+            } else if (record->event.pressed) {
+                tap_code16(C(KC_C)); // Intercept hold function to send Ctrl-C
+            }
+            return false;
+        case LT(0,KC_V):
+            if (record->tap.count && record->event.pressed) {
+                return true;         // Return true for normal processing of tap keycode
+            } else if (record->event.pressed) {
+                tap_code16(C(KC_V)); // Intercept hold function to send Ctrl-V
+            }
+            return false;
+    }
+    return true;
+}
+```
+
+Enabling `IGNORE_MOD_TAP_INTERRUPT` is recommended when using Mod-Tap on alphanumeric keys to avoid hold function taking precendence when the next key is pressed quickly. See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for more details.
+
+### Changing both tap and hold
+
+This last example implements custom tap and hold function with `LT(0,KC_NO)` to create a single copy-on-tap, paste-on-hold key:
+
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(0,KC_NO):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_C)); // Intercept tap function to send Ctrl-C
+            } else if (record->event.pressed) {
+                tap_code16(C(KC_V)); // Intercept hold function to send Ctrl-V
+            }
+            return false;
+    }
+    return true;
+}
+```
+
 ## Other Resources
 
 See the [Tap-Hold Configuration Options](tap_hold.md) for additional flags that tweak Mod-Tap behavior.
