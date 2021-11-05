@@ -162,8 +162,8 @@
 #        pragma message STR(FEE_DENSITY_BYTES) " + " STR(FEE_WRITE_LOG_BYTES) " > " STR(FEE_DENSITY_MAX_SIZE)
 #        error emulated eeprom: FEE_WRITE_LOG_BYTES exceeds remaining FEE_DENSITY_MAX_SIZE
 #    endif
-#    if ((FEE_WRITE_LOG_BYTES) % 2) == 1
-#        error emulated eeprom: FEE_WRITE_LOG_BYTES must be even
+#    if ((FEE_WRITE_LOG_BYTES) % 8) != 0
+#        error emulated eeprom: FEE_WRITE_LOG_BYTES must be a multiple of 8
 #    endif
 #else
 /* Default to use all remaining space */
@@ -505,49 +505,42 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
     uint8_t *      dest = (uint8_t *)addr;
     const uint8_t *src  = (const uint8_t *)buf;
+    uint8_t        write_len;
 
-    /* Check word alignment */
-    if (len && (uintptr_t)dest % 2) {
-        /* Write the unaligned first byte */
-        EEPROM_WriteDataByte((uintptr_t)dest++, *src++);
-        --len;
-    }
+    while (len > 0) {
+        /* Check and try to write double word fisrt */
+        if ((uintptr_t)dest % 4 == 0 && len >= 4) {
+            uint32_t dwvalue;
+            bool     dwaligned = ((uint32_t)src % 4 == 0);
 
-    if ((uintptr_t)dest % 4 == 0) {
-        uint32_t dwvalue;
-        bool     dwaligned = ((uint32_t)src % 4 == 0);
-
-        while (len > 1) {
             if (dwaligned) {
                 dwvalue = *(uint32_t *)src;
             } else {
                 dwvalue = *(uint8_t *)src | (*(uint8_t *)(src + 1) << 8) | (*(uint8_t *)(src + 2) << 16) | (*(uint8_t *)(src + 3) << 24);
             }
             EEPROM_WriteDataDWord((uintptr_t)((uint16_t *)dest), dwvalue);
-            dest += 4;
-            src += 4;
-            len -= 4;
+            write_len = 4;
         }
-    }
+        /* Check and try to write word */
+        else if ((uintptr_t)dest % 2 == 0 && len >= 2) {
+            uint16_t wvalue;
+            bool     waligned = ((uintptr_t)src % 2 == 0);
 
-    if ((uintptr_t)dest % 2 == 0) {
-        uint16_t wvalue;
-        bool     waligned = ((uintptr_t)src % 2 == 0);
-
-        while (len > 1) {
             if (waligned) {
                 wvalue = *(uint16_t *)src;
             } else {
                 wvalue = *(uint8_t *)src | (*(uint8_t *)(src + 1) << 8);
             }
             EEPROM_WriteDataWord((uintptr_t)((uint16_t *)dest), wvalue);
-            dest += 2;
-            src += 2;
-            len -= 2;
+            write_len = 2;
+        } else {
+            /* Write the unaligned or single byte */
+            EEPROM_WriteDataByte((uintptr_t)dest++, *src++);
+            write_len = 1;
         }
-    }
 
-    if (len) {
-        EEPROM_WriteDataByte((uintptr_t)dest, *src);
+        dest += write_len;
+        src += write_len;
+        len -= write_len;
     }
 }
