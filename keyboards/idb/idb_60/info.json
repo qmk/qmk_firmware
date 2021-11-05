@@ -3,7 +3,8 @@
     "url": "https://idb-keyboards.xyz/60",
     "maintainer": "pngu",
     "layout_aliases": {
-        "LAYOUT": "LAYOUT_all"
+        "LAYOUT": "LAYOUT_all",
+        "LAYOUT_default": "LAYOUT_60_ansi_wkl_split_rshift"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -77,7 +78,7 @@
                 {"label":"Ctrl", "x":13.5, "y":4, "w":1.5}
             ]
         },
-        "LAYOUT_default": {
+        "LAYOUT_60_ansi_wkl_split_rshift": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1!", "x":1, "y":0},
