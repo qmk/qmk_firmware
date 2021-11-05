@@ -2,6 +2,9 @@
     "keyboard_name": "idb 60",
     "url": "https://idb-keyboards.xyz/60",
     "maintainer": "pngu",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

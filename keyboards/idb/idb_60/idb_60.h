@@ -29,8 +29,6 @@ void _idb_60_fn_led_off(void);
         { K90,   KC_NO, KC_NO, K93,   KC_NO, K95,   K96        } \
 }
 
-#define LAYOUT LAYOUT_all
-
 #define LAYOUT_default( \
         K00, K10, K01, K11, K02, K12, K03, K13, K04, K14, K05, K15, K06, K16, \
         K20, K30, K21, K31, K22, K32, K23, K33, K24, K34, K25, K35, K26, K36, \
