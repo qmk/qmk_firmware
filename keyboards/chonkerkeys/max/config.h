@@ -21,10 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0001
+#define PRODUCT_ID   0x0002
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Chonkerkeys
-#define PRODUCT      chonkerkeys
+#define PRODUCT      Chonkerkeys Max
 
 /* key matrix size */
 #define MATRIX_ROWS 3
