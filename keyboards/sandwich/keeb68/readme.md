@@ -2,11 +2,11 @@
 
 !keeb68
 
-*A small-batch run of 68 key goodness*
+A small-batch run of 68 key goodness
 
 * Keyboard Maintainer: [sandwich](https://github.com/SandwichRising)
-* Hardware Supported: *Sandwich's Keeb68 Patron Saint Edition*
-* Hardware Availability: *Limited Run*
+* Hardware Supported: Sandwich's Keeb68 Patron Saint Edition
+* Hardware Availability: Limited Run
 
 Make example for this keyboard (after setting up your build environment):
 
