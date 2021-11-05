@@ -19,11 +19,12 @@
 #define PUNC 2
 #define TOP 3
 #define GREEK 4
+#define GIT 5
 #define _______ KC_TRNS
 
 // Macro definitions
 enum custom_keycodes {
-  // Markdown layer 
+  // Markdown layer
   TAGGED = SAFE_RANGE, H1, H2, H3, MATH,
   CDFC, ALSO, DIVIDER, MARROW,
   TASK, MERMAID,
@@ -36,10 +37,17 @@ enum custom_keycodes {
   SPC,
 
   // Space Cadet GREEK layer
-  QED, TIMES, EMPTY, 
+  QED, TIMES, EMPTY,
   THETA, OMEGA, EPSILON, RHO, TAU, UPSILON, PSI, IOTA, OMICRON, PI,
   ALPHA, SIGMA, DELTA, PHI, GAMMA, ETA, KAPPA, LAMBDA,
-  ZETA, XI, CHI, BETA, NU, MU
+  ZETA, XI, CHI, BETA, NU, MU,
+
+  // Git layer
+  GIT_KEY, DDASH, RM,
+  TAG, UPSTREAM, ORIGIN, REVERT,
+  PUSH, STATUS, DEVELOP, GLOBAL, LOG, COMMIT,
+  REBASE, MAIN, CHECKOUT, ADD,
+  BRANCH, PULL, MERGE, STASH, FETCH, CLONE
 };
 
 /*
@@ -95,21 +103,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_all(
       KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
-      LCTL_T(KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,     KC_H,   KC_J,   KC_K,    KC_L,    LT(PUNC, KC_SCLN), KC_QUOT, KC_ENT,
+      LCTL_T(KC_ESC), KC_A,    KC_S,    KC_D,    LT(GIT, KC_F),    KC_G,     KC_H,    KC_J,    KC_K,    KC_L,    LT(PUNC, KC_SCLN), KC_QUOT, KC_ENT,
       KC_LSFT, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MO(TOP), KC_UP,   MO(GREEK),
-      MO(NAV), KC_LGUI, KC_LALT,                   KC_SPACE, KC_SPACE, KC_SPACE,      KC_RALT, LGUI(KC_LSFT),          LGUI(KC_LSFT), LGUI(KC_LSFT), LCTL(KC_LSFT) 
+      MO(NAV), KC_LGUI, KC_LALT,                   KC_SPACE, KC_SPACE, KC_SPACE,      KC_RALT, LGUI(KC_LSFT),          LGUI(KC_LSFT), LGUI(KC_LSFT), LCTL(KC_LSFT)
       ),
 
   [NAV] = LAYOUT_all(
       KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
       _______, KC_VOLD, LCTL(KC_RIGHT), KC_VOLU, _______, _______, KC_END,  KC_PGDN, KC_PGUP, KC_HOME, _______, _______, _______, KC_DEL,
       _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______, _______,
-      _______, KC_LSFT, RGB_TOG, _______, BL_DEC,  BL_TOGG, LCTL(KC_LEFT),  LCTL(LSFT(KC_LEFT)), _______, _______, LCTL(LSFT(KC_RIGHT)), _______, _______, _______, _______,
-      _______, _______, _______,                   _______, _______, _______, _______, _______,                  _______, _______, RESET 
+      _______, KC_LSFT, _______, _______, _______, _______, LCTL(KC_LEFT),  LCTL(LSFT(KC_LEFT)), _______, _______, LCTL(LSFT(KC_RIGHT)), _______, _______, _______, _______,
+      _______, _______, _______,                   _______, _______, _______, _______, _______,                  _______, _______, RESET
       ),
 
   [PUNC] = LAYOUT_all(
-      _______, H1,   H2,  H3, _______, _______, _______, _______,   _______,  _______, _______,   _______,  _______, _______, _______, 
+      _______, H1,   H2,  H3, _______, _______, _______, _______,   _______,  _______, _______,   _______,  _______, _______, _______,
       _______, _______, _______, _______, _______, TAGGED, _______, _______, _______, _______, _______, _______, _______, _______,
       CDFC,    _______, ALSO, DIVIDER, _______, KC_LPRN, KC_RPRN, _______, MARROW, _______, _______, _______, _______,
       _______, _______, _______, _______, TASK, _______, _______, _______, MERMAID, _______, _______, _______, _______, _______, _______,
@@ -117,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
   [TOP] = LAYOUT_all(
-      _______, NOT,   _______,  _______, MATH,  _______,   EXP, _______,   MUL,  _______, _______,   SSCRIPT,  SUM, LTX_CDFC, _______, 
+      _______, NOT,   _______,  _______, MATH,  _______,   EXP, _______,   MUL,  _______, _______,   SSCRIPT,  SUM, LTX_CDFC, _______,
       QQUAD  , AND, OR, UNION, INTERSECTION, SUBSET, SUPERSET, FORALL, INFTY, EXISTS, PARTIAL, LCORNER, RCORNER, _______,
       BEGIN  , FALSE, TRUE, TD(TD_PROVES_MODELS), DASHV, UP, DOWN, TD(TD_LEFT_ARROW), TD(TD_RIGHT_ARROW), IFF, _______, _______, _______,
       _______, _______, LLCORNER, ULCORNER, NEQ, SIMEQ, EQUIV, LEQ,  GEQ, _______, ELLIPSIS, FRAC, _______, _______, _______,
@@ -125,11 +133,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
   [GREEK] = LAYOUT_all(
-      _______, _______,   _______,  _______, _______,  _______,   QED, _______,   TIMES,  _______, EMPTY,   _______,  _______, _______, _______, 
+      _______, _______,   _______,  _______, _______,  _______,   QED, _______,   TIMES,  _______, EMPTY,   _______,  _______, _______, _______,
       _______, THETA, OMEGA, EPSILON, RHO    , TAU  , UPSILON, PSI,     IOTA,  OMICRON, PI, _______, _______, _______,
       _______, ALPHA, SIGMA, DELTA  , PHI    , GAMMA, ETA    , _______, KAPPA, LAMBDA, _______, _______, _______,
       _______, _______, ZETA , XI   , CHI    , _______, BETA , NU     , MU     , _______, _______, _______, _______, _______, _______,
       _______, _______, _______,                   SPC, SPC, SPC, _______, _______,                  _______, _______, _______
+      ),
+
+  [GIT] = LAYOUT_all(
+      GIT_KEY, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DDASH,   _______, _______, RM,
+      TAG    , _______, _______, _______, _______, _______, _______, UPSTREAM,_______, ORIGIN,  _______, _______, _______, REVERT,
+      PUSH   , _______, STATUS,  DEVELOP, _______, GLOBAL , _______, _______, _______, LOG    , _______, _______, COMMIT,
+      REBASE , _______, _______, _______, _______, _______, _______, MAIN,    _______, _______, _______, _______, CHECKOUT, CHECKOUT, ADD,
+      BRANCH , PULL   , MERGE  ,                   SPC, SPC, SPC,    STASH,   STASH,             FETCH,  FETCH  , CLONE
       ),
 
 };
@@ -142,33 +158,34 @@ void matrix_scan_user(void) {
 
 }
 
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // Markdown macros
     case H1:
       if (record->event.pressed) {
         SEND_STRING("# ");
-      } 
+      }
       break;
     case H2:
       if (record->event.pressed) {
         SEND_STRING("## ");
-      } 
+      }
       break;
     case H3:
       if (record->event.pressed) {
         SEND_STRING("### ");
-      } 
+      }
       break;
     case MATH:
       if (record->event.pressed) {
         SEND_STRING("$$"SS_TAP(X_LEFT));
-      } 
+      }
       break;
     case TAGGED:
       if (record->event.pressed) {
         SEND_STRING("tagged: ");
-      } 
+      }
       break;
     case CDFC:
       if (record->event.pressed) {
@@ -702,9 +719,144 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       break;
+    case GIT_KEY:
+      if (record->event.pressed) {
+        SEND_STRING("git ");
+        } else {
+        }
+      break;
+    case DDASH:
+      if (record->event.pressed) {
+        SEND_STRING("--");
+        } else {
+        }
+      break;
+    case RM:
+      if (record->event.pressed) {
+        SEND_STRING("rm ");
+        } else {
+        }
+      break;
+    case TAG:
+      if (record->event.pressed) {
+        SEND_STRING("tag ");
+        } else {
+        }
+      break;
+    case UPSTREAM:
+      if (record->event.pressed) {
+        SEND_STRING("upstream ");
+        } else {
+        }
+      break;
+    case ORIGIN:
+      if (record->event.pressed) {
+        SEND_STRING("origin ");
+        } else {
+        }
+      break;
+    case REVERT:
+      if (record->event.pressed) {
+        SEND_STRING("revert ");
+        } else {
+        }
+      break;
+    case PUSH:
+      if (record->event.pressed) {
+        SEND_STRING("push ");
+        } else {
+        }
+      break;
+    case STATUS:
+      if (record->event.pressed) {
+        SEND_STRING("status");
+        } else {
+        }
+      break;
+    case DEVELOP:
+      if (record->event.pressed) {
+        SEND_STRING("develop ");
+        } else {
+        }
+      break;
+    case GLOBAL:
+      if (record->event.pressed) {
+        SEND_STRING("global ");
+        } else {
+        }
+      break;
+    case LOG:
+      if (record->event.pressed) {
+        SEND_STRING("log ");
+        } else {
+        }
+      break;
+    case COMMIT:
+      if (record->event.pressed) {
+        SEND_STRING("commit ");
+        } else {
+        }
+      break;
+    case REBASE:
+      if (record->event.pressed) {
+        SEND_STRING("rebase ");
+        } else {
+        }
+      break;
+    case MAIN:
+      if (record->event.pressed) {
+        SEND_STRING("main ");
+        } else {
+        }
+      break;
+    case CHECKOUT:
+      if (record->event.pressed) {
+        SEND_STRING("checkout ");
+        } else {
+        }
+      break;
+    case ADD:
+      if (record->event.pressed) {
+        SEND_STRING("add ");
+        } else {
+        }
+      break;
+    case BRANCH:
+      if (record->event.pressed) {
+        SEND_STRING("branch ");
+        } else {
+        }
+      break;
+    case PULL:
+      if (record->event.pressed) {
+        SEND_STRING("pull ");
+        } else {
+        }
+      break;
+    case MERGE:
+      if (record->event.pressed) {
+        SEND_STRING("merge ");
+        } else {
+        }
+      break;
+    case STASH:
+      if (record->event.pressed) {
+        SEND_STRING("stash ");
+        } else {
+        }
+      break;
+    case FETCH:
+      if (record->event.pressed) {
+        SEND_STRING("fetch ");
+        } else {
+        }
+      break;
+    case CLONE:
+      if (record->event.pressed) {
+        SEND_STRING("clone ");
+        } else {
+        }
+      break;
   }
   return true;
-}
-void led_set_user(uint8_t usb_led) {
-
 }
