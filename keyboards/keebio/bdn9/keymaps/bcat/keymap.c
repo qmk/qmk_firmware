@@ -1,3 +1,19 @@
+/* Copyright 2021 Jonathan Rascher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 
 enum layer {
@@ -8,17 +24,18 @@ enum layer {
 #define LY_SECND MO(LAYER_SECOND)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    // clang-format off
     [LAYER_FIRST] = LAYOUT(
         KC_MUTE,  LY_SECND, BL_BRTG,
         KC_F4,    KC_F5,    KC_F6,
         KC_F1,    KC_F2,    KC_F3
     ),
-
     [LAYER_SECOND] = LAYOUT(
         EEP_RST,  _______,  RESET,
         KC_F10,   KC_F11,   KC_F12,
         KC_F7,    KC_F8,    KC_F9
     ),
+    // clang-format on
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
@@ -26,20 +43,17 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         /* Top-left encoder (volume) */
         case 0:
             tap_code(clockwise ? KC_VOLU : KC_VOLD);
-            break;
-
+            return false;
         /* Top-right encoder (backlight brightness) */
         case 1:
+#if defined(BACKLIGHT_ENABLE)
             if (clockwise) {
-#ifdef BACKLIGHT_ENABLE
                 backlight_increase();
-#endif
             } else {
-#ifdef BACKLIGHT_ENABLE
                 backlight_decrease();
-#endif
             }
-            break;
+#endif
+            return false;
     }
     return true;
 }

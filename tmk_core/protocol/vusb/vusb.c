@@ -292,6 +292,14 @@ static void send_consumer(uint16_t data) {
 #endif
 }
 
+void send_digitizer(report_digitizer_t *report) {
+#ifdef DIGITIZER_ENABLE
+    if (usbInterruptIsReadyShared()) {
+        usbSetInterruptShared((void *)report, sizeof(report_digitizer_t));
+    }
+#endif
+}
+
 /*------------------------------------------------------------------*
  * Request from host                                                *
  *------------------------------------------------------------------*/
@@ -510,8 +518,46 @@ const PROGMEM uchar shared_hid_report[] = {
     0x95, 0x01,                //   Report Count (1)
     0x75, 0x10,                //   Report Size (16)
     0x81, 0x00,                //   Input (Data, Array, Absolute)
-    0xC0                       // End Collection
+    0xC0,                      // End Collection
 #endif
+
+#ifdef DIGITIZER_ENABLE
+    // Digitizer report descriptor
+    0x05, 0x0D,                 // Usage Page (Digitizers)
+    0x09, 0x01,                 // Usage (Digitizer)
+    0xA1, 0x01,                 // Collection (Application)
+    0x85, REPORT_ID_DIGITIZER,  //   Report ID
+    0x09, 0x22,                 //   Usage (Finger)
+    0xA1, 0x00,                 //   Collection (Physical)
+    // Tip Switch (1 bit)
+    0x09, 0x42,  //     Usage (Tip Switch)
+    0x15, 0x00,  //     Logical Minimum
+    0x25, 0x01,  //     Logical Maximum
+    0x95, 0x01,  //     Report Count (1)
+    0x75, 0x01,  //     Report Size (16)
+    0x81, 0x02,  //     Input (Data, Variable, Absolute)
+    // In Range (1 bit)
+    0x09, 0x32,  //     Usage (In Range)
+    0x81, 0x02,  //     Input (Data, Variable, Absolute)
+    // Padding (6 bits)
+    0x95, 0x06,  //     Report Count (6)
+    0x81, 0x03,  //     Input (Constant)
+
+    // X/Y Position (4 bytes)
+    0x05, 0x01,        //     Usage Page (Generic Desktop)
+    0x26, 0xFF, 0x7F,  //     Logical Maximum (32767)
+    0x95, 0x01,        //     Report Count (1)
+    0x75, 0x10,        //     Report Size (16)
+    0x65, 0x33,        //     Unit (Inch, English Linear)
+    0x55, 0x0E,        //     Unit Exponent (-2)
+    0x09, 0x30,        //     Usage (X)
+    0x81, 0x02,        //     Input (Data, Variable, Absolute)
+    0x09, 0x31,        //     Usage (Y)
+    0x81, 0x02,        //     Input (Data, Variable, Absolute)
+    0xC0,              //   End Collection
+    0xC0               // End Collection
+#endif
+
 #ifdef SHARED_EP_ENABLE
 };
 #endif

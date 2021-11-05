@@ -92,16 +92,22 @@ typedef struct {
 extern const key_override_t **key_overrides;
 
 /** Turns key overrides on */
-extern void key_override_on(void);
+void key_override_on(void);
 
 /** Turns key overrides off */
-extern void key_override_off(void);
+void key_override_off(void);
 
 /** Toggles key overrides on */
-extern void key_override_toggle(void);
+void key_override_toggle(void);
 
 /** Returns whether key overrides are enabled */
-extern bool key_override_is_enabled(void);
+bool key_override_is_enabled(void);
+
+/** Handling of key overrides and its implemented keycodes */
+bool process_key_override(const uint16_t keycode, const keyrecord_t *const record);
+
+/** Perform any deferred keys */
+void key_override_task(void);
 
 /**
  *  Preferrably use these macros to create key overrides. They fix many of the options to a standard setting that should satisfy most basic use-cases. Only directly create a key_override_t struct when you really need to.

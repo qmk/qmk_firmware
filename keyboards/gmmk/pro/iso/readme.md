@@ -21,3 +21,17 @@ To reset the board into bootloader mode, do one of the following:
 * Fn+Backspace will reset the board to bootloader mode if you have flashed the default QMK keymap
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Case Screw Replacements
+
+Many users report stripped case screws when disassembling the board.
+
+The stock case screws are:
+* Thread: M2
+* Thread length: ~5 mm
+* Head diameter: ~3.8 mm
+* Head counterbore diameter: ~4.0 mm
+* Head counterbore depth: ~1.9 mm
+
+Most M2x5mm screws should fit fine, although it's best to ensure that the screw head will fit inside the counterbore.
+For reference, [this hex socket head screw](https://www.mcmaster.com/91292A005/) from McMaster-Carr should fit nearly flush (head will protrude above the counterbore by ~0.1 mm).

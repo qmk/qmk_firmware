@@ -252,11 +252,20 @@ define PARSE_RULE
     else
         $$(info make: *** No rule to make target '$1'. Stop.)
         $$(info |)
-        $$(info |  QMK's make format recently changed to use folder locations and colons:)
-        $$(info |     make project_folder:keymap[:target])
-        $$(info |  Examples:)
-        $$(info |     make dz60:default)
-        $$(info |     make planck/rev6:default:flash)
+        $$(info | QMK's make format is:)
+        $$(info |     make keyboard_folder:keymap_folder[:target])
+        $$(info |)
+        $$(info | Where `keyboard_folder` is the path to the keyboard relative to)
+        $$(info | `qmk_firmware/keyboards/`, and `keymap_folder` is the name of the)
+        $$(info | keymap folder under that board's `keymaps/` directory.)
+        $$(info |)
+        $$(info | Examples:)
+        $$(info |     keyboards/dz60, keyboards/dz60/keymaps/default)
+        $$(info |       -> make dz60:default)
+        $$(info |       -> qmk compile -kb dz60 -km default)
+        $$(info |     keyboards/planck/rev6, keyboards/planck/keymaps/default)
+        $$(info |       -> make planck/rev6:default:flash)
+        $$(info |       -> qmk flash -kb planck/rev6 -km default)
         $$(info |)
     endif
 endef
@@ -294,37 +303,8 @@ define PARSE_KEYBOARD
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
-    # this might be needed, but in a different form
-    #KEYMAPS := $$(sort $$(filter-out $$(KEYBOARD_FOLDER_1) $$(KEYBOARD_FOLDER_2) \
-        $$(KEYBOARD_FOLDER_3) $$(KEYBOARD_FOLDER_4) $$(KEYBOARD_FOLDER_5), $$(KEYMAPS)))
 
-    KEYBOARD_LAYOUTS :=
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)","")
-      LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)
-      KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
-    endif
-
+    KEYBOARD_LAYOUTS := $(shell $(QMK_BIN) list-layouts --keyboard $1)
     LAYOUT_KEYMAPS :=
     $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
 

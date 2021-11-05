@@ -16,6 +16,6 @@
 #pragma once
 
 // Referenced custom font
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    define OLED_FONT_H "keyboards/nullbitsco/nibble/keymaps/oled_status/glcdfont.c"
 #endif

@@ -2,8 +2,6 @@
     "keyboard_name": "Conone 65",
     "url": "https://kindakeyboards.be/conone65",
     "maintainer": "evyd13",
-    "width": 16, 
-    "height": 5, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

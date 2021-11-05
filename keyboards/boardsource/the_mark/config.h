@@ -56,11 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB matrix support */
 #ifdef RGB_MATRIX_ENABLE
-#define DRIVER_LED_TOTAL 24 // Number of LEDs
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#    ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#    endif
+#    define DRIVER_LED_TOTAL 24  // Number of LEDs
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #endif
 
 /*

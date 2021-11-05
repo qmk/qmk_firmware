@@ -12,7 +12,7 @@ from qmk.c_parse import c_source_files
 
 c_file_suffixes = ('c', 'h', 'cpp')
 core_dirs = ('drivers', 'quantum', 'tests', 'tmk_core', 'platforms')
-ignored = ('tmk_core/protocol/usb_hid', 'quantum/template', 'platforms/chibios')
+ignored = ('tmk_core/protocol/usb_hid', 'platforms/chibios/boards')
 
 
 def find_clang_format():
@@ -127,7 +127,7 @@ def format_c(cli):
 
     # Sanity check
     if not files:
-        cli.log.error('No changed files detected. Use "qmk cformat -a" to format all core files')
+        cli.log.error('No changed files detected. Use "qmk format-c -a" to format all core files')
         return False
 
     # Run clang-format on the files we've found
