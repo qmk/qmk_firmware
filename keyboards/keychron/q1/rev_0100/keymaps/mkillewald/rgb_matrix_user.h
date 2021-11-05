@@ -1,4 +1,4 @@
-/* Copyright %YEAR% %YOUR_NAME%
+/* Copyright 2021 @ Mike Killewald
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,20 +16,11 @@
 
 #pragma once
 
-#include "quantum.h"
+void rgb_matrix_init_user(void);
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k12    \
-) { \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k12 }  \
-}
+void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t layer, bool (*is_keycode)(uint16_t), uint8_t red, uint8_t green, uint8_t blue);
+
+bool is_caps_lock_indicator(uint16_t keycode);
+bool is_transparent(uint16_t keycode);
+bool is_not_transparent(uint16_t keycode);
+

@@ -2,6 +2,9 @@
     "keyboard_name": "Rocketboard-16",
     "url": "",
     "maintainer": "fl3tching101",
+    "layout_aliases": {
+        "LAYOUT_default": "LAYOUT"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
