@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       GIT_KEY, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DDASH,   _______, _______, RM,
       TAG    , _______, _______, _______, _______, _______, _______, UPSTREAM,_______, ORIGIN,  _______, _______, _______, REVERT,
       PUSH   , _______, STATUS,  DEVELOP, _______, GLOBAL , _______, _______, _______, LOG    , _______, _______, COMMIT,
-      REBASE , _______, _______, _______, _______, _______, _______, MAIN,    _______, _______, _______, _______, CHECKOUT, CHECKOUT, ADD,
+      REBASE , _______, _______, _______, _______, _______, _______, _______, MAIN,    _______, _______, _______, CHECKOUT, CHECKOUT, ADD,
       BRANCH , PULL   , MERGE  ,                   SPC, SPC, SPC,    STASH,   STASH,             FETCH,  FETCH  , CLONE
       ),
 
