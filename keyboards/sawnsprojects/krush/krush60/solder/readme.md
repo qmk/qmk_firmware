@@ -1,12 +1,12 @@
 # Krush60 solder
 
-![Krush60](https://cdn.shopify.com/s/files/1/0299/9497/5365/files/4_-_2BS9fH2_2048x2048.jpg)
+![Krush60](https://cdn.discordapp.com/attachments/898507964942536715/906171092916391956/252763374_2899749087003964_8763371038132517512_n.png)
 
-A 60% keyboard PCB made and sold by SawnsProjects with Nuxros in [mechkey.store](https://mechkey.store/blogs/store-updates/introducing-krush-65). 
+A 60% keyboard PCB made and sold by SawnsProjects with Nuxros in [Facebook](https://www.facebook.com/groups/vnmkmarket/posts/1412997345762674). 
 
 * Keyboard Maintainer: [Mai The San](https://github.com/MaiTheSan)
 * Hardware Supported: 60% keyboard case
-* Hardware Availability: [Facebook](https://www.facebook.com/groups/vnmkmarket/posts/1410794482649627)
+* Hardware Availability: [Facebook](https://www.facebook.com/groups/vnmkmarket/posts/1412997345762674)
 
 Make example for this keyboard (after setting up your build environment):
 

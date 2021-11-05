@@ -66,7 +66,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 if (clockwise) {
                     tap_code16(C(KC_EQL));
                 } else {
-                    tap_code(C(KC_MINS));
+                    tap_code16(C(KC_MINS));
                 }
                 break;
         }
