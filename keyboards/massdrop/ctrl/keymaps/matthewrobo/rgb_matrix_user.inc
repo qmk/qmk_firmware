@@ -21,8 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Step 1.
 // Declare custom effects using the RGB_MATRIX_EFFECT macro
 // (note the lack of semicolon after the macro!)
-RGB_MATRIX_EFFECT(SOLID_WHITE)
-RGB_MATRIX_EFFECT(SOLID_ACTIVE_ONLY_KEYS_FN1)
+RGB_MATRIX_EFFECT(SOLID_REACTIVE_WIDE2)
+RGB_MATRIX_EFFECT(SOLID_REACTIVE_MULTIWIDE2)
+RGB_MATRIX_EFFECT(SOLID_REACTIVE_NEXUS2)
+RGB_MATRIX_EFFECT(SOLID_REACTIVE_MULTINEXUS2)
 
 // Step 2.
 // Define effects inside the `RGB_MATRIX_CUSTOM_EFFECT_IMPLS` ifdef block
@@ -41,7 +43,9 @@ static HSV SOLID_REACTIVE_NEXUS_math2(HSV hsv, int16_t dx, int16_t dy, uint8_t d
     return hsv;
 }
 
-bool SOLID_WHITE(effect_params_t* params) { return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_WIDE_math2); }
-bool SOLID_ACTIVE_ONLY_KEYS_FN1(effect_params_t* params) { return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_NEXUS_math2); }
+bool SOLID_REACTIVE_WIDE2(effect_params_t* params) { return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_REACTIVE_WIDE_math2); }
+bool SOLID_REACTIVE_MULTIWIDE2(effect_params_t* params) { return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_WIDE_math2); }
+bool SOLID_REACTIVE_NEXUS2(effect_params_t* params) { return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_REACTIVE_NEXUS_math2); }
+bool SOLID_REACTIVE_MULTINEXUS2(effect_params_t* params) { return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_NEXUS_math2); }
 
 #endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
