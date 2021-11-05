@@ -13,7 +13,6 @@ NKRO_ENABLE = yes               # Nkey Rollover - if this doesn't work, see here
 BACKLIGHT_ENABLE = yes          # Enable keyboard backlight functionality
 BACKLIGHT_DRIVER = custom
 AUDIO_ENABLE = no               # Audio output
-UNICODE_ENABLE = no             # Unicode
 RGBLIGHT_ENABLE = yes           # Enable WS2812 RGB underlight.
 RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lfkeyboards, not qmk base
 SLEEP_LED_ENABLE = yes          # Breathing sleep LED during USB suspend

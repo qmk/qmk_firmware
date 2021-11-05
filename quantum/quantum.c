@@ -25,10 +25,6 @@
 #    include "backlight.h"
 #endif
 
-#ifdef API_ENABLE
-#    include "api.h"
-#endif
-
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"
 #endif
@@ -66,15 +62,15 @@ uint8_t extract_mod_bits(uint16_t code) {
     uint8_t mods_to_send = 0;
 
     if (code & QK_RMODS_MIN) {  // Right mod flag is set
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RGUI);
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RIGHT_CTRL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RIGHT_SHIFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RIGHT_ALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RIGHT_GUI);
     } else {
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LGUI);
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LEFT_CTRL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LEFT_SHIFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LEFT_ALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LEFT_GUI);
     }
 
     return mods_to_send;
@@ -145,11 +141,12 @@ void reset_keyboard(void) {
 /* Convert record into usable keycode via the contained event. */
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) {
 #ifdef COMBO_ENABLE
-    if (record->keycode) { return record->keycode; }
+    if (record->keycode) {
+        return record->keycode;
+    }
 #endif
     return get_event_keycode(record->event, update_layer_cache);
 }
-
 
 /* Convert event into usable keycode. Checks the layer cache to ensure that it
  * retains the correct keycode after a layer change, if the key is still pressed.
@@ -179,12 +176,12 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 bool pre_process_record_quantum(keyrecord_t *record) {
     if (!(
 #ifdef COMBO_ENABLE
-        process_combo(get_record_keycode(record, true), record) &&
+            process_combo(get_record_keycode(record, true), record) &&
 #endif
-        true)) {
+            true)) {
         return false;
     }
-    return true; // continue processing
+    return true;  // continue processing
 }
 
 /* Get keycode, and then call keyboard function */
@@ -467,14 +464,6 @@ void matrix_scan_quantum() {
 #ifdef HD44780_ENABLED
 #    include "hd44780.h"
 #endif
-
-void api_send_unicode(uint32_t unicode) {
-#ifdef API_ENABLE
-    uint8_t chunk[4];
-    dword_to_bytes(unicode, chunk);
-    MT_SEND_DATA(DT_UNICODE, chunk, 5);
-#endif
-}
 
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on

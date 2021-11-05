@@ -7,7 +7,7 @@
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic": true,
         "extrakey": true,
         "mousekey": true
     },

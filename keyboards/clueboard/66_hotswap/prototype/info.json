@@ -43,7 +43,6 @@
   },
   "community_layouts": ["66_ansi"],
   "layout_aliases": {
-    "KEYMAP": "LAYOUT_all",
     "LAYOUT": "LAYOUT_all"
   },
   "layouts": {

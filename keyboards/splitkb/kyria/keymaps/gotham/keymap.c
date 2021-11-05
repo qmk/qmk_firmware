@@ -106,7 +106,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
-void oled_task_user(void) { render_status(); }
+bool oled_task_user(void) {
+    render_status();
+    return false;
+}
 #endif
 
 #ifdef ENCODER_ENABLE

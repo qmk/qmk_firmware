@@ -69,8 +69,11 @@ CSTANDARD = -std=gnu99
 #CXXDEFS += -D__STDC_CONSTANT_MACROS
 #CXXDEFS +=
 
-
-
+# Speed up recompilations by opt-in usage of ccache
+USE_CCACHE ?= no
+ifneq ($(USE_CCACHE),no)
+    CC_PREFIX ?= ccache
+endif
 
 #---------------- Compiler Options C ----------------
 #  -g*:          generate debugging information
@@ -79,6 +82,15 @@ CSTANDARD = -std=gnu99
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
+ifeq ($(strip $(LTO_ENABLE)), yes)
+    ifeq ($(PLATFORM),CHIBIOS)
+        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
+        $(info If unsure, set LTO_ENABLE = no.)
+    endif
+    CDEFS += -flto
+    CDEFS += -DLTO_ENABLE
+endif
+
 DEBUG_ENABLE ?= yes
 ifeq ($(strip $(SKIP_DEBUG_INFO)),yes)
   DEBUG_ENABLE=no
@@ -479,12 +491,12 @@ check-size:
 			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
 		    else \
 			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
-		    fi \
-		fi \
+		    fi ; \
+		fi ; \
 	fi
 else
 check-size:
-	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
 endif
 
 check-md5:
