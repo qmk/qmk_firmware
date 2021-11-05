@@ -30,22 +30,21 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {
-#ifdef MOUSEKEY_ENABLE
+
             case 0:
                 // main layer - move mouse right (CW) and left (CCW)
                 if (clockwise) {
-                    tap_code(KC_MS_R);
+                    tap_code_delay(KC_VOLU, 10);
                 } else {
-                    tap_code(KC_MS_L);
+                    tap_code_delay(KC_VOLD, 10);
                 }
                 break;
-#endif
             default:
                 // other layers - =/+ (quals/plus) (CW) and -/_ (minus/underscore) (CCW)
                 if (clockwise) {
-                    tap_code(KC_EQL);
+                    tap_code16(C(KC_EQL));
                 } else {
-                    tap_code(KC_MINS);
+                    tap_code16(C(KC_MINS));
                 }
                 break;
         }
