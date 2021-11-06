@@ -3163,8 +3163,6 @@ void backlight_init_drivers(void)
         bool enabled = true;
 #elif defined(RGB_BACKLIGHT_PORTICO)
         bool enabled = true;
-#elif defined(RGB_BACKLIGHT_PORTICO75)
-		bool enabled = true;
 #endif
         // This only caches it for later
         IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
