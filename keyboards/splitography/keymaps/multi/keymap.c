@@ -305,12 +305,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // ..................................................................... Keymaps
 
-void clear_layers(void)
-{
-  uint8_t layer;
-  for (layer = 0; layer < _END_LAYERS; layer++) { layer_off(layer); }
-}
-
 #define BASE_1  1
 #define BASE_2  2
 #define BASE_12 3
@@ -322,7 +316,7 @@ void qwerty(void)
 {
   base_layer = qwerty;
   base_n     = 0;
-  clear_layers();
+  layer_move(0);
   set_single_persistent_default_layer(_QWERTY);
 }
 
@@ -330,7 +324,7 @@ void dvorak(void)
 {
   base_layer = dvorak;
   base_n     = 0;
-  clear_layers();
+  layer_move(0);
   set_single_persistent_default_layer(_DVORAK);
 }
 
@@ -338,7 +332,7 @@ void colemak(void)
 {
   base_layer = colemak;
   base_n     = 0;
-  clear_layers();
+  layer_move(0);
   set_single_persistent_default_layer(_COLEMAK);
 }
 
@@ -346,14 +340,14 @@ void workman(void)
 {
   base_layer = workman;
   base_n     = 0;
-  clear_layers();
+  layer_move(0);
   set_single_persistent_default_layer(_WORKMAN);
 }
 
 void plover(keyrecord_t *record)
 {
   if (record->event.pressed) {
-    clear_layers();
+    layer_move(0);
     layer_on(_PLOVER);
     if (!eeconfig_is_enabled()) { eeconfig_init(); }
     keymap_config.raw  = eeconfig_read_keymap();
@@ -364,7 +358,7 @@ void plover(keyrecord_t *record)
 
 void txbolt(void)
 {
-  clear_layers();
+  layer_move(0);
   layer_on(_TXBOLT);
 }
 
