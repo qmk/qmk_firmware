@@ -63,6 +63,8 @@ static MSCMD_USER_RESULT usrcmd_cpu_temp(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
 static MSCMD_USER_RESULT usrcmd_file_streaming_mode(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_encoder(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_indicator(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
+static MSCMD_USER_RESULT usrcmd_send_data_s2m(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
+static MSCMD_USER_RESULT usrcmd_connection_status(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 
 static MICROSHELL microshell;
 static MSCMD mscmd;
@@ -95,6 +97,8 @@ static const MSCMD_COMMAND_TABLE table[] = {
     {"temp", usrcmd_cpu_temp, "Measure CPU temperature"},
     {"file", usrcmd_file_streaming_mode, "Enter file streaming mode"},
     {"ind", usrcmd_indicator, "Test indicator LED"},
+    {"s2m", usrcmd_send_data_s2m, "Send data to master"},
+    {"stat", usrcmd_connection_status, "Connection status"},
 #ifdef USER_DEFINED_MSCMD
     USER_DEFINED_MSCMD
 #endif
@@ -550,6 +554,43 @@ static MSCMD_USER_RESULT usrcmd_indicator(MSOPT *           msopt,
 
     if (mode >= INDICATOR_NONE && mode < INDICATOR_END) {
         bmp_indicator_set(mode, option);
+    }
+
+    return 0;
+}
+
+static MSCMD_USER_RESULT usrcmd_send_data_s2m(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
+{
+    int32_t id;
+    int32_t data;
+    char    arg[16];
+
+    if (msopt->argc < 3) {
+        xprintf("s2m <id> <data>\n");
+        return 1;
+    }
+
+    msopt_get_argv(msopt, 1, arg, sizeof(arg));
+    id = atoi(arg);
+
+    msopt_get_argv(msopt, 2, arg, sizeof(arg));
+    data = atoi(arg);
+
+    bmp_error_t res = BMPAPI->ble.send_user_data_s2m(id, data);
+    xprintf("send id:%u data:%u res:%d\n", id & 0xff, data & 0xff, res);
+
+    return 0;
+}
+
+static MSCMD_USER_RESULT usrcmd_connection_status(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
+{
+    bmp_api_config_t const * const config = BMPAPI->app.get_config();
+
+    if (config->mode != SPLIT_SLAVE) {
+        uint16_t stat = BMPAPI->ble.get_connection_status();
+        xprintf("Host connection:%d, target id:%d\n", stat >> 8, stat & 0xff);
+    } else{
+        xprintf("Not implemented\n");
     }
 
     return 0;

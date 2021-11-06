@@ -5,7 +5,7 @@
 
 #include "error_def.h"
 
-#define API_VERSION 12
+#define API_VERSION 13
 #define CONFIG_VERSION 2
 #define PINS_MAX 32
 
@@ -311,6 +311,9 @@ typedef struct {
     bmp_error_t (*set_nus_disconnect_cb)(bmp_error_t (*callback)(void));
     void (*set_raw_receive_cb)(void (*raw_receive_cb)(const uint8_t* data, uint8_t length));
     int (*raw_send)(const uint8_t* data, uint8_t length);
+    uint16_t (*get_connection_status)(void);
+    bmp_error_t (*send_user_data_s2m)(uint8_t id, uint8_t data);
+    bmp_error_t (*set_user_data_cb)(void (data_receive_cb)(uint8_t id, uint8_t data));
 } bmp_api_ble_t;
 
 typedef struct {

@@ -313,6 +313,9 @@ __attribute__((weak)) void bmp_state_change_cb_user(bmp_api_event_t event) {}
 __attribute__((weak)) void bmp_state_change_cb_kb(bmp_api_event_t event) {
     bmp_state_change_cb_user(event);
 }
+void bmp_user_data_recv_cb_kb(uint8_t id, uint8_t data) {
+    xprintf("Receive user data: id:%d, data:%d\n", id, data);
+}
 
 bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
 {
@@ -572,6 +575,7 @@ void bmp_init()
   {
     BMPAPI->ble.set_nus_rcv_cb(nus_rcv_callback);
   }
+  BMPAPI->ble.set_user_data_cb(bmp_user_data_recv_cb_kb);
 
   load_ex_keycode_file(); // load exkc before tapping_term
   load_tapping_term_file();
