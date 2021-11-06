@@ -19,13 +19,13 @@
 /*
 make linux bootloader install via: (or use via if it's firmwared) => CHOICE
 	cd qmk_firmware
-	sudo make dz60:jackokring:dfu
+	sudo make dz60:jacko_keys:dfu
 	^C
 	sudo make dz60:via:dfu
 */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
+	//KEEP
 	//ANSI lock mode 0 =================================================================================== ANSI lock mode 0
 	// Standard ANSI 60 layout for worldwide ASCII compatibility,
 	LAYOUT_60_ansi(
@@ -35,24 +35,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,
 		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, MO(4)),//zero index start
 
+	//Backslash BQN?
 	//Navigation lock mode 1 ============================================================================= Navigation lock mode 1
 	// Removed ASCII 47 (/) and right ctrl/win/alt for cursor.
 	// VirtualBox host key needs an Fn.
 	LAYOUT_60_ansi(
 		KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC,
-		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
+		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, MO(2),//BQN shift
 		KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,            KC_RSFT,
 		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_LEFT, KC_DOWN,          KC_RIGHT, MO(5)),
 
-	//Numpad lock mode 2 ================================================================================= Numpad lock mode 2
-	// A single finger (locking modifiers) number pad, cursor and right hand F1-F24.
+	//BQN Non Shift?
+	//BQN lock mode 2 ================================================================================= BQN lock mode 2
+	// BQN Unshifted Unicode
 	LAYOUT_60_ansi(
-		KC_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_DEL,  KC_PMNS, KC_PPLS,          KC_BSPC,
-		KC_TAB,           KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_P4,   KC_P5,   KC_P6,   KC_PAST, KC_LPRN, KC_RPRN, KC_PSLS,
+		KC_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_DEL,  KC_PMNS, KC_PPLS,          KC_BSLS,//slash do!
+		KC_TAB,           KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_P4,   KC_P5,   KC_P6,   KC_PAST, KC_LPRN, KC_RPRN, MO(2),//backslash hold!
 		KC_NLCK,          KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_P1,   KC_P2,   KC_P3,   KC_INS,  KC_CALC, KC_PENT,
 		OSM(MOD_LSFT),    KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_P0,   KC_PCMM, KC_PDOT, KC_UP,            UC(8730),
-		OSM(MOD_LCTL),OSM(MOD_LGUI),OSM(MOD_LALT),            OSM(MOD_RALT),                      KC_LEFT, KC_DOWN,          KC_RIGHT, TG(6)),//lock Fn
+		OSM(MOD_LCTL),OSM(MOD_LGUI),OSM(MOD_LALT),            OSM(MOD_RALT),                      KC_LEFT, KC_DOWN,          KC_RIGHT, MO(6)),//no lock Fn
 
 	//Macro lock mode 3 ================================================================================== Macro lock mode 3
 	// A single finger macro launching board producing many modifier and function keys.
@@ -64,6 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		OSM(MOD_LSFT),         	   ALGR(KC_F13),  ALGR(KC_F14),  ALGR(KC_F15),  ALGR(KC_F16),  ALGR(KC_F17),  ALGR(KC_F18),  ALGR(KC_F19),  ALGR(KC_F20),  ALGR(KC_F21),  ALGR(KC_F22),  ALGR(KC_F23),
 		OSM(MOD_LCTL),OSM(MOD_LGUI),OSM(MOD_LALT),            DM_PLY1,                            LSA(KC_TAB),OSM(MOD_RGUI), LALT(KC_TAB),  TG(7)),
 
+	//KEEP
 	//ANSI shift mode 4 ================================================================================== ANSI shift mode 4
 	// ISO characters such as £ and control of RGB/backlight and cursor.
 	// Fn + P is power switch for shutdown.
@@ -72,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,          RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_WHOM, KC_PWR,  KC_HOME, KC_END,  KC_INS,
 		KC_SLCK,          KC_WSCH, UC(8747),UC(8706),KC_WFAV, UC(8730),KC_VOLD, KC_VOLU, UC(176), UC(163), KC_PAUS, KC_PSCR, KC_TRNS,
 		KC_TRNS,          UC(937), KC_MUTE, BL_DEC,  BL_TOGG, BL_INC,  BL_STEP, UC(181), KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
-		KC_LCTL, DF(3),            DF(1),                     DF(2),                              KC_LEFT, KC_DOWN,          KC_RIGHT, MO(4)),
+		KC_LCTL, DF(3),            DF(1),                     KC_SPC,                              KC_LEFT, KC_DOWN,          KC_RIGHT, MO(4)),
 	
 	//Navigation shift mode 5 ============================================================================ Navigation shift mode 5
 	// All function keys, so Home and End were sacrificed.
@@ -83,16 +86,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,          KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_INS,
 		KC_SLCK,          KC_WSCH, UC(8747),UC(8706),KC_WFAV, UC(8730),KC_VOLD, KC_VOLU, UC(176), UC(163), KC_PAUS, KC_PSCR, KC_ESC,
 		KC_TRNS,          UC(937), KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL, UC(181), KC_PGUP, KC_PGDN, KC_QUES,          KC_TRNS,
-		DF(0),   DF(3),            KC_LALT,                   DF(2),                              KC_RALT, KC_SLSH,          KC_RCTL, MO(5)),
+		DF(0),   DF(3),            KC_LALT,                   KC_SPC,                              KC_RALT, KC_SLSH,          KC_RCTL, MO(5)),
 	
-	//Numpad shift mode 6 ================================================================================ Numpad shift mode 6
-	// ANSI text entry with no left ctrl/win/alt.
+	//BQN Shift?
+	//BQN shift mode 6 ================================================================================ BQN shift mode 6
+	// BQN Shifted Unicode
 	LAYOUT_60_ansi(
 		KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC,
 		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
 		KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,
-		DF(0),   DF(3),            DF(1),                     KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, TG(6)),
+		DF(0),   DF(3),            DF(1),                     KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, MO(6)),//shift hold
 	
 	//Macro shift mode 7 ================================================================================= Macro shift mode 7
 	// Same macro layer but different modifier grouping for more hot key combinations.
@@ -101,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		OSM(MOD_LGUI|MOD_LCTL|MOD_LALT),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		OSM(MOD_LGUI|MOD_LCTL|MOD_LSFT),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		OSM(MOD_LGUI|MOD_LSFT),             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		DF(0),   OSM(KC_LGUI),     DF(1),                     DF(2),                              TG(9),   TG(10),  TG(8),   TG(7)),
+		DF(0),   OSM(KC_LGUI),     DF(1),                     KC_SPC,                              TG(9),   TG(10),  TG(8),   TG(7)),
 
 	//Extended shift mode 8 ============================================================================== Extended shift mode 8
 	// A utility layer for things like the mouse.
