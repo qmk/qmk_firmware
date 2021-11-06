@@ -63,7 +63,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         SEND_STRING("\n\nI am uno!");
                     break;
                     case 3:
-                        SEND_STRING(SS_TAP(X_ENTER)SS_TAP(X_ENTER)"I can do all sorts of useless things!");
+                        SEND_STRING("\n\nI can do all sorts of useless things!");
                     break;
                     case 4:
                         SEND_STRING(SS_TAP(X_ENTER)SS_TAP(X_ENTER)"And I have a built-in RGB LED!"SS_TAP(X_ENTER)SS_TAP(X_ENTER)SS_TAP(X_ENTER));
