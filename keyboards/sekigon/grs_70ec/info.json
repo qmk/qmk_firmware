@@ -2,8 +2,6 @@
     "keyboard_name": "grs_70ec",
     "url": "https://github.com/sekigon-gonnoc/GRS-70EC-doc/",
     "maintainer": "sekigon-gonnoc",
-    "width": 15.75,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

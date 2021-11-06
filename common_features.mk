@@ -698,19 +698,23 @@ ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
 endif
 
 JOYSTICK_ENABLE ?= no
-ifneq ($(strip $(JOYSTICK_ENABLE)), no)
+VALID_JOYSTICK_TYPES := analog digital
+JOYSTICK_DRIVER ?= analog
+ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
+    ifeq ($(filter $(JOYSTICK_DRIVER),$(VALID_JOYSTICK_TYPES)),)
+        $(error "$(JOYSTICK_DRIVER)" is not a valid joystick driver)
+    endif
     OPT_DEFS += -DJOYSTICK_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
     SRC += $(QUANTUM_DIR)/joystick.c
-endif
 
-ifeq ($(strip $(JOYSTICK_ENABLE)), analog)
-    OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
-    SRC += analog.c
-endif
-
-ifeq ($(strip $(JOYSTICK_ENABLE)), digital)
-    OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
+    ifeq ($(strip $(JOYSTICK_DRIVER)), analog)
+        OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
+        SRC += analog.c
+    endif
+    ifeq ($(strip $(JOYSTICK_DRIVER)), digital)
+        OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
+    endif
 endif
 
 DIGITIZER_ENABLE ?= no

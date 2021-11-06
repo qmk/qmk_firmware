@@ -2,8 +2,6 @@
     "keyboard_name": "Octopad",
     "url": "",
     "maintainer": "Neil Brian Ramirez",
-    "width": 6.5,
-    "height": 3.25,
     "layouts": {
         "LAYOUT": {
             "layout": [

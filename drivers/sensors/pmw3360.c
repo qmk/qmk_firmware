@@ -196,7 +196,7 @@ void pmw_upload_firmware(void) {
     wait_us(15);
 
     unsigned char c;
-    for (int i = 0; i < firmware_length; i++) {
+    for (int i = 0; i < FIRMWARE_LENGTH; i++) {
         c = (unsigned char)pgm_read_byte(firmware_data + i);
         spi_write(c);
         wait_us(15);

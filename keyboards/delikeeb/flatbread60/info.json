@@ -2,8 +2,6 @@
     "keyboard_name": "flatbread60",
     "url": "",
     "maintainer": "noclew",
-    "width": 12,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [

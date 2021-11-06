@@ -2,8 +2,6 @@
   "keyboard_name": "Uranuma", 
   "url": "", 
   "maintainer": "yohewi", 
-  "width": 13, 
-  "height": 5.7, 
   "layouts": {
     "LAYOUT": {
       "layout": [

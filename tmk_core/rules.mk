@@ -479,12 +479,12 @@ check-size:
 			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
 		    else \
 			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
-		    fi \
-		fi \
+		    fi ; \
+		fi ; \
 	fi
 else
 check-size:
-	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
 endif
 
 check-md5:
