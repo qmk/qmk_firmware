@@ -38,26 +38,6 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-<<<<<<< HEAD
-#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-#define DISABLE_RGB_MATRIX_BAND_SAT
-#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#define DISABLE_RGB_MATRIX_SPLASH
-#define DISABLE_RGB_MATRIX_MULTISPLASH
-#define DISABLE_RGB_MATRIX_SOLID_SPLASH
-#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#define DISABLE_RGB_MATRIX_DIGITAL_RAIN
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 52
-=======
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -107,12 +87,9 @@
 // #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 // #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#    define DRIVER_ADDR_1 0b1010000
-#    define DRIVER_ADDR_2 0b1010000  // this is here for compliancy reasons.
-#    define DRIVER_COUNT 2
-#    define DRIVER_1_LED_TOTAL 52
-#    define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
->>>>>>> 4847a5a569 (Update keyboard configs for rgb matrix)
+#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_COUNT 1
+#define DRIVER_LED_TOTAL 52
 #endif
 
 /* disable these deprecated features by default */
