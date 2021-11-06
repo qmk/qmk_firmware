@@ -1,17 +1,20 @@
+#pragma once
+
+// clang-format off
 // .................................................................... BEAKL TI
 
-  // ,-----------------------------------------------------------------------------------.
-  // |   :  |   Y  |   O  |   U  |   Z  |  Fn  | Caps |   G  |   D  |   N  |   M  |   X  |
-  // |------+------+------+------+------+-------------+------+------+------+------+------|
-  // |   Q  |   H  |   E  |   A  |   .  |Cursor| Mouse|   C  |   T  |   R  |   S  |   W  |
-  // |------+------+------+------+------+------|------+------+------+------+------+------|
-  // |   J  |   -  |   '  |   K  |   ,  |  Num | Regex|   B  |   P  |   L  |   F  |   V  |
-  // |------+------+------+------+------+------+------+------+------+------+------+------|
-  // |                           |  Esc |   I  | Space| Bksp |                           |
-  // | Ctrl |  GUI |  Alt |  Esc |   I  |  Ins | Left | Space| Bksp | Down |  Up  | Right|
-  // `-----------------------------------------------------------------------------------'
+// ,-----------------------------------------------------------------------------------.
+// |   :  |   Y  |   O  |   U  |   Z  |  Fn  | Caps |   G  |   D  |   N  |   M  |   X  |
+// |------+------+------+------+------+-------------+------+------+------+------+------|
+// |   Q  |   H  |   E  |   A  |   .  |Cursor| Mouse|   C  |   T  |   R  |   S  |   W  |
+// |------+------+------+------+------+------|------+------+------+------+------+------|
+// |   J  |   -  |   '  |   K  |   ,  |  Num | Regex|   B  |   P  |   L  |   F  |   V  |
+// |------+------+------+------+------+------+------+------+------+------+------+------|
+// |                           |  Esc |   I  | Space| Bksp |                           |
+// | Ctrl |  GUI |  Alt |  Esc |   I  |  Ins | Left | Space| Bksp | Down |  Up  | Right|
+// `-----------------------------------------------------------------------------------'
 
-  [_BASE] = LAYOUT(
+[_BASE] = LAYOUT(
     TD_EMOJ, KC_Y,    KC_O,    KC_U,    KC_Z,    CNTR_TL, CNTR_TR, KC_G,    KC_D,    KC_N,    KC_M,    KC_X   ,
     HOME_Q,  HOME_H,  HOME_E,  HOME_A,  TD_TILD, CNTR_HL, CNTR_HR, KC_C,    HOME_T,  HOME_R,  HOME_S,  HOME_W ,
     KC_J,    KC_MINS, KC_QUOT, KC_K,    KC_COMM, CNTR_BL, CNTR_BR, KC_B,    KC_P,    KC_L,    KC_F,    KC_V   ,
@@ -20,7 +23,7 @@
 #else
     OS_CTL,  OS_GUI,  OS_ALT,  LT_ESC,  LT_I,    LT_INS,  LT_LEFT, TD_SPC,  TD_BSPC, AT_DOWN, GT_UP,   CT_RGHT
 #endif
-  ),
+),
 
   [_SHIFT] = LAYOUT(
     KC_COLN, S(KC_Y), S(KC_O), S(KC_U), S(KC_Z), CNTR_TL, CNTR_TR, S(KC_G), S(KC_D), S(KC_N), S(KC_M), S(KC_X),
@@ -32,3 +35,4 @@
     OS_CTL,  OS_GUI,  OS_ALT,  KC_ESC,  S(KC_I), LT_INS,  LT_LEFT, KC_SPC,  KC_BSPC, AT_DOWN, GT_UP,   CT_RGHT
 #endif
   ),
+    // clang-format on

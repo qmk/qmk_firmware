@@ -1,5 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
 #include "../../config.h"
 
@@ -46,5 +45,3 @@
 
 // sync app with window manager keybind hook defined in custom/plover_keybind.h
 #define PLOVER_KEYBIND
-
-#endif
