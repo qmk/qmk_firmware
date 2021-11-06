@@ -2,7 +2,7 @@
 
 A blockered 65% with per-key RGB, underglow, and USB Type C.
 
-* Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
+* Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: Element G67 Hotswap (ATmega32U4)
 * Hardware Availability: [NEO Keys](https://www.neokeys.net/)
 

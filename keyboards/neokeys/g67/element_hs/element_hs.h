@@ -1,4 +1,4 @@
-/* Copyright 2021 James Young (@noroadsleft)
+/* Copyright 2021 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,3 +31,4 @@
     { K30,   KC_NO, K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C,   K3D,   K3E   }, \
     { K40,   K41,   KC_NO, K43,   KC_NO, KC_NO, K46,   KC_NO, KC_NO, KC_NO, K4A,   K4B,   K4C,   K4D,   K4E   }, \
 }
+
