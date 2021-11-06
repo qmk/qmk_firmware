@@ -1,3 +1,19 @@
+/* Copyright 2021 Alexis Jeandeau
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 // this is the style you want to emulate.
 //
@@ -28,36 +44,17 @@
 // ▔▔▔▔
 //   This source is shamelessly based on the "default" planck layout
 //
-//   #ifdef/#endif block structures are not indented, as syntax highlighting
-//   in vim is sufficient for identification
-//
-//   c++ commenting style is used throughout
-//
 // Change history
 // ▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 //   See http://thedarnedestthing.com/colophon
 
-//                === N O T E ===
-//
-// sudo CPATH=<keymap.c directory>/common make ...
-
-#ifndef PLANCK
-#    ifndef SPLITOGRAPHY
-#        define SPLITOGRAPHY
-#    endif
-#endif
+#include QMK_KEYBOARD_H
+#include "action_layer.h"
+#include "eeconfig.h"
+#include "keymap_steno.h"
 
 #include "config.h"
-#ifdef SPLITOGRAPHY
-#    include "splitography.h"
-#else
-#    include "planck.h"
-#endif
-#include "action_layer.h"
-#ifdef STENO_ENABLE
-#    include "keymap_steno.h"
-#endif
-#include "eeconfig.h"
+#include "splitography.h"
 
 extern keymap_config_t keymap_config;
 
@@ -113,7 +110,7 @@ enum keyboard_keycodes {
     SS_A,     // pseudo SFT_T(S(KC_A))
     SS_T,     // pseudo SFT_T(S(KC_T))
     TT_ESC,
-#ifdef STENO_ENABLE
+#if defined(STENO_ENABLE)
     PS_STNA = STN_A,
     PS_STNO = STN_O,
     PS_STNE = STN_E,
@@ -128,11 +125,6 @@ enum keyboard_keycodes {
 };
 
 // modifier keys
-#ifdef PLANCK
-#    define CT_RGHT CTL_T(KC_RGHT)
-#    define AT_DOWN ALT_T(KC_DOWN)
-#    define GT_UP GUI_T(KC_UP)
-#endif
 #define AT_B ALT_T(KC_B)
 #define GT_C GUI_T(KC_C)
 #define MT_E MT(MOD_LCTL | MOD_LALT, KC_E)
@@ -152,12 +144,12 @@ enum keyboard_keycodes {
 // keycodes
 #define ___x___ KC_TRNS
 #define ___fn__ KC_TRNS
-#ifdef _______
+#if defined(_______)
 #    undef _______
 #endif
 #define _______ KC_NO
 
-#ifdef HASKELL
+#if defined(HASKELL)
 #    define HS_COLN TD_COLN
 #    define HS_LT TD_LT
 #    define HS_GT TD_GT
@@ -177,11 +169,6 @@ enum keyboard_keycodes {
 #define XPASTE TD_XPASTE
 
 #define TT_SPC LT(_TTCURSOR, KC_SPC)
-#ifdef PLANCK
-#    define LT_DEL LT(_ADJUST, KC_DEL)
-#    define LT_INS LT(_FNCKEY, KC_INS)
-#    define LT_LEFT LT(_EDIT, KC_LEFT)
-#endif
 #define LT_ESC LT(_NUMBER, KC_ESC)
 #define OS_ALT OSM(MOD_LALT)
 #define OS_CTL OSM(MOD_LCTL)
@@ -202,7 +189,7 @@ enum keyboard_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-#include "base_layout.h"
+#include "base_layout.inc"
 #include "common/steno_layout.inc"
 
 // ...................................................... Number / Function Keys
@@ -362,7 +349,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             rolling_layer(record, RIGHT, 0, 0, _GUIFN, _SYMBOL);
             break;
         case TT_SPC:
-#ifdef CAPS_ONOFF
+#if defined(CAPS_ONOFF)
             if (raise_layer(record, _TTCAPS, LEFT, TOGGLE)) {
                 return false;
             }
@@ -388,7 +375,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_layer(record, _EDIT);
             break;
         case KC_BSPC:
-#ifdef CAPS_ONOFF
+#if defined(CAPS_ONOFF)
             if (raise_layer(record, _TTCAPS, RIGHT, TOGGLE)) {
                 return false;
             }
@@ -396,7 +383,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (map_shift(record, KC_LSFT, NOSHIFT, KC_DEL)) {
                 return false;
             }
-#ifdef CAPS_ONOFF
+#if defined(CAPS_ONOFF)
             if (record->event.pressed) {
                 key_timer = timer_read();
             } else if (timer_elapsed(key_timer) < TAPPING_TERM) {
@@ -459,20 +446,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_QUES:
             down_punc = (record->event.pressed) ? 1 : 0;  // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()
             break;
-
-            // ..................................................... Thumb Row Cursor Keys
-
-#ifdef PLANCK
-        case AT_DOWN:
-            tap_mods(record, KC_LALT);
-            break;
-        case CT_RGHT:
-            tap_mods(record, KC_LGUI);
-            break;
-        case GT_UP:
-            tap_mods(record, KC_LCTL);
-            break;
-#endif
 
             // ................................................................ Steno Keys
 

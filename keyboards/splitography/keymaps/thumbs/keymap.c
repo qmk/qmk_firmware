@@ -1,3 +1,19 @@
+/* Copyright 2021 Alexis Jeandeau
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 // this is the style you want to emulate.
 //
@@ -28,26 +44,17 @@
 // ▔▔▔▔
 //   This source is shamelessly based on the "default" planck layout
 //
-//   #ifdef/#endif block structures are not indented, as syntax highlighting
-//   in vim is sufficient for identification
-//
-//   c++ commenting style is used throughout
-//
 // Change history
 // ▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 //   See http://thedarnedestthing.com/colophon
 
-//                === N O T E ===
-//
-// sudo CPATH=<keymap.c directory>/common make ...
+#include QMK_KEYBOARD_H
+#include "action_layer.h"
+#include "eeconfig.h"
+#include "keymap_steno.h"
 
 #include "config.h"
 #include "splitography.h"
-#include "action_layer.h"
-#ifdef STENO_ENABLE
-#    include "keymap_steno.h"
-#endif
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -103,7 +110,7 @@ enum keyboard_keycodes {
     SS_A,     // pseudo SFT_T(S(KC_A))
     SS_T,     // pseudo SFT_T(S(KC_T))
     TT_ESC,
-#ifdef STENO_ENABLE
+#if defined(STENO_ENABLE)
     PS_STNA = STN_A,
     PS_STNO = STN_O,
     PS_STNE = STN_E,
@@ -122,7 +129,7 @@ enum keyboard_keycodes {
 #define GT_C GUI_T(KC_C)
 #define MT_E MT(MOD_LCTL | MOD_LALT, KC_E)
 #define ST_A SFT_T(KC_A)
-#ifdef HOME_MODS
+#if defined(HOME_MODS)
 #    define HOME_H GUI_T(KC_H)
 #    define HOME_I CTL_T(KC_I)
 #    define HOME_E ALT_T(KC_E)
@@ -150,7 +157,7 @@ enum keyboard_keycodes {
 // keycodes
 #define ___x___ KC_TRNS
 #define ___fn__ KC_TRNS
-#ifdef _______
+#if defined(_______)
 #    undef _______
 #endif
 #define _______ KC_NO
@@ -171,7 +178,7 @@ enum keyboard_keycodes {
 #define OS_GUI OSM(MOD_LGUI)
 #define OS_SFT OSM(MOD_LSFT)
 
-#ifdef CENTER_TT
+#if defined(CENTER_TT)
 #    define CNTR_TL TT(_TTFNCKEY)
 #    define CNTR_TR KC_CAPS
 #    define CNTR_HL TT(_TTCURSOR)
@@ -191,7 +198,7 @@ enum keyboard_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-#include "base_layout.h"
+#include "base_layout.inc"
 #include "common/steno_layout.inc"
 
 // ...................................................... Number / Function Keys
@@ -204,7 +211,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // ............................................................... Toggle Layers
 
-#ifdef CENTER_TT
+#if defined(CENTER_TT)
 #    include "common/toggle_layout.inc"
 #endif
 
@@ -245,7 +252,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 base_n = base_n & ~BASE_2;
             }
             return false;
-#ifdef HOME_MODS
+#if defined(HOME_MODS)
         case HOME_E:
         case HOME_R:
             tap_mods(record, KC_LALT);
@@ -276,7 +283,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 #endif
-#ifdef CENTER_TT
+#if defined(CENTER_TT)
         case TT_ESC:
             tt_clear();  // exit TT layer
             return false;
@@ -323,7 +330,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (raise_number(record, LEFT)) {
                 return false;
             }
-#ifdef CENTER_TT
+#if defined(CENTER_TT)
             if (tt_keycode != 0) {
                 tt_clear();  // exit TT layer
                 return false;
@@ -340,7 +347,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LT_BSPC:
             thumb_roll(record, RIGHT, 0, 0, 0, _RSYMBOL, _LSYMBOL);
             break;
-#ifdef CENTER_TT
+#if defined(CENTER_TT)
         case CNTR_TL:
         case CNTR_TR:
         case CNTR_HL:
@@ -354,20 +361,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tt_escape(record, keycode);
             break;
 #endif
-            // #ifdef STENO_ENABLE
-            //   case PS_STNA:
-            //     stn_layer(record, STN_A, _LSYMBOL);
-            //     break;
-            //   case PS_STNO:
-            //     stn_layer(record, STN_O, _NUMBER);
-            //     break;
-            //   case PS_STNE:
-            //     stn_layer(record, STN_E, _FNCKEY);
-            //     break;
-            //   case PS_STNU:
-            //     stn_layer(record, STN_U, _RSYMBOL);
-            //     break;
-            // #endif
         case PLOVER:
             steno(record);
             return false;
