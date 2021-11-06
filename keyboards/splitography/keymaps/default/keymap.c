@@ -52,7 +52,7 @@ extern keymap_config_t keymap_config;
 
 enum splitography_layers {
   _QWERTY = 0
- ,_TXBOLT
+ ,_GEMINI
  ,_PLOVER
  ,_BLUE
  ,_ORANGE
@@ -65,7 +65,7 @@ enum splitography_keycodes {
   QWERTY = SAFE_RANGE
  ,QWERTY1
  ,QWERTY2
- ,TXBOLT
+ ,GEMINI
  ,PLOVER
  ,BLUE
  ,ORANGE
@@ -78,7 +78,7 @@ enum splitography_keycodes {
 #endif
 #define _______ KC_NO
 
-#define ST_BOLT QK_STENO_BOLT
+#define ST_GEMINI QK_STENO_GEMINI
 
 #define COPY    LCTL(KC_C)
 #define CUT     LCTL(KC_X)
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // http://www.keyboard-layout-editor.com/#/gists/bc7902f1eada4d7d34d3445aa1eccdab
 
   // .-----------------------------------------------------------------------------------.
-  // |TxBolt|      |      |      |      |Scroll|   /  |   7  |   8  |   9  |   -  |      |
+  // |Gemini|      |      |      |      |Scroll|   /  |   7  |   8  |   9  |   -  |      |
   // |-----------------------------------------------------------------------------------|
   // |  Alt | Home |  Up  |  End | PgUp | Caps |   *  |   4  |   5  |   6  |   +  | Enter|
   // |-----------------------------------------------------------------------------------|
@@ -166,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // '-----------------------------------------------------------------------------------'
 
   [_GREEN] = {
-    {TXBOLT,  _______, _______, _______, _______, KC_SLCK, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_MINS, _______},
+    {GEMINI,  _______, _______, _______, _______, KC_SLCK, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_MINS, _______},
     {KC_LALT, KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_CAPS, KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_ENT },
     {KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, TG_NUM,  KC_P0,   KC_P1,   KC_P2,   KC_P3,   _______, KC_LGUI},
     {_______, _______, _______, _______, ___x___, ___x___, _______, KC_LCTL, _______, _______, _______, _______},
@@ -214,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, _______, _______, _______, KC_C,    KC_V,    KC_N,    KC_M,    _______, _______, _______, _______},
   },
 
-// ...................................................................... TxBolt
+// ...................................................................... Gemini
 //
 // http://www.keyboard-layout-editor.com/#/gists/27b8f8649393a8ba4071ba946a9306f4
 
@@ -228,7 +228,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // |                           |   A  |   O  |   E  |   U  |                           |
   // `-----------------------------------------------------------------------------------'
 
-  [_TXBOLT] = {
+  [_GEMINI] = {
     {STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,  STN_NC },
     {QWERTY1, STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR },
     {QWERTY2, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR },
@@ -239,14 +239,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // ..................................................................... Keymaps
 
-void clear_layers(void)
-{
-  uint8_t layer;
-  for (layer = 0; layer < _END_LAYERS; layer++) {
-    layer_off(layer);
-  }
-}
-
 #define QWERTY_1  1
 #define QWERTY_2  2
 #define QWERTY_12 3
@@ -255,14 +247,14 @@ static uint8_t qwerty_n = 0;
 void qwerty(void)
 {
   qwerty_n = 0;
-  clear_layers();
+  layer_move(0);
   set_single_persistent_default_layer(_QWERTY);
 }
 
 void plover(keyrecord_t *record)
 {
   if (record->event.pressed) {
-    clear_layers();
+    layer_move(0);
     layer_on(_PLOVER);
     if (!eeconfig_is_enabled()) {
       eeconfig_init();
@@ -273,10 +265,10 @@ void plover(keyrecord_t *record)
   }
 }
 
-void txbolt(void)
+void gemini(void)
 {
-  clear_layers();
-  layer_on(_TXBOLT);
+  layer_move(0);
+  layer_on(_GEMINI);
 }
 
 // ........................................................... User Keycode Trap
@@ -330,9 +322,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case PLOVER:
       plover(record);
       return false;
-    case TXBOLT:
+    case GEMINI:
       if (record->event.pressed) {
-        txbolt();
+        gemini();
       }
       return false;
   }
@@ -342,5 +334,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 // initialize steno protocol
 void matrix_init_user(void)
 {
-  steno_set_mode(STENO_MODE_BOLT);
+  steno_set_mode(STENO_MODE_GEMINI);
 }

@@ -1,6 +1,8 @@
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
+
+# Bootloader selection
+BOOTLOADER = atmel-dfu
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -14,7 +16,6 @@ MCU = atmega32u4
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
 F_CPU = 16000000
-
 
 #
 # LUFA specific
@@ -38,31 +39,20 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=512
-
-
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE ?= no      # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= no        # Mouse keys(+4700)
-EXTRAKEY_ENABLE ?= no        # Audio control and System control(+450)
-CONSOLE_ENABLE ?= no         # Console for debug(+400)
-COMMAND_ENABLE ?= no         # Commands for debug and configuration
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE ?= no       # Breathing sleep LED during USB suspend
-# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-NKRO_ENABLE ?= no            # USB Nkey Rollover
-BACKLIGHT_ENABLE ?= no       # Enable keyboard backlight functionality on B7 by default
-MIDI_ENABLE ?= no            # MIDI support (+2400 to 4200, depending on config)
-UNICODE_ENABLE ?= no         # Unicode
-BLUETOOTH_ENABLE ?= no       # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE ?= no           # Audio output on port C6
-FAUXCLICKY_ENABLE ?= no      # Use buzzer to emulate clicky switches
+STENO_ENABLE      ?= yes # Enable the TX Bolt and GeminiPR protocols
+NKRO_ENABLE	      ?= yes # USB Nkey Rollover
+BOOTMAGIC_ENABLE  ?= no  # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE   ?= no  # Mouse keys(+4700)
+EXTRAKEY_ENABLE   ?= no  # Audio control and System control(+450)
+CONSOLE_ENABLE    ?= no  # Console for debug(+400)
+COMMAND_ENABLE    ?= no  # Commands for debug and configuration
+SLEEP_LED_ENABLE  ?= no  # Breathing sleep LED during USB suspend
+BACKLIGHT_ENABLE  ?= no  # Enable keyboard backlight functionality on B7 by default
+MIDI_ENABLE       ?= no  # MIDI support (+2400 to 4200, depending on config)
+UNICODE_ENABLE    ?= no  # Unicode
+BLUETOOTH_ENABLE  ?= no  # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE      ?= no  # Audio output on port C6
+FAUXCLICKY_ENABLE ?= no  # Use buzzer to emulate clicky switches
