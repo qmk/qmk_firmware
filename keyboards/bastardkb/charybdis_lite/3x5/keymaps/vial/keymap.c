@@ -128,9 +128,9 @@ enum charybdis_vial_keymap_keycodes {
  * to allow same-hand cording.
  */
 #define LAYER_POINTER_split_3x5_3                                                             \
-    S_D_MOD, DRG_TOG, SNP_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SNP_TOG, DRG_TOG, S_D_MOD, \
-    DPI_MOD, ______________GACS_L______________, ______________GACS_R______________, DPI_MOD, \
-    _______, DRGSCRL, SNIPING, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SNIPING, DRGSCRL, _______, \
+    XXXXXXX, DRG_TOG, SNP_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SNP_TOG, DRG_TOG, XXXXXXX, \
+    ______________HOME_ROW_GACS_L______________, ______________HOME_ROW_GACS_R______________, \
+    _______, DRGSCRL, SNIPING, DPI_MOD, S_D_MOD, S_D_MOD, DPI_MOD, SNIPING, DRGSCRL, _______, \
                       KC_BTN2, KC_BTN1, KC_BTN3, KC_BTN3, KC_BTN1, XXXXXXX
 
 /**
