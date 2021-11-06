@@ -1,28 +1,42 @@
-splitography keyboard firmware
-======================
+# Splitography
 
-## Quantum MK Firmware
+![Splitography](https://cdn.shopify.com/s/files/1/1092/5780/products/IMG_20171117_122316-01_large.jpg)
 
-For the full Quantum feature list, see [the parent readme](/).
+A *pay what you will* compact keyboard intended for use with [Plover](https://www.openstenoproject.org/), free and open source stenography software. This is a low-cost keyboard with minimal packaging and design, and arrives fully assembled, ready to use.
 
-## Building
+* Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
+* Hardware Supported: Splitography
+* Hardware Availability: [softhruf.love](https://softhruf.love/collections/writers)
 
-Download or clone the whole firmware and navigate to the keyboards/splitography folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
+Make example for this keyboard (after setting up your build environment):
 
-Depending on which keymap you would like to use, you will have to compile slightly differently.
+    make splitography:default
 
-### Default
+Flashing example for this keyboard:
 
-To build with the default keymap, simply run `make default`.
+    make splitography:default:flash
 
-### Other Keymaps
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create a folder with the name of your keymap in the keymaps folder, and see keymap documentation (you can find in top readme.md) and existant keymap files.
+## Bootloader
 
-To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
+Enter the bootloader in 3 ways:
 
-```
-$ make [default|jack|<name>]
-```
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard.
+* **Physical reset button**: Briefly press the button on the back of the PCB.
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available.
 
-Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.
+## [Guide](https://softhruf.love/pages/guides)
+
+[Splitography quick start video](https://www.youtube.com/watch?v=ru4cRQ2s_v0)
+
+A short video guide on how to set up the SOFT/HRUF Splitography, a mechanical keyboard intended for use with [Plover](https://www.openstenoproject.org/plover/).
+
+Here is a reference card for the standard keyboard layout:
+
+![Reference card](https://cdn.shopify.com/s/files/1/1092/5780/files/soft-hrufdefault.png)
+
+* While holding down a colored thumb key, the matching colored functions/characters on the remaining keys can be pressed.
+* Bottom edge keys are accessed by holding down both keys.
+* Numlock locks in the Numpad layer.
+* Alt and Shift pressed simultaneously to return to the standard layout.
