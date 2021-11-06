@@ -722,9 +722,6 @@ void base_layer(uint8_t defer)
   if (defer) {
     return;
   }
-#ifdef AUDIO_ENABLE
-  plover ? PLAY_SONG(song_plover_gb) : PLAY_SONG(song_qwerty);
-#endif
   clear_layers();
   set_single_persistent_default_layer(_BASE);
   toggle_plover(0);
@@ -733,9 +730,6 @@ void base_layer(uint8_t defer)
 void steno(keyrecord_t *record)
 {
   if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-    PLAY_SONG(song_plover);
-#endif
     layer_move(0);
     layer_on(_PLOVER);
     if (!eeconfig_is_enabled()) { eeconfig_init(); }

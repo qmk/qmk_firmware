@@ -59,9 +59,6 @@
 #ifdef STENO_ENABLE
 #include "keymap_steno.h"
 #endif
-#ifdef AUDIO_ENABLE
-#include "audio.h"
-#endif
 #include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
@@ -237,11 +234,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "common/chord_layout.h"
 
 };
-
-// ...................................................................... Sounds
-
-#include "common/sounds.h"
-
 
 // User Keycode Trap
 // ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -452,4 +444,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   return true;
 }
 
-#include "common/init_audio.h"
+#include "common/init.h"
