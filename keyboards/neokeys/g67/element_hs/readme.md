@@ -3,12 +3,12 @@
 A blockered 65% with per-key RGB, underglow, and USB Type C.
 
 * Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
-* Hardware Supported: Palette G67 Hotswap (ATmega32U4)
+* Hardware Supported: Element G67 Hotswap (ATmega32U4)
 * Hardware Availability: [NEO Keys](https://www.neokeys.net/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make neokeys/palette_g67/hotswap:default
+    make neokeys/g67/element_hs:default
 
 Flashing example for this keyboard:
 

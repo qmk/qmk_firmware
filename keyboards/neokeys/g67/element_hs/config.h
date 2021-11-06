@@ -20,10 +20,10 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4E4B // "NK"
-#define PRODUCT_ID      0x5048
+#define PRODUCT_ID      0x5049
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    NEO Keys
-#define PRODUCT         Palette G67 Hotswap
+#define PRODUCT         Element G67 Hotswap
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -40,7 +40,7 @@
  *
  */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, F7 }
-#define MATRIX_COL_PINS { C7, F6, F5, F4, F1, E6, D0, D1, D2, D3, D4, D5, D6, D7, B4 }
+#define MATRIX_COL_PINS { C7, F6, F5, F4, F1, B7, D5, D1, D2, D3, D4, D0, D6, D7, B4 }
 
 #define DIODE_DIRECTION COL2ROW
 
