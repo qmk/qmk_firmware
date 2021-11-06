@@ -22,12 +22,12 @@ enum default_layers {
     _QWERTY_MAC,    // QWERTY Mac base layout
     _MAC_NAV_1,     // Mac Navigation layer 1
     _MAC_NAV_2,     // Mac Navigation layer 2
-    _QWERTY_LINUX,  // QWERTY Linux base layout
-    _LINUX_NAV_1,   // Linux Navigation layer 1
-    _LINUX_NAV_2,   // Linux Navigation layer 2
     _QWERTY_WIN,    // QWERTY Windows base layout
     _WIN_NAV_1,     // Windows Navigation layer 1
     _WIN_NAV_2,     // Windows Navigation layer 2
+    _QWERTY_LINUX,  // QWERTY Linux base layout
+    _LINUX_NAV_1,   // Linux Navigation layer 1
+    _LINUX_NAV_2,   // Linux Navigation layer 2
     _LOWER,         // Lower layer on ortho
     _RAISE,         // Raise layer on ortho
     _ADJUST,        // Adjust layer, with function and media keys
@@ -40,6 +40,21 @@ enum default_layers {
 // Custom keys
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,  // Key that allows to fall back to the default layer
+    KC_WF1,
+    KC_WF2,
+    KC_WF3,
+    KC_WF4,
+    KC_WF5,
+    KC_WF6,
+    KC_WF7,
+    KC_WF8,
+    KC_WF9,
+    KC_WF10,
+    KC_WF11,
+    KC_WF12,
+    WIN_SWITCH,
+    MAC_SWITCH,
+    NEW_SAFE_RANGE
 };
 
 
