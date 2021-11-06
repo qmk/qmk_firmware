@@ -38,21 +38,3 @@ F_USB = $(F_CPU)
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-# Build Options
-#   change yes to no to disable
-#
-STENO_ENABLE      ?= yes # Enable the TX Bolt and GeminiPR protocols
-NKRO_ENABLE	      ?= yes # USB Nkey Rollover
-BOOTMAGIC_ENABLE  ?= no  # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE   ?= no  # Mouse keys(+4700)
-EXTRAKEY_ENABLE   ?= no  # Audio control and System control(+450)
-CONSOLE_ENABLE    ?= no  # Console for debug(+400)
-COMMAND_ENABLE    ?= no  # Commands for debug and configuration
-SLEEP_LED_ENABLE  ?= no  # Breathing sleep LED during USB suspend
-BACKLIGHT_ENABLE  ?= no  # Enable keyboard backlight functionality on B7 by default
-MIDI_ENABLE       ?= no  # MIDI support (+2400 to 4200, depending on config)
-UNICODE_ENABLE    ?= no  # Unicode
-BLUETOOTH_ENABLE  ?= no  # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE      ?= no  # Audio output on port C6
-FAUXCLICKY_ENABLE ?= no  # Use buzzer to emulate clicky switches
