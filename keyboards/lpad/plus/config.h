@@ -87,5 +87,3 @@
 // #define RGBLIGHT_LIMIT_VAL 255
 #endif
 
-/* EEPROM for via */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
