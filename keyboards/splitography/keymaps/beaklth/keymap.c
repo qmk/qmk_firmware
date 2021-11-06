@@ -24,10 +24,6 @@
 //   Autocompletion tap dance key pairs (),[],{} are available from the
 //   number/symbol layer, as well as, numerous (un)shift key values
 //
-//   #define PRIVATE_STRING includes private_string.h, a user defined code
-//   block for the PRIV tap dance e.g. SEND_STRING("secret messape"),
-//   see function private()
-//
 // Code
 // ▔▔▔▔
 //   This source is shamelessly based on the "default" planck layout
@@ -75,20 +71,17 @@ enum keyboard_layers {
  ,_SHIFT
  ,_LSHIFT
  ,_RSHIFT
+ ,_GUIFN
+ ,_SYMBOL
  ,_LSYMBOL
  ,_RSYMBOL
- ,_PLOVER
- ,_NUMBER
-#ifndef STENO_ENABLE
- ,_FNCKEY
-#endif
  ,_MOUSE
+ ,_NUMBER
+ ,_FNCKEY
+ ,_PLOVER
  ,_EDIT
-#ifdef PLANCK
- ,_ADJUST
-#endif
- ,_TTFNCKEY
  ,_TTCAPS
+ ,_TTFNCKEY
  ,_TTCURSOR
  ,_TTMOUSE
  ,_TTNUMBER
@@ -100,13 +93,30 @@ enum keyboard_keycodes {
   BASE = SAFE_RANGE
  ,BASE1
  ,BASE2
+ ,LT_I      // pseudo LT   (_SYMBOL, KC_I) for shifted key-codes, see process_record_user()
+ ,ML_BSLS
+ ,ML_EQL
  ,PLOVER
- ,SM_G      // pseudo MT   (MOD_LALT | MOD_LSFT, S(KC_G)) for shifted key-codes, see process_record_user()
- ,SM_H      // pseudo MT   (MOD_LSFT, S(KC_I))            for shifted key-codes, see process_record_user()
+ ,PLOEXIT
+ ,SA_DLR    // pseudo ALT_T(S(KC_4))                      for shifted key-codes, see process_record_user()
+ ,SC_RPRN   // pseudo CTL_T(S(KC_0))                      for shifted key-codes, see process_record_user()
+ ,SS_LPRN   // pseudo SFT_T(S(KC_9))                      for shifted key-codes, see process_record_user()
  ,SA_PERC   // pseudo ALT_T(S(KC_5))                      for shifted key-codes, see process_record_user()
- ,SG_TILD   // pseudo GUI_T(S(KC_GRV))                    for shifted key-codes, see process_record_user()
- ,SL_DEL    // pseudo LT   (_MOUSE, KC_DEL)               for shifted key-codes, see process_record_user()
- ,SL_TAB    // pseudo LT   (_MOUSE, S(KC_TAB))
+ ,SG_TILD   // pseudo GUI_T(S(KC_GRV))     for shifted key-codes, see process_record_user()
+ ,SL_I      // pseudo LT   (_EDIT, S(KC_I))               for shifted key-codes, see process_record_user()
+ ,SL_DEL    // pseudo LT   (_EDIT, KC_DEL)                for shifted key-codes, see process_record_user()
+ ,SL_BSPC   // pseudo LT   (S(_MOUSE), KC_BSPC)
+ ,SL_PIPE   // pseudo LT   (_EDIT, S(KC_BSLS))            for shifted key-codes, see process_record_user()
+ ,SL_TAB    // pseudo LT   (S(_MOUSE), KC_TAB)
+ ,SM_G      // pseudo MT   (MOD_LGUI | MOD_LSFT, S(KC_G)) for shifted key-codes, see process_record_user()
+ ,SM_H      // pseudo MT   (MOD_LGUI | MOD_LSFT, S(KC_H)) for shifted key-codes, see process_record_user()
+ ,SM_I      // pseudo MT   (MOD_LSFT, S(KC_I))            for shifted key-codes, see process_record_user()
+ ,SM_CIRC   // pseudo GUI_T(S(KC_6))                      for shifted key-codes, see process_record_user()
+ ,SM_DLR    // pseudo SFT_T(S(KC_4))                      for shifted key-codes, see process_record_user()
+ ,SM_PERC   // pseudo ALT_T(S(KC_5))                      for shifted key-codes, see process_record_user()
+ ,SM_LPRN   // pseudo CTL_T(S(KC_9))                      for shifted key-codes, see process_record_user()
+ ,SS_A      // pseudo SFT_T(S(KC_A))
+ ,SS_T      // pseudo SFT_T(S(KC_T))
  ,TT_ESC
 #ifdef STENO_ENABLE
  ,PS_STNA = STN_A
@@ -114,11 +124,12 @@ enum keyboard_keycodes {
  ,PS_STNE = STN_E
  ,PS_STNU = STN_U
 #else
- ,LT_C    = LT (_LSYMBOL, KC_C)
- ,LT_V    = LT (_NUMBER,  KC_V)
- ,LT_N    = LT (_FNCKEY,  KC_N)
- ,LT_M    = LT (_RSYMBOL, KC_M)
+ ,LT_C    = LT (_SYMBOL, KC_C)
+ ,LT_V    = LT (_NUMBER, KC_V)
+ ,LT_N    = LT (_FNCKEY, KC_N)
+ ,LT_M    = LT (_GUIFN, KC_M)
 #endif
+ ,PS_BASE
 };
 
 // modifier keys
@@ -128,7 +139,7 @@ enum keyboard_keycodes {
 #define GT_UP   GUI_T(KC_UP)
 #endif
 #define AT_B    ALT_T(KC_B)
-#define CT_C    CTL_T(KC_C)
+#define GT_C    GUI_T(KC_C)
 #define MT_E    MT   (MOD_LCTL | MOD_LALT, KC_E)
 #define ST_A    SFT_T(KC_A)
 #define ST_SPC  SFT_T(KC_SPC)
@@ -149,7 +160,7 @@ enum keyboard_keycodes {
 #define S_UP    S    (KC_UP)
 #endif
 
-#include "tapdance.h"
+#include "common/tapdance.h"
 
 // keycodes
 #define ___x___ KC_TRNS
@@ -207,35 +218,35 @@ enum keyboard_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #include "base_layout.h"
-#include "steno_layout.h"
+#include "common/steno_layout.h"
 
 // ...................................................... Number / Function Keys
 
-#include "number_fkey_layout.h"
+#include "common/number_fkey_layout.h"
 
 // ......................................................... Symbol / Navigation
 
-#include "symbol_guifn_layout.h"
+#include "common/symbol_guifn_layout.h"
 
 // ............................................................... Toggle Layers
 
-#include "toggle_layout.h"
+#include "common/toggle_layout.h"
 
 // ......................................................... Short Cuts / Adjust
 
-#include "chord_layout.h"
+#include "common/chord_layout.h"
 
 };
 
 // ...................................................................... Sounds
 
-#include "sounds.h"
+#include "common/sounds.h"
 
 
 // User Keycode Trap
 // ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 
-#include "keycode_functions.c"
+#include "common/keycode_functions.h"
 
 #define BASE_1  1
 #define BASE_2  2
@@ -367,7 +378,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // .............................................................. Special Keys
 
   case KC_BSLS:
-    if (down_rule) { tap_key(KC_ENT); return false; } // down_rule persistance for tap_lt()
+    if (down_rule) { tap_code(KC_ENT); return false; } // down_rule persistance for tap_lt()
     break;
   case KC_COMM:
     if (map_shift(record, KC_LSFT, NOSHIFT, KC_SLSH)) { return false; }
@@ -414,14 +425,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case BASE1:
     if (record->event.pressed) {
       base_n = base_n | BASE_1;
-      if (base_n == BASE_12) { base_layer(); }
+      if (base_n == BASE_12) { base_layer(0); }
     }
     else { base_n = base_n & ~BASE_1; }
     return false;
   case BASE2:
     if (record->event.pressed) {
       base_n = base_n | BASE_2;
-      if (base_n == BASE_12) { base_layer(); }
+      if (base_n == BASE_12) { base_layer(0); }
     }
     else { base_n = base_n & ~BASE_2; }
     return false;
@@ -429,9 +440,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ................................................................ Other Keys
 
   default:
-    key_timer = 0;                          // regular keycode, clear timer in keycode_functions.h
+    key_timer = 0;                          // regular keycode, clear timer in custom/keycode_functions.h
   }
   return true;
 }
 
-#include "init.c"
+#include "common/init_audio.h"

@@ -27,10 +27,6 @@
 //   The navigation pad provides a single hand right thumb activated cluster
 //   with left hand modifiers
 //
-//   #define PRIVATE_STRING includes private_string.h, a user defined code
-//   block for the PRIV tap dance e.g. SEND_STRING("secret messape"),
-//   see function private()
-//
 // Modifier clusters
 // ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 //   The num and sym keys together access the navigation pad layer
@@ -79,58 +75,68 @@
 
 extern keymap_config_t keymap_config;
 
-enum planck_layers {
+enum keyboard_layers {
   _BASE = 0
  ,_SHIFT
  ,_LSHIFT
  ,_RSHIFT
- ,_PLOVER
- ,_NUMBER
+ ,_GUIFN
  ,_SYMBOL
- ,_FNCKEY
+ ,_LSYMBOL
+ ,_RSYMBOL
  ,_MOUSE
-#ifdef CENTER_TT
- ,_TTNUMBER
- ,_TTREGEX
+ ,_NUMBER
+ ,_FNCKEY
+ ,_PLOVER
+ ,_EDIT
+ ,_TTCAPS
  ,_TTFNCKEY
  ,_TTCURSOR
  ,_TTMOUSE
-#endif
-#ifndef SHIFT_SYMBOLS
- ,_NUMSYM
- ,_SYMREG
-#endif
- ,_EDIT
+ ,_TTNUMBER
+ ,_TTREGEX
  ,_END_LAYERS
 };
 
-enum planck_keycodes {
+enum keyboard_keycodes {
   BASE = SAFE_RANGE
  ,BASE1
  ,BASE2
+ ,LT_I      // pseudo LT   (_SYMBOL, KC_I) for shifted key-codes, see process_record_user()
+ ,ML_BSLS
+ ,ML_EQL
  ,PLOVER
  ,PLOEXIT
+ ,SA_DLR    // pseudo ALT_T(S(KC_4))                      for shifted key-codes, see process_record_user()
+ ,SC_RPRN   // pseudo CTL_T(S(KC_0))                      for shifted key-codes, see process_record_user()
+ ,SS_LPRN   // pseudo SFT_T(S(KC_9))                      for shifted key-codes, see process_record_user()
+ ,SA_PERC   // pseudo ALT_T(S(KC_5))                      for shifted key-codes, see process_record_user()
+ ,SG_TILD   // pseudo GUI_T(S(KC_GRV))     for shifted key-codes, see process_record_user()
+ ,SL_I      // pseudo LT   (_EDIT, S(KC_I))               for shifted key-codes, see process_record_user()
+ ,SL_DEL    // pseudo LT   (_EDIT, KC_DEL)                for shifted key-codes, see process_record_user()
+ ,SL_BSPC   // pseudo LT   (S(_MOUSE), KC_BSPC)
+ ,SL_PIPE   // pseudo LT   (_EDIT, S(KC_BSLS))            for shifted key-codes, see process_record_user()
+ ,SL_TAB    // pseudo LT   (S(_MOUSE), KC_TAB)
+ ,SM_G      // pseudo MT   (MOD_LGUI | MOD_LSFT, S(KC_G)) for shifted key-codes, see process_record_user()
+ ,SM_H      // pseudo MT   (MOD_LGUI | MOD_LSFT, S(KC_H)) for shifted key-codes, see process_record_user()
+ ,SM_I      // pseudo MT   (MOD_LSFT, S(KC_I))            for shifted key-codes, see process_record_user()
  ,SM_CIRC   // pseudo GUI_T(S(KC_6))                      for shifted key-codes, see process_record_user()
  ,SM_DLR    // pseudo SFT_T(S(KC_4))                      for shifted key-codes, see process_record_user()
- ,SM_G      // pseudo MT   (MOD_LALT | MOD_LSFT, S(KC_G)) for shifted key-codes, see process_record_user()
  ,SM_PERC   // pseudo ALT_T(S(KC_5))                      for shifted key-codes, see process_record_user()
  ,SM_LPRN   // pseudo CTL_T(S(KC_9))                      for shifted key-codes, see process_record_user()
- ,SL_DEL    // pseudo LT   (_MOUSE, S(KC_DEL))            for shifted key-codes, see process_record_user()
- ,SL_PIPE   // pseudo LT   (_EDIT, S(KC_BSLS))            for shifted key-codes, see process_record_user()
- ,SL_TAB    // pseudo LT   (_FNCKEY, S(KC_TAB))           for shifted key-codes, see process_record_user()
-#ifdef CENTER_TT
+ ,SS_A      // pseudo SFT_T(S(KC_A))
+ ,SS_T      // pseudo SFT_T(S(KC_T))
  ,TT_ESC
-#endif
 #ifdef STENO_ENABLE
  ,PS_STNA = STN_A
  ,PS_STNO = STN_O
  ,PS_STNE = STN_E
  ,PS_STNU = STN_U
 #else
- ,LT_C    = LT (_NUMBER, KC_C)
- ,LT_V    = LT (_FNCKEY, KC_V)
- ,LT_N    = LT (_EDIT,   KC_N)
- ,LT_M    = LT (_SYMBOL, KC_M)
+ ,LT_C    = LT (_SYMBOL, KC_C)
+ ,LT_V    = LT (_NUMBER, KC_V)
+ ,LT_N    = LT (_FNCKEY, KC_N)
+ ,LT_M    = LT (_GUIFN, KC_M)
 #endif
  ,PS_BASE
 };
@@ -169,7 +175,7 @@ enum planck_keycodes {
 #define S_UP    S    (KC_UP)
 #define S_TAB   S    (KC_TAB)
 
-#include "tapdance.h"
+#include "common/tapdance.h"
 
 // keycodes
 #define ___x___ KC_TRNS
@@ -233,35 +239,35 @@ enum planck_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #include "base_layout.h"
-#include "steno_layout.h"
+#include "common/steno_layout.h"
 
 // ...................................................... Number / Function Keys
 
-#include "number_fkey_layout.h"
+#include "common/number_fkey_layout.h"
 
 // ......................................................... Symbol / Navigation
 
-#include "symbol_guifn_layout.h"
+#include "common/symbol_guifn_layout.h"
 
 // ............................................................... Toggle Layers
 
 #ifdef CENTER_TT
-#include "toggle_layout.h"
+#include "common/toggle_layout.h"
 #endif
 
 // ......................................................... Short Cuts / Adjust
 
-#include "chord_layout.h"
+#include "common/chord_layout.h"
 
 };
 
 // ...................................................................... Sounds
 
-#include "sounds.h"
+#include "common/sounds.h"
 
 // ........................................................... User Keycode Trap
 
-#include "keycode_functions.h"
+#include "common/keycode_functions.h"
 
 #define BASE_1  1
 #define BASE_2  2
@@ -275,7 +281,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       if (record->event.pressed) {
         base_n = base_n | BASE_1;
         if (base_n == BASE_12) {
-          base_layer();
+          base_layer(0);
         }
       } else {
         base_n = base_n & ~BASE_1;
@@ -285,7 +291,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       if (record->event.pressed) {
         base_n = base_n | BASE_2;
         if (base_n == BASE_12) {
-          base_layer();
+          base_layer(0);
         }
       } else {
         base_n = base_n & ~BASE_2;
@@ -320,13 +326,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #endif
 #ifdef CENTER_TT
     case TT_ESC:
-      clear_tt();                           // exit TT layer
+      tt_clear();                           // exit TT layer
       return false;
 #endif
     case LT_ESC:
 #ifdef CENTER_TT
       if (tt_keycode != 0) {
-        clear_tt();                         // exit TT layer
+        tt_clear();                         // exit TT layer
         return false;
       }
 #endif
@@ -335,7 +341,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case LT_BSPC:
       tap_layer(record, _SYMBOL);
       // LT (_SYMBOL, KC_LEFT) left right combination layer
-      thumb_layer(record, RIGHT, 0, 0, _SYMBOL, _LSHIFT);
+      thumb_roll(record, RIGHT, 0, 0, 0, _SYMBOL, _LSHIFT);
       break;
     case OS_ALT:
       tap_mods(record, KC_LALT);
@@ -369,20 +375,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case LT_BSLS:
       tap_layer(record, _MOUSE);
       // LT (_MOUSE, KC_BSLS) left right combination layer, see #define LT_BSLS
-      thumb_layer(record, LEFT, 0, 0, _MOUSE, _SYMBOL);
+      thumb_roll(record, LEFT, 0, 0, 0, _MOUSE, _SYMBOL);
       break;
     case SL_DEL:
       tap_layer(record, _MOUSE);
       // LT (_MOUSE, S(KC_DEL)) left right combination layer
-      thumb_layer(record, RIGHT, KC_DEL, SHIFT, _MOUSE, _LSHIFT);
+      thumb_roll(record, RIGHT, KC_DEL, SHIFT, 0, _MOUSE, _LSHIFT);
       break;
     case SL_PIPE:
       // LT (_EDIT, S(KC_BSLS)) emulation
-      lt_shift(record, KC_BSLS, _EDIT);
+      lt_shift(record, SHIFT, KC_BSLS, _EDIT);
       break;
     case SL_TAB:
       // LT (_FNCKEY, S(KC_TAB)) emulation
-      lt_shift(record, KC_TAB, _FNCKEY);
+      lt_shift(record, SHIFT, KC_TAB, _FNCKEY);
       break;
     case TD_ENT:
       tap_layer(record, _RSHIFT);
@@ -391,7 +397,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case TD_SPC:
       tap_layer(record, _LSHIFT);
       // LT (_LSHIFT, KC_SPC) left right combination layer, see tap dance TD_SPC
-      thumb_layer(record, LEFT, 0, 0, _LSHIFT, _SYMBOL);
+      thumb_roll(record, LEFT, 0, 0, 0, _LSHIFT, _SYMBOL);
       break;
 #ifdef CENTER_TT
     case CNTR_TL:
@@ -401,7 +407,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case CNTR_BL:
     case CNTR_BR:
       if (tt_keycode != keycode && tt_keycode != 0) {
-        clear_tt();                         // return to base layer first if different TT layer selected
+        tt_clear();                         // return to base layer first if different TT layer selected
       }
       tt_keycode = keycode;
       break;
@@ -422,7 +428,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 // #endif
     case PS_BASE:
       if (record->event.pressed) {
-        base_layer();
+        base_layer(0);
       }
       return false;
     case PLOVER:
@@ -435,4 +441,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   return true;
 }
 
-#include "init.h"
+#include "common/init_audio.h"
