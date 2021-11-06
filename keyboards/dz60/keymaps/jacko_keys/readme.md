@@ -1,6 +1,6 @@
 # DZ60
 
-My first keyboard edit. A multi-layer ANSI-60 with layers and function shift on each layer.
+My second keyboard edit. A multi-layer ANSI-60 with layers and function shift on each layer.
 Changes from the default keymap include moving RESET, and a prefered arangement for the cusor
 block of keys. The function key was exchanged with the right control key to get it. This makes the layout of the right modifiers left to rignt be alt/win/control/Fn.
 
@@ -13,7 +13,6 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Left control is ANSI layer select.
 * Left win is macroboard layer select.
 * Left alt is navigation layer select.
-* Space is numpad layer select.
 
 ## ANSI Layer
 * Right control exchanged with function shift key as always.
@@ -153,6 +152,7 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 
 ## Navigation Layer
 * Right alt/win/control/slash form cusor block.
+* Blackslash enters a prefix to enter BQN characters.
 
 ### Navigation Shift Layer (Fn Navigation)
 * Scroll lock placed on caps lock.
@@ -173,29 +173,11 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * Volume is up(J) and down(H).
 
 ## Numpad Layer
-* Apostrophy is launch calculator.
-* Semicolon is insert. (A strange choice but assume it can insert an escaped calc instance.)
-* Numbers on MJKLUIO789.
-* All modifiers are one shot sticky.
-* Function shift is a toggle to the shifted layer.
-* Right alt/win/control/slash form cusor block.
-* Square brackets produce parantheses.
-* Keys enter, - and = produce numpad variants enter, - and +.
-* P key is numpad *.
-* Backslash is numpad /.
-* 0 Key is delete.
-* F1 to F6 form top row 1-6.
-* F7 to F12 form second row Q-Y.
-* F13 to F18 form third row A-H.
-* F19 to F24 form fourth row Z-N.
-* Comma is a numpad comma.
-* Num lock placed on caps lock.
-* Right shift is √.
-* Space is "Level 3 Shift" in case your system supports it.
+* BQN unshifted.
+* Function shift toggle locks the BQN layer.
 
-### Numpad Shift Layer (Fn Numpad)
-* Standard ANSI layer except for left modifiers control/win/alt.
-* Fn is still sticky and needs pressing to exit the layer shift.
+### Numpad Shift Layer
+* BQN shifted.
 
 ## Old Keys for the Young
 * As everyone knows ecape has two purposes.
