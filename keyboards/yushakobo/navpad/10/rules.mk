@@ -23,4 +23,4 @@ AUDIO_ENABLE = no           # Audio output
 
 ENCODER_ENABLE = yes
 
-DEFAULT_FOLDER = yushakobo/navpad_10/rev1
+DEFAULT_FOLDER = yushakobo/navpad/10/rev1
