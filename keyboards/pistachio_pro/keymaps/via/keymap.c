@@ -140,7 +140,6 @@ void encoder_action_unregister(void) {
         encoder_state = 0;
         action_exec(encoder_event);
     }
-    return;
 }
 
 void encoder_action_register(uint8_t index, bool clockwise) {
@@ -151,21 +150,16 @@ void encoder_action_register(uint8_t index, bool clockwise) {
     };
     encoder_state = (clockwise ^ 1) | (clockwise << 1);
     action_exec(encoder_event);
-    return;
 }
 
-void matrix_scan_kb(void) {
+void matrix_scan_user(void) {
     encoder_action_unregister();
-    matrix_scan_user();
-    return;
 }
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     encoder_action_register(index, clockwise);
-    // don't return user actions, because they are in the keymap
-    // encoder_update_user(index, clockwise);
-    return true;
-};
+    return false;
+}
 
 /* Keyboard */
 void keyboard_post_init_user(void) {
