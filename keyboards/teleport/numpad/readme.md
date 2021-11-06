@@ -1,8 +1,8 @@
 # The Teleport NumPad
 
-Keyboard Maintainer: [ebastler](https://github.com/ebastler)  
-Hardware Supported: Teleport NumPad  
-Hardware Availability: [TheTeleport.de](https://www.theteleport.de/)
+* Keyboard Maintainer: [ebastler](https://github.com/ebastler)
+* Hardware Supported: Teleport NumPad
+* Hardware Availability: [TheTeleport.de](https://www.theteleport.de/)
 
 Make example for this keyboard (after setting up your build environment):
 
