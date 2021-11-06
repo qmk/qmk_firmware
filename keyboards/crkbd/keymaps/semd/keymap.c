@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //---------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      KC_LCTL, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,                          KC_N,    KC_M, TD(TD_CTRENCADA), KC_LEFT,  KC_DOWN, KC_RGHT,
   //---------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_RGUI, LOWER, KC_SPC,        KC_ENT, RAISE, KC_RALT
+                                          KC_RGUI, LOWER, KC_SPC,        KC_ENT, RAISE, KC_LALT
                                       //|--------------------------|  |--------------------------|
   ),
 
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      KC_LCTL,KC_GRV,KC_TILD,LSFT(KC_6),RALT(KC_1),LSFT(KC_MINS),                KC_END , KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, RALT(KC_NUBS),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         KC_RGUI, KC_TRNS, KC_SPC,    KC_ENT, RAISE, KC_RALT
+                                         KC_RGUI, KC_TRNS, KC_SPC,    KC_ENT, RAISE, KC_LALT
                                       //|--------------------------|  |--------------------------|
   ),
 
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      KC_LCTL, MACRO1, MACRO2, MACRO3, MACRO4, MACRO5,                           KC_COMM,KC_DOT,LSFT(KC_COMM),LSFT(KC_DOT),KC_SLSH,LSFT(KC_SLSH),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_RGUI, LOWER, KC_SPC,    KC_ENT, KC_TRNS, KC_RALT
+                                          KC_RGUI, LOWER, KC_SPC,    KC_ENT, KC_TRNS, KC_LALT
                                       //|--------------------------|  |--------------------------|
   ),
 

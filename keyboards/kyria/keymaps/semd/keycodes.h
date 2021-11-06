@@ -6,7 +6,8 @@ enum layers { _QWERTY = 0, _NUMBERS, _LOWER, _RAISE, _ADJUST };
 
 enum custom_keycodes {
     ENC_MODE,
-    ENC_SHIFT
+    ENC_SHIFT,
+    ENC_END,
 };
 
 #define SC_PERCE LSFT(KC_5)

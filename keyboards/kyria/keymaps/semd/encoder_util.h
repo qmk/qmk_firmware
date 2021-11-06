@@ -10,6 +10,7 @@ typedef enum {
     ENC_MODE_VOLUME,
     ENC_MODE_PAGING,
     ENC_MODE_LEFT_RIGHT,
+    ENC_MODE_UNDO,
     _ENC_MODE_LAST  // Do not use, except for looping through enum values
 } encoder_mode_t;
 
@@ -18,6 +19,10 @@ encoder_mode_t encoder_mode;
 void encoder_utils_init(void);
 
 void cycle_encoder_mode(bool reverse);
+
+void encoder_shift(bool pressed);
+
+void encoder_end(void);
 
 void encoder_action_volume(uint8_t clockwise);
 
@@ -29,6 +34,6 @@ void encoder_action_up_down(uint8_t clockwise);
 
 void encoder_action_paging(uint8_t clockwise);
 
-void encoder_action(uint8_t clockwise);
+void encoder_action_undo(uint8_t clockwise);
 
-void encoder_shift(bool pressed);
+void encoder_action(uint8_t clockwise);

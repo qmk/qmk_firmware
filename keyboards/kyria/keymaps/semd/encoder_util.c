@@ -22,6 +22,10 @@ void encoder_shift(bool pressed) {
     }
 }
 
+void encoder_end(void) {
+    encoder_mode = ENC_MODE_UNDO;
+}
+
 void encoder_action_volume(uint8_t clockwise) {
     if (clockwise) {
         tap_code(KC_VOLU);
@@ -62,6 +66,14 @@ void encoder_action_paging(uint8_t clockwise) {
     }
 }
 
+void encoder_action_undo(uint8_t clockwise) {
+    if (clockwise) {
+        tap_code16(LGUI(LSFT(KC_Z)));
+    } else {
+        tap_code16(LGUI(KC_Z));
+    }
+}
+
 void encoder_action(uint8_t clockwise) {
     switch (encoder_mode) {
         case ENC_MODE_VOLUME:
@@ -78,6 +90,9 @@ void encoder_action(uint8_t clockwise) {
             break;
         case ENC_MODE_PAGING:
             encoder_action_paging(clockwise);
+            break;
+        case ENC_MODE_UNDO:
+            encoder_action_undo(clockwise);
             break;
         default:
             encoder_action_volume(clockwise);

@@ -3,15 +3,65 @@
 #include "split_util.h"
 #include "rgb_util.h"
 
+// Keylogger
+#define KEYLOG_LEN 3
+char     keylog_str[KEYLOG_LEN + 1] = {"   "};
+uint16_t log_timer              = 0;
+bool     keylog_reset = true;
+// clang-format off
+const char code_to_name[45] = {
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    20,  19,  27,  26,  22
+};
+
+void add_keylog(uint16_t keycode) {
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+        keycode = keycode & 0xFF;
+    }
+
+    if (keycode < 45) {
+        if (!keylog_reset) {
+            for (uint8_t i = KEYLOG_LEN - 1; i > 0; i--) {
+                keylog_str[i] = keylog_str[i - 1];
+            }
+        }
+        keylog_str[0] = code_to_name[keycode];
+        keylog_reset = false;
+        log_timer = timer_read();
+    }
+}
+
+void update_log(void) {
+    if (!keylog_reset && timer_elapsed(log_timer) > 30000) { // 30 seconds
+        sprintf(keylog_str, "   ");
+        keylog_reset = true;
+    }
+}
+
+void render_keylogger(void) {
+
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR(">"), true);
+    if (keylog_reset) {
+        bool blink = (timer_read() % 1000) < 500;
+        oled_write_P(blink ? PSTR("_  ") : PSTR("   "), true);
+    } else {
+        oled_write(keylog_str,  true);
+    }
+    oled_write_P(PSTR(" "), false);
+}
+
 void render_status_bar(void) {
     uint8_t modifiers = get_mods();
-    led_t led_state = host_keyboard_led_state();
+    led_t   led_state = host_keyboard_led_state();
     oled_write_P(PSTR("\325\326"), (modifiers & MOD_MASK_SHIFT));
     oled_write_P(PSTR("\327\330"), (modifiers & MOD_MASK_CTRL));
     oled_write_P(PSTR("\331\332"), (modifiers & MOD_MASK_ALT));
     oled_write_P(PSTR("\333\334"), (modifiers & MOD_MASK_GUI));
     oled_write_P(PSTR("\275\276"), led_state.caps_lock);
-    // oled_write_P(PSTR("\235\236"), led_state.num_lock);
 
     if (isLeftHand) {
         oled_write_P(PSTR(" \265\266\267\227\230 "), false);
@@ -24,7 +74,7 @@ void render_status_bar(void) {
 }
 
 void render_rgb_animation_number(void) {
-    int rgb_mode = rgblight_get_mode();
+    int  rgb_mode = rgblight_get_mode();
     char rgb_mode_str[10];
     sprintf(rgb_mode_str, (rgb_mode < 10) ? "0%d" : "%d", rgb_mode);
     oled_write(rgb_mode_str, false);
@@ -54,9 +104,11 @@ void render_qmk_logo(void) {
 }
 
 void render_layer() {
+    oled_write_P(PSTR("\335\336:"), false);
+
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_P(PSTR("\024 QWERTY"), false);
+            oled_write_P(PSTR("\272 QWERTY"), false);
             break;
         case _NUMBERS:
             oled_write_P(PSTR("\273 NUMPAD"), false);
@@ -77,37 +129,44 @@ void render_layer() {
 
 #ifdef ENCODER_ENABLE
 void render_encoder() {
+    oled_write_P(PSTR("\277\237:"), false);
+
     switch (encoder_mode) {
         case ENC_MODE_VOLUME:
-            oled_write_P(PSTR("\016\022"), false);
+            oled_write_P(PSTR("\016"), false);
             break;
         case ENC_MODE_WORD_NAV:
-            oled_write_P(PSTR("\021\020"), false);
+            oled_write_P(PSTR("\177"), false);
             break;
         case ENC_MODE_LEFT_RIGHT:
-            oled_write_P(PSTR("\033\032"), false);
+            oled_write_P(PSTR("\032"), false);
             break;
         case ENC_MODE_UP_DOWN:
-            oled_write_P(PSTR("\030\031"), false);
+            oled_write_P(PSTR("\027"), false);
             break;
         case ENC_MODE_PAGING:
-            oled_write_P(PSTR("\036\037"), false);
+            oled_write_P(PSTR("\022"), false);
+            break;
+        case ENC_MODE_UNDO:
+            oled_write_P(PSTR("\176"), false);
             break;
         default:
-            oled_write_P(PSTR("???"), false);
+            oled_write_P(PSTR("?"), false);
     }
 }
 #endif
 
+
+// Render
 void render_master(void) {
     render_qmk_logo();
     oled_write_ln_P(PSTR("---------------------"), false);
 
-    oled_write_P(PSTR("\335\336:"), false);
     render_layer();
 
+    render_keylogger();
+
     // Encoder state
-    oled_write_P(PSTR("     \277\237:"), false);
     render_encoder();
 
     oled_write_ln_P(PSTR(""), false);
@@ -119,6 +178,7 @@ void render_slave(void) {
 }
 
 void render_status(void) {
+    update_log();
     if (is_keyboard_master()) {
         render_master();
     } else {
