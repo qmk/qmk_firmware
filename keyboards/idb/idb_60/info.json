@@ -1,7 +1,7 @@
 {
     "keyboard_name": "idb 60",
     "url": "https://idb-keyboards.xyz/60",
-    "maintainer": "pngu",
+    "maintainer": "itspngu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all",
         "LAYOUT_default": "LAYOUT_60_ansi_wkl_split_rshift"
