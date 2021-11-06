@@ -18,7 +18,7 @@
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    KC_00 = SAFE_RANGE`
+    KC_00 = SAFE_RANGE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
