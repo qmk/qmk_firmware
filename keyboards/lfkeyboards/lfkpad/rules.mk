@@ -7,7 +7,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no         # Mouse keys
 EXTRAKEY_ENABLE = yes        # Audio control and System control
 CONSOLE_ENABLE = no          # Console for debug
@@ -25,13 +25,5 @@ ISSI_ENABLE = yes            # If the I2C pullup resistors aren't installed this
 WATCHDOG_ENABLE = no         # Resets keyboard if matrix_scan() isn't run every 250ms
 
 SRC = TWIlib.c issi.c lighting.c
-
-ifeq ($(strip $(ISSI_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DISSI_ENABLE
-endif
-
-ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
-endif
 
 LAYOUTS = numpad_6x4

@@ -7,7 +7,7 @@ BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -22,8 +22,3 @@ AUDIO_ENABLE = no           # Audio output
 # custom matrix setup
 CUSTOM_MATRIX = yes
 SRC += matrix.c protocol/serial_uart.c
-
-ifeq ($(strip $(LED_ENABLE)), yes)
-  OPT_DEFS += -DLED_ENABLE
-  SRC += led.c
-endif

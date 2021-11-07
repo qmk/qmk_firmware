@@ -1,5 +1,4 @@
-#ifndef EXPANDER_H
-#define EXPANDER_H
+#pragma once
 
 #include <stdint.h>
 #include "matrix.h"
@@ -44,5 +43,3 @@ uint8_t expander_get_col(uint8_t col);
 matrix_row_t expander_read_row(void);
 void expander_unselect_rows(void);
 void expander_select_row(uint8_t row);
-
-#endif

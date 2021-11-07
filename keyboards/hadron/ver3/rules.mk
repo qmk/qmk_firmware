@@ -9,7 +9,7 @@ BOOTLOADER = stm32-dfu
 #   comment out to disable the options.
 #
 BACKLIGHT_ENABLE = no
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = no	# Console for debug
@@ -21,7 +21,8 @@ AUDIO_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 RGB_MATRIX_ENABLE = no # once arm_rgb is implemented
 RGB_MATRIX_DRIVER = WS2812
-HAPTIC_ENABLE += DRV2605L
-QWIIC_ENABLE = yes
-QWIIC_DRIVERS += MICRO_OLED
+HAPTIC_ENABLE = yes
+HAPTIC_DRIVER = DRV2605L
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 ENCODER_ENABLER = yes

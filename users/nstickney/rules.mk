@@ -25,9 +25,8 @@ UCIS_ENABLE = no
 LTO_ENABLE = yes
 
 # https://beta.docs.qmk.fm/developing-qmk/qmk-reference/getting_started_make_guide#rules-mk-options
-API_SYSEX_ENABLE = no
 AUDIO_ENABLE = no
-BOOTMAGIC_ENABLE = no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 COMMAND_ENABLE = no
 CONSOLE_ENABLE = no
 MOUSEKEY_ENABLE  = no

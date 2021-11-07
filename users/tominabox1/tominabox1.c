@@ -262,7 +262,7 @@ void render_status_main(void) {
 __attribute__ ((weak))
 void oled_task_keymap(void) {}
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
 
     if (timer_elapsed(oled_timer) > 20000) {
         oled_off();
@@ -275,6 +275,7 @@ void oled_task_user(void) {
             oled_scroll_left();
         }
         oled_task_keymap();
+        return false;
     }
 
 #endif // OLED_Driver

@@ -80,7 +80,7 @@ static void render_pattern(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // Render Herringbone pattern
     render_pattern();
     oled_render();
@@ -94,5 +94,6 @@ void oled_task_user(void) {
     oled_set_cursor(0, 2);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
     oled_render();
+    return false;
 }
 #endif

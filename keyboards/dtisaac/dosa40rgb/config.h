@@ -30,11 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 11
 
-/* AdafruitBle Pin */
-#define AdafruitBleResetPin D4
-#define AdafruitBleCSPin    B4
-#define AdafruitBleIRQPin   E6
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -66,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+//#define DEBOUNCE 5
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
