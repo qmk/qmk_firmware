@@ -85,14 +85,10 @@ enum charybdis_vial_keymap_keycodes {
 /** Thumb clusters used on split 3x5+3 keyboards. */
 #define LAYER_ALPHAS_THUMBS_1x6         ESC_MED, SPC_NAV, TAB_FUN, ENT_SYM, BSP_NUM, ESC_MED
 
-/** Modifiers row order. */
-#define ______________GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT
-#define ______________GACS_R______________ KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
-
 /** Convenience row shorthands. */
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define ______________HOME_ROW_GACS_L______________ ______________GACS_L______________, XXXXXXX
-#define ______________HOME_ROW_GACS_R______________ XXXXXXX, ______________GACS_R______________
+#define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX
+#define ______________HOME_ROW_GACS_R______________ XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
 
 /**
  * Layers used on the Charybdis Nano.
@@ -131,7 +127,7 @@ enum charybdis_vial_keymap_keycodes {
     USR_RST, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, USR_RST, \
     ______________HOME_ROW_GACS_L______________, ______________HOME_ROW_GACS_R______________, \
     _______, DRGSCRL, SNIPING, DPI_MOD, S_D_MOD, S_D_MOD, DPI_MOD, SNIPING, DRGSCRL, _______, \
-                      KC_BTN2, KC_BTN1, KC_BTN3, KC_BTN3, KC_BTN1, XXXXXXX
+                      KC_BTN2, KC_BTN1, KC_BTN3, KC_BTN3, KC_BTN1, KC_BTN2
 
 /**
  * Primary right-hand layer (left home thumb) is navigation and editing. Cursor
@@ -143,7 +139,7 @@ enum charybdis_vial_keymap_keycodes {
     _______________DEAD_HALF_ROW_______________, _______________DEAD_HALF_ROW_______________, \
     ______________HOME_ROW_GACS_L______________, KC_CLCK, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, \
     _______________DEAD_HALF_ROW_______________,  KC_INS, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, \
-                      XXXXXXX, _______, XXXXXXX,  KC_ENT, KC_BSPC, XXXXXXX
+                      XXXXXXX, _______, XXXXXXX,  KC_ENT, KC_BSPC,  KC_ESC
 
 /**
  * Primary left-hand layer (right home thumb) is numerals and symbols. Numerals
