@@ -1,4 +1,4 @@
-/* Copyright %YEAR% %YOUR_NAME%
+/* Copyright 2021 Yang Hu
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,21 +15,10 @@
  */
 
 #pragma once
-
-#include "quantum.h"
-
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k12    \
-) { \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k12 }  \
-}
+// Defines names for use in layer keycodes and the keymap
+enum layer_names {
+    _BASE,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+};
