@@ -10,10 +10,10 @@
     "features": {
       "steno": true,
       "nkro": true,
-      "bootmagic": false,
+      "bootmagic": true,
       "mousekey": false,
       "extrakey": true,
-      "console": true,
+      "console": false,
       "audio": false,
       "command": false,
       "backlight": false
