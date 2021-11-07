@@ -24,6 +24,16 @@ make linux bootloader install via: (or use via if it's firmwared) => CHOICE
 	sudo make dz60:via:dfu
 */
 
+enum unicode_names {
+    X_LOW,
+    X_UPR
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+    [X_LOW]  = 120169,
+    [X_UPR] = 120143
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//KEEP
 	//ANSI lock mode 0 =================================================================================== ANSI lock mode 0
@@ -53,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		LSFT(KC_GRV),	  UC(728), UC(168), UC(8316),UC(8988),UC(180), KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_DEL,  KC_PMNS, KC_PPLS,          KC_BSPC,
 		KC_TAB,           KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_P4,   KC_P5,   KC_P6,   KC_PAST, KC_LPRN, KC_RPRN, KC_BSLS,
 		TG(6),            KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_P1,   KC_P2,   KC_P3,   KC_INS,  KC_CALC, KC_PENT,
-		MO(6),		     UC(10570),KC_F20,UC(8595),UC(8744),UC(8970),  KC_N,    KC_P0,   KC_PCMM, KC_PDOT, UC(8800),         MO(6),
+		MO(6),		     UC(10570),X(X_LOW),UC(8595),UC(8744),UC(8970),  KC_N,    KC_P0,   KC_PCMM, KC_PDOT, UC(8800),         MO(6),
 		KC_LCTL, KC_LGUI,          KC_LALT,                   UC(8255),                 		  KC_RALT, KC_APP,           KC_RCTL, TG(2)),//lock shift
 
 	//Macro lock mode 3 ================================================================================== Macro lock mode 3
@@ -95,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		UC(172), UC(9097),UC(9863),UC(9055),UC(9718),UC(8856),KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC,
 		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
 		TG(6),            KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
-		MO(6),            UC(8904),KC_X,    KC_C,UC(9042),UC(8968),    KC_N,    KC_M,    KC_COMM, KC_DOT,  UC(8656),         MO(6),//shift
+		MO(6),            UC(8904),X(X_UPR),KC_C,UC(9042),UC(8968),    KC_N,    KC_M,    KC_COMM, KC_DOT,  UC(8656),         MO(6),//shift
 		DF(0),   DF(3),            DF(1),                     KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, TG(2)),//shift hold
 	
 	//Macro shift mode 7 ================================================================================= Macro shift mode 7
