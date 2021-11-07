@@ -72,12 +72,20 @@ void reset_rgb(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_disable_noeeprom();
 #endif
+#ifdef RGBLIGHT_ENABLE
+    rgblight_disable_noeeprom();
+#endif
 }
 
 void set_rgb(uint8_t red, uint8_t green, uint8_t blue) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_enable_noeeprom();
     rgb_matrix_set_color_all(red, green, blue);
+#endif
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(1);
+    rgblight_setrgb(red, green, blue);
 #endif
 }
 
