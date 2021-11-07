@@ -23,7 +23,7 @@ def _find_make():
     make_cmd = os.environ.get('MAKE')
 
     if not make_cmd:
-        make_cmd = 'gmake' if shutil.which('gmake') else 'make'
+        make_cmd = 'make' if shutil.which('make') else 'gmake'
 
     return make_cmd
 
