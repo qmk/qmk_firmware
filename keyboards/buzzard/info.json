@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "Buzzard",
+    "url": "https://github.com/crehmann/buzzard",
+    "maintainer": "crehmann",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+            ]
+        }
+    }
+}
