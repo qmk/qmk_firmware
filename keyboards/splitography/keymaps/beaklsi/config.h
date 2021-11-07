@@ -16,10 +16,6 @@
 
 #pragma once
 
-#include "../../config.h"
-
-// prevent holdback of 1-3 key TxBolt chords
-#define PREVENT_STUCK_MODIFIERS
 // fix dual function timing
 #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT

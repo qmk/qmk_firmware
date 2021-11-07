@@ -16,10 +16,6 @@
 
 #pragma once
 
-#include "../../config.h"
-
-// required because lower/raise modifiers are redefined by colemak-dh
-#define PREVENT_STUCK_MODIFIERS
 // fix dual function timing
 #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT

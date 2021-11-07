@@ -57,23 +57,13 @@
 //
 // sudo CPATH=<keymap.c directory>/common make ...
 
-#ifndef PLANCK
-#    ifndef SPLITOGRAPHY
-#        define SPLITOGRAPHY
-#    endif
-#endif
+#include QMK_KEYBOARD_H
+#include "action_layer.h"
+#include "eeconfig.h"
+#include "keymap_steno.h"
 
 #include "config.h"
-#ifdef SPLITOGRAPHY
-#    include "splitography.h"
-#else
-#    include "planck.h"
-#endif
-#include "action_layer.h"
-#ifdef STENO_ENABLE
-#    include "keymap_steno.h"
-#endif
-#include "eeconfig.h"
+#include "splitography.h"
 
 extern keymap_config_t keymap_config;
 
@@ -145,11 +135,6 @@ enum keyboard_keycodes {
 };
 
 // modifier keys
-#ifdef PLANCK
-#    define CT_RGHT CTL_T(KC_RGHT)
-#    define AT_DOWN ALT_T(KC_DOWN)
-#    define GT_UP GUI_T(KC_UP)
-#endif
 #define AT_B ALT_T(KC_B)
 #define GT_C GUI_T(KC_C)
 #define MT_E MT(MOD_LCTL | MOD_LALT, KC_E)
@@ -164,13 +149,6 @@ enum keyboard_keycodes {
 #define HOME_R ALT_T(KC_R)
 #define HOME_S CTL_T(KC_S)
 #define HOME_W GUI_T(KC_W)
-
-#ifdef PLANCK
-#    define S_DOWN S(KC_DOWN)
-#    define S_LEFT S(KC_LEFT)
-#    define S_RGHT S(KC_RGHT)
-#    define S_UP S(KC_UP)
-#endif
 
 #include "common/tapdance.inc"
 
@@ -205,11 +183,6 @@ enum keyboard_keycodes {
 
 #define LT_BSPC LT(_RSYMBOL, KC_BSPC)  // see process_record_user() for extended handling
 #define TT_BSPC LT(_TTCURSOR, KC_BSPC)
-#ifdef PLANCK
-#    define LT_ENT LT(_ADJUST, KC_ENT)
-#    define LT_INS LT(_NUMBER, KC_INS)
-#    define LT_LEFT LT(_EDIT, KC_LEFT)
-#endif
 #define LT_ESC LT(_LSYMBOL, KC_ESC)
 #define LT_I LT(_LSHIFT, KC_I)
 #define OS_ALT OSM(MOD_LALT)
@@ -279,14 +252,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case HOME_W:
             tap_mods(record, KC_LGUI);
             break;
+
         case HOME_H:
         case HOME_S:
             tap_mods(record, KC_LCTL);
             break;
+
         case HOME_E:
         case HOME_R:
             tap_mods(record, KC_LALT);
             break;
+
         case ST_SPC:
             if (map_shift(record, KC_RSFT, NOSHIFT, KC_DEL)) {
                 return false;
@@ -294,6 +270,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case HOME_A:
             tap_mods(record, KC_LSFT);
             break;
+
         case SM_I:
             mt_shift(record, KC_LSFT, 0, KC_I);
         case HOME_T:
@@ -303,9 +280,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case OS_ALT:
             tap_mods(record, KC_LALT);
             break;
+
         case OS_CTL:
             tap_mods(record, KC_LCTL);
             break;
+
         case OS_GUI:
             tap_mods(record, KC_LGUI);
             break;
@@ -338,11 +317,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (map_shift(record, KC_RSFT, NOSHIFT, KC_TAB)) {
                 return false;
             }
-#ifdef SPLITOGRAPHY
             if (raise_number(record, LEFT)) {
                 return false;
             }
-#endif
             if (tt_keycode) {
                 tt_clear();
                 return false;
@@ -350,27 +327,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_layer(record, _LSYMBOL);
             thumb_roll(record, LEFT, 0, 0, 0, _LSYMBOL, _RSYMBOL);
             break;
+
         case SL_TAB:
             down_rule = key_event(record, 1);  // tab + enter thumb roll, see cap_lt()
             thumb_roll(record, LEFT, SHIFT, KC_TAB, repeating, _MOUSE, _RSYMBOL);
             break;
+
         case KC_TAB:
             down_rule = key_event(record, 1);  // dot + tab + enter thumb roll, see cap_lt()
-#ifdef SPLITOGRAPHY
             if (raise_number(record, LEFT)) {
                 return false;
             }
-#endif
             break;
 
         case LT_I:
-#ifdef SPLITOGRAPHY
             if (raise_number(record, RIGHT)) {
                 return false;
             }
-#endif
             tap_layer(record, _LSHIFT);
             break;
+
         case SL_I:
             lt_shift(record, SHIFT, KC_I, _EDIT);
             break;
@@ -391,6 +367,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+
         case LT_BSPC:
             if (map_shift(record, KC_RSFT, NOSHIFT, KC_ENT)) {
                 return false;
@@ -403,6 +380,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 thumb_roll(record, RIGHT, 0, 0, 0, _RSYMBOL, _LSYMBOL);
             }
             break;
+
         case TD_BSPC:
             if (record->event.pressed) {
                 tap_rule = down_rule;
@@ -412,6 +390,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             tap_layer(record, _RSYMBOL);
             break;
+
         case SL_ENT:
             thumb_roll(record, RIGHT, NOSHIFT, KC_ENT, 0, _MOUSE, _LSYMBOL);
             break;
@@ -424,6 +403,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }  // down_rule persistance for cap_lt()
             break;
+
         case KC_COLN:
         case TD_COLM:
             if (map_shift(record, KC_LSFT, NOSHIFT, KC_SCLN)) {
@@ -433,6 +413,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+
         case KC_COMM:
             if (map_shift(record, KC_LSFT, NOSHIFT, KC_SLSH)) {
                 return false;
@@ -441,6 +422,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+
         // special shift layer mappings
         case KC_DOT:
             down_rule = key_event(record, 2);  // dot + space/enter + shift shortcut, see cap_lt()
@@ -452,36 +434,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }  // exlm + space/enter + shift shortcut, see cap_lt()
             break;
+
         case SM_G:
             mt_shift(record, KC_LALT, KC_LSFT, KC_G);
             break;
+
         case KC_QUES:
             // down_rule = 0;                       // trap layer switching timimg issue between . and ?
             down_rule = key_event(record, 2);  // ques + space/enter + shift shortcut, see cap_lt()
             break;
+
         case SG_TILD:
             mt_shift(record, KC_LGUI, 0, KC_GRV);
             break;
-
-            // ............................................................ Thumb Row Keys
-
-#ifdef PLANCK
-        case AT_DOWN:
-            tap_mods(record, KC_LALT);
-            break;
-        case CT_RGHT:
-            tap_mods(record, KC_LGUI);
-            break;
-        case GT_UP:
-            tap_mods(record, KC_LCTL);
-            break;
-#endif
 
             // ................................................................ Steno Keys
 
         case PLOVER:
             steno(record);
             return false;
+
         case BASE1:
             if (record->event.pressed) {
                 base_n = base_n | BASE_1;
@@ -492,6 +464,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 base_n = base_n & ~BASE_1;
             }
             return false;
+
         case BASE2:
             if (record->event.pressed) {
                 base_n = base_n | BASE_2;

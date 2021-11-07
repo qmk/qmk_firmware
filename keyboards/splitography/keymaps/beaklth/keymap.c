@@ -57,23 +57,13 @@
 //
 // sudo CPATH=<keymap.c directory>/common make ...
 
-#ifndef PLANCK
-#    ifndef SPLITOGRAPHY
-#        define SPLITOGRAPHY
-#    endif
-#endif
+#include QMK_KEYBOARD_H
+#include "action_layer.h"
+#include "eeconfig.h"
+#include "keymap_steno.h"
 
 #include "config.h"
-#ifdef SPLITOGRAPHY
-#    include "splitography.h"
-#else
-#    include "planck.h"
-#endif
-#include "action_layer.h"
-#ifdef STENO_ENABLE
-#    include "keymap_steno.h"
-#endif
-#include "eeconfig.h"
+#include "splitography.h"
 
 extern keymap_config_t keymap_config;
 
@@ -145,11 +135,6 @@ enum keyboard_keycodes {
 };
 
 // modifier keys
-#ifdef PLANCK
-#    define CT_RGHT CTL_T(KC_RGHT)
-#    define AT_DOWN ALT_T(KC_DOWN)
-#    define GT_UP GUI_T(KC_UP)
-#endif
 #define AT_B ALT_T(KC_B)
 #define GT_C GUI_T(KC_C)
 #define MT_E MT(MOD_LCTL | MOD_LALT, KC_E)
@@ -164,13 +149,6 @@ enum keyboard_keycodes {
 #define HOME_R ALT_T(KC_R)
 #define HOME_S CTL_T(KC_S)
 #define HOME_W GUI_T(KC_W)
-
-#ifdef PLANCK
-#    define S_DOWN S(KC_DOWN)
-#    define S_LEFT S(KC_LEFT)
-#    define S_RGHT S(KC_RGHT)
-#    define S_UP S(KC_UP)
-#endif
 
 #include "common/tapdance.inc"
 
@@ -204,13 +182,7 @@ enum keyboard_keycodes {
 #define TMPASTE LALT(LCTL(KC_V))
 #define LT_BSPC LT(_RSYMBOL, KC_BSPC)  // see process_record_user() for extended handling
 #define TT_BSPC LT(_TTCURSOR, KC_BSPC)
-#ifdef SPLITOGRAPHY
-#    define LT_DEL LT(_EDIT, KC_DEL)
-#else
-#    define LT_DEL LT(_ADJUST, KC_DEL)
-#    define LT_INS LT(_NUMBER, KC_INS)
-#    define LT_LEFT LT(_EDIT, KC_LEFT)
-#endif
+#define LT_DEL LT(_EDIT, KC_DEL)
 #define LT_ESC LT(_LSYMBOL, KC_ESC)
 #define LT_H LT(_LSHIFT, KC_H)
 #define OS_ALT OSM(MOD_LALT)
@@ -342,11 +314,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (map_shift(record, KC_RSFT, SHIFT, KC_TAB)) {
                 return false;
             }
-#ifdef SPLITOGRAPHY
             if (raise_number(record, LEFT)) {
                 return false;
             }
-#endif
             if (tt_keycode) {
                 tt_clear();
                 return false;
@@ -360,19 +330,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case KC_TAB:
             down_rule = key_event(record, 1);  // dot+tab+enter thumb roll, see tap_lt()
-#ifdef SPLITOGRAPHY
             if (raise_number(record, LEFT)) {
                 return false;
             }
-#endif
             break;
 
         case LT_H:
-#ifdef SPLITOGRAPHY
             if (raise_number(record, RIGHT)) {
                 return false;
             }
-#endif
             tap_layer(record, _LSHIFT);
             break;
 
@@ -449,20 +415,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SG_TILD:
             mt_shift(record, KC_LGUI, 0, KC_GRV);
             break;
-
-            // ............................................................ Thumb Row Keys
-
-#ifdef PLANCK
-        case AT_DOWN:
-            tap_mods(record, KC_LALT);
-            break;
-        case CT_RGHT:
-            tap_mods(record, KC_LGUI);
-            break;
-        case GT_UP:
-            tap_mods(record, KC_LCTL);
-            break;
-#endif
 
             // ................................................................ Steno Keys
 

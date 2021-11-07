@@ -57,23 +57,13 @@
 //
 // sudo CPATH=<keymap.c directory>/common make ...
 
-#ifndef PLANCK
-#    ifndef SPLITOGRAPHY
-#        define SPLITOGRAPHY
-#    endif
-#endif
+#include QMK_KEYBOARD_H
+#include "action_layer.h"
+#include "eeconfig.h"
+#include "keymap_steno.h"
 
 #include "config.h"
-#ifdef SPLITOGRAPHY
-#    include "splitography.h"
-#else
-#    include "planck.h"
-#endif
-#include "action_layer.h"
-#ifdef STENO_ENABLE
-#    include "keymap_steno.h"
-#endif
-#include "eeconfig.h"
+#include "splitography.h"
 
 extern keymap_config_t keymap_config;
 
@@ -144,11 +134,6 @@ enum keyboard_keycodes {
 };
 
 // modifier keys
-#ifdef PLANCK
-#    define CT_RGHT CTL_T(KC_RGHT)
-#    define AT_DOWN ALT_T(KC_DOWN)
-#    define GT_UP GUI_T(KC_UP)
-#endif
 #define AT_B ALT_T(KC_B)
 #define GT_C GUI_T(KC_C)
 #define MT_E MT(MOD_LCTL | MOD_LALT, KC_E)
@@ -193,11 +178,6 @@ enum keyboard_keycodes {
 #define XPASTE TD_XPASTE
 
 #define TT_SPC LT(_TTCURSOR, KC_SPC)
-#ifdef PLANCK
-#    define LT_DEL LT(_ADJUST, KC_DEL)
-#    define LT_INS LT(_FNCKEY, KC_INS)
-#    define LT_LEFT LT(_EDIT, KC_LEFT)
-#endif
 #define LT_ESC LT(_NUMBER, KC_ESC)
 #define OS_ALT OSM(MOD_LALT)
 #define OS_CTL OSM(MOD_LCTL)
@@ -475,20 +455,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_QUES:
             down_punc = (record->event.pressed) ? 1 : 0;  // dot/ques/exlm + space/enter + shift shortcut, see cap_lt()
             break;
-
-            // ..................................................... Thumb Row Cursor Keys
-
-#ifdef PLANCK
-        case AT_DOWN:
-            tap_mods(record, KC_LALT);
-            break;
-        case CT_RGHT:
-            tap_mods(record, KC_LGUI);
-            break;
-        case GT_UP:
-            tap_mods(record, KC_LCTL);
-            break;
-#endif
 
             // ................................................................ Steno Keys
 

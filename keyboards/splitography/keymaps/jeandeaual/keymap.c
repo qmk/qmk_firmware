@@ -14,11 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include QMK_KEYBOARD_H
+#include "action_layer.h"
+#include "eeconfig.h"
+#include "keymap_steno.h"
+
 #include "config.h"
 #include "splitography.h"
-#include "action_layer.h"
-#include "keymap_steno.h"
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 

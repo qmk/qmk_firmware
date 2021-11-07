@@ -75,13 +75,13 @@
 //
 // sudo CPATH=<keymap.c directory>/common make ...
 
+#include QMK_KEYBOARD_H
+#include "action_layer.h"
+#include "eeconfig.h"
+#include "keymap_steno.h"
+
 #include "config.h"
 #include "splitography.h"
-#include "action_layer.h"
-#ifdef STENO_ENABLE
-#    include "keymap_steno.h"
-#endif
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -417,20 +417,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tt_keycode = keycode;
             break;
 #endif
-            // #ifdef STENO_ENABLE
-            //     case PS_STNA:
-            //       stn_layer(record, STN_A, _NUMBER);
-            //       break;
-            //     case PS_STNO:
-            //       stn_layer(record, STN_O, _FNCKEY);
-            //       break;
-            //     case PS_STNE:
-            //       stn_layer(record, STN_E, _EDIT);
-            //       break;
-            //     case PS_STNU:
-            //       stn_layer(record, STN_U, _SYMBOL);
-            //       break;
-            // #endif
         case PS_BASE:
             if (record->event.pressed) {
                 base_layer(0);

@@ -20,7 +20,6 @@
 
 /* USB Device descriptor parameter */
 #define PRODUCT Splitography
-#define DESCRIPTION A split layout stenography keyboard
 
 /* Key matrix size */
 #define MATRIX_ROWS 4
@@ -54,18 +53,3 @@
  *
  */
 //#define FORCE_NKRO
-
-/*
- * Magic Key Options
- *
- * Magic keys are hotkey commands that allow control over firmware functions of
- * the keyboard. They are best used in combination with the HID Listen program,
- * found here: https://www.pjrc.com/teensy/hid_listen.html
- *
- * The options below allow the magic key functionality to be changed. This is
- * useful if your keyboard/keypad is missing keys and you want magic key support.
- *
- */
-
-/* Key combination for magic key command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
