@@ -6,4 +6,4 @@ features and changes specific to the Charybdis.
 
 ## Layout
 
-![Keymap layout (generated with keyboard-layout-editor.com)](https://i.imgur.com/yMXpqV5.png)
+![Keymap layout (generated with keyboard-layout-editor.com)](https://i.imgur.com/hHqJhkA.png)

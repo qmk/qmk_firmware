@@ -7,4 +7,4 @@ specific to the Charybdis. This layout supports RGB matrix, and Via/Vial.
 
 ## Layout
 
-![Keymap layout (generated with keyboard-layout-editor.com)](https://i.imgur.com/XG84dsv.png)
+![Keymap layout (generated with keyboard-layout-editor.com)](https://i.imgur.com/uHEnqEN.png)

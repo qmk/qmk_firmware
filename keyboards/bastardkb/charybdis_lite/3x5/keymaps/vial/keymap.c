@@ -119,14 +119,14 @@ enum charybdis_vial_keymap_keycodes {
 #define LAYER_MEDIA_split_3x5_3                                                               \
     XXXXXXX,RGB_RMOD, RGB_TOG, RGB_MOD, XXXXXXX, XXXXXXX,RGB_RMOD, RGB_TOG, RGB_MOD, XXXXXXX, \
     KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, \
-    _______________DEAD_HALF_ROW_______________, _______________DEAD_HALF_ROW_______________, \
+    XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, USR_RST, USR_RST, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, \
                       _______, KC_MPLY, KC_MSTP, KC_MSTP, KC_MPLY, _______
 
 /** Mouse emulation and pointer functions. */
 #define LAYER_POINTER_split_3x5_3                                                             \
-    USR_RST, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, USR_RST, \
+    XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD, S_D_MOD, DPI_MOD, XXXXXXX, XXXXXXX, XXXXXXX, \
     ______________HOME_ROW_GACS_L______________, ______________HOME_ROW_GACS_R______________, \
-    _______, DRGSCRL, SNIPING, DPI_MOD, S_D_MOD, S_D_MOD, DPI_MOD, SNIPING, DRGSCRL, _______, \
+    _______, DRGSCRL, SNIPING, EEP_RST, USR_RST, USR_RST, EEP_RST, SNIPING, DRGSCRL, _______, \
                       KC_BTN2, KC_BTN1, KC_BTN3, KC_BTN3, KC_BTN1, KC_BTN2
 
 /**
