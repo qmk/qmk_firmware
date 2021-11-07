@@ -1,20 +1,20 @@
-# bm65iso
+# bm68rgb
 
-![bm65iso](https://ae01.alicdn.com/kf/He2fd118856c7490292bc3c299049fdbcp.jpg)
+![bm68rgb](https://i.imgur.com/uuYP8OIl.jpeg)
 
 A 65% hotswap in switch RGB keyboard from KPRepublic.
 
-* Keyboard Maintainer: [deadolus](https://github.com/deadolus)
-* Hardware Supported: BM65 ISO
-* Hardware Availability: [KP Republic](https://kprepublic.com/products/bm65rgb-bm65-iso-rgb-65-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-firmware-rgb-switch-underglow-type-c)
+* Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
+* Hardware Supported: BM68 RGB
+* Hardware Availability: [KP Republic](https://kprepublic.com/products/bm68rgb-bm68-rgb-65-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-firmware-full-rgb-switch-underglow-type-c)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make kprepublic/bm65iso:default
+    make kprepublic/bm68hsrgb:default
 
 Flashing example for this keyboard:
 
-    make kprepublic/bm65iso:default:flash
+    make kprepublic/bm68hsrgb:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 
