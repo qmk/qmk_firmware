@@ -3,8 +3,6 @@
     "keyboard_name": "Splitography",
     "url": "https://softhruf.love/collections/writers",
     "maintainer": "qmk",
-    "height": 4,
-    "width": 14,
     "processor": "atmega32u4",
     "diode_direction": "COL2ROW",
     "features": {
