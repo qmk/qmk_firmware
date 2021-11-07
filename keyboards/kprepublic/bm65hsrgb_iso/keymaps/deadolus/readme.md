@@ -11,10 +11,10 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make bm65iso:deadolus
+    make kprepublic/bm65hsrgb_iso:deadolus
 
 Flashing example for this keyboard:
 
-    make bm65iso:deadolus:flash
+    make kprepublic/bm65hsrgb_iso:deadolus:flash
 
 Keyboard Maintainer: **[deadolus](https://github.com/deadolus)**
