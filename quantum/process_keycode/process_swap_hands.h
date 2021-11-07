@@ -26,3 +26,5 @@ bool is_swap_hands_enabled(void);
 void swap_hands_enable(void);
 void swap_hands_disable(void);
 void swap_hands_toggle(void);
+
+void clear_oneshot_swaphands(void);
