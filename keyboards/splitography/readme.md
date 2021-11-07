@@ -4,7 +4,7 @@
 
 A *pay what you will* compact keyboard intended for use with [Plover](https://www.openstenoproject.org/), free and open source stenography software. This is a low-cost keyboard with minimal packaging and design, and arrives fully assembled, ready to use.
 
-Keyboard Maintainer: [Alexis Jeandeau](https://github.com/jeandeaual) \
+Keyboard Maintainer: [The QMK Community](https://github.com/qmk) \
 Hardware Supported: Splitography \
 Hardware Availability: [softhruf.love](https://softhruf.love/collections/writers)  
 
