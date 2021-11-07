@@ -40,7 +40,9 @@ enum charybdis_vial_keymap_keycodes {
   USER_RESET = SAFE_RANGE,
 #endif  // VIA_ENABLE
   POINTER_DEFAULT_DPI_FORWARD,
+  POINTER_DEFAULT_DPI_REVERSE,
   POINTER_SNIPING_DPI_FORWARD,
+  POINTER_SNIPING_DPI_REVERSE,
   SNIPING_MODE,
   SNIPING_MODE_TOGGLE,
   DRAGSCROLL_MODE,
@@ -50,7 +52,9 @@ enum charybdis_vial_keymap_keycodes {
 
 #define USR_RST USER_RESET
 #define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
+#define DPI_RMOD POINTER_DEFAULT_DPI_REVERSE
 #define S_D_MOD POINTER_SNIPING_DPI_FORWARD
+#define S_D_RMOD POINTER_SNIPING_DPI_REVERSE
 #define SNIPING SNIPING_MODE
 #define SNP_TOG SNIPING_MODE_TOGGLE
 #define DRGSCRL DRAGSCROLL_MODE
@@ -69,12 +73,8 @@ enum charybdis_vial_keymap_keycodes {
 /**
  * Add pointer layer keys to a layout.
  *
- * Expects a 10-key per row layout.  The layout passed in parameter must contain
+ * Expects a 12-key per row layout.  The layout passed in parameter must contain
  * at least 30 keycodes.
- *
- * This is meant to be used with the `LAYER_ALPHAS_*` defined below, eg.:
- *
- *     POINTER_MOD(LAYER_ALPHAS_COLEMAK_DHM_3x10)
  */
 #define _POINTER_MOD(                                                        \
     L00, L01, L02, L03, L04, L05, R06, R07, R08, R09, R0A, R0B,              \
@@ -184,10 +184,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         charybdis_cycle_pointer_default_dpi(/* forward= */ !_has_shift_mod());
       }
       break;
+    case POINTER_DEFAULT_DPI_REVERSE:
+      if (record->event.pressed) {
+        // Step forward if shifted, backward otherwise.
+        charybdis_cycle_pointer_default_dpi(/* forward= */ _has_shift_mod());
+      }
+      break;
     case POINTER_SNIPING_DPI_FORWARD:
       if (record->event.pressed) {
         // Step backward if shifted, forward otherwise.
         charybdis_cycle_pointer_sniping_dpi(/* forward= */ !_has_shift_mod());
+      }
+      break;
+    case POINTER_SNIPING_DPI_REVERSE:
+      if (record->event.pressed) {
+        // Step forward if shifted, backward otherwise.
+        charybdis_cycle_pointer_sniping_dpi(/* forward= */ _has_shift_mod());
       }
       break;
     case SNIPING_MODE:
