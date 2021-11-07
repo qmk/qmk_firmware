@@ -43,7 +43,9 @@ enum charybdis_vial_keymap_keycodes {
   USER_RESET = SAFE_RANGE,
 #endif  // VIA_ENABLE
   POINTER_DEFAULT_DPI_FORWARD,
+  POINTER_DEFAULT_DPI_REVERSE,
   POINTER_SNIPING_DPI_FORWARD,
+  POINTER_SNIPING_DPI_REVERSE,
   SNIPING_MODE,
   SNIPING_MODE_TOGGLE,
   DRAGSCROLL_MODE,
@@ -53,7 +55,9 @@ enum charybdis_vial_keymap_keycodes {
 
 #define USR_RST USER_RESET
 #define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
+#define DPI_RMOD POINTER_DEFAULT_DPI_REVERSE
 #define S_D_MOD POINTER_SNIPING_DPI_FORWARD
+#define S_D_RMOD POINTER_SNIPING_DPI_REVERSE
 #define SNIPING SNIPING_MODE
 #define SNP_TOG SNIPING_MODE_TOGGLE
 #define DRGSCRL DRAGSCROLL_MODE
@@ -79,7 +83,7 @@ enum charybdis_vial_keymap_keycodes {
        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH
 
 /** Thumb clusters used on split 3x5+3 keyboards. */
-#define LAYER_ALPHAS_THUMBS_1x6         ESC_MED, SPC_NAV, TAB_FUN, ENT_SYM, BSP_NUM,   KC_NO
+#define LAYER_ALPHAS_THUMBS_1x6         ESC_MED, SPC_NAV, TAB_FUN, ENT_SYM, BSP_NUM, ESC_MED
 
 /** Modifiers row order. */
 #define ______________GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT
@@ -109,26 +113,22 @@ enum charybdis_vial_keymap_keycodes {
 #define LAYER_FUNCTION_split_3x5_3                                                            \
     _______________DEAD_HALF_ROW_______________, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
     ______________HOME_ROW_GACS_L______________, KC_SLCK,   KC_F4,   KC_F5,   KC_F6,  KC_F11, \
-    XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, USR_RST, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
+    _______________DEAD_HALF_ROW_______________, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
                       XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
 
 /**
- * Tertiary right-hand layer is media control, with volume up / volume down and
- * next / prev mirroring the navigation keys. Pause, stop and mute are on thumbs.
- * Unused keys are available for other related functions.
+ * Tertiary left- and right-hand layer is media and RGB control.  This layer is
+ * symmetrical to accomodate the left- and right-hand trackball.
  */
 #define LAYER_MEDIA_split_3x5_3                                                               \
-    _______________DEAD_HALF_ROW_______________, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, \
-    ______________HOME_ROW_GACS_L______________, KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, \
+    XXXXXXX,RGB_RMOD, RGB_TOG, RGB_MOD, XXXXXXX, XXXXXXX,RGB_RMOD, RGB_TOG, RGB_MOD, XXXXXXX, \
+    KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, \
     _______________DEAD_HALF_ROW_______________, _______________DEAD_HALF_ROW_______________, \
-                      _______, XXXXXXX, XXXXXXX, KC_MSTP, KC_MPLY, XXXXXXX
+                      _______, KC_MPLY, KC_MSTP, KC_MSTP, KC_MPLY, _______
 
-/**
- * Mouse emulation and pointer functions. The home row mods are shifted inwards
- * to allow same-hand cording.
- */
+/** Mouse emulation and pointer functions. */
 #define LAYER_POINTER_split_3x5_3                                                             \
-    XXXXXXX, DRG_TOG, SNP_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SNP_TOG, DRG_TOG, XXXXXXX, \
+    USR_RST, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST, USR_RST, \
     ______________HOME_ROW_GACS_L______________, ______________HOME_ROW_GACS_R______________, \
     _______, DRGSCRL, SNIPING, DPI_MOD, S_D_MOD, S_D_MOD, DPI_MOD, SNIPING, DRGSCRL, _______, \
                       KC_BTN2, KC_BTN1, KC_BTN3, KC_BTN3, KC_BTN1, XXXXXXX
@@ -164,7 +164,7 @@ enum charybdis_vial_keymap_keycodes {
 #define LAYER_SYMBOLS_split_3x5_3                                                             \
     KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, _______________DEAD_HALF_ROW_______________, \
     KC_COLN,  KC_DLR, KC_PERC, KC_CIRC, KC_PLUS, ______________HOME_ROW_GACS_R______________, \
-    KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE, USR_RST, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, \
+    KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE, _______________DEAD_HALF_ROW_______________, \
                       KC_LPRN, KC_RPRN, KC_UNDS, _______, XXXXXXX, XXXXXXX
 
 /**
@@ -194,9 +194,9 @@ enum charybdis_vial_keymap_keycodes {
  * Expects a 10-key per row layout.  The layout passed in parameter must contain
  * at least 30 keycodes.
  *
- * This is meant to be used with the `LAYER_ALPHAS_*` defined below, eg.:
+ * This is meant to be used with `LAYER_ALPHAS_QWERTY_3x10` defined above, eg.:
  *
- *     POINTER_MOD(LAYER_ALPHAS_COLEMAK_DHM_3x10)
+ *     POINTER_MOD(LAYER_ALPHAS_QUERTY_3x10)
  */
 #define _POINTER_MOD(                                                  \
     L00, L01, L02, L03, L04, R05, R06, R07, R08, R09,                  \
@@ -253,10 +253,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         charybdis_cycle_pointer_default_dpi(/* forward= */ !_has_shift_mod());
       }
       break;
+    case POINTER_DEFAULT_DPI_REVERSE:
+      if (record->event.pressed) {
+        // Step forward if shifted, backward otherwise.
+        charybdis_cycle_pointer_default_dpi(/* forward= */ _has_shift_mod());
+      }
+      break;
     case POINTER_SNIPING_DPI_FORWARD:
       if (record->event.pressed) {
         // Step backward if shifted, forward otherwise.
         charybdis_cycle_pointer_sniping_dpi(/* forward= */ !_has_shift_mod());
+      }
+      break;
+    case POINTER_SNIPING_DPI_REVERSE:
+      if (record->event.pressed) {
+        // Step forward if shifted, backward otherwise.
+        charybdis_cycle_pointer_sniping_dpi(/* forward= */ _has_shift_mod());
       }
       break;
     case SNIPING_MODE:
