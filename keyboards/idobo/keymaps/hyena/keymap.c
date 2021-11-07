@@ -1,3 +1,19 @@
+/* Copyright 2021 Richard Gomes (@frgomes)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 
 
@@ -7,25 +23,30 @@
 
 
 enum custom_keycodes {
-  EMACS = SAFE_RANGE,
-  EMACS_1,
-  EMACS_2,
+  EMACS = SAFE_RANGE, // Emacs mode On/Off
+  EMACS_1,            // Decrese delay expanding Super, Alt and Hyper
+  EMACS_2,            // Increase delay expanding Super, Alt and Hyper
 };
 
+// Finite state machine
 enum emacs_mode_t {
-  EMACS_OFF = 0,
-  EMACS_ON = 1,
-  EMACS_SUPER,
-  EMACS_ALT,
-  EMACS_HYPER
+  EMACS_OFF = 0, // Emacs mode Off
+  EMACS_ON = 1,  // Emacs mode On but idle at the moment
+  EMACS_SUPER,   // Emacs mode On and expanding Super
+  EMACS_ALT,     // Emacs mode On and expanding Alt
+  EMACS_HYPER    // Emacs mode On and expanding Hyper
 };
 
 static uint8_t  emacs_mode = EMACS_OFF;
+
+// Delay between keystrokes whilst expanding Super, Alt and Hyper
 static uint16_t emacs_delay = 475;
 static uint16_t emacs_delay_min = 75;
 static uint16_t emacs_delay_max = 725;
 static uint16_t emacs_delay_step = 50;
 
+// Expands Super, Alt and Hyper so that it can work in Windoze.
+// https://www.gnu.org/software/emacs/manual/html_node/emacs/Modifier-Keys.html#Modifier-Keys
 bool process_emacs_modifier(const uint16_t cmd, const uint16_t keycode) {
   clear_mods();
   send_string_with_delay(SS_LCTL(SS_TAP(X_X)) "@", emacs_delay);
@@ -101,6 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_HOME,  KC_UP,    KC_END,
                                 MO(3),    KC_LALT,  KC_LGUI,  KC_LCTL,  KC_HYPR,  KC_SPC,   KC_SPC,   MO(1),    KC_MEH,   MO(4),    KC_APP,   KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT),
         
+        // This layer is incomplete and subject to change
 	[_NAVIGATE] = LAYOUT_ortho_5x15(
                                 KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_PSCR,  TO(2),
                                 KC_NO,    KC_INS,   KC_HOME,  KC_UP,    KC_END,   KC_PGUP,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   KC_INS,   KC_NO,    KC_NO,    KC_NO,    KC_SLCK,
@@ -121,7 +143,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 KC_NO,    RGB_RMOD, RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_SPD,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
                                 KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
                                 KC_TRNS,  KC_NO,    EMACS,    KC_NO,    KC_NO,    EMACS_1,  EMACS_2,  RESET,    KC_NO,    KC_NO,    EMACS,    KC_NO,    KC_NO,    KC_NO,    KC_NO),
-        
+
+        // This layer is incomplete and subject to change
 	[_SYMBOLIC] = LAYOUT_ortho_5x15(
                                 KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
                                 KC_NO,    THETA,    OMEGA,    EPSLN,    RHO,      TAU,      UPSLN,    UPSLN,    IOTA,     OMCRN,    PI,       KC_NO,    KC_NO,    KC_NO,    KC_NO,
