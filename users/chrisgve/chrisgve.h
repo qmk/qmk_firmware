@@ -31,10 +31,15 @@ enum default_layers {
     _LOWER,         // Lower layer on ortho
     _RAISE,         // Raise layer on ortho
     _ADJUST,        // Adjust layer, with function and media keys
+    _ADJUST_MAC = _ADJUST,  // Synonym
+    _ADJUST_WIN,    // Adjust for Windows
+    _ADJUST_LINUX,  // Adjust for Linux
     _CONFIG,        // Keyboard configuation layer
     _TMUX,          // TMux layer
     _VIM,           // VIM layer
     _NUM,           // Numerical layer (for 40% layouts)
+    _MAC_FN,        // Mac function keys
+    _WIN_FN         // Win function keys
 };
 
 // Custom keys
@@ -52,8 +57,12 @@ enum custom_keycodes {
     KC_WF10,
     KC_WF11,
     KC_WF12,
-    WIN_SWITCH,
-    MAC_SWITCH,
+    DF_M_P,     // Make Mac layer the default persistent layer
+    DF_L_P,     // Make Linux layer the default persistent layer
+    DF_W_P,     // Make Windows layer the default persistent layer
+    WIN_SWT,    // Function keys F1 to F12 behave as expected
+    MAC_SWT,    // Function keys F1 to F12 behave as expected if Apple Fn is sent
+    INV_AFN,    // Inverse KC_APPLE_FN
     NEW_SAFE_RANGE
 };
 
@@ -109,6 +118,9 @@ enum custom_keycodes {
 
 #define CPS_CTL     CTL_T(KC_CAPS)
 #define ADJUST      MO(_ADJUST)
+#define ADJ_M       ADJUST
+#define ADJ_L       MO(_ADJUST_LINUX)
+#define ADJ_W       MO(_ADJUST_WIN)
 #define CONFIG      MO(_CONFIG)
 #define LOWER       MO(_LOWER)
 #define RAISE       MO(_RAISE)
