@@ -24,21 +24,20 @@ make linux bootloader install via: (or use via if it's firmwared) => CHOICE
 	sudo make dz60:via:dfu
 */
 
-// 748 bytes free (allocation requires 4 bytes for each extra unicode character).
-
 //Macro production rule for upper and lowers.
 //Limit of only first 128 indirect entries may form part of a shifted pair.
 //=> 64 shifted pairs maximum. (60-14)*2=46*2=92 per plane.
 //106 used, so 11 characters left of shifted form MAX.
 //The **uint32_t** have all been allocated so no size change on edit code points.
 //44 bytes consumed if all extra unicode points as shifted pairs used.
-//=> 704 bytes free after max shifty code point.
-//=> so technically another 176 unshiftable code points. X(x) macro.
 
 //TODO:
 //Fill BQN code plane data.
 //Optimize special shift mode characters.
 //Maybe fiddle with LED colours on mode.
+//Fill 4 extended user planes for 146 bytes left
+//=> 36 extra unicode entries (11 of which can be shifty).
+//=> indicators will cost bytes.
 
 #define Z(x) XP(x##_L, x##_U)
 
@@ -212,6 +211,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_HAEN, KC_HOME, KC_END,  KC_INS,
 		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
 		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
+		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, TG(8)),
+
+	//================================ USER PLANES (NOT YET USED) =============================================================
+	//=========================================================================================================================
+	//Special shift mode 9 =============================================================================== Special shift mode 9
+	// A utility layer for things not elsewhere, and slow language entry with 0 locking.
+	LAYOUT_60_ansi(
+		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_LOCK, KC_HANJ,          KC_DEL,
+		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_HAEN, KC_HOME, KC_END,  KC_INS,
+		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
+		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
+		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, TG(8)),
+
+	//Special shift mode 10 ============================================================================= Special shift mode 10
+	// A utility layer for things not elsewhere, and slow language entry with 0 locking.
+	LAYOUT_60_ansi(
+		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_LOCK, KC_HANJ,          KC_DEL,
+		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_HAEN, KC_HOME, KC_END,  KC_INS,
+		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
+		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
+		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, TG(8)),
+
+	//Special shift mode 11 ============================================================================= Special shift mode 11
+	// A utility layer for things not elsewhere, and slow language entry with 0 locking.
+	LAYOUT_60_ansi(
+		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_LOCK, KC_HANJ,          KC_DEL,
+		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_HAEN, KC_HOME, KC_END,  KC_INS,
+		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
+		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
+		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, TG(8)),
+
+	//Special shift mode 12 ============================================================================= Special shift mode 12
+	// A utility layer for things not elsewhere, and slow language entry with 0 locking.
+	LAYOUT_60_ansi(
+		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_LOCK, KC_HANJ,          KC_DEL,
+		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_HAEN, KC_HOME, KC_END,  KC_INS,
+		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
+		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
 		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, TG(8))
 };
 
@@ -253,8 +290,6 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
 }
 
-bool my_state = false;
-
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Layers will light up if kb layers are active
 	bool t;
@@ -270,7 +305,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	if(layer_state_cmp(state, 1) || layer_state_cmp(state, 5)) t = true;
     rgblight_set_layer_state(3, t);//nav
 	rgblight_set_layer_state(4, layer_state_cmp(state, 2));//BQN mode
-	my_state = false;
     return state;
 }
 
