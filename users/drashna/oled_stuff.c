@@ -16,6 +16,8 @@
 
 #include "drashna.h"
 
+extern bool host_driver_disabled;
+
 #ifndef KEYLOGGER_LENGTH
 // #    ifdef OLED_DISPLAY_128X64
 #    define KEYLOGGER_LENGTH ((uint8_t)(OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH))
@@ -29,24 +31,24 @@ static char     keylog_str[KEYLOGGER_LENGTH + 1] = {0};
 static uint16_t log_timer                        = 0;
 
 // clang-format off
-static const char PROGMEM code_to_name[0xFF] = {
+static const char PROGMEM code_to_name[256] = {
 //   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',  // 0x
     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2',  // 1x
     '3', '4', '5', '6', '7', '8', '9', '0',  20,  19,  27,  26,  22, '-', '=', '[',  // 2x
-    ']','\\', '#', ';','\'', '`', ',', '.', '/', 128, ' ', ' ', ' ', ' ', ' ', ' ',  // 3x
-    ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'S', ' ', ' ', ' ', ' ',  16, ' ', ' ', ' ',  // 4x
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 5x
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 6x
+    ']','\\', '#', ';','\'', '`', ',', '.', '/', 128, '1', '2', '3', '4', '5', '6',  // 3x
+    '7', '8', '9', '0', '1', '2', 'P', 'S',  19, ' ',  17,  30,  16,  16,  31,  26,  // 4x
+     27,  25,  24, 'N', '/', '*', '-', '+',  23, '1', '2', '3', '4', '5', '6', '7',  // 5x
+    '8', '9', '0', '.','\\', 'A',   0, '=', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 6x
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 7x
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 8x
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 9x
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ax
+    ' ', ' ', ' ', ' ', ' ',   0, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ax
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Bx
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Cx
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Dx
-    'C', 'S', 'A', 'C', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ex
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '        // Fx
+    'C', 'S', 'A', 'C', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 24,  26,  24,  // Ex
+     25,0x9D,0x9D,0x9D,0x9D,0x9D,0x9D,0x9D,0x9D,  24,  25,  27,  26,  ' ', ' ', ' '   // Fx
 };
 // clang-format on
 
@@ -61,6 +63,9 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
         } else if (keycode > 0xFF) {
             return;
         }
+    }
+    if (keycode > 0xFF) {
+        return;
     }
 
     for (uint8_t i = 1; i < KEYLOGGER_LENGTH; i++) {
@@ -145,8 +150,8 @@ void render_keylock_status(uint8_t led_usb_state) {
     oled_write_P(PSTR(OLED_RENDER_LOCK_NUML), led_usb_state & (1 << USB_LED_NUM_LOCK));
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_LOCK_CAPS), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_LOCK_SCLK), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+//    oled_write_P(PSTR(" "), false);
+//    oled_write_P(PSTR(OLED_RENDER_LOCK_SCLK), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
 }
 
 void render_matrix_scan_rate(void) {
@@ -250,6 +255,17 @@ extern bool tap_toggling;
 #endif
 
 void render_user_status(void) {
+#ifdef AUDIO_ENABLE
+    bool is_audio_on = false, is_clicky_on = false;
+#    ifdef SPLIT_KEYBOARD
+
+    is_audio_on  = user_state.audio_enable;
+    is_clicky_on = user_state.audio_clicky_enable;
+#    else
+    is_audio_on  = is_audio_on();
+    is_clicky_on = is_clicky_on();
+#    endif
+#endif
     oled_write_P(PSTR(OLED_RENDER_USER_NAME), false);
 #if !defined(OLED_DISPLAY_128X64)
     oled_write_P(PSTR(" "), false);
@@ -265,11 +281,11 @@ void render_user_status(void) {
 #endif
 #ifdef AUDIO_ENABLE
     static const char PROGMEM audio_status[2][3] = {{0xE0, 0xE1, 0}, {0xE2, 0xE3, 0}};
-    oled_write_P(audio_status[is_audio_on()], false);
+    oled_write_P(audio_status[is_audio_on], false);
 
 #    ifdef AUDIO_CLICKY
     static const char PROGMEM audio_clicky_status[2][3] = {{0xF4, 0xF5, 0}, {0xF6, 0xF7, 0}};
-    oled_write_P(audio_clicky_status[is_clicky_on() && is_audio_on()], false);
+    oled_write_P(audio_clicky_status[is_clicky_on && is_audio_on], false);
 #        if !defined(OLED_DISPLAY_128X64)
     oled_write_P(PSTR(" "), false);
 #        endif
@@ -278,12 +294,22 @@ void render_user_status(void) {
 
     static const char PROGMEM rgb_layer_status[2][3] = {{0xEE, 0xEF, 0}, {0xF0, 0xF1, 0}};
     oled_write_P(rgb_layer_status[userspace_config.rgb_layer_change], false);
-    static const char PROGMEM nukem_good[2][3] = {{0xF8, 0xF9, 0}, {0xF6, 0xF7, 0}};
-    oled_write_P(nukem_good[0], userspace_config.nuke_switch);
+    static const char PROGMEM cat_mode[2][3] = {{0xF8, 0xF9, 0}, {0xF6, 0xF7, 0}};
+    oled_write_P(cat_mode[0], host_driver_disabled);
 #if defined(UNICODE_ENABLE)
     static const char PROGMEM uc_mod_status[5][3] = {{0xEA, 0xEB, 0}, {0xEC, 0xED, 0}};
     oled_write_P(uc_mod_status[get_unicode_input_mode() == UC_MAC], false);
 #endif
+    if (userspace_config.nuke_switch) {
+#if !defined(OLED_DISPLAY_128X64)
+        oled_write_P(PSTR(" "), false);
+#endif
+        static const char PROGMEM nukem_good[2] = {0xFA, 0};
+        oled_write_P(nukem_good, false);
+#if !defined(OLED_DISPLAY_128X64)
+        oled_advance_page(true);
+#endif
+    }
 #if defined(OLED_DISPLAY_128X64)
     oled_advance_page(true);
 #endif
@@ -370,7 +396,7 @@ void render_status_secondary(void) {
     /* Show Keyboard Layout  */
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
-#if !defined(OLED_DISPLAY_128X64) && defined(WPM_ENABLE)
+#if !defined(OLED_DISPLAY_128X64) && defined(WPM_ENABLE) && !defined(CONVERT_TO_PROTON_C)
     render_wpm(2);
 #endif
     // render_keylock_status(host_keyboard_leds());

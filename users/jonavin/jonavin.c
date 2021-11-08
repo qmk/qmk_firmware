@@ -95,95 +95,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         } // timeout_threshold = 0 will disable timeout
     }
 
+#endif // IDLE_TIMEOUT_ENABLE
+
+#if defined(ALTTAB_SCROLL_ENABLE) || defined(IDLE_TIMEOUT_ENABLE)       // timer features
     __attribute__((weak)) void matrix_scan_keymap(void) {}
 
     void matrix_scan_user(void) {
-        timeout_tick_timer();
+        #ifdef ALTTAB_SCROLL_ENABLE
+            encoder_tick_alttabscroll();
+        #endif
+        #ifdef IDLE_TIMEOUT_ENABLE
+            timeout_tick_timer();
+        #endif
         matrix_scan_keymap();
     }
-#endif // IDLE_TIMEOUT_ENABLE
-
-
-#if defined(ENCODER_ENABLE) && defined(ENCODER_DEFAULTACTIONS_ENABLE)       // Encoder Functionality
-    #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-        #define DYNAMIC_KEYMAP_LAYER_COUNT 4  //default in case this is not already defined elsewhere
-    #endif
-    #ifndef ENCODER_DEFAULTACTIONS_INDEX
-        #define ENCODER_DEFAULTACTIONS_INDEX 0  // can select encoder index if there are multiple encoders
-    #endif
-
-uint8_t selected_layer = 0;
-
-__attribute__((weak)) bool encoder_update_keymap(uint8_t index, bool clockwise) { return true; }
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (!encoder_update_keymap(index, clockwise)) { return false; }
-    if (index != ENCODER_DEFAULTACTIONS_INDEX) {return true;}  // exit if the index doesn't match
-        if ( clockwise ) {
-            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
-                if(selected_layer  < (DYNAMIC_KEYMAP_LAYER_COUNT - 1)) {
-                    selected_layer ++;
-                    layer_move(selected_layer);
-                }
-            } else if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, Page up
-                unregister_mods(MOD_BIT(KC_RSFT));
-                register_code(KC_PGDN);
-                register_mods(MOD_BIT(KC_RSFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next word
-                    tap_code16(LCTL(KC_RGHT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next track
-                tap_code(KC_MEDIA_NEXT_TRACK);
-            } else  {
-                switch (selected_layer) {
-                case _FN1:
-                    #ifdef IDLE_TIMEOUT_ENABLE
-                        timeout_update_threshold(true);
-                    #endif
-                    break;
-                default:
-                    tap_code(KC_VOLU);       // Otherwise it just changes volume
-                    break;
-                }
-            }
-        } else {
-            if (keyboard_report->mods & MOD_BIT(KC_LSFT) ) {
-                if (selected_layer  > 0) {
-                    selected_layer --;
-                    layer_move(selected_layer);
-                }
-            } else if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) {
-                unregister_mods(MOD_BIT(KC_RSFT));
-                register_code(KC_PGUP);
-                register_mods(MOD_BIT(KC_RSFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate previous word
-                tap_code16(LCTL(KC_LEFT));
-            } else if (keyboard_report->mods & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media previous track
-                tap_code(KC_MEDIA_PREV_TRACK);
-            } else {
-                switch (selected_layer) {
-                case _FN1:
-                    #ifdef IDLE_TIMEOUT_ENABLE
-                        timeout_update_threshold(false);
-                    #endif
-                    break;
-                default:
-                    tap_code(KC_VOLD);
-                    break;
-                }
-            }
-        }
-
-        return true;
-    }
-#endif // ENCODER_ENABLE
-
+#endif   // ALTTAB_SCROLL_ENABLE or IDLE_TIMEOUT_ENABLE
 
 // PROCESS KEY CODES
 __attribute__ ((weak))  bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_keymap(keycode, record)) { return false; }
-     switch (keycode) {
+    switch (keycode) {
     case KC_00:
         if (record->event.pressed) {
             // when keycode KC_00 is pressed
@@ -215,6 +148,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else  unregister_code16(keycode);
         break;
 #endif // RGB_MATRIX_ENABLE
+
+#ifdef EMOTICON_ENABLE
+    case EMO_SHRUG:
+        if (record->event.pressed)  SEND_STRING("`\\_(\"/)_/`");
+            else unregister_code16(keycode);
+        break;
+    case EMO_CONFUSE:
+        if (record->event.pressed)  SEND_STRING("(*_*)");
+            else unregister_code16(keycode);
+        break;
+    case EMO_TEARS:
+        if (record->event.pressed)  SEND_STRING("(T_T)");
+            else unregister_code16(keycode);
+        break;
+    case EMO_NERVOUS:
+        if (record->event.pressed)  SEND_STRING("(~_~;)");
+            else unregister_code16(keycode);
+        break;
+    case EMO_JOY:
+        if (record->event.pressed)  SEND_STRING("(^o^)");
+            else unregister_code16(keycode);
+        break;
+    case EMO_SAD:
+        if (record->event.pressed)  SEND_STRING(":'-(");
+            else unregister_code16(keycode);
+        break;
+    #endif // EMOTICON_ENABLE
+
+    #ifdef ALTTAB_SCROLL_ENABLE
+    case KC_TSTOG:
+        if (record->event.pressed)  encoder_toggle_alttabscroll();
+            else unregister_code16(keycode);
+        break;
+    #endif // ALTTAB_SCROLL_ENABLE
+
     default:
         if (record->event.pressed) {
             #ifdef RGB_MATRIX_ENABLE
@@ -229,6 +197,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case KC_SFTUP:
+        return 300;
+    case KC_RAISESPC:
+    case KC_LOWERSPC:
+        return 450;
+    default:
+        return TAPPING_TERM;
+    }
+}
 
 // Turn on/off NUM LOCK if current state is different
 void activate_numlock(bool turn_on) {

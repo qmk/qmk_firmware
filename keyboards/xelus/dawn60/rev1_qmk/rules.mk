@@ -22,7 +22,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. - We have custom RGB underglow

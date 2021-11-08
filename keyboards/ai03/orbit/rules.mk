@@ -18,7 +18,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output
 USE_I2C = no                # I2C for split communication
 CUSTOM_MATRIX = yes			# For providing custom matrix.c (in this case, override regular matrix.c with split matrix.c)
