@@ -1,1 +1,1 @@
-# The default keymap for alicia_cook
+# Rick's Keymap for Alicia Cook

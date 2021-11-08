@@ -5,8 +5,8 @@
 40% Alice-style keyboard that can be split and uses IDC connector.
 
 * Keyboard Maintainer: [Ibnu D. Aji](https://github.com/ibnuda)
-* Hardware Supported: [Alicia Cook](https://github/ibnuda/alicia-cook)
-* Hardware Availability: [Alicia Cook](https://github/ibnuda/alicia-cook)
+* Hardware Supported: [Alicia Cook](https://github.com/ibnuda/alicia-cook)
+* Hardware Availability: [Alicia Cook](https://github.com/ibnuda/alicia-cook)
 
 Make example for this keyboard (after setting up your build environment):
 
