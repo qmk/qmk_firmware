@@ -24,7 +24,7 @@ make linux bootloader install via: (or use via if it's firmwared) => CHOICE
 	sudo make dz60:via:dfu
 */
 
-#define Z(x) XP(x#_L, x#_U)
+#define Z(x) XP(x##_L, x##_U)
 
 enum unicode_names {
 	//ANSI/NAV Fn shift
@@ -78,9 +78,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,            KC_RSFT,
 		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_LEFT, KC_DOWN,          KC_RIGHT,MO(5)),
 
-	//BQN Non Shift?
+	//BQN Non FN Shift
 	//BQN lock mode 2 ================================================================================= BQN lock mode 2
-	// BQN Unshifted Unicode
+	// BQN Unicode
 	LAYOUT_60_ansi(
 		LSFT(KC_GRV),	  UC(728), UC(168), UC(8316),UC(8988),UC(180), KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_DEL,  KC_PMNS, KC_PPLS,          KC_BSPC,
 		KC_TAB,           KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_P4,   KC_P5,   KC_P6,   KC_PAST, KC_LPRN, KC_RPRN, KC_BSLS,
