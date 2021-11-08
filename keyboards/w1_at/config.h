@@ -44,8 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Indicator LEDs */
 #define LED_CAPS_LOCK_PIN B6
-#define LED_NUM_LOCK_PIN A15
-#define LED_SCROLL_LOCK_PIN A14
+#define LED_NUM_LOCK_PIN B3
+#define LED_SCROLL_LOCK_PIN A15
 #define LED_KANA_PIN A13
 #define LED_PIN_ON_STATE 0
 

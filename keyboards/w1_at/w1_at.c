@@ -21,10 +21,10 @@ void led_init_ports(void) {
     palSetLineMode(LED_NUM_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
     palSetLineMode(LED_SCROLL_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
     palSetLineMode(LED_KANA_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
-    palSetLineMode(B3, PAL_MODE_OUTPUT_OPENDRAIN);
+    palSetLineMode(A14, PAL_MODE_OUTPUT_OPENDRAIN);
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-    writePin(B3, !layer_state_cmp(state, 1));
+    writePin(A14, !layer_state_cmp(state, 1));
     return layer_state_set_user(state);
 }
