@@ -24,6 +24,22 @@ make linux bootloader install via: (or use via if it's firmwared) => CHOICE
 	sudo make dz60:via:dfu
 */
 
+// 748 bytes free (allocation requires 4 bytes for each extra unicode character).
+
+//Macro production rule for upper and lowers.
+//Limit of only first 128 indirect entries may form part of a shifted pair.
+//=> 64 shifted pairs maximum. (60-14)*2=46*2=92 per plane.
+//106 used, so 11 characters left of shifted form MAX.
+//The **uint32_t** have all been allocated so no size change on edit code points.
+//44 bytes consumed if all extra unicode points as shifted pairs used.
+//=> 704 bytes free after max shifty code point.
+//=> so technically another 176 unshiftable code points. X(x) macro.
+
+//TODO:
+//Fill BQN code plane data.
+//Optimize special shift mode characters.
+//Maybe fiddle with LED colours on mode.
+
 #define Z(x) XP(x##_L, x##_U)
 
 enum unicode_names {
@@ -46,12 +62,15 @@ enum unicode_names {
 	//BQN 3
 	A_L, A_U, S_L, S_U, D_L, D_U, F_L, F_U, G_L, G_U, H_L, H_U,
 	J_L, J_U, K_L, K_U, L_L, L_U, SEMI_L, SEMI_U, QUOT_L, QUOT_U,
-	//BQN 4
+	//BQN 4 - X is special so XX was needed to avoid errors.
 	Z_L, Z_U, XX_L, XX_U, C_L, C_U, V_L, V_U, B_L, B_U, N_L, N_U,
 	M_L, M_U, LESS_L, LESS_U, GRET_L, GRET_U, DIV_L, DIV_U,
 	SPC_L, SPC_U
 };
 
+// PLACE BQN layer and Unicode character code points here.
+// _L is lower case
+// _U is upper (shifted) case 
 const uint32_t PROGMEM unicode_map[] = {
 	//ANSI/NAV FN shift
 	[INT_L] = 8747,	[INT_U] = 0,
