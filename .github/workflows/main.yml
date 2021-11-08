@@ -28,7 +28,7 @@ jobs:
     - name: Build
       run: |
         qmk compile -kb ergodox_ez/glow -km mhijazi1
-        cp .build/ergodox_ez_glow_mhijazi .build/${{ steps.date.outputs.date }}.hex
+        cp .build/ergodox_ez_glow_mhijazi1.hex .build/${{ steps.date.outputs.date }}.hex
     - name: Upload build artifact
       uses: actions/upload-artifact@v2.2.4
       with: 
