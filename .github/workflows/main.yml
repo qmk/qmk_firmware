@@ -32,4 +32,4 @@ jobs:
     - name: Upload build artifact
       uses: actions/upload-artifact@v2.2.4
       with: 
-        path: .build/${{ steps.date.outputs.date }}
+        path: .build/${{ steps.date.outputs.date }}.hex
