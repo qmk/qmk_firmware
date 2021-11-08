@@ -27,7 +27,7 @@ jobs:
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: Build
       run: |
-        qmk compile -kb ergodox_ez/glow -km mhijaz1
+        qmk compile -kb ergodox_ez/glow -km mhijazi1
         cp .build/ergodox_ez_glow_mhijazi .build/#{{ steps.date.outputs.date }}.hex
     - name: Upload build artifact
       uses: actions/upload-artifact@v2.2.4
