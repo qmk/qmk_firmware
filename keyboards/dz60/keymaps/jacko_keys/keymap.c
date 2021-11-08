@@ -47,8 +47,9 @@ enum unicode_names {
 	A_L, A_U, S_L, S_U, D_L, D_U, F_L, F_U, G_L, G_U, H_L, H_U,
 	J_L, J_U, K_L, K_U, L_L, L_U, SEMI_L, SEMI_U, QUOT_L, QUOT_U,
 	//BQN 4
-	Z_L, Z_U, X_L, X_U, C_L, C_U, V_L, V_U, B_L, B_U, N_L, N_U,
-	M_L, M_U, LESS_L, LESS_U, GRET_L, GRET_U, DIV_L, DIV_U
+	Z_L, Z_U, XX_L, XX_U, C_L, C_U, V_L, V_U, B_L, B_U, N_L, N_U,
+	M_L, M_U, LESS_L, LESS_U, GRET_L, GRET_U, DIV_L, DIV_U,
+	SPC_L, SPC_U
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -72,9 +73,9 @@ const uint32_t PROGMEM unicode_map[] = {
 	[A_L] = 0, [A_U] = 0, [S_L] = 0, [S_U] = 0, [D_L] = 0, [D_U] = 0, [F_L] = 0, [F_U] = 0, [G_L] = 0, [G_U] = 0, [H_L] = 0, [H_U] = 0,
 	[J_L] = 0, [J_U] = 0, [K_L] = 0, [K_U] = 0, [L_L] = 0, [L_U] = 0, [SEMI_L] = 0, [SEMI_U] = 0, [QUOT_L] = 0, [QUOT_U] = 0,
 	//BQN 4
-	[Z_L] = 10570, [Z_U] = 8904, [X_L] = 120169, [X_U] = 120143, [C_L] = 8595, [C_U] = 0, [V_L] = 8744, [V_U] = 9042, [B_L] = 8970, [B_U] = 8968, [N_L] = 0, [N_U] = 0,
+	[Z_L] = 10570, [Z_U] = 8904, [XX_L] = 120169, [XX_U] = 120143, [C_L] = 8595, [C_U] = 0, [V_L] = 8744, [V_U] = 9042, [B_L] = 8970, [B_U] = 8968, [N_L] = 0, [N_U] = 0,
 	[M_L] = 0, [M_U] = 0, [LESS_L] = 0, [LESS_U] = 0, [GRET_L] = 0, [GRET_U] = 0, [DIV_L] = 8800, [DIV_U] = 8656,
-	[SPC_L] = 8255, [SPC_U] = 
+	[SPC_L] = 8255, [SPC_U] = 0
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -111,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		Z(GR),   Z(N1),	  Z(N2),   Z(N3),	Z(N4),	 Z(N5),	  Z(N6),   Z(N7),   Z(N8),   Z(N9),   Z(N0),   Z(MIN),  Z(EQ),            KC_BSPC,
 		KC_TAB,           Z(Q),    Z(W),    Z(E),    Z(R),    Z(T),    Z(Y),    Z(U),    Z(I),    Z(O),    Z(P), 	Z(LBR),  Z(RBR),  KC_BSLS,
 		KC_CAPS,          Z(A),    Z(S),    Z(D),    Z(F),    Z(G),    Z(H),    Z(J),    Z(K),    Z(L),    Z(SEMI), Z(QUOT), KC_ENT,
-		KC_LSFT,	      Z(Z),    Z(X),    Z(C),    Z(V),    Z(B),    Z(N),    Z(M),    Z(LESS), Z(GRET), Z(DIV),           KC_RSFT,
+		KC_LSFT,	      Z(Z),    Z(XX),   Z(C),    Z(V),    Z(B),    Z(N),    Z(M),    Z(LESS), Z(GRET), Z(DIV),           KC_RSFT,
 		KC_LCTL, KC_LGUI,          KC_LALT,                   Z(SPC),                 		  	  KC_RALT, KC_APP,           KC_RCTL, TG(2)),//lock shift
 
 	//KEEP
@@ -226,14 +227,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	bool t;
 	t = false;
 	if(layer_state_cmp(state, 4) || layer_state_cmp(state, 5) ||
-		layer_state_cmp(state, 6) || layer_state_cmp(state, 7)) ||
-		|| layer_state_cmp(state, 8)) t = true;
+		layer_state_cmp(state, 6) || layer_state_cmp(state, 7) ||
+		layer_state_cmp(state, 8)) t = true;
 	rgblight_set_layer_state(1, t);//shifted layer
 	t = false;
-	if(layer_state_cmp(state, 3) || layer_state_cmp(state, 6) t = true;
+	if(layer_state_cmp(state, 3) || layer_state_cmp(state, 6)) t = true;
 	rgblight_set_layer_state(2, t);//macro
 	t = false;
-	if(layer_state_cmp(state, 1) || layer_state_cmp(state, 5) t = true;
+	if(layer_state_cmp(state, 1) || layer_state_cmp(state, 5)) t = true;
     rgblight_set_layer_state(3, t);//nav
 	rgblight_set_layer_state(4, layer_state_cmp(state, 2));//BQN mode
 	my_state = false;
