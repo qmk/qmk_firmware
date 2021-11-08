@@ -9,7 +9,7 @@ The right Windows key is for getting the application context menu. The right Win
 key is not often used. It is available on the macroboard shift layer for completeness.
 
 ## Common to All Fn Layers
-* If on a layer a switch is not necessary so the following keys become themselves.
+* If on an Fn layer a switch is not necessary so the following keys become themselves.
 * Left control is ANSI layer select. Basic conformist ANSI.
 * Left win is macroboard layer select.
 * Left alt is navigation layer select. You MUST be in this mode for **BQN**.
@@ -29,8 +29,8 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Apostrophy is print screen.
 * RGB controls are Q-I.
 * Backlight controls are C-N.
-* Escape is backtick.
-* Various unicode characters µ(M), °(K), £(L), Ω(Z), ∫(S), ∂(D) and √(G).
+* Backtick is excape.
+* Various unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
 * System power down on P key.
 * Global mute is X.
 * Browser home key is O, search is A, favorites is F.
@@ -91,7 +91,7 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Backslash is insert. 
 * Square brackets are home and end.
 * Enter is itself.
-* Various unicode characters µ(M), °(K), £(L), Ω(Z), ∫(S), ∂(D) and √(G).
+* Various unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
 * Volume is up(J) and down(H).
 * Browser search is A, favorites is F.
 * Escape is pure escape.
@@ -154,7 +154,7 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * Comma and period are page up/down.
 * Semicolon is pause.
 * Apostrophy is print screen.
-* Escape is backtick.
+* Backtick is excape.
 * Enter is pure escape for easy shift escape typing.
 * Right control/alt function as modifiers for F1-F24 usage.
 * Various unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
@@ -164,7 +164,7 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * Volume is up(J) and down(H).
 
 ## BQN Layer
-* BQN unshifted.
+* BQN unshifted and shifted.
 * Fn shift toggles lock to the BQN layer.
 * Control/win/alt/menu prefix meta of **\\** to select user layers.
 * By default 2021-11-08 the user layers are not programmed.
