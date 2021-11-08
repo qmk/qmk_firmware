@@ -81,20 +81,34 @@ const uint32_t PROGMEM unicode_map[] = {
 	[OM_L] = U'ω', [OM_U] = U'Ω',
 	[MIC_L] = U'µ', [MIC_U] = U'ℎ',
 	//BQN 1
-	[GR_L] = U' ', [GR_U] = U' ',
-	[N1_L] = U' ', [N1_U] = U' ', [N2_L] = U' ', [N2_U] = U' ', [N3_L] = U' ', [N3_U] = U' ', [N4_L] = U' ', [N4_U] = U' ', [N5_L] = U' ', [N5_U] = U' ',
-	[N6_L] = U' ', [N6_U] = U' ', [N7_L] = U' ', [N7_U] = U' ', [N8_L] = U' ', [N8_U] = U' ', [N9_L] = U' ', [N9_U] = U' ', [N0_L] = U' ', [N0_U] = U' ',
-	[MIN_L] = U' ', [MIN_U] = U' ', [EQ_L] = U' ', [EQ_U] = U' ',
+	[GR_L] = U'˜', [GR_U] = U'¬',
+	[N1_L] = U'˘', [N1_U] = U'⎉', [N2_L] = U'¨', [N2_U] = U'⚇',
+	[N3_L] = U'⁼', [N3_U] = U'⍟', [N4_L] = U'⌜', [N4_U] = U'◶',
+	[N5_L] = U'´', [N5_U] = U'⊘', [N6_L] = U'˝', [N6_U] = U'⎊',
+	[N7_L] = U' ', [N7_U] = U' ', [N8_L] = U'∞', [N8_U] = U' ',
+	[N9_L] = U'¯', [N9_U] = U'⟨', [N0_L] = U'•', [N0_U] = U'⟩',
+	[MIN_L] = U'÷', [MIN_U] = U'√', [EQ_L] = U'×', [EQ_U] = U'⋆',
 	//BQN 2
-	[Q_L] = U' ', [Q_U] = U' ', [W_L] = U' ', [W_U] = U' ', [E_L] = U' ', [E_U] = U' ', [R_L] = U' ', [R_U] = U' ', [T_L] = U' ', [T_U] = U' ', [Y_L] = U' ', [Y_U] = U' ',
-	[U_L] = U' ', [U_U] = U' ', [I_L] = U' ', [I_U] = U' ', [O_L] = U' ', [O_U] = U' ', [P_L] = U' ', [P_U] = U' ', [LBR_L] = U' ', [LBR_U] = U' ', [RBR_L] = U' ', [RBR_U] = U' ',
+	[Q_L] = U'⌽', [Q_U] = U' ', [W_L] = U'𝕨', [W_U] = U'𝕎',
+	[E_L] = U'∊', [E_U] = U'⍷', [R_L] = U'↑', [R_U] = U'𝕣',
+	[T_L] = U'∧', [T_U] = U'⍋', [Y_L] = U' ', [Y_U] = U' ',
+	[U_L] = U'⊔', [U_U] = U' ', [I_L] = U'⊏', [I_U] = U'⊑',
+	[O_L] = U'⊐', [O_U] = U'⊒', [P_L] = U'π', [P_U] = U'⍳',
+	[LBR_L] = U'←', [LBR_U] = U'⊣', [RBR_L] = U'→', [RBR_U] = U'⊢',
 	//BQN 3
-	[A_L] = U' ', [A_U] = U' ', [S_L] = U' ', [S_U] = U' ', [D_L] = U' ', [D_U] = U' ', [F_L] = U' ', [F_U] = U' ', [G_L] = U' ', [G_U] = U' ', [H_L] = U' ', [H_U] = U' ',
-	[J_L] = U' ', [J_U] = U' ', [K_L] = U' ', [K_U] = U' ', [L_L] = U' ', [L_U] = U' ', [SEMI_L] = U' ', [SEMI_U] = U' ', [QUOT_L] = U' ', [QUOT_U] = U' ',
+	[A_L] = U'⍉', [A_U] = U' ', [S_L] = U'𝕤', [S_U] = U'𝕊',
+	[D_L] = U'↕', [D_U] = U' ', [F_L] = U'𝕗', [F_U] = U'𝔽',
+	[G_L] = U'𝕘', [G_U] = U'𝔾', [H_L] = U'⊸', [H_U] = U'«',
+	[J_L] = U'∘', [J_U] = U' ', [K_L] = U'○', [K_U] = U'⌾',
+	[L_L] = U'⟜', [L_U] = U'»', [SEMI_L] = U'⋄', [SEMI_U] = U'·',
+	[QUOT_L] = U'↩', [QUOT_U] = U'˙',
 	//BQN 4
-	[Z_L] = U' ', [Z_U] = U' ', [XX_L] = U' ', [XX_U] = U' ', [C_L] = U' ', [C_U] = U' ', [V_L] = U' ', [V_U] = U' ', [B_L] = U' ', [B_U] = U' ', [N_L] = U' ', [N_U] = U' ',
-	[M_L] = U' ', [M_U] = U' ', [LESS_L] = U' ', [LESS_U] = U' ', [GRET_L] = U' ', [GRET_U] = U' ', [DIV_L] = U' ', [DIV_U] = U' ',
-	[SPC_L] = U' ', [SPC_U] = U' '
+	[Z_L] = U'⥊', [Z_U] = U'⋈', [XX_L] = U'𝕩', [XX_U] = U'𝕏',
+	[C_L] = U'↓', [C_U] = U' ', [V_L] = U'∨', [V_U] = U'⍒',
+	[B_L] = U'⌊', [B_U] = U'⌈', [N_L] = U' ', [N_U] = U' ',
+	[M_L] = U'≡', [M_U] = U'≢', [LESS_L] = U'∾', [LESS_U] = U'≤',
+	[GRET_L] = U'≍', [GRET_U] = U'≥', [DIV_L] = U'≠', [DIV_U] = U'⇐',
+	[SPC_L] = U'‿', [SPC_U] = U' '
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
