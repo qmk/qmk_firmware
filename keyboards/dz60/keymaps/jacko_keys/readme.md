@@ -157,7 +157,7 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * Escape is backtick.
 * Enter is pure escape for easy shift escape typing.
 * Right control/alt function as modifiers for F1-F24 usage.
-* Various unicode characters µ(M), °(K), £(L), Ω(Z), ∫(S), ∂(D) and √(G).
+* Various unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
 * Media control prev(C), play(V), next(B), launch(N).
 * Global mute is X.
 * Browser search is A, favorites is F.
