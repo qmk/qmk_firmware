@@ -48,8 +48,6 @@ key is not often used. It is available on the macroboard shift layer for complet
 * F13 to F23 form fourth row Z-right shift with an implicit right alt gr applied.
 * Backslash is F24 with an implicit right alt gr applied.
 * Depending on your system the "Level 3 Shift" may be removed by localization of alt gr.
-* A macro can be recorded (128 keys) until power off by backspace (record start/stop).
-* The macro can be played back by space.
 * Right alt/control are alt tab window switch (reverse and forward).
 * Right win key is the right win key and not the app context menu key as in other layers.
 
@@ -63,14 +61,12 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Fn is still sticky and needs pressing to exit the layer shift.
 * Right control enters the extended shift layer.
 * Right alt enters the special shift layer.
-* Right win enters the user shift layer.
 
 ### Extended Shift Layer
 * Fn exits the extended shift layer.
 * Right alt/win/control/slash form mouse movement block.
 * Period is left mouse button.
 * Right shift is right mouse button.
-* Caps lock is shifted tab and with tab can do form navigation.
 * All left modifiers are normal with no one shot sticky.
 * Enter and backspace are themselves.
 * Backslash is keyboard reset.
@@ -100,11 +96,6 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Browser search is A, favorites is F.
 * Escape is pure escape.
 * Caps lock is num lock.
-
-### User Shift Layer
-* Fn exits the special shift layer.
-* Currently configured as a enigma mangler mode.
-* Backspace and enter reset the seed.
 
 #### Notes on "Level 3 Shift"
 * Ironically not being American I will not test the en_US local without hardware.
@@ -175,9 +166,6 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 ## BQN Layer
 * BQN unshifted.
 * Fn shift toggles lock on the BQN layer.
-
-### BQN Shift Layer
-* BQN shifted. (TBC).
 
 ## Old Keys for the Young
 * As everyone knows ecape has two purposes.
