@@ -174,7 +174,7 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 
 ## BQN Layer
 * BQN unshifted.
-* Function shift toggle locks the BQN layer.
+* Fn shift toggles lock on the BQN layer.
 
 ### BQN Shift Layer
 * BQN shifted. (TBC).

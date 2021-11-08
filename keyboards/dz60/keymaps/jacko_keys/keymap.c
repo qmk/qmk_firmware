@@ -35,8 +35,20 @@ enum unicode_names {
 	PND_L, PND_U,
 	OM_L, OM_U,
 	MIC_L, MIC_U,
-	//BQN
-    X_L, X_U
+	//BQN 1
+	GR_L, GR_U,
+	N1_L, N1_U,	N2_L, N2_U, N3_L, N3_U, N4_L, N4_U, N5_L, N5_U,
+	N6_L, N6_U,	N7_L, N7_U, N8_L, N8_U, N9_L, N9_U, N0_L, N0_U,
+	MIN_L, MIN_U, EQ_L, EQ_U,
+	//BQN 2
+	Q_L, Q_U, W_L, W_U, E_L, E_U, R_L, R_U, T_L, T_U, Y_L, Y_U,
+	U_L, U_U, I_L, I_U, O_L, O_U, P_L, P_U, LBR_L, LBR_U, RBR_L, RBR_U,
+	//BQN 3
+	A_L, A_U, S_L, S_U, D_L, D_U, F_L, F_U, G_L, G_U, H_L, H_U,
+	J_L, J_U, K_L, K_U, L_L, L_U, SEMI_L, SEMI_U, QUOT_L, QUOT_U,
+	//BQN 4
+	Z_L, Z_U, X_L, X_U, C_L, C_U, V_L, V_U, B_L, B_U, N_L, N_U,
+	M_L, M_U, LESS_L, LESS_U, GRET_L, GRET_U, DIV_L, DIV_U
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -82,10 +94,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//BQN lock mode 2 ================================================================================= BQN lock mode 2
 	// BQN Unicode
 	LAYOUT_60_ansi(
-		LSFT(KC_GRV),	  UC(728), UC(168), UC(8316),UC(8988),UC(180), KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_DEL,  KC_PMNS, KC_PPLS,          KC_BSPC,
+		KC_TILD, UC(728), UC(168), UC(8316),UC(8988),UC(180), KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_DEL,  KC_PMNS, KC_PPLS,          KC_BSPC,
 		KC_TAB,           KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_P4,   KC_P5,   KC_P6,   KC_PAST, KC_LPRN, KC_RPRN, KC_BSLS,
-		TG(6),            KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_P1,   KC_P2,   KC_P3,   KC_INS,  KC_CALC, KC_PENT,
-		MO(6),		     UC(10570),X(X_LOW),UC(8595),UC(8744),UC(8970),  KC_N,    KC_P0,   KC_PCMM, KC_PDOT, UC(8800),         MO(6),
+		KC_CAPS,          KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_P1,   KC_P2,   KC_P3,   KC_INS,  KC_CALC, KC_PENT,
+		KC_LSFT,	     UC(10570),X(X_LOW),UC(8595),UC(8744),UC(8970),  KC_N,    KC_P0,   KC_PCMM, KC_PDOT, UC(8800),         MO(6),
 		KC_LCTL, KC_LGUI,          KC_LALT,                   UC(8255),                 		  KC_RALT, KC_APP,           KC_RCTL, TG(2)),//lock shift
 
 	//Macro lock mode 3 ================================================================================== Macro lock mode 3
