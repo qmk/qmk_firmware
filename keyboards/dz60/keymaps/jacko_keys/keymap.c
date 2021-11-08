@@ -73,28 +73,28 @@ enum unicode_names {
 // _U is upper (shifted) case 
 const uint32_t PROGMEM unicode_map[] = {
 	//ANSI/NAV FN shift
-	[INT_L] = 8747,	[INT_U] = 0,
-	[DIF_L] = 8706,	[DIF_U] = 0,
-	[ROOT_L] = 8706, [ROOT_U] = 0,
-	[DEG_L] = 176, [DEG_U] = 0,	
-	[PND_L] = 163, [PND_U] = 0,	
-	[OM_L] = 0, [OM_U] = 937,
-	[MIC_L] = 181, [MIC_U] = 0,	
+	[INT_L] = U'∫',	[INT_U] = U'Σ',
+	[DIF_L] = U'∂',	[DIF_U] = U'∇',
+	[ROOT_L] = U'√', [ROOT_U] = U'∛',
+	[DEG_L] = U'°', [DEG_U] = U'⦵',	//Plimsoil STP
+	[PND_L] = U'£', [PND_U] = U'€',	
+	[OM_L] = U'ω', [OM_U] = U'Ω',
+	[MIC_L] = U'µ', [MIC_U] = U'ℎ',
 	//BQN 1
-	[GR_L] = 126, [GR_U] = 172,
-	[N1_L] = 728, [N1_U] = 9097, [N2_L] = 168, [N2_U] = 9863, [N3_L] = 8316, [N3_U] = 9055, [N4_L] = 8988, [N4_U] = 9718, [N5_L] = 180, [N5_U] = 8856,
-	[N6_L] = 0, [N6_U] = 0, [N7_L] = 0, [N7_U] = 0, [N8_L] = 0, [N8_U] = 0, [N9_L] = 0, [N9_U] = 0, [N0_L] = 0, [N0_U] = 0,
-	[MIN_L] = 0, [MIN_U] = 0, [EQ_L] = 0, [EQ_U] = 0,
+	[GR_L] = U' ', [GR_U] = U' ',
+	[N1_L] = U' ', [N1_U] = U' ', [N2_L] = U' ', [N2_U] = U' ', [N3_L] = U' ', [N3_U] = U' ', [N4_L] = U' ', [N4_U] = U' ', [N5_L] = U' ', [N5_U] = U' ',
+	[N6_L] = U' ', [N6_U] = U' ', [N7_L] = U' ', [N7_U] = U' ', [N8_L] = U' ', [N8_U] = U' ', [N9_L] = U' ', [N9_U] = U' ', [N0_L] = U' ', [N0_U] = U' ',
+	[MIN_L] = U' ', [MIN_U] = U' ', [EQ_L] = U' ', [EQ_U] = U' ',
 	//BQN 2
-	[Q_L] = 0, [Q_U] = 0, [W_L] = 0, [W_U] = 0, [E_L] = 0, [E_U] = 0, [R_L] = 0, [R_U] = 0, [T_L] = 0, [T_U] = 0, [Y_L] = 0, [Y_U] = 0,
-	[U_L] = 0, [U_U] = 0, [I_L] = 0, [I_U] = 0, [O_L] = 0, [O_U] = 0, [P_L] = 0, [P_U] = 0, [LBR_L] = 0, [LBR_U] = 0, [RBR_L] = 0, [RBR_U] = 0,
+	[Q_L] = U' ', [Q_U] = U' ', [W_L] = U' ', [W_U] = U' ', [E_L] = U' ', [E_U] = U' ', [R_L] = U' ', [R_U] = U' ', [T_L] = U' ', [T_U] = U' ', [Y_L] = U' ', [Y_U] = U' ',
+	[U_L] = U' ', [U_U] = U' ', [I_L] = U' ', [I_U] = U' ', [O_L] = U' ', [O_U] = U' ', [P_L] = U' ', [P_U] = U' ', [LBR_L] = U' ', [LBR_U] = U' ', [RBR_L] = U' ', [RBR_U] = U' ',
 	//BQN 3
-	[A_L] = 0, [A_U] = 0, [S_L] = 0, [S_U] = 0, [D_L] = 0, [D_U] = 0, [F_L] = 0, [F_U] = 0, [G_L] = 0, [G_U] = 0, [H_L] = 0, [H_U] = 0,
-	[J_L] = 0, [J_U] = 0, [K_L] = 0, [K_U] = 0, [L_L] = 0, [L_U] = 0, [SEMI_L] = 0, [SEMI_U] = 0, [QUOT_L] = 0, [QUOT_U] = 0,
+	[A_L] = U' ', [A_U] = U' ', [S_L] = U' ', [S_U] = U' ', [D_L] = U' ', [D_U] = U' ', [F_L] = U' ', [F_U] = U' ', [G_L] = U' ', [G_U] = U' ', [H_L] = U' ', [H_U] = U' ',
+	[J_L] = U' ', [J_U] = U' ', [K_L] = U' ', [K_U] = U' ', [L_L] = U' ', [L_U] = U' ', [SEMI_L] = U' ', [SEMI_U] = U' ', [QUOT_L] = U' ', [QUOT_U] = U' ',
 	//BQN 4
-	[Z_L] = 10570, [Z_U] = 8904, [XX_L] = 120169, [XX_U] = 120143, [C_L] = 8595, [C_U] = 0, [V_L] = 8744, [V_U] = 9042, [B_L] = 8970, [B_U] = 8968, [N_L] = 0, [N_U] = 0,
-	[M_L] = 0, [M_U] = 0, [LESS_L] = 0, [LESS_U] = 0, [GRET_L] = 0, [GRET_U] = 0, [DIV_L] = 8800, [DIV_U] = 8656,
-	[SPC_L] = 8255, [SPC_U] = 0
+	[Z_L] = U' ', [Z_U] = U' ', [XX_L] = U' ', [XX_U] = U' ', [C_L] = U' ', [C_U] = U' ', [V_L] = U' ', [V_U] = U' ', [B_L] = U' ', [B_U] = U' ', [N_L] = U' ', [N_U] = U' ',
+	[M_L] = U' ', [M_U] = U' ', [LESS_L] = U' ', [LESS_U] = U' ', [GRET_L] = U' ', [GRET_U] = U' ', [DIV_L] = U' ', [DIV_U] = U' ',
+	[SPC_L] = U' ', [SPC_U] = U' '
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
