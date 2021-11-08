@@ -23,8 +23,8 @@ jobs:
         pip install --user qmk
         qmk setup -y
     - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: Build
       run: |
         qmk compile -kb ergodox_ez/glow -km mhijaz1
