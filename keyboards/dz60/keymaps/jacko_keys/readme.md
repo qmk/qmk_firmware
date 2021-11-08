@@ -10,9 +10,9 @@ key is not often used. It is available on the macroboard shift layer for complet
 
 ## Common to All Fn Layers
 * If on a layer a switch is not necessary so the following keys become themselves.
-* Left control is ANSI layer select.
+* Left control is ANSI layer select. Basic conformist ANSI.
 * Left win is macroboard layer select.
-* Left alt is navigation layer select.
+* Left alt is navigation layer select. You MUST be in this mode for **BQN**.
 
 ## ANSI Layer
 * Right control exchanged with function shift key as always.
@@ -143,7 +143,7 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 
 ## Navigation Layer
 * Right alt/win/control/slash form cusor block.
-* Blackslash enters a prefix to enter BQN characters.
+* Blackslash enters a prefix to enter **BQN** characters.
 
 ### Navigation Shift Layer (Fn Navigation)
 * Scroll lock placed on caps lock.
@@ -165,7 +165,9 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 
 ## BQN Layer
 * BQN unshifted.
-* Fn shift toggles lock on the BQN layer.
+* Fn shift toggles lock to the BQN layer.
+* Control/win/alt/menu prefix meta of **\\** to select user layers.
+* By default 2021-11-08 the user layers are not programmed.
 
 ## Old Keys for the Young
 * As everyone knows ecape has two purposes.
