@@ -172,12 +172,12 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * Browser search is A, favorites is F.
 * Volume is up(J) and down(H).
 
-## Numpad Layer
+## BQN Layer
 * BQN unshifted.
 * Function shift toggle locks the BQN layer.
 
-### Numpad Shift Layer
-* BQN shifted.
+### BQN Shift Layer
+* BQN shifted. (TBC).
 
 ## Old Keys for the Young
 * As everyone knows ecape has two purposes.
