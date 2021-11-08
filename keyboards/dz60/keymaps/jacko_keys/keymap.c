@@ -60,7 +60,12 @@ const uint32_t PROGMEM unicode_map[] = {
 	[PND_L] = 163, [PND_U] = 0,	
 	[OM_L] = 0, [OM_U] = 937,
 	[MIC_L] = 181, [MIC_U] = 0,	
-	//BQN
+	//BQN 1
+	[GR_L] = 126, [GR_U] = 172,
+	[N1_L] = 728, [N1_U] = , [N2_L] = 168, [N2_U] = , [N3_L] = 8316, [N3_U] = , [N4_L] = 8988, [N4_U] = , [N5_L] = 180, [N5_U] = ,
+	[N6_L] = , [N6_U] = , [N7_L] = , [N7_U] = , [N8_L] = , [N8_U] = , [N9_L] = , [N9_U] = , [N0_L] = , [N0_U] = ,
+	[MIN_L] = , [MIN_U] = , [EQ_L] = , [EQ_U] = ,
+
     [X_L]  = 120169, [X_U] = 120143
 };
 
@@ -94,10 +99,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//BQN lock mode 2 ================================================================================= BQN lock mode 2
 	// BQN Unicode
 	LAYOUT_60_ansi(
-		KC_TILD, UC(728), UC(168), UC(8316),UC(8988),UC(180), KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_DEL,  KC_PMNS, KC_PPLS,          KC_BSPC,
+		Z(GR),   Z(N1),	  Z(N2),   Z(N3),	Z(N4),	 Z(N5),	  Z(N6),   Z(N7),   Z(N8),   Z(N9),   Z(N0),   Z(MIN),  Z(EQ),            KC_BSPC,
 		KC_TAB,           KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_P4,   KC_P5,   KC_P6,   KC_PAST, KC_LPRN, KC_RPRN, KC_BSLS,
 		KC_CAPS,          KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_P1,   KC_P2,   KC_P3,   KC_INS,  KC_CALC, KC_PENT,
-		KC_LSFT,	     UC(10570),X(X_LOW),UC(8595),UC(8744),UC(8970),  KC_N,    KC_P0,   KC_PCMM, KC_PDOT, UC(8800),         MO(6),
+		KC_LSFT,	     UC(10570),X(X_LOW),UC(8595),UC(8744),UC(8970),  KC_N,    KC_P0,   KC_PCMM, KC_PDOT, UC(8800),         KC_RSFT,
 		KC_LCTL, KC_LGUI,          KC_LALT,                   UC(8255),                 		  KC_RALT, KC_APP,           KC_RCTL, TG(2)),//lock shift
 
 	//Macro lock mode 3 ================================================================================== Macro lock mode 3
