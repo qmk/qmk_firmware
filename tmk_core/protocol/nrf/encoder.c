@@ -69,6 +69,7 @@ void bmp_encoder_init(bmp_encoder_config_t const* const encoder_config) {
                 encoders_pad_b[encoder_cnt] == 0) {
                 break;
             }
+
         }
 
         if (encoder_cnt > 0) {
@@ -95,9 +96,12 @@ void bmp_encoder_read(bmp_encoder_config_t const* const encoder_config, uint32_t
             encoder_diff = BMPAPI->encoder.get_count(i);
             encoder_value[i] += encoder_diff;
 
-            if (encoder_value[i] >= encoder_config->encoder[i].step) {
+            uint8_t resolution = encoder_config->encoder[i].step;
+            resolution = resolution > 0 ? resolution : 1;
+
+            if (encoder_value[i] >= resolution) {
                 encoder_update_bmp(i, false);
-            } else if (encoder_value[i] <= -encoder_config->encoder[i].step) {
+            } else if (encoder_value[i] <= -resolution) {
                 // direction is arbitrary here, but this clockwise
                 encoder_update_bmp(i, true);
             } else {
