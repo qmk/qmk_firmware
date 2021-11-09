@@ -1,5 +1,6 @@
 # Formy46 Features Options
 SPLIT_KEYBOARD          =  yes       # Enable Split Keyboard
+RGBLIGHT_ENABLE         =  yes
 #RGB_MATRIX_ENABLE       =  yes       # Enable keyboard RGB Matrix
 #RGB_MATRIX_DRIVER       =  WS2812    # RGB Matrix driver
 SRC                    +=  analog.c  # adc driver
