@@ -120,14 +120,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |    %  |  ^  |  [  |  ]  |     |      |  &  |  ~  |  +  |  *  |       |
      * `-------------------------------'      `-------------------------------'
      *           .-------------------.          .-----------------.
-     *           |       |     |     |          |     |     |     |
+     *           |       |     |     |          |     |  "  |  _  |
      *           '-------------------'          '-----------------'
      */
     [_SPECIAL] = LAYOUT_split_3x5_3(
          KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,          KC_GRV,  KC_MINS, KC_EQL , KC_SLSH, KC_BSLS,
          KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_TRNS,          KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_QUOT,
          KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TRNS,          KC_AMPR, KC_TILD, KC_PLUS, KC_ASTR, KC_TRNS,
-                           KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
+                           KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, LSFT(KC_QUOTE), LSFT(KC_MINS)),
 
     /* Numbers/Function/Motion layer
      *
