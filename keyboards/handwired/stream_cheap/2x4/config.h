@@ -14,12 +14,10 @@
 #define MATRIX_COLS 4
 
 /* define direct pins used */
-//Luigi311
-//#define DIRECT_PINS { { B4, E6, D4, D0}, { B5, D7, C6, D1} }
-//Darklegacy
-//#define DIRECT_PINS { { B4, D4, D7, D1}, { B5, C6, D0, E6} }
-//Vancurls Craigerbomb Scuhzy
-//#define DIRECT_PINS { { D7, E6, B3, B1}, { B5, B4, B2, B6} }
+#define DIRECT_PINS                          \
+    {                                        \
+        {D1, D0, D4, C6}, { D7, E6, B4, B5 } \
+    }
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
