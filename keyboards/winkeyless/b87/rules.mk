@@ -25,7 +25,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes 	    # Enable keyboard backlight functionality on B7 by default
 UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 WS2812_DRIVER = i2c
