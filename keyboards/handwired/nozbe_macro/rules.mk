@@ -4,7 +4,6 @@ MCU = atmega32u4
 # Boot Section Size in *bytes*
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
-
 # Build Options
 #   comment out to disable the options.
 BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
