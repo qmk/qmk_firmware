@@ -224,6 +224,7 @@ void pointing_device_task(void) {
 }
 
 void eeconfig_init_kb(void) {
+	keyboard_config.raw = 0;
     keyboard_config.dpi_config = CHARYBDIS_DPI_DEFAULT;
     keyboard_config.sniper_config = CHARYBDIS_SNIPER_DEFAULT;
     pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
