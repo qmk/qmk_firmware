@@ -1,16 +1,11 @@
 {
-    "name": "Stream Cheap 2x4",
-    "keyboard_name": "Stream Cheap 2x4",
-    "vendorId": "0x4C47",
-    "productId": "0x0001",
-    "lighting": "none",
+    "keyboard_name": "Stream Cheap",
     "url": "https://www.thingiverse.com/thing:4497991",
     "maintainer": "qmk",
     "width": 4,
     "height": 2,
-    "matrix": { "rows": 2, "cols": 4 },
     "layouts": {
-        "LAYOUT_ortho_2x4": {
+        "LAYOUT_ortho_Vancurls_Craigerbomb_Scuhzy": {
             "layout": [
                 {"label":"K00", "x":0, "y":0},
                 {"label":"K01", "x":1, "y":0},
@@ -21,10 +16,6 @@
                 {"label":"K06", "x":2, "y":1},
                 {"label":"K07", "x":3, "y":1}
             ]
-        }, 
-        "keymap": [
-            ["0,0", "0,1", "0,2", "0,3"],
-            ["0,4", "0,5", "0,6", "0,7"]
-          ]
+        }
     }
 }
