@@ -1,0 +1,4 @@
+SUBS(sqbrace, "[]", KC_J, KC_K)
+SUBS(brace, "()", KC_K, KC_L)
+SUBS(cbrace, "{}", KC_H, KC_J)
+SUBS(email, "felix.sargent@gmail.com", KC_E, KC_M)

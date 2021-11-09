@@ -1,1 +1,0 @@
-Larva mk.1 is basically deprecated. Evolved into mk.2

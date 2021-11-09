@@ -1,7 +1,0 @@
-VIA_ENABLE=yes
-VIAL_ENABLE=yes
-
-VIALRGB_ENABLE=yes
-
-#define VIAL_UNLOCK_ROWS { 1,3 }
-#define VIAL_UNLOCK_COLS { 10,4 }

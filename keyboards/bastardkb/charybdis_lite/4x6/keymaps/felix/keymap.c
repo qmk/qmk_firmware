@@ -20,28 +20,24 @@
 #include "print.h"
 #endif  // CONSOLE_ENABLE
 
-
 #include "features/caps_word.h"
 
-/**
+
+
  * The default keymap is a simplified version of the Miryoku layout using
  * a QWERTY alpha base layer.
  */
 enum charybdis_vial_keymap_layers {
   LAYER_FIRST = 0,
   LAYER_BASE = LAYER_FIRST,
-  LAYER_LOWER,
-  LAYER_RAISE,
+  LAYER_SYMBOL,
+  LAYER_NAV,
   LAYER_POINTER,
   LAYER_LAST = LAYER_POINTER,
 };
 
 enum charybdis_vial_keymap_keycodes {
-#ifdef VIA_ENABLE
-  USER_RESET = USER00,
-#else
   USER_RESET = SAFE_RANGE,
-#endif  // VIA_ENABLE
   POINTER_DEFAULT_DPI_FORWARD,
   POINTER_DEFAULT_DPI_REVERSE,
   POINTER_SNIPING_DPI_FORWARD,
@@ -63,8 +59,8 @@ enum charybdis_vial_keymap_keycodes {
 #define DRGSCRL DRAGSCROLL_MODE
 #define DRG_TOG DRAGSCROLL_MODE_TOGGLE
 
-#define LOWER MO(LAYER_LOWER)
-#define RAISE MO(LAYER_RAISE)
+#define SYMBOL MO(LAYER_SYMBOL)
+#define NAV MO(LAYER_NAV)
 #define _L_PTR(KC) LT(LAYER_POINTER, KC)
 
 /** Automatically enable sniping-mode on the pointer layer. */
@@ -106,35 +102,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        MT(MOD_MEH,KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      KC_H,    KC_J,    KC_K,    KC_L,   KC_P, KC_QUOT,
   // ├─────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────┤
        KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,      KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
-  // ╰─────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────╯
+// ╰─────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────╯
   	                                  
-                          MO(RAISE),CMD_T(KC_BSPC), KC_BSPC,	  LT(RAISE, KC_ENT), LT(RAISE, KC_ENT),KC_SPC,	
-                   MT(MOD_LALT,KC_TAB),  MT(MOD_LCTL,KC_DEL),    LT(RAISE, KC_ENT), LT(RAISE, KC_ENT)
+        LT(NAV, KC_ENT), CMD_T(KC_BSPC), LT(SYMBOL, KC_DEL),	  KC_BSPC,KC_SPC,	
+                  MT(MOD_LCTL,S(KC_TAB)), MT(MOD_LALT,KC_TAB),  KC_LGUI
   //                            ╰──────────────────────────╯ ╰──────────────────────────╯
   )),
 
-  [LAYER_LOWER] = LAYOUT_charybdis_4x6(
-  // ╭─────────────────────────────────────────────────────╮ ╭─────────────────────────────────────────────────────╮
-       KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS,
-  // ├─────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────┤
-       RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   KC_LBRC,   KC_P7,   KC_P8,   KC_P9, KC_RBRC, XXXXXXX,
-  // ├─────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────┤
-       RGB_TOG, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,   KC_PPLS,   KC_P4,   KC_P5,   KC_P6, KC_PMNS, KC_PEQL,
-  // ├─────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────┤
-      RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   KC_PAST,   KC_P1,   KC_P2,   KC_P3, KC_PSLS, KC_PDOT,
+// https://getreuer.info/posts/keyboards/symbol-layer/index.html
+  [LAYER_SYMBOL] = LAYOUT_charybdis_4x6(
+      RESET  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F5  ,   KC_F6  , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F11 ,
+      KC_LALT, KC_QUOT, KC_LABK, KC_RABK, KC_DQUO, KC_DOT ,   KC_AMPR, KC_NO  , KC_LBRC, KC_RBRC, KC_PERC, KC_F12 ,
+      KC_LCTL, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL , KC_HASH,   KC_PIPE, KC_COLN, KC_LPRN, KC_RPRN, KC_QUES, _______,
+      KC_LSFT, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS, KC_NO,     KC_TILD, KC_DLR , KC_LCBR, KC_RCBR, KC_AT  , _______,
   // ╰─────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────╯
-                                  XXXXXXX, XXXXXXX, _______,   XXXXXXX, _______, _______,
-                                           XXXXXXX, XXXXXXX,     KC_P0, KC_P0
+                                  XXXXXXX, XXXXXXX, _______,   MAGIC_TOGGLE_CTL_GUI, _______, _______,
+                                           XXXXXXX, XXXXXXX,     _______, _______
   //                            ╰──────────────────────────╯ ╰──────────────────────────╯
   ),
 
-  [LAYER_RAISE] = LAYOUT_charybdis_4x6(
+  [LAYER_NAV] = LAYOUT_charybdis_4x6(
   // ╭─────────────────────────────────────────────────────╮ ╭─────────────────────────────────────────────────────╮
         KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
   // ├─────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────┤
-       KC_MNXT, A(KC_BSPC), KC_BSPC, KC_UP, KC_DEL, A(KC_DEL),      KC_LBRC,   KC_P7,   KC_P8,   KC_P9, KC_RBRC, XXXXXXX,
+       KC_LALT, A(KC_BSPC), KC_BSPC, KC_UP, KC_DEL, A(KC_DEL),      KC_LBRC,   KC_P7,   KC_P8,   KC_P9, KC_RBRC, XXXXXXX,
   // ├─────────────────────────────────────────────────────┤ ├───────────────────────────────────────────────────────────┤
-       KC_MPLY, G(KC_LEFT), KC_LEFT, KC_DOWN, KC_RGHT, G(KC_RIGHT),  KC_PPLS,   KC_P4,   KC_P5,   KC_P6, KC_PMNS, KC_PEQL,
+       KC_LCTL, G(KC_LEFT), KC_LEFT, KC_DOWN, KC_RGHT, G(KC_RIGHT),  KC_PPLS,   KC_P4,   KC_P5,   KC_P6, KC_PMNS, KC_PEQL,
   // ├─────────────────────────────────────────────────────┤ ├───────────────────────────────────────────────────────────┤
        KC_LSFT, KC_HOME, KC_PGUP, KC_ENT, KC_PGDN,  KC_END,          KC_PAST,   KC_P1,   KC_P2,   KC_P3, KC_PSLS, KC_LSFT,
   // ╰─────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────╯
@@ -243,3 +236,171 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 #ifdef CONSOLE_ENABLE
 void keyboard_post_init_user(void) { debug_enable = true; }
 #endif  // CONSOLE_ENABLE
+
+#ifdef COMBO_ENABLE
+
+enum combo_events {
+	BKT,
+	CBRC,
+	PAREN,
+	LTGT,
+	CTRLALTDEL,
+	CMD_ENTER,
+  ENTER,
+	CTRLC,
+	CTRLR,
+	CAL,
+	APW,
+	DELWD,
+	EML,
+	PHONE,
+	EMW,
+	WINDELWD,
+	COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
+
+const uint16_t PROGMEM qwer_combo[] = {KC_Q, KC_W, KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM asdf_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM zxcv_combo[] = {KC_Z, KC_X, KC_C, KC_V, COMBO_END};
+
+const uint16_t PROGMEM uiop_combo[] = {KC_U, KC_I, KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM jklsemi_combo[] = {KC_J, KC_K, KC_L, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM mcommdotslsh_combo[] = {KC_M, KC_COMM, KC_DOT, KC_SLSH, COMBO_END};
+
+const uint16_t PROGMEM zx_combo[] = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM vb_combo[] = {KC_V, KC_B, COMBO_END};
+const uint16_t PROGMEM qr_combo[] = {KC_Q, KC_R, COMBO_END};
+const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM fg_combo[] = {KC_F, KC_G, COMBO_END};
+
+const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+
+
+const uint16_t PROGMEM cal_combo[] = {KC_C, KC_A, KC_L, COMBO_END};
+const uint16_t PROGMEM phone_combo[] = {KC_P, KC_Q,COMBO_END};
+const uint16_t PROGMEM eml_combo[] = {KC_E, KC_M, KC_L, COMBO_END};
+const uint16_t PROGMEM ema_combo[] = {KC_E, KC_A, KC_M, COMBO_END};
+
+
+combo_t key_combos[] = {
+
+	// 2 key combos
+	[BKT] = COMBO_ACTION(zx_combo),
+	[PAREN] = COMBO_ACTION(xc_combo),
+	[CBRC] = COMBO_ACTION(cv_combo),
+	[LTGT] = COMBO_ACTION(vb_combo),
+	[CTRLR] = COMBO_ACTION(qr_combo),
+	[DELWD] = COMBO_ACTION(df_combo),
+	[WINDELWD] = COMBO_ACTION(fg_combo),
+
+  [ENTER] = COMBO_ACTION(jk_combo),
+
+
+	// 4 key combos
+	[CTRLC] = COMBO_ACTION(zxcv_combo),
+	[CTRLALTDEL] = COMBO_ACTION(jklsemi_combo),
+	[CMD_ENTER] = COMBO_ACTION(asdf_combo),
+	[APW] = COMBO_ACTION(uiop_combo),
+
+	// Misc
+	[CAL] = COMBO_ACTION(cal_combo),
+	[EML]= COMBO_ACTION(eml_combo),
+	[PHONE]= COMBO_ACTION(phone_combo),
+	[EMW] = COMBO_ACTION(ema_combo)
+};
+/* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+	switch(combo_index) {
+
+		case ENTER:
+			if (pressed) {
+				tap_code16(KC_ENTER);
+			}
+			break;
+		case DELWD:
+			if (pressed) {
+				tap_code16(A(KC_BSPC));
+			}
+			break;
+		case WINDELWD:
+			if (pressed) {
+				tap_code16(C(KC_BSPC));
+			}
+			break;
+		case BKT:
+			if (pressed) {
+				SEND_STRING("[]");
+				tap_code16(KC_LEFT);
+			}
+			break;
+		case CBRC:
+			if (pressed) {
+				SEND_STRING("{}");
+				tap_code16(KC_LEFT);
+			}
+			break;
+		case PAREN:
+			if (pressed) {
+				SEND_STRING("()");
+				 tap_code16(KC_LEFT);
+			}
+			break;
+		case LTGT:
+			if (pressed) {
+				SEND_STRING("<>");
+				 tap_code16(KC_LEFT);
+			}
+			break;
+		case CTRLC:
+			if (pressed) {
+				tap_code16(C(KC_C));
+				}
+			break;
+		case CTRLR:
+			if (pressed) {
+				tap_code16(C(KC_R));
+				}
+			break;
+		case CAL:
+			if (pressed) {
+				SEND_STRING("https://felixsargent.com/calendar");
+				}
+			break;
+		case EML:
+			if (pressed) {
+				SEND_STRING("felix.sargent@gmail.com");
+				}
+			break;
+		case EMW:
+			if (pressed) {
+				SEND_STRING("felix@truework.com");
+				}
+			break;
+		case PHONE:
+			if (pressed) {
+				SEND_STRING("4158606970");
+				}
+			break;
+		case APW:
+			if (pressed) {
+				SEND_STRING("XXX");
+				}
+			break;
+		case CTRLALTDEL:
+			if (pressed) {
+			 tap_code16(C(A(KC_DEL)));
+						}
+			break;
+		case CMD_ENTER:
+			if (pressed) {
+			 tap_code16(G(KC_ENT));
+					}
+			break;
+	}
+}
+
+#endif  // COMBO_ENABLE
