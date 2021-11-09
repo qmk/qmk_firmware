@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NOZBE_MACRO_H
-#define NOZBE_MACRO_H
+#pragma once
 
 #include "quantum.h"
 
