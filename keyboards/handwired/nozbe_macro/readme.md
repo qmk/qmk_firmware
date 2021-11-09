@@ -7,6 +7,7 @@
 * Keyboard Maintainer: [rozPierog](https://github.com/rozPierog)
 * Hardware Supported: *Custom handwired 4 key (or 3 key + rotary encoder) pad*
 * Hardware Availability: *n/a*
+* Github Repository: [NozbePad](https://github.com/rozPierog/NozbePad)
 
 Make example for this keyboard (after setting up your build environment):
 
