@@ -15,15 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "features/caps_word.h"
+
 
 #ifdef CONSOLE_ENABLE
 #include "print.h"
 #endif  // CONSOLE_ENABLE
 
-#include "features/caps_word.h"
 
 
-
+/*
  * The default keymap is a simplified version of the Miryoku layout using
  * a QWERTY alpha base layer.
  */
@@ -104,8 +105,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,      KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
 // ╰─────────────────────────────────────────────────────┤ ├─────────────────────────────────────────────────────╯
   	                                  
-        LT(NAV, KC_ENT), CMD_T(KC_BSPC), LT(SYMBOL, KC_DEL),	  KC_BSPC,KC_SPC,	
-                  MT(MOD_LCTL,S(KC_TAB)), MT(MOD_LALT,KC_TAB),  KC_LGUI
+        LT(NAV, KC_ENT), CMD_T(KC_BSPC), LT(SYMBOL, KC_DEL),	  KC_BSPC,KC_SPC,	KC_SPC,	
+                  MT(MOD_LCTL,S(KC_TAB)), MT(MOD_LALT,KC_TAB),  KC_LGUI, KC_LGUI
   //                            ╰──────────────────────────╯ ╰──────────────────────────╯
   )),
 
@@ -164,7 +165,7 @@ static bool _has_shift_mod(void) {
 
 #ifdef POINTING_DEVICE_ENABLE
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  if (!process_caps_word(keycode, record)) { return false; }
+    // if (!process_caps_word(keycode, record)) { return false; }
 
   switch (keycode) {
     case USER_RESET:
@@ -220,6 +221,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
       }
       break;
   }
+  
   return true;
 }
 

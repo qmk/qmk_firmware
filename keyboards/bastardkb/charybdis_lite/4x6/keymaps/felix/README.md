@@ -6,3 +6,6 @@ keymap](../default), but with support for Vial/Vial.
 ## Layout
 
 ![Keymap layout (generated with keyboard-layout-editor.com)](https://i.imgur.com/hHqJhkA.png)
+
+
+qmk flash -kb bastardkb/charybdis_lite/4x6 -km felix
