@@ -16,9 +16,10 @@
 
 #include "dosa40rgb.h"
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_kb(void) {
     setPinOutput(B5);
     writePinLow(B5);
+    keyboard_pre_init_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
