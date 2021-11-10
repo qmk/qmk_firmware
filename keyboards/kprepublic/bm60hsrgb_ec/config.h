@@ -8,12 +8,12 @@
 #define PRODUCT_ID      0xEF9C
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KP Republic
-#define PRODUCT         BM60 EC
+#define PRODUCT         BM60HSRGB_EC
 #define DESCRIPTION     A 60% hotswap inswitch rgb board
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 14 
+#define MATRIX_COLS 14
 #define ENCODERS_PAD_A { F6 }
 #define ENCODERS_PAD_B { F5 }
 #define ENCODER_RESOLUTION 2

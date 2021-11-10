@@ -1,9 +1,7 @@
 {
-    "keyboard_name": "BM60EC",
+    "keyboard_name": "BM60HSRGB_EC",
     "url": "",
     "maintainer": "qmk",
-    "width": 17,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
