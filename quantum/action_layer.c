@@ -121,7 +121,7 @@ void layer_clear(void) { layer_state_set(0); }
  *
  * Return whether the given state is on (it might still be shadowed by a higher state, though)
  */
-bool layer_state_is(uint8_t layer) { return layer_state_cmp(layer_state, layer); }
+bool layer_state_has(uint8_t layer) { return layer_state_cmp(layer_state, layer); }
 
 /** \brief Layer state compare
  *
