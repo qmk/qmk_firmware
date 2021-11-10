@@ -346,8 +346,8 @@ ifeq ($(strip $(MCU)), risc-v)
         endif
     endif
 
-    # Default to compiling with picolibc for RISC-V targets if available,
-    # which is available by default on current (bullseye) debian based systems.
+    # Default to compiling with picolibc for RISC-V targets if available, which
+    # is available by default on distributions based on Debian 11+.
     ifeq ($(shell $(TOOLCHAIN)gcc --specs=picolibc.specs -E - 2>/dev/null >/dev/null </dev/null ; echo $$?),0)
         # Toolchain specific Compiler flags
         # Note that we still link with our own linker script
