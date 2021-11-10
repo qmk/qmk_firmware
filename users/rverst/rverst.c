@@ -39,9 +39,7 @@ uint8_t get_mode(void) {
 }
 
 void set_mode(uint8_t mode, bool save) {
-    if (mode == get_mode()) {
-        return;
-    }
+    dprintf("set_mode - mode: %d, save: %s\n", mode, save ? "true" : "false");
     switch_mode(mode);
 
     if (mode > 7) {
@@ -138,8 +136,12 @@ void eeconfig_init_user(void) {
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (process_record_keymap(keycode, record)) {
+    if (!process_record_keymap(keycode, record)) {
         return false;
+    }
+
+    if (!record->event.pressed) {
+        return true;
     }
 
     bool ls = (get_mods() | get_weak_mods()) & MOD_BIT(KC_LSFT);
@@ -193,15 +195,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Lock computer
         case RV_LOCK:
             if (mode == MAC || mode == MAC_UNI) {
-                register_code(KC_LGUI);
-                register_code(KC_LCTL);
-                tap_code(KC_Q);
-                unregister_code(KC_LCTL);
-                unregister_code(KC_LGUI);
+                tap_code16(G(C(KC_Q)));
             } else if (mode == WINDOWS || mode == WINDOWS_UNI) {
-                register_code(KC_LGUI);
-                tap_code(KC_L);
-                register_code(KC_LGUI);
+                tap_code16(G(KC_L));
             }
             return false;
 
@@ -211,23 +207,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (ls) unregister_code(KC_LSFT);
                 if (rs) unregister_code(KC_RSFT);
 
-                register_code(KC_LGUI);
-                register_code(KC_LSFT);
-                if (as)
-                    tap_code(KC_5);
-                else
-                    tap_code(KC_4);
-                unregister_code(KC_LSFT);
-                unregister_code(KC_LGUI);
+                tap_code16(G(S(as ? KC_4 : KC_5)));
 
                 if (ls) register_code(KC_LSFT);
                 if (rs) register_code(KC_RSFT);
             } else if (mode == WINDOWS || mode == WINDOWS_UNI) {
-                register_code(KC_LGUI);
-                register_code(KC_LSFT);
-                tap_code(KC_S);
-                register_code(KC_LSFT);
-                register_code(KC_LGUI);
+                tap_code16(G(S(KC_S)));
             }
             return false;
 
@@ -256,9 +241,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (ls) unregister_code(KC_LSFT);
                 if (rs) unregister_code(KC_RSFT);
 
-                register_code(KC_LALT);
-                tap_code(KC_U);
-                unregister_code(KC_LALT);
+                tap_code16(A(KC_U));
 
                 if (as) register_code(KC_LSFT);
                 if (keycode == RV_AUML) {
@@ -314,11 +297,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (is_unicode(mode)) {
                 send_unicode_string("€");
             } else if (mode == MAC) {
-                register_code(KC_LALT);
-                register_code(KC_LSFT);
-                tap_code(KC_2);
-                unregister_code(KC_LSFT);
-                unregister_code(KC_LALT);
+                tap_code16(S(A(KC_2)));
             } else if (mode == WINDOWS) {
                 register_code(KC_RALT);
                 tap_code(KC_0);
@@ -339,9 +318,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     send_unicode_string("ß");
                 }
             } else if (mode == MAC) {
-                register_code(KC_LALT);
-                tap_code(KC_S);
-                unregister_code(KC_LALT);
+                tap_code16(A(KC_S));
             } else if (mode == WINDOWS) {
                 register_code(KC_RALT);
                 tap_code(KC_2);
@@ -412,6 +389,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (is_unicode(mode)) {
                 send_unicode_string("³");
             }
+            return false;
+        // vim equal split
+        case RV_SEQU:
+            tap_code16(C(KC_W));
+            tap_code(KC_EQL);
+            return false;
+        // vim vertical split increase
+        case RV_VINC:
+            tap_code16(C(KC_W));
+            tap_code(KC_4);
+            tap_code16(S(KC_DOT));
+            return false;
+        // vim vertical split decrease
+        case RV_VDEC:
+            tap_code16(C(KC_W));
+            tap_code(KC_4);
+            tap_code16(S(KC_COMM));
+            return false;
+        // vim split increase
+        case RV_SINC:
+            tap_code16(C(KC_W));
+            tap_code(KC_4);
+            tap_code16(S(KC_EQL));
+            return false;
+        // vim split decrease
+        case RV_SDEC:
+            tap_code16(C(KC_W));
+            tap_code(KC_4);
+            tap_code(KC_MINS);
             return false;
     }
 

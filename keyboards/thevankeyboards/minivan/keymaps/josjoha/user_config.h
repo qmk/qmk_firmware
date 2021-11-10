@@ -18,16 +18,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
+#pragma once
 
 // ------------------------------------- ⬇ --------------------------------------
 //                                 Configuration:
 // ------------------------------------- ⬇ --------------------------------------
 
-  // (For the non-coders: “_Remove_” means to place ‛//’ in front of a line. The rest of the line becomes a comment.
-  //                      Placing ‛//’ in front of a line, means whatever follows it will be ignored during compilation.
-  //                      “_Activate_”   means to *delete* the two ‛//’ in front. Now the rest of the line *will* be compiled
-  //                      /* ... */ is another a way to turn “...” into being a comment which is ignored during compilation.
-  //                      (The documentation here is geared toward people who have no understanding about programming.)
+  // (For the non-coders: 
+  // “_Remove_” means to place ‛//’ in front of a line. The rest of the line becomes a comment.
+  // Placing ‛//’ in front of a line, means whatever follows it will be ignored during compilation.
+  // “_Activate_”   means to *delete* the two ‛//’ in front. Now the rest of the line *will* be compiled
+  // /* ... */ is another a way to turn “...” into being a comment which is ignored during compilation.
+  // (The documentation here is geared toward people who have no understanding about programming.)
 
        /*
         --------------------------------------------------------------------------------------
@@ -46,6 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • Colemak
                     • Workman
                     • Numpad
+                    • Hebrew
 
                             -2- ➡ Eviscerations ( ① / ② ) ⬅
                     • Single layout
@@ -77,9 +80,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     • GUI left/right
                     • Alternate currency symbol
                     • Check boxes or Pointers
-                    • Switch _ACC/_BON and *left* side _NSY/_DRA hold keys
-                    • Switch _PAD and _MOV on Left Shift toggle
-                    • Switch _FUN and _RAR on Right Shift toggle
+                    • Switch _ACC/_BON ⬅➡ *left* side _NSY/_DRA hold keys
+                    • Switch _PAD ⬅➡ _MOV on Left Shift toggle
+                    • Switch _FUN ⬅➡ _RAR on Right Shift toggle
+                    • “Switch spacebars”: ‛Space-bar’ ⬅➡ “‛Enter’ + ‛layer-hold _MOV’”
 
                            -11- ➡ Eviscerations ( ② / ② ) ⬅
                     • Removing the numbers pad _PAD layer
@@ -104,7 +108,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         * when uploaded to QMK, so that it gives the most commonly used layout: Qwerty with Numpad,
         * basic 44 Minivan keys. The compact version its state is whatever it is.)
         */
-  #define MINIFAN_CONFIG_COMPACT // _Activate_ this, to load the configuration in ./minifan_config_compact.h (note: mini‛f’an).
+//#define MINIFAN_CONFIG_COMPACT // _Activate_ this, to load the configuration in ./minifan_config_compact.h (note: mini‛f’an).
 #ifndef MINIFAN_CONFIG_COMPACT // (don't alter this)
 
       
@@ -144,6 +148,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //  _Activate_ one of these two, _remove_ the other.
 //#define BASE_QWERTY_BASEARROW__DEF_BASE // _Activate_ if you want Qwerty with Base arrows on the ‛Default’ spot
 //#define BASE_QWERTY_BASEARROW__ALT_BASE // _Activate_ if you want Qwerty with Base arrows on the ‛Alternate’ spot
+        // ➡ ➡ ➡ This Base layer has configuration options at the top of its file. See ./ base_qwerty_basearrow.h
         //
         //          • Dvorak
         //                  (a regular Dvorak layout)
@@ -172,7 +177,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         //                   (a numerical keypad, one for left hand and one for right hand)
         //  _Activate_ to get Numpad on Alternate. There is no option for Numpad on ‛Default’ base.
   #define BASE_NUMPAD__ALT_BASE // _Activate_ if you want Numpad on the ‛Alternate’ spot
-        // ➡ ➡ ➡ This Base layer has configuration options at the top of its file. See ./base_numpad.c
+        // ➡ ➡ ➡ This Base layer has configuration options at the top of its file. See ./base_numpad.h
+        //
+        //          • Hebrew
+        //                  (a simple Hebrew layout)
+        // _Activate_ one of these two, _remove_ the other.
+//#define BASE_HEBREW__DEF_BASE // _Activate_ if you want Hebrew on the ‛Default’ spot
+//#define BASE_HEBREW__ALT_BASE // _Activate_ if you want Hebrew on the ‛Alternate’ spot
+        // ➡ ➡ ➡ This Base layer has configuration options at the top of its file. See ./base_hebrew.h
         //
         /*                  -2- ➡ Eviscerations ( ① / ② ) ⬅
          */
@@ -444,6 +456,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Recommended if you use _RAR more than _FUN
          */
 //#define SWITCH_RSHIFT_FUN_RAR // _Activate_ to make _RAR layer be on the fast tap, and _FUN on a short hold toggle
+        /*
+         *          • “Switch spacebars”: ‛Space-bar’ ⬅➡ “‛Enter’ + ‛layer-hold _MOV’”
+         *
+         * Recommended if you usually type ‛Space-bar’ with your left hand.
+         * These keys also switch on _MOV (movement) layer. Page-Up goes one spot to the left.
+         */
+//#define SPACE_LEFT__ENTER_RIGHT // _Activate_ for ‛Space bar’ left, ‛Enter’ and ‛_MOV hold’ right hand.
 
 
         /*                 -11- ➡ Eviscerations ( ② / ② ) ⬅
@@ -508,12 +527,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                       // Thinned out 2nd row: LSht  ━     ─     °    •    …    ☐ ☑   ☑     ¿¡  ┄    ┅      RSht
                       //
   #define FULL_DRA_4THROW // _Activate_ to have symbols on all unshifted + shifted positions on _DRA, 4th row.
-                      // Affected 4th row: „ ≤ ≥ ∅ ¢ ƒ ❦ 🙂 🙁 👍 👎 ⁽ ₍ ⁾ ₎
+                      // Affected 4th row:          ¢ ƒ               ⁽ ₍ ⁾ ₎
                       // Full 4th row:        BASE  “„    ”≤    £≥   ∅ ¢  ±ƒ   ❦ ♥   🙂🙁  👍👎 ⁽₍   ⁾₎    Bkspc
-                      // Thinned out 4th row: BASE  “     ”     £         ±    ♥                           Bkspc
+                      // Thinned out 4th row: BASE  “„    ”≤    £≥   ∅    ±    ❦ ♥   🙂🙁  👍👎                           Bkspc
                       //
   #define FULL_BON_4THROW // _Activate_ to have symbols on all unshifted + shifted positions on _BON, 4th row.
-                        // Affected 4th row: 🛠 ¤ ∑ ‱ ٭ 😊 ⍨  ⃰ ⁻ ⁺ 🄯 ©
+                        // Affected 4th row: 🛠 ¤ ∑ ‱ ٭ 😊 ⍨  ⃰ ⁻ ⁺ 🄯 ©  ⃰ √ ⁻⁺
                         // Full 4th row:        BASE  ‛🛠   ’⬆    ¤ 🄯   ∑ ©  ‰‱   ★٭   😊⍨    × ⃰   √    ⁻⁺    Bkspc
                         // Thinned out 4th row: BASE  ‛     ’⬆               ‰    ★           ×               Bkspc
                         //
@@ -521,11 +540,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /*                 -12- ➡ Leds ⬅
          *
-         * Leds off for the Default Base Layer.
-         * Implies: no indication on Default Base for: Caps-lock, typing speed, typing amount done of a limit.
-         * Speed / typing amount will be visible by going to another layer.
+         * Leds off for the Default or Alternative Base Layer.
+         * Implies: no indication on Default Base for: Caps-lock, typing speed, 
+         * typing amount done of a limit.
+         * Speed / typing amount indicated by led will be visible by going to another layer.
          */
 //#define LEDS_OFF_BASE_DEF // _Activate_ to make leds dark when in ‛Default Base’ layer.
+         //
+//#define LEDS_OFF_BASE_ALT // _Activate_ to make leds dark when in ‛Alternative Base’ layer.
 
 // ------------------------------------- ⬆ --------------------------------------
 //            Below here no more comfortable configuration options.....
@@ -547,7 +569,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # endif
 //                         * Qwerty Base Arrow *
 # if defined(BASE_QWERTY_BASEARROW__DEF_BASE) || defined(BASE_QWERTY_BASEARROW__ALT_BASE)
-#     include "./base_qwerty_basearrow.h" // Your Keymap header/configuration file.
+#     include "./base_qwerty_basearrow.h" // qwerty base arrow, header
+# endif
+//                         * Hebrew *
+# if defined(BASE_HEBREW__DEF_BASE) || defined(BASE_HEBREW__ALT_BASE)
+#     include "./base_hebrew.h" // Hebrew header
 # endif
 
 // // ⬇ insert your ./base_YOUR_KEYMAP.h #include here:
@@ -581,11 +607,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #     define _ALT_NSY _DEF_NSY
 # endif
 
-// This triggers the compilation of special _HALF_ descramble mode, where you access
-// the Unicode layers without passing them through the descramble system (middle led
-// lit on _RAR_ when cycling through the base layers with ‛Other Base’ key).
+// This triggers the compilation of Dvorak descramble mode.
 # ifdef BASE_DVORAK_DESCRAMBLE__ALT_BASE
-#     define DVORAK_DESCRAMBLE_HALF
+#     define DVORAK_DESCRAMBLE
 # endif
 
 // Prevent likely erroneous configuration. If no 'Arrow' hardware layout, then not patching in an arrow cluster.
@@ -611,13 +635,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ifndef SWITCH_GUIS
 #     define KC__XGUI KC_LGUI // Name logic is alphabetic order left to right …X (…) …Y in layout definitions..
 #     define KC__YGUI KC_RGUI // .. meaning KC__XGUI is left on the keymap, KC__YGUI is right.
-# endif
-
-# ifdef SWITCH_GUIS
+# else
 #     define KC__XGUI KC_RGUI
 #     define KC__YGUI KC_LGUI
 # endif
 
+// Switch “spacebars”:
+# ifndef SPACE_LEFT__ENTER_RIGHT                // standard
+#     define LEFTCENTER_THUMB LT__MOV__KC_ENT
+#     define RIGHTCENTER_THUMB KC_SPC
+# else
+#     define LEFTCENTER_THUMB KC_SPC            // reversed
+#     define RIGHTCENTER_THUMB LT__MOV__KC_ENT
+# endif
 
 // Define the layout macro for the amount of hardware keys.
 // These for Minivan are defined up in the code tree.

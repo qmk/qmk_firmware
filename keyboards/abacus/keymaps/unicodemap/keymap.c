@@ -75,12 +75,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_LOWER] = LAYOUT(
         NICKURL, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, _______,
-        _______, KC_F11, KC_F12, RGB_MODE_PLAIN, RGB_MODE_BREATHE, RGB_MODE_RAINBOW, RGB_MODE_SWIRL, RGB_MODE_SNAKE, RGB_MODE_KNIGHT, RGB_MODE_GRADIENT, XXXXXXX, RGB_TOG, 
+        _______, KC_F11, KC_F12, RGB_MODE_PLAIN, RGB_MODE_BREATHE, RGB_MODE_RAINBOW, RGB_MODE_SWIRL, RGB_MODE_SNAKE, RGB_MODE_KNIGHT, RGB_MODE_GRADIENT, XXXXXXX, RGB_TOG,
         _______, X(LOVEEYES), X(THINK), X(UPSIDEDOWN), X(NOMOUTH), X(PARTY), X(PEACH), X(HEART), X(EGGPLANT), X(EMOJI100), X(EMOJIB), RGB_HUI,
         KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______
     )
- 
- 
+
+
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -93,7 +93,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
             break;
-        
+
         case ALTTAB:
             if (record->event.pressed) {
                 tap_code16(A(KC_TAB));
@@ -108,7 +108,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-void dip_switch_update_user(uint8_t index, bool active) { 
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0:
             if(active) {
@@ -125,6 +125,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
                 }
         }
     }
+    return true;
 }
 
 
@@ -132,7 +133,7 @@ void matrix_init_user(void) {
     set_unicode_input_mode(UC_WINC);
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
 
     switch(get_highest_layer(layer_state)) {
         case _BASE:
@@ -145,4 +146,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             clockwise ? tap_code(KC_MEDIA_NEXT_TRACK) : tap_code(KC_MEDIA_PREV_TRACK);
             break;
         }
+    return true;
 }

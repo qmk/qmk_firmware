@@ -2,8 +2,6 @@
     "keyboard_name": "Butter Stick",
     "url": "",
     "maintainer": "germ",
-    "width": 10,
-    "height": 2,
     "layouts": {
         "LAYOUT_butter": {
             "layout": [

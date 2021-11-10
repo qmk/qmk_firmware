@@ -20,11 +20,11 @@
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
 	// Key Matrix to LED Index
-	{ NO_LED, 10    , 9     , NO_LED, 8     , 7     , NO_LED, 6     , 5     , NO_LED, 4     , 3     , NO_LED, 2     , 1     , NO_LED },
-	{ NO_LED, 11    , NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 0     , NO_LED },
-	{ NO_LED, 12    , NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 23    , NO_LED },
-	{ NO_LED, 13    , 14    , NO_LED, 15    , 16    , NO_LED, 17    , 18    , NO_LED, 19    , 20    , NO_LED, 21    , 22    , NO_LED },
-	{ NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+	{ 10    , NO_LED, 9     , NO_LED, 8     , 7     , NO_LED, 6     , 5     , NO_LED, 4     , 3     , NO_LED, 2     , NO_LED, 1      },
+	{ 11    , NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 0      },
+	{ 12    , NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 23     },
+	{ 13    , NO_LED, 14    , NO_LED, 15    , 16    , NO_LED, 17    , 18    , NO_LED, 19    , 20    , NO_LED, 21    , NO_LED, NO_LED },
+	{ NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 22     },
 }, {
 	// LED Index to Physical Position
 	{224, 42}, {224, 21}, {209, 21}, {179, 21}, {164, 21}, {134, 21}, {119, 21}, {89, 21}, {74, 21}, {45, 21}, {30, 21}, {30, 42},
