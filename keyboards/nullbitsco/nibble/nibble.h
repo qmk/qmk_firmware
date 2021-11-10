@@ -1,4 +1,4 @@
-/* Copyright 2020 Jay Greco
+/* Copyright 2021 Jay Greco
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,8 @@
 #define ___ KC_NO
 
 #include "quantum.h"
-#include "remote_kb.h"
+#include "common/remote_kb.h"
+#include "common/bitc_led.h"
 
 #define LAYOUT_all( \
           K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, K0F, K0G, \

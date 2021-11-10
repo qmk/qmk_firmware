@@ -36,12 +36,30 @@ enum custom_user_keycodes {
   KC_WINLCK,    //Toggles Win key on and off
   RGB_TOI,      // Timeout idle time up
   RGB_TOD,      // Timeout idle time down
-  RGB_NITE      // Turns off all rgb but allow rgb indicators to work
+  RGB_NITE,     // Turns off all rgb but allow rgb indicators to work
+
+  EMO_SHRUG,    // `\_("/)_/`
+  EMO_CONFUSE,  // (*_*)
+  EMO_SAD,      // :'-(
+  EMO_NERVOUS,  // (~_~;)
+  EMO_JOY,      // (^o^)
+  EMO_TEARS,    // (T_T)
+
+  KC_TSTOG,     // Tab Scroll Toggle
+
+  NEW_SAFE_RANGE  // new safe range for keymap level custom keycodes
 };
 
-#define KC_CAD	LALT(LCTL(KC_DEL))
+#define KC_CAD  LALT(LCTL(KC_DEL))
 #define KC_AF4	LALT(KC_F4)
 #define KC_TASK	LCTL(LSFT(KC_ESC))
+#define CT_PGUP RCTL(KC_PGUP)
+#define CT_PGDN RCTL(KC_PGDN)
+#define CT_HOME RCTL(KC_HOME)
+#define CT_END  RCTL(KC_END)
+#define KC_SFTUP    RSFT_T(KC_UP) // Shift when held, Up arrow when tapped
+#define KC_RAISESPC LT(_RAISE,KC_SPC) // _RAISE layer mod when held, space when tapped
+#define KC_LOWERSPC LT(_LOWER,KC_SPC) // _LOWER layer mod when held, space when tapped
 
 
 #ifdef TD_LSFT_CAPSLOCK_ENABLE
@@ -56,6 +74,32 @@ enum custom_user_keycodes {
 #else // regular Shift
     #define KC_LSFTCAPS    KC_LSFT
 #endif // TD_LSFT_CAPSLOCK_ENABLE
+
+
+// ENCODER ACTIONS
+#ifdef ENCODER_ENABLE
+    void encoder_action_volume(bool clockwise);
+    void encoder_action_mediatrack(bool clockwise);
+    void encoder_action_navword(bool clockwise);
+    void encoder_action_navpage(bool clockwise);
+
+    uint8_t get_selected_layer(void);
+    void encoder_action_layerchange(bool clockwise);
+
+    #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
+        void encoder_action_rgb_speed(bool clockwise);
+        void encoder_action_rgb_hue(bool clockwise);
+        void encoder_action_rgb_saturation(bool clockwise);
+        void encoder_action_rgb_brightness(bool clockwise);
+        void encoder_action_rgb_mode(bool clockwise);
+    #endif // RGB_MATRIX_ENABLE / RGBLIGHT_ENABLE
+
+    #ifdef ALTTAB_SCROLL_ENABLE
+        void encoder_action_alttabscroll(bool clockwise);
+        void encoder_toggle_alttabscroll(void);
+        void encoder_tick_alttabscroll(void);
+    #endif // ALTTAB_SCROLL_ENABLE
+#endif // ENCODER_ENABLE
 
 
 #ifdef RGB_MATRIX_ENABLE
