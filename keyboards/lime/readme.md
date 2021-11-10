@@ -15,15 +15,10 @@ Build guide and a build log not available yet
 Make example for this keyboard (after setting up your build environment):
 
     make lime:default
-    
-        or
-        
-    qmk compile -kb lime -km default
-    qmk flash -kb lime -km default
 
-Flash the default keymap: 
+Flashing example for this keyboard:
 
-    make lime:default:avrdude
+    make lime:default:flash
 
 Press reset button on he keyboard when asked. You can do that in 3 ways:
 * **Physical reset button**: Briefly press the button near the TRRS connector on the PCB - if you haven't installed one, short the pads instead
