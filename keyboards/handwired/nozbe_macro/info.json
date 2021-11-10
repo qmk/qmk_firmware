@@ -2,8 +2,6 @@
     "keyboard_name": "nozbe_macro",
     "url": "",
     "maintainer": "Leon Omelan",
-    "width": 4,
-    "height": 1,
     "layouts": {
         "LAYOUT": {
             "layout": [
