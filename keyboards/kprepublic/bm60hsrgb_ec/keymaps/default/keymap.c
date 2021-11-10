@@ -1,4 +1,5 @@
-/* Copyright 2020 REPLACE_WITH_YOUR_NAME
+/* Copyright 2020 bdtc123
+ * Copyright 2021 peepeetee
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
