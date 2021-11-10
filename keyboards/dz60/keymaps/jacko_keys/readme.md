@@ -165,9 +165,14 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 
 ## BQN Layer
 * BQN unshifted and shifted.
-* Fn shift toggles lock to the BQN layer.
-* Control/win/alt/menu prefix meta of **\\** to select user layers.
+* Fn shift holds the BQN layer.
+* Left ontrol/win/alt prefix meta of **\\** to select further layers.
+* Left and right cursor work on right alt/control.
+* Right GUI button is right win key.
 * By default 2021-11-08 the user layers are not programmed.
+
+### Control Shift Layer
+* Various control code literals and icongraphs with cursor.
 
 ## Old Keys for the Young
 * As everyone knows ecape has two purposes.

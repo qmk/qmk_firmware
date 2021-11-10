@@ -21,28 +21,25 @@ make linux bootloader install via: (or use via if it's firmwared) => CHOICE
 	cd qmk_firmware
 	sudo make dz60:jacko_keys:dfu
 	^C
+	// or the following if you want to program upto 4 layers only yourself.
 	sudo make dz60:via:dfu
 */
 
 //Macro production rule for upper and lowers.
 //Limit of only first 128 indirect entries may form part of a shifted pair.
-//=> 64 shifted pairs maximum. (60-14)*2=46*2=92 per plane.
-//106 used, so 11 characters left of shifted form MAX.
 //The **uint32_t** have all been allocated so no size change on edit code points.
-//44 bytes consumed if all extra unicode points as shifted pairs used.
 
 //TODO:
-//Fill BQN code plane data.
 //Optimize special shift mode characters.
 //Maybe fiddle with LED colours on mode.
 //Fill 4 extended user planes for 146 bytes left
-//=> 36 extra unicode entries (11 of which can be shifty).
+//=> 36 extra unicode entries (10 of which can be shifty).
 //=> indicators will cost bytes.
 
 #define Z(x) XP(x##_L, x##_U)
 
 enum unicode_names {
-	//ANSI/NAV Fn shift
+	//ANSI/NAV Fn shift (14)
 	INT_L, INT_U,
 	DIF_L, DIF_U,
 	ROOT_L, ROOT_U,
@@ -50,21 +47,32 @@ enum unicode_names {
 	PND_L, PND_U,
 	OM_L, OM_U,
 	MIC_L, MIC_U,
-	//BQN 1
+	//BQN 1 (26 + 14 = 40)
 	GR_L, GR_U,
 	N1_L, N1_U,	N2_L, N2_U, N3_L, N3_U, N4_L, N4_U, N5_L, N5_U,
 	N6_L, N6_U,	N7_L, N7_U, N8_L, N8_U, N9_L, N9_U, N0_L, N0_U,
 	MIN_L, MIN_U, EQ_L, EQ_U,
-	//BQN 2
+	//BQN 2 (24 + 40 = 64)
 	Q_L, Q_U, W_L, W_U, E_L, E_U, R_L, R_U, T_L, T_U, Y_L, Y_U,
 	U_L, U_U, I_L, I_U, O_L, O_U, P_L, P_U, LBR_L, LBR_U, RBR_L, RBR_U,
-	//BQN 3
+	//BQN 3 (22 + 64 = 86)
 	A_L, A_U, S_L, S_U, D_L, D_U, F_L, F_U, G_L, G_U, H_L, H_U,
 	J_L, J_U, K_L, K_U, L_L, L_U, SEMI_L, SEMI_U, QUOT_L, QUOT_U,
-	//BQN 4 - X is special so XX was needed to avoid errors.
+	//BQN 4 (22 + 86 = 108) - X is special so XX was needed to avoid errors.
 	Z_L, Z_U, XX_L, XX_U, C_L, C_U, V_L, V_U, B_L, B_U, N_L, N_U,
 	M_L, M_U, LESS_L, LESS_U, GRET_L, GRET_U, DIV_L, DIV_U,
-	SPC_L, SPC_U
+	SPC_L, SPC_U,
+	//Special control
+	C1_L, C1_U, C3_L, C3_U, C4_L, C4_U, C5_L, C5_U,
+	C7_L, C7_U, C8_L, C8_U, C9_L, C9_U, C0_L, C0_U,
+	CEQ_L, CEQ_U, CES_L, CES_U,
+	//End of shiftables
+	//Control literals
+	TAB, LF, BS,
+	//Control iconographs
+	IAT, IA, IB, IC, ID, IE, IF, IG, IH, II, IJ, IK,
+	IL, IM, IN, IO, IP, IQ, IR, IS, IT, IU, IV, IW,
+	IX, IY, IZ, ILBR, IBSL, IRBR, ICAR, IUND,
 };
 
 // PLACE BQN layer and Unicode character code points here.
@@ -107,7 +115,24 @@ const uint32_t PROGMEM unicode_map[] = {
 	[B_L] = U'⌊', [B_U] = U'⌈', [N_L] = U' ', [N_U] = U' ',
 	[M_L] = U'≡', [M_U] = U'≢', [LESS_L] = U'∾', [LESS_U] = U'≤',
 	[GRET_L] = U'≍', [GRET_U] = U'≥', [DIV_L] = U'≠', [DIV_U] = U'⇐',
-	[SPC_L] = U'‿', [SPC_U] = U' '
+	[SPC_L] = U'‿', [SPC_U] = U' ',
+	//Special control
+	[C1_L] = U' ', [C1_U] = U' ', [C3_L] = U' ', [C3_U] = U' ',
+	[C4_L] = U' ', [C4_U] = U' ', [C5_L] = U' ', [C5_U] = U' ',
+	[C7_L] = U' ', [C7_U] = U' ', [C8_L] = U' ', [C8_U] = U' ', 
+	[C9_L] = U' ', [C9_U] = U' ', [C0_L] = U' ', [C0_U] = U' ',
+	[CEQ_L] = U' ', [CEQ_U] = U' ', [CES_L] = U' ', [CES_U] = U' ',
+	//Control literals
+	[TAB] = U'␉', [LF] = U'␊', [BS] = U'␈',
+	//Control iconographs
+	[IAT] = U' ', [IA] = U' ', [IB] = U' ', [IC] = U' ',
+	[ID] = U' ', [IE] = U' ', [IF] = U' ', [IG] = U' ',
+	[IH] = U' ', [II] = U' ', [IJ] = U' ', [IK] = U' ',
+	[IL] = U' ', [IM] = U' ', [IN] = U' ', [IO] = U' ',
+	[IP] = U' ', [IQ] = U' ', [IR] = U' ', [IS] = U' ',
+	[IT] = U' ', [IU] = U' ', [IV] = U' ', [IW] = U' ',
+	[IX] = U' ', [IY] = U' ', [IZ] = U' ', [ILBR] = U' ',
+	[IBSL] = U' ', [IRBR] = U' ', [ICAR] = U' ', [IUND] = U' ',
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -145,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           Z(Q),    Z(W),    Z(E),    Z(R),    Z(T),    Z(Y),    Z(U),    Z(I),    Z(O),    Z(P), 	Z(LBR),  Z(RBR),  KC_BSLS,
 		KC_CAPS,          Z(A),    Z(S),    Z(D),    Z(F),    Z(G),    Z(H),    Z(J),    Z(K),    Z(L),    Z(SEMI), Z(QUOT), KC_ENT,
 		KC_LSFT,	      Z(Z),    Z(XX),   Z(C),    Z(V),    Z(B),    Z(N),    Z(M),    Z(LESS), Z(GRET), Z(DIV),           KC_RSFT,
-		MO(9), 	 MO(10),           MO(11),                    Z(SPC),                 		  	  MO(11),  MO(12),           MO(9),	  TG(2)),//lock shift
+		MO(9), 	 MO(10),           MO(11),                    Z(SPC),                 		  	  KC_LEFT, KC_RGUI,          KC_RIGHT,MO(2)),//shift
 
 	//KEEP
 	//Macro lock mode 3 ================================================================================== Macro lock mode 3
@@ -213,23 +238,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
 		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, TG(8)),
 
+	//Control shift mode 9 =============================================================================== Control shift mode 9
+	LAYOUT_60_ansi(
+		Z(CES),  Z(C1),   X(IAT),  Z(C3),   Z(C4),   Z(C5),   X(ICAR), Z(C7),   Z(C8),   Z(C9),   Z(C0),   X(IUND), Z(CEQ),           X(BS),
+		X(TAB),			  X(IQ),   X(IW),   X(IE),   X(IR),   X(IT),   X(IY),   X(IU),   X(II),   X(IO),   X(IP),   X(ILBR), X(IRBR), X(IBSL),
+		KC_TRNS,  		  X(IA),   X(IS),   X(ID),   X(IF),   X(IG),   X(IH),   X(IJ),   X(IK),   X(IL),   KC_PAUS, KC_PSCR, X(LF),
+		KC_TRNS,          X(IZ),   X(IX),   X(IC),   X(IV),   X(IB),   X(IN),   X(IM),   KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
+		MO(9),	 KC_TRNS,     	   KC_TRNS,                   KC_TRNS,                            KC_LEFT, KC_DOWN,          KC_RIGHT, KC_TRNS),
+
 	//================================ USER PLANES (NOT YET USED) =============================================================
 	//=========================================================================================================================
-	//Special shift mode 9 =============================================================================== Special shift mode 9
-	LAYOUT_60_ansi(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		KC_TRNS,		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS,  		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		MO(9),	 KC_TRNS,     	   KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_TRNS, 		 MO(9),	  KC_TRNS),
-
 	//Special shift mode 10 ============================================================================= Special shift mode 10
 	LAYOUT_60_ansi(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
 		KC_TRNS,		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		KC_TRNS,  		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		KC_TRNS, MO(10),     	   KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_TRNS, 		 KC_TRNS, KC_TRNS),
+		KC_TRNS, MO(10),     	   KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_TRNS,	 		 KC_TRNS, KC_TRNS),
 
 	//Special shift mode 11 ============================================================================= Special shift mode 11
 	LAYOUT_60_ansi(
@@ -237,15 +262,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		KC_TRNS,  		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		KC_TRNS, KC_TRNS,     	   MO(11),                    KC_TRNS,                            MO(11),  KC_TRNS, 		 KC_TRNS, KC_TRNS),
-
-	//Special shift mode 12 ============================================================================= Special shift mode 12
-	LAYOUT_60_ansi(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		KC_TRNS,		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS,  		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		KC_TRNS, KC_TRNS,     	   KC_TRNS,                   KC_TRNS,                            KC_TRNS, MO(12),	 		 KC_TRNS, KC_TRNS)
+		KC_TRNS, KC_TRNS,     	   MO(11),                    KC_TRNS,                            KC_TRNS, KC_TRNS, 		 KC_TRNS, KC_TRNS)
 };
 
 const rgblight_segment_t PROGMEM my_caps[] = RGBLIGHT_LAYER_SEGMENTS(
