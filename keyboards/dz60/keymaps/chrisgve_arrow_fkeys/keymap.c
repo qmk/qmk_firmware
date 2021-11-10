@@ -1,18 +1,6 @@
 #include QMK_KEYBOARD_H
 
-enum directional_layers {
-    _QWERTY,
-    _DIR,
-    _FULL_DIR,
-    _FN,
-};
-
-
-#define FN          MO(_FN)
-#define NAV         LT(_DIR, KC_D)
-#define F_NAV       MO(_FULL_DIR)
-#define CPS_CTL     CTL_T(KC_CAPS)
-
+#include "chrisgve.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -30,37 +18,102 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------------'
    */
 
-  [_QWERTY] = LAYOUT_directional(
+  [_QWERTY_MAC] = LAYOUT_directional(
       KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  _______, KC_BSPC,
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
-      CPS_CTL, KC_A,    KC_S,    NAV,     KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+      CPS_CTL, KC_A,    KC_S,    M_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
       KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_DEL,
-      KC_LCTL, KC_LALT, KC_LGUI,                   KC_SPC,  FN,      KC_SPC,                    KC_RGUI, KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
+      XXXXXXX, KC_LALT, KC_LGUI,                   KC_SPC,  ADJ_M,   KC_SPC,                    KC_RGUI, KC_RALT, KC_LEFT, KC_DOWN, KC_RIGHT
       ),
 
-  [_FN] = LAYOUT_directional(
-      KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_DEL,
-      RESET,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______, _______,
-      _______, BL_TOGG, BL_STEP, BL_INC, BL_DEC,   _______, _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLU, _______,
-      _______, _______, _______,                   KC_MPLY, _______, KC_MPLY,                   _______, _______, KC_MPRV, KC_VOLD, KC_MNXT
-      ),
-
-  [_DIR] = LAYOUT_directional(
+  [_MAC_NAV_1] = LAYOUT_directional(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, F_NAV,   _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, M_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, A_SHIFT, S_SHIFT, _______, M_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+      _______, _______, _______, _______, _______, M_B_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______,                   _______, _______, _______,                   _______, _______, _______, _______, _______
       ),
 
-  [_FULL_DIR] = LAYOUT_directional(
+  [_MAC_NAV_2] = LAYOUT_directional(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______,                   _______, _______, _______,                   _______, _______, _______, _______, _______
       ),
+
+  [_QWERTY_LINUX] = LAYOUT_directional(
+      KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  _______, KC_BSPC,
+      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
+      CPS_CTL, KC_A,    KC_S,    L_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+      KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_DEL,
+      XXXXXXX, KC_LGUI, KC_LALT,                   KC_SPC,  ADJ_L,   KC_SPC,                    KC_RALT, KC_RGUI, KC_LEFT, KC_DOWN, KC_RIGHT
+      ),
+
+  [_LINUX_NAV_1] = LAYOUT_directional(
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
+      _______, _______, L_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, A_SHIFT, S_SHIFT, _______, L_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+      _______, _______, _______, _______, _______, L_B_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______,                   _______, _______, _______,                   _______, _______, _______, _______, _______
+      ),
+
+  [_LINUX_NAV_2] = LAYOUT_directional(
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______,                   _______, _______, _______,                   _______, _______, _______, _______, _______
+      ),
+
+  [_QWERTY_WIN] = LAYOUT_directional(
+      KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  _______, KC_BSPC,
+      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
+      CPS_CTL, KC_A,    KC_S,    W_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+      KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_DEL,
+      XXXXXXX, KC_LGUI, KC_LALT,                   KC_SPC,  ADJ_W,   KC_SPC,                    KC_RALT, KC_RGUI, KC_LEFT, KC_DOWN, KC_RIGHT
+      ),
+
+  [_WIN_NAV_1] = LAYOUT_directional(
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
+      _______, _______, W_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, A_SHIFT, S_SHIFT, _______, W_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+      _______, _______, _______, _______, _______, W_B_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______,                   _______, _______, _______,                   _______, _______, _______, _______, _______
+      ),
+
+  [_WIN_NAV_2] = LAYOUT_directional(
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______,                   _______, _______, _______,                   _______, _______, _______, _______, _______
+      ),
+
+  [_ADJUST_MAC] = LAYOUT_directional(
+      KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_DEL,
+      RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______,
+      _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, KC_MUTE, _______, _______, _______, _______, _______, KC_VOLU, _______,
+      _______, _______, _______,                   KC_MPLY, _______, KC_MPLY,                   _______, _______, KC_MPRV, KC_VOLD, KC_MNXT
+      ),
+
+  [_ADJUST_LINUX] = LAYOUT_directional(
+      KC_GRV,  KC_WF1,  KC_WF2,  KC_WF3,  KC_WF4,  KC_WF5,  KC_WF6,  KC_WF7,  KC_WF8,  KC_WF9,  KC_WF10, KC_WF11, KC_WF12, _______, KC_DEL,
+      RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______,
+      _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, KC_MUTE, _______, _______, _______, _______, _______, KC_VOLU, _______,
+      _______, _______, _______,                   KC_MPLY, _______, KC_MPLY,                   _______, _______, KC_MPRV, KC_VOLD, KC_MNXT
+      ),
+
+  [_ADJUST_LINUX] = LAYOUT_directional(
+      KC_GRV,  KC_WF1,  KC_WF2,  KC_WF3,  KC_WF4,  KC_WF5,  KC_WF6,  KC_WF7,  KC_WF8,  KC_WF9,  KC_WF10, KC_WF11, KC_WF12, _______, KC_DEL,
+      RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______,
+      _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, KC_MUTE, _______, _______, _______, _______, _______, KC_VOLU, _______,
+      _______, _______, _______,                   KC_MPLY, _______, KC_MPLY,                   _______, _______, KC_MPRV, KC_VOLD, KC_MNXT
+      ),
+
 };
 
 
