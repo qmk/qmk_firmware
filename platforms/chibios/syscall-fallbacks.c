@@ -22,6 +22,7 @@
  * the _reent struct has to be defined. */
 #if defined(USE_PICOLIBC)
 struct _reent;
+struct timeval;
 #endif
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
