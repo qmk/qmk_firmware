@@ -1,5 +1,5 @@
-TEST_LIST = $(notdir $(patsubst %/rules.mk,%,$(wildcard $(ROOT_DIR)/tests/*/rules.mk)))
-FULL_TESTS := $(TEST_LIST)
+TEST_LIST = $(sort $(patsubst %/test.mk,%, $(shell find $(ROOT_DIR)tests -type f -name test.mk)))
+FULL_TESTS := $(notdir $(TEST_LIST))
 
 include $(QUANTUM_PATH)/debounce/tests/testlist.mk
 include $(QUANTUM_PATH)/encoder/tests/testlist.mk

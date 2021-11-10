@@ -16,14 +16,14 @@ TEST_OBJ = $(BUILD_DIR)/test_obj
 OUTPUTS := $(TEST_OBJ)/$(TEST) $(GTEST_OUTPUT)
 
 GTEST_INC := \
-	$(LIB_PATH)/googletest/googletest/include\
-	$(LIB_PATH)/googletest/googlemock/include\
+	$(LIB_PATH)/googletest/googletest/include \
+	$(LIB_PATH)/googletest/googlemock/include
 
-GTEST_INTERNAL_INC :=\
-	$(LIB_PATH)/googletest/googletest\
+GTEST_INTERNAL_INC := \
+	$(LIB_PATH)/googletest/googletest \
 	$(LIB_PATH)/googletest/googlemock
 
-$(GTEST_OUTPUT)_SRC :=\
+$(GTEST_OUTPUT)_SRC := \
 	googletest/src/gtest-all.cc\
 	googlemock/src/gmock-all.cc
 
@@ -33,9 +33,9 @@ $(GTEST_OUTPUT)_INC := $(GTEST_INC) $(GTEST_INTERNAL_INC)
 LDFLAGS += -lstdc++ -lpthread -shared-libgcc
 CREATE_MAP := no
 
-VPATH +=\
-	$(LIB_PATH)/googletest\
-	$(LIB_PATH)/googlemock\
+VPATH += \
+	$(LIB_PATH)/googletest \
+	$(LIB_PATH)/googlemock \
 	$(LIB_PATH)/printf
 
 all: elf
@@ -49,7 +49,8 @@ CONSOLE_ENABLE = yes
 endif
 
 ifneq ($(filter $(FULL_TESTS),$(TEST)),)
-include tests/$(TEST)/rules.mk
+include tests/test_common/build.mk
+include $(TEST_PATH)/test.mk
 endif
 
 include common_features.mk
