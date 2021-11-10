@@ -16,7 +16,4 @@
 
 #pragma once
 
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 10
-#define ONESHOT_TIMEOUT 5000
-#define ONESHOT_TAP_TOGGLE 5
+#include "test_common.h"
