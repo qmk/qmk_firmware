@@ -25,7 +25,7 @@ QMK是[Jun Wako](https://github.com/tmk)的[tmk_keyboard](https://github.com/tmk
 * `config.h`: 配置布局的选项
 * `keymap.c`: 布局的全部代码, 必要文件
 * `rules.mk`: 使能的QMK特性
-* `readme.md`:介绍你的布局,告诉别人怎么使用，附上功能说明。请将图片上传到imgur等图床（译者注：imgur可能已被墙，为了方便国人访问，建议使用国内可以直接访问的图床）。
+* `readme.md`:介绍你的布局,告诉别人怎么使用，附上功能说明。请将图片上传到imgur等图床（译注：imgur可能已被墙，为了方便国人访问，建议使用国内可以直接访问的图床）。
 
 # `config.h` 文件
 

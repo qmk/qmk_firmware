@@ -1,5 +1,5 @@
 # Space Cadet: 内置的未来
-*译者注：Space Cadet来源于(在西方早期程序员中)著名的键盘Space Cadet Keyboard，具体信息参见下面的链接或[维基百科](https://en.wikipedia.org/wiki/Space-cadet_keyboard)*
+*译注：Space Cadet来源于(在西方早期程序员中)著名的键盘Space Cadet Keyboard，具体信息参见下面的链接或[维基百科](https://en.wikipedia.org/wiki/Space-cadet_keyboard)*
 
 Steve Losh 在 [Space Cadet Shift](https://stevelosh.com/blog/2012/10/a-modern-space-cadet/) 详细地描述了该功能. 简而言之，点击左Shift时，会输出左括号；点击右Shift时，会输出右括号。如果按住Shift键，常规的Shift将正常工作。这功能实际上和听起来的一样爽，更爽的是现在连Control和Alt也支持！
 

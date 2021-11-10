@@ -26,7 +26,7 @@
 
 ## 但是 `git` 和 `GitHub` 我实在是玩不转！
 
-别担心，这里有很好的[入门指引](zh-cn/newbs_git_best_practices.md)（译者注：英文的，英文苦手建议百度学吧）可以教你怎么轻松快乐地使用 `git` 和GitHub进行开发。
+别担心，这里有很好的[入门指引](zh-cn/newbs_git_best_practices.md)（译注：英文的，英文苦手建议百度学吧）可以教你怎么轻松快乐地使用 `git` 和GitHub进行开发。
 
 更多的 `git` 和GitHub知识，参考[这里](zh-cn/newbs_learn_more_resources.md)。
 
