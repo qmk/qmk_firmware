@@ -131,7 +131,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	//Control iconographs
 	[IAT] = U' ', [IA] = U' ', [IB] = U' ', [IC] = U' ',
 	[ID] = U' ', [IE] = U' ', [IF] = U' ', [IG] = U' ',
-	[IH] = U' ', [II] = U' ', [IJ] = U' ', [IK] = U' ',
+	[IH] = U'⌫', [II] = U'⭾', [IJ] = U'⏎', [IK] = U'⭿',
 	[IL] = U' ', [IM] = U' ', [IN] = U' ', [IO] = U' ',
 	[IP] = U' ', [IQ] = U' ', [IR] = U' ', [IS] = U' ',
 	[IT] = U' ', [IU] = U' ', [IV] = U' ', [IW] = U' ',
