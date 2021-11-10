@@ -1,20 +1,20 @@
-# bm80
+# BM80HSRGB
 
-![bm80](https://i.imgur.com/AqjEjOi.jpeg)
+![BM80HSRGB](https://i.imgur.com/AqjEjOi.jpeg)
 
 A tkl, hotswap, in switch RGB keyboard from KPRepublic.
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
-* Hardware Supported: BM80
+* Hardware Supported: BM80HSRGB
 * Hardware Availability: [KP Republic](https://kprepublic.com/collections/new-arrival/products/bm80rgb-bm80-rgb-80-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-firmware-full-rgb-switch-underglow-type-c)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make kprepublic/bm80:default
+    make kprepublic/bm80hsrgb:default
 
 Flashing example for this keyboard:
 
-    make kprepublic/bm80:default:flash
+    make kprepublic/bm80hsrgb:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 

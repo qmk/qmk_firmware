@@ -1,11 +1,11 @@
-# bm65iso
+# BM65HSRGB_ISO
 
-![bm65iso](https://ae01.alicdn.com/kf/He2fd118856c7490292bc3c299049fdbcp.jpg)
+![BM65HSRGB_ISO](https://ae01.alicdn.com/kf/He2fd118856c7490292bc3c299049fdbcp.jpg)
 
 A 65% hotswap in switch RGB keyboard from KPRepublic.
 
 * Keyboard Maintainer: [deadolus](https://github.com/deadolus)
-* Hardware Supported: BM65 ISO
+* Hardware Supported: BM65HSRGB_ISO
 * Hardware Availability: [KP Republic](https://kprepublic.com/products/bm65rgb-bm65-iso-rgb-65-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-firmware-rgb-switch-underglow-type-c)
 
 Make example for this keyboard (after setting up your build environment):

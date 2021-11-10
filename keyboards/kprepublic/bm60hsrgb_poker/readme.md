@@ -1,9 +1,9 @@
-# BM60 Poker 60% Mechanical Keyboard RGB PCB
+# BM60HSRGB_Poker 60% Mechanical Keyboard RGB PCB
 
 A 60% hotswap inswitch RGB (north facing) keyboard from KP Republic. 
 
 * Keyboard Maintainer: [ipetepete](https://github.com/ipetepete)
-* Hardware Supported: BM60 POKER RGB
+* Hardware Supported: BM60HSRGB_Poker
 * Hardware Availability: [KP Republic](https://kprepublic.com/products/bm60-rgb-poker-60-gh60-hot-swap-custom-mechanical-keyboard-pcb-program-qmk-underglow-type-c)
 
 Make example for this keyboard (after setting up your build environment):

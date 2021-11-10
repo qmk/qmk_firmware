@@ -24,11 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0xEF8C
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KP Republic
-#define PRODUCT         BM60 RGB
+#define PRODUCT         BM60HSRGB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 14 
+#define MATRIX_COLS 14
 
 /*
  * Keyboard Matrix Assignments

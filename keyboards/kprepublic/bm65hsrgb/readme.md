@@ -1,11 +1,11 @@
-# bm65rgb
+# BM65HSRGB
 
-![bm65rgb](https://i.imgur.com/DskSCve.jpeg)
+![BM65HSRGB](https://i.imgur.com/DskSCve.jpeg)
 
 A 65% hotswap in switch RGB keyboard from KPRepublic.
 
 * Keyboard Maintainer: [bytesapart](https://github.com/bytesapart)
-* Hardware Supported: BM65 RGB
+* Hardware Supported: BM65HSRGB
 * Hardware Availability: [KP Republic](https://kprepublic.com/products/bm65rgb-bm65-rgb-65-hot-swappable-custom-mechanical-keyboard-pcb-programmed-qmk-via-firmware-full-rgb-switch-underglow-type-c?_pos=1&_sid=5b9a6a5d0&_ss=r)
 
 Make example for this keyboard (after setting up your build environment):
