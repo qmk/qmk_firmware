@@ -171,8 +171,19 @@ P	3.1671%	16.14	Q	0.1962%	(1)
 * Right GUI button is right win key.
 * By default 2021-11-08 the user layers are not programmed.
 
-### Control Shift Layer
+### Control Shift Layer (BQN Left Control)
 * Various control code literals and icongraphs with cursor.
+* Comma and period are page up/down.
+* Semicolon is pause.
+* Apostrophy is print screen.
+
+## Unicode Shift Layer (BQN Left Alt)
+* Unicode selection on alphas.
+* Numbers unchanged.
+* Square brackets are home and end.
+* Comma and period are page up/down.
+* Semicolon is pause.
+* Apostrophy is print screen.
 
 ## Old Keys for the Young
 * As everyone knows ecape has two purposes.

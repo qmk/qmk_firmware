@@ -73,6 +73,10 @@ enum unicode_names {
 	IAT, IA, IB, IC, ID, IE, IF, IG, IH, II, IJ, IK,
 	IL, IM, IN, IO, IP, IQ, IR, IS, IT, IU, IV, IW,
 	IX, IY, IZ, ILBR, IBSL, IRBR, ICAR, IUND,
+	//Alt aplha
+	AA, AB, AC, AD, AE, AF, AG, AH, AI, AJ, AK,
+	AL, AM, AN, AO, AP, AQ, AR, AS, AT, AU, AV, AW,
+	AX, AY, AZ,
 };
 
 // PLACE BQN layer and Unicode character code points here.
@@ -133,6 +137,16 @@ const uint32_t PROGMEM unicode_map[] = {
 	[IT] = U' ', [IU] = U' ', [IV] = U' ', [IW] = U' ',
 	[IX] = U' ', [IY] = U' ', [IZ] = U' ', [ILBR] = U' ',
 	[IBSL] = U' ', [IRBR] = U' ', [ICAR] = U' ', [IUND] = U' ',
+	//Alt aplha Unicode layer
+	[AA] = U' ', [AB] = U' ', [AC] = U' ', [AD] = U' ',
+	[AE] = U' ', [AF] = U' ', [AG] = U' ', [AH] = U' ',
+	[AI] = U' ', [AJ] = U' ', [AK] = U' ', [AL] = U' ',
+	[AM] = U' ', [AN] = U' ', [AO] = U' ', [AP] = U' ',
+	[AQ] = U' ', [AR] = U' ', [AS] = U' ', [AT] = U' ',
+	[AU] = U' ', [AV] = U' ', [AW] = U' ',
+	[AX] = U' ', [AY] = U' ', [AZ] = U' '
+	//ZERO BYTES FREE
+	//FILL IN AS REQUIRED
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -170,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           Z(Q),    Z(W),    Z(E),    Z(R),    Z(T),    Z(Y),    Z(U),    Z(I),    Z(O),    Z(P), 	Z(LBR),  Z(RBR),  KC_BSLS,
 		KC_CAPS,          Z(A),    Z(S),    Z(D),    Z(F),    Z(G),    Z(H),    Z(J),    Z(K),    Z(L),    Z(SEMI), Z(QUOT), KC_ENT,
 		KC_LSFT,	      Z(Z),    Z(XX),   Z(C),    Z(V),    Z(B),    Z(N),    Z(M),    Z(LESS), Z(GRET), Z(DIV),           KC_RSFT,
-		MO(9), 	 MO(10),           MO(11),                    Z(SPC),                 		  	  KC_LEFT, KC_RGUI,          KC_RIGHT,MO(2)),//shift
+		MO(9), 	 MO(11),           MO(10),                    Z(SPC),                 		  	  KC_LEFT, KC_RGUI,          KC_RIGHT,MO(2)),//shift
 
 	//KEEP
 	//Macro lock mode 3 ================================================================================== Macro lock mode 3
@@ -246,23 +260,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,          X(IZ),   X(IX),   X(IC),   X(IV),   X(IB),   X(IN),   X(IM),   KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
 		MO(9),	 KC_TRNS,     	   KC_TRNS,                   KC_TRNS,                            KC_LEFT, KC_DOWN,          KC_RIGHT, KC_TRNS),
 
-	//================================ USER PLANES (NOT YET USED) =============================================================
-	//=========================================================================================================================
-	//Special shift mode 10 ============================================================================= Special shift mode 10
+	//Unicode shift mode 10 ============================================================================= Unicode shift mode 10
 	LAYOUT_60_ansi(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		KC_TRNS,		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS,  		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		KC_TRNS, MO(10),     	   KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_TRNS,	 		 KC_TRNS, KC_TRNS),
+		KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,	          KC_TRNS,
+		KC_TRNS,		  X(AQ),   X(AW),   X(AE),   X(AR),   X(AT),   X(AY),   X(AU),   X(AI),   X(AO),   X(AP),   KC_HOME, KC_END,  KC_TRNS,
+		KC_TRNS,  		  X(AA),   X(AS),   X(AD),   X(AF),   X(AG),   X(AH),   X(AJ),   X(AK),   X(AL),   KC_PAUS, KC_PSCR, KC_TRNS,
+		KC_TRNS,          X(AZ),   X(AX),   X(AC),   X(AV),   X(AB),   X(AN),   X(AM),   KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
+		KC_TRNS, KC_TRNS,     	   MO(10),                    KC_SPC,                             KC_LEFT, KC_DOWN,          KC_RIGHT,KC_TRNS),
 
+	//================================ USER PLANE (NOT YET USED) ==============================================================
+	//=========================================================================================================================
+	//HOT KEYS ONLY, NO EXTRA SPACE FOR EXTRA AS YET UNDEFINED CHARACTER GLYPHS.
 	//Special shift mode 11 ============================================================================= Special shift mode 11
 	LAYOUT_60_ansi(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
 		KC_TRNS,		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		KC_TRNS,  		  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		KC_TRNS, KC_TRNS,     	   MO(11),                    KC_TRNS,                            KC_TRNS, KC_TRNS, 		 KC_TRNS, KC_TRNS)
+		KC_TRNS, MO(11),     	   KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_TRNS, 		 KC_TRNS, KC_TRNS)
 };
 
 const rgblight_segment_t PROGMEM my_caps[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -307,8 +322,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Layers will light up if kb layers are active
 	bool t;
 	t = false;
-	if(layer_state_cmp(state, 4) || layer_state_cmp(state, 5) ||
-		layer_state_cmp(state, 6) || layer_state_cmp(state, 7) ||
+	if(layer_state_cmp(state, 4) || layer_state_cmp(state, 7) ||
 		layer_state_cmp(state, 8)) t = true;
 	rgblight_set_layer_state(1, t);//shifted layer
 	t = false;
