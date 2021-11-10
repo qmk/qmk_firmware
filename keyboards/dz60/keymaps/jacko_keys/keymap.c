@@ -258,7 +258,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		X(TAB),			  X(IQ),   X(IW),   X(IE),   X(IR),   X(IT),   X(IY),   X(IU),   X(II),   X(IO),   X(IP),   X(ILBR), X(IRBR), X(IBSL),
 		KC_TRNS,  		  X(IA),   X(IS),   X(ID),   X(IF),   X(IG),   X(IH),   X(IJ),   X(IK),   X(IL),   KC_PAUS, KC_PSCR, X(LF),
 		KC_TRNS,          X(IZ),   X(IX),   X(IC),   X(IV),   X(IB),   X(IN),   X(IM),   KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
-		MO(9),	 KC_TRNS,     	   KC_TRNS,                   KC_TRNS,                            KC_LEFT, KC_DOWN,          KC_RIGHT, KC_TRNS),
+		MO(9),	 KC_TRNS,     	   KC_TRNS,                   KC_SPC,                             KC_LEFT, KC_DOWN,          KC_RIGHT, KC_TRNS),
 
 	//Unicode shift mode 10 ============================================================================= Unicode shift mode 10
 	LAYOUT_60_ansi(
