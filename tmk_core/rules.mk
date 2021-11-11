@@ -215,12 +215,8 @@ LDFLAGS += $(EXTRALDFLAGS)
 #             files -- see avr-libc docs [FIXME: not yet described there]
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
-GCC_VERSION := $(shell gcc --version 2>/dev/null)
-ifneq ($(findstring clang, ${GCC_VERSION}),)
-  ADHLNS_ENABLE := no
-endif
 
-ADHLNS_ENABLE ?= yes
+ADHLNS_ENABLE ?= no
 ifeq ($(ADHLNS_ENABLE),yes)
   # Avoid "Options to '-Xassembler' do not match" - only specify assembler options at LTO link time
   ifeq ($(strip $(LTO_ENABLE)), yes)
