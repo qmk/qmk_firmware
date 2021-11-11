@@ -1,12 +1,12 @@
 # yunomi
 
-![yunomi](imgur.com image replace me!)
+![yunomi](https://raw.githubusercontent.com/google/mozc-devices/master/mozc-yunomi/images/device.jpg)
 
-*A short description of the keyboard/project*
+*A QMK port of the mozc-yunomi firmware. The [mozc-yunomi](https://github.com/google/mozc-devices/tree/master/mozc-yunomi) is an open-source keyboard by Google.*
 
 * Keyboard Maintainer: [Austin Wang](https://github.com/Dafondo)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: [mozc-yunomi](https://github.com/google/mozc-devices/tree/master/mozc-yunomi)
+* Hardware Availability: [mozc-yunomi](https://github.com/google/mozc-devices/tree/master/mozc-yunomi)
 
 Make example for this keyboard (after setting up your build environment):
 
