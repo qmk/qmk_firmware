@@ -1,7 +1,7 @@
 // Copyright 2021 Paul Maria Scheikl (@ScheiklP)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-/* A K.O,Y layout for the Dactyl Manuform 4x6 Keyboard */ 
+/* A K.O,Y layout for the Dactyl Manuform 4x6 Keyboard */
 
 #include QMK_KEYBOARD_H
 #include "koy_keys_on_quertz_de_latin1.h"
@@ -51,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_7] = LAYOUT(
 
-     KC_TAB  , KC_MS_WH_UP  , KC_MS_BTN2 , KC_MS_UP   , KC_MS_BTN1  , KC_MS_WH_DOWN ,      KC_TRNS , KC_F7    , KC_F8   , KC_F9   , KC_TRNS , KC_TRNS ,
-     KC_TRNS , KC_MS_ACCEL0 , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_TRNS       ,      KC_TRNS , KC_F4    , KC_F5   , KC_F6   , KC_TRNS , KC_TRNS ,
-     KC_LSFT , KC_MS_ACCEL1 , KC_TRNS    , KC_TRNS    , KC_TRNS     , KC_TRNS       ,      KC_TRNS , KC_F1    , KC_F2   , KC_F3   , KC_TRNS , KC_TRNS ,
+     KC_TAB  , KC_MS_WH_UP  , KC_MS_BTN2 , KC_MS_UP   , KC_MS_BTN1  , KC_MS_WH_DOWN ,      KC_TRNS , KC_F7    , KC_F8   , KC_F9   , RGB_HUI , RESET            ,
+     KC_TRNS , KC_MS_ACCEL0 , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_TRNS       ,      KC_TRNS , KC_F4    , KC_F5   , KC_F6   , RGB_SAI , RGB_TOG          ,
+     KC_LSFT , KC_MS_ACCEL1 , KC_TRNS    , KC_TRNS    , KC_TRNS     , KC_TRNS       ,      KC_TRNS , KC_F1    , KC_F2   , KC_F3   , RGB_VAI , RGB_MODE_FORWARD ,
                               KC_TRNS    , KC_PSCR    ,                                                         KC_F10  , KC_TRNS ,
                                                         KC_LALT     , KC_F10        ,      KC_TRNS , KC_TRNS  ,
                                                         N_COPY      , N_CUT         ,      KC_ESC  , KC_ENTER ,

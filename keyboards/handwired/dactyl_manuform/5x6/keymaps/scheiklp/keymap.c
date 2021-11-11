@@ -1,13 +1,18 @@
+// Copyright 2021 Paul Maria Scheikl (@ScheiklP)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 /* A K.O,Y layout for the Dactyl Manuform 5x6 Keyboard */ 
 
 #include QMK_KEYBOARD_H
 #include "koy_keys_on_quertz_de_latin1.h"
 
 
-#define _1 0
-#define _3 1
-#define _4 2
-#define _7 3
+enum custom_layers {
+    _1,
+    _3,
+    _4,
+    _7,
+};
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
