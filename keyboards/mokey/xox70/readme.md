@@ -5,8 +5,6 @@
 Support Atmega32u4 keyboard,With a variety of configurations
 
 * Keyboard Maintainer: [Mokey](https://github.com/rhmokey)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
 
 ## Bootloader
 * **Physical reset button**: Short press the button on the back of the PCB to enter the Bootloader and flash the firmware
