@@ -1,8 +1,8 @@
 # TKC California
 
-![TKC California](https://i.imgur.com/XCg2H4N.jpeg)
+![TKC California](https://i.imgur.com/IaG5Gvp.jpg)
 
-A compact 1800 keyboard kit.
+A compact 1800 keyboard.
 
 * Keyboard Maintainer: [TerryMathews](https://github.com/TerryMathews)
 * Hardware Supported: TKC California (ATmega32U4)
