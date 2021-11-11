@@ -203,9 +203,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code16(C(S(KC_Z)));
                 } else {
                     //Undo
-                    register_code(KC_LCTL);
-                    tap_code(KC_Z);
-                    unregister_code(KC_LCTRL);
+                    tap_code16(C(KC_Z));
                 }
             }
             break;
