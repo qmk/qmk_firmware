@@ -21,7 +21,7 @@
 /* ==== MODS ==== */
 // BACKSPACE
 #define BACKSPACE k00_14
-#define BACKSPACE_MATRIX k00_13, k00_14
+#define BACKSPACE_MATRIX KC_NO, k00_14
 
 // SPLIT BACKSPACE
 #define SPLIT_BACKSPACE k00_13, k00_14
@@ -38,10 +38,6 @@
 // TAB
 #define TAB k01_00
 #define TAB_MATRIX TAB
-
-// BSLS
-#define ANSI_BSLS k01_13
-#define ANSI_BSLS_MATRIX k01_13, KC_NO
 
 // ENTER
 #define ISO_ENTER k02_12, k02_13
