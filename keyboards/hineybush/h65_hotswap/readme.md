@@ -5,8 +5,8 @@
 A 65%, hotswap, USB 2.0 Type C PCB. 
 
 * Keyboard Maintainer: [hineybush](https://github.com/hineybush)
-* Hardware Supported: h65, Singa Kohaku, MC65 "mcbitch" PCB
-* Hardware Availability: Singa Kohaku Group Buy, MC65
+* Hardware Supported: h65hs, Singa Kohaku 
+* Hardware Availability: Singa Kohaku Group Buy 
 
 ## Bootloader
 

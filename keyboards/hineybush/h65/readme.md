@@ -1,12 +1,12 @@
 # h65
 
-![h65](imgur.com image replace me!)
+![h65](https://i.imgur.com/Q1m98Hn.png)
 
-*A short description of the keyboard/project*
+A 65%, USB 2.0 Type C PCB. 
 
-* Keyboard Maintainer: [hineybush](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [hineybush](https://github.com/hineybush)
+* Hardware Supported: h65, Singa Kohaku, MC65 "mcbitch" PCB
+* Hardware Availability: Singa Kohaku Group Buy, MC65
 
 ## Bootloader
 
