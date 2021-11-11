@@ -2,8 +2,6 @@
     "keyboard_name": "Chalice",
     "url": "https://customkbd.com/products/chalice-pre-order",
     "maintainer": "CustomKBD",
-    "width": 20,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_default": {
             "layout": [
