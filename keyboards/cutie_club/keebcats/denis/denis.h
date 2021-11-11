@@ -18,7 +18,7 @@
 
 #include "key_matrix_definitions.h"
 
-#define LAYOUT_60_all( \
+#define LAYOUT_all( \
     ESC, ALPHAS_R0, SPLIT_BACKSPACE,                   \
     TAB, ALPHAS_R1_ANSI,                               \
     CAPS, ALPHAS_R2, ISO_ENTER,                        \
