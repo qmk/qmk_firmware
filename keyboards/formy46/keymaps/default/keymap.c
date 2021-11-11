@@ -200,11 +200,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             } else {
                 if (clockwise) {
                     //Redo
-                    register_code(KC_LCTL);
-                    register_code(KC_LSFT);
-                    tap_code(KC_Z);
-                    unregister_code(KC_LCTL);
-                    unregister_code(KC_LSFT);
+                    tap_code16(C(S(KC_Z)));
                 } else {
                     //Undo
                     register_code(KC_LCTL);
