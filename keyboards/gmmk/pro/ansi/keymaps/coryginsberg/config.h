@@ -17,10 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define ARRAYSIZE(arr) sizeof(arr) / sizeof(arr[0])
+
 // #define TAPPING_TOGGLE 2
 // TT set to two taps
+#define TAPPING_TERM 250
 
-#define TAPPING_TERM 350
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
-#define RGB_DEFAULT_HUE 0 // red
-#define RGB_DEFAULT_SAT 0
+#define RGBLIGHT_DEFAULT_MODE SOLID_WHITE
+
+#ifdef RGB_MATRIX_ENABLE
+    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED
+#endif
