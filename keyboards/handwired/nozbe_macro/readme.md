@@ -1,11 +1,11 @@
 # Nozbe Macropad handwired
 
-![Nozbe Macropad](https://i.imgur.com/fUMtWma.png)
+![Nozbe Macropad](https://i.imgur.com/fUMtWmah.png)
 
-*4 key macropad with optional rotary encoder*
+4 key macropad with optional rotary encoder.
 
 * Keyboard Maintainer: [rozPierog](https://github.com/rozPierog)
-* Hardware Supported: *Custom handwired 4 key (or 3 key + rotary encoder) pad*
+* Hardware Supported: Custom handwired 4 key (or 3 key + rotary encoder) pad
 * Hardware Availability: *n/a*
 * Github Repository: [NozbePad](https://github.com/rozPierog/NozbePad)
 
