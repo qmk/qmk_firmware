@@ -39,8 +39,8 @@
 #define RGB_DI_PIN B6
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLED_NUM 20  // Number of LEDs
-#    define RGBLIGHT_SLEEP
+#define RGBLED_NUM 20  // Number of LEDs
+#define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -51,8 +51,8 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#    define RGBLIGHT_DEFAULT_VAL 0  // start off
-#    define RGBLIGHT_LIMIT_VAL 225  // keep PCB under 500mA
+#define RGBLIGHT_DEFAULT_VAL 0  // start off
+#define RGBLIGHT_LIMIT_VAL 225  // keep PCB under 500mA
 #endif
 
 /* COL2ROW or ROW2COL */
