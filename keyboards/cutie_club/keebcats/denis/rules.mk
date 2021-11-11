@@ -18,3 +18,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+LAYOUTS = 60_iso_tsangan 60_iso_split_bs_rshift 60_iso 60_tsangan_hhkb 60_hhkb 60_ansi_tsangan 60_ansi_split_bs_rshift 60_ansi
