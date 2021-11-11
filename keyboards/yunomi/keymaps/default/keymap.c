@@ -1,6 +1,8 @@
 // Copyright 2021 Austin Wang (@Dafondo)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+// This is the standard yunomi keymap as defined in the original mozc-yunomi firmware
+
 #include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
@@ -16,6 +18,7 @@ enum unicode_names {
     k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k410, k411
 };
 
+// Defines unicode mappings for default keymap
 const uint32_t PROGMEM unicode_map[] = {
     [k00]=0x9BCF, [k01]=0x9BF5, [k02]=0x9B8E, [k03]=0x9BC7, [k04]=0x9B91, [k05]=0x9B66, [k06]=0x9BD4, [k07]=0x9BC6, [k08]=0x9C2F, [k09]=0x9B87, [k010]=0x9BCF, [k011]=0x9C53, 
     [k10]=0x9C3B, [k11]=0x9C4F, [k12]=0x9C5B, [k13]=0x9C15, [k14]=0x9C27, [k15]=0x9C0D, [k16]=0x9C39, [k17]=0x9C5F, [k18]=0x9B73, [k19]=0x9C08, [k110]=0x9B8D, [k111]=0x9C5A, 

@@ -1,7 +1,7 @@
 {
     "keyboard_name": "yunomi",
-    "url": "",
-    "maintainer": "Dafondo",
+    "url": "https://github.com/google/mozc-devices/tree/master/mozc-yunomi",
+    "maintainer": "Google",
     "layouts": {
         "LAYOUT": {
             "layout": [
