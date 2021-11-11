@@ -30,6 +30,7 @@ enum custom_keycodes {
     COLEMAK,
 };
 
+
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 

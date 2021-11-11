@@ -33,6 +33,4 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define TAPPING_TERM 200
-
 #define DEBOUNCE 5
