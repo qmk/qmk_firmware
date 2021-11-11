@@ -1,17 +1,13 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
-
+Copyright 2021 Moritz Plattner
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
-
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -21,22 +17,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID               0x44DD
-#define MANUFACTURER            Drashna
+#define VENDOR_ID       0x7470      //"tp"
+#define PRODUCT_ID      0x0001
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    tlprt
+#define PRODUCT         NumPad
 
-#define USB_POLLING_INTERVAL_MS 1
+/* key matrix size */
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 4
 
-/* disable debug print */
-// #define NO_DEBUG
+/* Keyboard Matrix Assignments */
+#define MATRIX_ROW_PINS { D7, D4, D6, B4, B5 }
+#define MATRIX_COL_PINS { F6, F5, F7, F4 }
+#define UNUSED_PINS { B0, B1, B2, B3, B6, B7, D0, D1, D2, D3, D5, F0, F1, E6, C6, C7 }
 
-/* disable print */
-// #define NO_PRINT
+/* COL2ROW, ROW2COL*/
+#define DIODE_DIRECTION COL2ROW
 
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-#define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC, RPC_ID_POINTER_STATE_SYNC
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+#define DEBOUNCE 5

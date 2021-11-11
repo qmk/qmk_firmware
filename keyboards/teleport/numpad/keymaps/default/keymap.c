@@ -1,4 +1,4 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+/* Copyright 2021 Moritz Plattner
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
 
-#pragma once
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-#define TRACKBALL_DPI_OPTIONS { 1200, 1800, 2600, 3400 }
+  [0] = LAYOUT_numpad_5x4(
+    LT(1, KC_NLCK), KC_PSLS,  KC_PAST, KC_PMNS,
+    KC_P7,          KC_P8,    KC_P9,
+    KC_P4,          KC_P5,    KC_P6,   KC_PPLS,
+    KC_P1,          KC_P2,    KC_P3,
+              KC_P0,          KC_PDOT,  KC_PENT
+  ),
 
-#undef DEBOUNCE
-#define DEBOUNCE 15
+  [1] = LAYOUT_numpad_5x4(
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,
+             KC_TRNS, KC_TRNS, RESET
+  ),
+};

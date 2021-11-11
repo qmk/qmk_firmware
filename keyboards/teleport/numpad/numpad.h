@@ -1,4 +1,4 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+/* Copyright 2021 Moritz Plattner
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,18 @@
 
 #pragma once
 
-#define TRACKBALL_DPI_OPTIONS { 1200, 1800, 2600, 3400 }
+#include "quantum.h"
 
-#undef DEBOUNCE
-#define DEBOUNCE 15
+#define LAYOUT_numpad_5x4(    \
+      K00,  K01,  K02,  K03,  \
+      K10,  K11,  K12,        \
+      K20,  K21,  K22,  K13,  \
+      K30,  K31,  K32,        \
+         K40,     K41,  K42   \
+) { \
+    { K00,  K01,  K02,  K03   }, \
+    { K10,  K11,  K12,  K13   }, \
+    { K20,  K21,  K22,  KC_NO }, \
+    { K30,  K31,  K32,  KC_NO }, \
+    { K40,  K41,  K42,  KC_NO }, \
+}
