@@ -1,6 +1,5 @@
-/* Copyright 2021
- * David Philip Barr <@davidphilipbarr>
- * Albert Y <@filterpaper>
+/* Copyright 2020 David Philip Barr <@davidphilipbarr>
+ * Copyright 2021 @filterpaper
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
