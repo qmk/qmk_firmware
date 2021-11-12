@@ -1,0 +1,1 @@
+# The keymap for krush65 solder layout ansi blocker with split backspace and split spacebar
