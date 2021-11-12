@@ -48,14 +48,14 @@
     K80, K90, K81, K92, K94, K85, K95, K97  \
 ) { \
     { K00, K01, K02, K03, K04, K05, K06, XXX }, \
-    { K10, K11, K12, K13, K14, K15, XXX, xxx }, \
+    { K10, K11, K12, K13, K14, K15, XXX, XXX }, \
     { K20, K21, K22, K23, K24, K25, K26, XXX }, \
     { K30, K31, K32, K33, K34, K35, K36, XXX }, \
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
     { K60, K61, K62, K63, K64, K65, K66, XXX }, \
-    { K70, K71, K72, K73, K74, xxx, XXX, xxx }, \
-    { K80, K81, xxx, XXX, xxx, K85, xxx, XXX }, \
+    { K70, K71, K72, K73, K74, XXX, XXX, XXX }, \
+    { K80, K81, XXX, XXX, XXX, K85, XXX, XXX }, \
     { K90, XXX, K92, XXX, K94, K95, XXX, K97 }, \
 }
 //LAYOUT_60_iso
@@ -68,14 +68,14 @@
     K80, K90, K81, K92, K94, K85, K95, K97  \
 ) { \
     { K00, K01, K02, K03, K04, K05, K06, XXX }, \
-    { K10, K11, K12, K13, K14, K15, XXX, xxx }, \
+    { K10, K11, K12, K13, K14, K15, XXX, XXX }, \
     { K20, K21, K22, K23, K24, K25, K26, XXX }, \
     { K30, K31, K32, K33, K34, K35, K36, XXX }, \
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
     { K60, K61, K62, K63, K64, K65, K66, XXX }, \
-    { K70, K71, K72, K73, K74, xxx, XXX, xxx }, \
-    { K80, K81, xxx, XXX, xxx, K85, xxx, XXX }, \
+    { K70, K71, K72, K73, K74, XXX, XXX, XXX }, \
+    { K80, K81, XXX, XXX, XXX, K85, XXX, XXX }, \
     { K90, XXX, K92, XXX, K94, K95, XXX, K97 }, \
 }
 //LAYOUT_60_ansi_split_bs
@@ -93,8 +93,8 @@
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
     { K60, K61, K62, K63, K64, K65, K66, XXX }, \
-    { K70, K71, K72, K73, K74, xxx, XXX, xxx }, \
-    { K80, K81, xxx, XXX, xxx, K85, xxx, XXX }, \
+    { K70, K71, K72, K73, K74, XXX, XXX, XXX }, \
+    { K80, K81, XXX, XXX, XXX, K85, XXX, XXX }, \
     { K90, XXX, K92, XXX, K94, K95, XXX, K97 }, \
 }
 //LAYOUT_60_ansi_split_spc
@@ -106,14 +106,14 @@
     K80, K90, K81, K82, K92, K84, K94, K85, K95, K97  \
 ) { \
     { K00, K01, K02, K03, K04, K05, K06, XXX }, \
-    { K10, K11, K12, K13, K14, K15, XXX, xxx }, \
+    { K10, K11, K12, K13, K14, K15, XXX, XXX }, \
     { K20, K21, K22, K23, K24, K25, K26, XXX }, \
     { K30, K31, K32, K33, K34, K35, K36, XXX }, \
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
     { K60, K61, K62, K63, K64, K65, K66, XXX }, \
-    { K70, K71, K72, K73, K74, xxx, XXX, xxx }, \
-    { K80, K81, K82, XXX, K84, K85, xxx, XXX }, \
+    { K70, K71, K72, K73, K74, XXX, XXX, XXX }, \
+    { K80, K81, K82, XXX, K84, K85, XXX, XXX }, \
     { K90, XXX, K92, XXX, K94, K95, XXX, K97 }, \
 }
 //LAYOUT_60_ansi_split_bs_spc
@@ -131,8 +131,8 @@
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
     { K60, K61, K62, K63, K64, K65, K66, XXX }, \
-    { K70, K71, K72, K73, K74, xxx, XXX, xxx }, \
-    { K80, K81, K82, XXX, K84, K85, xxx, XXX }, \
+    { K70, K71, K72, K73, K74, XXX, XXX, XXX }, \
+    { K80, K81, K82, XXX, K84, K85, XXX, XXX }, \
     { K90, XXX, K92, XXX, K94, K95, XXX, K97 }, \
 }
 //LAYOUT_60_ansi_7u_spc
@@ -144,15 +144,15 @@
     K80, K90, K81, K92, K85, K95, K97  \
 ) { \
     { K00, K01, K02, K03, K04, K05, K06, XXX }, \
-    { K10, K11, K12, K13, K14, K15, XXX, xxx }, \
+    { K10, K11, K12, K13, K14, K15, XXX, XXX }, \
     { K20, K21, K22, K23, K24, K25, K26, XXX }, \
     { K30, K31, K32, K33, K34, K35, K36, XXX }, \
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
     { K60, K61, K62, K63, K64, K65, K66, XXX }, \
-    { K70, K71, K72, K73, K74, xxx, XXX, xxx }, \
-    { K80, K81, xxx, XXX, xxx, K85, xxx, XXX }, \
-    { K90, XXX, K92, XXX, xxx, K95, XXX, K97 }, \
+    { K70, K71, K72, K73, K74, XXX, XXX, XXX }, \
+    { K80, K81, XXX, XXX, XXX, K85, XXX, XXX }, \
+    { K90, XXX, K92, XXX, XXX, K95, XXX, K97 }, \
 }
 //LAYOUT_60_ansi_split_7u_spc
 #define LAYOUT_60_ansi_split_bs_7u_spc( \
@@ -169,9 +169,9 @@
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
     { K60, K61, K62, K63, K64, K65, K66, XXX }, \
-    { K70, K71, K72, K73, K74, xxx, XXX, xxx }, \
-    { K80, K81, xxx, XXX, xxx, K85, xxx, XXX }, \
-    { K90, XXX, K92, XXX, xxx, K95, XXX, K97 }, \
+    { K70, K71, K72, K73, K74, XXX, XXX, XXX }, \
+    { K80, K81, XXX, XXX, XXX, K85, XXX, XXX }, \
+    { K90, XXX, K92, XXX, XXX, K95, XXX, K97 }, \
 }
 //LAYOUT_60_ansi_arrow_split_bs
 #define LAYOUT_60_ansi_arrow_split_bs( \
@@ -187,9 +187,9 @@
     { K30, K31, K32, K33, K34, K35, K36, XXX }, \
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
-    { K60, K61, K62, K63, K64, xxx, K66, XXX }, \
+    { K60, K61, K62, K63, K64, XXX, K66, XXX }, \
     { K70, K71, K72, K73, K74, K75, XXX, K77 }, \
-    { K80, K81, xxx, XXX, xxx, K85, K86, XXX }, \
+    { K80, K81, XXX, XXX, XXX, K85, K86, XXX }, \
     { K90, XXX, K92, XXX, K94, K95, XXX, K97 }, \
 }
 //LAYOUT_60_ansi_arrow_split_spc
@@ -201,12 +201,12 @@
     K80, K90, K81, K82, K92, K84, K94, K85, K86, K95, K97  \
 ) { \
     { K00, K01, K02, K03, K04, K05, K06, XXX }, \
-    { K10, K11, K12, K13, K14, K15, XXX, xxx }, \
+    { K10, K11, K12, K13, K14, K15, XXX, XXX }, \
     { K20, K21, K22, K23, K24, K25, K26, XXX }, \
     { K30, K31, K32, K33, K34, K35, K36, XXX }, \
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
-    { K60, K61, K62, K63, K64, xxx, K66, XXX }, \
+    { K60, K61, K62, K63, K64, XXX, K66, XXX }, \
     { K70, K71, K72, K73, K74, K75, XXX, K77 }, \
     { K80, K81, K82, XXX, K84, K85, K86, XXX }, \
     { K90, XXX, K92, XXX, K94, K95, XXX, K97 }, \
@@ -225,7 +225,7 @@
     { K30, K31, K32, K33, K34, K35, K36, XXX }, \
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
-    { K60, K61, K62, K63, K64, xxx, K66, XXX }, \
+    { K60, K61, K62, K63, K64, XXX, K66, XXX }, \
     { K70, K71, K72, K73, K74, K75, XXX, K77 }, \
     { K80, K81, K82, XXX, K84, K85, K86, XXX }, \
     { K90, XXX, K92, XXX, K94, K95, XXX, K97 }, \
@@ -239,15 +239,15 @@
     K80, K90, K81, K92, K85, K86, K95, K97  \
 ) { \
     { K00, K01, K02, K03, K04, K05, K06, XXX }, \
-    { K10, K11, K12, K13, K14, K15, XXX, xxx }, \
+    { K10, K11, K12, K13, K14, K15, XXX, XXX }, \
     { K20, K21, K22, K23, K24, K25, K26, XXX }, \
     { K30, K31, K32, K33, K34, K35, K36, XXX }, \
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
-    { K60, K61, K62, K63, K64, xxx, K66, XXX }, \
+    { K60, K61, K62, K63, K64, XXX, K66, XXX }, \
     { K70, K71, K72, K73, K74, K75, XXX, K77 }, \
-    { K80, K81, xxx, XXX, xxx, K85, K86, XXX }, \
-    { K90, XXX, K92, XXX, xxx, K95, XXX, K97 }, \
+    { K80, K81, XXX, XXX, XXX, K85, K86, XXX }, \
+    { K90, XXX, K92, XXX, XXX, K95, XXX, K97 }, \
 }
 //LAYOUT_60_ansi_arrow
 //x
@@ -259,14 +259,14 @@
     K80, K90, K81, K92, K94, K85, K86, K95, K97  \
 ) { \
     { K00, K01, K02, K03, K04, K05, K06, XXX }, \
-    { K10, K11, K12, K13, K14, K15, XXX, xxx }, \
+    { K10, K11, K12, K13, K14, K15, XXX, XXX }, \
     { K20, K21, K22, K23, K24, K25, K26, XXX }, \
     { K30, K31, K32, K33, K34, K35, K36, XXX }, \
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
-    { K60, K61, K62, K63, K64, xxx, K66, XXX }, \
+    { K60, K61, K62, K63, K64, XXX, K66, XXX }, \
     { K70, K71, K72, K73, K74, K75, XXX, K77 }, \
-    { K80, K81, xxx, XXX, xxx, K85, K86, XXX }, \
+    { K80, K81, XXX, XXX, XXX, K85, K86, XXX }, \
     { K90, XXX, K92, XXX, K94, K95, XXX, K97 }, \
 }
 //x
@@ -284,10 +284,10 @@
     { K30, K31, K32, K33, K34, K35, K36, XXX }, \
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
-    { K60, K61, K62, K63, K64, xxx, K66, XXX }, \
+    { K60, K61, K62, K63, K64, XXX, K66, XXX }, \
     { K70, K71, K72, K73, K74, K75, XXX, K77 }, \
-    { K80, K81, xxx, XXX, xxx, K85, K86, XXX }, \
-    { K90, XXX, K92, XXX, xxx, K95, XXX, K97 }, \
+    { K80, K81, XXX, XXX, XXX, K85, K86, XXX }, \
+    { K90, XXX, K92, XXX, XXX, K95, XXX, K97 }, \
 }
 //LAYOUT_60_ansi_tsangan
 #define LAYOUT_60_ansi_tsangan( \
@@ -298,15 +298,15 @@
     K80, K90, K81, K92, K85, K95, K97  \
 ) { \
     { K00, K01, K02, K03, K04, K05, K06, XXX }, \
-    { K10, K11, K12, K13, K14, K15, XXX, xxx }, \
+    { K10, K11, K12, K13, K14, K15, XXX, XXX }, \
     { K20, K21, K22, K23, K24, K25, K26, XXX }, \
     { K30, K31, K32, K33, K34, K35, K36, XXX }, \
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
     { K60, K61, K62, K63, K64, K65, K66, XXX }, \
-    { K70, K71, K72, K73, K74, xxx, XXX, K77 }, \
-    { K80, K81, xxx, XXX, xxx, K85, xxx, XXX }, \
-    { K90, XXX, K92, XXX, xxx, K95, XXX, K97 }, \
+    { K70, K71, K72, K73, K74, XXX, XXX, K77 }, \
+    { K80, K81, XXX, XXX, XXX, K85, XXX, XXX }, \
+    { K90, XXX, K92, XXX, XXX, K95, XXX, K97 }, \
 }
 //LAYOUT_60_ansi_tsangan_split_bs
 #define LAYOUT_60_ansi_tsangan_split_bs( \
@@ -323,13 +323,11 @@
     { K40, K41, K42, K43, K44, K45, K46, K47 }, \
     { K50, K51, K52, K53, K54, K55, XXX, XXX }, \
     { K60, K61, K62, K63, K64, K65, K66, XXX }, \
-    { K70, K71, K72, K73, K74, xxx, XXX, K77 }, \
-    { K80, K81, xxx, XXX, xxx, K85, xxx, XXX }, \
-    { K90, XXX, K92, XXX, xxx, K95, XXX, K97 }, \
+    { K70, K71, K72, K73, K74, XXX, XXX, K77 }, \
+    { K80, K81, XXX, XXX, XXX, K85, XXX, XXX }, \
+    { K90, XXX, K92, XXX, XXX, K95, XXX, K97 }, \
 }
 //LAYOUT_60_iso_tsangan
 #define LAYOUT_60_iso_tsangan  LAYOUT_60_ansi_tsangan
 //LAYOUT_60_iso_tsangan_split_bs
 #define LAYOUT_60_iso_tsangan_split_bs  LAYOUT_60_ansi_tsangan_split_bs
-
-
