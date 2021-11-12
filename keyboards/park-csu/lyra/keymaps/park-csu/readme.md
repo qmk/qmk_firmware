@@ -1,1 +1,0 @@
-# The keymap for Lyra, customized by [park-csu](https://github.com/park-csu)
