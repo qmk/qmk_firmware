@@ -8,6 +8,10 @@ A Cheap Alice, powered by a Pro-Micro
 
 Make example for this keyboard (after setting up your build environment):
 
+    make chalice:default
+
+Flashing example for this keyboard:
+
     make chalice:default:flash
     
 ## Bootloader
