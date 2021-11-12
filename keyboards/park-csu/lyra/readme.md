@@ -2,7 +2,7 @@
 
 ![lyra](https://i.imgur.com/DmHl7sz.jpeg)
 
-*A short description of the keyboard/project*
+40%, Ortholinear, Split keyboard with knob 
 
 * Keyboard Maintainer: [Changsu Park](https://github.com/park-csu)
 * Hardware Supported: *Dedicated pcb and case files available at [My repo](https://github.com/park-csu/Lyra)*
