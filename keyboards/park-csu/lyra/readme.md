@@ -1,6 +1,6 @@
 # lyra
 
-![lyra](https://github.com/park-csu/Lyra/raw/main/assets/built.jpg)
+![lyra](https://i.imgur.com/DmHl7sz.jpeg)
 
 *A short description of the keyboard/project*
 
