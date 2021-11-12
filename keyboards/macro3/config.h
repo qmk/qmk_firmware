@@ -49,9 +49,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
 /* Top right key */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 3
