@@ -196,7 +196,8 @@ bool swap_space_enter = false;
 bool shift_held = false;
 static uint16_t held_shift = 0;
 
-/* keyboard pet jump status variables */
+/* keyboard pet jump and sneak status variables */
+bool isSneaking = false;
 bool isJumping = false;
 bool showedJump = true;
 
@@ -308,6 +309,27 @@ bool showedJump = true;
             }
         };
 
+        /* Sneak */
+        static const char PROGMEM sneak[2][ANIM_SIZE] = {
+            {
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x40, 0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0xc0, 0x40, 0x40, 0x80, 0x00, 0x80, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x1e, 0x21, 0xf0, 0x04, 0x02, 0x02, 0x02, 0x02, 0x03, 0x02, 0x02, 0x04,
+                0x04, 0x04, 0x03, 0x01, 0x00, 0x00, 0x09, 0x01, 0x80, 0x80, 0xab, 0x04, 0xf8, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x1c, 0x20, 0x20, 0x3c, 0x0f, 0x11, 0x1f, 0x02, 0x06,
+                0x18, 0x20, 0x20, 0x38, 0x08, 0x10, 0x18, 0x04, 0x04, 0x02, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00
+
+            },
+            {
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0xe0, 0xa0, 0x20, 0x40, 0x80, 0xc0, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x3e, 0x41, 0xf0, 0x04, 0x02, 0x02, 0x02, 0x03, 0x02, 0x02, 0x02, 0x04,
+                0x04, 0x02, 0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x40, 0x40, 0x55, 0x82, 0x7c, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0x20, 0x30, 0x0c, 0x02, 0x05, 0x09, 0x12, 0x1e, 0x04,
+                0x18, 0x10, 0x08, 0x10, 0x20, 0x28, 0x34, 0x06, 0x02, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00
+            }
+        };
+
         /* animation */
         void animate_keyboard_pet(void) {
 
@@ -329,6 +351,8 @@ bool showedJump = true;
             /* current animation status */
             if(led_usb_state.caps_lock) {
                 oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
+            } else if(isSneaking) {
+                oled_write_raw_P(sneak[abs(1 - current_frame)], ANIM_SIZE);
             } else if(current_wpm <= MIN_WALK_SPEED) {
                 oled_write_raw_P(sit[abs(1 - current_frame)], ANIM_SIZE);
             } else if(current_wpm <= MIN_RUN_SPEED) {
@@ -396,27 +420,27 @@ bool showedJump = true;
 
         /* Print current layer */
         oled_set_cursor(0,4);
-        oled_write_P(PSTR("LAYER"), false);
-        oled_set_cursor(0,5);
         switch (get_highest_layer(layer_state)) {
             case _QWERTY:
-                oled_write_P(PSTR("Base "), false);
+            case _COLEMAK:
+                oled_write_P(PSTR("\xBB"), false);
                 break;
             case _RAISE:
-                oled_write_P(PSTR("Raise"), false);
+                oled_write_P(PSTR("\xB9"), false);
                 break;
             case _LOWER:
-                oled_write_P(PSTR("Lower"), false);
+                oled_write_P(PSTR("\xB8"), false);
                 break;
             case _ADJUST:
-                oled_write_P(PSTR("Adj  "), false);
+                oled_write_P(PSTR("\xBA"), false);
                 break;
             default:
-                oled_write_P(PSTR("Undef"), false);
+                oled_write_P(PSTR("\x3F"), false);
         }
+        oled_write_P(PSTR("\xD8\xD9\xDA\xDB"), false);
 
         /* caps lock */
-        oled_set_cursor(0,7);
+        oled_set_cursor(0,6);
         oled_write_P(PSTR("CAPS"), false);
         if (led_usb_state.caps_lock) {
             oled_write_P(PSTR("\x9A"), false);
@@ -425,11 +449,11 @@ bool showedJump = true;
         }
 
         /* Space Enter swap */
-        oled_set_cursor(0,9);
+        oled_set_cursor(0,8);
         oled_write_P(PSTR("\x9B"), false);
-        oled_set_cursor(2,9);
+        oled_set_cursor(2,8);
         oled_write_P(PSTR("\x9C"), !swap_space_enter);
-        oled_set_cursor(4,9);
+        oled_set_cursor(4,8);
         oled_write_P(PSTR("\x9D"), swap_space_enter);
 
        /* Joystick debugging */
@@ -606,6 +630,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 
+        /* Keyboard Pet sneak */
+        case KC_LCTL:
+        case KC_RCTL:
+            if (record->event.pressed) {
+                isSneaking = true;
+            } else {
+                isSneaking = false;
+            }
+            break;
+
         /* Space Enter swap */
         case KC_THUMB_SWAP:
             if (record->event.pressed) {
@@ -618,7 +652,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (swap_space_enter) {
                     register_code(KC_SPC);
 
-                    /*Keyboard Pet jump*/
+                    /* Keyboard Pet jump */
                     isJumping = true;
                     showedJump = false;
                 } else {
@@ -628,7 +662,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (swap_space_enter) {
                     unregister_code(KC_SPC);
 
-                    /*Keyboard Pet jump reset*/
+                    /* Keyboard Pet jump reset */
                     isJumping = false;
                 } else {
                     unregister_code(KC_ENT);

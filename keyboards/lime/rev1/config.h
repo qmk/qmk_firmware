@@ -52,7 +52,9 @@
 #   define JOYSTICK_AXES_RESOLUTION 8
 #endif
 
-#define TAP_CODE_DELAY 10
+#define TAP_CODE_DELAY 5
+#define USB_POLLING_INTERVAL_MS 1
+#define LAYER_STATE_8BIT
 
 /* communication between sides */
 #define USE_SERIAL

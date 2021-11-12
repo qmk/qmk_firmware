@@ -21,4 +21,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
 SWAP_HANDS_ENABLE = yes
+LTO_ENABLE = yes
 DEFAULT_FOLDER = lime/rev1
