@@ -1,4 +1,4 @@
-n/* Copyright 2021 Colin Lam (Ploopy Corporation)
+/* Copyright 2021 Colin Lam (Ploopy Corporation)
  * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  * Copyright 2019 Sunjun Kim
  * Copyright 2019 Hiroyuki Okada
