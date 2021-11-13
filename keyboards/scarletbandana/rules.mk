@@ -16,7 +16,6 @@ COMMAND_ENABLE = no        # Commands for debug and configuration
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no            # USB Nkey Rollover
-UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = yes          # Audio output
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality, also set ISSI_ENABLE below for Miera
