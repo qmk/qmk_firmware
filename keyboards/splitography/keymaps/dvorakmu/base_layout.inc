@@ -57,7 +57,7 @@
     TD_DQOT, KC_COMM, KC_LBRC, KC_RBRC, S(KC_Y), CNTR_TL, CNTR_TR, S(KC_F), S(KC_G), S(KC_C), S(KC_R), S(KC_L),
     S(KC_A), KC_CIRC, TD_LT,   TD_GT,   TD_TILD, CNTR_HL, CNTR_HR, S(KC_D), S(KC_H), S(KC_T), S(KC_N), S(KC_S),
     TD_COLN, S(KC_Q), KC_EXLM, TD_EQL,  TD_GRV,  CNTR_BL, CNTR_BR, S(KC_B), S(KC_M), S(KC_W), S(KC_V), S(KC_Z),
-                                        S_TAB,   ___fn__, KC_UNDS, SL_DEL
+                                        S_TAB,   _______, KC_UNDS, SL_DEL
 ),
 
 // ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┐
@@ -74,5 +74,5 @@
     TD_DQOT, KC_SLSH, KC_QUES, S(KC_P), S(KC_Y), CNTR_TL, CNTR_TR, S(KC_F), KC_LCBR, KC_RCBR, S(KC_R), S(KC_L),
     S(KC_A), S(KC_O), S(KC_E), S(KC_U), S(KC_I), CNTR_HL, CNTR_HR, KC_PIPE, KC_LPRN, KC_RPRN, KC_DLR,  S(KC_S),
     TD_COLN, S(KC_Q), S(KC_J), S(KC_K), S(KC_X), CNTR_BL, CNTR_BR, KC_BSLS, KC_ASTR, KC_DOT,  S(KC_V), S(KC_Z),
-                                        KC_TAB,  KC_MINS, ___fn__, LT_BSPC
+                                        KC_TAB,  KC_MINS, _______, LT_BSPC
 ),

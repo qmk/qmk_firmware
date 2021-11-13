@@ -14,67 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
-//
-// To flash planck firmware
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-//   Reset keyboard or press hw reset button on base (hole)
-//
-//   cd qmk_firmware/keyboards/planck
-//   sudo make KEYMAP=sdothum dfu
-//
-//   sudo make clean          (good practice before flashing)
-//   sudo make KEYMAP=sdothum (to compile check)
-//
-// Package requirements (for arch linux)
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-//   avr-gcc-atmel
-//   avr-libc-atmel
-//   dfu-programmer
-//
-// Notes
-// ▔▔▔▔▔
-//   ** E R G O   W I D E   S P L I T ** Layout
-//
-//   Autocompletion tap dance key pairs (),[],{} are available from the
-//   number/symbol layer, as well as, numerous (un)shift key values
-//
-//   The navigation pad provides a single hand right thumb activated cluster
-//   with left hand modifiers
-//
-// Modifier clusters
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-//   The num and sym keys together access the navigation pad layer
-//
-//   ,-----------------------------------------------------------------------------------.
-//   | Ctrl |  GUI |  Alt |  Esc | Space|  Tab | Bksp |  Ent | Left | Down |  Up  | Right|
-//   `-----------------------------------------------------------------------------------'
-//
-// Hint
-// ▔▔▔▔
-//   For sculpted keycaps such as Cherry or OEM profile, reverse the Alt, Num,
-//   Shift, Shift, Nav, Sym keycaps for more ergonomic thumb orientation and
-//   actuation
-//
-// Code
-// ▔▔▔▔
-//   This source is shamelessly based on the "default" planck layout
-//
-// Change history
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-//   See http://thedarnedestthing.com/planck%20constant
-//   See http://thedarnedestthing.com/planck%20done
-
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 #include "keymap_steno.h"
-
-#include "config.h"
-#include "splitography.h"
-
-extern keymap_config_t keymap_config;
 
 enum keyboard_layers {
     _BASE = 0,
@@ -172,14 +113,6 @@ enum keyboard_keycodes {
 #define S_TAB S(KC_TAB)
 
 #include "common/tapdance.inc"
-
-// keycodes
-#define ___x___ KC_TRNS
-#define ___fn__ KC_TRNS
-#if defined(_______)
-#    undef _______
-#endif
-#define _______ KC_NO
 
 #define COPY LCTL(KC_C)
 #define CUT LCTL(KC_X)

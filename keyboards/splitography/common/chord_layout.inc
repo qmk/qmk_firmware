@@ -30,8 +30,8 @@
 //                             └──────┴──────┴──────┴──────┘
 
 [_EDIT] = LAYOUT(
-    _______, _______, TMCOPY,  TMPASTE, _______, _______, _______, _______, _______, _______, _______, PLOVER ,
-    UNDO,    CUT,     COPY,    PASTE,   _______, _______, _______, _______, _______, TD_SEND, _______, _______,
-    _______, _______, NAK,     EOT,     _______, _______, _______, _______, _______, _______, _______, _______,
-                                        ___fn__, _______, _______, ___fn__
+    XXXXXXX, XXXXXXX, TMCOPY,  TMPASTE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, PLOVER ,
+    UNDO,    CUT,     COPY,    PASTE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TD_SEND, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, NAK,     EOT,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                        _______, XXXXXXX, XXXXXXX, _______
 ),

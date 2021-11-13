@@ -14,49 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
-//
-// To flash splitography / planck firmware
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-//   Reset keyboard or press hw reset button on base
-//
-//   cd qmk_firmware/keyboards/<keyboard>
-//   sudo make KEYMAP=<keymap> dfu
-//
-//   sudo make clean           (good practice before flashing)
-//   sudo make KEYMAP=<keymap> (to compile check)
-//
-// Package requirements (for arch linux)
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-//   avr-gcc-atmel
-//   avr-libc-atmel
-//   dfu-programmer
-//
-// Notes
-// ▔▔▔▔▔
-//   ** E R G O   W I D E   S P L I T ** Layout
-//
-//   Autocompletion tap dance key pairs (),[],{} are available from the
-//   number/symbol layer, as well as, numerous (un)shift key values
-//
-// Code
-// ▔▔▔▔
-//   This source is shamelessly based on the "default" planck layout
-//
-// Change history
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-//   See http://thedarnedestthing.com/colophon
-
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 #include "keymap_steno.h"
-
-#include "config.h"
-#include "splitography.h"
-
-extern keymap_config_t keymap_config;
 
 enum keyboard_layers {
     _BASE = 0,
@@ -140,14 +99,6 @@ enum keyboard_keycodes {
 #define HOME_W GUI_T(KC_W)
 
 #include "common/tapdance.inc"
-
-// keycodes
-#define ___x___ KC_TRNS
-#define ___fn__ KC_TRNS
-#if defined(_______)
-#    undef _______
-#endif
-#define _______ KC_NO
 
 #if defined(HASKELL)
 #    define HS_COLN TD_COLN

@@ -57,7 +57,7 @@
     S(KC_Q), S(KC_Y), S(KC_O), S(KC_U), S(KC_Z), CNTR_TL, CNTR_TR, S(KC_G), S(KC_D), S(KC_N), S(KC_M), S(KC_X),
     S(KC_K), S(KC_H), S(KC_E), S(KC_A), TD_TILD, CNTR_HL, CNTR_HR, S(KC_C), S(KC_T), S(KC_R), S(KC_S), S(KC_W),
     S(KC_J), TD_COLN, TD_DQOT, S(KC_I), TD_GRV,  CNTR_BL, CNTR_BR, S(KC_B), S(KC_P), S(KC_L), S(KC_F), S(KC_V),
-                                        S_TAB,   ___fn__, KC_UNDS, LT_DEL
+                                        S_TAB,   _______, KC_UNDS, LT_DEL
 ),
 
 // ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┐
@@ -74,7 +74,7 @@
     S(KC_Q), S(KC_Y), S(KC_O), S(KC_U), S(KC_Z), CNTR_TL, CNTR_TR, S(KC_G), S(KC_D), S(KC_N), S(KC_M), S(KC_X),
     S(KC_K), S(KC_H), S(KC_E), S(KC_A), KC_QUES, CNTR_HL, CNTR_HR, S(KC_C), S(KC_T), S(KC_R), S(KC_S), S(KC_W),
     S(KC_J), TD_COLN, TD_DQOT, S(KC_I), KC_SLSH, CNTR_BL, CNTR_BR, S(KC_B), S(KC_P), S(KC_L), S(KC_F), S(KC_V),
-                                        KC_TAB,  KC_MINS, ___fn__, KC_DEL
+                                        KC_TAB,  KC_MINS, _______, KC_DEL
 ),
 
 // ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┐
@@ -88,10 +88,10 @@
 //                             └──────┴──────┴──────┴──────┘
 
 [_LSYMBOL] = LAYOUT(
-    _______, _______, _______, _______, _______, ___x___, ___x___, KC_SLSH, KC_LBRC, KC_CIRC, KC_RBRC, _______,
-    _______, _______, _______, _______, _______, ___x___, ___x___, KC_PIPE, KC_LPRN, KC_DLR,  KC_RPRN, _______,
-    _______, _______, _______, _______, _______, ___x___, ___x___, KC_BSLS, KC_LCBR, KC_HASH, KC_RCBR, _______,
-                                        ___fn__, ___x___, KC_PLUS, SL_DEL
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, KC_SLSH, KC_LBRC, KC_CIRC, KC_RBRC, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, KC_PIPE, KC_LPRN, KC_DLR,  KC_RPRN, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, KC_BSLS, KC_LCBR, KC_HASH, KC_RCBR, XXXXXXX,
+                                        _______, _______, KC_PLUS, SL_DEL
 ),
 
 // ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┐
@@ -105,8 +105,8 @@
 //                             └──────┴──────┴──────┴──────┘
 
 [_RSYMBOL] = LAYOUT(
-    _______, KC_DOT,  KC_ASTR, KC_AMPR, KC_TILD, ___x___, ___x___, _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP,
-    OS_GUI,  TD_LT,   SM_PERC, TD_GT,   KC_QUES, ___x___, ___x___, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,
-    _______, TD_COLN, KC_AT,   KC_EXLM, KC_SLSH, ___x___, ___x___, _______, _______, _______, _______, _______,
-                                        SL_TAB,  TD_EQL,  ___x___, ___fn__
+    XXXXXXX, KC_DOT,  KC_ASTR, KC_AMPR, KC_TILD, _______, _______, XXXXXXX, KC_HOME, KC_UP,   KC_END,  KC_PGUP,
+    OS_GUI,  TD_LT,   SM_PERC, TD_GT,   KC_QUES, _______, _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,
+    XXXXXXX, TD_COLN, KC_AT,   KC_EXLM, KC_SLSH, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                        SL_TAB,  TD_EQL,  _______, _______
 ),
