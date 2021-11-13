@@ -21,6 +21,9 @@
 #include "ap2_led.h"
 #include "protocol.h"
 
+#define MSP_STACK_POINTER 0x20001ffc
+#define IAP_MODE 0x0000fab2
+
 static const SerialConfig ledUartInitConfig = {
     .speed = 115200,
 };
@@ -61,7 +64,7 @@ void bootloader_jump(void) {
     wait_ms(15);
 
     // Magic key to set keyboard to IAP
-    *((uint32_t *)0x20001ffc) = 0x0000fab2;
+    *((uint32_t *)MSP_STACK_POINTER) = IAP_MODE;
 
     // Load the main MCU into IAP
     __disable_irq();
