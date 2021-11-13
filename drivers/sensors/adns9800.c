@@ -66,17 +66,16 @@
 #define REG_Motion_Burst                 0x50
 #define REG_SROM_Load_Burst              0x62
 #define REG_Pixel_Burst                  0x64
-// clang-format on
 
-#define MIN_CPI 200
-#define MAX_CPI 8200
-#define CPI_STEP 200
-#define CLAMP_CPI(value) value<MIN_CPI ? MIN_CPI : value> MAX_CPI ? MAX_CPI : value
+#define MIN_CPI           200
+#define MAX_CPI           8200
+#define CPI_STEP          200
+#define CLAMP_CPI(value)  value<MIN_CPI ? MIN_CPI : value> MAX_CPI ? MAX_CPI : value
 #define US_BETWEEN_WRITES 120
-#define US_BETWEEN_READS 20
-#define US_BEFORE_MOTION 100
-#define MSB1 0x80
-
+#define US_BETWEEN_READS  20
+#define US_BEFORE_MOTION  100
+#define MSB1              0x80
+// clang-format on
 
 void adns9800_spi_start(void) { spi_start(ADNS9800_CS_PIN, false, ADNS9800_SPI_MODE, ADNS9800_SPI_DIVISOR); }
 
