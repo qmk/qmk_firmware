@@ -45,6 +45,8 @@ enum custom_user_keycodes {
   EMO_JOY,      // (^o^)
   EMO_TEARS,    // (T_T)
 
+  KC_TSTOG,     // Tab Scroll Toggle
+
   NEW_SAFE_RANGE  // new safe range for keymap level custom keycodes
 };
 
@@ -55,6 +57,10 @@ enum custom_user_keycodes {
 #define CT_PGDN RCTL(KC_PGDN)
 #define CT_HOME RCTL(KC_HOME)
 #define CT_END  RCTL(KC_END)
+#define KC_SFTUP    RSFT_T(KC_UP) // Shift when held, Up arrow when tapped
+#define KC_RAISESPC LT(_RAISE,KC_SPC) // _RAISE layer mod when held, space when tapped
+#define KC_LOWERSPC LT(_LOWER,KC_SPC) // _LOWER layer mod when held, space when tapped
+
 
 #ifdef TD_LSFT_CAPSLOCK_ENABLE
     // Tap Dance Definitions
@@ -87,6 +93,12 @@ enum custom_user_keycodes {
         void encoder_action_rgb_brightness(bool clockwise);
         void encoder_action_rgb_mode(bool clockwise);
     #endif // RGB_MATRIX_ENABLE / RGBLIGHT_ENABLE
+
+    #ifdef ALTTAB_SCROLL_ENABLE
+        void encoder_action_alttabscroll(bool clockwise);
+        void encoder_toggle_alttabscroll(void);
+        void encoder_tick_alttabscroll(void);
+    #endif // ALTTAB_SCROLL_ENABLE
 #endif // ENCODER_ENABLE
 
 
