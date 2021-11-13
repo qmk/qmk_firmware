@@ -1,3 +1,2 @@
-#define RGBLIGHT_LAYERS
-
 #define BACKLIGHT_CAPS_LOCK
+
