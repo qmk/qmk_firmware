@@ -98,10 +98,6 @@ const PALConfig pal_default_config = {
     .ESSR[1] = 0x00000000,
 };
 
-void __early_init(void) {}
-
-void early_hardware_init_pre(void) { ht32_clock_init(); }
-
-void board_init(void) {}
+void __early_init(void) { ht32_clock_init(); }
 
 void boardInit(void) {}
