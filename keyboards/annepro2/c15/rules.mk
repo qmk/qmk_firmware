@@ -16,9 +16,6 @@ MCU_STARTUP = ht32f523xx
 
 BOARD = ANNEPRO2_C15
 
-OPT_DEFS += -Wno-unused-function -fdump-rtl-dfinish -fstack-usage
-#EXTRALDFLAGS = -Wl,--print-memory-usage
-
 # Options
 
 # Keys

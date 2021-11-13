@@ -1,18 +1,18 @@
- /* Copyright 2021 OpenAnnePro community 
-  * 
-  * This program is free software: you can redistribute it and/or modify 
-  * it under the terms of the GNU General Public License as published by 
-  * the Free Software Foundation, either version 2 of the License, or 
-  * (at your option) any later version. 
-  * 
-  * This program is distributed in the hope that it will be useful, 
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-  * GNU General Public License for more details. 
-  * 
-  * You should have received a copy of the GNU General Public License 
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
-  */ 
+/* Copyright 2021 OpenAnnePro community
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include "hal.h"
 #include "annepro2.h"
@@ -35,6 +35,14 @@ static const SerialConfig ledUartRuntimeConfig = {
 
 static const SerialConfig bleUartConfig = {
     .speed = 115200,
+};
+
+const ioline_t row_list[MATRIX_ROWS] = {
+    LINE_ROW1, LINE_ROW2, LINE_ROW3, LINE_ROW4, LINE_ROW5,
+};
+
+const ioline_t col_list[MATRIX_COLS] = {
+    LINE_COL1, LINE_COL2, LINE_COL3, LINE_COL4, LINE_COL5, LINE_COL6, LINE_COL7, LINE_COL8, LINE_COL9, LINE_COL10, LINE_COL11, LINE_COL12, LINE_COL13, LINE_COL14,
 };
 
 static uint8_t ledMcuWakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02};
@@ -96,7 +104,6 @@ void keyboard_post_init_kb(void) {
 
     keyboard_post_init_user();
 }
-
 
 void matrix_scan_kb() {
     // if there's stuff on the ble serial buffer
