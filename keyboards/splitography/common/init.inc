@@ -16,8 +16,7 @@
 
 #pragma once
 
-void matrix_init_user(void) {
-#if defined(STENO_ENABLE)
+// Initialize the steno protocol
+void eeconfig_init_user(void) {
     steno_set_mode(STENO_MODE_BOLT);  // or STENO_MODE_GEMINI
-#endif
 }
