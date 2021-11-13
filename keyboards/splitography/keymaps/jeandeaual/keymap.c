@@ -286,8 +286,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// Initialize steno protocol
-void matrix_init_user(void) {
+// Initialize the steno protocol
+void eeconfig_init_user(void) {
     steno_set_mode(STENO_MODE_GEMINI);  // or STENO_MODE_BOLT
     base_layer = dvorak;
 }

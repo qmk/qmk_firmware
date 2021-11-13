@@ -285,7 +285,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// initialize steno protocol
-void matrix_init_user(void) {
+// Initialize the steno protocol
+void eeconfig_init_user(void) {
     steno_set_mode(STENO_MODE_BOLT);  // or STENO_MODE_GEMINI
 }
