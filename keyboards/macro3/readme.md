@@ -23,3 +23,4 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the top right key and plug in the controller.
 * **Physical reset button**: Briefly press the reset button soldered on the PCB.
 * **Keycode in layout**: Press the key mapped to `RESET` if it is configured.
+
