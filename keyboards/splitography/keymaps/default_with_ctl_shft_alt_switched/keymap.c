@@ -14,38 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
-//
-// To flash steno firmware
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-//   Reset keyboard or press hw reset button on base (hole)
-//
-//   cd qmk_firmware/keyboards/steno
-//   sudo make KEYMAP=sdothum dfu
-//
-//   sudo make clean          (good practice before flashing)
-//   sudo make KEYMAP=<...>   (to compile check)
-//
-// Package requirements (for arch linux)
-// ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-//   avr-gcc-atmel
-//   avr-libc-atmel
-//   dfu-programmer
-//
-// Code
-// ▔▔▔▔
-//   This source is shamelessly based on the "default" steno layout
-
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 #include "keymap_steno.h"
-
-#include "config.h"
-#include "splitography.h"
-
-extern keymap_config_t keymap_config;
 
 enum keyboard_layers {
     _QWERTY = 0,
@@ -67,15 +37,6 @@ enum keyboard_keycodes {
     BLUE,
     ORANGE,
 };
-
-// keycodes
-#define ___x___ KC_TRNS
-#if defined(_______)
-#    undef _______
-#endif
-#define _______ KC_NO
-
-#define ST_BOLT QK_STENO_BOLT
 
 #define COPY LCTL(KC_C)
 #define CUT LCTL(KC_X)
@@ -107,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     // .................................................................. Blue Layer
-    //_______,
+    //
     // http://www.keyboard-layout-editor.com/#/gists/054b8bc0e31971bb962ea1c781232e0b
 
     // ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┐
@@ -121,10 +82,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                             └──────┴──────┴──────┴──────┘
 
     [_BLUE] = LAYOUT(
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-        KC_LCTL, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLU, _______, _______, _______, KC_LBRC, KC_RBRC, KC_QUOT,
-        KC_LALT, UNDO,    CUT,     COPY,    PASTE,   KC_VOLD, KC_MUTE, _______, _______, KC_MINS, KC_EQL,  KC_LGUI,
-                                            ORANGE,  ___x___, KC_DEL,  KC_LSFT
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
+        KC_LCTL, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_QUOT,
+        KC_LALT, UNDO,    CUT,     COPY,    PASTE,   KC_VOLD, KC_MUTE, XXXXXXX, XXXXXXX, KC_MINS, KC_EQL,  KC_LGUI,
+                                            ORANGE,  _______, KC_DEL,  KC_LSFT
     ),
 
     // ................................................................ Orange Layer
@@ -142,10 +103,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                             └──────┴──────┴──────┴──────┘
 
     [_ORANGE] = LAYOUT(
-        PLOVER,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, KC_APP,  KC_PSCR, KC_SLCK, KC_PAUS, _______, _______,
-        KC_LCTL, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, KC_INS,  KC_HOME, KC_PGUP, _______, _______,
-        KC_LALT, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_DEL,  KC_END,  KC_PGDN, KC_BSLS, KC_LGUI,
-                                            ___x___, BLUE,    KC_TAB,  KC_LSFT
+        PLOVER,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, KC_APP,  KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, XXXXXXX,
+        KC_LCTL, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, KC_INS,  KC_HOME, KC_PGUP, XXXXXXX, XXXXXXX,
+        KC_LALT, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_DEL,  KC_END,  KC_PGDN, KC_BSLS, KC_LGUI,
+                                            _______, BLUE,    KC_TAB,  KC_LSFT
     ),
 
     // ................................................................. Green Layer
@@ -163,10 +124,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                             └──────┴──────┴──────┴──────┘
 
     [_GREEN] = LAYOUT(
-        TXBOLT,  _______, _______, _______, _______, KC_SLCK, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_MINS, _______,
+        TXBOLT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLCK, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_MINS, XXXXXXX,
         KC_LCTL, KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_CAPS, KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_ENT ,
-        KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, TG_NUM,  KC_P0,   KC_P1,   KC_P2,   KC_P3,   _______, KC_LGUI,
-                                            ___x___, ___x___, _______, KC_LSFT
+        KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, TG_NUM,  KC_P0,   KC_P1,   KC_P2,   KC_P3,   XXXXXXX, KC_LGUI,
+                                            _______, _______, XXXXXXX, KC_LSFT
     ),
 
     // ................................................................... Num Layer
@@ -184,10 +145,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                             └──────┴──────┴──────┴──────┘
 
     [_NUM] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______,
-        KC_LCTL, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_ENT ,
-        KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, QWERTY,  KC_P0,   KC_P1,   KC_P2,   KC_P3,   _______, KC_LGUI,
-                                            _______, _______, _______, KC_LSFT
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, XXXXXXX,
+        KC_LCTL, KC_HOME, KC_UP,   KC_END,  KC_PGUP, XXXXXXX, KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_ENT ,
+        KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, QWERTY,  KC_P0,   KC_P1,   KC_P2,   KC_P3,   XXXXXXX, KC_LGUI,
+                                            XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT
     ),
 
     // ...................................................................... Plover
