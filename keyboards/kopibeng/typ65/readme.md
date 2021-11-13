@@ -1,12 +1,12 @@
 # Typ65+
 
-![Typ65+](INSERT KLE LINK)
+![Typ65+](https://i.imgur.com/WCTwfdF.jpg)
 
 A 65% solderable or hotswap PCB with left side macro column, support for VIA and layer indicator LEDs.
 
 * Keyboard Maintainer: kopibeng
 * Hardware Supported: A 65% keyboard with ATMEGA32U4
-* Hardware Availability: N/A
+* Hardware Availability: https://www.axiomstudios.shop/
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -18,4 +18,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 * Physical reset button: Press the RESET switch on top side of PCB.
 * Bootmagic reset: Unplug keyboard, hold down ESC key and plug in the keyboard.
-* Keycode reset: Press the RESET keycode (default: MO(1) + HOME keys) in layout if available.
+* Keycode reset: Press the RESET keycode (default: MO(1) + HOME keys) in default layout.
