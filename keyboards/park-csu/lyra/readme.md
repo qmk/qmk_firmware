@@ -1,6 +1,6 @@
 # lyra
 
-![lyra](https://i.imgur.com/DmHl7sz.jpeg)
+![lyra](https://i.imgur.com/DmHl7szh.jpeg)
 
 40%, Ortholinear, Split keyboard with knob 
 

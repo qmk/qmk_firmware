@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "config.h"
 
 // Defines names for use in layer keycodes and the keymap
 enum layer {
@@ -104,21 +103,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-layer_state_t layer_state_set_keymap(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); }
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) { /* Second encoder */
-        if (clockwise) {
-            tap_code(KC_BRIU);
-        } else {
-            tap_code(KC_BRID);
-        }
-    }
-    return false;
-}
+layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); }
