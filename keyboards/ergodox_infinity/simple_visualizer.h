@@ -32,7 +32,7 @@
 #include "visualizer_keyframes.h"
 #include "lcd_keyframes.h"
 #include "lcd_backlight_keyframes.h"
-#include "system/serial_link.h"
+#include "serial_link/system/serial_link.h"
 #include "led.h"
 #include "default_animations.h"
 
