@@ -63,9 +63,7 @@ static void send_msg(uint16_t keycode, bool pressed) {
   msg[IDX_PRESSED] = pressed;
   msg[IDX_CHECKSUM] = chksum8(msg, UART_MSG_LEN-1);
 
-  for (int i=0; i<UART_MSG_LEN; i++) {
-    uart_putchar(msg[i]);
-  }
+  uart_transmit(msg, UART_MSG_LEN);
 }
 
 static void print_message_buffer(void) {
@@ -103,7 +101,7 @@ static void process_uart(void) {
 
 static void get_msg(void) {
   while (uart_available()) {
-    msg[msg_idx] = uart_getchar();
+    msg[msg_idx] = uart_read();
     dprintf("idx: %u, recv: %u\n", msg_idx, msg[msg_idx]);
     if (msg_idx == 0 && (msg[msg_idx] != UART_PREAMBLE)) {
       dprintf("Byte sync error!\n");
