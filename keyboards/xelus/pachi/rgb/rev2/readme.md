@@ -1,13 +1,13 @@
 # Pachi RGB Rev 2
 
-Pachi RGB TKL Keyboard that is a per-key RGB, hotswap, ANSI and tsangan.
+Pachi RGB Rev 2 TKL Keyboard that is a per-key RGB, hotswap, ANSI and tsangan.
 
 * Keyboard Maintainer: [Xelus22](https://github.com/Xelus22)
 * Hardware Supported: Group buys
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xelus/pachi/rgb:default
+    make xelus/pachi/rgb/rev2:default
 
 Reset your keyboard in 3 ways:
 <ol>
