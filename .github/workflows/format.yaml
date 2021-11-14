@@ -37,7 +37,7 @@ jobs:
       shell: 'bash {0}'
       run: |
         qmk format-c --core-only $(< ~/files.txt)
-        qmk format-python
+        qmk format-python $(< ~/files.txt)
         qmk format-text $(< ~/files.txt)
         git diff
 
