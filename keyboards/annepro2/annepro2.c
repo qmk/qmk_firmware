@@ -40,14 +40,6 @@ static const SerialConfig bleUartConfig = {
     .speed = 115200,
 };
 
-const ioline_t row_list[MATRIX_ROWS] = {
-    LINE_ROW1, LINE_ROW2, LINE_ROW3, LINE_ROW4, LINE_ROW5,
-};
-
-const ioline_t col_list[MATRIX_COLS] = {
-    LINE_COL1, LINE_COL2, LINE_COL3, LINE_COL4, LINE_COL5, LINE_COL6, LINE_COL7, LINE_COL8, LINE_COL9, LINE_COL10, LINE_COL11, LINE_COL12, LINE_COL13, LINE_COL14,
-};
-
 static uint8_t ledMcuWakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02};
 
 ble_capslock_t BLECapsLock = {._dummy = {0}, .caps_lock = false};

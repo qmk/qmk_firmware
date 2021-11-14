@@ -25,11 +25,11 @@
 #include "matrix.h"
 #include "annepro2.h"
 
-extern ioline_t row_list[MATRIX_ROWS];
-extern ioline_t col_list[MATRIX_COLS];
+pin_t row_list[MATRIX_ROWS] = MATRIX_ROW_PINS;
+pin_t col_list[MATRIX_COLS] = MATRIX_COL_PINS;
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
-	bool matrix_has_changed = false;
+    bool matrix_has_changed = false;
     // cache of input ports for columns
     static uint16_t port_cache[4];
     // scan each row
@@ -56,7 +56,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
         if (current_matrix[row] != data) {
             current_matrix[row] = data;
-            matrix_has_changed = true;
+            matrix_has_changed  = true;
         }
     }
     return matrix_has_changed;
