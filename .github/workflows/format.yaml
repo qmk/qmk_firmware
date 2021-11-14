@@ -46,4 +46,4 @@ jobs:
         for file in $(git diff --name-only); do
           echo "::error file=${file}::::File Requires Formatting"
         done
-        test -n "$(git status  --porcelain)" && exit 1
+        test -n "$(git diff --name-only)" && exit 1
