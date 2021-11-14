@@ -10,14 +10,14 @@ A 65%/70 key FR4-stack open-source keyboard with some design optimizations for w
 
 Make example for this keyboard (after setting up your build environment):
 
-```
+```bash
  qmk compile -kb karlb/kbic65 -km default
 ```
 
 
 See the [QMK setup documentation](https://docs.qmk.fm/#/newbs_getting_started) to set up the QMK tools. I recommend flashing using
 
-```
+```bash
  qmk flash -kb karlb/kbic65 -km default
 ```
 
