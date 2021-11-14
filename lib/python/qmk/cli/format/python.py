@@ -6,6 +6,7 @@ from milc import cli
 
 from qmk.path import normpath
 
+py_file_suffixes = ('py',)
 py_dirs = ['lib/python']
 
 
@@ -21,6 +22,17 @@ def yapf_run(files):
         return False
 
 
+def filter_files(files):
+    """Yield only files to be formatted and skip the rest
+    """
+
+    for file in files:
+        if file and file.name.split('.')[-1] in py_file_suffixes:
+            yield file
+        else:
+            cli.log.debug('Skipping file %s', file)
+
+
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually format.")
 @cli.argument('-b', '--base-branch', default='origin/master', help='Branch to compare to diffs to.')
 @cli.argument('-a', '--all-files', arg_only=True, action='store_true', help='Format all files.')
@@ -31,7 +43,11 @@ def format_python(cli):
     """
     # Find the list of files to format
     if cli.args.files:
-        files = list(cli.args.files)
+        files = list(filter_files(cli.args.files))
+
+        if not files:
+            cli.log.error('No Python files in filelist: %s', ', '.join(map(str, cli.args.files)))
+            exit(0)
 
         if cli.args.all_files:
             cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(map(str, files)))
