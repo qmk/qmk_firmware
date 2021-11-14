@@ -1,4 +1,4 @@
-/* Copyright 2018
+/* Copyright 2021
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,12 +13,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
-
-#include "quantum.h"
-
-#ifdef KEYBOARD_40percentclub_polyandry_promicro
-    #include "promicro.h"
-#elif KEYBOARD_40percentclub_polyandry_teensy2
-    #include "teensy2.h"
-#endif
+#include "poly.h"

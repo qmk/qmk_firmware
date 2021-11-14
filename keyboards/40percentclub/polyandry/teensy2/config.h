@@ -1,4 +1,4 @@
-/* Copyright 2018
+/* Copyright 2021
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,12 +13,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#include "quantum.h"
+#include "config_common.h"
 
-#ifdef KEYBOARD_40percentclub_polyandry_promicro
-    #include "promicro.h"
-#elif KEYBOARD_40percentclub_polyandry_teensy2
-    #include "teensy2.h"
-#endif
+/* key matrix size */
+#define MATRIX_ROWS 1
+#define MATRIX_COLS 12
+
+/* key matrix pins */
+
+// Note from original contributor (ryjelsum):
+// Untested - don't have teensy2. if some keys do not function or are in wrong place,
+// please check the pin definitions. I may have screwed up. :) 
+
+#define MATRIX_ROW_PINS { D3 }
+#define MATRIX_COL_PINS { B7, D0, D1, D2, C6, C7, F6, F7, B6, B5, D7, D6 }
+#define UNUSED_PINS
+
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION COL2ROW

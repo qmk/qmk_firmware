@@ -1,4 +1,4 @@
-/* Copyright 2018
+/* Copyright 2021
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,10 +15,21 @@
  */
 #pragma once
 
+//NOTE TO FUTURE FROM RYJELSUM (original contributor):
+//This has been unchanged from the promicro.h file. 
+//I DO NOT HAVE A TEENSY 2.0 TO TEST WITH.
+//I believe this should still work - but it's not a sure thing.
+
+#include "poly.h"
 #include "quantum.h"
 
-#ifdef KEYBOARD_40percentclub_polyandry_promicro
-    #include "promicro.h"
-#elif KEYBOARD_40percentclub_polyandry_teensy2
-    #include "teensy2.h"
-#endif
+#define LAYOUT( \
+	K000, K001, K002, \
+ 	K003, K004, K005, \
+	K006, K007, K008, \
+	K009, K010, K011  \
+) { \
+	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011 }  \
+}
+
+

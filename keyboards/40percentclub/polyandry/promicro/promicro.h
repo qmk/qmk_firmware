@@ -1,4 +1,4 @@
-/* Copyright 2018
+/* Copyright 2021
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,10 +15,16 @@
  */
 #pragma once
 
+#include "poly.h"
 #include "quantum.h"
 
-#ifdef KEYBOARD_40percentclub_polyandry_promicro
-    #include "promicro.h"
-#elif KEYBOARD_40percentclub_polyandry_teensy2
-    #include "teensy2.h"
-#endif
+#define LAYOUT( \
+	K000, K001, K002, \
+ 	K003, K004, K005, \
+	K006, K007, K008, \
+	K009, K010, K011  \
+) { \
+	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011 }  \
+}
+
+
