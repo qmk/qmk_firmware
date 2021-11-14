@@ -27,14 +27,19 @@ Hardware Availability: [Polyandry gerbers are on 40percent.club](https://www.40p
 
 Make example for this keyboard (after setting up your build environment):
 
-    make 40percentclub/polyandry:default or
+    make 40percentclub/polyandry:default 
+    or
     qmk compile -kb 40percentclub/polyandry -km default
 
-If you would like to use one of the alternative controllers:
+Default firmware is for an Arduino Pro Micro knockoff.
 
-    make 40percentclub/polyandry/promicro:default or
+If you would like to specify a controller:
+
+    make 40percentclub/polyandry/promicro:default 
+    or
     qmk compile -kb 40percentclub/polyandry/promicro -km default
-    make 40percentclub/polyandry/teensy2:default or
+    make 40percentclub/polyandry/teensy2:default 
+    or
     qmk compile -kb 40percentclub/polyandry/teensy2 -km default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
