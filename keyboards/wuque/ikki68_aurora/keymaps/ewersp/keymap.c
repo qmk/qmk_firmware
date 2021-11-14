@@ -17,7 +17,8 @@
 #include QMK_KEYBOARD_H
 
 enum alt_keycodes {
-    ALT_DEL = SAFE_RANGE // Added to map left alt + backspace to delete
+    ALT_DEL = SAFE_RANGE, // Map left alt + backspace to delete
+    LED_TOG               // Toggle LED modes
 };
 
 // Friendly layer names
@@ -27,6 +28,25 @@ enum alt_layers {
     FUNC,
     SUPR
 };
+
+// EEPROM storage mode
+enum alt_led_mode {
+    LED_MODE_ALL = 0,
+    LED_MODE_LOGO,
+    LED_MODE_UNDERGLOW,
+    LED_MODE_OFF,
+    LED_MODE_TOTAL
+};
+
+// EEPROM storage type
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t led_mode: 8;
+    };
+} user_config_t;
+
+user_config_t user_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [DEF] = LAYOUT_all(
@@ -45,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [FUNC] = LAYOUT_all(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,    KC_END,  KC_VOLU,
-        _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, RGB_M_P, _______, _______, KC_PAUS, KC_PSCR, _______, _______, _______,             KC_MUTE, KC_VOLD,
-        _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, RGB_M_B, _______, _______, _______, _______, _______,          _______,
-        _______, _______, RGB_TOG, _______, _______, EEP_RST, RESET,   _______, _______, _______, TG(ALT), _______, _______, _______,             KC_PGUP,
+        _______, RGB_HUD, RGB_VAI, RGB_HUI, RGB_SAI, RGB_M_P, _______, _______, _______, KC_PAUS, KC_PSCR, _______, _______, _______,             KC_MUTE, KC_VOLD,
+        _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_SAD, RGB_M_B, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, RGB_TOG, LED_TOG, _______, EEP_RST, RESET,   _______, _______, _______, TG(ALT), _______, _______, _______,             KC_PGUP,
         _______, _______, KC_LALT,          _______,          _______,          _______,          _______, _______, _______,             KC_HOME, KC_PGDN, KC_END
     ),
     [SUPR] = LAYOUT_all(
@@ -73,7 +93,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             if (super_alt_layer_active && need_to_unregister_alt) {
                 unregister_code(KC_LALT);
             }
-
             super_alt_layer_active = false;
             need_to_unregister_alt = false;
             break;
@@ -82,6 +101,40 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
     }
     return state;
+}
+
+// There is a total of 20 LEDs on the board; the 4 logo LEDs have indices 16, 17, 18, 19
+void update_led_mode(void) {
+    rgblight_setrgb(0, 0, 0);
+    switch (user_config.led_mode) {
+        case LED_MODE_ALL:
+            rgblight_set_effect_range(0, RGBLED_NUM);
+            rgblight_enable_noeeprom();
+            break;
+        case LED_MODE_LOGO: 
+            rgblight_set_effect_range(16, 4);
+            rgblight_enable_noeeprom();
+            break;
+        case LED_MODE_UNDERGLOW:
+            rgblight_set_effect_range(0, 16);
+            rgblight_enable_noeeprom();
+            break;
+        case LED_MODE_OFF:
+            rgblight_disable_noeeprom();
+            break;
+    }
+}
+
+void keyboard_post_init_user(void) {
+    user_config.raw = eeconfig_read_user();
+    update_led_mode();
+}
+
+void eeconfig_init_user(void) {
+    user_config.raw      = 0;
+    user_config.led_mode = LED_MODE_ALL;
+    eeconfig_update_user(user_config.raw);
+    rgblight_enable();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -119,6 +172,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_DEL);
             } else {
                 unregister_code(KC_DEL);
+            }
+            return false;
+        case LED_TOG:
+            if (record->event.pressed) {
+                user_config.led_mode = (user_config.led_mode + 1) % LED_MODE_TOTAL;
+                update_led_mode();
+                eeconfig_update_user(user_config.raw);
             }
             return false;
         case RESET:
