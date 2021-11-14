@@ -1,6 +1,6 @@
 # stelo
 
-![stelo](https://i.imgur.com/dvzVYH1.png)
+![stelo](https://i.imgur.com/dvzVYH1h.png)
 
 65% keyboard with encoder.
 
