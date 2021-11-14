@@ -128,3 +128,19 @@ As defined in `keymap_steno.h`.
 |`STN_RES1`||(GeminiPR only)|
 |`STN_RES2`||(GeminiPR only)|
 |`STN_PWR`||(GeminiPR only)|
+
+If you do not want to hit two keys with one finger combined keycodes can be used. These are also defined in `keymap_steno.h`, and causes both keys to be reported as pressed or released. To use these keycodes define `STENO_COMBINEDMAP` in your `config.h` file.
+
+|Combined key   | Key1   | Key 2    |
+|---------------|--------|----------|
+|STN_S3         | STN_S1 | STN_S2   |
+|STN_TKL        | STN_TL | STN_KL   |
+|STN_PWL        | STN_PL | STN_WL   |
+|STN_HRL        | STN_HL | STN_RL   |
+|STN_FRR        | STN_FR | STN_RR   |
+|STN_PBR        | STN_PR | STN_BR   |
+|STN_LGR        | STN_LR | STN_GR   |
+|STN_TSR        | STN_TR | STN_SR   |
+|STN_DZR        | STN_DR | STN_ZR   |
+|STN_AO         | STN_A  | STN_O    |
+|STN_EU         | STN_E  | STN_U    |

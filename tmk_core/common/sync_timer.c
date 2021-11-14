@@ -26,7 +26,7 @@ SOFTWARE.
 #include "sync_timer.h"
 #include "keyboard.h"
 
-#if defined(SPLIT_KEYBOARD) && !defined(DISABLE_SYNC_TIMER)
+#if (defined(SPLIT_KEYBOARD) || defined(SERIAL_LINK_ENABLE)) && !defined(DISABLE_SYNC_TIMER)
 volatile int32_t sync_timer_ms;
 
 void sync_timer_init(void) { sync_timer_ms = 0; }

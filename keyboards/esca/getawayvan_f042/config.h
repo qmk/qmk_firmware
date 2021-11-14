@@ -34,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { A9, A8, A3, A5 }
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN  
 #define BACKLIGHT_LEVELS 6
 
 #define GRAVE_ESC_CTRL_OVERRIDE
