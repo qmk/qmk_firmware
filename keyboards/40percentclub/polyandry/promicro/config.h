@@ -22,10 +22,13 @@
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 12
 
-/* key matrix pins */
+/* key matrix pins 
+ * Direct pins is not used because there is not a shared ground position
+ * between all compatible microcontrollers.
+*/ 
 #define MATRIX_ROW_PINS { D7 }
 #define MATRIX_COL_PINS { D1, D0, D4, C6, E6, B4, F4, F5, F6, F7, B3, B2 }
 #define UNUSED_PINS
 
-/* COL2ROW or ROW2COL */
+/* doesn't really matter lol */
 #define DIODE_DIRECTION COL2ROW
