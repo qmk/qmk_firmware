@@ -1,6 +1,6 @@
 # Polyandry/polypad
 
-![Polyandry](insert image link here)
+![Polyandry](https://1.bp.blogspot.com/-97uoICZvZec/XSdpvCVFFlI/AAAAAAACVZY/BlCRjxjDqDAxOZa6C5ddQr0OsFQ9VZv5wCLcBGAs/s1600/d1.jpg)
 ===
 
 3x4/4x3 grid layout, multiple controllers supported
@@ -19,11 +19,11 @@ The matrix is electrically 1x12 with no diodes, with a thirteenth pin used for t
 
 The default keymap is a testing keymap that is intended to make sure all of the keys on the matrix are working and properly assigned.
 
-[The original firmware, with support for some unsupported controllers](https://git.40percent.club/di0ib/Misc/src/branch/master/polyandry)
+[The original (minimal arduino sketch) firmware, with support for some unsupported controllers](https://git.40percent.club/di0ib/Misc/src/branch/master/polyandry)
 
 Keyboard Maintainer: QMK Community  
 Hardware Supported: Polyandry PCB  
-Hardware Availability: [Polyandry on 40% Keyboards](https://www.40percent.club/2019/07/polyandry.html)
+Hardware Availability: [Polyandry gerbers are on 40percent.club](https://www.40percent.club/2019/07/polyandry.html)
 
 Make example for this keyboard (after setting up your build environment):
 
