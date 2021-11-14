@@ -98,7 +98,7 @@ joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
 void joystick_task(){
 	switch (joystickMode) {
 	case 0: // gamepad
-		joystick_status.axes[0] = analogReadPin(F4)/4 - 128;
+		joystick_status.axes[0] = -analogReadPin(F4)/4 - 128;
 		joystick_status.axes[1] = analogReadPin(F5)/4 - 128;
 		joystick_status.status |= JS_UPDATED;
         send_joystick_packet(&joystick_status);
@@ -122,25 +122,25 @@ void joystick_task(){
         }
         if (!arrows[2] && analogReadPin(F4) - 512 > actuation){
             arrows[2] = true;
-            register_code16(arrow_keys[3]);
+            register_code16(arrow_keys[1]);
         }
         else if (arrows[2] &&  analogReadPin(F4) - 512 < actuation){
             arrows[2] = false;
-            unregister_code16(arrow_keys[3]);
+            unregister_code16(arrow_keys[1]);
         }
         if (!arrows[3] && analogReadPin(F4) - 512 < -actuation){
             arrows[3] = true;
-            register_code16(arrow_keys[1]);
+            register_code16(arrow_keys[3]);
         }
         else if (arrows[3] && analogReadPin(F4) - 512 > -actuation){
             arrows[3] = false;
-            unregister_code16(arrow_keys[1]);
+            unregister_code16(arrow_keys[3]);
         }
         break;
     case 2: // mouse
         ;
         report_mouse_t currentReport = pointing_device_get_report();
-        currentReport.x = (analogReadPin(F4) - 512) / joystickResolution;
+        currentReport.x = -(analogReadPin(F4) - 512) / joystickResolution;
         currentReport.y = (analogReadPin(F5) - 512) / joystickResolution;
         if (currentReport.x < joystickThreshold && currentReport.x > -joystickThreshold){
             currentReport.x = 0;
