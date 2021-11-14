@@ -49,7 +49,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         // get columns from ports
         matrix_row_t data = 0;
         for (int col = 0; col < MATRIX_COLS; ++col) {
-            ioline_t line = col_list[col];
+            pin_t line = col_list[col];
             uint16_t port = port_cache[HT32_PAL_IDX(PAL_PORT(line))];
             data |= (((port & (1 << PAL_PAD(line))) ? 0 : 1) << col);
         }
