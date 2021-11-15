@@ -2,7 +2,7 @@
 
 ![waka](https://i.ibb.co/10cG7G2/image.png)
 
-An affordable Ortholinea keyboard kit featuring a speaker, top-facing RGB LEDs, a center encoder, spacing between the halves, and powered by the STM32 Blackpill.
+An affordable Ortholinear keyboard kit featuring a speaker, top-facing RGB LEDs, a center encoder, spacing between the halves, and powered by the STM32 Blackpill.
 
 * Keyboard Maintainer: [Kyle McCreery](https://github.com/kylemccreery)
 * Hardware Supported: Waka60 v1.1
