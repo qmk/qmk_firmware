@@ -300,7 +300,7 @@ int main(void) {
 
     matrix_init();
 
-    USB2422_init();
+    USB_Hub_init();
 
     DBGC(DC_MAIN_UDC_START_BEGIN);
     udc_start();
@@ -310,7 +310,7 @@ int main(void) {
     CDC_init();
     DBGC(DC_MAIN_CDC_INIT_COMPLETE);
 
-    while (USB2422_Port_Detect_Init() == 0) {
+    while (USB_Hub_Port_Detect_Init() == 0) {
     }
 
     DBG_LED_OFF;

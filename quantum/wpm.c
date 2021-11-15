@@ -56,7 +56,7 @@ __attribute__((weak)) uint8_t wpm_regress_count(uint16_t keycode) {
     } else if (keycode > 0xFF) {
         keycode = 0;
     }
-    if (keycode == KC_DEL || keycode == KC_BSPC) {
+    if (keycode == KC_DELETE || keycode == KC_BACKSPACE) {
         if (((get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) || weak_modded) {
             return WPM_ESTIMATED_WORD_SIZE;
         } else {

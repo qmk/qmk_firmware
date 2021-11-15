@@ -66,10 +66,10 @@ At the keyboard level we define a C macro (typically named `LAYOUT()`) which map
     k30, k31, k32, k33, \
     k40,      k42 \
 ) { \
-    { k00, k01, k02, k03, }, \
-    { k10, k11, k12, k13, }, \
-    { k20, k21, k22, KC_NO, }, \
-    { k30, k31, k32, k33, }, \
+    { k00, k01,   k02, k03   }, \
+    { k10, k11,   k12, k13   }, \
+    { k20, k21,   k22, KC_NO }, \
+    { k30, k31,   k32, k33   }, \
     { k40, KC_NO, k42, KC_NO } \
 }
 ```
@@ -82,14 +82,15 @@ You can also use this macro to handle unusual matrix layouts, for example the [C
 
 At the keymap level we make use of our `LAYOUT()` macro above to map keycodes to physical locations to matrix locations. It looks like this:
 
-```
+```c
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = LAYOUT(
-  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
-  KC_P7,   KC_P8,   KC_P9,   KC_PPLS, \
-  KC_P4,   KC_P5,   KC_P6, \
-  KC_P1,   KC_P2,   KC_P3,   KC_PENT, \
-  KC_P0,            KC_PDOT)
+    [0] = LAYOUT(
+        KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
+        KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
+        KC_P4,   KC_P5,   KC_P6,
+        KC_P1,   KC_P2,   KC_P3,   KC_PENT,
+        KC_P0,            KC_PDOT
+    )
 }
 ```
 
@@ -123,7 +124,7 @@ And when our current scan completes it will look like this:
 }
 ```
 
-Comparing against our keymap we can see that the pressed key is KC_NLCK. From here we dispatch to the `process_record` set of functions.
+Comparing against our keymap we can see that the pressed key is `KC_NUM`. From here we dispatch to the `process_record` set of functions.
 
 <!-- FIXME: Magic happens between here and process_record -->
 

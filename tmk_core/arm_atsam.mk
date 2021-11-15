@@ -2,7 +2,7 @@
 ##############################################################################
 # Compiler settings
 #
-CC = arm-none-eabi-gcc
+CC = $(CC_PREFIX) arm-none-eabi-gcc
 OBJCOPY = arm-none-eabi-objcopy
 OBJDUMP = arm-none-eabi-objdump
 SIZE = arm-none-eabi-size

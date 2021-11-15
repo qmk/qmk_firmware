@@ -156,20 +156,10 @@ uint8_t led_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *l
 void led_matrix_update_pwm_buffers(void) { led_matrix_driver.flush(); }
 
 void led_matrix_set_value(int index, uint8_t value) {
-#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
-    if (!is_keyboard_left() && index >= k_led_matrix_split[0])
-#    ifdef USE_CIE1931_CURVE
-        led_matrix_driver.set_value(index - k_led_matrix_split[0], pgm_read_byte(&CIE1931_CURVE[value]));
-#    else
-        led_matrix_driver.set_value(index - k_led_matrix_split[0], value);
-#    endif
-    else if (is_keyboard_left() && index < k_led_matrix_split[0])
-#endif
 #ifdef USE_CIE1931_CURVE
-        led_matrix_driver.set_value(index, pgm_read_byte(&CIE1931_CURVE[value]));
-#else
-    led_matrix_driver.set_value(index, value);
+    value = pgm_read_byte(&CIE1931_CURVE[value]);
 #endif
+    led_matrix_driver.set_value(index, value);
 }
 
 void led_matrix_set_value_all(uint8_t value) {

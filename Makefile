@@ -425,7 +425,8 @@ define SET_SILENT_MODE
     endif
 endef
 
-include $(ROOT_DIR)/message.mk
+include paths.mk
+include $(BUILDDEFS_PATH)/message.mk
 
 ifeq ($(strip $(BREAK_ON_ERRORS)), yes)
 HANDLE_ERROR = exit 1

@@ -22,7 +22,7 @@ bool JELLYBEAN_RAINDROPS(effect_params_t* params) {
     for (int i = led_min; i < led_max; i++) {
         jellybean_raindrops_set_color(i, params);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
 #    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

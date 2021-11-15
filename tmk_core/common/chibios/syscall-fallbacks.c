@@ -18,6 +18,12 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+/* To compile the ChibiOS syscall stubs with picolibc
+ * the _reent struct has to be defined. */
+#if defined(USE_PICOLIBC)
+struct _reent;
+#endif
+
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 
 __attribute__((weak, used)) int _open_r(struct _reent *r, const char *path, int flag, int m) {

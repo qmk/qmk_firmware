@@ -299,7 +299,7 @@ void x_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case TD_SINGLE_TAP: register_code(KC_X); break;
-        case TD_SINGLE_HOLD: register_code(KC_LCTRL); break;
+        case TD_SINGLE_HOLD: register_code(KC_LCTL); break;
         case TD_DOUBLE_TAP: register_code(KC_ESC); break;
         case TD_DOUBLE_HOLD: register_code(KC_LALT); break;
         // Last case is for fast typing. Assuming your key is `f`:
@@ -312,7 +312,7 @@ void x_finished(qk_tap_dance_state_t *state, void *user_data) {
 void x_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case TD_SINGLE_TAP: unregister_code(KC_X); break;
-        case TD_SINGLE_HOLD: unregister_code(KC_LCTRL); break;
+        case TD_SINGLE_HOLD: unregister_code(KC_LCTL); break;
         case TD_DOUBLE_TAP: unregister_code(KC_ESC); break;
         case TD_DOUBLE_HOLD: unregister_code(KC_LALT);
         case TD_DOUBLE_SINGLE_TAP: unregister_code(KC_X);
@@ -393,6 +393,9 @@ void altlp_finished(qk_tap_dance_state_t *state, void *user_data) {
         case TD_DOUBLE_SINGLE_TAP: // Allow nesting of 2 parens `((` within tapping term
             tap_code16(KC_LPRN);
             register_code16(KC_LPRN);
+            break;
+        default:
+            break;
     }
 }
 
@@ -406,6 +409,9 @@ void altlp_reset(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case TD_DOUBLE_SINGLE_TAP:
             unregister_code16(KC_LPRN);
+            break;
+        default:
+            break;
     }
 }
 

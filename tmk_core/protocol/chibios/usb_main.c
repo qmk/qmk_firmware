@@ -71,7 +71,12 @@ uint8_t                keyboard_protocol __attribute__((aligned(2))) = 1;
 uint8_t                keyboard_led_state                            = 0;
 volatile uint16_t      keyboard_idle_count                           = 0;
 static virtual_timer_t keyboard_idle_timer;
-static void            keyboard_idle_timer_cb(void *arg);
+
+#if CH_KERNEL_MAJOR >= 7
+static void keyboard_idle_timer_cb(struct ch_virtual_timer *, void *arg);
+#elif CH_KERNEL_MAJOR <= 6
+static void keyboard_idle_timer_cb(void *arg);
+#endif
 
 report_keyboard_t keyboard_report_sent = {{0}};
 #ifdef MOUSE_ENABLE
@@ -774,7 +779,12 @@ void kbd_sof_cb(USBDriver *usbp) { (void)usbp; }
 
 /* Idle requests timer code
  * callback (called from ISR, unlocked state) */
+#if CH_KERNEL_MAJOR >= 7
+static void keyboard_idle_timer_cb(struct ch_virtual_timer *timer, void *arg) {
+    (void)timer;
+#elif CH_KERNEL_MAJOR <= 6
 static void keyboard_idle_timer_cb(void *arg) {
+#endif
     USBDriver *usbp = (USBDriver *)arg;
 
     osalSysLockFromISR();
@@ -932,6 +942,17 @@ static void send_extra(uint8_t report_id, uint16_t data) {
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
         osalSysUnlock();
         return;
+    }
+
+    if (usbGetTransmitStatusI(&USB_DRIVER, SHARED_IN_EPNUM)) {
+        /* Need to either suspend, or loop and call unlock/lock during
+         * every iteration - otherwise the system will remain locked,
+         * no interrupts served, so USB not going through as well.
+         * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[SHARED_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
+            osalSysUnlock();
+            return;
+        }
     }
 
     static report_extra_t report;

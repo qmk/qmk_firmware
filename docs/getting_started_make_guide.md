@@ -55,7 +55,7 @@ Set these variables to `no` to disable them, and `yes` to enable them.
 
 `BOOTMAGIC_ENABLE`
 
-This allows you to hold a key and the salt key (space by default) and have access to a various EEPROM settings that persist over power loss. It's advised you keep this disabled, as the settings are often changed by accident, and produce confusing results that makes it difficult to debug. It's one of the more common problems encountered in help sessions.
+This allows you to hold a key (usually Escape by default) to reset the EEPROM settings that persist over power loss and ready your keyboard to accept new firmware.
 
 `MOUSEKEY_ENABLE`
 
