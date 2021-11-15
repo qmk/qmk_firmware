@@ -107,9 +107,12 @@ void update_wpm(uint16_t keycode) {
 }
 
 void decay_wpm(void) {
-    uint32_t presses = period_presses[0];
+    int32_t presses = period_presses[0];
     for (int i = 1; i <= periods; i++) {
         presses += period_presses[i];
+    }
+    if (presses < 0) {
+        presses = 0;
     }
     int32_t  elapsed  = timer_elapsed32(wpm_timer);
     uint32_t duration = (((periods)*PERIOD_DURATION) + elapsed);

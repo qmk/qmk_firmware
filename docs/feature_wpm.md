@@ -13,7 +13,7 @@ For split keyboards using soft serial, the computed WPM score will be available 
 | Define                       | Default       | Description                                                                              |
 |------------------------------|---------------|------------------------------------------------------------------------------------------|
 | `WPM_ESTIMATED_WORD_SIZE`    | `5`           | This is the value used when estimating average word size (for regression and normal use) |
-| `WPM_ALLOW_COUNT_REGRESSOIN` | _Not defined_ | If defined allows the WPM to be decreased when hitting Delete or Backspace               |
+| `WPM_ALLOW_COUNT_REGRESSION` | _Not defined_ | If defined allows the WPM to be decreased when hitting Delete or Backspace               |
 | `WPM_UNFILTERED`             | _Not defined_ | If undefined (the default), WPM values will be smoothed to avoid sudden changes in value |
 | `WPM_SAMPLE_SECONDS`         | `5`           | This defines how many seconds of typing to average, when calculating WPM                 |
 | `WPM_SAMPLE_PERIODS`         | `50`          | This defines how many sampling periods to use when calculating WPM                       |
