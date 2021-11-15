@@ -58,7 +58,6 @@ void oled_task_user(void) {
 }
 
 void keyboard_post_init_user(void) {
-    oled_init(0);
     draw_once_flag = 1;
 }
 
