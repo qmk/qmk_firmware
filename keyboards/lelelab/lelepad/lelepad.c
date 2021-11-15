@@ -21,9 +21,6 @@ void matrix_init_kb(void) {
     SLED_OFF();
 }
 
-bool led_update_kb(led_t led_state) {
-    return led_update_user(led_state);
-}
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (keycode) SLED_TOGGLE();
