@@ -76,9 +76,9 @@ uint8_t extract_mod_bits(uint16_t code) {
     return mods_to_send;
 }
 
-static void do_code16(uint16_t code, void (*f)(uint8_t)) { f(extract_mod_bits(code)); }
+void do_code16(uint16_t code, void (*f)(uint8_t)) { f(extract_mod_bits(code)); }
 
-void register_code16(uint16_t code) {
+__attribute__((weak)) void register_code16(uint16_t code) {
     if (IS_MOD(code) || code == KC_NO) {
         do_code16(code, register_mods);
     } else {
@@ -87,7 +87,7 @@ void register_code16(uint16_t code) {
     register_code(code);
 }
 
-void unregister_code16(uint16_t code) {
+__attribute__((weak)) void unregister_code16(uint16_t code) {
     unregister_code(code);
     if (IS_MOD(code) || code == KC_NO) {
         do_code16(code, unregister_mods);
@@ -96,7 +96,7 @@ void unregister_code16(uint16_t code) {
     }
 }
 
-void tap_code16(uint16_t code) {
+__attribute__((weak)) void tap_code16(uint16_t code) {
     register_code16(code);
 #if TAP_CODE_DELAY > 0
     wait_ms(TAP_CODE_DELAY);
