@@ -6,7 +6,7 @@ FI/SV iso Keymap for XD60.
 
 ### Base Layer
 
-![Base layer](https://imgur.com/TrChS0N)
+![Base layer](https://i.imgur.com/TrChS0N.png)
 
 ```json
 ["Esc","!\n1","\"\n2","#\n3","¤\n4","%\n5","&\n6","/\n7","(\n8",")\n9","=\n0","?\n+","`\n´","Fn",{w:1},"Back space"],
