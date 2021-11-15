@@ -213,11 +213,11 @@ void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
     }
 #endif  // LED_MATRIX_KEYREACTIVE_ENABLED
 
-#if defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_LED_MATRIX_TYPING_HEATMAP)
+#if defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_LED_MATRIX_TYPING_HEATMAP)
     if (led_matrix_eeconfig.mode == LED_MATRIX_TYPING_HEATMAP) {
         process_led_matrix_typing_heatmap(row, col);
     }
-#endif  // defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_LED_MATRIX_TYPING_HEATMAP)
+#endif  // defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_LED_MATRIX_TYPING_HEATMAP)
 }
 
 static bool led_matrix_none(effect_params_t *params) {
