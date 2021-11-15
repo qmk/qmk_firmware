@@ -17,6 +17,7 @@
  */
 
 #include "pointing_device.h"
+#include <string.h>
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
