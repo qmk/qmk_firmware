@@ -1,0 +1,17 @@
+{
+  "keyboard_name": "Index Tab",
+  "maintainer": "kyrremann",
+  "url": "https://github.com/Kyrremann/index-tab",
+  "layouts": {
+    "LAYOUT_all": {
+      "layout": [
+        {"label":"CAPS", "x":0, "y":0}, {"label":"F1", "x":1, "y":0}, {"label":"F2", "x":2, "y":0}, {"label":"F3", "x":3, "y":0}, {"label":"F4", "x":4, "y":0}, {"label":"F5", "x":5, "y":0}, {"label":"F6", "x":6, "y":0}, {"label":"F7", "x":7, "y":0}, {"label":"F8", "x":8, "y":0}, {"label":"F9", "x":9, "y":0}, {"label":"F10", "x":10, "y":0}, {"label":"F11", "x":11, "y":0}, {"label":"F12", "x":12, "y":0},
+        {"label":"<", "x":0, "y":1}, {"label":"1", "x":1, "y":1}, {"label":"2", "x":2, "y":1}, {"label":"3", "x":3, "y":1}, {"label":"4", "x":4, "y":1}, {"label":"5", "x":5, "y":1}, {"label":"6", "x":6, "y":1}, {"label":"7", "x":7, "y":1}, {"label":"8", "x":8, "y":1}, {"label":"9", "x":9, "y":1}, {"label":"0", "x":10, "y":1}, {"label":"+", "x":11, "y":1}, {"label":"\u00b4", "x":12, "y":1},
+        {"label":"TAB", "x":0, "y":2}, {"label":"q", "x":1, "y":2}, {"label":"w", "x":2, "y":2}, {"label":"e", "x":3, "y":2}, {"label":"r", "x":4, "y":2}, {"label":"t", "x":5, "y":2}, {"label":"y", "x":6, "y":2}, {"label":"u", "x":7, "y":2}, {"label":"i", "x":8, "y":2}, {"label":"o", "x":9, "y":2}, {"label":"p", "x":10, "y":2}, {"label":"\u00e5", "x":11, "y":2}, {"label":"BKSP", "x":12, "y":2},
+        {"label":"CTRL", "x":0, "y":3}, {"label":"a", "x":1, "y":3}, {"label":"s", "x":2, "y":3}, {"label":"d", "x":3, "y":3}, {"label":"f", "x":4, "y":3}, {"label":"g", "x":5, "y":3}, {"label":"h", "x":6, "y":3}, {"label":"j", "x":7, "y":3}, {"label":"k", "x":8, "y":3}, {"label":"l", "x":9, "y":3}, {"label":"\u00f8", "x":10, "y":3}, {"label":"\u00e6", "x":11, "y":3}, {"label":"\u00a8", "x":12, "y":3},
+        {"label":"SHIFT", "x":0, "y":4}, {"label":"z", "x":1, "y":4}, {"label":"x", "x":2, "y":4}, {"label":"c", "x":3, "y":4}, {"label":"v", "x":4, "y":4}, {"label":"b", "x":5, "y":4}, {"label":"n", "x":6, "y":4}, {"label":"m", "x":7, "y":4}, {"label":",", "x":8, "y":4}, {"label":".", "x":9, "y":4}, {"label":"-", "x":10, "y":4}, {"label":"\u2191", "x":11, "y":4}, {"label":"\u21b2", "x":12, "y":4},
+        {"label":"ESC", "x":0, "y":5}, {"label":"\u00a7", "x":1, "y":5}, {"label":"WIN", "x":2, "y":5}, {"label":"LALT", "x":3, "y":5}, {"x":4, "y":5, "w":2}, {"x":6, "y":5, "w":2}, {"label":"FN", "x":8, "y":5}, {"label":"@", "x":9, "y":5}, {"label":"\u2190", "x":10, "y":5}, {"label":"\u2193", "x":11, "y":5}, {"label":"\u2192", "x":12, "y":5}
+      ]
+    }
+  }
+}
