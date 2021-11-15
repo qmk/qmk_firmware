@@ -1,6 +1,6 @@
 # h65 hotswap
 
-![h65 hotswap](https://i.imgur.com/QKeHtDr.png)
+![h65 hotswap](https://i.imgur.com/QKeHtDrh.png)
 
 A 65%, hotswap, USB 2.0 Type C PCB. 
 
