@@ -15,7 +15,7 @@
  */
 #pragma once
 
-#include "poly.h"
+#include "polyandry.h"
 #include "quantum.h"
 
 #define LAYOUT( \

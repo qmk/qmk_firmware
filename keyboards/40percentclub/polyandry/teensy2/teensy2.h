@@ -20,7 +20,7 @@
 //I DO NOT HAVE A TEENSY 2.0 TO TEST WITH.
 //I believe this should still work - but it's not a sure thing.
 
-#include "poly.h"
+#include "polyandry.h"
 #include "quantum.h"
 
 #define LAYOUT( \
