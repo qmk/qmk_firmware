@@ -1,0 +1,25 @@
+{
+    "keyboard_name": "12plus1 Macropad",
+    "url": "",
+    "maintainer": "Sono-Gomorrha",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "label": "K01 (D7,B6)", "x": 1, "y": 1 },
+                { "label": "K02 (D7,B2)", "x": 2, "y": 1 },
+                { "label": "K03 (D7,B3)", "x": 3, "y": 1 },
+                { "label": "K04 (D7,B1)", "x": 4, "y": 1 },
+                { "label": "K11 (E6,B6)", "x": 1, "y": 2 },
+                { "label": "K12 (E6,B2)", "x": 2, "y": 2 },
+                { "label": "K13 (E6,B3)", "x": 3, "y": 2 },
+                { "label": "K14 (E6,B1)", "x": 4, "y": 2 },
+                { "label": "K20 (B4,B5)", "x": 0, "y": 3 },
+                { "label": "K21 (B4,B6)", "x": 1, "y": 3 },
+                { "label": "K22 (B4,B2)", "x": 2, "y": 3 },
+                { "label": "K23 (B4,B3)", "x": 3, "y": 3 },
+                { "label": "K24 (B4,B1)", "x": 4, "y": 3 }
+            ]
+        }
+    }
+    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
+}
