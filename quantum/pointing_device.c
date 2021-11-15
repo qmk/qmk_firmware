@@ -28,7 +28,7 @@ static report_mouse_t mouseReport = {};
 
 extern const pointing_device_driver_t pointing_device_driver;
 
-__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) { return (new.buttons != old.buttons) || (new.x&& new.x != old.x) || (new.y&& new.y != old.y) || (new.h&& new.h != old.h) || (new.v&& new.v != old.v); }
+__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) { return memcmp(&new, &old, sizeof(new)); }
 
 __attribute__((weak)) void           pointing_device_init_kb(void) {}
 __attribute__((weak)) void           pointing_device_init_user(void) {}
@@ -65,7 +65,8 @@ __attribute__((weak)) void pointing_device_send(void) {
     mouseReport.y = 0;
     mouseReport.v = 0;
     mouseReport.h = 0;
-    old_report    = mouseReport;
+
+    memcpy(&old_report, &mouseReport, sizeof(mouseReport));
 }
 
 __attribute__((weak)) void pointing_device_task(void) {
