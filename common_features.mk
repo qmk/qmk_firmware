@@ -146,11 +146,6 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     endif
 endif
 
-ifeq ($(strip $(DEFERRED_EXEC_ENABLE)), yes)
-    OPT_DEFS += -DDEFERRED_EXEC_ENABLE
-    SRC += $(QUANTUM_DIR)/deferred_exec.c
-endif
-
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
