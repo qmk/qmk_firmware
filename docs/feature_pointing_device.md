@@ -92,7 +92,6 @@ This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the 
 
 | Setting                         | Description                                                                     | Default               |
 |---------------------------------|---------------------------------------------------------------------------------|-----------------------|
-|`CIRQUE_PINNACLE_TIMEOUT`        | (Optional) The timeout for i2c communication with the trackpad in milliseconds. | `20`                  |
 |`CIRQUE_PINNACLE_X_LOWER`        | (Optional) The minimum reachable X value on the sensor.                         | `127`                 |
 |`CIRQUE_PINNACLE_X_UPPER`        | (Optional) The maximum reachable X value on the sensor.                         | `1919`                |
 |`CIRQUE_PINNACLE_Y_LOWER`        | (Optional) The minimum reachable Y value on the sensor.                         | `63`                  |
@@ -103,9 +102,10 @@ This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the 
 | I2C Setting              | Description                                                                     | Default |
 |--------------------------|---------------------------------------------------------------------------------|---------|
 |`CIRQUE_PINNACLE_ADDR`    | (Required) Sets the I2C Address for the Cirque Trackpad                         | `0x2A`  |
+|`CIRQUE_PINNACLE_TIMEOUT` | (Optional) The timeout for i2c communication with the trackpad in milliseconds. | `20`    |
 
-| SPI Setting              | Description                                                                     | Default |
-|--------------------------|---------------------------------------------------------------------------------|---------|
+| SPI Setting                   | Description                                                            | Default       |
+|-------------------------------|------------------------------------------------------------------------|---------------|
 |`CIRQUE_PINNACLE_CLOCK_SPEED`  | (Optional) Sets the clock speed that the sensor runs at.               | `1000000`     |
 |`CIRQUE_PINNACLE_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`       |
 |`CIRQUE_PINNACLE_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `1`           |
@@ -184,10 +184,8 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 
 | Function                          | Description                                                                                                                            |
 |-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| `pointing_device_init(void)`                               | (Depecated) Function to initialize hardware for the pointing device.                                          |
 | `pointing_device_init_kb(void)`                            | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                  |
 | `pointing_device_init_user(void)`                          | Callback to allow for user level initialization. Useful for additional hardware sensors.                      |
-| `pointing_device_task(void)`                               | (Depecated) Function to read data from sensors.                                                               |
 | `pointing_device_task_kb(mouse_report)`                    | Callback that sends sensor data, so keyboard code can intercept and modify the data.  Returns a mouse report. |
 | `pointing_device_task_user(mouse_report)`                  | Callback that sends sensor data, so user coe can intercept and modify the data.  Returns a mouse report.      |
 | `pointing_device_handle_buttons(buttons, pressed, button)` | Callback to handle hardware button presses. Returns a `uint8_t`.                                              |
