@@ -1,7 +1,3 @@
-#handled by mcu-specific rules.mk files.
-#MCU = atmega32u4
-#BOOTLOADER = caterina
-
 BOOTMAGIC_ENABLE = lite	# Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
