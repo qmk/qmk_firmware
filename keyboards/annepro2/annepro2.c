@@ -92,7 +92,7 @@ void keyboard_post_init_kb(void) {
 
     // Give the send uart thread some time to
     // send out the queue before we read back
-    wait_ms(15);
+    wait_ms(100);
 
     // loop to clear out receive buffer from ble wakeup
     while (!sdGetWouldBlock(&SD1)) sdGet(&SD1);
