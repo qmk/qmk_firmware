@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLED_SPLIT \
         { 6, 6 }
 #    define RGBLIGHT_SPLIT
-#    define RGBLIGHT_LIMIT_VAL 120
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
@@ -44,4 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define SPLIT_USB_DETECT
+
+#ifdef OLED_ENABLE
+    #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+#endif
 
