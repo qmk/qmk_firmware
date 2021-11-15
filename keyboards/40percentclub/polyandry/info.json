@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "test",
+    "keyboard_name": "Polyandry",
     "url": "",
-    "maintainer": "ryjelsum",
+    "maintainer": "QMK",
     "layouts": {
         "LAYOUT": {
             "layout": [
