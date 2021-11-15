@@ -1,7 +1,5 @@
 # Denis
 
-![Denis](https://cdn.discordapp.com/attachments/836622063468281928/845619105113178132/image2.jpg)
-
 * Keyboard Maintainer: [Cutie Club](https://github.com/cutie-club/)
 * Hardware Supported: Atmega32u4 based 60% PCB, with wide compatibility
 * Hardware Availability: [Keebcats](https://keebcats.co.uk)
