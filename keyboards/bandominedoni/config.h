@@ -197,6 +197,7 @@
 #            define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #        endif
+#            define ENABLE_RGB_MATRIX_SOLID_REACTIVE
 // #define ENABLE_RGB_MATRIX_SPLASH
 // #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    endif  // AUDIO_ENABLE
