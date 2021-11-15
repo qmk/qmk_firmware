@@ -531,6 +531,10 @@ void suspend_power_down_quantum(void) {
 #    ifdef ST7565_ENABLE
     st7565_off();
 #    endif
+#    if defined(POINTING_DEVICE_ENABLE)
+    // run to ensure scanning occurs while suspended
+    pointing_device_task();
+#    endif
 #endif
 }
 
