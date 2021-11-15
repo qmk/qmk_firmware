@@ -3,7 +3,7 @@
     "maintainer": "LeleLab",
     "url": "https://www.zfrontier.com/app/mch/oNZEw6bvZ3Go",
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label":"k11", "x":0, "y":0},
                 {"label":"k12", "x":1, "y":0},
