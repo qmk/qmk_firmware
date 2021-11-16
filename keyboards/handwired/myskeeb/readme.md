@@ -1,5 +1,7 @@
 # myskeeb
 
+![](https://i.imgur.com/ojGvzrbh.jpg)
+
 Handwired Keyboard based on the Ergodash, with an OLED similar to Kyria.
 
 * Keyboard Maintainer: [su8044](https://github.com/su8044)
