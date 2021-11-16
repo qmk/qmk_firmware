@@ -1,6 +1,6 @@
 # Splitography
 
-![Splitography](https://cdn.shopify.com/s/files/1/1092/5780/products/IMG_20171117_122316-01_large.jpg)
+![Splitography](https://i.imgur.com/NlmR4Gc.jpeg)
 
 A *pay what you will* compact keyboard intended for use with [Plover](https://www.openstenoproject.org/), free and open source stenography software. This is a low-cost keyboard with minimal packaging and design, and arrives fully assembled, ready to use.
 
@@ -34,7 +34,7 @@ A short video guide on how to set up the SOFT/HRUF Splitography, a mechanical ke
 
 Here is a reference card for the standard keyboard layout:
 
-![Reference card](https://cdn.shopify.com/s/files/1/1092/5780/files/soft-hrufdefault.png)
+![Reference card](https://i.imgur.com/ywe8jXR.png)
 
 * While holding down a colored thumb key, the matching colored functions/characters on the remaining keys can be pressed.
 * Bottom edge keys are accessed by holding down both keys.
