@@ -15,7 +15,7 @@
 - Adafruit ItsyBitsy M0
 - Adafruit ItsyBitsy M4
 
-The matrix is electrically 1x12 with no diodes, with a thirteenth pin used for the column rather than a ground.
+The matrix is electrically 1x12 with no diodes, with a thirteenth pin used for the column rather than a ground in order to be compatible with all the listed microcontrollers..
 
 The default keymap is a testing keymap that is intended to make sure all of the keys on the matrix are working and properly assigned.
 
@@ -41,5 +41,13 @@ If you would like to specify a controller:
     make 40percentclub/polyandry/teensy2:default 
     or
     qmk compile -kb 40percentclub/polyandry/teensy2 -km default
+
+##Bootloader
+
+Enter the bootloader in 3 ways: 
+
+*  **Bootmagic reset**: Hold down the top left key of the keyboard (top right or bottom left in horizontal configuration)
+* **Physical reset**: Briefly press the button on the bottom of the microcontroller or, if not present short the pin marked RST to a GND.
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
