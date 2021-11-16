@@ -42,6 +42,8 @@ int16_t cum_x = 0;
 int16_t cum_y = 0;
 int16_t sensor_x = 0;
 int16_t sensor_y = 0;
+int16_t frequent_count = 0;
+
 
 // Thresholds help to move only horizontal or vertical. When accumulated distance reaches threshold, only move one discrete value in direction with bigger delta.
 uint8_t	carret_threshold = 48;		 // higher means slower
@@ -62,6 +64,8 @@ uint16_t cursor_multiplier = CPI_DEFAULT;
 int8_t last_v = 0;
 
 int16_t cur_factor;
+bool mouse_scroll_need_move = false;
+bool mouse_v_plus = false;
 
 float mouse_move_x_left = 0;
 float mouse_move_y_left = 0;
@@ -112,7 +116,6 @@ enum custom_keycodes {
 	KC_MOUSEMODE_SCROLL_ON_PRESS,
 	KC_MOUSEMODE_ARROW_ON_PRESS,
 };
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
@@ -212,12 +215,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             track_mode = cursor_mode;
             return false;
         case KC_MOUSEMODE_SCROLL:
+            cum_x = 0;
+            cum_y = 0;
             track_mode = scroll_mode;
             return false;
         case KC_MOUSEMODE_SCROLL_ON_PRESS:
             if (record->event.pressed) {
+                cum_x = 0;
+                cum_y = 0;
                 track_mode = scroll_mode;
             } else {
+                cum_x = 0;
+                cum_y = 0;
                 track_mode = cursor_mode;
             }
             return false;
@@ -350,6 +359,12 @@ void handle_pointing_device_modes(void){
     {
     case cursor_mode:
         cur_factor = cursor_multiplier;
+        #ifdef CONSOLE_ENABLE
+        if (sensor_x!=0 || sensor_y !=0) {
+            uprintf("sensor_xy %d %d\n",sensor_x,sensor_y);
+        }
+        #endif
+
         float move_x = sensor_y * cur_factor / 10.0 + mouse_move_x_left;
         int sign_x = move_x >= 0 ? 1 : -1;
         mouse_move_x_left = sign_x * ((move_x * sign_x) - (int)(move_x*sign_x));
@@ -359,6 +374,10 @@ void handle_pointing_device_modes(void){
         int sign_y = move_y >= 0 ? 1 : -1;
         mouse_move_y_left = sign_y * ((move_y * sign_y) - (int)(move_y*sign_y));
 		mouse_report.y = CLAMP_HID((int)move_y);
+        // if (mouse_report.y != 0 && mouse_report.x != 0) { frequent_count ++;}
+        // mouse_report.v = (mouse_report.y != 0 && mouse_report.x != 0) ? ((frequent_count % 100 == 0) ? (frequent_count % 200 == 0 ? -1 : 1) : 0) : 0 ;
+        mouse_scroll_need_move = mouse_scroll_need_move || (mouse_report.y != 0 && mouse_report.x != 0);
+        last_v = 0;
         break;
     case carret_mode:
         cur_factor = carret_threshold;
@@ -369,17 +388,40 @@ void handle_pointing_device_modes(void){
         if(abs(cum_x) + abs(cum_y) >= cur_factor) {
             if(abs(cum_x) > abs(cum_y)) {
                 mouse_report.h = sign(cum_x) * (abs(cum_x) + abs(cum_y)) / cur_factor;
+                #ifdef CONSOLE_ENABLE
+                uprintf("mouse_report.h %d\n",mouse_report.h);
+                #endif
             } else {
-                mouse_report.v = (reverse_scroll_y ? -1 : 1) * sign(cum_y) * (abs(cum_x) + abs(cum_y)) / cur_factor * (sign(cum_y)>0 ? 3 : 1) + (sign(cum_y)==sign(last_v) ? last_v / 2 : 0);
+                // mouse_report.v = (reverse_scroll_y ? -1 : 1) * sign(cum_y) * (abs(cum_x) + abs(cum_y)) / cur_factor * (sign(cum_y)>0 ? 5 : 1) + (sign(cum_y)==sign(last_v) ? last_v / 2 : 0);
+                mouse_report.v = (reverse_scroll_y ? -1 : 1) * sign(cum_y) * (abs(cum_x) + abs(cum_y)) / cur_factor * (sign(cum_y)>0 ? 5 : 1) + (sign(cum_y)==sign(last_v) ? last_v / 2 : 0);
+                if (mouse_scroll_need_move) {
+                    // mouse_report.y = (mouse_v_plus? +1 : -1) *  (reverse_scroll_y ? -1 : 1);
+                    // mouse_report.y = (mouse_v_plus? +1 : -1) * 20 * ( scroll_threshold / 14 ) * (reverse_scroll_y ? -1 : 1);
+                    mouse_v_plus = !mouse_v_plus;
+                    if (mouse_v_plus == true) {
+                        mouse_scroll_need_move = false;
+                    }
+                }
+                #ifdef CONSOLE_ENABLE
+                uprintf("mouse_report.v %d\n",mouse_report.v);
+                #endif
             }
             last_v = mouse_report.v;
             cum_x = 0;
             cum_y = 0;
+        } else {
+            mouse_report.v = 0;
+            mouse_report.h = 0;
         }
         break;
     default:
         break;
     }
+                #ifdef CONSOLE_ENABLE
+                if (mouse_report.x != 0 || mouse_report.y!=0) {
+                    uprintf("mouse_report.x y %d %d\n",mouse_report.x,mouse_report.y);
+                }
+                #endif
 	pointing_device_set_report(mouse_report);
 	pointing_device_send();
 }
