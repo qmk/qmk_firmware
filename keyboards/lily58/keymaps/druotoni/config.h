@@ -22,27 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MASTER_LEFT
 #define SPLIT_TRANSPORT_MIRROR
-// #define FORCED_SYNC_THROTTLE_MS 20
 
 #define TAPPING_TOGGLE 2
 
-#define RGBLIGHT_SPLIT
-#undef RGBLED_NUM
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//#define RGBLIGHT_EFFECT_BREATHING
-
-
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-
-
-#define RGBLED_NUM 13
-#define RGBLIGHT_LED_MAP \
-    { 0, 1, 2, 3, 4, 5, 8, 7, 6, 9, 10, 11, 12 }
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-
-//#define IS_LEFT 1
-#define IS_RIGHT 1
+#define IS_LEFT 1
+//#define IS_RIGHT 1
 
 #ifdef OLED_FONT_H
 #    undef OLED_FONT_H
