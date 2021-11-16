@@ -19,4 +19,5 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
+
 LAYOUTS = 60_iso_tsangan 60_iso_split_bs_rshift 60_iso 60_tsangan_hhkb 60_hhkb 60_ansi_tsangan 60_ansi_split_bs_rshift 60_ansi
