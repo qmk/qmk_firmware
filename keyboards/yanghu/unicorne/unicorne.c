@@ -15,6 +15,7 @@
  */
 #include "unicorne.h"
 
+#include "i2c_master.h"
 
 // Custom i2c init to enable internal pull up resistor for i2c.
 void i2c_init(void) {
