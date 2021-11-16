@@ -2,8 +2,6 @@
     "keyboard_name": "KBIC65",
     "url": "https://karlb.eu/kbic65/",
     "maintainer": "b-karl",
-    "width": 16.5,
-    "height": 5.25,
     "diode_direction": "ROW2COL",
     "matrix_pins": {
         "cols": [
