@@ -121,11 +121,11 @@ const uint32_t PROGMEM unicode_map[] = {
 	[GRET_L] = U'≍', [GRET_U] = U'≥', [DIV_L] = U'≠', [DIV_U] = U'⇐',
 	[SPC_L] = U'‿', [SPC_U] = U' ',
 	//Special control
-	[C1_L] = U' ', [C1_U] = U' ', [C3_L] = U' ', [C3_U] = U' ',
-	[C4_L] = U' ', [C4_U] = U' ', [C5_L] = U' ', [C5_U] = U' ',
-	[C7_L] = U' ', [C7_U] = U' ', [C8_L] = U' ', [C8_U] = U' ', 
-	[C9_L] = U' ', [C9_U] = U' ', [C0_L] = U' ', [C0_U] = U' ',
-	[CEQ_L] = U' ', [CEQ_U] = U' ', [CES_L] = U' ', [CES_U] = U' ',
+	[C1_L] = U'❤', [C1_U] = U' ', [C3_L] = U'△', [C3_U] = U' ',
+	[C4_L] = U'□', [C4_U] = U' ', [C5_L] = U'⛤', [C5_U] = U' ',
+	[C7_L] = U'😈', [C7_U] = U' ', [C8_L] = U'📐', [C8_U] = U' ', 
+	[C9_L] = U'😇', [C9_U] = U' ', [C0_L] = U'⭕', [C0_U] = U' ',
+	[CEQ_L] = U'≜', [CEQ_U] = U' ', [CES_L] = U'🏃', [CES_U] = U' ',
 	//Control literals
 	[TAB] = U'␉', [CR] = U'␍', [BS] = U'␈',
 	//Control iconographs
