@@ -16,7 +16,6 @@
 #pragma once
 
 #include "polyandry.h"
-#include "quantum.h"
 
 #define LAYOUT( \
 	K000, K001, K002, \
