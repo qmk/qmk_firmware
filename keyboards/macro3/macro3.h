@@ -1,4 +1,5 @@
-/* Copyright 2021 Matthew Dias
+/* Copyright 2020 David Philip Barr <@davidphilipbarr>
+ * Copyright 2021 @filterpaper
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,4 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "portal_66.h"
+#include "quantum.h"
+
+#define LAYOUT( \
+    K00, K01, K02, K03, \
+    K10, K11, K12, K13  \
+) \
+{ \
+    { K00, K01, K02, K03 }, \
+    { K10, K11, K12, K13 }  \
+}
+
