@@ -1,0 +1,45 @@
+// #define GFX_PI	3.1415926535897932384626433832795028841971693993751
+// #define degToRad(angleInDegrees) ((angleInDegrees) * M_PI / 180.0)
+
+
+void drawline_vb(uint8_t x, uint8_t y, uint8_t width, uint8_t color);
+void drawline_vt(uint8_t x, uint8_t y, uint8_t width, uint8_t color) ;
+
+void drawline_hr(uint8_t x, uint8_t y, uint8_t width, uint8_t color) ;
+void drawline_hl(uint8_t x, uint8_t y, uint8_t width, uint8_t color) ;
+
+
+void drawline_hr_heigth(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t color);
+
+void draw_rectangle(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t color);
+void draw_rectangle_fill(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t color);
+
+void draw_fill_circle(short x, short y, uint8_t radius, uint8_t color);
+void draw_circle(uint8_t x, uint8_t y, uint8_t radius, uint8_t color);
+
+void draw_ellipse(uint8_t x, uint8_t y, uint8_t a, uint8_t b, uint8_t color);
+void draw_ellipse_fill(uint8_t x, uint8_t y, uint8_t a, uint8_t b, uint8_t color);
+
+
+void draw_arc_sector( uint8_t x, uint8_t y, uint8_t radius, unsigned char sectors, unsigned char half, int color);
+
+
+void draw_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int color, uint8_t density );
+
+void draw_random_char(uint8_t column, uint8_t row, char final_char, int value, uint8_t style);
+void draw_label(const char *data, uint8_t len, uint8_t row, int value);
+void draw_box(const char *data, uint8_t len, uint8_t row, long value, uint8_t style);
+void draw_progress(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int value, uint8_t style, uint8_t color);
+
+void draw_gradient(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t color_start,  uint8_t color_end, uint8_t tres);
+
+int interpo_pourcent(int min, int max, int v);
+
+ char get_oled_char(uint16_t start_index);
+ void copy_pixel(int from, int shift, unsigned char mask);
+
+ void move_block(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int shift);
+
+ void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t iSize, bool odd);
+
+  void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth);
