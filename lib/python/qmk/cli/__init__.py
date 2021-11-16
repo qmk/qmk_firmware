@@ -31,6 +31,7 @@ safe_commands = [
 subcommands = [
     'qmk.cli.bux',
     'qmk.cli.c2json',
+    'qmk.cli.cd',
     'qmk.cli.cformat',
     'qmk.cli.chibios.confmigrate',
     'qmk.cli.clean',
