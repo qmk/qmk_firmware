@@ -19,8 +19,8 @@
 #define BLUE MO(_BLUE)
 
 
-#define L_ACG(kc) (LALT(LCTL(LGUI(kc))))
-#define KC_DITTO (LALT(LCTL(LGUI(KC_GRAVE))))
+#define L_ACG(kc) (LGUI(LALT(LCTL(kc))))
+#define KC_DITTO (LGUI(LALT(LCTL(KC_GRAVE))))
 #define _____________  KC_TRANSPARENT
 #define PREV_TRK KC_MEDIA_PREV_TRACK
 #define NEXT_TRK KC_MEDIA_NEXT_TRACK
@@ -41,10 +41,10 @@
 #define R_S(kc) (RSFT(kc))
 
 #define R_AC(kc) (RALT(RCTL(kc)))
-#define R_AG(kc) (RALT(RGUI(kc)))
+#define R_AG(kc) (RGUI(RALT(kc)))
 #define R_AS(kc) (RALT(RSFT(kc)))
 
-#define R_CG(kc) (RCTL(RGUI(kc)))
+#define R_CG(kc) (RGUI(RCTL(kc)))
 #define R_CS(kc) (RCTL(RSFT(kc)))
 
 #define R_GS(kc) (RGUI(RSFT(kc)))
