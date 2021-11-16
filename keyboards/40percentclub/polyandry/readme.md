@@ -42,7 +42,7 @@ If you would like to specify a controller:
     or
     qmk compile -kb 40percentclub/polyandry/teensy2 -km default
 
-##Bootloader
+## Bootloader
 
 Enter the bootloader in 3 ways: 
 
