@@ -16,11 +16,11 @@
 
 // Inspired from 4x12 fractal created by @schwarzgrau
 
-#ifdef ENABLE_RGB_MATRIX_FRACTAL
-RGB_MATRIX_EFFECT(FRACTAL)
+#ifdef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+RGB_MATRIX_EFFECT(PIXEL_FRACTAL)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static bool FRACTAL(effect_params_t* params) {
+static bool PIXEL_FRACTAL(effect_params_t* params) {
 #        define MID_COL MATRIX_COLS / 2
     static bool led[MATRIX_ROWS][MATRIX_COLS];
 
@@ -71,4 +71,4 @@ static bool FRACTAL(effect_params_t* params) {
     return false;
 }
 #    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // ENABLE_RGB_MATRIX_FRACTAL
+#endif      // ENABLE_RGB_MATRIX_PIXEL_FRACTAL
