@@ -4,6 +4,13 @@
 * Hardware Supported: Atmega32u4 based 60% PCB, with wide compatibility
 * Hardware Availability: [Keebcats](https://keebcats.co.uk)
 
+## Bootloader
+
+Enter the bootloader in 2 ways with the default configuration:
+
+* **Bootmagic reset**: Hold down the key at top left key (matrix position 0,0) and plug the device in
+* **Physical reset button**: Press the button marked reset on the back of the PCB
+
 Make example for this keyboard (after setting up your build environment):
 
     make cutie_club/keebcats/denis:default
