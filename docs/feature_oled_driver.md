@@ -27,9 +27,9 @@ OLED_ENABLE = yes
 ```
 
 ## OLED type
-|OLED Driver        |Supported Device           |
-|-------------------|---------------------------|
-|SSD1306 (default)  |For both SSD1306 and SH1106|
+|OLED Driver        |Supported Device                   |
+|-------------------|-----------------------------------|
+|SSD1306 (default)  |For both SSD1306, SH1106 and SH1107|
 
 e.g.
 ```make
