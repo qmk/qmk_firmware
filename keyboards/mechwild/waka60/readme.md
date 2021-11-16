@@ -1,6 +1,6 @@
 # Waka60
 
-![waka](https://i.ibb.co/10cG7G2/image.png)
+![waka](https://i.imgur.com/ohyE83Sh.png)
 
 An affordable Ortholinear keyboard kit featuring a speaker, top-facing RGB LEDs, a center encoder, spacing between the halves, and powered by the STM32 Blackpill.
 
