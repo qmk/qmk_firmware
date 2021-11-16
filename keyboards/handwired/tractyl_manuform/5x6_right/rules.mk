@@ -16,11 +16,11 @@ AUDIO_ENABLE = no           # Audio output
 SWAP_HANDS_ENABLE = yes
 
 POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = pmw3360
 MOUSE_SHARED_EP = no
 
 SPLIT_KEYBOARD = yes
 
-SRC += drivers/sensors/pmw3360.c
-QUANTUM_LIB_SRC += spi_master.c tm_sync.c
+QUANTUM_LIB_SRC += tm_sync.c
 
 DEFAULT_FOLDER = handwired/tractyl_manuform/5x6_right/teensy2pp

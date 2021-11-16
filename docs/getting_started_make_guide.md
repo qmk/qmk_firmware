@@ -145,6 +145,10 @@ Lets you replace the default matrix scanning routine with your own code. For fur
 
 Lets you replace the default key debouncing routine with an alternative one. If `custom` you will need to provide your own implementation.
 
+`DEFERRED_EXEC_ENABLE`
+
+Enables deferred executor support -- timed delays before callbacks are invoked. See [deferred execution](custom_quantum_functions.md#deferred-execution) for more information.
+
 ## Customizing Makefile Options on a Per-Keymap Basis
 
 If your keymap directory has a file called `rules.mk` any options you set in that file will take precedence over other `rules.mk` options for your particular keyboard.
