@@ -135,7 +135,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[IL] = U' ', [IM] = U' ', [IN] = U' ', [IO] = U' ',
 	[IP] = U' ', [IQ] = U' ', [IR] = U' ', [IS] = U' ',
 	[IT] = U' ', [IU] = U' ', [IV] = U' ', [IW] = U' ',
-	[IX] = U' ', [IY] = U' ', [IZ] = U' ', [ILBR] = U' ',
+	[IX] = U'🗙', [IY] = U' ', [IZ] = U'⎌', [ILBR] = U'⎋',
 	[IBSL] = U' ', [IRBR] = U' ', [ICAR] = U' ', [IUND] = U' ',
 	//Alt aplha Unicode layer
 	[AA] = U' ', [AB] = U' ', [AC] = U' ', [AD] = U' ',
