@@ -1,5 +1,5 @@
 /*
-Copyright 2020 <me@fjlaboratories.com>
+Copyright 2021 <me@fjlaboratories.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x7074 // FJLaboratories
-#define PRODUCT_ID   0x0014 // KF87
+#define PRODUCT_ID   0x0014 // 7V Hotswap
 #define DEVICE_VER   0x0001 // Version 1
 #define MANUFACTURER    FJLaboratories
 #define PRODUCT         7V Hotswap
