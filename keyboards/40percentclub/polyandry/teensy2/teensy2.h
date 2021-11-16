@@ -21,7 +21,6 @@
 //I believe this should still work - but it's not a sure thing.
 
 #include "polyandry.h"
-#include "quantum.h"
 
 #define LAYOUT( \
 	K000, K001, K002, \
