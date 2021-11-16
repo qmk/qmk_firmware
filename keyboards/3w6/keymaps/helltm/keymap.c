@@ -135,36 +135,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 
-        case KC_THUMB_LEFT:
-            if (record->event.pressed) {
-                if (swap_space_enter) {
+        case KC_ENT:
+            if (swap_space_enter) {
+                if (record->event.pressed) {
                     register_code(KC_SPC);
-                } else {
-                    register_code(KC_ENT);
-                }
-            } else {
-                if (swap_space_enter) {
-                    unregister_code(KC_SPC);
-                } else {
-                    unregister_code(KC_ENT);
-                }
-            }
-            return false;
-        case KC_THUMB_RIGHT:
-            if (record->event.pressed) {
-                if (swap_space_enter) {
-                    register_code(KC_ENT);
-                } else {
-                    register_code(KC_SPC);
-                }
-            } else {
-                if (swap_space_enter) {
-                    unregister_code(KC_ENT);
                 } else {
                     unregister_code(KC_SPC);
                 }
+                return false;
             }
-            return false;
+            break;
+        case KC_SPC:
+            if (swap_space_enter) {
+                if (record->event.pressed) {
+                    register_code(KC_ENT);
+                } else {
+                    unregister_code(KC_ENT);
+                }
+                return false;
+            }
+            break;
     }
     return true;
 }
