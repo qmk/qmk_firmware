@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2021 Yiancar-Designs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,12 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
+ #include "emery65.h"
 
-#include "quantum.h"
-
-#if defined(KEYBOARD_xelus_pachi_rgb_rev1)
-    #include "rev1.h"
-#elif defined(KEYBOARD_xelus_pachi_rgb_rev2)
-    #include "rev2.h"
-#endif
+void led_init_ports(void) {
+    // Set our LED pins as open drain outputs
+    palSetLineMode(LED_CAPS_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
+}
