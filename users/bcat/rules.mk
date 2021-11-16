@@ -29,7 +29,6 @@ SLEEP_LED_ENABLE = no
 # Disable other unused options on all keyboards.
 AUTO_SHIFT_ENABLE = no
 COMBO_ENABLE = no
-KEYBOARD_LOCK_ENABLE = no
 KEY_LOCK_ENABLE = no
 LEADER_ENABLE = no
 SWAP_HANDS_ENABLE = no

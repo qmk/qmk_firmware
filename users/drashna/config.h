@@ -147,6 +147,9 @@
 // #    define OLED_FONT_5X5
 // #    define OLED_FONT_AZTECH
 // #    define OLED_FONT_BMPLAIN
+// #    define OLED_FONT_CRACKERS
+// #    define OLED_FONT_HISKYF21
+#    define OLED_FONT_DEAD_MEAL
 // #    define OLED_FONT_SUPER_DIGG
 // #    define OLED_LOGO_GMK_BAD
 // #    define OLED_LOGO_HUE_MANITEE
@@ -163,17 +166,12 @@
 #    define ONESHOT_TIMEOUT 3000
 #endif  // !ONESHOT_TIMEOUT
 
-// this makes it possible to do rolling combos (zx) with keys that
-// convert to other keys on hold (z becomes ctrl when you hold it,
-// and when this option isn't enabled, z rapidly followed by x
-// actually sends Ctrl-x. That's bad.)
-#define IGNORE_MOD_TAP_INTERRUPT
-#undef PERMISSIVE_HOLD
-//#define TAPPING_FORCE_HOLD_PER_KEY
-//#define RETRO_TAPPING_PER_KEY
-#if !defined(KEYBOARD_kyria) && !defined(KEYBOARD_splitkb_kyria)
-#    define TAPPING_TERM_PER_KEY
-#endif
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+#define PERMISSIVE_HOLD_PER_KEY
+#define TAPPING_FORCE_HOLD_PER_KEY
+#define RETRO_TAPPING_PER_KEY
+#define TAPPING_TERM_PER_KEY
+
 
 #ifndef TAPPING_TOGGLE
 #    define TAPPING_TOGGLE 1
