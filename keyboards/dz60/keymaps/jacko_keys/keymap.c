@@ -68,7 +68,7 @@ enum unicode_names {
 	CEQ_L, CEQ_U, CES_L, CES_U,
 	//End of shiftables
 	//Control literals
-	TAB, LF, BS,
+	TAB, CR, BS,
 	//Control iconographs
 	IAT, IA, IB, IC, ID, IE, IF, IG, IH, II, IJ, IK,
 	IL, IM, IN, IO, IP, IQ, IR, IS, IT, IU, IV, IW,
@@ -127,16 +127,16 @@ const uint32_t PROGMEM unicode_map[] = {
 	[C9_L] = U' ', [C9_U] = U' ', [C0_L] = U' ', [C0_U] = U' ',
 	[CEQ_L] = U' ', [CEQ_U] = U' ', [CES_L] = U' ', [CES_U] = U' ',
 	//Control literals
-	[TAB] = U'␉', [LF] = U'␊', [BS] = U'␈',
+	[TAB] = U'␉', [CR] = U'␍', [BS] = U'␈',
 	//Control iconographs
-	[IAT] = U' ', [IA] = U' ', [IB] = U' ', [IC] = U' ',
-	[ID] = U' ', [IE] = U' ', [IF] = U' ', [IG] = U' ',
+	[IAT] = U'⚠', [IA] = U'⟁', [IB] = U'🗚', [IC] = U'🗐',
+	[ID] = U'🔖', [IE] = U'🔎', [IF] = U'👍', [IG] = U'🔔',
 	[IH] = U'⌫', [II] = U'⭾', [IJ] = U'⏎', [IK] = U'⭿',
-	[IL] = U' ', [IM] = U' ', [IN] = U' ', [IO] = U' ',
-	[IP] = U' ', [IQ] = U' ', [IR] = U' ', [IS] = U' ',
-	[IT] = U' ', [IU] = U' ', [IV] = U' ', [IW] = U' ',
-	[IX] = U'🗙', [IY] = U' ', [IZ] = U'⎌', [ILBR] = U'⎋',
-	[IBSL] = U' ', [IRBR] = U' ', [ICAR] = U' ', [IUND] = U' ',
+	[IL] = U'📇', [IM] = U'✓', [IN] = U'🗋', [IO] = U'🗁',
+	[IP] = U'🐧', [IQ] = U'📤', [IR] = U'📥', [IS] = U'🖫',
+	[IT] = U'🌱', [IU] = U'👎', [IV] = U'📋', [IW] = U'🔑',
+	[IX] = U'🗙', [IY] = U'🗜', [IZ] = U'⎌', [ILBR] = U'⎋',
+	[IBSL] = U'🌍', [IRBR] = U'☣', [ICAR] = U'⚗', [IUND] = U'☢',
 	//Alt aplha Unicode layer
 	[AA] = U' ', [AB] = U' ', [AC] = U' ', [AD] = U' ',
 	[AE] = U' ', [AF] = U' ', [AG] = U' ', [AH] = U' ',
@@ -256,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_60_ansi(
 		Z(CES),  Z(C1),   X(IAT),  Z(C3),   Z(C4),   Z(C5),   X(ICAR), Z(C7),   Z(C8),   Z(C9),   Z(C0),   X(IUND), Z(CEQ),           X(BS),
 		X(TAB),			  X(IQ),   X(IW),   X(IE),   X(IR),   X(IT),   X(IY),   X(IU),   X(II),   X(IO),   X(IP),   X(ILBR), X(IRBR), X(IBSL),
-		KC_TRNS,  		  X(IA),   X(IS),   X(ID),   X(IF),   X(IG),   X(IH),   X(IJ),   X(IK),   X(IL),   KC_PAUS, KC_PSCR, X(LF),
+		KC_TRNS,  		  X(IA),   X(IS),   X(ID),   X(IF),   X(IG),   X(IH),   X(IJ),   X(IK),   X(IL),   KC_PAUS, KC_PSCR, X(CR),
 		KC_TRNS,          X(IZ),   X(IX),   X(IC),   X(IV),   X(IB),   X(IN),   X(IM),   KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
 		MO(9),	 KC_TRNS,     	   KC_TRNS,                   KC_SPC,                             KC_LEFT, KC_DOWN,          KC_RIGHT, KC_TRNS),
 
