@@ -1,17 +1,17 @@
 # DZ60
 
 My second keyboard edit. A multi-layer ANSI-60 with layers and function shift on each layer.
-Changes from the default keymap include moving RESET, and a prefered arangement for the cusor
-block of keys. The function key was exchanged with the right control key to get it. This makes the layout of the right modifiers left to rignt be alt/win/control/Fn.
+Changes from the default key-map include moving RESET, and a preferred arrangement for the cursor
+block of keys. The function key was exchanged with the right control key to get it. This makes the layout of the right modifiers left to right be alt/win/control/Fn.
 
 ## Right Windows is Application Context Menu Instead
 The right Windows key is for getting the application context menu. The right Windows GUI
-key is not often used. It is available on the macroboard shift layer for completeness.
+key is not often used. It is available on the macro-board shift layer for completeness.
 
 ## Common to All Fn Layers
 * If on an Fn layer a switch is not necessary so the following keys become themselves.
 * Left control is ANSI layer select. Basic conformist ANSI.
-* Left win is macroboard layer select.
+* Left win is macro-board layer select.
 * Left alt is navigation layer select. You MUST be in this mode for **BQN**.
 
 ## ANSI Layer
@@ -26,17 +26,17 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Square brackets are home and end.
 * Comma and period are page up/down.
 * Semicolon is pause.
-* Apostrophy is print screen.
+* Apostrophe is print screen.
 * RGB controls are Q-I.
 * Backlight controls are C-N.
-* Backtick is excape.
-* Various unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
+* Backtick is escape.
+* Various Unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
 * System power down on P key.
 * Global mute is X.
-* Browser home key is O, search is A, favorites is F.
+* Browser home key is O, search is A, favourites is F.
 * Volume is up(J) and down(H).
 
-## Macroboard Layer
+## Macro-board Layer
 * Escape is a one shot sticky alt shift.
 * Tab is a one shot sticky control alt.
 * Caps lock is a one shot sticky control shift.
@@ -51,8 +51,8 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Right alt/control are alt tab window switch (reverse and forward).
 * Right win key is the right win key and not the app context menu key as in other layers.
 
-### Macroboard Shift Layer (Fn Macroboard)
-* The right win key is one shot sticky. 
+### Macro-board Shift Layer (Fn Macro-board)
+* The right win key is one shot sticky.
 * Escape is a one shot sticky win alt shift.
 * Tab is a one shot sticky win control alt.
 * Caps lock is a one shot sticky win control shift.
@@ -74,37 +74,37 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Comma is numpad comma.
 * The brackets are scroll wheel up and down such the [ is up.
 * Quote is the scroll button.
-* Semicolon is auxilliary mouse button 4 (standard mice don't have this).
+* Semicolon is auxiliary mouse button 4 (standard mice don't have this).
 * All the alpha keys are themselves.
 * Minus turns on key lock for the next key (for easier drag 'n' drop for example).
 
 ### Special Shift Layer
 * Fn exits the special shift layer.
-* P and equals is korean modifiers.
+* P and equals is Korean modifiers.
 * Minus is key lock for holding down a key until the held key is pressed again.
 * International modifiers are on Q-O.
 * Numbers are the numpad numbers for macro code options.
-* Remaining laguage 3 to 7 are on Z-M.
+* Remaining language 3 to 7 are on Z-M.
 * All left and right modifiers are themselves.
-* Comma/period/slash set moise acceleration 1, 2 and 3.
+* Comma/period/slash set mouse acceleration 1, 2 and 3.
 * Backspace is delete.
-* Backslash is insert. 
+* Backslash is insert.
 * Square brackets are home and end.
 * Enter is itself.
-* Various unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
+* Various Unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
 * Volume is up(J) and down(H).
-* Browser search is A, favorites is F.
+* Browser search is A, favourites is F.
 * Escape is pure escape.
 * Caps lock is num lock.
 
 #### Notes on "Level 3 Shift"
 * Ironically not being American I will not test the en_US local without hardware.
 * I'm not sure if that locale supports an alt gr key interpretation of right alt.
-* Hacking linux termcap/gui equivalent files might be possible for the determined.
+* Hacking Linux termcap/gui equivalent files might be possible for the determined.
 
 ## Navigation Layer
-* Right alt/win/control/slash form cusor block.
-* Blackslash enters a prefix to enter **BQN** characters.
+* Right alt/win/control/slash form cursor block.
+* Backslash enters a prefix to enter **BQN** characters.
 
 ### Navigation Shift Layer (Fn Navigation)
 * Scroll lock placed on caps lock.
@@ -114,28 +114,28 @@ key is not often used. It is available on the macroboard shift layer for complet
 * F13 to F24 form second row Q-].
 * Comma and period are page up/down.
 * Semicolon is pause.
-* Apostrophy is print screen.
-* Backtick is excape.
+* Apostrophe is print screen.
+* Backtick is escape.
 * Enter is pure escape for easy shift escape typing.
 * Right control/alt function as modifiers for F1-F24 usage.
-* Various unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
+* Various Unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
 * Media control prev(C), play(V), next(B), launch(N).
 * Global mute is X.
-* Browser search is A, favorites is F.
+* Browser search is A, favourites is F.
 * Volume is up(J) and down(H).
 
 ## BQN Layer
 * BQN unshifted and shifted.
 * Fn shift holds the BQN layer.
-* Left ontrol/win/alt prefix meta of **\\** to select further layers.
+* Left control/win/alt prefix meta of **\\** to select further layers.
 * Left and right cursor work on right alt/control.
 * Right GUI button is right win key.
 
 ### Control Shift Layer (BQN Left Control)
-* Various control code literals and icongraphs with cursor.
+* Various control code literals and icongraphs plus cursor.
 * Comma and period are page up/down.
 * Semicolon is pause.
-* Apostrophy is print screen.
+* Apostrophe is print screen.
 * The `control_codes.md` contains more information about control codes.
 
 ### Unicode Shift Layer (BQN Left Alt)
@@ -144,7 +144,7 @@ key is not often used. It is available on the macroboard shift layer for complet
 * Square brackets are home and end.
 * Comma and period are page up/down.
 * Semicolon is pause.
-* Apostrophy is print screen.
+* Apostrophe is print screen.
 
 ### Nothing Yet Layer (BQN Left Win)
 * No space to define new codes to emit, but can emit any code already defined on any key.
