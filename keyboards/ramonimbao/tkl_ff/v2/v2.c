@@ -40,12 +40,14 @@ void keyboard_post_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
 
-    uint8_t lock_bits = led_state.scroll_lock << 1 | led_state.caps_lock;
-    for (uint8_t i=0; i<3; i++) {
-        rgblight_set_layer_state(i, false);
-    }
-    if (lock_bits < 3) {
-        rgblight_set_layer_state(lock_bits, true);
+    if (res) {
+        uint8_t lock_bits = led_state.scroll_lock << 1 | led_state.caps_lock;
+        for (uint8_t i=0; i<3; i++) {
+            rgblight_set_layer_state(i, false);
+        }
+        if (lock_bits < 3) {
+            rgblight_set_layer_state(lock_bits, true);
+        }
     }
 
     return res;
