@@ -744,7 +744,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
 Layer indicator with only configured keys:
 ```c
-oid rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (get_highest_layer(layer_state) > 0) {
         for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
             for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
