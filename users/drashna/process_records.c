@@ -199,6 +199,7 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
                 }
             }
             break;
+#endif
         case KEYLOCK: {
             static host_driver_t *host_driver = 0;
 
@@ -215,7 +216,6 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
             }
             break;
             }
-#endif
     }
     return true;
 }
