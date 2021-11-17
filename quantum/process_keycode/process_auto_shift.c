@@ -21,11 +21,11 @@
 
 #    include "process_auto_shift.h"
 
-#ifndef AUTO_SHIFT_DISABLED_AT_STARTUP
-#   define AUTO_SHIFT_STARTUP_STATE true    /* enabled */
-#else
-#   define AUTO_SHIFT_STARTUP_STATE false   /* disabled */
-#endif
+#    ifndef AUTO_SHIFT_DISABLED_AT_STARTUP
+#        define AUTO_SHIFT_STARTUP_STATE true /* enabled */
+#    else
+#        define AUTO_SHIFT_STARTUP_STATE false /* disabled */
+#    endif
 
 static uint16_t autoshift_time    = 0;
 static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
