@@ -204,7 +204,7 @@
                 { "x": 14, "y": 4 }
             ]
         },
-        "LAYOUT_tsangan_ISO": {
+        "LAYOUT_tsangan_iso": {
             "layout": [
                 { "x": 0, "y": 0 },
                 { "x": 1, "y": 0 },
@@ -269,7 +269,7 @@
                 { "w": 1.5, "x": 13.5, "y": 4 }
             ]
         },
-        "LAYOUT_tsangan_ISO_arrowkeys": {
+        "LAYOUT_tsangan_iso_arrowkeys": {
             "layout": [
                 { "x": 0, "y": 0 },
                 { "x": 1, "y": 0 },
