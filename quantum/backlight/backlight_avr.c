@@ -237,8 +237,8 @@ static uint16_t cie_lightness(uint16_t v) {
         return v / 9;  // Same as dividing by 900%
     } else {
         // In the next two lines values are bit-shifted. This is to avoid loosing decimals in integer math.
-        uint32_t y = (((uint32_t)v + ICRx / 6) << 5) / (ICRx / 6 + ICRx);  // If above 8%, add ~16% of max, and normalize with (max + ~16% max)
-        uint32_t out = (y * y * y * ICRx) >> 15;                           // Cube it and undo the bit-shifting. (which is now three times as much due to the cubing)
+        uint32_t y   = (((uint32_t)v + ICRx / 6) << 5) / (ICRx / 6 + ICRx);  // If above 8%, add ~16% of max, and normalize with (max + ~16% max)
+        uint32_t out = (y * y * y * ICRx) >> 15;                             // Cube it and undo the bit-shifting. (which is now three times as much due to the cubing)
 
         if (out > ICRx)  // Avoid overflows
         {
@@ -297,7 +297,7 @@ static uint16_t breathing_counter = 0;
 
 static uint8_t breath_scale_counter = 1;
 /* Run the breathing loop at ~120Hz*/
-const uint8_t breathing_ISR_frequency = 120;
+const uint8_t   breathing_ISR_frequency     = 120;
 static uint16_t breathing_freq_scale_factor = 2;
 
 #    ifdef BACKLIGHT_PWM_TIMER
@@ -327,14 +327,14 @@ bool is_breathing(void) { return !!(TIMSKx & _BV(TOIEx)); }
             } while (0)
 #    endif
 
-#            define breathing_min()        \
-                do {                       \
-                    breathing_counter = 0; \
-                } while (0)
-#            define breathing_max()                                           \
-                do {                                                          \
-                    breathing_counter = breathing_period * breathing_ISR_frequency / 2; \
-                } while (0)
+#    define breathing_min()        \
+        do {                       \
+            breathing_counter = 0; \
+        } while (0)
+#    define breathing_max()                                                     \
+        do {                                                                    \
+            breathing_counter = breathing_period * breathing_ISR_frequency / 2; \
+        } while (0)
 
 void breathing_enable(void) {
     breathing_counter = 0;
@@ -385,18 +385,15 @@ ISR(TIMERx_OVF_vect)
 {
 
     // Only run this ISR at ~120 Hz
-    if(breath_scale_counter++ == breathing_freq_scale_factor)
-    {
+    if (breath_scale_counter++ == breathing_freq_scale_factor) {
         breath_scale_counter = 1;
-    }
-    else
-    {
+    } else {
         return;
     }
     uint16_t interval = (uint16_t)breathing_period * breathing_ISR_frequency / BREATHING_STEPS;
     // resetting after one period to prevent ugly reset at overflow.
     breathing_counter = (breathing_counter + 1) % (breathing_period * breathing_ISR_frequency);
-    uint8_t index = breathing_counter / interval % BREATHING_STEPS;
+    uint8_t index     = breathing_counter / interval % BREATHING_STEPS;
 
     if (((breathing_halt == BREATHING_HALT_ON) && (index == BREATHING_STEPS / 2)) || ((breathing_halt == BREATHING_HALT_OFF) && (index == BREATHING_STEPS - 1))) {
         breathing_interrupt_disable();
@@ -435,21 +432,21 @@ void backlight_init_ports(void) {
     */
     TCCRxA = _BV(COMxx1) | _BV(WGM11);             // = 0b00001010;
     TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10);  // = 0b00011001;
-#        endif
+#endif
 
-#        ifdef BACKLIGHT_CUSTOM_RESOLUTION
-#            if (BACKLIGHT_CUSTOM_RESOLUTION > 0xFFFF || BACKLIGHT_CUSTOM_RESOLUTION < 1)
-#                error "This out of range of the timer capabilities"
-#            elif (BACKLIGHT_CUSTOM_RESOLUTION < 0xFF)
-#                warning "Resolution lower than 0xFF isn't recommended"
-#            endif
-#            ifdef BACKLIGHT_BREATHING
+#ifdef BACKLIGHT_CUSTOM_RESOLUTION
+#    if (BACKLIGHT_CUSTOM_RESOLUTION > 0xFFFF || BACKLIGHT_CUSTOM_RESOLUTION < 1)
+#        error "This out of range of the timer capabilities"
+#    elif (BACKLIGHT_CUSTOM_RESOLUTION < 0xFF)
+#        warning "Resolution lower than 0xFF isn't recommended"
+#    endif
+#    ifdef BACKLIGHT_BREATHING
     breathing_freq_scale_factor = F_CPU / BACKLIGHT_CUSTOM_RESOLUTION / 120;
-#            endif
+#    endif
     ICRx = BACKLIGHT_CUSTOM_RESOLUTION;
-#        else
-    ICRx   = TIMER_TOP;
-#        endif
+#else
+    ICRx = TIMER_TOP;
+#endif
 
     backlight_init();
 #ifdef BACKLIGHT_BREATHING
