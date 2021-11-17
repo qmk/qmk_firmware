@@ -407,7 +407,7 @@ Use these to enable or disable building certain features. The more you have enab
 * `MAGIC_ENABLE`
   * MAGIC actions (BOOTMAGIC without the boot)
 * `BOOTMAGIC_ENABLE`
-  * Virtual DIP switch configuration
+  * Enable Bootmagic Lite
 * `MOUSEKEY_ENABLE`
   * Mouse keys
 * `EXTRAKEY_ENABLE`
@@ -446,6 +446,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
+* `DEFERRED_EXEC_ENABLE`
+  * Enables deferred executor support -- timed delays before callbacks are invoked. See [deferred execution](custom_quantum_functions.md#deferred-execution) for more information.
 
 ## USB Endpoint Limitations
 
