@@ -20,9 +20,6 @@
 #include <stdio.h>
 
 /* layer change */
-#define BASE    TG(_BASE)
-#define GAME    TG(_GAME_MODE)
-#define CRTN    TG(_CREATION_MODE)
 #define FUNC    MO(_FN)
 bool re_function = false;
 
@@ -98,7 +95,7 @@ joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
 void joystick_task(){
 	switch (joystickMode) {
 	case 0: // gamepad
-		joystick_status.axes[0] = -analogReadPin(F4)/4 - 128;
+		joystick_status.axes[0] = 128 - analogReadPin(F4)/4;
 		joystick_status.axes[1] = analogReadPin(F5)/4 - 128;
 		joystick_status.status |= JS_UPDATED;
         send_joystick_packet(&joystick_status);
@@ -140,7 +137,7 @@ void joystick_task(){
     case 2: // mouse
         ;
         report_mouse_t currentReport = pointing_device_get_report();
-        currentReport.x = -(analogReadPin(F4) - 512) / joystickResolution;
+        currentReport.x = (512 - analogReadPin(F4)) / joystickResolution;
         currentReport.y = (analogReadPin(F5) - 512) / joystickResolution;
         if (currentReport.x < joystickThreshold && currentReport.x > -joystickThreshold){
             currentReport.x = 0;
@@ -279,29 +276,28 @@ void render_layer_state(void) {
     oled_write_P(PSTR("Mode:\n"), false);
     switch(get_highest_layer(layer_state)) {
         case _BASE:
-        //\x1Aは矢印
-            oled_write_P(PSTR("Main\n"), true);
-            oled_write_P(PSTR("Game\n"), false);
-            oled_write_P(PSTR("Crea\n"), false);
-            oled_write_P(PSTR("Func\n"), false);
+            oled_write_P(PSTR("L0\n"), true);
+            oled_write_P(PSTR("L1\n"), false);
+            oled_write_P(PSTR("L2\n"), false);
+            oled_write_P(PSTR("Fn\n"), false);
             break;
         case _GAME_MODE:
-            oled_write_P(PSTR("Main\n"), false);
-            oled_write_P(PSTR("Game\n"), true);
-            oled_write_P(PSTR("Crea\n"), false);
-            oled_write_P(PSTR("Func\n"), false);
+            oled_write_P(PSTR("L0\n"), false);
+            oled_write_P(PSTR("L1\n"), true);
+            oled_write_P(PSTR("L2\n"), false);
+            oled_write_P(PSTR("Fn\n"), false);
             break;
         case _CREATION_MODE:
-            oled_write_P(PSTR("Main\n"), false);
-            oled_write_P(PSTR("Game\n"), false);
-            oled_write_P(PSTR("Crea\n"), true);
-            oled_write_P(PSTR("Func\n"), false);
+            oled_write_P(PSTR("L0\n"), false);
+            oled_write_P(PSTR("L1\n"), false);
+            oled_write_P(PSTR("L2\n"), true);
+            oled_write_P(PSTR("Fn\n"), false);
             break;
         case _FN:
-            oled_write_P(PSTR("Main\n"), false);
-            oled_write_P(PSTR("Game\n"), false);
-            oled_write_P(PSTR("Crea\n"), false);
-            oled_write_P(PSTR("Func\n"), true);
+            oled_write_P(PSTR("L0\n"), false);
+            oled_write_P(PSTR("L1\n"), false);
+            oled_write_P(PSTR("L2\n"), false);
+            oled_write_P(PSTR("Fn\n"), true);
             break;
         default:
             oled_write_ln_P(PSTR("Undefined\n"), false);
