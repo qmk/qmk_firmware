@@ -148,8 +148,8 @@
 #        pragma message STR(FEE_DENSITY_BYTES) " > " STR(FEE_ADDRESS_MAX_SIZE)
 #        error emulated eeprom: FEE_DENSITY_BYTES is greater than FEE_ADDRESS_MAX_SIZE allows
 #    endif
-#    if ((FEE_DENSITY_BYTES) % 2) == 1
-#        error emulated eeprom: FEE_DENSITY_BYTES must be even
+#    if ((FEE_DENSITY_BYTES) % 8) != 0
+#        error emulated eeprom: FEE_DENSITY_BYTES must be a multiple of 8
 #    endif
 #else
 /* Default to one page of allocated space used for emulated eeprom, 3 pages for write log */
