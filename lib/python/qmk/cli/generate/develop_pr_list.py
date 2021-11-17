@@ -36,14 +36,31 @@ def generate_develop_pr_list(cli):
         cli.log.error('Environment variable "GITHUB_TOKEN" is not set.')
         return 1
 
+    loader_errors = []
+
+    # These dependencies are manually handled because people complain. Fun.
+    try:
+        from sqlite_cache.sqlite_cache import SqliteCache
+    except:
+        loader_errors.append('python-sqlite-cache')
+
+    try:
+        from ghapi.all import GhApi
+    except:
+        loader_errors.append('ghapi')
+
+    if len(loader_errors) > 0:
+        cli.log.error('Missing dependent python packages, please install:')
+        for pkg in loader_errors:
+            cli.log.error(f'   {pkg}')
+        return 1
+
     git_args = ['git', 'rev-list', '--oneline', '--no-merges', '--reverse', f'{cli.args.from_ref}...{cli.args.branch}', '^upstream/master']
     commit_list = cli.run(git_args, capture_output=True, stdin=DEVNULL)
 
-    from sqlite_cache.sqlite_cache import SqliteCache
     cache_loc = Path(cli.config_file).parent
     cache = SqliteCache(cache_loc)
 
-    from ghapi.all import GhApi
     gh = GhApi()
 
     pr_list_bugs = []

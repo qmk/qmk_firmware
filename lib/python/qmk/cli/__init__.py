@@ -15,7 +15,6 @@ from milc.questions import yesno
 import_names = {
     # A mapping of package name to importable name
     'pep8-naming': 'pep8ext_naming',
-    'python-sqlite-cache': 'sqlite_cache',
     'pyusb': 'usb.core',
     'qmk-dotty-dict': 'dotty_dict'
 }
