@@ -25,7 +25,7 @@ jobs:
       shell: 'bash {0}'
       run: |
         qmk format-c -a
-        qmk format-python
+        qmk format-python -a
         qmk format-text -a
         git diff
 
