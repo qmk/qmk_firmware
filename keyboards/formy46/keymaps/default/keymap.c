@@ -274,34 +274,10 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void render_layer_state(void) {
     oled_write_P(PSTR("Mode:\n"), false);
-    switch(get_highest_layer(layer_state)) {
-        case _BASE:
-            oled_write_P(PSTR("L0\n"), true);
-            oled_write_P(PSTR("L1\n"), false);
-            oled_write_P(PSTR("L2\n"), false);
-            oled_write_P(PSTR("Fn\n"), false);
-            break;
-        case _GAME_MODE:
-            oled_write_P(PSTR("L0\n"), false);
-            oled_write_P(PSTR("L1\n"), true);
-            oled_write_P(PSTR("L2\n"), false);
-            oled_write_P(PSTR("Fn\n"), false);
-            break;
-        case _CREATION_MODE:
-            oled_write_P(PSTR("L0\n"), false);
-            oled_write_P(PSTR("L1\n"), false);
-            oled_write_P(PSTR("L2\n"), true);
-            oled_write_P(PSTR("Fn\n"), false);
-            break;
-        case _FN:
-            oled_write_P(PSTR("L0\n"), false);
-            oled_write_P(PSTR("L1\n"), false);
-            oled_write_P(PSTR("L2\n"), false);
-            oled_write_P(PSTR("Fn\n"), true);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Undefined\n"), false);
-    }
+    oled_write_P(PSTR("Main\n"), get_highest_layer(layer_state) == _BASE);
+    oled_write_P(PSTR("Game\n"), layer_state_is(_GAME_MODE));
+    oled_write_P(PSTR("Crea\n"), layer_state_is(_CREATION_MODE));
+    oled_write_P(PSTR("Func\n"), layer_state_is(_FN));
     #ifdef RGB_MATRIX_ENABLE
         oled_write_ln_P(PSTR(""), false);
         oled_write_ln_P(PSTR("LED:"), false);
