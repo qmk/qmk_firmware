@@ -2,7 +2,7 @@
  * APA102 lib V1.0a
  *
  * Controls APA102 RGB-LEDs
- * Author: Mikkel (Duckle29 on GitHub)
+ * Author: Mikkel (Duckle29 on github)
  *
  * Dec 22th, 2017  v1.0a Initial Version
  *
@@ -30,8 +30,8 @@
 void inline apa102_setleds(LED_TYPE *ledarray, uint16_t leds) { apa102_setleds_pin(ledarray, leds, _BV(RGB_DI_PIN & 0xF), _BV(RGB_CLK_PIN & 0xF)); }
 
 void static inline apa102_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmask_DI, uint8_t pinmask_CLK) {
-    setPinOutput(RGB_DI_PIN);
-    setPinOutput(RGB_CLK_PIN);
+    pinMode(RGB_DI_PIN, PinDirectionOutput);
+    pinMode(RGB_CLK_PIN, PinDirectionOutput);
 
     apa102_send_array((uint8_t *)ledarray, leds)
 }
@@ -90,7 +90,7 @@ void apa102_end_frame(uint16_t leds) {
 void apa102_send_byte(uint8_t byte) {
     uint8_t i;
     for (i = 0; i < 8; i++) {
-        writePin(RGB_DI_PIN, !!(byte & (1 << (7 - i))));
-        writePinHigh(RGB_CLK_PIN);
+    digitalWrite(RGB_DI_PIN, !!(byte & (1 << (7-i)));
+    digitalWrite(RGB_CLK_PIN, PinLevelHigh);
     }
 }

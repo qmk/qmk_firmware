@@ -1,4 +1,5 @@
-#pragma once
+#ifndef WAIT_H
+#define WAIT_H
 
 #include <inttypes.h>
 
@@ -11,7 +12,7 @@ extern "C" {
 #    define wait_ms(ms) _delay_ms(ms)
 #    define wait_us(us) _delay_us(us)
 #elif defined PROTOCOL_CHIBIOS
-#    include <ch.h>
+#    include "ch.h"
 #    define wait_ms(ms)                     \
         do {                                \
             if (ms != 0) {                  \
@@ -39,4 +40,6 @@ void wait_ms(uint32_t ms);
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif

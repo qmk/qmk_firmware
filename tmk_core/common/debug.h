@@ -15,7 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef DEBUG_H
+#define DEBUG_H 1
 
 #include <stdbool.h>
 #include "print.h"
@@ -167,3 +168,5 @@ extern debug_config_t debug_config;
 #    define debug_bin_reverse(data)
 
 #endif /* NO_DEBUG */
+
+#endif

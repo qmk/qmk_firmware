@@ -14,9 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef PROCESS_TERMINAL_H
+#define PROCESS_TERMINAL_H
 
 #include "quantum.h"
 
 #define TERM_ON KC_NO
 #define TERM_OFF KC_NO
+
+#endif

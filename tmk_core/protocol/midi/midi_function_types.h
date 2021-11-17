@@ -21,7 +21,8 @@
  * @brief Function signature definitions
  */
 
-#pragma once
+#ifndef MIDI_FUNCTION_TYPES_H
+#define MIDI_FUNCTION_TYPES_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,4 +45,6 @@ typedef void (*midi_sysex_func_t)(MidiDevice *device, uint16_t start_byte, uint8
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif

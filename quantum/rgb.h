@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef RGB_H
+#define RGB_H
 
 __attribute__((weak)) void rgblight_toggle(void){};
 
@@ -37,3 +38,5 @@ __attribute__((weak)) void rgblight_decrease_val(void){};
 __attribute__((weak)) void rgblight_increase_speed(void){};
 
 __attribute__((weak)) void rgblight_decrease_speed(void){};
+
+#endif

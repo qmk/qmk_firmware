@@ -89,7 +89,7 @@ Vagrant.configure(2) do |config|
 
   Examples:
      make planck/rev4:default:dfu
-     make planck/rev4:default
+     make planck:default
 
   EOT
 end

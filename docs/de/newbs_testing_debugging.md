@@ -41,9 +41,7 @@ Bevorzugst Du es lieber auf der Befehlszeile zu debuggen? Dafür eignet sich das
 
 Manchmal ist es hilfreich Debug-Nachrichten innerhalb deines eigenen [Custom Codes](de/custom_quantum_functions.md) zu drucken. Das ist ziemlich einfach. Beginne damit `print.h` am Anfang deiner Datei zu inkludieren:
 
-```c
-#include "print.h"
-```
+    #include <print.h>
 
 Danach stehen dir verschiedene Druck-Funktionen zur Verfügung:
 

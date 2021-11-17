@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef VARIABLE_TRACE_H
+#define VARIABLE_TRACE_H
 
 // For more information about the variable tracing see the readme.
 
@@ -45,3 +46,4 @@
 void add_traced_variable(const char* name, void* addr, unsigned size, const char* func, int line);
 void remove_traced_variable(const char* name, const char* func, int line);
 void verify_traced_variables(const char* func, int line);
+#endif

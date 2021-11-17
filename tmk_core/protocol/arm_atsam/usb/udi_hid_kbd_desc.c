@@ -83,7 +83,7 @@ UDC_DESC_STORAGE usb_dev_desc_t udc_device_desc = {.bLength         = sizeof(usb
 #ifdef USB_DEVICE_PRODUCT_NAME
                                                    .iProduct = 2,
 #else
-                                                   .iProduct = 0,  // No product string
+                                                   .iProduct      = 0,  // No product string
 #endif
 #if (defined USB_DEVICE_SERIAL_NAME || defined USB_DEVICE_GET_SERIAL_NAME_POINTER)
                                                    .iSerialNumber = 3,
@@ -120,45 +120,49 @@ UDC_DESC_STORAGE udc_desc_t udc_desc = {
     .conf.iConfiguration      = 0,
     .conf.bmAttributes        = /* USB_CONFIG_ATTR_MUST_SET | */ USB_DEVICE_ATTR,
     .conf.bMaxPower           = USB_CONFIG_MAX_POWER(USB_DEVICE_POWER),
-    .hid_kbd                  = UDI_HID_KBD_DESC,
-#ifdef RAW_ENABLE
+#ifdef KBD
+    .hid_kbd = UDI_HID_KBD_DESC,
+#endif
+#ifdef RAW
     .hid_raw = UDI_HID_RAW_DESC,
 #endif
-#ifdef MOUSE_ENABLE
+#ifdef MOU
     .hid_mou = UDI_HID_MOU_DESC,
 #endif
-#ifdef EXTRAKEY_ENABLE
+#ifdef EXK
     .hid_exk = UDI_HID_EXK_DESC,
 #endif
-#ifdef CONSOLE_ENABLE
+#ifdef CON
     .hid_con = UDI_HID_CON_DESC,
 #endif
-#ifdef NKRO_ENABLE
+#ifdef NKRO
     .hid_nkro = UDI_HID_NKRO_DESC,
 #endif
-#ifdef VIRTSER_ENABLE
+#ifdef CDC
     .cdc_serial = CDC_DESCRIPTOR,
 #endif
 };
 
 UDC_DESC_STORAGE udi_api_t *udi_apis[USB_DEVICE_NB_INTERFACE] = {
+#ifdef KBD
     &udi_api_hid_kbd,
-#ifdef RAW_ENABLE
+#endif
+#ifdef RAW
     &udi_api_hid_raw,
 #endif
-#ifdef MOUSE_ENABLE
+#ifdef MOU
     &udi_api_hid_mou,
 #endif
-#ifdef EXTRAKEY_ENABLE
+#ifdef EXK
     &udi_api_hid_exk,
 #endif
-#ifdef CONSOLE_ENABLE
+#ifdef CON
     &udi_api_hid_con,
 #endif
-#ifdef NKRO_ENABLE
+#ifdef NKRO
     &udi_api_hid_nkro,
 #endif
-#ifdef VIRTSER_ENABLE
+#ifdef CDC
     &udi_api_cdc_comm, &udi_api_cdc_data,
 #endif
 };

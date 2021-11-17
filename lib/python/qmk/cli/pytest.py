@@ -7,7 +7,7 @@ import subprocess
 from milc import cli
 
 
-@cli.subcommand('QMK Python Unit Tests', hidden=False if cli.config.user.developer else True)
+@cli.subcommand('QMK Python Unit Tests')
 def pytest(cli):
     """Run several linting/testing commands.
     """

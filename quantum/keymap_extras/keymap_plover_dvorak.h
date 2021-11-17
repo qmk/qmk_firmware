@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef KEYMAP_PLOVER_DVORAK_H
+#define KEYMAP_PLOVER_DVORAK_H
 
 #include "keymap_dvorak.h"
 
@@ -43,3 +43,5 @@
 #define PD_O DV_V
 #define PD_E DV_N
 #define PD_U DV_M
+
+#endif

@@ -5,30 +5,6 @@
 #include "led.h"
 #include "sleep_led.h"
 
-#ifndef SLEEP_LED_TIMER
-#    define SLEEP_LED_TIMER 1
-#endif
-
-#if SLEEP_LED_TIMER == 1
-#    define TCCRxB TCCR1B
-#    define TIMERx_COMPA_vect TIMER1_COMPA_vect
-#    if defined(__AVR_ATmega32A__)  // This MCU has only one TIMSK register
-#        define TIMSKx TIMSK
-#    else
-#        define TIMSKx TIMSK1
-#    endif
-#    define OCIExA OCIE1A
-#    define OCRxx OCR1A
-#elif SLEEP_LED_TIMER == 3
-#    define TCCRxB TCCR3B
-#    define TIMERx_COMPA_vect TIMER3_COMPA_vect
-#    define TIMSKx TIMSK3
-#    define OCIExA OCIE3A
-#    define OCRxx OCR3A
-#else
-error("Invalid SLEEP_LED_TIMER config")
-#endif
-
 /* Software PWM
  *  ______           ______           __
  * |  ON  |___OFF___|  ON  |___OFF___|   ....
@@ -49,14 +25,15 @@ error("Invalid SLEEP_LED_TIMER config")
 void sleep_led_init(void) {
     /* Timer1 setup */
     /* CTC mode */
-    TCCRxB |= _BV(WGM12);
+    TCCR1B |= _BV(WGM12);
     /* Clock selelct: clk/1 */
-    TCCRxB |= _BV(CS10);
+    TCCR1B |= _BV(CS10);
     /* Set TOP value */
     uint8_t sreg = SREG;
     cli();
-    OCRxx = SLEEP_LED_TIMER_TOP;
-    SREG  = sreg;
+    OCR1AH = (SLEEP_LED_TIMER_TOP >> 8) & 0xff;
+    OCR1AL = SLEEP_LED_TIMER_TOP & 0xff;
+    SREG   = sreg;
 }
 
 /** \brief Sleep LED enable
@@ -65,7 +42,7 @@ void sleep_led_init(void) {
  */
 void sleep_led_enable(void) {
     /* Enable Compare Match Interrupt */
-    TIMSKx |= _BV(OCIExA);
+    TIMSK1 |= _BV(OCIE1A);
 }
 
 /** \brief Sleep LED disable
@@ -74,7 +51,7 @@ void sleep_led_enable(void) {
  */
 void sleep_led_disable(void) {
     /* Disable Compare Match Interrupt */
-    TIMSKx &= ~_BV(OCIExA);
+    TIMSK1 &= ~_BV(OCIE1A);
 }
 
 /** \brief Sleep LED toggle
@@ -83,7 +60,7 @@ void sleep_led_disable(void) {
  */
 void sleep_led_toggle(void) {
     /* Disable Compare Match Interrupt */
-    TIMSKx ^= _BV(OCIExA);
+    TIMSK1 ^= _BV(OCIE1A);
 }
 
 /** \brief Breathing Sleep LED brighness(PWM On period) table
@@ -95,7 +72,7 @@ void sleep_led_toggle(void) {
  */
 static const uint8_t breathing_table[64] PROGMEM = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 6, 10, 15, 23, 32, 44, 58, 74, 93, 113, 135, 157, 179, 199, 218, 233, 245, 252, 255, 252, 245, 233, 218, 199, 179, 157, 135, 113, 93, 74, 58, 44, 32, 23, 15, 10, 6, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-ISR(TIMERx_COMPA_vect) {
+ISR(TIMER1_COMPA_vect) {
     /* Software PWM
      * timer:1111 1111 1111 1111
      *       \_____/\/ \_______/____  count(0-255)

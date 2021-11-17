@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BOOTMAGIC_H
+#define BOOTMAGIC_H
 
 /* FIXME: Add special doxygen comments for defines here. */
 
@@ -100,3 +101,5 @@
 
 void bootmagic(void);
 bool bootmagic_scan_keycode(uint8_t keycode);
+
+#endif

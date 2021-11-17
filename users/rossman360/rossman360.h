@@ -2,7 +2,6 @@
 #include "quantum.h"
 
 #define BWORD LCTL(KC_BSPC)
-#define BLINE LALT(KC_BSPC)
 #define LWORD LCTL(KC_LEFT)
 #define RWORD LCTL(KC_RIGHT)
 #define JUMPBACK LSFT(KC_TAB)
@@ -20,7 +19,6 @@
 #define CTRLSP MT(MOD_LCTL, KC_SPACE)
 #define RVOLU LCTL(KC_RBRC)
 #define RVOLD LCTL(KC_LBRC)
-#define QUIT LCTL(KC_Q)
 
 // Define all of
 enum custom_keycodes {
@@ -34,5 +32,4 @@ enum custom_keycodes {
   WREFRESH,
   PMERGE,
   REMCAPS,
-  EMDASH
 };

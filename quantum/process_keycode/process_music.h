@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef PROCESS_MUSIC_H
+#define PROCESS_MUSIC_H
 
 #include "quantum.h"
 
@@ -56,3 +57,5 @@ bool music_mask_user(uint16_t keycode);
 #    endif
 
 #endif  // defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+
+#endif

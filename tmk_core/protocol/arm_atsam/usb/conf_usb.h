@@ -116,35 +116,36 @@
  * @{
  */
 //! Interface callback definition
-#define UDI_HID_KBD_ENABLE_EXT() main_kbd_enable()
-#define UDI_HID_KBD_DISABLE_EXT() main_kbd_disable()
-//#define UDI_HID_KBD_CHANGE_LED(value) ui_kbd_led(value)
-
-#ifdef NKRO_ENABLE
-#    define UDI_HID_NKRO_ENABLE_EXT() main_nkro_enable()
-#    define UDI_HID_NKRO_DISABLE_EXT() main_nkro_disable()
-//#define UDI_HID_NKRO_CHANGE_LED(value) ui_kbd_led(value)
+#ifdef KBD
+#    define UDI_HID_KBD_ENABLE_EXT() main_kbd_enable()
+#    define UDI_HID_KBD_DISABLE_EXT() main_kbd_disable()
+//#define  UDI_HID_KBD_CHANGE_LED(value)  ui_kbd_led(value)
 #endif
 
-#ifdef EXTRAKEY_ENABLE
+#ifdef NKRO
+#    define UDI_HID_NKRO_ENABLE_EXT() main_nkro_enable()
+#    define UDI_HID_NKRO_DISABLE_EXT() main_nkro_disable()
+//#define  UDI_HID_NKRO_CHANGE_LED(value)   ui_kbd_led(value)
+#endif
+
+#ifdef EXK
 #    define UDI_HID_EXK_ENABLE_EXT() main_exk_enable()
 #    define UDI_HID_EXK_DISABLE_EXT() main_exk_disable()
 #endif
 
-#ifdef CONSOLE_ENABLE
+#ifdef CON
 #    define UDI_HID_CON_ENABLE_EXT() main_con_enable()
 #    define UDI_HID_CON_DISABLE_EXT() main_con_disable()
 #endif
 
-#ifdef MOUSE_ENABLE
+#ifdef MOU
 #    define UDI_HID_MOU_ENABLE_EXT() main_mou_enable()
 #    define UDI_HID_MOU_DISABLE_EXT() main_mou_disable()
 #endif
 
-#ifdef RAW_ENABLE
+#ifdef RAW
 #    define UDI_HID_RAW_ENABLE_EXT() main_raw_enable()
 #    define UDI_HID_RAW_DISABLE_EXT() main_raw_disable()
-#    define UDI_HID_RAW_RECEIVE(buffer, len) main_raw_receive(buffer, len)
 #endif
 
 //@}

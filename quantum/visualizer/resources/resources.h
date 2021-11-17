@@ -14,10 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef QUANTUM_VISUALIZER_RESOURCES_RESOURCES_H_
+#define QUANTUM_VISUALIZER_RESOURCES_RESOURCES_H_
 
 #include <stdint.h>
 
 #ifdef LCD_ENABLE
 extern const uint8_t resource_lcd_logo[];
 #endif
+
+#endif /* QUANTUM_VISUALIZER_RESOURCES_RESOURCES_H_ */

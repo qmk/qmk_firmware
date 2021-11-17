@@ -21,10 +21,11 @@
  * This library also assumes that the pages are not used by the firmware.
  */
 
-#pragma once
+#ifndef __EEPROM_H
+#define __EEPROM_H
 
-#include <ch.h>
-#include <hal.h>
+#include "ch.h"
+#include "hal.h"
 #include "flash_stm32.h"
 
 // HACK ALERT. This definition may not match your processor
@@ -35,14 +36,12 @@
 #    define MCU_STM32F103RB
 #elif defined(EEPROM_EMU_STM32F072xB)
 #    define MCU_STM32F072CB
-#elif defined(EEPROM_EMU_STM32F042x6)
-#    define MCU_STM32F042K6
 #else
 #    error "not implemented."
 #endif
 
 #ifndef EEPROM_PAGE_SIZE
-#    if defined(MCU_STM32F103RB) || defined(MCU_STM32F042K6)
+#    if defined(MCU_STM32F103RB)
 #        define FEE_PAGE_SIZE (uint16_t)0x400  // Page size = 1KByte
 #        define FEE_DENSITY_PAGES 2            // How many pages are used
 #    elif defined(MCU_STM32F103ZE) || defined(MCU_STM32F103RE) || defined(MCU_STM32F103RD) || defined(MCU_STM32F303CC) || defined(MCU_STM32F072CB)
@@ -56,8 +55,6 @@
 #ifndef EEPROM_START_ADDRESS
 #    if defined(MCU_STM32F103RB) || defined(MCU_STM32F072CB)
 #        define FEE_MCU_FLASH_SIZE 128  // Size in Kb
-#    elif defined(MCU_STM32F042K6)
-#        define FEE_MCU_FLASH_SIZE 32  // Size in Kb
 #    elif defined(MCU_STM32F103ZE) || defined(MCU_STM32F103RE)
 #        define FEE_MCU_FLASH_SIZE 512  // Size in Kb
 #    elif defined(MCU_STM32F103RD)
@@ -82,3 +79,5 @@ uint16_t EEPROM_Init(void);
 void     EEPROM_Erase(void);
 uint16_t EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte);
 uint8_t  EEPROM_ReadDataByte(uint16_t Address);
+
+#endif /* __EEPROM_H */

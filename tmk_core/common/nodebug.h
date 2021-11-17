@@ -15,7 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef NODEBUG_H
+#define NODEBUG_H
 
 #ifndef NO_DEBUG
 #    define NO_DEBUG
@@ -23,4 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    undef NO_DEBUG
 #else
 #    include "debug.h"
+#endif
+
 #endif

@@ -5,13 +5,14 @@
 #    include <string.h>
 #    include "print.h"
 #    include "glcdfont.c"
+#    ifdef ADAFRUIT_BLE_ENABLE
+#        include "adafruit_ble.h"
+#    endif
 #    ifdef PROTOCOL_LUFA
 #        include "lufa.h"
 #    endif
 #    include "sendchar.h"
 #    include "timer.h"
-
-struct CharacterMatrix display;
 
 // Set this to 1 to help diagnose early startup problems
 // when testing power-on with ble.  Turn it off otherwise,

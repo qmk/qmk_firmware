@@ -13,11 +13,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef LED_TABLES_H
+#define LED_TABLES_H
 
 #include "progmem.h"
 #include <stdint.h>
 
 #ifdef USE_CIE1931_CURVE
 extern const uint8_t CIE1931_CURVE[] PROGMEM;
+#endif
+
 #endif

@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef PROCESS_MIDI_H
+#define PROCESS_MIDI_H
 
 #include "quantum.h"
 
@@ -34,7 +35,7 @@ typedef union {
     struct {
         uint8_t octave : 4;
         int8_t  transpose : 4;
-        uint8_t velocity : 7;
+        uint8_t velocity : 4;
         uint8_t channel : 4;
         uint8_t modulation_interval : 4;
     };
@@ -52,3 +53,5 @@ uint8_t midi_compute_note(uint16_t keycode);
 #    endif  // MIDI_ADVANCED
 
 #endif  // MIDI_ENABLE
+
+#endif

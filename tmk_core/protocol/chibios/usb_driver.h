@@ -22,9 +22,10 @@
  * @{
  */
 
-#pragma once
+#ifndef USB_DRIVER_H
+#    define USB_DRIVER_H
 
-#include <hal_usb_cdc.h>
+#    include "hal_usb_cdc.h"
 
 /*===========================================================================*/
 /* Driver constants.                                                         */
@@ -34,9 +35,9 @@
 /* Derived constants and error checks.                                       */
 /*===========================================================================*/
 
-#if HAL_USE_USB == FALSE
-#    error "The USB Driver requires HAL_USE_USB"
-#endif
+#    if HAL_USE_USB == FALSE
+#        error "The USB Driver requires HAL_USE_USB"
+#    endif
 
 /*===========================================================================*/
 /* Driver data structures and types.                                         */
@@ -111,21 +112,21 @@ typedef struct {
 /**
  * @brief   @p SerialDriver specific data.
  */
-#define _qmk_usb_driver_data                           \
-    _base_asynchronous_channel_data /* Driver state.*/ \
-        qmkusbstate_t state;                           \
-    /* Input buffers queue.*/                          \
-    input_buffers_queue_t ibqueue;                     \
-    /* Output queue.*/                                 \
-    output_buffers_queue_t obqueue;                    \
-    /* End of the mandatory fields.*/                  \
-    /* Current configuration data.*/                   \
-    const QMKUSBConfig *config;
+#    define _qmk_usb_driver_data                           \
+        _base_asynchronous_channel_data /* Driver state.*/ \
+            qmkusbstate_t state;                           \
+        /* Input buffers queue.*/                          \
+        input_buffers_queue_t ibqueue;                     \
+        /* Output queue.*/                                 \
+        output_buffers_queue_t obqueue;                    \
+        /* End of the mandatory fields.*/                  \
+        /* Current configuration data.*/                   \
+        const QMKUSBConfig *config;
 
 /**
  * @brief   @p SerialUSBDriver specific methods.
  */
-#define _qmk_usb_driver_methods _base_asynchronous_channel_methods
+#    define _qmk_usb_driver_methods _base_asynchronous_channel_methods
 
 /**
  * @extends BaseAsynchronousChannelVMT
@@ -157,9 +158,9 @@ struct QMKUSBDriver {
 /* External declarations.                                                    */
 /*===========================================================================*/
 
-#ifdef __cplusplus
+#    ifdef __cplusplus
 extern "C" {
-#endif
+#    endif
 void qmkusbInit(void);
 void qmkusbObjectInit(QMKUSBDriver *qmkusbp, const QMKUSBConfig *config);
 void qmkusbStart(QMKUSBDriver *qmkusbp, const QMKUSBConfig *config);
@@ -172,8 +173,10 @@ void qmkusbSOFHookI(QMKUSBDriver *qmkusbp);
 void qmkusbDataTransmitted(USBDriver *usbp, usbep_t ep);
 void qmkusbDataReceived(USBDriver *usbp, usbep_t ep);
 void qmkusbInterruptTransmitted(USBDriver *usbp, usbep_t ep);
-#ifdef __cplusplus
+#    ifdef __cplusplus
 }
-#endif
+#    endif
+
+#endif /* USB_DRIVER_H */
 
 /** @} */

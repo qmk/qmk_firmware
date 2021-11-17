@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef PROCESS_TAP_DANCE_H
+#define PROCESS_TAP_DANCE_H
 
 #ifdef TAP_DANCE_ENABLE
 
@@ -99,5 +99,7 @@ void qk_tap_dance_dual_role_reset(qk_tap_dance_state_t *state, void *user_data);
 #else
 
 #    define TD(n) KC_NO
+
+#endif
 
 #endif

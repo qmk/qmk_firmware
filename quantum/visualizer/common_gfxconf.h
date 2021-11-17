@@ -19,7 +19,8 @@
  * Please use spaces instead of tabs in this file.
  */
 
-#pragma once
+#ifndef COMMON_GFXCONF_H
+#define COMMON_GFXCONF_H
 
 ///////////////////////////////////////////////////////////////////////////
 // GFX - Compatibility options                                           //
@@ -352,3 +353,5 @@
 #define GMISC_NEED_MATRIXFLOAT2D GFXON
 #define GMISC_NEED_MATRIXFIXED2D GFXOFF
 //#define GMISC_NEED_HITTEST_POLY                      GFXOFF
+
+#endif /* COMMON_GFXCONF_H */

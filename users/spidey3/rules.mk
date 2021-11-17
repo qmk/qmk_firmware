@@ -1,5 +1,3 @@
-BOOTMAGIC_ENABLE = lite
-LTO_ENABLE = yes
 
 SRC += init.c
 SRC += spidey3.c

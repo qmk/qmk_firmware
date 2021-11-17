@@ -15,7 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef HOST_DRIVER_H
+#define HOST_DRIVER_H
 
 #include <stdint.h>
 #include "report.h"
@@ -30,3 +31,5 @@ typedef struct {
     void (*send_system)(uint16_t);
     void (*send_consumer)(uint16_t);
 } host_driver_t;
+
+#endif

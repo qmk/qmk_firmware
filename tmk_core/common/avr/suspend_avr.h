@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SUSPEND_AVR_H
+#define SUSPEND_AVR_H
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -23,3 +24,5 @@ __asm__ __volatile__ (                      \
     : "r0"  \
 )
 // clang-format on
+
+#endif

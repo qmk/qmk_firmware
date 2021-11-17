@@ -18,3 +18,4 @@ OPT_DEFS += -DFIXED_NUM_CONFIGURATIONS=1
 ifeq ($(strip $(MIDI_ENABLE)), yes)
   include $(TMK_PATH)/protocol/midi.mk
 endif
+

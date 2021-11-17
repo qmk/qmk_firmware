@@ -35,7 +35,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
 
-#pragma once
+#ifndef ADB_H
+#define ADB_H
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -56,3 +57,5 @@ void     adb_host_listen(uint8_t cmd, uint8_t data_h, uint8_t data_l);
 void     adb_host_kbd_led(uint8_t led);
 void     adb_mouse_task(void);
 void     adb_mouse_init(void);
+
+#endif

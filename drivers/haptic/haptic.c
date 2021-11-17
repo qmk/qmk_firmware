@@ -18,6 +18,8 @@
 #include "eeconfig.h"
 #include "progmem.h"
 #include "debug.h"
+#include "power.h"
+#include "action_tapping.h"
 #ifdef DRV2605L
 #    include "DRV2605L.h"
 #endif
@@ -26,6 +28,30 @@
 #endif
 
 haptic_config_t haptic_config;
+
+static void update_haptic_enable_gpios(void) {
+    if (haptic_config.enable && ((!HAPTIC_OFF_IN_LOW_POWER) || (power_state == POWER_STATE_CONFIGURED))) {
+#if defined(HAPTIC_ENABLE_PIN)
+        HAPTIC_ENABLE_PIN_WRITE_ACTIVE();
+#endif
+#if defined(HAPTIC_ENABLE_STATUS_LED)
+        HAPTIC_ENABLE_STATUS_LED_WRITE_ACTIVE();
+#endif
+    } else {
+#if defined(HAPTIC_ENABLE_PIN)
+        HAPTIC_ENABLE_PIN_WRITE_INACTIVE();
+#endif
+#if defined(HAPTIC_ENABLE_STATUS_LED)
+        HAPTIC_ENABLE_STATUS_LED_WRITE_INACTIVE();
+#endif
+    }
+}
+
+static void set_haptic_config_enable(bool enabled)
+{
+    haptic_config.enable = enabled;
+    update_haptic_enable_gpios();
+}
 
 void haptic_init(void) {
     debug_enable = 1;  // Debug is ON!
@@ -40,12 +66,16 @@ void haptic_init(void) {
 #ifdef SOLENOID_ENABLE
         || (haptic_config.dwell == 0)
 #endif
-    ) {
+       ) {
         // this will be called, if the eeprom is not corrupt,
         // but the previous firmware didn't have haptic enabled,
         // or the previous firmware didn't have solenoid enabled,
         // and the current one has solenoid enabled.
         haptic_reset();
+    } else {
+        // Haptic configuration has been loaded through the "raw" union item.
+        // This is to execute any side effects of the configuration.
+        set_haptic_config_enable(haptic_config.enable);
     }
 #ifdef SOLENOID_ENABLE
     solenoid_setup();
@@ -56,6 +86,12 @@ void haptic_init(void) {
     dprintf("DRV2605 driver initialized\n");
 #endif
     eeconfig_debug_haptic();
+#ifdef HAPTIC_ENABLE_PIN
+    setPinOutput(HAPTIC_ENABLE_PIN);
+#endif
+#ifdef HAPTIC_ENABLE_STATUS_LED
+    setPinOutput(HAPTIC_ENABLE_STATUS_LED);
+#endif
 }
 
 void haptic_task(void) {
@@ -71,13 +107,13 @@ void eeconfig_debug_haptic(void) {
 }
 
 void haptic_enable(void) {
-    haptic_config.enable = 1;
+    set_haptic_config_enable(true);
     xprintf("haptic_config.enable = %u\n", haptic_config.enable);
     eeconfig_update_haptic(haptic_config.raw);
 }
 
 void haptic_disable(void) {
-    haptic_config.enable = 0;
+    set_haptic_config_enable(false);
     xprintf("haptic_config.enable = %u\n", haptic_config.enable);
     eeconfig_update_haptic(haptic_config.raw);
 }
@@ -159,7 +195,7 @@ void haptic_dwell_decrease(void) {
 }
 
 void haptic_reset(void) {
-    haptic_config.enable   = true;
+    set_haptic_config_enable(true);
     uint8_t feedback       = HAPTIC_FEEDBACK_DEFAULT;
     haptic_config.feedback = feedback;
 #ifdef DRV2605L
@@ -291,6 +327,73 @@ void haptic_play(void) {
 #endif
 }
 
+__attribute__((weak)) bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+#    ifdef NO_HAPTIC_MOD
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            if (record->tap.count == 0) return false;
+            break;
+        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+            if (record->tap.count != TAPPING_TOGGLE) return false;
+            break;
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            if (record->tap.count == 0) return false;
+            break;
+        case KC_LCTRL ... KC_RGUI:
+        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+#    endif
+#    ifdef NO_HAPTIC_FN
+        case KC_FN0 ... KC_FN31:
+#    endif
+#    ifdef NO_HAPTIC_ALPHA
+        case KC_A ... KC_Z:
+#    endif
+#    ifdef NO_HAPTIC_PUNCTUATION
+        case KC_ENTER:
+        case KC_ESCAPE:
+        case KC_BSPACE:
+        case KC_SPACE:
+        case KC_MINUS:
+        case KC_EQUAL:
+        case KC_LBRACKET:
+        case KC_RBRACKET:
+        case KC_BSLASH:
+        case KC_NONUS_HASH:
+        case KC_SCOLON:
+        case KC_QUOTE:
+        case KC_GRAVE:
+        case KC_COMMA:
+        case KC_SLASH:
+        case KC_DOT:
+        case KC_NONUS_BSLASH:
+#    endif
+#    ifdef NO_HAPTIC_LOCKKEYS
+        case KC_CAPSLOCK:
+        case KC_SCROLLLOCK:
+        case KC_NUMLOCK:
+#    endif
+#    ifdef NO_HAPTIC_NAV
+        case KC_PSCREEN:
+        case KC_PAUSE:
+        case KC_INSERT:
+        case KC_DELETE:
+        case KC_PGDOWN:
+        case KC_PGUP:
+        case KC_LEFT:
+        case KC_UP:
+        case KC_RIGHT:
+        case KC_DOWN:
+        case KC_END:
+        case KC_HOME:
+#    endif
+#    ifdef NO_HAPTIC_NUMERIC
+        case KC_1 ... KC_0:
+#    endif
+         return false;
+    }
+    return true;
+}
+
 bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     if (keycode == HPT_ON && record->event.pressed) {
         haptic_enable();
@@ -332,15 +435,15 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
         haptic_cont_decrease();
     }
 
-    if (haptic_config.enable) {
+    if (haptic_config.enable && ((!HAPTIC_OFF_IN_LOW_POWER) || (power_state == POWER_STATE_CONFIGURED))) {
         if (record->event.pressed) {
             // keypress
-            if (haptic_config.feedback < 2) {
+            if (haptic_config.feedback < 2 && get_haptic_enabled_key(keycode, record)) {
                 haptic_play();
             }
         } else {
             // keyrelease
-            if (haptic_config.feedback > 0) {
+            if (haptic_config.feedback > 0 && get_haptic_enabled_key(keycode, record)) {
                 haptic_play();
             }
         }
@@ -351,5 +454,15 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
 void haptic_shutdown(void) {
 #ifdef SOLENOID_ENABLE
     solenoid_shutdown();
+#endif
+}
+
+void haptic_notify_power_state_change(void) {
+    update_haptic_enable_gpios();
+#if defined(HAPTIC_ENABLE_PIN)
+    setPinOutput(HAPTIC_ENABLE_PIN);
+#endif
+#if defined(HAPTIC_ENABLE_STATUS_LED)
+    setPinOutput(HAPTIC_ENABLE_STATUS_LED);
 #endif
 }

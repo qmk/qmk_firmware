@@ -22,7 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#pragma once
+#ifndef SERIAL_LINK_H
+#define SERIAL_LINK_H
 
 #include "host_driver.h"
 #include <stdbool.h>
@@ -35,7 +36,7 @@ host_driver_t* get_serial_link_driver(void);
 void           serial_link_update(void);
 
 #if defined(PROTOCOL_CHIBIOS)
-#    include <ch.h>
+#    include "ch.h"
 
 static inline void serial_link_lock(void) { chSysLock(); }
 
@@ -50,5 +51,7 @@ inline void serial_link_lock(void) {}
 inline void serial_link_unlock(void) {}
 
 void signal_data_written(void);
+
+#endif
 
 #endif

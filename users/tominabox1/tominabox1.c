@@ -106,7 +106,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 #endif // CRKBD
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case LSFT_T(KC_CAPS):
             return 250;

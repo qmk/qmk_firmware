@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SLEEP_LED_H
+#define SLEEP_LED_H
 
 #ifdef SLEEP_LED_ENABLE
 
@@ -13,5 +14,7 @@ void sleep_led_toggle(void);
 #    define sleep_led_enable()
 #    define sleep_led_disable()
 #    define sleep_led_toggle()
+
+#endif
 
 #endif

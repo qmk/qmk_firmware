@@ -21,7 +21,8 @@
  * @brief Device implementation functions
  */
 
-#pragma once
+#ifndef MIDI_DEVICE_H
+#define MIDI_DEVICE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -145,4 +146,6 @@ void midi_device_set_pre_input_process_func(MidiDevice* device, midi_no_byte_fun
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif

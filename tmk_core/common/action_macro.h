@@ -14,9 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#pragma once
-
+#ifndef ACTION_MACRO_H
+#define ACTION_MACRO_H
 #include <stdint.h>
 #include "progmem.h"
 
@@ -121,3 +120,5 @@ enum macro_command_id {
 /* for backward comaptibility */
 #define MD(key) DOWN(KC_##key)
 #define MU(key) UP(KC_##key)
+
+#endif /* ACTION_MACRO_H */

@@ -1,3 +1,5 @@
+#ifndef LCD_H
+#define LCD_H
 /*************************************************************************
  Title	:   C include file for the HD44780U LCD library (lcd.c)
  Author:    Peter Fleury <pfleury@gmx.ch>  http://tinyurl.com/peterfleury
@@ -40,8 +42,6 @@
  @copyright (C) 2015 Peter Fleury, GNU General Public License Version 3
 
 */
-
-#pragma once
 
 #include <inttypes.h>
 #include <avr/pgmspace.h>
@@ -346,3 +346,5 @@ extern void lcd_data(uint8_t data);
 #define lcd_puts_P(__s) lcd_puts_p(PSTR(__s))
 
 /**@}*/
+
+#endif  // LCD_H

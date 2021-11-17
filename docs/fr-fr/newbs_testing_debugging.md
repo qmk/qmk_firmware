@@ -42,9 +42,7 @@ Vous préférez une solution basée sur le terminal? [hid_listen](https://www.pj
 
 Parfois, il est utile d'afficher des messages de débugage depuis votre [code custom](custom_quantum_functions.md). Le faire est assez simple. Commencez par ajouter `print.h` au début de votre fichier:
 
-```c
-#include "print.h"
-```
+    #include <print.h>
 
 Une fois fait, vous pouvez utiliser les fonctions print suivantes:
 

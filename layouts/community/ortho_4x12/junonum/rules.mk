@@ -1,13 +1,9 @@
 SRC += muse.c
 
-ifeq ($(strip $(KEYBOARD)),$(filter $(strip $(KEYBOARD)), planck/rev2 planck/rev3 planck/rev4 planck/rev5))
-  BACKLIGHT_ENABLE = yes
-else
+ifeq ($(strip $(KEYBOARD)), planck/rev6)
   BACKLIGHT_ENABLE = no
-endif
-
-ifeq ($(strip $(KEYBOARD)), vitamins_included/rev1)
-  NKRO_ENABLE = no
+else
+  BACKLIGHT_ENABLE = yes
 endif
 
 MIDI_ENABLE=no

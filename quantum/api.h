@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef _API_H_
+#define _API_H_
 
 #ifdef __AVR__
 #    include "lufa.h"
@@ -53,3 +54,5 @@ __attribute__((weak)) bool process_api_quantum(uint8_t length, uint8_t* data);
 __attribute__((weak)) bool process_api_keyboard(uint8_t length, uint8_t* data);
 
 __attribute__((weak)) bool process_api_user(uint8_t length, uint8_t* data);
+
+#endif

@@ -45,7 +45,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
     case RC(ENT):
     case ED(ESC):

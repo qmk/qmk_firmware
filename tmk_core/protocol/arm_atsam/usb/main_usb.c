@@ -19,10 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "conf_usb.h"
 #include "udd.h"
 
-#ifdef RAW_ENABLE
-#    include "raw_hid.h"
-#endif
-
 uint8_t keyboard_protocol = 1;
 
 void main_suspend_action(void) { ui_powerdown(); }
@@ -35,6 +31,7 @@ void main_remotewakeup_enable(void) { ui_wakeup_enable(); }
 
 void main_remotewakeup_disable(void) { ui_wakeup_disable(); }
 
+#ifdef KBD
 volatile bool main_b_kbd_enable = false;
 bool          main_kbd_enable(void) {
     main_b_kbd_enable = true;
@@ -42,8 +39,9 @@ bool          main_kbd_enable(void) {
 }
 
 void main_kbd_disable(void) { main_b_kbd_enable = false; }
+#endif
 
-#ifdef NKRO_ENABLE
+#ifdef NKRO
 volatile bool main_b_nkro_enable = false;
 bool          main_nkro_enable(void) {
     main_b_nkro_enable = true;
@@ -53,7 +51,7 @@ bool          main_nkro_enable(void) {
 void main_nkro_disable(void) { main_b_nkro_enable = false; }
 #endif
 
-#ifdef EXTRAKEY_ENABLE
+#ifdef EXK
 volatile bool main_b_exk_enable = false;
 bool          main_exk_enable(void) {
     main_b_exk_enable = true;
@@ -63,7 +61,7 @@ bool          main_exk_enable(void) {
 void main_exk_disable(void) { main_b_exk_enable = false; }
 #endif
 
-#ifdef CONSOLE_ENABLE
+#ifdef CON
 volatile bool main_b_con_enable = false;
 bool          main_con_enable(void) {
     main_b_con_enable = true;
@@ -73,7 +71,7 @@ bool          main_con_enable(void) {
 void main_con_disable(void) { main_b_con_enable = false; }
 #endif
 
-#ifdef MOUSE_ENABLE
+#ifdef MOU
 volatile bool main_b_mou_enable = false;
 bool          main_mou_enable(void) {
     main_b_mou_enable = true;
@@ -83,7 +81,7 @@ bool          main_mou_enable(void) {
 void main_mou_disable(void) { main_b_mou_enable = false; }
 #endif
 
-#ifdef RAW_ENABLE
+#ifdef RAW
 volatile bool main_b_raw_enable = false;
 bool          main_raw_enable(void) {
     main_b_raw_enable = true;
@@ -91,6 +89,4 @@ bool          main_raw_enable(void) {
 }
 
 void main_raw_disable(void) { main_b_raw_enable = false; }
-
-void main_raw_receive(uint8_t *buffer, uint8_t len) { raw_hid_receive(buffer, len); }
 #endif

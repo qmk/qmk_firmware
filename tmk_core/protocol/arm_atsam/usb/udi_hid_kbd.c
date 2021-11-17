@@ -55,11 +55,12 @@
 #include "udi_hid_kbd.h"
 #include <string.h>
 #include "report.h"
-#include "usb_descriptor_common.h"
 
 //***************************************************************************
 // KBD
 //***************************************************************************
+#ifdef KBD
+
 bool    udi_hid_kbd_enable(void);
 void    udi_hid_kbd_disable(void);
 bool    udi_hid_kbd_setup(void);
@@ -195,10 +196,12 @@ static void udi_hid_kbd_setreport_valid(void) {
     // UDI_HID_KBD_CHANGE_LED(udi_hid_kbd_report_set);
 }
 
+#endif  // KBD
+
 //********************************************************************************************
 // NKRO Keyboard
 //********************************************************************************************
-#ifdef NKRO_ENABLE
+#ifdef NKRO
 
 bool    udi_hid_nkro_enable(void);
 void    udi_hid_nkro_disable(void);
@@ -333,12 +336,12 @@ static void udi_hid_nkro_setreport_valid(void) {
     // UDI_HID_NKRO_CHANGE_LED(udi_hid_nkro_report_set);
 }
 
-#endif  // NKRO_ENABLE
+#endif  // NKRO
 
 //********************************************************************************************
 // EXK (extra-keys) SYS-CTRL  Keyboard
 //********************************************************************************************
-#ifdef EXTRAKEY_ENABLE
+#ifdef EXK
 
 bool    udi_hid_exk_enable(void);
 void    udi_hid_exk_disable(void);
@@ -464,12 +467,12 @@ static void udi_hid_exk_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
 
 static void udi_hid_exk_setreport_valid(void) {}
 
-#endif  // EXTRAKEY_ENABLE
+#endif  // EXK
 
 //********************************************************************************************
 // MOU Mouse
 //********************************************************************************************
-#ifdef MOUSE_ENABLE
+#ifdef MOU
 
 bool    udi_hid_mou_enable(void);
 void    udi_hid_mou_disable(void);
@@ -598,12 +601,12 @@ static void udi_hid_mou_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
     }
 }
 
-#endif  // MOUSE_ENABLE
+#endif  // MOU
 
 //********************************************************************************************
 // RAW
 //********************************************************************************************
-#ifdef RAW_ENABLE
+#ifdef RAW
 
 bool    udi_hid_raw_enable(void);
 void    udi_hid_raw_disable(void);
@@ -638,12 +641,9 @@ COMPILER_WORD_ALIGNED
 static uint8_t udi_hid_raw_report_trans[UDI_HID_RAW_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
-static uint8_t udi_hid_raw_report_recv[UDI_HID_RAW_REPORT_SIZE];
-
-COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_raw_report_desc_t udi_hid_raw_report_desc = {{
-    0x06, RAW_USAGE_PAGE_LO, RAW_USAGE_PAGE_HI,  // Usage Page (Vendor Defined)
-    0x09, RAW_USAGE_ID,        // Usage (Vendor Defined)
+    0x06, 0x60, 0xFF,  // Usage Page (Vendor Defined)
+    0x09, 0x61,        // Usage (Vendor Defined)
     0xA1, 0x01,        // Collection (Application)
     0x75, 0x08,        //   Report Size (8)
     0x15, 0x00,        //   Logical Minimum (0)
@@ -663,7 +663,6 @@ static bool udi_hid_raw_setreport(void);
 static void udi_hid_raw_setreport_valid(void);
 
 static void udi_hid_raw_report_sent(udd_ep_status_t status, iram_size_t nb_sent, udd_ep_id_t ep);
-static void udi_hid_raw_report_rcvd(udd_ep_status_t status, iram_size_t nb_rcvd, udd_ep_id_t ep);
 
 bool udi_hid_raw_enable(void) {
     // Initialize internal values
@@ -720,35 +719,12 @@ static void udi_hid_raw_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
 
 static void udi_hid_raw_setreport_valid(void) {}
 
-void raw_hid_send(uint8_t *data, uint8_t length) {
-    if (main_b_raw_enable && !udi_hid_raw_b_report_trans_ongoing && length == UDI_HID_RAW_REPORT_SIZE) {
-        memcpy(udi_hid_raw_report, data, UDI_HID_RAW_REPORT_SIZE);
-        udi_hid_raw_send_report();
-    }
-}
-
-bool udi_hid_raw_receive_report(void) {
-    if (!main_b_raw_enable) {
-        return false;
-    }
-
-    return udd_ep_run(UDI_HID_RAW_EP_OUT | USB_EP_DIR_OUT, false, udi_hid_raw_report_recv, UDI_HID_RAW_REPORT_SIZE, udi_hid_raw_report_rcvd);
-}
-
-static void udi_hid_raw_report_rcvd(udd_ep_status_t status, iram_size_t nb_rcvd, udd_ep_id_t ep) {
-    UNUSED(ep);
-
-    if (status == UDD_EP_TRANSFER_OK && nb_rcvd == UDI_HID_RAW_REPORT_SIZE) {
-        UDI_HID_RAW_RECEIVE(udi_hid_raw_report_recv, UDI_HID_RAW_REPORT_SIZE);
-    }
-}
-
-#endif // RAW_ENABLE
+#endif  // RAW
 
 //********************************************************************************************
 // CON
 //********************************************************************************************
-#ifdef CONSOLE_ENABLE
+#ifdef CON
 
 bool    udi_hid_con_enable(void);
 void    udi_hid_con_disable(void);
@@ -863,4 +839,4 @@ static void udi_hid_con_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
 
 static void udi_hid_con_setreport_valid(void) {}
 
-#endif  // CONSOLE_ENABLE
+#endif  // CON

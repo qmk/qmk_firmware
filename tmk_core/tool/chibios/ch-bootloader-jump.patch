@@ -1,0 +1,116 @@
+diff --git a/os/common/ports/ARMCMx/compilers/GCC/crt0_v6m.s b/os/common/ports/ARMCMx/compilers/GCC/crt0_v6m.s
+index 51a79bb..42d07bd 100644
+--- a/os/common/ports/ARMCMx/compilers/GCC/crt0_v6m.s
++++ b/os/common/ports/ARMCMx/compilers/GCC/crt0_v6m.s
+@@ -105,6 +105,13 @@
+ #define CRT0_CALL_DESTRUCTORS               TRUE
+ #endif
+ 
++/**
++ * @brief   Magic number for jumping to bootloader.
++ */
++#if !defined(MAGIC_BOOTLOADER_NUMBER) || defined(__DOXYGEN__)
++#define MAGIC_BOOTLOADER_NUMBER 0xDEADBEEF
++#endif
++
+ /*===========================================================================*/
+ /* Code section.                                                             */
+ /*===========================================================================*/
+@@ -124,6 +131,17 @@
+                 .thumb_func
+                 .global Reset_Handler
+ Reset_Handler:
++
++#ifdef STM32_BOOTLOADER_ADDRESS
++                /* jump to bootloader code */
++                ldr        r0, =__ram0_end__-4
++                ldr        r1, =MAGIC_BOOTLOADER_NUMBER
++                ldr        r2, [r0, #0]
++                str        r0, [r0, #0] /* erase stored magic */
++                cmp        r2, r1
++                beq        Bootloader_Jump
++#endif /* STM32_BOOTLOADER_ADDRESS */
++
+                 /* Interrupts are globally masked initially.*/
+                 cpsid   i
+ 
+@@ -242,6 +260,21 @@ endfiniloop:
+                 ldr     r1, =__default_exit
+                 bx      r1
+ 
++#ifdef STM32_BOOTLOADER_ADDRESS
++/*
++ * Jump-to-bootloader function.
++ */
++
++                .align  2
++                .thumb_func
++Bootloader_Jump:
++                ldr     r0, =STM32_BOOTLOADER_ADDRESS
++                ldr     r1, [r0, #0]
++                mov     sp, r1
++                ldr     r0, [r0, #4]
++                bx      r0
++#endif /* STM32_BOOTLOADER_ADDRESS */
++
+ #endif
+ 
+ /** @} */
+diff --git a/os/common/ports/ARMCMx/compilers/GCC/crt0_v7m.s b/os/common/ports/ARMCMx/compilers/GCC/crt0_v7m.s
+index 4812a29..dca9f88 100644
+--- a/os/common/ports/ARMCMx/compilers/GCC/crt0_v7m.s
++++ b/os/common/ports/ARMCMx/compilers/GCC/crt0_v7m.s
+@@ -140,6 +140,13 @@
+ #define CRT0_CPACR_INIT                     0x00F00000
+ #endif
+ 
++/**
++ * @brief   Magic number for jumping to bootloader.
++ */
++#if !defined(MAGIC_BOOTLOADER_NUMBER) || defined(__DOXYGEN__)
++#define MAGIC_BOOTLOADER_NUMBER 0xDEADBEEF
++#endif
++
+ /*===========================================================================*/
+ /* Code section.                                                             */
+ /*===========================================================================*/
+@@ -164,6 +171,17 @@
+                 .thumb_func
+                 .global Reset_Handler
+ Reset_Handler:
++
++#ifdef STM32_BOOTLOADER_ADDRESS
++                /* jump to bootloader code */
++                ldr        r0, =__ram0_end__-4
++                ldr        r1, =MAGIC_BOOTLOADER_NUMBER
++                ldr        r2, [r0, #0]
++                str        r0, [r0, #0] /* erase stored magic */
++                cmp        r2, r1
++                beq        Bootloader_Jump
++#endif /* STM32_BOOTLOADER_ADDRESS */
++
+                 /* Interrupts are globally masked initially.*/
+                 cpsid   i
+ 
+@@ -305,6 +323,21 @@ endfiniloop:
+                 /* Branching to the defined exit handler.*/
+                 b       __default_exit
+ 
++#ifdef STM32_BOOTLOADER_ADDRESS
++/*
++ * Jump-to-bootloader function.
++ */
++
++                .align  2
++                .thumb_func
++Bootloader_Jump:
++                ldr     r0, =STM32_BOOTLOADER_ADDRESS
++                ldr     r1, [r0, #0]
++                mov     sp, r1
++                ldr     r0, [r0, #4]
++                bx      r0
++#endif /* STM32_BOOTLOADER_ADDRESS */
++
+ #endif /* !defined(__DOXYGEN__) */
+ 
+ /** @} */
