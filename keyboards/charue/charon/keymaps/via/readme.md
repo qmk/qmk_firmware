@@ -1,1 +1,1 @@
-# The default VIA keymap for charon
+# The VIA keymap for charon
