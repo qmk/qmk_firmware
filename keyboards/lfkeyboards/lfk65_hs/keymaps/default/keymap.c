@@ -52,19 +52,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     F(5),    F(2),F(4), KC_TR, KC_TR, KC_TR, KC_TR, MU_TOG, RGB_VAD, RGB_VAI, KC_TR, KC_TR,        RGB_HUI,  KC_TR,
     KC_TR, KC_TR, KC_TR,         KC_TR,       KC_TR, KC_TR, KC_TR, RGB_SAD, RGB_HUD,  RGB_SAI),
 };
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

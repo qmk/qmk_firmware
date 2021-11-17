@@ -30,7 +30,7 @@
 #    ifdef WPM_ENABLE
 #        define SPLIT_WPM_ENABLE
 #    endif
-#    ifdef OLED_DRIVER_ENABLE
+#    ifdef OLED_ENABLE
 #        define SPLIT_OLED_ENABLE
 #    endif
 #    if defined(__AVR__) && !defined(SELECT_SOFT_SERIAL_SPEED)
@@ -83,62 +83,103 @@
 // #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 // #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 
-#    if defined(__AVR__) && !defined(__AVR_AT90USB1286__) && !defined(KEYBOARD_launchpad)
-#        define DISABLE_RGB_MATRIX_ALPHAS_MODS
-#        define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-#        define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-#        define DISABLE_RGB_MATRIX_BREATHING
-#        define DISABLE_RGB_MATRIX_BAND_SAT
-#        define DISABLE_RGB_MATRIX_BAND_VAL
-#        define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#        define DISABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-#        define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#        define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL
-#        define DISABLE_RGB_MATRIX_CYCLE_ALL
-#        define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#        define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
-#        if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_moonlander)
-#            define DISABLE_RGB_MATRIX_CYCLE_OUT_IN
-// #       define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#        endif
-#        define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#        define DISABLE_RGB_MATRIX_DUAL_BEACON
-#        define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#        define DISABLE_RGB_MATRIX_CYCLE_SPIRAL
-#        define DISABLE_RGB_MATRIX_RAINBOW_BEACON
-#        define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-#        define DISABLE_RGB_MATRIX_RAINDROPS
-#        define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-#        define DISABLE_RGB_MATRIX_HUE_BREATHING
-#        define DISABLE_RGB_MATRIX_HUE_PENDULUM
-#        define DISABLE_RGB_MATRIX_HUE_WAVE
-#        define DISABLE_RGB_MATRIX_PIXEL_RAIN
-#        define DISABLE_RGB_MATRIX_PIXEL_FLOW
-#        define DISABLE_RGB_MATRIX_PIXEL_FRACTAL
-// #       define DISABLE_RGB_MATRIX_TYPING_HEATMAP
-#        define DISABLE_RGB_MATRIX_DIGITAL_RAIN
-#        define DISABLE_RGB_MATRIX_SOLID_REACTIVE
-#        define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#        define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#        define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#        define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#        define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#        define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#        define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#        define DISABLE_RGB_MATRIX_SPLASH
-#        define DISABLE_RGB_MATRIX_MULTISPLASH
-#        define DISABLE_RGB_MATRIX_SOLID_SPLASH
-#        define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#    endif  // AVR
-#    ifndef RGB_MATRIX_REST_MODE
-#        if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_moonlander)
-#            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#        else
-#            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
-#        endif
+#    undef ENABLE_RGB_MATRIX_ALPHAS_MODS
+#    undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#    undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+#    undef ENABLE_RGB_MATRIX_BREATHING
+#    undef ENABLE_RGB_MATRIX_BAND_SAT
+#    undef ENABLE_RGB_MATRIX_BAND_VAL
+#    undef ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+#    undef ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+#    undef ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+#    undef ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+#    undef ENABLE_RGB_MATRIX_CYCLE_ALL
+#    undef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#    undef ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+#    undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+#    undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+#    undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#    undef ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+#    undef ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+#    undef ENABLE_RGB_MATRIX_DUAL_BEACON
+#    undef ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#    undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+#    undef ENABLE_RGB_MATRIX_RAINDROPS
+#    undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#    undef ENABLE_RGB_MATRIX_HUE_BREATHING
+#    undef ENABLE_RGB_MATRIX_HUE_PENDULUM
+#    undef ENABLE_RGB_MATRIX_HUE_WAVE
+#    undef ENABLE_RGB_MATRIX_PIXEL_RAIN
+#    undef ENABLE_RGB_MATRIX_PIXEL_FLOW
+#    undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+// enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
+#    undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#    undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
+// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
+#    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
+#    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#    undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#    undef ENABLE_RGB_MATRIX_SPLASH
+#    undef ENABLE_RGB_MATRIX_MULTISPLASH
+#    undef ENABLE_RGB_MATRIX_SOLID_SPLASH
+#    undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+
+#    define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#    if !defined(SPLIT_KEYBOARD) && !defined(KEYBOARD_ergodox_ez) && !defined(KEYBOARD_moonlander)
+#        define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
 #    endif
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
-#endif  // RGB_MATRIX_ENABLE
+#    if defined(__arm__) || defined(__AVR_AT90USB1286__) || defined(KEYBOARD_launchpad)
+// RGB Matrix Animation modes. Explicitly enabled
+// For full list of effects, see:
+// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
+#        define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#        define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+#        define ENABLE_RGB_MATRIX_BREATHING
+#        define ENABLE_RGB_MATRIX_BAND_SAT
+#        define ENABLE_RGB_MATRIX_BAND_VAL
+#        define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+#        define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+#        define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+#        define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+#        define ENABLE_RGB_MATRIX_CYCLE_ALL
+#        define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#        define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+#        define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+#        define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+#        define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+#        define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+#        define ENABLE_RGB_MATRIX_DUAL_BEACON
+#        define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#        define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+#        define ENABLE_RGB_MATRIX_RAINDROPS
+#        define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#        define ENABLE_RGB_MATRIX_HUE_BREATHING
+#        define ENABLE_RGB_MATRIX_HUE_PENDULUM
+#        define ENABLE_RGB_MATRIX_HUE_WAVE
+#        define ENABLE_RGB_MATRIX_PIXEL_RAIN
+#        define ENABLE_RGB_MATRIX_PIXEL_FLOW
+#        define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+#        define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#        define ENABLE_RGB_MATRIX_SPLASH
+#        define ENABLE_RGB_MATRIX_MULTISPLASH
+#        define ENABLE_RGB_MATRIX_SOLID_SPLASH
+#        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+#    endif  // AVR
+#endif      // RGB_MATRIX_ENABLE
 
 #ifdef OLED_ENABLE
 #    ifdef SPLIT_KEYBOARD
@@ -155,6 +196,9 @@
 // #    define OLED_FONT_5X5
 // #    define OLED_FONT_AZTECH
 // #    define OLED_FONT_BMPLAIN
+// #    define OLED_FONT_CRACKERS
+// #    define OLED_FONT_HISKYF21
+#    define OLED_FONT_DEAD_MEAL
 // #    define OLED_FONT_SUPER_DIGG
 // #    define OLED_LOGO_GMK_BAD
 // #    define OLED_LOGO_HUE_MANITEE
@@ -171,22 +215,12 @@
 #    define ONESHOT_TIMEOUT 3000
 #endif  // !ONESHOT_TIMEOUT
 
-#ifdef QMK_KEYS_PER_SCAN
-#    undef QMK_KEYS_PER_SCAN
-#endif
-#define QMK_KEYS_PER_SCAN 4
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+#define PERMISSIVE_HOLD_PER_KEY
+#define TAPPING_FORCE_HOLD_PER_KEY
+#define RETRO_TAPPING_PER_KEY
+#define TAPPING_TERM_PER_KEY
 
-// this makes it possible to do rolling combos (zx) with keys that
-// convert to other keys on hold (z becomes ctrl when you hold it,
-// and when this option isn't enabled, z rapidly followed by x
-// actually sends Ctrl-x. That's bad.)
-#define IGNORE_MOD_TAP_INTERRUPT
-#undef PERMISSIVE_HOLD
-//#define TAPPING_FORCE_HOLD_PER_KEY
-//#define RETRO_TAPPING_PER_KEY
-#if !defined(KEYBOARD_kyria) && !defined(KEYBOARD_splitkb_kyria)
-#    define TAPPING_TERM_PER_KEY
-#endif
 
 #ifndef TAPPING_TOGGLE
 #    define TAPPING_TOGGLE 1
@@ -213,13 +247,6 @@
 #    undef LOCKING_RESYNC_ENABLE
 #endif
 
-#if !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_32BIT)
-#    define LAYER_STATE_16BIT
-#endif
-#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 11
-#endif
-
 #ifdef CONVERT_TO_PROTON_C
 // pins that are available but not present on Pro Micro
 #    define A3  PAL_LINE(GPIOA, 3)
@@ -238,79 +265,3 @@
 #    define C14 PAL_LINE(GPIOC, 14)
 #    define C15 PAL_LINE(GPIOC, 15)
 #endif
-
-#ifdef MOUSEKEY_ENABLE
-// mouse movement config
-#    ifdef MK_3_SPEED
-#        undef MK_3_SPEED
-#    endif
-#    define MK_KINETIC_SPEED
-#    ifdef MK_KINETIC_SPEED
-#        ifndef MOUSEKEY_DELAY
-#            define MOUSEKEY_DELAY 8
-#        endif
-#        ifndef MOUSEKEY_INTERVAL
-#            define MOUSEKEY_INTERVAL 20
-#        endif
-#        ifdef MOUSEKEY_MOVE_DELTA
-#            define MOUSEKEY_MOVE_DELTA 25
-#        endif
-#    else
-#        ifndef MOUSEKEY_DELAY
-#            define MOUSEKEY_DELAY 300
-#        endif
-#        ifndef MOUSEKEY_INTERVAL
-#            define MOUSEKEY_INTERVAL 50
-#        endif
-#        ifndef MOUSEKEY_MOVE_DELTA
-#            define MOUSEKEY_MOVE_DELTA 5
-#        endif
-#    endif
-#    ifndef MOUSEKEY_MAX_SPEED
-#        define MOUSEKEY_MAX_SPEED 7
-#    endif
-#    ifndef MOUSEKEY_TIME_TO_MAX
-#        define MOUSEKEY_TIME_TO_MAX 60
-#    endif
-#    ifndef MOUSEKEY_INITIAL_SPEED
-#        define MOUSEKEY_INITIAL_SPEED 100
-#    endif
-#    ifndef MOUSEKEY_BASE_SPEED
-#        define MOUSEKEY_BASE_SPEED 1000
-#    endif
-#    ifndef MOUSEKEY_DECELERATED_SPEED
-#        define MOUSEKEY_DECELERATED_SPEED 400
-#    endif
-#    ifndef MOUSEKEY_ACCELERATED_SPEED
-#        define MOUSEKEY_ACCELERATED_SPEED 3000
-#    endif
-// mouse scroll config
-#    ifndef MOUSEKEY_WHEEL_DELAY
-#        define MOUSEKEY_WHEEL_DELAY 15
-#    endif
-#    ifndef MOUSEKEY_WHEEL_DELTA
-#        define MOUSEKEY_WHEEL_DELTA 1
-#    endif
-#    ifndef MOUSEKEY_WHEEL_INTERVAL
-#        define MOUSEKEY_WHEEL_INTERVAL 50
-#    endif
-#    ifndef MOUSEKEY_WHEEL_MAX_SPEED
-#        define MOUSEKEY_WHEEL_MAX_SPEED 8
-#    endif
-#    ifndef MOUSEKEY_WHEEL_TIME_TO_MAX
-#        define MOUSEKEY_WHEEL_TIME_TO_MAX 80
-#    endif
-// mouse scroll kinetic config
-#    ifndef MOUSEKEY_WHEEL_INITIAL_MOVEMENTS
-#        define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 8
-#    endif
-#    ifndef MOUSEKEY_WHEEL_BASE_MOVEMENTS
-#        define MOUSEKEY_WHEEL_BASE_MOVEMENTS 48
-#    endif
-#    ifndef MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS
-#        define MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS 48
-#    endif
-#    ifndef MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS
-#        define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8
-#    endif
-#endif  // MOUSEKEY_ENABLE

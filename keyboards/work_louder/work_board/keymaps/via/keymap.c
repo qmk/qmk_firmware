@@ -27,14 +27,15 @@ enum tap_dances {
     ENC_TAP,
 };
 
-#define LOWER KC_FN13
-#define RAISE KC_FN23
+#define LOWER FN_MO13
+#define RAISE FN_MO23
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_via(
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, USER09,
-        KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_VOLD,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , KC_VOLU,
+        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, USER09,
+        KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_VOLU,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , KC_VOLD,
         KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
 
@@ -59,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     )
 };
-
+// clang-format on
 
 void dance_enc_finished(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
@@ -92,4 +93,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return process_tap_dance(TD(ENC_TAP), record);
     }
     return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePinLow(B2);
+    writePinLow(B3);
+    writePinLow(B7);
+
+    switch (get_highest_layer(state)) {
+        case 1:
+            writePinHigh(B2);
+            break;
+        case 2:
+            writePinHigh(B3);
+            break;
+        case 3:
+            writePinHigh(B7);
+            break;
+    }
+
+    return state;
 }

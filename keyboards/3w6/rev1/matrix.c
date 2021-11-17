@@ -34,9 +34,7 @@ extern i2c_status_t tca9555_status;
 // All address pins of the tca9555 are connected to the ground
 // | 0  | 1  | 0  | 0  | A2 | A1 | A0 |
 // | 0  | 1  | 0  | 0  | 0  | 0  | 0  |
-#define I2C_ADDR 0b0100000
-#define I2C_ADDR_WRITE ((I2C_ADDR << 1) | I2C_WRITE)
-#define I2C_ADDR_READ ((I2C_ADDR << 1) | I2C_READ)
+#define I2C_ADDR (0b0100000 << 1)
 
 // Register addresses
 #define IODIRA 0x06  // i/o direction register
@@ -64,19 +62,14 @@ uint8_t init_tca9555(void) {
     // - unused  : input  : 1
     // - input   : input  : 1
     // - driving : output : 0
-    tca9555_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);
-    if (tca9555_status) goto out;
-    tca9555_status = i2c_write(IODIRA, I2C_TIMEOUT);
-    if (tca9555_status) goto out;
-    // This means: write on pin 5 of port 0, read on rest
-    tca9555_status = i2c_write(0b11011111, I2C_TIMEOUT);
-    if (tca9555_status) goto out;
-    // This means: we will write on pins 0 to 2 on port 1. read rest
-    tca9555_status = i2c_write(0b11111000, I2C_TIMEOUT);
-    if (tca9555_status) goto out;
+    uint8_t conf[2] = {
+        // This means: write on pin 5 of port 0, read on rest
+        0b11011111,
+        // This means: we will write on pins 0 to 2 on port 1. read rest
+        0b11111000,
+    };
+    tca9555_status = i2c_writeReg(I2C_ADDR, IODIRA, conf, 2, I2C_TIMEOUT);
 
-out:
-    i2c_stop();
     return tca9555_status;
 }
 
@@ -192,36 +185,29 @@ static matrix_row_t read_cols(uint8_t row) {
         if (tca9555_status) {  // if there was an error
             return 0;
         } else {
-            uint8_t data    = 0;
-            uint8_t port0   = 0;
-            uint8_t port1   = 0;
-            tca9555_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);
-            if (tca9555_status) goto out;
-            tca9555_status = i2c_write(IREGP0, I2C_TIMEOUT);
-            if (tca9555_status) goto out;
-            tca9555_status = i2c_start(I2C_ADDR_READ, I2C_TIMEOUT);
-            if (tca9555_status) goto out;
-            tca9555_status = i2c_read_ack(I2C_TIMEOUT);
-            if (tca9555_status < 0) goto out;
-            port0 = (uint8_t)tca9555_status;
-            tca9555_status = i2c_read_nack(I2C_TIMEOUT);
-            if (tca9555_status < 0) goto out;
-            port1 = (uint8_t)tca9555_status;
+            uint8_t data     = 0;
+            uint8_t ports[2] = {0};
+            tca9555_status = i2c_readReg(I2C_ADDR, IREGP0, ports, 2, I2C_TIMEOUT);
+            if (tca9555_status) {  // if there was an error
+                // do nothing
+                return 0;
+            } else {
+                uint8_t port0 = ports[0];
+                uint8_t port1 = ports[1];
 
-            // The initial state was all ones and any depressed key at a given column for the currently selected row will have its bit flipped to zero.
-            // The return value is a row as represented in the generic matrix code were the rightmost bits represent the lower columns and zeroes represent non-depressed keys while ones represent depressed keys.
-            // Since the pins are not ordered sequentially, we have to build the correct dataset from the two ports. Refer to the schematic to see where every pin is connected.
-            data |= ( port0 & 0x01 ); 
-            data |= ( port0 & 0x02 ); 
-            data |= ( port1 & 0x10 ) >> 2; 
-            data |= ( port1 & 0x08 ); 
-            data |= ( port0 & 0x40 ) >> 2; 
-            data = ~(data);
+                // The initial state was all ones and any depressed key at a given column for the currently selected row will have its bit flipped to zero.
+                // The return value is a row as represented in the generic matrix code were the rightmost bits represent the lower columns and zeroes represent non-depressed keys while ones represent depressed keys.
+                // Since the pins are not ordered sequentially, we have to build the correct dataset from the two ports. Refer to the schematic to see where every pin is connected.
+                data |= ( port0 & 0x01 ); 
+                data |= ( port0 & 0x02 ); 
+                data |= ( port1 & 0x10 ) >> 2; 
+                data |= ( port1 & 0x08 ); 
+                data |= ( port0 & 0x40 ) >> 2; 
+                data = ~(data);
 
-            tca9555_status = I2C_STATUS_SUCCESS;
-        out:
-            i2c_stop();
-            return data;
+                tca9555_status = I2C_STATUS_SUCCESS;
+                return data;
+            }
         }
     }
 }
@@ -263,18 +249,10 @@ static void select_row(uint8_t row) {
                 default:                    break;
             }
 
-            tca9555_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);
-            if (tca9555_status) goto out;
-            tca9555_status = i2c_write(OREGP0, I2C_TIMEOUT);
-            if (tca9555_status) goto out;
-            tca9555_status = i2c_write(port0, I2C_TIMEOUT);
-            if (tca9555_status) goto out;
-            tca9555_status = i2c_write(port1, I2C_TIMEOUT);
-            if (tca9555_status) goto out;
+            uint8_t ports[2] = {port0, port1};
+            tca9555_status = i2c_writeReg(I2C_ADDR, OREGP0, ports, 2, I2C_TIMEOUT);
             // Select the desired row by writing a byte for the entire GPIOB bus where only the bit representing the row we want to select is a zero (write instruction) and every other bit is a one.
             // Note that the row - MATRIX_ROWS_PER_SIDE reflects the fact that being on the right hand, the columns are numbered from MATRIX_ROWS_PER_SIDE to MATRIX_ROWS, but the pins we want to write to are indexed from zero up on the GPIOB bus.
-        out:
-            i2c_stop();
         }
     }
 }

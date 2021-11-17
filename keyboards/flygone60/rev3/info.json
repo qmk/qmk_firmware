@@ -2,8 +2,6 @@
     "keyboard_name": "Flygone60 Rev3",
     "url": "https://qmk.fm/keyboards/",
     "maintainer": "ShandonCodes",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_60_ansi_arrow": {
             "layout": [

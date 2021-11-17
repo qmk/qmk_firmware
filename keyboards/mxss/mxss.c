@@ -39,13 +39,6 @@ void matrix_init_kb(void) {
 	matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
-}
-
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // Handle custom keycodes for front LED operation
     process_record_fled(keycode, record);

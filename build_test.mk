@@ -4,7 +4,8 @@ endif
 
 .DEFAULT_GOAL := all
 
-include common.mk
+include paths.mk
+include $(BUILDDEFS_PATH)/message.mk
 
 TARGET=test/$(TEST)
 
@@ -52,10 +53,11 @@ include tests/$(TEST)/rules.mk
 endif
 
 include common_features.mk
+include $(BUILDDEFS_PATH)/generic_features.mk
 include $(TMK_PATH)/common.mk
+include $(TMK_PATH)/protocol.mk
 include $(QUANTUM_PATH)/debounce/tests/rules.mk
 include $(QUANTUM_PATH)/sequencer/tests/rules.mk
-include $(QUANTUM_PATH)/serial_link/tests/rules.mk
 include $(TMK_PATH)/common/test/rules.mk
 ifneq ($(filter $(FULL_TESTS),$(TEST)),)
 include build_full_test.mk

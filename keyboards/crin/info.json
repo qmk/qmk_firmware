@@ -2,8 +2,6 @@
     "keyboard_name": "Crin",
     "url": "https://bachoo.com",
     "maintainer": "KnoblesseOblige",
-    "width": 18.5,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT_all",
         "LAYOUT_tsangan": "LAYOUT_ansi_tsangan"

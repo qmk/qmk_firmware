@@ -1,6 +1,7 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2018 Jack Humbert
  * Copyright 2018 Yiancar
+ * Copyright 2021 Doni Crosby
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,6 +55,14 @@
 
 #ifndef ISSI_PERSISTENCE
 #    define ISSI_PERSISTENCE 0
+#endif
+
+#ifndef ISSI_SWPULLUP
+#    define ISSI_SWPULLUP PUR_0R
+#endif
+
+#ifndef ISSI_CSPULLUP
+#    define ISSI_CSPULLUP PUR_0R
 #endif
 
 // Transfer buffer for TWITransmitData()
@@ -143,6 +152,10 @@ void IS31FL3737_init(uint8_t addr) {
 
     // Select PG3
     IS31FL3737_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
+    // Set de-ghost pull-up resistors (SWx)
+    IS31FL3737_write_register(addr, ISSI_REG_SWPULLUP, ISSI_SWPULLUP);
+    // Set de-ghost pull-down resistors (CSx)
+    IS31FL3737_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
     // Set global current to maximum.
     IS31FL3737_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
     // Disable software shutdown.

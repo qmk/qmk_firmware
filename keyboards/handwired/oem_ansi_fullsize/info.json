@@ -2,8 +2,6 @@
     "keyboard_name": "oem_ansi_fullsize",
     "url": "https://github.com/johnstcn/qmk",
     "maintainer": "johnstcn",
-    "width": 22.5,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_fullsize_ansi": {
             "layout": [

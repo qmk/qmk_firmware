@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_TOG,
         _______, _______, RGB_VAI, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______, RESET,            KC_HOME,
         KC_CAPS, _______, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_END,
-        _______,          _______, RGB_HUI, _______, _______, _______, KC_NLCK, _______, RGB_TOD, RGB_TOI, _______,          _______, RGB_MOD, _______,
+        _______,          RGB_NITE,RGB_HUI, _______, _______, _______, KC_NLCK, _______, RGB_TOD, RGB_TOI, _______,          _______, RGB_MOD, _______,
         _______, KC_WINLCK, _______,                            _______,                          _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
 
@@ -66,20 +66,77 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______
     ),
 
+#ifdef COLEMAK_LAYER_ENABLE
+    [_COLEMAK] = LAYOUT(
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_INS,           KC_MUTE,
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_DEL,
+        KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
+        TT(_LOWER), KC_A, KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,          KC_ENT,           KC_PGDN,
+        KC_LSFTCAPSWIN,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
+        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(_FN1),KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+#endif // COLEMAK_LAYER_ENABLE
 };
 
+#if defined(ENCODER_ENABLE) && !defined(ENCODER_DEFAULTACTIONS_ENABLE)     // Encoder Functionality when not using userspace defaults
+    void encoder_action_rgbhue(bool clockwise) {
+        if (clockwise)
+            rgblight_increase_hue_noeeprom();
+        else
+            rgblight_decrease_hue_noeeprom();
+    }
+
+    bool encoder_update_user(uint8_t index, bool clockwise) {
+        uint8_t mods_state = get_mods();
+        if (mods_state & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+            encoder_action_layerchange(clockwise);
+        } else if (mods_state & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, Page up/dn
+            unregister_mods(MOD_BIT(KC_RSFT));
+            encoder_action_navpage(clockwise);
+            register_mods(MOD_BIT(KC_RSFT));
+        } else if (mods_state & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next/prev word
+            encoder_action_navword(clockwise);
+        } else if (mods_state & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, change rgb hue/colour
+            encoder_action_rgbhue(clockwise);
+        } else if (mods_state & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next/prev track
+            encoder_action_mediatrack(clockwise);
+        } else  {
+            switch(get_highest_layer(layer_state)) {
+            case _FN1:
+                #ifdef IDLE_TIMEOUT_ENABLE
+                    timeout_update_threshold(clockwise);
+                #endif
+                break;
+            default:
+                encoder_action_volume(clockwise);       // Otherwise it just changes volume
+                break;
+            }
+        }
+        return true;
+    }
+#endif // ENCODER_ENABLE && !ENCODER_DEFAULTACTIONS_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
     // Capslock, Scroll lock and Numlock  indicator on Left side lights.
     void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+        if (get_rgb_nightmode()) rgb_matrix_set_color_all(RGB_OFF);
         if (IS_HOST_LED_ON(USB_LED_SCROLL_LOCK)) {
             rgb_matrix_set_color(LED_L1, RGB_GREEN);
             rgb_matrix_set_color(LED_L2, RGB_GREEN);
         }
-        if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {   // on if NUM lock is OFF
-            rgb_matrix_set_color(LED_L3, RGB_MAGENTA);
-            rgb_matrix_set_color(LED_L4, RGB_MAGENTA);
-        }
+
+        #ifdef INVERT_NUMLOCK_INDICATOR
+            if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {   // on if NUM lock is OFF
+                rgb_matrix_set_color(LED_L3, RGB_MAGENTA);
+                rgb_matrix_set_color(LED_L4, RGB_MAGENTA);
+            }
+        #else
+            if (IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {   // Normal, on if NUM lock is ON
+                rgb_matrix_set_color(LED_L3, RGB_MAGENTA);
+                rgb_matrix_set_color(LED_L4, RGB_MAGENTA);
+            }
+        #endif // INVERT_NUMLOCK_INDICATOR
+
         if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
             rgb_matrix_set_color(LED_L5, RGB_RED);
             rgb_matrix_set_color(LED_L6, RGB_RED);
@@ -120,6 +177,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             rgb_matrix_set_color(LED_R7, RGB_GREEN);
             rgb_matrix_set_color(LED_R8, RGB_GREEN);
             break;
+#ifdef COLEMAK_LAYER_ENABLE
+       case _COLEMAK:
+            for (uint8_t i=0; i<ARRAYSIZE(LED_SIDE_RIGHT); i++) {
+                rgb_matrix_set_color(LED_SIDE_RIGHT[i], RGB_BLUE);
+            }
+            break;
+#endif
         default:
             break;
         }
@@ -138,6 +202,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void keyboard_post_init_keymap(void) {
     // keyboard_post_init_user() moved to userspace
     #ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
         rgb_matrix_set_color_all(RGB_NAUTILUS); // Default startup colour
+        activate_rgb_nightmode(false);  // Set to true if you want to startup in nightmode, otherwise use Fn + Z to toggle
     #endif
 }

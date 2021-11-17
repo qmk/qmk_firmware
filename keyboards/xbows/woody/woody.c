@@ -97,15 +97,6 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    return process_record_user(keycode, record);
-}
 void suspend_power_down_kb(void)
 {
     rgb_matrix_set_suspend_state(true);

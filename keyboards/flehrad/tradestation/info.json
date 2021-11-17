@@ -2,8 +2,6 @@
     "keyboard_name": "Tradestation",
     "url": "",
     "maintainer": "Flehrad",
-    "width": 4.375,
-    "height": 4.5,
     "layouts": {
         "LAYOUT_tradestation": {
             "layout": [

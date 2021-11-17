@@ -2,8 +2,6 @@
     "keyboard_name": "Binary_Monkey",
     "url": "https://gumroad.com/jkdlab",
     "maintainer": "JKDLAB.",
-    "width": 3,
-    "height": 1,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -2,8 +2,6 @@
     "keyboard_name": "DMOTE 62-key",
     "url": "",
     "maintainer": "veikman",
-    "width": 15,
-    "height": 7.5,
     "layouts": {
         "LAYOUT_62key": {
             "layout": [

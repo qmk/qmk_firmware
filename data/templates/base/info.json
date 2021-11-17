@@ -1,9 +1,7 @@
 {
-    "keyboard_name": "%KEYBOARD%",
+    "keyboard_name": "%(KEYBOARD)s",
     "url": "",
-    "maintainer": "%YOUR_NAME%",
-    "width": 3,
-    "height": 2,
+    "maintainer": "%(USER_NAME)s",
     "layouts": {
         "LAYOUT": {
             "layout": [

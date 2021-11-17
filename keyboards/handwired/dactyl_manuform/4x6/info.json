@@ -2,8 +2,6 @@
     "keyboard_name": "Dactyl Manuform 4x6",
     "url": "",
     "maintainer": "qmk",
-    "width": 17,
-    "height": 7,
     "layouts": {
         "LAYOUT": {
             "layout": [

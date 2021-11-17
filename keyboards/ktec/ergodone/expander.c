@@ -1,8 +1,10 @@
 #include <stdbool.h>
 #include "action.h"
-#include "i2cmaster.h"
+#include "i2c_master.h"
 #include "expander.h"
 #include "debug.h"
+
+#define I2C_TIMEOUT 100
 
 static uint8_t expander_status = 0;
 static uint8_t expander_input = 0;
@@ -20,7 +22,7 @@ void expander_init(void)
 void expander_scan(void)
 {
   dprintf("expander status: %d ... ", expander_status);
-  uint8_t ret = i2c_start(EXPANDER_ADDR | I2C_WRITE);
+  uint8_t ret = i2c_start(EXPANDER_ADDR | I2C_WRITE, I2C_TIMEOUT);
   if (ret == 0) {
     i2c_stop();
     if (expander_status == 0) {
@@ -90,15 +92,7 @@ uint8_t expander_write(uint8_t reg, uint8_t data)
   if (expander_status == 0) {
     return 0;
   }
-  uint8_t ret;
-  ret = i2c_start(EXPANDER_ADDR | I2C_WRITE);
-  if (ret) goto stop;
-  ret = i2c_write(reg);
-  if (ret) goto stop;
-  ret = i2c_write(data);
- stop:
-  i2c_stop();
-  return ret;
+  return i2c_writeReg(EXPANDER_ADDR, reg, &data, 1, I2C_TIMEOUT);
 }
 
 uint8_t expander_read(uint8_t reg, uint8_t *data)
@@ -106,15 +100,5 @@ uint8_t expander_read(uint8_t reg, uint8_t *data)
   if (expander_status == 0) {
     return 0;
   }
-  uint8_t ret;
-  ret = i2c_start(EXPANDER_ADDR | I2C_WRITE);
-  if (ret) goto stop;
-  ret = i2c_write(reg);
-  if (ret) goto stop;
-  ret = i2c_rep_start(EXPANDER_ADDR | I2C_READ);
-  if (ret) goto stop;
-  *data = i2c_readNak();
- stop:
-  i2c_stop();
-  return ret;
+  return i2c_readReg(EXPANDER_ADDR, reg, data, 1, I2C_TIMEOUT);
 }

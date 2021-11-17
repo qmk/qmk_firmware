@@ -2,8 +2,6 @@
     "keyboard_name": "ALU84",
     "url": "",
     "maintainer": "qmk",
-    "width": 16,
-    "height": 6,
     "layout_aliases": {
         "LAYOUT": "LAYOUT_75_ansi"
     },

@@ -2,8 +2,6 @@
     "keyboard_name": "MOMOKA_ERGO", 
     "url": "", 
     "maintainer": "StefanGrindelwald", 
-    "width": 19.5, 
-    "height": 9.375, 
     "layouts": {
         "LAYOUT": {
             "layout": [

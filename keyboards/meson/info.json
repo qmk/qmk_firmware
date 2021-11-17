@@ -1,8 +1,6 @@
 {
     "keyboard_name": "Meson",
     "maintainer": "qmk",
-    "width": 15.5,
-    "height": 4,
     "layouts": {
       "LAYOUT": {
         "layout": [
@@ -104,4 +102,3 @@
       }
     }
   }
-  

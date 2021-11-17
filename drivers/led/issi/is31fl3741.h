@@ -45,11 +45,20 @@ void IS31FL3741_set_led_control_register(uint8_t index, bool red, bool green, bo
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void IS31FL3741_update_pwm_buffers(uint8_t addr1, uint8_t addr2);
-void IS31FL3741_update_led_control_registers(uint8_t addr1, uint8_t addr2);
+void IS31FL3741_update_pwm_buffers(uint8_t addr, uint8_t index);
+void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index);
 void IS31FL3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
 
 void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
+
+#define PUR_0R 0x00    // No PUR resistor
+#define PUR_05KR 0x01  // 0.5k Ohm resistor
+#define PUR_1KR 0x02   // 1.0k Ohm resistor
+#define PUR_2KR 0x03   // 2.0k Ohm resistor
+#define PUR_4KR 0x04   // 4.0k Ohm resistor
+#define PUR_8KR 0x05   // 8.0k Ohm resistor
+#define PUR_16KR 0x06  // 16k Ohm resistor
+#define PUR_32KR 0x07  // 32k Ohm resistor
 
 #define CS1_SW1 0x00
 #define CS2_SW1 0x01

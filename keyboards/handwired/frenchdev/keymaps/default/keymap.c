@@ -205,9 +205,6 @@ void press_underscore(void) {
   if(shift_count > 0) register_code (KC_LSHIFT);
 }
 
-void matrix_init_user(void) {
-}
-
 // Bleah globals need to be initialized.
 uint8_t old_layer=_BASE;
 

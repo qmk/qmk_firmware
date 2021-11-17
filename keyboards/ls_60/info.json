@@ -2,8 +2,6 @@
     "keyboard_name": "LS_60",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

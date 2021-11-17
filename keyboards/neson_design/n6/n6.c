@@ -232,8 +232,6 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, C9_16, C7_15, C6_15},
 };
 #endif
-__attribute__((weak))
-void matrix_init_user(void) {}
 
 void matrix_init_kb(void)
 {

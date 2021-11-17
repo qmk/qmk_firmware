@@ -3,8 +3,6 @@
     "keyboard_folder": "m65",
     "url": "https://alin.elena.space/blog/keeblego/",
     "maintainer": "alinelena",
-    "width": 13,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_5x13": {
             "layout": [
