@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2021 drhigsby
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,10 +15,5 @@
  */
 #pragma once
 
-#include "quantum.h"
-
-#if defined(KEYBOARD_xelus_pachi_rgb_rev1)
-    #include "rev1.h"
-#elif defined(KEYBOARD_xelus_pachi_rgb_rev2)
-    #include "rev2.h"
-#endif
+#define COMBO_COUNT 7
+#define COMBO_TERM 40
