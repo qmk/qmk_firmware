@@ -13,5 +13,9 @@ from qmk.keyboard import keyboard_completer, keyboard_folder
 def list_keymaps(cli):
     """List the keymaps for a specific keyboard
     """
-    for name in qmk.keymap.list_keymaps(cli.config.list_keymaps.keyboard):
-        print(name)
+    if cli.config.list_keymaps.keyboard:
+        for name in qmk.keymap.list_keymaps(cli.config.list_keymaps.keyboard):
+            print(name)
+    else:
+        cli.log.error('Could not determine keyboard!')
+        return False

@@ -13,6 +13,10 @@ from qmk.info import info_json
 def list_layouts(cli):
     """List the layouts for a specific keyboard
     """
-    info_data = info_json(cli.config.list_layouts.keyboard)
-    for name in sorted(info_data.get('community_layouts', [])):
-        print(name)
+    if cli.config.list_layouts.keyboard:
+        info_data = info_json(cli.config.list_layouts.keyboard)
+        for name in sorted(info_data.get('community_layouts', [])):
+            print(name)
+    else:
+        cli.log.error('Could not determine keyboard!')
+        return False
