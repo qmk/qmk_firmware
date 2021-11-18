@@ -22,9 +22,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include <string.h>
 #    include <math.h>
 
+#ifdef USE_MASSDROP_CONFIGURATOR
+// Should MdRendering be enabled
+uint8_t gMdRenderingEnable = 1;
+#endif
+
+
+
 #    ifdef USE_MASSDROP_CONFIGURATOR
 __attribute__((weak)) led_instruction_t led_instructions[] = {{.end = 1}};
-static void                             md_rgb_matrix_config_override(int i);
+static void                             md_rgb_matrix_config_override(int i, uint8_t r, uint8_t g, uint8_t b);
 #    endif  // USE_MASSDROP_CONFIGURATOR
 
 void SERCOM1_0_Handler(void) {
@@ -63,7 +70,7 @@ uint8_t gcr_actual_last;
 uint8_t gcr_breathe;
 float   breathe_mult;
 float   pomod;
-#    endif
+#    endif // USE_MASSDROP_CONFIGURATOR
 
 #    define ACT_GCR_NONE 0
 #    define ACT_GCR_INC 1
@@ -83,7 +90,7 @@ void gcr_compute(void) {
     if (led_animation_breathing) {
         gcr_use = gcr_breathe;
     }
-#    endif
+#    endif // USE_MASSDROP_CONFIGURATOR
 
     // If the 5v takes a catastrophic hit, disable the LED drivers briefly, assert auto gcr mode, min gcr and let the auto take over
     if (v_5v < V5_CAT) {
@@ -160,7 +167,7 @@ void gcr_compute(void) {
                 //    and the same would happen maybe one or two more times. Therefore I'm favoring
                 //    powering through one full breathe and letting gcr settle completely
             }
-#    endif
+#    endif // USE_MASSDROP_CONFIGURATOR
         }
     }
 }
@@ -199,13 +206,23 @@ void md_rgb_matrix_prepare(void) {
 
 static void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b) {
     if (i < ISSI3733_LED_COUNT) {
+/*
 #    ifdef USE_MASSDROP_CONFIGURATOR
         md_rgb_matrix_config_override(i);
-#    else
+#    else // USE_MASSDROP_CONFIGURATOR
         led_buffer[i].r = r;
         led_buffer[i].g = g;
         led_buffer[i].b = b;
 #    endif
+*/
+        if (gMdRenderingEnable)
+            md_rgb_matrix_config_override(i, r, g, b);
+        else
+        {
+            led_buffer[i].r = r;
+            led_buffer[i].g = g;
+            led_buffer[i].b = b;
+        }
     }
 }
 
@@ -233,7 +250,7 @@ static void flush(void) {
     if (!led_enabled) {
         return;
     }  // Prevent calculations and I2C traffic if LED drivers are not enabled
-#    else
+#    else // USE_MASSDROP_CONFIGURATOR
     if (!sr_exp_data.bit.SDB_N) {
         return;
     }  // Prevent calculations and I2C traffic if LED drivers are not enabled
@@ -398,7 +415,7 @@ static void led_run_pattern(led_setup_t* f, float* ro, float* go, float* bo, flo
     }
 }
 
-static void md_rgb_matrix_config_override(int i) {
+static void md_rgb_matrix_config_override(int i, uint8_t r, uint8_t g, uint8_t b) {
     float ro = 0;
     float go = 0;
     float bo = 0;
@@ -439,6 +456,10 @@ static void md_rgb_matrix_config_override(int i) {
                 led_run_pattern(led_setups[led_cur_instruction->pattern_id], &ro, &go, &bo, po);
             } else if (led_cur_instruction->flags & LED_FLAG_USE_ROTATE_PATTERN) {
                 led_run_pattern(led_setups[led_animation_id], &ro, &go, &bo, po);
+            } else if (led_cur_instruction->flags & LED_FLAG_USE_BYPASS) {
+                ro = r;
+                go = g;
+                bo = b;
             }
 
         next_iter:

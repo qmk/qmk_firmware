@@ -121,6 +121,7 @@ extern void *        led_setups[];
 #    define LED_FLAG_USE_RGB 0x10             // Use a specific RGB value (set r, g, b to desired output color values)
 #    define LED_FLAG_USE_PATTERN 0x20         // Use a specific pattern ID (set pattern_id to desired output pattern)
 #    define LED_FLAG_USE_ROTATE_PATTERN 0x40  // Use pattern the user has cycled to manually
+#    define LED_FLAG_USE_BYPASS 0x80          // Bypass md_rgb_matrix anim
 
 typedef struct led_instruction_s {
     uint16_t flags;  // Bitfield for LED instructions
@@ -154,5 +155,7 @@ extern uint8_t breathe_dir;
 #    define LED_MODE_MAX_INDEX LED_MODE_INDICATORS_ONLY  // Must be highest value
 
 #endif  // USE_MASSDROP_CONFIGURATOR
+
+extern uint8_t gMdRenderingEnable;
 
 #endif  //_LED_MATRIX_H_
