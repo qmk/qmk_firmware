@@ -18,6 +18,17 @@
 
 #include "quantum.h"
 
+/* Keycodes defined here can be used by any keymap. If you wish to
+ * define additional keycodes for your personal keymap only, assign
+ * your first custom keycode to `= NEW_SAFE_RANGE`.
+ *
+ * See `process_record_kb()` in `puca.c`.
+ */
+enum keyboard_keycodes {
+    MC_00 = SAFE_RANGE,
+    NEW_SAFE_RANGE,
+};
+
 #define XXX KC_NO
 
 /*

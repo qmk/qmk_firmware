@@ -15,23 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// 00 Functionality
-enum custom_keycodes {
-    MC_00 = SAFE_RANGE,
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case MC_00:
-            if (record->event.pressed) {
-                SEND_STRING("00");
-            }
-            break;
-    }
-    return true;
-};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [0] = LAYOUT_numpad(
