@@ -47,7 +47,7 @@ The right `Win` key is for getting the application context menu.
 * Apostrophe is print screen.
 * The `control_codes.md` contains more information about control codes.
 
-## Navigation Layer (GREEN Layer)
+## Navigation Layer (Complete GREEN Layer)
 * Right `Alt`/`Win`/control/slash form cursor block.
 * Backslash enters a prefix to enter **BQN** characters. (The **BQN** Layer).
 
@@ -121,12 +121,13 @@ The right `Win` key is for getting the application context menu.
 * Function shift is a toggle to the shifted layer.
 * F1 to F12 form top row numbers and minus/equals.
 * F13 to F24 form second row Q-].
-* F1 to F12 form third row A-enter with an implicit right `Alt` gr applied.
-* F13 to F23 form fourth row Z-right shift with an implicit right `Alt` gr applied.
-* Backslash is F24 with an implicit right `Alt` gr applied.
+* F1 to F12 form third row A-enter with an implicit right `Alt Gr` applied.
+* F13 to F23 form fourth row Z-right shift with an implicit right `Alt Gr` applied.
+* Backslash is F24 with an implicit right `Alt Gr` applied.
 * Depending on your system the "Level 3 Shift" may be removed by localization of `Alt Gr`.
 * Right `Alt`/`Ctrl` are `Alt`+Tab window switch (reverse and forward).
 * Right `Win` key is the right `Win` key and not the app context menu key as in other layers.
+* Backspace is Left `Win` and Right `Win` combination sticky.
 
 ### Macro-board Shift Layer (`Fn` Macro-board)
 * The right `Win` key is one shot sticky.
