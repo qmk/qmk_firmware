@@ -294,7 +294,6 @@ void backlight_task(void) {}
 
 static uint8_t  breathing_halt    = BREATHING_NO_HALT;
 static uint16_t breathing_counter = 0;
-static uint8_t breathing_period = BREATHING_PERIOD;
 
 static uint8_t breath_scale_counter = 1;
 /* Run the breathing loop at ~120Hz*/
@@ -334,7 +333,7 @@ bool is_breathing(void) { return !!(TIMSKx & _BV(TOIEx)); }
         } while (0)
 #    define breathing_max()                                                     \
         do {                                                                    \
-            breathing_counter = breathing_period * breathing_ISR_frequency / 2; \
+            breathing_counter = get_breathing_period() * breathing_ISR_frequency / 2; \
         } while (0)
 
 void breathing_enable(void) {
@@ -391,9 +390,9 @@ ISR(TIMERx_OVF_vect)
     } else {
         return;
     }
-    uint16_t interval = (uint16_t)breathing_period * breathing_ISR_frequency / BREATHING_STEPS;
+    uint16_t interval = (uint16_t)get_breathing_period() * breathing_ISR_frequency / BREATHING_STEPS;
     // resetting after one period to prevent ugly reset at overflow.
-    breathing_counter = (breathing_counter + 1) % (breathing_period * breathing_ISR_frequency);
+    breathing_counter = (breathing_counter + 1) % (get_breathing_period() * breathing_ISR_frequency);
     uint8_t index     = breathing_counter / interval % BREATHING_STEPS;
 
     if (((breathing_halt == BREATHING_HALT_ON) && (index == BREATHING_STEPS / 2)) || ((breathing_halt == BREATHING_HALT_OFF) && (index == BREATHING_STEPS - 1))) {
