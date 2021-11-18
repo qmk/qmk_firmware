@@ -222,7 +222,7 @@ ISR(TIMERx_OVF_vect) {
     // takes many computation cycles).
     // so better not turn them on while the counter TOP is very low.
     if (OCRxx > ICRx / 250 + 5) {
-        FOR_EACH_LED(backlight_on(backlight_pin);)
+        backlight_pins_on();
     }
 }
 
