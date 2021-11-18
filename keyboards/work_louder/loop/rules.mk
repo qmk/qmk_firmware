@@ -20,8 +20,10 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
+LTO_ENABLE = yes
+
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 LTO_ENABLE = yes
 
-SRC += encoder_actions.c rgb_functions.c
+SRC += rgb_functions.c

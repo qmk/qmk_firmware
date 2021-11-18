@@ -94,6 +94,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                SFT_T(KC_SPC), KC_J,                  _______,
                                                ALT_T(KC_Q),   KC_LGUI,      _______, _______
     ),
+    [_DIABLOII] = LAYOUT_5x6_right(
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_GRV,                         _______, _______, _______, _______, _______, _______,
+        KC_TAB,  KC_A,    KC_T,    KC_Q,    KC_I,    KC_M,                           _______, _______, _______, _______, _______, _______,
+        KC_S,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                          _______, _______, _______, _______, _______, _______,
+        KC_LCTL, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                         _______, _______, _______, _______, _______, _______,
+                          KC_F,    KC_L,                                                               KC_NO,   TG(_DIABLOII),
+                                   _______, KC_G,                                             _______,
+                                               KC_LSFT, _______,                     _______,
+                                               KC_LCTL, KC_V,               _______, _______
+    ),
     [_LOWER] = LAYOUT_5x6_right_wrapper(
         KC_F12,  _________________FUNC_LEFT_________________,                        _________________FUNC_RIGHT________________, KC_F11,
         _______, _________________LOWER_L1__________________,                        _________________LOWER_R1__________________, _______,
@@ -122,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           HPT_DWLI, HPT_DWLD,                                                        TG_GAME, TG_DBLO,
                                             HPT_TOG, HPT_BUZ,                               KC_NUKE,
                                                      _______, _______,             _______,
-                                                     _______, _______,    KC_NUKE, _______
+                                                     _______, TG(_DIABLOII),KC_NUKE, _______
     ),
 };
 
