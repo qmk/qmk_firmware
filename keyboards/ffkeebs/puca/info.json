@@ -2,8 +2,11 @@
     "keyboard_name": "Puca",
     "url": "https://ffkeebs.com/collections/puca/",
     "maintainer": "Sleepdealr",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 { "label": "Rotary", "x": 0.5, "y": 0 },
                 { "label": "Pg Up", "x": 2, "y": 0 },

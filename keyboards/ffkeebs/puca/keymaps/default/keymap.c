@@ -33,7 +33,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT(
+    LAYOUT_all(
         KC_MUTE,         KC_PGUP, KC_PGDN,
 		TG(1),  KC_PSLS, KC_PAST, KC_PMNS,
 		KC_P7,  KC_P8,   KC_P9,   KC_PPLS,  KC_PPLS,
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_P1,  KC_P2,   KC_P3,   KC_ENTER, KC_ENTER,
 		KC_P0,  MC_00,   KC_PDOT, KC_PDOT,   
                 KC_P0),
-    LAYOUT(
+    LAYOUT_all(
         KC_TRNS,          RGB_HUI, RGB_VAI,
 		TG(1),   RGB_TOG, RGB_HUD, RGB_VAD,
 		KC_PGUP, KC_UP,   KC_PGDN, RGB_MOD,  RGB_MOD,

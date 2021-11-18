@@ -40,7 +40,7 @@
  * └───────┘
  */
 
-#define LAYOUT( \
+#define LAYOUT_all( \
       K00,    K02, K03,      \
     K10, K11, K12, K13,      \
     K20, K21, K22, K23,  K24,\
