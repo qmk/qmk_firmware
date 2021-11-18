@@ -294,6 +294,7 @@ void backlight_task(void) {}
 
 static uint8_t  breathing_halt    = BREATHING_NO_HALT;
 static uint16_t breathing_counter = 0;
+static uint8_t breathing_period = BREATHING_PERIOD;
 
 static uint8_t breath_scale_counter = 1;
 /* Run the breathing loop at ~120Hz*/
