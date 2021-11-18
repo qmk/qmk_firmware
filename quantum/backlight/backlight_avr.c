@@ -331,8 +331,8 @@ bool is_breathing(void) { return !!(TIMSKx & _BV(TOIEx)); }
         do {                       \
             breathing_counter = 0; \
         } while (0)
-#    define breathing_max()                                                     \
-        do {                                                                    \
+#    define breathing_max()                                                           \
+        do {                                                                          \
             breathing_counter = get_breathing_period() * breathing_ISR_frequency / 2; \
         } while (0)
 
