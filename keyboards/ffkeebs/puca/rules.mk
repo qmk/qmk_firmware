@@ -19,7 +19,7 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 
-ENCODER_ENABLE = yes 		#Rotary encoder
+ENCODER_ENABLE = yes        # Enable rotary encoder support
+OLED_ENABLE = yes           # Enable OLED support
 
-OLED_ENABLE = yes	#OLED
-LTO_ENABLE = yes			# Enable Link Time Optimization to reduce firmware size
+LTO_ENABLE = yes            # Enable Link Time Optimization to reduce firmware size
