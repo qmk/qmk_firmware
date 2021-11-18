@@ -34,7 +34,11 @@ enum Command {
     CMD_MATRIX_GET = 17,
     // Save LED settings to ROM
     CMD_LED_SAVE = 18,
+    // Enable/disable no input mode
+    CMD_SET_NO_INPUT = 19,
 };
+
+bool input_disabled = false;
 
 #define CMD_LED_INDEX_ALL 0xFF
 
@@ -403,6 +407,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                         }
                     }
                 }
+                data[1] = 0;
+            }
+            break;
+        case CMD_SET_NO_INPUT:
+            {
+                clear_keyboard();
+                input_disabled = data[2] != 0;
                 data[1] = 0;
             }
             break;

@@ -132,6 +132,7 @@ static const uint8_t levels[] = {
 };
 
 static uint8_t toggle_level = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+extern bool input_disabled;
 
 static void set_value_all_layers(uint8_t value) {
     if (!system76_ec_is_unlocked()) {
@@ -143,6 +144,9 @@ static void set_value_all_layers(uint8_t value) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (input_disabled)
+        return false;
+
     switch(keycode) {
         case RESET:
             if (record->event.pressed) {
