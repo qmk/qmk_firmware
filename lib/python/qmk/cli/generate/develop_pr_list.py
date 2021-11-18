@@ -22,6 +22,26 @@ def _get_pr_info(cache, gh, pr_num):
     return pull
 
 
+def _try_open_cache(cli):
+    # These dependencies are manually handled because people complain. Fun.
+    try:
+        from sqlite_cache.sqlite_cache import SqliteCache
+    except ImportError:
+        return None
+
+    cache_loc = Path(cli.config_file).parent
+    return SqliteCache(cache_loc)
+
+
+def _get_github():
+    try:
+        from ghapi.all import GhApi
+    except ImportError:
+        return None
+
+    return GhApi()
+
+
 @cli.argument('-f', '--from-ref', default='0.11.0', help='Git revision/tag/reference/branch to begin search')
 @cli.argument('-b', '--branch', default='upstream/develop', help='Git branch to iterate (default: "upstream/develop")')
 @cli.subcommand('Creates the develop PR list.', hidden=False if cli.config.user.developer else True)
@@ -36,32 +56,15 @@ def generate_develop_pr_list(cli):
         cli.log.error('Environment variable "GITHUB_TOKEN" is not set.')
         return 1
 
-    loader_errors = []
-
-    # These dependencies are manually handled because people complain. Fun.
-    try:
-        from sqlite_cache.sqlite_cache import SqliteCache
-    except:
-        loader_errors.append('python-sqlite-cache')
-
-    try:
-        from ghapi.all import GhApi
-    except:
-        loader_errors.append('ghapi')
-
-    if len(loader_errors) > 0:
-        cli.log.error('Missing dependent python packages, please install:')
-        for pkg in loader_errors:
-            cli.log.error(f'   {pkg}')
-        return 1
+    cache = _try_open_cache(cli)
+    gh = _get_github()
 
     git_args = ['git', 'rev-list', '--oneline', '--no-merges', '--reverse', f'{cli.args.from_ref}...{cli.args.branch}', '^upstream/master']
     commit_list = cli.run(git_args, capture_output=True, stdin=DEVNULL)
 
-    cache_loc = Path(cli.config_file).parent
-    cache = SqliteCache(cache_loc)
-
-    gh = GhApi()
+    if cache is None or gh is None:
+        cli.log.error('Missing one or more dependent python packages: "ghapi", "python-sqlite-cache"')
+        return 1
 
     pr_list_bugs = []
     pr_list_dependencies = []
