@@ -71,3 +71,65 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return true;
 }
+
+#ifdef RGBLIGHT_ENABLE
+// Can probably still be optimized, but I like it as is for clarity
+const rgblight_segment_t PROGMEM ll_none[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0,1, HSV_OFF},
+    {1,1, HSV_OFF},
+    {2,1, HSV_OFF}
+);
+const rgblight_segment_t PROGMEM ll_nl[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1,1, HSV_OFF},
+    {0,1, HSV_OFF}
+);
+const rgblight_segment_t PROGMEM ll_cl[] = RGBLIGHT_LAYER_SEGMENTS(
+    {2,1, HSV_OFF},
+    {0,1, HSV_OFF}
+);
+const rgblight_segment_t PROGMEM ll_clnl[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0,1, HSV_OFF}
+);
+const rgblight_segment_t PROGMEM ll_sl[] = RGBLIGHT_LAYER_SEGMENTS(
+    {2,1, HSV_OFF},
+    {1,1, HSV_OFF}
+);
+const rgblight_segment_t PROGMEM ll_slnl[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1,1, HSV_OFF}
+);
+const rgblight_segment_t PROGMEM ll_slcl[] = RGBLIGHT_LAYER_SEGMENTS(
+    {2,1, HSV_OFF}
+);
+
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    ll_none,
+    ll_nl,
+    ll_cl,
+    ll_clnl,
+    ll_sl,
+    ll_slnl,
+    ll_slcl
+);
+
+void keyboard_post_init_kb(void) {
+    rgblight_layers = rgb_layers;
+
+    keyboard_post_init_user();
+}
+
+bool led_update_kb (led_t led_state) {
+    bool res = led_update_user(led_state);
+
+    if (res) {
+        uint8_t lock_bits = led_state.scroll_lock << 2 | led_state.caps_lock << 1 | led_state.num_lock;
+        for (uint8_t i=0; i<7; i++) {
+            rgblight_set_layer_state(i, false);
+        }
+        if (lock_bits < 7) {
+            rgblight_set_layer_state(lock_bits, true);
+        }
+    }
+
+    return res;
+}
+#endif
