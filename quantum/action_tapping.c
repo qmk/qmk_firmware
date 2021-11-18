@@ -124,7 +124,7 @@ bool process_tapping(keyrecord_t *keyp) {
 #        ifdef RETRO_TAPPING_PER_KEY
                 get_retro_tapping(tapping_keycode, keyp) &&
 #        endif
-                (RETRO_SHIFT + 0) != 0 && TIMER_DIFF_16(event.time, tapping_key.event.time) < RETRO_SHIFT
+                (RETRO_SHIFT + 0) != 0 && TIMER_DIFF_16(event.time, tapping_key.event.time) < (RETRO_SHIFT + 0)
             )
 #    endif
         ) {
@@ -360,7 +360,7 @@ bool process_tapping(keyrecord_t *keyp) {
 #        ifdef RETRO_TAPPING_PER_KEY
                 get_retro_tapping(tapping_keycode, keyp) &&
 #        endif
-                (RETRO_SHIFT + 0) != 0 && TIMER_DIFF_16(event.time, tapping_key.event.time) < RETRO_SHIFT
+                (RETRO_SHIFT + 0) != 0 && TIMER_DIFF_16(event.time, tapping_key.event.time) < (RETRO_SHIFT + 0)
             )
 #    endif
         ) {
