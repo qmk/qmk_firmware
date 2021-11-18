@@ -71,15 +71,15 @@ The right `Win` key is for getting the application context menu.
 
 ### Mouse Shift Layer (Left `Alt` on `Fn` Layer)
 * Right `Alt`/`Win`/`Ctrl`/slash form mouse movement block.
-* Period is left mouse button.
-* Right shift is right mouse button.
+* Comma is left mouse button.
+* Period is right mouse button.
 * Enter and backspace are themselves.
 * Backslash is keyboard reset.
 * Equals is number pad equals.
 * Comma is number pad comma.
 * The brackets are scroll wheel up and down such the [ is up.
-* Quote is the scroll button.
-* Semicolon is auxiliary mouse button 4 (standard mice don't have this).
+* Semicolon is mouse button 3 (scroll button).
+* Apostrophe is mouse button 4 (standard mice don't have this).
 * All the alpha keys are themselves.
 * Minus turns on key lock for the next key (for easier drag 'n' drop for example).
 
