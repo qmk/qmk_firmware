@@ -423,6 +423,15 @@ HEX     = $(OBJCOPY) -O $(FORMAT)
 EEP     =
 BIN     = $(OBJCOPY) -O binary
 
+I2C_MASTER_DRIVER?=vendor
+ifeq ($(I2C_MASTER_DRIVER),vendor)
+COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/i2c_master
+else ifeq ($(I2C_MASTER_DRIVER),bitbang)
+COMMON_VPATH += $(DRIVER_PATH)/i2c_bitbang
+else
+$(error I2C_MASTER_DRIVER=$(I2C_MASTER_DRIVER) not recognized)
+endif
+
 ##############################################################################
 # Make targets
 #

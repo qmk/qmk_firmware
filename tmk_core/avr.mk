@@ -12,6 +12,15 @@ HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
 
+I2C_MASTER_DRIVER?=vendor
+ifeq ($(I2C_MASTER_DRIVER),vendor)
+COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/i2c_master
+else ifeq ($(I2C_MASTER_DRIVER),bitbang)
+COMMON_VPATH += $(DRIVER_PATH)/i2c_bitbang
+else
+$(error I2C_MASTER_DRIVER=$(I2C_MASTER_DRIVER) not recognized)
+endif
+
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
 COMPILEFLAGS += -ffunction-sections
