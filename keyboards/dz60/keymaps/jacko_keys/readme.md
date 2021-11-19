@@ -140,10 +140,8 @@ Sometimes it's part of the cursor block.
 * Caps lock is a one shot sticky `Win` control shift.
 * Left shift is a one shot sticky `Win` shift.
 * Backspace is a one shot sticky control `Alt` shift.
-* `Fn` is still sticky and needs pressing to exit the layer shift.
 
 ### Special Shift Layer (Complete Left `Win` on `Fn` Layer CYAN Shift)
-* `Fn` exits the special shift layer.
 * P and equals is Korean modifiers.
 * Minus is key lock for holding down a key until the held key is pressed again.
 * International modifiers are on Q-O.
@@ -159,4 +157,4 @@ Sometimes it's part of the cursor block.
 * Volume is up(J) and down(H).
 * Browser search is A, favourites is F.
 * Escape is pure escape.
-* Caps lock is number lock.
+* Caps lock is scroll lock.
