@@ -25,12 +25,16 @@
 
 /* Select the MCU clocking mode below by enabling the appropriate block. */
 
-/* PEE mode - 96MHz system clock driven by external crystal. */
+/* PEE mode - 120MHz system clock driven by external crystal. */
 #define KINETIS_MCG_MODE            KINETIS_MCG_MODE_PEE
-#define KINETIS_PLLCLK_FREQUENCY    96000000UL  // 96 MHz (RUN)
+#define KINETIS_PLLCLK_FREQUENCY    120000000UL  // 120 MHz (RUN)
 #define KINETIS_SYSCLK_FREQUENCY    KINETIS_PLLCLK_FREQUENCY
-#define KINETIS_BUSCLK_FREQUENCY    48000000UL
+#define KINETIS_BUSCLK_FREQUENCY    60000000UL
 #define KINETIS_FLASHCLK_FREQUENCY  24000000UL  // 24 MHz (RUN)
+
+#define KINETIS_CLKDIV1_OUTDIV1 1  // -> 0
+#define KINETIS_CLKDIV1_OUTDIV2 2  // -> 1
+#define KINETIS_CLKDIV1_OUTDIV4 5  // -> 4
 
 /*
  * SERIAL driver system settings.
