@@ -32,7 +32,7 @@ enum custom_keycodes {
   // Space Cadet TOP layer
   NOT, EXP, MUL, SSCRIPT, SUM, LTX_CDFC,
   QQUAD, AND, OR, UNION, INTERSECTION, SUBSET, SUPERSET, FORALL, INFTY, EXISTS, PARTIAL, LCORNER, RCORNER,
-  BEGIN, FALSE, TRUE, VDASH, DASHV, UP, DOWN, LEFT, RIGHT, IFF,
+  BEGIN, FALSE, TRUE, VDASH, DASHV, UP, DOWN, LEFT, RIGHT, IFF, PRIME,
   LLCORNER, ULCORNER, NEQ, SIMEQ, EQUIV, LEQ, GEQ, ELLIPSIS, FRAC,
   SPC,
 
@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [TOP] = LAYOUT_all(
       _______, NOT,   _______,  _______, MATH,  _______,   EXP, _______,   MUL,  _______, _______,   SSCRIPT,  SUM, LTX_CDFC, _______,
       QQUAD  , AND, OR, UNION, INTERSECTION, SUBSET, SUPERSET, FORALL, INFTY, EXISTS, PARTIAL, LCORNER, RCORNER, _______,
-      BEGIN  , FALSE, TRUE, TD(TD_PROVES_MODELS), DASHV, UP, DOWN, TD(TD_LEFT_ARROW), TD(TD_RIGHT_ARROW), IFF, _______, _______, _______,
+      BEGIN  , FALSE, TRUE, TD(TD_PROVES_MODELS), DASHV, UP, DOWN, TD(TD_LEFT_ARROW), TD(TD_RIGHT_ARROW), IFF, _______, PRIME, _______,
       _______, _______, LLCORNER, ULCORNER, NEQ, SIMEQ, EQUIV, LEQ,  GEQ, _______, ELLIPSIS, FRAC, _______, _______, _______,
       _______, _______, _______,                   SPC, SPC, SPC, _______, _______,                  _______, _______, _______
       ),
@@ -398,6 +398,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case IFF:
       if (record->event.pressed) {
         SEND_STRING("\\iff ");
+      } else {
+      }
+      break;
+    case PRIME:
+      if (record->event.pressed) {
+        SEND_STRING("\\prime ");
       } else {
       }
       break;
