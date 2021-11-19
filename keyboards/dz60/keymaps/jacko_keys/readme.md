@@ -17,7 +17,7 @@ Sometimes it's part of the cursor block.
 * Left `Ctrl` is ANSI layer select. Basic conformist ANSI.
 * Left `Win` is macro-board layer select. Latching macro modifiers and function keys.
 * Left `Alt` is navigation layer select. You MUST be in this mode for **BQN**.
-* Basically `Fn`+ a left modifier on the bottom row changes the main layer.
+* Basically `Fn`+ a left modifier on the bottom row changes the main layer or enters a CYAN shift.
 * In CYAN shift mode you may release the `Fn` key while holding the CYAN modifier.
 
 ## ANSI Layer (Complete RED Layer)
@@ -116,7 +116,7 @@ Sometimes it's part of the cursor block.
 * Semicolon is pause.
 * Apostrophe is print screen.
 * Cursor block works.
-* `Fn` + Left `Alt` exits **BQN** if you accidentally enter a backslash. No CYAN shift. 
+* `Fn` + Left `Alt` exits **BQN** if you accidentally enter a backslash. No CYAN shift.
 
 ## Macro-board Layer (Complete YELLOW Layer)
 * Escape is a one shot sticky `Alt` shift.
