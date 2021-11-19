@@ -56,8 +56,4 @@
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
 
-#define RGBLIGHT_ANIMATIONS
-
-
-
 #endif
