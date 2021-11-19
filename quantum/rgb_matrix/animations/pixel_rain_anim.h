@@ -16,18 +16,22 @@
 
 #ifdef ENABLE_RGB_MATRIX_PIXEL_RAIN
 RGB_MATRIX_EFFECT(PIXEL_RAIN)
-#   ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 static bool PIXEL_RAIN(effect_params_t* params) {
     static uint32_t wait_timer = 0;
-    if (wait_timer > g_rgb_timer) { return false; }
+    if (wait_timer > g_rgb_timer) {
+        return false;
+    }
 
     inline uint32_t interval(void) { return 500 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16); }
 
-    bool rain_pixel(uint8_t i, effect_params_t* params, bool off) {
-        if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) { return true; }
+    bool rain_pixel(uint8_t i, effect_params_t * params, bool off) {
+        if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) {
+            return true;
+        }
         if (off) {
-            rgb_matrix_set_color(i, 0,0,0);
+            rgb_matrix_set_color(i, 0, 0, 0);
         } else {
             HSV hsv = {random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v};
             RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
@@ -40,5 +44,5 @@ static bool PIXEL_RAIN(effect_params_t* params) {
     return rain_pixel(mod8(random8(), DRIVER_LED_TOTAL), params, random8() & 2);
 }
 
-#   endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif    // ENABLE_RGB_MATRIX_PIXEL_RAIN
+#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif      // ENABLE_RGB_MATRIX_PIXEL_RAIN

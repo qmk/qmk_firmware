@@ -19,7 +19,7 @@
 #include "sequencer.h"
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
+#define _______ KC_TRANSPARENT
 #define XXXXXXX KC_NO
 
 enum quantum_keycodes {
@@ -599,69 +599,67 @@ enum quantum_keycodes {
 #define MOD_MEH 0x7
 
 // US ANSI shifted keycode aliases
-#define KC_TILD LSFT(KC_GRV)  // ~
-#define KC_TILDE KC_TILD
+#define KC_TILDE LSFT(KC_GRAVE)  // ~
+#define KC_TILD KC_TILDE
 
-#define KC_EXLM LSFT(KC_1)  // !
-#define KC_EXCLAIM KC_EXLM
+#define KC_EXCLAIM LSFT(KC_1)  // !
+#define KC_EXLM KC_EXCLAIM
 
 #define KC_AT LSFT(KC_2)  // @
 
 #define KC_HASH LSFT(KC_3)  // #
 
-#define KC_DLR LSFT(KC_4)  // $
-#define KC_DOLLAR KC_DLR
+#define KC_DOLLAR LSFT(KC_4)  // $
+#define KC_DLR KC_DOLLAR
 
-#define KC_PERC LSFT(KC_5)  // %
-#define KC_PERCENT KC_PERC
+#define KC_PERCENT LSFT(KC_5)  // %
+#define KC_PERC KC_PERCENT
 
-#define KC_CIRC LSFT(KC_6)  // ^
-#define KC_CIRCUMFLEX KC_CIRC
+#define KC_CIRCUMFLEX LSFT(KC_6)  // ^
+#define KC_CIRC KC_CIRCUMFLEX
 
-#define KC_AMPR LSFT(KC_7)  // &
-#define KC_AMPERSAND KC_AMPR
+#define KC_AMPERSAND LSFT(KC_7)  // &
+#define KC_AMPR KC_AMPERSAND
 
-#define KC_ASTR LSFT(KC_8)  // *
-#define KC_ASTERISK KC_ASTR
+#define KC_ASTERISK LSFT(KC_8)  // *
+#define KC_ASTR KC_ASTERISK
 
-#define KC_LPRN LSFT(KC_9)  // (
-#define KC_LEFT_PAREN KC_LPRN
+#define KC_LEFT_PAREN LSFT(KC_9)  // (
+#define KC_LPRN KC_LEFT_PAREN
 
-#define KC_RPRN LSFT(KC_0)  // )
-#define KC_RIGHT_PAREN KC_RPRN
+#define KC_RIGHT_PAREN LSFT(KC_0)  // )
+#define KC_RPRN KC_RIGHT_PAREN
 
-#define KC_UNDS LSFT(KC_MINS)  // _
-#define KC_UNDERSCORE KC_UNDS
+#define KC_UNDERSCORE LSFT(KC_MINUS)  // _
+#define KC_UNDS KC_UNDERSCORE
 
-#define KC_PLUS LSFT(KC_EQL)  // +
+#define KC_PLUS LSFT(KC_EQUAL)  // +
 
-#define KC_LCBR LSFT(KC_LBRC)  // {
-#define KC_LEFT_CURLY_BRACE KC_LCBR
+#define KC_LEFT_CURLY_BRACE LSFT(KC_LEFT_BRACKET)  // {
+#define KC_LCBR KC_LEFT_CURLY_BRACE
 
-#define KC_RCBR LSFT(KC_RBRC)  // }
-#define KC_RIGHT_CURLY_BRACE KC_RCBR
+#define KC_RIGHT_CURLY_BRACE LSFT(KC_RIGHT_BRACKET)  // }
+#define KC_RCBR KC_RIGHT_CURLY_BRACE
 
-#define KC_LABK LSFT(KC_COMM)  // <
-#define KC_LEFT_ANGLE_BRACKET KC_LABK
+#define KC_LEFT_ANGLE_BRACKET LSFT(KC_COMMA)  // <
+#define KC_LABK KC_LEFT_ANGLE_BRACKET
+#define KC_LT KC_LEFT_ANGLE_BRACKET
 
-#define KC_RABK LSFT(KC_DOT)  // >
-#define KC_RIGHT_ANGLE_BRACKET KC_RABK
+#define KC_RIGHT_ANGLE_BRACKET LSFT(KC_DOT)  // >
+#define KC_RABK KC_RIGHT_ANGLE_BRACKET
+#define KC_GT KC_RIGHT_ANGLE_BRACKET
 
-#define KC_COLN LSFT(KC_SCLN)  // :
-#define KC_COLON KC_COLN
+#define KC_COLON LSFT(KC_SEMICOLON)  // :
+#define KC_COLN KC_COLON
 
-#define KC_PIPE LSFT(KC_BSLS)  // |
+#define KC_PIPE LSFT(KC_BACKSLASH)  // |
 
-#define KC_LT LSFT(KC_COMM)  // <
+#define KC_QUESTION LSFT(KC_SLASH)  // ?
+#define KC_QUES KC_QUESTION
 
-#define KC_GT LSFT(KC_DOT)  // >
-
-#define KC_QUES LSFT(KC_SLSH)  // ?
-#define KC_QUESTION KC_QUES
-
-#define KC_DQT LSFT(KC_QUOT)  // "
-#define KC_DOUBLE_QUOTE KC_DQT
-#define KC_DQUO KC_DQT
+#define KC_DOUBLE_QUOTE LSFT(KC_QUOTE)  // "
+#define KC_DQUO KC_DOUBLE_QUOTE
+#define KC_DQT KC_DOUBLE_QUOTE
 
 #define KC_DELT KC_DELETE  // Del key (four letter code)
 
