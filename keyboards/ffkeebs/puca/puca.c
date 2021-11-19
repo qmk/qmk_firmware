@@ -15,6 +15,20 @@
  */
 #include "puca.h"
 
+bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+    switch (keycode) {
+        case MC_00:
+            if (record->event.pressed) {
+                SEND_STRING("00");
+            }
+            break;
+    }
+    return true;
+}
+
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (clockwise) {
