@@ -29,3 +29,4 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     { K20,   K21, K22,   K23, KC_NO  }, \
     { K30,   K31, K32,   K33, K34    }, \
     { K40,   K41, KC_NO, K43, KC_NO  }  \
+}
