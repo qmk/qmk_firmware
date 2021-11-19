@@ -25,7 +25,6 @@ GTEST_INTERNAL_INC :=\
 
 $(GTEST_OUTPUT)_SRC :=\
 	googletest/src/gtest-all.cc\
-	googletest/src/gtest_main.cc\
 	googlemock/src/gmock-all.cc
 
 $(GTEST_OUTPUT)_DEFS :=
