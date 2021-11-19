@@ -2,8 +2,6 @@
     "keyboard_name": "Charon",
     "url": "https://charue-design.com/products/charon",
     "maintainer": "ILWrites",
-    "width": 3,
-    "height": 2,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
