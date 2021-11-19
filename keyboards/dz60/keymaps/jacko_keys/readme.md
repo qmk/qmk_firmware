@@ -21,7 +21,7 @@ The right `Win` key is for getting the application context menu.
 * Right control exchanged with function shift key as always.
 * This layer is the keyboard default and has few surprises. To access this layer the key combination `Fn`+Left `Ctrl` has been reserved. In macro mode the `Fn` key is sticky and so it may cause a little confusion.
 
-### ANSI Shift Layer (`Fn` ANSI)
+### ANSI Shift Layer (`Fn` ANSI MAGENTA Shift)
 * Scroll lock placed on caps lock.
 * Right `Alt`/`Win`/`Ctrl`/slash form cursor block.
 * Backslash is insert.
@@ -40,7 +40,7 @@ The right `Win` key is for getting the application context menu.
 * Browser home key is O, search is A, favourites is F.
 * Volume is up(J) and down(H).
 
-### Control Shift Layer (Left Control on `Fn` Layer)
+### Control Shift Layer (Left Control on `Fn` Layer CYAN Shift)
 * Various control code literals and icongraphs plus cursor.
 * Comma and period are page up/down.
 * Semicolon is pause.
@@ -48,10 +48,10 @@ The right `Win` key is for getting the application context menu.
 * The `control_codes.md` contains more information about control codes.
 
 ## Navigation Layer (Complete GREEN Layer)
-* Right `Alt`/`Win`/control/slash form cursor block.
+* Right `Alt`/`Win`/`Ctrl`/slash form cursor block.
 * Backslash enters a prefix to enter **BQN** characters. (The **BQN** Layer).
 
-### Navigation Shift Layer (`Fn` Navigation)
+### Navigation Shift Layer (`Fn` Navigation MAGENTA Shift)
 * Scroll lock placed on caps lock.
 * Backslash is insert.
 * Backspace is delete.
@@ -69,7 +69,7 @@ The right `Win` key is for getting the application context menu.
 * Browser search is A, favourites is F.
 * Volume is up(J) and down(H).
 
-### Mouse Shift Layer (Left `Alt` on `Fn` Layer)
+### Mouse Shift Layer (Left `Alt` on `Fn` Layer CYAN Shift)
 * Right `Alt`/`Win`/`Ctrl`/slash form mouse movement block.
 * Comma is left mouse button.
 * Period is right mouse button.
@@ -105,7 +105,7 @@ The right `Win` key is for getting the application context menu.
                              Space: ‿
 ```
 
-### Unicode Shift Layer (`Fn` After \ **BQN** Prefix)
+### Unicode Shift Layer (`Fn` After \ **BQN** Prefix MAGENTA Shift)
 * Unicode selection on alphas.
 * Numbers unchanged.
 * Square brackets are home and end.
@@ -129,7 +129,7 @@ The right `Win` key is for getting the application context menu.
 * Right `Win` key is the right `Win` key and not the app context menu key as in other layers.
 * Backspace is Left `Win` and Right `Win` combination sticky.
 
-### Macro-board Shift Layer (`Fn` Macro-board)
+### Macro-board Shift Layer (`Fn` Macro-board MAGENTA Shift)
 * The right `Win` key is one shot sticky.
 * Escape is a one shot sticky `Win`+`Alt` shift.
 * Tab is a one shot sticky `Win`+`Ctrl`+`Alt`.
@@ -138,7 +138,7 @@ The right `Win` key is for getting the application context menu.
 * Backspace is a one shot sticky control `Alt` shift.
 * `Fn` is still sticky and needs pressing to exit the layer shift.
 
-### Special Shift Layer (Left `Win` on `Fn` Layer)
+### Special Shift Layer (Left `Win` on `Fn` Layer CYAN Shift)
 * `Fn` exits the special shift layer.
 * P and equals is Korean modifiers.
 * Minus is key lock for holding down a key until the held key is pressed again.

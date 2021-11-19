@@ -141,7 +141,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U' ', [AV] = U' ', [AW] = U' ',
 	[AX] = U' ', [AY] = U' ', [AZ] = U' '
 	//FILL IN AS REQUIRED
-	//132 bytes free => 33 Unicode characters free.
+	//60 bytes free => 15 Unicode characters free.
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -260,7 +260,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_60_ansi(
 		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_LOCK, KC_HANJ,          KC_DEL,
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_HAEN, KC_HOME, KC_END,  KC_INS,
-		KC_NLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
+		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
 		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
 		KC_TRNS, KC_TRNS,     	   KC_TRNS,                   KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, KC_TRNS)
 
@@ -286,6 +286,14 @@ const rgblight_segment_t PROGMEM my_bqn[] = RGBLIGHT_LAYER_SEGMENTS(
     {11, 2, HSV_BLUE}
 );
 
+const rgblight_segment_t PROGMEM my_losh[] = RGBLIGHT_LAYER_SEGMENTS(
+    {11, 2, HSV_MAGENTA}
+);
+
+const rgblight_segment_t PROGMEM my_hish[] = RGBLIGHT_LAYER_SEGMENTS(
+    {11, 2, HSV_CYAN}
+);
+
 const rgblight_segment_t PROGMEM my_scroll[] = RGBLIGHT_LAYER_SEGMENTS(
     {15, 1, HSV_WHITE}
 );
@@ -296,6 +304,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_nav,
     my_macro,
 		my_bqn,// Extended mode
+		my_losh,
+		my_hish,
 		my_scroll	// Scroll lock
 );
 
@@ -305,11 +315,7 @@ void keyboard_post_init_user(void) {
 }
 
 void calc_layer(layer_state_t s, uint16_t light, uint16_t layers) {
-	bool t = false;
-	for(uint16_t i = layers; i < 11; i+=4) {
-		t |= layer_state_cmp(s, i);
-	}
-	if(t) rgblight_set_layer_state(light, t);
+	rgblight_set_layer_state(light, layer_state_cmp(s, layers));
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -318,12 +324,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	calc_layer(state, 2, 1);//NAV
 	calc_layer(state, 3, 2);//Macro
 	calc_layer(state, 4, 3);//BQN
+	rgblight_set_layer_state(5, layer_state_cmp(state, 4) || layer_state_cmp(state, 5) ||
+ 		 layer_state_cmp(state, 6) || layer_state_cmp(state, 7));//LO Shift
+	 rgblight_set_layer_state(6, layer_state_cmp(state, 8) || layer_state_cmp(state, 9) ||
+  		 layer_state_cmp(state, 10));//HI Shift
   return state;
 }
 
 bool led_update_user(led_t led_state) {
 	// Caps lock etc
   rgblight_set_layer_state(0, led_state.caps_lock);
-	rgblight_set_layer_state(5, led_state.scroll_lock);
+	rgblight_set_layer_state(7, led_state.scroll_lock);
   return true;
 }
