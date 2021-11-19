@@ -46,17 +46,17 @@ When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 #define ROW_SHIFTER ((matrix_row_t)1)
 
 typedef struct {
-    bool pressed : 1;
+    bool    pressed : 1;
     uint8_t time : 7;
 } debounce_counter_t;
 
 #if DEBOUNCE > 0
 static debounce_counter_t *debounce_counters;
-static fast_timer_t last_time;
-static bool counters_need_update;
-static bool matrix_need_update;
+static fast_timer_t        last_time;
+static bool                counters_need_update;
+static bool                matrix_need_update;
 
-#define DEBOUNCE_ELAPSED 0
+#    define DEBOUNCE_ELAPSED 0
 
 static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t elapsed_time);
 static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows);
@@ -64,7 +64,7 @@ static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], ui
 // we use num_rows rather than MATRIX_ROWS to support split keyboards
 void debounce_init(uint8_t num_rows) {
     debounce_counters = malloc(num_rows * MATRIX_COLS * sizeof(debounce_counter_t));
-    int i = 0;
+    int i             = 0;
     for (uint8_t r = 0; r < num_rows; r++) {
         for (uint8_t c = 0; c < MATRIX_COLS; c++) {
             debounce_counters[i++].time = DEBOUNCE_ELAPSED;
@@ -81,10 +81,10 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     bool updated_last = false;
 
     if (counters_need_update) {
-        fast_timer_t now = timer_read_fast();
+        fast_timer_t now          = timer_read_fast();
         fast_timer_t elapsed_time = TIMER_DIFF_FAST(now, last_time);
 
-        last_time = now;
+        last_time    = now;
         updated_last = true;
         if (elapsed_time > UINT8_MAX) {
             elapsed_time = UINT8_MAX;
@@ -108,7 +108,7 @@ static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[],
     debounce_counter_t *debounce_pointer = debounce_counters;
 
     counters_need_update = false;
-    matrix_need_update = false;
+    matrix_need_update   = false;
 
     for (uint8_t row = 0; row < num_rows; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -146,8 +146,8 @@ static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], ui
             if (delta & col_mask) {
                 if (debounce_pointer->time == DEBOUNCE_ELAPSED) {
                     debounce_pointer->pressed = (raw[row] & col_mask);
-                    debounce_pointer->time = DEBOUNCE;
-                    counters_need_update = true;
+                    debounce_pointer->time    = DEBOUNCE;
+                    counters_need_update      = true;
 
                     if (debounce_pointer->pressed) {
                         // key-down: eager
