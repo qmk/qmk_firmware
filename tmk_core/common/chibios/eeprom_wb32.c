@@ -25,6 +25,26 @@
 #    error "not implemented."
 #endif
 
+// #define DEBUG_EEPROM_OUTPUT
+
+/*
+ * Debug print utils
+ */
+
+#if defined(DEBUG_EEPROM_OUTPUT)
+
+#    define debug_eeprom debug_enable
+#    define eeprom_println(s) println(s)
+#    define eeprom_printf(fmt, ...) xprintf(fmt, ##__VA_ARGS__);
+
+#else /* NO_DEBUG */
+
+#    define debug_eeprom false
+#    define eeprom_println(s)
+#    define eeprom_printf(fmt, ...)
+
+#endif /* NO_DEBUG */
+
 /*****************************************************************************
  * Allows to use the internal flash to store non volatile data. To initialize
  * the functionality use the EEPROM_Init() function. Be sure that by reprogramming
@@ -159,6 +179,8 @@ static uint32_t FMC_ClearPageLatch(void) {
 static void EEPROM_Erase(void) {
     int page_num = 0;
 
+    eeprom_println("EEPROM_Erase");
+
     /* delete all pages from specified start page to the last page.*/
     do {
         FMC_ErasePage(FEE_PAGE_BASE_ADDRESS + (page_num * FEE_PAGE_SIZE));
@@ -169,11 +191,11 @@ static void EEPROM_Erase(void) {
 /*****************************************************************************
  *  Read flash data.
  ******************************************************************************/
-static void WBFLASH_Read(uint32_t ReadAddr, uint8_t *pBuffer, uint16_t NumToRead) {
+static void WBFLASH_Read(uint32_t ReadAddr, uint8_t *ReadDest, uint16_t ReadLen) {
     uint16_t i;
 
-    for (i = 0; i < NumToRead; i++) {
-        pBuffer[i] = (__IO uint8_t)(*(__IO uint8_t *)ReadAddr);
+    for (i = 0; i < ReadLen; i++) {
+        ReadDest[i] = (__IO uint8_t)(*(__IO uint8_t *)ReadAddr);
         ReadAddr++;
     }
 }
@@ -183,36 +205,56 @@ static void WBFLASH_Read(uint32_t ReadAddr, uint8_t *pBuffer, uint16_t NumToRead
  *  the manipulated buffer written after PageErase.
  *******************************************************************************/
 static uint8_t wb_flash_buffer[FEE_PAGE_SIZE] = {0};
-static uint8_t EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte) {
-    FLASH_Status FlashStatus = FLASH_COMPLETE;
-    uint32_t     raw_address;
-    uint32_t     pagpos;
-    uint16_t     pagoff;
-    uint32_t     offaddr;
-    /* exit if desired address is above the limit (e.G. under 2048 Bytes for 4 pages).*/
-    if (Address > FEE_DENSITY_BYTES) {
-        return 0;
+static int EEPROM_WriteDataPage(uint16_t Addr, uint8_t *WriteSrc, size_t Len) {
+    uint16_t     PageReamin;
+    uint16_t     PageOff;
+    uint32_t     PagePos;
+    uint32_t     WriteAddr;
+    uint32_t     WriteLen;
+
+    /* exit if desired address is above the limit (Over maximum capacity).*/
+    if (Addr > FEE_DENSITY_BYTES) {
+        eeprom_printf("EEPROM_WriteDataByte(0x%04x) [BAD ADDRESS]\n", Addr);
+        return -1;
     }
 
-    raw_address = Address + FEE_PAGE_BASE_ADDRESS;
-    offaddr     = raw_address - WB32_FLASH_BASE;
     /* calculate which page is affected (Pagenum1/Pagenum2...PagenumN).*/
-    pagpos = offaddr / FEE_PAGE_SIZE;
-    pagoff = offaddr % FEE_PAGE_SIZE;
-    WBFLASH_Read(pagpos * FEE_PAGE_SIZE + WB32_FLASH_BASE, wb_flash_buffer, FEE_PAGE_SIZE);
-    wb_flash_buffer[pagoff] = DataByte;
-    /* Erase the specified FLASH page */
-    FMC_ErasePage(pagpos * FEE_PAGE_SIZE + WB32_FLASH_BASE);
-    /* Clear page latch */
-    FMC_ClearPageLatch();
+    PagePos    = (Addr + FEE_PAGE_BASE_ADDRESS) / FEE_PAGE_SIZE;
+    PageOff    = (Addr + FEE_PAGE_BASE_ADDRESS) % FEE_PAGE_SIZE;
+    PageReamin = FEE_PAGE_SIZE - PageOff;
+    WriteAddr  = PagePos * FEE_PAGE_SIZE;
 
-    for (int i = 0; i < (FEE_PAGE_SIZE >> 2); i++) {
-        FMC->BUF[i] = (*((volatile uint32_t *)(wb_flash_buffer + i * 4)));
+    WriteLen = (Len < PageReamin) ? Len : PageReamin;
+
+    if (WriteLen != FEE_PAGE_SIZE) {
+        WBFLASH_Read(WriteAddr, wb_flash_buffer, FEE_PAGE_SIZE);
+        memcpy(wb_flash_buffer + PageOff, WriteSrc, WriteLen);
+        /* Erase the specified FLASH page */
+        FMC_ErasePage(WriteAddr);
+        /* Clear page latch */
+        FMC_ClearPageLatch();
+
+        for (int i = 0; i < (FEE_PAGE_SIZE >> 2); i++) {
+            FMC->BUF[i] = (*((volatile uint32_t *)(wb_flash_buffer + i * 4)));
+        }
+        /* Program data in page latch to the specified FLASH page */
+        FMC_ProgramPage(WriteAddr);
+        return WriteLen;
+    } else {
+        /* Erase the specified FLASH page */
+        FMC_ErasePage(WriteAddr);
+        /* Clear page latch */
+        FMC_ClearPageLatch();
+
+        for (int i = 0; i < (FEE_PAGE_SIZE >> 2); i++) {
+            FMC->BUF[i] = (*((volatile uint32_t *)(WriteSrc + i * 4)));
+        }
+        /* Program data in page latch to the specified FLASH page */
+        FMC_ProgramPage(WriteAddr);
+        return WriteLen;
     }
-    /* Program data in page latch to the specified FLASH page */
-    FMC_ProgramPage(pagpos * FEE_PAGE_SIZE + WB32_FLASH_BASE);
 
-    return FlashStatus;
+    return -1;
 }
 /*****************************************************************************
  *  Read once data byte from a specified address.
@@ -242,9 +284,19 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
 }
 
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
-    uint8_t *      p   = (uint8_t *)addr;
-    const uint8_t *src = (const uint8_t *)buf;
-    while (len--) {
-        EEPROM_WriteDataByte((uint32_t)p++, (uint8_t)*src++);
+    uint8_t *dest = (uint8_t *)addr;
+    uint8_t *src  = (uint8_t *)buf;
+    int retval;
+
+    while (len) {
+        retval = EEPROM_WriteDataPage((uintptr_t)((uint16_t *)dest), src, len);
+        if (retval == -1) {
+            eeprom_println("EEPROM Write Failed");
+            return;
+        }
+
+        len  -= retval;
+        dest += retval;
+        src  += retval;
     }
 }

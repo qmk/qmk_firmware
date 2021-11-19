@@ -42,14 +42,14 @@
 /* Start of the emulated eeprom */
 #if !defined(FEE_PAGE_BASE_ADDRESS)
 #    if defined(WB32F3G71x9) || defined(WB32F3G71xB) || defined(WB32F3G71xC)
+#        ifndef WB32_FLASH_BASE
+#            define WB32_FLASH_BASE 0x8000000
+#        endif
 #        ifndef FEE_PAGE_BASE_ADDRESS
-#            define FEE_PAGE_BASE_ADDRESS ((uint32_t)(0x8000000 + FEE_MCU_FLASH_SIZE * 1024 - FEE_PAGE_COUNT * FEE_PAGE_SIZE))  // bodge to force 2nd 16k page
+#            define FEE_PAGE_BASE_ADDRESS ((uint32_t)(WB32_FLASH_BASE + FEE_MCU_FLASH_SIZE * 1024 - FEE_PAGE_COUNT * FEE_PAGE_SIZE))  // bodge to force 2nd 16k page
 #        endif
 #        ifndef FEE_DENSITY_BYTES
 #            define FEE_DENSITY_BYTES (FEE_PAGE_SIZE * FEE_PAGE_COUNT - 1)
-#        endif
-#        ifndef WB32_FLASH_BASE
-#            define WB32_FLASH_BASE 0x8000000
 #        endif
 #    endif
 #endif
