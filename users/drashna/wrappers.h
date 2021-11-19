@@ -167,13 +167,76 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________HALMAK_R3_________________       KC_G,    KC_P,    KC_X,    KC_K,    KC_Y
 
 
-#define _________________HALMAK_L1_________________       KC_W,    KC_L,    KC_R,    KC_B,    KC_Z
-#define _________________HALMAK_L2_________________       KC_S,    KC_H,    KC_N,    KC_T,    KC_COMM
-#define _________________HALMAK_L3_________________       KC_F,    KC_M,    KC_V,    KC_V,    KC_SLASH
+#define __________________ISRT_L1__________________       KC_W,    KC_C,    KC_L,    KC_M,    KC_K
+#define __________________ISRT_L2__________________       KC_I,    KC_S,    KC_R,    KC_T,    KC_G
+#define __________________ISRT_L3__________________       KC_Q,    KC_V,    KC_W,    KC_D,    KC_J
 
-#define _________________HALMAK_R1_________________       KC_SCLN, KC_Q,    KC_U,    KC_D,    KC_J
-#define _________________HALMAK_R2_________________       KC_DOT,  KC_A,    KC_E,    KC_O,    KC_I,    KC_QUOTE
-#define _________________HALMAK_R3_________________       KC_G,    KC_P,    KC_X,    KC_K,    KC_Y
+#define __________________ISRT_R1__________________       KC_Z,    KC_F,    KC_U,    KC_COMM, KC_QUOTE
+#define __________________ISRT_R2__________________       KC_P,    KC_N,    KC_E,    KC_A,    KC_O,    KC_SCLN
+#define __________________ISRT_R3__________________       KC_B,    KC_H,    KC_SLSH, KC_DOT,  KC_X
+
+
+#define __________________SOUL_L1__________________       KC_Q,    KC_W,    KC_L,    KC_D,    KC_P
+#define __________________SOUL_L2__________________       KC_A,    KC_S,    KC_R,    KC_T,    KC_G
+#define __________________SOUL_L3__________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_J
+
+#define __________________SOUL_R1__________________       KC_K,    KC_M,    KC_U,    KC_Y,    KC_SCLN
+#define __________________SOUL_R2__________________       KC_F,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOTE
+#define __________________SOUL_R3__________________       KC_B,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH
+
+
+#define __________________NIRO_L1__________________       KC_Q,    KC_W,    KC_U,    KC_D,    KC_P
+#define __________________NIRO_L2__________________       KC_A,    KC_S,    KC_E,    KC_T,    KC_G
+#define __________________NIRO_L3__________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+
+#define __________________NIRO_R1__________________       KC_J,    KC_F,    KC_Y,    KC_L,    KC_SCLN
+#define __________________NIRO_R2__________________       KC_H,    KC_N,    KC_I,    KC_R,    KC_O,    KC_QUOTE
+#define __________________NIRO_R3__________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
+
+
+#define _________________ASSET_L1__________________       KC_Q,    KC_W,    KC_J,    KC_F,    KC_G
+#define _________________ASSET_L2__________________       KC_A,    KC_S,    KC_E,    KC_T,    KC_D
+#define _________________ASSET_L3__________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+
+#define _________________ASSET_R1__________________       KC_Y,    KC_P,    KC_U,    KC_L,    KC_SCLN
+#define _________________ASSET_R2__________________       KC_H,    KC_N,    KC_I,    KC_O,    KC_R,    KC_QUOTE
+#define _________________ASSET_R3__________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
+
+
+#define _________________MTGAP_L1__________________       KC_Y,    KC_P,    KC_O,    KC_U,    KC_J
+#define _________________MTGAP_L2__________________       KC_I,    KC_N,    KC_E,    KC_A,    KC_COMM
+#define _________________MTGAP_L3__________________       KC_Q,    KC_Z,    KC_SLSH, KC_DOT,  KC_SCLN
+
+#define _________________MTGAP_R1__________________       KC_K,    KC_D,    KC_L,    KC_C,    KC_W
+#define _________________MTGAP_R2__________________       KC_M,    KC_H,    KC_T,    KC_S,    KC_R,    KC_QUOTE
+#define _________________MTGAP_R3__________________       KC_B,    KC_F,    KC_G,    KC_V,    KC_X
+
+
+#define _________________MINIMAK_L1________________       KC_Q,    KC_W,    KC_D,    KC_R,    KC_K
+#define _________________MINIMAK_L2________________       KC_A,    KC_S,    KC_T,    KC_F,    KC_G
+#define _________________MINIMAK_L3________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+
+#define _________________MINIMAK_R1________________       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
+#define _________________MINIMAK_R2________________       KC_H,    KC_J,    KC_E,    KC_L,    KC_SCLN, KC_QUOT
+#define _________________MINIMAK_R3________________       KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
+
+
+#define ________________MINIMAK_8_L1_______________       KC_Q,    KC_W,    KC_D,    KC_R,    KC_K
+#define ________________MINIMAK_8_L2_______________       KC_A,    KC_S,    KC_T,    KC_F,    KC_G
+#define ________________MINIMAK_8_L3_______________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+
+#define ________________MINIMAK_8_R1_______________       KC_Y,    KC_U,    KC_I,    KC_L,    KC_P
+#define ________________MINIMAK_8_R2_______________       KC_H,    KC_N,    KC_E,    KC_O,    KC_SCLN, KC_QUOT
+#define ________________MINIMAK_8_R3_______________       KC_J,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
+
+
+#define _______________MINIMAK_12_L1_______________       KC_Q,    KC_W,    KC_D,    KC_F,    KC_K
+#define _______________MINIMAK_12_L2_______________       KC_A,    KC_S,    KC_T,    KC_R,    KC_G
+#define _______________MINIMAK_12_L3_______________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+
+#define _______________MINIMAK_12_R1_______________       KC_Y,    KC_U,    KC_I,    KC_L,    KC_SCLN
+#define _______________MINIMAK_12_R2_______________       KC_H,    KC_N,    KC_E,    KC_O,    KC_P,    KC_QUOT
+#define _______________MINIMAK_12_R3_______________       KC_J,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
 
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5

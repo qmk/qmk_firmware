@@ -18,7 +18,6 @@
 #include "jonavin.h"
 #include "layout_landscape.h"
 
-#define LANDSCAPE_MODE
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -28,6 +27,7 @@ enum layer_names {
     _RGB
 };
 
+#ifdef LANDSCAPE_MODE
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT_landscape(
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_FN2] = LAYOUT_landscape(
         _______,  _______, RESET,
 
-        _______,  _______,  _______,  _______, _______,     _______,
+        _______,  _______,  KC_MPLY,  KC_MPRV, KC_MNXT,     _______,
         _______,  _______,  _______,  _______, _______,     _______,
         _______,  _______,  _______,  _______, _______,     _______,
         _______,  _______,  _______,  _______, _______,     _______,
@@ -91,6 +91,73 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   _______,  _______, _______
    ),
 };
+#endif // LANDSCAPE_MODE
+
+#ifndef LANDSCAPE_MODE
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* Base */
+    [_BASE] = LAYOUT(
+                  TT(_FN2),TT(_FN3),TT(_FN4),LT(_RGB,KC_PSCR),
+				  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+                  KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
+        KC_MUTE,  KC_P4,   KC_P5,   KC_P6,   _______,
+        TT(_FN1), KC_P1,   KC_P2,   KC_P3,   KC_PENT,
+        KC_RALT,  KC_P0,   _______, KC_PDOT, _______,
+
+				          TT(_FN3), TT(_FN4), TT(_RGB)
+    ),
+    [_FN1] = LAYOUT(
+                  _______, _______, _______, RESET,
+                  KC_CALC, _______, _______, _______,
+                  _______, _______, _______, _______,
+        ENCFUNC,  KC_TAB,  _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  KC_BSPC, _______, KC_DEL,  _______,
+
+                  _______, _______, _______
+    ),
+    [_FN2] = LAYOUT(
+                  _______, _______, _______, _______,
+                  _______, _______, KC_MPLY, KC_MPRV,
+                  _______, _______, _______, KC_MNXT,
+        RESET,    _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+
+                  _______, _______, _______
+    ),
+	  [_FN3] = LAYOUT(
+                  _______, _______, _______, _______,
+                  _______, _______, _______, _______,
+                  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+
+                  _______, _______, _______
+    ),
+	[_FN4] = LAYOUT(
+                  _______, _______, _______, _______,
+                  _______, _______, _______, _______,
+                  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+        _______,  _______, _______, _______, _______,
+
+                  _______, _______, _______
+    ),
+    [_RGB] = LAYOUT(
+                 _______,  _______, _______, _______,
+                 _______,  _______, _______, _______,
+                 RGB_HUD,  RGB_SPI, RGB_HUI, _______,
+        _______, RGB_RMOD, RGB_TOG, RGB_MOD, _______,
+        _______, RGB_VAD,  RGB_SPD, RGB_VAI, _______,
+        _______, RGB_SAD,  _______, RGB_SAI, _______,
+
+                 _______,  _______, _______
+    ),
+};
+#endif // !LANDSCAPE_MODE
 
 typedef struct {
      char keydesc[6];    // this will be displayed on OLED
@@ -99,15 +166,15 @@ typedef struct {
 
 static const keycodedescType PROGMEM keyselection[] = {
     // list of key codes that will be scrolled through by encoder and description
-        {"TASK",    KC_TASK},
-        {"INS",     KC_INS},
-        {"DEL",     KC_DEL},
-        {"PrtSc",   KC_PSCR},
+        {"TASK ",   KC_TASK},
+        {"PREV ",   KC_MEDIA_PREV_TRACK},
+        {"NEXT ",   KC_MEDIA_NEXT_TRACK},
+        {"PLAY ",   KC_MEDIA_PLAY_PAUSE},
+        {"PrtScm",  KC_PSCR},
         {"ScrLk",   KC_SCLN},
         {"Break",   KC_PAUS},
         {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
         {"AltF4",   KC_AF4},
-        {"PLAY",    KC_MEDIA_PLAY_PAUSE},
         {"RESET",   RESET},   // firmware flash mode
 };
 
@@ -144,67 +211,68 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 
 #ifdef ENCODER_ENABLE       // Encoder Functionality
-    uint8_t selected_layer = 0;
+    void encoder_action_selectkey(bool clockwise) {
+        if ( clockwise ) {
+            if ( selectedkey_idx  < MAX_KEYSELECTION-1) {
+                selectedkey_idx ++;
+            } else {
+                // do nothing
+            }
+        } else if ( !clockwise ) {
+            if ( selectedkey_idx  > 0){
+                selectedkey_idx --;
+            } else {
+                // do nothing
+            }
+        }
+        set_selectedkey(selectedkey_idx);
+    }
 
     bool encoder_update_user(uint8_t index, bool clockwise) {
         #ifdef OLED_ENABLE
             oled_clear();
             oled_render();
         #endif
+        uint8_t mods_state = get_mods();
         switch (index) {
-            case 0:         // This is the only encoder right now, keeping for consistency
-                switch(get_highest_layer(layer_state)){  // special handling per layer
-                case _FN1:  // on Fn layer select what the encoder does when pressed
-                    if (!keyboard_report->mods) {
-                        if ( clockwise ) {
-                            if ( selectedkey_idx  < MAX_KEYSELECTION-1) {
-                                selectedkey_idx ++;
-                            } else {
-                               // do nothing
-                            }
-                        } else if ( !clockwise ) {
-                            if ( selectedkey_idx  > 0){
-                                selectedkey_idx --;
-                            } else {
-                                // do nothing
-                            }
-                        }
-                        set_selectedkey(selectedkey_idx);
-                        break;
-                    } else {
-                           // continue to default
-                    }
-                default:   // all other layers
-                    if ( clockwise ) {
-                        if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) { // If you are holding Right Shift, encoder changes layers
-                            if(selected_layer  < (DYNAMIC_KEYMAP_LAYER_COUNT-1)) {
-                                selected_layer ++;
-                                layer_move(selected_layer);
-                            }
-                        } else if (keyboard_report->mods & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, navigate next word
-                             tap_code16(LCTL(KC_RGHT));
-                        } else if (keyboard_report->mods & MOD_BIT(KC_RALT)) {  // if holding Right Alt, change media next track
-                            tap_code(KC_MEDIA_NEXT_TRACK);
-                        } else  {
-                            tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
-                        }
-                    } else if ( !clockwise ) {
-                        if (keyboard_report->mods & MOD_BIT(KC_RSFT) ) {
-                            if (selected_layer  > 0) {
-                                selected_layer --;
-                                layer_move(selected_layer);
-                            }
-                        } else if (keyboard_report->mods & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, navigate previous word
-                            tap_code16(LCTL(KC_LEFT));
-                        } else if (keyboard_report->mods & MOD_BIT(KC_RALT)) {  // if holding Right Alt, change media previous track
-                            tap_code(KC_MEDIA_PREV_TRACK);
-                        } else {
-                            tap_code(KC_VOLD);
-                        }
-                    }
+        case 0:   // main primary encoder
+            switch(get_highest_layer(layer_state)){  // special handling per layer
+            case _FN1:  // on Fn layer select what the encoder does when pressed
+                if (!mods_state) {
+                    encoder_action_selectkey(clockwise);
+                    break;
+                } else {
+                        // continue to default
+                }
+            case _RGB:
+                if (!mods_state) {
+                    encoder_action_rgb_hue(clockwise);
                     break;
                 }
+            default:   // all other layers
+                if (mods_state & MOD_BIT(KC_RSFT) ) { // If you are holding R shift, encoder changes layers
+                    encoder_action_layerchange(clockwise);
+                } else if (mods_state & MOD_BIT(KC_RCTL)) {  // if holding Right Ctrl, navigate next/prev word
+                    encoder_action_navword(clockwise);
+                } else if (mods_state & MOD_BIT(KC_RALT)) {  // if holding Right Alt, change media next/prev track
+                    encoder_action_mediatrack(clockwise);
+                } else  {
+                    encoder_action_volume(clockwise);   // Otherwise it just changes volume
+                }
                 break;
+            }
+            break;
+        case 1:      // optional secondary encoder
+            switch(get_highest_layer(layer_state)){  // special handling per layer
+            case _RGB:
+                if (!mods_state) {
+                    encoder_action_rgb_mode(clockwise);
+                    break;
+                }
+            default:   // all other layers
+                encoder_action_mediatrack(clockwise);   // Otherwise prev/next track
+                break;
+            }
         }
         return true;
     }
@@ -232,7 +300,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
         render_logo();
         oled_set_cursor(8,2);
-        switch(selected_layer){
+        switch(get_selected_layer()){
             case _BASE:
                 oled_write_P(PSTR("BASE"), false);
                 break;
@@ -257,7 +325,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         }
         oled_write_P(keymap_config.no_gui ? PSTR(" WL") : PSTR("   "), false);
         oled_set_cursor(8,3);
-        if (get_highest_layer(layer_state) == selected_layer) {
+        if (get_highest_layer(layer_state) == get_selected_layer()) {
             oled_write_P(PSTR("             "), false);
         } else {
             switch (get_highest_layer(layer_state)) {
@@ -302,16 +370,19 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
     void oled_task_user(void) {
 		render_logo();
-		oled_set_cursor(0,6);
+		oled_set_cursor(0,5);
 
-		oled_write_ln_P(PSTR("Layer"), false);
+		oled_write_ln_P(PSTR("-JV-"), false);
+		oled_write_ln_P(PSTR(" "), false);
 
+        bool showSelectedKey = false;
         switch (get_highest_layer(layer_state)) {
             case _BASE:
-                oled_write_ln_P(PSTR("Base"), false);
+                oled_write_ln_P(PSTR("BASE"), false);
                 break;
             case _FN1:
                 oled_write_ln_P(PSTR("FN 1"), false);
+                showSelectedKey = true;
                 break;
             case _FN2:
                 oled_write_ln_P(PSTR("FN 2"), false);
@@ -326,18 +397,26 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 oled_write_ln_P(PSTR("RGB "), false);
                 break;
             default:
-                oled_write_ln_P(PSTR("Undef"), false);
+                oled_write_ln_P(PSTR(" ?? "), false);
         }
-        oled_write_ln_P(PSTR(""), false);
+        if (showSelectedKey) oled_write_ln(selectedkey_rec.keydesc, false);
+            else oled_write_ln_P(PSTR("     "), false);
+
         // Host Keyboard LED Status
         led_t led_state = host_keyboard_led_state();
-        oled_write_ln_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-        oled_write_ln_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-        oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+        oled_set_cursor(0,11);
+        oled_write_ln_P(led_state.num_lock ? PSTR(" NUM") : PSTR("    "), false);
+        oled_write_ln_P(led_state.caps_lock ? PSTR(" CAP") : PSTR("    "), false);
+        oled_write_ln_P(led_state.scroll_lock ? PSTR(" SCR") : PSTR("    "), false);
     }
     #endif // !LANDSCAPE_MODE
 
     void suspend_power_down_user(void) {  // shutdown oled when powered down to prevent OLED from showing Mercutio all the time
-      oled_off();
+        oled_off();
+        rgblight_disable_noeeprom();
+    }
+
+    void suspend_wakeup_init_user(void) {
+        rgblight_enable_noeeprom();
     }
 #endif
