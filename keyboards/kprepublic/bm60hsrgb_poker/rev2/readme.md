@@ -2,8 +2,8 @@
 
 A 60% hotswap inswitch RGB (north facing) keyboard from KP Republic. 
 
-* Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
-* Hardware Supported: BM60 POKER RGB
+* Keyboard Maintainer: [bdtc123](https://github.com/bdtc123)
+* Hardware Supported: BM60HSRGB_Poker/rev2
 * Hardware Availability: [KP Republic](https://kprepublic.com/products/bm60-rgb-poker-60-gh60-hot-swap-custom-mechanical-keyboard-pcb-program-qmk-underglow-type-c)
 
 Make example for this keyboard (after setting up your build environment):
