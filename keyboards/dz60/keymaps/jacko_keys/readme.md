@@ -116,6 +116,7 @@ Sometimes it's part of the cursor block.
 * Semicolon is pause.
 * Apostrophe is print screen.
 * Cursor block works.
+* `Fn` + Left `Alt` exits **BQN** if you accidentally enter a backslash. No CYAN shift. 
 
 ## Macro-board Layer (Complete YELLOW Layer)
 * Escape is a one shot sticky `Alt` shift.
