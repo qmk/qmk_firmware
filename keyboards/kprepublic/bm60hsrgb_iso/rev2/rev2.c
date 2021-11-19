@@ -125,40 +125,4 @@ void rgb_matrix_indicators_user(void) {
 }
 #endif
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) { return false; }
 
-    if (record->event.pressed) {
-        switch(keycode) {
-#if defined(RGB_MATRIX_DISABLE_KEYCODES)
-        case RGB_MATRIX_TOGGLE: // toggle rgb matrix
-            rgb_matrix_toggle();
-            return false;
-        case RGB_MATRIX_STEP:
-            rgb_matrix_step();
-            return false;
-        case RGB_MATRIX_INC_HUE:
-            rgb_matrix_increase_hue();
-            return false;
-        case RGB_MATRIX_DEC_HUE:
-            rgb_matrix_decrease_hue();
-            return false;
-        case RGB_MATRIX_INC_SAT:
-            rgb_matrix_increase_sat();
-            return false;
-        case RGB_MATRIX_DEC_SAT:
-            rgb_matrix_decrease_sat();
-            return false;
-        case RGB_MATRIX_INC_VAL:
-            rgb_matrix_increase_val();
-            return false;
-        case RGB_MATRIX_DEC_VAL:
-            rgb_matrix_decrease_val();
-            return false;
-#endif
-            default:
-            break;
-        }
-    }
-    return true;
-}
