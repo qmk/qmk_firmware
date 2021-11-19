@@ -4,9 +4,9 @@ zhou65 version 1.0
 A 65% keys keyboard with rgb (keys).
 This keyboard use 8mhz HSE and STM32F401 as MCU.
 
-Keyboard Maintainer: https://github.com/jiaxin96
-Hardware Supported: zhou65
-Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
+- Keyboard Maintainer: https://github.com/jiaxin96
+- Hardware Supported: zhou65
+- Hardware Availability: https://github.com/Oh-My-Mechanical-Keyboard 
 
 Make example for this keyboard (after setting up your build environment):
 
