@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Undead-60M",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "jfescobar18",
     "layouts": {
         "LAYOUT": {
             "layout": [
