@@ -14,7 +14,25 @@ COMMAND_ENABLE = no            # Commands for debug and configuration
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = yes              # USB Nkey Rollover
 BACKLIGHT_ENABLE = no          # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = yes          # Enable keyboard RGB underglow
+
 AUDIO_ENABLE = no              # Audio output
-RGB_MATRIX_ENABLE = yes        # Use RGB matrix
-RGB_MATRIX_DRIVER = IS31FL3733
+
+LTO_ENABLE = yes
+
+
+# RGB Matrix is required to support per-key LEDs connected to IS31FL3733.
+RGB_MATRIX_ENABLE = yes
+
+# The simpler RGB Lighting code can be enabled to control just the underglow
+# LEDs from it; leave it disabled to make the RGB Matrix code control all LEDs,
+# including underglow.
+RGBLIGHT_ENABLE = no
+
+# The custom RGB Matrix driver combines IS31FL3733 and WS2812; things that are
+# normally done by common_features.mk for both of these drivers need to be done
+# here manually.
+RGB_MATRIX_DRIVER = custom
+COMMON_VPATH += $(DRIVER_PATH)/led/issi
+SRC += is31fl3733.c
+QUANTUM_LIB_SRC += i2c_master.c
+WS2812_DRIVER_REQUIRED = yes
