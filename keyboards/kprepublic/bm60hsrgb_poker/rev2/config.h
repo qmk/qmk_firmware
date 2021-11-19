@@ -39,7 +39,7 @@
  *
  */
 #define MATRIX_ROW_PINS { E6, D2, D3, D5, F6 }
-#define MATRIX_COL_PINS { B2, B3, B7, B0, B1, F7, D4, D6, D7, B4, B5, B6, C6, C7 } 
+#define MATRIX_COL_PINS { B2, B3, B7, B0, B1, F7, D4, D6, D7, B4, B5, B6, C6, C7 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
@@ -73,20 +73,47 @@
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
 #    define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #    define DISABLE_RGB_MATRIX_BAND_SAT
 #    define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
 #    define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
 #    define DISABLE_RGB_MATRIX_RAINDROPS
 #    define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-#    define DRIVER_ADDR_1 0b1010000
-#    define DRIVER_COUNT 1
-#    define DRIVER_1_LED_TOTAL 61
-#    define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 
-#if defined(RGB_MATRIX_ENABLE) && defined(RGBLIGHT_ENABLE)
-#    define RGB_MATRIX_DISABLE_KEYCODES
-#endif
+
+
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
+
+
+
+
+
+// Note: The RGB LED driver configuration is not inside #ifdef blocks, so that
+// the driver code would still compile even without RGBLIGHT_ENABLE and
+// RGB_MATRIX_ENABLE (usually this is not required, but with the custom
+// IS31FL3733+WS2812 driver setup used by this board the LED controller drivers
+// are compiled unconditionally).
+
+// Configure the IS31FL3733 driver for per-key RGB LEDs
+#define DRIVER_COUNT 1
+#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_1_LED_TOTAL 61
+
+#define ISSI_LED_TOTAL DRIVER_1_LED_TOTAL
+
+// Underglow LEDs are WS2812, but someone might want to use RGBLIGHT for them;
+// don't use those LEDs in RGB Matrix in that case.
+#ifdef RGBLIGHT_ENABLE
+#    define WS2812_LED_TOTAL 0
+#else
+#    define WS2812_LED_TOTAL RGBLED_NUM
+#endif
+
+#define DRIVER_LED_TOTAL (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
+
+#ifdef RGB_MATRIX_ENABLE
+#    define RGB_MATRIX_KEYPRESSES
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#endif
+
 

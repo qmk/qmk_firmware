@@ -31,32 +31,7 @@
     { K40,   K41,   K42,   KC_NO, KC_NO, K45,   KC_NO, KC_NO, KC_NO, K49,   K4A,   K4B,   KC_NO, K4D   }, \
 }
 
-#if defined(RGB_MATRIX_DISABLE_KEYCODES)
-#    ifndef RGB_MATRIX_TOGGLE
-#        define RGB_MATRIX_TOGGLE   KC_F16
-#    endif
-#    ifndef RGB_MATRIX_STEP
-#        define RGB_MATRIX_STEP     KC_F17
-#    endif
-#    ifndef RGB_MATRIX_INC_HUE
-#        define RGB_MATRIX_INC_HUE  KC_F18
-#    endif
-#    ifndef RGB_MATRIX_DEC_HUE
-#        define RGB_MATRIX_DEC_HUE  KC_F19
-#    endif
-#    ifndef RGB_MATRIX_INC_SAT
-#        define RGB_MATRIX_INC_SAT  KC_F20
-#    endif
-#    ifndef RGB_MATRIX_DEC_SAT
-#        define RGB_MATRIX_DEC_SAT  KC_F21
-#    endif
-#    ifndef RGB_MATRIX_INC_VAL
-#        define RGB_MATRIX_INC_VAL  KC_F22
-#    endif
-#    ifndef RGB_MATRIX_DEC_VAL
-#        define RGB_MATRIX_DEC_VAL  KC_F23
-#    endif
-#endif
+
 
 
 
