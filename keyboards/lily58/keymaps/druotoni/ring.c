@@ -11,11 +11,11 @@ char tListeTotal2[SIZE_ARRAY_1] = {'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 
 static char tRefArc[SIZE_ARRAY_1]  = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'};
 static char tRefArc2[SIZE_ARRAY_1] = {'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6'};
 
-const char code_to_name[60] = {' ', ' ', ' ', ' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
+static const char PROGMEM code_to_name[60] = {' ', ' ', ' ', ' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
 
 #define ANIM_CENTER_FRAME_NUMBER 5
-uint32_t anim_center_timer = 0;
-int anim_center_current_frame = 0;
+uint32_t anim_center_timer         = 0;
+int      anim_center_current_frame = 0;
 
 #define ANIM_KEYLOG_FRAME_NUMBER 8
 int      anim_keylog_current_frame = 0;
@@ -66,10 +66,7 @@ static signed int GetDistance(char cNew, char tListe[]) {
     return iReturn;
 }
 
-// static char GetCharCursor(char tListe[]) { return tListe[CURSOR_1]; }
-
-
-static int TesterEstDansListe(char cChar, char tListe[]) {
+static bool TesterEstDansListe(char cChar, char tListe[]) {
     int iSize = SIZE_ARRAY_1;
 
     for (int i = 0; i < iSize; i++) {
@@ -106,7 +103,7 @@ static void update_list(char cNouveau, char tListe[]) {
     }
 }
 
-static void draw_arc_sector_16(uint8_t x, uint8_t y, uint8_t radius, int position, int color) {
+static void draw_arc_sector_16(uint8_t x, uint8_t y, uint8_t radius, int position, bool color) {
     unsigned int s = 1;
     s              = s << (position / 2);
 
@@ -117,12 +114,12 @@ static void draw_arc_sector_16(uint8_t x, uint8_t y, uint8_t radius, int positio
     }
 }
 
-static void render_set(int x, int y, int r, int p, int color) {
+static void render_set(uint8_t x, uint8_t y, uint8_t r, int p, bool color) {
     draw_arc_sector_16(x, y, r, p, color);
     draw_arc_sector_16(x, y, r - 1, p, color);
 }
 
-static void draw_letter_circle(char t[], char tRef[], char ct, int x, int y, int r, bool invert) {
+static void draw_letter_circle(char t[], char tRef[], char ct, uint8_t x, uint8_t y, uint8_t r, bool invert) {
     int  iPositionTarget = CURSOR_1;
     char c               = t[iPositionTarget];
 
@@ -137,14 +134,8 @@ static void draw_letter_circle(char t[], char tRef[], char ct, int x, int y, int
         draw_circle(x, y, r, b);
         draw_circle(x, y, r - 1, b);
         draw_circle(x, y, r - 2, b);
-
-        // draw_circle(x, y, r, b);
-        // draw_circle(x, y, r - 1, b);
-
-        r -= 4;
-        draw_circle(x, y, r, w);
-        draw_circle(x, y, r - 1, w);
-        r += 4;
+        draw_circle(x, y, r - 4, w);
+        draw_circle(x, y, r - 5, w);
     }
 
     int pafter  = (pt + 1) % SIZE_ARRAY_1;
@@ -183,15 +174,14 @@ static const char PROGMEM raw_circle[4][128] = {{
                                                     0, 0, 0, 192, 224, 240, 248, 248, 124, 62, 30, 14, 15, 7, 7, 3, 3, 3, 1, 1, 2, 2, 2, 4, 8, 8, 16, 32, 192, 0, 0, 0, 240, 254, 255, 31, 15, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 14, 240, 15, 115, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 112, 15, 0, 0, 0, 3, 4, 8, 16, 16, 32, 64, 64, 64, 128, 128, 128, 128, 128, 128, 128, 128, 64, 64, 64, 32, 16, 16, 8, 4, 3, 0, 0, 0,
                                                 }};
 
-static void draw_center_circle_frame(uint8_t x, uint8_t y, uint8_t r, int f) {
+static void draw_center_circle_frame(uint8_t x, uint8_t y, uint8_t r, uint8_t f) {
     draw_fill_circle(x, y, r, 0);
     draw_circle(x, y, r, 0);
 
     if (f == 0) {
         draw_circle(x, y, r, 1);
     } else {
-        oled_set_cursor(0, 11);
-        oled_write_raw_P(raw_circle[f - 1], sizeof(raw_circle[f - 1]));
+        oled_write_raw_P_cursor(0, 11, raw_circle[f - 1], sizeof(raw_circle[f - 1]));
     }
 }
 
@@ -206,7 +196,6 @@ static void render_anim_center_circle(uint8_t x, uint8_t y, uint8_t r) {
         anim_center_current_frame++;
     }
 }
-
 
 static void write_char(char c) {
     oled_set_cursor(2, 6);
@@ -239,9 +228,9 @@ static void render_keylog(void) {
 
 #define ANIM_SLEEP_RING_FRAME_NUMBER 4
 
-uint32_t anim_sleep_ring_timer = 0;
-uint8_t current_sleep_ring_frame     = 0;
-uint8_t sleep_ring_frame_destination = ANIM_SLEEP_RING_FRAME_NUMBER - 1;
+uint32_t anim_sleep_ring_timer        = 0;
+uint8_t  current_sleep_ring_frame     = 0;
+uint8_t  sleep_ring_frame_destination = ANIM_SLEEP_RING_FRAME_NUMBER - 1;
 
 void reset_ring(bool bNeedOpen) {
     // allume : doit s'eteindre
@@ -256,8 +245,7 @@ void reset_ring(bool bNeedOpen) {
     sleep_ring_frame_destination = (ANIM_SLEEP_RING_FRAME_NUMBER - 1) - current_sleep_ring_frame;
 }
 
-
-static void render_tv_circle(uint8_t x, uint8_t y, uint8_t r, int f) {
+static void render_tv_circle(uint8_t x, uint8_t y, uint8_t r, uint8_t f) {
     switch (f) {
         case 0:
             draw_fill_circle(x, y, r, 1);
@@ -306,16 +294,17 @@ static const char PROGMEM raw_middle[] = {
 
 void render_circle(gui_state_t t) {
     // gear and frame
-    oled_set_cursor(0, 5);
-    oled_write_raw_P(raw_middle, sizeof(raw_middle));
+
+    oled_write_raw_P_cursor(0, 5, raw_middle, sizeof(raw_middle));
+
     drawline_hr(5, 39, 25, 1);
     draw_rectangle_fill(0, 88, 32, 32, false);
     drawline_vb(0, 80, 8, 1);
     drawline_vb(31, 80, 8, 1);
     oled_write_pixel(1, 80, true);
     oled_write_pixel(30, 80, true);
-    oled_set_cursor(0, 15);
-    oled_write_raw_P(raw_bottom, sizeof(raw_bottom));
+
+    oled_write_raw_P_cursor(0, 15, raw_bottom, sizeof(raw_bottom));
 
     if (timer_elapsed32(circle_timer) > CIRCLE_ANIM_FRAME_DURATION) {
         circle_timer = timer_read32();
@@ -358,7 +347,7 @@ void update_circle(uint16_t keycode) {
 
     if (keycode >= 60) return;
 
-    char c = code_to_name[keycode];
+    char c = pgm_read_byte(&code_to_name[keycode]);
 
     c_previous                = c_last;
     c_last                    = c;

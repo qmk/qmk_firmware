@@ -13,11 +13,13 @@
 
 #include "navi_logo.h"
 
+#include "transactions.h"
+
 #undef OLED_DRIVER_ENABLE
 #define OLED_DRIVER_ENABLE
 
 // transport key stroke to the other side
-bool should_process_keypress(void) { return true; }
+//bool should_process_keypress(void) { return true; }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -54,7 +56,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                   |      |      |      |/       /         \      \ |      |      |      |
      *                   `----------------------------'           '------''--------------------'
      */
-    [_LOWER] = LAYOUT(KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_DELETE, KC_F10, KC_F11, KC_F12, KC_DELETE, RCTL(FR_V), RCTL(FR_C), RCTL(FR_F), KC_F8, KC_PSCR, RCTL(FR_Y), RCTL(KC_RIGHT), KC_HOME, _______, RCTL(FR_A), KC_AT, RCTL(FR_S), RCTL(FR_Z), KC_BSPC, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_RPRN, KC_END, _______, KC_F11, KC_F10, KC_F5, LALT(KC_TAB), RCTL(FR_X), KC_ENT, _______, RCTL(KC_LEFT), KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, _______, TT(_RAISE), _______, _______, _______, _______, KC_APP, _______),
+    [_LOWER] = LAYOUT(KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_DELETE, RESET, KC_F11, KC_F12,
+
+                      KC_DELETE, RCTL(FR_V), RCTL(FR_C), RCTL(FR_F), KC_F8, KC_PSCR, RCTL(FR_Y), RCTL(KC_RIGHT), KC_HOME, _______, RCTL(FR_A), KC_AT, RCTL(FR_S), RCTL(FR_Z), KC_BSPC, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_RPRN, KC_END, _______, KC_F11, KC_F10, KC_F5, LALT(KC_TAB), RCTL(FR_X), KC_ENT, _______, RCTL(KC_LEFT), KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, _______, TT(_RAISE), _______, _______, _______, _______, KC_APP, _______),
     /* RAISE
      * ,-----------------------------------------.                    ,-----------------------------------------.
      * |      |      |      |      |      |      |                    |      |     |   /   | etoile |   - | rgb toggle
@@ -116,6 +120,14 @@ void reset(bool b) {
 #    endif
 }
 
+
+typedef struct _sync_keycode_t {
+    uint16_t keycode;
+} sync_keycode_t;
+
+sync_keycode_t last_keycode;
+bool           b_sync_need_send = false;
+
 void oled_task_user(void) {
     gui_state_t t = get_gui_state();
 
@@ -135,38 +147,63 @@ void oled_task_user(void) {
 
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
+void process_key(uint16_t keycode) {
+    // update screen with the new key
+    update(keycode);
 
-        // update screen with the new key
-        update(keycode);
-        
-        gui_state_t t = get_gui_state();
+    gui_state_t t = get_gui_state();
 
-        if (t == _IDLE) {
-            // wake up animation
-            reset(true);
-        }
-
-        if (t == _BOOTING) {
-            // cancel booting
-            reset(false);
-        }
-
-        if (t == _SLEEP) {
-            // boot sequence
-            reset(true);
-            reset_boot();
-            oled_clear();
-        }
-
-        update_gui_state();
+    if (t == _IDLE) {
+        // wake up animation
+        reset(true);
     }
 
+    if (t == _BOOTING) {
+        // cancel booting
+        reset(false);
+    }
+
+    if (t == _SLEEP) {
+        // boot sequence
+        reset(true);
+        reset_boot();
+        oled_clear();
+    }
+
+    update_gui_state();
+}
+
+void user_sync_a_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+    const sync_keycode_t* m2s = (const sync_keycode_t*)in_data;
+    process_key(m2s->keycode);
+}
+
+void keyboard_post_init_user(void) { transaction_register_rpc(USER_SYNC_A, user_sync_a_slave_handler); }
+
+void housekeeping_task_user(void) {
+    if (!is_keyboard_master()) return;
+    if (!b_sync_need_send) return;
+
+    if (transaction_rpc_send(USER_SYNC_A, sizeof(last_keycode), &last_keycode)) {
+        b_sync_need_send = false;
+    }
+}
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    if (record->event.pressed) {
+        if (!is_keyboard_master()) return true;
+
+        last_keycode.keycode = keycode;
+        b_sync_need_send     = true;
+        process_key(keycode);
+    }
     return true;
 }
 
+#if IS_LEFT
 layer_state_t layer_state_set_user(layer_state_t state) {
     update_layer_frame(state);
     return state;
 }
+#endif

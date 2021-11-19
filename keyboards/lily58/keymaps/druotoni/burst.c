@@ -92,19 +92,27 @@ static void RenderScopeBlack(void) {
     // oled_write("     ", false);
     // }
 
-    oled_set_cursor(0, 10);
-    oled_write("     ", false);
 
-    oled_set_cursor(0, 11);
-    oled_write("     ", false);
-    oled_set_cursor(0, 12);
-    oled_write("     ", false);
-    oled_set_cursor(0, 13);
-    oled_write("     ", false);
-    oled_set_cursor(0, 14);
-    oled_write("     ", false);
-    oled_set_cursor(0, 15);
-    oled_write("     ", false);
+oled_write_cursor(0, 10, "     ", false);
+oled_write_cursor(0, 11, "     ", false);
+oled_write_cursor(0, 12, "     ", false);
+oled_write_cursor(0, 13, "     ", false);
+oled_write_cursor(0, 14, "     ", false);
+oled_write_cursor(0, 15, "     ", false);
+
+    // oled_set_cursor(0, 10);
+    // oled_write("     ", false);
+
+    // oled_set_cursor(0, 11);
+    // oled_write("     ", false);
+    // oled_set_cursor(0, 12);
+    // oled_write("     ", false);
+    // oled_set_cursor(0, 13);
+    // oled_write("     ", false);
+    // oled_set_cursor(0, 14);
+    // oled_write("     ", false);
+    // oled_set_cursor(0, 15);
+    // oled_write("     ", false);
 
     drawline_hr(1, SCOPE_Y_BOTTOM, 32, 1);
     drawline_vt(0, SCOPE_Y_BOTTOM - 1, 43, 1);
@@ -125,11 +133,11 @@ static void render_scope_white(void) {
 
 static void render_scope_chart(void) {
     render_scope_white();
-    uint8_t x_offset = 3;
+  //  uint8_t x_offset = 3;
     uint8_t y_offset = SCOPE_Y_BOTTOM - 3;
 
     for (uint8_t i = 0; i < SIZE_SCOPE; i++) {
-        uint8_t x = x_offset + i;
+        uint8_t x = 3 + i;
 
         uint8_t iCurrentBurst = burst_scope[i];
         uint8_t iCurrentWpm   = wpm_scope[i];
@@ -295,13 +303,27 @@ void render_scope(gui_state_t t) {
 
 static void decay_burst(void) {
     uint32_t temps_ecoule     = timer_elapsed32(burst_timer);
-    int      poucentageEcoule = 0;
-    if (temps_ecoule > BURST_FENETRE * 4) {
-        poucentageEcoule = 100;
 
-    } else {
-        poucentageEcoule = ((100 * (temps_ecoule)) / (BURST_FENETRE * 4));
-    }
+        int      poucentageEcoule =  100;
+
+
+    
+    if (temps_ecoule <= BURST_FENETRE * 4) {
+      
+poucentageEcoule = ((100 * (temps_ecoule)) / (BURST_FENETRE * 4));
+    } 
+
+
+    // int      poucentageEcoule = 0;
+
+
+
+    // if (temps_ecoule > BURST_FENETRE * 4) {
+    //     poucentageEcoule = 100;
+
+    // } else {
+    //     poucentageEcoule = ((100 * (temps_ecoule)) / (BURST_FENETRE * 4));
+    // }
 
     current_burst = current_burst - poucentageEcoule;
     if (current_burst <= 0) current_burst = 0;

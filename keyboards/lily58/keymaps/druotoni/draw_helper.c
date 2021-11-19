@@ -36,18 +36,16 @@
 //   easeInOutQuint: t => t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t
 // }
 
-
 // void clip_value(long *value, int min, int max){
 //   if (*value < min){
 //       *value = min;
 //       return;
-//   } 
+//   }
 
 //     if (*value > max) *value = max;
 // }
 
-
-void drawline(uint8_t x, uint8_t y, uint8_t width, bool bHorizontal, bool bPositiveDirection, uint8_t color) {
+void drawline(uint8_t x, uint8_t y, uint8_t width, bool bHorizontal, bool bPositiveDirection, bool color) {
     if (width <= 0) return;
     uint8_t yPlus  = 0;
     uint8_t yMois  = 0;
@@ -61,30 +59,10 @@ void drawline(uint8_t x, uint8_t y, uint8_t width, bool bHorizontal, bool bPosit
         }
     }
 
-    // if (width % 2 == 0) {
-    //     // pair
-    //     yMois  = (width / 2) - 1;
-    //     yPlus  = (width / 2);
-    //     nbtour = (width / 4) + 1;
+    yMois = (width / 2) - 1 + (width % 2);
 
-    // } else {
-    //     // impair
-    //     yMois  = (width / 2);
-    //     yPlus  = (width / 2);
-    //     nbtour = (width / 4) + 1;
-    // }
-
-
-    if (width % 2 == 0) {
-        // pair
-        yMois  = (width / 2) - 1;
-    } else {
-        // impair
-        yMois  = (width / 2);
-    }
-
-yPlus  = (width / 2);
-nbtour = (width / 4) + 1;
+    yPlus  = (width / 2);
+    nbtour = (width / 4) + 1;
 
     bool bWhite = color;
 
@@ -98,7 +76,6 @@ nbtour = (width / 4) + 1;
         }
     } else {
         for (uint8_t i = 0; i < nbtour; i++) {
-    
             oled_write_pixel(x, y + yPlus + i, bWhite);
             oled_write_pixel(x, y + yMois - i, bWhite);
 
@@ -109,35 +86,35 @@ nbtour = (width / 4) + 1;
     }
 }
 
-void drawline_vb(uint8_t x, uint8_t y, uint8_t width, uint8_t color) { drawline(x, y, width, false, true, color); }
+void drawline_vb(uint8_t x, uint8_t y, uint8_t width, bool color) { drawline(x, y, width, false, true, color); }
 
-void drawline_vt(uint8_t x, uint8_t y, uint8_t width, uint8_t color) { drawline(x, y, width, false, false, color); }
+void drawline_vt(uint8_t x, uint8_t y, uint8_t width, bool color) { drawline(x, y, width, false, false, color); }
 
-void drawline_hr(uint8_t x, uint8_t y, uint8_t width, uint8_t color) { drawline(x, y, width, true, true, color); }
+void drawline_hr(uint8_t x, uint8_t y, uint8_t width, bool color) { drawline(x, y, width, true, true, color); }
 
-void drawline_hl(uint8_t x, uint8_t y, uint8_t width, uint8_t color) { drawline(x, y, width, true, false, color); }
+void drawline_hl(uint8_t x, uint8_t y, uint8_t width, bool color) { drawline(x, y, width, true, false, color); }
 
-void draw_rectangle(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t color) {
+void draw_rectangle(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, bool color) {
     drawline_hr(x, y, width, color);
     drawline_hr(x, y + heigth - 1, width, color);
     drawline_vb(x, y, heigth, color);
     drawline_vb(x + width - 1, y, heigth, color);
 }
 
-void draw_rectangle_fill(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t color) {
+void draw_rectangle_fill(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, bool color) {
     for (uint8_t i = 0; i < heigth; i++) {
         drawline_hr(x, y + i, width, color);
     }
 }
 
-void drawline_hr_heigth(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t color) {
+void drawline_hr_heigth(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, bool color) {
     for (int i = 0; i < heigth; i++) {
         drawline_hr(x, y - i, width, color);
         drawline_hr(x, y + i, width, color);
     }
 }
 
-void drawline_point_hr(short x, short y, short x1, uint8_t color) {
+void drawline_point_hr(short x, short y, short x1, bool color) {
     if (y < 0 || y > 127) return;
 
     if (x1 < x) {
@@ -153,7 +130,7 @@ void drawline_point_hr(short x, short y, short x1, uint8_t color) {
     drawline(x, y, x1 - x, true, true, color);
 }
 
-void draw_circle(uint8_t x, uint8_t y, uint8_t radius, uint8_t color) {
+void draw_circle_old(uint8_t x, uint8_t y, uint8_t radius, bool color) {
     short a, b, P;
 
     // Calculate intermediates
@@ -221,12 +198,54 @@ void draw_circle(uint8_t x, uint8_t y, uint8_t radius, uint8_t color) {
     oled_write_pixel(px, py, color);
 }
 
-void draw_ellipse(uint8_t x, uint8_t y, uint8_t a, uint8_t b, uint8_t color) {
+void flip_flap_x(short px, short py, uint8_t val, bool color) {
+    oled_write_pixel(px + val, py, color);
+    oled_write_pixel(px - val, py, color);
+}
+
+void draw_circle(uint8_t x, uint8_t y, uint8_t radius, bool color) {
+    short a, b, P;
+
+    // Calculate intermediates
+    a = 1;
+    b = radius;
+    P = 4 - radius;
+
+    short py, px;
+
+    // Away we go using Bresenham's circle algorithm
+    // Optimized to prevent double drawing
+    px = x;
+    py = y + b;
+    oled_write_pixel(px, py, color);
+    px = x;
+    py = y - b;
+    oled_write_pixel(px, py, color);
+
+    flip_flap_x(x, y, b, color);
+
+    do {
+        flip_flap_x(x, y + b, a, color);
+        flip_flap_x(x, y - b, a, color);
+        flip_flap_x(x, y + a, b, color);
+        flip_flap_x(x, y - a, b, color);
+
+        if (P < 0)
+            P += 3 + 2 * a++;
+        else
+            P += 5 + 2 * (a++ - b--);
+    } while (a < b);
+
+    flip_flap_x(x, y + b, a, color);
+    flip_flap_x(x, y - b, a, color);
+}
+
+void draw_ellipse(uint8_t x, uint8_t y, uint8_t a, uint8_t b, bool color) {
     int dx, dy;
     int a2, b2;
     int err, e2;
 
-    short py, px;
+    //  short py, px;
     // Calculate intermediates
     dx  = 0;
     dy  = b;
@@ -236,18 +255,8 @@ void draw_ellipse(uint8_t x, uint8_t y, uint8_t a, uint8_t b, uint8_t color) {
 
     // Away we go using Bresenham's ellipse algorithm
     do {
-        px = x + dx;
-        py = y + dy;
-        oled_write_pixel(px, py, color);
-        px = x - dx;
-        py = y + dy;
-        oled_write_pixel(px, py, color);
-        px = x - dx;
-        py = y - dy;
-        oled_write_pixel(px, py, color);
-        px = x + dx;
-        py = y - dy;
-        oled_write_pixel(px, py, color);
+        flip_flap_x(x, y + dy, dx, color);
+        flip_flap_x(x, y - dy, dx, color);
 
         e2 = 2 * err;
         if (e2 < (2 * dx + 1) * b2) {
@@ -261,7 +270,7 @@ void draw_ellipse(uint8_t x, uint8_t y, uint8_t a, uint8_t b, uint8_t color) {
     } while (dy >= 0);
 }
 
-void draw_ellipse_fill(uint8_t x, uint8_t y, uint8_t a, uint8_t b, uint8_t color) { return; }
+void draw_ellipse_fill(uint8_t x, uint8_t y, uint8_t a, uint8_t b, bool color) { return; }
 // void draw_ellipse_fill(uint8_t x, uint8_t y, uint8_t a, uint8_t b, uint8_t color) {
 //     int dx, dy;
 //     int a2, b2;
@@ -302,7 +311,13 @@ void draw_ellipse_fill(uint8_t x, uint8_t y, uint8_t a, uint8_t b, uint8_t color
 // }
 
 bool test_limit(short x, short y) { return !(y < 0 || y > 127 || x < 0 || x > 31); }
-void draw_fill_circle(short x, short y, uint8_t radius, uint8_t color) {
+
+void flip_flap_y_point(short px, short py, short px1, uint8_t val, bool color) {
+    drawline_point_hr(px, py + val, px1, color);
+    drawline_point_hr(px, py - val, px1, color);
+}
+
+void draw_fill_circle(short x, short y, uint8_t radius, bool color) {
     short a, b, P;
 
     // Calculate intermediates
@@ -326,36 +341,18 @@ void draw_fill_circle(short x, short y, uint8_t radius, uint8_t color) {
     px = x;
     if (test_limit(px, py)) oled_write_pixel(px, py, color);
     do {
-        py  = y + a;
-        px  = x - b;
-        px1 = x + b;
-        drawline_point_hr(px, py, px1, color);
-        py  = y - a;
-        px  = x - b;
-        px1 = x + b;
-        drawline_point_hr(px, py, px1, color);
+        flip_flap_y_point(x - b, y, x + b, a, color);
+
         if (P < 0) {
             P += 3 + 2 * a++;
         } else {
-            py  = y + b;
-            px  = x - a;
-            px1 = x + a;
-            drawline_point_hr(px, py, px1, color);
-            py  = y - b;
-            px  = x - a;
-            px1 = x + a;
-            drawline_point_hr(px, py, px1, color);
+            flip_flap_y_point(x - a, y, x + a, b, color);
+
             P += 5 + 2 * (a++ - b--);
         }
     } while (a < b);
-    py  = y + a;
-    px  = x - b;
-    px1 = x + b;
-    drawline_point_hr(px, py, px1, color);
-    py  = y - a;
-    px  = x - b;
-    px1 = x + b;
-    drawline_point_hr(px, py, px1, color);
+
+    flip_flap_y_point(x - b, y, x + b, a, color);
 }
 
 #if IS_RIGHT
@@ -363,7 +360,7 @@ bool apres_moitie(int a, int b) { return (a > b / 2); }
 bool arrive_moitie(int a, int b) { return (a > b / 2); }
 bool avant_moitie(int a, int b) { return (a <= b / 2 && !apres_moitie(a, b)); }
 
-void draw_arc_sector(uint8_t x, uint8_t y, uint8_t radius, unsigned char sectors, unsigned char half, int color) {
+void draw_arc_sector(uint8_t x, uint8_t y, uint8_t radius, unsigned char sectors, unsigned char half, bool color) {
     short a, b, P;
     short py, px;
     // Calculate intermediates
@@ -507,11 +504,8 @@ void draw_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int color,
     }
 }
 
-
-
- void copy_pixel(int from, int shift, unsigned char mask) {
-
-    if(shift == 0) return;
+void copy_pixel(int from, int shift, unsigned char mask) {
+    if (shift == 0) return;
 
     char c_from  = get_oled_char(from);
     char extract = c_from & mask;
@@ -526,10 +520,8 @@ void draw_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int color,
     oled_write_raw_byte(c_from, from);
 }
 
-
-
 void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t iSize, bool odd) {
-   // char c = 0;
+    // char c = 0;
     // size for
     // int iSize = 1;
 
@@ -539,7 +531,7 @@ void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8
     uint8_t  w_max = width;  // 32
     uint16_t index = y_start + x;
 
- //  char c_other = 0;
+    //  char c_other = 0;
 
     int mask_1 = 85;
     int mask_2 = 170;
@@ -571,7 +563,7 @@ void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8
             if (w_max - 1 - i - iSize >= 0) {
                 pos = (index + w_max - 1) - i;
 
- copy_pixel(pos - iSize, iSize , mask_2);
+                copy_pixel(pos - iSize, iSize, mask_2);
                 // c = get_oled_char(pos - iSize);
                 // c = c & mask_2;
 
@@ -588,19 +580,32 @@ void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8
 void draw_random_char(uint8_t column, uint8_t row, char final_char, int value, uint8_t style) {
     if (value < 0) return;
 
-    if (value >= 100) {
-        oled_set_cursor(column, row);
-        oled_write_char(final_char, false);
-        return;
+    char c = final_char;
+
+    if (value < 100) {
+        c = ((fastrand() % 15) + 1);
     }
 
-    int  r = fastrand();
-    char c = ((r % 15) + 1);
     oled_set_cursor(column, row);
     oled_write_char(c, false);
 }
 
-void draw_progress(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int value, uint8_t style, uint8_t color) {
+// void draw_random_char(uint8_t column, uint8_t row, char final_char, int value, uint8_t style) {
+//     if (value < 0) return;
+
+//     if (value >= 100) {
+//         oled_set_cursor(column, row);
+//         oled_write_char(final_char, false);
+//         return;
+//     }
+
+//     int  r = fastrand();
+//     char c = ((r % 15) + 1);
+//     oled_set_cursor(column, row);
+//     oled_write_char(c, false);
+// }
+
+void draw_progress(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int value, uint8_t style, bool color) {
     int lenght = (width * value) / 100;
     for (uint8_t i = 0; i < lenght; i++) {
         switch (style) {
@@ -619,20 +624,39 @@ void draw_progress(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int valu
     }
 }
 
+void oled_write_raw_P_cursor(uint8_t col, uint8_t line, const char *data, uint16_t size) {
+    oled_set_cursor(col, line);
+    oled_write_raw_P(data, size);
+}
+
+void oled_write_cursor(uint8_t col, uint8_t line, const char *data, bool invert) {
+    oled_set_cursor(col, line);
+    oled_write(data, invert);
+}
+
+// void oled_write_raw_cursor(uint8_t col, uint8_t line, const char *data, bool invert){
+//   oled_set_cursor(col, line);
+//     oled_write(data, invert);
+// }
+//     oled_set_cursor(0, 5);
+//     oled_write_raw_P(raw_middle, sizeof(raw_middle));
+
 void draw_label(const char *data, uint8_t len, uint8_t row, int value) {
     if (value < 0) return;
     if (row >= 16 || row < 0) return;
-
-    oled_set_cursor(0, row);
-    oled_write(data, false);
+    oled_write_cursor(0, row, data, false);
+    // oled_set_cursor(0, row);
+    // oled_write(data, false);
 }
 
 void draw_box(const char *data, uint8_t len, uint8_t row, long value, uint8_t style) {
     if (value < 0) return;
     if (row >= 16 || row < 0) return;
 
-    oled_set_cursor(0, row);
-    oled_write(data, false);
+    oled_write_cursor(0, row, data, false);
+
+    // oled_set_cursor(0, row);
+    // oled_write(data, false);
 
     uint8_t y = row * 8;
 
@@ -644,21 +668,15 @@ void draw_box(const char *data, uint8_t len, uint8_t row, long value, uint8_t st
     draw_progress(x, y, w, 7, value, style, 1);
 }
 
-
-
-
-
- char get_oled_char(uint16_t start_index) {
+char get_oled_char(uint16_t start_index) {
     oled_buffer_reader_t reader;
     reader = oled_read_raw(start_index);
     return *reader.current_element;
 }
 
-
-
 static int get_index_first_block(uint8_t y) { return ((y / 8) * 32); }
 
- void move_block(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int shift) {
+void move_block(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int shift) {
     // clip
     if (x >= 31) return;
     if (y >= 127) return;
@@ -716,9 +734,6 @@ static int get_index_first_block(uint8_t y) { return ((y / 8) * 32); }
         }
     }
 }
-
-
-  
 
 // void render_monochrome_ordered4x4() {
 // 	reset_pixels();
@@ -789,7 +804,7 @@ int interpo_pourcent(int min, int max, int v) {
 }
 
 void draw_gradient(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t color_start, uint8_t color_end, uint8_t tres) {
-    bool invert  = color_start > color_end;
+    bool invert = color_start > color_end;
 
     if (invert) {
         color_start = 255 - color_start;
@@ -804,13 +819,13 @@ void draw_gradient(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t 
         int position = interpo_pourcent(0, width, i);
 
         float color = position;
-        color       = ((int)(color / step))  * step_minus  ;
-       // color       = color * step_minus;
+        color       = ((int)(color / step)) * step_minus;
+        // color       = color * step_minus;
 
         color = color_start + ((distance * color) / 100);
 
         for (uint8_t j = 0; j < heigth; j++) {
-            uint8_t m = BAYER_PATTERN_4[i % 4][j % 4];
+            uint8_t       m       = BAYER_PATTERN_4[i % 4][j % 4];
             unsigned char color_d = (color > m) ? !invert : invert;
 
             oled_write_pixel(x + i, y + j, color_d);
@@ -818,11 +833,7 @@ void draw_gradient(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t 
     }
 }
 
-
-
-
-
- void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth) {
+void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth) {
     uint8_t xCenter = x + (width / 2);
     uint8_t yCenter = y + (heigth / 2);
 
@@ -888,7 +899,7 @@ void draw_gradient(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t 
             drawline_hr(xCenter - 7, yCenter, 2, true);
             drawline_hr(xCenter + 6, yCenter, 3, true);
 
-          //  oled_write_pixel(xCenter - 11, yCenter, true);
+            //  oled_write_pixel(xCenter - 11, yCenter, true);
             oled_write_pixel(xCenter - 11, yCenter, true);
             oled_write_pixel(xCenter + 12, yCenter, true);
             oled_write_pixel(xCenter + 14, yCenter, true);
@@ -901,88 +912,76 @@ void draw_gradient(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t 
     }
 }
 
-
-
- void render_tv_animation_opti(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth) {
+void render_tv_animation_opti(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth) {
     uint8_t xCenter = x + (width / 2);
     uint8_t yCenter = y + (heigth / 2);
 
+    if (frame_number <= 4) {
+        drawline_hr_heigth(x, yCenter, width, 17 - (5 * frame_number), true);
+    }
 
-if(frame_number <=  4 ){
-   drawline_hr_heigth(x, yCenter, width, 17 - (5 * frame_number), true);
+    if (frame_number >= 6 && frame_number < 9) {
+        // cross
+        drawline_hr(xCenter, yCenter + 1, 2, true);
+        drawline_hr(xCenter, yCenter - 1, 2, true);
+    }
 
-}
+    if (frame_number >= 5) {
+        // central line
+        drawline_hr(xCenter - ((frame_number - 9) * 3), yCenter, 2 + ((frame_number - 9) * 3), true);
+    }
 
-if(frame_number >=  6 && frame_number < 9){
- // cross
-            drawline_hr(xCenter, yCenter + 1, 2, true);
-            drawline_hr(xCenter, yCenter - 1, 2, true);
-
-}
-
-
-if(frame_number >=  5){
-
-
-   // central line
-  drawline_hr(xCenter - ((frame_number - 9) * 3), yCenter, 2 + ((frame_number - 9) * 3), true);
-}
-
-if(frame_number == 4 || frame_number == 5  ){
-    draw_fill_circle(xCenter, yCenter, frame_number - 1, true);
-}
-
+    if (frame_number == 4 || frame_number == 5) {
+        draw_fill_circle(xCenter, yCenter, frame_number - 1, true);
+    }
 
     switch (frame_number) {
-    
-        // case 4:
-        //   //  drawline_hr_heigth(x, yCenter, width, 2, true);
-        //     draw_fill_circle(xCenter, yCenter, 3, true);
-        //     break;
+            // case 4:
+            //   //  drawline_hr_heigth(x, yCenter, width, 2, true);
+            //     draw_fill_circle(xCenter, yCenter, 3, true);
+            //     break;
 
-        // case 5:
-        //     // central line
-        //  //  drawline_hr(x, yCenter, width, true);
-        //     draw_fill_circle(xCenter, yCenter, 2, true);
-        //     break;
+            // case 5:
+            //     // central line
+            //  //  drawline_hr(x, yCenter, width, true);
+            //     draw_fill_circle(xCenter, yCenter, 2, true);
+            //     break;
 
-     //   case 6:
-            
+            //   case 6:
 
             // central line
-        //    drawline_hr(x, yCenter, width, true);
-       //     break;
+            //    drawline_hr(x, yCenter, width, true);
+            //     break;
 
         case 7:
-          
+
             // central line
-         //   drawline_hr(xCenter - 8, yCenter, 18, true);
+            //   drawline_hr(xCenter - 8, yCenter, 18, true);
             // static
             oled_write_pixel(xCenter - 13, yCenter, true);
             oled_write_pixel(xCenter + 12, yCenter, true);
             break;
 
         case 8:
-         
+
             // central line
-          //  drawline_hr(xCenter - 2, yCenter, 4, true);
+            //  drawline_hr(xCenter - 2, yCenter, 4, true);
             // static
             drawline_hr(xCenter - 7, yCenter, 2, true);
             drawline_hr(xCenter + 6, yCenter, 3, true);
 
-          //  oled_write_pixel(xCenter - 11, yCenter, true);
+            //  oled_write_pixel(xCenter - 11, yCenter, true);
             oled_write_pixel(xCenter - 11, yCenter, true);
             oled_write_pixel(xCenter + 12, yCenter, true);
             oled_write_pixel(xCenter + 14, yCenter, true);
             break;
 
-    //    case 9:
+            //    case 9:
             // central line
-          //  drawline_hr(xCenter, yCenter, 2, true);
-        //    break;
+            //  drawline_hr(xCenter, yCenter, 2, true);
+            //    break;
     }
 }
-
 
 // in float color;
 // out vec4 frag_color;

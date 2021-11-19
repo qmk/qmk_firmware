@@ -98,18 +98,13 @@ static void draw_lily(int f) {
 }
 
 static void draw_startup_navi(int f) {
-    oled_set_cursor(0, 5);
-    oled_write("HELL0", false);
-
-    oled_set_cursor(0, 7);
-    oled_write("NAVI.", false);
+    oled_write_cursor(0, 5, "HELL0", false);
+    oled_write_cursor(0, 7, "NAVI.", false);
 
     if ((f % 8) > 4) {
-        oled_set_cursor(0, 12);
-        oled_write("> ", false);
+        oled_write_cursor(0, 12, "> ", false);
     } else {
-        oled_set_cursor(0, 12);
-        oled_write(">_", false);
+        oled_write_cursor(0, 12, ">_", false);
     }
     uint8_t tres_shell = 15;
     uint8_t tres_load  = 35;
@@ -156,23 +151,6 @@ static void draw_startup_navi(int f) {
 
 static char *boot_ref[TERMINAL_LINE_NUMBER] = {"LT:", "RT:", "M :", "    ", "cnx:", "A0:", "B0:", "    ", "0x40", "0x60", "0x85", "0x0F", "    ", "> run", "x ", "y ", " 100%", "    ", "> key"};
 
-// static void print_font(int y, int index) {
-
-//     if(index % 3 == 0){
-// oled_set_cursor(0, y);
-//     oled_write("     ", false);
-// return;
-//     }
-//     index             = (index * 4);
-//     char scan_font[5] = {'>', 1, 1, 1, 1};
-//     scan_font[1]      = index;
-//     scan_font[2]      = index + 1;
-//     scan_font[3]      = index + 2;
-//     scan_font[4]      = index + 3;
-//     oled_set_cursor(0, y);
-//     oled_write(scan_font, false);
-// }
-
 char scan_font[5] = {'>', 1, 1, 1, 1};
 
 static char *get_terminal_line(uint8_t i) {
@@ -204,167 +182,40 @@ static void draw_startup_terminal(int f) {
     uint8_t i_nb_char = f;
 
     if (f > TERMINAL_LINE_MAX) {
-        // i_start   = 0;
-        // i_nb_char = f;
-
         i_start   = f - TERMINAL_LINE_MAX;
         i_nb_char = TERMINAL_LINE_MAX;
     }
 
     for (uint8_t i = 0; i < i_nb_char; i++) {
         char *s = get_terminal_line(i + i_start);
-        oled_set_cursor(0, i);
-        oled_write(s, false);
+        oled_write_cursor(0, i, s, false);
     }
 }
-
-
-// static void print_font(int y, int index) {
-
-//     if(index % 3 == 0){
-// oled_set_cursor(0, y);
-//     oled_write("     ", false);
-// return;
-//     }
-//     index             = (index * 4);
-//     char scan_font[5] = {'>', 1, 1, 1, 1};
-//     scan_font[1]      = index;
-//     scan_font[2]      = index + 1;
-//     scan_font[3]      = index + 2;
-//     scan_font[4]      = index + 3;
-//     oled_set_cursor(0, y);
-//     oled_write(scan_font, false);
-// }
-
-// static void draw_startup_terminal(int f) {
-//     uint8_t y_brutal = 0;
-
-//     uint8_t i_scroll = 7;
-//     if (f == 0) {
-//         oled_clear();
-//     }
-
-//     if (f > i_scroll) {
-//         oled_clear();
-//         // y_brutal = i_scroll - 3 - (f);
-//         y_brutal = (i_scroll * 2) - (f * 2);
-//     }
-//     long v_brutal = f * 100;
-
-//     int  ref_line  = 0;
-//     long ref_value = 0;
-
-//     ref_value = (ref_line * 100 * -1) + v_brutal;
-//     draw_box("LT:", 3, y_brutal, ref_value, 2);
-//     y_brutal++;
-//     draw_box("RT:", 3, y_brutal, ref_value, 2);
-//     y_brutal++;
-//     ref_line++;
-
-//     ref_value = (ref_line * 100 * -1) + v_brutal;
-//     draw_box("M :", 3, y_brutal, ref_value, 2);
-//     y_brutal++;
-//     draw_box("cnx:", 4, y_brutal, ref_value, 2);
-//     y_brutal++;
-//     ref_line++;
-
-//     ref_value = (ref_line * 100 * -1) + v_brutal;
-//     draw_box("A0:", 3, y_brutal, ref_value, 1);
-//     y_brutal++;
-//     draw_box("B0:", 3, y_brutal, ref_value, 1);
-//     y_brutal++;
-//     ref_line++;
-
-//     ref_value = (ref_line * 100 * -1) + v_brutal;
-//     draw_label(" ", 1, y_brutal, ref_value);
-//     y_brutal++;
-//     ref_line++;
-
-//     ref_value = (ref_line * 100 * -1) + v_brutal;
-//     draw_label("0x40", 4, y_brutal, ref_value);
-//     y_brutal++;
-//     draw_label("0x60", 4, y_brutal, ref_value);
-//     y_brutal++;
-//     draw_label("0x85", 4, y_brutal, ref_value);
-//     y_brutal++;
-//     draw_label("0x0F", 4, y_brutal, ref_value);
-//     y_brutal++;
-//     ref_line++;
-
-//     ref_value = (ref_line * 100 * -1) + v_brutal;
-//     draw_label("> run", 4, y_brutal, ref_value);
-//     ref_line++;
-//     y_brutal++;
-
-//     ref_value = (ref_line * 100 * -1) + v_brutal;
-//     draw_box("x ", 2, y_brutal, ref_value, 2);
-//     ref_line++;
-//     y_brutal++;
-
-//     ref_value = (ref_line * 100 * -1) + v_brutal;
-//     draw_box("y ", 2, y_brutal, ref_value, 2);
-//     ref_line++;
-//     y_brutal++;
-
-//     ref_value = (ref_line * 100 * -1) + v_brutal;
-//     draw_label(" 100%", 5, y_brutal, ref_value);
-//     ref_line++;
-//     y_brutal++;
-
-//     ref_value = (ref_line * 100 * -1) + v_brutal;
-//     draw_label(">key", 4, y_brutal, ref_value);
-//     ref_line++;
-//     y_brutal++;
-
-//     char scan_font[5] = {'>', 1, 1, 1, 1};
-//     for (uint8_t i_font = 0; i_font < 60 + 30; i_font = i_font + 8) {
-//         ref_value = (ref_line * 100 * -1) + v_brutal;
-
-//         scan_font[1] = i_font;
-//         scan_font[2] = i_font + 1;
-//         scan_font[3] = i_font + 2;
-//         scan_font[4] = i_font + 3;
-//         draw_label(scan_font, 5, y_brutal, ref_value);
-//         y_brutal++;
-
-//         scan_font[1] = i_font + 4;
-//         scan_font[2] = i_font + 5;
-//         scan_font[3] = i_font + 6;
-//         scan_font[4] = i_font + 7;
-//         draw_label(scan_font, 5, y_brutal, ref_value);
-
-//         y_brutal++;
-//         ref_line++;
-//     }
-
-//     return;
-// }
+#define NAVI_DURATION 55
+#define TERMINAL_DURATION 25
+#define LILY_DURATION 50
 
 void render_boot(void) {
-    char t_navi     = 55;
-    char t_terminal = 25;
-    char t_lily     = 50;
-
-    if (anim_boot_current_frame >= t_navi + t_terminal + t_lily) {
+    if (anim_boot_current_frame >= NAVI_DURATION + TERMINAL_DURATION + LILY_DURATION) {
         anim_boot_current_frame = 0;
         oled_clear();
     }
 
     if (timer_elapsed32(anim_boot_timer) > ANIM_BOOT_FRAME_DURATION) {
         anim_boot_timer = timer_read32();
-        if (anim_boot_current_frame < t_navi) {
+        if (anim_boot_current_frame < NAVI_DURATION) {
             // 55 frames
             draw_startup_navi(anim_boot_current_frame);
         }
 
-        if (anim_boot_current_frame >= t_navi && anim_boot_current_frame < t_navi + t_terminal) {
+        if (anim_boot_current_frame >= NAVI_DURATION && anim_boot_current_frame < NAVI_DURATION + TERMINAL_DURATION) {
             // 25
-            draw_startup_terminal(anim_boot_current_frame - t_navi);
+            draw_startup_terminal(anim_boot_current_frame - NAVI_DURATION);
         }
 
-        if (anim_boot_current_frame >= t_navi + t_terminal) {
+        if (anim_boot_current_frame >= NAVI_DURATION + TERMINAL_DURATION) {
             // 25
-            draw_lily(anim_boot_current_frame - t_navi - t_terminal);
+            draw_lily(anim_boot_current_frame - NAVI_DURATION - TERMINAL_DURATION);
         }
 
         anim_boot_current_frame++;

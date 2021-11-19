@@ -40,8 +40,10 @@ void render_gears(void) {
     static const char PROGMEM raw_logo[] = {
         0, 6, 6, 54, 118, 96, 230, 192, 192, 128, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 18, 226, 2, 18, 226, 2, 18, 226, 2, 1, 0, 0, 0, 0, 0, 128, 128, 128, 185, 187, 187, 131, 128, 184, 128, 128, 128, 128, 128, 128, 128, 128, 128, 191, 128, 128, 191, 128, 128, 191, 128, 0,
     };
-    oled_set_cursor(0, 8);
-    oled_write_raw_P(raw_logo, sizeof(raw_logo));
+
+    oled_write_raw_P_cursor(0, 8, raw_logo, sizeof(raw_logo));
+    // oled_set_cursor(0, 8);
+    // oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
 
 
@@ -54,8 +56,15 @@ void render_layer_frame(gui_state_t t) {
         62, 1, 0, 56, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 124, 248, 241, 226, 4, 8, 240, 0, 28, 28, 28, 0, 0, 127, 4, 8, 16, 127, 0, 124, 18, 17, 18, 124, 0, 31, 32, 64, 32, 31, 0, 0, 0, 0, 255, 255, 0, 0, 255, 62, 64, 64, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 142, 30, 62, 126, 126, 70, 70, 126, 70, 70, 126, 70, 70, 127, 127, 0, 0, 255,
     };
 
-    oled_set_cursor(0, 5);
-    oled_write_raw_P(raw_logo, sizeof(raw_logo));
+
+  
+
+    // oled_set_cursor(0, 5);
+    // oled_write_raw_P(raw_logo, sizeof(raw_logo));
+
+     oled_write_raw_P_cursor(0, 5, raw_logo, sizeof(raw_logo));
+
+
    // drawline_hr(2, 38, 25, 1);
     drawline_hr(2, 39, 25, 1);
 
@@ -97,6 +106,8 @@ void render_layer_frame(gui_state_t t) {
         layer_name = "ZzZ";
     }
 
-    oled_set_cursor(1, 6);
-    oled_write(layer_name, false);
+oled_write_cursor(1, 6, layer_name, false);
+
+    // oled_set_cursor(1, 6);
+    // oled_write(layer_name, false);
 }
