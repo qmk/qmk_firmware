@@ -238,8 +238,8 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 There is basic support for addressable RGB matrix lighting with a selection of I2C ISSI Lumissil RGB controllers through a shared common driver. To enable it, add this to your `rules.mk`:
 
 ```makefile
-LED_MATRIX_ENABLE = yes
-LED_MATRIX_DRIVER = <driver name>
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = <driver name>
 ```
 
 Where `<driver name>` is the applicable LED driver chip as below
