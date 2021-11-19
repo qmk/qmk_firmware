@@ -55,6 +55,6 @@ BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 ENCODER_ENABLE = yes
 OLED_ENABLE = yes
-OLED_DRIVER = SSD 1306
+OLED_DRIVER = SSD1306
 WPM_ENABLE = yes
 RGBLIGHT_ENABLE = yes
