@@ -1,6 +1,6 @@
 {
     "keyboard_name": "Quark_Squared",
-    "url": "https://www.github.com/qmk/qmk_firmware/tree/master/keyboards/checkerboards/quark_squared",
+    "url": "https://www.checkerboards.xyz/Quark2_p_35.html",
     "maintainer": "nasp",
     "layouts": {
         "LAYOUT_ortho_4x12_2x225u": {
