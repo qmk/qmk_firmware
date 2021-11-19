@@ -5,23 +5,26 @@ Changes from the default key-map include moving RESET, and a preferred arrangeme
 block of keys. The function key was exchanged with the right control key to get it. This makes the layout of the right modifiers left to right be `Alt`/`Win`/`Ctrl`/`Fn`.
 
 ## Right `Win` is Application Context Menu Instead
-The right `Win` key is for getting the application context menu.
+The right `Win` key is for getting the application context menu unless otherwise noted.
+Sometimes it's part of the cursor block.
 
 ### Notes on "Level 3 Shift"
 * Ironically not being American I will not test the en_US local without hardware.
 * I'm not sure if that locale supports an `Alt Gr` key interpretation of right `Alt`.
 * Hacking Linux `termcap` or `GUI` equivalent files might be possible for the determined.
 
-## Common to All `Fn` Layers
-* Left control is ANSI layer select. Basic conformist ANSI.
+### Common to All `Fn` Layers
+* Left `Ctrl` is ANSI layer select. Basic conformist ANSI.
 * Left `Win` is macro-board layer select. Latching macro modifiers and function keys.
 * Left `Alt` is navigation layer select. You MUST be in this mode for **BQN**.
+* Basically `Fn`+ a left modifier on the bottom row changes the main layer.
+* In CYAN shift mode you may release the `Fn` key while holding the CYAN modifier.
 
 ## ANSI Layer (Complete RED Layer)
 * Right control exchanged with function shift key as always.
-* This layer is the keyboard default and has few surprises. To access this layer the key combination `Fn`+Left `Ctrl` has been reserved. In macro mode the `Fn` key is sticky and so it may cause a little confusion.
+* This layer is the keyboard default and has few surprises. To access this layer the key combination `Fn`+Left `Ctrl` has been reserved.
 
-### ANSI Shift Layer (`Fn` ANSI MAGENTA Shift)
+### ANSI Shift Layer (Complete `Fn` ANSI MAGENTA Shift)
 * Scroll lock placed on caps lock.
 * Right `Alt`/`Win`/`Ctrl`/slash form cursor block.
 * Backslash is insert.
@@ -40,7 +43,7 @@ The right `Win` key is for getting the application context menu.
 * Browser home key is O, search is A, favourites is F.
 * Volume is up(J) and down(H).
 
-### Control Shift Layer (Left Control on `Fn` Layer CYAN Shift)
+### Control Shift Layer (Complete Left Control on `Fn` Layer CYAN Shift)
 * Various control code literals and icongraphs plus cursor.
 * Comma and period are page up/down.
 * Semicolon is pause.
@@ -51,7 +54,7 @@ The right `Win` key is for getting the application context menu.
 * Right `Alt`/`Win`/`Ctrl`/slash form cursor block.
 * Backslash enters a prefix to enter **BQN** characters. (The **BQN** Layer).
 
-### Navigation Shift Layer (`Fn` Navigation MAGENTA Shift)
+### Navigation Shift Layer (Complete `Fn` Navigation MAGENTA Shift)
 * Scroll lock placed on caps lock.
 * Backslash is insert.
 * Backspace is delete.
@@ -69,14 +72,13 @@ The right `Win` key is for getting the application context menu.
 * Browser search is A, favourites is F.
 * Volume is up(J) and down(H).
 
-### Mouse Shift Layer (Left `Alt` on `Fn` Layer CYAN Shift)
+### Mouse Shift Layer (Complete Left `Alt` on `Fn` Layer CYAN Shift)
 * Right `Alt`/`Win`/`Ctrl`/slash form mouse movement block.
 * Comma is left mouse button.
 * Period is right mouse button.
 * Enter and backspace are themselves.
 * Backslash is keyboard reset.
 * Equals is number pad equals.
-* Comma is number pad comma.
 * The brackets are scroll wheel up and down such the [ is up.
 * Semicolon is mouse button 3 (scroll button).
 * Apostrophe is mouse button 4 (standard mice don't have this).
@@ -106,15 +108,16 @@ The right `Win` key is for getting the application context menu.
                              Space: ‿
 ```
 
-### Unicode Shift Layer (`Fn` After \ **BQN** Prefix MAGENTA Shift)
+### Unicode Shift Layer (Complete `Fn` After \ **BQN** Prefix MAGENTA Shift)
 * All the alpha keys form 26 Unicode characters (definable in code).
 * Numbers unchanged.
 * Square brackets are home and end.
 * Comma and period are page up/down.
 * Semicolon is pause.
 * Apostrophe is print screen.
+* Cursor block works.
 
-## Macro-board Layer (YELLOW Layer)
+## Macro-board Layer (Complete YELLOW Layer)
 * Escape is a one shot sticky `Alt` shift.
 * Tab is a one shot sticky control `Alt`.
 * Caps lock is a one shot sticky control shift.
@@ -130,7 +133,7 @@ The right `Win` key is for getting the application context menu.
 * Right `Win` key is the right `Win` key and not the app context menu key as in other layers.
 * Backspace is Left `Win` and Right `Win` combination sticky.
 
-### Macro-board Shift Layer (`Fn` Macro-board MAGENTA Shift)
+### Macro-board Shift Layer (`Fn` Macro-board MAGENTA Shift)??
 * The right `Win` key is one shot sticky.
 * Escape is a one shot sticky `Win`+`Alt` shift.
 * Tab is a one shot sticky `Win`+`Ctrl`+`Alt`.
@@ -139,7 +142,7 @@ The right `Win` key is for getting the application context menu.
 * Backspace is a one shot sticky control `Alt` shift.
 * `Fn` is still sticky and needs pressing to exit the layer shift.
 
-### Special Shift Layer (Left `Win` on `Fn` Layer CYAN Shift)
+### Special Shift Layer (Complete Left `Win` on `Fn` Layer CYAN Shift)
 * `Fn` exits the special shift layer.
 * P and equals is Korean modifiers.
 * Minus is key lock for holding down a key until the held key is pressed again.
