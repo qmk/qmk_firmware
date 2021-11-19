@@ -1,4 +1,4 @@
-# DZ60
+# DZ60 Mk II
 
 My second keyboard edit. A multi-layer ANSI-60 with layers and function shift on each layer.
 Changes from the default key-map include moving RESET, and a preferred arrangement for the cursor
@@ -62,7 +62,7 @@ The right `Win` key is for getting the application context menu.
 * Apostrophe is print screen.
 * Backtick is escape.
 * Enter is pure escape for easy shift escape typing.
-* Right control/`Alt` function as modifiers for F1-F24 usage.
+* Right `Ctrl`/`Alt` function as modifiers for F1-F24 usage.
 * Various Unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
 * Media control prev(C), play(V), next(B), launch(N).
 * Global mute is X.
@@ -80,12 +80,13 @@ The right `Win` key is for getting the application context menu.
 * The brackets are scroll wheel up and down such the [ is up.
 * Semicolon is mouse button 3 (scroll button).
 * Apostrophe is mouse button 4 (standard mice don't have this).
-* All the alpha keys are themselves.
+* All the alpha keys form 26 Unicode characters (definable in code).
+* Numbers unchanged.
 * Minus turns on key lock for the next key (for easier drag 'n' drop for example).
 
-### **BQN** Layer (BLUE Layer)
+### **BQN** Layer (Complete BLUE Layer Within BQN Specification)
 * **BQN** unshifted and shifted.
-* Left and right cursor work on right `Alt`/control.
+* Left and right cursor work on right `Alt`/`Ctrl`.
 * Right GUI button is right `Win` key.
 
 ```
@@ -106,7 +107,7 @@ The right `Win` key is for getting the application context menu.
 ```
 
 ### Unicode Shift Layer (`Fn` After \ **BQN** Prefix MAGENTA Shift)
-* Unicode selection on alphas.
+* All the alpha keys form 26 Unicode characters (definable in code).
 * Numbers unchanged.
 * Square brackets are home and end.
 * Comma and period are page up/down.
@@ -118,14 +119,14 @@ The right `Win` key is for getting the application context menu.
 * Tab is a one shot sticky control `Alt`.
 * Caps lock is a one shot sticky control shift.
 * All modifiers are one shot sticky.
-* Function shift is a toggle to the shifted layer.
+* `Fn` is not a sticky modifier.
 * F1 to F12 form top row numbers and minus/equals.
 * F13 to F24 form second row Q-].
 * F1 to F12 form third row A-enter with an implicit right `Alt Gr` applied.
 * F13 to F23 form fourth row Z-right shift with an implicit right `Alt Gr` applied.
 * Backslash is F24 with an implicit right `Alt Gr` applied.
 * Depending on your system the "Level 3 Shift" may be removed by localization of `Alt Gr`.
-* Right `Alt`/`Ctrl` are `Alt`+Tab window switch (reverse and forward).
+* Right `Alt`/`Ctrl` are `Alt`+`Tab` window switch (reverse and forward).
 * Right `Win` key is the right `Win` key and not the app context menu key as in other layers.
 * Backspace is Left `Win` and Right `Win` combination sticky.
 
