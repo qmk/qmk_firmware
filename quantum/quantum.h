@@ -54,6 +54,10 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+#ifdef DEFERRED_EXEC_ENABLE
+#    include "deferred_exec.h"
+#endif
+
 extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER

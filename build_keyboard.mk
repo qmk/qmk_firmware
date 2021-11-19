@@ -388,7 +388,7 @@ VPATH += $(COMMON_VPATH)
 include common_features.mk
 include $(BUILDDEFS_PATH)/generic_features.mk
 include $(TMK_PATH)/protocol.mk
-include $(TMK_PATH)/common.mk
+include $(PLATFORM_PATH)/common.mk
 include $(BUILDDEFS_PATH)/bootloader.mk
 
 SRC += $(patsubst %.c,%.clib,$(LIB_SRC))
@@ -404,13 +404,14 @@ ifneq ($(REQUIRE_PLATFORM_KEY),)
     endif
 endif
 
-include $(TMK_PATH)/$(PLATFORM_KEY).mk
+include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
+-include $(PLATFORM_PATH)/$(PLATFORM_KEY)/flash.mk
+
 ifneq ($(strip $(PROTOCOL)),)
     include $(TMK_PATH)/protocol/$(strip $(shell echo $(PROTOCOL) | tr '[:upper:]' '[:lower:]')).mk
 else
     include $(TMK_PATH)/protocol/$(PLATFORM_KEY).mk
 endif
--include $(TOP_DIR)/platforms/$(PLATFORM_KEY)/flash.mk
 
 # TODO: remove this bodge?
 PROJECT_DEFS := $(OPT_DEFS)

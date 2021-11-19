@@ -6,4 +6,4 @@
 This keymap uses the Default XD60 base layer, but follows the GK64 function layer (one of my XD60 boards use GK64 keycaps).
 
 ## Build
-To build the default keymap, simply run `make xd60:edulpn64`.
+To build the default keymap, simply run `make xiudi/xd60:edulpn64`.

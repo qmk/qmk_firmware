@@ -9,7 +9,7 @@
 
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 
 /* Artificial delay added to get media keys to work in the encoder*/

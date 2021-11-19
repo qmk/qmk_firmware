@@ -32,8 +32,8 @@ void uart_write(uint8_t data);
 
 uint8_t uart_read(void);
 
-void uart_transmit(const char *data, uint16_t length);
+void uart_transmit(const uint8_t *data, uint16_t length);
 
-void uart_receive(char *data, uint16_t length);
+void uart_receive(uint8_t *data, uint16_t length);
 
 bool uart_available(void);

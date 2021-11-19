@@ -18,6 +18,8 @@
 
 #include "quantum.h"
 
+#define XXX KC_NO
+
 /* This is a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
@@ -27,24 +29,24 @@
  * represents the switch matrix which includes blanks in the wired out matrix.
  */
 #define LAYOUT( \
-    k00,      k01, k02, k03, k04, k05,       k06, k07, k08, k09, k10, k11, k12, k13, k14, k15, \
-    k32, k16, k17, k18, k19, k20, k21,     k22, k23, k24, k25, k26, k27,  k28,  k29, k30, k31, \
-    k48, k33, k34, k35, k36, k37,       k54, k38, k39, k40, k41, k42, k43, k44, k45, k46, k47, \
-    k61, k49, k50, k51, k52, k53,         k67, k55, k56, k57, k58, k59,    k60, \
-    k74,   k62, k63, k64, k65, k66,         k80, k68, k69, k70, k71,       k72,      k73, \
-    k75, k76, k77, k78,    k79,             k81,          k82, k83, k84, k85,   k86, k87, k88 \
+    K04,      K05, K06, K07, K08, K09,        K60, K61, K62, K63, K64, K65, K66,   K67, K68, K69, \
+    K24, K14, K15, K16, K17, K18, K19,        K70, K71, K72, K73, K74, K75, K76,   K77, K78, K79, \
+    K34, K25, K26, K27, K28, K29,        K39, K90, K80, K81, K82, K83, K84, K85,   K86, K87, K88, \
+    K89, K44, K35, K36, K37, K38,        K49, KA0, K91, K92, K93, K94,      K95,                  \
+    K96,      K54, K45, K46, K47, K48,        K59, KB0, KA1, KA2, KA3,      KA4,        KA6,      \
+    KA8, K55, K56, K57,           K58,        KB1,           KB3, KB4, KB5, KB6,   KB7, KB8, KB9  \
     ) \
     { \
-      { KC_NO, KC_NO, KC_NO, KC_NO, k00, k01, k02, k03, k04, k05 }, \
-      { KC_NO, KC_NO, KC_NO, KC_NO, k16, k17, k18, k19, k20, k21 },  \
-      { KC_NO, KC_NO, KC_NO, KC_NO, k32, k33, k34, k35, k36, k37 },  \
-      { KC_NO, KC_NO, KC_NO, KC_NO, k48, k49, k50, k51, k52, k53 },  \
-      { KC_NO, KC_NO, KC_NO, KC_NO, k61, k62, k63, k64, k65, k66, },  \
-      { KC_NO, KC_NO, KC_NO, KC_NO, k74, k75, k76, k77, k78, k79, },  \
-      { k06, k07, k08, k09, k10, k11, k12, k13, k14, k15 }, \
-      { k22, k23, k24, k25, k26, k27, k28, k29, k30, k31 },  \
-      { k38, k39, k40, k41, k42, k43, k44, k45, k46, k47 },  \
-      { k54, k55, k56, k57, k58, k59, k60, KC_NO, KC_NO, KC_NO },  \
-      { k67, k68, k69, k70, k71, KC_NO, k72, KC_NO, k73, KC_NO },  \
-      { k80, k81, KC_NO, k82, k83, k84, k85, k86, k87, k88 }  \
+      { XXX, XXX, XXX, XXX, K04, K05, K06, K07, K08, K09 }, \
+      { XXX, XXX, XXX, XXX, K14, K15, K16, K17, K18, K19 }, \
+      { XXX, XXX, XXX, XXX, K24, K25, K26, K27, K28, K29 }, \
+      { XXX, XXX, XXX, XXX, K34, K35, K36, K37, K38, K39 }, \
+      { XXX, XXX, XXX, XXX, K44, K45, K46, K47, K48, K49 }, \
+      { XXX, XXX, XXX, XXX, K54, K55, K56, K57, K58, K59 }, \
+      { K60, K61, K62, K63, K64, K65, K66, K67, K68, K69 }, \
+      { K70, K71, K72, K73, K74, K75, K76, K77, K78, K79 }, \
+      { K80, K81, K82, K83, K84, K85, K86, K87, K88, K89 }, \
+      { K90, K91, K92, K93, K94, K95, K96, XXX, XXX, XXX }, \
+      { KA0, KA1, KA2, KA3, KA4, XXX, KA6, XXX, KA8, XXX }, \
+      { KB0, KB1, XXX, KB3, KB4, KB5, KB6, KB7, KB8, KB9 }  \
 }

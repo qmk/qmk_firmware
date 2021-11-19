@@ -68,7 +68,7 @@ LED_TYPE g_ws2812_leds[WS2812_LED_TOTAL];
 
 #include "progmem.h"
 #include "quantum/color.h"
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 
 #include "via.h" // uses EEPROM address, lighting value IDs
 #define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
