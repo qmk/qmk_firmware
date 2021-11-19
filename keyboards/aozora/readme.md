@@ -10,7 +10,7 @@ A 65%-style 69-key keyboard featuring a cloud-shaped badge.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make aozora/hotswap:default
+    make aozora:default
 
 To reset, press the button on the back of the PCB. 
 
