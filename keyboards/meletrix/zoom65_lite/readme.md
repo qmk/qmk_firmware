@@ -1,14 +1,14 @@
 # zoom65_lite
 
-![zoom65_lite](https://i.imgur.com/NIbreqdh.jpeg) 
+![zoom65_lite](https://i.imgur.com/NIbreqdh.jpeg)
 
-Meletrix's first mass-produced mechanical keyboard.  
+Meletrix's first mass-produced mechanical keyboard.
 More Info at [zoom](https://zoom65.com/).
-​
+
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
-* Hardware Supported: zoom65_lite Standard
-* Hardware Availability: [zoom](https://zoom65.com/)  
-​
+* Hardware Supported: zoom65 Standard
+* Hardware Availability: [zoom](https://zoom65.com/)
+
 Make example for this keyboard (after setting up your build environment):
 
     make meletrix/zoom65_lite:default
