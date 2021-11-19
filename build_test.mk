@@ -54,11 +54,11 @@ endif
 
 include common_features.mk
 include $(BUILDDEFS_PATH)/generic_features.mk
-include $(TMK_PATH)/common.mk
+include $(PLATFORM_PATH)/common.mk
 include $(TMK_PATH)/protocol.mk
 include $(QUANTUM_PATH)/debounce/tests/rules.mk
 include $(QUANTUM_PATH)/sequencer/tests/rules.mk
-include $(TMK_PATH)/common/test/rules.mk
+include $(PLATFORM_PATH)/test/rules.mk
 ifneq ($(filter $(FULL_TESTS),$(TEST)),)
 include build_full_test.mk
 endif
@@ -73,7 +73,7 @@ $(TEST_OBJ)/$(TEST)_INC := $($(TEST)_INC) $(VPATH) $(GTEST_INC)
 $(TEST_OBJ)/$(TEST)_DEFS := $($(TEST)_DEFS)
 $(TEST_OBJ)/$(TEST)_CONFIG := $($(TEST)_CONFIG)
 
-include $(TMK_PATH)/native.mk
+include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
 include $(TMK_PATH)/rules.mk
 
 
