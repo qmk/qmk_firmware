@@ -19,6 +19,7 @@
                 {"label":"-_", "x":11, "y":0},
                 {"label":"=+", "x":12, "y":0},
                 {"label":"Backspace", "x":13, "y":0},
+                {"label":"Backspace", "x":14, "y":0},
                 {"label":"EncoderRotateL", "x":15, "y":0, "w":0.5},
                 {"label":"EncoderClick", "x":15.5, "y":0},
                 {"label":"EncoderRotateR", "x":16.5, "y":0, "w":0.5},
@@ -52,7 +53,6 @@
                 {"label":";:", "x":10.75, "y":2},
                 {"label":"'\"", "x":11.75, "y":2},
                 {"label":"Enter", "x":12.75, "y":2, "w":2.25},
-                {"label":"Backspace", "x":14, "y":0},
                 {"label":"PageUp", "x":15, "y":2},
 
                 {"label":"Shift1", "x":0, "y":3, "w":1.25},
