@@ -1,7 +1,7 @@
 {
     "keyboard_name": "zoom65",
     "url": "https://zoom65.com/",
-    "maintainer": "qmk",
+    "maintainer": "spbgzh",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
