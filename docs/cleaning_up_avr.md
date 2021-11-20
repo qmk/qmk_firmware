@@ -4,7 +4,7 @@ First, death to AVR.  It's old, it's slow, it's past time to retire it.  The onl
 
 If you want to reduce the compiled size of your firmware, there are a number of options to do so. 
 
-## rules.mk
+## `rules.mk` Settings
 First and foremost is enabling link time optimization.  To do so, add this to your rules.mk: 
 ```make
 LTO_ENABLE = yes
@@ -30,7 +30,8 @@ MAGIC_ENABLE = no
 These features are enabled by default, but may not be needed.  Double check to make sure, though.  
 Biggest is "magic", as this is the magic keycodes, that control things like NKRO toggling, GUI and ALT/CTRL swapping, etc.  Disabling it will disable those functions. 
 
-## config.h
+## `config.h` Settings
+
 If you've done all of that, and you don't want to disable featuse like RGB, Audio, OLEDs, etc, there are some additional options that you can add to your config.h that can help. 
 
 Starting with Lock Key support.  If you have an Cherry MX Lock switch (lucky you!), you don't want to do this.  But chances are, you don't.  In that case, add this to your `config.h`:
@@ -48,8 +49,7 @@ The same with tapping keys (mod tap, layer tap, etc)
 ```c
 #define NO_ACTION_TAPPING
 ```
-## Audio
-
+## Audio Settings
 
 If you're using the Audio feature, by default that includes the music mode feature.  This tranlates matrix positions into notes.  It's neat for sure, but most likely, you're not using it.  You can disable it by adding this to your `config.h`:
 ```c
@@ -75,7 +75,7 @@ or
 #define LAYER_STATE_16BIT
 ```
 
-## RGB
+## RGB Settings
 
 If you're using RGB on your board, both RGB Light (Underglow) and RGB Matrix (per key RGB) require defines to enable different animations.  For RGB Light: 
 ```c
@@ -140,3 +140,16 @@ To disable a specific animation:
 #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 ```
+
+# Final Thoughts
+
+If you've done all of this, and your firmware is still too large, then it's time.  It's time to consider making the switch to ARM.  Unfortunately, right now is the worst possible time for that, due to the silicon shortage, and supply chain issues. Getting an ARM chip is difficult, at best, and significantly overpriced, at worst. 
+ -- Drashna
+
+That said, there are a number of Pro Micro replacements with ARM controllers: 
+* [Proton C](https://qmk.fm/proton-c/) (out of stock)
+* [Bonsai C](https://github.com/customMK/Bonsai-C) (Open Source, DIY/PCBA)
+* [Raspberry Pi 2040](https://www.sparkfun.com/products/18288) (not currently supported, no ETA)
+
+There are other, non-Pro Micro compatible boards out there. The most popular being: 
+* [WeAct Blackpill F411](https://www.aliexpress.com/item/1005001456186625.html) (~$6 USD)
