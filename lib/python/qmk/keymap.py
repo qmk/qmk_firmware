@@ -1,7 +1,6 @@
 """Functions that help you work with QMK keymaps.
 """
 import json
-import re
 import sys
 from pathlib import Path
 from subprocess import DEVNULL
