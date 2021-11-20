@@ -316,7 +316,7 @@ endif
 #
 
 # Use defined stack sizes of the main thread in linker scripts
-LDSYMBOLS =--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
+SHARED_LDSYMBOLS = -Wl,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
 
 # Shared Compiler flags for all toolchains
 SHARED_CFLAGS = -fomit-frame-pointer \
@@ -327,7 +327,6 @@ SHARED_CFLAGS = -fomit-frame-pointer \
 
 # Shared Linker flags for all toolchains
 SHARED_LDFLAGS = -T $(LDSCRIPT) \
-                 -Wl,$(LDSYMBOLS) \
                  -Wl,--gc-sections \
                  -nostartfiles
 
@@ -346,13 +345,17 @@ ifeq ($(strip $(MCU)), risc-v)
         endif
     endif
 
-    # Default to compiling with picolibc for RISC-V targets if available,
-    # which is available by default on current (bullseye) debian based systems.
+    # Default to compiling with picolibc for RISC-V targets if available, which
+    # is available by default on distributions based on Debian 11+.
     ifeq ($(shell $(TOOLCHAIN)gcc --specs=picolibc.specs -E - 2>/dev/null >/dev/null </dev/null ; echo $$?),0)
-        # Toolchain specific Compiler flags
-        # Note that we still link with our own linker script
-        # by providing it via the -T flag above.
+        # Toolchain specific Compiler flags Note that we still link with our own
+        # linker script by providing it via the -T flag in SHARED_LDFLAGS.
         TOOLCHAIN_CFLAGS = --specs=picolibc.specs
+
+        # picolibc internally uses __heap_start and __heap_end instead of the
+        # defacto chibios linker script standard __heap_base__ and __heap_end__
+        # therefore we introduce these symbols as an alias.
+        TOOLCHAIN_LDSYMBOLS = -Wl,--defsym=__heap_start=__heap_base__,--defsym=__heap_end=__heap_end__
 
         # Tell QMK that we are compiling with picolibc.
         OPT_DEFS += -DUSE_PICOLIBC
@@ -404,7 +407,7 @@ CFLAGS   += $(SHARED_CFLAGS) $(TOOLCHAIN_CFLAGS)
 CXXFLAGS += $(CFLAGS) $(SHARED_CXXFLAGS) $(TOOLCHAIN_CXXFLAGS) -fno-rtti
 
 # Linker flags
-LDFLAGS  += $(SHARED_LDFLAGS) $(TOOLCHAIN_LDFLAGS) $(MCUFLAGS)
+LDFLAGS  += $(SHARED_LDFLAGS) $(SHARED_LDSYMBOLS) $(TOOLCHAIN_LDFLAGS) $(TOOLCHAIN_LDSYMBOLS) $(MCUFLAGS)
 
 # Tell QMK that we are hosting it on ChibiOS.
 OPT_DEFS += -DPROTOCOL_CHIBIOS
