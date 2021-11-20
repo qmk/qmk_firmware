@@ -18,11 +18,9 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-
-
-#    include <i2c_master.h>
-#    include <is31fl3733.h>
-#    include <ws2812.h>
+#    include "i2c_master.h"
+#    include "is31fl3733.h"
+#    include "ws2812.h"
 
 const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, B_1, A_1, C_1 },
