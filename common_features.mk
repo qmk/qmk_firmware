@@ -592,7 +592,7 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
     OPT_DEFS += -DHD44780_ENABLE
 endif
 
-VALID_OLED_DRIVER_TYPES := SSD1306 custom
+VALID_OLED_DRIVER_TYPES := SSD1306 SH1107 custom
 OLED_DRIVER ?= SSD1306
 ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(filter $(OLED_DRIVER),$(VALID_OLED_DRIVER_TYPES)),)
@@ -604,6 +604,10 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
         OPT_DEFS += -DOLED_DRIVER_$(strip $(shell echo $(OLED_DRIVER) | tr '[:lower:]' '[:upper:]'))
         ifeq ($(strip $(OLED_DRIVER)), SSD1306)
             SRC += ssd1306_sh1106.c
+            QUANTUM_LIB_SRC += i2c_master.c
+        endif
+        ifeq ($(strip $(OLED_DRIVER)), SH1107)
+            SRC += sh1107.c
             QUANTUM_LIB_SRC += i2c_master.c
         endif
     endif
