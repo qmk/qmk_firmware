@@ -86,34 +86,6 @@
 
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE  	// Sets the default mode, if none has been set
 #define RGB_MATRIX_STARTUP_HUE 180  //purple  alphas with green background when pressed.
-// #define RGBLIGHT_HUE_STEP 12        						// Units to step when in/decreasing hue
-// #define RGBLIGHT_SAT_STEP 25        						// Units to step when in/decreasing saturation
-// #define RGBLIGHT_VAL_STEP 12        						// Units to step when in/decreasing value (brightness)
-// #define RGB_DISABLE_AFTER_TIMEOUT 0   					// number of ticks to wait until disabling effects
-// #define RGB_DISABLE_WHEN_USB_SUSPENDED false 			// turn off effects when suspended
-// #define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
-// #define RGB_MATRIX_LED_FLUSH_LIMIT 16 					// limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#define RGBLIGHT_ANIMATIONS             					// Run RGB animations
-#define RGBLIGHT_ANIMATIONS             					// Enable all additional animation modes.
-#define RGBLIGHT_EFFECT_ALTERNATING     					// Enable alternating animation mode.
-#define RGBLIGHT_EFFECT_BREATHING       					// Enable breathing animation mode.
-// #define RGBLIGHT_EFFECT_CHRISTMAS       					// Enable christmas animation mode.
-// #define RGBLIGHT_EFFECT_KNIGHT          					// Enable knight animation mode.
-// #define RGBLIGHT_EFFECT_RAINBOW_MOOD    					// Enable rainbow mood animation mode.
-// #define RGBLIGHT_EFFECT_RAINBOW_SWIRL   					// Enable rainbow swirl animation mode.
-// #define RGBLIGHT_EFFECT_RGB_TEST        					// Enable RGB test animation mode.
-// #define RGBLIGHT_EFFECT_SNAKE           					// Enable snake animation mode.
-// #define RGBLIGHT_EFFECT_STATIC_GRADIENT 					// Enable static gradient mode.
-	
-// #define RGBLIGHT_EFFECT_BREATHE_CENTER              		// If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7
-// #define RGBLIGHT_EFFECT_BREATHE_MAX 255             		// The maximum brightness for the breathing mode. Valid values are 1 to 255
-// #define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 1000     		// How long to wait between light changes for the "Christmas" animation, in milliseconds
-// #define RGBLIGHT_EFFECT_CHRISTMAS_STEP 2            		// The number of LEDs to group the red/green colors by for the "Christmas" animation
-// #define RGBLIGHT_EFFECT_KNIGHT_LED_NUM RGBLED_NUM   		// The number of LEDs to have the "Knight" animation travel
-// #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3             		// The number of LEDs to light up for the "Knight" animation
-// #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 0             		// The number of LEDs to start the "Knight" animation from the start of the strip by
-// #define RGBLIGHT_RAINBOW_SWIRL_RANGE 255            		// Range adjustment for the rainbow swirl effect to get different swirls
-// #define RGBLIGHT_EFFECT_SNAKE_LENGTH 4              		// The number of LEDs to light up for the "Snake" animation
 
 // This list in in the correct mode order. Next mode is the following line, previous mode is previous line. Loops around.
 // #define DISABLE_RGB_MATRIX_SOLID_COLOR                   // Static single hue, no speed support
