@@ -1,5 +1,4 @@
-/*
- * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+/* Copyright 2021 Balz Guenat
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,16 +16,25 @@
 
 #pragma once
 
-#include <stdbool.h>
 #include <stdint.h>
+#include <stdbool.h>
 
-void encoder_init(void);
-bool encoder_read(void);
+/* Here, "pins" from 0 to 31 are allowed. */
+#define ENCODERS_PAD_A \
+    { 0 }
+#define ENCODERS_PAD_B \
+    { 1 }
 
-bool encoder_update_kb(uint8_t index, bool clockwise);
-bool encoder_update_user(uint8_t index, bool clockwise);
+typedef uint8_t pin_t;
 
-#ifdef SPLIT_KEYBOARD
-void encoder_state_raw(uint8_t* slave_state);
-void encoder_update_raw(uint8_t* slave_state);
-#endif
+extern bool pins[];
+extern bool pinIsInputHigh[];
+
+#define setPinInputHigh(pin) (mockSetPinInputHigh(pin))
+#define readPin(pin) (mockReadPin(pin))
+
+uint8_t mockSetPinInputHigh(pin_t pin);
+
+bool mockReadPin(pin_t pin);
+
+bool setPin(pin_t pin, bool val);

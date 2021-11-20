@@ -57,6 +57,7 @@ include $(BUILDDEFS_PATH)/generic_features.mk
 include $(PLATFORM_PATH)/common.mk
 include $(TMK_PATH)/protocol.mk
 include $(QUANTUM_PATH)/debounce/tests/rules.mk
+include $(QUANTUM_PATH)/encoder/tests/rules.mk
 include $(QUANTUM_PATH)/sequencer/tests/rules.mk
 include $(PLATFORM_PATH)/test/rules.mk
 ifneq ($(filter $(FULL_TESTS),$(TEST)),)

@@ -2,6 +2,7 @@ TEST_LIST = $(notdir $(patsubst %/rules.mk,%,$(wildcard $(ROOT_DIR)/tests/*/rule
 FULL_TESTS := $(TEST_LIST)
 
 include $(QUANTUM_PATH)/debounce/tests/testlist.mk
+include $(QUANTUM_PATH)/encoder/tests/testlist.mk
 include $(QUANTUM_PATH)/sequencer/tests/testlist.mk
 include $(PLATFORM_PATH)/test/testlist.mk
 

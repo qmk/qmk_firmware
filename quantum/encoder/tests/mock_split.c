@@ -1,5 +1,4 @@
-/*
- * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+/* Copyright 2021 Balz Guenat
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,18 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "mock_split.h"
 
-#include <stdbool.h>
-#include <stdint.h>
+bool pins[32]           = {0};
+bool pinIsInputHigh[32] = {0};
 
-void encoder_init(void);
-bool encoder_read(void);
+uint8_t mockSetPinInputHigh(pin_t pin) {
+    // dprintf("Setting pin %d input high.", pin);
+    pins[pin]           = true;
+    pinIsInputHigh[pin] = true;
+    return 0;
+}
 
-bool encoder_update_kb(uint8_t index, bool clockwise);
-bool encoder_update_user(uint8_t index, bool clockwise);
+bool mockReadPin(pin_t pin) { return pins[pin]; }
 
-#ifdef SPLIT_KEYBOARD
-void encoder_state_raw(uint8_t* slave_state);
-void encoder_update_raw(uint8_t* slave_state);
-#endif
+bool setPin(pin_t pin, bool val) {
+    pins[pin] = val;
+    return val;
+}
+
+void last_encoder_activity_trigger(void) {}
