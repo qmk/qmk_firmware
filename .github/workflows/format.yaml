@@ -39,11 +39,12 @@ jobs:
         qmk format-c --core-only $(< ~/files.txt)
         qmk format-python $(< ~/files.txt)
         qmk format-text $(< ~/files.txt)
-        git diff
 
     - name: Fail when formatting required
       run: |
+        git diff
         for file in $(git diff --name-only); do
-          echo "::error file=${file}::::File Requires Formatting"
+          echo "File '${file}' Requires Formatting"
+          echo "::error file=${file}::Requires Formatting"
         done
         test -z "$(git diff --name-only)"
