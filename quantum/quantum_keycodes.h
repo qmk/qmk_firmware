@@ -591,7 +591,7 @@ enum quantum_keycodes {
     MACRO_29,
     MACRO_30,
     MACRO_31,
-    
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
