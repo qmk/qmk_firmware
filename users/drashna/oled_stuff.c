@@ -15,6 +15,9 @@
  */
 
 #include "drashna.h"
+#ifdef CUSTOM_UNICODE_ENABLE
+#include "process_unicode_common.h"
+#endif
 
 extern bool host_driver_disabled;
 
@@ -59,7 +62,7 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
             return;
         }
         if (record->tap.count) {
-            keycode = keycode & 0xFF;
+            keycode &= 0xFF;
         } else if (keycode > 0xFF) {
             return;
         }
@@ -296,7 +299,7 @@ void render_user_status(void) {
     oled_write_P(rgb_layer_status[userspace_config.rgb_layer_change], false);
     static const char PROGMEM cat_mode[2][3] = {{0xF8, 0xF9, 0}, {0xF6, 0xF7, 0}};
     oled_write_P(cat_mode[0], host_driver_disabled);
-#if defined(UNICODE_ENABLE)
+#if defined(CUSTOM_UNICODE_ENABLE)
     static const char PROGMEM uc_mod_status[5][3] = {{0xEA, 0xEB, 0}, {0xEC, 0xED, 0}};
     oled_write_P(uc_mod_status[get_unicode_input_mode() == UC_MAC], false);
 #endif
