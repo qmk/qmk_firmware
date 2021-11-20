@@ -225,6 +225,7 @@ def generate_c(keymap_json):
 
             for macro_fragment in macro_array:
                 if isinstance(macro_fragment, str):
+                    macro_fragment = macro_fragment.replace('\\', '\\\\')
                     macro_fragment = macro_fragment.replace('\r\n', r'\n')
                     macro_fragment = macro_fragment.replace('\n', r'\n')
                     macro_fragment = macro_fragment.replace('\r', r'\n')
