@@ -117,7 +117,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             clockwise ? rgb_matrix_step() : rgb_matrix_step_reverse();
             break;
         default:
-            clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
+            clockwise ? tap_code(KC_VOLU) : tap_code(KC_VOLD);
             break;
     }
     return false;
