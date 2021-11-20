@@ -33,9 +33,10 @@ struct update {
 uint8_t uidx = 0;
 update  updates[32];
 
-void encoder_update_kb(int8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
     updates[uidx % 32] = {index, clockwise};
     uidx++;
+    return true;
 }
 
 bool setAndRead(pin_t pin, bool val) {

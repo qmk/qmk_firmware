@@ -35,14 +35,15 @@ update  updates[32];
 
 bool isLeftHand;
 
-void encoder_update_kb(int8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!isLeftHand) {
         // this method has no effect on slave half
         printf("ignoring update on right hand (%d,%s)\n", index, clockwise ? "CW" : "CC");
-        return;
+        return true;
     }
     updates[uidx % 32] = {index, clockwise};
     uidx++;
+    return true;
 }
 
 bool setAndRead(pin_t pin, bool val) {
