@@ -67,13 +67,15 @@ enum unicode_names {
 	IL, IM, IN, IO, IP, IQ, IR, IS, IT, IU, IV, IW,
 	IX, IY, IZ, ILBR, IBSL, IRBR, ICAR, IUND,
 	//Alt aplha
+	A1, A2, A3, A4, A5, A6, A7, A8, A9, A0, AMIN, AEQ,
 	AA, AB, AC, AD, AE, AF, AG, AH, AI, AJ, AK,
 	AL, AM, AN, AO, AP, AQ, AR, AS, AT, AU, AV, AW,
 	AX, AY, AZ,
 	//Alt aplha 2
-	BA, BB, BC, BD, BE, BF, BG, BH, BI, BJ, BK,
-	BL, BM, BN, BO, BP, BQ, BR, BS, BT, BU, BV, BW,
-	BX, BY, BZ,
+	Z1, Z2, Z3, Z4, Z5, Z6, Z7, Z8, Z9, Z0, ZMIN, ZEQ,
+	ZA, ZB, ZC, ZD, ZE, ZF, ZG, ZH, ZI, ZJ, ZK,
+	ZL, ZM, ZN, ZO, ZP, ZQ, ZR, ZS, ZT, ZU, ZV, ZW,
+	ZX, ZY, ZZ,
 };
 
 // PLACE BQN layer and Unicode character code points here.
@@ -137,6 +139,9 @@ const uint32_t PROGMEM unicode_map[] = {
 	[IBSL] = U'🌍', [IRBR] = U'☣', [ICAR] = U'⚗', [IUND] = U'☢',
 	//BQN Fn Shift
 	//Unicode layer
+	[A1] = U' ', [A2] = U' ', [A3] = U' ', [A4] = U' ',
+	[A5] = U' ', [A6] = U' ', [A7] = U' ', [A8] = U' ',
+	[A9] = U' ', [A0] = U' ', [AMIN] = U' ', [AEQ] = U' ',
 	[AA] = U' ', [AB] = U' ', [AC] = U' ', [AD] = U' ',
 	[AE] = U' ', [AF] = U' ', [AG] = U' ', [AH] = U' ',
 	[AI] = U' ', [AJ] = U' ', [AK] = U' ', [AL] = U' ',
@@ -146,15 +151,18 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AX] = U' ', [AY] = U' ', [AZ] = U' ',
 	//Navigation Extended Shift
 	//Unicode layer
-	[BA] = U' ', [BB] = U' ', [BC] = U' ', [BD] = U' ',
-	[BE] = U' ', [BF] = U' ', [BG] = U' ', [BH] = U' ',
-	[BI] = U' ', [BJ] = U' ', [BK] = U' ', [BL] = U' ',
-	[BM] = U' ', [BN] = U' ', [BO] = U' ', [BP] = U' ',
-	[BQ] = U' ', [BR] = U' ', [BS] = U' ', [BT] = U' ',
-	[BU] = U' ', [BV] = U' ', [BW] = U' ',
-	[BX] = U' ', [BY] = U' ', [BZ] = U' ',
+	[Z1] = U' ', [Z2] = U' ', [Z3] = U' ', [Z4] = U' ',
+	[Z5] = U' ', [Z6] = U' ', [Z7] = U' ', [Z8] = U' ',
+	[Z9] = U' ', [Z0] = U' ', [ZMIN] = U' ', [ZEQ] = U' ',
+	[ZA] = U' ', [ZB] = U' ', [ZC] = U' ', [ZD] = U' ',
+	[ZE] = U' ', [ZF] = U' ', [ZG] = U' ', [ZH] = U' ',
+	[ZI] = U' ', [ZJ] = U' ', [ZK] = U' ', [ZL] = U' ',
+	[ZM] = U' ', [ZN] = U' ', [ZO] = U' ', [ZP] = U' ',
+	[ZQ] = U' ', [ZR] = U' ', [ZS] = U' ', [ZT] = U' ',
+	[ZU] = U' ', [ZV] = U' ', [ZW] = U' ',
+	[ZX] = U' ', [ZY] = U' ', [ZZ] = U' ',
 	//FILL IN AS REQUIRED
-	//170 bytes free => 42.5 Unicode characters free.
+	//74 bytes free => 18.5 Unicode characters free.
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -241,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	//BQN shift mode 7 ==================================================================================== BQN shift mode 7
 	LAYOUT_60_ansi(
-		KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,	          KC_TRNS,
+		KC_ESC,  X(A1),   X(A2),   X(A3),   X(A4),   X(A5),   X(A6),   X(A7),   X(A8),   X(A9),   X(A0),   X(AMIN), X(AEQ),	          KC_TRNS,
 		KC_TRNS,		 			X(AQ),   X(AW),   X(AE),   X(AR),   X(AT),   X(AY),   X(AU),   X(AI),   X(AO),   X(AP),   KC_HOME, KC_END,  KC_TRNS,
 		KC_TRNS,  		  	X(AA),   X(AS),   X(AD),   X(AF),   X(AG),   X(AH),   X(AJ),   X(AK),   X(AL),   KC_PAUS, KC_PSCR, KC_TRNS,
 		KC_TRNS,          X(AZ),   X(AX),   X(AC),   X(AV),   X(AB),   X(AN),   X(AM),   KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
@@ -262,10 +270,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//Mouse shift mode 9 ================================================================================ Mouse shift mode 9
 	// A utility layer for things like the mouse.
 	LAYOUT_60_ansi(
-		KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LOCK, KC_PEQL,          KC_BSPC,
-		KC_TAB,           X(BQ),   X(BW),   X(BE),   X(BR),   X(BT),   X(BY),   X(BU),   X(BI),   X(BO),   X(BP),   KC_WH_U, KC_WH_D, RESET,
-		KC_CAPS,		      X(BA),   X(BS),   X(BD),   X(BF),   X(BG),   X(BH),   X(BJ),   X(BK),   X(BL),   KC_BTN3, KC_BTN4, KC_ENT,
-		KC_LSFT,          X(BZ),   X(BX),   X(BC),   X(BV),   X(BB),   X(BN),   X(BM),   KC_BTN1, KC_BTN2, KC_MS_U,          KC_RSFT,
+		KC_ESC,  X(Z1),   X(Z2),   X(Z3),   X(Z4),   X(Z5),   X(Z6),   X(Z7),   X(Z8),   X(Z9),   X(Z0),   X(ZMIN), X(AEQ),          KC_BSPC,
+		KC_TAB,           X(ZQ),   X(ZW),   X(ZE),   X(ZR),   X(ZT),   X(ZY),   X(ZU),   X(ZI),   X(ZO),   X(ZP),   KC_WH_U, KC_WH_D, RESET,
+		KC_CAPS,		      X(ZA),   X(ZS),   X(ZD),   X(ZF),   X(ZG),   X(ZH),   X(ZJ),   X(ZK),   X(ZL),   KC_BTN3, KC_BTN4, KC_ENT,
+		KC_LSFT,          X(ZZ),   X(ZX),   X(ZC),   X(ZV),   X(ZB),   X(ZN),   X(ZM),   KC_BTN1, KC_BTN2, KC_MS_U,          KC_RSFT,
 		LCA(KC_DEL), KC_TRNS,      KC_TRNS,	                  KC_SPC,                             KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS)
 };
 

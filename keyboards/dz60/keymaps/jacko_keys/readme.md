@@ -119,6 +119,7 @@ Sometimes it's part of the cursor block.
 * Apostrophe is print screen.
 * Cursor block works.
 * `Fn` + Left `Alt` exits **BQN** if you accidentally enter a backslash. No CYAN shift.
+* Backtick is escape.
 
 ## Macro-board Layer (Complete YELLOW Layer)
 * Escape is a one shot sticky `Ctrl`+`Shift`.
@@ -152,5 +153,5 @@ Sometimes it's part of the cursor block.
 * Various Unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
 * Volume is up(J) and down(H).
 * Browser search is A, favourites is F.
-* Escape is pure escape.
 * Caps lock is scroll lock.
+* Backtick is escape.
