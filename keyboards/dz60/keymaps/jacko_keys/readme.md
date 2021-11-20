@@ -83,9 +83,7 @@ Sometimes it's part of the cursor block.
 * The brackets are scroll wheel up and down such the [ is up.
 * Semicolon is mouse button 3 (scroll button).
 * Apostrophe is mouse button 4 (standard mice don't have this).
-* All the alpha keys form 26 Unicode characters (definable in code).
-* Numbers unchanged.
-* Minus turns on key lock for the next key (for easier drag 'n' drop for example).
+* All the alpha keys (plus numbers and minus equals) form 38 Unicode characters (definable in code).
 * Pressing `Ctrl` as well as held `Alt` does a `Ctrl`+`Alt`+`Del`.
 
 ### **BQN** Layer (Complete BLUE Layer Within BQN Specification)
@@ -111,7 +109,7 @@ Sometimes it's part of the cursor block.
 ```
 
 ### Unicode Shift Layer (Complete `Fn` After \ **BQN** Prefix MAGENTA Shift)
-* All the alpha keys form 26 Unicode characters (definable in code).
+* All the alpha keys (plus numbers and minus equals) form 38 Unicode characters (definable in code).
 * Numbers unchanged.
 * Square brackets are home and end.
 * Comma and period are page up/down.
@@ -153,5 +151,5 @@ Sometimes it's part of the cursor block.
 * Various Unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
 * Volume is up(J) and down(H).
 * Browser search is A, favourites is F.
-* Caps lock is scroll lock.
+* Caps lock is number lock (the lighting is inverse, so off lights white).
 * Backtick is escape.

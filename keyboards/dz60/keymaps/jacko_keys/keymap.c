@@ -162,7 +162,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[ZU] = U' ', [ZV] = U' ', [ZW] = U' ',
 	[ZX] = U' ', [ZY] = U' ', [ZZ] = U' ',
 	//FILL IN AS REQUIRED
-	//74 bytes free => 18.5 Unicode characters free.
+	//50 bytes free => 12.5 Unicode characters free.
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// A single finger macro launching board producing many modifier and function keys.
 	// Lots of macros and shifts with an Fn
 	LAYOUT_60_ansi(
-		OSM(MOD_LCTL|MOD_LSFT),    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           OSM(MOD_LSFT|MOD_LCTL|MOD_LALT),
+		OSM(MOD_LCTL|MOD_LSFT),    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,OSM(MOD_LSFT|MOD_LCTL|MOD_LALT),
 		OSM(MOD_LSFT|MOD_LALT),    KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  ALGR(KC_F24),
 		OSM(MOD_LCTL|MOD_LALT),    ALGR(KC_F1),   ALGR(KC_F2),   ALGR(KC_F3),   ALGR(KC_F4),   ALGR(KC_F5),   ALGR(KC_F6),   ALGR(KC_F7),   ALGR(KC_F8),   ALGR(KC_F9),   ALGR(KC_F10),  ALGR(KC_F11),  ALGR(KC_F12),
 		OSM(MOD_LSFT),         	   ALGR(KC_F13),  ALGR(KC_F14),  ALGR(KC_F15),  ALGR(KC_F16),  ALGR(KC_F17),  ALGR(KC_F18),  ALGR(KC_F19),  ALGR(KC_F20),  ALGR(KC_F21),  ALGR(KC_F22),  ALGR(KC_F23),
@@ -206,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//BQN lock mode 4 ====================================================================================== BQN lock mode 3
 	// BQN Unicode
 	LAYOUT_60_ansi(
-		Z(GR),   Z(N1),	  Z(N2),   Z(N3), 	Z(N4),	 Z(N5),	  Z(N6),   Z(N7),   Z(N8),   Z(N9),   Z(N0),   Z(MIN),  Z(EQ),          KC_BSPC,
+		Z(GR),   Z(N1),	  Z(N2),   Z(N3), 	Z(N4),	 Z(N5),	  Z(N6),   Z(N7),   Z(N8),   Z(N9),   Z(N0),   Z(MIN),  Z(EQ),          	KC_BSPC,
 		KC_TAB,           Z(Q),    Z(W),    Z(E),    Z(R),    Z(T),    Z(Y),    Z(U),    Z(I),    Z(O),    Z(P), 		Z(LBR),  Z(RBR),  KC_BSLS,
 		KC_CAPS,          Z(A),    Z(S),    Z(D),    Z(F),    Z(G),    Z(H),    Z(J),    Z(K),    Z(L),    Z(SEMI), Z(QUOT), KC_ENT,
 		KC_LSFT,		      Z(Z),    Z(XX),   Z(C),    Z(V),    Z(B),    Z(N),    Z(M),    Z(LESS), Z(GRET), Z(DIV),           KC_RSFT,
@@ -243,7 +243,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_60_ansi(
 		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_LOCK, KC_HANJ,          KC_DEL,
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_HAEN, KC_HOME, KC_END,  KC_INS,
-		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
+		KC_NLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
 		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
 		DF(0),   DF(2),				     DF(1),                     KC_SPC,                             KC_TRNS, KC_TRNS,				   KC_TRNS, KC_TRNS),
 
@@ -270,7 +270,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//Mouse shift mode 9 ================================================================================ Mouse shift mode 9
 	// A utility layer for things like the mouse.
 	LAYOUT_60_ansi(
-		KC_ESC,  X(Z1),   X(Z2),   X(Z3),   X(Z4),   X(Z5),   X(Z6),   X(Z7),   X(Z8),   X(Z9),   X(Z0),   X(ZMIN), X(AEQ),          KC_BSPC,
+		KC_ESC,  X(Z1),   X(Z2),   X(Z3),   X(Z4),   X(Z5),   X(Z6),   X(Z7),   X(Z8),   X(Z9),   X(Z0),   X(ZMIN), X(AEQ),           KC_BSPC,
 		KC_TAB,           X(ZQ),   X(ZW),   X(ZE),   X(ZR),   X(ZT),   X(ZY),   X(ZU),   X(ZI),   X(ZO),   X(ZP),   KC_WH_U, KC_WH_D, RESET,
 		KC_CAPS,		      X(ZA),   X(ZS),   X(ZD),   X(ZF),   X(ZG),   X(ZH),   X(ZJ),   X(ZK),   X(ZL),   KC_BTN3, KC_BTN4, KC_ENT,
 		KC_LSFT,          X(ZZ),   X(ZX),   X(ZC),   X(ZV),   X(ZB),   X(ZN),   X(ZM),   KC_BTN1, KC_BTN2, KC_MS_U,          KC_RSFT,
@@ -309,6 +309,10 @@ const rgblight_segment_t PROGMEM my_scroll[] = RGBLIGHT_LAYER_SEGMENTS(
     {15, 1, HSV_WHITE}
 );
 
+const rgblight_segment_t PROGMEM my_num[] = RGBLIGHT_LAYER_SEGMENTS(
+    {14, 1, HSV_WHITE}
+);
+
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 		my_ansi,
     my_nav,
@@ -317,7 +321,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 		my_losh,
 		my_hish,
 		my_caps,	// Overrides caps lock layer
-		my_scroll
+		my_scroll,
+		my_num
 );
 
 void keyboard_post_init_user(void) {
@@ -343,5 +348,6 @@ bool led_update_user(led_t led_state) {
 	// Caps lock etc
   rgblight_set_layer_state(6, led_state.caps_lock);
 	rgblight_set_layer_state(7, led_state.scroll_lock);
+	rgblight_set_layer_state(8, !led_state.num_lock);
   return true;
 }
