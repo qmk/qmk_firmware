@@ -107,7 +107,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 /* oled stuff :) */
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #define IDLE_FRAMES 5
 #define IDLE_SPEED 20 // below this wpm value your animation will idle
 #define TAP_FRAMES 2
