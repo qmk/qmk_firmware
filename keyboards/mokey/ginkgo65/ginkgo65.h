@@ -75,7 +75,7 @@
     { k40, k41, k42, XXX, k44, XXX, XXX, XXX, XXX, k49, k4A, XXX, k4C, k4D, k4E, XXX }, \
 }
 
-/*LAYOUT_7u_space
+/*LAYOUT_65_iso_blocker_tsangan_split_bs
   * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
   * │k00│k01│k02│k03│k04│k05│k06│k07│k08│k09│k0A│k0B│k0C│k0D│k0E│k0F│
   * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┼───┤
@@ -89,10 +89,10 @@
   * └────┴────┴────┴────────────────────────────┴─────┘ └───┴───┴───┘
     1     2    3    4    5    6    7    8    9    10   11   12   13   14   15   16
 */
-#define LAYOUT_7u_space( \
+#define LAYOUT_65_iso_blocker_tsangan_split_bs( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
-    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k2D, k1E, \
-    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B,      k1D, k2E, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C,      k1E, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k1D, k2D, k2E, \
     k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, \
     k40, k41, k42,      k44,                          k4A,      k4C, k4D, k4E  \
 ) { \
