@@ -13,12 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif
-#ifndef NO_PRINT
-#define NO_PRINT
-#endif
 
 #pragma once
 
