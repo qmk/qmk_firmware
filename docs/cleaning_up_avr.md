@@ -2,7 +2,7 @@
 
 First, death to AVR.  It's old, it's slow, it's past time to retire it.  The only issue with migrating away is the shortage. 
 
-If you want to reduce the compiled size of your firmware, there are a number of options to do so. 
+If you need to reduce the compiled size of your firmware, there are a number of options to do so. 
 
 ## `rules.mk` Settings
 First and foremost is enabling link time optimization.  To do so, add this to your rules.mk: 
@@ -15,7 +15,7 @@ This will get you the most savings, in most situations.
 From there, disabling extraneous systems will help.  Eg: 
 ```make
 CONSOLE_ENABLE = no
-COMMAND_ENABlE = no
+COMMAND_ENABLE = no
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = no
 ```
@@ -66,18 +66,18 @@ There are also some options for layers.  For instance, you can outright remove t
 ```c
 #define NO_ACTION_LAYER
 ```
-Or, probably better, you can limit the number of layers that the firmware uses: 
+Or, probably better, you can limit the number of layers that the firmware uses -- if you're using less than 8 layers in total:
 ```c
 #define LAYER_STATE_8BIT
 ```
-or
+or if you require up to 16 layers instead:
 ```c
 #define LAYER_STATE_16BIT
 ```
 
 ## RGB Settings
 
-If you're using RGB on your board, both RGB Light (Underglow) and RGB Matrix (per key RGB) require defines to enable different animations.  For RGB Light: 
+If you're using RGB on your board, both RGB Light (Underglow) and RGB Matrix (per key RGB) now require defines to enable different animations.  For RGB Light: 
 ```c
 #undef RGBLIGHT_ANIMATIONS
 #undef RGBLIGHT_EFFECT_BREATHING
@@ -92,7 +92,7 @@ If you're using RGB on your board, both RGB Light (Underglow) and RGB Matrix (pe
 #undef RGBLIGHT_EFFECT_TWINKLE
 ```
 
-For RGB Matrix, these are explicitly enabled, as well (or will be shortly)...  
+For RGB Matrix, these need to be  explicitly enabled, as well:
 To disable a specific animation: 
 ```c
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
