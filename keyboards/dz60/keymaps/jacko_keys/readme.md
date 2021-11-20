@@ -49,6 +49,7 @@ Sometimes it's part of the cursor block.
 * Semicolon is pause.
 * Apostrophe is print screen.
 * The `control_codes.md` contains more information about control codes.
+* Pressing `Alt` as well as held `Ctrl` does a `Ctrl`+`Alt`+`Del`.
 
 ## Navigation Layer (Complete GREEN Layer)
 * Right `Alt`/`Win`/`Ctrl`/slash form cursor block.
@@ -85,6 +86,7 @@ Sometimes it's part of the cursor block.
 * All the alpha keys form 26 Unicode characters (definable in code).
 * Numbers unchanged.
 * Minus turns on key lock for the next key (for easier drag 'n' drop for example).
+* Pressing `Ctrl` as well as held `Alt` does a `Ctrl`+`Alt`+`Del`.
 
 ### **BQN** Layer (Complete BLUE Layer Within BQN Specification)
 * **BQN** unshifted and shifted.
@@ -119,9 +121,10 @@ Sometimes it's part of the cursor block.
 * `Fn` + Left `Alt` exits **BQN** if you accidentally enter a backslash. No CYAN shift.
 
 ## Macro-board Layer (Complete YELLOW Layer)
-* Escape is a one shot sticky `Alt` shift.
-* Tab is a one shot sticky control `Alt`.
-* Caps lock is a one shot sticky control shift.
+* Escape is a one shot sticky `Ctrl`+`Shift`.
+* Tab is a one shot sticky `Alt`+ `Shift`.
+* Caps lock is a one shot sticky `Alt`+ `Ctrl`.
+* The above arranged so that further down is more down and to the right in pairs.
 * All modifiers are one shot sticky.
 * `Fn` is not a sticky modifier.
 * F1 to F12 form top row numbers and minus/equals.
@@ -132,23 +135,15 @@ Sometimes it's part of the cursor block.
 * Depending on your system the "Level 3 Shift" may be removed by localization of `Alt Gr`.
 * Right `Alt`/`Ctrl` are `Alt`+`Tab` window switch (reverse and forward).
 * Right `Win` key is the right `Win` key and not the app context menu key as in other layers.
-* Backspace is Left `Win` and Right `Win` combination sticky.
+* Backspace is `Ctrl`+`Shift`+`Alt` combination sticky.
 
-### Macro-board Shift Layer (`Fn` Macro-board MAGENTA Shift)??
-* The right `Win` key is one shot sticky.
-* Escape is a one shot sticky `Win`+`Alt` shift.
-* Tab is a one shot sticky `Win`+`Ctrl`+`Alt`.
-* Caps lock is a one shot sticky `Win` control shift.
-* Left shift is a one shot sticky `Win` shift.
-* Backspace is a one shot sticky control `Alt` shift.
-
-### Special Shift Layer (Complete Left `Win` on `Fn` Layer CYAN Shift)
+### Macro-board Shift Layer (`Fn` Macro-board MAGENTA Shift)
 * P and equals is Korean modifiers.
 * Minus is key lock for holding down a key until the held key is pressed again.
 * International modifiers are on Q-O.
 * Numbers are the number pad numbers for macro code options.
 * Remaining language 3 to 7 are on Z-M.
-* All left and right modifiers are themselves.
+* All right modifiers are as unshifted.
 * Comma/period/slash set mouse acceleration 1, 2 and 3.
 * Backspace is delete.
 * Backslash is insert.
