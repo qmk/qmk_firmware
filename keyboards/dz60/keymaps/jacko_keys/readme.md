@@ -124,7 +124,8 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and
 * Escape is a one shot sticky `Ctrl`+`Shift`.
 * Tab is a one shot sticky `Alt`+ `Shift`.
 * Caps lock is a one shot sticky `Alt`+ `Ctrl`.
-* The above arranged so that further down is more down and to the right in pairs.
+* The above arranged so that further down is more down and to the right in pairs excluding the `Win` key.
+* This is because the `Win` key is less to do with application shortcuts, and more to do with the OS shortcuts.
 * All modifiers are one shot sticky.
 * `Fn` is not a sticky modifier.
 * F1 to F12 form top row numbers and minus/equals.
