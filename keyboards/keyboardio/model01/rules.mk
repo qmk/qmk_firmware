@@ -16,7 +16,6 @@ COMMAND_ENABLE = no        # Commands for debug and configuration
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no            # USB Nkey Rollover
-UNICODE_ENABLE = no         # Unicode
 
 CUSTOM_MATRIX = yes
 QUANTUM_LIB_SRC += i2c_master.c

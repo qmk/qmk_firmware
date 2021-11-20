@@ -31,6 +31,7 @@ safe_commands = [
 subcommands = [
     'qmk.cli.bux',
     'qmk.cli.c2json',
+    'qmk.cli.cd',
     'qmk.cli.cformat',
     'qmk.cli.chibios.confmigrate',
     'qmk.cli.clean',
@@ -60,6 +61,7 @@ subcommands = [
     'qmk.cli.lint',
     'qmk.cli.list.keyboards',
     'qmk.cli.list.keymaps',
+    'qmk.cli.list.layouts',
     'qmk.cli.kle2json',
     'qmk.cli.multibuild',
     'qmk.cli.new.keyboard',

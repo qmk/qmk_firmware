@@ -23,7 +23,6 @@ RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix (do not use together wi
 RGB_MATRIX_DRIVER = WS2812  # RGB matrix driver support
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
-TAP_DANCE_ENABLE = no
 LTO_ENABLE = yes
 
 AUDIO_SUPPORTED = no

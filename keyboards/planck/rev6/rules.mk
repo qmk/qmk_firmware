@@ -17,7 +17,6 @@ COMMAND_ENABLE = yes       # Commands for debug and configuration
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 AUDIO_ENABLE = yes           # Audio output
-UNICODE_ENABLE = no         # Unicode
 RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
 WS2812_DRIVER = pwm
 

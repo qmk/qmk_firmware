@@ -24,10 +24,10 @@ enum layers {
 const uint16_t PROGMEM led_adjust_combo[] = {KC_F22, KC_F24, COMBO_END};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [DEFAULT] = {
-        { KC_F20, KC_F21, KC_MUTE },
-        { KC_F22, KC_F23, KC_F24  }
-    }
+    [DEFAULT] = LAYOUT(
+        KC_F20,  KC_F21,  KC_MUTE,
+        KC_F22,  KC_F23,  KC_F24
+    )
 };
 
 void encoder_one_update(bool clockwise) {

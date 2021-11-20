@@ -67,13 +67,13 @@ typedef struct {
 // A bunch of functions to implement the ADNS5050-specific serial protocol.
 // Note that the "serial.h" driver is insufficient, because it does not
 // manually manipulate a serial clock signal.
-void adns_init(void);
-void adns_sync(void);
-uint8_t adns_serial_read(void);
-void adns_serial_write(uint8_t data);
-uint8_t adns_read_reg(uint8_t reg_addr);
-void adns_write_reg(uint8_t reg_addr, uint8_t data);
+void          adns_init(void);
+void          adns_sync(void);
+uint8_t       adns_serial_read(void);
+void          adns_serial_write(uint8_t data);
+uint8_t       adns_read_reg(uint8_t reg_addr);
+void          adns_write_reg(uint8_t reg_addr, uint8_t data);
 report_adns_t adns_read_burst(void);
-int8_t convert_twoscomp(uint8_t data);
-void adns_set_cpi(uint8_t cpi);
-bool adns_check_signature(void);
+int8_t        convert_twoscomp(uint8_t data);
+void          adns_set_cpi(uint8_t cpi);
+bool          adns_check_signature(void);

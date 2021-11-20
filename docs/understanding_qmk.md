@@ -4,7 +4,7 @@ This document attempts to explain how the QMK firmware works from a very high le
 
 * [Introduction](getting_started_introduction.md)
 * [How Keyboards Work](how_keyboards_work.md)
-* [FAQ](faq.md)
+* [FAQ](faq_general.md)
 
 ## Startup
 
