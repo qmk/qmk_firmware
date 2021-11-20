@@ -4,9 +4,10 @@ My second keyboard edit. A multi-layer ANSI-60 with layers and function shift on
 Changes from the default key-map include moving RESET, and a preferred arrangement for the cursor
 block of keys. The function key was exchanged with the right control key to get it. This makes the layout of the right modifiers left to right be `Alt`/`Win`/`Ctrl`/`Fn`.
 
-## Right `Win` is Application Context Menu Instead
+## Right `Win` is Application Context Menu Etc.
 The right `Win` key is for getting the application context menu unless otherwise noted.
-Sometimes it's part of the cursor block.
+Sometimes it's part of the cursor block. There is also a shared not number lock or scroll lock LED pattern.
+It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and the keyboard will be in the RED or GREEN mode, depending on which of `Ctrl` or `Alt` is pressed first after `Fn`.
 
 ### Notes on "Level 3 Shift"
 * Ironically not being American I will not test the en_US local without hardware.

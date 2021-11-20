@@ -162,7 +162,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[ZU] = U' ', [ZV] = U' ', [ZW] = U' ',
 	[ZX] = U' ', [ZY] = U' ', [ZZ] = U' ',
 	//FILL IN AS REQUIRED
-	//64 bytes free => 16 Unicode characters free.
+	//56 bytes free => 14 Unicode characters free.
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -343,6 +343,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool led_update_user(led_t led_state) {
 	// Caps lock etc
   rgblight_set_layer_state(6, led_state.caps_lock);
-	rgblight_set_layer_state(7, led_state.scroll_lock || !led_state.num_lock);
+	rgblight_set_layer_state(7, led_state.scroll_lock || !led_state.num_lock ||
+		led_state.compose || led_state.kana);
   return true;
 }
