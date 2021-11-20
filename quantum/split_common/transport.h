@@ -41,12 +41,13 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]);
 bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, uint16_t initiator2target_length, void *target2initiator_buf, uint16_t target2initiator_length);
 
 #ifdef ENCODER_ENABLE
+#    include "gpio.h"
 #    include "encoder.h"
 // if no pads for right half are defined, we assume the keyboard is symmetric (i.e. same pads)
 #    ifndef ENCODERS_PAD_A_RIGHT
 #        define ENCODERS_PAD_A_RIGHT ENCODERS_PAD_A
 #    endif
-#    define NUMBER_OF_ENCODERS ((sizeof((pin_t[])ENCODERS_PAD_A) + (sizeof((pin_t[])ENCODERS_PAD_A_RIGHT)) / sizeof(pin_t))
+#    define NUMBER_OF_ENCODERS ((sizeof((pin_t[])ENCODERS_PAD_A) + sizeof((pin_t[])ENCODERS_PAD_A_RIGHT)) / sizeof(pin_t))
 #endif  // ENCODER_ENABLE
 
 #ifdef BACKLIGHT_ENABLE
