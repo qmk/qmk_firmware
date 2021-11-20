@@ -44,6 +44,7 @@ jobs:
       run: |
         git diff
         for file in $(git diff --name-only); do
-          echo "::error file=${file}::File '${file}' Requires Formatting"
+          echo "File '${file}' Requires Formatting"
+          echo "::error file=${file}::Requires Formatting"
         done
         test -z "$(git diff --name-only)"
