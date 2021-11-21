@@ -573,7 +573,6 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
     suspend_wakeup_init_kb();
 
 // Useful string manipulation code
-
 const char *get_u8_str(uint8_t curr_num, char curr_pad) {
     static char    buf[4]   = {0};
     static uint8_t last_num = 0xFF;
