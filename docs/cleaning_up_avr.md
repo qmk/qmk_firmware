@@ -75,6 +75,38 @@ or if you require up to 16 layers instead:
 #define LAYER_STATE_16BIT
 ```
 
+## OLED tweaks
+
+One place you can save a bunch of space here is by not using `sprintf` or `snprintf`. This function call takes up ~1.5kB of firmware space, and can be rewritten. For instance, WPM uses this a lot.
+
+You can convert this:
+```c
+    sprintf(wpm_str, "WPM: %03d", get_current_wpm());
+```
+into this:
+```c
+    uint8_t n = get_current_wpm();
+    char    wpm_counter[4];
+    wpm_counter[3] = '\0';
+    wpm_counter[2] = '0' + n % 10;
+    wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
+    oled_write_P(PSTR("WPM: "), false);
+    oled_write(wpm_counter, false);
+```
+which outputs `WPM:   5`.  Or this: 
+```c
+    uint8_t n = get_current_wpm();
+    char    wpm_counter[4];
+    wpm_counter[3] = '\0';
+    wpm_counter[2] = '0' + n % 10;
+    wpm_counter[1] = '0' + (n /= 10) % 10;
+    wpm_counter[0] = '0' + n / 10 ;
+    oled_write_P(PSTR("WPM: "), false);
+    oled_write(wpm_counter, false);
+```
+which outputs `WPM: 005`.
+
 ## RGB Settings
 
 If you're using RGB on your board, both RGB Light (Underglow) and RGB Matrix (per key RGB) now require defines to enable different animations.  For RGB Light: 
