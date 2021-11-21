@@ -15,48 +15,89 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _BASE,
-    _FN
-};
-
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
-    [_BASE] = LAYOUT(
-        KC_A,    KC_1,    MO(_FN),
-            KC_TAB,   KC_SPC
+    [_BASE] =LAYOUT (\
+    KC_PSCR,   KC_SLCK,   KC_PAUS,   KC_MUTE,\
+	  KC_INS,    KC_HOME,   KC_PGUP,   KC_ESC,    KC_PSLS,    KC_PAST,   KC_PMNS,                KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,  \
+  	KC_DEL,    KC_END,    KC_PGDN,   KC_P7,     KC_P8,      KC_P9,     KC_PPLS,                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
+                                     KC_P4,     KC_P5,      KC_P6,     KC_PPLS,                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  	S(KC_TAB), KC_UP,     KC_TAB,    KC_P1,     KC_P2,      KC_P3,     LT(1,KC_PENT), KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,  \
+  	KC_LEFT,   KC_DOWN,   KC_RGHT,   KC_P0,     KC_P0,      KC_PDOT,   LT(1,KC_PENT), KC_SPC,  KC_NO,   KC_NO,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
     ),
-    [_FN] = LAYOUT(
-        QMKBEST, QMKURL,  _______,
-            RESET,    XXXXXXX
+
+    [_FN1] =LAYOUT (\
+  	RESET,     EEP_RST,   KC_NO,     KC_NO,\
+  	KC_NO,     KC_NO,     KC_NO,     KC_NLCK,   KC_QUOT,   KC_PEQL,    KC_NO,                  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    EEP_RST,\
+  	KC_CAPS,   KC_NLCK,   KC_SLCK,   S(KC_9),   KC_UP,     S(KC_0),    S(KC_SPC),              KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,\
+                                     KC_LEFT,   KC_BTN3,   KC_RGHT,    S(KC_SPC),              KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,\
+  	KC_TRNS,   S(KC_ENT), KC_TRNS,   KC_BSPC,   KC_DOWN,   KC_DEL,     KC_TRNS,       KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
+  	KC_BTN1,   KC_ENT,    S(KC_SPC),LT(2,KC_SPC),KC_SPC,   KC_COMM,    KC_TRNS,       KC_SPC,  KC_NO,   KC_NO,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT\
+    ),
+
+    [_FN2] =LAYOUT (\
+  	RGB_TOG,   RGB_MOD,   RGB_RMOD,  KC_NO,\
+  	RGB_HUI,   RGB_SAI,   RGB_VAI,   KC_NO,     KC_NO,     KC_NO,     KC_NO,                  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,\
+  	RGB_HUD,   RGB_SAD,   RGB_VAD,   KC_NO,     KC_NO,     KC_NO,     KC_NO,                  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,\
+                                     KC_NO,     KC_NO,     KC_NO,     KC_NO,                  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,\
+  	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,         KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,\
+  	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,         KC_SPC,  KC_NO,   KC_NO,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+    ),
+
+    [_FN3] =LAYOUT (\
+  	KC_NO,     KC_NO,     KC_NO,     KC_NO,\
+  	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,                  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,\
+  	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,                  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,\
+                                     KC_NO,     KC_NO,     KC_NO,     KC_NO,                  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,\
+  	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,         KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,\
+  	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,         KC_SPC,  KC_NO,   KC_NO,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
     )
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QMKBEST:
-            if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-                SEND_STRING("QMK is the best thing ever!");
-            } else {
-                // when keycode QMKBEST is released
-            }
-            break;
-        case QMKURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/\n");
-            } else {
-                // when keycode QMKURL is released
-            }
-            break;
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+  if (index == 0) { /* Navpad side encoder */
+    if (IS_LAYER_ON(_BASE)){
+      if (clockwise) {
+        tap_code16(KC_VOLU);
+      } else {
+        tap_code16(KC_VOLD);
+      }
+    } else if (IS_LAYER_ON(_FN2)){
+      if (clockwise) {
+        rgblight_increase_sat();
+      } else {
+        rgblight_decrease_sat();
+      }
+    } else if (IS_LAYER_ON(_FN1)){
+      if (clockwise) {
+        rgblight_increase_hue();
+      } else {
+        rgblight_decrease_hue();
+      }
     }
-    return true;
+  }
+  if (index == 1) { /* Helix side encoder */
+    if (IS_LAYER_ON(_BASE)){
+      if (clockwise) {
+        tap_code16(KC_VOLU);
+      } else {
+        tap_code16(KC_VOLD);
+      }
+    } else if (IS_LAYER_ON(_FN2)){
+      if (clockwise) {
+        rgblight_increase_sat();
+      } else {
+        rgblight_decrease_sat();
+      }
+    } else if (IS_LAYER_ON(_FN1)){
+      if (clockwise) {
+        rgblight_increase_hue();
+      } else {
+        rgblight_decrease_hue();
+      }
+    }
+
+  }
+  return false;
 }
+#endif

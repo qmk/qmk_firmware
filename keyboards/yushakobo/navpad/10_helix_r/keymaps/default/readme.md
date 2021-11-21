@@ -1,1 +1,1 @@
-# The default keymap for 10_helix_r
+# The default keymap for navpad 1.0 with helix (right hand side)
