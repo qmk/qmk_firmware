@@ -558,7 +558,7 @@ enum quantum_keycodes {
     PROGRAMMABLE_BUTTON_31,
     PROGRAMMABLE_BUTTON_32,
 
-    // Dedicated macro keys for Configurator, XAP, and VIA
+    // Dedicated macro keys for Configurator and VIA
     MACRO_0,
     MACRO_1,
     MACRO_2,
