@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [CS_GO] = LAYOUT_split_rshift(
-    _______, _______, KC_GESC,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,            KC_FN0,      _______, \
+    _______, _______, KC_GESC,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,            F(0),        _______, \
     _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,            _______,     _______, \
     _______, _______, KC_LCTL,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,               _______,                                  \
     _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                          _______,              \
@@ -99,11 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `---------'  `------------------------------------------------------'  `--------------'
    */
   [SETTINGS] = LAYOUT_split_rshift(
-    XXXXXXX, XXXXXXX, KC_FN0,          KC_FN3,  KC_FN4,  KC_FN5,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,       BL_TOGG,            RGB_TOG,     RGB_VAI, \
+    XXXXXXX, XXXXXXX, F(0),            F(3),    F(4),    F(5),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,       BL_TOGG,            RGB_TOG,     RGB_VAI, \
     XXXXXXX, XXXXXXX, DEBUG,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,            RGB_MOD,     RGB_VAD, \
-    XXXXXXX, XXXXXXX, KC_FN0,          KC_FN6,  KC_FN8,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,               RESET,                                    \
-    XXXXXXX, XXXXXXX, KC_FN10,         KC_FN7,  KC_FN9,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_FN0,       XXXXXXX,            RGB_HUI,              \
-    XXXXXXX, XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX,                            KC_FN12,                            XXXXXXX, XXXXXXX, KC_FN0,                  RGB_SAD, RGB_HUD, RGB_SAI      \
+    XXXXXXX, XXXXXXX, F(0),            F(6),    F(8),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,               RESET,                                    \
+    XXXXXXX, XXXXXXX, F(10),           F(7),    F(9),    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          F(0),         XXXXXXX,            RGB_HUI,              \
+    XXXXXXX, XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX,                            F(12),                              XXXXXXX, XXXXXXX, F(0),                    RGB_SAD, RGB_HUD, RGB_SAI      \
   ),
 };
 
@@ -159,19 +159,6 @@ const uint16_t PROGMEM fn_actions[] = {
     ACTION_FUNCTION(LFK_DEBUG_SETTINGS),                      // FN12 - prints LED and click settings to HID
   };
 
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-      }
-    return MACRO_NONE;
-};
-
-void matrix_init_user(void) {
-
-}
-
 void matrix_scan_user(void) {
     if(spam_space && !(get_mods() & (MOD_BIT(KC_LGUI)))){
         register_code(KC_SPC);
@@ -187,8 +174,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   }
   return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P1,   KC_P2,   KC_P3,            \
              KC_P0,   KC_PDOT, KC_PENT  \
   ),
-    
+
   /* Keymap ONE: Util Layer
   *
   *      ,---.       ,---.
@@ -341,7 +341,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_init_user(void) {
     set_unicode_input_mode(UC_WINC);
 };
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void oled_task_user(void) {
   oled_write_P(PSTR("       spaget v1\n\n"), false);
 
@@ -371,7 +371,7 @@ void oled_task_user(void) {
 }
 #endif
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if(IS_LAYER_ON(BASE)) {
     if (index == 0) { /* First encoder */
       if (clockwise) {
@@ -432,4 +432,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       }
     }
   }
+    return true;
 }

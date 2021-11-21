@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    farmakon
 #define PRODUCT         GH80-3000
-#define DESCRIPTION     GH80-3000 Mechanical Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 11

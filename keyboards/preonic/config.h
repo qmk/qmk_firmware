@@ -21,11 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6061
+#define VENDOR_ID       0x03A8
 #define MANUFACTURER    OLKB
 #define PRODUCT         Preonic
-#define DESCRIPTION     A compact ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -42,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_SPEAKER C6
 
 #define AUDIO_VOICES
-#define C6_AUDIO
+#define AUDIO_PIN C6
 
 #define BACKLIGHT_PIN B7
 

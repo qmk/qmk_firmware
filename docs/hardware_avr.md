@@ -6,33 +6,35 @@ If you have not yet you should read the [Keyboard Guidelines](hardware_keyboard_
 
 ## Adding Your AVR Keyboard to QMK
 
-QMK has a number of features to simplify working with AVR keyboards. For most keyboards you don't have to write a single line of code. To get started, run the `util/new_keyboard.sh` script:
+QMK has a number of features to simplify working with AVR keyboards. For most keyboards you don't have to write a single line of code. To get started, run `qmk new-keyboard`:
 
 ```
-$ ./util/new_keyboard.sh
-Generating a new QMK keyboard directory
+$ qmk new-keyboard
+Ψ Generating a new QMK keyboard directory
 
-Keyboard Name: mycoolkb
-Keyboard Type [avr]: 
-Your Name [John Smith]: 
+Keyboard Name: mycoolkeeb
+Keyboard Type:
+        1. avr
+        2. ps2avrgb
+Please enter your choice:  [1]
+Your Name: [John Smith]
+Ψ Copying base template files...
+Ψ Copying avr template files...
+Ψ Renaming keyboard.[ch] to mycoolkeeb.[ch]...
+Ψ Replacing %YEAR% with 2021...
+Ψ Replacing %KEYBOARD% with mycoolkeeb...
+Ψ Replacing %YOUR_NAME% with John Smith...
 
-Copying base template files... done
-Copying avr template files... done
-Renaming keyboard files... done
-Replacing %KEYBOARD% with mycoolkb... done
-Replacing %YOUR_NAME% with John Smith... done
-
-Created a new keyboard called mycoolkb.
-
-To start working on things, cd into keyboards/mycoolkb,
-or open the directory in your favourite text editor.
+Ψ Created a new keyboard called mycoolkeeb.
+Ψ To start working on things, `cd` into keyboards/mycoolkeeb,
+Ψ or open the directory in your preferred text editor.
 ```
 
 This will create all the files needed to support your new keyboard, and populate the settings with default values. Now you just need to customize it for your keyboard.
 
 ## `readme.md`
 
-This is where you'll describe your keyboard. Please follow the [Keyboard Readme Template](documentation_templates.md#keyboard-readmemd-template) when writing your `readme.md`. You're encouraged to place an image at the top of your `readme.md`, please use an external service such as [Imgur](http://imgur.com) to host the images.
+This is where you'll describe your keyboard. Please follow the [Keyboard Readme Template](documentation_templates.md#keyboard-readmemd-template) when writing your `readme.md`. You're encouraged to place an image at the top of your `readme.md`, please use an external service such as [Imgur](https://imgur.com) to host the images.
 
 ## `<keyboard>.c`
 
@@ -77,7 +79,7 @@ Do change the `MANUFACTURER` and `PRODUCT` lines to accurately reflect your keyb
 #define PRODUCT         my_awesome_keyboard
 ```
 
-?> Windows and macOS will display the `MANUFACTURER` and `PRODUCT` in the list of USB devices. `lsusb` on Linux instead takes these from the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html) by default. `lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
+?> Windows and macOS will display the `MANUFACTURER` and `PRODUCT` in the list of USB devices. `lsusb` on Linux instead prefers the values in the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html). By default, it will only use `MANUFACTURER` and `PRODUCT` if the list does not contain that `VENDOR_ID` / `PRODUCT_ID`. `sudo lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
 
 ### Keyboard Matrix Configuration
 

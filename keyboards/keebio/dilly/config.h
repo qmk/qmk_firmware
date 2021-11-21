@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Dilly
-#define DESCRIPTION     30 percent ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6

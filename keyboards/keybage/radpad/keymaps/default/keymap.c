@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left encoder */
         if (clockwise) {
             tap_code16(KC_VOLU);
@@ -51,9 +51,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code16(KC_MPRV);
         }
     }
+    return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 static uint32_t oled_logo_timer = 0;
 bool oled_logo_cleared = false; // Set to true if you don't want a logo at all
 

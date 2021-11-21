@@ -80,6 +80,10 @@ inline void ergodox_led_all_set(uint8_t n) {
     ergodox_right_led_3_set(n);
 }
 
+#ifndef VISUALIZER_ENABLE
+void ergodox_infinity_lcd_color(uint16_t r, uint16_t g, uint16_t b);
+#endif
+
 /*
  *   LEFT HAND: LINES 88-95
  *  RIGHT HAND: LINES 97-104

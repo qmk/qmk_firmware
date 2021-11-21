@@ -36,38 +36,38 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef XT_H
-#define XT_H
+#pragma once
 
-#define XT_DATA_IN()                        \
-    do {                                    \
-        XT_DATA_DDR &= ~(1 << XT_DATA_BIT); \
-        XT_DATA_PORT |= (1 << XT_DATA_BIT); \
+#include "quantum.h"
+
+#define XT_DATA_IN()               \
+    do {                           \
+        setPinInput(XT_DATA_PIN);  \
+        writePinHigh(XT_DATA_PIN); \
     } while (0)
 
-#define XT_DATA_READ() (XT_DATA_PIN & (1 << XT_DATA_BIT))
+#define XT_DATA_READ() readPin(XT_DATA_PIN)
 
-#define XT_DATA_LO()                         \
-    do {                                     \
-        XT_DATA_PORT &= ~(1 << XT_DATA_BIT); \
-        XT_DATA_DDR |= (1 << XT_DATA_BIT);   \
+#define XT_DATA_LO()               \
+    do {                           \
+        writePinLow(XT_DATA_PIN);  \
+        setPinOutput(XT_DATA_PIN); \
     } while (0)
 
-#define XT_CLOCK_IN()                         \
-    do {                                      \
-        XT_CLOCK_DDR &= ~(1 << XT_CLOCK_BIT); \
-        XT_CLOCK_PORT |= (1 << XT_CLOCK_BIT); \
+#define XT_CLOCK_IN()               \
+    do {                            \
+        setPinInput(XT_CLOCK_PIN);  \
+        writePinHigh(XT_CLOCK_PIN); \
     } while (0)
 
-#define XT_CLOCK_READ() (XT_CLOCK_PIN & (1 << XT_CLOCK_BIT))
+#define XT_CLOCK_READ() readPin(XT_CLOCK_PIN)
 
-#define XT_CLOCK_LO()                          \
-    do {                                       \
-        XT_CLOCK_PORT &= ~(1 << XT_CLOCK_BIT); \
-        XT_CLOCK_DDR |= (1 << XT_CLOCK_BIT);   \
+#define XT_CLOCK_LO()               \
+    do {                            \
+        writePinLow(XT_CLOCK_PIN);  \
+        setPinOutput(XT_CLOCK_PIN); \
     } while (0)
 
-void    xt_host_init(void);
+void xt_host_init(void);
+
 uint8_t xt_host_recv(void);
-
-#endif

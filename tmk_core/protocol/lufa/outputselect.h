@@ -21,21 +21,11 @@ enum outputs {
 
     OUTPUT_NONE,
     OUTPUT_USB,
-    OUTPUT_BLUETOOTH,
-
-    // backward compatibility
-    OUTPUT_USB_AND_BT
+    OUTPUT_BLUETOOTH
 };
 
-/**
- * backward compatibility for BLUETOOTH_ENABLE, send to BT and USB by default
- */
 #ifndef OUTPUT_DEFAULT
-#    ifdef BLUETOOTH_ENABLE
-#        define OUTPUT_DEFAULT OUTPUT_USB_AND_BT
-#    else
-#        define OUTPUT_DEFAULT OUTPUT_AUTO
-#    endif
+#    define OUTPUT_DEFAULT OUTPUT_AUTO
 #endif
 
 void    set_output(uint8_t output);

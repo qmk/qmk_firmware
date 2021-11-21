@@ -25,15 +25,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTRL, KC_LALT, KC_LCMD, KC_SPC, KC_SPC, KC_RCMD, KC_RALT, KC_RCTRL, KC_APP, KC_LEFT, KC_DOWN, KC_RIGHT \
   ),
 };
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

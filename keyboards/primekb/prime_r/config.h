@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    PrimeKB
 #define PRODUCT         Prime_R
-#define DESCRIPTION     A compact layout with mini-numpad.
 
 /* key matrix size */
 #define MATRIX_ROWS 5

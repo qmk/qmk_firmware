@@ -11,8 +11,8 @@ Note: ces programmes ne sont ni fournis ni approuvés par QMK.
 * [QMK Configurator](https://config.qmk.fm/#/test/) (Web)
 * [Switch Hitter](https://web.archive.org/web/20190413233743/https://elitekeyboards.com/switchhitter.php) (Windows seulement)
 * [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (Mac seulement)
-* [Keyboard Tester](http://www.keyboardtester.com) (Web)
-* [Keyboard Checker](http://keyboardchecker.com) (Web)
+* [Keyboard Tester](https://www.keyboardtester.com) (Web)
+* [Keyboard Checker](https://keyboardchecker.com) (Web)
 
 ## Débuguer
 

@@ -67,27 +67,3 @@ out:
   return (mcp23018_status);
 }
 #endif
-
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
-
-__attribute__ ((weak))
-void matrix_init_user(void) {}
-
-void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-
-    matrix_init_user();
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {}
-
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
-    matrix_scan_user();
-}

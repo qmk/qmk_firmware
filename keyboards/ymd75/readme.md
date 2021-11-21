@@ -2,6 +2,8 @@
 
 75% keyboard from YMDK. YMDK sell the board and name it "YMD75", however revision 1 of the PCB has "MT84" printed on both sides.
 
+This firmware can also be flashed onto the KBDFans KBD75 Round 2 Bootmapper Client boards sold during the mid-2018 timeframe.
+
 * Keyboard Maintainer: [Wayne K Jones](github.com/WarmCatUK)
 * Hardware Supported: 
    - rev1 (ATmega32a) 

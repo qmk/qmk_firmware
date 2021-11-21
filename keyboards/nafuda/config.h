@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0012
 #define MANUFACTURER    Salicylic_Acid
 #define PRODUCT         nafuda
-#define DESCRIPTION     A custom cursorpad
 
 /* key matrix size */
 #define MATRIX_ROWS 3

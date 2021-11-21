@@ -98,7 +98,7 @@ Por ejemplo, si tienes un PCB de 60% que soporta ANSI e ISO podría definir los 
 
 En un esfuerzo por mantener el tamaño de repo abajo ya no estamos aceptando archivos binarios de cualquier formato, con pocas excepciones. Alojarlos en otro lugar (por ejemplo <https://imgur.com>) y enlazarlos en el `readme.md` es preferible.
 
-Para archivos de hardware (tales como placas, casos, pcb) puedes contribuir a [qmk.fm repo](https://github.com/qmk/qmk.fm) y estarán disponibles en [qmk.fm](http://qmk.fm). Archivos descargables se almacenan en `/<teclado>/` (nombre sigue el mismo formato que el anterior), se sirven en `http://qmk.fm/<teclado>/`, y se generan páginas de `/_pages/<teclado>/` que se sirven en la misma ubicación (Los archivos .md se generan en archivos .html mediante Jekyll). Echa un vistazo a la carpeta `lets_split` para ver un ejemplo.
+Para archivos de hardware (tales como placas, casos, pcb) puedes contribuir a [qmk.fm repo](https://github.com/qmk/qmk.fm) y estarán disponibles en [qmk.fm](https://qmk.fm). Archivos descargables se almacenan en `/<teclado>/` (nombre sigue el mismo formato que el anterior), se sirven en `https://qmk.fm/<teclado>/`, y se generan páginas de `/_pages/<teclado>/` que se sirven en la misma ubicación (Los archivos .md se generan en archivos .html mediante Jekyll). Echa un vistazo a la carpeta `lets_split` para ver un ejemplo.
 
 ## Predeterminados de teclado
 
@@ -140,7 +140,7 @@ El año debe ser el primer año en que se crea el archivo. Si el trabajo se hizo
 
 ## Licencia
 
-El núcleo de QMC está licenciado bajo la [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html). Si estás enviando binarios para los procesadores AVR puedes elegir cualquiera [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) o [GPLv3](https://www.gnu.org/licenses/gpl.html). Si estás enviando binarios para ARM procesadores debes elegir [GPL Versión 3](https://www.gnu.org/licenses/gpl.html) para cumplir con los [ChibiOS](http://www.chibios.org) licencia GPLv3.
+El núcleo de QMC está licenciado bajo la [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html). Si estás enviando binarios para los procesadores AVR puedes elegir cualquiera [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) o [GPLv3](https://www.gnu.org/licenses/gpl.html). Si estás enviando binarios para ARM procesadores debes elegir [GPL Versión 3](https://www.gnu.org/licenses/gpl.html) para cumplir con los [ChibiOS](https://www.chibios.org) licencia GPLv3.
 
 Si tu teclado hace uso de la [uGFX](https://gfx.io) características dentro de QMK debes cumplir con la [Licencia de uGFX](https://ugfx.io/license.html), que requiere una licencia comercial separada antes de vender un dispositivo que contiene uGFX.
 
