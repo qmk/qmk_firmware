@@ -273,6 +273,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void render_layer_state(void) {
     oled_write_P(PSTR("Mode:\n"), false);
+    oled_write_ln_P(PSTR(""), false);
     oled_write_P(PSTR("Main\n"), get_highest_layer(layer_state) == _BASE);
     oled_write_P(PSTR("Game\n"), layer_state_is(_GAME_MODE));
     oled_write_P(PSTR("Crea\n"), layer_state_is(_CREATION_MODE));

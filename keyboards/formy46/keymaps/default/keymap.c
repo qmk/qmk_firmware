@@ -282,6 +282,7 @@ void render_layer_state(void) {
         oled_write_ln_P(PSTR(""), false);
         oled_write_ln_P(PSTR("LED:"), false);
         oled_write_ln_P(PSTR(""), false);
+/*
         static char rgbMode[6] = {0};
         snprintf(rgbMode, sizeof(rgbMode), "M:%-3d", rgblight_get_mode());
         oled_write(rgbMode, false);
@@ -294,6 +295,27 @@ void render_layer_state(void) {
         static char rgbVal[6] = {0};
         snprintf(rgbVal, sizeof(rgbVal), "V:%-3d", rgblight_get_val());
         oled_write(rgbVal, false);
+*/
+        char     rgblight_mode[1];
+        uint16_t rgb_mode     = rgblight_get_mode();
+        rgblight_mode[0] = rgb_mode;
+        oled_write_P(PSTR("M:"), false);
+        oled_write(rgblight_mode, false);
+        char     rgblight_hue[1];
+        uint16_t rgb_hue     = rgblight_get_hue();
+        rgblight_hue[0] = rgb_hue;
+        oled_write_P(PSTR("H:"), false);
+        oled_write(rgblight_hue, false);
+        char     rgblight_sat[1];
+        uint16_t rgb_sat     = rgblight_get_sat();
+        rgblight_sat[0] = rgb_sat;
+        oled_write_P(PSTR("S:"), false);
+        oled_write(rgblight_sat, false);
+        char     rgblight_val[1];
+        uint16_t rgb_val     = rgblight_get_val();
+        rgblight_val[0] = rgb_val;
+        oled_write_P(PSTR("V:"), false);
+        oled_write(rgblight_val, false);
     #endif
 }
 
