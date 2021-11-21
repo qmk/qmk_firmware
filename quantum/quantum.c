@@ -575,33 +575,36 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
 // Useful string manipulation code
 
 const char *get_u8_str(uint8_t curr_num, char curr_pad) {
-    static char buf[4] = {0};
+    static char    buf[4]   = {0};
     static uint8_t last_num = 0xFF;
-    static char last_pad = '\0';
-    if (last_num == curr_num && last_pad == curr_pad) { return buf; }
+    static char    last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) {
+        return buf;
+    }
     last_num = curr_num;
     last_pad = curr_pad;
-    buf[3] = '\0';
-    buf[2] = '0' + curr_num % 10;
-    buf[1] = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
-    buf[0] = curr_num / 10 ? '0' + curr_num / 10 : curr_pad;
+    buf[3]   = '\0';
+    buf[2]   = '0' + curr_num % 10;
+    buf[1]   = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
+    buf[0]   = curr_num / 10 ? '0' + curr_num / 10 : curr_pad;
     return buf;
 }
 
-
 const char *get_u16_str(uint16_t curr_num, char curr_pad) {
-    static char buf[6] = {0};
+    static char     buf[6]   = {0};
     static uint16_t last_num = 0xFF;
-    static char last_pad = '\0';
-    if (last_num == curr_num && last_pad == curr_pad) { return buf; }
+    static char     last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) {
+        return buf;
+    }
     last_num = curr_num;
     last_pad = curr_pad;
-    buf[5] = '\0';
-    buf[4] = '0' + curr_num % 10;
-    buf[3] = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
-    buf[2] = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
-    buf[1] = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
-    buf[0] = curr_num / 10 ? '0' + curr_num / 10 : curr_pad;
+    buf[5]   = '\0';
+    buf[4]   = '0' + curr_num % 10;
+    buf[3]   = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
+    buf[2]   = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
+    buf[1]   = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
+    buf[0]   = curr_num / 10 ? '0' + curr_num / 10 : curr_pad;
 
     return buf;
 }
