@@ -241,11 +241,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//Macro shift mode 6 ================================================================================ Macro shift mode 6
 	// Same macro layer but different modifier grouping for more hot key combinations.
 	LAYOUT_60_ansi(
-		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_LOCK, KC_HANJ,          KC_DEL,
+		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_MINS, KC_HANJ,          KC_DEL,
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_HAEN, KC_HOME, KC_END,  KC_INS,
 		KC_NLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
 		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
-		DF(0),   DF(2),				     DF(1),                     KC_SPC,                             KC_TRNS, KC_TRNS,				   KC_TRNS, KC_TRNS),
+		DF(0),OSM(MOD_LSFT|MOD_LGUI),DF(1),                   ALGR(KC_SPC),                       KC_TRNS, OSM(MOD_LSFT|MOD_RGUI),KC_TRNS, KC_TRNS),
 
 	//BQN shift mode 7 ==================================================================================== BQN shift mode 7
 	LAYOUT_60_ansi(
@@ -263,18 +263,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_60_ansi(
 		Z(CES),  Z(C1),   X(IAT),  Z(C3),   Z(C4),   Z(C5),   X(ICAR), Z(C7),   Z(C8),   Z(C9),   Z(C0),   X(IUND), Z(CEQ),           X(LBS),
 		X(TAB),			  		X(IQ),   X(IW),   X(IE),   X(IR),   X(IT),   X(IY),   X(IU),   X(II),   X(IO),   X(IP),   X(ILBR), X(IRBR), X(IBSL),
-		KC_TRNS,  		  	X(IA),   X(IS),   X(ID),   X(IF),   X(IG),   X(IH),   X(IJ),   X(IK),   X(IL),   KC_PAUS, KC_PSCR, X(CR),
-		KC_TRNS,          X(IZ),   X(IX),   X(IC),   X(IV),   X(IB),   X(IN),   X(IM),   KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
-		KC_TRNS, KC_TRNS,     	   LCA(KC_DEL),               KC_SPC,                             KC_LEFT, KC_DOWN,          KC_RIGHT, KC_TRNS),
+		KC_TRNS,  		  	X(IA),   X(IS),   X(ID),   X(IF),   X(IG),   X(IH),   X(IJ),   X(IK),   X(IL),   LCTL(KC_PAUS),LCTL(KC_PSCR),X(CR),
+		KC_TRNS,          X(IZ),   X(IX),   X(IC),   X(IV),   X(IB),   X(IN),   X(IM),   LCTL(KC_PGUP),LCTL(KC_PGDN), LCTL(KC_UP),    KC_TRNS,
+		KC_TRNS, LCTL(KC_LGUI),	   LCA(KC_DEL),               X(IAT),                             LCTL(KC_LEFT), LCTL(KC_DOWN),LCTL(KC_RIGHT),KC_TRNS),
 
 	//Mouse shift mode 9 ================================================================================ Mouse shift mode 9
 	// A utility layer for things like the mouse.
 	LAYOUT_60_ansi(
 		KC_ESC,  X(Z1),   X(Z2),   X(Z3),   X(Z4),   X(Z5),   X(Z6),   X(Z7),   X(Z8),   X(Z9),   X(Z0),   X(ZMIN), X(AEQ),           KC_BSPC,
-		KC_TAB,           X(ZQ),   X(ZW),   X(ZE),   X(ZR),   X(ZT),   X(ZY),   X(ZU),   X(ZI),   X(ZO),   X(ZP),   KC_WH_U, KC_WH_D, RESET,
-		KC_CAPS,		      X(ZA),   X(ZS),   X(ZD),   X(ZF),   X(ZG),   X(ZH),   X(ZJ),   X(ZK),   X(ZL),   KC_BTN3, KC_BTN4, KC_ENT,
-		KC_LSFT,          X(ZZ),   X(ZX),   X(ZC),   X(ZV),   X(ZB),   X(ZN),   X(ZM),   KC_BTN1, KC_BTN2, KC_MS_U,          KC_RSFT,
-		LCA(KC_DEL), KC_TRNS,      KC_TRNS,	                  KC_SPC,                             KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS)
+		KC_TAB,           X(ZQ),   X(ZW),   X(ZE),   X(ZR),   X(ZT),   X(ZY),   X(ZU),   X(ZI),   X(ZO),   X(ZP),   KC_BTN4, KC_BTN5, RESET,
+		KC_CAPS,		      X(ZA),   X(ZS),   X(ZD),   X(ZF),   X(ZG),   X(ZH),   X(ZJ),   X(ZK),   X(ZL),   KC_BTN3, KC_BTN2, KC_ENT,
+		KC_LSFT,          X(ZZ),   X(ZX),   X(ZC),   X(ZV),   X(ZB),   X(ZN),   X(ZM),   KC_WH_U, KC_WH_D, KC_MS_U,          KC_RSFT,
+		LCA(KC_DEL),LALT(KC_LGUI), KC_TRNS,	                  KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS)
 };
 
 const rgblight_segment_t PROGMEM my_ansi[] = RGBLIGHT_LAYER_SEGMENTS(

@@ -8,6 +8,7 @@ block of keys. The function key was exchanged with the right control key to get 
 The right `Win` key is for getting the application context menu unless otherwise noted.
 Sometimes it's part of the cursor block. There is also a shared not number lock or scroll lock LED pattern.
 It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and the keyboard will be in the RED or GREEN mode, depending on which of `Ctrl` or `Alt` is pressed first after `Fn`.
+The layer selector modifier of a selected layer is normalized to be the modified modifier.
 
 ### Notes on "Level 3 Shift"
 * Ironically not being American I will not test the en_US local without hardware.
@@ -21,11 +22,11 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and
 * Basically `Fn`+ a left modifier on the bottom row changes the main layer or enters a CYAN shift.
 * In CYAN shift mode you may release the `Fn` key while holding the CYAN modifier.
 
-## ANSI Layer (Complete RED Layer)
+## ANSI Layer (RED Layer)
 * Right control exchanged with function shift key as always.
 * This layer is the keyboard default and has few surprises. To access this layer the key combination `Fn`+Left `Ctrl` has been reserved.
 
-### ANSI Shift Layer (Complete `Fn` ANSI MAGENTA Shift)
+### ANSI Shift Layer (`Fn` ANSI MAGENTA Shift)
 * Scroll lock placed on caps lock.
 * Right `Alt`/`Win`/`Ctrl`/slash form cursor block.
 * Backslash is insert.
@@ -44,19 +45,20 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and
 * Browser home key is O, search is A, favourites is F.
 * Volume is up(J) and down(H).
 
-### Control Shift Layer (Complete Left Control on `Fn` Layer CYAN Shift)
+### Control Shift Layer (Left Control on `Fn` Layer CYAN Shift)
 * Various control code literals and icongraphs plus cursor.
-* Comma and period are page up/down.
-* Semicolon is pause.
-* Apostrophe is print screen.
+* Comma and period are `Ctrl`+page up/down.
+* Semicolon is `Ctrl`+pause.
+* Apostrophe is `Ctrl`+print screen.
 * The `control_codes.md` contains more information about control codes.
 * Pressing `Alt` as well as held `Ctrl` does a `Ctrl`+`Alt`+`Del`.
+* Cursor block is `Ctrl` modified.
 
-## Navigation Layer (Complete GREEN Layer)
+## Navigation Layer (GREEN Layer)
 * Right `Alt`/`Win`/`Ctrl`/slash form cursor block.
 * Backslash enters a prefix to enter **BQN** characters. (The **BQN** Layer).
 
-### Navigation Shift Layer (Complete `Fn` Navigation MAGENTA Shift)
+### Navigation Shift Layer (`Fn` Navigation MAGENTA Shift)
 * Scroll lock placed on caps lock.
 * Backslash is insert.
 * Backspace is delete.
@@ -74,20 +76,20 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and
 * Browser search is A, favourites is F.
 * Volume is up(J) and down(H).
 
-### Mouse Shift Layer (Complete Left `Alt` on `Fn` Layer CYAN Shift)
+### Mouse Shift Layer (Left `Alt` on `Fn` Layer CYAN Shift)
 * Right `Alt`/`Win`/`Ctrl`/slash form mouse movement block.
-* Comma is left mouse button.
-* Period is right mouse button.
+* Space is mouse button 1.
+* Comma is scroll up.
+* Period is scroll down.
 * Enter and backspace are themselves.
 * Backslash is keyboard reset.
-* Equals is number pad equals.
-* The brackets are scroll wheel up and down such the [ is up.
+* The brackets button 4 an 5 (standard mice don't have this).
 * Semicolon is mouse button 3 (scroll button).
-* Apostrophe is mouse button 4 (standard mice don't have this).
+* Apostrophe is mouse button 2.
 * All the alpha keys (plus numbers and minus equals) form 38 Unicode characters (definable in code).
 * Pressing `Ctrl` as well as held `Alt` does a `Ctrl`+`Alt`+`Del`.
 
-### **BQN** Layer (Complete BLUE Layer Within BQN Specification)
+### **BQN** Layer (BLUE Layer Within BQN Specification)
 * **BQN** unshifted and shifted.
 * Left and right cursor work on right `Alt`/`Ctrl`.
 * Right GUI button is right `Win` key.
@@ -109,7 +111,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and
                              Space: ‿
 ```
 
-### Unicode Shift Layer (Complete `Fn` After \ **BQN** Prefix MAGENTA Shift)
+### Unicode Shift Layer (`Fn` After \ **BQN** Prefix MAGENTA Shift)
 * All the alpha keys (plus numbers and minus equals) form 38 Unicode characters (definable in code).
 * Numbers unchanged.
 * Square brackets are home and end.
@@ -120,7 +122,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and
 * `Fn` + Left `Alt` exits **BQN** if you accidentally enter a backslash. No CYAN shift.
 * Backtick is escape.
 
-## Macro-board Layer (Complete YELLOW Layer)
+## Macro-board Layer (YELLOW Layer)
 * Escape is a one shot sticky `Ctrl`+`Shift`.
 * Tab is a one shot sticky `Alt`+ `Shift`.
 * Caps lock is a one shot sticky `Alt`+ `Ctrl`.
@@ -135,16 +137,18 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and
 * Backslash is F24 with an implicit right `Alt Gr` applied.
 * Depending on your system the "Level 3 Shift" may be removed by localization of `Alt Gr`.
 * Right `Alt`/`Ctrl` are `Alt`+`Tab` window switch (reverse and forward).
-* Right `Win` key is the right `Win` key and not the app context menu key as in other layers.
+* Right `Win` key is the sticky right `Win` key and not the app context menu key as in other layers.
 * Backspace is `Ctrl`+`Shift`+`Alt` combination sticky.
 
 ### Macro-board Shift Layer (`Fn` Macro-board MAGENTA Shift)
 * P and equals is Korean modifiers.
-* Minus is key lock for holding down a key until the held key is pressed again.
+* Minus is key ??
 * International modifiers are on Q-O.
 * Numbers are the number pad numbers for macro code options.
 * Remaining language 3 to 7 are on Z-M.
-* All right modifiers are as unshifted.
+* Right `Alt`/`Ctrl` are `Alt`+`Tab` window switch (reverse and forward).
+* Left `Win` key is the sticky left shift+`Win`..
+* Right `Win` key is the sticky right shift+`Win` key and not the app context menu key as in other layers.
 * Comma/period/slash set mouse acceleration 1, 2 and 3.
 * Backspace is delete.
 * Backslash is insert.
@@ -155,3 +159,4 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and
 * Browser search is A, favourites is F.
 * Caps lock is number lock (the lighting is inverse, so off lights white).
 * Backtick is escape.
+* Space is `Alt Gr`+space.
