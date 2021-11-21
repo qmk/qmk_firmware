@@ -1,10 +1,11 @@
 # DZ60 Mk II
 
 My second keyboard edit. A multi-layer ANSI-60 with layers and function shift on each layer.
-Changes from the default key-map include moving RESET, and a preferred arrangement for the cursor
-block of keys. The function key was exchanged with the right control key to get it. This makes the layout of the right modifiers left to right be `Alt`/`Win`/`Ctrl`/`Fn`.
+Changes from the default key-map include moving RESET (now on the mouse layer), and a preferred arrangement for the cursor block of keys. The function key was exchanged with the right control key to get it. This makes the layout of the right modifiers left to right be `Alt`/`Win`/`Ctrl`/`Fn`. Further extension is possible by using the space bar as a shift on some of the shift planes.
 
-## Right `Win` is Application Context Menu Etc.
+* 1604 bytes free dated 2021-11-21.
+
+## Right `Win` is Application Context Menu, Etc.
 The right `Win` key is for getting the application context menu unless otherwise noted.
 Sometimes it's part of the cursor block. There is also a shared not number lock or scroll lock LED pattern.
 It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and the keyboard will be in the RED or GREEN mode, depending on which of `Ctrl` or `Alt` is pressed first after `Fn`.
@@ -13,18 +14,18 @@ The layer selector modifier of a selected layer is normalized to be the modified
 ### Notes on "Level 3 Shift"
 * Ironically not being American I will not test the en_US local without hardware.
 * I'm not sure if that locale supports an `Alt Gr` key interpretation of right `Alt`.
-* Hacking Linux `termcap` or `GUI` equivalent files might be possible for the determined.
+* Hacking Linux `termcap` or GUI equivalent files might be possible for the determined.
 
 ### Common to All `Fn` Layers
 * Left `Ctrl` is ANSI layer select. Basic conformist ANSI.
 * Left `Win` is macro-board layer select. Latching macro modifiers and function keys.
-* Left `Alt` is navigation layer select. You MUST be in this mode for **BQN**.
+* Left `Alt` is navigation layer select. You **MUST** be in this mode for **BQN**.
 * Basically `Fn`+ a left modifier on the bottom row changes the main layer or enters a CYAN shift.
-* In CYAN shift mode you may release the `Fn` key while holding the CYAN modifier.
+* In CYAN shift mode you may release the `Fn` key while holding the respective CYAN modifier.
 
 ## ANSI Layer (RED Layer)
 * Right control exchanged with function shift key as always.
-* This layer is the keyboard default and has few surprises. To access this layer the key combination `Fn`+Left `Ctrl` has been reserved.
+* This layer is the keyboard default and has no surprises. To access this layer the key combination `Fn`+Left `Ctrl` has been reserved.
 
 ### ANSI Shift Layer (`Fn` ANSI MAGENTA Shift)
 * Scroll lock placed on caps lock.
@@ -143,13 +144,13 @@ The layer selector modifier of a selected layer is normalized to be the modified
 * Backspace is `Ctrl`+`Shift`+`Alt` combination sticky.
 
 ### Macro-board Shift Layer (`Fn` Macro-board MAGENTA Shift)
-* P and equals is Korean modifiers.
-* Minus is key ??
+* Minus and equals are Korean modifiers.
 * International modifiers are on Q-O.
+* System power down on P key.
 * Numbers are the number pad numbers for macro code options.
 * Remaining language 3 to 7 are on Z-M.
 * Right `Alt`/`Ctrl` are `Alt`+`Tab` window switch (reverse and forward).
-* Left `Win` key is the sticky left shift+`Win`..
+* Left `Win` key is the sticky left shift+`Win`.
 * Right `Win` key is the sticky right shift+`Win` key and not the app context menu key as in other layers.
 * Comma/period/slash set mouse acceleration 1, 2 and 3.
 * Backspace is delete.
