@@ -2,8 +2,11 @@
     "keyboard_name": "pluckey",
     "url": "https://github.com/floookay/pluckey",
     "maintainer": "floookay",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"x":3.5, "y":0},
                 {"x":15, "y":0},
