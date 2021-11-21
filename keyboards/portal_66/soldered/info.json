@@ -3,7 +3,8 @@
     "maintainer": "matthewdias",
     "layout_aliases": {
         "LAYOUT_65_ansi_split_bs": "LAYOUT_65_ansi_blocker_split_bs",
-        "LAYOUT_65_ansi": "LAYOUT_65_ansi_blocker"
+        "LAYOUT_65_ansi": "LAYOUT_65_ansi_blocker",
+        "LAYOUT_65_tsangan_split_bs": "LAYOUT_65_ansi_blocker_tsangan_split_bs"
     },
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs": {
@@ -157,7 +158,7 @@
                 { "x":15, "y":4 }
             ]
         },
-        "LAYOUT_65_tsangan_split_bs": {
+        "LAYOUT_65_ansi_blocker_tsangan_split_bs": {
             "layout": [
                 { "x":0, "y":0 },
                 { "x":1, "y":0 },
