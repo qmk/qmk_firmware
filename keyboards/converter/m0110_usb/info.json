@@ -2,11 +2,8 @@
   "keyboard_name": "M0110(A) keyboard converter",
   "url": "",
   "maintainer": "qmk",
-  "width": 19.25,
-  "height": 5,
   "layouts": {
     "LAYOUT_ansi": {
-      "key_count": 78,
       "layout": [
         {"label":"`", "x":0, "y":0},
         {"label":"1", "x":1, "y":0},
@@ -89,7 +86,6 @@
       ]
     },
     "LAYOUT_iso": {
-      "key_count": 75,
       "layout": [
         {"label":"`", "x":0, "y":0},
         {"label":"1", "x":1, "y":0},

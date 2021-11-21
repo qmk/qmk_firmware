@@ -38,7 +38,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 /* rotate screen for proper orentation*/
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 

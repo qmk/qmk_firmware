@@ -30,7 +30,8 @@ enum hid_report_ids {
     REPORT_ID_SYSTEM,
     REPORT_ID_CONSUMER,
     REPORT_ID_NKRO,
-    REPORT_ID_JOYSTICK
+    REPORT_ID_JOYSTICK,
+    REPORT_ID_DIGITIZER
 };
 
 /* Mouse buttons */
@@ -204,6 +205,17 @@ typedef struct {
     int8_t  v;
     int8_t  h;
 } __attribute__((packed)) report_mouse_t;
+
+typedef struct {
+#ifdef DIGITIZER_SHARED_EP
+    uint8_t report_id;
+#endif
+    uint8_t  tip : 1;
+    uint8_t  inrange : 1;
+    uint8_t  pad2 : 6;
+    uint16_t x;
+    uint16_t y;
+} __attribute__((packed)) report_digitizer_t;
 
 typedef struct {
 #if JOYSTICK_AXES_COUNT > 0

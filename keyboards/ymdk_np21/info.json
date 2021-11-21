@@ -1,8 +1,6 @@
 {
     "keyboard_name": "YMDK NP21",
     "maintainer": "qmk",
-    "width": 4,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

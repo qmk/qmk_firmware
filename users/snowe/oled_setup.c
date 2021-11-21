@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 #    include QMK_KEYBOARD_H
 #    include "quantum.h"
@@ -138,4 +138,4 @@ void oled_task_user(void) {
     }
 }
 
-#endif  // OLED_DRIVER_ENABLE
+#endif  // OLED_ENABLE

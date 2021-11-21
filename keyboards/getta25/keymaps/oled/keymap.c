@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jp.h"
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 static uint32_t        oled_timer = 0;
 #endif
 
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //|--------+--------+--------+--------+--------|
             KC_P1,   KC_P2,   KC_P3,           KC_DEL,
       //|--------+--------+--------+--------+--------|
-LT(_ARROW, KC_P0),LT(_MACRO, KC_PDOT),KC_PENT,KC_BSPC 
+LT(_ARROW, KC_P0),LT(_MACRO, KC_PDOT),KC_PENT,KC_BSPC
       //`--------------------------------------------'
   ),
 
@@ -54,7 +54,7 @@ LT(_ARROW, KC_P0),LT(_MACRO, KC_PDOT),KC_PENT,KC_BSPC
       //|--------+--------+--------+--------+--------|
           XXXXXXX, KC_DOWN, XXXXXXX,          _______,
       //|--------+--------+--------+--------+--------|
-       MO(_ARROW),       MO(_MACRO), _______, _______ 
+       MO(_ARROW),       MO(_MACRO), _______, _______
       //`--------------------------------------------'
   ),
 
@@ -70,7 +70,7 @@ LT(_ARROW, KC_P0),LT(_MACRO, KC_PDOT),KC_PENT,KC_BSPC
       //|--------+--------+--------+--------+--------|
            KC_F11,  KC_F12,   KC_F3,          _______,
       //|--------+--------+--------+--------+--------|
-          _______,          _______, JP_RPRN, _______ 
+          _______,          _______, JP_RPRN, _______
       //`--------------------------------------------'
   ),
 
@@ -86,7 +86,7 @@ LT(_ARROW, KC_P0),LT(_MACRO, KC_PDOT),KC_PENT,KC_BSPC
       //|--------+--------+--------+--------+--------|
           RGB_VAD, RGB_VAI, XXXXXXX,          _______,
       //|--------+--------+--------+--------+--------|
-          _______,          _______, RGB_MOD, _______ 
+          _______,          _______, RGB_MOD, _______
       //`--------------------------------------------'
   )
 };
@@ -118,7 +118,7 @@ int RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool result = false;
   if (record->event.pressed) {
-     #ifdef OLED_DRIVER_ENABLE
+     #ifdef OLED_ENABLE
         oled_timer = timer_read32();
      #endif
   }
@@ -156,7 +156,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return result;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
 void render_layer_state(void) {

@@ -1,6 +1,6 @@
 #include "rev2.h"
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #include "split_util.h"
 #include "oled_driver.h"
 

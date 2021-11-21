@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE=no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 COMMAND_ENABLE=no
 SLEEP_LED_ENABLE=no
 FORCE_NKRO ?= yes

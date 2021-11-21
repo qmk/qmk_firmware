@@ -2,8 +2,6 @@
     "keyboard_name": "The Uni",
     "url": "https://www.stenokeyboards.com",
     "maintainer": "qmk",
-    "width": 13,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

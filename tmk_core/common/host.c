@@ -17,10 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 //#include <avr/interrupt.h>
+#include "keyboard.h"
 #include "keycode.h"
 #include "host.h"
 #include "util.h"
 #include "debug.h"
+#include "digitizer.h"
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
@@ -35,15 +37,20 @@ void host_set_driver(host_driver_t *d) { driver = d; }
 
 host_driver_t *host_get_driver(void) { return driver; }
 
+#ifdef SPLIT_KEYBOARD
+uint8_t split_led_state = 0;
+void    set_split_host_keyboard_leds(uint8_t led_state) { split_led_state = led_state; }
+#endif
+
 uint8_t host_keyboard_leds(void) {
+#ifdef SPLIT_KEYBOARD
+    if (!is_keyboard_master()) return split_led_state;
+#endif
     if (!driver) return 0;
     return (*driver->keyboard_leds)();
 }
 
-led_t host_keyboard_led_state(void) {
-    if (!driver) return (led_t){0};
-    return (led_t)((*driver->keyboard_leds)());
-}
+led_t host_keyboard_led_state(void) { return (led_t)host_keyboard_leds(); }
 
 /* send report */
 void host_keyboard_send(report_keyboard_t *report) {
@@ -96,6 +103,24 @@ void host_consumer_send(uint16_t report) {
     if (!driver) return;
     (*driver->send_consumer)(report);
 }
+
+void host_digitizer_send(digitizer_t *digitizer) {
+    if (!driver) return;
+
+    report_digitizer_t report = {
+#ifdef DIGITIZER_SHARED_EP
+        .report_id = REPORT_ID_DIGITIZER,
+#endif
+        .tip     = digitizer->tipswitch & 0x1,
+        .inrange = digitizer->inrange & 0x1,
+        .x       = (uint16_t)(digitizer->x * 0x7FFF),
+        .y       = (uint16_t)(digitizer->y * 0x7FFF),
+    };
+
+    send_digitizer(&report);
+}
+
+__attribute__((weak)) void send_digitizer(report_digitizer_t *report) {}
 
 uint16_t host_last_system_report(void) { return last_system_report; }
 

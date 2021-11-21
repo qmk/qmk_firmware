@@ -16,7 +16,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 

@@ -261,7 +261,7 @@ void matrix_init_user(void) {
 
 
 // OLED Driver Logic
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!has_usb())

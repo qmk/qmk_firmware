@@ -15,16 +15,7 @@
  */
 #pragma once
 
-#if defined(__AVR__)
-#    include <avr/pgmspace.h>
-#    include <avr/io.h>
-#    include <avr/interrupt.h>
-#endif
-#if defined(PROTOCOL_CHIBIOS)
-#    include <hal.h>
-#    include "chibios_config.h"
-#endif
-
+#include "platform_deps.h"
 #include "wait.h"
 #include "matrix.h"
 #include "keymap.h"
@@ -38,10 +29,6 @@
 #endif
 
 #if defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
-#elif defined(RGB_MATRIX_ENABLE)
-// Dummy define RGBLIGHT_MODE_xxxx
-#    define RGBLIGHT_H_DUMMY_DEFINE
 #    include "rgblight.h"
 #endif
 
@@ -118,6 +105,10 @@ extern layer_state_t layer_state;
 #    include "process_unicodemap.h"
 #endif
 
+#ifdef KEY_OVERRIDE_ENABLE
+#    include "process_key_override.h"
+#endif
+
 #ifdef TAP_DANCE_ENABLE
 #    include "process_tap_dance.h"
 #endif
@@ -170,10 +161,15 @@ extern layer_state_t layer_state;
 
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
+#    include "process_haptic.h"
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include "oled_driver.h"
+#endif
+
+#ifdef ST7565_ENABLE
+#    include "st7565.h"
 #endif
 
 #ifdef DIP_SWITCH_ENABLE
@@ -216,10 +212,6 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 #define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
 #define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
 
-void     matrix_init_kb(void);
-void     matrix_scan_kb(void);
-void     matrix_init_user(void);
-void     matrix_scan_user(void);
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
 uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 bool     process_action_kb(keyrecord_t *record);

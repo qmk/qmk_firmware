@@ -98,7 +98,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   }
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 void render_space(void) {
   oled_write_P(PSTR("     "), false);
