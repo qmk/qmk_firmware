@@ -20,6 +20,7 @@
                 {"label":"O", "x":11, "y":0},
                 {"label":"P", "x":12, "y":0},
                 {"label":"Del", "x":13, "y":0},
+                {"label":"Backspace", "x":14, "y":0},
 
                 {"label":"Tab", "x":0.75, "y":1, "w":1.25},
                 {"label":"A", "x":2, "y":1},
@@ -55,7 +56,6 @@
                 {"label":"Space", "x":8, "y":3},
                 {"label":"Space", "x":9, "y":3},
                 {"label":"Alt", "x":10, "y":3},
-                {"label":"Backspace", "x":14, "y":0},
                 {"label":"Ctrl", "x":13, "y":3}
             ]
         }
