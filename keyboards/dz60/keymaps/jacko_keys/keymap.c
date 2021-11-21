@@ -162,7 +162,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[ZU] = U' ', [ZV] = U' ', [ZW] = U' ',
 	[ZX] = U' ', [ZY] = U' ', [ZZ] = U' ',
 	//FILL IN AS REQUIRED
-	//56 bytes free => 14 Unicode characters free.
+	//1604 bytes free => 401 Unicode characters free.
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -205,7 +205,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	//BQN lock mode 4 ====================================================================================== BQN lock mode 3
 	// BQN Unicode
-	LAYOUT_60_ansi(
+	LAYOUT_60_ansi(* Backslash is insert.
+* Backspace is delete.
 		Z(GR),   Z(N1),	  Z(N2),   Z(N3), 	Z(N4),	 Z(N5),	  Z(N6),   Z(N7),   Z(N8),   Z(N9),   Z(N0),   Z(MIN),  Z(EQ),          	KC_BSPC,
 		KC_TAB,           Z(Q),    Z(W),    Z(E),    Z(R),    Z(T),    Z(Y),    Z(U),    Z(I),    Z(O),    Z(P), 		Z(LBR),  Z(RBR),  KC_BSLS,
 		KC_CAPS,          Z(A),    Z(S),    Z(D),    Z(F),    Z(G),    Z(H),    Z(J),    Z(K),    Z(L),    Z(SEMI), Z(QUOT), KC_ENT,
@@ -249,8 +250,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	//BQN shift mode 7 ==================================================================================== BQN shift mode 7
 	LAYOUT_60_ansi(
-		KC_ESC,  X(A1),   X(A2),   X(A3),   X(A4),   X(A5),   X(A6),   X(A7),   X(A8),   X(A9),   X(A0),   X(AMIN), X(AEQ),	          KC_TRNS,
-		KC_TRNS,		 			X(AQ),   X(AW),   X(AE),   X(AR),   X(AT),   X(AY),   X(AU),   X(AI),   X(AO),   X(AP),   KC_HOME, KC_END,  KC_TRNS,
+		KC_ESC,  X(A1),   X(A2),   X(A3),   X(A4),   X(A5),   X(A6),   X(A7),   X(A8),   X(A9),   X(A0),   X(AMIN), X(AEQ),	          KC_DEL,
+		KC_TRNS,		 			X(AQ),   X(AW),   X(AE),   X(AR),   X(AT),   X(AY),   X(AU),   X(AI),   X(AO),   X(AP),   KC_HOME, KC_END,  KC_INS,
 		KC_TRNS,  		  	X(AA),   X(AS),   X(AD),   X(AF),   X(AG),   X(AH),   X(AJ),   X(AK),   X(AL),   KC_PAUS, KC_PSCR, KC_TRNS,
 		KC_TRNS,          X(AZ),   X(AX),   X(AC),   X(AV),   X(AB),   X(AN),   X(AM),   KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
 		DF(0), 	DF(2),     	   		 DF(1),	                    KC_SPC,                             KC_LEFT, KC_DOWN,          KC_RIGHT,KC_TRNS),

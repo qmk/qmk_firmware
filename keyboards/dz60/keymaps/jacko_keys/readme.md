@@ -121,6 +121,8 @@ The layer selector modifier of a selected layer is normalized to be the modified
 * Cursor block works.
 * `Fn` + Left `Alt` exits **BQN** if you accidentally enter a backslash. No CYAN shift.
 * Backtick is escape.
+* Backslash is insert.
+* Backspace is delete.
 
 ## Macro-board Layer (YELLOW Layer)
 * Escape is a one shot sticky `Ctrl`+`Shift`.
