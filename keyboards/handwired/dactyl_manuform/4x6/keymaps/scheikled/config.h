@@ -4,16 +4,9 @@
 
 #pragma once
 
-
 #define USE_I2C
-//
-// VBUS is used to power the LEDs without going "through" the MCU -> detecting handedness cannot rely on VBUS
-// From the QMK documentation: Enabling this option changes the startup behavior to listen for an active USB communication to delegate which part is master and which is slave. With this option enabled and theres's USB communication, then that half assumes it is the master, otherwise it assumes it is the slave.
-/* #define SPLIT_USB_DETECT */
-
 
 #define SPLIT_HAND_PIN F6
-/* #define SPLIT_HAND_PIN_LOW_IS_LEFT */
 
 // WS2812 RGB LED strip input and number of LEDs
 #undef RGB_DI_PIN
