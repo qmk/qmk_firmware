@@ -1,1 +1,2 @@
 FORCE_NKRO = yes
+AUDIO_ENABLE = yes

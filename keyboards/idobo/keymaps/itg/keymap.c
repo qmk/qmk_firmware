@@ -129,3 +129,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_user() {
   steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 }
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  if (IS_LAYER_ON_STATE(state, QWE)) {
+    PLAY_SONG(QWERTY_SOUND)
+  }
+  if (IS_LAYER_ON_STATE(state, MAC)) {
+    PLAY_SONG(PLANCK_SOUND)
+  }
+  return state;
+}
