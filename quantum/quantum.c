@@ -573,37 +573,32 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
     suspend_wakeup_init_kb();
 
 // Useful string manipulation code
-const char *get_u8_str(uint8_t curr_num, char curr_pad) {
-    static char    buf[4]   = {0};
-    static uint8_t last_num = 0xFF;
-    static char    last_pad = '\0';
-    if (last_num == curr_num && last_pad == curr_pad) {
-        return buf;
+static const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad) {
+    buf[buf_len-1] = '\0';
+    for(size_t i = 0; i < buf_len-1; ++i) {
+        char c = '0' + curr_num % 10;
+        buf[buf_len-2-i] = (c == '0' && i == 0) ? '0' : (curr_num > 0 ? c : curr_pad);
+        curr_num /= 10;
     }
-    last_num = curr_num;
-    last_pad = curr_pad;
-    buf[3]   = '\0';
-    buf[2]   = '0' + curr_num % 10;
-    buf[1]   = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
-    buf[0]   = curr_num / 10 ? '0' + curr_num / 10 : curr_pad;
     return buf;
 }
 
-const char *get_u16_str(uint16_t curr_num, char curr_pad) {
-    static char     buf[6]   = {0};
-    static uint16_t last_num = 0xFF;
-    static char     last_pad = '\0';
-    if (last_num == curr_num && last_pad == curr_pad) {
-        return buf;
-    }
+const char *get_u8_str(uint16_t curr_num, char curr_pad) {
+    static char buf[4] = {0};
+    static uint8_t last_num = 0xFF;
+    static char last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) { return buf; }
     last_num = curr_num;
     last_pad = curr_pad;
-    buf[5]   = '\0';
-    buf[4]   = '0' + curr_num % 10;
-    buf[3]   = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
-    buf[2]   = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
-    buf[1]   = (curr_num /= 10) % 10 ? '0' + (curr_num) % 10 : (curr_num / 10) % 10 ? '0' : curr_pad;
-    buf[0]   = curr_num / 10 ? '0' + curr_num / 10 : curr_pad;
+    return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
+}
 
-    return buf;
+const char *get_u16_str(uint16_t curr_num, char curr_pad) {
+    static char buf[6] = {0};
+    static uint16_t last_num = 0xFF;
+    static char last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) { return buf; }
+    last_num = curr_num;
+    last_pad = curr_pad;
+    return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
 }
