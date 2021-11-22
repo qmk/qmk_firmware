@@ -245,3 +245,7 @@ void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
 bool led_update_user(led_t led_state);
 bool led_update_kb(led_t led_state);
+
+const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad);
+const char *get_u8_str(uint8_t curr_num, char curr_pad);
+const char *get_u16_str(uint16_t curr_num, char curr_pad);
