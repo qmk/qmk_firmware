@@ -18,7 +18,7 @@
 #include "version.h"
 
 uint16_t copy_paste_timer;
-
+bool     host_driver_disabled = false;
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's record handier if not processed here
 
@@ -198,7 +198,24 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
                     eeconfig_update_user(userspace_config.raw);
                 }
             }
+            break;
 #endif
+        case KEYLOCK: {
+            static host_driver_t *host_driver = 0;
+
+            if (record->event.pressed) {
+                if (host_get_driver()) {
+                    host_driver = host_get_driver();
+                    clear_keyboard();
+                    host_set_driver(0);
+                    host_driver_disabled = true;
+                } else {
+                    host_set_driver(host_driver);
+                    host_driver_disabled = false;
+                }
+            }
+            break;
+            }
     }
     return true;
 }

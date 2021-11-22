@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B4, B5, NO_PIN, NO_PIN, NO_PIN } \
 }
 
-#define DIRECT_PINS_RIGHT  { \
+#define DIRECT_PINS_RIGHT { \
     { F4, F5, F6, F7, E6 }, \
     { D3, B6, B2, B3, B1 }, \
     { D7, C6, D4, D0, D1 }, \
@@ -72,3 +72,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D2
 
 #define EE_HANDS
+
+/* Top left key on left half */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
+/* Top right key on right half */
+#define BOOTMAGIC_LITE_ROW_RIGHT 4
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 4

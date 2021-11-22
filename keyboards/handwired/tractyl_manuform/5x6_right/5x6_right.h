@@ -17,13 +17,17 @@
 #pragma once
 
 #include "tractyl_manuform.h"
+
 #if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right_f411)
 #    include "f411.h"
 #elif defined(KEYBOARD_handwired_tractyl_manuform_5x6_right_f303)
 #    include "f303.h"
 #elif defined(KEYBOARD_handwired_tractyl_manuform_5x6_right_teensy2pp)
 #    include "teensy2pp.h"
+#elif defined(KEYBOARD_handwired_tractyl_manuform_5x6_right_elite_c)
+#    include "elite_c.h"
 #endif
+
 #include "quantum.h"
 
 #define ___ KC_NO

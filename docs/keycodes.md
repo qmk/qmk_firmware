@@ -344,6 +344,7 @@ See also: [Magic Keycodes](keycodes_magic.md)
 |`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides                                     |
 |`MAGIC_NO_GUI`                    |`GUI_OFF`|Disable the GUI keys                                                      |
 |`MAGIC_UNNO_GUI`                  |`GUI_ON` |Enable the GUI keys                                                       |
+|`MAGIC_TOGGLE_GUI`                |`GUI_TOG`|Toggles the status of the GUI keys                                        |
 |`MAGIC_SWAP_GRAVE_ESC`            |`GE_SWAP`|Swap <code>&#96;</code> and Escape                                        |
 |`MAGIC_UNSWAP_GRAVE_ESC`          |`GE_NORM`|Unswap <code>&#96;</code> and Escape                                      |
 |`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |`BS_SWAP`|Swap `\` and Backspace                                                    |
