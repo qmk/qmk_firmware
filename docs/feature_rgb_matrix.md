@@ -55,7 +55,7 @@ For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -140,7 +140,7 @@ Currently only 4 drivers are supported, but it would be trivial to support all 8
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -218,7 +218,7 @@ Currently only 2 drivers are supported, but it would be trivial to support all 4
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -319,7 +319,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const aw_led __flash g_aw_leds[DRIVER_LED_TOTAL] = {
+const aw_led PROGMEM g_aw_leds[DRIVER_LED_TOTAL] = {
 /* Each AW20216 channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
  * See drivers/awinic/aw20216.h for the mapping between register offsets and
