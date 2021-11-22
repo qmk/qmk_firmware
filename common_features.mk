@@ -27,14 +27,16 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/keyboard.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/usb_device_state.c \
+    $(QUANTUM_DIR)/sync_timer.c \
     $(QUANTUM_DIR)/logging/debug.c \
     $(QUANTUM_DIR)/logging/sendchar.c \
 
 VPATH += $(QUANTUM_DIR)/logging
 # Fall back to lib/printf if there is no platform provided print
-ifeq ("$(wildcard $(TMK_PATH)/common/$(PLATFORM_KEY)/printf.mk)","")
+ifeq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/printf.mk)","")
     include $(QUANTUM_PATH)/logging/print.mk
+else
+    include $(PLATFORM_PATH)/$(PLATFORM_KEY)/printf.mk
 endif
 
 ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
@@ -107,10 +109,43 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/mousekey.c
 endif
 
+VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_pinnacle_i2c cirque_pinnacle_spi pmw3360 pimoroni_trackball custom
+POINTING_DEVICE_DRIVER ?= custom
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-    OPT_DEFS += -DPOINTING_DEVICE_ENABLE
-    MOUSE_ENABLE := yes
-    SRC += $(QUANTUM_DIR)/pointing_device.c
+    ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)
+        $(error POINTING_DEVICE_DRIVER="$(POINTING_DEVICE_DRIVER)" is not a valid pointing device type)
+    else
+        OPT_DEFS += -DPOINTING_DEVICE_ENABLE
+        MOUSE_ENABLE := yes
+        SRC += $(QUANTUM_DIR)/pointing_device.c
+        SRC += $(QUANTUM_DIR)/pointing_device_drivers.c
+        ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
+            SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
+            OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
+        endif
+        OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
+        ifeq ($(strip $(POINTING_DEVICE_DRIVER)), adns9800)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            QUANTUM_LIB_SRC += spi_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
+            OPT_DEFS += -DSTM32_ADC -DHAL_USE_ADC=TRUE
+            LIB_SRC += analog.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_i2c)
+            OPT_DEFS += -DSTM32_I2C -DHAL_USE_I2C=TRUE
+            SRC += drivers/sensors/cirque_pinnacle.c
+            QUANTUM_LIB_SRC += i2c_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_spi)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            SRC += drivers/sensors/cirque_pinnacle.c
+            QUANTUM_LIB_SRC += spi_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_I2C=TRUE
+            QUANTUM_LIB_SRC += i2c_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3360)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            QUANTUM_LIB_SRC += spi_master.c
+        endif
+    endif
 endif
 
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
@@ -232,7 +267,7 @@ endif
 endif
 
 RGB_MATRIX_ENABLE ?= no
-VALID_RGB_MATRIX_TYPES := AW20216 IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
+VALID_RGB_MATRIX_TYPES := AW20216 IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 CKLED2001 WS2812 custom
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
@@ -288,6 +323,13 @@ endif
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), CKLED2001)
+        OPT_DEFS += -DCKLED2001 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+        COMMON_VPATH += $(DRIVER_PATH)/led
+        SRC += ckled2001.c
+        QUANTUM_LIB_SRC += i2c_master.c
+    endif
+
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), WS2812)
         OPT_DEFS += -DWS2812
         WS2812_DRIVER_REQUIRED := yes
@@ -326,8 +368,11 @@ ifneq ($(strip $(VARIABLE_TRACE)),no)
     endif
 endif
 
-ifeq ($(strip $(LCD_ENABLE)), yes)
-    CIE1931_CURVE := yes
+ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
+    SRC += $(PLATFORM_COMMON_DIR)/sleep_led.c
+    OPT_DEFS += -DSLEEP_LED_ENABLE
+
+    NO_SUSPEND_POWER_DOWN := yes
 endif
 
 VALID_BACKLIGHT_TYPES := pwm timer software custom
@@ -411,12 +456,12 @@ endif
 ifeq ($(strip $(VIA_ENABLE)), yes)
     DYNAMIC_KEYMAP_ENABLE := yes
     RAW_ENABLE := yes
-    BOOTMAGIC_ENABLE := lite
+    BOOTMAGIC_ENABLE := yes
     SRC += $(QUANTUM_DIR)/via.c
     OPT_DEFS += -DVIA_ENABLE
 endif
 
-VALID_MAGIC_TYPES := yes lite
+VALID_MAGIC_TYPES := yes
 BOOTMAGIC_ENABLE ?= no
 ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
   ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
@@ -574,6 +619,40 @@ ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     ifeq ($(strip $(AUTO_SHIFT_MODIFIERS)), yes)
         OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
     endif
+endif
+
+ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_mouse.c
+    OPT_DEFS += -DPS2_MOUSE_ENABLE
+    OPT_DEFS += -DMOUSE_ENABLE
+endif
+
+ifeq ($(strip $(PS2_USE_BUSYWAIT)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_busywait.c
+    SRC += ps2_io_avr.c
+    OPT_DEFS += -DPS2_USE_BUSYWAIT
+endif
+
+ifeq ($(strip $(PS2_USE_INT)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_interrupt.c
+    SRC += ps2_io.c
+    OPT_DEFS += -DPS2_USE_INT
+endif
+
+ifeq ($(strip $(PS2_USE_USART)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_usart.c
+    SRC += ps2_io.c
+    OPT_DEFS += -DPS2_USE_USART
+endif
+
+ifeq ($(strip $(PS2_ENABLE)), yes)
+    COMMON_VPATH += $(DRIVER_PATH)/ps2
+    COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/ps2
+    OPT_DEFS += -DPS2_ENABLE
 endif
 
 JOYSTICK_ENABLE ?= no

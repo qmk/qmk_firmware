@@ -59,7 +59,7 @@ TEST_F(Tapping, HoldA_SHFT_T_KeyReportsShift) {
     EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     idle_for(TAPPING_TERM);
 
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT)));
     run_one_scan_loop();
 
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
@@ -114,7 +114,7 @@ TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
     // If TAPPING_TERM + 1 above is changed to TAPPING_TERM or TAPPING_TERM + 2 it doesn't
     key_shift_hold_p_tap.press();
     // Shouldn't be called here really
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT))).Times(1);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT))).Times(1);
     idle_for(TAPPING_TERM);
 
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));

@@ -46,9 +46,22 @@ For 4× encoders you also can assign default position if encoder skips pulses wh
 
 ## Split Keyboards
 
-If you are using different pinouts for the encoders on each half of a split keyboard, you can define the pinout (and optionally, resolutions) for the right half like this:
+The above is enough for split keyboards that are symmetrical, i.e. the halves have the same number of encoders and they are on the same pins.
+If the halves are not symmetrical, you can define the pinout (and optionally, resolutions) of the right half separately.
+The left half will use the definitions above.
 
 ```c
+#define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
+#define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
+#define ENCODER_RESOLUTIONS_RIGHT { 2, 4 }
+```
+
+If only the right half has encoders, you must still define an empty array for the left pads (and resolutions, if you define `ENCODER_RESOLUTIONS_RIGHT`).
+
+```c
+#define ENCODERS_PAD_A {  }
+#define ENCODERS_PAD_B {  }
+#define ENCODER_RESOLUTIONS {  }
 #define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
 #define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
 #define ENCODER_RESOLUTIONS_RIGHT { 2, 4 }

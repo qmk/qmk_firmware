@@ -69,7 +69,7 @@ uint8_t thisHand, thatHand;
 // user-defined overridable functions
 __attribute__((weak)) void matrix_init_pins(void);
 __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
-__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
+__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter);
 #ifdef SPLIT_KEYBOARD
 __attribute__((weak)) void matrix_slave_scan_kb(void) { matrix_slave_scan_user(); }
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
@@ -113,10 +113,11 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+    matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
         pin_t pin = direct_pins[current_row][col_index];
         if (pin != NO_PIN) {
-            current_row_value |= readPin(pin) ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+            current_row_value |= readPin(pin) ? 0 : row_shifter;
         }
     }
 
@@ -169,11 +170,12 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     matrix_output_select_delay();
 
     // For each col...
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+    matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
         uint8_t pin_state = readMatrixPin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
-        current_row_value |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+        current_row_value |= pin_state ? 0 : row_shifter;
     }
 
     // Unselect row
@@ -217,7 +219,7 @@ __attribute__((weak)) void matrix_init_pins(void) {
     }
 }
 
-__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
+__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter) {
     bool key_pressed = false;
 
     // Select col
@@ -231,11 +233,11 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
         // Check row pin state
         if (readMatrixPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
-            current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
+            current_matrix[row_index] |= row_shifter;
             key_pressed = true;
         } else {
             // Pin HI, clear col bit
-            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
+            current_matrix[row_index] &= ~row_shifter;
         }
     }
 
@@ -347,8 +349,9 @@ uint8_t matrix_scan(void) {
     }
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
-    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        matrix_read_rows_on_col(curr_matrix, current_col);
+    matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
+    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++, row_shifter <<= 1) {
+        matrix_read_rows_on_col(curr_matrix, current_col, row_shifter);
     }
 #endif
 

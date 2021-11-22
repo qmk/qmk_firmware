@@ -5,16 +5,17 @@ void draw_clock(void);
 
 #ifdef OLED_ENABLE
 
-__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_0; }
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) { return OLED_ROTATION_0; }
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
     if (!oled_task_needs_to_repaint()) {
-        return;
+        return false;
     }
     oled_clear();
     if (clock_set_mode) {
         draw_clock();
-        return;
+        return false;;
     }
     switch (oled_mode) {
         default:
@@ -25,6 +26,7 @@ __attribute__((weak)) void oled_task_user(void) {
             draw_clock();
             break;
     }
+    return false;
 }
 
 // Request a repaint of the OLED image without resetting the OLED sleep timer.

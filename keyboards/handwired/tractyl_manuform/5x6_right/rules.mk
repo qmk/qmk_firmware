@@ -1,7 +1,7 @@
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -16,11 +16,11 @@ AUDIO_ENABLE = no           # Audio output
 SWAP_HANDS_ENABLE = yes
 
 POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = pmw3360
 MOUSE_SHARED_EP = no
 
 SPLIT_KEYBOARD = yes
 
-SRC += drivers/sensors/pmw3360.c
-QUANTUM_LIB_SRC += spi_master.c tm_sync.c
+QUANTUM_LIB_SRC += tm_sync.c
 
 DEFAULT_FOLDER = handwired/tractyl_manuform/5x6_right/teensy2pp
