@@ -1,0 +1,25 @@
+{
+  "name":"ISOlation",
+  "vendorId":"0xA68C",
+  "productId":"0x4EE6",
+  "lighting": "qmk_rgblight",
+  "matrix":{
+     "rows":1,
+     "cols":1
+  },
+  "layouts":{
+    "keymap":[
+      [
+        {
+          "x": 0.25,
+          "w": 1.25,
+          "h": 2,
+          "w2": 1.5,
+          "h2": 1,
+          "x2": -0.25
+        },
+        "0,0"
+      ]
+    ]
+  }
+}
