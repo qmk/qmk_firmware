@@ -55,7 +55,6 @@ TEST_F(KeyPress, ANonMappedKeyDoesNothing) {
     keyboard_task();
 }
 
-
 TEST_F(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
     TestDriver driver;
     auto       key_b = KeymapKey(0, 0, 0, KC_B);

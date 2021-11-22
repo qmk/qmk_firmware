@@ -27,7 +27,7 @@ TEST_F(ActionLayer, LayerStateDBG) {
     TestDriver driver;
 
     layer_state_set(0);
-    
+
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
@@ -61,7 +61,7 @@ TEST_F(ActionLayer, LayerStateIs) {
 
 TEST_F(ActionLayer, LayerStateCmp) {
     TestDriver driver;
-    uint32_t prev_layer;
+    uint32_t   prev_layer;
 
     prev_layer = 0;
     EXPECT_EQ(layer_state_cmp(prev_layer, 0), true);
@@ -81,7 +81,7 @@ TEST_F(ActionLayer, LayerStateCmp) {
 
 TEST_F(ActionLayer, LayerClear) {
     TestDriver driver;
-    
+
     layer_clear();
     EXPECT_EQ(layer_state, 0);
 
@@ -95,7 +95,7 @@ TEST_F(ActionLayer, LayerMove) {
     EXPECT_EQ(layer_state, 1);
     layer_move(3);
     EXPECT_EQ(layer_state, 0b1000);
-    
+
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
@@ -257,7 +257,7 @@ TEST_F(ActionLayer, LayerTapToggleDoesNothing) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
     layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1)); 
+    EXPECT_TRUE(layer_state_has(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */

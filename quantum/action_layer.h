@@ -97,7 +97,7 @@ void default_layer_xor(layer_state_t state);
 extern layer_state_t layer_state;
 
 void layer_state_set(layer_state_t state);
-bool layer_state_has(uint8_t layer);
+bool layer_state_is(uint8_t layer);
 bool layer_state_cmp(layer_state_t layer1, uint8_t layer2);
 
 void layer_debug(void);
