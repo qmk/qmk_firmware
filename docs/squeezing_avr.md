@@ -82,15 +82,20 @@ One place you can save a bunch of space here is by not using `sprintf` or `snpri
 
 You can convert this:
 ```c
+    // OLD CODE
+    char wpm_str[4] = {0};
     sprintf(wpm_str, "WPM: %03d", get_current_wpm());
+    oled_write(wpm_str, ' '), false);
 ```
 into this:
 ```c
+    // NEW CODE
     oled_write_P(PSTR("WPM: "), false);
     oled_write(get_u8_str(get_current_wpm(), ' '), false);
 ```
 which outputs `WPM:   5`.  Or this: 
 ```c
+    // NEW CODE
     oled_write_P(PSTR("WPM: "), false);
     oled_write(get_u8_str(get_current_wpm(), '0'), false);
 ```
