@@ -1,8 +1,8 @@
 # Squeezing the most out of AVR
 
-AVR is severely resource-constrained, and QMK is close to the point where support for AVR needs to be moved to legacy status as newer development is unable to fit into those constraints.
+AVR is severely resource-constrained, and as QMK continues to grow, it is approaching a point where support for AVR may need to be moved to legacy status as newer development is unable to fit into those constraints.  
 
-If you need to reduce the compiled size of your firmware, there are a number of options to do so. 
+However, if you need to reduce the compiled size of your firmware, there are a number of options to do so. 
 
 ## `rules.mk` Settings
 First and foremost is enabling link time optimization.  To do so, add this to your rules.mk: 
@@ -60,11 +60,9 @@ MUSIC_ENABLE = no
 
 ## Layers
 
-There are also some options for layers.  For instance, you can outright remove them, by adding this to your config.h: 
-```c
-#define NO_ACTION_LAYER
-```
-Or, probably better, you can limit the number of layers that the firmware uses -- if you're using less than 8 layers in total:
+There are also some options for layers, that can reduce the firmware size.  All of these settngs are for your `config.h`. 
+
+You can limit the number of layers that the firmware uses -- if you're using less than 8 layers in total:
 ```c
 #define LAYER_STATE_8BIT
 ```
@@ -72,6 +70,11 @@ or if you require up to 16 layers instead:
 ```c
 #define LAYER_STATE_16BIT
 ```
+Or if you're not using layers at all, you can outright remove the functionality altogether:
+```c
+#define NO_ACTION_LAYER
+```
+
 
 ## OLED tweaks
 
