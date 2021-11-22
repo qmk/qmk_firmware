@@ -13,7 +13,7 @@
   * [Troubleshooting QMK](faq_misc.md)
   * [Debugging QMK](faq_debug.md)
   * [Keymap FAQ](faq_keymap.md)
-  * [Squeezing Space from AVR](cleaning_up_avr.md)
+  * [Squeezing Space from AVR](squeezing_avr.md)
   * [Glossary](reference_glossary.md)
 
 * Configurator
