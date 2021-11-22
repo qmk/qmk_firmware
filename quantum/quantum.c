@@ -574,10 +574,8 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
 
 /** \brief converts unsigned integers into char arrays
  *
- * Takes an unsigned integer, and uses a static conversion buffer to convert that value into a
- * char array
- * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
- *       contents. Use the result immediately, instead of caching it.
+ * Takes an unsigned integer and converts that value into an equivalent char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
  */
 
 const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad) {
@@ -590,7 +588,15 @@ const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char c
     return buf;
 }
 
-const char *get_u8_str(uint16_t curr_num, char curr_pad) {
+/** \brief converts uint8_t into char array
+ *
+ * Takes an uint8_t, and uses an internal static buffer to render that value into a char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ *
+ * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
+ *       contents. Use the result immediately, instead of caching it.
+ */
+const char *get_u8_str(uint8_t curr_num, char curr_pad) {
     static char buf[4] = {0};
     static uint8_t last_num = 0xFF;
     static char last_pad = '\0';
@@ -600,6 +606,14 @@ const char *get_u8_str(uint16_t curr_num, char curr_pad) {
     return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
 }
 
+/** \brief converts uint16_t into char array
+ *
+ * Takes an uint16_t, and uses an internal static buffer to render that value into a char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ *
+ * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
+ *       contents. Use the result immediately, instead of caching it.
+ */
 const char *get_u16_str(uint16_t curr_num, char curr_pad) {
     static char buf[6] = {0};
     static uint16_t last_num = 0xFF;
