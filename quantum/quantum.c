@@ -572,8 +572,13 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
 #endif
     suspend_wakeup_init_kb();
 
-// Useful string manipulation code
-static const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad) {
+/** \brief converts unsigned integers into char arrays
+ *
+ * Takes an unsigned integer, and uses a static conversion buffer to convert that value into a
+ * char array
+ */
+
+const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad) {
     buf[buf_len-1] = '\0';
     for(size_t i = 0; i < buf_len-1; ++i) {
         char c = '0' + curr_num % 10;
