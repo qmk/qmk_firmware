@@ -56,7 +56,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [AB_ESC] = COMBO(ab_combo, KC_ESC),
   [JK_TAB] = COMBO(jk_combo, KC_TAB),
   [QW_SFT] = COMBO(qw_combo, KC_LSFT)
-  [SD_LAYER] = COMBO(layer_combo, MO(_LAYER)),
+  [SD_LAYER] = COMBO(sd_combo, MO(_LAYER)),
 };
 ```
 
