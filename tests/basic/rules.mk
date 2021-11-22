@@ -13,6 +13,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# --------------------------------------------------------------------------------
-# Keep this file, even if it is empty, as a marker that this folder contains tests
-# --------------------------------------------------------------------------------
+CUSTOM_MATRIX=yes
