@@ -1,6 +1,6 @@
 # n51gl
 
-![n51gl](in preparation)
+![n51gl](https://cdn-ak.f.st-hatena.com/images/fotolife/S/Salicylic_acid3/20210911/20210911015705.png)
 
 This is 51 keys Custom keyboard.
 Use the GL516 case.

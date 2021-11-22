@@ -1,6 +1,6 @@
 # a52gl
 
-![a52gl](in preparation)
+![a52gl](https://cdn-ak.f.st-hatena.com/images/fotolife/S/Salicylic_acid3/20210911/20210911005227.jpg)
 
 This is 52 keys Alice style keyboard.
 Use the GL516 case.

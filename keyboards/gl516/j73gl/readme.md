@@ -1,6 +1,6 @@
 # j73gl
 
-![j73gl](in preparation)
+![j73gl](https://cdn-ak.f.st-hatena.com/images/fotolife/S/Salicylic_acid3/20210911/20210911015520.png)
 
 This is 73 keys Japanese style keyboard.
 Use the GL516 case.
