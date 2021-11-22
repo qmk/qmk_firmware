@@ -1,6 +1,6 @@
 #pragma once
 
-#define AUTO_SHIFT_TIMEOUT 240
+#define AUTO_SHIFT_TIMEOUT 250
 
 #define NO_AUTO_SHIFT_NUMERIC
 // #define NO_AUTO_SHIFT_SPECIAL
@@ -31,4 +31,4 @@
 // Prevents slurred typing (of home row mods)
 #define PERMISSIVE_HOLD
 
-#define COMBO_COUNT 1
+#define COMBO_COUNT 2
