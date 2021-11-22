@@ -89,54 +89,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 //#define FORCE_NKRO
 
 /*
- * Magic Key Options
- *
- * Magic keys are hotkey commands that allow control over firmware functions of
- * the keyboard. They are best used in combination with the HID Listen program,
- * found here: https://www.pjrc.com/teensy/hid_listen.html
- *
- * The options below allow the magic key functionality to be changed. This is
- * useful if your keyboard/keypad is missing keys and you want magic key support.
- *
- */
-
-/* control how magic key switches layers */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM false
-
-/* override magic key keymap */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
-//#define MAGIC_KEY_HELP1     H
-//#define MAGIC_KEY_HELP2     SLASH
-//#define MAGIC_KEY_DEBUG     D
-//#define MAGIC_KEY_DEBUG_MATRIX  X
-//#define MAGIC_KEY_DEBUG_KBD   K
-//#define MAGIC_KEY_DEBUG_MOUSE  M
-//#define MAGIC_KEY_VERSION    V
-//#define MAGIC_KEY_STATUS     S
-//#define MAGIC_KEY_CONSOLE    C
-//#define MAGIC_KEY_LAYER0_ALT1  ESC
-//#define MAGIC_KEY_LAYER0_ALT2  GRAVE
-//#define MAGIC_KEY_LAYER0     0
-//#define MAGIC_KEY_LAYER1     1
-//#define MAGIC_KEY_LAYER2     2
-//#define MAGIC_KEY_LAYER3     3
-//#define MAGIC_KEY_LAYER4     4
-//#define MAGIC_KEY_LAYER5     5
-//#define MAGIC_KEY_LAYER6     6
-//#define MAGIC_KEY_LAYER7     7
-//#define MAGIC_KEY_LAYER8     8
-//#define MAGIC_KEY_LAYER9     9
-//#define MAGIC_KEY_BOOTLOADER   PAUSE
-//#define MAGIC_KEY_LOCK      CAPS
-//#define MAGIC_KEY_EEPROM     E
-//#define MAGIC_KEY_NKRO      N
-//#define MAGIC_KEY_SLEEP_LED   Z
-
-/*
  * Feature disable options
  * These options are also useful to firmware size reduction.
  */

@@ -149,7 +149,7 @@ void micro_oled_init(void) {
 #endif
 
     send_command(MEMORYMODE);
-    send_command(0x02);   //  0x02 = 10b, Page addressing mode
+    send_command(0x02);  //  0x02 = 10b, Page addressing mode
 
     send_command(SETCOMPINS);  // 0xDA
     if (LCDHEIGHT > 32) {

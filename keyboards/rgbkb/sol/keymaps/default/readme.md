@@ -89,7 +89,6 @@ LED_MIRRORED = yes          # Mirror LEDs across halves (enable DIP 1 on slave, 
 RGB_MATRIX_ENABLE = no      # Enable per-key coordinate based RGB effects. Do not enable with RGBlight (+8500)
 RGB_MATRIX_KEYPRESSES = no  # Enable reactive per-key effects. Can be very laggy (+1500)
 RGBLIGHT_FULL_POWER = no    # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
-UNICODE_ENABLE = no         # Unicode
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 
 OLED_ENABLE = no     # Enable the OLED Driver (+5000)

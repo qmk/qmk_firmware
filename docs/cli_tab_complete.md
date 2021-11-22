@@ -18,7 +18,7 @@ If you put `qmk_firmware` into another location you will need to adjust this pat
 
 If you want the tab completion available to all users of the system you can add a symlink to the `qmk_tab_complete.sh` script:
 
-    `ln -s ~/qmk_firmware/util/qmk_tab_complete.sh /etc/profile.d/qmk_tab_complete.sh`
+    ln -s ~/qmk_firmware/util/qmk_tab_complete.sh /etc/profile.d/qmk_tab_complete.sh
 
 ### System Wide Copy
 

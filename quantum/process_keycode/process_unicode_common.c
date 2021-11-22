@@ -100,6 +100,7 @@ __attribute__((weak)) void unicode_input_start(void) {
             break;
         case UC_WIN:
             register_code(KC_LALT);
+            wait_ms(UNICODE_TYPE_DELAY);
             tap_code(KC_PPLS);
             break;
         case UC_WINC:

@@ -52,26 +52,26 @@ ifeq ($(strip $(BOOTLOADER)), lufa-dfu)
     OPT_DEFS += -DBOOTLOADER_LUFA_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
     ifneq (,$(filter $(MCU), at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647))
-        BOOTLOADER_SIZE = 4096
+        BOOTLOADER_SIZE ?= 4096
     endif
     ifneq (,$(filter $(MCU), at90usb1286 at90usb1287))
-        BOOTLOADER_SIZE = 8192
+        BOOTLOADER_SIZE ?= 8192
     endif
 endif
 ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
     OPT_DEFS += -DBOOTLOADER_QMK_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
     ifneq (,$(filter $(MCU), at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647))
-        BOOTLOADER_SIZE = 4096
+        BOOTLOADER_SIZE ?= 4096
     endif
     ifneq (,$(filter $(MCU), at90usb1286 at90usb1287))
-        BOOTLOADER_SIZE = 8192
+        BOOTLOADER_SIZE ?= 8192
     endif
 endif
 ifeq ($(strip $(BOOTLOADER)), qmk-hid)
     OPT_DEFS += -DBOOTLOADER_QMK_HID
     OPT_DEFS += -DBOOTLOADER_HID
-    BOOTLOADER_SIZE = 4096
+    BOOTLOADER_SIZE ?= 4096
 endif
 ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY

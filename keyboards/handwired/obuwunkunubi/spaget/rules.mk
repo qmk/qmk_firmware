@@ -18,7 +18,7 @@ BACKLIGHT_ENABLE = no    # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 UNICODE_ENABLE = yes     # Unicode
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-AUDIO_ENABLE = no        # Audio output on port C6
+AUDIO_ENABLE = no        # Audio output
 
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306 # Enable OLED display support

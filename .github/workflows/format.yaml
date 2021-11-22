@@ -19,7 +19,9 @@ jobs:
     container: qmkfm/qmk_cli
 
     steps:
-    - uses: rlespinasse/github-slug-action@v3.x
+    - name: Install dependencies
+      run: |
+        apt-get update && apt-get install -y dos2unix
 
     - uses: actions/checkout@v2
       with:
@@ -31,12 +33,18 @@ jobs:
         output: ' '
         fileOutput: ' '
 
-    - name: Run qmk format-c and qmk format-python
+    - name: Run qmk formatters
       shell: 'bash {0}'
       run: |
-        qmk format-c --core-only -n $(< ~/files.txt)
-        format_c_exit=$?
-        qmk format-python -n
-        format_python_exit=$?
+        qmk format-c --core-only $(< ~/files.txt)
+        qmk format-python $(< ~/files.txt)
+        qmk format-text $(< ~/files.txt)
 
-        exit $((format_c_exit + format_python_exit))
+    - name: Fail when formatting required
+      run: |
+        git diff
+        for file in $(git diff --name-only); do
+          echo "File '${file}' Requires Formatting"
+          echo "::error file=${file}::Requires Formatting"
+        done
+        test -z "$(git diff --name-only)"

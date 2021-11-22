@@ -26,7 +26,7 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
     except KeyError:
         return None
 
-    if key_type == 'array':
+    if key_type in ['array', 'list']:
         return f'{rules_key} ?= {" ".join(rules_value)}'
     elif key_type == 'bool':
         return f'{rules_key} ?= {"on" if rules_value else "off"}'
