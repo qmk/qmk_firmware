@@ -35,3 +35,22 @@ Enter the bootloader in 3 ways:
 * **Physical reset button**: Briefly press the reset button soldered on the PCB.
 * **Keycode in layout**: Press the key mapped to `RESET` if it is configured.
 
+## Swapped Pins
+
+If you printed one of the PCB variant with swapped letters `Q` and `B` (`P` and `N`), add the follwing lines to your `config.h` to swap pins `E6` and `D7` in the firmware:
+```c
+#undef DIRECT_PINS
+#define DIRECT_PINS { \
+    { D7, F7, F6, F5, F4 }, \
+    { B1, B3, B2, B6, D3 }, \
+    { D1, D0, D4, C6, E6 }, \
+    { B4, B5, NO_PIN, NO_PIN, NO_PIN } \
+}
+#undef DIRECT_PINS_RIGHT
+#define DIRECT_PINS_RIGHT { \
+    { F4, F5, F6, F7, D7 }, \
+    { D3, B6, B2, B3, B1 }, \
+    { E6, C6, D4, D0, D1 }, \
+    { B5, B4, NO_PIN, NO_PIN, NO_PIN } \
+}
+```
