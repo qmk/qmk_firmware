@@ -167,5 +167,5 @@ void TestFixture::print_test_log() const {
 
 void TestFixture::expect_layer_state(layer_t layer_state) const {
     test_logger.trace() << "Layer state: (" << +layer_state << ") Highest layer bit: (" << +get_highest_layer(layer_state) << ")" << std::endl;
-    EXPECT_TRUE(layer_state_has(layer_state));
+    EXPECT_TRUE(layer_state_is(layer_state));
 }

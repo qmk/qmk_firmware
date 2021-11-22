@@ -46,15 +46,15 @@ TEST_F(ActionLayer, LayerStateIs) {
     TestDriver driver;
 
     layer_state_set(0);
-    EXPECT_EQ(layer_state_has(0), true);
-    EXPECT_EQ(layer_state_has(1), false);
+    EXPECT_EQ(layer_state_is(0), true);
+    EXPECT_EQ(layer_state_is(1), false);
     layer_state_set(1);
-    EXPECT_EQ(layer_state_has(0), true);
-    EXPECT_EQ(layer_state_has(1), false);
+    EXPECT_EQ(layer_state_is(0), true);
+    EXPECT_EQ(layer_state_is(1), false);
     layer_state_set(2);
-    EXPECT_EQ(layer_state_has(0), false);
-    EXPECT_EQ(layer_state_has(1), true);
-    EXPECT_EQ(layer_state_has(2), false);
+    EXPECT_EQ(layer_state_is(0), false);
+    EXPECT_EQ(layer_state_is(1), true);
+    EXPECT_EQ(layer_state_is(2), false);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
@@ -157,21 +157,21 @@ TEST_F(ActionLayer, MomentaryLayerWithKeypress) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
     layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Press key on layer 1 */
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B))).Times(1);
     regular_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release key on layer 1 */
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
     regular_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release MO */
@@ -179,7 +179,7 @@ TEST_F(ActionLayer, MomentaryLayerWithKeypress) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
     layer_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
@@ -195,7 +195,7 @@ TEST_F(ActionLayer, ToggleLayerDoesNothing) {
     EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release TG. */
@@ -203,7 +203,7 @@ TEST_F(ActionLayer, ToggleLayerDoesNothing) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
     layer_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
@@ -220,28 +220,28 @@ TEST_F(ActionLayer, ToggleLayerUpAndDown) {
     EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     toggle_layer_1_on_layer_0.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
     toggle_layer_1_on_layer_0.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Toggle Layer 0. */
     EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     toggle_layer_0_on_layer_1.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
     toggle_layer_0_on_layer_1.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
@@ -257,14 +257,14 @@ TEST_F(ActionLayer, LayerTapToggleDoesNothing) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
     layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(2);
     layer_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
@@ -283,26 +283,26 @@ TEST_F(ActionLayer, LayerTapToggleWithKeypress) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
     layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B))).Times(1);
     regular_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
     regular_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
     layer_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
@@ -322,51 +322,51 @@ TEST_F(ActionLayer, LayerTapToggleWithToggleWithKeypress) {
 
     layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     layer_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
 
     layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     layer_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
 
     layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     layer_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
 
     layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     layer_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
 
     layer_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     layer_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B))).Times(1);
     regular_key.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
     regular_key.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
@@ -384,7 +384,7 @@ TEST_F(ActionLayer, LayerTapReleasedBeforeKeypressReleaseWithModifiers) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
     layer_0_key_0.press();
     idle_for(TAPPING_TERM);
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Press key with layer 1 mapping, result basically expected
@@ -393,14 +393,14 @@ TEST_F(ActionLayer, LayerTapReleasedBeforeKeypressReleaseWithModifiers) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RALT, KC_9))).Times(1);
     layer_1_key_1.press();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(1));
+    EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release layer tap key, no report is send because key is still held. */
     EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     layer_0_key_0.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Unregister keycode and modifier. */
@@ -408,6 +408,6 @@ TEST_F(ActionLayer, LayerTapReleasedBeforeKeypressReleaseWithModifiers) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
     layer_1_key_1.release();
     run_one_scan_loop();
-    EXPECT_TRUE(layer_state_has(0));
+    EXPECT_TRUE(layer_state_is(0));
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
