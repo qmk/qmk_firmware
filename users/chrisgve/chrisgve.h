@@ -135,7 +135,6 @@ enum custom_keycodes {
 #define SPC_FN      LT(_ADJUST, KC_SPC)
 #define SPC_VIM     LT(_VIM, KC_SPC)
 #define SPC_LWR     LT(_LOWER, KC_SPC)
-#define SPC_NUM     LT(_NUM, KC_SPC)
 #define SPC_RSE     LT(_RAISE, KC_SPC)
 #define SLS_SFT     RSFT_T(KC_SLSH)
 #define FN_NUM      LT(_ADJUST, KC_NO)
