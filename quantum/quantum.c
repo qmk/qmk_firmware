@@ -576,6 +576,8 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
  *
  * Takes an unsigned integer, and uses a static conversion buffer to convert that value into a
  * char array
+ * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
+ *       contents. Use the result immediately, instead of caching it.
  */
 
 const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad) {
