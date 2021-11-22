@@ -15,6 +15,20 @@
  */
 #include "puca.h"
 
+bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+    switch (keycode) {
+        case MC_00:
+            if (record->event.pressed) {
+                SEND_STRING("00");
+            }
+            break;
+    }
+    return true;
+}
+
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (clockwise) {
@@ -105,7 +119,7 @@ __attribute__((weak)) void oled_task_user(void) {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     }};
-    
+
     void animation_phase(void) {
         current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
         oled_write_raw_P(idle[abs((IDLE_FRAMES - 1) - current_idle_frame)], ANIM_SIZE);
@@ -114,7 +128,7 @@ __attribute__((weak)) void oled_task_user(void) {
         anim_timer = timer_read32();
         animation_phase();
     }
-    
+
     oled_set_cursor(0, 6);
     oled_write_P(PSTR("PUCA\nPAD\n"), false);
     oled_write_P(PSTR("-----\n"), false);
