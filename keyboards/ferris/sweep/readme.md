@@ -37,7 +37,7 @@ Enter the bootloader in 3 ways:
 
 ## Swapped Pins
 
-If you printed one of the PCB variant with swapped letters `Q` and `B` (`P` and `N`), add the follwing lines to your keymap's `config.h` to swap pins `E6` and `D7` in the firmware:
+If you printed one of the PCB variant with swapped letters `Q` and `B` (`P` and `N`), add the following code to your keymap's `config.h` to swap pins `E6` and `D7` in the firmware:
 ```c
 #undef DIRECT_PINS
 #define DIRECT_PINS { \
