@@ -86,25 +86,13 @@ You can convert this:
 ```
 into this:
 ```c
-    uint8_t n = get_current_wpm();
-    char    wpm_counter[4];
-    wpm_counter[3] = '\0';
-    wpm_counter[2] = '0' + n % 10;
-    wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
     oled_write_P(PSTR("WPM: "), false);
-    oled_write(wpm_counter, false);
+    oled_write(get_u8_str(get_current_wpm(), ' '), false);
 ```
 which outputs `WPM:   5`.  Or this: 
 ```c
-    uint8_t n = get_current_wpm();
-    char    wpm_counter[4];
-    wpm_counter[3] = '\0';
-    wpm_counter[2] = '0' + n % 10;
-    wpm_counter[1] = '0' + (n /= 10) % 10;
-    wpm_counter[0] = '0' + n / 10 ;
     oled_write_P(PSTR("WPM: "), false);
-    oled_write(wpm_counter, false);
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
 ```
 which outputs `WPM: 005`.
 
