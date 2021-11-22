@@ -7,8 +7,6 @@
 // entirely and just use numbers.
 enum my_layers {
   _QWERTY,
-  _COLEMAK,
-  _DVORAK,
   _LOWER,
   _RAISE,
   _ADJUST
@@ -16,8 +14,6 @@ enum my_layers {
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
   LOWER,
   RAISE,
   ADJUST,
