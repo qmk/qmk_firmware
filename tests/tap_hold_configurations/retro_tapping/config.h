@@ -1,4 +1,4 @@
-/* Copyright 2017 Fred Sundvik
+/* Copyright 2021 Stefan Kerkmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,3 +17,5 @@
 #pragma once
 
 #include "test_common.h"
+
+#define RETRO_TAPPING

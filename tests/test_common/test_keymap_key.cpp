@@ -1,4 +1,4 @@
-/* Copyright 2017 Fred Sundvik
+/* Copyright 2021 Stefan Kerkmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "test_keymap_key.hpp"
+#include "test_logger.hpp"
+#include "gtest/gtest-message.h"
+#include "gtest/gtest.h"
 
-#include "test_common.h"
+void KeymapKey::press() {
+    test_logger.trace() << "Key pressed:  (" << +this->position.col << "," << +this->position.row << ")" << std::endl;
+    press_key(this->position.col, this->position.row);
+}
+
+void KeymapKey::release() {
+    test_logger.trace() << "Key released: (" << +this->position.col << "," << +this->position.row << ")" << std::endl;
+    release_key(this->position.col, this->position.row);
+}

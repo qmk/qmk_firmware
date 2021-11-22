@@ -1,4 +1,4 @@
-/* Copyright 2017 Fred Sundvik
+/* Copyright 2021 Stefan Kerkmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +14,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include <iostream>
+#include "test_logger.hpp"
 
-#include "test_common.h"
+TestLogger test_logger;
+
+TestLogger& TestLogger::info() {
+    *this << "[ INFO     ] ";
+    return *this;
+}
+
+TestLogger& TestLogger::trace() {
+    *this << "[ TRACE    ] ";
+    return *this;
+}
+
+TestLogger& TestLogger::error() {
+    *this << "[ ERROR    ] ";
+    return *this;
+}
+
+void TestLogger::reset() { this->m_log.str(""); };
+
+void TestLogger::print_log() { std::cerr << this->m_log.str(); }
