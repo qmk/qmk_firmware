@@ -3,7 +3,9 @@
 #if defined(__AVR__)
 #    include <avr/pgmspace.h>
 #else
+#    include <string.h>
 #    define PROGMEM
+#    define __flash
 #    define PSTR(x) x
 #    define PGM_P const char*
 #    define memcpy_P(dest, src, n) memcpy(dest, src, n)

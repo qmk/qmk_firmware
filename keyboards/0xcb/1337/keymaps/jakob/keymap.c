@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
-#include <stdio.h>
-
+// clang-format off
 enum layer_names {
   _HOME,
   _MISC,
@@ -46,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     BL_INC,  BL_DEC,  TO(0)
 )
 };
-
+// clang-format on
 
 /* rotary encoder (SW3) - add more else if blocks for more granular layer control */
 #ifdef ENCODER_ENABLE
@@ -77,7 +76,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 /* oled stuff :) */
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 uint16_t startup_timer;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -100,10 +99,10 @@ static void render_logo(void) {
 }
 static void render_logo_font(void) {
     static const char PROGMEM qmk_logo[] = {
-        0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xCB, 0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0xCB, 0xCB, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9,
-        0xE0, 0xE1, 0xE2, 0xE3, 0xE4, 0xCB, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xCB, 0xCB, 0xE5, 0xE6, 0xE7, 0xE8, 0xE9,
-        0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xCB, 0x88, 0x89, 0x8A, 0x8B, 0x8A, 0x8B, 0x8C, 0x8D, 0xCB, 0xCB, 0xD1, 0xD2, 0xD3, 0xD4, 0xD5,
-        0xEC, 0xED, 0xEE, 0xEF, 0xF0, 0xCB, 0xA8, 0xA9, 0xAA, 0xAB, 0xAA, 0xAB, 0xAC, 0xAD, 0xCB, 0xCB, 0xF1, 0xF2, 0xF3, 0xF4, 0xF5, 0x00
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xC0, 0xC1, 0xC2, 0xC3, 0xC4,
+        0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xE0, 0xE1, 0xE2, 0xE3, 0xE4,
+        0x88, 0x89, 0x8A, 0x8B, 0x8A, 0x8B, 0x8C, 0x8D, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0,
+        0xA8, 0xA9, 0xAA, 0xAB, 0xAA, 0xAB, 0xAC, 0xAD, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xCB, 0xEC, 0xED, 0xEE, 0xEF, 0xF0, 0x00
     };
 
     oled_write_P(qmk_logo, false);
@@ -133,24 +132,41 @@ static void render_info(void) {
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 }
-static void render_rgbled_status(bool full) {
-#ifdef RGBLIGHT_ENABLE
-  char buf[30];
-  if (RGBLIGHT_MODES > 1 && rgblight_is_enabled() && get_highest_layer(layer_state) == _RGB) {
-      if (full) {
-          snprintf(buf, sizeof(buf), "RGB mode %2d: %d,%d,%d  \n",
-                   rgblight_get_mode(),
-                   rgblight_get_hue()/RGBLIGHT_HUE_STEP,
-                   rgblight_get_sat()/RGBLIGHT_SAT_STEP,
-                   rgblight_get_val()/RGBLIGHT_VAL_STEP);
-      } else {
-          snprintf(buf, sizeof(buf), "[%2d] ", rgblight_get_mode());
-      }
-      oled_write(buf, false);
-  } else {
-      oled_write_ln_P(PSTR("\n"), false);
-  }
-#endif
+static void render_rgbled_status(bool) {
+    char string[4];
+    if (RGBLIGHT_MODES > 1 && rgblight_is_enabled() && get_highest_layer(layer_state) == _RGB) {
+        uint16_t m = rgblight_get_mode();
+        string[3] = '\0';
+        string[2] = '0' + m % 10;
+        string[1] = ( m /= 10) % 10 ? '0' + (m) % 10 : (m / 10) % 10 ? '0' : ' ';
+        string[0] =  m / 10 ? '0' + m / 10 : ' ';
+        oled_write_P(PSTR("Conf:"), false);
+        oled_write(string, false);
+        uint16_t h = rgblight_get_hue()/RGBLIGHT_HUE_STEP;
+        string[3] = '\0';
+        string[2] = '0' + h % 10;
+        string[1] = ( h /= 10) % 10 ? '0' + (h) % 10 : (h / 10) % 10 ? '0' : ' ';
+        string[0] =  h / 10 ? '0' + h / 10 : ' ';
+        oled_write_P(PSTR(","), false);
+        oled_write(string, false);
+        uint16_t s = rgblight_get_sat()/RGBLIGHT_SAT_STEP;
+        string[3] = '\0';
+        string[2] = '0' + s % 10;
+        string[1] = ( s /= 10) % 10 ? '0' + (s) % 10 : (s / 10) % 10 ? '0' : ' ';
+        string[0] =  s / 10 ? '0' + s / 10 : ' ';
+        oled_write_P(PSTR(","), false);
+        oled_write(string, false);
+        uint16_t v = rgblight_get_val()/RGBLIGHT_VAL_STEP;
+        string[3] = '\0';
+        string[2] = '0' + v % 10;
+        string[1] = ( v /= 10) % 10 ? '0' + (v) % 10 : (v / 10) % 10 ? '0' : ' ';
+        string[0] =  v / 10 ? '0' + v / 10 : ' ';
+        oled_write_P(PSTR(","), false);
+        oled_write(string, false);
+        oled_write_ln_P(PSTR("\n     MOD HUE SAT VAR"), false);
+    } else {
+        oled_write_ln_P(PSTR("\n"), false);
+    }
 }
 void oled_task_user(void) {
     static bool finished_timer = false;

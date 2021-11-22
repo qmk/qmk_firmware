@@ -17,7 +17,7 @@
 #include "adelais.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 
     {0, C2_1,   C3_1,   C4_1}, //D102-A0-0
     {0, C5_1,   C6_1,   C7_1}, //D108-A1-1

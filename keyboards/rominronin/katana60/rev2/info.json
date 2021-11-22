@@ -2,8 +2,6 @@
     "keyboard_name": "Katana60 rev2",
     "url": "https://candykeys.com/product/katana60-pcb-V2",
     "maintainer": "rominronin",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_7u_a": {
             "layout": [

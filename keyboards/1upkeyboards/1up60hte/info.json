@@ -2,8 +2,6 @@
     "keyboard_name": "1up60hte",
     "url": "https://www.1upkeyboards.com/shop/controllers/1up-rgb-60-pcb-hte/",
     "maintainer": "1upkeyboards",
-    "width": 15,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT_tsangan": "LAYOUT_60_tsangan_hhkb"
     },

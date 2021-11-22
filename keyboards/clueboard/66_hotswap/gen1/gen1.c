@@ -16,7 +16,7 @@
 #include "gen1.h"
 
 #ifdef LED_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *    driver
  *    |  LED address

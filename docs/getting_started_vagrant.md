@@ -24,7 +24,7 @@ The "easy" way to flash the firmware is using a tool from your host OS:
 If you want to program via the command line you can uncomment the ['modifyvm'] lines in the Vagrantfile to enable the USB passthrough into Linux and then program using the command line tools like dfu-util/dfu-programmer or you can install the Teensy CLI version.
 
 ## Vagrantfile Overview
-The development environment is configured to run the QMK Docker image, `qmkfm/base_container`. This not only ensures predictability between systems, it also mirrors the CI environment.
+The development environment is configured to run the QMK Docker image, `qmkfm/qmk_cli`. This not only ensures predictability between systems, it also mirrors the CI environment.
 
 ## FAQ
 

@@ -111,33 +111,33 @@
 
 // Bepo on fr-bepo software layer
 // for bepo on bepo
-/* BP_DLR,   BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, KC_DEL, */
-#define ___SYMBOL_BEPO_L___ /* BP_DLR */ BP_DQOT,  BP_LGIL,   BP_RGIL,   BP_LPRN,   BP_RPRN
+/* BP_DLR,   BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN, KC_DEL, */
+#define ___SYMBOL_BEPO_L___ /* BP_DLR */ BP_DQUO,  BP_LDAQ,   BP_RDAQ,   BP_LPRN,   BP_RPRN
 /*   KC_DEL,  BP_AT,   BP_PLUS,  BP_MINS, BP_SLSH,     BP_ASTR, BP_EQL, */
-#define ___SYMBOL_BEPO_R___    BP_AT,    BP_PLUS,  BP_MINS,   BP_SLASH,  BP_ASTR /* BP_EQL,  BP_PERC */
+#define ___SYMBOL_BEPO_R___    BP_AT,    BP_PLUS,  BP_MINS,   BP_SLSH,  BP_ASTR /* BP_EQL,  BP_PERC */
 
-#define ___BEPO_FR_L1___             BP_B,        BP_ECUT, BP_P,           BP_O,          BP_EGRV
+#define ___BEPO_FR_L1___             BP_B,        BP_EACU, BP_P,           BP_O,          BP_EGRV
 #define ___BEPO_FR_L2___             BP_SFT_T_A,  BP_LT_KP_U,    BP_LT_SYMB_I,   BP_LT_MDIA_E,  BP_COMM
-#define ___BEPO_FR_L3___ /*BP_ECRC*/ BP_AGRV,     BP_Y,    BP_X,           BP_DOT,        BP_K
+#define ___BEPO_FR_L3___ /*BP_ECIR*/ BP_AGRV,     BP_Y,    BP_X,           BP_DOT,        BP_K
 
-#define ___BEPO_FR_R1___  /* BP_DCRC,*/  BP_V, BP_D,  BP_L,    BP_J,  BP_Z
+#define ___BEPO_FR_R1___  /* BP_DCIR,*/  BP_V, BP_D,  BP_L,    BP_J,  BP_Z
 #define ___BEPO_FR_R2___  /* BP_C,   */  BP_T, BP_LT_SYMB_S,    BP_LT_MDIA_R,  BP_LT_KP_N, BP_SFT_T_M  //BP_CCED
-#define ___BEPO_FR_R3___                 BP_APOS,    BP_Q,    BP_G,  BP_H, BP_F //BP_SFT_T_W
+#define ___BEPO_FR_R3___                 BP_QUOT,    BP_Q,    BP_G,  BP_H, BP_F //BP_SFT_T_W
 
-/* BP_DLR,   BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, KC_DEL, */
-/*   KC_TAB,   BP_B,    BP_ECUT, BP_P,    BP_O,    BP_EGRV, KC_BSPC, */
+/* BP_DLR,   BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN, KC_DEL, */
+/*   KC_TAB,   BP_B,    BP_EACU, BP_P,    BP_O,    BP_EGRV, KC_BSPC, */
 /*   KC_LSFT,  BP_A,    BP_U,    BP_I,    BP_E,    BP_COMM, */
 /*   KC_LCTRL, BP_AGRV, BP_Y,    BP_X,    BP_DOT,  BP_K,    KC_ENT, */
-/*   ESC_FN,   BP_ECRC, KC_LGUI, KC_LALT, SPC_RALT, */
+/*   ESC_FN,   BP_ECIR, KC_LGUI, KC_LALT, SPC_RALT, */
 /*   TT(SWAP), KC_MNXT, */
 /*   KC_MPLY, */
 /*   TT(FN), TT(NUMS), KC_MPRV, */
 
 /* /\* right hand *\/ */
 /*   KC_DEL,  BP_AT,   BP_PLUS,  BP_MINS, BP_SLSH,     BP_ASTR, BP_EQL, */
-/*   KC_BSPC, BP_DCRC, BP_V,     BP_D,    BP_L,        BP_J,    BP_Z, */
+/*   KC_BSPC, BP_DCIR, BP_V,     BP_D,    BP_L,        BP_J,    BP_Z, */
 /*   BP_C,    BP_T,     BP_S,    BP_R,        BP_N,    M_RSFT, */
-/*   KC_ENT,  BP_APOS, BP_Q,     BP_G,    BP_H,        BP_F,    W_RCTL, */
+/*   KC_ENT,  BP_QUOT, BP_Q,     BP_G,    BP_H,        BP_F,    W_RCTL, */
 
 
 /*******************************************************************/
@@ -183,7 +183,7 @@
 #define ___KEYPAD_4_ALT___ KC_P0, KC_DOT, KC_PENT, KC_PENT
 
 // For Bepo
-#define ___KEYPAD_1_BP___ DB_7,  DB_8,    DB_9,     BP_SLASH
+#define ___KEYPAD_1_BP___ DB_7,  DB_8,    DB_9,     BP_SLSH
 #define ___KEYPAD_2_BP___ DB_4,  DB_5,    DB_6,     BP_ASTR
 #define ___KEYPAD_3_BP___ DB_1,  DB_2,    DB_3,     DB_MINUS
 #define ___KEYPAD_4_BP___ DB_0,  DB_DOT,  DB_EQL,   BP_PLUS
@@ -225,9 +225,9 @@
 
 // SYMBOLS FOR BEPO
 // The top row.  Bepo has symbols not numbers. Numbers are the shifted values.
-#define ___SYMBOL_BEPO_L___ /* BP_DLR */ BP_DQOT,  BP_LGIL,   BP_RGIL,   BP_LPRN,   BP_RPRN
+#define ___SYMBOL_BEPO_L___ /* BP_DLR */ BP_DQUO,  BP_LDAQ,   BP_RDAQ,   BP_LPRN,   BP_RPRN
 /*   KC_DEL,  BP_AT,   BP_PLUS,  BP_MINS, BP_SLSH,     BP_ASTR, BP_EQL, */
-#define ___SYMBOL_BEPO_R___    BP_AT,    BP_PLUS,  BP_MINS,   BP_SLASH,  BP_ASTR /* BP_EQL,  BP_PERC */
+#define ___SYMBOL_BEPO_R___    BP_AT,    BP_PLUS,  BP_MINS,   BP_SLSH,  BP_ASTR /* BP_EQL,  BP_PERC */
 
 // An arrangement for the left hand with a focus on the ()[]{}s.
 #define ___SYMBOLS_1_BP___ KC_EXLM,  BP_AT,    DB_LCBR,  DB_RCBR,  DB_PIPE
@@ -237,7 +237,7 @@
 // A larger 6 column arrangement for the left hand, A merge of dvorak and the above.
 #define ___SYMBOLS6_1_BP___  DB_GRV,  DB_LESS, DB_GRTR, DB_LCBR,  DB_RCBR,  DB_HASH
 #define ___SYMBOLS6_2_BP___  KC_AMPR, BP_AT,   BP_ASTR, DB_LPRN,  DB_RPRN,  BP_PERC
-#define ___SYMBOLS6_3_BP___  BP_DLR,  BP_DQOT, DB_QUOT, DB_LBRC,  DB_RBRC,  KC_COLON
+#define ___SYMBOLS6_3_BP___  BP_DLR,  BP_DQUO, DB_QUOT, DB_LBRC,  DB_RBRC,  KC_COLON
 #define ___SYMBOLS6_4_BP___  ___2___, DB_TILD, DB_DOT,  KC_EXLM, DB_SCOLON
 
 #define ___SYMBOLS5_4_BP___  ___, DB_TILD, DB_DOT,  KC_EXLM, DB_SCOLON
@@ -248,9 +248,9 @@
 #define ___SYMPAD_1_BP___  DB_GRV,  BP_AMPR, BP_ASTR, DB_LCBR,  BP_PLUS,  DB_PIPE
 #define ___SYMPAD_2_BP___  DB_TILD, BP_DLR,  BP_PERC, DB_CIRC,  BP_ASTR,  DB_GRV
 #define ___SYMPAD_3_BP___  ___,     BP_EXLM, BP_AT,   DB_HASH,  BP_MINS,  BP_SLSH
-#define ___SYMPAD_4_BP___  ___,     DB_RCBR, DB_DOT,  BP_EQL,   BP_MINUS, DB_BACKSLASH
+#define ___SYMPAD_4_BP___  ___,     DB_RCBR, DB_DOT,  BP_EQL,   BP_MINS, DB_BACKSLASH
 
-#define ___5_SYMPAD_4_BP___  DB_RCBR, DB_DOT,  BP_EQL,   BP_MINUS, DB_BACKSLASH
+#define ___5_SYMPAD_4_BP___  DB_RCBR, DB_DOT,  BP_EQL,   BP_MINS, DB_BACKSLASH
 
 // Parts are parts.
 // MOUSE, ARROW and MEDIA KEY SETS

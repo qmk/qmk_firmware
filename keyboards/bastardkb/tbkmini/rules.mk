@@ -7,7 +7,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -21,10 +21,8 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix (do not use together with RGBLIGHT_ENABLE)
 RGB_MATRIX_DRIVER = WS2812  # RGB matrix driver support
-BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
-TAP_DANCE_ENABLE = no
 LTO_ENABLE = yes
 
 AUDIO_SUPPORTED = no

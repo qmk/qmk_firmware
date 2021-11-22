@@ -52,7 +52,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *    driver
  *    |  LED address
@@ -63,7 +63,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731-simple.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731-simple.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
 
 ---
 
@@ -244,14 +244,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 #endif // LED_MATRIX_CUSTOM_EFFECT_IMPLS
 ```
 
-For inspiration and examples, check out the built-in effects under `quantum/led_matrix_animations/`
-
-
-
-
-
-
-
+For inspiration and examples, check out the built-in effects under `quantum/led_matrix/animations/`.
 
 
 ## Additional `config.h` Options :id=additional-configh-options
@@ -262,7 +255,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 #define LED_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
 #define LED_DISABLE_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
 #define LED_DISABLE_AFTER_TIMEOUT 0 // OBSOLETE: number of ticks to wait until disabling effects
-#define LED_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
+#define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define LED_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define LED_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define LED_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs
@@ -348,32 +341,5 @@ In addition, there are the advanced indicator functions.  These are aimed at tho
 ```c
 void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     LED_MATRIX_INDICATOR_SET_VALUE(index, value);
-}
-```
-
-## Suspended State :id=suspended-state
-To use the suspend feature, make sure that `#define LED_DISABLE_WHEN_USB_SUSPENDED true` is added to the `config.h` file. 
-
-Additionally add this to your `<keyboard>.c`:
-
-```c
-void suspend_power_down_kb(void) {
-    led_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    led_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-```
-or add this to your `keymap.c`:
-```c
-void suspend_power_down_user(void) {
-    led_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_user(void) {
-    led_matrix_set_suspend_state(false);
 }
 ```

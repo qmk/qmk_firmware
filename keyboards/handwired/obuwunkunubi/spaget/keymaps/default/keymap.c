@@ -341,7 +341,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_init_user(void) {
     set_unicode_input_mode(UC_WINC);
 };
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void oled_task_user(void) {
   oled_write_P(PSTR("       spaget v1\n\n"), false);
 

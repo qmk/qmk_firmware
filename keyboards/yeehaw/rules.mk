@@ -1,3 +1,4 @@
+# MCU name
 MCU = atmega32u4
 
 # Bootloader selection
@@ -15,6 +16,4 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no            # USB Nkey Rollover
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-MIDI_ENABLE = no            # MIDI support
-UNICODE_ENABLE = no         # Unicode
 ENCODER_ENABLE = yes

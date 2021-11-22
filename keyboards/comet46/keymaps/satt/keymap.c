@@ -30,7 +30,7 @@ enum custom_keycodes {
 };
 
 // JIS keycodes
-#define KC_JZHT JP_ZHTG  // hankaku/zenkaku|kanzi
+#define KC_JZHT JP_ZKHK  // hankaku/zenkaku|kanzi
 #define KC_JCIR JP_CIRC  // ^, ~
 #define KC_JAT  JP_AT    // @, `
 #define KC_JLBR JP_LBRC  // [, {
@@ -40,8 +40,8 @@ enum custom_keycodes {
 #define KC_JMHE JP_MHEN  // muhenkan
 #define KC_JHEN JP_HENK  // henkan
 #define KC_JKAN JP_KANA  // katakana/hiragana|ro-mazi
-#define KC_JMKA JP_MKANA //kana on MacOSX
-#define KC_JMEI JP_MEISU //eisu on MacOSX
+#define KC_JMKA JP_LANG1 //kana on MacOSX
+#define KC_JMEI KC_LANG2 //eisu on MacOSX
 #define KC_JAMP JP_AMPR  // &
 #define KC_JQUO JP_QUOT  // '
 #define KC_JLPR JP_LPRN  // (
@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   switch (biton32(state)) {
     case _PSEUDO_US_LOWER:
     case _PSEUDO_US_RAISE:

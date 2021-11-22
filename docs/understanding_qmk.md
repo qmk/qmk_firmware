@@ -4,7 +4,7 @@ This document attempts to explain how the QMK firmware works from a very high le
 
 * [Introduction](getting_started_introduction.md)
 * [How Keyboards Work](how_keyboards_work.md)
-* [FAQ](faq.md)
+* [FAQ](faq_general.md)
 
 ## Startup
 
@@ -146,6 +146,7 @@ The `process_record()` function itself is deceptively simple, but hidden within 
     * [`bool process_audio(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_audio.c#L19)
     * [`bool process_steno(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_steno.c#L160)
     * [`bool process_music(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_music.c#L114)
+    * [`bool process_key_override(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/5a1b857dea45a17698f6baa7dd1b7a7ea907fb0a/quantum/process_keycode/process_key_override.c#L397)
     * [`bool process_tap_dance(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_tap_dance.c#L141)
     * [`bool process_unicode_common(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_unicode_common.c#L169)
       calls one of:

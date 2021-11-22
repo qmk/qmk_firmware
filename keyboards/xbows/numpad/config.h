@@ -28,17 +28,21 @@
 #define MATRIX_ROW_PINS { B5, B4, C6, B6, D7, B3 }
 #define MATRIX_COL_PINS { D4, D6, B2, B1 }
 #define DIODE_DIRECTION COL2ROW
-
 #define DEBOUNCE 3
+
+/* disable these deprecated features by default */
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 18
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #    define RGB_DISABLE_AFTER_TIMEOUT 0          // number of ticks to wait until disabling effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true  // turn off effects when suspended
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED       // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#    define RGB_MATRIX_CENTER { 30, 32 }
+#    define RGB_MATRIX_CENTER \
+        { 30, 32 }
 
 #    define DRIVER_ADDR_1 0b1110111
 #    define DRIVER_COUNT 1

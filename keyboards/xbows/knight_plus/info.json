@@ -2,8 +2,6 @@
     "keyboard_name": "KNIGHT_PLUS",
     "url": "",
     "maintainer": "xbows-qmk",
-    "width": 18,
-    "height": 6.5,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -60,7 +58,7 @@
                 {"label":"D", "x":3, "y":3.5},
                 {"label":"F", "x":4, "y":3.5},
                 {"label":"G", "x":5, "y":3.5},
-                {"label":"Backspace", "x":6, "y":3.5, "w":1.5},
+                {"label":"Backspace", "x":6.75, "y":3.5, "w":1.5},
                 {"label":"H", "x":9, "y":3.5},
                 {"label":"J", "x":10, "y":3.5},
                 {"label":"K", "x":11, "y":3.5},
@@ -76,7 +74,7 @@
                 {"label":"C", "x":3, "y":4.5},
                 {"label":"V", "x":4, "y":4.5},
                 {"label":"B", "x":5, "y":4.5},
-                {"label":"Enter", "x":6, "y":4.5, "w":2},
+                {"label":"Enter", "x":6.5, "y":4.5, "w":2},
                 {"label":"N", "x":9, "y":4.5},
                 {"label":"M", "x":10, "y":4.5},
                 {"label":"<", "x":11, "y":4.5},

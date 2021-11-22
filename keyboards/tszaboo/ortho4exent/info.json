@@ -2,8 +2,6 @@
     "keyboard_name": "Ortho4exent",
     "url": "https://github.com/tszaboo/Ortho4Exent",
     "maintainer": "tszaboo",
-    "width": 16,
-    "height": 5,
     "layouts": {
       "LAYOUT": {
         "layout": [
@@ -83,4 +81,3 @@
       }
     }
   }
-  

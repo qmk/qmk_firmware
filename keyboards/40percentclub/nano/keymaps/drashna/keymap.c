@@ -85,15 +85,15 @@ int16_t axisCoordinate(uint8_t pin, uint16_t origin) {
 
 int8_t axisToMouseComponent(uint8_t pin, int16_t origin, uint8_t maxSpeed, int8_t polarity) {
     int coordinate = axisCoordinate(pin, origin);
-    if (coordinate == 0) {
-        return 0;
-    } else {
+    if (coordinate != 0) {
         float percent = (float)coordinate / 100;
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
+        if (get_mods() & MOD_BIT(KC_LSFT)) {
             return percent * precisionSpeed * polarity * (abs(coordinate) / speedRegulator);
         } else {
             return percent * maxCursorSpeed * polarity * (abs(coordinate) / speedRegulator);
         }
+    } else {
+        return 0;
     }
 }
 

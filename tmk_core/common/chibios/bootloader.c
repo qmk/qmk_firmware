@@ -95,7 +95,7 @@ void enter_bootloader_mode_if_requested(void) {
     }
 }
 
-#elif defined(KL2x) || defined(K20x) || defined(MK66F18)  // STM32_BOOTLOADER_DUAL_BANK // STM32_BOOTLOADER_ADDRESS
+#elif defined(KL2x) || defined(K20x) || defined(MK66F18) || defined(MIMXRT1062)  // STM32_BOOTLOADER_DUAL_BANK // STM32_BOOTLOADER_ADDRESS
 /* Kinetis */
 
 #    if defined(BOOTLOADER_KIIBOHD)
@@ -103,7 +103,8 @@ void enter_bootloader_mode_if_requested(void) {
 #        define SCB_AIRCR_VECTKEY_WRITEMAGIC 0x05FA0000
 const uint8_t              sys_reset_to_loader_magic[] = "\xff\x00\x7fRESET TO LOADER\x7f\x00\xff";
 __attribute__((weak)) void bootloader_jump(void) {
-    __builtin_memcpy((void *)VBAT, (const void *)sys_reset_to_loader_magic, sizeof(sys_reset_to_loader_magic));
+    void *volatile vbat = (void *)VBAT;
+    __builtin_memcpy(vbat, (const void *)sys_reset_to_loader_magic, sizeof(sys_reset_to_loader_magic));
     // request reset
     SCB->AIRCR = SCB_AIRCR_VECTKEY_WRITEMAGIC | SCB_AIRCR_SYSRESETREQ_Msk;
 }

@@ -1,5 +1,6 @@
-/*
- * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+/* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2015 ZSA Technology Labs Inc (@zsa)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -108,26 +109,6 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-/*
- * MIDI options
- */
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
-
 // #define WS2812_LED_N 2
 // #define RGBLED_NUM WS2812_LED_N
 // #define WS2812_TIM_N 2
@@ -147,7 +128,7 @@
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define RGB_MATRIX_LED_PROCESS_LIMIT 5
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26

@@ -50,14 +50,18 @@ MCUFLAGS += -D__$(ARM_ATSAM)__
 #     For a directory that has spaces, enclose it in quotes.
 EXTRALIBDIRS =
 
+cpfirmware: warn-arm_atsam
+.INTERMEDIATE: warn-arm_atsam
+warn-arm_atsam: $(FIRMWARE_FORMAT)
+	$(info @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)
+	$(info This MCU support package has a lack of support from the upstream provider (Massdrop).)
+	$(info There are currently questions about valid licensing, and at this stage it's likely)
+	$(info their boards and supporting code will be removed from QMK in the near future. Please)
+	$(info contact Massdrop for support, and encourage them to align their future board design)
+	$(info choices to gain proper license compatibility with QMK.)
+	$(info @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)
+
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
-
-flash: bin
-ifneq ($(strip $(PROGRAM_CMD)),)
-	$(PROGRAM_CMD)
-else
-	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_ARCH)"
-endif
