@@ -1,6 +1,6 @@
 # Squeezing the most out of AVR
 
-First, death to AVR.  It's old, it's slow, it's past time to retire it.  The only issue with migrating away is the shortage. 
+AVR is severely resource-constrained, and QMK is close to the point where support for AVR needs to be moved to legacy status as newer development is unable to fit into those constraints.
 
 If you need to reduce the compiled size of your firmware, there are a number of options to do so. 
 
@@ -12,7 +12,7 @@ LTO_ENABLE = yes
 This will cause the final step to take longer, but should get you a smaller compiled size.  This also disables Action Functions, and Action Macros, both of which are deprecated.
 This will get you the most savings, in most situations. 
 
-From there, disabling extraneous systems will help.  Eg: 
+From there, disabling extraneous systems will help -- e.g.: 
 ```make
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
@@ -21,26 +21,24 @@ EXTRAKEY_ENABLE = no
 ```
 This disables some of the functionality that you may not need.  But note that extrakeys disables stuff like the media keys and system volume control.
 
-If that doesn't help, then there are some additional features that you can disable: 
+If that isn't enough to get your firmware down to size, then there are some additional features that you can disable: 
 ```make
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 MAGIC_ENABLE = no
 ```
 These features are enabled by default, but may not be needed.  Double check to make sure, though.  
-Biggest is "magic", as this is the magic keycodes, that control things like NKRO toggling, GUI and ALT/CTRL swapping, etc.  Disabling it will disable those functions. 
+Largest in size is "magic" -- the QMK magic keycodes -- which control things like NKRO toggling, GUI and ALT/CTRL swapping, etc.  Disabling it will disable those functions. 
 
 ## `config.h` Settings
 
-If you've done all of that, and you don't want to disable featuse like RGB, Audio, OLEDs, etc, there are some additional options that you can add to your config.h that can help. 
+If you've done all of that, and you don't want to disable features like RGB, Audio, OLEDs, etc, there are some additional options that you can add to your config.h that can help. 
 
 Starting with Lock Key support.  If you have an Cherry MX Lock switch (lucky you!), you don't want to do this.  But chances are, you don't.  In that case, add this to your `config.h`:
 ```c
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 ```
-
-
 Oneshots.  If you're not using these, you can disable the feature by adding this to your `config.h`: 
 ```c
 #define NO_ACTION_ONESHOT
@@ -109,7 +107,7 @@ which outputs `WPM: 005`.
 
 ## RGB Settings
 
-If you're using RGB on your board, both RGB Light (Underglow) and RGB Matrix (per key RGB) now require defines to enable different animations.  For RGB Light: 
+If you're using RGB on your board, both RGB Light (Underglow) and RGB Matrix (per key RGB) now require defines to enable different animations -- some keyboards enable a lot of animations by default, so you can generally gain back some space by disabling specific animations if you don't use them..  For RGB Light you can disable these in your keymap's `config.h`: 
 ```c
 #undef RGBLIGHT_ANIMATIONS
 #undef RGBLIGHT_EFFECT_BREATHING
@@ -124,8 +122,7 @@ If you're using RGB on your board, both RGB Light (Underglow) and RGB Matrix (pe
 #undef RGBLIGHT_EFFECT_TWINKLE
 ```
 
-For RGB Matrix, these need to be  explicitly enabled, as well:
-To disable a specific animation: 
+For RGB Matrix, these need to be explicitly enabled as well. To disable any that were enabled by the keyboard, add one or more of these to your keymap's `config.h`: 
 ```c
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
