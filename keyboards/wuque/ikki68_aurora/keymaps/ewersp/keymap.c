@@ -25,6 +25,7 @@ enum alt_keycodes {
 enum alt_layers {
     DEF = 0,
     ALT,
+    MAC,
     FUNC,
     SUPR
 };
@@ -63,11 +64,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______,
         _______, _______, KC_LALT,          _______,          _______,          _______,          _______, _______, _______,             _______, _______, _______
     ),
+    [MAC] = LAYOUT_all(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______,
+        _______, KC_LALT, KC_LGUI,          _______,          _______,          _______,          KC_RGUI, _______, KC_RALT,             _______, _______, _______
+    ),
     [FUNC] = LAYOUT_all(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,    KC_END,  KC_VOLU,
-        _______, RGB_HUD, RGB_VAI, RGB_HUI, RGB_SAI, RGB_M_P, _______, _______, _______, KC_PAUS, KC_PSCR, _______, _______, _______,             KC_MUTE, KC_VOLD,
-        _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_SAD, RGB_M_B, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, RGB_TOG, LED_TOG, _______, EEP_RST, RESET,   _______, _______, _______, TG(ALT), _______, _______, _______,             KC_PGUP,
+        _______, RGB_HUD, RGB_VAI, RGB_HUI, RGB_SAI, RGB_M_P, _______, _______, _______, KC_BRIU, KC_PAUS, KC_PSCR, _______, _______,             KC_MUTE, KC_VOLD,
+        _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_SAD, RGB_M_B, _______, _______, _______, KC_BRID, _______, _______,          _______,
+        _______, _______, RGB_TOG, LED_TOG, _______, EEP_RST, RESET,   _______, _______, TG(MAC), TG(ALT), _______, _______, _______,             KC_PGUP,
         _______, _______, KC_LALT,          _______,          _______,          _______,          _______, _______, _______,             KC_HOME, KC_PGDN, KC_END
     ),
     [SUPR] = LAYOUT_all(
@@ -147,6 +155,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_DEL:
         case KC_UP:
         case KC_DOWN:
+        case KC_ENT:
+        case KC_SPC:
         case MO(FUNC):
             if (super_alt_layer_active && record->event.pressed) {
                 // Only activate the alt modifier for the first key press
