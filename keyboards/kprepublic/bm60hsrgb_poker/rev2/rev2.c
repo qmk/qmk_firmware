@@ -17,9 +17,9 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-#    include <i2c_master.h>
-#    include <is31fl3733.h>
-#    include <ws2812.h>
+#    include "i2c_master.h"
+#    include "is31fl3733.h"
+#    include "ws2812.h"
 
 
 
