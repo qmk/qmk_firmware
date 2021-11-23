@@ -64,12 +64,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define RGB_DI_PIN B15
-#define RGBLED_NUM 16
+#define RGBLED_NUM 22
 //#define RGBLIGHT_LIMIT_VAL 120
 #define RGBLIGHT_ANIMATIONS
 
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT
-//#define STM32_PWM_USE_ADVANCED TRUE
 #define WS2812_PWM_DRIVER PWMD1
 #define WS2812_PWM_CHANNEL 3
 #define WS2812_PWM_PAL_MODE 1
