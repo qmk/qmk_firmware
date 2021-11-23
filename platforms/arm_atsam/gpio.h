@@ -22,9 +22,9 @@
 
 typedef uint8_t pin_t;
 
-#define SAMD_PORT(pin) (((pin) & 0x20) >> 5)
-#define SAMD_PIN(pin) ((pin) & 0x1f)
-#define SAMD_PIN_MASK(pin) (1 << ((pin) & 0x1f))
+#define SAMD_PORT(pin) (((pin)&0x20) >> 5)
+#define SAMD_PIN(pin) ((pin)&0x1f)
+#define SAMD_PIN_MASK(pin) (1 << ((pin)&0x1f))
 
 #define setPinInput(pin)                                                                 \
     do {                                                                                 \
