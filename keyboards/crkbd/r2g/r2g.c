@@ -101,7 +101,7 @@ enum Layers{
     L_BASE, L_LOWER, L_RAISE, L_ADJUST
 };
 
-void oled_render_layer_state(void) {
+__attribute__((weak)) void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case L_BASE:
@@ -120,9 +120,9 @@ void oled_render_layer_state(void) {
 }
 
 
-char keylog_str[24] = {};
+__attribute__((weak)) char keylog_str[24] = {};
 
-const char code_to_name[60] = {
+__attribute__((weak)) const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
     'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -130,7 +130,7 @@ const char code_to_name[60] = {
     'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
     '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
-void set_keylog(uint16_t keycode, keyrecord_t *record) {
+__attribute__((weak)) void set_keylog(uint16_t keycode, keyrecord_t *record) {
   char name = ' ';
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
         (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
@@ -144,11 +144,11 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
            keycode, name);
 }
 
-void oled_render_keylog(void) {
+__attribute__((weak)) void oled_render_keylog(void) {
     oled_write(keylog_str, false);
 }
 
-void render_bootmagic_status(bool status) {
+__attribute__((weak)) void render_bootmagic_status(bool status) {
     /* Show Ctrl-Gui Swap options */
     static const char PROGMEM logo[][2][3] = {
         {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
@@ -163,7 +163,7 @@ void render_bootmagic_status(bool status) {
     }
 }
 
-void oled_render_logo(void) {
+__attribute__((weak)) void oled_render_logo(void) {
     static const char PROGMEM mb_logo[] = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,

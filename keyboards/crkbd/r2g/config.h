@@ -26,11 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN      D3
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLED_NUM 12 // Number of LEDs
+#    define RGBLIGHT_ANIMATIONS
+#    define RGBLED_NUM 54
 #    define RGBLED_SPLIT \
-        { 6, 6 }
-#    define RGBLIGHT_SPLIT
-#    define RGBLIGHT_LIMIT_VAL 100
+        { 27, 27 }
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
@@ -46,6 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 
 #ifdef OLED_ENABLE
-    #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+    #ifndef OLED_FONT_H
+        #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+    #endif
 #endif
 
