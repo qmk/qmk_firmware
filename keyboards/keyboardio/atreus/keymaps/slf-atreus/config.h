@@ -30,3 +30,5 @@
 // Apply the modifier on keys that are tapped during a short hold of a modtap
 // Prevents slurred typing (of home row mods)
 #define PERMISSIVE_HOLD
+
+#define COMBO_COUNT 2
