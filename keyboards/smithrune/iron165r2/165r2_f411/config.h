@@ -60,6 +60,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 
+#define STM32_HSECLK 8000000
+
+
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 16
 //#define RGBLIGHT_LIMIT_VAL 120
@@ -91,9 +94,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-
-#define STM32_HSECLK 8000000
-
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).

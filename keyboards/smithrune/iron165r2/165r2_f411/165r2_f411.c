@@ -16,10 +16,12 @@
 
 #include "165r2_f411.h"
 
+/*
 void board_init(void) {
-    setPinInput(B7);
     setPinInput(B6);
+    setPinInput(B7);
 }
+*/
 
 #define LED_PIN_ON_STATE 1
 void led_init_ports(void) {
