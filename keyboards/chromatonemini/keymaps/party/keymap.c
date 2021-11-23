@@ -267,41 +267,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN] =  LAYOUT(
-            _______,          XXXXXXX,                             XXXXXXX, XXXXXXX,
+            _______,          XXXXXXX,                             RGB_RMOD, RGB_MOD,
             MI_VELU,
         MI_OCTD, MI_OCTU,     B_BASE,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, B_LEFT, XXXXXXX, XXXXXXX, B_CENTER, XXXXXXX, XXXXXXX, B_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, B_FLIP,
             MI_VELD,               TGLINTR, TGLTRNS, TGLCHGR, XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI, RGB_RMOD, RGB_MOD, EEP_RST, TGLINDI, RGB_TOG
     )
 };
 
-// #ifndef CONSOLE_ENABLE
-void eeconfig_init_user(void) {  // EEPROM is getting reset!
-    rgb_matrix_enable();
-    rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD);
-    rgb_matrix_sethsv(HSV_BLUE);
-
-    //  party mode (for LED soldering test.)
-    rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-}
-// #endif
-
-void keyboard_post_init_user(void) {
+// commom codes called from eeconfig_init_user() and keyboard_post_init_user().
+void my_init(void){
     //  Set octave to MI_OCT_1
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
-
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
-
-    for (uint8_t i = 0; i < MY_TONE_COUNT; i++) {
-        my_tone_status[i] = MIDI_INVALID_NOTE;
-    }
-
     default_layer_set(_LS_BASE);
     layer_state_set(_LS_BASE);
 
+#ifdef RGB_MATRIX_ENABLE
     //  party mode (for LED soldering test. Enable rainbow color effect, and disable led_indicator to check all LEDs)
     rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
     led_indicator_enable = false;
+#endif
+}
+
+void eeconfig_init_user(void) {  // EEPROM is getting reset!
+    midi_init();
+
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_enable();
+    rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD);
+    rgb_matrix_sethsv(HSV_BLUE);
+#endif
+    my_init(); // commom codes called from eeconfig_init_user() and keyboard_post_init_user().
+}
+
+void keyboard_post_init_user(void) {
+    for (uint8_t i = 0; i < MY_TONE_COUNT; i++) {
+        my_tone_status[i] = MIDI_INVALID_NOTE;
+    }
+    my_init(); // commom codes called from eeconfig_init_user() and keyboard_post_init_user().
 }
 
 void reset_scale_indicator(void) {
@@ -556,6 +560,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef RGB_MATRIX_ENABLE
 void set_led_scale_indicator(uint8_t r, uint8_t g, uint8_t b) {
     uint8_t max_scale_indicator_led_loop;
     uint8_t i;
@@ -567,7 +572,6 @@ void set_led_scale_indicator(uint8_t r, uint8_t g, uint8_t b) {
     }
 }
 
-#ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_user(void) {
     // uint32_t mode = rgblight_get_mode();
 
@@ -598,7 +602,7 @@ void rgb_matrix_indicators_user(void) {
                     rgb_matrix_set_color(led_single_col_indicator[_KEY13][i], FLIP_BORDER_COLOR);    //  Left
                 }
                 break;
-#if 1
+
             case _LS_SEPAHALF_T:
                 set_led_scale_indicator(SEPAHALF_T_LAYER_COLOR);
                 for (i = 0; i < 3; i++) {
@@ -641,7 +645,6 @@ void rgb_matrix_indicators_user(void) {
                 }
                 break;
 
-#endif
             case _LS_FN ... _LS_MAX:  //  When Mute Button is long-pressed, the previous layers are still active.
                 for (i = 1; i < 5; i++) {
                     rgb_matrix_set_color(i, RGB_DARKSPRINGGREEN);  //  up(1) down(4) left(3) right(2)  keys

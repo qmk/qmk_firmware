@@ -1,1 +1,1 @@
-# The via keymap for chromatonemini
+# The via keymap for chromatonemini, RGB MATRIX enabled.

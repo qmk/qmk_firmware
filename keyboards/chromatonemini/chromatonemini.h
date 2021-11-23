@@ -44,30 +44,31 @@
 #define MIDI_INITIAL_VELOCITY 117
 
 #ifdef RGB_MATRIX_ENABLE
-extern led_config_t g_led_config;
-extern const uint8_t led_scale_indicator[12][12];
-extern const uint8_t led_single_col_indicator[37][3];
+    extern led_config_t g_led_config;
+    extern const uint8_t led_scale_indicator[12][12];
+    extern const uint8_t led_single_col_indicator[37][3];
 
-//  default base layer color
-#define BASE_LAYER_COLOR  RGB_DARKGOLDENROD
+    //  default base layer color
+#   define BASE_LAYER_COLOR  RGB_DARKGOLDENROD
 
-//  border color
-#define FLIP_BORDER_COLOR RGB_DARKRED
+    //  border color
+#   define FLIP_BORDER_COLOR RGB_DARKRED
 
-// flip entirely
-#define FLIPB_LAYER_COLOR RGB_DARKYELLOW
+    // flip entirely
+#   define FLIPB_LAYER_COLOR RGB_DARKYELLOW
 
-//  channel separation group
-#define SEPALEFT_LAYER_COLOR RGB_DARKGREEN
-#define SEPAHALF_LAYER_COLOR RGB_DARKGREEN
-#define SEPARIGHT_LAYER_COLOR RGB_DARKGREEN
+    //  channel separation group
+#   define SEPALEFT_LAYER_COLOR RGB_DARKGREEN
+#   define SEPAHALF_LAYER_COLOR RGB_DARKGREEN
+#   define SEPARIGHT_LAYER_COLOR RGB_DARKGREEN
 
-//  Trans group
-#define TRANS_LAYER_COLOR RGB_DARKORANGE
-#define SEPALEFT_T_LAYER_COLOR RGB_DARKORANGE
-#define SEPAHALF_T_LAYER_COLOR RGB_DARKORANGE
-#define SEPARIGHT_T_LAYER_COLOR RGB_DARKORANGE
-#define FLIPT_LAYER_COLOR RGB_DARKORANGE
+    //  Trans group
+#   define TRANS_LAYER_COLOR RGB_DARKORANGE
+#   define SEPALEFT_T_LAYER_COLOR RGB_DARKORANGE
+#   define SEPAHALF_T_LAYER_COLOR RGB_DARKORANGE
+#   define SEPARIGHT_T_LAYER_COLOR RGB_DARKORANGE
+#   define FLIPT_LAYER_COLOR RGB_DARKORANGE
+#endif  //  RGB_MATRIX_ENABLE
 
 // Defines names for use in _FN layer to specify which column to be used to turn on the LEDs.
 // use this with led_single_col_indicator[37][3], ex. led_single_col_indicator[_FN_C2][0].
@@ -110,8 +111,14 @@ enum my_key_names {
     _KEY36,
     _KEY37,
 };
-#endif  //  RGB_MATRIX_ENABLE
 
+#ifdef MIDI_ENABLE
 extern MidiDevice midi_device;
+#endif  //  MIDI_ENABLE
+
 uint8_t shift_led_indicator_left(uint8_t scale_indicator_col);
 uint8_t shift_led_indicator_right(uint8_t scale_indicator_col);
+
+void encoder_action_unregister(void);
+
+void encoder_action_register(uint8_t index, bool clockwise);
