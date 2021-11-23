@@ -1,4 +1,4 @@
-/* Copyright 2017 Fred Sundvik
+/* Copyright 2021 Stefan Kerkmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,4 +16,20 @@
 
 #pragma once
 
-#include "test_common.h"
+#include <ostream>
+#include <sstream>
+
+class TestLogger : public std::ostream {
+   public:
+    TestLogger() : std::ostream(&m_log){};
+    TestLogger& info();
+    TestLogger& trace();
+    TestLogger& error();
+    void print_log();
+    void reset();
+
+   private:
+    std::stringbuf m_log;
+};
+
+extern TestLogger test_logger;

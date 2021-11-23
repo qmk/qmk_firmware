@@ -1,4 +1,4 @@
-# Copyright 2017 Fred Sundvik
+# Copyright 2021 Stefan Kerkmann
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,24 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-$(TEST)_INC := \
-	tests\test_common\common_config.h
+# --------------------------------------------------------------------------------
+# Keep this file, even if it is empty, as a marker that this folder contains tests
+# --------------------------------------------------------------------------------
 
-$(TEST)_SRC := \
-	$(TMK_COMMON_SRC) \
-	$(QUANTUM_SRC) \
-	$(SRC) \
-	tests/test_common/keymap.c \
-	tests/test_common/matrix.c \
-	tests/test_common/test_driver.cpp \
-	tests/test_common/keyboard_report_util.cpp \
-	tests/test_common/test_fixture.cpp \
-	tests/test_common/test_keymap_key.cpp \
-	tests/test_common/test_logger.cpp \
-	$(patsubst $(ROOTDIR)/%,%,$(wildcard $(TEST_PATH)/*.cpp))
-
-$(TEST)_DEFS := $(TMK_COMMON_DEFS) $(OPT_DEFS)
-
-$(TEST)_CONFIG := $(TEST_PATH)/config.h
-
-VPATH += $(TOP_DIR)/tests/test_common
+AUTO_SHIFT_ENABLE = yes
