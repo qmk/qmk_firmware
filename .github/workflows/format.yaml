@@ -36,6 +36,7 @@ jobs:
     - name: Run qmk formatters
       shell: 'bash {0}'
       run: |
+        set +e
         cat ~/files_added.txt ~/files_modified.txt > ~/files_changed.txt
         qmk format-c --core-only $(< ~/files_changed.txt)
         qmk format-python $(< ~/files_changed.txt)
