@@ -172,7 +172,12 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color_all = IS31FL3737_set_color_all,
 };
 #    else
-static void flush(void) { IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_2); }
+static void flush(void) {
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2) && (DRIVER_ADDR_2 != DRIVER_ADDR_1)  // provides backward compatibility
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#        endif
+}
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,

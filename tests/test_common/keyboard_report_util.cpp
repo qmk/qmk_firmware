@@ -24,7 +24,7 @@ std::vector<uint8_t> get_keys(const report_keyboard_t& report) {
     std::vector<uint8_t> result;
 #if defined(NKRO_ENABLE)
 #    error NKRO support not implemented yet
-#elif defined(USB_6KRO_ENABLE)
+#elif defined(RING_BUFFERED_6KRO_REPORT_ENABLE)
 #    error 6KRO support not implemented yet
 #else
     for (size_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {

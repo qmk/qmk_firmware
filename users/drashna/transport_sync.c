@@ -23,7 +23,8 @@ extern unicode_config_t unicode_config;
 #endif
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
-extern bool delayed_tasks_run;
+extern audio_config_t audio_config;
+extern bool           delayed_tasks_run;
 #endif
 #if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform)
 extern bool tap_toggling;
@@ -32,23 +33,16 @@ extern bool tap_toggling;
 extern bool swap_hands;
 #endif
 extern userspace_config_t userspace_config;
-
-__attribute__((aligned(8))) typedef struct {
-    bool audio_enable;
-    bool audio_clicky_enable;
-    bool tap_toggling;
-    bool unicode_mode;
-    bool swap_hands;
-} user_runtime_config_t;
+extern bool               host_driver_disabled;
 
 uint16_t transport_keymap_config    = 0;
-uint32_t transport_userspace_config = 0;
+uint32_t transport_userspace_config = 0, transport_user_state = 0;
 
 user_runtime_config_t user_state;
 
 void user_state_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
-    if (initiator2target_buffer_size == sizeof(user_state)) {
-        memcpy(&user_state, initiator2target_buffer, initiator2target_buffer_size);
+    if (initiator2target_buffer_size == sizeof(transport_user_state)) {
+        memcpy(&transport_user_state, initiator2target_buffer, initiator2target_buffer_size);
     }
 }
 void user_keymap_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
@@ -80,33 +74,21 @@ void user_transport_update(void) {
 #if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform)
         user_state.tap_toggling = tap_toggling;
 #endif
+#ifdef UNICODE_ENABLE
+        user_state.unicode_mode = unicode_config.input_mode;
+#endif
 #ifdef SWAP_HANDS_ENABLE
         user_state.swap_hands = swap_hands;
 #endif
+        user_state.host_driver_disabled = host_driver_disabled;
 
+        transport_user_state = user_state.raw;
     } else {
         keymap_config.raw    = transport_keymap_config;
         userspace_config.raw = transport_userspace_config;
+        user_state.raw       = transport_user_state;
 #ifdef UNICODE_ENABLE
         unicode_config.input_mode = user_state.unicode_mode;
-#endif
-#ifdef AUDIO_ENABLE
-        if (delayed_tasks_run) {
-            if (user_state.audio_enable != is_audio_on()) {
-                if (user_state.audio_enable) {
-                    audio_on();
-                } else {
-                    audio_off();
-                }
-            }
-            if (user_state.audio_clicky_enable != is_clicky_on()) {
-                if (user_state.audio_clicky_enable) {
-                    clicky_on();
-                } else {
-                    clicky_off();
-                }
-            }
-        }
 #endif
 #if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform)
         tap_toggling = user_state.tap_toggling;
@@ -114,22 +96,21 @@ void user_transport_update(void) {
 #ifdef SWAP_HANDS_ENABLE
         swap_hands = user_state.swap_hands;
 #endif
+        host_driver_disabled = user_state.host_driver_disabled;
     }
 }
 
 void user_transport_sync(void) {
     if (is_keyboard_master()) {
         // Keep track of the last state, so that we can tell if we need to propagate to slave
-        static user_runtime_config_t last_user_state;
         static uint16_t              last_keymap = 0;
-        static uint32_t              last_config = 0;
-        static uint32_t              last_sync[3];
+        static uint32_t              last_config = 0, last_sync[3], last_user_state = 0;
         bool                         needs_sync = false;
 
         // Check if the state values are different
-        if (memcmp(&user_state, &last_user_state, sizeof(user_state))) {
+        if (memcmp(&transport_user_state, &last_user_state, sizeof(transport_user_state))) {
             needs_sync = true;
-            memcpy(&last_user_state, &user_state, sizeof(user_state));
+            memcpy(&last_user_state, &transport_user_state, sizeof(transport_user_state));
         }
         // Send to slave every 500ms regardless of state change
         if (timer_elapsed32(last_sync[0]) > 250) {

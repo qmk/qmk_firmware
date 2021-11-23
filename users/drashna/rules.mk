@@ -1,5 +1,5 @@
-SRC += drashna.c \
-       process_records.c
+SRC += $(USER_PATH)/drashna.c \
+       $(USER_PATH)/process_records.c
 
 ifneq ($(PLATFORM),CHIBIOS)
     ifneq ($(strip $(LTO_SUPPORTED)), no)
@@ -11,7 +11,7 @@ GRAVE_ESC_ENABLE      = no
 
 ifneq ($(strip $(NO_SECRETS)), yes)
     ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
-        SRC += secrets.c
+        SRC += $(USER_PATH)/secrets.c
     endif
     ifeq ($(strip $(NO_SECRETS)), lite)
         OPT_DEFS += -DNO_SECRETS
@@ -21,14 +21,14 @@ endif
 CUSTOM_TAP_DANCE ?= yes
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-        SRC += tap_dances.c
+        SRC += $(USER_PATH)/tap_dances.c
     endif
 endif
 
 CUSTOM_RGBLIGHT ?= yes
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_RGBLIGHT)), yes)
-        SRC += rgb_stuff.c
+        SRC += $(USER_PATH)/rgb_stuff.c
         ifeq ($(strip $(RGBLIGHT_NOEEPROM)), yes)
             OPT_DEFS += -DRGBLIGHT_NOEEPROM
         endif
@@ -41,7 +41,7 @@ endif
 CUSTOM_RGB_MATRIX ?= yes
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_RGB_MATRIX)), yes)
-        SRC += rgb_matrix_stuff.c
+        SRC += $(USER_PATH)/rgb_matrix_stuff.c
     endif
 endif
 
@@ -66,7 +66,7 @@ endif
 CUSTOM_OLED_DRIVER ?= yes
 ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_OLED_DRIVER)), yes)
-        SRC += oled_stuff.c
+        SRC += $(USER_PATH)/oled_stuff.c
         OPT_DEFS += -DCUSTOM_OLED_DRIVER_CODE
     endif
 endif
@@ -81,7 +81,7 @@ endif
 CUSTOM_SPLIT_TRANSPORT_SYNC ?= yes
 ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT_SYNC)), yes)
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-        QUANTUM_LIB_SRC += transport_sync.c
+        QUANTUM_LIB_SRC += $(USER_PATH)/transport_sync.c
         OPT_DEFS += -DCUSTOM_SPLIT_TRANSPORT_SYNC
     endif
 endif
