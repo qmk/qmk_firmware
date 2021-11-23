@@ -9,9 +9,9 @@ BOOTLOADER = halfkay
 #
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 POINTING_DEVICE_ENABLE  = no
-MOUSEKEY_ENABLE         = no  # Mouse keys(+4700)
-EXTRAKEY_ENABLE         = yes # Audio control and System control(+450)
-CONSOLE_ENABLE          = no  # Console for debug(+8000)
+MOUSEKEY_ENABLE         = no  # Mouse keys
+EXTRAKEY_ENABLE         = yes # Audio control and System control
+CONSOLE_ENABLE          = no  # Console for debug
 COMMAND_ENABLE          = no  # Commands for debug and configuration
 CUSTOM_MATRIX           = yes # Custom matrix file for the Dactyl
 NKRO_ENABLE             = yes # USB Nkey Rollover

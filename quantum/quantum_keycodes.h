@@ -775,12 +775,12 @@ enum quantum_keycodes {
 #define CMD_T(kc) LCMD_T(kc)
 #define WIN_T(kc) LWIN_T(kc)
 
-#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)  // Left Control + Shift e.g. for gnome-terminal
-#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)  // Meh is a less hyper version of the Hyper key -- doesn't include GUI, so just Left Control + Shift + Alt
-#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)  // Left Control + Alt + GUI
-#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)  // Right Control + Alt + GUI
+#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)                         // Left Control + Shift e.g. for gnome-terminal
+#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)              // Meh is a less hyper version of the Hyper key -- doesn't include GUI, so just Left Control + Shift + Alt
+#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)             // Left Control + Alt + GUI
+#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)             // Right Control + Alt + GUI
 #define HYPR_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc)  // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
-#define LSG_T(kc) MT(MOD_LSFT | MOD_LGUI, kc)  // Left Shift + GUI
+#define LSG_T(kc) MT(MOD_LSFT | MOD_LGUI, kc)                         // Left Shift + GUI
 #define SGUI_T(kc) LSG_T(kc)
 #define SCMD_T(kc) LSG_T(kc)
 #define SWIN_T(kc) LSG_T(kc)
@@ -811,7 +811,7 @@ enum quantum_keycodes {
 
 #define UC_M_MA UNICODE_MODE_MAC
 #define UNICODE_MODE_OSX UNICODE_MODE_MAC  // Deprecated alias
-#define UC_M_OS UNICODE_MODE_MAC  // Deprecated alias
+#define UC_M_OS UNICODE_MODE_MAC           // Deprecated alias
 #define UC_M_LN UNICODE_MODE_LNX
 #define UC_M_WI UNICODE_MODE_WIN
 #define UC_M_BS UNICODE_MODE_BSD

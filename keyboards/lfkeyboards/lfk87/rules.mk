@@ -33,7 +33,6 @@ NKRO_ENABLE = yes               # Nkey Rollover - if this doesn't work, see here
 BACKLIGHT_ENABLE = yes          # Enable keyboard backlight functionality
 BACKLIGHT_DRIVER = custom
 AUDIO_ENABLE = yes              # Audio output
-UNICODE_ENABLE = no             # Unicode
 RGBLIGHT_ENABLE = yes           # Enable RGB underlight
 RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not WS2812
 SLEEP_LED_ENABLE = yes          # Breathing sleep LED during USB suspend
