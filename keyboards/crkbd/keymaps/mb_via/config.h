@@ -1,6 +1,7 @@
 /*
 Copyright 2019 @foostan
 Copyright 2020 Drashna Jaelre <@drashna>
+Copyright 2021 Elliot Powell  <@e11i0t23>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
