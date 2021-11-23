@@ -133,12 +133,6 @@
 //  Enable suspend mode.
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
-// //  enable below to shrink the firmware size ( -1974 bytes )
-// #    define REDUCE_RGB_MATRIX_EFFECTS
-
-//  enable below to shrink the firmware size ( -1574 bytes )
-// #    define REDUCE_RGB_MATRIX_EFFECTS_2
-
 // #    ifdef AUDIO_ENABLE
 #   ifdef CONSOLE_ENABLE
 // #        define DISABLE_RGB_MATRIX_SOLID_COLOR
@@ -185,22 +179,21 @@
 #   else
 #       define DISABLE_RGB_MATRIX_SOLID_COLOR
 #       define DISABLE_RGB_MATRIX_ALPHAS_MODS
-#       define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-#       define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-#       define DISABLE_RGB_MATRIX_BREATHING
-#       define DISABLE_RGB_MATRIX_BAND_SAT
-#       define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#       define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#       define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#       define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+// #       define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+// #       define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+// #       define DISABLE_RGB_MATRIX_BREATHING
+// #       define DISABLE_RGB_MATRIX_BAND_SAT
+// #       define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+// #       define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+// #       define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+// #       define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
 
 //  RAINDROPS don't match well with layer LED indicator (oc) using rgb_matrix_set_color().
 #       define DISABLE_RGB_MATRIX_RAINDROPS
 #       define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 //  Recommendend not to use then.
 
-#       if defined(REDUCE_RGB_MATRIX_EFFECTS) || defined(VIA_ENABLE)
-// #       ifdef REDUCE_RGB_MATRIX_EFFECTS
+#       ifdef VIA_ENABLE
 #           define DISABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
 #           define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL
 #           define DISABLE_RGB_MATRIX_CYCLE_OUT_IN
@@ -208,21 +201,21 @@
 #           define DISABLE_RGB_MATRIX_DUAL_BEACON
 #           define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL
 #           define DISABLE_RGB_MATRIX_CYCLE_SPIRAL
+#           define DISABLE_RGB_MATRIX_HUE_BREATHING
+#           define DISABLE_RGB_MATRIX_HUE_PENDULUM
+#           define DISABLE_RGB_MATRIX_HUE_WAVE
 #       endif
+//
 
-#       define DISABLE_RGB_MATRIX_HUE_BREATHING
-#       define DISABLE_RGB_MATRIX_HUE_PENDULUM
-#       define DISABLE_RGB_MATRIX_HUE_WAVE
-#       define DISABLE_RGB_MATRIX_TYPING_HEATMAP
-#       define DISABLE_RGB_MATRIX_DIGITAL_RAIN
-#       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-
-#       if defined(REDUCE_RGB_MATRIX_EFFECTS_2) || defined(VIA_ENABLE)
-// #       ifdef REDUCE_RGB_MATRIX_EFFECTS_2
+// #       define DISABLE_RGB_MATRIX_TYPING_HEATMAP
+// #       define DISABLE_RGB_MATRIX_DIGITAL_RAIN
+// #       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+// #       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+// #       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+// #       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+// #       define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+//
+#       ifdef VIA_ENABLE
 #           define DISABLE_RGB_MATRIX_BAND_VAL
 #           define DISABLE_RGB_MATRIX_CYCLE_ALL
 #           define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
@@ -233,9 +226,9 @@
 #           define DISABLE_RGB_MATRIX_MULTISPLASH
 #           define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #       endif
-// #           define DISABLE_RGB_MATRIX_SOLID_REACTIVE
-#       define DISABLE_RGB_MATRIX_SPLASH
-#       define DISABLE_RGB_MATRIX_SOLID_SPLASH
+// // #           define DISABLE_RGB_MATRIX_SOLID_REACTIVE
+// #       define DISABLE_RGB_MATRIX_SPLASH
+// #       define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #   endif  // AUDIO_ENABLE
 
 // #define DISABLE_RGB_MATRIX_SOLID_COLOR
@@ -362,4 +355,7 @@
 #   define ENCODERS_PAD_B_RIGHT { F4 }
 #   define ENCODER_RESOLUTION 4
 #   define TAP_CODE_DELAY 10
+#   define ENCODERS 2
+#   define ENCODERS_CW_KEY  { {4, 5}, {6, 5} }
+#   define ENCODERS_CCW_KEY { {3, 5}, {5, 5} }
 #endif  // ENCODER_ENABLE
