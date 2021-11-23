@@ -7,11 +7,11 @@ There is an open source PCB available via https://github.com/Malevolti/SuperLyra
 
 Make example for this keyboard (after setting up your build environment):
 
-    make superlyra:default
+    make malevolti/superlyra:default
 
 Flashing example for this keyboard:
 
-    make superlyra:default:flash
+    make malevolti/superlyra:default:flash
 
 Press reset button on the keyboard when asked.
 
