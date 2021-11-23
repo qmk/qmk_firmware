@@ -13,7 +13,7 @@ The following functions provide basic control of GPIOs and are found in `platfor
 | `setPinInputLow(pin)`        | Set pin as input with builtin pull-down resistor    | N/A (Not supported on AVR)                      | `palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)`   |
 | `setPinOutput(pin)`          | Set pin as output (alias of `setPinOutputPushPull`) | `DDRB \|= (1<<2)`                               | `palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)`  |
 | `setPinOutputPushPull(pin)`  | Set pin as output, push/pull mode                   | `DDRB \|= (1<<2)`                               | `palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)`  |
-| `setPinOutputOpenDrain(pin)` | Set pin as output, open-drain mode                  | N/A (Not supported on AVR)                      | `palSetLineMode(pin, PAL_MODE_OUTPUT_OPENDRAIN)` |
+| `setPinOutputOpenDrain(pin)` | Set pin as output, open-drain mode                  | N/A (Not implemented on AVR)                    | `palSetLineMode(pin, PAL_MODE_OUTPUT_OPENDRAIN)` |
 | `writePinHigh(pin)`          | Set pin level as high, assuming it is an output     | `PORTB \|= (1<<2)`                              | `palSetLine(pin)`                                |
 | `writePinLow(pin)`           | Set pin level as low, assuming it is an output      | `PORTB &= ~(1<<2)`                              | `palClearLine(pin)`                              |
 | `writePin(pin, level)`       | Set pin level, assuming it is an output             | `(level) ? PORTB \|= (1<<2) : PORTB &= ~(1<<2)` | `(level) ? palSetLine(pin) : palClearLine(pin)`  |

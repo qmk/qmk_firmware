@@ -26,7 +26,7 @@ typedef uint8_t pin_t;
 #define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
 #define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
 #define setPinOutputPushPull(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
-#define setPinOutputOpenDrain(pin) _Static_assert(0, "AVR processors cannot implement an open-drain output")
+#define setPinOutputOpenDrain(pin) _Static_assert(0, "AVR platform does not implement an open-drain output")
 #define setPinOutput(pin) setPinOutputPushPull(pin)
 
 #define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
@@ -46,7 +46,7 @@ typedef uint8_t port_data_t;
 #define setPortBitInput(port, bit) (DDRx_ADDRESS(port) &= ~_BV((bit)&0xF), PORTx_ADDRESS(port) &= ~_BV((bit)&0xF))
 #define setPortBitInputHigh(port, bit) (DDRx_ADDRESS(port) &= ~_BV((bit)&0xF), PORTx_ADDRESS(port) |= _BV((bit)&0xF))
 #define setPortBitOutputPushPull(port, bit) (DDRx_ADDRESS(port) |= _BV((bit)&0xF))
-#define setPortBitOutputOpenDrain(port, bit) _Static_assert(0, "AVR processors cannot implement an open-drain output")
+#define setPortBitOutputOpenDrain(port, bit) _Static_assert(0, "AVR platform does not implement an open-drain output")
 #define setPortBitOutput(port, bit) setPortBitOutputPushPull((port), (bit))
 
 #define writePortBitLow(port, bit) (PORTx_ADDRESS(port) &= ~_BV((bit)&0xF))

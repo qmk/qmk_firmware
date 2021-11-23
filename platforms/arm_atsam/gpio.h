@@ -54,7 +54,7 @@ typedef uint8_t pin_t;
         PORT->Group[SAMD_PORT(pin)].OUTCLR.reg = SAMD_PIN_MASK(pin); \
     } while (0)
 
-#define setPinOutputOpenDrain(pin) _Static_assert(0, "arm_atsam HAL does not yet implement an open-drain output")
+#define setPinOutputOpenDrain(pin) _Static_assert(0, "arm_atsam platform does not implement an open-drain output")
 
 #define setPinOutput(pin) setPinOutputPushPull(pin)
 
