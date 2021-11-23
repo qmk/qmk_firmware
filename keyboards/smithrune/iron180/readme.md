@@ -12,7 +12,7 @@ As of November 2020, the only way to obtain an Iron180 was through the [Group Bu
 
 After setting up your build environment, you can compile the Iron180 default keymap by using:
 
-    make iron180:default
+    make smithrune/iron180:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
