@@ -59,7 +59,7 @@ def format_python(cli):
     else:
         git_diff_cmd = ['git', 'diff', '--name-only', cli.args.base_branch, *py_dirs]
         git_diff = cli.run(git_diff_cmd, stdin=DEVNULL)
-        files = list(filter(None, git_diff.stdout.split('\n')))
+        files = list(filter_files(git_diff.stdout.split('\n')))
 
     # Sanity check
     if not files:
