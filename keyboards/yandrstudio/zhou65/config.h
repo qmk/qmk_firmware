@@ -21,7 +21,7 @@
 #define VENDOR_ID       0xAA96
 #define PRODUCT_ID      0xAAAD
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    lkaill-Y&R
+#define MANUFACTURER    ZHOU_Y&R
 #define PRODUCT         zhou65
 
 /* enable the nkro when using the VIA. */
