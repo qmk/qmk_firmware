@@ -1,50 +1,40 @@
 #include QMK_KEYBOARD_H
 #include "keymap_german_osx.h"
 
-enum layers { _LETTERS = 0, _SYMBOLS, _NUMBERS, _CODE, _NAV, _FN, _MEDIA, _KBD_CTRL };
+enum layers { _LETTERS = 0, _SYMBOLS, _NUMBERS, _NAV, _MEDIA_CODE, _KBD_CTRL };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LETTERS] = LAYOUT(
-        C(KC_LEFT),   KC_X,        DE_DOT,      KC_O,          DE_COMM,     DE_Y,                                                                            KC_V,          KC_G,        KC_C,        KC_L,        KC_J,        C(KC_RGHT),
-        LT(6,KC_ESC), CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E),   SFT_T(KC_I), KC_U,                                                                            KC_D,          SFT_T(KC_T), GUI_T(KC_R), ALT_T(KC_N), CTL_T(KC_S), KC_F,
-        C(KC_UP),     KC_K,        KC_Q,        DE_ADIA,       DE_UDIA,     DE_ODIA,      KC_NO,        KC_NO,                  KC_NO,         KC_NO,        KC_B,          KC_P,        KC_W,        KC_M,        DE_Z,        DE_SS,
-                                                LT(7,KC_WAKE), G(DE_Z),     LT(3,KC_TAB), LT(2,KC_SPC), LT(4,KC_ENT),           LT(6,KC_BSPC), LT(1,KC_DEL), LT(5,KC_HOME), KC_END,      KC_NO),
+        TO(_NAV), KC_X,        DE_DOT,      KC_O,        DE_COMM,      KC_Y,                                                               KC_V,   KC_G,         KC_C,            KC_L,        KC_J,        TO(_MEDIA_CODE),
+        KC_ESC,   CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E), SFT_T(KC_I),  KC_U,                                                               KC_D,   SFT_T(KC_T),  GUI_T(KC_R),     ALT_T(KC_N), CTL_T(KC_S), KC_F,
+        G(KC_Z),  KC_K,        KC_Q,        DE_ADIA,     DE_UDIA,      DE_ODIA, KC_NO,                 KC_NO,            KC_NO,   KC_NO,   KC_B,   KC_P,         KC_W,            KC_M,        KC_Z,        DE_SS,
+                                            TO(_NAV),    TO(_SYMBOLS), KC_TAB,  MT(MOD_MEH, KC_SPACE), KC_ENT,           KC_BSPC, KC_LSFT, KC_DEL, TO(_NUMBERS), TO(_MEDIA_CODE)),
     [_SYMBOLS] = LAYOUT(
-        KC_NO, DE_AT,   DE_PERC, DE_LCBR, DE_RCBR, DE_PIPE,                                                  DE_EXLM, KC_GRV,  S(KC_GRV), DE_EQL,  DE_AMPR, KC_NO,
-        KC_NO, KC_NUBS, DE_TILD, DE_LPRN, DE_RPRN, DE_ASTR,                                                  DE_QUES, DE_SLSH, DE_COLN,   DE_MINS, DE_UNDS, KC_NO,
-        KC_NO, DE_EURO, DE_DLR,  DE_LBRC, DE_RBRC, DE_HASH, KC_NO,   KC_NO,                KC_NO,   KC_NO,   DE_GRV,  DE_BSLS, DE_SCLN,   DE_PLUS, DE_DQUO, DE_QUOT,
-                                 KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS,              KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO),
+        KC_NO,        KC_NO,   DE_AT,   KC_LT,   KC_GT,    KC_CIRC,                                                   KC_PERC, KC_LCBR, KC_RCBR, KC_PLUS, KC_DQT,  KC_NO,
+        TO(_LETTERS), KC_DLR,  KC_EQL,  KC_EXLM, KC_QUES,  KC_HASH,                                                   KC_ASTR, KC_LPRN, KC_RPRN, KC_MINS, KC_QUOT, KC_NO,
+        KC_TRNS,      DE_EURO, KC_AMPR, KC_TILD, KC_SLASH, KC_PIPE, KC_NO, KC_NO,                   KC_NO,   KC_NO,   KC_NO,   KC_LBRC, KC_RBRC, KC_UNDS, KC_GRV,  KC_NO,
+                                        KC_NO,   TO(_NAV), KC_TRNS, KC_TRNS, KC_TRNS,               KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO),
     [_NUMBERS] = LAYOUT(
-        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                    KC_NO,   DE_7,  DE_8, DE_9, KC_NO, KC_NO,
-        KC_NO, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_NO,                                                    DE_0,    DE_4,  DE_5, DE_6, KC_NO, KC_NO,
-        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                KC_NO,   KC_NO,   KC_NO,   DE_1,  DE_2, DE_3, KC_NO, KC_NO,
-                                 KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS,              KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO),
-    [_CODE] = LAYOUT(
-        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                    KC_NO,      G(KC_X),  KC_NO,      KC_NO,      KC_NO,   KC_NO,
-        KC_NO, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_NO,                                                    G(DE_Z),    G(KC_C),  G(S(DE_D)), G(KC_UP),   G(KC_F), KC_NO,
-        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                KC_NO,   KC_NO,   G(S(DE_Z)), G(KC_V),  G(DE_Y),    G(KC_DOWN), G(KC_R), KC_NO,
-                                 KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS,              KC_TRNS, KC_TRNS, KC_TRNS,    KC_NO,    KC_NO),
+        KC_NO,        KC_NO, KC_F7, KC_F8, KC_F9, KC_F12,                                                             KC_NO,   DE_7,  DE_8, DE_9, KC_NO, KC_NO,
+        TO(_LETTERS), KC_NO, KC_F4, KC_F5,  KC_F6,  KC_F11,                                                           KC_NO,    DE_4,  DE_5, DE_6, KC_NO, KC_NO,
+        KC_TRNS,      KC_NO, KC_F1, KC_F2,  KC_F3,  KC_F10,   KC_NO,   KC_NO,                       KC_NO,   KC_NO,   DE_0,   DE_1,  DE_2, DE_3, KC_NO, KC_NO,
+                                    KC_NO,  KC_NO,  KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS, KC_TRNS, KC_TRNS, TO(_MEDIA_CODE), KC_NO),
     [_NAV] = LAYOUT(
-        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                    G(A(KC_RGHT)), KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO,
-        KC_NO, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, KC_NO,                                                    G(A(KC_UP)),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_PGUP,
-        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                KC_NO,   KC_NO,   G(A(KC_LEFT)), KC_BTN1, KC_WH_U, KC_WH_D, KC_BTN2, KC_PGDN,
-                                 KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS,              KC_TRNS, KC_TRNS, KC_TRNS,       KC_NO,   KC_NO),
-    [_FN] = LAYOUT(
-        KC_NO, KC_F9, KC_F10, KC_F11, KC_F12, KC_NO,                                                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_NO, KC_F5, KC_F6,  KC_F7,  KC_F8,  KC_NO,                                                         KC_NO,   KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, KC_NO,
-        KC_NO, KC_F1, KC_F2,  KC_F3,  KC_F4,  KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                              KC_NO,  KC_NO,  KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO),
-    [_MEDIA] = LAYOUT(
-        KC_NO, KC_NO, KC_BRIU, KC_VOLU, KC_MNXT, KC_NO,                                                      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_NO, KC_NO, KC_NO,   KC_MUTE, KC_MPLY, G(C(KC_SPACE)),                                             KC_NO,   KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, KC_NO,
-        KC_NO, KC_NO, KC_BRID, KC_VOLD, KC_MPRV, KC_NO,          KC_NO,   KC_NO,           KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                               KC_NO,   KC_NO,   KC_TRNS,        KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO),
+        KC_NO,        KC_ACL2, KC_WH_L, KC_NO,      KC_WH_R, G(KC_PLUS),                                              C(KC_LEFT), G(A(KC_LEFT)),  C(KC_UP), G(A(KC_RIGHT)), C(KC_RIGHT), KC_NO,
+        TO(_LETTERS), KC_ACL1, KC_MS_L, KC_MS_UP,   KC_MS_R, G(DE_0),                                                 KC_HOME,    KC_LEFT,        KC_UP,    KC_RIGHT,       KC_END,      KC_PGUP,
+        KC_TRNS,      KC_ACL0, KC_WH_D, KC_MS_DOWN, KC_WH_U, G(KC_MINS), KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO,      C(S(KC_TAB)),   KC_DOWN,  C(KC_TAB),      KC_NO,       KC_NO,
+                                        KC_NO,      KC_NO,   KC_TRNS,    KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS,    KC_NO,          KC_NO),
+    [_MEDIA_CODE] = LAYOUT(
+        KC_NO,        KC_NO, KC_BRIU, KC_VOLU, KC_MNXT, KC_NO,                                                        KC_NO,   G(KC_X),    G(KC_C),    G(KC_V), KC_NO, KC_NO,
+        TO(_LETTERS), KC_NO, KC_NO,   KC_MUTE, KC_MPLY, G(C(KC_SPACE)),                                               KC_NO,   G(S(KC_D)), G(KC_UP),   G(KC_Y), KC_NO, KC_NO,
+        KC_TRNS,      KC_NO, KC_BRID, KC_VOLD, KC_MPRV, KC_NO,          KC_NO,   KC_NO,             KC_NO,   KC_NO,   KC_NO,   G(KC_F),    G(KC_DOWN), G(KC_H), KC_NO, KC_NO,
+                                        KC_NO, KC_NO,   KC_TRNS,        KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,      KC_NO),
     [_KBD_CTRL] = LAYOUT(
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                            KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,                                                          KC_NO,   RGB_VAI, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   RGB_VAD, KC_NO, KC_NO, KC_NO, KC_NO,
-                             KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   RGB_TOG)
+        KC_NO,        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                    KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO,
+        TO(_LETTERS), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                    KC_NO, RGB_VAI, RGB_TOG, KC_NO, KC_NO, KC_NO,
+        KC_TRNS,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                        KC_NO, KC_NO, KC_NO, RGB_VAD, KC_NO,   KC_NO, KC_NO, KC_NO,
+                                    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                        KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO)
     // [_TEMPLATE] = LAYOUT(
     //     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     //     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -66,19 +56,13 @@ static void render_status(void) {
             oled_write_P(PSTR("\n\nSymbols"), false);
             break;
         case _NUMBERS:
-            oled_write_P(PSTR("-->\n\nNumbers"), false);
-            break;
-        case _CODE:
-            oled_write_P(PSTR("-->\n\nCode"), false);
+            oled_write_P(PSTR("\n\nNumbers"), false);
             break;
         case _NAV:
-            oled_write_P(PSTR("-->\n\nNav"), false);
+            oled_write_P(PSTR("\n\nNav"), false);
             break;
-        case _FN:
-            oled_write_P(PSTR("<--\n\nFn"), false);
-            break;
-        case _MEDIA:
-            oled_write_P(PSTR("<--\n\nMedia"), false);
+        case _MEDIA_CODE:
+            oled_write_P(PSTR("<-- Media \n\n Code -->"), false);
             break;
         case _KBD_CTRL:
             oled_write_P(PSTR("\n\nKeeb Ctrl"), false);
@@ -126,22 +110,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
         case _NUMBERS:
             rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
-            sethsv_master(HSV_OFF);
-            break;
-        case _CODE:
-            rgblight_sethsv_noeeprom(HSV_CHARTREUSE);
-            sethsv_master(HSV_OFF);
             break;
         case _NAV:
-            rgblight_sethsv_noeeprom(HSV_CYAN);
-            sethsv_master(HSV_OFF);
+            rgblight_sethsv_noeeprom(HSV_CHARTREUSE);
             break;
-        case _FN:
-            rgblight_sethsv_noeeprom(HSV_OFF);
-            sethsv_master(HSV_MAGENTA);
-            break;
-        case _MEDIA:
-            rgblight_sethsv_noeeprom(HSV_OFF);
+        case _MEDIA_CODE:
+            rgblight_sethsv_noeeprom(235, 249, 186);
             sethsv_master(HSV_WHITE);
             break;
         case _KBD_CTRL:
