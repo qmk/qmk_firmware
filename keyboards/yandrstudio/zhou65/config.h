@@ -32,7 +32,7 @@
 
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 1
+#define DEBOUNCE 5
 
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 4
