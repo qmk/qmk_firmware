@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLED_SPLIT \
         { 6, 6 }
 #    define RGBLIGHT_SPLIT
+#    define RGBLIGHT_LIMIT_VAL 100
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
