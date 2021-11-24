@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
 #include "quantum.h"
 #include "process_dynamic_tapping_term.h"
 
@@ -23,11 +22,12 @@
 #endif
 
 static void tapping_term_report(void) {
-    char display[8];
-
-    snprintf(display, sizeof(display), "%d", g_tapping_term);
-
-    send_string((const char *)display);
+    const char *tapping_term_str = get_u16_str(g_tapping_term, ' ');
+    // Skip padding spaces
+    while (*tapping_term_str == ' ') {
+        tapping_term_str++;
+    }
+    send_string(tapping_term_str);
 }
 
 bool process_dynamic_tapping_term(uint16_t keycode, keyrecord_t *record) {
