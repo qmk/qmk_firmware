@@ -71,9 +71,10 @@ combo_t key_combos[COMBO_COUNT] = {
 /* 
 Notes on keys
 or, why on earth do I have keymap 
-lower-z is CTRL-F12 - Darkroom mode in emacs
+lower-shift-z is CTRL-F12 - Darkroom mode in emacs
 lower-x is ALT-X - emacs
-lower-a is F24 - i3 controls popup reminder
+layer3-a is toggle autoshift
+layer3-s is F24 - i3 controls popup reminder
 lower-s is ALT-F3 - multi-select in Sublime text
 */
 
@@ -231,4 +232,3 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [QUOTS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, quots_finished, quots_reset),
     [TACHE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tache_finished, tache_reset)
 };
-
