@@ -60,13 +60,15 @@ However, there are certain "WS2812"-like LEDs, like the SK6812s, which work in a
 #    define WS2812_T0H 350  // Width of a 0 bit in ns
 #endif
 
-#ifndef T0L
+#ifndef WS2812_T0L
 #    define WS2812_T0L (WS2812_TIMING - T0H)  // Width of a 0 bit in ns
 #endif
 
 // The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
 // to values like 600000 ns. If it is too small, the pixels will show nothing most of the time.
-#define WS2812_RES (1000 * WS2812_TRST_US)  // Width of the low gap between bits to cause a frame to latch
+#ifndef WS2812_RES
+#	define WS2812_RES (1000 * WS2812_TRST_US)  // Width of the low gap between bits to cause a frame to latch
+#endif
 
 void sendByte(uint8_t byte) {
     // WS2812 protocol wants most significant bits first
