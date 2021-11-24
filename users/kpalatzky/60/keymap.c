@@ -36,7 +36,20 @@ enum layers {
 
 
 // Shortcut to make keymap more readable
+// #define SYM_L   MO(_SYMB)
 
+// #define KC_ALAS LALT_T(KC_PAST)
+// #define KC_CTPL LCTL_T(KC_BSLS)
+
+// #define KC_NAGR LT(_NAV, KC_GRV)
+// #define KC_NAMI LT(_NAV, KC_MINS)
+
+// #define KC_ADEN LT(_ADJUST, KC_END)
+// #define KC_ADPU LT(_ADJUST, KC_PGUP)
+#define L_NAV    MO(_NAV)
+#define L_SYMB   MO(_SYMB)
+#define L_NUM    MO(_NUM)
+#define L_ADJUST MO(_ADJUST)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
