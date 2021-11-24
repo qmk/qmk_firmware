@@ -237,8 +237,7 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
                 register_unicode(0x203D);
             }
             break;
-
-        case KC_WIDE ... KC_ZALGO:
+        case KC_NOMODE ... KC_ZALGO:
             if (record->event.pressed) {
                 if (typing_mode != keycode) {
                     typing_mode = keycode;
