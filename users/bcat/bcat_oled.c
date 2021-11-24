@@ -44,9 +44,8 @@ bool oled_task_user(void) {
          */
         static const uint16_t TIMEOUT_MILLIS = 60000 /* 1 min */;
 
-        bool on = is_oled_on();
         if (last_input_activity_elapsed() < TIMEOUT_MILLIS) {
-            if (!on) {
+            if (!is_oled_on()) {
                 oled_on();
             }
             oled_keyboard_state_t keyboard_state = {
@@ -55,7 +54,7 @@ bool oled_task_user(void) {
                 .wpm  = get_current_wpm(),
             };
             oled_task_keymap(&keyboard_state);
-        } else if (on) {
+        } else if (is_oled_on()) {
             oled_off();
         }
 #if defined(SPLIT_KEYBOARD)
