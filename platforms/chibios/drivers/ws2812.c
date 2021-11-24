@@ -41,7 +41,7 @@
     } while (0)
 
 /* The WS2812 datasheets define T1H 900ns, T0H 350ns, T1L 350ns, T0L 900ns. Hence, by default, these are chosen to be conservative and avoid problems rather than for maximum throughput; in the code, this is done by default using a WS2812_TIMING parameter that accounts for the whole window (1250ns) and defining T1H and T0H; T1L and T0L are obtained by subtracting their low counterparts from the window.
-However, there are certain "WS2812"-like LEDs, like the SK6812s, which work in a similar communication topology but use different timings for the window and the T1L, T1H, T0L and T0H. This means that, albeit the same driver being applicable, the timings must be adapted. The following defines are dons such that the adjustment of these timings can be done in the keyboard's config.h; if nothing is said, the defines default to the WS2812 ones.
+However, there are certain "WS2812"-like LEDs, like the SK6812s, which work in a similar communication topology but use different timings for the window and the T1L, T1H, T0L and T0H. This means that, albeit the same driver being applicable, the timings must be adapted. The following defines are done such that the adjustment of these timings can be done in the keyboard's config.h; if nothing is said, the defines default to the WS2812 ones.
 */
 
 #ifndef WS2812_TIMING
