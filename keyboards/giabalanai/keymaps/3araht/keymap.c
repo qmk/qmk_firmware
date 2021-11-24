@@ -409,12 +409,35 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #endif  //  RGBLIGHT_ENABLE
 
-void keyboard_post_init_user(void) {
+void my_init(void){
     //  Set octave to MI_OCT_0
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
-
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
+}
+
+void eeconfig_init_user(void) {
+    midi_init();
+    my_init();
+
+    // Used to set octave to MI_OCT_0
+    midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
+
+    // UNISON flags
+    melody_dyad_high = false;  //  true when +1 octave unison dyad is enabled.
+    melody_dyad_low  = false;  //  true when -1 octave unison dyad is enabled.
+    melody_unison_suppress  = true;  //  true: velocity of octave unison note is suppressd to UNISON_VELOCITY_RATIO
+
+    //  Reset Bass setting
+    user_config.raw = 0;  // default: dyad
+    eeconfig_update_user(user_config.raw);
+
+    //  Reset the midi keyboard layout
+    set_single_persistent_default_layer(_C_SYSTEM_BASS2ROW);
+}
+
+void keyboard_post_init_user(void) {
+    my_init();
 
     for (uint8_t i = 0; i < MY_CHORD_COUNT; i++) {
         chord_status[i] = MIDI_INVALID_NOTE;
@@ -463,30 +486,6 @@ void toggle_MIDI_channel_separation(void) {
         midi_chord_ch = 1;
         midi_base_ch  = 2;
     }
-}
-
-void eeconfig_init_user(void) {
-    midi_init();
-    //  Set octave to MI_OCT_0
-    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
-
-    // avoid using 127 since it is used as a special number in some sound sources.
-    midi_config.velocity = MIDI_INITIAL_VELOCITY;
-
-    // Used to set octave to MI_OCT_0
-    midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
-
-    // UNISON flags
-    melody_dyad_high = false;  //  true when +1 octave unison dyad is enabled.
-    melody_dyad_low  = false;  //  true when -1 octave unison dyad is enabled.
-    melody_unison_suppress  = true;  //  true: velocity of octave unison note is suppressd to UNISON_VELOCITY_RATIO
-
-    //  Reset Bass setting
-    user_config.raw = 0;  // default: dyad
-    eeconfig_update_user(user_config.raw);
-
-    //  Reset the midi keyboard layout
-    set_single_persistent_default_layer(_C_SYSTEM_BASS2ROW);
 }
 
 #ifdef RGBLIGHT_ENABLE

@@ -130,3 +130,7 @@ void my_process_midi(uint8_t channel, uint16_t keycode, keyrecord_t *record, uin
 #ifdef RGBLIGHT_ENABLE
 void keylight_manager(keyrecord_t *record, uint8_t hue, uint8_t sat, uint8_t val, uint8_t keylocation);
 #endif  // RGBLIGHT_ENABLE
+
+void encoder_action_unregister(void);
+
+void encoder_action_register(uint8_t index, bool clockwise);
