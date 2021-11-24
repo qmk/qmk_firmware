@@ -559,6 +559,23 @@ In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` togeth
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743747-119e4c00-5a6e-11e9-91e5-013203ffae8a.JPG" alt="clip mapped" width="70%"/>
 
+## Adjusting bit timings
+
+The WS2812 LED communication topology depends on a serialized timed window, lasting typically 1250ns in total, where a bit is interpreted as either 0 or 1 depending on for how much time the ``RGB_DI`` pin voltage is kept high and how much time it is kept low. The WS2812 datasheet specifies quantities defined as ``T0H``, ``T0L``, ``T1H``, ``T1L`` (respectively, typically 350ns, 900ns, 900ns and 350ns); a bit is interpreted as zero if the voltage on the control pin is held high for ``T0H`` and then ``T0L``, and the bit is interpreted as one if the voltage is held high for ``T1H`` and then low for ``T1L``. Additionally, there is also a RESET time parameter whereby an LED color is reset if the voltage control pin is kept low for more than that parameter; in WS2812 that amount is 6000 nanoseconds.
+
+The WS2812 "bit-banged" ChibiOS driver does just that, in a simple way. It defines these values and governs the ``RGB_DI`` pin according to these times. There are, however, other LED parts that work in a communication topology similar to this but with different timing parameters; such is the case, for instance, of the SK6812. In order to better support such LEDs whilst keeping the WS2812 driver applicable, QMK allows you to tune these parameters through the definition macros:
+
+| Macro               |Default              |
+|---------------------|---------------------|
+|`WS2812_TIMING       |`1250`               |
+|`WS2812_T0H`         |`350`                |
+|`WS2812_T0L`         |`900`                |
+|`WS2812_T1H`         |`900`                |
+|`WS2812_T1L`         |`350`                |
+|`WS2812_RES`         |`6000`               |
+
+It must be noted, however, that this tuning is not available for PWM and SPI drivers -- so if you intend to use this be aware it will only work with the "bit-banged" driver which is knowingly slower and can possibly throttle the microcontroller if too many LEDs are used.
+
 ## Hardware Modification
 
 If your keyboard lacks onboard underglow LEDs, you may often be able to solder on an RGB LED strip yourself. You will need to find an unused pin to wire to the data pin of your LED strip. Some keyboards may break out unused pins from the MCU to make soldering easier. The other two pins, VCC and GND, must also be connected to the appropriate power pins.
