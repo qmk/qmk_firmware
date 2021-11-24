@@ -86,11 +86,3 @@ __pycache__
 
 # Allow to exist but don't include it in the repo
 user_song_list.h
-keyboards/aos/tkl/keymaps/via/rules.mk
-keyboards/aos/tkl/keymaps/via/keymap.c
-keyboards/chavdai40/keymaps/42keys-dvorak/config.h
-keyboards/chavdai40/keymaps/42keys-dvorak/keymap.c
-keyboards/tempo_turtle/bradpad/keymaps/4brad/config.h
-keyboards/tempo_turtle/bradpad/keymaps/4brad/keymap.c
-keyboards/tempo_turtle/bradpad/keymaps/4brad/rules.mk
-lib/chibios-contrib
