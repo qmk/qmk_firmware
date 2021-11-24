@@ -18,6 +18,7 @@
 #ifdef CUSTOM_UNICODE_ENABLE
 #    include "process_unicode_common.h"
 #endif
+#include <string.h>
 
 extern bool host_driver_disabled;
 
