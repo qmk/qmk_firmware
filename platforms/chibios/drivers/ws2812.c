@@ -53,7 +53,7 @@ However, there are certain "WS2812"-like LEDs, like the SK6812s, which work in a
 #endif
 
 #ifndef WS2812_T1L
-#    define WS2812_T1L (WS2812_TIMING - T1H)  // Width of a 1 bit in ns
+#    define WS2812_T1L (WS2812_TIMING - WS2812_T1H)  // Width of a 1 bit in ns
 #endif
 
 #ifndef WS2812_T0H
@@ -61,7 +61,7 @@ However, there are certain "WS2812"-like LEDs, like the SK6812s, which work in a
 #endif
 
 #ifndef WS2812_T0L
-#    define WS2812_T0L (WS2812_TIMING - T0H)  // Width of a 0 bit in ns
+#    define WS2812_T0L (WS2812_TIMING - WS2812_T0H)  // Width of a 0 bit in ns
 #endif
 
 // The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
