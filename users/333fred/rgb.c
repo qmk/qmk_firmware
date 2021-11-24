@@ -23,7 +23,7 @@
 #include "quantum.h"
 #include "333fred.h"
 
-void layer_state_set_rgb(uint32_t state) {
+void layer_state_set_rgb(layer_state_t state) {
   switch (biton32(state)) {
     case BASE:
       // purple

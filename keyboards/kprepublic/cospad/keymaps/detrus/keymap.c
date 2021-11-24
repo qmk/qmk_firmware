@@ -289,7 +289,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 // Makes the tri-layer
-uint32_t default_layer_state_set_kb(uint32_t state) {
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
 	switch (biton32(state)) {
 		case _QWERTY_LAYER:
 			state = update_tri_layer_state(state, _RAISE_LAYER, _QWERTZ_LOWER_LAYER, _ALTER_LAYER);

@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 };
 
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
   if (state & (1<<QWERTY)){
     PORTD &= ~(1 << PD0);
   } else {

@@ -59,7 +59,7 @@ __attribute__ ((weak)) void matrix_scan_keymap(void) { }
 __attribute__ ((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
-__attribute__ ((weak)) uint32_t layer_state_set_keymap (uint32_t state) {
+__attribute__ ((weak)) layer_state_t layer_state_set_keymap (layer_state_t state) {
     return state;
 }
 __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }

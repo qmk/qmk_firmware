@@ -245,7 +245,7 @@ void keyboard_post_init_user_keymap(void) {
 }
 
 // light up leds based on the layer
-uint32_t layer_state_set_user_keymap(uint32_t state) {
+layer_state_t layer_state_set_user_keymap(layer_state_t state) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
