@@ -36,9 +36,10 @@ jobs:
     - name: Run qmk formatters
       shell: 'bash {0}'
       run: |
-        qmk format-c --core-only $(< ~/files.txt)
-        qmk format-python $(< ~/files.txt)
-        qmk format-text $(< ~/files.txt)
+        cat ~/files_added.txt ~/files_modified.txt > ~/files_changed.txt
+        qmk format-c --core-only $(< ~/files_changed.txt) || true
+        qmk format-python $(< ~/files_changed.txt) || true
+        qmk format-text $(< ~/files_changed.txt) || true
 
     - name: Fail when formatting required
       run: |
