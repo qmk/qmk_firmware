@@ -12,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             TO(_NAV),    TO(_SYMBOLS), KC_TAB, MT(MOD_MEH, KC_SPACE), KC_ENT,           KC_BSPC, KC_LSFT, KC_DEL, TO(_NUMBERS), TO(_MEDIA_CODE)),
     [_SYMBOLS] = LAYOUT(
         KC_TRNS,      KC_NO,   KC_AT,   KC_LT,   KC_GT,    KC_CIRC,                                                   KC_PERC, KC_LCBR, KC_RCBR, KC_PLUS, KC_DQT,  KC_TRNS,
-        TO(_LETTERS), KC_DLR,  KC_EQL,  KC_EXLM, KC_QUES,  KC_HASH,                                                   KC_ASTR, KC_LPRN, KC_RPRN, KC_MINS, KC_QUOT, KC_NO,
+        TO(_LETTERS), KC_DLR,  KC_EQL,  KC_QUES, KC_EXLM,  KC_HASH,                                                   KC_ASTR, KC_LPRN, KC_RPRN, KC_MINS, KC_QUOT, KC_NO,
         KC_TRNS,      DE_EURO, KC_AMPR, KC_TILD, KC_SLASH, KC_PIPE, KC_NO,   KC_NO,                 KC_NO,   KC_NO,   KC_NO,   KC_LBRC, KC_RBRC, KC_UNDS, KC_GRV,  KC_NO,
                                         KC_NO,   TO(_NAV), KC_TRNS, KC_TRNS, KC_TRNS,               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [_NUMBERS] = LAYOUT(
@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,      KC_NO, KC_F1, KC_F2, KC_F3,   KC_F10,  KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_0,    KC_1,            KC_2,     KC_3, KC_NO, KC_NO,
                                 KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS, KC_TRNS, KC_TRNS, TO(_MEDIA_CODE), KC_TRNS),
     [_NAV] = LAYOUT(
-        KC_TRNS,      KC_ACL2, KC_WH_L, KC_NO,      KC_WH_R, G(KC_PLUS),                                              C(KC_LEFT), G(A(KC_LEFT)), C(KC_UP), G(A(KC_RIGHT)), C(KC_RIGHT), KC_TRNS,
+        KC_TRNS,      KC_ACL2, KC_WH_R, KC_NO,      KC_WH_L, G(KC_PLUS),                                              C(KC_LEFT), G(A(KC_LEFT)), C(KC_UP), G(A(KC_RIGHT)), C(KC_RIGHT), KC_TRNS,
         TO(_LETTERS), KC_ACL1, KC_MS_L, KC_MS_UP,   KC_MS_R, G(KC_0),                                                 KC_HOME,    KC_LEFT,       KC_UP,    KC_RIGHT,       KC_END,      KC_PGUP,
         KC_TRNS,      KC_ACL0, KC_WH_D, KC_MS_DOWN, KC_WH_U, G(KC_MINS), KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO,      C(S(KC_TAB)),  KC_DOWN,  C(KC_TAB),      KC_NO,       KC_NO,
                                         KC_TRNS,    KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,       KC_TRNS),
