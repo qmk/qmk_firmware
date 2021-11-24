@@ -23,7 +23,6 @@ ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
     OLED_ENABLE = yes
     RGB_MATRIX_ENABLE = yes
     HAPTIC_ENABLE = no
-    BOOTLOADER = qmk-dfu
 endif
 
 ifeq ($(strip $(CTPC)), yes)
@@ -31,5 +30,8 @@ ifeq ($(strip $(CTPC)), yes)
     WS2812_DRIVER = pwm # won't work without a patch to the ctpc mk file
     SERIAL_DRIVER = usart
     SWAP_HANDS_ENABLE = yes
-	WPM_ENABLE = yes
+    WPM_ENABLE = yes
+else
+    BOOTLOADER = qmk-hid
+    BOOTLOADER_SIZE = 512
 endif
