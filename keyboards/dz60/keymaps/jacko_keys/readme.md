@@ -1,37 +1,36 @@
 # DZ60 Mk II
 
-My second keyboard edit. A multi-layer ANSI-60 with layers and function shift on each layer.
-Changes from the default key-map include moving RESET (now on the mouse layer), and a preferred arrangement for the cursor block of keys. The function key was exchanged with the right control key to get it. This makes the layout of the right modifiers left to right be `Alt`/`Win`/`Ctrl`/`Fn`. Further extension is possible by using the space bar as a shift on some of the shift planes.
+My second keyboard edit. A multi-layer ANSI-60 with function shifts on each layer.
+Changes from the default key-map include moving RESET (now on the mouse layer), and a preferred arrangement for the cursor block of keys. The function key was exchanged with the right control key to get it. This makes the layout of the right modifiers left to right be `Alt`/`Win`/`Ctrl`/`Fn`.
 
-* 1604 bytes free dated 2021-11-21.
-
-## Right `Win` is Application Context Menu, Etc.
-The right `Win` key is for getting the application context menu unless otherwise noted.
-Sometimes it's part of the cursor block. There is also a shared not number lock or scroll lock LED pattern.
-It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+ Left `Ctrl`+ Left `Alt`, and the keyboard will be in the RED or GREEN mode, depending on which of `Ctrl` or `Alt` is pressed first after `Fn`.
-The layer selector modifier of a selected layer is normalized to be the modified modifier.
+## General Notes
+The right `Win` key is not the application context menu, which itself can often be found on `Fn`+`Enter`. Sometimes the `Win` key is part of the cursor block.
+There is also a shared not (inverse) number lock or scroll lock LED pattern.
+It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not YELLOW mode.
 
 ### Notes on "Level 3 Shift"
 * Ironically not being American I will not test the en_US local without hardware.
 * I'm not sure if that locale supports an `Alt Gr` key interpretation of right `Alt`.
 * Hacking Linux `termcap` or GUI equivalent files might be possible for the determined.
 
-### Common to All `Fn` Layers
+### Common to All MAGENTA Shift `Fn` Layers (Exceptions Noted Below, Mainly in YELLOW Mode)
 * Left `Ctrl` is ANSI layer select. Basic conformist ANSI.
-* Left `Win` is macro-board layer select. Latching macro modifiers and function keys.
+* Left `Win` is macro-board layer selection. Latching macro modifiers and function keys.
 * Left `Alt` is navigation layer select. You **MUST** be in this mode for **BQN**.
-* Basically `Fn`+ a left modifier on the bottom row changes the main layer or enters a CYAN shift.
+* Basically `Fn`+ a left modifier on the bottom row changes the main layer or enters a CYAN shift except when in **BQN** BLUE mode.
 * In CYAN shift mode you may release the `Fn` key while holding the respective CYAN modifier.
+* Scroll lock via caps lock.
+* Backslash makes insert.
+* Backspace makes delete.
+* Backtick makes escape.
+
 
 ## ANSI Layer (RED Layer)
-* Right control exchanged with function shift key as always.
+* Right `Ctrl` is left of the `Fn` shift key as always.
 * This layer is the keyboard default and has no surprises. To access this layer the key combination `Fn`+Left `Ctrl` has been reserved.
 
-### ANSI Shift Layer (`Fn` ANSI MAGENTA Shift)
-* Scroll lock placed on caps lock.
+### ANSI Shift Layer (`Fn` Layer MAGENTA Shift)
 * Right `Alt`/`Win`/`Ctrl`/slash form cursor block.
-* Backslash is insert.
-* Backspace is delete.
 * F1 to F12 form top row numbers and minus/equals.
 * Square brackets are home and end.
 * Comma and period are page up/down.
@@ -39,37 +38,32 @@ The layer selector modifier of a selected layer is normalized to be the modified
 * Apostrophe is print screen.
 * RGB controls are Q-I.
 * Backlight controls are C-N.Fn
-* Backtick is escape.
 * Various Unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
 * System power down on P key.
 * Global mute is X.
 * Browser home key is O, search is A, favourites is F.
 * Volume is up(J) and down(H).
 
-### Control Shift Layer (Left Control on `Fn` Layer CYAN Shift)
+### Control Shift Layer (Left `Ctrl` on `Fn` Layer CYAN Shift)
 * Various control code literals and icongraphs plus cursor.
 * Comma and period are `Ctrl`+page up/down.
 * Semicolon is `Ctrl`+pause.
 * Apostrophe is `Ctrl`+print screen.
 * The `control_codes.md` contains more information about control codes.
-* Pressing `Alt` as well as held `Ctrl` does a `Ctrl`+`Alt`+`Del`.
 * Cursor block is `Ctrl` modified.
+* As far as possible the modifiers have in implicit `Ctrl`.
 
 ## Navigation Layer (GREEN Layer)
 * Right `Alt`/`Win`/`Ctrl`/slash form cursor block.
 * Backslash enters a prefix to enter **BQN** characters. (The **BQN** Layer).
 
 ### Navigation Shift Layer (`Fn` Navigation MAGENTA Shift)
-* Scroll lock placed on caps lock.
-* Backslash is insert.
-* Backspace is delete.
 * F1 to F12 form top row numbers and minus/equals.
 * F13 to F24 form second row Q-].
 * Comma and period are page up/down.
 * Semicolon is pause.
 * Apostrophe is print screen.
-* Backtick is escape.
-* Enter is pure escape for easy shift escape typing.
+* Right `Win` tap is slash, while hold is `Win`.
 * Right `Ctrl`/`Alt` function as modifiers for F1-F24 usage.
 * Various Unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).
 * Media control prev(C), play(V), next(B), launch(N).
@@ -82,28 +76,29 @@ The layer selector modifier of a selected layer is normalized to be the modified
 * Space is mouse button 1.
 * Comma is scroll up.
 * Period is scroll down.
-* Enter and backspace are themselves.
-* Backslash is keyboard reset.
-* The brackets button 4 an 5 (standard mice don't have this).
+* Enter, tab and escape (on backtick) are themselves.
+* Backspace does a delete.
+* Backslash is keyboard RESET.
+* Tab allows applying an `Alt` modifier, as `Alt` is used to hold the CYAN shift.
+* The brackets are home and end.
+* Minus and equals are buttons 4 and 5 (standard mice don't have this).
 * Semicolon is mouse button 3 (scroll button).
 * Apostrophe is mouse button 2.
-* All the alpha keys (plus numbers and minus equals) form 38 Unicode characters (definable in code).
-* Pressing `Ctrl` as well as held `Alt` does a `Ctrl`+`Alt`+`Del`.
+* All the alpha and number keys are multi-character UTF-8 (for more flexible Unicode).
 
 ### **BQN** Layer (BLUE Layer Within BQN Specification)
 * **BQN** unshifted and shifted.
-* Left and right cursor work on right `Alt`/`Ctrl`.
-* Right GUI button is right `Win` key.
+* Backspace exits back to navigation GREEN mode.
 
 ```
 ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬─────────┐
-│~ ¬ │! ⎉ │@ ⚇ │# ⍟ │$ ◶ │% ⊘ │^ ⎊ │& ⍎ │* ⍕ │( ⟨ │) ⟩ │_ √ │+ ⋆ │Backspace│
+│~ ¬ │! ⎉ │@ ⚇ │# ⍟ │$ ◶ │% ⊘ │^ ⎊ │&   │*   │( ⟨ │) ⟩ │_ √ │+ ⋆ │Backspace│
 │` ˜ │1 ˘ │2 ¨ │3 ⁼ │4 ⌜ │5 ´ │6 ˝ │7   │8 ∞ │9 ¯ │0 • │- ÷ │= × │         │
 ├────┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬──────┤
-│Tab    │Q ↙ │W 𝕎 │E ⍷ │R 𝕣 │T ⍋ │Y   │U   │I ⊑ │O ⊒ │P ⍳ │{ ⊣ │} ⊢ │|     │
+│Tab    │Q   │W 𝕎 │E ⍷ │R 𝕣 │T ⍋ │Y   │U   │I ⊑ │O ⊒ │P ⍳ │{ ⊣ │} ⊢ │|     │
 │       │q ⌽ │w 𝕨 │e ∊ │r ↑ │t ∧ │y   │u ⊔ │i ⊏ │o ⊐ │p π │[ ← │] → │\     │
 ├───────┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴──────┤
-│Caps    │A ↖ │S 𝕊 │D   │F 𝔽 │G 𝔾 │H « │J   │K ⌾ │L » │: · │" ˙ │Enter     │
+│Caps    │A   │S 𝕊 │D   │F 𝔽 │G 𝔾 │H « │J   │K ⌾ │L » │: · │" ˙ │Enter     │
 │lock    │a ⍉ │s 𝕤 │d ↕ │f 𝕗 │g 𝕘 │h ⊸ │j ∘ │k ○ │l ⟜ │; ⋄ │' ↩ │          │
 ├────────┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──────────┤
 │Shift      │Z ⋈ │X 𝕏 │C   │V ⍒ │B ⌈ │N   │M ≢ │< ≤ │> ≥ │? ⇐ │Shift       │
@@ -112,35 +107,29 @@ The layer selector modifier of a selected layer is normalized to be the modified
                              Space: ‿
 ```
 
-### Unicode Shift Layer (`Fn` After \ **BQN** Prefix MAGENTA Shift)
-* All the alpha keys (plus numbers and minus equals) form 38 Unicode characters (definable in code).
-* Numbers unchanged.
-* Square brackets are home and end.
-* Comma and period are page up/down.
-* Semicolon is pause.
-* Apostrophe is print screen.
-* Cursor block works.
-* `Fn` + Left `Alt` exits **BQN** if you accidentally enter a backslash. No CYAN shift.
-* Backtick is escape.
-* Backslash is insert.
-* Backspace is delete.
+### Unicode Shift Layer (`Fn` After `\` **BQN** Prefix MAGENTA Shift)
+* All the alpha keys form Unicode characters (definable in code).
+* Backspace to exit **BQN** if you accidentally enter a backslash.
+* All other punctuation has defined Unicode in code too.
+* Modifier keys don't change layers except `Fn` which releases the MAGENTA shift.
+* Not quite as flexible as the `Mouse Shift Layer` as only single Unicode code points can be used.
 
 ## Macro-board Layer (YELLOW Layer)
 * Escape is a one shot sticky `Ctrl`+`Shift`.
 * Tab is a one shot sticky `Alt`+ `Shift`.
 * Caps lock is a one shot sticky `Alt`+ `Ctrl`.
-* The above arranged so that further down is more down and to the right in pairs excluding the `Win` key.
-* This is because the `Win` key is less to do with application shortcuts, and more to do with the OS shortcuts.
+* The above is arranged so that the further down the keys are, the more down and to the right the group in pairs excluding the `Win` key is.
+* This is because the `Win` key is less to do with application shortcuts, and more to do with the OS shortcuts. It is its own sticky.
 * All modifiers are one shot sticky.
 * `Fn` is not a sticky modifier.
 * F1 to F12 form top row numbers and minus/equals.
 * F13 to F24 form second row Q-].
 * F1 to F12 form third row A-enter with an implicit right `Alt Gr` applied.
-* F13 to F23 form fourth row Z-right shift with an implicit right `Alt Gr` applied.
+* F13 to F23 form a fourth row Z-right shift with an implicit right `Alt Gr` applied.
 * Backslash is F24 with an implicit right `Alt Gr` applied.
 * Depending on your system the "Level 3 Shift" may be removed by localization of `Alt Gr`.
-* Right `Alt`/`Ctrl` are `Alt`+`Tab` window switch (reverse and forward).
-* Right `Win` key is the sticky right `Win` key and not the app context menu key as in other layers.
+* Right `Alt`/`Ctrl` are `Alt`+`Tab` window switches (reverse and forward).
+* Right `Win` key is the sticky right `Win` key.
 * Backspace is `Ctrl`+`Shift`+`Alt` combination sticky.
 
 ### Macro-board Shift Layer (`Fn` Macro-board MAGENTA Shift)
@@ -153,8 +142,6 @@ The layer selector modifier of a selected layer is normalized to be the modified
 * Left `Win` key is the sticky left shift+`Win`.
 * Right `Win` key is the sticky right shift+`Win` key and not the app context menu key as in other layers.
 * Comma/period/slash set mouse acceleration 1, 2 and 3.
-* Backspace is delete.
-* Backslash is insert.
 * Square brackets are home and end.
 * Enter is itself.
 * Various Unicode characters µ/ℎ(M), °/⦵(K), £/€(L), ω/Ω(Z), ∫/Σ(S), ∂/∇(D) and √/∛(G).

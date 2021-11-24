@@ -68,14 +68,10 @@ enum unicode_names {
 	IX, IY, IZ, ILBR, IBSL, IRBR, ICAR, IUND,
 	//Alt aplha
 	A1, A2, A3, A4, A5, A6, A7, A8, A9, A0, AMIN, AEQ,
+	AGR, ACOM, ADOT, ALBR, ARBR, ASEM, AAPO,
 	AA, AB, AC, AD, AE, AF, AG, AH, AI, AJ, AK,
 	AL, AM, AN, AO, AP, AQ, AR, AS, AT, AU, AV, AW,
-	AX, AY, AZ,
-	//Alt aplha 2
-	Z1, Z2, Z3, Z4, Z5, Z6, Z7, Z8, Z9, Z0, ZMIN, ZEQ,
-	ZA, ZB, ZC, ZD, ZE, ZF, ZG, ZH, ZI, ZJ, ZK,
-	ZL, ZM, ZN, ZO, ZP, ZQ, ZR, ZS, ZT, ZU, ZV, ZW,
-	ZX, ZY, ZZ,
+	AX, AY, AZ, ABSL, ADIV,
 };
 
 // PLACE BQN layer and Unicode character code points here.
@@ -139,9 +135,14 @@ const uint32_t PROGMEM unicode_map[] = {
 	[IBSL] = U'🌍', [IRBR] = U'☣', [ICAR] = U'⚗', [IUND] = U'☢',
 	//BQN Fn Shift
 	//Unicode layer
+	//============================================================================
+	// FILL IN AS REQUIRED
+	//============================================================================
 	[A1] = U' ', [A2] = U' ', [A3] = U' ', [A4] = U' ',
 	[A5] = U' ', [A6] = U' ', [A7] = U' ', [A8] = U' ',
 	[A9] = U' ', [A0] = U' ', [AMIN] = U' ', [AEQ] = U' ',
+	[ACOM] = U' ', [ADOT] = U' ', [ALBR] = U' ',
+	[ARBR] = U' ', [ASEM] = U' ', [AAPO] = U' ',
 	[AA] = U' ', [AB] = U' ', [AC] = U' ', [AD] = U' ',
 	[AE] = U' ', [AF] = U' ', [AG] = U' ', [AH] = U' ',
 	[AI] = U' ', [AJ] = U' ', [AK] = U' ', [AL] = U' ',
@@ -149,20 +150,109 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AQ] = U' ', [AR] = U' ', [AS] = U' ', [AT] = U' ',
 	[AU] = U' ', [AV] = U' ', [AW] = U' ',
 	[AX] = U' ', [AY] = U' ', [AZ] = U' ',
-	//Navigation Extended Shift
-	//Unicode layer
-	[Z1] = U' ', [Z2] = U' ', [Z3] = U' ', [Z4] = U' ',
-	[Z5] = U' ', [Z6] = U' ', [Z7] = U' ', [Z8] = U' ',
-	[Z9] = U' ', [Z0] = U' ', [ZMIN] = U' ', [ZEQ] = U' ',
-	[ZA] = U' ', [ZB] = U' ', [ZC] = U' ', [ZD] = U' ',
-	[ZE] = U' ', [ZF] = U' ', [ZG] = U' ', [ZH] = U' ',
-	[ZI] = U' ', [ZJ] = U' ', [ZK] = U' ', [ZL] = U' ',
-	[ZM] = U' ', [ZN] = U' ', [ZO] = U' ', [ZP] = U' ',
-	[ZQ] = U' ', [ZR] = U' ', [ZS] = U' ', [ZT] = U' ',
-	[ZU] = U' ', [ZV] = U' ', [ZW] = U' ',
-	[ZX] = U' ', [ZY] = U' ', [ZZ] = U' ',
-	//FILL IN AS REQUIRED
-	//1604 bytes free => 401 Unicode characters free.
+	[ABSL] = U' ', [ADIV] = U' ',
+	//1338 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2021-11-24
+};
+
+enum custom_keycodes {
+    QMKLAST = SAFE_RANGE - 1,//ready for define
+		KM_1,    KM_2,    KM_3,    KM_4,    KM_5,
+		KM_6,    KM_7,    KM_8,    KM_9,    KM_0,
+		KM_Q,    KM_W,    KM_E,    KM_R,    KM_T,
+		KM_Y,    KM_U,    KM_I,    KM_O,    KM_P,
+		KM_A,    KM_S,    KM_D,    KM_F,    KM_G,
+		KM_H,    KM_J,    KM_K,    KM_L,
+		KM_Z,    KM_X,    KM_C,    KM_V,
+		KM_B,    KM_N,    KM_M,
+};
+
+//The Navigation CYAN mode macro key system for UTF-8 emission.
+//fill in the four sections of each string KEEPING the NUL byte spacers.
+//Backslash is reserved as an escape and so needs a "\\" literal.
+//Unless the backslash is in the final print until string end.
+//An estimate of 35 characters per key action set 2021-11-24
+//A quirk in C does allow less space used by concatenation of This
+//data structure if control key acceptably indexes the "next letter" OK.
+char* macro_unicode[] = {
+	//============================================================================
+	// FILL IN AS REQUIRED
+	//============================================================================
+	// in x, sx, cx, csx modifier format with NUL terminal characters
+	"\0\0\0",//		 KM_1
+	"\0\0\0",//    KM_2
+	"\0\0\0",//    KM_3
+	"\0\0\0",//    KM_4
+	"\0\0\0",//    KM_5
+	"\0\0\0",//		 KM_6
+	"\0\0\0",//    KM_7
+	"\0\0\0",//    KM_8
+	"\0\0\0",//    KM_9
+	"\0\0\0",//    KM_0
+	"\0\0\0",//		 KM_Q
+	"\0\0\0",//    KM_W
+	"\0\0\0",//    KM_E
+	"\0\0\0",//    KM_R
+	"\0\0\0",//    KM_T
+	"\0\0\0",//		 KM_Y
+	"\0\0\0",//    KM_U
+	"\0\0\0",//    KM_I
+	"\0\0\0",//    KM_O
+	"\0\0\0",//    KM_P
+	"\0\0\0",//		 KM_A
+	"\0\0\0",//    KM_S
+	"\0\0\0",//    KM_D
+	"\0\0\0",//    KM_F
+	"\0\0\0",//    KM_G
+	"\0\0\0",//		 KM_H
+	"\0\0\0",//    KM_J
+	"\0\0\0",//    KM_K
+	"\0\0\0",//    KM_L
+	"\0\0\0",//		 KM_Z
+	"\0\0\0",//    KM_X
+	"\0\0\0",//    KM_C
+	"\0\0\0",//    KM_V
+	"\0\0\0",//		 KM_B
+	"\0\0\0",//    KM_N
+	"\0\0\0",//    KM_M
+};
+
+char* modify_step(char* ip) {
+	while(*(ip++) != 0);
+	return ip;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	//read only guard not necessary
+	if (record->event.pressed) {
+		//press
+		char* ip = macro_unicode[keycode - KM_1];
+		if(get_mods() == MOD_MASK_SHIFT) ip = modify_step(ip);
+		if(get_mods() == MOD_MASK_CTRL) {//jump 2
+			ip = modify_step(modify_step(ip));
+		}
+		while(*ip == '\\') {
+			//process backslash macro effect, otherwise literal until end of string
+			ip++;
+			switch(*(ip++)) {
+				//other cases of macro effects
+				//======================================================================
+				// FILL IN AS REQUIRED
+				//======================================================================
+
+			case('\\'):
+				SEND_STRING("\\");//literal emit
+				continue;
+			default:
+				break;//uknown escape
+			}
+			break;//bad escape sequence so ignore and literal
+		}
+		send_unicode_string(ip);//should UTF-8
+	} else {
+		//release
+	}
+  return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -179,7 +269,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
 		KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,
-		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, KC_APP,           KC_RCTL, MO(4)),//zero index start
+		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, KC_RGUI,          KC_RCTL, MO(4)),//zero index start
 
 	//Navigation lock mode 1 ======================================================================== Navigation lock mode 1
 	// Removed ASCII 47 (/) and right ctrl/win/alt for cursor.
@@ -206,7 +296,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//BQN lock mode 4 ====================================================================================== BQN lock mode 3
 	// BQN Unicode
 	LAYOUT_60_ansi(
-		Z(GR),   Z(N1),	  Z(N2),   Z(N3), 	Z(N4),	 Z(N5),	  Z(N6),   Z(N7),   Z(N8),   Z(N9),   Z(N0),   Z(MIN),  Z(EQ),          	KC_BSPC,
+		Z(GR),   Z(N1),	  Z(N2),   Z(N3), 	Z(N4),	 Z(N5),	  Z(N6),   Z(N7),   Z(N8),   Z(N9),   Z(N0),   Z(MIN),  Z(EQ),          	TO(1),//escape
 		KC_TAB,           Z(Q),    Z(W),    Z(E),    Z(R),    Z(T),    Z(Y),    Z(U),    Z(I),    Z(O),    Z(P), 		Z(LBR),  Z(RBR),  KC_BSLS,
 		KC_CAPS,          Z(A),    Z(S),    Z(D),    Z(F),    Z(G),    Z(H),    Z(J),    Z(K),    Z(L),    Z(SEMI), Z(QUOT), KC_ENT,
 		KC_LSFT,		      Z(Z),    Z(XX),   Z(C),    Z(V),    Z(B),    Z(N),    Z(M),    Z(LESS), Z(GRET), Z(DIV),           KC_RSFT,
@@ -222,8 +312,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// This shift layer is standard for the kind of keyboard plus a few extensions.
 	LAYOUT_60_ansi(
 		KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_DEL,
-		KC_TRNS,          RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_WHOM, KC_PWR,  KC_HOME, KC_END,  KC_INS,
-		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_TRNS,
+		LCA(KC_DEL),      RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_WHOM, KC_PWR,  KC_HOME, KC_END,  KC_INS,
+		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_APP,
 		KC_TRNS,          Z(OM),   KC_MUTE, BL_DEC,  BL_TOGG, BL_INC,  BL_STEP, Z(MIC),  KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
 		MO(8),	 DF(2),            DF(1),                     KC_SPC,                             KC_LEFT, KC_DOWN,          KC_RIGHT,KC_TRNS),
 
@@ -233,10 +323,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// No APP menu as / is on the key, as / is ? key.
 	LAYOUT_60_ansi(
 		KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_DEL,
-		KC_TRNS,          KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_INS,
-		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ESC,
+		LCA(KC_DEL),      KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_INS,
+		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_APP,
 		KC_TRNS,          Z(OM),   KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL, Z(MIC),  KC_PGUP, KC_PGDN, KC_QUES,          KC_TRNS,
-		DF(0),   DF(2),            MO(9),		                  KC_SPC,                             KC_RALT, KC_SLSH,          KC_RCTL, KC_TRNS),
+		DF(0),   DF(2),            MO(9),		                  KC_SPC,                             KC_RALT, MT(MOD_RGUI,KC_SLSH),KC_RCTL, KC_TRNS),
 
 	//Macro shift mode 6 ================================================================================ Macro shift mode 6
 	// Same macro layer but different modifier grouping for more hot key combinations.
@@ -244,16 +334,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_HAEN, KC_HANJ,          KC_DEL,
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_PWR,	KC_HOME, KC_END,  KC_INS,
 		KC_NLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
-		KC_LSFT,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          KC_RSFT,
+		KC_TRNS,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          OSM(MOD_RSFT),
 		DF(0),OSM(MOD_LSFT|MOD_LGUI),DF(1),                   ALGR(KC_SPC),                       KC_TRNS, OSM(MOD_LSFT|MOD_RGUI),KC_TRNS, KC_TRNS),
 
 	//BQN shift mode 7 ==================================================================================== BQN shift mode 7
 	LAYOUT_60_ansi(
-		KC_ESC,  X(A1),   X(A2),   X(A3),   X(A4),   X(A5),   X(A6),   X(A7),   X(A8),   X(A9),   X(A0),   X(AMIN), X(AEQ),	          KC_DEL,
-		KC_TRNS,		 			X(AQ),   X(AW),   X(AE),   X(AR),   X(AT),   X(AY),   X(AU),   X(AI),   X(AO),   X(AP),   KC_HOME, KC_END,  KC_INS,
-		KC_TRNS,  		  	X(AA),   X(AS),   X(AD),   X(AF),   X(AG),   X(AH),   X(AJ),   X(AK),   X(AL),   KC_PAUS, KC_PSCR, KC_TRNS,
-		KC_TRNS,          X(AZ),   X(AX),   X(AC),   X(AV),   X(AB),   X(AN),   X(AM),   KC_PGUP, KC_PGDN, KC_UP,            KC_TRNS,
-		DF(0), 	DF(2),     	   		 DF(1),	                    KC_SPC,                             KC_LEFT, KC_DOWN,          KC_RIGHT,KC_TRNS),
+		KC_ESC,  X(A1),   X(A2),   X(A3),   X(A4),   X(A5),   X(A6),   X(A7),   X(A8),   X(A9),   X(A0),   X(AMIN), X(AEQ),	          TO(5),//escape
+		LCA(KC_DEL),			X(AQ),   X(AW),   X(AE),   X(AR),   X(AT),   X(AY),   X(AU),   X(AI),   X(AO),   X(AP),   X(ALBR), X(ARBR), X(ABSL),
+		KC_SLCK,  		  	X(AA),   X(AS),   X(AD),   X(AF),   X(AG),   X(AH),   X(AJ),   X(AK),   X(AL),   X(ASEM), X(AAPO), KC_APP,
+		KC_TRNS,          X(AZ),   X(AX),   X(AC),   X(AV),   X(AB),   X(AN),   X(AM),   X(ACOM), X(ADOT), X(ADIV),			     KC_TRNS,
+		KC_LCTL, KC_LGUI,          KC_LALT,	                  KC_SPC,                             KC_RALT, KC_RGUI,          KC_RCTL, KC_TRNS),
 
 //=========================================================
 // EXTENDED Fn, MOD, Release Fn SHIFTED MODES
@@ -264,17 +354,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		Z(CES),  Z(C1),   X(IAT),  Z(C3),   Z(C4),   Z(C5),   X(ICAR), Z(C7),   Z(C8),   Z(C9),   Z(C0),   X(IUND), Z(CEQ),           X(LBS),
 		X(TAB),			  		X(IQ),   X(IW),   X(IE),   X(IR),   X(IT),   X(IY),   X(IU),   X(II),   X(IO),   X(IP),   X(ILBR), X(IRBR), X(IBSL),
 		KC_TRNS,  		  	X(IA),   X(IS),   X(ID),   X(IF),   X(IG),   X(IH),   X(IJ),   X(IK),   X(IL),   LCTL(KC_PAUS),LCTL(KC_PSCR),X(CR),
-		KC_TRNS,          X(IZ),   X(IX),   X(IC),   X(IV),   X(IB),   X(IN),   X(IM),   LCTL(KC_PGUP),LCTL(KC_PGDN), LCTL(KC_UP),    KC_TRNS,
-		KC_TRNS, LCTL(KC_LGUI),	   LCA(KC_DEL),               X(IAT),                             LCTL(KC_LEFT), LCTL(KC_DOWN),LCTL(KC_RIGHT),KC_TRNS),
+		LCTL(KC_LSFT),    X(IZ),   X(IX),   X(IC),   X(IV),   X(IB),   X(IN),   X(IM),   LCTL(KC_PGUP),LCTL(KC_PGDN),LCTL(KC_UP),     KC_TRNS,
+		KC_TRNS, LCTL(KC_LGUI),	   LCTL(KC_LALT),             X(IAT),                             LCTL(KC_LEFT), LCTL(KC_DOWN),LCTL(KC_RIGHT),KC_TRNS),
 
 	//Mouse shift mode 9 ================================================================================ Mouse shift mode 9
 	// A utility layer for things like the mouse.
 	LAYOUT_60_ansi(
-		KC_ESC,  X(Z1),   X(Z2),   X(Z3),   X(Z4),   X(Z5),   X(Z6),   X(Z7),   X(Z8),   X(Z9),   X(Z0),   X(ZMIN), X(AEQ),           KC_BSPC,
-		KC_TAB,           X(ZQ),   X(ZW),   X(ZE),   X(ZR),   X(ZT),   X(ZY),   X(ZU),   X(ZI),   X(ZO),   X(ZP),   KC_BTN4, KC_BTN5, RESET,
-		KC_CAPS,		      X(ZA),   X(ZS),   X(ZD),   X(ZF),   X(ZG),   X(ZH),   X(ZJ),   X(ZK),   X(ZL),   KC_BTN3, KC_BTN2, KC_ENT,
-		KC_LSFT,          X(ZZ),   X(ZX),   X(ZC),   X(ZV),   X(ZB),   X(ZN),   X(ZM),   KC_WH_U, KC_WH_D, KC_MS_U,          KC_RSFT,
-		LCA(KC_DEL),LALT(KC_LGUI), KC_TRNS,	                  KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS)
+		KC_ESC,  KM_1,    KM_2,    KM_3,    KM_4,    KM_5,    KM_6,    KM_7,    KM_8,    KM_9,    KM_0,		 KC_BTN4, KC_BTN5,          KC_DEL,
+		KC_TAB,           KM_Q,    KM_W,    KM_E,    KM_R,    KM_T,    KM_Y,    KM_U,    KM_I,    KM_O,    KM_P,	  KC_HOME, KC_END,	RESET,
+		KC_LALT,		      KM_A,    KM_S,    KM_D,    KM_F,    KM_G,    KM_H,    KM_J,    KM_K,    KM_L,    KC_BTN3, KC_BTN2, KC_ENT,
+		KC_LSFT,          KM_Z,    KM_X,    KM_C,    KM_V,    KM_B,    KM_N,    KM_M,	   KC_WH_U, KC_WH_D, KC_MS_U,          KC_RSFT,
+		KC_LCTL, KC_LGUI, KC_TRNS,	                  				KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS),
+
+	//============================================================================
+	// FILL IN AS REQUIRED (FOR EXTRA LAYAERS IF NEEDED)
+	//============================================================================
 };
 
 const rgblight_segment_t PROGMEM my_ansi[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -309,7 +403,7 @@ const rgblight_segment_t PROGMEM my_num[] = RGBLIGHT_LAYER_SEGMENTS(
     {15, 1, HSV_WHITE}
 );
 
-//MAX 8 LAYERS ======
+//MAX 8 LAYERS ====== NO MORE SAPCE. USE A NO COLOR MODE
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 		my_ansi,
     my_nav,
@@ -343,6 +437,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool led_update_user(led_t led_state) {
 	// Caps lock etc
   rgblight_set_layer_state(6, led_state.caps_lock);
+	// MULTI LOCK WITH INVERTED NUMLOCK
 	rgblight_set_layer_state(7, led_state.scroll_lock || !led_state.num_lock ||
 		led_state.compose || led_state.kana);
   return true;
