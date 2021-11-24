@@ -33,10 +33,6 @@
 #define MATRIX_COL_PINS { B4, B5, B6, B7, D7, E6 }
 #define UNUSED_PINS
 
-/* via plus layer */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 8
-
-
 #define ENCODERS_PAD_B { C6, F5, F0 }
 #define ENCODERS_PAD_A { C7, F4, F1 }
 
@@ -72,3 +68,6 @@
 #define RGBLIGHT_LIMIT_VAL 255
 #endif
 
+
+/* via plus layer */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 8
