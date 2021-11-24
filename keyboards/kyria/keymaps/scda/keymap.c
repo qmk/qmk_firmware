@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MEDIA_CODE] = LAYOUT(
         KC_TRNS,      KC_NO, KC_BRIU, KC_VOLU, KC_MNXT, KC_NO,                                                        KC_NO,   G(KC_X),    G(KC_C),    G(KC_V), KC_NO, KC_TRNS,
         TO(_LETTERS), KC_NO, KC_NO,   KC_MUTE, KC_MPLY, G(C(KC_SPACE)),                                               KC_NO,   G(S(KC_D)), G(KC_UP),   G(KC_Y), KC_NO, KC_NO,
-        KC_TRNS,      KC_NO, KC_BRID, KC_VOLD, KC_MPRV, KC_NO,          KC_NO,   KC_NO,             KC_NO,   KC_NO,   KC_NO,   G(KC_F),    G(KC_DOWN), G(KC_H), KC_NO, KC_NO,
+        KC_TRNS,      KC_NO, KC_BRID, KC_VOLD, KC_MPRV, KC_NO,          KC_NO,   KC_NO,             KC_NO,   KC_NO,   KC_NO,   G(KC_F),    G(KC_DOWN), G(KC_R), KC_NO, KC_NO,
                                     KC_TRNS,   KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS),
     [_KBD_CTRL] = LAYOUT(
         KC_TRNS,      KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,                                                        KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_TRNS,
