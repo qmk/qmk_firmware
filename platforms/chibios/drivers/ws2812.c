@@ -22,6 +22,12 @@
 #    define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_OPENDRAIN
 #endif
 
+// The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
+// to values like 600000 ns. If it is too small, the pixels will show nothing most of the time.
+#ifndef WS2812_RES
+#    define WS2812_RES (1000 * WS2812_TRST_US)  // Width of the low gap between bits to cause a frame to latch
+#endif
+
 #define NUMBER_NOPS 6
 #define CYCLES_PER_SEC (CPU_CLOCK / NUMBER_NOPS * NOP_FUDGE)
 #define NS_PER_SEC (1000000000L)  // Note that this has to be SIGNED since we want to be able to check for negative values of derivatives
@@ -39,36 +45,6 @@
                              "nop\n\t");            \
         }                                           \
     } while (0)
-
-/* The WS2812 datasheets define T1H 900ns, T0H 350ns, T1L 350ns, T0L 900ns. Hence, by default, these are chosen to be conservative and avoid problems rather than for maximum throughput; in the code, this is done by default using a WS2812_TIMING parameter that accounts for the whole window (1250ns) and defining T1H and T0H; T1L and T0L are obtained by subtracting their low counterparts from the window.
-However, there are certain "WS2812"-like LEDs, like the SK6812s, which work in a similar communication topology but use different timings for the window and the T1L, T1H, T0L and T0H. This means that, albeit the same driver being applicable, the timings must be adapted. The following defines are done such that the adjustment of these timings can be done in the keyboard's config.h; if nothing is said, the defines default to the WS2812 ones.
-*/
-
-#ifndef WS2812_TIMING
-#    define WS2812_TIMING 1250
-#endif
-
-#ifndef WS2812_T1H
-#    define WS2812_T1H 900  // Width of a 1 bit in ns
-#endif
-
-#ifndef WS2812_T1L
-#    define WS2812_T1L (WS2812_TIMING - WS2812_T1H)  // Width of a 1 bit in ns
-#endif
-
-#ifndef WS2812_T0H
-#    define WS2812_T0H 350  // Width of a 0 bit in ns
-#endif
-
-#ifndef WS2812_T0L
-#    define WS2812_T0L (WS2812_TIMING - WS2812_T0H)  // Width of a 0 bit in ns
-#endif
-
-// The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
-// to values like 600000 ns. If it is too small, the pixels will show nothing most of the time.
-#ifndef WS2812_RES
-#    define WS2812_RES (1000 * WS2812_TRST_US)  // Width of the low gap between bits to cause a frame to latch
-#endif
 
 void sendByte(uint8_t byte) {
     // WS2812 protocol wants most significant bits first
