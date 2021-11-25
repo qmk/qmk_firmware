@@ -25,11 +25,11 @@ enum layers{
 
 enum custom_keycodes {
     KC_MISSION_CONTROL = USER00,
-    KC_LAUNCHPAD
+    KC_LAUNCHPAD,
+    KC_TASK,
+    KC_FLXP
 };
 
-#define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
 #define KC_MCTL KC_MISSION_CONTROL
 #define KC_LPAD KC_LAUNCHPAD
 
@@ -81,6 +81,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 host_consumer_send(0x2A0);
             } else {
                 host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
+        case KC_TASK:
+            if (record->event.pressed) {
+                register_code(KC_LWIN);
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_LWIN);
+                unregister_code(KC_TAB);
+            }
+            return false;  // Skip all further processing of this key
+        case KC_FLXP:
+            if (record->event.pressed) {
+                register_code(KC_LWIN);
+                register_code(KC_E);
+            } else {
+                unregister_code(KC_LWIN);
+                unregister_code(KC_E);
             }
             return false;  // Skip all further processing of this key
         default:
