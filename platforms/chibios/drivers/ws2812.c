@@ -40,18 +40,35 @@
         }                                           \
     } while (0)
 
-// These are the timing constraints taken mostly from the WS2812 datasheets
-// These are chosen to be conservative and avoid problems rather than for maximum throughput
+/* The WS2812 datasheets define T1H 900ns, T0H 350ns, T1L 350ns, T0L 900ns. Hence, by default, these are chosen to be conservative and avoid problems rather than for maximum throughput; in the code, this is done by default using a WS2812_TIMING parameter that accounts for the whole window (1250ns) and defining T1H and T0H; T1L and T0L are obtained by subtracting their low counterparts from the window.
+However, there are certain "WS2812"-like LEDs, like the SK6812s, which work in a similar communication topology but use different timings for the window and the T1L, T1H, T0L and T0H. This means that, albeit the same driver being applicable, the timings must be adapted. The following defines are done such that the adjustment of these timings can be done in the keyboard's config.h; if nothing is said, the defines default to the WS2812 ones.
+*/
 
-#define T1H 900           // Width of a 1 bit in ns
-#define T1L (1250 - T1H)  // Width of a 1 bit in ns
+#ifndef WS2812_TIMING
+#    define WS2812_TIMING 1250
+#endif
 
-#define T0H 350           // Width of a 0 bit in ns
-#define T0L (1250 - T0H)  // Width of a 0 bit in ns
+#ifndef WS2812_T1H
+#    define WS2812_T1H 900  // Width of a 1 bit in ns
+#endif
+
+#ifndef WS2812_T1L
+#    define WS2812_T1L (WS2812_TIMING - WS2812_T1H)  // Width of a 1 bit in ns
+#endif
+
+#ifndef WS2812_T0H
+#    define WS2812_T0H 350  // Width of a 0 bit in ns
+#endif
+
+#ifndef WS2812_T0L
+#    define WS2812_T0L (WS2812_TIMING - WS2812_T0H)  // Width of a 0 bit in ns
+#endif
 
 // The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
 // to values like 600000 ns. If it is too small, the pixels will show nothing most of the time.
-#define RES (1000 * WS2812_TRST_US)  // Width of the low gap between bits to cause a frame to latch
+#ifndef WS2812_RES
+#    define WS2812_RES (1000 * WS2812_TRST_US)  // Width of the low gap between bits to cause a frame to latch
+#endif
 
 void sendByte(uint8_t byte) {
     // WS2812 protocol wants most significant bits first
@@ -61,15 +78,15 @@ void sendByte(uint8_t byte) {
         if (is_one) {
             // 1
             writePinHigh(RGB_DI_PIN);
-            wait_ns(T1H);
+            wait_ns(WS2812_T1H);
             writePinLow(RGB_DI_PIN);
-            wait_ns(T1L);
+            wait_ns(WS2812_T1L);
         } else {
             // 0
             writePinHigh(RGB_DI_PIN);
-            wait_ns(T0H);
+            wait_ns(WS2812_T0H);
             writePinLow(RGB_DI_PIN);
-            wait_ns(T0L);
+            wait_ns(WS2812_T0L);
         }
     }
 }
@@ -108,7 +125,7 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
 #endif
     }
 
-    wait_ns(RES);
+    wait_ns(WS2812_RES);
 
     chSysUnlock();
 }
