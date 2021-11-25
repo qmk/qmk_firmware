@@ -125,6 +125,10 @@ extern layer_state_t layer_state;
 #    include "process_auto_shift.h"
 #endif
 
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+#    include "process_dynamic_tapping_term.h"
+#endif
+
 #ifdef COMBO_ENABLE
 #    include "process_combo.h"
 #endif

@@ -24,12 +24,14 @@
 #        define IS_TAPPING_RECORD(r) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)) && tapping_key.keycode == r->keycode)
 #    endif
 
-__attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) { return TAPPING_TERM; }
+uint16_t g_tapping_term = TAPPING_TERM;
+
+__attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) { return g_tapping_term; }
 
 #    ifdef TAPPING_TERM_PER_KEY
 #        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(get_record_keycode(&tapping_key, false), &tapping_key))
 #    else
-#        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < TAPPING_TERM)
+#        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < g_tapping_term)
 #    endif
 
 #    ifdef TAPPING_FORCE_HOLD_PER_KEY
@@ -158,7 +160,7 @@ bool process_tapping(keyrecord_t *keyp) {
 #        ifdef TAPPING_TERM_PER_KEY
                                 get_tapping_term(tapping_keycode, keyp)
 #        else
-                                TAPPING_TERM
+                                g_tapping_term
 #        endif
                                 >= 500
                             )

@@ -524,6 +524,11 @@ enum quantum_keycodes {
     // Additional magic key
     MAGIC_TOGGLE_GUI,
 
+    // Adjust tapping term on the fly
+    DT_PRNT,
+    DT_UP,
+    DT_DOWN,
+
     // Programmable Button
     PROGRAMMABLE_BUTTON_1,
     PROGRAMMABLE_BUTTON_2,
