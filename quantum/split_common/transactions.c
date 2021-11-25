@@ -600,9 +600,9 @@ report_mouse_t get_targets_pointing(void) {
 }
 
 static void pointing_handlers_slave(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
-        report_mouse_t temp = {0};
-        temp                = pointing_device_driver.get_report(temp);
-        memcpy(target2initiator_buffer, &temp, sizeof(report_mouse_t));
+    report_mouse_t temp = {0};
+    temp                = pointing_device_driver.get_report(temp);
+    memcpy(target2initiator_buffer, &temp, sizeof(report_mouse_t));
 }
 
 #    define TRANSACTIONS_POINTING_REGISTRATIONS [GET_POINTING] = trans_target2initiator_initializer_cb(current_pointing_state, pointing_handlers_slave),

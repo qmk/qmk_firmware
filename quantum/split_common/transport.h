@@ -107,7 +107,7 @@ typedef struct _split_mods_sync_t {
 #endif  // SPLIT_MODS_ENABLE
 
 #if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
-#include "pointing_device.h"
+#    include "pointing_device.h"
 #endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
