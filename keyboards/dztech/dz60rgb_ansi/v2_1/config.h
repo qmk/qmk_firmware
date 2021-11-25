@@ -54,7 +54,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#    define RGB_MATRIX_KEYPRESSES
+// #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -92,8 +92,8 @@
 #    define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #    define ENABLE_RGB_MATRIX_DIGITAL_RAIN
 // enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+// #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+// #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE
 // #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
 // #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
 // #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
