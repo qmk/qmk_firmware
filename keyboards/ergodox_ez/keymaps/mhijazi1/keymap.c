@@ -133,6 +133,7 @@ void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_COLOR_LAYER_0
     rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
 #endif
+    rgb_matrix_mode(RGB_MATRIX_TYPING_HEATMAP);
 };
 
 // Runs whenever there is a layer state change.
