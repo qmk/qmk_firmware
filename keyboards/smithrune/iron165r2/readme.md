@@ -20,7 +20,7 @@ The DFU state in the bootloader can be accessed in 3 ways:
 * **Physical reset button**: press the button on the front of the PCB, next to caps lock, for at least five seconds;
 * **Keycode in layout**: Press the key mapped to `RESET`; in the default layout, that is top left key ('escape') in layer 1.
 
-## How to compile and flash
+### How to compile and flash
 
 The 165R2 PCB was prototyped and tested using two microcontrollers: STM32F072 and STM32F411. Most production-run units were manufactured with the latter. 
 
