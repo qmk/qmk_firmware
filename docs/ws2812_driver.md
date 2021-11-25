@@ -49,6 +49,19 @@ WS2812_DRIVER = bitbang
 
 !> This driver is not hardware accelerated and may not be performant on heavily loaded systems.
 
+#### Adjusting bit timings
+
+The WS2812 LED communication topology depends on a serialized timed window. Different versions of the addressable LEDs have differing requirements for the timing parameters, for instance, of the SK6812.
+You can tune these parameters through the definition of the following macros:
+
+| Macro               |Default                                     | AVR                | ARM                |
+|---------------------|--------------------------------------------|--------------------|--------------------|
+|`WS2812_TIMING       |`1250`                                      | :heavy_check_mark: | :heavy_check_mark: |
+|`WS2812_T0H`         |`350`                                       | :heavy_check_mark: | :heavy_check_mark: |
+|`WS2812_T0L`         |`WS2812_TIMING - WS2812_T0H`                |                    | :heavy_check_mark: |
+|`WS2812_T1H`         |`900`                                       | :heavy_check_mark: | :heavy_check_mark: |
+|`WS2812_T1L`         |`WS2812_TIMING - WS2812_T1L`                |                    | :heavy_check_mark: |
+
 ### I2C
 Targeting boards where WS2812 support is offloaded to a 2nd MCU. Currently the driver is limited to AVR given the known consumers are ps2avrGB/BMC. To configure it, add this to your rules.mk:
 
@@ -61,23 +74,6 @@ Configure the hardware via your config.h:
 #define WS2812_ADDRESS 0xb0 // default: 0xb0
 #define WS2812_TIMEOUT 100 // default: 100
 ```
-
-##### Adjusting bit timings (ChibiOS only)
-
-The WS2812 LED communication topology depends on a serialized timed window, lasting typically 1250ns in total, where a bit is interpreted as either 0 or 1 depending on for how much time the `RGB_DI` pin voltage is kept high and how much time it is kept low. The WS2812 datasheet specifies quantities defined as `T0H`, `T0L`, `T1H`, `T1L` (respectively, typically 350ns, 900ns, 900ns and 350ns); a bit is interpreted as zero if the voltage on the control pin is held high for `T0H` and then `T0L`, and the bit is interpreted as one if the voltage is held high for `T1H` and then low for `T1L`. Additionally, there is also a RESET time parameter whereby an LED color is reset if the voltage control pin is kept low for more than that parameter; in WS2812 that amount is 6000 nanoseconds.
-
-The WS2812 "bit-banged" ChibiOS driver does just that, in a simple way. It defines these values and governs the `RGB_DI` pin according to these times. There are, however, other LED parts that work in a communication topology similar to this but with different timing parameters; such is the case, for instance, of the SK6812. In order to better support such LEDs whilst keeping the WS2812 driver applicable, QMK allows you to tune these parameters through the definition macros:
-
-| Macro               |Default                                     |
-|---------------------|--------------------------------------------|
-|`WS2812_TIMING       |`1250`                                      |
-|`WS2812_T0H`         |`350`                                       |
-|`WS2812_T0L`         |`WS2812_TIMING - WS2812_T0H`                |
-|`WS2812_T1H`         |`900`                                       |
-|`WS2812_T1L`         |`WS2812_TIMING - WS2812_T1L`                |
-|`WS2812_RES`         |`6000`                                      |
-
-It must be noted, however, that this tuning is only available for the ARM family of microprocessors (since it's ChibiOS-dependent) and not available for PWM and SPI drivers -- so if you intend to use this be aware it will only work with the "bit-banged" driver which is knowingly slower and can possibly throttle the microcontroller if too many LEDs are used.
 
 ### SPI
 Targeting STM32 boards where WS2812 support is offloaded to an SPI hardware device. The advantage is that the use of DMA offloads processing of the WS2812 protocol from the MCU. `RGB_DI_PIN` for this driver is the configured SPI MOSI pin. Due to the nature of repurposing SPI to drive the LEDs, the other SPI pins, MISO and SCK, **must** remain unused. To configure it, add this to your rules.mk:
