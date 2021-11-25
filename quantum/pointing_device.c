@@ -106,14 +106,16 @@ __attribute__((weak)) void pointing_device_task(void) {
 #if defined(SPLIT_POINTING_ENABLE)
 #    if defined(POINTING_DEVICE_COMBINED)
         static report_mouse_t sharedReport = {0};
-    mouseReport.buttons = mouseReport.buttons | ~sharedReport.buttons;
-    mouseReport         = pointing_device_driver.get_report(mouseReport);
-    sharedReport        = get_targets_pointing();
-    mouseReport.x       = mouseReport.x | sharedReport.x;
-    mouseReport.y       = mouseReport.y | sharedReport.y;
-    mouseReport.h       = mouseReport.h | sharedReport.h;
-    mouseReport.v       = mouseReport.v | sharedReport.v;
-    mouseReport.buttons = mouseReport.buttons | sharedReport.buttons;
+    static uint8_t oldButtons = 0;
+    mouseReport.buttons       = oldButtons;
+    mouseReport               = pointing_device_driver.get_report(mouseReport);
+    sharedReport              = get_targets_pointing();
+    oldButtons                = mouseReport.buttons;
+    mouseReport.x             = mouseReport.x | sharedReport.x;
+    mouseReport.y             = mouseReport.y | sharedReport.y;
+    mouseReport.h             = mouseReport.h | sharedReport.h;
+    mouseReport.v             = mouseReport.v | sharedReport.v;
+    mouseReport.buttons       = mouseReport.buttons | sharedReport.buttons;
 #    elif defined(POINTING_DEVICE_LEFT)
         if (is_keyboard_left()) {
             mouseReport = pointing_device_driver.get_report(mouseReport);
