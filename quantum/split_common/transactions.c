@@ -579,6 +579,41 @@ static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 #endif  // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
 
 ////////////////////////////////////////////////////
+// POINTING
+
+#if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
+extern const pointing_device_driver_t pointing_device_driver;
+
+report_mouse_t get_targets_pointing(void) {
+    report_mouse_t temp = {0};
+
+    // Prevent transaction attempts while transport is disconnected
+    if (!is_transport_connected()) {
+        return temp;
+    }
+
+    if (!transport_execute_transaction(GET_POINTING, NULL, 0, &temp, sizeof(report_mouse_t))) {
+        dprintf("Failed to execute pointing devices transaction.");
+    }
+    return temp;
+}
+
+static void pointing_handlers_slave(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
+        report_mouse_t temp = {0};
+        temp                = pointing_device_driver.get_report(temp);
+        memcpy(target2initiator_buffer, &temp, sizeof(report_mouse_t));
+}
+
+#    define TRANSACTIONS_POINTING_REGISTRATIONS [GET_POINTING] = trans_target2initiator_initializer_cb(current_pointing_state, pointing_handlers_slave),
+
+#else  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
+#    define TRANSACTIONS_POINTING_REGISTRATIONS
+
+#endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
+////////////////////////////////////////////////////
 
 uint8_t                  dummy;
 split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
@@ -604,6 +639,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_WPM_REGISTRATIONS
     TRANSACTIONS_OLED_REGISTRATIONS
     TRANSACTIONS_ST7565_REGISTRATIONS
+    TRANSACTIONS_POINTING_REGISTRATIONS
 // clang-format on
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

@@ -24,6 +24,11 @@
 #if (defined(POINTING_DEVICE_ROTATION_90) + defined(POINTING_DEVICE_ROTATION_180) + defined(POINTING_DEVICE_ROTATION_270)) > 1
 #    error More than one rotation selected.  This is not supported.
 #endif
+#if defined(SPLIT_POINTING_ENABLE)
+#    include "transactions.h"
+#    include "keyboard.h"
+#    include "timer.h"
+#endif
 
 static report_mouse_t mouseReport = {};
 
@@ -71,13 +76,64 @@ __attribute__((weak)) void pointing_device_send(void) {
 }
 
 __attribute__((weak)) void pointing_device_task(void) {
+#if defined(SPLIT_POINTING_ENABLE)
+    // Don't poll the target side pointing device.
+    if (!is_keyboard_master()) {
+        return;
+    };
+#endif
+
+#if defined(POINTING_DEVICE_TASK_THROTTLE)
+    static uint32_t last_exec = 0;
+    if (timer_elapsed32(last_exec) < 1) {
+        return;
+    }
+    last_exec = timer_read32();
+#else
+#    if defined(SPLIT_POINTING_ENABLE)
+#        pragma message("It's recommended you enable a throttle when sharing pointing devices.")
+#    endif
+#endif
+
     // Gather report info
 #ifdef POINTING_DEVICE_MOTION_PIN
+#    if defined(SPLIT_POINTING_ENABLE)
+#        error POINTING_DEVICE_MOTION_PIN not supported when sharing the pointing device report between sides.
+#    endif
     if (!readPin(POINTING_DEVICE_MOTION_PIN))
 #endif
-        mouseReport = pointing_device_driver.get_report(mouseReport);
 
-        // Support rotation of the sensor data
+#if defined(SPLIT_POINTING_ENABLE)
+#    if defined(POINTING_DEVICE_COMBINED)
+        static report_mouse_t sharedReport = {0};
+    mouseReport.buttons = mouseReport.buttons | ~sharedReport.buttons;
+    mouseReport         = pointing_device_driver.get_report(mouseReport);
+    sharedReport        = get_targets_pointing();
+    mouseReport.x       = mouseReport.x | sharedReport.x;
+    mouseReport.y       = mouseReport.y | sharedReport.y;
+    mouseReport.h       = mouseReport.h | sharedReport.h;
+    mouseReport.v       = mouseReport.v | sharedReport.v;
+    mouseReport.buttons = mouseReport.buttons | sharedReport.buttons;
+#    elif defined(POINTING_DEVICE_LEFT)
+        if (is_keyboard_left()) {
+            mouseReport = pointing_device_driver.get_report(mouseReport);
+        } else {
+            mouseReport = get_targets_pointing();
+        }
+#    elif defined(POINTING_DEVICE_RIGHT)
+        if (!is_keyboard_left()) {
+            mouseReport = pointing_device_driver.get_report(mouseReport);
+        } else {
+            mouseReport = get_targets_pointing();
+        }
+#    else
+#        error "You need to define the side(s) the pointing device is on. POINTING_DEVICE_COMBINED / POINTING_DEVICE_LEFT / POINTING_DEVICE_RIGHT"
+#    endif
+#else
+    mouseReport = pointing_device_driver.get_report(mouseReport);
+#endif  // defined(SPLIT_POINTING_ENABLE)
+
+    // Support rotation of the sensor data
 #if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
     int8_t x = mouseReport.x, y = mouseReport.y;
 #    if defined(POINTING_DEVICE_ROTATION_90)

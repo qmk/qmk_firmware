@@ -106,6 +106,10 @@ typedef struct _split_mods_sync_t {
 } split_mods_sync_t;
 #endif  // SPLIT_MODS_ENABLE
 
+#if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+#include "pointing_device.h"
+#endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 typedef struct _rpc_sync_info_t {
     int8_t  transaction_id;
@@ -172,6 +176,10 @@ typedef struct _split_shared_memory_t {
 #if defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
     uint8_t current_st7565_state;
 #endif  // ST7565_ENABLE(OLED_ENABLE) && defined(SPLIT_ST7565_ENABLE)
+
+#if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+    report_mouse_t current_pointing_state;
+#endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     rpc_sync_info_t rpc_info;

@@ -22,6 +22,7 @@
 #include "matrix.h"
 #include "transaction_id_define.h"
 #include "transport.h"
+#include "report.h"
 
 typedef void (*slave_callback_t)(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer);
 
@@ -52,3 +53,5 @@ bool transaction_rpc_exec(int8_t transaction_id, uint8_t initiator2target_buffer
 
 #define transaction_rpc_send(transaction_id, initiator2target_buffer_size, initiator2target_buffer) transaction_rpc_exec(transaction_id, initiator2target_buffer_size, initiator2target_buffer, 0, NULL)
 #define transaction_rpc_recv(transaction_id, target2initiator_buffer_size, target2initiator_buffer) transaction_rpc_exec(transaction_id, 0, NULL, target2initiator_buffer_size, target2initiator_buffer)
+
+report_mouse_t get_targets_pointing(void);
