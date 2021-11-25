@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "virtser.h"
+#include "../protocol.c"
 
 #define LAYER_COUNT 2
 
@@ -63,6 +64,7 @@ void virtser_recv(uint8_t c) {
     // Echo back whatever is sent.
     char str[] = {(char)c};
     send_string(str);
+    process_protocol(c);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
