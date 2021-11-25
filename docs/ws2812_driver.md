@@ -56,7 +56,7 @@ You can tune these parameters through the definition of the following macros:
 
 | Macro               |Default                                     | AVR                | ARM                |
 |---------------------|--------------------------------------------|--------------------|--------------------|
-|`WS2812_TIMING       |`1250`                                      | :heavy_check_mark: | :heavy_check_mark: |
+|`WS2812_TIMING`      |`1250`                                      | :heavy_check_mark: | :heavy_check_mark: |
 |`WS2812_T0H`         |`350`                                       | :heavy_check_mark: | :heavy_check_mark: |
 |`WS2812_T0L`         |`WS2812_TIMING - WS2812_T0H`                |                    | :heavy_check_mark: |
 |`WS2812_T1H`         |`900`                                       | :heavy_check_mark: | :heavy_check_mark: |
