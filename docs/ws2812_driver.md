@@ -56,11 +56,11 @@ You can tune these parameters through the definition of the following macros:
 
 | Macro               |Default                                     | AVR                | ARM                |
 |---------------------|--------------------------------------------|--------------------|--------------------|
-|`WS2812_TIMING       |`1250`                                      | :heavy_check_mark: | :heavy_check_mark: |
+|`WS2812_TIMING`      |`1250`                                      | :heavy_check_mark: | :heavy_check_mark: |
 |`WS2812_T0H`         |`350`                                       | :heavy_check_mark: | :heavy_check_mark: |
 |`WS2812_T0L`         |`WS2812_TIMING - WS2812_T0H`                |                    | :heavy_check_mark: |
 |`WS2812_T1H`         |`900`                                       | :heavy_check_mark: | :heavy_check_mark: |
-|`WS2812_T1L`         |`WS2812_TIMING - WS2812_T1L`                |                    | :heavy_check_mark: |
+|`WS2812_T1L`         |`WS2812_TIMING - WS2812_T1H`                |                    | :heavy_check_mark: |
 
 ### I2C
 Targeting boards where WS2812 support is offloaded to a 2nd MCU. Currently the driver is limited to AVR given the known consumers are ps2avrGB/BMC. To configure it, add this to your rules.mk:
