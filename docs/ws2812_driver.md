@@ -74,7 +74,7 @@ The WS2812 "bit-banged" ChibiOS driver does just that, in a simple way. It defin
 |`WS2812_T0H`         |`350`                                       |
 |`WS2812_T0L`         |`WS2812_TIMING - WS2812_T0H`                |
 |`WS2812_T1H`         |`900`                                       |
-|`WS2812_T1L`         |`WS2812_TIMING - WS2812_T1L`                |
+|`WS2812_T1L`         |`WS2812_TIMING - WS2812_T1H`                |
 |`WS2812_RES`         |`60000`                                     |
 
 It must be noted, however, that this tuning is only available for the ARM family of microprocessors (since it's ChibiOS-dependent) and not available for PWM and SPI drivers -- so if you intend to use this be aware it will only work with the "bit-banged" driver which is knowingly slower and can possibly throttle the microcontroller if too many LEDs are used.
