@@ -26,8 +26,9 @@ if [[ ${#} -eq 0 ]]; then
    usage
 fi
 
-while getopts "j:s:d:i:n" opt "$@" ; do
+while getopts "hj:s:d:i:n" opt "$@" ; do
     case "$opt" in
+        h) usage; exit 0;;
         j) job_count="${OPTARG:-}";;
         s) source_ref="${OPTARG:-}";;
         d) dest_ref="${OPTARG:-}";;
