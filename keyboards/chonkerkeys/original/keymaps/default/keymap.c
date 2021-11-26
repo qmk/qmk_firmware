@@ -61,9 +61,6 @@ void switch_layer(void) {
 }
 
 void virtser_recv(uint8_t c) {
-    // Echo back whatever is sent.
-    char str[] = {(char)c};
-    send_string(str);
     process_protocol(c);
 }
 

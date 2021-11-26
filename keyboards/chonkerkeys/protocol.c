@@ -2,15 +2,28 @@
 #include "light_type.h"
 #include "command_type.h"
 #include "command.h"
+#include <stdio.h>
 
-uint8_t get_key_light_type(uint8_t x, uint8_t y);
+uint8_t get_key_light_type(uint8_t x, uint8_t y) {
+    return mute;
+}
 
 void update_light(uint8_t type, uint8_t state) {
     // TODO
     if (type == mute) {
-
+        if (state == 0) {
+            SEND_STRING("mute light is off");
+        } else if (state == 1) {
+            SEND_STRING("mute light is on");
+        }
     } else if (type == share_screen) {
-
+        if (state == 0) {
+            SEND_STRING("share screen light is off");
+        } else if (state == 1) {
+            SEND_STRING("share screen light is intermediate");
+        } else if (state == 2) {
+            SEND_STRING("share screen light is on");
+        }
     }
 }
 
@@ -28,11 +41,11 @@ const uint8_t index_length_high_byte = 2;
 const uint8_t index_data = 3;
 
 void try_end_command(void) {
-    if (remaining_bytes > 0) {
-        ++command_index;
-    } else {
+    if (remaining_bytes == 0) {
         _dispatch_command();
         command_index = 0;
+        remaining_bytes = 0;
+        // TODO: zero memory command
     }
 }
 
@@ -80,7 +93,7 @@ void _dispatch_command(void) {
 
     } else if (command_type == command_type_update_light) {
         // TODO: Look up light type from key_x and key_y
-        uint8_t light_type = get_key_light_type(command.update_light.x, command.update_light.y);
+        uint8_t light_type = get_key_light_type(command.update_light.key_x, command.update_light.key_y);
         update_light(light_type, command.update_light.state);
     }
 }
