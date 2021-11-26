@@ -110,10 +110,10 @@ def generate_develop_pr_list(cli):
             pr_num = commit['pr_num']
             print(f'* {title} ([#{pr_num}](https://github.com/qmk/qmk_firmware/pull/{pr_num}))')
 
-    _dump_commit_list("Bugs", pr_list_bugs)
     _dump_commit_list("Core", pr_list_core)
     _dump_commit_list("CLI", pr_list_cli)
     _dump_commit_list("Submodule updates", pr_list_dependencies)
     _dump_commit_list("Keyboards", pr_list_keyboards)
     _dump_commit_list("Keyboard fixes", pr_list_keyboard_fixes)
     _dump_commit_list("Others", pr_list_others)
+    _dump_commit_list("Bugs", pr_list_bugs)
