@@ -21,14 +21,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,      KC_NO, KC_F1, KC_F2, KC_F3,   KC_F10,  KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_0,    KC_1,            KC_2,     KC_3, KC_NO, KC_NO,
                                 KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS, KC_TRNS, KC_TRNS, TO(_MEDIA_CODE), KC_TRNS),
     [_NAV] = LAYOUT(
-        KC_TRNS,      KC_ACL2, KC_WH_R, KC_NO,      KC_WH_L, G(KC_PLUS),                                              C(KC_LEFT), G(A(KC_LEFT)), C(KC_UP), G(A(KC_RIGHT)), C(KC_RIGHT), KC_TRNS,
+        KC_TRNS,      KC_ACL2, KC_WH_R, KC_NO,      KC_WH_L, G(KC_PLUS),                                              C(KC_LEFT), G(A(KC_LEFT)), G(A(KC_UP)), G(A(KC_RIGHT)), C(KC_RIGHT), KC_TRNS,
         TO(_LETTERS), KC_ACL1, KC_MS_L, KC_MS_UP,   KC_MS_R, G(KC_0),                                                 KC_HOME,    KC_LEFT,       KC_UP,    KC_RIGHT,       KC_END,      KC_PGUP,
-        KC_TRNS,      KC_ACL0, KC_WH_D, KC_MS_DOWN, KC_WH_U, G(KC_MINS), KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO,      C(S(KC_TAB)),  KC_DOWN,  C(KC_TAB),      KC_NO,       KC_NO,
-                                        KC_TRNS,    KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,       KC_TRNS),
+        KC_TRNS,      KC_ACL0, KC_WH_D, KC_MS_DOWN, KC_WH_U, G(KC_MINS), KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO,      C(S(KC_TAB)),  KC_DOWN,  C(KC_TAB),      KC_NO,       KC_PGDN,
+                                        KC_TRNS,    KC_TRNS, KC_BTN3,    KC_BTN1, KC_BTN2,          KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,       KC_TRNS),
     [_MEDIA_CODE] = LAYOUT(
         KC_TRNS,      KC_NO, KC_BRIU, KC_VOLU, KC_MNXT, KC_NO,                                                        KC_NO,   G(KC_X),    G(KC_C),    G(KC_V), KC_NO, KC_TRNS,
         TO(_LETTERS), KC_NO, KC_NO,   KC_MUTE, KC_MPLY, G(C(KC_SPACE)),                                               KC_NO,   G(S(KC_D)), G(KC_UP),   G(KC_Y), KC_NO, KC_NO,
-        KC_TRNS,      KC_NO, KC_BRID, KC_VOLD, KC_MPRV, KC_NO,          KC_NO,   KC_NO,             KC_NO,   KC_NO,   KC_NO,   G(KC_F),    G(KC_DOWN), G(KC_R), KC_NO, KC_NO,
+        KC_TRNS,      KC_NO, KC_BRID, KC_VOLD, KC_MPRV, KC_NO,          KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO,   G(KC_F),    G(KC_DOWN), G(KC_R), KC_NO, KC_NO,
                                     KC_TRNS,   KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS),
     [_KBD_CTRL] = LAYOUT(
         KC_TRNS,      KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,                                                        KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_TRNS,
