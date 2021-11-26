@@ -347,7 +347,7 @@ void render_wpm(uint8_t padding) {
 #if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
 extern kb_config_data_t kb_config;
 void                    render_pointing_dpi_status(uint8_t padding) {
-    oled_write_P(PSTR("DPI: "), false);
+    oled_write_P(PSTR("CPI:"), false);
     if (padding) {
         for (uint8_t n = padding - 1; n > 0; n--) {
             oled_write_P(PSTR(" "), false);

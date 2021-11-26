@@ -407,9 +407,9 @@ void oled_driver_render_logo_left(void) {
     render_kitty();
 
     oled_set_cursor(6, 0);
-    oled_write_P(PSTR("  Tractyl      "), true);
+    oled_write_P(PSTR("  Tractyl      "), false);
     oled_set_cursor(6, 1);
-    oled_write_P(PSTR("     Manuform  "), true);
+    oled_write_P(PSTR("     Manuform  "), false);
     oled_set_cursor(6, 2);
 #    if defined(WPM_ENABLE)
     render_wpm(1);
