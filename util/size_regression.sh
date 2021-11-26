@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Copyright 2021 Nick Brassel (@tzarc)
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 set -eEuo pipefail
 
 job_count=$(getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 2)
