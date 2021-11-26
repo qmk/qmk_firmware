@@ -528,6 +528,8 @@ void keyboard_post_init_user(void) {
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_sethsv(HSV_BLUE);
+    //  party mode (for LED soldering test.)
+    rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
 #endif
 };
 
