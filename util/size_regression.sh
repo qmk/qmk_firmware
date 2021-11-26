@@ -2,18 +2,21 @@
 
 set -eEuo pipefail
 
+job_count=$(getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 2)
 source_ref="0.11.0"
 dest_ref="develop"
 ignore_ref="master"
 
 function usage() {
     echo "Usage: $(basename "$0") [-s <source>] [-d <dest>] [-u] planck/rev6:default"
-    echo "    -s <source> : use source commit, branch, tag, or sha1 to start the search"
-    echo "                  defaults to \`$source_ref\`."
-    echo "    -d <dest>   : use destination commit, branch, tag, or sha1 to end the search"
-    echo "                  defaults to \`$dest_ref\`."
-    echo "    -i <ignore> : the branch to ignore refs from"
-    echo "                  defaults to \`$ignore_ref\`."
+    echo "    -j <threads> : change the number of threads to execute with"
+    echo "                   defaults to \`$job_count\`."
+    echo "    -s <source>  : use source commit, branch, tag, or sha1 to start the search"
+    echo "                   defaults to \`$source_ref\`."
+    echo "    -d <dest>    : use destination commit, branch, tag, or sha1 to end the search"
+    echo "                   defaults to \`$dest_ref\`."
+    echo "    -i <ignore>  : the branch to ignore refs from"
+    echo "                   defaults to \`$ignore_ref\`."
     exit 1
 }
 
@@ -21,8 +24,9 @@ if [[ ${#} -eq 0 ]]; then
    usage
 fi
 
-while getopts "s:d:i:" opt "$@" ; do
+while getopts "j:s:d:i:" opt "$@" ; do
     case "$opt" in
+        j) job_count="${OPTARG:-}";;
         s) source_ref="${OPTARG:-}";;
         d) dest_ref="${OPTARG:-}";;
         i) ignore_ref="${OPTARG:-}";;
@@ -42,7 +46,7 @@ function build_executor() {
 
         make distclean >/dev/null 2>&1
         git checkout $revision >/dev/null 2>&1 || { echo "Failed to check out revision ${revision}" >&2 ; exit 1 ; }
-        make -j $keyboard_target >/dev/null 2>&1 || true
+        make -j${job_count} $keyboard_target >/dev/null 2>&1 || true
         file_size=$(arm-none-eabi-size .build/*.elf 2>&1 | awk '/elf/ {print $1}' 2>&1 || true)
 
         if [[ "$last_size" == 0 ]] ; then last_size=$file_size ; fi
