@@ -56,12 +56,12 @@ function build_executor() {
         last_size=$file_size
         last_line=$line
     done
-}
 
-if [ -n "$last_line" ] ; then
-    size_delta=0
-    printf "Size: %8d, delta: %+6d -- %s\n" "$last_size" "$size_delta" "$last_line"
-fi
+    if [ -n "$last_line" ] ; then
+        size_delta=0
+        printf "Size: %8d, delta: %+6d -- %s\n" "$last_size" "$size_delta" "$last_line"
+    fi
+}
 
 # The actual execution of all the builds needs to be the last command in the entire script
 # - During builds, this script file will disappear, so we need the entire script to be
