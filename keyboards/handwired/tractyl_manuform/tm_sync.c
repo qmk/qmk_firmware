@@ -38,6 +38,9 @@ void kb_config_sync_handler(uint8_t initiator2target_buffer_size, const void* in
     // Check if the state values are different
     if (cpi != kb_config.device_cpi) {
         cpi = kb_config.device_cpi;
+        if (!is_keyboard_left()) {
+            pointing_device_set_cpi(cpi);
+        }
     }
 }
 
