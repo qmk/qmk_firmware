@@ -7,11 +7,11 @@ Instructions for handwiring and hand-wire specific case STLs are available for h
 
 Make example for this keyboard (after setting up your build environment):
 
-    make lyra:default
+    make malevolti:lyra:default
 
 Flashing example for this keyboard:
 
-    make lyra:default:flash
+    make malevolti:lyra:default:flash
 
 Press reset button on the keyboard when asked.
 
