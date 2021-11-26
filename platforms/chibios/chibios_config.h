@@ -51,6 +51,18 @@
 #    endif
 #endif
 
+// WB32 compatibility
+#if defined(MCU_WB32)
+#    define CPU_CLOCK WB32_MAINCLK
+
+#    if defined(WB32F3G71xx)
+#        define PAL_OUTPUT_TYPE_OPENDRAIN PAL_WB32_OTYPE_OPENDRAIN
+#        define PAL_OUTPUT_TYPE_PUSHPULL PAL_WB32_OTYPE_PUSHPULL
+#        define PAL_OUTPUT_SPEED_HIGHEST PAL_WB32_OSPEED_HIGH
+#        define PAL_PUPDR_FLOATING PAL_WB32_PUPDR_FLOATING
+#    endif
+#endif
+
 #if defined(GD32VF103)
 /* This chip has the same API as STM32F103, but uses different names for literally the same thing.
  * As of 4.7.2021 QMK is tailored to use STM32 defines/names, for compatibility sake

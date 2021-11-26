@@ -624,6 +624,8 @@ def arm_processor_rules(info_data, rules):
     if 'bootloader' not in info_data:
         if 'STM32' in info_data['processor']:
             info_data['bootloader'] = 'stm32-dfu'
+        elif 'WB32' in info_data['processor']:
+            info_data['bootloader'] = 'wb32-dfu'
         else:
             info_data['bootloader'] = 'unknown'
 

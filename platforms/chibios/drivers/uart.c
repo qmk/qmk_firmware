@@ -18,7 +18,11 @@
 
 #include "quantum.h"
 
+#if defined(WB32F3G71xx)
+static SerialConfig serialConfig = {SERIAL_DEFAULT_BITRATE, SD1_WRDLEN, SD1_STPBIT, SD1_PARITY, SD1_ATFLCT};
+#else
 static SerialConfig serialConfig = {SERIAL_DEFAULT_BITRATE, SD1_CR1, SD1_CR2, SD1_CR3};
+#endif
 
 void uart_init(uint32_t baud) {
     static bool is_initialised = false;
