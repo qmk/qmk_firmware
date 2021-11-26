@@ -6,17 +6,19 @@ job_count=$(getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu 2>/dev/nu
 source_ref="0.11.0"
 dest_ref="develop"
 ignore_ref="master"
+unset skip_zero
 
 function usage() {
-    echo "Usage: $(basename "$0") [-s <source>] [-d <dest>] [-u] planck/rev6:default"
+    echo "Usage: $(basename "$0") [-j <jobs>] [-s <source>] [-d <dest>] [-n] planck/rev6:default"
     echo "    -j <threads> : change the number of threads to execute with"
-    echo "                   defaults to \`$job_count\`."
+    echo "                   defaults to \`$job_count\`"
     echo "    -s <source>  : use source commit, branch, tag, or sha1 to start the search"
-    echo "                   defaults to \`$source_ref\`."
+    echo "                   defaults to \`$source_ref\`"
     echo "    -d <dest>    : use destination commit, branch, tag, or sha1 to end the search"
-    echo "                   defaults to \`$dest_ref\`."
+    echo "                   defaults to \`$dest_ref\`"
     echo "    -i <ignore>  : the branch to ignore refs from"
-    echo "                   defaults to \`$ignore_ref\`."
+    echo "                   defaults to \`$ignore_ref\`"
+    echo "    -n           : skips printing changes if the delta is zero"
     exit 1
 }
 
@@ -24,12 +26,13 @@ if [[ ${#} -eq 0 ]]; then
    usage
 fi
 
-while getopts "j:s:d:i:" opt "$@" ; do
+while getopts "j:s:d:i:n" opt "$@" ; do
     case "$opt" in
         j) job_count="${OPTARG:-}";;
         s) source_ref="${OPTARG:-}";;
         d) dest_ref="${OPTARG:-}";;
         i) ignore_ref="${OPTARG:-}";;
+        n) skip_zero=1;;
         \?) usage >&2; exit 1;;
     esac
 done
@@ -47,14 +50,16 @@ function build_executor() {
         make distclean >/dev/null 2>&1
         git checkout $revision >/dev/null 2>&1 || { echo "Failed to check out revision ${revision}" >&2 ; exit 1 ; }
         make -j${job_count} $keyboard_target >/dev/null 2>&1 || true
-        file_size=$(arm-none-eabi-size .build/*.elf 2>&1 | awk '/elf/ {print $1}' 2>&1 || true)
+        file_size=$(arm-none-eabi-size .build/*.elf 2>/dev/null | awk '/elf/ {print $1}' 2>/dev/null || true)
 
         if [[ "$last_size" == 0 ]] ; then last_size=$file_size ; fi
         if [[ -z "$file_size" ]] ; then file_size=0 ; fi
 
         if [[ -n "$last_line" ]] ; then
             size_delta=$(( $last_size - $file_size ))
-            printf "Size: %8d, delta: %+6d -- %s\n" "$last_size" "$size_delta" "$last_line"
+            if { [[ -n "${skip_zero:-}" ]] && [[ $size_delta -ne 0 ]] ; } || [[ $file_size -eq 0 ]] ; then
+                printf "Size: %8d, delta: %+6d -- %s\n" "$last_size" "$size_delta" "$last_line"
+            fi
         fi
 
         last_size=$file_size
