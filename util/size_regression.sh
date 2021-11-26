@@ -9,16 +9,13 @@ ignore_ref="master"
 unset skip_zero
 
 function usage() {
-    echo "Usage: $(basename "$0") [-j <jobs>] [-s <source>] [-d <dest>] [-n] planck/rev6:default"
-    echo "    -j <threads> : change the number of threads to execute with"
-    echo "                   defaults to \`$job_count\`"
-    echo "    -s <source>  : use source commit, branch, tag, or sha1 to start the search"
-    echo "                   defaults to \`$source_ref\`"
-    echo "    -d <dest>    : use destination commit, branch, tag, or sha1 to end the search"
-    echo "                   defaults to \`$dest_ref\`"
-    echo "    -i <ignore>  : the branch to ignore refs from"
-    echo "                   defaults to \`$ignore_ref\`"
-    echo "    -n           : skips printing changes if the delta is zero"
+    echo "Usage: $(basename "$0") [-h] [-j <jobs>] [-s <source>] [-d <dest>] [-n] planck/rev6:default"
+    echo "    -h           : Shows this usage page."
+    echo "    -j <threads> : Change the number of threads to execute with. Defaults to \`$job_count\`."
+    echo "    -s <source>  : Use source commit, branch, tag, or sha1 to start the search. Defaults to \`$source_ref\`."
+    echo "    -d <dest>    : Use destination commit, branch, tag, or sha1 to end the search. Defaults to \`$dest_ref\`."
+    echo "    -i <ignore>  : The branch to ignore refs from. Defaults to \`$ignore_ref\`."
+    echo "    -n           : Skips printing changes if the delta is zero."
     exit 1
 }
 
