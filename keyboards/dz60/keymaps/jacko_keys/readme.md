@@ -18,12 +18,12 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * Left `Win` is macro-board layer selection. Latching macro modifiers and function keys.
 * Left `Alt` is navigation layer select. You **MUST** be in this mode for **BQN**.
 * Basically `Fn`+ a left modifier on the bottom row changes the main layer or enters a CYAN shift except when in **BQN** BLUE mode.
-* In CYAN shift mode you may release the `Fn` key while holding the respective CYAN modifier.
+* In CYAN shift mode you may release the `Fn` key while keeping hold of the respective CYAN modifier.
 * Scroll lock via caps lock.
 * Backslash makes insert.
 * Backspace makes delete.
 * Backtick makes escape.
-
+* **BQN** MAGENTA `Fn` is a locking mode for a different character Unicode layer.
 
 ## ANSI Layer (RED Layer)
 * Right `Ctrl` is left of the `Fn` shift key as always.
@@ -78,17 +78,24 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * Period is scroll down.
 * Enter, tab and escape (on backtick) are themselves.
 * Backspace does a delete.
-* Backslash is keyboard RESET.
+* Backtick is keyboard RESET, as this allows backtick to be held for entering the bootloader.
+* Backslash is `SysReq`.
 * Tab allows applying an `Alt` modifier, as `Alt` is used to hold the CYAN shift.
 * The brackets are home and end.
 * Minus and equals are buttons 4 and 5 (standard mice don't have this).
 * Semicolon is mouse button 3 (scroll button).
 * Apostrophe is mouse button 2.
 * All the alpha and number keys are multi-character UTF-8 (for more flexible Unicode).
+* Set up for `Shift` and `Ctrl` modifiers (can be extended to `Alt` and `Win`). 
+* Examples:
+  * Sporadic groups on shift alphas.
+  * Families on unshifted and shifted numbers plus null set.
+  * The maths can get complicated as these are the "44 prime kinds" of all simple symmetry groups (plus the irregular honorary sporadic "Tits Group"). I included the zero null set symbol too.
 
 ### **BQN** Layer (BLUE Layer Within BQN Specification)
 * **BQN** unshifted and shifted.
 * Backspace exits back to navigation GREEN mode.
+* The bottom row of modifiers emit some strange keys which could be detected amongst the automatic Unicode modifiers.
 
 ```
 ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬─────────┐
@@ -108,11 +115,17 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 ```
 
 ### Unicode Shift Layer (`Fn` After `\` **BQN** Prefix MAGENTA Shift)
-* All the alpha keys form Unicode characters (definable in code).
-* Backspace to exit **BQN** if you accidentally enter a backslash.
+* Backspace works to remove characters.
+* Enter works as expected to end a paragraph.
+* All the alphanumeric keys form Unicode characters (definable in code).
+* Tap `Fn` to exit if you accidentally enter this MAGENTA locked mode.
+* Cursor block works as expected to navigate text.
 * All other punctuation has defined Unicode in code too.
 * Modifier keys don't change layers except `Fn` which releases the MAGENTA shift.
 * Not quite as flexible as the `Mouse Shift Layer` as only single Unicode code points can be used.
+* But as it is locking, an alternate alphabet can be placed on the keys.
+* The bottom row of modifiers emit some strange keys which could be detected amongst the automatic Unicode modifiers. This also true for `Shift` on this layer.
+* Tab does a tab and not `Ctrl`+`Alt`+`Del`, as this mode is designed for hours of fun as long as the `Fn` adult button is not pushed. Just the kind of thing for a novel.
 
 ## Macro-board Layer (YELLOW Layer)
 * Escape is a one shot sticky `Ctrl`+`Shift`.

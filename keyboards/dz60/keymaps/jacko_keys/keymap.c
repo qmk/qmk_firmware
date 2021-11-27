@@ -71,7 +71,7 @@ enum unicode_names {
 	AGR, ACOM, ADOT, ALBR, ARBR, ASEM, AAPO,
 	AA, AB, AC, AD, AE, AF, AG, AH, AI, AJ, AK,
 	AL, AM, AN, AO, AP, AQ, AR, AS, AT, AU, AV, AW,
-	AX, AY, AZ, ABSL, ADIV,
+	AX, AY, AZ, ABSL,
 };
 
 // PLACE BQN layer and Unicode character code points here.
@@ -132,28 +132,34 @@ const uint32_t PROGMEM unicode_map[] = {
 	[IP] = U'🐧', [IQ] = U'📤', [IR] = U'📥', [IS] = U'💾',
 	[IT] = U'🌱', [IU] = U'👎', [IV] = U'📋', [IW] = U'🔑',
 	[IX] = U'🗙', [IY] = U'🗜', [IZ] = U'⎌', [ILBR] = U'⎋',
-	[IBSL] = U'🌍', [IRBR] = U'☣', [ICAR] = U'⚗', [IUND] = U'☢',
+	[IBSL] = U'🌍', [IRBR] = U'☣', [ICAR] = U'⌬', [IUND] = U'☢',
 	//BQN Fn Shift
 	//Unicode layer
 	//============================================================================
 	// FILL IN AS REQUIRED
 	//============================================================================
-	[A1] = U' ', [A2] = U' ', [A3] = U' ', [A4] = U' ',
-	[A5] = U' ', [A6] = U' ', [A7] = U' ', [A8] = U' ',
-	[A9] = U' ', [A0] = U' ', [AMIN] = U' ', [AEQ] = U' ',
-	[ACOM] = U' ', [ADOT] = U' ', [ALBR] = U' ',
-	[ARBR] = U' ', [ASEM] = U' ', [AAPO] = U' ',
-	[AA] = U' ', [AB] = U' ', [AC] = U' ', [AD] = U' ',
-	[AE] = U' ', [AF] = U' ', [AG] = U' ', [AH] = U' ',
-	[AI] = U' ', [AJ] = U' ', [AK] = U' ', [AL] = U' ',
-	[AM] = U' ', [AN] = U' ', [AO] = U' ', [AP] = U' ',
-	[AQ] = U' ', [AR] = U' ', [AS] = U' ', [AT] = U' ',
-	[AU] = U' ', [AV] = U' ', [AW] = U' ',
-	[AX] = U' ', [AY] = U' ', [AZ] = U' ',
-	[ABSL] = U' ', [ADIV] = U' ',
-	//1338 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
-	//2021-11-24
+	[A1] = U'𝟙', [A2] = U'𝟚', [A3] = U'𝟛', [A4] = U'𝟜',
+	[A5] = U'𝟝', [A6] = U'𝟞', [A7] = U'𝟟', [A8] = U'𝟠',
+	[A9] = U'𝟡', [A0] = U'𝟘', [AMIN] = 0x2224, [AEQ] = U'∣',//incongruence
+	[ACOM] = U',', [ADOT] = U'.', [ALBR] = U'“',
+	[ARBR] = U'”', [ASEM] = U';', [AAPO] = U'\'',
+	[AA] = U'A', [AB] = U'Ạ', [AC] = U'Ṅ', [AD] = U'Ṫ',
+	[AE] = U'E', [AF] = U'Ṡ', [AG] = U'Ẹ', [AH] = U'H',
+	[AI] = U'I', [AJ] = U'Ṣ', [AK] = U'Ṇ', [AL] = U'Ȧ',
+	[AM] = U'Ȯ', [AN] = U'N', [AO] = U'O', [AP] = U'Ṭ',
+	[AQ] = U'Ọ', [AR] = U'Ė', [AS] = U'S', [AT] = U'T',
+	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
+	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
+	[ABSL] = U'\\'
+	//1094 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2021-11-27
 };
+
+//Some say the above should be converted to allow more in device shift states,
+//but that would be less compact (needing 4 NUL per key) so kind of works for free.
+
+//The Navigation CYAN mode macro key system
+//keycode name definitions
 
 enum custom_keycodes {
     QMKLAST = SAFE_RANGE - 1,//ready for define
@@ -174,66 +180,98 @@ enum custom_keycodes {
 //An estimate of 35 characters per key action set 2021-11-24
 //A quirk in C does allow less space used by concatenation of This
 //data structure if control key acceptably indexes the "next letter" OK.
-char* macro_unicode[] = {
+const char* const PROGMEM macro_unicode[] = {
 	//============================================================================
 	// FILL IN AS REQUIRED
 	//============================================================================
-	// in x, sx, cx, csx modifier format with NUL terminal characters
-	"\0\0\0",//		 KM_1
-	"\0\0\0",//    KM_2
-	"\0\0\0",//    KM_3
-	"\0\0\0",//    KM_4
-	"\0\0\0",//    KM_5
-	"\0\0\0",//		 KM_6
-	"\0\0\0",//    KM_7
-	"\0\0\0",//    KM_8
-	"\0\0\0",//    KM_9
-	"\0\0\0",//    KM_0
-	"\0\0\0",//		 KM_Q
-	"\0\0\0",//    KM_W
-	"\0\0\0",//    KM_E
-	"\0\0\0",//    KM_R
-	"\0\0\0",//    KM_T
-	"\0\0\0",//		 KM_Y
-	"\0\0\0",//    KM_U
-	"\0\0\0",//    KM_I
-	"\0\0\0",//    KM_O
-	"\0\0\0",//    KM_P
-	"\0\0\0",//		 KM_A
-	"\0\0\0",//    KM_S
-	"\0\0\0",//    KM_D
-	"\0\0\0",//    KM_F
-	"\0\0\0",//    KM_G
-	"\0\0\0",//		 KM_H
-	"\0\0\0",//    KM_J
-	"\0\0\0",//    KM_K
-	"\0\0\0",//    KM_L
-	"\0\0\0",//		 KM_Z
-	"\0\0\0",//    KM_X
-	"\0\0\0",//    KM_C
-	"\0\0\0",//    KM_V
-	"\0\0\0",//		 KM_B
-	"\0\0\0",//    KM_N
-	"\0\0\0",//    KM_M
+	// in (x, sx, cx, csx) modifier format with NUL terminal characters
+	// can add (wx, wsx, wcx, wcsx) extra on end with \0 inbetween each
+	// for more use of WIN modifier. ALT being used to hold layer.
+	"ℤₚ\0F₄(q)\0\0",//		 KM_1
+	"Aₙ\0G₂(p)\0\0",//    KM_2
+	"Aₙ(q)\0²Aₙ(q²)\0\0",//    KM_3
+	"Bₙ(q)\0²Dₙ(q²)\0\0",//    KM_4
+	"Cₙ(q)\0²E₆(q²)\0\0",//    KM_5
+	"Dₙ(q)\0³D₄(q³)\0\0",//		 KM_6
+	"E₆(q)\0²B₂(2²ⁿ⁺¹)\0\0",//    KM_7
+	"E₇(q)\0²F₄(2²ⁿ⁺¹)\0\0",//    KM_8
+	"E₈(q)\0²G₂(3²ⁿ⁺¹)\0\0",//    KM_9
+	"∅\0²F₄(2)′\0\0",//    KM_0
+	"\0Fi₂₂\0\0",//		 KM_Q
+	"\0J₄\0\0",//    KM_W
+	"\0J₂\0\0",//    KM_E
+	"\0HN\0\0",//    KM_R
+	"\0Th\0\0",//    KM_T
+	"\0B\0\0",//		 KM_Y
+	"\0Fi₂₃\0\0",//    KM_U
+	"\0M₂₄\0\0",//    KM_I
+	"\0Co₃\0\0",//    KM_O
+	"\0Co₂\0\0",//    KM_P
+	"\0M₁₁\0\0",//		 KM_A
+	"\0Ly\0\0",//    KM_S
+	"\0M₂₂\0\0",//    KM_D
+	"\0M₂₃\0\0",//    KM_F
+	"\0HS\0\0",//    KM_G
+	"\0J₃\0\0",//		 KM_H
+	"\0McL\0\0",//    KM_J
+	"\0He\0\0",//    KM_K
+	"\0Ru\0\0",//    KM_L
+	"\0M\0\0",//		 KM_Z
+	"\0Fi₂₄\0\0",//    KM_X
+	"\0J₁\0\0",//    KM_C
+	"\0Co₁\0\0",//    KM_V
+	"\0M₁₂\0\0",//		 KM_B
+	"\0O'N\0\0",//    KM_N
+	"\0Suz\0\0",//    KM_M
 };
 
-char* modify_step(char* ip) {
+const uint16_t PROGMEM macro_keycode[] = {
+	//index at A
+	//only use alpha A-Z (26) escape sequences "\\A" etc. in macro strings
+	KC_LEFT,//\\A
+};
+
+const char* modify_step(const char* ip) {
 	while(*(ip++) != 0);
 	return ip;
 }
 
+const char* modify_step2(const char* ip) {
+	return modify_step(modify_step(ip));
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	//read only guard not necessary
+	if(keycode < KM_1 || keycode > KM_M) return true;//protection better
 	if (record->event.pressed) {
 		//press
-		char* ip = macro_unicode[keycode - KM_1];
-		if(get_mods() == MOD_MASK_SHIFT) ip = modify_step(ip);
-		if(get_mods() == MOD_MASK_CTRL) {//jump 2
-			ip = modify_step(modify_step(ip));
+		const char* ip = macro_unicode[keycode - KM_1];
+		if(get_mods() & MOD_MASK_SHIFT) ip = modify_step(ip);
+		if(get_mods() & MOD_MASK_CTRL) {//jump 2
+			ip = modify_step2(ip);
+		}
+		if(get_mods() & MOD_MASK_GUI) {//jump 4 -- currently next macro key
+			ip = modify_step2(modify_step2(ip));
 		}
 		while(*ip == '\\') {
 			//process backslash macro effect, otherwise literal until end of string
 			ip++;
+			uint8_t idx = *ip - 'A';
+			if(idx < 26) {//only use alphas
+				tap_code16(macro_keycode[idx]);//16 for allow full moded codes
+				ip++;
+				continue;
+			}
+			idx = idx + 'A' - '0';//numbers
+			if(idx < 10) {
+				const char* ip_save = ip++;
+				for(uint8_t i = 0; i < idx + 1; i++) {
+					//so one step by default and numbers higher than 0 leave that may gaps in the skip.
+					ip = modify_step(ip);//skip number of codes
+				}
+				send_unicode_string(ip);//should UTF-8
+				ip = ip_save;//restore (only one level deep!!!!)
+				continue;
+			}
 			switch(*(ip++)) {
 				//other cases of macro effects
 				//======================================================================
@@ -254,6 +292,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	}
   return true;
 };
+
+#define F_CTRL KC_OUT
+#define F_SHFT KC_OPER
+#define F_ALT KC_CLEAR_AGAIN
+#define F_GUI KC_CRSEL
+#define F_BOOM KC_EXSEL
+//a great C4 joke about adding 32 to the modifiers
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //=========================================================
@@ -300,7 +345,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           Z(Q),    Z(W),    Z(E),    Z(R),    Z(T),    Z(Y),    Z(U),    Z(I),    Z(O),    Z(P), 		Z(LBR),  Z(RBR),  KC_BSLS,
 		KC_CAPS,          Z(A),    Z(S),    Z(D),    Z(F),    Z(G),    Z(H),    Z(J),    Z(K),    Z(L),    Z(SEMI), Z(QUOT), KC_ENT,
 		KC_LSFT,		      Z(Z),    Z(XX),   Z(C),    Z(V),    Z(B),    Z(N),    Z(M),    Z(LESS), Z(GRET), Z(DIV),           KC_RSFT,
-		KC_LCTL, KC_LGUI,          KC_LALT,                   Z(SPC),                 		  	 		KC_LEFT, KC_RGUI,          KC_RIGHT,MO(7)),//shift
+		F_CTRL,  F_GUI,          	 F_ALT,                   	Z(SPC),                 		  	 		F_ALT,	 F_GUI,		         F_CTRL,	TO(7)),//shift sticky
 
 //=========================================================
 // SECONDARY Fn SHIFTED MODES
@@ -339,11 +384,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	//BQN shift mode 7 ==================================================================================== BQN shift mode 7
 	LAYOUT_60_ansi(
-		KC_ESC,  X(A1),   X(A2),   X(A3),   X(A4),   X(A5),   X(A6),   X(A7),   X(A8),   X(A9),   X(A0),   X(AMIN), X(AEQ),	          TO(5),//escape
-		LCA(KC_DEL),			X(AQ),   X(AW),   X(AE),   X(AR),   X(AT),   X(AY),   X(AU),   X(AI),   X(AO),   X(AP),   X(ALBR), X(ARBR), X(ABSL),
-		KC_SLCK,  		  	X(AA),   X(AS),   X(AD),   X(AF),   X(AG),   X(AH),   X(AJ),   X(AK),   X(AL),   X(ASEM), X(AAPO), KC_APP,
-		KC_TRNS,          X(AZ),   X(AX),   X(AC),   X(AV),   X(AB),   X(AN),   X(AM),   X(ACOM), X(ADOT), X(ADIV),			     KC_TRNS,
-		KC_LCTL, KC_LGUI,          KC_LALT,	                  KC_SPC,                             KC_RALT, KC_RGUI,          KC_RCTL, KC_TRNS),
+		KC_ESC,  X(A1),   X(A2),   X(A3),   X(A4),   X(A5),   X(A6),   X(A7),   X(A8),   X(A9),   X(A0),   X(AMIN), X(AEQ),	          KC_BSPC,//allow backspace
+		KC_TAB,						X(AQ),   X(AW),   X(AE),   X(AR),   X(AT),   X(AY),   X(AU),   X(AI),   X(AO),   X(AP),   X(ALBR), X(ARBR), X(ABSL),
+		KC_SLCK,  		  	X(AA),   X(AS),   X(AD),   X(AF),   X(AG),   X(AH),   X(AJ),   X(AK),   X(AL),   X(ASEM), X(AAPO), KC_ENT,
+		F_SHFT,	          X(AZ),   X(AX),   X(AC),   X(AV),   X(AB),   X(AN),   X(AM),   X(ACOM), X(ADOT), KC_UP,				     F_SHFT,
+		F_CTRL,  F_GUI,          	 F_ALT,		                  KC_SPC,                             KC_LEFT, KC_DOWN,          KC_RIGHT,TO(5)),//latching escape
 
 //=========================================================
 // EXTENDED Fn, MOD, Release Fn SHIFTED MODES
@@ -354,14 +399,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		Z(CES),  Z(C1),   X(IAT),  Z(C3),   Z(C4),   Z(C5),   X(ICAR), Z(C7),   Z(C8),   Z(C9),   Z(C0),   X(IUND), Z(CEQ),           X(LBS),
 		X(TAB),			  		X(IQ),   X(IW),   X(IE),   X(IR),   X(IT),   X(IY),   X(IU),   X(II),   X(IO),   X(IP),   X(ILBR), X(IRBR), X(IBSL),
 		KC_TRNS,  		  	X(IA),   X(IS),   X(ID),   X(IF),   X(IG),   X(IH),   X(IJ),   X(IK),   X(IL),   LCTL(KC_PAUS),LCTL(KC_PSCR),X(CR),
-		LCTL(KC_LSFT),    X(IZ),   X(IX),   X(IC),   X(IV),   X(IB),   X(IN),   X(IM),   LCTL(KC_PGUP),LCTL(KC_PGDN),LCTL(KC_UP),     KC_TRNS,
+		KC_LSFT,			    X(IZ),   X(IX),   X(IC),   X(IV),   X(IB),   X(IN),   X(IM),   LCTL(KC_PGUP),LCTL(KC_PGDN),LCTL(KC_UP),     KC_TRNS,
 		KC_TRNS, LCTL(KC_LGUI),	   LCTL(KC_LALT),             X(IAT),                             LCTL(KC_LEFT), LCTL(KC_DOWN),LCTL(KC_RIGHT),KC_TRNS),
 
 	//Mouse shift mode 9 ================================================================================ Mouse shift mode 9
 	// A utility layer for things like the mouse.
 	LAYOUT_60_ansi(
-		KC_ESC,  KM_1,    KM_2,    KM_3,    KM_4,    KM_5,    KM_6,    KM_7,    KM_8,    KM_9,    KM_0,		 KC_BTN4, KC_BTN5,          KC_DEL,
-		KC_TAB,           KM_Q,    KM_W,    KM_E,    KM_R,    KM_T,    KM_Y,    KM_U,    KM_I,    KM_O,    KM_P,	  KC_HOME, KC_END,	RESET,
+		RESET,	 KM_1,    KM_2,    KM_3,    KM_4,    KM_5,    KM_6,    KM_7,    KM_8,    KM_9,    KM_0,		 KC_BTN4, KC_BTN5,          KC_DEL,
+		KC_TAB,           KM_Q,    KM_W,    KM_E,    KM_R,    KM_T,    KM_Y,    KM_U,    KM_I,    KM_O,    KM_P,	  KC_HOME, KC_END,	KC_SYSREQ,
 		KC_LALT,		      KM_A,    KM_S,    KM_D,    KM_F,    KM_G,    KM_H,    KM_J,    KM_K,    KM_L,    KC_BTN3, KC_BTN2, KC_ENT,
 		KC_LSFT,          KM_Z,    KM_X,    KM_C,    KM_V,    KM_B,    KM_N,    KM_M,	   KC_WH_U, KC_WH_D, KC_MS_U,          KC_RSFT,
 		KC_LCTL, KC_LGUI, KC_TRNS,	                  				KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS),
@@ -422,7 +467,7 @@ void keyboard_post_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   // Layers will light up if kb layers are active
-	for(uint16_t i = 0; i < 4; i++)
+	for(uint8_t i = 0; i < 4; i++)
 		rgblight_set_layer_state(i, layer_state_cmp(state, i));//ANSI
 	//rgblight_set_layer_state(2, layer_state_cmp(state, 1));//NAV
 	//rgblight_set_layer_state(3, layer_state_cmp(state, 2));//Macro

@@ -16,9 +16,32 @@
 
 #pragma once
 
-#define RGBLIGHT_SLEEP
+//Use just Linux mode input.
+#define UNICODE_SELECTED_MODES UC_LNX
+
+//Somehow is no longer some feature, so not needed.
+//#define RGBLIGHT_SLEEP
+
+//So the patterns move.
+#define RGBLIGHT_ANIMATIONS
+
+//Allow lighting indication layers.
 #define RGBLIGHT_LAYERS
+
+//A default setting. Can go up to 32.
+//#define RGBLIGHT_MAX_LAYERS 8
+
+//Keeps status LEDs on even if RGB animations are off.
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-#define RGBLIGHT_LAYER_BLINK
+
+//Can blink layers if needed.
+//#define RGBLIGHT_LAYER_BLINK
+
+//To release and not have stuck keys when layer changes on held key.
 #define STRICT_LAYER_RELEASE
-//to release and not have stuck keys
+
+//OVERRIDES GENERAL FOR BOARD
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+#undef LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+#undef LOCKING_RESYNC_ENABLE
