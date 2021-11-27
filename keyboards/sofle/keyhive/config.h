@@ -25,22 +25,22 @@
 #define PRODUCT_ID   0x1287
 #define DEVICE_VER   0x0002
 #define MANUFACTURER Keyhive
-#define PRODUCT      Sofle  // VIA version for this PCB is incorrect for the bottom row
+#define PRODUCT      Sofle
 
 // Key matrix size
 // Rows are doubled-up. Added extra column for rotary encoder VIA mapping.
 #define MATRIX_ROWS  10
-#define MATRIX_COLS  6
+#define MATRIX_COLS  7
 
 // wiring of each half
 #define MATRIX_ROW_PINS \
     { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS \
-    { B6, B2, B3, B1, F7, F6 }
+    { B6, B2, B3, B1, F7, F6, C7 } //C7 is unused on the MCU. It is needed for the encoder key matrix in via.
 #define MATRIX_ROW_PINS_RIGHT \
     { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS_RIGHT \
-    { F6, F7, B1, B3, B2, B6 }
+    { F6, F7, B1, B3, B2, B6, C7 } //C7 is unused on the MCU. It is needed for the encoder key matrix in via.
 
 #define DIODE_DIRECTION COL2ROW
 
