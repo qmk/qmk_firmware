@@ -113,7 +113,7 @@ void action_tapping_process(keyrecord_t record) {
 /* return true when key event is processed or consumed. */
 bool process_tapping(keyrecord_t *keyp) {
     keyevent_t event = keyp->event;
-#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(TAPPING_TERM_PER_KEY) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(TAPPING_FORCE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEYPRESS_PER_KEY)
+#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(TAPPING_TERM_PER_KEY) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(TAPPING_FORCE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
     uint16_t tapping_keycode = get_record_keycode(&tapping_key, false);
 #    endif
 
@@ -184,11 +184,11 @@ bool process_tapping(keyrecord_t *keyp) {
                             (
                                 (
                                     false
-#            if defined(HOLD_ON_OTHER_KEYPRESS) || defined(HOLD_ON_OTHER_KEYPRESS_PER_KEY)
+#            if defined(HOLD_ON_OTHER_KEY_PRESS) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
                                     || (
                                         IS_LT(tapping_keycode)
-#                ifdef HOLD_ON_OTHER_KEYPRESS_PER_KEY
-                                        && get_hold_on_other_keypress(tapping_keycode, keyp)
+#                ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+                                        && get_hold_on_other_key_press(tapping_keycode, keyp)
 #                endif
                                     )
 #            endif
