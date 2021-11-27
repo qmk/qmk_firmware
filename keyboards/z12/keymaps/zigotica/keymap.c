@@ -80,9 +80,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
         case VIM_NEW:// New buffer
             if (record->event.pressed) {
-                register_code(KC_ESC);
-                SEND_STRING(":vnew");
-                register_code(KC_ENT);
+                SEND_STRING("\e:vnew\n");
             } else { // released
                 unregister_code(KC_ENT);
                 unregister_code(KC_ESC);
