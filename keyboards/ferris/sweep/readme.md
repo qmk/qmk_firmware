@@ -8,9 +8,8 @@ A version of the Ferris keyboard that uses a daughterboard, designed by the fant
 ## Keyboard Info
 
 * Keyboard Maintainer: [Pierre Chevalier](https://github.com/pierrechevalier83)
-* Hardware Supported:
-	* Ferris sweep (With pro-micro. Comes in a couple of PCB edge cuts shapes, but with identical pinout)
-* Hardware Availability: @iamnotyourbroom in the 40% discord chat server may have some spares for you.
+* Hardware Supported: [Sweep](https://github.com/davidphilipbarr/Sweep) (all versions)
+* Hardware Availability: Print the PCB with gerber files from the repository
 
 Make example for this keyboard (after setting up your build environment):
 
