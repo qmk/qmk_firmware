@@ -72,7 +72,14 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;
     }
+#ifdef MOUSEKEY_ENABLE
     tap_code(clockwise ? KC_WH_U : KC_WH_D);
+#else
+    mouse_report = pointing_device_get_report();
+    mouse_report.v = clockwise ? 1 : -1;
+    pointing_device_set_report(mouse_report);
+    pointing_device_send();
+#endif
     return true;
 }
 
