@@ -35,4 +35,7 @@ Uses the `DEBOUNCE_TYPE` of `sym_eager_pk` for the shortest response time possib
 N-key rollover is turned on by default.
 
 ## RGB Matrix
-Keypresses and Framebuffer effects are enabled.
+Keypresses effects are enabled.
+Disabled default several RGB effects.
+Added custom RGB matrix effect `saturated_solid_multisplash`.
+Every keypress increases the RGB hue value.

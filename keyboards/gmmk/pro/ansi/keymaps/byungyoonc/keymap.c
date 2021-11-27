@@ -49,6 +49,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+bool process_record_user_kb(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        rgblight_increase_hue();
+    }
+    return true;
+}
+
 #if defined(ENCODER_ENABLE)
 bool encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t mod_state = get_mods();
