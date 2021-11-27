@@ -450,7 +450,7 @@ static void md_rgb_matrix_config_override(int i) {
     float bo = 0;
     float po;
 
-    uint8_t highest_active_layer = biton32(layer_state);
+    uint8_t highest_active_layer = get_highest_layer(layer_state);
 
     if (led_animation_circular) {
         // TODO: should use min/max values from LED configuration instead of

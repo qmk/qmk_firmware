@@ -240,7 +240,7 @@ void read_host_led_state(void) {
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
   state = layer_state_set_user(state);
-  layer = biton32(state);
+  layer = get_highest_layer(state);
   oled_request_wakeup();
   return state;
 }

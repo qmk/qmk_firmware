@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 report_mouse_t currentReport = {};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	//uint8_t layer = biton32(layer_state);  // get the current layer
+	//uint8_t layer = get_highest_layer(layer_state);  // get the current layer
 
 	// Basic example functions
 	switch (keycode) {
