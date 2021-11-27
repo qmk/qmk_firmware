@@ -30,8 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define OLED_DRIVER
 #define OLED_TIMEOUT 10000
-#define OLED_FADE_OUT
-#define OLED_FADE_OUT_INTERVAL 15
 
 #define USE_SERIAL_PD2
 
