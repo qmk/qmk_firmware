@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "10.h"
+#include "10_helix_r.h"
 
 #ifdef RGBLIGHT_LAYERS
 
@@ -51,22 +51,17 @@ void keyboard_post_init_kb(void) {
     // Enable the LED layers
     rgblight_layers = navpad_10_rgb_layers;
 }
+
 #endif
 
 #ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) { /* First encoder */
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+  if (index == 0) { /* Navpad side encoder */
     if (IS_LAYER_ON(_BASE)){
       if (clockwise) {
         tap_code16(KC_VOLU);
       } else {
         tap_code16(KC_VOLD);
-      }
-    } else if (IS_LAYER_ON(_FN1)){
-      if (clockwise) {
-        rgblight_increase_hue();
-      } else {
-        rgblight_decrease_hue();
       }
     } else if (IS_LAYER_ON(_FN2)){
       if (clockwise) {
@@ -74,7 +69,35 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       } else {
         rgblight_decrease_sat();
       }
+    } else if (IS_LAYER_ON(_FN1)){
+      if (clockwise) {
+        rgblight_increase_hue();
+      } else {
+        rgblight_decrease_hue();
+      }
     }
+  }
+  if (index == 1) { /* Helix side encoder */
+    if (IS_LAYER_ON(_BASE)){
+      if (clockwise) {
+        tap_code16(KC_VOLU);
+      } else {
+        tap_code16(KC_VOLD);
+      }
+    } else if (IS_LAYER_ON(_FN2)){
+      if (clockwise) {
+        rgblight_increase_sat();
+      } else {
+        rgblight_decrease_sat();
+      }
+    } else if (IS_LAYER_ON(_FN1)){
+      if (clockwise) {
+        rgblight_increase_hue();
+      } else {
+        rgblight_decrease_hue();
+      }
+    }
+
   }
   return false;
 }
