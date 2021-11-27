@@ -9,6 +9,6 @@ Useful numpad with navigation cluster
 
 For each build, please check these links down below.
 
-* [navpad 1.0](10/readme.md): Entry, easy to build
-* [navpad 1.0 w/ Helix Righthand](10_helix_r/readme.md): Sample for extensions
+* [navpad 1.0](10/): Entry, easy to build
+* [navpad 1.0 w/ Helix Righthand](10_helix_r/): Sample for extensions
 
