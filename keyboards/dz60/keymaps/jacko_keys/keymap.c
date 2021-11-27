@@ -16,7 +16,10 @@
 
 #include QMK_KEYBOARD_H
 
-/*
+/* UPDATE:
+	New build process requires: qmk compile
+
+THIS METHOD IS NOW DEFUNCT.
 make linux bootloader install via: (or use via if it's firmwared) => CHOICE
 	cd qmk_firmware
 	sudo make dz60:jacko_keys:dfu
