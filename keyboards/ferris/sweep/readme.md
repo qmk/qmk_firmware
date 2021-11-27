@@ -19,7 +19,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Setting Handedness
 
-Firmware uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default and has to be *configured once* on each side. The make commands are:
+Firmware uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default and it must be *configured once* on each side. The make commands are:
 
     make ferris/sweep:default:avrdude-split-left
     make ferris/sweep:default:avrdude-split-right
