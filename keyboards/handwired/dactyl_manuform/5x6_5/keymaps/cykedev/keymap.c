@@ -35,6 +35,7 @@
 #define SPC_R   RSFT_T(KC_SPC)
 
 #define UNDO    LGUI(KC_Z)
+#define REDO    LGUI(KC_Y)
 #define CUT     LGUI(KC_X)
 #define COPY    LGUI(KC_C)
 #define PASTE   LGUI(KC_V)
@@ -112,11 +113,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * .-----------------------------------------.                                  .-----------------------------------------.
    * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                                  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |
    * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
-   * |      |      |      |   [  |   ]  |      |                                  |   %  |   $  |  #   |   `  |      |  F12 |
+   * |      | Redo |      |      |      |      |                                  |   %  |   $  |  #   |   `  |      |  F12 |
    * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
-   * |  Ins |  !   |  @   |   (  |   )  |      |                                  |   ^  |   /  |  *   |   ~  |  ?   |      |
+   * |      | Undo | Cut  | Copy | Paste|      |                                  |   ^  |   /  |  *   |   ~  |  ?   |      |
    * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
-   * |      |      |      |   {  |   }  |      |                                  |      |   &  |  |   |      |      |      |
+   * |      | Undo | Cut  | Copy | Paste| Paste|                                  |      |   &  |  |   |      |      |      |
    * '-----------------------------------------/                                  \-----------------------------------------'
    *               | RST  |      |    /       /---------------.    .---------------\       \    |      |      |
    *               |      |      |   /       /       /       /      \       \       \       \   |      |      |
@@ -127,9 +128,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                                    '---------------'                '---------------'
    */
    _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                                     KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 ,
-   XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX,                                     KC_PERC, KC_DLR , KC_HASH, KC_GRV , XXXXXXX, KC_F12 ,
-   KC_INS , KC_EXLM, KC_AT  , KC_LPRN, KC_RPRN, XXXXXXX,                                     KC_CIRC, KC_SLSH, KC_ASTR, KC_TILD, KC_QUES, XXXXXXX,
-   _______, XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX,                                     XXXXXXX, KC_AMPR, KC_PIPE, XXXXXXX, XXXXXXX, _______,
+   XXXXXXX, REDO   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     KC_PERC, KC_DLR , KC_HASH, KC_GRV , XXXXXXX, KC_F12 ,
+   XXXXXXX, UNDO   , CUT    , COPY   , PASTE  , XXXXXXX,                                     KC_CIRC, KC_SLSH, KC_ASTR, KC_TILD, KC_QUES, XXXXXXX,
+   _______, UNDO   , CUT    , COPY   , PASTE  , PASTE  ,                                     XXXXXXX, KC_AMPR, KC_PIPE, XXXXXXX, XXXXXXX, _______,
                      RESET  , XXXXXXX,          _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX,
                                                          _______, KC_PGUP, KC_PGDN, _______
    ),
