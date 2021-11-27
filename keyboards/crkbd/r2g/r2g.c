@@ -90,7 +90,7 @@ led_config_t g_led_config = { {
 #ifdef OLED_ENABLE
 #include <stdio.h>
 
-__attribute__((weak)) oled_rotation_t  oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
   }
@@ -119,7 +119,7 @@ void oled_render_layer_state_r2g(void) {
     }
 }
 
-char keylog_str_r2g[24] = {};
+//char keylog_str_r2g[24] = {};
 
 const char code_to_name_r2g[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
@@ -129,22 +129,40 @@ const char code_to_name_r2g[60] = {
     'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
     '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
-void set_keylog_r2g(uint16_t keycode, keyrecord_t *record) {
-  char name = ' ';
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
-  if (keycode < 60) {
-    name = code_to_name_r2g[keycode];
-  }
+char key_name_r2g = ' ';
+uint16_t last_keycode_r2g;
+uint8_t last_row_r2g;
+uint8_t last_col_r2g;
 
-  // update keylog
-  snprintf(keylog_str_r2g, sizeof(keylog_str_r2g), "%dx%d, k%2d : %c",
-           record->event.key.row, record->event.key.col,
-           keycode, name);
+void set_keylog_r2g(uint16_t keycode, keyrecord_t *record) {
+    key_name_r2g = ' ';
+    last_keycode_r2g = keycode;
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
+        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { last_keycode_r2g = keycode & 0xFF; }
+    if (keycode < 60) {
+      key_name_r2g = code_to_name_r2g[keycode];
+    }
+    last_row_r2g = record->event.key.row;
+    last_col_r2g = record->event.key.col;
+}
+
+const char *depad_str(const char *depad_str, char depad_char) {
+    while (*depad_str == depad_char) ++depad_str;
+    return depad_str;
 }
 
 void oled_render_keylog_r2g(void) {
-    oled_write(keylog_str_r2g, false);
+    //oled_write(keylog_str_r2g, false);
+    const char *last_row_r2g_str = get_u8_str(last_row_r2g, ' ');
+    oled_write(depad_str(last_row_r2g_str, ' '), false);
+    oled_write_P(PSTR("x"), false);
+    const char *last_col_r2g_str = get_u8_str(last_col_r2g, ' ');
+    oled_write(depad_str(last_col_r2g_str, ' '), false);
+    oled_write_P(PSTR(", k"), false);
+    const char *last_keycode_r2g_str = get_u16_str(last_keycode_r2g, ' ');
+    oled_write(depad_str(last_keycode_r2g_str, ' '), false);
+    oled_write_P(PSTR(":"), false);
+    oled_write_char(key_name_r2g, false);
 }
 
 void render_bootmagic_status_r2g(bool status) {
@@ -202,13 +220,15 @@ void oled_render_logo_r2g(void) {
     //oled_write_P(PSTR("R2G"), false);
 }
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
     if (is_keyboard_master()) {
         oled_render_layer_state_r2g();
         oled_render_keylog_r2g();
     } else {
         oled_render_logo_r2g();
     }
+    return true;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
