@@ -28,9 +28,9 @@ The next Breaking Change is scheduled for February 27, 2022.
 * [ ] 2022 Jan 31 - `develop` closed to new PR's.
 * [ ] 2022 Jan 31 - Call for testers.
 * [ ] 2022 Feb 14 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* [ ] 2022 Feb 26 - `master` is locked, no PR's merged.
-* [ ] 2022 Feb 28 - Merge `develop` to `master`.
-* [ ] 2022 Feb 28 - `master` is unlocked. PR's can be merged again.
+* [ ] 2022 Feb 25 - `master` is locked, no PR's merged.
+* [ ] 2022 Feb 27 - Merge `develop` to `master`.
+* [ ] 2022 Feb 27 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
 
