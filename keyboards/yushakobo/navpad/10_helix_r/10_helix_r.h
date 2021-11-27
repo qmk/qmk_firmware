@@ -17,6 +17,7 @@
 #pragma once
 
 #include "quantum.h"
+#include "navpad_prefs.h"
 
 /* This is a shortcut to help you visually see your layout.
  *
@@ -47,14 +48,3 @@
     { R45, R44, R43, R42, R41, R40, R46 }, \
     { R55, R54, R53, R52, R51, R50, R56 } \
    	}
-
-enum layer_name {
-    _BASE,
-    _FN1,
-    _FN2,
-    _FN3
-};
-
-enum custom_keycodes { 
-  TAP_00 = SAFE_RANGE
-};

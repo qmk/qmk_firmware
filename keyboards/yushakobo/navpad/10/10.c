@@ -16,22 +16,8 @@
 
 #include "10.h"
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  case TAP_00:
-    if (record->event.pressed){
-      tap_code(KC_P0);
-      tap_code(KC_P0);
-      }
-    break;
-  
-  default:
-    break;
-  }
-  return true; 
-}
+#ifdef RGBLIGHT_LAYERS
 
-#ifdef RGB_DI_PIN
 #define LOCK_COLOR_1 HSV_TEAL
 
 const rgblight_segment_t PROGMEM navpad10_capslock[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -64,5 +50,32 @@ void keyboard_post_init_kb(void) {
     rgblight_sethsv_noeeprom(HSV_WHITE);
     // Enable the LED layers
     rgblight_layers = navpad_10_rgb_layers;
+}
+#endif
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+  if (index == 0) { /* First encoder */
+    if (IS_LAYER_ON(_BASE)){
+      if (clockwise) {
+        tap_code16(KC_VOLU);
+      } else {
+        tap_code16(KC_VOLD);
+      }
+    } else if (IS_LAYER_ON(_FN1)){
+      if (clockwise) {
+        rgblight_increase_hue();
+      } else {
+        rgblight_decrease_hue();
+      }
+    } else if (IS_LAYER_ON(_FN2)){
+      if (clockwise) {
+        rgblight_increase_sat();
+      } else {
+        rgblight_decrease_sat();
+      }
+    }
+  }
+  return false;
 }
 #endif

@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "navpad_prefs.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] =LAYOUT (\
@@ -52,52 +53,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   	KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,         KC_SPC,  KC_NO,   KC_NO,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
     )
 };
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) { /* Navpad side encoder */
-    if (IS_LAYER_ON(_BASE)){
-      if (clockwise) {
-        tap_code16(KC_VOLU);
-      } else {
-        tap_code16(KC_VOLD);
-      }
-    } else if (IS_LAYER_ON(_FN2)){
-      if (clockwise) {
-        rgblight_increase_sat();
-      } else {
-        rgblight_decrease_sat();
-      }
-    } else if (IS_LAYER_ON(_FN1)){
-      if (clockwise) {
-        rgblight_increase_hue();
-      } else {
-        rgblight_decrease_hue();
-      }
-    }
-  }
-  if (index == 1) { /* Helix side encoder */
-    if (IS_LAYER_ON(_BASE)){
-      if (clockwise) {
-        tap_code16(KC_VOLU);
-      } else {
-        tap_code16(KC_VOLD);
-      }
-    } else if (IS_LAYER_ON(_FN2)){
-      if (clockwise) {
-        rgblight_increase_sat();
-      } else {
-        rgblight_decrease_sat();
-      }
-    } else if (IS_LAYER_ON(_FN1)){
-      if (clockwise) {
-        rgblight_increase_hue();
-      } else {
-        rgblight_decrease_hue();
-      }
-    }
-
-  }
-  return false;
-}
-#endif

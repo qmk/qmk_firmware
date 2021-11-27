@@ -14,15 +14,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include QMK_KEYBOARD_H
 
-#include "quantum.h"
-#include "navpad_prefs.h"
-
-#ifdef KEYBOARD_yushakobo_navpad_10_rev0
-    #include "rev0.h"
-#endif
-
-#ifdef KEYBOARD_yushakobo_navpad_10_rev1
-    #include "rev1.h"
-#endif
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case TAP_00:
+    if (record->event.pressed){
+      tap_code(KC_P0);
+      tap_code(KC_P0);
+      }
+    break;
+  
+  default:
+    break;
+  }
+  return true; 
+}

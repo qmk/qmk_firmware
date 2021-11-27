@@ -17,12 +17,14 @@
 #pragma once
 
 #include "quantum.h"
-#include "navpad_prefs.h"
 
-#ifdef KEYBOARD_yushakobo_navpad_10_rev0
-    #include "rev0.h"
-#endif
+enum custom_keycodes { 
+  TAP_00 = SAFE_RANGE
+};
 
-#ifdef KEYBOARD_yushakobo_navpad_10_rev1
-    #include "rev1.h"
-#endif
+enum layer_name {
+    _BASE,
+    _FN1,
+    _FN2,
+    _FN3
+};
