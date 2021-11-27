@@ -1,12 +1,12 @@
 # navpad 1.0
 
-![navpad_10](imgur.com image replace me!)
+![navpad_10](https://imgur.com/zxElDdW.jpg)
 
-*Useful and easy to build numpad with nav-cluster*
+Useful and easy to build numpad with nav-cluster
 
 * Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
-* Hardware Supported: *NavPad 1.0 PCB, Pro Micro*
-* Hardware Availability: *https://shop.yushakobo.jp/navpad-10*
+* Hardware Supported: NavPad 1.0 PCB, Pro Micro
+* Hardware Availability: https://shop.yushakobo.jp/navpad-10
 
 Make example for this keyboard (after setting up your build environment):
 

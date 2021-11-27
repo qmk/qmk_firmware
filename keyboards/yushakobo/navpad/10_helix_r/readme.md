@@ -1,24 +1,24 @@
 # navpad 1.0 with Helix (Right hand side)
 
-![10_helix_r](imgur.com image replace me!)
+![10_helix_r](https://imgur.com/ehTI37h.jpg)
 
-*Navpad connected with helix keyboard (Right Side)*
+Navpad connected with helix keyboard (Right Side)
 
 * Keyboard Maintainer: [yushakobo](https://github.com/yourusername)
-* Hardware Supported: *Navpad 1.0 PCB and Helix PCB, Pro Micro*
-* Hardware Availability: *https://shop.yushakobo.jp/navpad-10*
+* Hardware Supported: Navpad 1.0 PCB and Helix PCB, Pro Micro
+* Hardware Availability: https://shop.yushakobo.jp/navpad-10
 
 Make example for this keyboard (after setting up your build environment):
     
     make yushakobo/navpad/10_helix_r:default
 
-Flashing example for this keyboard...
+Flashing examples for this keyboard...
 
-Right(Helix side):
+Helix side:
     
     make yushakobo/navpad/10_helix_r:default:avrdude-split-right
     
-Left(Navpad side):
+Navpad side:
 
     make yushakobo/navpad/10_helix_r:default:avrdude-split-left
 
