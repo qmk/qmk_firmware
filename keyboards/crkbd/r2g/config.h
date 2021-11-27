@@ -55,9 +55,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SPLIT_USB_DETECT
 
-#ifdef OLED_ENABLE
-    #ifndef OLED_FONT_H
-        #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
-    #endif
-#endif
 
