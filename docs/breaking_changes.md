@@ -8,7 +8,7 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## What has been included in past Breaking Changes?
 
-* [2021 Nov 28](ChangeLog/20211128.md)
+* [2021 Nov 27](ChangeLog/20211127.md)
 * [2021 Aug 28](ChangeLog/20210828.md)
 * [2021 May 29](ChangeLog/20210529.md)
 * [2021 Feb 27](ChangeLog/20210227.md)
@@ -20,17 +20,17 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for February 27, 2022.
+The next Breaking Change is scheduled for February 26, 2022.
 
 ### Important Dates
 
-* [x] 2022 Nov 28 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* [x] 2022 Nov 27 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
 * [ ] 2022 Jan 31 - `develop` closed to new PR's.
 * [ ] 2022 Jan 31 - Call for testers.
-* [ ] 2022 Feb 14 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* [ ] 2022 Feb 25 - `master` is locked, no PR's merged.
-* [ ] 2022 Feb 27 - Merge `develop` to `master`.
-* [ ] 2022 Feb 27 - `master` is unlocked. PR's can be merged again.
+* [ ] 2022 Feb 12 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* [ ] 2022 Feb 24 - `master` is locked, no PR's merged.
+* [ ] 2022 Feb 26 - Merge `develop` to `master`.
+* [ ] 2022 Feb 26 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
 
@@ -41,7 +41,7 @@ If you want your breaking change to be included in this round you need to create
 Criteria for acceptance:
 
 * The PR is complete and ready to merge
-* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20220227`.
+* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20220226`.
     * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PR's ID.
     * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 
