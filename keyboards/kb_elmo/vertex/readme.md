@@ -1,12 +1,12 @@
 # Vertex
 
-![vertex](imgur.com image replace me!)
+![vertex](https://i.imgur.com/drRZO54l.jpg)
 
-A 3D printed Vortex Core like 40% keyboard
+3D printed Vortex 40% inspired screwless exterior, top-mount keyboard
 
 * Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
-* Hardware Supported: Vertex rev.1 PCB
-* Hardware Availability: [Open source project](https://github.com/kb-elmo/vertex)
+* Hardware Supported: Vertex rev.1
+* Hardware Availability: [Open source project](https://github.com/kb-elmo/Vertex)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -21,4 +21,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ## Bootloader
 
 * **Bootmagic reset**: Hold down the top left key and plug in the keyboard
-* **Physical reset button**: Briefly press the button labeled "RESET" on the back of the PCB
+* **Physical reset button**: Briefly press the button labeled "Reset" on the back of the PCB
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
