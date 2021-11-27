@@ -45,18 +45,20 @@ Build guide: [Keyhive Sofle RGB build guide](https://github.com/keyhive/build_gu
 
 ## Using with VIA
 
--   After flashing, in VIA make sure to Import Keymap, which is "sofle VIA keymap.json". This will alow VIA to recognize the updated layout and custom functions. VIA will not auto-recognize the keyboard with this firmware because of the necessary customization.
--   Go to Save+Load to Load Saved Layout. You can import my own layout "sofle VIA layout.json" or just use the Keymap tab to assign your own keys. Having another keyboard connected can be handy for doing this step.
--   It is a good idea to Save Current Layout after you decide on your mapping.
-
-
 Make example for this keyboard (after setting up your build environment):
 
-    make sofle/keyhive:default
+    make sofle/keyhive:via
 
 Flashing example for this keyboard:
+```sh
+# for pro micro-based builds
+qmk flash -kb sofle/keyhive -km via -bl avrdude-split-left
+qmk flash -kb sofle/keyhive -km via -bl avrdude-split-right
 
-    make sofle/keyhive:default:flash
+# for Elite C or dfu bootloader builds
+qmk flash -kb sofle/keyhive -km via -bl dfu-split-left
+qmk flash -kb sofle/keyhive -km via -bl dfu-split-right
+```
 
 Press reset button on he keyboard when asked.
 
