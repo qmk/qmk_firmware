@@ -88,7 +88,6 @@ led_config_t g_led_config = { {
 #endif
 
 #ifdef OLED_ENABLE
-#include <stdio.h>
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
