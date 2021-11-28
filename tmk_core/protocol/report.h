@@ -252,8 +252,8 @@ typedef struct {
 #    ifdef RADIAL_DIAL_SHARED_EP
     uint8_t report_id;
 #    endif
-    bool button;
-    int16_t rotation;
+    uint16_t button : 1;
+    int16_t rotation : 15;
 } __attribute__((packed)) report_radial_dial_t;
 
 /* keycode to system usage */
