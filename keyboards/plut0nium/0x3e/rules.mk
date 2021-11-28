@@ -15,5 +15,5 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
 LTO_ENABLE = yes
