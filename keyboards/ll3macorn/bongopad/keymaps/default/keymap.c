@@ -1,7 +1,6 @@
 // Copyright 2021 Ll3macorn (@ll3macorn)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "bongo.h"
-#include <stdio.h>
+#include QMK_KEYBOARD_H
 
 enum layers {
     Layer1,
