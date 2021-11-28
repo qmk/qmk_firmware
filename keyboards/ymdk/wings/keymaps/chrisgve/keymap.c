@@ -24,14 +24,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,          KC_PGDN,
     CPS_CTL, KC_A,    KC_S,    M_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,                    ADJUST,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT,                   KC_UP,
-    KC_LALT,          KC_LGUI, SPC_RSE, ADJUST,           SPC_RSE, KC_RGUI,                                              KC_LEFT, KC_DOWN, KC_RGHT
+    KC_LALT,          KC_LGUI, SPC_RSE, KC_RALT,          SPC_RSE, KC_RGUI,                                              KC_LEFT, KC_DOWN, KC_RGHT
   ),
 
   [_MAC_NAV_1] = LAYOUT_all(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, M_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
     _______, A_SHIFT, S_SHIFT, _______, M_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,                   _______,
-    _______, _______, _______, _______, _______, M_B_WRD,  _______, _______, _______, _______, _______, _______,          _______,
+    _______, _______, _______, _______, _______, M_B_WRD, _______, _______, _______, _______, _______, _______,          _______,
     _______,          _______, _______, _______,          _______, _______,                                     _______, _______, _______
   ),
 
@@ -48,14 +48,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,          KC_PGDN,
     CPS_CTL, KC_A,    KC_S,    L_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,                    ADJUST,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT,                   KC_UP,
-    KC_LGUI,          KC_LALT, SPC_RSE, ADJUST,           SPC_RSE, KC_RALT,                                              KC_LEFT, KC_DOWN, KC_RGHT
+    KC_LGUI,          KC_LALT, SPC_RSE, KC_RGUI,           SPC_RSE, KC_RALT,                                              KC_LEFT, KC_DOWN, KC_RGHT
   ),
 
   [_LINUX_NAV_1] = LAYOUT_all(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, L_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
     _______, A_SHIFT, S_SHIFT, _______, L_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,                   _______,
-    _______, _______, _______, _______, _______, L_B_WRD,  _______, _______, _______, _______, _______, _______,          _______,
+    _______, _______, _______, _______, _______, L_B_WRD, _______, _______, _______, _______, _______, _______,          _______,
     _______,          _______, _______, _______,          _______, _______,                                     _______, _______, _______
   ),
 
@@ -72,14 +72,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,          KC_PGDN,
     CPS_CTL, KC_A,    KC_S,    W_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,                    ADJUST,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT,                   KC_UP,
-    KC_LGUI,          KC_LALT, SPC_RSE, ADJUST,           SPC_RSE, KC_RALT,                                              KC_LEFT, KC_DOWN, KC_RGHT
+    KC_LGUI,          KC_LALT, SPC_RSE, KC_RGUI,          SPC_RSE, KC_RALT,                                              KC_LEFT, KC_DOWN, KC_RGHT
   ),
 
   [_WIN_NAV_1] = LAYOUT_all(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, W_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
     _______, A_SHIFT, S_SHIFT, _______, W_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,                   _______,
-    _______, _______, _______, _______, _______, W_B_WRD,  _______, _______, _______, _______, _______, _______,          _______,
+    _______, _______, _______, _______, _______, W_B_WRD, _______, _______, _______, _______, _______, _______,          _______,
     _______,          _______, _______, _______,          _______, _______,                                     _______, _______, _______
   ),
 
