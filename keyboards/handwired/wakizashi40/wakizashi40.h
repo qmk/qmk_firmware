@@ -1,3 +1,6 @@
+
+
+/*
 #ifndef KB_H
 #define KB_H
 
@@ -16,3 +19,8 @@
 }
 
 #endif
+*/
+
+#pragma once
+
+#include "quantum.h"
