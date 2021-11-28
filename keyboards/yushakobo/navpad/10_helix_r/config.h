@@ -44,16 +44,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS_RIGHT { D4, C6, D7, E6, B4 }
 #define MATRIX_COL_PINS       { F5, F6, B2, B3, B1, F7 }
 #define MATRIX_COL_PINS_RIGHT { F4, F5, F6, F7, B1, B3, B2 }
-#define UNUSED_PIN// { D0, D1 }
+#define UNUSED_PIN            { D0, D1 }
 
 #define EE_HANDS
 
 #ifdef RGB_DI_PIN
 #    define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 6, 8, 7, \//navpad side
-                                   9, 10, 11, 12, 13, 14, \    //helix side
-                                  15, 16, 17, 18, 19, 20, \
+                                   9, 10, 11, 12, 13, 14, \//helix side
+                                  20, 19, 18, 17, 16, 15, \
                                   21, 22, 23, 24, 25, 26, \
-                              27, 28, 29, 30, 31, 32, 33, \
+                              33, 32, 31, 30, 29, 28, 27, \
                               34, 35, 36, 37, 38, 39, 40 }
 #endif
 
