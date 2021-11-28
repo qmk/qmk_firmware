@@ -59,7 +59,7 @@
         { "label": "K", "matrix": [1, 9], "w": 1, "x": 8.75, "y": 1 },
         { "label": "L", "matrix": [1, 10], "w": 1, "x": 9.75, "y": 1 },
         { "label": "SEMICOLON", "matrix": [1, 11], "w": 1, "x": 10.75, "y": 1 },
-        { "label": "QUOTE", "matrix": [1, 12], "w": 1.25, "x": 11.75, "y": 1 },
+        { "label": "ENTER", "matrix": [1, 12], "w": 1.25, "x": 11.75, "y": 1 },
 
         { "label": "LSHIFT", "matrix": [2, 0], "w": 1, "x": 0, "y": 2 },
         { "label": "Z", "matrix": [2, 1], "w": 1, "x": 1, "y": 2 },
