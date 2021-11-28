@@ -49,7 +49,10 @@ void kb_config_sync_handler(uint8_t initiator2target_buffer_size, const void* in
     }
 }
 
-void keyboard_pre_init_sync(void) { memset(&kb_config, 0, sizeof(kb_config)); }
+void keyboard_pre_init_sync(void) {
+    memset(&kb_config, 0, sizeof(kb_config));
+    memset(&shared_mouse_report, 0, sizeof(shared_mouse_report));
+}
 
 void keyboard_post_init_sync(void) {
     // Register keyboard state sync split transaction
