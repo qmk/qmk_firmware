@@ -74,14 +74,17 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         } else {
             tap_code(KC_PGUP);
         }
+        return false;
     } else if (index == 1) {
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {
             tap_code(KC_VOLD);
         }
+        return false;
+    } else {
+        return true;
     }
-    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -92,15 +95,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
                 host_consumer_send(0);
             }
-            return false;  // Skip all further processing of this key
+            return false;
         case KC_LAUNCHPAD:
             if (record->event.pressed) {
                 host_consumer_send(0x2A0);
             } else {
                 host_consumer_send(0);
             }
-            return false;  // Skip all further processing of this key
+            return false;
         default:
-            return true;  // Process all other keycodes normally
+            return true;
     }
 }
