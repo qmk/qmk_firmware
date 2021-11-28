@@ -29,12 +29,8 @@
 #define DISABLE_RGB_MATRIX_SPLASH
 #define DISABLE_RGB_MATRIX_SOLID_SPLASH
 
-#if defined(DEBOUNCE)
-#    undef DEBOUNCE
-#endif  // DEBOUNCE
+#undef DEBOUNCE
 /* High debounce time is required to avoid key chattering because of the debouncing algorithm sym_eager_pk */
 #define DEBOUNCE 40
 
-#if !defined(FORCE_NKRO)
-#    define FORCE_NKRO
-#endif  // FORCE_NKRO
+#define FORCE_NKRO
