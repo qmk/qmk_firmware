@@ -382,7 +382,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_HAEN, KC_HANJ,          KC_DEL,
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_PWR,	KC_HOME, KC_END,  KC_INS,
 		KC_NLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
-		KC_TRNS,          KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          OSM(MOD_RSFT),
+		OSM(MOD_LGUI|MOD_RGUI),KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          OSM(MOD_RSFT),
 		DF(0),OSM(MOD_LSFT|MOD_LGUI),DF(1),                   ALGR(KC_SPC),                       KC_TRNS, OSM(MOD_LSFT|MOD_RGUI),KC_TRNS, KC_TRNS),
 
 	//BQN shift mode 7 ==================================================================================== BQN shift mode 7

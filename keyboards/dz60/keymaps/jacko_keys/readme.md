@@ -86,7 +86,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * Semicolon is mouse button 3 (scroll button).
 * Apostrophe is mouse button 2.
 * All the alpha and number keys are multi-character UTF-8 (for more flexible Unicode).
-* Set up for `Shift` and `Ctrl` modifiers (can be extended to `Alt` and `Win`). 
+* Set up for `Shift` and `Ctrl` modifiers (can be extended to `Alt` and `Win`).
 * Examples:
   * Sporadic groups on shift alphas.
   * Families on unshifted and shifted numbers plus null set.
@@ -152,6 +152,8 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * Numbers are the number pad numbers for macro code options.
 * Remaining language 3 to 7 are on Z-M.
 * Right `Alt`/`Ctrl` are `Alt`+`Tab` window switch (reverse and forward).
+* Left `Shift` key is sticky left and right `GUI` together.
+* Right `Shift` key is itself but one shot sticky.
 * Left `Win` key is the sticky left shift+`Win`.
 * Right `Win` key is the sticky right shift+`Win` key and not the app context menu key as in other layers.
 * Comma/period/slash set mouse acceleration 1, 2 and 3.
