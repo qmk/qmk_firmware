@@ -122,23 +122,16 @@ void render_oled_wpm(uint8_t wpm) {
     static uint32_t       update_timeout = 0;
 
     if (timer_expired32(timer_read32(), update_timeout)) {
-        char wpm_str[] = "   ";
-        if (wpm > 0) {
-            wpm_str[2] = '0' + wpm % 10;
-        }
-        if (wpm >= 10) {
-            wpm_str[1] = '0' + wpm / 10 % 10;
-        }
-        if (wpm >= 100) {
-            wpm_str[0] = '0' + wpm / 100 % 10;
-        }
-
         oled_advance_char();
         oled_advance_char();
         oled_write_P(wpm > 0 ? PSTR("WPM") : PSTR("   "), /*invert=*/false);
-        oled_advance_char();
-        oled_advance_char();
-        oled_write(wpm_str, /*invert=*/false);
+        if (wpm > 0) {
+            oled_advance_char();
+            oled_advance_char();
+            oled_write(get_u8_str(wpm, ' '), /*invert=*/false);
+        } else {
+            oled_advance_page(/*clearPageRemainder=*/true);
+        }
 
         update_timeout = timer_read32() + UPDATE_MILLIS;
     }
