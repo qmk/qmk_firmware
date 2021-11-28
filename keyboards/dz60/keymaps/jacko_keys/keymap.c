@@ -154,7 +154,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//4078 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//4060 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-11-28
 };
 
@@ -234,6 +234,12 @@ const uint16_t PROGMEM macro_keycode[] = {
 	KC_LEFT,//\\A
 };
 
+const char* const PROGMEM macro_subs[] = {
+	//index at a
+	//only use alpha a-z (26) escape sequences "\\a" etc. in macro strings
+	"",//\\a
+};
+
 const char* modify_step(const char* ip) {
 	while(*(ip++) != 0);
 	return ip;
@@ -273,6 +279,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				}
 				send_unicode_string(ip);//should UTF-8
 				ip = ip_save;//restore (only one level deep!!!!)
+				continue;
+			}
+			idx = idx + '0' - 'a';//lower case subroutines
+			if(idx < 26) {//only use alphas
+				send_unicode_string(macro_subs[idx]);
+				ip++;
 				continue;
 			}
 			switch(*(ip++)) {
