@@ -14,12 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "tractyl_manuform.h"
+#include QMK_KEYBOARD_H
+#include "pointing_device.h"
 #include "transactions.h"
 #include <string.h>
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
+
+// typedef struct {
+//     uint16_t device_cpi;
+// } kb_config_data_t;
 
 kb_config_data_t                      kb_config;
 static report_mouse_t                 shared_mouse_report;
