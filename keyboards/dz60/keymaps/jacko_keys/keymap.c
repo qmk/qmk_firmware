@@ -154,8 +154,8 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//1094 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
-	//2021-11-27
+	//4078 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2021-11-28
 };
 
 //Some say the above should be converted to allow more in device shift states,

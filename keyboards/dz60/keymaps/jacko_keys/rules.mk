@@ -8,3 +8,4 @@ BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration (just Escape!!)
 UNICODEMAP_ENABLE = yes		# Use extended Unicode
 RGBLIGHT_ENABLE = yes			# Use lights for background RGB
 BACKLIGHT_ENABLE = yes		# Use monchromatic backlights for keys
+LTO_ENABLE = yes					# Link time optimizer for size
