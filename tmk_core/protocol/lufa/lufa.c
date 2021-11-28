@@ -104,7 +104,8 @@ static void    send_mouse(report_mouse_t *report);
 static void    send_system(uint16_t data);
 static void    send_consumer(uint16_t data);
 static void    send_programmable_button(uint32_t data);
-host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
+static void    send_radial_dial(report_radial_dial_t *report);
+host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button, send_radial_dial };
 
 #ifdef VIRTSER_ENABLE
 // clang-format off
@@ -500,6 +501,11 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
     /* Setup digitizer endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((DIGITIZER_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, DIGITIZER_EPSIZE, 1);
+#endif
+
+#if defined(RADIAL_DIAL_ENABLE) && !defined(RADIAL_DIAL_SHARED_EP)
+    /* Setup radial dial endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((RADIAL_DIAL_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, RADIAL_DIAL_EPSIZE, 1);
 #endif
 
     usb_device_state_set_configuration(USB_DeviceState == DEVICE_STATE_Configured, USB_Device_ConfigurationNumber);
@@ -976,6 +982,31 @@ void send_digitizer(report_digitizer_t *report) {
     if (!Endpoint_IsReadWriteAllowed()) return;
 
     Endpoint_Write_Stream_LE(report, sizeof(report_digitizer_t), NULL);
+    Endpoint_ClearIN();
+#endif
+}
+
+
+
+/** \brief Send Mouse
+ *
+ * FIXME: Needs doc
+ */
+static void send_radial_dial(report_radial_dial_t *report) {
+#ifdef RADIAL_DIAL_ENABLE
+    uint8_t timeout = 255;
+
+    /* Select the Mouse Report Endpoint */
+    Endpoint_SelectEndpoint(RADIAL_DIAL_IN_EPNUM);
+
+    /* Check if write ready for a polling interval around 10ms */
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    if (!Endpoint_IsReadWriteAllowed()) return;
+
+    /* Write Mouse Report Data */
+    Endpoint_Write_Stream_LE(report, sizeof(report_radial_dial_t), NULL);
+
+    /* Finalize the stream transfer to send the last packet */
     Endpoint_ClearIN();
 #endif
 }

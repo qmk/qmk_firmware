@@ -418,6 +418,52 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
 };
 #endif
 
+
+#ifdef RADIAL_DIAL_ENABLE
+#    ifndef RADIAL_DIAL_SHARED_EP
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM RadialDialReport[] = {
+#    elif !defined(SHARED_REPORT_STARTED)
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
+#        define SHARED_REPORT_STARTED
+#    endif
+    HID_RI_USAGE_PAGE(8, 0x01),            // Generic Desktop
+    HID_RI_USAGE(8, 0x0e),                 // System Mutle-Axis Controller
+    HID_RI_COLLECTION(8, 0x01),            // Application
+#    ifdef RADIAL_DIAL_SHARED_EP
+        HID_RI_REPORT_ID(8, REPORT_ID_RADIAL_DIAL),
+#    endif
+        HID_RI_USAGE_PAGE(8, 0x0d),        // Digitizer
+        HID_RI_USAGE(8, 0x21),             // Puck
+        HID_RI_COLLECTION(8, 0x00),        // Physical
+            HID_RI_USAGE_PAGE(8, 0x09),    // Button
+            HID_RI_USAGE(8, 0x01),         // Button 1
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_REPORT_COUNT(8, 0x01),
+            HID_RI_REPORT_SIZE(8, 0x01),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+
+            // clockwise position (2 bytes)
+            HID_RI_USAGE_PAGE(8, 0x01),    // Generic Desktop
+            HID_RI_USAGE(8, 0x37),         // Dial
+            HID_RI_REPORT_COUNT(8, 0x01),
+            HID_RI_REPORT_SIZE(8, 0x0F),
+            HID_RI_UNIT_EXPONENT(8, 0x0F),  // -1
+            HID_RI_UNIT(8, 0x14),           // Degrees, English Rotation
+            HID_RI_PHYSICAL_MINIMUM(16, -3600),
+            HID_RI_PHYSICAL_MAXIMUM(16, 3600),
+            HID_RI_LOGICAL_MINIMUM(16, -3600),
+            HID_RI_LOGICAL_MAXIMUM(16, 3600),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
+
+        HID_RI_END_COLLECTION(0),
+    HID_RI_END_COLLECTION(0),
+#    ifndef RADIAL_DIAL_SHARED_EP
+};
+#    endif
+#endif
+
+
 /*
  * Device descriptor
  */
@@ -1036,6 +1082,47 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
     },
 #endif
+
+
+#if defined(RADIAL_DIAL_ENABLE) && !defined(RADIAL_DIAL_SHARED_EP)
+    /*
+     * Digitizer
+     */
+    .Radial_Dial_Interface  = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Interface_t),
+            .Type               = DTYPE_Interface
+        },
+        .InterfaceNumber        = RADIAL_DIAL_INTERFACE,
+        .AlternateSetting       = 0x00,
+        .TotalEndpoints         = 1,
+        .Class                  = HID_CSCP_HIDClass,
+        .SubClass               = HID_CSCP_NonBootSubclass,
+        .Protocol               = HID_CSCP_NonBootProtocol,
+        .InterfaceStrIndex      = NO_DESCRIPTOR
+    },
+    .Radial_Dial_HID = {
+        .Header = {
+            .Size               = sizeof(USB_HID_Descriptor_HID_t),
+            .Type               = HID_DTYPE_HID
+        },
+        .HIDSpec                = VERSION_BCD(1, 1, 1),
+        .CountryCode            = 0x00,
+        .TotalReportDescriptors = 1,
+        .HIDReportType          = HID_DTYPE_Report,
+        .HIDReportLength        = sizeof(RadialDialReport)
+    },
+    .Radial_Dial_INEndpoint = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Endpoint_t),
+            .Type               = DTYPE_Endpoint
+        },
+        .EndpointAddress        = (ENDPOINT_DIR_IN | RADIAL_DIAL_IN_EPNUM),
+        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+        .EndpointSize           = RADIAL_DIAL_EPSIZE,
+        .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
+    },
+#endif
 };
 
 /*
@@ -1181,6 +1268,13 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
 
                     break;
 #endif
+#if defined(RADIAL_DIAL_ENABLE) && !defined(RADIAL_DIAL_SHARED_EP)
+                case RADIAL_DIAL_INTERFACE:
+                    Address = &ConfigurationDescriptor.Radial_Dial_HID;
+                    Size    = sizeof(USB_HID_Descriptor_HID_t);
+
+                    break;
+#endif
             }
 
             break;
@@ -1235,6 +1329,12 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                 case DIGITIZER_INTERFACE:
                     Address = &DigitizerReport;
                     Size    = sizeof(DigitizerReport);
+                    break;
+#endif
+#if defined(RADIAL_DIAL_ENABLE) && !defined(RADIAL_DIAL_SHARED_EP)
+                case RADIAL_DIAL_INTERFACE:
+                    Address = &RadialDialReport;
+                    Size    = sizeof(RadialDialReport);
                     break;
 #endif
             }

@@ -201,6 +201,7 @@ void protocol_pre_task(void) {
 #    ifdef MOUSEKEY_ENABLE
         mousekey_send();
 #    endif /* MOUSEKEY_ENABLE */
+
     }
 #endif
 }
