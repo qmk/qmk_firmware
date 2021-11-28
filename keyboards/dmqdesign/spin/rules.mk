@@ -19,6 +19,5 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 MIDI_ENABLE = yes           # MIDI support
-UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes        # Enable rotary encoder support

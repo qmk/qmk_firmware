@@ -22,6 +22,5 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306     # Disable OLED driver.
-UNICODE_ENABLE = no         # Unicode
 
 LTO_ENABLE = yes

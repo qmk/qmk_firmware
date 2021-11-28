@@ -16,4 +16,3 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https:/
 RGBLIGHT_ENABLE =yes   # Enable keyboard underlight functionality
 BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
-UNICODE_ENABLE = no 		# Unicode

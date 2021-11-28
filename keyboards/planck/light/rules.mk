@@ -8,7 +8,7 @@ BOOTLOADER = atmel-dfu
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes         # Console for debug
@@ -17,7 +17,6 @@ NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: h
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 MIDI_ENABLE = yes           # MIDI support
 AUDIO_ENABLE = yes           # Audio output
-UNICODE_ENABLE = no         # Unicode
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3731

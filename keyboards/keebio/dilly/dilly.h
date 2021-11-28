@@ -1,19 +1,16 @@
-#ifndef DILLY_H
-#define DILLY_H
+#pragma once
 
 #include "quantum.h"
 
 #define LAYOUT_ortho_3x10( \
-    A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, \
-    B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, \
-    C1, C2, C3, C4, C5, C6, C7, C8, C9, C10 \
+    k00, k01, k02, k03, k04, k34, k33, k32, k31, k30, \
+    k10, k11, k12, k13, k14, k44, k43, k42, k41, k40, \
+    k20, k21, k22, k23, k24, k54, k53, k52, k51, k50 \
 ) { \
-    { A1, A2, A3, A4, A5 }, \
-    { B1, B2, B3, B4, B5 }, \
-    { C1, C2, C3, C4, C5 }, \
-    { A10, A9, A8, A7, A6 }, \
-    { B10, B9, B8, B7, B6 }, \
-    { C10, C9, C8, C7, C6 } \
+    { k00, k01, k02, k03, k04 }, \
+    { k10, k11, k12, k13, k14 }, \
+    { k20, k21, k22, k23, k24 }, \
+    { k30, k31, k32, k33, k34 }, \
+    { k40, k41, k42, k43, k44 }, \
+    { k50, k51, k52, k53, k54 } \
 }
-
-#endif

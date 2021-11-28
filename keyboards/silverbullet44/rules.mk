@@ -7,7 +7,7 @@ BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = no        # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -20,7 +20,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
-UNICODE_ENABLE = no         # Unicode
 AUDIO_ENABLE = yes          # Audio output
 SPLIT_KEYBOARD = yes
 LTO_ENABLE = yes
