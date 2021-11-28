@@ -5,12 +5,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x1234
+#define VENDOR_ID       0x3728
 #define PRODUCT_ID      0x2949
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ll3macorn
 #define PRODUCT         BongoPad
-#define DESCRIPTION     BongoPad
 
 /* bootmagic */
 #define BOOTMAGIC_LITE_ROW 1
