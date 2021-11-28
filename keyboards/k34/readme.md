@@ -1,11 +1,17 @@
 # k34
 
-![k34](https://github.com/wongjingping/k34/raw/main/docs/k34.jpg?raw=true)
+![k34](https://imgur.com/gallery/ZELj0gR)
 
-*A short description of the keyboard/project*
+## Keyboard Info
+
+The K34 is a custom 34-key unibody keyboard.
 
 * Keyboard Maintainer: [wongjingping](https://github.com/wongjingping)
 All hardware supported can be found in the [k34 repository](https://github.com/wongjingping/k34)
+
+## Flashing Instructions
+
+To enter the bootloader, short the RST and GND pins, or press the key mapped to `RESET`.
 
 Make example for this keyboard (after setting up your build environment):
 
