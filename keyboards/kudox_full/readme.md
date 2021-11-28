@@ -1,10 +1,10 @@
 # The Kudox Full keyboard
 
-{: align="center"}
 ![Kudox logo](https://raw.githubusercontent.com/kumaokobo/kudox-keyboard/master/img/kudox.png)
 
-{: align="center"}
-![Kudox Full image2](https://raw.githubusercontent.com/kumaokobo/kudox-keyboard/master/img/kudox-full-image2.jpg)![Kudox Full image1](https://raw.githubusercontent.com/kumaokobo/kudox-keyboard/master/img/kudox-full-image1.jpg)
+![Kudox Full image2](https://raw.githubusercontent.com/kumaokobo/kudox-keyboard/master/img/kudox-full-image2.jpg) | ![Kudox Full image1](https://raw.githubusercontent.com/kumaokobo/kudox-keyboard/master/img/kudox-full-image1.jpg)
+:----:|:-----:
+ front | angle
 
 - Keyboard Maintainer: [Kumao Kobo](https://github.com/kumaokobo)  
 - Hardware Supported: Kudox Full PCB rev1.0 w/ Pro Micro  
