@@ -5,7 +5,7 @@ MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 
 # Build Options
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -17,7 +17,7 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 MIDI_ENABLE = yes           # MIDI support
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 
 SRC += analog.c

@@ -25,10 +25,6 @@
 #    include "backlight.h"
 #endif
 
-#ifdef API_ENABLE
-#    include "api.h"
-#endif
-
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"
 #endif
@@ -66,15 +62,15 @@ uint8_t extract_mod_bits(uint16_t code) {
     uint8_t mods_to_send = 0;
 
     if (code & QK_RMODS_MIN) {  // Right mod flag is set
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RGUI);
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RIGHT_CTRL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RIGHT_SHIFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RIGHT_ALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RIGHT_GUI);
     } else {
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LGUI);
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LEFT_CTRL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LEFT_SHIFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LEFT_ALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LEFT_GUI);
     }
 
     return mods_to_send;
@@ -145,11 +141,12 @@ void reset_keyboard(void) {
 /* Convert record into usable keycode via the contained event. */
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) {
 #ifdef COMBO_ENABLE
-    if (record->keycode) { return record->keycode; }
+    if (record->keycode) {
+        return record->keycode;
+    }
 #endif
     return get_event_keycode(record->event, update_layer_cache);
 }
-
 
 /* Convert event into usable keycode. Checks the layer cache to ensure that it
  * retains the correct keycode after a layer change, if the key is still pressed.
@@ -179,12 +176,12 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 bool pre_process_record_quantum(keyrecord_t *record) {
     if (!(
 #ifdef COMBO_ENABLE
-        process_combo(get_record_keycode(record, true), record) &&
+            process_combo(get_record_keycode(record, true), record) &&
 #endif
-        true)) {
+            true)) {
         return false;
     }
-    return true; // continue processing
+    return true;  // continue processing
 }
 
 /* Get keycode, and then call keyboard function */
@@ -277,6 +274,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef AUTO_SHIFT_ENABLE
             process_auto_shift(keycode, record) &&
+#endif
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+            process_dynamic_tapping_term(keycode, record) &&
 #endif
 #ifdef TERMINAL_ENABLE
             process_terminal(keycode, record) &&
@@ -468,14 +468,6 @@ void matrix_scan_quantum() {
 #    include "hd44780.h"
 #endif
 
-void api_send_unicode(uint32_t unicode) {
-#ifdef API_ENABLE
-    uint8_t chunk[4];
-    dword_to_bytes(unicode, chunk);
-    MT_SEND_DATA(DT_UNICODE, chunk, 5);
-#endif
-}
-
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump
@@ -542,6 +534,10 @@ void suspend_power_down_quantum(void) {
 #    ifdef ST7565_ENABLE
     st7565_off();
 #    endif
+#    if defined(POINTING_DEVICE_ENABLE)
+    // run to ensure scanning occurs while suspended
+    pointing_device_task();
+#    endif
 #endif
 }
 
@@ -578,4 +574,60 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
     rgb_matrix_set_suspend_state(false);
 #endif
     suspend_wakeup_init_kb();
+}
+
+/** \brief converts unsigned integers into char arrays
+ *
+ * Takes an unsigned integer and converts that value into an equivalent char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ */
+
+const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad) {
+    buf[buf_len - 1] = '\0';
+    for (size_t i = 0; i < buf_len - 1; ++i) {
+        char c               = '0' + curr_num % 10;
+        buf[buf_len - 2 - i] = (c == '0' && i == 0) ? '0' : (curr_num > 0 ? c : curr_pad);
+        curr_num /= 10;
+    }
+    return buf;
+}
+
+/** \brief converts uint8_t into char array
+ *
+ * Takes an uint8_t, and uses an internal static buffer to render that value into a char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ *
+ * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
+ *       contents. Use the result immediately, instead of caching it.
+ */
+const char *get_u8_str(uint8_t curr_num, char curr_pad) {
+    static char    buf[4]   = {0};
+    static uint8_t last_num = 0xFF;
+    static char    last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) {
+        return buf;
+    }
+    last_num = curr_num;
+    last_pad = curr_pad;
+    return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
+}
+
+/** \brief converts uint16_t into char array
+ *
+ * Takes an uint16_t, and uses an internal static buffer to render that value into a char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ *
+ * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
+ *       contents. Use the result immediately, instead of caching it.
+ */
+const char *get_u16_str(uint16_t curr_num, char curr_pad) {
+    static char     buf[6]   = {0};
+    static uint16_t last_num = 0xFF;
+    static char     last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) {
+        return buf;
+    }
+    last_num = curr_num;
+    last_pad = curr_pad;
+    return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
 }

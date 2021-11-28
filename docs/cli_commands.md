@@ -118,6 +118,68 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
+## `qmk cd`
+
+This command opens a new shell in your `qmk_firmware` directory.
+
+Note that if you are already somewhere within `QMK_HOME` (for example, the `keyboards/` folder), nothing will happen.
+
+To exit out into the parent shell, simply type `exit`.
+
+**Usage**:
+
+```
+qmk cd
+```
+
+## `qmk console`
+
+This command lets you connect to keyboard consoles to get debugging messages. It only works if your keyboard firmware has been compiled with `CONSOLE_ENABLE=yes`.
+
+**Usage**:
+
+```
+qmk console [-d <pid>:<vid>[:<index>]] [-l] [-n] [-t] [-w <seconds>]
+```
+
+**Examples**:
+
+Connect to all available keyboards and show their console messages:
+
+```
+qmk console
+```
+
+List all devices:
+
+```
+qmk console -l
+```
+
+Show only messages from clueboard/66/rev3 keyboards:
+
+```
+qmk console -d C1ED:2370
+```
+
+Show only messages from the second clueboard/66/rev3:
+
+```
+qmk console -d C1ED:2370:2
+```
+
+Show timestamps and VID:PID instead of names:
+
+```
+qmk console -n -t
+```
+
+Disable bootloader messages:
+
+```
+qmk console --no-bootloaders
+```
+
 ## `qmk doctor`
 
 This command examines your environment and alerts you to potential build or flash problems. It can fix many of them if you want it to.
@@ -320,10 +382,39 @@ qmk format-c
 qmk format-c -b branch_name
 ```
 
+## `qmk generate-compilation-database`
+
+**Usage**:
+
+```
+qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]
+```
+
+Creates a `compile_commands.json` file.
+
+Does your IDE/editor use a language server but doesn't _quite_ find all the necessary include files? Do you hate red squigglies? Do you wish your editor could figure out `#include QMK_KEYBOARD_H`? You might need a [compilation database](https://clang.llvm.org/docs/JSONCompilationDatabase.html)! The qmk tool can build this for you.
+
+This command needs to know which keyboard and keymap to build. It uses the same configuration options as the `qmk compile` command: arguments, current directory, and config files.
+
+**Example:**
+
+```
+$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
+$ qmk generate-compilation-database
+Ψ Making clean
+Ψ Gathering build instructions from make -n gh60/satan:colemak
+Ψ Found 50 compile commands
+Ψ Writing build database to /Users/you/src/qmk_firmware/compile_commands.json
+```
+
+Now open your dev environment and live a squiggly-free life.
+
 ## `qmk docs`
 
 This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
 Use the `-b`/`--browser` flag to automatically open the local webserver in your default browser.
+
+This command runs `docsify serve` if `docsify-cli` is installed (which provides live reload), otherwise Python's builtin HTTP server module will be used.
 
 **Usage**:
 

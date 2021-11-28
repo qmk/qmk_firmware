@@ -7,7 +7,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes  # Mouse keys
 EXTRAKEY_ENABLE = yes  # Audio control and System control
 CONSOLE_ENABLE = yes   # Console for debug
@@ -17,9 +17,6 @@ CUSTOM_MATRIX = yes    # Custom matrix file for the HHKB
 # SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 # NKRO_ENABLE = yes       # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
-MIDI_ENABLE = no              # MIDI support
-# UNICODE_ENABLE = yes    # Unicode
-
 
 # HHKB_RN42_ENABLE = yes  # Enable support for hasu's BT alt controller -- code borrowed from tmk source tree.
 

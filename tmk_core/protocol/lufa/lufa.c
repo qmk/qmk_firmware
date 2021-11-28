@@ -52,6 +52,7 @@
 #include "usb_descriptor.h"
 #include "lufa.h"
 #include "quantum.h"
+#include "usb_device_state.h"
 #include <util/atomic.h>
 
 #ifdef NKRO_ENABLE
@@ -500,7 +501,10 @@ void EVENT_USB_Device_Disconnect(void) {
  *
  * FIXME: Needs doc
  */
-void EVENT_USB_Device_Reset(void) { print("[R]"); }
+void EVENT_USB_Device_Reset(void) {
+    print("[R]");
+    usb_device_state_set_reset();
+}
 
 /** \brief Event USB Device Connect
  *
@@ -508,6 +512,8 @@ void EVENT_USB_Device_Reset(void) { print("[R]"); }
  */
 void EVENT_USB_Device_Suspend() {
     print("[S]");
+    usb_device_state_set_suspend(USB_Device_ConfigurationNumber != 0, USB_Device_ConfigurationNumber);
+
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif
@@ -522,6 +528,8 @@ void EVENT_USB_Device_WakeUp() {
 #if defined(NO_USB_STARTUP_CHECK)
     suspend_wakeup_init();
 #endif
+
+    usb_device_state_set_resume(USB_DeviceState == DEVICE_STATE_Configured, USB_Device_ConfigurationNumber);
 
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
@@ -621,6 +629,8 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     /* Setup digitizer endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((DIGITIZER_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, DIGITIZER_EPSIZE, 1);
 #endif
+
+    usb_device_state_set_configuration(USB_DeviceState == DEVICE_STATE_Configured, USB_Device_ConfigurationNumber);
 }
 
 /* FIXME: Expose this table in the docs somehow
@@ -1151,10 +1161,10 @@ void protocol_setup(void) {
 #endif
 
     setup_mcu();
-    keyboard_setup();
+    usb_device_state_init();
 }
 
-void protocol_init(void) {
+void protocol_pre_init(void) {
     setup_usb();
     sei();
 
@@ -1176,21 +1186,11 @@ void protocol_init(void) {
 #else
     USB_USBTask();
 #endif
-    /* init modules */
-    keyboard_init();
-    host_set_driver(&lufa_driver);
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_init();
-#endif
-
-#ifdef VIRTSER_ENABLE
-    virtser_init();
-#endif
-
-    print("Keyboard start.\n");
 }
 
-void protocol_task(void) {
+void protocol_post_init(void) { host_set_driver(&lufa_driver); }
+
+void protocol_pre_task(void) {
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DeviceState == DEVICE_STATE_Suspended) {
         print("[s]");
@@ -1214,9 +1214,9 @@ void protocol_task(void) {
         suspend_wakeup_init();
     }
 #endif
+}
 
-    keyboard_task();
-
+void protocol_post_task(void) {
 #ifdef MIDI_ENABLE
     MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif

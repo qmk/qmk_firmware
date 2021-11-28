@@ -17,9 +17,9 @@ Not Supported Yet but possible:
 
 ### Adafruit BLE SPI Friend
 Currently The only bluetooth chipset supported by QMK is the Adafruit Bluefruit SPI Friend. It's a Nordic nRF5182 based chip running Adafruit's custom firmware. Data is transmitted via Adafruit's SDEP over Hardware SPI. The [Feather 32u4 Bluefruit LE](https://www.adafruit.com/product/2829) is supported as it's an AVR mcu connected via SPI to the Nordic BLE chip with Adafruit firmware. If Building a custom board with the SPI friend it would be easiest to just use the pin selection that the 32u4 feather uses but you can change the pins in the config.h options with the following defines:
-* #define AdafruitBleResetPin D4
-* #define AdafruitBleCSPin    B4
-* #define AdafruitBleIRQPin   E6
+* `#define ADAFRUIT_BLE_RST_PIN D4`
+* `#define ADAFRUIT_BLE_CS_PIN  B4`
+* `#define ADAFRUIT_BLE_IRQ_PIN E6`
 
 A Bluefruit UART friend can be converted to an SPI friend, however this [requires](https://github.com/qmk/qmk_firmware/issues/2274) some reflashing and soldering directly to the MDBT40 chip.
 

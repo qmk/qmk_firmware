@@ -1,0 +1,1 @@
+# The keymap for krush60 solder layout ansi arrow, split spacebar & split backspace

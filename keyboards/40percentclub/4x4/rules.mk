@@ -16,9 +16,8 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no            # USB Nkey Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
-UNICODE_ENABLE = no         # Unicode
-AUDIO_ENABLE = no           # Audio output on port C6
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = ortho_4x4 ortho_4x12
 

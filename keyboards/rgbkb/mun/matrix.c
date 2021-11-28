@@ -11,7 +11,19 @@
 #include "atomic_util.h"
 #include "gpio.h"
 
-static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+#define ROWS_PER_HAND (MATRIX_ROWS / 2)
+static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static const pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
+
+void matrix_init_pins(void) {
+    for (size_t i = 0; i < MATRIX_COLS; i++) {
+        setPinInputHigh(col_pins[i]);
+    }
+    for (size_t i = 0; i < ROWS_PER_HAND; i++) {
+        setPinOutput(row_pins[i]);
+        writePinHigh(row_pins[i]);
+    }
+}
 
 void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     /* Drive row pin low. */
@@ -22,15 +34,17 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     uint16_t porta = palReadPort(GPIOA);
     uint16_t portb = palReadPort(GPIOB);
 
+// clang-format off
     /* Order of pins on the mun is: A0, B11, B0, B10, B12, B2, A8
         Pin is active low, therefore we have to invert the result. */
-    matrix_row_t cols = ~(((porta & (0x1 << 0)) >> 0)      // A0 (0)
-                            | ((portb & (0x1 << 11)) >> 10)  // B11 (1)
-                            | ((portb & (0x1 << 0)) << 2)    // B0 (2)
-                            | ((portb & (0x1 << 10)) >> 7)   // B10 (3)
-                            | ((portb & (0x1 << 12)) >> 8)   // B12 (4)
-                            | ((portb & (0x1 << 2)) << 3)    // B2 (5)
-                            | ((porta & (0x1 << 8)) >> 2));  // A8 (6)
+    matrix_row_t cols = ~(((porta & (0x1 <<  0)) >>  0)   // A0  (0)
+                        | ((portb & (0x1 << 11)) >> 10)   // B11 (1)
+                        | ((portb & (0x1 <<  0)) <<  2)   // B0  (2)
+                        | ((portb & (0x1 << 10)) >>  7)   // B10 (3)
+                        | ((portb & (0x1 << 12)) >>  8)   // B12 (4)
+                        | ((portb & (0x1 <<  2)) <<  3)   // B2  (5)
+                        | ((porta & (0x1 <<  8)) >>  2)); // A8  (6)
+// clang-format on
 
     /* Reverse the order of columns for left hand as the board is flipped. */
     //         if (isLeftHand) {
@@ -50,7 +64,7 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     /* Drive row pin high again. */
     ATOMIC_BLOCK_FORCEON { writePinHigh(row_pins[current_row]); }
-    matrix_output_unselect_delay(current_row, row_pins[current_row] != 0);
+    matrix_output_unselect_delay(current_row, cols != 0);
 }
 
 #if defined(BUSY_WAIT)

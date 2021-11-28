@@ -297,6 +297,7 @@ void send_digitizer(report_digitizer_t *report) {
 #ifdef DIGITIZER_ENABLE
     if (usbInterruptIsReadyShared()) {
         usbSetInterruptShared((void *)report, sizeof(report_digitizer_t));
+    }
 #endif
 }
 
@@ -569,7 +570,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x09, 0x31,        //     Usage (Y)
     0x81, 0x02,        //     Input (Data, Variable, Absolute)
     0xC0,              //   End Collection
-    0xC0               // End Collection
+    0xC0,              // End Collection
 #endif
 
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
@@ -589,7 +590,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x75, 0x01,                           //     Report Size (1)
     0x81, 0x02,                           //     Input (Data, Variable, Absolute)
     0xC0,                                 //   End Collection
-    0xC0                                  // End Collection
+    0xC0,                                 // End Collection
 #endif
 
 #ifdef SHARED_EP_ENABLE

@@ -20,7 +20,7 @@ bool effect_runner_reactive_splash(uint8_t start, effect_params_t* params, react
         }
         led_matrix_set_value(i, scale8(val, led_matrix_eeconfig.val));
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_matrix_check_finished_leds(led_max);
 }
 
 #endif  // LED_MATRIX_KEYREACTIVE_ENABLED
