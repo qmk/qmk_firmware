@@ -228,7 +228,7 @@ bool oled_task_kb(void) {
     } else {
         oled_render_logo_r2g();
     }
-    return true;
+    return false;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
