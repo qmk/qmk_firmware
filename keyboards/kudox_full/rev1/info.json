@@ -2,8 +2,6 @@
     "url": "http://kumaokobo.com/",
     "maintainer": "Kumao Kobo",
     "keyboard_name": "Kudox Full Keyboard Rev1",
-    "width": 19,
-    "height": 15,
     "layouts": {
         "LAYOUT": {
             "layout": [
