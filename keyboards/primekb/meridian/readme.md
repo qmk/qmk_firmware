@@ -11,13 +11,13 @@
 
 The DFU state in the bootloader can be accessed in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Bootmagic reset**: hold down the key at (0,0) in the matrix (usually Escape) and plug in the keyboard
 * **Physical reset button**: press the button on the front of the PCB
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available (Escape key on layer 1 in the default layout)
+* **Keycode in layout**: press the key mapped to `RESET` if it is available (Escape key on layer 1 in the default layout).
 
 ### Compile firmware
 
-The Meridian PCB was delivered in two variants, equal in design but using different RGB LED models: one using WS2812 and another using KTR1010 LEDs. Both cam be compiled using
+The Meridian PCB was delivered in two variants, equal in design but using different RGB LED models: one using WS2812 and another using KTR1010 LEDs. Both can be compiled using
 
     make primekb/meridian/ws1812:default
     make primekb/meridian/ktr1010:default
