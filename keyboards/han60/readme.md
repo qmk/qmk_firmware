@@ -1,8 +1,8 @@
 # han60
 
-![han60](imgur.com image replace me!)
+![han60](https://i.imgur.com/nfiSGNO.jpg)
 
-*A short description of the keyboard/project*
+The Han60 - a 60% gasket mounted keyboard with multiple layout capabilities.
 
 * Keyboard Maintainer: [farhandsome](https://github.com/farhandsome)
 * Hardware Supported: Han60 PCB (ATmega32U4)
