@@ -2,11 +2,8 @@
     "keyboard_name": "THE60 rev1",
     "url": "http://lazydesigners.cn",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_split_spc_split_bspc": {
-            "key_count": 66,
             "layout": [
               {"label":"~", "x":0, "y":0},
               {"label":"!", "x":1, "y":0},

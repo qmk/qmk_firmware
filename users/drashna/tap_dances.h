@@ -35,12 +35,10 @@ extern diablo_timer_t diablo_timer[];
 void run_diablo_macro_check(void);
 
 #ifdef TAP_DANCE_ENABLE
-// clang-format off
 enum {
     TD_D3_1 = 0,
     TD_D3_2,
     TD_D3_3,
-    TD_D3_4
+    TD_D3_4,
 };
-// clang-format on
 #endif  // TAP_DANCE_ENABLE

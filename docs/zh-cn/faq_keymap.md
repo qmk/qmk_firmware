@@ -5,7 +5,7 @@
 ## 我能用什么键码?
 看[键码](keycodes.md)你可以找到你能用的键码索引。可以的话这些链接可以连接到更广泛的文档。
 
-键码实际上定义在[common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
+键码实际上定义在[common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h).
 
 ## 默认的键码什么样?
 

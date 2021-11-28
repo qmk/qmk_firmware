@@ -50,8 +50,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
   static const char PROGMEM qmk_logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
         0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
@@ -81,41 +81,7 @@ void oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+
+    return false;
 }
 #endif
-
-// Backlight timeout feature
-#define BACKLIGHT_TIMEOUT 20   // in minutes
-static uint16_t idle_timer = 0;
-static uint8_t halfmin_counter = 0;
-static bool led_on = true;
-static bool rgb_on = true;
-
-void matrix_scan_user(void) {
-  // idle_timer needs to be set one time
-    if (idle_timer == 0) idle_timer = timer_read();
-        if ( (led_on && timer_elapsed(idle_timer) > 30000) || (rgb_on && timer_elapsed(idle_timer) > 30000)) {
-            halfmin_counter++;
-            idle_timer = timer_read();
-        }
-
-        if ( (led_on && halfmin_counter >= BACKLIGHT_TIMEOUT * 2) || (rgb_on && halfmin_counter >= BACKLIGHT_TIMEOUT * 2)) {
-            rgblight_disable_noeeprom();
-            led_on = false;
-            rgb_on = false;
-            halfmin_counter = 0;
-        }
-};
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-            if (led_on == false || rgb_on == false ) {
-        rgblight_enable_noeeprom();
-                led_on = true;
-        rgb_on = true;
-            }
-        idle_timer = timer_read();
-        halfmin_counter = 0;
-    }
-    return true;
-}

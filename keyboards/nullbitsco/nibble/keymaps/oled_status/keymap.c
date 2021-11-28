@@ -15,19 +15,17 @@
  */
 #include QMK_KEYBOARD_H
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include "oled_display.h"
 #endif
 
-enum layer_names {
-  _MA,
-  _FN
-};
+enum layer_names { _MA, _FN };
 
 enum custom_keycodes {
     KC_CUST = SAFE_RANGE,
 };
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MA] = LAYOUT_ansi(
                 KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
@@ -44,19 +42,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______,                   _______,                   _______, _______, _______, _______,          _______, _______
     ),
 };
+// clang-format on
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     oled_timer = timer_read32();
     set_oled_mode(OLED_MODE_IDLE);
     return OLED_ROTATION_180;
 }
 
-void oled_task_user(void) {
-     if (timer_elapsed(oled_timer) >= 3000) {
+bool oled_task_user(void) {
+    if (timer_elapsed(oled_timer) >= 3000) {
         set_oled_mode(OLED_MODE_IDLE);
     }
     render_frame();
+    return false;
 }
 #endif
 
@@ -64,35 +64,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Send keystrokes to host keyboard, if connected (see readme)
     process_record_remote_kb(keycode, record);
 
-    switch(keycode) {
+    switch (keycode) {
         case RGB_TOG:
             if (record->event.pressed) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
                 process_record_keymap_oled(keycode);
 #endif
             }
-        break;
-        case KC_CUST: //custom macro
+            break;
+        case KC_CUST:  // custom macro
             if (record->event.pressed) {
             }
-        break;
+            break;
     }
     return true;
 }
 
-
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         tap_code(KC_VOLU);
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
         process_record_encoder_oled(KC_VOLU);
 #endif
     } else {
         tap_code(KC_VOLD);
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
         process_record_encoder_oled(KC_VOLD);
 #endif
     }
+    return true;
 }
 
 void matrix_init_user(void) {

@@ -341,8 +341,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_init_user(void) {
     set_unicode_input_mode(UC_WINC);
 };
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
   oled_write_P(PSTR("       spaget v1\n\n"), false);
 
   // Host Keyboard Layer Status
@@ -368,6 +368,7 @@ void oled_task_user(void) {
   oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
   oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("     "), false);
   oled_write_P(led_state.scroll_lock ? PSTR("SCROLL ") : PSTR("       "), false);
+    return false;
 }
 #endif
 

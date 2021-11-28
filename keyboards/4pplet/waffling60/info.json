@@ -2,8 +2,6 @@
     "keyboard_name": "Waffling60 Rev A",
     "url": "https://github.com/4pplet/waffling60",
     "maintainer": "4pplet",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
