@@ -675,7 +675,6 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
     endif
 endif
 
-
 ########################################
 # APPLE FN KEY
 ifeq ($(strip $(APPLE_FN_ENABLE)), yes)
