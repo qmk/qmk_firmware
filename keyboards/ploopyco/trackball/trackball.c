@@ -65,12 +65,7 @@ uint8_t  OptLowPin         = OPT_ENC1;
 bool     debug_encoder     = false;
 bool     is_drag_scroll    = false;
 
-__attribute__((weak)) void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
-    mouse_report->h = h;
-    mouse_report->v = v;
-}
-
-__attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
+void process_wheel(report_mouse_t* mouse_report) {
     // TODO: Replace this with interrupt driven code,  polling is S L O W
     // Lovingly ripped from the Ploopy Source
 
@@ -99,56 +94,25 @@ __attribute__((weak)) void process_wheel(report_mouse_t* mouse_report) {
     int dir = opt_encoder_handler(p1, p2);
 
     if (dir == 0) return;
-    process_wheel_user(mouse_report, mouse_report->h, (int)(mouse_report->v + (dir * OPT_SCALE)));
+    mouse_report->v = (int8_t)(dir * OPT_SCALE);
 }
 
-__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
-    mouse_report->x = x;
-    mouse_report->y = y;
-}
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    process_wheel(&mouse_report);
 
-__attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
-    report_pmw_t data = pmw_read_burst();
-    if (data.isOnSurface && data.isMotion) {
-        // Reset timer if stopped moving
-        if (!data.isMotion) {
-            if (MotionStart != 0) MotionStart = 0;
-            return;
-        }
-
-        // Set timer if new motion
-        if ((MotionStart == 0) && data.isMotion) {
-            if (debug_mouse) dprintf("Starting motion.\n");
-            MotionStart = timer_read();
-        }
-
-        if (debug_mouse) {
-            dprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart);
-        }
-        if (debug_mouse) {
-            dprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy);
-        }
-#if defined(PROFILE_LINEAR)
-        float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
-        data.dx *= scale;
-        data.dy *= scale;
-#elif defined(PROFILE_INVERSE)
-        // TODO
+    if (is_drag_scroll) {
+        mouse_report.h = mouse_report.x;
+#ifdef PLOOPY_DRAGSCROLL_INVERT
+        // Invert vertical scroll direction
+        mouse_report.v = -mouse_report.y;
 #else
-        // no post processing
+        mouse_report.v = mouse_report.y;
 #endif
-        // apply multiplier
-        // data.dx *= mouse_multiplier;
-        // data.dy *= mouse_multiplier;
-
-        // Wrap to HID size
-        data.dx = constrain(data.dx, -127, 127);
-        data.dy = constrain(data.dy, -127, 127);
-        if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
-        // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
-
-        process_mouse_user(mouse_report, data.dx, -data.dy);
+        mouse_report.x = 0;
+        mouse_report.y = 0;
     }
+
+    return pointing_device_task_user(mouse_report);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
@@ -169,7 +133,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (keycode == DPI_CONFIG && record->event.pressed) {
         keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
         eeconfig_update_kb(keyboard_config.raw);
-        pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
+        pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 
     if (keycode == DRAG_SCROLL) {
@@ -180,9 +144,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             is_drag_scroll ^= 1;
         }
 #ifdef PLOOPY_DRAGSCROLL_FIXED
-        pmw_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
+        pointing_device_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
 #else
-        pmw_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * PLOOPY_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
+        pointing_device_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * PLOOPY_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
 #endif
     }
 
@@ -194,11 +158,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #ifndef MOUSEKEY_ENABLE
     if (IS_MOUSEKEY_BUTTON(keycode)) {
         report_mouse_t currentReport = pointing_device_get_report();
-        if (record->event.pressed) {
-            currentReport.buttons |= 1 << (keycode - KC_MS_BTN1);
-        } else {
-            currentReport.buttons &= ~(1 << (keycode - KC_MS_BTN1));
-        }
+        currentReport.buttons        = pointing_device_handle_buttons(currentReport.buttons, record->event.pressed, keycode - KC_MS_BTN1);
         pointing_device_set_report(currentReport);
         pointing_device_send();
     }
@@ -239,33 +199,10 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-void pointing_device_init(void) {
-    // initialize ball sensor
-    pmw_spi_init();
+void pointing_device_init_kb(void) {
+    pmw3360_set_cpi(dpi_array[keyboard_config.dpi_config]);
     // initialize the scroll wheel's optical encoder
     opt_encoder_init();
-}
-
-
-void pointing_device_task(void) {
-    report_mouse_t mouse_report = pointing_device_get_report();
-    process_wheel(&mouse_report);
-    process_mouse(&mouse_report);
-
-    if (is_drag_scroll) {
-        mouse_report.h = mouse_report.x;
-#ifdef PLOOPY_DRAGSCROLL_INVERT
-        // Invert vertical scroll direction
-        mouse_report.v = -mouse_report.y;
-#else
-        mouse_report.v = mouse_report.y;
-#endif
-        mouse_report.x = 0;
-        mouse_report.y = 0;
-    }
-
-    pointing_device_set_report(mouse_report);
-    pointing_device_send();
 }
 
 void eeconfig_init_kb(void) {
@@ -285,7 +222,7 @@ void matrix_init_kb(void) {
 }
 
 void keyboard_post_init_kb(void) {
-    pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
 
     keyboard_post_init_user();
 }

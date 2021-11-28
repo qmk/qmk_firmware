@@ -1,7 +1,7 @@
 VIA_ENABLE = yes
 MOUSEKEY_ENABLE = no
 TAP_DANCE_ENABLE = yes
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 
 TD_LSFT_CAPSLOCK_ENABLE = yes
 IDLE_TIMEOUT_ENABLE = yes
