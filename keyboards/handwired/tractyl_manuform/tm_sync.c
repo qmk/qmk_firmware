@@ -17,7 +17,6 @@
 #include "tractyl_manuform.h"
 #include "transactions.h"
 #include <string.h>
-#include "drivers/sensors/pmw3360.h"
 
 kb_config_data_t  kb_config;
 kb_mouse_report_t sync_mouse_report;
@@ -82,6 +81,6 @@ void housekeeping_task_sync(void) {
 void trackball_set_cpi(uint16_t cpi) {
     kb_config.device_cpi = cpi;
     if (!is_keyboard_left()) {
-        pmw_set_cpi(cpi);
+        pointing_device_set_cpi(cpi);
     }
 }

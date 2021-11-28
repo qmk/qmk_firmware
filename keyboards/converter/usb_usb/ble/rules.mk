@@ -12,9 +12,9 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output
-BLUETOOTH = AdafruitBLE
-ADAFRUIT_BLE_ENABLE = yes
+
+BLUETOOTH_ENABLE = yes
+BLUETOOTH_DRIVER = AdafruitBLE
 
 EXTRAFLAGS += -flto

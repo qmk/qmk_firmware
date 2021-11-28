@@ -184,7 +184,11 @@ bool            tap_toggling          = false;
 #        define TAP_CHECK TAPPING_TERM
 #    endif
 
-void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    int8_t x = mouse_report.x, y = mouse_report.y;
+    mouse_report.x = 0;
+    mouse_report.y = 0;
+
     if (x != 0 && y != 0) {
         mouse_timer = timer_read();
 #    ifdef OLED_ENABLE
@@ -195,13 +199,14 @@ void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
                 x = (x > 0 ? x * x / 16 + x : -x * x / 16 + x);
                 y = (y > 0 ? y * y / 16 + y : -y * y / 16 + y);
             }
-            mouse_report->x = x;
-            mouse_report->y = y;
+            mouse_report.x = x;
+            mouse_report.y = y;
             if (!layer_state_is(_MOUSE)) {
                 layer_on(_MOUSE);
             }
         }
     }
+    return mouse_report;
 }
 
 void matrix_scan_keymap(void) {

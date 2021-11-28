@@ -7,7 +7,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes          # Mouse keys
 EXTRAKEY_ENABLE = yes          # Audio control and System control
 CONSOLE_ENABLE = no            # Console for debug
@@ -22,3 +22,5 @@ AUDIO_ENABLE = no              # Audio output
 RGB_MATRIX_ENABLE = yes        # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3733
 NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
+
+LTO_ENABLE = yes
