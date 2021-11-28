@@ -36,7 +36,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 //common oled support.
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
