@@ -36,6 +36,7 @@ GENERIC_FEATURES = \
     TAP_DANCE \
     VELOCIKEY \
     WPM \
+    DYNAMIC_TAPPING_TERM \
 
 define HANDLE_GENERIC_FEATURE
     # $$(info "Processing: $1_ENABLE $2.c")
