@@ -154,7 +154,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//3102 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//3086 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-11-29
 };
 
@@ -211,7 +211,7 @@ const char* const PROGMEM macro_unicode[] = {
 	"obj()\0Co₃\0𝕆\0",//    KM_O
 	"&apos;\0Co₂\0ℙ\0",//    KM_P
 	"&amp;\0M₁₁\0𝔸\0",//		 KM_A
-	"switch() {\ncase :\nbreak;\n}\0Ly\0𝕊\0",//    KM_S
+	"switch() {\ncase :\nbreak;\ndefault:\nbreak;\n}\0Ly\0𝕊\0",//    KM_S
 	"do\\awhile();\0M₂₂\0𝔻\0",//    KM_D
 	"for(;;)\\a\0M₂₃\0𝔽\0",//    KM_F
 	"gallowed ;\0HS\0𝔾\0",//    KM_G

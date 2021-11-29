@@ -19,7 +19,7 @@ So imagine a `.html` page. If the parse starts in the abstract syntax tree of `a
 * P - `&apos;` - occasionally useful.
 * Q - `&quot;` - more useful.
 * R - `return <x>;`
-* S - `switch() { case : break; }`
+* S - `switch() { case : break; default: break; }`
 * T - `this` - object orientation.
 * U - `utf8(<obj>)` - make an explicit string cast.
 * V - `void(<obj>)` - a void object with a sub-object explanation monad.
