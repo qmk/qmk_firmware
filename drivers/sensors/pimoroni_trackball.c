@@ -33,6 +33,9 @@
 
 static uint16_t precision = 128;
 
+uint16_t pimoroni_trackball_get_cpi(void) { return (precision * 125); }
+void     pimoroni_trackball_set_cpi(uint16_t cpi) { precision = (cpi / 125); }
+
 float pimoroni_trackball_get_precision(void) { return ((float)precision / 128); }
 void  pimoroni_trackball_set_precision(float floatprecision) { precision = (floatprecision * 128); }
 

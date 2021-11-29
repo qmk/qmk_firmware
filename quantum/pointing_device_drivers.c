@@ -202,8 +202,8 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
 const pointing_device_driver_t pointing_device_driver = {
     .init       = pimironi_trackball_device_init,
     .get_report = pimorono_trackball_get_report,
-    .set_cpi    = NULL,
-    .get_cpi    = NULL
+    .set_cpi    = pimoroni_trackball_set_cpi,
+    .get_cpi    = pimoroni_trackball_get_cpi
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
