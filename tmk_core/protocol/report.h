@@ -249,11 +249,11 @@ typedef struct {
 } __attribute__((packed)) joystick_report_t;
 
 typedef struct {
-#    ifdef RADIAL_DIAL_SHARED_EP
+#ifdef RADIAL_DIAL_SHARED_EP
     uint8_t report_id;
-#    endif
+#endif
     uint16_t button : 1;
-    int16_t rotation : 15;
+    int16_t  rotation : 15;
 } __attribute__((packed)) report_radial_dial_t;
 
 /* keycode to system usage */

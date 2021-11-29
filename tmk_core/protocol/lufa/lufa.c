@@ -105,7 +105,7 @@ static void    send_system(uint16_t data);
 static void    send_consumer(uint16_t data);
 static void    send_programmable_button(uint32_t data);
 static void    send_radial_dial(report_radial_dial_t *report);
-host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button, send_radial_dial };
+host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button, send_radial_dial};
 
 #ifdef VIRTSER_ENABLE
 // clang-format off

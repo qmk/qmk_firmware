@@ -323,16 +323,16 @@ enum usb_endpoints {
 #    error There are not enough available endpoints to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Console, NKRO, MIDI, Serial, Steno
 #endif
 
-#define KEYBOARD_EPSIZE         8
-#define SHARED_EPSIZE           32
-#define MOUSE_EPSIZE            8
-#define RAW_EPSIZE              32
-#define CONSOLE_EPSIZE          32
-#define MIDI_STREAM_EPSIZE      64
+#define KEYBOARD_EPSIZE 8
+#define SHARED_EPSIZE 32
+#define MOUSE_EPSIZE 8
+#define RAW_EPSIZE 32
+#define CONSOLE_EPSIZE 32
+#define MIDI_STREAM_EPSIZE 64
 #define CDC_NOTIFICATION_EPSIZE 8
-#define CDC_EPSIZE              16
-#define JOYSTICK_EPSIZE         8
-#define DIGITIZER_EPSIZE        8
-#define RADIAL_DIAL_EPSIZE      8
+#define CDC_EPSIZE 16
+#define JOYSTICK_EPSIZE 8
+#define DIGITIZER_EPSIZE 8
+#define RADIAL_DIAL_EPSIZE 8
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);
