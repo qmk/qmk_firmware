@@ -54,7 +54,6 @@ extern keymap_config_t keymap_config;
 #    include "joystick.h"
 #endif
 
-
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------

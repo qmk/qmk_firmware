@@ -986,8 +986,6 @@ void send_digitizer(report_digitizer_t *report) {
 #endif
 }
 
-
-
 /** \brief Send Mouse
  *
  * FIXME: Needs doc

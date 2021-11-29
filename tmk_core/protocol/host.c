@@ -136,7 +136,6 @@ void host_digitizer_send(digitizer_t *digitizer) {
 
 __attribute__((weak)) void send_digitizer(report_digitizer_t *report) {}
 
-
 void host_radial_dial_send(report_radial_dial_t *report) {
     if (!driver) return;
 #ifdef RADIAL_DIAL_SHARED_EP
