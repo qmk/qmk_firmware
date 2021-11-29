@@ -79,7 +79,8 @@ enum serial_transaction_id {
 #endif  // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
 
 #if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
-    GET_POINTING,
+    GET_POINTING_CHECKSUM,
+    GET_POINTING_DATA,
 #endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

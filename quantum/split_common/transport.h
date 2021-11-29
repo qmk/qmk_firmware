@@ -108,6 +108,10 @@ typedef struct _split_mods_sync_t {
 
 #if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 #    include "pointing_device.h"
+typedef struct _split_slave_pointing_sync_t {
+    uint8_t        checksum;
+    report_mouse_t report;
+} split_slave_pointing_sync_t;
 #endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
@@ -178,7 +182,7 @@ typedef struct _split_shared_memory_t {
 #endif  // ST7565_ENABLE(OLED_ENABLE) && defined(SPLIT_ST7565_ENABLE)
 
 #if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
-    report_mouse_t current_pointing_state;
+    split_slave_pointing_sync_t pointing;
 #endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

@@ -18,6 +18,7 @@
 
 #include "pointing_device.h"
 #include <string.h>
+#include "timer.h"
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
@@ -27,7 +28,10 @@
 #if defined(SPLIT_POINTING_ENABLE)
 #    include "transactions.h"
 #    include "keyboard.h"
-#    include "timer.h"
+
+report_mouse_t sharedReport = {};
+
+void pointing_device_set_shared_report(report_mouse_t report) { sharedReport = report; }
 #endif
 
 static report_mouse_t mouseReport = {};
@@ -83,9 +87,9 @@ __attribute__((weak)) void pointing_device_task(void) {
     };
 #endif
 
-#if defined(POINTING_DEVICE_TASK_THROTTLE)
+#if defined(POINTING_DEVICE_TASK_THROTTLE_MS)
     static uint32_t last_exec = 0;
-    if (timer_elapsed32(last_exec) < 1) {
+    if (timer_elapsed32(last_exec) < POINTING_DEVICE_TASK_THROTTLE_MS) {
         return;
     }
     last_exec = timer_read32();
@@ -105,17 +109,15 @@ __attribute__((weak)) void pointing_device_task(void) {
 
 #if defined(SPLIT_POINTING_ENABLE)
 #    if defined(POINTING_DEVICE_COMBINED)
-        static report_mouse_t sharedReport = {0};
-    static uint8_t oldButtons = 0;
-    mouseReport.buttons       = oldButtons;
-    mouseReport               = pointing_device_driver.get_report(mouseReport);
-    sharedReport              = get_targets_pointing();
-    oldButtons                = mouseReport.buttons;
-    mouseReport.x             = mouseReport.x | sharedReport.x;
-    mouseReport.y             = mouseReport.y | sharedReport.y;
-    mouseReport.h             = mouseReport.h | sharedReport.h;
-    mouseReport.v             = mouseReport.v | sharedReport.v;
-    mouseReport.buttons       = mouseReport.buttons | sharedReport.buttons;
+        static uint8_t oldButtons = 0;
+    mouseReport.buttons = oldButtons;
+    mouseReport         = pointing_device_driver.get_report(mouseReport);
+    oldButtons          = mouseReport.buttons;
+    mouseReport.x       = mouseReport.x | sharedReport.x;
+    mouseReport.y       = mouseReport.y | sharedReport.y;
+    mouseReport.h       = mouseReport.h | sharedReport.h;
+    mouseReport.v       = mouseReport.v | sharedReport.v;
+    mouseReport.buttons = mouseReport.buttons | sharedReport.buttons;
 #    elif defined(POINTING_DEVICE_LEFT)
         if (is_keyboard_left()) {
             mouseReport = pointing_device_driver.get_report(mouseReport);

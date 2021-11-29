@@ -583,32 +583,40 @@ static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 
 #if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
+static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    static uint32_t last_update = 0;
+    report_mouse_t  temp_state;
+    bool            okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &temp_state, &split_shmem->pointing.report, sizeof(temp_state));
+    if (okay) pointing_device_set_shared_report(temp_state);
+    return okay;
+}
+
 extern const pointing_device_driver_t pointing_device_driver;
 
-report_mouse_t get_targets_pointing(void) {
-    report_mouse_t temp = {0};
-
-    // Prevent transaction attempts while transport is disconnected
-    if (!is_transport_connected()) {
-        return temp;
+static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    report_mouse_t temp_report;
+#    ifdef POINTING_DEVICE_TASK_THROTTLE_MS
+    static uint32_t last_exec = 0;
+    if (timer_elapsed32(last_exec) < POINTING_DEVICE_TASK_THROTTLE_MS) {
+        return;
     }
-
-    if (!transport_execute_transaction(GET_POINTING, NULL, 0, &temp, sizeof(report_mouse_t))) {
-        dprintf("Failed to execute pointing devices transaction.");
-    }
-    return temp;
+    last_exec = timer_read32();
+#    endif
+    memset(&temp_report, 0, sizeof(temp_report));
+    temp_report = pointing_device_driver.get_report(temp_report);
+    memcpy(&split_shmem->pointing.report, &temp_report, sizeof(temp_report));
+    // Now update the checksum given that the pointing has been written to
+    split_shmem->pointing.checksum = crc8(&temp_report, sizeof(temp_report));
 }
 
-static void pointing_handlers_slave(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
-    report_mouse_t temp = {0};
-    temp                = pointing_device_driver.get_report(temp);
-    memcpy(target2initiator_buffer, &temp, sizeof(report_mouse_t));
-}
-
-#    define TRANSACTIONS_POINTING_REGISTRATIONS [GET_POINTING] = trans_target2initiator_initializer_cb(current_pointing_state, pointing_handlers_slave),
+#    define TRANSACTIONS_POINTING_MASTER() TRANSACTION_HANDLER_MASTER(pointing)
+#    define TRANSACTIONS_POINTING_SLAVE() TRANSACTION_HANDLER_SLAVE(pointing)
+#    define TRANSACTIONS_POINTING_REGISTRATIONS [GET_POINTING_CHECKSUM] = trans_target2initiator_initializer(pointing.checksum), [GET_POINTING_DATA] = trans_target2initiator_initializer(pointing.report),
 
 #else  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
+#    define TRANSACTIONS_POINTING_MASTER()
+#    define TRANSACTIONS_POINTING_SLAVE()
 #    define TRANSACTIONS_POINTING_REGISTRATIONS
 
 #endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
@@ -665,6 +673,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_WPM_MASTER();
     TRANSACTIONS_OLED_MASTER();
     TRANSACTIONS_ST7565_MASTER();
+    TRANSACTIONS_POINTING_MASTER();
     return true;
 }
 
@@ -683,6 +692,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_WPM_SLAVE();
     TRANSACTIONS_OLED_SLAVE();
     TRANSACTIONS_ST7565_SLAVE();
+    TRANSACTIONS_POINTING_SLAVE();
 }
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
