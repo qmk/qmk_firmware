@@ -41,7 +41,9 @@ enum planck_keycodes {
 #define FN MO(_FN)
 #define ADJUST MO(_ADJUST)
 #define MICMUTE LCTL(LSFT(KC_M))
-#define LCTRL_F1 MT(MOD_LCTL, KC_F1) 
+#define LCTRL_F1 MT(MOD_LCTL, KC_F1)
+#define LSFT_F2 MT(MOD_LSFT, KC_F2)
+#define LALT_F2 MT(MOD_LALT, KC_F3) 
 
 // This is a completely modified layout that stikes a balance between muscle memory for keys, where I was coming from a standard
 // Qwerty keyboard, and efficiency gained by using layers. I've switched tab and esc because it's more natural to me this way, and
@@ -137,21 +139,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (FN LAYER)
  *
- * ,--------------------------------------------------------------------------.
- * |     |LCTRL_F1|  F2 |  F3 |  F4 |     | pgup| home| up  | end |PrtScr|del |
- * |--------------------------------------------------------------------------|
- * | calc|  F5    |  F6 |  F7 |  F8 |     | pgdn| left| down|right|ScrLck|Ins |
- * |--------------------------------------------------------------------------|
- * | vol+|  F9    | F10 | F11 | F12 |     |    |shft_l|LCA_up|shft_r|    |CAPS|
- * |--------------------------------------------------------------------------|
- * | vol-| Mute   | RAlt      |MICMUTE|         |     |LCA_dn|next | Down| Up |
- * `--------------------------------------------------------------------------'
+ * ,----------------------------------------------------------------------------.
+ * |    |LCTRL_F1|LSFT_F2|LALT_F3| F4  |    |    |home | up   | end |PrtScr|del |
+ * |----------------------------------------------------------------------------|
+ * |    |  F5    |  F6   |  F7   | F8  |    |    |left | down |right|ScrLck|Ins |
+ * |----------------------------------------------------------------------------|
+ * |    |  F9    | F10   | F11   | F12 |    |    |pgup |LCA_up| pgdn|      |CAPS|
+ * |----------------------------------------------------------------------------|
+ * |    | MICMUTE| Calc  |  MUTE |Vol- |         |Vol+ |LCA_dn| next|      |    |
+ * `----------------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, LCTRL_F1,   KC_F2,   KC_F3,   KC_F4,   KC_TRNS, KC_PGUP, KC_HOME,       KC_UP,        KC_END,        KC_PSCR, KC_DEL,
-  KC_CALC, KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_TRNS, KC_PGDN, KC_LEFT,       KC_DOWN,      KC_RGHT,       KC_SLCK, KC_INS, 
-  KC_VOLU, KC_F9,      KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, LSFT(KC_LEFT), LCA(KC_UP),   LSFT(KC_RGHT), KC_TRNS, KC_CAPS, 
-  KC_VOLD, KC_MUTE,    KC_RALT, KC_TRNS, MICMUTE, KC_TRNS, KC_TRNS, KC_TRNS,       LCA(KC_DOWN), KC_MNXT,       KC_DOWN, KC_UP
+  KC_TRNS, LCTL_T(KC_F1), LSFT_T(KC_F2), LALT_T(KC_F3), KC_F4,   KC_TRNS, KC_TRNS, KC_HOME, KC_UP,        KC_END,   KC_PSCR, KC_DEL,
+  KC_TRNS, KC_F5,         KC_F6,         KC_F7,         KC_F8,   KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN,      KC_RGHT,  KC_SLCK, KC_INS, 
+  KC_VOLU, KC_F9,         KC_F10,        KC_F11,        KC_F12,  KC_TRNS, KC_TRNS, KC_PGUP, LCA(KC_UP),   KC_PGDN,  KC_TRNS, KC_CAPS, 
+  KC_VOLD, MICMUTE,       KC_CALC,       KC_MUTE,       KC_VOLD, KC_TRNS, KC_TRNS, KC_VOLU, LCA(KC_DOWN), KC_MNXT,  KC_TRNS, KC_TRNS
 ),
 
 /* MIT Layout (ADJUST)
