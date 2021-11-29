@@ -154,7 +154,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//3846 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//3750 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-11-29
 };
 
@@ -200,32 +200,32 @@ const char* const PROGMEM macro_unicode[] = {
 	"E₇(q)\0²F₄(2²ⁿ⁺¹)\0\0",//    KM_8
 	"E₈(q)\0²G₂(3²ⁿ⁺¹)\0\0",//    KM_9
 	"∅\0²F₄(2)′\0\0",//    KM_0
-	"&quot;\0Fi₂₂\0\0",//		 KM_Q
-	"while()\\a\0J₄\0\0",//    KM_W
-	"export \0J₂\0\0",//    KM_E
-	"return ;\0HN\0\0",//    KM_R
-	"this\0Th\0\0",//    KM_T
-	"yeild ;\0B\0\0",//		 KM_Y
-	"utf8()\0Fi₂₃\0\0",//    KM_U
-	"if()\\aelse\\a\0M₂₄\0\0",//    KM_I
-	"obj()\0Co₃\0\0",//    KM_O
-	"&apos;\0Co₂\0\0",//    KM_P
-	"&amp;\0M₁₁\0\0",//		 KM_A
-	"switch() {\ncase :\nbreak;\n}\0Ly\0\0",//    KM_S
-	"do\\awhile();\0M₂₂\0\0",//    KM_D
-	"for(;;)\\a\0M₂₃\0\0",//    KM_F
-	"gallowed ;\0HS\0\0",//    KM_G
-	"hallowed ;\0J₃\0\0",//		 KM_H
-	"true\0McL\0\0",//    KM_J
-	"false\0He\0\0",//    KM_K
-	"&lt;\0Ru\0\0",//    KM_L
-	"<z />\0M\0\0",//		 KM_Z
-	"xref()\0Fi₂₄\0\0",//    KM_X
-	"continue;\n\0J₁\0\0",//    KM_C
-	"void()\0Co₁\0\0",//    KM_V
-	"break;\n\0M₁₂\0\0",//		 KM_B
-	"new ()\\a\0O'N\0\0",//    KM_N
-	"main()\\a\0Suz\0\0",//    KM_M
+	"&quot;\0Fi₂₂\0ℚ\0",//		 KM_Q
+	"while()\\a\0J₄\0𝕎\0",//    KM_W
+	"export \0J₂\0𝔼\0",//    KM_E
+	"return ;\0HN\0ℝ\0",//    KM_R
+	"this\0Th\0𝕋\0",//    KM_T
+	"yeild ;\0B\0𝕐\0",//		 KM_Y
+	"utf8()\0Fi₂₃\0𝕌\0",//    KM_U
+	"if()\\aelse\\a\0M₂₄\0𝕀\0",//    KM_I
+	"obj()\0Co₃\0𝕆\0",//    KM_O
+	"&apos;\0Co₂\0ℙ\0",//    KM_P
+	"&amp;\0M₁₁\0𝔸\0",//		 KM_A
+	"switch() {\ncase :\nbreak;\n}\0Ly\0𝕊\0",//    KM_S
+	"do\\awhile();\0M₂₂\0𝔻\0",//    KM_D
+	"for(;;)\\a\0M₂₃\0𝔽\0",//    KM_F
+	"gallowed ;\0HS\0𝔾\0",//    KM_G
+	"hallowed ;\0J₃\0ℍ\0",//		 KM_H
+	"true\0McL\0𝕁\0",//    KM_J
+	"false\0He\0𝕂\0",//    KM_K
+	"&lt;\0Ru\0𝕃\0",//    KM_L
+	"<z />\0M\0ℤ\0",//		 KM_Z
+	"xref()\0Fi₂₄\0𝕏\0",//    KM_X
+	"continue;\n\0J₁\0ℂ\0",//    KM_C
+	"void()\0Co₁\0𝕍\0",//    KM_V
+	"break;\n\0M₁₂\0𝔹\0",//		 KM_B
+	"new ()\\a\0O'N\0ℕ\0",//    KM_N
+	"main()\\a\0Suz\0𝕄\0",//    KM_M
 };
 
 const uint16_t PROGMEM macro_keycode[] = {
