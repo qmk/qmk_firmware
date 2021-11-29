@@ -92,7 +92,8 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
   * Families on unshifted and shifted numbers plus null set.
   * The maths can get complicated as these are the "44 prime kinds" of all simple symmetry groups (plus the irregular honorary sporadic "Tits Group"). I included the zero null set symbol too.
   * Some shortcuts to input C language structure and what I call [Amperzand](amperzand.md).
-  * Control letters for double struck alphas.
+  * `Ctrl`+letters for double struck alphas.
+  * **TODO:** `Ctrl`+numbers, `Ctrl`+`Shift`+all, and perhaps `Win` ...
 
 ### **BQN** Layer (BLUE Layer Within BQN Specification)
 * **BQN** unshifted and shifted.
