@@ -66,7 +66,24 @@ uint8_t  OptLowPin         = OPT_ENC1;
 bool     debug_encoder     = false;
 bool     is_drag_scroll    = false;
 
-void process_wheel(report_mouse_t* mouse_report) {
+__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { return true; }
+
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
+#ifdef MOUSEKEY_ENABLE
+    tap_code(clockwise ? KC_WH_U : KC_WH_D);
+#else
+    mouse_report_t mouse_report = pointing_device_get_report();
+    mouse_report.v = clockwise ? 1 : -1;
+    pointing_device_set_report(mouse_report);
+    pointing_device_send();
+#endif
+    return true;
+}
+
+void process_wheel(void) {
     // Lovingly ripped from the Ploopy Source
 
     // If the mouse wheel was just released, do not scroll.
@@ -94,11 +111,11 @@ void process_wheel(report_mouse_t* mouse_report) {
     int dir = opt_encoder_handler(p1, p2);
 
     if (dir == 0) return;
-    mouse_report->v = (int8_t)(dir * OPT_SCALE);
+    encoder_update_kb(0, dir == 1);
 }
 
-__attribute__((weak)) report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    process_wheel(&mouse_report);
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    process_wheel();
 
     if (is_drag_scroll) {
         mouse_report.h = mouse_report.x;
