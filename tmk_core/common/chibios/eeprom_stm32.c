@@ -620,48 +620,11 @@ uint16_t EEPROM_ReadDataWord(uint16_t Address) {
 }
 
 /*****************************************************************************
- *  Wrap library in AVR style functions.
+ *  Bind to eeprom_driver.c
  *******************************************************************************/
-uint8_t eeprom_read_byte(const uint8_t *Address) { return EEPROM_ReadDataByte((const uintptr_t)Address); }
+void eeprom_driver_init(void) { EEPROM_Init(); }
 
-void eeprom_write_byte(uint8_t *Address, uint8_t Value) { EEPROM_WriteDataByte((uintptr_t)Address, Value); }
-
-void eeprom_update_byte(uint8_t *Address, uint8_t Value) { EEPROM_WriteDataByte((uintptr_t)Address, Value); }
-
-uint16_t eeprom_read_word(const uint16_t *Address) { return EEPROM_ReadDataWord((const uintptr_t)Address); }
-
-void eeprom_write_word(uint16_t *Address, uint16_t Value) { EEPROM_WriteDataWord((uintptr_t)Address, Value); }
-
-void eeprom_update_word(uint16_t *Address, uint16_t Value) { EEPROM_WriteDataWord((uintptr_t)Address, Value); }
-
-uint32_t eeprom_read_dword(const uint32_t *Address) {
-    const uint16_t p = (const uintptr_t)Address;
-    /* Check word alignment */
-    if (p % 2) {
-        /* Not aligned */
-        return (uint32_t)EEPROM_ReadDataByte(p) | (uint32_t)(EEPROM_ReadDataWord(p + 1) << 8) | (uint32_t)(EEPROM_ReadDataByte(p + 3) << 24);
-    } else {
-        /* Aligned */
-        return EEPROM_ReadDataWord(p) | (EEPROM_ReadDataWord(p + 2) << 16);
-    }
-}
-
-void eeprom_write_dword(uint32_t *Address, uint32_t Value) {
-    uint16_t p = (const uintptr_t)Address;
-    /* Check word alignment */
-    if (p % 2) {
-        /* Not aligned */
-        EEPROM_WriteDataByte(p, (uint8_t)Value);
-        EEPROM_WriteDataWord(p + 1, (uint16_t)(Value >> 8));
-        EEPROM_WriteDataByte(p + 3, (uint8_t)(Value >> 24));
-    } else {
-        /* Aligned */
-        EEPROM_WriteDataWord(p, (uint16_t)Value);
-        EEPROM_WriteDataWord(p + 2, (uint16_t)(Value >> 16));
-    }
-}
-
-void eeprom_update_dword(uint32_t *Address, uint32_t Value) { eeprom_write_dword(Address, Value); }
+void eeprom_driver_erase(void) { EEPROM_Erase(); }
 
 void eeprom_read_block(void *buf, const void *addr, size_t len) {
     const uint8_t *src  = (const uint8_t *)addr;
@@ -670,14 +633,14 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
     /* Check word alignment */
     if (len && (uintptr_t)src % 2) {
         /* Read the unaligned first byte */
-        *dest++ = eeprom_read_byte(src++);
+        *dest++ = EEPROM_ReadDataByte((const uintptr_t)src++);
         --len;
     }
 
     uint16_t value;
     bool     aligned = ((uintptr_t)dest % 2 == 0);
     while (len > 1) {
-        value = eeprom_read_word((uint16_t *)src);
+        value = EEPROM_ReadDataWord((const uintptr_t)((uint16_t *)src));
         if (aligned) {
             *(uint16_t *)dest = value;
             dest += 2;
@@ -689,7 +652,7 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
         len -= 2;
     }
     if (len) {
-        *dest = eeprom_read_byte(src);
+        *dest = EEPROM_ReadDataByte((const uintptr_t)src);
     }
 }
 
@@ -700,7 +663,7 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
     /* Check word alignment */
     if (len && (uintptr_t)dest % 2) {
         /* Write the unaligned first byte */
-        eeprom_write_byte(dest++, *src++);
+        EEPROM_WriteDataByte((uintptr_t)dest++, *src++);
         --len;
     }
 
@@ -712,15 +675,13 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
         } else {
             value = *(uint8_t *)src | (*(uint8_t *)(src + 1) << 8);
         }
-        eeprom_write_word((uint16_t *)dest, value);
+        EEPROM_WriteDataWord((uintptr_t)((uint16_t *)dest), value);
         dest += 2;
         src += 2;
         len -= 2;
     }
 
     if (len) {
-        eeprom_write_byte(dest, *src);
+        EEPROM_WriteDataByte((uintptr_t)dest, *src);
     }
 }
-
-void eeprom_update_block(const void *buf, void *addr, size_t len) { eeprom_write_block(buf, addr, len); }

@@ -33,10 +33,7 @@
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define DRIVER_ADDR_1 0b1110110
-#define DRIVER_ADDR_2 0b1110100
 #define DRIVER_COUNT 1
-#define DRIVER_1_LED_TOTAL 25
-#define DRIVER_2_LED_TOTAL 0
 #define DRIVER_LED_TOTAL 25
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)

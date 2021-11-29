@@ -23,12 +23,5 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 CUSTOM_MATRIX = yes
 
 SRC += matrix.c
-ifdef HARDWARE_SERIAL
-  # Untested with palm_usb
-  SRC += protocol/serial_uart.c
-  OPT_DEFS += -DHARDWARE_SERIAL
-else
-  SRC += protocol/serial_soft.c
-endif
 
 DEFAULT_FOLDER = converter/palm_usb/stowaway

@@ -45,8 +45,8 @@
 #define LOCKING_RESYNC_ENABLE
 
 // I2C setup
-#define I2C1_SCL            8
-#define I2C1_SDA            9
+#define I2C1_SCL_PIN        B8
+#define I2C1_SDA_PIN        B9
 #define I2C1_SCL_PAL_MODE   4
 #define I2C1_SDA_PAL_MODE   4
 #define I2C1_TIMINGR_PRESC  0U
@@ -60,11 +60,10 @@
 
 // RGB Matrix defines
 #define DRIVER_ADDR_1 0b0110000
-#define DRIVER_ADDR_2 0b0110001
+//#define DRIVER_ADDR_2 0b0110001
 
 #define DRIVER_COUNT 1
-#define DRIVER_1_LED_TOTAL 117
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define DRIVER_LED_TOTAL 117
 #define ISSI_DRIVER_TOTAL DRIVER_LED_TOTAL
 
 #define RGB_MATRIX_STARTUP_VAL 80

@@ -35,7 +35,7 @@ bool wpm_keycode_user(uint16_t keycode) {
     } else if (keycode > 0xFF) {
         keycode = 0;
     }
-    if ((keycode >= KC_A && keycode <= KC_0) || (keycode >= KC_TAB && keycode <= KC_SLASH)) {
+    if ((keycode >= KC_A && keycode <= KC_0) || (keycode >= KC_TAB && keycode <= KC_SLSH)) {
         return true;
     }
 

@@ -118,7 +118,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_A ... KC_F21: //notice how it skips over F22
-    case KC_F23 ... KC_EXSEL: //exsel is the last one before the modifier keys
+    case KC_F23 ... KC_EXSL: //exsel is the last one before the modifier keys
       if (!record->event.pressed) {
         f22_tracker--;
         if (!f22_tracker) {
