@@ -154,7 +154,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//3750 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//3102 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-11-29
 };
 
