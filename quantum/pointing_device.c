@@ -122,13 +122,13 @@ __attribute__((weak)) void pointing_device_task(void) {
         if (is_keyboard_left()) {
             mouseReport = pointing_device_driver.get_report(mouseReport);
         } else {
-            mouseReport = get_targets_pointing();
+            mouseReport = sharedReport;
         }
 #    elif defined(POINTING_DEVICE_RIGHT)
         if (!is_keyboard_left()) {
             mouseReport = pointing_device_driver.get_report(mouseReport);
         } else {
-            mouseReport = get_targets_pointing();
+            mouseReport = sharedReport;
         }
 #    else
 #        error "You need to define the side(s) the pointing device is on. POINTING_DEVICE_COMBINED / POINTING_DEVICE_LEFT / POINTING_DEVICE_RIGHT"
