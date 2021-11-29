@@ -23,8 +23,8 @@
 #define BASE_LAYERS 3
 
 enum custom_keycodes {
-    // cycle BASE_LAYERS (62 bytes)
-    CYCLE_L = SAFE_RANGE
+    PLACEHOLDER = SAFE_RANGE,  // can always be here (4 bytes)
+    CYCLE_L                    // cycle BASE_LAYERS (62 bytes)
 };
 
 enum custom_layers {
