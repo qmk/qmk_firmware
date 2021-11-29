@@ -56,7 +56,7 @@ Additionally, you can change the DPI/CPI or speed of the trackball by calling `a
 To configure/set your own array, there are two defines to use, `PLOOPY_DPI_OPTIONS` to set the array, and `PLOOPY_DPI_DEFAULT`. 
 
 ```c
-#define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375}
+#define PLOOPY_DPI_OPTIONS { 375, 750, 1375}
 #define PLOOPY_DPI_DEFAULT 2
 ```
 
@@ -73,7 +73,7 @@ Nothing needs to be enabled to use this functionality.  Just add the `DRAG_SCROL
 ### Drag Scroll Configuration
 
 * `#define PLOOPY_DRAGSCROLL_MOMENTARY` - Makes the key into a momentary key, rather than a toggle.
-* `#define PLOOPY_DRAGSCROLL_DPI CPI375` - When the fixed DPI option is enabled, this sets the DPI to be used for Drag Scroll.
+* `#define PLOOPY_DRAGSCROLL_DPI 375` - When the fixed DPI option is enabled, this sets the DPI to be used for Drag Scroll.
 * `#define PLOOPY_DRAGSCROLL_INVERT` - This reverses the direction that the scroll is performed. 
 ## Fuse settings
 
