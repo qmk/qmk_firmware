@@ -238,7 +238,7 @@ static uint16_t cie_lightness(uint16_t v) {
     } else {
         // In the next two lines values are bit-shifted. This is to avoid loosing decimals in integer math.
         uint32_t y   = (((uint32_t)v + (uint32_t)ICRx / 6) << 5) / ((uint32_t)ICRx / 6 + ICRx);  // If above 8%, add ~16% of max, and normalize with (max + ~16% max)
-        uint32_t out = (y * y * y * ICRx) >> 15;                             // Cube it and undo the bit-shifting. (which is now three times as much due to the cubing)
+        uint32_t out = (y * y * y * ICRx) >> 15;                                                 // Cube it and undo the bit-shifting. (which is now three times as much due to the cubing)
 
         if (out > ICRx)  // Avoid overflows
         {
