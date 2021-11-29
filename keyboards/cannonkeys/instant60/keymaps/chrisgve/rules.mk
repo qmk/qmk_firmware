@@ -4,3 +4,5 @@ SRC += chrisgve.c
 NKRO_ENABLE = yes
 #NKRO_ENABLE = no
 
+LTO_ENABLE = yes
+
