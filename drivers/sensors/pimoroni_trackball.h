@@ -16,22 +16,46 @@
  */
 #pragma once
 
-#include "quantum.h"
-#include "pointing_device.h"
+#include <stdint.h>
+#include "report.h"
+#include "i2c_master.h"
 
-typedef struct pimoroni_data {
+#ifndef PIMORONI_TRACKBALL_ADDRESS
+#    define PIMORONI_TRACKBALL_ADDRESS 0x0A
+#endif
+#ifndef PIMORONI_TRACKBALL_INTERVAL_MS
+#    define PIMORONI_TRACKBALL_INTERVAL_MS 8
+#endif
+#ifndef PIMORONI_TRACKBALL_SCALE
+#    define PIMORONI_TRACKBALL_SCALE 5
+#endif
+#ifndef PIMORONI_TRACKBALL_DEBOUNCE_CYCLES
+#    define PIMORONI_TRACKBALL_DEBOUNCE_CYCLES 20
+#endif
+#ifndef PIMORONI_TRACKBALL_ERROR_COUNT
+#    define PIMORONI_TRACKBALL_ERROR_COUNT 10
+#endif
+
+#ifndef PIMORONI_TRACKBALL_TIMEOUT
+#    define PIMORONI_TRACKBALL_TIMEOUT 100
+#endif
+
+#ifndef PIMORONI_TRACKBALL_DEBUG_INTERVAL
+#    define PIMORONI_TRACKBALL_DEBUG_INTERVAL 100
+#endif
+
+typedef struct {
     uint8_t left;
     uint8_t right;
     uint8_t up;
     uint8_t down;
     uint8_t click;
-} pimoroni_data;
+} pimoroni_data_t;
 
-void    trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
-void    trackball_click(bool pressed, report_mouse_t* mouse);
-int16_t trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale);
-void    trackball_adapt_values(int8_t* mouse, int16_t* offset);
-float   trackball_get_precision(void);
-void    trackball_set_precision(float precision);
-bool    trackball_is_scrolling(void);
-void    trackball_set_scrolling(bool scroll);
+void         pimironi_trackball_device_init(void);
+void         pimoroni_trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
+int16_t      pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale);
+void         pimoroni_trackball_adapt_values(int8_t* mouse, int16_t* offset);
+float        pimoroni_trackball_get_precision(void);
+void         pimoroni_trackball_set_precision(float precision);
+i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data);

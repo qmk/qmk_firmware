@@ -1,16 +1,13 @@
 # MCU name
 MCU = atmega32u4
 
-# Processor frequency
-F_CPU = 16000000
-
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
@@ -22,9 +19,10 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = adns5050
 MOUSEKEY_ENABLE = no        # Mouse keys
 
 QUANTUM_LIB_SRC += analog.c
-SRC += drivers/sensors/adns5050.c opt_encoder.c
+SRC += opt_encoder.c
 
 DEFAULT_FOLDER = ploopyco/trackball_mini/rev1_001

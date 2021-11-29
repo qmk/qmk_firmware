@@ -23,11 +23,5 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 CUSTOM_MATRIX = yes
 
 SRC += matrix.c led.c
-ifdef HARDWARE_SERIAL
-  SRC += protocol/serial_uart.c
-  OPT_DEFS += -DHARDWARE_SERIAL
-else
-  SRC += protocol/serial_soft.c
-endif
 
 DEFAULT_FOLDER = converter/sun_usb/type5
