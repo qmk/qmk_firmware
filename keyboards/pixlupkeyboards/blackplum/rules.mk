@@ -5,7 +5,7 @@ MCU = atmega32u4
 BOOTLOADER = qmk-dfu
 
 # Build Options
-#   change yes to no to disable
+#   comment out to disable the options.
 #
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes	  # Mouse keys
