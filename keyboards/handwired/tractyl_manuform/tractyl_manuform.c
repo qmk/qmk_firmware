@@ -99,20 +99,8 @@ void pointing_device_init_kb(void) {
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    if (is_keyboard_left()) {
-        if (is_keyboard_master()) {
-            transaction_rpc_recv(RPC_ID_POINTER_STATE_SYNC, sizeof(sync_mouse_report), &sync_mouse_report);
-            mouse_report.x = sync_mouse_report.x;
-            mouse_report.y = sync_mouse_report.y;
-            pointing_device_task_user(mouse_report);
-        }
-    } else {
-        if (is_keyboard_master()) {
-            pointing_device_task_user(mouse_report);
-        } else {
-            sync_mouse_report.x = mouse_report.x;
-            sync_mouse_report.y = mouse_report.y;
-        }
+    if (is_keyboard_master()) {
+        mouse_report = pointing_device_task_user(mouse_report);
     }
     return mouse_report;
 }
