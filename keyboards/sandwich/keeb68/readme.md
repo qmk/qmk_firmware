@@ -10,11 +10,11 @@ A small-batch run of 68 key goodness
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keeb68:default
+    make sandwich/keeb68:default
 
 Flashing example for this keyboard:
 
-    make keeb68:default:flash
+    make sandwich/keeb68:default:flash
     
 Toggle NRKO on/off by holding space+n and then inserting the keyboard's USB cable. 
 Some BIOSs may not detect keypresses properly while NRKO is enabled according to QMK documentation.
