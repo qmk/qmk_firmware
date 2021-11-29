@@ -20,30 +20,29 @@
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-
-enum planck_layers {
-  _QWERTY,
-  _COLEMAK,
-  _LOWER,
-  _RAISE,
-  _FN,
-  _ADJUST
-};
+// entirely and just use numbers. 
+#define _QWERTY 0
+#define _COLEMAK 1
+#define _LOWER 2  
+#define _RAISE 3
+#define _NUMPAD 4
+#define _FN 5
+#define _ADJUST 6
+#define MICMUTE LCTL(LSFT(KC_M))
+#define LCTRL_F1 MT(MOD_LCTL, KC_F1)
+#define LSFT_F2 MT(MOD_LSFT, KC_F2)
+#define LALT_F2 MT(MOD_LALT, KC_F3)
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
-};
-
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
-#define FN MO(_FN)
-#define ADJUST MO(_ADJUST)
-#define MICMUTE LCTL(LSFT(KC_M))
-#define LCTRL_F1 MT(MOD_LCTL, KC_F1)
-#define LSFT_F2 MT(MOD_LSFT, KC_F2)
-#define LALT_F2 MT(MOD_LALT, KC_F3) 
+  LOWER,
+  RAISE,
+  FN,
+  ADJUST,
+  NUMPAD,
+  EXT_NUM
+}; 
 
 // This is a completely modified layout that stikes a balance between muscle memory for keys, where I was coming from a standard
 // Qwerty keyboard, and efficiency gained by using layers. I've switched tab and esc because it's more natural to me this way, and
@@ -127,14 +126,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------|
  * |     |ctr_z|ctr_x|ctr_c|ctr_v|  C  |  @  |  1  |  2  |  3  |  /  |  *  |
  * |-----------------------------------------------------------------------|
- * |     |     |     |     |    |            |  0  |  0  |  .  |  =  |Enter|
+ * |     |     |     |NUMPAD|    |            |  0  |  0  |  .  |  =  |Enter|
  * `-----------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid( /* LOWER */
-  KC_GRV,  KC_1,       KC_2,        KC_3,       KC_4,       KC_5,       KC_6,       KC_7,  KC_P8, KC_9,    KC_0,    KC_BSPC, 
-  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,    LCTL(KC_F), KC_TRNS,    LSFT(KC_M), KC_P4, KC_P5, KC_P6,   KC_PMNS, KC_PPLS, 
-  KC_TRNS, LCTL(KC_Z), LCTL(KC_X),  LCTL(KC_C), LCTL(KC_V), LSFT(KC_C), KC_AT,      KC_P1, KC_P2, KC_P3,   KC_PSLS, KC_PAST, 
-  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_P0, KC_P0, KC_PDOT, KC_EQL,  KC_PENT
+  KC_GRV,  KC_1,       KC_2,       KC_3,       KC_4,       KC_5,    KC_6,    KC_7,  KC_P8, KC_9,    KC_0,    KC_BSPC, 
+  KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS,    LCTL(KC_F), KC_TRNS, KC_M,    KC_P4, KC_P5, KC_P6,   KC_PMNS, KC_PPLS, 
+  KC_TRNS, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_C,    KC_AT,   KC_P1, KC_P2, KC_P3,   KC_PSLS, KC_PAST, 
+  KC_TRNS, KC_TRNS,    KC_TRNS,    NUMPAD,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_P0, KC_P0, KC_PDOT, KC_EQL,  KC_PENT
+),
+
+/* MIT Layout (NUMPAD)
+ *.
+ * ,-----------------------------------------------------------------------.
+ * |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  | Bksp|
+ * |-----------------------------------------------------------------------|
+ * |     |     |     |     |ctr_f|     |  M  |  4  |  5  |  6  |  -  |  +  |
+ * |-----------------------------------------------------------------------|
+ * |     |ctr_z|ctr_x|ctr_c|ctr_v|  C  |  @  |  1  |  2  |  3  |  /  |  *  |
+ * |-----------------------------------------------------------------------|
+ * |     |     |     |     | Exit|            |  0  |  0  |  .  |  = |Enter|
+ * `-----------------------------------------------------------------------'
+ */
+[_NUMPAD] = LAYOUT_planck_grid( /* LOWER */
+  KC_GRV,  KC_1,       KC_2,        KC_3,       KC_4,       KC_5,    KC_6,    KC_7,  KC_P8, KC_9,    KC_0,    KC_BSPC, 
+  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,    LCTL(KC_F), KC_TRNS, KC_M,    KC_P4, KC_P5, KC_P6,   KC_PMNS, KC_PPLS, 
+  KC_TRNS, LCTL(KC_Z), LCTL(KC_X),  LCTL(KC_C), LCTL(KC_V), KC_C,    KC_AT,   KC_P1, KC_P2, KC_P3,   KC_PSLS, KC_PAST, 
+  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,    EXT_NUM,    KC_TRNS, KC_TRNS, KC_P0, KC_P0, KC_PDOT, KC_EQL,  KC_PENT
 ),
 
 /* MIT Layout (FN LAYER)
@@ -161,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------------------------------------------------.
  * |reset| Ms3 | Ms2 |MsUp | Ms1  |  Hue+|   Hue-| Sat+| Sat-|Brt+ |Brt- |RGB Tg|
  * |----------------------------------------------------------------------------|
- * |debug| MWL | MsL |MDn  |MsR   |      |       |     |     |     |     |      |
+ * |debug| MWL | MsL |MDn  |MsR   |      |       |     |     |     |     |RGBMod|
  * |----------------------------------------------------------------------------|
  * |     |     |MWUp |NWDn |      |QWERTY|COLEMAK|MI_ON|MI_OF|MU_ON|MU_OF|MU_Mod|
  * |----------------------------------------------------------------------------|
@@ -176,25 +194,107 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+#ifdef AUDIO_ENABLE
+
+float tone_startup[][2]    = SONG(STARTUP_SOUND);
+float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
+float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
+#endif
+
+
+void persistant_default_layer_set(uint16_t default_layer) {
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_QWERTY);
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_qwerty);
+        #endif
+        persistant_default_layer_set(1UL<<_QWERTY);
+      }
+      return false;
+      break;
+    case NUMPAD:
+      if (record->event.pressed) {
+        layer_off(_RAISE);
+        layer_off(_LOWER);
+        layer_off(_ADJUST);
+        layer_on(_NUMPAD);
+      }
+      return false;
+      break;
+    case EXT_NUM:
+      if (record->event.pressed) {
+        layer_off(_NUMPAD);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_colemak);
+        #endif
+        persistant_default_layer_set(1UL<<_COLEMAK);
+      }
+      return false;
+      break;
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
   }
   return true;
 }
+
+void matrix_init_user(void) {
+    #ifdef AUDIO_ENABLE
+        startup_user();
+    #endif
+}
+
+#ifdef AUDIO_ENABLE
+
+void startup_user()
+{
+    PLAY_SONG(tone_startup);
+}
+
+void shutdown_user()
+{
+    PLAY_SONG(tone_goodbye);
+    stop_all_notes();
+}
+
+void music_on_user(void)
+{
+    music_scale_user();
+}
+
+void music_scale_user(void)
+{
+    PLAY_SONG(music_scale);
+}
+
+#endif
