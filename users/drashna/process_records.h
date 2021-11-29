@@ -46,13 +46,25 @@ enum userspace_custom_keycodes {
     UC_TABL,                                  // ┬─┬ノ( º _ ºノ)
     UC_SHRG,                                  // ¯\_(ツ)_/¯
     UC_DISA,                                  // ಠ_ಠ
+    UC_IRNY,
+    UC_CLUE,
     KEYLOCK,                                  // Locks keyboard by unmounting driver
-    NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
+    KC_NOMODE,
+    KC_WIDE,
+    KC_SCRIPT,
+    KC_BLOCKS,
+    KC_REGIONAL,
+    KC_AUSSIE,
+    KC_ZALGO,
+    NEW_SAFE_RANGE  // use "NEWPLACEHOLDER for keymap specific codes
 };
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 void post_process_record_keymap(uint16_t keycode, keyrecord_t *record);
+#ifdef CUSTOM_UNICODE_ENABLE
+bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
+#endif
 
 #define LOWER     MO(_LOWER)
 #define RAISE     MO(_RAISE)
@@ -125,6 +137,3 @@ void post_process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define ALT_APP ALT_T(KC_APP)
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
-
-#define UC_IRNY UC(0x2E2E)
-#define UC_CLUE UC(0x203D)
