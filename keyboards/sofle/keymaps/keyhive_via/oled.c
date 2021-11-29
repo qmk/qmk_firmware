@@ -33,30 +33,34 @@ static void print_status_narrow(void) {
     // Print current mode
     oled_write_P(PSTR("\n\n"), false);
 
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_ln_P(PSTR("Qwrt"), false);
+    switch (get_highest_layer(default_layer_state)) {
+        case 0: // _QWERTY
+            oled_write_ln_P(PSTR("Qwrt\n"), false);
             break;
-        case 1:
-            oled_write_ln_P(PSTR("Clmk"), false);
+        case 1: // _COLEMAK
+            oled_write_ln_P(PSTR("Clmk\n"), false);
+            break;
+        case 2: // _COLEMAK_DH
+            oled_write_ln_P(PSTR("Clmk\n DH"), false);
             break;
         default:
-            oled_write_P(PSTR("Mod\n"), false);
+            oled_write_P(PSTR("Mod"), false);
             break;
     }
     oled_write_P(PSTR("\n\n"), false);
     // Print current layer
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
-        case 0:
-        case 1:
+        case 0: // _QWERTY
+        case 1: // _COLEMAK
+        case 2: // _COLEMAK_DH
             oled_write_P(PSTR("Base\n"), false);
-            break;
-        case 2:
-            oled_write_P(PSTR("Raise"), false);
             break;
         case 3:
             oled_write_P(PSTR("Lower"), false);
+            break;
+        case 4:
+            oled_write_P(PSTR("Raise"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
