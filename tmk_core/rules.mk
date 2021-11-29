@@ -249,6 +249,7 @@ endif
 #      FIRMWARE_FORMAT = uf2
 UF2CONV = $(TOP_DIR)/util/uf2conv.py
 UF2_FAMILY ?= 0x0
+UF2_BASE ?= 0x2000
 
 # Compiler flags to generate dependency files.
 #GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
@@ -317,7 +318,7 @@ gccversion :
 	@$(BUILD_CMD)
 
 %.uf2: %.hex
-	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex -o $(BUILD_DIR)/$(TARGET).uf2 -c -f $(UF2_FAMILY) >/dev/null 2>&1)
+	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex -o $(BUILD_DIR)/$(TARGET).uf2 --convert --family $(UF2_FAMILY) --base $(UF2_BASE) >/dev/null 2>&1)
 	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
 	@$(SILENT) || printf "$(MSG_UF2) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
