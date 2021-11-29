@@ -18,10 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 
-#define _COLEMAK 0
-#define _QWERTY 1
-#define _LOWER 2
-#define _RAISE 3
+enum iris_layers {
+  _COLEMAK,
+  _QWERTY,
+  _LOWER,
+  _RAISE,
+};
 
 enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
