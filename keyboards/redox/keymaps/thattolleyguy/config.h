@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Mattia Dal Ben <matthewdibi@gmail.com>
+Copyright 2021 Tyler Tolley <thattolleyguy@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
