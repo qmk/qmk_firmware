@@ -7,8 +7,8 @@ So imagine a `.html` page. If the parse starts in the abstract syntax tree of `a
 * D - `do {} while();`
 * E - `export <name>` - a prefix which exports a name, perhaps even as assigned.
 * F - `for(;;) {}`
-* G - `gallowed <name>;` - a prefix which allows a hash loaded usage of a new included sub-file.
-* H - `hallowed <name>;` - a prefix which allows a file to be used by inclusion into a super file.
+* G - `gallowed <sub-name>;` - a prefix which allows a hash loaded usage of a new included sub-file.
+* H - `hallowed <super-name>;` - a prefix which allows a file to be used by inclusion in a super file.
 * I - `if() {} else {}`
 * J - `true`
 * K - `false`
@@ -28,4 +28,4 @@ So imagine a `.html` page. If the parse starts in the abstract syntax tree of `a
 * Y - `yield <x>;` - a return variant for continuations.
 * Z - `<z />` - a syntax end delimiter of the HTML statement.
 
-And that's about it. Default values from code would have to be entered through the DOM.
+And that's about it. Default values from code would have to be entered through the DOM. I think it's technically sufficient.
