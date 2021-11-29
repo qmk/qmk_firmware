@@ -91,6 +91,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
   * Sporadic groups on shift alphas.
   * Families on unshifted and shifted numbers plus null set.
   * The maths can get complicated as these are the "44 prime kinds" of all simple symmetry groups (plus the irregular honorary sporadic "Tits Group"). I included the zero null set symbol too.
+  * Some shortcuts to input C language structure and what I call (Amperzand)[amperzand.md].
 
 ### **BQN** Layer (BLUE Layer Within BQN Specification)
 * **BQN** unshifted and shifted.

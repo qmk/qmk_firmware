@@ -154,8 +154,8 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//4060 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
-	//2021-11-28
+	//3846 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2021-11-29
 };
 
 //Some say the above should be converted to allow more in device shift states,
@@ -200,32 +200,32 @@ const char* const PROGMEM macro_unicode[] = {
 	"E₇(q)\0²F₄(2²ⁿ⁺¹)\0\0",//    KM_8
 	"E₈(q)\0²G₂(3²ⁿ⁺¹)\0\0",//    KM_9
 	"∅\0²F₄(2)′\0\0",//    KM_0
-	"\0Fi₂₂\0\0",//		 KM_Q
-	"\0J₄\0\0",//    KM_W
-	"\0J₂\0\0",//    KM_E
-	"\0HN\0\0",//    KM_R
-	"\0Th\0\0",//    KM_T
-	"\0B\0\0",//		 KM_Y
-	"\0Fi₂₃\0\0",//    KM_U
-	"\0M₂₄\0\0",//    KM_I
-	"\0Co₃\0\0",//    KM_O
-	"\0Co₂\0\0",//    KM_P
-	"\0M₁₁\0\0",//		 KM_A
-	"\0Ly\0\0",//    KM_S
-	"\0M₂₂\0\0",//    KM_D
-	"\0M₂₃\0\0",//    KM_F
-	"\0HS\0\0",//    KM_G
-	"\0J₃\0\0",//		 KM_H
-	"\0McL\0\0",//    KM_J
-	"\0He\0\0",//    KM_K
-	"\0Ru\0\0",//    KM_L
-	"\0M\0\0",//		 KM_Z
-	"\0Fi₂₄\0\0",//    KM_X
-	"\0J₁\0\0",//    KM_C
-	"\0Co₁\0\0",//    KM_V
-	"\0M₁₂\0\0",//		 KM_B
-	"\0O'N\0\0",//    KM_N
-	"\0Suz\0\0",//    KM_M
+	"&quot;\0Fi₂₂\0\0",//		 KM_Q
+	"while()\\a\0J₄\0\0",//    KM_W
+	"export \0J₂\0\0",//    KM_E
+	"return ;\0HN\0\0",//    KM_R
+	"this\0Th\0\0",//    KM_T
+	"yeild ;\0B\0\0",//		 KM_Y
+	"utf8()\0Fi₂₃\0\0",//    KM_U
+	"if()\\aelse\\a\0M₂₄\0\0",//    KM_I
+	"obj()\0Co₃\0\0",//    KM_O
+	"&apos;\0Co₂\0\0",//    KM_P
+	"&amp;\0M₁₁\0\0",//		 KM_A
+	"switch() {\ncase :\nbreak;\n}\0Ly\0\0",//    KM_S
+	"do\\awhile();\0M₂₂\0\0",//    KM_D
+	"for(;;)\\a\0M₂₃\0\0",//    KM_F
+	"gallowed ;\0HS\0\0",//    KM_G
+	"hallowed ;\0J₃\0\0",//		 KM_H
+	"true\0McL\0\0",//    KM_J
+	"false\0He\0\0",//    KM_K
+	"&lt;\0Ru\0\0",//    KM_L
+	"<z />\0M\0\0",//		 KM_Z
+	"xref()\0Fi₂₄\0\0",//    KM_X
+	"continue;\n\0J₁\0\0",//    KM_C
+	"void()\0Co₁\0\0",//    KM_V
+	"break;\n\0M₁₂\0\0",//		 KM_B
+	"new ()\\a\0O'N\0\0",//    KM_N
+	"main()\\a\0Suz\0\0",//    KM_M
 };
 
 const uint16_t PROGMEM macro_keycode[] = {
@@ -237,7 +237,7 @@ const uint16_t PROGMEM macro_keycode[] = {
 const char* const PROGMEM macro_subs[] = {
 	//index at a
 	//only use alpha a-z (26) escape sequences "\\a" etc. in macro strings
-	"",//\\a
+	" {\n//\n} ",//\\a - a comment in a block
 };
 
 const char* modify_step(const char* ip) {
