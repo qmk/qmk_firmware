@@ -28,11 +28,11 @@ enum custom_keycodes {
 };
 
 enum custom_layers {
-  _QWERTY,
-  _COLEMAK,
-  _COLEMAK_DH,
-  _LOWER,
-  _RAISE
+    _QWERTY,
+    _COLEMAK,
+    _COLEMAK_DH,
+    _LOWER,
+    _RAISE
 };
 
 //Default keymap. This can be changed in Via. Use oled.c to change beavior that Via cannot change.
@@ -156,13 +156,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // handling this once instead of in each keycode uses less program memory.
     if ((keycode >= SAFE_RANGE) && !(record->event.pressed)) {
-      return false;
+        return false;
     }
 
     switch (keycode) {
-      case CYCLE_L:
-          set_single_persistent_default_layer((1+get_highest_layer(default_layer_state)) % BASE_LAYERS);
-          break;
+        case CYCLE_L:
+            set_single_persistent_default_layer((1+get_highest_layer(default_layer_state)) % BASE_LAYERS);
+            break;
     }
 
     // this uses less memory than returning in each case.
