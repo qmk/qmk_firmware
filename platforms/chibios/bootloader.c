@@ -13,6 +13,26 @@
 #    define STM32_BOOTLOADER_DUAL_BANK FALSE
 #endif
 
+#if defined(GD32VF103)
+
+#    define DBGMCU_KEY_UNLOCK 0x4B5A6978
+#    define DBGMCU_CMD_RESET 0x1
+
+__IO uint32_t *DBGMCU_KEY = (uint32_t *)DBGMCU_BASE + 0x0CU;
+__IO uint32_t *DBGMCU_CMD = (uint32_t *)DBGMCU_BASE + 0x08U;
+
+void gd32vf103_system_reset(void) {
+    /* The MTIMER unit of the GD32VF103 doesn't have the MSFRST
+     * register to generate a software reset request.
+     * BUT instead two undocumented registers in the debug peripheral
+     * that allow issueing a software reset. WHO would need the MSFRST
+     * register anyway? Source:
+     * https://github.com/esmil/gd32vf103inator/blob/master/include/gd32vf103/dbg.h */
+    *DBGMCU_KEY = DBGMCU_KEY_UNLOCK;
+    *DBGMCU_CMD = DBGMCU_CMD_RESET;
+}
+#endif
+
 #ifdef BOOTLOADER_TINYUF2
 
 #    define DBL_TAP_MAGIC 0xf01669ef  // From tinyuf2's board_api.h
@@ -23,7 +43,11 @@ extern uint32_t _board_dfu_dbl_tap[];
 
 void bootloader_jump(void) {
     DBL_TAP_REG = DBL_TAP_MAGIC;
+#    if defined(GD32VF103)
+    gd32vf103_system_reset();
+#    else
     NVIC_SystemReset();
+#    endif
 }
 
 void enter_bootloader_mode_if_requested(void) { /* not needed, no two-stage reset */
@@ -97,22 +121,7 @@ void enter_bootloader_mode_if_requested(void) {
 
 #elif defined(GD32VF103)
 
-#    define DBGMCU_KEY_UNLOCK 0x4B5A6978
-#    define DBGMCU_CMD_RESET 0x1
-
-__IO uint32_t *DBGMCU_KEY = (uint32_t *)DBGMCU_BASE + 0x0CU;
-__IO uint32_t *DBGMCU_CMD = (uint32_t *)DBGMCU_BASE + 0x08U;
-
-__attribute__((weak)) void bootloader_jump(void) {
-    /* The MTIMER unit of the GD32VF103 doesn't have the MSFRST
-     * register to generate a software reset request.
-     * BUT instead two undocumented registers in the debug peripheral
-     * that allow issueing a software reset. WHO would need the MSFRST
-     * register anyway? Source:
-     * https://github.com/esmil/gd32vf103inator/blob/master/include/gd32vf103/dbg.h */
-    *DBGMCU_KEY = DBGMCU_KEY_UNLOCK;
-    *DBGMCU_CMD = DBGMCU_CMD_RESET;
-}
+__attribute__((weak)) void bootloader_jump(void) { gd32vf103_system_reset(); }
 
 void enter_bootloader_mode_if_requested(void) { /* Jumping to bootloader is not possible from user code. */
 }
