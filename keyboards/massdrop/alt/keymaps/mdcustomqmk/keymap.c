@@ -157,18 +157,18 @@ void rgb_matrix_indicators_user(void) {
         }
 
 	  if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
-            R = 168;
-            G = 76;
-            B = 0;
-
-            // R = 255;
-            // G = 0;
+            // R = 168;
+            // G = 76;
             // B = 0;
-            // for (int i = 67; i < 67+38; ++i)
-            //     {
-            //         rgb_matrix_set_color(i,R,G,B );
-            //     }
-	        rgb_matrix_set_color(30,R,G,B); //light the capslock key when capslock is enabled
+            R = 255;
+            G = 0;
+            B = 0;
+               for (int i = 0; i < 67; ++i)
+        {
+            rgb_matrix_set_color(i,R,G,B );
+        }
+  
+	        // rgb_matrix_set_color(30,R,G,B); //light the capslock key when capslock is enabled
 	  }
 
 }
