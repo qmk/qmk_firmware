@@ -15,6 +15,20 @@
  */
 #include "puca.h"
 
+bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+    switch (keycode) {
+        case MC_00:
+            if (record->event.pressed) {
+                SEND_STRING("00");
+            }
+            break;
+    }
+    return true;
+}
+
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (clockwise) {
@@ -29,7 +43,8 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 // OLED
 #ifdef OLED_ENABLE
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
 // WPM-responsive animation stuff here
 #    define IDLE_FRAMES 2
 #    define ANIM_FRAME_DURATION 400  // how long each frame lasts in ms
@@ -105,7 +120,7 @@ __attribute__((weak)) void oled_task_user(void) {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     }};
-    
+
     void animation_phase(void) {
         current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
         oled_write_raw_P(idle[abs((IDLE_FRAMES - 1) - current_idle_frame)], ANIM_SIZE);
@@ -114,7 +129,7 @@ __attribute__((weak)) void oled_task_user(void) {
         anim_timer = timer_read32();
         animation_phase();
     }
-    
+
     oled_set_cursor(0, 6);
     oled_write_P(PSTR("PUCA\nPAD\n"), false);
     oled_write_P(PSTR("-----\n"), false);
@@ -129,5 +144,6 @@ __attribute__((weak)) void oled_task_user(void) {
             oled_write_P(PSTR("FUNC\n"), false);
             break;
     }
+    return true;
 }
 #endif

@@ -3,10 +3,6 @@
 #include <hal.h>
 #include <string.h>
 #include "eeconfig.h"
-#include "serial_link/system/serial_link.h"
-#ifdef VISUALIZER_ENABLE
-#    include "lcd_backlight.h"
-#endif
 
 #define RED_PIN 1
 #define GREEN_PIN 2
@@ -87,11 +83,7 @@ static uint16_t cie_lightness(uint16_t v) {
     return y * 65535.0f;
 }
 
-#ifdef VISUALIZER_ENABLE
-void lcd_backlight_hal_color(uint16_t r, uint16_t g, uint16_t b) {
-#else
 void ergodox_infinity_lcd_color(uint16_t r, uint16_t g, uint16_t b) {
-#endif
     CHANNEL_RED.CnV   = cie_lightness(r);
     CHANNEL_GREEN.CnV = cie_lightness(g);
     CHANNEL_BLUE.CnV  = cie_lightness(b);
@@ -108,12 +100,10 @@ void keyboard_pre_init_kb() {
     setPinOutput(B16);
     writePinHigh(B16);
 #endif
-#ifndef VISUALIZER_ENABLE
     // The backlight always has to be initialized, otherwise it will stay lit
     lcd_backlight_hal_init();
-#    ifdef ST7565_ENABLE
+#ifdef ST7565_ENABLE
     ergodox_infinity_lcd_color(UINT16_MAX / 2, UINT16_MAX / 2, UINT16_MAX / 2);
-#    endif
 #endif
     keyboard_pre_init_user();
 }
@@ -184,7 +174,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 #ifdef LED_MATRIX_ENABLE
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 // The numbers in the comments are the led numbers DXX on the PCB
 /* Refer to IS31 manual for these locations
  *  driver

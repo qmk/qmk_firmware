@@ -1,8 +1,11 @@
 {
     "keyboard_name": "Portal 66 Hotswap",
     "maintainer": "matthewdias",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 { "x":0, "y":0 },
                 { "x":1, "y":0 },
