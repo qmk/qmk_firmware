@@ -17,6 +17,7 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
+#define AUDIO_INIT_DELAY
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -195,14 +196,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
+float layerswitch_song[][2] = SONG(PLANCK_SOUND);   
+float tone_startup[][2]     = SONG(STARTUP_SOUND);
+float tone_qwerty[][2]      = SONG(QWERTY_SOUND);
+float tone_colemak[][2]     = SONG(COLEMAK_SOUND);
+float music_scale[][2]      = SONG(MUSIC_SCALE_SOUND);
+float tone_goodbye[][2]     = SONG(GOODBYE_SOUND);
 
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
-
+ 
+layer_state_t layer_state_set_user(layer_state_t state) {
+ 
+	static bool is_this_layer_on = false;
+	if (layer_state_cmp(state, 4) != is_this_layer_on) {
+		is_this_layer_on = layer_state_cmp(state, 4);
+		if (is_this_layer_on) {
+			PLAY_SONG(layerswitch_song);
+		}
+		else {
+			stop_all_notes();
+		}
+	}
+ 
+	switch (get_highest_layer(state)) {
+		case _ADJUST:
+			rgblight_setrgb (0xFF,  0x00, 0x00);
+			break;
+		case _LOWER:
+			rgblight_setrgb (0x00,  0x00, 0xFF);
+			break;
+    case _NUMPAD:
+			rgblight_setrgb (0x00,  0x00, 0xFF);
+			break;
+		case _RAISE:
+			rgblight_setrgb (0x7A,  0x00, 0xFF);
+			break;
+		case _FN:
+			rgblight_setrgb (0x00,  0xFF, 0x00);
+			break;
+		default: //  for any other layers, or the default layer
+			rgblight_setrgb (0xFF,  0xFF, 0xFF);
+			break;
+		}
+	  return state;
+ 
+}
 
 void persistant_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -226,12 +264,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_LOWER);
         layer_off(_ADJUST);
         layer_on(_NUMPAD);
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(layerswitch_song);
+        #endif
       }
       return false;
       break;
     case EXT_NUM:
       if (record->event.pressed) {
         layer_off(_NUMPAD);
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(layerswitch_song);
+        #endif
       }
       return false;
       break;
@@ -267,34 +311,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
-void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{
-    PLAY_SONG(tone_goodbye);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif

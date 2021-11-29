@@ -14,6 +14,7 @@ AUDIO_ENABLE = yes          # Audio output
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight. 
 TAP_DANCE_ENABLE = no 		# Enable Tap Dance Features
 LTO_ENABLE = no 			# Link Time Optimization
+DIP_SWITCH_ENABLE=no  		# Recommended to fix no startup sound issue
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    	# Breathing sleep LED during USB suspend

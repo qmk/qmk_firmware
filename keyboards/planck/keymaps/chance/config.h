@@ -4,6 +4,9 @@
 #include "../../config.h"
 
 #define TAPPING_TERM 165
+#ifdef AUDIO_ENABLE
+#    define STARTUP_SONG SONG(STARTUP_SOUND)
+#endif
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
