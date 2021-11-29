@@ -14,11 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*
-[8:10 PM] я лов днкс: hey i was wondering if anyone could help me understand how to get a board onto VIA
-[8:11 PM] я лов днкс: from what I gather, i have to get it into the qmk repo then wait for the via team to update?
-[8:13 PM] sigprof: yes, first you need to make a PR to https://github.com/qmk/qmk_firmware with proper keyboard support, including the via keymap; then you make a PR with the VIA JSON to https://github.com/the-via/keyboards, providing a link to the QMK PR (there is a place for it in the template).
-[8:15 PM] я лов днкс: ty ty
-[8:17 PM] sigprof: also https://get.vial.today/docs/porting-to-via.html may be useful, even if you don't plan to use the Vial extensions
 */
 
 #include QMK_KEYBOARD_H
