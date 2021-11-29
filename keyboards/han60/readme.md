@@ -1,6 +1,6 @@
 # han60
 
-![han60](https://i.imgur.com/nfiSGNO.jpg)
+![han60](https://i.imgur.com/nfiSGNOh.jpg)
 
 The Han60 - a 60% gasket mounted keyboard with multiple layout capabilities.
 
