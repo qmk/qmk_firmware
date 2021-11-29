@@ -41,6 +41,7 @@
 #define CUT     LGUI(KC_X)
 #define COPY    LGUI(KC_C)
 #define PASTE   LGUI(KC_V)
+#define ALL     LGUI(KC_A)
 
 #define RAISE   MO(_RAISE)
 #define LOWER   MO(_LOWER)
@@ -117,9 +118,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
    * |      | Redo |      |      |      |      |                                  |   %  |   $  |  #   |   `  |      |  F12 |
    * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
-   * |      | Undo | Cut  | Copy | Paste|      |                                  |   ^  |   /  |  *   |   ~  |  ?   |      |
+   * |      | All  | Cut  | Copy | Paste|      |                                  |   ^  |   /  |  *   |   ~  |  ?   |      |
    * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
-   * |      | Undo | Cut  | Copy | Paste| Paste|                                  |      |   &  |  |   |      |      |      |
+   * |      | Undo |      |      |      |      |                                  |      |   &  |  |   |      |      |      |
    * '-----------------------------------------/                                  \-----------------------------------------'
    *               | RST  |      |    /       /---------------.    .---------------\       \    |      |      |
    *               |      |      |   /       /       /       /      \       \       \       \   |      |      |
@@ -131,8 +132,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
    _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                                     KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 ,
    XXXXXXX, REDO   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     KC_PERC, KC_DLR , KC_HASH, KC_GRV , XXXXXXX, KC_F12 ,
-   XXXXXXX, UNDO   , CUT    , COPY   , PASTE  , XXXXXXX,                                     KC_CIRC, KC_SLSH, KC_ASTR, KC_TILD, KC_QUES, XXXXXXX,
-   _______, UNDO   , CUT    , COPY   , PASTE  , PASTE  ,                                     XXXXXXX, KC_AMPR, KC_PIPE, XXXXXXX, XXXXXXX, _______,
+   XXXXXXX, ALL    , CUT    , COPY   , PASTE  , XXXXXXX,                                     KC_CIRC, KC_SLSH, KC_ASTR, KC_TILD, KC_QUES, XXXXXXX,
+   _______, UNDO   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, KC_AMPR, KC_PIPE, XXXXXXX, XXXXXXX, _______,
                      RESET  , XXXXXXX,          _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX,
                                                          _______, KC_PGUP, KC_PGDN, _______
    ),
