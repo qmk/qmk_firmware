@@ -28,16 +28,16 @@
 #define OPT_ENC1_MUX 0
 #define OPT_ENC2_MUX 4
 
-void process_wheel(report_mouse_t* mouse_report);
+void process_wheel(void);
 
 #define LAYOUT(BLL, BL, BM, BR, BRR, BF, BB, BDPI) \
     { {BL, BM, BR, BF, BB, BRR, BLL, BDPI}, }
 
 typedef union {
-  uint32_t raw;
-  struct {
-    uint8_t    dpi_config;
-  };
+    uint32_t raw;
+    struct {
+        uint8_t dpi_config;
+    };
 } keyboard_config_t;
 
 extern keyboard_config_t keyboard_config;
@@ -56,3 +56,6 @@ enum ploopy_keycodes {
     PLOOPY_SAFE_RANGE,
 #endif
 };
+
+bool encoder_update_user(uint8_t index, bool clockwise);
+bool encoder_update_kb(uint8_t index, bool clockwise);
