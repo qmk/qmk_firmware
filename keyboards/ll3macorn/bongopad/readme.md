@@ -1,7 +1,7 @@
 # BongoPad
 
-Keyboard Maintainer: [Ll3macorn](https://github.com/Ll3macorn)  
-Hardware Supported: Pro micro  
+* Keyboard Maintainer: [Ll3macorn](https://github.com/Ll3macorn)
+* Hardware Supported: Pro micro
 
 Make example for this keyboard (after setting up your build environment):
 
