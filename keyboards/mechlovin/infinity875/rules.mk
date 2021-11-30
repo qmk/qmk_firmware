@@ -22,6 +22,5 @@ AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = lite
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
-RGB_MATRIX_CUSTOM_KB = yes
 
 SRC += matrix.c
