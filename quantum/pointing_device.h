@@ -78,9 +78,11 @@ void           pointing_device_send(void);
 report_mouse_t pointing_device_get_report(void);
 void           pointing_device_set_report(report_mouse_t newMouseReport);
 void           pointing_device_set_shared_report(report_mouse_t report);
+uint16_t       pointing_device_get_shared_cpi(void);
 bool           has_mouse_report_changed(report_mouse_t new, report_mouse_t old);
 uint16_t       pointing_device_get_cpi(void);
 void           pointing_device_set_cpi(uint16_t cpi);
+void           pointing_device_set_cpi_on_side(bool left, uint16_t cpi);
 
 void           pointing_device_init_kb(void);
 void           pointing_device_init_user(void);

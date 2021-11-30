@@ -585,9 +585,19 @@ static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 
 static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t last_update = 0;
+    static uint16_t last_cpi    = 0;
     report_mouse_t  temp_state;
+    uint16_t        temp_cpi;
     bool            okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &temp_state, &split_shmem->pointing.report, sizeof(temp_state));
     if (okay) pointing_device_set_shared_report(temp_state);
+    temp_cpi = pointing_device_get_shared_cpi();
+    if (temp_cpi&& memcmp(&last_cpi, &temp_cpi, sizeof(temp_cpi)) != 0) {
+        memcpy(&split_shmem->pointing.cpi, &temp_cpi, sizeof(temp_cpi));
+        okay = transport_write(PUT_POINTING_CPI, &split_shmem->pointing.cpi, sizeof(split_shmem->pointing.cpi));
+        if (okay) {
+            last_cpi = temp_cpi;
+        }
+    }
     return okay;
 }
 
@@ -595,6 +605,7 @@ extern const pointing_device_driver_t pointing_device_driver;
 
 static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     report_mouse_t temp_report;
+    uint16_t       temp_cpi;
 #    ifdef POINTING_DEVICE_TASK_THROTTLE_MS
     static uint32_t last_exec = 0;
     if (timer_elapsed32(last_exec) < POINTING_DEVICE_TASK_THROTTLE_MS) {
@@ -602,6 +613,10 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
     }
     last_exec = timer_read32();
 #    endif
+    temp_cpi = pointing_device_driver.get_cpi();
+    if (split_shmem->pointing.cpi && memcmp(&split_shmem->pointing.cpi, &temp_cpi, sizeof(temp_cpi)) != 0) {
+        pointing_device_driver.set_cpi(split_shmem->pointing.cpi);
+    }
     memset(&temp_report, 0, sizeof(temp_report));
     temp_report = pointing_device_driver.get_report(temp_report);
     memcpy(&split_shmem->pointing.report, &temp_report, sizeof(temp_report));
@@ -611,7 +626,7 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 
 #    define TRANSACTIONS_POINTING_MASTER() TRANSACTION_HANDLER_MASTER(pointing)
 #    define TRANSACTIONS_POINTING_SLAVE() TRANSACTION_HANDLER_SLAVE(pointing)
-#    define TRANSACTIONS_POINTING_REGISTRATIONS [GET_POINTING_CHECKSUM] = trans_target2initiator_initializer(pointing.checksum), [GET_POINTING_DATA] = trans_target2initiator_initializer(pointing.report),
+#    define TRANSACTIONS_POINTING_REGISTRATIONS [GET_POINTING_CHECKSUM] = trans_target2initiator_initializer(pointing.checksum), [GET_POINTING_DATA] = trans_target2initiator_initializer(pointing.report), [PUT_POINTING_CPI] = trans_initiator2target_initializer(pointing.cpi),
 
 #else  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 

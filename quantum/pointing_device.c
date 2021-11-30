@@ -30,9 +30,20 @@
 #    include "keyboard.h"
 
 report_mouse_t sharedReport = {};
+uint16_t       sharedCpi    = 0;
 
-void pointing_device_set_shared_report(report_mouse_t report) { sharedReport = report; }
-#endif
+void     pointing_device_set_shared_report(report_mouse_t report) { sharedReport = report; }
+uint16_t pointing_device_get_shared_cpi(void) { return sharedCpi; }
+
+#    if defined(POINTING_DEVICE_LEFT)
+#        define POINTING_DEVICE_THIS_SIDE is_keyboard_left()
+#    elif defined(POINTING_DEVICE_RIGHT)
+#        define POINTING_DEVICE_THIS_SIDE !is_keyboard_left()
+#    elif defined(POINTING_DEVICE_COMBINED)
+#        define POINTING_DEVICE_THIS_SIDE true
+#    endif
+
+#endif  // defined(SPLIT_POINTING_ENABLE)
 
 static report_mouse_t mouseReport = {};
 
@@ -175,6 +186,37 @@ report_mouse_t pointing_device_get_report(void) { return mouseReport; }
 
 void pointing_device_set_report(report_mouse_t newMouseReport) { mouseReport = newMouseReport; }
 
-uint16_t pointing_device_get_cpi(void) { return pointing_device_driver.get_cpi(); }
+uint16_t pointing_device_get_cpi(void) {
+#if defined(SPLIT_POINTING_ENABLE)
+    if (POINTING_DEVICE_THIS_SIDE) {
+        return pointing_device_driver.get_cpi();
+    } else {
+        return sharedCpi;
+    }
+#else
+    return pointing_device_driver.get_cpi();
+#endif
+}
 
-void pointing_device_set_cpi(uint16_t cpi) { pointing_device_driver.set_cpi(cpi); }
+void pointing_device_set_cpi(uint16_t cpi) {
+#if defined(SPLIT_POINTING_ENABLE)
+    if (POINTING_DEVICE_THIS_SIDE) {
+        pointing_device_driver.set_cpi(cpi);
+    } else {
+        sharedCpi = cpi;
+    }
+#else
+    pointing_device_driver.set_cpi(cpi);
+#endif
+}
+
+#if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
+void pointing_device_set_cpi_on_side(bool left, uint16_t cpi) {
+    bool local = (is_keyboard_left() & left) ? true : false;
+    if (local) {
+        pointing_device_driver.set_cpi(cpi);
+    } else {
+        sharedCpi = cpi;
+    }
+}
+#endif

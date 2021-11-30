@@ -111,6 +111,7 @@ typedef struct _split_mods_sync_t {
 typedef struct _split_slave_pointing_sync_t {
     uint8_t        checksum;
     report_mouse_t report;
+    uint16_t       cpi;
 } split_slave_pointing_sync_t;
 #endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
