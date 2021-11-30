@@ -16,9 +16,15 @@ bool led_update_kb(led_t usb_led) {
     if (!led_update_user(usb_led))
         return true;
 
+#if BE_CONTROLLER_REVISION==20130602
     writePin(C5, !usb_led.caps_lock);
     writePin(B7, !usb_led.num_lock);
     writePin(C6, !usb_led.scroll_lock);
+#else
+    writePin(B7, !usb_led.caps_lock);
+    writePin(C5, !usb_led.num_lock);
+    writePin(C6, !usb_led.scroll_lock);
+#endif
 
     return true;
 }
