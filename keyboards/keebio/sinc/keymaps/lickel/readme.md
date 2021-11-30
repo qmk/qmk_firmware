@@ -7,7 +7,7 @@
 - Left macros are: F1->F10
 - Right macros are: Play, Home, Pg Up, Pg Dn, End, Right
 
-![Layout](https://imgur.com/uQnzMSe)
+![Layout](https://i.imgur.com/uQnzMSe.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/e0350d8914cac3166abcca6abfd093b7))
 
