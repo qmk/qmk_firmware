@@ -93,7 +93,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
   * The maths can get complicated as these are the "44 prime kinds" of all simple symmetry groups (plus the irregular honorary sporadic "Tits Group"). I included the zero null set symbol too.
   * Some shortcuts to input C language structure and what I call [Amperzand](amperzand.md).
   * `Ctrl`+letters for double struck alphas.
-  * `Ctrl`+`Shift`+alphanumerics for Jamo primitives, with "hard shifts" on number up and left.
+  * `Ctrl`+`Shift`+alphanumerics for Jamo primitives, with "hard shifts" on number up and left. 7 initializes and 8 terminates entry for account of contextual compilation.
   * **TODO:** `Ctrl`+numbers and perhaps `Win` ...
 
 ### **BQN** Layer (BLUE Layer Within BQN Specification)

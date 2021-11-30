@@ -154,7 +154,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//2964 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2932 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-11-30
 };
 
@@ -196,8 +196,8 @@ const char* const PROGMEM macro_unicode[] = {
 	"Bₙ(q)\0²Dₙ(q²)\0\0ᄁ",//    KM_4
 	"Cₙ(q)\0²E₆(q²)\0\0ᄊ",//    KM_5
 	"Dₙ(q)\0³D₄(q³)\0\0",//		 KM_6
-	"E₆(q)\0²B₂(2²ⁿ⁺¹)\0\0",//    KM_7
-	"E₇(q)\0²F₄(2²ⁿ⁺¹)\0\0",//    KM_8
+	"E₆(q)\0²B₂(2²ⁿ⁺¹)\0\0\\@",//    KM_7
+	"E₇(q)\0²F₄(2²ⁿ⁺¹)\0\0\\!",//    KM_8
 	"E₈(q)\0²G₂(3²ⁿ⁺¹)\0\0ᅤ",//    KM_9
 	"∅\0²F₄(2)′\0\0ᅨ",//    KM_0
 	"&quot;\0Fi₂₂\0ℚ\0ᄇ",//		 KM_Q
@@ -249,11 +249,17 @@ const char* modify_step2(const char* ip) {
 	return modify_step(modify_step(ip));
 }
 
-uint8_t jamo[] = {//indexes of last jamo
+uint8_t jamo[6] = {//indexes of last jamo
 	5, 5, 5, 5, 5, 5,//KM_6 is voided jamo
 };
 
 bool last_const = true;
+
+void record(uint8_t latest) {
+	//record for reductions
+	for(uint8_t i = 5; i > 0; i--) jamo[i] = jamo[i - 1];
+	jamo[0] = latest;
+}
 
 bool vowel_reduce(uint8_t latest, char ck92) {
 	bool eval = !(ck92 > 0x92);//consonant??
@@ -267,9 +273,7 @@ bool vowel_reduce(uint8_t latest, char ck92) {
 		} */
 	}
 	last_const = eval;//last state
-	//record for reductions
-	for(uint8_t i = 5; i > 0; i--) jamo[i] = jamo[i - 1];
-	jamo[0] = latest;
+	record(latest);
 	return false;//no reduction
 }
 
@@ -318,7 +322,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				// FILL IN AS REQUIRED
 				//======================================================================
 
-			case('\\'):
+			case '@'://start jamo
+				for(uint8_t i = 5; i >= 0; i--) jamo[i] = 5;//blank default
+				last_const = true;
+				break;
+			case '!'://finish jamo
+				//TODO: pump chars to compile
+				break;
+			case '\\':
 				SEND_STRING("\\");//literal emit
 				continue;
 			default:
