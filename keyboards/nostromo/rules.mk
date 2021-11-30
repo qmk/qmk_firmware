@@ -7,7 +7,7 @@ BOOTLOADER = stm32-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 KEYBOARD_SHARED_EP = no     # Free up some extra endpoints - needed if console+mouse+extra
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
