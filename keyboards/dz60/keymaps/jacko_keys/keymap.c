@@ -154,7 +154,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//2942 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2964 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-11-30
 };
 
@@ -250,21 +250,25 @@ const char* modify_step2(const char* ip) {
 }
 
 uint8_t jamo[] = {//indexes of last jamo
-	5, 5, 5, 5, 5,//KM_6 is voided jamo
+	5, 5, 5, 5, 5, 5,//KM_6 is voided jamo
 };
 
 bool last_const = true;
 
 bool vowel_reduce(uint8_t latest, char ck92) {
-	bool eval = !(ck92 > 0x92);
+	bool eval = !(ck92 > 0x92);//consonant??
 	if(!eval) {
 		//vowel
-		//consonant + vowel + tri-consonants + vowel -> compile all but one consonant + vowel.
-		//and possibly backspace to then redisplay compiled sequence.
+		if(last_const) {
+			//consonant(1) + di-vowel(2) + tri-consonants(3) [+ vowel] -> compile all but one consonant + vowel.
+			//and possibly backspace to then redisplay compiled sequence.
+		} /* else {
+			//compact vowel?? --> not yet ...
+		} */
 	}
 	last_const = eval;//last state
 	//record for reductions
-	for(uint8_t i = 4; i > 0; i--) jamo[i] = jamo[i - 1];
+	for(uint8_t i = 5; i > 0; i--) jamo[i] = jamo[i - 1];
 	jamo[0] = latest;
 	return false;//no reduction
 }
