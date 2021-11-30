@@ -1,6 +1,6 @@
 # TKC California
 
-![TKC California](https://i.imgur.com/IaG5Gvp.jpg)
+![TKC California](https://i.imgur.com/IaG5Gvph.jpg)
 
 A compact 1800 keyboard.
 
