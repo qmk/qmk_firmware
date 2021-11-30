@@ -17,3 +17,5 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 WS2812_DRIVER = i2c
+
+LAYOUTS = tkl_f13_ansi tkl_f13_ansi_tsangan tkl_f13_iso tkl_f13_iso_tsangan
