@@ -4,3 +4,6 @@ LTO_ENABLE = yes
 NKRO_ENABLE = yes
 
 SRC += chrisgve.c
+
+# CONSOLE_ENABLE = yes
+
