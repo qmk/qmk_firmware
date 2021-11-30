@@ -15,7 +15,7 @@
   */
 #include "lyra.h"
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 // 'lyralogooled', 32x128px
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {

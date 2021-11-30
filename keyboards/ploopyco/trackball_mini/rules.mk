@@ -20,7 +20,10 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = adns5050
-MOUSEKEY_ENABLE = no        # Mouse keys
+MOUSEKEY_ENABLE = yes        # Mouse keys
+
+ENCODER_ENABLE := no
+OPTS_DEF += -DENCODER_ENABLE
 
 QUANTUM_LIB_SRC += analog.c
 SRC += opt_encoder.c
