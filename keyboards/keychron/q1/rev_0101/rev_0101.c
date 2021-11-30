@@ -17,6 +17,7 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
 const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
