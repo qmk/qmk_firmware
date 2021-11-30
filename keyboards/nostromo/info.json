@@ -2,8 +2,6 @@
     "keyboard_name": "nostromo",
     "url": "https://github.com/su8044/qmk_firmware/tree/nostromo_maintenance/keyboards/nostromo",
     "maintainer": "su8044",
-    "width": 12,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [
