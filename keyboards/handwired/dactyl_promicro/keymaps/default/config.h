@@ -23,3 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 //#define EE_HANDS
 // Rows are doubled-up
+
+/* Enables This makes it easier for fast typists to use dual-function keys */
+#define PERMISSIVE_HOLD

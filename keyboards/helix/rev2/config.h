@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    Yushakobo
 #define PRODUCT         Helix Beta
 
-#define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
 /* Use I2C or Serial */
