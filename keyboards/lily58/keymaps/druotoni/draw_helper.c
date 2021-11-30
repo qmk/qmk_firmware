@@ -590,6 +590,26 @@ void draw_random_char(uint8_t column, uint8_t row, char final_char, int value, u
     oled_write_char(c, false);
 }
 
+
+void get_glitch_index(uint32_t *glitch_timer, int *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number) {
+    if (timer_elapsed32(*glitch_timer) > *current_glitch_scope_time) {
+        // end of the last glitch period
+        *glitch_timer = timer_read32();
+        // new random glich period
+        *current_glitch_scope_time = min_time + fastrand() % (max_time - min_time);
+
+        bool bGenerateGlitch = (fastrand() % 100) < glitch_probobility;
+        if (!bGenerateGlitch) {
+            // no glitch
+            *glitch_index = 0;
+            return;
+        }
+
+        // get a new glitch index
+        *glitch_index = fastrand() % glitch_frame_number;
+    }
+}
+
 // void draw_random_char(uint8_t column, uint8_t row, char final_char, int value, uint8_t style) {
 //     if (value < 0) return;
 
@@ -885,7 +905,7 @@ void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t wid
             // central line
             drawline_hr(xCenter - 8, yCenter, 18, true);
             // static
-            oled_write_pixel(xCenter - 13, yCenter, true);
+            oled_write_pixel(xCenter - 11, yCenter, true);
             oled_write_pixel(xCenter + 12, yCenter, true);
             break;
 
@@ -900,7 +920,7 @@ void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t wid
             drawline_hr(xCenter + 6, yCenter, 3, true);
 
             //  oled_write_pixel(xCenter - 11, yCenter, true);
-            oled_write_pixel(xCenter - 11, yCenter, true);
+            oled_write_pixel(xCenter - 9, yCenter, true);
             oled_write_pixel(xCenter + 12, yCenter, true);
             oled_write_pixel(xCenter + 14, yCenter, true);
             break;

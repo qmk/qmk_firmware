@@ -44,6 +44,10 @@ int interpo_pourcent(int min, int max, int v);
   void oled_write_cursor(uint8_t col, uint8_t line, const char *data, bool invert);
   void oled_write_raw_P_cursor(uint8_t col, uint8_t line, const char *data, uint16_t size);
 
+
+void get_glitch_index(uint32_t *glitch_timer, int *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time,
+ uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number);
+ 
       
 
 

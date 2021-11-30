@@ -102,8 +102,9 @@ void render_layer_frame(gui_state_t t) {
 
     if (t == _IDLE || t == _SLEEP || t == _WAKINGUP) {
         // black screen
-        draw_black_screen();
-        layer_name = "ZzZ";
+       // draw_black_screen();
+        //layer_name = "ZzZ";
+        layer_name = "   ";
     }
 
 oled_write_cursor(1, 6, layer_name, false);

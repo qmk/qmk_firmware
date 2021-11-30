@@ -18,9 +18,6 @@
 #undef OLED_DRIVER_ENABLE
 #define OLED_DRIVER_ENABLE
 
-// transport key stroke to the other side
-//bool should_process_keypress(void) { return true; }
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* QWERTY
@@ -79,6 +76,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
 #ifdef OLED_DRIVER_ENABLE
 
+
+// sync transport
+typedef struct _sync_keycode_t {
+    uint16_t keycode;
+} sync_keycode_t;
+
+sync_keycode_t last_keycode;
+bool           b_sync_need_send = false;
+
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
 void render(gui_state_t t) {
@@ -121,12 +128,7 @@ void reset(bool b) {
 }
 
 
-typedef struct _sync_keycode_t {
-    uint16_t keycode;
-} sync_keycode_t;
 
-sync_keycode_t last_keycode;
-bool           b_sync_need_send = false;
 
 void oled_task_user(void) {
     gui_state_t t = get_gui_state();
@@ -160,6 +162,7 @@ void process_key(uint16_t keycode) {
 
     if (t == _BOOTING) {
         // cancel booting
+        oled_clear();
         reset(false);
     }
 
