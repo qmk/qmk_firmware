@@ -154,7 +154,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//3086 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2986 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-11-29
 };
 
@@ -190,42 +190,42 @@ const char* const PROGMEM macro_unicode[] = {
 	// in (x, sx, cx, csx) modifier format with NUL terminal characters
 	// can add (wx, wsx, wcx, wcsx) extra on end with \0 inbetween each
 	// for more use of WIN modifier. ALT being used to hold layer.
-	"ℤₚ\0F₄(q)\0\0",//		 KM_1
-	"Aₙ\0G₂(p)\0\0",//    KM_2
-	"Aₙ(q)\0²Aₙ(q²)\0\0",//    KM_3
-	"Bₙ(q)\0²Dₙ(q²)\0\0",//    KM_4
-	"Cₙ(q)\0²E₆(q²)\0\0",//    KM_5
+	"ℤₚ\0F₄(q)\0\0ᄈ",//		 KM_1
+	"Aₙ\0G₂(p)\0\0ᄍ",//    KM_2
+	"Aₙ(q)\0²Aₙ(q²)\0\0ᄄ",//    KM_3
+	"Bₙ(q)\0²Dₙ(q²)\0\0ᄁ",//    KM_4
+	"Cₙ(q)\0²E₆(q²)\0\0ᄊ",//    KM_5
 	"Dₙ(q)\0³D₄(q³)\0\0",//		 KM_6
 	"E₆(q)\0²B₂(2²ⁿ⁺¹)\0\0",//    KM_7
 	"E₇(q)\0²F₄(2²ⁿ⁺¹)\0\0",//    KM_8
-	"E₈(q)\0²G₂(3²ⁿ⁺¹)\0\0",//    KM_9
-	"∅\0²F₄(2)′\0\0",//    KM_0
-	"&quot;\0Fi₂₂\0ℚ\0",//		 KM_Q
-	"while()\\a\0J₄\0𝕎\0",//    KM_W
-	"export \0J₂\0𝔼\0",//    KM_E
-	"return ;\0HN\0ℝ\0",//    KM_R
-	"this\0Th\0𝕋\0",//    KM_T
-	"yeild ;\0B\0𝕐\0",//		 KM_Y
-	"utf8()\0Fi₂₃\0𝕌\0",//    KM_U
-	"if()\\aelse\\a\0M₂₄\0𝕀\0",//    KM_I
-	"obj()\0Co₃\0𝕆\0",//    KM_O
-	"&apos;\0Co₂\0ℙ\0",//    KM_P
-	"&amp;\0M₁₁\0𝔸\0",//		 KM_A
-	"switch() {\ncase :\nbreak;\ndefault:\nbreak;\n}\0Ly\0𝕊\0",//    KM_S
-	"do\\awhile();\0M₂₂\0𝔻\0",//    KM_D
-	"for(;;)\\a\0M₂₃\0𝔽\0",//    KM_F
-	"gallowed ;\0HS\0𝔾\0",//    KM_G
-	"hallowed ;\0J₃\0ℍ\0",//		 KM_H
-	"true\0McL\0𝕁\0",//    KM_J
-	"false\0He\0𝕂\0",//    KM_K
-	"&lt;\0Ru\0𝕃\0",//    KM_L
-	"<z />\0M\0ℤ\0",//		 KM_Z
-	"xref()\0Fi₂₄\0𝕏\0",//    KM_X
-	"continue;\n\0J₁\0ℂ\0",//    KM_C
-	"void()\0Co₁\0𝕍\0",//    KM_V
-	"break;\n\0M₁₂\0𝔹\0",//		 KM_B
-	"new ()\\a\0O'N\0ℕ\0",//    KM_N
-	"main()\\a\0Suz\0𝕄\0",//    KM_M
+	"E₈(q)\0²G₂(3²ⁿ⁺¹)\0\0ᅤ",//    KM_9
+	"∅\0²F₄(2)′\0\0ᅨ",//    KM_0
+	"&quot;\0Fi₂₂\0ℚ\0ᄇ",//		 KM_Q
+	"while()\\a\0J₄\0𝕎\0ᄌ",//    KM_W
+	"export \0J₂\0𝔼\0ᄃ",//    KM_E
+	"return ;\0HN\0ℝ\0ᄀ",//    KM_R
+	"this\0Th\0𝕋\0ᄉ",//    KM_T
+	"yeild ;\0B\0𝕐\0ᅭ",//		 KM_Y
+	"utf8()\0Fi₂₃\0𝕌\0ᅧ",//    KM_U
+	"if()\\aelse\\a\0M₂₄\0𝕀\0ᅣ",//    KM_I
+	"obj()\0Co₃\0𝕆\0ᅢ",//    KM_O
+	"&apos;\0Co₂\0ℙ\0ᅦ",//    KM_P
+	"&amp;\0M₁₁\0𝔸\0ᄆ",//		 KM_A
+	"switch() {\ncase :\nbreak;\ndefault:\nbreak;\n}\0Ly\0𝕊\0ᄂ",//    KM_S
+	"do\\awhile();\0M₂₂\0𝔻\0ᄋ",//    KM_D
+	"for(;;)\\a\0M₂₃\0𝔽\0ᄅ",//    KM_F
+	"gallowed ;\0HS\0𝔾\0ᄒ",//    KM_G
+	"hallowed ;\0J₃\0ℍ\0ᅩ",//		 KM_H
+	"true\0McL\0𝕁\0ᅥ",//    KM_J
+	"false\0He\0𝕂\0ᅡ",//    KM_K
+	"&lt;\0Ru\0𝕃\0ᅵ",//    KM_L
+	"<z />\0M\0ℤ\0ᄏ",//		 KM_Z
+	"xref()\0Fi₂₄\0𝕏\0ᄐ",//    KM_X
+	"continue;\n\0J₁\0ℂ\0ᄎ",//    KM_C
+	"void()\0Co₁\0𝕍\0ᄑ",//    KM_V
+	"break;\n\0M₁₂\0𝔹\0ᅲ",//		 KM_B
+	"new ()\\a\0O'N\0ℕ\0ᅮ",//    KM_N
+	"main()\\a\0Suz\0𝕄\0ᅳ",//    KM_M
 };
 
 const uint16_t PROGMEM macro_keycode[] = {
