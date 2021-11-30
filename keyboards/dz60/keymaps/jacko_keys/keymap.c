@@ -154,8 +154,8 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//2986 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
-	//2021-11-29
+	//2942 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2021-11-30
 };
 
 //Some say the above should be converted to allow more in device shift states,
@@ -249,6 +249,26 @@ const char* modify_step2(const char* ip) {
 	return modify_step(modify_step(ip));
 }
 
+uint8_t jamo[] = {//indexes of last jamo
+	5, 5, 5, 5, 5,//KM_6 is voided jamo
+};
+
+bool last_const = true;
+
+bool vowel_reduce(uint8_t latest, char ck92) {
+	bool eval = !(ck92 > 0x92);
+	if(!eval) {
+		//vowel
+		//consonant + vowel + tri-consonants + vowel -> compile all but one consonant + vowel.
+		//and possibly backspace to then redisplay compiled sequence.
+	}
+	last_const = eval;//last state
+	//record for reductions
+	for(uint8_t i = 4; i > 0; i--) jamo[i] = jamo[i - 1];
+	jamo[0] = latest;
+	return false;//no reduction
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if(keycode < KM_1 || keycode > KM_M) return true;//protection better
 	if (record->event.pressed) {
@@ -257,6 +277,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		if(get_mods() & MOD_MASK_SHIFT) ip = modify_step(ip);
 		if(get_mods() & MOD_MASK_CTRL) {//jump 2
 			ip = modify_step2(ip);
+			if(vowel_reduce(keycode - KM_1, *(ip+2))) return true;//processed jamo reduction
 		}
 		if(get_mods() & MOD_MASK_GUI) {//jump 4 -- currently next macro key
 			ip = modify_step2(modify_step2(ip));
