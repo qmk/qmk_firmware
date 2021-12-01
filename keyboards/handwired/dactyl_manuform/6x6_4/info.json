@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "Dactyl Manuform 6x6",
+    "keyboard_name": "Dactyl Manuform 6x6 4 extra keys",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "dmik",
     "layouts": {
-        "LAYOUT_6x6": {
+        "LAYOUT_6x6_4": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
@@ -75,11 +75,15 @@
                 {"x": 15, "y": 4},
                 {"x": 16, "y": 4},
 
+                {"x": 0, "y": 5},
+                {"x": 1, "y": 5},
                 {"x": 2, "y": 5},
                 {"x": 3, "y": 5},
 
                 {"x": 13, "y": 5},
                 {"x": 14, "y": 5},
+                {"x": 15, "y": 5},
+                {"x": 16, "y": 5},
 
                 {"x": 4, "y": 6},
                 {"x": 5, "y": 6},

@@ -1,1 +1,1 @@
-#include "6x6.h"
+#include "6x6_4.h"
