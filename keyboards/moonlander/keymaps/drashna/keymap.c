@@ -16,10 +16,6 @@
 
 #include "drashna.h"
 
-#ifndef UNICODE_ENABLE
-#    define UC(x) KC_NO
-#endif
-
 enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
 
 // clang-format off
@@ -32,10 +28,10 @@ enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
     ) \
     LAYOUT_moonlander_wrapper( \
         KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,        UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS, \
-        KC_TAB,  K01,     K02,     K03,     K04,     K05,   TG_DBLO,TG_DBLO,   K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-        KC_C1R3, K11,     K12,     K13,     K14,     K15,  TG_GAME,TG_GAME,  K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
+        KC_TAB,  K01,     K02,     K03,     K04,     K05,     TG_DBLO,        TG_DBLO, K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
+        KC_C1R3, K11,     K12,     K13,     K14,     K15,     TG_GAME,        TG_GAME, K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
         KC_MLSF, CTL_T(K21), K22,  K23,     K24,     K25,                              K26,     K27,     K28,     K29,  RCTL_T(K2A),KC_MRSF, \
-        KC_GRV,  OS_MEH,  OS_HYPR, KC_LBRC, KC_RBRC,          KC_NO,          KC_DEL,           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E), \
+        KC_GRV,  OS_MEH,  OS_HYPR, KC_LBRC, KC_RBRC,          UC_CLUE,        KC_DEL,           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC_IRNY, \
                                             KC_SPC,  BK_LWER, OS_LALT,        OS_RGUI, DL_RAIS, KC_ENT \
     )
 
@@ -82,6 +78,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,   KC_NO,   KC_L,    KC_J,    KC_F,             KC_PSCR,                 KC_NO,            KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
                           KC_DIABLO_CLEAR,  SFT_T(KC_SPACE),  ALT_T(KC_Q),             KC_PGDN, KC_DEL,  KC_ENT
     ),
+    [_DIABLOII] = LAYOUT_moonlander_wrapper(
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_GRV,  KC_NO,                   KC_TRNS, KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_NO,
+        KC_TAB,  KC_A,    KC_T,    KC_Q,    KC_I,    KC_M,    TG(_DIABLOII),           KC_TRNS, KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_S,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_NO,                   KC_TRNS, KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_LCTL, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                                    KC_N,    KC_M,     KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_G,    KC_F,    KC_L,             KC_V,                    KC_NO,            KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                                            KC_G,    KC_LSFT, KC_LCTL,                 KC_PGDN, KC_DEL,  KC_ENT
+    ),
 
     [_LOWER] = LAYOUT_moonlander_wrapper(
         KC_F12,  _________________FUNC_LEFT_________________, _______,        _______, _________________FUNC_RIGHT________________, KC_F11,
@@ -102,10 +106,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_ADJUST] = LAYOUT_moonlander_wrapper(
-        KC_MAKE, _________________FUNC_LEFT_________________, UC_MOD,         KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
-        VRSN,    _________________ADJUST_L1_________________, _______,        _______, _________________ADJUST_R1_________________, EEP_RST,
-        _______, _________________ADJUST_L2_________________, _______,        _______, _________________ADJUST_R2_________________, RGB_IDL,
-        KEYLOCK, _________________ADJUST_L3_________________,                          _________________ADJUST_R3_________________, TG_MODS,
+        KC_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_NOMODE,_______,   KC_NUKE,KC_NOMODE,KC_BLOCKS,KC_REGIONAL,_______,_______, KC_RST,
+        VRSN,    _________________ADJUST_L1_________________, TG(_DIABLOII),  _______, _________________ADJUST_R1_________________, EEP_RST,
+        KEYLOCK, _________________ADJUST_L2_________________, _______,        _______, _________________ADJUST_R2_________________, RGB_IDL,
+        UC_MOD,  _________________ADJUST_L3_________________,                          _________________ADJUST_R3_________________, TG_MODS,
         _______, _______, _______, _______, _______,          _______,        _______,          _______, _______, _______, _______, KC_PAUS,
                                             _______, _______, _______,        _______, _______, _______
     ),

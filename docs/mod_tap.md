@@ -83,32 +83,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ### Changing hold function
 
-Likewise, the same custom code can also be used to intercept the hold function to send custom user key code. The following example uses `LT(0, kc)` (layer-tap key with no practical use because layer 0 is always active) to add cut, copy and paste function to X,C and V keys when they are held down:
+Likewise, similar custom code can also be used to intercept the hold function to send custom user key code. The following example uses `LT(0, kc)` (layer-tap key with no practical use because layer 0 is always active) to add cut, copy and paste function to X,C and V keys when they are held down:
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(0,KC_X):
-            if (record->tap.count && record->event.pressed) {
-                return true;         // Return true for normal processing of tap keycode
-            } else if (record->event.pressed) {
+            if (!record->tap.count && record->event.pressed) {
                 tap_code16(C(KC_X)); // Intercept hold function to send Ctrl-X
+                return false;
             }
-            return false;
+            return true;             // Return true for normal processing of tap keycode
         case LT(0,KC_C):
-            if (record->tap.count && record->event.pressed) {
-                return true;         // Return true for normal processing of tap keycode
-            } else if (record->event.pressed) {
+            if (!record->tap.count && record->event.pressed) {
                 tap_code16(C(KC_C)); // Intercept hold function to send Ctrl-C
+                return false;
             }
-            return false;
+            return true;             // Return true for normal processing of tap keycode
         case LT(0,KC_V):
-            if (record->tap.count && record->event.pressed) {
-                return true;         // Return true for normal processing of tap keycode
-            } else if (record->event.pressed) {
+            if (!record->tap.count && record->event.pressed) {
                 tap_code16(C(KC_V)); // Intercept hold function to send Ctrl-V
+                return false;
             }
-            return false;
+            return true;             // Return true for normal processing of tap keycode
     }
     return true;
 }
