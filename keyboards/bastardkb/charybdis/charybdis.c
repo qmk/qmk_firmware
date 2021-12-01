@@ -19,10 +19,6 @@
 
 #include "charybdis.h"
 
-#ifdef POINTING_DEVICE_ENABLE
-#include "pointing_device.h"
-#endif  // POINTING_DEVICE_ENABLE
-
 #ifdef CONSOLE_ENABLE
 #include "print.h"
 #endif  // CONSOLE_ENABLE

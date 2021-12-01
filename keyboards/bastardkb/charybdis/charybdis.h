@@ -19,9 +19,9 @@
 #pragma once
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#include "3x5/3x5.h"
+#include "3x5.h"
 #elif defined(KEYBOARD_bastardkb_charybdis_4x6)
-#include "4x6/4x6.h"
+#include "4x6.h"
 #else
 #error "Unsuported format"
 #endif
