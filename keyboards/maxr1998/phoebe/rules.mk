@@ -19,4 +19,3 @@ AUDIO_ENABLE = no          # Audio output
 RGBLIGHT_ENABLE = yes      # Enable WS2812 RGB underlight.
 KEY_LOCK_ENABLE = yes
 LEADER_ENABLE = yes        # Enable leader key
-SLEEP_LED_ENABLE = no      # Breathing sleep LED during USB suspend
