@@ -124,11 +124,6 @@ __attribute__((weak)) void pointing_device_task(void) {
     mouseReport.buttons = oldButtons;
     mouseReport         = pointing_device_driver.get_report(mouseReport);
     oldButtons          = mouseReport.buttons;
-    mouseReport.x       = mouseReport.x | sharedReport.x;
-    mouseReport.y       = mouseReport.y | sharedReport.y;
-    mouseReport.h       = mouseReport.h | sharedReport.h;
-    mouseReport.v       = mouseReport.v | sharedReport.v;
-    mouseReport.buttons = mouseReport.buttons | sharedReport.buttons;
 #    elif defined(POINTING_DEVICE_LEFT)
         if (is_keyboard_left()) {
             mouseReport = pointing_device_driver.get_report(mouseReport);
@@ -173,7 +168,11 @@ __attribute__((weak)) void pointing_device_task(void) {
 #endif
 
     // allow kb to intercept and modify report
+#if defined(SPLIT_POINTING_ENABLE) && defined (POINTING_DEVICE_COMBINED)
+    mouseReport = is_keyboard_left() ? pointing_device_task_combined_kb(mouseReport, sharedReport) : pointing_device_task_combined_kb(sharedReport, mouseReport);
+#else
     mouseReport = pointing_device_task_kb(mouseReport);
+#endif
     // combine with mouse report to ensure that the combined is sent correctly
 #ifdef MOUSEKEY_ENABLE
     report_mouse_t mousekey_report = mousekey_get_report();
@@ -219,4 +218,16 @@ void pointing_device_set_cpi_on_side(bool left, uint16_t cpi) {
         sharedCpi = cpi;
     }
 }
+report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, report_mouse_t right_report) {
+    left_report.x       |= right_report.x;
+    left_report.y       |= right_report.y;
+    left_report.h       |= right_report.h;
+    left_report.v       |= right_report.v;
+    left_report.buttons |= right_report.buttons;
+    return left_report;
+}
+
+__attribute__((weak)) report_mouse_t pointing_device_task_combined_kb(report_mouse_t left_report, report_mouse_t right_report) { return pointing_device_task_combined_user(left_report, right_report); }
+__attribute__((weak)) report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) { return pointing_device_combine_reports(left_report, right_report); }
+
 #endif
