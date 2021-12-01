@@ -7,4 +7,4 @@ static uint8_t DUAL_BEACON_math(uint8_t val, int8_t sin, int8_t cos, uint8_t i, 
 bool DUAL_BEACON(effect_params_t* params) { return effect_runner_sin_cos_i(params, &DUAL_BEACON_math); }
 
 #    endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_LED_MATRIX_DUAL_BEACON
+#endif      // ENABLE_LED_MATRIX_DUAL_BEACON

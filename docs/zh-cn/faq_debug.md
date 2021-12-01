@@ -81,11 +81,6 @@ Size after:
 
 全键无冲还不好用的话试着用`Magic` **N** 命令(默认是`LShift+RShift+N`)。这个命令会在**全键无冲**和**六键无冲**之间临时切换。有些情况**全键无冲**不好用你就需要使用**六键无冲**模式，尤其是在BIOS中。
 
-如果你的固件使用`BOOTMAGIC_ENABLE`编译的你要用`BootMagic` **N** 命令(默认`Space+N`)打开开关。这个设置保存在EEPROM中并保存在电源循环中。
-<!--翻译问题：上面这句翻译的不贴切 -->
-
-https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
-
 
 ## 指点杆需要复位电路(PS/2 鼠标支持)
 如果没有复位电路，由于硬件初始化不正确，您将得到不一致的结果。查看TPM754复位电路。

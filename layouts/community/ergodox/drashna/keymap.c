@@ -186,20 +186,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef PIMORONI_TRACKBALL_ENABLE
 void run_trackball_cleanup(void) {
-    if (trackball_is_scrolling()) {
-        trackball_set_rgbw(RGB_CYAN, 0x00);
-    } else if (trackball_get_precision() != 1.0) {
-        trackball_set_rgbw(RGB_GREEN, 0x00);
-    } else {
-        trackball_set_rgbw(RGB_MAGENTA, 0x00);
-    }
+    // if (trackball_is_scrolling()) {
+    //     trackball_set_rgbw(RGB_CYAN, 0x00);
+    // } else if (trackball_get_precision() != 1.0) {
+    //     trackball_set_rgbw(RGB_GREEN, 0x00);
+    // } else {
+    // trackball_set_rgbw(RGB_MAGENTA, 0x00);
+    // }
 }
 
 void keyboard_post_init_keymap(void) {
     // trackball_set_precision(1.5);
-    trackball_set_rgbw(RGB_MAGENTA, 0x00);
+    // trackball_set_rgbw(RGB_MAGENTA, 0x00);
 }
-void shutdown_keymap(void) { trackball_set_rgbw(RGB_RED, 0x00); }
+// void shutdown_keymap(void) { trackball_set_rgbw(RGB_RED, 0x00); }
 
 static bool mouse_button_one, trackball_button_one;
 
@@ -244,16 +244,16 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             break;
 #ifdef PIMORONI_TRACKBALL_ENABLE
         case PM_SCROLL:
-            trackball_set_scrolling(record->event.pressed);
+            // trackball_set_scrolling(record->event.pressed);
             run_trackball_cleanup();
             break;
         case PM_PRECISION:
-            if (record->event.pressed) {
-                trackball_set_precision(1.5);
-            } else {
-                trackball_set_precision(1);
-            }
-            run_trackball_cleanup();
+            // if (record->event.pressed) {
+            //     trackball_set_precision(1.5);
+            // } else {
+            //     trackball_set_precision(1);
+            // }
+            // run_trackball_cleanup();
             break;
 #    if !defined(MOUSEKEY_ENABLE)
         case KC_MS_BTN1:

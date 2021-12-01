@@ -11,4 +11,4 @@ static HSV BAND_SAT_math(HSV hsv, uint8_t i, uint8_t time) {
 bool BAND_SAT(effect_params_t* params) { return effect_runner_i(params, &BAND_SAT_math); }
 
 #    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_RGB_MATRIX_BAND_SAT
+#endif      // ENABLE_RGB_MATRIX_BAND_SAT

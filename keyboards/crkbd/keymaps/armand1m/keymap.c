@@ -130,7 +130,8 @@ void oled_render_amsterdam_flag(void) {
     oled_write_raw_P(amsterdam_flag, sizeof(amsterdam_flag));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     oled_render_amsterdam_flag();
+    return false;
 }
 #endif // OLED_ENABLE

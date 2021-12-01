@@ -74,7 +74,7 @@ def filter_files(files, core_only=False):
             # The following statement checks each file to see if the file path is
             # - in the core directories
             # - not in the ignored directories
-            if not any(i in str(file) for i in core_dirs) or any(i in str(file) for i in ignored):
+            if not any(str(file).startswith(i) for i in core_dirs) or any(str(file).startswith(i) for i in ignored):
                 files[index] = None
                 cli.log.debug("Skipping non-core file %s, as '--core-only' is used.", file)
 
