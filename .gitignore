@@ -86,3 +86,7 @@ __pycache__
 
 # Allow to exist but don't include it in the repo
 user_song_list.h
+lib/chibios
+lib/chibios
+lib/googletest
+lib/lufa
