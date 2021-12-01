@@ -2,7 +2,7 @@
 
 ![pluto12](https://i.imgur.com/5KyPWAC.png)
 
-*A short description of the keyboard/project*
+The pluto12 is a 4x3 macropad designed for use in the Penn State IEEE Student Chapter's [2021-22 workshop series](https://github.com/psuieee/projects2021). Designed by the 2021-22 Penn State IEEE Projects Committee.
 
 * Keyboard Maintainer: [Will McGloughlin](https://github.com/wymcg)
 * Hardware Supported: Pro Micro and derivatives
@@ -23,5 +23,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead.
 * **Keycode in layout**: Press the key mapped to `RESET` if it is available
