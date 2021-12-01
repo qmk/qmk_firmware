@@ -1,12 +1,12 @@
-# The Key Company Candybar
+# TheKey.Company Candybar
 
-![Candybar](https://cdn.shopify.com/s/files/1/1679/2319/articles/CandyBar_Promo_400x225_1000x.jpg?v=1538150501)
+![Candybar](https://cdn.shopify.com/s/files/1/1679/2319/products/CBR3CollectionHERO_720x.jpg)
 
-The Key Company Candybar is a staggered 40% board with a numpad utilizing the STM32F072 microcontroller.
+The Key Company Candybar is a staggered 40% board with a numpad utilizing the ATmega32u4 microcontroller.
 
 * Keyboard Maintainer: [Terry Mathews](https://github.com/TerryMathews/)
 * Hardware Supported: TKC Candybar
-* Hardware Availability: [TheKey.Company](https://thekey.company/collections/candybar)
+* Hardware Availability: [TheKey.Company](https://thekey.company/products/candybar-round-3)
 
 Make example for this keyboard (after setting up your build environment):
 

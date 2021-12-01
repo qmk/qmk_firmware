@@ -1,4 +1,4 @@
-/* Copyright 2018 Jack Humbert
+/* Copyright 2021 Terry Mathews
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +16,3 @@
 
 #include "lefty_r3.h"
 
-void matrix_init_kb(void) {
-  matrix_init_user();
-}
