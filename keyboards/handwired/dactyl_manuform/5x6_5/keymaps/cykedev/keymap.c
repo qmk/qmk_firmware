@@ -200,7 +200,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     case SPC_L:
       return false;
    case SPC_R:
-      return false;
+      return true;
    case ENT_L:
       return false;
    case ENT_R:
