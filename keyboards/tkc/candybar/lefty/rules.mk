@@ -7,7 +7,7 @@ BOOTLOADER = stm32-dfu
 # Build Options
 #   comment out to disable the options.
 #
-# EXTRAFLAGS+=-flto
+# LTO_ENABLE = yes
 LTO_ENABLE = yes
 BACKLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
