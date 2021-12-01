@@ -26,9 +26,6 @@ CUSTOM_MATRIX = yes
 BLUETOOTH_ENABLE = yes
 BLUETOOTH_DRIVER = AdafruitBLE
 
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
 SRC += ws2812.c
 SRC += rgbsps.c
 SRC += analog.c
