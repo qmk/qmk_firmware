@@ -268,6 +268,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
 };
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case GUI_A:
+            return TAPPING_TERM + 150;
+        case ALT_S:
+            return TAPPING_TERM + 50;
+        case ALT_L:
+            return TAPPING_TERM + 50;
+        case GUI_ODI:
+            return TAPPING_TERM + 150;
+        default:
+            return TAPPING_TERM;
+    }
+}
 
 #ifdef HAPTIC_ENABLE
 
