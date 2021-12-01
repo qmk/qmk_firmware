@@ -44,3 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+
+// https://github.com/qmk/qmk_firmware/blob/develop/docs/squeezing_avr.md
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+#define NO_MUSIC_MODE
+#define LAYER_STATE_8BIT // Limit to 8 layers
