@@ -124,18 +124,8 @@ __attribute__((weak)) void pointing_device_task(void) {
     mouseReport.buttons = oldButtons;
     mouseReport         = pointing_device_driver.get_report(mouseReport);
     oldButtons          = mouseReport.buttons;
-#    elif defined(POINTING_DEVICE_LEFT)
-        if (is_keyboard_left()) {
-            mouseReport = pointing_device_driver.get_report(mouseReport);
-        } else {
-            mouseReport = sharedReport;
-        }
-#    elif defined(POINTING_DEVICE_RIGHT)
-        if (!is_keyboard_left()) {
-            mouseReport = pointing_device_driver.get_report(mouseReport);
-        } else {
-            mouseReport = sharedReport;
-        }
+#    elif defined(POINTING_DEVICE_LEFT) || defined(POINTING_DEVICE_RIGHT)
+        mouseReport = POINTING_DEVICE_THIS_SIDE ? pointing_device_driver.get_report(mouseReport) : mouseReport = sharedReport;
 #    else
 #        error "You need to define the side(s) the pointing device is on. POINTING_DEVICE_COMBINED / POINTING_DEVICE_LEFT / POINTING_DEVICE_RIGHT"
 #    endif
@@ -168,7 +158,7 @@ __attribute__((weak)) void pointing_device_task(void) {
 #endif
 
     // allow kb to intercept and modify report
-#if defined(SPLIT_POINTING_ENABLE) && defined (POINTING_DEVICE_COMBINED)
+#if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
     mouseReport = is_keyboard_left() ? pointing_device_task_combined_kb(mouseReport, sharedReport) : pointing_device_task_combined_kb(sharedReport, mouseReport);
 #else
     mouseReport = pointing_device_task_kb(mouseReport);
@@ -187,11 +177,7 @@ void pointing_device_set_report(report_mouse_t newMouseReport) { mouseReport = n
 
 uint16_t pointing_device_get_cpi(void) {
 #if defined(SPLIT_POINTING_ENABLE)
-    if (POINTING_DEVICE_THIS_SIDE) {
-        return pointing_device_driver.get_cpi();
-    } else {
-        return sharedCpi;
-    }
+    return POINTING_DEVICE_THIS_SIDE ? pointing_device_driver.get_cpi() : sharedCpi;
 #else
     return pointing_device_driver.get_cpi();
 #endif
@@ -218,11 +204,12 @@ void pointing_device_set_cpi_on_side(bool left, uint16_t cpi) {
         sharedCpi = cpi;
     }
 }
+
 report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, report_mouse_t right_report) {
-    left_report.x       |= right_report.x;
-    left_report.y       |= right_report.y;
-    left_report.h       |= right_report.h;
-    left_report.v       |= right_report.v;
+    left_report.x |= right_report.x;
+    left_report.y |= right_report.y;
+    left_report.h |= right_report.h;
+    left_report.v |= right_report.v;
     left_report.buttons |= right_report.buttons;
     return left_report;
 }
