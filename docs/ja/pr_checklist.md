@@ -27,7 +27,7 @@
     - 「旧式の」 GPIO/I2C/SPI 関数を使用しない - 正当な理由がない限り、QMK の抽象化を使用しなければなりません (怠惰は正当な理由にはなりません)
     - タイミングの抽象化にも従う必要があります:
         - `_delay_ms()` のかわりに `wait_ms()` を。(`#include <util/delay.h>` も消します)
-        - `timer_read()` と `timer_read32()` など。 -- タイミング API は [timer.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/timer.h) を参照してください
+        - `timer_read()` と `timer_read32()` など。 -- タイミング API は [timer.h](https://github.com/qmk/qmk_firmware/blob/master/platforms/timer.h) を参照してください
     - 新しい抽象化が有用だと思う場合は、次のことをお勧めします:
         - 機能が完成するまで自分のキーボードでプロトタイプを作成する
         - Discord の QMK コラボレータと話し合う

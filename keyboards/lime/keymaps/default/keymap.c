@@ -463,7 +463,7 @@ bool showedJump = true;
         return OLED_ROTATION_270;
     }
 
-    void oled_task_user(void) {
+    bool oled_task_user(void) {
 
         /* Keyboard Pet Variables */
         current_wpm = get_current_wpm();
@@ -474,6 +474,7 @@ bool showedJump = true;
         } else {
             print_logo_narrow();
         }
+        return false;
     }
 
 #endif

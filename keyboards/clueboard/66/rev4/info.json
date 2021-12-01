@@ -41,7 +41,6 @@
   },
   "community_layouts": ["66_ansi", "66_iso"],
   "layout_aliases": {
-    "KEYMAP": "LAYOUT_all",
     "LAYOUT": "LAYOUT_all"
   },
   "layouts": {
