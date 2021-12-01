@@ -45,9 +45,9 @@
 #define CHARYBDIS_DRAGSCROLL_DPI 100
 #endif  // CHARYBDIS_DRAGSCROLL_DPI
 
-#ifndef CHARYBDIS_DRAGSCROLL_INERTIA_FACTOR
-#define CHARYBDIS_DRAGSCROLL_INERTIA_FACTOR 6
-#endif  // !CHARYBDIS_DRAGSCROLL_INERTIA_FACTOR
+#ifndef CHARYBDIS_DRAGSCROLL_BUFFER_SIZE
+#define CHARYBDIS_DRAGSCROLL_BUFFER_SIZE 6
+#endif  // !CHARYBDIS_DRAGSCROLL_BUFFER_SIZE
 
 #ifndef CHARYBDIS_POINTER_ACCELERATION_FACTOR
 #define CHARYBDIS_POINTER_ACCELERATION_FACTOR 24
@@ -215,30 +215,28 @@ void pointing_device_init_kb(void) {
  *   - Acceleration
  */
 static void _pointing_device_task_charybdis(report_mouse_t* mouse_report) {
-  static int16_t scroll_inertia_x = 0;
-  static int16_t scroll_inertia_y = 0;
+  static int16_t scroll_buffer_x = 0;
+  static int16_t scroll_buffer_y = 0;
   if (g_charybdis_config.is_dragscroll_enabled) {
 #ifdef CHARYBDIS_DRAGSCROLL_REVERSE_X
-    scroll_inertia_x -= mouse_report->x;
+    scroll_buffer_x -= mouse_report->x;
 #else
-    scroll_inertia_x += mouse_report->x;
+    scroll_buffer_x += mouse_report->x;
 #endif  // CHARYBDIS_DRAGSCROLL_REVERSE_X
 #ifdef CHARYBDIS_DRAGSCROLL_REVERSE_Y
-    scroll_inertia_y -= mouse_report->y;
+    scroll_buffer_y -= mouse_report->y;
 #else
-    scroll_inertia_y += mouse_report->y;
+    scroll_buffer_y += mouse_report->y;
 #endif  // CHARYBDIS_DRAGSCROLL_REVERSE_Y
     mouse_report->x = 0;
     mouse_report->y = 0;
-    if (abs(scroll_inertia_x) > CHARYBDIS_DRAGSCROLL_INERTIA_FACTOR) {
-      mouse_report->h = _DISPLACEMENT_WITH_ACCELERATION(
-          scroll_inertia_x / CHARYBDIS_DRAGSCROLL_INERTIA_FACTOR);
-      scroll_inertia_x = 0;
+    if (abs(scroll_buffer_x) > CHARYBDIS_DRAGSCROLL_BUFFER_SIZE) {
+      mouse_report->h = scroll_buffer_x > 0 ? 1 : -1;
+      scroll_buffer_x = 0;
     }
-    if (abs(scroll_inertia_y) > CHARYBDIS_DRAGSCROLL_INERTIA_FACTOR) {
-      mouse_report->v = _DISPLACEMENT_WITH_ACCELERATION(
-          scroll_inertia_y / CHARYBDIS_DRAGSCROLL_INERTIA_FACTOR);
-      scroll_inertia_y = 0;
+    if (abs(scroll_buffer_y) > CHARYBDIS_DRAGSCROLL_BUFFER_SIZE) {
+      mouse_report->v = scroll_buffer_y > 0 ? 1 : -1;
+      scroll_buffer_y = 0;
     }
   } else if (!g_charybdis_config.is_sniping_enabled) {
     mouse_report->x = _DISPLACEMENT_WITH_ACCELERATION(mouse_report->x);
