@@ -44,11 +44,10 @@ static uint16_t auto_pointer_layer_timer = 0;
 
 enum charybdis_keymap_keycodes {
 #ifdef VIA_ENABLE
-  USER_RESET = USER00,
+  POINTER_DEFAULT_DPI_FORWARD = USER00,
 #else
-  USER_RESET = SAFE_RANGE,
+  POINTER_DEFAULT_DPI_FORWARD = SAFE_RANGE,
 #endif  // VIA_ENABLE
-  POINTER_DEFAULT_DPI_FORWARD,
   POINTER_DEFAULT_DPI_REVERSE,
   POINTER_SNIPING_DPI_FORWARD,
   POINTER_SNIPING_DPI_REVERSE,
@@ -59,7 +58,6 @@ enum charybdis_keymap_keycodes {
   KEYMAP_SAFE_RANGE,
 };
 
-#define USR_RST USER_RESET
 #define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
 #define DPI_RMOD POINTER_DEFAULT_DPI_REVERSE
 #define S_D_MOD POINTER_SNIPING_DPI_FORWARD
@@ -129,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,    XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_RGUI, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, _______, DRGSCRL, SNIPING, EEP_RST, USR_RST,    USR_RST, EEP_RST, SNIPING, DRGSCRL, _______, XXXXXXX,
+       XXXXXXX, _______, DRGSCRL, SNIPING, EEP_RST,   RESET,      RESET, EEP_RST, SNIPING, DRGSCRL, _______, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   KC_BTN2, KC_BTN1, KC_BTN3,    KC_BTN3, KC_BTN1,
                                            XXXXXXX, KC_BTN2,    KC_BTN2
@@ -150,16 +148,6 @@ static bool _has_shift_mod(void) {
 #ifdef POINTING_DEVICE_ENABLE
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   switch (keycode) {
-    case USER_RESET:
-      if (record->event.pressed) {
-#ifdef RGB_MATRIX_ENABLE
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
-        rgb_matrix_sethsv_noeeprom(HSV_RED);
-#endif  // RGB_MATRIX_ENABLE
-      } else {
-        reset_keyboard();
-      }
-      break;
     case POINTER_DEFAULT_DPI_FORWARD:
       if (record->event.pressed) {
         // Step backward if shifted, forward otherwise.
@@ -245,3 +233,20 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 }
 #endif  // CHARYBDIS_AUTO_SNIPING_ON_LAYER
 #endif  // POINTING_DEVICE_ENABLE
+
+#ifdef RGB_MATRIX_ENABLE
+// Forward-declare this helper function since it is defined in rgb_matrix.c.
+void rgb_matrix_update_pwm_buffers(void);
+#endif
+
+void shutdown_user(void) {
+#ifdef RGBLIGHT_ENABLE
+  rgblight_enable_noeeprom();
+  rgblight_mode_noeeprom(1);
+  rgblight_setrgb_red();
+#endif  // RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+  rgb_matrix_set_color_all(RGB_RED);
+  rgb_matrix_update_pwm_buffers();
+#endif  // RGB_MATRIX_ENABLE
+}
