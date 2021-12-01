@@ -53,3 +53,5 @@ void matrix_scan_sub_kb(void);
 void keyboard_pre_init_sync(void);
 void keyboard_post_init_sync(void);
 void housekeeping_task_sync(void);
+
+void kb_config_sync_handler(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer);

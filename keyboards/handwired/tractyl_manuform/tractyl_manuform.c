@@ -17,7 +17,6 @@
 #include "tractyl_manuform.h"
 #include "transactions.h"
 #include <string.h>
-#include "drivers/sensors/pmw3360.h"
 
 #ifndef TRACKBALL_DPI_OPTIONS
 #    define TRACKBALL_DPI_OPTIONS \
@@ -34,8 +33,6 @@ keyboard_config_t keyboard_config;
 kb_config_data_t  kb_config_data;
 uint16_t          dpi_array[] = TRACKBALL_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
-void kb_config_sync_handler(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer);
-
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) {
@@ -71,7 +68,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
     return true;
 }
-__attribute__((weak)) void keyboard_pre_init_sync(void) {}
 __attribute__((weak)) void keyboard_pre_init_sub(void) {}
 void                       keyboard_pre_init_kb(void) {
     // debug_enable  = true;
@@ -88,15 +84,12 @@ void                       keyboard_pre_init_kb(void) {
     memset(&kb_config_data, 0, sizeof(kb_config_data));
 
     keyboard_pre_init_sub();
-    keyboard_pre_init_sync();
     keyboard_pre_init_user();
 }
 
-__attribute__((weak)) void keyboard_post_init_sync(void) {}
-void                       keyboard_post_init_kb(void) {
+void keyboard_post_init_kb(void) {
     transaction_register_rpc(RPC_ID_KB_CONFIG_SYNC, kb_config_sync_handler);
 
-    keyboard_post_init_sync();
     keyboard_post_init_user();
 }
 
@@ -143,8 +136,7 @@ void                       matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-__attribute__((weak)) void housekeeping_task_sync(void) {}
-void                       housekeeping_task_kb(void) {
+void housekeeping_task_kb(void) {
     if (is_keyboard_master()) {
         // Keep track of the last state, so that we can tell if we need to propagate to slave
         static kb_config_data_t last_kb_config;
@@ -168,8 +160,6 @@ void                       housekeeping_task_kb(void) {
             }
         }
     }
-
-    housekeeping_task_sync();
     // no need for user function, is called already
 }
 
@@ -178,7 +168,6 @@ void kb_config_sync_handler(uint8_t initiator2target_buffer_size, const void* in
         memcpy(&kb_config_data, initiator2target_buffer, sizeof(kb_config_data));
     }
 }
-
 
 #ifdef POINTING_DEVICE_ENABLE
 void matrix_power_up(void) { pointing_device_task(); }
