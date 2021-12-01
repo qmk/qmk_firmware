@@ -90,6 +90,33 @@ __attribute__((weak)) void pointing_device_send(void) {
     memcpy(&old_report, &mouseReport, sizeof(mouseReport));
 }
 
+report_mouse_t pointing_device_adjust_by_defines(report_mouse_t mouse_report) {
+        // Support rotation of the sensor data
+#if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
+        int8_t x = mouse_report.x, y = mouse_report.y;
+#    if defined(POINTING_DEVICE_ROTATION_90)
+        mouse_report.x = y;
+        mouse_report.y = -x;
+#    elif defined(POINTING_DEVICE_ROTATION_180)
+        mouse_report.x = -x;
+        mouse_report.y = -y;
+#    elif defined(POINTING_DEVICE_ROTATION_270)
+        mouse_report.x = -y;
+        mouse_report.y = x;
+#    else
+#        error "How the heck did you get here?!"
+#    endif
+#endif
+        // Support Inverting the X and Y Axises
+#if defined(POINTING_DEVICE_INVERT_X)
+        mouse_report.x = -mouse_report.x;
+#endif
+#if defined(POINTING_DEVICE_INVERT_Y)
+        mouse_report.y = -mouse_report.y;
+#endif
+    return mouse_report;
+}
+
 __attribute__((weak)) void pointing_device_task(void) {
 #if defined(SPLIT_POINTING_ENABLE)
     // Don't poll the target side pointing device.
@@ -124,8 +151,8 @@ __attribute__((weak)) void pointing_device_task(void) {
     mouseReport.buttons = oldButtons;
     mouseReport         = pointing_device_driver.get_report(mouseReport);
     oldButtons          = mouseReport.buttons;
-#    elif defined(POINTING_DEVICE_LEFT) || defined(POINTING_DEVICE_RIGHT)
-        mouseReport = POINTING_DEVICE_THIS_SIDE ? pointing_device_driver.get_report(mouseReport) : mouseReport = sharedReport;
+                                      #    elif defined(POINTING_DEVICE_LEFT) || defined(POINTING_DEVICE_RIGHT)
+        mouseReport    = POINTING_DEVICE_THIS_SIDE ? pointing_device_driver.get_report(mouseReport) : sharedReport;
 #    else
 #        error "You need to define the side(s) the pointing device is on. POINTING_DEVICE_COMBINED / POINTING_DEVICE_LEFT / POINTING_DEVICE_RIGHT"
 #    endif
@@ -133,34 +160,18 @@ __attribute__((weak)) void pointing_device_task(void) {
     mouseReport = pointing_device_driver.get_report(mouseReport);
 #endif  // defined(SPLIT_POINTING_ENABLE)
 
-    // Support rotation of the sensor data
-#if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
-    int8_t x = mouseReport.x, y = mouseReport.y;
-#    if defined(POINTING_DEVICE_ROTATION_90)
-    mouseReport.x = y;
-    mouseReport.y = -x;
-#    elif defined(POINTING_DEVICE_ROTATION_180)
-    mouseReport.x = -x;
-    mouseReport.y = -y;
-#    elif defined(POINTING_DEVICE_ROTATION_270)
-    mouseReport.x = -y;
-    mouseReport.y = x;
-#    else
-#        error "How the heck did you get here?!"
-#    endif
-#endif
-    // Support Inverting the X and Y Axises
-#if defined(POINTING_DEVICE_INVERT_X)
-    mouseReport.x = -mouseReport.x;
-#endif
-#if defined(POINTING_DEVICE_INVERT_Y)
-    mouseReport.y = -mouseReport.y;
-#endif
-
     // allow kb to intercept and modify report
 #if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
-    mouseReport = is_keyboard_left() ? pointing_device_task_combined_kb(mouseReport, sharedReport) : pointing_device_task_combined_kb(sharedReport, mouseReport);
+    if (is_keyboard_left()) {
+        mouseReport  = pointing_device_adjust_by_defines(mouseReport);
+        sharedReport = pointing_device_adjust_by_defines_right(sharedReport);
+    } else {
+        mouseReport  = pointing_device_adjust_by_defines_right(mouseReport);
+        sharedReport = pointing_device_adjust_by_defines(sharedReport);
+    }
+    mouseReport  = is_keyboard_left() ? pointing_device_task_combined_kb(mouseReport, sharedReport) : pointing_device_task_combined_kb(sharedReport, mouseReport);
 #else
+    mouseReport  = pointing_device_adjust_by_defines(mouseReport);
     mouseReport = pointing_device_task_kb(mouseReport);
 #endif
     // combine with mouse report to ensure that the combined is sent correctly
@@ -214,7 +225,33 @@ report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, repor
     return left_report;
 }
 
+report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_report) {
+        // Support rotation of the sensor data
+#if defined(POINTING_DEVICE_ROTATION_90_RIGHT) || defined(POINTING_DEVICE_ROTATION_RIGHT) || defined(POINTING_DEVICE_ROTATION_RIGHT)
+        int8_t x = mouse_report.x, y = mouse_report.y;
+#    if defined(POINTING_DEVICE_ROTATION_90_RIGHT)
+        mouse_report.x = y;
+        mouse_report.y = -x;
+#    elif defined(POINTING_DEVICE_ROTATION_180_RIGHT)
+        mouse_report.x = -x;
+        mouse_report.y = -y;
+#    elif defined(POINTING_DEVICE_ROTATION_270_RIGHT)
+        mouse_report.x = -y;
+        mouse_report.y = x;
+#    else
+#        error "How the heck did you get here?!"
+#    endif
+#endif
+        // Support Inverting the X and Y Axises
+#if defined(POINTING_DEVICE_INVERT_X_RIGHT)
+        mouse_report.x = -mouse_report.x;
+#endif
+#if defined(POINTING_DEVICE_INVERT_Y_RIGHT)
+        mouse_report.y = -mouse_report.y;
+#endif
+    return mouse_report;
+}
+
 __attribute__((weak)) report_mouse_t pointing_device_task_combined_kb(report_mouse_t left_report, report_mouse_t right_report) { return pointing_device_task_combined_user(left_report, right_report); }
 __attribute__((weak)) report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) { return pointing_device_combine_reports(left_report, right_report); }
-
 #endif
