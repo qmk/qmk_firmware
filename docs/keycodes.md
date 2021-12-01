@@ -326,6 +326,7 @@ See also: [Magic Keycodes](keycodes_magic.md)
 |----------------------------------|---------|--------------------------------------------------------------------------|
 |`MAGIC_SWAP_CONTROL_CAPSLOCK`     |`CL_SWAP`|Swap Caps Lock and Left Control                                           |
 |`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |`CL_NORM`|Unswap Caps Lock and Left Control                                         |
+|`MAGIC_TOGGLE_CONTROL_CAPSLOCK`   |`CL_TOGG`|Toggle Caps Lock and Left Control swap                                    |
 |`MAGIC_CAPSLOCK_TO_CONTROL`       |`CL_CTRL`|Treat Caps Lock as Control                                                |
 |`MAGIC_UNCAPSLOCK_TO_CONTROL`     |`CL_CAPS`|Stop treating Caps Lock as Control                                        |
 |`MAGIC_SWAP_LCTL_LGUI`            |`LCG_SWP`|Swap Left Control and GUI                                                 |
