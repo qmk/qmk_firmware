@@ -14,7 +14,6 @@ CONSOLE_ENABLE = no	# Console for debug
 COMMAND_ENABLE = no    # Commands for debug and configuration
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 SLEEP_LED_ENABLE = yes
-CUSTOM_MATRIX = no # Custom matrix file
 BACKLIGHT_ENABLE = no
 RGBLIGHT_ENABLE = no
 
