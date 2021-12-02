@@ -16,8 +16,11 @@
 
 #pragma once
 
-//Use just Linux mode input.
+//Use just Linux mode input. Or change
 #define UNICODE_SELECTED_MODES UC_LNX
+//#define UNICODE_SELECTED_MODES UC_WIN
+//#define UNICODE_SELECTED_MODES UC_MAC
+//#define UNICODE_SELECTED_MODES UC_LNX UC_WIN UC_MAC
 
 //Somehow is no longer some feature, so not needed.
 //#define RGBLIGHT_SLEEP

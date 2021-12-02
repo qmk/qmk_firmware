@@ -93,8 +93,9 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
   * The maths can get complicated as these are the "44 prime kinds" of all simple symmetry groups (plus the irregular honorary sporadic "Tits Group"). I included the zero null set symbol too.
   * Some shortcuts to input C language structure and what I call [Amperzand](amperzand.md).
   * `Ctrl`+letters for double struck alphas.
-  * `Ctrl`+`Shift`+alphanumerics for Jamo primitives, with "hard shifts" on number up and left. 7 initializes and 8 terminates entry for account of contextual compilation.
-  * **TODO:** `Ctrl`+numbers and perhaps `Win` ...
+  * `Ctrl`+`Shift`+alphanumerics for Korean jamo, with the normally "hard shifts" on number up and left.
+  * `Ctrl`+numbers and `Ctrl`+`Shift`+6, 7 or 8 produce 13 special dimensional double strikes.
+  * `Win` holds both `Ctrl` and `Shift` (for Korean jamo) and does automatic combining.
 
 ### **BQN** Layer (BLUE Layer Within BQN Specification)
 * **BQN** unshifted and shifted.
@@ -129,6 +130,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * Not quite as flexible as the `Mouse Shift Layer` as only single Unicode code points can be used.
 * But as it is locking, an alternate alphabet can be placed on the keys.
 * The bottom row of modifiers emit some strange keys which could be detected amongst the automatic Unicode modifiers. This also true for `Shift` on this layer.
+* Caps lock emits `ExSel`, a strange keycode usually not on keyboards.
 * Tab does a tab and not `Ctrl`+`Alt`+`Del`, as this mode is designed for hours of fun as long as the `Fn` adult button is not pushed. Just the kind of thing for a novel.
 
 ## Macro-board Layer (YELLOW Layer)

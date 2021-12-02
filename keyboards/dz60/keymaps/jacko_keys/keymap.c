@@ -154,8 +154,8 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//2932 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
-	//2021-11-30
+	//2928 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2021-12-02
 };
 
 //Some say the above should be converted to allow more in device shift states,
@@ -188,18 +188,17 @@ const char* const PROGMEM macro_unicode[] = {
 	// FILL IN AS REQUIRED
 	//============================================================================
 	// in (x, sx, cx, csx) modifier format with NUL terminal characters
-	// can add (wx, wsx, wcx, wcsx) extra on end with \0 inbetween each
-	// for more use of WIN modifier. ALT being used to hold layer.
-	"ℤₚ\0F₄(q)\0\0ᄈ",//		 KM_1
-	"Aₙ\0G₂(p)\0\0ᄍ",//    KM_2
-	"Aₙ(q)\0²Aₙ(q²)\0\0ᄄ",//    KM_3
-	"Bₙ(q)\0²Dₙ(q²)\0\0ᄁ",//    KM_4
-	"Cₙ(q)\0²E₆(q²)\0\0ᄊ",//    KM_5
-	"Dₙ(q)\0³D₄(q³)\0\0",//		 KM_6
-	"E₆(q)\0²B₂(2²ⁿ⁺¹)\0\0\\@",//    KM_7
-	"E₇(q)\0²F₄(2²ⁿ⁺¹)\0\0\\!",//    KM_8
-	"E₈(q)\0²G₂(3²ⁿ⁺¹)\0\0ᅤ",//    KM_9
-	"∅\0²F₄(2)′\0\0ᅨ",//    KM_0
+	// ALT being used to hold layer.
+	"ℤₚ\0F₄(q)\0𝕧\0ᄈ",//		 KM_1
+	"Aₙ\0G₂(p)\0𝕨\0ᄍ",//    KM_2
+	"Aₙ(q)\0²Aₙ(q²)\0𝕧′\0ᄄ",//    KM_3
+	"Bₙ(q)\0²Dₙ(q²)\0𝕨′\0ᄁ",//    KM_4
+	"Cₙ(q)\0²E₆(q²)\0𝕥\0ᄊ",//    KM_5
+	"Dₙ(q)\0³D₄(q³)\0𝕩\0𝕩′",//		 KM_6
+	"E₆(q)\0²B₂(2²ⁿ⁺¹)\0𝕪\0𝕪′",//    KM_7
+	"E₇(q)\0²F₄(2²ⁿ⁺¹)\0𝕫\0𝕫′",//    KM_8
+	"E₈(q)\0²G₂(3²ⁿ⁺¹)\0𝕦\0ᅤ",//    KM_9
+	"∅\0²F₄(2)′\0𝕦′\0ᅨ",//    KM_0
 	"&quot;\0Fi₂₂\0ℚ\0ᄇ",//		 KM_Q
 	"while()\\a\0J₄\0𝕎\0ᄌ",//    KM_W
 	"export \0J₂\0𝔼\0ᄃ",//    KM_E
@@ -249,33 +248,7 @@ const char* modify_step2(const char* ip) {
 	return modify_step(modify_step(ip));
 }
 
-uint8_t jamo[6] = {//indexes of last jamo
-	5, 5, 5, 5, 5, 5,//KM_6 is voided jamo
-};
 
-bool last_const = true;
-
-void record(uint8_t latest) {
-	//record for reductions
-	for(uint8_t i = 5; i > 0; i--) jamo[i] = jamo[i - 1];
-	jamo[0] = latest;
-}
-
-bool vowel_reduce(uint8_t latest, char ck92) {
-	bool eval = !(ck92 > 0x92);//consonant??
-	if(!eval) {
-		//vowel
-		if(last_const) {
-			//consonant(1) + di-vowel(2) + tri-consonants(3) [+ vowel] -> compile all but one consonant + vowel.
-			//and possibly backspace to then redisplay compiled sequence.
-		} /* else {
-			//compact vowel?? --> not yet ...
-		} */
-	}
-	last_const = eval;//last state
-	record(latest);
-	return false;//no reduction
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if(keycode < KM_1 || keycode > KM_M) return true;//protection better
@@ -285,10 +258,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		if(get_mods() & MOD_MASK_SHIFT) ip = modify_step(ip);
 		if(get_mods() & MOD_MASK_CTRL) {//jump 2
 			ip = modify_step2(ip);
-			if(vowel_reduce(keycode - KM_1, *(ip+2))) return true;//processed jamo reduction
 		}
 		if(get_mods() & MOD_MASK_GUI) {//jump 4 -- currently next macro key
-			ip = modify_step2(modify_step2(ip));
+			//jamo compose
+
 		}
 		while(*ip == '\\') {
 			//process backslash macro effect, otherwise literal until end of string
@@ -322,13 +295,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				// FILL IN AS REQUIRED
 				//======================================================================
 
-			case '@'://start jamo
-				for(uint8_t i = 5; i >= 0; i--) jamo[i] = 5;//blank default
-				last_const = true;
-				break;
-			case '!'://finish jamo
-				//TODO: pump chars to compile
-				break;
 			case '\\':
 				SEND_STRING("\\");//literal emit
 				continue;
@@ -394,7 +360,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_60_ansi(
 		Z(GR),   Z(N1),	  Z(N2),   Z(N3), 	Z(N4),	 Z(N5),	  Z(N6),   Z(N7),   Z(N8),   Z(N9),   Z(N0),   Z(MIN),  Z(EQ),          	TO(1),//escape
 		KC_TAB,           Z(Q),    Z(W),    Z(E),    Z(R),    Z(T),    Z(Y),    Z(U),    Z(I),    Z(O),    Z(P), 		Z(LBR),  Z(RBR),  KC_BSLS,
-		KC_CAPS,          Z(A),    Z(S),    Z(D),    Z(F),    Z(G),    Z(H),    Z(J),    Z(K),    Z(L),    Z(SEMI), Z(QUOT), KC_ENT,
+		F_BOOM,           Z(A),    Z(S),    Z(D),    Z(F),    Z(G),    Z(H),    Z(J),    Z(K),    Z(L),    Z(SEMI), Z(QUOT), KC_ENT,
 		KC_LSFT,		      Z(Z),    Z(XX),   Z(C),    Z(V),    Z(B),    Z(N),    Z(M),    Z(LESS), Z(GRET), Z(DIV),           KC_RSFT,
 		F_CTRL,  F_GUI,          	 F_ALT,                   	Z(SPC),                 		  	 		F_ALT,	 F_GUI,		         F_CTRL,	TO(7)),//shift sticky
 
@@ -460,7 +426,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           KM_Q,    KM_W,    KM_E,    KM_R,    KM_T,    KM_Y,    KM_U,    KM_I,    KM_O,    KM_P,	  KC_HOME, KC_END,	KC_SYSREQ,
 		KC_LALT,		      KM_A,    KM_S,    KM_D,    KM_F,    KM_G,    KM_H,    KM_J,    KM_K,    KM_L,    KC_BTN3, KC_BTN2, KC_ENT,
 		KC_LSFT,          KM_Z,    KM_X,    KM_C,    KM_V,    KM_B,    KM_N,    KM_M,	   KC_WH_U, KC_WH_D, KC_MS_U,          KC_RSFT,
-		KC_LCTL, KC_LGUI, KC_TRNS,	                  				KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS),
+		KC_LCTL, RCS(KC_RALT), KC_TRNS,                				KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS),
 
 	//============================================================================
 	// FILL IN AS REQUIRED (FOR EXTRA LAYAERS IF NEEDED)
