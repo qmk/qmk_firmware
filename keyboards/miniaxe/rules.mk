@@ -19,7 +19,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 DEBUG_ENABLE = no
-CUSTOM_MATRIX = no         # Use custom matrix code
 SPLIT_KEYBOARD = yes        # Use shared split_common code
 
 LAYOUTS = split_3x5_3
