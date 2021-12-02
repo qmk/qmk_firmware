@@ -26,16 +26,6 @@ static matrix_row_t scan_col(void) {
     // |B0|B3|B2|B1|B6|B4|B5|C7|
     // `--`--`--`--`--`--`--`--`
     return (
-#if BE_CONTROLLER_REVISION==20130602
-        (PINC&(1<<2) ? 0 : ((matrix_row_t)1<<0)) |
-        (PIND&(1<<0) ? 0 : ((matrix_row_t)1<<1)) |
-        (PIND&(1<<1) ? 0 : ((matrix_row_t)1<<2)) |
-        (PINC&(1<<7) ? 0 : ((matrix_row_t)1<<3)) |
-        (PIND&(1<<5) ? 0 : ((matrix_row_t)1<<4)) |
-        (PIND&(1<<4) ? 0 : ((matrix_row_t)1<<5)) |
-        (PIND&(1<<2) ? 0 : ((matrix_row_t)1<<6)) |
-        (PIND&(1<<6) ? 0 : ((matrix_row_t)1<<7))
-#else
         (PINC&(1<<7) ? 0 : ((matrix_row_t)1<<0)) |
         (PINB&(1<<5) ? 0 : ((matrix_row_t)1<<1)) |
         (PINB&(1<<4) ? 0 : ((matrix_row_t)1<<2)) |
@@ -44,32 +34,11 @@ static matrix_row_t scan_col(void) {
         (PINB&(1<<2) ? 0 : ((matrix_row_t)1<<5)) |
         (PINB&(1<<3) ? 0 : ((matrix_row_t)1<<6)) |
         (PINB&(1<<0) ? 0 : ((matrix_row_t)1<<7))
-#endif
     );
 }
 
 static void select_row(uint8_t row) {
     switch (row) {
-#if BE_CONTROLLER_REVISION==20130602
-        case  0: PORTB = (PORTB & ~0b01111110) | 0b00111010; break;
-        case  1: PORTB = (PORTB & ~0b01111110) | 0b01011000; break;
-        case  2: PORTB = (PORTB & ~0b01111110) | 0b01110000; break;
-        case  3: PORTB = (PORTB & ~0b01111110) | 0b01101110; break;
-        case  4: PORTB = (PORTB & ~0b01111110) | 0b01101100; break;
-        case  5: PORTB = (PORTB & ~0b01111110) | 0b01101010; break;
-        case  6: PORTB = (PORTB & ~0b01111110) | 0b01101000; break;
-        case  7: PORTB = (PORTB & ~0b01111110) | 0b01100100; break;
-        case  8: PORTB = (PORTB & ~0b01111110) | 0b01100000; break;
-        case  9: PORTB = (PORTB & ~0b01111110) | 0b01100010; break;
-        case 10: PORTB = (PORTB & ~0b01111110) | 0b00011010; break;
-        case 11: PORTB = (PORTB & ~0b01111110) | 0b00011000; break;
-        case 12: PORTB = (PORTB & ~0b01111110) | 0b00111100; break;
-        case 13: PORTB = (PORTB & ~0b01111110) | 0b01100110; break;
-        case 14: PORTB = (PORTB & ~0b01111110) | 0b00111000; break;
-        case 15: PORTB = (PORTB & ~0b01111110) | 0b01110010; break;
-        case 16: PORTB = (PORTB & ~0b01111110) | 0b00011110; break;
-        case 17: PORTB = (PORTB & ~0b01111110) | 0b00111110; break;
-#else
         case  0: PORTD = (PORTD & ~0b01111011) | 0b00011011; break;
         case  1: PORTD = (PORTD & ~0b01111011) | 0b01000011; break;
         case  2: PORTD = (PORTD & ~0b01111011) | 0b01101010; break;
@@ -88,20 +57,10 @@ static void select_row(uint8_t row) {
         case 15: PORTD = (PORTD & ~0b01111011) | 0b01101001; break;
         case 16: PORTD = (PORTD & ~0b01111011) | 0b00001011; break;
         case 17: PORTD = (PORTD & ~0b01111011) | 0b00111011; break;
-#endif
     }
 }
 
 void matrix_init_custom(void) {
-#if BE_CONTROLLER_REVISION==20130602
-    /* Column output pins */
-    DDRB  |=  0b01111110;
-    /* Row input pins */
-    DDRC  &= ~0b10000100;
-    DDRD  &= ~0b01110111;
-    PORTC |=  0b10000100;
-    PORTD |=  0b01110111;
-#else
     /* Row output pins */
     DDRD  |=  0b01111011;
     /* Column input pins */
@@ -109,7 +68,6 @@ void matrix_init_custom(void) {
     DDRB  &= ~0b01111111;
     PORTC |=  0b10000000;
     PORTB |=  0b01111111;
-#endif
 }
 
 // matrix is 18 uint8_t.

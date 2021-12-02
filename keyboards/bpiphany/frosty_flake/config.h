@@ -26,9 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    Bathroom Epiphanies
 #define PRODUCT         frosty_flake
 
-/* Uncomment this line to build for controller revision 20130602 */
-//#define BE_CONTROLLER_REVISION 20130602
-
 /*
  * Frosty Flake Rev. 20140521 made by Bathroom Ephiphanies
  * Ported from the Bathroom Epiphanies TMK Firmware:

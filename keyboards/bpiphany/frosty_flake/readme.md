@@ -13,12 +13,7 @@ and gone through some minor refactoring for QMK.
 
 ## Revision support
 There are two revisions of this controller. 20140521 is built by default.
-If you need to build for 20130602, uncomment the line that defines
-`BE_CONTROLLER_REVISION` in `config.h`
-```
-/* Uncomment this line to build for controller revision 20130602 */
-#define BE_CONTROLLER_REVISION 20130602
-```
+If you need to build for 20130602, it can be built with `make bpiphany/frosty_flake/20130602`
 
 ## 104 and 87 layout support
 
