@@ -310,6 +310,20 @@ uint8_t finals[19] = {
 	27,//18
 };
 
+//initial combiners are on Numbers
+//vowel combiners
+uint8_t vcombine[] = {//7
+	//c, 1, 2
+	10, 9, 1,
+	11, 9, 2,
+	12, 9, 21,
+	15, 14, 5,
+	16, 14, 6,
+	17, 14, 21,
+	20, 19, 21,
+};
+//tail combiners
+
 uint8_t make_final(uint8_t ini) {
 	return finals[ini];
 }
@@ -352,6 +366,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 							doing = final;
 							if(tail == 0) {
 								//break as must start again as not tail
+								first = (uint8_t)(c - 0x1100);//base line first
 								doing = initial;
 								middle = tail = 0;
 							} else {
