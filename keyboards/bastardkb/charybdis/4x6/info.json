@@ -3,7 +3,7 @@
     "url": "https://www.bastardkb.com",
     "maintainer": "Quentin Lebastard",
     "layouts": {
-        "LAYOUT_split_4x6_5": {
+        "LAYOUT_charybdis_4x6": {
             "layout": [
                 { "label": "L00", "x": 0, "y": 0 },
                 { "label": "L01", "x": 1, "y": 0 },
@@ -53,16 +53,14 @@
                 { "label": "R33", "x": 14, "y": 3 },
                 { "label": "R34", "x": 15, "y": 3 },
                 { "label": "R35", "x": 16, "y": 3 },
-                { "label": "L43", "x": 5, "y": 4 },
-                { "label": "L44", "x": 6, "y": 4 },
-                { "label": "L45", "x": 7, "y": 4 },
+                { "label": "L40", "x": 5, "y": 4 },
+                { "label": "L41", "x": 6, "y": 4 },
+                { "label": "L42", "x": 7, "y": 4 },
                 { "label": "R40", "x": 9, "y": 4 },
                 { "label": "R41", "x": 10, "y": 4 },
-                { "label": "R40", "x": 11, "y": 4 },
-                { "label": "L52", "x": 6, "y": 5 },
-                { "label": "L53", "x": 7, "y": 5 },
-                { "label": "R52", "x": 9, "y": 5 },
-                { "label": "R53", "x": 10, "y": 5 }
+                { "label": "L50", "x": 6, "y": 5 },
+                { "label": "L51", "x": 7, "y": 5 },
+                { "label": "R50", "x": 9, "y": 5 }
             ]
         }
     }
