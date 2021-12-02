@@ -1,7 +1,7 @@
 # Ignore every folders in keyboards exepct few that i use
 
-/keyboards/*
-/keyboards/**
+keyboards/
+/keyboards/
 !/keyboards/keebio/
 
 
