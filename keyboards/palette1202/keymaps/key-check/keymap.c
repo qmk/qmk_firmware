@@ -142,11 +142,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 // OLED Display
 #ifdef OLED_ENABLE
-bool oled_task_user(void) {
+void oled_task_user(void) {
   render_row(0, "TEST");
   render_row(1, "test");
   render_row(2, "TEST");
   render_row(3, "test");
-    return false;
 }
 #endif // #ifdef OLED_ENABLE

@@ -290,7 +290,7 @@ void render_status(void) {
 #    endif
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > OLED_TIMEOUT) {
         oled_off();
         return;
@@ -310,7 +310,6 @@ bool oled_task_user(void) {
             }
         #endif
     }
-    return false;
 }
 #endif
 

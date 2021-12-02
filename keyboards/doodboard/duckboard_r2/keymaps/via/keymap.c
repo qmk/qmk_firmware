@@ -96,7 +96,7 @@ static void render_anim(void) {
         }
     }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
         render_anim();
         oled_set_cursor(0,6);
         oled_write_P(PSTR("DUCK\nBOARD\n"), false);
@@ -119,7 +119,6 @@ bool oled_task_user(void) {
             oled_write_P(PSTR("FN2\n"), false);
             break;
     }
-    return false;
 }
 #endif
 

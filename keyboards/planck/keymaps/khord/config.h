@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
 #include "config_common.h"
 
@@ -11,7 +12,7 @@
                                 }
 #endif
 
-#ifndef KEYBOARD_planck_light
+#ifndef LIGHT_CONFIG_H
 #define BACKLIGHT_BREATHING
 #endif
 #define TAPPING_TERM 150
@@ -38,3 +39,5 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
+
+#endif

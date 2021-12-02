@@ -83,9 +83,8 @@ static void render_logo(void) {
     oled_write_raw_P(nibble_logo, sizeof(nibble_logo));
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     render_logo();
-    return false;
 }
 #endif
 

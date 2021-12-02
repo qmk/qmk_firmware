@@ -1,11 +1,14 @@
-#pragma once
+#ifndef KB_H
+#define KB_H
 
 #include "quantum.h"
 
 #define LAYOUT_ortho_2x2( \
-    k00, k01, \
-    k10, k11 \
+  K00, K01, \
+  K10, K11  \
 ) { \
-    { k00, k01 }, \
-    { k10, k11 } \
+  { K00, K01 }, \
+  { K10, K11 }  \
 }
+
+#endif

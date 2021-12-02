@@ -21,4 +21,8 @@
 #define MATRIX_COL_PINS { C7, D6, B7, B6, F0, D2, D3, F1, F4, F5, F6, F7 }
 #define UNUSED_PINS
 
+#define AdafruitBleResetPin D4
+#define AdafruitBleCSPin B4
+#define AdafruitBleIRQPin E6
+
 #define VIA_HAS_BROKEN_KEYCODES

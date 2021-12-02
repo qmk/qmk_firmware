@@ -1,4 +1,5 @@
-#pragma once
+#ifndef POWER_H
+#define POWER_H
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -30,3 +31,5 @@ battery_status_t battery_status(void);
 // ADC offset:16, resolution:5mV
 #define BATTERY_ADC_OFFSET              16
 #define BATTERY_ADC_RESOLUTION          5
+
+#endif

@@ -187,13 +187,12 @@ static void render_anim(void) {
     }
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
         render_anim();
         oled_set_cursor(0,4);
         sprintf(wpm_str, "WPM: %03d", get_current_wpm());
         oled_write(wpm_str, false);
 
-    return false;
 }
 
 #endif

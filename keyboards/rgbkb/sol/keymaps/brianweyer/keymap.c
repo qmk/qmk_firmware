@@ -260,13 +260,11 @@ static void render_status(void) {
   oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCLK ") : PSTR("     "), false);
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
   if (is_keyboard_master())
     render_status();
   else
     render_logo();
-
-    return false;
 }
 
 #endif

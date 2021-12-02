@@ -69,11 +69,8 @@ CSTANDARD = -std=gnu99
 #CXXDEFS += -D__STDC_CONSTANT_MACROS
 #CXXDEFS +=
 
-# Speed up recompilations by opt-in usage of ccache
-USE_CCACHE ?= no
-ifneq ($(USE_CCACHE),no)
-    CC_PREFIX ?= ccache
-endif
+
+
 
 #---------------- Compiler Options C ----------------
 #  -g*:          generate debugging information
@@ -81,15 +78,7 @@ endif
 #  -f...:        tuning, see GCC manual and avr-libc documentation
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
-ifeq ($(strip $(LTO_ENABLE)), yes)
-    ifeq ($(PLATFORM),CHIBIOS)
-        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
-        $(info If unsure, set LTO_ENABLE = no.)
-    endif
-    CDEFS += -flto
-    CDEFS += -DLTO_ENABLE
-endif
-
+#    -adhlns...: create assembler listing
 DEBUG_ENABLE ?= yes
 ifeq ($(strip $(SKIP_DEBUG_INFO)),yes)
   DEBUG_ENABLE=no
@@ -116,6 +105,10 @@ endif
 #CFLAGS += -Wundef
 #CFLAGS += -Wunreachable-code
 #CFLAGS += -Wsign-compare
+GCC_VERSION := $(shell gcc --version 2>/dev/null)
+ifeq ($(findstring clang, ${GCC_VERSION}),)
+CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+endif
 CFLAGS += $(CSTANDARD)
 
 # This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
@@ -128,6 +121,7 @@ CFLAGS += -fcommon
 #  -f...:        tuning, see GCC manual and avr-libc documentation
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
+#    -adhlns...: create assembler listing
 ifeq ($(strip $(DEBUG_ENABLE)),yes)
   CXXFLAGS += -g$(DEBUG)
 endif
@@ -146,10 +140,28 @@ endif
 #CXXFLAGS += -Wstrict-prototypes
 #CXXFLAGS += -Wunreachable-code
 #CXXFLAGS += -Wsign-compare
+ifeq ($(findstring clang, ${GCC_VERSION}),)
+CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+endif
 #CXXFLAGS += $(CSTANDARD)
 
 #---------------- Assembler Options ----------------
+#  -Wa,...:   tell GCC to pass this to the assembler.
+#  -adhlns:   create listing
+#  -gstabs:   have the assembler create line number information; note that
+#             for use in COFF files, additional information about filenames
+#             and function names needs to be present in the assembler source
+#             files -- see avr-libc docs [FIXME: not yet described there]
+#  -listing-cont-lines: Sets the maximum number of continuation lines of hex
+#       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS)
+ifeq ($(findstring clang, ${GCC_VERSION}),)
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
+  ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
+else
+  ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
+endif
+endif
 ifeq ($(VERBOSE_AS_CMD),yes)
 	ASFLAGS += -v
 endif
@@ -205,32 +217,6 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 #LDFLAGS += -T linker_script.x
 # You can give EXTRALDFLAGS at 'make' command line.
 LDFLAGS += $(EXTRALDFLAGS)
-
-#---------------- Assembler Listings ----------------
-#  -Wa,...:   tell GCC to pass this to the assembler.
-#  -adhlns:   create listing
-#  -gstabs:   have the assembler create line number information; note that
-#             for use in COFF files, additional information about filenames
-#             and function names needs to be present in the assembler source
-#             files -- see avr-libc docs [FIXME: not yet described there]
-#  -listing-cont-lines: Sets the maximum number of continuation lines of hex
-#       dump that will be displayed for a given single line of source input.
-
-ADHLNS_ENABLE ?= no
-ifeq ($(ADHLNS_ENABLE),yes)
-  # Avoid "Options to '-Xassembler' do not match" - only specify assembler options at LTO link time
-  ifeq ($(strip $(LTO_ENABLE)), yes)
-    LDFLAGS += -Wa,-adhlns=$(BUILD_DIR)/$(TARGET).lst
-  else
-    CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
-    CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
-    ifeq ($(strip $(DEBUG_ENABLE)),yes)
-      ASFLAGS = -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
-    else
-      ASFLAGS = -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
-    endif
-  endif
-endif
 
 # Define programs and commands.
 SHELL = sh
@@ -361,7 +347,7 @@ BEGIN = gccversion sizebefore
 # Note the obj.txt depeendency is there to force linking if a source file is deleted
 %.elf: $(OBJ) $(MASTER_OUTPUT)/cflags.txt $(MASTER_OUTPUT)/ldflags.txt $(MASTER_OUTPUT)/obj.txt | $(BEGIN)
 	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
-	$(eval CMD=MAKE=$(MAKE) $(CC) $(ALL_CFLAGS) $(filter-out %.txt,$^) --output $@ $(LDFLAGS))
+	$(eval CMD=$(CC) $(ALL_CFLAGS) $(filter-out %.txt,$^) --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
 
 
@@ -479,7 +465,7 @@ ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
 SIZE_MARGIN = 1024
 
 check-size:
-	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
 	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
 	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))

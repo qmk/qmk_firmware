@@ -125,7 +125,7 @@ char* make_rgb_text(void){
   return s;
 };
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
   render_logo();
   oled_set_cursor(0,3);
   if (rgbToggled) {
@@ -137,7 +137,6 @@ bool oled_task_user(void) {
     oled_write_ln_P(s, false);
     free(s);
   }
-    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

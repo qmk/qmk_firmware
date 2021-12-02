@@ -168,7 +168,7 @@ static void render_rgbled_status(void) {
         oled_write_ln_P(PSTR("\n"), false);
     }
 }
-bool oled_task_user(void) {
+void oled_task_user(void) {
     static bool finished_timer = false;
     if (!finished_timer && (timer_elapsed(startup_timer) < 1000)) {
         render_logo();
@@ -181,6 +181,5 @@ bool oled_task_user(void) {
         render_rgbled_status();
         render_logo_font();
     }
-    return false;
 }
 #endif

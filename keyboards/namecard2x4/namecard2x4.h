@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef NAMECARD2X4_H
+#define NAMECARD2X4_H
 
 #include "quantum.h"
 
@@ -24,8 +24,10 @@
 // The second converts the arguments into a two-dimensional array
 #define LAYOUT( \
     k00, k01, k02, k03, \
-    k10, k11, k12, k13 \
+    k10, k11, k12, k13   \
 ) { \
     { k00, k01, k02, k03 }, \
-    { k10, k11, k12, k13 } \
+    { k10, k11, k12, k13 }, \
 }
+
+#endif

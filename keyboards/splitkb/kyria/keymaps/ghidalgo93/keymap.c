@@ -214,13 +214,12 @@ static void render_status(void) {
     oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_kyria_logo();
     }
-    return false;
 }
 #endif
 

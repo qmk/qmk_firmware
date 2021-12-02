@@ -167,12 +167,11 @@ static void render_status(void) {
     oled_set_cursor(1,2);
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
 
     render_status();
     oled_write_ln_P(PSTR(""), false);
     render_ein60_logo();
-    return false;
 }
 #endif
 

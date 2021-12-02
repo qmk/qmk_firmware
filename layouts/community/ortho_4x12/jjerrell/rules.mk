@@ -1,6 +1,6 @@
 SRC += muse.c
 
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = lite
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 TAP_DANCE_ENABLE = no

@@ -17,7 +17,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "eeprom.h"
+#include "tmk_core/common/eeprom.h"
 #include "action_layer.h"
 #include "rgblight.h"
 #include "via.h"

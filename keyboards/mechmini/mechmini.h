@@ -14,12 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef MECHMINI_H
+#define MECHMINI_H
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_mechmini_v1)
-#    include "v1.h"
-#elif defined(KEYBOARD_mechmini_v2)
-#    include "v2.h"
+#ifdef KEYBOARD_mechmini_v1
+    #include "v1.h"
+#endif
+
+#ifdef KEYBOARD_mechmini_v2
+    #include "v2.h"
+#endif
+
 #endif

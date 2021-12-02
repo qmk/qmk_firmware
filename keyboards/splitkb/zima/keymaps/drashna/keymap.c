@@ -78,10 +78,10 @@ void render_user_status(void) {
 
 void keyboard_post_init_user(void) { oled_scroll_set_speed(0); }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_asleep) {
         oled_off();
-        return false;;
+        return;
     }
 
     if (timer_elapsed32(oled_timer) < 30000) {
@@ -131,7 +131,6 @@ bool oled_task_user(void) {
             oled_off();
         }
     }
-    return false;
 }
 
 void suspend_power_down_user(void) { is_asleep = true; }

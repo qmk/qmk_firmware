@@ -75,7 +75,7 @@ case _BASE:
 }
 
 #ifdef OLED_ENABLE
-bool oled_task_user(void) {
+void oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR(""), false);
 
@@ -107,7 +107,6 @@ bool oled_task_user(void) {
     oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 
-    return false;
 }
 
 #endif

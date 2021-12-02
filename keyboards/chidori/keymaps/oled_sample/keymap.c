@@ -210,9 +210,8 @@ void oled_write_layer_state(void) {
     }
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     // If you want to change the display of OLED, you need to change here
     oled_write_layer_state();
-    return false;
 }
 #endif

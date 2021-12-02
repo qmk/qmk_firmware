@@ -12,8 +12,8 @@ bool BREATHING(effect_params_t* params) {
         LED_MATRIX_TEST_LED_FLAGS();
         led_matrix_set_value(i, val);
     }
-    return led_matrix_check_finished_leds(led_max);
+    return led_max < DRIVER_LED_TOTAL;
 }
 
 #    endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // ENABLE_LED_MATRIX_BREATHING
+#endif      // DISABLE_LED_MATRIX_BREATHING

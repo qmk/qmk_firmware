@@ -184,6 +184,10 @@ FIXME: This needs to be written
 
 FIXME: This needs to be written
 
+#### Visualizer
+
+FIXME: This needs to be written
+
 #### Keyboard state LEDs (Caps Lock, Num Lock, Scroll Lock)
 
 FIXME: This needs to be written

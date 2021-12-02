@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include "config_common.h"
 
@@ -45,3 +46,5 @@
 #define RGB_DI_PIN D3
 
 #define RGBLED_NUM 10
+
+#endif

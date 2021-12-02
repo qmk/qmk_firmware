@@ -43,8 +43,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 // OLED
 #ifdef OLED_ENABLE
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
-bool oled_task_kb(void) {
-    if (!oled_task_user()) { return false; }
+__attribute__((weak)) void oled_task_user(void) {
 // WPM-responsive animation stuff here
 #    define IDLE_FRAMES 2
 #    define ANIM_FRAME_DURATION 400  // how long each frame lasts in ms
@@ -144,6 +143,5 @@ bool oled_task_kb(void) {
             oled_write_P(PSTR("FUNC\n"), false);
             break;
     }
-    return true;
 }
 #endif

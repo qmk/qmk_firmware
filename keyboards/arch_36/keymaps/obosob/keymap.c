@@ -807,13 +807,12 @@ static void render_logo(void) {
     }
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     }
     else {
         render_logo();
     }
-    return false;
 }
 #endif

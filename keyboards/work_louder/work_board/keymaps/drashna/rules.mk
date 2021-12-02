@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE            = lite
 EXTRAKEY_ENABLE             = yes
 TAP_DANCE_ENABLE            = no
 NKRO_ENABLE                 = yes

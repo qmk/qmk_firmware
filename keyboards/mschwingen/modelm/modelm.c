@@ -27,7 +27,7 @@
 #    undef sendchar
 static int8_t capture_sendchar(uint8_t c) {
     //  sendchar(c);
-    uart_write(c);
+    uart_putchar(c);
     return 0;
 }
 #endif

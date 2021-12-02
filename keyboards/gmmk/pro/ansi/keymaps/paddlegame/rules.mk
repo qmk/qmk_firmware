@@ -1,4 +1,4 @@
 MOUSEKEY_ENABLE = no
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = lite
 RGB_MATRIX_ENABLE = yes
 ENCODER_ENABLE = yes

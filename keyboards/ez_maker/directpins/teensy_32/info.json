@@ -5,7 +5,7 @@
     "debounce": 5,
     "processor": "MK20DX256",
     "features": {
-        "bootmagic": true,
+        "bootmagic_lite": true,
         "extrakey": true,
         "mousekey": true
     },

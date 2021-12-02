@@ -246,7 +246,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (timer_elapsed(oled_timer) > 10000) {
         oled_off();
         return;
@@ -262,5 +262,4 @@ bool oled_task_user(void) {
     } else {
         render_status_secondary();
     }
-    return false;
 }

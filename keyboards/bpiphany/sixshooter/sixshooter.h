@@ -1,13 +1,15 @@
-#pragma once
+#ifndef SIXSHOOTER_H
+#define SIXSHOOTER_H
 
 #include "quantum.h"
 
 #define LAYOUT( \
-    k00, k01, k02, \
-    k10, k11, k12 \
-) { \
-    { k00, k01, k02 }, \
-    { k10, k11, k12 } \
+    K00, K01, K02, \
+    K03, K04, K05 \
+) \
+{ \
+    { K00, K01, K02 }, \
+    { K03, K04, K05 } \
 }
 
 inline void sixshooter_led_0_on(void)    { DDRB |=  (1<<6); PORTB |=  (1<<6); }
@@ -40,3 +42,5 @@ inline void sixshooter_led_all_off(void) {
   sixshooter_led_4_off();
   sixshooter_led_5_off();
 }
+
+#endif

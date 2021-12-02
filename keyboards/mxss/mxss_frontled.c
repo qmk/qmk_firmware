@@ -17,7 +17,7 @@
  */
 
 #include "mxss_frontled.h"
-#include "eeprom.h"
+#include "tmk_core/common/eeprom.h"
 #include "rgblight.h"
 #include "via.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic

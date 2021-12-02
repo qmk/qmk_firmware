@@ -9,6 +9,6 @@
 
 Take the board into reset mode, then
 ```
-make xiudi/xd75:bbaserdem:dfu
+make xd75:bbaserdem:dfu
 ```
 Either sudo it or set permissions in udev.

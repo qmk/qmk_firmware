@@ -37,8 +37,10 @@ _FN,
 _Lyr2
 };
 
-oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    return OLED_ROTATION_90;
+__attribute__((weak))
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_90;  // flips the display 90 degrees if offhand
+
 }
 
 static void render_status(void) {
@@ -208,11 +210,8 @@ static void render_anim(void) {
         }
     }
 }
-
-bool oled_task_kb(void) {
-    if (!oled_task_user()) {
-        return false;
-    }
+__attribute__((weak))
+void oled_task_user(void) {
 
         render_anim();
         oled_set_cursor(0,6);
@@ -222,7 +221,6 @@ bool oled_task_kb(void) {
 
         render_status();
 
-    return false;
     }
 
 #endif

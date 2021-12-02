@@ -321,13 +321,12 @@ void render_status_secondary(void) {
     render_space();
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();
     }
-    return false;
 }
 
 #endif

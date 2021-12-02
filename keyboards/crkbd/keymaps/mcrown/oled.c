@@ -308,7 +308,7 @@ static void render_logo(void){
  *  @param void.
  *  @return void.
  */
-bool oled_task_user(void){
+void oled_task_user(void){
     if (timer_elapsed32(standby_oled_timer) > 15000){
         oled_off();
     }else{
@@ -321,7 +321,6 @@ bool oled_task_user(void){
             oled_scroll_left();
         }
     }
-    return false;
 }
 
 /** @brief process the current key and add it to the keylog string.

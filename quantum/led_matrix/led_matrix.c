@@ -33,6 +33,14 @@ const led_point_t k_led_matrix_center = {112, 32};
 const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #endif
 
+// clang-format off
+#ifndef LED_MATRIX_IMMEDIATE_EEPROM
+#    define led_eeconfig_update(v) led_update_eeprom |= v
+#else
+#    define led_eeconfig_update(v) if (v) eeconfig_update_led_matrix()
+#endif
+// clang-format on
+
 // Generic effect runners
 #include "led_matrix_runners.inc"
 
@@ -99,6 +107,7 @@ last_hit_t g_last_hit_tracker;
 
 // internals
 static bool            suspend_state     = false;
+static bool            led_update_eeprom = false;
 static uint8_t         led_last_enable   = UINT8_MAX;
 static uint8_t         led_last_effect   = UINT8_MAX;
 static effect_params_t led_effect_params = {0, LED_FLAG_ALL, false};
@@ -118,9 +127,9 @@ static last_hit_t last_hit_buffer;
 const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
 #endif
 
-EECONFIG_DEBOUNCE_HELPER(led_matrix, EECONFIG_LED_MATRIX, led_matrix_eeconfig);
+void eeconfig_read_led_matrix(void) { eeprom_read_block(&led_matrix_eeconfig, EECONFIG_LED_MATRIX, sizeof(led_matrix_eeconfig)); }
 
-void eeconfig_update_led_matrix(void) { eeconfig_flush_led_matrix(true); }
+void eeconfig_update_led_matrix(void) { eeprom_update_block(&led_matrix_eeconfig, EECONFIG_LED_MATRIX, sizeof(led_matrix_eeconfig)); }
 
 void eeconfig_update_led_matrix_default(void) {
     dprintf("eeconfig_update_led_matrix_default\n");
@@ -129,7 +138,7 @@ void eeconfig_update_led_matrix_default(void) {
     led_matrix_eeconfig.val    = LED_MATRIX_STARTUP_VAL;
     led_matrix_eeconfig.speed  = LED_MATRIX_STARTUP_SPD;
     led_matrix_eeconfig.flags  = LED_FLAG_ALL;
-    eeconfig_flush_led_matrix(true);
+    eeconfig_update_led_matrix();
 }
 
 void eeconfig_debug_led_matrix(void) {
@@ -156,10 +165,20 @@ uint8_t led_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *l
 void led_matrix_update_pwm_buffers(void) { led_matrix_driver.flush(); }
 
 void led_matrix_set_value(int index, uint8_t value) {
-#ifdef USE_CIE1931_CURVE
-    value = pgm_read_byte(&CIE1931_CURVE[value]);
+#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+    if (!is_keyboard_left() && index >= k_led_matrix_split[0])
+#    ifdef USE_CIE1931_CURVE
+        led_matrix_driver.set_value(index - k_led_matrix_split[0], pgm_read_byte(&CIE1931_CURVE[value]));
+#    else
+        led_matrix_driver.set_value(index - k_led_matrix_split[0], value);
+#    endif
+    else if (is_keyboard_left() && index < k_led_matrix_split[0])
 #endif
+#ifdef USE_CIE1931_CURVE
+        led_matrix_driver.set_value(index, pgm_read_byte(&CIE1931_CURVE[value]));
+#else
     led_matrix_driver.set_value(index, value);
+#endif
 }
 
 void led_matrix_set_value_all(uint8_t value) {
@@ -213,11 +232,11 @@ void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
     }
 #endif  // LED_MATRIX_KEYREACTIVE_ENABLED
 
-#if defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_LED_MATRIX_TYPING_HEATMAP)
+#if defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_LED_MATRIX_TYPING_HEATMAP)
     if (led_matrix_eeconfig.mode == LED_MATRIX_TYPING_HEATMAP) {
         process_led_matrix_typing_heatmap(row, col);
     }
-#endif  // defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_LED_MATRIX_TYPING_HEATMAP)
+#endif  // defined(LED_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_LED_MATRIX_TYPING_HEATMAP)
 }
 
 static bool led_matrix_none(effect_params_t *params) {
@@ -260,8 +279,9 @@ static void led_task_timers(void) {
 }
 
 static void led_task_sync(void) {
-    eeconfig_flush_led_matrix(false);
     // next task
+    if (led_update_eeprom) eeconfig_update_led_matrix();
+    led_update_eeprom = false;
     if (sync_timer_elapsed32(g_led_timer) >= LED_MATRIX_LED_FLUSH_LIMIT) led_task_state = STARTING;
 }
 
@@ -429,7 +449,7 @@ void led_matrix_init(void) {
         eeconfig_update_led_matrix_default();
     }
 
-    eeconfig_init_led_matrix();
+    eeconfig_read_led_matrix();
     if (!led_matrix_eeconfig.mode) {
         dprintf("led_matrix_init_drivers led_matrix_eeconfig.mode = 0. Write default values to EEPROM.\n");
         eeconfig_update_led_matrix_default();
@@ -452,7 +472,7 @@ bool led_matrix_get_suspend_state(void) { return suspend_state; }
 void led_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     led_matrix_eeconfig.enable ^= 1;
     led_task_state = STARTING;
-    eeconfig_flag_led_matrix(write_to_eeprom);
+    led_eeconfig_update(write_to_eeprom);
     dprintf("led matrix toggle [%s]: led_matrix_eeconfig.enable = %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.enable);
 }
 void led_matrix_toggle_noeeprom(void) { led_matrix_toggle_eeprom_helper(false); }
@@ -460,7 +480,7 @@ void led_matrix_toggle(void) { led_matrix_toggle_eeprom_helper(true); }
 
 void led_matrix_enable(void) {
     led_matrix_enable_noeeprom();
-    eeconfig_flag_led_matrix(true);
+    led_eeconfig_update(true);
 }
 
 void led_matrix_enable_noeeprom(void) {
@@ -470,7 +490,7 @@ void led_matrix_enable_noeeprom(void) {
 
 void led_matrix_disable(void) {
     led_matrix_disable_noeeprom();
-    eeconfig_flag_led_matrix(true);
+    led_eeconfig_update(true);
 }
 
 void led_matrix_disable_noeeprom(void) {
@@ -492,7 +512,7 @@ void led_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
         led_matrix_eeconfig.mode = mode;
     }
     led_task_state = STARTING;
-    eeconfig_flag_led_matrix(write_to_eeprom);
+    led_eeconfig_update(write_to_eeprom);
     dprintf("led matrix mode [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.mode);
 }
 void led_matrix_mode_noeeprom(uint8_t mode) { led_matrix_mode_eeprom_helper(mode, false); }
@@ -519,7 +539,7 @@ void led_matrix_set_val_eeprom_helper(uint8_t val, bool write_to_eeprom) {
         return;
     }
     led_matrix_eeconfig.val = (val > LED_MATRIX_MAXIMUM_BRIGHTNESS) ? LED_MATRIX_MAXIMUM_BRIGHTNESS : val;
-    eeconfig_flag_led_matrix(write_to_eeprom);
+    led_eeconfig_update(write_to_eeprom);
     dprintf("led matrix set val [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.val);
 }
 void led_matrix_set_val_noeeprom(uint8_t val) { led_matrix_set_val_eeprom_helper(val, false); }
@@ -537,7 +557,7 @@ void led_matrix_decrease_val(void) { led_matrix_decrease_val_helper(true); }
 
 void led_matrix_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
     led_matrix_eeconfig.speed = speed;
-    eeconfig_flag_led_matrix(write_to_eeprom);
+    led_eeconfig_update(write_to_eeprom);
     dprintf("led matrix set speed [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.speed);
 }
 void led_matrix_set_speed_noeeprom(uint8_t speed) { led_matrix_set_speed_eeprom_helper(speed, false); }

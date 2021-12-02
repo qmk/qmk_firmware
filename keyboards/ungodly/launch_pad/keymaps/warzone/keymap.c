@@ -249,7 +249,7 @@ static void render_light_logo(void) {
   oled_write_raw_P(light_logo, sizeof(light_logo));
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
   switch (get_highest_layer(layer_state)) {
     case 0:
       render_rocket_logo();
@@ -265,6 +265,5 @@ bool oled_task_user(void) {
       oled_write_ln_P(PSTR(" UND"), false);
       break;
     }
-    return false;
 }
 #endif

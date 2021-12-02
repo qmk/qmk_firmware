@@ -15,16 +15,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
 #include "config_common.h"
+
 
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
 
 /* Planck PCB default pin-out */
-#ifndef KEYBOARD_planck_light
+#ifndef LIGHT_CONFIG_H
 #define MATRIX_ROW_PINS { D0, D5, B5, B6 }
 #define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
 #define UNUSED_PINS
@@ -61,7 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Only print user print statements */
 #define USER_PRINT
 
-#ifndef KEYBOARD_planck_light
+#ifndef LIGHT_CONFIG_H
 #define BACKLIGHT_BREATHING
 #endif
 
@@ -71,3 +73,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+#endif

@@ -12,5 +12,5 @@ CONSOLE_ENABLE      = yes
 COMMAND_ENABLE      = no
 NKRO_ENABLE			= yes
 
-LTO_ENABLE = yes
+EXTRAFLAGS += -flto
 SRC += matrix.c i2c_master.c sten.c

@@ -1,7 +1,10 @@
-#pragma once
+#ifndef QC60_H
+#define QC60_H
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_handwired_qc60_proto)
-#    include "proto.h"
+#ifdef KEYBOARD_handwired_qc60_proto
+    #include "proto.h"
+#endif
+
 #endif

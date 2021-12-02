@@ -198,13 +198,12 @@ static void render_status(void) {
   render_mod_state(get_mods()|get_oneshot_mods());
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status();
     } else {
         render_logo();
         oled_scroll_left();
     }
-    return false;
 }
 #endif

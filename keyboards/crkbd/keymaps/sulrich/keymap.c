@@ -137,14 +137,13 @@ void oled_render_logo(void) {
     oled_write_P(crkbd_logo, false);
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
         oled_render_keylog();
     } else {
         oled_render_logo();
     }
-    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -154,3 +153,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 #endif // OLED_ENABLE
+

@@ -90,7 +90,7 @@ static void render_logo(void) {
   oled_write_P(qmk_logo, false);
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > 15000) {
         oled_off();
         return;
@@ -106,7 +106,6 @@ bool oled_task_user(void) {
         oled_write_P(PSTR("\n"), false);
         oled_scroll_left();
     }
-    return false;
 }
 
 #endif

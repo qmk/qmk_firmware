@@ -13,12 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef NAKEY_H
+#define NAKEY_H
 
 #include "quantum.h"
-
-#define XXX KC_NO
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
@@ -26,14 +24,16 @@
 // The second converts the arguments into a two-dimensional array
 #define LAYOUT_numpad_5x4( \
     k00, k01, k02, k03, \
-    k10, k11, k12, \
+    k10, k11, k12,      \
     k20, k21, k22, k13, \
-    k30, k31, k32, \
-    k40,      k41, k33 \
+    k30, k31, k32,      \
+    k40,      k41, k33  \
 ) { \
-    { k00, k01, k02, k03 }, \
-    { k10, k11, k12, k13 }, \
-    { k20, k21, k22, XXX }, \
-    { k30, k31, k32, k33 }, \
-    { k40, XXX, k41, XXX } \
+    { k00, k01,   k02, k03   }, \
+    { k10, k11,   k12, k13   }, \
+    { k20, k21,   k22, KC_NO }, \
+    { k30, k31,   k32, k33   }, \
+    { k40, KC_NO, k41, KC_NO }, \
 }
+
+#endif

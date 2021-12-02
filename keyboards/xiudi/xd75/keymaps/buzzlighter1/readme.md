@@ -50,5 +50,5 @@ $ cd qmk_firmware
 
 build
 ```
-$ make xiudi/xd75:buzzlighter1
+$ make xd75:buzzlighter1
 ```

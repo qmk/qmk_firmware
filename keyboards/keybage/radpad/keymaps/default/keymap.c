@@ -126,7 +126,7 @@ static void render_logo(void) {
     oled_write_raw_P(radpad_logo, sizeof(radpad_logo));
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (oled_logo_cleared) {
         render_status();
     } else {
@@ -138,6 +138,5 @@ bool oled_task_user(void) {
             render_logo();
         }
     }
-    return false;
 }
 #endif

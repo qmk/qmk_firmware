@@ -10,6 +10,5 @@ BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
-BLUETOOTH_ENABLE = yes
-BLUETOOTH_DRIVER = AdafruitBLE
+BLUETOOTH = AdafruitBLE
 CONSOLE_ENABLE = no

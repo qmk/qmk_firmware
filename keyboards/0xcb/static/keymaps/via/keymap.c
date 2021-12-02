@@ -175,7 +175,7 @@ static void render_layer(void) {
     oled_write_P(logo[3][2], false);
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     static bool finished_timer = false;
     if (!finished_timer && (timer_elapsed(startup_timer) < 3000)) {
         render_logo();
@@ -186,7 +186,6 @@ bool oled_task_user(void) {
         }
         render_layer();
     }
-    return false;
 }
 #endif
 

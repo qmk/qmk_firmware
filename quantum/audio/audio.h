@@ -26,12 +26,17 @@
 
 #if defined(__AVR__)
 #    include <avr/io.h>
+#    if defined(AUDIO_DRIVER_PWM)
+#        include "driver_avr_pwm.h"
+#    endif
 #endif
 
-#if defined(AUDIO_DRIVER_PWM)
-#    include "audio_pwm.h"
-#elif defined(AUDIO_DRIVER_DAC)
-#    include "audio_dac.h"
+#if defined(PROTOCOL_CHIBIOS)
+#    if defined(AUDIO_DRIVER_PWM)
+#        include "driver_chibios_pwm.h"
+#    elif defined(AUDIO_DRIVER_DAC)
+#        include "driver_chibios_dac.h"
+#    endif
 #endif
 
 typedef union {

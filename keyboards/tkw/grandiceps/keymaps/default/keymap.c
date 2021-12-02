@@ -416,13 +416,12 @@ static void print_status_narrow(void) {
       oled_write_P(PSTR("\n\n"), false);
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_keyboard_master()) {
        print_status_narrow();
     } else {
         render_logo();
     }
-    return false;
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {

@@ -21,14 +21,11 @@
 #define ANIM_FRAME_DURATION 200
 #define ANIM_SIZE 512
 #ifdef OLED_ENABLE
-oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
 
-bool oled_task_kb(void) {
-    if (!oled_task_user()) {
-        return false;
-    }
+__attribute__((weak)) void oled_task_user(void) {
 static uint32_t anim_timer = 0;
 static uint32_t anim_sleep = 0;
 static uint8_t current_idle_frame = 0;
@@ -131,7 +128,7 @@ static uint8_t current_tap_frame = 0;
             }
         }
     }
-    return false;
+
 }
 
 #endif

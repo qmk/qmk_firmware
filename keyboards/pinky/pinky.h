@@ -13,13 +13,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
+#ifndef PINKY_H
+#define PINKY_H
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_pinky_3)
-#    include "3.h"
-#elif defined(KEYBOARD_pinky_4)
-#    include "4.h"
+#ifdef KEYBOARD_pinky_3
+  #include "3.h"
+#endif
+
+#ifdef KEYBOARD_pinky_4
+  #include "4.h"
+#endif
+
 #endif

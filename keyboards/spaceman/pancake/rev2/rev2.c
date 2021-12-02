@@ -17,14 +17,10 @@
 
 
 #ifdef OLED_ENABLE
-oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
-
-bool oled_task_kb(void) {
-    if (!oled_task_user()) {
-        return false;
-    }
+__attribute__((weak)) void oled_task_user(void) {
     static const char PROGMEM pancake_logo[] = {
         0x00, 0x00, 0x3e, 0x0a, 0x04, 0x00, 0x3c, 0x0a, 0x3c, 0x00, 0x3e, 0x0c, 0x18, 0x3e, 0x00, 0x3e,
         0x22, 0x22, 0x00, 0x3c, 0x0a, 0x3c, 0x00, 0x3e, 0x08, 0x36, 0x00, 0x3e, 0x2a, 0x22, 0x00, 0x00,
@@ -54,6 +50,5 @@ bool oled_task_kb(void) {
             oled_write_ln_P(PSTR("Undefined"), false);
             break;
     }
-    return false;
 }
 #endif

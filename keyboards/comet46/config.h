@@ -15,7 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include "config_common.h"
 
@@ -71,3 +72,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     UCSR1B = _BV(TXEN1) | _BV(RXEN1); \
     /* 8-bit data */                  \
     UCSR1C = _BV(UCSZ11) | _BV(UCSZ10);
+
+#endif

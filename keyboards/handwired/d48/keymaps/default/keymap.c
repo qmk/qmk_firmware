@@ -196,7 +196,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_0;
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     /* Host Keyboard Layer Status */
     uint8_t current_layer = get_highest_layer(layer_state);
 
@@ -282,6 +282,5 @@ bool oled_task_user(void) {
         }
     }
 
-    return false;
 }
 #endif

@@ -121,7 +121,7 @@ void render_bootmagic_status(void) {
     oled_write_ln(wpm, false);
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_master) {
         oled_render_layer_state();
         oled_render_keylog();
@@ -136,7 +136,6 @@ bool oled_task_user(void) {
         render_stars();
 #    endif
     }
-    return false;
 }
 
 #endif  // OLED_ENABLE

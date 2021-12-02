@@ -28,6 +28,7 @@
         "pid": "0x23A0"
     },
     "layout_aliases": {
+        "KEYMAP": "LAYOUT_all",
         "LAYOUT": "LAYOUT_all"
     },
     "layouts": {

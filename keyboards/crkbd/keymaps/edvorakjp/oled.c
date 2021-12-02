@@ -43,7 +43,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return is_keyboard_left() ? rotation : rotation ^ OLED_ROTATION_180;
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_keyboard_left()) {
         render_mode_icon(!get_enable_kc_lang());
         render_layer_state();
@@ -51,6 +51,5 @@ bool oled_task_user(void) {
     } else {
         render_logo();
     }
-    return false;
 }
 #endif  // OLED_ENABLE

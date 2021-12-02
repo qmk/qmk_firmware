@@ -695,7 +695,7 @@ static void render_logo(void) {
 	oled_set_cursor(6,6);
 	oled_write_P(PSTR(" play asc "), false);
 }
-bool oled_task_user(void) {
+void oled_task_user(void) {
 	if (is_keyboard_master()) {
 		render_anim();
 		oled_set_cursor(0,7);
@@ -728,6 +728,5 @@ bool oled_task_user(void) {
 		oled_scroll_left();
 
 	}
-    return false;
 }
 #endif

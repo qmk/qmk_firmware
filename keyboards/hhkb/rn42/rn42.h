@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RN42_H
+#define RN42_H
 
 #include <stdbool.h>
 #include "host_driver.h"
@@ -25,3 +26,5 @@ void rn42_send_str(const char *str);
 void rn42_print_response(void);
 #define SEND_STR(str)       rn42_send_str(PSTR(str))
 #define SEND_COMMAND(cmd)   rn42_send_command(PSTR(cmd))
+
+#endif

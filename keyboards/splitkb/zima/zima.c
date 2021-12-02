@@ -35,17 +35,12 @@ void suspend_wakeup_init_kb(void) {
     suspend_wakeup_init_user();
 }
 
-oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-}
+__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
-bool oled_task_kb(void) {
-    if (!oled_task_user()) {
-        return false;
-    }
+__attribute__((weak)) void oled_task_user(void) {
     if (is_asleep) {
         oled_off();
-        return false;
+        return;
     }
 
     if (timer_elapsed32(oled_timer) < 30000) {
@@ -88,7 +83,6 @@ bool oled_task_kb(void) {
             oled_off();
         }
     }
-    return false;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {

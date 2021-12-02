@@ -25,89 +25,89 @@ extern keymap_config_t keymap_config;
  */
 uint16_t keycode_config(uint16_t keycode) {
     switch (keycode) {
-        case KC_CAPS_LOCK:
-        case KC_LOCKING_CAPS_LOCK:
+        case KC_CAPSLOCK:
+        case KC_LOCKING_CAPS:
             if (keymap_config.swap_control_capslock || keymap_config.capslock_to_control) {
-                return KC_LEFT_CTRL;
+                return KC_LCTL;
             }
             return keycode;
-        case KC_LEFT_CTRL:
+        case KC_LCTL:
             if (keymap_config.swap_control_capslock) {
-                return KC_CAPS_LOCK;
+                return KC_CAPSLOCK;
             }
             if (keymap_config.swap_lctl_lgui) {
                 if (keymap_config.no_gui) {
                     return KC_NO;
                 }
-                return KC_LEFT_GUI;
+                return KC_LGUI;
             }
-            return KC_LEFT_CTRL;
-        case KC_LEFT_ALT:
+            return KC_LCTL;
+        case KC_LALT:
             if (keymap_config.swap_lalt_lgui) {
                 if (keymap_config.no_gui) {
                     return KC_NO;
                 }
-                return KC_LEFT_GUI;
+                return KC_LGUI;
             }
-            return KC_LEFT_ALT;
-        case KC_LEFT_GUI:
+            return KC_LALT;
+        case KC_LGUI:
             if (keymap_config.swap_lalt_lgui) {
-                return KC_LEFT_ALT;
+                return KC_LALT;
             }
             if (keymap_config.swap_lctl_lgui) {
-                return KC_LEFT_CTRL;
+                return KC_LCTRL;
             }
             if (keymap_config.no_gui) {
                 return KC_NO;
             }
-            return KC_LEFT_GUI;
-        case KC_RIGHT_CTRL:
+            return KC_LGUI;
+        case KC_RCTL:
             if (keymap_config.swap_rctl_rgui) {
                 if (keymap_config.no_gui) {
                     return KC_NO;
                 }
-                return KC_RIGHT_GUI;
+                return KC_RGUI;
             }
-            return KC_RIGHT_CTRL;
-        case KC_RIGHT_ALT:
+            return KC_RCTL;
+        case KC_RALT:
             if (keymap_config.swap_ralt_rgui) {
                 if (keymap_config.no_gui) {
                     return KC_NO;
                 }
-                return KC_RIGHT_GUI;
+                return KC_RGUI;
             }
-            return KC_RIGHT_ALT;
-        case KC_RIGHT_GUI:
+            return KC_RALT;
+        case KC_RGUI:
             if (keymap_config.swap_ralt_rgui) {
-                return KC_RIGHT_ALT;
+                return KC_RALT;
             }
             if (keymap_config.swap_rctl_rgui) {
-                return KC_RIGHT_CTRL;
+                return KC_RCTL;
             }
             if (keymap_config.no_gui) {
                 return KC_NO;
             }
-            return KC_RIGHT_GUI;
+            return KC_RGUI;
         case KC_GRAVE:
             if (keymap_config.swap_grave_esc) {
-                return KC_ESCAPE;
+                return KC_ESC;
             }
             return KC_GRAVE;
-        case KC_ESCAPE:
+        case KC_ESC:
             if (keymap_config.swap_grave_esc) {
                 return KC_GRAVE;
             }
-            return KC_ESCAPE;
-        case KC_BACKSLASH:
+            return KC_ESC;
+        case KC_BSLASH:
             if (keymap_config.swap_backslash_backspace) {
-                return KC_BACKSPACE;
+                return KC_BSPACE;
             }
-            return KC_BACKSLASH;
-        case KC_BACKSPACE:
+            return KC_BSLASH;
+        case KC_BSPACE:
             if (keymap_config.swap_backslash_backspace) {
-                return KC_BACKSLASH;
+                return KC_BSLASH;
             }
-            return KC_BACKSPACE;
+            return KC_BSPACE;
         default:
             return keycode;
     }

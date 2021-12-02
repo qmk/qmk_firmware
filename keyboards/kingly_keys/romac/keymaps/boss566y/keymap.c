@@ -76,7 +76,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
   // Host Keyboard Layer Status
     sprintf(oled_layer,"Layer\nL: %d\n",get_highest_layer(layer_state));
     oled_write(oled_layer,false);
@@ -86,6 +86,5 @@ bool oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NLCK ") : PSTR("     "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("       "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCRLK") : PSTR("       "), false);
-    return false;
 }
 #endif

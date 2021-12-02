@@ -3,4 +3,4 @@
 #
 BACKLIGHT_DRIVER = custom
 
-LTO_ENABLE = yes
+EXTRAFLAGS += -flto

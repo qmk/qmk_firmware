@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include "config_common.h"
 
@@ -43,3 +44,5 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#endif

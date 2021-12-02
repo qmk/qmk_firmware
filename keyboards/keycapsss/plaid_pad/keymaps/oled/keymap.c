@@ -117,10 +117,9 @@ void oled_render_layer_state(void) {
 }
 
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
   oled_write_ln_P(PSTR("Plaid-Pad ///////////"), false);
   oled_render_layer_state();
-    return false;
 }
 
 #endif

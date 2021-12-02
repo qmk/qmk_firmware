@@ -375,7 +375,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
     if (is_keyboard_master()) {
         print_status_narrow();
         sprintf(wpm_str, "%03d", get_current_wpm());
@@ -383,7 +383,6 @@ bool oled_task_user(void) {
     } else {
         render_anim();
     }
-    return false;
 }
 #endif
 

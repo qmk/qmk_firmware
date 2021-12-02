@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SOFT_SERIAL_H
+#define SOFT_SERIAL_H
 
 #include <stdbool.h>
 
@@ -84,3 +85,5 @@ int  soft_serial_transaction(int sstd_index);
 #ifdef SERIAL_USE_MULTI_TRANSACTION
 int  soft_serial_get_and_clean_status(int sstd_index);
 #endif
+
+#endif /* SOFT_SERIAL_H */

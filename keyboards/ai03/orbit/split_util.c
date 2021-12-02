@@ -8,7 +8,7 @@
 #include "quantum.h"
 
 #ifdef EE_HANDS
-#   include "eeprom.h"
+#   include "tmk_core/common/eeprom.h"
 #   include "eeconfig.h"
 #endif
 

@@ -176,7 +176,7 @@ static void render_status(void)
 
 #endif // OLED_90ROTATION
 
-bool oled_task_user(void)
+void oled_task_user(void)
 {
     if (is_keyboard_master())
         render_status();
@@ -185,5 +185,4 @@ bool oled_task_user(void)
         render_logo();
         oled_scroll_left();
     }
-    return false;
 }

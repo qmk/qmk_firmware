@@ -14,13 +14,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#pragma once
+#ifndef BIGSWITCH_H
+#define BIGSWITCH_H
 
 #include "quantum.h"
 
 #define LAYOUT( \
-    k00, k01 \
+  K00, K01  \
 ) { \
-    { k00, k01 } \
+  { K00, K01 }  \
 }
+
+#endif

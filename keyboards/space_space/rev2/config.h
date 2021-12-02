@@ -41,11 +41,12 @@
 
 /* ROTARY ENCODERS */
 #define ENCODERS_PAD_A \
-    { B4, C7 }
-#define ENCODERS_PAD_B \
     { D7, F7 }
+#define ENCODERS_PAD_B \
+    { B4, C7 }
 
 #define ENCODER_RESOLUTION 3
+#define ENCODER_DIRECTION_FLIP
 
 #define DEBOUNCE 5
 

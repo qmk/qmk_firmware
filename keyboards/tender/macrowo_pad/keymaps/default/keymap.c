@@ -50,8 +50,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
-bool oled_task_user(void) {
+void oled_task_user(void) {
   oled_write_P(PSTR("OWO\nWhat's\nthis?"), false);
-    return false;
 }
 #endif
