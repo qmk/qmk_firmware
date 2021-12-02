@@ -20,7 +20,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xEDED
-#define PRODUCT_ID      0x6570
+#define PRODUCT_ID      0x6575
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MelGeek
 #define PRODUCT         Z70Ultra
