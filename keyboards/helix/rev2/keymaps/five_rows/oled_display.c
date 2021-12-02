@@ -259,7 +259,7 @@ void iota_gfx_task_user(void) {
     matrix_update(&display, &matrix);
 }
 #    else
-void oled_task_user(void) {
+bool oled_task_user(void) {
 
 #        if DEBUG_TO_SCREEN
     if (debug_enable) {
@@ -272,6 +272,7 @@ void oled_task_user(void) {
     }else{
         render_logo();
     }
+    return false;
 }
 #    endif
 
