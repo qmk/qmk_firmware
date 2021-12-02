@@ -37,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // RGB matrix options
 #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
 #   define RGB_MATRIX_LED_FLUSH_LIMIT 16
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 // Enable effects
 #   define ENABLE_RGB_MATRIX_SOLID_COLOR
 #   define ENABLE_RGB_MATRIX_BREATHING
