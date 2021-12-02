@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE           = yes      # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE            = yes      # Mouse keys
 EXTRAKEY_ENABLE            = yes      # Audio control and System control
 CONSOLE_ENABLE             = yes      # Console for debug
@@ -17,3 +17,4 @@ KEY_LOCK_ENABLE            = no
 WPM_ENABLE                 = yes
 SWAP_HANDS_ENABLE          = yes
 LTO_ENABLE                 = no
+CTPC                       = yes

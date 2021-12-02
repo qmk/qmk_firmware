@@ -25,9 +25,8 @@ def yapf_run(files):
 def filter_files(files):
     """Yield only files to be formatted and skip the rest
     """
-
     for file in files:
-        if file and file.name.split('.')[-1] in py_file_suffixes:
+        if file and normpath(file).name.split('.')[-1] in py_file_suffixes:
             yield file
         else:
             cli.log.debug('Skipping file %s', file)
@@ -53,12 +52,14 @@ def format_python(cli):
             cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(map(str, files)))
 
     elif cli.args.all_files:
-        files = py_dirs
+        git_ls_cmd = ['git', 'ls-files', *py_dirs]
+        git_ls = cli.run(git_ls_cmd, stdin=DEVNULL)
+        files = list(filter_files(git_ls.stdout.split('\n')))
 
     else:
         git_diff_cmd = ['git', 'diff', '--name-only', cli.args.base_branch, *py_dirs]
         git_diff = cli.run(git_diff_cmd, stdin=DEVNULL)
-        files = list(filter(None, git_diff.stdout.split('\n')))
+        files = list(filter_files(git_diff.stdout.split('\n')))
 
     # Sanity check
     if not files:
