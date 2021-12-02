@@ -1,4 +1,4 @@
-# BM60HSRGB_POKER 60% Mechanical Keyboard RGB PCB
+# BM60HSRGB_Poker 60% Mechanical Keyboard RGB PCB
 
 A 60% hotswap inswitch RGB (north facing) keyboard from KP Republic. 
 
