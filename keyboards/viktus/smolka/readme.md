@@ -1,6 +1,6 @@
 # smolka
 
-![smolka](imgur.com image replace me!)
+![smolka](https://i.imgur.com/5A84GVJ.png)
 
 Smolka is a "40%" keyboard with a single left-hand macro column, and arrow keys, designed by BlindAssassin111 of Viktus Design.
 
