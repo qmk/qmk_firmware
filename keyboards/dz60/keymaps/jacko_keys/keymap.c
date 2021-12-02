@@ -154,7 +154,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//2928 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2574 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-12-02
 };
 
@@ -248,7 +248,71 @@ const char* modify_step2(const char* ip) {
 	return modify_step(modify_step(ip));
 }
 
+uint8_t first;
+uint8_t middle;
+uint8_t tail;
 
+enum jmode {
+	off, initial, vowel, final,
+};
+
+uint8_t doing = off;
+
+uint16_t cp(const char* ip) {
+	//return code points
+	uint16_t p = (*(ip++)) & 0xf;//4 bits
+	p <<= 6;
+	p |= (*(ip++)) & 0x3f;//6 bits
+	p <<= 6;
+	p |= (*ip) & 0x3f;//6 bits
+	return p;
+}
+
+char outs[] = "   ";//for writing
+
+char* utf8(uint16_t cp) {
+	outs[2] = 0x80 + (cp & 0x3f);
+	cp >>= 6;
+	outs[1] = 0x80 + (cp & 0x3f);
+	cp >>= 6;
+	outs[0] = 0xc0 + (cp & 0x0f);//and final 4 bits
+	return outs;
+}
+
+char* made_utf(void) {
+	tap_code16(KC_BSPC);//remove previous construction!!
+	return utf8(tail + middle * 28 + first * 588 + 44032);//jamo out
+}
+
+bool check_vowel(uint16_t c) {
+	return c > 0x1160;
+}
+
+uint8_t finals[19] = {
+	1,//0
+	2,//1
+	4,//2
+	7,//3
+	0,//4
+	8,//5
+	16,//6
+	17,//7
+	0,//8
+	18,//9
+	19,//10
+	20,//11
+	21,//12
+	22,//13
+	23,//14
+	24,//15
+	25,//16
+	26,//17
+	27,//18
+};
+
+uint8_t make_final(uint8_t ini) {
+	return finals[ini];
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if(keycode < KM_1 || keycode > KM_M) return true;//protection better
@@ -261,7 +325,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		}
 		if(get_mods() & MOD_MASK_GUI) {//jump 4 -- currently next macro key
 			//jamo compose
-
+			uint16_t c = cp(ip);
+			if(c > 0x10ff && c < 0x1200) {
+				//is jamo
+				if(check_vowel(c)) {
+					switch(doing) {
+						case initial:
+							middle = (uint8_t)(c - 0x1161);//base line middle
+							ip = made_utf();//new code
+							doing = vowel;
+							break;
+						case vowel:
+							break;
+						case final:
+							break;
+						case off:
+						default:
+							break;
+					}
+				} else {
+					switch(doing) {
+						case initial:
+							break;
+						case vowel:
+							tail = make_final((uint8_t)(c - 0x1100));//base line tail
+							doing = final;
+							if(tail == 0) {
+								//break as must start again as not tail
+								doing = initial;
+								middle = tail = 0;
+							} else {
+								ip = made_utf();
+							}
+							break;
+						case final:
+							break;
+						case off:
+						default:
+							first = (uint8_t)(c - 0x1100);//base line first
+							//default send
+							doing = initial;
+							middle = tail = 0;
+							break;
+					}
+				}
+			} else {
+				doing = off;
+			}
 		}
 		while(*ip == '\\') {
 			//process backslash macro effect, otherwise literal until end of string
