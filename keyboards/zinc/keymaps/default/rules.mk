@@ -119,10 +119,6 @@ ifeq ($(strip $(RGB_MATRIX_SPLIT_RIGHT)), yes)
     OPT_DEFS += -DRGB_MATRIX_SPLIT_RIGHT
 endif
 
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-
 # Uncomment these for debugging
 # $(info -- RGBLIGHT_ENABLE=$(RGBLIGHT_ENABLE))
 # $(info -- OPT_DEFS=$(OPT_DEFS))
