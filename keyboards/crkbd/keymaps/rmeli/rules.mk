@@ -3,6 +3,9 @@ OLED_DRIVER = SSD1306
 
 VIA_ENABLE = yes
 
+RGBLIGHT_ENABLE = no
+RGB_MATRIX_ENABLE = yes
+
 # https://github.com/qmk/qmk_firmware/blob/develop/docs/squeezing_avr.md
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no

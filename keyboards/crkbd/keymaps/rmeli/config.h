@@ -33,6 +33,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_VAL_STEP 17
 #endif
 
+#ifdef RGB_MATRIX_ENABLE
+// RGB matrix options
+#   define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
+#   define RGB_MATRIX_LED_FLUSH_LIMIT 16
+#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
+// Enable effects
+#   define ENABLE_RGB_MATRIX_SOLID_COLOR
+#   define ENABLE_RGB_MATRIX_BREATHING
+#   define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+#   define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+// Default effect
+#   define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
+#   define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
 // https://github.com/qmk/qmk_firmware/blob/develop/docs/squeezing_avr.md
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
