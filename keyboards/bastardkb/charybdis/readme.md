@@ -31,10 +31,10 @@ Manuform](../../handwired/dactyl_manuform) layout.
 qmk compile -kb bastardkb/charybdis/4x6 -km default
 ```
 
-Check out the `stock` layout if you're looking for Via/Vial support:
+Check out the `via` layout if you're looking for Via/Vial support:
 
 ```shell
-qmk compile -kb bastardkb/charybdis/4x6 -km stock
+qmk compile -kb bastardkb/charybdis/4x6 -km via
 ```
 
 ### Charybdis (3x5)
@@ -46,10 +46,10 @@ Manuform](../../handwired/dactyl_manuform) layout.
 qmk compile -kb bastardkb/charybdis/3x5 -km default
 ```
 
-Check out the `stock` layout if you're looking for Via/Vial support:
+Check out the `via` layout if you're looking for Via/Vial support:
 
 ```shell
-qmk compile -kb bastardkb/charybdis/3x5 -km stock
+qmk compile -kb bastardkb/charybdis/3x5 -km via
 ```
 
 ## Customizing the firmware

@@ -27,7 +27,7 @@ enum charybdis_keymap_layers {
   LAYER_POINTER,
 };
 
-// Automatically enable sniping-mode on the pointer layer.
+/** \brief Automatically enable sniping-mode on the pointer layer. */
 #define CHARYBDIS_AUTO_SNIPING_ON_LAYER LAYER_POINTER
 
 #ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
@@ -136,8 +136,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-/** Whether SHIFT mod is enabled. */
-static bool _has_shift_mod(void) {
+/** /brief Whether SHIFT mod is enabled. */
+static bool has_shift_mod(void) {
 #ifdef NO_ACTION_ONESHOT
   return mod_config(get_mods()) & MOD_MASK_SHIFT;
 #else
@@ -151,25 +151,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     case POINTER_DEFAULT_DPI_FORWARD:
       if (record->event.pressed) {
         // Step backward if shifted, forward otherwise.
-        charybdis_cycle_pointer_default_dpi(/* forward= */ !_has_shift_mod());
+        charybdis_cycle_pointer_default_dpi(/* forward= */ !has_shift_mod());
       }
       break;
     case POINTER_DEFAULT_DPI_REVERSE:
       if (record->event.pressed) {
         // Step forward if shifted, backward otherwise.
-        charybdis_cycle_pointer_default_dpi(/* forward= */ _has_shift_mod());
+        charybdis_cycle_pointer_default_dpi(/* forward= */ has_shift_mod());
       }
       break;
     case POINTER_SNIPING_DPI_FORWARD:
       if (record->event.pressed) {
         // Step backward if shifted, forward otherwise.
-        charybdis_cycle_pointer_sniping_dpi(/* forward= */ !_has_shift_mod());
+        charybdis_cycle_pointer_sniping_dpi(/* forward= */ !has_shift_mod());
       }
       break;
     case POINTER_SNIPING_DPI_REVERSE:
       if (record->event.pressed) {
         // Step forward if shifted, backward otherwise.
-        charybdis_cycle_pointer_sniping_dpi(/* forward= */ _has_shift_mod());
+        charybdis_cycle_pointer_sniping_dpi(/* forward= */ has_shift_mod());
       }
       break;
     case SNIPING_MODE:

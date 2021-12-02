@@ -16,17 +16,18 @@
  */
 #pragma once
 
+#ifndef TAPPING_TERM
 /**
- * Configure the global tapping term (default: 200ms).
+ * \brief Configure the global tapping term (default: 200ms).
+ *
  * If you have a lot of accidental mod activations, crank up the tapping term.
  *
  * See docs.qmk.fm/using-qmk/software-features/tap_hold#tapping-term
  */
-#ifndef TAPPING_TERM
 #define TAPPING_TERM 200
 #endif  // TAPPING_TERM
 
-/** RGB Matrix. */
+/* RGB Matrix. */
 
 #ifdef RGB_MATRIX_ENABLE
 // Disable control of RGB matrix by keycodes (must use firmware implementation

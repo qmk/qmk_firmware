@@ -1,6 +1,6 @@
 # Charybdis (3x5) default keymap
 
-> :bulb: Have a look at the [stock keymap](../stock) for a more feature-rich
+> :bulb: Have a look at the [`via` keymap](../via) for a more feature-rich
 > layout.
 
 The Charydbis (3x5) default keymap is inspired from the original [Dactyl

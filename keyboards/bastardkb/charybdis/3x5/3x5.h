@@ -18,8 +18,6 @@
 
 #pragma once
 
-#include "quantum.h"
-
 // clang-format off
 #define LAYOUT_charybdis_3x5(                           \
   k00, k01, k02, k03, k04,     k44, k43, k42, k41, k40, \
@@ -38,8 +36,16 @@
   {   k70, KC_NO,   k72, KC_NO, KC_NO },                \
 }
 
-// Compatibility layout with the split_3x5_3 community layout (inc. off the
-// shelf compatibility for Manna-Harbour's Miryoku layout).
+/**
+ * \brief Compatibility layout with the split_3x5_3 community layout.
+ *
+ * This effectively renders the Charbdis Nano compatible with existing layout
+ * implementations relying on the `split_3x5_3` layout, which includes, among
+ * others, Manna-Harbour's (@manna_harbour) Miryoku layout.
+ *
+ * The last key on the layout is ignored, to transform the input 36-keys layout
+ * into the Charybdis Nano's 35-keys layout.
+ */
 #define LAYOUT_split_3x5_3(                             \
   k00, k01, k02, k03, k04,     k44, k43, k42, k41, k40, \
   k10, k11, k12, k13, k14,     k54, k53, k52, k51, k50, \

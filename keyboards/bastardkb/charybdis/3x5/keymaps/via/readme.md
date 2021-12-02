@@ -1,6 +1,6 @@
-# Charybdis (3x5) stock keymap
+# Charybdis (3x5) `via` keymap
 
-The Charydbis (3x5) stock keymap is based on a QWERTY layout with [home row
+The Charydbis (3x5) `via` keymap is based on a QWERTY layout with [home row
 mods](https://precondition.github.io/home-row-mods) and [Miryoku-inspired
 layers](https://github.com/manna-harbour/miryoku), and some features and changes
 specific to the Charybdis.

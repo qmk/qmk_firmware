@@ -1,6 +1,6 @@
-# Charybdis (4x6) stock keymap
+# Charybdis (4x6) `via` keymap
 
-The Charydbis (4x6) stock keymap is inspired from the original [Dactyl
+The Charydbis (4x6) `via` keymap is inspired from the original [Dactyl
 Manuform](../../../../../handwired/dactyl_manuform) default keymap, with some
 features and changes specific to the Charybdis.
 

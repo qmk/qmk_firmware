@@ -17,10 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "charybdis.h"
 
+// clang-format off
+#ifdef RGB_MATRIX_ENABLE
 /**
- * LEDs index.
+ * \brief LEDs index.
  *
  * ╭────────────────────────╮                 ╭────────────────────────╮
  *    0   7   8  15  16  20                     49  45  44  37  36  29
@@ -35,8 +37,6 @@
  *                           25  24     55  XX
  *                     ╰────────────╯ ╰────────────╯
  */
-// clang-format off
-#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     /* Key Matrix to LED index. */
     // Left split.

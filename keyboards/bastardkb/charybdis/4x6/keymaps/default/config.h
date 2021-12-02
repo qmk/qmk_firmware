@@ -16,7 +16,7 @@
  */
 #pragma once
 
-/** RGB Matrix. */
+/* RGB Matrix. */
 
 #ifdef RGB_MATRIX_ENABLE
 // Limit maximum brightness to keep power consumption reasonable, and avoid

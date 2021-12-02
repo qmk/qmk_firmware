@@ -78,7 +78,7 @@ enum charybdis_keymap_keycodes {
 #define _L_PTR(KC) LT(LAYER_POINTER, KC)
 
 // clang-format off
-/** QWERTY layout (3 rows, 10 columns). */
+/** \brief QWERTY layout (3 rows, 10 columns). */
 #define LAYOUT_LAYER_BASE                                                                     \
        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, \
        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, \
@@ -90,7 +90,7 @@ enum charybdis_keymap_keycodes {
 #define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX
 #define ______________HOME_ROW_GACS_R______________ XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
 
-/**
+/*
  * Layers used on the Charybdis Nano.
  *
  * These layers started off heavily inspired by the Miryoku layout, but trimmed
@@ -101,6 +101,8 @@ enum charybdis_keymap_keycodes {
  */
 
 /**
+ * \brief Function layer.
+ *
  * Secondary right-hand layer has function keys mirroring the numerals on the
  * primary layer with extras on the pinkie column, plus system keys on the inner
  * column. App is on the tertiary thumb key and other thumb keys are duplicated
@@ -113,6 +115,8 @@ enum charybdis_keymap_keycodes {
                       XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX
 
 /**
+ * \brief Media layer.
+ *
  * Tertiary left- and right-hand layer is media and RGB control.  This layer is
  * symmetrical to accomodate the left- and right-hand trackball.
  */
@@ -122,7 +126,7 @@ enum charybdis_keymap_keycodes {
     XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST,   RESET,   RESET, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, \
                       _______, KC_MPLY, KC_MSTP, KC_MSTP, KC_MPLY
 
-/** Mouse emulation and pointer functions. */
+/** \brief Mouse emulation and pointer functions. */
 #define LAYOUT_LAYER_POINTER                                                                  \
     XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD, S_D_MOD, DPI_MOD, XXXXXXX, XXXXXXX, XXXXXXX, \
     ______________HOME_ROW_GACS_L______________, ______________HOME_ROW_GACS_R______________, \
@@ -130,6 +134,8 @@ enum charybdis_keymap_keycodes {
                       KC_BTN2, KC_BTN1, KC_BTN3, KC_BTN3, KC_BTN1
 
 /**
+ * \brief Navigation layer.
+ *
  * Primary right-hand layer (left home thumb) is navigation and editing. Cursor
  * keys are on the home position, line and page movement below, clipboard above,
  * caps lock and insert on the inner column. Thumb keys are duplicated from the
@@ -142,6 +148,8 @@ enum charybdis_keymap_keycodes {
                       XXXXXXX, _______, XXXXXXX,  KC_ENT, KC_BSPC
 
 /**
+ * \brief Numeral layout.
+ *
  * Primary left-hand layer (right home thumb) is numerals and symbols. Numerals
  * are in the standard numpad locations with symbols in the remaining positions.
  * `KC_DOT` is duplicated from the base layer.
@@ -153,6 +161,8 @@ enum charybdis_keymap_keycodes {
                        KC_DOT,    KC_0, KC_MINS, XXXXXXX, _______
 
 /**
+ * \brief Symbols layer.
+ *
  * Secondary left-hand layer has shifted symbols in the same locations to reduce
  * chording when using mods with shifted symbols. `KC_LPRN` is duplicated next to
  * `KC_RPRN`.
@@ -164,7 +174,7 @@ enum charybdis_keymap_keycodes {
                       KC_LPRN, KC_RPRN, KC_UNDS, _______, XXXXXXX
 
 /**
- * Add Home Row mod to a layout.
+ * \brief Add Home Row mod to a layout.
  *
  * Expects a 10-key per row layout.  Adds support for GACS (Gui, Alt, Ctl, Shift)
  * home row.  The layout passed in parameter must contain at least 20 keycodes.
@@ -185,7 +195,7 @@ enum charybdis_keymap_keycodes {
 #define HOME_ROW_MOD_GACS(...) _HOME_ROW_MOD_GACS(__VA_ARGS__)
 
 /**
- * Add pointer layer keys to a layout.
+ * \brief Add pointer layer keys to a layout.
  *
  * Expects a 10-key per row layout.  The layout passed in parameter must contain
  * at least 30 keycodes.
@@ -223,8 +233,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-/** Whether SHIFT mod is enabled. */
-static bool _has_shift_mod(void) {
+/** \brief Whether SHIFT mod is enabled. */
+static bool has_shift_mod(void) {
 #ifdef NO_ACTION_ONESHOT
   return mod_config(get_mods()) & MOD_MASK_SHIFT;
 #else
@@ -238,25 +248,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     case POINTER_DEFAULT_DPI_FORWARD:
       if (record->event.pressed) {
         // Step backward if shifted, forward otherwise.
-        charybdis_cycle_pointer_default_dpi(/* forward= */ !_has_shift_mod());
+        charybdis_cycle_pointer_default_dpi(/* forward= */ !has_shift_mod());
       }
       break;
     case POINTER_DEFAULT_DPI_REVERSE:
       if (record->event.pressed) {
         // Step forward if shifted, backward otherwise.
-        charybdis_cycle_pointer_default_dpi(/* forward= */ _has_shift_mod());
+        charybdis_cycle_pointer_default_dpi(/* forward= */ has_shift_mod());
       }
       break;
     case POINTER_SNIPING_DPI_FORWARD:
       if (record->event.pressed) {
         // Step backward if shifted, forward otherwise.
-        charybdis_cycle_pointer_sniping_dpi(/* forward= */ !_has_shift_mod());
+        charybdis_cycle_pointer_sniping_dpi(/* forward= */ !has_shift_mod());
       }
       break;
     case POINTER_SNIPING_DPI_REVERSE:
       if (record->event.pressed) {
         // Step forward if shifted, backward otherwise.
-        charybdis_cycle_pointer_sniping_dpi(/* forward= */ _has_shift_mod());
+        charybdis_cycle_pointer_sniping_dpi(/* forward= */ has_shift_mod());
       }
       break;
     case SNIPING_MODE:

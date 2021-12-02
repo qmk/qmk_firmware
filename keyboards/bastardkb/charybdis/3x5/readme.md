@@ -11,11 +11,11 @@ The charybdis is available in 4x6 and 3x5 form factor at
 
 ## Keymaps
 
-### [default](keymaps/default)
+### [`default`](keymaps/default)
 
 A simple QWERTY layout with 4 layers.
 
-### [stock](keymaps/stock)
+### [`via`](keymaps/via)
 
 A [Miryoku-inspired](https://github.com/manna-harbour/miryoku), feature-rich,
 keymap with Via/Vial support.

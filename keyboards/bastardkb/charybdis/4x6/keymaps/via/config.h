@@ -17,24 +17,25 @@
 #pragma once
 
 #ifdef VIA_ENABLE
-/** Via/Vial configuration. */
+/* Via/Vial configuration. */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 #endif  // VIA_ENABLE
 
-/** Disable unused features. */
+/* Disable unused features. */
 #define NO_ACTION_ONESHOT
 
+#ifndef TAPPING_TERM
 /**
- * Configure the global tapping term (default: 200ms).
+ * \brief Configure the global tapping term (default: 200ms).
+ *
  * If you have a lot of accidental mod activations, crank up the tapping term.
  *
  * See docs.qmk.fm/using-qmk/software-features/tap_hold#tapping-term
  */
-#ifndef TAPPING_TERM
 #define TAPPING_TERM 200
 #endif  // TAPPING_TERM
 
-/** Charybdis-specific features. */
+/* Charybdis-specific features. */
 
 #ifdef POINTING_DEVICE_ENABLE
 // Enable pointer acceleration, which increases the speed by ~2x for large
@@ -48,7 +49,7 @@
 // #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 #endif  // POINTING_DEVICE_ENABLE
 
-/** RGB Matrix. */
+/* RGB Matrix. */
 
 #ifdef RGB_MATRIX_ENABLE
 // Limit maximum brightness to keep power consumption reasonable, and avoid

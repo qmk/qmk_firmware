@@ -17,26 +17,29 @@
 #pragma once
 
 #ifdef VIA_ENABLE
-/** Via/Vial configuration. */
+/* Via/Vial configuration. */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
 #endif  // VIA_ENABLE
 
-/** Disable unused features. */
+/* Disable unused features. */
 #define NO_ACTION_ONESHOT
 
+#ifndef TAPPING_TERM
 /**
- * Configure the global tapping term (default: 200ms).
+ * \brief Configure the global tapping term (default: 200ms).
+ *
  * If you have a lot of accidental mod activations, crank up the tapping term.
  *
  * See docs.qmk.fm/using-qmk/software-features/tap_hold#tapping-term
  */
-#ifndef TAPPING_TERM
 #define TAPPING_TERM 200
 #endif  // TAPPING_TERM
 
 /**
- * Enable rapid switch from tap to hold.  Disable auto-repeat when pressing key
- * twice, except for one-shot keys.
+ * \brief Enable rapid switch from tap to hold.
+ *
+ * Note that a side-effect of this setting is to disable auto-repeat when
+ * pressing key twice, except for one-shot keys.
  *
  * See docs.qmk.fm/using-qmk/software-features/tap_hold#tapping-force-hold
  */
@@ -53,7 +56,7 @@
  */
 
 /**
- * Faster tap-hold trigger.
+ * \brief Faster tap-hold trigger.
  *
  * Without `PERMISSIVE_HOLD`, within `TAPPING_TERM`:
  *   Mod(a)🠗 e🠗 e🠕 Mod(a)🠕 ➞ ae
@@ -65,7 +68,7 @@
 #define PERMISSIVE_HOLD
 
 /**
- * Prevent normal rollover on alphas from accidentally triggering mods.
+ * \brief Prevent normal rollover on alphas from accidentally triggering mods.
  *
  * Ignores key presses that interrupt a mod-tap.  Must-have for Home Row mod.
  *
@@ -78,7 +81,7 @@
  */
 #define IGNORE_MOD_TAP_INTERRUPT
 
-/** Charybdis-specific features. */
+/* Charybdis-specific features. */
 
 #ifdef POINTING_DEVICE_ENABLE
 // Enable pointer acceleration, which increases the speed by ~2x for large
@@ -92,7 +95,7 @@
 // #define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 #endif  // POINTING_DEVICE_ENABLE
 
-/** RGB Matrix. */
+/* RGB Matrix. */
 
 #ifdef RGB_MATRIX_ENABLE
 // Limit maximum brightness to keep power consumption reasonable, and avoid
