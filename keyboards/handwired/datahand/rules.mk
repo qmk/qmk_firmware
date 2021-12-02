@@ -15,8 +15,5 @@ BACKLIGHT_ENABLE  = no   # Enable keyboard backlight functionality
 AUDIO_ENABLE      = no   # Audio output
 CUSTOM_MATRIX     = yes  # We definitely have a nonstandard matrix
 
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
-
 # Project specific files
 SRC = matrix.c
