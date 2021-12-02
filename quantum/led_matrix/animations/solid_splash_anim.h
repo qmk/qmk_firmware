@@ -1,5 +1,5 @@
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
-#    if !defined(DISABLE_LED_MATRIX_SOLID_SPLASH) || !defined(DISABLE_LED_MATRIX_SOLID_MULTISPLASH)
+#    if defined(ENABLE_LED_MATRIX_SOLID_SPLASH) || defined(ENABLE_LED_MATRIX_SOLID_MULTISPLASH)
 
 #        ifdef ENABLE_LED_MATRIX_SOLID_SPLASH
 LED_MATRIX_EFFECT(SOLID_SPLASH)
@@ -26,5 +26,5 @@ bool SOLID_MULTISPLASH(effect_params_t* params) { return effect_runner_reactive_
 #            endif
 
 #        endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#    endif      // !defined(DISABLE_LED_MATRIX_SPLASH) && !defined(DISABLE_LED_MATRIX_MULTISPLASH)
+#    endif      // defined(ENABLE_LED_MATRIX_SPLASH) || defined(ENABLE_LED_MATRIX_MULTISPLASH)
 #endif          // LED_MATRIX_KEYREACTIVE_ENABLED

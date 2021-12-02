@@ -50,6 +50,7 @@ enum userspace_layers {
     LAST_DEFAULT_LAYER = _DVORAK,
     _GAMEPAD,
     _DIABLO,
+    _DIABLOII,
     _MOUSE,
     _MEDIA,
     _LOWER,

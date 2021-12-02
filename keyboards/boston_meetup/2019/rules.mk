@@ -8,19 +8,19 @@ BOOTLOADER = stm32-dfu
 # Build Options
 #   comment out to disable the options.
 #
-BACKLIGHT_ENABLE = no
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = no	# Console for debug
-COMMAND_ENABLE = no    # Commands for debug and configuration
-#SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	    # USB Nkey Rollover
-CUSTOM_MATRIX = no # Custom matrix file
-AUDIO_ENABLE = yes
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
+COMMAND_ENABLE = no         # Commands for debug and configuration
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes           # USB Nkey Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+AUDIO_ENABLE = yes          # Audio output
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
-HAPTIC_ENABLE += DRV2605L
-QWIIC_ENABLE = yes
-QWIIC_DRIVERS += MICRO_OLED
+HAPTIC_ENABLE = yes
+HAPTIC_DRIVER = DRV2605L
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306

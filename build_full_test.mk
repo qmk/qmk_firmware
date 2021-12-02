@@ -13,21 +13,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include $(TMK_PATH)/protocol.mk
+$(TEST)_INC := \
+	tests\test_common\common_config.h
 
-TEST_PATH=tests/$(TEST)
-
-$(TEST)_SRC= \
-	$(TEST_PATH)/keymap.c \
+$(TEST)_SRC := \
 	$(TMK_COMMON_SRC) \
 	$(QUANTUM_SRC) \
 	$(SRC) \
+	tests/test_common/keymap.c \
 	tests/test_common/matrix.c \
 	tests/test_common/test_driver.cpp \
 	tests/test_common/keyboard_report_util.cpp \
-	tests/test_common/test_fixture.cpp
-$(TEST)_SRC += $(patsubst $(ROOTDIR)/%,%,$(wildcard $(TEST_PATH)/*.cpp))
+	tests/test_common/test_fixture.cpp \
+	tests/test_common/test_keymap_key.cpp \
+	tests/test_common/test_logger.cpp \
+	$(patsubst $(ROOTDIR)/%,%,$(wildcard $(TEST_PATH)/*.cpp))
 
-$(TEST)_DEFS=$(TMK_COMMON_DEFS) $(OPT_DEFS)
-$(TEST)_CONFIG=$(TEST_PATH)/config.h
-VPATH+=$(TOP_DIR)/tests/test_common
+$(TEST)_DEFS := $(TMK_COMMON_DEFS) $(OPT_DEFS)
+
+$(TEST)_CONFIG := $(TEST_PATH)/config.h
+
+VPATH += $(TOP_DIR)/tests/test_common

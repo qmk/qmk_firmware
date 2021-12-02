@@ -17,18 +17,9 @@ NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: ht
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 #HARDWARE_SERIAL = yes
 CUSTOM_MATRIX = yes
 
 SRC += matrix.c
-ifdef HARDWARE_SERIAL
-  # Untested with palm_usb
-  SRC += protocol/serial_uart.c
-  OPT_DEFS += -DHARDWARE_SERIAL
-else
-  SRC += protocol/serial_soft.c
-endif
 
 DEFAULT_FOLDER = converter/palm_usb/stowaway
