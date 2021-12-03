@@ -63,11 +63,11 @@
 #    endif
 #endif
 
-#ifndef SPI_SCK_PAL_CURRENT_LEVE
+#ifndef SPI_SCK_PAL_CURRENT_LEVEL
 #    if defined(WB32F3G71xx)
-#        define SPI_SCK_PAL_CURRENT_LEVE PAL_CURRENT_LEVE3
+#        define SPI_SCK_PAL_CURRENT_LEVEL PAL_CURRENT_LEVEL3
 #    else
-#        define SPI_SCK_PAL_CURRENT_LEVE 0
+#        define SPI_SCK_PAL_CURRENT_LEVEL 0
 #    endif
 #endif
 
