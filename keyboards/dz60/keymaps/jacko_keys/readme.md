@@ -80,7 +80,8 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * Backspace does a delete.
 * Backtick is keyboard RESET, as this allows backtick to be held for entering the bootloader.
 * Backslash is `SysReq`.
-* Tab allows applying an `Alt` modifier, as `Alt` is used to hold the CYAN shift.
+* Tab is itself.
+* Caps lock cycles the Unicode input mechanism. Linux, WinCompose and Mac.
 * The brackets are home and end.
 * Minus and equals are buttons 4 and 5 (standard mice don't have this).
 * Semicolon is mouse button 3 (scroll button).

@@ -17,10 +17,16 @@
 #pragma once
 
 //Use just Linux mode input. Or change
-#define UNICODE_SELECTED_MODES UC_LNX
+//#define UNICODE_SELECTED_MODES UC_LNX
 //#define UNICODE_SELECTED_MODES UC_WIN
+//#define UNICODE_SELECTED_MODES UC_WINC
 //#define UNICODE_SELECTED_MODES UC_MAC
-//#define UNICODE_SELECTED_MODES UC_LNX UC_WIN UC_MAC
+#define UNICODE_SELECTED_MODES UC_LNX, UC_WINC, UC_MAC
+
+//default keys for compose
+//#define UNICODE_KEY_LNX LCTL(LSFT(KC_U))
+//#define UNICODE_KEY_MAC KC_LALT
+//#define UNICODE_KEY_WINC KC_RALT
 
 //Somehow is no longer some feature, so not needed.
 //#define RGBLIGHT_SLEEP
