@@ -34,10 +34,23 @@
 static uint16_t precision = 128;
 
 uint16_t pimoroni_trackball_get_cpi(void) { return (precision * 125); }
-void     pimoroni_trackball_set_cpi(uint16_t cpi) { precision = (cpi / 125); }
-
-float pimoroni_trackball_get_precision(void) { return ((float)precision / 128); }
-void  pimoroni_trackball_set_precision(float floatprecision) { precision = (floatprecision * 128); }
+/**
+ * @brief Sets the scaling value for pimoroni trackball
+ *
+ * Sets a scaling value for pimoroni trackball to allow runtime adjustment. This isn't used by the sensor and is an
+ * approximation so the functions are consistent across drivers.
+ *
+ * NOTE: This rounds down to the nearest number divisable by 125 that's a positive integer, values below 125 are clamped to 125.
+ *
+ * @param cpi uint16_t
+ */
+void pimoroni_trackball_set_cpi(uint16_t cpi) {
+    if (cpi < 249) {
+        precision = 1;
+    } else {
+        precision = (cpi - (cpi % 125)) / 125;
+    }
+}
 
 void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     uint8_t                              data[4] = {r, g, b, w};
