@@ -63,6 +63,14 @@
 #    endif
 #endif
 
+#ifndef SPI_SCK_PAL_CURRENT_LEVE
+#    if defined(WB32F3G71xx)
+#        define SPI_SCK_PAL_CURRENT_LEVE PAL_CURRENT_LEVE3
+#    else
+#        define SPI_SCK_PAL_CURRENT_LEVE 0
+#    endif
+#endif
+
 typedef int16_t spi_status_t;
 
 #define SPI_STATUS_SUCCESS (0)
