@@ -664,7 +664,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           KM_Q,    KM_W,    KM_E,    KM_R,    KM_T,    KM_Y,    KM_U,    KM_I,    KM_O,    KM_P,	  KC_HOME, KC_END,	KC_SYSREQ,
 		UC_MOD,			      KM_A,    KM_S,    KM_D,    KM_F,    KM_G,    KM_H,    KM_J,    KM_K,    KM_L,    KC_BTN3, KC_BTN2, KC_ENT,
 		KC_LSFT,          KM_Z,    KM_X,    KM_C,    KM_V,    KM_B,    KM_N,    KM_M,	   KC_WH_U, KC_WH_D, KC_MS_U,          KC_RSFT,
-		KC_LCTL, RCS(KC_RALT), KC_TRNS,                				KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS),
+		KC_LCTL, RCS(KC_LALT), KC_TRNS,                				KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS),
 
 	//============================================================================
 	// FILL IN AS REQUIRED (FOR EXTRA LAYAERS IF NEEDED)
