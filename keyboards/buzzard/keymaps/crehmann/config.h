@@ -45,4 +45,7 @@
 #define DRV_MODE_DEFAULT   sharp_tick1
 #endif
 
-
+#ifdef PS2_MOUSE_ENABLE
+#define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BTN_RIGHT)
+#define PS2_MOUSE_SCROLL_BTN_SEND 500
+#endif
