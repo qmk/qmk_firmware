@@ -2,7 +2,7 @@
 
 ![reviung53](https://github.com/gtips/reviung/blob/master/reviung53/image/reviung53-04.jpg) 
 
-A 50% keyboard.
+The REVIUNG53 is 53-key keyboard.
 
 * Keyboard Maintainer: [gtips](https://github.com/gtips)
 * Hardware Supported: REVIUNG53 PCB. 
