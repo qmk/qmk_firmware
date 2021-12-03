@@ -133,14 +133,24 @@ void reset(bool b) {
 void oled_task_user(void) {
     gui_state_t t = get_gui_state();
 
+// in sleep mode => turn display off
     if (t == _SLEEP) {
         oled_off();
         return;
     }
+
+
     oled_on();
 
+// in booting mode => display booting animation
     if (t == _BOOTING) {
         render_boot();
+        return;
+    }
+
+    // in halting mode => display booting animation
+    if (t == _HALTING) {
+        render_halt();
         return;
     }
 
@@ -164,6 +174,12 @@ void process_key(uint16_t keycode) {
         // cancel booting
         oled_clear();
         reset(false);
+    }
+
+        if (t == _HALTING) {
+        // cancel halting : waking_up
+        oled_clear();
+        reset(true);
     }
 
     if (t == _SLEEP) {

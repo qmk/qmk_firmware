@@ -520,12 +520,12 @@ void copy_pixel(int from, int shift, unsigned char mask) {
     oled_write_raw_byte(c_from, from);
 }
 
-void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t iSize, bool odd) {
+void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint16_t height, uint8_t iSize, bool odd) {
     // char c = 0;
     // size for
     // int iSize = 1;
 
-    uint8_t y_start = (y / 8) * 32;
+    uint16_t y_start = (y / 8) * 32;
     uint8_t nb_h    = height / 8;
 
     uint8_t  w_max = width;  // 32
@@ -544,35 +544,28 @@ void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8
     //  wobble
     uint16_t pos = 0;
     for (uint16_t j = 0; j < nb_h; j++) {
-        index += j * 32;
+       // index += j * 32;
+
+       index = (y_start + x) +  (j * 32);
 
         for (uint16_t i = 0; i < w_max; i++) {
-            if (i + iSize < w_max) {
+
+
+                   //    oled_write_raw_byte(127, index + i );
+
+
+ if (i + iSize < w_max) {
                 pos = index + i;
-
                 copy_pixel(pos + iSize, iSize * -1, mask_1);
-                // c   = get_oled_char(pos + iSize);
-                // c   = c & mask_1;
-
-                // c_other = get_oled_char(pos);
-                // c_other &= ~(mask_1);
-                // c_other = c_other | c;
-                // oled_write_raw_byte(c_other, pos);
             }
 
             if (w_max - 1 - i - iSize >= 0) {
                 pos = (index + w_max - 1) - i;
-
                 copy_pixel(pos - iSize, iSize, mask_2);
-                // c = get_oled_char(pos - iSize);
-                // c = c & mask_2;
-
-                // c_other = get_oled_char(pos);
-                // c_other &= ~(mask_2);
-                // c_other = c_other | c;
-
-                // oled_write_raw_byte(c_other, pos);
             }
+
+
+           
         }
     }
 }

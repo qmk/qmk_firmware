@@ -4,9 +4,19 @@
 #include "fast_random.h"
 #include "draw_helper.h"
 
+// boot
 #define ANIM_BOOT_FRAME_DURATION 8
+#define NAVI_DURATION 55
+#define TERMINAL_DURATION 25
+#define LILY_DURATION 50
 uint32_t anim_boot_timer         = 0;
 int      anim_boot_current_frame = 0;
+
+// halt
+#define ANIM_HALT_FRAME_DURATION 55
+#define HALT_DURATION 4000
+uint32_t anim_halt_timer         = 0;
+int      anim_halt_current_frame = 0;
 
 void reset_boot(void) { anim_boot_current_frame = 0; }
 
@@ -191,9 +201,6 @@ static void draw_startup_terminal(int f) {
         oled_write_cursor(0, i, s, false);
     }
 }
-#define NAVI_DURATION 55
-#define TERMINAL_DURATION 25
-#define LILY_DURATION 50
 
 void render_boot(void) {
     if (anim_boot_current_frame >= NAVI_DURATION + TERMINAL_DURATION + LILY_DURATION) {
@@ -219,5 +226,40 @@ void render_boot(void) {
         }
 
         anim_boot_current_frame++;
+    }
+}
+
+void reset_halt(void) { anim_halt_current_frame = 0; }
+
+void render_halt(void) {
+    if (timer_elapsed32(anim_halt_timer) > ANIM_HALT_FRAME_DURATION) {
+        anim_halt_timer = timer_read32();
+        // oled_clear();
+        //     draw_rectangle_fill(10, 10, 10, 100, true);
+
+        // for (int i = 8; i < 16; i++){
+        // draw_glitch_comb(0, i*8, 32, 8, 1, true);
+        // }
+
+        // draw_glitch_comb(0, 0*8, 32, 8, 1, true);
+        // draw_glitch_comb(0, 2*8, 32, 8, 1, true);
+
+        // draw_glitch_comb(0, 0*8, 32, 32, 1, true);
+
+        // draw_glitch_comb(0, 0, 32, 128, 1, true);
+
+        draw_glitch_comb(0, 0, 32, 128, 3, true);
+
+        for (int i = 0; i < 6; i++) {
+            int r  = fastrand();
+            int rr = fastrand();
+            int x  = 4 + r % 28;
+            int y  = rr % 128;
+
+            int w = 7 + r % 20;
+            int h = 3 + rr % 10;
+            int s = (fastrand() % 20) - 10;
+            move_block(x, y, w, h, s);
+        }
     }
 }

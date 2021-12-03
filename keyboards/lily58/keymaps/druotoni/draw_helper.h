@@ -37,7 +37,7 @@ int interpo_pourcent(int min, int max, int v);
 
  void move_block(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int shift);
 
- void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t iSize, bool odd);
+ void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint16_t height, uint8_t iSize, bool odd);
 
   void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth);
 

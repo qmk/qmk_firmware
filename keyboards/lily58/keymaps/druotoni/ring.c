@@ -246,170 +246,130 @@ void reset_ring(bool bNeedOpen) {
 }
 
 static void render_tv_circle(uint8_t x, uint8_t y, uint8_t r, uint8_t f) {
-
-        switch (f) {
+    switch (f) {
         case 1:
             draw_circle(x, y, r, 1);
-          //  drawline_vb(0, 88, 32, false);
-   // drawline_vb(31, 88, 32, false);
+            //  drawline_vb(0, 88, 32, false);
+            // drawline_vb(31, 88, 32, false);
             break;
 
         case 2:
-        draw_ellipse(x, y, r, r / 2, 1);
-           // draw_fill_circle(x, y, r - 5, 1);
+            draw_ellipse(x, y, r, r / 2, 1);
+            // draw_fill_circle(x, y, r - 5, 1);
 
-        //    drawline_vb(0, 96, 16, false);
-        //    drawline_vb(31, 96, 16, false);
+            //    drawline_vb(0, 96, 16, false);
+            //    drawline_vb(31, 96, 16, false);
 
             break;
 
         case 3:
             draw_ellipse(x, y, r, r / 4, 1);
 
-        //    drawline_vb(0, 101, 6, false);
-        //    drawline_vb(31, 101, 6, false);
+            //    drawline_vb(0, 101, 6, false);
+            //    drawline_vb(31, 101, 6, false);
 
             break;
 
         case 4:
-        drawline_hr(1, y, 12, 1);
-        drawline_hr(19, y, 12, 1);
-         drawline_vb(0, y-1, 3, true);
-            drawline_vb(31, y-1, 3, true);
+            drawline_hr(1, y, 12, 1);
+            drawline_hr(19, y, 12, 1);
+            drawline_vb(0, y - 1, 3, true);
+            drawline_vb(31, y - 1, 3, true);
 
-
-
-
-            //draw_fill_circle(x, y, r, 0);
+            // draw_fill_circle(x, y, r, 0);
             break;
 
-             case 5:
- drawline_hr(2, y, 7, 1);
-        drawline_hr(23, y, 7, 1);
+        case 5:
+            drawline_hr(2, y, 7, 1);
+            drawline_hr(23, y, 7, 1);
 
-oled_write_pixel(11, y, true);
-oled_write_pixel(20, y, true);
+            oled_write_pixel(11, y, true);
+            oled_write_pixel(20, y, true);
 
+            drawline_vb(0, y - 3, 7, true);
+            drawline_vb(31, y - 3, 7, true);
 
-         drawline_vb(0, y-3, 7, true);
-            drawline_vb(31, y-3, 7, true);
+            drawline_vb(1, y - 1, 3, true);
+            drawline_vb(30, y - 1, 3, true);
 
-  drawline_vb(1, y-1, 3, true);
-            drawline_vb(30, y-1, 3, true);
-
-
-        // drawline_hr(0, y, 32, 1);
-        //        drawline_vb(0, 96, 16, true);
-        //     drawline_vb(31, 96, 16, true);
+            // drawline_hr(0, y, 32, 1);
+            //        drawline_vb(0, 96, 16, true);
+            //     drawline_vb(31, 96, 16, true);
             break;
 
+        case 6:
+            drawline_hr(2, y, 2, 1);
+            drawline_hr(5, y, 2, 1);
+            drawline_hr(9, y, 2, 1);
 
-            case 6:
- drawline_hr(2, y, 2, 1);
-  drawline_hr(5, y, 2, 1);
-   drawline_hr(9, y, 2, 1);
-
-        drawline_hr(28, y, 2, 1);
+            drawline_hr(28, y, 2, 1);
             drawline_hr(25, y, 2, 1);
-                drawline_hr(21, y, 2, 1);
+            drawline_hr(21, y, 2, 1);
 
+            drawline_vb(0, y - 10, 22, true);
+            drawline_vb(31, y - 10, 22, true);
 
+            drawline_vb(1, y - 3, 7, true);
+            drawline_vb(30, y - 3, 7, true);
 
-
-         drawline_vb(0, y-10, 22, true);
-            drawline_vb(31, y-10, 22, true);
-
- 
-   drawline_vb(1, y-3, 7, true);
-            drawline_vb(30, y-3, 7, true);
-
-
-        // drawline_hr(0, y, 32, 1);
-        //        drawline_vb(0, 96, 16, true);
-        //     drawline_vb(31, 96, 16, true);
+            // drawline_hr(0, y, 32, 1);
+            //        drawline_vb(0, 96, 16, true);
+            //     drawline_vb(31, 96, 16, true);
             break;
 
-
-
-            case 7:
+        case 7:
 
             oled_write_pixel(1, y, true);
-oled_write_pixel(3, y, true);
+            oled_write_pixel(3, y, true);
             oled_write_pixel(28, y, true);
-oled_write_pixel(30, y, true);
+            oled_write_pixel(30, y, true);
 
+            drawline_vb(0, y - 12, 26, true);
+            drawline_vb(31, y - 12, 26, true);
 
-
-
-         drawline_vb(0, y-12, 26, true);
-            drawline_vb(31, y-12, 26, true);
-
- 
-
-        // drawline_hr(0, y, 32, 1);
-        //        drawline_vb(0, 96, 16, true);
-        //     drawline_vb(31, 96, 16, true);
+            // drawline_hr(0, y, 32, 1);
+            //        drawline_vb(0, 96, 16, true);
+            //     drawline_vb(31, 96, 16, true);
             break;
 
-   case 8:
-                         drawline_vb(0, 88, 32, true);
-    drawline_vb(31, 88, 32, true);
- break;
-
+        case 8:
+            drawline_vb(0, 88, 32, true);
+            drawline_vb(31, 88, 32, true);
+            break;
     }
 
-   
-//     switch (f) {
-//         case 0:
-//             draw_fill_circle(x, y, r, 1);
-//           //  drawline_vb(0, 88, 32, false);
-//    // drawline_vb(31, 88, 32, false);
-//             break;
+    //     switch (f) {
+    //         case 0:
+    //             draw_fill_circle(x, y, r, 1);
+    //           //  drawline_vb(0, 88, 32, false);
+    //    // drawline_vb(31, 88, 32, false);
+    //             break;
 
-//         case 1:
-//             draw_fill_circle(x, y, r - 5, 1);
+    //         case 1:
+    //             draw_fill_circle(x, y, r - 5, 1);
 
-//         //    drawline_vb(0, 96, 16, false);
-//         //    drawline_vb(31, 96, 16, false);
+    //         //    drawline_vb(0, 96, 16, false);
+    //         //    drawline_vb(31, 96, 16, false);
 
-//             break;
+    //             break;
 
-//         case 2:
-//             // cross
-//             drawline_hr(x - 1, y + 1, 4, true);
-//             drawline_hr(x - 1, y - 1, 4, true);
+    //         case 2:
+    //             // cross
+    //             drawline_hr(x - 1, y + 1, 4, true);
+    //             drawline_hr(x - 1, y - 1, 4, true);
 
-//             // central line
-//             drawline_hr(x - r / 2, y, r, true);
+    //             // central line
+    //             drawline_hr(x - r / 2, y, r, true);
 
-//         //    drawline_vb(0, 101, 6, false);
-//         //    drawline_vb(31, 101, 6, false);
+    //         //    drawline_vb(0, 101, 6, false);
+    //         //    drawline_vb(31, 101, 6, false);
 
-//             break;
+    //             break;
 
-//         case 3:
-//             draw_fill_circle(x, y, r, 0);
-//             break;
-//     }
-}
-
-static void render_ring_sleep(void) {
-    if (timer_elapsed32(anim_sleep_ring_timer) > 30) {
-        //  RenderScopeBlack();
-
-
-
-        if (current_sleep_ring_frame != sleep_ring_frame_destination) {
-            anim_sleep_ring_timer = timer_read32();
-
-            render_tv_circle(15, 103, 11, current_sleep_ring_frame);
-
-            current_sleep_ring_frame += (sleep_ring_frame_destination > current_sleep_ring_frame) ? 1 : -1;
-        }else{
-             drawline_vb(0, 88, 32, true);
-    drawline_vb(31, 88, 32, true);
-        }
-    }
+    //         case 3:
+    //             draw_fill_circle(x, y, r, 0);
+    //             break;
+    //     }
 }
 
 static const char PROGMEM raw_bottom[] = {
@@ -420,25 +380,103 @@ static const char PROGMEM raw_middle[] = {
     240, 8, 4, 226, 241, 248, 124, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 56, 0, 1, 62, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 28, 28, 0, 255, 0, 0, 127, 127, 70, 70, 126, 70, 70, 126, 70, 70, 126, 126, 62, 30, 142, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 64, 64, 62, 1, 2, 114, 114, 2, 2, 114, 114, 2, 2, 114, 114, 2, 2, 2, 2, 1, 0, 0, 0, 128, 64, 64, 64, 64, 64, 64, 64, 64, 64, 128, 0, 0, 128, 131, 131, 132, 136, 179, 131, 132, 184, 131, 131, 188, 128, 128, 128, 128, 128, 128, 128, 143, 144, 149, 144, 149, 144, 149, 144, 149, 144, 143, 0,
 };
 
-void render_cicle_white(void){
-oled_write_raw_P_cursor(0, 5, raw_middle, sizeof(raw_middle));
+static void render_circle_white(void) {
+    oled_write_raw_P_cursor(0, 5, raw_middle, sizeof(raw_middle));
 
     drawline_hr(5, 39, 25, 1);
-    draw_rectangle_fill(0, 88, 32, 32, false);
+ //   draw_rectangle_fill(0, 88, 32, 32, false);
+  draw_rectangle_fill(0, 80, 32, 40, false);
     drawline_vb(0, 80, 8, 1);
     drawline_vb(31, 80, 8, 1);
     oled_write_pixel(1, 80, true);
     oled_write_pixel(30, 80, true);
 
     oled_write_raw_P_cursor(0, 15, raw_bottom, sizeof(raw_bottom));
-
 }
 
 
+int      current_glitch_ring_time  = 150;
+uint32_t glitch_ring_timer         = 0;
+uint8_t  current_glitch_ring_index = 0;
+
+static void render_ring_clean_close(void) {
+ render_circle_white();
+    drawline_vb(0, 88, 32, true);
+    drawline_vb(31, 88, 32, true);
+}
+
+
+uint32_t    anim_ring_idle_timer = 0;
+static void render_glitch_square(void) {
+    if (timer_elapsed32(anim_ring_idle_timer) > 60) {
+        anim_ring_idle_timer = timer_read32();
+        render_ring_clean_close();
+        for (int i = 0; i < 4; i++) {
+            int size  = 4 + (fastrand() % 6);
+            
+            draw_fill_circle(9 + (fastrand() % 10), 85 + (fastrand() % 20), size / 2, true);
+        }
+        for (int j = 0; j < 4; j++) {
+            int size  = (fastrand() % 6);
+          
+            draw_fill_circle(9 + (fastrand() % 10), 100 + (fastrand() % 20), size /2, true);
+        }
+    }
+}
+
+static void render_ring_idle(void) {
+ 
+     get_glitch_index(&glitch_ring_timer, &current_glitch_ring_time,
+      &current_glitch_ring_index, 150, 350, 50, 2);
+   switch (current_glitch_ring_index) {
+        case 0:
+           render_ring_clean_close();
+            return;
+        case 1:
+            render_glitch_square();
+            return;
+    }
+}
+
+static void render_ring_sleep(void) {
+    if (current_sleep_ring_frame == sleep_ring_frame_destination) {
+        render_ring_idle();
+        return;
+    }
+
+    if (timer_elapsed32(anim_sleep_ring_timer) > 30) {
+        render_circle_white();
+
+        anim_sleep_ring_timer = timer_read32();
+
+        render_tv_circle(15, 103, 11, current_sleep_ring_frame);
+
+        //  current_sleep_ring_frame += (sleep_ring_frame_destination > current_sleep_ring_frame) ? 1 : -1;
+
+        if (sleep_ring_frame_destination > current_sleep_ring_frame) {
+            current_sleep_ring_frame++;
+        } else {
+            current_sleep_ring_frame--;
+        }
+    }
+}
+
+static void render_circle_middle(void) {
+    render_circle_white();
+
+    if (anim_center_current_frame == ANIM_CENTER_FRAME_NUMBER) {
+        draw_letter_circle(tListeTotal, tRefArc, c_target, 15, 103, 15, false);
+        draw_letter_circle(tListeTotal2, tRefArc2, c_target2, 15, 103, 15, true);
+    }
+
+    if (anim_center_current_frame < ANIM_CENTER_FRAME_NUMBER) {
+        // center circle
+        render_anim_center_circle(15, 103, 15 - 4);
+    }
+}
+
 void render_circle(gui_state_t t) {
     // gear and frame
-
-    render_cicle_white();
 
     if (timer_elapsed32(circle_timer) > CIRCLE_ANIM_FRAME_DURATION) {
         circle_timer = timer_read32();
@@ -457,18 +495,9 @@ void render_circle(gui_state_t t) {
             return;
         }
 
-        if (anim_center_current_frame == ANIM_CENTER_FRAME_NUMBER) {
-            draw_letter_circle(tListeTotal, tRefArc, c_target, 15, 103, 15, false);
-            draw_letter_circle(tListeTotal2, tRefArc2, c_target2, 15, 103, 15, true);
-        }
+        render_circle_middle();
+        render_keylog(t);
     }
-
-    if (anim_center_current_frame < ANIM_CENTER_FRAME_NUMBER) {
-        // center circle
-        render_anim_center_circle(15, 103, 15 - 4);
-    }
-
-    render_keylog(t);
 }
 
 void update_circle(uint16_t keycode) {
