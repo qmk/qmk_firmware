@@ -11,16 +11,18 @@ static bool IsWakingUp(void) {
     // after key input after idle or booting  OR after complet booting
     return (timer_elapsed32(global_waking_up_timer) < WAKING_UP_TIME_TRESHOLD);
 }
-static bool IsIdle(void) { return (timer_elapsed32(global_sleep_timer) > IDLE_TIME_TRESHOLD && timer_elapsed32(global_sleep_timer) < SLEEP_TIME_TRESHOLD); }
+static bool IsIdle(void) { return (timer_elapsed32(global_sleep_timer) > IDLE_TIME_TRESHOLD && timer_elapsed32(global_sleep_timer) < HALTING_TIME_TRESHOLD); }
 static bool IsSleep(void) { return (timer_elapsed32(global_sleep_timer) >= SLEEP_TIME_TRESHOLD); }
-static bool IsUp(void) { return !(IsSleep() || IsIdle() || IsBooting() || IsWakingUp()); }
+static bool IsHalting(void) { return (timer_elapsed32(global_sleep_timer) >= HALTING_TIME_TRESHOLD && timer_elapsed32(global_sleep_timer) < SLEEP_TIME_TRESHOLD);      }
+//static bool IsUp(void) { return !(IsSleep() || IsIdle() || IsBooting() || IsWakingUp()); }
 
 gui_state_t get_gui_state(void) {
     if (IsBooting()) return _BOOTING;
     if (IsWakingUp()) return _WAKINGUP;
     if (IsIdle()) return _IDLE;
+   if (IsHalting()) return _HALTING;
     if (IsSleep()) return _SLEEP;
-    if (IsUp()) return _UP;
+    //if (IsUp()) return _UP;
 
     return _UP;
 }
@@ -37,7 +39,7 @@ void update_gui_state(void) {
         global_booting_timer = 1000000;
     }
 
-    if (t == _IDLE) {
+    if (t == _IDLE || t == _HALTING ) {
         // waking up
         global_waking_up_timer = timer_read32();
     }
