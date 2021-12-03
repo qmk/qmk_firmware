@@ -57,7 +57,7 @@
       "KC_RGHT"
     ],
     [
-      "LT(4,KC_ESC)",
+      "LT(5,KC_ESC)",
       "KC_Q",
       "KC_W",
       "KC_F",
@@ -151,8 +151,8 @@
       "KC_TRNS",
       "KC_TRNS",
       "KC_P0",
-      "KC_P0",
       "KC_PDOT",
+      "KC_SCLN",
       "KC_EQL",
       "KC_PENT"
     ],
@@ -200,9 +200,9 @@
       "TO(1)",
       "KC_TRNS",
       "KC_TRNS",
-      "KC_TRNS",
       "KC_P0",
       "KC_PDOT",
+      "KC_SCLN",
       "KC_EQL",
       "KC_PENT"
     ],
@@ -262,7 +262,7 @@
       "RSFT(KC_F2)",
       "LALT(KC_F3)",
       "KC_F4",
-      "KC_TRNS",
+      "KC_CALC",
       "KC_TRNS",
       "KC_HOME",
       "KC_UP",
@@ -294,17 +294,17 @@
       "KC_TRNS",
       "KC_CAPS",
       "KC_TRNS",
-      "RCS(KC_M)",
-      "KC_CALC",
-      "KC_MUTE",
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_TRNS",
       "KC_TRNS",
       "KC_TRNS",
       "KC_TRNS",
       "KC_VOLU",
       "LCA(KC_DOWN)",
       "KC_MNXT",
-      "KC_TRNS",
-      "KC_TRNS"
+      "KC_MUTE",
+      "RCS(KC_M)"
     ],
     [
       "RESET",
