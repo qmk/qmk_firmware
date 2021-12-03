@@ -102,7 +102,9 @@ static void render_truc(uint8_t algo) {
 // }
 
 static void render_logo_glitch(void) {
-    get_glitch_index(&glitch_timer, &current_glitch_time, &current_glitch_index, 0, 150, GLITCH_PROBALITY, GLITCH_FRAME_NUMBER);
+
+    uint8_t glitch_prob = get_glitch_probability();
+    get_glitch_index(&glitch_timer, &current_glitch_time, &current_glitch_index, 0, 150, glitch_prob, GLITCH_FRAME_NUMBER);
 
     // if (timer_elapsed32(glitch_timer) > current_glitch_time) {
     //     glitch_timer = timer_read32();

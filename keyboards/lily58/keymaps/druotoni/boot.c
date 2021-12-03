@@ -14,7 +14,6 @@ int      anim_boot_current_frame = 0;
 
 // halt
 #define ANIM_HALT_FRAME_DURATION 55
-#define HALT_DURATION 4000
 uint32_t anim_halt_timer         = 0;
 int      anim_halt_current_frame = 0;
 

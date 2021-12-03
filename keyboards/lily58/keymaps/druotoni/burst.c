@@ -145,18 +145,28 @@ uint8_t anim_sleep_scope_duration[ANIM_SLEEP_SCOPE_FRAME_NUMBER] = {30, 30, 30, 
 uint8_t current_sleep_scope_frame                                = 0;
 uint8_t sleep_scope_frame_destination                            = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
 
-void reset_scope(bool bNeedOpen) {
-    // allume : doit s'éteindre
-    current_sleep_scope_frame = 0;
 
-    if (bNeedOpen) {
+void reset_scope(void) {
         // off : doit s'allumer
         anim_sleep_scope_timer    = timer_read32();
         current_sleep_scope_frame = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
-        //  sleep_scope_frame_destination = 0;
-    }
-    sleep_scope_frame_destination = (ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1) - current_sleep_scope_frame;
+
+    sleep_scope_frame_destination = 0;
 }
+
+
+// void reset_scope(bool bNeedOpen) {
+//     // allume : doit s'éteindre
+//     current_sleep_scope_frame = 0;
+
+//     if (bNeedOpen) {
+//         // off : doit s'allumer
+//         anim_sleep_scope_timer    = timer_read32();
+//         current_sleep_scope_frame = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
+//         //  sleep_scope_frame_destination = 0;
+//     }
+//     sleep_scope_frame_destination = (ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1) - current_sleep_scope_frame;
+// }
 
 uint32_t    anim_scope_idle_timer = 0;
 static void render_glitch_square(void) {
@@ -200,7 +210,8 @@ uint8_t  current_glitch_scope_index = 0;
 // }
 
 void render_scope_idle(void) {
-    get_glitch_index(&glitch_scope_timer, &current_glitch_scope_time, &current_glitch_scope_index, 150, 350, 50, 2);
+       uint8_t glitch_prob = get_glitch_probability();
+    get_glitch_index(&glitch_scope_timer, &current_glitch_scope_time, &current_glitch_scope_index, 150, 350,glitch_prob, 2);
 
     // if (timer_elapsed32(glitch_scope_timer) > current_glitch_scope_time) {
     //     glitch_scope_timer = timer_read32();

@@ -76,7 +76,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
 #ifdef OLED_DRIVER_ENABLE
 
-
 // sync transport
 typedef struct _sync_keycode_t {
     uint16_t keycode;
@@ -84,7 +83,6 @@ typedef struct _sync_keycode_t {
 
 sync_keycode_t last_keycode;
 bool           b_sync_need_send = false;
-
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
@@ -117,32 +115,40 @@ void update(uint16_t keycode) {
 #    endif
 }
 
-void reset(bool b) {
+// void reset(bool b) {
+// #    if IS_LEFT
+//     reset_scope(b);
+// #    endif
+
+// #    if IS_RIGHT
+//     reset_ring(b);
+// #    endif
+// }
+
+
+void reset(void) {
 #    if IS_LEFT
-    reset_scope(b);
+    reset_scope();
 #    endif
 
 #    if IS_RIGHT
-    reset_ring(b);
+    reset_ring();
 #    endif
 }
-
-
 
 
 void oled_task_user(void) {
     gui_state_t t = get_gui_state();
 
-// in sleep mode => turn display off
+    // in sleep mode => turn display off
     if (t == _SLEEP) {
         oled_off();
         return;
     }
 
-
     oled_on();
 
-// in booting mode => display booting animation
+    // in booting mode => display booting animation
     if (t == _BOOTING) {
         render_boot();
         return;
@@ -165,29 +171,55 @@ void process_key(uint16_t keycode) {
 
     gui_state_t t = get_gui_state();
 
+
     if (t == _IDLE) {
         // wake up animation
-        reset(true);
+        reset();
     }
 
     if (t == _BOOTING) {
         // cancel booting
         oled_clear();
-        reset(false);
+        reset();
     }
 
-        if (t == _HALTING) {
+    if (t == _HALTING) {
         // cancel halting : waking_up
         oled_clear();
-        reset(true);
+        reset();
     }
 
     if (t == _SLEEP) {
         // boot sequence
-        reset(true);
+        reset();
         reset_boot();
         oled_clear();
     }
+
+
+    // if (t == _IDLE) {
+    //     // wake up animation
+    //     reset(true);
+    // }
+
+    // if (t == _BOOTING) {
+    //     // cancel booting
+    //     oled_clear();
+    //     reset(true);
+    // }
+
+    // if (t == _HALTING) {
+    //     // cancel halting : waking_up
+    //     oled_clear();
+    //     reset(true);
+    // }
+
+    // if (t == _SLEEP) {
+    //     // boot sequence
+    //     reset(true);
+    //     reset_boot();
+    //     oled_clear();
+    // }
 
     update_gui_state();
 }
@@ -208,6 +240,49 @@ void housekeeping_task_user(void) {
     }
 }
 
+// typedef struct _autoswap_keycode_t {
+//     // key pressed
+//     uint16_t keycode_id;
+//     // key sent when tap
+//     uint16_t keycode_tap;
+//     // key sent when hold
+//     uint16_t keycode_hold;
+// } autoswap_keycode_t;
+
+// // size of the mapping
+// #define KEY_MAP_SIZE 2
+
+// // array for storing the mapping  : on line is pressed/tap/hold
+// autoswap_keycode_t keymap[KEY_MAP_SIZE] = {
+//     {KC_A, KC_B, KC_C},
+//     {KC_D, KC_E, KC_F},
+// };
+
+// // find the correct item according to the key pressed
+// int get_index_autoswap(uint16_t keycode_id) {
+//     for (int i = 0; i < KEY_MAP_SIZE; i++) {
+//         if (keymap[i].keycode_id == keycode_id) return i;
+//     }
+//     return -1;
+// }
+
+// bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+//     // the keycode is in the mapping ?
+//     int index = get_index_autoswap(keycode);
+//     if (index != -1) {
+//         // yes
+//         if (record->tap.count && record->event.pressed) {
+//             // tap action
+//             tap_code16(keymap[index].keycode_tap);
+//         } else if (record->event.pressed) {
+//             // hold action
+//             tap_code16(keymap[index].keycode_hold);
+//         }
+//         return false;
+//     }
+//     // ....
+//     // ....
+// }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {

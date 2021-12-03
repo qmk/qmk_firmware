@@ -14,17 +14,27 @@ static char tRefArc2[SIZE_ARRAY_1] = {'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y
 static const char PROGMEM code_to_name[60] = {' ', ' ', ' ', ' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
 
 #define ANIM_CENTER_FRAME_NUMBER 5
+#define ANIM_CENTER_FRAME_DURATION 40
 uint32_t anim_center_timer         = 0;
 int      anim_center_current_frame = 0;
 
 #define ANIM_KEYLOG_FRAME_NUMBER 8
+#define ANIM_KEYLOG_FRAME_DURATION 20
 int      anim_keylog_current_frame = 0;
 uint32_t anim_keylog_timer         = 0;
+
+
+#define ANIM_SLEEP_RING_FRAME_NUMBER 9
+#define ANIM_SLEEP_RING_FRAME_DURATION 20
+uint32_t anim_sleep_ring_timer        = 0;
+uint8_t  current_sleep_ring_frame     = 0;
+uint8_t  sleep_ring_frame_destination = ANIM_SLEEP_RING_FRAME_NUMBER - 1;
+
 
 uint32_t circle_timer = 0;
 char     c_target     = 'A';
 char     c_target2    = 'Q';
-
+ 
 char c_last     = ' ';
 char c_previous = ' ';
 
@@ -188,7 +198,7 @@ static void draw_center_circle_frame(uint8_t x, uint8_t y, uint8_t r, uint8_t f)
 static void render_anim_center_circle(uint8_t x, uint8_t y, uint8_t r) {
     if (anim_center_current_frame == ANIM_CENTER_FRAME_NUMBER) return;
 
-    if (timer_elapsed32(anim_center_timer) > 40) {
+    if (timer_elapsed32(anim_center_timer) > ANIM_CENTER_FRAME_DURATION) {
         anim_center_timer = timer_read32();
 
         draw_center_circle_frame(x, y, r, anim_center_current_frame);
@@ -205,7 +215,7 @@ static void write_char(char c) {
 
 static void render_keylog(gui_state_t t) {
     if (anim_keylog_current_frame != ANIM_KEYLOG_FRAME_NUMBER) {
-        if (timer_elapsed32(anim_keylog_timer) > 20) {
+        if (timer_elapsed32(anim_keylog_timer) > ANIM_KEYLOG_FRAME_DURATION) {
             anim_keylog_timer = timer_read32();
             anim_keylog_current_frame++;
         }
@@ -226,11 +236,7 @@ static void render_keylog(gui_state_t t) {
     write_char(c_last);
 }
 
-#define ANIM_SLEEP_RING_FRAME_NUMBER 9
 
-uint32_t anim_sleep_ring_timer        = 0;
-uint8_t  current_sleep_ring_frame     = 0;
-uint8_t  sleep_ring_frame_destination = ANIM_SLEEP_RING_FRAME_NUMBER - 1;
 
 void reset_ring(bool bNeedOpen) {
     // allume : doit s'eteindre
@@ -426,8 +432,9 @@ static void render_glitch_square(void) {
 
 static void render_ring_idle(void) {
  
+   uint8_t glitch_prob = get_glitch_probability();
      get_glitch_index(&glitch_ring_timer, &current_glitch_ring_time,
-      &current_glitch_ring_index, 150, 350, 50, 2);
+      &current_glitch_ring_index, 150, 350, glitch_prob, 2);
    switch (current_glitch_ring_index) {
         case 0:
            render_ring_clean_close();
@@ -444,7 +451,7 @@ static void render_ring_sleep(void) {
         return;
     }
 
-    if (timer_elapsed32(anim_sleep_ring_timer) > 30) {
+    if (timer_elapsed32(anim_sleep_ring_timer) > ANIM_SLEEP_RING_FRAME_DURATION) {
         render_circle_white();
 
         anim_sleep_ring_timer = timer_read32();

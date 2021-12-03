@@ -54,7 +54,7 @@ uint8_t wpm_regress_count(uint16_t keycode);
 
 void update_scope(uint16_t keycode);     
 void render_scope(gui_state_t t);
-void reset_scope(bool bNeedOpen);
+void reset_scope(void);
 void decay_scope(void);
 
- 
+ //void reset_scope(bool bNeedOpen);

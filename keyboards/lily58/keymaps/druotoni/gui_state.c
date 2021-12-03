@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "gui_state.h"
+#include "draw_helper.h"
 
 uint32_t global_sleep_timer     = 0;
 uint32_t global_waking_up_timer = 0;
@@ -35,15 +36,20 @@ void update_gui_state(void) {
     }
 
     if (t == _BOOTING) {
-        // booting
+        // cancel booting
         global_booting_timer = 1000000;
     }
 
-    if (t == _IDLE || t == _HALTING ) {
+    if (t == _IDLE || t == _HALTING || t == _BOOTING ) {
         // waking up
         global_waking_up_timer = timer_read32();
     }
 
     // no sleep
     global_sleep_timer = timer_read32();
+}
+
+uint8_t get_glitch_probability(void){
+
+return interpo_pourcent(IDLE_TIME_TRESHOLD, HALTING_TIME_TRESHOLD, timer_elapsed32(global_sleep_timer) );
 }
