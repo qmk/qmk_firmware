@@ -49,8 +49,8 @@
 /* Bootmagic Lite configuration. */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
-#define BOOTMAGIC_LITE_ROW_RIGHT 6
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 5
+#define BOOTMAGIC_LITE_ROW_RIGHT 4
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
 
 /* serial.c configuration (for split keyboard) */
 #define SOFT_SERIAL_PIN D2
