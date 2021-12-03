@@ -1,7 +1,7 @@
 {
     "keyboard_name": "polly40 v2",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "paul",
     "layouts": {
         "LAYOUT": {
             "layout": [
