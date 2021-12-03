@@ -1,5 +1,6 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
+#define AUDIO_INIT_DELAY
 
 #include "../../config.h"
 

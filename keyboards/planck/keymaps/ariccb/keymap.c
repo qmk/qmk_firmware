@@ -17,7 +17,6 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
-#define AUDIO_INIT_DELAY
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -33,6 +32,10 @@
 #define LCTRL_F1 MT(MOD_LCTL, KC_F1)
 #define LSFT_F2 MT(MOD_LSFT, KC_F2)
 #define LALT_F2 MT(MOD_LALT, KC_F3)
+#define MTENTER MT(MOD_LCTL, KC_ENT)
+#define MTTAB MT(MOD_HYPR, KC_TAB)
+#define LTESC LT(_FN, KC_ESC)
+#define MTMENU MT(MOD_LCTL | MOD_LSFT, KC_APP)
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
@@ -63,40 +66,40 @@ enum planck_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (QWERTY layer)
  *
- * ,-----------------------------------------------------------------------.
- * |FN,ESC|  q  |  w  |  e  |  r  |  t  |  y  |  u  |  i  |  o  |  p  |Bspc|
- * |-----------------------------------------------------------------------|
-|HYPER,Tab|  a  |  s  |  d  |  f  |  g  |  h  |  j  |  k  |  l  |  ;  |  ' |
- * |-----------------------------------------------------------------------|
- * |shift |  z  |  x  |  c  |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |  \ |
- * |-----------------------------------------------------------------------|
- * | Ctl  | Win | Alt |Enter|LOWER|   Space   |RAISE|Menu |Play | Lft |Rght|
- * `-----------------------------------------------------------------------'
+ * ,-------------------------------------------------------------------------.
+ * |FN,ESC|  q  |  w  |   e   |  r  |  t  |  y  |  u  |  i  |  o  |  p  |Bspc|
+ * |-------------------------------------------------------------------------|
+|HYPER,Tab|  a  |  s  |   d   |  f  |  g  |  h  |  j  |  k  |  l  |  ;  |  ' |
+ * |-------------------------------------------------------------------------|
+ * |shift |  z  |  x  |   c   |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |  \ |
+ * |-------------------------------------------------------------------------|
+ * | Ctl  | Win | Alt |Ctl,Ent|LOWER|   Space   |RAISE|Menu |Play | Lft |Rght|
+ * `-------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid( /* QWERTY */
-    LT(_FN, KC_ESC),      KC_Q,     KC_W,    KC_E,   KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC,
-    MT(MOD_HYPR, KC_TAB), KC_A,     KC_S,    KC_D,   KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT, 
-    KC_LSFT,              KC_Z,     KC_X,    KC_C,   KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_BSLS, 
-    KC_LCTL,              KC_LGUI,  KC_LALT, KC_ENT, LOWER, KC_SPC, KC_SPC, RAISE, KC_APP,  KC_MPLY, KC_LEFT, KC_RGHT
+    LTESC,   KC_Q,     KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC,
+    MTTAB,   KC_A,     KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT, 
+    KC_LSFT, KC_Z,     KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_BSLS, 
+    KC_LCTL, KC_LGUI,  KC_LALT, MTENTER, LOWER, KC_SPC, KC_SPC, RAISE, MTMENU,  KC_MPLY, KC_LEFT, KC_RGHT
  ),
 
  /* MIT Layout (COLEMAK layer)
  *
- * ,-----------------------------------------------------------------------.
- * |FN,ESC|  q  |  w  |  f  |  p  |  b  |  j  |  l  |  u  |  y  |  ;  |Bspc|
- * |-----------------------------------------------------------------------|
-|HYPER,Tab|  a  |  r  |  s  |  t  |  g  |  h  |  n  |  e  |  i  |  o  |  ' |
- * |-----------------------------------------------------------------------|
- * |shift |  z  |  x  |  c  |  d  |  v  |  k  |  m  |  ,  |  .  |  /  |  \ |
- * |-----------------------------------------------------------------------|
- * | Ctl  | Win | Alt |Enter|LOWER|   Space   |RAISE|Menu |Play | Lft |Rght|
- * `-----------------------------------------------------------------------'
+ * ,-------------------------------------------------------------------------.
+ * |FN,ESC|  q  |  w  |   f   |  p  |  b  |  j  |  l  |  u  |  y  |  ;  |Bspc|
+ * |-------------------------------------------------------------------------|
+|HYPER,Tab|  a  |  r  |   s   |  t  |  g  |  h  |  n  |  e  |  i  |  o  |  ' |
+ * |-------------------------------------------------------------------------|
+ * |shift |  z  |  x  |   c   |  d  |  v  |  k  |  m  |  ,  |  .  |  /  |  \ |
+ * |-------------------------------------------------------------------------|
+ * | Ctl  | Win | Alt |Ctl,Ent|LOWER|   Space   |RAISE|Menu |Play | Lft |Rght|
+ * `-------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid( /* COLEMAK */
-    LT(_FN, KC_ESC),      KC_Q,    KC_W,    KC_F,   KC_P,  KC_B,   KC_J,   KC_L,  KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
-    MT(MOD_HYPR, KC_TAB), KC_A,    KC_R,    KC_S,   KC_T,  KC_G,   KC_M,   KC_N,  KC_E,    KC_I,    KC_O,    KC_QUOT, 
-    KC_LSFT,              KC_Z,    KC_X,    KC_C,   KC_D,  KC_V,   KC_K,   KC_H,  KC_COMM, KC_DOT,  KC_SLSH, KC_BSLS, 
-    KC_LCTL,              KC_LGUI, KC_LALT, KC_ENT, LOWER, KC_SPC, KC_SPC, RAISE, KC_APP,  KC_MPLY, KC_LEFT, KC_RGHT
+    LTESC,   KC_Q,    KC_W,    KC_F,    KC_P,  KC_B,   KC_J,   KC_L,  KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
+    MTTAB,   KC_A,    KC_R,    KC_S,    KC_T,  KC_G,   KC_M,   KC_N,  KC_E,    KC_I,    KC_O,    KC_QUOT, 
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,  KC_V,   KC_K,   KC_H,  KC_COMM, KC_DOT,  KC_SLSH, KC_BSLS, 
+    KC_LCTL, KC_LGUI, KC_LALT, MTENTER, LOWER, KC_SPC, KC_SPC, RAISE, MTMENU,  KC_MPLY, KC_LEFT, KC_RGHT
  ),
 
 /* MIT Layout (RAISED_LAYER)
@@ -108,14 +111,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------|
  * |     |     |     |     |     |  %  |  ^  |  #  |  $  |  +  |  ?  |  |  |
  * |-----------------------------------------------------------------------|
- * |     |     |     |     |     |           |     |     |     |     |     |
+ * |     |     |     |     |     |           |     | RAlt|     |     |     |
  * `-----------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_EQL,  KC_COLN, KC_BSPC,
   KC_GRV,  KC_UNDS, KC_LT,   KC_LBRC, KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, KC_RBRC, KC_GT,   KC_MINS, KC_DQUO, 
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PERC, KC_CIRC, KC_HASH, KC_DLR,  KC_PPLS, KC_QUES, KC_PIPE, 
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_RALT, KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
 /* MIT Layout (LOWER)
@@ -123,18 +126,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------.
  * |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  | Bksp|
  * |-----------------------------------------------------------------------|
- * |     |     |     |     |ctr_f|     |  M  |  4  |  5  |  6  |  -  |  +  |
+ * |     |  :  |     |ctr_s|ctr_f|     |  M  |  4  |  5  |  6  |  -  |  +  |
  * |-----------------------------------------------------------------------|
  * |     |ctr_z|ctr_x|ctr_c|ctr_v|  C  |  @  |  1  |  2  |  3  |  /  |  *  |
  * |-----------------------------------------------------------------------|
- * |     |     |     |NUMPAD|    |            |  0  |  0  |  .  |  =  |Enter|
+ * |     |     |     |NUMPAD|    |           |  0  |  .  |  :  |  =  |Enter|
  * `-----------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid( /* LOWER */
-  KC_GRV,  KC_1,       KC_2,       KC_3,       KC_4,       KC_5,    KC_6,    KC_7,  KC_P8, KC_9,    KC_0,    KC_BSPC, 
-  KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS,    LCTL(KC_F), KC_TRNS, KC_M,    KC_P4, KC_P5, KC_P6,   KC_PMNS, KC_PPLS, 
-  KC_TRNS, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_C,    KC_AT,   KC_P1, KC_P2, KC_P3,   KC_PSLS, KC_PAST, 
-  KC_TRNS, KC_TRNS,    KC_TRNS,    NUMPAD,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_P0, KC_P0, KC_PDOT, KC_EQL,  KC_PENT
+  KC_GRV,  KC_1,       KC_2,       KC_3,       KC_4,       KC_5,    KC_6,    KC_7,  KC_P8,   KC_9,    KC_0,    KC_BSPC, 
+  KC_TRNS, KC_COLN,    KC_TRNS,    LCTL(KC_S), LCTL(KC_F), KC_TRNS, KC_M,    KC_P4, KC_P5,   KC_P6,   KC_PMNS, KC_PPLS, 
+  KC_TRNS, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_C,    KC_AT,   KC_P1, KC_P2,   KC_P3,   KC_PSLS, KC_PAST, 
+  KC_TRNS, KC_TRNS,    KC_TRNS,    NUMPAD,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_COLN, KC_EQL,  KC_PENT
 ),
 
 /* MIT Layout (NUMPAD)
@@ -142,37 +145,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------.
  * |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  | Bksp|
  * |-----------------------------------------------------------------------|
- * |     |     |     |     |ctr_f|     |  M  |  4  |  5  |  6  |  -  |  +  |
+ * |     |  :  |     |     |     |     |  M  |  4  |  5  |  6  |  -  |  +  |
  * |-----------------------------------------------------------------------|
- * |     |ctr_z|ctr_x|ctr_c|ctr_v|  C  |  @  |  1  |  2  |  3  |  /  |  *  |
+ * |     |     |     |     |     |  C  |  @  |  1  |  2  |  3  |  /  |  *  |
  * |-----------------------------------------------------------------------|
- * |     |     |     |     | Exit|            |  0  |  0  |  .  |  = |Enter|
+ * |     |     | RAlt|     | EXIT|           |  0  |  .  |  :  |  =  |Enter|
  * `-----------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_planck_grid( /* LOWER */
-  KC_GRV,  KC_1,       KC_2,        KC_3,       KC_4,       KC_5,    KC_6,    KC_7,  KC_P8, KC_9,    KC_0,    KC_BSPC, 
-  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,    LCTL(KC_F), KC_TRNS, KC_M,    KC_P4, KC_P5, KC_P6,   KC_PMNS, KC_PPLS, 
-  KC_TRNS, LCTL(KC_Z), LCTL(KC_X),  LCTL(KC_C), LCTL(KC_V), KC_C,    KC_AT,   KC_P1, KC_P2, KC_P3,   KC_PSLS, KC_PAST, 
-  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,    EXT_NUM,    KC_TRNS, KC_TRNS, KC_P0, KC_P0, KC_PDOT, KC_EQL,  KC_PENT
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,  KC_P8,   KC_9,    KC_0,    KC_BSPC, 
+  KC_TRNS, KC_COLN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_M,    KC_P4, KC_P5,   KC_P6,   KC_PMNS, KC_PPLS, 
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_C,    KC_AT,   KC_P1, KC_P2,   KC_P3,   KC_PSLS, KC_PAST, 
+  KC_TRNS, KC_TRNS, KC_RALT, KC_TRNS, EXT_NUM, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_COLN, KC_EQL,  KC_PENT
 ),
 
 /* MIT Layout (FN LAYER)
  *
- * ,----------------------------------------------------------------------------.
- * |    |LCTRL_F1|LSFT_F2|LALT_F3| F4  |    |    |home | up   | end |PrtScr|del |
- * |----------------------------------------------------------------------------|
- * |    |  F5    |  F6   |  F7   | F8  |    |    |left | down |right|ScrLck|Ins |
- * |----------------------------------------------------------------------------|
- * |    |  F9    | F10   | F11   | F12 |    |    |pgup |LCA_up| pgdn|      |CAPS|
- * |----------------------------------------------------------------------------|
- * |    | MICMUTE| Calc  |  MUTE |Vol- |         |Vol+ |LCA_dn| next|      |    |
- * `----------------------------------------------------------------------------'
+ * ,-------------------------------------------------------------------------------.
+ * |    |LCTRL_F1|LSFT_F2|LALT_F3| F4  |Calc|    |home | up   | end |PrtScr|del    |
+ * |-------------------------------------------------------------------------------|
+ * |    |  F5    |  F6   |  F7   | F8  |    |    |left | down |right|ScrLck|Ins    |
+ * |-------------------------------------------------------------------------------|
+ * |    |  F9    | F10   | F11   | F12 |    |    |pgup |LCA_up| pgdn|      |CAPS   |
+ * |-------------------------------------------------------------------------------|
+ * |    |        |       |       |Vol- |         |Vol+ |LCA_dn| next| MUTE |MICMUTE|
+ * `-------------------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, LCTL_T(KC_F1), LSFT_T(KC_F2), LALT_T(KC_F3), KC_F4,   KC_TRNS, KC_TRNS, KC_HOME, KC_UP,        KC_END,   KC_PSCR, KC_DEL,
+  KC_TRNS, LCTL_T(KC_F1), LSFT_T(KC_F2), LALT_T(KC_F3), KC_F4,   KC_CALC, KC_TRNS, KC_HOME, KC_UP,        KC_END,   KC_PSCR, KC_DEL,
   KC_TRNS, KC_F5,         KC_F6,         KC_F7,         KC_F8,   KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN,      KC_RGHT,  KC_SLCK, KC_INS, 
   KC_VOLU, KC_F9,         KC_F10,        KC_F11,        KC_F12,  KC_TRNS, KC_TRNS, KC_PGUP, LCA(KC_UP),   KC_PGDN,  KC_TRNS, KC_CAPS, 
-  KC_VOLD, MICMUTE,       KC_CALC,       KC_MUTE,       KC_VOLD, KC_TRNS, KC_TRNS, KC_VOLU, LCA(KC_DOWN), KC_MNXT,  KC_TRNS, KC_TRNS
+  KC_VOLD, KC_TRNS,       KC_TRNS,       KC_TRNS,       KC_VOLD, KC_TRNS, KC_TRNS, KC_VOLU, LCA(KC_DOWN), KC_MNXT,  KC_MUTE, MICMUTE
 ),
 
 /* MIT Layout (ADJUST)
@@ -274,7 +277,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         layer_off(_NUMPAD);
         #ifdef AUDIO_ENABLE
-          PLAY_SONG(layerswitch_song);
+          PLAY_SONG(tone_goodbye);
         #endif
       }
       return false;
