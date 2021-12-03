@@ -94,9 +94,9 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
   * The maths can get complicated as these are the "44 prime kinds" of all simple symmetry groups (plus the irregular honorary sporadic "Tits Group"). I included the zero null set symbol too.
   * Some shortcuts to input C language structure and what I call [Amperzand](amperzand.md).
   * `Ctrl`+letters for double struck alphas.
-  * `Ctrl`+`Shift`+alphanumerics for Korean jamo, with the normally "hard shifts" on number up and left.
+  * `Ctrl`+`Shift`+alphanumerics for Korean Jamo, with the normally "hard shifts" on number up and left.
   * `Ctrl`+numbers and `Ctrl`+`Shift`+6, 7 or 8 produce 13 special dimensional double strikes.
-  * `Win` holds both `Ctrl` and `Shift` (for Korean jamo) and does automatic combining.
+  * `Win` holds both `Ctrl` and `Shift` (for Korean Jamo) and does automatic combining.
 
 ### **BQN** Layer (BLUE Layer Within BQN Specification)
 * **BQN** unshifted and shifted.
@@ -172,3 +172,6 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * Caps lock is number lock (the lighting is inverse, so off lights white).
 * Backtick is escape.
 * Space is `Alt Gr`+space.
+
+### Extra Shift Layer (Left `Win` on `Fn` Layer CYAN Shift)
+* This layer toggle locks. You do not need to keep hold of the `Win` CYAN modifier.

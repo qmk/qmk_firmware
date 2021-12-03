@@ -154,7 +154,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//2174 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//1996 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-12-03
 };
 
@@ -448,6 +448,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 							t = cc_uncombine();
 							ip = made_utf();
 							send_unicode_string(ip);
+							tap_code(KC_SPC);//something to delete
 							first = t;
 							middle = (uint8_t)(c - 0x1161);//base line middle
 							tail = 0;//as none yet
@@ -635,7 +636,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_PWR,	KC_HOME, KC_END,  KC_INS,
 		KC_NLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
 		OSM(MOD_LGUI|MOD_RGUI),KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          OSM(MOD_RSFT),
-		DF(0),OSM(MOD_LSFT|MOD_LGUI),DF(1),                   ALGR(KC_SPC),                       KC_TRNS, OSM(MOD_LSFT|MOD_RGUI),KC_TRNS, KC_TRNS),
+		DF(0),	TG(10),						 DF(1),                   	ALGR(KC_SPC),                       KC_TRNS, OSM(MOD_LSFT|MOD_RGUI),KC_TRNS, KC_TRNS),
 
 	//BQN shift mode 7 ==================================================================================== BQN shift mode 7
 	LAYOUT_60_ansi(
@@ -665,6 +666,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		UC_MOD,			      KM_A,    KM_S,    KM_D,    KM_F,    KM_G,    KM_H,    KM_J,    KM_K,    KM_L,    KC_BTN3, KC_BTN2, KC_ENT,
 		KC_LSFT,          KM_Z,    KM_X,    KM_C,    KM_V,    KM_B,    KM_N,    KM_M,	   KC_WH_U, KC_WH_D, KC_MS_U,          KC_RSFT,
 		KC_LCTL, RCS(KC_LALT), KC_TRNS,                				KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS),
+
+	//Extra shift mode 10 ============================================================================== Extra shift mode 10
+	LAYOUT_60_ansi(
+		KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC,
+		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
+		KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,
+		KC_LCTL, TG(10),           KC_LALT,                   KC_SPC,                             KC_RALT, KC_RGUI,          KC_RCTL, KC_TRNS),
 
 	//============================================================================
 	// FILL IN AS REQUIRED (FOR EXTRA LAYAERS IF NEEDED)
@@ -730,7 +739,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	rgblight_set_layer_state(4, layer_state_cmp(state, 4) || layer_state_cmp(state, 5) ||
  		layer_state_cmp(state, 6) || layer_state_cmp(state, 7));//LO Shift
 	rgblight_set_layer_state(5, layer_state_cmp(state, 8) ||
-		layer_state_cmp(state, 9));//HI Shift
+		layer_state_cmp(state, 9) || layer_state_cmp(state, 10));//HI Shift
   return state;
 }
 
