@@ -154,8 +154,8 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//2574 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
-	//2021-12-02
+	//2232 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2021-12-03
 };
 
 //Some say the above should be converted to allow more in device shift states,
@@ -280,7 +280,7 @@ char* utf8(uint16_t cp) {
 }
 
 char* made_utf(void) {
-	tap_code16(KC_BSPC);//remove previous construction!!
+	tap_code(KC_BSPC);//remove previous construction!!
 	return utf8(tail + middle * 28 + first * 588 + 44032);//jamo out
 }
 
@@ -311,6 +311,15 @@ uint8_t finals[19] = {
 };
 
 //initial combiners are on Numbers
+uint8_t fcombine[] = {//5
+	//c, 1, 2
+	1, 0, 0,
+	4, 3, 3,
+	8, 7, 7,
+	10, 9, 9,
+	13, 12, 12,
+};
+
 //vowel combiners
 uint8_t vcombine[] = {//7
 	//c, 1, 2
@@ -323,13 +332,89 @@ uint8_t vcombine[] = {//7
 	20, 19, 21,
 };
 //tail combiners
+uint8_t ccombine[] = {//12
+	//c, 1, 2
+	3, 1, 18,
+	5, 4, 21,
+	6, 4, 27,
+	9, 8, 1,
+	10, 8, 16,
+	11, 8, 17,
+	12, 8, 18,
+	13, 8, 25,
+	14, 8, 26,
+	15, 8, 27,
+	19, 18, 18,
+	22, 21, 21,
+};
+
+bool ff_combine(uint8_t c2) {
+	for(uint8_t i = 0; i < 5*3; i+=3) {
+		if(fcombine[i+1] == first) {
+			if(fcombine[i+2] == c2) {
+				first = fcombine[i];
+				return true;
+			}
+		}
+	}
+	return false;//no combine
+}
+
+bool vv_combine(uint8_t v2) {
+	for(uint8_t i = 0; i < 7*3; i+=3) {
+		if(vcombine[i+1] == middle) {
+			if(vcombine[i+2] == v2) {
+				middle = vcombine[i];
+				return true;
+			}
+		}
+	}
+	return false;//no combine
+}
+
+bool cc_combine(uint8_t c2) {
+	for(uint8_t i = 0; i < 12*3; i+=3) {
+		if(ccombine[i+1] == tail) {
+			if(ccombine[i+2] == c2) {
+				tail = ccombine[i];
+				return true;
+			}
+		}
+	}
+	return false;//no combine
+}
+
+uint8_t make_init(uint8_t final) {
+	for(uint8_t i = 0; i < 19; i++) {
+		if(finals[i] == final) {
+			return i;//index of initials
+		}
+	}
+	//should not reach here
+	return 0;
+}
+
+uint8_t cc_uncombine(void) {
+	for(uint8_t i = 0; i < 12*3; i+=3) {
+		if(ccombine[i] == tail) {
+			tail = ccombine[i+1];
+			return make_init(ccombine[i+2]);
+		}
+	}
+	uint8_t t = make_init(tail);
+	tail = 0;
+	return t;
+}
 
 uint8_t make_final(uint8_t ini) {
 	return finals[ini];
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if(keycode < KM_1 || keycode > KM_M) return true;//protection better
+	if(keycode < KM_1 || keycode > KM_M) {
+		doing = off;
+		return true;//protection better
+	}
 	if (record->event.pressed) {
 		//press
 		const char* ip = macro_unicode[keycode - KM_1];
@@ -343,6 +428,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if(c > 0x10ff && c < 0x1200) {
 				//is jamo
 				if(check_vowel(c)) {
+					uint8_t t;
 					switch(doing) {
 						case initial:
 							middle = (uint8_t)(c - 0x1161);//base line middle
@@ -350,16 +436,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 							doing = vowel;
 							break;
 						case vowel:
+							if(vv_combine((uint8_t)(c - 0x1161))) {
+								ip = made_utf();
+							} else {
+								//emit normal and
+								doing = off;
+							}
 							break;
 						case final:
+							//must unconsume last consonant
+							t = cc_uncombine();
+							ip = made_utf();
+							send_unicode_string(ip);
+							first = t;
+							middle = (uint8_t)(c - 0x1161);//base line middle
+							tail = 0;//as none yet
+							doing = vowel;
+							ip = made_utf();
 							break;
 						case off:
 						default:
+							//normal emit
 							break;
 					}
 				} else {
 					switch(doing) {
 						case initial:
+							if(ff_combine((uint8_t)(c - 0x1100))) {
+								ip = made_utf();
+							} else {
+								first = (uint8_t)(c - 0x1100);//base line first
+								middle = tail = 0;
+							}
 							break;
 						case vowel:
 							tail = make_final((uint8_t)(c - 0x1100));//base line tail
@@ -374,6 +482,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 							}
 							break;
 						case final:
+							if(cc_combine(make_final((uint8_t)(c - 0x1100)))) {
+								ip = made_utf();
+							} else {
+								doing = initial;
+							}
 							break;
 						case off:
 						default:
