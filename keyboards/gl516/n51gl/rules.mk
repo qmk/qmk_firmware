@@ -20,6 +20,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 
 SRC += matrix.c

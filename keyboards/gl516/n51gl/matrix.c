@@ -14,14 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <stdint.h>
-#include <stdbool.h>
-#include "wait.h"
-#include "print.h"
-#include "debug.h"
-#include "util.h"
 #include "matrix.h"
-#include "debounce.h"
 #include "quantum.h"
 
 #if (MATRIX_COLS <= 8)
@@ -41,99 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ROW_SHIFTER  ((uint32_t)1)
 #endif
 
-#ifdef MATRIX_MASKED
-    extern const matrix_row_t matrix_mask[];
-#endif
-
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-
-/* matrix state(1:on, 0:off) */
-static matrix_row_t raw_matrix[MATRIX_ROWS]; //raw values
-static matrix_row_t matrix[MATRIX_ROWS]; //debounced values
-
-__attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
-
-__attribute__ ((weak))
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
-
-__attribute__ ((weak))
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-
-__attribute__ ((weak))
-void matrix_init_user(void) {
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-}
-
-inline
-uint8_t matrix_rows(void) {
-    return MATRIX_ROWS;
-}
-
-inline
-uint8_t matrix_cols(void) {
-    return MATRIX_COLS;
-}
-
-//Deprecated.
-bool matrix_is_modified(void)
-{
-    if (debounce_active()) return false;
-    return true;
-}
-
-inline
-bool matrix_is_on(uint8_t row, uint8_t col)
-{
-    return (matrix[row] & ((matrix_row_t)1<<col));
-}
-
-inline
-matrix_row_t matrix_get_row(uint8_t row)
-{
-    // Matrix mask lets you disable switches in the returned matrix data. For example, if you have a
-    // switch blocker installed and the switch is always pressed.
-#ifdef MATRIX_MASKED
-    return matrix[row] & matrix_mask[row];
-#else
-    return matrix[row];
-#endif
-}
-
-void matrix_print(void)
-{
-    print_matrix_header();
-
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        print_hex8(row); print(": ");
-        print_matrix_row(row);
-        print("\n");
-    }
-}
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += matrix_bitpop(i);
-    }
-    return count;
-}
 
 static void select_row(uint8_t row)
 {
@@ -250,38 +152,24 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     return matrix_changed;
 }
 
-void matrix_init(void) {
-
+void matrix_init_custom(void) {
     // initialize key pins
     init_pins();
-
-    // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        raw_matrix[i] = 0;
-        matrix[i] = 0;
-    }
-
-    debounce_init(MATRIX_ROWS);
-
-    matrix_init_quantum();
 }
 
-uint8_t matrix_scan(void)
+uint8_t matrix_scan_custom(matrix_row_t current_matrix[])
 {
   bool changed = false;
 
   // Set row, read cols
   for (uint8_t current_row = 0; current_row < MATRIX_ROWS / 2; current_row++) {
-    changed |= read_cols_on_row(raw_matrix, current_row);
+    changed |= read_cols_on_row(current_matrix, current_row);
   }
   //else
   // Set col, read rows
   for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-    changed |= read_rows_on_col(raw_matrix, current_col);
+    changed |= read_rows_on_col(current_matrix, current_col);
   }
-
-  debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-
-  matrix_scan_quantum();
+  
   return (uint8_t)changed;
 }
