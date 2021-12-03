@@ -116,12 +116,12 @@ led_config_t g_led_config = {
 }, {
     // Esc, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, -, =, Backspace
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
-    // Tab, Q, W, E, R, T, Y, U, I, O, P, [, ],  ,
-    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
+    // Tab, Q, W, E, R, T, Y, U, I, O, P, [, ], \
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
     // Capslock, A, S, D, F, G, H, A, K, L, ;, ', Enter
-    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
-    // LShift, Z, X, C, V, B, N, M, ,, ., /, Shift, Up,
-    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,
+    9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
+    // LShift, Z, X, C, V, B, N, M, ,, ., /, Shift, Up, ?
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 4,
     // Ctrl, GUI, Alt, Space, RAlt, FN, Left, Down, Right
     1, 1, 1, 4, 1, 1, 1, 1, 1
 #    if WS2812_LED_TOTAL > 0
