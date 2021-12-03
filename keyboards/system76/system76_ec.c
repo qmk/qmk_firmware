@@ -6,36 +6,21 @@
 #include "version.h"
 
 enum Command {
-    // Probe for System76 EC protocol
-    CMD_PROBE = 1,
-    // Read board string
-    CMD_BOARD = 2,
-    // Read version string
-    CMD_VERSION = 3,
-    // Reset to bootloader
-    CMD_RESET = 6,
-    // Get keyboard map index
-    CMD_KEYMAP_GET = 9,
-    // Set keyboard map index
-    CMD_KEYMAP_SET = 10,
-    // Get LED value by index
-    CMD_LED_GET_VALUE = 11,
-    // Set LED value by index
-    CMD_LED_SET_VALUE = 12,
-    // Get LED color by index
-    CMD_LED_GET_COLOR = 13,
-    // Set LED color by index
-    CMD_LED_SET_COLOR = 14,
-    // Get LED matrix mode and speed
-    CMD_LED_GET_MODE = 15,
-    // Set LED matrix mode and speed
-    CMD_LED_SET_MODE = 16,
-    // Get currently pressed keys
-    CMD_MATRIX_GET = 17,
-    // Save LED settings to ROM
-    CMD_LED_SAVE = 18,
-    // Enable/disable no input mode
-    CMD_SET_NO_INPUT = 19,
+    CMD_PROBE         = 1,   // Probe for System76 EC protocol
+    CMD_BOARD         = 2,   // Read board string
+    CMD_VERSION       = 3,   // Read version string
+    CMD_RESET         = 6,   // Reset to bootloader
+    CMD_KEYMAP_GET    = 9,   // Get keyboard map index
+    CMD_KEYMAP_SET    = 10,  // Set keyboard map index
+    CMD_LED_GET_VALUE = 11,  // Get LED value by index
+    CMD_LED_SET_VALUE = 12,  // Set LED value by index
+    CMD_LED_GET_COLOR = 13,  // Get LED color by index
+    CMD_LED_SET_COLOR = 14,  // Set LED color by index
+    CMD_LED_GET_MODE  = 15,  // Get LED matrix mode and speed
+    CMD_LED_SET_MODE  = 16,  // Set LED matrix mode and speed
+    CMD_MATRIX_GET    = 17,  // Get currently pressed keys
+    CMD_LED_SAVE      = 18,  // Save LED settings to ROM
+    CMD_SET_NO_INPUT  = 19,  // Enable/disable no input mode
 };
 
 bool input_disabled = false;
@@ -66,7 +51,7 @@ static bool keymap_set(uint8_t layer, uint8_t output, uint8_t input, uint16_t va
     return false;
 }
 
-static bool bootloader_reset = false;
+static bool bootloader_reset    = false;
 static bool bootloader_unlocked = false;
 
 void system76_ec_unlock(void) {
@@ -74,11 +59,9 @@ void system76_ec_unlock(void) {
     bootloader_unlocked = true;
 }
 
-bool system76_ec_is_unlocked(void) {
-    return bootloader_unlocked;
-}
+bool system76_ec_is_unlocked(void) { return bootloader_unlocked; }
 
-#if defined(RGB_MATRIX_CUSTOM_KB)
+#ifdef RGB_MATRIX_CUSTOM_KB
 enum Mode {
     MODE_SOLID_COLOR = 0,
     MODE_PER_KEY,
@@ -98,6 +81,7 @@ enum Mode {
     MODE_LAST,
 };
 
+// clang-format off
 static enum rgb_matrix_effects mode_map[] = {
     RGB_MATRIX_SOLID_COLOR,
     RGB_MATRIX_CUSTOM_raw_rgb,
@@ -115,13 +99,15 @@ static enum rgb_matrix_effects mode_map[] = {
     RGB_MATRIX_CUSTOM_active_keys,
     RGB_MATRIX_NONE,
 };
+// clang-format on
 
 _Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
 
 RGB raw_rgb_data[DRIVER_LED_TOTAL];
 
+// clang-format off
 rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
-    // Layer 1
+    // Layer 0
     {
         .enable = 1,
         .mode = RGB_MATRIX_STARTUP_MODE,
@@ -131,6 +117,19 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
             .v = RGB_MATRIX_STARTUP_VAL,
         },
         .speed = RGB_MATRIX_STARTUP_SPD,
+        .flags = LED_FLAG_KEYLIGHT,
+    },
+    // Layer 1
+    {
+        .enable = 1,
+        .mode = RGB_MATRIX_CUSTOM_active_keys,
+        .hsv = {
+            .h = RGB_MATRIX_STARTUP_HUE,
+            .s = RGB_MATRIX_STARTUP_SAT,
+            .v = RGB_MATRIX_STARTUP_VAL,
+        },
+        .speed = RGB_MATRIX_STARTUP_SPD,
+        .flags = LED_FLAG_KEYLIGHT,
     },
     // Layer 2
     {
@@ -142,6 +141,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
             .v = RGB_MATRIX_STARTUP_VAL,
         },
         .speed = RGB_MATRIX_STARTUP_SPD,
+        .flags = LED_FLAG_KEYLIGHT,
     },
     // Layer 3
     {
@@ -153,41 +153,21 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
             .v = RGB_MATRIX_STARTUP_VAL,
         },
         .speed = RGB_MATRIX_STARTUP_SPD,
-    },
-    // Layer 4
-    {
-        .enable = 1,
-        .mode = RGB_MATRIX_CUSTOM_active_keys,
-        .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
-            .s = RGB_MATRIX_STARTUP_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
-        },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .flags = LED_FLAG_KEYLIGHT,
     },
 };
+// clang-format on
 
-// Read or write EEPROM data with checks for being inside System76 EC region
-static bool system76_ec_eeprom_op(void * buf, uint16_t size, uint16_t offset, bool write) {
+// Read or write EEPROM data with checks for being inside System76 EC region.
+static bool system76_ec_eeprom_op(void *buf, uint16_t size, uint16_t offset, bool write) {
     uint16_t addr = SYSTEM76_EC_EEPROM_ADDR + offset;
-    uint16_t end = addr + size;
-    if (
-        (end > addr) && // check for overflow and zero size
-        (addr >= SYSTEM76_EC_EEPROM_ADDR) &&
-        (end <= (SYSTEM76_EC_EEPROM_ADDR + SYSTEM76_EC_EEPROM_SIZE))
-    ) {
+    uint16_t end  = addr + size;
+    // Ceck for overflow and zero size
+    if ((end > addr) && (addr >= SYSTEM76_EC_EEPROM_ADDR) && (end <= (SYSTEM76_EC_EEPROM_ADDR + SYSTEM76_EC_EEPROM_SIZE))) {
         if (write) {
-            eeprom_update_block(
-                (const void *)buf,
-                (void *)addr,
-                size
-            );
+            eeprom_update_block((const void *)buf, (void *)addr, size);
         } else {
-            eeprom_read_block(
-                (void *)buf,
-                (const void *)addr,
-                size
-            );
+            eeprom_read_block((void *)buf, (const void *)addr, size);
         }
         return true;
     } else {
@@ -195,24 +175,14 @@ static bool system76_ec_eeprom_op(void * buf, uint16_t size, uint16_t offset, bo
     }
 }
 
-// Read or write EEPROM RGB parameters
+// Read or write EEPROM RGB parameters.
 void system76_ec_rgb_eeprom(bool write) {
     uint16_t layer_rgb_size = sizeof(layer_rgb);
-    system76_ec_eeprom_op(
-        (void *)layer_rgb,
-        layer_rgb_size,
-        0,
-        write
-    );
-    system76_ec_eeprom_op(
-        (void *)raw_rgb_data,
-        sizeof(raw_rgb_data),
-        layer_rgb_size,
-        write
-    );
+    system76_ec_eeprom_op((void *)layer_rgb, layer_rgb_size, 0, write);
+    system76_ec_eeprom_op((void *)raw_rgb_data, sizeof(raw_rgb_data), layer_rgb_size, write);
 }
 
-// Update RGB parameters on layer change
+// Update RGB parameters on layer change.
 void system76_ec_rgb_layer(layer_state_t layer_state) {
     if (!bootloader_unlocked) {
         uint8_t layer = get_highest_layer(layer_state);
@@ -221,7 +191,7 @@ void system76_ec_rgb_layer(layer_state_t layer_state) {
         }
     }
 }
-#endif // defined(RGB_MATRIX_CUSTOM_KB)
+#endif  // RGB_MATRIX_CUSTOM_KB
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     // Error response by default, set to success by commands
@@ -250,31 +220,25 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 bootloader_reset = true;
             }
             break;
-        case CMD_KEYMAP_GET:
-            {
-                uint16_t value = 0;
-                if (keymap_get(data[2], data[3], data[4], &value)) {
-                    data[5] = (uint8_t)value;
-                    data[6] = (uint8_t)(value >> 8);
-                    data[1] = 0;
-                }
+        case CMD_KEYMAP_GET: {
+            uint16_t value = 0;
+            if (keymap_get(data[2], data[3], data[4], &value)) {
+                data[5] = (uint8_t)value;
+                data[6] = (uint8_t)(value >> 8);
+                data[1] = 0;
             }
-            break;
-        case CMD_KEYMAP_SET:
-            {
-                uint16_t value =
-                    ((uint16_t)data[5]) |
-                    (((uint16_t)data[6]) << 8);
-                if (keymap_set(data[2], data[3], data[4], value)) {
-                    data[1] = 0;
-                }
+        } break;
+        case CMD_KEYMAP_SET: {
+            uint16_t value = ((uint16_t)data[5]) | (((uint16_t)data[6]) << 8);
+            if (keymap_set(data[2], data[3], data[4], value)) {
+                data[1] = 0;
             }
-            break;
-#if defined(RGB_MATRIX_CUSTOM_KB)
+        } break;
+#ifdef RGB_MATRIX_CUSTOM_KB
         case CMD_LED_GET_VALUE:
             if (!bootloader_unlocked) {
                 uint8_t index = data[2];
-                for(uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
                     if (index == (0xF0 | layer)) {
                         data[3] = layer_rgb[layer].hsv.v;
                         data[4] = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
@@ -291,7 +255,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 if (value >= RGB_MATRIX_MAXIMUM_BRIGHTNESS) {
                     value = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
                 }
-                for(uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
                     if (index == (0xF0 | layer)) {
                         layer_rgb[layer].hsv.v = value;
                         data[1] = 0;
@@ -310,7 +274,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     data[5] = raw_rgb_data[index].b;
                     data[1] = 0;
                 } else {
-                    for(uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                    for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
                         if (index == (0xF0 | layer)) {
                             data[3] = layer_rgb[layer].hsv.h;
                             data[4] = layer_rgb[layer].hsv.s;
@@ -325,16 +289,18 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case CMD_LED_SET_COLOR:
             if (!bootloader_unlocked) {
                 uint8_t index = data[2];
+
                 RGB rgb = {
                     .r = data[3],
                     .g = data[4],
                     .b = data[5],
                 };
+
                 if (index < DRIVER_LED_TOTAL) {
                     raw_rgb_data[index] = rgb;
                     data[1] = 0;
                 } else {
-                    for(uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                    for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
                         if (index == (0xF0 | layer)) {
                             layer_rgb[layer].hsv.h = rgb.r;
                             layer_rgb[layer].hsv.s = rgb.g;
@@ -366,10 +332,10 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case CMD_LED_SET_MODE:
             if (!bootloader_unlocked) {
                 uint8_t layer = data[2];
-                uint8_t mode = data[3];
+                uint8_t mode  = data[3];
                 uint8_t speed = data[4];
                 if (layer < DYNAMIC_KEYMAP_LAYER_COUNT && mode < MODE_LAST) {
-                    layer_rgb[layer].mode = mode_map[mode];
+                    layer_rgb[layer].mode  = mode_map[mode];
                     layer_rgb[layer].speed = speed;
                     data[1] = 0;
                     system76_ec_rgb_layer(layer_state);
@@ -382,41 +348,39 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 data[1] = 0;
             }
             break;
-#endif // defined(RGB_MATRIX_CUSTOM_KB)
-        case CMD_MATRIX_GET:
-            {
-                //TODO: improve performance?
-                data[2] = matrix_rows();
-                data[3] = matrix_cols();
-                uint8_t byte = 4;
-                uint8_t bit = 0;
-                for (uint8_t row = 0; row < matrix_rows(); row++) {
-                    for (uint8_t col = 0; col < matrix_cols(); col++) {
-                        if (byte < length) {
-                            if (matrix_is_on(row, col)) {
-                                data[byte] |= (1 << bit);
-                            } else {
-                                data[byte] &= ~(1 << bit);
-                            }
-                        }
+#endif  // RGB_MATRIX_CUSTOM_KB
+        case CMD_MATRIX_GET: {
+            // TODO: Improve performance?
+            data[2] = matrix_rows();
+            data[3] = matrix_cols();
 
-                        bit++;
-                        if (bit >= 8) {
-                            byte++;
-                            bit = 0;
+            uint8_t byte = 4;
+            uint8_t bit  = 0;
+
+            for (uint8_t row = 0; row < matrix_rows(); row++) {
+                for (uint8_t col = 0; col < matrix_cols(); col++) {
+                    if (byte < length) {
+                        if (matrix_is_on(row, col)) {
+                            data[byte] |= (1 << bit);
+                        } else {
+                            data[byte] &= ~(1 << bit);
                         }
                     }
+
+                    bit++;
+                    if (bit >= 8) {
+                        byte++;
+                        bit = 0;
+                    }
                 }
-                data[1] = 0;
             }
-            break;
-        case CMD_SET_NO_INPUT:
-            {
-                clear_keyboard();
-                input_disabled = data[2] != 0;
-                data[1] = 0;
-            }
-            break;
+            data[1] = 0;
+        } break;
+        case CMD_SET_NO_INPUT: {
+            clear_keyboard();
+            input_disabled = data[2] != 0;
+            data[1] = 0;
+        } break;
     }
 
     raw_hid_send(data, length);

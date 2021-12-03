@@ -4,4 +4,4 @@
 void usb_mux_init(void);
 void usb_mux_event(void);
 
-#endif // USB_MUX_H
+#endif  // USB_MUX_H

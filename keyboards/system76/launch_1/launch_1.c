@@ -1,11 +1,12 @@
-#include "dynamic_keymap.h"
-#include "tmk_core/common/eeprom.h"
-
 #include "launch_1.h"
-#include "usb_mux.h"
-#include "rgb_matrix.h"
 
-#if RGB_MATRIX_ENABLE
+#include "dynamic_keymap.h"
+#include "eeprom.h"
+#include "rgb_matrix.h"
+#include "usb_mux.h"
+
+// clang-format off
+#ifdef RGB_MATRIX_ENABLE
 // LEDs by index
 //    0   1   2   3   4   5   6   7   8   9
 // 00 LM4 LL4 LK4 LJ4 LI4 LH4 LG4 LF4 LE4 LD4
@@ -27,7 +28,7 @@ led_config_t g_led_config = { LAYOUT(
 /* 4 */ 12, 11, 10,  9,  8,  7,  6,  5,  4,  3,  2,  1,  0,
 /* 5 */ 13, 14, 15, 16, 17,     18, 19, 20, 21, 22, 23, 24
 ), {
-    // LED index to physical position (this is a pain, see qmk.sh in launch repo)
+    // LED index to physical position (see leds.sh in `launch' repo)
 /* 00 */ {209, 51}, {190, 51}, {171, 51}, {156, 51}, {140, 51}, {125, 51}, {110, 51}, {95, 51}, {80, 51}, {65, 51},
 /* 10 */ {49, 51}, {34, 51}, {11, 51}, {8, 64}, {27, 64}, {42, 64}, {57, 64}, {80, 64}, {110, 64}, {133, 64},
 /* 20 */ {148, 64}, {167, 64}, {194, 64}, {209, 64}, {224, 64}, {224, 38}, {197, 38}, {178, 38}, {163, 38}, {148, 38},
@@ -52,37 +53,41 @@ led_config_t g_led_config = { LAYOUT(
 } };
 #endif // RGB_MATRIX_ENABLE
 
-bool eeprom_is_valid(void) {
-    return (eeprom_read_word(((void*)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
-            eeprom_read_byte(((void*)EEPROM_VERSION_ADDR)) == EEPROM_VERSION);
+bool eeprom_is_valid(void) { 
+    return (
+        eeprom_read_word(((void *)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
+        eeprom_read_byte(((void *)EEPROM_VERSION_ADDR)) == EEPROM_VERSION
+    );
 }
+// clang-format on
 
 void eeprom_set_valid(bool valid) {
-    eeprom_update_word(((void*)EEPROM_MAGIC_ADDR), valid ? EEPROM_MAGIC : 0xFFFF);
-    eeprom_update_byte(((void*)EEPROM_VERSION_ADDR), valid ? EEPROM_VERSION : 0xFF);
+    eeprom_update_word(((void *)EEPROM_MAGIC_ADDR), valid ? EEPROM_MAGIC : 0xFFFF);
+    eeprom_update_byte(((void *)EEPROM_VERSION_ADDR), valid ? EEPROM_VERSION : 0xFF);
 }
 
 void eeprom_reset(void) {
-    // Set the keyboard specific EEPROM state as invalid.
+    // Set the keyboard-specific EEPROM state as invalid
     eeprom_set_valid(false);
-    // Set the TMK/QMK EEPROM state as invalid.
+    // Set the TMK/QMK EEPROM state as invalid
     eeconfig_disable();
 }
 
+// The lite version of TMK's bootmagic based on Wilba.
+// 100% less potential for accidentally making the keyboard do stupid things.
 void bootmagic_lite(void) {
-    // The lite version of TMK's bootmagic.
-    // 100% less potential for accidentally making the
-    // keyboard do stupid things.
-
-    // We need multiple scans because debouncing can't be turned off.
+    // Do multiple scans because debouncing cannot be turned off
     matrix_scan();
-    wait_ms(DEBOUNCE);
-    wait_ms(DEBOUNCE);
+#if defined(DEBOUNCE) && DEBOUNCE > 0
+    wait_ms(DEBOUNCE * 2);
+#else
+    wait_ms(30);
+#endif
     matrix_scan();
 
-    // If the Esc (matrix 0,0) is held down on power up,
-    // reset the EEPROM valid state and jump to bootloader.
-    if ( matrix_get_row(0) & (1<<0) ) {
+    // If the `Esc' key (matrix 0,0) is held down on power up,
+    // reset the EEPROM valid state and jump to bootloader
+    if (matrix_get_row(0) & (1 << 0)) {
         eeprom_reset();
         bootloader_jump();
     }
@@ -92,6 +97,7 @@ void system76_ec_rgb_eeprom(bool write);
 void system76_ec_rgb_layer(layer_state_t layer_state);
 void system76_ec_unlock(void);
 bool system76_ec_is_unlocked(void);
+
 rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
 
 void matrix_init_kb(void) {
@@ -116,12 +122,9 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-#define LEVEL(value) (uint8_t)(\
-    ((uint16_t)value) \
-    * ((uint16_t)RGB_MATRIX_MAXIMUM_BRIGHTNESS) \
-    / ((uint16_t)255) \
-)
+#define LEVEL(value) (uint8_t)(((uint16_t)value) * ((uint16_t)RGB_MATRIX_MAXIMUM_BRIGHTNESS) / ((uint16_t)255))
 
+// clang-format off
 static const uint8_t levels[] = {
     LEVEL(48),
     LEVEL(72),
@@ -130,9 +133,10 @@ static const uint8_t levels[] = {
     LEVEL(192),
     LEVEL(255)
 };
+// clang-format on
 
 static uint8_t toggle_level = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
-extern bool input_disabled;
+extern bool    input_disabled;
 
 static void set_value_all_layers(uint8_t value) {
     if (!system76_ec_is_unlocked()) {
@@ -144,10 +148,9 @@ static void set_value_all_layers(uint8_t value) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (input_disabled)
-        return false;
+    if (input_disabled) return false;
 
-    switch(keycode) {
+    switch (keycode) {
         case RESET:
             if (record->event.pressed) {
                 system76_ec_unlock();
@@ -208,3 +211,11 @@ void suspend_wakeup_init_kb(void) {
     rgb_matrix_set_suspend_state(false);
     suspend_wakeup_init_user();
 }
+
+#ifdef CONSOLE_ENABLE
+void keyboard_post_init_user(void) {
+    debug_enable   = true;
+    debug_matrix   = true;
+    debug_keyboard = true;
+}
+#endif  // CONSOLE_ENABLE
