@@ -44,7 +44,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 void rgb_matrix_indicators_kb(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(26, 255, 0, 0);
-        rgb_matrix_set_color(53, 255, 0, 0); // FIXME: Does not work
+        // Only works with SPLIT_LED_STATE_ENABLE
+        rgb_matrix_set_color(53, 255, 0, 0);
     }
 }
 
