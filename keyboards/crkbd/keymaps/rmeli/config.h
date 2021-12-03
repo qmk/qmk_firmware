@@ -23,8 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MASTER_LEFT // Left side is the master
 
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
+#define TAPPING_TERM 200
 
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_LIMIT_VAL 120
@@ -35,13 +34,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
 // RGB matrix options
-#   define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
+#   define RGB_MATRIX_KEYPRESSES // enable keypress effects
 #   define RGB_MATRIX_LED_FLUSH_LIMIT 16
 // Enable effects
 #   define ENABLE_RGB_MATRIX_SOLID_COLOR
 #   define ENABLE_RGB_MATRIX_BREATHING
-#   define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-#   define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
 // Default effect
 #   define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
 #   define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS

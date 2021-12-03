@@ -19,6 +19,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
+// + --------- +
+// + TAP DANCE |
+// + --------- +
+
+enum {
+    TD_LSHIFT_CAPS, // Tap once for LSHIFT, twice for CAPS LOCK
+    TD_RSHIFT_CAPS, // Tap once for RSHIFT, twice for CAPS LOCK
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_LSHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+    [TD_RSHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS),
+};
+
+// + -------------------- +
+// + RGB MATRIX CALLBACKS |
+// + -------------------- +
+
+// LED numbers:
+//      https://github.com/foostan/crkbd/blob/main/corne-classic/doc/buildguide_en.md
+
+// Change LED color to red when CAPS LOCK is active
+void rgb_matrix_indicators_kb(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(26, 255, 0, 0);
+        rgb_matrix_set_color(53, 255, 0, 0); // FIXME: Does not work
+    }
+}
+
+// + ------- +
+// + KEY MAP |
+// + ------- +
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -26,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
+      TD(TD_LSHIFT_CAPS),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, TD(TD_LSHIFT_CAPS),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,   MO(1),  KC_SPC,     KC_ENT,   MO(2), KC_RALT
                                       //`--------------------------'  `--------------------------'
