@@ -256,7 +256,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #ifdef CONSOLE_ENABLE
-  uprintf(
+  dprintf(
       "(charybdis) process_record_kb: config = {\n"
       "\traw = 0x%04X,\n"
       "\t{\n"
