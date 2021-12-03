@@ -124,7 +124,7 @@ led_config_t g_led_config = { {
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
     // Capslock, A, S, D, F, G, H, J, K, L, ;, ',#
     9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-    // LShift,\, Z, X, C, V, B, N, M, ,, ., Shift, Up, /
+    // LShift,backslash, Z, X, C, V, B, N, M, ,, ., Shift, Up, /
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 4,
     // Ctrl, GUI, Alt, Space, RAlt, FN, Left, Down, Right
     1, 1, 1, 4, 1, 1, 1, 1, 1
