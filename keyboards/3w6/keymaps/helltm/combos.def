@@ -10,3 +10,9 @@ CB(tab_combo, KC_TAB, KC_A, LSFT_T(KC_Z))
 
 CB(single_quote_combo, KC_QUOT, KC_P, KC_SCLN)
 CB(double_quote_combo, KC_DQUO, KC_SCLN, RSFT_T(KC_SLSH))
+
+CB(plus_combo, KC_PLUS, KC_T, KC_G)
+CB(asterisk_combo, KC_ASTR, KC_G, KC_B)
+
+CB(minus_combo, KC_MINS, KC_Y, KC_H)
+CB(equal_combo, KC_EQL, KC_H, KC_N)
