@@ -1,7 +1,7 @@
 # Atlantis
 
-A company that seemed to have built a reputation creating some unorthodox styled keyboard layouts, for example the AK82 a 60% layout with a numpad (pictured commonly on the left, however a right side variant AK82_VE exists) and rotary encoder.
+A company that has been known to create some unorthodox and unique styled keyboard layouts, a great example of this is the AK82. The AK82 is a 60% layout with a numpad (numpad pictured commonly on the left, however a right side variant the AK82_VE exists).
 
-Atlantis don't only create unorthodox layouts however, they produce some more traditional layouts like the AK81 a 75% layout PCB (AK81_VE variant includes a rotary enconder).
+Atlantis also produce some more traditional layouts like the AK81 a 75% layout (AK81_VE variant includes a rotary enconder) and a large range of macro pads.
 
-Atlantis seem to be operating mainly out of Malaysia, can be difficult to source internationally.
+Atlantis seem to be operating mainly out of Malaysia, products can be difficult to source internationally.
