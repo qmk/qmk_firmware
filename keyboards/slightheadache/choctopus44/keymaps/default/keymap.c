@@ -68,7 +68,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         clockwise ? tap_code(KC_MNXT) : tap_code(KC_MPRV);
         break;
       default:
-        clockwise ? tap_code(KC_PGUP) : tap_code(KC_PGDN);
+        clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
         break;
     }
     return true;

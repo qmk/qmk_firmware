@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0xfeed
 #define PRODUCT_ID 0x05dc
 #define DEVICE_VER 0x0001
-#define MANUFACTURER "SlightHeadache / routa.keebs@gmail.com"
+#define MANUFACTURER "routa.keebs@gmail.com"
 #define PRODUCT Choctopus44
 
 /* key matrix size */
@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D0 }
 #define ENCODERS_PAD_B \
     { D1 }
-#define ENCODER_RESOLUTION 2 // 1 for linear encoder (detents/resolution)
+#define ENCODER_RESOLUTION 4
 
 #define UNUSED_PINS \
     { B6, D3 }
@@ -76,6 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define QMK_KEYS_PER_SCAN 4
 
+// This should enable 1000 Hz polling rate
 #define USB_POLLING_INTERVAL_MS 1
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
