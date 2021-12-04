@@ -51,11 +51,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)
 
 };
-
-void led_set_user(uint8_t usb_led) {
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		DDRD |= (1 << 4); PORTD &= ~(1 << 4);
-	} else {
-		DDRD &= ~(1 << 4); PORTD &= ~(1 << 4);
-	}
-}
