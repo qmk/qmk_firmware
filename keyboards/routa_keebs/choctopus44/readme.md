@@ -21,5 +21,4 @@ Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/ne
 
 ## Bootloader
 
-* **Physical reset button**: Briefly press the button on the controller or on the top of the PCB. Some controllers might require a double-tap, some may require a long press.
-* **Bootmagic lite**: You can also access the bootloader by using Bootmagic Lite commands (see [QMK Documentation - Command](https://beta.docs.qmk.fm/using-qmk/advanced-keycodes/feature_command))
+* **Physical reset button**: Briefly press the button on the controller or on the top of the PCB. Some controllers might require a double-tap, some may require a long press

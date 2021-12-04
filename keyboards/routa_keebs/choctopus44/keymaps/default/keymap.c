@@ -37,18 +37,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_1,     KC_2,     KC_3,     KC_4,      KC_5,               KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINUS, \
     KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,     KC_F6,              KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12, \
     _______,  _______,  _______,  _______,  _______,   KC_CAPS,  KC_MPLY,  KC_NUBS,  KC_NUHS,  KC_EQUAL, KC_GRV,   _______,  _______, \
-                        _______,  _______,  _______,   _______,            _______,  _______,  _______,  _______ \
+                        _______,  _______,  _______,   _______,            KC_DEL,   _______,  _______,  _______ \
   ),
   
   [_RAISE] = LAYOUT(
-    _______,  ALGR(KC_8),ALGR(KC_9),KC_UP,  S(KC_8),   S(KC_9),            S(KC_SLSH),KC_SLSH, _______,KC_RBRC,S(KC_RBRC),ALGR(KC_RBRC), \
-    KC_GRV,   S(KC_EQL),KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_EQL,             ALGR(KC_MINS),S(KC_MINS),_______,_______,_______, _______, \
-    _______,KC_NUBS,S(KC_NUBS),ALGR(KC_NUBS),ALGR(KC_7),ALGR(KC_0),KC_MUTE,S(KC_NUHS),KC_NUHS, _______,  _______,  _______,  _______, \
+    _______,  ALGR(KC_8),ALGR(KC_9),KC_UP,  S(KC_8),   S(KC_9),            S(KC_SLSH),KC_SLSH, KC_UP,KC_RBRC,S(KC_RBRC),ALGR(KC_RBRC), \
+    KC_GRV,   S(KC_EQL),KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_EQL,             ALGR(KC_MINS),KC_LEFT,  KC_DOWN,  KC_RIGHT,S(KC_MINS),ALGR(KC_4), \
+    _______,KC_NUBS,S(KC_NUBS),ALGR(KC_NUBS),ALGR(KC_7),ALGR(KC_0),KC_MUTE,S(KC_NUHS),KC_NUHS, S(KC_5),  S(KC_6),  S(KC_7),  _______, \
                         _______,  _______,  _______,   _______,            _______,  _______,  _______,  _______ \
   ),
   
   [_ADJUST] = LAYOUT(
-    XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,            XXXXXXX,  XXXXXXX,  KC_PSCR,  KC_SLCK,  KC_PAUSE, XXXXXXX, \
+    XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,            KC_MPRV,  KC_MNXT,  KC_PSCR,  KC_SLCK,  KC_PAUSE, XXXXXXX, \
     XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,            XXXXXXX,  XXXXXXX,  KC_INS,   KC_HOME,  KC_PGUP,  XXXXXXX, \
     XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  RESET,    XXXXXXX,  KC_DEL,   KC_END,   KC_PGDN,  XXXXXXX, \
                         _______,  _______,  _______,   _______,            _______,  _______,  _______,  _______ \
@@ -61,14 +61,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch(biton32(layer_state)) {
+      case _ADJUST:
+        clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
+        break; 
       case _RAISE:
-        clockwise ? tap_code(KC_VOLU) : tap_code(KC_VOLD);
+        clockwise ? tap_code(KC_PGUP) : tap_code(KC_PGDN);
         break;
       case _LOWER:
-        clockwise ? tap_code(KC_MNXT) : tap_code(KC_MPRV);
+        clockwise ? tap_code(KC_LEFT) : tap_code(KC_RIGHT);
         break;
       default:
-        clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
+        clockwise ? tap_code(KC_UP) : tap_code(KC_DOWN);
         break;
     }
     return true;
