@@ -19,7 +19,7 @@
 
 #include <util/delay.h>
 
-#include "i2c.h"
+#include "wait.h"
 
 #define REG_PF1_CTL 0xBF800C04
 #define REG_PIO64_OEN 0xBF800908
@@ -382,6 +382,6 @@ void usb_mux_init(void) {
     // TODO: Find reason why GPIO for sink orientation is reset
     for (int i = 0; i < 100; i++) {
         ptn5110_sink_set_orientation(&usb_sink);
-        _delay_ms(10);
+        wait_ms(10);
     }
 }
