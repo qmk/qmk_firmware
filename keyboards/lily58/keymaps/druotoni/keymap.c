@@ -8,12 +8,15 @@
 
 #include "layer_frame.h"
 #include "burst.h"
+#include "fast_random.h"
 
 #include "ring.h"
 
 #include "navi_logo.h"
 
 #include "transactions.h"
+
+#include "rgblight.h"
 
 #undef OLED_DRIVER_ENABLE
 #define OLED_DRIVER_ENABLE
@@ -79,6 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // sync transport
 typedef struct _sync_keycode_t {
     uint16_t keycode;
+    bool     need_blink;
 } sync_keycode_t;
 
 sync_keycode_t last_keycode;
@@ -115,16 +119,6 @@ void update(uint16_t keycode) {
 #    endif
 }
 
-// void reset(bool b) {
-// #    if IS_LEFT
-//     reset_scope(b);
-// #    endif
-
-// #    if IS_RIGHT
-//     reset_ring(b);
-// #    endif
-// }
-
 
 void reset(void) {
 #    if IS_LEFT
@@ -136,6 +130,17 @@ void reset(void) {
 #    endif
 }
 
+#    define ANIM_BLINK_FRAME_DURATION 100
+uint32_t anim_blink_timer = 0;
+
+void blink_underglow(void) {
+    int led_index = (fastrand() % 12);
+    sethsv(HSV_WHITE, (LED_TYPE*)&led[led_index]);  // led 0
+    // sethsv(HSV_RED,   (LED_TYPE *)&led[1]); // led 1
+    // sethsv(HSV_GREEN, (LED_TYPE *)&led[2]); // led 2
+    rgblight_set();
+    anim_blink_timer = timer_read32();
+}
 
 void oled_task_user(void) {
     gui_state_t t = get_gui_state();
@@ -161,16 +166,23 @@ void oled_task_user(void) {
     }
 
     render(t);
+
+    if (timer_elapsed32(anim_blink_timer) > ANIM_BLINK_FRAME_DURATION) {
+        rgblight_reload_from_eeprom();
+    }
 }
 
 #endif
 
-void process_key(uint16_t keycode) {
+void process_key(uint16_t keycode, bool need_blink) {
     // update screen with the new key
     update(keycode);
 
-    gui_state_t t = get_gui_state();
+    if (need_blink) {
+        blink_underglow();
+    }
 
+    gui_state_t t = get_gui_state();
 
     if (t == _IDLE) {
         // wake up animation
@@ -196,37 +208,12 @@ void process_key(uint16_t keycode) {
         oled_clear();
     }
 
-
-    // if (t == _IDLE) {
-    //     // wake up animation
-    //     reset(true);
-    // }
-
-    // if (t == _BOOTING) {
-    //     // cancel booting
-    //     oled_clear();
-    //     reset(true);
-    // }
-
-    // if (t == _HALTING) {
-    //     // cancel halting : waking_up
-    //     oled_clear();
-    //     reset(true);
-    // }
-
-    // if (t == _SLEEP) {
-    //     // boot sequence
-    //     reset(true);
-    //     reset_boot();
-    //     oled_clear();
-    // }
-
     update_gui_state();
 }
 
 void user_sync_a_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
     const sync_keycode_t* m2s = (const sync_keycode_t*)in_data;
-    process_key(m2s->keycode);
+    process_key(m2s->keycode, m2s->need_blink);
 }
 
 void keyboard_post_init_user(void) { transaction_register_rpc(USER_SYNC_A, user_sync_a_slave_handler); }
@@ -240,57 +227,24 @@ void housekeeping_task_user(void) {
     }
 }
 
-// typedef struct _autoswap_keycode_t {
-//     // key pressed
-//     uint16_t keycode_id;
-//     // key sent when tap
-//     uint16_t keycode_tap;
-//     // key sent when hold
-//     uint16_t keycode_hold;
-// } autoswap_keycode_t;
-
-// // size of the mapping
-// #define KEY_MAP_SIZE 2
-
-// // array for storing the mapping  : on line is pressed/tap/hold
-// autoswap_keycode_t keymap[KEY_MAP_SIZE] = {
-//     {KC_A, KC_B, KC_C},
-//     {KC_D, KC_E, KC_F},
-// };
-
-// // find the correct item according to the key pressed
-// int get_index_autoswap(uint16_t keycode_id) {
-//     for (int i = 0; i < KEY_MAP_SIZE; i++) {
-//         if (keymap[i].keycode_id == keycode_id) return i;
-//     }
-//     return -1;
-// }
-
-// bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-//     // the keycode is in the mapping ?
-//     int index = get_index_autoswap(keycode);
-//     if (index != -1) {
-//         // yes
-//         if (record->tap.count && record->event.pressed) {
-//             // tap action
-//             tap_code16(keymap[index].keycode_tap);
-//         } else if (record->event.pressed) {
-//             // hold action
-//             tap_code16(keymap[index].keycode_hold);
-//         }
-//         return false;
-//     }
-//     // ....
-//     // ....
-// }
-
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {
-        if (!is_keyboard_master()) return true;
+        // no action if slave
+        // if (!is_keyboard_master()) {
+        //     return true;
+        // }
 
-        last_keycode.keycode = keycode;
-        b_sync_need_send     = true;
-        process_key(keycode);
+        // blink on correct side
+        bool input_from_master_side = record->event.key.row < 5;
+        bool need_blink_slave       = !input_from_master_side;
+
+        // master : store keycode to sent to the other side to be process_key
+        last_keycode.keycode    = keycode;
+        last_keycode.need_blink = need_blink_slave;
+        b_sync_need_send        = true;
+
+        // gui process the input
+        process_key(keycode, !need_blink_slave);
     }
     return true;
 }

@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
-#include "boot.h"
 
+#include "boot.h"
 #include "fast_random.h"
 #include "draw_helper.h"
 
@@ -17,7 +17,10 @@ int      anim_boot_current_frame = 0;
 uint32_t anim_halt_timer         = 0;
 int      anim_halt_current_frame = 0;
 
-void reset_boot(void) { anim_boot_current_frame = 0; }
+void reset_boot(void) {
+    // frame zero
+    anim_boot_current_frame = 0;
+}
 
 static void draw_lily_key(uint8_t x, uint8_t y, uint8_t *key_number, unsigned long key_state, uint8_t color) {
     uint8_t       v    = *key_number;
@@ -27,6 +30,7 @@ static void draw_lily_key(uint8_t x, uint8_t y, uint8_t *key_number, unsigned lo
     if (((key_state & mask) == mask)) {
         color = !color;
     }
+
     draw_rectangle_fill(x, y, 3, 3, color);
     *key_number = v + 1;
 }
@@ -77,10 +81,8 @@ static void draw_lily_render(uint8_t x, uint8_t y, unsigned long key_state) {
 
 static void draw_lily(int f) {
     uint8_t tres_stroke = 10;
-
-    uint8_t tres_boom = 30;
-
-    uint8_t y_start = 56;
+    uint8_t tres_boom   = 30;
+    uint8_t y_start     = 56;
 
     if (f == 0 || f == tres_stroke || f == tres_boom) {
         oled_clear();
@@ -233,30 +235,17 @@ void reset_halt(void) { anim_halt_current_frame = 0; }
 void render_halt(void) {
     if (timer_elapsed32(anim_halt_timer) > ANIM_HALT_FRAME_DURATION) {
         anim_halt_timer = timer_read32();
-        // oled_clear();
-        //     draw_rectangle_fill(10, 10, 10, 100, true);
-
-        // for (int i = 8; i < 16; i++){
-        // draw_glitch_comb(0, i*8, 32, 8, 1, true);
-        // }
-
-        // draw_glitch_comb(0, 0*8, 32, 8, 1, true);
-        // draw_glitch_comb(0, 2*8, 32, 8, 1, true);
-
-        // draw_glitch_comb(0, 0*8, 32, 32, 1, true);
-
-        // draw_glitch_comb(0, 0, 32, 128, 1, true);
 
         draw_glitch_comb(0, 0, 32, 128, 3, true);
 
-        for (int i = 0; i < 6; i++) {
+        for (uint8_t i = 0; i < 6; i++) {
             int r  = fastrand();
             int rr = fastrand();
-            int x  = 4 + r % 28;
-            int y  = rr % 128;
+            uint8_t x  = 4 + r % 28;
+            uint8_t y  = rr % 128;
 
-            int w = 7 + r % 20;
-            int h = 3 + rr % 10;
+            uint8_t w = 7 + r % 20;
+            uint8_t h = 3 + rr % 10;
             int s = (fastrand() % 20) - 10;
             move_block(x, y, w, h, s);
         }

@@ -925,6 +925,26 @@ void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t wid
     }
 }
 
+
+
+
+// void generer_glitch_static_oblic(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t iProb, uint8_t iProbWhite) {
+//     for (int yCurrent = 0; yCurrent < heigth; yCurrent++) {
+//         for (int xCurrent = 0; xCurrent < width; xCurrent++) {
+//             // bool bGenerateGlitch = (rand() % 100) < iProb;
+//             bool bGenerateGlitch = true;
+//             if (bGenerateGlitch) {
+//                 // bool bWhite = (rand() % 100) < iProbWhite;
+//                 bool bWhite = (timer_read32() % 2) == 0;
+//                 oled_write_pixel(x + xCurrent, y + yCurrent, bWhite);
+//             }
+//         }
+//     }
+// }
+
+
+
+
 void render_tv_animation_opti(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth) {
     uint8_t xCenter = x + (width / 2);
     uint8_t yCenter = y + (heigth / 2);

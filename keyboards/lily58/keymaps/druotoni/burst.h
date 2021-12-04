@@ -19,18 +19,12 @@
 
 #include "quantum.h"
 
-#    define MAX_WPM_INIT 40
+#define MAX_WPM_INIT 40
 #define BURST_FENETRE 500
-
 
 #ifndef BURST_RECORD_TIME
 #    define BURST_RECORD_TIME 1000
 #endif
-
-
-
-
-
 
 #define LIMIT_MAX_WPM 150
 
@@ -41,20 +35,11 @@
 #    define WPM_SMOOTHING 0.0487
 #endif
 
+#define SIZE_SCOPE 26
+#define SCOPE_Y_BOTTOM 127
 
-
-#ifdef WPM_ALLOW_COUNT_REGRESSION
-uint8_t wpm_regress_count(uint16_t keycode);
-#endif
-
-
-#    define SIZE_SCOPE 26
-#    define SCOPE_Y_BOTTOM 127
-
-
-void update_scope(uint16_t keycode);     
+void update_scope(uint16_t keycode);
 void render_scope(gui_state_t t);
+
 void reset_scope(void);
 void decay_scope(void);
-
- //void reset_scope(bool bNeedOpen);

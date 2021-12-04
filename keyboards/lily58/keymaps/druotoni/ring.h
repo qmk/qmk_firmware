@@ -6,7 +6,7 @@
 
 void update_circle(uint16_t);
 void render_circle(gui_state_t t);
-void reset_ring(bool bNeedOpen) ;
+void reset_ring(void) ;
 
 
 

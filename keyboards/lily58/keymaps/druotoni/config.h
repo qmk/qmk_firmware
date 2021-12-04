@@ -21,16 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define MASTER_LEFT
-//#define SPLIT_TRANSPORT_MIRROR
-
 
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A
 
-//#define LAYER_STATE_8BIT
+
 #define TAPPING_TOGGLE 2
 
-#define IS_LEFT 1
-//#define IS_RIGHT 1
+//#define IS_LEFT 1
+#define IS_RIGHT 1
 
 #ifdef OLED_FONT_H
 #    undef OLED_FONT_H
@@ -47,8 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_ONESHOT
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
-
 #define DISABLE_LEADER
+
 #define LAYER_STATE_8BIT
 
 #ifndef NO_DEBUG
