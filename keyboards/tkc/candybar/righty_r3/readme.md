@@ -8,6 +8,13 @@ The Key Company Candybar is a staggered 40% board with a numpad utilizing the AT
 * Hardware Supported: TKC Candybar
 * Hardware Availability: [TheKey.Company](https://thekey.company/products/candybar-round-3)
 
+## Bootloader
+
+Enter the bootloader in 2 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (default Escape key) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB
+
 Make example for this keyboard (after setting up your build environment):
 
     make tkc/candybar/righty_r3:default:flash
