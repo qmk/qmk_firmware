@@ -1,4 +1,4 @@
-# -*- makefile -*-
+# Hey Emacs, this is a -*- makefile -*-
 ##############################################################################
 # Compiler settings
 #
@@ -90,11 +90,11 @@ DEBUG_HOST = localhost
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
-ifeq ($(BOOTLOADER), lufa-ms)
+ifeq ($(BOOTLOADER),lufa-ms)
 	$(eval BIN_PADDING=$(shell n=`expr 32768 - $(BOOTLOADER_SIZE)` && echo $$(($$n)) || echo 0))
-	$(OBJCOPY) -I ihex -O binary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin --pad-to $(BIN_PADDING)
+	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin --pad-to $(BIN_PADDING)
 else
-	$(OBJCOPY) -I ihex -O binary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
+	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 endif
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
@@ -156,20 +156,16 @@ QMK_BOOTLOADER_TYPE = DFU
 else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
 QMK_BOOTLOADER_TYPE = HID
 else ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
-QMK_BOOTLOADER_TYPE = ATMEL_DFU
+QMK_BOOTLOADER_TYPE = DFU
 endif
 
 bootloader:
 ifeq ($(strip $(QMK_BOOTLOADER_TYPE)),)
-	$(error Please set BOOTLOADER to "qmk-dfu", "qmk-hid" or "atmel-dfu" first!)
-else
-ifeq ($(strip $(QMK_BOOTLOADER_TYPE)), ATMEL_DFU)
-	printf "bootloader_$(MCU)_1.0.0.hex copied to $(TARGET)_bootloader.hex\n"
-	cp util/bootloader_$(MCU)_1.0.0.hex $(TARGET)_bootloader.hex
+	$(error Please set BOOTLOADER to "qmk-dfu" or "qmk-hid" first!)
 else
 	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ clean
 	$(QMK_BIN) generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/Keyboard.h
-	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2>/dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval PROGRAM_SIZE_KB=$(shell n=`expr $(MAX_SIZE) / 1024` && echo $$(($$n)) || echo 0))
 	$(eval BOOT_SECTION_SIZE_KB=$(shell n=`expr  $(BOOTLOADER_SIZE) / 1024` && echo $$(($$n)) || echo 0))
 	$(eval FLASH_SIZE_KB=$(shell n=`expr $(PROGRAM_SIZE_KB) + $(BOOT_SECTION_SIZE_KB)` && echo $$(($$n)) || echo 0))
@@ -177,10 +173,9 @@ else
 	printf "Bootloader$(QMK_BOOTLOADER_TYPE).hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/Bootloader$(QMK_BOOTLOADER_TYPE).hex $(TARGET)_bootloader.hex
 endif
-endif
 
 production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
-	@awk '/^:00000001FF/ == 0' $(BUILD_DIR)/$(TARGET).hex >$(TARGET)_production.hex
-	@cat $(TARGET)_bootloader.hex >>$(TARGET)_production.hex
+	@cat $(BUILD_DIR)/$(TARGET).hex | awk '/^:00000001FF/ == 0' > $(TARGET)_production.hex
+	@cat $(TARGET)_bootloader.hex >> $(TARGET)_production.hex
 	echo "File sizes:"
 	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
