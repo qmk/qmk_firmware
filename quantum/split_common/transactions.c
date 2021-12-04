@@ -584,6 +584,15 @@ static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 #if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+#    if defined(POINTING_DEVICE_LEFT)
+    if (is_keyboard_left()) {
+        return true;
+    }
+#    elif defined(POINTING_DEVICE_RIGHT)
+    if (!is_keyboard_left()) {
+        return true;
+    }
+#    endif
     static uint32_t last_update = 0;
     static uint16_t last_cpi    = 0;
     report_mouse_t  temp_state;
@@ -591,7 +600,7 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
     bool            okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &temp_state, &split_shmem->pointing.report, sizeof(temp_state));
     if (okay) pointing_device_set_shared_report(temp_state);
     temp_cpi = pointing_device_get_shared_cpi();
-    if (temp_cpi&& memcmp(&last_cpi, &temp_cpi, sizeof(temp_cpi)) != 0) {
+    if (temp_cpi && memcmp(&last_cpi, &temp_cpi, sizeof(temp_cpi)) != 0) {
         memcpy(&split_shmem->pointing.cpi, &temp_cpi, sizeof(temp_cpi));
         okay = transport_write(PUT_POINTING_CPI, &split_shmem->pointing.cpi, sizeof(split_shmem->pointing.cpi));
         if (okay) {
@@ -604,6 +613,15 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
 extern const pointing_device_driver_t pointing_device_driver;
 
 static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+#    if defined(POINTING_DEVICE_LEFT)
+    if (!is_keyboard_left()) {
+        return;
+    }
+#    elif defined(POINTING_DEVICE_RIGHT)
+    if (is_keyboard_left()) {
+        return;
+    }
+#    endif
     report_mouse_t temp_report;
     uint16_t       temp_cpi;
 #    ifdef POINTING_DEVICE_TASK_THROTTLE_MS
