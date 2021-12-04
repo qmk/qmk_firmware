@@ -25,7 +25,7 @@ ifeq ($(strip $(CUSTOM_UNICODE_ENABLE)), yes)
     UCIS_ENABLE           = no
     UNICODE_COMMON        = yes
     OPT_DEFS += -DCUSTOM_UNICODE_ENABLE
-    SRC += unicoooode.c
+    SRC += unicode.c
 endif
 
 CUSTOM_TAP_DANCE ?= yes
