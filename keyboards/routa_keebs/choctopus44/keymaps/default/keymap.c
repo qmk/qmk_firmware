@@ -41,10 +41,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   
   [_RAISE] = LAYOUT(
-    _______,  ALGR(KC_8),ALGR(KC_9),KC_UP,  S(KC_8),   S(KC_9),            S(KC_SLSH),KC_SLSH, KC_UP,KC_RBRC,S(KC_RBRC),ALGR(KC_RBRC), \
-    KC_GRV,   S(KC_EQL),KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_EQL,             ALGR(KC_MINS),KC_LEFT,  KC_DOWN,  KC_RIGHT,S(KC_MINS),ALGR(KC_4), \
-    _______,KC_NUBS,S(KC_NUBS),ALGR(KC_NUBS),ALGR(KC_7),ALGR(KC_0),KC_MUTE,S(KC_NUHS),KC_NUHS, S(KC_5),  S(KC_6),  S(KC_7),  _______, \
-                        _______,  _______,  _______,   _______,            _______,  _______,  _______,  _______ \
+    _______,  ALGR(KC_8), ALGR(KC_9), KC_UP,          S(KC_8),    S(KC_9),              S(KC_SLSH),     KC_SLSH,  KC_UP,    KC_RBRC,  S(KC_RBRC), ALGR(KC_RBRC), \
+    KC_GRV,   S(KC_EQL),  KC_LEFT,    KC_DOWN,        KC_RIGHT,   KC_EQL,               ALGR(KC_MINS),  KC_LEFT,  KC_DOWN,  KC_RIGHT, S(KC_MINS), ALGR(KC_4), \
+    _______,  KC_NUBS,    S(KC_NUBS), ALGR(KC_NUBS),  ALGR(KC_7), ALGR(KC_0), KC_MUTE,  S(KC_NUHS),     KC_NUHS,  S(KC_5),  S(KC_6),  S(KC_7),    _______, \
+                          _______,    _______,        _______,    _______,              _______,        _______,  _______,  _______ \
   ),
   
   [_ADJUST] = LAYOUT(
