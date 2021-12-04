@@ -17,9 +17,9 @@
 #include QMK_KEYBOARD_H
 
 enum charybdis_keymap_layers {
-  LAYER_BASE = 0,
-  LAYER_LOWER,
-  LAYER_RAISE,
+    LAYER_BASE = 0,
+    LAYER_LOWER,
+    LAYER_RAISE,
 };
 
 #define LOWER MO(LAYER_LOWER)
