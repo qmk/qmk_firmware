@@ -2,11 +2,11 @@
 
 ![contender](imgur.com image replace me!)
 
-*A short description of the keyboard/project*
+A number pad for hardboot.
 
-* Keyboard Maintainer: [sotoba](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [sotoba](https://github.com/sotoba)
+* Hardware Supported: *The contender PCBs, atmega32u2 supported*
+* Hardware Availability: [BOOTH: stupa-devices](https://stupa-devices.booth.pm/)
 
 Make example for this keyboard (after setting up your build environment):
 
