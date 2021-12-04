@@ -178,6 +178,7 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 |`POINTING_DEVICE_INVERT_X`        | (Optional) Inverts the X axis report.                                 | _not defined_     |
 |`POINTING_DEVICE_INVERT_Y`        | (Optional) Inverts the Y axis report.                                 | _not defined_     |
 |`POINTING_DEVICE_MOTION_PIN`      | (Optional) If supported, will only read from sensor if pin is active. | _not defined_     |
+|`POINTING_DEVICE_TASK_THROTTLE_MS`      | (Optional) Limits the frequency that the sensor is polled for motion. | _not defined_     |
 
 !> When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and would recommend `POINTING_DEVICE_TASK_THROTTLE_MS` be set to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
 
