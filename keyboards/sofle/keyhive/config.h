@@ -36,11 +36,11 @@
 #define MATRIX_ROW_PINS \
     { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS \
-    { B6, B2, B3, B1, F7, F6, C7 } //C7 is unused on the MCU. It is needed for the encoder key matrix in via.
+    { B6, B2, B3, B1, F7, F6, NO_PIN } // A virtual pin is needed for the encoder key matrix in via.
 #define MATRIX_ROW_PINS_RIGHT \
     { C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS_RIGHT \
-    { F6, F7, B1, B3, B2, B6, C7 } //C7 is unused on the MCU. It is needed for the encoder key matrix in via.
+    { F6, F7, B1, B3, B2, B6, NO_PIN } // A virtual pin is needed for the encoder key matrix in via.
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -95,7 +95,7 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #   define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150  // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100  // limits maximum brightness of LEDs. Higher may cause the controller to crash.
 
 #define RGB_MATRIX_STARTUP_MODE       RGB_MATRIX_GRADIENT_LEFT_RIGHT
 

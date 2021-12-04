@@ -25,13 +25,27 @@ for more options.
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 74
 #define RGBLED_SPLIT { 37, 37 }
-#define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP  10
 #define RGBLIGHT_SAT_STEP  17
 #define RGBLIGHT_VAL_STEP  17
 
+// More lighting options in quantum/rgblight/rgblight.h
+// Disabling some of these is a good way to save flash space.
+#define RGBLIGHT_EFFECT_ALTERNATING     // 108
+#define RGBLIGHT_EFFECT_RGB_TEST        // 158
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD    // 160
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT // 168
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL   // 192
+#define RGBLIGHT_EFFECT_BREATHING       // 348
+#define RGBLIGHT_EFFECT_KNIGHT          // 336
+#define RGBLIGHT_EFFECT_SNAKE           // 406
+#define RGBLIGHT_EFFECT_CHRISTMAS       // 508
+/*
+#define RGBLIGHT_EFFECT_TWINKLE         // 1156
+*/
+
 // Disabled to save space
-#define NO_ACTION_ONESHOT  // -332
-#define NO_ACTION_MACRO    // -0
-#define NO_ACTION_FUNCTION // -0
-#define DISABLE_LEADER     // -0
+#define NO_ACTION_ONESHOT  // 332
+#define NO_ACTION_MACRO    // 0
+#define NO_ACTION_FUNCTION // 0
+#define DISABLE_LEADER     // 0

@@ -2,12 +2,15 @@
 
 ![SofleKeyboard version 2.1 RGB Keyhive](https://i.imgur.com/Oa6spvZ.png)
 
-# Configuring VIA App
+# Configuring VIA / Vial App
 
-VIA will not auto-recognize the keyboard with this firmware. You must install the new layout:
+This firmware will not auto-recognize until [PR #1060](https://github.com/the-via/keyboards/pull/1060) is accepted to the VIA keyboard database. For now you must install the new layout:
 
-1. In the VIA app, select `File > Import Keymap` from the menu.
-2. Navigate to `qmk_firmware/keyboards/sofle/keymaps/keyhive_via/` and open `via_layout.json`
+1. Download [keyhive_sofle_rgb.json](https://raw.githubusercontent.com/the-via/keyboards/48372baae5ab451d752988121fa4f1dd47b2c1ce/src/sofle/keyhive_sofle_rgb.json).
+2. In the VIA app, select `File > Import Keymap` from the menu.
+3. Open the file you just downloaded.
+
+**You'll have to do this every time you use VIA or Vial until the PR is accepted.**
 
 # Using with VIA
 * The default layouts should be loaded automatically.

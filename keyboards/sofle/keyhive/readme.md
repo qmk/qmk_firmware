@@ -28,8 +28,7 @@ See [keyhive_via](../keymaps/keyhive_via/readme.md) for details about configurin
 # Compiling
 
 Make example for this keyboard:
-```
-# for Elite C with Left Side Master builds
+```sh
 qmk compile -kb sofle/keyhive -km keyhive_via
 ```
 
