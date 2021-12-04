@@ -15,4 +15,4 @@ AUDIO_ENABLE = no           # Audio output
 BLUETOOTH_ENABLE = yes
 BLUETOOTH_DRIVER = AdafruitBLE
 
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes

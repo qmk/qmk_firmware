@@ -17,6 +17,6 @@ NKRO_ENABLE = no             # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no            # Audio output
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
 
 LAYOUTS = numpad_5x4
