@@ -199,7 +199,7 @@ The following configuration options are only available when using `SPLIT_POINTIN
 
 !> If there is a `_RIGHT` configuration option or callback, the [common configuration](feature_pointing_device.md?id=common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](feature_split_keyboard?id=setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
 
-aqs
+
 ## Callbacks and Functions 
 
 | Function                          | Description                                                                                                                            |
@@ -283,7 +283,7 @@ The following examples make use the `SPLIT_POINTING_ENABLE` functionality and sh
 
 ### Single Pointing Device
 
-The following example will work with either `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` and implements a custom key code to toggle scrolling mode.
+The following example will work with either `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` and enables scrolling mode while on a particular layer.
 
 ```c
 
