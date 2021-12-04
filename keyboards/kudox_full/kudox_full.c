@@ -3,7 +3,6 @@
 
 #include "kudox_full.h"
 
-
 #ifdef RGBLIGHT_ENABLE
 void eeconfig_init_user(void) {
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
@@ -11,20 +10,21 @@ void eeconfig_init_user(void) {
 #endif
 
 #ifdef OLED_ENABLE
-void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
     // Host Keyboard Layer Status
     oled_write_ln_P(PSTR("Kudox Keyboard"), false);
     switch (get_highest_layer(layer_state)) {
-        case _BASE:
+        case 0:
             oled_write_ln_P(PSTR("\n"), false);
             break;
-        case _FN1:
+        case 1:
             oled_write_ln_P(PSTR("\nLayer: Symbol"), false);
             break;
-        case _FN2:
+        case 2:
             oled_write_ln_P(PSTR("\nLayer: Function"), false);
             break;
-        case _FN3:
+        case 3:
             oled_write_ln_P(PSTR("\nLayer: Light"), false);
             break;
         default:
@@ -36,5 +36,6 @@ void oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    return true;
 }
 #endif
