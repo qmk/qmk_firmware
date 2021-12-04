@@ -33,7 +33,7 @@ LTO_ENABLE = yes            # Link-time optimization for smaller binary
 SRC += ../system76_ec.c
 
 # Add I2C driver
-SRC += i2c.c
+QUANTUM_LIB_SRC += i2c_master.c
 
 # Add USB mux driver
 SRC += usb_mux.c
