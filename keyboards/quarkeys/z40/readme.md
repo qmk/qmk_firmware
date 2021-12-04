@@ -4,9 +4,9 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Trent Hoh](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Trent Hoh](https://github.com/trenthoh)
+* Hardware Supported: quarkeys z40
+* Hardware Availability: https://www.quarkeys.com/home
 
 Make example for this keyboard (after setting up your build environment):
 
