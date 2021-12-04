@@ -155,8 +155,6 @@ ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
 QMK_BOOTLOADER_TYPE = DFU
 else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
 QMK_BOOTLOADER_TYPE = HID
-else ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
-QMK_BOOTLOADER_TYPE = DFU
 endif
 
 bootloader:
