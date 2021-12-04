@@ -15,11 +15,9 @@
 #include "navi_logo.h"
 
 #include "transactions.h"
-
 #include "rgblight.h"
 
-#undef OLED_DRIVER_ENABLE
-#define OLED_DRIVER_ENABLE
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -76,8 +74,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_RAISE] = LAYOUT(_______, _______, _______, _______, _______, _______, _______, _______, KC_PSLS, KC_PAST, KC_PMNS, RGB_TOG, KC_GRV, KC_1, KC_2, KC_3, FR_LBRC, FR_RBRC, FR_EQL, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, RGB_MOD, _______, FR_AT, FR_PIPE, ALGR(KC_1), FR_EURO, FR_HASH, S(FR_EQL), KC_KP_4, KC_KP_5, KC_KP_6, KC_RGHT, RGB_HUI, KC_F7, KC_F8, KC_F9, KC_F10, FR_HASH, KC_F12, _______, _______, KC_PLUS, KC_KP_1, KC_KP_2, KC_KP_3, KC_RBRC, RGB_MODE_BREATHE, _______, _______, _______, _______, _______, _______, KC_KP_0, KC_KP_DOT)};
 
-// SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
-#ifdef OLED_DRIVER_ENABLE
 
 // sync transport
 typedef struct _sync_keycode_t {
@@ -172,7 +168,7 @@ void oled_task_user(void) {
     }
 }
 
-#endif
+
 
 void process_key(uint16_t keycode, bool need_blink) {
     // update screen with the new key

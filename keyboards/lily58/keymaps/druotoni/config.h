@@ -21,34 +21,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define MASTER_LEFT
+#define OLED_DRIVER_ENABLE
 
-#define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A
-
-
+// tapping toggle for my layers
 #define TAPPING_TOGGLE 2
 
+// choose IS_LEFT or IS_LEFT for compilation and flash firmware
+#define IS_LEFT 1
 //#define IS_LEFT 1
-#define IS_RIGHT 1
 
+// custom transport for displaying on both side
+#define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A
+
+// custom font
 #ifdef OLED_FONT_H
 #    undef OLED_FONT_H
 #endif
 #define OLED_FONT_H "navi_font.c"
-
 #undef OLED_FONT_END
 #define OLED_FONT_END 125
 
+// more space
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
-
 #define NO_ACTION_ONESHOT
-#undef LOCKING_SUPPORT_ENABLE
-#undef LOCKING_RESYNC_ENABLE
 #define DISABLE_LEADER
 
+// ???
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+
+// small layer state
 #define LAYER_STATE_8BIT
 
+// no debug or trace
 #ifndef NO_DEBUG
 #    define NO_DEBUG
 #endif

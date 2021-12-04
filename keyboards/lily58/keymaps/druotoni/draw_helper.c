@@ -619,6 +619,9 @@ void get_glitch_index(uint32_t *glitch_timer, int *current_glitch_scope_time, ui
 // }
 
 void draw_progress(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int value, uint8_t style, bool color) {
+    if(value > 100){
+        value = 100;
+    }
     int lenght = (width * value) / 100;
     for (uint8_t i = 0; i < lenght; i++) {
         switch (style) {
@@ -626,13 +629,13 @@ void draw_progress(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int valu
                 drawline_vb(x + i, y, heigth - 1, color);
                 break;
 
-            case 1:
-                drawline_vb(x + i, y + 1, heigth - 3, ((i % 3) < 2));
-                break;
-            case 2:
-                // . . . . .
-                drawline_vb(x + i, y + 3, 2, ((i % 2) == 0));
-                break;
+            // case 1:
+            //     drawline_vb(x + i, y + 1, heigth - 3, ((i % 3) < 2));
+            //     break;
+            // case 2:
+            //     // . . . . .
+            //     drawline_vb(x + i, y + 3, 2, ((i % 2) == 0));
+            //     break;
         }
     }
 }

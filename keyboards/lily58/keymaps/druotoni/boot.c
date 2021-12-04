@@ -6,16 +6,21 @@
 
 // boot
 #define ANIM_BOOT_FRAME_DURATION 8
-#define NAVI_DURATION 55
-#define TERMINAL_DURATION 25
-#define LILY_DURATION 50
 uint32_t anim_boot_timer         = 0;
 int      anim_boot_current_frame = 0;
 
+#define NAVI_DURATION 55
+
+// terminal stuff
+#define TERMINAL_DURATION 25
+#define TERMINAL_LINE_NUMBER 19
+#define TERMINAL_LINE_MAX 14
+
+#define LILY_DURATION 50
+
 // halt
 #define ANIM_HALT_FRAME_DURATION 55
-uint32_t anim_halt_timer         = 0;
-int      anim_halt_current_frame = 0;
+uint32_t anim_halt_timer = 0;
 
 void reset_boot(void) {
     // frame zero
@@ -27,6 +32,7 @@ static void draw_lily_key(uint8_t x, uint8_t y, uint8_t *key_number, unsigned lo
     unsigned long mask = 1;
     mask               = mask << v;
 
+    // ligth the key according to the mask
     if (((key_state & mask) == mask)) {
         color = !color;
     }
@@ -36,12 +42,18 @@ static void draw_lily_key(uint8_t x, uint8_t y, uint8_t *key_number, unsigned lo
 }
 
 static void draw_lily_key_row(uint8_t x, uint8_t y, int w, uint8_t *key_number, unsigned long key_state, uint8_t color) {
+    // row of rectangle
     for (uint8_t i = 0; i < w; i++) {
         draw_lily_key(x + (i * 4), y, key_number, key_state, color);
     }
 }
 
-static void draw_lily_render(uint8_t x, uint8_t y, unsigned long key_state) {
+static void draw_lily_render(unsigned long key_state) {
+    // different orientatien base on side
+#if IS_LEFT
+
+    uint8_t x            = 0;
+    uint8_t y            = 56;
     uint8_t x_ref        = 10 + x;
     uint8_t y_ref        = 2 + y;
     uint8_t i_key_number = 0;
@@ -77,6 +89,41 @@ static void draw_lily_render(uint8_t x, uint8_t y, unsigned long key_state) {
     oled_write_pixel(x + 28, y + 23, true);
     oled_write_pixel(x + 27, y + 24, true);
     oled_write_pixel(x + 26, y + 23, true);
+#endif
+
+#if IS_RIGHT
+    uint8_t i_key_number = 0;
+
+    for (uint8_t i = 0; i < 4; i++) {
+        draw_lily_key_row(7, 58 + (i * 4), 4, &i_key_number, key_state, true);
+        draw_lily_key_row(23, 60 + (i * 4), 2, &i_key_number, key_state, true);
+    }
+
+    draw_lily_key_row(9, 74, 3, &i_key_number, key_state, true);
+
+    draw_lily_key(3, 68, &i_key_number, key_state, true);
+    draw_lily_key(3, 74, &i_key_number, key_state, true);
+
+    // screen
+    draw_rectangle(2, 58, 4, 8, true);
+
+    // frame
+    drawline_hr(23, 58, 8, true);
+    oled_write_pixel(23, 57, true);
+    drawline_hr(1, 56, 23, true);
+
+    drawline_hr(21, 76, 10, true);
+    oled_write_pixel(21, 77, true);
+    drawline_hr(6, 78, 16, true);
+
+    drawline_vb(31, 59, 17, true);
+    drawline_vb(0, 57, 20, true);
+    oled_write_pixel(1, 77, true);
+    oled_write_pixel(2, 78, true);
+    oled_write_pixel(3, 79, true);
+    oled_write_pixel(4, 80, true);
+    oled_write_pixel(5, 79, true);
+#endif
 }
 
 static void draw_lily(int f) {
@@ -85,13 +132,16 @@ static void draw_lily(int f) {
     uint8_t y_start     = 56;
 
     if (f == 0 || f == tres_stroke || f == tres_boom) {
+        // clean screen
         oled_clear();
     }
 
+    // simple lily58 with all the keys
     if (f < tres_stroke) {
-        draw_lily_render(0, y_start, 0);
+        draw_lily_render(0);
     }
 
+    // increase number of random keys pressed
     if (f >= tres_stroke && f < tres_boom) {
         int inter_f = interpo_pourcent(tres_stroke, tres_boom, f);
 
@@ -99,9 +149,10 @@ static void draw_lily(int f) {
         for (int r = 100 - inter_f; r > 0; r = r - 10) {
             key_state &= fastrand_long();
         }
-        draw_lily_render(0, y_start, key_state);
+        draw_lily_render(key_state);
     }
 
+    // statir explosion
     if (f >= tres_boom) {
         oled_clear();
         draw_static(0, y_start - 8, 32, 32, true, (f - tres_boom));
@@ -109,16 +160,22 @@ static void draw_lily(int f) {
 }
 
 static void draw_startup_navi(int f) {
+    // text
     oled_write_cursor(0, 5, "HELL0", false);
     oled_write_cursor(0, 7, "NAVI.", false);
 
+    // prompt
     if ((f % 8) > 4) {
         oled_write_cursor(0, 12, "> ", false);
     } else {
         oled_write_cursor(0, 12, ">_", false);
     }
+
+    // frame threshold
     uint8_t tres_shell = 15;
     uint8_t tres_load  = 35;
+
+    // rand text to init display
     if (f > tres_shell) {
         int inter_f = interpo_pourcent(tres_shell, tres_load, f);
 
@@ -127,8 +184,10 @@ static void draw_startup_navi(int f) {
         draw_random_char(3, 12, 'i', inter_f, 0);
         draw_random_char(4, 12, 't', 20 + inter_f, 0);
     }
+
+    // loading propress bar
     if (f > tres_load) {
-        int inter_f = interpo_pourcent(tres_load, 55, f);
+        int inter_f = interpo_pourcent(tres_load, 50, f);
 
         // ease
         float fv = inter_f / 100.00;
@@ -140,34 +199,24 @@ static void draw_startup_navi(int f) {
     }
 }
 
-// static void draw_startup_terminal(int f) {
-//     return;
-// }
-
-// draw_terminal_line(&ref_line ,  v_brutal, &y_brutal, "LT:", 3, "RT:", 3, 2  );
-// draw_terminal_line(&ref_line ,  v_brutal, &y_brutal, "A0:", 3, "cnx:",  4, 1  );
-// draw_terminal_line(&ref_line ,  v_brutal, &y_brutal, "B0:", 3, "cnx:",  4, 1  );
-// static void draw_terminal_line(int  *ref_line , long v_brutal, uint8_t *y_brutal, char * s1, uint8_t l1, char * s2, uint8_t l2, int style  ) {
-
-//    long ref_value = (*ref_line * 100 * -1) + v_brutal;
-//     draw_box(s1,  l1, *y_brutal, ref_value, style);
-//     *y_brutal = *y_brutal +1;
-//     draw_box(s2, l2, *y_brutal, ref_value, style);
-//      *y_brutal = *y_brutal +1;
-//     ref_line++;
-// }
-
-#define TERMINAL_LINE_NUMBER 19
-#define TERMINAL_LINE_MAX 14
-
+// text dispayed on terminal
 static char *boot_ref[TERMINAL_LINE_NUMBER] = {"LT:", "RT:", "M :", "    ", "cnx:", "A0:", "B0:", "    ", "0x40", "0x60", "0x85", "0x0F", "    ", "> run", "x ", "y ", " 100%", "    ", "> key"};
 
+// prompt style for char in the font
 char scan_font[5] = {'>', 1, 1, 1, 1};
 
 static char *get_terminal_line(uint8_t i) {
-    if (i < TERMINAL_LINE_NUMBER) return boot_ref[i];
-    if (i % 3 == 0) return "     ";
+    // display text
+    if (i < TERMINAL_LINE_NUMBER) {
+        return boot_ref[i];
+    }
 
+    // blank line every 3 lines
+    if (i % 3 == 0) {
+        return "     ";
+    }
+
+    // display consecutive chars in the font
     i = (i - TERMINAL_LINE_NUMBER) * 4;
 
     scan_font[1] = i;
@@ -179,24 +228,25 @@ static char *get_terminal_line(uint8_t i) {
 }
 
 static void draw_startup_terminal(int f) {
-    //  uint8_t max_size = 14;
-
+    // clean screen
     if (f == 0) {
         oled_clear();
     }
 
-    // ease
+    // ease for printing on screen
     f = f * 2;
     f += (f / 5);
 
     uint8_t i_start   = 0;
     uint8_t i_nb_char = f;
 
+    // scroll text
     if (f > TERMINAL_LINE_MAX) {
         i_start   = f - TERMINAL_LINE_MAX;
         i_nb_char = TERMINAL_LINE_MAX;
     }
 
+    // display lines
     for (uint8_t i = 0; i < i_nb_char; i++) {
         char *s = get_terminal_line(i + i_start);
         oled_write_cursor(0, i, s, false);
@@ -230,23 +280,23 @@ void render_boot(void) {
     }
 }
 
-void reset_halt(void) { anim_halt_current_frame = 0; }
-
 void render_halt(void) {
     if (timer_elapsed32(anim_halt_timer) > ANIM_HALT_FRAME_DURATION) {
         anim_halt_timer = timer_read32();
 
+        // comb glitch for all the screen
         draw_glitch_comb(0, 0, 32, 128, 3, true);
 
+        // random moving blocks of pixels
         for (uint8_t i = 0; i < 6; i++) {
-            int r  = fastrand();
-            int rr = fastrand();
+            int     r  = fastrand();
+            int     rr = fastrand();
             uint8_t x  = 4 + r % 28;
             uint8_t y  = rr % 128;
 
             uint8_t w = 7 + r % 20;
             uint8_t h = 3 + rr % 10;
-            int s = (fastrand() % 20) - 10;
+            int     s = (fastrand() % 20) - 10;
             move_block(x, y, w, h, s);
         }
     }
