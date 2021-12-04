@@ -254,6 +254,17 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
   return mouse_report;
 }
 
+#if defined(POINTING_DEVICE_ENABLE) && !defined(NO_CHARYBDIS_KEYCODES)
+/** \brief Whether SHIFT mod is enabled. */
+static bool has_shift_mod(void) {
+#ifdef NO_ACTION_ONESHOT
+  return mod_config(get_mods()) & MOD_MASK_SHIFT;
+#else
+  return mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+#endif  // NO_ACTION_ONESHOT
+}
+#endif  // POINTING_DEVICE_ENABLE && !NO_CHARYBDIS_KEYCODES
+
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #ifdef CONSOLE_ENABLE
   dprintf(
@@ -276,6 +287,53 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
   if (!process_record_user(keycode, record)) {
     return false;
   }
+#ifdef POINTING_DEVICE_ENABLE
+#ifndef NO_CHARYBDIS_KEYCODES
+  switch (keycode) {
+    case POINTER_DEFAULT_DPI_FORWARD:
+      if (record->event.pressed) {
+        // Step backward if shifted, forward otherwise.
+        charybdis_cycle_pointer_default_dpi(/* forward= */ !has_shift_mod());
+      }
+      break;
+    case POINTER_DEFAULT_DPI_REVERSE:
+      if (record->event.pressed) {
+        // Step forward if shifted, backward otherwise.
+        charybdis_cycle_pointer_default_dpi(/* forward= */ has_shift_mod());
+      }
+      break;
+    case POINTER_SNIPING_DPI_FORWARD:
+      if (record->event.pressed) {
+        // Step backward if shifted, forward otherwise.
+        charybdis_cycle_pointer_sniping_dpi(/* forward= */ !has_shift_mod());
+      }
+      break;
+    case POINTER_SNIPING_DPI_REVERSE:
+      if (record->event.pressed) {
+        // Step forward if shifted, backward otherwise.
+        charybdis_cycle_pointer_sniping_dpi(/* forward= */ has_shift_mod());
+      }
+      break;
+    case SNIPING_MODE:
+      charybdis_set_pointer_sniping_enabled(record->event.pressed);
+      break;
+    case SNIPING_MODE_TOGGLE:
+      if (record->event.pressed) {
+        charybdis_set_pointer_sniping_enabled(
+            !charybdis_get_pointer_sniping_enabled());
+      }
+      break;
+    case DRAGSCROLL_MODE:
+      charybdis_set_pointer_dragscroll_enabled(record->event.pressed);
+      break;
+    case DRAGSCROLL_MODE_TOGGLE:
+      if (record->event.pressed) {
+        charybdis_set_pointer_dragscroll_enabled(
+            !charybdis_get_pointer_dragscroll_enabled());
+      }
+      break;
+  }
+#endif  // !NO_CHARYBDIS_KEYCODES
 #ifndef MOUSEKEY_ENABLE
   // Simulate mouse keys if full support is not enabled (reduces firmware size
   // while maintaining support for mouse keys).
@@ -287,6 +345,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     pointing_device_send();
   }
 #endif  // !MOUSEKEY_ENABLE
+#endif  // POINTING_DEVICE_ENABLE
   return true;
 }
 

@@ -42,31 +42,6 @@ static uint16_t auto_pointer_layer_timer = 0;
 #endif  // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD
 #endif  // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
-enum charybdis_keymap_keycodes {
-#ifdef VIA_ENABLE
-  POINTER_DEFAULT_DPI_FORWARD = USER00,
-#else
-  POINTER_DEFAULT_DPI_FORWARD = SAFE_RANGE,
-#endif  // VIA_ENABLE
-  POINTER_DEFAULT_DPI_REVERSE,
-  POINTER_SNIPING_DPI_FORWARD,
-  POINTER_SNIPING_DPI_REVERSE,
-  SNIPING_MODE,
-  SNIPING_MODE_TOGGLE,
-  DRAGSCROLL_MODE,
-  DRAGSCROLL_MODE_TOGGLE,
-  KEYMAP_SAFE_RANGE,
-};
-
-#define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
-#define DPI_RMOD POINTER_DEFAULT_DPI_REVERSE
-#define S_D_MOD POINTER_SNIPING_DPI_FORWARD
-#define S_D_RMOD POINTER_SNIPING_DPI_REVERSE
-#define SNIPING SNIPING_MODE
-#define SNP_TOG SNIPING_MODE_TOGGLE
-#define DRGSCRL DRAGSCROLL_MODE
-#define DRG_TOG DRAGSCROLL_MODE_TOGGLE
-
 #define LOWER MO(LAYER_LOWER)
 #define RAISE MO(LAYER_RAISE)
 #define PT_Z LT(LAYER_POINTER, KC_Z)
@@ -136,64 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-/** /brief Whether SHIFT mod is enabled. */
-static bool has_shift_mod(void) {
-#ifdef NO_ACTION_ONESHOT
-  return mod_config(get_mods()) & MOD_MASK_SHIFT;
-#else
-  return mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
-#endif  // NO_ACTION_ONESHOT
-}
-
 #ifdef POINTING_DEVICE_ENABLE
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  switch (keycode) {
-    case POINTER_DEFAULT_DPI_FORWARD:
-      if (record->event.pressed) {
-        // Step backward if shifted, forward otherwise.
-        charybdis_cycle_pointer_default_dpi(/* forward= */ !has_shift_mod());
-      }
-      break;
-    case POINTER_DEFAULT_DPI_REVERSE:
-      if (record->event.pressed) {
-        // Step forward if shifted, backward otherwise.
-        charybdis_cycle_pointer_default_dpi(/* forward= */ has_shift_mod());
-      }
-      break;
-    case POINTER_SNIPING_DPI_FORWARD:
-      if (record->event.pressed) {
-        // Step backward if shifted, forward otherwise.
-        charybdis_cycle_pointer_sniping_dpi(/* forward= */ !has_shift_mod());
-      }
-      break;
-    case POINTER_SNIPING_DPI_REVERSE:
-      if (record->event.pressed) {
-        // Step forward if shifted, backward otherwise.
-        charybdis_cycle_pointer_sniping_dpi(/* forward= */ has_shift_mod());
-      }
-      break;
-    case SNIPING_MODE:
-      charybdis_set_pointer_sniping_enabled(record->event.pressed);
-      break;
-    case SNIPING_MODE_TOGGLE:
-      if (record->event.pressed) {
-        charybdis_set_pointer_sniping_enabled(
-            !charybdis_get_pointer_sniping_enabled());
-      }
-      break;
-    case DRAGSCROLL_MODE:
-      charybdis_set_pointer_dragscroll_enabled(record->event.pressed);
-      break;
-    case DRAGSCROLL_MODE_TOGGLE:
-      if (record->event.pressed) {
-        charybdis_set_pointer_dragscroll_enabled(
-            !charybdis_get_pointer_dragscroll_enabled());
-      }
-      break;
-  }
-  return true;
-}
-
 #ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
   if (abs(mouse_report.x) > CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD ||
