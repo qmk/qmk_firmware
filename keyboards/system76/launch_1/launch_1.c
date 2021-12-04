@@ -1,3 +1,20 @@
+/*
+ *  Copyright (C) 2021  System76
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 #include "launch_1.h"
 
 #include "dynamic_keymap.h"
@@ -148,7 +165,7 @@ static void set_value_all_layers(uint8_t value) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (input_disabled) return false;
+    if (input_disabled) { return false; }
 
     switch (keycode) {
         case RESET:

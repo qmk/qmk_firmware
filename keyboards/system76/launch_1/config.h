@@ -1,17 +1,32 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+/*
+ *  Copyright (C) 2021  System76
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+#pragma once
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
+// USB device descriptor parameter
 #define VENDOR_ID    0x3384
 #define PRODUCT_ID   0x0001
 #define DEVICE_VER   0x0001
 #define MANUFACTURER System76
 #define PRODUCT      Launch Configurable Keyboard (launch_1)
-#define DESCRIPTION  Launch Configurable Keyboard (launch_1)
 
-/* Key matrix size */
+// Key matrix size
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 14
 
@@ -31,7 +46,7 @@
  */
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't needed */
+// Set 0 if debouncing isn't needed
 #define DEBOUNCE 5
 
 // NKRO must be used
@@ -41,7 +56,7 @@
 #    define RGB_DI_PIN E2
 #    define RGBLED_NUM 84
 #    define RGBLIGHT_ANIMATIONS
-// Limit brightness to support USB-A at 0.5A
+// Limit brightness to support USB-A at 0.5 A
 // TODO: do this dynamically based on power source
 #    define RGBLIGHT_LIMIT_VAL 176
 #endif  // RGBLIGHT_ENABLE
@@ -79,7 +94,7 @@
 // Mechanical locking support. Use KC_LCAP, KC_LNUM, or KC_LSCR instead in keymap
 #define LOCKING_SUPPORT_ENABLE
 
-/* Locking resynchronize hack */
+// Locking resynchronize hack
 #define LOCKING_RESYNC_ENABLE
 
 // EEPROM {
@@ -110,5 +125,3 @@
 #define SYSTEM76_EC_EEPROM_ADDR (DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE)
 #define SYSTEM76_EC_EEPROM_SIZE (EEPROM_SIZE - SYSTEM76_EC_EEPROM_ADDR)
 // } System76 EC
-
-#endif  // CONFIG_H

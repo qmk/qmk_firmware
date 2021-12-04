@@ -1,3 +1,20 @@
+/*
+ *  Copyright (C) 2021  System76
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 #include "usb_mux.h"
 
 #include <util/delay.h>
@@ -31,7 +48,7 @@ int usb7206_register_access(struct USB7206* self) {
 }
 
 // Read data from USB7206 register region.
-// Returns number of bytes read on success or a negative number on error
+// Returns number of bytes read on success or a negative number on error.
 int usb7206_read_reg(struct USB7206* self, uint32_t addr, uint8_t* data, int length) {
     int res;
 
@@ -195,8 +212,8 @@ struct USB7206_GPIO usb_gpio_sink         = {.usb7206 = &usb_hub, .pf = 29};  //
 struct USB7206_GPIO usb_gpio_source_left  = {.usb7206 = &usb_hub, .pf = 10};  // CL_SEL = PF10 = GPIO74
 struct USB7206_GPIO usb_gpio_source_right = {.usb7206 = &usb_hub, .pf = 25};  // CR_SEL = PF25 = GPIO88
 
-// Set USB7206 GPIO to specified value
-// Returns zero on success or negative number on error
+// Set USB7206 GPIO to specified value.
+// Returns zero on success or negative number on error.
 int usb7206_gpio_set(struct USB7206_GPIO* self, bool value) {
     int res;
 
@@ -266,8 +283,8 @@ int ptn5110_get_cc_status(struct PTN5110* self, uint8_t* cc) { return i2c_get(se
 // Returns zero on success or a negative number on error.
 int ptn5110_set_ssmux(struct PTN5110* self, bool orientation) { return usb7206_gpio_set(self->gpio, orientation); }
 
-// Write PTN5110 COMMAND
-// Returns bytes written on success or negative number on error
+// Write PTN5110 COMMAND.
+// Returns bytes written on success or negative number on error.
 int ptn5110_command(struct PTN5110* self, uint8_t command) { return i2c_set(self->addr, 0x23, &command, 1); }
 
 // Set orientation of PTN5110 operating as a sink, call this once.
@@ -344,7 +361,7 @@ void usb_mux_event(void) {
 }
 
 void usb_mux_init(void) {
-    // Run I2C bus at 100 KHz
+    // Run I2C bus at 100 kHz
     i2c_init(100000);
 
     // Set up hub
