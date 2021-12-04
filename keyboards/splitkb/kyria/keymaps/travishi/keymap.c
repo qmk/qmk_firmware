@@ -33,43 +33,50 @@ Layer_4: Git macros
 
 #include QMK_KEYBOARD_H
 
+/* uint16_t copy_paste_timer; */
+
 enum layers {
-  DVORAK,
+  DVORAK = 0,
   QWERTY,
+};
+
+// Future Layers
+/*
   NAVKEYPAD,
   FKEYS,
   FEMACROS,
   GITMACROS
-};
+*/
 
+/* Future custom keycodes
 enum custom_keycodes {
     KC_LBR = SAFE_RANGE,
     KC_RBR
 };
+*/
 
 
+// Future Macros
+// enum {
+//   HIGHLIGHT_WORD_HOME,
+//   HIGHLIGHT_WORD_LEFT,
+//   HIGHLIGHT_WORD_RIGHT,
+//   HIGHLIGHT_WORD_END
+// };
 
-// Macros
-enum {
-  HIGHLIGHT_WORD_HOME,
-  HIGHLIGHT_WORD_LEFT,
-  HIGHLIGHT_WORD_RIGHT,
-  HIGHLIGHT_WORD_END
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_LBR: {
-      if (record->event.pressed) {
-        switch(keycode) {
-          case HIGHLIGHT_WORD_HOME:
-            SEND_STRING("commands");
-            return false; break;
-        }
-      }
-    }
-  }
-};
+// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//   switch (keycode) {
+//     case KC_LBR: {
+//       if (record->event.pressed) {
+//         switch(keycode) {
+//           case HIGHLIGHT_WORD_HOME:
+//             SEND_STRING("commands");
+//             return false; break;
+//         }
+//       }
+//     }
+//   }
+// };
 
 
 
@@ -79,21 +86,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: DVORAK
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |  ESC   |   '  |   ,  |   .  |   P  |   Y  |                              |   F  |   G  |   C  |   R  |   L  |        |
+ * |  ESC   |  ' " | , <  |   .  |   P  |   Y  |                              |   F  |   G  |   C  |   R  |   L  |L_Qwerty|
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |  Tab   |   A  |   O  |   E  |   U  |   I  |                              |   D  |   H  |   T  |   N  |   S  |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift | :  ; |   Q  |   J  |   K  |   X  | Ctrl |      |  |  Win |      |   B  |   M  |   W  |   V  |   Z  | RShift |
+ * | LShift | :  ; |   Q  |   J  |   K  |   X  |      |      |  |  Win |      |   B  |   M  |   W  |   V  |   Z  | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'	
- *                        |      |      |      | Space| Bksp |  |      | ENTER|  Del |      |      |
+ *                        |      |      | LCtrl| Space| Bksp |  |      | ENTER|  Del |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
   [DVORAK] = LAYOUT(
-    KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RCTL,
-    KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    KC_DEL,  MO(RAISE), MO(ADJUST), KC_ESC,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
-                          XXXXXXX,   KC_LALT, XXXXXXX, KC_BSPC, MO(LOWER), KC_ENT,     KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
+    KC_ESC,  KC_QUOT,KC_COMM,KC_DOTT,KC_P,    KC_Y,                                                KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    TG(QWERTY),
+    KC_TAB,  KC_A,   KC_O,   KC_E,   KC_U,    KC_I,                                                KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    XXXXXXX,
+    KC_LSFT, KC_SCLN KC_Q,   KC_J,   KC_K,    KC_X,    XXXXXXX,  XXXXXXX,  KC_LWIN,    XXXXXXX,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
+                          XXXXXXX,   XXXXXXX, KC_LCTL, KC_SPC,  KC_BSPC,   XXXXXXX,    KC_ENT,     KC_DEL,  XXXXXXX,  XXXXXXX
   ),
 
 
@@ -106,19 +113,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |  ESC   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |        |
+ * |  Tab   |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |L_Dvorak|
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |      |  |      |      |   N  |   M  | ,  < | . >  | /  ? | RShift |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |      |  |  Win |      |   N  |   M  | ,  < | . >  | /  ? | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'	
- *                        |      |      | DEL  | Space| TAB  |  | Bksp | ENTER|      |      |      |
- *                        |      | LCTR |      |      |      |  |      |      |      |      |      |
+ *                        |      |      | LCtrl| Space| Bksp |  |      | ENTER|  Del |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [QWERTY] = LAYOUT(
-      KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RCTL,
-      KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    KC_DEL,  MO(RAISE), MO(ADJUST), KC_ESC,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
-                            XXXXXXX,   KC_LALT, XXXXXXX, KC_BSPC, MO(LOWER), KC_ENT,     KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
+      KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    XXXXXXX,
+      KC_TAB,  KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, TG(DVORAK),
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    XXXXXXX, XXXXXXX,    KC_LWIN,  XXXXXXX,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
+                            XXXXXXX,   XXXXXXX, KC_LCTL, KC_SPC,  KC_BSPC,   XXXXXXX,  KC_ENT,     KC_DEL,  XXXXXXX,  XXXXXXX
     ),
 
 
@@ -147,14 +154,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  ctrl + shft + right
  *  shift + end
  *
- */
+
   [NAVKEYPAD] = LAYOUT(
     KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RCTL,
     KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    KC_DEL,  MO(RAISE), MO(ADJUST), KC_ESC,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
                           XXXXXXX,   KC_LALT, XXXXXXX, KC_BSPC, MO(LOWER), KC_ENT,     KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
   ),
-
+ */
 
 
 
@@ -172,14 +179,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      | DEL  | Space| TAB  |  | Bksp | ENTER|      |      |      |
  *                        |      | LCTR |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
- */
+
   [FKEYS] = LAYOUT(
     KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RCTL,
     KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    KC_DEL,  MO(RAISE), MO(ADJUST), KC_ESC,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
                           XXXXXXX,   KC_LALT, XXXXXXX, KC_BSPC, MO(LOWER), KC_ENT,     KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
   ),
-
+ */
 
 
 
@@ -197,7 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      | DEL  | Space| TAB  |  | Bksp | ENTER|      |      |      |
  *                        |      | LCTR |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
- */
+ 
   [FEMACROS] = LAYOUT(
     KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RCTL,
     KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
@@ -205,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           XXXXXXX,   KC_LALT, XXXXXXX, KC_BSPC, MO(LOWER), KC_ENT,     KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
   ),
 
-
+*/
 
 
 
@@ -223,14 +230,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      | DEL  | Space| TAB  |  | Bksp | ENTER|      |      |      |
  *                        |      | LCTR |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
- */
+
   [GITMACROS] = LAYOUT(
     KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RCTL,
     KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    KC_DEL,  MO(RAISE), MO(ADJUST), KC_ESC,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
                           XXXXXXX,   KC_LALT, XXXXXXX, KC_BSPC, MO(LOWER), KC_ENT,     KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
   ),
-
+ */
 
 
 
@@ -262,6 +269,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
+
+///////////////////////////
+// OLED Display settings
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
@@ -293,34 +303,25 @@ static void render_qmk_logo(void) {
 static void render_status(void) {
     // QMK Logo and version information
     render_qmk_logo();
-    oled_write_P(PSTR("       Kyria rev1.0\n\n"), false);
+    oled_write_P(PSTR("       Kyria rev1.4\n\n"), false);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
+        case DVORAK:
+            oled_write_P(PSTR("Dvorak\n"), false);
+            break;
         case QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
-            break;
-        case LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
-            break;
-        case RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
-            break;
-        case NAV:
-            oled_write_P(PSTR("Navigation\n"), false);
-            break;
-        case ADJUST:
-            oled_write_P(PSTR("Adjust\n"), false);
+            oled_write_P(PSTR("Qwerty\n"), false);
             break;
         default:
-            oled_write_P(PSTR("Undefined\n"), false);
+            oled_write_P(PSTR("ERR No Layer!\n"), false);
     }
 
     // Host Keyboard LED Status
     led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("       "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("       "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
