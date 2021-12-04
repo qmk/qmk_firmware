@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include "charybdis.h"
+
 // clang-format off
 #define LAYOUT_charybdis_3x5(                           \
   k00, k01, k02, k03, k04,     k44, k43, k42, k41, k40, \

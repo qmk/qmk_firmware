@@ -28,9 +28,9 @@
 #endif
 // clang-format on
 
-#ifdef POINTING_DEVICE_ENABLE
 #include "quantum.h"
 
+#ifdef POINTING_DEVICE_ENABLE
 #ifndef NO_CHARYBDIS_KEYCODES
 enum charybdis_keycodes {
 #ifdef VIA_ENABLE

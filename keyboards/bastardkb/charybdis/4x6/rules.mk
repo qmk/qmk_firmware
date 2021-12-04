@@ -21,6 +21,10 @@ RGBLIGHT_ENABLE = no    # RGB underglow is supported, but not enabled by default
 BACKLIGHT_ENABLE = no   # Backlight is not supported.
 SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend is not supported.
 
+# Enable link-time optimization by default.  The Charybdis packs a lot of
+# features (RGB, Via, trackball) in a small atmega32u4 package.
+LTO_ENABLE = yes
+
 # Charybdis is a split 4x6 keyboard with a maximum of 5 thumb keys (3 on the
 # trackball side).
 SPLIT_KEYBOARD = yes
