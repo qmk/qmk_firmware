@@ -40,9 +40,6 @@ static void print_status_narrow(void) {
         case 1: // _COLEMAK
             oled_write_ln_P(PSTR("Clmk\n"), false);
             break;
-        case 2: // _COLEMAK_DH
-            oled_write_ln_P(PSTR("Clmk\n DH"), false);
-            break;
         default:
             oled_write_P(PSTR("Mod"), false);
             break;
@@ -53,13 +50,12 @@ static void print_status_narrow(void) {
     switch (get_highest_layer(layer_state)) {
         case 0: // _QWERTY
         case 1: // _COLEMAK
-        case 2: // _COLEMAK_DH
             oled_write_P(PSTR("Base\n"), false);
             break;
-        case 3:
+        case 2:
             oled_write_P(PSTR("Lower"), false);
             break;
-        case 4:
+        case 3:
             oled_write_P(PSTR("Raise"), false);
             break;
         default:

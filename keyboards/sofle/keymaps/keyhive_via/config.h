@@ -30,8 +30,6 @@ for more options.
 #define RGBLIGHT_SAT_STEP  17
 #define RGBLIGHT_VAL_STEP  17
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
-
 // Disabled to save space
 #define NO_ACTION_ONESHOT  // -332
 #define NO_ACTION_MACRO    // -0
