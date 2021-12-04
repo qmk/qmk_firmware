@@ -1,8 +1,6 @@
 /*
-This is the c configuration file for the keymap
-
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Modified 2018 Kenneth A. <github.com/krusli>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,22 +16,4 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
-//#define USE_MATRIX_I2C
-
-/* Select hand configuration */
-
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
-//#define USE_SERIAL_PD2
-
-//#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 200
-
-
-#define UNICODE_SELECTED_MODES UC_LNX
-
-#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+#include "jj40.h"

@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 extern uint8_t is_master;
 
+uint16_t copy_paste_timer;
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -37,6 +39,10 @@ enum layers {
     NAV,  
     FKEY,    
     STENO
+};
+
+enum custom_keycodes {
+    KC_CCCV = SAFE_RANGE
 };
 
 typedef struct {
@@ -174,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Numpad, SYMBOLS
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * | FKEY   |  !   |  @   |  {   |  }   |  |   | 			      | - _  | 6 ^  | 7 &  | 8 *  | 9 (  |  / ?   | 
+ * | FKEY   |  !   |  @   |  {   |  }   |  |   | 			                  | - _  | 6 ^  | 7 &  | 8 *  | 9 (  |  / ?   | 
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | STENO  |  \   | ' "  |  (   |  )   |  `   |                              |  +   | 1 !  | 2 @  | 3 #  | 4 $  |   *    |
  * |--------+------+------+------+------+------+                              +------+------+------+------+------+--------|
@@ -234,21 +240,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Navigation Layer
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        | Home | PgDn | PgUp | End  |      |                              |      | Home | PgDn | PgUp | End  |        |
+ * |        | Home | PgDn | PgUp | End  |desk> |                              | <desk| Home | PgDn | PgUp | End  |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | Left | Down | Up   | Right|      |                              |      | Left | Down | Up   | Right|        |
+ * |        | Left | Down | Up   | Right|win>  |                              | <win | Left | Down | Up   | Right|        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * | M_but1 |M_left|M_down| M_up |M_righ|M_but2|                              |M_but1|M_left|M_down| M_up |M_righ| M_but2 |
+ * |        |      |      |      | CCCV |winDwn|                              |winUp |      |      |      |      |        |
  * `----------------------+------+------+------+------+                +------+------+------+------+----------------------'
  *                               |      |      |      |                |      |      |      |      
  *                               |      |      |      |                |      |      |      |      
  *                               `--------------------'                `--------------------'
  */
     [NAV] = LAYOUT_split_3x6_3(
-      _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______,			 _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______,
-      _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______,			 _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______,
-      KC_MS_BTN1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, KC_MS_BTN2, KC_MS_BTN1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, KC_MS_BTN2,
-      _______, _______, _______, _______, _______, _______    
+      _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,S(LCMD(KC_RGHT)),S(LCMD(KC_RGHT)), KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______,
+      _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,LCMD(KC_RGHT),LCMD(KC_LEFT), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______,
+      _______, _______, _______, _______, KC_CCCV,LCMD(KC_DOWN), LCMD(KC_UP), _______, _______, _______, _______, _______, 
+            _______, _______, _______, _______, _______, _______    
     ),
 /*
  * F-Key Layer
@@ -295,6 +301,131 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 };
 
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_CCCV:  // One key copy/paste
+            if (record->event.pressed) {
+                copy_paste_timer = timer_read();
+            } else {
+                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
+                    tap_code16(LCTL(KC_C));
+                } else { // Tap, paste
+                    tap_code16(LCTL(KC_V));
+                }
+            }
+            break;
+    }
+    return true;
+}
+
+
+#ifdef OLED_ENABLE
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_270;
+    } else {
+        return rotation;
+    }
+}
+
+void render_crkbd_logo(void) {
+    static const char PROGMEM crkbd_logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+        0};
+    oled_write_P(crkbd_logo, false);
+}
+
+void render_colemak_logo(void) {
+    static const char PROGMEM colemak_logo[] = {
+// 'depositphotos_125211240-stock-photo-the-german-eagle-bundesadler-the', 32x32px
+0x00, 0x80, 0xe0, 0xf0, 0xf8, 0xf8, 0xfc, 0xfe, 0xfe, 0xfe, 0xfe, 0xe0, 0xc0, 0xe3, 0xff, 0xff, 
+0xff, 0xfe, 0xf0, 0xc0, 0xc0, 0xfe, 0xfe, 0xfe, 0xfe, 0xfc, 0xfc, 0xf8, 0xf0, 0xe0, 0x80, 0x00, 
+0x00, 0x05, 0x37, 0xdf, 0x7f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 
+0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x3f, 0x4f, 0x93, 0x01, 0x00, 
+0x00, 0x00, 0x01, 0x04, 0x02, 0x09, 0x04, 0x33, 0xdf, 0xff, 0x7f, 0x3f, 0x3f, 0x3f, 0xff, 0xff, 
+0xff, 0x3f, 0xff, 0x3f, 0x3f, 0x7f, 0x7f, 0x7f, 0x19, 0x03, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00, 
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+        };
+    oled_write_P(colemak_logo, false);
+}
+
+void render_numblock_logo(void) {
+    static const char PROGMEM numblock_logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+        0};
+    oled_write_P(numblock_logo, false);
+}
+
+static void render_status(void) {
+    switch (get_highest_layer(layer_state)) {
+        case QWERTY:
+			oled_write_P(PSTR("CCCCC"), false);
+			oled_write_P(PSTR("C    "), false);
+			oled_write_P(PSTR("C    "), false);
+			oled_write_P(PSTR("C    "), false);
+			oled_write_P(PSTR("CCCCC"), false);
+            break;
+        case NUM:
+			oled_write_P(PSTR("  # #"), false);
+			oled_write_P(PSTR("#####"), false);
+			oled_write_P(PSTR(" # # "), false);
+			oled_write_P(PSTR("#####"), false);
+			oled_write_P(PSTR("# #  "), false);
+            break;  
+        case GERMAN:
+			oled_write_P(PSTR("DD   "), false);
+			oled_write_P(PSTR("D DD "), false);
+			oled_write_P(PSTR("D  DD"), false);
+			oled_write_P(PSTR("D DD "), false);
+			oled_write_P(PSTR("DD   "), false);
+            break;
+        case SPANISH:
+			oled_write_P(PSTR("SSSSS"), false);
+			oled_write_P(PSTR("S    "), false);
+			oled_write_P(PSTR("SSSSS"), false);
+			oled_write_P(PSTR("    S"), false);
+			oled_write_P(PSTR("SSSSS"), false);
+            break;
+        case NAV:
+			oled_write_P(PSTR(">    "), false);
+			oled_write_P(PSTR(">>>  "), false);
+			oled_write_P(PSTR(">>>>>"), false);
+			oled_write_P(PSTR(">>>  "), false);
+			oled_write_P(PSTR(">    "), false);
+            break;
+        case FKEY:
+			oled_write_P(PSTR("FFFFF"), false);
+			oled_write_P(PSTR("F    "), false);
+			oled_write_P(PSTR("FFF  "), false);
+			oled_write_P(PSTR("F    "), false);
+			oled_write_P(PSTR("F    "), false);
+            break;
+	    case STENO:
+			oled_write_P(PSTR("PPPP "), false);
+			oled_write_P(PSTR("P  PP"), false);
+			oled_write_P(PSTR("PPPP "), false);
+			oled_write_P(PSTR("P    "), false);
+			oled_write_P(PSTR("P    "), false);
+            break;
+    }
+}
+
+void oled_task_user(void) {
+    if (is_keyboard_master()) {
+        render_status(); 
+    } else {
+        render_crkbd_logo();
+    }
+}
+
+#endif
 
 /* Return an integer that corresponds to what kind of tap dance should be executed.
  *
