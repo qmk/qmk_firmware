@@ -20,5 +20,3 @@ RGBLIGHT_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
 KEY_LOCK_ENABLE = no
 ENCODER_ENABLE = yes
-
-SRC += encoder_actions.c
