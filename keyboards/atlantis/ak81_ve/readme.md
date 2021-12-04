@@ -1,9 +1,16 @@
 # ATLANTIS AK81_VE
 
-* 75% PCB
-* RGB underglow
-* RGB per key backlighting
-* Rotary encoder
+![ATLANTIS AK81_VE](https://i.imgur.com/nfuocgS.jpeg)
+
+A 75% hotswap keyboard with per key RGB backlighting, RGB underglow and a rotary encoder.
+
+* Keyboard Maintainer: [fOmey](https://github.com/fOmey)
+* Hardware Supported: AK75X@AK81_VE
+* Hardware Availability: [AliExpress.com](https://aliexpress.com), [Shopee](https://shopee.com.my)
+
+Make example for this keyboard (after setting up your build environment):
+
+    make atlantis/ak81_ve:default
 
 ## Bootloader
 
