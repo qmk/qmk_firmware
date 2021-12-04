@@ -16,7 +16,7 @@
 #include "rev1.h"
 
 // OLED logo
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 __attribute__((weak)) void oled_task_user(void) {
     static const char PROGMEM rb_logo[] = {
         // rookiebwoy 128x32px

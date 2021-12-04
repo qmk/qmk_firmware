@@ -3,7 +3,7 @@
 
 The LATE-9 is a multi-tap input keyboard based on mobile phones from the late '90s. LATE-9 is intended as a dev board with 18 buttons and an OLED screen, made by through-hole components only. With this, you can experiment QMK OLED capabilities with very little expense.
 
-![LATE-9](https://i.imgur.com/QXycTC3.jpg "LATE-9 first proto")
+![LATE-9](https://i.imgur.com/QXycTC3h.jpg "LATE-9 first proto")
 
 See the project repository for gerbers.
 
