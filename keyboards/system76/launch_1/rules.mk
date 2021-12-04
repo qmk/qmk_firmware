@@ -7,17 +7,17 @@ AVRDUDE_MCU = $(MCU)
 # CPU frequency divided by two since AVR is at 3.3 V
 F_CPU = 8000000
 
-# External oscillator is 16 Mhz
+# External oscillator is 16 MHz
 F_USB = 16000000
 
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
 # Build options
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration (+ 1000)
-MOUSEKEY_ENABLE = no        # Mouse keys (+ 4700)
-EXTRAKEY_ENABLE = yes       # Audio control and System control (+ 450)
-CONSOLE_ENABLE = no         # Console for debug (+ 400)
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no        # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 DYNAMIC_KEYMAP_ENABLE = yes # Reconfigurable keyboard without flashing firmware
 NKRO_ENABLE = yes           # USB N-key rollover
