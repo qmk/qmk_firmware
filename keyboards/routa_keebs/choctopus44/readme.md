@@ -4,17 +4,17 @@
 
 The Choctopus44 is 44-key column staggered keyboard.
 
-* Keyboard Maintainer: [Routa Keebs](https://github.com/SlightHeadache)
+* Keyboard Maintainer: [SlightHeadache](https://github.com/SlightHeadache)
 * Hardware Supported: Choctopus44 PCBs, Pro Micro and compatible controllers supported
 * Hardware Availability: [Project repo](https://github.com/SlightHeadache/choctopus44)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make choctopus44:default
+    make routa_keebs/choctopus44:default
 
 Flashing example for this keyboard:
 
-    make choctopus44:default:flash
+    make routa_keebs/choctopus44:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
