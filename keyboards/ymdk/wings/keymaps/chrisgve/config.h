@@ -1,2 +1,4 @@
 #define PERMISSIVE_HOLD
 
+#define BACKLIGHT_CAPS_LOCK
+
