@@ -176,8 +176,8 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_D                      , .kana = "to"      }, // と
   {.key = B_M                      , .kana = "na"      }, // な
   {.key = B_SHFT|B_D               , .kana = "ni"      }, // に
-  {.key = B_SHFT|B_S               , .kana = "nu"      }, // ぬ
-  {.key = B_SHFT|B_W               , .kana = "ne"      }, // ね
+  {.key = B_SHFT|B_W               , .kana = "nu"      }, // ぬ
+  {.key = B_SHFT|B_R               , .kana = "ne"      }, // ね
   {.key = B_SHFT|B_J               , .kana = "no"      }, // の
   {.key = B_C                      , .kana = "ha"      }, // は
   {.key = B_X                      , .kana = "hi"      }, // ひ
@@ -189,7 +189,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_SHFT|B_F               , .kana = "ma"      }, // ま
   {.key = B_SHFT|B_B               , .kana = "mi"      }, // み
   {.key = B_SHFT|B_COMM            , .kana = "mu"      }, // む
-  {.key = B_SHFT|B_R               , .kana = "me"      }, // め
+  {.key = B_SHFT|B_S               , .kana = "me"      }, // め
   {.key = B_SHFT|B_K               , .kana = "mo"      }, // も
   {.key = B_SHFT|B_H               , .kana = "ya"      }, // や
   {.key = B_SHFT|B_P               , .kana = "yu"      }, // ゆ
@@ -237,22 +237,13 @@ const PROGMEM naginata_keymap ngmap[] = {
 
   // 小書き
   {.key = B_Q|B_H                  , .kana = "xya"     }, // ゃ
-  {.key = B_Q|B_SHFT|B_H           , .kana = "xya"     }, // ゃ
   {.key = B_Q|B_P                  , .kana = "xyu"     }, // ゅ
-  {.key = B_Q|B_SHFT|B_P           , .kana = "xyu"     }, // ゅ
   {.key = B_Q|B_I                  , .kana = "xyo"     }, // ょ
-  {.key = B_Q|B_SHFT|B_I           , .kana = "xyo"     }, // ょ
   {.key = B_Q|B_J                  , .kana = "xa"      }, // ぁ
-  {.key = B_Q|B_SHFT|B_J           , .kana = "xa"      }, // ぁ
   {.key = B_Q|B_K                  , .kana = "xi"      }, // ぃ
-  {.key = B_Q|B_SHFT|B_K           , .kana = "xi"      }, // ぃ
   {.key = B_Q|B_L                  , .kana = "xu"      }, // ぅ
-  // {.key = B_Q|B_SHFT|B_L           , .kana = "xu"      }, // ぅ
   {.key = B_Q|B_O                  , .kana = "xe"      }, // ぇ
-  {.key = B_Q|B_SHFT|B_O           , .kana = "xe"      }, // ぇ
   {.key = B_Q|B_N                  , .kana = "xo"      }, // ぉ
-  {.key = B_Q|B_SHFT|B_N           , .kana = "xo"      }, // ぉ
-  // {.key = B_Q|B_L                  , .kana = "xwa"     }, // ゎ
   {.key = B_Q|B_SHFT|B_L           , .kana = "xwa"     }, // ゎ
   {.key = B_G                      , .kana = "xtu"     }, // っ
 
@@ -351,21 +342,22 @@ const PROGMEM naginata_keymap ngmap[] = {
 };
 
 const PROGMEM naginata_keymap_long ngmapl[] = {
+// 編集モード Win/Linux
   {.key = B_J|B_K|B_Q		, .kana = SS_LCTL(SS_TAP(X_END))}, // ^{End}
-//{.key = B_J|B_K|B_W		, .win   = "｜",		.mac = "nagitatesenn"}, // ｜{改行}
-  {.key = B_J|B_K|B_E		, .kana = "dexi"}, // /*ディ*/
+  // {.key = B_J|B_K|B_W		, .kana = ""}, // 『』{改行}{↑}
+  {.key = B_J|B_K|B_E		, .kana = "dhi"}, // /*ディ*/
   {.key = B_J|B_K|B_R		, .kana = SS_LCTL("s")}, // ^s
 //{.key = B_J|B_K|B_T		, .win   = "・",		.mac = "nagichuutenn"}, // ・
 //{.key = B_J|B_K|B_A		, .win   = "……",		.mac = "nagitentenn"}, // ……{改行}
-//{.key = B_J|B_K|B_S		, .win   = "《",		.mac = "nagikakkohi5"}, // 《{改行}
+  // {.key = B_J|B_K|B_S		, .kana = ""}, // (){改行}{↑}
   {.key = B_J|B_K|B_D		, .kana = "?"SS_TAP(X_ENTER)}, // ？{改行}
-//{.key = B_J|B_K|B_F		, .win   = "「",		.mac = "nagikakkohi3"}, // 「{改行}
-//{.key = B_J|B_K|B_G		, .win   = "(",		.mac = "nagikakkohi6"}, // ({改行}
-//{.key = B_J|B_K|B_Z		, .win   = "││",		.mac = "nagitatesenn2"}, // ││{改行}
-//{.key = B_J|B_K|B_X		, .win   = "》",		.mac = "nagikakkomi5"}, // 》{改行}
-  {.key = B_J|B_K|B_C		, .kana = "!"SS_TAP(X_ENTER)}, // ！{改行}
-//{.key = B_J|B_K|B_V		, .win   = "」",		.mac = "nagikakkomi3"}, // 」{改行}
-//{.key = B_J|B_K|B_B		, .win   = ")",		.mac = "nagikakkomi6"}, // ){改行}
+  // {.key = B_J|B_K|B_F		, .kana = ""}, // 「」{改行}{↑}
+  // {.key = B_J|B_K|B_G		, .kana = ""}, // {改行}{End}{改行}「」{改行}{↑}
+//{.key = B_J|B_K|B_Z		, .win   = "││",		.mac = "nagitatesenni"}, // ││{改行}
+  // {.key = B_J|B_K|B_X		, .kana = ""}, // 【】{改行}{↑}
+  // {.key = B_J|B_K|B_C		, .kana = "!"SS_TAP(X_ENTER)}, // ！{改行}
+//{.key = B_J|B_K|B_V		, .kana = SS_TAP(X_ENTER)SS_TAP(NGDN)}, // {改行}{↓}
+  // {.key = B_J|B_K|B_B		, .kana = ""}, // 《》{改行}{↑}
   {.key = B_D|B_F|B_Y		, .kana = SS_TAP(X_HOME)}, // {Home}
   {.key = B_D|B_F|B_U		, .kana = SS_LSFT(SS_TAP(X_END))SS_TAP(X_BSPACE)}, // +{End}{BS}
   {.key = B_D|B_F|B_I		, .kana = SS_TAP(X_INT4)}, // {vk1Csc079}
@@ -375,58 +367,65 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 //{.key = B_D|B_F|B_J		, .kana = SS_TAP(NGUP)}, // {↑}
 //{.key = B_D|B_F|B_K		, .kana = SS_LSFT(SS_TAP(NGUP))}, // +{↑}
 //{.key = B_D|B_F|B_L		, .kana = SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)}, // {↑ 5}
-  {.key = B_D|B_F|B_SCLN		, .kana = SS_LCTL("i")}, // ^i
+//{.key = B_D|B_F|B_SCLN		, .kana = SS_LSFT(SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP))}, // +{↑ 5}
   {.key = B_D|B_F|B_N		, .kana = SS_TAP(X_END)}, // {End}
 //{.key = B_D|B_F|B_M		, .kana = SS_TAP(NGDN)}, // {↓}
 //{.key = B_D|B_F|B_COMM		, .kana = SS_LSFT(SS_TAP(NGDN))}, // +{↓}
 //{.key = B_D|B_F|B_DOT		, .kana = SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)}, // {↓ 5}
-  {.key = B_D|B_F|B_SLSH		, .kana = SS_LCTL("u")}, // ^u
-//{.key = B_M|B_COMM|B_Q		, .win   = "／",		.mac = "naginaname"}, // ／{改行}
-//{.key = B_M|B_COMM|B_W		, .macro , // ｜{改行}{End}《》{改行}{↑}
+//{.key = B_D|B_F|B_SLSH		, .kana = SS_LSFT(SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN))}, // +{↓ 5}
+//{.key = B_M|B_COMM|B_Q		, .macro , // 　　　×　　　×　　　×{改行 2}
+  // {.key = B_M|B_COMM|B_W		, .kana = ""}, // ^x『^v』{改行}{Space}+{↑}^x
   {.key = B_M|B_COMM|B_E		, .kana = SS_TAP(X_HOME)SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_END)}, // {Home}{改行}{Space 3}{End}
   {.key = B_M|B_COMM|B_R		, .kana = SS_TAP(X_HOME)SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_END)}, // {Home}{改行}{Space 1}{End}
 //{.key = B_M|B_COMM|B_T		, .win   = "〇",		.mac = "nagimaru"}, // 〇{改行}
-//{.key = B_M|B_COMM|B_A		, .win   = "【",		.mac = "nagikakkohi1"}, // 【{改行}
-//{.key = B_M|B_COMM|B_S		, .win   = "〈",		.mac = "nagikakkohi2"}, // 〈{改行}
-//{.key = B_M|B_COMM|B_D		, .win   = "『",		.mac = "nagikakkohi4"}, // 『{改行}
-//{.key = B_M|B_COMM|B_F		, .macro , // 」{改行 2}「{改行}
-  {.key = B_M|B_COMM|B_G		, .kana = SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)}, // {Space 3}
-//{.key = B_M|B_COMM|B_Z		, .win   = "】",		.mac = "nagikakkomi1"}, // 】{改行}
-//{.key = B_M|B_COMM|B_X		, .win   = "〉",		.mac = "nagikakkomi2"}, // 〉{改行}
-//{.key = B_M|B_COMM|B_C		, .win   = "』",		.mac = "nagikakkomi4"}, // 』{改行}
-//{.key = B_M|B_COMM|B_V		, .macro , // 」{改行 2}{Space}
-//{.key = B_M|B_COMM|B_B		, .macro , // 　　　×　　　×　　　×{改行 2}
+  {.key = B_M|B_COMM|B_A		, .kana = SS_LSFT(SS_TAP(X_PGUP))}, // +{PgUp}
+  // {.key = B_M|B_COMM|B_S		, .kana = ""}, // ^x(^v){改行}{Space}+{↑}^x
+  {.key = B_M|B_COMM|B_D		, .kana = SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)}, // {Space 3}
+  // {.key = B_M|B_COMM|B_F		, .kana = ""}, // ^x「^v」{改行}{Space}+{↑}^x
+//{.key = B_M|B_COMM|B_G		, .win   = "／",		.mac = "naginaname"}, // ／{改行}
+  {.key = B_M|B_COMM|B_Z		, .kana = SS_LSFT(SS_TAP(X_PGDOWN))}, // +{PgDn}
+  {.key = B_M|B_COMM|B_X		, .kana = SS_LCTL("x")SS_TAP(X_BSPACE)SS_TAP(X_DELETE)SS_LCTL("v")}, // ^x{BS}{Del}^v
+  {.key = B_M|B_COMM|B_C		, .kana = SS_TAP(X_HOME)SS_TAP(X_BSPACE)SS_TAP(X_DELETE)SS_TAP(X_DELETE)SS_TAP(X_DELETE)SS_TAP(X_END)}, // {Home}{BS}{Del 3}{End}
+  {.key = B_M|B_COMM|B_V		, .kana = SS_TAP(X_HOME)SS_TAP(X_BSPACE)SS_TAP(X_DELETE)SS_TAP(X_END)}, // {Home}{BS}{Del 1}{End}
+//{.key = B_M|B_COMM|B_B		, .macro , // ^x｜{改行}^v《》{改行}{↑}{Space}+{↑}^x
   {.key = B_C|B_V|B_Y		, .kana = SS_LSFT(SS_TAP(X_HOME))}, // +{Home}
   {.key = B_C|B_V|B_U		, .kana = SS_LCTL("x")}, // ^x
   {.key = B_C|B_V|B_I		, .kana = SS_LCTL("v")}, // ^v
-  {.key = B_C|B_V|B_O		, .kana = SS_LCTL("y")}, // ^y
-  {.key = B_C|B_V|B_P		, .kana = SS_LCTL("z")}, // ^z
+  {.key = B_C|B_V|B_O		, .kana = SS_LCTL("u")}, // ^u
+  {.key = B_C|B_V|B_P		, .kana = SS_LCTL("i")}, // ^i
   {.key = B_C|B_V|B_H		, .kana = SS_LCTL("c")}, // ^c
-//{.key = B_C|B_V|B_J		, .kana = SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)}, // {→ 5}
-//{.key = B_C|B_V|B_K		, .kana = SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))}, // +{→ 5}
-  {.key = B_C|B_V|B_L		, .kana = SS_LCTL(SS_TAP(X_PGUP))}, // ^{PgUp}
-  {.key = B_C|B_V|B_SCLN		, .kana = SS_LCTL(SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP))}, // ^{PgUp 5}
+//{.key = B_C|B_V|B_J		, .kana = SS_TAP(NGRT)}, // {→}
+//{.key = B_C|B_V|B_K		, .kana = SS_LSFT(SS_TAP(NGRT))}, // +{→}
+//{.key = B_C|B_V|B_L		, .kana = SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)}, // {→ 5}
+//{.key = B_C|B_V|B_SCLN		, .kana = SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))}, // +{→ 5}
   {.key = B_C|B_V|B_N		, .kana = SS_LSFT(SS_TAP(X_END))}, // +{End}
-//{.key = B_C|B_V|B_M		, .kana = SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)}, // {← 5}
-//{.key = B_C|B_V|B_COMM		, .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
-  {.key = B_C|B_V|B_DOT		, .kana = SS_LCTL(SS_TAP(X_PGDOWN))}, // ^{PgDn}
-  {.key = B_C|B_V|B_SLSH		, .kana = SS_LCTL(SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN))}, // ^{PgDn 5}
+//{.key = B_C|B_V|B_M		, .kana = SS_TAP(NGLT)}, // {←}
+//{.key = B_C|B_V|B_COMM		, .kana = SS_LSFT(SS_TAP(NGLT))}, // +{←}
+//{.key = B_C|B_V|B_DOT		, .kana = SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)}, // {← 5}
+//{.key = B_C|B_V|B_SLSH		, .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
 };
 
 const PROGMEM naginata_keymap_long ngmapl_tate[] = {
   {.key = B_T           , .kana = SS_TAP(NGLT)},
   {.key = B_Y           , .kana = SS_TAP(NGRT)},
 // 編集モード 縦横
+  {.key = B_J|B_K|B_V		, .kana = SS_TAP(X_ENTER)SS_TAP(NGDN)}, // {改行}{↓}
   {.key = B_D|B_F|B_J		, .kana = SS_TAP(NGUP)}, // {↑}
   {.key = B_D|B_F|B_K		, .kana = SS_LSFT(SS_TAP(NGUP))}, // +{↑}
   {.key = B_D|B_F|B_L		, .kana = SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)}, // {↑ 5}
+  {.key = B_D|B_F|B_SCLN		, .kana = SS_LSFT(SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP))}, // +{↑ 5}
   {.key = B_D|B_F|B_M		, .kana = SS_TAP(NGDN)}, // {↓}
   {.key = B_D|B_F|B_COMM		, .kana = SS_LSFT(SS_TAP(NGDN))}, // +{↓}
   {.key = B_D|B_F|B_DOT		, .kana = SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)}, // {↓ 5}
-  {.key = B_C|B_V|B_J		, .kana = SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)}, // {→ 5}
-  {.key = B_C|B_V|B_K		, .kana = SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))}, // +{→ 5}
-  {.key = B_C|B_V|B_M		, .kana = SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)}, // {← 5}
-  {.key = B_C|B_V|B_COMM		, .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
+  {.key = B_D|B_F|B_SLSH		, .kana = SS_LSFT(SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN))}, // +{↓ 5}
+  {.key = B_C|B_V|B_J		, .kana = SS_TAP(NGRT)}, // {→}
+  {.key = B_C|B_V|B_K		, .kana = SS_LSFT(SS_TAP(NGRT))}, // +{→}
+  {.key = B_C|B_V|B_L		, .kana = SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)}, // {→ 5}
+  {.key = B_C|B_V|B_SCLN		, .kana = SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))}, // +{→ 5}
+  {.key = B_C|B_V|B_M		, .kana = SS_TAP(NGLT)}, // {←}
+  {.key = B_C|B_V|B_COMM		, .kana = SS_LSFT(SS_TAP(NGLT))}, // +{←}
+  {.key = B_C|B_V|B_DOT		, .kana = SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)}, // {← 5}
+  {.key = B_C|B_V|B_SLSH		, .kana = SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))}, // +{← 5}
 };
 
 static naginata_keymap_long ngmapl_ty[12];
@@ -437,44 +436,27 @@ const PROGMEM naginata_keymap_long ngmapl_mac[] = {
   {.key = B_J|B_K|B_R		, .kana = SS_LCMD("s")}, // ^s
   {.key = B_D|B_F|B_Y		, .kana = SS_LCTL("a")}, // {Home}
   {.key = B_D|B_F|B_U		, .kana = SS_LSFT(SS_LCTL("e"))SS_TAP(X_BSPACE)}, // +{End}{BS}
-  {.key = B_D|B_F|B_SCLN		, .kana = SS_LCTL("k")}, // ^i
   {.key = B_D|B_F|B_N		, .kana = SS_LCTL("e")}, // {End}
-  {.key = B_D|B_F|B_SLSH		, .kana = SS_LCTL("j")}, // ^u
   {.key = B_M|B_COMM|B_E		, .kana = SS_LCTL("a")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_LCTL("e")}, // {Home}{改行}{Space 3}{End}
   {.key = B_M|B_COMM|B_R		, .kana = SS_LCTL("a")SS_TAP(X_ENTER)SS_TAP(X_SPACE)SS_LCTL("e")}, // {Home}{改行}{Space 1}{End}
-  {.key = B_C|B_V|B_Y		, .kana = SS_LSFT(SS_LCTL("a"))}, // +{Home}
+  {.key = B_M|B_COMM|B_X		, .kana = SS_LCMD("x")SS_TAP(X_BSPACE)SS_TAP(X_DELETE)SS_LCMD("v")}, // ^x{BS}{Del}^v
+  {.key = B_C|B_V|B_Y		, .kana = SS_LSFT(SS_LCTL(SS_TAP(NGUP)))}, // +{Home}
   {.key = B_C|B_V|B_U		, .kana = SS_LCMD("x")}, // ^x
   {.key = B_C|B_V|B_I		, .kana = SS_LCMD("v")}, // ^v
-  {.key = B_C|B_V|B_O		, .kana = SS_LCMD("y")}, // ^y
-  {.key = B_C|B_V|B_P		, .kana = SS_LCMD("z")}, // ^z
+  {.key = B_C|B_V|B_O		, .kana = SS_LCTL("j")}, // ^u
+  {.key = B_C|B_V|B_P		, .kana = SS_LCTL("k")}, // ^i
   {.key = B_C|B_V|B_H		, .kana = SS_LCMD("c")}, // ^c
-  {.key = B_C|B_V|B_L		, .kana = SS_TAP(X_PGUP)}, // ^{PgUp}
-  {.key = B_C|B_V|B_SCLN		, .kana = SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP)SS_TAP(X_PGUP)}, // ^{PgUp 5}
   {.key = B_C|B_V|B_N		, .kana = SS_LSFT(SS_LCTL("e"))}, // +{End}
-  {.key = B_C|B_V|B_DOT		, .kana = SS_TAP(X_PGDOWN)}, // ^{PgDn}
-  {.key = B_C|B_V|B_SLSH		, .kana = SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)SS_TAP(X_PGDOWN)}, // ^{PgDn 5}
 };
 
 // 編集モードunicode
 const PROGMEM naginata_keymap_unicode ngmapu[] = {
-  {.key = B_J|B_K|B_W		, .win   = "｜",		.mac = "nagitatesenn"}, // ｜{改行}
-  // {.key = B_J|B_K|B_T		, .win   = "・",		.mac = "nagichuutenn"}, // ・
+// 編集モードunicode
+  {.key = B_J|B_K|B_T		, .win   = "・",		.mac = "nagichuutenn"}, // ・
   {.key = B_J|B_K|B_A		, .win   = "……",		.mac = "nagitentenn"}, // ……{改行}
-  {.key = B_J|B_K|B_S		, .win   = "《",		.mac = "nagikakkohio"}, // 《{改行}
-  {.key = B_J|B_K|B_F		, .win   = "「",		.mac = "nagikakkohiu"}, // 「{改行}
-  {.key = B_J|B_K|B_G		, .win   = "(",		.mac = "nagikakkohika"}, // ({改行}
   {.key = B_J|B_K|B_Z		, .win   = "││",		.mac = "nagitatesenni"}, // ││{改行}
-  {.key = B_J|B_K|B_X		, .win   = "》",		.mac = "nagikakkomio"}, // 》{改行}
-  {.key = B_J|B_K|B_V		, .win   = "」",		.mac = "nagikakkomiu"}, // 」{改行}
-  {.key = B_J|B_K|B_B		, .win   = ")",		.mac = "nagikakkomika"}, // ){改行}
-  {.key = B_M|B_COMM|B_Q		, .win   = "／",		.mac = "naginaname"}, // ／{改行}
   {.key = B_M|B_COMM|B_T		, .win   = "〇",		.mac = "nagimaru"}, // 〇{改行}
-  {.key = B_M|B_COMM|B_A		, .win   = "【",		.mac = "nagikakkohia"}, // 【{改行}
-  {.key = B_M|B_COMM|B_S		, .win   = "〈",		.mac = "nagikakkohii"}, // 〈{改行}
-  {.key = B_M|B_COMM|B_D		, .win   = "『",		.mac = "nagikakkohie"}, // 『{改行}
-  {.key = B_M|B_COMM|B_Z		, .win   = "】",		.mac = "nagikakkomia"}, // 】{改行}
-  {.key = B_M|B_COMM|B_X		, .win   = "〉",		.mac = "nagikakkomii"}, // 〉{改行}
-  {.key = B_M|B_COMM|B_C		, .win   = "』",		.mac = "nagikakkomie"}, // 』{改行}
+  {.key = B_M|B_COMM|B_G		, .win   = "／",		.mac = "naginaname"}, // ／{改行}
 };
 
 // 薙刀式のレイヤー、オンオフするキー
@@ -937,7 +919,7 @@ bool naginata_lookup(int nt, bool shifted) {
       compress_buffer(nt);
       return true;
       break;
-    case B_M|B_COMM|B_B: //　　　×　　　×　　　×{改行 2}
+    case B_M|B_COMM|B_Q: //　　　×　　　×　　　×{改行 2}
       switch (naginata_config.os) {
         case NG_WIN:
         case NG_LINUX:
@@ -947,75 +929,301 @@ bool naginata_lookup(int nt, bool shifted) {
           return true;
           break;
         case NG_MAC:
-          tap_code(KC_SPACE);
-          tap_code(KC_SPACE);
-          tap_code(KC_SPACE);
           mac_send_string("nagibatu");
+          tap_code(KC_ENT);
           compress_buffer(nt);
           return true;
           break;
       }
       break;
-    case B_M|B_COMM|B_W: // {改行}{End}《》{改行}{↑}
+
+    case B_J|B_K|B_W: // 『』{改行}{↑}
       switch (naginata_config.os) {
         case NG_WIN:
         case NG_LINUX:
-          tap_code(KC_ENT);
-          tap_code(KC_END);
-          ng_send_unicode_string("《》");
-          tap_code(NGUP);
+          ng_send_unicode_string("『』");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
           compress_buffer(nt);
           return true;
           break;
         case NG_MAC:
-          tap_code(KC_ENT);
-          tap_code(KC_END);
-          mac_send_string("nagikakkohio");
-          mac_send_string("nagikakkomio");
-          tap_code(NGUP);
+          mac_send_string("nagikakkohie");
+          mac_send_string("nagikakkomie");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
           compress_buffer(nt);
           return true;
           break;
       }
       break;
-    case B_M|B_COMM|B_F: // 」{改行 2}「{改行}
+    case B_J|B_K|B_S: // (){改行}{↑}
       switch (naginata_config.os) {
         case NG_WIN:
         case NG_LINUX:
-          ng_send_unicode_string("」");
-          tap_code(KC_ENT);
-          ng_send_unicode_string("「");
+          ng_send_unicode_string("()");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
           compress_buffer(nt);
           return true;
           break;
         case NG_MAC:
+          mac_send_string("nagikakkohika");
+          mac_send_string("nagikakkomika");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+      }
+      break;
+    case B_J|B_K|B_F: // 「」{改行}{↑}
+      switch (naginata_config.os) {
+        case NG_WIN:
+        case NG_LINUX:
+          ng_send_unicode_string("「」");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+        case NG_MAC:
+          mac_send_string("nagikakkohiu");
           mac_send_string("nagikakkomiu");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+      }
+      break;
+    case B_J|B_K|B_G: // {改行}{End}{改行}「」{改行}{↑}
+      switch (naginata_config.os) {
+        case NG_WIN:
+        case NG_LINUX:
+          tap_code(KC_ENT);
+          tap_code(KC_END);
+          tap_code(KC_ENT);
+          ng_send_unicode_string("「」");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+        case NG_MAC:
+          tap_code(KC_ENT);
+          tap_code(KC_END);
           tap_code(KC_ENT);
           mac_send_string("nagikakkohiu");
+          mac_send_string("nagikakkomiu");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
           compress_buffer(nt);
           return true;
           break;
       }
       break;
-    case B_M|B_COMM|B_V: // 」{改行 2}{Space}
+    case B_J|B_K|B_X: // 【】{改行}{↑}
       switch (naginata_config.os) {
         case NG_WIN:
         case NG_LINUX:
-          ng_send_unicode_string("」");
-          tap_code(KC_ENT);
-          tap_code(KC_SPC);
+          ng_send_unicode_string("【】");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
           compress_buffer(nt);
           return true;
           break;
         case NG_MAC:
-          mac_send_string("nagikakkomiu");
-          tap_code(KC_ENT);
-          tap_code(KC_SPC);
+          mac_send_string("nagikakkohia");
+          mac_send_string("nagikakkomia");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
           compress_buffer(nt);
           return true;
           break;
       }
       break;
+    case B_J|B_K|B_B: // 《》{改行}{↑}
+      switch (naginata_config.os) {
+        case NG_WIN:
+        case NG_LINUX:
+          ng_send_unicode_string("《》");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+        case NG_MAC:
+          mac_send_string("nagikakkohio");
+          mac_send_string("nagikakkomio");
+          if (naginata_config.tategaki) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_LEFT);
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+      }
+      break;
+    case B_M|B_COMM|B_W: // ^x『^v』{改行}{Space}+{↑}^x
+      switch (naginata_config.os) {
+        case NG_WIN:
+        case NG_LINUX:
+          send_string(SS_LCTL("x"));
+          ng_send_unicode_string("『");
+          send_string(SS_LCTL(SS_TAP(X_V)));
+          ng_send_unicode_string("』");
+          if (naginata_config.tategaki) {
+            send_string(" "SS_LSFT(SS_TAP(X_UP))SS_LCTL("x"));
+          } else {
+            send_string(" "SS_LSFT(SS_TAP(X_LEFT))SS_LCTL("x"));
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+        case NG_MAC:
+          send_string(SS_LCMD("x"));
+          mac_send_string("nagikakkohie");
+          send_string(SS_LCMD("v"));
+          mac_send_string("nagikakkomie");
+          if (naginata_config.tategaki) {
+            send_string(" "SS_LSFT(SS_TAP(X_UP))SS_LCMD("x"));
+          } else {
+            send_string(" "SS_LSFT(SS_TAP(X_LEFT))SS_LCMD("x"));
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+      }
+      break;
+    case B_M|B_COMM|B_S: // ^x(^v){改行}{Space}+{↑}^x
+      switch (naginata_config.os) {
+        case NG_WIN:
+        case NG_LINUX:
+          send_string(SS_LCTL("x"));
+          ng_send_unicode_string("(");
+          send_string(SS_LCTL(SS_TAP(X_V)));
+          ng_send_unicode_string(")");
+          if (naginata_config.tategaki) {
+            send_string(" "SS_LSFT(SS_TAP(X_UP))SS_LCTL("x"));
+          } else {
+            send_string(" "SS_LSFT(SS_TAP(X_LEFT))SS_LCTL("x"));
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+        case NG_MAC:
+          send_string(SS_LCMD("x"));
+          mac_send_string("nagikakkohika");
+          send_string(SS_LCMD("v"));
+          mac_send_string("nagikakkomika");
+          if (naginata_config.tategaki) {
+            send_string(" "SS_LSFT(SS_TAP(X_UP))SS_LCMD("x"));
+          } else {
+            send_string(" "SS_LSFT(SS_TAP(X_LEFT))SS_LCMD("x"));
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+      }
+      break;
+    case B_M|B_COMM|B_F: // ^x「^v」{改行}{Space}+{↑}^x
+      switch (naginata_config.os) {
+        case NG_WIN:
+        case NG_LINUX:
+          send_string(SS_LCTL("x"));
+          ng_send_unicode_string("「");
+          send_string(SS_LCTL("v"));
+          ng_send_unicode_string("」");
+          if (naginata_config.tategaki) {
+            send_string(" "SS_LSFT(SS_TAP(X_UP))SS_LCTL("x"));
+          } else {
+            send_string(" "SS_LSFT(SS_TAP(X_LEFT))SS_LCTL("x"));
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+        case NG_MAC:
+          send_string(SS_LCMD("x"));
+          mac_send_string("nagikakkohiu");
+          send_string(SS_LCMD("v"));
+          mac_send_string("nagikakkomiu");
+          if (naginata_config.tategaki) {
+            send_string(" "SS_LSFT(SS_TAP(X_UP))SS_LCMD("x"));
+          } else {
+            send_string(" "SS_LSFT(SS_TAP(X_LEFT))SS_LCMD("x"));
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+      }
+    case B_M|B_COMM|B_B: // ^x｜{改行}^v《》{改行}{↑}{Space}+{↑}^x
+      switch (naginata_config.os) {
+        case NG_WIN:
+        case NG_LINUX:
+          send_string(SS_LCTL("x"));
+          ng_send_unicode_string("｜");
+          send_string(SS_LCTL("v"));
+          ng_send_unicode_string("《》");
+          if (naginata_config.tategaki) {
+            send_string(SS_TAP(X_UP)" "SS_LSFT(SS_TAP(X_UP))SS_LCTL("x"));
+          } else {
+            send_string(SS_TAP(X_LEFT)" "SS_LSFT(SS_TAP(X_LEFT))SS_LCTL("x"));
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+        case NG_MAC:
+          send_string(SS_LCMD("x"));
+          mac_send_string("nagitatesen");
+          send_string(SS_LCMD("v"));
+          mac_send_string("nagikakkomio");
+          mac_send_string("nagikakkohio");
+          if (naginata_config.tategaki) {
+            send_string(SS_TAP(X_UP)" "SS_LSFT(SS_TAP(X_UP))SS_LCMD("x"));
+          } else {
+            send_string(SS_TAP(X_LEFT)" "SS_LSFT(SS_TAP(X_LEFT))SS_LCMD("x"));
+          }
+          compress_buffer(nt);
+          return true;
+          break;
+      }
+      break;
+
     default:
       // キーから仮名に変換して出力する
 

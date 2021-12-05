@@ -23,8 +23,8 @@ NGKEYS naginata_keys;
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE,
     _MAC,
+    _BASE,
     _QWERTY,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
@@ -211,12 +211,12 @@ static void render_eisu(void) {
 
 void oled_task_user(void) {
     // なぜか明示的にOLEDのスリープ処理が必要
-    // if (timer_expired32(timer_read32(), oled_sleep_timer)) {
-    //   oled_off();
-    //   return;
-    // } else {
-    //   oled_on();
-    // }
+    if (timer_expired32(timer_read32(), oled_sleep_timer)) {
+      oled_off();
+      return;
+    } else {
+      oled_on();
+    }
 
     if (is_keyboard_master()) {
       if (naginata_state()) {
