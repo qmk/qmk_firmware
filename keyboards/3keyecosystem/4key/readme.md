@@ -4,7 +4,7 @@
 
 This is a 2x2 macro keyboard.
 It's designed for a modular keyboard mount using an ATmega32U4.
-There are two versions: 4key1 (uses individual LEDs), and 4key2 (uses WS2812B LEDs).
+There are two versions: 4key/noled (no controlled LEDs), and 4key/rgb (uses WS2812B LEDs).
 
 * Keyboard Maintainer: [softplus](https://github.com/softplus)
 * Hardware Supported: [3keyecosystem-4key/noled](https://github.com/softplus/3keyecosystem/tree/main/4key/4key1) and [4key/rgb](https://github.com/softplus/3keyecosystem/tree/main/4key/4key2)
