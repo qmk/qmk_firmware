@@ -22,13 +22,6 @@ see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 */
 
-#define RGB_DI_PIN D3
-#define RGBLED_NUM 74
-#define RGBLED_SPLIT { 37, 37 }
-#define RGBLIGHT_HUE_STEP  10
-#define RGBLIGHT_SAT_STEP  17
-#define RGBLIGHT_VAL_STEP  17
-
 // More lighting options in quantum/rgblight/rgblight.h
 // Disabling some of these is a good way to save flash space.
 #define RGBLIGHT_EFFECT_ALTERNATING     // 108
