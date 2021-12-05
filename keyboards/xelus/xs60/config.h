@@ -60,5 +60,3 @@
 
 // More EEPROM for layers
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
-
-#define FORCE_NKRO
