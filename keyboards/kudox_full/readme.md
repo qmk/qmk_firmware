@@ -6,8 +6,8 @@
 :----:|:-----:
  front | angle
 
-- Keyboard Maintainer: [Kumao Kobo](https://github.com/kumaokobo)  
-- Hardware Supported: Kudox Full PCB rev1.0 w/ Pro Micro  
+- Keyboard Maintainer: [Kumao Kobo](https://github.com/kumaokobo)
+- Hardware Supported: Kudox Full PCB rev1.0 w/ Pro Micro
 - Assembly guide: [Kudox Full/README](https://github.com/kumaokobo/kudox-keyboard/blob/master/kudox-full/README.md)
 
 Make example for this keyboard (after setting up your build environment):
@@ -15,7 +15,7 @@ Make example for this keyboard (after setting up your build environment):
     make kudox_full/rev1:default
 
 
-Example of flashing this keyboard:
+Flashing example for this keyboard:
 
     make kudox_full/rev1:default:flash
 
