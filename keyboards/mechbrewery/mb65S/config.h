@@ -20,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x6067
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    KBDFans
-#define PRODUCT         KBD67v2
+#define VENDOR_ID       0x4252	//BR
+#define PRODUCT_ID      0x3635	//65
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    MechBrewery
+#define PRODUCT         MB65S
 
 /* key matrix size */
 #define MATRIX_ROWS 5

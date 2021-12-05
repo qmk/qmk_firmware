@@ -6,6 +6,7 @@
 * Hardware Supported: MechBrewery MB-65S
 * Hardware Availability: N/A
 * To reset the board into bootloader mode: press Reset hardware button or hold FN + Backslash (layer 1 RESET key)
+* To reset the board into bootloader mode: press Reset hardware button or press layer 1 RESET key
 
 Make example for this keyboard (after setting up your build environment):
 
