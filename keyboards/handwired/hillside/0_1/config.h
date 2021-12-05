@@ -10,9 +10,6 @@
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
 
-/* Serial */
-#define SERIAL_USE_MULTI_TRANSACTION
-
 /* Encoder */
 #define ENCODERS_PAD_A { F5 }
 #define ENCODERS_PAD_B { F4 }
