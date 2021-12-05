@@ -17,9 +17,9 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE = 0,
-    _UNRULY = 1,
-    _FUNCTION = 2
+    _BASE,
+    _UNRULY,
+    _FUNCTION
 };
 
 // Defines the keycodes used by our macros in process_record_user
