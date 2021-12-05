@@ -3,8 +3,6 @@
     "url": "https://system76.com/accessories/launch",
     "layouts": {
         "LAYOUT": {
-            "c_macro": true,
-            "filename": "keyboards/system76/launch_1/launch_1.h",
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 1, "y": 0 },
