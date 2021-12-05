@@ -30,7 +30,7 @@ enum {
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LSHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-    [TD_RSHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS),
+    [TD_RSHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS)
 };
 
 // + -------------------- +
@@ -41,13 +41,32 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 //      https://github.com/foostan/crkbd/blob/main/corne-classic/doc/buildguide_en.md
 
 // Change LED color to red when CAPS LOCK is active
-void rgb_matrix_indicators_kb(void) {
+void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(26, 255, 0, 0);
         // Only works with SPLIT_LED_STATE_ENABLE
         rgb_matrix_set_color(53, 255, 0, 0);
     }
 }
+
+// + ------ +
+// + MACROS |
+// + ------ +
+
+enum macros_keycodes {
+    LTX_FIGURE = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case LTX_FIGURE:
+        if (record->event.pressed) {
+            SEND_STRING("QMK is the best thing ever!");
+        }
+        break;
+    }
+    return true;
+};
 
 // + ------- +
 // + KEY MAP |
@@ -85,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
+      XXXXXXX, LTX_FIGURE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,   MO(3),  KC_SPC,     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
