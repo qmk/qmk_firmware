@@ -5,7 +5,7 @@
 A number pad for hardboot.
 
 * Keyboard Maintainer: [sotoba](https://github.com/sotoba)
-* Hardware Supported: *The contender PCBs, atmega32u2 supported*
+* Hardware Supported: Contender PCB
 * Hardware Availability: [BOOTH: stupa-devices](https://stupa-devices.booth.pm/)
 
 Make example for this keyboard (after setting up your build environment):
