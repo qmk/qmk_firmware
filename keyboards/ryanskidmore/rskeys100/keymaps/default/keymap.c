@@ -30,3 +30,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,    KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
         )
 };
+
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    HSV white = {0, 0, 100};
+
+    if (white.v > rgb_matrix_get_val()) {
+        white.v = rgb_matrix_get_val();
+    }
+
+    RGB white_rgb = hsv_to_rgb(white);
+
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(76, white_rgb.r, white_rgb.g, white_rgb.b);
+    }
+
+    if (host_keyboard_led_state().num_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(19, white_rgb.r, white_rgb.g, white_rgb.b);
+    }
+
+    if (host_keyboard_led_state().scroll_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(14, white_rgb.r, white_rgb.g, white_rgb.b);
+    }
+}

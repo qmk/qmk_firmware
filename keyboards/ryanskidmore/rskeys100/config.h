@@ -31,7 +31,7 @@
 #define ROW_A  D4
 #define ROW_B  C6
 #define ROW_C  D7
-#define ROW_D  E6kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+#define ROW_D  E6
 #define ROW_E  B4
 #define ROW_F  B5
 
@@ -47,14 +47,12 @@
 // RGB
 #define RGB_DI_PIN C7
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL 105
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 10
+#define DRIVER_LED_TOTAL 115
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 20
 #define RGB_MATRIX_DISABLE_KEYCODES
-//#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_PINWHEEL
-#define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
