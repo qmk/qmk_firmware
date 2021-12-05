@@ -386,6 +386,15 @@ This sets how many LEDs are directly connected to each controller.  The first nu
 
 Enabling this option changes the startup behavior to listen for an active USB communication to delegate which part is master and which is slave. With this option enabled and theres's USB communication, then that half assumes it is the master, otherwise it assumes it is the slave.
 
+```c
+#define SPLIT_USB_FORCE_LEFT
+#define SPLIT_USB_FORCE_RIGHT
+```
+
+Forces the usb connection to be enabled on the corresponding half. If both are set, left wins over right.
+
+?> Only set these options if `SPLIT_USB_DETECT` does not work as intended.
+
 Without this option, the master is the half that can detect voltage on the physical USB connection (VBUS detection).
 
 Enabled by default on ChibiOS/ARM.

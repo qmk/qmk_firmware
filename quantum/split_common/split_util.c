@@ -56,7 +56,15 @@ static uint8_t connection_errors = 0;
 
 volatile bool isLeftHand = true;
 
-#if defined(SPLIT_USB_DETECT)
+#if defined(SPLIT_USB_FORCE_LEFT)
+static bool usbIsActive(void) {
+    return is_keyboard_left();
+}
+#elif defined(SPLIT_USB_FORCE_RIGHT)
+static bool usbIsActive(void) {
+    return !is_keyboard_left();
+}
+#elif defined(SPLIT_USB_DETECT)
 static bool usbIsActive(void) {
     for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
         // This will return true if a USB connection has been established
