@@ -49,32 +49,13 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 
-// + ------ +
-// + MACROS |
-// + ------ +
-
-enum macros_keycodes {
-    LTX_FIGURE = SAFE_RANGE,
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case LTX_FIGURE:
-        if (record->event.pressed) {
-            SEND_STRING("QMK is the best thing ever!");
-        }
-        break;
-    }
-    return true;
-};
-
 // + ------- +
 // + KEY MAP |
 // + ------- +
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+  //,-----------------z------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
