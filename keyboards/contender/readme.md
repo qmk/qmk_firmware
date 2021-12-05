@@ -1,6 +1,6 @@
 # contender
 
-<img src="https://github.com/sotoba/contender/blob/images/contender_topview.jpg" width="860">
+![](https://raw.githubusercontent.com/sotoba/contender/images/contender_topview.jpg)
 
 A number pad for hardboot.
 
