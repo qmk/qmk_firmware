@@ -14,4 +14,20 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "2key.h"
+#pragma once
+
+#include "config_common.h"
+
+// USB VID/PID
+#define PRODUCT      2key/noled
+
+/* Keyboard Matrix Assignments */
+#define MATRIX_ROW_PINS { F6 }
+#define MATRIX_COL_PINS { F4, D7 }
+#define UNUSED_PINS
+
+// LED on kbmount base board is on B7
+#define LED_CAPS_LOCK_PIN B7 // onboard LED for testing
+
+/* COL2ROW, ROW2COL */
+#define DIODE_DIRECTION COL2ROW
