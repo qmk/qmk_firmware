@@ -43,6 +43,9 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
 #ifdef CUSTOM_UNICODE_ENABLE
           && process_record_unicode(keycode, record)
 #endif
+#if defined(POINTING_DEVICE_ENABLE)
+          && process_record_pointing(keycode, record)
+#endif
           && true)) {
         return false;
     }

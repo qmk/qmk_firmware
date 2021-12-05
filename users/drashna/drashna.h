@@ -32,11 +32,11 @@
 #if defined(OLED_ENABLE)
 #    include "oled_stuff.h"
 #endif
-#if defined(PIMORONI_TRACKBALL_ENABLE)
-#    include "drivers/sensors/pimoroni_trackball.h"
-#endif
 #ifdef SPLIT_KEYBOARD
 #    include "transport_sync.h"
+#endif
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing.h"
 #endif
 
 /* Define layer names */

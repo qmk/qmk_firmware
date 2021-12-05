@@ -56,7 +56,8 @@ enum userspace_custom_keycodes {
     KC_REGIONAL,
     KC_AUSSIE,
     KC_ZALGO,
-    NEW_SAFE_RANGE  // use "NEWPLACEHOLDER for keymap specific codes
+    KC_ACCEL,
+    NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
 };
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);

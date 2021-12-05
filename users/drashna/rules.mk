@@ -81,11 +81,11 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
     endif
 endif
 
-ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
-    POINTING_DEVICE_ENABLE := yes
-    OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
-    SRC += drivers/sensors/pimoroni_trackball.c
-    QUANTUM_LIB_SRC += i2c_master.c
+CUSTOM_POINTING_DEVICE ?= yes
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+    ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
+        SRC += pointing.c
+    endif
 endif
 
 CUSTOM_SPLIT_TRANSPORT_SYNC ?= yes
