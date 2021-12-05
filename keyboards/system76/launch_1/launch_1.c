@@ -17,9 +17,6 @@
 
 #include "launch_1.h"
 
-#include "dynamic_keymap.h"
-#include "eeprom.h"
-#include "rgb_matrix.h"
 #include "usb_mux.h"
 
 // clang-format off
@@ -83,31 +80,11 @@ void eeprom_set_valid(bool valid) {
     eeprom_update_byte(((void *)EEPROM_VERSION_ADDR), valid ? EEPROM_VERSION : 0xFF);
 }
 
-void eeprom_reset(void) {
+void bootmagic_lite_reset_eeprom(void) {
     // Set the keyboard-specific EEPROM state as invalid
     eeprom_set_valid(false);
     // Set the TMK/QMK EEPROM state as invalid
     eeconfig_disable();
-}
-
-// The lite version of TMK's bootmagic based on Wilba.
-// 100% less potential for accidentally making the keyboard do stupid things.
-void bootmagic_lite(void) {
-    // Do multiple scans because debouncing cannot be turned off
-    matrix_scan();
-#if defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-#else
-    wait_ms(30);
-#endif
-    matrix_scan();
-
-    // If the `Esc' key (matrix 0,0) is held down on power up,
-    // reset the EEPROM valid state and jump to bootloader
-    if (matrix_get_row(0) & (1 << 0)) {
-        eeprom_reset();
-        bootloader_jump();
-    }
 }
 
 void system76_ec_rgb_eeprom(bool write);
@@ -217,16 +194,6 @@ layer_state_t layer_state_set_kb(layer_state_t layer_state) {
     system76_ec_rgb_layer(layer_state);
 
     return layer_state_set_user(layer_state);
-}
-
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
 }
 
 #ifdef CONSOLE_ENABLE
