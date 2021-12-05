@@ -23,6 +23,7 @@
 #define GRAVE_ESC_CTRL_OVERRIDE    // Always send Escape if Control is pressed
 
 #define TAPPING_TERM 180
+#define TAPPING_TERM_PER_KEY
 
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR

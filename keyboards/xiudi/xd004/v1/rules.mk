@@ -5,7 +5,7 @@ MCU = atmega16u2
 BOOTLOADER = atmel-dfu
 
 # Build Options
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes        # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -14,7 +14,6 @@ NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: ht
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 SPACE_CADET_ENABLE = no
 # Saves about 5% of space:
 LTO_ENABLE = yes

@@ -9,7 +9,7 @@
     "audio": false,
     "backlight": false,
     "bluetooth": false,
-    "bootmagic_lite": true,
+    "bootmagic": true,
     "command": false,
     "console": false,
     "extrakey": true,
