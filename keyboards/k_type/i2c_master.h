@@ -58,11 +58,11 @@
 #    endif
 #endif
 
-#ifndef I2C1_SCL
-#    define I2C1_SCL 6
+#ifndef I2C1_SCL_PIN
+#    define I2C1_SCL_PIN 6
 #endif
-#ifndef I2C1_SDA
-#    define I2C1_SDA 7
+#ifndef I2C1_SDA_PIN
+#    define I2C1_SDA_PIN 7
 #endif
 
 #ifdef USE_I2CV1
