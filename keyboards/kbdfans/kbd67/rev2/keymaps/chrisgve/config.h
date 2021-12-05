@@ -18,3 +18,8 @@
 
 // place overrides here
 #define FORCE_NKRO
+
+
+#define BACKLIGHT_CAPS_LOCK
+
+#define PERMISSIVE_HOLD

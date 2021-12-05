@@ -16,72 +16,114 @@
 #include QMK_KEYBOARD_H
 
 // Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL
-};
+#include "chrisgve.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap (Base Layer) Default Layer
-   * ,----------------------------------------------------------------.
-   * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Home|
-   * |----------------------------------------------------------------|
-   * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \  |PgUp|
-   * |----------------------------------------------------------------|
-   * |Caps   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return |PgDn|
-   * |----------------------------------------------------------------|
-   * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift | Up|End |
-   * |----------------------------------------------------------------|
-   * |Ctrl|Win |Alt |        Space          |Alt| FN|Ctrl|Lef|Dow|Rig |
-   * `----------------------------------------------------------------'
-   */
-[0] = LAYOUT_65_ansi(
-  KC_GESC, KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_HOME, \
-  KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP, \
-  KC_CAPS, KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGDN,  \
-  KC_LSFT, KC_Z,    KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   KC_END,           \
-  KC_LCTL, KC_LALT, KC_LGUI,                KC_SPC,                          KC_RGUI, MO(1),   KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT),
 
-  /* Keymap Fn Layer
-   * ,----------------------------------------------------------------.
-   * |~ `|F1 |F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|Del    |Ins |
-   * |----------------------------------------------------------------|
-   * |     |   |Up |   |   |   |   |   |PSc|SLk|Pau|Up |   |     |    |
-   * |----------------------------------------------------------------|
-   * |      |Lef|Dow|Rig|   |   |   |   |Hom|PUp|Lef|Rig|        |    |
-   * |----------------------------------------------------------------|
-   * |        |   |   |   |   |   |   |   |End|PDn|Dow|      |PUp|    |
-   * |----------------------------------------------------------------|
-   * |    |    |    |                       |   |   |    |Hom|PDn|End |
-   * `----------------------------------------------------------------'
-   */
-[1] = LAYOUT_65_ansi(
-  KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_INS, \
-  RESET,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
-  _______, _______, _______, _______, _______, _______, KC_MUTE, _______, _______, _______, _______, _______,          KC_VOLU, KC_MUTE, \
-  _______, _______, _______,                   KC_MPLY,                            _______, _______, _______, KC_MPRV, KC_VOLD, KC_MNXT),
+    [_QWERTY_MAC] = LAYOUT_65_ansi_split_bs(
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_DEL,  KC_HOME,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,          KC_PGUP,
+        KC_LCTL, KC_A,    KC_S,    M_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT,                   KC_UP,   KC_END,
+        KC_LALT, KC_LGUI, XXXXXXX,                   SPC_RSE,                            KC_RGUI, KC_RALT, ADJ_M,            KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+
+    [_MAC_NAV_1] = LAYOUT_65_ansi_split_bs(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, M_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, A_SHIFT, S_SHIFT, _______, M_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,          _______,          _______,
+        _______, _______, _______, _______, _______, M_B_WRD, _______, _______, _______, _______, _______, _______,                   _______, _______,
+        _______, _______, _______,                   _______,                            _______, _______, _______,          _______, _______, _______
+    ),
+
+    [_MAC_NAV_2] = LAYOUT_65_ansi_split_bs(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,          _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, _______,
+        _______, _______, _______,                   _______,                            _______, _______, _______,          _______, _______, _______
+    ),
+
+    [_QWERTY_LINUX] = LAYOUT_65_ansi_split_bs(
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_DEL,  KC_HOME,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,          KC_PGUP,
+        KC_LCTL, KC_A,    KC_S,    L_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT,                   KC_UP,   KC_END,
+        KC_LGUI, KC_LALT, XXXXXXX,                   SPC_RSE,                            KC_RALT, KC_RGUI, ADJ_L,            KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+
+    [_LINUX_NAV_1] = LAYOUT_65_ansi_split_bs(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, L_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, A_SHIFT, S_SHIFT, _______, L_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,          _______,          _______,
+        _______, _______, _______, _______, _______, L_B_WRD, _______, _______, _______, _______, _______, _______,                   _______, _______,
+        _______, _______, _______,                   _______,                            _______, _______, _______,          _______, _______, _______
+    ),
+
+    [_LINUX_NAV_2] = LAYOUT_65_ansi_split_bs(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,          _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, _______,
+        _______, _______, _______,                   _______,                            _______, _______, _______,          _______, _______, _______
+    ),
+
+    [_QWERTY_WIN] = LAYOUT_65_ansi_split_bs(
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_DEL,  KC_HOME,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,          KC_PGUP,
+        KC_LCTL, KC_A,    KC_S,    W_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, R_SHIFT,                   KC_UP,   KC_END,
+        KC_LGUI, KC_LALT, XXXXXXX,                   SPC_RSE,                            KC_RALT, KC_RGUI, ADJ_W,            KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+
+    [_WIN_NAV_1] = LAYOUT_65_ansi_split_bs(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, W_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, A_SHIFT, S_SHIFT, _______, W_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,          _______,          _______,
+        _______, _______, _______, _______, _______, W_B_WRD, _______, _______, _______, _______, _______, _______,                   _______, _______,
+        _______, _______, _______,                   _______,                            _______, _______, _______,          _______, _______, _______
+    ),
+
+    [_WIN_NAV_2] = LAYOUT_65_ansi_split_bs(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,          _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, _______,
+        _______, _______, _______,                   _______,                            _______, _______, _______,          _______, _______, _______
+    ),
+
+    [_RAISE] = LAYOUT_65_ansi_split_bs(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS, KC_PLUS, _______,          _______,
+        KC_CAPS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,          KC_EQL,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, _______,
+        _______, _______, _______,                   _______,                            _______, _______, _______,          _______, _______, _______
+    ),
+
+    [_ADJUST_MAC] = LAYOUT_65_ansi_split_bs(
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,
+        RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______,          _______,          _______,
+        _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, KC_MUTE, _______, _______, _______, _______,                   KC_VOLU, _______,
+        _______, _______, _______,                   KC_MPLY,                            _______, _______, KC_APFN,          KC_MPRV, KC_VOLD, KC_MNXT
+    ),
+
+    [_ADJUST_LINUX] = LAYOUT_65_ansi_split_bs(
+        KC_GRV,  KC_WF1,  KC_WF2,  KC_WF3,  KC_WF4,  KC_WF5,  KC_WF6,  KC_WF7,  KC_WF8,  KC_WF9,  KC_WF10, KC_WF11, KC_WF12, _______, _______, _______,
+        RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______,          _______,          _______,
+        _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, KC_MUTE, _______, _______, _______, _______,                   KC_VOLU, _______,
+        _______, _______, _______,                   KC_MPLY,                            _______, _______, INV_AFN,          KC_MPRV, KC_VOLD, KC_MNXT
+    ),
+
+    [_ADJUST_WIN] = LAYOUT_65_ansi_split_bs(
+        KC_GRV,  KC_WF1,  KC_WF2,  KC_WF3,  KC_WF4,  KC_WF5,  KC_WF6,  KC_WF7,  KC_WF8,  KC_WF9,  KC_WF10, KC_WF11, KC_WF12, _______, _______, _______,
+        RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______,          _______,          _______,
+        _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, KC_MUTE, _______, _______, _______, _______,                   KC_VOLU, _______,
+        _______, _______, _______,                   KC_MPLY,                            _______, _______, INV_AFN,          KC_MPRV, KC_VOLD, KC_MNXT
+    ),
+
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-    case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
-  }
-  return true;
-}
