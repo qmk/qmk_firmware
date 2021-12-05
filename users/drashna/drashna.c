@@ -70,7 +70,9 @@ void                       matrix_init_user(void) {
     DDRB &= ~(1 << 0);
     PORTB &= ~(1 << 0);
 #endif
-
+#ifdef CUSTOM_UNICODE_ENABLE
+    matrix_init_unicode();
+#endif
     matrix_init_secret();
     matrix_init_keymap();
 }

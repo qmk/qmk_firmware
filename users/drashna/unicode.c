@@ -279,5 +279,9 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
     } else if (typing_mode == KC_ZALGO) {
         return process_record_zalgo(keycode, record);
     }
-    return true;
+    return process_unicode_common(keycode, record);
+}
+
+void matrix_init_unicode(void) {
+    unicode_input_mode_init();
 }

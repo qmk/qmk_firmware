@@ -65,6 +65,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 void post_process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #ifdef CUSTOM_UNICODE_ENABLE
 bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
+void matrix_init_unicode(void);
 #endif
 
 #define LOWER     MO(_LOWER)
