@@ -118,9 +118,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_SHIFT] = LAYOUT(
     JP_TILD   ,JP_EXLM   ,JP_AT     ,JP_HASH   ,JP_DLR    ,JP_PERC   ,JP_CIRC   ,JP_AMPR   ,JP_ASTR   ,JP_LPRN   ,JP_RPRN   ,JP_UNDS   ,JP_EQL    ,JP_QUES, _______, \
-    S(KC_ESC) ,JP_LT     ,S(KC_S)   ,S(KC_R)   ,S(KC_L)   ,S(KC_B)   ,JP_SCLN   ,           S(KC_Y)   ,CSBS      ,S(KC_I)   ,S(KC_D)   ,JP_GT     ,S(KC_BSPC), \
+    S(KC_ESC) ,KC_LT     ,S(KC_S)   ,S(KC_R)   ,S(KC_L)   ,S(KC_B)   ,JP_SCLN   ,           S(KC_Y)   ,CSBS      ,S(KC_I)   ,S(KC_D)   ,KC_GT     ,S(KC_BSPC), \
     S(KC_TAB) ,S(KC_W)   ,S(KC_H)   ,S(KC_T)   ,S(KC_E)   ,S(KC_M)   ,JP_PIPE   ,           S(KC_P)   ,S(KC_N)   ,S(KC_A)   ,S(KC_O)   ,S(KC_K)   ,S(KC_ENT), \
-    _______   ,S(KC_V)   ,JP_DQUO    ,S(KC_Z)   ,S(KC_G)   ,S(KC_C)   ,JP_LT     ,JP_GT     ,S(KC_U)   ,S(KC_F)   ,S(KC_J)   ,S(KC_X)   ,S(KC_Q)   ,S(KC_UP),S(KC_DEL), \
+    _______   ,S(KC_V)   ,JP_DQUO    ,S(KC_Z)   ,S(KC_G)   ,S(KC_C)   ,KC_LT     ,KC_GT     ,S(KC_U)   ,S(KC_F)   ,S(KC_J)   ,S(KC_X)   ,S(KC_Q)   ,S(KC_UP),S(KC_DEL), \
     _______   ,                      KC_LGUI   ,_______   ,_______   ,_______   ,           _______   ,_______   ,_______   ,           S(KC_LEFT),S(KC_DOWN),S(KC_RGHT)
   ),
 

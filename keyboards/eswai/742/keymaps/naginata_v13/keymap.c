@@ -168,7 +168,7 @@ static void render_eisu(void) {
     oled_write_raw_P(eisu_pic, sizeof(eisu_pic));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   // if (timer_elapsed(anim_timer) > FRAME_TIMEOUT) {
   //   anim_timer = timer_read();
 
@@ -181,6 +181,7 @@ void oled_task_user(void) {
     } else {
         naginata_logo();
     }
+    return false;
   // }
 }
 #endif

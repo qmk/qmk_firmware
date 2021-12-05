@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                               <       >       :       
-      XXXXX,  XXXXX,  XXXXX,  JP_LT,  JP_GT,JP_COLN,JP_UNDS,JP_PLUS,  XXXXX,KC_PGUP,  KC_UP,  XXXXX,  XXXXX, KC_DEL,\
+      XXXXX,  XXXXX,  XXXXX,  KC_LT,  KC_GT,JP_COLN,JP_UNDS,JP_PLUS,  XXXXX,KC_PGUP,  KC_UP,  XXXXX,  XXXXX, KC_DEL,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               (       )       {       }                                                                   
       XXXXX,CK_LPRN,JP_RPRN,CK_LCBR,JP_RCBR,  XXXXX,JP_LCBR,JP_RCBR,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT,  XXXXX,  XXXXX,\

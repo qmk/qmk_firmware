@@ -64,8 +64,8 @@ CTL_T(KC_ESC),KC_D   ,KC_S   ,KC_A   ,KC_I   ,KC_G   ,                KC_J   ,KC
 
   [_LOWER] = LAYOUT(
     RGB_TOG   ,LCTOGL    ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,           JP_SLSH,KC_7   ,KC_8   ,KC_9   ,JP_MINS,KC_BSPC, \
-    RGB_MOD   ,XXXXXXX   ,JP_LBRC   ,JP_LCBR   ,JP_LPRN   ,JP_LT     ,           JP_ASTR,KC_4   ,KC_5   ,KC_6   ,JP_PLUS,JP_DOT , \
-    RGBRST   ,XXXXXXX   ,JP_RBRC   ,JP_RCBR   ,JP_RPRN   ,JP_GT     ,           KC_0   ,KC_1   ,KC_2   ,KC_3   ,JP_EQL ,JP_COMM, \
+    RGB_MOD   ,XXXXXXX   ,JP_LBRC   ,JP_LCBR   ,JP_LPRN   ,KC_LT     ,           JP_ASTR,KC_4   ,KC_5   ,KC_6   ,JP_PLUS,JP_DOT , \
+    RGBRST   ,XXXXXXX   ,JP_RBRC   ,JP_RCBR   ,JP_RPRN   ,KC_GT     ,           KC_0   ,KC_1   ,KC_2   ,KC_3   ,JP_EQL ,JP_COMM, \
                                     _______,_______,_______,KANA2  ,_______,_______
   ),
 

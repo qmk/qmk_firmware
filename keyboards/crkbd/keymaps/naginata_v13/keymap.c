@@ -63,8 +63,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT(
     _______   ,LCTOGL    ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,                      XXXXXXX   ,XXXXXXX   ,KC_UP     ,XXXXXXX   ,KC_PGUP   ,XXXXXXX   , \
-    _______   ,XXXXXXX   ,JP_LBRC   ,JP_LCBR   ,JP_LPRN   ,JP_LT     ,                      KC_HOME   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,KC_PGDN   ,XXXXXXX   , \
-    _______   ,XXXXXXX   ,JP_RBRC   ,JP_RCBR   ,JP_RPRN   ,JP_GT     ,                      KC_END    ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   ,XXXXXXX   , \
+    _______   ,XXXXXXX   ,JP_LBRC   ,JP_LCBR   ,JP_LPRN   ,KC_LT     ,                      KC_HOME   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,KC_PGDN   ,XXXXXXX   , \
+    _______   ,XXXXXXX   ,JP_RBRC   ,JP_RCBR   ,JP_RPRN   ,KC_GT     ,                      KC_END    ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   ,XXXXXXX   , \
                                                 _______   ,EISU      ,_______   ,_______   ,_______   ,_______
   ),
 
@@ -156,7 +156,7 @@ static void render_eisu(void) {
     oled_write_raw_P(eisu_pic, sizeof(eisu_pic));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
       if (naginata_state()) {
         render_kana();
@@ -166,5 +166,6 @@ void oled_task_user(void) {
     } else {
         naginata_logo();
     }
+    return false;
 }
 #endif

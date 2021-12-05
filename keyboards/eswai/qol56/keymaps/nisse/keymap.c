@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SHIFT] = LAYOUT( /* Base */
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-   JP_LCBR,S(KC_Q),S(KC_W),  JP_LT, JP_GT,JP_COLN,JP_PIPE,S(KC_F2),S(KC_M),S(KC_R),S(KC_D),S(KC_Y),S(KC_P),JP_UNDS, \
+   JP_LCBR,S(KC_Q),S(KC_W),  KC_LT, KC_GT,JP_COLN,JP_PIPE,S(KC_F2),S(KC_M),S(KC_R),S(KC_D),S(KC_Y),S(KC_P),JP_UNDS, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
    JP_RCBR,S(KC_A),S(KC_O),S(KC_E),S(KC_I),S(KC_U),S(KC_ESC),KC(S),S(KC_G),S(KC_T),S(KC_K),S(KC_S),S(KC_N),JP_EQL, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                               <       >       :       
-    JP_LCBR,  XXXXX,  XXXXX,  JP_LT,  JP_GT,JP_COLN,  _____,  _____,  XXXXX, KS(UP),  KC_UP,  XXXXX,    XXXXX,KC_PGUP,\
+    JP_LCBR,  XXXXX,  XXXXX,  KC_LT,  KC_GT,JP_COLN,  _____,  _____,  XXXXX, KS(UP),  KC_UP,  XXXXX,    XXXXX,KC_PGUP,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               (       )       {       }                                                                   
     JP_RCBR,JP_LPRN,JP_RPRN,JP_LCBR,JP_RCBR,  XXXXX,  _____,  _____,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT,  XXXXX,KC_PGDN,\

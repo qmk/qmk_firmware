@@ -60,12 +60,13 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_logo();
     } else {
         render_logo();  // Renders a static logo
         // oled_scroll_left();  // Turns on scrolling
     }
+    return false;
 }
 #endif

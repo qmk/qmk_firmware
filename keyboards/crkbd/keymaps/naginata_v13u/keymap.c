@@ -64,8 +64,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT(
     NG_TAYO   ,NGSW_WIN   ,NG_SHOS   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,                      XXXXXXX   ,XXXXXXX   ,KC_UP     ,XXXXXXX   ,KC_PGUP   ,KC_DEL   , \
-    NG_MLV    ,NGSW_MAC   ,JP_LBRC   ,JP_LCBR   ,JP_LPRN   ,JP_LT     ,                      KC_HOME   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,KC_PGDN   ,XXXXXXX   , \
-    NG_KOTI   ,NGSW_LNX   ,JP_RBRC   ,JP_RCBR   ,JP_RPRN   ,JP_GT     ,                      KC_END    ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   ,XXXXXXX   , \
+    NG_MLV    ,NGSW_MAC   ,JP_LBRC   ,JP_LCBR   ,JP_LPRN   ,KC_LT     ,                      KC_HOME   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,KC_PGDN   ,XXXXXXX   , \
+    NG_KOTI   ,NGSW_LNX   ,JP_RBRC   ,JP_RCBR   ,JP_RPRN   ,KC_GT     ,                      KC_END    ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   ,XXXXXXX   , \
                                                 _______   ,EISU      ,_______   ,_______   ,_______   ,_______
   ),
 
@@ -186,7 +186,7 @@ static void render_eisu(void) {
     oled_write_raw_P(eisu_pic, sizeof(eisu_pic));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // なぜか明示的にOLEDのスリープ処理が必要
     // if (timer_expired32(timer_read32(), oled_sleep_timer)) {
     //   oled_off();
@@ -205,5 +205,6 @@ void oled_task_user(void) {
     } else {
         naginata_logo();
     }
+    return false;
 }
 #endif

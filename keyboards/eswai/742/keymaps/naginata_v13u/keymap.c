@@ -209,11 +209,11 @@ static void render_eisu(void) {
     oled_write_raw_P(eisu_pic, sizeof(eisu_pic));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // なぜか明示的にOLEDのスリープ処理が必要
     if (timer_expired32(timer_read32(), oled_sleep_timer)) {
       oled_off();
-      return;
+      return false;
     } else {
       oled_on();
     }
@@ -228,5 +228,6 @@ void oled_task_user(void) {
     } else {
         naginata_logo();
     }
+    return false;
 }
 #endif

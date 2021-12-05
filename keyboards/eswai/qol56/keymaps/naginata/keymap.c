@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_SHIFT] = LAYOUT(
     _______,S(KC_Q),S(KC_G),S(KC_M),S(KC_L),S(KC_W),_______,_______,S(KC_Y),S(KC_F),S(KC_U),S(KC_B),JP_PERC,KC_DEL , \
-    _______,S(KC_D),S(KC_S),S(KC_T),S(KC_N),S(KC_R),JP_LT  ,JP_GT  ,S(KC_I),S(KC_A),S(KC_E),S(KC_O),JP_DQUO ,_______, \
+    _______,S(KC_D),S(KC_S),S(KC_T),S(KC_N),S(KC_R),KC_LT  ,KC_GT  ,S(KC_I),S(KC_A),S(KC_E),S(KC_O),JP_DQUO ,_______, \
     _______,S(KC_Z),S(KC_X),S(KC_C),S(KC_V),S(KC_J),JP_SLSH,JP_ASTR,S(KC_K),S(KC_H),S(KC_P),JP_AMPR,JP_SLSH,_______, \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
@@ -205,8 +205,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_LOWER] = LAYOUT(
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,JP_SLSH,KC_7   ,KC_8   ,KC_9   ,JP_MINS,KC_BSPC, \
-    DELTA  ,JP_LT  ,JP_LCBR,JP_LBRC,JP_LPRN,JP_COLN,JP_LBRC,JP_RBRC,JP_ASTR,KC_4   ,KC_5   ,KC_6   ,JP_PLUS,JP_DOT , \
-    NTEQ   ,JP_GT  ,JP_RCBR,JP_RBRC,JP_RPRN,JP_SCLN,JP_MINS,JP_PLUS,KC_0   ,KC_1   ,KC_2   ,KC_3   ,JP_EQL ,JP_COMM, \
+    DELTA  ,KC_LT  ,JP_LCBR,JP_LBRC,JP_LPRN,JP_COLN,JP_LBRC,JP_RBRC,JP_ASTR,KC_4   ,KC_5   ,KC_6   ,JP_PLUS,JP_DOT , \
+    NTEQ   ,KC_GT  ,JP_RCBR,JP_RBRC,JP_RPRN,JP_SCLN,JP_MINS,JP_PLUS,KC_0   ,KC_1   ,KC_2   ,KC_3   ,JP_EQL ,JP_COMM, \
     _______,_______,_______,_______,_______,_______,_______,_______,KANA2  ,_______,_______,_______,_______,_______
   ),
 
@@ -313,8 +313,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_EDIT2R] = LAYOUT(
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,DELA   ,JP_PLUS,JP_MINS,JP_EQL ,XXXXXXX, \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,JP_COLN,JP_LPRN,JP_LBRC,JP_LCBR,JP_LT  ,DELTA  , \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,JP_SCLN,JP_RPRN,JP_RBRC,JP_RCBR,JP_GT  ,NTEQ   , \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,JP_COLN,JP_LPRN,JP_LBRC,JP_LCBR,KC_LT  ,DELTA  , \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,JP_SCLN,JP_RPRN,JP_RBRC,JP_RCBR,KC_GT  ,NTEQ   , \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
