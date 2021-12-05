@@ -2,8 +2,6 @@
     "keyboard_name": "contender",
     "url": "https://github.com/sotoba/contender",
     "maintainer": "sotoba",
-    "width": 5,
-    "height": 6.25,
     "layouts": {
         "LAYOUT": {
             "layout": [
