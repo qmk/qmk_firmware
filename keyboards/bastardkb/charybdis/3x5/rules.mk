@@ -1,25 +1,29 @@
-# The Charybdis' original design uses the Elite-C.
-MCU = atmega32u4       # MCU name.
-BOOTLOADER = atmel-dfu # Bootloader selection.
+# MCU name
+MCU = atmega32u4
 
-# Hardware features.
-AUDIO_SUPPORTED = no       # Audio is not supported.
-RGB_MATRIX_SUPPORTED = yes # RGB matrix is supported and enabled by default.
-RGBLIGHT_SUPPORTED = yes   # RGB underglow is supported, but not enabled by default.
+# Bootloader selection
+BOOTLOADER = atmel-dfu
 
-# Software features.
-BOOTMAGIC_ENABLE = yes  # Disable Bootmagic Lite.
-MOUSEKEY_ENABLE = no    # Disable mouse keys by default, which saves some space by emulating them instead.
-EXTRAKEY_ENABLE = yes   # Enable Audio control and System control.
-CONSOLE_ENABLE = no     # Disable console, usually used for debug purposes.
-COMMAND_ENABLE = no     # Disable commands for debug and configuration.
-NKRO_ENABLE = no        # Disable USB Nkey Rollover.  Default to 6KRO.
-AUDIO_ENABLE = no       # Audio is not supported.
-RGB_MATRIX_ENABLE = yes # RGB matrix is supported and enabled by default.
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+MOUSEKEY_ENABLE = no        # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
+COMMAND_ENABLE = no         # Commands for debug and configuration
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no            # USB Nkey Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+AUDIO_ENABLE = no           # Audio output
+
+AUDIO_SUPPORTED = no        # Audio is not supported
+RGB_MATRIX_SUPPORTED = yes  # RGB matrix is supported and enabled by default
+RGBLIGHT_SUPPORTED = yes    # RGB underglow is supported, but not enabled by default
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 RGB_MATRIX_DRIVER = WS2812
-RGBLIGHT_ENABLE = no    # RGB underglow is supported, but not enabled by default.
-BACKLIGHT_ENABLE = no   # Backlight is not supported.
-SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend is not supported.
 
 # Enable link-time optimization by default.  The Charybdis packs a lot of
 # features (RGB, Via, trackball) in a small atmega32u4 package.
@@ -28,10 +32,9 @@ LTO_ENABLE = yes
 # Charybdis nano is a split 3x5 keyboard with a maximum of 3 thumb keys (2 on
 # the trackball side).
 SPLIT_KEYBOARD = yes
-LAYOUTS = split_3x5_3   # Support community layout, in particular Manna-Harbour's Miryoku layout.
+LAYOUTS = split_3x5_3 # Support community layout, in particular Manna-Harbour's Miryoku layout
 
-# Charybdis uses a trackball.
-POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_ENABLE = yes # Enable trackball
 POINTING_DEVICE_DRIVER = pmw3360
 # https://qmk.fm/changes/2018-11-16-use-a-single-endpoint-for-hid-reports
-MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint.
+MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint
