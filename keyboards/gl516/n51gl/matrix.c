@@ -114,7 +114,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         if (readPin(row_pins[row_index]) == 0)
         {
             // Pin LO, set col bit
-            current_matrix[tmp] |= (ROW_SHIFTER << current_col);
+            current_matrix[tmp] |= (MATRIX_ROW_SHIFTER << current_col);
         }
         else
         {
