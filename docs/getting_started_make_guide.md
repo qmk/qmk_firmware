@@ -55,7 +55,7 @@ Set these variables to `no` to disable them, and `yes` to enable them.
 
 `BOOTMAGIC_ENABLE`
 
-This allows you to hold a key and the salt key (space by default) and have access to a various EEPROM settings that persist over power loss. It's advised you keep this disabled, as the settings are often changed by accident, and produce confusing results that makes it difficult to debug. It's one of the more common problems encountered in help sessions.
+This allows you to hold a key (usually Escape by default) to reset the EEPROM settings that persist over power loss and ready your keyboard to accept new firmware.
 
 `MOUSEKEY_ENABLE`
 
@@ -125,10 +125,6 @@ This allows you output audio on the C6 pin (needs abstracting). See the [audio p
 
 Use this to debug changes to variable values, see the [tracing variables](unit_testing.md#tracing-variables) section of the Unit Testing page for more information.
 
-`API_SYSEX_ENABLE`
-
-This enables using the Quantum SYSEX API to send strings (somewhere?)
-
 `KEY_LOCK_ENABLE`
 
 This enables [key lock](feature_key_lock.md).
@@ -148,6 +144,10 @@ Lets you replace the default matrix scanning routine with your own code. For fur
 `DEBOUNCE_TYPE`
 
 Lets you replace the default key debouncing routine with an alternative one. If `custom` you will need to provide your own implementation.
+
+`DEFERRED_EXEC_ENABLE`
+
+Enables deferred executor support -- timed delays before callbacks are invoked. See [deferred execution](custom_quantum_functions.md#deferred-execution) for more information.
 
 ## Customizing Makefile Options on a Per-Keymap Basis
 
