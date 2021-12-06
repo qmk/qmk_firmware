@@ -45,12 +45,6 @@ inline matrix_row_t matrix_get_row(uint8_t row) {
 #endif
 }
 
-// Deprecated.
-bool matrix_is_modified(void) {
-    if (debounce_active()) return false;
-    return true;
-}
-
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header() print("\nr/c 01234567\n")
 #    define print_matrix_row(row) print_bin_reverse8(matrix_get_row(row))

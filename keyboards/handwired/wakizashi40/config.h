@@ -1,4 +1,4 @@
-/* Copyright 2017 Fredric Silberberg
+/* Copyright 2021 xiao (@xia0)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,5 @@
 
 #pragma once
 
-#include "quantum.h"
-
-void cancel_key_lock(void);
-bool process_key_lock(uint16_t *keycode, keyrecord_t *record);
+#include "config_common.h"
+#define DYNAMIC_KEYMAP_LAYER_COUNT 12

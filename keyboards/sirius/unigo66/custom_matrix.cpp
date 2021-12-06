@@ -172,10 +172,6 @@ extern "C"
         return 1;
     }
 
-    bool matrix_is_modified(void) {
-        return matrix_is_mod;
-    }
-
     bool matrix_is_on(uint8_t row, uint8_t col) {
         uint8_t code = CODE(row, col);
 
