@@ -8,7 +8,7 @@ BOOTLOADER = atmel-dfu
 #   change to "no" to disable the options, or define them in the Makefile in 
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = no        # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -17,6 +17,5 @@ NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: ht
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
-HAPTIC_ENABLE += SOLENOID
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+HAPTIC_ENABLE = yes
+HAPTIC_DRIVER = SOLENOID
