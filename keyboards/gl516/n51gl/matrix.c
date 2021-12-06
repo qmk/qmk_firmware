@@ -119,7 +119,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         else
         {
             // Pin HI, clear col bit
-            current_matrix[tmp] &= ~(ROW_SHIFTER << current_col);
+            current_matrix[tmp] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
 
         // Determine if the matrix changed state
