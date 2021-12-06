@@ -31,8 +31,6 @@ typedef enum {
     TD_SINGLE_TAP,
     TD_SINGLE_HOLD,
     TD_DOUBLE_TAP,
-    TD_DOUBLE_HOLD,
-    TD_DOUBLE_SINGLE_TAP, // Send two single taps
 } td_state_t;
 
 typedef struct {
@@ -43,14 +41,25 @@ typedef struct {
 // Tap dance enums
 enum {
     TD_LSPO_CAPS, // Tap once for (, hold once for LSFT, tap twice for CAPS
-    TD_RCTL_CAPS, // Tap once for KC_RCTL, twice for CAPS LOCK
+    TD_RSPC_CAPS, // Tap once for ), hold once for RSFT, tap twice for CAPS
     TD_ESC_DEL, // Tap once for KC_ESC, twice for KC_DEL
 };
 
-td_state_t cur_dance(qk_tap_dance_state_t *state);
+td_state_t cur_dance(qk_tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
+        // Key has not been interrupted, but the key is still held.
+        // Means you want to send a 'HOLD'.
+        return TD_SINGLE_HOLD;
+    } else{
+        return TD_DOUBLE_TAP;
+    }
+}
 
 void LSPO_CAPS_finished(qk_tap_dance_state_t *state, void *user_data);
 void LSPO_CAPS_reset(qk_tap_dance_state_t *state, void *user_data);
+void RSPC_CAPS_finished(qk_tap_dance_state_t *state, void *user_data);
+void RSPC_CAPS_reset(qk_tap_dance_state_t *state, void *user_data);
 
 // + -------------------- +
 // + RGB MATRIX CALLBACKS |
@@ -79,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        TD(TD_ESC_DEL),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TD(TD_LSPO_CAPS),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSPC,
+      TD(TD_LSPO_CAPS),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, TD(TD_RSPC_CAPS),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,   MO(1),  KC_SPC,     KC_ENT,   MO(2), KC_RCTL
                                       //`--------------------------'  `--------------------------'
@@ -126,21 +135,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // + TAP DANCE |
 // + --------- +
 
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
-        // Key has not been interrupted, but the key is still held.
-        // Means you want to send a 'HOLD'.
-        else return TD_SINGLE_HOLD;
-    } else{
-        // TD_DOUBLE_SINGLE_TAP is to distinguish between typing "pepper",
-        // and actually wanting a double tap action when hitting 'pp'.
-        if (state->interrupted) return TD_DOUBLE_SINGLE_TAP;
-        else if (state->pressed) return TD_DOUBLE_HOLD;
-        else return TD_DOUBLE_TAP;
-    }
-}
-
 // Create an instance of 'td_tap_t' for the 'x' tap dance.
 static td_tap_t LSPO_CAPS_state = {
     .is_press_action = true,
@@ -153,10 +147,6 @@ void LSPO_CAPS_finished(qk_tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_TAP: register_code16(KC_LPRN); break;
         case TD_SINGLE_HOLD: register_code16(KC_LSFT); break;
         case TD_DOUBLE_TAP: register_code16(KC_CAPS); break;
-        case TD_DOUBLE_HOLD: register_code16(KC_LALT); break; // TODO
-        // Last case is for fast typing.
-        // TODO: Remove?
-        case TD_DOUBLE_SINGLE_TAP: tap_code16(KC_LPRN); register_code16(KC_LPRN);
         case TD_NONE: break;
     }
 }
@@ -166,14 +156,39 @@ void LSPO_CAPS_reset(qk_tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_TAP: unregister_code16(KC_LPRN); break;
         case TD_SINGLE_HOLD: unregister_code16(KC_LSFT); break;
         case TD_DOUBLE_TAP: unregister_code16(KC_CAPS); break;
-        case TD_DOUBLE_HOLD: unregister_code16(KC_LALT); // TODO
-        case TD_DOUBLE_SINGLE_TAP: unregister_code16(KC_LPRN); // TODO: Remove?
         case TD_NONE: break;
     }
     LSPO_CAPS_state.state = TD_NONE;
 }
 
+// Create an instance of 'td_tap_t' for the 'x' tap dance.
+static td_tap_t RSPC_CAPS_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+void RSPC_CAPS_finished(qk_tap_dance_state_t *state, void *user_data) {
+    RSPC_CAPS_state.state = cur_dance(state);
+    switch (RSPC_CAPS_state.state) {
+        case TD_SINGLE_TAP: register_code16(KC_RPRN); break;
+        case TD_SINGLE_HOLD: register_code16(KC_RSFT); break;
+        case TD_DOUBLE_TAP: register_code16(KC_CAPS); break;
+        case TD_NONE: break;
+    }
+}
+
+void RSPC_CAPS_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (RSPC_CAPS_state.state) {
+        case TD_SINGLE_TAP: unregister_code16(KC_RPRN); break;
+        case TD_SINGLE_HOLD: unregister_code16(KC_RSFT); break;
+        case TD_DOUBLE_TAP: unregister_code16(KC_CAPS); break;
+        case TD_NONE: break;
+    }
+    RSPC_CAPS_state.state = TD_NONE;
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LSPO_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LSPO_CAPS_finished, LSPO_CAPS_reset),
+    [TD_RSPC_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RSPC_CAPS_finished, RSPC_CAPS_reset),
     [TD_ESC_DEL] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_DEL)
 };
