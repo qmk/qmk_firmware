@@ -604,6 +604,7 @@ ifeq ($(strip $(UNICODE_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
+    OPT_DEFS += -DUNICODE_COMMON_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
 endif
 
