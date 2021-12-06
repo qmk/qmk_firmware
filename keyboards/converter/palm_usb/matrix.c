@@ -58,8 +58,6 @@ static uint16_t disconnect_counter = 0;
 #define COL(code)    ((code & COL_MASK) )
 #define KEYUP(code) ((code & KEY_MASK) >>7 )
 
-static bool is_modified = false;
-
 __attribute__ ((weak))
 void matrix_init_kb(void) {
     matrix_init_user();
@@ -352,11 +350,6 @@ uint8_t matrix_scan(void)
 
     matrix_scan_quantum();
     return code;
-}
-
-bool matrix_is_modified(void)
-{
-    return is_modified;
 }
 
 inline

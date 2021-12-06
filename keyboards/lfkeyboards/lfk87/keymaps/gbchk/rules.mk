@@ -16,8 +16,7 @@ UNICODE_ENABLE = no             # Unicode
 BLUETOOTH_ENABLE = no           # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes           # Enable RGB underlight
 RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not WS2812
-SLEEP_LED_ENABLE = yes          # Breathing sleep LED during USB suspend
-TAP_DANCE_ENABLE = no
+SLEEP_LED_ENABLE = yes
 
 ISSI_ENABLE = yes			# If the I2C pullup resistors aren't install this must be disabled
 WATCHDOG_ENABLE = no		# Resets keyboard if matrix_scan isn't run every 250ms

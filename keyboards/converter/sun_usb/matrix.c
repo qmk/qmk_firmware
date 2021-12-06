@@ -38,8 +38,6 @@ static uint8_t matrix[MATRIX_ROWS];
 #define ROW(code)      ((code>>3)&0xF)
 #define COL(code)      (code&0x07)
 
-static bool is_modified = false;
-
 __attribute__ ((weak))
 void matrix_init_kb(void) {
     matrix_init_user();
@@ -152,11 +150,6 @@ uint8_t matrix_scan(void)
 
     matrix_scan_quantum();
     return code;
-}
-
-bool matrix_is_modified(void)
-{
-    return is_modified;
 }
 
 inline

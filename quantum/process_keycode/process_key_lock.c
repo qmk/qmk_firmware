@@ -56,6 +56,11 @@ static inline uint16_t translate_keycode(uint16_t keycode) {
     }
 }
 
+void cancel_key_lock(void) {
+    watching = false;
+    UNSET_KEY_STATE(0x0);
+}
+
 bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
     // We start by categorizing the keypress event. In the event of a down
     // event, there are several possibilities:

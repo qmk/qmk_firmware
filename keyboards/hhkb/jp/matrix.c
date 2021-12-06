@@ -164,15 +164,6 @@ uint8_t matrix_scan(void)
     return 1;
 }
 
-bool matrix_is_modified(void)
-{
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix[i] != matrix_prev[i])
-            return true;
-    }
-    return false;
-}
-
 inline
 bool matrix_has_ghost(void)
 {
