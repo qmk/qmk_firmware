@@ -166,16 +166,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define I2C_COUNT 2
 #    define I2C1_CLOCK_SPEED 400000
 
-#    define I2C1_BANK GPIOB
-#    define I2C1_SCL_PIN 0 // A2 on pinout = B0
-#    define I2C1_SDA_PIN 1 // A2 on pinout = B1
+#    define I2C1_SCL_PIN B0 // A2 on pinout = B0
+#    define I2C1_SDA_PIN B1 // A2 on pinout = B1
 #    define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
 #    define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
 
 #    define USE_I2C2
-#    define I2C2_BANK GPIOC
-#    define I2C2_SCL_PIN 10 // A2 on pinout = C10
-#    define I2C2_SDA_PIN 11 // A2 on pinout = C11
+#    define I2C2_SCL_PIN C10 // A2 on pinout = C10
+#    define I2C2_SDA_PIN C11 // A2 on pinout = C11
 #    define I2C2_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
 #    define I2C2_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
 
