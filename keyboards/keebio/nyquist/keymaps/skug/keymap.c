@@ -19,12 +19,10 @@
 
 extern keymap_config_t keymap_config;
 
-#define CT_APOS CTL_T(SE_APOS)
+#define CT_APOS CTL_T(SE_QUOT)
 #define CT_TILD CTL_T(SE_TILD)
-#define MD_OSLH LT(MDIA, SE_OSLH)
-#define SM_AE   LT(SYMB, SE_AE)
-#define SE_LT   SE_LESS
-#define SE_GT   LSFT(SE_LESS)
+#define MD_ODIA LT(MDIA, SE_ODIA)
+#define SM_ADIA LT(SYMB, SE_ADIA)
 
 enum layer_names {
       BASE,
@@ -61,8 +59,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT( \
                 //       LEFT HAND                                               RIGHT HAND
   KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    SE_PLUS, \
-  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_AA,   \
-  MO(ARRW), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    MD_OSLH, SM_AE,   \
+  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_ARNG, \
+  MO(ARRW), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    MD_ODIA, SM_ADIA, \
   KC_LSPO,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_MINS, KC_RSPC, \
   CT_APOS,  SE_ACUT, KC_LALT, KC_BSPC, KC_SPC,  KC_LGUI,     KC_ENT,  KC_SPC,  KC_BSPC, KC_ALGR, SE_ASTR, CT_TILD  \
 ),
@@ -83,8 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [GAME] = LAYOUT( \
                 //       LEFT HAND                                               RIGHT HAND
   KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    SE_PLUS, \
-  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_AA,   \
-  MO(ARRW), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    MD_OSLH, SM_AE,   \
+  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_ARNG, \
+  MO(ARRW), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    MD_ODIA, SM_ADIA, \
   KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_MINS, KC_RSFT, \
   KC_LCTL,  SE_ACUT, KC_LALT, KC_BSPC, KC_SPC,  KC_LGUI,     KC_ENT,  KC_SPC,  KC_BSPC, KC_ALGR, SE_ASTR, KC_RCTL  \
 ),
@@ -107,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_EXLM, SE_AT,   SE_LCBR, SE_RCBR, SE_PIPE,     KC_UP,   KC_7,    KC_8,    KC_9,    SE_ASTR, KC_F12,  \
   _______, KC_HASH, SE_DLR,  SE_LPRN, SE_RPRN, SE_GRV,      KC_DOWN, KC_4,    KC_5,    KC_6,    SE_PLUS, _______, \
   _______, KC_PERC, SE_CIRC, SE_LBRC, SE_RBRC, SE_TILD,     SE_AMPR, KC_1,    KC_2,    KC_3,    SE_MINS, _______, \
-  _______, _______, _______, SE_LT,   SE_GT,   _______,     _______, _______, KC_DOT,  KC_0,    SE_EQL,  _______  \
+  _______, _______, _______, SE_LABK, SE_RABK, _______,     _______, _______, KC_DOT,  KC_0,    SE_EQL,  _______  \
 ),
 
 /* Media layer

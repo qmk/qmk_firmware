@@ -2,8 +2,6 @@
     "keyboard_name": "MechWild BDE Lefty",
     "url": "mechwild.com",
     "maintainer": "kylemccreery",
-    "width": 14,
-    "height": 3,
     "layouts": {
         "LAYOUT": {
             "layout": [

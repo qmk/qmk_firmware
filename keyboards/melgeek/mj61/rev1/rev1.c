@@ -17,7 +17,7 @@
 #include "mj61.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS12_SW1, CS11_SW1, CS10_SW1}, /* RGB1 */
     {0, CS12_SW2, CS11_SW2, CS10_SW2}, /* RGB2 */
     {0, CS12_SW3, CS11_SW3, CS10_SW3}, /* RGB3 */

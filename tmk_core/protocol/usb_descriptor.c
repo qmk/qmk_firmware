@@ -158,6 +158,53 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #    endif
 #endif
 
+#ifdef DIGITIZER_ENABLE
+#    ifndef DIGITIZER_SHARED_EP
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM DigitizerReport[] = {
+#    elif !defined(SHARED_REPORT_STARTED)
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
+#        define SHARED_REPORT_STARTED
+#    endif
+    HID_RI_USAGE_PAGE(8, 0x0D),      // Digitizers
+    HID_RI_USAGE(8, 0x01),           // Digitizer
+    HID_RI_COLLECTION(8, 0x01),      // Application
+#    ifdef DIGITIZER_SHARED_EP
+        HID_RI_REPORT_ID(8, REPORT_ID_DIGITIZER),
+#    endif
+        HID_RI_USAGE(8, 0x20),       // Stylus
+        HID_RI_COLLECTION(8, 0x00),  // Physical
+            // Tip Switch (1 bit)
+            HID_RI_USAGE(8, 0x42),   // Tip Switch
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_REPORT_SIZE(8, 0x01),
+            HID_RI_REPORT_COUNT(8, 0x01),
+            HID_RI_INPUT(8, HID_IOF_VARIABLE),
+            // In Range (1 bit)
+            HID_RI_USAGE(8, 0x32),  // In Range
+            HID_RI_INPUT(8, HID_IOF_VARIABLE),
+            // Padding (6 bits)
+            HID_RI_REPORT_COUNT(8, 0x06),
+            HID_RI_INPUT(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE),
+
+            // X/Y Position (4 bytes)
+            HID_RI_USAGE_PAGE(8, 0x01),     // Generic Desktop
+            HID_RI_LOGICAL_MAXIMUM(16, 0x7FFF),
+            HID_RI_REPORT_SIZE(8, 0x10),
+            HID_RI_REPORT_COUNT(8, 0x01),
+            HID_RI_UNIT(8, 0x33),           // Inch, English Linear
+            HID_RI_UNIT_EXPONENT(8, 0x0E),  // -2
+            HID_RI_USAGE(8, 0x30),          // X
+            HID_RI_INPUT(8, HID_IOF_VARIABLE),
+            HID_RI_USAGE(8, 0x31),          // Y
+            HID_RI_INPUT(8, HID_IOF_VARIABLE),
+        HID_RI_END_COLLECTION(0),
+    HID_RI_END_COLLECTION(0),
+#    ifndef DIGITIZER_SHARED_EP
+};
+#    endif
+#endif
+
 #if defined(SHARED_EP_ENABLE) && !defined(SHARED_REPORT_STARTED)
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #endif
@@ -187,6 +234,25 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
         HID_RI_REPORT_COUNT(8, 1),
         HID_RI_REPORT_SIZE(8, 16),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
+    HID_RI_END_COLLECTION(0),
+#endif
+
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    HID_RI_USAGE_PAGE(8, 0x0C),            // Consumer
+    HID_RI_USAGE(8, 0x01),                 // Consumer Control
+    HID_RI_COLLECTION(8, 0x01),            // Application
+        HID_RI_REPORT_ID(8, REPORT_ID_PROGRAMMABLE_BUTTON),
+        HID_RI_USAGE(8, 0x03),             // Programmable Buttons
+        HID_RI_COLLECTION(8, 0x04),        // Named Array
+            HID_RI_USAGE_PAGE(8, 0x09),    // Button
+            HID_RI_USAGE_MINIMUM(8, 0x01), // Button 1
+            HID_RI_USAGE_MAXIMUM(8, 0x20), // Button 32
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_REPORT_COUNT(8, 32),
+            HID_RI_REPORT_SIZE(8, 1),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+        HID_RI_END_COLLECTION(0),
     HID_RI_END_COLLECTION(0),
 #endif
 
@@ -227,6 +293,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
         HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
     HID_RI_END_COLLECTION(0),
 #endif
+
 #ifdef SHARED_EP_ENABLE
 };
 #endif
@@ -351,7 +418,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
         .Size                   = sizeof(USB_Descriptor_Device_t),
         .Type                   = DTYPE_Device
     },
-    .USBSpecification           = VERSION_BCD(1, 1, 0),
+    .USBSpecification           = VERSION_BCD(2, 0, 0),
 
 #if VIRTSER_ENABLE
     .Class                      = USB_CSCP_IADDeviceClass,
@@ -921,6 +988,46 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
     }
 #endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+    /*
+     * Digitizer
+     */
+    .Digitizer_Interface  = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Interface_t),
+            .Type               = DTYPE_Interface
+        },
+        .InterfaceNumber        = DIGITIZER_INTERFACE,
+        .AlternateSetting       = 0x00,
+        .TotalEndpoints         = 1,
+        .Class                  = HID_CSCP_HIDClass,
+        .SubClass               = HID_CSCP_NonBootSubclass,
+        .Protocol               = HID_CSCP_NonBootProtocol,
+        .InterfaceStrIndex      = NO_DESCRIPTOR
+    },
+    .Digitizer_HID = {
+        .Header = {
+            .Size               = sizeof(USB_HID_Descriptor_HID_t),
+            .Type               = HID_DTYPE_HID
+        },
+        .HIDSpec                = VERSION_BCD(1, 1, 1),
+        .CountryCode            = 0x00,
+        .TotalReportDescriptors = 1,
+        .HIDReportType          = HID_DTYPE_Report,
+        .HIDReportLength        = sizeof(DigitizerReport)
+    },
+    .Digitizer_INEndpoint = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Endpoint_t),
+            .Type               = DTYPE_Endpoint
+        },
+        .EndpointAddress        = (ENDPOINT_DIR_IN | DIGITIZER_IN_EPNUM),
+        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+        .EndpointSize           = DIGITIZER_EPSIZE,
+        .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
+    },
+#endif
 };
 
 /*
@@ -953,10 +1060,10 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
 #if defined(SERIAL_NUMBER)
 const USB_Descriptor_String_t PROGMEM SerialNumberString = {
     .Header = {
-        .Size                   = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1), // Subtract 1 for null terminator
+        .Size                   = USB_STRING_LEN(sizeof(SERIAL_NUMBER) - 1), // Subtract 1 for null terminator
         .Type                   = DTYPE_String
     },
-    .UnicodeString              = LSTR(SERIAL_NUMBER)
+    .UnicodeString              = USBSTR(SERIAL_NUMBER)
 };
 #endif
 
@@ -1059,6 +1166,13 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                     Size    = sizeof(USB_HID_Descriptor_HID_t);
                     break;
 #endif
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+                case DIGITIZER_INTERFACE:
+                    Address = &ConfigurationDescriptor.Digitizer_HID;
+                    Size    = sizeof(USB_HID_Descriptor_HID_t);
+
+                    break;
+#endif
             }
 
             break;
@@ -1107,6 +1221,12 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                 case JOYSTICK_INTERFACE:
                     Address = &JoystickReport;
                     Size    = sizeof(JoystickReport);
+                    break;
+#endif
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+                case DIGITIZER_INTERFACE:
+                    Address = &DigitizerReport;
+                    Size    = sizeof(DigitizerReport);
                     break;
 #endif
             }

@@ -2,8 +2,6 @@
     "keyboard_name": "ASH-XIIX",
     "url": "config.qmk.fm",
     "maintainer": "qmk",
-    "width": 19.5,
-    "height": 7.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

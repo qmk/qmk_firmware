@@ -6,15 +6,15 @@ BOOTLOADER = stm32duino
 
 SRC = matrix.c
 
-#BOOTMAGIC_ENABLE = full # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes   # Mouse keys
 EXTRAKEY_ENABLE = yes   # Audio control and System control
 CONSOLE_ENABLE = yes    # Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
-SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes       # USB Nkey Rollover
 BACKLIGHT_ENABLE = no
 RGBLIGHT_ENABLE = no
+SLEEP_LED_ENABLE = yes
 CUSTOM_MATRIX = yes
 
 

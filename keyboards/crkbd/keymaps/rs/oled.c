@@ -61,7 +61,7 @@ void keylog_set_keymap(uint16_t keycode, keyrecord_t *record) {
   set_keylog(keycode, record);
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   for (layer_name_idx = 0; layer_name_idx < LAYER_DISPLAY_MAX; ++layer_name_idx) {
     if (state == 0 && layer_display_name[layer_name_idx].state == default_layer_state) {
       break;

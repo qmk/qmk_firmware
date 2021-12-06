@@ -2,8 +2,6 @@
     "keyboard_name": "THE60rev2",
     "url": "http://lazydesigners.cn",
     "maintainer": "LAZYDESIGNERS",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -263,7 +261,10 @@
                 {"label":"Shift", "x":13.25, "y":3, "w":1.75},
                 {"label":"Ctrl", "x":0, "y":4, "w":1.5},
                 {"label":"Alt", "x":2.5, "y":4, "w":1.5},
-                {"label":"Space","x":4, "y":4, "w":7},
+                {"label":"Space","x":4, "y":4, "w":2},
+                {"label":"Space","x":6, "y":4, "w":1.5},
+                {"label":"Space","x":7.5, "y":4, "w":1.5},
+                {"label":"Space","x":9, "y":4, "w":2},
                 {"label":"Win", "x":11, "y":4, "w":1.5},
                 {"label":"Ctrl", "x":13.5, "y":4, "w":1.5}
             ]
@@ -328,7 +329,10 @@
                 {"label":"Shift", "x":13.25, "y":3, "w":1.75},
                 {"label":"Win", "x":1.5, "y":4},
                 {"label":"Alt", "x":2.5, "y":4, "w":1.5},
-                {"label":"Space","x":4, "y":4, "w":7},
+                {"label":"Space","x":4, "y":4, "w":2},
+                {"label":"Space","x":6, "y":4, "w":1.5},
+                {"label":"Space","x":7.5, "y":4, "w":1.5},
+                {"label":"Space","x":9, "y":4, "w":2},
                 {"label":"Win", "x":11, "y":4, "w":1.5},
                 {"label":"Menu", "x":12.5, "y":4}
             ]
