@@ -29,13 +29,9 @@
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define TAPPING_FORCE_HOLD
 // Configure the global tapping term (default: 200ms)
-#define TAPPING_TERM 200
+#define TAPPING_TERM 175
 #define TAPPING_TOGGLE 2
-// Enable shift on key hold
-/*#define AUTO_SHIFT
-#define AUTO_SHIFT_TIMEOUT 200
-// Enables Tap Hold for auto shift
-#define RETRO_SHIFT 500*/
+#define ENCODER_DIRECTION_FLIP
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 // #define SPLIT_USB_DETECT
