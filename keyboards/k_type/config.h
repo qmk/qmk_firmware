@@ -158,13 +158,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-// #    define RGB_MATRIX_KEYPRESSES // This causes a very low matrix scan rate
+#    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define RGB_MATRIX_LED_FLUSH_LIMIT 100
 
 
 // i2c_master defines
 #    define I2C_COUNT 2
+#    define I2C1_CLOCK_SPEED 400000
 
 #    define I2C1_BANK GPIOB
 #    define I2C1_SCL_PIN 0 // A2 on pinout = B0
