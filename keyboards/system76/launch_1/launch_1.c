@@ -97,7 +97,6 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
 void matrix_init_kb(void) {
     usb_mux_init();
 
-    bootmagic_lite();
     if (!eeprom_is_valid()) {
         dynamic_keymap_reset();
         dynamic_keymap_macro_reset();
@@ -142,7 +141,9 @@ static void set_value_all_layers(uint8_t value) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (input_disabled) { return false; }
+    if (input_disabled) {
+        return false;
+    }
 
     switch (keycode) {
         case RESET:

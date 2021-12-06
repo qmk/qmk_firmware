@@ -180,7 +180,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
 static bool system76_ec_eeprom_op(void *buf, uint16_t size, uint16_t offset, bool write) {
     uint16_t addr = SYSTEM76_EC_EEPROM_ADDR + offset;
     uint16_t end  = addr + size;
-    // Ceck for overflow and zero size
+    // Check for overflow and zero size
     if ((end > addr) && (addr >= SYSTEM76_EC_EEPROM_ADDR) && (end <= (SYSTEM76_EC_EEPROM_ADDR + SYSTEM76_EC_EEPROM_SIZE))) {
         if (write) {
             eeprom_update_block((const void *)buf, (void *)addr, size);

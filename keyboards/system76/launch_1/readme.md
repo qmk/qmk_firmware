@@ -45,25 +45,7 @@ qmk flash -kb system76/launch_1 -km default
 
 ## Flashing Firmware (ISP)
 
-To flash the firmware using ISP refer to the [_ISP Flashing Guide_](https://docs.qmk.fm/#/isp_flashing_guide).
-
-Build the firmware and bootloader with:
-
-```bash
-make -r system76/launch_1:default:production
-```
-
-Run `avrdude` to flash the fuses:
-
-```bash
-avrdude -c <programmer> -p atmega32u4 -U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0xCB:m
-```
-
-Run `avrdude` to flash the QMK firmware and Atmel/Microchip bootloader into the ROM:
-
-```bash
-avrdude -c <programmer> -p atmega32u4 -U flash:w:.build/system76_launch_1_default_production.hex
-```
+To flash the firmware (and/or bootloader) using ISP refer to the [_ISP Flashing Guide_](https://docs.qmk.fm/#/isp_flashing_guide).
 
 ## Environment Setup
 

@@ -1,9 +1,6 @@
 # MCU name
 MCU = atmega32u4
 
-# Allow flashing with USBasp
-AVRDUDE_MCU = $(MCU)
-
 # CPU frequency divided by two since AVR is at 3.3 V
 F_CPU = 8000000
 
