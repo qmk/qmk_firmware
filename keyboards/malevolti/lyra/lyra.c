@@ -30,13 +30,7 @@ bool oled_task_kb(void) {
     if (is_keyboard_master()) {
         oled_write_P(PSTR("      "), false);
 #    ifdef WPM_ENABLE
-      uint8_t n = get_current_wpm();
-        char wpm_counter[4];
-        wpm_counter[3] = '\0';
-        wpm_counter[2] = '0' + n % 10;
-        wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-        wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
-        oled_write(wpm_counter, false);
+        oled_write(get_u8_str(get_current_wpm(), ' '), false);
         oled_write_ln_P(PSTR("   WPM"), false);
 #    else
         oled_advance_page(true);
