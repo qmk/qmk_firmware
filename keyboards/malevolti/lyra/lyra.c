@@ -18,7 +18,7 @@
 #ifdef OLED_ENABLE
 
 // 'lyralogooled', 32x128px
-__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_270;
     }
