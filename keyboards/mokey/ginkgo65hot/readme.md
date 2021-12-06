@@ -1,6 +1,6 @@
 # Ginkgo65hot Multi PCB
 
-![Ginkgo65hot](https://raw.githubusercontent.com/rhmokey/123.github.io/main/2021/08/15/hello-world/ginkgo65hot.png)
+![Ginkgo65hot](https://i.imgur.com/ty0prrR.png)
 
 Support Atmega32u4 keyboard,With a variety of configurations
 
