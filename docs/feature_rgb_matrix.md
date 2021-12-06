@@ -561,6 +561,12 @@ To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks somethi
 `rgb_matrix_user.inc` should go in the root of the keymap directory.
 `rgb_matrix_kb.inc` should go in the root of the keyboard directory.
 
+Userspace RGB Matrix effect include file can also be specified with the following entry in `config.h`:
+
+```c
+#define RGB_MATRIX_CUSTOM_USER_INC "my_rgb_matrix_effect.inc"
+```
+
 To use custom effects in your code, simply prepend `RGB_MATRIX_CUSTOM_` to the effect name specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
 
 ```c

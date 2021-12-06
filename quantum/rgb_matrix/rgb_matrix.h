@@ -101,7 +101,11 @@ enum rgb_matrix_effects {
 #        include "rgb_matrix_kb.inc"
 #    endif
 #    ifdef RGB_MATRIX_CUSTOM_USER
-#        include "rgb_matrix_user.inc"
+#        ifdef RGB_MATRIX_CUSTOM_USER_INC
+#            include RGB_MATRIX_CUSTOM_USER_INC
+#        else
+#            include "rgb_matrix_user.inc"
+#        endif
 #    endif
 #    undef RGB_MATRIX_EFFECT
 #endif
