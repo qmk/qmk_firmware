@@ -25,7 +25,8 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return rotation;
 }
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
     if (is_keyboard_master()) {
         oled_write_P(PSTR("      "), false);
 #    ifdef WPM_ENABLE
