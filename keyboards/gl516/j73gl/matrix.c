@@ -171,5 +171,5 @@ bool matrix_scan_custom(matrix_row_t current_matrix[])
     changed |= read_rows_on_col(current_matrix, current_col);
   }
   
-  return (uint8_t)changed;
+  return changed;
 }
