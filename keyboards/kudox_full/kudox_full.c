@@ -4,7 +4,7 @@
 #include "kudox_full.h"
 
 #ifdef RGBLIGHT_ENABLE
-void eeconfig_init_user(void) {
+void eeconfig_init_kb(void) {
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
 };
 #endif
