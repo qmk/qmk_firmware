@@ -16,37 +16,32 @@
 #include QMK_KEYBOARD_H
 #include "virtser.h"
 #include "../protocol.c"
+#include "../../../keyconfig.h"
 
 #define LAYER_COUNT 2
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE,
-    _FN
-};
-
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
+    CH_ZOOM_WINDOWS,
+    CH_ZOOM_MACOS
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT(
-        QMKBEST,    QMKURL,    KC_D, KC_A,
-        QMKBEST,  QMKURL, MO(_FN), KC_B,
-        QMKBEST, QMKURL, MO(_FN), KC_C
+    [CH_ZOOM_WINDOWS] = LAYOUT(
+        CH_ZOOM_MUTE_TOGGLE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE, KC_NO,
+        KC_NO, KC_NO, KC_NO, CH_ZOOM_VIDEO_TOGGLE, KC_NO, KC_NO, KC_NO, KC_NO,
+        CH_ZOOM_REACT_TOGGLE, KC_NO, CH_ZOOM_LEAVE_MEETING, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
     ),
-    [_FN] = LAYOUT(
-        QMKBEST, QMKURL,  _______, KC_G,
-            KC_H,    XXXXXXX, KC_A, KC_B,
-            KC_C, KC_D, KC_E, KC_F
+    [CH_ZOOM_MACOS] = LAYOUT(
+        CH_ZOOM_MUTE_TOGGLE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE, KC_NO,
+        KC_NO, KC_NO, KC_NO, CH_ZOOM_VIDEO_TOGGLE, KC_NO, KC_NO, KC_NO, KC_NO,
+        CH_ZOOM_REACT_TOGGLE, KC_NO, CH_ZOOM_LEAVE_MEETING, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
     )
 };
 
 void switch_layer(void) {
-    uint16_t current_layer = _BASE;
-    for (uint16_t i = _BASE; i < LAYER_COUNT; ++i) {
+    uint16_t current_layer = CH_ZOOM_WINDOWS;
+    for (uint16_t i = CH_ZOOM_WINDOWS; i < LAYER_COUNT; ++i) {
         if (IS_LAYER_ON(i)) {
             current_layer = i;
             break;
@@ -65,39 +60,11 @@ void virtser_recv(uint8_t c) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static bool is_either_pressed = false;
-    // For some reason, virtser_send isn't working.
-    virtser_send('.');
-    virtser_send('\n');
-    switch (keycode) {
-        case KC_A:
-            if (record->event.pressed && is_either_pressed) {
-                switch_layer();
-            }
-            is_either_pressed = record->event.pressed;
-            break;
-        case KC_B:
-            if (record->event.pressed && is_either_pressed) {
-                switch_layer();
-            }
-            is_either_pressed = record->event.pressed;
-            break;
-        case QMKBEST:
-            if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-                SEND_STRING("QMK is the best thing ever!");
-            } else {
-                // when keycode QMKBEST is released
-            }
-            break;
-        case QMKURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/\n");
-            } else {
-                // when keycode QMKURL is released
-            }
-            break;
+    char keys[KEY_MACROS_MAX_COUNT];
+    uint8_t const* keyMacros = windowsConfigs[keycode];
+    for (uint8_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
+        keys[i] = keyMacros[i];
     }
+    send_string(keys);
     return true;
 }
