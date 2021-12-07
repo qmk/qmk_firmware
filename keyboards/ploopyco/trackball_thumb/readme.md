@@ -21,14 +21,9 @@ While the defaults are designed so that it can be plugged in and used right away
 The default behavior for this is:
 
 ```c
-void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
-    mouse_report->h = h;
-    mouse_report->v = v;
-}
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
-    mouse_report->x = x;
-    mouse_report->y = y;
+    return mouse_report;
 }
 ```
 
