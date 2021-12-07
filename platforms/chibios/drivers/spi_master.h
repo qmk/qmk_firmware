@@ -33,7 +33,7 @@
 
 #ifndef SPI_SCK_PAL_MODE
 #    if defined(USE_GPIOV1)
-#        define SPI_SCK_PAL_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#        define SPI_SCK_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    else
 #        define SPI_SCK_PAL_MODE 5
 #    endif
@@ -45,7 +45,7 @@
 
 #ifndef SPI_MOSI_PAL_MODE
 #    if defined(USE_GPIOV1)
-#        define SPI_MOSI_PAL_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#        define SPI_MOSI_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    else
 #        define SPI_MOSI_PAL_MODE 5
 #    endif
@@ -57,7 +57,7 @@
 
 #ifndef SPI_MISO_PAL_MODE
 #    if defined(USE_GPIOV1)
-#        define SPI_MISO_PAL_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#        define SPI_MISO_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    else
 #        define SPI_MISO_PAL_MODE 5
 #    endif

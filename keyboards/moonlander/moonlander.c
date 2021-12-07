@@ -219,7 +219,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -415,6 +415,7 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) { return false; }
     switch (keycode) {
 #ifdef WEBUSB_ENABLE
         case WEBUSB_PAIR:
@@ -465,7 +466,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
 #endif
     }
-    return process_record_user(keycode, record);
+    return true;
 }
 
 void matrix_init_kb(void) {
@@ -483,6 +484,7 @@ void matrix_init_kb(void) {
         rgb_matrix_set_flags(LED_FLAG_NONE);
     }
 #endif
+    matrix_init_user();
 }
 
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!

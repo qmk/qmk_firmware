@@ -14,8 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#include "tmk_core/common/eeprom.h"
+#include "config.h"
+#include "keymap.h"  // to get keymaps[][][]
+#include "eeprom.h"
+#include "progmem.h"  // to read default from flash
 #include "quantum.h"  // for send_string()
 #include "eeconfig.h"
 

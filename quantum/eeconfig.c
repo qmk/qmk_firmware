@@ -7,11 +7,6 @@
 #    include "oryx.h"
 #endif
 
-#ifdef STM32_EEPROM_ENABLE
-#    include <hal.h>
-#    include "eeprom_stm32.h"
-#endif
-
 #if defined(EEPROM_DRIVER)
 #    include "eeprom_driver.h"
 #endif
@@ -46,9 +41,6 @@ __attribute__((weak)) void eeconfig_init_kb(void) {
  * FIXME: needs doc
  */
 void eeconfig_init_quantum(void) {
-#ifdef STM32_EEPROM_ENABLE
-    EEPROM_Erase();
-#endif
 #if defined(EEPROM_DRIVER)
     eeprom_driver_erase();
 #endif
@@ -118,9 +110,6 @@ void eeconfig_enable(void) { eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_N
  * FIXME: needs doc
  */
 void eeconfig_disable(void) {
-#ifdef STM32_EEPROM_ENABLE
-    EEPROM_Erase();
-#endif
 #if defined(EEPROM_DRIVER)
     eeprom_driver_erase();
 #endif
