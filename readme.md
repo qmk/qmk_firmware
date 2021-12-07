@@ -1,9 +1,10 @@
 # ZSA's fork of QMK Firmware
 
-[![Current Version](https://img.shields.io/github/tag/ErgoDox-EZ/qmk_firmware.svg)](https://github.com/ErgoDox-EZ/qmk_firmware/tags)
-[![Build Status](https://travis-ci.org/ErgoDox-EZ/qmk_firmware.svg?branch=master)](https://travis-ci.org/ErgoDox-EZ/qmk_firmware)
-[![GitHub contributors](https://img.shields.io/github/contributors/ErgoDox-EZ/qmk_firmware.svg)](https://github.com/ErgoDox-EZ/qmk_firmware/pulse/monthly)
-[![GitHub forks](https://img.shields.io/github/forks/ErgoDox-EZ/qmk_firmware.svg?style=social&label=Fork)](https://github.com/ErgoDox-EZ/qmk_firmware/)
+[![Current Version](https://img.shields.io/github/tag/zsa/qmk_firmware.svg)](https://github.com/zsa/qmk_firmware/tags)
+[![Build firmware](https://github.com/zsa/qmk_firmware/actions/workflows/build.yml/badge.svg)](https://github.com/zsa/qmk_firmware/actions/workflows/build.yml)
+[![Unit Tests](https://github.com/zsa/qmk_firmware/actions/workflows/unit_test.yml/badge.svg)](https://github.com/zsa/qmk_firmware/actions/workflows/unit_test.yml)
+[![GitHub contributors](https://img.shields.io/github/contributors/zsa/qmk_firmware.svg)](https://github.com/zsa/qmk_firmware/pulse/monthly)
+[![GitHub forks](https://img.shields.io/github/forks/zsa/qmk_firmware.svg?style=social&label=Fork)](https://github.com/zsa/qmk_firmware/)
 
 This purpose of this fork is maintain a clean repo that only contains the keyboard code that we need, and as little else as possible.  This is to keep it lightweight, since we only need a couple of keyboards. This is the repo that the EZ Configurator will pull from.
 ## Documentation
@@ -62,7 +63,7 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
     - Resolve merge conflicts, and commit.
 
 4. Commit update
-   * Include commit info in `[changelog.md](http://changelog.md)`
+   * Include commit info in `[changelog.md](changelog.md)`
 5. Open Pull request, and include information about the commit
 
 ## Strategy
