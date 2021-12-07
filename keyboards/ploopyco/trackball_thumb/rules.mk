@@ -22,9 +22,13 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = pmw3360
 MOUSEKEY_ENABLE = yes       # Mouse keys
 
-QUANTUM_LIB_SRC += analog.c spi_master.c
-SRC += drivers/sensors/pmw3360.c opt_encoder.c
+ENCODER_ENABLE := no
+OPTS_DEF += -DENCODER_ENABLE
+
+QUANTUM_LIB_SRC += analog.c
+SRC += opt_encoder.c
 
 DEFAULT_FOLDER = ploopyco/trackball_thumb/rev1_001
