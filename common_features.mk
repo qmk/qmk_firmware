@@ -202,15 +202,18 @@ else
 endif
 
 VALID_FLASH_DRIVER_TYPES := spi
-ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
-  $(error FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid FLASH driver)
-else
-  OPT_DEFS += -DFLASH_ENABLE
-  ifeq ($(strip $(EEPROM_DRIVER)), spi)
-    OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
-    COMMON_VPATH += $(DRIVER_PATH)/flash
-    SRC += flash_spi.c
-  endif
+FLASH_DRIVER ?= no
+ifneq ($(strip $(FLASH_DRIVER)), no)
+    ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
+        $(error FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid FLASH driver)
+    else
+        OPT_DEFS += -DFLASH_ENABLE
+        ifeq ($(strip $(EEPROM_DRIVER)), spi)
+            OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
+            COMMON_VPATH += $(DRIVER_PATH)/flash
+            SRC += flash_spi.c
+        endif
+    endif
 endif
 
 RGBLIGHT_ENABLE ?= no
