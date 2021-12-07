@@ -17,6 +17,7 @@ COMMAND_ENABLE = no    # Commands for debug and configuration
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 AUDIO_ENABLE = yes           # Audio output on port C6
+AUDIO_DRIVER = dac_additive
 RGBLIGHT_ENABLE = no
 
 ENCODER_ENABLE = yes
