@@ -3,6 +3,10 @@ on:
   push:
     paths-ignore:
       - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
 
 jobs:
   build-default:
@@ -53,7 +57,7 @@ jobs:
           *.bin
       continue-on-error: true
 
-  build-default:
+  build-oryx:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
