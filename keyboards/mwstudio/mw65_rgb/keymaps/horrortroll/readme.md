@@ -9,4 +9,3 @@ It have new LED effect:
 - Rainbow reactive simple
 - Knight Rider (ported from jumper149 code [https://github.com/jumper149/qmk_firmware/blob/jumper149/keyboards/dztech/dz65rgb/keymaps/jumper149/])
 - Random breath rainbow (based from daed code [https://github.com/daed/qmk_firmware/blob/master/keyboards/massdrop/alt/keymaps/daed] and modify by me)
-- Per-key LED layer for pressing FN key

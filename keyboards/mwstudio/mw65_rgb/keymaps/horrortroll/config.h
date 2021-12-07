@@ -1,5 +1,5 @@
 /*
-Copyright 2021 TW59420 <https://github.com/TW59420>
+Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,12 +26,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 12
 
-/* RGB Matrix config */
-#define DISABLE_RGB_MATRIX_BAND_SAT
-#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#define DISABLE_RGB_MATRIX_SPLASH
-#define DISABLE_RGB_MATRIX_SOLID_SPLASH
+#ifdef RGB_MATRIX_ENABLE
+    /* RGB Matrix config */
+    #undef DISABLE_RGB_MATRIX_BAND_SAT
+    #undef DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+    #undef DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+
+    #undef DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+    #undef DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+    #undef DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+    #undef DISABLE_RGB_MATRIX_SPLASH
+    #undef DISABLE_RGB_MATRIX_SOLID_SPLASH
+#endif
