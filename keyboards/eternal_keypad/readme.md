@@ -2,7 +2,7 @@
 
 ![eternal_keypad](https://i.imgur.com/BAzc343.png)
 
-*A 36 key gaming keypad that can be assembled and configured for both left and right handed mouse users.*
+A 36 key gaming keypad that can be assembled and configured for both left and right handed mouse users.
 
 * Keyboard Maintainer: [duckyb](https://github.com/duckyb)
 * Hardware Supported: ETERNAL Keypad
