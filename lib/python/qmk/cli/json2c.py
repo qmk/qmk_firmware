@@ -7,6 +7,7 @@ from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
+from qmk.keyboard import keyboard_completer, keyboard_folder
 import qmk.keymap
 import qmk.path
 
