@@ -57,36 +57,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /*
-    Flash address size, as specified in datasheet, in bytes.
+    The Flash address size in bytes, as specified in datasheet.
 */
 #ifndef EXTERNAL_FLASH_ADDRESS_SIZE
 #    define EXTERNAL_FLASH_ADDRESS_SIZE 3
 #endif
 
 /*
-    The page size in bytes of the FLASH, as specified in the datasheet.
+    The page size of the FLASH in bytes, as specified in the datasheet.
 */
 #ifndef EXTERNAL_FLASH_PAGE_SIZE
 #    define EXTERNAL_FLASH_PAGE_SIZE 256
 #endif
 
 /*
-    The sector size in Kbytes of the FLASH, as specified in the datasheet.
+    The sector size of the FLASH in Kbytes, as specified in the datasheet.
 */
 #ifndef EXTERNAL_FLASH_SECTOR_SIZE
 #    define EXTERNAL_FLASH_SECTOR_SIZE 4
 #endif
 
 /*
-    The block size in Kbytes of the FLASH, as specified in the datasheet.
+    The block size of the FLASH in Kbytes, as specified in the datasheet.
 */
 #ifndef EXTERNAL_FLASH_BLOCK_SIZE
 #    define EXTERNAL_FLASH_BLOCK_SIZE 64
 #endif
 
 /*
-    The total size of the FLASH, in Kbytes. The FLASH datasheet will usually
-    specify this value in kbits, and will require conversion to bytes.
+    The total size of the FLASH in Kbytes, as specified in the datasheet.
 */
 #ifndef EXTERNAL_FLASH_SIZE
 #    define EXTERNAL_FLASH_SIZE 512

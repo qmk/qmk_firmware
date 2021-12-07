@@ -107,6 +107,7 @@
   * [SPI设备](zh-cn/spi_driver.md)
   * [WS2812设备](zh-cn/ws2812_driver.md)
   * [EEPROM设备](zh-cn/eeprom_driver.md)
+  * [FLASH设备](zh-cn/flash_driver.md)
   * [GPIO控制](zh-cn/internals_gpio_control.md)
   * [自定义键盘矩阵](zh-cn/custom_matrix.md)
   * [Proton C转换](zh-cn/proton_c_conversion.md)
