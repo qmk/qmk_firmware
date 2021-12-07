@@ -97,3 +97,5 @@ ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT_SYNC)), yes)
 endif
 
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api
+
+SRC += autocorrection.c
