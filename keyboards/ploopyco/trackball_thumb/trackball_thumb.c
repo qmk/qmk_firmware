@@ -224,9 +224,8 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-void pointing_device_init(void) {
-    // initialize ball sensor
-    pmw_spi_init();
+void pointing_device_init_kb(void) {
+    pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
     // initialize the scroll wheel's optical encoder
     opt_encoder_init();
 }
