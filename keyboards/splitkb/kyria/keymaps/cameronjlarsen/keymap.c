@@ -59,21 +59,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: QWERTY
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |  Tab   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |   \ |  |
+ * |  Tab   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |  Esc   |A/LGUI| S/Alt|D/Ctrl|F/Shft|   G  |                              |   H  |J/Shft|K/Ctrl| L/Alt|;:/GUI|   ' "  |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | Leader |   Z  |   X  |   C  |   V  |   B  | [ {  |      |  |      |  ] } |   N  |   M  | ,  < | . >  | /  ? |   - _  |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | Mute |CapsLk|      | LAlt/| Nav/ |  | Sym/ | Bksp |F-keys|Gaming| Menu |
- *                        |      |      |      | Enter| Space|  | Space|      |      |      |      |
+ *                        | Mute |CapsLk| LAlt/| Space| Nav  |  | Sym  | Space|F-keys|Gaming| Menu |
+ *                        |      |      | Enter|      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-     KC_TAB  , KC_Q  ,  KC_W  ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,  KC_U  ,  KC_I ,   KC_O ,   KC_P , KC_BSLS,
+     KC_TAB  , KC_Q  ,  KC_W  ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,  KC_U  ,  KC_I ,   KC_O ,   KC_P , KC_BSPC,
      KC_ESC  , GUI_A ,  ALT_S ,  CTL_D ,   SFT_F,   KC_G ,                                        KC_H,  SFT_J ,  CTL_K,  ALT_L ,GUI_SCLN,KC_QUOTE,
      KC_LEAD , KC_Z  ,  KC_X  ,  KC_C  ,   KC_V ,   KC_B , KC_LBRC,XXXXXXX,     XXXXXXX, KC_RBRC, KC_N,  KC_M  ,KC_COMM, KC_DOT , KC_SLSH, KC_MINS,
-                                KC_MUTE, KC_CAPS, XXXXXXX, ALT_ENT,SPC_NAV,     SPC_SYM, KC_BSPC, FKEYS, GAMING, KC_APP
+                                KC_MUTE, KC_CAPS, ALT_ENT, KC_SPC ,  NAV  ,       SYM  , KC_SPC, FKEYS, GAMING, KC_APP
     ),
 /*
  * Base Layer: GAMING
