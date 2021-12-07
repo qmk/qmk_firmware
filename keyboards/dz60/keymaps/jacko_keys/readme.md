@@ -141,7 +141,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * The above is arranged so that the further down the keys are, the more down and to the right the group in pairs excluding the `Win` key is.
 * This is because the `Win` key is less to do with application shortcuts, and more to do with the OS shortcuts. It is its own sticky.
 * All modifiers are one shot sticky.
-* `Fn` is not a sticky modifier.
+* `Fn` is not a sticky modifier, but cycles through the macro layers.
 * F1 to F12 form top row numbers and minus/equals.
 * F13 to F24 form second row Q-].
 * F1 to F12 form third row A-enter with an implicit right `Alt Gr` applied.
@@ -152,7 +152,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * Right `Win` key is the sticky right `Win` key.
 * Backspace is `Ctrl`+`Shift`+`Alt` combination sticky.
 
-### Macro-board Shift Layer (`Fn` Macro-board MAGENTA Shift)
+### Macro-board Shift Layer (`Fn` Tap Macro-board MAGENTA Shift)
 * Minus and equals are Korean modifiers.
 * International modifiers are on Q-O.
 * System power down on P key.
@@ -162,7 +162,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * Left `Shift` key is sticky left and right `GUI` together.
 * Right `Shift` key is itself but one shot sticky.
 * Left `Win` key is the sticky left shift+`Win`.
-* Right `Win` key is the sticky right shift+`Win` key and not the app context menu key as in other layers.
+* Right `Win` key is the sticky right shift+`Win`.
 * Comma/period/slash set mouse acceleration 1, 2 and 3.
 * Square brackets are home and end.
 * Enter is itself.
@@ -172,6 +172,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * Caps lock is number lock (the lighting is inverse, so off lights white).
 * Backtick is escape.
 * Space is `Alt Gr`+space.
+* `Fn` cycles onto the CYAN Extra layer.
 
-### Extra Shift Layer (Left `Win` on `Fn` Layer CYAN Shift)
+### Extra Shift Layer (`Fn` Tap Layer CYAN Shift)
 * This layer toggle locks. You do not need to keep hold of the `Win` CYAN modifier.

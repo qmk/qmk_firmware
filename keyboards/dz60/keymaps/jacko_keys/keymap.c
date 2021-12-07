@@ -592,7 +592,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		OSM(MOD_LSFT|MOD_LALT),    KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  ALGR(KC_F24),
 		OSM(MOD_LCTL|MOD_LALT),    ALGR(KC_F1),   ALGR(KC_F2),   ALGR(KC_F3),   ALGR(KC_F4),   ALGR(KC_F5),   ALGR(KC_F6),   ALGR(KC_F7),   ALGR(KC_F8),   ALGR(KC_F9),   ALGR(KC_F10),  ALGR(KC_F11),  ALGR(KC_F12),
 		OSM(MOD_LSFT),         	   ALGR(KC_F13),  ALGR(KC_F14),  ALGR(KC_F15),  ALGR(KC_F16),  ALGR(KC_F17),  ALGR(KC_F18),  ALGR(KC_F19),  ALGR(KC_F20),  ALGR(KC_F21),  ALGR(KC_F22),  ALGR(KC_F23),
-		OSM(MOD_LCTL),OSM(MOD_LGUI),OSM(MOD_LALT),            KC_SPC,                          LSA(KC_TAB),OSM(MOD_RGUI), LALT(KC_TAB),MO(6)),
+		OSM(MOD_LCTL),OSM(MOD_LGUI),OSM(MOD_LALT),            KC_SPC,                          LSA(KC_TAB),OSM(MOD_RGUI), LALT(KC_TAB),TO(6)),
 
 	//BQN lock mode 4 ====================================================================================== BQN lock mode 3
 	// BQN Unicode
@@ -636,7 +636,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_PWR,	KC_HOME, KC_END,  KC_INS,
 		KC_NLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
 		OSM(MOD_LGUI|MOD_RGUI),KC_LANG3,KC_LANG4,KC_LANG5,KC_LANG6,KC_LANG7,KC_LANG8,KC_LANG9,KC_ACL0, KC_ACL1, KC_ACL2,          OSM(MOD_RSFT),
-		DF(0),	TG(10),						 DF(1),                   	ALGR(KC_SPC),                       KC_TRNS, OSM(MOD_LSFT|MOD_RGUI),KC_TRNS, KC_TRNS),
+		DF(0),OSM(MOD_LSFT|MOD_LGUI),DF(1),                  	ALGR(KC_SPC),                       KC_TRNS, OSM(MOD_LSFT|MOD_RGUI),KC_TRNS, TO(10)),
 
 	//BQN shift mode 7 ==================================================================================== BQN shift mode 7
 	LAYOUT_60_ansi(
@@ -665,7 +665,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           KM_Q,    KM_W,    KM_E,    KM_R,    KM_T,    KM_Y,    KM_U,    KM_I,    KM_O,    KM_P,	  KC_HOME, KC_END,	KC_SYSREQ,
 		UC_MOD,			      KM_A,    KM_S,    KM_D,    KM_F,    KM_G,    KM_H,    KM_J,    KM_K,    KM_L,    KC_BTN3, KC_BTN2, KC_ENT,
 		KC_LSFT,          KM_Z,    KM_X,    KM_C,    KM_V,    KM_B,    KM_N,    KM_M,	   KC_WH_U, KC_WH_D, KC_MS_U,          KC_RSFT,
-		KC_LCTL, RCS(KC_LALT), KC_TRNS,                				KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS),
+		KC_LCTL, RCS(KC_LALT), 		 KC_TRNS,                		KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS),
 
 	//Extra shift mode 10 ============================================================================== Extra shift mode 10
 	LAYOUT_60_ansi(
@@ -673,7 +673,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
 		KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,
-		KC_LCTL, TG(10),           KC_LALT,                   KC_SPC,                             KC_RALT, KC_RGUI,          KC_RCTL, KC_TRNS),
+		KC_LCTL, KC_LGUI,					 KC_LALT,                   KC_SPC,                             KC_RALT, KC_RGUI,          KC_RCTL, TO(0)),//DF escape
 
 	//============================================================================
 	// FILL IN AS REQUIRED (FOR EXTRA LAYAERS IF NEEDED)
