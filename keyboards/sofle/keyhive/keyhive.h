@@ -28,7 +28,7 @@
     LB1, LB2, LB3, LB4, LB5, LB6, LB7, RB7, RB6, RB5, RB4, RB3, RB2, RB1, \
     LC1, LC2, LC3, LC4, LC5, LC6, LE1, RE6, RC6, RC5, RC4, RC3, RC2, RC1, \
     LD1, LD2, LD3, LD4, LD5, LD6, LD7, RD7, RD6, RD5, RD4, RD3, RD2, RD1, \
-              LE2, LE3, LE4, LE5, LE6, RE5, RE4, RE3, RE2, RE1            \
+              LE2, LE3, LE4, LE5, LE6, RE5, RE4, RE3, RE2, RE1 \
     ) \
     { \
         { LA1, LA2, LA3, LA4, LA5, LA6, KC_NO }, \
@@ -48,7 +48,7 @@
     LB1, LB2, LB3, LB4, LB5, LB6,           RB6, RB5, RB4, RB3, RB2, RB1, \
     LC1, LC2, LC3, LC4, LC5, LC6,           RC6, RC5, RC4, RC3, RC2, RC1, \
     LD1, LD2, LD3, LD4, LD5, LD6, LE1, RE6, RD6, RD5, RD4, RD3, RD2, RD1, \
-              LE2, LE3, LE4, LE5, LE6, RE5, RE4, RE3, RE2, RE1            \
+              LE2, LE3, LE4, LE5, LE6, RE5, RE4, RE3, RE2, RE1 \
     ) \
     { \
         { LA1, LA2, LA3, LA4, LA5, LA6, KC_NO }, \
