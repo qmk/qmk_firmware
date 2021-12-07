@@ -67,6 +67,14 @@ def template_c(keyboard):
     return template
 
 
+def _strip_trans(keycode):
+    """Translate KC_TRNS to _______"""
+    if keycode == "KC_TRNS":
+        keycode = "_______"
+
+    return keycode
+
+
 def _strip_any(keycode):
     """Remove ANY() from a keycode.
     """
@@ -205,7 +213,7 @@ def generate_c(keymap_json, info_json = None):
     for layer_num, layer in enumerate(keymap_json['layers']):
         if layer_num != 0:
             layer_txt[-1] = layer_txt[-1] + ','
-        layer = map(_strip_any, layer)
+        layer = map(_strip_trans, map(_strip_any, layer))
         # TODO(unassigned/pfn): Write unit tests
         if info_json is not None and info_json['layouts']['LAYOUT']['layout']:
             layout_desc = info_json['layouts']['LAYOUT']['layout']
