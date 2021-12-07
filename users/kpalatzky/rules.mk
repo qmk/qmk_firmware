@@ -12,6 +12,8 @@ AUDIO_ENABLE = no           # Audio output (https://beta.docs.qmk.fm/using-qmk/h
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no        # Audio output (https://beta.docs.qmk.fm/using-qmk/hardware-features/feature_audio)
 
+BACKLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = no
 # TODO: Link time optimization, should save on firmware size
 # EXTRAFLAGS += -flto
 
