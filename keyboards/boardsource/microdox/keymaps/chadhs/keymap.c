@@ -10,18 +10,20 @@ enum layers {
     _COLEMAK_DH,
     _NUM_NAV,
     _FUNCTION,
-    _GAMING,
-    _GAMING_2,
+    _GAME,
+    _GAME_FUN,
+    _GAME_NUM,
 };
 
 /* thumb mods */
 #define NUM_BSPC LT(_NUM_NAV,KC_BSPC)
 #define FUN_SPC LT(_FUNCTION,KC_SPC)
-#define G2_SPC LT(_GAMING_2,KC_SPC)
+#define GFUN_SPC LT(_GAME_FUN,KC_SPC)
+#define GNUM_SPC LT(_GAME_NUM,KC_SPC)
 #define CMD_TAB CMD_T(KC_TAB)
 
 /* misc mods */
-#define GAMING TG(_GAMING)
+#define GAME TG(_GAME)
 #define SFT_Z SFT_T(KC_Z)
 #define SFT_SLSH SFT_T(KC_SLSH)
 #define SFT_BSLS SFT_T(KC_BSLS)
@@ -111,11 +113,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,    KC_F8,   KC_F9,    KC_F10,
   KC_LSFT, KC_LCTL,  KC_LGUI, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, KC_LSFT,
-  RGB_TOG, RGB_RMOD, RGB_MOD, RGB_VAD, RGB_VAI,      KC_F11,  KC_F12,   XXXXXXX, XXXXXXX,  GAMING,
+  RGB_TOG, RGB_RMOD, RGB_MOD, RGB_VAD, RGB_VAI,      KC_F11,  KC_F12,   XXXXXXX, XXXXXXX,  GAME,
                      XXXXXXX, KC_ESC,  KC_DEL,       KC_TRNS, KC_TRNS,  XXXXXXX
 ),
 
-[_GAMING] = LAYOUT_split_3x5_3(
+[_GAME] = LAYOUT_split_3x5_3(
 /*
  ,------.------.------.------.------.            ,------.------.------.------.------.
  | TAB  | Q    | W    | E    | R    |            | Y    | U    | I    | O    | P    |
@@ -129,16 +131,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  `------'------'------'------'------'            `------'------'------'------'------'
                          .------.------.      .------.------.
                          |      | SPC  |      | SPC  |      |
-                         | CMD  |      |      | G2   | CTL  |
+                         | CMD  | NUM  |      | G2   | CTL  |
                          '------'------'      '------'------'
 */
   KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
   KC_ESC,  KC_A, KC_S,    KC_D,    KC_F,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
-  KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,        KC_N,    KC_M,    KC_COMM, KC_DOT,  GAMING,
-                 XXXXXXX, KC_LCTL, KC_SPC,      G2_SPC,  KC_LOPT, XXXXXXX
+  KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,        KC_N,    KC_M,    KC_COMM, KC_DOT,  GAME,
+                 XXXXXXX, KC_LCTL, GNUM_SPC,     GFUN_SPC,  KC_LOPT, XXXXXXX
 ),
 
-[_GAMING_2] = LAYOUT_split_3x5_3(
+[_GAME_FUN] = LAYOUT_split_3x5_3(
 /*
  ,------.------.------.------.------.            ,------.------.------.------.------.
  | ↓↓↓  |      |      |      | T    |            |      | F7   | F8   | F9   | F10  |
@@ -160,6 +162,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_B,         KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_TRNS,
                      XXXXXXX, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, XXXXXXX
 ),
+
+[_GAME_NUM] = LAYOUT_split_3x5_3(
+/*
+ ,------.------.------.------.------.            ,------.------.------.------.------.
+ | 1 !  | 2 @  | 3 #  | 4 $  | 5 %  |            | 6 ^  | 7 &  | 8 *  | 9 (  | 0 )  |
+ |      |      |      |      |      |            |      |      |      |      |      |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ | ` ~  |      |      |      |      |            |      |      |      |      | ' "  |
+ | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
+ |------+------+------+------+------|            |------+------+------+------+------|
+ |      |      |      |      |      |            | - _  | = +  |      |      | ↓↓↓  |
+ | ↓↓↓  |      |      |      |      |            |      |      |      |      |      |
+ `------'------'------'------'------'            `------'------'------'------'------'
+                         .------.------.      .------.------.
+                         | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |
+                         |      |      |      |      |      |
+                         '------'------'      '------'------'
+*/
+  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+  HOME_BT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      XXXXXXX, KC_LCMD, KC_LOPT, KC_LCTL, HOME_QT,
+  KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,  XXXXXXX, XXXXXXX, KC_TRNS,
+                    XXXXXXX, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, XXXXXXX
+),
+
 };
 
 
@@ -263,7 +289,8 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(2, layer_state_cmp(state, _GAMING));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _GAMING_2));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _GAME));
+    rgblight_set_layer_state(3, layer_state_cmp(state, _GAME_FUN));
+    rgblight_set_layer_state(3, layer_state_cmp(state, _GAME_NUM));
     return state;
 }
