@@ -31,10 +31,8 @@
 #define OPT_ENC1_MUX 4
 #define OPT_ENC2_MUX 0
 
-void process_mouse(report_mouse_t* mouse_report);
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y);
-void process_wheel(report_mouse_t* mouse_report);
-void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
+bool encoder_update_kb(uint8_t index, bool clockwise);
+bool encoder_update_user(uint8_t index, bool clockwise);
 
 #define LAYOUT(BFT, BF, BL, BM, BR, BB) \
     { {BFT, BF, BL, BM, BR, BB}, }
