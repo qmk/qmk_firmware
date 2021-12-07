@@ -1,12 +1,12 @@
 # eternal_keypad
 
-![eternal_keypad](imgur.com image replace me!)
+![eternal_keypad](https://i.imgur.com/aGwTaUv.jpg)
 
-*A short description of the keyboard/project*
+*A 36 key gaming keypad that can be assembled and configured for both left and right handed mouse users.*
 
 * Keyboard Maintainer: [duckyb](https://github.com/duckyb)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: ETERNAL Keypad
+* Hardware Availability: Open Source, files available on [gitHub](https://github.com/duckyb/eternal-keypad)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -22,6 +22,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Bootmagic reset**: Hold down the key at (0,1) in the matrix (the top left key or Escape) and plug in the keyboard
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available (activated by holding the lower right key and tapping the lower left key)
+* **Physical reset button**: Briefly sort the pads labeled "RST" and "GND" on the micro-controller
