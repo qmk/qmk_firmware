@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "kbd67v2",
+    "keyboard_name": "mb65s",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "tuananhnguyen204",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

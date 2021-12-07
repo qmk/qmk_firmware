@@ -1,4 +1,5 @@
-/* Copyright 2018 MechMerlin
+/* Copyright 2021 MechBrewery
+ * Author: tuananhnguyen204 (https://github.com/AnthonyNguyen168) (tuananhnguyen204@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -1,4 +1,4 @@
-# Keymap by Hekeke
+# Keymap by tuananhnguyen204
 
 Almost a default ISO layout, except Caps Lock swapped `MO(1)`.
 

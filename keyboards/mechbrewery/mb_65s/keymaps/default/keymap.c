@@ -1,4 +1,5 @@
-/* Copyright 2018 'mechmerlin'
+/* Copyright 2021 MechBrewery
+ * Author: tuananhnguyen204 (https://github.com/AnthonyNguyen168) (tuananhnguyen204@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,7 +70,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QMKBEST:
       if (record->event.pressed) {
         // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
+        SEND_STRING("I like you Thao Oil!");
       } else {
         // when keycode QMKBEST is released
       }
@@ -77,7 +78,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QMKURL:
       if (record->event.pressed) {
         // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
+        SEND_STRING("Also I like you Trang June" SS_TAP(X_ENTER));
       } else {
         // when keycode QMKURL is released
       }
