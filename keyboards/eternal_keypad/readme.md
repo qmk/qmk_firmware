@@ -1,6 +1,6 @@
 # eternal_keypad
 
-![eternal_keypad](https://i.imgur.com/aGwTaUv.jpg)
+![eternal_keypad](https://i.imgur.com/BAzc343.png)
 
 *A 36 key gaming keypad that can be assembled and configured for both left and right handed mouse users.*
 
