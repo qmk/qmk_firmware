@@ -6,7 +6,7 @@
     "processor": "STM32F303",
     "board": "QMK_PROTON_C",
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic": true,
         "extrakey": true,
         "mousekey": true
     },

@@ -16,6 +16,9 @@
 #pragma once
 
 #include "kyria.h"
+#ifdef KEYBOARD_splitkb_kyria_rev1_proton_c
+#    include "proton_c.h"
+#endif
 
 /* This a shortcut to help you visually see your layout.
  *

@@ -18,7 +18,8 @@
 #include "transactions.h"
 #include <string.h>
 
-#ifdef UNICODE_ENABLE
+#ifdef CUSTOM_UNICODE_ENABLE
+#include "process_unicode_common.h"
 extern unicode_config_t unicode_config;
 #endif
 #ifdef AUDIO_ENABLE

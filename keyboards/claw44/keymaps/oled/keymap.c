@@ -140,7 +140,7 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
 const char *read_keylog(void) { return keylog_str; }
 const char *read_keylogs(void) { return keylogs_str; }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_layer_state();
         oled_write_ln(read_keylog(), false);
@@ -148,6 +148,7 @@ void oled_task_user(void) {
     } else {
         render_logo();
     }
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
