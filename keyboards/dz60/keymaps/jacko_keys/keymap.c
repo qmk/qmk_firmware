@@ -154,8 +154,8 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//1996 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
-	//2021-12-03
+	//1984 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2021-12-07
 };
 
 //Some say the above should be converted to allow more in device shift states,
@@ -174,6 +174,19 @@ enum custom_keycodes {
 		KM_H,    KM_J,    KM_K,    KM_L,
 		KM_Z,    KM_X,    KM_C,    KM_V,
 		KM_B,    KM_N,    KM_M,
+		//and the ones for layer 10
+		PK_GRV,  PK_1,    PK_2,    PK_3,    PK_4,
+		PK_5,    PK_6,    PK_7,    PK_8,    PK_9,
+		PK_0,    PK_MINS, PK_EQL,  PK_BSPC,	PK_TAB,
+		PK_Q,    PK_W,    PK_E,    PK_R,    PK_T,
+		PK_Y,    PK_U,    PK_I,    PK_O,    PK_P,
+		PK_LBRC, PK_RBRC, PK_BSLS, PK_CAPS, PK_A,
+		PK_S,    PK_D,    PK_F,    PK_G,    PK_H,
+		PK_J,    PK_K,    PK_L,    PK_SCLN, PK_QUOT,
+		PK_ENT,  PK_Z,    PK_X,    PK_C,    PK_V,
+		PK_B,    PK_N,    PK_M,    PK_COMM, PK_DOT,
+		PK_SLSH, PK_SPC,
+
 };
 
 //The Navigation CYAN mode macro key system for UTF-8 emission.
@@ -411,12 +424,18 @@ uint8_t make_final(uint8_t ini) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if(keycode < KM_1 || keycode > KM_M) {
+	if(keycode < KM_1 || keycode > PK_SPC) {
 		doing = off;
 		return true;//protection better
 	}
 	if (record->event.pressed) {
 		//press
+		if(keycode > KM_M) {
+
+			//exit after macro effect
+			doing = off;
+			return true;
+		}
 		const char* ip = macro_unicode[keycode - KM_1];
 		if(get_mods() & MOD_MASK_SHIFT) ip = modify_step(ip);
 		if(get_mods() & MOD_MASK_CTRL) {//jump 2
@@ -669,11 +688,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	//Extra shift mode 10 ============================================================================== Extra shift mode 10
 	LAYOUT_60_ansi(
-		KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC,
-		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
-		KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
-		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,
-		KC_LCTL, KC_LGUI,					 KC_LALT,                   KC_SPC,                             KC_RALT, KC_RGUI,          KC_RCTL, TO(0)),//DF escape
+		PK_GRV,  PK_1,    PK_2,    PK_3,    PK_4,    PK_5,    PK_6,    PK_7,    PK_8,    PK_9,    PK_0,    PK_MINS, PK_EQL,           PK_BSPC,
+		PK_TAB,           PK_Q,    PK_W,    PK_E,    PK_R,    PK_T,    PK_Y,    PK_U,    PK_I,    PK_O,    PK_P,    PK_LBRC, PK_RBRC, PK_BSLS,
+		PK_CAPS,          PK_A,    PK_S,    PK_D,    PK_F,    PK_G,    PK_H,    PK_J,    PK_K,    PK_L,    PK_SCLN, PK_QUOT, PK_ENT,
+		KC_LSFT,          PK_Z,    PK_X,    PK_C,    PK_V,    PK_B,    PK_N,    PK_M,    PK_COMM, PK_DOT,  PK_SLSH,          KC_RSFT,
+		KC_LCTL, KC_LGUI,					 KC_LALT,                   PK_SPC,                             KC_RALT, KC_RGUI,          KC_RCTL, TO(0)),//DF escape
 
 	//============================================================================
 	// FILL IN AS REQUIRED (FOR EXTRA LAYAERS IF NEEDED)
