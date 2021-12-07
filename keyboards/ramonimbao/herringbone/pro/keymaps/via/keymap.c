@@ -76,6 +76,27 @@ void matrix_scan_user(void) {
     }
 }
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_VOLD:
+            if (record->event.pressed) {
+                tap_code_delay(KC_VOLD, 20);
+            } else {
+                unregister_code(KC_VOLD);
+            }
+            return false;
+        case KC_VOLU:
+            if (record->event.pressed) {
+                tap_code_delay(KC_VOLU, 20);
+            } else {
+                unregister_code(KC_VOLU);
+            }
+            return false;
+        default:
+            return true;
+    }
+}
+
 #ifdef OLED_ENABLE
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
