@@ -182,7 +182,7 @@ def generate_json(keymap, keyboard, layout, layers):
     return new_keymap
 
 
-def generate_c(keymap_json):
+def generate_c(keymap_json, info_json = None):
     """Returns a `keymap.c`.
 
     `keymap_json` is a dictionary with the following keys:
@@ -206,7 +206,28 @@ def generate_c(keymap_json):
         if layer_num != 0:
             layer_txt[-1] = layer_txt[-1] + ','
         layer = map(_strip_any, layer)
-        layer_keys = ', '.join(layer)
+        # TODO(unassigned/pfn): Write unit tests
+        if info_json is not None and info_json['layouts']['LAYOUT']['layout']:
+            layout_desc = info_json['layouts']['LAYOUT']['layout']
+            last_x = 0
+            chars = 0
+            layer_keys = "\n"
+            for i, k in zip(range(len(layout_desc)), layer):
+                x = layout_desc[i]['x']
+                pos = x * 9
+                if last_x > x:
+                    layer_keys += "\n"
+                    chars = 0
+                indent = pos - chars - max(8, len(k)) - max(0, chars - pos)
+                width = 8 - max(0, chars - pos)
+                fmt = "%s%" + str(width) + "s,"
+                layer_keys += fmt % (indent * " ", k)
+                last_x = x
+                chars = chars + max(width + 1, len(k) + 1) + max(0, indent)
+            layer_keys = layer_keys[:-1] # drop trailing ,
+        else:
+            layer_keys = ', '.join(layer)
+
         layer_txt.append('\t[%s] = %s(%s)' % (layer_num, keymap_json['layout'], layer_keys))
 
     keymap = '\n'.join(layer_txt)
