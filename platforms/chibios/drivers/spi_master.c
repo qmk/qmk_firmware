@@ -42,9 +42,9 @@ __attribute__((weak)) void spi_init(void) {
         palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), SPI_MOSI_PAL_MODE);
         palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), SPI_MISO_PAL_MODE);
 #else
-        palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_ALTERNATE(SPI_SCK_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
-        palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_ALTERNATE(SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
-        palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_ALTERNATE(SPI_MISO_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
+        palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_ALTERNATE(SPI_SCK_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
+        palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_ALTERNATE(SPI_MOSI_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
+        palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_ALTERNATE(SPI_MISO_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
 #endif
     }
 }
@@ -54,6 +54,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
         return false;
     }
 
+#ifndef WB32F3G71xx
     uint16_t roundedDivisor = 2;
     while (roundedDivisor < divisor) {
         roundedDivisor <<= 1;
@@ -62,6 +63,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     if (roundedDivisor < 2 || roundedDivisor > 256) {
         return false;
     }
+#endif
 
 #if defined(K20x) || defined(KL2x)
     spiConfig.tar0 = SPIx_CTARn_FMSZ(7) | SPIx_CTARn_ASC(1);
@@ -110,6 +112,62 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
             spiConfig.tar0 |= SPIx_CTARn_BR(8);
             break;
     }
+
+#elif defined(HT32)
+    spiConfig.cr0 = SPI_CR0_SELOEN;
+    spiConfig.cr1 = SPI_CR1_MODE | 8;  // 8 bits and in master mode
+
+    if (lsbFirst) {
+        spiConfig.cr1 |= SPI_CR1_FIRSTBIT;
+    }
+
+    switch (mode) {
+        case 0:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE0;
+            break;
+        case 1:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE1;
+            break;
+        case 2:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE2;
+            break;
+        case 3:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE3;
+            break;
+    }
+
+    spiConfig.cpr = (roundedDivisor - 1) >> 1;
+
+#elif defined(WB32F3G71xx)
+    if (!lsbFirst) {
+        osalDbgAssert(lsbFirst != FALSE, "unsupported lsbFirst");
+    }
+
+    if (divisor < 1) {
+        return false;
+    }
+
+    spiConfig.SPI_BaudRatePrescaler = (divisor << 2);
+
+    switch (mode) {
+        case 0:
+            spiConfig.SPI_CPHA = SPI_CPHA_1Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_Low;
+            break;
+        case 1:
+            spiConfig.SPI_CPHA = SPI_CPHA_2Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_Low;
+            break;
+        case 2:
+            spiConfig.SPI_CPHA = SPI_CPHA_1Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_High;
+            break;
+        case 3:
+            spiConfig.SPI_CPHA = SPI_CPHA_2Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_High;
+            break;
+    }
+
 #else
     spiConfig.cr1 = 0;
 

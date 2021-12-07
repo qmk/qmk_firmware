@@ -17,7 +17,6 @@ NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: ht
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
 
