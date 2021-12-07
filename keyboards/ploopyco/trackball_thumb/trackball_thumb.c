@@ -248,8 +248,3 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-void keyboard_post_init_kb(void) {
-    pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
-
-    keyboard_post_init_user();
-}
