@@ -40,6 +40,9 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
 #ifdef RGBLIGHT_ENABLE
           && process_record_user_rgb_light(keycode, record)
 #endif
+#ifdef CUSTOM_UNICODE_ENABLE
+          && process_record_unicode(keycode, record)
+#endif
           && true)) {
         return false;
     }
@@ -117,28 +120,6 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
                 }
             }
             break;
-#ifdef UNICODE_ENABLE
-        case UC_FLIP:  // (ノಠ痊ಠ)ノ彡┻━┻
-            if (record->event.pressed) {
-                send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
-            }
-            break;
-        case UC_TABL:  // ┬─┬ノ( º _ ºノ)
-            if (record->event.pressed) {
-                send_unicode_string("┬─┬ノ( º _ ºノ)");
-            }
-            break;
-        case UC_SHRG:  // ¯\_(ツ)_/¯
-            if (record->event.pressed) {
-                send_unicode_string("¯\\_(ツ)_/¯");
-            }
-            break;
-        case UC_DISA:  // ಠ_ಠ
-            if (record->event.pressed) {
-                send_unicode_string("ಠ_ಠ");
-            }
-            break;
-#endif
         case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             if (record->event.pressed) {
@@ -199,6 +180,7 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
                 }
             }
             break;
+#endif
         case KEYLOCK: {
             static host_driver_t *host_driver = 0;
 
@@ -215,7 +197,6 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
             }
             break;
             }
-#endif
     }
     return true;
 }

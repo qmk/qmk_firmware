@@ -4,9 +4,22 @@
 
 The following options are currently available for haptic feedback in `rules.mk`:
 
-`HAPTIC_ENABLE += DRV2605L`
+```
+HAPTIC_ENABLE = yes
 
-`HAPTIC_ENABLE += SOLENOID`
+HAPTIC_DRIVER += DRV2605L
+HAPTIC_DRIVER += SOLENOID
+```
+
+The following `config.h` settings are available for all types of haptic feedback:
+
+| Settings                             | Default       | Description                                                                                                   |
+|--------------------------------------|---------------|---------------------------------------------------------------------------------------------------------------|
+|`HAPTIC_ENABLE_PIN`                   | *Not defined* |Configures a pin to enable a boost converter for some haptic solution, often used with solenoid drivers.       |
+|`HAPTIC_ENABLE_PIN_ACTIVE_LOW`        | *Not defined* |If defined then the haptic enable pin is active-low.                                                           |
+|`HAPTIC_ENABLE_STATUS_LED`            | *Not defined* |Configures a pin to reflect the current enabled/disabled status of haptic feedback.                            |
+|`HAPTIC_ENABLE_STATUS_LED_ACTIVE_LOW` | *Not defined* |If defined then the haptic status led will be active-low.                                                      |
+|`HAPTIC_OFF_IN_LOW_POWER`             | `0`           |If set to `1`, haptic feedback is disabled before the device is configured, and while the device is suspended. |
 
 ## Known Supported Hardware
 
@@ -45,6 +58,7 @@ First you will need a build a circuit to drive the solenoid through a mosfet as 
 | Settings                   | Default              | Description                                           |
 |----------------------------|----------------------|-------------------------------------------------------|
 |`SOLENOID_PIN`              | *Not defined*        |Configures the pin that the Solenoid is connected to.  |
+|`SOLENOID_PIN_ACTIVE_LOW`   | *Not defined*        |If defined then the solenoid trigger pin is active low.|
 |`SOLENOID_DEFAULT_DWELL`    | `12` ms              |Configures the default dwell time for the solenoid.    |
 |`SOLENOID_MIN_DWELL`        | `4` ms               |Sets the lower limit for the dwell.                    |
 |`SOLENOID_MAX_DWELL`        | `100` ms             |Sets the upper limit for the dwell.                    |
@@ -170,8 +184,9 @@ The Haptic Exclusion is implemented as `__attribute__((weak)) bool get_haptic_en
 ### NO_HAPTIC_MOD
 With the entry of `#define NO_HAPTIC_MOD` in config.h, the following keys will not trigger feedback:
 
-* Usual modifier keys such as Control/Shift/Alt/Gui (For example `KC_LCTRL`)
+* Usual modifier keys such as Control/Shift/Alt/Gui (For example `KC_LCTL`)
 * `MO()` momentary keys. See also [Layers](feature_layers.md).
+* `LM()` momentary keys with mod active.
 * `LT()` layer tap keys, when held to activate a layer. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered.
 * `TT()` layer tap toggle keys, when held to activate a layer. However when tapped `TAPPING_TOGGLE` times to permanently toggle the layer, on the last tap haptic feedback is still triggered.
 * `MT()` mod tap keys, when held to keep a usual modifier key pressed. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered. See also [Mod-Tap](mod_tap.md).

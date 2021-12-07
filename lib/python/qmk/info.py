@@ -25,6 +25,13 @@ def _valid_community_layout(layout):
     return (Path('layouts/default') / layout).exists()
 
 
+def _remove_newlines_from_labels(layouts):
+    for layout_name, layout_json in layouts.items():
+        for key in layout_json['layout']:
+            if '\n' in key['label']:
+                key['label'] = key['label'].split('\n')[0]
+
+
 def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
@@ -99,6 +106,9 @@ def info_json(keyboard):
     # Check that the reported matrix size is consistent with the actual matrix size
     _check_matrix(info_data)
 
+    # Remove newline characters from layout labels
+    _remove_newlines_from_labels(layouts)
+
     return info_data
 
 
@@ -111,11 +121,6 @@ def _extract_features(info_data, rules):
         del rules['BOOTMAGIC_ENABLE']
     if rules.get('BOOTMAGIC_ENABLE') == 'full':
         rules['BOOTMAGIC_ENABLE'] = 'on'
-
-    # Skip non-boolean features we haven't implemented special handling for
-    for feature in 'HAPTIC_ENABLE', 'QWIIC_ENABLE':
-        if rules.get(feature):
-            del rules[feature]
 
     # Process the rest of the rules as booleans
     for key, value in rules.items():
@@ -619,6 +624,8 @@ def arm_processor_rules(info_data, rules):
     if 'bootloader' not in info_data:
         if 'STM32' in info_data['processor']:
             info_data['bootloader'] = 'stm32-dfu'
+        elif 'WB32' in info_data['processor']:
+            info_data['bootloader'] = 'wb32-dfu'
         else:
             info_data['bootloader'] = 'unknown'
 

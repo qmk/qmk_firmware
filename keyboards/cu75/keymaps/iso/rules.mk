@@ -13,8 +13,7 @@ NKRO_ENABLE = yes               # Nkey Rollover - if this doesn't work, see here
 AUDIO_ENABLE = no               # Audio output
 RGBLIGHT_ENABLE = no          	# Disable RGB underlight
 RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not WS2812
-SLEEP_LED_ENABLE = yes          # Breathing sleep LED during USB suspend
-TAP_DANCE_ENABLE = no
+SLEEP_LED_ENABLE = yes
 
 ISSI_ENABLE = no               # If the I2C pullup resistors aren't install this must be disabled
 WATCHDOG_ENABLE = yes           # Resets keyboard if matrix_scan isn't run every 250ms

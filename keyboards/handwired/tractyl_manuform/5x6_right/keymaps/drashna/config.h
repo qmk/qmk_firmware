@@ -16,16 +16,7 @@
 
 #pragma once
 
-// #define USE_I2C
-// #define SELECT_SOFT_SERIAL_SPEED 1
-// #define SERIAL_USE_MULTI_TRANSACTION
-#define SPLIT_MODS_ENABLE
-#define EE_HANDS
-
 #define TRACKBALL_DPI_OPTIONS { 1200, 1800, 2600, 3400 }
 
-#undef DEBOUNCE
-#define DEBOUNCE 10
-
-#define SOLENOID_PIN F1
-#define SOLENOID_DEFAULT_DWELL 8
+#define DEBOUNCE 45
+#define ENCODER_DEFAULT_POS 0x3
