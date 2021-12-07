@@ -2,9 +2,6 @@ name: Unit Tests
 
 on:
   push:
-    branches:
-    - master
-    - develop
   pull_request:
     paths:
     - 'builddefs/**'
