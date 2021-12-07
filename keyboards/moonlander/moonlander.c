@@ -400,6 +400,7 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
 
 #ifdef ORYX_CONFIGURATOR
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) { return false; }
     switch (keycode) {
 #ifdef WEBUSB_ENABLE
         case WEBUSB_PAIR:
@@ -450,7 +451,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
 #endif
     }
-    return process_record_user(keycode, record);
+    return true;
 }
 
 #endif
@@ -470,6 +471,7 @@ void matrix_init_kb(void) {
         rgb_matrix_set_flags(LED_FLAG_NONE);
     }
 #endif
+    matrix_init_user();
 }
 
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!
