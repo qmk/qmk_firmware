@@ -43,6 +43,18 @@ TODO: Do we need a special header to indicate it's the start of a command/event?
 
 ### Protocol List
 
+#### GetVersionCommand/GetVersionResponseEvent
+
+##### Command
+
+No data.
+
+##### Event
+
+|data|size in byte|Note|
+|----|------------|----|
+|firmware version| 4 | type is uint32_t |
+
 #### GetConfigCommand
 
 TODO

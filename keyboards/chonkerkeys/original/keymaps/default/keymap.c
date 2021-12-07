@@ -26,6 +26,8 @@ enum layer_names {
     CH_ZOOM_MACOS
 };
 
+const uint32_t firmware_version = 1;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [CH_ZOOM_WINDOWS] = LAYOUT(
         CH_ZOOM_MUTE_TOGGLE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE, KC_NO,
@@ -57,6 +59,10 @@ void switch_layer(void) {
 
 void virtser_recv(uint8_t c) {
     process_protocol(c);
+}
+
+void send_protocol(uint8_t c) {
+    virtser_send(c);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
