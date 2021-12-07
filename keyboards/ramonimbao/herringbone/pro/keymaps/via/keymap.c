@@ -64,36 +64,17 @@ keyevent_t encoder_cw = {
 
 void matrix_scan_user(void) {
     if (IS_PRESSED(encoder_ccw)) {
+        wait_ms(20);
         encoder_ccw.pressed = false;
         encoder_ccw.time = (timer_read() | 1);
         action_exec(encoder_ccw);
     }
 
     if (IS_PRESSED(encoder_cw)) {
+        wait_ms(20);
         encoder_cw.pressed = false;
         encoder_cw.time = (timer_read() | 1);
         action_exec(encoder_cw);
-    }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_VOLD:
-            if (record->event.pressed) {
-                tap_code_delay(KC_VOLD, 20);
-            } else {
-                unregister_code(KC_VOLD);
-            }
-            return false;
-        case KC_VOLU:
-            if (record->event.pressed) {
-                tap_code_delay(KC_VOLU, 20);
-            } else {
-                unregister_code(KC_VOLU);
-            }
-            return false;
-        default:
-            return true;
     }
 }
 
