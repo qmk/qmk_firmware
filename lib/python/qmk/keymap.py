@@ -215,19 +215,24 @@ def generate_c(keymap_json, info_json = None):
             layer_txt[-1] = layer_txt[-1] + ','
         layer = map(_strip_trans, map(_strip_any, layer))
         # TODO(unassigned/pfn): Write unit tests
-        if info_json is not None and info_json['layouts']['LAYOUT']['layout']:
-            layout_desc = info_json['layouts']['LAYOUT']['layout']
+        layouts = info_json.get('layouts')
+        lt = None
+        if layouts:
+            k = [*layouts.keys()][0]
+            lt = layouts[k]
+        if lt:
+            layout_desc = lt['layout']
             last_x = 0
             chars = 0
             layer_keys = "\n"
             for i, k in zip(range(len(layout_desc)), layer):
                 x = layout_desc[i]['x']
-                pos = x * 9
+                pos = x * 8
                 if last_x > x:
                     layer_keys += "\n"
                     chars = 0
-                indent = pos - chars - max(8, len(k)) - max(0, chars - pos)
-                width = 8 - max(0, chars - pos)
+                indent = pos - chars - max(7, len(k)) - max(0, chars - pos)
+                width = 7 - max(0, chars - pos)
                 fmt = "%s%" + str(width) + "s,"
                 layer_keys += fmt % (indent * " ", k)
                 last_x = x

@@ -15,6 +15,7 @@ import qmk.path
 
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to convert keymap for')
 @cli.argument('-km', '--keymap', help='Keymap to save the output of json2c')
+@cli.argument('-s', '--save', arg_only=True, action='store_true', help="Save the keymap file")
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('filename', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
@@ -47,7 +48,7 @@ def json2c(cli):
 
     keymap_c = qmk.keymap.generate_c(user_keymap, kb_info_json)
 
-    if cli.config.info.keyboard and cli.config.info.keymap:
+    if cli.config.info.keyboard and cli.config.info.keymap and cli.args.save:
         keymap_path = locate_keymap(cli.config.info.keyboard, cli.config.info.keymap)
         if keymap_path and keymap_path.suffix == '.c':
             keymap_path.replace(keymap_path.parent / (keymap_path.name + '.bak'))
