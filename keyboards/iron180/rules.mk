@@ -14,7 +14,8 @@ CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = yes           # USB Nkey Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
+BACKLIGHT_DRIVER = pwm
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = no
