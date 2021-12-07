@@ -2,8 +2,6 @@
     "keyboard_name": "eternal_keypad",
     "url": "https://github.com/duckyb/eternal-keypad",
     "maintainer": "duckyb",
-    "width": 7.75,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
