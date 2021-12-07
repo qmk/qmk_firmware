@@ -1,6 +1,9 @@
 name: Lint Format
 
-on: push
+on:
+  push:
+    paths-ignore:
+      - '**.md'
 
 jobs:
   lint:

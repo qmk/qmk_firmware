@@ -2,8 +2,8 @@ name: Unit Tests
 
 on:
   push:
-    branches:
-    - 'firmware**'
+    paths-ignore:
+      - '**.md'
   pull_request:
     paths:
     - 'builddefs/**'
