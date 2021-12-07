@@ -154,7 +154,7 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//1984 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//1834 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-12-07
 };
 
@@ -252,6 +252,25 @@ const char* const PROGMEM macro_subs[] = {
 	" {\n//\n} ",//\\a - a comment in a block
 };
 
+const char* const PROGMEM mode10[16] = {
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+};
+
 const char* modify_step(const char* ip) {
 	while(*(ip++) != 0);
 	return ip;
@@ -281,7 +300,7 @@ uint16_t cp(const char* ip) {
 	return p;
 }
 
-char outs[] = "   ";//for writing
+char outs[] = "    ";//for writing
 
 char* utf8(uint16_t cp) {
 	outs[2] = 0x80 + (cp & 0x3f);
@@ -289,7 +308,40 @@ char* utf8(uint16_t cp) {
 	outs[1] = 0x80 + (cp & 0x3f);
 	cp >>= 6;
 	outs[0] = 0xc0 + (cp & 0x0f);//and final 4 bits
+	outs[3] = '\0';//for other use
 	return outs;
+}
+
+const char* step_utf(const char* ip, uint8_t i) {
+	for(uint8_t j = 0; j < i; j++) {
+		uint8_t b = *ip;
+		if(b > 0x7f) {
+			ip++;//2 byte
+			if(b > 0xe0) {
+				ip++;//3 byte
+				if(b > 0xf0) {
+					ip++;//4 byte
+				}
+			}
+		}
+		ip++;
+	}
+	return ip;
+}
+
+void show_utf(const char* ip) {//single character
+	uint8_t b = *ip;
+	outs[0] = *(ip++);
+	if(b > 0x7f) {
+		outs[1] = *(ip++);//2 byte
+		if(b > 0xe0) {
+			outs[2] = *(ip++);//3 byte
+			if(b > 0xf0) {
+				outs[3] = *ip;//4 byte
+			}
+		}
+	}
+	send_unicode_string(ip);
 }
 
 char* made_utf(void) {
@@ -431,15 +483,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	}
 	if (record->event.pressed) {
 		//press
+		const char* ip;
 		if(keycode > KM_M) {
-
-			//(m | (m >> 4)) & 15;//get modifier index
+			ip = mode10[(m | (m >> 4)) & 15];
+			show_utf(step_utf(ip, keycode - PK_GRV));
 			//GASC bit order
 			//exit after macro effect
 			doing = off;
 			return true;
 		}
-		const char* ip = macro_unicode[keycode - KM_1];
+		ip = macro_unicode[keycode - KM_1];
 		if(m & MOD_MASK_SHIFT) ip = modify_step(ip);
 		if(m & MOD_MASK_CTRL) {//jump 2
 			ip = modify_step2(ip);
