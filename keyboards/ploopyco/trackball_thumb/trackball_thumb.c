@@ -118,48 +118,22 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int1
     mouse_report->y = y;
 }
 
-__attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
-    report_pmw_t data = pmw_read_burst();
-    if (data.isOnSurface && data.isMotion) {
-        // Reset timer if stopped moving
-        if (!data.isMotion) {
-            if (MotionStart != 0) MotionStart = 0;
-            return;
-        }
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    process_wheel();
 
-        // Set timer if new motion
-        if ((MotionStart == 0) && data.isMotion) {
-            if (debug_mouse) dprintf("Starting motion.\n");
-            MotionStart = timer_read();
-        }
-
-        if (debug_mouse) {
-            dprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart);
-        }
-        if (debug_mouse) {
-            dprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy);
-        }
-#if defined(PROFILE_LINEAR)
-        float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
-        data.dx *= scale;
-        data.dy *= scale;
-#elif defined(PROFILE_INVERSE)
-        // TODO
+    if (is_drag_scroll) {
+        mouse_report.h = mouse_report.x;
+#ifdef PLOOPY_DRAGSCROLL_INVERT
+        // Invert vertical scroll direction
+        mouse_report.v = -mouse_report.y;
 #else
-        // no post processing
+        mouse_report.v = mouse_report.y;
 #endif
-        // apply multiplier
-        // data.dx *= mouse_multiplier;
-        // data.dy *= mouse_multiplier;
-
-        // Wrap to HID size
-        data.dx = constrain(data.dx, -127, 127);
-        data.dy = constrain(data.dy, -127, 127);
-        if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
-        // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
-
-        process_mouse_user(mouse_report, data.dx, -data.dy);
+        mouse_report.x = 0;
+        mouse_report.y = 0;
     }
+
+    return pointing_device_task_user(mouse_report);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
