@@ -424,6 +424,7 @@ uint8_t make_final(uint8_t ini) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	uint8_t m = get_mods();
 	if(keycode < KM_1 || keycode > PK_SPC) {
 		doing = off;
 		return true;//protection better
@@ -432,16 +433,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		//press
 		if(keycode > KM_M) {
 
+			//(m | (m >> 4)) & 15;//get modifier index
+			//GASC bit order
 			//exit after macro effect
 			doing = off;
 			return true;
 		}
 		const char* ip = macro_unicode[keycode - KM_1];
-		if(get_mods() & MOD_MASK_SHIFT) ip = modify_step(ip);
-		if(get_mods() & MOD_MASK_CTRL) {//jump 2
+		if(m & MOD_MASK_SHIFT) ip = modify_step(ip);
+		if(m & MOD_MASK_CTRL) {//jump 2
 			ip = modify_step2(ip);
 		}
-		if(get_mods() & MOD_MASK_GUI) {//jump 4 -- currently next macro key
+		if(m & MOD_MASK_GUI) {//jump 4 -- currently next macro key
 			//jamo compose
 			uint16_t c = cp(ip);
 			if(c > 0x10ff && c < 0x1200) {
