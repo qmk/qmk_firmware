@@ -231,26 +231,6 @@ void pointing_device_init_kb(void) {
 }
 
 
-void pointing_device_task(void) {
-    report_mouse_t mouse_report = pointing_device_get_report();
-    process_wheel(&mouse_report);
-    process_mouse(&mouse_report);
-
-    if (is_drag_scroll) {
-        mouse_report.h = mouse_report.x;
-#ifdef PLOOPY_DRAGSCROLL_INVERT
-        // Invert vertical scroll direction
-        mouse_report.v = -mouse_report.y;
-#else
-        mouse_report.v = mouse_report.y;
-#endif
-        mouse_report.x = 0;
-        mouse_report.y = 0;
-    }
-
-    pointing_device_set_report(mouse_report);
-    pointing_device_send();
-}
 
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = PLOOPY_DPI_DEFAULT;
