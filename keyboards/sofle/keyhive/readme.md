@@ -14,7 +14,7 @@ Build guide: [Keyhive Sofle RGB build guide](https://github.com/keyhive/build_gu
 
 ### Acknowledgements
 
-* Solartempest - the image on this page and most of the code is either copied directly or inspired by their for. [Solartempest's fork.](https://github.com/solartempest/qmk_firmware/tree/master/keyboards/solartempest/sofle).
+* Solartempest - the image on this page and most of the code is either copied directly or inspired by their fork. [Solartempest's fork.](https://github.com/solartempest/qmk_firmware/tree/master/keyboards/solartempest/sofle).
 * [Keyhive fork](https://github.com/keyhive/qmk_firmware) defined all of the board settings.
 
 # Supported Keymaps
