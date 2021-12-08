@@ -21,23 +21,25 @@
 #define LAYER_COUNT 2
 
 // Defines names for use in layer keycodes and the keymap
-enum layer_names {
+enum layer_type {
     CH_ZOOM_WINDOWS,
     CH_ZOOM_MACOS
 };
+
+bool isWindows(uint8_t layer) {
+    return layer % 2 == 0;
+}
 
 const uint32_t firmware_version = 1;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [CH_ZOOM_WINDOWS] = LAYOUT(
-        CH_ZOOM_MUTE_TOGGLE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE, KC_NO,
-        KC_NO, KC_NO, KC_NO, CH_ZOOM_VIDEO_TOGGLE, KC_NO, KC_NO, KC_NO, KC_NO,
-        CH_ZOOM_REACT_TOGGLE, KC_NO, CH_ZOOM_LEAVE_MEETING, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+        CH_ZOOM_REACT_TOGGLE, CH_ZOOM_LEAVE_MEETING, KC_NO, KC_NO,
+        CH_ZOOM_MUTE_TOGGLE, CH_ZOOM_VIDEO_TOGGLE, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE
     ),
     [CH_ZOOM_MACOS] = LAYOUT(
-        CH_ZOOM_MUTE_TOGGLE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE, KC_NO,
-        KC_NO, KC_NO, KC_NO, CH_ZOOM_VIDEO_TOGGLE, KC_NO, KC_NO, KC_NO, KC_NO,
-        CH_ZOOM_REACT_TOGGLE, KC_NO, CH_ZOOM_LEAVE_MEETING, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+        CH_ZOOM_REACT_TOGGLE, CH_ZOOM_LEAVE_MEETING, KC_NO, KC_NO,
+        CH_ZOOM_MUTE_TOGGLE, CH_ZOOM_VIDEO_TOGGLE, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE
     )
 };
 
@@ -66,11 +68,36 @@ void send_protocol(uint8_t c) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    char keys[KEY_MACROS_MAX_COUNT];
-    uint8_t const* keyMacros = windowsConfigs[keycode];
-    for (uint8_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
-        keys[i] = keyMacros[i];
+    static bool is_either_pressed = false;
+    if (record->event.key.row == 0 && record->event.key.col <= 1) {
+        if (is_either_pressed) {
+            switch_layer();
+        }
+        is_either_pressed = record->event.pressed;
     }
-    send_string(keys);
+    if (record->event.pressed) {
+        if (keycode == CH_ZOOM_REACT_TOGGLE) {
+            SEND_STRING("REACT");
+        } else if (keycode == CH_ZOOM_LEAVE_MEETING) {
+            SEND_STRING("LEAVE");
+        } else if (keycode == CH_ZOOM_MUTE_TOGGLE) {
+            SEND_STRING("MUTE");
+        } else if (keycode == CH_ZOOM_VIDEO_TOGGLE) {
+            SEND_STRING("VIDEO");
+        } else if (keycode == CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE) {
+            SEND_STRING("SHARESRN");
+        }
+        // uint8_t const* keyMacros = windowsConfigs[keycode - SAFE_RANGE];
+        // for (uint8_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
+        //     uint8_t code = keyMacros[i];
+        //     if (code == KC_NO) continue;
+        //     register_code(code);
+        // }
+        // for (uint8_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
+        //     uint8_t code = keyMacros[i];
+        //     if (code == KC_NO) continue;
+        //     unregister_code(code);
+        // }
+    }
     return true;
 }
