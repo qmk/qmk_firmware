@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,    KC_LBRC,  KC_RBRC, KC_BSLS,
           KC_LGUI, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN, KC_QUOT,   KC_ENT,           KC_MUTE,
           KC_LSFT,          KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,   KC_UP,    KC_DEL,
-          KC_LCTL, KC_LGUI, KC_LALT,                        KC_SPC,                   MO(3), MO(2),           KC_LEFT, KC_DOWN,  KC_RIGHT
+          KC_LCTL, KC_LGUI, KC_LALT,                        KC_SPC,                   MO(2), MO(3),           KC_LEFT, KC_DOWN,  KC_RIGHT
     ),
     [1] = LAYOUT_65_ansi_blocker(
       _______,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, _______,
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [3] = LAYOUT_65_ansi_blocker(
       _______,    KC_F1,      KC_F2,      KC_F3,      KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,     KC_F11,   KC_F12,  _______,
-      _______,  RGB_TOG,    RGB_VAI,    RGB_VAD,    RGB_MODE_FORWARD,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, 
+      _______,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,   
       RESET,    _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,            KC_MPLY,
       _______,              _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, _______,   _______,
       _______,  _______,    _______,                            KC_SPC,                                    _______,    _______,              _______,  _______,  _______
@@ -158,16 +158,18 @@ void render_wpm(void) {
     oled_set_cursor(1,14);
     sprintf(wpm_str, "%03d", get_current_wpm());
     oled_write(wpm_str, false);
-
+    
     oled_set_cursor(1,15);
-    oled_write("WPM", false);
+    oled_write_P(PSTR("WPM"), false);
 
 }
 
 // Function that renders stuff on the oled:
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_logo();
     render_layer();
     render_wpm();
+
+    return false;
 }
 #endif
