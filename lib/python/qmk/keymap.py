@@ -190,6 +190,50 @@ def generate_json(keymap, keyboard, layout, layers):
     return new_keymap
 
 
+def _extract_layout_desc(info_json):
+    """Returns an objecting representing the keyboard matrix if available, otherwise None
+
+    `info_json` is a JSON object representing a keyboard's info.json file.
+
+    The result is an array of objects containg `x` and `y` keys.
+    """
+    lt = None
+    layouts = None
+    if info_json:
+        layouts = info_json.get('layouts')
+    if layouts:
+        k = [*layouts.keys()][0]
+        lt = layouts[k]
+    return lt['layout'] if lt else None
+
+# TODO(unassigned/pfn): Write unit tests
+def _generate_c_layout_with_desc(layer, layout_desc):
+    """Returns a single LAYOUT macro argument line.
+
+    `layer` is an iterable of keycodes
+
+    `info_json` is a JSON object representing a keyboard's info.json file
+    """
+    if layout_desc:
+        last_x = 0
+        chars = 0
+        layer_keys = "\n"
+        for i, k in zip(range(len(layout_desc)), layer):
+            x = layout_desc[i]['x']
+            pos = x * 8
+            if last_x > x:
+                layer_keys += "\n"
+                chars = 0
+            indent = pos - chars - max(7, len(k)) - max(0, chars - pos)
+            width = 7 - max(0, chars - pos)
+            fmt = "%s%" + str(width) + "s,"
+            layer_keys += fmt % (indent * " ", k)
+            last_x = x
+            chars = chars + max(width + 1, len(k) + 1) + max(0, indent)
+        return layer_keys[:-1]  # drop trailing ,
+    else:
+        return ', '.join(layer)
+
 def generate_c(keymap_json, info_json=None):
     """Returns a `keymap.c`.
 
@@ -210,38 +254,14 @@ def generate_c(keymap_json, info_json=None):
     new_keymap = template_c(keymap_json['keyboard'])
     layer_txt = []
 
+    layout_desc = _extract_layout_desc(info_json)
+
     for layer_num, layer in enumerate(keymap_json['layers']):
         if layer_num != 0:
             layer_txt[-1] = layer_txt[-1] + ','
+
         layer = map(_strip_trans, map(_strip_any, layer))
-        # TODO(unassigned/pfn): Write unit tests
-        lt = None
-        layouts = None
-        if info_json:
-            layouts = info_json.get('layouts')
-        if layouts:
-            k = [*layouts.keys()][0]
-            lt = layouts[k]
-        if lt:
-            layout_desc = lt['layout']
-            last_x = 0
-            chars = 0
-            layer_keys = "\n"
-            for i, k in zip(range(len(layout_desc)), layer):
-                x = layout_desc[i]['x']
-                pos = x * 8
-                if last_x > x:
-                    layer_keys += "\n"
-                    chars = 0
-                indent = pos - chars - max(7, len(k)) - max(0, chars - pos)
-                width = 7 - max(0, chars - pos)
-                fmt = "%s%" + str(width) + "s,"
-                layer_keys += fmt % (indent * " ", k)
-                last_x = x
-                chars = chars + max(width + 1, len(k) + 1) + max(0, indent)
-            layer_keys = layer_keys[:-1]  # drop trailing ,
-        else:
-            layer_keys = ', '.join(layer)
+        layer_keys = _generate_c_layout_with_desc(layer, layout_desc)
 
         layer_txt.append('\t[%s] = %s(%s)' % (layer_num, keymap_json['layout'], layer_keys))
 
