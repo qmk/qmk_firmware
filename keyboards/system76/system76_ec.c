@@ -76,7 +76,9 @@ void system76_ec_unlock(void) {
 #ifdef RGB_MATRIX_CUSTOM_KB
     rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_unlocked);
 #endif
+#ifdef SYSTEM76_EC
     bootloader_unlocked = true;
+#endif
 }
 
 bool system76_ec_is_unlocked(void) { return bootloader_unlocked; }

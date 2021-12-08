@@ -28,6 +28,19 @@ RGB_MATRIX_CUSTOM_KB = yes  # Custom keyboard effects
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes            # Link-time optimization for smaller binary
 
+# System76 EC
+#   remove the RESET HID command
+VALID_SYSTEM76_EC_TYPES := yes
+SYSTEM76_EC_ENABLE ?= no
+ifneq ($(strip $(SYSTEM76_EC_ENABLE)),no)
+    ifeq ($(filter $(SYSTEM76_EC_ENABLE),$(VALID_SYSTEM76_EC_TYPES)),)
+        $(error SYSTEM76_EC_EN="$(strip $(SYSTEM76_EC_ENABLE))" is not a valid type for the System76 EC option)
+    endif
+    ifneq ($(strip $(SYSTEM76_EC_ENABLE)),no)
+        OPT_DEFS += -DSYSTEM76_EC
+    endif
+endif
+
 # Add System76 EC command interface as well as I2C and USB mux drivers
 SRC += system76_ec.c usb_mux.c
 QUANTUM_LIB_SRC += i2c_master.c
