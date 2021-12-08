@@ -171,6 +171,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
     switch (keycode) {
         case RESET:
             if (record->event.pressed) {
@@ -179,7 +183,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #ifdef SYSTEM76_EC
             return false;
 #else
-            break;
+            return true;
 #endif
         case RGB_VAD:
             if (record->event.pressed) {
@@ -218,7 +222,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 
-    return process_record_user(keycode, record);
+    return true;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t layer_state) {
