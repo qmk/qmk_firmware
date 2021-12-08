@@ -2,11 +2,7 @@
 
 ![hillside](https://imgur.com/XW0rX13.png)
 
-[Hillside](https://github.com/mmccoyd/hillside)
- is a split ergonomic keyboard with 3x6+4+2 choc-spaced keys with
- aggressive column stager,
- a longer thumb arc and a breakoff outer-pinky column.
-
+[Hillside](https://github.com/mmccoyd/hillside) is a split ergonomic keyboard with 3x6+4+2 choc-spaced keys with aggressive column stagger, a longer thumb arc and a breakoff outer-pinky column.
 
 * Keyboard Maintainer: [Michael McCoyd](https://github.com/mmccoyd)
 * Hardware Supported: ProMicro/Elite-C and compatible
