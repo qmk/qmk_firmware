@@ -24,7 +24,7 @@ bool showedJump = true;
 
 #ifdef MAIN_BOARD
 static void render_logos(void){}
-static void luna_jump(bool newJump){
+void luna_jump(bool newJump){
     isJumping = newJump;
     if (newJump) {
         showedJump = false;

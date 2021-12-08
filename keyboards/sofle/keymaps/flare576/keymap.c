@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 #include "print.h"
 #include "enums.h"
-#include "graphics.c"
+#include "graphics.h"
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_PLAY] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MNXT),
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |Symbol|      |/       /         \Mouse \ |      |Shift |      |      |
  *            `----------------------------------'           '------''---------------------------'
  *
- *
+ * Note: Apple's keyboard settings don't seem to discern right- and left-ALT, so swapping keys there breaks TAB & META
  */
 [_BASE] = LAYOUT(
   KC_GRV,         KC_1, KC_2,      KC_3,    KC_4,             KC_5,                                KC_6,    KC_7,          KC_8,    KC_9,     KC_0,    KC_MINS,
