@@ -55,7 +55,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RADIALEX:
             if (record->event.pressed) {
                 SEND_STRING("Radialex");
-                tap_code16(RGB_TOG);
+                rgblight_toggle();
             }
             break;
     }
