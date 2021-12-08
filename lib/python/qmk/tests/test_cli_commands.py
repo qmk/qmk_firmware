@@ -139,13 +139,13 @@ def test_list_keymaps_no_keyboard_found():
 def test_json2c():
     result = check_subcommand('json2c', 'keyboards/handwired/pytest/has_template/keymaps/default_json/keymap.json')
     check_returncode(result)
-    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
+    assert "".join(result.stdout.split()) == "".join('#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'.split())
 
 
 def test_json2c_macros():
     result = check_subcommand("json2c", 'keyboards/handwired/pytest/macro/keymaps/default/keymap.json')
     check_returncode(result)
-    assert 'LAYOUT_ortho_1x1(MACRO_0)' in result.stdout
+    assert 'LAYOUT_ortho_1x1(MACRO_0)' in "".join(result.stdout.split())
     assert 'case MACRO_0:' in result.stdout
     assert 'SEND_STRING("Hello, World!"SS_TAP(X_ENTER));' in result.stdout
 
@@ -153,7 +153,7 @@ def test_json2c_macros():
 def test_json2c_stdin():
     result = check_subcommand_stdin('keyboards/handwired/pytest/has_template/keymaps/default_json/keymap.json', 'json2c', '-')
     check_returncode(result)
-    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
+    assert "".join(result.stdout.split()) == "".join('#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'.split())
 
 
 def test_info():
