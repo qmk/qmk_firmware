@@ -1,5 +1,5 @@
 # 60% is default
-SRC += 60/kpalatzky.c
+SRC += kpalatzky_keymap_60.c
 
 # Flags
 ## Enable features
