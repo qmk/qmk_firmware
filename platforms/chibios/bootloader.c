@@ -124,15 +124,10 @@ void enter_bootloader_mode_if_requested(void) { /* Jumping to bootloader is not 
 /* Kiibohd Bootloader (MCHCK and Infinity KB) */
 #        define SCB_AIRCR_VECTKEY_WRITEMAGIC 0x05FA0000
 
-// taken from Kiibohd/controller
-#        define VBAT_SECURE1            *(volatile uint32_t *)0x4003E018 // Kiibohd Secure 32 bit register 1 (24th byte)
-#        define VBAT_SECURE2            *(volatile uint32_t *)0x4003E01C // Kiibohd Secure 32 bit register 2 (28th byte)
-const uint8_t              sys_reset_to_loader_magic[] = "\xff\x00\x7fRESET TO LOADER\x7f\x00\xff";
+const uint8_t              sys_reset_to_loader_magic[] = "\xff\x00\x7fRESET TO LOADER\x7f\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 __attribute__((weak)) void bootloader_jump(void) {
     void *volatile vbat = (void *)VBAT;
     __builtin_memcpy(vbat, (const void *)sys_reset_to_loader_magic, sizeof(sys_reset_to_loader_magic));
-    VBAT_SECURE1 = 0;
-    VBAT_SECURE2 = 0;
     // request reset
     SCB->AIRCR = SCB_AIRCR_VECTKEY_WRITEMAGIC | SCB_AIRCR_SYSRESETREQ_Msk;
 }
