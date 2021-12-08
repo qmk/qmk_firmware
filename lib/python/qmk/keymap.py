@@ -206,6 +206,7 @@ def _extract_layout_desc(info_json):
         lt = layouts[k]
     return lt['layout'] if lt else None
 
+
 # TODO(unassigned/pfn): Write unit tests
 def _generate_c_layout_with_desc(layer, layout_desc):
     """Returns a single LAYOUT macro argument line.
@@ -233,6 +234,7 @@ def _generate_c_layout_with_desc(layer, layout_desc):
         return layer_keys[:-1]  # drop trailing ,
     else:
         return ', '.join(layer)
+
 
 def generate_c(keymap_json, info_json=None):
     """Returns a `keymap.c`.
