@@ -27,7 +27,7 @@ See [keyhive_via](../keymaps/keyhive_via/readme.md) for details about configurin
 
 # Compiling
 
-Make example for this keyboard:
+Make example for this keyboard (after setting up your build environment):
 
     make sofle/keyhive:keyhive_via
 
