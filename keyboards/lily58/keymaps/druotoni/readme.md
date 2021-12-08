@@ -3,7 +3,7 @@
 
 ## Startup animation
 
-![Startup animation](https://imgur.com/a/2aVaxiI)
 
+![Startup animation](https://i.imgur.com/EXU92Ev.gif)
 
 
