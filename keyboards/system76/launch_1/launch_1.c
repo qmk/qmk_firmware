@@ -39,8 +39,8 @@ led_config_t g_led_config = { LAYOUT(
 /* 1 */ 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54,
 /* 2 */ 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53,
 /* 3 */ 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26,     25,
-/* 4 */ 12, 11, 10,  9,  8,  7,  6,  5,  4,  3,  2,  1,  0,
-/* 5 */ 13, 14, 15, 16, 17,     18, 19, 20, 21, 22, 23, 24
+/* 4 */ 12, 11, 10,  9,  8,  7,  6,  5,  4,  3,  2,  1,      0,
+/* 5 */ 13, 14, 15, 16, 17,     18,      19, 20, 21,    22, 23, 24
 ), {
     // LED index to physical position (see leds.sh in `launch' repo)
 /* 00 */ {209, 51}, {190, 51}, {171, 51}, {156, 51}, {140, 51}, {125, 51}, {110, 51}, {95, 51}, {80, 51}, {65, 51},
@@ -87,6 +87,31 @@ void bootmagic_lite_reset_eeprom(void) {
     eeconfig_disable();
 }
 
+// The lite version of TMK's bootmagic based on Wilba.
+// 100% less potential for accidentally making the keyboard do stupid things.
+void bootmagic_lite(void) {
+    // Perform multiple scans because debouncing can't be turned off.
+    matrix_scan();
+#if defined(DEBOUNCE) && DEBOUNCE > 0
+    wait_ms(DEBOUNCE * 2);
+#else
+    wait_ms(30);
+#endif
+    matrix_scan();
+
+    // If the configured key (commonly Esc) is held down on power up,
+    // reset the EEPROM valid state and jump to bootloader.
+    uint8_t row = 0;  // BOOTMAGIC_LITE_ROW;
+    uint8_t col = 0;  // BOOTMAGIC_LITE_COLUMN;
+
+    if (matrix_get_row(row) & (1 << col)) {
+        bootmagic_lite_reset_eeprom();
+
+        // Jump to bootloader.
+        bootloader_jump();
+    }
+}
+
 void system76_ec_rgb_eeprom(bool write);
 void system76_ec_rgb_layer(layer_state_t layer_state);
 void system76_ec_unlock(void);
@@ -97,6 +122,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
 void matrix_init_kb(void) {
     usb_mux_init();
 
+    bootmagic_lite();
     if (!eeprom_is_valid()) {
         dynamic_keymap_reset();
         dynamic_keymap_macro_reset();
@@ -200,7 +226,7 @@ layer_state_t layer_state_set_kb(layer_state_t layer_state) {
 #ifdef CONSOLE_ENABLE
 void keyboard_post_init_user(void) {
     debug_enable   = true;
-    debug_matrix   = true;
-    debug_keyboard = true;
+    debug_matrix   = false;
+    debug_keyboard = false;
 }
 #endif  // CONSOLE_ENABLE

@@ -47,6 +47,8 @@ qmk flash -kb system76/launch_1 -km default
 
 To flash the firmware (and/or bootloader) using ISP refer to the [_ISP Flashing Guide_](https://docs.qmk.fm/#/isp_flashing_guide).
 
+> **Factory fuse values** => Low: `0x5E`, High: `0x99`, Extended: `0xF3`, Lock Bits: `0xFF`
+
 ## Environment Setup
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. If new to QMK, start with the [_Complete Newbs Guide_](https://docs.qmk.fm/#/newbs).

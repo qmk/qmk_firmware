@@ -12,7 +12,7 @@ BOOTLOADER = atmel-dfu
 
 # Build options
 #   change yes to no to disable
-BOOTMAGIC_ENABLE = yes      # Bootmagic Lite
+BOOTMAGIC_ENABLE = no       # Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and system control
 CONSOLE_ENABLE = no         # Console for debug

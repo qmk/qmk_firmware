@@ -73,7 +73,9 @@ static bool bootloader_reset    = false;
 static bool bootloader_unlocked = false;
 
 void system76_ec_unlock(void) {
+#ifdef RGB_MATRIX_CUSTOM_KB
     rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_unlocked);
+#endif
     bootloader_unlocked = true;
 }
 
