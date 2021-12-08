@@ -1,6 +1,6 @@
 # Kintsugi
 
-![kintsugi](imgur.com image replace me!)
+![kintsugi](imgur.com/HPdmzdC)
 
 ## Features
 
