@@ -15,26 +15,30 @@
  */
 #include QMK_KEYBOARD_H
 #include "keymap_german_ch.h"
+#include "features/caps_word.h"
+#include "features/haptic_utils.h"
+
+#ifdef PS2_MOUSE_ENABLE
+    #include "ps2_mouse.h"
+#endif
 
 enum layers {
     _BASE = 0,
     _NAVR,
-    _SYMR,
+    _SYMB,
     _NUMR,
     _FUNL,
-    _SYML,
-    _ADJL
+    _MOAJ
 };
 
 
 // Aliases for readability
 #define BASE     DF(_BASE)
 #define NAVR     MO(_NAVR)
-#define SYMR     MO(_SYMR)
+#define SYMB     MO(_SYMB)
 #define NUMR     MO(_NUMR)
 #define FUNL     MO(_FUNL)
-#define SYML     MO(_SYML)
-#define ADJL     MO(_ADJL)
+#define MOAD     MO(_MOAJ)
 
 // Left-hand home row mods
 #define RALT_X  RALT_T(KC_X)
@@ -52,21 +56,22 @@ enum layers {
 
 // Left-hand outer column
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
-#define SFT_TAB  MT(MOD_LSFT, KC_TAB)
 
 // Thumbcluster
-#define UC_TL1 NAVR
-#define UC_TL2 LT(SYMR, KC_SPC)
+#define UC_TL1 CTL_ESC
+#define UC_TL2 LT(NAVR, KC_SPC)
 #define UC_TL3 LT(NUMR, KC_TAB)
 
-#define UC_TR3 KC_BTN1
-#define UC_TR2 LT(SYML, KC_ENT)
-#define UC_TR1 LT(FUNL, KC_DEL)
+#define UC_TR3 LT(FUNL, KC_BSPC)
+#define UC_TR2 LT(SYMB, KC_ENT)
+#define UC_TR1 KC_DEL
 
 // Shortcuts
 #define UC_COPY LCTL(KC_C)
 #define UC_PSTE LCTL(KC_V)
 #define UC_CUT  LCTL(KC_X)
+#define UC_MUTE SGUI(KC_M)
+#define UC_RUN  LGUI(KC_SPC)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -78,21 +83,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  *                 |   Q  |   W  |   E  |   R  |   T  |                                               |   Z  |   U  |   I  |   O  |   P  |      
 //  *                 |      |      |      |      |      |                                               |      |      |      |      |      |      
 //  *          ,------+------+------+------+------+------|                                               |------+------+------+------+------+------.
-//  *          |  TAB |   A  |   S  |   D  |   F  |   G  |                                               |   H  |   J  |   K  |   L  |  ; : | Bksp |
-//  *          |  SFT |  GUI | LALT | LCTL | LSFT |      |                                               |      | LSFT | LCTL |  ALT |  GUI |      |
+//  *          | Macro|   A  |   S  |   D  |   F  |   G  |                                               |   H  |   J  |   K  |   L  |  ; : | Bksp |
+//  *          | Play |  GUI | LALT | LCTL | LSFT |      |                                               |      | LSFT | LCTL | LALT |  GUI |      |
 //  *          |------+------+------+------+------+------|                                               |------+------+------+------+------+------|
-//  *          |  ESC |   Y  |   X  |   C  |   F  |   B  |                                               |   N  |   M  |  , < |  . > |  / ? |RShift|
-//  *          |  CTL |      | RALT |      |      |      |                                               |      |      |      | RALT |      |      |
+//  *          |  ESC |   Y  |   X  |   C  |   F  |   B  |                                               |   N  |   M  |  , < |  . > |  / ? | Mute |
+//  *          |  CTL |      | RALT |      |      |      |                                               |      |      |      | RALT |      |  Mic |
 //  *          `----------------------------------+------+-------------.                   ,-------------+------+----------------------------------'
-//  *                                             |      | Space| TAB  |                   |  BTN1| Enter| DEL  |
-//  *                                             | NAVR | SYMR | NUMR |                   |  FUNL| SYML |      |
+//  *                                             |  ESC | Space| TAB  |                   |  Bksp| Enter|  Del |
+//  *                                             |  CTL | NAVR | NUMR |                   |  FUNL| SYML |      |
 //  *                                             `--------------------'                   `--------------------'
 //  */
     [_BASE] = LAYOUT(
                KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                                        CH_Z   , KC_U   , KC_I   , KC_O   , KC_P   ,
-      SFT_TAB, GUI_A  , ALT_S  , CTL_D  , SFT_F  , KC_G   ,                                        KC_H   , SFT_J  , CTL_K  , ALT_L  , GUI_SCL, KC_BSPC,
-      CTL_ESC, CH_Y   , RALT_X , KC_C   , KC_V   , KC_B   ,                                        KC_N   , KC_M   , KC_COMM, RALT_DT, KC_SLSH, KC_RSFT,
+      DM_PLY1, GUI_A  , ALT_S  , CTL_D  , SFT_F  , KC_G   ,                                        KC_H   , SFT_J  , CTL_K  , ALT_L  , GUI_SCL, KC_BSPC,
+      CTL_ESC, CH_Y   , RALT_X , KC_C   , KC_V   , KC_B   ,                                        KC_N   , KC_M   , KC_COMM, RALT_DT, KC_SLSH, UC_MUTE,
                                                    UC_TL1 , UC_TL2 , UC_TL3 ,    UC_TR3 , UC_TR2 , UC_TR1
+    ),
+
+// /*
+//  * Symbol Layer
+//  *
+//  *                 ,----------------------------------.                                               ,----------------------------------.
+//  *                 |   `  |   @  |   {  |   }  |   $  |                                               |   ¨  |   ü  |   /  |   \  |   ^  |      
+//  *                 |      |      |      |      |      |                                               |      |      |      |      |      |      
+//  *          ,------+------+------+------+------+------|                                               |------+------+------+------+------+------.
+//  *          | Macro|   ä  |   &  |   (  |   )  |   |  |                                               |   '  |   "  |   ?  |   !  |   +  |      |
+//  *          | Stop |      |      |      |      |      |                                               |      |      |      |      |      |      |
+//  *          |------+------+------+------+------+------|                                               |------+------+------+------+------+------|
+//  *          |      |   %  |   #  |   [  |   ]  |   ~  |                                               |   €  |   =  |   *  |   <  |   >  |      |
+//  *          |      |      |      |      |      |      |                                               |      |      |      |      |      |      |
+//  *          `----------------------------------+------+-------------.                   ,-------------+------+----------------------------------'
+//  *                                             |      |      | TAB  |                   |      |      |      |
+//  *                                             |      |      |      |                   |      |      |      |
+//  *                                             `--------------------'                   `--------------------'
+//  */
+    [_SYMB] = LAYOUT(
+               CH_GRV , CH_AT  , CH_LCBR, CH_RCBR, CH_DLR ,                                       CH_DIAE, CH_UDIA, CH_SLSH, CH_BSLS, KC_CIRC,
+      DM_RSTP, CH_ADIA, CH_AMPR, CH_LPRN, CH_RPRN, CH_PIPE,                                       CH_QUOT, CH_DQUO, CH_QUES, CH_EXLM, CH_PLUS, _______,
+      _______, CH_PERC, CH_HASH, CH_LBRC, CH_RBRC, CH_TILD,                                       CH_EURO, CH_EQL , CH_ASTR, CH_LABK, CH_RABK, _______,
+                                                   _______, _______, KC_TAB,    _______, _______ , _______ 
     ),
 
 // /*
@@ -108,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  *          |      |      |      |      |      |      |                                               | Paste| Home | WH_U | WH_D | End  |      |
 //  *          |      |      |      |      |      |      |                                               |      |      |      |      |      |      |
 //  *          `----------------------------------+------+-------------.                   ,-------------+------+----------------------------------'
-//  *                                             |      |      |      |                   |  BTN2| Enter| DEL  |
+//  *                                             |      |      |      |                   | Bksp |      |  Del |
 //  *                                             |      |      |      |                   |      |      |      |
 //  *                                             `--------------------'                   `--------------------'
 //  */
@@ -116,34 +145,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                _______, _______, _______, _______, _______,                                        KC_INS , UC_CUT , KC_PGUP, KC_PGDN, _______,
       _______, _______, _______, _______, _______, _______,                                        UC_COPY, KC_LEFT, KC_UP  , KC_DOWN, KC_RGHT, _______,
       _______, _______, _______, _______, _______, _______,                                        UC_PSTE, KC_HOME, KC_WH_U, KC_WH_D, KC_END , _______,
-                                                   _______, _______, _______,    KC_BTN2, KC_BSPC, KC_ENT
+                                                   _______, _______, _______,    KC_BSPC, _______, _______
     ),
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-// /*
-//  * Symbol Layer (Right)
-//  *
-//  *                 ,----------------------------------.                                               ,----------------------------------.
-//  *                 |      |      |      |      |      |                                               |   ¨  |   ü  |   /  |   \  |   ^  |      
-//  *                 |      |      |      |      |      |                                               |      |      |      |      |      |      
-//  *          ,------+------+------+------+------+------|                                               |------+------+------+------+------+------.
-//  *          |      |      |      |      |      |      |                                               |   '  |   "  |   ?  |   !  |   +  |      |
-//  *          |      |      |      |      |      |      |                                               |      |      |      |      |      |      |
-//  *          |------+------+------+------+------+------|                                               |------+------+------+------+------+------|
-//  *          |      |      |      |      |      |      |                                               |   €  |   =  |   *  |   <  |   >  |      |
-//  *          |      |      |      |      |      |      |                                               |      |      |      |      |      |      |
-//  *          `----------------------------------+------+-------------.                   ,-------------+------+----------------------------------'
-//  *                                             |      |      |      |                   |      | Enter|  DEL |
-//  *                                             |      |      |      |                   |      |      |      |
-//  *                                             `--------------------'                   `--------------------'
-//  */
-    [_SYMR] = LAYOUT(
-               _______, _______, _______, _______, _______,                                        CH_DIAE, CH_UDIA, CH_SLSH, CH_BSLS, KC_CIRC,
-      _______, _______, _______, _______, _______, _______,                                        CH_QUOT, CH_DQUO, CH_QUES, CH_EXLM, CH_PLUS, _______,
-      _______, _______, _______, _______, _______, _______,                                        CH_EURO, CH_EQL , CH_ASTR, CH_LABK, CH_RABK, _______,
-                                                   _______, _______, _______,    _______, KC_ENT , KC_BSPC 
-    ),
 
 // /*
 //  * Number Layer (Right)
@@ -158,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  *          |      |      |      |      |      |      |                                               |   0  |   1  |   2  |  3   |  .   |      |
 //  *          |      |      |      |      |      |      |                                               |      |      |      |      |      |      |
 //  *          `----------------------------------+------+-------------.                   ,-------------+------+----------------------------------'
-//  *                                             |      |      |      |                   |      | Enter| DEL  |
+//  *                                             |      |      |      |                   | Bksp | Enter|      |
 //  *                                             |      |      |      |                   |      |      |      |
 //  *                                             `--------------------'                   `--------------------'
 //  */
@@ -166,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                _______, _______, _______, _______, _______,                                        KC_SLSH, KC_7   , KC_8   , KC_9   , KC_MINS,
       _______, _______, _______, _______, _______, _______,                                        KC_ASTR, KC_4   , KC_5   , KC_6   , KC_PLUS, _______,
       _______, _______, _______, _______, _______, _______,                                        KC_0   , KC_1   , KC_2   , KC_3   , KC_DOT , _______,
-                                                   _______, _______, _______,    _______, KC_ENT , KC_BSPC 
+                                                   _______, _______, _______,    KC_BSPC, KC_ENT , _______ 
     ),
 
 // /*
@@ -176,69 +180,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  *                 |  F12 |  F7  |  F8  |  F9  | Pause|                                               |      |      |      |      |      |      
 //  *                 |      |      |      |      |      |                                               |      |      |      |      |      |      
 //  *          ,------+------+------+------+------+------|                                               |------+------+------+------+------+------.
-//  *          |      |  F11 |  F4  |  F5  |  F6  | PrScr|                                               |      |      |      |      |      |      |
-//  *          |      |      |      |      |      |      |                                               |      |      |      |      |      |      |
+//  *          | Macro|  F11 |  F4  |  F5  |  F6  | PrScr|                                               |      |      |      |      |      |      |
+//  *          |Record|      |      |      |      |      |                                               |      |      |      |      |      |      |
 //  *          |------+------+------+------+------+------|                                               |------+------+------+------+------+------|
 //  *          |      |  F10 |  F1  |  F2  |  F3  | CapsL|                                               |      |      |      |      |      |      |
 //  *          |      |      |      |      |      |      |                                               |      |      |      |      |      |      |
 //  *          `----------------------------------+------+-------------.                   ,-------------+------+----------------------------------'
 //  *                                             |      | Space|  TAB |                   |      |      |      |
-//  *                                             |  ADJ |      |      |                   |      |      |      |
+//  *                                             |      |      |      |                   |      |      |      |
 //  *                                             `--------------------'                   `--------------------'
 //  */
     [_FUNL] = LAYOUT(
                KC_F12 , KC_F7  , KC_F8  , KC_F9  , KC_PAUS,                                        _______, _______, _______, _______, _______,
-      _______, KC_F11 , KC_F4  , KC_F5  , KC_F6  , KC_PSCR,                                        _______, _______, _______, _______, _______, _______,
+      DM_REC1, KC_F11 , KC_F4  , KC_F5  , KC_F6  , KC_PSCR,                                        _______, _______, _______, _______, _______, _______,
       _______, KC_F10 , KC_F1  , KC_F2  , KC_F3  , KC_CAPS,                                        _______, _______, _______, _______, _______, _______,
-                                                   ADJL   , KC_SPC , KC_TAB  ,    _______, _______, _______
-    ),
-
-// /*
-//  * Symbol Layer (Left)
-//  *
-//  *                 ,----------------------------------.                                               ,----------------------------------.
-//  *                 |   `  |   @  |   {  |   }  |   $  |                                               |      |      |      |      |      |      
-//  *                 |      |      |      |      |      |                                               |      |      |      |      |      |      
-//  *          ,------+------+------+------+------+------|                                               |------+------+------+------+------+------.
-//  *          |      |   ä  |   &  |   (  |   )  |   |  |                                               |      |      |      |      |      |      |
-//  *          |      |      |      |      |      |      |                                               |      |      |      |      |      |      |
-//  *          |------+------+------+------+------+------|                                               |------+------+------+------+------+------|
-//  *          |      |   %  |   #  |   [  |   ]  |   ~  |                                               |      |      |      |      |      |      |
-//  *          |      |      |      |      |      |      |                                               |      |      |      |      |      |      |
-//  *          `----------------------------------+------+-------------.                   ,-------------+------+----------------------------------'
-//  *                                             |      | Space| TAB  |                   |      |      |      |
-//  *                                             |  ADJ |      |      |                   |      |      |      |
-//  *                                             `--------------------'                   `--------------------'
-//  */
-    [_SYML] = LAYOUT(
-               CH_GRV , CH_AT  , CH_LCBR, CH_RCBR, CH_DLR ,                                        _______, _______, _______, _______, _______,
-      _______, CH_ADIA, CH_AMPR, CH_LPRN, CH_RPRN, CH_PIPE,                                        _______, _______, _______, _______, _______, _______,
-      _______, CH_PERC, CH_HASH, CH_LBRC, CH_RBRC, CH_TILD,                                        _______, _______, _______, _______, _______, _______,
-                                                   ADJL   , KC_SPC , KC_TAB  ,    _______, _______, _______
+                                                   _______, KC_SPC , KC_TAB  ,    _______, _______, _______
     ),
   
 // /*
-//  * Adjustment Layer (Left)
+//  * Mouse & Adjustment Layer
 //  *
 //  *                 ,----------------------------------.                                               ,----------------------------------.
 //  *                 |      |      |      |      |      |                                               |      |      |      |      |      |      
 //  *                 |      |      |      |      |      |                                               |      |      |      |      |      |      
 //  *          ,------+------+------+------+------+------|                                               |------+------+------+------+------+------.
-//  *          |      |      |      |      |      |      |                                               |      |M Prev| VolDn| VolUp|M Next|      |
+//  *          |      |      | BTN3 | BTN2 | BTN1 |      |                                               |      |      |      |      |      |      |
 //  *          |      |      |      |      |      |      |                                               |      |      |      |      |      |      |
 //  *          |------+------+------+------+------+------|                                               |------+------+------+------+------+------|
-//  *          |      |      |      |      |      |      |                                               |      | Play | Mute |      |      |      |
+//  *          |      |      |  Cut | Copy | Paste|      |                                               | Mute |M Prev| VolDn| VolUp|M Next|      |
 //  *          |      |      |      |      |      |      |                                               |      |      |      |      |      |      |
 //  *          `----------------------------------+------+-------------.                   ,-------------+------+----------------------------------'
-//  *                                             |      | Space| TAB  |                   |      |      |      |
+//  *                                             |      |      |      |                   |      |      |      |
 //  *                                             |      |      |      |                   |      |      |      |
 //  *                                             `--------------------'                   `--------------------'
 //  */
-    [_ADJL] = LAYOUT(
+    [_MOAJ] = LAYOUT(
                _______, _______, _______, _______, _______,                                        _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______,                                        _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______,
-      _______, _______, _______, _______, _______, _______,                                        _______, KC_MPLY, KC_MUTE, _______, _______, _______,
-                                                   _______, KC_SPC , KC_TAB  ,    _______, _______, _______
+      _______, _______, KC_BTN3, KC_BTN2, KC_BTN1, _______,                                        _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______,
+      _______, _______, UC_CUT , UC_COPY, UC_PSTE, _______,                                        _______, KC_MPLY, KC_MUTE, _______, _______, _______,
+                                                   _______, _______, _______,    _______, _______, _______
     ),
 
 // -------------------------------------------------------- TEMPLATE -------------------------------------------------------------------------------------
@@ -268,6 +248,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  if (!process_caps_word(keycode, record)) { return false; }
+
+  return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    process_layer_pulse(state);
+    return update_tri_layer_state(state, _NAVR, _SYMB, _MOAJ);
+}
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case GUI_A:
@@ -282,16 +273,3 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
-
-#ifdef HAPTIC_ENABLE
-
-bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_BTN1 ... KC_BTN5:
-            return true;
-            break;
-    }
-
-    return false;
-}
-#endif

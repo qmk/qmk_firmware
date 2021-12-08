@@ -65,9 +65,6 @@ __attribute__((weak)) void oled_task_user(void) {
                 oled_write_raw_P(fun_logo, sizeof(fun_logo));
                 break;
             case 5:
-                oled_write_raw_P(sym_logo, sizeof(sym_logo));
-                break;
-            case 6:
                 oled_write_raw_P(adj_logo, sizeof(adj_logo));
                 break;
             default:
