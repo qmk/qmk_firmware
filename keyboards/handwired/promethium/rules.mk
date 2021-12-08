@@ -8,8 +8,7 @@ F_CPU = 8000000
 BOOTLOADER = caterina
 
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
@@ -25,9 +24,6 @@ PS2_USE_INT = yes
 CUSTOM_MATRIX = yes
 BLUETOOTH_ENABLE = yes
 BLUETOOTH_DRIVER = AdafruitBLE
-
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SRC += ws2812.c
 SRC += rgbsps.c

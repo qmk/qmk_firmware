@@ -4,9 +4,8 @@ MCU = atmega32u4
 # Bootloader selection
 BOOTLOADER = caterina
 
-# QMK Standard Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
+# Build Options
+#   change yes to no to disable
 #
 #   See TOP/docs/config_options.md for more information.
 #
@@ -19,8 +18,6 @@ NKRO_ENABLE = no        # Nkey Rollover - if this doesn't work, see here: https:
 BACKLIGHT_ENABLE = no   # Enable keyboard backlight functionality
 AUDIO_ENABLE = no       # Audio output
 RGBLIGHT_ENABLE = no    # Enable WS2812 RGB underlight.
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend
 
 DEFAULT_FOLDER = helix/rev2
 
