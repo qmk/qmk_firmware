@@ -11,6 +11,8 @@ HELL0 NAVI. Interface is a Lily58 GUI based en Serial Experiment Lain.
 
 
 ## Waking up animation
+![Waking up animation](https://imgur.com/9GWa7rR.gif)
+
 
 
 ## Idle animation
