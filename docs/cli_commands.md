@@ -247,7 +247,7 @@ Creates a keymap.c from a QMK Configurator export.
 **Usage**:
 
 ```
-qmk json2c [-o OUTPUT] filename
+qmk json2c [-km KEYMAP -kb KEYBOARD [-s]]|[-o OUTPUT] filename
 ```
 
 ## `qmk c2json`
