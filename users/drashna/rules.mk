@@ -98,4 +98,8 @@ endif
 
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api
 
-SRC += autocorrection.c
+AUTOCORRECTION_ENABLE ?= yes
+ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
+    SRC += autocorrection/autocorrection.c
+    OPT_DEFS += -DAUTOCORRECTION_ENABLE
+endif
