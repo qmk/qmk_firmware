@@ -122,7 +122,7 @@ Holding down the Sym key accesses a layer of symbol and function keys:
 |       |  -  |  +  |  =  |  /  |  *  |---------------------------|  .  |  7  |  8  |  9  |     | BSPC  |
 | CTRL  | GUI | ALT |CTRL |SHIFT|     |---------------------------|  0  |  1  |  2  |  3  |  _  | CTRL  |
 | SHIFT |     |     |     |     |     |     |---------------| ESC |  ,  |  4  |  5  |  6  |     | SHIFT |
---------------|ENTER|-----| GUI | ALT | *** |     |---|     |BSSP | ALT | GUI |-----| APP |--------------
+--------------|ENTER|-----| GUI | ALT | *** |     |---|     |BSPC | ALT | GUI |-----| APP |--------------
 ```
 Holding down the Num key accesses a number pad and arithmetic symbols:
 
