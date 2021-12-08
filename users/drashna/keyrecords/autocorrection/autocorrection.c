@@ -123,5 +123,6 @@ found_typo:  // A typo was found! Apply autocorrection.
     }
 }
 #else
+#pragma message "Warning!!! Autocorrect is not corretly setup!"
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record) { return true; }
 #endif
