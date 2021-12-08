@@ -1,20 +1,27 @@
 # Default Keymap
 
-For ease of initial use,
-  this keymap tries to follow many of the norms seen in non-programmable keyboards.
-It is meant as a starting point that you will tweak over time to better suit _your_ preferences.
-You can easily rearrange it in the online configurator or with the via firmware.
+This default keymap follows many of the norms seen in non-programmable keyboards
+  to ease initial use of the Hillside keyboard.
+It is a starting point for you to tweak over time to better suit _your_ preferences.
+You can easily customize it with the
+  [QMK configurator](https://config.qmk.fm/#/hillside/0_1/LAYOUT)
+  or with the [via firmware](https://caniusevia.com).
 
-Features:
-- A mostly normal base layer with shift, mods, delete in places expected from non-programmable keyboards.
-- QWERTY, Colemak-DH and Dvorak options for the base layer layout.
-- Modifiers on the home row of the non-base layers (Nav/Edit, Functions/Symbols, Numbers) to make key and modifier combinations comfortable.
-- Edit keys and by word navigation in the Nav layer
-- A number pad that is slightly optimized with the more frequently used numbers on the home row.
+Some of its key features are:
+- A mostly standard base layer with letters, some symbols, shift, modifier and delete keys
+  in the expected places for non-programmable keyboards.
+- QWERTY, Colemak-DH and Dvorak options for the letter and symbol layout.
+- Comfortable modifier and function or symbol combinations on the non-base layers
+  using modifiers on the home row of the navigation/edit, symbol/function and number-pad layers.
+- Word navigation and cut/copy/paste keys on the navigation layer.
+- A slightly optimized number pad with the more frequently used numbers on the home row.
 
-Features deliberately missing:
-- Combos: as the online tools that may configuration changes easy do not handle them.
-- Multi function mod-tap keys, auto shift capitalization, auto-exit modes like CAPWORD or NUMWORD: as they may be too large a step for someone new to programmable keyboards.
+We've deliberately omitted some features:
+- Combos: because the online configuration tools do not handle them
+  and because they would add to the initial learning curve,
+  as helpful to a keymap as a light sprinkling of combos can be.
+- Multi-function mod-tap keys, auto shift capitalization and auto-exit modes such as CAPWORD or NUMWORD:
+  as they may be too large a step for someone new to programmable keyboards.
 
 ## Base Layer
 
@@ -25,27 +32,32 @@ Features deliberately missing:
 --------------|ENTER|-----| GUI | ALT | Num | Nav |---| Sym |SPACE| ALT | GUI |-----| APP |--------------
 ```
 
-The base layer can be either QWERTY, Colemak-DH or Dvorak, with the non-alpha and non-symbol keys identical between them. QWERTY is the default.
-
+The base layer can be either of QWERTY, Colemak-DH or Dvorak,
+  with identical non-alpha and non-symbol keys.
+QWERTY is the default.
 
 A standard keyboard layout is used for:
 
-- Tab, backspace, and shifts in the outer columns
-- Alt/option and GUI/command on both thumbs, with the location swappable for windows or mac.
+- Tab, backspace and shift keys in the outer columns.
+- Alt/option and GUI/command keys on both thumbs, with the location swappable for windows or mac.
+- A space key on the right thumb.
 
 The differences from a standard layout are:
 
-- Three additional "shift" keys access the navigation/editing, symbol/function, and  number layers.
-- Enter is on the left thumb.
-  This location allowed the more common right hand keys to be preserved.
-  Feel free to adjust it or have it share the right shift key.
+- There are three additional "shift" keys
+  to access the navigation/editing, symbol/function, and number layers.
+- Enter is on the left thumb or ring finger.
+  This location allowed preserving the more common right-hand keys.
+  Feel free to swap it with the quote key or have it share the right shift key
+    as a mod-tap key.
 - Control is in the caps lock spot.
 - Esc and `~ are above the thumbs.
 - The rarer AltGr key is in a layer.
 
 <details>
 <summary>Details of Dvorak and Colemak-DH</summary>
-In the Dvorak layout, the outer home row key is the "/?" symbols, so that the same 12 symbols can be skipped in the symbols layer.
+In the Dvorak layout, the outer home row key is the "/?" symbols
+  so that the same 12 symbols are taken care of on the base layer.
 
 ```
 Dvorak
@@ -72,15 +84,20 @@ Colemak-DH
 ```
 Holding down the Nav key accesses a navigation and editing layer:
 
-- Navigation arrows are on and below the right home row in a cross pattern, For a column stagger keyboard this feels more natural than an inverted T. The keys below them move left or right by a word. Home, end, and page up/down are beside them.
-- Modifiers in the left home row make it easier to use the arrows to select text with shift or move between desktops or tabs.
+- Navigation arrows are on and below the right home row in a cross pattern.
+  This feels more natural for a column stagger keyboard than an inverted T.
+  The keys below that move left or right by a word.
+  Home, end, and page up/down are beside them.
+- Modifiers in the left home row make it easier to use the arrows
+  to select text with the shift key or move between desktops or tabs.
 - Editing keys appear on the lower left.
-  They, the modifiers and arrows make it easy to move text around without having to exit the layer.
-- Delete is in the upper right, and a back space key is on the thumb.
-- The base layer modifiers and escape are in the same spots as on the base layer, and a right control mirrors the left one.
+  The edit keys, modifiers and arrows make it easy to move text around without leaving the layer.
+- Delete is in the upper right, and a backspace key is on the thumb.
+- The base layer modifiers and escape are in the same spots as on the base layer,
+  and a right-hand control key is added.
 - Media volume and play keys are on the left, accessible with one hand.
 - AltGr and caps lock fill out the layer.
-- A few keys do nothing and are available for more user specific needs.
+- A few keys do nothing and are available for more user-specific needs.
 
 ## Symbol and Function Layer
 
@@ -90,14 +107,15 @@ Holding down the Nav key accesses a navigation and editing layer:
 | SHIFT | F6  | F7  | F8  | F9  | F10 | F11 |---------------| ESC |  \  |  [  |  ]  |  {  |  }  | SHIFT |
 --------------|ENTER|-----| GUI | ALT | Num | Adj |---| *** |SPACE| ALT | GUI |-----| APP |--------------
 ```
-Holding down the Sym key accesses symbol and function keys:
+Holding down the Sym key accesses a layer of symbol and function keys:
 
-- The normal number row symbols are in the top row.
-  If desired, these keys can be used for other things as the symbols are also accessible from the number pad layer with the shift key.
+- The symbols usually found on the number keys are in the top row.
+  If desired, you can use these positions for other things,
+  as the symbols are also accessible from the number pad layer with the shift key.
 - The remaining symbols appear on the right.
-- The function keys are on the left, aligned below the 1-5 numbers.
-- A row of modifiers in the home row allow comfortable creation of any function key and modifier combination.  
-- The base layer modifier and escape keys are still available, plus the extra right control key.
+- The function keys are on the left, beginning with two rows of five.
+- A row of modifiers in the home row allows the comfortable creation of any modifier and function key combination.  
+- The base layer modifier and escape keys are still available, as is a right-hand control key.
 
 ##  Number Pad and Algebraic Layer
 ```
@@ -108,10 +126,11 @@ Holding down the Sym key accesses symbol and function keys:
 ```
 Holding down the Num key accesses a number pad and arithmetic symbols:
 
-- The number pad has the smallest numbers swapped into the home row as these are the most commonly used.
-- A row of modifiers in the home row allow comfortable creation of any number and modifier combination.
-- Symbols commonly used with numbers fill out the layer, and can be combined with the home row mods or the existing base layer modifiers on the right hand.
-- Several keys remain unused and await more user specific needs.
+- The number pad has the lowest numbers swapped into the home row as these are the most commonly used.
+- A row of modifiers in the home row allows the comfortable creation of any modifier and number combination.
+- Symbols commonly used with numbers fill out the layer
+   and can be combined with the home row mods or the existing base layer modifiers on the right hand.
+- Several keys remain unused and await more user-specific needs.
 
 
 ## Adjust Layer
@@ -121,59 +140,77 @@ Holding down the Num key accesses a number pad and arithmetic symbols:
 | RESET |     |     |     |     |     |     |--------------|RGBTOG|MOD- |BRI- |HUE- |SAT- |     |       |
 --------------|     |-----|     |     |     | *** |---| *** |     |     |     |-----|     |--------------
 ```
-Holding down the Nav and Sym keys simultaneously enables keys to adjust various keyboard settings:
+Simultaneously holding down the Nav and Sym keys enables keys to adjust various keyboard settings:
 
-- The base layer can be set to QWERTY, Colemak-DH or Dvorak, until the keyboard is powered off, when it reverts to QWERTY.
-- Alt/option and GUI/command can be swapped for or mac users or restored to the windows norm. This setting does persist over power loss.
-- The backlight LEDs can be enabled, disabled, and controlled. This setting also persists over power loss.
+- The base layer can be set to QWERTY, Colemak-DH or Dvorak,
+  but the keyboard reverts to QWERTY each time it is plugged in.
+- Alt/option and GUI/command can be swapped for mac users or restored to the windows norm.
+  This setting persists over power loss.
+- The backlight LEDs can be enabled, disabled, and controlled.
+  These settings also persist over power loss.
 
 
 ## Make it Yours
 
-If you are coming from a more traditional keyboard with a full set of physical keys and a row staggered layout, the adjustment to a column staggered (ergo) layout and the use of layers instead of finger reaches to access numbers, symbols, and functions is an adjustment for your muscle memory and mental map of your keyboard. This layout tries to make that simpler by keeping things in the expected spot when possible.
+If you are coming from a traditional keyboard,
+  with a row-staggered layout and a large set of physical keys,
+  learning to use a column staggered (ergo) and layer-based keyboard,
+  which uses layers instead of finger reaches to access numbers, symbols and functions,
+  will be an adjustment for your muscle memory and your mental keyboard map.
+This default layout tries to simplify that adjustment by keeping things    in the expected spots when possible.
 
-Yet this layout is only a decent compromise, and not optimal for each user.
+Yet this layout is only a decent compromise and is not optimal for each user.
 
-The online configurator makes it easy to fill in some of your most used key combinations into the navigation layer. You can add additional layers or completely switch around what these ones do.
+The online configurator makes it easy to tweak this layout to your needs.
+You can add additional layers or completely switch around what these do.
 
 Some changes you might consider making:
-- If you are on a mac, switch the editing and word navigation keys from ctrl-x, to cmd-x.
-- Change the shift keys to one-shot shift keys, where pressing and releasing them causes the next key pressed to be shifted. That is much easier on your hands than holding them down. Yet, they can still be held as normal if desired.
-- Instead of holding down the thumb key to keep the symbol layer active, you could use a one shot layer key. This will likely be less stress on your hands and may even be faster. You can still hold it down instead.
-- Instead of holding down the key for the number pad layer, you could make it a layer toggle, like caps lock is a capitalization toggle key.
+- Put some of your most-used key combinations on the unused keys on the navigation layer.
+- If you are on a mac, switch the editing and word navigation keys from ctrl-x to cmd-x.
+- Change the shift keys to one-shot shift keys,
+  where pressing and releasing them shifts the next key pressed.
+  That is much easier on your hands than holding them down.
+  Yet, they can still be held as usual if desired.
+- Instead of holding down the thumb key to keep the symbol layer active,
+  you could use a one-shot layer key.
+  One-shot modifiers are likely less stress on your hands and may even be faster.
+  You would still be able to hold it down instead.
+- Instead of holding down the key for the number pad layer,
+  you could make it a layer toggle, like caps lock is a capitalization toggle key.
 
-Some other keymaps for inspiration and ideas can be seen here:
-- [Ferris default](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ferris/keymaps/default), which uses more advanced features as it has far fewer keys to work with.
-- [Miryoku](https://github.com/manna-harbour/miryoku/tree/master/docs/reference), which is about ensuring all modifiers are comfortably available no matter what character key needs to be pressed.
-- [Kyria default](https://github.com/qmk/qmk_firmware/tree/master/keyboards/splitkb/kyria/keymaps/default).
+Here are some other keymaps for inspiration and ideas:
+- The [Ferris default](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ferris/keymaps/default) uses more advanced features as it has far fewer keys to work with.
+- The [Miryoku](https://github.com/manna-harbour/miryoku/tree/master/docs/reference) keymap ensures that all modifiers are comfortably available with each character key.
+- The [Kyria default](https://github.com/qmk/qmk_firmware/tree/master/keyboards/splitkb/kyria/keymaps/default) has different keymap choices and a couple more keys.
 
-A useful metaphor is to think of your keymap as a bonsai tree that you tweak slightly over time
+A good metaphor is to think of your keymap as a bonsai tree that you tweak slightly over time
   in response to ideas of how it might serve you better.
 
 
 ## Why no keymap.c
 
-Via and the online configurator both provide very easy visual ways to work with a simple layout.
-This is easiest if the keymap is maintained in the json format they use.
-This default ```keymap.json``` was created with the online configurator and formated for easier reading.
+Via and the online configurator provide straightforward visual ways to work with a simple layout,
+  and both use a .json keymap format.
+So this default ```keymap.json``` was created with the online configurator
+  and formatted for easier reading and editing.
 
-If you wish, you can edit it direcly in a text editor and use the below script to restore the spacing.
+If you wish, you can edit the ```keymap.json``` directly in a text editor, optionally use the below ```json2hill.py``` to restore the spacing, and then compile and flash it.
 
-Or, you can edit the keymap with the graphical online tool. To do that:
+Or, you can use the graphical configurator to edit the keymap. To do that:
 
 - Open the [QMK configurator](https://config.qmk.fm/#/handwired/hillside/LAYOUT)
-- Using the green up arrow button load the keymap from ```qmk_firmware/keyboards/handwired/hillside/keymaps/default/keymap.json```
+- Using the green up arrow button, load the keymap from ```qmk_firmware/keyboards/handwired/hillside/keymaps/default/keymap.json```
 - Make the changes you wish to the layout
 - Save the keymap using the green down arrow button.
 - Copy those changes back into your QMK repository and reformat for easy reading using the format script:
 ```
 ./keyboards/handwired/hillside/keymaps/json2hill.py --input <Your download directory>/default.json > ./keyboards/handwired/hillside/keymaps/default/keymap.json
 ```
-   You may need to make that script executable with ```chmod +x```. After your keymap is safely copied and formated, you may want to remove the keymap from your download directory so later downloads can recieve the same name.
+   You may need to make that script executable with ```chmod +x```. After your keymap is safely copied and formated, you may want to remove the keymap from your download directory so later downloads will automatically receive the same file name.
 
+After either method of editing, compile and flash the keymap as usual.
 
-After either method of editing, compile and flash the keymap as normal.
-
-With a bit more complexity, you can combine a json keymap with more advanced features specified in C files.
-See for example
-[pierrec83's Kyria map](https://github.com/qmk/qmk_firmware/tree/master/keyboards/splitkb/kyria/keymaps/pierrec83)
+You can combine a .json based keymap with more advanced features specified in .c files
+  with a bit more complexity.
+For example, see
+[pierrec83's Kyria map](https://github.com/qmk/qmk_firmware/tree/master/keyboards/splitkb/kyria/keymaps/pierrec83).
