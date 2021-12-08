@@ -44,8 +44,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_65_ansi_blocker(
       _______,    KC_F1,      KC_F2,      KC_F3,      KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,     KC_F11,   KC_F12,  _______,
-      _______,  RGB_TOG,    RGB_VAI,    RGB_VAD,    RGB_MODE_FORWARD,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, KC_MPLY,
-      RESET,    _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,            _______,
+      _______,  RGB_TOG,    RGB_VAI,    RGB_VAD,    RGB_MODE_FORWARD,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, 
+      RESET,    _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,            KC_MPLY,
       _______,              _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, _______,   _______,
       _______,  _______,    _______,                            KC_SPC,                                    _______,    _______,              _______,  _______,  _______
     ),
@@ -106,11 +106,11 @@ static void render_logo(void) {
     static const char PROGMEM logo_3[] = {
         0x8D, 0x8E, 0x8F, 0x90, 0x91, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0x00
     };
-    oled_set_cursor(1,0);
+    oled_set_cursor(1,3);
     oled_write_P(logo_1, false);
-    oled_set_cursor(1,4);
+    oled_set_cursor(1,7);
     oled_write_P(logo_2, false);
-    oled_set_cursor(1,8);
+    oled_set_cursor(1,11);
     oled_write_P(logo_3, false);
 }
 
@@ -118,17 +118,5 @@ static void render_logo(void) {
 void oled_task_user(void) {
     // Function that renders the kintsugi logo in the desired order.
     render_logo();
-
-    // This just serves as a reference text.
-    oled_set_cursor(0,12);
-    oled_write("_BASE", false);
-
-    // The following two functions are used to display wpm to the user.
-    oled_set_cursor(1,14);
-    sprintf(wpm_str, "%03d", get_current_wpm());
-    oled_write(wpm_str, false);
-
-    oled_set_cursor(1,15);
-    oled_write("WPM", false);
 }
 #endif
