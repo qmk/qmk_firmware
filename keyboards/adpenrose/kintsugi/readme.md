@@ -1,15 +1,20 @@
 # Kintsugi
 
-![kintsugi](imgur.com/HPdmzdC)
+![kintsugi](https://imgur.com/HPdmzdC)
+
+A 65%-ish keyboard with some extra features.
 
 ## Features
 
-* 65%-ish layout.
 * Powered by an ATmega32u4 microcontroller (current version needs an Elite-C to work).
 * Encoder.
 * OLED screen.
 * Underglow.
 * Hotswap sockets.
+
+* Keyboard Maintainer: [Arturo Avila](https://github.com/ADPenrose)
+* Hardware Supported: Kintsugi V1 PCB
+* Hardware Availability: [Arturo Avila](https://github.com/ADPenrose)
 
 Make example for this keyboard (after setting up your build environment):
 
