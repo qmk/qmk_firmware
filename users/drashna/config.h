@@ -200,7 +200,7 @@
 #    ifdef OLED_FONT_H
 #        undef OLED_FONT_H
 #    endif
-#    define OLED_FONT_H   "drashna_font.h"
+#    define OLED_FONT_H   "oled/drashna_font.h"
 #    define OLED_FONT_END 255
 // #    define OLED_FONT_5X5
 // #    define OLED_FONT_AZTECH

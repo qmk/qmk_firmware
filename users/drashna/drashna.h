@@ -18,25 +18,25 @@
 #include QMK_KEYBOARD_H
 
 #include "eeprom.h"
-#include "wrappers.h"
-#include "process_records.h"
+#include "keyrecords/wrappers.h"
+#include "keyrecords/process_records.h"
 #ifdef TAP_DANCE_ENABLE
-#    include "tap_dances.h"
+#    include "keyrecords/tap_dances.h"
 #endif  // TAP_DANCE_ENABLE
 #if defined(RGBLIGHT_ENABLE)
-#    include "rgb_stuff.h"
+#    include "rgb/rgb_stuff.h"
 #endif
 #if defined(RGB_MATRIX_ENABLE)
-#    include "rgb_matrix_stuff.h"
+#    include "rgb/rgb_matrix_stuff.h"
 #endif
 #if defined(OLED_ENABLE)
-#    include "oled_stuff.h"
+#    include "oled/oled_stuff.h"
 #endif
 #ifdef SPLIT_KEYBOARD
-#    include "transport_sync.h"
+#    include "split/transport_sync.h"
 #endif
 #ifdef POINTING_DEVICE_ENABLE
-#    include "pointing.h"
+#    include "pointing/pointing.h"
 #endif
 
 /* Define layer names */
