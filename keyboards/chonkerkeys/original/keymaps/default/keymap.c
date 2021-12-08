@@ -76,28 +76,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         is_either_pressed = record->event.pressed;
     }
     if (record->event.pressed) {
-        if (keycode == CH_ZOOM_REACT_TOGGLE) {
-            SEND_STRING("REACT");
-        } else if (keycode == CH_ZOOM_LEAVE_MEETING) {
-            SEND_STRING("LEAVE");
-        } else if (keycode == CH_ZOOM_MUTE_TOGGLE) {
-            SEND_STRING("MUTE");
-        } else if (keycode == CH_ZOOM_VIDEO_TOGGLE) {
-            SEND_STRING("VIDEO");
-        } else if (keycode == CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE) {
-            SEND_STRING("SHARESRN");
+        uint16_t keyConfigIndex = keycode - CH_CUSTOM;
+        uint16_t const* keyMacros = windowsConfigs[keyConfigIndex];
+        for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
+            uint16_t code = keyMacros[i];
+            if (code == KC_NO) continue;
+            register_code(code);
         }
-        // uint8_t const* keyMacros = windowsConfigs[keycode - SAFE_RANGE];
-        // for (uint8_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
-        //     uint8_t code = keyMacros[i];
-        //     if (code == KC_NO) continue;
-        //     register_code(code);
-        // }
-        // for (uint8_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
-        //     uint8_t code = keyMacros[i];
-        //     if (code == KC_NO) continue;
-        //     unregister_code(code);
-        // }
+        for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
+            uint16_t code = keyMacros[i];
+            if (code == KC_NO) continue;
+            unregister_code(code);
+        }
     }
-    return true;
+    return false;
 }
