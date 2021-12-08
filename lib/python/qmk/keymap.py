@@ -190,7 +190,7 @@ def generate_json(keymap, keyboard, layout, layers):
     return new_keymap
 
 
-def generate_c(keymap_json, info_json = None):
+def generate_c(keymap_json, info_json=None):
     """Returns a `keymap.c`.
 
     `keymap_json` is a dictionary with the following keys:
@@ -237,7 +237,7 @@ def generate_c(keymap_json, info_json = None):
                 layer_keys += fmt % (indent * " ", k)
                 last_x = x
                 chars = chars + max(width + 1, len(k) + 1) + max(0, indent)
-            layer_keys = layer_keys[:-1] # drop trailing ,
+            layer_keys = layer_keys[:-1]  # drop trailing ,
         else:
             layer_keys = ', '.join(layer)
 
