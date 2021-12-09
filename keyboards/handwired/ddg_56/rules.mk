@@ -6,10 +6,9 @@ BOARD = QMK_PROTON_C
 BOOTLOADER = stm32-dfu
 
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
+#   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no      # Mouse keys
 EXTRAKEY_ENABLE = no       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug

@@ -7,15 +7,14 @@ BOOTLOADER = stm32-dfu
 # Build Options
 #   comment out to disable the options.
 #
-# EXTRAFLAGS+=-flto
+# LTO_ENABLE = yes
 LTO_ENABLE = yes
 BACKLIGHT_ENABLE = no
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no # Mouse keys
 EXTRAKEY_ENABLE = yes # Audio control and System control
 CONSOLE_ENABLE = no  # Console for debug
 COMMAND_ENABLE = no    # Commands for debug and configuration
-SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes     # USB Nkey Rollover
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no

@@ -37,6 +37,7 @@
 #define DIODE_DIRECTION COL2ROW
 /* Caps Lock */
 #define LED_CAPS_LOCK_PIN F0
+#define LED_PIN_ON_STATE 0
 
 #define RGB_DI_PIN F1
 #ifdef RGB_DI_PIN
