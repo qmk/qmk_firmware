@@ -3,47 +3,8 @@
 #include "draw_helper.h"
 #include "fast_random.h"
 
-//  //
-//   // Easing Functions - inspired from http://gizma.com/easing/
-//   // only considering the t value for the range [0, 1] => [0, 1]
-//  //
-// EasingFunctions = {
-//   // no easing, no acceleration
-//   linear: t => t,
-//   // accelerating from zero velocity
-//   easeInQuad: t => t*t,
-//   // decelerating to zero velocity
-//   easeOutQuad: t => t*(2-t),
-//   // acceleration until halfway, then deceleration
-//   easeInOutQuad: t => t<.5 ? 2*t*t : -1+(4-2*t)*t,
-//   // accelerating from zero velocity
-//   easeInCubic: t => t*t*t,
-//   // decelerating to zero velocity
-//   easeOutCubic: t => (--t)*t*t+1,
-//   // acceleration until halfway, then deceleration
-//   easeInOutCubic: t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1,
-//   // accelerating from zero velocity
-//   easeInQuart: t => t*t*t*t,
-//   // decelerating to zero velocity
-//   easeOutQuart: t => 1-(--t)*t*t*t,
-//   // acceleration until halfway, then deceleration
-//   easeInOutQuart: t => t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t,
-//   // accelerating from zero velocity
-//   easeInQuint: t => t*t*t*t*t,
-//   // decelerating to zero velocity
-//   easeOutQuint: t => 1+(--t)*t*t*t*t,
-//   // acceleration until halfway, then deceleration
-//   easeInOutQuint: t => t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t
-// }
 
-// void clip_value(long *value, int min, int max){
-//   if (*value < min){
-//       *value = min;
-//       return;
-//   }
 
-//     if (*value > max) *value = max;
-// }
 
 void drawline(uint8_t x, uint8_t y, uint8_t width, bool bHorizontal, bool bPositiveDirection, bool color) {
     if (width <= 0) return;
@@ -130,73 +91,6 @@ void drawline_point_hr(short x, short y, short x1, bool color) {
     drawline(x, y, x1 - x, true, true, color);
 }
 
-void draw_circle_old(uint8_t x, uint8_t y, uint8_t radius, bool color) {
-    short a, b, P;
-
-    // Calculate intermediates
-    a = 1;
-    b = radius;
-    P = 4 - radius;
-
-    short py, px;
-
-    // Away we go using Bresenham's circle algorithm
-    // Optimized to prevent double drawing
-    px = x;
-    py = y + b;
-    oled_write_pixel(px, py, color);
-    px = x;
-    py = y - b;
-    oled_write_pixel(px, py, color);
-    px = x + b;
-    py = y;
-    oled_write_pixel(px, py, color);
-    px = x - b;
-    py = y;
-    oled_write_pixel(px, py, color);
-    do {
-        px = x + a;
-        py = y + b;
-        oled_write_pixel(px, py, color);
-        px = x + a;
-        py = y - b;
-        oled_write_pixel(px, py, color);
-        px = x + b;
-        py = y + a;
-        oled_write_pixel(px, py, color);
-        px = x - b;
-        py = y + a;
-        oled_write_pixel(px, py, color);
-        px = x - a;
-        py = y + b;
-        oled_write_pixel(px, py, color);
-        px = x - a;
-        py = y - b;
-        oled_write_pixel(px, py, color);
-        px = x + b;
-        py = y - a;
-        oled_write_pixel(px, py, color);
-        px = x - b;
-        py = y - a;
-        oled_write_pixel(px, py, color);
-        if (P < 0)
-            P += 3 + 2 * a++;
-        else
-            P += 5 + 2 * (a++ - b--);
-    } while (a < b);
-    px = x + a;
-    py = y + b;
-    oled_write_pixel(px, py, color);
-    px = x + a;
-    py = y - b;
-    oled_write_pixel(px, py, color);
-    px = x - a;
-    py = y + b;
-    oled_write_pixel(px, py, color);
-    px = x - a;
-    py = y - b;
-    oled_write_pixel(px, py, color);
-}
 
 void flip_flap_x(short px, short py, uint8_t val, bool color) {
     oled_write_pixel(px + val, py, color);
@@ -313,6 +207,7 @@ void draw_ellipse_fill(uint8_t x, uint8_t y, uint8_t a, uint8_t b, bool color) {
 bool test_limit(short x, short y) { return !(y < 0 || y > 127 || x < 0 || x > 31); }
 
 void flip_flap_y_point(short px, short py, short px1, uint8_t val, bool color) {
+    // firmware size optimisation : one fonction for 2 lines of code
     drawline_point_hr(px, py + val, px1, color);
     drawline_point_hr(px, py - val, px1, color);
 }
@@ -485,6 +380,7 @@ void draw_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int color,
     unsigned long masky     = 1;
     unsigned long mask_base = 1;
 
+// more 1 in the octet 
     for (int r = 0; r < density; r++) {
         rx &= fastrand_long();
         ry &= fastrand_long();
@@ -494,9 +390,11 @@ void draw_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int color,
 
     for (uint8_t i = 0; i < width; i++) {
         for (uint8_t j = 0; j < heigth; j++) {
+            // new mask based on ij loop
             maskx = (mask_base << i);
             masky = (mask_base << j);
 
+// logic AND with the masks
             if (((rx & maskx) == maskx) && ((ry & masky) == masky)) {
                 oled_write_pixel(x + i, y + j, color);
             }
@@ -507,9 +405,11 @@ void draw_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int color,
 void copy_pixel(int from, int shift, unsigned char mask) {
     if (shift == 0) return;
 
+// pixel cluster from
     char c_from  = get_oled_char(from);
     char extract = c_from & mask;
 
+// pixel cluster shift
     char c_from_shift = get_oled_char(from + shift);
     c_from_shift &= ~(mask);
     c_from_shift |= extract;
@@ -521,22 +421,20 @@ void copy_pixel(int from, int shift, unsigned char mask) {
 }
 
 void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint16_t height, uint8_t iSize, bool odd) {
-    // char c = 0;
-    // size for
-    // int iSize = 1;
 
+// work only on row
     uint16_t y_start = (y / 8) * 32;
-    uint8_t nb_h    = height / 8;
+    uint8_t  nb_h    = height / 8;
 
-    uint8_t  w_max = width;  // 32
+    uint8_t  w_max = width; 
     uint16_t index = y_start + x;
 
-    //  char c_other = 0;
-
+// shift pair even pixel
     int mask_1 = 85;
     int mask_2 = 170;
 
     if (!odd) {
+        // shift odd pixel
         mask_1 = 170;
         mask_2 = 85;
     }
@@ -544,17 +442,13 @@ void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint16_t height, uint
     //  wobble
     uint16_t pos = 0;
     for (uint16_t j = 0; j < nb_h; j++) {
-       // index += j * 32;
-
-       index = (y_start + x) +  (j * 32);
+    
+    // next line
+        index = (y_start + x) + (j * 32);
 
         for (uint16_t i = 0; i < w_max; i++) {
-
-
-                   //    oled_write_raw_byte(127, index + i );
-
-
- if (i + iSize < w_max) {
+         
+            if (i + iSize < w_max) {
                 pos = index + i;
                 copy_pixel(pos + iSize, iSize * -1, mask_1);
             }
@@ -563,9 +457,6 @@ void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint16_t height, uint
                 pos = (index + w_max - 1) - i;
                 copy_pixel(pos - iSize, iSize, mask_2);
             }
-
-
-           
         }
     }
 }
@@ -583,11 +474,11 @@ void draw_random_char(uint8_t column, uint8_t row, char final_char, int value, u
     oled_write_char(c, false);
 }
 
-
 void get_glitch_index(uint32_t *glitch_timer, int *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number) {
     if (timer_elapsed32(*glitch_timer) > *current_glitch_scope_time) {
         // end of the last glitch period
         *glitch_timer = timer_read32();
+
         // new random glich period
         *current_glitch_scope_time = min_time + fastrand() % (max_time - min_time);
 
@@ -603,23 +494,8 @@ void get_glitch_index(uint32_t *glitch_timer, int *current_glitch_scope_time, ui
     }
 }
 
-// void draw_random_char(uint8_t column, uint8_t row, char final_char, int value, uint8_t style) {
-//     if (value < 0) return;
-
-//     if (value >= 100) {
-//         oled_set_cursor(column, row);
-//         oled_write_char(final_char, false);
-//         return;
-//     }
-
-//     int  r = fastrand();
-//     char c = ((r % 15) + 1);
-//     oled_set_cursor(column, row);
-//     oled_write_char(c, false);
-// }
-
 void draw_progress(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int value, uint8_t style, bool color) {
-    if(value > 100){
+    if (value > 100) {
         value = 100;
     }
     int lenght = (width * value) / 100;
@@ -629,40 +505,33 @@ void draw_progress(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int valu
                 drawline_vb(x + i, y, heigth - 1, color);
                 break;
 
-            // case 1:
-            //     drawline_vb(x + i, y + 1, heigth - 3, ((i % 3) < 2));
-            //     break;
-            // case 2:
-            //     // . . . . .
-            //     drawline_vb(x + i, y + 3, 2, ((i % 2) == 0));
-            //     break;
+                // case 1:
+                //     drawline_vb(x + i, y + 1, heigth - 3, ((i % 3) < 2));
+                //     break;
+                // case 2:
+                //     // . . . . .
+                //     drawline_vb(x + i, y + 3, 2, ((i % 2) == 0));
+                //     break;
         }
     }
 }
 
 void oled_write_raw_P_cursor(uint8_t col, uint8_t line, const char *data, uint16_t size) {
+    // raw_P at cursor position
     oled_set_cursor(col, line);
     oled_write_raw_P(data, size);
 }
 
 void oled_write_cursor(uint8_t col, uint8_t line, const char *data, bool invert) {
+    // write at cursor position
     oled_set_cursor(col, line);
     oled_write(data, invert);
 }
-
-// void oled_write_raw_cursor(uint8_t col, uint8_t line, const char *data, bool invert){
-//   oled_set_cursor(col, line);
-//     oled_write(data, invert);
-// }
-//     oled_set_cursor(0, 5);
-//     oled_write_raw_P(raw_middle, sizeof(raw_middle));
 
 void draw_label(const char *data, uint8_t len, uint8_t row, int value) {
     if (value < 0) return;
     if (row >= 16 || row < 0) return;
     oled_write_cursor(0, row, data, false);
-    // oled_set_cursor(0, row);
-    // oled_write(data, false);
 }
 
 void draw_box(const char *data, uint8_t len, uint8_t row, long value, uint8_t style) {
@@ -670,9 +539,6 @@ void draw_box(const char *data, uint8_t len, uint8_t row, long value, uint8_t st
     if (row >= 16 || row < 0) return;
 
     oled_write_cursor(0, row, data, false);
-
-    // oled_set_cursor(0, row);
-    // oled_write(data, false);
 
     uint8_t y = row * 8;
 
@@ -751,61 +617,6 @@ void move_block(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int shift) 
     }
 }
 
-// void render_monochrome_ordered4x4() {
-// 	reset_pixels();
-
-// 	int bayer[] = { 1,  9,  3,  11,
-// 					13, 5,  15, 7,
-// 					4,  12, 2,  10,
-// 					16, 8,  14, 6 };
-
-// 	int i, x, y;
-// 	RGB rgb;
-// 	for (i = 0; i < imgw * imgh; i++) {
-// 		x = i%imgw; y = i/imgw;
-// 		rgb = getRGB(pixels, x, y);
-// 		rgb = divRGB(rgb, 10);
-// 		rgb = mulRGB(rgb, bayer[((y%4)*4) + (x%4)]);
-
-// 		double lum = 0.2126*rgb.r + 0.7152*rgb.g + 0.0722*rgb.b;
-// 		pixels[i] = (lum > 128) ? 0xffffffff : 0x00000000;
-// 	}
-
-// 	render();
-// }
-
-// static int interpo_couleur(int min, int max, int v) {
-//     float x0 = min;
-//     float x1 = max;
-//     float y0 = 0;
-//     float y1 = 255;
-//     float xp = v;
-//     float yp = y0 + ((y1 - y0) / (x1 - x0)) * (xp - x0);
-
-//     return (int)yp;
-// }
-
-// unsigned int BAYER_PATTERN_4[4][4] = {{1, 9, 3, 11}, {13, 5, 15, 7}, {4, 12, 2, 10}, {16, 8, 14, 6}};
-
-// void draw_gradient(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t color_start, uint8_t color_end, uint8_t tres) {
-//     for (uint8_t i = 0; i < width; i++) {
-//         int   position = interpo_pourcent(0, width, i);
-//         float color    = (1 * position) / 100.0;
-
-//         for (uint8_t j = 0; j < heigth; j++) {
-//             unsigned int m = BAYER_PATTERN_4[i % 4][j % 4];
-
-//             bool  closestColor       = (color < 0.5) ? 0 : 1;
-//             bool  secondClosestColor = 1 - closestColor;
-//             float d                  = (m - 1) / 16.0;
-//             float distance           = fabs(closestColor - color);
-
-//             bool color_d = (distance < d) ? closestColor : secondClosestColor;
-//             oled_write_pixel(x + i, y + j, color_d);
-//         }
-//     }
-// }
-
 uint8_t BAYER_PATTERN_4[4][4] = {{15, 135, 45, 165}, {195, 75, 225, 105}, {60, 180, 30, 150}, {240, 120, 210, 90}};
 
 int interpo_pourcent(int min, int max, int v) {
@@ -836,7 +647,6 @@ void draw_gradient(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t 
 
         float color = position;
         color       = ((int)(color / step)) * step_minus;
-        // color       = color * step_minus;
 
         color = color_start + ((distance * color) / 100);
 
@@ -928,9 +738,6 @@ void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t wid
     }
 }
 
-
-
-
 // void generer_glitch_static_oblic(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t iProb, uint8_t iProbWhite) {
 //     for (int yCurrent = 0; yCurrent < heigth; yCurrent++) {
 //         for (int xCurrent = 0; xCurrent < width; xCurrent++) {
@@ -944,9 +751,6 @@ void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t wid
 //         }
 //     }
 // }
-
-
-
 
 void render_tv_animation_opti(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth) {
     uint8_t xCenter = x + (width / 2);
@@ -1019,322 +823,36 @@ void render_tv_animation_opti(uint8_t frame_number, uint8_t x, uint8_t y, uint8_
     }
 }
 
-// in float color;
-// out vec4 frag_color;
 
-// const int indexMatrix4x4[16] = int[](0,  8,  2,  10,
-//                                      12, 4,  14, 6,
-//                                      3,  11, 1,  9,
-//                                      15, 7,  13, 5);
-
-// float indexValue() {
-//     int x = int(mod(gl_FragCoord.x, 4));
-//     int y = int(mod(gl_FragCoord.y, 4));
-//     return indexMatrix4x4[(x + y * 4)] / 16.0;
-// }
-
-// float dither(float color) {
-//     float closestColor = (color < 0.5) ? 0 : 1;
-//     float secondClosestColor = 1 - closestColor;
-//     float d = indexValue();
-//     float distance = abs(closestColor - color);
-//     return (distance < d) ? closestColor : secondClosestColor;
-// }
-
-// void main () {
-//     fragColor = vec4(vec3(dither(color)), 1);
-// }
-
-// void    makeDitherBayer16( BYTE* pixels, int width, int height )
-// {
-//     int    col    = 0;
-//     int    row    = 0;
-
-//     for( int y = 0; y < height; y++ )
-//     {
-//         row    = y & 15;    //    y % 16
-
-//         for( int x = 0; x < width; x++ )
-//         {
-//             col    = x & 15;    //    x % 16
-
-//             const pixel blue    = pixels[x * 3 + 0];
-//             const pixel green   = pixels[x * 3 + 1];
-//             const pixel red     = pixels[x * 3 + 2];
-
-//             pixel color  = ((red + green + blue)/3 < BAYER_PATTERN_4[col][row] ? 0 : 255);
-
-//             pixels[x * 3 + 0]    = color;    //    blue
-//             pixels[x * 3 + 1]    = color;    //    green
-//             pixels[x * 3 + 2]    = color;    //    red
-//         }
-
-//         pixels += width * 3;
-//     }
-// }
-
-// void draw_dither(uint8_t x, uint8_t y, uint8_t d)
-// {
-// // 4x4
-// switch (d)
-// {
-// case 0:
-//     // noir
-//     draw_rectangle_fill(x, y, 4, 4, false);
-//     break;
-
-//     case 1:
-//     // noir
-//       oled_write_pixel(x, y, true);
-//        oled_write_pixel(x + 2, y +2, true);
-//     break;
-
-//         case 2:
-//     // noir
-//       oled_write_pixel(x, y + 2, true);
-//        oled_write_pixel(x + 2, y, true);
-//     break;
-
-//         case 3:
-//     // noir
-//       oled_write_pixel(x + 1, y + 1, true);
-//        oled_write_pixel(x + 3, y + 3, true);
-//     break;
-
-//         case 4:
-//     // noir
-//       oled_write_pixel(x + 3, y + 1, true);
-//        oled_write_pixel(x + 1, y + 3, true);
-//     break;
-
-// default:
-//     break;
-// }
-
-// }
-
-// 	void draw_arc_sector( uint8_t x, uint8_t y, uint8_t radius, unsigned char sectors, int color) {
-
-//  short a, b, P;
-//     short py, px;
-// 		// Calculate intermediates
-// 		a = 1;              // x in many explanations
-// 		b = radius;         // y in many explanations
-// 		P = 4 - radius;
-
-// 		// Away we go using Bresenham's circle algorithm
-// 		// Optimized to prevent double drawing
-// 		if (sectors & 0x06) {px = x; py = y - b; oled_write_pixel(px, py, color); }				// Upper upper
-// 		if (sectors & 0x60) {px = x; py = y + b; oled_write_pixel(px, py, color); }				// Lower lower
-// 		if (sectors & 0x81) {px = x + b; py = y; oled_write_pixel(px, py, color); }				// Right right
-// 		if (sectors & 0x18) {px = x - b; py = y; oled_write_pixel(px, py, color); }				// Left left
-
-// 		do {
-// 			if (sectors & 0x01) {px = x + b; py = y - a; oled_write_pixel(px, py, color); }		// Upper right right
-// 			if (sectors & 0x02) {px = x + a; py = y - b; oled_write_pixel(px, py, color); }		// Upper upper right
-// 			if (sectors & 0x04) {px = x - a; py = y - b; oled_write_pixel(px, py, color); }		// Upper upper left
-// 			if (sectors & 0x08) {px = x - b; py = y - a; oled_write_pixel(px, py, color); }		// Upper left  left
-// 			if (sectors & 0x10) {px = x - b; py = y + a; oled_write_pixel(px, py, color); }		// Lower left  left
-// 			if (sectors & 0x20) {px = x - a; py = y + b; oled_write_pixel(px, py, color); }		// Lower lower left
-// 			if (sectors & 0x40) {px = x + a; py = y + b; oled_write_pixel(px, py, color); }		// Lower lower right
-// 			if (sectors & 0x80) {px = x + b; py = y + a; oled_write_pixel(px, py, color); }		// Lower right right
-// 			if (P < 0)
-// 				P += 3 + 2*a++;
-// 			else
-// 				P += 5 + 2*(a++ - b--);
-// 		} while(a < b);
-
-// 		if (sectors & 0xC0) {px = x + a; py = y + b; oled_write_pixel(px, py, color); }			// Lower right
-// 		if (sectors & 0x03) {px = x + a; py = y - b; oled_write_pixel(px, py, color); }			// Upper right
-// 		if (sectors & 0x30) {px = x - a; py = y + b; oled_write_pixel(px, py, color); }			// Lower left
-// 		if (sectors & 0x0C) {px = x - a; py = y - b; oled_write_pixel(px, py, color); }			// Upper left
-
-// 	}
-
-/*
-
-        void draw_arc(uint8_t x, uint8_t y, uint8_t radius, uint8_t start, uint8_t end, int color) {
-        uint8_t a, b, P, sedge, eedge;
-        unsigned char	full, sbit, ebit, tbit;
-
-short py, px;
-
-        // Normalize the angles
-        if (start < 0)
-            start -= (start/360-1)*360;
-        else if (start >= 360)
-            start %= 360;
-        if (end < 0)
-            end -= (end/360-1)*360;
-        else if (end >= 360)
-            end %= 360;
-
-        sbit = 1<<(start/45);
-        ebit = 1<<(end/45);
-        full = 0;
-        if (start == end) {
-            full = 0xFF;
-        } else if (end < start) {
-            for(tbit=sbit<<1; tbit; tbit<<=1) full |= tbit;
-            for(tbit=ebit>>1; tbit; tbit>>=1) full |= tbit;
-        } else if (sbit < 0x80) {
-            for(tbit=sbit<<1; tbit < ebit; tbit<<=1) full |= tbit;
-        }
-        tbit = start%45 == 0 ? sbit : 0;
-
-
-
-        if (full) {
-            // Draw full sectors
-            // Optimized to prevent double drawing
-            a = 1;
-            b = radius;
-            P = 4 - radius;
-            if (full & 0x60) { py = y+b; px = x; oled_write_pixel(px, py, color); }
-            if (full & 0x06) { py = y-b; px = x; oled_write_pixel(px, py, color); }
-            if (full & 0x81) { py = y; px = x+b; oled_write_pixel(px, py, color); }
-            if (full & 0x18) { py = y; px = x-b; oled_write_pixel(px, py, color); }
-            do {
-                if (full & 0x01) { px = x+b; py = y-a; oled_write_pixel(px, py, color); }
-                if (full & 0x02) { px = x+a; py = y-b; oled_write_pixel(px, py, color); }
-                if (full & 0x04) { px = x-a; py = y-b; oled_write_pixel(px, py, color); }
-                if (full & 0x08) { px = x-b; py = y-a; oled_write_pixel(px, py, color); }
-                if (full & 0x10) { px = x-b; py = y+a; oled_write_pixel(px, py, color); }
-                if (full & 0x20) { px = x-a; py = y+b; oled_write_pixel(px, py, color); }
-                if (full & 0x40) { px = x+a; py = y+b; oled_write_pixel(px, py, color); }
-                if (full & 0x80) { px = x+b; py = y+a; oled_write_pixel(px, py, color); }
-                if (P < 0)
-                    P += 3 + 2*a++;
-                else
-                    P += 5 + 2*(a++ - b--);
-            } while(a < b);
-            if (full & 0xC0) { px = x+a; py = y+b; oled_write_pixel(px, py, color); }
-            if (full & 0x0C) { px = x-a; py = y-b; oled_write_pixel(px, py, color); }
-            if (full & 0x03) { px = x+a; py = y-b; oled_write_pixel(px, py, color); }
-            if (full & 0x30) { px = x-a; py = y+b; oled_write_pixel(px, py, color); }
-            if (full == 0xFF) {
-
-                return;
-            }
-        }
-
-            sedge = floor(radius * ((sbit & 0x99) ? sin(start*GFX_PI/180) : cos(start*GFX_PI/180)) + 0.5);
-            eedge = floor(radius * ((ebit & 0x99) ? sin(end*GFX_PI/180) : cos(end*GFX_PI/180)) + 0.5);
-
-        if (sbit & 0xB4) sedge = -sedge;
-        if (ebit & 0xB4) eedge = -eedge;
-
-        if (sbit != ebit) {
-            // Draw start and end sectors
-            // Optimized to prevent double drawing
-            a = 1;
-            b = radius;
-            P = 4 - radius;
-            if ((sbit & 0x20) || (tbit & 0x40) || (ebit & 0x40)) { px = x; py = y+b; oled_write_pixel(px, py, color); }
-            if ((sbit & 0x02) || (tbit & 0x04) || (ebit & 0x04)) { px = x; py = y-b; oled_write_pixel(px, py, color); }
-            if ((sbit & 0x80) || (tbit & 0x01) || (ebit & 0x01)) { px = x+b; py = y; oled_write_pixel(px, py, color); }
-            if ((sbit & 0x08) || (tbit & 0x10) || (ebit & 0x10)) { px = x-b; py = y; oled_write_pixel(px, py, color); }
-            do {
-                if (((sbit & 0x01) && a >= sedge) || ((ebit & 0x01) && a <= eedge)) { px = x+b; py = y-a; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x02) && a <= sedge) || ((ebit & 0x02) && a >= eedge)) { px = x+a; py = y-b; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x04) && a >= sedge) || ((ebit & 0x04) && a <= eedge)) { px = x-a; py = y-b; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x08) && a <= sedge) || ((ebit & 0x08) && a >= eedge)) { px = x-b; py = y-a; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x10) && a >= sedge) || ((ebit & 0x10) && a <= eedge)) { px = x-b; py = y+a; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x20) && a <= sedge) || ((ebit & 0x20) && a >= eedge)) { px = x-a; py = y+b; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x40) && a >= sedge) || ((ebit & 0x40) && a <= eedge)) { px = x+a; py = y+b; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x80) && a <= sedge) || ((ebit & 0x80) && a >= eedge)) { px = x+b; py = y+a; oled_write_pixel(px, py, color); }
-                if (P < 0)
-                    P += 3 + 2*a++;
-                else
-                    P += 5 + 2*(a++ - b--);
-            } while(a < b);
-            if (((sbit & 0x40) && a >= sedge) || ((ebit & 0x40) && a <= eedge) || ((sbit & 0x80) && a <= sedge) || ((ebit & 0x80) && a >= eedge))
-                { px = x+a; py = y+b; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x04) && a >= sedge) || ((ebit & 0x04) && a <= eedge) || ((sbit & 0x08) && a <= sedge) || ((ebit & 0x08) && a >= eedge))
-                { px = x-a; py = y-b; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x01) && a >= sedge) || ((ebit & 0x01) && a <= eedge) || ((sbit & 0x02) && a <= sedge) || ((ebit & 0x02) && a >= eedge))
-                { px = x+a; py = y-b; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x10) && a >= sedge) || ((ebit & 0x10) && a <= eedge) || ((sbit & 0x20) && a <= sedge) || ((ebit & 0x20) && a >= eedge))
-                { px = x-a; py = y+b; oled_write_pixel(px, py, color); }
-        } else if (end < start) {
-            // Draw start/end sector where it is a non-internal angle
-            // Optimized to prevent double drawing
-            a = 1;
-            b = radius;
-            P = 4 - radius;
-            if ((sbit & 0x60) || (tbit & 0xC0)) { px = x; py = y+b; oled_write_pixel(px, py, color); }
-            if ((sbit & 0x06) || (tbit & 0x0C)) { px = x; py = y-b; oled_write_pixel(px, py, color); }
-            if ((sbit & 0x81) || (tbit & 0x03)) { px = x+b; py = y; oled_write_pixel(px, py, color); }
-            if ((sbit & 0x18) || (tbit & 0x30)) { px = x-b; py = y; oled_write_pixel(px, py, color); }
-            do {
-                if ((sbit & 0x01) && (a >= sedge || a <= eedge)) { px = x+b; py = y-a; oled_write_pixel(px, py, color); }
-                if ((sbit & 0x02) && (a <= sedge || a >= eedge)) { px = x+a; py = y-b; oled_write_pixel(px, py, color); }
-                if ((sbit & 0x04) && (a >= sedge || a <= eedge)) { px = x-a; py = y-b; oled_write_pixel(px, py, color); }
-                if ((sbit & 0x08) && (a <= sedge || a >= eedge)) { px = x-b; py = y-a; oled_write_pixel(px, py, color); }
-                if ((sbit & 0x10) && (a >= sedge || a <= eedge)) { px = x-b; py = y+a; oled_write_pixel(px, py, color); }
-                if ((sbit & 0x20) && (a <= sedge || a >= eedge)) { px = x-a; py = y+b; oled_write_pixel(px, py, color); }
-                if ((sbit & 0x40) && (a >= sedge || a <= eedge)) { px = x+a; py = y+b; oled_write_pixel(px, py, color); }
-                if ((sbit & 0x80) && (a <= sedge || a >= eedge)) { px = x+b; py = y+a; oled_write_pixel(px, py, color); }
-                if (P < 0)
-                    P += 3 + 2*a++;
-                else
-                    P += 5 + 2*(a++ - b--);
-            } while(a < b);
-            if (((sbit & 0x04) && (a >= sedge || a <= eedge)) || ((sbit & 0x08) && (a <= sedge || a >= eedge)))
-                { px = x-a; py = y-b; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x40) && (a >= sedge || a <= eedge)) || ((sbit & 0x80) && (a <= sedge || a >= eedge)))
-                { px = x+a; py = y+b; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x01) && (a >= sedge || a <= eedge)) || ((sbit & 0x02) && (a <= sedge || a >= eedge)))
-                { px = x+a; py = y-b; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x10) && (a >= sedge || a <= eedge)) || ((sbit & 0x20) && (a <= sedge || a >= eedge)))
-                { px = x-a; py = y+b; oled_write_pixel(px, py, color); }
-        } else {
-            // Draw start/end sector where it is a internal angle
-            // Optimized to prevent double drawing
-            a = 1;
-            b = radius;
-            P = 4 - radius;
-            if (((sbit & 0x20) && !eedge) || ((sbit & 0x40) && !sedge)) { px = x; py = y+b; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x02) && !eedge) || ((sbit & 0x04) && !sedge)) { px = x; py = y-b; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x80) && !eedge) || ((sbit & 0x01) && !sedge)) { px = x+b; py = y; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x08) && !eedge) || ((sbit & 0x10) && !sedge)) { px = x-b; py = y; oled_write_pixel(px, py, color); }
-            do {
-                if (((sbit & 0x01) && a >= sedge && a <= eedge)) { px = x+b; py = y-a; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x02) && a <= sedge && a >= eedge)) { px = x+a; py = y-b; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x04) && a >= sedge && a <= eedge)) { px = x-a; py = y-b; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x08) && a <= sedge && a >= eedge)) { px = x-b; py = y-a; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x10) && a >= sedge && a <= eedge)) { px = x-b; py = y+a; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x20) && a <= sedge && a >= eedge)) { px = x-a; py = y+b; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x40) && a >= sedge && a <= eedge)) { px = x+a; py = y+b; oled_write_pixel(px, py, color); }
-                if (((sbit & 0x80) && a <= sedge && a >= eedge)) { px = x+b; py = y+a; oled_write_pixel(px, py, color); }
-                if (P < 0)
-                    P += 3 + 2*a++;
-                else
-                    P += 5 + 2*(a++ - b--);
-            } while(a < b);
-            if (((sbit & 0x04) && a >= sedge && a <= eedge) || ((sbit & 0x08) && a <= sedge && a >= eedge))
-                { px = x-a; py = y-b; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x40) && a >= sedge && a <= eedge) || ((sbit & 0x80) && a <= sedge && a >= eedge))
-                { px = x+a; py = y+b; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x01) && a >= sedge && a <= eedge) || ((sbit & 0x02) && a <= sedge && a >= eedge))
-                { px = x+a; py = y-b; oled_write_pixel(px, py, color); }
-            if (((sbit & 0x10) && a >= sedge && a <= eedge) || ((sbit & 0x20) && a <= sedge && a >= eedge))
-                { px = x-a; py = y+b; oled_write_pixel(px, py, color); }
-        }
-
-    }
-*/
-
-// void generatic_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t spray) {
-//     unsigned long randInt = 0;
-//     bool          bWhite  = false;
-//     for (int yCurrent = 0; yCurrent < heigth; yCurrent++) {
-//         randInt = fastrand_long();
-
-//         for (int xCurrent = 0; xCurrent < width; xCurrent++) {
-//             bWhite = ((randInt >> xCurrent) & 1) && ((randInt >> xCurrent) % spray == 0);
-
-//             oled_write_pixel(x + xCurrent, y + yCurrent, bWhite);
-//         }
-//     }
+//  //
+//   // Easing Functions - inspired from http://gizma.com/easing/
+//   // only considering the t value for the range [0, 1] => [0, 1]
+//  //
+// EasingFunctions = {
+//   // no easing, no acceleration
+//   linear: t => t,
+//   // accelerating from zero velocity
+//   easeInQuad: t => t*t,
+//   // decelerating to zero velocity
+//   easeOutQuad: t => t*(2-t),
+//   // acceleration until halfway, then deceleration
+//   easeInOutQuad: t => t<.5 ? 2*t*t : -1+(4-2*t)*t,
+//   // accelerating from zero velocity
+//   easeInCubic: t => t*t*t,
+//   // decelerating to zero velocity
+//   easeOutCubic: t => (--t)*t*t+1,
+//   // acceleration until halfway, then deceleration
+//   easeInOutCubic: t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1,
+//   // accelerating from zero velocity
+//   easeInQuart: t => t*t*t*t,
+//   // decelerating to zero velocity
+//   easeOutQuart: t => 1-(--t)*t*t*t,
+//   // acceleration until halfway, then deceleration
+//   easeInOutQuart: t => t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t,
+//   // accelerating from zero velocity
+//   easeInQuint: t => t*t*t*t*t,
+//   // decelerating to zero velocity
+//   easeOutQuint: t => 1+(--t)*t*t*t*t,
+//   // acceleration until halfway, then deceleration
+//   easeInOutQuint: t => t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t
 // }

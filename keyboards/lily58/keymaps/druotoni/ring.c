@@ -11,83 +11,95 @@ char tListeTotal2[SIZE_ARRAY_1] = {'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 
 static char tRefArc[SIZE_ARRAY_1]  = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'};
 static char tRefArc2[SIZE_ARRAY_1] = {'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6'};
 
+// ring target and previous char
+char c_target   = 'A';
+char c_target2  =  'Q';
+char c_last     = ' ';
+char c_previous = ' ';
+
+
+
 static const char PROGMEM code_to_name[60] = {' ', ' ', ' ', ' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
 
+// main circle
+#define CIRCLE_ANIM_FRAME_DURATION 40
+uint32_t circle_timer = 0;
+
+// special animation for special keys
 #define ANIM_CENTER_FRAME_NUMBER 5
 #define ANIM_CENTER_FRAME_DURATION 40
 uint32_t anim_center_timer         = 0;
-int      anim_center_current_frame = 0;
+uint8_t  anim_center_current_frame = 0;
 
-#define ANIM_KEYLOG_FRAME_NUMBER 8
-#define ANIM_KEYLOG_FRAME_DURATION 20
-int      anim_keylog_current_frame = 0;
-uint32_t anim_keylog_timer         = 0;
-
+// sleep animation
 #define ANIM_SLEEP_RING_FRAME_NUMBER 9
 #define ANIM_SLEEP_RING_FRAME_DURATION 20
 uint32_t anim_sleep_ring_timer        = 0;
 uint8_t  current_sleep_ring_frame     = 0;
 uint8_t  sleep_ring_frame_destination = ANIM_SLEEP_RING_FRAME_NUMBER - 1;
 
-uint32_t circle_timer = 0;
+// central frame keylog animation
+#define ANIM_KEYLOG_FRAME_NUMBER 8
+#define ANIM_KEYLOG_FRAME_DURATION 20
+uint8_t  anim_keylog_current_frame = 0;
+uint32_t anim_keylog_timer         = 0;
 
-char c_target   = 'A';
-char c_target2  = 'Q';
-char c_last     = ' ';
-char c_previous = ' ';
 
 static void rotate_right(char str[]) {
-    int  iSize = SIZE_ARRAY_1;
-    char cFist = str[0];
-    for (int i = 0; i < iSize - 1; i++) {
+    uint8_t iSize = SIZE_ARRAY_1;
+    char    cFist = str[0];
+
+    // rotate array to the right
+    for (uint8_t i = 0; i < iSize - 1; i++) {
         str[i] = str[i + 1];
     }
     str[iSize - 1] = cFist;
 }
 
 static void rotate_left(char str[]) {
-    int  iSize = SIZE_ARRAY_1;
-    char cLast = str[iSize - 1];
-    for (int i = iSize - 1; i > 0; i--) {
+    uint8_t iSize = SIZE_ARRAY_1;
+    char    cLast = str[iSize - 1];
+
+     // rotate array to the left
+    for (uint8_t i = iSize - 1; i > 0; i--) {
         str[i] = str[i - 1];
     }
     str[0] = cLast;
 }
 
-static int GetPosition(char c, char tListe[]) {
-    int iSize = SIZE_ARRAY_1;
+static signed char GetPosition(char c, char tListe[]) {
+    uint8_t iSize = SIZE_ARRAY_1;
 
-    for (int i = 0; i < iSize; i++) {
+// find position of c in the array
+    for (uint8_t i = 0; i < iSize; i++) {
         if (tListe[i] == c) return i;
     }
 
     return -1;
 }
 
-static signed int GetDistance(char cNew, char tListe[]) {
-    int iPositionTarget = CURSOR_1;
-
-    int iPositionNew = GetPosition(cNew, tListe);
+static signed char GetDistance(char cNew, char tListe[]) {
+    signed char iPositionNew = GetPosition(cNew, tListe);
     if (iPositionNew == -1) {
         return 0;
     }
 
-    signed iReturn = iPositionNew - iPositionTarget;
-    return iReturn;
+    return iPositionNew - CURSOR_1;
 }
 
-static bool TesterEstDansListe(char cChar, char tListe[]) {
-    int iSize = SIZE_ARRAY_1;
-
-    for (int i = 0; i < iSize; i++) {
-        if (tListe[i] == cChar) return 1;
-    }
-
-    return 0;
+static bool TesterEstDansListe(char c, char tListe[]) {
+    return GetPosition(c, tListe) != -1;
 }
+
+//     for (int i = 0; i < SIZE_ARRAY_1; i++) {
+//         if (tListe[i] == cChar) return true;
+//     }
+
+//     return false;
+// }
 
 static void SmartRotation(char c, char tListe[]) {
-    int signed i = GetDistance(c, tListe);
+    signed char i = GetDistance(c, tListe);
     if (i == 0) return;
 
     if (i < 0) {
@@ -102,12 +114,12 @@ static void SmartRotation(char c, char tListe[]) {
 }
 
 static void update_list(char cNouveau, char tListe[]) {
-    if (!TesterEstDansListe(cNouveau, tListe)) {
-        // unknowed input
-        return;
-    }
+    // if (!TesterEstDansListe(cNouveau, tListe)) {
+    //     // unknowed input
+    //     return;
+    // }
 
-    signed int iDistance = GetDistance(cNouveau, tListe);
+    signed char iDistance = GetDistance(cNouveau, tListe);
     if (iDistance != 0) {
         SmartRotation(cNouveau, tListe);
     }
@@ -125,17 +137,17 @@ static void draw_arc_sector_16(uint8_t x, uint8_t y, uint8_t radius, int positio
 }
 
 static void render_set(uint8_t x, uint8_t y, uint8_t r, int p, bool color) {
+    // 2 pixels arc sector
     draw_arc_sector_16(x, y, r, p, color);
     draw_arc_sector_16(x, y, r - 1, p, color);
 }
 
 static void draw_letter_circle(char t[], char tRef[], char ct, uint8_t x, uint8_t y, uint8_t r, bool invert) {
-    int  iPositionTarget = CURSOR_1;
-    char c               = t[iPositionTarget];
+    
+    char c = t[CURSOR_1];
 
-    int p  = GetPosition(c, tRef);
-    int pt = GetPosition(ct, tRef);
-
+    signed char p  = GetPosition(c, tRef);
+    signed char pt = GetPosition(ct, tRef);
 
     if (!invert) {
         draw_fill_circle(x, y, r, false);
@@ -195,7 +207,10 @@ static void draw_center_circle_frame(uint8_t x, uint8_t y, uint8_t r, uint8_t f)
 }
 
 static void render_anim_center_circle(uint8_t x, uint8_t y, uint8_t r) {
-    if (anim_center_current_frame == ANIM_CENTER_FRAME_NUMBER) return;
+    if (anim_center_current_frame == ANIM_CENTER_FRAME_NUMBER){
+        // last frame : no animation
+return;
+    } 
 
     if (timer_elapsed32(anim_center_timer) > ANIM_CENTER_FRAME_DURATION) {
         anim_center_timer = timer_read32();
@@ -220,8 +235,10 @@ static void render_keylog(gui_state_t t) {
             anim_keylog_current_frame++;
         }
 
+        // clean frame
         draw_rectangle_fill(7, 46, 21, 11, false);
 
+        // comb motion to merge current and previous
         if (anim_keylog_current_frame < ANIM_KEYLOG_FRAME_NUMBER / 2) {
             write_char(c_previous);
             draw_glitch_comb(9, 6 * 8, 18, 8, anim_keylog_current_frame + 1, true);
@@ -237,14 +254,13 @@ static void render_keylog(gui_state_t t) {
 }
 
 void reset_ring(void) {
-    anim_sleep_ring_timer    = timer_read32();
-    current_sleep_ring_frame = ANIM_SLEEP_RING_FRAME_NUMBER - 1;
-
+    // need to open
+    anim_sleep_ring_timer        = timer_read32();
+    current_sleep_ring_frame     = ANIM_SLEEP_RING_FRAME_NUMBER - 1;
     sleep_ring_frame_destination = 0;
 }
 
 static const char PROGMEM raw_ring_sleep[4][64] = {
-
     {
         192, 32, 16, 8, 4, 4, 4, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 8, 16, 32, 192, 3, 4, 8, 16, 32, 32, 32, 64, 64, 64, 64, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 64, 64, 64, 64, 32, 32, 32, 16, 8, 4, 3,
     },
@@ -275,71 +291,14 @@ static void render_tv_circle(uint8_t x, uint8_t y, uint8_t r, uint8_t f) {
     switch (f) {
         case 1:
             draw_circle(x, y, r, 1);
-            //  drawline_vb(0, 88, 32, false);
-            // drawline_vb(31, 88, 32, false);
             break;
 
-            // case 2:
-            //   oled_write_raw_P_cursor(0, 12, raw_frame_2, sizeof(raw_frame_2));
-
-            //    // draw_ellipse(x, y, r, r / 2, 1);
-
-            //     break;
-
-            // case 3:
-            //    oled_write_raw_P_cursor(0, 12,raw_frame_3, sizeof(raw_frame_3));
-            // //    draw_ellipse(x, y, r, r / 4, 1);
-
-            //     break;
-
         case 4:
-
-            // oled_write_raw_P(raw_frame_5, sizeof(raw_frame_5));
-
             drawline_hr(1, y, 12, 1);
             drawline_hr(19, y, 12, 1);
             drawline_vb(0, y - 1, 3, true);
             drawline_vb(31, y - 1, 3, true);
-
             break;
-
-            // case 5:
-
-            //  oled_write_raw_P_cursor(0, 12,raw_frame_5, sizeof(raw_frame_5));
-
-            //     // drawline_hr(2, y, 7, 1);
-            //     // drawline_hr(23, y, 7, 1);
-
-            //     // oled_write_pixel(11, y, true);
-            //     // oled_write_pixel(20, y, true);
-
-            //     // drawline_vb(0, y - 3, 7, true);
-            //     // drawline_vb(31, y - 3, 7, true);
-
-            //     // drawline_vb(1, y - 1, 3, true);
-            //     // drawline_vb(30, y - 1, 3, true);
-
-            //     break;
-
-            // case 6:
-
-            //  oled_write_raw_P_cursor(0, 12,raw_frame_6, sizeof(raw_frame_6));
-
-            //     // drawline_hr(2, y, 2, 1);
-            //     // drawline_hr(5, y, 2, 1);
-            //     // drawline_hr(9, y, 2, 1);
-
-            //     // drawline_hr(28, y, 2, 1);
-            //     // drawline_hr(25, y, 2, 1);
-            //     // drawline_hr(21, y, 2, 1);
-
-            //     // drawline_vb(1, y - 3, 7, true);
-            //     // drawline_vb(30, y - 3, 7, true);
-
-            //      drawline_vb(0, y - 10, 22, true);
-            //     drawline_vb(31, y - 10, 22, true);
-
-            //     break;
 
         case 7:
 
@@ -350,7 +309,6 @@ static void render_tv_circle(uint8_t x, uint8_t y, uint8_t r, uint8_t f) {
 
             drawline_vb(0, y - 12, 26, true);
             drawline_vb(31, y - 12, 26, true);
-
             break;
 
         case 8:
@@ -358,39 +316,6 @@ static void render_tv_circle(uint8_t x, uint8_t y, uint8_t r, uint8_t f) {
             drawline_vb(31, 88, 32, true);
             break;
     }
-
-    //     switch (f) {
-    //         case 0:
-    //             draw_fill_circle(x, y, r, 1);
-    //           //  drawline_vb(0, 88, 32, false);
-    //    // drawline_vb(31, 88, 32, false);
-    //             break;
-
-    //         case 1:
-    //             draw_fill_circle(x, y, r - 5, 1);
-
-    //         //    drawline_vb(0, 96, 16, false);
-    //         //    drawline_vb(31, 96, 16, false);
-
-    //             break;
-
-    //         case 2:
-    //             // cross
-    //             drawline_hr(x - 1, y + 1, 4, true);
-    //             drawline_hr(x - 1, y - 1, 4, true);
-
-    //             // central line
-    //             drawline_hr(x - r / 2, y, r, true);
-
-    //         //    drawline_vb(0, 101, 6, false);
-    //         //    drawline_vb(31, 101, 6, false);
-
-    //             break;
-
-    //         case 3:
-    //             draw_fill_circle(x, y, r, 0);
-    //             break;
-    //     }
 }
 
 static const char PROGMEM raw_bottom[] = {
@@ -405,7 +330,7 @@ static void render_circle_white(void) {
     oled_write_raw_P_cursor(0, 5, raw_middle, sizeof(raw_middle));
 
     drawline_hr(5, 39, 25, 1);
-    //   draw_rectangle_fill(0, 88, 32, 32, false);
+  
     draw_rectangle_fill(0, 80, 32, 40, false);
     drawline_vb(0, 80, 8, 1);
     drawline_vb(31, 80, 8, 1);
@@ -499,6 +424,7 @@ static void render_circle_middle(void) {
 
 void render_circle(gui_state_t t) {
     if (timer_elapsed32(circle_timer) > CIRCLE_ANIM_FRAME_DURATION) {
+
         // new frame
         circle_timer = timer_read32();
 
@@ -526,6 +452,7 @@ void render_circle(gui_state_t t) {
 }
 
 void update_circle(uint16_t keycode) {
+
     // special animation for special keys
     if (keycode == KC_ESC || keycode == KC_SPACE || keycode == KC_ENTER) {
         anim_center_timer         = timer_read32();

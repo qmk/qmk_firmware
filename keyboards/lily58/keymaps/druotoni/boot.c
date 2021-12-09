@@ -49,7 +49,7 @@ static void draw_lily_key_row(uint8_t x, uint8_t y, int w, uint8_t *key_number, 
 }
 
 static void draw_lily_render(unsigned long key_state) {
-    // different orientatien base on side
+    // different orientation base on side
 #if IS_LEFT
 
     uint8_t x            = 0;
@@ -94,7 +94,7 @@ static void draw_lily_render(unsigned long key_state) {
 #if IS_RIGHT
     uint8_t i_key_number = 0;
 
-    for (uint8_t i = 0; i < 4; i++) {
+    for (uint8_t i = 0; i < 4; i++) {\
         draw_lily_key_row(7, 58 + (i * 4), 4, &i_key_number, key_state, true);
         draw_lily_key_row(23, 60 + (i * 4), 2, &i_key_number, key_state, true);
     }

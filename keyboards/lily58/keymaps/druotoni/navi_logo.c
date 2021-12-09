@@ -21,22 +21,33 @@ static void render_logo_clean(void) {
     oled_write_raw_P(logo_raw, sizeof(logo_raw));
 }
 
-static void generer_glitch_bar(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t iProb, uint8_t iProbWhite) {
+
+
+static void render_glitch_bar(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t iProb) {
     // random horizontal scanlines
     for (uint8_t i = 0; i < height; i++) {
         bool bGenerateGlitch = (fastrand() % 100) < iProb;
 
         if (bGenerateGlitch) {
-            bool bWhite = (fastrand() % 100) < iProbWhite;
-            drawline_hr(x, y + i, width, bWhite);
+            drawline_hr(x, y + i, width, true);
         }
     }
 }
 
+// static void generer_glitch_bar(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t iProb, uint8_t iProbWhite) {
+//     // random horizontal scanlines
+//     for (uint8_t i = 0; i < height; i++) {
+//         bool bGenerateGlitch = (fastrand() % 100) < iProb;
+
+//         if (bGenerateGlitch) {
+//             bool bWhite = (fastrand() % 100) < iProbWhite;
+//             drawline_hr(x, y + i, width, bWhite);
+//         }
+//     }
+// }
+
 static void render_truc(uint8_t algo) {
     char c     = 0;
-    int  iSize = 1;
-
     switch (algo) {
         case 7:
             // invert
@@ -49,10 +60,10 @@ static void render_truc(uint8_t algo) {
         case 8:
             //  wobble
             for (uint16_t i = 0; i < LOGO_SIZE; i++) {
-                if (i < LOGO_SIZE - iSize) {
-                    copy_pixel(i + iSize, iSize * -1, 85);
+                if (i < LOGO_SIZE - 1) {
+                    copy_pixel(i + 1,  -1, 85);
 
-                    copy_pixel(LOGO_SIZE - 1 - iSize - i, iSize, 170);
+                    copy_pixel(LOGO_SIZE - 1 - 1 - i, 1, 170);
                 }
             }
             break;
@@ -93,7 +104,7 @@ static void render_logo_glitch(void) {
             return;
 
         case 9:
-            generer_glitch_bar(0, 0, 32, 32, 25, 100);
+            render_glitch_bar(0, 0, 32, 32, 25);
             return;
 
         case 10:

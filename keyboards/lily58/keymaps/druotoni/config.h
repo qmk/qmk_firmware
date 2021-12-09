@@ -26,9 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // tapping toggle for my layers
 #define TAPPING_TOGGLE 2
 
-// choose IS_LEFT or IS_LEFT for compilation and flash firmware
-#define IS_LEFT 1
+// choose IS_LEFT or IS_RIGHT for compilation and flash firmware
 //#define IS_LEFT 1
+#define IS_RIGHT 1
 
 // custom transport for displaying on both side
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A
@@ -61,3 +61,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 #    define NO_PRINT
 #endif 
+
+

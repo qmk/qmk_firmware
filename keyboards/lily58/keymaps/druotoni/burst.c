@@ -1,25 +1,37 @@
 #include QMK_KEYBOARD_H
+
 #include "gui_state.h"
 #include "fast_random.h"
-
 #include "burst.h"
-
 #include "draw_helper.h"
 
-// burst Stuff
+// burst stuff
 static int      current_burst = 0;
 static uint32_t burst_timer   = 0;
 
-// WPM Stuff
+// WPM stuff
 static int      current_wpm = 0;
 static uint16_t wpm_timer   = 0;
 
 // This smoothing is 40 keystrokes
 static const float wpm_smoothing = WPM_SMOOTHING;
 
+// store values 
 uint8_t burst_scope[SIZE_SCOPE] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 uint8_t wpm_scope[SIZE_SCOPE]   = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+// current max wpm
 int     max_wpm                 = MAX_WPM_INIT;
+
+// scope animation stuff
+#define ANIM_SCOPE_FRAME_DURATION 40
+#define ANIM_SLEEP_SCOPE_FRAME_NUMBER 10
+
+uint32_t anim_sleep_scope_timer = 0;
+uint8_t anim_sleep_scope_duration[ANIM_SLEEP_SCOPE_FRAME_NUMBER] = {30, 30, 30, 30, 20, 20, 30, 30, 32, 35};
+uint8_t current_sleep_scope_frame                                = 0;
+uint8_t sleep_scope_frame_destination                            = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
+
 
 static int get_current_burst(void) { return current_burst; }
 
@@ -84,27 +96,13 @@ static void update_scope_array(void) {
 }
 
 static void RenderScopeBlack(void) {
+    // clean central zone
     draw_rectangle_fill(3, 82, 28, 120, false);
 
+// redraw some parts of the frame
     drawline_hr(1, SCOPE_Y_BOTTOM, 32, 1);
     drawline_vt(0, SCOPE_Y_BOTTOM - 1, 42, 1);
     drawline_vt(31, SCOPE_Y_BOTTOM - 1, 47, 1);
-
-    // oled_write_cursor(0, 10, "     ", false);
-    // oled_write_cursor(0, 11, "     ", false);
-    // oled_write_cursor(0, 12, "     ", false);
-    // oled_write_cursor(0, 13, "     ", false);
-    // oled_write_cursor(0, 14, "     ", false);
-    // oled_write_cursor(0, 15, "     ", false);
-
-    // drawline_hr(1, SCOPE_Y_BOTTOM, 32, 1);
-    // drawline_vt(0, SCOPE_Y_BOTTOM - 1, 43, 1);
-    // drawline_vt(31, SCOPE_Y_BOTTOM - 1, 47, 1);
-
-    // oled_write_pixel(4, (10 * 8) + 0, true);
-    // oled_write_pixel(3, (10 * 8) + 1, true);
-    // oled_write_pixel(2, (10 * 8) + 2, true);
-    // oled_write_pixel(1, (10 * 8) + 3, true);
 }
 
 static void render_scope_white(void) {
@@ -115,36 +113,25 @@ static void render_scope_white(void) {
 }
 
 static void render_scope_chart(void) {
+    // clean the frame
     render_scope_white();
-    //  uint8_t x_offset = 3;
+    
     uint8_t y_offset = SCOPE_Y_BOTTOM - 3;
 
     for (uint8_t i = 0; i < SIZE_SCOPE; i++) {
+        // offset
         uint8_t x = 3 + i;
 
+        // new black vertical line for burst
         uint8_t iCurrentBurst = burst_scope[i];
-        uint8_t iCurrentWpm   = wpm_scope[i];
-
-        // uint8_t ilenght = (iCurrentBurst * 4) / 10;
-        // drawline_vt(x, y_offset, ilenght, 0);
-
         drawline_vt(x, y_offset, (iCurrentBurst * 4) / 10, 0);
 
+// new black point for wpm, white if it's on the burst line 
+   uint8_t iCurrentWpm   = wpm_scope[i];
         uint8_t yWpm = y_offset - ((iCurrentWpm * 4) / 10);
-
         oled_write_pixel(x, yWpm, !(iCurrentWpm > iCurrentBurst));
     }
 }
-
-#define ANIM_SCOPE_FRAME_DURATION 40
-#define ANIM_SLEEP_SCOPE_FRAME_NUMBER 10
-
-uint32_t anim_sleep_scope_timer = 0;
-
-uint8_t anim_sleep_scope_duration[ANIM_SLEEP_SCOPE_FRAME_NUMBER] = {30, 30, 30, 30, 20, 20, 30, 30, 32, 35};
-uint8_t current_sleep_scope_frame                                = 0;
-uint8_t sleep_scope_frame_destination                            = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
-
 
 void reset_scope(void) {
         // off : doit s'allumer
@@ -155,32 +142,19 @@ void reset_scope(void) {
 }
 
 
-// void reset_scope(bool bNeedOpen) {
-//     // allume : doit s'éteindre
-//     current_sleep_scope_frame = 0;
-
-//     if (bNeedOpen) {
-//         // off : doit s'allumer
-//         anim_sleep_scope_timer    = timer_read32();
-//         current_sleep_scope_frame = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
-//         //  sleep_scope_frame_destination = 0;
-//     }
-//     sleep_scope_frame_destination = (ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1) - current_sleep_scope_frame;
-// }
-
 uint32_t    anim_scope_idle_timer = 0;
 static void render_glitch_square(void) {
     if (timer_elapsed32(anim_scope_idle_timer) > 60) {
         anim_scope_idle_timer = timer_read32();
         RenderScopeBlack();
-        for (int i = 0; i < 4; i++) {
-            int size  = 4 + (fastrand() % 6);
-            int color = 255;
+        for (uint8_t i = 0; i < 4; i++) {
+            uint8_t size  = 4 + (fastrand() % 6);
+            uint8_t color = 255;
             draw_gradient(3 + (fastrand() % 19), 85 + (fastrand() % 20), size, size, color, color, 4);
         }
-        for (int j = 0; j < 4; j++) {
-            int size  = (fastrand() % 6);
-            int color = 100 + (fastrand() % 100);
+        for (uint8_t j = 0; j < 4; j++) {
+            uint8_t size  = (fastrand() % 6);
+            uint8_t color = 100 + (fastrand() % 100);
             draw_gradient(3 + (fastrand() % 19), 100 + (fastrand() % 20), size, size, color, color, 4);
         }
     }
@@ -190,43 +164,12 @@ int      current_glitch_scope_time  = 150;
 uint32_t glitch_scope_timer         = 0;
 uint8_t  current_glitch_scope_index = 0;
 
-// void get_glitch_index(uint32_t *glitch_timer, int *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number) {
-//     if (timer_elapsed32(*glitch_timer) > *current_glitch_scope_time) {
-//         // end of the last glitch period
-//         *glitch_timer = timer_read32();
-//         // new random glich period
-//         *current_glitch_scope_time = min_time + fastrand() % (max_time - min_time);
-
-//         bool bGenerateGlitch = (fastrand() % 100) < glitch_probobility;
-//         if (!bGenerateGlitch) {
-//             // no glitch
-//             *glitch_index = 0;
-//             return;
-//         }
-
-//         // get a new glitch index
-//         *glitch_index = fastrand() % glitch_frame_number;
-//     }
-// }
 
 void render_scope_idle(void) {
        uint8_t glitch_prob = get_glitch_probability();
     get_glitch_index(&glitch_scope_timer, &current_glitch_scope_time, &current_glitch_scope_index, 150, 350,glitch_prob, 2);
 
-    // if (timer_elapsed32(glitch_scope_timer) > current_glitch_scope_time) {
-    //     glitch_scope_timer = timer_read32();
-
-    //     bool bGenerateGlitch = (fastrand() % 100) < 50;
-    //     if (bGenerateGlitch) {
-    //         current_glitch_scope_index = fastrand() % 2;
-    //     } else {
-    //         // logo clean
-    //         current_glitch_scope_index = 0;
-    //     }
-
-    //     current_glitch_scope_time = fastrand() % 150;
-    // }
-
+  
     switch (current_glitch_scope_index) {
         case 0:
             RenderScopeBlack();
@@ -248,8 +191,6 @@ static void RenderScopeSleep(void) {
     if (timer_elapsed32(anim_sleep_scope_timer) > anim_sleep_scope_duration[current_sleep_scope_frame]) {
         RenderScopeBlack();
 
-        // sleep_scope_frame_destination = 9;
-        //  if (current_sleep_scope_frame != sleep_scope_frame_destination) {
         anim_sleep_scope_timer = timer_read32();
 
         render_tv_animation(current_sleep_scope_frame, 3, 80, 25, 48);
@@ -262,66 +203,6 @@ static void RenderScopeSleep(void) {
     }
 }
 
-// for(int i = 0; i < 4; i++){
-//     int size = (fastrand() % 10);
-//     int color = 200 + (fastrand() % 50);
-// draw_gradient(3 + (fastrand() % 25), 85 + (fastrand() % 20), size, size, color, color, 4);
-// }
-
-// for(int j = 0; j < 4; j++){
-//     int size = (fastrand() % 8);
-//     int color = 150 + (fastrand() % 50);
-// draw_gradient(3 + (fastrand() % 25), 95 + (fastrand() % 20), size, size, color, color, 4);
-// }
-
-// for(int i = 0; i < 4; i++){
-//      int y = (fastrand() % 20);
-//     int size = 5 + (fastrand() % 6) - y/4;
-//     int color = 255 - (y * 1.5);
-// draw_gradient(3 + (fastrand() % 19), 85 + y, size, size, color, color, 4);
-// }
-
-// for(int i = 0; i < 4; i++){
-//      int y = (fastrand() % 10);
-//     int size = 4 + (fastrand() % 6);
-//     int color = 255;
-// draw_gradient(3 + (fastrand() % 19), 82 + y, size, size, color, color, 4);
-// }
-// for(int j = 0; j < 3; j++){
-//      int y = (fastrand() % 15);
-//     int size = 1 + (fastrand() % 4);
-//     int color = 100 + (fastrand() % 100);
-// draw_gradient(3 + (fastrand() % 19),  97 + y, size, size, color, color, 4);
-// }
-
-// for(int k = 0; k < 3; k++){
-//      int y = (fastrand() % 15);
-//     int size = 1+ (fastrand() % 4);
-//     int color = 50 + (fastrand() % 50);
-// draw_gradient(3 + (fastrand() % 19),  105 + y, size, size, color, color, 4);
-// }
-
-// for(int i = 0; i < 4; i++){
-//     int size = 3 + (fastrand() % 7);
-//     int color = 200 + (fastrand() % 50);
-// draw_gradient(3 + (fastrand() % 19), 85 + (fastrand() % 10), size, size, color, color, 4);
-// }
-
-// for(int j = 0; j < 4; j++){
-//     int size = 2 + (fastrand() % 6);
-//     int color = 150 + (fastrand() % 50);
-// draw_gradient(3 + (fastrand() % 19), 100 + (fastrand() % 10), size, size, color, color, 4);
-// }
-
-// for(int k = 0; k < 4;  k++){
-//     int size = 0 + (fastrand() % 6);
-//     int color = 0 + (fastrand() % 100);
-// draw_gradient(3 + (fastrand() % 19), 105 + (fastrand() % 15), size, size, color, color, 4);
-// }
-
-// draw_gradient(15, 110, 15, 15, 60, 60, 4);
-
-// void draw_gradient(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t color_start, uint8_t color_end, uint8_t tres)
 
 void render_scope(gui_state_t t) {
     if (timer_elapsed32(anim_scope_timer) > ANIM_SCOPE_FRAME_DURATION) {
@@ -360,8 +241,8 @@ static void decay_burst(void) {
 
 static void decay_wpm(void) {
     if (timer_elapsed(wpm_timer) > 1000) {
+         wpm_timer = timer_read();
         current_wpm += (-current_wpm) * wpm_smoothing;
-        wpm_timer = timer_read();
     }
 }
 
