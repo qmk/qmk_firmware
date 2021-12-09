@@ -62,11 +62,11 @@ const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [CH_ZOOM_WINDOWS] = LAYOUT(
+    LAYOUT(
         CH_ZOOM_REACT_TOGGLE, CH_ZOOM_LEAVE_MEETING, KC_NO, KC_NO,
         CH_ZOOM_MUTE_TOGGLE, CH_ZOOM_VIDEO_TOGGLE, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE
     ),
-    [CH_ZOOM_MACOS] = LAYOUT(
+    LAYOUT(
         CH_ZOOM_REACT_TOGGLE, CH_ZOOM_LEAVE_MEETING, KC_NO, KC_NO,
         CH_ZOOM_MUTE_TOGGLE, CH_ZOOM_VIDEO_TOGGLE, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE
     )
@@ -112,8 +112,8 @@ uint8_t get_current_layer(void) {
 }
 
 void switch_layer(void) {
-    layer_clear();
     uint8_t current_layer = get_current_layer();
+    layer_clear();
     uint16_t next_layer = current_layer + 1;
     if (next_layer >= LAYER_COUNT) {
         next_layer = 0;
@@ -135,18 +135,21 @@ void on_connected() {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool is_either_pressed = false;
-    uint8_t x = record->event.key.row;
-    uint8_t y = MATRIX_ROWS - record->event.key.col;
+    uint8_t x = record->event.key.col;
+    uint8_t y = MATRIX_ROWS - 1 - record->event.key.row;
     if (x == 0 && y <= 1) {
-        if (is_either_pressed) {
-            switch_layer();
+        if (record->event.pressed) {   
+            if (is_either_pressed) {
+                switch_layer();
+                return false;
+            }
         }
         is_either_pressed = record->event.pressed;
     }
-    if (is_connected) {
-        key_down(get_current_layer(), x, y);
-    } else {
-        if (record->event.pressed) {
+    if (record->event.pressed) {
+        if (is_connected) {
+            key_down(get_current_layer(), x, y);
+        } else {
             uint16_t keyConfigIndex = keycode - CH_CUSTOM;
             uint16_t const* keyMacros = windowsConfigs[keyConfigIndex];
             for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
