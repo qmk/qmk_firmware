@@ -80,7 +80,7 @@ TODO: Custom executable path?
 
 #### ConnectCommand
 
-TODO
+No data.
 
 #### UpdateLightCommand
 
@@ -99,7 +99,11 @@ TODO
 
 #### KeyDownEvent
 
-TODO
+|data|size in byte|Note|
+|--|--|--|
+|layer |1||
+|key x|1||
+|key y|1||
 
 #### LayerSwitchedEvent
 
