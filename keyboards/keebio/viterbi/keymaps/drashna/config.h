@@ -34,7 +34,7 @@
 #define PRODUCT Drashnas Viterbi Macro Pad
 
 #ifdef AUDIO_ENABLE
-#    define C6_AUDIO
+#    define AUDIO_PIN C6
 #    define NO_MUSIC_MODE
 #endif
 

@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -9,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    blindassassin111
 #define PRODUCT         Omnikey Blackheart PCB
-#define DESCRIPTION     Teensy++ Board for Omnikey keyboards
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -46,6 +44,4 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
-
 #endif

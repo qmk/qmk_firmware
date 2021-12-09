@@ -1,8 +1,6 @@
 {
     "keyboard_name": "Fallacy", 
     "maintainer": "Toraifu", 
-    "width": 18.75, 
-    "height": 5, 
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

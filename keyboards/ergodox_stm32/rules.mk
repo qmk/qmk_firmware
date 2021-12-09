@@ -2,17 +2,16 @@
 MCU = STM32F103
 
 MCU_LDSCRIPT = stm32f103_bootloader
-BOARD = ERGODOX_STM32_BOARD
+BOARD = ST_NUCLEO64_F103RB
 
 CFLAGS += "-Wno-error=deprecated"
 EXTRAFLAGS = -O0 -g
 
-BOOTMAGIC_ENABLE = no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = no	# Console for debug
 COMMAND_ENABLE = no    # Commands for debug and configuration
-SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 NKRO_ENABLE      = yes # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work

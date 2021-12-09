@@ -3,3 +3,10 @@ class NoSuchKeyboardError(Exception):
     """
     def __init__(self, message):
         self.message = message
+
+
+class CppError(Exception):
+    """Raised when 'cpp' cannot process a file.
+    """
+    def __init__(self, message):
+        self.message = message

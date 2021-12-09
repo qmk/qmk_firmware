@@ -1,5 +1,6 @@
-/*
- * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+/* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2015 ZSA Technology Labs Inc (@zsa)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

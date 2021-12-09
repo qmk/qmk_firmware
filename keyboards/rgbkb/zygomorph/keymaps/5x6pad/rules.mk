@@ -1,8 +1,3 @@
-# Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
-#
-
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -17,7 +12,7 @@ RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited t
 UNICODE_ENABLE = no         # Unicode
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 ENCODER_ENABLE = yes        # Enable rotary encoder
-OLED_DRIVER_ENABLE = no     # Enable the OLED Driver
+OLED_ENABLE = no     # Enable the OLED Driver
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
 LTO_ENABLE = no      # Enable optimizations to reduce firmware size. Also disables action macros and functions.
 

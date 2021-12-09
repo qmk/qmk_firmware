@@ -91,7 +91,7 @@ void mod_or_mod_with_macro(keyrecord_t *record, uint16_t kc_mod, char* macro) {
 // Runs state check and changes underglow color and animation
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
-uint32_t layer_state_set_user (uint32_t state) {
+layer_state_t layer_state_set_user (layer_state_t state) {
   return layer_state_set_keymap (state);
 }
 
