@@ -22,6 +22,8 @@ void process_protocol(uint8_t c);
 
 void send_protocol(uint8_t c);
 
+void key_down(uint8_t layer, uint8_t x, uint8_t y);
+
 // @param index The 0-based index within the data section.
 void _parse_data(uint8_t index, uint8_t c);
 

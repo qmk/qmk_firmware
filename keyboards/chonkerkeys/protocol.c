@@ -103,6 +103,10 @@ void process_protocol(uint8_t c) {
     }
 }
 
+void key_down(uint8_t layer, uint8_t x, uint8_t y) {
+    
+}
+
 void _parse_data(uint8_t index, uint8_t c) {
     // TODO: Is jump table easier to maintain and has smaller binary size?
     if (command_type == command_type_get_version) {
@@ -153,7 +157,7 @@ void _dispatch_command(void) {
     } else if (command_type == command_type_get_config) {
         on_get_config();
     } else if (command_type == command_type_connect) {
-
+        on_connected();
     } else if (command_type == command_type_update_light) {
         // TODO: Look up light type from key_x and key_y
         uint8_t light_type = get_key_light_type(command.update_light.key_x, command.update_light.key_y);
