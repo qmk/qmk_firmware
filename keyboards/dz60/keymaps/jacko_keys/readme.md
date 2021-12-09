@@ -175,4 +175,6 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * `Fn` cycles onto the CYAN Extra layer.
 
 ### Extra Shift Layer (`Fn` Tap Layer CYAN Shift)
-* This layer toggle locks. You do not need to keep hold of the `Win` CYAN modifier.
+* This layer toggle locks.
+* `Fn` cycles to the YELLOW layer.
+* `Ctrl`, `Shift` and `Alt` select one of eight modification planes.

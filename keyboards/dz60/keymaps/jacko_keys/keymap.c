@@ -154,8 +154,8 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//1834 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
-	//2021-12-07
+	//1728 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//2021-12-09
 };
 
 //Some say the above should be converted to allow more in device shift states,
@@ -253,22 +253,55 @@ const char* const PROGMEM macro_subs[] = {
 };
 
 const char* const PROGMEM mode10[16] = {
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
+	//no modifiers
+	"`1234567890-=\b"
+	"\tqwertyuiop[]\\"
+	" asdfghjkl;'\r"
+	"zxcvbnm,./"
+	" ",
+	//control
+	"`1234567890-=\b"
+	"\tqwertyuiop[]\\"
+	" asdfghjkl;'\r"
+	"zxcvbnm,./"
+	" ",
+	//shift
+	"~!@#$%^&*()_+\b"
+	"\tQWERTYUIOP{}|"
+	" ASDFGHJKL:\"\r"
+	"ZXCVBNM<>?"
+	" ",
+	//shift control
+	"~!@#$%^&*()_+\b"
+	"\tQWERTYUIOP{}|"
+	" ASDFGHJKL:\"\r"
+	"ZXCVBNM<>?"
+	" ",
+	//with Alt
+	//no modifiers
+	"`1234567890-=\b"
+	"\tqwertyuiop[]\\"
+	" asdfghjkl;'\r"
+	"zxcvbnm,./"
+	" ",
+	//control
+	"`1234567890-=\b"
+	"\tqwertyuiop[]\\"
+	" asdfghjkl;'\r"
+	"zxcvbnm,./"
+	" ",
+	//shift
+	"~!@#$%^&*()_+\b"
+	"\tQWERTYUIOP{}|"
+	" ASDFGHJKL:\"\r"
+	"ZXCVBNM<>?"
+	" ",
+	//shift control
+	"~!@#$%^&*()_+\b"
+	"\tQWERTYUIOP{}|"
+	" ASDFGHJKL:\"\r"
+	"ZXCVBNM<>?"
+	" ",
 };
 
 const char* modify_step(const char* ip) {
@@ -485,7 +518,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		//press
 		const char* ip;
 		if(keycode > KM_M) {
-			ip = mode10[(m | (m >> 4)) & 15];
+			ip = mode10[(m | (m >> 4)) & 7];//no Win key
 			show_utf(step_utf(ip, keycode - PK_GRV));
 			//GASC bit order
 			//exit after macro effect
