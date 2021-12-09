@@ -25,7 +25,7 @@
  * |---------------------------------------------------------------------|
  * |Shft    |Z  |X  |C  |V  |B  |N  |M  |,  |.  |/  |Shift       |Up| M1 |
  * |---------------------------------------------------------------------|
- * |Ctrl|GUI |Alt |     Space                    |Alt |Fn|   |Lt |Dn |Rt |
+ * |Ctrl|GUI |Alt |     Space                 |Alt |MO(1)|   |Lt |Dn |Rt |
  * `---------------------------------------------------------------------|'
  */
 
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-// Encoder
+/* Encoder */
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
 /* The switch case allows for different encoder mappings on different layers, "default" map gets applied for all unspecified layers */
@@ -71,13 +71,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-// Rotation of the OLED:
+/* Rotation of the OLED: */
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
-// Kintsugi logo render:
+/* Kintsugi logo render: */
 static void render_logo(void) {
     static const char PROGMEM logo_1[] = {
         0x83, 0x84, 0x85, 0x86, 0x87, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0x00
@@ -96,9 +96,9 @@ static void render_logo(void) {
     oled_write_P(logo_3, false);
 }
 
-// Function that renders stuff on the oled:
+/* Function that renders stuff on the oled: */
 bool oled_task_user(void) {
-    // Function that renders the kintsugi logo in the desired order.
+    /* Function that renders the kintsugi logo in the desired order. */
     render_logo();
     return false;
 }

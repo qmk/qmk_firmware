@@ -16,9 +16,9 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
-//Constants:
-char wpm_str[4]; // Used in the wpm counter function.
-uint8_t selected_layer = 0; // Used to change the layer using the encoder.
+/* Constants: */
+char wpm_str[4]; /* Used in the wpm counter function. */
+uint8_t selected_layer = 0; /* Used to change the layer using the encoder. */
 
 /* Base layout:
  * ,---------------------------------------------------------------------|
@@ -30,7 +30,7 @@ uint8_t selected_layer = 0; // Used to change the layer using the encoder.
  * |---------------------------------------------------------------------|
  * |Shft    |Z  |X  |C  |V  |B  |N  |M  |,  |.  |/  |Shift       |Up| M1 |
  * |---------------------------------------------------------------------|
- * |Ctrl|GUI |Alt |     Space                    |Alt |Fn|   |Lt |Dn |Rt |
+ * |Ctrl|GUI |Alt |     Space               |MO(2) |MO(3)|   |Lt |Dn |Rt |
  * `---------------------------------------------------------------------|'
  */
 
@@ -66,16 +66,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-// Encoder:
+/* Encoder */
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise){
-        // Check if left shift is pressed:
+        /* Check if left shift is pressed: */
         if (selected_layer < 3 && get_mods() & MOD_BIT(KC_LSFT)){
             selected_layer ++;
-            layer_move(selected_layer); // Jump up one layer.
+            layer_move(selected_layer); /* Jump up one layer. */
         } else {
-            // If shift isn't pressed, encoder will do this stuff:
+            /* If shift isn't pressed, encoder will do this stuff: */
             switch (get_highest_layer(layer_state)){
                 case 3:
                     tap_code(KC_MNXT);
@@ -86,12 +86,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
         }
     } else {
-        // Check if left shift is pressed:
+        /* Check if left shift is pressed: */
         if (selected_layer > 0 && get_mods() & MOD_BIT(KC_LSFT)){
             selected_layer --;
-            layer_move(selected_layer); // Go down one layer.
+            layer_move(selected_layer); /* Go down one layer. */
         } else {
-            // If shift isn't pressed, encoder will do this stuff:
+            /* If shift isn't pressed, encoder will do this stuff: */
             switch (get_highest_layer(layer_state)){
                 case 3:
                     tap_code(KC_MPRV);
@@ -106,13 +106,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-// Rotation of the OLED:
+/* Rotation of the OLED: */
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
-// Function that renders the kintsugi logo in the desired order.
+/* Function that renders the kintsugi logo in the desired order. */
 static void render_logo(void) {
     static const char PROGMEM logo_1[] = {
         0x83, 0x84, 0x85, 0x86, 0x87, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0x00
@@ -131,7 +131,7 @@ static void render_logo(void) {
     oled_write_P(logo_3, false);
 }
 
-// Function that renders the current layer to the user.
+/* Function that renders the current layer to the user. */
 void render_layer(void) {
     oled_set_cursor(0,12);
     switch (get_highest_layer(layer_state)){
@@ -153,7 +153,7 @@ void render_layer(void) {
     }
 }
 
-// The following function displays wpm to the user.
+/* The following function displays wpm to the user. */
 void render_wpm(void) {
     oled_set_cursor(1,14);
     sprintf(wpm_str, "%03d", get_current_wpm());
@@ -163,7 +163,7 @@ void render_wpm(void) {
 
 }
 
-// Function that renders stuff on the oled:
+/* Function that renders stuff on the oled: */
 bool oled_task_user(void) {
     render_logo();
     render_layer();
