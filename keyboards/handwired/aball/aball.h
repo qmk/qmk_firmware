@@ -26,9 +26,4 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT( \
-    L00, L01 \
-) { \
-        { L00, L01 } \
-    }
-
+#define LAYOUT(k00) {{ KC_NO }}
