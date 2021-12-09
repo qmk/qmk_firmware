@@ -156,6 +156,12 @@ const uint32_t PROGMEM unicode_map[] = {
 	[ABSL] = U'\\'
 	//1728 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-12-09
+
+	//Mode 10 Notes
+	//all single byte codes for example but 52*3=156 bytes for all in
+	//one plane 156*8=1248 bytes to reserve
+	//1728-1248=480 bytes free for further experiments.
+	//2021-12-09
 };
 
 //Some say the above should be converted to allow more in device shift states,
@@ -253,6 +259,9 @@ const char* const PROGMEM macro_subs[] = {
 };
 
 const char* const PROGMEM mode10[16] = {
+	//all single byte codes for example but 52*3=156 bytes for all in
+	//one plane 156*8=1248 bytes to reserve
+	//1728-1248=480 bytes free for further experiments.
 	//no modifiers
 	"`1234567890-=\b"
 	"\tqwertyuiop[]\\"
@@ -664,6 +673,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define F_BOOM KC_EXSEL
 //a great C4 joke about adding 32 to the modifiers
 
+#define ALG(x) ALGR(x)
+//this is to allow editing the macro-board layer "level 3 shift"
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //=========================================================
 // PRIMARY UNSHIFTED MODES
@@ -697,9 +709,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// Lots of macros and shifts with an Fn
 	LAYOUT_60_ansi(
 		OSM(MOD_LCTL|MOD_LSFT),    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,OSM(MOD_LSFT|MOD_LCTL|MOD_LALT),
-		OSM(MOD_LSFT|MOD_LALT),    KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  ALGR(KC_F24),
-		OSM(MOD_LCTL|MOD_LALT),    ALGR(KC_F1),   ALGR(KC_F2),   ALGR(KC_F3),   ALGR(KC_F4),   ALGR(KC_F5),   ALGR(KC_F6),   ALGR(KC_F7),   ALGR(KC_F8),   ALGR(KC_F9),   ALGR(KC_F10),  ALGR(KC_F11),  ALGR(KC_F12),
-		OSM(MOD_LSFT),         	   ALGR(KC_F13),  ALGR(KC_F14),  ALGR(KC_F15),  ALGR(KC_F16),  ALGR(KC_F17),  ALGR(KC_F18),  ALGR(KC_F19),  ALGR(KC_F20),  ALGR(KC_F21),  ALGR(KC_F22),  ALGR(KC_F23),
+		OSM(MOD_LSFT|MOD_LALT),    KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  ALG(KC_F24),
+		OSM(MOD_LCTL|MOD_LALT),		 ALG(KC_F1),ALG(KC_F2),ALG(KC_F3),ALG(KC_F4),ALG(KC_F5),ALG(KC_F6),ALG(KC_F7),ALG(KC_F8),ALG(KC_F9),ALG(KC_F10),ALG(KC_F11),ALG(KC_F12),
+		OSM(MOD_LSFT),         	   ALG(KC_F13),ALG(KC_F14),ALG(KC_F15),ALG(KC_F16),ALG(KC_F17),ALG(KC_F18),ALG(KC_F19),ALG(KC_F20),ALG(KC_F21),ALG(KC_F22),ALG(KC_F23),
 		OSM(MOD_LCTL),OSM(MOD_LGUI),OSM(MOD_LALT),            KC_SPC,                          LSA(KC_TAB),OSM(MOD_RGUI), LALT(KC_TAB),TO(6)),
 
 	//BQN lock mode 4 ====================================================================================== BQN lock mode 3
@@ -781,7 +793,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		PK_TAB,           PK_Q,    PK_W,    PK_E,    PK_R,    PK_T,    PK_Y,    PK_U,    PK_I,    PK_O,    PK_P,    PK_LBRC, PK_RBRC, PK_BSLS,
 		PK_CAPS,          PK_A,    PK_S,    PK_D,    PK_F,    PK_G,    PK_H,    PK_J,    PK_K,    PK_L,    PK_SCLN, PK_QUOT, PK_ENT,
 		KC_LSFT,          PK_Z,    PK_X,    PK_C,    PK_V,    PK_B,    PK_N,    PK_M,    PK_COMM, PK_DOT,  PK_SLSH,          KC_RSFT,
-		KC_LCTL, KC_LGUI,					 KC_LALT,                   PK_SPC,                             KC_RALT, KC_RGUI,          KC_RCTL, TO(0)),//DF escape
+		KC_LCTL, KC_LEFT,					 KC_LALT,                   PK_SPC,                             KC_RALT, KC_RIGHT,         KC_RCTL, TO(0)),//DF escape
 
 	//============================================================================
 	// FILL IN AS REQUIRED (FOR EXTRA LAYAERS IF NEEDED)

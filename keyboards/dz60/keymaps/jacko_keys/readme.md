@@ -12,6 +12,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * Ironically not being American I will not test the en_US local without hardware.
 * I'm not sure if that locale supports an `Alt Gr` key interpretation of right `Alt`.
 * Hacking Linux `termcap` or GUI equivalent files might be possible for the determined.
+* The compse key on the input method may remove `Alt Gr` as a modofier. This can be edited in `config.h` and by the `#define ALG(x) ALGR(x)` macro in `keymap.c`.
 
 ### Common to All MAGENTA Shift `Fn` Layers (Exceptions Noted Below, Mainly in YELLOW Mode)
 * Left `Ctrl` is ANSI layer select. Basic conformist ANSI.
@@ -178,3 +179,4 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * This layer toggle locks.
 * `Fn` cycles to the YELLOW layer.
 * `Ctrl`, `Shift` and `Alt` select one of eight modification planes.
+* `Win` keys work as left and right cursor.
