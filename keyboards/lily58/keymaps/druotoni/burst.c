@@ -16,22 +16,21 @@ static uint16_t wpm_timer   = 0;
 // This smoothing is 40 keystrokes
 static const float wpm_smoothing = WPM_SMOOTHING;
 
-// store values 
+// store values
 uint8_t burst_scope[SIZE_SCOPE] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 uint8_t wpm_scope[SIZE_SCOPE]   = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 // current max wpm
-int     max_wpm                 = MAX_WPM_INIT;
+int max_wpm = MAX_WPM_INIT;
 
 // scope animation stuff
 #define ANIM_SCOPE_FRAME_DURATION 40
 #define ANIM_SLEEP_SCOPE_FRAME_NUMBER 10
 
-uint32_t anim_sleep_scope_timer = 0;
-uint8_t anim_sleep_scope_duration[ANIM_SLEEP_SCOPE_FRAME_NUMBER] = {30, 30, 30, 30, 20, 20, 30, 30, 32, 35};
-uint8_t current_sleep_scope_frame                                = 0;
-uint8_t sleep_scope_frame_destination                            = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
-
+uint32_t anim_sleep_scope_timer                                   = 0;
+uint8_t  anim_sleep_scope_duration[ANIM_SLEEP_SCOPE_FRAME_NUMBER] = {30, 30, 30, 30, 20, 20, 30, 30, 32, 35};
+uint8_t  current_sleep_scope_frame                                = 0;
+uint8_t  sleep_scope_frame_destination                            = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
 
 static int get_current_burst(void) { return current_burst; }
 
@@ -99,7 +98,7 @@ static void RenderScopeBlack(void) {
     // clean central zone
     draw_rectangle_fill(3, 82, 28, 120, false);
 
-// redraw some parts of the frame
+    // redraw some parts of the frame
     drawline_hr(1, SCOPE_Y_BOTTOM, 32, 1);
     drawline_vt(0, SCOPE_Y_BOTTOM - 1, 42, 1);
     drawline_vt(31, SCOPE_Y_BOTTOM - 1, 47, 1);
@@ -115,7 +114,7 @@ static void render_scope_white(void) {
 static void render_scope_chart(void) {
     // clean the frame
     render_scope_white();
-    
+
     uint8_t y_offset = SCOPE_Y_BOTTOM - 3;
 
     for (uint8_t i = 0; i < SIZE_SCOPE; i++) {
@@ -126,21 +125,20 @@ static void render_scope_chart(void) {
         uint8_t iCurrentBurst = burst_scope[i];
         drawline_vt(x, y_offset, (iCurrentBurst * 4) / 10, 0);
 
-// new black point for wpm, white if it's on the burst line 
-   uint8_t iCurrentWpm   = wpm_scope[i];
-        uint8_t yWpm = y_offset - ((iCurrentWpm * 4) / 10);
+        // new black point for wpm, white if it's on the burst line
+        uint8_t iCurrentWpm = wpm_scope[i];
+        uint8_t yWpm        = y_offset - ((iCurrentWpm * 4) / 10);
         oled_write_pixel(x, yWpm, !(iCurrentWpm > iCurrentBurst));
     }
 }
 
 void reset_scope(void) {
-        // off : doit s'allumer
-        anim_sleep_scope_timer    = timer_read32();
-        current_sleep_scope_frame = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
+    // off : doit s'allumer
+    anim_sleep_scope_timer    = timer_read32();
+    current_sleep_scope_frame = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
 
     sleep_scope_frame_destination = 0;
 }
-
 
 uint32_t    anim_scope_idle_timer = 0;
 static void render_glitch_square(void) {
@@ -164,12 +162,10 @@ int      current_glitch_scope_time  = 150;
 uint32_t glitch_scope_timer         = 0;
 uint8_t  current_glitch_scope_index = 0;
 
-
 void render_scope_idle(void) {
-       uint8_t glitch_prob = get_glitch_probability();
-    get_glitch_index(&glitch_scope_timer, &current_glitch_scope_time, &current_glitch_scope_index, 150, 350,glitch_prob, 2);
+    uint8_t glitch_prob = get_glitch_probability();
+    get_glitch_index(&glitch_scope_timer, &current_glitch_scope_time, &current_glitch_scope_index, 150, 350, glitch_prob, 2);
 
-  
     switch (current_glitch_scope_index) {
         case 0:
             RenderScopeBlack();
@@ -202,7 +198,6 @@ static void RenderScopeSleep(void) {
         }
     }
 }
-
 
 void render_scope(gui_state_t t) {
     if (timer_elapsed32(anim_scope_timer) > ANIM_SCOPE_FRAME_DURATION) {
@@ -241,7 +236,7 @@ static void decay_burst(void) {
 
 static void decay_wpm(void) {
     if (timer_elapsed(wpm_timer) > 1000) {
-         wpm_timer = timer_read();
+        wpm_timer = timer_read();
         current_wpm += (-current_wpm) * wpm_smoothing;
     }
 }
