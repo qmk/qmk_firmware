@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT      Chonkerkeys Original
 
 /* key matrix size */
-#define MATRIX_ROWS 3
+#define MATRIX_ROWS 2
 #define MATRIX_COLS 4
 
 /*
@@ -40,8 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { D3, D2, D1 }
-#define MATRIX_COL_PINS { F7, F6, F5, F4 }
+#define MATRIX_ROW_PINS { D1, D2 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */

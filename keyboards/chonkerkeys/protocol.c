@@ -1,6 +1,8 @@
 #include "protocol.h"
 #include "light_type.h"
 #include "command_type.h"
+#include "event_type.h"
+#include "event.h"
 #include "command.h"
 #include <stdio.h>
 
@@ -25,6 +27,38 @@ void update_light(uint8_t type, uint8_t state) {
             SEND_STRING("share screen light is on");
         }
     }
+}
+
+const extern uint32_t firmware_version;
+void on_get_version() {
+    struct event_get_version_response resp;
+    resp.version = firmware_version;
+    _send_event(event_type_get_version_response, (uint8_t*) &resp);
+}
+
+void _get_config_data_writer() {
+    const uint8_t layer_count = get_layer_count();
+    send_protocol(layer_count);
+    for (uint8_t layer = 0; layer < layer_count; ++layer) {
+        send_protocol(get_layer_type(layer));
+        // QMK origin is top-left, chonkerkeys is bottom-left, invert Y.
+        for (int8_t y = MATRIX_ROWS - 1; y >= 0; --y) {
+            for (uint8_t x = 0; x < MATRIX_COLS; ++x) {
+                send_protocol(get_key_size_and_ordinal(layer, x, y));
+                send_protocol(get_key_action_type(layer, x, y));
+                _send_uint32(get_key_icon(layer, x, y));
+            }
+        }
+    }
+}
+
+#define LAYER_TYPE_SIZE 1
+#define KEY_SIZE 6
+
+void on_get_config() {
+    const uint8_t layer_count = get_layer_count();
+    const uint16_t data_length = 1 + ((LAYER_TYPE_SIZE + (MATRIX_ROWS * MATRIX_COLS * KEY_SIZE)) * layer_count);
+    _send_event_raw(event_type_get_config_response, data_length, &_get_config_data_writer);
 }
 
 uint32_t command_index = 0;
@@ -72,9 +106,9 @@ void process_protocol(uint8_t c) {
 void _parse_data(uint8_t index, uint8_t c) {
     // TODO: Is jump table easier to maintain and has smaller binary size?
     if (command_type == command_type_get_version) {
-        // TODO
+        // No-op
     } else if (command_type == command_type_get_config) {
-
+        // No-op
     } else if (command_type == command_type_connect) {
 
     } else if (command_type == command_type_update_light) {
@@ -83,12 +117,41 @@ void _parse_data(uint8_t index, uint8_t c) {
     }
 }
 
+void _send_event(uint8_t event_type, uint8_t* event) {
+    send_protocol(event_type);
+    if (event_type == event_type_get_version_response) {
+        struct event_get_version_response* resp = (struct event_get_version_response*) event;
+        _send_uint16(4);
+        _send_uint32(resp->version);
+    }
+}
+
+void _send_event_raw(uint8_t event_type, uint16_t data_length, void(*data_writer)(void)) {
+    send_protocol(event_type);
+    _send_uint16(data_length);
+    data_writer();
+}
+
+// Assume little endian.
+void _send_uint16(uint16_t buffer) {
+    send_protocol(buffer);
+    send_protocol(buffer >> 8);
+}
+
+// Assume little endian.
+void _send_uint32(uint32_t buffer) {
+    send_protocol(buffer);
+    send_protocol(buffer >> 8);
+    send_protocol(buffer >> 16);
+    send_protocol(buffer >> 24);
+}
+
 void _dispatch_command(void) {
     // TODO: Is jump table easier to maintain and has smaller binary size?
     if (command_type == command_type_get_version) {
-        // TODO
+        on_get_version();
     } else if (command_type == command_type_get_config) {
-
+        on_get_config();
     } else if (command_type == command_type_connect) {
 
     } else if (command_type == command_type_update_light) {

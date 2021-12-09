@@ -3,6 +3,9 @@
 struct command_get_version {
     // no data
 };
+struct command_get_config {
+    // no data
+};
 struct command_connect {
     // no data
 };
