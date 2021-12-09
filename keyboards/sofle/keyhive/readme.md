@@ -9,7 +9,7 @@ For details about the keyboard design, refer to Josef's blog: [Sofle Keyboard - 
 Build guide: [Keyhive Sofle RGB build guide](https://github.com/keyhive/build_guides/blob/master/docs/keyboards/sofle-rgb.md)
 
 * Keyboard Maintainer: [Winder](https://github.com/winder)
-* Hardware Supported: SofleKeyboard V2.1 RGB PCB, ProMicro / Elite-C
+* Hardware Supported: Keyhive Sofle RGB, ProMicro / Elite-C
 * Hardware Availability: [Keyhive](https://keyhive.xyz/shop/sofle)
 
 ### Acknowledgements
@@ -18,8 +18,12 @@ Build guide: [Keyhive Sofle RGB build guide](https://github.com/keyhive/build_gu
 * [Keyhive fork](https://github.com/keyhive/qmk_firmware) defined all of the board settings.
 
 # Supported Keymaps
-* [keyhive_via](../keymaps/keyhive_via/readme.md) - Includes special support for remapping encoders with VIA.
-* Backwards compatibility for other keymaps is included but has not been tested.
+
+The keyhive schematic has been slightly modified compared to the open source sofle and not all keymaps are compatible.
+
+* **default**: Basic functionality, no rgb, no VIA.
+* [keyhive_via](../keymaps/keyhive_via/readme.md) - Includes rgblighting and special support for remapping encoders with VIA.
+* **Other**: may work but backwards compatibility is not guaranteed or tested.
 
 # VIA Support
 As of 1.3.1, the VIA tool does not support Keyhive/Sofle V2 out of the box.
@@ -29,7 +33,7 @@ See [keyhive_via](../keymaps/keyhive_via/readme.md) for details about configurin
 
 Make example for this keyboard (after setting up your build environment):
 
-    make sofle/keyhive:keyhive_via
+    make sofle/keyhive:default
 
 ## Flashing
 
@@ -40,11 +44,11 @@ Press reset button on the keyboard when asked.
 Disconnect the first half, connect the second one and repeat the process.
 
     # for Pro Micro-based builds
-    make sofle/keyhive:keyhive_via:avrdude-split-left
-    make sofle/keyhive:keyhive_via:avrdude-split-right
+    make sofle/keyhive:default:avrdude-split-left
+    make sofle/keyhive:default:avrdude-split-right
 
     # for Elite C or DFU bootloader builds
-    make sofle/keyhive:keyhive_via:dfu-split-left
-    make sofle/keyhive:keyhive_via:dfu-split-right
+    make sofle/keyhive:default:dfu-split-left
+    make sofle/keyhive:default:dfu-split-right
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
