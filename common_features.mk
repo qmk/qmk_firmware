@@ -27,14 +27,16 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/keyboard.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/usb_device_state.c \
+    $(QUANTUM_DIR)/sync_timer.c \
     $(QUANTUM_DIR)/logging/debug.c \
     $(QUANTUM_DIR)/logging/sendchar.c \
 
 VPATH += $(QUANTUM_DIR)/logging
 # Fall back to lib/printf if there is no platform provided print
-ifeq ("$(wildcard $(TMK_PATH)/common/$(PLATFORM_KEY)/printf.mk)","")
+ifeq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/printf.mk)","")
     include $(QUANTUM_PATH)/logging/print.mk
+else
+    include $(PLATFORM_PATH)/$(PLATFORM_KEY)/printf.mk
 endif
 
 ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
@@ -42,11 +44,6 @@ ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
     CONSOLE_ENABLE = yes
 else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
-endif
-
-ifeq ($(strip $(COMMAND_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/command.c
-    OPT_DEFS += -DCOMMAND_ENABLE
 endif
 
 AUDIO_ENABLE ?= no
@@ -112,16 +109,43 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/mousekey.c
 endif
 
+VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_pinnacle_i2c cirque_pinnacle_spi pmw3360 pimoroni_trackball custom
+POINTING_DEVICE_DRIVER ?= custom
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-    OPT_DEFS += -DPOINTING_DEVICE_ENABLE
-    MOUSE_ENABLE := yes
-    SRC += $(QUANTUM_DIR)/pointing_device.c
-endif
-
-ifeq ($(strip $(PROGRAMMABLE_BUTTON_ENABLE)), yes)
-    OPT_DEFS += -DPROGRAMMABLE_BUTTON_ENABLE
-    SRC += $(QUANTUM_DIR)/programmable_button.c
-    SRC += $(QUANTUM_DIR)/process_keycode/process_programmable_button.c
+    ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)
+        $(error POINTING_DEVICE_DRIVER="$(POINTING_DEVICE_DRIVER)" is not a valid pointing device type)
+    else
+        OPT_DEFS += -DPOINTING_DEVICE_ENABLE
+        MOUSE_ENABLE := yes
+        SRC += $(QUANTUM_DIR)/pointing_device.c
+        SRC += $(QUANTUM_DIR)/pointing_device_drivers.c
+        ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
+            SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
+            OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
+        endif
+        OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
+        ifeq ($(strip $(POINTING_DEVICE_DRIVER)), adns9800)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            QUANTUM_LIB_SRC += spi_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
+            OPT_DEFS += -DSTM32_ADC -DHAL_USE_ADC=TRUE
+            LIB_SRC += analog.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_i2c)
+            OPT_DEFS += -DSTM32_I2C -DHAL_USE_I2C=TRUE
+            SRC += drivers/sensors/cirque_pinnacle.c
+            QUANTUM_LIB_SRC += i2c_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_spi)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            SRC += drivers/sensors/cirque_pinnacle.c
+            QUANTUM_LIB_SRC += spi_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_I2C=TRUE
+            QUANTUM_LIB_SRC += i2c_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3360)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            QUANTUM_LIB_SRC += spi_master.c
+        endif
+    endif
 endif
 
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
@@ -153,51 +177,18 @@ else
     ifeq ($(PLATFORM),AVR)
       # Automatically provided by avr-libc, nothing required
     else ifeq ($(PLATFORM),CHIBIOS)
-      ifeq ($(MCU_SERIES), STM32F3xx)
+      ifneq ($(filter STM32F3xx_% STM32F1xx_% %_STM32F401xC %_STM32F401xE %_STM32F405xG %_STM32F411xE %_STM32F072xB %_STM32F042x6 %_GD32VF103xB %_GD32VF103x8, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
         OPT_DEFS += -DEEPROM_DRIVER
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
         SRC += eeprom_driver.c
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
-        OPT_DEFS += -DEEPROM_EMU_STM32F303xC
-      else ifeq ($(MCU_SERIES), STM32F1xx)
-        OPT_DEFS += -DEEPROM_DRIVER
-        COMMON_VPATH += $(DRIVER_PATH)/eeprom
-        SRC += eeprom_driver.c
-        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
-        SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
-        OPT_DEFS += -DEEPROM_EMU_STM32F103xB
-      else ifeq ($(MCU_SERIES)_$(MCU_LDSCRIPT), STM32F0xx_STM32F072xB)
-        OPT_DEFS += -DEEPROM_DRIVER
-        COMMON_VPATH += $(DRIVER_PATH)/eeprom
-        SRC += eeprom_driver.c
-        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
-        SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
-        OPT_DEFS += -DEEPROM_EMU_STM32F072xB
-      else ifneq ($(filter $(MCU_SERIES)_$(MCU_LDSCRIPT),STM32F4xx_STM32F401xC STM32F4xx_STM32F401xE STM32F4xx_STM32F411xE STM32F4xx_STM32F405xG),)
-        OPT_DEFS += -DEEPROM_DRIVER
-        COMMON_VPATH += $(DRIVER_PATH)/eeprom
-        SRC += eeprom_driver.c
-        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
-        SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
-        OPT_DEFS += -DEEPROM_EMU_STM32F401xC
-      else ifeq ($(MCU_SERIES)_$(MCU_LDSCRIPT), STM32F0xx_STM32F042x6)
-        # Stack sizes: Since this chip has limited RAM capacity, the stack area needs to be reduced.
-        # This ensures that the EEPROM page buffer fits into RAM
-        USE_PROCESS_STACKSIZE = 0x600
-        USE_EXCEPTIONS_STACKSIZE = 0x300
-
-        OPT_DEFS += -DEEPROM_DRIVER
-        COMMON_VPATH += $(DRIVER_PATH)/eeprom
-        SRC += eeprom_driver.c
-        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
-        SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
-        OPT_DEFS += -DEEPROM_EMU_STM32F042x6
       else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
         OPT_DEFS += -DEEPROM_DRIVER
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
         COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/eeprom
-        SRC += eeprom_driver.c eeprom_stm32_L0_L1.c
+        SRC += eeprom_driver.c
+        SRC += eeprom_stm32_L0_L1.c
       else
         # This will effectively work the same as "transient" if not supported by the chip
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
@@ -276,7 +267,7 @@ endif
 endif
 
 RGB_MATRIX_ENABLE ?= no
-VALID_RGB_MATRIX_TYPES := AW20216 IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
+VALID_RGB_MATRIX_TYPES := AW20216 IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 CKLED2001 WS2812 custom
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
@@ -332,6 +323,13 @@ endif
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), CKLED2001)
+        OPT_DEFS += -DCKLED2001 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+        COMMON_VPATH += $(DRIVER_PATH)/led
+        SRC += ckled2001.c
+        QUANTUM_LIB_SRC += i2c_master.c
+    endif
+
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), WS2812)
         OPT_DEFS += -DWS2812
         WS2812_DRIVER_REQUIRED := yes
@@ -370,8 +368,11 @@ ifneq ($(strip $(VARIABLE_TRACE)),no)
     endif
 endif
 
-ifeq ($(strip $(LCD_ENABLE)), yes)
-    CIE1931_CURVE := yes
+ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
+    SRC += $(PLATFORM_COMMON_DIR)/sleep_led.c
+    OPT_DEFS += -DSLEEP_LED_ENABLE
+
+    NO_SUSPEND_POWER_DOWN := yes
 endif
 
 VALID_BACKLIGHT_TYPES := pwm timer software custom
@@ -452,40 +453,15 @@ ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     OPT_DEFS += -DUSER_PRINT
 endif
 
-ifeq ($(strip $(WPM_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/wpm.c
-    OPT_DEFS += -DWPM_ENABLE
-endif
-
-ifeq ($(strip $(ENCODER_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/encoder.c
-    OPT_DEFS += -DENCODER_ENABLE
-endif
-
-ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
-    OPT_DEFS += -DVELOCIKEY_ENABLE
-    SRC += $(QUANTUM_DIR)/velocikey.c
-endif
-
 ifeq ($(strip $(VIA_ENABLE)), yes)
     DYNAMIC_KEYMAP_ENABLE := yes
     RAW_ENABLE := yes
-    BOOTMAGIC_ENABLE := lite
+    BOOTMAGIC_ENABLE := yes
     SRC += $(QUANTUM_DIR)/via.c
     OPT_DEFS += -DVIA_ENABLE
 endif
 
-ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
-    OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
-    SRC += $(QUANTUM_DIR)/dynamic_keymap.c
-endif
-
-ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
-    OPT_DEFS += -DDIP_SWITCH_ENABLE
-    SRC += $(QUANTUM_DIR)/dip_switch.c
-endif
-
-VALID_MAGIC_TYPES := yes lite
+VALID_MAGIC_TYPES := yes
 BOOTMAGIC_ENABLE ?= no
 ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
   ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
@@ -564,23 +540,19 @@ ifeq ($(strip $(CRC_ENABLE)), yes)
     SRC += crc.c
 endif
 
-HAPTIC_ENABLE ?= no
-ifneq ($(strip $(HAPTIC_ENABLE)),no)
+ifeq ($(strip $(HAPTIC_ENABLE)),yes)
     COMMON_VPATH += $(DRIVER_PATH)/haptic
-    OPT_DEFS += -DHAPTIC_ENABLE
-    SRC += $(QUANTUM_DIR)/haptic.c
-    SRC += $(QUANTUM_DIR)/process_keycode/process_haptic.c
-endif
 
-ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )
-    SRC += DRV2605L.c
-    QUANTUM_LIB_SRC += i2c_master.c
-    OPT_DEFS += -DDRV2605L
-endif
+    ifneq ($(filter DRV2605L, $(HAPTIC_DRIVER)), )
+        SRC += DRV2605L.c
+        QUANTUM_LIB_SRC += i2c_master.c
+        OPT_DEFS += -DDRV2605L
+    endif
 
-ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
-    SRC += solenoid.c
-    OPT_DEFS += -DSOLENOID_ENABLE
+    ifneq ($(filter SOLENOID, $(HAPTIC_DRIVER)), )
+        SRC += solenoid.c
+        OPT_DEFS += -DSOLENOID_ENABLE
+    endif
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
@@ -632,13 +604,8 @@ ifeq ($(strip $(UNICODE_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
+    OPT_DEFS += -DUNICODE_COMMON_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
-endif
-
-SPACE_CADET_ENABLE ?= yes
-ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
-    OPT_DEFS += -DSPACE_CADET_ENABLE
 endif
 
 MAGIC_ENABLE ?= yes
@@ -647,48 +614,46 @@ ifeq ($(strip $(MAGIC_ENABLE)), yes)
     OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
 endif
 
-GRAVE_ESC_ENABLE ?= yes
-ifeq ($(strip $(GRAVE_ESC_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_grave_esc.c
-    OPT_DEFS += -DGRAVE_ESC_ENABLE
-endif
-
-ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_dynamic_macro.c
-    OPT_DEFS += -DDYNAMIC_MACRO_ENABLE
-endif
-
-ifeq ($(strip $(COMBO_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_combo.c
-    OPT_DEFS += -DCOMBO_ENABLE
-endif
-
-ifeq ($(strip $(KEY_OVERRIDE_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_key_override.c
-    OPT_DEFS += -DKEY_OVERRIDE_ENABLE
-endif
-
-ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
-    OPT_DEFS += -DTAP_DANCE_ENABLE
-endif
-
-ifeq ($(strip $(KEY_LOCK_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_key_lock.c
-    OPT_DEFS += -DKEY_LOCK_ENABLE
-endif
-
-ifeq ($(strip $(LEADER_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_leader.c
-    OPT_DEFS += -DLEADER_ENABLE
-endif
-
 ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_auto_shift.c
     OPT_DEFS += -DAUTO_SHIFT_ENABLE
     ifeq ($(strip $(AUTO_SHIFT_MODIFIERS)), yes)
         OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
     endif
+endif
+
+ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_mouse.c
+    OPT_DEFS += -DPS2_MOUSE_ENABLE
+    OPT_DEFS += -DMOUSE_ENABLE
+endif
+
+ifeq ($(strip $(PS2_USE_BUSYWAIT)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_busywait.c
+    SRC += ps2_io_avr.c
+    OPT_DEFS += -DPS2_USE_BUSYWAIT
+endif
+
+ifeq ($(strip $(PS2_USE_INT)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_interrupt.c
+    SRC += ps2_io.c
+    OPT_DEFS += -DPS2_USE_INT
+endif
+
+ifeq ($(strip $(PS2_USE_USART)), yes)
+    PS2_ENABLE := yes
+    SRC += ps2_usart.c
+    SRC += ps2_io.c
+    OPT_DEFS += -DPS2_USE_USART
+endif
+
+ifeq ($(strip $(PS2_ENABLE)), yes)
+    COMMON_VPATH += $(DRIVER_PATH)/ps2
+    COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/ps2
+    OPT_DEFS += -DPS2_ENABLE
 endif
 
 JOYSTICK_ENABLE ?= no
@@ -709,11 +674,6 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
     ifeq ($(strip $(JOYSTICK_DRIVER)), digital)
         OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
     endif
-endif
-
-DIGITIZER_ENABLE ?= no
-ifneq ($(strip $(DIGITIZER_ENABLE)), no)
-    SRC += $(QUANTUM_DIR)/digitizer.c
 endif
 
 USBPD_ENABLE ?= no

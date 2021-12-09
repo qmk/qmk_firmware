@@ -34,13 +34,12 @@ led_config_t g_led_config = { {
 #endif
 
 #ifdef OLED_ENABLE
-__attribute__ ((weak))
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-}
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
-__attribute__ ((weak))
-void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     oled_write_P(PSTR("LAYER"), false);
     oled_advance_char();
     oled_write_char(get_highest_layer(layer_state) + 0x30, true);
@@ -94,5 +93,6 @@ void oled_task_user(void) {
     for (uint8_t y = 0; y < 8; y++) {
         oled_write_pixel(35, 0 + y, true);
     }
+    return false;
 }
 #endif
