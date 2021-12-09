@@ -13,7 +13,7 @@ EXTRAKEY_ENABLE = yes  # Audio control and System control
 CONSOLE_ENABLE = yes   # Console for debug
 COMMAND_ENABLE = yes   # Commands for debug and configuration
 CUSTOM_MATRIX = yes    # Custom matrix file for the HHKB
-# NKRO_ENABLE = yes       # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no            # Enable N-Key Rollover
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 
 # HHKB_RN42_ENABLE = yes  # Enable support for hasu's BT alt controller -- code borrowed from tmk source tree.
