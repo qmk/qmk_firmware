@@ -158,7 +158,6 @@ void render_wpm(void) {
     oled_set_cursor(1,14);
     sprintf(wpm_str, "%03d", get_current_wpm());
     oled_write(wpm_str, false);
-    
     oled_set_cursor(1,15);
     oled_write_P(PSTR("WPM"), false);
 
@@ -169,7 +168,6 @@ bool oled_task_user(void) {
     render_logo();
     render_layer();
     render_wpm();
-
     return false;
 }
 #endif

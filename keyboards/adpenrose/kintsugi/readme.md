@@ -12,6 +12,8 @@ A 65%-ish keyboard with some extra features.
 * Underglow.
 * Hotswap sockets.
 
+## General info
+
 * Keyboard Maintainer: [Arturo Avila](https://github.com/ADPenrose)
 * Hardware Supported: Kintsugi V1 PCB
 * Hardware Availability: [Arturo Avila](https://github.com/ADPenrose)
