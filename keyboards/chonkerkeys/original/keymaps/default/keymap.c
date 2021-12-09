@@ -20,6 +20,8 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_type {
+    CH_CUSTOM_WINDOWS,
+    CH_CUSTOM_MACOS,
     CH_ZOOM_WINDOWS,
     CH_ZOOM_MACOS
 };
@@ -52,6 +54,10 @@ const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
     {
         {0x01, 0x81, 0x00, 0x00},
         {0x41, 0x43, 0x00, 0x01}
+    },
+    {
+        {0x01, 0x81, 0x00, 0x00},
+        {0x41, 0x43, 0x00, 0x01}
     }
 };
 
@@ -81,7 +87,7 @@ uint8_t get_key_size_and_ordinal(uint8_t layer, uint8_t x, uint8_t y) {
 }
 
 uint8_t get_key_action_type(uint8_t layer, uint8_t x, uint8_t y) {
-    return keymaps[layer][y][x];
+    return keymaps[layer][y][x] - CH_CUSTOM;
 }
 
 uint32_t get_key_icon(uint8_t layer, uint8_t x, uint8_t y) {
