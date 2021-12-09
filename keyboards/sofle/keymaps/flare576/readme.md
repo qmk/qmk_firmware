@@ -8,12 +8,15 @@
 
 Features:
 
-- Separate Game/Num Pad Layers
-- Tap/Hold keys for =/+, TAB, ESC
-- Mouse Layer
-- Symbols layer for easy !@#$ etc.
-- Hybrid brackets (`[ ]`, `{ }`, `< >`, `( )`) on `,` and `.` keys
-- Current layer on left-hand OLED
-- Luna WPM on left-hand OLED
-- Icon/Logo Marquee on right-hand OLED
+- WASD -> ESDF Gaming layer
+- Mouse/Arrow Keys Layer with **amazing** rates
+- Tap/Hold keys for `=/+`/`SHIFT`, `TAB`/`ALT`
+- Bracket layer with Fn Keys
+- Right-hand primary OLED
+  * Mode logo
+  * Mode title
+  * Luna WPM indicator
+- Left-hand secondary OLED scrolling logo marquee
 - Left encoder controls volume up/down/mute. Right encoder PGUP/PGDOWN/Home.
+
+See [My Sofle Project](https://github.com/flare576/sofle) for more details
