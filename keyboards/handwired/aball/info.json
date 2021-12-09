@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "aball",
+    "url": "https://github.com/brickbots/aball/",
+    "maintainer": "@brickbots",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xC2F0",
+        "device_ver": "0x0001"
+    }
+}
