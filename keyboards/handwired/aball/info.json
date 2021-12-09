@@ -6,5 +6,12 @@
         "vid": "0xFEED",
         "pid": "0xC2F0",
         "device_ver": "0x0001"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x":0, "y":0}
+            ]
+        }
     }
 }
