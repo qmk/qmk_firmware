@@ -31,6 +31,11 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
         return true;
     }
 
+    // ignore if on gaming layers
+    if (layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO) || layer_state_is(_DIABLOII)) {
+        return true;
+    }
+
     // Disable autocorrection while a mod other than shift is active.
     if (((get_mods() | get_oneshot_mods()) & ~MOD_MASK_SHIFT) != 0) {
         typo_buffer_size = 0;

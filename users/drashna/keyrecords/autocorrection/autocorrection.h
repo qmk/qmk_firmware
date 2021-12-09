@@ -24,6 +24,6 @@
 
 #pragma once
 
-#include QMK_KEYBOARD_H
+#include "drashna.h"
 
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record);
