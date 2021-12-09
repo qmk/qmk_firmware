@@ -186,6 +186,8 @@ bool pmw3360_init(void) {
 
     spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -30, 30));
 
+    spi_write_adv(REG_Lift_Config, PMW3360_LIFTOFF_DISTANCE);
+
     bool init_success = pmw3360_check_signature();
 
     writePinLow(PMW3360_CS_PIN);
