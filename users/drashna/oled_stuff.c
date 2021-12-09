@@ -15,6 +15,10 @@
  */
 
 #include "drashna.h"
+#ifdef CUSTOM_UNICODE_ENABLE
+#    include "process_unicode_common.h"
+#endif
+#include <string.h>
 
 extern bool host_driver_disabled;
 
@@ -59,7 +63,7 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
             return;
         }
         if (record->tap.count) {
-            keycode = keycode & 0xFF;
+            keycode &= 0xFF;
         } else if (keycode > 0xFF) {
             return;
         }
@@ -150,8 +154,10 @@ void render_keylock_status(uint8_t led_usb_state) {
     oled_write_P(PSTR(OLED_RENDER_LOCK_NUML), led_usb_state & (1 << USB_LED_NUM_LOCK));
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_LOCK_CAPS), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-//    oled_write_P(PSTR(" "), false);
-//    oled_write_P(PSTR(OLED_RENDER_LOCK_SCLK), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+#if defined(OLED_DISPLAY_128X64)
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR(OLED_RENDER_LOCK_SCLK), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+#endif
 }
 
 void render_matrix_scan_rate(void) {
@@ -296,7 +302,7 @@ void render_user_status(void) {
     oled_write_P(rgb_layer_status[userspace_config.rgb_layer_change], false);
     static const char PROGMEM cat_mode[2][3] = {{0xF8, 0xF9, 0}, {0xF6, 0xF7, 0}};
     oled_write_P(cat_mode[0], host_driver_disabled);
-#if defined(UNICODE_ENABLE)
+#if defined(CUSTOM_UNICODE_ENABLE)
     static const char PROGMEM uc_mod_status[5][3] = {{0xEA, 0xEB, 0}, {0xEC, 0xED, 0}};
     oled_write_P(uc_mod_status[get_unicode_input_mode() == UC_MAC], false);
 #endif
@@ -327,39 +333,28 @@ void oled_driver_render_logo(void) {
 
 void render_wpm(uint8_t padding) {
 #ifdef WPM_ENABLE
-    uint8_t n = get_current_wpm();
-    char    wpm_counter[4];
-    wpm_counter[3] = '\0';
-    wpm_counter[2] = '0' + n % 10;
-    wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
+
     oled_write_P(PSTR(OLED_RENDER_WPM_COUNTER), false);
     if (padding) {
         for (uint8_t n = padding; n > 0; n--) {
             oled_write_P(PSTR(" "), false);
         }
     }
-    oled_write(wpm_counter, false);
+    oled_write(get_u8_str(get_current_wpm(), ' '), false);
 #endif
 }
 
 #if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
 extern kb_config_data_t kb_config;
 void                    render_pointing_dpi_status(uint8_t padding) {
-    char     dpi_status[5];
-    uint16_t n    = kb_config.device_cpi;
-    dpi_status[4] = '\0';
-    dpi_status[3] = '0' + n % 10;
-    dpi_status[2] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    dpi_status[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    dpi_status[0] = n / 10 ? '0' + n / 10 : ' ';
-    oled_write_P(PSTR("DPI: "), false);
+    oled_write_P(PSTR("CPI:"), false);
     if (padding) {
-        for (uint8_t n = padding; n > 0; n--) {
+        for (uint8_t n = padding - 1; n > 0; n--) {
             oled_write_P(PSTR(" "), false);
         }
     }
-    oled_write(dpi_status, false);
+
+    oled_write(get_u16_str(kb_config.device_cpi, ' '), false);
 }
 #endif
 
