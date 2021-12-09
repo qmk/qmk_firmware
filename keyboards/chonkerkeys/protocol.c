@@ -36,7 +36,7 @@ void on_get_version() {
     _send_event(event_type_get_version_response, (uint8_t*) &resp);
 }
 
-void _get_config_data_writer() {
+void _get_config_data_writer(void* user_data) {
     const uint8_t layer_count = get_layer_count();
     send_protocol(layer_count);
     for (uint8_t layer = 0; layer < layer_count; ++layer) {
@@ -58,7 +58,7 @@ void _get_config_data_writer() {
 void on_get_config() {
     const uint8_t layer_count = get_layer_count();
     const uint16_t data_length = 1 + ((LAYER_TYPE_SIZE + (MATRIX_ROWS * MATRIX_COLS * KEY_SIZE)) * layer_count);
-    _send_event_raw(event_type_get_config_response, data_length, &_get_config_data_writer);
+    _send_event_raw(event_type_get_config_response, data_length, &_get_config_data_writer, 0);
 }
 
 uint32_t command_index = 0;
@@ -103,8 +103,19 @@ void process_protocol(uint8_t c) {
     }
 }
 
+void _key_down_data_writer(void* user_data) {
+    struct event_key_down* key_down = (struct event_key_down*) user_data;
+    send_protocol(key_down->layer);
+    send_protocol(key_down->x);
+    send_protocol(key_down->y);
+}
+
 void key_down(uint8_t layer, uint8_t x, uint8_t y) {
-    
+    struct event_key_down key_down;
+    key_down.layer = layer;
+    key_down.x = x;
+    key_down.y = y;
+    _send_event_raw(event_type_key_down, 3, &_key_down_data_writer, &key_down);
 }
 
 void _parse_data(uint8_t index, uint8_t c) {
@@ -130,10 +141,10 @@ void _send_event(uint8_t event_type, uint8_t* event) {
     }
 }
 
-void _send_event_raw(uint8_t event_type, uint16_t data_length, void(*data_writer)(void)) {
+void _send_event_raw(uint8_t event_type, uint16_t data_length, void(*data_writer)(void*), void* user_data) {
     send_protocol(event_type);
     _send_uint16(data_length);
-    data_writer();
+    data_writer(user_data);
 }
 
 // Assume little endian.
