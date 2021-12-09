@@ -68,23 +68,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // End of code-generated section
 
-uint8_t layer_count() {
+uint8_t get_layer_count() {
     return LAYER_COUNT;
 }
 
-uint8_t layer_type(uint8_t index) {
+uint8_t get_layer_type(uint8_t index) {
     return layers[index];
 }
 
-uint8_t key_size_and_ordinal(uint8_t layer, uint8_t x, uint8_t y) {
+uint8_t get_key_size_and_ordinal(uint8_t layer, uint8_t x, uint8_t y) {
     return key_size_and_ordinals[layer][y][x];
 }
 
-uint8_t key_action_type(uint8_t layer, uint8_t x, uint8_t y) {
+uint8_t get_key_action_type(uint8_t layer, uint8_t x, uint8_t y) {
     return keymaps[layer][y][x];
 }
 
-uint32_t key_icon(uint8_t layer, uint8_t x, uint8_t y) {
+uint32_t get_key_icon(uint8_t layer, uint8_t x, uint8_t y) {
     // TODO: Confirm with client.
     return 0;
 }

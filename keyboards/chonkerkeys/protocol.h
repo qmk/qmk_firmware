@@ -4,15 +4,19 @@ void on_connected(void);
 
 void on_get_version(void);
 
-uint8_t layer_count(void);
+void _get_config_data_writer(void);
 
-uint8_t layer_type(uint8_t index);
+void on_get_config(void);
 
-uint8_t key_size_and_ordinal(uint8_t layer, uint8_t x, uint8_t y);
+uint8_t get_layer_count(void);
 
-uint8_t key_action_type(uint8_t layer, uint8_t x, uint8_t y);
+uint8_t get_layer_type(uint8_t index);
 
-uint32_t key_icon(uint8_t layer, uint8_t x, uint8_t y);
+uint8_t get_key_size_and_ordinal(uint8_t layer, uint8_t x, uint8_t y);
+
+uint8_t get_key_action_type(uint8_t layer, uint8_t x, uint8_t y);
+
+uint32_t get_key_icon(uint8_t layer, uint8_t x, uint8_t y);
 
 void process_protocol(uint8_t c);
 
@@ -22,6 +26,8 @@ void send_protocol(uint8_t c);
 void _parse_data(uint8_t index, uint8_t c);
 
 void _send_event(uint8_t event_type, uint8_t* event);
+
+void _send_event_raw(uint8_t event_type, uint16_t data_length, void(*data_writer)(void));
 
 void _send_uint16(uint16_t buffer);
 
