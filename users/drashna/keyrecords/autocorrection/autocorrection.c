@@ -33,6 +33,21 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
 
     // ignore if on gaming layers
     if (layer_state_is(_GAMEPAD) || layer_state_is(_DIABLO) || layer_state_is(_DIABLOII)) {
+        typo_buffer_size = 0;
+        return true;
+    }
+
+    if (keycode == AUTO_CTN) {
+        if (record->event.pressed) {
+            typo_buffer_size = 0;
+            userspace_config.autocorrection ^= 1;
+            eeconfig_update_user(userspace_config.raw);
+        }
+        return false;
+    }
+
+    if (!userspace_config.autocorrection) {
+        typo_buffer_size = 0;
         return true;
     }
 

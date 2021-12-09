@@ -57,6 +57,7 @@ enum userspace_custom_keycodes {
     KC_AUSSIE,
     KC_ZALGO,
     KC_ACCEL,
+    AUTO_CTN,                                 // Toggle Autocorrect status
     NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
 };
 
