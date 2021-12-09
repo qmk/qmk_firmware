@@ -18,19 +18,42 @@
 #include "../protocol.c"
 #include "../../../keyconfig.h"
 
-#define LAYER_COUNT 2
-
 // Defines names for use in layer keycodes and the keymap
 enum layer_type {
     CH_ZOOM_WINDOWS,
     CH_ZOOM_MACOS
 };
 
-bool isWindows(uint8_t layer) {
-    return layer % 2 == 0;
-}
+enum key_size {
+    key_1,
+    key_1_5,
+    key_3
+};
 
+enum key_ordinal {
+    empty,
+    left,
+    top,
+    right,
+    bottom
+};
+
+// Code-generated section
 const uint32_t firmware_version = 1;
+
+#define LAYER_COUNT 2
+
+const uint8_t layers[LAYER_COUNT] = {
+    CH_ZOOM_WINDOWS,
+    CH_ZOOM_MACOS
+};
+
+const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
+    {
+        {0x01, 0x81, 0x00, 0x00},
+        {0x41, 0x43, 0x00, 0x01}
+    }
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [CH_ZOOM_WINDOWS] = LAYOUT(
@@ -42,6 +65,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CH_ZOOM_MUTE_TOGGLE, CH_ZOOM_VIDEO_TOGGLE, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE
     )
 };
+
+// End of code-generated section
+
+uint8_t layer_count() {
+    return LAYER_COUNT;
+}
+
+uint8_t layer_type(uint8_t index) {
+    return layers[index];
+}
+
+uint8_t key_size_and_ordinal(uint8_t layer, uint8_t x, uint8_t y) {
+    return key_size_and_ordinals[layer][y][x];
+}
+
+uint8_t key_action_type(uint8_t layer, uint8_t x, uint8_t y) {
+    return keymaps[layer][y][x];
+}
+
+uint32_t key_icon(uint8_t layer, uint8_t x, uint8_t y) {
+    // TODO: Confirm with client.
+    return 0;
+}
+
+bool isWindows(uint8_t layer) {
+    return layer % 2 == 0;
+}
 
 void switch_layer(void) {
     uint16_t current_layer = CH_ZOOM_WINDOWS;

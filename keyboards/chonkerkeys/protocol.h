@@ -4,6 +4,16 @@ void on_connected(void);
 
 void on_get_version(void);
 
+uint8_t layer_count(void);
+
+uint8_t layer_type(uint8_t index);
+
+uint8_t key_size_and_ordinal(uint8_t layer, uint8_t x, uint8_t y);
+
+uint8_t key_action_type(uint8_t layer, uint8_t x, uint8_t y);
+
+uint32_t key_icon(uint8_t layer, uint8_t x, uint8_t y);
+
 void process_protocol(uint8_t c);
 
 void send_protocol(uint8_t c);

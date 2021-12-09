@@ -71,10 +71,11 @@ No data.
 |*key*|
 |key(x,y) size and ordinal|1|`enum class Ordinal : uint8_t { left = 0, top, right, bottom, empty }` & `enum class Size : uint8_t { Key1, Key1.5, Key3 }` << 6 |
 |key(x,y) action type|1|maps to `KeyActionType`, e.g. `ZoomMute`|
-|key(x,y) icon|4|1 unicode code point in UTF32 (TBA). Just return whatever is stored in the firmware (which is in turn configured via the app/factory image)|
+|key(x,y) icon|4|1 unicode code point in UTF32 (TBA). Just return whatever is stored in the firmware (which is in turn configured via the app/factory image). Leave meeting currently is hard coded as 3u's label always.|
 |repeat *key* for all keys in a layer|48 or 72|4x2x6 = 48 for original, 4x3x6 = 72 for max|
 |repeat *layer* for all layers|48 + 1 x n or 72 + 1 x n|where n is the number of layers|
 
+TODO: Custom label? Is it a thing?
 TODO: Custom executable path?
 
 #### ConnectCommand
