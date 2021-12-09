@@ -675,12 +675,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #define ALG(x) ALGR(x)
 //this is to allow editing the macro-board layer "level 3 shift"
+//for modification and substitution of "compose" key
+#define LRALT KC_RALT
+//#define RALT KC_LALT
 
 //a macro to show matrix positions which can be filled "KC_NO"
 //append "_p", and fill in ...
 //for example split backspace is x1 term.
+//auto ANSI/ISO by set iso=bool and "#~" as x2.
 #define NO_XTRA KC_NO
-#define LAYOUT_60_ansi_p( x1, \
+#define LAYOUT_60_ansi_p( x1, iso, x2, \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c,      k0e, \
     k10,      k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k1e, \
     k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d,      \
@@ -688,9 +692,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     k40, k41,      k43,           k46,                k4a, k4b,      k4d, k4e  \
 ) { \
     { k00,  k01,   k02,   k03,  k04,   k05,   k06,  k07,   k08,   k09,   k0a,  k0b,  k0c,   x1,		 k0e   }, \
-    { k10,  KC_NO, k12,   k13,  k14,   k15,   k16,  k17,   k18,   k19,   k1a,  k1b,  k1c,   k1d,   k1e   }, \
+    { k10,  KC_NO, k12,   k13,  k14,   k15,   k16,  k17,   k18,   k19,   k1a,  k1b,  k1c,   k1d,   (k1e & ~iso)|(x2 & iso)   }, \
     { k20,  KC_NO, k22,   k23,  k24,   k25,   k26,  k27,   k28,   k29,   k2a,  k2b,  k2c,   k2d,   KC_NO }, \
-    { k30,  KC_NO, k32,   k33,  k34,   k35,   k36,  k37,   k38,   k39,   k3a,  k3b,  KC_NO, k3d,   KC_NO }, \
+    { k30,  k1e,	 k32,   k33,  k34,   k35,   k36,  k37,   k38,   k39,   k3a,  k3b,  KC_NO, k3d,   KC_NO }, \
     { k40,  k41,   KC_NO, k43,  KC_NO, KC_NO, k46,  KC_NO, KC_NO, KC_NO, k4a,  k4b,  KC_NO, k4d,   k4e   }  \
 }
 
@@ -703,19 +707,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// Standard ANSI 60 layout for worldwide ASCII compatibility,
 	// This is the standard conformance layer and as such remain static.
 	// MO(4) enters the function shift state.
-	LAYOUT_60_ansi_p(NO_XTRA,
+	LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA,
 		KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC,
 		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
 		KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,
-		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             KC_RALT, KC_RGUI,          KC_RCTL, MO(4)),//zero index start
+		KC_LCTL, KC_LGUI,          KC_LALT,                   KC_SPC,                             LRALT, 	 KC_RGUI,          KC_RCTL, MO(4)),//zero index start
 
 	//Navigation lock mode 1 ======================================================================== Navigation lock mode 1
 	// Removed ASCII 47 (/) and right ctrl/win/alt for cursor.
 	// Backslash enters BQN entry mode
 	// VirtualBox host key needs an Fn.
 	// A basic easy cursor mode with easier BQN entry via \.
-	LAYOUT_60_ansi_p(NO_XTRA,
+	LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA,
 		KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC,
 		KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, OSL(3),//BQN shift
 		KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
@@ -725,7 +729,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//Macro lock mode 3 ================================================================================== Macro lock mode 2
 	// A single finger macro launching board producing many modifier and function keys.
 	// Lots of macros and shifts with an Fn
-	LAYOUT_60_ansi_p(NO_XTRA,
+	LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA,
 		OSM(MOD_LCTL|MOD_LSFT),    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,OSM(MOD_LSFT|MOD_LCTL|MOD_LALT),
 		OSM(MOD_LSFT|MOD_LALT),    KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  ALG(KC_F24),
 		OSM(MOD_LCTL|MOD_LALT),		 ALG(KC_F1),ALG(KC_F2),ALG(KC_F3),ALG(KC_F4),ALG(KC_F5),ALG(KC_F6),ALG(KC_F7),ALG(KC_F8),ALG(KC_F9),ALG(KC_F10),ALG(KC_F11),ALG(KC_F12),
@@ -734,7 +738,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	//BQN lock mode 4 ====================================================================================== BQN lock mode 3
 	// BQN Unicode
-	LAYOUT_60_ansi_p(NO_XTRA,
+	LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA,
 		Z(GR),   Z(N1),	  Z(N2),   Z(N3), 	Z(N4),	 Z(N5),	  Z(N6),   Z(N7),   Z(N8),   Z(N9),   Z(N0),   Z(MIN),  Z(EQ),          	TO(1),//escape
 		KC_TAB,           Z(Q),    Z(W),    Z(E),    Z(R),    Z(T),    Z(Y),    Z(U),    Z(I),    Z(O),    Z(P), 		Z(LBR),  Z(RBR),  KC_BSLS,
 		F_BOOM,           Z(A),    Z(S),    Z(D),    Z(F),    Z(G),    Z(H),    Z(J),    Z(K),    Z(L),    Z(SEMI), Z(QUOT), KC_ENT,
@@ -749,7 +753,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// ISO characters such as £ and control of RGB/backlight and cursor.
 	// Fn + P is power switch for shutdown.
 	// This shift layer is standard for the kind of keyboard plus a few extensions.
-	LAYOUT_60_ansi_p(NO_XTRA,
+	LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA,
 		KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_DEL,
 		LCA(KC_DEL),      RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_WHOM, KC_PWR,  KC_HOME, KC_END,  KC_INS,
 		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_APP,
@@ -760,16 +764,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// All function keys, so Home and End were sacrificed.
 	// Also media player launch and control.
 	// No APP menu as / is on the key, as / is ? key.
-	LAYOUT_60_ansi_p(NO_XTRA,
+	LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA,
 		KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_DEL,
 		LCA(KC_DEL),      KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_INS,
 		KC_SLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_APP,
 		KC_TRNS,          Z(OM),   KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL, Z(MIC),  KC_PGUP, KC_PGDN, KC_QUES,          KC_TRNS,
-		DF(0),   DF(2),            MO(9),		                  KC_SPC,                             KC_RALT, MT(MOD_RGUI,KC_SLSH),KC_RCTL, KC_TRNS),
+		DF(0),   DF(2),            MO(9),		                  KC_SPC,                             LRALT, 	 MT(MOD_RGUI,KC_SLSH),KC_RCTL, KC_TRNS),
 
 	//Macro shift mode 6 ================================================================================ Macro shift mode 6
 	// Same macro layer but different modifier grouping for more hot key combinations.
-	LAYOUT_60_ansi_p(NO_XTRA,
+	LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA,
 		KC_ESC,  KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,   KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_HAEN, KC_HANJ,          KC_DEL,
 		KC_TAB,           KC_RO,   KC_KANA, KC_JYEN, KC_HENK, KC_MHEN, KC_INT6, KC_INT7, KC_INT8, KC_INT9, KC_PWR,	KC_HOME, KC_END,  KC_INS,
 		KC_NLCK,          KC_WSCH, Z(INT),  Z(DIF),  KC_WFAV, Z(ROOT), KC_VOLD, KC_VOLU, Z(DEG),  Z(PND),  KC_PAUS, KC_PSCR, KC_ENT,
@@ -777,7 +781,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		DF(0),OSM(MOD_LSFT|MOD_LGUI),DF(1),                  	ALGR(KC_SPC),                       KC_TRNS, OSM(MOD_LSFT|MOD_RGUI),KC_TRNS, TO(10)),
 
 	//BQN shift mode 7 ==================================================================================== BQN shift mode 7
-	LAYOUT_60_ansi_p(NO_XTRA,
+	LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA,
 		KC_ESC,  X(A1),   X(A2),   X(A3),   X(A4),   X(A5),   X(A6),   X(A7),   X(A8),   X(A9),   X(A0),   X(AMIN), X(AEQ),	          KC_BSPC,//allow backspace
 		KC_TAB,						X(AQ),   X(AW),   X(AE),   X(AR),   X(AT),   X(AY),   X(AU),   X(AI),   X(AO),   X(AP),   X(ALBR), X(ARBR), X(ABSL),
 		KC_SLCK,  		  	X(AA),   X(AS),   X(AD),   X(AF),   X(AG),   X(AH),   X(AJ),   X(AK),   X(AL),   X(ASEM), X(AAPO), KC_ENT,
@@ -789,7 +793,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //=========================================================
 
 	//Control shift mode 8 ============================================================================ Control shift mode 8
-	LAYOUT_60_ansi_p(NO_XTRA,
+	LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA,
 		Z(CES),  Z(C1),   X(IAT),  Z(C3),   Z(C4),   Z(C5),   X(ICAR), Z(C7),   Z(C8),   Z(C9),   Z(C0),   X(IUND), Z(CEQ),           X(LBS),
 		X(TAB),			  		X(IQ),   X(IW),   X(IE),   X(IR),   X(IT),   X(IY),   X(IU),   X(II),   X(IO),   X(IP),   X(ILBR), X(IRBR), X(IBSL),
 		KC_TRNS,  		  	X(IA),   X(IS),   X(ID),   X(IF),   X(IG),   X(IH),   X(IJ),   X(IK),   X(IL),   LCTL(KC_PAUS),LCTL(KC_PSCR),X(CR),
@@ -798,7 +802,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	//Mouse shift mode 9 ================================================================================ Mouse shift mode 9
 	// A utility layer for things like the mouse.
-	LAYOUT_60_ansi_p(NO_XTRA,
+	LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA,
 		RESET,	 KM_1,    KM_2,    KM_3,    KM_4,    KM_5,    KM_6,    KM_7,    KM_8,    KM_9,    KM_0,		 KC_BTN4, KC_BTN5,          KC_DEL,
 		KC_TAB,           KM_Q,    KM_W,    KM_E,    KM_R,    KM_T,    KM_Y,    KM_U,    KM_I,    KM_O,    KM_P,	  KC_HOME, KC_END,	KC_SYSREQ,
 		UC_MOD,			      KM_A,    KM_S,    KM_D,    KM_F,    KM_G,    KM_H,    KM_J,    KM_K,    KM_L,    KC_BTN3, KC_BTN2, KC_ENT,
@@ -806,12 +810,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LCTL, RCS(KC_LALT), 		 KC_TRNS,                		KC_BTN1,                            KC_MS_L, KC_MS_D,          KC_MS_R, KC_TRNS),
 
 	//Extra shift mode 10 ============================================================================== Extra shift mode 10
-	LAYOUT_60_ansi_p(NO_XTRA,
+	LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA,
 		PK_GRV,  PK_1,    PK_2,    PK_3,    PK_4,    PK_5,    PK_6,    PK_7,    PK_8,    PK_9,    PK_0,    PK_MINS, PK_EQL,           PK_BSPC,
 		PK_TAB,           PK_Q,    PK_W,    PK_E,    PK_R,    PK_T,    PK_Y,    PK_U,    PK_I,    PK_O,    PK_P,    PK_LBRC, PK_RBRC, PK_BSLS,
 		PK_CAPS,          PK_A,    PK_S,    PK_D,    PK_F,    PK_G,    PK_H,    PK_J,    PK_K,    PK_L,    PK_SCLN, PK_QUOT, PK_ENT,
 		KC_LSFT,          PK_Z,    PK_X,    PK_C,    PK_V,    PK_B,    PK_N,    PK_M,    PK_COMM, PK_DOT,  PK_SLSH,          KC_RSFT,
-		KC_LCTL, KC_LEFT,					 KC_LALT,                   PK_SPC,                             KC_RALT, KC_RIGHT,         KC_RCTL, TO(0)),//DF escape
+		KC_LCTL, KC_LEFT,					 KC_LALT,                   PK_SPC,                             LRALT, 	 KC_RIGHT,         KC_RCTL, TO(0)),//DF escape
 
 	//============================================================================
 	// FILL IN AS REQUIRED (FOR EXTRA LAYAERS IF NEEDED)

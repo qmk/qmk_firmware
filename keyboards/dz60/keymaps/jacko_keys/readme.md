@@ -13,6 +13,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * I'm not sure if that locale supports an `Alt Gr` key interpretation of right `Alt`.
 * Hacking Linux `termcap` or GUI equivalent files might be possible for the determined.
 * The compse key on the input method may remove `Alt Gr` as a modofier. This can be edited in `config.h` and by the `#define ALG(x) ALGR(x)` macro in `keymap.c`.
+* `#define LRALT` can be changed in `keymap.c` to not conflict with the default compose key.
 
 ### Common to All MAGENTA Shift `Fn` Layers (Exceptions Noted Below, Mainly in YELLOW Mode)
 * Left `Ctrl` is ANSI layer select. Basic conformist ANSI.
