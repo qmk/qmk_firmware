@@ -15,6 +15,9 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * The compse key on the input method may remove `Alt Gr` as a modofier. This can be edited in `config.h` and by the `#define ALG(x) ALGR(x)` macro in `keymap.c`.
 * `#define LRALT` can be changed in `keymap.c` to not conflict with the default compose key.
 
+### Extra Keys
+* `LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA, false, NO_XTRA, NO_XTRA, NO_XTRA, NO_XTRA, NO_XTRA, ...)` in `keymap.c` allows adding in keycodes for the extra keys that can be instanced on the PCB.
+
 ### Common to All MAGENTA Shift `Fn` Layers (Exceptions Noted Below, Mainly in YELLOW Mode)
 * Left `Ctrl` is ANSI layer select. Basic conformist ANSI.
 * Left `Win` is macro-board layer selection. Latching macro modifiers and function keys.
