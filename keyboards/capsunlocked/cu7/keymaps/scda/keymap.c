@@ -2,14 +2,9 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-             MO(1),
-    KC_1,    KC_2,    KC_3,
-    KC_4,    KC_5,    KC_6
-  ),
-  [1] = LAYOUT(
-             MO(0),
-    RGB_MOD, KC_UP,   RESET,
-    KC_LEFT, KC_DOWN, KC_RGHT
+    KC_NO,
+    KC_MPRV, KC_MPLY, KC_MNXT,
+    KC_BRID, KC_MUTE, KC_BRIU
   ),
 };
 
@@ -24,3 +19,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
   return true;
 }
+
+#ifdef RGBLIGHT_ENABLE
+// called post init on every "boot"
+// will set the initial lightings
+void keyboard_post_init_user(void) {
+    rgblight_enable_noeeprom();  // enables Rgb, without saving settings
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_sethsv_noeeprom(HSV_WHITE);
+}
+#endif
