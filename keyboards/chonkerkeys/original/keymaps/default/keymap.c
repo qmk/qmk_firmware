@@ -88,7 +88,7 @@ uint8_t get_key_size_and_ordinal(uint8_t layer, uint8_t x, uint8_t y) {
 }
 
 uint8_t get_key_action_type(uint8_t layer, uint8_t x, uint8_t y) {
-    return keymaps[layer][y][x] - CH_CUSTOM;
+    return pgm_read_byte(&keymaps[layer][y][x]) - CH_CUSTOM;
 }
 
 uint32_t get_key_icon(uint8_t layer, uint8_t x, uint8_t y) {
@@ -101,8 +101,8 @@ bool isWindows(uint8_t layer) {
 }
 
 uint8_t get_current_layer(void) {
-    uint16_t current_layer = CH_ZOOM_WINDOWS;
-    for (uint16_t i = CH_ZOOM_WINDOWS; i < LAYER_COUNT; ++i) {
+    uint16_t current_layer = 0;
+    for (uint16_t i = 0; i < LAYER_COUNT; ++i) {
         if (IS_LAYER_ON(i)) {
             current_layer = i;
             break;
