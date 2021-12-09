@@ -154,13 +154,13 @@ const uint32_t PROGMEM unicode_map[] = {
 	[AU] = U'İ', [AV] = U'Ị', [AW] = U'Ḣ',
 	[AX] = U'Ḥ', [AY] = U'˙', [AZ] = U'·',
 	[ABSL] = U'\\'
-	//1728 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
+	//1744 bytes free - as space is allocated "quite literally" as ASCII 32 in a 32-bit field.
 	//2021-12-09
 
 	//Mode 10 Notes
 	//all single byte codes for example but 52*3=156 bytes for all in
 	//one plane 156*8=1248 bytes to reserve
-	//1728-1248=480 bytes free for further experiments.
+	//1744-1248=496 bytes free for further experiments.
 	//2021-12-09
 };
 
@@ -258,10 +258,10 @@ const char* const PROGMEM macro_subs[] = {
 	" {\n//\n} ",//\\a - a comment in a block
 };
 
-const char* const PROGMEM mode10[16] = {
+const char* const PROGMEM mode10[8] = {
 	//all single byte codes for example but 52*3=156 bytes for all in
 	//one plane 156*8=1248 bytes to reserve
-	//1728-1248=480 bytes free for further experiments.
+	//1744-1248=496 bytes free for further experiments.
 	//no modifiers
 	"`1234567890-=\b"
 	"\tqwertyuiop[]\\"
