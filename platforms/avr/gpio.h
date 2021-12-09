@@ -36,18 +36,3 @@ typedef uint8_t pin_t;
 #define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
 #define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
-
-/* Operation of GPIO by port. */
-
-typedef uint8_t port_data_t;
-
-#define readPort(port) PINx_ADDRESS(port)
-
-#define setPortBitInput(port, bit) (DDRx_ADDRESS(port) &= ~_BV((bit)&0xF), PORTx_ADDRESS(port) &= ~_BV((bit)&0xF))
-#define setPortBitInputHigh(port, bit) (DDRx_ADDRESS(port) &= ~_BV((bit)&0xF), PORTx_ADDRESS(port) |= _BV((bit)&0xF))
-#define setPortBitOutputPushPull(port, bit) (DDRx_ADDRESS(port) |= _BV((bit)&0xF))
-#define setPortBitOutputOpenDrain(port, bit) _Static_assert(0, "AVR platform does not implement an open-drain output")
-#define setPortBitOutput(port, bit) setPortBitOutputPushPull((port), (bit))
-
-#define writePortBitLow(port, bit) (PORTx_ADDRESS(port) &= ~_BV((bit)&0xF))
-#define writePortBitHigh(port, bit) (PORTx_ADDRESS(port) |= _BV((bit)&0xF))
