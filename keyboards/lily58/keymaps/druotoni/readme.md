@@ -1,45 +1,59 @@
 # HELL0 NAVI. Interface
 
-HELL0 NAVI. Interface is a GUI based en [Serial Experiments Lain](https://en.wikipedia.org/wiki/Serial_Experiments_Lain). It turn your Lily58 keyboard into a Navi computer with it own Copland OS.
+HELL0 NAVI. Interface is a GUI based en [Serial Experiments Lain](https://en.wikipedia.org/wiki/Serial_Experiments_Lain). Turn your Lily58 keyboard into a Navi computer with it own Copland OS.
 
-It provides interactive animations for both sides :
+
+Ready to dive into the Wired ?
+
+
+HELL0 NAVI provides interactive animations for both sides :
 - a scope on left side for burst, WPM and active layer
 - a ring on right side for the last key stroke
 
 
 
+
+
+
+
+## Typing animation
+
+The scope displays your burst time on a chart. The WPM is represented by an horizontal line.
+
+The ring display the last letter in the upper frame. Each time you enter a key, the Navi searches into the circular database and locks the position. A special animation is displayed whem you hit key like Enter, Backspce or Escape.
+
+![Typing animation](https://imgur.com/euIz6OR.gif)
+
 ## Startup animation
 
-Ready to dive into the Wired ?
-
-The Navi Animation is canceled when you hit a key.
+Your Navi boots when you leave the sleep mode. The animation is canceled when you hit a key.
 
 ![Startup animation](https://i.imgur.com/EXU92Ev.gif)
 
 
-
-
 ## Waking up animation
+
+After a period of inactivity, the scope and the ring turn off and the Navi runs Idle mode. A new key stroke wakes them up.
+
 ![Waking up animation](https://imgur.com/9GWa7rR.gif)
 
-## Typing animation
-![Typing animation](https://imgur.com/euIz6OR.gif)
-
-
-
 ## Idle animation
+
+The Copland OS is still in beta test. After a while, some visual glitches could occur. 
+
 ![Idle animation](https://imgur.com/eKZ7qgC.gif)
 
 
 ## Shutdown animation
+The Navi run sleep mode after 10 seconds in Idle mode. A nice (and to difficult for me to render in a gif) animation is run. The OLED display turns off. 
 
 ## How to build & flash
 
-Some basic Git commands are:
+config.h
 ```
-git status
-git add
-git commit
+// choose IS_LEFT or IS_RIGHT for compilation and flash firmware
+#define IS_LEFT 1
+//#define IS_RIGHT 1
 ```
 
 
