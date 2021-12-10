@@ -5,6 +5,9 @@ SRC += config_led.c
 ARM_ATSAM = SAMD51J18A
 MCU = cortex-m4
 
+# Bootloader selection
+BOOTLOADER = atmel-samba
+
 # Build Options
 #   comment out to disable the options.
 #
