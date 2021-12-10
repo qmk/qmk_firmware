@@ -20,20 +20,20 @@ HELL0 NAVI provides interactive animations for both sides :
 
 The scope displays your burst time on a chart. The WPM is represented by an horizontal line.
 
-The ring display the last letter in the upper frame. Each time you enter a key, the Navi searches into the circular database and locks the position. A special animation is displayed whem you hit key like Enter, Backspce or Escape.
+The ring display the last letter in the upper frame. Each time you enter a key, the Navi searches into the circular database and locks the position. A special animation is displayed when Enter, Backspce or Escape are strike.
 
 ![Typing animation](https://imgur.com/iIG1tQE.gif)
 
 ## Startup animation
 
-Your Navi boots when you leave the sleep mode. The animation is canceled when you hit a key.
+Your Navi boots when it leaves the sleep mode. The animation can be canceled by typing.
 
 ![Startup animation](https://i.imgur.com/EXU92Ev.gif)
 
 
 ## Waking up animation
 
-After a period of inactivity, the scope and the ring turn off and the Navi runs Idle mode. A new key stroke wakes them up.
+After a period of inactivity, the scope and the ring turn off and the Navi runs in Idle mode. A new key stroke wakes them up.
 
 ![Waking up animation](https://imgur.com/9GWa7rR.gif)
 
@@ -45,11 +45,11 @@ The Copland OS is still in beta test. After a while, some visual glitches could 
 
 
 ## Shutdown animation
-The Navi run sleep mode after 10 seconds in Idle mode. A nice (and to difficult for me to render in a gif) animation is run. The OLED display turns off. 
+The Navi runs in sleep mode after 10 seconds in Idle mode. A nice (and to difficult for me to render in a gif) animation is run. The OLED display turns off. 
 
 # How to build & flash
 
-You need to flash each side with a specific version. This information is set in the config.h
+You need to flash each side with a specific version based on config.h configuration.
 
  ## Left side (master)
 
