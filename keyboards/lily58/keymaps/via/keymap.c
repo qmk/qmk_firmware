@@ -186,7 +186,7 @@ const char *read_keylogs(void) {
 }
 //new
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if (is_keyboard_master()) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -214,6 +214,7 @@ void oled_task_user(void) {
   } else {
       render_logo();
   }
+    return false;
 }
 #endif // OLED_ENABLE
 

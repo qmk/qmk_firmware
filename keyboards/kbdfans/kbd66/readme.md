@@ -2,11 +2,11 @@
 
 ![KBD66](https://i.imgur.com/qtLuL2o.jpg)
 
-A 65% keyboard from KBDFans.
+A 66 key keyboard from KBDFans modeled after the FC660m.
 
-Keyboard Maintainer: [Alex](https://github.com/allo-world)  
-Hardware Supported: KBD66, ATmega32U4  
-Hardware Availability: [KBDFans](https://kbdfans.cn), [Massdrop](https://www.massdrop.com/buy/kbd66-mechanical-keyboard-kit?mode=guest_open)
+* Keyboard Maintainer: [Alex](https://github.com/allo-world)
+* Hardware Supported: KBD66, ATmega32U4
+* Hardware Availability: [KBDFans](https://kbdfans.cn), [Massdrop](https://www.massdrop.com/buy/kbd66-mechanical-keyboard-kit?mode=guest_open)
 
 Make example for this keyboard (after setting up your build environment):
 

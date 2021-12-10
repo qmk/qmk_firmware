@@ -50,6 +50,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed (5 is default) */
 #define DEBOUNCE 5
 
+/* The Model M has no diodes */
+#define MATRIX_HAS_GHOST
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
