@@ -1,7 +1,8 @@
 // Step 1.
 // Declare custom effects using the RGB_MATRIX_EFFECT macro
 // (note the lack of semicolon after the macro!)
-RGB_MATRIX_EFFECT(startup_animation)
+RGB_MATRIX_EFFECT(startup_animation_dots)
+RGB_MATRIX_EFFECT(startup_animation_solid)
 
 // Step 2.
 // Define effects inside the `RGB_MATRIX_CUSTOM_EFFECT_IMPLS` ifdef block
@@ -11,13 +12,14 @@ RGB_MATRIX_EFFECT(startup_animation)
 #include "eeconfig.h"
 
 // e.g: A simple effect, self-contained within a single method
-static bool startup_animation(effect_params_t* params) {
+static void startup_animation_setleds(effect_params_t* params, bool off) {
     uint8_t factor = 7;
     HSV      hsv  = rgb_matrix_config.hsv;
     RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
-#ifdef STARTUP_ANIMATION_DOTS
-    rgb_matrix_set_color_all(0, 0, 0);
-#endif
+    if (off) {
+        rgb_matrix_set_color_all(0, 0, 0);
+    }
+
     switch ((g_rgb_timer & (0b11111 << factor)) >> factor) {
         case 0:
         case 1:
@@ -93,15 +95,35 @@ static bool startup_animation(effect_params_t* params) {
             break;
         }
         case 17: {
+            for (int i = 0; i < 28; i++) {
+                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+            }
             break;
         }
-        case 18: {
+        case 18:
+        case 19: {
+            for (int i = 0; i < 28; i++) {
+                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+            }
+            break;
+        }
+        case 20: {
             eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
             rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
             break;
         }
     }
+}
+
+static bool startup_animation_dots(effect_params_t* params) {
+    startup_animation_setleds(params, true);
     return false;
 }
+static bool startup_animation_solid(effect_params_t* params) {
+    startup_animation_setleds(params, false);
+    return false;
+}
+
+
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

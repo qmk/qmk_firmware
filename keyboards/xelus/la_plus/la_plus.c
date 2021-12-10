@@ -15,8 +15,11 @@
  */
 
 #include "la_plus.h"
+#include "print.h"
 
 #define _____ NO_LED
+
+keyboard_config_t keyboard_config;
 
 led_config_t g_led_config = { {
   // Key Matrix to LED Index
@@ -70,8 +73,39 @@ led_config_t g_led_config = { {
 void keyboard_post_init_kb(void) {
     // Call the post init code.
     debug_enable=true;
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_startup_animation);
 
+    keyboard_config.raw = eeconfig_read_kb();
+    if (keyboard_config.startup_animation_dots) {
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_startup_animation_dots);
+    } else {
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_startup_animation_solid);
+    }
 
-    // keyboard_post_init_user(void);
+    keyboard_post_init_user();
+}
+
+void eeconfig_init_kb(void) {
+#ifdef STARTUP_ANIMATION_DOTS
+    keyboard_config.startup_animation_dots = false;
+#else
+    keyboard_config.startup_animation_dots = true;
+#endif
+    eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
+    if (keycode == STARTUP_ANIMATION_CONFIG && record->event.pressed) {
+        keyboard_config.startup_animation_dots = !(keyboard_config.startup_animation_dots);
+#ifdef CONSOLE_ENABLE
+        uprintf("keyboard_config startup_animation_dots: %b\n", keyboard_config.startup_animation_dots);
+#endif
+        eeconfig_update_kb(keyboard_config.raw);
+    }
+
+    return true;
 }

@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include "config_common.h"
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x5845 // XE
 #define PRODUCT_ID      0x4C50 // LP
@@ -101,3 +103,7 @@
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #define FORCE_NKRO
+
+// Startup Animation
+// comment out for solid animation
+// #define STARTUP_ANIMATION_DOTS

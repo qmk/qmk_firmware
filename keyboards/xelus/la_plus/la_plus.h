@@ -33,3 +33,18 @@
   { K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, ____, K312, K313, K314 }, \
   { K400, K401, K402, ____, ____, ____, ____, ____, K408, K409, K410, ____, K412, K413, K414 } \
 }
+
+typedef union {
+    uint32_t raw;
+    struct {
+        bool startup_animation_dots;
+    };
+} keyboard_config_t;
+
+enum la_plus_keycodes {
+#ifdef VIA_ENABLE
+    STARTUP_ANIMATION_CONFIG = USER00,
+#else
+    STARTUP_ANIMATION_CONFIG = SAFE_RANGE,
+#endif
+};
