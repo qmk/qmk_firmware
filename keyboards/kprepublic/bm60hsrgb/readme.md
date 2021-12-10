@@ -10,7 +10,6 @@ Make example for this keyboard (after setting up your build environment):
     for rev1: make kprepublic/bm60hsrgb/rev1:default
     for rev2: make kprepublic/bm60hsrgb/rev2:default
 
-
 To see which revision you have, look at the PCB. If it says bm60v2 on it, it's rev2. Otherwise it's rev1
 
 
