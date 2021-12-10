@@ -1,18 +1,8 @@
-# !/usr/bin/python3
-
 # Copyright 2021 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Copyright 2022 @filterpaper
+# SPDX-License-Identifier: Apache-2.0
+# Original source: https://getreuer.info/posts/keyboards/autocorrection
+
 
 """Python program to make autocorrection_data.h.
 
@@ -247,7 +237,7 @@ def write_generated_code(autocorrections: List[Tuple[str, str]],
                    for typo, correction in autocorrections)),
     f'\n#define AUTOCORRECTION_MIN_LENGTH {len(min_typo)}  // "{min_typo}"\n',
     f'#define AUTOCORRECTION_MAX_LENGTH {len(max_typo)}  // "{max_typo}"\n\n',
-    textwrap.fill('static const uint8_t autocorrection_data[%d] = {%s};' % (
+    textwrap.fill('static const uint8_t autocorrection_data[%d] PROGMEM = {%s};' % (
       len(data), ', '.join(map(str, data))), width=80, subsequent_indent='  '),
     '\n\n'])
 
