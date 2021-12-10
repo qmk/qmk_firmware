@@ -21,9 +21,6 @@
 #    include "is31fl3733.h"
 #    include "ws2812.h"
 
-
-
-
 const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, B_1, A_1, C_1 },
     { 0, B_2, A_2, C_2 },
@@ -137,9 +134,6 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 
-
-
-
 // clang-format on
 
 // ==========================================================================
@@ -200,5 +194,3 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 // clang-format on
 
 #endif /* RGB_MATRIX_ENABLE */
-
-
