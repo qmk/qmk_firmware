@@ -1,6 +1,6 @@
 # HELL0 NAVI. Interface
 
-HELL0 NAVI. Interface is a Lily58 GUI based en Serial Experiment Lain    .
+HELL0 NAVI. Interface is a GUI based en [Serial Experiments Lain](https://en.wikipedia.org/wiki/Serial_Experiments_Lain) for Lily58 keyboards.
 
 
 
@@ -23,5 +23,14 @@ HELL0 NAVI. Interface is a Lily58 GUI based en Serial Experiment Lain    .
 
 
 ## Shutdown animation
+
+## How to build & flash
+
+Some basic Git commands are:
+```
+git status
+git add
+git commit
+```
 
 
