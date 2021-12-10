@@ -11,7 +11,6 @@ RGB_MATRIX_EFFECT(startup_animation_solid)
 #include "eeprom.h"
 #include "eeconfig.h"
 
-// e.g: A simple effect, self-contained within a single method
 static void startup_animation_setleds(effect_params_t* params, bool off) {
     uint8_t factor = 7;
     HSV      hsv  = rgb_matrix_config.hsv;
@@ -19,100 +18,119 @@ static void startup_animation_setleds(effect_params_t* params, bool off) {
     if (off) {
         rgb_matrix_set_color_all(0, 0, 0);
     }
+    int32_t num = (g_rgb_timer & (0b11111 << factor)) >> factor;
 
-    switch ((g_rgb_timer & (0b11111 << factor)) >> factor) {
-        case 0:
-        case 1:
-        case 2:
-        case 3: {
-            rgb_matrix_set_color(13, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 4: {
-            rgb_matrix_set_color(12, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(15, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 5: {
-            rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(16, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 6: {
-            rgb_matrix_set_color(10, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(17, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 7: {
-            rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(18, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 8: {
-            rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(19, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 9: {
-            rgb_matrix_set_color(7, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(20, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 10: {
-            rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(21, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 11: {
-            rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 12: {
-            rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(23, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 13: {
-            rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 14: {
-            rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 15: {
-            rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 16: {
-            rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
-            rgb_matrix_set_color(27, rgb.r, rgb.g, rgb.b);
-            break;
-        }
-        case 17: {
-            for (int i = 0; i < 28; i++) {
-                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-            }
-            break;
-        }
-        case 18:
-        case 19: {
-            for (int i = 0; i < 28; i++) {
-                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-            }
-            break;
-        }
-        case 20: {
-            eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
-            rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
-            break;
-        }
+    if (num == 0 || num == 1 || num == 2 || num == 17 || num == 18 || num == 19 ) {
+        return;
+    } else if (num >= 20) {
+        eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
+        rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+        return;
     }
+
+    int32_t num2 = (27/2) + num - 2;
+    int32_t num1 = 27 - num2;
+#ifdef CONSOLE_ENABLE
+    uprintf("num: %u\n", num);
+    uprintf("num1: %u\n", num1);
+    uprintf("num2: %u\n", num2);
+#endif
+    rgb_matrix_set_color(num1, rgb.r, rgb.g, rgb.b);
+    rgb_matrix_set_color(num2, rgb.r, rgb.g, rgb.b);
+
+    // switch ((g_rgb_timer & (0b11111 << factor)) >> factor) {
+    //     case 0:
+    //     case 1:
+    //     case 2:
+    //     case 3: {
+    //         rgb_matrix_set_color(13, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 4: {
+    //         rgb_matrix_set_color(12, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(15, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 5: {
+    //         rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(16, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 6: {
+    //         rgb_matrix_set_color(10, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(17, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 7: {
+    //         rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(18, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 8: {
+    //         rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(19, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 9: {
+    //         rgb_matrix_set_color(7, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(20, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 10: {
+    //         rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(21, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 11: {
+    //         rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 12: {
+    //         rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(23, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 13: {
+    //         rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 14: {
+    //         rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 15: {
+    //         rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 16: {
+    //         rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
+    //         rgb_matrix_set_color(27, rgb.r, rgb.g, rgb.b);
+    //         break;
+    //     }
+    //     case 17: {
+    //         for (int i = 0; i < 28; i++) {
+    //             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+    //         }
+    //         break;
+    //     }
+    //     case 18:
+    //     case 19: {
+    //         for (int i = 0; i < 28; i++) {
+    //             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+    //         }
+    //         break;
+    //     }
+    //     case 20: {
+    //         eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
+    //         rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+    //         break;
+    //     }
+    // }
 }
 
 static bool startup_animation_dots(effect_params_t* params) {
@@ -123,7 +141,5 @@ static bool startup_animation_solid(effect_params_t* params) {
     startup_animation_setleds(params, false);
     return false;
 }
-
-
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
