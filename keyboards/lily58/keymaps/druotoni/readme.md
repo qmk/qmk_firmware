@@ -22,7 +22,7 @@ The scope displays your burst time on a chart. The WPM is represented by an hori
 
 The ring display the last letter in the upper frame. Each time you enter a key, the Navi searches into the circular database and locks the position. A special animation is displayed whem you hit key like Enter, Backspce or Escape.
 
-![Typing animation](https://imgur.com/euIz6OR.gif)
+![Typing animation](https://imgur.com/iIG1tQE.gif)
 
 ## Startup animation
 
