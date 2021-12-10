@@ -16,12 +16,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap (Base Layer) Default Layer
    * ,----------------------------------------------------------------.
@@ -64,25 +58,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______,_______, _______,                _______,                         _______,_______,          KC_HOME, KC_PGDN, KC_END),
 
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("I like you Thao Oil!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-    case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("Also I like you Trang June" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
-  }
-  return true;
-}

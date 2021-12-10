@@ -5,7 +5,10 @@
 * Keyboard Maintainer: [tuananhnguyen204](https://github.com/AnthonyNguyen168) (tuananhnguyen204@gmail.com)
 * Hardware Supported: MechBrewery MB-65S
 * Hardware Availability: N/A
-* To reset the board into bootloader mode: press Reset hardware button or press layer 1 RESET key
+* Enter the bootloader in 3 ways:
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
 
 Make example for this keyboard (after setting up your build environment):
 
