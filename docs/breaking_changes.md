@@ -24,7 +24,7 @@ The next Breaking Change is scheduled for February 26, 2022.
 
 ### Important Dates
 
-* [x] 2022 Nov 27 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* [x] 2021 Nov 27 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
 * [ ] 2022 Jan 31 - `develop` closed to new PR's.
 * [ ] 2022 Jan 31 - Call for testers.
 * [ ] 2022 Feb 12 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes

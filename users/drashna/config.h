@@ -41,6 +41,15 @@
 #    endif
 #endif
 
+#if defined(WPM_ENABLE)
+// #    define WPM_LAUNCH_CONTROL
+// #    define WPM_ALLOW_COUNT_REGRESSOIN
+// #    define WPM_UNFILTERED
+#    define WPM_SAMPLE_SECONDS      6
+#    define WPM_SAMPLE_PERIODS      50
+#    define WPM_ESTIMATED_WORD_SIZE 6
+#endif
+
 #ifdef AUDIO_ENABLE
 #    define AUDIO_CLICKY
 #    define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
