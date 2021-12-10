@@ -1,6 +1,6 @@
 # HELL0 NAVI. Interface
 
-HELL0 NAVI. Interface is a GUI based en [Serial Experiments Lain](https://en.wikipedia.org/wiki/Serial_Experiments_Lain). Turn your Lily58 keyboard into a Navi computer with it own Copland OS.
+HELL0 NAVI. Interface is a GUI based en [Serial Experiments Lain](https://en.wikipedia.org/wiki/Serial_Experiments_Lain). Turn your Lily58 keyboard into a Navi computer with its own Copland OS.
 
 
 Ready to dive into the Wired ?
@@ -20,7 +20,7 @@ HELL0 NAVI provides interactive animations for both sides :
 
 The scope displays your burst time on a chart. The WPM is represented by an horizontal line.
 
-The ring display the last letter in the upper frame. Each time you enter a key, the Navi searches into the circular database and locks the position. A special animation is displayed when Enter, Backspce or Escape are strike.
+The ring display the last letter in the upper frame. Each time you enter a key, the Navi searches into the circular database and locks the position. A special animation is displayed when Enter, Backspce or Escape are struck.
 
 ![Typing animation](https://imgur.com/iIG1tQE.gif)
 
@@ -39,13 +39,13 @@ After a period of inactivity, the scope and the ring turn off and the Navi runs 
 
 ## Idle animation
 
-The Copland OS is still in beta test. After a while, some visual glitches could occur. 
+The Copland OS is still in beta test. After a while, some visual glitches will occur. 
 
 ![Idle animation](https://imgur.com/eKZ7qgC.gif)
 
 
 ## Shutdown animation
-The Navi runs in sleep mode after 10 seconds in Idle mode. A nice (and to difficult for me to render in a gif) animation is run. The OLED display turns off. 
+The Navi runs in sleep mode after 10 seconds in Idle mode. A nice (and difficul to render in a gif) animation is run. The OLED display turns off. 
 
 # How to build & flash
 
