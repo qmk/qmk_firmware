@@ -1,0 +1,6 @@
+enum layer_type {
+    CH_CUSTOM_WINDOWS,
+    CH_CUSTOM_MACOS,
+    CH_ZOOM_WINDOWS,
+    CH_ZOOM_MACOS
+};

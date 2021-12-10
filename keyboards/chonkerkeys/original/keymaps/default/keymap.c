@@ -16,62 +16,8 @@
 #include QMK_KEYBOARD_H
 #include "virtser.h"
 #include "../protocol.c"
+#include "config.c"
 #include "../../../keyconfig.h"
-
-// Defines names for use in layer keycodes and the keymap
-enum layer_type {
-    CH_CUSTOM_WINDOWS,
-    CH_CUSTOM_MACOS,
-    CH_ZOOM_WINDOWS,
-    CH_ZOOM_MACOS
-};
-
-enum key_size {
-    key_1,
-    key_1_5,
-    key_3
-};
-
-enum key_ordinal {
-    empty,
-    left,
-    top,
-    right,
-    bottom
-};
-
-// Code-generated section
-const uint32_t firmware_version = 1;
-
-#define LAYER_COUNT 2
-
-const uint8_t layers[LAYER_COUNT] = {
-    CH_ZOOM_WINDOWS,
-    CH_ZOOM_MACOS
-};
-
-const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
-    {
-        {0x01, 0x81, 0x00, 0x00},
-        {0x41, 0x43, 0x00, 0x01}
-    },
-    {
-        {0x01, 0x81, 0x00, 0x00},
-        {0x41, 0x43, 0x00, 0x01}
-    }
-};
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT(
-        CH_ZOOM_REACT_TOGGLE, CH_ZOOM_LEAVE_MEETING, KC_NO, KC_NO,
-        CH_ZOOM_MUTE_TOGGLE, CH_ZOOM_VIDEO_TOGGLE, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE
-    ),
-    LAYOUT(
-        CH_ZOOM_REACT_TOGGLE, CH_ZOOM_LEAVE_MEETING, KC_NO, KC_NO,
-        CH_ZOOM_MUTE_TOGGLE, CH_ZOOM_VIDEO_TOGGLE, KC_NO, CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE
-    )
-};
-// End of code-generated section
 
 bool is_connected = false;
 
