@@ -10,8 +10,8 @@
 #    include "autocorrection_data.h"
 
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
-    static uint8_t typo_buffer[AUTOCORRECTION_MAX_LENGTH] = {0};
-    static uint8_t typo_buffer_size                       = 0;
+    static uint8_t typo_buffer[AUTOCORRECTION_MAX_LENGTH] = {KC_SPC};
+    static uint8_t typo_buffer_size                       = 1;
 
     if (keycode == AUTO_CTN) {
         if (record->event.pressed) {
@@ -26,12 +26,17 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
         typo_buffer_size = 0;
         return true;
     }
+
     // Exclude Shift hold from resetting autocorrection.
-    if (keycode == KC_LSFT || keycode == KC_RSFT ||
-         (QK_MOD_TAP <= keycode && keycode <= QK_MOD_TAP_MAX &&
-         ((keycode >> 8) & 0x0f) == MOD_LSFT && !record->tap.count) ||
-         (QK_ONE_SHOT_MOD <= keycode && keycode <= QK_ONE_SHOT_MOD_MAX &&
-         (((keycode & 0xFF) & ~MOD_MASK_SHIFT) != 0))) {
+    if (keycode == KC_LSFT || keycode == KC_RSFT) {
+        return true;
+    } else if ((QK_MOD_TAP <= keycode && keycode <= QK_MOD_TAP_MAX && ((keycode >> 8) & 0x0f) == MOD_LSFT) && (record->event.pressed || !record->tap.count)) {
+        return true;
+#ifndef NO_ACTION_ONESHOT
+    } else if ((QK_ONE_SHOT_MOD <= keycode && keycode <= QK_ONE_SHOT_MOD_MAX && (keycode & 0xF) == MOD_LSFT)) {
+        return true;
+#endif
+    } else if (!record->event.pressed) {
         return true;
     }
 
@@ -94,8 +99,8 @@ found_typo:  // A typo was found! Apply autocorrection.
     send_string_P((char const*)(autocorrection_data + state + 1));
 
     if (keycode == KC_SPC) {
-        typo_buffer[0] = KC_SPC;
-        typo_buffer_size    = 1;
+        typo_buffer[0]   = KC_SPC;
+        typo_buffer_size = 1;
         return true;
     } else {
         typo_buffer_size = 0;
