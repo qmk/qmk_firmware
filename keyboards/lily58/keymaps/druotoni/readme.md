@@ -47,11 +47,11 @@ The Copland OS is still in beta test. After a while, some visual glitches could 
 ## Shutdown animation
 The Navi run sleep mode after 10 seconds in Idle mode. A nice (and to difficult for me to render in a gif) animation is run. The OLED display turns off. 
 
-## How to build & flash
+# How to build & flash
 
 You need to flash each side with a specific version. This information is set in the config.h
 
- ### Left side (master)
+ ## Left side (master)
 
 IS_RIGHT needs to be commented in config.h
 ```
@@ -60,7 +60,7 @@ IS_RIGHT needs to be commented in config.h
 ```
 Connect the left side and flash
 
- ### Right side (slave)
+ ## Right side (slave)
 
 Comment IS_LEFT and uncomment IS_RIGHT  in config.h
 ```
@@ -69,11 +69,25 @@ Comment IS_LEFT and uncomment IS_RIGHT  in config.h
 ```
 Connect the right side and flash
 
-## Customization
+# Customization
 
-### Logo
-
-### Layer names
+## Logo
+Logo can be change in navi_logo.c.
+The new logo must be 32x32 pixels.
+```
+static void render_logo_clean(void) {
+    // your logo here
+    static const char PROGMEM logo_raw[] = {
+        0, 0, 0, 0, 0, 0, 128, 128, 0, 0, 128, 128, 192, 192, 204, 222, 222, 204, 192, 192, 128, 0, 0, 0, 128, 128, 0, 0,
+        0, 0, 0, 0, 192, 240, 248, 28, 14, 7, 3, 249, 252, 255, 15, 7, 3, 225, 241, 241, 241, 241, 225, 3, 7, 15, 255, 252,
+        249, 3, 7, 14, 28, 248, 240, 192, 192, 227, 231, 206, 28, 56, 112, 99, 15, 31, 60, 120, 240, 225, 227, 3, 3, 227,
+        225, 240, 120, 60, 31, 15, 103, 112, 56, 28, 206, 231, 227, 192, 0, 1, 1, 0, 0, 0, 56, 120, 96, 192, 192, 192, 
+        96, 127, 63, 0, 0, 63, 127, 96, 192, 192, 192, 96, 120, 56, 0, 0, 0, 1, 1, 0,
+    };
+    oled_write_raw_P(logo_raw, sizeof(logo_raw));
+}
+```
+## Layer names
 
 The current version handle 3 differents layers. Names can be changed in layer_frame.h.
 ```
@@ -83,7 +97,7 @@ The current version handle 3 differents layers. Names can be changed in layer_fr
 #define LAYER_NAME_2 "SPE"
 ```
 
-### Timing
+## Timing
 
 You can tweak states timing in gui_state.h.
 ```
