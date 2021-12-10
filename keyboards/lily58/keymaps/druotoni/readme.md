@@ -109,3 +109,5 @@ You can tweak states timing in gui_state.h.
 #define SLEEP_TIME_TRESHOLD HALTING_TIME_TRESHOLD + 8000
 ```
 
+![My Navi](https://imgur.com/eYkgoZJ.png)
+
