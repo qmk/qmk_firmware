@@ -88,12 +88,14 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         encoder_cw.pressed = true;
         encoder_cw.time = (timer_read() | 1);
         action_exec(encoder_cw);
+        wait_ms(20);
         anim_sleep = timer_read32();
         oled_on();
     } else {
         encoder_ccw.pressed = true;
         encoder_ccw.time = (timer_read() | 1);
         action_exec(encoder_ccw);
+        wait_ms(20);
         anim_sleep = timer_read32();
         oled_on();
     }
