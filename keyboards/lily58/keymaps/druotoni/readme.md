@@ -69,3 +69,29 @@ Comment IS_LEFT and uncomment IS_RIGHT  in config.h
 ```
 Connect the right side and flash
 
+## Customization
+
+### Logo
+
+### Layer names
+
+The current version handle 3 differents layers. Names can be changed in layer_frame.h.
+```
+// layer name : must be 3 chars
+#define LAYER_NAME_0 "ABC"
+#define LAYER_NAME_1 "NAV"
+#define LAYER_NAME_2 "SPE"
+```
+
+### Timing
+
+You can tweak states timing in gui_state.h.
+```
+// states timing
+#define BOOTING_TIME_TRESHOLD 6000
+#define WAKING_UP_TIME_TRESHOLD 300
+#define IDLE_TIME_TRESHOLD 4000
+#define HALTING_TIME_TRESHOLD IDLE_TIME_TRESHOLD + 6000
+#define SLEEP_TIME_TRESHOLD HALTING_TIME_TRESHOLD + 8000
+```
+
