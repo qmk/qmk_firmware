@@ -102,6 +102,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EXTERNAL_EEPROM_ADDRESS_SIZE         2
 // #define DEBUG_EEPROM_OUTPUT
 
+#ifdef EEPROM_SPI
+#    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8195
+#endif
+
 /* pmw3360 config  */
 #define PMW3360_CS_PIN                       B0
 #define PMW3360_SPI_MODE                     3
