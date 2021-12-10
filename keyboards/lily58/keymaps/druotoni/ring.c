@@ -6,18 +6,16 @@
 #include "draw_helper.h"
 
 char tListeTotal[SIZE_ARRAY_1]  = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'};
-char tListeTotal2[SIZE_ARRAY_1] = {'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6'};
+char tListeTotal2[SIZE_ARRAY_1] = {'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ',', '.', '/', '1', '2', '3'};
 
 static char tRefArc[SIZE_ARRAY_1]  = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'};
-static char tRefArc2[SIZE_ARRAY_1] = {'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6'};
+static char tRefArc2[SIZE_ARRAY_1] = {'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ',', '.', '/', '1', '2', '3'};
 
 // ring target and previous char
 char c_target   = 'A';
-char c_target2  =  'Q';
+char c_target2  = 'Q';
 char c_last     = ' ';
 char c_previous = ' ';
-
-
 
 static const char PROGMEM code_to_name[60] = {' ', ' ', ' ', ' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
 
@@ -44,7 +42,6 @@ uint8_t  sleep_ring_frame_destination = ANIM_SLEEP_RING_FRAME_NUMBER - 1;
 uint8_t  anim_keylog_current_frame = 0;
 uint32_t anim_keylog_timer         = 0;
 
-
 static void rotate_right(char str[]) {
     uint8_t iSize = SIZE_ARRAY_1;
     char    cFist = str[0];
@@ -60,7 +57,7 @@ static void rotate_left(char str[]) {
     uint8_t iSize = SIZE_ARRAY_1;
     char    cLast = str[iSize - 1];
 
-     // rotate array to the left
+    // rotate array to the left
     for (uint8_t i = iSize - 1; i > 0; i--) {
         str[i] = str[i - 1];
     }
@@ -70,7 +67,7 @@ static void rotate_left(char str[]) {
 static signed char GetPosition(char c, char tListe[]) {
     uint8_t iSize = SIZE_ARRAY_1;
 
-// find position of c in the array
+    // find position of c in the array
     for (uint8_t i = 0; i < iSize; i++) {
         if (tListe[i] == c) return i;
     }
@@ -87,9 +84,7 @@ static signed char GetDistance(char cNew, char tListe[]) {
     return iPositionNew - CURSOR_1;
 }
 
-static bool TesterEstDansListe(char c, char tListe[]) {
-    return GetPosition(c, tListe) != -1;
-}
+static bool TesterEstDansListe(char c, char tListe[]) { return GetPosition(c, tListe) != -1; }
 
 //     for (int i = 0; i < SIZE_ARRAY_1; i++) {
 //         if (tListe[i] == cChar) return true;
@@ -143,7 +138,6 @@ static void render_set(uint8_t x, uint8_t y, uint8_t r, int p, bool color) {
 }
 
 static void draw_letter_circle(char t[], char tRef[], char ct, uint8_t x, uint8_t y, uint8_t r, bool invert) {
-    
     char c = t[CURSOR_1];
 
     signed char p  = GetPosition(c, tRef);
@@ -207,10 +201,10 @@ static void draw_center_circle_frame(uint8_t x, uint8_t y, uint8_t r, uint8_t f)
 }
 
 static void render_anim_center_circle(uint8_t x, uint8_t y, uint8_t r) {
-    if (anim_center_current_frame == ANIM_CENTER_FRAME_NUMBER){
+    if (anim_center_current_frame == ANIM_CENTER_FRAME_NUMBER) {
         // last frame : no animation
-return;
-    } 
+        return;
+    }
 
     if (timer_elapsed32(anim_center_timer) > ANIM_CENTER_FRAME_DURATION) {
         anim_center_timer = timer_read32();
@@ -260,22 +254,21 @@ void reset_ring(void) {
     sleep_ring_frame_destination = 0;
 }
 
-static const char PROGMEM raw_ring_sleep[4][64] = {
-    {
-        192, 32, 16, 8, 4, 4, 4, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 8, 16, 32, 192, 3, 4, 8, 16, 32, 32, 32, 64, 64, 64, 64, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 64, 64, 64, 64, 32, 32, 32, 16, 8, 4, 3,
-    },
+static const char PROGMEM raw_ring_sleep[4][64] = {{
+                                                       192, 32, 16, 8, 4, 4, 4, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 8, 16, 32, 192, 3, 4, 8, 16, 32, 32, 32, 64, 64, 64, 64, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 64, 64, 64, 64, 32, 32, 32, 16, 8, 4, 3,
+                                                   },
 
-    {
-        128, 64, 32, 32, 16, 16, 16, 16, 16, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 16, 16, 16, 16, 16, 32, 32, 64, 128, 0, 1, 2, 2, 4, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, 4, 2, 2, 1, 0,
-    },
+                                                   {
+                                                       128, 64, 32, 32, 16, 16, 16, 16, 16, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 16, 16, 16, 16, 16, 32, 32, 64, 128, 0, 1, 2, 2, 4, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, 4, 2, 2, 1, 0,
+                                                   },
 
-    {
-        248, 192, 128, 128, 128, 128, 128, 128, 128, 0, 0, 128, 0, 0, 0, 0, 0, 0, 0, 0, 128, 0, 0, 128, 128, 128, 128, 128, 128, 128, 192, 248, 15, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 15,
-    },
+                                                   {
+                                                       248, 192, 128, 128, 128, 128, 128, 128, 128, 0, 0, 128, 0, 0, 0, 0, 0, 0, 0, 0, 128, 0, 0, 128, 128, 128, 128, 128, 128, 128, 192, 248, 15, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 15,
+                                                   },
 
-    {
-        255, 240, 128, 128, 0, 128, 128, 0, 0, 128, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 128, 0, 0, 128, 128, 0, 128, 128, 248, 255, 255, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 255,
-    }};
+                                                   {
+                                                       255, 240, 128, 128, 0, 128, 128, 0, 0, 128, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 128, 0, 0, 128, 128, 0, 128, 128, 248, 255, 255, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 255,
+                                                   }};
 
 static void render_tv_circle(uint8_t x, uint8_t y, uint8_t r, uint8_t f) {
     if (f == 2 || f == 3) {
@@ -330,7 +323,7 @@ static void render_circle_white(void) {
     oled_write_raw_P_cursor(0, 5, raw_middle, sizeof(raw_middle));
 
     drawline_hr(5, 39, 25, 1);
-  
+
     draw_rectangle_fill(0, 80, 32, 40, false);
     drawline_vb(0, 80, 8, 1);
     drawline_vb(31, 80, 8, 1);
@@ -357,15 +350,13 @@ static void render_glitch_square(void) {
 
         render_ring_clean_close();
 
+        uint8_t size = 0;
         for (uint8_t i = 0; i < 4; i++) {
-            uint8_t size = 4 + (fastrand() % 6);
+            size = 4 + (fastrand() % 6);
+            draw_rectangle_fill(3 + (fastrand() % 19), 85 + (fastrand() % 20), size, size, true);
 
-            draw_fill_circle(9 + (fastrand() % 10), 85 + (fastrand() % 20), size / 2, true);
-        }
-        for (uint8_t j = 0; j < 4; j++) {
-            uint8_t size = (fastrand() % 6);
-
-            draw_fill_circle(9 + (fastrand() % 10), 100 + (fastrand() % 20), size / 2, true);
+            size = (fastrand() % 6);
+            draw_rectangle_fill(3 + (fastrand() % 19), 100 + (fastrand() % 20), size, size, true);
         }
     }
 }
@@ -424,7 +415,6 @@ static void render_circle_middle(void) {
 
 void render_circle(gui_state_t t) {
     if (timer_elapsed32(circle_timer) > CIRCLE_ANIM_FRAME_DURATION) {
-
         // new frame
         circle_timer = timer_read32();
 
@@ -452,7 +442,6 @@ void render_circle(gui_state_t t) {
 }
 
 void update_circle(uint16_t keycode) {
-
     // special animation for special keys
     if (keycode == KC_ESC || keycode == KC_SPACE || keycode == KC_ENTER) {
         anim_center_timer         = timer_read32();

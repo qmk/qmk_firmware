@@ -4,8 +4,6 @@
 #include "fast_random.h"
 
 
-
-
 void drawline(uint8_t x, uint8_t y, uint8_t width, bool bHorizontal, bool bPositiveDirection, bool color) {
     if (width <= 0) return;
     uint8_t yPlus  = 0;
@@ -617,9 +615,9 @@ void move_block(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int shift) 
     }
 }
 
-uint8_t BAYER_PATTERN_4[4][4] = {{15, 135, 45, 165}, {195, 75, 225, 105}, {60, 180, 30, 150}, {240, 120, 210, 90}};
 
 int interpo_pourcent(int min, int max, int v) {
+    // interpolation
     float x0 = min;
     float x1 = max;
     float y0 = 0;
@@ -629,6 +627,9 @@ int interpo_pourcent(int min, int max, int v) {
 
     return (int)yp;
 }
+
+
+uint8_t BAYER_PATTERN_4[4][4] = {{15, 135, 45, 165}, {195, 75, 225, 105}, {60, 180, 30, 150}, {240, 120, 210, 90}};
 
 void draw_gradient(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t color_start, uint8_t color_end, uint8_t tres) {
     bool invert = color_start > color_end;
@@ -752,76 +753,6 @@ void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t wid
 //     }
 // }
 
-void render_tv_animation_opti(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth) {
-    uint8_t xCenter = x + (width / 2);
-    uint8_t yCenter = y + (heigth / 2);
-
-    if (frame_number <= 4) {
-        drawline_hr_heigth(x, yCenter, width, 17 - (5 * frame_number), true);
-    }
-
-    if (frame_number >= 6 && frame_number < 9) {
-        // cross
-        drawline_hr(xCenter, yCenter + 1, 2, true);
-        drawline_hr(xCenter, yCenter - 1, 2, true);
-    }
-
-    if (frame_number >= 5) {
-        // central line
-        drawline_hr(xCenter - ((frame_number - 9) * 3), yCenter, 2 + ((frame_number - 9) * 3), true);
-    }
-
-    if (frame_number == 4 || frame_number == 5) {
-        draw_fill_circle(xCenter, yCenter, frame_number - 1, true);
-    }
-
-    switch (frame_number) {
-            // case 4:
-            //   //  drawline_hr_heigth(x, yCenter, width, 2, true);
-            //     draw_fill_circle(xCenter, yCenter, 3, true);
-            //     break;
-
-            // case 5:
-            //     // central line
-            //  //  drawline_hr(x, yCenter, width, true);
-            //     draw_fill_circle(xCenter, yCenter, 2, true);
-            //     break;
-
-            //   case 6:
-
-            // central line
-            //    drawline_hr(x, yCenter, width, true);
-            //     break;
-
-        case 7:
-
-            // central line
-            //   drawline_hr(xCenter - 8, yCenter, 18, true);
-            // static
-            oled_write_pixel(xCenter - 13, yCenter, true);
-            oled_write_pixel(xCenter + 12, yCenter, true);
-            break;
-
-        case 8:
-
-            // central line
-            //  drawline_hr(xCenter - 2, yCenter, 4, true);
-            // static
-            drawline_hr(xCenter - 7, yCenter, 2, true);
-            drawline_hr(xCenter + 6, yCenter, 3, true);
-
-            //  oled_write_pixel(xCenter - 11, yCenter, true);
-            oled_write_pixel(xCenter - 11, yCenter, true);
-            oled_write_pixel(xCenter + 12, yCenter, true);
-            oled_write_pixel(xCenter + 14, yCenter, true);
-            break;
-
-            //    case 9:
-            // central line
-            //  drawline_hr(xCenter, yCenter, 2, true);
-            //    break;
-    }
-}
 
 
 //  //

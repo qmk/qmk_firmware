@@ -27,8 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 2
 
 // choose IS_LEFT or IS_RIGHT for compilation and flash firmware
-//#define IS_LEFT 1
-#define IS_RIGHT 1
+#define IS_LEFT 1
+//#define IS_RIGHT 1
+
+// logo glitch
+#define WITH_GLITCH
 
 // custom transport for displaying on both side
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A

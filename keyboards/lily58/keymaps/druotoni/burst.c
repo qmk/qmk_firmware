@@ -145,14 +145,16 @@ static void render_glitch_square(void) {
     if (timer_elapsed32(anim_scope_idle_timer) > 60) {
         anim_scope_idle_timer = timer_read32();
         RenderScopeBlack();
+
+        uint8_t color = 0;
+        uint8_t size  = 0;
         for (uint8_t i = 0; i < 4; i++) {
-            uint8_t size  = 4 + (fastrand() % 6);
-            uint8_t color = 255;
-            draw_gradient(3 + (fastrand() % 19), 85 + (fastrand() % 20), size, size, color, color, 4);
-        }
-        for (uint8_t j = 0; j < 4; j++) {
-            uint8_t size  = (fastrand() % 6);
-            uint8_t color = 100 + (fastrand() % 100);
+            size = 4 + (fastrand() % 6);
+
+            draw_gradient(3 + (fastrand() % 19), 85 + (fastrand() % 20), size, size, 255, 255, 4);
+
+            size  = (fastrand() % 6);
+            color = 100 + (fastrand() % 100);
             draw_gradient(3 + (fastrand() % 19), 100 + (fastrand() % 20), size, size, color, color, 4);
         }
     }

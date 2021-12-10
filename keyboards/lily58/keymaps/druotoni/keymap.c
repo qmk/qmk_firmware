@@ -36,8 +36,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                   `----------------------------'           '------''--------------------'
      */
 
-    //[_QWERTY] = LAYOUT(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_DELETE, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, FR_CIRC, KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_RSFT, KC_LCTRL, KC_Z, KC_X, KC_C, KC_V, KC_B, S(KC_Z), FR_RPRN, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_QUOT, KC_LALT, TT(_RAISE), KC_SPC, TT(_LOWER), KC_ENT, KC_BSPC, KC_RBRC, KC_RGUI),
-
     [_QWERTY] = LAYOUT(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_DELETE, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, FR_CIRC, KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_RSFT, KC_LCTRL, KC_Z, KC_X, KC_C, KC_V, KC_B, S(KC_Z), FR_RPRN, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_QUOT, KC_LALT, TT(_RAISE), KC_SPC, TT(_LOWER), KC_ENT, KC_BSPC, KC_RBRC, KC_RGUI),
 
     /* LOWER      ESC
@@ -56,10 +54,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_LOWER] = LAYOUT(KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_DELETE, RESET, KC_F11, KC_F12,
 
-                      KC_DELETE, RCTL(FR_V), RCTL(FR_C), KC_HOME, KC_PGUP, KC_PSCR, RCTL(FR_Y), RCTL(KC_RIGHT), KC_HOME, KC_PGUP, RCTL(FR_A), KC_AT, RCTL(FR_S), RCTL(FR_Z), KC_BSPC, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_RPRN, KC_END, 
-                      
-                      KC_F9,
-                       KC_F11, KC_F10, KC_F5, LALT(KC_TAB), RCTL(FR_X), KC_ENT, _______, KC_END, KC_PGDN, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, _______, TT(_RAISE), _______, _______, _______, _______, KC_APP, _______),
+                      KC_DELETE, RCTL(FR_V), RCTL(FR_C), KC_HOME, KC_PGUP, KC_PSCR, RCTL(FR_Y), RCTL(KC_RIGHT), KC_HOME, KC_PGUP, RCTL(FR_A), KC_AT, RCTL(FR_S), RCTL(FR_Z), KC_BSPC, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_RPRN, KC_END,
+
+                      KC_F9, KC_F11, KC_F10, KC_F5, LALT(KC_TAB), RCTL(FR_X), KC_ENT, _______, KC_END, KC_PGDN, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, _______, TT(_RAISE), _______, _______, _______, _______, KC_APP, _______),
     /* RAISE
      * ,-----------------------------------------.                    ,-----------------------------------------.
      * |      |      |      |      |      |      |                    |      |     |   /   | etoile |   - | rgb toggle
@@ -76,14 +73,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [_RAISE] = LAYOUT(_______, _______, _______, _______, _______, _______, _______, _______, KC_PSLS, KC_PAST, KC_PMNS, RGB_TOG, KC_GRV,
-    
-    FR_LBRC, FR_RBRC, KC_3, FR_LBRC, FR_RBRC, FR_EQL, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, RGB_MOD, _______, FR_AT, FR_PIPE, ALGR(KC_1), FR_EURO, FR_HASH, S(FR_EQL), KC_KP_4, KC_KP_5, KC_KP_6, KC_RGHT, RGB_HUI, KC_F7, KC_F8, KC_F9, KC_F10, FR_HASH, KC_F12, _______, _______, KC_PLUS, KC_KP_1, KC_KP_2, KC_KP_3, KC_RBRC, RGB_MODE_BREATHE, _______, _______, _______, _______, _______, _______, KC_KP_0, KC_KP_DOT)};
+
+                      FR_LBRC, FR_RBRC, KC_3, FR_LBRC, FR_RBRC, FR_EQL, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, RGB_MOD, _______, FR_AT, FR_PIPE, ALGR(KC_1), FR_EURO, FR_HASH, S(FR_EQL), KC_KP_4, KC_KP_5, KC_KP_6, KC_RGHT, RGB_HUI, KC_F7, KC_F8, KC_F9, KC_F10, FR_HASH, KC_F12, _______, _______, KC_PLUS, KC_KP_1, KC_KP_2, KC_KP_3, KC_RBRC, RGB_MODE_BREATHE, _______, _______, _______, _______, _______, _______, KC_KP_0, KC_KP_DOT)};
 
 // sync transport
 typedef struct _sync_keycode_t {
     uint16_t keycode;
 } sync_keycode_t;
-
 
 sync_keycode_t last_keycode;
 bool           b_sync_need_send = false;
@@ -107,7 +103,6 @@ void render(gui_state_t t) {
 #if IS_RIGHT
     render_circle(t);
 #endif
-
 }
 
 void update(uint16_t keycode) {
@@ -130,38 +125,33 @@ void reset(void) {
 #endif
 }
 
-
-
-
-
-
-void oled_task_user(void) {
+bool oled_task_user(void) {
     gui_state_t t = get_gui_state();
 
     // in sleep mode => turn display off
     if (t == _SLEEP) {
         oled_off();
-        return;
+        return false;
     }
 
-// not in sleep mode => screen is on
+    // not in sleep mode => screen is on
     oled_on();
 
     // in booting mode => display booting animation
     if (t == _BOOTING) {
         render_boot();
-        return;
+        return false;
     }
 
     // in halting mode => display booting animation
     if (t == _HALTING) {
         render_halt();
-        return;
+        return false;
     }
 
     render(t);
+    return false;
 }
-
 
 void process_key(uint16_t keycode) {
     // update screen with the new key
@@ -193,7 +183,6 @@ void process_key(uint16_t keycode) {
 void user_sync_a_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
     const sync_keycode_t* m2s = (const sync_keycode_t*)in_data;
     process_key(m2s->keycode);
-
 }
 
 void keyboard_post_init_user(void) { transaction_register_rpc(USER_SYNC_A, user_sync_a_slave_handler); }
@@ -215,9 +204,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         // }
 
         // master : store keycode to sent to the other side to be process_key
-        last_keycode.keycode    = keycode;
-        b_sync_need_send        = true;
-
+        last_keycode.keycode = keycode;
+        b_sync_need_send     = true;
 
         // gui process the input
         process_key(keycode);

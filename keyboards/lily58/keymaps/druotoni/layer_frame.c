@@ -14,11 +14,6 @@ uint32_t anim_layer_frame_timer = 0;
 uint8_t current_layer_frame     = ANIM_LAYER_FRAME_MAX;
 uint8_t layer_frame_destination = ANIM_LAYER_FRAME_MAX;
 
-// layer name : must be 3 chars lenght
-#define LAYER_NAME_0 "ABC"
-#define LAYER_NAME_1 "NAV"
-#define LAYER_NAME_2 "SPE"
-
 // layer name for display
 const char*        layer_name;
 static const char* layer_ref[3] = {LAYER_NAME_0, LAYER_NAME_1, LAYER_NAME_2};
