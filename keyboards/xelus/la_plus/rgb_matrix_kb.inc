@@ -12,7 +12,7 @@ RGB_MATRIX_EFFECT(startup_animation_solid)
 #include "eeconfig.h"
 
 static void startup_animation_setleds(effect_params_t* params, bool dots) {
-    uint8_t factor = 6;
+    uint8_t factor = 5;
     HSV      hsv  = rgb_matrix_config.hsv;
     RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
     if (dots) {
