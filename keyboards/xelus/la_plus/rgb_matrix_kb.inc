@@ -10,115 +10,92 @@ RGB_MATRIX_EFFECT(startup_animation)
 #include "eeprom.h"
 #include "eeconfig.h"
 
-//EECONFIG_RGB_MATRIX uint32_t
-// typedef union {
-//     uint32_t raw;
-//     struct PACKED {
-//         uint8_t     enable : 2;
-//         uint8_t     mode : 6;
-//         HSV         hsv;
-//         uint8_t     speed;  // EECONFIG needs to be increased to support this
-//         led_flags_t flags;
-//     };
-// } rgb_config_t;
-
 // e.g: A simple effect, self-contained within a single method
 static bool startup_animation(effect_params_t* params) {
     uint8_t factor = 7;
     HSV      hsv  = rgb_matrix_config.hsv;
     RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
+#ifdef STARTUP_ANIMATION_DOTS
+    rgb_matrix_set_color_all(0, 0, 0);
+#endif
     switch ((g_rgb_timer & (0b11111 << factor)) >> factor) {
         case 0:
         case 1:
-        case 2: {
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-        }
+        case 2:
         case 3: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(13, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 4: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(12, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(15, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 5: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(11, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(16, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 6: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(10, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(17, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 7: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(9, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(18, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 8: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(8, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(19, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 9: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(7, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(20, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 10: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(6, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(21, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 11: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(5, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(22, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 12: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(4, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(23, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 13: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(3, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(24, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 14: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(2, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 15: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(26, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 16: {
-            rgb_matrix_set_color_all(0, 0, 0);
             rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
             rgb_matrix_set_color(27, rgb.r, rgb.g, rgb.b);
             break;
         }
         case 17: {
+            break;
+        }
+        case 18: {
             eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
             rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
             break;
