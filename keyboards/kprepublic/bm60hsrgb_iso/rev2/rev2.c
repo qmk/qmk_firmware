@@ -19,8 +19,6 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-
-
 #    include "i2c_master.h"
 #    include "is31fl3733.h"
 #    include "ws2812.h"
@@ -140,9 +138,6 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 
-
-
-
 // clang-format on
 
 // ==========================================================================
@@ -203,5 +198,3 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 // clang-format on
 
 #endif /* RGB_MATRIX_ENABLE */
-
-

@@ -131,8 +131,6 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-
-
 // Note: The RGB LED driver configuration is not inside #ifdef blocks, so that
 // the driver code would still compile even without RGBLIGHT_ENABLE and
 // RGB_MATRIX_ENABLE (usually this is not required, but with the custom
@@ -142,9 +140,6 @@
 #define ISSI_LED_TOTAL DRIVER_1_LED_TOTAL
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
-
-
-
 
 // Underglow LEDs are WS2812, but someone might want to use RGBLIGHT for them;
 // don't use those LEDs in RGB Matrix in that case.
