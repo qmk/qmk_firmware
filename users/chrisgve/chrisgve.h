@@ -146,6 +146,14 @@ enum custom_keycodes {
 #define R_MOD       LT(_ADJUST, KC_SPC) // for split space bar, right bar
 //#define R_MOD       RCTL_T(KC_SPC)  // for split space bar, right bar
 
+//#define TAPPING_TOGGLE 2
+#define M_TG_N1     TT(_MAC_NAV_1)
+#define L_TG_N1     TT(_LINUX_NAV_1)
+#define W_TG_N1     TT(_WIN_NAV_1)
+#define M_TG_N2     TT(_MAC_NAV_2)
+#define L_TG_N2     TT(_LINUX_NAV_2)
+#define W_TG_N2     TT(_WIN_NAV_2)
+
 #define DF_MAC      DF(_QWERTY_MAC)
 #define DF_WIN      DF(_QWERTY_WIN)
 #define DF_LNX      DF(_QWERTY_LINUX)
