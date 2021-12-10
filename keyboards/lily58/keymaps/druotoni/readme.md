@@ -1,6 +1,6 @@
 # HELL0 NAVI. Interface
 
-HELL0 NAVI. Interface is a Lily58 GUI based en Serial Experiment Lain.
+HELL0 NAVI. Interface is a Lily58 GUI based en Serial Experiment Lain    .
 
 
 
@@ -19,6 +19,8 @@ HELL0 NAVI. Interface is a Lily58 GUI based en Serial Experiment Lain.
 
 
 ## Idle animation
+![Idle animation](https://imgur.com/eKZ7qgC.gif)
+
 
 ## Shutdown animation
 
