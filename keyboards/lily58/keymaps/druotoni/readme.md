@@ -49,11 +49,23 @@ The Navi run sleep mode after 10 seconds in Idle mode. A nice (and to difficult 
 
 ## How to build & flash
 
-config.h
+You need to flash each side with a specific version. This information is set in the config.h
+
+ ### Left side (master)
+
+IS_RIGHT needs to be commented in config.h
 ```
-// choose IS_LEFT or IS_RIGHT for compilation and flash firmware
 #define IS_LEFT 1
 //#define IS_RIGHT 1
 ```
+Connect the left side and flash
 
+ ### Right side (slave)
+
+Comment IS_LEFT and uncomment IS_RIGHT  in config.h
+```
+//#define IS_LEFT 1
+#define IS_RIGHT 1
+```
+Connect the right side and flash
 
