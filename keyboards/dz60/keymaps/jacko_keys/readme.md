@@ -16,7 +16,7 @@ It is possible to do a `Ctrl`+`Alt`+`Del`, by `Fn`+`Tab` in most modes but not Y
 * `#define LRALT` can be changed in `keymap.c` to not conflict with the default compose key.
 
 ### Extra Keys
-* `LAYOUT_60_ansi_p(NO_XTRA, false, NO_XTRA, false, NO_XTRA, NO_XTRA, NO_XTRA, NO_XTRA, NO_XTRA, ...)` in `keymap.c` allows adding in keycodes for the extra keys that can be instanced on the PCB.
+* `LAYOUT_60_ansi_p(sbs, zhash, fnR2, shRL, shRR, spcL, spcR,, ...)` in `keymap.c` allows adding in keycodes for the extra keys that can be instanced on the PCB.
 
 ### Common to All MAGENTA Shift `Fn` Layers (Exceptions Noted Below, Mainly in YELLOW Mode)
 * Left `Ctrl` is ANSI layer select. Basic conformist ANSI.
