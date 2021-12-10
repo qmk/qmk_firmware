@@ -1,5 +1,5 @@
-#include "../../../keyconfig.h"
-#include "../../../layer_type.h"
+#include "../keyconfig.h"
+#include "../layer_type.h"
 
 const uint32_t firmware_version = 1;
 
