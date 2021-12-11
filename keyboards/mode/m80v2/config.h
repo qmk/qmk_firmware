@@ -19,10 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x00DE
-#define PRODUCT_ID      0x0082 // 81 was used for M80H V1
-#define DEVICE_VER      0x0083 // S for solderable version
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    Mode
-#define PRODUCT         M80S V2
 
 /* key matrix size */
 #define MATRIX_ROWS 6
