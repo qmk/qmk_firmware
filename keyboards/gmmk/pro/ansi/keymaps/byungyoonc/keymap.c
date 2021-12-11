@@ -121,3 +121,9 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         set_rgb_wlck_leds();
     }
 }
+
+void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
+    for (int i = 0; i < 20; i++) {
+        wait_cpuclock(STM32_SYSCLK / 1000000L);
+    }
+}
