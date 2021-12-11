@@ -18,19 +18,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x1209
-#define PRODUCT_ID   0x3304
-#define DEVICE_VER   0x0001
-#define MANUFACTURER 3-Key-Ecosystem
+// USB VID/PID
+#define PRODUCT      2key/noled
 
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 2
+/* Keyboard Matrix Assignments */
+#define MATRIX_ROW_PINS { F6 }
+#define MATRIX_COL_PINS { F4, D7 }
+#define UNUSED_PINS
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+// LED on kbmount base board is on B7
+#define LED_CAPS_LOCK_PIN B7 // onboard LED for testing
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+/* COL2ROW, ROW2COL */
+#define DIODE_DIRECTION COL2ROW

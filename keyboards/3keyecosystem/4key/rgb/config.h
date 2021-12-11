@@ -16,21 +16,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
+#define PRODUCT      4key/rgb
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x1209
-#define PRODUCT_ID   0x3304
-#define DEVICE_VER   0x0001
-#define MANUFACTURER 3-Key-Ecosystem
+#define MATRIX_ROW_PINS { F6, C6 }
+#define MATRIX_COL_PINS { F4, D7 }
+#define UNUSED_PINS
 
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 2
+/* COL2ROW, ROW2COL */
+#define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#define LED_CAPS_LOCK_PIN B7 // onboard LED
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+#ifdef RGB_MATRIX_ENABLE
+#define RGB_DI_PIN B2
+#define DRIVER_LED_TOTAL 4
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE
+#define RGB_MATRIX_STARTUP_HUE 90
+#define RGB_MATRIX_STARTUP_SPD 20
+#define RGB_MATRIX_STARTUP_VAL 128
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+
+#define ENABLE_RGB_MATRIX_BREATHING
+#endif

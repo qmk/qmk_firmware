@@ -14,23 +14,25 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#pragma once
+#include "rgb.h"
 
-#include "config_common.h"
+// RGB Matrix configuration
+// based on https://docs.qmk.fm/#/feature_rgb_matrix?id=common-configuration
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x1209
-#define PRODUCT_ID   0x3304
-#define DEVICE_VER   0x0001
-#define MANUFACTURER 3-Key-Ecosystem
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 2
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+#ifdef RGB_MATRIX_ENABLE
+led_config_t g_led_config = { {
+  // Key Matrix to LED Index
+  { 0, 1 }, 
+  { 3, 2 }
+}, {
+  // LED Index to Physical Position
+  // Using range { 0..224, 0..64 }
+  { 0,   0 }, { 224,   0 },
+  { 0,  64 }, { 224,  64 }
+}, {
+  // LED Index to Flag
+  // https://docs.qmk.fm/#/feature_rgb_matrix?id=flags
+  LED_FLAG_ALL, LED_FLAG_ALL,
+  LED_FLAG_ALL, LED_FLAG_ALL
+} };
+#endif

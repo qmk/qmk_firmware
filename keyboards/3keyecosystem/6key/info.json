@@ -1,0 +1,18 @@
+{
+    "keyboard_name": "3-Key-Ecosystem 6key: 3x2 macro-keyboards",
+    "url": "https://github.com/softplus/3keyecosystem/tree/main/6key",
+    "maintainer": "softplus",
+    "layouts": {
+        "LAYOUT_ortho_2x3": {
+            "layout": [
+                {"label": "k00", "x": 0, "y": 0},
+                {"label": "k01", "x": 1, "y": 0},
+                {"label": "k02", "x": 2, "y": 0},
+
+                {"label": "k10", "x": 0, "y": 1},
+                {"label": "k11", "x": 1, "y": 1},
+                {"label": "k12", "x": 2, "y": 1}
+            ]
+        }
+    }
+}

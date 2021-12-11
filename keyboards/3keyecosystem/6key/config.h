@@ -1,5 +1,5 @@
 /*
-Copyright 2021 John Mueller
+Copyright 2021 johnmu
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,19 +14,22 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x1209
-#define PRODUCT_ID   0x3304
+#define PRODUCT_ID   0x3306
 #define DEVICE_VER   0x0001
 #define MANUFACTURER 3-Key-Ecosystem
 
 /* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 2
+#define MATRIX_ROWS 2
+#define MATRIX_COLS 3
+
+#define UNUSED_PINS
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
