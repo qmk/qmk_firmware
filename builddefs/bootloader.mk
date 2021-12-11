@@ -189,9 +189,9 @@ ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
     BOOTLOADER_TYPE = halfkay
 endif
-ifeq ($(strip $(BOOTLOADER)), atmel-samba)
-    OPT_DEFS += -DBOOTLOADER_ATMEL_SAMBA
-    BOOTLOADER_TYPE = atmel_samba
+ifeq ($(strip $(BOOTLOADER)), md-boot)
+    OPT_DEFS += -DBOOTLOADER_MD_BOOT
+    BOOTLOADER_TYPE = md_boot
 endif
 
 ifeq ($(strip $(BOOTLOADER_TYPE)),)
