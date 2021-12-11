@@ -28,12 +28,11 @@ enum default_layers {
     _QWERTY_LINUX,  // QWERTY Linux base layout
     _LINUX_NAV_1,   // Linux Navigation layer 1
     _LINUX_NAV_2,   // Linux Navigation layer 2
-    _LOWER,         // Lower layer on ortho
     _RAISE,         // Raise layer on ortho
-    _ADJUST,        // Adjust layer, with function and media keys
-    _ADJUST_MAC = _ADJUST,  // Synonym
+    _ADJUST_MAC,    // Synonym
     _ADJUST_WIN,    // Adjust for Windows
     _ADJUST_LINUX,  // Adjust for Linux
+    _LOWER,         // Lower layer on ortho
     _CONFIG,        // Keyboard configuation layer
     _TMUX,          // TMux layer
     _VIM,           // VIM layer
@@ -118,8 +117,7 @@ enum custom_keycodes {
 
 #define CPS_CTL     CTL_T(KC_CAPS)
 #define TAB_CTL     CTL_T(KC_TAB)
-#define ADJUST      MO(_ADJUST)
-#define ADJ_M       ADJUST
+#define ADJ_M       MO(_ADJUST_MAC)
 #define ADJ_L       MO(_ADJUST_LINUX)
 #define ADJ_W       MO(_ADJUST_WIN)
 #define CONFIG      MO(_CONFIG)
