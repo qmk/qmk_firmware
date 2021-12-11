@@ -234,7 +234,11 @@ void render_bootmagic_status(void) {
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NKRO), keymap_config.nkro);
     oled_write_P(PSTR(" "), false);
+#ifdef AUTOCORRECTION_ENABLE
+    oled_write_P(PSTR("CRCT"), userspace_config.autocorrection);
+#else
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NOGUI), keymap_config.no_gui);
+#endif
 #ifdef OLED_DISPLAY_128X64
     oled_advance_page(true);
     oled_write_P(PSTR("Magic"), false);
