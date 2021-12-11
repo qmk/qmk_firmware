@@ -22,26 +22,33 @@ The scope displays your burst time on a chart. The WPM is represented by an hori
 
 The ring display the last letter in the upper frame. Each time you enter a key, the Navi searches into the circular database and locks the position. A special animation is displayed when Enter, Backspce or Escape are struck.
 
-![Typing animation](https://imgur.com/iIG1tQE.gif)
+<img src="https://imgur.com/iIG1tQE.gif" height="400" >
 
 ## Startup animation
 
 Your Navi boots when it leaves the sleep mode. The animation can be canceled by typing.
 
-![Startup animation](https://i.imgur.com/EXU92Ev.gif)
+
+
+<img src="https://imgur.com/EXU92Ev.gif" height="400" >
+
 
 
 ## Waking up animation
 
 After a period of inactivity, the scope and the ring turn off and the Navi runs in Idle mode. A new key stroke wakes them up.
 
-![Waking up animation](https://imgur.com/9GWa7rR.gif)
+
+<img src="https://imgur.com/9GWa7rR.gif" height="400" >
+
 
 ## Idle animation
 
 The Copland OS is still in beta test. After a while, some visual glitches will occur. 
 
-![Idle animation](https://imgur.com/eKZ7qgC.gif)
+
+<img src="https://imgur.com/eKZ7qgC.gif" height="400" >
+
 
 
 ## Shutdown animation
