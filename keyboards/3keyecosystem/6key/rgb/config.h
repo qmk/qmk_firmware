@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B2
 #define DRIVER_LED_TOTAL 6
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE
 #define RGB_MATRIX_STARTUP_HUE 90
 #define RGB_MATRIX_STARTUP_SPD 20
 #define RGB_MATRIX_STARTUP_VAL 128
