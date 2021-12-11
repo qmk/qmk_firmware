@@ -10,7 +10,7 @@ BOOTLOADER = atmel-dfu
 #
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
-NKRO_ENABLE = yes
+NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 CUSTOM_MATRIX = lite
