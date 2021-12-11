@@ -14,26 +14,4 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-<<<<<<< HEAD
 #include "2key.h"
-=======
-#include "rgb.h"
-
-// RGB Matrix configuration
-// based on https://docs.qmk.fm/#/feature_rgb_matrix?id=common-configuration
-
-#ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = { {
-  // Key Matrix to LED Index
-  {   0, 1 }
-}, {
-  // LED Index to Physical Position
-  // Using range { 0..224, 0..64 }
-  { 0,  32 }, { 224,  32 }
-}, {
-  // LED Index to Flag
-  // https://docs.qmk.fm/#/feature_rgb_matrix?id=flags
-  LED_FLAG_ALL, LED_FLAG_ALL
-} };
-#endif
->>>>>>> 6cace2269f (refactored 2key2->2key)
