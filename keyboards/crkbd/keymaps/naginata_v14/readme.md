@@ -1,6 +1,6 @@
 # crkbd用 薙刀式カナ配列キーマップ
 
-薙刀式カナ配列による入力をQMKで実現します。薙刀式v14完成版(仮)に準拠しています。
+薙刀式カナ配列による入力をQMKで実現します。薙刀式v14完成版に準拠しています。
 編集モードも実装していますが、
 編集モードでの記号入力方式がOSによって異なるので、
 使用するOS(Windows、MacOS、Linux)によって切り替える必要があります。
@@ -9,8 +9,8 @@ v13uからはnaginata_v14.cとrules.mkを差し替えればアップグレード
 
 ## 薙刀式とは
 
-【薙刀式】v14（仮）の配列図とDvorakJファイル 
-http://oookaworks.seesaa.net/article/483714452.html
+【薙刀式】v14集大成版
+http://oookaworks.seesaa.net/article/484704326.html
 
 ## OSの設定
 

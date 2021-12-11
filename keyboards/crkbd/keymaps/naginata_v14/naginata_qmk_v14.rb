@@ -7,33 +7,33 @@ tanda = <<ETANDA
 ETANDA
 
 shifted = <<ESHIFTED
-|ぬ|り |む|+{←}|+{→}|さ       |よ|え|ゆ|`|{{}|
-せ|め|に |ま|ち   |や   |の       |も|わ|つ|*|{}}|
-ほ|ひ|を |、|み   |お   |。{Enter}|ね|ふ|れ|_|
+   |む|り |ぬ|+{←}|+{→}|さ       |よ|え|ゆ|`|{{}|
+ せ|め|に |ま|ち   |や   |の       |も|わ|つ|*|{}}|
+ ほ|ひ|を |、|み   |お   |。{Enter}|ね|ふ|れ|_|
 ESHIFTED
 
 mode1l = <<MEND
 ^{End}    |『』{改行}{↑}|/*ディ*/|^s            |・                             ||||||||
 ……{改行}|(){改行}{↑}  |？{改行}|「」{改行}{↑}|{改行}{End}{改行}「」{改行}{↑}||||||||
-││{改行}|【】{改行}{↑}|！{改行}|{改行}{↓}    |《》{改行}{↑}                 |||||||
+││{改行}|【】{改行}{↑}|！{改行}|{改行}{↓}    |{改行}{End}{改行}{Space}       |||||||
 MEND
 
 mode1r = <<MEND
 |||||{Home}      |+{End}{BS}|{vk1Csc079}|{Del} |{Esc 3}|  |  |
-|||||{Enter}{End}|{↑}      |+{↑}      |{↑ 5}|+{↑ 5}|  |  |
-|||||{End}       |{↓}      |+{↓}      |{↓ 5}|+{↓ 5}|  |
+|||||{Enter}{End}|{↑}      |+{↑}      |+{↑ 7}|{↑ 5}|  |  |
+|||||{End}       |{↓}      |+{↓}      |+{↓ 7}|{↓ 5}|  |
 MEND
 
 mode2l = <<MEND
-　　　×　　　×　　　×{改行 2}|^x『^v』{改行}{Space}+{↑}^x|{Home}{改行}{Space 3}{End}|{Home}{改行}{Space 1}{End}  |〇{改行}                   ||||||||
-+{PgUp}                         |^x(^v){改行}{Space}+{↑}^x  |{Space 3}                 |^x「^v」{改行}{Space}+{↑}^x|／{改行}                   ||||||||
-+{PgDn}                         |^x{BS}{Del}^v               |{Home}{BS}{Del 3}{End}    |{Home}{BS}{Del 1}{End}      |｜{改行}{End}《》{改行}{↑}|||||||
+^x{BS}{Del}^v                           |^x『^v』{改行}{Space}+{↑}^x|{Home}{改行}{Space 3}{End}|{Home}{改行}{Space 1}{End}  |〇{改行}                        ||||||||
+《》{改行}{↑}                          |^x(^v){改行}{Space}+{↑}^x  |{Space 3}                 |^x「^v」{改行}{Space}+{↑}^x|／{改行}                        ||||||||
+^x｜{改行}^v《》{改行}{↑}{Space}+{↑}^x|^x【^v】{改行}{Space}+{↑}^x|{Home}{BS}{Del 3}{End}    |{Home}{BS}{Del 1}{End}      |　　　×　　　×　　　×{改行 2}|||||||
 MEND
 
 mode2r = <<MEND
-|||||+{Home}|^x   |^v   |^u     |^i     |  |  |
-|||||^c     | {→}|+{→}| {→ 5}|+{→ 5}|  |  |
-|||||+{End} | {←}|+{←}| {← 5}|+{← 5}|  |
+|||||+{Home}|^x     |^v     |^y      |^z|  |  |
+|||||^c     | {→ 5}|+{→ 5}|+{→ 20}|^i|  |  |
+|||||+{End} | {← 5}|+{← 5}|+{← 20}|^u|  |
 MEND
 
 eiji    = %w(Q W E R T  Y U I O P  A S D F G  H J K L SCLN  Z X C V B  N M COMM DOT SLSH)
@@ -121,11 +121,11 @@ end
 puts "  // 清音"
 kana.each_with_index do |k, i|
   j = tanda.index(k)
-  if j && j > 0
+  if j && j >= 0
     puts teigi(eiji[j], r_kana[i], k)
   end
   j = shifted.index(k)
-  if j && j > 0
+  if j && j >= 0
     puts teigi(eiji[j], r_kana[i], k, "B_SHFT|")
   end
 end
@@ -134,7 +134,7 @@ puts
 puts "  // 濁音"
 daku.each_with_index do |k, i|
   j = tanda.index(t_daku[i]) || shifted.index(t_daku[i])
-  if j && j > 0
+  if j && j >= 0
     if eiji_r.index(eiji[j])
       puts teigi(eiji[j], r_daku[i], k, "B_F|")
       # puts teigi(eiji[j], r_daku[i], k + "(冗長)", "B_F|", "|B_SHFT")
@@ -149,7 +149,7 @@ puts
 puts "  // 半濁音"
 handaku.each_with_index do |k, i|
   j = tanda.index(t_handaku[i]) || shifted.index(t_handaku[i])
-  if j && j > 0
+  if j && j >= 0
     if eiji_r.index(eiji[j])
       puts teigi(eiji[j], r_handaku[i], k, "B_V|")
       # puts teigi(eiji[j], r_handaku[i], k + "(冗長)", "B_V|", "|B_SHFT")
@@ -164,18 +164,18 @@ puts
 puts "  // 小書き"
 kogaki.each_with_index do |k, i|
   j = tanda.index(k)
-  if j && j > 0
+  if j && j >= 0
     puts teigi(eiji[j], r_kogaki[i], k)
     next
   end
   j = shifted.index(k)
-  if j && j > 0
+  if j && j >= 0
     puts teigi(eiji[j], r_kogaki[i], k, "B_SHFT|")
     next
   end
 
   j = tanda.index(t_kogaki[i]) || shifted.index(t_kogaki[i])
-  if j && j > 0
+  if j && j >= 0
     puts teigi(eiji[j], r_kogaki[i], k, "B_Q|")
     puts teigi(eiji[j], r_kogaki[i], k, "B_Q|B_SHFT|")
     # puts teigi(eiji[j], r_kogaki[i], k, "B_V|B_M|")
@@ -187,20 +187,20 @@ puts
 puts "  // 清音拗音 濁音拗音 半濁拗音"
 kumiawase.each_with_index do |k, i|
   j = tanda.index(k[0])
-  if j && j > 0
+  if j && j >= 0
     e0 = eiji[j]
   end
   unless e0
     j = shifted.index(k[0])
-    if j && j > 0
+    if j && j >= 0
       e0 = eiji[j]
     end
   end
   unless e0
     l = daku.index(k[0])
-    if l && l > 0
+    if l && l >= 0
       j = tanda.index(t_daku[l]) || shifted.index(t_daku[l])
-      if j && j > 0
+      if j && j >= 0
         if eiji_r.index(eiji[j])
           e0 = ["F", eiji[j]]
         else
@@ -211,9 +211,9 @@ kumiawase.each_with_index do |k, i|
   end
   unless e0
     l = handaku.index(k[0])
-    if l && l > 0
+    if l && l >= 0
       j = tanda.index(t_handaku[l]) || shifted.index(t_handaku[l])
-      if j && j > 0
+      if j && j >= 0
         if eiji_r.index(eiji[j])
           e0 = ["V", eiji[j]]
         else
@@ -225,7 +225,7 @@ kumiawase.each_with_index do |k, i|
 
   l = kogaki.index(k[1])
   j = tanda.index(t_kogaki[l]) || shifted.index(t_kogaki[l])
-  if j && j > 0
+  if j && j >= 0
     e1 = eiji[j]
     puts teigi([e0, e1], r_kumiawase[i], k)
     # puts teigi([e0, e1], r_kumiawase[i], k + "(冗長)", "", "|B_SHFT")
@@ -236,7 +236,7 @@ puts
 puts "  // 清音外来音 濁音外来音"
 gairai.each_with_index do |k, i|
   j = tanda.index(k[0]) || shifted.index(k[0])
-  if j && j > 0
+  if j && j >= 0
     if eiji_r.index(eiji[j])
       e0 = ["V", eiji[j]]
     else
@@ -245,9 +245,9 @@ gairai.each_with_index do |k, i|
   end
   unless e0
     l = daku.index(k[0])
-    if l && l > 0
+    if l && l >= 0
       j = tanda.index(t_daku[l]) || shifted.index(t_daku[l])
-      if j && j > 0
+      if j && j >= 0
         if eiji_r.index(eiji[j])
           e0 = ["F", eiji[j]]
         else
@@ -259,7 +259,7 @@ gairai.each_with_index do |k, i|
 
   l = kogaki.index(k[1])
   j = tanda.index(t_kogaki[l]) || shifted.index(t_kogaki[l])
-  if j && j > 0
+  if j && j >= 0
     e1 = eiji[j]
     puts teigi([e0, e1], r_gairai[i], k)
     # puts teigi([e0, e1], r_gairai[i], k + "(冗長)", "", "|B_SHFT")
@@ -288,6 +288,8 @@ $henshu = {
 "+{↓}"         => ["kana", "SS_LSFT(SS_TAP(NGDN))"],
 "{↑ 5}"        => ["kana", "SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)"],
 "{↓ 5}"        => ["kana", "SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)"],
+"+{↑ 7}"        => ["kana", "SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)"],
+"+{↓ 7}"        => ["kana", "SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)"],
 "+{→ 5}"       => ["kana", "SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))"],
 "+{← 5}"       => ["kana", "SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))"],
 "{→ 5}"        => ["kana", "SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)"],
@@ -312,16 +314,17 @@ $henshu = {
 "{←}" => ["kana", "SS_TAP(NGLT)"],
 "+{←}" => ["kana", "SS_LSFT(SS_TAP(NGLT))"],
 "{改行}{↓}" => ["kana", "SS_TAP(X_ENTER)SS_TAP(NGDN)"],
+"{改行}{End}{改行}{Space}" => ["kana", "SS_TAP(X_ENTER)SS_TAP(X_END)SS_TAP(X_ENTER)SS_TAP(X_SPACE)"],
 
-"^x(^v){改行}{Space}+{↑}^x" => ["kana", ""],
-"^x「^v」{改行}{Space}+{↑}^x" => ["kana", ""],
-"『』{改行}{↑}" => ["kana", ""],
-"(){改行}{↑}" => ["kana", ""],
-"「」{改行}{↑}" => ["kana", ""],
-"{改行}{End}{改行}「」{改行}{↑}" => ["kana", ""],
-"【】{改行}{↑}" => ["kana", ""],
-"《》{改行}{↑}" => ["kana", ""],
-"^x『^v』{改行}{Space}+{↑}^x" => ["kana", ""],
+"^x(^v){改行}{Space}+{↑}^x" => ["macro", ""],
+"^x「^v」{改行}{Space}+{↑}^x" => ["macro", ""],
+"『』{改行}{↑}" => ["macro", ""],
+"(){改行}{↑}" => ["macro", ""],
+"「」{改行}{↑}" => ["macro", ""],
+"{改行}{End}{改行}「」{改行}{↑}" => ["macro", ""],
+"【】{改行}{↑}" => ["macro", ""],
+"《》{改行}{↑}" => ["macro", ""],
+"^x『^v』{改行}{Space}+{↑}^x" => ["macro", ""],
 
 "｜{改行}"      => ["uc"  , "｜", "nagitatesenn"],
 "・"            => ["uc"  , "・", "nagichuutenn"],
@@ -342,10 +345,13 @@ $henshu = {
 "『{改行}"      => ["uc"  , "『", "nagikakkohie"],
 "』{改行}"      => ["uc"  , "』", "nagikakkomie"],
 
-"｜{改行}{End}《》{改行}{↑}"=> ["macro", ""], # ルビ
+"^x｜{改行}^v《》{改行}{↑}{Space}+{↑}^x"=> ["macro", ""], # ルビ
 "」{改行 2}「{改行}"=> ["macro", ""],
 "」{改行 2}{Space}"=> ["macro", ""],
 "　　　×　　　×　　　×{改行 2}"=> ["macro", ""],
+"^x【^v】{改行}{Space}+{↑}^x"=> ["macro", ""],
+"+{→ 20}"=> ["macro", ""],
+"+{← 20}"=> ["macro", ""],
 
 "{Space 3}"     => ["kana", "SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)"],
 "^i"            => ["kana", "SS_LCTL(\"i\")", "SS_LCTL(\"k\")"], # カタカナ
@@ -395,7 +401,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode1l[i]
-    # puts "missing #{mode1l[i]}"
+    puts "missing #{mode1l[i]}"
     next
   end
   m =  mode1l[i]
@@ -405,7 +411,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode1r[i]
-    # puts "missing #{mode1r[i]}"
+    puts "missing #{mode1r[i]}"
     next
   end
   m =  mode1r[i]
@@ -415,7 +421,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode2l[i]
-    # puts "missing #{mode2l[i]}"
+    puts "missing #{mode2l[i]}"
     next
   end
   m =  mode2l[i]
@@ -425,7 +431,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode2r[i]
-    # puts "missing #{mode2r[i]}"
+    puts "missing #{mode2r[i]}"
     next
   end
   m =  mode2r[i]
