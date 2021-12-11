@@ -122,28 +122,27 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state)
     switch(biton32(state)) {
         case 1:
             #ifdef HAPTIC_ENABLE
-                DRV_pulse(soft_bump);
+            DRV_pulse(soft_bump);
             #endif
             break;
         case 2:
-        case 5:
             #ifdef HAPTIC_ENABLE
-                DRV_pulse(sh_dblsharp_tick);
+            DRV_pulse(sh_dblsharp_tick);
             #endif
             break;
         case 3:
             #ifdef HAPTIC_ENABLE
-                DRV_pulse(lg_dblclick_str);
+            DRV_pulse(lg_dblclick_str);
             #endif
             break;
         case 4:
             #ifdef HAPTIC_ENABLE
-                DRV_pulse(soft_bump);
+            DRV_pulse(soft_bump);
             #endif
             break;
-        case 6:
+        case 5:
             #ifdef HAPTIC_ENABLE
-                DRV_pulse(pulsing_sharp);
+            DRV_pulse(pulsing_sharp);
             #endif
             break;
         }
