@@ -197,7 +197,6 @@ void led_set_user(uint8_t usb_led) {
 
 
 // Keyboard post init
-
 void keyboard_post_init_user(void) {
     // Read the user config from EEPROM
     user_config.raw = eeconfig_read_user();
@@ -211,7 +210,6 @@ void keyboard_post_init_user(void) {
 }
 
 // Key handling 
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         /* Set the default persistent layer */
