@@ -2,8 +2,7 @@
 
 An ergonomic keyboard with integrated trackball.
 
-The charybdis is available in 4x6 and 3x5 form factor at
-[bastardkb.com](https://bastardkb.com).
+The charybdis is available in 4x6 and 3x5 form factor at [bastardkb.com](https://bastardkb.com).
 
 ## Keymaps
 
