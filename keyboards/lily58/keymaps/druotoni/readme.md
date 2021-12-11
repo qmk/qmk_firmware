@@ -1,6 +1,6 @@
 # HELL0 NAVI. Interface
 
-HELL0 NAVI. Interface is a GUI based en [Serial Experiments Lain](https://en.wikipedia.org/wiki/Serial_Experiments_Lain). Turn your Lily58 keyboard into a Navi computer with its own Copland OS.
+HELL0 NAVI. Interface is a GUI based en [Serial Experiments Lain](https://en.wikipedia.org/wiki/Serial_Experiments_Lain). Turn your [Lily58](https://github.com/kata0510/Lily58) keyboard into a Navi computer with its own Copland OS.
 
 
 Ready to dive into the Wired ?
@@ -117,4 +117,7 @@ You can tweak states timing in gui_state.h.
 ```
 
 ![My Navi](https://imgur.com/eYkgoZJ.png)
+> Keyboard : https://github.com/kata0510/Lily58
+> 
+> Case : https://github.com/BoardSodie/Lily58-Acrylic-Case
 
