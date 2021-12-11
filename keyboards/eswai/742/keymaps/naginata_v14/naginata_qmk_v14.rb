@@ -288,6 +288,8 @@ $henshu = {
 "+{↓}"         => ["kana", "SS_LSFT(SS_TAP(NGDN))"],
 "{↑ 5}"        => ["kana", "SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)"],
 "{↓ 5}"        => ["kana", "SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)"],
+"+{↑ 7}"        => ["kana", "SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)"],
+"+{↓ 7}"        => ["kana", "SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)"],
 "+{→ 5}"       => ["kana", "SS_LSFT(SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT))"],
 "+{← 5}"       => ["kana", "SS_LSFT(SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT)SS_TAP(NGLT))"],
 "{→ 5}"        => ["kana", "SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)SS_TAP(NGRT)"],
@@ -312,16 +314,17 @@ $henshu = {
 "{←}" => ["kana", "SS_TAP(NGLT)"],
 "+{←}" => ["kana", "SS_LSFT(SS_TAP(NGLT))"],
 "{改行}{↓}" => ["kana", "SS_TAP(X_ENTER)SS_TAP(NGDN)"],
+"{改行}{End}{改行}{Space}" => ["kana", "SS_TAP(X_ENTER)SS_TAP(X_END)SS_TAP(X_ENTER)SS_TAP(X_SPACE)"],
 
-"^x(^v){改行}{Space}+{↑}^x" => ["kana", ""],
-"^x「^v」{改行}{Space}+{↑}^x" => ["kana", ""],
-"『』{改行}{↑}" => ["kana", ""],
-"(){改行}{↑}" => ["kana", ""],
-"「」{改行}{↑}" => ["kana", ""],
-"{改行}{End}{改行}「」{改行}{↑}" => ["kana", ""],
-"【】{改行}{↑}" => ["kana", ""],
-"《》{改行}{↑}" => ["kana", ""],
-"^x『^v』{改行}{Space}+{↑}^x" => ["kana", ""],
+"^x(^v){改行}{Space}+{↑}^x" => ["macro", ""],
+"^x「^v」{改行}{Space}+{↑}^x" => ["macro", ""],
+"『』{改行}{↑}" => ["macro", ""],
+"(){改行}{↑}" => ["macro", ""],
+"「」{改行}{↑}" => ["macro", ""],
+"{改行}{End}{改行}「」{改行}{↑}" => ["macro", ""],
+"【】{改行}{↑}" => ["macro", ""],
+"《》{改行}{↑}" => ["macro", ""],
+"^x『^v』{改行}{Space}+{↑}^x" => ["macro", ""],
 
 "｜{改行}"      => ["uc"  , "｜", "nagitatesenn"],
 "・"            => ["uc"  , "・", "nagichuutenn"],
@@ -346,6 +349,9 @@ $henshu = {
 "」{改行 2}「{改行}"=> ["macro", ""],
 "」{改行 2}{Space}"=> ["macro", ""],
 "　　　×　　　×　　　×{改行 2}"=> ["macro", ""],
+"^x【^v】{改行}{Space}+{↑}^x"=> ["macro", ""],
+"+{→ 20}"=> ["macro", ""],
+"+{← 20}"=> ["macro", ""],
 
 "{Space 3}"     => ["kana", "SS_TAP(X_SPACE)SS_TAP(X_SPACE)SS_TAP(X_SPACE)"],
 "^i"            => ["kana", "SS_LCTL(\"i\")", "SS_LCTL(\"k\")"], # カタカナ
@@ -395,7 +401,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode1l[i]
-    # puts "missing #{mode1l[i]}"
+    puts "missing #{mode1l[i]}"
     next
   end
   m =  mode1l[i]
@@ -405,7 +411,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode1r[i]
-    # puts "missing #{mode1r[i]}"
+    puts "missing #{mode1r[i]}"
     next
   end
   m =  mode1r[i]
@@ -415,7 +421,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode2l[i]
-    # puts "missing #{mode2l[i]}"
+    puts "missing #{mode2l[i]}"
     next
   end
   m =  mode2l[i]
@@ -425,7 +431,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode2r[i]
-    # puts "missing #{mode2r[i]}"
+    puts "missing #{mode2r[i]}"
     next
   end
   m =  mode2r[i]
