@@ -347,3 +347,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _SYM, _NAV, _NUMB);
 }
+
+enum combos {
+  AF_ALT_TAB,
+  SF_GUI_TAB,
+  DF_CTRL_TAB,
+  SC_GUI_C,
+  SV_GUI_V,
+  DC_CTRL_C,
+  DV_CTRL_V,
+  ST_GUI_T,
+  DT_CTRL_T,
+  SW_GUI_W,
+  DW_CTRL_W,
+  COMBO_LENGTH,
+};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
+const uint16_t PROGMEM af_combo[] = {KC_A, KC_F, COMBO_END};
+const uint16_t PROGMEM sf_combo[] = {KC_S, KC_F, COMBO_END};
+const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM sc_combo[] = {KC_S, KC_C, COMBO_END};
+const uint16_t PROGMEM sv_combo[] = {KC_S, KC_V, COMBO_END};
+const uint16_t PROGMEM dc_combo[] = {KC_D, KC_C, COMBO_END};
+const uint16_t PROGMEM dv_combo[] = {KC_D, KC_V, COMBO_END};
+const uint16_t PROGMEM st_combo[] = {KC_S, KC_T, COMBO_END};
+const uint16_t PROGMEM dt_combo[] = {KC_D, KC_T, COMBO_END};
+const uint16_t PROGMEM sw_combo[] = {KC_S, KC_W, COMBO_END};
+const uint16_t PROGMEM dw_combo[] = {KC_D, KC_W, COMBO_END};
+
+combo_t key_combos[] = {
+  [AF_ALT_TAB] = COMBO(af_combo, LALT(KC_TAB)),
+  [SF_GUI_TAB] = COMBO(sf_combo, LGUI(KC_TAB)),
+  [DF_CTRL_TAB] = COMBO(df_combo, LCTL(KC_TAB)),
+
+  [SC_GUI_C] = COMBO(sc_combo, LGUI(KC_C)),
+  [SV_GUI_V] = COMBO(sv_combo, LGUI(KC_V)),
+
+  [DC_CTRL_C] = COMBO(dc_combo, LCTL(KC_C)),
+  [DV_CTRL_V] = COMBO(dv_combo, LCTL(KC_V)),
+
+  [ST_GUI_T] = COMBO(st_combo, LGUI(KC_T)),
+  [DT_CTRL_T] = COMBO(dt_combo, LCTL(KC_T)),
+
+  [SW_GUI_W] = COMBO(sw_combo, LGUI(KC_W)),
+  [DW_CTRL_W] = COMBO(dw_combo, LCTL(KC_W)),
+};
