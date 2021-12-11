@@ -24,8 +24,8 @@ NGKEYS naginata_keys;
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _MAC,
-    _BASE,
-    _QWERTY,
+    // _BASE,
+    // _QWERTY,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
 // 薙刀式
@@ -40,15 +40,15 @@ enum custom_keycodes {
     EISUON
 };
 
-uint32_t oled_sleep_timer;
+// uint32_t oled_sleep_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT(
-    KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, C(KC_X)  , C(KC_Z) ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , \
-    CTL_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , C(KC_C)  , C(KC_S) ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , \
-    KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , C(KC_V)  , C(KC_Y) ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT   , \
-    KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
-    ),
+  // [_BASE] = LAYOUT(
+  //   KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, C(KC_X)  , C(KC_Z) ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , 
+  //   CTL_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , C(KC_C)  , C(KC_S) ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , 
+  //   KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , C(KC_V)  , C(KC_Y) ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT   , 
+  //   KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
+  //   ),
 
   [_MAC] = LAYOUT(
     KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, G(KC_X)  , G(KC_Z) ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , \
@@ -57,12 +57,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL       ,KC_LALT,KC_LCTL,KC_LCMD,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
     ),
 
-  [_QWERTY] = LAYOUT(
-    KC_TAB        ,KC_Q   ,KC_W   ,KC_E    ,KC_R   ,KC_T   ,G(KC_X)   ,G(KC_Z)  ,KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P    ,KC_QUOT , \
-    CTL_T(KC_ESC) ,KC_A   ,KC_S   ,KC_D    ,KC_F   ,KC_G   ,G(KC_C)   ,G(KC_S)  ,KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN ,KC_SCLN , \
-    KC_LSFT       ,KC_Z   ,KC_X   ,KC_C    ,KC_V   ,KC_B   ,G(KC_V)   ,G(KC_Y)  ,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_RSFT   , \
-    KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_UP,KC_DOWN ,KC_RGHT
-    ),
+  // [_QWERTY] = LAYOUT(
+  //   KC_TAB        ,KC_Q   ,KC_W   ,KC_E    ,KC_R   ,KC_T   ,G(KC_X)   ,G(KC_Z)  ,KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P    ,KC_QUOT , 
+  //   CTL_T(KC_ESC) ,KC_A   ,KC_S   ,KC_D    ,KC_F   ,KC_G   ,G(KC_C)   ,G(KC_S)  ,KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN ,KC_SCLN , 
+  //   KC_LSFT       ,KC_Z   ,KC_X   ,KC_C    ,KC_V   ,KC_B   ,G(KC_V)   ,G(KC_Y)  ,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_RSFT   , 
+  //   KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_UP,KC_DOWN ,KC_RGHT
+  //   ),
 
   [_LOWER] = LAYOUT(
     _______ ,XXXXXXX ,XXXXXXX ,KC_COLN ,KC_SCLN ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_SLSH ,KC_7   ,KC_8   ,KC_9   ,KC_MINS ,KC_DEL , \
@@ -81,9 +81,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
     _______,EEP_RST,RESET,  KC_F1   ,KC_F2  ,KC_F3   ,KC_F4,  NG_TAYO,NGSW_WIN,XXXXXXX,XXXXXXX,RESET  ,XXXXXXX,_______, \
     _______,XXXXXXX,KC_SLEP,KC_F5   ,KC_F6  ,KC_F7   ,KC_F8,  NG_KOTI,NGSW_MAC,NG_MLV ,XXXXXXX,XXXXXXX,XXXXXXX,_______, \
-    _______,XXXXXXX,KC_WAKE,KC_F9   ,KC_F10 ,KC_F11  ,KC_F12, NG_SHOS,NGSW_LNX,XXXXXXX,DF(_BASE),DF(_QWERTY),DF(_MAC),_______, \
+    _______,XXXXXXX,KC_WAKE,KC_F9   ,KC_F10 ,KC_F11  ,KC_F12, NG_SHOS,NGSW_LNX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______, \
     _______,_______,_______,_______,_______,     XXXXXXX,        XXXXXXX,_______,_______,_______,_______,_______
   ),
+//     _______,XXXXXXX,KC_WAKE,KC_F9   ,KC_F10 ,KC_F11  ,KC_F12, NG_SHOS,NGSW_LNX,XXXXXXX,DF(_BASE),DF(_QWERTY),DF(_MAC),_______, 
 
   [_NAGINATA] = LAYOUT(
     _______,NG_Q   ,NG_W   ,NG_E   ,NG_R   ,NG_T   ,_______, _______,NG_Y   ,NG_U   ,NG_I   ,NG_O   ,NG_P   ,_______, \
@@ -96,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
+  // oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
 
   switch (keycode) {
     case EISUON:
@@ -140,7 +141,7 @@ void matrix_init_user(void) {
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // 薙刀式
 
-  oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
+  // oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
 }
 
 #ifdef OLED_ENABLE
@@ -211,12 +212,12 @@ static void render_eisu(void) {
 
 bool oled_task_user(void) {
     // なぜか明示的にOLEDのスリープ処理が必要
-    if (timer_expired32(timer_read32(), oled_sleep_timer)) {
-      oled_off();
-      return false;;
-    } else {
-      oled_on();
-    }
+    // if (timer_expired32(timer_read32(), oled_sleep_timer)) {
+    //   oled_off();
+    //   return false;;
+    // } else {
+    //   oled_on();
+    // }
 
     if (is_keyboard_master()) {
       if (naginata_state()) {
