@@ -1,0 +1,2 @@
+BACKLIGHT = yes
+RGBLIGHT_ENABLE = yes

@@ -1,0 +1,8 @@
+TAP_DANCE_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = pwm # Valid driver values are 'pwm,software,no'
+CONSOLE_ENABLE = no
+AUDIO_ENABLE = no
+RGBLIGHT_ENABLE = yes
+OLED_DRIVER_ENABLE = yes
