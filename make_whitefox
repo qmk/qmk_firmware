@@ -1,0 +1,2 @@
+rm whitefox_umbacos.bin
+make whitefox:umbacos:dfu-util
