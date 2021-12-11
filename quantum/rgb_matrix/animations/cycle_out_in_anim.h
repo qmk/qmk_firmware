@@ -10,4 +10,4 @@ static HSV CYCLE_OUT_IN_math(HSV hsv, int16_t dx, int16_t dy, uint8_t dist, uint
 bool CYCLE_OUT_IN(effect_params_t* params) { return effect_runner_dx_dy_dist(params, &CYCLE_OUT_IN_math); }
 
 #    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_RGB_MATRIX_CYCLE_OUT_IN
+#endif      // ENABLE_RGB_MATRIX_CYCLE_OUT_IN

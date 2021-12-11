@@ -284,6 +284,7 @@ void oled_task_user(void) {
             break;
     }
 
+    return false;
 }
 
 #endif
