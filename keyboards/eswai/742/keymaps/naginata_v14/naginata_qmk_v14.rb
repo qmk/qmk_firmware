@@ -8,7 +8,7 @@ ETANDA
 
 shifted = <<ESHIFTED
    |む|り |ぬ|+{←}|+{→}|さ       |よ|え|ゆ|`|{{}|
-せ|め|に |ま|ち   |や   |の       |も|わ|つ|*|{}}|
+ せ|め|に |ま|ち   |や   |の       |も|わ|つ|*|{}}|
  ほ|ひ|を |、|み   |お   |。{Enter}|ね|ふ|れ|_|
 ESHIFTED
 
@@ -121,11 +121,11 @@ end
 puts "  // 清音"
 kana.each_with_index do |k, i|
   j = tanda.index(k)
-  if j && j > 0
+  if j && j >= 0
     puts teigi(eiji[j], r_kana[i], k)
   end
   j = shifted.index(k)
-  if j && j > 0
+  if j && j >= 0
     puts teigi(eiji[j], r_kana[i], k, "B_SHFT|")
   end
 end
@@ -134,7 +134,7 @@ puts
 puts "  // 濁音"
 daku.each_with_index do |k, i|
   j = tanda.index(t_daku[i]) || shifted.index(t_daku[i])
-  if j && j > 0
+  if j && j >= 0
     if eiji_r.index(eiji[j])
       puts teigi(eiji[j], r_daku[i], k, "B_F|")
       # puts teigi(eiji[j], r_daku[i], k + "(冗長)", "B_F|", "|B_SHFT")
@@ -149,7 +149,7 @@ puts
 puts "  // 半濁音"
 handaku.each_with_index do |k, i|
   j = tanda.index(t_handaku[i]) || shifted.index(t_handaku[i])
-  if j && j > 0
+  if j && j >= 0
     if eiji_r.index(eiji[j])
       puts teigi(eiji[j], r_handaku[i], k, "B_V|")
       # puts teigi(eiji[j], r_handaku[i], k + "(冗長)", "B_V|", "|B_SHFT")
@@ -164,18 +164,18 @@ puts
 puts "  // 小書き"
 kogaki.each_with_index do |k, i|
   j = tanda.index(k)
-  if j && j > 0
+  if j && j >= 0
     puts teigi(eiji[j], r_kogaki[i], k)
     next
   end
   j = shifted.index(k)
-  if j && j > 0
+  if j && j >= 0
     puts teigi(eiji[j], r_kogaki[i], k, "B_SHFT|")
     next
   end
 
   j = tanda.index(t_kogaki[i]) || shifted.index(t_kogaki[i])
-  if j && j > 0
+  if j && j >= 0
     puts teigi(eiji[j], r_kogaki[i], k, "B_Q|")
     puts teigi(eiji[j], r_kogaki[i], k, "B_Q|B_SHFT|")
     # puts teigi(eiji[j], r_kogaki[i], k, "B_V|B_M|")
@@ -187,20 +187,20 @@ puts
 puts "  // 清音拗音 濁音拗音 半濁拗音"
 kumiawase.each_with_index do |k, i|
   j = tanda.index(k[0])
-  if j && j > 0
+  if j && j >= 0
     e0 = eiji[j]
   end
   unless e0
     j = shifted.index(k[0])
-    if j && j > 0
+    if j && j >= 0
       e0 = eiji[j]
     end
   end
   unless e0
     l = daku.index(k[0])
-    if l && l > 0
+    if l && l >= 0
       j = tanda.index(t_daku[l]) || shifted.index(t_daku[l])
-      if j && j > 0
+      if j && j >= 0
         if eiji_r.index(eiji[j])
           e0 = ["F", eiji[j]]
         else
@@ -211,9 +211,9 @@ kumiawase.each_with_index do |k, i|
   end
   unless e0
     l = handaku.index(k[0])
-    if l && l > 0
+    if l && l >= 0
       j = tanda.index(t_handaku[l]) || shifted.index(t_handaku[l])
-      if j && j > 0
+      if j && j >= 0
         if eiji_r.index(eiji[j])
           e0 = ["V", eiji[j]]
         else
@@ -225,7 +225,7 @@ kumiawase.each_with_index do |k, i|
 
   l = kogaki.index(k[1])
   j = tanda.index(t_kogaki[l]) || shifted.index(t_kogaki[l])
-  if j && j > 0
+  if j && j >= 0
     e1 = eiji[j]
     puts teigi([e0, e1], r_kumiawase[i], k)
     # puts teigi([e0, e1], r_kumiawase[i], k + "(冗長)", "", "|B_SHFT")
@@ -236,7 +236,7 @@ puts
 puts "  // 清音外来音 濁音外来音"
 gairai.each_with_index do |k, i|
   j = tanda.index(k[0]) || shifted.index(k[0])
-  if j && j > 0
+  if j && j >= 0
     if eiji_r.index(eiji[j])
       e0 = ["V", eiji[j]]
     else
@@ -245,9 +245,9 @@ gairai.each_with_index do |k, i|
   end
   unless e0
     l = daku.index(k[0])
-    if l && l > 0
+    if l && l >= 0
       j = tanda.index(t_daku[l]) || shifted.index(t_daku[l])
-      if j && j > 0
+      if j && j >= 0
         if eiji_r.index(eiji[j])
           e0 = ["F", eiji[j]]
         else
@@ -259,7 +259,7 @@ gairai.each_with_index do |k, i|
 
   l = kogaki.index(k[1])
   j = tanda.index(t_kogaki[l]) || shifted.index(t_kogaki[l])
-  if j && j > 0
+  if j && j >= 0
     e1 = eiji[j]
     puts teigi([e0, e1], r_gairai[i], k)
     # puts teigi([e0, e1], r_gairai[i], k + "(冗長)", "", "|B_SHFT")
