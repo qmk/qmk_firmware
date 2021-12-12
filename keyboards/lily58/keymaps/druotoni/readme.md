@@ -1,6 +1,6 @@
 # HELL0 NAVI. Interface
 
-HELL0 NAVI. Interface is a GUI based en [Serial Experiments Lain](https://en.wikipedia.org/wiki/Serial_Experiments_Lain). Turn your Lily58 keyboard into a Navi computer with it own Copland OS.
+HELL0 NAVI. Interface is a GUI based en [Serial Experiments Lain](https://en.wikipedia.org/wiki/Serial_Experiments_Lain). Turn your [Lily58](https://github.com/kata0510/Lily58) keyboard into a Navi computer with its own Copland OS.
 
 
 Ready to dive into the Wired ?
@@ -20,36 +20,43 @@ HELL0 NAVI provides interactive animations for both sides :
 
 The scope displays your burst time on a chart. The WPM is represented by an horizontal line.
 
-The ring display the last letter in the upper frame. Each time you enter a key, the Navi searches into the circular database and locks the position. A special animation is displayed whem you hit key like Enter, Backspce or Escape.
+The ring display the last letter in the upper frame. Each time you enter a key, the Navi searches into the circular database and locks the position. A special animation is displayed when Enter, Backspce or Escape are struck.
 
-![Typing animation](https://imgur.com/iIG1tQE.gif)
+<img src="https://imgur.com/iIG1tQE.gif" height="400" >
 
 ## Startup animation
 
-Your Navi boots when you leave the sleep mode. The animation is canceled when you hit a key.
+Your Navi boots when it leaves the sleep mode. The animation can be canceled by typing.
 
-![Startup animation](https://i.imgur.com/EXU92Ev.gif)
+
+
+<img src="https://imgur.com/EXU92Ev.gif" height="400" >
+
 
 
 ## Waking up animation
 
-After a period of inactivity, the scope and the ring turn off and the Navi runs Idle mode. A new key stroke wakes them up.
+After a period of inactivity, the scope and the ring turn off and the Navi runs in Idle mode. A new key stroke wakes them up.
 
-![Waking up animation](https://imgur.com/9GWa7rR.gif)
+
+<img src="https://imgur.com/9GWa7rR.gif" height="400" >
+
 
 ## Idle animation
 
-The Copland OS is still in beta test. After a while, some visual glitches could occur. 
+The Copland OS is still in beta test. After a while, some visual glitches will occur. 
 
-![Idle animation](https://imgur.com/eKZ7qgC.gif)
+
+<img src="https://imgur.com/eKZ7qgC.gif" height="400" >
+
 
 
 ## Shutdown animation
-The Navi run sleep mode after 10 seconds in Idle mode. A nice (and to difficult for me to render in a gif) animation is run. The OLED display turns off. 
+The Navi runs in sleep mode after 10 seconds in Idle mode. A nice (and difficul to render in a gif) animation is run. The OLED display turns off. 
 
 # How to build & flash
 
-You need to flash each side with a specific version. This information is set in the config.h
+You need to flash each side with a specific version based on config.h configuration.
 
  ## Left side (master)
 
@@ -110,4 +117,7 @@ You can tweak states timing in gui_state.h.
 ```
 
 ![My Navi](https://imgur.com/eYkgoZJ.png)
+> Keyboard : https://github.com/kata0510/Lily58
+> 
+> Case : https://github.com/BoardSodie/Lily58-Acrylic-Case
 
