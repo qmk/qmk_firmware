@@ -114,8 +114,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 const char *read_logo(void);
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   oled_write_ln(read_logo(), false);
+    return false;
 }
 #endif // OLED_ENABLE
-

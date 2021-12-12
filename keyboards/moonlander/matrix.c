@@ -16,54 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-#include <hal.h>
-#include "timer.h"
-#include "wait.h"
-#include "print.h"
-#include "matrix.h"
-#include "action.h"
-#include "keycode.h"
-#include <string.h>
 #include "moonlander.h"
 #include "i2c_master.h"
-#include "debounce.h"
 
 /*
 #define MATRIX_ROW_PINS { B10, B11, B12, B13, B14, B15 } outputs
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A6, A7, B0 }   inputs
  */
 /* matrix state(1:on, 0:off) */
-static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing_right[MATRIX_COLS];
-static bool         debouncing            = false;
-static uint16_t     debouncing_time       = 0;
-static bool         debouncing_right      = false;
-static uint16_t     debouncing_time_right = 0;
+extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
+extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
+static matrix_row_t raw_matrix_right[MATRIX_COLS];
 
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
-
-#ifndef MATRIX_IO_DELAY
-#    define MATRIX_IO_DELAY 20
+#ifndef MOONLANDER_I2C_TIMEOUT
+#    define MOONLANDER_I2C_TIMEOUT 100
 #endif
 
 extern bool mcp23018_leds[3];
 extern bool is_launching;
-
-__attribute__((weak)) void matrix_init_user(void) {}
-
-__attribute__((weak)) void matrix_scan_user(void) {}
-
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
-
-__attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
 
 bool           mcp23018_initd = false;
 static uint8_t mcp23018_reset_loop;
@@ -81,14 +52,14 @@ void mcp23018_init(void) {
     mcp23018_tx[1] = 0b00000000;  // A is output
     mcp23018_tx[2] = 0b00111111;  // B is inputs
 
-    if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, I2C_TIMEOUT)) {
+    if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, MOONLANDER_I2C_TIMEOUT)) {
         dprintf("error hori\n");
     } else {
         mcp23018_tx[0] = 0x0C;        // GPPUA
         mcp23018_tx[1] = 0b10000000;  // A is not pulled-up
         mcp23018_tx[2] = 0b11111111;  // B is pulled-up
 
-        if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, I2C_TIMEOUT)) {
+        if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, MOONLANDER_I2C_TIMEOUT)) {
             dprintf("error hori\n");
         } else {
             mcp23018_initd = is_launching = true;
@@ -96,10 +67,9 @@ void mcp23018_init(void) {
     }
 }
 
-void matrix_init(void) {
+void matrix_init_custom(void) {
     dprintf("matrix init\n");
     // debug_matrix = true;
-
     // outputs
     setPinOutput(B10);
     setPinOutput(B11);
@@ -117,16 +87,10 @@ void matrix_init(void) {
     setPinInputLow(A7);
     setPinInputLow(B0);
 
-    memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(matrix_debouncing_right, 0, MATRIX_COLS * sizeof(matrix_row_t));
-
     mcp23018_init();
-
-    matrix_init_quantum();
 }
 
-uint8_t matrix_scan(void) {
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
 
     // Try to re-init right side
@@ -151,7 +115,7 @@ uint8_t matrix_scan(void) {
     matrix_row_t data = 0;
     // actual matrix
     for (uint8_t row = 0; row <= ROWS_PER_HAND; row++) {
-       // strobe row
+        // strobe row
         switch (row) {
             case 0: writePinHigh(B10); break;
             case 1: writePinHigh(B11); break;
@@ -172,7 +136,7 @@ uint8_t matrix_scan(void) {
             mcp23018_tx[1] = (0b01111111 & ~(1 << (row))) | ((uint8_t)!mcp23018_leds[2] << 7);       // activate row
             mcp23018_tx[2] = ((uint8_t)!mcp23018_leds[1] << 6) | ((uint8_t)!mcp23018_leds[0] << 7);  // activate row
 
-            if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, I2C_TIMEOUT)) {
+            if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, MOONLANDER_I2C_TIMEOUT)) {
                 dprintf("error hori\n");
                 mcp23018_initd = false;
             }
@@ -180,21 +144,22 @@ uint8_t matrix_scan(void) {
             // read col
 
             mcp23018_tx[0] = 0x13;  // GPIOB
-            if (MSG_OK != i2c_readReg(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx[0], &mcp23018_rx[0], 1, I2C_TIMEOUT)) {
+            if (MSG_OK != i2c_readReg(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx[0], &mcp23018_rx[0], 1, MOONLANDER_I2C_TIMEOUT)) {
                 dprintf("error vert\n");
                 mcp23018_initd = false;
             }
 
             data = ~(mcp23018_rx[0] & 0b00111111);
             // data = 0x01;
-
-            if (matrix_debouncing_right[row] != data) {
-                matrix_debouncing_right[row] = data;
-                debouncing_right             = true;
-                debouncing_time_right        = timer_read();
-                changed                      = true;
-            }
+        } else {
+            data = 0;
         }
+
+        if (raw_matrix_right[row] != data) {
+            raw_matrix_right[row] = data;
+            changed         = true;
+        }
+
 
         // left side
         if (row < ROWS_PER_HAND) {
@@ -224,79 +189,28 @@ uint8_t matrix_scan(void) {
                 case 6: break;
             }
 
-            if (matrix_debouncing[row] != data) {
-                matrix_debouncing[row] = data;
-                debouncing             = true;
-                debouncing_time        = timer_read();
+            if (current_matrix[row] != data) {
+                current_matrix[row]    = data;
                 changed                = true;
             }
         }
     }
-
-    // Debounce both hands
-    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
-        for (int row = 0; row < ROWS_PER_HAND; row++) {
-            matrix[row] = matrix_debouncing[row];
+    for (uint8_t row = 0; row < ROWS_PER_HAND; row++) {
+        current_matrix[11 - row] = 0;
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            current_matrix[11 - row] |= ((raw_matrix_right[6 - col] & (1 << row) ? 1 : 0) << col);
         }
-        debouncing = false;
     }
-
-    if (debouncing_right && timer_elapsed(debouncing_time_right) > DEBOUNCE && mcp23018_initd) {
-        for (int row = 0; row < ROWS_PER_HAND; row++) {
-            matrix[11 - row] = 0;
-            for (int col = 0; col < MATRIX_COLS; col++) {
-                matrix[11 - row] |= ((matrix_debouncing_right[6 - col] & (1 << row) ? 1 : 0) << col);
-            }
-        }
-        debouncing_right = false;
-    }
-
-    matrix_scan_quantum();
-
-    return (uint8_t)changed;
-}
-
-bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & (1 << col)); }
-
-matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
-
-void matrix_print(void) {
-    dprintf("\nr/c 01234567\n");
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        dprintf("%X0: ", row);
-        matrix_row_t data = matrix_get_row(row);
-        for (int col = 0; col < MATRIX_COLS; col++) {
-            if (data & (1 << col))
-                dprintf("1");
-            else
-                dprintf("0");
-        }
-        dprintf("\n");
-    }
+    return changed;
 }
 
 // DO NOT REMOVE
 // Needed for proper wake/sleep
 void matrix_power_up(void) {
     bool temp_launching = is_launching;
-    // outputs
-    setPinOutput(B10);
-    setPinOutput(B11);
-    setPinOutput(B12);
-    setPinOutput(B13);
-    setPinOutput(B14);
-    setPinOutput(B15);
 
-    // inputs
-    setPinInputLow(A0);
-    setPinInputLow(A1);
-    setPinInputLow(A2);
-    setPinInputLow(A3);
-    setPinInputLow(A6);
-    setPinInputLow(A7);
-    setPinInputLow(B0);
+    matrix_init_custom();
 
-    mcp23018_init();
     is_launching = temp_launching;
     if (!is_launching) {
         ML_LED_1(false);

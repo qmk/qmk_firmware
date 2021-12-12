@@ -33,19 +33,19 @@ enum custom_keycodes {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT_default(
-        RGB_MODE_FORWARD,                KC_NUMLOCK,
-        KC_KP_7, KC_KP_8, KC_KP_9,       KC_DELETE,
-        KC_KP_4, KC_KP_5, KC_KP_6,       KC_END,
-        KC_KP_1, KC_KP_2, KC_KP_3,       KC_F13,
-        KC_KP_0, MO(1),   KC_KP_DOT,     KC_KP_ENTER
+    [_BASE] = LAYOUT(
+        RGB_MOD,                   KC_NLCK,
+        KC_P7,   KC_P8,   KC_P9,   KC_DEL,
+        KC_P4,   KC_P5,   KC_P6,   KC_END,
+        KC_P1,   KC_P2,   KC_P3,   KC_F13,
+        KC_P0,   MO(1),   KC_PDOT, KC_PENT
     ),
-    [_SPEC] = LAYOUT_default(
-        RGB_MODE_REVERSE,               KC_AUDIO_MUTE,
-        KC_NO,   KC_NO,   KC_NO,         KC_EXAM,
-        KC_NO,   KC_NO,   KC_NO,         KC_NO,
-        RESET,   RGB_TOG, RGB_SPI,       RGB_SPD,
-        KC_NO,   _______, KC_NO,         KC_NO
+    [_SPEC] = LAYOUT(
+        RGB_RMOD,                   KC_MUTE,
+        KC_NO,    KC_NO,   KC_NO,   KC_EXAM,
+        KC_NO,    KC_NO,   KC_NO,   KC_NO,
+        RESET,    RGB_TOG, RGB_SPI, RGB_SPD,
+        KC_NO,    _______, KC_NO,   KC_NO
     )
 };
 
@@ -209,7 +209,7 @@ static void render_logo(uint8_t startX, uint8_t startY)
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
-void oled_task_user(void)
+bool oled_task_user(void)
 {
     // Playing the animation
     if((timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) && (splash_dur_counter < SPLASH_DUR))
@@ -348,6 +348,7 @@ void oled_task_user(void)
 
     }
 
+    return false;
 }
 
 // Process the extra/extended keycode functionality

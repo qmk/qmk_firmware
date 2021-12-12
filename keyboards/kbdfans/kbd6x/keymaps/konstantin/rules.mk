@@ -1,7 +1,7 @@
 # Generic features
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 COMMAND_ENABLE     = yes
-CONSOLE_ENABLE     = no
+CONSOLE_ENABLE     = yes
 EXTRAKEY_ENABLE    = yes
 MOUSEKEY_ENABLE    = yes
 NKRO_ENABLE        = yes

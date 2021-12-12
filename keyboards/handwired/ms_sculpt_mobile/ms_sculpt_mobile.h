@@ -15,12 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
+
 #pragma once 
 #include "quantum.h"
  
 #define XXX KC_NO
 #define NNN KC_NO
 
+#define XXX KC_NO
 
 //US layout, with vol-, vol+, mute in upper right, white Fn keys
 #define LAYOUT_mobile_XUA( \

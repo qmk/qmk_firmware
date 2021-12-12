@@ -10,4 +10,4 @@ static HSV BAND_SPIRAL_SAT_math(HSV hsv, int16_t dx, int16_t dy, uint8_t dist, u
 bool BAND_SPIRAL_SAT(effect_params_t* params) { return effect_runner_dx_dy_dist(params, &BAND_SPIRAL_SAT_math); }
 
 #    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+#endif      // ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT

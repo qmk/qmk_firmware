@@ -30,7 +30,9 @@ void matrix_init_kb(void)
 #ifdef ISSI_ENABLE
     issi_init();
 #endif
+#ifdef BACKLIGHT_ENABLE
     backlight_set(5);
+#endif
 #ifdef WATCHDOG_ENABLE
     // This is done after turning the layer LED red, if we're caught in a loop
     // we should get a flashing red light
