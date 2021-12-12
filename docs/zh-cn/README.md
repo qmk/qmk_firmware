@@ -1,10 +1,16 @@
 # Quantum Mechanical Keyboard固件
 
+[![当前版本](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
+[![discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
+[![文档状态](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
+[![GitHub贡献者](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
+[![GitHub分支](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
+
 ## 什么是 QMK 固件?
 
-QMK (*Quantum Mechanical Keyboard*) 是一个社区维护的用于开发计算机输入设备的开源软件。社区专注所有类型的输入设备，如键盘、鼠标和MIDI设备。社区内的核心小组成员维护着[QMK固件](https://github.com/qmk/qmk_firmware)，[QMK配置器](https://config.qmk.fm)，[QMK工具箱](https://github.com/qmk/qmk_toolbox)，[qmk.fm](https://qmk.fm)，并与各位社区成员维护这份文档。
+QMK (*Quantum Mechanical Keyboard*) 是一个社区维护的用于开发计算机输入设备的开源软件。社区专注像键盘，鼠标，MIDI设备的各种电子输入设备。社区内的核心小组成员维护[QMK固件](https://github.com/qmk/qmk_firmware)，[QMK配置器](https://config.qmk.fm)，[QMK工具箱](https://github.com/qmk/qmk_toolbox)，[qmk.fm](https://qmk.fm)，并与各位社区成员维护这份文档。
 
-## 开始
+## 如何入门
 
 <div class="flex-container">
 
