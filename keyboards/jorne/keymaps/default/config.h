@@ -1,4 +1,4 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
+/* Copyright 2020 Joric <joric@users.noreply.gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 #pragma once
 
 #ifdef OLED_DRIVER_ENABLE
-  #define OLED_DISPLAY_128X64
+  #define OLED_DISPLAY_128X32
 #endif
 
 #ifdef RGBLIGHT_ENABLE
@@ -30,3 +30,5 @@
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 // #define SPLIT_USB_DETECT
 // #define NO_USB_STARTUP_CHECK
+
+#define OLED_FONT_H "keyboards/jorne/keymaps/default/glcdfont.c"

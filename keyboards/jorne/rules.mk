@@ -9,7 +9,7 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-BOOTLOADER = atmel-dfu
+BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable
@@ -31,6 +31,6 @@ AUDIO_ENABLE = no          # Audio output on port C6
 FAUXCLICKY_ENABLE = no     # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no        # Enable support for HD44780 based LCDs
 SPLIT_KEYBOARD = yes       # Split common
-LINK_TIME_OPTIMIZATION_ENABLE =yes 
+LINK_TIME_OPTIMIZATION_ENABLE =yes
 
 DEFAULT_FOLDER = jorne/rev1
