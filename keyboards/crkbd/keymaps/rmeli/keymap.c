@@ -45,23 +45,23 @@ enum {
     TD_ESC_DEL, // Tap once for KC_ESC, twice for KC_DEL
 };
 
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
-    switch(state->count){
-        case 1: // Tapped once
-            if (!state->pressed){ // No longer pressed
-                return TD_SINGLE_TAP;
-            } else{ // Still pressed
-                return TD_SINGLE_HOLD;
-            }
-        case 2: // Tapped twice
-            if (!state->pressed){ // No longer pressed
-                return TD_DOUBLE_TAP;
-            } else {
-                return TD_NONE;
-            }
-        default: // Ignore repetitive taps
-            return TD_NONE;
+// https://github.com/qmk/qmk_firmware/blob/9294258c02d3e025e01935a06c4d9f1997535bda/users/gordon/gordon.c#L112-L135
+td_state_t hold_cur_dance(qk_tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted) {
+            if (!state->pressed) return TD_SINGLE_TAP;
+            else return TD_SINGLE_HOLD;
+        }
+        else {
+            if (!state->pressed) return TD_SINGLE_TAP;
+            else return TD_SINGLE_HOLD;
+        }
     }
+    else if (state->count == 2) {
+        if (state->pressed) return TD_NONE;
+        else return TD_DOUBLE_TAP;
+    }
+    else return TD_NONE;
 }
 
 void LSPO_CAPS_finished(qk_tap_dance_state_t *state, void *user_data);
@@ -89,45 +89,50 @@ void rgb_matrix_indicators_user(void) {
 // + KEY MAP |
 // + ------- +
 
+#define _BL 0
+#define _DWN 1
+#define _UP 2
+#define _RGB 3
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_split_3x6_3(
-  //,-----------------z------------------------------------.                    ,-----------------------------------------------------.
+  [_BL] = LAYOUT_split_3x6_3(
+  //|-----------------------------------------------------|                    |-----------------------------------------------------|
       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       TD(TD_ESC_DEL)  ,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       TD(TD_LSPO_CAPS),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, TD(TD_RSPC_CAPS),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   MO(1),  KC_SPC,     KC_ENT,   MO(2), KC_RCTL
-                                      //`--------------------------'  `--------------------------'
+                                          KC_LGUI,MO(_DWN),  KC_SPC,     KC_ENT,MO(_UP),  KC_RCTL
+                                      //|--------------------------|  |--------------------------|
   ),
 
-  [1] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+  [_DWN] = LAYOUT_split_3x6_3(
+  //|-----------------------------------------------------|                    |-----------------------------------------------------|
       _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,  KC_UP, KC_RIGHT, XXXXXXX,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, KC_PGUP, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, _______,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, KC_PGDN, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______, _______,    _______,   MO(3), _______
-                                      //`--------------------------'  `--------------------------'
+                                          KC_LGUI, _______, _______,    _______,MO(_RGB), _______
+                                      //|--------------------------|  |--------------------------|
   ),
 
-  [2] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+  [_UP] = LAYOUT_split_3x6_3(
+  //|-----------------------------------------------------|                    |-----------------------------------------------------|
       _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
+      _______, KC_LEFT, KC_DOWN,  KC_UP, KC_RIGHT, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______,   MO(3),  _______,   _______, _______, _______
-                                      //`--------------------------'  `--------------------------'
+                                          _______,MO(_RGB), _______,   _______, _______, _______
+                                      //|--------------------------|  |--------------------------|
   ),
 
-  [3] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+  [_RGB] = LAYOUT_split_3x6_3(
+  //|-----------------------------------------------------|                    |-----------------------------------------------------|
         RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -135,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX,RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,   _______, _______, _______
-                                      //`--------------------------'  `--------------------------'
+                                      //|--------------------------|  |--------------------------|
   )
 };
 
@@ -150,7 +155,7 @@ static td_tap_t LSPO_CAPS_state = {
 };
 
 void LSPO_CAPS_finished(qk_tap_dance_state_t *state, void *user_data) {
-    LSPO_CAPS_state.state = cur_dance(state);
+    LSPO_CAPS_state.state = hold_cur_dance(state);
     switch (LSPO_CAPS_state.state) {
         case TD_SINGLE_TAP: register_code16(KC_LPRN); break;
         case TD_SINGLE_HOLD: register_code16(KC_LSFT); break;
@@ -176,7 +181,7 @@ static td_tap_t RSPC_CAPS_state = {
 };
 
 void RSPC_CAPS_finished(qk_tap_dance_state_t *state, void *user_data) {
-    RSPC_CAPS_state.state = cur_dance(state);
+    RSPC_CAPS_state.state = hold_cur_dance(state);
     switch (RSPC_CAPS_state.state) {
         case TD_SINGLE_TAP: register_code16(KC_RPRN); break;
         case TD_SINGLE_HOLD: register_code16(KC_RSFT); break;
