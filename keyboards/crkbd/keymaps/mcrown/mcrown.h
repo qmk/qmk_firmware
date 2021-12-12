@@ -65,7 +65,7 @@
 #define   _____________________LOWER_L3_______________________ KC_CTLTB, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 
 #define   _____________________LOWER_R1_______________________ KC_6,     KC_7,    KC_8,    KC_9,     KC_0,     KC_BSPC
-#define   _____________________LOWER_R2_______________________ KC_LEFT,  KC_UP,   KC_DOWN, KC_RIGHT, KC_HOME,  KC_END
+#define   _____________________LOWER_R2_______________________ KC_LEFT,  KC_DOWN, KC_UP,   KC_RIGHT, KC_HOME,  KC_END
 #define   _____________________LOWER_R3_______________________ KC_F6,    KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11
 
 /* ------------------------------------------------------------COL1------COL2-----COL3-----COL4-----COL5-----COL6--------- */
