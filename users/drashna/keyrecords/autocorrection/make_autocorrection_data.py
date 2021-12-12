@@ -12,9 +12,13 @@ program without arguments like
 
 $ python3 make_autocorrection_data.py
 
-Each line of the autcorrections_dict.txt file defines one typo and its
-correction with the syntax "typo -> correction". Blank lines or lines starting
-with '#' are ignored. Example:
+Or to read from a different typo dict file, pass it as the first argument like
+
+$ python3 make_autocorrection_data.py dict.txt
+
+Each line of the dict file defines one typo and its correction with the syntax
+"typo -> correction". Blank lines or lines starting with '#' are ignored.
+Example:
 
   :thier        -> their
   fitler        -> filter
@@ -245,12 +249,14 @@ def write_generated_code(autocorrections: List[Tuple[str, str]],
     f.write(generated_code)
 
 
-def main():
-  autocorrections = parse_file('autocorrection_dict.txt')
+def main(argv):
+  dict_file = argv[1] if len(argv) > 1 else 'autocorrection_dict.txt'
+  autocorrections = parse_file(dict_file)
   trie = make_trie(autocorrections)
   data = serialize_trie(autocorrections, trie)
   print(f'Processed %d autocorrection entries to table with %d bytes.'
         % (len(autocorrections), len(data)))
   write_generated_code(autocorrections, data, 'autocorrection_data.h')
 
-main()
+if __name__ == '__main__':
+  main(sys.argv)

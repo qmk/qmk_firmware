@@ -27,22 +27,43 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
         return true;
     }
 
-    // Exclude Shift hold from resetting autocorrection.
-    if (keycode == KC_LSFT || keycode == KC_RSFT) {
-        return true;
-    } else if ((QK_MOD_TAP <= keycode && keycode <= QK_MOD_TAP_MAX && ((keycode >> 8) & 0x0f) == MOD_LSFT) && (record->event.pressed || !record->tap.count)) {
-        return true;
-#ifndef NO_ACTION_ONESHOT
-    } else if ((QK_ONE_SHOT_MOD <= keycode && keycode <= QK_ONE_SHOT_MOD_MAX && (keycode & 0xF) == MOD_LSFT)) {
-        return true;
-#endif
-    } else if (!record->event.pressed) {
-        return true;
+    switch (keycode) {
+        case KC_LSFT:
+        case KC_RSFT:
+            return true;
+#    ifndef NO_ACTION_TAPPING
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            if (((keycode >> 8) & 0x0f) == MOD_LSFT && record->event.pressed || !record->tap.count) {
+                    return true;
+            }
+            keycode &= 0xFF;
+            break;
+#        ifndef NO_ACTION_LAYER
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            if (record->event.pressed || !record->tap.count) {
+                return true;
+            }
+            keycode &= 0xFF;
+            break;
+#        endif
+#    endif
+#    ifndef NO_ACTION_ONESHOT
+        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
+            if ((keycode & 0xF) == MOD_LSFT) {
+                return true;
+            }
+            keycode &= 0xF;
+            break;
+#    endif
+        default:
+            if (!record->event.pressed) {
+                return true;
+            }
     }
 
     // Subtract buffer for Backspace key, reset for other non-alpha.
-    if (!(KC_A <= (uint8_t)keycode && (uint8_t)keycode <= KC_Z) && (uint8_t)keycode != KC_SPC) {
-        if ((uint8_t)keycode == KC_BSPC && typo_buffer_size) {
+    if (!(KC_A <= keycode && keycode <= KC_Z) && keycode != KC_SPC) {
+        if (keycode == KC_BSPC && typo_buffer_size) {
             --typo_buffer_size;
         } else {
             typo_buffer_size = 0;
@@ -57,7 +78,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
     }
 
     // Append `keycode` to buffer.
-    typo_buffer[typo_buffer_size++] = (uint8_t)keycode;
+    typo_buffer[typo_buffer_size++] = keycode;
     // Return if buffer is smaller than the shortest word.
     if (typo_buffer_size < AUTOCORRECTION_MIN_LENGTH) {
         return true;
