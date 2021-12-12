@@ -27,7 +27,7 @@ enum custom_keycodes {
     RGBRST = SAFE_RANGE
 };
 
-
+#undef SH_TG
 #define SH_TG KC_TRNS
 
 #define KC______ KC_TRNS
