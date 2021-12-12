@@ -94,6 +94,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                SFT_T(KC_SPC), KC_J,                  _______,
                                                ALT_T(KC_Q),   KC_LGUI,      _______, _______
     ),
+    [_DIABLOII] = LAYOUT_5x6_right(
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_GRV,                         _______, _______, _______, _______, _______, _______,
+        KC_TAB,  KC_A,    KC_T,    KC_Q,    KC_I,    KC_M,                           _______, _______, _______, _______, _______, _______,
+        KC_S,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                          _______, _______, _______, _______, _______, _______,
+        KC_LCTL, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                         _______, _______, _______, _______, _______, _______,
+                          KC_F,    KC_L,                                                               KC_NO,   TG(_DIABLOII),
+                                   _______, KC_G,                                             _______,
+                                               KC_LSFT, _______,                     _______,
+                                               KC_LCTL, KC_V,               _______, _______
+    ),
     [_LOWER] = LAYOUT_5x6_right_wrapper(
         KC_F12,  _________________FUNC_LEFT_________________,                        _________________FUNC_RIGHT________________, KC_F11,
         _______, _________________LOWER_L1__________________,                        _________________LOWER_R1__________________, _______,
@@ -115,14 +125,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, _______,    _______, _______
     ),
     [_ADJUST] = LAYOUT_5x6_right_wrapper(
-        KC_MAKE, ___________________BLANK___________________,                      _________________ADJUST_R1_________________, KC_RST,
+        KC_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_NOMODE,               KC_NOMODE,KC_BLOCKS,KC_REGIONAL,_______,_______, KC_RST,
         VRSN,    _________________ADJUST_L1_________________,                      _________________ADJUST_R1_________________, EEP_RST,
         KEYLOCK, _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, TG_MODS,
         UC_MOD,  _________________ADJUST_L3_________________,                      _________________ADJUST_R3_________________, KC_MPLY,
                           HPT_DWLI, HPT_DWLD,                                                        TG_GAME, TG_DBLO,
                                             HPT_TOG, HPT_BUZ,                               KC_NUKE,
                                                      _______, _______,             _______,
-                                                     _______, _______,    KC_NUKE, _______
+                                                     _______, TG(_DIABLOII),KC_NUKE, _______
     ),
 };
 
@@ -174,7 +184,11 @@ bool            tap_toggling          = false;
 #        define TAP_CHECK TAPPING_TERM
 #    endif
 
-void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    int8_t x = mouse_report.x, y = mouse_report.y;
+    mouse_report.x = 0;
+    mouse_report.y = 0;
+
     if (x != 0 && y != 0) {
         mouse_timer = timer_read();
 #    ifdef OLED_ENABLE
@@ -185,13 +199,14 @@ void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
                 x = (x > 0 ? x * x / 16 + x : -x * x / 16 + x);
                 y = (y > 0 ? y * y / 16 + y : -y * y / 16 + y);
             }
-            mouse_report->x = x;
-            mouse_report->y = y;
+            mouse_report.x = x;
+            mouse_report.y = y;
             if (!layer_state_is(_MOUSE)) {
                 layer_on(_MOUSE);
             }
         }
     }
+    return mouse_report;
 }
 
 void matrix_scan_keymap(void) {
@@ -348,16 +363,8 @@ void render_kitty(void) {
                                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x06, 0x04, 0x04, 0x04, 0x04, 0x05, 0x04, 0x04, 0x04, 0x07, 0x07, 0x07, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}};
 
     // assumes 1 frame prep stage
-#ifdef SWAP_HANDS_ENABLE
-    extern bool swap_hands;
-#endif
     void        animation_phase(void) {
-#    ifdef SWAP_HANDS_ENABLE
-        if (swap_hands)
-#else
-        if (tap_toggling)
-#endif
-        {
+        if (tap_toggling) {
             anim_frame_duration = 300;
             current_rtogi_frame = (current_rtogi_frame + 1) % RTOGI_FRAMES;
             oled_write_raw_P(rtogi[abs((RTOGI_FRAMES - 1) - current_rtogi_frame)], ANIM_SIZE);
@@ -400,9 +407,9 @@ void oled_driver_render_logo_left(void) {
     render_kitty();
 
     oled_set_cursor(6, 0);
-    oled_write_P(PSTR("  Tractyl      "), true);
+    oled_write_P(PSTR("  Tractyl      "), false);
     oled_set_cursor(6, 1);
-    oled_write_P(PSTR("     Manuform  "), true);
+    oled_write_P(PSTR("     Manuform  "), false);
     oled_set_cursor(6, 2);
 #    if defined(WPM_ENABLE)
     render_wpm(1);

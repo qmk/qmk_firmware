@@ -18,11 +18,14 @@
 // OLED Code inspired by https://github.com/qmk/qmk_firmware/blob/master/keyboards/splitkb/kyria/rev1/rev1.c
 
 #ifdef OLED_ENABLE
-__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	return OLED_ROTATION_180;
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_180;
 }
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     if (is_keyboard_master()) {
         static const char PROGMEM qmk_logo[] = {
             0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
@@ -126,5 +129,6 @@ __attribute__((weak)) void oled_task_user(void) {
         };
         oled_write_raw_P(split65_logo, sizeof(split65_logo));
     }
+    return false;
 }
 #endif
