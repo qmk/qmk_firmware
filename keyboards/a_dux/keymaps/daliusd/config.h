@@ -30,3 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_INTERVAL 50
 // The default is 40
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 100
+
+// Delay for combo keys to be chained together
+#define COMBO_TERM 30
