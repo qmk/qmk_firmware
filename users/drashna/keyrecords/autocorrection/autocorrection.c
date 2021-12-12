@@ -33,7 +33,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             return true;
 #    ifndef NO_ACTION_TAPPING
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-            if (((keycode >> 8) & 0x0f) == MOD_LSFT && record->event.pressed || !record->tap.count) {
+            if (((keycode >> 8) & 0x0f) == MOD_LSFT && (record->event.pressed || !record->tap.count)) {
                     return true;
             }
             keycode &= 0xFF;
