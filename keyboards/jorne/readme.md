@@ -7,7 +7,7 @@ Jorne is essentially [Corne](https://github.com/foostan/crkbd) but with an extra
 * Keyboard Maintainer: [joric](https://github.com/joric)
 * Hardware Supported: Jorne 2.1, 3.0
 * Layout: [keyboard-layout-editor.com](http://www.keyboard-layout-editor.com/#/gists/df19fba80500d1179dfda8c41b9f221a)
-* Hardware Availability: [wiki](https://github.com/joric/qmk/wiki/jorne)
+* Hardware Availability: [wiki](https://github.com/joric/jorne/wiki)
 
 Make example for this keyboard (after setting up your build environment):
 
