@@ -16,8 +16,11 @@
 
 #include "drashna.h"
 #include "version.h"
+#ifdef CAPS_WORD_ENABLE
+#    include "caps_word.h"
+#endif
 #ifdef AUTOCORRECTION_ENABLE
-#include "autocorrection/autocorrection.h"
+#    include "autocorrection/autocorrection.h"
 #endif
 
 uint16_t copy_paste_timer;
@@ -48,6 +51,9 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
 #endif
 #if defined(POINTING_DEVICE_ENABLE)
           && process_record_pointing(keycode, record)
+#endif
+#ifdef CAPS_WORD_ENABLE
+          && process_caps_word(keycode, record)
 #endif
 #ifdef AUTOCORRECTION_ENABLE
           && process_autocorrection(keycode, record)
@@ -205,7 +211,7 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
                 }
             }
             break;
-            }
+        }
     }
     return true;
 }
