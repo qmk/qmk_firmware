@@ -7,6 +7,7 @@
 
 #define LOGO_SIZE 128
 
+
 // glitch stuff
 #define GLITCH_FRAME_NUMBER 11
 

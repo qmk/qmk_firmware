@@ -9,7 +9,13 @@ uint32_t global_waking_up_timer = 0;
 uint32_t global_booting_timer   = 0;
 
 // timers test for states
+#ifdef WITH_BOOT
 static bool IsBooting(void) { return (timer_elapsed32(global_booting_timer) < BOOTING_TIME_TRESHOLD); }
+#else
+static bool IsBooting(void) { return false; }
+#endif
+
+
 static bool IsWakingUp(void) { return (timer_elapsed32(global_waking_up_timer) < WAKING_UP_TIME_TRESHOLD); }
 static bool IsIdle(void) { return (timer_elapsed32(global_sleep_timer) > IDLE_TIME_TRESHOLD && timer_elapsed32(global_sleep_timer) < HALTING_TIME_TRESHOLD); }
 static bool IsSleep(void) { return (timer_elapsed32(global_sleep_timer) >= SLEEP_TIME_TRESHOLD); }
@@ -30,6 +36,7 @@ void update_gui_state(void) {
     // what to do when a key is pressed
     gui_state_t t = get_gui_state();
 
+#ifdef WITH_BOOT
     if (t == _SLEEP) {
         // booting
         global_booting_timer = timer_read32();
@@ -39,6 +46,12 @@ void update_gui_state(void) {
         // cancel booting
         global_booting_timer = 1000000;
     }
+#else
+    if (t == _SLEEP) {
+        // waking up
+        global_waking_up_timer = timer_read32();
+    }
+#endif
 
     if (t == _IDLE || t == _HALTING || t == _BOOTING) {
         // waking up

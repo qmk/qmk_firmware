@@ -21,18 +21,18 @@ static const char PROGMEM code_to_name[60] = {' ', ' ', ' ', ' ', 'A', 'B', 'C',
 
 // main circle
 #define CIRCLE_ANIM_FRAME_DURATION 40
-uint32_t circle_timer = 0;
+uint16_t circle_timer = 0;
 
 // special animation for special keys
 #define ANIM_CENTER_FRAME_NUMBER 5
 #define ANIM_CENTER_FRAME_DURATION 40
-uint32_t anim_center_timer         = 0;
+uint16_t anim_center_timer         = 0;
 uint8_t  anim_center_current_frame = 0;
 
 // sleep animation
 #define ANIM_SLEEP_RING_FRAME_NUMBER 9
 #define ANIM_SLEEP_RING_FRAME_DURATION 20
-uint32_t anim_sleep_ring_timer        = 0;
+uint16_t anim_sleep_ring_timer        = 0;
 uint8_t  current_sleep_ring_frame     = 0;
 uint8_t  sleep_ring_frame_destination = ANIM_SLEEP_RING_FRAME_NUMBER - 1;
 
@@ -40,7 +40,7 @@ uint8_t  sleep_ring_frame_destination = ANIM_SLEEP_RING_FRAME_NUMBER - 1;
 #define ANIM_KEYLOG_FRAME_NUMBER 8
 #define ANIM_KEYLOG_FRAME_DURATION 20
 uint8_t  anim_keylog_current_frame = 0;
-uint32_t anim_keylog_timer         = 0;
+uint16_t anim_keylog_timer         = 0;
 
 static void rotate_right(char str[]) {
     uint8_t iSize = SIZE_ARRAY_1;
@@ -84,14 +84,10 @@ static signed char GetDistance(char cNew, char tListe[]) {
     return iPositionNew - CURSOR_1;
 }
 
-static bool TesterEstDansListe(char c, char tListe[]) { return GetPosition(c, tListe) != -1; }
-
-//     for (int i = 0; i < SIZE_ARRAY_1; i++) {
-//         if (tListe[i] == cChar) return true;
-//     }
-
-//     return false;
-// }
+static bool TesterEstDansListe(char c, char tListe[]) { 
+    // char in the list ?
+    return GetPosition(c, tListe) != -1;
+     }
 
 static void SmartRotation(char c, char tListe[]) {
     signed char i = GetDistance(c, tListe);
@@ -109,13 +105,9 @@ static void SmartRotation(char c, char tListe[]) {
 }
 
 static void update_list(char cNouveau, char tListe[]) {
-    // if (!TesterEstDansListe(cNouveau, tListe)) {
-    //     // unknowed input
-    //     return;
-    // }
-
     signed char iDistance = GetDistance(cNouveau, tListe);
     if (iDistance != 0) {
+        // the new char is in the list : rotation
         SmartRotation(cNouveau, tListe);
     }
 }
@@ -206,8 +198,8 @@ static void render_anim_center_circle(uint8_t x, uint8_t y, uint8_t r) {
         return;
     }
 
-    if (timer_elapsed32(anim_center_timer) > ANIM_CENTER_FRAME_DURATION) {
-        anim_center_timer = timer_read32();
+    if (timer_elapsed(anim_center_timer) > ANIM_CENTER_FRAME_DURATION) {
+        anim_center_timer = timer_read();
 
         draw_center_circle_frame(x, y, r, anim_center_current_frame);
 
@@ -224,8 +216,10 @@ static void write_char(char c) {
 
 static void render_keylog(gui_state_t t) {
     if (anim_keylog_current_frame != ANIM_KEYLOG_FRAME_NUMBER) {
-        if (timer_elapsed32(anim_keylog_timer) > ANIM_KEYLOG_FRAME_DURATION) {
-            anim_keylog_timer = timer_read32();
+
+        if (timer_elapsed(anim_keylog_timer) > ANIM_KEYLOG_FRAME_DURATION) {
+            // update frame number
+            anim_keylog_timer = timer_read();
             anim_keylog_current_frame++;
         }
 
@@ -234,9 +228,11 @@ static void render_keylog(gui_state_t t) {
 
         // comb motion to merge current and previous
         if (anim_keylog_current_frame < ANIM_KEYLOG_FRAME_NUMBER / 2) {
+            // expand the previous char
             write_char(c_previous);
             draw_glitch_comb(9, 6 * 8, 18, 8, anim_keylog_current_frame + 1, true);
         } else {
+            // shrink the current char
             write_char(c_last);
             draw_glitch_comb(9, 6 * 8, 18, 8, ANIM_KEYLOG_FRAME_NUMBER - anim_keylog_current_frame, false);
         }
@@ -249,7 +245,7 @@ static void render_keylog(gui_state_t t) {
 
 void reset_ring(void) {
     // need to open
-    anim_sleep_ring_timer        = timer_read32();
+    anim_sleep_ring_timer        = timer_read();
     current_sleep_ring_frame     = ANIM_SLEEP_RING_FRAME_NUMBER - 1;
     sleep_ring_frame_destination = 0;
 }
@@ -271,16 +267,19 @@ static const char PROGMEM raw_ring_sleep[4][64] = {{
                                                    }};
 
 static void render_tv_circle(uint8_t x, uint8_t y, uint8_t r, uint8_t f) {
+    // raw image
     if (f == 2 || f == 3) {
         oled_write_raw_P_cursor(0, 12, raw_ring_sleep[f - 2], sizeof(raw_ring_sleep[f - 2]));
         return;
     }
 
+    // raw image
     if (f == 5 || f == 6) {
         oled_write_raw_P_cursor(0, 12, raw_ring_sleep[f - 3], sizeof(raw_ring_sleep[f - 3]));
         return;
     }
 
+    // other frames : lighter to draw than using raw image
     switch (f) {
         case 1:
             draw_circle(x, y, r, 1);
@@ -320,11 +319,14 @@ static const char PROGMEM raw_middle[] = {
 };
 
 static void render_circle_white(void) {
+    // top
     oled_write_raw_P_cursor(0, 5, raw_middle, sizeof(raw_middle));
-
     drawline_hr(5, 39, 25, 1);
 
+    // clean center
     draw_rectangle_fill(0, 80, 32, 40, false);
+
+    // bottom
     drawline_vb(0, 80, 8, 1);
     drawline_vb(31, 80, 8, 1);
     oled_write_pixel(1, 80, true);
@@ -332,7 +334,6 @@ static void render_circle_white(void) {
 
     oled_write_raw_P_cursor(0, 15, raw_bottom, sizeof(raw_bottom));
 }
-
 int      current_glitch_ring_time  = 150;
 uint32_t glitch_ring_timer         = 0;
 uint8_t  current_glitch_ring_index = 0;
@@ -343,10 +344,10 @@ static void render_ring_clean_close(void) {
     drawline_vb(31, 88, 32, true);
 }
 
-uint32_t    anim_ring_idle_timer = 0;
+uint16_t    anim_ring_idle_timer = 0;
 static void render_glitch_square(void) {
-    if (timer_elapsed32(anim_ring_idle_timer) > 60) {
-        anim_ring_idle_timer = timer_read32();
+    if (timer_elapsed(anim_ring_idle_timer) > 60) {
+        anim_ring_idle_timer = timer_read();
 
         render_ring_clean_close();
 
@@ -367,9 +368,11 @@ static void render_ring_idle(void) {
 
     switch (current_glitch_ring_index) {
         case 0:
+            // no glitch
             render_ring_clean_close();
             return;
         case 1:
+            // square gliches
             render_glitch_square();
             return;
     }
@@ -377,17 +380,20 @@ static void render_ring_idle(void) {
 
 static void render_ring_sleep(void) {
     if (current_sleep_ring_frame == sleep_ring_frame_destination) {
+        // no more animation needes : render the idle animation
         render_ring_idle();
         return;
     }
 
-    if (timer_elapsed32(anim_sleep_ring_timer) > ANIM_SLEEP_RING_FRAME_DURATION) {
+    // display wacking up / sleep animation
+    if (timer_elapsed(anim_sleep_ring_timer) > ANIM_SLEEP_RING_FRAME_DURATION) {
+        anim_sleep_ring_timer = timer_read();
+
+        // clean + new frame
         render_circle_white();
-
-        anim_sleep_ring_timer = timer_read32();
-
         render_tv_circle(15, 103, 11, current_sleep_ring_frame);
 
+        // update frame number
         if (sleep_ring_frame_destination > current_sleep_ring_frame) {
             current_sleep_ring_frame++;
         } else {
@@ -414,9 +420,10 @@ static void render_circle_middle(void) {
 }
 
 void render_circle(gui_state_t t) {
-    if (timer_elapsed32(circle_timer) > CIRCLE_ANIM_FRAME_DURATION) {
+    if (timer_elapsed(circle_timer) > CIRCLE_ANIM_FRAME_DURATION) {
+        
         // new frame
-        circle_timer = timer_read32();
+        circle_timer = timer_read();
 
         // shift rings
         update_list(c_target, tListeTotal);
@@ -444,7 +451,7 @@ void render_circle(gui_state_t t) {
 void update_circle(uint16_t keycode) {
     // special animation for special keys
     if (keycode == KC_ESC || keycode == KC_SPACE || keycode == KC_ENTER) {
-        anim_center_timer         = timer_read32();
+        anim_center_timer         = timer_read();
         anim_center_current_frame = 0;
         return;
     }

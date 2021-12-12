@@ -125,6 +125,11 @@ void reset(void) {
 #endif
 }
 
+void set_wackingup_mode_clean(void) {
+    oled_clear();
+    reset();
+}
+
 bool oled_task_user(void) {
     gui_state_t t = get_gui_state();
 
@@ -137,11 +142,17 @@ bool oled_task_user(void) {
     // not in sleep mode => screen is on
     oled_on();
 
+#ifdef WITH_BOOT
     // in booting mode => display booting animation
     if (t == _BOOTING) {
-        render_boot();
+        bool boot_finished = render_boot();
+        if (boot_finished) {
+            // end of the boot : wacking up
+            set_wackingup_mode_clean();
+        }
         return false;
     }
+#endif
 
     // in halting mode => display booting animation
     if (t == _HALTING) {
@@ -152,6 +163,7 @@ bool oled_task_user(void) {
     render(t);
     return false;
 }
+
 
 void process_key(uint16_t keycode) {
     // update screen with the new key
@@ -166,15 +178,13 @@ void process_key(uint16_t keycode) {
 
     if (t == _BOOTING || t == _HALTING) {
         // cancel booting or halting : waking_up
-        oled_clear();
-        reset();
+        set_wackingup_mode_clean();
     }
 
     if (t == _SLEEP) {
         // boot sequence
-        reset();
+        set_wackingup_mode_clean();
         reset_boot();
-        oled_clear();
     }
 
     update_gui_state();
@@ -219,3 +229,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 #endif
+
+
+// left :  (95%, 1282 bytes free)
+// (95%, 1398 bytes free)
+ //(94%, 1540 bytes free)
+
+// right : (98%, 486 bytes free)
+// (98%, 530 bytes free)
+ //(97%, 638 bytes free)
+ //(97%, 690 bytes free)
+ // (97%, 730 bytes free)

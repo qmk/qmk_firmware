@@ -3,11 +3,12 @@
 #include "boot.h"
 #include "fast_random.h"
 #include "draw_helper.h"
+#include "gui_state.h"
 
 // boot
 #define ANIM_BOOT_FRAME_DURATION 8
-uint32_t anim_boot_timer         = 0;
-int      anim_boot_current_frame = 0;
+uint16_t anim_boot_timer         = 0;
+uint8_t  anim_boot_current_frame = 0;
 
 #define NAVI_DURATION 55
 
@@ -20,7 +21,7 @@ int      anim_boot_current_frame = 0;
 
 // halt
 #define ANIM_HALT_FRAME_DURATION 55
-uint32_t anim_halt_timer = 0;
+uint16_t anim_halt_timer = 0;
 
 void reset_boot(void) {
     // frame zero
@@ -126,7 +127,7 @@ static void draw_lily_render(unsigned long key_state) {
 #endif
 }
 
-static void draw_lily(int f) {
+static void draw_lily(uint8_t f) {
     uint8_t tres_stroke = 10;
     uint8_t tres_boom   = 30;
     uint8_t y_start     = 56;
@@ -159,7 +160,7 @@ static void draw_lily(int f) {
     }
 }
 
-static void draw_startup_navi(int f) {
+static void draw_startup_navi(uint8_t f) {
     // text
     oled_write_cursor(0, 5, "HELL0", false);
     oled_write_cursor(0, 7, "NAVI.", false);
@@ -227,12 +228,9 @@ static char *get_terminal_line(uint8_t i) {
     return scan_font;
 }
 
-static void draw_startup_terminal(int f) {
-    // clean screen
-    if (f == 0) {
-        oled_clear();
-    }
+static void draw_startup_terminal(uint8_t f) {
 
+  
     // ease for printing on screen
     f = f * 2;
     f += (f / 5);
@@ -247,42 +245,46 @@ static void draw_startup_terminal(int f) {
     }
 
     // display lines
+    oled_clear();
     for (uint8_t i = 0; i < i_nb_char; i++) {
         char *s = get_terminal_line(i + i_start);
         oled_write_cursor(0, i, s, false);
     }
 }
 
-void render_boot(void) {
+bool render_boot(void) {
+    // end of the boot sequence
     if (anim_boot_current_frame >= NAVI_DURATION + TERMINAL_DURATION + LILY_DURATION) {
         anim_boot_current_frame = 0;
         oled_clear();
+        return true;
     }
 
-    if (timer_elapsed32(anim_boot_timer) > ANIM_BOOT_FRAME_DURATION) {
-        anim_boot_timer = timer_read32();
+    if (timer_elapsed(anim_boot_timer) > ANIM_BOOT_FRAME_DURATION) {
+        anim_boot_timer = timer_read();
         if (anim_boot_current_frame < NAVI_DURATION) {
             // 55 frames
             draw_startup_navi(anim_boot_current_frame);
-        }
-
-        if (anim_boot_current_frame >= NAVI_DURATION && anim_boot_current_frame < NAVI_DURATION + TERMINAL_DURATION) {
-            // 25
-            draw_startup_terminal(anim_boot_current_frame - NAVI_DURATION);
-        }
-
-        if (anim_boot_current_frame >= NAVI_DURATION + TERMINAL_DURATION) {
-            // 25
-            draw_lily(anim_boot_current_frame - NAVI_DURATION - TERMINAL_DURATION);
+        } else {
+            if (anim_boot_current_frame >= NAVI_DURATION && anim_boot_current_frame < NAVI_DURATION + TERMINAL_DURATION) {
+                // 25
+                draw_startup_terminal(anim_boot_current_frame - NAVI_DURATION);
+            } else {
+                if (anim_boot_current_frame >= NAVI_DURATION + TERMINAL_DURATION) {
+                    // 25
+                    draw_lily(anim_boot_current_frame - NAVI_DURATION - TERMINAL_DURATION);
+                }
+            }
         }
 
         anim_boot_current_frame++;
     }
+    return false;
 }
 
 void render_halt(void) {
-    if (timer_elapsed32(anim_halt_timer) > ANIM_HALT_FRAME_DURATION) {
-        anim_halt_timer = timer_read32();
+    if (timer_elapsed(anim_halt_timer) > ANIM_HALT_FRAME_DURATION) {
+        anim_halt_timer = timer_read();
 
         // comb glitch for all the screen
         draw_glitch_comb(0, 0, 32, 128, 3, true);

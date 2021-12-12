@@ -472,6 +472,47 @@ void draw_random_char(uint8_t column, uint8_t row, char final_char, int value, u
     oled_write_char(c, false);
 }
 
+ 
+void get_glitch_index_new(uint16_t *glitch_timer, uint8_t *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, 
+uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number){
+
+  if (timer_elapsed(*glitch_timer) > *current_glitch_scope_time) {
+        // end of the last glitch period
+        *glitch_timer = timer_read();
+
+        // new random glich period
+        *current_glitch_scope_time = min_time + fastrand() % (max_time - min_time);
+
+        bool bGenerateGlitch = (fastrand() % 100) < glitch_probobility;
+        if (!bGenerateGlitch) {
+            // no glitch
+            *glitch_index = 0;
+            return;
+        }
+
+        // get a new glitch index
+        *glitch_index = fastrand() % glitch_frame_number;
+    }
+}
+
+
+uint8_t get_glitch_frame_index(uint8_t glitch_probobility, uint8_t glitch_frame_number) {
+ 
+        bool bGenerateGlitch = (fastrand() % 100) < glitch_probobility;
+        if (!bGenerateGlitch) {
+            // no glitch
+            return 0;
+        }
+
+        // get a new glitch index
+        return fastrand() % glitch_frame_number;
+    }
+
+uint8_t get_glitch_duration(uint8_t min_time, uint16_t max_time) {
+       return min_time + fastrand() % (max_time - min_time);
+}
+
+
 void get_glitch_index(uint32_t *glitch_timer, int *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number) {
     if (timer_elapsed32(*glitch_timer) > *current_glitch_scope_time) {
         // end of the last glitch period

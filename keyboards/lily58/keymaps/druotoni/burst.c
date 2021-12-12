@@ -7,7 +7,7 @@
 
 // burst stuff
 static int      current_burst = 0;
-static uint32_t burst_timer   = 0;
+static uint16_t burst_timer   = 0;
 
 // WPM stuff
 static int      current_wpm = 0;
@@ -27,7 +27,7 @@ int max_wpm = MAX_WPM_INIT;
 #define ANIM_SCOPE_FRAME_DURATION 40
 #define ANIM_SLEEP_SCOPE_FRAME_NUMBER 10
 
-uint32_t anim_sleep_scope_timer                                   = 0;
+uint16_t anim_sleep_scope_timer                                   = 0;
 uint8_t  anim_sleep_scope_duration[ANIM_SLEEP_SCOPE_FRAME_NUMBER] = {30, 30, 30, 30, 20, 20, 30, 30, 32, 35};
 uint8_t  current_sleep_scope_frame                                = 0;
 uint8_t  sleep_scope_frame_destination                            = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
@@ -52,7 +52,7 @@ static void update_wpm(uint16_t keycode) {
 void update_scope(uint16_t keycode) {
     update_wpm(keycode);
 
-    uint32_t temps_ecoule = timer_elapsed32(burst_timer);
+    uint16_t temps_ecoule = timer_elapsed(burst_timer);
 
     if (temps_ecoule > BURST_FENETRE) {
         // 1er frappe après longtemps
@@ -60,7 +60,7 @@ void update_scope(uint16_t keycode) {
     } else {
         current_burst = 100 - calculerPourcentageTemps(temps_ecoule);
     }
-    burst_timer = timer_read32();
+    burst_timer = timer_read();
 }
 
 static int get_current_wpm(void) { return current_wpm; }
@@ -134,16 +134,16 @@ static void render_scope_chart(void) {
 
 void reset_scope(void) {
     // off : doit s'allumer
-    anim_sleep_scope_timer    = timer_read32();
+    anim_sleep_scope_timer    = timer_read();
     current_sleep_scope_frame = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
 
     sleep_scope_frame_destination = 0;
 }
 
-uint32_t    anim_scope_idle_timer = 0;
+uint16_t    anim_scope_idle_timer = 0;
 static void render_glitch_square(void) {
-    if (timer_elapsed32(anim_scope_idle_timer) > 60) {
-        anim_scope_idle_timer = timer_read32();
+    if (timer_elapsed(anim_scope_idle_timer) > 60) {
+        anim_scope_idle_timer = timer_read();
         RenderScopeBlack();
 
         uint8_t color = 0;
@@ -164,6 +164,7 @@ int      current_glitch_scope_time  = 150;
 uint32_t glitch_scope_timer         = 0;
 uint8_t  current_glitch_scope_index = 0;
 
+
 void render_scope_idle(void) {
     uint8_t glitch_prob = get_glitch_probability();
     get_glitch_index(&glitch_scope_timer, &current_glitch_scope_time, &current_glitch_scope_index, 150, 350, glitch_prob, 2);
@@ -178,7 +179,7 @@ void render_scope_idle(void) {
     }
 }
 
-uint32_t anim_scope_timer = 0;
+uint16_t anim_scope_timer = 0;
 
 static void RenderScopeSleep(void) {
     if (current_sleep_scope_frame == sleep_scope_frame_destination) {
@@ -202,8 +203,8 @@ static void RenderScopeSleep(void) {
 }
 
 void render_scope(gui_state_t t) {
-    if (timer_elapsed32(anim_scope_timer) > ANIM_SCOPE_FRAME_DURATION) {
-        anim_scope_timer = timer_read32();
+    if (timer_elapsed(anim_scope_timer) > ANIM_SCOPE_FRAME_DURATION) {
+        anim_scope_timer = timer_read();
         update_scope_array();
 
         oled_set_cursor(0, 10);
@@ -224,7 +225,7 @@ void render_scope(gui_state_t t) {
 }
 
 static void decay_burst(void) {
-    uint32_t temps_ecoule = timer_elapsed32(burst_timer);
+    uint16_t temps_ecoule = timer_elapsed(burst_timer);
 
     int poucentageEcoule = 100;
 

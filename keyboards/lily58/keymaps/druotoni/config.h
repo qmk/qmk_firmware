@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // logo glitch
 #define WITH_GLITCH
+#define WITH_BOOT
 
 // custom transport for displaying on both side
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A

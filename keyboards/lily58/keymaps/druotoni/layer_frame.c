@@ -4,12 +4,14 @@
 #include "layer_frame.h"
 #include "draw_helper.h"
 
-uint8_t current_layer = _QWERTY;
+
 
 #define ANIM_LAYER_FRAME_DURATION 2
 #define ANIM_LAYER_FRAME_MAX 7
 
-uint32_t anim_layer_frame_timer = 0;
+uint8_t current_layer = _QWERTY;
+
+uint16_t anim_layer_frame_timer = 0;
 
 uint8_t current_layer_frame     = ANIM_LAYER_FRAME_MAX;
 uint8_t layer_frame_destination = ANIM_LAYER_FRAME_MAX;
@@ -20,7 +22,7 @@ static const char* layer_ref[3] = {LAYER_NAME_0, LAYER_NAME_1, LAYER_NAME_2};
 
 void update_layer_frame(layer_state_t state) {
     // reset timer
-    anim_layer_frame_timer = timer_read32();
+    anim_layer_frame_timer = timer_read();
 
     // direction for animation base on layer selected
     current_layer = get_highest_layer(state);
@@ -58,8 +60,8 @@ void render_layer_frame(gui_state_t t) {
     drawline_hr(2, 39, 25, 1);
 
     if (current_layer_frame != layer_frame_destination) {
-        if (timer_elapsed32(anim_layer_frame_timer) > ANIM_LAYER_FRAME_DURATION) {
-            anim_layer_frame_timer = timer_read32();
+        if (timer_elapsed(anim_layer_frame_timer) > ANIM_LAYER_FRAME_DURATION) {
+            anim_layer_frame_timer = timer_read();
 
             if (layer_frame_destination > current_layer_frame) {
                 current_layer_frame++;
