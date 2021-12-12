@@ -62,7 +62,7 @@ https://github.com/tmk/tmk_keyboard/issues/150
 ### 在我刷写完键盘后就没响应了/点了没动静了 -- 设备是arm的（rev6 planck, clueboard 60, hs60v2等）(2019年2月)
 因为ARM平台下EEPROM特殊的工作模式，已保存的配置可能会失效。影响的主要是默认层，也许有概率在特定情况下会导致键盘不可用，我们还没有搞明白原因。这个问题可以在重置EEPROM后恢复。
 
-[Planck rev6 上重置 EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) can be used to force an eeprom reset. After flashing this image, flash your normal firmware again which should restore your keyboard to _normal_ working order.
+[Planck rev6 上重置 EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) 可以用于强制重置EEPROM。刷入这个文件后，再次刷入正常固件，会将键盘恢复到_正常_工作状态。
 [Preonic rev3 上重置 EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
 
 也可以考虑使用bootmagic，只要它可以用。（参见[Bootmagic文档](zh-cn/feature_bootmagic.md)并结合键盘情况来了解如何操作）

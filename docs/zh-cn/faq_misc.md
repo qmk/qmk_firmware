@@ -11,7 +11,7 @@
 - 如果你的键盘没有RESET键，在你需要进入DFU模式时，不得不需要用螺丝刀打开后盖去按PCB上的RESET键。
 - 把 tmk_core/common 下的文件搞乱的话，容易导致键盘无法使用
 - .hex文件太大的话也会引起问题。`make dfu` 会先擦除存储块，再检查固件大小（哎呀，顺序错了），此时发现错误进而导致刷写失败，键盘停留在DFU模式下。
-  - 因此，请留意.hex文件尺寸有大小限制，即Planck值7000h（十进制的28672）
+  - 因此，请留意.hex文件尺寸有大小限制，例如在Planck上是十六进制7000（十进制的28672）
 
 ```
 Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
@@ -27,7 +27,7 @@ Size after:
   - 在键盘的Makefile中你添加的一些配置也会额外占用空间，在使用BOOTMAGIC_ENABLE,
     MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE
     时请留意
-- DFU工具/不会/允许bootloader被覆写（除非你加个水果沙拉上去），这个风险不大。
+- DFU工具/不会/允许bootloader被覆写（除非你往DFU工具上塞自己的东西），这个风险不大。
 - EEPROM的写循环一般是 100000（100k）次，不应不停地持续重复地刷写固件，不然很快就烧毁了。
 
 ## NKRO 不好使

@@ -6,7 +6,7 @@ QMK CLI可以让构建QMK键盘的过程更轻松一些，我们已提供的一�
 
 ### 依赖项 :id=requirements
 
-QMK依赖Python 3.6或更高版本，我们已经尽力缩减依赖项，在[`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt)中的依赖项是需安装的包。在安装QMK CLI时这些依赖项也会自动完成安装。
+QMK依赖Python 3.6或更高版本。我们已经尽力缩减依赖项，但在[`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt)中的依赖项是需安装的包。在安装QMK CLI时这些依赖项也会自动完成安装。
 
 ### 通过 Homebrew 安装(macOS 及部分 Linux) :id=install-using-homebrew
 

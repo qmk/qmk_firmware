@@ -18,7 +18,7 @@ QMK配置器基于[单页面框架](https://en.wikipedia.org/wiki/Single-page_ap
 
 [配置器前端](https://config.qmk.fm)会编译并产出一些静态文件并通过Github Pages托管，每当[QMK配置器 `master`](https://github.com/qmk/qmk_configurator)分支收到推送的提交时都会触发。可以通过[QMK配置器 actions页面](https://github.com/qmk/qmk_configurator/actions/workflows/build.yml)查看这些job的状态。
 
-## 键盘元数据Keyboard Metadata
+## 键盘元数据
 
 地址：<https://keyboards.qmk.fm>
 
@@ -40,12 +40,11 @@ API有3种非异常的回应状态-
 
 ### 编译job排队中
 
-此状态表明[QMK编译器](#QMK编译器)节点还未选中该job，在配置器页面此时会显示“等待一个可用的烤炉（Waiting for an over）”。
+此状态表明[QMK编译器](#QMK编译器)节点还未选中该job，在配置器页面此时会显示“等待一个可用的烤炉（Waiting for an oven）”。
 
 ### 编译job执行中
 
-此状态说明编译job已经在执行中，配置器页面会显示为“烤制中”。
-This status indicates that the job has started compiling. Configurator shows this status as "Baking".
+此状态说明编译job已经在执行中，配置器页面会显示为“烤制中”(Baking)。
 
 ### 编译job已完成
 

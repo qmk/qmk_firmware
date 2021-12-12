@@ -127,7 +127,7 @@ https://github.com/tekezo/Karabiner/issues/403
 `KC_EJCT` 在OSX下可用。 https://github.com/tmk/tmk_keyboard/issues/250
 Windows 10应该是忽略了这个键码，Linux/Xorg能识别到，但默认没有映射处理。
 
-也不太清楚弹出键码在大聪明Apple键盘上到底是个啥，HHKB在Mac模式下使用 `F20` 来作为弹出键（`Fn+f`），但应该和Apple的弹出键码不是一回事儿。
+目前尚不清楚Apple键盘上弹出键到底是啥，HHKB在Mac模式下使用 `F20` 来作为弹出键（`Fn+f`），但应该和Apple的弹出键码不是一回事儿。
 
 ## 在 `action_util.c` 中的 `weak_mods` 和 `real_mods` 是什么东西？
 ___待完善的内容___

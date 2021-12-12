@@ -7,7 +7,7 @@
 [Atmel](https://www.microchip.com/)公司的单片机系列。 AVR是TMK的初始支持平台。
 
 ## AZERTY
-Français (法国)标准键盘布局。用键盘的前六个字母命名。
+Français （法语）标准键盘布局。用键盘的前六个字母命名。
 
 ## Backlight(背光)
 键盘上照明的通称。背光通常是一组LED灯，穿过键帽或者轴体发光，但也不总是这样。
