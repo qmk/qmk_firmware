@@ -1,5 +1,3 @@
-SRC += features/caps_word.c
-
 OLED_ENABLE = yes				# uncomment if you are using an OLED display
 
 #HAPTIC_ENABLE = yes			# uncomment only on the master side if you are using a Pimoroni haptic buzz

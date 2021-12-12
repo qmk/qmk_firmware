@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "features/caps_word.h"
 
 enum layers {
     _BASE = 0,
@@ -242,11 +241,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  if (!process_caps_word(keycode, record)) { return false; } // press both shift keys (F & J) to activate Caps Word
-  return true;
-}
 
 // uncommint this and modify the timings if the home row mods are not working for you
 /*
