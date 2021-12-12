@@ -1,0 +1,7 @@
+CFLAGS += -DTHIS_BOARD_IS='"board_external"'
+
+# We must duplicate the include done by $(RIOTBASE)/Makefile.include
+# to also include the main board header
+INCLUDES += $(addprefix -I,$(wildcard $(RIOTBOARD)/adafruit-itsybitsy-m4/include))
+
+include $(RIOTBOARD)/adafruit-itsybitsy-m4/Makefile.include

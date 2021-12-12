@@ -7,7 +7,7 @@ import jsonschema
 from dotty_dict import dotty
 from milc import cli
 
-from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
+from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS, RIOT_PROCESSORS
 from qmk.c_parse import find_layouts
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
@@ -454,7 +454,7 @@ def _extract_rules_mk(info_data):
     rules = rules_mk(info_data['keyboard_folder'])
     info_data['processor'] = rules.get('MCU', info_data.get('processor', 'atmega32u4'))
 
-    if info_data['processor'] in CHIBIOS_PROCESSORS:
+    if info_data['processor'] in CHIBIOS_PROCESSORS + RIOT_PROCESSORS:
         arm_processor_rules(info_data, rules)
 
     elif info_data['processor'] in LUFA_PROCESSORS + VUSB_PROCESSORS:
@@ -619,7 +619,7 @@ def arm_processor_rules(info_data, rules):
     """Setup the default info for an ARM board.
     """
     info_data['processor_type'] = 'arm'
-    info_data['protocol'] = 'ChibiOS'
+    info_data['protocol'] = 'Riot' if rules.get('MCU') in RIOT_PROCESSORS else 'ChibiOS'
 
     if 'bootloader' not in info_data:
         if 'STM32' in info_data['processor']:
@@ -635,6 +635,8 @@ def arm_processor_rules(info_data, rules):
         info_data['platform'] = rules['MCU_SERIES']
     elif 'ARM_ATSAM' in rules:
         info_data['platform'] = 'ARM_ATSAM'
+    elif 'PROTOCOL_RIOT' in rules:
+        info_data['platform'] = 'Riot'
 
     return info_data
 

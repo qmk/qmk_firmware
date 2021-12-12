@@ -193,6 +193,11 @@ else
         # This will effectively work the same as "transient" if not supported by the chip
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
       endif
+    else ifeq ($(PLATFORM),RIOT)
+      OPT_DEFS += -DEEPROM_DRIVER
+      COMMON_VPATH += $(DRIVER_PATH)/eeprom
+      SRC += eeprom_driver.c
+      SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
     else ifeq ($(PLATFORM),ARM_ATSAM)
       SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
     else ifeq ($(PLATFORM),TEST)

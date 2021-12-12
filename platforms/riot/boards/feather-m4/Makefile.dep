@@ -1,0 +1,5 @@
+# This must be a different name than 'board' as it is implemented by 'native'
+USEMODULE += board_external
+
+# inherit existing
+include $(RIOTBOARD)/adafruit-itsybitsy-m4/Makefile.dep

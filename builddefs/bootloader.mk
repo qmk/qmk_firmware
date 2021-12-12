@@ -40,6 +40,18 @@
 # BOOTLOADER_SIZE can still be defined manually, but it's recommended
 # you add any possible configuration to this list
 
+ifeq ($(strip $(BOOTLOADER)), sam-ba)
+    OPT_DEFS += -DBOOTLOADER_SAM_BA
+endif
+
+ifeq ($(strip $(BOOTLOADER)), md-boot)
+    OPT_DEFS += -DBOOTLOADER_MD_BOOT
+endif
+
+ifeq ($(strip $(BOOTLOADER)), adafruit-nrfutil)
+    OPT_DEFS += -DBOOTLOADER_ADA_NRF
+endif
+
 ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
     OPT_DEFS += -DBOOTLOADER_ATMEL_DFU
     OPT_DEFS += -DBOOTLOADER_DFU

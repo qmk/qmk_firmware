@@ -1,5 +1,61 @@
 MCU_ORIG := $(MCU)
 
+ifneq ($(findstring SAMD21, $(MCU)),)
+  PROTOCOL_RIOT = yes
+
+  # Cortex version
+  MCU = cortex-m0plus
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 6
+
+  # Mapped to riots BOARD arguement
+  BOARD ?= feather-m0
+
+  # TODO: better way to detect PA enum value existance
+  OPT_DEFS += -DHAS_PORT_PA -DHAS_PORT_PB
+
+  USE_FPU ?= no
+
+  ROM_OFFSET=0x2000
+
+  # force off for now
+  EEPROM_DRIVER = transient
+endif
+
+ifneq ($(findstring SAMD51, $(MCU)),)
+  PROTOCOL_RIOT = yes
+
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  # Mapped to riots BOARD arguement
+  BOARD ?= feather-m4
+
+  # TODO: better way to detect PA enum value existance
+  OPT_DEFS += -DHAS_PORT_PA -DHAS_PORT_PB
+
+  USE_FPU ?= yes
+
+  ROM_OFFSET=0x4000
+
+  # force off for now
+  EEPROM_DRIVER = transient
+endif
+
+ifneq ($(findstring nRF52840, $(MCU)),)
+  PROTOCOL_RIOT = yes
+
+  # Mapped to riots BOARD arguement
+  BOARD ?= adafruit-itsybitsy-nrf52
+
+  # force off for now
+  EEPROM_DRIVER = transient
+endif
+
 ifneq ($(findstring MKL26Z64, $(MCU)),)
   # Cortex version
   MCU = cortex-m0plus

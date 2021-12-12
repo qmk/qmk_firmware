@@ -27,16 +27,9 @@ quantum/version.h
 *.uf2
 
 # Old-style QMK Makefiles
-/keyboards/*/Makefile
-/keyboards/*/*/Makefile
-/keyboards/*/*/*/Makefile
-/keyboards/*/*/*/*/Makefile
-/keyboards/*/*/*/*/*/Makefile
-/keyboards/*/keymaps/Makefile
-/keyboards/*/*/keymaps/Makefile
-/keyboards/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/*/keymaps/Makefile
+/keyboards/**/Makefile
+# ...But allow RIOT board files
+!/keyboards/**/boards/*/Makefile
 
 # Eclipse/PyCharm/Other IDE Settings
 *.iml

@@ -1,0 +1,1 @@
+include $(RIOTBOARD)/adafruit-itsybitsy-m4/Makefile.features
