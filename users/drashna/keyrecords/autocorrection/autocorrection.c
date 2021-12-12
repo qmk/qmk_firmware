@@ -62,13 +62,26 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
     }
 
     // Subtract buffer for Backspace key, reset for other non-alpha.
-    if (!(KC_A <= keycode && keycode <= KC_Z) && keycode != KC_SPC) {
-        if (keycode == KC_BSPC && typo_buffer_size) {
-            --typo_buffer_size;
+    if (!(KC_A <= keycode && keycode <= KC_Z)) {
+        if (keycode == KC_BSPC) {
+            // Remove last character from the buffer.
+            if (typo_buffer_size > 0) {
+                --typo_buffer_size;
+            }
+            return true;
+        } else if (KC_1 <= keycode && keycode <= KC_SLSH && keycode != KC_ESC) {
+            // Set a word boundary if space, period, digit, etc. is pressed.
+            // Behave more conservatively for the enter key. Reset, so that enter
+            // can't be used on a word ending.
+            if (keycode == KC_ENT) {
+                typo_buffer_size = 0;
+            }
+            keycode = KC_SPC;
         } else {
+            // Clear state if some other non-alpha key is pressed.
             typo_buffer_size = 0;
+            return true;
         }
-        return true;
     }
 
     // Rotate oldest character if buffer is full.
