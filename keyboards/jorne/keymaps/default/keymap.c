@@ -213,3 +213,23 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
+
+#ifdef RGBLIGHT_ENABLE
+//Following line allows macro to read current RGB settings
+extern rgblight_config_t rgblight_config;
+#endif
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case RGBRST:
+      #ifdef RGBLIGHT_ENABLE
+        if (record->event.pressed) {
+          rgblight_config.mode = 0;
+          rgblight_enable();
+        }
+      #endif
+      break;
+  }
+  return true;
+}
+
