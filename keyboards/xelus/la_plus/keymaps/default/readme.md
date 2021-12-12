@@ -1,2 +1,2 @@
-# The Default Constellation Layout
+# The Default La+ Layout
 

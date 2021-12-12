@@ -1,2 +1,2 @@
-# The VIA Constellation Layout
+# The VIA La+ Layout
 

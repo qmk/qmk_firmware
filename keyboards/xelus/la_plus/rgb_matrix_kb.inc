@@ -20,8 +20,7 @@ static void startup_animation_setleds(effect_params_t* params, bool dots) {
     }
     int32_t num = (g_rgb_timer & (0b11111 << factor)) >> factor;
 
-    if (num == 17 ||
-        num == 18 || num == 19 ||
+    if (num == 17 || num == 18 || num == 19 ||
         num == 20 || num == 21) {
         if (dots == true) {
             for (int i = 0; i < 28; i++) {

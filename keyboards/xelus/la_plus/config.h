@@ -1,5 +1,4 @@
-/* Copyright 2018 Jason Williams (Wilba)
- * Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2021 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -102,8 +101,6 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#define FORCE_NKRO
-
-// Startup Animation
+// Custom Startup Animation
 // comment out for solid animation
 // #define STARTUP_ANIMATION_DOTS

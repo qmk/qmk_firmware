@@ -72,7 +72,7 @@ led_config_t g_led_config = { {
 
 void keyboard_post_init_kb(void) {
     // Call the post init code.
-    debug_enable=true;
+    // debug_enable=true;
 
     keyboard_config.raw = eeconfig_read_kb();
     if (keyboard_config.startup_animation_dots) {
