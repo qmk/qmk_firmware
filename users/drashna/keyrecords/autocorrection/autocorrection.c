@@ -8,6 +8,9 @@
 
 #if __has_include("autocorrection_data.h")
 #    include "autocorrection_data.h"
+#    if AUTOCORRECTION_MIN_LENGTH < 4
+#        error Minimum Length is too short and may cause overflows
+#    endif
 
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
     static uint8_t typo_buffer[AUTOCORRECTION_MAX_LENGTH] = {KC_SPC};
@@ -113,7 +116,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             // Check for match in node with single child.
         } else if (code != key_i) {
             return true;
-        } else if (!(pgm_read_byte(autocorrection_data + (++state)))) {
+        } else if (!(code = pgm_read_byte(autocorrection_data + (++state)))) {
             ++state;
         }
 
