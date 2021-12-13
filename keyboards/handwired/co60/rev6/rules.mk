@@ -6,7 +6,7 @@ BOARD = QMK_PROTON_C
 BOOTLOADER = stm32-dfu
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 BACKLIGHT_ENABLE = yes
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
