@@ -360,6 +360,9 @@ enum combos {
   DT_CTRL_T,
   SW_GUI_W,
   DW_CTRL_W,
+  NAV_A__ALT,
+  NAV_S__GUI,
+  NAV_D__CTRL,
   COMBO_LENGTH,
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -375,6 +378,9 @@ const uint16_t PROGMEM st_combo[] = {KC_S, KC_T, COMBO_END};
 const uint16_t PROGMEM dt_combo[] = {KC_D, KC_T, COMBO_END};
 const uint16_t PROGMEM sw_combo[] = {KC_S, KC_W, COMBO_END};
 const uint16_t PROGMEM dw_combo[] = {KC_D, KC_W, COMBO_END};
+const uint16_t PROGMEM nav_a_combo[] = {L_NAV, KC_A, COMBO_END};
+const uint16_t PROGMEM nav_s_combo[] = {L_NAV, KC_S, COMBO_END};
+const uint16_t PROGMEM nav_d_combo[] = {L_NAV, KC_D, COMBO_END};
 
 combo_t key_combos[] = {
   [AF_ALT_TAB] = COMBO(af_combo, LALT(KC_TAB)),
@@ -392,4 +398,40 @@ combo_t key_combos[] = {
 
   [SW_GUI_W] = COMBO(sw_combo, LGUI(KC_W)),
   [DW_CTRL_W] = COMBO(dw_combo, LCTL(KC_W)),
+
+  [NAV_A__ALT] = COMBO_ACTION(nav_a_combo),
+  [NAV_S__GUI] = COMBO_ACTION(nav_s_combo),
+  [NAV_D__CTRL] = COMBO_ACTION(nav_d_combo),
 };
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch (combo_index) {
+        case NAV_A__ALT:
+            if (pressed) {
+                layer_on(_NAV);
+                register_mods(MOD_LALT);
+            } else {
+                layer_off(_NAV);
+                unregister_mods(MOD_LALT);
+            }
+            break;
+        case NAV_S__GUI:
+            if (pressed) {
+                layer_on(_NAV);
+                register_mods(MOD_LGUI);
+            } else {
+                layer_off(_NAV);
+                unregister_mods(MOD_LGUI);
+            }
+            break;
+        case NAV_D__CTRL:
+            if (pressed) {
+                layer_on(_NAV);
+                register_mods(MOD_LCTL);
+            } else {
+                layer_off(_NAV);
+                unregister_mods(MOD_LCTL);
+            }
+            break;
+    }
+}
