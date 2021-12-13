@@ -169,7 +169,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 // SSD1306 OLED driver logic
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_logo(void) {
   static const char PROGMEM rgbkb_logo[] = {
@@ -222,13 +222,14 @@ static void render_status(void) {
   oled_write_ln_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if (is_keyboard_master()) {
     render_status();
   } else {
     render_logo();
     oled_scroll_left();
   }
+    return false;
 }
 
 #endif

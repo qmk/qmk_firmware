@@ -144,9 +144,37 @@ The `rules.mk` file can also be placed in a sub-folder, and its reading order is
         * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/rules.mk`
           * `keyboards/top_folder/keymaps/a_keymap/rules.mk`
           * `users/a_user_folder/rules.mk`
+        * `keyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_rules.mk`
+      * `keyboards/top_folder/sub_1/sub_2/sub_3/post_rules.mk`
+    * `keyboards/top_folder/sub_1/sub_2/post_rules.mk`
+  * `keyboards/top_folder/sub_1/post_rules.mk`
+* `keyboards/top_folder/post_rules.mk`
 * `common_features.mk`
 
 Many of the settings written in the `rules.mk` file are interpreted by `common_features.mk`, which sets the necessary source files and compiler options.
+
+The `post_rules.mk` file can interpret `features` of a keyboard-level before `common_features.mk`.  For example, when your designed keyboard has the option to implement backlighting or underglow using rgblight.c, writing the following in the `post_rules.mk` makes it easier for the user to configure the `rules.mk`.
+
+* `keyboards/top_folder/keymaps/a_keymap/rules.mk`
+  ```make
+  # Please set the following according to the selection of the hardware implementation option.
+  RGBLED_OPTION_TYPE = backlight   ## none, backlight or underglow
+  ```
+* `keyboards/top_folder/post_rules.mk`
+  ```make
+  ifeq ($(filter $(strip $(RGBLED_OPTION_TYPE))x, nonex backlightx underglowx x),)
+     $(error unknown RGBLED_OPTION_TYPE value "$(RGBLED_OPTION_TYPE)")
+  endif
+
+  ifeq ($(strip $(RGBLED_OPTION_TYPE)),backlight)
+    RGBLIGHT_ENABLE = yes
+    OPT_DEFS += -DRGBLED_NUM=30
+  endif
+  ifeq ($(strip $(RGBLED_OPTION_TYPE)),underglow)
+    RGBLIGHT_ENABLE = yes
+    OPT_DEFS += -DRGBLED_NUM=6
+  endif
+  ```
 
 ?> See `build_keyboard.mk` and `common_features.mk` for more details.
 
@@ -189,9 +217,9 @@ Hardware files (such as plates, cases, pcb) can be contributed to the [qmk.fm re
 
 Given the amount of functionality that QMK exposes it's very easy to confuse new users. When putting together the default firmware for your keyboard we recommend limiting your enabled features and options to the minimal set needed to support your hardware. Recommendations for specific features follow.
 
-### Bootmagic and Command
+### Magic Keycodes and Command
 
-[Bootmagic](feature_bootmagic.md) and [Command](feature_command.md) are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.
+[Magic Keycodes](keycodes_magic.md) and [Command](feature_command.md) are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.
 
 By far the most common problem new users encounter is accidentally triggering Bootmagic while they're plugging in their keyboard. They're holding the keyboard by the bottom, unknowingly pressing in alt and spacebar, and then they find that these keys have been swapped on them. We recommend leaving this feature disabled by default, but if you do turn it on consider setting `BOOTMAGIC_KEY_SALT` to a key that is hard to press while plugging your keyboard in.
 
@@ -226,8 +254,6 @@ The year should be the first year the file is created. If work was done to that 
 ## License
 
 The core of QMK is licensed under the [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html). If you are shipping binaries for AVR processors you may choose either [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) or [GPLv3](https://www.gnu.org/licenses/gpl.html). If you are shipping binaries for ARM processors you must choose [GPL Version 3](https://www.gnu.org/licenses/gpl.html) to comply with the [ChibiOS](https://www.chibios.org) GPLv3 license.
-
-If your keyboard makes use of the [uGFX](https://ugfx.io) features within QMK you must comply with the [uGFX License](https://ugfx.io/license.html), which requires a separate commercial license before selling a device containing uGFX.
 
 ## Technical Details
 

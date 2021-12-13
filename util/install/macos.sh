@@ -9,7 +9,7 @@ _qmk_install_prepare() {
         return 1
     fi
 
-    brew update && brew upgrade --ignore-pinned
+    brew update && brew upgrade --formulae --ignore-pinned
 }
 
 _qmk_install() {

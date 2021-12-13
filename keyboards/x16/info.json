@@ -2,8 +2,6 @@
     "keyboard_name": "x16",
     "url": "",
     "maintainer": "yinxianwei",
-    "width": 4,
-    "height": 4,
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [
@@ -30,4 +28,3 @@
         }
     }
 }
-

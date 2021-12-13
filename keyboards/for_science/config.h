@@ -55,10 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define MASTER_RIGHT
 
-/* key combination for magic key command */
-/* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

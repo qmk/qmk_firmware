@@ -1,9 +1,7 @@
 {
     "keyboard_name": "Keychron Q1", 
     "url": "https://github.com/Keychron", 
-    "maintainer": "lokher", 
-    "width": 16.25, 
-    "height": 6.25, 
+    "maintainer": "lalalademaxiya1", 
     "layouts": {
         "LAYOUT_ansi_82": {
             "layout": [{"label":"Esc", "x":0, "y":0}, 

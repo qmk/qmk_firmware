@@ -2,8 +2,6 @@
     "keyboard_name": "DISCIPLINE", 
     "url": "https://github.com/coseyfannitutti/discipline", 
     "maintainer": "coseyfannitutti", 
-    "width": 16, 
-    "height": 5, 
     "layout_aliases": {
         "LAYOUT_65_ansi_2_right_mods": "LAYOUT_65_ansi_blocker",
         "LAYOUT_65_iso_2_right_mods": "LAYOUT_65_iso_blocker",
