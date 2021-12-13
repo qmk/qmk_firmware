@@ -831,6 +831,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case K_SECR1 ... K_SECR4: // Secrets!  Externally defined strings, not stored in repo
       if (!record->event.pressed) {
           send_string_remembering_length(secrets[keycode - K_SECR1]);
+          blink_all_leds();
       }
       break;
 
