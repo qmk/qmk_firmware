@@ -1,8 +1,16 @@
 # Copyright 2021 Google LLC
-# Copyright 2022 @filterpaper
-# SPDX-License-Identifier: Apache-2.0
-# Original source: https://getreuer.info/posts/keyboards/autocorrection
-
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 """Python program to make autocorrection_data.h.
 
@@ -25,6 +33,8 @@ Example:
   lenght        -> length
   ouput         -> output
   widht         -> width
+
+See autocorrection_dict_extra.txt for a larger example.
 
 For full documentation, see
 https://getreuer.info/posts/keyboards/autocorrection
@@ -79,6 +89,10 @@ def parse_file(file_name: str) -> List[Tuple[str, str]]:
       typo = typo.lower()  # Force typos to lowercase.
       typo = typo.replace(' ', ':')
 
+      if typo in typos:
+        print(f'Warning:{line_number}: Ignoring duplicate typo: "{typo}"')
+        continue
+
       # Check that `typo` is valid.
       if not(all([ord('a') <= ord(c) <= ord('z') or c == ':' for c in typo])):
         print(f'Error:{line_number}: Typo "{typo}" has '
@@ -90,9 +104,6 @@ def parse_file(file_name: str) -> List[Tuple[str, str]]:
                 f'another, otherwise the longer typo would never trigger: '
                 f'"{typo}" vs. "{other_typo}".')
           sys.exit(1)
-      if typo in typos:
-        print(f'Warning:{line_number}: Ignoring duplicate typo: "{typo}"')
-        continue
       if len(typo) < 5:
         print(f'Warning:{line_number}: It is suggested that typos are at '
               f'least 5 characters long to avoid false triggers: "{typo}"')
@@ -163,9 +174,9 @@ def serialize_trie(autocorrections: List[Tuple[str, str]],
       while i < min(len(typo), len(correction)) and typo[i] == correction[i]:
         i += 1
       backspaces = len(typo) - i - 1 + word_boundary_ending
-      assert 0 <= backspaces <= 127
+      assert 0 <= backspaces <= 63
       correction = correction[i:]
-      data = [backspaces] + list(bytes(correction, 'ascii')) + [0]
+      data = [backspaces + 128] + list(bytes(correction, 'ascii')) + [0]
 
       entry = {'data': data, 'links': [], 'byte_offset': 0}
       table.append(entry)
@@ -199,7 +210,7 @@ def serialize_trie(autocorrections: List[Tuple[str, str]],
         raise ValueError(f'Invalid character: {c}')
 
     encode_link = lambda link: [link['byte_offset'] & 255,
-      (link['byte_offset'] >> 8) | (128 if not link['links'] else 0)]
+                                link['byte_offset'] >> 8]
 
     if not e['links']:  # Handle a leaf table entry.
       return e['data']
@@ -208,14 +219,14 @@ def serialize_trie(autocorrections: List[Tuple[str, str]],
     else:  # Handle a branch table entry.
       data = []
       for c, link in zip(e['chars'], e['links']):
-        data += [kc_code(c) | (0 if data else 128)] + encode_link(link)
+        data += [kc_code(c) | (0 if data else 64)] + encode_link(link)
       return data + [0]
 
   byte_offset = 0
   for e in table:  # To encode links, first compute byte offset of each entry.
     e['byte_offset'] = byte_offset
     byte_offset += len(serialize(e))
-    assert 0 <= byte_offset <= 0x7fff
+    assert 0 <= byte_offset <= 0xffff
 
   return [b for e in table for b in serialize(e)]  # Serialize final table.
 

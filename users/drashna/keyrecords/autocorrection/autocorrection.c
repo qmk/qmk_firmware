@@ -34,7 +34,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
 #    ifndef NO_ACTION_TAPPING
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             if (((keycode >> 8) & 0x0f) == MOD_LSFT && (record->event.pressed || !record->tap.count)) {
-                    return true;
+                return true;
             }
             keycode &= 0xFF;
             break;
@@ -99,47 +99,44 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
 
     // Check for typo in buffer using a trie stored in `autocorrection_data`.
     uint16_t state = 0;
+    uint8_t  code  = pgm_read_byte(autocorrection_data + state);
     for (uint8_t i = typo_buffer_size - 1; i >= 0; --i) {
-        uint8_t const buffer = typo_buffer[i];
-        uint8_t       code   = pgm_read_byte(autocorrection_data + state);
+        uint8_t const key_i = typo_buffer[i];
 
-        if (code & 128) {  // Check for match in node with multiple children.
-            code &= 127;
-            for (; code != buffer; code = pgm_read_byte(autocorrection_data + (state += 3))) {
-                if (!code) {
-                    return true;
-                }
+        if (code & 64) {  // Check for match in node with multiple children.
+            code &= 63;
+            for (; code != key_i; code = pgm_read_byte(autocorrection_data + (state += 3))) {
+                if (!code) return true;
             }
             // Follow link to child node.
             state = (pgm_read_byte(autocorrection_data + state + 1) | pgm_read_byte(autocorrection_data + state + 2) << 8);
-            if ((state & 0x8000) != 0) {
-                goto found_typo;
-            }
             // Check for match in node with single child.
-        } else if (code != buffer) {
+        } else if (code != key_i) {
             return true;
-        } else if (!pgm_read_byte(autocorrection_data + (++state)) && !(pgm_read_byte(autocorrection_data + (++state)) & 128)) {
-            goto found_typo;
+        } else if (!(pgm_read_byte(autocorrection_data + (++state)))) {
+            ++state;
+        }
+
+        code = pgm_read_byte(autocorrection_data + state);
+
+        if (code & 128) {  // A typo was found! Apply autocorrection.
+            const uint8_t backspaces = code & 63;
+            for (uint8_t i = 0; i < backspaces; ++i) {
+                tap_code(KC_BSPC);
+            }
+            send_string_P((char const*)(autocorrection_data + state + 1));
+
+            if (keycode == KC_SPC) {
+                typo_buffer[0]   = KC_SPC;
+                typo_buffer_size = 1;
+                return true;
+            } else {
+                typo_buffer_size = 0;
+                return false;
+            }
         }
     }
     return true;
-
-found_typo:  // A typo was found! Apply autocorrection.
-    state &= 0x7fff;
-    uint8_t const backspaces = pgm_read_byte(autocorrection_data + state);
-    for (uint8_t i = 0; i < backspaces; ++i) {
-        tap_code(KC_BSPC);
-    }
-    send_string_P((char const*)(autocorrection_data + state + 1));
-
-    if (keycode == KC_SPC) {
-        typo_buffer[0]   = KC_SPC;
-        typo_buffer_size = 1;
-        return true;
-    } else {
-        typo_buffer_size = 0;
-        return false;
-    }
 }
 #else
 #    pragma message "Warning!!! Autocorrect is not corretly setup!"
