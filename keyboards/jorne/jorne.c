@@ -60,7 +60,7 @@ static void render_status(void) {
 
 bool oled_task_kb(void) {
   if (!oled_task_user()) { return false; }
-    if (is_keyboard_master()) {
+    if (is_keyboard_left()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_logo();
