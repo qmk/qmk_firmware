@@ -32,36 +32,25 @@ inline void kbd19x_nmlk_led_off(void)   { writePinLow(LED_NUM_LOCK_PIN); }
 // readability
 #define XXX KC_NO
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
+/*
+ *              ┌───┐┌───┬───┬───┬───┐┌───┬───┬───┬───┐┌───┬───┬───┬───┐┌───┐ ┌───┬───┬───┬───┐
+ *              │00 ││01 │02 │03 │04 ││60 │61 │62 │63 ││05 │06 │07 │08 ││72 │ │09 │0A │0B │0C │
+ *              └───┘└───┴───┴───┴───┘└───┴───┴───┴───┘└───┴───┴───┴───┘└───┘ └───┴───┴───┴───┘
+ *              ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐ ┌───┬───┬───┬───┐    ┌───────┐
+ *              │10 │11 │12 │13 │14 │64 │65 │66 │67 │15 │16 │17 │18 │70 │71 │ │19 │1A │1B │1C │    │71     │ 2u Backspace
+ *              ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤ ├───┼───┼───┼───┤    └─┬─────┤                ┌───┐
+ *              │20   │21 │22 │23 │24 │68 │69 │6a │6b │25 │26 │27 │28 │73   │ │29 │2A │2B │2C │      │     │                │   │
+ *  2.25u       ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤ ├───┼───┼───┼───┤   ┌──┴┐38  │ ISO Enter      │2C │ 2u Plus
+ *  LShift      │30    │31 │32 │33 │34 │6c │75 │76 │77 │35 │36 │37 │38      │ │39 │3A │3B │3C │   │73 │    │                │   │
+ * ┌────────┐   ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┘ ├───┼───┼───┼───┤   └───┴────┘                ├───┤
+ * │40      │   │40  │41 │42 │43 │44 │78 │79 │7a │7b │45 │46 │47 │48    │┌───┐│49 │4A │4B │4C │                             │   │
+ * └────────┘   ├────┼───┼───┴┬──┴───┴───┴───┴───┴───┴─┬─┴─┬─┴─┬─┴──┬───┘│74 │└───┼───┼───┼───┤                             │4C │ 2u Enter
+ *              │50  │51 │52  │59                      │55 │56 │57  │┌───┼───┼───┐│5A │5B │5C │                             │   │
+ *              └────┴───┴────┴────────────────────────┴───┴───┴────┘│58 │53 │54 │└───┴───┴───┘                             └───┘
+ *              ┌─────┬─────┬───────────────────────────┬─────┬─────┐└───┴───┴───┘
+ *              │50   │52   │59                         │55   │57   │ WKL
+ *              └─────┴─────┴───────────────────────────┴─────┴─────┘
  */
-
-// 2u backspace: XXX, k71
-// split backspace: k70, k71
-
-// 2u numpad +: k2c, XXX
-// split numpad +: k2c, k3c
-
-// 2u numpad enter: k4c, XXX
-// split numpad enter: k4c, k5c
-
-// 2.25u lshift: k40, XXX
-// split (1.25u, 1u) lshift: k40, k41
-
-// ANSI enter or ISO enter: k38
-// Key next to ISO enter: k72
-// backslash or NUHS: k73
-
-// left winkey: k50, k51, k52
-// left WKL: k50, XXX, k52
-
-// right winkey: k55, k56, k57
-// right WKL: k55, XXX, k57
 
 #define LAYOUT_all( \
   k00,  k01, k02, k03, k04,  k60, k61, k62, k63,  k05, k06, k07, k08,   k72,  k09, k0a, k0b, k0c, \
