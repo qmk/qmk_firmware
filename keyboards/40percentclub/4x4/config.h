@@ -5,7 +5,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x3430 //34 30 is 40 in hex, needed something unique for via compatibility.
 #define PRODUCT_ID      0x0A0C
 #define DEVICE_VER      0x4444
 #define MANUFACTURER    di0ib
