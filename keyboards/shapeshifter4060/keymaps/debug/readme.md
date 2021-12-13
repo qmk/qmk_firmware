@@ -8,11 +8,15 @@ This layout is expressly for debugging to see if your keys are working.
 
 To compile and flash to the board:
 
-    make laptreus:debug:avrdude
+    make shapeshifter4060:debug:avrdude
+    
+If you want to use this with a Proton C, do this instead:
+
+    make shapeshifter4060:debug CTPC=yes
 
 To just compile:
 
-    make laptreus:debug
+    make shapeshifter4060:debug
 
 Then use QMK toolbox to write the file
 
