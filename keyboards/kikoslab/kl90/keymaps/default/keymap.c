@@ -140,7 +140,8 @@ static void render_anim(void){
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_anim();
+    return false;
 }
 #endif

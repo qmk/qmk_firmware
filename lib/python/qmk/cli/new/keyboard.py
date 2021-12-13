@@ -1,10 +1,8 @@
 """This script automates the creation of new keyboard directories using a starter template.
 """
 from datetime import date
-import fileinput
 from pathlib import Path
 import re
-import shutil
 
 from qmk.commands import git_get_username
 import qmk.path
@@ -32,6 +30,7 @@ def validate_keyboard_name(name):
 @cli.argument('-kb', '--keyboard', help='Specify the name for the new keyboard directory', arg_only=True, type=keyboard_name)
 @cli.argument('-t', '--type', help='Specify the keyboard type', arg_only=True, choices=KEYBOARD_TYPES)
 @cli.argument('-u', '--username', help='Specify your username (default from Git config)', arg_only=True)
+@cli.argument('-n', '--realname', help='Specify your real name if you want to use that. Defaults to username', arg_only=True)
 @cli.subcommand('Creates a new keyboard directory')
 def new_keyboard(cli):
     """Creates a new keyboard.
@@ -69,7 +68,7 @@ def new_keyboard(cli):
     # Get username
     user_name = None
     while not user_name:
-        user_name = question('Your Name:', default=find_user_name())
+        user_name = question('Your GitHub User Name:', default=find_user_name())
 
         if not user_name:
             cli.log.error('You didn\'t provide a username, and we couldn\'t find one set in your QMK or Git configs. Please try again.')
@@ -78,26 +77,21 @@ def new_keyboard(cli):
             if cli.args.username:
                 return False
 
-    # Copy all the files
-    copy_templates(keyboard_type, keyboard_path)
+    real_name = None
+    while not real_name:
+        real_name = question('Your real name:', default=user_name)
 
-    # Replace all the placeholders
     keyboard_basename = keyboard_path.name
-    replacements = [
-        ('%YEAR%', str(date.today().year)),
-        ('%KEYBOARD%', keyboard_basename),
-        ('%YOUR_NAME%', user_name),
-    ]
-    filenames = [
-        keyboard_path / 'config.h',
-        keyboard_path / 'info.json',
-        keyboard_path / 'readme.md',
-        keyboard_path / f'{keyboard_basename}.c',
-        keyboard_path / f'{keyboard_basename}.h',
-        keyboard_path / 'keymaps/default/readme.md',
-        keyboard_path / 'keymaps/default/keymap.c',
-    ]
-    replace_placeholders(replacements, filenames)
+    replacements = {
+        "YEAR": str(date.today().year),
+        "KEYBOARD": keyboard_basename,
+        "USER_NAME": user_name,
+        "YOUR_NAME": real_name,
+    }
+
+    template_dir = Path('data/templates')
+    template_tree(template_dir / 'base', keyboard_path, replacements)
+    template_tree(template_dir / keyboard_type, keyboard_path, replacements)
 
     cli.echo('')
     cli.log.info(f'{{fg_green}}Created a new keyboard called {{fg_cyan}}{new_keyboard_name}{{fg_green}}.{{fg_reset}}')
@@ -114,29 +108,32 @@ def find_user_name():
         return git_get_username()
 
 
-def copy_templates(keyboard_type, keyboard_path):
-    """Copies the template files from data/templates to the new keyboard directory.
+def template_tree(src: Path, dst: Path, replacements: dict):
+    """Recursively copy template and replace placeholders
+
+    Args:
+        src (Path)
+            The source folder to copy from
+        dst (Path)
+            The destination folder to copy to
+        replacements (dict)
+            a dictionary with "key":"value" pairs to replace.
+
+    Raises:
+        FileExistsError
+            When trying to overwrite existing files
     """
-    template_base_path = Path('data/templates')
-    keyboard_basename = keyboard_path.name
 
-    cli.log.info('Copying base template files...')
-    shutil.copytree(template_base_path / 'base', keyboard_path)
+    dst.mkdir(parents=True, exist_ok=True)
 
-    cli.log.info(f'Copying {{fg_cyan}}{keyboard_type}{{fg_reset}} template files...')
-    shutil.copytree(template_base_path / keyboard_type, keyboard_path, dirs_exist_ok=True)
+    for child in src.iterdir():
+        if child.is_dir():
+            template_tree(child, dst / child.name, replacements=replacements)
 
-    cli.log.info(f'Renaming {{fg_cyan}}keyboard.[ch]{{fg_reset}} to {{fg_cyan}}{keyboard_basename}.[ch]{{fg_reset}}...')
-    shutil.move(keyboard_path / 'keyboard.c', keyboard_path / f'{keyboard_basename}.c')
-    shutil.move(keyboard_path / 'keyboard.h', keyboard_path / f'{keyboard_basename}.h')
+        if child.is_file():
+            file_name = dst / (child.name % replacements)
 
-
-def replace_placeholders(replacements, filenames):
-    """Replaces the given placeholders in each template file.
-    """
-    for replacement in replacements:
-        cli.log.info(f'Replacing {{fg_cyan}}{replacement[0]}{{fg_reset}} with {{fg_cyan}}{replacement[1]}{{fg_reset}}...')
-
-        with fileinput.input(files=filenames, inplace=True) as file:
-            for line in file:
-                print(line.replace(replacement[0], replacement[1]), end='')
+            with file_name.open(mode='x') as dst_f:
+                with child.open() as src_f:
+                    template = src_f.read()
+                    dst_f.write(template % replacements)
