@@ -176,10 +176,6 @@ bool oled_task_user(void) {
 }
 #endif
 
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
