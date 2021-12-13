@@ -1,4 +1,4 @@
-# The default keymap for Nasu. VIA support disabled.
+# The default keymap for Nasu.
 
 ![Layer 0](https://i.imgur.com/kiNbHIb.png)
 

@@ -1,4 +1,4 @@
-/* Copyright 2020 Yiancar-Designs
+/* Copyright 2021 Yiancar-Designs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,19 +15,9 @@
  */
 #include "nasu.h"
 
-void keyboard_pre_init_kb(void) {
-    // Set our LED pins as output
-    setPinOutput(B0);
-    setPinOutput(B1);
-    setPinOutput(A7);
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(B0, led_state.num_lock);
-        writePin(B1, led_state.caps_lock);
-        writePin(A7, led_state.scroll_lock);
-    }
-    return res;
+void led_init_ports(void) {
+    // Set our LED pins as open drain outputs
+    palSetLineMode(LED_CAPS_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
+    palSetLineMode(LED_NUM_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
+    palSetLineMode(LED_SCROLL_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
 }

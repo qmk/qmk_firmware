@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Yiancar-Designs
+Copyright 2021 Yiancar-Designs
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -41,6 +41,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Ensure we jump to bootloader if the RESET keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
+/* Indicator LEDs */
+#define LED_CAPS_LOCK_PIN B1
+#define LED_NUM_LOCK_PIN B0
+#define LED_SCROLL_LOCK_PIN A7
+#define LED_PIN_ON_STATE 0
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
