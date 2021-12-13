@@ -22,7 +22,7 @@ The scope displays your burst time on a chart. The WPM is represented by an hori
 
 The ring display the last letter in the upper frame. Each time you enter a key, the Navi searches into the circular database and locks the position. A special animation is displayed when Enter, Backspce or Escape are struck.
 
-<img src="https://imgur.com/iIG1tQE.gif" height="400" >
+<img src="https://imgur.com/Yf7D6UN.gif" height="400" >
 
 ## Startup animation
 
@@ -109,11 +109,21 @@ The current version handle 3 differents layers. Names can be changed in layer_fr
 You can tweak states timing in gui_state.h.
 ```
 // states timing
-#define BOOTING_TIME_TRESHOLD 6000
+#define BOOTING_TIME_TRESHOLD 7000
 #define WAKING_UP_TIME_TRESHOLD 300
 #define IDLE_TIME_TRESHOLD 4000
 #define HALTING_TIME_TRESHOLD IDLE_TIME_TRESHOLD + 6000
 #define SLEEP_TIME_TRESHOLD HALTING_TIME_TRESHOLD + 8000
+```
+
+## Need space ?
+Boot and gliches can be commented in config.h
+```
+// states timing
+// logo glitch
+//#define WITH_GLITCH
+// boot sequence
+//#define WITH_BOOT
 ```
 
 ![My Navi](https://imgur.com/eYkgoZJ.png)
