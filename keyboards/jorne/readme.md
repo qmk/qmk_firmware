@@ -9,6 +9,15 @@ Jorne is essentially [Corne](https://github.com/foostan/crkbd) but with an extra
 * Layout: [keyboard-layout-editor.com](http://www.keyboard-layout-editor.com/#/gists/df19fba80500d1179dfda8c41b9f221a)
 * Hardware Availability: [wiki](https://github.com/joric/jorne/wiki)
 
+## Bootloader
+
+Enter the bootloader in 2 ways:
+
+* **Physical reset button**: Briefly press the reset button on the PCB
+* **Keycode in layout**: Press the key mapped to `RESET`
+
+## Make 
+
 Make example for this keyboard (after setting up your build environment):
 
     make jorne/rev1:default
