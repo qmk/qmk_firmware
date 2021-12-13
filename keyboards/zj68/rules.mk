@@ -5,7 +5,7 @@ MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
