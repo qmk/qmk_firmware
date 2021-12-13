@@ -10,8 +10,7 @@ extern bool is_win;
 #define LONG_TYPING_INTERVAL 50
 
 enum layer_names {
-// defined by "KEYBOARD" followed by folder structure
-#if SPLIT75_PUBLIC_USE == 1 && defined(KEYBOARD_wheatfield_split75)
+#if SPLIT75_SETUP_FOR_PUBLIC_USE_BY_DEFAULT && defined(KEYBOARD_wheatfield_split75) // defined by "KEYBOARD" followed by folder structure
   BASE,
   QWERTY,
 #else
