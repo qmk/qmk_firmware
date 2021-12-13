@@ -1,6 +1,7 @@
 #include "art.h"
 #include "string.h"
 #include "ctype.h"
+#include "secret_definitions.h"
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -49,6 +50,7 @@ void switch_lang(void) {
 }
 
 void send_string_with_translation(char *string) {
+  // TODO feature toggle
   if (layer_state_is(WORKMAN)) {
     int isUpperCase = 0;
     for (int i = 0; i < strlen(string); i++) {
@@ -820,6 +822,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         send_string_with_translation("tatus ");
         char_to_bspace = 11;
         layer_off(GIT_S);
+      }
+      break;
+    case K_SECR1 ... K_SECR4: // Secrets!  Externally defined strings, not stored in repo
+      if (!record->event.pressed) {
+          send_string_with_delay(secrets[keycode - K_SECR1], TYPING_INTERVAL);
       }
       break;
 

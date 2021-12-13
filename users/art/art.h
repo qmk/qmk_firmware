@@ -92,6 +92,11 @@ enum custom_keycodes_art {
   G_STSH,
   G_SHOW,
 
+  K_SECR1,
+  K_SECR2,
+  K_SECR3,
+  K_SECR4,
+
   CTL_ALT_START,
   CTL_ALT_END = CTL_ALT_START + 0xff,
 
