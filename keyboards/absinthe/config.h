@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER cfbender
 #define PRODUCT absinthe
-#define DESCRIPTION An F-row-less TKL
 
 /* key matrix size */
 #define MATRIX_ROWS 9
@@ -45,10 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, D3, D0 }
 #define UNUSED_PINS
 
-#define ENCODERS_PAD_A { D5 }
-#define ENCODERS_PAD_B { B7 }
-
-#define ENCODER_DIRECTION_FLIP
+#define ENCODERS_PAD_A { B7 }
+#define ENCODERS_PAD_B { D5 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

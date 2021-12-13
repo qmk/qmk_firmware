@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Evyd13
 #define PRODUCT         ta-65
-#define DESCRIPTION     A universal 65% PCB with underglow.
 
 /* key matrix size */
 #define MATRIX_ROWS 5

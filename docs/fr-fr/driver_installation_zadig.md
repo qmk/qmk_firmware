@@ -9,7 +9,7 @@ Nous vous recommandons d'utiliser l'utilitaire [Zadig](https://zadig.akeo.ie/). 
 ## Installation
 
 Passez votre clavier en mode bootloader, soit en appuyant sur le keycode `RESET` (qui peut se trouver dans un calque différent) ou en appuyant sur le bouton reset qui se trouve en général sous la board. Si votre clavier n'a aucune de ces options, essayez de le brancher en maintenant Escape ou Espace+`B` appuyés (voir la documentation de [Bootmagic](feature_bootmagic.md) pour plus de détails). Certaines boards utilisent [Command](feature_command.md) à la place de Bootmagic. Dans ce cas, vous pouvez entrer en mode bootloader en appuyant, à n'importe quel moment lorsque le clavier est branché, sur les combinaisons de touches Shift Gauche+Shift Droit+`B` ou Shift Gauche+Shift Droit+Escape.
-Certains claviers ont des instructions spécifiques pour passer en mode bootloader. Par exemple, la touche [Bootmagic Lite]](feature_bootmagic.md#bootmagic-lite) (défaut : Échap) peut être sur une touche différente telle que Contrôle Gauche. La combinaison pour la Command (défaut : Shift Gauche+Shift Droit) peut être différente, par exemple Contrôle Gauche+Contrôle Droit. Référez-vous au fichier README de votre clavier.
+Certains claviers ont des instructions spécifiques pour passer en mode bootloader. Par exemple, la touche [Bootmagic Lite]](feature_bootmagic.md#bootmagic-lite) (défaut: Échap) peut être sur une touche différente telle que Contrôle Gauche. La combinaison pour la Command (défaut: Shift Gauche+Shift Droit) peut être différente, par exemple Contrôle Gauche+Contrôle Droit. Référez-vous au fichier README de votre clavier.
 
 Pour mettre un clavier en mode bootloader avec USBaspLoader, appuyez sur le bouton `RESET` tout en maintenant le bouton `BOOT`. Vous pouvez aussi maintenir le bouton `BOOT` en branchant le câble USB.
 
@@ -43,4 +43,4 @@ Cliquez dessus avec le bouton droit et sélectionner **Désinstaller le périph�
 
 ![Le dialogue Suppression de périphérique, avec la boîte "suppression de pilote" cochée](https://i.imgur.com/aEs2RuA.png)
 
-Appuyez sur **Action → Analyser les changements de hardware**. A ce stade, vous devriez pouvoir saisir à nouveau. Vérifiez dans Zadig que les périphériques utilisent bien le pilote `HidUsb`. Si c'est le cas, vous avez corrigé le problème, votre clavier devrait fonctionner à nouveau !
+Appuyez sur **Action → Analyser les changements de hardware**. A ce stade, vous devriez pouvoir saisir à nouveau. Vérifiez dans Zadig que les périphériques utilisent bien le pilote `HidUsb`. Si c'est le cas, vous avez corrigé le problème, votre clavier devrait fonctionner à nouveau!

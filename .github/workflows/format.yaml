@@ -1,37 +1,51 @@
-name: Format Codebase
+name: PR Lint Format
 
 on:
-  push:
-    branches:
-    - master
+  pull_request:
+    paths:
+    - 'drivers/**'
+    - 'lib/arm_atsam/**'
+    - 'lib/lib8tion/**'
+    - 'lib/python/**'
+    - 'platforms/**'
+    - 'quantum/**'
+    - 'tests/**'
+    - 'tmk_core/**'
 
 jobs:
-  format:
+  lint:
     runs-on: ubuntu-latest
-    container: qmkfm/base_container
 
-    # protect against those who develop with their fork on master
-    if: github.repository == 'qmk/qmk_firmware'
+    container: qmkfm/qmk_cli
 
     steps:
-    - uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.API_TOKEN_GITHUB }}
-
     - name: Install dependencies
       run: |
         apt-get update && apt-get install -y dos2unix
 
-    - name: Format files
-      run: |
-        bin/qmk cformat -a
-        bin/qmk pyformat
-        bin/qmk fileformat
-
-    - name: Commit files
-      uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: actions/checkout@v2
       with:
-        commit_message: Format code according to conventions for $GITHUB_SHA
-        commit_user_name: QMK Bot
-        commit_user_email: hello@qmk.fm
-        commit_author: QMK Bot <hello@qmk.fm>
+        fetch-depth: 0
+
+    - uses: trilom/file-changes-action@v1.2.4
+      id: file_changes
+      with:
+        output: ' '
+        fileOutput: ' '
+
+    - name: Run qmk formatters
+      shell: 'bash {0}'
+      run: |
+        cat ~/files_added.txt ~/files_modified.txt > ~/files_changed.txt
+        qmk format-c --core-only $(< ~/files_changed.txt) || true
+        qmk format-python $(< ~/files_changed.txt) || true
+        qmk format-text $(< ~/files_changed.txt) || true
+
+    - name: Fail when formatting required
+      run: |
+        git diff
+        for file in $(git diff --name-only); do
+          echo "File '${file}' Requires Formatting"
+          echo "::error file=${file}::Requires Formatting"
+        done
+        test -z "$(git diff --name-only)"

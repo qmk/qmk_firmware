@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    westfoxtrot
 #define PRODUCT         aanzee
-#define DESCRIPTION     QMK Firmware for the Aanzee PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

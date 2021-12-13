@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Worldspawn00
 #define PRODUCT         TKL30
-#define DESCRIPTION     A 3-row TKL-style keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 3

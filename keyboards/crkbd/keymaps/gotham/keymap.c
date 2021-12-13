@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "keycodes.h"
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include "oled.c"
 #endif
 
@@ -11,7 +11,7 @@
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT(
+  [_QWERTY] = LAYOUT_split_3x6_3(
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [_LOWER] = LAYOUT(
+  [_LOWER] = LAYOUT_split_3x6_3(
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //|--------------------------|  |--------------------------|
   ),
 
-  [_RAISE] = LAYOUT(
+  [_RAISE] = LAYOUT_split_3x6_3(
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
      KC_ESC,  KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, XXXXXXX,                      XXXXXXX, KC_AMPR, KC_PIPE, KC_EXLM, KC_ASTR, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //|--------------------------|  |--------------------------|
   ),
 
-  [_ADJUST] = LAYOUT(
+  [_ADJUST] = LAYOUT_split_3x6_3(
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
      XXXXXXX, CK_RST,  CK_DOWN, CK_UP,   CK_TOGG, RGB_TOG,                       MU_TOG, KC_F12,  KC_F7,   KC_F8,   KC_F9,   XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -78,7 +78,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     if (record->event.pressed) {
         oled_timer = timer_read();
         add_keylog(keycode);

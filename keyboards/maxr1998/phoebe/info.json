@@ -1,13 +1,9 @@
 {
   "keyboard_name": "Phoebe",
-  "keyboard_folder": "maxr1998/phoebe",
   "url": "https://github.com/Maxr1998/Phoebe_Keyboard",
   "maintainer": "Maxr1998",
-  "width": 12,
-  "height": 5,
   "layouts": {
     "LAYOUT": {
-      "key_count": 59,
       "layout": [ 
         { "w": 1, "x": 0, "y": 0 }, 
         { "w": 1, "x": 1, "y": 0 }, 

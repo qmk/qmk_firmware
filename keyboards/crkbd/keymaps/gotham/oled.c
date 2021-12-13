@@ -246,7 +246,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (timer_elapsed(oled_timer) > 10000) {
         oled_off();
         return;
@@ -257,9 +257,10 @@ void oled_task_user(void) {
     }
     #endif
 
-    if (is_master) {
+    if (is_keyboard_master()) {
         render_status_main();
     } else {
         render_status_secondary();
     }
+    return false;
 }

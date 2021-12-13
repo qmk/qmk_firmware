@@ -15,9 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifdef USE_MASSDROP_CONFIGURATOR
+#ifdef RGB_MATRIX_ENABLE
+#    ifdef USE_MASSDROP_CONFIGURATOR
 
-#    include "md_rgb_matrix.h"
+#        include "md_rgb_matrix.h"
 
 // Teal <-> Salmon
 led_setup_t leds_teal_salmon[] = {
@@ -96,4 +97,5 @@ void *led_setups[] = {leds_rainbow_s, leds_rainbow_ns, leds_teal_salmon, leds_ye
 
 const uint8_t led_setups_count = sizeof(led_setups) / sizeof(led_setups[0]);
 
-#endif
+#    endif  // USE_MASSDROP_CONFIGURATOR
+#endif      // RGB_MATRIX_ENABLE

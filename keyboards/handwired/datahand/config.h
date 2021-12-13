@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    DataHand
 #define PRODUCT         DataHand
-#define DESCRIPTION     DataHand Teensy++ 2.0 conversion
 
 /* key matrix size */
 #define MATRIX_ROWS 13

@@ -1,5 +1,4 @@
 from functools import reduce
-import re
 
 strings = []
 number_of_strings = -1

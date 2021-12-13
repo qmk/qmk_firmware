@@ -14,25 +14,21 @@ BOOTLOADER = kiibohd
 BOARD = MCHCK_K20
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
-## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = yes	# Console for debug
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	    # USB Nkey Rollover
-CUSTOM_MATRIX = yes # Custom matrix file
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = yes        # Console for debug
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+NKRO_ENABLE = yes           # Enable N-Key Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+AUDIO_ENABLE = no           # Audio output
 
-# project specific files
-SRC = matrix.c \
-      led.c \
-      led_controller.c
+DEFAULT_FOLDER = infinity60/led
 
 LAYOUTS = 60_ansi_split_bs_rshift
-
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

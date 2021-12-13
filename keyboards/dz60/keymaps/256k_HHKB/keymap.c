@@ -238,12 +238,3 @@ KC_MS_ACCEL1    ->   KC_ACL1  ->   Set mouse acceleration to 1
 KC_MS_ACCEL2    ->   KC_ACL2  ->   Set mouse acceleration to 2
 
 */
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-
-	switch (id) {
-
-	}
-	return MACRO_NONE;
-}

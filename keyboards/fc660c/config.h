@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Hasu
 #define PRODUCT         FC660C
-#define DESCRIPTION     Leopold FC660C with Hasu alternative controller using QMK
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -81,5 +79,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // test all keys before further adjustment.
 // this should probably stay in the range +/-5.
 // #define ACTUATION_DEPTH_ADJUSTMENT 0
-
-#endif
