@@ -824,6 +824,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(GIT_S);
       }
       break;
+      
     case K_SECR1 ... K_SECR4: // Secrets!  Externally defined strings, not stored in repo
       if (!record->event.pressed) {
           send_string_with_delay(secrets[keycode - K_SECR1], TYPING_INTERVAL);

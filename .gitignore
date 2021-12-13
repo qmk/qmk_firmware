@@ -38,8 +38,6 @@ quantum/version.h
 /keyboards/*/*/*/*/keymaps/Makefile
 /keyboards/*/*/*/*/*/keymaps/Makefile
 
-*user_config.c
-
 # Eclipse/PyCharm/Other IDE Settings
 *.iml
 .browse.VC.db*
