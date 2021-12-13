@@ -26,6 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 200
 
+#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX
+
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_LIMIT_VAL 120
     #define RGBLIGHT_HUE_STEP 10

@@ -20,6 +20,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
+// + ------- +
+// + UNICODE |
+// + ------- +
+
+enum unicode_names {
+    eGRV,
+    EGRV,
+    eACT,
+    EACT,
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+    [eGRV]  = 0x00E8, // è
+    [EGRV]  = 0x00C8, // È
+    [eACT]  = 0x00E9, // é
+    [EACT]  = 0x00C9, // É
+};
+
+
 // + --------- +
 // + TAP DANCE |
 // + --------- +
@@ -32,18 +51,6 @@ typedef enum {
     TD_SINGLE_HOLD,
     TD_DOUBLE_TAP,
 } td_state_t;
-
-typedef struct {
-    bool is_press_action;
-    td_state_t state;
-} td_tap_t;
-
-// Tap dance enums
-enum {
-    TD_LSPO_CAPS, // Tap once for (, hold once for LSFT, tap twice for CAPS
-    TD_RSPC_CAPS, // Tap once for ), hold once for RSFT, tap twice for CAPS
-    TD_ESC_DEL, // Tap once for KC_ESC, twice for KC_DEL
-};
 
 // https://github.com/qmk/qmk_firmware/blob/9294258c02d3e025e01935a06c4d9f1997535bda/users/gordon/gordon.c#L112-L135
 td_state_t hold_cur_dance(qk_tap_dance_state_t *state) {
@@ -64,10 +71,78 @@ td_state_t hold_cur_dance(qk_tap_dance_state_t *state) {
     else return TD_NONE;
 }
 
-void LSPO_CAPS_finished(qk_tap_dance_state_t *state, void *user_data);
-void LSPO_CAPS_reset(qk_tap_dance_state_t *state, void *user_data);
-void RSPC_CAPS_finished(qk_tap_dance_state_t *state, void *user_data);
-void RSPC_CAPS_reset(qk_tap_dance_state_t *state, void *user_data);
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
+
+// Create an instance of 'td_tap_t' for the 'x' tap dance.
+static td_tap_t LSPO_CAPS_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+// Create an instance of 'td_tap_t' for the 'x' tap dance.
+static td_tap_t RSPC_CAPS_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+
+void LSPO_CAPS_finished(qk_tap_dance_state_t *state, void *user_data) {
+    LSPO_CAPS_state.state = hold_cur_dance(state);
+    switch (LSPO_CAPS_state.state) {
+        case TD_SINGLE_TAP: register_code16(KC_LPRN); break;
+        case TD_SINGLE_HOLD: register_code16(KC_LSFT); break;
+        case TD_DOUBLE_TAP: register_code16(KC_CAPS); break;
+        case TD_NONE: break;
+    }
+}
+
+void LSPO_CAPS_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (LSPO_CAPS_state.state) {
+        case TD_SINGLE_TAP: unregister_code16(KC_LPRN); break;
+        case TD_SINGLE_HOLD: unregister_code16(KC_LSFT); break;
+        case TD_DOUBLE_TAP: unregister_code16(KC_CAPS); break;
+        case TD_NONE: break;
+    }
+    LSPO_CAPS_state.state = TD_NONE;
+}
+
+void RSPC_CAPS_finished(qk_tap_dance_state_t *state, void *user_data) {
+    RSPC_CAPS_state.state = hold_cur_dance(state);
+    switch (RSPC_CAPS_state.state) {
+        case TD_SINGLE_TAP: register_code16(KC_RPRN); break;
+        case TD_SINGLE_HOLD: register_code16(KC_RSFT); break;
+        case TD_DOUBLE_TAP: register_code16(KC_CAPS); break;
+        case TD_NONE: break;
+    }
+}
+
+void RSPC_CAPS_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (RSPC_CAPS_state.state) {
+        case TD_SINGLE_TAP: unregister_code16(KC_RPRN); break;
+        case TD_SINGLE_HOLD: unregister_code16(KC_RSFT); break;
+        case TD_DOUBLE_TAP: unregister_code16(KC_CAPS); break;
+        case TD_NONE: break;
+    }
+    RSPC_CAPS_state.state = TD_NONE;
+}
+
+// ------ TAP DANCES ------
+
+// Tap dance enums
+enum {
+    TD_LSPO_CAPS, // Tap once for (, hold once for LSFT, tap twice for CAPS
+    TD_RSPC_CAPS, // Tap once for ), hold once for RSFT, tap twice for CAPS
+    TD_ESC_DEL, // Tap once for KC_ESC, twice for KC_DEL
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_LSPO_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LSPO_CAPS_finished, LSPO_CAPS_reset),
+    [TD_RSPC_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RSPC_CAPS_finished, RSPC_CAPS_reset),
+    [TD_ESC_DEL] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_DEL),
+};
 
 // + -------------------- +
 // + RGB MATRIX CALLBACKS |
@@ -89,19 +164,25 @@ void rgb_matrix_indicators_user(void) {
 // + KEY MAP |
 // + ------- +
 
+// Layer names
 #define _BL 0
 #define _DWN 1
 #define _UP 2
 #define _RGB 3
 
+// Rename tap dances for keymap
+#define TD_LSPC TD(TD_LSPO_CAPS)
+#define TD_RSPC TD(TD_RSPC_CAPS)
+#define TD_ED TD(TD_ESC_DEL)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_split_3x6_3(
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
-      KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TD(TD_ESC_DEL)  ,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+        TD_ED,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TD(TD_LSPO_CAPS),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, TD(TD_RSPC_CAPS),
+      TD_LSPC,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, TD_RSPC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,MO(_DWN),  KC_SPC,     KC_ENT,MO(_UP),  KC_RCTL
                                       //|--------------------------|  |--------------------------|
@@ -111,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
       _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, KC_PGUP, XXXXXXX,
+      _______, XP(eGRV, EGRV), XP(eACT, EACT), XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, KC_PGUP, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, KC_PGDN, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -135,77 +216,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
         RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                      XXXXXXX, XXXXXXX,  UC_MOD, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX,RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,                      XXXXXXX, XXXXXXX, UC_RMOD, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,   _______, _______, _______
                                       //|--------------------------|  |--------------------------|
   )
 };
-
-// + --------- +
-// + TAP DANCE |
-// + --------- +
-
-// Create an instance of 'td_tap_t' for the 'x' tap dance.
-static td_tap_t LSPO_CAPS_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
-
-void LSPO_CAPS_finished(qk_tap_dance_state_t *state, void *user_data) {
-    LSPO_CAPS_state.state = hold_cur_dance(state);
-    switch (LSPO_CAPS_state.state) {
-        case TD_SINGLE_TAP: register_code16(KC_LPRN); break;
-        case TD_SINGLE_HOLD: register_code16(KC_LSFT); break;
-        case TD_DOUBLE_TAP: register_code16(KC_CAPS); break;
-        case TD_NONE: break;
-    }
-}
-
-void LSPO_CAPS_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (LSPO_CAPS_state.state) {
-        case TD_SINGLE_TAP: unregister_code16(KC_LPRN); break;
-        case TD_SINGLE_HOLD: unregister_code16(KC_LSFT); break;
-        case TD_DOUBLE_TAP: unregister_code16(KC_CAPS); break;
-        case TD_NONE: break;
-    }
-    LSPO_CAPS_state.state = TD_NONE;
-}
-
-// Create an instance of 'td_tap_t' for the 'x' tap dance.
-static td_tap_t RSPC_CAPS_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
-
-void RSPC_CAPS_finished(qk_tap_dance_state_t *state, void *user_data) {
-    RSPC_CAPS_state.state = hold_cur_dance(state);
-    switch (RSPC_CAPS_state.state) {
-        case TD_SINGLE_TAP: register_code16(KC_RPRN); break;
-        case TD_SINGLE_HOLD: register_code16(KC_RSFT); break;
-        case TD_DOUBLE_TAP: register_code16(KC_CAPS); break;
-        case TD_NONE: break;
-    }
-}
-
-void RSPC_CAPS_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (RSPC_CAPS_state.state) {
-        case TD_SINGLE_TAP: unregister_code16(KC_RPRN); break;
-        case TD_SINGLE_HOLD: unregister_code16(KC_RSFT); break;
-        case TD_DOUBLE_TAP: unregister_code16(KC_CAPS); break;
-        case TD_NONE: break;
-    }
-    RSPC_CAPS_state.state = TD_NONE;
-}
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_LSPO_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LSPO_CAPS_finished, LSPO_CAPS_reset),
-    [TD_RSPC_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RSPC_CAPS_finished, RSPC_CAPS_reset),
-    [TD_ESC_DEL] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_DEL)
-};
-
 
 // + ---- +
 // + OLED |
