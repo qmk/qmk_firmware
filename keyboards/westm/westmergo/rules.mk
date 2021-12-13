@@ -15,9 +15,6 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = yes           # USB Nkey Rollover
 AUDIO_ENABLE = no           # Audio output
 
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
 BACKLIGHT_ENABLE = no	# Enable keyboard backlight(per switch) functionality
 RGB_MATRIX_ENABLE = no	# This is for per switch RGB which we are not using
 
