@@ -11,7 +11,7 @@ BOOTLOADER = stm32-dfu
 OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 BACKLIGHT_ENABLE = no              # Enable keyboard backlight functionality
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
