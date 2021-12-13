@@ -2,7 +2,7 @@
 
 Layer 0
 
-![Layer 0](https://i.imgur.com/Oaw6UNo.png)
+![Layer 0](https://i.imgur.com/pLdgxlJ.png)
 
 Layer 1
 
