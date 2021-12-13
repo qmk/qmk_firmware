@@ -1,3 +1,6 @@
+// Copyright 2021 Nicolas Druoton (druotoni)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 bool render_boot(void);
 void render_halt(void);
 

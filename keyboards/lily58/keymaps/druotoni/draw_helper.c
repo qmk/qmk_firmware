@@ -1,8 +1,11 @@
+// Copyright 2021 Nicolas Druoton (druotoni)
+// Copyright 2021 ugfx
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "draw_helper.h"
 #include "fast_random.h"
-
 
 void drawline(uint8_t x, uint8_t y, uint8_t width, bool bHorizontal, bool bPositiveDirection, bool color) {
     if (width <= 0) return;
@@ -88,7 +91,6 @@ void drawline_point_hr(short x, short y, short x1, bool color) {
 
     drawline(x, y, x1 - x, true, true, color);
 }
-
 
 void flip_flap_x(short px, short py, uint8_t val, bool color) {
     oled_write_pixel(px + val, py, color);
@@ -248,7 +250,6 @@ void draw_fill_circle(short x, short y, uint8_t radius, bool color) {
     flip_flap_y_point(x - b, y, x + b, a, color);
 }
 
-#if IS_RIGHT
 bool apres_moitie(int a, int b) { return (a > b / 2); }
 bool arrive_moitie(int a, int b) { return (a > b / 2); }
 bool avant_moitie(int a, int b) { return (a <= b / 2 && !apres_moitie(a, b)); }
@@ -370,7 +371,6 @@ void draw_arc_sector(uint8_t x, uint8_t y, uint8_t radius, unsigned char sectors
     }
 }
 
-#endif
 void draw_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int color, uint8_t density) {
     unsigned long rx        = fastrand_long();
     unsigned long ry        = fastrand_long();
@@ -378,7 +378,7 @@ void draw_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int color,
     unsigned long masky     = 1;
     unsigned long mask_base = 1;
 
-// more 1 in the octet 
+    // more 1 in the octet
     for (int r = 0; r < density; r++) {
         rx &= fastrand_long();
         ry &= fastrand_long();
@@ -392,7 +392,7 @@ void draw_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int color,
             maskx = (mask_base << i);
             masky = (mask_base << j);
 
-// logic AND with the masks
+            // logic AND with the masks
             if (((rx & maskx) == maskx) && ((ry & masky) == masky)) {
                 oled_write_pixel(x + i, y + j, color);
             }
@@ -403,11 +403,11 @@ void draw_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int color,
 void copy_pixel(int from, int shift, unsigned char mask) {
     if (shift == 0) return;
 
-// pixel cluster from
+    // pixel cluster from
     char c_from  = get_oled_char(from);
     char extract = c_from & mask;
 
-// pixel cluster shift
+    // pixel cluster shift
     char c_from_shift = get_oled_char(from + shift);
     c_from_shift &= ~(mask);
     c_from_shift |= extract;
@@ -419,15 +419,14 @@ void copy_pixel(int from, int shift, unsigned char mask) {
 }
 
 void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint16_t height, uint8_t iSize, bool odd) {
-
-// work only on row
+    // work only on row
     uint16_t y_start = (y / 8) * 32;
     uint8_t  nb_h    = height / 8;
 
-    uint8_t  w_max = width; 
+    uint8_t  w_max = width;
     uint16_t index = y_start + x;
 
-// shift pair even pixel
+    // shift pair even pixel
     int mask_1 = 85;
     int mask_2 = 170;
 
@@ -440,12 +439,10 @@ void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint16_t height, uint
     //  wobble
     uint16_t pos = 0;
     for (uint16_t j = 0; j < nb_h; j++) {
-    
-    // next line
+        // next line
         index = (y_start + x) + (j * 32);
 
         for (uint16_t i = 0; i < w_max; i++) {
-         
             if (i + iSize < w_max) {
                 pos = index + i;
                 copy_pixel(pos + iSize, iSize * -1, mask_1);
@@ -472,11 +469,8 @@ void draw_random_char(uint8_t column, uint8_t row, char final_char, int value, u
     oled_write_char(c, false);
 }
 
- 
-void get_glitch_index_new(uint16_t *glitch_timer, uint8_t *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, 
-uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number){
-
-  if (timer_elapsed(*glitch_timer) > *current_glitch_scope_time) {
+void get_glitch_index_new(uint16_t *glitch_timer, uint8_t *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number) {
+    if (timer_elapsed(*glitch_timer) > *current_glitch_scope_time) {
         // end of the last glitch period
         *glitch_timer = timer_read();
 
@@ -495,23 +489,18 @@ uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number){
     }
 }
 
-
 uint8_t get_glitch_frame_index(uint8_t glitch_probobility, uint8_t glitch_frame_number) {
- 
-        bool bGenerateGlitch = (fastrand() % 100) < glitch_probobility;
-        if (!bGenerateGlitch) {
-            // no glitch
-            return 0;
-        }
-
-        // get a new glitch index
-        return fastrand() % glitch_frame_number;
+    bool bGenerateGlitch = (fastrand() % 100) < glitch_probobility;
+    if (!bGenerateGlitch) {
+        // no glitch
+        return 0;
     }
 
-uint8_t get_glitch_duration(uint8_t min_time, uint16_t max_time) {
-       return min_time + fastrand() % (max_time - min_time);
+    // get a new glitch index
+    return fastrand() % glitch_frame_number;
 }
 
+uint8_t get_glitch_duration(uint8_t min_time, uint16_t max_time) { return min_time + fastrand() % (max_time - min_time); }
 
 void get_glitch_index(uint32_t *glitch_timer, int *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number) {
     if (timer_elapsed32(*glitch_timer) > *current_glitch_scope_time) {
@@ -656,7 +645,6 @@ void move_block(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int shift) 
     }
 }
 
-
 int interpo_pourcent(int min, int max, int v) {
     // interpolation
     float x0 = min;
@@ -668,7 +656,6 @@ int interpo_pourcent(int min, int max, int v) {
 
     return (int)yp;
 }
-
 
 uint8_t BAYER_PATTERN_4[4][4] = {{15, 135, 45, 165}, {195, 75, 225, 105}, {60, 180, 30, 150}, {240, 120, 210, 90}};
 
@@ -779,52 +766,3 @@ void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t wid
             break;
     }
 }
-
-// void generer_glitch_static_oblic(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t iProb, uint8_t iProbWhite) {
-//     for (int yCurrent = 0; yCurrent < heigth; yCurrent++) {
-//         for (int xCurrent = 0; xCurrent < width; xCurrent++) {
-//             // bool bGenerateGlitch = (rand() % 100) < iProb;
-//             bool bGenerateGlitch = true;
-//             if (bGenerateGlitch) {
-//                 // bool bWhite = (rand() % 100) < iProbWhite;
-//                 bool bWhite = (timer_read32() % 2) == 0;
-//                 oled_write_pixel(x + xCurrent, y + yCurrent, bWhite);
-//             }
-//         }
-//     }
-// }
-
-
-
-//  //
-//   // Easing Functions - inspired from http://gizma.com/easing/
-//   // only considering the t value for the range [0, 1] => [0, 1]
-//  //
-// EasingFunctions = {
-//   // no easing, no acceleration
-//   linear: t => t,
-//   // accelerating from zero velocity
-//   easeInQuad: t => t*t,
-//   // decelerating to zero velocity
-//   easeOutQuad: t => t*(2-t),
-//   // acceleration until halfway, then deceleration
-//   easeInOutQuad: t => t<.5 ? 2*t*t : -1+(4-2*t)*t,
-//   // accelerating from zero velocity
-//   easeInCubic: t => t*t*t,
-//   // decelerating to zero velocity
-//   easeOutCubic: t => (--t)*t*t+1,
-//   // acceleration until halfway, then deceleration
-//   easeInOutCubic: t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1,
-//   // accelerating from zero velocity
-//   easeInQuart: t => t*t*t*t,
-//   // decelerating to zero velocity
-//   easeOutQuart: t => 1-(--t)*t*t*t,
-//   // acceleration until halfway, then deceleration
-//   easeInOutQuart: t => t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t,
-//   // accelerating from zero velocity
-//   easeInQuint: t => t*t*t*t*t,
-//   // decelerating to zero velocity
-//   easeOutQuint: t => 1+(--t)*t*t*t*t,
-//   // acceleration until halfway, then deceleration
-//   easeInOutQuint: t => t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t
-// }

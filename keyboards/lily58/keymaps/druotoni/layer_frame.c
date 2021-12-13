@@ -1,20 +1,22 @@
+// Copyright 2021 Nicolas Druoton (druotoni)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "gui_state.h"
 #include "layer_frame.h"
 #include "draw_helper.h"
 
-
-
 #define ANIM_LAYER_FRAME_DURATION 2
 #define ANIM_LAYER_FRAME_MAX 7
 
+// current layer
 uint8_t current_layer = _QWERTY;
 
-uint16_t anim_layer_frame_timer = 0;
-
-uint8_t current_layer_frame     = ANIM_LAYER_FRAME_MAX;
-uint8_t layer_frame_destination = ANIM_LAYER_FRAME_MAX;
+// layer animation stuff
+uint16_t anim_layer_frame_timer  = 0;
+uint8_t  current_layer_frame     = ANIM_LAYER_FRAME_MAX;
+uint8_t  layer_frame_destination = ANIM_LAYER_FRAME_MAX;
 
 // layer name for display
 const char*        layer_name;

@@ -1,3 +1,6 @@
+// Copyright 2021 Nicolas Druoton (druotoni)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 // layer name : must be 3 chars
 #define LAYER_NAME_0 "ABC"
 #define LAYER_NAME_1 "NAV"

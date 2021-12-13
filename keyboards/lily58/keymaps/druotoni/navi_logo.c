@@ -1,3 +1,6 @@
+// Copyright 2021 Nicolas Druoton (druotoni)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "gui_state.h"
@@ -6,7 +9,6 @@
 #include "draw_helper.h"
 
 #define LOGO_SIZE 128
-
 
 // glitch stuff
 #define GLITCH_FRAME_NUMBER 11
@@ -23,9 +25,7 @@ static void render_logo_clean(void) {
     oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
 
-
-
- void render_glitch_bar(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t iProb) {
+void render_glitch_bar(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t iProb) {
     // random horizontal scanlines
     for (uint8_t i = 0; i < height; i++) {
         bool bGenerateGlitch = (fastrand() % 100) < iProb;
@@ -36,12 +36,12 @@ static void render_logo_clean(void) {
     }
 }
 
- void render_misc_glitch(uint8_t algo) {
+void render_misc_glitch(uint8_t algo) {
     char c = 0;
     switch (algo) {
         case 7:
             // invert
-            for (uint16_t i = 0; i < LOGO_SIZE; i++) {
+            for (uint8_t i = 0; i < LOGO_SIZE; i++) {
                 c = get_oled_char(i);
                 oled_write_raw_byte(~(c), i);
             }
@@ -49,7 +49,7 @@ static void render_logo_clean(void) {
 
         case 8:
             //  wobble
-            for (uint16_t i = 0; i < LOGO_SIZE; i++) {
+            for (uint8_t i = 0; i < LOGO_SIZE; i++) {
                 if (i < LOGO_SIZE - 1) {
                     copy_pixel(i + 1, -1, 85);
 

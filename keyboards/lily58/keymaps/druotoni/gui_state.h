@@ -1,5 +1,8 @@
+// Copyright 2021 Nicolas Druoton (druotoni)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 // states timing
-#define BOOTING_TIME_TRESHOLD 6000
+#define BOOTING_TIME_TRESHOLD 7000
 #define WAKING_UP_TIME_TRESHOLD 300
 #define IDLE_TIME_TRESHOLD 4000
 #define HALTING_TIME_TRESHOLD IDLE_TIME_TRESHOLD + 6000

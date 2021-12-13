@@ -1,3 +1,6 @@
+// Copyright 2021 Nicolas Druoton (druotoni)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "gui_state.h"
@@ -15,7 +18,7 @@ static bool IsBooting(void) { return (timer_elapsed32(global_booting_timer) < BO
 static bool IsBooting(void) { return false; }
 #endif
 
-
+// state test
 static bool IsWakingUp(void) { return (timer_elapsed32(global_waking_up_timer) < WAKING_UP_TIME_TRESHOLD); }
 static bool IsIdle(void) { return (timer_elapsed32(global_sleep_timer) > IDLE_TIME_TRESHOLD && timer_elapsed32(global_sleep_timer) < HALTING_TIME_TRESHOLD); }
 static bool IsSleep(void) { return (timer_elapsed32(global_sleep_timer) >= SLEEP_TIME_TRESHOLD); }
@@ -63,6 +66,6 @@ void update_gui_state(void) {
 }
 
 uint8_t get_glitch_probability(void) {
-    // more gliches could happend when halting time is nears
+    // more gliches could occur when halting time is near
     return interpo_pourcent(IDLE_TIME_TRESHOLD, HALTING_TIME_TRESHOLD, timer_elapsed32(global_sleep_timer));
 }

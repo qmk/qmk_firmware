@@ -1,3 +1,7 @@
+// Copyright 2021 Nicolas Druoton (druotoni)
+// Copyright 2020 Richard Sutherland (rich@brickbots.com)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "gui_state.h"
@@ -27,19 +31,20 @@ int max_wpm = MAX_WPM_INIT;
 #define ANIM_SCOPE_FRAME_DURATION 40
 #define ANIM_SLEEP_SCOPE_FRAME_NUMBER 10
 
-uint16_t anim_sleep_scope_timer                                   = 0;
-uint8_t  anim_sleep_scope_duration[ANIM_SLEEP_SCOPE_FRAME_NUMBER] = {30, 30, 30, 30, 20, 20, 30, 30, 32, 35};
-uint8_t  current_sleep_scope_frame                                = 0;
-uint8_t  sleep_scope_frame_destination                            = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
+uint16_t anim_scope_timer       = 0;
+uint16_t anim_scope_idle_timer  = 0;
+uint16_t anim_sleep_scope_timer = 0;
 
-static int get_current_burst(void) { return current_burst; }
+uint8_t anim_sleep_scope_duration[ANIM_SLEEP_SCOPE_FRAME_NUMBER] = {30, 30, 30, 30, 20, 20, 30, 30, 32, 35};
+uint8_t current_sleep_scope_frame                                = 0;
+uint8_t sleep_scope_frame_destination                            = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
 
-static int calculerPourcentageTemps(uint32_t temps_ecoule) {
-    int retour = ((100 * (temps_ecoule)) / (BURST_FENETRE));
-    return retour;
-}
+// glitch animation
+int      current_glitch_scope_time  = 150;
+uint32_t glitch_scope_timer         = 0;
+uint8_t  current_glitch_scope_index = 0;
 
-static void update_wpm(uint16_t keycode) {
+static void update_wpm(void) {
     if (wpm_timer > 0) {
         current_wpm += ((60000 / timer_elapsed(wpm_timer) / WPM_ESTIMATED_WORD_SIZE) - current_wpm) * wpm_smoothing;
         if (current_wpm > LIMIT_MAX_WPM) {
@@ -49,8 +54,8 @@ static void update_wpm(uint16_t keycode) {
     wpm_timer = timer_read();
 }
 
-void update_scope(uint16_t keycode) {
-    update_wpm(keycode);
+void update_scope(void) {
+    update_wpm();
 
     uint16_t temps_ecoule = timer_elapsed(burst_timer);
 
@@ -58,35 +63,34 @@ void update_scope(uint16_t keycode) {
         // 1er frappe après longtemps
         current_burst = 40;
     } else {
-        current_burst = 100 - calculerPourcentageTemps(temps_ecoule);
+        int time_pourcent = ((100 * (temps_ecoule)) / (BURST_FENETRE));
+        current_burst     = 100 - time_pourcent;
     }
     burst_timer = timer_read();
 }
 
-static int get_current_wpm(void) { return current_wpm; }
-
-// ---------------------------------- SCOPE
-
 static void update_scope_array(void) {
-    int burst = get_current_burst();
-    int wpm   = get_current_wpm();
+    // shift array
+    for (uint8_t i = 0; i < SIZE_SCOPE - 1; i++) {
+        burst_scope[i] = burst_scope[i + 1];
+        wpm_scope[i]   = wpm_scope[i + 1];
+    }
 
+    int burst = current_burst;
+    int wpm   = current_wpm;
+
+    // compute max wpm
     max_wpm = (wpm == 0) ? MAX_WPM_INIT : ((wpm > max_wpm) ? wpm : max_wpm);
 
-    // pourcentage par rapport au max
+    // current wpm ratio VS max
     wpm = (100 * wpm) / max_wpm;
     if (wpm > 100) wpm = 100;
 
-    for (uint8_t i = 0; i < SIZE_SCOPE - 1; i++) {
-        uint8_t iBurstOld = burst_scope[i + 1];
-        uint8_t iWpmOld   = wpm_scope[i + 1];
-
-        burst_scope[i] = iBurstOld;
-        wpm_scope[i]   = iWpmOld;
-    }
+    // update last slot of the arrays
     burst_scope[SIZE_SCOPE - 1] = burst;
     wpm_scope[SIZE_SCOPE - 1]   = wpm;
 
+    // apply decay to burst chart
     uint8_t pBaisse = 0;
     for (uint8_t i = 0; i < SIZE_SCOPE - (SIZE_SCOPE / 4); i++) {
         pBaisse = 2 + ((SIZE_SCOPE - 1 - i)) / 2;
@@ -108,7 +112,7 @@ static void render_scope_white(void) {
     static const char PROGMEM raw_logo[] = {
         240, 8, 4, 226, 241, 248, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 252, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 255, 127, 128, 128, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 159, 128, 128, 127,
     };
-    oled_write_raw_P(raw_logo, sizeof(raw_logo));
+    oled_write_raw_P_cursor(0, 10, raw_logo, sizeof(raw_logo));
 }
 
 static void render_scope_chart(void) {
@@ -133,14 +137,13 @@ static void render_scope_chart(void) {
 }
 
 void reset_scope(void) {
-    // off : doit s'allumer
+    // scope need wakeup
     anim_sleep_scope_timer    = timer_read();
     current_sleep_scope_frame = ANIM_SLEEP_SCOPE_FRAME_NUMBER - 1;
 
     sleep_scope_frame_destination = 0;
 }
 
-uint16_t    anim_scope_idle_timer = 0;
 static void render_glitch_square(void) {
     if (timer_elapsed(anim_scope_idle_timer) > 60) {
         anim_scope_idle_timer = timer_read();
@@ -160,11 +163,6 @@ static void render_glitch_square(void) {
     }
 }
 
-int      current_glitch_scope_time  = 150;
-uint32_t glitch_scope_timer         = 0;
-uint8_t  current_glitch_scope_index = 0;
-
-
 void render_scope_idle(void) {
     uint8_t glitch_prob = get_glitch_probability();
     get_glitch_index(&glitch_scope_timer, &current_glitch_scope_time, &current_glitch_scope_index, 150, 350, glitch_prob, 2);
@@ -179,21 +177,23 @@ void render_scope_idle(void) {
     }
 }
 
-uint16_t anim_scope_timer = 0;
-
 static void RenderScopeSleep(void) {
     if (current_sleep_scope_frame == sleep_scope_frame_destination) {
+        // animation finished
         render_scope_idle();
         return;
     }
 
-    if (timer_elapsed32(anim_sleep_scope_timer) > anim_sleep_scope_duration[current_sleep_scope_frame]) {
+    if (timer_elapsed(anim_sleep_scope_timer) > anim_sleep_scope_duration[current_sleep_scope_frame]) {
+        anim_sleep_scope_timer = timer_read();
+
+        // clean scope
         RenderScopeBlack();
 
-        anim_sleep_scope_timer = timer_read32();
-
+        // render animation
         render_tv_animation(current_sleep_scope_frame, 3, 80, 25, 48);
 
+        // update frame number
         if (sleep_scope_frame_destination > current_sleep_scope_frame) {
             current_sleep_scope_frame++;
         } else {
@@ -205,9 +205,11 @@ static void RenderScopeSleep(void) {
 void render_scope(gui_state_t t) {
     if (timer_elapsed(anim_scope_timer) > ANIM_SCOPE_FRAME_DURATION) {
         anim_scope_timer = timer_read();
+
+        // shift arrays
         update_scope_array();
 
-        oled_set_cursor(0, 10);
+        // oled_set_cursor(0, 10);
 
         if (t == _WAKINGUP) {
             RenderScopeSleep();

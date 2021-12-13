@@ -1,3 +1,6 @@
+// Copyright 2021 Nicolas Druoton (druotoni)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "boot.h"
@@ -128,6 +131,7 @@ static void draw_lily_render(unsigned long key_state) {
 }
 
 static void draw_lily(uint8_t f) {
+    // frame for the events
     uint8_t tres_stroke = 10;
     uint8_t tres_boom   = 30;
     uint8_t y_start     = 56;
@@ -156,7 +160,9 @@ static void draw_lily(uint8_t f) {
     // statir explosion
     if (f >= tres_boom) {
         oled_clear();
-        draw_static(0, y_start - 8, 32, 32, true, (f - tres_boom));
+        uint8_t density = (f - tres_boom);
+        if (density > 4) density = 4;
+        draw_static(0, y_start - 8, 32, 32, true, density);
     }
 }
 
@@ -229,16 +235,14 @@ static char *get_terminal_line(uint8_t i) {
 }
 
 static void draw_startup_terminal(uint8_t f) {
-
-  
     // ease for printing on screen
     f = f * 2;
     f += (f / 5);
 
+    // scroll text
     uint8_t i_start   = 0;
     uint8_t i_nb_char = f;
 
-    // scroll text
     if (f > TERMINAL_LINE_MAX) {
         i_start   = f - TERMINAL_LINE_MAX;
         i_nb_char = TERMINAL_LINE_MAX;
