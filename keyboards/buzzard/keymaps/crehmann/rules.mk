@@ -1,4 +1,3 @@
-SRC += features/caps_word.c
 SRC += features/haptic_utils.c
 
 OLED_ENABLE = yes		
