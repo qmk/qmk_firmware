@@ -2,6 +2,8 @@
 // Copyright 2021 ugfx
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#pragma once
+
 // line
 void drawline_vb(uint8_t x, uint8_t y, uint8_t width, bool color);
 void drawline_vt(uint8_t x, uint8_t y, uint8_t width, bool color);
