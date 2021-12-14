@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "timer.h"
 #include "keycode_config.h"
+#include <string.h>
 
 extern keymap_config_t keymap_config;
 
@@ -247,7 +248,13 @@ void send_keyboard_report(void) {
     keyboard_report->mods |= weak_override_mods;
 #endif
 
-    host_keyboard_send(keyboard_report);
+    static report_keyboard_t last_report;
+
+    /* Only send the report if there are changes to propagate to the host. */
+    if (memcmp(keyboard_report, &last_report, sizeof(report_keyboard_t)) != 0) {
+        memcpy(&last_report, keyboard_report, sizeof(report_keyboard_t));
+        host_keyboard_send(keyboard_report);
+    }
 }
 
 /** \brief Get mods
