@@ -1,5 +1,5 @@
 /*
-Copyright 2012,2013 Jun Wako <wakojun@gmail.com>
+Copyright 2021 CannonKeys LLC
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
