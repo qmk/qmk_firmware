@@ -21,8 +21,8 @@ ifeq ($(strip $(BT)), yes)
   #opt_defs for alternate pin usage
   OPT_DEFS += -DBLUEFRUIT
   #Adafruit Bluefruit controller settings
-  BLUETOOTH = AdafruitBLE
   BLUETOOTH_ENABLE = yes
+  BLUETOOTH_DRIVER = AdafruitBLE
   F_CPU = 8000000
   CONSOLE_ENABLE = no 		# Console for debug(+400)
   COMMAND_ENABLE = no 		# Commands for debug and configuration

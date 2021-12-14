@@ -27,6 +27,7 @@
 #include "keyboard.h"
 #include "action.h"
 #include "action_util.h"
+#include "usb_device_state.h"
 #include "mousekey.h"
 #include "led.h"
 #include "sendchar.h"
@@ -41,12 +42,6 @@
 
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
-#endif
-#ifdef SERIAL_LINK_ENABLE
-#    include "serial_link/system/serial_link.h"
-#endif
-#ifdef VISUALIZER_ENABLE
-#    include "visualizer/visualizer.h"
 #endif
 #ifdef MIDI_ENABLE
 #    include "qmk_midi.h"
@@ -139,13 +134,15 @@ void boardInit(void) {
 }
 
 void protocol_setup(void) {
+    usb_device_state_init();
+
     // TESTING
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
-
-    keyboard_setup();
 }
 
-void protocol_init(void) {
+static host_driver_t *driver = NULL;
+
+void protocol_pre_init(void) {
     /* Init USB */
     usb_event_queue_init();
     init_usb_driver(&USB_DRIVER);
@@ -154,19 +151,9 @@ void protocol_init(void) {
     setup_midi();
 #endif
 
-#ifdef SERIAL_LINK_ENABLE
-    init_serial_link();
-#endif
-
-#ifdef VISUALIZER_ENABLE
-    visualizer_init();
-#endif
-
-    host_driver_t *driver = NULL;
-
-    /* Wait until the USB or serial link is active */
+    /* Wait until USB is active */
     while (true) {
-#if defined(WAIT_FOR_USB) || defined(SERIAL_LINK_ENABLE)
+#if defined(WAIT_FOR_USB)
         if (USB_DRIVER.state == USB_ACTIVE) {
             driver = &chibios_driver;
             break;
@@ -174,13 +161,6 @@ void protocol_init(void) {
 #else
         driver = &chibios_driver;
         break;
-#endif
-#ifdef SERIAL_LINK_ENABLE
-        if (is_serial_link_connected()) {
-            driver = get_serial_link_driver();
-            break;
-        }
-        serial_link_update();
 #endif
         wait_ms(50);
     }
@@ -193,32 +173,18 @@ void protocol_init(void) {
     wait_ms(50);
 
     print("USB configured.\n");
-
-    /* init TMK modules */
-    keyboard_init();
-    host_set_driver(driver);
-
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_init();
-#endif
-
-    print("Keyboard start.\n");
 }
 
-void protocol_task(void) {
+void protocol_post_init(void) { host_set_driver(driver); }
+
+void protocol_pre_task(void) {
     usb_event_queue_task();
 
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DRIVER.state == USB_SUSPENDED) {
         print("[s]");
-#    ifdef VISUALIZER_ENABLE
-        visualizer_suspend();
-#    endif
         while (USB_DRIVER.state == USB_SUSPENDED) {
             /* Do this in the suspended state */
-#    ifdef SERIAL_LINK_ENABLE
-            serial_link_update();
-#    endif
             suspend_power_down();  // on AVR this deep sleeps for 15ms
             /* Remote wakeup */
             if (suspend_wakeup_condition()) {
@@ -232,14 +198,11 @@ void protocol_task(void) {
 #    ifdef MOUSEKEY_ENABLE
         mousekey_send();
 #    endif /* MOUSEKEY_ENABLE */
-
-#    ifdef VISUALIZER_ENABLE
-        visualizer_resume();
-#    endif
     }
 #endif
+}
 
-    keyboard_task();
+void protocol_post_task(void) {
 #ifdef CONSOLE_ENABLE
     console_task();
 #endif

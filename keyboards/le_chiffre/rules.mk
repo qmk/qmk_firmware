@@ -4,13 +4,14 @@ MCU = atmega32u4
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes           # USB Nkey Rollover
+NKRO_ENABLE = yes           # Enable N-Key Rollover
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-TAP_DANCE_ENABLE = no
 ENCODER_ENABLE = yes
 OLED_ENABLE = no
 RGB_MATRIX_ENABLE = yes
