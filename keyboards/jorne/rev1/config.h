@@ -9,7 +9,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    joric
 #define PRODUCT         Jorne Keyboard
-#define DESCRIPTION     Split 40 percent ergonomic keyboard
 
 /* key matrix size */
 /* Rows are doubled up */
