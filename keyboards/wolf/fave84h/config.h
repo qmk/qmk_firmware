@@ -54,7 +54,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 //Led configuration
 #define RGBLIGHT_ANIMATIONS
-#define RGB_DI_PIN C7
+#define RGB_DI_PIN D2
 
 #define RGBLED_NUM 127
 #define RGBLIGHT_LIMIT_VAL 50
