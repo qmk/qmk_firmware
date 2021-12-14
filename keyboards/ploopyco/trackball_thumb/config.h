@@ -54,7 +54,7 @@
 #define BOOTMAGIC_LITE_COLUMN 0
 
 #define ROTATIONAL_TRANSFORM_ANGLE 0
-#define POINTING_DEVICE_INVERT_X
+#define POINTING_DEVICE_INVERT_Y
 
 // If board has a debug LED, you can enable it by defining this
 // #define DEBUG_LED_PIN F7
