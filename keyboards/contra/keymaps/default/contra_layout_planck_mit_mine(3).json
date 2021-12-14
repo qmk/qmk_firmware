@@ -180,7 +180,7 @@
       "RALT(KC_7)",
       "KC_LSFT",
       "KC_F7",
-      "KC_F8",
+      "RALT(KC_EQL)",
       "KC_NUBS",
       "LSFT(KC_NUBS)",
       "RALT(KC_LBRC)",
