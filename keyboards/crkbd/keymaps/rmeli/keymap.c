@@ -24,18 +24,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // + UNICODE |
 // + ------- +
 
+// Needs to be active on the OS side as well
+// https://docs.qmk.fm/#/feature_unicode?id=input-modes
+
 enum unicode_names {
+    aGRV,
+    AGRV,
     eGRV,
     EGRV,
     eACT,
     EACT,
+    iGRV,
+    IGRV,
+    oGRV,
+    OGRV,
+    uGRV,
+    UGRV,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
+    // KC_A
+    [aGRV]  = 0x00E0, // à
+    [AGRV]  = 0x00C0, // À
+    // KC_E
     [eGRV]  = 0x00E8, // è
     [EGRV]  = 0x00C8, // È
     [eACT]  = 0x00E9, // é
     [EACT]  = 0x00C9, // É
+    // KC_I
+    [iGRV]  = 0x00EC, // ì
+    [IGRV]  = 0x00CC, // Ì
+    // KC_O
+    [oGRV]  = 0x00F2, // ò
+    [OGRV]  = 0x00D2, // Ò
+    // KC_U
+    [uGRV]  = 0x00F9, // ù
+    [UGRV]  = 0x00D9, // Ù
 };
 
 
@@ -175,6 +199,14 @@ void rgb_matrix_indicators_user(void) {
 #define TD_RSPC TD(TD_RSPC_CAPS)
 #define TD_ED TD(TD_ESC_DEL)
 
+// Accents
+#define A_GRV XP(aGRV, AGRV)
+#define E_GRV XP(eGRV, EGRV)
+#define I_GRV XP(iGRV, IGRV)
+#define O_GRV XP(oGRV, OGRV)
+#define U_GRV XP(uGRV, UGRV)
+#define E_ACT XP(eACT, EACT)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_split_3x6_3(
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
@@ -192,9 +224,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
       _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XP(eGRV, EGRV), XP(eACT, EACT), XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, KC_PGUP, XXXXXXX,
+      _______,   A_GRV,   E_GRV,   I_GRV,   O_GRV,   U_GRV,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, KC_PGUP, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, KC_PGDN, _______,
+      _______, XXXXXXX,   E_ACT, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, KC_PGDN, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, _______, _______,    _______,MO(_RGB), _______
                                       //|--------------------------|  |--------------------------|
