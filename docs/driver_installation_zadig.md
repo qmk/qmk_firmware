@@ -52,15 +52,15 @@ Find the `Inf name` value in the Details tab of the device properties. This shou
 
 ![Device properties showing the Inf name value](https://i.imgur.com/Bu4mk9m.png)
 
-Then, open a new Command Prompt window as an Administrator (type in `cmd` into the Start menu and press Ctrl+Shift+Enter). Run `pnputil /enum-drivers` to verify the `Inf name` matches the `Published Name` field of one of the entries:
+Then, open a new Command Prompt window as an Administrator (type in `cmd` into the Start menu and press Ctrl+Shift+Enter). Run `pnputil /enum-drivers`(`pnputil -e` for Windows 7 and later) to verify the `Inf name` matches the `Published Name` field of one of the entries:
 
 ![pnputil output with matching driver highlighted](https://i.imgur.com/3RrSjzW.png)
 
-Run `pnputil /delete-driver oemXX.inf /uninstall`. This will delete the driver and remove it from any devices using it. Note that this will not uninstall the device itself.
+Run `pnputil /delete-driver oemXX.inf /uninstall`(`pnputil -d oemXX.inf` for Windows 7 and later). This will delete the driver and remove it from any devices using it. Note that this will not uninstall the device itself.
 
 As with the previous section, this process may need to be repeated multiple times, as multiple drivers can be applicable to the same device.
 
-!> **WARNING:** Be *extremely careful* when doing this! You could potentially uninstall the driver for some other critical device. If you are unsure, double check the output of `/enum-drivers`, and omit the `/uninstall` flag when running `/delete-driver`.
+!> **WARNING:** Be *extremely careful* when doing this! You could potentially uninstall the driver for some other critical device. If you are unsure, double check the output of `/enum-drivers`, and omit the `/uninstall` flag when running `/delete-driver`(before Windows 7 only).
 
 ## List of Known Bootloaders
 
