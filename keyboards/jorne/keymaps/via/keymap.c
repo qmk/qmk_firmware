@@ -14,33 +14,6 @@ enum custom_keycodes {
     RGBRST = SAFE_RANGE
 };
 
-#undef SH_TG
-#define SH_TG KC_TRNS
-
-#define KC______ KC_TRNS
-#define KC_XXXXX KC_NO
-#define KC_LOWER LOWER
-#define KC_RAISE RAISE
-#define KC_RST   RESET
-#define KC_LRST  RGBRST
-#define KC_LTOG  RGB_TOG
-#define KC_LHUI  RGB_HUI
-#define KC_LHUD  RGB_HUD
-#define KC_LSAI  RGB_SAI
-#define KC_LSAD  RGB_SAD
-#define KC_LVAI  RGB_VAI
-#define KC_LVAD  RGB_VAD
-#define KC_LMOD  RGB_MOD
-#define KC_CTLTB CTL_T(KC_TAB)
-#define KC_GUIEI GUI_T(KC_LANG2)
-#define KC_ALTKN ALT_T(KC_LANG1)
-
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
-
-#define TG_ISO  TG(_ISO)
-#define TG_THMB TG(_THUMB_ALT)
-
 #define RBR_RGU MT(MOD_RGUI, KC_RBRC)
 #define F12_RGU MT(MOD_RGUI, KC_F12)
 #define PLS_LCT MT(MOD_LCTL, KC_PPLS)
@@ -52,11 +25,6 @@ enum custom_keycodes {
 #define MIN_RCT MT(MOD_RCTL, KC_MINS)
 #define EQL_LAL MT(MOD_LALT, KC_EQL)
 #define BSL_RAL MT(MOD_RALT, KC_BSLS)
-
-#define NBS_LCT MT(MOD_LCTL, KC_NUBS)
-#define BSH_LAL MT(MOD_LALT, KC_BSLS)
-#define APP_RAL MT(MOD_RALT, KC_APP)
-
 #define BSP_LSH MT(MOD_LSFT, KC_BSPC)
 #define SPC_RSH MT(MOD_RSFT, KC_SPC)
 #define DEL_RSE LT(_RAISE, KC_DEL)
@@ -64,13 +32,12 @@ enum custom_keycodes {
 #define ENT_LWR LT(_LOWER, KC_ENT)
 #define ESC_LWR LT(_LOWER, KC_ESC)
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT(
   KC_LGUI, KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, RGUI_T(KC_RBRC),
            KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, RCTL_T(KC_QUOT),
-           KC_LALT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM,    KC_DOT,     KC_SLSH, BSL_RAL,
+           KC_LALT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, BSL_RAL,
                                       TAB_RSE, SPC_RSH, ENT_LWR,      ESC_LWR, BSP_LSH, DEL_RSE
 ),
 
@@ -89,9 +56,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT(
-  RESET,   RGBRST,  KC_ASUP, KC_ASTG, KC_ASDN, _______, _______,      _______, _______,  KC_ASDN, KC_ASTG, KC_ASUP, RGBRST,   RESET,
-           RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,      _______, _______,  RGB_VAI, RGB_SAI, RGB_HUI, RGB_TOG,
-           RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,      _______, _______,  RGB_VAD, RGB_SAD, RGB_HUD, RGB_MOD,
+  RESET,   RGBRST,  KC_ASUP, KC_ASTG, KC_ASDN, _______, _______,      _______, _______, KC_ASDN, KC_ASTG, KC_ASUP, RGBRST,  RESET,
+           RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,      _______, _______, RGB_VAI, RGB_SAI, RGB_HUI, RGB_TOG,
+           RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,      _______, _______, RGB_VAD, RGB_SAD, RGB_HUD, RGB_MOD,
                                       _______, SH_TG,   _______,      _______, SH_TG,   _______
 ),
 
