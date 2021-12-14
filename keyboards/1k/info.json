@@ -1,0 +1,12 @@
+{
+  "keyboard_name": "1k",
+  "url": "",
+  "maintainer": "MakotoKurauchi",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"x":0, "y":0}
+      ]
+    }
+  }
+}
