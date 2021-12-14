@@ -13,7 +13,7 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 LTO_ENABLE = yes
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
-MAGIC_ENABlE  = no
+MAGIC_ENABLE  = no
 
 # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/rgb_state_reader.c \
