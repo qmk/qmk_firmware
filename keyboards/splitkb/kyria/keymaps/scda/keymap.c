@@ -1,35 +1,42 @@
 #include QMK_KEYBOARD_H
 #include "mykeys.h"
 
-enum layers { _LETTERS = 0, _SYMBOLS, _NUMBERS, _NAV, _MEDIA_CODE, _KBD_CTRL };
+enum layers {
+    _LETTERS = 0,
+    _SYMBOLS,
+    _NUMBERS,
+    _NAV,
+    _MEDIA_CODE,
+    _KBD_CTRL
+};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LETTERS] = LAYOUT(
-        TO(_NAV), KC_X,        KC_DOT,      KC_O,        KC_COMM,      KC_Y,                                                              KC_V,   KC_G,         KC_C,            KC_L,        KC_J,        TO(_MEDIA_CODE),
-        KC_ESC,   CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E), SFT_T(KC_I),  KC_U,                                                              KC_D,   SFT_T(KC_T),  GUI_T(KC_R),     ALT_T(KC_N), CTL_T(KC_S), KC_F,
-        G(KC_Z),  KC_K,        KC_Q,        DE_AE,       DE_UE,        DE_OE,  KC_NO,                 KC_NO,            KC_NO,   KC_NO,   KC_B,   KC_P,         KC_W,            KC_M,        KC_Z,        DE_SS,
-                                            TO(_NAV),    TO(_SYMBOLS), KC_TAB, MT(MOD_MEH, KC_SPACE), KC_ENT,           KC_BSPC, KC_LSFT, KC_DEL, TO(_NUMBERS), TO(_MEDIA_CODE)),
+        KC_NO,   KC_X,        KC_DOT,      KC_O,        KC_COMM,     KC_Y,                                                              KC_V,   KC_G,         KC_C,            KC_L,        KC_J,        KC_NO,
+        KC_ESC,  CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E), SFT_T(KC_I), KC_U,                                                              KC_D,   SFT_T(KC_T),  GUI_T(KC_R),     ALT_T(KC_N), CTL_T(KC_S), KC_F,
+        G(KC_Z), KC_K,        KC_Q,        DE_AE,       DE_UE,       DE_OE,  KC_NO,                 KC_NO,            KC_NO,   KC_NO,   KC_B,   KC_P,         KC_W,            KC_M,        KC_Z,        DE_SS,
+                                            NUM,        SYM,         KC_TAB, MT(MOD_MEH, KC_SPACE), KC_ENT,           KC_LSFT, KC_BSPC, KC_DEL, NUM, SYM),
     [_SYMBOLS] = LAYOUT(
         KC_TRNS,      KC_NO,   KC_AT,   KC_LT,   KC_GT,    KC_CIRC,                                                   KC_PERC, KC_LCBR, KC_RCBR, KC_PLUS, KC_DQT,  KC_TRNS,
         TO(_LETTERS), KC_DLR,  KC_EQL,  KC_QUES, KC_EXLM,  KC_HASH,                                                   KC_ASTR, KC_LPRN, KC_RPRN, KC_MINS, KC_QUOT, KC_NO,
         KC_TRNS,      DE_EURO, KC_AMPR, KC_TILD, KC_SLASH, KC_PIPE, KC_NO,   KC_NO,                 KC_NO,   KC_NO,   KC_NO,   KC_LBRC, KC_RBRC, KC_UNDS, KC_GRV,  KC_NO,
-                                        KC_NO,   TO(_NAV), KC_TRNS, KC_TRNS, KC_TRNS,               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+                                        KC_TRNS, NAV,      KC_LOPT, KC_LCMD, KC_LSFT,               KC_LSFT, KC_LCMD, KC_LOPT, KC_TRNS, NAV),
     [_NUMBERS] = LAYOUT(
-        KC_TRNS,      KC_NO, KC_F7, KC_F8, KC_F9,   KC_F12,                                                           KC_NO,   KC_7,            KC_8,     KC_9, KC_NO, KC_TRNS,
-        TO(_LETTERS), KC_NO, KC_F4, KC_F5, KC_F6,   KC_F11,                                                           KC_0,    KC_4,            KC_5,     KC_6, KC_NO, KC_NO,
-        KC_TRNS,      KC_NO, KC_F1, KC_F2, KC_F3,   KC_F10,  KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_1,            KC_2,     KC_3, KC_NO, KC_NO,
-                                KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS, KC_TRNS, KC_TRNS, TO(_MEDIA_CODE), KC_TRNS),
+        KC_TRNS,      KC_NO, KC_F7, KC_F8, KC_F9,   KC_F12,                                                           KC_NO,   KC_7,      KC_8,     KC_9, KC_NO, KC_TRNS,
+        TO(_LETTERS), KC_NO, KC_F4, KC_F5, KC_F6,   KC_F11,                                                           KC_0,    KC_4,      KC_5,     KC_6, KC_PLUS, KC_ASTR,
+        KC_TRNS,      KC_NO, KC_F1, KC_F2, KC_F3,   KC_F10,  KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_COMM, KC_1,      KC_2,     KC_3, KC_MINS, KC_SLASH,
+                                    MCO,   KC_TRNS, KC_LOPT, KC_LCMD, KC_LSFT,                      KC_LSFT, KC_LCMD, KC_LOPT, MCO, KC_TRNS),
     [_NAV] = LAYOUT(
         KC_TRNS,      KC_ACL2, KC_WH_R, KC_NO,      KC_WH_L, G(KC_PLUS),                                              C(KC_LEFT), G(A(KC_LEFT)), G(A(KC_UP)), G(A(KC_RIGHT)), C(KC_RIGHT), KC_TRNS,
         TO(_LETTERS), KC_ACL1, KC_MS_L, KC_MS_UP,   KC_MS_R, G(KC_0),                                                 KC_HOME,    KC_LEFT,       KC_UP,    KC_RIGHT,       KC_END,      KC_PGUP,
-        KC_TRNS,      KC_ACL0, KC_WH_D, KC_MS_DOWN, KC_WH_U, G(KC_MINS), KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO,      C(S(KC_TAB)),  KC_DOWN,  C(KC_TAB),      KC_NO,       KC_PGDN,
-                                        KC_TRNS,    KC_TRNS, KC_BTN3,    KC_BTN1, KC_BTN2,          KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,       KC_TRNS),
+        KC_TRNS,      KC_ACL0, KC_WH_D, KC_MS_DOWN, KC_WH_U, G(KC_MINS), KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_ENT,     C(S(KC_TAB)),  KC_DOWN,  C(KC_TAB),      KC_NO,       KC_PGDN,
+                                        KC_TRNS,    KC_TRNS, KC_BTN3,    KC_BTN1, KC_BTN2,          KC_LSFT, KC_LCMD, KC_LOPT,    KC_TRNS,       KC_TRNS),
     [_MEDIA_CODE] = LAYOUT(
-        KC_TRNS,      KC_NO, KC_BRIU, KC_VOLU, KC_MNXT, KC_NO,                                                        KC_NO,   G(KC_X),    G(KC_C),    G(KC_V), KC_NO, KC_TRNS,
-        TO(_LETTERS), KC_NO, KC_NO,   KC_MUTE, KC_MPLY, G(C(KC_SPACE)),                                               KC_NO,   G(S(KC_D)), G(KC_UP),   G(KC_Y), KC_NO, KC_NO,
-        KC_TRNS,      KC_NO, KC_BRID, KC_VOLD, KC_MPRV, KC_NO,          KC_NO,   KC_NO,             KC_NO,   KC_NO,   KC_NO,   G(KC_F),    G(KC_DOWN), G(KC_R), KC_NO, KC_NO,
-                                    KC_TRNS,   KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS),
+        KC_TRNS,      KC_NO, KC_BRIU, KC_VOLU, KC_MNXT, KC_NO,                                                 KC_NO,   G(KC_X),    G(KC_C),    G(KC_V), KC_NO, KC_TRNS,
+        TO(_LETTERS), KC_NO, KC_NO,   KC_MUTE, KC_MPLY, G(C(KC_SPACE)),                                        KC_NO,   G(S(KC_D)), G(KC_UP),   G(KC_Y), KC_NO, KC_NO,
+        KC_TRNS,      KC_NO, KC_BRID, KC_VOLD, KC_MPRV, KC_NO,   KC_NO,   KC_NO,             KC_NO,   KC_NO,   KC_NO,   G(KC_F),    G(KC_DOWN), G(KC_R), KC_NO, KC_NO,
+                                    KC_TRNS,   KC_TRNS, KC_LOPT, KC_LCMD, KC_LSFT,           KC_LSFT, KC_LCMD, KC_LOPT, KC_TRNS,    KC_TRNS),
     [_KBD_CTRL] = LAYOUT(
         KC_TRNS,      KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,                                                        KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_TRNS,
         TO(_LETTERS), KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,                                                        KC_NO, RGB_VAI, RGB_TOG, KC_NO, KC_NO, KC_NO,
@@ -43,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
 static void render_status(void) {
@@ -79,10 +86,11 @@ static void render_status(void) {
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
-void oled_task_user(void) {
-    if (is_keyboard_left()) {
+bool oled_task_user(void) {
+    if (is_keyboard_master()) {
         render_status();
     }
+    return false;
 }
 #endif
 

@@ -2,23 +2,19 @@
 
 /*** OLED ***/
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X64
 #endif
-
 /*** RGB LIGHTS ***/
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_HUE_STEP 8
-#    define RGBLIGHT_SAT_STEP 8
-#    define RGBLIGHT_VAL_STEP 8
+#    define RGBLIGHT_HUE_STEP  8
+#    define RGBLIGHT_SAT_STEP  8
+#    define RGBLIGHT_VAL_STEP  8
 #    define RGBLIGHT_LIMIT_VAL 100
 
 #    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
-#    define RGBLIGHT_DEFAULT_HUE 70                  // 0-255
-#    define RGBLIGHT_DEFAULT_SAT 255                 // 0-255
-#    define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL  // 0-255
-
+#    define RGBLIGHT_DEFAULT_VAL  RGBLIGHT_LIMIT_VAL
 #    define RGBLIGHT_SLEEP
 // #    define RGBLIGHT_ANIMATIONS    // animations are disabled
 #endif
@@ -26,8 +22,9 @@
 /*** CONTROLLERS ***/
 
 // see https://docs.qmk.fm/#/feature_split_keyboard?id=hardware-configuration-options
-#define SPLIT_USB_DETECT            // side with usb-connection becomes master
-#define NO_USB_STARTUP_CHECK        // allows the slave to wake up the pc
+#define SPLIT_USB_DETECT            // side with usb-connection becomes master (required for dual elite-c rev 3)
+// ❗️ NO_USB_STARTUP_CHECK currently breaks the build - no idea why
+// #define NO_USB_STARTUP_CHECK     // allows the slave to wake up the pc (required for dual elite-c rev 3)
 // #define RGBLIGHT_SPLIT           // share rgb light mode
 // #define SPLIT_MODS_ENABLE        // shares modifier state between both sides (adds communication!)
 // #define SPLIT_TRANSPORT_MIRROR   // shares master matrix with slave (adds communication!)
@@ -45,6 +42,7 @@ the minimum time you have to hold a key to activate the "hold" key
 /*
 do not activate the modifier when another key is being pressed and released while the tap_key is being held before tapping_term has been reached
 - prevent accidental mod usage
+- lets you roll mod-tap keys
 */
 #define IGNORE_MOD_TAP_INTERRUPT
 
@@ -54,7 +52,7 @@ allow for hold-mod after tapping the same key for the letter itself
 - applies to modifier and layer taps
 
 */
-#define TAPPING_FORCE_HOLD
+// #define TAPPING_FORCE_HOLD
 
 /*
 allow for mod-key activation, if any other key is pressed and released while the mod key is being hold
