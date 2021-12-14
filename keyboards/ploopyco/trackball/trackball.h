@@ -33,8 +33,6 @@
 #define OPT_ENC1_MUX 0
 #define OPT_ENC2_MUX 4
 
-void process_wheel(report_mouse_t* mouse_report);
-
 #define LAYOUT(BL, BM, BR, BF, BB) \
     { {BL, BM, BR, BF, BB}, }
 
@@ -61,3 +59,6 @@ enum ploopy_keycodes {
     PLOOPY_SAFE_RANGE,
 #endif
 };
+
+bool encoder_update_user(uint8_t index, bool clockwise);
+bool encoder_update_kb(uint8_t index, bool clockwise);
