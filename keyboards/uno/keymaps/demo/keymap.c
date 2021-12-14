@@ -60,13 +60,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         SEND_STRING("Hello!");
                     break;
                     case 2:
-                        SEND_STRING(SS_TAP(X_ENTER)SS_TAP(X_ENTER)"I am uno!");
+                        SEND_STRING("\n\nI am uno!");
                     break;
                     case 3:
-                        SEND_STRING(SS_TAP(X_ENTER)SS_TAP(X_ENTER)"I can do all sorts of useless things!");
+                        SEND_STRING("\n\nI can do all sorts of useless things!");
                     break;
                     case 4:
-                        SEND_STRING(SS_TAP(X_ENTER)SS_TAP(X_ENTER)"And I have a built-in RGB LED!"SS_TAP(X_ENTER)SS_TAP(X_ENTER)SS_TAP(X_ENTER));
+                        SEND_STRING("\n\nAnd I have a built-in RGB LED!\n\n\n");
                         rgblight_sethsv_noeeprom(255, 255, 255);
                         rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
                     break;
