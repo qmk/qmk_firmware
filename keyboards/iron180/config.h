@@ -49,4 +49,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 // Turn backlight on-off according to capslock (off by default)
-//#define CAPSLOCK_BACKLIGHT
+#define CAPSLOCK_BACKLIGHT
