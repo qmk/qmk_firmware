@@ -1,6 +1,7 @@
 /*
 Copyright 2019 @foostan
 Copyright 2020 Drashna Jaelre <@drashna>
+Copyright 2021 Elliot Powell  <@e11i0t23>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,14 +16,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #pragma once
 
-#ifdef KEYBOARD_crkbd_rev1
-#    include "rev1.h"
-#endif
-#ifdef KEYBOARD_crkbd_r2g
-#    include "r2g.h"
-#endif
+/* Select hand configuration */
 
-
-#include "quantum.h"
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+// #define EE_HANDS
