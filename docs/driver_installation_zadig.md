@@ -56,7 +56,7 @@ Then, open a new Command Prompt window as an Administrator (type in `cmd` into t
 
 ![pnputil output with matching driver highlighted](https://i.imgur.com/3RrSjzW.png)
 
-Run `pnputil /delete-driver oemXX.inf /uninstall`(`pnputil -d oemXX.inf` for Windows 7 and later). This will delete the driver and remove it from any devices using it. Note that this will not uninstall the device itself.
+Run `pnputil /delete-driver oemXX.inf /uninstall`. This will delete the driver and remove it from any devices using it. Note that this will not uninstall the device itself.
 
 As with the previous section, this process may need to be repeated multiple times, as multiple drivers can be applicable to the same device.
 
