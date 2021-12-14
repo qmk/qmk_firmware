@@ -2,6 +2,8 @@
 // Copyright 2020 Richard Sutherland (rich@brickbots.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#pragma once
+
 // burst
 #define MAX_WPM_INIT 40
 #define BURST_FENETRE 500
