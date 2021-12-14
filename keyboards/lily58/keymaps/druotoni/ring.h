@@ -1,6 +1,8 @@
 // Copyright 2021 Nicolas Druoton (druotoni)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#pragma once
+
 #define SIZE_ARRAY_1 16
 #define CURSOR_1 9
 
