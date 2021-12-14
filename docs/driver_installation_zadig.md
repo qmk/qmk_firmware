@@ -52,7 +52,7 @@ Find the `Inf name` value in the Details tab of the device properties. This shou
 
 ![Device properties showing the Inf name value](https://i.imgur.com/Bu4mk9m.png)
 
-Then, open a new Command Prompt window as an Administrator (type in `cmd` into the Start menu and press Ctrl+Shift+Enter). Run `pnputil /enum-drivers`(`pnputil -e` for Windows 7 and later) to verify the `Inf name` matches the `Published Name` field of one of the entries:
+Then, open a new Command Prompt window as an Administrator (type in `cmd` into the Start menu and press Ctrl+Shift+Enter). Run `pnputil /enum-drivers` to verify the `Inf name` matches the `Published Name` field of one of the entries:
 
 ![pnputil output with matching driver highlighted](https://i.imgur.com/3RrSjzW.png)
 
