@@ -6,6 +6,8 @@ void on_get_version(void);
 
 void on_get_config(void);
 
+void on_reset(void);
+
 uint8_t get_layer_count(void);
 
 uint8_t get_layer_type(uint8_t index);

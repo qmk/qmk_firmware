@@ -9,6 +9,9 @@ struct command_get_config {
 struct command_connect {
     // no data
 };
+struct command_reset {
+    // no data
+};
 struct command_update_light {
     uint8_t key_x;
     uint8_t key_y;

@@ -61,6 +61,10 @@ void on_get_config() {
     _send_event_raw(event_type_get_config_response, data_length, &_get_config_data_writer, 0);
 }
 
+void on_reset() {
+    reset_keyboard();
+}
+
 uint32_t command_index = 0;
 // Assume little endian
 uint8_t command_type = 0;
@@ -125,7 +129,9 @@ void _parse_data(uint8_t index, uint8_t c) {
     } else if (command_type == command_type_get_config) {
         // No-op
     } else if (command_type == command_type_connect) {
-
+        // No-op
+    } else if (command_type == command_type_reset) {
+        // No-op
     } else if (command_type == command_type_update_light) {
         uint8_t* update_light = (uint8_t*) &command.update_light;
         update_light[index] = c;
@@ -169,6 +175,8 @@ void _dispatch_command(void) {
         on_get_config();
     } else if (command_type == command_type_connect) {
         on_connected();
+    } else if (command_type == command_type_reset) {
+        on_reset();
     } else if (command_type == command_type_update_light) {
         // TODO: Look up light type from key_x and key_y
         uint8_t light_type = get_key_light_type(command.update_light.key_x, command.update_light.key_y);
