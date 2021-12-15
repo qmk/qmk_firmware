@@ -17,12 +17,12 @@ def automagic_keyboard(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         # Ensure that `--keyboard` was not passed and CWD is under `qmk_firmware/keyboards`
-        if cli.config_source[cli._entrypoint.__name__]['keyboard'] != 'argument':
+        if cli.config_source[cli._subcommand.__name__]['keyboard'] != 'argument':
             keyboard = find_keyboard_from_dir()
 
             if keyboard:
-                cli.config[cli._entrypoint.__name__]['keyboard'] = keyboard
-                cli.config_source[cli._entrypoint.__name__]['keyboard'] = 'keyboard_directory'
+                cli.config[cli._subcommand.__name__]['keyboard'] = keyboard
+                cli.config_source[cli._subcommand.__name__]['keyboard'] = 'keyboard_directory'
 
         return func(*args, **kwargs)
 
@@ -37,12 +37,12 @@ def automagic_keymap(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         # Ensure that `--keymap` was not passed and that we're under `qmk_firmware`
-        if cli.config_source[cli._entrypoint.__name__]['keymap'] != 'argument':
+        if cli.config_source[cli._subcommand.__name__]['keymap'] != 'argument':
             keymap_name, keymap_type = find_keymap_from_dir()
 
             if keymap_name:
-                cli.config[cli._entrypoint.__name__]['keymap'] = keymap_name
-                cli.config_source[cli._entrypoint.__name__]['keymap'] = keymap_type
+                cli.config[cli._subcommand.__name__]['keymap'] = keymap_name
+                cli.config_source[cli._subcommand.__name__]['keymap'] = keymap_type
 
         return func(*args, **kwargs)
 

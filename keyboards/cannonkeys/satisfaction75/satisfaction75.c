@@ -5,22 +5,15 @@
 #include <ch.h>
 #include <hal.h>
 
-#ifdef QWIIC_MICRO_OLED_ENABLE
-#include "micro_oled.h"
-#include "qwiic.h"
-#endif
-
 #include "timer.h"
 
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 
 /* Artificial delay added to get media keys to work in the encoder*/
 #define MEDIA_KEY_DELAY 10
-
-uint16_t last_flush;
 
 volatile uint8_t led_numlock = false;
 volatile uint8_t led_capslock = false;
@@ -28,10 +21,11 @@ volatile uint8_t led_scrolllock = false;
 
 uint8_t layer;
 
-bool queue_for_send = false;
 bool clock_set_mode = false;
 uint8_t oled_mode = OLED_DEFAULT;
-bool oled_sleeping = false;
+bool oled_repaint_requested = false;
+bool oled_wakeup_requested = false;
+uint32_t oled_sleep_timer;
 
 uint8_t encoder_value = 32;
 uint8_t encoder_mode = ENC_MODE_VOLUME;
@@ -167,7 +161,7 @@ void raw_hid_receive_kb( uint8_t *data, uint8_t length )
         case id_oled_mode:
         {
           oled_mode = command_data[1];
-          draw_ui();
+          oled_request_wakeup();
           break;
         }
         case id_encoder_modes:
@@ -244,21 +238,20 @@ void read_host_led_state(void) {
     }
 }
 
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
   state = layer_state_set_user(state);
   layer = biton32(state);
-  queue_for_send = true;
+  oled_request_wakeup();
   return state;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  queue_for_send = true;
+  oled_request_wakeup();
   switch (keycode) {
     case OLED_TOGG:
       if(!clock_set_mode){
         if (record->event.pressed) {
           oled_mode = (oled_mode + 1) % _NUM_OLED_MODES;
-          draw_ui();
         }
       }
       return false;
@@ -300,9 +293,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-void encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
+    oled_request_wakeup();
   encoder_value = (encoder_value + (clockwise ? 1 : -1)) % 64;
-  queue_for_send = true;
   if (index == 0) {
     if (layer == 0){
       uint16_t mapped_code = 0;
@@ -325,6 +319,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
       }
     }
   }
+  return true;
 }
 
 void custom_config_reset(void){
@@ -374,9 +369,9 @@ void matrix_init_kb(void)
 #endif // VIA_ENABLE
 
   rtcGetTime(&RTCD1, &last_timespec);
-  queue_for_send = true;
   backlight_init_ports();
   matrix_init_user();
+  oled_request_wakeup();
 }
 
 
@@ -386,22 +381,8 @@ void housekeeping_task_kb(void) {
 
   if (minutes_since_midnight != last_minute){
     last_minute = minutes_since_midnight;
-    if(!oled_sleeping){
-      queue_for_send = true;
-    }
+    oled_request_repaint();
   }
-#ifdef QWIIC_MICRO_OLED_ENABLE
-  if (queue_for_send && oled_mode != OLED_OFF) {
-    oled_sleeping = false;
-    read_host_led_state();
-    draw_ui();
-    queue_for_send = false;
-  }
-  if (timer_elapsed(last_flush) > ScreenOffInterval && !oled_sleeping) {
-    send_command(DISPLAYOFF);      /* 0xAE */
-    oled_sleeping = true;
-  }
-#endif
 }
 
 //

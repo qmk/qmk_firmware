@@ -2,8 +2,6 @@
     "keyboard_name": "68-key ISO layout",
     "url": "",
     "maintainer": "qmk",
-    "width": 17.25,
-    "height": 5,
     "layouts": {
         "LAYOUT_68_iso": {
             "layout": [

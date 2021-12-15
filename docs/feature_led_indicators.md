@@ -1,5 +1,7 @@
 # LED Indicators
 
+?> This feature requires additional configuration to work on both halves of a split keyboard see [Data sync options](feature_split_keyboard.md#data-sync-options)
+
 QMK provides methods to read 5 of the LEDs defined in the HID spec:
 
 * Num Lock

@@ -2,8 +2,6 @@
     "keyboard_name": "Hi-Tek AIM-65",
     "url": "https://github.com/Bonnee/aim-65_keyboard",
     "maintainer": "bonnee",
-    "width": 15.25,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -65,4 +63,3 @@
         }
     }
 }
-

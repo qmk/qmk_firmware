@@ -104,19 +104,13 @@ You can also try the `qmk-git` package from AUR:
 
 ###  ** FreeBSD **
 
-#### Prerequisites
-
-You will need to install Git and Python. It's possible that you already have both, but if not, run the following commands to install them:
-
-    pkg install git python3
-
-Make sure that `$HOME/.local/bin` is added to your `$PATH` so that locally installed Python packages are available.
-
 #### Installation
 
-Install the QMK CLI by running:
+Install the FreeBSD package for QMK CLI by running:
 
-    python3 -m pip install --user qmk
+    pkg install -g "py*-qmk"
+
+NOTE: remember to follow the instructions printed at the end of installation (use `pkg info -Dg "py*-qmk"` to show them again).
 
 <!-- tabs:end -->
 
@@ -162,12 +156,6 @@ After installing QMK you can set it up with this command:
 
 In most situations you will want to answer `y` to all of the prompts.
 
-?>**Note on FreeBSD**:
-It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify packages that need to be installed to your
-base system using `pkg`. However the installation will probably fail when run as an unprivileged user.
-To manually install the base dependencies, run `./util/qmk_install.sh` either as `root`, or with `sudo`.
-Once that completes, re-run `qmk setup` to complete the setup and checks.
-
 <!-- tabs:end -->
 
 ?> The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [cli configuration](cli_configuration.md?id=single-key-example) and the variable `user.qmk_home`. For all available options run `qmk setup --help`.
@@ -206,7 +194,7 @@ You can also set your default keymap name. Most people use their GitHub username
 
     qmk config user.keymap=<github_username>
 
-After this you can leave those arguments off and compile your keyboard like this:
+The keyboard can now be compiled without arguments using the following command after creating your keymap in the next section:
 
     qmk compile
 

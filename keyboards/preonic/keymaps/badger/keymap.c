@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 // if not REV3, just compile the default keymaps
-#ifndef REV3_CONFIG_H
+#ifndef KEYBOARD_preonic_rev3
 #include "../default/keymap.c"
 #else
 

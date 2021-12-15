@@ -2,8 +2,6 @@
     "keyboard_name": "Wanderland",
     "url": "http://kiwikey.vn/wanderland",
     "maintainer": "KiwiKey",
-    "width": 18.25,
-    "height": 5,
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

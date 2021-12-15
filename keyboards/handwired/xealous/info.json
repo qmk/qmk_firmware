@@ -2,11 +2,8 @@
   "keyboard_name": "Xealous",
   "url": "",
   "maintainer": "alex-ong",
-  "width": 15,
-  "height": 5,
   "layouts": {
     "LAYOUT_ANSI_DEFAULT": {
-      "key_count": 64,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
         {"label":"1", "x":1, "y":0},

@@ -17,36 +17,36 @@ enum tap_codes {
     A_Y, I_I, O_C, U_U
 };
 
-#define FR_A_GRAVE  "00E0"
-#define FR_A_HAT    "00E2"
+#define FR_A_GRAVE  0x00E0 // à
+#define FR_A_HAT    0x00E2 // â
 
-#define FR_C_CIRCUM "00E7"
+#define FR_C_CIRCUM 0x00E7 // ç
 
-#define FR_E_AIGU   "00E9"
-#define FR_E_GRAVE  "00E8"
-#define FR_E_HAT    "00EA"
-#define FR_E_UMLAUT "00EB"
+#define FR_E_AIGU   0x00E9 // é
+#define FR_E_GRAVE  0x00E8 // è
+#define FR_E_HAT    0x00EA // ê
+#define FR_E_UMLAUT 0x00EB // ë
 
-#define FR_I_HAT    "00EE"
-#define FR_I_UMLAUT "00EF"
+#define FR_I_HAT    0x00EE // î
+#define FR_I_UMLAUT 0x00EF // ï
 
-#define FR_O_HAT    "00F4"
+#define FR_O_HAT    0x00F4 // ô
 
-#define FR_U_GRAVE  "00F9"
-#define FR_U_HAT    "00FB"
-#define FR_U_UMLAUT "00FC"
+#define FR_U_GRAVE  0x00F9 // ù
+#define FR_U_HAT    0x00FB // û
+#define FR_U_UMLAUT 0x00FC // ü
 
-#define FR_Y_UMLAUT "00FF"
+#define FR_Y_UMLAUT 0x00FF // ÿ
 
-#define FR_L_QUOTE  "00AB"
-#define FR_R_QUOTE  "00BB"
+#define FR_L_QUOTE  0x00AB // «
+#define FR_R_QUOTE  0x00BB // »
 
-void send_french_unicode_char(uint8_t count, char *once, char *twice)
+void send_french_unicode_char(uint8_t count, uint32_t once, uint32_t twice)
 {
     if (count <= 1)
-	send_unicode_hex_string(once);
+	register_unicode(once);
     else
-	send_unicode_hex_string(twice); 
+	register_unicode(twice);
 }
 
 void dance_a_q(qk_tap_dance_state_t *state, void *user_data)

@@ -3,6 +3,7 @@
 You can compile a keymap already in the repo or using a QMK Configurator export.
 A bootloader must be specified.
 """
+from subprocess import DEVNULL
 
 from argcomplete.completers import FilesCompleter
 from milc import cli
@@ -17,17 +18,21 @@ def print_bootloader_help():
     """Prints the available bootloaders listed in docs.qmk.fm.
     """
     cli.log.info('Here are the available bootloaders:')
+    cli.echo('\tavrdude')
+    cli.echo('\tbootloadhid')
     cli.echo('\tdfu')
+    cli.echo('\tdfu-util')
+    cli.echo('\tmdloader')
+    cli.echo('\tst-flash')
+    cli.echo('\tst-link-cli')
+    cli.log.info('Enhanced variants for split keyboards:')
+    cli.echo('\tavrdude-split-left')
+    cli.echo('\tavrdude-split-right')
     cli.echo('\tdfu-ee')
     cli.echo('\tdfu-split-left')
     cli.echo('\tdfu-split-right')
-    cli.echo('\tavrdude')
-    cli.echo('\tBootloadHID')
-    cli.echo('\tdfu-util')
     cli.echo('\tdfu-util-split-left')
     cli.echo('\tdfu-util-split-right')
-    cli.echo('\tst-link-cli')
-    cli.echo('\tst-flash')
     cli.echo('For more info, visit https://docs.qmk.fm/#/flashing')
 
 
@@ -37,7 +42,7 @@ def print_bootloader_help():
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
-@cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs to run.")
+@cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.subcommand('QMK Flash.')
@@ -55,7 +60,7 @@ def flash(cli):
     """
     if cli.args.clean and not cli.args.filename and not cli.args.dry_run:
         command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean')
-        cli.run(command, capture_output=False)
+        cli.run(command, capture_output=False, stdin=DEVNULL)
 
     # Build the environment vars
     envs = {}
@@ -98,7 +103,7 @@ def flash(cli):
         cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(command))
         if not cli.args.dry_run:
             cli.echo('\n')
-            compile = cli.run(command, capture_output=False, text=True)
+            compile = cli.run(command, capture_output=False, stdin=DEVNULL)
             return compile.returncode
 
     else:

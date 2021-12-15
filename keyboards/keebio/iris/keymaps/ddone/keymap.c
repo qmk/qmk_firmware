@@ -134,9 +134,9 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-	
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
 
 	switch (get_highest_layer(layer_state)) {
 	    case _LOWER:
@@ -153,4 +153,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 		    tap_code(KC_PGUP);
 		}
 	}
+    return true;
 }

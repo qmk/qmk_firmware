@@ -56,7 +56,7 @@ matrix_row_t matrix_get_row(uint8_t row);
 void matrix_print(void);
 /* delay between changing matrix pin state and reading values */
 void matrix_output_select_delay(void);
-void matrix_output_unselect_delay(void);
+void matrix_output_unselect_delay(uint8_t line, bool key_pressed);
 /* only for backwards compatibility. delay between changing matrix pin state and reading values */
 void matrix_io_delay(void);
 
@@ -73,6 +73,11 @@ void matrix_scan_kb(void);
 
 void matrix_init_user(void);
 void matrix_scan_user(void);
+
+#ifdef SPLIT_KEYBOARD
+void matrix_slave_scan_kb(void);
+void matrix_slave_scan_user(void);
+#endif
 
 #ifdef __cplusplus
 }
