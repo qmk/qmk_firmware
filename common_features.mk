@@ -356,7 +356,7 @@ endif
 ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
-    SRC += $(TMK_DIR)/protocol/serial_uart.c
+    QUANTUM_LIB_SRC += uart.c
 endif
 
 VARIABLE_TRACE ?= no
