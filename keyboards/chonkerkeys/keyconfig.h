@@ -25,3 +25,13 @@ const uint16_t windowsConfigs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LALT, KC_Y, KC_NO },
     { KC_LALT, KC_F4, KC_NO },
 };
+
+const uint16_t macosConfigs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
+    { KC_NO, KC_NO, KC_NO },
+    // zoom
+    { KC_LGUI, KC_LSHIFT, KC_A },
+    { KC_LGUI, KC_LSHIFT, KC_V },
+    { KC_LGUI, KC_LSHIFT, KC_S },
+    { KC_LALT, KC_Y, KC_NO },
+    { KC_LGUI, KC_W, KC_NO },
+};

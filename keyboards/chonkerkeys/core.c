@@ -67,6 +67,7 @@ void on_connected() {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool is_either_pressed = false;
     uint8_t x = record->event.key.col;
+    // QMK uses top left as origin, but the app uses KU origin (i.e. bottom left) for switching layer
     uint8_t y = MATRIX_ROWS - 1 - record->event.key.row;
     if (x == 0 && y <= 1) {
         if (record->event.pressed) {   
@@ -82,7 +83,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             key_down(get_current_layer(), x, y);
         } else {
             uint16_t keyConfigIndex = keycode - CH_CUSTOM;
-            uint16_t const* keyMacros = windowsConfigs[keyConfigIndex];
+            uint16_t currentLayer = get_current_layer();
+            uint16_t const* keyMacros = isWindows(currentLayer) ? windowsConfigs[keyConfigIndex] : macosConfigs[keyConfigIndex];
             for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
                 uint16_t code = keyMacros[i];
                 if (code == KC_NO) continue;
