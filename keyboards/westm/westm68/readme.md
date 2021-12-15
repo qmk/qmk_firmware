@@ -4,6 +4,10 @@
 
 A 65% PCB with arrow cluster
 
+## Bootloader
+* **Physical reset button**: Briefly press the button on the back of the PCB.
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard.
+
 * Keyboard Maintainer: [WestM](https://github.com/westm00)
 * Hardware Supported: WestM65
 
