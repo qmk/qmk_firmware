@@ -24,7 +24,7 @@ Firmware uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboar
     make ferris/sweep:default:avrdude-split-left
     make ferris/sweep:default:avrdude-split-right
 
-For Elite-C or Pro micro controllers with `DFU` bootloader, add the line `BOOTLOADER = atmel-dfu` into the user keymap `rules.mk` file and use the following make commands for setting handedness:
+For Elite-C or compatible controllers using `DFU` bootloader, add the line `BOOTLOADER = atmel-dfu` into the user keymap `rules.mk` file and use the following make commands:
 
     make ferris/sweep:default:dfu-split-left
     make ferris/sweep:default:dfu-split-right
