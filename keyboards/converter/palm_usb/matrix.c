@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "protocol/serial.h"
+#include "uart.h"
 #include "timer.h"
 
 
@@ -164,7 +164,7 @@ uint8_t rts_reset(void) {
 uint8_t get_serial_byte(void) {
     static uint8_t code;
     while(1) {
-        code = serial_recv();
+        code = uart_read();
         if (code) { 
             debug_hex(code); debug(" ");
             return code;
@@ -240,7 +240,7 @@ void matrix_init(void)
     debug_enable = true;
     //debug_matrix =true;
     
-    serial_init(); // arguments all #defined 
+    uart_init(9600); // arguments all #defined 
  
 #if (HANDSPRING == 0)
     pins_init(); // set all inputs and outputs. 
@@ -290,7 +290,7 @@ void matrix_init(void)
 uint8_t matrix_scan(void)
 {
     uint8_t code;
-    code = serial_recv();
+    code = uart_read();
     if (!code) {
 /*         
         disconnect_counter ++;

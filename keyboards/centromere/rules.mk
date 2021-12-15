@@ -21,6 +21,7 @@ BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 UNICODE_ENABLE = yes 		# Unicode
 
 # # project specific files
-SRC += matrix.c serial_uart.c
+SRC += matrix.c
+QUANTUM_LIB_SRC += uart.c
 
 LAYOUTS = split_3x5_3 split_3x6_3
