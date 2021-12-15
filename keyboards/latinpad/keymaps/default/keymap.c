@@ -48,8 +48,11 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) { render_logo(); }
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
+    render_logo();
+    return false;
+}
 #endif
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

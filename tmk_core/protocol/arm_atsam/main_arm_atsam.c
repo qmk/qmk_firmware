@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "samd51j18a.h"
-#include "tmk_core/common/keyboard.h"
+#include "keyboard.h"
 
 #include "report.h"
 #include "host.h"
@@ -39,6 +39,10 @@ void    send_keyboard(report_keyboard_t *report);
 void    send_mouse(report_mouse_t *report);
 void    send_system(uint16_t data);
 void    send_consumer(uint16_t data);
+
+#ifdef DEFERRED_EXEC_ENABLE
+void deferred_exec_task(void);
+#endif  // DEFERRED_EXEC_ENABLE
 
 host_driver_t arm_atsam_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
 
@@ -296,7 +300,7 @@ int main(void) {
 
     matrix_init();
 
-    USB2422_init();
+    USB_Hub_init();
 
     DBGC(DC_MAIN_UDC_START_BEGIN);
     udc_start();
@@ -306,7 +310,7 @@ int main(void) {
     CDC_init();
     DBGC(DC_MAIN_CDC_INIT_COMPLETE);
 
-    while (USB2422_Port_Detect_Init() == 0) {
+    while (USB_Hub_Port_Detect_Init() == 0) {
     }
 
     DBG_LED_OFF;
@@ -359,6 +363,11 @@ int main(void) {
             // dprintf("5v=%u 5vu=%u dlow=%u dhi=%u gca=%u gcd=%u\r\n", v_5v, v_5v_avg, v_5v_avg - V5_LOW, v_5v_avg - V5_HIGH, gcr_actual, gcr_desired);
         }
 #endif  // CONSOLE_ENABLE
+
+#ifdef DEFERRED_EXEC_ENABLE
+        // Run deferred executions
+        deferred_exec_task();
+#endif  // DEFERRED_EXEC_ENABLE
 
         // Run housekeeping
         housekeeping_task();

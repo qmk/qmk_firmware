@@ -73,7 +73,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       default:
           // Use process_record_keymap to reset timer on all other keypresses to awaken from idle.
           if (record->event.pressed) {
-              #ifdef OLED_DRIVER_ENABLE
+              #ifdef OLED_ENABLE
                   oled_timer = timer_read32();
               #endif
               // Restore LEDs if they are enabled by user
@@ -125,7 +125,7 @@ void matrix_scan_user(void) {
      }
 }
 // [OLED Configuration] ------------------------------------------------------//
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 // Init Oled and Rotate....
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master())
@@ -172,7 +172,7 @@ void render_slave_oled(void) {
 }
 
 // {OLED Task} -----------------------------------------------//
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // First time out switches to logo as first indication of iddle.
     if (timer_elapsed32(oled_timer) > 100000 && timer_elapsed32(oled_timer) < 479999) {
         // Render logo on both halves before full timeout
@@ -209,5 +209,6 @@ void oled_task_user(void) {
                 }
         }
     }
+    return false;
 }
 #endif

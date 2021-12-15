@@ -61,34 +61,34 @@ LAYOUT_ortho_5x6( \
 )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = BASE_LAYOUT( \
-      KC_1,    KC_2,    KC_3,    KC_4,    KC_5, \
-      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, \
-      KC_A,    KC_S,    KC_D,    KC_F,    KC_G, \
-      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B  \
+  [_QWERTY] = BASE_LAYOUT(
+      KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
   ),
 
-  [_MACROPAD] = BASE_LAYOUT( \
-      KC_F13,    KC_F14,    KC_F15,    KC_F16,    KC_F17, \
-      KC_F18,    KC_F19,    KC_F20,    KC_F21,    KC_F22, \
-      KC_A,    KC_S,    KC_D,    KC_F,    KC_G, \
-      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B  \
+  [_MACROPAD] = BASE_LAYOUT(
+      KC_F13,    KC_F14,    KC_F15,    KC_F16,    KC_F17,
+      KC_F18,    KC_F19,    KC_F20,    KC_F21,    KC_F22,
+      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
   ),
 
-  [_FN] = LAYOUT_ortho_5x6( \
-      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, \
-      _______, KC_PGDN, KC_UP,   KC_PGUP, _______, _______, \
-      _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
-      _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, RGB_MOD, _______, _______ \
+  [_FN] = LAYOUT_ortho_5x6(
+      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
+      _______, KC_PGDN, KC_UP,   KC_PGUP, _______, _______,
+      _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+      _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, RGB_MOD, _______, _______
       ),
 
-  [_ADJ] =  LAYOUT_ortho_5x6( \
-      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, \
-      _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______, \
-      _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______, \
-      _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, RGB_MOD, _______, _______ \
+  [_ADJ] =  LAYOUT_ortho_5x6(
+      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
+      _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______,
+      _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______,
+      _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, RGB_MOD, _______, _______
       )
 };
 

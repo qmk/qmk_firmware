@@ -2,8 +2,6 @@
     "keyboard_name": "Emu hotswap", 
     "url": "", 
     "maintainer": "kb-elmo<mail@elmo.space>", 
-    "width": 18.25, 
-    "height": 6.5, 
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

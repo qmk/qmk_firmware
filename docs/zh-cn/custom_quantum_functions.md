@@ -275,11 +275,11 @@ void keyboard_post_init_user(void) {
 
 ```c
 void suspend_power_down_user(void) {
-    rgb_matrix_set_suspend_state(true);
+    // code will run multiple times while keyboard is suspended
 }
 
 void suspend_wakeup_init_user(void) {
-    rgb_matrix_set_suspend_state(false);
+    // code will run on keyboard wakeup
 }
 ```
 
@@ -297,7 +297,7 @@ void suspend_wakeup_init_user(void) {
 本例使用了Planck键盘示范了如何设置 [RGB背光灯](feature_rgblight.md)使之与层对应
 
 ```c
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     switch (biton32(state)) {
     case _RAISE:
         rgblight_setrgb (0x00,  0x00, 0xFF);
@@ -321,7 +321,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 ### `layer_state_set_*` 函数文档
 
 * 键盘/修订: `uint32_t layer_state_set_kb(uint32_t state)`
-* 布局: `uint32_t layer_state_set_user(uint32_t state)`
+* 布局: `layer_state_t layer_state_set_user(layer_state_t state)`
 
 
 该`状态`是活动层的bitmask, 详见[布局概述](keymap.md#布局的层状态)
@@ -377,7 +377,7 @@ void keyboard_post_init_user(void) {
 以上函数会在读EEPROM配置后立即使用该设置来设置默认层RGB颜色。"raw"的值是从你上面基于"union"创建的结构体中转换来的。 
 
 ```c
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     switch (biton32(state)) {
     case _RAISE:
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1); }

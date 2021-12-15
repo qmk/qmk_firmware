@@ -134,7 +134,7 @@ Les PR de nouvelles fonctionnalités de de correction de bug affectent tous les 
 Voici quelques choses à garder en tête lorsque vous travaillez sur une fonctionnalité ou un bug fix.
 
 * **Désactivé par défaut** - la mémoire est plutôt limitée sur la plupart des puces que QMK supporte, et il est important que les keymaps courantes ne soient pas cassées. S'il vous plaît faites que vos features doivent être **activées** plutôt que désactivées. Si vous pensez qu'elle devrait être activée par défaut, ou que cela réduit la taille du code, parlez-nous-en.
-* **Compilez localement avant de soumettre** - Cela devrait aller sans dire, mais votre code doit compiler! Notre système Travis devrait relever les problèmes, mais il est généralement plus rapide de compiler quelques claviers en local plutôt que d'attendre le retour des résultats
+* **Compilez localement avant de soumettre** - Cela devrait aller sans dire, mais votre code doit compiler! Vous devriez toujours faire gaffe à ce que vos changements compilent avant d'ouvrir une pull request.
 * **Faites attention aux révisions et différentes bases de puces** - beaucoup de claviers ont des révisions qui permettent des changements de configuration mineurs, voir des bases de chip différentes. Essayez de faire que votre fonctionnalité soit supportée à la fois sur ARM et AVR, ou désactivez-là automatiquement sur les plateformes non supportées.
 * **Expliquez votre fonctionnalité** - Documentez-là dans `docs/`, soit dans un nouveau fichier, ou dans une partie d'un fichier existant. Si vous ne la documentez pas, personne ne pourra bénéficier de votre dur labeur.
 

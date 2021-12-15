@@ -19,7 +19,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/    
+*/
 
 #include QMK_KEYBOARD_H
 
@@ -116,13 +116,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;  // flips the display 270 degrees
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer"), false);
   switch (get_highest_layer(layer_state)) {
@@ -159,5 +159,7 @@ void oled_task_user(void) {
       (uint8_t)(rgblight_get_sat() / RGBLIGHT_SAT_STEP),
       (uint8_t)(rgblight_get_val() / RGBLIGHT_VAL_STEP));
   oled_write(led_buf, false);
+
+    return false;
 }
 #endif

@@ -19,7 +19,6 @@
 #include QMK_KEYBOARD_H
 
 #define MOD_MASK_RALT (MOD_BIT(KC_RALT))
-extern bool macroMode;
 
 enum userspace_keycodes {
     VRSN = SAFE_RANGE,
@@ -31,7 +30,6 @@ enum userspace_keycodes {
     M_CUT,
     M_COPY,
     M_PASTE,
-    M_MDSWP,
     KEYMAP_SAFE_RANGE
 };
 

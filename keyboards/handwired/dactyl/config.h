@@ -17,8 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DACTYL_CONFIG_H
-#define DACTYL_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -64,5 +63,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE    15
 
 #define USB_MAX_POWER_CONSUMPTION 500
-
-#endif
