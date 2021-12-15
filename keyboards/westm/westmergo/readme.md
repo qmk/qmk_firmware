@@ -1,6 +1,6 @@
 # WestM
 
-![westmergo](https://imgur.com/tD395AG)
+![westmergo](https://i.imgur.com/tD395AG.png)
 
 A 65 key PCB with arrow cluster
 
