@@ -16,11 +16,11 @@
 #include "ut47.h"
 #ifdef LED_ENABLE
   #include "uart.h"
-#endif
 
 void matrix_init_kb() {
   uart_init(9600);
 }
+#endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 	// put your per-action keyboard code here
