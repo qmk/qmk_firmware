@@ -1,0 +1,97 @@
+#include "../../../keyconfig.h"
+#include "../../../layer_type.h"
+
+const uint32_t firmware_version = 1;
+
+#define LAYER_COUNT 2
+
+const uint8_t layers[LAYER_COUNT] = {
+    CH_ZOOM_WINDOWS,
+    CH_ZOOM_MACOS
+};
+
+const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
+    {
+        {
+            0,
+            129,
+            0,
+            0
+        },
+        {
+            68,
+            1,
+            1,
+            1
+        },
+        {
+            68,
+            1,
+            1,
+            1
+        }
+    },
+    {
+        {
+            0,
+            129,
+            0,
+            0
+        },
+        {
+            68,
+            1,
+            1,
+            1
+        },
+        {
+            68,
+            1,
+            1,
+            1
+        }
+    }
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    {
+        {
+            KC_NO,
+            CH_ZOOM_LEAVE_MEETING,
+            KC_NO,
+            KC_NO
+        },
+        {
+            CH_ZOOM_VIDEO_TOGGLE,
+            CH_ZOOM_RAISE_HAND_TOGGLE,
+            CH_CUSTOM,
+            CH_CUSTOM
+        },
+        {
+            CH_ZOOM_MUTE_TOGGLE,
+            CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE,
+            CH_CUSTOM,
+            CH_CUSTOM
+        }
+    },
+    {
+        {
+            KC_NO,
+            CH_ZOOM_LEAVE_MEETING,
+            KC_NO,
+            KC_NO
+        },
+        {
+            CH_ZOOM_VIDEO_TOGGLE,
+            CH_ZOOM_RAISE_HAND_TOGGLE,
+            KC_NO,
+            KC_NO
+        },
+        {
+            CH_ZOOM_MUTE_TOGGLE,
+            CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE,
+            KC_NO,
+            KC_NO
+        }
+    }
+};
