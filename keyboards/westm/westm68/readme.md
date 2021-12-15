@@ -1,6 +1,6 @@
 # WestM
 
-![westm68](https://imgur.com/EygC3BV)
+![westm68](https://i.imgur.com/EygC3BV.png)
 
 A 65% PCB with arrow cluster
 
