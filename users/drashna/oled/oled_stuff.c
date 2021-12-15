@@ -348,7 +348,7 @@ void render_wpm(uint8_t padding) {
 #endif
 }
 
-#if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
+#if defined(KEYBOARD_handwired_tractyl_manuform) || defined(KEYBOARD_bastardkb_charybdis)
 extern kb_config_data_t kb_config;
 void                    render_pointing_dpi_status(uint8_t padding) {
     oled_write_P(PSTR("CPI:"), false);
@@ -381,7 +381,7 @@ __attribute__((weak)) void oled_driver_render_logo_left(void) {
     render_wpm(0);
 #    endif
     oled_write_P(PSTR("  "), false);
-#    if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
+#    if defined(KEYBOARD_handwired_tractyl_manuform) || defined(KEYBOARD_bastardkb_charybdis)
     render_pointing_dpi_status(1);
 #    endif
     oled_set_cursor(0, 4);

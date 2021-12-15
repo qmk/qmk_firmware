@@ -97,7 +97,7 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
             }
             break;
         case MO(_MOUSE):
-#if defined(KEYBOARD_ploopy)
+#if defined(KEYBOARD_ploopy) || defined(KEYBOARD_handwired_tractyl_manuform)
         case DPI_CONFIG:
 #elif defined(KEYBOARD_bastardkb_charybdis)
         case SAFE_RANGE ... (CHARYBDIS_SAFE_RANGE-1):
