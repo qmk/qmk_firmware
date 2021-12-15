@@ -13,7 +13,7 @@ DFU_SUFFIX_ARGS = -v FFFF -p FFFF
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
