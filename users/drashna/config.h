@@ -77,7 +77,11 @@
 #    endif
 #endif  // !AUDIO_ENABLE
 
+<<<<<<< HEAD
 #define UNICODE_SELECTED_MODES UC_WIN, UC_MAC
+=======
+#define UNICODE_SELECTED_MODES UC_WINC, UC_MAC
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_SLEEP
@@ -200,7 +204,11 @@
 #    ifdef OLED_FONT_H
 #        undef OLED_FONT_H
 #    endif
+<<<<<<< HEAD
 #    define OLED_FONT_H   "drashna_font.h"
+=======
+#    define OLED_FONT_H   "oled/drashna_font.h"
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
 #    define OLED_FONT_END 255
 // #    define OLED_FONT_5X5
 // #    define OLED_FONT_AZTECH

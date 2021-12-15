@@ -32,9 +32,14 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
         default_layer_set(1UL << (active ? 2 : 0));
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     dip_switch_update_user(index, active);
 }
 =======
     return true;
 }
 >>>>>>> 605de079583db1f1106ebfd239b948170d929a58
+=======
+    return true;
+}
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565

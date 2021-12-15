@@ -18,18 +18,19 @@
 #include QMK_KEYBOARD_H
 
 #include "eeprom.h"
-#include "wrappers.h"
-#include "process_records.h"
+#include "keyrecords/wrappers.h"
+#include "keyrecords/process_records.h"
 #ifdef TAP_DANCE_ENABLE
-#    include "tap_dances.h"
+#    include "keyrecords/tap_dances.h"
 #endif  // TAP_DANCE_ENABLE
 #if defined(RGBLIGHT_ENABLE)
-#    include "rgb_stuff.h"
+#    include "rgb/rgb_stuff.h"
 #endif
 #if defined(RGB_MATRIX_ENABLE)
-#    include "rgb_matrix_stuff.h"
+#    include "rgb/rgb_matrix_stuff.h"
 #endif
 #if defined(OLED_ENABLE)
+<<<<<<< HEAD
 #    include "oled_stuff.h"
 #endif
 #if defined(PIMORONI_TRACKBALL_ENABLE)
@@ -37,6 +38,15 @@
 #endif
 #ifdef SPLIT_KEYBOARD
 #    include "transport_sync.h"
+=======
+#    include "oled/oled_stuff.h"
+#endif
+#ifdef SPLIT_KEYBOARD
+#    include "split/transport_sync.h"
+#endif
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing/pointing.h"
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
 #endif
 
 /* Define layer names */
@@ -113,6 +123,7 @@ typedef union {
         bool    nuke_switch          :1;
         bool    swapped_numbers      :1;
         bool    rgb_matrix_idle_anim :1;
+        bool    autocorrection       :1;
     };
 } userspace_config_t;
 // clang-format on

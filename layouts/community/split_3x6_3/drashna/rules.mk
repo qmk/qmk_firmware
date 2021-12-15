@@ -32,6 +32,10 @@ ifeq ($(strip $(CTPC)), yes)
     SWAP_HANDS_ENABLE = yes
     WPM_ENABLE = yes
 else
+<<<<<<< HEAD
+=======
+    CUSTOM_UNICODE_ENABLE = no
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
     BOOTLOADER = qmk-hid
     BOOTLOADER_SIZE = 512
 endif

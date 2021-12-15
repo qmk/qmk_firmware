@@ -70,6 +70,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 __attribute__((weak)) void keyboard_pre_init_sync(void) {}
+<<<<<<< HEAD
+=======
+__attribute__((weak)) void keyboard_pre_init_sub(void) {}
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
 void                       keyboard_pre_init_kb(void) {
     // debug_enable  = true;
     // debug_matrix  = true;
@@ -82,6 +86,10 @@ void                       keyboard_pre_init_kb(void) {
     writePin(DEBUG_LED_PIN, !debug_enable);
 #endif
 
+<<<<<<< HEAD
+=======
+    keyboard_pre_init_sub();
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
     keyboard_pre_init_sync();
     keyboard_pre_init_user();
 }

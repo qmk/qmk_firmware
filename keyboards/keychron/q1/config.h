@@ -47,6 +47,7 @@
 #define FORCE_NKRO
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* Disable a single effect */
 #define DISABLE_RGB_MATRIX_ALPHAS_MODS
 #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
@@ -63,6 +64,8 @@
 #define DISABLE_RGB_MATRIX_HUE_PENDULUM
 #define DISABLE_RGB_MATRIX_HUE_WAVE
 =======
+=======
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -111,4 +114,7 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+<<<<<<< HEAD
 >>>>>>> 605de079583db1f1106ebfd239b948170d929a58
+=======
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565

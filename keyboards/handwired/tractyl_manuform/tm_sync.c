@@ -1,5 +1,10 @@
 /* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+<<<<<<< HEAD
  *
+=======
+ * Copyright 2021 Dasky (@daskygit)
+
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or

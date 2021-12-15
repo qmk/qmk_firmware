@@ -19,11 +19,23 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Setting Handedness
 
+<<<<<<< HEAD
 Firmware uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default and it must be *configured once* on each side. The make commands are:
+=======
+Firmware uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default and it must be *configured once* on each side. The make commands for Pro micros are:
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
 
     make ferris/sweep:default:avrdude-split-left
     make ferris/sweep:default:avrdude-split-right
 
+<<<<<<< HEAD
+=======
+For Elite-C or compatible controllers using `DFU` bootloader, add the line `BOOTLOADER = atmel-dfu` into the user keymap `rules.mk` file and use the following make commands:
+
+    make ferris/sweep:default:dfu-split-left
+    make ferris/sweep:default:dfu-split-right
+
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
 [QMK Toolbox](http://qmk.fm/toolbox) can also be used to set EEPROM handedness. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
 
 ## Bootloader
@@ -53,3 +65,7 @@ If you printed one of the PCB variant with swapped letters `Q` and `B` / `P` and
     { B5, B4, NO_PIN, NO_PIN, NO_PIN } \
 }
 ```
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565

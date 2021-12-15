@@ -16,7 +16,11 @@
 
 #include "f411.h"
 
+<<<<<<< HEAD
 void matrix_init_sub_kb(void) { setPinInputHigh(A0); }
+=======
+void keyboard_pre_init_sub(void) { setPinInputHigh(A0); }
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
 
 void matrix_scan_sub_kb(void) {
     if (!readPin(A0)) {
@@ -24,6 +28,36 @@ void matrix_scan_sub_kb(void) {
     }
 }
 
+<<<<<<< HEAD
+=======
+void bootmagic_lite(void) {
+    // We need multiple scans because debouncing can't be turned off.
+    matrix_scan();
+#if defined(DEBOUNCE) && DEBOUNCE > 0
+    wait_ms(DEBOUNCE * 2);
+#else
+    wait_ms(30);
+#endif
+    matrix_scan();
+
+    uint8_t row = BOOTMAGIC_LITE_ROW;
+    uint8_t col = BOOTMAGIC_LITE_COLUMN;
+
+#if defined(SPLIT_KEYBOARD) && defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_RIGHT)
+    if (!is_keyboard_left()) {
+        row = BOOTMAGIC_LITE_ROW_RIGHT;
+        col = BOOTMAGIC_LITE_COLUMN_RIGHT;
+    }
+#endif
+
+    if (matrix_get_row(row) & (1 << col) || !readPin(A0)) {
+        eeconfig_disable();
+        bootloader_jump();
+    }
+}
+
+
+>>>>>>> 3fa592a4024a24a636fa0c562e6761667a94f565
 #ifdef USB_VBUS_PIN
 bool usb_vbus_state(void) {
     setPinInputLow(USB_VBUS_PIN);
