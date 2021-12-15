@@ -62,12 +62,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
-
-//UART settings for communication with the RF microcontroller
-#define SERIAL_UART_BAUD 1000000
-#define SERIAL_UART_RXD_PRESENT (UCSR1A & _BV(RXC1))
-#define SERIAL_UART_INIT_CUSTOM       \
-    /* enable TX and RX */            \
-    UCSR1B = _BV(TXEN1) | _BV(RXEN1); \
-    /* 8-bit data */                  \
-    UCSR1C = _BV(UCSZ11) | _BV(UCSZ10);

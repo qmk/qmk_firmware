@@ -19,5 +19,5 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 # project specific files
 SRC += matrix.c \
        i2c.c \
-       ssd1306.c \
-       serial_uart.c
+       ssd1306.c
+QUANTUM_LIB_SRC += uart.c
