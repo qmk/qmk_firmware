@@ -105,8 +105,11 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
         case KC_MS_UP ... KC_MS_WH_RIGHT:
             record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
             mouse_timer = timer_read();
+            break;
         case KC_ACCEL:
             enable_acceleration = record->event.pressed;
+            record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
+            mouse_timer = timer_read();
             break;
         default:
             if (IS_NOEVENT(record->event)) break;
