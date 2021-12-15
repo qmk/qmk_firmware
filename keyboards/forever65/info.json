@@ -14,7 +14,7 @@
         "device_ver": "0x0001"
     },
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,

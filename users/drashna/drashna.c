@@ -70,14 +70,11 @@ void                       matrix_init_user(void) {
     DDRB &= ~(1 << 0);
     PORTB &= ~(1 << 0);
 #endif
-
+#ifdef CUSTOM_UNICODE_ENABLE
+    matrix_init_unicode();
+#endif
     matrix_init_secret();
     matrix_init_keymap();
-#if defined(AUDIO_ENABLE) && defined(SPLIT_KEYBOARD)
-    if (!is_keyboard_master()) {
-        stop_all_notes();
-    }
-#endif
 }
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
@@ -108,8 +105,11 @@ void                       shutdown_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_color_all(0xFF, 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
-
 #endif  // RGB_MATRIX_ENABLE
+#ifdef OLED_ENABLE
+    oled_off();
+#endif
+
     shutdown_keymap();
 }
 
@@ -154,6 +154,9 @@ void                       matrix_scan_user(void) {
 #if defined(RGB_MATRIX_ENABLE)
     matrix_scan_rgb_matrix();
 #endif
+#if defined(POINTING_DEVICE_ENABLE)
+    matrix_scan_pointing();
+#endif
 
     matrix_scan_secret();
 
@@ -173,6 +176,9 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
     }
 
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
+#if defined(POINTING_DEVICE_ENABLE)
+    state = layer_state_set_pointing(state);
+#endif
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
 #endif  // RGBLIGHT_ENABLE
@@ -227,16 +233,15 @@ bool hasAllBitsInMask(uint8_t value, uint8_t mask) {
 }
 
 #ifdef SPLIT_KEYBOARD
-#    if defined(AUDIO_ENABLE)
-bool delayed_tasks_run = false;
-#    endif
 __attribute__((weak)) void matrix_slave_scan_keymap(void) {}
 void                       matrix_slave_scan_user(void) {
 #    if defined(AUDIO_ENABLE)
 #        if !defined(NO_MUSIC_MODE)
     music_task();
 #        endif
+#        ifdef AUDIO_INIT_DELAY
     if (!is_keyboard_master()) {
+        static bool delayed_tasks_run = false;
         static uint16_t delayed_task_timer = 0;
         if (!delayed_tasks_run) {
             if (!delayed_task_timer) {
@@ -247,6 +252,7 @@ void                       matrix_slave_scan_user(void) {
             }
         }
     }
+#        endif
 #    endif
 #    ifdef SEQUENCER_ENABLE
     sequencer_task();
@@ -261,3 +267,61 @@ void                       matrix_slave_scan_user(void) {
     matrix_slave_scan_keymap();
 }
 #endif
+
+__attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+__attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    // Immediately select the hold action when another key is tapped:
+    // return true;
+    // Do not select the hold action when another key is tapped.
+    // return false;
+    switch (keycode) {
+        default:
+            return false;
+    }
+}
+
+__attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    // Immediately select the hold action when another key is pressed.
+    // return true;
+    // Do not select the hold action when another key is pressed.
+    // return false;
+    switch (keycode) {
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            return true;
+        default:
+            return false;
+    }
+}
+
+__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+    // Do not force the mod-tap key press to be handled as a modifier
+    // if any other key was pressed while the mod-tap key is held down.
+    // return true;
+    // Force the mod-tap key press to be handled as a modifier if any
+    // other key was pressed while the mod-tap key is held down.
+    // return false;
+    switch (keycode) {
+        default:
+            return true;
+    }
+}
+
+__attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        default:
+            return false;
+    }
+}
+
+__attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        default:
+            return false;
+    }
+}

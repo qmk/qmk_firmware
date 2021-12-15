@@ -27,24 +27,11 @@
 #include <ch.h>
 #include <hal.h>
 
-#ifdef I2C1_BANK
-#    define I2C1_SCL_BANK I2C1_BANK
-#    define I2C1_SDA_BANK I2C1_BANK
+#ifndef I2C1_SCL_PIN
+#    define I2C1_SCL_PIN B6
 #endif
-
-#ifndef I2C1_SCL_BANK
-#    define I2C1_SCL_BANK GPIOB
-#endif
-
-#ifndef I2C1_SDA_BANK
-#    define I2C1_SDA_BANK GPIOB
-#endif
-
-#ifndef I2C1_SCL
-#    define I2C1_SCL 6
-#endif
-#ifndef I2C1_SDA
-#    define I2C1_SDA 7
+#ifndef I2C1_SDA_PIN
+#    define I2C1_SDA_PIN B7
 #endif
 
 #ifdef USE_I2CV1
@@ -83,10 +70,10 @@
 
 #ifdef USE_GPIOV1
 #    ifndef I2C1_SCL_PAL_MODE
-#        define I2C1_SCL_PAL_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#        define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
 #    endif
 #    ifndef I2C1_SDA_PAL_MODE
-#        define I2C1_SDA_PAL_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#        define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
 #    endif
 #else
 // The default PAL alternate modes are used to signal that the pins are used for I2C
@@ -109,5 +96,7 @@ i2c_status_t i2c_start(uint8_t address);
 i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout);
 i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);
 i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
 i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
 void         i2c_stop(void);
