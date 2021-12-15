@@ -16,7 +16,7 @@ enum custom_keycodes {
 #define KEY_MACROS_MAX_COUNT  3
 #define KEYCODE_COUNT 16
 
-const uint16_t windowsConfigs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
+const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_NO, KC_NO, KC_NO },
     // zoom
     { KC_LALT, KC_A, KC_NO },
@@ -26,7 +26,7 @@ const uint16_t windowsConfigs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LALT, KC_F4, KC_NO },
 };
 
-const uint16_t macosConfigs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
+const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_NO, KC_NO, KC_NO },
     // zoom
     { KC_LGUI, KC_LSHIFT, KC_A },
