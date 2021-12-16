@@ -1,20 +1,20 @@
-# QK65 - solder PCB
+# qk65 - solder PCB
 
-![QK65](https://i.imgur.com/kFhx5qS.png)
+![qk65](https://i.imgur.com/kFhx5qS.png)
 
 A 65% made by Owlab.
 
 * Keyboard Maintainer: [owlab](https://github.com/owlab-git)
-* Hardware Supported: QK65 solder PCB
+* Hardware Supported: qk65 solder PCB
 * Hardware Availability: 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make owlab/QK65/solder:default
+    make owlab/qk65/solder:default
 
 Flashing example for this keyboard:
 
-    make owlab/QK65/solder:default:flash
+    make owlab/qk65/solder:default:flash
 
 **Bootloader:** Press the physical reset button on the bottom side of the PCB (labeled SW1) or hold down ESC while plugging in the board.
 
