@@ -2,19 +2,12 @@
 #include "string.h"
 #include "ctype.h"
 #include "secret_definitions.h"
+#include "led_funcs.c"
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
-
-__attribute__ ((weak)) void num_led_on(void) {}
-__attribute__ ((weak)) void num_led_off(void) {}
-__attribute__ ((weak)) void caps_led_on(void) {}
-__attribute__ ((weak)) void caps_led_off(void) {}
-__attribute__ ((weak)) void scroll_led_on(void) {}
-__attribute__ ((weak)) void scroll_led_off(void) {}
-
 
 static bool mac_ctrl_on = false; //for switching tabs
 static bool mac_gui_on = false; //for switching languages
@@ -34,67 +27,18 @@ static const int lmb_spam_interval = 30;
 bool is_lmb_timer_active = false;
 uint16_t lmb_timer = 0;
 
-bool led_update_user(led_t led_state) {
-  // only use caps LED - ignore Num & Scroll
-  if (led_state.caps_lock) {
-    caps_led_on();
-  } else {
-    caps_led_off();
-  }
-  return false;
-}
-
-void blink_all_leds(void) {
-  num_led_on();
-  scroll_led_on();
-  wait_ms(BLINKING_INTERVAL);
-  num_led_off();
-  scroll_led_off();
-  wait_ms(BLINKING_INTERVAL);
-  num_led_on();
-  scroll_led_on();
-  wait_ms(BLINKING_INTERVAL);
-  num_led_off();
-  scroll_led_off();
-  wait_ms(BLINKING_INTERVAL);
-  num_led_on();
-  scroll_led_on();
-  wait_ms(BLINKING_INTERVAL);
-  num_led_off();
-  scroll_led_off();
-}
-
-void led_show_variable_status(bool value) {
-  if (value) {
-    num_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    num_led_off();
-    wait_ms(BLINKING_INTERVAL);
-    num_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    num_led_off();
-    wait_ms(BLINKING_INTERVAL);
-    num_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    num_led_off();
-  } else {
-    scroll_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    scroll_led_off();
-    wait_ms(BLINKING_INTERVAL);
-    scroll_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    scroll_led_off();
-    wait_ms(BLINKING_INTERVAL);
-    scroll_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    scroll_led_off();
-  }
-}
-
 void keyboard_post_init_user(void) {
   led_show_variable_status(is_win);
   layer_state_set_user(layer_state);
+}
+
+void matrix_scan_user(void) {
+  if (is_lmb_timer_active) {
+    if (timer_elapsed(lmb_timer) > lmb_spam_interval) {
+      SEND_STRING(SS_TAP(X_BTN1)); //do stuff that needs spamming
+      lmb_timer = timer_read();
+    }
+  }
 }
 
 void press_n_times(int times, uint16_t key) {
@@ -260,15 +204,6 @@ bool handle_del_bspace(void) {
     }
   }
   return true;
-}
-
-void matrix_scan_user(void) {
-  if (is_lmb_timer_active) {
-    if (timer_elapsed(lmb_timer) > lmb_spam_interval) {
-      SEND_STRING(SS_TAP(X_BTN1)); //do stuff that needs spamming
-      lmb_timer = timer_read();
-    }
-  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
