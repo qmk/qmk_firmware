@@ -182,7 +182,7 @@
 
   * QMK内部细节 (编辑中)
     * [定义](zh-cn/internals_defines.md)
-    * [输入回调的注册](zh-cn/internals_input_callback_reg.md)
+    * [输入回调寄存器](zh-cn/internals_input_callback_reg.md)
     * [Midi设备](zh-cn/internals_midi_device.md)
     * [Midi设备驱动流程](zh-cn/internals_midi_device_setup_process.md)
     * [Midi辅助功能](zh-cn/internals_midi_util.md)
