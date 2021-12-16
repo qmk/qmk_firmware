@@ -215,3 +215,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         RGB_MATRIX_INDICATOR_SET_COLOR(5, 0xFF, 0xFF, 0x00);
     }
 }
+
+void keyboard_pre_init_keymap(void) {
+    rgblight_set_clipping_range(0, 12);
+}
