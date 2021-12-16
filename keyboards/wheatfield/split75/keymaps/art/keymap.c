@@ -7,6 +7,7 @@ enum custom_keycodes {
 };
 
 bool led_update_user(led_t led_state) {
+  // only use caps LED - ignore Num & Scroll
   writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
   return false;
 }
@@ -61,7 +62,7 @@ void blink_all_leds(void) {
   layer_state_set_user(layer_state);
 }
 
-void keyboard_pre_init_user(void) {
+void keyboard_post_init_user(void) {
   led_show_variable_status(is_win);
   layer_state_set_user(layer_state);
 }
