@@ -7,6 +7,8 @@
 #include <string.h>
 
 #if __has_include("autocorrection_data.h")
+#    pragma GCC push_options
+#    pragma GCC optimize("O0")
 #    include "autocorrection_data.h"
 #    if AUTOCORRECTION_MIN_LENGTH < 4
 #        error Minimum Length is too short and may cause overflows
@@ -137,6 +139,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
+#    pragma GCC pop_options
 #else
 #    pragma message "Warning!!! Autocorrect is not corretly setup!"
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record) { return true; }
