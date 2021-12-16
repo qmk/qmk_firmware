@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Lower Layer: navigation
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      | Ct+V | Ct+C | Ct+V |                              | PageUp| Home |  Up  | End  | C+Hom|        |
+ * |        |      | Ct+> | Ct+V | Ct+C | Ct+V |                              | PageUp| Home |  Up  | End  | C+Hom|        |
  * |--------+------+------+------+------+------|                              |-------+------+------+------+------+--------|
  * |        | GUI  | Alt  | Ctrl |LShift|      |                              | PDown | Left | Down | Right| C+End|        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+-------+------+------+------+------+--------|
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `-----------------------------------'
  */
     [_LOWER] = LAYOUT(
-      _______, XXXXXXX, XXXXXXX, C(KC_V), C(KC_C), C(KC_X),                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  C(KC_HOME), XXXXXXX,
+      _______, XXXXXXX, C(KC_Z), C(KC_V), C(KC_C), C(KC_X),                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  C(KC_HOME), XXXXXXX,
       XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, C(KC_END),  XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, C(KC_C)
