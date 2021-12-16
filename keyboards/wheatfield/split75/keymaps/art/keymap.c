@@ -6,79 +6,43 @@ enum custom_keycodes {
   keyboardSpecificKeyCode = NEW_SAFE_RANGE //not used atm
 };
 
-bool led_update_user(led_t led_state) {
-  // only use caps LED - ignore Num & Scroll
-  writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-  return false;
+void num_led_on(void) {
+  writePinHigh(LED_NUM_LOCK_PIN);
 }
 
-void led_show_variable_status(bool value) {
-  if (value) {
-    writePinHigh(LED_NUM_LOCK_PIN);
-    wait_ms(BLINKING_INTERVAL);
-    writePinLow(LED_NUM_LOCK_PIN);
-    wait_ms(BLINKING_INTERVAL);
-    writePinHigh(LED_NUM_LOCK_PIN);
-    wait_ms(BLINKING_INTERVAL);
-    writePinLow(LED_NUM_LOCK_PIN);
-    wait_ms(BLINKING_INTERVAL);
-    writePinHigh(LED_NUM_LOCK_PIN);
-    wait_ms(BLINKING_INTERVAL);
-    writePinLow(LED_NUM_LOCK_PIN);
-  } else {
-    writePinHigh(LED_SCROLL_LOCK_PIN);
-    wait_ms(BLINKING_INTERVAL);
-    writePinLow(LED_SCROLL_LOCK_PIN);
-    wait_ms(BLINKING_INTERVAL);
-    writePinHigh(LED_SCROLL_LOCK_PIN);
-    wait_ms(BLINKING_INTERVAL);
-    writePinLow(LED_SCROLL_LOCK_PIN);
-    wait_ms(BLINKING_INTERVAL);
-    writePinHigh(LED_SCROLL_LOCK_PIN);
-    wait_ms(BLINKING_INTERVAL);
-    writePinLow(LED_SCROLL_LOCK_PIN);
-  }
+void num_led_off(void) {
+  writePinLow(LED_NUM_LOCK_PIN);
 }
 
-void blink_all_leds(void) {
-  writePinHigh(LED_NUM_LOCK_PIN);
-  writePinHigh(LED_SCROLL_LOCK_PIN);
-  wait_ms(BLINKING_INTERVAL);
-  writePinLow(LED_NUM_LOCK_PIN);
-  writePinLow(LED_SCROLL_LOCK_PIN);
-  wait_ms(BLINKING_INTERVAL);
-  writePinHigh(LED_NUM_LOCK_PIN);
-  writePinHigh(LED_SCROLL_LOCK_PIN);
-  wait_ms(BLINKING_INTERVAL);
-  writePinLow(LED_NUM_LOCK_PIN);
-  writePinLow(LED_SCROLL_LOCK_PIN);
-  wait_ms(BLINKING_INTERVAL);
-  writePinHigh(LED_NUM_LOCK_PIN);
-  writePinHigh(LED_SCROLL_LOCK_PIN);
-  wait_ms(BLINKING_INTERVAL);
-  writePinLow(LED_NUM_LOCK_PIN);
-  writePinLow(LED_SCROLL_LOCK_PIN);
-  
-  layer_state_set_user(layer_state);
+void caps_led_on(void) {
+  writePinHigh(LED_CAPS_LOCK_PIN);
 }
 
-void keyboard_post_init_user(void) {
-  led_show_variable_status(is_win);
-  layer_state_set_user(layer_state);
+void caps_led_off(void) {
+  writePinLow(LED_CAPS_LOCK_PIN);
+}
+
+void scroll_led_on(void) {
+  writePinHigh(LED_SCROLL_LOCK_PIN);
+}
+
+void scroll_led_off(void) {
+  writePinLow(LED_SCROLL_LOCK_PIN);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  writePinLow(LED_NUM_LOCK_PIN);
-  writePinLow(LED_SCROLL_LOCK_PIN);
+  num_led_off();
+  scroll_led_off();
   switch (get_highest_layer(state)) {
     case MEDIA:
     case WORKMAN:
-      writePinHigh(LED_SCROLL_LOCK_PIN);
+      scroll_led_on();
     case BASE:
-      writePinHigh(LED_NUM_LOCK_PIN);
+    case NAV:
+      num_led_on();
       break;
     case NUMPAD:
-      writePinHigh(LED_SCROLL_LOCK_PIN);
+      scroll_led_on();
       break;
   }
   return state;

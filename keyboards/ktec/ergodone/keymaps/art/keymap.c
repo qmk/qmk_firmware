@@ -6,81 +6,44 @@ enum custom_keycodes {
   keyboardSpecificKeyCode = NEW_SAFE_RANGE //not used
 };
 
-void led_show_variable_status(bool value) {
-  if (value) {
-    ergodox_right_led_1_on();
-    wait_ms(BLINKING_INTERVAL);
-    ergodox_right_led_1_off();
-    wait_ms(BLINKING_INTERVAL);
-    ergodox_right_led_1_on();
-    wait_ms(BLINKING_INTERVAL);
-    ergodox_right_led_1_off();
-    wait_ms(BLINKING_INTERVAL);
-    ergodox_right_led_1_on();
-    wait_ms(BLINKING_INTERVAL);
-    ergodox_right_led_1_off();
-  } else {
-    ergodox_right_led_3_on();
-    wait_ms(BLINKING_INTERVAL);
-    ergodox_right_led_3_off();
-    wait_ms(BLINKING_INTERVAL);
-    ergodox_right_led_3_on();
-    wait_ms(BLINKING_INTERVAL);
-    ergodox_right_led_3_off();
-    wait_ms(BLINKING_INTERVAL);
-    ergodox_right_led_3_on();
-    wait_ms(BLINKING_INTERVAL);
-    ergodox_right_led_3_off();
-  }
+void num_led_on(void) {
+  ergodox_right_led_1_on();
 }
 
-void blink_all_leds(void) {
-  ergodox_right_led_1_on();
-  ergodox_right_led_3_on();
-  wait_ms(BLINKING_INTERVAL);
+void num_led_off(void) {
   ergodox_right_led_1_off();
-  ergodox_right_led_3_off();
-  wait_ms(BLINKING_INTERVAL);
-  ergodox_right_led_1_on();
-  ergodox_right_led_3_on();
-  wait_ms(BLINKING_INTERVAL);
-  ergodox_right_led_1_off();
-  ergodox_right_led_3_off();
-  wait_ms(BLINKING_INTERVAL);
-  ergodox_right_led_1_on();
-  ergodox_right_led_3_on();
-  wait_ms(BLINKING_INTERVAL);
-  ergodox_right_led_1_off();
-  ergodox_right_led_3_off();
 }
 
-void matrix_init_user(void) {
-  led_show_variable_status(is_win);
+void caps_led_on(void) {
+  ergodox_right_led_2_on();
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    ergodox_right_led_2_on();
-  } else {
-    ergodox_right_led_2_off();
-  }
+void caps_led_off(void) {
+  ergodox_right_led_2_off();
+}
+
+void scroll_led_on(void) {
+  ergodox_right_led_3_on();
+}
+
+void scroll_led_off(void) {
+  ergodox_right_led_3_off();
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  ergodox_board_led_off();
-  ergodox_right_led_1_off();
-  ergodox_right_led_3_off();
+  num_led_off();
+  scroll_led_off();
   switch (get_highest_layer(state)) {
     case MEDIA:
     case WORKMAN:
-      ergodox_right_led_3_on();
+      scroll_led_on();
     case NAV:
     case CTRL_NAV:
     case SHIFT_NAV:
-      ergodox_right_led_1_on();
+      num_led_on();
       break;
     case FKEYS:
-      ergodox_right_led_3_on();
+      scroll_led_on();
       break;
   }
   return state;
