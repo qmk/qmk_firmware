@@ -2,7 +2,7 @@
 #include "string.h"
 #include "ctype.h"
 #include "secret_definitions.h"
-#include "led_funcs.c"
+#include "funcs/led_funcs.c"
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
