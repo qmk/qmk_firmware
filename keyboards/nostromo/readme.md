@@ -11,7 +11,6 @@ using a Blackpill F411 MCU and QMK Firmware. Pins are available for RGB, and LED
 if you have any questions please let me know by email. hope you enjoy it!
 
 * Keyboard Maintainer: [su8044](https://github.com/su8044)
-**Email:** su8044@gmail.com
 
 Make example for this keyboard (after setting up your build environment):
 
