@@ -19,6 +19,8 @@ int char_to_bspace = 1;
 int char_to_del = 0;
 static bool sarcasm_on = false;
 static bool sarcasm_key = false;
+static bool full_caps_mode = false;
+static bool hw_caps_on;
 
 static const int copy_delay = 50;
 static const int incognito_delay = 500;
@@ -39,6 +41,10 @@ void matrix_scan_user(void) {
       lmb_timer = timer_read();
     }
   }
+}
+
+bool caps_word_on(void) {
+  return hw_caps_on && !full_caps_mode;
 }
 
 void press_n_times(int times, uint16_t key) {
@@ -359,7 +365,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
       }
       break;
-
+    /* -------------------------------------------------------------------------
+     *                            CAPS WORD
+     * ------------------------------------------------------------------------ */
+    case KC_CAPS:
+      if (record->event.pressed && !layer_state_is(BASE))  {
+        if (hw_caps_on) {
+          full_caps_mode = false;
+        }
+        else if (get_mods() & MOD_MASK_SHIFT) {
+            full_caps_mode = true;
+            led_show_variable_status(full_caps_mode);
+        }
+      }
+      break;
+    case KC_SPACE:
+    case LT(MEDIA,KC_SPC):
+      if (record->event.pressed && caps_word_on() && !layer_state_is(BASE)) {
+        SEND_STRING(SS_TAP(X_CAPS));
+      }
+      break;
+    case KC_MINS:
+      if (record->event.pressed && caps_word_on() && !layer_state_is(BASE)) {
+        SEND_STRING("_");
+        return false;
+      }
+      break;
     /* -------------------------------------------------------------------------
      *                            CUSTOM MACROS
      * ------------------------------------------------------------------------ */

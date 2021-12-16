@@ -5,6 +5,8 @@ __attribute__ ((weak)) void caps_led_off(void) {}
 __attribute__ ((weak)) void scroll_led_on(void) {}
 __attribute__ ((weak)) void scroll_led_off(void) {}
 
+static bool hw_caps_on;
+
 bool led_update_user(led_t led_state) {
   // only use caps LED - ignore Num & Scroll
   if (led_state.caps_lock) {
@@ -12,7 +14,9 @@ bool led_update_user(led_t led_state) {
   } else {
     caps_led_off();
   }
-  return false;
+
+  hw_caps_on = led_state.caps_lock;
+  return false; // 'false' prevents led_update_kb from firing
 }
 
 void blink_all_leds(void) {
