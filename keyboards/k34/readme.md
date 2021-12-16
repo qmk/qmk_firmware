@@ -1,6 +1,6 @@
 # k34
 
-![k34](https://i.imgur.com/tarkFIp.jpeg)
+![k34](https://i.imgur.com/tarkFIph.jpeg)
 
 ## Keyboard Info
 
