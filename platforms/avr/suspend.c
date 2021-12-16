@@ -15,6 +15,9 @@
 #ifdef PROTOCOL_VUSB
 #    include "vusb.h"
 #endif
+#ifdef SPLIT_KEYBOARD
+#    include "split_common/split_util.h"
+#endif
 
 /** \brief Suspend idle
  *
@@ -93,6 +96,23 @@ static void power_down(uint8_t wdto) {
 }
 #endif
 
+#if defined(SPLIT_KEYBOARD)
+ /* 
+    Matrix scan sychnronizes slave with master for split keyboards.
+    Scan is invoked by keyboard_task() or suspend_wakeup_condition().
+      - Keyboard task is not invoked when suspended. 
+      - Wake up check is not invoked when remote wake is not enabled.
+    This function forces master to slave sync without invoking the matrix_scan().
+    Without the sync, slave would not receive data written by suspend_power_down().
+    E.g. rgb lights would't turn off on slave half.
+*/
+static void suspend_sync_slave(void) {
+    matrix_row_t master_matrix[MATRIX_ROWS / 2] = {0};
+    matrix_row_t slave_matrix[MATRIX_ROWS / 2] = {0};
+    transport_master_if_connected(master_matrix, slave_matrix);
+}
+#endif
+
 /** \brief Suspend power down
  *
  * FIXME: needs doc
@@ -106,6 +126,9 @@ void suspend_power_down(void) {
 #endif
 
     suspend_power_down_quantum();
+#ifdef SPLIT_KEYBOARD
+    suspend_sync_slave();
+#endif
 
 #ifndef NO_SUSPEND_POWER_DOWN
     // Enter sleep state if possible (ie, the MCU has a watchdog timeout interrupt)
