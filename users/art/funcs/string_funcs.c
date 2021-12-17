@@ -1,4 +1,4 @@
-static bool mac_ctrl_on;
+bool mac_ctrl_on;
 
 int char_to_bspace;
 int char_to_del;

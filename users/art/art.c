@@ -5,32 +5,30 @@
 #include "funcs/led_funcs.c"
 #include "funcs/string_funcs.c"
 
+static const int COPY_DELAY = 50;
+static const int INCOGNITO_DELAY = 500;
+static const int LMB_SPAM_INTERVAL = 30;
+static const uint8_t OS_MOD_KEYS[2] = {MOD_LALT, MOD_LCTL};
+
+bool mac_ctrl_on = false; //for switching tabs
+bool mac_gui_on = false; //for switching languages
+bool mac_alt_window_switching_on = false; //for switching windows
+
+int char_to_bspace = 1;
+int char_to_del = 0;
+
+static bool sarcasm_on = false;
+static bool sarcasm_key = false;
+static bool full_caps_mode = false;
+bool hw_caps_on;
+
+static bool is_lmb_timer_active = false;
+static uint16_t lmb_timer = 0;
+
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
-
-static bool mac_ctrl_on = false; //for switching tabs
-static bool mac_gui_on = false; //for switching languages
-static bool mac_alt_window_switching_on = false; //for switching windows
-
-static const uint8_t os_mod_keys[2] = {MOD_LALT, MOD_LCTL};
-
-int char_to_bspace = 1;
-int char_to_del = 0;
-static bool sarcasm_on = false;
-static bool sarcasm_key = false;
-static bool full_caps_mode = false;
-static bool hw_caps_on;
-
-static const int NUM_SCROLL_LED_ON;
-
-static const int copy_delay = 50; //rename
-static const int incognito_delay = 500;
-static const int lmb_spam_interval = 30;
-
-bool is_lmb_timer_active = false;
-uint16_t lmb_timer = 0;
 
 void keyboard_post_init_user(void) {
   led_show_variable_status(is_win);
@@ -39,7 +37,7 @@ void keyboard_post_init_user(void) {
 
 void matrix_scan_user(void) {
   if (is_lmb_timer_active) {
-    if (timer_elapsed(lmb_timer) > lmb_spam_interval) {
+    if (timer_elapsed(lmb_timer) > LMB_SPAM_INTERVAL) {
       SEND_STRING(SS_TAP(X_BTN1)); //do stuff that needs spamming
       lmb_timer = timer_read();
     }
@@ -240,7 +238,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         clear_mods();
 
         SEND_STRING(SS_LCTL("c"));
-        wait_ms(copy_delay);
+        wait_ms(COPY_DELAY);
         SEND_STRING(SS_LCTL("tv"));
 
         if (!shifted) {
@@ -251,7 +249,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case BEAT_BROWSER:
       if (record->event.pressed) {
         SEND_STRING(SS_LCTL("c"));
-        wait_ms(copy_delay);
+        wait_ms(COPY_DELAY);
         SEND_STRING(SS_LGUI("1") SS_LCTL("tv") SS_TAP(X_ENTER));
       }
       break;
@@ -261,19 +259,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           //Firefox
           clear_mods();
           SEND_STRING(SS_LCTL("lc"));
-          wait_ms(copy_delay);
+          wait_ms(COPY_DELAY);
           SEND_STRING(SS_LCTL("P"));
-          wait_ms(incognito_delay);
+          wait_ms(INCOGNITO_DELAY);
           SEND_STRING(SS_LCTL("v") SS_TAP(X_ENTER));
         } else if (get_mods() & MOD_MASK_CTRL) {
           //Chrome
           clear_mods();
           SEND_STRING(SS_LCTL("lc"));
-          wait_ms(copy_delay);
+          wait_ms(COPY_DELAY);
           SEND_STRING(SS_LCTL("Nv") SS_TAP(X_ENTER));
         } else {
           SEND_STRING(SS_LCTL("lc"));
-          wait_ms(copy_delay);
+          wait_ms(COPY_DELAY);
           SEND_STRING(SS_LCTL("tv"));
         }
       }
@@ -281,7 +279,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CTRL_CAV:
       if (record->event.pressed) {
         SEND_STRING(SS_LCTL("c" SS_TAP(X_TAB)));
-        wait_ms(copy_delay);
+        wait_ms(COPY_DELAY);
         SEND_STRING(SS_LCTL("av"));
       }
       break;
@@ -293,7 +291,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING(SS_LCTL("z"));
         }
         SEND_STRING(SS_LCTL("c"));
-        wait_ms(copy_delay);
+        wait_ms(COPY_DELAY);
         SEND_STRING(SS_LGUI("r") SS_LCTL("vac") SS_TAP(X_ESC));
       }
       break;
@@ -322,17 +320,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case CTR_ALT:
       if (record->event.pressed) {
-        add_mods(os_mod_keys[is_win]);
+        add_mods(OS_MOD_KEYS[is_win]);
       } else {
-        unregister_mods(os_mod_keys[is_win]);
+        unregister_mods(OS_MOD_KEYS[is_win]);
       }
       break;
     case CTR_ALT_SHIFT:
       if (record->event.pressed) {
-        add_mods(os_mod_keys[is_win]);
+        add_mods(OS_MOD_KEYS[is_win]);
         add_mods(MOD_RSFT);
       } else {
-        unregister_mods(os_mod_keys[is_win]);
+        unregister_mods(OS_MOD_KEYS[is_win]);
         unregister_mods(MOD_RSFT);
       }
       break;

@@ -1,9 +1,9 @@
-static const int NUM_LED_ON = 4;
-static const int SCROLL_LED_ON = 1;
-static const int NUM_SCROLL_LED_ON = 5;
-static const int ALL_OFF = 0;
+const int NUM_LED_ON = 4;
+const int SCROLL_LED_ON = 1;
+const int NUM_SCROLL_LED_ON = 5;
+const int ALL_OFF = 0;
 
-static bool hw_caps_on;
+bool hw_caps_on;
 
 __attribute__ ((weak)) void num_led_on(void) {}
 __attribute__ ((weak)) void num_led_off(void) {}
@@ -24,7 +24,6 @@ void toggle_leds(int leds) {
     scroll_led_off();
   }
 }
-
 
 bool led_update_user(led_t led_state) {
   // only use caps LED - ignore Num & Scroll
