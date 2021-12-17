@@ -28,13 +28,13 @@ The DFU state in the bootloader can be accessed in 3 ways:
 
 You can build the default layout firwmare for Elongate after setting up your build environment by using:
 
-    make acheron/elongate:default
+    make acheron/elongate/delta:default
 
 After entering DFU state in your PCB, you can download the binary file generated through `dfu-util` or a GUI like QMK Toolbox.
 
 To directly flash the PCB after it is put into a DFU state, use
 
-    make acheron/elongate:default:flash
+    make acheron/elongate/delta:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
