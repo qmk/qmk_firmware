@@ -2,11 +2,11 @@
 
 这些资源旨在让QMK社区的新成员更了解新手教程中的基础知识。
 
-*译注：以下资料超出了QMK核心概念范畴，恕不另行翻译*
+*译注：以下资料超出了 QMK 核心概念范畴，恕不另行翻译*
 
 ### QMK参考资料
 
-* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – 一个站在新人视角，探讨如何使用QMK固件的个人博客。
+* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – 一个站在新人视角，探讨如何使用 QMK 固件的个人博客。
 
 ### 命令行操作参考资料 :id=command-line-resources
 

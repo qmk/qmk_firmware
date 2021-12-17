@@ -20,7 +20,7 @@
 
 # 进阶话题
 
-包含窥探QMK主要功能内部原理的话题。你可以不用阅读这些，然而，跳过这些话题的话，去看高级话题的时候会让你很迷惑。
+包含窥探 QMK 主要功能内部原理的话题。你可以不用阅读这些，然而，跳过这些话题的话，去看高级话题的时候会让你很迷惑。
 
 * **各功能的配置**
     <!-- * Configuration Overview  FIXME(skullydazed/anyone): write this document -->
