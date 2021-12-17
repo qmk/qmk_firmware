@@ -48,23 +48,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-static uint16_t ledTimer; // timer for led animations
+static uint16_t ledTimer;
 
-uint8_t R = 0; // led values
-uint8_t G = 0;
-uint8_t B = 0;
+uint8_t R = 0;  /* First led*/
+uint8_t G = 0;  /* Second led*/
+uint8_t B = 0;  /* Third led*/
 
-// boot animation parameters
+/* Boot animation parameters */
 
-uint8_t bootFirst=3; // number of increment slides
-uint8_t bootSec=3; // number of full blink
+uint8_t bootFirst=3;    /* Number of increment slides. */
+uint8_t bootSec=3;      /* Number of full blink. */
 
-//breathing animation parameters
+/* Breathing animation parameters */
 
-const uint16_t travelTime = 1000;// time the leds take to go from off to on or on to off
-const uint16_t fadeStep = 5;// steps for the fade in and out, 0-255 by steps of 10
-const uint16_t fadeTime = 20;// time between each fade step
-const uint8_t maxBrightness=255; // keep them multipliers of fade Step between 0 and 255
+const uint16_t travelTime = 1000;   /* Time the leds take to go from off to on or on to off. */
+const uint16_t fadeStep = 5;        /* Steps for the fade in and out, 0-255 by steps of 10. */
+const uint16_t fadeTime = 20;       /* Time between each fade step. */
+const uint8_t maxBrightness=255;    /* keep them multipliers of fade Step between 0 and 255. */
 const uint8_t minBrightness=0;
 
 uint16_t previousTime = 0;
@@ -73,29 +73,25 @@ uint16_t time = 0;
 bool bootAnimation(void){
     if (bootFirst>0 || bootSec>0){    
      if(bootFirst!=0){
-        if (timer_elapsed(ledTimer) > 150) 
-        {
+        if (timer_elapsed(ledTimer) > 150){
             G = 255;
             R = 0;
             B = 0;
             IS31FL3733_set_color( 6+64-1, R, G, B );
         }
-         if (timer_elapsed(ledTimer) > 300) 
-        {
+         if (timer_elapsed(ledTimer) > 300){
             G = 255;
             R = 255;
             B = 0;
             IS31FL3733_set_color( 6+64-1, R, G, B );
         }
-       if (timer_elapsed(ledTimer) > 400) 
-        {
+       if (timer_elapsed(ledTimer) > 400){
             G = 255;
             R = 255;
             B = 255;
             IS31FL3733_set_color( 6+64-1, R, G, B );
         }
-        if (timer_elapsed(ledTimer) > 500)
-        {
+        if (timer_elapsed(ledTimer) > 500){
             G = 0;
             R = 0;
             B = 0;
@@ -104,18 +100,14 @@ bool bootAnimation(void){
             bootFirst--;
         }
      }
-
      if (bootFirst==0 && bootSec!=0){
-
-         if (timer_elapsed(ledTimer) > 200) 
-        {
+         if (timer_elapsed(ledTimer) > 200) {
             G = 255;
             R = 255;
             B = 255;
             IS31FL3733_set_color( 6+64-1, R, G, B );
         }
-        if (timer_elapsed(ledTimer) > 400)
-        {
+        if (timer_elapsed(ledTimer) > 400){
             G = 0;
             R = 0;
             B = 0;
@@ -162,26 +154,23 @@ void breathing(void) {
     }
 }
 
-bool capsState; // this avoids turning off the leds each matrix_scan_user() call
-bool prevCapsState;// this avoids turning off the leds each matrix_scan_user() call
+/* this avoids turning off the led each matrix_scan_user() call */
+bool capsState; 
+bool prevCapsState;/
 
 void matrix_scan_user(void){
     if(bootAnimation()){
-    capsState = host_keyboard_led_state().caps_lock; // this avoids turning off the leds each matrix_scan_user() call
+    capsState = host_keyboard_led_state().caps_lock; 
     if (capsState) {
         breathing();
-        prevCapsState = capsState; // this avoids turning off the leds each matrix_scan_user() call
+        prevCapsState = capsState; 
     } 
-    else if(!capsState && capsState != prevCapsState){ // this avoids turning off the leds each matrix_scan_user() call
+    else if(!capsState && capsState != prevCapsState){ 
         G = 0;
         R = 0;
         B = 0;
         IS31FL3733_set_color( 6+64-1, R, G, B );
-        prevCapsState = capsState; // this avoids turning off the leds each matrix_scan_user() call
+        prevCapsState = capsState; 
     }
     }
 }
-
-// void keyboard_post_init_user(void) {
-//     debug_enable=true;
-//  }
