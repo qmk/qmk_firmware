@@ -265,7 +265,7 @@ void check_default_layer(uint8_t mode, uint8_t type, uint8_t led_min, uint8_t le
     }
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
@@ -291,5 +291,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
         check_default_layer(0, LED_FLAG_MODIFIER, led_min, led_max);
     }
+    return false;
 }
 #endif
