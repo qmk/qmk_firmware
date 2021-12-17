@@ -162,6 +162,10 @@ static flash_status_t spi_flash_transmit(uint8_t cmd, uintptr_t addr, uint8_t *d
     return response;
 }
 
+void flash_init(void) {
+    spi_init();
+}
+
 flash_status_t flash_erase_chip(void) {
     flash_status_t response = FLASH_STATUS_SUCCESS;
 
@@ -203,7 +207,7 @@ flash_status_t flash_erase_sector(const void *addr) {
     uintptr_t      target_addr = (uintptr_t)addr;
 
     /* Check that the address exceeds the limit. */
-    if ((target_addr + EXTERNAL_FLASH_SECTOR_SIZE << 10) >= (EXTERNAL_FLASH_SIZE << 10) ||
+    if ((target_addr + (EXTERNAL_FLASH_SECTOR_SIZE << 10)) >= (EXTERNAL_FLASH_SIZE << 10) ||
         ((target_addr % (EXTERNAL_FLASH_SECTOR_SIZE << 10)) != 0)) {
         dprintf("Flash erase sector address over limit! [addr:0x%x]\n", (uint32_t)target_addr);
         return FLASH_STATUS_ERROR;
@@ -245,7 +249,7 @@ flash_status_t flash_erase_block(const void *addr) {
     uintptr_t      target_addr = (uintptr_t)addr;
 
     /* Check that the address exceeds the limit. */
-    if ((target_addr + EXTERNAL_FLASH_BLOCK_SIZE << 10) >= (EXTERNAL_FLASH_SIZE << 10) ||
+    if ((target_addr + (EXTERNAL_FLASH_BLOCK_SIZE << 10)) >= (EXTERNAL_FLASH_SIZE << 10) ||
         ((target_addr % (EXTERNAL_FLASH_BLOCK_SIZE << 10)) != 0)) {
         dprintf("Flash erase block address over limit! [addr:0x%x]\n", (uint32_t)target_addr);
         return FLASH_STATUS_ERROR;

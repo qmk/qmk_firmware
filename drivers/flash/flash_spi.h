@@ -111,12 +111,15 @@ typedef int16_t flash_status_t;
 #define FLASH_STATUS_SUCCESS (0)
 #define FLASH_STATUS_ERROR (-1)
 #define FLASH_STATUS_TIMEOUT (-2)
+#define FLASH_STATUS_BAD_ADDRESS (-3)
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #include <stdint.h>
+
+void flash_init(void);
 
 flash_status_t flash_erase_chip(void);
 
