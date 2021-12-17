@@ -1,5 +1,8 @@
 # Auto Shift: Why Do We Need a Shift Key?
 
+> [Auto Mod](feature_auto_mod.md) is an updated version of Auto Shift that
+> supports other modifiers as well as shift, and is recommended going forward.
+
 Tap a key and you get its character. Tap a key, but hold it *slightly* longer
 and you get its shifted state. Voilà! No shift key needed!
 

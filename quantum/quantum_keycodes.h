@@ -529,6 +529,14 @@ enum quantum_keycodes {
     DT_UP,
     DT_DOWN,
 
+    // Auto Mod
+    KC_AMUP,
+    KC_AMDN,
+    KC_AMRP,
+    KC_AMTG,
+    KC_AMON,
+    KC_AMOFF,
+
     // Programmable Button
     PROGRAMMABLE_BUTTON_1,
     PROGRAMMABLE_BUTTON_2,

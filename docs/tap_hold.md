@@ -346,9 +346,9 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-### Retro Shift
+### Retro Mod
 
-[Auto Shift,](feature_auto_shift.md) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](feature_auto_shift.md#retro-shift) for more information.
+[Auto Mod,](feature_auto_mod.md) has its own version of `retro tapping` called `retro mod`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_MOD_TIMEOUT` results in the value it sends being modded. Other configurations also affect it differently; see [here](feature_auto_mod.md#retro-mod) for more information.
 
 ## Why do we include the key record for the per key functions?
 

@@ -48,6 +48,8 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 
 #    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
 #        include "process_auto_shift.h"
+#    elif defined(AUTO_MOD_ENABLE) && defined(RETRO_MOD)
+#        include "process_auto_mod.h"
 #    endif
 
 static keyrecord_t tapping_key                         = {};
@@ -113,7 +115,7 @@ void action_tapping_process(keyrecord_t record) {
 /* return true when key event is processed or consumed. */
 bool process_tapping(keyrecord_t *keyp) {
     keyevent_t event = keyp->event;
-#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(TAPPING_TERM_PER_KEY) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(TAPPING_FORCE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+#    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || (defined(AUTO_MOD_ENABLE) && defined(RETRO_MOD)) || defined(TAPPING_TERM_PER_KEY) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(TAPPING_FORCE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
     uint16_t tapping_keycode = get_record_keycode(&tapping_key, false);
 #    endif
 
@@ -128,6 +130,13 @@ bool process_tapping(keyrecord_t *keyp) {
 #        endif
                 (RETRO_SHIFT + 0) != 0 && TIMER_DIFF_16(event.time, tapping_key.event.time) < (RETRO_SHIFT + 0)
             )
+#    elif defined(AUTO_MOD_ENABLE) && defined(RETRO_MOD)
+            || (
+#        ifdef RETRO_TAPPING_PER_KEY
+                get_retro_tapping(tapping_keycode, keyp) &&
+#        endif
+                (RETRO_MOD + 0) != 0 && TIMER_DIFF_16(event.time, tapping_key.event.time) < (RETRO_MOD + 0)
+            )
 #    endif
         ) {
             // clang-format on
@@ -135,6 +144,8 @@ bool process_tapping(keyrecord_t *keyp) {
                 if (IS_TAPPING_RECORD(keyp) && !event.pressed) {
 #    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
                     retroshift_swap_times();
+#    elif defined(AUTO_MOD_ENABLE) && defined(RETRO_MOD)
+                    retromod_swap_times();
 #    endif
                     // first tap!
                     debug("Tapping: First tap(0->1).\n");
@@ -152,7 +163,7 @@ bool process_tapping(keyrecord_t *keyp) {
                  * useful for long TAPPING_TERM but may prevent fast typing.
                  */
                 // clang-format off
-#    if defined(TAPPING_TERM_PER_KEY) || (TAPPING_TERM >= 500) || defined(PERMISSIVE_HOLD) || defined(PERMISSIVE_HOLD_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+#    if defined(TAPPING_TERM_PER_KEY) || (TAPPING_TERM >= 500) || defined(PERMISSIVE_HOLD) || defined(PERMISSIVE_HOLD_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || (defined(AUTO_MOD_ENABLE) && defined(RETRO_MOD))
                 else if (
                     (
                         (
@@ -172,9 +183,9 @@ bool process_tapping(keyrecord_t *keyp) {
 #        endif
                         ) && IS_RELEASED(event) && waiting_buffer_typed(event)
                     )
-                    // Causes nested taps to not wait past TAPPING_TERM/RETRO_SHIFT
+                    // Causes nested taps to not wait past TAPPING_TERM/RETRO_SHIFT/RETRO_MOD
                     // unnecessarily and fixes them for Layer Taps.
-#        if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
+#        if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || (defined(AUTO_MOD_ENABLE) && defined(RETRO_MOD))
                     || (
 #            ifdef RETRO_TAPPING_PER_KEY
                         get_retro_tapping(tapping_keycode, keyp) &&
@@ -202,9 +213,9 @@ bool process_tapping(keyrecord_t *keyp) {
 #            endif
                                 ) && tapping_key.tap.interrupted == true
                             )
-                            // Makes Retro Shift ignore [IGNORE_MOD_TAP_INTERRUPT's
+                            // Makes Retro Shift/Mod ignore [IGNORE_MOD_TAP_INTERRUPT's
                             // effects on nested taps for MTs and the default
-                            // behavior of LTs] below TAPPING_TERM or RETRO_SHIFT.
+                            // behavior of LTs] below TAPPING_TERM or RETRO_SHIFT/RETRO_MOD.
                             || (
                                 IS_RETRO(tapping_keycode)
                                 && (event.key.col != tapping_key.event.key.col || event.key.row != tapping_key.event.key.row)
@@ -363,6 +374,13 @@ bool process_tapping(keyrecord_t *keyp) {
                 get_retro_tapping(tapping_keycode, keyp) &&
 #        endif
                 (RETRO_SHIFT + 0) != 0 && TIMER_DIFF_16(event.time, tapping_key.event.time) < (RETRO_SHIFT + 0)
+            )
+#    elif defined(AUTO_MOD_ENABLE) && defined(RETRO_MOD)
+            || (
+#        ifdef RETRO_TAPPING_PER_KEY
+                get_retro_tapping(tapping_keycode, keyp) &&
+#        endif
+                (RETRO_MOD + 0) != 0 && TIMER_DIFF_16(event.time, tapping_key.event.time) < (RETRO_MOD + 0)
             )
 #    endif
         ) {

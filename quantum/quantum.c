@@ -47,8 +47,10 @@ float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
 #endif
 
-#ifdef AUTO_SHIFT_ENABLE
+#if defined(AUTO_SHIFT_ENABLE)
 #    include "process_auto_shift.h"
+#elif defined(AUTO_MOD_ENABLE)
+#    include "process_auto_mod.h"
 #endif
 
 uint8_t extract_mod_bits(uint16_t code) {
@@ -272,8 +274,10 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef PRINTING_ENABLE
             process_printer(keycode, record) &&
 #endif
-#ifdef AUTO_SHIFT_ENABLE
+#if defined(AUTO_SHIFT_ENABLE)
             process_auto_shift(keycode, record) &&
+#elif defined(AUTO_MOD_ENABLE)
+            process_auto_mod(keycode, record) &&
 #endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
             process_dynamic_tapping_term(keycode, record) &&
@@ -457,8 +461,10 @@ void matrix_scan_quantum() {
     dip_switch_read(false);
 #endif
 
-#ifdef AUTO_SHIFT_ENABLE
+#if defined(AUTO_SHIFT_ENABLE)
     autoshift_matrix_scan();
+#elif defined(AUTO_MOD_ENABLE)
+    automod_matrix_scan();
 #endif
 
     matrix_scan_kb();

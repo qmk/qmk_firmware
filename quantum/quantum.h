@@ -121,8 +121,10 @@ extern layer_state_t layer_state;
 #    include "process_printer.h"
 #endif
 
-#ifdef AUTO_SHIFT_ENABLE
+#if defined(AUTO_SHIFT_ENABLE)
 #    include "process_auto_shift.h"
+#elif defined(AUTO_MOD_ENABLE)
+#    include "process_auto_mod.h"
 #endif
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE

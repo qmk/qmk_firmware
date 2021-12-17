@@ -621,6 +621,22 @@ ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     endif
 endif
 
+ifeq ($(strip $(AUTO_MOD_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_auto_mod.c
+    OPT_DEFS += -DAUTO_MOD_ENABLE
+    # get which mod key to use
+    ifeq ($strip $(AUTO_MOD), ctrl)
+        OPT_DEFS += -DAUTO_MOD_CTRL
+    else ifeq ($strip $(AUTO_MOD), alt)
+        OPT_DEFS += -DAUTO_MOD_ALT
+    else ifeq ($strip $(AUTO_MOD), gui)
+        OPT_DEFS += -DAUTO_MOD_GUI
+    endif
+    ifeq ($(strip $(AUTO_MOD_MODIFIERS)), yes)
+        OPT_DEFS += -DAUTO_MOD_MODIFIERS
+    endif
+endif
+
 ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
     PS2_ENABLE := yes
     SRC += ps2_mouse.c
