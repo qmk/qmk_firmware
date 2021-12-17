@@ -54,13 +54,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* LOWER
      * +-----------------------------------------+                             +-----------------------------------------+
-     * | ESC  |   !  |   @  |   #  |   $  |   %  |                             |   /  |   7  |   8  |   9  |   -  | DEL  |
+     * | ESC  |   !  |   @  |   #  |   $  |   %  |                             | BTN1 | BTN1 | BTN2 | BTN2 |   -  | DEL  |
      * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
-     * | CAPS |   ^  |   &  |   *  |   (  |   )  |                             |   *  |   4  |   5  |   6  |   +  | ENT  |
+     * | CAPS |   ^  |   &  |   *  |   (  |   )  |                             |MLEFT |MDOWN | MUP  |MRIGHT|   +  | ENT  |
      * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
-     * | SHFT |   _  |   |  |   -  |   _  |   \  |                             | NLCK |   1  |   2  |   3  |   =  | SHFT |
+     * | SHFT |   _  |   |  |   -  |   _  |   \  |                             |HLEFT |HDOWN | HUP  |HRIGHT|   =  | SHFT |
      * +------+------+------+------+-------------+                             +-------------+------+------+------+------+
-     *               | LEFT |  UP  |                                                         |   0  |   .  |
+     *               | BTN1 | BTN2 |                                                         | BTN1 | BTN2 |
      *               +-------------+-------------+                             +-------------+-------------+
      *                             | ENT  |RAISE |                             |LOWER | SPC  |
      *                             +-------------+                             +-------------+
@@ -70,18 +70,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                           | MHEN | CTL  | | CTL  | HENK |
      *                                           +-------------+ +-------------+
      */
-/*
-    [_LOWER] = LAYOUT(
-        KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,             KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_MINS, KC_DEL,
-        KC_CAPS, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,             KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PLUS, KC_PENT,
-        _______, KC_UNDS, KC_PIPE, KC_MINS, KC_UNDS, KC_BSLS,             KC_NLCK, KC_P1,   KC_P2,   KC_P3,   KC_EQL,  _______,
-                          _______, _______,                                                 KC_P0,   KC_PDOT,
-                                            KC_ENT,  _______,             _______, KC_SPC,
-                                            _______, _______,             _______, _______,
-                                            _______, _______,             RESET,   _______
-    ),
-*/
-
     [_LOWER] = LAYOUT(
         KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,             KC_BTN1, KC_BTN1, KC_BTN2, KC_BTN2, KC_MINS, KC_DEL,
         KC_CAPS, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,             KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_PLUS, KC_PENT,
