@@ -1,4 +1,4 @@
-# QMK机械键盘固件
+# Quantum Mechanical Keyboard固件
 
 [![当前版本](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
 [![discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
@@ -8,37 +8,36 @@
 
 ## 什么是 QMK 固件?
 
-QMK (*Quantum Mechanical Keyboard*) 是一个开源软件社区。该社区支持像键盘，鼠标，MIDI设备的各种电子输入设备。社区的核心团体维护 [QMK 固件](https://github.com/qmk/qmk_firmware), [QMK 工具箱](https://github.com/qmk/qmk_toolbox), [qmk.fm网站](https://qmk.fm), 和这些文档。
+QMK (*Quantum Mechanical Keyboard*) 是一个社区维护的用于开发计算机输入设备的开源软件。社区专注像键盘，鼠标，MIDI设备的各种电子输入设备。社区内的核心小组成员维护[QMK固件](https://github.com/qmk/qmk_firmware)，[QMK配置器](https://config.qmk.fm)，[QMK工具箱](https://github.com/qmk/qmk_toolbox)，[qmk.fm](https://qmk.fm)，并与各位社区成员维护这份文档。
 
 ## 如何入门
 
 <div class="flex-container">
 
-?> **基本** [QMK Configurator](zh-cn/newbs_building_firmware_configurator.md) <br>
-易用的图形界面，无需编程知识即可使用。
+?> **基础方式** [QMK配置器](zh-cn/newbs_building_firmware_configurator.md) <br>
+用户友好的图形界面工具，无需具备编程知识基础。
 
-?> **进阶** [使用源码](zh-cn/newbs.md) <br> 
-更强大，但需要一些编程知识
+?> **进阶方式** [基于源代码](zh-cn/newbs.md) <br> 
+功能更强大，但门槛较高。
 
 </div>
 
+## 个性化定制
 
-## 如何定制
-
-QMK 有许多功能去探索，也有很多参考文档供您发掘。你可以通过修改 [布局](zh-cn/keymap.md)和[键码](zh-cn/keycodes.md)来利用大多数功能。
+QMK提供了很多功能，对应着很多可供浏览的配套文档。大部分功能都是通过修改[键映射](zh-cn/keymap.md)及[键码](zh-cn/keycodes.md)实现的。
 
 ## 需要帮助？
 
-请移步[支持页](zh-cn/support.md)
+请查阅[寻求帮助页面](zh-cn/support.md)以了解如何获取QMK使用方法的帮助。
 
-## 给QMK做贡献
+## 回馈社区
 
-给QMK做贡献的方法很多，最简单的方法便是去使用它以及把它介绍给你的朋友。
+有多种回馈社区的方法，最简单的方法是开始使用QMK并向你的朋友们推荐它。
 
-* 在论坛和聊天室帮助需要帮助的人：
+* 可以在我们的论坛及聊天室进行互助：
     * [/r/olkb](https://www.reddit.com/r/olkb/)
-    * [Discord 服务器](https://discord.gg/Uq7gcHh)
-* 点击在页面底部的 "Edit This Page"，编辑这些文档
-* [把这些文档翻译成你的语言](translating.md)
-* [报告问题](https://github.com/qmk/qmk_firmware/issues/new/choose)
-* [新增Pull Request](contributing.md)
+    * [Discord服务器](https://discord.gg/Uq7gcHh)
+* 点击页面下方的"Edit This Page"，可以对文档提供贡献。
+* [将这份文档翻译为你的语言](zh-cn/translating.md)
+* [上报bug](https://github.com/qmk/qmk_firmware/issues/new/choose)
+* [发起Pull Request](zh-cn/contributing.md)
