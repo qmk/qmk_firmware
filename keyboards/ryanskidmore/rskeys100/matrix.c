@@ -140,11 +140,8 @@ static uint8_t read_rows(void) {
 }
 
 static inline void shift_pulse(void) {
-  _delay_us(10);
   writePinHigh(SHR_CLOCK);
-  _delay_us(10);
   writePinLow(SHR_CLOCK);
-  _delay_us(10);
 }
 
 static void shift_out_single(uint8_t value) {
@@ -166,13 +163,9 @@ static void shift_out(uint32_t value) {
   uint8_t second_byte  = (value >> 8) & 0xFF;
   uint8_t third_byte = (uint8_t)(value & 0xFF);
 
-  _delay_us(10);
   shift_out_single(first_byte);
-  _delay_us(10);
   shift_out_single(second_byte);
-  _delay_us(10);
   shift_out_single(third_byte);
-  _delay_us(10);
   writePinHigh(SHR_LATCH);
   _delay_us(10);
 }
