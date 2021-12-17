@@ -1,3 +1,10 @@
+static const int NUM_LED_ON = 4;
+static const int SCROLL_LED_ON = 1;
+static const int NUM_SCROLL_LED_ON = 5;
+static const int ALL_OFF = 0;
+
+static bool hw_caps_on;
+
 __attribute__ ((weak)) void num_led_on(void) {}
 __attribute__ ((weak)) void num_led_off(void) {}
 __attribute__ ((weak)) void caps_led_on(void) {}
@@ -5,7 +12,19 @@ __attribute__ ((weak)) void caps_led_off(void) {}
 __attribute__ ((weak)) void scroll_led_on(void) {}
 __attribute__ ((weak)) void scroll_led_off(void) {}
 
-static bool hw_caps_on;
+void toggle_leds(int leds) {
+  if (NUM_LED_ON & leds) {
+    num_led_on();
+  } else {
+    num_led_off();
+  }
+  if (SCROLL_LED_ON & leds) {
+    scroll_led_on();
+  } else {
+    scroll_led_off();
+  }
+}
+
 
 bool led_update_user(led_t led_state) {
   // only use caps LED - ignore Num & Scroll
@@ -19,50 +38,19 @@ bool led_update_user(led_t led_state) {
   return false; // 'false' prevents led_update_kb from firing
 }
 
-void blink_all_leds(void) {
-  num_led_on();
-  scroll_led_on();
-  wait_ms(BLINKING_INTERVAL);
-  num_led_off();
-  scroll_led_off();
-  wait_ms(BLINKING_INTERVAL);
-  num_led_on();
-  scroll_led_on();
-  wait_ms(BLINKING_INTERVAL);
-  num_led_off();
-  scroll_led_off();
-  wait_ms(BLINKING_INTERVAL);
-  num_led_on();
-  scroll_led_on();
-  wait_ms(BLINKING_INTERVAL);
-  num_led_off();
-  scroll_led_off();
+void blink_leds(int leds) {
+  for (int i = 0; i < 3; i++) {
+    toggle_leds(leds);
+    wait_ms(BLINKING_INTERVAL);
+    toggle_leds(ALL_OFF);
+    wait_ms(BLINKING_INTERVAL);
+  }
 }
 
 void led_show_variable_status(bool value) {
   if (value) {
-    num_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    num_led_off();
-    wait_ms(BLINKING_INTERVAL);
-    num_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    num_led_off();
-    wait_ms(BLINKING_INTERVAL);
-    num_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    num_led_off();
+    blink_leds(NUM_LED_ON);
   } else {
-    scroll_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    scroll_led_off();
-    wait_ms(BLINKING_INTERVAL);
-    scroll_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    scroll_led_off();
-    wait_ms(BLINKING_INTERVAL);
-    scroll_led_on();
-    wait_ms(BLINKING_INTERVAL);
-    scroll_led_off();
+    blink_leds(SCROLL_LED_ON);
   }
 }

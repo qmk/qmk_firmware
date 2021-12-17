@@ -23,7 +23,9 @@ static bool sarcasm_key = false;
 static bool full_caps_mode = false;
 static bool hw_caps_on;
 
-static const int copy_delay = 50;
+static const int NUM_SCROLL_LED_ON;
+
+static const int copy_delay = 50; //rename
 static const int incognito_delay = 500;
 static const int lmb_spam_interval = 30;
 
@@ -78,7 +80,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case XXXXXXX:
       if (record->event.pressed && !layer_state_is(BASE)) {
-        blink_all_leds();
+        blink_leds(NUM_SCROLL_LED_ON);
         return true;
       }
       break;
@@ -698,7 +700,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case K_SECR1 ... K_SECR4: // Secrets!  Externally defined strings, not stored in repo
       if (!record->event.pressed) {
           send_string_remembering_length(secrets[keycode - K_SECR1]);
-          blink_all_leds();
+          blink_leds(NUM_SCROLL_LED_ON);
       }
       break;
 
