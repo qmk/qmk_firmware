@@ -414,6 +414,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         send_shifted_strings_add("All the best,\nArt", "joms");
       }
       break;
+    case AT_EMAIL:
+      if (record->event.pressed) {
+        send_string_remembering_length("@gmail.com");
+      }
+      break;      
     case BRACES:
       if (record->event.pressed) {
         uint8_t shifted = get_mods() & MOD_MASK_SHIFT;

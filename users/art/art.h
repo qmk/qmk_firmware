@@ -57,6 +57,7 @@ enum custom_keycodes_art {
 
   TILD_BLOCK,
   ALL_BEST,
+  AT_EMAIL,
   BRACES,
   DASHES,
   PARENTHS,
