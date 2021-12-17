@@ -98,7 +98,7 @@ endif
 
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api
 
-AUTOCORRECTION_ENABLE ?= yes
+AUTOCORRECTION_ENABLE ?= no
 ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
     SRC += $(USER_PATH)/keyrecords/autocorrection/autocorrection.c
     OPT_DEFS += -DAUTOCORRECTION_ENABLE

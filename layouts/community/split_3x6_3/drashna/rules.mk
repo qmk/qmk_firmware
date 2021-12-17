@@ -31,6 +31,7 @@ ifeq ($(strip $(CTPC)), yes)
     SERIAL_DRIVER = usart
     SWAP_HANDS_ENABLE = yes
     WPM_ENABLE = yes
+    AUTOCORRECTION_ENABLE = yes
 else
     CUSTOM_UNICODE_ENABLE = no
     BOOTLOADER = qmk-hid
