@@ -21,7 +21,7 @@ bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record) {
 
 void process_layer_pulse(layer_state_t state) {
 #ifdef HAPTIC_ENABLE
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case 1:
             DRV_pulse(soft_bump);
             break;
