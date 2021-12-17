@@ -9,7 +9,7 @@ WPM_ENABLE                       = yes
 ENCODER_ENABLE                   = yes
 ENCODER_MAP_ENABLE               = yes
 AUTOCORRECTION_ENABLE            = yes
-
+CAPS_WORD_ENABLE                 = yes
 
 ifeq ($(strip $(KEYBOARD)), handwired/tractyl_manuform/5x6_right/elite_c)
     RGBLIGHT_ENABLE              = no
@@ -29,5 +29,6 @@ ifeq ($(strip $(KEYBOARD)), handwired/tractyl_manuform/5x6_right/elite_c)
 endif
 ifeq ($(strip $(KEYBOARD)), handwired/tractyl_manuform/5x6_right/teensy2pp)
     AUTOCORRECTION_ENABLE        = no
+    CAPS_WORD_ENABLE             = yes
 endif
 # DEBOUNCE_TYPE = sym_eager_pk

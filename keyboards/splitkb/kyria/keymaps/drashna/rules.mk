@@ -19,6 +19,7 @@ ifeq ($(strip $(KEYBOARD)), splitkb/kyria/rev1/proton_c)
     LTO_ENABLE             = no
     CTPC                   = yes
     AUTOCORRECTION_ENABLE  = yes
+    CAPS_WORD_ENABLE       = yes
 else
     LTO_ENABLE             = yes
     BOOTLOADER             = qmk-hid
