@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "Equalz",
     "layouts": {
-        "LAYOUT_64_ansi": {
+        "LAYOUT_61_ansi": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
