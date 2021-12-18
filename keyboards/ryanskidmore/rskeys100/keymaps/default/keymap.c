@@ -1,4 +1,4 @@
-// Copyright 2021 Ryan Skidmore (@ryanskidmore)
+// Copyright 2021 Ryan Skidmore (@ryanskidmore, rskeys@ryanskidmore.co.uk)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │Ctrl│GUI │Alt │                        │ Alt│ GUI│Menu│Ctrl│ │ ← │ ↓ │ → │ │   0   │ . │   │
      * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘ └───────┴───┴───┘
      */
-    // Default Layer
+    /* Default Layer */
     [0] = LAYOUT(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  LT(1, KC_F12),       KC_PSCR, KC_SLCK, KC_PAUS,
 
@@ -30,6 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,             KC_UP,               KC_P1,   KC_P2,   KC_P3,   KC_PENT,
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,    KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
     ),
+    /* RGB Control Layer */
     [1] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______, _______, _______,
 
@@ -42,6 +43,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    /* We use RGB for the indicator RGB colours since we don't need to adjust the brightness.
+     * If any of the indicators are enabled, set the key to white. This overrides the active RGB
+     * matrix animation. */
+
     if (host_keyboard_led_state().caps_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(76, 255, 255, 255);
     }

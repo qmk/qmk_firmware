@@ -1,4 +1,4 @@
-// Copyright 2021 Ryan Skidmore (@ryanskidmore)
+// Copyright 2021 Ryan Skidmore (@ryanskidmore, rskeys@ryanskidmore.co.uk)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "rskeys100.h"

@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Modified by Ryan Skidmore to support three shift registers in series.
+Modified by Ryan Skidmore (@ryanskidmore, rskeys@ryanskidmore.co.uk) to support three shift registers in series.
 */
 
 #include <stdint.h>
@@ -167,6 +167,7 @@ static void shift_out(uint32_t value) {
   shift_out_single(second_byte);
   shift_out_single(third_byte);
   writePinHigh(SHR_LATCH);
+   /* We delay here to prevent multiple consecutive keys being triggered with a single switch press */
   _delay_us(10);
 }
 

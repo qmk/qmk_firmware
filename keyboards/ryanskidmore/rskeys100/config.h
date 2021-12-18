@@ -1,4 +1,4 @@
-// Copyright 2021 Ryan Skidmore (@ryanskidmore)
+// Copyright 2021 Ryan Skidmore (@ryanskidmore, rskeys@ryanskidmore.co.uk)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -12,20 +12,9 @@
 #define MANUFACTURER ryanskidmore
 #define PRODUCT      rsKeys100
 
-/* key matrix size */
+/* Key Matrix Sizes */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 24
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
 
 /* Rows */
 #define ROW_A  D4
@@ -41,37 +30,36 @@
 #define SHR_DATA  B1
 #define SHR_COLS { 0x000001, 0x000002, 0x000004, 0x000008, 0x000010, 0x000020, 0x000040, 0x000080, 0x000100, 0x000200, 0x000400, 0x000800, 0x001000, 0x002000, 0x004000, 0x008000, 0x010000, 0x020000, 0x040000, 0x080000, 0x100000, 0x200000, 0x400000, 0x800000 }
 
-/* COL2ROW, ROW2COL */
+/* The shift registers on the matrix PCB output a signal on each column, which passes through the
+ * switch and a diode towards the row. The row is then connected to the AVR as an input. This means
+ * the diode direction is COL(umn) to ROW */
 #define DIODE_DIRECTION COL2ROW
 
-// RGB
+/* RGB Data Pin */
 #define RGB_DI_PIN C7
-// The number of LEDs connected
+/* The number of RGB LEDs connected */
 #define DRIVER_LED_TOTAL 115
+/* Undefine, and then redefine the maximum brightness. This is set to 110 to avoid going over 500 mA.
+ * At full brightness with all three indicator LEDs on, the power draw is about 450 mA. */
 #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 110
+/* Enable framebuffer effects */
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+/* Enable the cycle left right animation and set it as the startup mode */
 #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* Undefine and then redefine the max power consumption for the keyboard, which is 500 mA. */
 #undef USB_MAX_POWER_CONSUMPTION
 #define USB_MAX_POWER_CONSUMPTION 500
-
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-//#define GRAVE_ESC_CTRL_OVERRIDE
 
 /*
  * Force NKRO
@@ -92,28 +80,8 @@
  * power-up.
  *
  */
-//#define FORCE_NKRO
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+#define FORCE_NKRO
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
