@@ -75,6 +75,10 @@ dfu-split-right: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 
 AVRDUDE_PROGRAMMER ?= avrdude
 
+define AVRDUDE_WRAPPER
+	$(AVRDUDE_PROGRAMMER) ${1} || echo "avrdude error: follow instructions at https://docs.qmk.fm/#/faq_build?id=cant-program-on-linux"
+endef
+
 define EXEC_AVRDUDE
 	list_devices() { \
 		if $(GREP) -q -s icrosoft /proc/version; then \
@@ -109,9 +113,9 @@ define EXEC_AVRDUDE
 		while [ ! -w "$$USB" ]; do sleep $(BOOTLOADER_RETRY_TIME); printf "."; done; echo ""; \
 	fi; \
 	if [ -z "$(1)" ]; then \
-		$(AVRDUDE_PROGRAMMER) -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
+		$(call AVRDUDE_WRAPPER, -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex); \
 	else \
-		$(AVRDUDE_PROGRAMMER) -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex -U eeprom:w:$(QUANTUM_PATH)/split_common/$(1); \
+		$(call AVRDUDE_WRAPPER, -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex -U eeprom:w:$(QUANTUM_PATH)/split_common/$(1)); \
 	fi
 endef
 
@@ -139,7 +143,7 @@ define EXEC_USBASP
 		done ;\
 		printf "\n" ;\
 	fi
-	$(AVRDUDE_PROGRAMMER) -p $(AVRDUDE_MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+	$(call AVRDUDE_WRAPPER, -p $(AVRDUDE_MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex)
 endef
 
 usbasp: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
