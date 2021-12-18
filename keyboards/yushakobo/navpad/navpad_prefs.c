@@ -17,7 +17,8 @@
 #include QMK_KEYBOARD_H
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    if (!process_record_user(keycode, record)) { return false; }
+    switch (keycode) 
   case TAP_00:
     if (record->event.pressed){
       tap_code(KC_P0);
