@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "m80v2.h"
+#include "m80v2s.h"
 
 #define ___ KC_NO
 
