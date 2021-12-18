@@ -76,7 +76,7 @@ dfu-split-right: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 AVRDUDE_PROGRAMMER ?= avrdude
 
 define AVRDUDE_WRAPPER
-	$(AVRDUDE_PROGRAMMER) ${1} || echo "avrdude error: follow instructions at https://docs.qmk.fm/#/faq_build?id=cant-program-on-linux"
+	$(AVRDUDE_PROGRAMMER) ${1} || { echo "avrdude error: follow instructions at https://docs.qmk.fm/#/faq_build?id=cant-program-on-linux" && exit $?; }
 endef
 
 define EXEC_AVRDUDE
