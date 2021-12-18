@@ -87,11 +87,13 @@ bool led_update_kb(led_t led_state) {
     navpad_scrolllock
   );
 
-  void keyboard_post_init_kb(void) {
-      rgblight_sethsv_noeeprom(HSV_WHITE);
-      // Enable the LED layers
-      rgblight_layers = navpad_rgb_layers;
-  }
+void keyboard_post_init_kb(void) {
+    rgblight_sethsv_noeeprom(HSV_WHITE);
+    // Enable the LED layers
+    rgblight_layers = navpad_rgb_layers;
+
+    keyboard_post_init_user();
+}
 #endif
 
 #ifdef ENCODER_ENABLE
