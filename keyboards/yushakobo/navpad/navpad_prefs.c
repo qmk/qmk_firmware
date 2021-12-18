@@ -71,11 +71,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   );
 # endif
 
-  void led_set_kb(uint8_t usb_led) {
+bool led_update_kb(led_t led_state) {
+    if (!led_update_user(led_state)) { return led_state; }
+
     rgblight_set_layer_state(0, host_keyboard_led_state().caps_lock);
     rgblight_set_layer_state(1, (host_keyboard_led_state().num_lock && IS_LAYER_ON(_BASE)));
     rgblight_set_layer_state(2, host_keyboard_led_state().scroll_lock);
-  }
+
+    return led_state;
+}
 
   const rgblight_segment_t* const PROGMEM navpad_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     navpad_capslock,
