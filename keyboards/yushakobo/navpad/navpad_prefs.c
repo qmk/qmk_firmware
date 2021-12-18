@@ -97,19 +97,8 @@ void keyboard_post_init_kb(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-# ifdef VIA_ENABLE
-  bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-      if (clockwise) {
-        tap_code16(KC_WH_U);
-      } else {
-        tap_code16(KC_WH_D);
-      }
-    }
-    return false;
-  }
-# else
-  bool encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) { /* Navpad side encoder */
       switch (get_highest_layer(layer_state|default_layer_state)) {
       case _BASE:
