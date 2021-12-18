@@ -234,7 +234,11 @@ void render_bootmagic_status(void) {
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NKRO), keymap_config.nkro);
     oled_write_P(PSTR(" "), false);
+#ifdef AUTOCORRECTION_ENABLE
+    oled_write_P(PSTR("CRCT"), userspace_config.autocorrection);
+#else
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NOGUI), keymap_config.no_gui);
+#endif
 #ifdef OLED_DISPLAY_128X64
     oled_advance_page(true);
     oled_write_P(PSTR("Magic"), false);
@@ -344,7 +348,7 @@ void render_wpm(uint8_t padding) {
 #endif
 }
 
-#if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
+#if defined(KEYBOARD_handwired_tractyl_manuform) || defined(KEYBOARD_bastardkb_charybdis)
 extern kb_config_data_t kb_config;
 void                    render_pointing_dpi_status(uint8_t padding) {
     oled_write_P(PSTR("CPI:"), false);
@@ -377,7 +381,7 @@ __attribute__((weak)) void oled_driver_render_logo_left(void) {
     render_wpm(0);
 #    endif
     oled_write_P(PSTR("  "), false);
-#    if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
+#    if defined(KEYBOARD_handwired_tractyl_manuform) || defined(KEYBOARD_bastardkb_charybdis)
     render_pointing_dpi_status(1);
 #    endif
     oled_set_cursor(0, 4);
