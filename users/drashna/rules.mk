@@ -104,7 +104,7 @@ ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
     OPT_DEFS += -DAUTOCORRECTION_ENABLE
 endif
 
-CAPS_WORD_ENABLE ?= yes
+CAPS_WORD_ENABLE ?= no
 ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)
     SRC += $(USER_PATH)/keyrecords/caps_word.c
     OPT_DEFS += -DCAPS_WORD_ENABLE
