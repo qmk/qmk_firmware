@@ -28,8 +28,3 @@ led_config_t g_led_config = { {
          4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
      } };
 #endif
-
-void keyboard_post_init_user(void) {
-    rgb_matrix_enable_noeeprom();
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_CYCLE_LEFT_RIGHT);
-}

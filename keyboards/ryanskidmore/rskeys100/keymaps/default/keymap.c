@@ -42,6 +42,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
 };
 
+void keyboard_post_init_user(void) {
+    rgb_matrix_enable_noeeprom();
+}
+
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     /* We use RGB for the indicator RGB colours since we don't need to adjust the brightness.
      * If any of the indicators are enabled, set the key to white. This overrides the active RGB
