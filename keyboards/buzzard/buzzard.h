@@ -5,5 +5,5 @@
 #include "quantum.h"
 
 #if defined(KEYBOARD_buzzard_rev1)
-#include "rev1.h"
+#   include "rev1.h"
 #endif
