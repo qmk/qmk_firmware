@@ -42,6 +42,10 @@ __attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t 
 }
 #    endif
 
+#    ifdef TAPPING_RELEASE_HOLD_TERM
+#        define WITHIN_RELEASE_HOLD_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < TAPPING_RELEASE_HOLD_TERM)
+#    endif
+
 #    ifdef PERMISSIVE_HOLD_PER_KEY
 __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     return false;
@@ -378,10 +382,15 @@ bool process_tapping(keyrecord_t *keyp) {
             if (event.pressed) {
                 if (IS_TAPPING_RECORD(keyp)) {
 //#    ifndef TAPPING_FORCE_HOLD
-#    if !defined(TAPPING_FORCE_HOLD) || defined(TAPPING_FORCE_HOLD_PER_KEY)
+#    if !defined(TAPPING_FORCE_HOLD) || defined(TAPPING_FORCE_HOLD_PER_KEY) || defined(TAPPING_RELEASE_HOLD_TERM)
                     if (
-#        ifdef TAPPING_FORCE_HOLD_PER_KEY
+#        if defined(TAPPING_FORCE_HOLD_PER_KEY) && defined(TAPPING_RELEASE_HOLD_TERM)
+                        // Apply force hold term only to per key
+                        (!get_tapping_force_hold(tapping_keycode, &tapping_key) || WITHIN_RELEASE_HOLD_TERM(event)) &&
+#        elif defined(TAPPING_FORCE_HOLD_PER_KEY) && !defined(TAPPING_RELEASE_HOLD_TERM)
                         !get_tapping_force_hold(tapping_keycode, &tapping_key) &&
+#        elif !defined(TAPPING_FORCE_HOLD_PER_KEY) && defined(TAPPING_RELEASE_HOLD_TERM)
+                        WITHIN_RELEASE_HOLD_TERM(event) &&
 #        endif
                         !tapping_key.tap.interrupted && tapping_key.tap.count > 0) {
                         // sequential tap.
