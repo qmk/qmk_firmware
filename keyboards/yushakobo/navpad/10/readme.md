@@ -6,7 +6,7 @@ Useful and easy to build numpad with nav-cluster
 
 * Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
 * Hardware Supported: NavPad 1.0 PCB, Pro Micro
-* Hardware Availability: https://shop.yushakobo.jp/navpad-10
+* Hardware Availability: https://shop.yushakobo.jp/products/navpad-10
 
 Make example for this keyboard (after setting up your build environment):
 

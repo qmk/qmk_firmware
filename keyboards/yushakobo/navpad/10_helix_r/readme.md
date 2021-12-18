@@ -4,9 +4,9 @@
 
 Navpad connected with helix keyboard (Right Side)
 
-* Keyboard Maintainer: [yushakobo](https://github.com/yourusername)
+* Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
 * Hardware Supported: Navpad 1.0 PCB and Helix PCB, Pro Micro
-* Hardware Availability: https://shop.yushakobo.jp/navpad-10
+* Hardware Availability: https://shop.yushakobo.jp/products/navpad-10
 
 Make example for this keyboard (after setting up your build environment):
     
