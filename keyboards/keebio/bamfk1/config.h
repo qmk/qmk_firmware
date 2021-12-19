@@ -21,12 +21,15 @@
  */
 
 #define DIRECT_PINS { \
-    { E6, D6, B6, NO_PIN }, \
+    { E6, B6, D6, NO_PIN }, \
     { NO_PIN, NO_PIN, NO_PIN, NO_PIN } \
 }
 #define AUDIO_PIN C6
-#define ENCODERS_PAD_A { B5, D4 }
-#define ENCODERS_PAD_B { C7, D7 }
+#ifdef AUDIO_ENABLE
+#    define STARTUP_SONG SONG(STARTUP_SOUND)
+#endif
+#define ENCODERS_PAD_A { C7, D7 }
+#define ENCODERS_PAD_B { B5, D4 }
 
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN

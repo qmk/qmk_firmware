@@ -13,10 +13,10 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAIN] = LAYOUT(
-        KC_A,               // Big Switch
-        MO(1),   KC_MUTE,   // Encoder presses
+        RGB_MOD,            // Big Switch
+        FN_MO13, KC_MUTE,   // Encoder presses
         KC_DOWN, KC_UP,     // Left encoder turns
-        KC_VOLD, KC_VOLU     // Right encoder turns
+        KC_VOLD, KC_VOLU    // Right encoder turns
     ),
     [_FN1] = LAYOUT(
         KC_B,               // Big Switch
@@ -40,7 +40,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t layer = get_highest_layer(layer_state);
-    uint16_t code = pgm_read_word(&(keymaps[layer][1][2 * index + clockwise]));
-    tap_code16(code);
+    if (clockwise) {
+        tap_code16(dynamic_keymap_get_keycode(layer, 1, 2 * index + 1));
+    } else {
+        tap_code16(dynamic_keymap_get_keycode(layer, 1, 2 * index));
+    }
     return true;
 }
