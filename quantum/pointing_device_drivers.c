@@ -248,7 +248,6 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3389)
 
-static void init(void) { pmw3389_init(); }
 
 report_mouse_t pmw3389_get_report(report_mouse_t mouse_report) {
     report_pmw3389_t data        = pmw3389_read_burst();
