@@ -295,11 +295,14 @@ static MSCMD_USER_RESULT usrcmd_update_file(MSOPT *msopt,
 
 static MSCMD_USER_RESULT usrcmd_remove_file(MSOPT *msopt,
         MSCMD_USER_OBJECT usrobj) {
-    char arg[4];
+    char arg[8];
     if (msopt->argc >= 2) {
         msopt_get_argv(msopt, 1, arg, sizeof(arg));
         if(arg[0] >= '0' && arg[0] <='9') {
             BMPAPI->app.delete_file(arg[0]-'0');
+        } else if (strcmp(arg, "all") == 0) {
+            xprintf("delete all files\n");
+            BMPAPI->app.delete_file(0xff);
         }
     }
     return 0;
