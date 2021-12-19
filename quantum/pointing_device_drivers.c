@@ -210,7 +210,7 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
 
-static void init(void) { pmw3360_init(); } //What is this line?
+static void init(void) { pmw3360_init(); }
 
 report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
     report_pmw3360_t data        = pmw3360_read_burst();
