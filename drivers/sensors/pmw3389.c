@@ -82,7 +82,7 @@
 // clang-format on
 
 #ifndef MAX_CPI
-#    define MAX_CPI 0x0140  // limits to 0--320, should be max cpi/50
+#    define MAX_CPI 0x013F  // limits to 0--320, should be max cpi/50
 #endif
 
 bool _inBurst = false;
