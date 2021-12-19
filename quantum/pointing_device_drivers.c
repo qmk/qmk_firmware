@@ -276,7 +276,7 @@ report_mouse_t pmw3389_get_report(report_mouse_t mouse_report) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = pmw3389_init,
+    .init       = init,
     .get_report = pmw3389_get_report,
     .set_cpi    = pmw3389_set_cpi,
     .get_cpi    = pmw3389_get_cpi
