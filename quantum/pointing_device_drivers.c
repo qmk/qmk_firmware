@@ -210,7 +210,7 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
 
-static void init(void) { pmw3360_init(); }
+static void init(void) { pmw3360_init(); } //What is this line?
 
 report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
     report_pmw3360_t data        = pmw3360_read_burst();
@@ -244,6 +244,45 @@ const pointing_device_driver_t pointing_device_driver = {
     .set_cpi    = pmw3360_set_cpi,
     .get_cpi    = pmw3360_get_cpi
 };
+
+// clang-format on
+#elif defined(POINTING_DEVICE_DRIVER_pmw3389)
+
+static void init(void) { pmw3389_init(); }
+
+report_mouse_t pmw3389_get_report(report_mouse_t mouse_report) {
+    report_pmw3389_t data        = pmw3389_read_burst();
+    static uint16_t  MotionStart = 0;  // Timer for accel, 0 is resting state
+
+    if (data.isOnSurface && data.isMotion) {
+        // Reset timer if stopped moving
+        if (!data.isMotion) {
+            if (MotionStart != 0) MotionStart = 0;
+            return mouse_report;
+        }
+
+        // Set timer if new motion
+        if ((MotionStart == 0) && data.isMotion) {
+#    ifdef CONSOLE_ENABLE
+            if (debug_mouse) dprintf("Starting motion.\n");
+#    endif
+            MotionStart = timer_read();
+        }
+        mouse_report.x = constrain_hid(data.dx);
+        mouse_report.y = constrain_hid(data.dy);
+    }
+
+    return mouse_report;
+}
+
+// clang-format off
+const pointing_device_driver_t pointing_device_driver = {
+    .init       = init,
+    .get_report = pmw3389_get_report,
+    .set_cpi    = pmw3389_set_cpi,
+    .get_cpi    = pmw3389_get_cpi
+};
+
 // clang-format on
 #else
 __attribute__((weak)) void           pointing_device_driver_init(void) {}
