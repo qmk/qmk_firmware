@@ -17,7 +17,7 @@
 #pragma once
 #include "drashna.h"
 
-#if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
+#if defined(KEYBOARD_handwired_tractyl_manuform)
 #    define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
 #else
 #    define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
@@ -56,7 +56,9 @@ enum userspace_custom_keycodes {
     KC_REGIONAL,
     KC_AUSSIE,
     KC_ZALGO,
-    NEW_SAFE_RANGE  // use "NEWPLACEHOLDER for keymap specific codes
+    KC_ACCEL,
+    AUTO_CTN,                                 // Toggle Autocorrect status
+    NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
 };
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
@@ -64,6 +66,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 void post_process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #ifdef CUSTOM_UNICODE_ENABLE
 bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
+void matrix_init_unicode(void);
 #endif
 
 #define LOWER     MO(_LOWER)

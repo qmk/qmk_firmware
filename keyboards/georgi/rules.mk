@@ -4,6 +4,9 @@ MCU = atmega32u4
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
+# Build Options
+#   change yes to no to disable
+#
 CUSTOM_MATRIX 		= yes
 MOUSEKEY_ENABLE		= no
 STENO_ENABLE 		= yes
