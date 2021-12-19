@@ -2,7 +2,7 @@
 
 Almost a default ISO layout, except Caps Lock swapped `MO(1)`.
 
-Made with `LAYOUT_65_iso`
+Made with `LAYOUT_65_ansi_blocker_isoenter`
 
 ```
 Base layer
