@@ -191,7 +191,7 @@ bool pmw3389_init(void) {
 
     spi_write_adv(REG_Config2, 0x00);
 
-    spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -30, 30));
+    spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -127, 127));
 
     spi_write_adv(REG_Lift_Config, PMW3389_LIFTOFF_DISTANCE);
 
