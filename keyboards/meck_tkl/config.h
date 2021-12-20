@@ -6,11 +6,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define VENDOR_ID    0x474B
+#define PRODUCT_ID   0x0001
 #define DEVICE_VER   0x0001
 #define MANUFACTURER gabrielkim13
-#define PRODUCT      meck_tkl
+#define PRODUCT      Meck TKL
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -27,9 +27,9 @@
  *
  */
 #define MATRIX_ROW_PINS \
-    { C14, C15, A0, A1, A2, A3 }
+    { B15, A8, A9, A10, A15, B3 }
 #define MATRIX_COL_PINS \
-    { A4, A5, A6, A7, B0, B1, B10, B11, B12, B13, B14, B15, A8, A9, A10, A15, B3 }
+    { B4, B5, B6, B7, B8, B9, A1, A2, A3, A4, A5, A6, A7, B0, B1, A0, B10 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
@@ -41,7 +41,8 @@
 // #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 
 //#define LED_NUM_LOCK_PIN B0
-//#define LED_CAPS_LOCK_PIN B1
+#define LED_CAPS_LOCK_PIN C13
+#define LED_PIN_ON_STATE 0
 //#define LED_SCROLL_LOCK_PIN B2
 //#define LED_COMPOSE_PIN B3
 //#define LED_KANA_PIN B4
@@ -79,7 +80,7 @@
 //#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#define DEBOUNCE 1
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
