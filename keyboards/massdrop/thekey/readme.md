@@ -28,10 +28,4 @@ Enter the bootloader as follows:
 * **Physical reset button**: Briefly press and hold the reset button while pluggin in the USB port. The LEDs on the back will **NOT** turn on. Depending on your case revision, you may have to remove the 4 screws on the back plate to access the switch OR you can use the associated access hole on newer releases.
 
 ## Additional Details
-For information on flashing this keyboard, visit the following links:
-
-[Massdrop Loader Releases](https://github.com/Massdrop/mdloader/releases/tag/1.0.3)  
-[Massdrop Loader Repository and Instructions](https://github.com/Massdrop/mdloader)[Massdrop Loader Releases]
-[Massdrop Loader Repository and Instructions]
-
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
