@@ -1,4 +1,3 @@
-
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "lily58.h"
