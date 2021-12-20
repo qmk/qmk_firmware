@@ -22,7 +22,22 @@ matrix_row_t* matrix_mouse_dest;
 static uint8_t  spis_tx_buf[4] = {0xfe, 0xff, 0xff, 0xff};
 static uint8_t  spis_rx_buf[1024];
 static int16_t  spis_receive_len = -1;
+static uint8_t  spis_status = 0;
 static uint16_t led_on_count = 0;
+
+static void qt_spis_start(void) {
+    spis_receive_len = -1;
+
+    int res = BMPAPI->spis.start(spis_tx_buf, sizeof(spis_tx_buf), spis_rx_buf,
+                                 sizeof(spis_rx_buf));
+
+    if (res != 0) {
+        xprintf("failed to start spis");
+        spis_status = 0;
+    } else {
+        spis_status = 1;
+    }
+}
 
 void qt_spis_callback(uint16_t receive_len) {
     spis_receive_len = receive_len;
@@ -64,9 +79,7 @@ void qt_spis_receive(uint16_t receive_len) {
         memset(spis_tx_buf + 1, 0xff, sizeof(spis_tx_buf) - 1);
     }
 
-    BMPAPI->spis.start(spis_tx_buf, sizeof(spis_tx_buf), spis_rx_buf,
-                       sizeof(spis_rx_buf));
-
+    qt_spis_start();
 }
 void qt_spis_init() {
     bmp_api_spis_config_t config;
@@ -82,7 +95,7 @@ void qt_spis_init() {
     config.complete_callback = qt_spis_callback;
 
     BMPAPI->spis.init(&config);
-    BMPAPI->spis.start(spis_tx_buf, sizeof(spis_tx_buf), spis_rx_buf, sizeof(spis_rx_buf));
+    qt_spis_start();
 }
 
 void qt_matrix_init() {
@@ -112,10 +125,8 @@ uint32_t qt_matrix_scan(matrix_row_t *matrix_raw) {
         qt_spis_receive(spis_receive_len);
     } else if (spis_receive_len != -1) {
         // restart spi if errors
-        BMPAPI->spis.start(spis_tx_buf, sizeof(spis_tx_buf), spis_rx_buf,
-                           sizeof(spis_rx_buf));
+        qt_spis_start();
     }
-    spis_receive_len = -1;
 
     if (led_on_count) {
         led_on_count--;
