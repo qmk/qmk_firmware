@@ -19,44 +19,44 @@
 bool numlock_set = false;
 
 enum layer_names {
-  _LAY0,
-  _LAY1,
-  _LAY2,
-  _LAY3
+    _LAY0,
+    _LAY1,
+    _LAY2,
+    _LAY3
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_LAY0] = LAYOUT(
-                           KC_PSLS, KC_PAST, KC_PMNS, 
-  KC_VOLD, KC_VOLU, KC_P7, KC_P8,   KC_P9,   KC_PPLS, 
-  KC_TRNS, KC_TRNS, KC_P4, KC_P5,   KC_P6,   KC_PPLS, 
-  KC_TRNS, KC_TRNS, KC_P1, KC_P2,   KC_P3,   KC_PENT, 
-  KC_TRNS, KC_TRNS, KC_P0, KC_P0,   KC_PDOT, KC_PENT  
-  ),
+    [_LAY0] = LAYOUT(
+                            KC_PSLS, KC_PAST, KC_PMNS, 
+    KC_VOLD, KC_VOLU, KC_P7, KC_P8,   KC_P9,   KC_PPLS, 
+    KC_TRNS, KC_TRNS, KC_P4, KC_P5,   KC_P6,   KC_PPLS, 
+    KC_TRNS, KC_TRNS, KC_P1, KC_P2,   KC_P3,   KC_PENT, 
+    KC_TRNS, KC_TRNS, KC_P0, KC_P0,   KC_PDOT, KC_PENT  
+    ),
 
-  [_LAY1] = LAYOUT(
-                 ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___  
-  ),
+    [_LAY1] = LAYOUT(
+                    ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___  
+    ),
 
-  [_LAY2] = LAYOUT(
-                 ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___
-  ),
+    [_LAY2] = LAYOUT(
+                    ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___
+    ),
 
-  [_LAY3] = LAYOUT(
-                 ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___, 
-  ___, ___, ___, ___, ___, ___
-  ),
+    [_LAY3] = LAYOUT(
+                    ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___, 
+    ___, ___, ___, ___, ___, ___
+    ),
 };
 
 #ifdef OLED_ENABLE
@@ -294,9 +294,6 @@ bool wpm_keycode_user(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Forwards keystrokes from an external input device over UART/TRRS
-    process_record_remote_kb(keycode, record);
-
     // Get the current NLCK status & set if not set.
     // Only do this once, in case user has a NLCK key
     // and wants to disable it later on.
@@ -309,14 +306,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     return true;
-}
-
-// Initialize remote keyboard, if connected
-void matrix_init_user(void) {
-    matrix_init_remote_kb();
-}
-
-// Scan and parse keystrokes from remote keyboard, if connected
-void matrix_scan_user(void) {
-    matrix_scan_remote_kb();
 }

@@ -27,7 +27,7 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
-                           KC_PSLS, KC_PAST, KC_PMNS, 
+                            KC_PSLS, KC_PAST, KC_PMNS, 
   KC_VOLD, KC_VOLU, KC_P7, KC_P8,   KC_P9,   KC_PPLS, 
   KC_TRNS, KC_TRNS, KC_P4, KC_P5,   KC_P6,   KC_PPLS, 
   KC_TRNS, KC_TRNS, KC_P1, KC_P2,   KC_P3,   KC_PENT, 
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_VIA1] = LAYOUT(
-                 ___, ___, ___, 
+                  ___, ___, ___, 
   ___, ___, ___, ___, ___, ___, 
   ___, ___, ___, ___, ___, ___, 
   ___, ___, ___, ___, ___, ___, 
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_VIA2] = LAYOUT(
-                 ___, ___, ___, 
+                  ___, ___, ___, 
   ___, ___, ___, ___, ___, ___, 
   ___, ___, ___, ___, ___, ___, 
   ___, ___, ___, ___, ___, ___, 
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_VIA3] = LAYOUT(
-                 ___, ___, ___, 
+                  ___, ___, ___, 
   ___, ___, ___, ___, ___, ___, 
   ___, ___, ___, ___, ___, ___, 
   ___, ___, ___, ___, ___, ___, 
@@ -60,27 +60,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  process_record_remote_kb(keycode, record);
-
-  // Get the current NLCK status & set if not set.
-  // Only do this once, in case user has a NLCK key
-  // and wants to disable it later on.
-  if (!numlock_set && record->event.pressed) {
-    led_t led_state = host_keyboard_led_state();
-    if (!led_state.num_lock) {
-      register_code(KC_NLCK);
+    // Get the current NLCK status & set if not set.
+    // Only do this once, in case user has a NLCK key
+    // and wants to disable it later on.
+    if (!numlock_set && record->event.pressed) {
+        led_t led_state = host_keyboard_led_state();
+        if (!led_state.num_lock) {
+            register_code(KC_NLCK);
+        }
+        numlock_set = true;
     }
-    numlock_set = true;
-  }
 
-  return true;
-}
-
-void matrix_init_user(void) {
-  matrix_init_remote_kb();
-  set_bitc_LED(LED_OFF);
-}
-
-void matrix_scan_user(void) {
-  matrix_scan_remote_kb();
+    return true;
 }
