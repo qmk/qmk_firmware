@@ -188,6 +188,7 @@ bool process_record_aussie(uint16_t keycode, keyrecord_t *record) {
 bool process_record_zalgo(uint16_t keycode, keyrecord_t *record) {
     if ((KC_A <= keycode) && (keycode <= KC_0)) {
         if (record->event.pressed) {
+
             tap_code16_nomods(keycode);
 
             int number = (rand() % (8 + 1 - 2)) + 2;
@@ -247,9 +248,12 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
-
-            break;
     }
+
+    if (((get_mods() | get_oneshot_mods()) & ~MOD_MASK_SHIFT) != 0) {
+        return true;
+    }
+
     if (((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) && record->tap.count) {
         keycode &= 0xFF;
     }
