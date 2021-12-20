@@ -216,9 +216,8 @@ typedef struct {
 #ifdef DIGITIZER_SHARED_EP
     uint8_t report_id;
 #endif
-    uint8_t  tip : 1;
-    uint8_t  inrange : 1;
-    uint8_t  pad2 : 6;
+    uint8_t inrange : 1;
+    uint8_t buttons : 7;
     uint16_t x;
     uint16_t y;
 } __attribute__((packed)) report_digitizer_t;

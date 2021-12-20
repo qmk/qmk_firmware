@@ -112,10 +112,12 @@ void host_digitizer_send(digitizer_t *digitizer) {
 #ifdef DIGITIZER_SHARED_EP
         .report_id = REPORT_ID_DIGITIZER,
 #endif
-        .tip     = digitizer->tipswitch & 0x1,
-        .inrange = digitizer->inrange & 0x1,
-        .x       = (uint16_t)(digitizer->x * 0x7FFF),
-        .y       = (uint16_t)(digitizer->y * 0x7FFF),
+        .inrange = digitizer->inrange,
+        .buttons = digitizer->buttons,
+        /* .x       = (uint16_t)(digitizer->x * 0x7FFF), */
+        /* .y       = (uint16_t)(digitizer->y * 0x7FFF), */
+        .x       = digitizer->x,
+        .y       = digitizer->y,
     };
 
     send_digitizer(&report);

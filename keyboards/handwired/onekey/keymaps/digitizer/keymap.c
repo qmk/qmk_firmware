@@ -30,9 +30,9 @@ void matrix_scan_user() {
     
     timer               = timer_read32();
     digitizer_t digitizer;
-    digitizer.x         = 0.5 - 0.2 * cos(timer_read() / 250. / 6.28);
-    digitizer.y         = 0.5 - 0.2 * sin(timer_read() / 250. / 6.28);
-    digitizer.tipswitch = 0;
-    digitizer.inrange   = 1;
+    digitizer.x         = DIG_REL2ABS_X(0.5 - 0.2 * cos(timer_read() / 250. / 6.28));
+    digitizer.y         = DIG_REL2ABS_Y(0.5 - 0.2 * sin(timer_read() / 250. / 6.28));
+    digitizer.buttons   = 0;
+    digitizer.inrange   = true;
     digitizer_set_report(digitizer);
 }

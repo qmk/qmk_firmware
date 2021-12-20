@@ -299,6 +299,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
             process_programmable_button(keycode, record) &&
 #endif
+#ifdef DIGITIZER_ENABLE
+            process_digitizer(keycode, record) &&
+#endif
             true)) {
         return false;
     }

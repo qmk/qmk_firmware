@@ -45,6 +45,10 @@
 #    include "joystick.h"
 #endif
 
+#ifdef DIGITIZER_ENABLE
+#    include "digitizer.h"
+#endif
+
 // clang-format off
 
 /*
@@ -165,37 +169,54 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM DigitizerReport[] = {
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #        define SHARED_REPORT_STARTED
 #    endif
-    HID_RI_USAGE_PAGE(8, 0x0D),      // Digitizers
-    HID_RI_USAGE(8, 0x01),           // Digitizer
-    HID_RI_COLLECTION(8, 0x01),      // Application
+    HID_RI_USAGE_PAGE(8, 0x0D),          // Digitizers
+    HID_RI_USAGE(8, DIGITIZER_USAGE_ID), // Device (Pen, Touch Screen, etc.)
+    HID_RI_COLLECTION(8, 0x01),          // Application
 #    ifdef DIGITIZER_SHARED_EP
         HID_RI_REPORT_ID(8, REPORT_ID_DIGITIZER),
 #    endif
-        HID_RI_USAGE(8, 0x20),       // Stylus
-        HID_RI_COLLECTION(8, 0x00),  // Physical
-            // Tip Switch (1 bit)
-            HID_RI_USAGE(8, 0x42),   // Tip Switch
+        HID_RI_USAGE(8, 0x20),           // Stylus
+        HID_RI_COLLECTION(8, 0x00),      // Physical
+            // Single-bit momentary controls
             HID_RI_LOGICAL_MINIMUM(8, 0x00),
             HID_RI_LOGICAL_MAXIMUM(8, 0x01),
             HID_RI_REPORT_SIZE(8, 0x01),
             HID_RI_REPORT_COUNT(8, 0x01),
-            HID_RI_INPUT(8, HID_IOF_VARIABLE),
             // In Range (1 bit)
-            HID_RI_USAGE(8, 0x32),  // In Range
+            HID_RI_USAGE(8, 0x32),       // In Range
             HID_RI_INPUT(8, HID_IOF_VARIABLE),
-            // Padding (6 bits)
-            HID_RI_REPORT_COUNT(8, 0x06),
-            HID_RI_INPUT(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE),
+            // Tip Switch (1 bit)
+            HID_RI_USAGE(8, 0x42),       // Tip Switch
+            HID_RI_INPUT(8, HID_IOF_VARIABLE),
+            // Secondary Tip Switch (1 bit)
+            HID_RI_USAGE(8, 0x43),       // Secondary Tip Switch
+            HID_RI_INPUT(8, HID_IOF_VARIABLE),
+            // Barrel Switch (1 bit)
+            HID_RI_USAGE(8, 0x44),       // Barrel Switch
+            HID_RI_INPUT(8, HID_IOF_VARIABLE),
+            // Secondary Barrel Switch (1 bit)
+            HID_RI_USAGE(8, 0x5A),       // Secondary Barrel Switch
+            HID_RI_INPUT(8, HID_IOF_VARIABLE),
+            // Tablet Pick (1 bit)
+            HID_RI_USAGE(8, 0x46),       // Tablet Pick
+            HID_RI_INPUT(8, HID_IOF_VARIABLE),
+            // Invert (1 bit)
+            HID_RI_USAGE(8, 0x3C),       // Invert
+            HID_RI_INPUT(8, HID_IOF_VARIABLE),
+            // Eraser (1 bit)
+            HID_RI_USAGE(8, 0x45),       // Eraser
+            HID_RI_INPUT(8, HID_IOF_VARIABLE),
 
             // X/Y Position (4 bytes)
             HID_RI_USAGE_PAGE(8, 0x01),     // Generic Desktop
-            HID_RI_LOGICAL_MAXIMUM(16, 0x7FFF),
             HID_RI_REPORT_SIZE(8, 0x10),
             HID_RI_REPORT_COUNT(8, 0x01),
             HID_RI_UNIT(8, 0x33),           // Inch, English Linear
             HID_RI_UNIT_EXPONENT(8, 0x0E),  // -2
+            HID_RI_LOGICAL_MAXIMUM(16, DIGITIZER_MAX_X),
             HID_RI_USAGE(8, 0x30),          // X
             HID_RI_INPUT(8, HID_IOF_VARIABLE),
+            HID_RI_LOGICAL_MAXIMUM(16, DIGITIZER_MAX_Y),
             HID_RI_USAGE(8, 0x31),          // Y
             HID_RI_INPUT(8, HID_IOF_VARIABLE),
         HID_RI_END_COLLECTION(0),
