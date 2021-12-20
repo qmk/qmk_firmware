@@ -1,2 +1,7 @@
+MOUSEKEY_ENABLE = no
+EXTRAKEY_ENABLE = yes
+RGBLIGHT_ENABLE = yes
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
+console_enable = no
+EXTRAFLAGS += -flto
