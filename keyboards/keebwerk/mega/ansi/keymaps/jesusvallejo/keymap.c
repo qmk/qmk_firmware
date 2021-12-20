@@ -156,7 +156,7 @@ void breathing(void) {
 
 /* this avoids turning off the led each matrix_scan_user() call */
 bool capsState; 
-bool prevCapsState;/
+bool prevCapsState;
 
 void matrix_scan_user(void){
     if(bootAnimation()){
