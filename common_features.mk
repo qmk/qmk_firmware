@@ -144,7 +144,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3360)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
             QUANTUM_LIB_SRC += spi_master.c
-	else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3389)
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3389)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
             QUANTUM_LIB_SRC += spi_master.c
         endif
