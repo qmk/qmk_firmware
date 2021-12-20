@@ -65,6 +65,17 @@ enum custom_keycodes {
     NEW_SAFE_RANGE
 };
 
+// set the permissive hold if not already set
+#ifndef PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD
+#endif
+
+// when defined GRAVE_ESC will always act as ESC when CTRL is held.
+// we ensure it to be set
+#ifndef GRAVE_ESC_CTRL_OVERRIDE
+#define GRAVE_ESC_CTRL_OVERRIDE
+#endif
+
 
 // RGB standard colors
 // CAPS LOCK color  - Warm white
