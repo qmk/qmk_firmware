@@ -38,21 +38,16 @@ uint8_t midi2vol = 0x3E;
 
 /* Defines names for use in layer keycodes and the keymap */
 
-#define _MEDIA 0    /* Controls Pause, Mute , Forward ... */
-
-#define _NAV 1      /* Nav arrows, Enter, Space*/
-
-#define _VOLUME 2   /* Changes midi2vol int to interface with midi2vol program: Chrome Volume, General Volume */
-
-#define _DISCORD 3  /* FXX unsused keys to interface with Discord: Mute , Silence */
-
-#define _LIGHTS 4   /* Edits underglow and retroilumination */
-
-#define _EDIT 5     /* Cut, Copy ,Paste */
-
-#define _RESET 6    /* Layer to set nano in bootloader mode */
-
-#define _TOOGLE 7   /* Momentary layer to switch between layers */
+enum custom_layers {
+    _MEDIA,    /* Controls Pause, Mute , Forward ... */
+    _NAV,      /* Nav arrows, Enter, Space*/
+    _VOLUME    /* Changes midi2vol int to interface with midi2vol program: Chrome Volume, General Volume */
+    _DISCORD,  /* FXX unsused keys to interface with Discord: Mute , Silence */
+    _LIGHTS,   /* Edits underglow and retroilumination */
+    _EDIT,     /* Cut, Copy ,Paste */
+    _RESET,    /* Layer to set nano in bootloader mode */
+    _TOOGLE,   /* Momentary layer to switch between layers */
+};
 
 
 
