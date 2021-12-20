@@ -1,5 +1,5 @@
 SRC += $(USER_PATH)/drashna.c \
-       $(USER_PATH)/process_records.c
+       $(USER_PATH)/keyrecords/process_records.c
 
 ifneq ($(PLATFORM),CHIBIOS)
     ifneq ($(strip $(LTO_SUPPORTED)), no)
@@ -10,8 +10,8 @@ SPACE_CADET_ENABLE    = no
 GRAVE_ESC_ENABLE      = no
 
 ifneq ($(strip $(NO_SECRETS)), yes)
-    ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
-        SRC += $(USER_PATH)/secrets.c
+    ifneq ("$(wildcard $(USER_PATH)/keyrecords/secrets.c)","")
+        SRC += $(USER_PATH)/keyrecords/secrets.c
     endif
     ifeq ($(strip $(NO_SECRETS)), lite)
         OPT_DEFS += -DNO_SECRETS
@@ -25,20 +25,20 @@ ifeq ($(strip $(CUSTOM_UNICODE_ENABLE)), yes)
     UCIS_ENABLE           = no
     UNICODE_COMMON        = yes
     OPT_DEFS += -DCUSTOM_UNICODE_ENABLE
-    SRC += unicoooode.c
+    SRC += $(USER_PATH)/keyrecords/unicode.c
 endif
 
 CUSTOM_TAP_DANCE ?= yes
 ifeq ($(strip $(CUSTOM_TAP_DANCE)), yes)
     ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-        SRC += $(USER_PATH)/tap_dances.c
+        SRC += $(USER_PATH)/keyrecords/tap_dances.c
     endif
 endif
 
 CUSTOM_RGBLIGHT ?= yes
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_RGBLIGHT)), yes)
-        SRC += $(USER_PATH)/rgb_stuff.c
+        SRC += $(USER_PATH)/rgb/rgb_stuff.c
         ifeq ($(strip $(RGBLIGHT_NOEEPROM)), yes)
             OPT_DEFS += -DRGBLIGHT_NOEEPROM
         endif
@@ -51,7 +51,7 @@ endif
 CUSTOM_RGB_MATRIX ?= yes
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_RGB_MATRIX)), yes)
-        SRC += $(USER_PATH)/rgb_matrix_stuff.c
+        SRC += $(USER_PATH)/rgb/rgb_matrix_stuff.c
     endif
 endif
 
@@ -76,24 +76,36 @@ endif
 CUSTOM_OLED_DRIVER ?= yes
 ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_OLED_DRIVER)), yes)
-        SRC += $(USER_PATH)/oled_stuff.c
+        SRC += $(USER_PATH)/oled/oled_stuff.c
         OPT_DEFS += -DCUSTOM_OLED_DRIVER_CODE
     endif
 endif
 
-ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
-    POINTING_DEVICE_ENABLE := yes
-    OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
-    SRC += drivers/sensors/pimoroni_trackball.c
-    QUANTUM_LIB_SRC += i2c_master.c
+CUSTOM_POINTING_DEVICE ?= yes
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+    ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
+        SRC += $(USER_PATH)/pointing/pointing.c
+    endif
 endif
 
 CUSTOM_SPLIT_TRANSPORT_SYNC ?= yes
 ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT_SYNC)), yes)
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-        QUANTUM_LIB_SRC += $(USER_PATH)/transport_sync.c
+        QUANTUM_LIB_SRC += $(USER_PATH)/split/transport_sync.c
         OPT_DEFS += -DCUSTOM_SPLIT_TRANSPORT_SYNC
     endif
 endif
 
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api
+
+AUTOCORRECTION_ENABLE ?= yes
+ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
+    SRC += $(USER_PATH)/keyrecords/autocorrection/autocorrection.c
+    OPT_DEFS += -DAUTOCORRECTION_ENABLE
+endif
+
+CAPS_WORD_ENABLE ?= yes
+ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)
+    SRC += $(USER_PATH)/keyrecords/caps_word.c
+    OPT_DEFS += -DCAPS_WORD_ENABLE
+endif
