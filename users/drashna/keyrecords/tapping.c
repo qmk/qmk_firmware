@@ -5,6 +5,8 @@
 
 __attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case BK_LWER:
+            return TAPPING_TERM + 25;
         default:
             return TAPPING_TERM;
     }
