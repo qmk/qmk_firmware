@@ -13,19 +13,26 @@ Hardware Supported: Massdrop, Inc. **The Key**
 
 Hardware Availability: Limited Release - https://drop.com/buy/stack-overflow-the-key-macropad
 
-Make example for this keyboard (after setting up your build environment):
 
+Make example for this keyboard (after setting up your build environment):
 ```bash
-# build 
+# default provided by Drop / Stack Overflow
 make massdrop/thekey:default
+# common modification where C = CTRL+C, V = CTRL+V
+make massdrop/thekey:url-copy-paste
+```
+
+Flashing example for this keyboard:
+```bash
 # install in dfu mode
 make massdrop/thekey:default:dfu
 ```
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+Make example for this keyboard (after setting up your build environment):
+
 ## Bootloader
 
 Enter the bootloader as follows:
 * **Bootmagic reset**: Hold down the "Stack Overflow" key, the "left-most" or furthest from the USB plug while inserting the USB cable for a few seconds. The LEDs will **NOT** turn on.
 * **Physical reset button**: Briefly press and hold the reset button while pluggin in the USB port. The LEDs on the back will **NOT** turn on. Depending on your case revision, you may have to remove the 4 screws on the back plate to access the switch OR you can use the associated access hole on newer releases.
-
-## Additional Details
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
