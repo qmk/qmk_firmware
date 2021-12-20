@@ -137,3 +137,7 @@
 #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
 #    define DYNAMIC_KEYMAP_LAYER_COUNT 11
 #endif
+
+#ifndef TAPPING_TERM
+#    define TAPPING_TERM 175
+#endif
