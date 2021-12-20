@@ -31,13 +31,6 @@
 
 /*
  * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
  */
 #define MATRIX_ROW_PINS { D4 }
 #define MATRIX_COL_PINS { D2, D1, D0 }
@@ -48,11 +41,9 @@
 #define BACKLIGHT_LEVELS 3
 
 #define RGB_DI_PIN B1
-#ifdef RGB_DI_PIN
-    #define RGBLED_NUM 2
-    #define RGBLIGHT_HUE_STEP 8
-    #define RGBLIGHT_SAT_STEP 8
-    #define RGBLIGHT_VAL_STEP 8
-    #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-    #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-#endif
+#define RGBLED_NUM 2
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+#define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */

@@ -18,16 +18,10 @@
 
 enum custom_keycodes {
     TK_URL = SAFE_RANGE,
-    TK_COPY,
-    TK_PASTE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    [0] = LAYOUT(
-        TK_URL,    TK_COPY,    TK_PASTE     
-    ),
-
+    [0] = LAYOUT(TK_URL, C(KC_C), C(KC_V)),
 };
 
 
@@ -39,15 +33,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("https://stackoverflow.com/");
             }
             break;
-        case TK_COPY:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LCTL("c"));
-            }
-            break;
-        case TK_PASTE:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LCTL("v"));
-            }
         default:
             break;
     }
