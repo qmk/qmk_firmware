@@ -10,6 +10,7 @@ ifneq ($(PLATFORM),CHIBIOS)
 endif
 SPACE_CADET_ENABLE    = no
 GRAVE_ESC_ENABLE      = no
+# DEBUG_MATRIX_SCAN_RATE_ENABLE = api
 
 ifneq ($(strip $(NO_SECRETS)), yes)
     ifneq ("$(wildcard $(USER_PATH)/keyrecords/secrets.c)","")
@@ -20,12 +21,23 @@ ifneq ($(strip $(NO_SECRETS)), yes)
     endif
 endif
 
+ifeq ($(strip $(MAKE_BOOTLOADER)), yes)
+    OPT_DEFS += -DMAKE_BOOTLOADER
+endif
+
+# At least until build.mk or the like drops, this is here to prevent
+# VUSB boards from enabling NKRO, as they do not support it. Ideally
+# this should be handled per keyboard, but until that happens ...
+ifeq ($(strip $(PROTOCOL)), VUSB)
+    NKRO_ENABLE       := no
+endif
+
 CUSTOM_UNICODE_ENABLE ?= yes
 ifeq ($(strip $(CUSTOM_UNICODE_ENABLE)), yes)
-    UNICODE_ENABLE        = no
-    UNICODEMAP_ENABLE     = no
-    UCIS_ENABLE           = no
-    UNICODE_COMMON        = yes
+    UNICODE_ENABLE        := no
+    UNICODEMAP_ENABLE     := no
+    UCIS_ENABLE           := no
+    UNICODE_COMMON        := yes
     OPT_DEFS += -DCUSTOM_UNICODE_ENABLE
     SRC += $(USER_PATH)/keyrecords/unicode.c
 endif
@@ -64,17 +76,6 @@ ifdef CONSOLE_ENABLE
     endif
 endif
 
-ifeq ($(strip $(MAKE_BOOTLOADER)), yes)
-    OPT_DEFS += -DMAKE_BOOTLOADER
-endif
-
-# At least until build.mk or the like drops, this is here to prevent
-# VUSB boards from enabling NKRO, as they do not support it. Ideally
-# this should be handled per keyboard, but until that happens ...
-ifeq ($(strip $(PROTOCOL)), VUSB)
-    NKRO_ENABLE       = no
-endif
-
 CUSTOM_OLED_DRIVER ?= yes
 ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_OLED_DRIVER)), yes)
@@ -97,8 +98,6 @@ ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT_SYNC)), yes)
         OPT_DEFS += -DCUSTOM_SPLIT_TRANSPORT_SYNC
     endif
 endif
-
-# DEBUG_MATRIX_SCAN_RATE_ENABLE = api
 
 AUTOCORRECTION_ENABLE ?= no
 ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
