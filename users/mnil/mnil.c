@@ -86,7 +86,7 @@ void ae_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code(KC_A);
             break;
         case SINGLE_HOLD:
-            tap_code(SE_AE);
+            tap_code(SE_ADIA);
             break;
         case DOUBLE_SINGLE_TAP:
             tap_code(KC_A);
@@ -113,15 +113,15 @@ void aa_finished(qk_tap_dance_state_t *state, void *user_data) {
     aa_tap_state.state = cur_dance(state);
     switch (aa_tap_state.state) {
         case SINGLE_TAP:
-            register_code(SE_OSLH);
+            register_code(SE_ODIA);
             break;
         case SINGLE_HOLD:
-            register_code(SE_AA);
-            unregister_code(SE_AA);
+            register_code(SE_ARNG);
+            unregister_code(SE_ARNG);
             break;
         case DOUBLE_SINGLE_TAP:
-            tap_code(SE_OSLH);
-            register_code(SE_OSLH);
+            tap_code(SE_ODIA);
+            register_code(SE_ODIA);
             break;
     }
 }
@@ -129,10 +129,10 @@ void aa_finished(qk_tap_dance_state_t *state, void *user_data) {
 void aa_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (aa_tap_state.state) {
         case SINGLE_TAP:
-            unregister_code(SE_OSLH);
+            unregister_code(SE_ODIA);
             break;
         case DOUBLE_SINGLE_TAP:
-            unregister_code(SE_OSLH);
+            unregister_code(SE_ODIA);
             break;
     }
     aa_tap_state.state = 0;

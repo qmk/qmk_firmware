@@ -105,7 +105,7 @@ enum my_keycodes {
 
 Before opening a pull request, you can preview your changes if you have set up the development environment by running this command from the `qmk_firmware/` folder:
 
-    ./bin/qmk docs
+    qmk docs
 
 or if you only have Python 3 installed:
 

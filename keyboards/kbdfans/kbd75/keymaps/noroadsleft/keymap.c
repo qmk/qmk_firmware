@@ -56,6 +56,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define FN_CAPS LT(_FN,KC_CAPS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
     [_DV] = LAYOUT_75_ansi_wkl(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, MO(_SY),
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC,          KC_BSPC, KC_HOME,
@@ -64,6 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,          KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,             KC_RSFT, KC_UP,   KC_END,
         KC_LCTL, TD(LAG),                                     KC_SPC,                                      TD(RAG), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
+
     [_QW] = LAYOUT_75_ansi_wkl(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, MO(_SY),
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,           KC_BSPC, KC_HOME,
@@ -72,6 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
         KC_LCTL, TD(LAG),                                     KC_SPC,                                      TD(RAG), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
+
     [_Q2] = LAYOUT_75_ansi_wkl(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
@@ -80,6 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, KC_LALT,                                     _______,                                     KC_RALT, _______, _______, _______, _______
     ),
+
     [_FN] = LAYOUT_75_ansi_wkl(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DEL,  DM_REC1,
@@ -88,14 +92,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,          M_UNDO,  M_CUT,   M_COPY,  M_PASTE, G_BRCH,  _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,          _______, _______, DM_PLY2,
         _______, _______,                                     _______,                                     _______, _______, _______, _______, _______
     ),
+
     [_SY] = LAYOUT_75_ansi_wkl(
-        _______, TO(_DV), TO(_QW), _______, TG(_Q2), _______, _______, _______, RESET,   EEP_RST, DEBUG,   _______, VRSN,    _______, _______, _______,
-        _______, _______, M_MDSWP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DEL,  _______,
-        _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
-        _______,          _______, _______, BL_DEC,  BL_TOGG, BL_INC,  BL_BRTG, _______, _______, _______, _______,          _______, _______, _______,
-        _______, _______,                                     _______,                                     _______, _______, _______, _______, _______
+        TG(_SY), TO(_DV), TO(_QW), XXXXXXX, TG(_Q2), XXXXXXX, XXXXXXX, XXXXXXX, RESET,   EEP_RST, DEBUG,   XXXXXXX, VRSN,    XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_DEL,  XXXXXXX,
+        XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
+        XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          XXXXXXX,
+        XXXXXXX,          XXXXXXX, XXXXXXX, BL_DEC,  BL_TOGG, BL_INC,  BL_BRTG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX,                                     XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
+
 };
 
 bool led_update_user(led_t led_state) {
