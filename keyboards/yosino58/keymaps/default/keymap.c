@@ -13,7 +13,7 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  KC_HOME, KC_PGUP,                                     XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
   XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,  KC_END,  KC_PGDN, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, RGBRST,  RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, \
                                       XXXXXXX, _______, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX \
-  ) 
+  )
 };
 
 
@@ -171,7 +171,7 @@ void matrix_scan_user(void) {
 }
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (is_master) {
+  if (is_keyboard_master()) {
     static char indctr[2][20][5]=
     {
       // white icon
@@ -275,7 +275,7 @@ void iota_gfx_task_user(void) {
   struct CharacterMatrix matrix;
   matrix_clear(&matrix);
   matrix_render_user(&matrix);
-  matrix_update(&display, &matrix);  
+  matrix_update(&display, &matrix);
 }
 #endif//SSD1306OLED
 

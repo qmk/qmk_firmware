@@ -14,7 +14,7 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -60,11 +60,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                                  ,-----------------------------------------.
  * | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |                                  |  F6  |  F7  |  F8  |  F9  |  F10 |      |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
- * | Tab  |   /  |   -  |   7  |   8  |   9  |                                  | PSCR | SLCK | Pause|      |  Å™  |      |
+ * | Tab  |   /  |   -  |   7  |   8  |   9  |                                  | PSCR | SLCK | Pause|      |  ÔøΩÔøΩ  |      |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
- * |LShift|   *  |   +  |   4  |   5  |   6  |                                  |Insert| Home |PageUP|      |  Å´  |  Å®  |
+ * |LShift|   *  |   +  |   4  |   5  |   6  |                                  |Insert| Home |PageUP|      |  ÔøΩÔøΩ  |  ÔøΩÔøΩ  |
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
- * |LCTRL |   .  |   0  |   1  |   2  |   3  |-------.-------.  ,---------------|  Del | End  |PageDN|  Å©  | Num  | Caps |
+ * |LCTRL |   .  |   0  |   1  |   2  |   3  |-------.-------.  ,---------------|  Del | End  |PageDN|  ÔøΩÔøΩ  | Num  | Caps |
  * `-----------------------------------------/  F11  /       /   \       \  F12  \----------------------------------------'
  *                          | LAlt | LGUI | /-------/ Space /     \ Enter \-------\  |      |      |
  *                          |      |      |/ LOWER /       /       \       \       \ |      |      |
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
                                       XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX \
-  ) 
+  )
 */
 };
 
@@ -172,7 +172,7 @@ void matrix_scan_user(void) {
 }
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (is_master) {
+  if (is_keyboard_master()) {
     static char indctr[2][20][5]=
     {
       // white icon
@@ -276,7 +276,7 @@ void iota_gfx_task_user(void) {
   struct CharacterMatrix matrix;
   matrix_clear(&matrix);
   matrix_render_user(&matrix);
-  matrix_update(&display, &matrix);  
+  matrix_update(&display, &matrix);
 }
 #endif//SSD1306OLED
 

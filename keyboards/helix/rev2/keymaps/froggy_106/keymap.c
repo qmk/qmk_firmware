@@ -5,7 +5,7 @@
   #include "ssd1306.h"
 #endif
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 #define DELAY_TIME  75
 static uint16_t key_timer;
@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,JP_UNDS, JP_AMPR, _______, _______, _______,  _______,  _______,  _______,  _______,  _______, \
       _______, _______, KC_PSCR, _______, JP_TILD, _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______ \
       ),
-  
+
   /* Raise
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |      |      | Func | home |  End |      |             |      |      |      |      |      |      |
@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_NLCK,  KC_P0,   KC_P1,      KC_P2,   KC_P3,   LCTL(S(KC_F1)), _______, _______, _______,  _______,  _______,  _______,  _______,  _______, \
       _______,  _______, KC_PDOT,    JP_COMM, _______, _______,        _______, _______, _______,  _______,  _______,  _______,  _______,  _______ \
       ),
-  
+
   /* Func
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |RGBRST|  Hue |To101 |  RST |  Mac |  Win |             |      |      |      |      |      |      |
@@ -317,7 +317,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef RGBLIGHT_ENABLE
     col = record->event.key.col;
     row = record->event.key.row;
-    if (record->event.pressed && ((row < 5 && is_master) || (row >= 5 && !is_master))) {
+    if (record->event.pressed && ((row < 5 && is_keyboard_master()) || (row >= 5 && !is_keyboard_master()))) {
       int end = keybuf_end;
       keybufs[end].col = col;
       keybufs[end].row = row % 5;
@@ -702,7 +702,7 @@ void render_status(struct CharacterMatrix *matrix) {
     {0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,0},
     {0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0},
   };
-  
+
   static char modectl[4][2][4]=
   {
     {
@@ -722,7 +722,7 @@ void render_status(struct CharacterMatrix *matrix) {
       {0xda,0xdb,0xdc,0}, //JP(106)
     },
   };
-  
+
   static char indctr[8][2][4]=
   {
     // white icon
@@ -807,7 +807,7 @@ void iota_gfx_task_user(void) {
 #endif
 
   matrix_clear(&matrix);
-  if(is_master){
+  if(is_keyboard_master()){
     render_status(&matrix);
   }
   matrix_update(&display, &matrix);

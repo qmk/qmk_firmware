@@ -16,7 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-//extern uint8_t is_master;
+//extern uint8_t is_keyboard_master();
 
 
 enum custom_layers {
@@ -113,7 +113,7 @@ void keyboard_post_init_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
-        
+
         case SET_RGB:
             if (record->event.pressed) {
                 rgb_matrix_sethsv_noeeprom(18, 86, 95);

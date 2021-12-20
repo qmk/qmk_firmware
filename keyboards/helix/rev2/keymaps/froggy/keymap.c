@@ -18,7 +18,7 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 #define DELAY_TIME  75
 static uint16_t key_timer;
@@ -268,7 +268,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef RGBLIGHT_ENABLE
     col = record->event.key.col;
     row = record->event.key.row;
-    if (record->event.pressed && ((row < 5 && is_master) || (row >= 5 && !is_master))) {
+    if (record->event.pressed && ((row < 5 && is_keyboard_master()) || (row >= 5 && !is_keyboard_master()))) {
       int end = keybuf_end;
       keybufs[end].col = col;
       keybufs[end].row = row % 5;
@@ -733,7 +733,7 @@ void iota_gfx_task_user(void) {
 #endif
 
   matrix_clear(&matrix);
-  if(is_master){
+  if(is_keyboard_master()){
     render_status(&matrix);
   }
   matrix_update(&display, &matrix);

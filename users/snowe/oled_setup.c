@@ -25,7 +25,7 @@
 #    include <stdio.h>  // for keylog?
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_master) {
+    if (!is_keyboard_master()) {
         return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
     }
     return OLED_ROTATION_270;
@@ -122,7 +122,7 @@ void render_bootmagic_status(void) {
 }
 
 bool oled_task_user(void) {
-    if (is_master) {
+    if (is_keyboard_master()) {
         oled_render_layer_state();
         oled_render_keylog();
         render_bootmagic_status();

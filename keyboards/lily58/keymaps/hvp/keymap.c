@@ -14,7 +14,7 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 #define _QWERTY 0
 #define _LOWER 1
@@ -33,43 +33,43 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
- [_QWERTY] = LAYOUT( 
-  LT(3,KC_ESC),   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, 
-  LT(_NAVI,KC_TAB),   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, 
+ [_QWERTY] = LAYOUT(
+  LT(3,KC_ESC),   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  LT(_NAVI,KC_TAB),   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
   KC_LSFT, KC_A,   KC_S,    KC_D,    LT(4,KC_F),    LT(3,KC_G),                     KC_H,    KC_J,    KC_K,    KC_L,     TD(TD1), TD(TD2),
   KC_LCTRL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, MT(MOD_LSFT,KC_BSPC),  MT(MOD_LSFT,KC_ENTER),  KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3),  MT(MOD_RSFT,KC_ENT),
                              KC_LALT, KC_LGUI, LOWER,LT(1,KC_SPC),   LT(2,KC_SPC),   RAISE,   KC_RALT, KC_RGUI
 ),
 [_RAISE] = LAYOUT( /* Right */
-  _______, _______, _______,  _______,  _______,  _______,                   _______, _______, _______, _______, _______, _______,  
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, 
+  _______, _______, _______,  _______,  _______,  _______,                   _______, _______, _______, _______, _______, _______,
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   KC_DEL, _______, _______, _______, _______, _______,                      _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-  _______, _______, _______, _______, _______, _______, MT(MOD_LCTL,KC_LBRC),            MT(MOD_LALT,KC_RBRC),  _______, KC_UNDS, KC_PLUS,  KC_LCBR, KC_RCBR, KC_PIPE, 
-                             _______, _______, _______,  _______, _______,  _______, _______, _______ 
+  _______, _______, _______, _______, _______, _______, MT(MOD_LCTL,KC_LBRC),            MT(MOD_LALT,KC_RBRC),  _______, KC_UNDS, KC_PLUS,  KC_LCBR, KC_RCBR, KC_PIPE,
+                             _______, _______, _______,  _______, _______,  _______, _______, _______
 ),
 
 [_LOWER] = LAYOUT( /* Left */
   _______, _______, _______, _______, _______, _______,                   _______, _______, _______,_______, _______, _______,
   KC_TILD,KC_EXLM,KC_AT,KC_HASH,KC_DLR,KC_PERC,              KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_BSPC,
   KC_DEL, _______, _______, _______, _______, _______,                      _______, KC_UNDS, KC_PLUS,  KC_LCBR, KC_RCBR, KC_BSLS,
-  _______, _______, _______, _______, _______, _______, MT(MOD_LCTL,KC_LCBR),         MT(MOD_LALT,KC_RCBR),  _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_TILD, 
+  _______, _______, _______, _______, _______, _______, MT(MOD_LCTL,KC_LCBR),         MT(MOD_LALT,KC_RCBR),  _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_TILD,
                              _______, _______, _______,  _______, _______,  _______, _______, _______
 ),
 
  [_NAVI] = LAYOUT( /* Tab */
-  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6,                     KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, 
-  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, 
-  _______, _______, _______, D_NAVI, _______, _______,                   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,   _______, _______, 
+  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6,                     KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,
+  _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, D_NAVI, _______, _______,                   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,   _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______,
-                             _______, KC_VOLD, KC_MPRV, KC_MSTP, KC_MPLY,  KC_MNXT, KC_VOLU, _______ 
+                             _______, KC_VOLD, KC_MPRV, KC_MSTP, KC_MPLY,  KC_MNXT, KC_VOLU, _______
   ),
 
   [_ADJUST] = LAYOUT( /* Esc */
-  _______,  RGB_TOG, RGB_MOD, RGB_RMOD, _______, _______,                   _______, KC_7, KC_8, KC_9, KC_0, _______, 
-  _______, RGB_M_P, RGB_HUD, RGB_HUI, _______, _______,                   _______, KC_4, KC_5, KC_6, _______, _______, 
-  KC_PSCR, _______, RGB_SAD, RGB_SAI, _______, _______,                   KC_0, KC_1, KC_2, KC_3, _______, _______, 
+  _______,  RGB_TOG, RGB_MOD, RGB_RMOD, _______, _______,                   _______, KC_7, KC_8, KC_9, KC_0, _______,
+  _______, RGB_M_P, RGB_HUD, RGB_HUI, _______, _______,                   _______, KC_4, KC_5, KC_6, _______, _______,
+  KC_PSCR, _______, RGB_SAD, RGB_SAI, _______, _______,                   KC_0, KC_1, KC_2, KC_3, _______, _______,
   RESET, _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                             _______, KC_VOLD, KC_MPRV, KC_MSTP, KC_MPLY,  KC_MNXT, KC_VOLU, _______ 
+                             _______, KC_VOLD, KC_MPRV, KC_MSTP, KC_MPLY,  KC_MNXT, KC_VOLU, _______
   )
 };
 
@@ -77,7 +77,7 @@ int RGB_current_mode;
 
 // Setting ADJUST layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  
+
 }
 
 void matrix_init_user(void) {
@@ -105,7 +105,7 @@ void matrix_scan_user(void) {
 }
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (is_master) {
+  if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
     matrix_write_ln(matrix, read_layer_state());
     matrix_write_ln(matrix, read_keylog());

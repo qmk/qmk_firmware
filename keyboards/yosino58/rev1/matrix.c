@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static uint8_t debouncing = DEBOUNCE;
 static const int ROWS_PER_HAND = MATRIX_ROWS/2;
 static uint8_t error_count = 0;
-uint8_t is_master = 0 ;
+uint8_t is_keyboard_master() = 0 ;
 
 static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
@@ -113,7 +113,7 @@ void matrix_init(void)
         matrix_debouncing[i] = 0;
     }
 
-    is_master = has_usb();
+    is_keyboard_master() = has_usb();
 
     matrix_init_quantum();
 }
@@ -202,7 +202,7 @@ int serial_transaction(int master_changed) {
 
 uint8_t matrix_scan(void)
 {
-    if (is_master) {
+    if (is_keyboard_master()) {
         matrix_master_scan();
     }else{
         matrix_slave_scan();

@@ -5,7 +5,7 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 #define _QWERTY 0
 #define _LOWER 1

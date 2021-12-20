@@ -19,7 +19,7 @@
 #include QMK_KEYBOARD_H
 
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 enum layers {
     _QWERTY,

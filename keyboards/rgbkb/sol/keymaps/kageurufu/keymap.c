@@ -6,7 +6,7 @@
 #endif
 
 extern keymap_config_t keymap_config;
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 /* Base Layout
   * ,------------------------------------------------.  ,------------------------------------------------.

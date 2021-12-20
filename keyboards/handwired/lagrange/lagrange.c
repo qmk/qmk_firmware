@@ -32,24 +32,24 @@
  * to select the slave, which doubles as the signal. */
 
 bool is_keyboard_master(void) {
-    static int8_t is_master = -1;
+    static int8_t is_keyboard_master() = -1;
 
-    if (is_master < 0) {
+    if (is_keyboard_master() < 0) {
         while (readPin(SPI_SS_PIN)) {
             if (USB_Device_IsAddressSet()) {
-                is_master = 1;
-                return is_master;
+                is_keyboard_master() = 1;
+                return is_keyboard_master();
             }
             wait_ms(SPLIT_USB_TIMEOUT_POLL);
         }
 
-        is_master = 0;
+        is_keyboard_master() = 0;
 
         USB_Disable();
         USB_DeviceState = DEVICE_STATE_Unattached;
     }
 
-    return is_master;
+    return is_keyboard_master();
 }
 
 void keyboard_pre_init_kb(void) {

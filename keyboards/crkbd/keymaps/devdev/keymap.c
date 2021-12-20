@@ -24,9 +24,7 @@ char layer_state_str[24];
 
   enum userspace_layers {
     _DEFAULTS = 0,
-	_COLEMAK = 0,
-	_COLEMAKDH,
-    _QWERTY,
+	_COLEMAKDH = 0,
     _NUM,
     _SYM,
     _COMMAND,
@@ -47,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 		KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, 						  KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
 	//|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-										 KC_LGUI,   MO(_NUM),  KC_SPC, 	KC_ENT,    MO(_SYM), KC_LALT
+										 KC_LGUI,   MO(_NUM),  KC_ENT, 	KC_SPC,    MO(_SYM), KC_LALT
 										//`--------------------------'  `--------------------------'
 	),
 
@@ -60,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 		KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, 						  KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
 	//|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-										 KC_LGUI,   MO(_NUM),  KC_SPC, 	KC_ENT,    MO(_SYM), KC_LALT
+										 KC_LGUI,   MO(_NUM),  KC_ENT, 	KC_SPC,    MO(_SYM), KC_LALT
 										//`--------------------------'  `--------------------------'
 	),
 
@@ -72,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, 		KC_A, 	KC_S, 	KC_D, 	KC_F, 	KC_G, 							KC_H, 	  KC_J, 	KC_K, 	 KC_L, LT(_NUMPAD,KC_SCLN), KC_TRNS,
 	//|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 	KC_TRNS, 		KC_Z, 	KC_X, 	KC_C, 	KC_V, 	KC_B, 							KC_N, 	  KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_TRNS,
-    //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+    //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|;
 										 KC_TRNS,   KC_TRNS,  KC_TRNS, 	KC_TRNS,    KC_TRNS, KC_TRNS
 									   //`--------------------------'  `--------------------------'
 	),
@@ -162,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 // it appears that these are different to the board numbering.
-// when you specify n here, it lightss up n+1 on the board diagram - actually may be an entirely different pattern
+// when you specify n here, it lights up n+1 on the board diagram - actually may be an entirely different pattern
 
 // _QWERTY,
 // Light on inner column and underglow
@@ -393,7 +391,7 @@ void oled_render_logo(void) {
 }
 
 bool oled_task_user(void) {
-    if (is_master) {
+    if (is_keyboard_master()) {
         oled_render_layer_state();
         oled_render_keylog();
     } else {

@@ -156,7 +156,7 @@ void matrix_scan_user(void) {
   matrix_scan_keymap();
   }
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 #endif // CRKBD
 
 uint16_t        oled_timer;
@@ -268,7 +268,7 @@ bool oled_task_user(void) {
         oled_off();
         return;
     }
-        if (is_master) {
+        if (is_keyboard_master()) {
             render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
         } else {
             render_logo();

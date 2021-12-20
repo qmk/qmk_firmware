@@ -6,7 +6,7 @@
 #include "split_util.h"
 #endif
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 // When add source files to SRC in rules.mk, you can use functions.
 const char *read_logo(void);
@@ -78,7 +78,7 @@ static inline void render_keymap_status(struct CharacterMatrix *matrix) {
 }
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (is_master) {
+  if (is_keyboard_master()) {
     render_keymap_status(matrix);
     matrix_write_ln(matrix, read_keylog());
     matrix_write_ln(matrix, read_keylogs());

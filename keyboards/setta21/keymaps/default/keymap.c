@@ -6,7 +6,7 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -25,11 +25,11 @@ LT(_ADJUST,KC_ESC),  KC_F2,  KC_EQL,  KC_DEL,
       //|--------+--------+--------+--------|
           KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
       //|--------+--------+--------+--------|
-            KC_P7,   KC_P8,   KC_P9,         
+            KC_P7,   KC_P8,   KC_P9,
       //|--------+--------+--------+--------|
             KC_P4,   KC_P5,   KC_P6, KC_PPLS,
       //|--------+--------+--------+--------|
-            KC_P1,   KC_P2,   KC_P3,         
+            KC_P1,   KC_P2,   KC_P3,
       //|--------+--------+--------+--------|
 LT(_ARROW, KC_P0),          KC_PDOT,KC_PENT
       //`-----------------------------------'
@@ -41,13 +41,13 @@ LT(_ARROW, KC_P0),          KC_PDOT,KC_PENT
       //|--------+--------+--------+--------|
           XXXXXXX, _______, _______, _______,
       //|--------+--------+--------+--------|
-          XXXXXXX,   KC_UP, XXXXXXX,         
+          XXXXXXX,   KC_UP, XXXXXXX,
       //|--------+--------+--------+--------|
           KC_LEFT, KC_DOWN,KC_RIGHT, _______,
       //|--------+--------+--------+--------|
-          XXXXXXX, KC_DOWN, XXXXXXX,         
+          XXXXXXX, KC_DOWN, XXXXXXX,
       //|--------+--------+--------+--------|
-       MO(_ARROW),          _______, _______ 
+       MO(_ARROW),          _______, _______
       //`-----------------------------------'
   ),
 
@@ -57,13 +57,13 @@ LT(_ARROW, KC_P0),          KC_PDOT,KC_PENT
       //|--------+--------+--------+--------|
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       //|--------+--------+--------+--------|
-          RGB_SAD, RGB_SAI, XXXXXXX,         
+          RGB_SAD, RGB_SAI, XXXXXXX,
       //|--------+--------+--------+--------|
           RGB_HUD, RGB_HUI, XXXXXXX, RGB_TOG,
       //|--------+--------+--------+--------|
-          RGB_VAD, RGB_VAI, XXXXXXX,         
+          RGB_VAD, RGB_VAI, XXXXXXX,
       //|--------+--------+--------+--------|
-          XXXXXXX,          XXXXXXX, RGB_MOD 
+          XXXXXXX,          XXXXXXX, RGB_MOD
       //`-----------------------------------'
   )
 };

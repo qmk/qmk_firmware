@@ -7,10 +7,10 @@
   #define is_keyboard_master() is_helix_master()
 #endif
 
-// Each keymap.c should use is_keyboard_master() instead of 'is_master', 'has_usb()'.
-// But keep 'is_master' for a while for backwards compatibility
+// Each keymap.c should use is_keyboard_master() instead of 'is_keyboard_master()', 'has_usb()'.
+// But keep 'is_keyboard_master()' for a while for backwards compatibility
 //  for the old keymap.c.
-extern uint8_t is_master; // 'is_master' will be obsolete, it is recommended to use 'is_keyboard_master ()' instead.
+extern uint8_t is_keyboard_master(); // 'is_keyboard_master()' will be obsolete, it is recommended to use 'is_keyboard_master ()' instead.
 #define has_usb() is_keyboard_master()
 
 #ifndef FLIP_HALF

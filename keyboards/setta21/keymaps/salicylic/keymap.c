@@ -7,7 +7,7 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 #ifdef OLED_ENABLE
 static uint32_t        oled_timer = 0;

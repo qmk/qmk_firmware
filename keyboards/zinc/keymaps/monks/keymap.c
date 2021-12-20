@@ -8,7 +8,7 @@ extern rgblight_config_t rgblight_config;
 rgblight_config_t RGB_current_config;
 #endif
 
-extern uint8_t is_master;
+extern uint8_t is_keyboard_master();
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.

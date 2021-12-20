@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "ninjonas.h"
 
-uint8_t is_master;
+uint8_t is_keyboard_master();
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_wrapper(
