@@ -13,6 +13,9 @@
 #    if AUTOCORRECTION_MIN_LENGTH < 4
 #        error Minimum Length is too short and may cause overflows
 #    endif
+#    if DICTIONARY_SIZE > SIZE_MAX
+#        error Dictionary size excees maximum size permitted
+#    endif
 
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
     static uint8_t typo_buffer[AUTOCORRECTION_MAX_LENGTH] = {KC_SPC};
