@@ -1,6 +1,7 @@
 SRC += $(USER_PATH)/drashna.c \
-       $(USER_PATH)/keyrecords/process_records.c \
-       $(USER_PATH)/keyrecords/tapping.c
+        $(USER_PATH)/callbacks.c \
+        $(USER_PATH)/keyrecords/process_records.c \
+        $(USER_PATH)/keyrecords/tapping.c
 
 ifneq ($(PLATFORM),CHIBIOS)
     ifneq ($(strip $(LTO_SUPPORTED)), no)

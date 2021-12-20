@@ -21,14 +21,6 @@
 
 uint16_t typing_mode;
 
-void tap_code16_nomods(uint8_t kc) {
-    uint8_t temp_mod = get_mods();
-    clear_mods();
-    clear_oneshot_mods();
-    tap_code16(kc);
-    set_mods(temp_mod);
-}
-
 void tap_unicode_glyph_nomods(uint32_t glyph) {
     uint8_t temp_mod = get_mods();
     clear_mods();

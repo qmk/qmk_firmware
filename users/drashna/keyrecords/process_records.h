@@ -66,7 +66,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 void post_process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #ifdef CUSTOM_UNICODE_ENABLE
 bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
-void matrix_init_unicode(void);
 #endif
 
 #define LOWER     MO(_LOWER)
@@ -140,3 +139,21 @@ void matrix_init_unicode(void);
 #define ALT_APP ALT_T(KC_APP)
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
+
+
+/*
+Custom Keycodes for Diablo 3 layer
+But since TD() doesn't work when tap dance is disabled
+We use custom codes here, so we can substitute the right stuff
+*/
+#ifdef TAP_DANCE_ENABLE
+#    define KC_D3_1 TD(TD_D3_1)
+#    define KC_D3_2 TD(TD_D3_2)
+#    define KC_D3_3 TD(TD_D3_3)
+#    define KC_D3_4 TD(TD_D3_4)
+#else  // TAP_DANCE_ENABLE
+#    define KC_D3_1 KC_1
+#    define KC_D3_2 KC_2
+#    define KC_D3_3 KC_3
+#    define KC_D3_4 KC_4
+#endif  // TAP_DANCE_ENABLE
