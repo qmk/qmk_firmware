@@ -60,10 +60,16 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             }
 #    endif
         default:
+            // Disable autocorrection while a mod other than shift is active.
+            if (((get_mods() | get_oneshot_mods()) & ~MOD_MASK_SHIFT) != 0) {
+                typo_buffer_size = 0;
+                return true;
+            }
             if (!record->event.pressed) {
                 return true;
             }
     }
+
 
     // Subtract buffer for Backspace key, reset for other non-alpha.
     if (!(KC_A <= keycode && keycode <= KC_Z)) {
