@@ -1,6 +1,6 @@
 # Pearl
 
-![Pearl](https://i.imgur.com/xdEtT7u.jpg)
+![Pearl](https://i.imgur.com/xdEtT7uh.jpg)
 
 Pearl is a future-proof premium 40%. This is the second round of it, reworked for 2021. This firmware is for the latest QMK PCB's.
 
