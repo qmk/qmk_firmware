@@ -23,7 +23,7 @@ bool effect_runner_reactive(effect_params_t* params, reactive_f effect_func) {
         RGB      rgb    = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, offset));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
 #endif  // RGB_MATRIX_KEYREACTIVE_ENABLED

@@ -167,7 +167,7 @@ bool oled_init(oled_rotation_t rotation) {
     }
 #endif
 
-    oled_rotation = oled_init_user(rotation);
+    oled_rotation = oled_init_user(oled_init_kb(rotation));
     if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
         oled_rotation_width = OLED_DISPLAY_WIDTH;
     } else {
@@ -232,6 +232,7 @@ bool oled_init(oled_rotation_t rotation) {
     return true;
 }
 
+__attribute__((weak)) oled_rotation_t oled_init_kb(oled_rotation_t rotation) { return rotation; }
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return rotation; }
 
 void oled_clear(void) {
@@ -741,11 +742,11 @@ void oled_task(void) {
     if (timer_elapsed(oled_update_timeout) >= OLED_UPDATE_INTERVAL) {
         oled_update_timeout = timer_read();
         oled_set_cursor(0, 0);
-        oled_task_user();
+        oled_task_kb();
     }
 #else
     oled_set_cursor(0, 0);
-    oled_task_user();
+    oled_task_kb();
 #endif
 
 #if OLED_SCROLL_TIMEOUT > 0
@@ -776,4 +777,5 @@ void oled_task(void) {
 #endif
 }
 
-__attribute__((weak)) void oled_task_user(void) {}
+__attribute__((weak)) bool oled_task_kb(void) { return oled_task_user(); }
+__attribute__((weak)) bool oled_task_user(void) { return true; }

@@ -1,4 +1,7 @@
-/* Copyright 2018-2020 ENDO Katsuhiro <ka2hiro@curlybracket.co.jp> David Philip Barr <@davidphilipbarr> Pierre Chevalier <pierrechevalier83@gmail.com>
+/* Copyright 2018-2020 
+ENDO Katsuhiro <ka2hiro@curlybracket.co.jp>
+David Philip Barr <@davidphilipbarr>
+Pierre Chevalier <pierrechevalier83@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -61,11 +64,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /* Serial settings */
 #define USE_SERIAL
 /* serial.c configuration for split keyboard */
@@ -74,8 +72,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 /* Top left key on left half */
-#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_ROW    0
 #define BOOTMAGIC_LITE_COLUMN 0
 /* Top right key on right half */
-#define BOOTMAGIC_LITE_ROW_RIGHT 4
+#define BOOTMAGIC_LITE_ROW_RIGHT    4
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 4

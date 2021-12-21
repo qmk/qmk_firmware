@@ -1,7 +1,7 @@
 # Drashna's Blackpill Tractyl Manuform (5x6) with a right side trackball
 
 * System Timer on TIM5
-* ~~VBUS mod, using PB10~~ (*doesn't seem to work for me*)
+* VBUS mod, using PB10 -- does work, but not on my tractyl... bad soldering probably
 * Split Hand Pin, using PC14
 * Full Duplex Serial/USART using PA2 and PA3 on USART2
 * PWM Audio using PB1 and TIM3 and GPT on TIM4
@@ -12,7 +12,8 @@
 * SSD1306 OLED display (128x64) using PB8-PB9 on I2C1
 * Pull-up resistor (22k) on PA10 to fix reset issue.
 * Pull-up resistor (5.1k) on PA1 for WS2812 LED support, and wire it's VCC to the 5V pin.
-* Pins PA9, PA11, A12 are not useable because they're used for USB connection, and can't be shared. 
+* Pins PA9 is meant for VBUS sense, and has an internal pulldown resistor. A 5.1k pullup resistor can work (but should be avoided)
+* Pins PA11 and A12 are not useable because they're used for USB connection, and can't be shared. 
 * Pin PB2 is used by BOOT1, and is unusable
 
 ## Keyboard Info
