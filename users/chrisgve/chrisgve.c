@@ -58,6 +58,7 @@ enum generic_layer_t {
     _NAV2_L,
     _ADJ_L,
     _NUM_L,
+    _MSE_L, 
 };
 
 bool apple_mode = false;
@@ -65,6 +66,23 @@ bool caps_lock = false;
 bool def_layer = true;
 uint8_t cur_layer = _DEF_L;
 bool apple_fn_pressed = false;
+bool mouse_layer = false;
+
+// Tap dance configuration
+
+// Mouse
+#ifdef MOUSEKEY_ENABLE
+#ifdef TAP_DANCE_ENABLE
+
+// Tap Dance definition
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once or Shift, twice for mouse layer
+    [TD_LSHIFT_MOUSE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LSFT, _MOUSE),
+};
+
+#endif
+#endif
+
 
 // RGB Handling
 
@@ -105,6 +123,10 @@ void set_adj_rgb(void) {
     set_rgb(RGB_ADJ_R, RGB_ADJ_G, RGB_ADJ_B);
 }
 
+void set_mse_rgb(void) {
+    set_rgb(RGB_MSE_R, RGB_MSE_G, RGB_MSE_B);
+}
+
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_user(void) {
     if (caps_lock) {
@@ -122,6 +144,9 @@ void rgb_matrix_indicators_user(void) {
                 break;
             case _ADJ_L:
                 set_adj_rgb();
+                break;
+            case _MSE_L:
+                set_mse_rgb();
                 break;
             default:
                 break;
@@ -168,6 +193,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             def_layer = false;
             set_adj_rgb();
             break;
+        case _MOUSE:
+            cur_layer = _MSE_L;
+            def_layer = false;
+            set_adj_rgb();
         default:
             cur_layer = _DEF_L;
             def_layer = true;

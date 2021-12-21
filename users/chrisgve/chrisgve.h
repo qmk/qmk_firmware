@@ -34,11 +34,8 @@ enum default_layers {
     _ADJUST_LINUX,  // Adjust for Linux
     _LOWER,         // Lower layer on ortho
     _CONFIG,        // Keyboard configuation layer
-    _TMUX,          // TMux layer
-    _VIM,           // VIM layer
     _NUM,           // Numerical layer (for 40% layouts)
-    _MAC_FN,        // Mac function keys
-    _WIN_FN         // Win function keys
+    _MOUSE,         // Mouse key layer
 };
 
 // Custom keys
@@ -103,6 +100,11 @@ enum custom_keycodes {
 #define RGB_NUM_G   0xff
 #define RGB_NUM_B   0xff
 
+// MOUSE color - Orange
+#define RGB_MSE_R   0xff
+#define RGB_MSE_G   0x50
+#define RGB_MSE_B   0x50
+
 #define CHAR_MOVE   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
 #define LINE_MOVE   KC_HOME, KC_PGDN, KC_PGUP, KC_END
 
@@ -155,13 +157,31 @@ enum custom_keycodes {
 #define R_MOD       LT(_ADJUST, KC_SPC) // for split space bar, right bar
 //#define R_MOD       RCTL_T(KC_SPC)  // for split space bar, right bar
 
+// Mouse
+#ifdef MOUSEKEY_ENABLE
+#ifdef TAP_DANCE_ENABLE
+
+#define MK_KINETIC_SPEED
+
+// Tap Dance declarations
+enum {
+    TD_LSHIFT_MOUSE,
+};
+
+// Define the keycode for the mouse tap dance
+#define SFT_MSE     TD(TD_LSHIFT_MOUSE)
+#define TG_MSE      TG(_MOUSE)
+
+#endif
+#endif
+
 //#define TAPPING_TOGGLE 2
-#define M_TG_N1     TT(_MAC_NAV_1)
-#define L_TG_N1     TT(_LINUX_NAV_1)
-#define W_TG_N1     TT(_WIN_NAV_1)
-#define M_TG_N2     TT(_MAC_NAV_2)
-#define L_TG_N2     TT(_LINUX_NAV_2)
-#define W_TG_N2     TT(_WIN_NAV_2)
+#define M_TG_N1     TG(_MAC_NAV_1)
+#define L_TG_N1     TG(_LINUX_NAV_1)
+#define W_TG_N1     TG(_WIN_NAV_1)
+#define M_TG_N2     TG(_MAC_NAV_2)
+#define L_TG_N2     TG(_LINUX_NAV_2)
+#define W_TG_N2     TG(_WIN_NAV_2)
 
 #define DF_MAC      DF(_QWERTY_MAC)
 #define DF_WIN      DF(_QWERTY_WIN)
@@ -186,13 +206,6 @@ enum custom_keycodes {
 #define W_B_WRD     C(KC_LEFT)
 
 
-// VIM only definitions
-
-
-// TMUX only definitions
-
-
-#define TMUX_SL  TM_SEL1, TM_SEL2, TM_SEL3, TM_SEL4, TM_SEL5, TM_SEL6, TM_SEL7, TM_SEL8
 
 /*
  * Move via D + any of CHAR_MOVE or D + F + any of LINE_MOVE
