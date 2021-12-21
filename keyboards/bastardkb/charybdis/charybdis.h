@@ -59,7 +59,7 @@ enum charybdis_keycodes {
 #    endif  // !NO_CHARYBDIS_KEYCODES
 
 /** \brief Return the current DPI value for the pointer's default mode. */
-uint32_t charybdis_get_pointer_default_dpi(void);
+uint16_t charybdis_get_pointer_default_dpi(void);
 
 /**
  * \brief Update the pointer's default DPI to the next or previous step.
@@ -81,7 +81,7 @@ void charybdis_cycle_pointer_default_dpi(bool forward);
 void charybdis_cycle_pointer_default_dpi_noeeprom(bool forward);
 
 /** \brief Return the current DPI value for the pointer's sniper-mode. */
-uint32_t charybdis_get_pointer_sniping_dpi(void);
+uint16_t charybdis_get_pointer_sniping_dpi(void);
 
 /**
  * \brief Update the pointer's sniper-mode DPI to the next or previous step.
