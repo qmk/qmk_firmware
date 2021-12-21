@@ -5,8 +5,8 @@
 
 enum custom_layers {
     _QWERTY,    // daily use and coding
-    _LOWER,     // mouse, arrows, browsing useful keys
-    _RAISE,     // machine settings, keyboard settings, backlight
+    _MOVE,     // mouse, arrows, browsing useful keys
+    _CONF,     // machine settings, keyboard settings, backlight
 };
 #define _KC_SPC LT(_CONF, KC_SPC)
 #define _KC_ENT LT(_MOVE, KC_ENT)
