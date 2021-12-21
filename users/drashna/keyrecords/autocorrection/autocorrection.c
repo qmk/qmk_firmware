@@ -1,5 +1,5 @@
 // Copyright 2021 Google LLC
-// Copyright 2022 @filterpaper
+// Copyright 2021 @filterpaper
 // SPDX-License-Identifier: Apache-2.0
 // Original source: https://getreuer.info/posts/keyboards/autocorrection
 
