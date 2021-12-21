@@ -226,8 +226,9 @@ static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
 static void    send_system(uint16_t data);
 static void    send_consumer(uint16_t data);
+static void    send_programmable_button(uint32_t data);
 
-static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
+static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
 
 host_driver_t *vusb_driver(void) { return &driver; }
 
@@ -296,6 +297,20 @@ void send_digitizer(report_digitizer_t *report) {
 #ifdef DIGITIZER_ENABLE
     if (usbInterruptIsReadyShared()) {
         usbSetInterruptShared((void *)report, sizeof(report_digitizer_t));
+    }
+#endif
+}
+
+static void send_programmable_button(uint32_t data) {
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    static report_programmable_button_t report = {
+        .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
+    };
+
+    report.usage = data;
+
+    if (usbInterruptIsReadyShared()) {
+        usbSetInterruptShared((void *)&report, sizeof(report));
     }
 #endif
 }
@@ -555,7 +570,27 @@ const PROGMEM uchar shared_hid_report[] = {
     0x09, 0x31,        //     Usage (Y)
     0x81, 0x02,        //     Input (Data, Variable, Absolute)
     0xC0,              //   End Collection
-    0xC0               // End Collection
+    0xC0,              // End Collection
+#endif
+
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    // Programmable buttons report descriptor
+    0x05, 0x0C,                           // Usage Page (Consumer)
+    0x09, 0x01,                           // Usage (Consumer Control)
+    0xA1, 0x01,                           // Collection (Application)
+    0x85, REPORT_ID_PROGRAMMABLE_BUTTON,  //   Report ID
+    0x09, 0x03,                           //   Usage (Programmable Buttons)
+    0xA1, 0x04,                           //   Collection (Named Array)
+    0x05, 0x09,                           //     Usage Page (Button)
+    0x19, 0x01,                           //     Usage Minimum (Button 1)
+    0x29, 0x20,                           //     Usage Maximum (Button 32)
+    0x15, 0x00,                           //     Logical Minimum (0)
+    0x25, 0x01,                           //     Logical Maximum (1)
+    0x95, 0x20,                           //     Report Count (32)
+    0x75, 0x01,                           //     Report Size (1)
+    0x81, 0x02,                           //     Input (Data, Variable, Absolute)
+    0xC0,                                 //   End Collection
+    0xC0,                                 // End Collection
 #endif
 
 #ifdef SHARED_EP_ENABLE

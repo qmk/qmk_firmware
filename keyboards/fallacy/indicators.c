@@ -54,7 +54,7 @@ void set_fallacy_led(int index, bool state) {
 
 /* define LED matrix
  */
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, C1_1},
     {0, C2_1},
     {0, C3_1},
