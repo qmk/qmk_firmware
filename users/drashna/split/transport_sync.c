@@ -4,6 +4,9 @@
 #include "transport_sync.h"
 #include "transactions.h"
 #include <string.h>
+#ifdef __AVR__
+#    include <avr/wdt.h>
+#endif
 
 #ifdef CUSTOM_UNICODE_ENABLE
 #include "process_unicode_common.h"
@@ -20,6 +23,10 @@ extern bool tap_toggling;
 #ifdef SWAP_HANDS_ENABLE
 extern bool swap_hands;
 #endif
+
+static bool watchdog_ping_done = false;
+static uint32_t watchdog_timer = 0;
+
 extern userspace_config_t userspace_config;
 extern bool               host_driver_disabled;
 
@@ -44,11 +51,20 @@ void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiato
     }
 }
 
+void watchdog_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) { watchdog_ping_done = true; }
+
+
 void keyboard_post_init_transport_sync(void) {
     // Register keyboard state sync split transaction
     transaction_register_rpc(RPC_ID_USER_STATE_SYNC, user_state_sync);
     transaction_register_rpc(RPC_ID_USER_KEYMAP_SYNC, user_keymap_sync);
     transaction_register_rpc(RPC_ID_USER_CONFIG_SYNC, user_config_sync);
+
+#ifdef __AVR__
+    wdt_disable();
+#endif
+    transaction_register_rpc(RPC_ID_USER_WATCHDOG_SYNC, watchdog_handler);
+    watchdog_timer = timer_read32();
 }
 
 void user_transport_update(void) {
@@ -147,6 +163,30 @@ void user_transport_sync(void) {
         if (needs_sync) {
             if (transaction_rpc_send(RPC_ID_USER_CONFIG_SYNC, sizeof(transport_userspace_config), &transport_userspace_config)) {
                 last_sync[2] = timer_read32();
+            }
+        }
+    }
+
+    if (!watchdog_ping_done) {
+        if (is_keyboard_master()) {
+            if (timer_elapsed32(watchdog_timer) > 100) {
+                uint8_t any_data = 1;
+                if (transaction_rpc_send(RPC_ID_USER_WATCHDOG_SYNC, sizeof(any_data), &any_data)) {
+                    watchdog_ping_done = true;  // successful ping
+                } else {
+                    dprint("Watchdog ping failed!\n");
+                }
+                watchdog_timer = timer_read32();
+            }
+        } else {
+            if (timer_elapsed32(watchdog_timer) > 3500) {
+#ifdef __AVR__
+                wdt_enable(WDTO_250MS);
+#else
+                NVIC_SystemReset();
+#endif
+                while (1) {
+                }
             }
         }
     }
