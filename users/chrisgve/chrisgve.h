@@ -161,7 +161,9 @@ enum custom_keycodes {
 #ifdef MOUSEKEY_ENABLE
 #ifdef TAP_DANCE_ENABLE
 
+// mouse parameters setup
 #define MK_KINETIC_SPEED
+#define MOUSEKEY_WHEEL_TIME_TO_MAX   80 
 
 // Tap Dance declarations
 enum {
