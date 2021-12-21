@@ -176,7 +176,6 @@ void                       eeconfig_init_user(void) {
     userspace_config.rgb_layer_change = true;
     eeconfig_update_user(userspace_config.raw);
     eeconfig_init_keymap();
-    keyboard_init();
 }
 
 #ifdef SPLIT_KEYBOARD

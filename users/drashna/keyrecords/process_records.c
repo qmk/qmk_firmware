@@ -9,6 +9,9 @@
 #ifdef AUTOCORRECTION_ENABLE
 #    include "autocorrection/autocorrection.h"
 #endif
+#ifdef __AVR__
+#include <avr/wdt.h>
+#endif
 
 uint16_t copy_paste_timer;
 bool     host_driver_disabled = false;
@@ -199,6 +202,28 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
             }
             break;
         }
+        case EEP_RST:
+            if (record->event.pressed) {
+                eeconfig_disable();
+                shutdown_user();
+#ifdef __AVR__
+                wdt_enable(WDTO_250MS);
+#else
+                NVIC_SystemReset();
+#endif
+            }
+            return false;
+        case REBOOT:
+            if (record->event.pressed) {
+                shutdown_user();
+#ifdef __AVR__
+                wdt_enable(WDTO_250MS);
+#else
+                NVIC_SystemReset();
+#endif
+            }
+            return false;
+
     }
     return true;
 }

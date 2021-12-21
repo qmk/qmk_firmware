@@ -45,6 +45,7 @@ enum userspace_custom_keycodes {
     KC_ZALGO,
     KC_ACCEL,
     AUTO_CTN,                                 // Toggle Autocorrect status
+    REBOOT,
     NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
 };
 
