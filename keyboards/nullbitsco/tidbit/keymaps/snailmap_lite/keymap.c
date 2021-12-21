@@ -16,8 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-bool numlock_set = false;
-
 enum layer_names {
     _LAY0,
     _LAY1,
@@ -258,7 +256,7 @@ static void render_wpm_graph(uint8_t current_wpm) {
 }
 
 // Call OLED functions
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // Draw OLED keyboard, prevent redraw
     if (oled_data.first_loop) {
         render_background();
@@ -285,6 +283,7 @@ void oled_task_user(void) {
         render_wpm_graph(current_wpm);
         oled_data.timer = timer_read();
     }
+    return false;
 }
 #endif
 
@@ -293,17 +292,3 @@ bool wpm_keycode_user(uint16_t keycode) {
     return true;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Get the current NLCK status & set if not set.
-    // Only do this once, in case user has a NLCK key
-    // and wants to disable it later on.
-    if (!numlock_set && record->event.pressed) {
-        led_t led_state = host_keyboard_led_state();
-        if (!led_state.num_lock) {
-            register_code(KC_NLCK);
-        }
-        numlock_set = true;
-    }
-
-    return true;
-}

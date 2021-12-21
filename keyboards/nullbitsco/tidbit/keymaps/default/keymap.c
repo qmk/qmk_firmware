@@ -16,8 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-bool numlock_set = false;
-
 enum layers {
     _BASE = 0,
     _FUNC
@@ -40,18 +38,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___, ___, ___, ___, ___, ___  
     ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Get the current NLCK status & set if not set.
-    // Only do this once, in case user has a NLCK key
-    // and wants to disable it later on.
-    if (!numlock_set && record->event.pressed) {
-        led_t led_state = host_keyboard_led_state();
-        if (!led_state.num_lock) {
-            register_code(KC_NLCK);
-        }
-        numlock_set = true;
-    }
-
-    return true;
-}
