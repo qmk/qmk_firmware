@@ -60,7 +60,7 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
 
-bool oled_task_kb(void) {
+__attribute__ ((weak)) bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
@@ -110,7 +110,7 @@ bool oled_task_kb(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
+__attribute__ ((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;
     }
