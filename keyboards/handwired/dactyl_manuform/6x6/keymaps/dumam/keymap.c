@@ -1,10 +1,13 @@
-// #include QMK_KEYBOARD_H
+// Copyright 2021 Bartosz Nowak (@dumam)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0 // daily use and coding
-#define _MOVE 1   // mouse, arrows, browsing useful keys
-#define _CONF 2   // machine settings, keyboard settings, backlight
-
+enum custom_layers {
+    _QWERTY,    // daily use and coding
+    _LOWER,     // mouse, arrows, browsing useful keys
+    _RAISE,     // machine settings, keyboard settings, backlight
+};
 #define _KC_SPC LT(_CONF, KC_SPC)
 #define _KC_ENT LT(_MOVE, KC_ENT)
 

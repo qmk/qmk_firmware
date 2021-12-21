@@ -1,9 +1,13 @@
-// #include QMK_KEYBOARD_H
+// Copyright 2021 Bartosz Nowak (@dumam)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
+enum custom_layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+};
 
 #define RAISE LT(_RAISE, KC_SPC)
 #define LOWER LT(_LOWER, KC_ENT)
