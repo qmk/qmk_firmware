@@ -1,6 +1,6 @@
 # Zeuspad
 
-![Zeuspad](https://i.imgur.com/F657DWw.png)
+![Zeuspad](https://i.imgur.com/F657DWwh.png)
 
 Zeuspad is the perfect numpad complement to my TKL, Zeus. Standalone it is a glorious numpad with an encoder, oled and rgb.
 
