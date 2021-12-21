@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_layers {
-    _QWERTY,    // daily use and coding
+    _QWERTY,   // daily use and coding
     _MOVE,     // mouse, arrows, browsing useful keys
     _CONF,     // machine settings, keyboard settings, backlight
 };
