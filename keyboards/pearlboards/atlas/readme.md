@@ -1,6 +1,6 @@
 # Atlas
 
-![Atlas](https://i.imgur.com/jm6DyWA.jpg)
+![Atlas](https://i.imgur.com/jm6DyWAh.jpg)
 
 Atlas is a timeless Greek themed 65 percent keyboard. The construction uses 6061 alu, pvd coated brass/stainless steel and dyed polycarbonate. The finishes include e-coating, anodizing, micro arc anodization, metal polish and fine beadblasting. Layouts are limited to a few ANSI variations such as tsangan/wkl and ISO. The keyboard also has a usb-c daugtherboard, an integrated dual usb hub with an audio jack and dac, and a rotary encoder. The case has indicator lights and is gasket mounted. The pcb is designed by me in house and has some super cool tricks up its sleeve as well.
 
