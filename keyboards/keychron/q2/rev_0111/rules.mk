@@ -10,7 +10,7 @@ BOARD = GENERIC_STM32_L433XC
 PLATFORM_NAME = platform_l432
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
