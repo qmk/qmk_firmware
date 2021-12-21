@@ -4,7 +4,7 @@ QMK键映射定义在C源文件中，其数据结构上是一个容纳了数组�
 
 
 ## 键映射与配列 :id=keymap-and-layers
-在QMK中,  **`const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]`** 容纳了多个 **层**， 每个**层**下包含了由**16位**的**动作码**所组成的键映射信息。 最多可以定义**32个层**。
+在QMK中, **`const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]`** 容纳了多个 **层**， 每个**层**下包含了由**16位**的**动作码**所组成的键映射信息。 最多可以定义**32个层**。
 
 对于常规键的定义，其**动作码**的高8位皆为0，低8位保存了USB HID中使用的各个键对应的**键码**。
 

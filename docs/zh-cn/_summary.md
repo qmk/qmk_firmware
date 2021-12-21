@@ -111,7 +111,7 @@
     * [自定义矩阵](zh-cn/custom_matrix.md)
     * [Digitizer](zh-cn/feature_digitizer.md)
     * [拨动开关（DIP Switch）](zh-cn/feature_dip_switch.md)
-    * [编码器（滚轮）](zh-cn/feature_encoders.md)
+    * [编码器（旋钮）](zh-cn/feature_encoders.md)
     * [触摸反馈](zh-cn/feature_haptic_feedback.md)
     * [摇杆](zh-cn/feature_joystick.md)
     * [LED指示](zh-cn/feature_led_indicators.md)
