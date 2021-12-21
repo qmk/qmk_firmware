@@ -70,7 +70,9 @@ void                       matrix_init_user(void) {
     DDRB &= ~(1 << 0);
     PORTB &= ~(1 << 0);
 #endif
-
+#ifdef CUSTOM_UNICODE_ENABLE
+    matrix_init_unicode();
+#endif
     matrix_init_secret();
     matrix_init_keymap();
 }
@@ -152,6 +154,9 @@ void                       matrix_scan_user(void) {
 #if defined(RGB_MATRIX_ENABLE)
     matrix_scan_rgb_matrix();
 #endif
+#if defined(POINTING_DEVICE_ENABLE)
+    matrix_scan_pointing();
+#endif
 
     matrix_scan_secret();
 
@@ -171,6 +176,9 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
     }
 
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
+#if defined(POINTING_DEVICE_ENABLE)
+    state = layer_state_set_pointing(state);
+#endif
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
 #endif  // RGBLIGHT_ENABLE
@@ -259,3 +267,61 @@ void                       matrix_slave_scan_user(void) {
     matrix_slave_scan_keymap();
 }
 #endif
+
+__attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+__attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    // Immediately select the hold action when another key is tapped:
+    // return true;
+    // Do not select the hold action when another key is tapped.
+    // return false;
+    switch (keycode) {
+        default:
+            return false;
+    }
+}
+
+__attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    // Immediately select the hold action when another key is pressed.
+    // return true;
+    // Do not select the hold action when another key is pressed.
+    // return false;
+    switch (keycode) {
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            return true;
+        default:
+            return false;
+    }
+}
+
+__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+    // Do not force the mod-tap key press to be handled as a modifier
+    // if any other key was pressed while the mod-tap key is held down.
+    // return true;
+    // Force the mod-tap key press to be handled as a modifier if any
+    // other key was pressed while the mod-tap key is held down.
+    // return false;
+    switch (keycode) {
+        default:
+            return true;
+    }
+}
+
+__attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        default:
+            return false;
+    }
+}
+
+__attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        default:
+            return false;
+    }
+}

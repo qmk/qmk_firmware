@@ -66,7 +66,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   //return OLED_ROTATION_180;
   return OLED_ROTATION_180;
 }
-void oled_task_user(void) {
+bool oled_task_user(void) {
   // Host Keyboard Layer Status
   /*oled_write_P(PSTR("Lyr: "), false);
   switch (get_highest_layer(layer_state)) {
@@ -92,5 +92,6 @@ void oled_task_user(void) {
     };
 
   oled_write_P(qmk_logo, false);
+    return false;
 }
 #endif

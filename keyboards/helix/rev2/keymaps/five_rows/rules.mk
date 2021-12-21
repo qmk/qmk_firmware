@@ -1,10 +1,3 @@
-# QMK Standard Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
-#
-#   See TOP/keyboards/helix/rules.mk for a list of options that can be set.
-#   See TOP/docs/config_options.md for more information.
-#
  CONSOLE_ENABLE = no        # Console for debug
  COMMAND_ENABLE = no        # Commands for debug and configuration
  # CONSOLE_ENABLE and COMMAND_ENABLE
@@ -106,7 +99,3 @@ endif
 ifeq ($(strip $(CUSTOM_DELAY)),yes)
     SRC += matrix_output_unselect_delay.c
 endif
-
-# convert Helix-specific options (that represent combinations of standard options)
-#   into QMK standard options.
-include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))
