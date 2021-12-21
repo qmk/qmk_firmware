@@ -3,6 +3,12 @@
 ![KLE render of the default Kyria keymap with QWERTY as the base layer. Layers are shown in sublegends.](https://i.ibb.co/RQZx2dY/default-kyria2.jpg)
 
 
+## Build this keymap
+```bash
+qmk compile -kb splitkb/kyria/rev1 -km lw
+```
+
+## Implemented keymaps
 The default keymap contains 5 layers which allows it to include all keys found on an ANSI layout TKL keyboard plus media keys.
 Hardware features of the Kyria such as OLEDs, rotary encoders and underglow are also supported.
 
