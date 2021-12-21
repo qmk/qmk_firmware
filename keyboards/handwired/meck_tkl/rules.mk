@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F401
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,4 +12,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 AUDIO_SUPPORTED = no
 BACKLIGHT_SUPPORTED = no
-KEYBOARD_SHARED_EP = yes
+
+DEFAULT_FOLDER = handwired/meck_tkl/blackpill_f401

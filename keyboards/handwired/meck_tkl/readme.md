@@ -1,12 +1,14 @@
 # meck_tkl
 
-![meck_tkl](imgur.com image replace me!)
+![meck_tkl](https://i.imgur.com/eIpQTjQ.jpeg)
+
+A standard tenkeyless keyboard, using STM32 Blackpill.
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Gabriel Kim](https://github.com/gabrielkim13)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Blackpill F401
+* Hardware Availability: [Thingiverse: Mechanical Keyboard - MECH - TKL](https://www.thingiverse.com/thing:4225961)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -25,3 +27,13 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `RESET` if it is available
+
+## Wiring instructions
+
+- On Blackpill boards, **avoid** using the following pins, since they will cause either USB enumeration or the DFU bootloader to not work correctly:
+  - **USB-related pins:** `PA10`, `PA11`, `PA12`
+  - **BOOT1 pin:** `PB2`
+
+Sample wiring:
+
+![wiring](https://i.imgur.com/jIDmsNy.jpg)
