@@ -35,3 +35,5 @@ INVERT_NUMLOCK_INDICATOR = yes
     - inverts the Num lock indicator, LED is on when num lock is off
 
 ## All layers diagram
+![image](https://user-images.githubusercontent.com/71780717/146864247-4ec05ef7-7936-45db-9db9-02fb17d3f7ed.png)
+
