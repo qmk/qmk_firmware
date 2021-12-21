@@ -1,5 +1,7 @@
 # jonavin's KBD 67 Lite keymap
 
+NOTE: This keymap uses features from qmk userspace in user/jonavin.  I fyou copy this keymap you should also the user folder.
+
 - Add PrtScr, Scroll Lock, Break, NumLock to Fn layer
 - add double tap of Left Shift to toggle Caps Lock
 - Implement Win key lock using Fn+Win 
