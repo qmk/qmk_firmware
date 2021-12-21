@@ -85,6 +85,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X64
 #    define SPLIT_OLED_ENABLE
+#    define DEFAULT_OLED_VISUALIZER
+#endif
+
+#ifdef ENCODER_ENABLE
+#    define DEFAULT_ENCODER_ACTIONS
 #endif
 
 /* RGB matrix support */

@@ -80,10 +80,11 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
 
-__attribute__ ((weak)) bool oled_task_kb(void) {
+bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
+#ifdef DEFAULT_OLED_VISUALIZER
     if (is_keyboard_master()) {
         // QMK Logo and version information
         oled_write_P(qmk_logo, false);
@@ -125,16 +126,18 @@ __attribute__ ((weak)) bool oled_task_kb(void) {
     } else {
         oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
     }
+#endif
     return false;
 }
 #endif
 
 #ifdef ENCODER_ENABLE
-__attribute__ ((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;
     }
 
+#ifdef DEFAULT_ENCODER_ACTIONS
     if (index == 0) {
         // Volume control
         if (clockwise) {
@@ -150,6 +153,7 @@ __attribute__ ((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
             tap_code(KC_PGUP);
         }
     }
+#endif
     return true;
 }
 #endif
