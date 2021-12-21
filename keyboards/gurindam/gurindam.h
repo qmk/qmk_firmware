@@ -44,9 +44,3 @@
 	{ k9, k18, k27, k36, k45, k54, k63, XXX }, \
 	{ k5, k14, k23, k32, k41, k50, k59, XXX }  \
 }
-
-// k1 bener (1)
-// k6 bener (4)
-// k3 bener (5)
-// k8 bener (6)
-// k9 bener (8)
