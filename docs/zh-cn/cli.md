@@ -13,7 +13,7 @@ QMK依赖Python 3.6或更高版本。我们已经尽力缩减依赖项，但在[
 若已安装[Homebrew](https://brew.sh)，可以按如下方法安装QMK:
 
 ```
-brew install qmk/qmk/qmk
+brew install qmk
 export QMK_HOME='~/qmk_firmware' # 可选，指定 `qmk_firmware` 的路径
 qmk setup  # 拉取 `qmk/qmk_firmware` 并选择性地配置构建环境
 ```
