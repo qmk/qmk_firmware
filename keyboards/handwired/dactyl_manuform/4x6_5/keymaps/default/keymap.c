@@ -1,8 +1,7 @@
-#include QMK_KEYBOARD_H
+// Copyright 2021 Andrzej Kotulski (@akotulski)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-#define _BASE 0
-#define _RAISE 1
-#define _LOWER 2
+#include QMK_KEYBOARD_H
 
 #define SFT_ESC  SFT_T(KC_ESC)
 #define CTL_BSPC CTL_T(KC_BSPC)
@@ -18,6 +17,12 @@
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
+
+enum layer_names {
+    _BASE,
+    _RAISE,
+    _LOWER
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base (qwerty)
