@@ -1,6 +1,6 @@
 # Zeus
 
-![Zeus](https://i.imgur.com/jdCaP1m.jpg)
+![Zeus](https://i.imgur.com/jdCaP1mh.jpg)
 
 Zeus is a modern Greek themed TKL keyboard. The construction uses 6061 alu, pvd coated brass/stainless steel and dyed polycarbonate. The finishes include e-coating, anodizing, micro arc anodization, metal polish and fine beadblasting. The keyboard has a usb-c daugtherboard, an integrated dual usb hub with an audio jack and dac, an internal speaker and a rotary encoder. The case has indicator lights and is top mounted. The pcb is designed by me in house and has some super cool tricks up its sleeve as well.
 
