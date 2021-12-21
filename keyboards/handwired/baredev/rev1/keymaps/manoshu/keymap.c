@@ -25,20 +25,21 @@ enum {
 
 #define L_FUNCT MO(LAYER_FUNCTIONS)
 #define W_CHOLD LGUI_T(KC_CAPS)
-#define SEND_WINDOWS(x) SEND_STRING(SS_LGUI(x))
+
+//Combination keycodes
+#define KC_PSBR C(KC_PAUSE)    // Ctrl+Pause/Break
+#define KC_SNIP SGUI(BR_S)     // Screen Snip (GUI + Shift + S)
+#define KC_WRUN G(BR_R)        // Run (GUI + R)
+#define KC_WLCK G(BR_L)        // Lock (GUI + L)
+#define KC_WDSK G(BR_D)        // Desktop (GUI + D)
+#define KC_WEXP G(BR_E)        // Explorer (GUI + E)
+#define KC_WPSE G(KC_PAUSE)    // System Properties (GUI + Pause)
+#define KC_WMGP G(BR_EQL)      // Magnify (+)
+#define KC_WMGM G(BR_MINS)     // Magnify (-)
 
 enum custom_keycodes {
-    KC_SNIP = SAFE_RANGE,  // Screen Snip (Shift + S)
-    KC_WRUN,               // Run (R)
-    KC_WLCK,               // Lock (L)
-    KC_WDSK,               // Desktop (D)
-    KC_WEXP,               // Explorer (E)
-    KC_WPSE,               // System Properties (Pause)
-    KC_WMGP,               // Magnify (+)
-    KC_WMGM,               // Magnify (-)
-    KC_WPRN,               // Project (P)
-    KC_WSPC,               // Input Select (Space)
-    KC_PSBR                // Ctrl-Pause/Break
+    KC_WPRN = SAFE_RANGE,  // Project (P)
+    KC_WSPC                // Input Select (Space)
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -59,39 +60,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else if (keycode == KC_WSPC) {
                 tap_code(KC_SPACE);
             }
-        }
-    } else if (keycode == KC_PSBR) {
-        if (record->event.pressed) {
-            register_code(KC_LCTL);
-            tap_code(KC_PAUSE);
-            unregister_code(KC_LCTL);
-        }
-    } else if (record->event.pressed) {
-        switch (keycode) {
-            case KC_SNIP:               // Screen Snip (Win + Shift + S)
-                SEND_WINDOWS(SS_LSFT("s"));
-                break;
-            case KC_WRUN:               // Run
-                SEND_WINDOWS("r");
-                break;
-            case KC_WLCK:               // Lock
-              SEND_WINDOWS("l");
-              break;
-            case KC_WDSK:               // Desktop
-              SEND_WINDOWS("d");
-              break;
-            case KC_WEXP:               // Explorer
-              SEND_WINDOWS("e");
-              break;
-            case KC_WPSE:               // System Properties (Pause)
-              SEND_WINDOWS(SS_TAP(X_PAUSE));
-              break;
-            case KC_WMGP:               // Magnify +
-              SEND_WINDOWS("=");
-              break;
-            case KC_WMGM:               // Magnify -
-              SEND_WINDOWS("-");
-              break;
         }
     }
     return true;
