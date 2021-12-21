@@ -6,7 +6,7 @@ Cette page couvre les questions souvent posées à propos des keymaps. Si vous n
 
 Regardez [Keycodes](keycodes.md) pour une liste des keycodes disponibles. Certains keycodes spécifiques ont des documentations plus complètes de disponible.
 
-Les keycodes sont définies dans [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
+Les keycodes sont définies dans [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h).
 
 ## Quels sont les keycodes par défaut ?
 

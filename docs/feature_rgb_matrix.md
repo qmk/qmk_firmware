@@ -10,7 +10,7 @@ If you want to use single color LED's you should use the [LED Matrix Subsystem](
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3731
 ```
@@ -21,6 +21,7 @@ You can use between 1 and 4 IS31FL3731 IC's. Do not specify `DRIVER_ADDR_<N>` de
 |----------|-------------|---------|
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `ISSI_3731_DEGHOST` | (Optional) Set this define to enable de-ghosting by halving Vcc during blanking time | |
 | `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
@@ -49,10 +50,12 @@ Here is an example using 2 drivers.
 
 !> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
 
+For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `DRIVER_ADDR_1` for one and `DRIVER_ADDR_2` for the other one. Then, in `g_is31_leds`, fill out the correct driver index (0 or 1). If using one address, use `DRIVER_ADDR_1` for both, and use index 0 for `g_is31_leds`.
+
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -71,7 +74,7 @@ Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet]
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3733
 ```
@@ -82,6 +85,9 @@ You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` de
 |----------|-------------|---------|
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `ISSI_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3733B only | 0 |
+| `ISSI_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
+| `ISSI_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
@@ -92,6 +98,18 @@ You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` de
 | `DRIVER_SYNC_2` | (Optional) Sync configuration for the second RGB driver | 0 |
 | `DRIVER_SYNC_3` | (Optional) Sync configuration for the third RGB driver | 0 |
 | `DRIVER_SYNC_4` | (Optional) Sync configuration for the fourth RGB driver | 0 |
+
+The IS31FL3733 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`ISSI_SWPULLUP`/`ISSI_CSPULLUP` are given the value of`PUR_0R`), the values that can be set to enable de-ghosting are as follows:
+
+| `ISSI_SWPULLUP/ISSI_CSPULLUP` | Description |
+|----------------------|-------------|
+| `PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
+| `PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
+| `PUR_3KR` | The 3k Ohm resistor used at all times |
+| `PUR_4KR` | The 4k Ohm resistor used at all times |
+| `PUR_8KR` | The 8k Ohm resistor used at all times |
+| `PUR_16KR` | The 16k Ohm resistor used at all times |
+| `PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
 
 Here is an example using 2 drivers.
 
@@ -122,7 +140,7 @@ Currently only 4 drivers are supported, but it would be trivial to support all 8
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -141,7 +159,7 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3737 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3737
 ```
@@ -153,11 +171,25 @@ Configure the hardware via your `config.h`:
 |----------|-------------|---------|
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `ISSI_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
+| `ISSI_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `DRIVER_LED_TOTAL` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
 | `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
 
+The IS31FL3737 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`ISSI_SWPULLUP`/`ISSI_CSPULLUP` are given the value of`PUR_0R`), the values that can be set to enable de-ghosting are as follows:
+
+| `ISSI_SWPULLUP/ISSI_CSPULLUP` | Description |
+|----------------------|-------------|
+| `PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
+| `PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
+| `PUR_1KR` | The 1k Ohm resistor used during blanking period (t_NOL) |
+| `PUR_2KR` | The 2k Ohm resistor used during blanking period (t_NOL) |
+| `PUR_4KR` | The 4k Ohm resistor used during blanking period (t_NOL) |
+| `PUR_8KR` | The 8k Ohm resistor during blanking period (t_NOL) |
+| `PUR_16KR` | The 16k Ohm resistor during blanking period (t_NOL) |
+| `PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
 
 Here is an example using 2 drivers.
 
@@ -181,12 +213,12 @@ Here is an example using 2 drivers.
 ```
 !> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
 
-Currently only 2 drivers are supported, but it would be trivial to support all 4 combinations. 
+Currently only 2 drivers are supported, but it would be trivial to support all 4 combinations.
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -206,7 +238,7 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 ```
@@ -226,7 +258,7 @@ Configure the hardware via your `config.h`:
 
 There is basic support for APA102 based addressable LED strands. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = APA102
 ```
@@ -246,7 +278,7 @@ Configure the hardware via your `config.h`:
 ### AW20216 :id=aw20216
 There is basic support for addressable RGB matrix lighting with the SPI AW20216 RGB controller. To enable it, add this to your `rules.mk`:
 
-```makefile
+```make
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = AW20216
 ```
@@ -287,7 +319,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const aw_led __flash g_aw_leds[DRIVER_LED_TOTAL] = {
+const aw_led PROGMEM g_aw_leds[DRIVER_LED_TOTAL] = {
 /* Each AW20216 channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
  * See drivers/awinic/aw20216.h for the mapping between register offsets and
@@ -340,7 +372,7 @@ x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
 y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 ```
 
-Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout. 
+Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
 
 As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `#define RGB_MATRIX_CENTER { 112, 32 }` in their config.h file with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `{ x, y }` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
 
@@ -383,7 +415,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 
 * `RGB_MODE_*` keycodes will generally work, but not all of the modes are currently mapped to the correct effects for the RGB Matrix system.
 
-`RGB_MODE_PLAIN`, `RGB_MODE_BREATHE`, `RGB_MODE_RAINBOW`, and `RGB_MATRIX_SWIRL` are the only ones that are mapped properly. The rest don't have a direct equivalent, and are not mapped. 
+`RGB_MODE_PLAIN`, `RGB_MODE_BREATHE`, `RGB_MODE_RAINBOW`, and `RGB_MATRIX_SWIRL` are the only ones that are mapped properly. The rest don't have a direct equivalent, and are not mapped.
 
 !> By default, if you have both the [RGB Light](feature_rgblight.md) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
 
@@ -420,7 +452,9 @@ enum rgb_matrix_effects {
     RGB_MATRIX_JELLYBEAN_RAINDROPS, // Randomly changes a single key's hue and saturation
     RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight ammount at the same time, then shifts back
     RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight ammount in a wave to the right, then back to the left
-    RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight ammount and then back down in a wave to the right 
+    RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight ammount and then back down in a wave to the right
+    RGB_MATRIX_PIXEL_FRACTAL,       // Single hue fractal filled keys pulsing horizontally out to edges
+    RGB_MATRIX_PIXEL_RAIN,          // Randomly light keys with random hues
 #if define(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM!
     RGB_MATRIX_DIGITAL_RAIN,        // That famous computer simulation
@@ -443,51 +477,66 @@ enum rgb_matrix_effects {
 };
 ```
 
-You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `config.h`:
+You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `config.h`:
 
 
-|Define                                                 |Description                                    |
-|-------------------------------------------------------|-----------------------------------------------|
-|`#define DISABLE_RGB_MATRIX_ALPHAS_MODS`               |Disables `RGB_MATRIX_ALPHAS_MODS`              |
-|`#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN`          |Disables `RGB_MATRIX_GRADIENT_UP_DOWN`         |
-|`#define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT`       |Disables `MATRIX_GRADIENT_LEFT_RIGHT`          |
-|`#define DISABLE_RGB_MATRIX_BREATHING`                 |Disables `RGB_MATRIX_BREATHING`                |
-|`#define DISABLE_RGB_MATRIX_BAND_SAT`                  |Disables `RGB_MATRIX_BAND_SAT`                 |
-|`#define DISABLE_RGB_MATRIX_BAND_VAL`                  |Disables `RGB_MATRIX_BAND_VAL`                 |
-|`#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT`         |Disables `RGB_MATRIX_BAND_PINWHEEL_SAT`        |
-|`#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_VAL`         |Disables `RGB_MATRIX_BAND_PINWHEEL_VAL`        |
-|`#define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT`           |Disables `RGB_MATRIX_BAND_SPIRAL_SAT`          |
-|`#define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL`           |Disables `RGB_MATRIX_BAND_SPIRAL_VAL`          |
-|`#define DISABLE_RGB_MATRIX_CYCLE_ALL`                 |Disables `RGB_MATRIX_CYCLE_ALL`                |
-|`#define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT`          |Disables `RGB_MATRIX_CYCLE_LEFT_RIGHT`         |
-|`#define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN`             |Disables `RGB_MATRIX_CYCLE_UP_DOWN`            |
-|`#define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON`    |Disables `RGB_MATRIX_RAINBOW_MOVING_CHEVRON`   |
-|`#define DISABLE_RGB_MATRIX_CYCLE_OUT_IN`              |Disables `RGB_MATRIX_CYCLE_OUT_IN`             |
-|`#define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL`         |Disables `RGB_MATRIX_CYCLE_OUT_IN_DUAL`        |
-|`#define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL`            |Disables `RGB_MATRIX_CYCLE_PINWHEEL`           |
-|`#define DISABLE_RGB_MATRIX_CYCLE_SPIRAL`              |Disables `RGB_MATRIX_CYCLE_SPIRAL`             |
-|`#define DISABLE_RGB_MATRIX_DUAL_BEACON`               |Disables `RGB_MATRIX_DUAL_BEACON`              |
-|`#define DISABLE_RGB_MATRIX_RAINBOW_BEACON`            |Disables `RGB_MATRIX_RAINBOW_BEACON`           |
-|`#define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS`         |Disables `RGB_MATRIX_RAINBOW_PINWHEELS`        |
-|`#define DISABLE_RGB_MATRIX_RAINDROPS`                 |Disables `RGB_MATRIX_RAINDROPS`                |
-|`#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`       |Disables `RGB_MATRIX_JELLYBEAN_RAINDROPS`      |
-|`#define DISABLE_RGB_MATRIX_HUE_BREATHING`             |Disables `RGB_MATRIX_HUE_BREATHING`            |
-|`#define DISABLE_RGB_MATRIX_HUE_PENDULUM`              |Disables `RGB_MATRIX_HUE_PENDULUM`             |
-|`#define DISABLE_RGB_MATRIX_HUE_WAVE `                 |Disables `RGB_MATRIX_HUE_WAVE `                |
-|`#define DISABLE_RGB_MATRIX_TYPING_HEATMAP`            |Disables `RGB_MATRIX_TYPING_HEATMAP`           |
-|`#define DISABLE_RGB_MATRIX_DIGITAL_RAIN`              |Disables `RGB_MATRIX_DIGITAL_RAIN`             |
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE`     |Disables `RGB_MATRIX_SOLID_REACTIVE_SIMPLE`    |
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE`            |Disables `RGB_MATRIX_SOLID_REACTIVE`           |
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE`       |Disables `RGB_MATRIX_SOLID_REACTIVE_WIDE`      |
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE`  |Disables `RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE` |
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS`      |Disables `RGB_MATRIX_SOLID_REACTIVE_CROSS`     |
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS` |Disables `RGB_MATRIX_SOLID_REACTIVE_MULTICROSS`|
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS`      |Disables `RGB_MATRIX_SOLID_REACTIVE_NEXUS`     |
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS` |Disables `RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS`|
-|`#define DISABLE_RGB_MATRIX_SPLASH`                    |Disables `RGB_MATRIX_SPLASH`                   |
-|`#define DISABLE_RGB_MATRIX_MULTISPLASH`               |Disables `RGB_MATRIX_MULTISPLASH`              |
-|`#define DISABLE_RGB_MATRIX_SOLID_SPLASH`              |Disables `RGB_MATRIX_SOLID_SPLASH`             |
-|`#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH`         |Disables `RGB_MATRIX_SOLID_MULTISPLASH`        |
+|Define                                                |Description                                   |
+|------------------------------------------------------|----------------------------------------------|
+|`#define ENABLE_RGB_MATRIX_ALPHAS_MODS`               |Enables `RGB_MATRIX_ALPHAS_MODS`              |
+|`#define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN`          |Enables `RGB_MATRIX_GRADIENT_UP_DOWN`         |
+|`#define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT`       |Enables `RGB_MATRIX_GRADIENT_LEFT_RIGHT`      |
+|`#define ENABLE_RGB_MATRIX_BREATHING`                 |Enables `RGB_MATRIX_BREATHING`                |
+|`#define ENABLE_RGB_MATRIX_BAND_SAT`                  |Enables `RGB_MATRIX_BAND_SAT`                 |
+|`#define ENABLE_RGB_MATRIX_BAND_VAL`                  |Enables `RGB_MATRIX_BAND_VAL`                 |
+|`#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT`         |Enables `RGB_MATRIX_BAND_PINWHEEL_SAT`        |
+|`#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL`         |Enables `RGB_MATRIX_BAND_PINWHEEL_VAL`        |
+|`#define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT`           |Enables `RGB_MATRIX_BAND_SPIRAL_SAT`          |
+|`#define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL`           |Enables `RGB_MATRIX_BAND_SPIRAL_VAL`          |
+|`#define ENABLE_RGB_MATRIX_CYCLE_ALL`                 |Enables `RGB_MATRIX_CYCLE_ALL`                |
+|`#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT`          |Enables `RGB_MATRIX_CYCLE_LEFT_RIGHT`         |
+|`#define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN`             |Enables `RGB_MATRIX_CYCLE_UP_DOWN`            |
+|`#define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON`    |Enables `RGB_MATRIX_RAINBOW_MOVING_CHEVRON`   |
+|`#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN`              |Enables `RGB_MATRIX_CYCLE_OUT_IN`             |
+|`#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL`         |Enables `RGB_MATRIX_CYCLE_OUT_IN_DUAL`        |
+|`#define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL`            |Enables `RGB_MATRIX_CYCLE_PINWHEEL`           |
+|`#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL`              |Enables `RGB_MATRIX_CYCLE_SPIRAL`             |
+|`#define ENABLE_RGB_MATRIX_DUAL_BEACON`               |Enables `RGB_MATRIX_DUAL_BEACON`              |
+|`#define ENABLE_RGB_MATRIX_RAINBOW_BEACON`            |Enables `RGB_MATRIX_RAINBOW_BEACON`           |
+|`#define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS`         |Enables `RGB_MATRIX_RAINBOW_PINWHEELS`        |
+|`#define ENABLE_RGB_MATRIX_RAINDROPS`                 |Enables `RGB_MATRIX_RAINDROPS`                |
+|`#define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`       |Enables `RGB_MATRIX_JELLYBEAN_RAINDROPS`      |
+|`#define ENABLE_RGB_MATRIX_HUE_BREATHING`             |Enables `RGB_MATRIX_HUE_BREATHING`            |
+|`#define ENABLE_RGB_MATRIX_HUE_PENDULUM`              |Enables `RGB_MATRIX_HUE_PENDULUM`             |
+|`#define ENABLE_RGB_MATRIX_HUE_WAVE`                  |Enables `RGB_MATRIX_HUE_WAVE `                |
+|`#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL`             |Enables `RGB_MATRIX_PIXEL_FRACTAL`            |
+|`#define ENABLE_RGB_MATRIX_PIXEL_RAIN`                |Enables `RGB_MATRIX_PIXEL_RAIN`               |
+
+?> These modes don't require any additional defines.
+
+|Framebuffer Defines                                   |Description                                   |
+|------------------------------------------------------|----------------------------------------------|
+|`#define ENABLE_RGB_MATRIX_TYPING_HEATMAP`            |Enables `RGB_MATRIX_TYPING_HEATMAP`           |
+|`#define ENABLE_RGB_MATRIX_DIGITAL_RAIN`              |Enables `RGB_MATRIX_DIGITAL_RAIN`             |
+
+?> These modes also require the `RGB_MATRIX_FRAMEBUFFER_EFFECTS` define to be available.
+
+|Reactive Defines                                    |Description                                   |
+|------------------------------------------------------|----------------------------------------------|
+|`#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE`     |Enables `RGB_MATRIX_SOLID_REACTIVE_SIMPLE`    |
+|`#define ENABLE_RGB_MATRIX_SOLID_REACTIVE`            |Enables `RGB_MATRIX_SOLID_REACTIVE`           |
+|`#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE`       |Enables `RGB_MATRIX_SOLID_REACTIVE_WIDE`      |
+|`#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE`  |Enables `RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE` |
+|`#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS`      |Enables `RGB_MATRIX_SOLID_REACTIVE_CROSS`     |
+|`#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS` |Enables `RGB_MATRIX_SOLID_REACTIVE_MULTICROSS`|
+|`#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS`      |Enables `RGB_MATRIX_SOLID_REACTIVE_NEXUS`     |
+|`#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS` |Enables `RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS`|
+|`#define ENABLE_RGB_MATRIX_SPLASH`                    |Enables `RGB_MATRIX_SPLASH`                   |
+|`#define ENABLE_RGB_MATRIX_MULTISPLASH`               |Enables `RGB_MATRIX_MULTISPLASH`              |
+|`#define ENABLE_RGB_MATRIX_SOLID_SPLASH`              |Enables `RGB_MATRIX_SOLID_SPLASH`             |
+|`#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH`         |Enables `RGB_MATRIX_SOLID_MULTISPLASH`        |
+
+?> These modes also require the `RGB_MATRIX_KEYPRESSES` or `RGB_MATRIX_KEYRELEASES` define to be available.
+
 
 ### RGB Matrix Effect Typing Heatmap :id=rgb-matrix-effect-typing-heatmap
 
@@ -537,7 +586,7 @@ static bool my_cool_effect(effect_params_t* params) {
   for (uint8_t i = led_min; i < led_max; i++) {
     rgb_matrix_set_color(i, 0xff, 0xff, 0x00);
   }
-  return led_max < DRIVER_LED_TOTAL;
+  return rgb_matrix_check_finished_leds(led_max);
 }
 
 // e.g: A more complex effect, relying on external methods and state, with
@@ -551,8 +600,7 @@ static bool my_cool_effect2_complex_run(effect_params_t* params) {
   for (uint8_t i = led_min; i < led_max; i++) {
     rgb_matrix_set_color(i, 0xff, some_global_state++, 0xff);
   }
-
-  return led_max < DRIVER_LED_TOTAL;
+  return rgb_matrix_check_finished_leds(led_max);
 }
 static bool my_cool_effect2(effect_params_t* params) {
   if (params->init) my_cool_effect2_complex_init(params);
@@ -694,7 +742,7 @@ Where `28` is an unused index from `eeconfig.h`.
 
 ### Indicators :id=indicators
 
-If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `rgb_matrix_indicators_kb` or `rgb_matrix_indicators_user` function for that: 
+If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `rgb_matrix_indicators_kb` or `rgb_matrix_indicators_user` function for that:
 ```c
 void rgb_matrix_indicators_kb(void) {
     rgb_matrix_set_color(index, red, green, blue);
@@ -749,18 +797,18 @@ This example sets the modifiers to be a specific color based on the layer state.
 ```c
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     HSV hsv = {0, 255, 255};
-    
+
     if (layer_state_is(layer_state, 2)) {
         hsv = {130, 255, 255};
     } else {
         hsv = {30, 255, 255};
     }
-    
+
     if (hsv.v > rgb_matrix_get_val()) {
         hsv.v = rgb_matrix_get_val();
     }
     RGB rgb = hsv_to_rgb(hsv);
-    
+
     for (uint8_t i = led_min; i <= led_max; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x01 == LED_FLAG_MODIFIER
             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
@@ -769,7 +817,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-If you want to indicate a Host LED status (caps lock, num lock, etc), you can use something like this to light up the caps lock key: 
+If you want to indicate a Host LED status (caps lock, num lock, etc), you can use something like this to light up the caps lock key:
 
 ```c
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
