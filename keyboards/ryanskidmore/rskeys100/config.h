@@ -39,9 +39,8 @@
 #define RGB_DI_PIN C7
 /* The number of RGB LEDs connected */
 #define DRIVER_LED_TOTAL 115
-/* Undefine, and then redefine the maximum brightness. This is set to 110 to avoid going over 500 mA.
+/* Set the maximum brightness to 110 to avoid going over 500 mA.
  * At full brightness with all three indicator LEDs on, the power draw is about 450 mA. */
-#undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 110
 /* Enable framebuffer effects */
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -57,8 +56,7 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Undefine and then redefine the max power consumption for the keyboard, which is 500 mA. */
-#undef USB_MAX_POWER_CONSUMPTION
+/* Set the max power consumption for the keyboard, which is 500 mA. */
 #define USB_MAX_POWER_CONSUMPTION 500
 
 /*
