@@ -174,6 +174,11 @@ enum {
 #define SFT_MSE     TD(TD_LSHIFT_MOUSE)
 #define TG_MSE      TG(_MOUSE)
 
+#else
+
+#define SFT_MSE     KC_RSFT
+#define TG_MSE      _______
+
 #endif
 #endif
 

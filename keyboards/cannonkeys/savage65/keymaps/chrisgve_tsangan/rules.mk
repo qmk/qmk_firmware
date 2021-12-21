@@ -1,6 +1,8 @@
 USER_NAME := chrisgve
 
 SRC += chrisgve.c
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
 
 MOUSEKEY_ENABLE = yes
 TAP_DANCE_ENABLE = yes
