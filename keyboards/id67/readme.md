@@ -8,6 +8,12 @@ A 65% hotswap keyboard from IDOBAO.
 * Hardware Supported: IDOBAO ID67
 * Hardware Availability: [IDOBAO-website](https://www.idobao.net/products/idobao-id67-65-hot-swappable-mechanical-keyboard-kit-1)
 
+## Layout 
+![ID67 layout](https://imgur.com/a/aC9jWJV)
+
+
+## Compiling and flashing
+
 Make example for this keyboard (after setting up your build environment):
 
     make id67:default
