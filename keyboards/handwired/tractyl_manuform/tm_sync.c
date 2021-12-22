@@ -27,7 +27,6 @@
 //     uint16_t device_cpi;
 // } kb_config_data_t;
 
-kb_config_data_t                      kb_config;
 static report_mouse_t                 shared_mouse_report;
 extern const pointing_device_driver_t pointing_device_driver;
 
@@ -40,64 +39,15 @@ void kb_pointer_sync_handler(uint8_t initiator2target_buffer_size, const void* i
     shared_mouse_report.v = 0;
 }
 
-void kb_config_sync_handler(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
-    if (initiator2target_buffer_size == sizeof(kb_config)) {
-        memcpy(&kb_config, initiator2target_buffer, sizeof(kb_config));
-    }
-
-    static uint16_t cpi = 0;
-    // Check if the state values are different
-    if (cpi != kb_config.device_cpi) {
-        cpi = kb_config.device_cpi;
-        if (!is_keyboard_left()) {
-            pointing_device_set_cpi(cpi);
-        }
-    }
-}
-
 void keyboard_pre_init_sync(void) {
-    memset(&kb_config, 0, sizeof(kb_config));
     memset(&shared_mouse_report, 0, sizeof(shared_mouse_report));
 }
 
 void keyboard_post_init_sync(void) {
     // Register keyboard state sync split transaction
-    transaction_register_rpc(RPC_ID_KB_CONFIG_SYNC, kb_config_sync_handler);
     transaction_register_rpc(RPC_ID_POINTER_STATE_SYNC, kb_pointer_sync_handler);
 }
 
-void housekeeping_task_sync(void) {
-    if (is_keyboard_master()) {
-        // Keep track of the last state, so that we can tell if we need to propagate to slave
-        static kb_config_data_t last_kb_config;
-        static uint32_t         last_sync  = 0;
-        bool                    needs_sync = false;
-
-        // Check if the state values are different
-        if (memcmp(&kb_config, &last_kb_config, sizeof(kb_config))) {
-            needs_sync = true;
-            memcpy(&last_kb_config, &kb_config, sizeof(kb_config));
-        }
-        // Send to slave every 500ms regardless of state change
-        if (timer_elapsed32(last_sync) > 500) {
-            needs_sync = true;
-        }
-
-        // Perform the sync if requested
-        if (needs_sync) {
-            if (transaction_rpc_send(RPC_ID_KB_CONFIG_SYNC, sizeof(kb_config), &kb_config)) {
-                last_sync = timer_read32();
-            }
-        }
-    }
-}
-
-void trackball_set_cpi(uint16_t cpi) {
-    kb_config.device_cpi = cpi;
-    if (!is_keyboard_left()) {
-        pointing_device_set_cpi(cpi);
-    }
-}
 
 void pointing_device_task(void) {
     if (!is_keyboard_master()) {
