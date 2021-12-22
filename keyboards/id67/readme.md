@@ -6,7 +6,7 @@ A 65% hotswap keyboard from IDOBAO.
 
 * Keyboard Maintainer: Tybera
 * Hardware Supported: IDOBAO ID67
-* Hardware Availability: [IDOBAO]https://www.idobao.net/products/idobao-id67-65-hot-swappable-mechanical-keyboard-kit-1
+* Hardware Availability: [IDOBAO-website](https://www.idobao.net/products/idobao-id67-65-hot-swappable-mechanical-keyboard-kit-1)
 
 Make example for this keyboard (after setting up your build environment):
 
