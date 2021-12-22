@@ -4,19 +4,17 @@
 
 A standard tenkeyless keyboard, using STM32 Blackpill.
 
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [Gabriel Kim](https://github.com/gabrielkim13)
 * Hardware Supported: Blackpill F401
 * Hardware Availability: [Thingiverse: Mechanical Keyboard - MECH - TKL](https://www.thingiverse.com/thing:4225961)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make meck_tkl:default
+    make handwired/meck_tkl:default
 
 Flashing example for this keyboard:
 
-    make meck_tkl:default:flash
+    make handwired/meck_tkl:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
