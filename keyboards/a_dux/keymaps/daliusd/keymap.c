@@ -378,32 +378,39 @@ combo_t key_combos[] = {
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
+    keyrecord_t record;
     switch (combo_index) {
         case NAV_A__ALT:
             if (pressed) {
                 layer_on(_NAV);
-                register_mods(MOD_LALT);
+                record.event.pressed = true;
+                process_record_user(OS_ALT, &record);
             } else {
                 layer_off(_NAV);
-                unregister_mods(MOD_LALT);
+                record.event.pressed = false;
+                process_record_user(OS_ALT, &record);
             }
             break;
         case NAV_S__GUI:
             if (pressed) {
                 layer_on(_NAV);
-                register_mods(MOD_LGUI);
+                record.event.pressed = true;
+                process_record_user(OS_GUI, &record);
             } else {
                 layer_off(_NAV);
-                unregister_mods(MOD_LGUI);
+                record.event.pressed = false;
+                process_record_user(OS_GUI, &record);
             }
             break;
         case NAV_D__CTRL:
             if (pressed) {
                 layer_on(_NAV);
-                register_mods(MOD_LCTL);
+                record.event.pressed = true;
+                process_record_user(OS_CTRL, &record);
             } else {
                 layer_off(_NAV);
-                unregister_mods(MOD_LCTL);
+                record.event.pressed = false;
+                process_record_user(OS_CTRL, &record);
             }
             break;
     }
