@@ -17,23 +17,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdint.h>
 #include <stdbool.h>
-#include <avr/io.h>
-#include <util/delay.h>
-#include "print.h"
-#include "debug.h"
-#include "util.h"
-#include "led.h"
-#include "config.h"
 #include "matrix.h"
+#include <util/delay.h>
 #include "quantum.h"
-#include "debounce.h"
-
-#ifndef DEBOUNCE
-#    define DEBOUNCE 5
-#endif
-
 
 static const uint32_t col_values[24] = SHR_COLS;
 
