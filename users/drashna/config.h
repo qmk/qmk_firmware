@@ -5,6 +5,10 @@
 
 // Use custom magic number so that when switching branches, EEPROM always gets reset
 #define EECONFIG_MAGIC_NUMBER   (uint16_t)0x1339
+
+#ifdef IS_COMMAND
+#undef IS_COMMAND
+#endif
 #define IS_COMMAND() (((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) == MOD_MASK_SHIFT)
 
 /* Set Polling rate to 1000Hz */
