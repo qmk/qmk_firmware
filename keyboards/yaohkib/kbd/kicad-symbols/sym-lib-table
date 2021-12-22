@@ -1,3 +1,0 @@
-(sym_lib_table
-  (lib (name kbd)(type Legacy)(uri ${KIPRJMOD}/kbd.lib)(options "")(descr ""))
-)

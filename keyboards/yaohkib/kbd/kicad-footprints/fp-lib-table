@@ -1,3 +1,0 @@
-(fp_lib_table
-  (lib (name kbd)(type KiCad)(uri ${KISYSMOD}/kbd.pretty)(options "")(descr ""))
-)
