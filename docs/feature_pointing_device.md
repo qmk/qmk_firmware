@@ -30,7 +30,7 @@ The ADNS 5050 sensor uses a serial type protocol for communication, and requires
 
 The CPI range is 125-1375, in increments of 125. Defaults to 500 CPI.
 
-### ADSN 9800 Sensor
+### ADNS 9800 Sensor
 
 To use the ADNS 9800 sensor, add this to your `rules.mk`
 
@@ -69,7 +69,7 @@ The Analog Joystick is an analog (ADC) driven sensor.  There are a variety of jo
 |`ANALOG_JOYSTICK_AXIS_MAX`        | (Optional) Sets the upper range to be considered movement.                 | `1023`        |
 |`ANALOG_JOYSTICK_SPEED_REGULATOR` | (Optional) The divisor used to slow down movement. (lower makes it faster) | `20`          |
 |`ANALOG_JOYSTICK_READ_INTERVAL`   | (Optional) The interval in milliseconds between reads.                     | `10`          |
-|`ANALOG_JOYSTICK_SPEED_MAX`       | (Optional) The maxiumum value used for motion.                             | `2`           |
+|`ANALOG_JOYSTICK_SPEED_MAX`       | (Optional) The maximum value used for motion.                              | `2`           |
 |`ANALOG_JOYSTICK_CLICK_PIN`       | (Optional) The pin wired up to the press switch of the analog stick.       | _not defined_ |
 
 
@@ -188,7 +188,7 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 | `pointing_device_init_kb(void)`                            | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                  |
 | `pointing_device_init_user(void)`                          | Callback to allow for user level initialization. Useful for additional hardware sensors.                      |
 | `pointing_device_task_kb(mouse_report)`                    | Callback that sends sensor data, so keyboard code can intercept and modify the data.  Returns a mouse report. |
-| `pointing_device_task_user(mouse_report)`                  | Callback that sends sensor data, so user coe can intercept and modify the data.  Returns a mouse report.      |
+| `pointing_device_task_user(mouse_report)`                  | Callback that sends sensor data, so user code can intercept and modify the data.  Returns a mouse report.     |
 | `pointing_device_handle_buttons(buttons, pressed, button)` | Callback to handle hardware button presses. Returns a `uint8_t`.                                              |
 | `pointing_device_get_cpi(void)`                            | Gets the current CPI/DPI setting from the sensor, if supported.                                               |
 | `pointing_device_set_cpi(uint16_t)`                        | Sets the CPI/DPI, if supported.                                                                               |
