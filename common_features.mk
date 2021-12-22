@@ -720,6 +720,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
         OPT_DEFS += -DMODULE_RN42
-        SRC += $(TMK_DIR)/protocol/serial_uart.c
+        SRC += $(DRIVER_PATH)/bluetooth/rn42.c
+        QUANTUM_LIB_SRC += uart.c
     endif
 endif
