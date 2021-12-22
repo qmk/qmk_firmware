@@ -3,7 +3,7 @@
   "url": "",
   "maintainer": "jabbato",
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_split_3x5_6": {
       "layout": [
         {"label":"Q", "x":0, "y":0.5},
         {"label":"W", "x":1, "y":0.25},
