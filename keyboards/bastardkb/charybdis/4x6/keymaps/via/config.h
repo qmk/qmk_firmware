@@ -17,7 +17,7 @@
 #pragma once
 
 #ifdef VIA_ENABLE
-/* Via/Vial configuration. */
+/* VIA configuration. */
 #    define DYNAMIC_KEYMAP_LAYER_COUNT 4
 #endif  // VIA_ENABLE
 

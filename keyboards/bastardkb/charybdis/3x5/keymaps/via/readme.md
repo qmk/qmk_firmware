@@ -4,7 +4,7 @@ The Charydbis (3x5) `via` keymap is based on a QWERTY layout with [home row mods
 
 This layout supports RGB matrix. However, due to space constraints on the MCU, only a limited number of effect can be enabled at once. Look at the `config.h` file and enable your favorite effect.
 
-This layout also supports Via/Vial.
+This layout also supports VIA.
 
 ## Customizing the keymap
 

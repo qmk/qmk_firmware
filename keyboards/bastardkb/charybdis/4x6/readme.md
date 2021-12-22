@@ -2,7 +2,7 @@
 
 An ergonomic keyboard with integrated trackball.
 
-The charybdis is available in 4x6 and 3x5 form factor at [bastardkb.com](https://bastardkb.com).
+The Charybdis is available in 4x6 and 3x5 form factor at [bastardkb.com](https://bastardkb.com).
 
 ## Keymaps
 
@@ -12,4 +12,4 @@ A simple QWERTY layout with 3 layers.
 
 ### [`via`](keymaps/via)
 
-Same as the [default](keymaps/default) keymap, but with Via/Vial support.
+Same as the [default](keymaps/default) keymap, but with VIA support.

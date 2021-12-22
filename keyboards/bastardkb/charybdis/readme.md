@@ -26,7 +26,7 @@ The `default` keymap is inspired from the original [Dactyl Manuform](../../handw
 qmk compile -kb bastardkb/charybdis/4x6 -km default
 ```
 
-Check out the `via` layout if you're looking for Via/Vial support:
+Check out the `via` layout if you're looking for VIA support:
 
 ```shell
 qmk compile -kb bastardkb/charybdis/4x6 -km via
@@ -40,7 +40,7 @@ The `default` keymap is inspired from the original [Dactyl Manuform](../../handw
 qmk compile -kb bastardkb/charybdis/3x5 -km default
 ```
 
-Check out the `via` layout if you're looking for Via/Vial support:
+Check out the `via` layout if you're looking for VIA support:
 
 ```shell
 qmk compile -kb bastardkb/charybdis/3x5 -km via
