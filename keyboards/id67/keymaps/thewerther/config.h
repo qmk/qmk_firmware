@@ -16,35 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6964 /* "id" */
-#define PRODUCT_ID      0x0067
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    IDOBAO
-#define PRODUCT         ID67
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, F7 }
-#define MATRIX_COL_PINS { C7, F6, F5, F4, F1, B7, D5, D1, D2, D3, D4, D0, D6, D7, B4 }
-
-#define DIODE_DIRECTION COL2ROW
-#define RGB_DI_PIN F0
-#define DRIVER_LED_TOTAL 77
 #define DRIVER_LED_UNDERGLOW 10
 
 #if defined(RGB_DI_PIN)
@@ -52,6 +23,52 @@
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 
     #define RGB_MATRIX_KEYPRESSES
+
+    // disable effects from keyboard level config.h
+    #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
+    #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+    #undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+    #undef ENABLE_RGB_MATRIX_BREATHING
+    #undef ENABLE_RGB_MATRIX_BAND_SAT
+    #undef ENABLE_RGB_MATRIX_BAND_VAL
+    #undef ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+    #undef ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+    #undef ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+    #undef ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+    #undef ENABLE_RGB_MATRIX_CYCLE_ALL
+    #undef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+    #undef ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+    #undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+    #undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+    #undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+    #undef ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+    #undef ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+    #undef ENABLE_RGB_MATRIX_DUAL_BEACON
+    #undef ENABLE_RGB_MATRIX_RAINBOW_BEACON
+    #undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+    #undef ENABLE_RGB_MATRIX_RAINDROPS
+    #undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+    #undef ENABLE_RGB_MATRIX_HUE_BREATHING
+    #undef ENABLE_RGB_MATRIX_HUE_PENDULUM
+    #undef ENABLE_RGB_MATRIX_HUE_WAVE
+    #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+    #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
+    #undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
+    #undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+    #undef ENABLE_RGB_MATRIX_SPLASH
+    #undef ENABLE_RGB_MATRIX_MULTISPLASH
+    #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
+    #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+
+    // only enable a few
     #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
     #define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
     #define ENABLE_RGB_MATRIX_DUAL_BEACON
@@ -64,3 +81,4 @@
     #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH    // Hue & value pulse away from multiple key hits then fades value out
 #endif // #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
 #endif // #if defined(RGB_DI_PIN)
+
