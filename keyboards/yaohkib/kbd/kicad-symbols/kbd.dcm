@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP MJ-4PP-9
+D 4-pin (audio) jack receptable (stereo + 4th pin/TRRS connector), compatible with PJ320A
+K audio jack receptable stereo headphones TRRS connector
+F ~
+$ENDCMP
+#
+#End Doc Library

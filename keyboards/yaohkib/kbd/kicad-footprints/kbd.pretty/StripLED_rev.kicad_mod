@@ -1,0 +1,14 @@
+(module MYLIB_REV:StripLED_rev (layer F.Cu) (tedit 5A0FFE9D)
+  (fp_text reference P4 (at 0 -2.54) (layer F.SilkS) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value LED (at 0 7.62) (layer F.Fab) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (pad 3 smd rect (at 0 5.08) (size 1.524 1.524) (layers F.Cu F.Paste F.Mask))
+  (pad 2 smd rect (at 0 2.54) (size 1.524 1.524) (layers F.Cu F.Paste F.Mask))
+  (pad 1 smd rect (at 0 0) (size 1.524 1.524) (layers F.Cu F.Paste F.Mask))
+  (pad 1 smd rect (at 0 5.08) (size 1.524 1.524) (layers B.Cu B.Paste B.Mask))
+  (pad 2 smd rect (at 0 2.54) (size 1.524 1.524) (layers B.Cu B.Paste B.Mask))
+  (pad 3 smd rect (at 0 0) (size 1.524 1.524) (layers B.Cu B.Paste B.Mask))
+)

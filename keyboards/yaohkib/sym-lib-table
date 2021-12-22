@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name kbd)(type Legacy)(uri ${KIPRJMOD}/kbd/kicad-symbols/kbd.lib)(options "")(descr ""))
+  (lib (name yaohkib---left-rescue)(type Legacy)(uri "${KIPRJMOD}/yaohkib - left-rescue.lib")(options "")(descr ""))
+  (lib (name yaohkib---right-rescue)(type Legacy)(uri "${KIPRJMOD}/yaohkib - right-rescue.lib")(options "")(descr ""))
+)

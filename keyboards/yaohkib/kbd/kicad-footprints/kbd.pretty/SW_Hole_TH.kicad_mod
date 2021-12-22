@@ -1,0 +1,16 @@
+(module SW_Hole_TH (layer F.Cu) (tedit 5DC1A8B7)
+  (fp_text reference SW2 (at 7 8.1) (layer F.SilkS) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value KEY_SWITCH (at -7.4 -8.1) (layer F.Fab) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_line (start 9.525 9.525) (end 9.525 -9.525) (layer F.Fab) (width 0.15))
+  (fp_line (start -9.525 9.525) (end 9.525 9.525) (layer F.Fab) (width 0.15))
+  (fp_line (start -9.525 -9.525) (end -9.525 9.525) (layer F.Fab) (width 0.15))
+  (fp_line (start 9.525 -9.525) (end -9.525 -9.525) (layer F.Fab) (width 0.15))
+  (pad 1 thru_hole oval (at 6.8 0) (size 1.5 15) (drill oval 0.5 14) (layers *.Cu *.Mask))
+  (pad 1 thru_hole oval (at -6.8 0) (size 1.5 15) (drill oval 0.5 14) (layers *.Cu *.Mask))
+  (pad 1 thru_hole oval (at 0 6.8 90) (size 1.5 15) (drill oval 0.5 14) (layers *.Cu *.Mask))
+  (pad 1 thru_hole oval (at 0 -6.8 90) (size 1.5 15) (drill oval 0.5 14) (layers *.Cu *.Mask))
+)

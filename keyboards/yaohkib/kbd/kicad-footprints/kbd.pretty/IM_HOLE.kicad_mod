@@ -1,0 +1,12 @@
+(module IM_HOLE (layer F.Cu) (tedit 5BCDE3A4)
+  (descr "Mounting Hole 2.2mm, no annular, M2")
+  (tags "mounting hole 2.2mm no annular m2")
+  (attr virtual)
+  (fp_text reference Ref** (at -0.95 -0.55) (layer F.Fab) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value Val** (at 0 0.55) (layer F.Fab) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (pad "" np_thru_hole circle (at 0 0) (size 0.5 0.5) (drill 0.5) (layers *.Cu))
+)
