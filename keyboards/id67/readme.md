@@ -9,7 +9,7 @@ A 65% hotswap keyboard from IDOBAO.
 * Hardware Availability: [IDOBAO-website](https://www.idobao.net/products/idobao-id67-65-hot-swappable-mechanical-keyboard-kit-1)
 
 ## Layout 
-![ID67 layout](https://imgur.com/a/aC9jWJV)
+![ID67 layout](https://i.imgur.com/k1YJEPi.png)
 
 
 ## Compiling and flashing
