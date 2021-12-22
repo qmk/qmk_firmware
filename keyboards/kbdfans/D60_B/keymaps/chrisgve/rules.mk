@@ -8,3 +8,8 @@ NKRO_ENABLE = yes
 
 SRC += chrisgve.c
 
+REDUCE_RGB = yes
+
+MOUSEKEY_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+
