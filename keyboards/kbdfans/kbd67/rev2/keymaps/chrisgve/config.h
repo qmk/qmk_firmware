@@ -17,9 +17,7 @@
 #pragma once
 
 // place overrides here
-#define FORCE_NKRO
-
+// #define FORCE_NKRO
 
 #define BACKLIGHT_CAPS_LOCK
 
-#define PERMISSIVE_HOLD
