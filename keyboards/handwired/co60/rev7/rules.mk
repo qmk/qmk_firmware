@@ -9,7 +9,7 @@ BOOTLOADER = stm32-dfu
 WS2812_DRIVER = spi
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 BACKLIGHT_ENABLE = yes
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
