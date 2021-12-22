@@ -21,7 +21,7 @@
 #define PRODUCT_ID      0x5052 // "PR"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
-#define PRODUCT         Xelus Pachi RGB
+#define PRODUCT         Xelus Pachi RGB Rev 1
 
 /* key matrix size */
 #define MATRIX_ROWS 6
