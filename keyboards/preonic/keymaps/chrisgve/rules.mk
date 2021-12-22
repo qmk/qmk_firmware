@@ -1,3 +1,12 @@
-SRC += muse.c
+USER_NAME := chrisgve
 
-# TAP_DANCE_ENABLE = yes      # Enable tap dance
+APPLE_FN_ENABLE = yes
+SRC += chrisgve.c
+
+NKRO_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+
+COMMAND_ENABLE = no
+CONSOLE_ENABLE = no
+

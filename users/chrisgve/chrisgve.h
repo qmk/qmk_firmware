@@ -169,12 +169,19 @@ enum custom_keycodes {
 enum {
     TD_LSHIFT_MOUSE,
     TD_CTRL_CAPS,
+    TD_ADJ_M_NUM,
+    TD_ADJ_L_NUM,
+    TD_ADJ_W_NUM,
 };
 
 // Define the keycode for the mouse tap dance
 #define SFT_MSE     TD(TD_LSHIFT_MOUSE)
 #define CPS_CTL     TD(TD_CTRL_CAPS)
 #define TG_MSE      TG(_MOUSE)
+#define TG_NUM      TG(_NUM)
+#define TD_ADJM     TD(TD_ADJ_M_NUM)
+#define TD_ADJL     TD(TD_ADJ_L_NUM)
+#define TD_ADJW     TD(TD_ADJ_W_NUM)
 
 #else
 
