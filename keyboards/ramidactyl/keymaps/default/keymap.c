@@ -4,7 +4,7 @@ extern keymap_config_t keymap_config;
 
 #define _QWERTY   0
 #define _LOWER    1
-#define _RAISE    2  
+#define _RAISE    2
 #define _ADJUST     3
 
 // #define RAISE MO(_RAISE)
@@ -43,11 +43,12 @@ const char *read_logo(void);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-#ifdef OLED_DRIVER_ENABLE
-    set_keylog(keycode, record);
-#endif
-   set_timelog();
-  }
+    }
+// #ifdef OLED_DRIVER_ENABLE
+//     set_keylog(keycode, record);
+// #endif
+//    set_timelog();
+//   }
 /*     switch (keycode) {
     case M_MAC1:
         if (record->event.pressed) {
@@ -63,7 +64,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             // when keycode QMKBEST is released
         }
-        break;	
+        break;
     } */
     return true;
 };
@@ -110,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     _______ , _______ ,                         _______ , _______ ,
                                               _______ , _______,      _______ , _______,
                                               _______ , _______,      _______ , _______
-  ), 
+  ),
 
   [_ADJUST] = LAYOUT(
 
