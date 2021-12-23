@@ -76,8 +76,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 
 #ifdef RGBLIGHT_ENABLE
-
-
 #   define RGBLED_NUM 123
 
 // Do not define "RGBLED_SPLIT" since somehow it doesn't work well yet.
@@ -113,11 +111,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47, \
     59,  58,  57,  56,  55,  54,  53,  52,  51,  50,  49,  48  \
     }
-
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-
 /* ws2812 RGB MATRIX */
 #   define DRIVER_LED_TOTAL 123
 #   define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
@@ -192,48 +188,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define ENABLE_RGB_MATRIX_MULTISPLASH
 // #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 // #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-// #define DISABLE_RGB_MATRIX_SOLID_COLOR
-// #define DISABLE_RGB_MATRIX_ALPHAS_MODS
-// #    define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-// #    define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-// #    define DISABLE_RGB_MATRIX_BREATHING
-// #    define DISABLE_RGB_MATRIX_BAND_SAT
-// #define DISABLE_RGB_MATRIX_BAND_VAL
-// #    define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-// #    define DISABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-// #    define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-// #    define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL
-// #define DISABLE_RGB_MATRIX_CYCLE_ALL
-// #    define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-// #define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
-// #    define DISABLE_RGB_MATRIX_CYCLE_OUT_IN
-// #    define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-// // #define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-// #    define DISABLE_RGB_MATRIX_DUAL_BEACON
-// #    define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL
-// #    define DISABLE_RGB_MATRIX_CYCLE_SPIRAL
-// // #define DISABLE_RGB_MATRIX_RAINBOW_BEACON
-// #    define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-// #    define DISABLE_RGB_MATRIX_RAINDROPS
-// #    define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-// #define DISABLE_RGB_MATRIX_HUE_BREATHING
-// #define DISABLE_RGB_MATRIX_HUE_PENDULUM
-// #define DISABLE_RGB_MATRIX_HUE_WAVE
-// #    define DISABLE_RGB_MATRIX_TYPING_HEATMAP
-// #    define DISABLE_RGB_MATRIX_DIGITAL_RAIN
-// // #define DISABLE_RGB_MATRIX_SOLID_REACTIVE
-// #    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-// #    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-// #    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-// #    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-// #    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-// #    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-// #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-// #    define DISABLE_RGB_MATRIX_SPLASH
-// #    define DISABLE_RGB_MATRIX_MULTISPLASH
-// #    define DISABLE_RGB_MATRIX_SOLID_SPLASH
-#   define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif  // RGB_MATRIX_ENABLE
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
