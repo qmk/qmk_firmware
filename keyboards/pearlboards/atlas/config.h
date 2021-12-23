@@ -21,14 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x6963
-#define PRODUCT_ID 0x6963
-#define DEVICE_VER 0x0002
+#define PRODUCT_ID 0x6964
+#define DEVICE_VER 0x0001
 #define MANUFACTURER Koobaczech
-#define PRODUCT Pandora
+#define PRODUCT Atlas
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -40,23 +40,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { B4, D7, D6, B3, B0 }
-#define MATRIX_COL_PINS { D2, D1, D0, D3, D5, B5, B6, B7, D4, C6, C7, F0, F1, F4, F7 }
-#define UNUSED_PINS
+#define MATRIX_ROW_PINS { D6, E1, C0, C4, E3 }
+#define MATRIX_COL_PINS { D5, D4, C1, C2, C3, C5, C7, A7, A6, A5, A4, A3, A2, A1, A0, F7 }
+#define UNUSED_PINS { E4, E5, E6, E7, F0, F1, F2, F3, B0, B4, B5, B7 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /* Encoder Function */
-#define ENCODERS_PAD_A { F6 }
-#define ENCODERS_PAD_B { F5 }
+#define ENCODERS_PAD_A { E0 }
+#define ENCODERS_PAD_B { D7 }
 //#define ENCODER_DIRECTION_FLIP
 #define ENCODER_RESOLUTION 1
-#define DIP_SWITCH_PINS { B2, B5 }
+
+/* Audio Function */
+#define AUDIO_CLICKY
+#define AUDIO_PIN C6
+
+/* Haptic feedback */
+#define FB_ERM_LRA 0
+#define FB_BRAKEFACTOR 3 // For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7
+#define FB_LOOPGAIN 3 // For  Low:0, Medium:1, High:2, Very High:3
+/* Motor settings */
+#define RATED_VOLTAGE 3
+#define V_PEAK 5
 
 /*== all animations enabled ==*/
 /* If RGBLIGHT_SLEEP defined, the RGB lighting will be switched off when the host goes to sleep */
-#define RGB_DI_PIN B1
+#define RGB_DI_PIN B6
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_BREATHING
@@ -67,7 +78,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_SNAKE
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 12
+#define RGBLED_NUM 8
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
@@ -78,7 +89,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 /* Indicator Led's*/
-#define LED_CAPS_LOCK_PIN E6
+#define LED_CAPS_LOCK_PIN F4
+#define LED_NUM_LOCK_PIN F5
+#define LED_SCROLL_LOCK_PIN F6
 #define LED_PIN_ON_STATE 0
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

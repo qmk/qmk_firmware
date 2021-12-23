@@ -1,4 +1,4 @@
-/* Copyright 2021 Koobaczech
+/* Copyright 2020 Koobaczech
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,29 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pandora.h"
+#include "atlas.h"
 
-// Encoder rotate function
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    /* First encoder */
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) {
         if (clockwise) {
-            tap_code(KC_AUDIO_VOL_UP);
+            tap_code_delay(KC_VOLU, 10);
         } else {
-            tap_code(KC_AUDIO_VOL_DOWN);
+            tap_code_delay(KC_VOLD, 10);
         }
     }
     return true;
 }
-// Encoder click function
-bool dip_switch_update_user(uint8_t index, bool active) {
-    switch (index) {
-    /* First encoder */
-    case 0:
-        if (active) {
-            tap_code(KC_MEDIA_PLAY_PAUSE);
-        }
-        break;
-    }
-    return true;
-}
+#endif
