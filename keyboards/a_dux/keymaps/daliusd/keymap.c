@@ -15,7 +15,9 @@
  */
 #include QMK_KEYBOARD_H
 
+#include "print.h"
 #include "oneshot.h"
+#include "flow.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -41,9 +43,6 @@ enum custom_keycodes {
   TM_SLCT,
   TM_SRCH,
   TM_URL,
-  OS_CTRL,
-  OS_ALT,
-  OS_GUI,
   OS_TMUX,
   OS_MISC,
   OS_FUNC,
@@ -56,6 +55,19 @@ enum custom_keycodes {
 #define L_MOUSE     TG(_MOUSE)
 
 #define K_PRINT     (QK_LCTL | QK_LSFT | QK_LGUI | KC_4)
+
+// flow_config should correspond to following format:
+// * layer keycode
+// * non-layer keycode
+// * control keycode
+const uint16_t flow_config[FLOW_COUNT][3] = {
+    {L_NAV, KC_A, KC_LALT},
+    {L_NAV, KC_S, KC_LGUI},
+    {L_NAV, KC_D, KC_LCTL},
+    {L_SYM, KC_K, KC_LCTL},
+    {L_SYM, KC_L, KC_LGUI},
+    {L_SYM, KC_SCLN, KC_LALT},
+};
 
 enum unicode_names {
     SNEK,
@@ -139,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,                          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_LPRN ,KC_RPRN ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_GRV  ,KC_PLUS ,KC_LBRC ,KC_RBRC ,K_LT_OB ,                          KC_MINS ,KC_PIPE ,OS_CTRL ,OS_GUI  ,OS_ALT  ,
+     KC_GRV  ,KC_PLUS ,KC_LBRC ,KC_RBRC ,K_LT_OB ,                          KC_MINS ,KC_PIPE ,KC_K    ,KC_L    ,KC_SCLN ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      K_SNEK  ,KC_EQL  ,KC_LCBR ,KC_RCBR ,K_LT_CB ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,K_EURO  ,KC_BSLS ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
@@ -151,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      KC_TILDE,L_MOUSE ,OS_FUNC ,OS_MISC ,OS_TMUX ,                          K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     OS_ALT  ,OS_GUI  ,OS_CTRL ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
+     KC_A    ,KC_S    ,KC_D    ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_DELT ,KC_BSPC ,KC_ESC  ,KC_PGDN ,KC_PGUP ,                          K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
@@ -163,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     OS_ALT  ,OS_GUI  ,OS_CTRL ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,OS_CTRL ,OS_GUI  ,OS_ALT  ,
+     KC_A    ,KC_S    ,KC_D    ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,KC_D    ,KC_S    ,KC_A    ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_DELT ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,KC_COMM ,KC_DOT  ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
@@ -246,9 +258,6 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
     case L_SYM:
     case L_NAV:
-    case OS_CTRL:
-    case OS_ALT:
-    case OS_GUI:
     case OS_TMUX:
     case OS_MISC:
     case KC_LSFT:
@@ -259,36 +268,15 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
 }
 
 bool is_oneshot_mod_key(uint16_t keycode) {
-    switch (keycode) {
-    case OS_CTRL:
-    case OS_ALT:
-    case OS_GUI:
-        return true;
-    default:
-        return false;
-    }
+    return false;
 }
 
-oneshot_state os_ctrl_state = os_up_unqueued;
-oneshot_state os_alt_state = os_up_unqueued;
-oneshot_state os_cmd_state = os_up_unqueued;
 oneshot_state os_tmux_state = os_up_unqueued;
 oneshot_state os_misc_state = os_up_unqueued;
 oneshot_state os_func_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    update_oneshot(
-        &os_ctrl_state, KC_LCTL, OS_CTRL,
-        keycode, record
-    );
-    update_oneshot(
-        &os_alt_state, KC_LALT, OS_ALT,
-        keycode, record
-    );
-    update_oneshot(
-        &os_cmd_state, KC_LGUI, OS_GUI,
-        keycode, record
-    );
+    if (!update_flow(keycode, record->event.pressed)) return false;
 
     bool handled = true;
     handled = update_oneshot_layer(
@@ -346,72 +334,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _SYM, _NAV, _NUMB);
-}
-
-enum combos {
-  AF_ALT_TAB,
-  SF_GUI_TAB,
-  DF_CTRL_TAB,
-  SC_GUI_C,
-  SV_GUI_V,
-  DC_CTRL_C,
-  DV_CTRL_V,
-  ST_GUI_T,
-  DT_CTRL_T,
-  SW_GUI_W,
-  DW_CTRL_W,
-  NAV_A__ALT,
-  NAV_S__GUI,
-  NAV_D__CTRL,
-  COMBO_LENGTH,
-};
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
-const uint16_t PROGMEM nav_a_combo[] = {L_NAV, KC_A, COMBO_END};
-const uint16_t PROGMEM nav_s_combo[] = {L_NAV, KC_S, COMBO_END};
-const uint16_t PROGMEM nav_d_combo[] = {L_NAV, KC_D, COMBO_END};
-
-combo_t key_combos[] = {
-  [NAV_A__ALT] = COMBO_ACTION(nav_a_combo),
-  [NAV_S__GUI] = COMBO_ACTION(nav_s_combo),
-  [NAV_D__CTRL] = COMBO_ACTION(nav_d_combo),
-};
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-    keyrecord_t record;
-    switch (combo_index) {
-        case NAV_A__ALT:
-            if (pressed) {
-                layer_on(_NAV);
-                record.event.pressed = true;
-                process_record_user(OS_ALT, &record);
-            } else {
-                layer_off(_NAV);
-                record.event.pressed = false;
-                process_record_user(OS_ALT, &record);
-            }
-            break;
-        case NAV_S__GUI:
-            if (pressed) {
-                layer_on(_NAV);
-                record.event.pressed = true;
-                process_record_user(OS_GUI, &record);
-            } else {
-                layer_off(_NAV);
-                record.event.pressed = false;
-                process_record_user(OS_GUI, &record);
-            }
-            break;
-        case NAV_D__CTRL:
-            if (pressed) {
-                layer_on(_NAV);
-                record.event.pressed = true;
-                process_record_user(OS_CTRL, &record);
-            } else {
-                layer_off(_NAV);
-                record.event.pressed = false;
-                process_record_user(OS_CTRL, &record);
-            }
-            break;
-    }
 }
