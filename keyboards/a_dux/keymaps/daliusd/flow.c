@@ -14,15 +14,6 @@ typedef enum {
 flow_state_t flow_state[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = flow_up_unqueued };
 bool flow_pressed[FLOW_COUNT][2] = { [0 ... FLOW_COUNT - 1] = {false, false} };
 
-bool is_flow_cancel_key(uint16_t keycode) {
-    for (int i = 0; i < FLOW_COUNT; i++) {
-        if (flow_config[i][0] == keycode) {
-            return true;
-        }
-    }
-    return false;
-}
-
 bool is_flow_ignored_key(uint16_t keycode) {
     for (int i = 0; i < FLOW_COUNT; i++) {
         if (flow_config[i][0] == keycode) {
@@ -111,17 +102,18 @@ bool update_flow(
                         unregister_code(flow_config[i][2]);
                     }
                     break;
+                case flow_up_queued:
+                    if (flow_pressed[i][0] && !flow_pressed[i][1]) {
+                        flow_state[i] = flow_up_unqueued;
+                        unregister_code(flow_config[i][2]);
+                    }
+                    break;
                 default:
                     break;
                 }
             }
         } else if (!flow_triggered) {
             if (pressed) {
-                if (is_flow_cancel_key(keycode) && flow_state[i] != flow_up_unqueued) {
-                    // Cancel oneshot on designated cancel keydown.
-                    flow_state[i] = flow_up_unqueued;
-                    unregister_code(flow_config[i][2]);
-                }
                 if (!is_flow_ignored_key(keycode)) {
                     switch (flow_state[i]) {
                     case flow_up_queued:
