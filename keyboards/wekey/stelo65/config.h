@@ -10,7 +10,7 @@
 #define PRODUCT_ID   0x0003
 #define DEVICE_VER   0x0001
 #define MANUFACTURER @wekey
-#define PRODUCT      Stelo
+#define PRODUCT      Stelo65
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -42,6 +42,8 @@
 #define ENCODERS_CW_KEY  { { 4, 7 } }
 #define ENCODERS_CCW_KEY { { 4, 6 } }
 #endif
+
+#define LED_CAPS_LOCK_PIN B3
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
