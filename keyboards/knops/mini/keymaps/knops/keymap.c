@@ -82,10 +82,10 @@ void set_led_state(int ledId, bool state) {
 	}
 }
 
-void led_init_ports() {
+void led_init_ports_user(void) {
 	PORTB |= (1 << 7);
 	DDRB &= ~(1<<7);
-	
+
 	DDRD |= (1<<7);
 	DDRC |= (1<<6);
 	DDRC |= (1<<7);
@@ -106,10 +106,10 @@ void led_set_layer(int layer) {
 }
 
 void matrix_init_user(void) {
-	led_init_ports();
-	
+	led_init_ports_user();
+
 	led_set_layer(1);
-	
+
 	/*KNOPS_INIT*/
 }
 
@@ -132,11 +132,11 @@ void led_set_user(uint8_t usb_led) {
 }
 
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
-  
+
 	/*KNOPS_PROCESS_STATE*/
 
 	return NULL;
-  
+
 }
 
 

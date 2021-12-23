@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (biton32(layer_state)) {
         case _BASE:
             if (clockwise) {
@@ -55,10 +55,11 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 tap_code(KC_MPRV);
             }
     }
+    return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer: "), false);
   switch (biton32(layer_state)) {
@@ -78,5 +79,6 @@ void oled_task_user(void) {
   oled_write_P(IS_LED_ON(usb_led, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
   oled_write_P(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
   oled_write_P(IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+    return false;
 }
 #endif

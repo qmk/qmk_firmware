@@ -31,7 +31,7 @@ int get_icon_start_position(int key_position) {
     }
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     static const char PROGMEM UP_ICON[] = {0x1E,0};
     static const char PROGMEM DOWN_ICON[] = {0x1F,0};
     if (index == 0) {
@@ -66,9 +66,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             }
         }
     }
+    return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
@@ -173,7 +174,7 @@ void draw_brightness_icon(int key_position, int row) {
     oled_write_P(ICON_BRIGHTNESS_1, false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // Host Keyboard Layer Status
     static const char PROGMEM ICON_LAYER[] = {0x80, 0x81, 0x82, 0x83, 0};
     static const char PROGMEM ICON_ENCODER[] = {0x84, 0x85, 0x86, 0x87, 0};
@@ -228,6 +229,7 @@ void oled_task_user(void) {
             break;
     }
 
+    return false;
 }
 
 #endif

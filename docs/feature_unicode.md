@@ -230,7 +230,7 @@ send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
 
 Example uses include sending Unicode strings when a key is pressed, as described in [Macros](feature_macros.md).
 
-### `send_unicode_hex_string()`
+### `send_unicode_hex_string()` (Deprecated)
 
 Similar to `send_unicode_string()`, but the characters are represented by their Unicode code points, written in hexadecimal and separated by spaces. For example, the table flip above would be achieved with:
 

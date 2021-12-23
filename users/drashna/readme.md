@@ -2,12 +2,12 @@
 
 This is my personal userspace file.  Most of my code exists here, as it's heavily shared.
 
-* [RGB Customization](readme_rgb.md)
-* [Diablo Tap Dancing](readme_tap_dance.md)
-* [Keymap Wrappers](readme_wrappers.md)
-* [Custom Function Handlers](readme_handlers.md)
-* [Secret Macros](readme_secrets.md)
-* [Custom Keycodes](readme_keycodes.md)
+* [RGB Customization](readme/rgb.md)
+* [Diablo Tap Dancing](readme/tap_dance.md)
+* [Keymap Wrappers](readme/wrappers.md)
+* [Custom Function Handlers](readme/handlers.md)
+* [Secret Macros](readme/secrets.md)
+* [Custom Keycodes](readme/keycodes.md)
 
 
 ## Pro Micro Hacking

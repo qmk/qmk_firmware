@@ -2,17 +2,12 @@
 MCU = atmega32a
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
-# build options
-BOOTMAGIC_ENABLE = yes
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no

@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x3430 // "40"
+#define VENDOR_ID       0x4025 //"40 %", since 0x3430 is already registered.
 #define PRODUCT_ID      0x5350 // "SP"
 #define DEVICE_VER      0x1001
 #define MANUFACTURER    di0ib
@@ -40,8 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-// #define MATRIX_ROW_PINS { B0 } // B0 equivalents the ground pin
-// #define MATRIX_COL_PINS { E6, D7, C6, D4 }
 #define DIRECT_PINS { \
     { D4, C6, D7 }, \
     { E6, B4, B5 }  \
@@ -55,6 +53,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_PINS { F4, F5 } // Top Row, Bottom Row
+
+/* LED Indicators */
+#define LED_PIN_ON_STATE 0
+#define LED_CAPS_LOCK_PIN B0 // RX Led
+#define LED_NUM_LOCK_PIN D5  // TX Led
 
 // #define RGB_DI_PIN B1 // PB1 on expansion connector
 // #ifdef RGB_DI_PIN

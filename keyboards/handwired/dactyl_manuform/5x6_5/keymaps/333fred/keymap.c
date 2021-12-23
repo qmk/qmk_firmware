@@ -115,7 +115,7 @@ void write_quote(const char* data, const uint8_t num_lines) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_logo();
         oled_advance_page(/* clearPageRemainder */ true);
@@ -559,9 +559,10 @@ void oled_task_user(void) {
                 break;
         }
     }
+    return false;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     // On the left, control the volume. On the right, scroll the page
     if (index == 0) {
         if (clockwise) {
@@ -576,4 +577,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }

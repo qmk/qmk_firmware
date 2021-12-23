@@ -1,18 +1,18 @@
 /* Copyright 2020 Tushar Khan
- * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation, either version 2 of the License, or 
- * (at your option) any later version. 
- * 
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
- * GNU General Public License for more details. 
- * 
- * You should have received a copy of the GNU General Public License 
- * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
- */ 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include QMK_KEYBOARD_H
 #include "muse.h"
@@ -77,8 +77,8 @@ enum keycodes {
     EMAIL,      // [email address]
     PHONE,      // [phone number]
     GT_CMT,     // git commit -m ''
-    SHEBANG,    // #!/usr/bin/env 
-    CHMOD,      // chmod 744 *sh 
+    SHEBANG,    // #!/usr/bin/env
+    CHMOD,      // chmod 744 *sh
     PY_VENV,    // source *env*/bin/activate
 };
 
@@ -355,7 +355,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             // enabling base layer song breaks a lot of other songs including
             // - macro recording start song
             // - rotary feedback songs
-            
+
             // PLAY_SONG(base_song);
             break;
         case _HYPER:
@@ -393,10 +393,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
         /*
-        ██   ██ ███████ ██    ██  ██████  ██████  ██████  ███████ ███████ 
-        ██  ██  ██       ██  ██  ██      ██    ██ ██   ██ ██      ██      
-        █████   █████     ████   ██      ██    ██ ██   ██ █████   ███████ 
-        ██  ██  ██         ██    ██      ██    ██ ██   ██ ██           ██ 
+        ██   ██ ███████ ██    ██  ██████  ██████  ██████  ███████ ███████
+        ██  ██  ██       ██  ██  ██      ██    ██ ██   ██ ██      ██
+        █████   █████     ████   ██      ██    ██ ██   ██ █████   ███████
+        ██  ██  ██         ██    ██      ██    ██ ██   ██ ██           ██
         ██   ██ ███████    ██     ██████  ██████  ██████  ███████ ███████
         */
 
@@ -480,10 +480,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         /*
-        ███    ███  █████   ██████ ██████   ██████  ███████ 
-        ████  ████ ██   ██ ██      ██   ██ ██    ██ ██      
-        ██ ████ ██ ███████ ██      ██████  ██    ██ ███████ 
-        ██  ██  ██ ██   ██ ██      ██   ██ ██    ██      ██ 
+        ███    ███  █████   ██████ ██████   ██████  ███████
+        ████  ████ ██   ██ ██      ██   ██ ██    ██ ██
+        ██ ████ ██ ███████ ██      ██████  ██    ██ ███████
+        ██  ██  ██ ██   ██ ██      ██   ██ ██    ██      ██
         ██      ██ ██   ██  ██████ ██   ██  ██████  ███████
         */
 
@@ -527,10 +527,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     };
 
     /*
-         █████  ██    ██ ██████  ██  ██████ 
-        ██   ██ ██    ██ ██   ██ ██ ██    ██ 
-        ███████ ██    ██ ██   ██ ██ ██    ██ 
-        ██   ██ ██    ██ ██   ██ ██ ██    ██ 
+         █████  ██    ██ ██████  ██  ██████
+        ██   ██ ██    ██ ██   ██ ██ ██    ██
+        ███████ ██    ██ ██   ██ ██ ██    ██
+        ██   ██ ██    ██ ██   ██ ██ ██    ██
         ██   ██  ██████  ██████  ██  ██████
     */
 
@@ -600,7 +600,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-    
+
 }
 
 
@@ -615,7 +615,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     static int scroll_interval = 5;
 
     switch (rotary_state) {
@@ -686,5 +686,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             }
             break;
     }
+    return true;
 }
 #endif

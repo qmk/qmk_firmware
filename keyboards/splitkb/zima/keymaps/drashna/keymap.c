@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
 extern haptic_config_t haptic_config;
 #endif
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_ortho_4x3( /* Base */
         KC_MUTE, TG(1),   TG(2),
@@ -43,12 +43,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { { KC_DOWN, KC_UP   } },
+    [1] = { { KC_VOLD, KC_VOLU } },
+    [2] = { { RGB_MOD, RGB_RMOD} },
+};
+#endif
+// clang-format on
 
-static bool is_asleep = false;
+static bool     is_asleep = false;
 static uint32_t oled_timer;
 
 void render_oled_logo(void) {
-        // clang-format off
+    // clang-format off
     static const char PROGMEM qmk_logo[] = {
         0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
         0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
@@ -68,14 +76,12 @@ void render_user_status(void) {
     oled_write_P(nukem_good[0], haptic_config.enable);
 }
 
-void keyboard_post_init_user(void) {
-    oled_scroll_set_speed(0);
-}
+void keyboard_post_init_user(void) { oled_scroll_set_speed(0); }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_asleep) {
         oled_off();
-        return;
+        return false;;
     }
 
     if (timer_elapsed32(oled_timer) < 30000) {
@@ -83,15 +89,35 @@ void oled_task_user(void) {
         oled_scroll_off();
         oled_write_P(PSTR("SplitKB's Zima"), false);
         char layer[2] = {0};
-        snprintf(layer, sizeof(layer), "%d", get_highest_layer(layer_state));
+        uint8_t n        = get_highest_layer(layer_state);
+        layer[1]         = '\0';
+        layer[0]         = '0' + n % 10;
         oled_write_P(PSTR("   L:"), false);
         oled_write_ln(layer, false);
         oled_write_ln_P(PSTR("--------------"), false);
         if (rgblight_is_enabled()) {
             oled_write_P(PSTR("HSV: "), false);
-            char rgbs[14];
-            snprintf(rgbs, sizeof(rgbs), "%3d, %3d, %3d", rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val());
-            oled_write_ln(rgbs, false);
+            char hsv_char[4];
+            n           = rgblight_get_hue();
+            hsv_char[3] = '\0';
+            hsv_char[2] = '0' + n % 10;
+            hsv_char[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+            hsv_char[0] = n / 10 ? '0' + n / 10 : ' ';
+            oled_write(hsv_char, false);
+            oled_write_P(PSTR(", "), false);
+            n           = rgblight_get_sat();
+            hsv_char[3] = '\0';
+            hsv_char[2] = '0' + n % 10;
+            hsv_char[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+            hsv_char[0] = n / 10 ? '0' + n / 10 : ' ';
+            oled_write(hsv_char, false);
+            oled_write_P(PSTR(", "), false);
+            n           = rgblight_get_val();
+            hsv_char[3] = '\0';
+            hsv_char[2] = '0' + n % 10;
+            hsv_char[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+            hsv_char[0] = n / 10 ? '0' + n / 10 : ' ';
+            oled_write_ln(hsv_char, false);
         } else {
             oled_write_ln_P(PSTR("RGB LIGHT DISABLED"), false);
         }
@@ -105,15 +131,12 @@ void oled_task_user(void) {
             oled_off();
         }
     }
+    return false;
 }
 
-void suspend_power_down_user(void) {
-    is_asleep = true;
-}
+void suspend_power_down_user(void) { is_asleep = true; }
 
-void suspend_wakeup_init_user(void) {
-    is_asleep = false;
-}
+void suspend_wakeup_init_user(void) { is_asleep = false; }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     oled_timer = timer_read32();
@@ -121,20 +144,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-
- void encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code16(KC_VOLU);
-    } else {
-        tap_code16(KC_VOLD);
-    }
-#    ifdef OLED_DRIVER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
     oled_timer = timer_read32();
-#    endif
-#    if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
-    if (is_audio_on() && is_clicky_on()) clicky_play();
-#    endif
-#    ifdef HAPTIC_ENABLE
-    if (haptic_config.enable) haptic_play();
-#    endif
+    if (clockwise) {
+        tap_code_delay(KC_VOLU, 10);
+    } else {
+        tap_code_delay(KC_VOLD, 10);
+    }
+    return false;
 }

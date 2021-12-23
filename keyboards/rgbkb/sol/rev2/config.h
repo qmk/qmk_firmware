@@ -28,23 +28,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B7
 
-#define BACKLIGHT_LEDS 124
-
-#ifdef FULLHAND_ENABLE
-  #define FULLHAND_LEDS 24
-#elif SF_ENABLE
-  #define FULLHAND_LEDS 38
-#else
-  #define FULLHAND_LEDS 0
-#endif
-
 // Underglow / DIY Tent Glow are parallel to the top row leds, no separate define
-
+// Full Hand case adds 24 LEDs, Star Fighter case adds 38 LEDs
+// For mirrored LED control (each MCU controls half the LEDs), total LED counts are divided in half
 #ifdef LED_MIRRORED
-  #define RGBLED_NUM ((BACKLIGHT_LEDS + FULLHAND_LEDS) / 2)
+  #ifdef FULLHAND_ENABLE
+    #define FULLHAND_LEDS 24
+    #define RGBLED_NUM 74
+  #elif SF_ENABLE
+    #define FULLHAND_LEDS 38
+    #define RGBLED_NUM 81
+  #else
+    #define FULLHAND_LEDS 0
+    #define RGBLED_NUM 62
+  #endif
 #else
-  #define RGBLED_NUM (BACKLIGHT_LEDS + FULLHAND_LEDS)
+  #ifdef FULLHAND_ENABLE
+    #define FULLHAND_LEDS 24
+    #define RGBLED_NUM 148
+  #elif SF_ENABLE
+    #define FULLHAND_LEDS 38
+    #define RGBLED_NUM 162
+  #else
+    #define FULLHAND_LEDS 0
+    #define RGBLED_NUM 124
+  #endif
 #endif
+
 #define DRIVER_LED_TOTAL  RGBLED_NUM
 
 #define RGB_MATRIX_CENTER { 112, 37 }
@@ -54,7 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { D2 }
 #define ENCODERS_PAD_B { D6 }
 #else
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     #error Extra encoders cannot be enabled at the same time as the OLED Driver as they use the same pins.
 #endif
 #define ENCODERS_PAD_A { D2, D1, B0 }

@@ -17,8 +17,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [0] =
         LAYOUT(
-                KC_MUTE,  KC_MPLY, MO(2)  , 
-                KC_MPRV,  KC_UP  , KC_MNXT, 
+                KC_MUTE,  KC_MPLY, MO(2)  ,
+                KC_MPRV,  KC_UP  , KC_MNXT,
                 KC_LEFT, KC_DOWN , KC_RGHT
               ),
 
@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [2] =
         LAYOUT(
-                KC_NO  , KC_NO, KC_TRNS, 
-                EEP_RST, RESET, DEBUG  , 
+                KC_NO  , KC_NO, KC_TRNS,
+                EEP_RST, RESET, DEBUG  ,
                 KC_NO  , KC_NO, KC_NO
               )
 
@@ -96,7 +96,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 uint8_t selected_layer = 0;
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (layer_state_is(2)) {
             if (clockwise) {
@@ -114,4 +114,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             }
         }
     }
+    return true;
 }

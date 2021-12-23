@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                    KC_BSPC, KC_DEL,   KC_ENT,  KC_SPC \
 
   ),
-  
+
   [_QWERTY] = LAYOUT( \
       KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_HOME,  KC_PGUP, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_END,   KC_PGDN, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_SLSH, \
@@ -253,7 +253,7 @@ const uint16_t PROGMEM encoders[][NUMBER_OF_ENCODERS * 2][2]  = {
     )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (!is_keyboard_master())
     return;
 
@@ -274,11 +274,12 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (keycode != KC_TRANSPARENT)
       tap_code16(keycode);
   }
+    return true;
 }
 #endif
 
 // OLED Driver Logic
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
  oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master())
     return OLED_ROTATION_270;
@@ -349,13 +350,14 @@ static void render_status(void) {
 #endif
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if (is_keyboard_master()) {
     render_status();
   } else {
     render_logo();
     oled_scroll_left();
   }
+    return false;
 }
 
 #endif
