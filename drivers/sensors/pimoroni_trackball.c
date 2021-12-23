@@ -76,7 +76,7 @@ i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data) {
     return status;
 }
 
-__attribute__((weak)) void pimironi_trackball_device_init(void) {
+__attribute__((weak)) void pimoroni_trackball_device_init(void) {
     i2c_init();
     pimoroni_trackball_set_rgbw(0x00, 0x00, 0x00, 0x00);
 }

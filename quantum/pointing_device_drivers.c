@@ -165,11 +165,11 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
-report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
-    static uint16_t     debounce      = 0;
-    static uint8_t      error_count   = 0;
-    pimoroni_data_t     pimoroni_data = {0};
-    static int16_t      x_offset = 0, y_offset = 0;
+report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
+    static uint16_t debounce      = 0;
+    static uint8_t  error_count   = 0;
+    pimoroni_data_t pimoroni_data = {0};
+    static int16_t  x_offset = 0, y_offset = 0;
 
     if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT) {
         i2c_status_t status = read_pimoroni_trackball(&pimoroni_data);
@@ -200,8 +200,8 @@ report_mouse_t pimorono_trackball_get_report(report_mouse_t mouse_report) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = pimironi_trackball_device_init,
-    .get_report = pimorono_trackball_get_report,
+    .init       = pimoroni_trackball_device_init,
+    .get_report = pimoroni_trackball_get_report,
     .set_cpi    = pimoroni_trackball_set_cpi,
     .get_cpi    = pimoroni_trackball_get_cpi
 };
