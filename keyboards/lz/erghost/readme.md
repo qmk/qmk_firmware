@@ -1,6 +1,6 @@
 # erGhost
 
-![erGhost](https://geekhack.org/index.php?topic=115100.0)
+![erGhost](https://i.imgur.com/7cUHEXTl.jpeg)
 
 LZ erGhost PCB
 
