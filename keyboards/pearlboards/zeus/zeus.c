@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pandora.h"
+#include "zeus.h"
 
 // Encoder rotate function
 bool encoder_update_user(uint8_t index, bool clockwise) {
@@ -25,18 +25,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         } else {
             tap_code(KC_AUDIO_VOL_DOWN);
         }
-    }
-    return true;
-}
-// Encoder click function
-bool dip_switch_update_user(uint8_t index, bool active) {
-    switch (index) {
-    /* First encoder */
-    case 0:
-        if (active) {
-            tap_code(KC_MEDIA_PLAY_PAUSE);
-        }
-        break;
     }
     return true;
 }

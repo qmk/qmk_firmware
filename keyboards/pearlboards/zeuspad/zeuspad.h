@@ -14,29 +14,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pandora.h"
+/*
+ * This layout covers all of the possible build layouts. Also, any
+ * built layouts will work without having to change anything.
+*/
 
-// Encoder rotate function
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    /* First encoder */
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_AUDIO_VOL_UP);
-        } else {
-            tap_code(KC_AUDIO_VOL_DOWN);
-        }
-    }
-    return true;
-}
-// Encoder click function
-bool dip_switch_update_user(uint8_t index, bool active) {
-    switch (index) {
-    /* First encoder */
-    case 0:
-        if (active) {
-            tap_code(KC_MEDIA_PLAY_PAUSE);
-        }
-        break;
-    }
-    return true;
+#pragma once
+
+#include "quantum.h"
+
+#define LAYOUT_all( \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22, k23, \
+    k30, k31, k32, k33, \
+    k40, k41, k42, k43, \
+    k50, k51, k52, k53  \
+) { \
+    { k00,  k01,  k02,  k03}, \
+    { k10,  k11,  k12,  k13}, \
+    { k20,  k21,  k22,  k23}, \
+    { k30,  k31,  k32,  k33}, \
+    { k40,  k41,  k42,  k43}, \
+    { k50,  k51,  k52,  k53}  \
 }
