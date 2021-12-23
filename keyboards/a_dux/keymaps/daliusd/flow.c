@@ -43,17 +43,21 @@ bool update_flow(
     bool pressed
 ) {
     bool pass = true;
+    bool flow_key_list_triggered[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
+    bool flow_key_list_pressed[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
+
+    bool flow_triggered = false;
+
     for (uint8_t i = 0; i < FLOW_COUNT; i++) {
-        bool flow_triggered = false;
-        bool flow_key_pressed = false;
         // Layer key
         if (keycode == flow_config[i][0]) {
+            flow_key_list_triggered[i] = true;
             flow_triggered = true;
             if (pressed) {
                 flow_pressed[i][0] = true;
                 // TODO: delay by 30ms and allow to be reused
                 // if (flow_pressed[i][1]) {
-                //     flow_key_pressed = true;
+                //     flow_key_list_pressed[0] = true;
                 // }
             } else {
                 flow_pressed[i][0] = false;
@@ -63,26 +67,30 @@ bool update_flow(
             if (pressed) {
                 flow_pressed[i][1] = true;
                 if (flow_pressed[i][0]) {
-                     flow_triggered = true;
-                     flow_key_pressed = true;
-                     pass = false;
+                    flow_key_list_triggered[i] = true;
+                    flow_triggered = true;
+                    flow_key_list_pressed[i] = true;
+                    pass = false;
                  }
             } else {
                 flow_pressed[i][1] = false;
                 if (flow_pressed[i][0]) {
+                    flow_key_list_triggered[i] = true;
                     flow_triggered = true;
                     pass = false;
                 } else if ((flow_state[i] == flow_down_unused)
                         || (flow_state[i] == flow_down_used)) {
-                    // TODO: cover with test
+                    flow_key_list_triggered[i] = true;
                     flow_triggered = true;
                     pass = false;
                 }
             }
         }
+    }
 
-        if (flow_triggered) {
-            if (flow_key_pressed) {
+    for (uint8_t i = 0; i < FLOW_COUNT; i++) {
+        if (flow_key_list_triggered[i]) {
+            if (flow_key_list_pressed[i]) {
                 if (flow_state[i] == flow_up_unqueued) {
                     register_code(flow_config[i][2]);
                 }
@@ -92,14 +100,12 @@ bool update_flow(
                 switch (flow_state[i]) {
                 case flow_down_unused:
                     // If we didn't use the mod while trigger was held, queue it.
-                    // TODO: handle special case when first item is down
                     if (!flow_pressed[i][1]) {
                         flow_state[i] = flow_up_queued;
                     }
                     break;
                 case flow_down_used:
                     // If we did use the mod while trigger was held, unregister it.
-                    // TODO: handle special case when first item is down
                     if (!flow_pressed[i][1]) {
                         flow_state[i] = flow_up_unqueued;
                         unregister_code(flow_config[i][2]);
@@ -109,7 +115,7 @@ bool update_flow(
                     break;
                 }
             }
-        } else {
+        } else if (!flow_triggered) {
             if (pressed) {
                 if (is_flow_cancel_key(keycode) && flow_state[i] != flow_up_unqueued) {
                     // Cancel oneshot on designated cancel keydown.
