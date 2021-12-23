@@ -209,8 +209,7 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
-
-static void init(void) { pmw3360_init(); }
+static void pmw3360_device_init(void) { pmw3360_init(); }
 
 report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
     report_pmw3360_t data        = pmw3360_read_burst();
@@ -239,7 +238,7 @@ report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = init,
+    .init       = pmw3360_device_init,
     .get_report = pmw3360_get_report,
     .set_cpi    = pmw3360_set_cpi,
     .get_cpi    = pmw3360_get_cpi

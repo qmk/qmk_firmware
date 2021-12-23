@@ -19,8 +19,6 @@
 #pragma once
 
 #include <stdint.h>
-#include "report.h"
-#include "spi_master.h"
 
 #ifndef PMW3360_CPI
 #    define PMW3360_CPI 1600
@@ -69,10 +67,6 @@ This should work for the 3390 and 3391 too, in theory.
 #    define PMW3360_FIRMWARE_H "pmw3360_firmware.h"
 #endif
 
-#ifdef CONSOLE_ENABLE
-void print_byte(uint8_t byte);
-#endif
-
 typedef struct {
     int8_t  motion;
     bool    isMotion;     // True if a motion is detected.
@@ -83,16 +77,10 @@ typedef struct {
     int8_t  mdy;
 } report_pmw3360_t;
 
-bool             spi_start_adv(void);
-void             spi_stop_adv(void);
-spi_status_t     spi_write_adv(uint8_t reg_addr, uint8_t data);
-uint8_t          spi_read_adv(uint8_t reg_addr);
 bool             pmw3360_init(void);
-void             pmw3360_set_cpi(uint16_t cpi);
-uint16_t         pmw3360_get_cpi(void);
 void             pmw3360_upload_firmware(void);
 bool             pmw3360_check_signature(void);
+uint16_t         pmw3360_get_cpi(void);
+void             pmw3360_set_cpi(uint16_t cpi);
+/* Reads and clears the current delta values on the sensor */
 report_pmw3360_t pmw3360_read_burst(void);
-
-#define degToRad(angleInDegrees) ((angleInDegrees)*M_PI / 180.0)
-#define radToDeg(angleInRadians) ((angleInRadians)*180.0 / M_PI)
