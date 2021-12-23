@@ -17,7 +17,7 @@ ignored = ('tmk_core/protocol/usb_hid', 'platforms/chibios/boards')
 def is_relative_to(file, other):
     """Provide similar behavior to PurePath.is_relative_to in Python > 3.9
     """
-    return str(normpath(file)).startswith(str(normpath(other)))
+    return str(normpath(file).resolve()).startswith(str(normpath(other).resolve()))
 
 
 def find_clang_format():
