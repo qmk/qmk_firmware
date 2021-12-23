@@ -102,6 +102,8 @@ bool update_flow(
                         unregister_code(flow_config[i][2]);
                     }
                     break;
+                // TODO: this asks for better implementation as we can cancel only
+                // with the same layer key we have initiated the process
                 case flow_up_queued:
                     if (flow_pressed[i][0] && !flow_pressed[i][1]) {
                         flow_state[i] = flow_up_unqueued;
