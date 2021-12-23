@@ -95,17 +95,13 @@ bool pmw3360_spi_start(void) {
     return status;
 }
 
-void pmw3360_spi_stop(void) {
-    wait_us(1);
-    spi_stop();
-}
-
 spi_status_t pmw3360_write(uint8_t reg_addr, uint8_t data) {
+    pmw3360_spi_start();
+
     if (reg_addr != REG_Motion_Burst) {
         _inBurst = false;
     }
 
-    pmw3360_spi_start();
     // send address of the register, with MSBit = 1 to indicate it's a write
     spi_status_t status = spi_write(reg_addr | 0x80);
     status              = spi_write(data);
@@ -150,7 +146,7 @@ bool pmw3360_init(void) {
 
     pmw3360_spi_start();
     wait_us(40);
-    pmw3360_spi_stop();
+    spi_stop();
     wait_us(40);
 
     // reboot
@@ -166,7 +162,7 @@ bool pmw3360_init(void) {
 
     pmw3360_upload_firmware();
 
-    pmw3360_spi_stop();
+    spi_stop();
 
     wait_ms(10);
     pmw3360_set_cpi(PMW3360_CPI);
@@ -213,11 +209,7 @@ void pmw3360_upload_firmware(void) {
     wait_us(200);
 
     pmw3360_read(REG_SROM_ID);
-
     pmw3360_write(REG_Config2, 0x00);
-
-    spi_stop();
-    wait_ms(10);
 }
 
 bool pmw3360_check_signature(void) {
@@ -234,14 +226,12 @@ uint16_t pmw3360_get_cpi(void) {
 
 void pmw3360_set_cpi(uint16_t cpi) {
     uint8_t cpival = constrain((cpi / CPI_STEP) - 1, 0, MAX_CPI);
-
-    pmw3360_spi_start();
     pmw3360_write(REG_Config1, cpival);
-    spi_stop();
 }
 
 report_pmw3360_t pmw3360_read_burst(void) {
     report_pmw3360_t report = {0};
+
     if (!_inBurst) {
 #ifdef CONSOLE_ENABLE
         dprintf("burst on");
@@ -253,7 +243,6 @@ report_pmw3360_t pmw3360_read_burst(void) {
     pmw3360_spi_start();
     spi_write(REG_Motion_Burst);
     wait_us(35);  // waits for tSRAD
-
 
     report.motion = spi_read();
     spi_write(0x00);  // skip Observation
@@ -281,8 +270,6 @@ report_pmw3360_t pmw3360_read_burst(void) {
     report.dx = report.dx * -1;
     report.dy |= (report.mdy << 8);
     report.dy = report.dy * -1;
-
-    pmw3360_spi_stop();
 
     if (report.motion & 0b111) {  // panic recovery, sometimes burst mode works weird.
         _inBurst = false;
