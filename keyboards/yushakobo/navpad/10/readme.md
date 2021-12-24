@@ -1,6 +1,6 @@
 # navpad 1.0
 
-![navpad_10](https://imgur.com/zxElDdW.jpg)
+![navpad_10](https://imgur.com/zxElDdWh.jpg)
 
 Useful and easy to build numpad with nav-cluster
 
