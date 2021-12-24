@@ -1,6 +1,6 @@
 # Kintsugi
 
-![kintsugi](https://i.imgur.com/HPdmzdC.jpeg)
+![kintsugi](https://i.imgur.com/HPdmzdCl.jpeg)
 
 A 65%-ish keyboard with some extra features.
 
