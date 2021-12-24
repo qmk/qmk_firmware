@@ -1,6 +1,6 @@
 # Kay65
 
-![Kay65](imgur.com image replace me!)
+![Kay65](https://i.imgur.com/tuu6w1Ul.png)
 
 A 65% PCB with centered USB, RGB underglow and top right LED.
 
