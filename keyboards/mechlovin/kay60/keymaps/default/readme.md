@@ -1,1 +1,1 @@
-# The default keymap for common60
+# The default keymap for kay60
