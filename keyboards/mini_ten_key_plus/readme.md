@@ -1,6 +1,6 @@
 # mini_ten_key_plus
 
-![mini_ten_key_plus](imgur.com/QtFFONg.jpg)
+![mini_ten_key_plus](imgur.com/QtFFONgl.jpg)
 
 A 5x5 numpad/macropad, with support for a rotary encoder running on a Pro Micro.
 
