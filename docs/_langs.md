@@ -7,3 +7,4 @@
   - [:brazil: Português](/pt-br/)
   - [:ru: Русский](/ru-ru/)
   - [:jp: 日本語](/ja/)
+  - [:tw: 繁體中文](/zh-tw/)
