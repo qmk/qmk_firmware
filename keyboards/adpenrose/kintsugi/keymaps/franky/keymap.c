@@ -14,11 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include <stdio.h>
-
-/* Constants: */
-char wpm_str[4]; /* Used in the wpm counter function. */
-uint8_t selected_layer = 0; /* Used to change the layer using the encoder. */
 
 /* Base layout:
  * ,---------------------------------------------------------------------|
@@ -69,6 +64,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Encoder */
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
+    static uint8_t selected_layer = 0; /* Used to change the layer using the encoder. */
+
     if (clockwise){
         /* Check if left shift is pressed: */
         if (selected_layer < 3 && get_mods() & MOD_BIT(KC_LSFT)){
@@ -102,16 +99,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
         }
     }
-    return true;
+    return false;
 }
 #endif
 
 /* Rotation of the OLED: */
 #ifdef OLED_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_270;
-}
-
 /* Function that renders the kintsugi logo in the desired order. */
 static void render_logo(void) {
     static const char PROGMEM logo_1[] = {
@@ -156,11 +149,9 @@ void render_layer(void) {
 /* The following function displays wpm to the user. */
 void render_wpm(void) {
     oled_set_cursor(1,14);
-    sprintf(wpm_str, "%03d", get_current_wpm());
-    oled_write(wpm_str, false);
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
     oled_set_cursor(1,15);
     oled_write_P(PSTR("WPM"), false);
-
 }
 
 /* Function that renders stuff on the oled: */
