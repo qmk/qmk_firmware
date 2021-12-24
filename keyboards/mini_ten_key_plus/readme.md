@@ -2,7 +2,7 @@
 
 ![mini_ten_key_plus](imgur.com/QtFFONg.jpg)
 
-*A short description of the keyboard/project*
+A 5x5 numpad/macropad, with support for a rotary encoder running on a Pro Micro.
 
 * Keyboard Maintainer: [minibois](https://github.com/minibois)
 * Hardware Supported: mini_ten_key_plus PCB, Pro Micro (or equivalent), 3D printed case, 22 - 25 MX (like) switches, PCB mount stabilizers
