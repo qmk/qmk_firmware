@@ -102,8 +102,8 @@ enum custom_keycodes {
 
 // MOUSE color - Orange
 #define RGB_MSE_R   0xff
-#define RGB_MSE_G   0x50
-#define RGB_MSE_B   0x50
+#define RGB_MSE_G   0x26
+#define RGB_MSE_B   0x00
 
 #define CHAR_MOVE   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
 #define LINE_MOVE   KC_HOME, KC_PGDN, KC_PGUP, KC_END
