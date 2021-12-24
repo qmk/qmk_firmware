@@ -17,12 +17,7 @@
 
 enum my_keycodes {
   LOGO_LED_ON = USER00,
-  LOGO_LED_OFF = USER01,
-  #ifdef VIA_ENABLE
-  QWERTY = SAFE_RANGE
-  #else
-  QWERTY
-  #endif
+  LOGO_LED_OFF = USER01
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
