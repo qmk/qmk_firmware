@@ -166,6 +166,8 @@ void rgb_matrix_indicators_user(void) {
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     if (caps_lock) {
         set_caps_rgb();
+    } else if (mouse_layer) {
+        set_mse_rgb();
     } else {
         reset_rgb();
     }
@@ -181,6 +183,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case _WIN_NAV_1:
             cur_layer = _NAV1_L;
             def_layer = false;
+            mouse_layer = false;
             set_nav_1_rgb();
             break;
         case _MAC_NAV_2:
@@ -188,6 +191,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case _WIN_NAV_2:
             cur_layer = _NAV2_L;
             def_layer = false;
+            mouse_layer = false;
             set_nav_2_rgb();
             break;
         case _ADJUST_MAC:
@@ -195,15 +199,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case _ADJUST_LINUX:
             cur_layer = _ADJ_L;
             def_layer = false;
+            mouse_layer = false;
             set_adj_rgb();
             break;
         case _MOUSE:
             cur_layer = _MSE_L;
             def_layer = false;
-            set_adj_rgb();
+            mouse_layer = true;
+            set_mse_rgb();
+            break;
         default:
             cur_layer = _DEF_L;
             def_layer = true;
+            mouse_layer = false;
             if (caps_lock) {
                 set_caps_rgb();
             } else {
@@ -227,7 +235,6 @@ void led_set_user(uint8_t usb_led) {
         caps_lock = false;
     }
 }
-
 
 // Keyboard post init
 void keyboard_post_init_user(void) {

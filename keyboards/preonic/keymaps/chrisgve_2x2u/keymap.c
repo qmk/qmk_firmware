@@ -17,21 +17,22 @@
 #include "muse.h"
 #include "chrisgve.h"
 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_QWERTY_MAC] = LAYOUT_preonic_grid(
         KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         CPS_CTL, KC_A,    KC_S,    M_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, QUT_SFT,
-        CONFIG,  FN_NUM,  KC_LALT, KC_LGUI, SPC_RSE, SPC_RSE, SPC_LWR, SPC_LWR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        SFT_MSE, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, QUT_SFT,
+        ADJ_M,   TD_ADJM, KC_LALT, KC_LGUI, LOWER,   SPC_RSE, SPC_RSE, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
 
     [_MAC_NAV_1] = LAYOUT_preonic_grid(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, M_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, A_SHIFT, S_SHIFT, _______, M_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-        _______, _______, _______, _______, _______, M_B_WRD, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, M_B_WRD, KC_HOME, KC_END,  _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -47,15 +48,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         CPS_CTL, KC_A,    KC_S,    L_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, QUT_SFT,
-        CONFIG,  FN_NUM,  KC_LGUI, KC_LALT, SPC_RSE, SPC_RSE, SPC_LWR, SPC_LWR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        SFT_MSE, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, QUT_SFT,
+        ADJ_L,   TD_ADJL, KC_LGUI, KC_LALT, LOWER,   SPC_RSE, SPC_RSE, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
 
     [_LINUX_NAV_1] = LAYOUT_preonic_grid(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, L_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, A_SHIFT, S_SHIFT, _______, L_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-        _______, _______, _______, _______, _______, L_B_WRD, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, L_B_WRD, KC_HOME, KC_END,  _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -71,15 +72,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         CPS_CTL, KC_A,    KC_S,    W_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, QUT_SFT,
-        CONFIG,  FN_NUM,  KC_LGUI, KC_LALT, SPC_RSE, SPC_RSE, SPC_LWR, SPC_LWR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        SFT_MSE, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, QUT_SFT,
+        ADJ_W,   TD_ADJW, KC_LGUI, KC_LALT, LOWER,   SPC_RSE, SPC_RSE, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
 
     [_WIN_NAV_1] = LAYOUT_preonic_grid(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, W_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, A_SHIFT, S_SHIFT, _______, W_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-        _______, _______, _______, _______, _______, W_B_WRD, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, W_B_WRD, KC_HOME, KC_END,  _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -92,195 +93,66 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_LOWER] = LAYOUT_preonic_grid(
-        KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
-        KC_CAPS, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_END,  KC_BSLS,
+        KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______,
+        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
     ),
 
     [_RAISE] = LAYOUT_preonic_grid(
-        KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
-        KC_CAPS, _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______,
-        _______, _______, _______, _______, _______, _______, _______, KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, KC_BSLS,
+        KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, _______,
+        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
     ),
 
-    [_CONFIG] = LAYOUT_preonic_grid(
+    [_ADJUST_MAC] = LAYOUT_preonic_grid(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-        RESET,   DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TERM_ON, TERM_OFF,XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
+        _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
     ),
 
-    [_ADJUST] = LAYOUT_preonic_grid(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-        _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, KC_MUTE, _______, _______, _______, _______,
-        _______, _______, _______, _______, KC_MPLY, KC_MPLY, KC_MPLY, KC_MPLY, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
+    [_ADJUST_LINUX] = LAYOUT_preonic_grid(
+        KC_WF1,  KC_WF2,  KC_WF3,  KC_WF4,  KC_WF5,  KC_WF6,  KC_WF7,  KC_WF8,  KC_WF9,  KC_WF10, KC_WF11, KC_WF12,
+        RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
+        _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
+    ),
+
+    [_ADJUST_WIN] = LAYOUT_preonic_grid(
+        KC_WF1,  KC_WF2,  KC_WF3,  KC_WF4,  KC_WF5,  KC_WF6,  KC_WF7,  KC_WF8,  KC_WF9,  KC_WF10, KC_WF11, KC_WF12,
+        RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
+        _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
     ),
 
     [_NUM] = LAYOUT_preonic_grid(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_BSPC,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P1,   KC_P2,   KC_P3,   KC_PAST, KC_PENT,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P0,   KC_P0,   KC_PDOT, KC_PSLS, XXXXXXX,
-        XXXXXXX, QWERTY,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-    )
+        _______, _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_PEQL,
+        _______, _______, _______, _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PAST, KC_PENT,
+        _______, _______, _______, _______, _______, _______, _______, KC_P0,   KC_P0,   KC_PDOT, KC_PSLS, _______,
+        _______, TG_NUM,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [_MOUSE] = LAYOUT_preonic_grid(
+        TG_MSE,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, KC_ACL2, KC_ACL1, KC_ACL0, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______,
+        TG_MSE,  _______, _______, _______, _______, _______, KC_WH_U, KC_WH_D, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______
+    ),
 
 };
 
-extern rgblight_config_t rgblight_config;
-
-bool    num_on    = false;
-bool    caps_lock = false;
-bool    def_layer = true;
-bool    cfg_layer = false;
-
-void reset_rgb(void) {
-    rgblight_disable_noeeprom();
-}
-
-void set_rgb(uint8_t red, uint8_t green, uint8_t blue) {
-    rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(1);
-    rgblight_setrgb(red, green, blue);
-}
-
-void keyboard_post_init_user() {
-    reset_rgb();
-}
-
-void set_nav_1_rgb(void) {
-    set_rgb(RGB_NAV1_R, RGB_NAV1_G, RGB_NAV1_B);
-}
-
-void set_nav_2_rgb(void) {
-    set_rgb(RGB_NAV2_R, RGB_NAV2_G, RGB_NAV2_B);
-}
-
-void set_caps_rgb(void) {
-    set_rgb(RGB_CAPS_R, RGB_CAPS_G, RGB_CAPS_B); // Warm white
-}
-
-void set_num_rgb(void) {
-    set_rgb(RGB_NUM_R, RGB_NUM_G, RGB_NUM_B);
-}
-
-void set_adj_rgb(void) {
-    set_rgb(RGB_ADJ_R, RGB_ADJ_G, RGB_ADJ_B);
-}
-
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-    if (caps_lock) {
-        set_caps_rgb();
-    } else {
-        reset_rgb();
-    }
-    return state;
-}
 
 bool lower_layer_state = false;
 bool raise_layer_state = false;
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch(get_highest_layer(state)) {
-        case _MAC_NAV_1:
-        case _LINUX_NAV_1:
-        case _WIN_NAV_1:
-            set_nav_1_rgb();
-            def_layer = false;
-            break;
-        case _MAC_NAV_2:
-        case _LINUX_NAV_2:
-        case _WIN_NAV_2:
-            set_nav_2_rgb();
-            def_layer = false;
-            break;
-        case _CONFIG:
-            set_adj_rgb();
-            def_layer = false;
-            break;
-        case _NUM:
-            set_num_rgb();
-            def_layer = false;
-            break;
-        default:
-            def_layer = true;
-            if (caps_lock) {
-                set_caps_rgb();
-            } else {
-                reset_rgb();
-            }
-            break;
-    }
-    return state;
-}
-
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        set_caps_rgb();
-        caps_lock = true;
-    } else {
-        if (def_layer) {
-            reset_rgb();
-        }
-        caps_lock = false;
-    }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case FN_NUM:
-            if (record->tap.count == 2 && record->event.pressed) {
-                layer_on(_NUM);
-                num_on = true;
-                set_num_rgb();
-                return false;
-            }
-            return true; // Continue with unmatched keycodes
-            break;
-        case QWERTY:
-            layer_off(_NUM);
-            num_on = false;
-            if (caps_lock) {
-                set_caps_rgb();
-            } else {
-                reset_rgb();
-            }
-            break;
-        case SPC_LWR:
-            if (record->event.pressed) {
-                lower_layer_state = true;
-            } else {
-                lower_layer_state = false;
-            }
-            break;
-        case SPC_RSE:
-            if (record->event.pressed) {
-                raise_layer_state = true;
-            } else {
-                raise_layer_state = false;
-            }
-        break;
-    }
-    if (lower_layer_state & raise_layer_state) {
-        set_adj_rgb();
-        layer_on(_CONFIG);
-    } else {
-        if (cfg_layer) {
-            layer_off(_CONFIG);
-        }
-    }
-    cfg_layer = lower_layer_state & raise_layer_state;
-    if (def_layer) {
-        reset_rgb();
-    }
-    return true;
-};
 
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
@@ -313,6 +185,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
+/*
 bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0:
@@ -331,7 +204,7 @@ bool dip_switch_update_user(uint8_t index, bool active) {
     }
     return true;
 }
-
+*/
 
 void matrix_scan_user(void) {
 #ifdef AUDIO_ENABLE
