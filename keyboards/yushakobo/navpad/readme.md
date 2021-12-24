@@ -1,6 +1,6 @@
 # Navpad
 
-![navpad_10](https://imgur.com/zxElDdW.jpg)
+![navpad_10](https://imgur.com/zxElDdWh.jpg)
 
 Useful numpad with navigation cluster
 
