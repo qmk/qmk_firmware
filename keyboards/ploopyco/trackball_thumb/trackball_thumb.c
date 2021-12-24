@@ -82,23 +82,27 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 
-void process_wheel(void) {
+void encoder_init(void) {
+    opt_encoder_init();
+}
+
+bool encoder_read(void) {
     // Lovingly ripped from the Ploopy Source
 
     // If the mouse wheel was just released, do not scroll.
     if (timer_elapsed(lastMidClick) < SCROLL_BUTT_DEBOUNCE) {
-        return;
+        return false;
     }
 
     // Limit the number of scrolls per unit time.
     if (timer_elapsed(lastScroll) < OPT_DEBOUNCE) {
-        return;
+        return false;
     }
 
     // Don't scroll if the middle button is depressed.
     if (is_scroll_clicked) {
 #ifndef IGNORE_SCROLL_CLICK
-        return;
+        return false;
 #endif
     }
 
@@ -109,8 +113,9 @@ void process_wheel(void) {
 
     int dir = opt_encoder_handler(p1, p2);
 
-    if (dir == 0) return;
+    if (dir == 0) return false;;
     encoder_update_kb(0, dir == 1);
+    return true;
 }
 
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
@@ -119,7 +124,6 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int1
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    process_wheel();
 
     if (is_drag_scroll) {
         mouse_report.h = mouse_report.x;
@@ -226,8 +230,6 @@ void keyboard_pre_init_kb(void) {
 
 void pointing_device_init_kb(void) {
     pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
-    // initialize the scroll wheel's optical encoder
-    opt_encoder_init();
 }
 
 
@@ -247,4 +249,3 @@ void matrix_init_kb(void) {
     }
     matrix_init_user();
 }
-

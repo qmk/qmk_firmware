@@ -22,9 +22,6 @@ AUDIO_ENABLE = no           # Audio output
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = pmw3360
 
-ENCODER_ENABLE := no
-OPT_DEFS += -DENCODER_ENABLE
-
 QUANTUM_LIB_SRC += analog.c
 SRC += opt_encoder.c
 
