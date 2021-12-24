@@ -17,8 +17,11 @@
 #include "zeus.h"
 
 // Encoder rotate function
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    /* First encoder */
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }    /* First encoder */
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_AUDIO_VOL_UP);
@@ -28,3 +31,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return true;
 }
+#endif
