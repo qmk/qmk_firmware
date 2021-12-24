@@ -1,6 +1,6 @@
 # gurindam
 
-![Gurindam](https://cdn.discordapp.com/attachments/406032987243806721/922514068265369611/IMG_20211220_222843.jpg)
+![Gurindam](https://raw.githubusercontent.com/ibnuda/Gurindam/master-of-puppets/imgs/gurindam-finished.jpg)
 
 A keyboard inspired by Arisu which in turn by Lyn's EM7 and TGR Alice.
 
