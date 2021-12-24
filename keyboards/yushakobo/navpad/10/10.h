@@ -19,10 +19,8 @@
 #include "quantum.h"
 #include "navpad_prefs.h"
 
-#ifdef KEYBOARD_yushakobo_navpad_10_rev0
-    #include "rev0.h"
-#endif
-
-#ifdef KEYBOARD_yushakobo_navpad_10_rev1
-    #include "rev1.h"
+#if defined(KEYBOARD_yushakobo_navpad_10_rev0)
+#    include "rev0.h"
+#elif defined(KEYBOARD_yushakobo_navpad_10_rev1)
+#    include "rev1.h"
 #endif
