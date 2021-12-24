@@ -17,7 +17,11 @@
 #include "pandora.h"
 
 // Encoder rotate function
-bool encoder_update_user(uint8_t index, bool clockwise) {
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
     /* First encoder */
     if (index == 0) {
         if (clockwise) {
@@ -28,8 +32,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return true;
 }
+#endif
+
 // Encoder click function
-bool dip_switch_update_user(uint8_t index, bool active) {
+#ifdef DIP_SWITCH_ENABLE
+bool dip_switch_update_kb(uint8_t index, bool active) {
+    if (!dip_switch_update_user(index, active)) { return false; }
+
     switch (index) {
     /* First encoder */
     case 0:
@@ -40,3 +49,4 @@ bool dip_switch_update_user(uint8_t index, bool active) {
     }
     return true;
 }
+#endif
