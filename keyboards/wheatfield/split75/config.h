@@ -19,3 +19,5 @@
 #define RGBLIGHT_SLEEP
 
 #define BACKLIGHT_PIN D4
+
+#define I2C_START_RETRY_COUNT 1
