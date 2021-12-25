@@ -80,7 +80,7 @@ const rgblight_segment_t PROGMEM navpad_numlock[] = RGBLIGHT_LAYER_SEGMENTS(
 
 const rgblight_segment_t PROGMEM navpad_scrolllock[] = RGBLIGHT_LAYER_SEGMENTS(
   {2, 1, LOCK_COLOR_1},
-  {8, 1, LOCK_COLOR_1}
+  {6, 1, LOCK_COLOR_1}
 );
 
 
