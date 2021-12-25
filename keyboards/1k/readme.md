@@ -8,6 +8,7 @@
 
 * Keyboard Maintainer: [MakotoKurauchi](https://github.com/MakotoKurauchi)
 * Hardware Supported: 1k
+* Hardware Availability: [booth](https://ninep.booth.pm/items/3504781)
 
 Make example for this keyboard (after setting up your build environment):
 
