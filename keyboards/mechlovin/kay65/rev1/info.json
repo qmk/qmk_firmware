@@ -2,8 +2,6 @@
     "keyboard_name": "Kay65",
     "url": "",
     "maintainer": "Mechlovin' Studio",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
