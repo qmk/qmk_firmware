@@ -71,4 +71,4 @@ git commit -m "My commit message."
 
 ## 发布变更
 
-最后一步为上传你的变更到你的fork中。通过执行 `git push`，Git将发布 `dev_branch` 分支的所有变更至你的for中。
+最后一步为上传你的变更到你的fork中。通过执行 `git push`，Git将发布 `dev_branch` 分支的所有变更至你的fork中。
