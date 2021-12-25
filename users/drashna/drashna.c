@@ -70,7 +70,9 @@ void                       matrix_init_user(void) {
     DDRB &= ~(1 << 0);
     PORTB &= ~(1 << 0);
 #endif
-
+#ifdef CUSTOM_UNICODE_ENABLE
+    matrix_init_unicode();
+#endif
     matrix_init_secret();
     matrix_init_keymap();
 }
@@ -152,6 +154,9 @@ void                       matrix_scan_user(void) {
 #if defined(RGB_MATRIX_ENABLE)
     matrix_scan_rgb_matrix();
 #endif
+#if defined(POINTING_DEVICE_ENABLE)
+    matrix_scan_pointing();
+#endif
 
     matrix_scan_secret();
 
@@ -171,6 +176,9 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
     }
 
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
+#if defined(POINTING_DEVICE_ENABLE)
+    state = layer_state_set_pointing(state);
+#endif
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
 #endif  // RGBLIGHT_ENABLE

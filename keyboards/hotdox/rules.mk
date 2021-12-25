@@ -5,7 +5,7 @@ MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 CUSTOM_MATRIX           = yes # Custom matrix file for the ErgoDone
 UNICODE_ENABLE          = yes # Unicode
