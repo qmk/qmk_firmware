@@ -1,5 +1,6 @@
 #include "flow.h"
 #include <stdint.h>
+#include <stdio.h>
 
 extern const uint16_t flow_config[FLOW_COUNT][3];
 
@@ -16,6 +17,8 @@ flow_state_t flow_state[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = flow_up_unqueue
 bool flow_pressed[FLOW_COUNT][2] = { [0 ... FLOW_COUNT - 1] = {false, false} };
 bool flow_timers_active[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
 uint16_t flow_timers[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = 0 };
+bool flow_timeout_timers_active[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
+uint16_t flow_timeout_timers_value[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = 0 };
 
 bool is_flow_cancel_key(uint16_t keycode) {
     for (int i = 0; i < FLOW_COUNT; i++) {
@@ -114,6 +117,8 @@ bool update_flow(
                     // If we didn't use the mod while trigger was held, queue it.
                     if (!flow_pressed[i][1]) {
                         flow_state[i] = flow_up_queued;
+                        flow_timeout_timers_active[i] = true;
+                        flow_timeout_timers_value[i] = timer_read();
                     }
                     break;
                 case flow_down_used:
@@ -181,6 +186,12 @@ void flow_matrix_scan(void) {
         if (flow_timers_active[i] && timer_elapsed(flow_timers[i]) > 30) {
             flow_timers_active[i] = false;
             register_code(flow_config[i][1]);
+        }
+        // TODO: replace 500 with a configurable value
+        if (flow_timeout_timers_active[i] && timer_elapsed(flow_timeout_timers_value[i]) > 500) {
+            flow_timeout_timers_active[i] = false;
+            flow_state[i] = flow_up_unqueued;
+            unregister_code(flow_config[i][2]);
         }
     }
 }
