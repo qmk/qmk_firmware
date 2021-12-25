@@ -23,8 +23,8 @@
 #define PRODUCT_ID    0x01ED
 #define DEVICE_VER      0x0001
 
-#define MANUFACTURER "QMK"
-#define PRODUCT "8x18"
+#define MANUFACTURER QMK
+#define PRODUCT 8x18
 
 /* key matrix size */
 #define MATRIX_ROWS 8
