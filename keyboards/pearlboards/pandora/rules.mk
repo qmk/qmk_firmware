@@ -18,5 +18,5 @@ RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 DIP_SWITCH_ENABLE = yes
 ENCODER_ENABLE = yes
-OLED_ENABLE = no      # Future release
+
 LTO_ENABLE = yes
