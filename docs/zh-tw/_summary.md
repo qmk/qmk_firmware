@@ -1,5 +1,5 @@
 - [ ] Tutorial
-  - [ ] [Introduction](newbs.md)
+  - [x] [Introduction](newbs.md)
   - [ ] [Setup](newbs_getting_started.md)
   - [ ] [Building Your First Firmware](newbs_building_firmware.md)
   - [ ] [Flashing Firmware](newbs_flashing.md)
