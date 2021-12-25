@@ -25,76 +25,16 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
       tap_code(KC_P0);
       }
     break;
-  
+
   default:
     break;
   }
-  return true; 
+  return true;
 }
-
-#ifdef RGBLIGHT_LAYERS
-# define LOCK_COLOR_1 HSV_TEAL
-
-# if defined(KEYBOARD_yushakobo_navpad_10)
-
-  const rgblight_segment_t PROGMEM navpad_capslock[] = RGBLIGHT_LAYER_SEGMENTS(
-    {4, 1, LOCK_COLOR_1}
-  );
-
-  const rgblight_segment_t PROGMEM navpad_numlock[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, LOCK_COLOR_1},
-    {5, 1, LOCK_COLOR_1}
-  );
-
-  const rgblight_segment_t PROGMEM navpad_scrolllock[] = RGBLIGHT_LAYER_SEGMENTS(
-    {2, 1, LOCK_COLOR_1},
-    {8, 1, LOCK_COLOR_1}
-  );
-
-# elif defined(KEYBOARD_yushakobo_navpad_10_helix_r)
-
-  const rgblight_segment_t PROGMEM navpad_capslock[] = RGBLIGHT_LAYER_SEGMENTS(
-    {4,  1, LOCK_COLOR_1},
-    {15, 1, LOCK_COLOR_1}
-  );
-
-  const rgblight_segment_t PROGMEM navpad_numlock[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0,  1, LOCK_COLOR_1},
-    {5,  1, LOCK_COLOR_1},
-    {14, 1, LOCK_COLOR_1}
-  );
-
-  const rgblight_segment_t PROGMEM navpad_scrolllock[] = RGBLIGHT_LAYER_SEGMENTS(
-    {2,  1, LOCK_COLOR_1},
-    {8,  1, LOCK_COLOR_1},
-    {26, 1, LOCK_COLOR_1}
-  );
-# endif
 
 bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res){
-      rgblight_set_layer_state(0, host_keyboard_led_state().caps_lock);
-      rgblight_set_layer_state(1, (host_keyboard_led_state().num_lock && IS_LAYER_ON(_BASE)));
-      rgblight_set_layer_state(2, host_keyboard_led_state().scroll_lock);
-    }
-    return res;
+    return led_update_user(led_state);
 }
-
-  const rgblight_segment_t* const PROGMEM navpad_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    navpad_capslock,
-    navpad_numlock,
-    navpad_scrolllock
-  );
-
-void keyboard_post_init_kb(void) {
-    rgblight_sethsv_noeeprom(HSV_WHITE);
-    // Enable the LED layers
-    rgblight_layers = navpad_rgb_layers;
-
-    keyboard_post_init_user();
-}
-#endif
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {

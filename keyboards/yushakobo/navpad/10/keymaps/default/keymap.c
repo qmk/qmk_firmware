@@ -52,3 +52,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO
   )
 };
+
+#ifdef RGBLIGHT_LAYERS
+# define LOCK_COLOR_1 HSV_TEAL
+
+const rgblight_segment_t PROGMEM navpad_capslock[] = RGBLIGHT_LAYER_SEGMENTS(
+  {4, 1, LOCK_COLOR_1}
+);
+
+const rgblight_segment_t PROGMEM navpad_numlock[] = RGBLIGHT_LAYER_SEGMENTS(
+  {0, 1, LOCK_COLOR_1},
+  {5, 1, LOCK_COLOR_1}
+);
+
+const rgblight_segment_t PROGMEM navpad_scrolllock[] = RGBLIGHT_LAYER_SEGMENTS(
+  {2, 1, LOCK_COLOR_1},
+  {8, 1, LOCK_COLOR_1}
+);
+
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(0, host_keyboard_led_state().caps_lock);
+    rgblight_set_layer_state(1, (host_keyboard_led_state().num_lock && IS_LAYER_ON(_BASE)));
+    rgblight_set_layer_state(2, host_keyboard_led_state().scroll_lock);
+    return true;
+}
+
+const rgblight_segment_t* const PROGMEM navpad_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+  navpad_capslock,
+  navpad_numlock,
+  navpad_scrolllock
+);
+
+void keyboard_post_init_user(void) {
+    rgblight_sethsv_noeeprom(HSV_WHITE);
+    // Enable the LED layers
+    rgblight_layers = navpad_rgb_layers;
+}
+#endif
