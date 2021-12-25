@@ -396,4 +396,37 @@ TEST("navD + aD + navU + aU + symD = alt canceled")
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 END_TEST
 
+// One shot works properly when subsequent keys are pressed almost at once
+// but released one by one.
+TEST("navD + aD + navU + aU + sD + kD + sU + kU = alt+s k")
+    reset();
+
+    bool pass = update_flow(L_NAV, true);
+    pass = update_flow(KC_A, true);
+    ASSERT_EQ(UINT, pass, false);
+
+    pass = update_flow(L_NAV, false);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_A, false);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
+
+    pass = update_flow(KC_S, true);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, unregistered_codes_count, 0);
+
+    pass = update_flow(KC_K, true);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+    ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
+
+    pass = update_flow(KC_S, false);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+
+    pass = update_flow(KC_K, false);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+END_TEST
+
 END
