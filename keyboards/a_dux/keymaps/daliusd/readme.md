@@ -19,30 +19,3 @@ As well I have added one shot layers compatible with Callum's one
 shot keys.
 
 There is simple TMUX layer as well.
-
-
-
-
-
-
-
-
-bool a_active = false;
-uint16_t a_timer = 0;
-
-
-    if (keycode == KC_A && record->event.pressed) {
-        a_active = true;
-        a_timer = timer_read();
-        return false;
-    }
-
-
-void matrix_scan_user(void) { // The very important timer.
-  if (a_active) {
-    if (timer_elapsed(a_timer) > 30) {
-      register_code(KC_A);
-      a_active = false;
-    }
-  }
-}

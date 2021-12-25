@@ -1,4 +1,5 @@
 #include "flow.h"
+#include <stdint.h>
 
 extern const uint16_t flow_config[FLOW_COUNT][3];
 
@@ -13,6 +14,8 @@ typedef enum {
 
 flow_state_t flow_state[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = flow_up_unqueued };
 bool flow_pressed[FLOW_COUNT][2] = { [0 ... FLOW_COUNT - 1] = {false, false} };
+bool flow_timers_active[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
+uint16_t flow_timers[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = 0 };
 
 bool is_flow_cancel_key(uint16_t keycode) {
     for (int i = 0; i < FLOW_COUNT; i++) {
@@ -54,10 +57,13 @@ bool update_flow(
         if (keycode == flow_config[i][0]) {
             if (pressed) {
                 flow_pressed[i][0] = true;
-                // TODO: delay by 30ms and allow to be reused
-                // if (flow_pressed[i][1]) {
-                //     flow_key_list_pressed[0] = true;
-                // }
+                if (flow_timers_active[i]) {
+                    flow_timers_active[i] = false;
+                    flow_pressed[i][1] = true; // keycode pressed
+                    flow_triggered = true;
+                    flow_key_list_pressed[i] = true;
+                    flow_key_list_triggered[i] = true;
+                }
             } else {
                 flow_pressed[i][0] = false;
             }
@@ -72,6 +78,10 @@ bool update_flow(
                     flow_key_list_triggered[i] = true;
                     flow_triggered = true;
                     flow_key_list_pressed[i] = true;
+                    pass = false;
+                 } else {
+                    flow_timers[i] = timer_read();
+                    flow_timers_active[i] = true;
                     pass = false;
                  }
             } else {
@@ -163,4 +173,14 @@ bool update_flow(
     }
 
     return pass;
+}
+
+void flow_matrix_scan(void) {
+    for (int i = 0; i < FLOW_COUNT; i++) {
+        // TODO: replace 30 with a configurable value
+        if (flow_timers_active[i] && timer_elapsed(flow_timers[i]) > 30) {
+            flow_timers_active[i] = false;
+            register_code(flow_config[i][1]);
+        }
+    }
 }
