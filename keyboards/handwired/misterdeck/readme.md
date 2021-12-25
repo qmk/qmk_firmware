@@ -11,7 +11,7 @@ A 3D-printed streamdeck like keyboard featuring 12 keys and 4 sliders
 Make example for this keyboard (after setting up your build environment):
 
     qmk compile -kb handwired/misterdeck -km default
-    qmk compile -kb handwired/misterdeck -km default
+    qmk flash -kb handwired/misterdeck -km default
 
 or
 
