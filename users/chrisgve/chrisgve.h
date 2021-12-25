@@ -146,7 +146,6 @@ enum custom_keycodes {
 #define ALT_BSL     RALT_T(KC_BSLS)
 #define BSL_RSE     LT(_RAISE, KC_BSLS)
 
-#define END_FN      LT(_ADJUST, KC_END) // Useful for 65% without FN
 #define END_F_M     LT(_ADJUST_MAC, KC_END)
 #define END_F_L     LT(_ADJUST_LINUX, KC_END)
 #define END_F_W     LT(_ADJUST_WIN, KC_END)
@@ -155,8 +154,8 @@ enum custom_keycodes {
 #define SLS_SFT     RSFT_T(KC_SLSH)
 #define FN_NUM      LT(_ADJUST, KC_NO)
 
-#define L_MOD       LT(_ADJUST, KC_SPC) // for split space bar, left bar
-#define R_MOD       LT(_ADJUST, KC_SPC) // for split space bar, right bar
+#define L_MOD       LT(_RAISE, KC_SPC) // for split space bar, left bar
+#define R_MOD       LT(_LOWER, KC_SPC) // for split space bar, right bar
 //#define R_MOD       RCTL_T(KC_SPC)  // for split space bar, right bar
 
 // Mouse
