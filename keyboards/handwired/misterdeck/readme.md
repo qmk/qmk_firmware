@@ -15,7 +15,7 @@ Make example for this keyboard (after setting up your build environment):
 
 or
 
-   make handwired/misterdeck:default:flash
+    make handwired/misterdeck:default:flash
 
 Connect a momentary switch to RST and GND, hit twice in succession to reset the board into bootloader mode.
 
