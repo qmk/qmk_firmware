@@ -142,12 +142,14 @@ enum custom_keycodes {
 #define A_SHIFT     SFT_T(KC_A)
 #define R_SHIFT     RSFT_T(KC_BSLS)
 #define QUT_SFT     RSFT_T(KC_QUOT)
+#define GUI_BSL     RGUI_T(KC_BSLS)
+#define ALT_BSL     RALT_T(KC_BSLS)
+#define BSL_RSE     LT(_RAISE, KC_BSLS)
+
 #define END_FN      LT(_ADJUST, KC_END) // Useful for 65% without FN
 #define END_F_M     LT(_ADJUST_MAC, KC_END)
 #define END_F_L     LT(_ADJUST_LINUX, KC_END)
 #define END_F_W     LT(_ADJUST_WIN, KC_END)
-#define SPC_FN      LT(_ADJUST, KC_SPC)
-#define SPC_VIM     LT(_VIM, KC_SPC)
 #define SPC_LWR     LT(_LOWER, KC_SPC)
 #define SPC_RSE     LT(_RAISE, KC_SPC)
 #define SLS_SFT     RSFT_T(KC_SLSH)

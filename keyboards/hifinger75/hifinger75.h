@@ -1,5 +1,4 @@
-#ifndef KB_H
-#define KB_H
+#pragma once
 
 #include "quantum.h"
 
@@ -17,4 +16,3 @@
 	{ K400,  K401,  K402,  KC_NO, K404,  KC_NO, KC_NO, K407,  KC_NO, K409,  K410,  K411,  K412,  K413,  K414,  K415,  K416 }  \
 }
 
-#endif
