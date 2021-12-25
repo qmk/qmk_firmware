@@ -10,6 +10,9 @@ typedef enum {
     KC_A,
     KC_S,
     KC_D,
+    KC_K,
+    KC_L,
+    KC_SCLN,
     KC_TAB,
     KC_LCTL,
     KC_LGUI,
@@ -18,15 +21,19 @@ typedef enum {
     KC_RSFT,
 
     L_NAV,
+    L_SYM,
 
     SAFE_RANGE
 } keycodes;
 
-#define FLOW_COUNT 3
+#define FLOW_COUNT 6
 const uint16_t flow_config[FLOW_COUNT][3] = {
     {L_NAV, KC_A, KC_LALT},
     {L_NAV, KC_S, KC_LGUI},
     {L_NAV, KC_D, KC_LCTL},
+    {L_SYM, KC_K, KC_LCTL},
+    {L_SYM, KC_L, KC_LGUI},
+    {L_SYM, KC_SCLN, KC_LALT},
 };
 
 keycodes last_registered_code = KC_NO;
@@ -365,6 +372,28 @@ TEST("navD + aD + navU + aU + navD + aD = alt canceled + alt")
     ASSERT_EQ(UINT, registered_codes_count, 2);
     ASSERT_EQ(UINT, last_registered_code, KC_LALT);
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
+END_TEST
+
+TEST("navD + aD + navU + aU + symD = alt canceled")
+    reset();
+
+    bool pass = update_flow(L_NAV, true);
+    pass = update_flow(KC_A, true);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
+
+    pass = update_flow(L_NAV, false);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_A, false);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
+    ASSERT_EQ(UINT, unregistered_codes_count, 0);
+
+    pass = update_flow(L_SYM, true);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+    ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 END_TEST
 
 END

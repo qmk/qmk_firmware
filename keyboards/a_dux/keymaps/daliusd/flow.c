@@ -14,6 +14,15 @@ typedef enum {
 flow_state_t flow_state[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = flow_up_unqueued };
 bool flow_pressed[FLOW_COUNT][2] = { [0 ... FLOW_COUNT - 1] = {false, false} };
 
+bool is_flow_cancel_key(uint16_t keycode) {
+    for (int i = 0; i < FLOW_COUNT; i++) {
+        if (flow_config[i][0] == keycode) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool is_flow_ignored_key(uint16_t keycode) {
     for (int i = 0; i < FLOW_COUNT; i++) {
         if (flow_config[i][0] == keycode) {
@@ -38,12 +47,11 @@ bool update_flow(
     bool flow_key_list_pressed[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
 
     bool flow_triggered = false;
+    bool flow_second_key_pressed = false;
 
     for (uint8_t i = 0; i < FLOW_COUNT; i++) {
         // Layer key
         if (keycode == flow_config[i][0]) {
-            flow_key_list_triggered[i] = true;
-            flow_triggered = true;
             if (pressed) {
                 flow_pressed[i][0] = true;
                 // TODO: delay by 30ms and allow to be reused
@@ -52,6 +60,9 @@ bool update_flow(
                 // }
             } else {
                 flow_pressed[i][0] = false;
+            }
+            if (flow_pressed[i][1]) {
+                flow_second_key_pressed = true;
             }
         // KC key
         } else if (keycode == flow_config[i][1]) {
@@ -102,20 +113,19 @@ bool update_flow(
                         unregister_code(flow_config[i][2]);
                     }
                     break;
-                // TODO: this asks for better implementation as we can cancel only
-                // with the same layer key we have initiated the process
-                case flow_up_queued:
-                    if (flow_pressed[i][0] && !flow_pressed[i][1]) {
-                        flow_state[i] = flow_up_unqueued;
-                        unregister_code(flow_config[i][2]);
-                    }
-                    break;
                 default:
                     break;
                 }
             }
         } else if (!flow_triggered) {
             if (pressed) {
+                if (is_flow_cancel_key(keycode)
+                        && flow_state[i] != flow_up_unqueued
+                        && !flow_second_key_pressed) {
+                    // Cancel oneshot on designated cancel keydown.
+                    flow_state[i] = flow_up_unqueued;
+                    unregister_code(flow_config[i][2]);
+                }
                 if (!is_flow_ignored_key(keycode)) {
                     switch (flow_state[i]) {
                     case flow_up_queued:
