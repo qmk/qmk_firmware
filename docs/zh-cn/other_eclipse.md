@@ -1,5 +1,5 @@
 # 在Eclipse中设置QMK开发环境
-*译注：由于译者没有Eclipse环境，部分菜单项可能与真实描述不同，请酌情甄别，并欢迎提cr进行修改完善*
+*译注：由于译者没有Eclipse环境，部分菜单项可能与真实描述不同，请酌情甄别，并欢迎提pr进行修改完善*
 
 [Eclipse][1]是一款广泛用于Java开发的[集成开发环境](https://en.wikipedia.org/wiki/Integrated_development_environment)（IDE），但有着强大的插件体系允许自定义开发其它语言及用途。
 
@@ -21,7 +21,7 @@
 在开始之前，你需要确保遵循了新手教程中的[新手指引](zh-cn/newbs_getting_started.md)一节。通常，此时你应该具备了[通过 `qmk complile` 命令](zh-cn/newbs_building_firmware.md#build-your-firmware)构建固件文件的能力。
 
 ## Java
-Eclipse为Java程序，因此需要安装Java 8或更高版本才能允许。你可以选择JRE或JDK，后者在进行Java开发时需要用到。
+Eclipse为Java程序，因此需要安装Java 8或更高版本才能运行。你可以选择JRE或JDK，后者在进行Java开发时需要用到。
 
 # 安装Eclipse及插件
 Eclipse有[多种可选安装方式](https://www.eclipse.org/downloads/eclipse-packages/)，取决于你的使用目标。目前没有完备的AVR开发栈安装包，所以我们需要从Eclipse CDT（C/C++ 开发工具环境）开始并安装对应的插件。
@@ -31,7 +31,7 @@ Eclipse有[多种可选安装方式](https://www.eclipse.org/downloads/eclipse-p
 
 如果你已安装了Eclipse包，通常也可以[在上面再安装CDT插件](https://eclipse.org/cdt/downloads.php)。但是可能更好的方案是重新全新安装一下，以确保环境轻量，以及防止已安装的工具对后续的工程开发工作产生干扰。
 
-安装很简单：遵循[Eclipse安装5布走](https://eclipse.org/downloads/eclipse-packages/?show_instructions=TRUE)，并在第三步选择 **用于C/C++开发者的Eclipse IDE（Eclipse IDE for C/C++ Developers）**。
+安装很简单：遵循[Eclipse安装5步走](https://eclipse.org/downloads/eclipse-packages/?show_instructions=TRUE)，并在第三步选择 **用于C/C++开发者的Eclipse IDE（Eclipse IDE for C/C++ Developers）**。
 
 此外，也可以选择直接[下载 用于C/C++开发者的Eclipse IDE](https://www.eclipse.org/downloads/eclipse-packages/)（[最新版直达链接](https://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/neonr)）并解压至任意目录下（会生成 `eclipse` 目录）。
 
