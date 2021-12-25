@@ -1,14 +1,18 @@
-# IDOBAO ID67
-![id67](https://i.imgur.com/9roQ4Mi.jpeg)
-
+# thewerther configuration
 ## RGB effects
 
 Only enabled a few effects and modified the `RGB_MATRIX_REACTIVE_SIMPLE` effect to always light up the underglow leds to the chosen color.
-See [here](https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects) for more information on all the possible effects.
+The effect can be seen here:
+![](https://media.giphy.com/media/l2gz7n045RtSM1ulxV/giphy-downsized-large.gif).
 
-## Layout 
+See [here](https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects) for more information on all the possible effects that can be enabled.
+
+## Modified Layout
 
 ![ID67 layout](https://i.imgur.com/R0sGkIN.png)
+
+- Added media buttons on second layer.
+- Replaced `Tab` with `RAlt` so I can use us-international-nodeadkeys to be able to type special characters.
 
 ## Compiling and flashing
 

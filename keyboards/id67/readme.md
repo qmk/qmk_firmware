@@ -1,4 +1,5 @@
 # IDOBAO ID67
+
 ![id67](https://i.imgur.com/9roQ4Mi.jpeg)
 
 A 65% hotswap keyboard from IDOBAO.
@@ -10,6 +11,7 @@ A 65% hotswap keyboard from IDOBAO.
 * Hardware Availability: [IDOBAO-website](https://www.idobao.net/products/idobao-id67-65-hot-swappable-mechanical-keyboard-kit-1)
 
 ## Layout 
+
 ![ID67 layout](https://i.imgur.com/Ge6Uxao.png)
 
 

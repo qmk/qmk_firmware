@@ -45,10 +45,34 @@
 
 #define DIODE_DIRECTION COL2ROW
 #define RGB_DI_PIN F0
-#define DRIVER_LED_TOTAL 77
-#define DRIVER_LED_UNDERGLOW 10
 
-#if defined(RGB_DI_PIN)
+// RGB Light config
+#if defined(RGBLIGHT_ENABLE)
+    #define RGBLED_NUM 77
+    #define RGBLIGHT_HUE_STEP 8
+    #define RGBLIGHT_SAT_STEP 8
+    #define RGBLIGHT_VAL_STEP 8
+    #define RGBLIGHT_LIMIT_VAL 150 /* The maximum brightness level */
+    #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+/*== all animations enable ==*/
+    #define RGBLIGHT_ANIMATIONS
+// /*== or choose animations ==*/
+//     #define RGBLIGHT_EFFECT_BREATHING
+//     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//     #define RGBLIGHT_EFFECT_SNAKE
+//     #define RGBLIGHT_EFFECT_KNIGHT
+//     #define RGBLIGHT_EFFECT_CHRISTMAS
+//     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//     #define RGBLIGHT_EFFECT_RGB_TEST
+//     #define RGBLIGHT_EFFECT_ALTERNATING
+#endif
+
+// RGB Matrix config
+#if defined(RGB_MATRIX_ENABLE)
+    #define DRIVER_LED_TOTAL 77
+    #define DRIVER_LED_UNDERGLOW 10
+
     #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 
@@ -93,4 +117,4 @@
     #define ENABLE_RGB_MATRIX_SOLID_SPLASH         // Hue & value pulse away from a single key hit then fades value out
     #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH    // Hue & value pulse away from multiple key hits then fades value out
 #endif // #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
-#endif // #if defined(RGB_DI_PIN)
+#endif // #if defined(RGB_MATRIX_ENABLE)

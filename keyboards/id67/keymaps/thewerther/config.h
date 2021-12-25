@@ -20,7 +20,14 @@
 
 #if defined(RGB_DI_PIN)
     #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+    #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+
+    // change saturation and hue step size
+    #undef RGBLIGHT_HUE_STEP
+    #undef RGBLIGHT_SAT_STEP
+    #define RGBLIGHT_SAT_STEP 5
+    #define RGBLIGHT_HUE_STEP 5
 
     #define RGB_MATRIX_KEYPRESSES
 
