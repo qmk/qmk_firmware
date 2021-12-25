@@ -1,13 +1,12 @@
 # giabalanai
 
 <p align=center>
-<img width="700" alt="giabalanai_logo" src="https://github.com/3araht/giabalanai/blob/master/pictures/giabalanai_logo.png">
+<img width="700" alt="giabalanai_logo" src="https://github.com/3araht/giabalanai/blob/main/pictures/giabalanai_logo.png">
 </p>
 
-![giabalanai overview](https://github.com/3araht/giabalanai/blob/master/pictures/giabalanai_overview.jpg)
+![giabalanai overview](https://github.com/3araht/giabalanai/blob/main/pictures/giabalanai_overview.jpg)
 
-
-*A short description of the keyboard/project*
+giabalanai keyboard is a simple-design Chromatic Button Accordion-ish MIDI keyboard (60 bass + C-system 62 keys = 38 notes) that doesn't have bellows nor register switches.  
 
 * Keyboard Maintainer: [3araht](https://github.com/3araht)
 * Hardware Supported: giabalanai keyboard, a split keyboard mainly work as MIDI keyboard.
