@@ -5,6 +5,7 @@ The following is the QMK Firmware for the FAve 84H Hotswap PCB.
 The PCB features:
 * QMK & VIA compatibility
 * Hotswap
+* Per Key and Underglow RGB
 
 ---
 
