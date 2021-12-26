@@ -343,9 +343,25 @@ void pointing_device_set_cpi_on_side(bool left, uint16_t cpi) {
 }
 
 /**
+ * @brief clamps int16_t to int8_t
+ *
+ * @param[in] int16_t value
+ * @return int8_t clamped value
+ */
+static inline int8_t pointing_device_movement_clamp(int16_t value) {
+    if (value < INT8_MIN) {
+        return INT8_MIN;
+    } else if (value > INT8_MAX) {
+        return INT8_MAX;
+    } else {
+        return value;
+    }
+}
+
+/**
  * @brief combines 2 mouse reports and returns 2
  *
- * Takes 2 report_mouse_t structs, performs an inclusive or ignoring report_id then returns the resulting report_mouse_t struct.
+ * Combines 2 report_mouse_t structs, clamping movement values to int8_t and ignores report_id then returns the resulting report_mouse_t struct.
  *
  * NOTE: Only available when using SPLIT_POINTING_ENABLE and POINTING_DEVICE_COMBINED
  *
@@ -354,10 +370,10 @@ void pointing_device_set_cpi_on_side(bool left, uint16_t cpi) {
  * @return combined report_mouse_t of left_report and right_report
  */
 report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, report_mouse_t right_report) {
-    left_report.x |= right_report.x;
-    left_report.y |= right_report.y;
-    left_report.h |= right_report.h;
-    left_report.v |= right_report.v;
+    left_report.x = pointing_device_movement_clamp(left_report.x + right_report.x);
+    left_report.y = pointing_device_movement_clamp(left_report.y + right_report.y);
+    left_report.h = pointing_device_movement_clamp(left_report.h + right_report.h);
+    left_report.v = pointing_device_movement_clamp(left_report.v + right_report.v);
     left_report.buttons |= right_report.buttons;
     return left_report;
 }
