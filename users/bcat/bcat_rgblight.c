@@ -14,8 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include <stdint.h>
 
-#define BCAT_ORTHO_LAYERS
+#include "progmem.h"
 
-#define EE_HANDS
+/* Adjust RGB static hue ranges for shorter gradients than default. */
+const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 127, 63, 31, 15};
