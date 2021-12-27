@@ -15,8 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#include "print.h"
-#include "oneshot.h"
 #include "flow.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -67,6 +65,12 @@ const uint16_t flow_config[FLOW_COUNT][3] = {
     {L_SYM, KC_K, KC_LCTL},
     {L_SYM, KC_L, KC_LGUI},
     {L_SYM, KC_SCLN, KC_LALT},
+};
+
+const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2] = {
+    {OS_TMUX, _TMUX},
+    {OS_MISC, _MISC},
+    {OS_FUNC, _FUNC},
 };
 
 enum unicode_names {
@@ -234,66 +238,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define TMUX_PREFIX SS_DOWN(X_LCTL) "b" SS_UP(X_LCTL)
 
-bool is_oneshot_cancel_key(uint16_t keycode) {
-    switch (keycode) {
-    case L_SYM:
-    case L_NAV:
-        return true;
-    default:
-        return false;
-    }
-}
-
-bool is_oneshot_layer_cancel_key(uint16_t keycode) {
-    switch (keycode) {
-    case L_SYM:
-    case L_NAV:
-        return true;
-    default:
-        return false;
-    }
-}
-
-bool is_oneshot_ignored_key(uint16_t keycode) {
-    switch (keycode) {
-    case L_SYM:
-    case L_NAV:
-    case OS_TMUX:
-    case OS_MISC:
-    case KC_LSFT:
-        return true;
-    default:
-        return false;
-    }
-}
-
-bool is_oneshot_mod_key(uint16_t keycode) {
-    return false;
-}
-
-oneshot_state os_tmux_state = os_up_unqueued;
-oneshot_state os_misc_state = os_up_unqueued;
-oneshot_state os_func_state = os_up_unqueued;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!update_flow(keycode, record->event.pressed)) return false;
-
-    bool handled = true;
-    handled = update_oneshot_layer(
-        &os_tmux_state, _TMUX, OS_TMUX,
-        keycode, record
-    ) & handled;
-
-    handled = update_oneshot_layer(
-        &os_misc_state, _MISC, OS_MISC,
-        keycode, record
-    ) & handled;
-
-    handled = update_oneshot_layer(
-        &os_func_state, _FUNC, OS_FUNC,
-        keycode, record
-    ) & handled;
-    if (!handled) return false;
+    if (!update_flow(keycode, record->event.pressed, record->event.key)) return false;
 
     switch (keycode) {
         case TM_LEFT:

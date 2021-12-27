@@ -32,3 +32,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 
 #define FLOW_COUNT 6
+#define FLOW_LAYERS_COUNT 3

@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 extern const uint16_t flow_config[FLOW_COUNT][3];
+extern const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2];
 
 // Represents the states a flow key can be in
 typedef enum {
@@ -32,6 +33,10 @@ uint16_t flow_timers[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = 0 };
 bool flow_timeout_timers_active[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
 uint16_t flow_timeout_timers_value[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = 0 };
 
+flow_state_t flow_layers_state[FLOW_LAYERS_COUNT] = {
+    [0 ... FLOW_LAYERS_COUNT - 1] = flow_up_unqueued
+};
+
 bool is_flow_cancel_key(uint16_t keycode) {
     for (int i = 0; i < FLOW_COUNT; i++) {
         if (flow_config[i][0] == keycode) {
@@ -48,15 +53,23 @@ bool is_flow_ignored_key(uint16_t keycode) {
         }
     }
 
-    // TODO: add all modifier keys here
-    if (keycode == KC_LSFT || keycode == KC_RSFT) {
+    for (int i = 0; i < FLOW_LAYERS_COUNT; i++) {
+        if (flow_layers_config[i][0] == keycode) {
+            return true;
+        }
+    }
+
+    if (keycode == KC_LSFT || keycode == KC_RSFT
+            || keycode == KC_LCTL || keycode == KC_RCTL
+            || keycode == KC_LALT || keycode == KC_RALT
+            || keycode == KC_LGUI || keycode == KC_RGUI) {
         return true;
     }
 
     return false;
 }
 
-bool update_flow(
+bool update_flow_mods(
     uint16_t keycode,
     bool pressed
 ) {
@@ -190,6 +203,100 @@ bool update_flow(
     }
 
     return pass;
+}
+
+bool update_flow_layers(
+    uint16_t keycode,
+    bool pressed,
+    keypos_t key_position
+) {
+    uint8_t key_layer = read_source_layers_cache(key_position);
+
+    for (int i = 0; i < FLOW_LAYERS_COUNT; i++) {
+        uint16_t trigger = flow_layers_config[i][0];
+        uint16_t layer = flow_layers_config[i][1];
+
+        if (keycode == trigger) {
+            if (pressed) {
+                // Trigger keydown
+                if (flow_layers_state[i] == flow_up_unqueued) {
+                    layer_on(layer);
+                }
+                flow_layers_state[i] = flow_down_unused;
+                return false;
+            } else {
+                // Trigger keyup
+                switch (flow_layers_state[i]) {
+                case flow_down_unused:
+                    // If we didn't use the layer while trigger was held, queue it.
+                    flow_layers_state[i] = flow_up_queued;
+                    return false;
+                case flow_down_used:
+                    // If we did use the layer while trigger was held, turn off it.
+                    flow_layers_state[i] = flow_up_unqueued;
+                    layer_off(layer);
+                    return false;
+                default:
+                    break;
+                }
+            }
+        } else {
+            if (pressed) {
+                if (is_flow_cancel_key(keycode)
+                        && flow_layers_state[i] != flow_up_unqueued) {
+                    // Cancel oneshot layer on designated cancel keydown.
+                    flow_layers_state[i] = flow_up_unqueued;
+                    layer_off(layer);
+                    return false;
+                }
+                if (key_layer == layer) {
+                    // On non-ignored keyup, consider the oneshot used.
+                    switch (flow_layers_state[i]) {
+                    case flow_down_unused:
+                        flow_layers_state[i] = flow_down_used;
+                        return true;
+                    case flow_up_queued:
+                        flow_layers_state[i] = flow_up_queued_used;
+                        return true;
+                   case flow_up_queued_used:
+                        flow_layers_state[i] = flow_up_unqueued;
+                        layer_off(layer);
+                        return false;
+                    default:
+                        break;
+                    }
+                }
+            } else {
+                // Ignore key ups from other layers
+                if (key_layer == layer) {
+                    // On non-ignored keyup, consider the oneshot used.
+                    switch (flow_layers_state[i]) {
+                    case flow_up_queued:
+                        flow_layers_state[i] = flow_up_unqueued;
+                        layer_off(layer);
+                        return true;
+                    case flow_up_queued_used:
+                        flow_layers_state[i] = flow_up_unqueued;
+                        layer_off(layer);
+                        return true;
+                    default:
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool update_flow(
+    uint16_t keycode,
+    bool pressed,
+    keypos_t key_position
+) {
+    if (!update_flow_mods(keycode, pressed)) return false;
+    if (!update_flow_layers(keycode, pressed, key_position)) return false;
+    return true;
 }
 
 void flow_matrix_scan(void) {
