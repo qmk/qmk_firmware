@@ -211,6 +211,7 @@ bool update_flow_layers(
     keypos_t key_position
 ) {
     uint8_t key_layer = read_source_layers_cache(key_position);
+    bool pass = true;
 
     for (int i = 0; i < FLOW_LAYERS_COUNT; i++) {
         uint16_t trigger = flow_layers_config[i][0];
@@ -223,19 +224,21 @@ bool update_flow_layers(
                     layer_on(layer);
                 }
                 flow_layers_state[i] = flow_down_unused;
-                return false;
+                pass = false;
             } else {
                 // Trigger keyup
                 switch (flow_layers_state[i]) {
                 case flow_down_unused:
                     // If we didn't use the layer while trigger was held, queue it.
                     flow_layers_state[i] = flow_up_queued;
-                    return false;
+                    pass = false;
+                    break;
                 case flow_down_used:
                     // If we did use the layer while trigger was held, turn off it.
                     flow_layers_state[i] = flow_up_unqueued;
                     layer_off(layer);
-                    return false;
+                    pass = false;
+                    break;
                 default:
                     break;
                 }
@@ -247,21 +250,22 @@ bool update_flow_layers(
                     // Cancel oneshot layer on designated cancel keydown.
                     flow_layers_state[i] = flow_up_unqueued;
                     layer_off(layer);
-                    return false;
+                    pass = false;
                 }
                 if (key_layer == layer) {
                     // On non-ignored keyup, consider the oneshot used.
                     switch (flow_layers_state[i]) {
                     case flow_down_unused:
                         flow_layers_state[i] = flow_down_used;
-                        return true;
+                        break;
                     case flow_up_queued:
                         flow_layers_state[i] = flow_up_queued_used;
-                        return true;
+                        break;
                    case flow_up_queued_used:
                         flow_layers_state[i] = flow_up_unqueued;
                         layer_off(layer);
-                        return false;
+                        pass = false;
+                        break;
                     default:
                         break;
                     }
@@ -274,11 +278,11 @@ bool update_flow_layers(
                     case flow_up_queued:
                         flow_layers_state[i] = flow_up_unqueued;
                         layer_off(layer);
-                        return true;
+                        break;
                     case flow_up_queued_used:
                         flow_layers_state[i] = flow_up_unqueued;
                         layer_off(layer);
-                        return true;
+                        break;
                     default:
                         break;
                     }
@@ -286,7 +290,8 @@ bool update_flow_layers(
             }
         }
     }
-    return true;
+
+    return pass;
 }
 
 bool update_flow(

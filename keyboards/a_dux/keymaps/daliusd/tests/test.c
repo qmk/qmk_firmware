@@ -84,10 +84,6 @@ typedef struct {
 
 keypos_t kp = {0, 0};
 
-uint8_t read_source_layers_cache(keypos_t keypos) {
-    return 0;
-}
-
 uint8_t active_layer = 0;
 
 void layer_off(uint8_t layer) {
@@ -96,6 +92,10 @@ void layer_off(uint8_t layer) {
 
 void layer_on(uint8_t layer) {
     active_layer = layer;
+}
+
+uint8_t read_source_layers_cache(keypos_t keypos) {
+    return active_layer;
 }
 
 #include "../flow.c"
@@ -616,6 +616,41 @@ TEST("navD + aD + aU + navU + 501ms + aD + aU + aD + aU = a a")
     ASSERT_EQ(UINT, pass, true);
 
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
+END_TEST
+
+TEST("tmuxD + tmuxU + tabD + tabU = tmux tab")
+    reset();
+
+    bool pass = update_flow(OS_TMUX, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+    pass = update_flow(OS_TMUX, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    pass = update_flow(KC_TAB, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_TAB, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, active_layer, 0);
+END_TEST
+
+TEST("tmuxD + tabD + tabU + tmuxU = tmux tab")
+    reset();
+
+    bool pass = update_flow(OS_TMUX, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    pass = update_flow(KC_TAB, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_TAB, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    pass = update_flow(OS_TMUX, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, 0);
 END_TEST
 
 END
