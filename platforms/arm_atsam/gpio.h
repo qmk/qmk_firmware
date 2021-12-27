@@ -22,9 +22,9 @@
 
 typedef uint8_t pin_t;
 
-#define SAMD_PORT(pin) ((pin & 0x20) >> 5)
-#define SAMD_PIN(pin) (pin & 0x1f)
-#define SAMD_PIN_MASK(pin) (1 << (pin & 0x1f))
+#define SAMD_PORT(pin) (((pin)&0x20) >> 5)
+#define SAMD_PIN(pin) ((pin)&0x1f)
+#define SAMD_PIN_MASK(pin) (1 << ((pin)&0x1f))
 
 #define setPinInput(pin)                                                                 \
     do {                                                                                 \
@@ -48,11 +48,15 @@ typedef uint8_t pin_t;
         PORT->Group[SAMD_PORT(pin)].PINCFG[SAMD_PIN(pin)].bit.PULLEN = 1;                  \
     } while (0)
 
-#define setPinOutput(pin)                                            \
+#define setPinOutputPushPull(pin)                                    \
     do {                                                             \
         PORT->Group[SAMD_PORT(pin)].DIRSET.reg = SAMD_PIN_MASK(pin); \
         PORT->Group[SAMD_PORT(pin)].OUTCLR.reg = SAMD_PIN_MASK(pin); \
     } while (0)
+
+#define setPinOutputOpenDrain(pin) _Static_assert(0, "arm_atsam platform does not implement an open-drain output")
+
+#define setPinOutput(pin) setPinOutputPushPull(pin)
 
 #define writePinHigh(pin)                                            \
     do {                                                             \
