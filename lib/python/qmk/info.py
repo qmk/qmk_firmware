@@ -388,16 +388,16 @@ def _extract_matrix_info(info_data, config_c):
 
 
 # TODO: kill off usb.device_ver in favor of usb.device_version
-def _extract_device_version(dotty_info):
-    if dotty_info.get('usb') is not None:
-        if dotty_info['usb'].get('device_version') is not None and dotty_info['usb'].get('device_ver') is None:
-            (major, minor, revision) = dotty_info['usb']['device_version'].split('.')
-            dotty_info['usb']['device_ver'] = f'0x{major.zfill(2)}{minor}{revision}'
-        if dotty_info['usb'].get('device_version') is None and dotty_info['usb'].get('device_ver') is not None:
-            major = int(dotty_info['usb']['device_ver'][2:4])
-            minor = int(dotty_info['usb']['device_ver'][4])
-            revision = int(dotty_info['usb']['device_ver'][5])
-            dotty_info['usb']['device_version'] = f'{major}.{minor}.{revision}'
+def _extract_device_version(info_data):
+    if info_data.get('usb'):
+        if info_data['usb'].get('device_version') and not info_data['usb'].get('device_ver'):
+            (major, minor, revision) = info_data['usb']['device_version'].split('.', 3)
+            info_data['usb']['device_ver'] = f'0x{major.zfill(2)}{minor}{revision}'
+        if not info_data['usb'].get('device_version') and info_data['usb'].get('device_ver'):
+            major = int(info_data['usb']['device_ver'][2:4])
+            minor = int(info_data['usb']['device_ver'][4])
+            revision = int(info_data['usb']['device_ver'][5])
+            info_data['usb']['device_version'] = f'{major}.{minor}.{revision}'
 
 
 def _extract_config_h(info_data):
@@ -456,7 +456,6 @@ def _extract_config_h(info_data):
         except Exception as e:
             _log_warning(info_data, f'{config_key}->{info_key}: {e}')
 
-    _extract_device_version(dotty_info)
     info_data.update(dotty_info)
 
     # Pull data that easily can't be mapped in json
@@ -465,6 +464,7 @@ def _extract_config_h(info_data):
     _extract_split_main(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
+    _extract_device_version(info_data)
 
     return info_data
 
