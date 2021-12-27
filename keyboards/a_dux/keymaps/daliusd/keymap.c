@@ -62,6 +62,7 @@ const uint16_t flow_config[FLOW_COUNT][3] = {
     {L_NAV, KC_A, KC_LALT},
     {L_NAV, KC_S, KC_LGUI},
     {L_NAV, KC_D, KC_LCTL},
+    {L_NAV, KC_E, KC_LSFT},
     {L_SYM, KC_K, KC_LCTL},
     {L_SYM, KC_L, KC_LGUI},
     {L_SYM, KC_SCLN, KC_LALT},
@@ -165,11 +166,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     KC_TILDE,L_MOUSE ,OS_FUNC ,OS_MISC ,OS_TMUX ,                          K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,
+     KC_TILDE,L_MOUSE ,KC_E    ,OS_MISC ,OS_TMUX ,                          K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_A    ,KC_S    ,KC_D    ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,KC_ESC  ,KC_PGDN ,KC_PGUP ,                          K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,XXXXXXX ,
+     KC_DELT ,KC_BSPC ,KC_ESC  ,KC_PGDN ,KC_PGUP ,                          K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,OS_FUNC ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      _______ ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
