@@ -95,23 +95,21 @@ uint8_t matrix_key_count(void) {
 bool matrix_post_scan(void) {
     bool changed = false;
     if (is_keyboard_master()) {
+        static bool  last_connected              = false;
         matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
         if (transport_master_if_connected(matrix + thisHand, slave_matrix)) {
-            for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                if (matrix[thatHand + i] != slave_matrix[i]) {
-                    matrix[thatHand + i] = slave_matrix[i];
-                    changed              = true;
-                }
-            }
-        } else {
-            // reset other half if disconnected
-            for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                matrix[thatHand + i] = 0;
-                slave_matrix[i]      = 0;
-            }
+            changed = memcmp(matrix + thatHand, slave_matrix, sizeof(slave_matrix)) != 0;
 
+            last_connected = true;
+        } else if (last_connected) {
+            // reset other half when disconnected
+            memset(slave_matrix, 0, sizeof(slave_matrix));
             changed = true;
+
+            last_connected = false;
         }
+
+        if (changed) memcpy(matrix + thatHand, slave_matrix, sizeof(slave_matrix));
 
         matrix_scan_quantum();
     } else {
