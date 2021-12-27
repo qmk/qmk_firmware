@@ -370,10 +370,10 @@ static inline int8_t pointing_device_movement_clamp(int16_t value) {
  * @return combined report_mouse_t of left_report and right_report
  */
 report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, report_mouse_t right_report) {
-    left_report.x = pointing_device_movement_clamp(left_report.x + right_report.x);
-    left_report.y = pointing_device_movement_clamp(left_report.y + right_report.y);
-    left_report.h = pointing_device_movement_clamp(left_report.h + right_report.h);
-    left_report.v = pointing_device_movement_clamp(left_report.v + right_report.v);
+    left_report.x = pointing_device_movement_clamp((uint16_t)left_report.x + right_report.x);
+    left_report.y = pointing_device_movement_clamp((uint16_t)left_report.y + right_report.y);
+    left_report.h = pointing_device_movement_clamp((uint16_t)left_report.h + right_report.h);
+    left_report.v = pointing_device_movement_clamp((uint16_t)left_report.v + right_report.v);
     left_report.buttons |= right_report.buttons;
     return left_report;
 }
