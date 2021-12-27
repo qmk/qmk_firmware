@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  FN_2 |   2   |TSKMGR |CALTDEL|  ESC  |  FN_1 |
  * `-----------------------------------------------'
  */
-[_DEFAULT] = LAYOUT( \
+[_DEFAULT] = LAYOUT(
   MO(_FN_2), KC_2, TSKMGR, CALTDEL, KC_ESC, MO(_FN_1)
 ),
 
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |RGB_TOG|RGB_HUD|RGB_HUI|RGB_SAD|RGB_SAI|  FN_1 |
  * `-----------------------------------------------'
  */
-[_FN_1] = LAYOUT( \
+[_FN_1] = LAYOUT(
   RGB_TOG, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, _______
 ),
 
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  FN_2 |RGB_VAD|RGB_VAI|RGB_MOD|TSKMGR | RESET |
  * `-----------------------------------------------'
  */
-[_FN_2] = LAYOUT( \
+[_FN_2] = LAYOUT(
   _______, RGB_VAD, RGB_VAI, RGB_MOD, TSKMGR, RESET
 )
 

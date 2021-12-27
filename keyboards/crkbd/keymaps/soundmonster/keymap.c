@@ -300,10 +300,10 @@ void suspend_power_down_user() {
     oled_off();
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > 30000) {
         oled_off();
-        return;
+        return false;
     }
 #ifndef SPLIT_KEYBOARD
     else { oled_on(); }
@@ -314,6 +314,7 @@ void oled_task_user(void) {
     } else {
         render_status_secondary();
     }
+    return false;
 }
 
 #endif

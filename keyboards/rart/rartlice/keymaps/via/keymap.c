@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef OLED_ENABLE
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("* R A R T L I C E *\n  Powered by QMK\nLayer: "), false);
 
@@ -76,5 +76,6 @@ void oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    return false;
 }
 #endif
