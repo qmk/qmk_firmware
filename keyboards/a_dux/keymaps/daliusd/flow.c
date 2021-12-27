@@ -13,6 +13,18 @@ typedef enum {
     flow_down_used,
 } flow_state_t;
 
+#ifdef FLOW_TERM
+const int g_flow_term = FLOW_TERM;
+#else
+const int g_flow_term = 30;
+#endif
+
+#ifdef FLOW_ONESHOT_TERM
+const int g_flow_oneshot_term = FLOW_ONESHOT_TERM;
+#else
+const int g_flow_oneshot_term = 500;
+#endif
+
 flow_state_t flow_state[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = flow_up_unqueued };
 bool flow_pressed[FLOW_COUNT][2] = { [0 ... FLOW_COUNT - 1] = {false, false} };
 bool flow_timers_active[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
@@ -182,13 +194,12 @@ bool update_flow(
 
 void flow_matrix_scan(void) {
     for (int i = 0; i < FLOW_COUNT; i++) {
-        // TODO: replace 30 with a configurable value
-        if (flow_timers_active[i] && timer_elapsed(flow_timers[i]) > 30) {
+        if (flow_timers_active[i] && timer_elapsed(flow_timers[i]) > g_flow_term) {
             flow_timers_active[i] = false;
             register_code(flow_config[i][1]);
         }
-        // TODO: replace 500 with a configurable value
-        if (flow_timeout_timers_active[i] && timer_elapsed(flow_timeout_timers_value[i]) > 500) {
+        if (flow_timeout_timers_active[i]
+                && timer_elapsed(flow_timeout_timers_value[i]) > g_flow_oneshot_term) {
             flow_timeout_timers_active[i] = false;
             flow_state[i] = flow_up_unqueued;
             unregister_code(flow_config[i][2]);
