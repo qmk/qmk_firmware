@@ -275,12 +275,8 @@ static void rgb_task_timers(void) {
 
     // Update double buffer timers
 #if RGB_DISABLE_TIMEOUT > 0
-    if (rgb_anykey_timer < UINT32_MAX) {
-        if (UINT32_MAX - deltaTime < rgb_anykey_timer) {
-            rgb_anykey_timer = UINT32_MAX;
-        } else {
-            rgb_anykey_timer += deltaTime;
-        }
+    if (rgb_anykey_timer + deltaTime <= UINT32_MAX) {
+        rgb_anykey_timer += deltaTime;
     }
 #endif  // RGB_DISABLE_TIMEOUT > 0
 
