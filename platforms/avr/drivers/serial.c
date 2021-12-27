@@ -16,6 +16,7 @@
 #include <util/delay.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include "gpio.h"
 #include "serial.h"
 
 #ifdef SOFT_SERIAL_PIN
