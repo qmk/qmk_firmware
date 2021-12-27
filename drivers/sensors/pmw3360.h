@@ -77,10 +77,10 @@ typedef struct {
     int8_t  mdy;
 } report_pmw3360_t;
 
-bool             pmw3360_init(void);
-void             pmw3360_upload_firmware(void);
-bool             pmw3360_check_signature(void);
-uint16_t         pmw3360_get_cpi(void);
-void             pmw3360_set_cpi(uint16_t cpi);
+bool     pmw3360_init(void);
+void     pmw3360_upload_firmware(void);
+bool     pmw3360_check_signature(void);
+uint16_t pmw3360_get_cpi(void);
+void     pmw3360_set_cpi(uint16_t cpi);
 /* Reads and clears the current delta values on the sensor */
 report_pmw3360_t pmw3360_read_burst(void);
