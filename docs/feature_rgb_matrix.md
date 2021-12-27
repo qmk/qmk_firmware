@@ -554,7 +554,7 @@ In order to change the delay of temperature decrease define
 
 ## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects
 
-By setting `RGB_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
+By setting `RGB_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from your keymap or userspace, without having to edit any QMK core files.
 
 To declare new effects, create a `rgb_matrix_user.inc` file in the user keymap directory or userspace folder.
 
