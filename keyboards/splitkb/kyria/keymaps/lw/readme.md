@@ -8,6 +8,22 @@
 qmk compile -kb splitkb/kyria/rev1 -km lw
 ```
 
+## Flash this keymap
+First, check that the bootloader is visible. For instance:
+```bash
+$ lsusb
+...
+Bus 001 Device 034: ID 03eb:2ff4 Atmel Corp. atmega32u4 DFU bootloader
+...
+```
+If the bootloader is not visible, press the reset button of the microcontroller. The bootloader should be visible when running the `lsusb` command again. 
+
+The microcontroller can now be flashed: 
+```bash
+qmk flash -kb splitkb/kyria/rev1 -km lw
+```
+> **Note**: If there is any issue, run `qmk doctor` to see if there are any issues with the qmk configuration and solve possible issues. 
+
 ## Implemented keymaps
 The default keymap contains 5 layers which allows it to include all keys found on an ANSI layout TKL keyboard plus media keys.
 Hardware features of the Kyria such as OLEDs, rotary encoders and underglow are also supported.

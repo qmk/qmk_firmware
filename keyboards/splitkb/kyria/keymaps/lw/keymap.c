@@ -144,7 +144,7 @@ bool oled_task_user(void) {
         oled_write_P(PSTR("Layer: "), false);
         switch (get_highest_layer(layer_state|default_layer_state)) {
             case _QWERTZ:
-                oled_write_P(PSTR("QWERTY\n"), false);
+                oled_write_P(PSTR("QWERTZ\n"), false);
                 break;
             case _NAV:
                 oled_write_P(PSTR("Nav\n"), false);
