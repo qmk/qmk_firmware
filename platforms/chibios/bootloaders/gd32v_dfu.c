@@ -24,8 +24,7 @@
 __IO uint32_t *DBGMCU_KEY = (uint32_t *)DBGMCU_BASE + 0x0CU;
 __IO uint32_t *DBGMCU_CMD = (uint32_t *)DBGMCU_BASE + 0x08U;
 
-__attribute__((weak))
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     /* The MTIMER unit of the GD32VF103 doesn't have the MSFRST
      * register to generate a software reset request.
      * BUT instead two undocumented registers in the debug peripheral
@@ -37,4 +36,4 @@ void bootloader_jump(void) {
 }
 
 /* Jumping to bootloader is not possible from user code. */
-void enter_bootloader_mode_if_requested(void) { }
+void enter_bootloader_mode_if_requested(void) {}

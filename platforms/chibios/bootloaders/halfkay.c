@@ -19,8 +19,7 @@
 #include <ch.h>
 #include "wait.h"
 
-__attribute__((weak))
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     wait_ms(100);
     __BKPT(0);
 }

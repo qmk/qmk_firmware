@@ -16,4 +16,4 @@
 
 #include "bootloader.h"
 
-void bootloader_jump(void) { }
+void bootloader_jump(void) {}
