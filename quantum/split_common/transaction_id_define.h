@@ -78,6 +78,12 @@ enum serial_transaction_id {
     PUT_ST7565,
 #endif  // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
 
+#if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+    GET_POINTING_CHECKSUM,
+    GET_POINTING_DATA,
+    PUT_POINTING_CPI,
+#endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     PUT_RPC_INFO,
     PUT_RPC_REQ_DATA,
