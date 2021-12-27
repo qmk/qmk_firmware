@@ -7,6 +7,7 @@
 #ifdef SPLIT_KEYBOARD
 #    include "split_common/split_util.h"
 #    include "split_common/transactions.h"
+#    include <string.h>
 
 #    define ROWS_PER_HAND (MATRIX_ROWS / 2)
 #else
