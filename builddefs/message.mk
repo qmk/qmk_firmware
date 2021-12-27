@@ -87,6 +87,7 @@ define GENERATE_MSG_AVAILABLE_KEYMAPS
 endef
 MSG_AVAILABLE_KEYMAPS = $(eval $(call GENERATE_MSG_AVAILABLE_KEYMAPS))$(MSG_AVAILABLE_KEYMAPS_ACTUAL)
 
+MSG_BOOTLOADER_NOT_FOUND_BASE = Bootloader not found. Make sure the board is in bootloader mode. See https://docs.qmk.fm/\#/newbs_flashing\n
 MSG_CHECK_FILESIZE = Checking file size of $(TARGET).$(FIRMWARE_FORMAT)
 MSG_CHECK_FILESIZE_SKIPPED = (Firmware size check does not yet support $(MCU_ORIG); skipping)
 MSG_FILE_TOO_BIG = $(ERROR_COLOR)The firmware is too large!$(NO_COLOR) $(CURRENT_SIZE)/$(MAX_SIZE) ($(OVER_SIZE) bytes over)\n
@@ -97,6 +98,6 @@ MSG_PYTHON_MISSING = $(ERROR_COLOR)ERROR:$(NO_COLOR) Cannot run \"qmk hello\"!\n
 	Please run $(BOLD)qmk setup$(NO_COLOR) to install all the dependencies QMK requires.\n\n
 MSG_FLASH_BOOTLOADER = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's bootloader is not specified or is not supported by the \":flash\" target at this time.\n\n
 MSG_FLASH_ARCH = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's architecture is not supported by the \":flash\" target at this time.\n\n
-MSG_BOOTLOADER_NOT_FOUND = $(ERROR_COLOR)ERROR:$(NO_COLOR) Bootloader not found. Trying again in 5s (Ctrl+C to cancel)\n
+MSG_BOOTLOADER_NOT_FOUND = $(ERROR_COLOR)ERROR:$(NO_COLOR) $(MSG_BOOTLOADER_NOT_FOUND_BASE) Trying again in 5s (Ctrl+C to cancel)\n
 BOOTLOADER_RETRY_TIME ?= 0.5
-MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY = Bootloader not found. Trying again every $(BOOTLOADER_RETRY_TIME)s (Ctrl+C to cancel)
+MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY = $(MSG_BOOTLOADER_NOT_FOUND_BASE) Trying again every $(BOOTLOADER_RETRY_TIME)s (Ctrl+C to cancel)
