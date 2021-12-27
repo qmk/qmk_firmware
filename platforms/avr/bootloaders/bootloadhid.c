@@ -19,8 +19,7 @@
 #include <avr/eeprom.h>
 #include <avr/wdt.h>
 
-__attribute__((weak))
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     // force bootloadHID to stay in bootloader mode, so that it waits
     // for a new firmware to be flashed
     // NOTE: this byte is part of QMK's "magic number" - changing it causes the EEPROM to be re-initialized

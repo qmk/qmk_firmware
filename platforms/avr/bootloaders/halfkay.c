@@ -19,8 +19,7 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
-__attribute__((weak))
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     // http://www.pjrc.com/teensy/jump_to_bootloader.html
 
     cli();

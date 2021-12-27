@@ -18,8 +18,7 @@
 
 #include <avr/wdt.h>
 
-__attribute__((weak))
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     // this block may be optional
     // TODO: figure it out
 
@@ -35,5 +34,6 @@ void bootloader_jump(void) {
     wdt_enable(WDTO_60MS);
 
     // wait for watchdog timer to trigger
-    while (1) { }
+    while (1) {
+    }
 }

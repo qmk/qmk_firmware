@@ -23,8 +23,7 @@
 
 const uint8_t sys_reset_to_loader_magic[] = "\xff\x00\x7fRESET TO LOADER\x7f\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 
-__attribute__((weak))
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     void *volatile vbat = (void *)VBAT;
     __builtin_memcpy(vbat, (const void *)sys_reset_to_loader_magic, sizeof(sys_reset_to_loader_magic));
 
