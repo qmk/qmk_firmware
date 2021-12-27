@@ -1,4 +1,4 @@
-// Copyright 2021 Your Name (@b-)
+// Copyright 2021 br (@b-)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
