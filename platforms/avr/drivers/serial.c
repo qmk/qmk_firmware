@@ -119,12 +119,6 @@
 #        error invalid SOFT_SERIAL_PIN value
 #    endif
 
-#    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
-
 #    define ALWAYS_INLINE __attribute__((always_inline))
 #    define NO_INLINE __attribute__((noinline))
 #    define _delay_sub_us(x) __builtin_avr_delay_cycles(x)

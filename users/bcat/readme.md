@@ -6,6 +6,8 @@ keyboard-specific keymaps for boards without standard layout support. I derive
 my keymaps from two canonical ones (preferred for typing and gaming,
 respectively).
 
+You can build all keymaps I maintain at once using `./users/bcat/compile.sh`.
+
 ## Canonical keymaps
 
 * [Split 3x6 + 3 thumb

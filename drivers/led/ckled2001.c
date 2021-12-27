@@ -141,8 +141,9 @@ void CKLED2001_init(uint8_t addr) {
 }
 
 void CKLED2001_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    ckled2001_led led;
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
-        ckled2001_led led = g_ckled2001_leds[index];
+        memcpy_P(&led, (&g_ckled2001_leds[index]), sizeof(led));
 
         g_pwm_buffer[led.driver][led.r]          = red;
         g_pwm_buffer[led.driver][led.g]          = green;
@@ -158,7 +159,8 @@ void CKLED2001_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void CKLED2001_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    ckled2001_led led = g_ckled2001_leds[index];
+    ckled2001_led led;
+    memcpy_P(&led, (&g_ckled2001_leds[index]), sizeof(led));
 
     uint8_t control_register_r = led.r / 8;
     uint8_t control_register_g = led.g / 8;

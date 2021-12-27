@@ -119,6 +119,7 @@ LIST OF COMPATIBLE KEYMAPS
 - mechwild/mercutio
 - mechwild/murphpad
 - mechwild/OBE
+- kbdfans/kdb67
 - nopunin10did/kastenwagen (*)
 
     (*) coming soon

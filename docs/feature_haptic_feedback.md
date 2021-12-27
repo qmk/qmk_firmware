@@ -167,7 +167,7 @@ List of waveform sequences from the datasheet:
 ```
 #define DRV_GREETING *sequence name or number*
 ```
-If haptic feedback is enabled, the keyboard will vibrate to a specific sqeuence during startup. That can be selected using the following define:
+If haptic feedback is enabled, the keyboard will vibrate to a specific sequence during startup. That can be selected using the following define:
 
 ```
 #define DRV_MODE_DEFAULT *sequence name or number*

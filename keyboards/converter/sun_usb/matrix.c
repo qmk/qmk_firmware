@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "protocol/serial.h"
+#include "uart.h"
 
 /*
  * Matrix Array usage:
@@ -37,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static uint8_t matrix[MATRIX_ROWS];
 #define ROW(code)      ((code>>3)&0xF)
 #define COL(code)      (code&0x07)
-
-static bool is_modified = false;
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -76,7 +74,7 @@ void matrix_init(void)
     /* PORTD |= (1<<6); */
     debug_enable = true;
 
-    serial_init();
+    uart_init(1200);
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
@@ -86,12 +84,12 @@ void matrix_init(void)
     /* print("Reseting "); */
     /* while (1) { */
     /*     print("."); */
-    /*     while (serial_recv()); */
-    /*     serial_send(0x01); */
+    /*     while (uart_read()); */
+    /*     uart_write(0x01); */
     /*     _delay_ms(500); */
-    /*     if (serial_recv() == 0xFF) { */
+    /*     if (uart_read() == 0xFF) { */
     /*         _delay_ms(500); */
-    /*         if (serial_recv() == 0x04) */
+    /*         if (uart_read() == 0x04) */
     /*             break; */
     /*     } */
     /* } */
@@ -106,7 +104,7 @@ void matrix_init(void)
 uint8_t matrix_scan(void)
 {
     uint8_t code;
-    code = serial_recv();
+    code = uart_read();
     if (!code) return 0;
 
     debug_hex(code); debug(" ");
@@ -115,7 +113,7 @@ uint8_t matrix_scan(void)
         case 0xFF:  // reset success: FF 04
             print("reset: ");
             _delay_ms(500);
-            code = serial_recv();
+            code = uart_read();
             xprintf("%02X\n", code);
             if (code == 0x04) {
                 // LED status
@@ -125,12 +123,12 @@ uint8_t matrix_scan(void)
         case 0xFE:  // layout: FE <layout>
             print("layout: ");
             _delay_ms(500);
-            xprintf("%02X\n", serial_recv());
+            xprintf("%02X\n", uart_read());
             return 0;
         case 0x7E:  // reset fail: 7E 01
             print("reset fail: ");
             _delay_ms(500);
-            xprintf("%02X\n", serial_recv());
+            xprintf("%02X\n", uart_read());
             return 0;
         case 0x7F:
             // all keys up
@@ -152,11 +150,6 @@ uint8_t matrix_scan(void)
 
     matrix_scan_quantum();
     return code;
-}
-
-bool matrix_is_modified(void)
-{
-    return is_modified;
 }
 
 inline

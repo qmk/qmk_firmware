@@ -33,8 +33,10 @@ QUANTUM_SRC += \
 
 VPATH += $(QUANTUM_DIR)/logging
 # Fall back to lib/printf if there is no platform provided print
-ifeq ("$(wildcard $(TMK_PATH)/common/$(PLATFORM_KEY)/printf.mk)","")
+ifeq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/printf.mk)","")
     include $(QUANTUM_PATH)/logging/print.mk
+else
+    include $(PLATFORM_PATH)/$(PLATFORM_KEY)/printf.mk
 endif
 
 ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), yes)
@@ -107,10 +109,43 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/mousekey.c
 endif
 
+VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_pinnacle_i2c cirque_pinnacle_spi pmw3360 pimoroni_trackball custom
+POINTING_DEVICE_DRIVER ?= custom
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-    OPT_DEFS += -DPOINTING_DEVICE_ENABLE
-    MOUSE_ENABLE := yes
-    SRC += $(QUANTUM_DIR)/pointing_device.c
+    ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)
+        $(error POINTING_DEVICE_DRIVER="$(POINTING_DEVICE_DRIVER)" is not a valid pointing device type)
+    else
+        OPT_DEFS += -DPOINTING_DEVICE_ENABLE
+        MOUSE_ENABLE := yes
+        SRC += $(QUANTUM_DIR)/pointing_device.c
+        SRC += $(QUANTUM_DIR)/pointing_device_drivers.c
+        ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
+            SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
+            OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
+        endif
+        OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
+        ifeq ($(strip $(POINTING_DEVICE_DRIVER)), adns9800)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            QUANTUM_LIB_SRC += spi_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
+            OPT_DEFS += -DSTM32_ADC -DHAL_USE_ADC=TRUE
+            LIB_SRC += analog.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_i2c)
+            OPT_DEFS += -DSTM32_I2C -DHAL_USE_I2C=TRUE
+            SRC += drivers/sensors/cirque_pinnacle.c
+            QUANTUM_LIB_SRC += i2c_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_spi)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            SRC += drivers/sensors/cirque_pinnacle.c
+            QUANTUM_LIB_SRC += spi_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_I2C=TRUE
+            QUANTUM_LIB_SRC += i2c_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3360)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            QUANTUM_LIB_SRC += spi_master.c
+        endif
+    endif
 endif
 
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi
@@ -321,7 +356,7 @@ endif
 ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
-    SRC += $(TMK_DIR)/protocol/serial_uart.c
+    QUANTUM_LIB_SRC += uart.c
 endif
 
 VARIABLE_TRACE ?= no
@@ -569,6 +604,7 @@ ifeq ($(strip $(UNICODE_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
+    OPT_DEFS += -DUNICODE_COMMON_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
 endif
 
@@ -684,6 +720,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
         OPT_DEFS += -DMODULE_RN42
-        SRC += $(TMK_DIR)/protocol/serial_uart.c
+        SRC += $(DRIVER_PATH)/bluetooth/rn42.c
+        QUANTUM_LIB_SRC += uart.c
     endif
 endif

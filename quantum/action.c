@@ -45,8 +45,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int tp_buttons;
 
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
 int retro_tapping_counter = 0;
+#endif
+
+#if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
+#    include "process_auto_shift.h"
 #endif
 
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
@@ -69,7 +73,7 @@ void action_exec(keyevent_t event) {
         dprint("EVENT: ");
         debug_event(event);
         dprintln();
-#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
+#if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
         retro_tapping_counter++;
 #endif
     }
@@ -106,6 +110,11 @@ void action_exec(keyevent_t event) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
+#    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
+    if (event.pressed) {
+        retroshift_poll_time(&event);
+    }
+#    endif
     if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
         action_tapping_process(record);
     }
@@ -730,7 +739,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY)
+#    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
     if (!is_tap_action(action)) {
         retro_tapping_counter = 0;
     } else {
@@ -747,7 +756,11 @@ void process_action(keyrecord_t *record, action_t action) {
                     get_retro_tapping(get_event_keycode(record->event, false), record) &&
 #        endif
                     retro_tapping_counter == 2) {
+#        if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
+                    process_auto_shift(action.layer_tap.code, record);
+#        else
                     tap_code(action.layer_tap.code);
+#        endif
                 }
                 retro_tapping_counter = 0;
             }
@@ -781,7 +794,7 @@ void process_action(keyrecord_t *record, action_t action) {
  *
  * FIXME: Needs documentation.
  */
-void register_code(uint8_t code) {
+__attribute__((weak)) void register_code(uint8_t code) {
     if (code == KC_NO) {
         return;
     }
@@ -877,7 +890,7 @@ void register_code(uint8_t code) {
  *
  * FIXME: Needs documentation.
  */
-void unregister_code(uint8_t code) {
+__attribute__((weak)) void unregister_code(uint8_t code) {
     if (code == KC_NO) {
         return;
     }
@@ -942,7 +955,7 @@ void unregister_code(uint8_t code) {
  * \param code The basic keycode to tap.
  * \param delay The amount of time in milliseconds to leave the keycode registered, before unregistering it.
  */
-void tap_code_delay(uint8_t code, uint16_t delay) {
+__attribute__((weak)) void tap_code_delay(uint8_t code, uint16_t delay) {
     register_code(code);
     for (uint16_t i = delay; i > 0; i--) {
         wait_ms(1);
@@ -954,13 +967,13 @@ void tap_code_delay(uint8_t code, uint16_t delay) {
  *
  * \param code The basic keycode to tap. If `code` is `KC_CAPS_LOCK`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
  */
-void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY); }
+__attribute__((weak)) void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY); }
 
 /** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
  * \param mods A bitfield of modifiers to register.
  */
-void register_mods(uint8_t mods) {
+__attribute__((weak)) void register_mods(uint8_t mods) {
     if (mods) {
         add_mods(mods);
         send_keyboard_report();
@@ -971,7 +984,7 @@ void register_mods(uint8_t mods) {
  *
  * \param mods A bitfield of modifiers to unregister.
  */
-void unregister_mods(uint8_t mods) {
+__attribute__((weak)) void unregister_mods(uint8_t mods) {
     if (mods) {
         del_mods(mods);
         send_keyboard_report();
@@ -982,7 +995,7 @@ void unregister_mods(uint8_t mods) {
  *
  * \param mods A bitfield of modifiers to register.
  */
-void register_weak_mods(uint8_t mods) {
+__attribute__((weak)) void register_weak_mods(uint8_t mods) {
     if (mods) {
         add_weak_mods(mods);
         send_keyboard_report();
@@ -993,7 +1006,7 @@ void register_weak_mods(uint8_t mods) {
  *
  * \param mods A bitfield of modifiers to unregister.
  */
-void unregister_weak_mods(uint8_t mods) {
+__attribute__((weak)) void unregister_weak_mods(uint8_t mods) {
     if (mods) {
         del_weak_mods(mods);
         send_keyboard_report();
