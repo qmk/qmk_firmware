@@ -301,20 +301,23 @@ void suspend_power_down_user() {
 }
 
 bool oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 30000) {
-        oled_off();
-        return false;
-    }
-#ifndef SPLIT_KEYBOARD
-    else { oled_on(); }
-#endif
-
+#if defined(SPLIT_KEYBOARD)
     if (is_keyboard_master()) {
-        render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+#endif
+        if (timer_elapsed32(oled_timer) > 30000) {
+            oled_off();
+        }
+        else {
+            oled_on();
+            render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        }
+        return false;
+#if defined(SPLIT_KEYBOARD)
     } else {
         render_status_secondary();
+        return false;
     }
-    return false;
+#endif
 }
 
 #endif
