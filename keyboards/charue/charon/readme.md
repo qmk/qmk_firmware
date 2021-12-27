@@ -1,6 +1,6 @@
 # Charon
 
-![Charon](https://i.imgur.com/fnQLZ2T.jpg)
+![Charon](https://i.imgur.com/fnQLZ2Th.jpg)
 
 A 65% with blocker Keyboard kit made and sold by Charue Design. [More info on charue-design.com](https://charue-design.com/)
 
