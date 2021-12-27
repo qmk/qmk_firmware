@@ -20,11 +20,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x5453 // TS - ToastyStoemp
-#define PRODUCT_ID   0x0059 // FAve 84H
+#define VENDOR_ID    0x4C58 // LX
+#define PRODUCT_ID   0x0004 // FAve 84H
 #define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    ToastyStoemp
-#define PRODUCT         FAve84H
+#define MANUFACTURER    Lx3
+#define PRODUCT         FAve-84H
 
 /* key matrix size */
 #define MATRIX_ROWS 6
