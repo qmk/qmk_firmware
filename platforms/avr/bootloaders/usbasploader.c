@@ -26,8 +26,7 @@
 #    endif
 #endif
 
-__attribute__((weak))
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     // Taken with permission of Stephan Baerwolf from https://github.com/tinyusbboard/API/blob/master/apipage.c
 
     wdt_enable(WDTO_15MS);

@@ -28,8 +28,7 @@
 #define BOOTLOADER_RESET_KEY 0xB007B007
 uint32_t reset_key __attribute__((section(".noinit,\"aw\",@nobits;")));
 
-__attribute__((weak))
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     UDCON  = 1;
     USBCON = (1 << FRZCLK);  // disable USB
     UCSR1B = 0;

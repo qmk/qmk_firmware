@@ -41,8 +41,7 @@ extern uint32_t __ram0_end__;
 #        define STM32_BOOTLOADER_DUAL_BANK_DELAY 100000
 #    endif
 
-__attribute__((weak))
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     // For STM32 MCUs with dual-bank flash, and we're incapable of jumping to the bootloader. The first valid flash
     // bank is executed unconditionally after a reset, so it doesn't enter DFU unless BOOT0 is high. Instead, we do
     // it with hardware...in this case, we pull a GPIO high/low depending on the configuration, connects 3.3V to
@@ -63,17 +62,16 @@ void bootloader_jump(void) {
 }
 
 // not needed at all, but if anybody attempts to invoke it....
-void enter_bootloader_mode_if_requested(void) { }
+void enter_bootloader_mode_if_requested(void) {}
 
 #else
 
 /* This code should be checked whether it runs correctly on platforms */
-#define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
-#define BOOTLOADER_MAGIC 0xDEADBEEF
-#define MAGIC_ADDR (unsigned long *)(SYMVAL(__ram0_end__) - 4)
+#    define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
+#    define BOOTLOADER_MAGIC 0xDEADBEEF
+#    define MAGIC_ADDR (unsigned long *)(SYMVAL(__ram0_end__) - 4)
 
-__attribute__((weak))
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     *MAGIC_ADDR = BOOTLOADER_MAGIC;  // set magic flag => reset handler will jump into boot loader
     NVIC_SystemReset();
 }
