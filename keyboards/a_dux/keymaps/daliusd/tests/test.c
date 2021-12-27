@@ -50,6 +50,8 @@ const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2] = {
     {OS_TMUX, _TMUX},
 };
 
+#define FLOW_TERM 30
+
 keycodes last_registered_code = KC_NO;
 uint16_t registered_codes_count = 0;
 keycodes last_unregistered_code = KC_NO;

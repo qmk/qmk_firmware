@@ -17,7 +17,7 @@ typedef enum {
 #ifdef FLOW_TERM
 const int g_flow_term = FLOW_TERM;
 #else
-const int g_flow_term = 30;
+const int g_flow_term = 10;
 #endif
 
 #ifdef FLOW_ONESHOT_TERM
