@@ -13,6 +13,7 @@
   * [Troubleshooting QMK](faq_misc.md)
   * [Debugging QMK](faq_debug.md)
   * [Keymap FAQ](faq_keymap.md)
+  * [Squeezing Space from AVR](squeezing_avr.md)
   * [Glossary](reference_glossary.md)
 
 * Configurator
@@ -72,6 +73,7 @@
     * [Mod-Tap](mod_tap.md)
     * [Macros](feature_macros.md)
     * [Mouse Keys](feature_mouse_keys.md)
+    * [Programmable Button](feature_programmable_button.md)
     * [Space Cadet Shift](feature_space_cadet.md)
     * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
@@ -127,7 +129,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20210529.md "QMK v0.13.0 - 2021 May 29")
+    * [Most Recent ChangeLog](ChangeLog/20211127.md "QMK v0.15.0 - 2021 Nov 27")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development

@@ -6,7 +6,6 @@ Velocikey is a feature that lets you control the speed of lighting effects (like
 For Velocikey to take effect, there are two steps. First, when compiling your keyboard, you'll need to set `VELOCIKEY_ENABLE=yes` in `rules.mk`, e.g.:
 
 ```
-BOOTMAGIC_ENABLE = no
 MOUSEKEY_ENABLE = no
 STENO_ENABLE = no
 EXTRAKEY_ENABLE = yes

@@ -25,4 +25,4 @@ The ErgoDone uses a customized HID bootloader rather than the Teensy one. It doe
 ![Ergodone Flash Mode](https://i.imgur.com/sNivAnr.jpg)
 2. To flash the .hex file, use the `hid_bootloader_cli` utlity from the [TKG Toolkit](https://github.com/kairyu/tkg-toolkit) (as of 2017-10-03, only [this old version](https://github.com/kairyu/tkg-toolkit/blob/b14c67ca8bc84c07e5fc6b2e01ae4002b808243a/windows/bin/hid_bootloader_cli.exe) works under Windows):
 
-       hid_bootloader_cli -mmcu=atmega32u4 ergodone_default.hex
+       hid_bootloader_cli -mmcu=atmega32u4 ktec_ergodone_default.hex
