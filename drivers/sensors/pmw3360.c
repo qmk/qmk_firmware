@@ -108,10 +108,10 @@ spi_status_t spi_write_adv(uint8_t reg_addr, uint8_t data) {
     status              = spi_write(data);
 
     // tSCLK-NCS for write operation
-    wait_us(20);
+    wait_us(35);
 
-    // tSWW/tSWR (=120us) minus tSCLK-NCS. Could be shortened, but is looks like a safe lower bound
-    wait_us(100);
+    // tSWW/tSWR (=180us) minus tSCLK-NCS. Could be shortened, but is looks like a safe lower bound
+    wait_us(145);
     spi_stop();
     return status;
 }
