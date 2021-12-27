@@ -51,7 +51,8 @@
 #include "udi_device_conf.h"
 #include "udi.h"
 #include "udc.h"
-#include "md_bootloader.h"
+
+#define BOOTLOADER_SERIAL_MAX_SIZE 20  // DO NOT MODIFY!
 
 /**
  * \ingroup udc_group
@@ -121,6 +122,8 @@ static uint8_t udc_string_product_name[] = USB_DEVICE_PRODUCT_NAME;
 #else
 #    define USB_DEVICE_SERIAL_NAME_SIZE 0
 #endif
+
+extern uint32_t _srom;
 
 uint8_t     usb_device_serial_name_size = 0;
 #if defined USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
