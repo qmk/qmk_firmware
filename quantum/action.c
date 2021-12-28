@@ -794,7 +794,7 @@ void process_action(keyrecord_t *record, action_t action) {
  *
  * FIXME: Needs documentation.
  */
-void register_code(uint8_t code) {
+__attribute__((weak)) void register_code(uint8_t code) {
     if (code == KC_NO) {
         return;
     }
@@ -890,7 +890,7 @@ void register_code(uint8_t code) {
  *
  * FIXME: Needs documentation.
  */
-void unregister_code(uint8_t code) {
+__attribute__((weak)) void unregister_code(uint8_t code) {
     if (code == KC_NO) {
         return;
     }
@@ -955,7 +955,7 @@ void unregister_code(uint8_t code) {
  * \param code The basic keycode to tap.
  * \param delay The amount of time in milliseconds to leave the keycode registered, before unregistering it.
  */
-void tap_code_delay(uint8_t code, uint16_t delay) {
+__attribute__((weak)) void tap_code_delay(uint8_t code, uint16_t delay) {
     register_code(code);
     for (uint16_t i = delay; i > 0; i--) {
         wait_ms(1);
@@ -967,13 +967,13 @@ void tap_code_delay(uint8_t code, uint16_t delay) {
  *
  * \param code The basic keycode to tap. If `code` is `KC_CAPS_LOCK`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
  */
-void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY); }
+__attribute__((weak)) void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY); }
 
 /** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
  * \param mods A bitfield of modifiers to register.
  */
-void register_mods(uint8_t mods) {
+__attribute__((weak)) void register_mods(uint8_t mods) {
     if (mods) {
         add_mods(mods);
         send_keyboard_report();
@@ -984,7 +984,7 @@ void register_mods(uint8_t mods) {
  *
  * \param mods A bitfield of modifiers to unregister.
  */
-void unregister_mods(uint8_t mods) {
+__attribute__((weak)) void unregister_mods(uint8_t mods) {
     if (mods) {
         del_mods(mods);
         send_keyboard_report();
@@ -995,7 +995,7 @@ void unregister_mods(uint8_t mods) {
  *
  * \param mods A bitfield of modifiers to register.
  */
-void register_weak_mods(uint8_t mods) {
+__attribute__((weak)) void register_weak_mods(uint8_t mods) {
     if (mods) {
         add_weak_mods(mods);
         send_keyboard_report();
@@ -1006,7 +1006,7 @@ void register_weak_mods(uint8_t mods) {
  *
  * \param mods A bitfield of modifiers to unregister.
  */
-void unregister_weak_mods(uint8_t mods) {
+__attribute__((weak)) void unregister_weak_mods(uint8_t mods) {
     if (mods) {
         del_weak_mods(mods);
         send_keyboard_report();

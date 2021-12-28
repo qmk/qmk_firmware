@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
-#include "serial_config.h"
 
 /* USB Device descriptor parameter
    VID & PID are lisenced from microchip sublisence program, Don't use other project! */
@@ -30,10 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    Dm9Records
 #define PRODUCT         ergoinu
 
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
-
 #define USE_SERIAL
+
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D2
 
 /* Select hand configuration */
 #define MASTER_LEFT
@@ -48,6 +47,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_COLS 7
 #define MATRIX_COL_PINS { B4, E6, D7, C6, D4, F5, F4 }
+
+/* COL2ROW, ROW2COL */
+#define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

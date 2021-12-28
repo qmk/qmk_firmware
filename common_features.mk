@@ -356,7 +356,7 @@ endif
 ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
-    SRC += $(TMK_DIR)/protocol/serial_uart.c
+    QUANTUM_LIB_SRC += uart.c
 endif
 
 VARIABLE_TRACE ?= no
@@ -604,6 +604,7 @@ ifeq ($(strip $(UNICODE_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
+    OPT_DEFS += -DUNICODE_COMMON_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
 endif
 
@@ -719,6 +720,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
         OPT_DEFS += -DMODULE_RN42
-        SRC += $(TMK_DIR)/protocol/serial_uart.c
+        SRC += $(DRIVER_PATH)/bluetooth/rn42.c
+        QUANTUM_LIB_SRC += uart.c
     endif
 endif

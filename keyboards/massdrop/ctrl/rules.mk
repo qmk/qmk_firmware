@@ -5,6 +5,9 @@ SRC += config_led.c
 ARM_ATSAM = SAMD51J18A
 MCU = cortex-m4
 
+# Bootloader selection
+BOOTLOADER = md-boot
+
 # Build Options
 #   change yes to no to disable
 #

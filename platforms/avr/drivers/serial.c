@@ -16,6 +16,7 @@
 #include <util/delay.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include "gpio.h"
 #include "serial.h"
 
 #ifdef SOFT_SERIAL_PIN
@@ -118,12 +119,6 @@
 #    ifndef SERIAL_PIN_INTERRUPT
 #        error invalid SOFT_SERIAL_PIN value
 #    endif
-
-#    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
 #    define ALWAYS_INLINE __attribute__((always_inline))
 #    define NO_INLINE __attribute__((noinline))

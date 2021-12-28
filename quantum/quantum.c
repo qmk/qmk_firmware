@@ -76,9 +76,9 @@ uint8_t extract_mod_bits(uint16_t code) {
     return mods_to_send;
 }
 
-static void do_code16(uint16_t code, void (*f)(uint8_t)) { f(extract_mod_bits(code)); }
+void do_code16(uint16_t code, void (*f)(uint8_t)) { f(extract_mod_bits(code)); }
 
-void register_code16(uint16_t code) {
+__attribute__((weak)) void register_code16(uint16_t code) {
     if (IS_MOD(code) || code == KC_NO) {
         do_code16(code, register_mods);
     } else {
@@ -87,7 +87,7 @@ void register_code16(uint16_t code) {
     register_code(code);
 }
 
-void unregister_code16(uint16_t code) {
+__attribute__((weak)) void unregister_code16(uint16_t code) {
     unregister_code(code);
     if (IS_MOD(code) || code == KC_NO) {
         do_code16(code, unregister_mods);
@@ -96,7 +96,7 @@ void unregister_code16(uint16_t code) {
     }
 }
 
-void tap_code16(uint16_t code) {
+__attribute__((weak)) void tap_code16(uint16_t code) {
     register_code16(code);
 #if TAP_CODE_DELAY > 0
     wait_ms(TAP_CODE_DELAY);
@@ -263,7 +263,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
 #endif
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+#if defined(UNICODE_COMMON_ENABLE)
             process_unicode_common(keycode, record) &&
 #endif
 #ifdef LEADER_ENABLE
@@ -387,7 +387,7 @@ void matrix_init_quantum() {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init();
 #endif
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+#if defined(UNICODE_COMMON_ENABLE)
     unicode_input_mode_init();
 #endif
 #ifdef HAPTIC_ENABLE

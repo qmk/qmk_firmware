@@ -86,3 +86,16 @@ void           pointing_device_init_user(void);
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report);
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report);
 uint8_t        pointing_device_handle_buttons(uint8_t buttons, bool pressed, pointing_device_buttons_t button);
+report_mouse_t pointing_device_adjust_by_defines(report_mouse_t mouse_report);
+
+#if defined(SPLIT_POINTING_ENABLE)
+void     pointing_device_set_shared_report(report_mouse_t report);
+uint16_t pointing_device_get_shared_cpi(void);
+#    if defined(POINTING_DEVICE_COMBINED)
+void           pointing_device_set_cpi_on_side(bool left, uint16_t cpi);
+report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, report_mouse_t right_report);
+report_mouse_t pointing_device_task_combined_kb(report_mouse_t left_report, report_mouse_t right_report);
+report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report);
+report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_report);
+#    endif  // defined(POINTING_DEVICE_COMBINED)
+#endif      // defined(SPLIT_POINTING_ENABLE)

@@ -4,6 +4,15 @@
 #include "wait.h"
 #include "print.h"
 #include "debug.h"
+#ifdef SPLIT_KEYBOARD
+#    include "split_common/split_util.h"
+#    include "split_common/transactions.h"
+#    include <string.h>
+
+#    define ROWS_PER_HAND (MATRIX_ROWS / 2)
+#else
+#    define ROWS_PER_HAND (MATRIX_ROWS)
+#endif
 
 #ifndef MATRIX_IO_DELAY
 #    define MATRIX_IO_DELAY 30
@@ -12,6 +21,11 @@
 /* matrix state(1:on, 0:off) */
 matrix_row_t raw_matrix[MATRIX_ROWS];
 matrix_row_t matrix[MATRIX_ROWS];
+
+#ifdef SPLIT_KEYBOARD
+// row offsets for each hand
+uint8_t thisHand, thatHand;
+#endif
 
 #ifdef MATRIX_MASKED
 extern const matrix_row_t matrix_mask[];
@@ -43,12 +57,6 @@ inline matrix_row_t matrix_get_row(uint8_t row) {
 #else
     return matrix[row];
 #endif
-}
-
-// Deprecated.
-bool matrix_is_modified(void) {
-    if (debounce_active()) return false;
-    return true;
 }
 
 #if (MATRIX_COLS <= 8)
@@ -84,18 +92,59 @@ uint8_t matrix_key_count(void) {
     return count;
 }
 
+#ifdef SPLIT_KEYBOARD
+bool matrix_post_scan(void) {
+    bool changed = false;
+    if (is_keyboard_master()) {
+        static bool  last_connected              = false;
+        matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
+        if (transport_master_if_connected(matrix + thisHand, slave_matrix)) {
+            changed = memcmp(matrix + thatHand, slave_matrix, sizeof(slave_matrix)) != 0;
+
+            last_connected = true;
+        } else if (last_connected) {
+            // reset other half when disconnected
+            memset(slave_matrix, 0, sizeof(slave_matrix));
+            changed = true;
+
+            last_connected = false;
+        }
+
+        if (changed) memcpy(matrix + thatHand, slave_matrix, sizeof(slave_matrix));
+
+        matrix_scan_quantum();
+    } else {
+        transport_slave(matrix + thatHand, matrix + thisHand);
+
+        matrix_slave_scan_kb();
+    }
+
+    return changed;
+}
+#endif
+
 /*　`matrix_io_delay ()` exists for backwards compatibility. From now on, use matrix_output_unselect_delay().　*/
 __attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
-
 __attribute__((weak)) void matrix_output_select_delay(void) { waitInputPinDelay(); }
 __attribute__((weak)) void matrix_output_unselect_delay(uint8_t line, bool key_pressed) { matrix_io_delay(); }
 
 // CUSTOM MATRIX 'LITE'
 __attribute__((weak)) void matrix_init_custom(void) {}
-
 __attribute__((weak)) bool matrix_scan_custom(matrix_row_t current_matrix[]) { return true; }
 
+#ifdef SPLIT_KEYBOARD
+__attribute__((weak)) void matrix_slave_scan_kb(void) { matrix_slave_scan_user(); }
+__attribute__((weak)) void matrix_slave_scan_user(void) {}
+#endif
+
 __attribute__((weak)) void matrix_init(void) {
+#ifdef SPLIT_KEYBOARD
+    split_pre_init();
+
+    thisHand = isLeftHand ? 0 : (ROWS_PER_HAND);
+    thatHand = ROWS_PER_HAND - thisHand;
+#endif
+
     matrix_init_custom();
 
     // initialize matrix state: all keys off
@@ -104,17 +153,26 @@ __attribute__((weak)) void matrix_init(void) {
         matrix[i]     = 0;
     }
 
-    debounce_init(MATRIX_ROWS);
+    debounce_init(ROWS_PER_HAND);
 
     matrix_init_quantum();
+
+#ifdef SPLIT_KEYBOARD
+    split_post_init();
+#endif
 }
 
 __attribute__((weak)) uint8_t matrix_scan(void) {
     bool changed = matrix_scan_custom(raw_matrix);
 
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-
+#ifdef SPLIT_KEYBOARD
+    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
+    changed = (changed || matrix_post_scan());
+#else
+    debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
     matrix_scan_quantum();
+#endif
+
     return changed;
 }
 

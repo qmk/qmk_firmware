@@ -2,7 +2,7 @@
 MCU = atmega32a
 
 # Bootloader selection
-BOOTLOADER = bootloadHID
+BOOTLOADER = bootloadhid
 
 # Build Options
 #   change yes to no to disable

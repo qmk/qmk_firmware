@@ -57,7 +57,7 @@
         },
         "bootloader": {
             "type": "string",
-            "enum": ["atmel-dfu", "bootloadhid", "bootloadHID", "caterina", "halfkay", "kiibohd", "lufa-dfu", "lufa-ms", "micronucleus", "qmk-dfu", "qmk-hid", "stm32-dfu", "stm32duino", "gd32v-dfu", "wb32-dfu", "unknown", "usbasploader", "USBasp", "tinyuf2"],
+            "enum": ["atmel-dfu", "bootloadhid", "bootloadHID", "caterina", "halfkay", "kiibohd", "lufa-dfu", "lufa-ms", "md-boot", "micronucleus", "qmk-dfu", "qmk-hid", "stm32-dfu", "stm32duino", "gd32v-dfu", "wb32-dfu", "unknown", "usbasploader", "USBasp", "tinyuf2"],
         },
         "bootloader_instructions": {
             "type": "string",
@@ -69,7 +69,7 @@
             "properties": {
                 "debounce_type": {
                     "type": "string",
-                    "enum": ["custom", "eager_pk", "eager_pr", "sym_defer_pk", "sym_eager_pk"]
+                    "enum": ["custom", "eager_pk", "eager_pr", "sym_defer_pk", "sym_defer_pr", "sym_eager_pk"]
                 },
                 "firmware_format": {
                     "type": "string",
