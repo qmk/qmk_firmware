@@ -284,10 +284,11 @@ void my_init(void){
     layer_state_set(_LS_BASE);
 
 #ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_sethsv(HSV_BLUE);
     //  party mode (for LED soldering test. Enable rainbow color effect, and disable led_indicator to check all LEDs)
     rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
     led_indicator_enable = false;
-#endif
+#endif  // RGB_MATRIX_ENABLE
 }
 
 void eeconfig_init_user(void) {  // EEPROM is getting reset!
@@ -296,8 +297,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_enable();
     rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD);
-    rgb_matrix_sethsv(HSV_BLUE);
-#endif
+#endif  // RGB_MATRIX_ENABLE
     my_init(); // commom codes called from eeconfig_init_user() and keyboard_post_init_user().
 }
 
@@ -673,4 +673,4 @@ void rgb_matrix_indicators_user(void) {
         }
     }
 }
-#endif
+#endif  // RGB_MATRIX_ENABLE
