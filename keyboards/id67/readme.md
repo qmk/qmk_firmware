@@ -1,6 +1,6 @@
 # IDOBAO ID67
 
-![id67](https://i.imgur.com/9roQ4Mi.jpeg)
+![id67](https://i.imgur.com/9roQ4Mih.jpeg)
 
 A 65% hotswap keyboard from IDOBAO.
 
