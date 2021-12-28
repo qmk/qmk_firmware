@@ -17,4 +17,4 @@ BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight. 
 
-DEFAULT_FOLDER = claw44/rev1
+DEFAULT_FOLDER = dailycraft/claw44/rev1

@@ -17,4 +17,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-DEFAULT_FOLDER = bat43/rev2
+DEFAULT_FOLDER = dailycraft/bat43/rev2
