@@ -129,18 +129,9 @@ void moonlander_led_task(void) {
         wait_ms(150);
     }
 #endif
-#ifdef CAPS_LOCK_STATUS
+#if !defined(MOONLANDER_USER_LEDS)
     else {
-        led_t led_state = host_keyboard_led_state();
-        if(led_state.caps_lock) {
-            ML_LED_6(true);
-        }
-        else {
-            uint8_t layer = get_highest_layer(layer_state);
-            if(layer != 1) {
-                ML_LED_6(false);
-            }
-        }
+        layer_state_set_kb(layer_state);
     }
 #endif
 }
@@ -178,40 +169,52 @@ void keyboard_pre_init_kb(void) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
     state = layer_state_set_user(state);
     if (is_launching || !keyboard_config.led_level) return state;
-
-    ML_LED_1(false);
-    ML_LED_2(false);
-    ML_LED_3(false);
-    ML_LED_4(false);
-    ML_LED_5(false);
-    ML_LED_6(false);
-
+    bool LED_1 = false;
+    bool LED_2 = false;
+    bool LED_3 = false;
+    bool LED_4 = false;
+    bool LED_5 = false;
+    bool LED_6 = false;
+    
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case 1:
-            ML_LED_1(1);
-            ML_LED_4(1);
+            LED_1 = true;
+            LED_4 = true;
             break;
         case 2:
-            ML_LED_2(1);
-            ML_LED_5(1);
+            LED_2 = true;
+            LED_5 = true;
             break;
         case 3:
-            ML_LED_3(1);
-            ML_LED_6(1);
+            LED_3 = true;
+#if !defined(CAPS_LOCK_STATUS)
+            LED_6 = true;
+#endif
             break;
         case 4:
-            ML_LED_4(1);
+            LED_4 = true;
             break;
         case 5:
-            ML_LED_5(1);
+            LED_5 = true;
             break;
         case 6:
-            ML_LED_6(1);
+#if !defined(CAPS_LOCK_STATUS)
+            LED_6 = true;
+#endif
             break;
         default:
             break;
     }
+
+    ML_LED_1(LED_1);
+    ML_LED_2(LED_2);
+    ML_LED_3(LED_3);
+    ML_LED_4(LED_4);
+    ML_LED_5(LED_5);
+#if !defined(CAPS_LOCK_STATUS)
+    ML_LED_6(LED_6);
+#endif
 
     return state;
 }
@@ -412,6 +415,16 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
                      0,  1,  2,     5,  6,  7
 );
 // clang-format on
+#endif
+
+#ifdef CAPS_LOCK_STATUS
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        ML_LED_6(led_state.caps_lock);
+    }
+    return res;
+}
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
