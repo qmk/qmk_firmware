@@ -132,13 +132,13 @@ To enable this method, add the following to your `config.h` file:
 
 Next, you will have to flash the EEPROM files once for the correct hand to the controller on each halve. You can do this manually with the following bootloader targets while flashing the firmware:
 
-* Pro micro controllers with Caterina booloader:
+* Pro micro stock controllers with Caterina booloader:
   * `:avrdude-split-left`
   * `:avrdude-split-right`
-* Elite-C or compatible controllers with DFU bootloader:
+* Pro micro compatible controllers (like Elite-C) with DFU bootloader:
   * `:dfu-split-left`
   * `:dfu-split-right`
-* ARM controllers with DFU bootloader:
+* ARM controllers (like Proton-C) with DFU bootloader:
   * `:dfu-util-split-left`
   * `:dfu-util-split-right`
 
