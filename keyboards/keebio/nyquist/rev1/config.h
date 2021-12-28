@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         The Nyquist Keyboard
-#define DESCRIPTION     Split 60 percent ortholinear keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -56,8 +55,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-
-#define RGBLED_NUM 16    // Number of LEDs
+#define RGBLED_NUM 12
+#define RGBLED_SPLIT { 6, 6 }
 
 /*
  * Feature disable options

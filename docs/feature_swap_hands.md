@@ -6,8 +6,8 @@ The swap-hands action allows support for one-handed typing without requiring a s
 
 The configuration table is a simple 2-dimensional array to map from column/row to new column/row. Example `hand_swap_config` for Planck:
 
-```C
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+```c
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
   {{11, 0}, {10, 0}, {9, 0}, {8, 0}, {7, 0}, {6, 0}, {5, 0}, {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0}},
   {{11, 1}, {10, 1}, {9, 1}, {8, 1}, {7, 1}, {6, 1}, {5, 1}, {4, 1}, {3, 1}, {2, 1}, {1, 1}, {0, 1}},
   {{11, 2}, {10, 2}, {9, 2}, {8, 2}, {7, 2}, {6, 2}, {5, 2}, {4, 2}, {3, 2}, {2, 2}, {1, 2}, {0, 2}},
@@ -27,5 +27,7 @@ Note that the array indices are reversed same as the matrix and the values are o
 |`SH_MON`   |Swaps hands when pressed, returns to normal when released (momentary).   |
 |`SH_MOFF`  |Momentarily turns off swap.                                              |
 |`SH_TG`    |Toggles swap on and off with every key press.                            |
-|`SH_TT`    |Toggles with a tap; momentary when held.                                 |
+|`SH_TT`    |Momentary swap when held, toggles with repeated taps (see below).        |
 |`SH_OS`    |One shot swap hands: toggles while pressed or until next key press.      |
+
+`SH_TT` swap-hands tap-toggle key is similar to [layer tap-toggle](feature_layers.md?id=switching-and-toggling-layers). Tapping repeatedly (5 taps by default) will toggle swap-hands on or off, like `SH_TG`. Tap-toggle count can be changed by defining a value for `TAPPING_TOGGLE`.

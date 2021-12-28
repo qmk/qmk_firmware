@@ -1,0 +1,13 @@
+{
+    "keyboard_name": "Split Tester",
+    "url": "",
+    "maintainer": "nooges",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0,"y": 0},
+                {"x": 1,"y": 0}
+            ]
+        }
+    }
+}

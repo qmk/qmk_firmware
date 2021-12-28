@@ -44,8 +44,9 @@
 
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 #include "version.h"  // for QMK_BUILDDATE used in EEPROM magic
+#include "via_ensure_keycode.h"
 
 // Forward declare some helpers.
 #if defined(VIA_QMK_BACKLIGHT_ENABLE)
@@ -82,16 +83,6 @@ void via_eeprom_set_valid(bool valid) {
     eeprom_update_byte((void *)VIA_EEPROM_MAGIC_ADDR + 2, valid ? magic2 : 0xFF);
 }
 
-// Flag QMK and VIA/keyboard level EEPROM as invalid.
-// Used in bootmagic_lite() and VIA command handler.
-// Keyboard level code should not need to call this.
-void via_eeprom_reset(void) {
-    // Set the VIA specific EEPROM state as invalid.
-    via_eeprom_set_valid(false);
-    // Set the TMK/QMK EEPROM state as invalid.
-    eeconfig_disable();
-}
-
 // Override this at the keyboard code level to check
 // VIA's EEPROM valid state and reset to defaults as needed.
 // Used by keyboards that store their own state in EEPROM,
@@ -108,17 +99,22 @@ void via_init(void) {
 
     // If the EEPROM has the magic, the data is good.
     // OK to load from EEPROM.
-    if (via_eeprom_is_valid()) {
-    } else {
-        // This resets the layout options
-        via_set_layout_options(VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT);
-        // This resets the keymaps in EEPROM to what is in flash.
-        dynamic_keymap_reset();
-        // This resets the macros in EEPROM to nothing.
-        dynamic_keymap_macro_reset();
-        // Save the magic number last, in case saving was interrupted
-        via_eeprom_set_valid(true);
+    if (!via_eeprom_is_valid()) {
+        eeconfig_init_via();
     }
+}
+
+void eeconfig_init_via(void) {
+    // set the magic number to false, in case this gets interrupted
+    via_eeprom_set_valid(false);
+    // This resets the layout options
+    via_set_layout_options(VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT);
+    // This resets the keymaps in EEPROM to what is in flash.
+    dynamic_keymap_reset();
+    // This resets the macros in EEPROM to nothing.
+    dynamic_keymap_macro_reset();
+    // Save the magic number last, in case saving was interrupted
+    via_eeprom_set_valid(true);
 }
 
 // This is generalized so the layout options EEPROM usage can be
@@ -186,7 +182,7 @@ bool process_record_via(uint16_t keycode, keyrecord_t *record) {
 
 // Keyboard level code can override this to handle custom messages from VIA.
 // See raw_hid_receive() implementation.
-// DO NOT call raw_hid_send() in the overide function.
+// DO NOT call raw_hid_send() in the override function.
 __attribute__((weak)) void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
     uint8_t *command_id = &(data[0]);
     *command_id         = id_unhandled;
@@ -328,6 +324,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #endif
             break;
         }
+#ifdef VIA_EEPROM_ALLOW_RESET
+        case id_eeprom_reset: {
+            via_eeprom_set_valid(false);
+            eeconfig_init_via();
+            break;
+        }
+#endif
         case id_dynamic_keymap_macro_get_count: {
             command_data[0] = dynamic_keymap_macro_get_count();
             break;
@@ -368,19 +371,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             uint16_t offset = (command_data[0] << 8) | command_data[1];
             uint16_t size   = command_data[2];  // size <= 28
             dynamic_keymap_set_buffer(offset, size, &command_data[3]);
-            break;
-        }
-        case id_eeprom_reset: {
-            via_eeprom_reset();
-            break;
-        }
-        case id_bootloader_jump: {
-            // Need to send data back before the jump
-            // Informs host that the command is handled
-            raw_hid_send(data, length);
-            // Give host time to read it
-            wait_ms(100);
-            bootloader_jump();
             break;
         }
         default: {

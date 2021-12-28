@@ -28,7 +28,10 @@
 #define TOGG A_ENUM
 enum combos {
 #include "combos.def"
+    COMBO_LENGTH
 };
+// Export length to combo module
+uint16_t COMBO_LEN = COMBO_LENGTH;
 
 // Bake combos into mem
 #undef COMB
@@ -53,14 +56,11 @@ combo_t key_combos[] = {
 #undef SUBS
 #undef TOGG
 
-// Export length to combo module
-int COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);
-
 // Fill QMK hook
 #define COMB BLANK
 #define SUBS A_ACTI
 #define TOGG A_TOGG
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
 #include "combos.def"
     }

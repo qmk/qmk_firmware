@@ -19,12 +19,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4025
 #define PRODUCT_ID      0x0A0C
 #define DEVICE_VER      0x0F61
 #define MANUFACTURER    di0ib
 #define PRODUCT         The 6lit Macropad
-#define DESCRIPTION     A split 12 key Macropad
 
 #define USE_SERIAL
 
@@ -111,54 +110,6 @@
 //#define FORCE_NKRO
 
 /*
- * Magic Key Options
- *
- * Magic keys are hotkey commands that allow control over firmware functions of
- * the keyboard. They are best used in combination with the HID Listen program,
- * found here: https://www.pjrc.com/teensy/hid_listen.html
- *
- * The options below allow the magic key functionality to be changed. This is
- * useful if your keyboard/keypad is missing keys and you want magic key support.
- *
- */
-
-/* control how magic key switches layers */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM false
-
-/* override magic key keymap */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
-//#define MAGIC_KEY_HELP1          H
-//#define MAGIC_KEY_HELP2          SLASH
-//#define MAGIC_KEY_DEBUG          D
-//#define MAGIC_KEY_DEBUG_MATRIX   X
-//#define MAGIC_KEY_DEBUG_KBD      K
-//#define MAGIC_KEY_DEBUG_MOUSE    M
-//#define MAGIC_KEY_VERSION        V
-//#define MAGIC_KEY_STATUS         S
-//#define MAGIC_KEY_CONSOLE        C
-//#define MAGIC_KEY_LAYER0_ALT1    ESC
-//#define MAGIC_KEY_LAYER0_ALT2    GRAVE
-//#define MAGIC_KEY_LAYER0         0
-//#define MAGIC_KEY_LAYER1         1
-//#define MAGIC_KEY_LAYER2         2
-//#define MAGIC_KEY_LAYER3         3
-//#define MAGIC_KEY_LAYER4         4
-//#define MAGIC_KEY_LAYER5         5
-//#define MAGIC_KEY_LAYER6         6
-//#define MAGIC_KEY_LAYER7         7
-//#define MAGIC_KEY_LAYER8         8
-//#define MAGIC_KEY_LAYER9         9
-//#define MAGIC_KEY_BOOTLOADER     PAUSE
-//#define MAGIC_KEY_LOCK           CAPS
-//#define MAGIC_KEY_EEPROM         E
-//#define MAGIC_KEY_NKRO           N
-//#define MAGIC_KEY_SLEEP_LED      Z
-
-/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
@@ -175,54 +126,3 @@
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-/*
- * MIDI options
- */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
-
-/*
- * HD44780 LCD Display Configuration
- */
-/*
-#define LCD_LINES           2     //< number of visible lines of the display
-#define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
-
-#define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
-
-#if LCD_IO_MODE
-#define LCD_PORT         PORTB        //< port for the LCD lines
-#define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
-#define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
-#define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
-#define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
-#define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
-#define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
-#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
-#define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
-#define LCD_RS_PORT      LCD_PORT     //< port for RS line
-#define LCD_RS_PIN       3            //< pin  for RS line
-#define LCD_RW_PORT      LCD_PORT     //< port for RW line
-#define LCD_RW_PIN       2            //< pin  for RW line
-#define LCD_E_PORT       LCD_PORT     //< port for Enable line
-#define LCD_E_PIN        1            //< pin  for Enable line
-#endif
-*/

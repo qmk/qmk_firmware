@@ -1,6 +1,6 @@
 #include "maja.h"
 
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 	{0, C2_1,  C3_1,  C4_1},  // LA0
     {0, C1_1,  C3_2, C4_2},   // LA1
     {0, C1_2,  C2_2, C4_3},   // LA2
@@ -101,4 +101,13 @@ void suspend_power_down_kb(void) {
 void suspend_wakeup_init_kb(void) {
     rgb_matrix_set_suspend_state(false);
     suspend_wakeup_init_user();
+}
+
+__attribute__ ((weak))
+void rgb_matrix_indicators_user(void)
+{
+    if (host_keyboard_led_state().caps_lock)
+    {
+        rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
+    }
 }

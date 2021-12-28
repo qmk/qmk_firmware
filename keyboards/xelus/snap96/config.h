@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
 #define PRODUCT         Snap96
-#define DESCRIPTION     Snap96
 
 // key matrix size
 #define MATRIX_ROWS 12

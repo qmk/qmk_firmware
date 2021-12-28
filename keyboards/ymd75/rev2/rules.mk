@@ -1,5 +1,13 @@
-# build options
-BOOTMAGIC_ENABLE = yes
+# MCU name
+MCU = atmega32a
+
+# Bootloader selection
+BOOTLOADER = bootloadhid
+
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no
@@ -7,9 +15,6 @@ COMMAND_ENABLE = yes
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 WS2812_DRIVER = i2c
-NKRO_ENABLE = no
-# Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no            # Enable N-Key Rollover
 
 KEY_LOCK_ENABLE = yes
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend

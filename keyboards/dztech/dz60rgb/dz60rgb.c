@@ -1,7 +1,7 @@
 #include "dz60rgb.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, K_14, J_14, L_14 },
     { 0, K_13, J_13, L_13 },
     { 0, K_12, J_12, L_12 },
@@ -92,7 +92,6 @@ led_config_t g_led_config = {
         1, 1, 1,          1,       1, 4, 1, 1, 1
     }
 };
-#endif
 
 void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);
@@ -110,3 +109,4 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
     }
 }
+#endif

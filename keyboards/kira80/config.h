@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Lorenz Wellmer
+Copyright 2020 kb-elmo<mail@elmo.space>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -37,6 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
+
+#define LED_CAPS_LOCK_PIN D1
+#define LED_SCROLL_LOCK_PIN D6
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_BREATHING

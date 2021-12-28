@@ -30,13 +30,14 @@ combo_t key_combos[COMBO_COUNT] = {
 
 bool led_adjust_active = false;
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     if (combo_index == LED_ADJUST) {
         led_adjust_active = pressed;
     }
 }
 
-void encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
     if (index == 0) {
         if (led_adjust_active) {
             if (clockwise) {
@@ -54,6 +55,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
             }
         } else encoder_two_update(clockwise);
     }
+    return true;
 }
 
 __attribute__((weak)) void encoder_one_update(bool clockwise) {

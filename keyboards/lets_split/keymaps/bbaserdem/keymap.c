@@ -5,7 +5,6 @@
  * Most of the code is in the "user" directory.
  * Check qmk_firmware/users/bbaserdem for the main part of the code
  */
-#define KEYMAP(...) LAYOUT_ortho_4x12(__VA_ARGS__)
 
 #include "lets_split.h"
 #include "bbaserdem.h"

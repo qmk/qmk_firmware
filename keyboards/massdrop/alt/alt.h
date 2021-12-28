@@ -5,9 +5,9 @@
 #include "matrix.h"
 
 #include "i2c_master.h"
-#include "led_matrix.h" //For led keycodes
+#include "md_rgb_matrix.h" //For led keycodes
 #include "usb/udi_cdc.h"
-#include "usb/usb2422.h"
+#include "usb/usb_hub.h"
 
 #define LAYOUT_65_ansi_blocker( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K10, K11, K12, K13, K14, K15, \

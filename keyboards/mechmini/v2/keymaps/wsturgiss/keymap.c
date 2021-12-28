@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #define base 0
-#define raise 1 
+#define raise 1
 #define lower 2
 
 //Tap Dance Declarations
@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[raise] = LAYOUT_2u_space_ortho(
 		_______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_DEL,
 		_______,    _______,  _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, KC_QUOT,  _______,
-		_______,    KC_HOME,  KC_END,   _______,  _______,  _______,  _______,  _______,  KC_LBRC,  KC_RBRC,  _______,  _______,  
+		_______,    KC_HOME,  KC_END,   _______,  _______,  _______,  _______,  _______,  KC_LBRC,  KC_RBRC,  _______,  _______,
 		_______,    _______,  _______,  _______,  _______,      _______,        _______,  KC_MPRV,  _______,  KC_MNXT,  EEP_RST),
 
 	[lower] = LAYOUT_2u_space_ortho(
@@ -66,7 +66,7 @@ void matrix_scan_user(void) {
     //tableflip (LEADER - TF)
     SEQ_TWO_KEYS(KC_T, KC_F) {
         set_unicode_input_mode(UC_OSX);
-        send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
+        send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
     }
     //screencap (LEADER - SC)
     SEQ_TWO_KEYS(KC_S, KC_C) {
@@ -75,7 +75,7 @@ void matrix_scan_user(void) {
     //screencap (LEADER - TM)
     SEQ_TWO_KEYS(KC_T, KC_M) {
         set_unicode_input_mode(UC_OSX);
-        send_unicode_hex_string("2122");
+        register_unicode(0x2122); // ™
     }
     /*
     SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
@@ -86,7 +86,7 @@ void matrix_scan_user(void) {
 }
 
 //change colors and rgb modes on layer change
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     switch (biton32(state)) {
     case raise:
         rgblight_mode_noeeprom(1);

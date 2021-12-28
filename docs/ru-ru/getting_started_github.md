@@ -6,14 +6,14 @@ GitHub может показаться несколько сложным для 
 
 Откройте [страницу QMK на GitHub] (https://github.com/qmk/qmk_firmware), и в правом верхнем углу вы увидите кнопку с надписью "Fork":
 
-![Fork on GitHub](http://i.imgur.com/8Toomz4.jpg)
+![Fork on GitHub](https://i.imgur.com/8Toomz4.jpg)
 
 Если вы состоите в какой-либо организации, вам нужно выбрать учетную запись, к которой будет привязан форк. В большинстве случаев это будет личной аккаунт. Как только ваш форк будет завершен (иногда это занимает немного времени), нажмите кнопку "Clone or Download":
-![Download from GitHub](http://i.imgur.com/N1NYcSz.jpg)
+![Download from GitHub](https://i.imgur.com/N1NYcSz.jpg)
 
 И обязательно выберите "HTTPS", затем выделите ссылку и скопируйте ее:
 
-![HTTPS link](http://i.imgur.com/eGO0ohO.jpg)
+![HTTPS link](https://i.imgur.com/eGO0ohO.jpg)
 
 Теперь введите `git clone --recurse-submodules ` в командную строку, а затем вставьте ссылку:
 
@@ -31,7 +31,6 @@ Submodule path 'lib/chibios': checked out '587968d6cbc2b0e1c7147540872f2a67e59ca
 Submodule path 'lib/chibios-contrib': checked out 'ede48346eee4b8d6847c19bc01420bee76a5e486'
 Submodule path 'lib/googletest': checked out 'ec44c6c1675c25b9827aacd08c02433cccde7780'
 Submodule path 'lib/lufa': checked out 'ce10f7642b0459e409839b23cc91498945119b4d'
-Submodule path 'lib/ugfx': checked out '3e97b74e03c93631cdd3ddb2ce43b963fdce19b2'
 ```
 
 Теперь у вас есть форк QMK на вашем локальном компьютере, и вы можете добавить свою раскладку, скомпилировать ее и прошить ей свою клавиатуру. Как только вы будете довольны своими изменениями, есть возможность добавить, зафиксировать их и сделать коммит в свой форк следующим образом:
@@ -55,10 +54,10 @@ To https://github.com/whoeveryouare/qmk_firmware.git
 
 Ваши изменения теперь существуют в вашем форке на GitHub - если вернуться туда (`https://github.com/<whoeveryouare>/qmk_firmware`), вы сможете создать "New Pull Request" нажатием на кнопку:
 
-![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
+![New Pull Request](https://i.imgur.com/DxMHpJ8.jpg)
 
 Здесь вы сможете увидеть, какие именно изменения были внесены, - если все выглядит хорошо, вы можете завершить его, нажав "Create Pull Request":
 
-![Create Pull Request](http://i.imgur.com/Ojydlaj.jpg)
+![Create Pull Request](https://i.imgur.com/Ojydlaj.jpg)
 
 После отправки мы можем расспросить вас о ваших изменениях, попросить внести корректировки и в конечном итоге принять их! Спасибо за ваш вклад в QMK :)

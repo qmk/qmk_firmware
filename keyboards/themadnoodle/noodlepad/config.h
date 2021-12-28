@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    The Mad Noodle
 #define PRODUCT         Noodle Pad v1
-#define DESCRIPTION     Noodle Pad macro keypad
 
 /* key matrix size */
 #define MATRIX_ROWS 3

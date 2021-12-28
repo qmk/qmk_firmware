@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
-#include <serial_config.h>
+#include "serial_config.h"
 
 /* USB Device descriptor parameter
    VID & PID are lisenced from microchip sublisence program, Don't use other project! */
@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Dm9Records
 #define PRODUCT         ergoinu
-#define DESCRIPTION     An (Not Portable But Small) Ergonomic split keyboard
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100

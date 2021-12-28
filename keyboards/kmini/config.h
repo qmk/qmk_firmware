@@ -1,4 +1,4 @@
-/* Copyright 2018 Maarten Dekkers <maartenwut@gmail.com>
+/* Copyright 2018 Evy Dekkers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef CONFIG_H
-#define CONFIG_H
+
+#pragma once
 
 #include "config_common.h"
 
@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0104
 #define MANUFACTURER    Revo
 #define PRODUCT         KMAC Kmini
-#define DESCRIPTION     QMK keyboard firmware for Revo KMAC Mini
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -49,5 +48,3 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-#endif

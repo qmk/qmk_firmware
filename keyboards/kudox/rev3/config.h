@@ -19,12 +19,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0xABBA
 #define PRODUCT_ID      0x9690
 #define DEVICE_VER      0x0300
 #define MANUFACTURER    Kumao Kobo
 #define PRODUCT         The Kudox Keyboard
-#define DESCRIPTION     Split row staggered 5x7 custom keyboard
 
 /* key matrix size */
 // Rows are doubled-up

@@ -1,65 +1,28 @@
-"""Format C code according to QMK's style.
+"""Point people to the new command name.
 """
-import subprocess
-from shutil import which
+import sys
+from pathlib import Path
 
 from milc import cli
 
-from qmk.path import normpath
-from qmk.c_parse import c_source_files
 
-
-def cformat_run(files, all_files):
-    """Spawn clang-format subprocess with proper arguments
-    """
-    # Determine which version of clang-format to use
-    clang_format = ['clang-format', '-i']
-    for clang_version in [10, 9, 8, 7]:
-        binary = 'clang-format-%d' % clang_version
-        if which(binary):
-            clang_format[0] = binary
-            break
-    try:
-        if not files:
-            cli.log.warn('No changes detected. Use "qmk cformat -a" to format all files')
-            return False
-        if files and all_files:
-            cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(files))
-        subprocess.run(clang_format + [file for file in files], check=True)
-        cli.log.info('Successfully formatted the C code.')
-
-    except subprocess.CalledProcessError:
-        cli.log.error('Error formatting C code!')
-        return False
-
-
-@cli.argument('-a', '--all-files', arg_only=True, action='store_true', help='Format all core files.')
+@cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Flag only, don't automatically format.")
 @cli.argument('-b', '--base-branch', default='origin/master', help='Branch to compare to diffs to.')
+@cli.argument('-a', '--all-files', arg_only=True, action='store_true', help='Format all core files.')
+@cli.argument('--core-only', arg_only=True, action='store_true', help='Format core files only.')
 @cli.argument('files', nargs='*', arg_only=True, help='Filename(s) to format.')
-@cli.subcommand("Format C code according to QMK's style.", hidden=False if cli.config.user.developer else True)
+@cli.subcommand('Pointer to the new command name: qmk format-c.', hidden=True)
 def cformat(cli):
-    """Format C code according to QMK's style.
+    """Pointer to the new command name: qmk format-c.
     """
-    # Empty array for files
-    files = []
-    # Core directories for formatting
-    core_dirs = ['drivers', 'quantum', 'tests', 'tmk_core']
-    ignores = ['tmk_core/protocol/usb_hid', 'quantum/template']
-    # Find the list of files to format
-    if cli.args.files:
-        files.extend(normpath(file) for file in cli.args.files)
-    # If -a is specified
-    elif cli.args.all_files:
-        all_files = c_source_files(core_dirs)
-        # The following statement checks each file to see if the file path is in the ignored directories.
-        files.extend(file for file in all_files if not any(i in str(file) for i in ignores))
-    # No files specified & no -a flag
-    else:
-        base_args = ['git', 'diff', '--name-only', cli.args.base_branch]
-        out = subprocess.run(base_args + core_dirs, check=True, stdout=subprocess.PIPE)
-        changed_files = filter(None, out.stdout.decode('UTF-8').split('\n'))
-        filtered_files = [normpath(file) for file in changed_files if not any(i in file for i in ignores)]
-        files.extend(file for file in filtered_files if file.exists() and file.suffix in ['.c', '.h', '.cpp'])
+    cli.log.warning('"qmk cformat" has been renamed to "qmk format-c". Please use the new command in the future.')
+    argv = [sys.executable, *sys.argv]
+    argv[argv.index('cformat')] = 'format-c'
+    script_path = Path(argv[1])
+    script_path_exe = Path(f'{argv[1]}.exe')
 
-    # Run clang-format on the files we've found
-    cformat_run(files, cli.args.all_files)
+    if not script_path.exists() and script_path_exe.exists():
+        # For reasons I don't understand ".exe" is stripped from the script name on windows.
+        argv[1] = str(script_path_exe)
+
+    return cli.run(argv, capture_output=False).returncode

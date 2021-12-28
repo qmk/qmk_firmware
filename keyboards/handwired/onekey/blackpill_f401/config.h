@@ -18,13 +18,15 @@
 
 #include "config_common.h"
 
+#define PRODUCT Onekey Blackpill STM32F401
+
 #define MATRIX_COL_PINS { B0 }
 #define MATRIX_ROW_PINS { A7 }
 #define UNUSED_PINS
 
-#define BACKLIGHT_PIN           A0
-#define BACKLIGHT_PWM_DRIVER    PWMD2
-#define BACKLIGHT_PWM_CHANNEL   1
+#define BACKLIGHT_PIN         A0
+#define BACKLIGHT_PWM_DRIVER  PWMD5
+#define BACKLIGHT_PWM_CHANNEL 1
 
 #define RGB_DI_PIN A1
 

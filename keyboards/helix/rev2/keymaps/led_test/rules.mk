@@ -5,7 +5,7 @@
 #   See TOP/keyboards/helix/rules.mk for a list of options that can be set.
 #   See TOP/docs/config_options.md for more information.
 #
-LINK_TIME_OPTIMIZATION_ENABLE = no  # if firmware size over limit, try this option
+LTO_ENABLE = no  # if firmware size over limit, try this option
 
 # Helix Spacific Build Options
 # you can uncomment and edit follows 7 Variables
@@ -14,12 +14,12 @@ LINK_TIME_OPTIMIZATION_ENABLE = no  # if firmware size over limit, try this opti
 OLED_ENABLE = yes            # OLED_ENABLE
 # LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
 LED_BACK_ENABLE = yes        # LED backlight (Enable WS2812 RGB underlight.)
-# LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
-LED_ANIMATIONS = yes        # LED animations
+LED_UNDERGLOW_ENABLE = no    # LED underglow (Enable WS2812 RGB underlight.)
+LED_ANIMATIONS = yes         # LED animations
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 
+OLED_SELECT = core
+ifeq ($(strip $(OLED_ENABLE)), yes)
+    SRC += oled_display.c
+endif
 SRC += led_test_init.c
-
-# convert Helix-specific options (that represent combinations of standard options)
-#   into QMK standard options.
-include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))
