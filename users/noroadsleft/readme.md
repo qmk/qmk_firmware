@@ -9,7 +9,7 @@ This directory holds the code that's the same for every keyboard I use in QMK, w
 
 ## Macro Features and Custom Keycodes
 
-### [VRSN](./noroadsleft.c#L33-L37)
+### [VRSN](./noroadsleft.c#L44-L48)
 
 Outputs a string that tells me the Git commit from which my flashed firmware was built. Looks something like:
 
@@ -29,7 +29,7 @@ Some frequently used Git commands.
 
 ### "Macro Mode" Macros and Customized Keycodes
 
-Some of my macros and keycodes do different things depending on the value of the [`macroMode` variable](./noroadsleft.c#L23), which is [toggled between `0` and `1`](./noroadsleft.c#L116-L120) by the `M_MDSWP` custom keycode.[<sup>1</sup>](#footnotes) This is mainly at attempt to make various shortcuts use the same physical key combinations between Windows/Linux and MacOS (which I use at home and work, respectively).
+Some of my macros and keycodes do different things depending on the value of the [`macroMode` variable](./noroadsleft.c#L23), which is [toggled between `0` and `1`](./noroadsleft.c#L127-L131) by the `M_MDSWP` custom keycode.[<sup>1</sup>](#footnotes) This is mainly at attempt to make various shortcuts use the same physical key combinations between Windows/Linux and MacOS (which I use at home and work, respectively).
 
 | Keycode                                | `macroMode == 0` | `macroMode == 1` | `macroMode == 1` with <kbd>Shift</kbd> |
 | :------------------------------------- | :--------------- | :--------------- | :------------------------------------- |
