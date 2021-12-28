@@ -148,7 +148,7 @@ led_config_t g_led_config = {
 // };
 #endif
 
-void my_process_midi4Base(uint8_t channel, keyrecord_t *record,
+void my_process_midi4Bass(uint8_t channel, keyrecord_t *record,
                           uint8_t *chord_status, uint8_t chord, uint16_t root_note, bool is_single_bass) {
     uint8_t velocity = midi_config.velocity;
     if (record->event.pressed) {

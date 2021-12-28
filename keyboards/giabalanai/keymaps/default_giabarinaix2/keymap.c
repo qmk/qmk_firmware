@@ -25,7 +25,7 @@
 
 // Used to set octave to MI_OCT_0
 extern midi_config_t midi_config;
-uint8_t midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
+uint8_t midi_bass_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -214,7 +214,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
             root_note = keycode - MI_CH_Cr + MI_C_1;
-            my_process_midi4Base(midi_base_ch, record, chord_status, chord, root_note, false);
+            my_process_midi4Bass(midi_bass_ch, record, chord_status, chord, root_note, false);
             break;
 
         case MI_CH_C ... MI_CH_B:  // Major Chords

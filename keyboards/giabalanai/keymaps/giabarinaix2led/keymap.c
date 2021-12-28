@@ -25,7 +25,7 @@
 
 // Used to set octave to MI_OCT_0
 extern midi_config_t midi_config;
-uint8_t midi_base_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
+uint8_t midi_bass_ch = 0, midi_chord_ch = 0;  // By default, all use the same channel.
 
 #ifdef RGBLIGHT_ENABLE
 /* used to specify there is no LED on the keylocation. */
@@ -148,7 +148,7 @@ enum custom_keycodes {
     MY_CHORD_MAX = MI_CH_BDim7,
 
     CSYSTEM,  // C-SYSTEM layout
-    CNTBASC,  // CouNTer BASe C-system layout
+    CNTBASC,  // CouNTer BASs C-system layout
     CSYSALL,  // C-SYStem ALL layout
     CHRTONE,  // CHRomaTONE layout
     TGLMICH   // ToGgLe MIdi CHannel separation
@@ -308,15 +308,15 @@ void keyboard_post_init_user(void) {
 void toggle_MIDI_channel_separation(void) {
     if (midi_chord_ch > 0) {
         midi_chord_ch = 0;
-        midi_base_ch  = 0;
+        midi_bass_ch  = 0;
     } else {
         midi_chord_ch = 1;
-        midi_base_ch  = 2;
+        midi_bass_ch  = 2;
     }
 }
 
 #ifdef RGBLIGHT_ENABLE
-void switch_keylight_color4base(keyrecord_t *record, uint8_t keylocation){
+void switch_keylight_color4bass(keyrecord_t *record, uint8_t keylocation){
     switch (biton32(default_layer_state)) {
         case _C_SYSTEM_BASE:
             keylight_manager(record, HSV_GREEN, keylocation);
@@ -386,9 +386,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // MIDI Chord Keycodes, on the left side.
         case MI_CH_Cr ... MI_CH_Br:  // Root Notes
             root_note = keycode - MI_CH_Cr + MI_C_1;
-            my_process_midi4Base(midi_base_ch, record, chord_status, chord, root_note, false);
+            my_process_midi4Bass(midi_bass_ch, record, chord_status, chord, root_note, false);
 #ifdef RGBLIGHT_ENABLE
-            switch_keylight_color4base(record, keylocation);
+            switch_keylight_color4bass(record, keylocation);
 #endif
             break;
         case MI_CH_C ... MI_CH_B:  // Major Chords
