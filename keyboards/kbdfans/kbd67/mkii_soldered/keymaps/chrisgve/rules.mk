@@ -2,6 +2,11 @@ LTO_ENABLE = yes
 NKRO_ENABLE = yes
 
 RGBLIGHT_ENABLE = no
-BACKLIGHT_ENABLE = no
+BACKLIGHT_ENABLE = yes 
 
-src += chrisgve.c
+SRC += chrisgve.c
+
+APPLE_FN_ENABLE = yes
+
+MOUSEKEY_ENABLE = yes
+TAP_DANCE_ENABLE = yes
