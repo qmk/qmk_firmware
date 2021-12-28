@@ -181,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
   [2] = LAYOUT_all(
-      A(KC_F4), LSG(KC_S), KC_MYCM, RCA(KC_DEL), MY_CALC, TD(QUAD_LAYER_SWITCH)
+      A(KC_F4), SGUI(KC_S), KC_MYCM, LCA(KC_DEL), KC_CALC, TD(QUAD_LAYER_SWITCH)
       ),
   
   [3] = LAYOUT_all(
@@ -207,9 +207,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     else if(curr_layer == 1) {
         if (clockwise) {
-            tap_code(C(KC_WH_U));
+            tap_code16(C(KC_WH_U));
         } else {
-            tap_code(C(KC_WH_D));
+            tap_code16(C(KC_WH_D));
         }
     }
     else {
