@@ -2,8 +2,6 @@
     "keyboard_name": "Z70Ultra",
     "url": "",
     "maintainer": "melgeek001365",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

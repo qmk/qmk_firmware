@@ -2,11 +2,8 @@
     "keyboard_name": "KBD19x",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/kbdfans/kbd19x",
     "maintainer": "qmk",
-    "width": 19.5,
-    "height": 6.75,
     "layouts": {
         "LAYOUT_ansi": {
-            "key_count": 99,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
@@ -110,7 +107,6 @@
             ]
         },
         "LAYOUT_all": {
-            "key_count": 103,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},

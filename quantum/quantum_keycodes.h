@@ -19,7 +19,7 @@
 #include "sequencer.h"
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
+#define _______ KC_TRANSPARENT
 #define XXXXXXX KC_NO
 
 enum quantum_keycodes {
@@ -66,6 +66,8 @@ enum quantum_keycodes {
     QK_STENO                = 0x5A00,
     QK_STENO_BOLT           = 0x5A30,
     QK_STENO_GEMINI         = 0x5A31,
+    QK_STENO_COMB           = 0x5A32,
+    QK_STENO_COMB_MAX       = 0x5A3C,
     QK_STENO_MAX            = 0x5A3F,
     // 0x5C00 - 0x5FFF are reserved, see below
     QK_MOD_TAP             = 0x6000,
@@ -514,6 +516,87 @@ enum quantum_keycodes {
     // RGB underglow/matrix (continued)
     RGB_MODE_TWINKLE,
 
+    // Key Overrides
+    KEY_OVERRIDE_TOGGLE,
+    KEY_OVERRIDE_ON,
+    KEY_OVERRIDE_OFF,
+
+    // Additional magic key
+    MAGIC_TOGGLE_GUI,
+
+    // Adjust tapping term on the fly
+    DT_PRNT,
+    DT_UP,
+    DT_DOWN,
+
+    // Programmable Button
+    PROGRAMMABLE_BUTTON_1,
+    PROGRAMMABLE_BUTTON_2,
+    PROGRAMMABLE_BUTTON_3,
+    PROGRAMMABLE_BUTTON_4,
+    PROGRAMMABLE_BUTTON_5,
+    PROGRAMMABLE_BUTTON_6,
+    PROGRAMMABLE_BUTTON_7,
+    PROGRAMMABLE_BUTTON_8,
+    PROGRAMMABLE_BUTTON_9,
+    PROGRAMMABLE_BUTTON_10,
+    PROGRAMMABLE_BUTTON_11,
+    PROGRAMMABLE_BUTTON_12,
+    PROGRAMMABLE_BUTTON_13,
+    PROGRAMMABLE_BUTTON_14,
+    PROGRAMMABLE_BUTTON_15,
+    PROGRAMMABLE_BUTTON_16,
+    PROGRAMMABLE_BUTTON_17,
+    PROGRAMMABLE_BUTTON_18,
+    PROGRAMMABLE_BUTTON_19,
+    PROGRAMMABLE_BUTTON_20,
+    PROGRAMMABLE_BUTTON_21,
+    PROGRAMMABLE_BUTTON_22,
+    PROGRAMMABLE_BUTTON_23,
+    PROGRAMMABLE_BUTTON_24,
+    PROGRAMMABLE_BUTTON_25,
+    PROGRAMMABLE_BUTTON_26,
+    PROGRAMMABLE_BUTTON_27,
+    PROGRAMMABLE_BUTTON_28,
+    PROGRAMMABLE_BUTTON_29,
+    PROGRAMMABLE_BUTTON_30,
+    PROGRAMMABLE_BUTTON_31,
+    PROGRAMMABLE_BUTTON_32,
+
+    // Dedicated macro keys for Configurator and VIA
+    MACRO_0,
+    MACRO_1,
+    MACRO_2,
+    MACRO_3,
+    MACRO_4,
+    MACRO_5,
+    MACRO_6,
+    MACRO_7,
+    MACRO_8,
+    MACRO_9,
+    MACRO_10,
+    MACRO_11,
+    MACRO_12,
+    MACRO_13,
+    MACRO_14,
+    MACRO_15,
+    MACRO_16,
+    MACRO_17,
+    MACRO_18,
+    MACRO_19,
+    MACRO_20,
+    MACRO_21,
+    MACRO_22,
+    MACRO_23,
+    MACRO_24,
+    MACRO_25,
+    MACRO_26,
+    MACRO_27,
+    MACRO_28,
+    MACRO_29,
+    MACRO_30,
+    MACRO_31,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -538,9 +621,13 @@ enum quantum_keycodes {
 #define HYPR(kc) (QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | (kc))
 #define MEH(kc) (QK_LCTL | QK_LSFT | QK_LALT | (kc))
 #define LCAG(kc) (QK_LCTL | QK_LALT | QK_LGUI | (kc))
-#define SGUI(kc) (QK_LGUI | QK_LSFT | (kc))
-#define SCMD(kc) SGUI(kc)
-#define SWIN(kc) SGUI(kc)
+#define LSG(kc) (QK_LSFT | QK_LGUI | (kc))
+#define SGUI(kc) LSG(kc)
+#define SCMD(kc) LSG(kc)
+#define SWIN(kc) LSG(kc)
+#define LAG(kc) (QK_LALT | QK_LGUI | (kc))
+#define RSG(kc) (QK_RSFT | QK_RGUI | (kc))
+#define RAG(kc) (QK_RALT | QK_RGUI | (kc))
 #define LCA(kc) (QK_LCTL | QK_LALT | (kc))
 #define LSA(kc) (QK_LSFT | QK_LALT | (kc))
 #define RSA(kc) (QK_RSFT | QK_RALT | (kc))
@@ -551,69 +638,67 @@ enum quantum_keycodes {
 #define MOD_MEH 0x7
 
 // US ANSI shifted keycode aliases
-#define KC_TILD LSFT(KC_GRV)  // ~
-#define KC_TILDE KC_TILD
+#define KC_TILDE LSFT(KC_GRAVE)  // ~
+#define KC_TILD KC_TILDE
 
-#define KC_EXLM LSFT(KC_1)  // !
-#define KC_EXCLAIM KC_EXLM
+#define KC_EXCLAIM LSFT(KC_1)  // !
+#define KC_EXLM KC_EXCLAIM
 
 #define KC_AT LSFT(KC_2)  // @
 
 #define KC_HASH LSFT(KC_3)  // #
 
-#define KC_DLR LSFT(KC_4)  // $
-#define KC_DOLLAR KC_DLR
+#define KC_DOLLAR LSFT(KC_4)  // $
+#define KC_DLR KC_DOLLAR
 
-#define KC_PERC LSFT(KC_5)  // %
-#define KC_PERCENT KC_PERC
+#define KC_PERCENT LSFT(KC_5)  // %
+#define KC_PERC KC_PERCENT
 
-#define KC_CIRC LSFT(KC_6)  // ^
-#define KC_CIRCUMFLEX KC_CIRC
+#define KC_CIRCUMFLEX LSFT(KC_6)  // ^
+#define KC_CIRC KC_CIRCUMFLEX
 
-#define KC_AMPR LSFT(KC_7)  // &
-#define KC_AMPERSAND KC_AMPR
+#define KC_AMPERSAND LSFT(KC_7)  // &
+#define KC_AMPR KC_AMPERSAND
 
-#define KC_ASTR LSFT(KC_8)  // *
-#define KC_ASTERISK KC_ASTR
+#define KC_ASTERISK LSFT(KC_8)  // *
+#define KC_ASTR KC_ASTERISK
 
-#define KC_LPRN LSFT(KC_9)  // (
-#define KC_LEFT_PAREN KC_LPRN
+#define KC_LEFT_PAREN LSFT(KC_9)  // (
+#define KC_LPRN KC_LEFT_PAREN
 
-#define KC_RPRN LSFT(KC_0)  // )
-#define KC_RIGHT_PAREN KC_RPRN
+#define KC_RIGHT_PAREN LSFT(KC_0)  // )
+#define KC_RPRN KC_RIGHT_PAREN
 
-#define KC_UNDS LSFT(KC_MINS)  // _
-#define KC_UNDERSCORE KC_UNDS
+#define KC_UNDERSCORE LSFT(KC_MINUS)  // _
+#define KC_UNDS KC_UNDERSCORE
 
-#define KC_PLUS LSFT(KC_EQL)  // +
+#define KC_PLUS LSFT(KC_EQUAL)  // +
 
-#define KC_LCBR LSFT(KC_LBRC)  // {
-#define KC_LEFT_CURLY_BRACE KC_LCBR
+#define KC_LEFT_CURLY_BRACE LSFT(KC_LEFT_BRACKET)  // {
+#define KC_LCBR KC_LEFT_CURLY_BRACE
 
-#define KC_RCBR LSFT(KC_RBRC)  // }
-#define KC_RIGHT_CURLY_BRACE KC_RCBR
+#define KC_RIGHT_CURLY_BRACE LSFT(KC_RIGHT_BRACKET)  // }
+#define KC_RCBR KC_RIGHT_CURLY_BRACE
 
-#define KC_LABK LSFT(KC_COMM)  // <
-#define KC_LEFT_ANGLE_BRACKET KC_LABK
+#define KC_LEFT_ANGLE_BRACKET LSFT(KC_COMMA)  // <
+#define KC_LABK KC_LEFT_ANGLE_BRACKET
+#define KC_LT KC_LEFT_ANGLE_BRACKET
 
-#define KC_RABK LSFT(KC_DOT)  // >
-#define KC_RIGHT_ANGLE_BRACKET KC_RABK
+#define KC_RIGHT_ANGLE_BRACKET LSFT(KC_DOT)  // >
+#define KC_RABK KC_RIGHT_ANGLE_BRACKET
+#define KC_GT KC_RIGHT_ANGLE_BRACKET
 
-#define KC_COLN LSFT(KC_SCLN)  // :
-#define KC_COLON KC_COLN
+#define KC_COLON LSFT(KC_SEMICOLON)  // :
+#define KC_COLN KC_COLON
 
-#define KC_PIPE LSFT(KC_BSLS)  // |
+#define KC_PIPE LSFT(KC_BACKSLASH)  // |
 
-#define KC_LT LSFT(KC_COMM)  // <
+#define KC_QUESTION LSFT(KC_SLASH)  // ?
+#define KC_QUES KC_QUESTION
 
-#define KC_GT LSFT(KC_DOT)  // >
-
-#define KC_QUES LSFT(KC_SLSH)  // ?
-#define KC_QUESTION KC_QUES
-
-#define KC_DQT LSFT(KC_QUOT)  // "
-#define KC_DOUBLE_QUOTE KC_DQT
-#define KC_DQUO KC_DQT
+#define KC_DOUBLE_QUOTE LSFT(KC_QUOTE)  // "
+#define KC_DQUO KC_DOUBLE_QUOTE
+#define KC_DQT KC_DOUBLE_QUOTE
 
 #define KC_DELT KC_DELETE  // Del key (four letter code)
 
@@ -683,6 +768,7 @@ enum quantum_keycodes {
 
 #define GUI_OFF MAGIC_NO_GUI
 #define GUI_ON MAGIC_UNNO_GUI
+#define GUI_TOG MAGIC_TOGGLE_GUI
 
 #define GE_SWAP MAGIC_SWAP_GRAVE_ESC
 #define GE_NORM MAGIC_UNSWAP_GRAVE_ESC
@@ -760,14 +846,18 @@ enum quantum_keycodes {
 #define CMD_T(kc) LCMD_T(kc)
 #define WIN_T(kc) LWIN_T(kc)
 
-#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)  // Left Control + Shift e.g. for gnome-terminal
-#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)  // Meh is a less hyper version of the Hyper key -- doesn't include GUI, so just Left Control + Shift + Alt
-#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)  // Left Control + Alt + GUI
-#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)  // Right Control + Alt + GUI
+#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)                         // Left Control + Shift e.g. for gnome-terminal
+#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)              // Meh is a less hyper version of the Hyper key -- doesn't include GUI, so just Left Control + Shift + Alt
+#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)             // Left Control + Alt + GUI
+#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)             // Right Control + Alt + GUI
 #define HYPR_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc)  // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
-#define SGUI_T(kc) MT(MOD_LGUI | MOD_LSFT, kc)  // Left Shift + GUI
-#define SCMD_T(kc) SGUI_T(kc)
-#define SWIN_T(kc) SGUI_T(kc)
+#define LSG_T(kc) MT(MOD_LSFT | MOD_LGUI, kc)                         // Left Shift + GUI
+#define SGUI_T(kc) LSG_T(kc)
+#define SCMD_T(kc) LSG_T(kc)
+#define SWIN_T(kc) LSG_T(kc)
+#define LAG_T(kc) MT(MOD_LALT | MOD_LGUI, kc)  // Left Alt + GUI
+#define RSG_T(kc) MT(MOD_RSFT | MOD_RGUI, kc)  // Right Shift + GUI
+#define RAG_T(kc) MT(MOD_RALT | MOD_RGUI, kc)  // Right Alt + GUI
 #define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc)  // Left Control + Alt
 #define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)  // Left Shift + Alt
 #define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)  // Right Shift + Alt
@@ -792,7 +882,7 @@ enum quantum_keycodes {
 
 #define UC_M_MA UNICODE_MODE_MAC
 #define UNICODE_MODE_OSX UNICODE_MODE_MAC  // Deprecated alias
-#define UC_M_OS UNICODE_MODE_MAC  // Deprecated alias
+#define UC_M_OS UNICODE_MODE_MAC           // Deprecated alias
 #define UC_M_LN UNICODE_MODE_LNX
 #define UC_M_WI UNICODE_MODE_WIN
 #define UC_M_BS UNICODE_MODE_BSD
@@ -835,3 +925,39 @@ enum quantum_keycodes {
 #define OS_TOGG ONESHOT_TOGGLE
 #define OS_ON ONESHOT_ENABLE
 #define OS_OFF ONESHOT_DISABLE
+
+// Programmable Button aliases
+#define PB_1 PROGRAMMABLE_BUTTON_1
+#define PB_2 PROGRAMMABLE_BUTTON_2
+#define PB_3 PROGRAMMABLE_BUTTON_3
+#define PB_4 PROGRAMMABLE_BUTTON_4
+#define PB_5 PROGRAMMABLE_BUTTON_5
+#define PB_6 PROGRAMMABLE_BUTTON_6
+#define PB_7 PROGRAMMABLE_BUTTON_7
+#define PB_8 PROGRAMMABLE_BUTTON_8
+#define PB_9 PROGRAMMABLE_BUTTON_9
+#define PB_10 PROGRAMMABLE_BUTTON_10
+#define PB_11 PROGRAMMABLE_BUTTON_11
+#define PB_12 PROGRAMMABLE_BUTTON_12
+#define PB_13 PROGRAMMABLE_BUTTON_13
+#define PB_14 PROGRAMMABLE_BUTTON_14
+#define PB_15 PROGRAMMABLE_BUTTON_15
+#define PB_16 PROGRAMMABLE_BUTTON_16
+#define PB_17 PROGRAMMABLE_BUTTON_17
+#define PB_18 PROGRAMMABLE_BUTTON_18
+#define PB_19 PROGRAMMABLE_BUTTON_19
+#define PB_20 PROGRAMMABLE_BUTTON_20
+#define PB_21 PROGRAMMABLE_BUTTON_21
+#define PB_22 PROGRAMMABLE_BUTTON_22
+#define PB_23 PROGRAMMABLE_BUTTON_23
+#define PB_24 PROGRAMMABLE_BUTTON_24
+#define PB_25 PROGRAMMABLE_BUTTON_25
+#define PB_26 PROGRAMMABLE_BUTTON_26
+#define PB_27 PROGRAMMABLE_BUTTON_27
+#define PB_28 PROGRAMMABLE_BUTTON_28
+#define PB_29 PROGRAMMABLE_BUTTON_29
+#define PB_30 PROGRAMMABLE_BUTTON_30
+#define PB_31 PROGRAMMABLE_BUTTON_31
+#define PB_32 PROGRAMMABLE_BUTTON_32
+#define PROGRAMMABLE_BUTTON_MIN PROGRAMMABLE_BUTTON_1
+#define PROGRAMMABLE_BUTTON_MAX PROGRAMMABLE_BUTTON_32

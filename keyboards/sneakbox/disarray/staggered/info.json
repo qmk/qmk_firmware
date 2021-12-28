@@ -2,8 +2,6 @@
   "keyboard_name": "Disarray (Staggered)",
   "url": "https://sneakbox.design",
   "maintainer": "mujimanic",
-  "width": 16,
-  "height": 6,
   "layouts": {
       "LAYOUT": {
           "layout": [

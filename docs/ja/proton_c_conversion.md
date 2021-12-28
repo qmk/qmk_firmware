@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.9.46:docs/proton_c_conversion.md
-  git diff 0.9.46 HEAD -- docs/proton_c_conversion.md | cat
+  original document: 0.13.17:docs/proton_c_conversion.md
+  git diff 0.13.17 HEAD -- docs/proton_c_conversion.md | cat
 -->
 
 Proton C は Pro Micro の差し替え可能品であるため、簡単に使用することができます。

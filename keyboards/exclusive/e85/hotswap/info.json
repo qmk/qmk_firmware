@@ -2,8 +2,6 @@
     "keyboard_name": "Exclusive E8.5 TKL",
     "url": "",
     "maintainer": "qmk",
-    "width": 18.25,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_ansi_standard": {
             "layout": [

@@ -2,11 +2,8 @@
   "keyboard_name": "Plaid // Through Hole",
   "url": "https://github.com/hsgw/plaid",
   "maintainer": "hsgw(Takuya Urakawa)",
-  "width": 12,
-  "height": 4,
   "layouts": {
     "LAYOUT_plaid_mit": {
-      "key_count": 47,
       "layout": [
         { "w": 1, "x": 0, "y": 0 },
         { "w": 1, "x": 1, "y": 0 },
@@ -57,7 +54,6 @@
         { "w": 1, "x": 11, "y": 3 } ]
     },
     "LAYOUT_plaid_grid": {
-      "key_count": 48,
       "layout": [
         { "w": 1, "x": 0, "y": 0 },
         { "w": 1, "x": 1, "y": 0 },

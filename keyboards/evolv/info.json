@@ -2,8 +2,6 @@
     "keyboard_name": "Evolv75", 
     "url": "", 
     "maintainer": "qmk", 
-    "width": 17.5, 
-    "height": 6.75, 
     "layouts": {
         "LAYOUT_evolv_ansi": {
             "layout": [
