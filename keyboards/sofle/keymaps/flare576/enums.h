@@ -1,4 +1,4 @@
-/* Copyright 2021 3araht
+/* Copyright 2021 Flare576 <flare576@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- #pragma once
+#pragma once
+enum _layers {
+    /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
+    _BASE,
+    _MOUS,
+    _SYMS,
+    _FF14,
+    _ESDF,
+};
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+enum custom_keycodes {
+    _COMP1  = SAFE_RANGE,
+    _COMP2,
+};
+
+enum custom_tapdance {
+    TD_PLAY,
+    TD_HOME,
+};

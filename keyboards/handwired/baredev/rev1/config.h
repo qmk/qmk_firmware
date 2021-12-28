@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Álvaro "Gondolindrim" Volpato  <gondolindrim@acheronproject.com>
+Copyright 2021 Fernando "ManoShu" Rodrigues
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,19 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "iron180.h"
+#pragma once
 
-#ifdef CAPSLOCK_BACKLIGHT
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (!led_state.caps_lock){
-        if (is_backlight_breathing()) breathing_disable();
-        backlight_disable();
-    }
-    else {
-	if (is_backlight_breathing()) breathing_enable();
-        backlight_enable();
-    }
-    return res;
-}
-#endif
+#include "config_common.h"
+
+/* disable these deprecated features by default */
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
