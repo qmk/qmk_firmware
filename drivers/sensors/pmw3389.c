@@ -143,6 +143,7 @@ void pmw3389_set_cpi(uint16_t cpi) {
     uint16_t cpival = constrain((cpi / 50) - 1, 0, MAX_CPI);
 
     spi_start_adv();
+    // Set upper byte first for more consistent setting of cpi
     spi_write_adv(REG_Resolution_H, (cpival >> 8) & 0xFF);
     spi_write_adv(REG_Resolution_L, cpival & 0xFF);
     spi_stop();
