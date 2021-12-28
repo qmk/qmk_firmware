@@ -147,6 +147,19 @@ bool oled_task_user(void) {
 #endif
 ```
 
+If you want your display to have a default logo that timeouts quickly; however, when in CAPS or on a toggled-on layer, you want the display to stay on for a much longer period of time (so you don't forget you're in it, or perhaps it's a layer that enabled, but used less frequently), you can customize the timeout based on your keyboard state.
+
+```c
+uint32_t oled_timeout_user(void) {
+    led_t led_usb_state = host_keyboard_led_state();
+
+    if (get_highest_layer(layer_state) == _MY_LOW_USE_LAYER || led_usb_state.caps_lock) {
+        return (uint32_t)1000 * 60 * 10; // 10 minutes
+    }
+    return (uint32_t)1000 * 30; // 30 seconds
+}
+```
+
 ## Basic Configuration
 
 These configuration options should be placed in `config.h`. Example:
@@ -163,6 +176,7 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_FONT_WIDTH`          |`6`              |The font width                                                                                                            |
 |`OLED_FONT_HEIGHT`         |`8`              |The font height (untested)                                                                                                |
 |`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.           |
+|`OLED_CUSTOM_TIMEOUT`      |*Not defined*    |Allows for the use of a kb/user level function that provides the timeout for the OLED dynamically. Use in place of `OLED_TIMEOUT`. |
 |`OLED_FADE_OUT`            |*Not defined*    |Enables fade out animation. Use together with `OLED_TIMEOUT`.                                                             |
 |`OLED_FADE_OUT_INTERVAL`   |`0`              |The speed of fade out animation, from 0 to 15. Larger values are slower.                                                  |
 |`OLED_SCROLL_TIMEOUT`      |`0`              |Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                     |
@@ -379,6 +393,11 @@ uint8_t oled_max_chars(void);
 
 // Returns the maximum number of lines that will fit on the OLED
 uint8_t oled_max_lines(void);
+
+// Called to determine the oled timeout, if OLED_CUSTOM_TIMEOUT is defined in config.h
+// Weak function overridable by the user.
+uint32_t oled_timeout_kb(void);
+uint32_t oled_timeout_user(void);
 ```
 
 !> Scrolling and rotation are unsupported on the SH1106.
