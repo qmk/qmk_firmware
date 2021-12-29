@@ -114,10 +114,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
 
     LALT(KC_F4)        ,KC_F6              ,KC_F7              ,KC_F8              ,KC_F9              ,KC_F10             ,KC_F11             ,
-    LALT(KC_UP)        ,LSFT(KC_HOME)      ,LSFT(KC_LEFT)      ,KC_UP              ,LSFT(KC_RIGHT)     ,LSFT(KC_END)       ,KC_F13             ,
-                        KC_HOME            ,KC_LEFT            ,KC_DOWN            ,KC_RIGHT           ,KC_END             ,KC_F12             ,
+    LALT(KC_UP)        ,LSFT(KC_HOME)      ,LSFT(KC_LEFT)      ,LSFT(KC_RIGHT)     ,LSFT(KC_RIGHT)     ,LSFT(KC_END)       ,KC_F13             ,
+                        KC_LEFT            ,KC_DOWN            ,KC_UP              ,KC_RIGHT           ,KC_END             ,KC_F12             ,
     LALT(KC_DOWN)      ,LSFT(KC_INSERT)    ,LCTL(LSFT(KC_J))   ,LSFT(KC_UP)        ,KC_PGUP            ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
-    KC_TRANSPARENT                                             ,LSFT(KC_DOWN)      ,KC_PGDOWN          ,WIN_TO_LEFT        ,WIN_TO_RIGHT     ,
+    CTL_LEFT                                                   ,CTL_RIGHT      ,KC_PGDOWN          ,WIN_TO_LEFT        ,WIN_TO_RIGHT     ,
     KC_TRANSPARENT     ,KC_SYSTEM_SLEEP    ,
     KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,KC_BSPACE          ,KC_TRANSPARENT
