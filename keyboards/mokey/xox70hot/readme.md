@@ -1,10 +1,12 @@
 # xox70hot
 
-*A short description of the keyboard/project*
+Support Atmega32u4 keyboard.
 
-* Keyboard Maintainer: [Mokey](https://github.com/rhmokey)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [rhmokey](https://github.com/rhmokey)
+* Hardware Supported: Atmega32u4
+
+## Bootloader
+* **Physical reset button**: Short press the button on the back of the PCB to enter the Bootloader and flash the firmware
 
 Make example for this keyboard (after setting up your build environment):
 
