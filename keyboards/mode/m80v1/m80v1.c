@@ -11,4 +11,4 @@
   * GNU General Public License for more details. 
   */
 
-#include "eighty.h"
+#include "m80v1.h"
