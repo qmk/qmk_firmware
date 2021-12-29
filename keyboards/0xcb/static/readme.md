@@ -4,7 +4,7 @@ Macro keypad
 
 * Keyboard Maintainer: [Conor Burns](https://github.com/conor-burns)
 * Hardware Supported: https://github.com/0xCB-dev/0xcb-static
-* Hardware Availability: Soon on tindie or order your own parts - the hardware in the repo is Open Source :D
+* Hardware Availability: On CandyKeys or order your own parts - the hardware in the repo is Open Source :D
 * PCB renders :)
 
 ![](https://github.com/0xCB-dev/0xcb-static/blob/main/PCB/rev1.0/top.png)

@@ -7,9 +7,9 @@ MOUSEKEY_ENABLE  = yes  # Mouse keys
 COMBO_ENABLE     = yes
 EXTRAKEY_ENABLE  = yes
 CONSOLE_ENABLE   = no
-NKRO_ENABLE      = yes  # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes           # Enable N-Key Rollover
 COMMAND_ENABLE   = yes
-BOOTMAGIC_ENABLE = lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 
 LAYOUTS = split_3x5_3
 

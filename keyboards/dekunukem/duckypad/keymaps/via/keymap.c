@@ -67,7 +67,7 @@ static void render_logo(void) {
    oled_write_raw_P(ducky_logo, LOGO_SIZE);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   render_logo();
+    return false;
 }
-
