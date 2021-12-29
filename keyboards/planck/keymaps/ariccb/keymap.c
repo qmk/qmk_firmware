@@ -35,8 +35,8 @@
 #define _GAMING 7
 
 #define MICMUTE LCTL(LSFT(KC_M))
-#define DESKTL LGUI(LSFT(KC_RGHT))
-#define DESKTR LGUI(LSFT(KC_LEFT))
+#define DESKTL LGUI(LCTL(KC_RGHT))
+#define DESKTR LGUI(LCTL(KC_LEFT))
 #define MTLSFT_F1 MT(MOD_LSFT, KC_F1)
 #define MTLGUI_Z MT(MOD_LGUI, KC_Z)
 #define MTLALT_F2 MT(MOD_LALT, KC_F2)
@@ -194,9 +194,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------|
  * | TAB |  Q  |  W  |  E  |  R  |  T  |  I  |  4  |  5  |  6  |  -  |  +  |
  * |-----------------------------------------------------------------------|
- * | Shift|  A  |  S  |  D  |  F  |  G  |  K  |  1  |  2  |  3  |  /  |  *  |
+ * | Shift|  A  |  S  |  D  |  F  |  G  |  K  |  1  |  2  |  3  |  /  |  * |
  * |-----------------------------------------------------------------------|
- * |     |     |     |  Ctl | Alt |   SPACE   |  0  |  .  |     |     |     |
+ * |     |     |     |  Ctl | Alt |   SPACE   |  0  |  .  |     |     |    |
  * `-----------------------------------------------------------------------'
  */
 [_GAMING] = LAYOUT_planck_grid( /* GAMING */
