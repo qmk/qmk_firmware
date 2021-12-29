@@ -155,6 +155,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+static void rgb_matrix_increase_flags(void)
+{
+    switch (rgb_matrix_get_flags()) {
+        case LED_FLAG_ALL: {
+            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        case LED_FLAG_UNDERGLOW: {
+            rgb_matrix_set_flags(LED_FLAG_NONE);
+            rgb_matrix_disable_noeeprom();
+            }
+            break;
+        default: {
+            rgb_matrix_set_flags(LED_FLAG_ALL);
+            rgb_matrix_enable_noeeprom();
+            }
+            break;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode)
     {
@@ -176,6 +202,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RGB_RST:
             if (record->event.pressed) {
                 eeconfig_update_rgb_matrix_default();
+            }
+            return false;
+        case RGB_TOG:
+            if (record->event.pressed) {
+                rgb_matrix_increase_flags();
             }
             return false;
         case TCH_TOG:
