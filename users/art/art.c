@@ -108,7 +108,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           del_mods(mod_state);
           add_mods(MOD_LGUI);
           mac_gui_on = true;
-          SEND_STRING(SS_TAP(X_SPACE));
+          send_string(lang_switch_combo);
           return false;
         } else {
           return true;

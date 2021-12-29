@@ -12,7 +12,7 @@ void switch_lang(void) {
   if (is_win) {
     SEND_STRING(SS_LALT(SS_TAP(X_LSFT)));
   } else {
-    SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+    send_string(lang_switch_combo);
     wait_ms(10);
   }
 }
