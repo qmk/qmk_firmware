@@ -16,21 +16,16 @@
 
 #include QMK_KEYBOARD_H
 
-enum layer {
-    LAYER_FIRST,
-    LAYER_SECOND,
-};
-
-#define LY_SECND MO(LAYER_SECOND)
+#include "bcat.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
-    [LAYER_FIRST] = LAYOUT(
-        KC_MUTE,  LY_SECND, BL_BRTG,
+    [LAYER_DEFAULT] = LAYOUT(
+        KC_MUTE,  LY_FN1,   BL_BRTG,
         KC_F4,    KC_F5,    KC_F6,
         KC_F1,    KC_F2,    KC_F3
     ),
-    [LAYER_SECOND] = LAYOUT(
+    [LAYER_FUNCTION_1] = LAYOUT(
         EEP_RST,  _______,  RESET,
         KC_F10,   KC_F11,   KC_F12,
         KC_F7,    KC_F8,    KC_F9

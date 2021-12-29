@@ -16,11 +16,12 @@
 
 #include QMK_KEYBOARD_H
 
-#define LAYERNUM 2
+#define LAYERNUM 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(KC_MUTE, KC_MPLY, KC_MPRV, KC_MNXT, TO(1)),
-    [1] = LAYOUT(KC_TRNS, KC_MSTP, KC_MRWD, KC_MFFD, TO(0))
+    [1] = LAYOUT(KC_TRNS, KC_MSTP, KC_MRWD, KC_MFFD, TO(2)),
+    [2] = LAYOUT(KC_LSFT, RGB_MOD, RGB_HUI, RGB_SAI, TO(0))
 };
 
 int get_icon_start_position(int key_position) {
@@ -44,13 +45,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 oled_write_P(UP_ICON, false);
             } else {
                 tap_code(KC_VOLD);
-
                 oled_set_cursor(get_icon_start_position(7), 2);
                 oled_write_P(PSTR(" "), false);
                 oled_set_cursor(get_icon_start_position(7), 3);
                 oled_write_P(DOWN_ICON, false);
             }
-        } else {
+        } else if (layer_state_is(1)) {
             if (clockwise) {
                 tap_code(KC_BRIU);
                 oled_set_cursor(get_icon_start_position(7), 3);
@@ -59,6 +59,20 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 oled_write_P(UP_ICON, false);
             } else {
                 tap_code(KC_BRID);
+                oled_set_cursor(get_icon_start_position(7), 2);
+                oled_write_P(PSTR(" "), false);
+                oled_set_cursor(get_icon_start_position(7), 3);
+                oled_write_P(DOWN_ICON, false);
+            }
+        } else if (layer_state_is(2)) {
+            if (clockwise) {
+                rgblight_increase_val();
+                oled_set_cursor(get_icon_start_position(7), 3);
+                oled_write_P(PSTR(" "), false);
+                oled_set_cursor(get_icon_start_position(7), 2);
+                oled_write_P(UP_ICON, false);
+            } else {
+                rgblight_decrease_val();
                 oled_set_cursor(get_icon_start_position(7), 2);
                 oled_write_P(PSTR(" "), false);
                 oled_set_cursor(get_icon_start_position(7), 3);
@@ -174,6 +188,33 @@ void draw_brightness_icon(int key_position, int row) {
     oled_write_P(ICON_BRIGHTNESS_1, false);
 }
 
+void draw_mode_icon(int key_position, int row) {
+    static const char PROGMEM ICON_MODE_0[] = {0x94, 0x95, 0};
+    static const char PROGMEM ICON_MODE_1[] = {0xB4, 0xB5, 0};
+    oled_set_cursor(get_icon_start_position(key_position), row);
+    oled_write_P(ICON_MODE_0, false);
+    oled_set_cursor(get_icon_start_position(key_position), row + 1);
+    oled_write_P(ICON_MODE_1, false);
+}
+
+void draw_hue_icon(int key_position, int row) {
+    static const char PROGMEM ICON_HUE_0[] = {0x96, 0x97, 0};
+    static const char PROGMEM ICON_HUE_1[] = {0xB6, 0xB7, 0};
+    oled_set_cursor(get_icon_start_position(key_position), row);
+    oled_write_P(ICON_HUE_0, false);
+    oled_set_cursor(get_icon_start_position(key_position), row + 1);
+    oled_write_P(ICON_HUE_1, false);
+}
+
+void draw_sat_icon(int key_position, int row) {
+    static const char PROGMEM ICON_SAT_0[] = {0xBB, 0xBC, 0};
+    static const char PROGMEM ICON_SAT_1[] = {0xDB, 0xDC, 0};
+    oled_set_cursor(get_icon_start_position(key_position), row);
+    oled_write_P(ICON_SAT_0, false);
+    oled_set_cursor(get_icon_start_position(key_position), row + 1);
+    oled_write_P(ICON_SAT_1, false);
+}
+
 bool oled_task_user(void) {
     // Host Keyboard Layer Status
     static const char PROGMEM ICON_LAYER[] = {0x80, 0x81, 0x82, 0x83, 0};
@@ -189,6 +230,9 @@ bool oled_task_user(void) {
         case 1:
             oled_write_P(PSTR("2ND "), false);
             break;
+        case 2:
+            oled_write_P(PSTR("3RD "), false);
+            break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_P(PSTR("UNDF"), false);
@@ -203,6 +247,9 @@ bool oled_task_user(void) {
             break;
         case 1:
             oled_write_P(PSTR("BRGT"), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("RGB "), false);
             break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
@@ -224,6 +271,14 @@ bool oled_task_user(void) {
             draw_stop_icon(2, 2);
             draw_rewind_icon(3, 2);
             draw_fast_forward_icon(4, 2);
+            draw_lower_icon(5, 2);
+            draw_brightness_icon(6, 2);
+            break;
+        case 2:
+            draw_raise_icon(1, 2);
+            draw_mode_icon(2, 2);
+            draw_hue_icon(3, 2);
+            draw_sat_icon(4, 2);
             draw_lower_icon(5, 2);
             draw_brightness_icon(6, 2);
             break;
