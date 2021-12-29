@@ -142,6 +142,8 @@ Next, you will have to flash the EEPROM files once for the correct hand to the c
   * `:dfu-util-split-left`
   * `:dfu-util-split-right`
 
+?> ARM controllers using `dfu-util` will require an EEPROM reset after setting handedness. This can be done using the `EEP_RST` keycode or [Bootmagic Lite](feature_bootmagic.md).
+
 Example:
 
 ```
