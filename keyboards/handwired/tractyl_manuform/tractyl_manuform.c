@@ -17,7 +17,6 @@
 #include "tractyl_manuform.h"
 #include "transactions.h"
 #include <string.h>
-#include "drivers/sensors/pmw3360.h"
 
 #ifndef TRACKBALL_DPI_OPTIONS
 #    define TRACKBALL_DPI_OPTIONS \
@@ -31,10 +30,9 @@
 #endif
 
 keyboard_config_t keyboard_config;
+kb_config_data_t  kb_config_data;
 uint16_t          dpi_array[] = TRACKBALL_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
-
-
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) {
@@ -49,7 +47,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
         }
         eeconfig_update_kb(keyboard_config.raw);
-        trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
+        kb_config_data.device_cpi = dpi_array[keyboard_config.dpi_config];
+        pointing_device_set_cpi(kb_config_data.device_cpi);
     }
 #endif
 
@@ -69,7 +68,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
     return true;
 }
-__attribute__((weak)) void keyboard_pre_init_sync(void) {}
 __attribute__((weak)) void keyboard_pre_init_sub(void) {}
 void                       keyboard_pre_init_kb(void) {
     // debug_enable  = true;
@@ -83,20 +81,22 @@ void                       keyboard_pre_init_kb(void) {
     writePin(DEBUG_LED_PIN, !debug_enable);
 #endif
 
+    memset(&kb_config_data, 0, sizeof(kb_config_data));
+
     keyboard_pre_init_sub();
-    keyboard_pre_init_sync();
     keyboard_pre_init_user();
 }
 
-__attribute__((weak)) void keyboard_post_init_sync(void) {}
-void                       keyboard_post_init_kb(void) {
-    keyboard_post_init_sync();
+void keyboard_post_init_kb(void) {
+    transaction_register_rpc(RPC_ID_KB_CONFIG_SYNC, kb_config_sync_handler);
+
     keyboard_post_init_user();
 }
 
 #ifdef POINTING_DEVICE_ENABLE
 void pointing_device_init_kb(void) {
-    trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    kb_config_data.device_cpi = dpi_array[keyboard_config.dpi_config];
+    pointing_device_set_cpi(kb_config_data.device_cpi);
     pointing_device_init_user();
 }
 
@@ -111,7 +111,8 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = TRACKBALL_DPI_DEFAULT;
 #ifdef POINTING_DEVICE_ENABLE
-    trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    kb_config_data.device_cpi = dpi_array[keyboard_config.dpi_config];
+    pointing_device_set_cpi(kb_config_data.device_cpi);
 #endif
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
@@ -135,10 +136,37 @@ void                       matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-__attribute__((weak)) void housekeeping_task_sync(void) {}
-void                       housekeeping_task_kb(void) {
-    housekeeping_task_sync();
+void housekeeping_task_kb(void) {
+    if (is_keyboard_master()) {
+        // Keep track of the last state, so that we can tell if we need to propagate to slave
+        static kb_config_data_t last_kb_config;
+        static uint32_t         last_sync  = 0;
+        bool                    needs_sync = false;
+
+        // Check if the state values are different
+        if (memcmp(&kb_config_data, &last_kb_config, sizeof(kb_config_data))) {
+            needs_sync = true;
+            memcpy(&last_kb_config, &kb_config_data, sizeof(kb_config_data));
+        }
+        // Send to slave every 500ms regardless of state change
+        if (timer_elapsed32(last_sync) > 500) {
+            needs_sync = true;
+        }
+
+        // Perform the sync if requested
+        if (needs_sync) {
+            if (transaction_rpc_send(RPC_ID_KB_CONFIG_SYNC, sizeof(kb_config_data), &kb_config_data)) {
+                last_sync = timer_read32();
+            }
+        }
+    }
     // no need for user function, is called already
+}
+
+void kb_config_sync_handler(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
+    if (initiator2target_buffer_size == sizeof(kb_config_data)) {
+        memcpy(&kb_config_data, initiator2target_buffer, sizeof(kb_config_data));
+    }
 }
 
 #ifdef POINTING_DEVICE_ENABLE

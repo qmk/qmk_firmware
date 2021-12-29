@@ -33,7 +33,7 @@ void            render_bootmagic_status(void);
 void            render_user_status(void);
 void            oled_driver_render_logo(void);
 void            render_wpm(uint8_t padding);
-void            render_pointing_dpi_status(uint8_t padding);
+void            render_pointing_dpi_status(uint16_t cpi, uint8_t padding);
 void            oled_driver_render_logo_left(void);
 void            oled_driver_render_logo_right(void);
 
