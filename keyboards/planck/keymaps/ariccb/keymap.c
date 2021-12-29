@@ -18,6 +18,9 @@
 #include "muse.h"
 #include "features/select_word.h"
 
+// using the Word Selection QMK Macro by Pascal Getreuer, found here: https://getreuer.info/posts/keyboards/select-word/index.html 
+// THANKS Pascal for such amazing functionality!!
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -46,6 +49,7 @@
 #define KC_COPY LCTL(KC_C)
 #define KC_CUT LCTL(KC_X)
 #define KC_PASTE LCTL(KC_V)
+#define KC_WINPASTE LGUI(KC_V)
 #define KC_PTXT LCTL(LSFT(KC_V))
 #define KC_UNDO LCTL(KC_Z)
 #define KC_REDO LCTL(KC_Y)
@@ -114,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------------------------------------------------------------------------|
 |CSGUI,Tab|  a  |  r  |  s  |  t  |  g  |  m  |  n  |  e  |  i  |  o  |  '  |
  * |------------------------------------------------------------------------|
- * |Shift |Win,z|  x  |  c  |  d  |  v  |  k  |  h  |  ,  |  .  |  /  |Win,\|
+ * |Shift |Win,z|  x  |  c  |  d  |  v  |  k  |  h  |  ,  |  .  |  /  |  \  |
  * |------------------------------------------------------------------------|
  * |      |     |     |Ctl,Ent|LOWER|  Space  |RSE_DL|Alt,Play|   |   |     |
  * `------------------------------------------------------------------------'
@@ -133,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------------------------------------------------------------------------|
  * |     | F5  | F6  | F7  | F8  |     | Cut |SELWORD| Copy|Paste|P2TXT|     |
  * |-------------------------------------------------------------------------|
- * |     | F9  | F10 | F11 | F12 |     |     |       |     |     |     |     |
+ * |     | F9  | F10 | F11 | F12 |     |     |       |WPaste|   |    |     |
  * |-------------------------------------------------------------------------|
  * |     |     |     |     |     |           |       |     |     |     |     |
  * `-------------------------------------------------------------------------'
@@ -141,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
   KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_TRNS, KC_TRNS, KC_TRNS, KC_UNDO, KC_REDO,  KC_TRNS, KC_BSPC,
   KC_TRNS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_TRNS, KC_CUT,  SELWORD, KC_COPY, KC_PASTE, KC_PTXT, KC_TRNS, 
-  KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, 
+  KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, KC_TRNS, KC_WINPASTE, KC_TRNS,  KC_TRNS, KC_TRNS, 
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS
 ),
 
@@ -205,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (FN)
  *
  * ,----------------------------------------------------------------------.
- * |    |Shift| Alt |DESKL|DESKR|Calc|    |home | up   | end |PrtScr| Del |
+ * |    |Shift| Alt |DESKL|DESKR|Calc|    |home | up   | end |PrtScr|Bksp |
  * |----------------------------------------------------------------------|
  * |    |     |     |     |     |    |    |left | down |right|ScrLck|Ins  |
  * |----------------------------------------------------------------------|
