@@ -85,7 +85,8 @@ enum layers {
 #define WIN_LEFT_HALF LALT(LGUI(KC_LEFT))
 #define WIN_RIGHT_HALF LALT(LGUI(KC_RIGHT))
 #define ALL_WIN LCTL(KC_DOWN)
-#define EXPOSE LGUI(KC_DOWN)
+#define EXPOSE LGUI(KC_DOWN) #Macos only
+#define MEH_M MEH_T(KC_M)
 // ========== Modifiers!!
 #define SHIFT OSM(MOD_LSFT)
 //=============== tap for key hold for mod
