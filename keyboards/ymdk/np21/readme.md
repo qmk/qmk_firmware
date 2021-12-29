@@ -1,4 +1,4 @@
-# YMDK NP21
+# NP21
 
 ![kp21 &mdash; full grid layout](https://ae01.alicdn.com/kf/HTB1d.txfHsTMeJjSszhq6AGCFXaF.jpg?size=35021&height=662&width=1000&hash=62b3a453686e2154dc51a7af67495e28)
 
@@ -10,11 +10,11 @@ ps2avrGB based number-pad sold fully assembled by YMDK on Aliexpress.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymdk_np21:default
+    make ymdk/np21:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make ymdk_np21:default:flash
+    make ymdk/np21:default:flash
 
 **Reset Key**: Hold down the 'Top Left Key' (USB on top) while plugging in the keyboard.
 
