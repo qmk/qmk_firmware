@@ -19,9 +19,6 @@
 
 
 #include "moonlander.h"
-#ifdef WEBUSB_ENABLE
-#    include "webusb.h"
-#endif
 
 keyboard_config_t keyboard_config;
 
@@ -81,52 +78,6 @@ void moonlander_led_task(void) {
         wait_ms(100);
         ML_LED_3(false);
         wait_ms(155);
-    }
-#endif
-#ifdef WEBUSB_ENABLE
-    else if (webusb_state.pairing == true) {
-        static uint8_t led_mask;
-
-        ML_LED_1(false);
-        ML_LED_2(false);
-        ML_LED_3(false);
-        ML_LED_4(false);
-        ML_LED_5(false);
-        ML_LED_6(false);
-
-        if (!led_mask) {
-            led_mask = 1;
-        } else {
-            led_mask++;
-            if (led_mask > 12) led_mask = 1;
-        }
-        switch (led_mask) {
-            case 1:
-            case 12:
-                ML_LED_1(true);
-                break;
-            case 2:
-            case 11:
-                ML_LED_2(true);
-                break;
-            case 3:
-            case 10:
-                ML_LED_3(true);
-                break;
-            case 4:
-            case 9:
-                ML_LED_4(true);
-                break;
-            case 5:
-            case 8:
-                ML_LED_5(true);
-                break;
-            case 6:
-            case 7:
-                ML_LED_6(true);
-                break;
-        }
-        wait_ms(150);
     }
 #endif
 #if !defined(MOONLANDER_USER_LEDS)
@@ -429,11 +380,6 @@ bool led_update_kb(led_t led_state) {
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) { return false; }
     switch (keycode) {
-#ifdef WEBUSB_ENABLE
-        case WEBUSB_PAIR:
-            if (!record->event.pressed && !webusb_state.pairing) layer_state_set_kb(layer_state);
-            break;
-#endif
 #if !defined(MOONLANDER_USER_LEDS)
         case LED_LEVEL:
             if (record->event.pressed) {
@@ -480,8 +426,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-#endif
 
 void matrix_init_kb(void) {
     keyboard_config.raw = eeconfig_read_kb();
