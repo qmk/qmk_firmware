@@ -1,9 +1,8 @@
 # Milk Truck
 
-![Milk Truck](https://imgur.com/NUmiTDS)
+![Milk Truck](https://imgur.com/NUmiTDS.jpg)
 
-Q4Z is a play on everybody's favorite 10.25u layout. With the addition of 5 number keys and a handle,
-this little board is ready for whatever a raging gamer can throw it at.
+A dairy-filled, left-handed, numpad-having, extended-minivan, forty-percent keyboard.
 
 * Keyboard Maintainer: [Ryan Boone](https://github.com/rjboone) (Drmmr#0004)
 * Hardware Supported: Milk Truck
