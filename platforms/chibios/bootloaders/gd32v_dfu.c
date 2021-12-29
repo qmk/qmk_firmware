@@ -17,6 +17,7 @@
 #include "bootloader.h"
 
 #include <ch.h>
+#include <hal.h>
 
 #define DBGMCU_KEY_UNLOCK 0x4B5A6978
 #define DBGMCU_CMD_RESET 0x1
