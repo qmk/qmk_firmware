@@ -2,6 +2,8 @@
 #   change to "no" to disable the options, or define them in the Makefile in 
 #   the appropriate keymap folder that will get included automatically
 #
+SRC += features/select_word.c
+
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
@@ -15,6 +17,7 @@ RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 TAP_DANCE_ENABLE = no 		# Enable Tap Dance Features
 LTO_ENABLE = no 			# Link Time Optimization
 DIP_SWITCH_ENABLE=no  		# Recommended to fix no startup sound issue
+
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    	# Breathing sleep LED during USB suspend

@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "muse.h"
+#include "features/select_word.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -29,7 +30,10 @@
 #define _FN 5
 #define _ADJUST 6
 #define _GAMING 7
+
 #define MICMUTE LCTL(LSFT(KC_M))
+#define DESKTL LGUI(LSFT(KC_RGHT))
+#define DESKTR LGUI(LSFT(KC_LEFT))
 #define MTLSFT_F1 MT(MOD_LSFT, KC_F1)
 #define MTLGUI_Z MT(MOD_LGUI, KC_Z)
 #define MTLALT_F2 MT(MOD_LALT, KC_F2)
@@ -39,6 +43,12 @@
 #define LTESC LT(_FN, KC_ESC)
 #define RSE_DL LT(_RAISE, KC_DEL)
 #define MTPLAY MT(MOD_RALT, KC_MPLY)
+#define KC_COPY LCTL(KC_C)
+#define KC_CUT LCTL(KC_X)
+#define KC_PASTE LCTL(KC_V)
+#define KC_PTXT LCTL(LSFT(KC_V))
+#define KC_UNDO LCTL(KC_Z)
+#define KC_REDO LCTL(KC_Y)
 
 // UNCOMMENT IF WANTING TO USE SHIFT_SPACE_BACKSPACE OR SHIFT_BACKSPACE_DELETE
 // //which shift is held?//
@@ -62,7 +72,8 @@ enum planck_keycodes {
   EXT_NUM,
   EXT_GAMING,
   SHIFT_SPACE_BACKSPACE,
-  SHIFT_BACKSPACE_DELETE
+  SHIFT_BACKSPACE_DELETE,
+  SELWORD
 }; 
 
 // This is a completely modified layout that stikes a balance between muscle memory for keys, where I was coming from a standard
@@ -70,10 +81,8 @@ enum planck_keycodes {
 // added layer switch on hold functionality for each key. Enter has moved to the key beside LOWER, to allow usage while still having
 // the right hand on the mouse.
 
-// Lower incorporates a numpad which falls in line with the numberkeys at the top as well - my muscle memory appreciates both layouts.
-
-// Upper has a layout that's optimized for coding symbols, and has a few duplicates just to entertain my existing muscle memory. Some 
-// things apparently can't be un-taught.
+// Lower incorporates a numpad on the right side, and all of the symbols included on the left. There is logic for the symbols needed for 
+// calculators and math are located around the numpad, and coding symbols are placed in easy to remember spots.
 
 // CAPS has moved to the Fn layer, and a few additional shortcut modifiers like CTRL_ALT_UP and DOWN for adding additional cursors in VSCode.
 // Play/Pause has a prime spot on the base layer, and the Fn version skips to next track
@@ -92,10 +101,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid( /* QWERTY */
-    LTESC,   KC_Q,  KC_W,  KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_BSPC,
-    MTTAB,   KC_A,  KC_S,  KC_D,    KC_F,  KC_G,   KC_H,   KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT, 
+    LTESC,   KC_Q,      KC_W,  KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_BSPC,
+    MTTAB,   KC_A,      KC_S,  KC_D,    KC_F,  KC_G,   KC_H,   KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT, 
     KC_LSFT, MTLGUI_Z,  KC_X,  KC_C,    KC_V,  KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_BSLS, 
-    KC_NO,   KC_NO, KC_NO, MTENTER, LOWER, KC_SPC, KC_SPC, RSE_DL, MTPLAY,  KC_NO,  KC_NO,   KC_NO
+    KC_NO,   KC_NO,     KC_NO, MTENTER, LOWER, KC_SPC, KC_SPC, RSE_DL, MTPLAY,  KC_NO,  KC_NO,   KC_NO
  ),
 
  /* MIT Layout (COLEMAK)
@@ -119,21 +128,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (RAISE)
  *
- * ,-----------------------------------------------------------------------.
- * |     | F1  | F2  | F3  | F4  |     |     |     |     |     |     | Bsp |  
- * |-----------------------------------------------------------------------|
- * |     | F5  | F6  | F7  | F8  |     |     |     |     |     |     |     |
- * |-----------------------------------------------------------------------|
- * |     | F9  | F10 | F11 | F12  |    |     |     |     |     |     |     |
- * |-----------------------------------------------------------------------|
- * |     |     |     |     |     |           |     |     |     |     |     |
- * `-----------------------------------------------------------------------'
+ * ,-------------------------------------------------------------------------.
+ * |     | F1  | F2  | F3  | F4  |     |     |       | Undo| Redo|     | Bsp |  
+ * |-------------------------------------------------------------------------|
+ * |     | F5  | F6  | F7  | F8  |     | Cut |SELWORD| Copy|Paste|P2TXT|     |
+ * |-------------------------------------------------------------------------|
+ * |     | F9  | F10 | F11 | F12 |     |     |       |     |     |     |     |
+ * |-------------------------------------------------------------------------|
+ * |     |     |     |     |     |           |       |     |     |     |     |
+ * `-------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
-  KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,
-  KC_TRNS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-  KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+  KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_TRNS, KC_TRNS, KC_TRNS, KC_UNDO, KC_REDO,  KC_TRNS, KC_BSPC,
+  KC_TRNS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_TRNS, KC_CUT,  SELWORD, KC_COPY, KC_PASTE, KC_PTXT, KC_TRNS, 
+  KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, 
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS
 ),
 
 /* MIT Layout (LOWER)
@@ -151,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_planck_grid( /* LOWER */
   KC_GRV,  KC_EXLM, KC_LCBR, KC_RCBR, KC_DLR,  KC_AMPR, KC_COLN, KC_7, KC_8,   KC_9,  KC_EQL,  KC_BSPC, 
   KC_TILD, KC_UNDS, KC_LPRN, KC_RPRN, KC_PERC, KC_C,    KC_M,    KC_4, KC_5,   KC_6,  KC_PMNS, KC_PPLS, 
-  KC_MENU, KC_PIPE, KC_LBRC, KC_RBRC, KC_CIRC, KC_HASH, KC_AT,   KC_1, KC_2,   KC_3,  KC_PSLS, KC_ASTR, 
+  KC_APP,  KC_PIPE, KC_LBRC, KC_RBRC, KC_CIRC, KC_HASH, KC_AT,   KC_1, KC_2,   KC_3,  KC_PSLS, KC_ASTR, 
   KC_TRNS, KC_TRNS, KC_TRNS, NUMPAD,  KC_TRNS, KC_TRNS, KC_TRNS, KC_0, KC_DOT, KC_NO, KC_NO,   KC_NO
 ),    
 
@@ -170,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUMPAD] = LAYOUT_planck_grid( /* LOWER */
   KC_GRV,  KC_EXLM, KC_LCBR, KC_RCBR, KC_DLR,  KC_AMPR, KC_COLN, KC_7, KC_8,   KC_9,  KC_EQL,  KC_BSPC, 
   KC_TILD, KC_UNDS, KC_LPRN, KC_RPRN, KC_PERC, KC_C,    KC_M,    KC_4, KC_5,   KC_6,  KC_PMNS, KC_PPLS, 
-  KC_MENU, KC_TRNS, KC_LBRC, KC_RBRC, KC_CIRC, KC_HASH, KC_AT,   KC_1, KC_2,   KC_3,  KC_PSLS, KC_ASTR, 
+  KC_APP,  KC_TRNS, KC_LBRC, KC_RBRC, KC_CIRC, KC_HASH, KC_AT,   KC_1, KC_2,   KC_3,  KC_PSLS, KC_ASTR, 
   KC_TRNS, KC_TRNS, KC_TRNS, NUMPAD,  EXT_NUM, KC_TRNS, KC_TRNS, KC_0, KC_DOT, KC_NO, KC_NO,   KC_NO
 ),
 
@@ -196,7 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (FN)
  *
  * ,----------------------------------------------------------------------.
- * |    |Shift| Alt |     |     |Calc|    |home | up   | end |PrtScr| Del |
+ * |    |Shift| Alt |DESKL|DESKR|Calc|    |home | up   | end |PrtScr| Del |
  * |----------------------------------------------------------------------|
  * |    |     |     |     |     |    |    |left | down |right|ScrLck|Ins  |
  * |----------------------------------------------------------------------|
@@ -206,7 +215,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, KC_LSFT, KC_LALT,   KC_TRNS,  KC_TRNS, KC_CALC, KC_TRNS, KC_HOME, KC_UP,        KC_END,  KC_PSCR, KC_BSPC,
+  KC_TRNS, KC_LSFT, KC_LALT,   DESKTL,   DESKTR,  KC_CALC, KC_TRNS, KC_HOME, KC_UP,        KC_END,  KC_PSCR, KC_BSPC,
   KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK, KC_INS, 
   KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_MUTE, MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_TRNS, KC_CAPS, 
   KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_VOLD, KC_TRNS, KC_TRNS, KC_VOLU, KC_MNXT,      KC_NO,   KC_NO,   KC_NO
@@ -285,6 +294,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_select_word(keycode, record, SELWORD)) { return false; }
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
