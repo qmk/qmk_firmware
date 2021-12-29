@@ -17,148 +17,137 @@
 
 #include QMK_KEYBOARD_H
 
-enum preonic_layers {
-  _QWERTY,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
-  _DIR,
-  _FULL_DIR,
-  _FN,
-  _NUM
-};
-
-enum preonic_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  FN,
-  NUM
-};
-
-#define LT4_D       LT(_DIR, KC_D)
-#define A_RGHT      LALT(KC_RGHT)
-#define A_LEFT      LALT(KC_LEFT)
-#define FN          LT(_FN, KC_NO)
-#define F_DIR       MO(_FULL_DIR)
-#define ESC_CTL     CTL_T(KC_ESC)
-#define CPS_CTL     CTL_T(KC_CAPS)
-#define R_SHIFT     RSFT_T(KC_QUOT)
-#define A_SHIFT     SFT_T(KC_A)
-#define S_SHIFT     SFT_T(KC_S)
-#define MENU        MO(_ADJUST)
+#include "chrisgve.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT(
-        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-          KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-            CPS_CTL, KC_A,    KC_S,    LT4_D,   KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-              KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  R_SHIFT,
-                 MENU,   FN,      KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+
+   [_QWERTY_MAC] = LAYOUT(
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        CPS_CTL, KC_A,    KC_S,    M_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+        SFT_MSE, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, QUT_SFT,
+        ADJ_M,   TD_ADJM, KC_LALT, KC_LGUI, LOWER,   SPC_RSE, SPC_RSE, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
+
+    [_MAC_NAV_1] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, M_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, A_SHIFT, S_SHIFT, _______, M_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+        _______, _______, _______, _______, _______, M_B_WRD, KC_HOME, KC_END,  _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [_MAC_NAV_2] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [_QWERTY_LINUX] = LAYOUT(
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        CPS_CTL, KC_A,    KC_S,    L_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+        SFT_MSE, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, QUT_SFT,
+        ADJ_L,   TD_ADJL, KC_LGUI, KC_LALT, LOWER,   SPC_RSE, SPC_RSE, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    ),
+
+    [_LINUX_NAV_1] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, L_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, A_SHIFT, S_SHIFT, _______, L_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+        _______, _______, _______, _______, _______, L_B_WRD, KC_HOME, KC_END,  _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [_LINUX_NAV_2] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [_QWERTY_WIN] = LAYOUT(
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        CPS_CTL, KC_A,    KC_S,    W_NAV_1, KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+        SFT_MSE, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, QUT_SFT,
+        ADJ_W,   TD_ADJW, KC_LGUI, KC_LALT, LOWER,   SPC_RSE, SPC_RSE, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    ),
+
+    [_WIN_NAV_1] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, W_F_WRD, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, A_SHIFT, S_SHIFT, _______, W_NAV_2, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+        _______, _______, _______, _______, _______, W_B_WRD, KC_HOME, KC_END,  _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [_WIN_NAV_2] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
     [_LOWER] = LAYOUT(
-        KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-          KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-            KC_RCTL, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
-              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  _______,
-                 _______, _______, KC_RALT, KC_RGUI, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
+        KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______,
+        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
     ),
+
     [_RAISE] = LAYOUT(
-        KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
-          KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-            KC_RCTL, _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______,
-              _______, _______, _______, _______, _______, _______, _______, KC_NUHS, KC_NUBS, _______, _______,  _______,
-                 _______, _______, KC_RALT, KC_RGUI, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
-    ),
-    [_ADJUST] = LAYOUT(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-          RESET,   DEBUG,   _______, _______, _______, _______, _______, TERM_ON, TERM_OFF, _______, _______, _______,
-            _______, _______, _______, _______, _______, AG_NORM, AG_SWAP, _______, _______, _______,  _______, _______,
-              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
-    [_FN] = LAYOUT(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-          RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-            _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-              _______, _______, _______, _______, _______, _______, _______, KC_MUTE, _______, _______, _______, _______,
-                 _______, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
-    ),
-    [_DIR] = LAYOUT(
+        KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, _______,
+        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-          _______, _______, A_RGHT,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
-            _______, A_SHIFT, S_SHIFT, _______, F_DIR,   _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-              _______, _______, _______, _______, _______, A_LEFT,  _______, _______, _______, _______, _______, _______,
-                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
     ),
-    [_FULL_DIR] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-            _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
-              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+                
+    [_ADJUST_MAC] = LAYOUT(
+        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+        RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
+        _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
     ),
+
+    [_ADJUST_LINUX] = LAYOUT(
+        KC_WF1,  KC_WF2,  KC_WF3,  KC_WF4,  KC_WF5,  KC_WF6,  KC_WF7,  KC_WF8,  KC_WF9,  KC_WF10, KC_WF11, KC_WF12,
+        RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
+        _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
+    ),
+
+    [_ADJUST_WIN] = LAYOUT(
+        KC_WF1,  KC_WF2,  KC_WF3,  KC_WF4,  KC_WF5,  KC_WF6,  KC_WF7,  KC_WF8,  KC_WF9,  KC_WF10, KC_WF11, KC_WF12,
+        RESET,   MAC_SWT, _______, WIN_SWT, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
+        _______, DF_M_P,  DF_L_P,  DF_W_P,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, DF_MAC,  DF_LNX,  DF_WIN,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
+    ),
+
     [_NUM] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______,
-          _______, _______, _______, _______, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_PEQL,
-            _______, _______, _______, _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PAST, KC_PENT,
-              _______, _______, _______, _______, _______, _______, _______, KC_P0,   KC_P0,   KC_PDOT, KC_PSLS, _______,
-                _______, TO(_QWERTY), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+        _______, _______, _______, _______, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_PEQL,
+        _______, _______, _______, _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PAST, KC_PENT,
+        _______, _______, _______, _______, _______, _______, _______, KC_P0,   KC_P0,   KC_PDOT, KC_PSLS, _______,
+        _______, TG_NUM,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
+
+    [_MOUSE] = LAYOUT(
+        TG_MSE,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, KC_ACL2, KC_ACL1, KC_ACL0, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______,
+        TG_MSE,  _______, _______, _______, _______, _______, KC_WH_U, KC_WH_D, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______
+    ),
+
 };
-
-bool muse_mode = false;
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-        case LT(_FN,KC_NO):
-            if (record->tap.count == 2 && record->event.pressed) {
-                layer_on(_NUM);
-                return false;
-            }
-            return true; // Continue with unmatched keycodes
-            break;
-        case LOWER:
-          if (record->event.pressed) {
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-        case RAISE:
-          if (record->event.pressed) {
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-      }
-    return true;
-};
-
-bool dip_switch_update_user(uint8_t index, bool active) {
-    switch (index) {
-        case 0:
-            if (active) {
-                layer_on(_ADJUST);
-            } else {
-                layer_off(_ADJUST);
-            }
-            break;
-        case 1:
-            if (active) {
-                muse_mode = true;
-            } else {
-                muse_mode = false;
-            }
-    }
-    return true;
-}
 
