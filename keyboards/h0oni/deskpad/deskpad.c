@@ -15,3 +15,36 @@
  */
  
 #include "deskpad.h"
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    const layer_state_t curr_layer = get_highest_layer(layer_state);
+    if(curr_layer == 0) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+    else if(curr_layer == 1) {
+        if (clockwise) {
+            tap_code(KC_WH_D);
+        } else {
+            tap_code(KC_WH_U);
+        }
+    }
+    else if(curr_layer == 1) {
+        if (clockwise) {
+            tap_code16(C(KC_WH_U));
+        } else {
+            tap_code16(C(KC_WH_D));
+        }
+    }
+    else {
+        if (clockwise) {
+            tap_code(KC_BRIU);
+        } else {
+            tap_code(KC_BRID);
+        }
+    }
+    return false;
+}

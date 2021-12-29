@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 typedef enum {
     TD_NONE,
@@ -40,7 +39,7 @@ enum custom_keycodes {
     TD_SEARCH_REFRESH,
     QUAD_LAYER_SWITCH,
     QUAD_CVXA,
-    YOUTUBE=SAFE_RANGE,
+    YOUTUBE = SAFE_RANGE,
     FACEBOOK,
     DISCORD,
     VALORANT,
@@ -188,36 +187,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       C(KC_SLSH), VALORANT, VSCODE, DISCORD, LSA(KC_A), TD(QUAD_LAYER_SWITCH)
       ),
 };
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    const layer_state_t curr_layer = get_highest_layer(layer_state);
-    if(curr_layer == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    else if(curr_layer == 1) {
-        if (clockwise) {
-            tap_code(KC_WH_D);
-        } else {
-            tap_code(KC_WH_U);
-        }
-    }
-    else if(curr_layer == 1) {
-        if (clockwise) {
-            tap_code16(C(KC_WH_U));
-        } else {
-            tap_code16(C(KC_WH_D));
-        }
-    }
-    else {
-        if (clockwise) {
-            tap_code(KC_BRIU);
-        } else {
-            tap_code(KC_BRID);
-        }
-    }
-    return false;
-}
