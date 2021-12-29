@@ -1,9 +1,8 @@
-LTO_ENABLE = yes
-
-# APPLE_FN_ENABLE = yes
-NKRO_ENABLE = yes
-
+USER_NAME := chrisgve
 SRC += chrisgve.c
 
-# CONSOLE_ENABLE = yes
-
+LTO_ENABLE = yes
+APPLE_FN_ENABLE = yes
+NKRO_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+MOUSEKEY_ENABLE = yes
