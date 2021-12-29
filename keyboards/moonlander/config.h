@@ -144,10 +144,6 @@
 // #define RGB_MATRIX_LED_PROCESS_LIMIT 5
 // #define RGB_MATRIX_LED_FLUSH_LIMIT 26
 
-#define IGNORE_MOD_TAP_INTERRUPT
-
-#define TAPPING_TOGGLE 1
-
 #define MOUSEKEY_INTERVAL           20
 #define MOUSEKEY_DELAY              0
 #define MOUSEKEY_TIME_TO_MAX        60
