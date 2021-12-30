@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KEYLOCK, _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, TG_MODS,
         UC_MOD,  _________________ADJUST_L3_________________,                      _________________ADJUST_R3_________________, KC_MPLY,
                    TG(_DIABLOII), AUTO_CTN,                                                          TG_GAME, TG_DBLO,
-                                            _______, _______,                               KC_NUKE,
+                                            _______, REBOOT,                                KC_NUKE,
                                                      _______, _______,             _______,
                                                      _______, _______,    KC_NUKE, _______
     ),
