@@ -123,7 +123,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // } else if (mods & MOD_MASK_CTRL) {
           // set_single_persistent_default_layer(keycode - KC_DVORAK + 8);
         }
-
       }
       break;
 
