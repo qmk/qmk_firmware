@@ -35,8 +35,8 @@
 #define _GAMING 7
 
 #define MICMUTE LCTL(LSFT(KC_M))
-#define DESKTL LGUI(LCTL(KC_RGHT))
-#define DESKTR LGUI(LCTL(KC_LEFT))
+#define DESKTR LGUI(LCTL(KC_RGHT))  // move one virtual desktop to the right
+#define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
 #define MTLSFT_F1 MT(MOD_LSFT, KC_F1)
 #define MTLGUI_Z MT(MOD_LGUI, KC_Z)
 #define MTLALT_F2 MT(MOD_LALT, KC_F2)
@@ -124,10 +124,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid( /* COLEMAK */
-    LTESC,   KC_Q,  KC_W,  KC_F,    KC_P,  KC_B,   KC_J,   KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_BSPC,
-    MTTAB,   KC_A,  KC_R,  KC_S,    KC_T,  KC_G,   KC_M,   KC_N,   KC_E,    KC_I,   KC_O,    KC_QUOT, 
-    KC_LSFT, MTLGUI_Z,  KC_X,  KC_C,    KC_D,  KC_V,   KC_K,   KC_H,   KC_COMM, KC_DOT, KC_SLSH, KC_BSLS, 
-    KC_NO,   KC_NO, KC_NO, MTENTER, LOWER, KC_SPC, KC_SPC, RSE_DL, MTPLAY,  KC_NO,  KC_NO,   KC_NO
+    LTESC,   KC_Q,     KC_W,  KC_F,    KC_P,  KC_B,   KC_J,   KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_BSPC,
+    MTTAB,   KC_A,     KC_R,  KC_S,    KC_T,  KC_G,   KC_M,   KC_N,   KC_E,    KC_I,   KC_O,    KC_QUOT, 
+    KC_LSFT, MTLGUI_Z, KC_X,  KC_C,    KC_D,  KC_V,   KC_K,   KC_H,   KC_COMM, KC_DOT, KC_SLSH, KC_BSLS, 
+    KC_NO,   KC_NO,    KC_NO, MTENTER, LOWER, KC_SPC, KC_SPC, RSE_DL, MTPLAY,  KC_NO,  KC_NO,   KC_NO
  ),
 
 /* MIT Layout (RAISE)
@@ -209,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (FN)
  *
  * ,----------------------------------------------------------------------.
- * |    |Shift| Alt |DESKL|DESKR|Calc|    |home | up   | end |PrtScr|Bksp |
+ * |    |Shift| Alt |DESKL|DESKR|Calc|    |home | up   | end |PrtScr| Del |
  * |----------------------------------------------------------------------|
  * |    |     |     |     |     |    |    |left | down |right|ScrLck|Ins  |
  * |----------------------------------------------------------------------|
@@ -219,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, KC_LSFT, KC_LALT,   DESKTL,   DESKTR,  KC_CALC, KC_TRNS, KC_HOME, KC_UP,        KC_END,  KC_PSCR, KC_BSPC,
+  KC_TRNS, KC_LSFT, KC_LALT,   DESKTL,   DESKTR,  KC_CALC, KC_TRNS, KC_HOME, KC_UP,        KC_END,  KC_PSCR, KC_DEL,
   KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK, KC_INS, 
   KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_MUTE, MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_TRNS, KC_CAPS, 
   KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_VOLD, KC_TRNS, KC_TRNS, KC_VOLU, KC_MNXT,      KC_NO,   KC_NO,   KC_NO
