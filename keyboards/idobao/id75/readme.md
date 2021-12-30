@@ -8,7 +8,9 @@ Firmware here originally appeared on qmkeyboard.cn
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: ID75 PCB
-Hardware Availability: [ID75 on Drop](https://drop.com/buy/id75-hot-swappable-ortholinear-keyboard-kit)
+Hardware Availability:
+* [ID75 on Drop](https://drop.com/buy/id75-hot-swappable-ortholinear-keyboard-kit)
+* [ID75 on IDOBAO](https://idobao.net/products/idobao-id75v1-hot-swappable-mechanical-keyboard-kit)
 
 Make example for this keyboard (after setting up your build environment):
 
