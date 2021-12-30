@@ -17,5 +17,5 @@ Control layer for managing RGB and flashing.
 ![_CL](https://i.imgur.com/QnoMgsb.png)
 ### Make command:
 ```sh
-make dz60:olivierko:flash
+make dztech/dz60:olivierko:flash
 ```

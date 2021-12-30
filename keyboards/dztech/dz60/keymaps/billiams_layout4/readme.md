@@ -27,9 +27,9 @@ git clone https://github.com/qmk/qmk_firmware.git
 
 3. Build your hex file
 ```
-make dz60:billiams_layout4 # be in the qmk_firmware directory to do this
+make dztech/dz60:billiams_layout4 # be in the qmk_firmware directory to do this
 ```
-A hex file `dz60_billiams_layout4.hex` will be created in the base qmk_firmware directory
+A hex file `dztech_dz60_billiams_layout4.hex` will be created in the base qmk_firmware directory
 
 4. Before plugging in your keyboard into your computer, hold `SPACE` and `B` keys down
 5. Holding those keys down, plug the keyboard into your computer, which will put the keyboard in bootlegger mode

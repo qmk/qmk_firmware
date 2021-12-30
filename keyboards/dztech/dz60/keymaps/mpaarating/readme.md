@@ -9,4 +9,4 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make dz60:mpaarating
+    make dztech/dz60:mpaarating

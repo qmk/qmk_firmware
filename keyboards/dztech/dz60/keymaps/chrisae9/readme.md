@@ -29,5 +29,5 @@ util/qmk_install.sh
 
 ``` bash
 #From the qmk_firware directory run
-make dz60:chrisae9
+make dztech/dz60:chrisae9
 ```
