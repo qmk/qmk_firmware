@@ -50,3 +50,20 @@ void tap_code16_nomods(uint8_t kc) {
     tap_code16(kc);
     set_mods(temp_mod);
 }
+
+/**
+ * @brief Run shutdown routine and soft reboot firmware.
+ *
+ */
+
+void software_reset(void) {
+    clear_keyboard();
+    shutdown_user();
+#if defined(PROTOCOL_LUFA)
+    wdt_enable(WDTO_250MS);
+#elif defined(PROTOCOL_CHIBIOS)
+#    if defined(MCU_STM32) || defined(MCU_KINETIS)
+    NVIC_SystemReset();
+#    endif
+#endif
+}

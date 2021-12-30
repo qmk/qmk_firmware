@@ -215,12 +215,7 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
             return false;
         case REBOOT:
             if (record->event.pressed) {
-                shutdown_user();
-#ifdef __AVR__
-                wdt_enable(WDTO_250MS);
-#else
-                NVIC_SystemReset();
-#endif
+                software_reset();
             }
             return false;
 

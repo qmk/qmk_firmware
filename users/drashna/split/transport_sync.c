@@ -180,11 +180,7 @@ void user_transport_sync(void) {
             }
         } else {
             if (timer_elapsed32(watchdog_timer) > 3500) {
-#ifdef __AVR__
-                wdt_enable(WDTO_250MS);
-#else
-                NVIC_SystemReset();
-#endif
+                software_reset();
                 while (1) {
                 }
             }
