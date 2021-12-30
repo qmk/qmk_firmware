@@ -331,5 +331,4 @@ uint8_t oled_max_lines(void);
 
 // Called to determine the oled timeout, if OLED_CUSTOM_TIMEOUT is defined in config.h
 // Weak function overridable by the user.
-uint32_t oled_timeout_kb(void);
 uint32_t oled_timeout_user(void);

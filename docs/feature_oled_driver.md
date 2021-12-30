@@ -176,7 +176,7 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_FONT_WIDTH`          |`6`              |The font width                                                                                                            |
 |`OLED_FONT_HEIGHT`         |`8`              |The font height (untested)                                                                                                |
 |`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.           |
-|`OLED_CUSTOM_TIMEOUT`      |*Not defined*    |Allows for the use of a kb/user level function that provides the timeout for the OLED dynamically. Use in place of `OLED_TIMEOUT`. |
+|`OLED_CUSTOM_TIMEOUT`      |*Not defined*    |Allows for the use of a user-only level function that provides the timeout for the OLED dynamically. Use in place of `OLED_TIMEOUT`, and like that, a value of 0 will disable the timeout. |
 |`OLED_FADE_OUT`            |*Not defined*    |Enables fade out animation. Use together with `OLED_TIMEOUT`.                                                             |
 |`OLED_FADE_OUT_INTERVAL`   |`0`              |The speed of fade out animation, from 0 to 15. Larger values are slower.                                                  |
 |`OLED_SCROLL_TIMEOUT`      |`0`              |Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                     |
@@ -396,7 +396,6 @@ uint8_t oled_max_lines(void);
 
 // Called to determine the oled timeout, if OLED_CUSTOM_TIMEOUT is defined in config.h
 // Weak function overridable by the user.
-uint32_t oled_timeout_kb(void);
 uint32_t oled_timeout_user(void);
 ```
 
