@@ -57,7 +57,10 @@ enum custom_keycodes {
 // flow_config should correspond to following format:
 // * layer keycode
 // * non-layer keycode
-// * control keycode
+// * modifier keycode that must be triggered when layer and
+//   non-layer are pressed
+// Note that non-layer keycode must be used both in main layer and layer that
+// is turned on by layer keycode
 const uint16_t flow_config[FLOW_COUNT][3] = {
     {L_NAV, KC_A, KC_LALT},
     {L_NAV, KC_S, KC_LGUI},
