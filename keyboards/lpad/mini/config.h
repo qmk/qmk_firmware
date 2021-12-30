@@ -67,7 +67,7 @@
 // #define OLED_FONT_H "./lib/glcdfont.c"
 
 /* EEPROM for via */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 7
+#define DYNAMIC_KEYMAP_LAYER_COUNT 8
 
 
 #define NO_ACTION_MACRO
