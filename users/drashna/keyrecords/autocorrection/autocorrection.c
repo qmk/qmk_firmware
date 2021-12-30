@@ -17,6 +17,14 @@
 #        error Dictionary size excees maximum size permitted
 #    endif
 
+/**
+ * @brief Process handler for autocorrect feature
+ *
+ * @param keycode Keycode registered by matrix press, per keymap
+ * @param record keyrecord_t structure
+ * @return true Continue processing keycodes, and send to host
+ * @return false Stop processing keycodes, and don't send to host
+ */
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
     static uint8_t typo_buffer[AUTOCORRECTION_MAX_LENGTH] = {KC_SPC};
     static uint8_t typo_buffer_size                       = 1;

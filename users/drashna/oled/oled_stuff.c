@@ -56,6 +56,12 @@ static const char PROGMEM code_to_name[256] = {
 };
 // clang-format on
 
+/**
+ * @brief parses pressed keycodes and saves to buffer
+ *
+ * @param keycode Keycode pressed from switch matrix
+ * @param record keyrecord_t data structure
+ */
 void add_keylog(uint16_t keycode, keyrecord_t *record) {
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
         if (((keycode & 0xFF) == KC_BSPC) && mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) {
@@ -83,6 +89,16 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
     log_timer = timer_read();
 }
 
+/**
+ * @brief Keycode handler for oled display.
+ *
+ * This adds pressed keys to buffer, but also resets the oled timer
+ *
+ * @param keycode Keycode from matrix
+ * @param record keyrecord data struture
+ * @return true
+ * @return false
+ */
 bool process_record_user_oled(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
 #ifdef OLED_ENABLE
@@ -99,11 +115,19 @@ void update_log(void) {
     }
 }
 
+/**
+ * @brief Renders keylogger buffer to oled
+ *
+ */
 void render_keylogger_status(void) {
     oled_write_P(PSTR(OLED_RENDER_KEYLOGGER), false);
     oled_write(keylog_str, false);
 }
 
+/**
+ * @brief Renders default layer state (aka layout) to oled
+ *
+ */
 void render_default_layer_state(void) {
     oled_write_P(PSTR(OLED_RENDER_LAYOUT_NAME), false);
     switch (get_highest_layer(default_layer_state)) {
@@ -125,6 +149,10 @@ void render_default_layer_state(void) {
 #endif
 }
 
+/**
+ * @brief Renders the active layers to the OLED
+ *
+ */
 void render_layer_state(void) {
     oled_write_P(PSTR(OLED_RENDER_LAYER_NAME), false);
 #ifdef OLED_DISPLAY_128X64
@@ -146,6 +174,11 @@ void render_layer_state(void) {
 #endif
 }
 
+/**
+ * @brief Renders the current lock status to oled
+ *
+ * @param led_usb_state Current keyboard led state
+ */
 void render_keylock_status(uint8_t led_usb_state) {
     oled_write_P(PSTR(OLED_RENDER_LOCK_NAME), false);
 #if !defined(OLED_DISPLAY_128X64)
@@ -160,6 +193,10 @@ void render_keylock_status(uint8_t led_usb_state) {
 #endif
 }
 
+/**
+ * @brief Renders the matrix scan rate to the host system
+ *
+ */
 void render_matrix_scan_rate(void) {
 #ifdef DEBUG_MATRIX_SCAN_RATE
     oled_write_P(PSTR("MS:"), false);
@@ -167,6 +204,11 @@ void render_matrix_scan_rate(void) {
 #endif
 }
 
+/**
+ * @brief Renders the modifier state
+ *
+ * @param modifiers Modifiers to check against (real, weak, onesheot, etc;)
+ */
 void render_mod_status(uint8_t modifiers) {
     static const char PROGMEM mod_status[5][3] = {{0xE8, 0xE9, 0}, {0xE4, 0xE5, 0}, {0xE6, 0xE7, 0}, {0xEA, 0xEB, 0}, {0xEC, 0xED, 0}};
     oled_write_P(PSTR(OLED_RENDER_MODS_NAME), false);
