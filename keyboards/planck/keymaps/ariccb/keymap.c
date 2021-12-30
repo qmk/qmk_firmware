@@ -39,6 +39,7 @@
 #define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
 #define MTLSFT_F1 MT(MOD_LSFT, KC_F1)
 #define MTLGUI_Z MT(MOD_LGUI, KC_Z)
+#define MTLALT_X MT(MOD_LALT, KC_X)
 #define MTLALT_F2 MT(MOD_LALT, KC_F2)
 #define MTENTER MT(MOD_LCTL, KC_ENT)
 // #define MTSPACE MT(MOD_LGUI, KC_SPC)
@@ -77,7 +78,8 @@ enum planck_keycodes {
   EXT_GAMING,
   SHIFT_SPACE_BACKSPACE,
   SHIFT_BACKSPACE_DELETE,
-  SELWORD
+  SELWORD,
+  BRACES
 }; 
 
 // This is a completely modified layout that stikes a balance between muscle memory for keys, where I was coming from a standard
@@ -99,16 +101,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------------------------------------------------------------------------|
 |CSGUI,Tab|  a  |  s  |  d  |  f  |  g  |  h  |  j  |  k  |  l  |  ;  |  '  |
  * |------------------------------------------------------------------------|
- * |Shift |Win,z|  x  |  c  |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |  \  |
+ * |Shift |Win,z|Alt,x|  c  |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |  \  |
  * |------------------------------------------------------------------------|
- * |      |     |     |Ctl,Ent|LOWER|  Space  |RSE_DL|Alt,Play|   |   |     |
+ * |      |     |     |Ctl,Ent|LOWER|  Space  |RSE_DL|{}()[]|   |     |     |
  * `------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid( /* QWERTY */
-    LTESC,   KC_Q,      KC_W,  KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_BSPC,
-    MTTAB,   KC_A,      KC_S,  KC_D,    KC_F,  KC_G,   KC_H,   KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT, 
-    KC_LSFT, MTLGUI_Z,  KC_X,  KC_C,    KC_V,  KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_BSLS, 
-    KC_NO,   KC_NO,     KC_NO, MTENTER, LOWER, KC_SPC, KC_SPC, RSE_DL, MTPLAY,  KC_NO,  KC_NO,   KC_NO
+    LTESC,   KC_Q,      KC_W,     KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_BSPC,
+    MTTAB,   KC_A,      KC_S,     KC_D,    KC_F,  KC_G,   KC_H,   KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT, 
+    KC_LSFT, MTLGUI_Z,  MTLALT_X, KC_C,    KC_V,  KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_BSLS, 
+    KC_NO,   KC_NO,     KC_NO,    MTENTER, LOWER, KC_SPC, KC_SPC, RSE_DL, BRACES,  KC_NO,  KC_NO,   KC_NO
  ),
 
  /* MIT Layout (COLEMAK)
@@ -118,35 +120,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------------------------------------------------------------------------|
 |CSGUI,Tab|  a  |  r  |  s  |  t  |  g  |  m  |  n  |  e  |  i  |  o  |  '  |
  * |------------------------------------------------------------------------|
- * |Shift |Win,z|  x  |  c  |  d  |  v  |  k  |  h  |  ,  |  .  |  /  |  \  |
+ * |Shift |Win,z|Alt,x|  c  |  d  |  v  |  k  |  h  |  ,  |  .  |  /  |  \  |
  * |------------------------------------------------------------------------|
- * |      |     |     |Ctl,Ent|LOWER|  Space  |RSE_DL|Alt,Play|   |   |     |
+ * |      |     |     |Ctl,Ent|LOWER|  Space  |RSE_DL|{}()[]|   |     |     |
  * `------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid( /* COLEMAK */
-    LTESC,   KC_Q,     KC_W,  KC_F,    KC_P,  KC_B,   KC_J,   KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_BSPC,
-    MTTAB,   KC_A,     KC_R,  KC_S,    KC_T,  KC_G,   KC_M,   KC_N,   KC_E,    KC_I,   KC_O,    KC_QUOT, 
-    KC_LSFT, MTLGUI_Z, KC_X,  KC_C,    KC_D,  KC_V,   KC_K,   KC_H,   KC_COMM, KC_DOT, KC_SLSH, KC_BSLS, 
-    KC_NO,   KC_NO,    KC_NO, MTENTER, LOWER, KC_SPC, KC_SPC, RSE_DL, MTPLAY,  KC_NO,  KC_NO,   KC_NO
+    LTESC,   KC_Q,     KC_W,     KC_F,    KC_P,  KC_B,   KC_J,   KC_L,   KC_U,    KC_Y,   KC_SCLN, KC_BSPC,
+    MTTAB,   KC_A,     KC_R,     KC_S,    KC_T,  KC_G,   KC_M,   KC_N,   KC_E,    KC_I,   KC_O,    KC_QUOT, 
+    KC_LSFT, MTLGUI_Z, MTLALT_X, KC_C,    KC_D,  KC_V,   KC_K,   KC_H,   KC_COMM, KC_DOT, KC_SLSH, KC_BSLS, 
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LOWER, KC_SPC, KC_SPC, RSE_DL, BRACES,  KC_NO,  KC_NO,   KC_NO
  ),
 
 /* MIT Layout (RAISE)
  *
- * ,-------------------------------------------------------------------------.
- * |     | F1  | F2  | F3  | F4  |     |     |       | Undo| Redo|     | Bsp |  
- * |-------------------------------------------------------------------------|
- * |     | F5  | F6  | F7  | F8  |     | Cut |SELWORD| Copy|Paste|P2TXT|     |
- * |-------------------------------------------------------------------------|
- * |     | F9  | F10 | F11 | F12 |     |     |       |WPaste|   |    |     |
- * |-------------------------------------------------------------------------|
- * |     |     |     |     |     |           |       |     |     |     |     |
- * `-------------------------------------------------------------------------'
+ * ,--------------------------------------------------------------------------.
+ * |  `  |  !  |  {  |  }  |  $  |  &  |  :  |  Cut  | Undo| Redo|      | Bsp |  
+ * |--------------------------------------------------------------------------|
+ * |  ~  |  _  |  (  |  )  |  ^  |  %  |  M  |SELWORD| Copy|Paste|WPaste|P2TXT|
+ * |--------------------------------------------------------------------------|
+ * | Menu|  |  |  [  |  ]  |  @  |  #  |  @  |DESKL  |DESKR|     |      |     |
+ * |--------------------------------------------------------------------------|
+ * |     |     |     |     |     |           |       |     |     |      |     |
+ * `--------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
-  KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_TRNS, KC_TRNS, KC_TRNS, KC_UNDO, KC_REDO,  KC_TRNS, KC_BSPC,
-  KC_TRNS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_TRNS, KC_CUT,  SELWORD, KC_COPY, KC_PASTE, KC_PTXT, KC_TRNS, 
-  KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, KC_TRNS, KC_WINPASTE, KC_TRNS,  KC_TRNS, KC_TRNS, 
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS
+  KC_GRV,  KC_EXLM, KC_LCBR, KC_RCBR, KC_DLR,  KC_AMPR, KC_COLN, KC_CUT,  KC_UNDO, KC_REDO,  KC_TRNS, KC_BSPC,
+  KC_TILD, KC_UNDS, KC_LPRN, KC_RPRN, KC_CIRC, KC_PERC, KC_M,    SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_PTXT, 
+  KC_APP,  KC_TRNS, KC_LBRC, KC_RBRC, KC_AT,   KC_HASH, KC_AT,   DESKTL,  DESKTR,  KC_TRNS,  KC_TRNS, KC_TRNS, 
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS
 ),
 
 /* MIT Layout (LOWER)
@@ -154,17 +156,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------.
  * |  `  |  !  |  {  |  }  |  $  |  &  |  :  |  7  |  8  |  9  |  =  | Bsp |
  * |-----------------------------------------------------------------------|
- * |  ~  |  _  |  (  |  )  |  %  |  C  |  M  |  4  |  5  |  6  |  -  |  +  |
+ * |  ~  |  _  |  (  |  )  |  ^  |  %  |  M  |  4  |  5  |  6  |  -  |  +  |
  * |-----------------------------------------------------------------------|
- * | Menu|  |  |  [  |  ]  |  ^  |  #  |  @  |  1  |  2  |  3  |  /  |  *  |
+ * | Menu|  |  |  [  |  ]  |  @  |  #  |  @  |  1  |  2  |  3  |  /  |  *  |
  * |-----------------------------------------------------------------------|
  * |     |     |     |NUMPAD|    |           |  0  |  .  |     |     |     |
  * `-----------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid( /* LOWER */
   KC_GRV,  KC_EXLM, KC_LCBR, KC_RCBR, KC_DLR,  KC_AMPR, KC_COLN, KC_7, KC_8,   KC_9,  KC_EQL,  KC_BSPC, 
-  KC_TILD, KC_UNDS, KC_LPRN, KC_RPRN, KC_PERC, KC_C,    KC_M,    KC_4, KC_5,   KC_6,  KC_PMNS, KC_PPLS, 
-  KC_APP,  KC_PIPE, KC_LBRC, KC_RBRC, KC_CIRC, KC_HASH, KC_AT,   KC_1, KC_2,   KC_3,  KC_PSLS, KC_ASTR, 
+  KC_TILD, KC_UNDS, KC_LPRN, KC_RPRN, KC_CIRC, KC_PERC, KC_M,    KC_4, KC_5,   KC_6,  KC_PMNS, KC_PPLS, 
+  KC_APP,  KC_TRNS, KC_LBRC, KC_RBRC, KC_AT,   KC_HASH, KC_AT,   KC_1, KC_2,   KC_3,  KC_PSLS, KC_ASTR, 
   KC_TRNS, KC_TRNS, KC_TRNS, NUMPAD,  KC_TRNS, KC_TRNS, KC_TRNS, KC_0, KC_DOT, KC_NO, KC_NO,   KC_NO
 ),    
 
@@ -173,18 +175,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------.
  * |  `  |  !  |  {  |  }  |  $  |  &  |  :  |  7  |  8  |  9  |  =  | Bsp |
  * |-----------------------------------------------------------------------|
- * |  ~  |  _  |  (  |  )  |  %  |  C  |  M  |  4  |  5  |  6  |  -  |  +  |
+ * |  ~  |  _  |  (  |  )  |  ^  |  %  |  M  |  4  |  5  |  6  |  -  |  +  |
  * |-----------------------------------------------------------------------|
- * | Menu|  |  |  [  |  ]  |  ^  |  #  |  @  |  1  |  2  |  3  |  /  |  *  |
+ * | Menu|  |  |  [  |  ]  |  @  |  #  |  @  |  1  |  2  |  3  |  /  |  *  |
  * |-----------------------------------------------------------------------|
  * |     |     |     |     | EXIT|           |  0  |  .  |     |     |     |
  * `-----------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_planck_grid( /* LOWER */
   KC_GRV,  KC_EXLM, KC_LCBR, KC_RCBR, KC_DLR,  KC_AMPR, KC_COLN, KC_7, KC_8,   KC_9,  KC_EQL,  KC_BSPC, 
-  KC_TILD, KC_UNDS, KC_LPRN, KC_RPRN, KC_PERC, KC_C,    KC_M,    KC_4, KC_5,   KC_6,  KC_PMNS, KC_PPLS, 
-  KC_APP,  KC_TRNS, KC_LBRC, KC_RBRC, KC_CIRC, KC_HASH, KC_AT,   KC_1, KC_2,   KC_3,  KC_PSLS, KC_ASTR, 
-  KC_TRNS, KC_TRNS, KC_TRNS, NUMPAD,  EXT_NUM, KC_TRNS, KC_TRNS, KC_0, KC_DOT, KC_NO, KC_NO,   KC_NO
+  KC_TILD, KC_UNDS, KC_LPRN, KC_RPRN, KC_CIRC, KC_PERC, KC_M,    KC_4, KC_5,   KC_6,  KC_PMNS, KC_PPLS, 
+  KC_APP,  KC_TRNS, KC_LBRC, KC_RBRC, KC_AT,   KC_HASH, KC_AT,   KC_1, KC_2,   KC_3,  KC_PSLS, KC_ASTR, 
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, EXT_NUM, KC_TRNS, KC_TRNS, KC_0, KC_DOT, KC_NO, KC_NO,   KC_NO
 ),
 
 /* MIT Layout (GAMING)
@@ -194,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------|
  * | TAB |  Q  |  W  |  E  |  R  |  T  |  I  |  4  |  5  |  6  |  -  |  +  |
  * |-----------------------------------------------------------------------|
- * | Shift|  A  |  S  |  D  |  F  |  G  |  K  |  1  |  2  |  3  |  /  |  * |
+ * |Shift|  A  |  S  |  D  |  F  |  G  |  K  |  1  |  2  |  3  |  /  |  *  |
  * |-----------------------------------------------------------------------|
  * |     |     |     |  Ctl | Alt |   SPACE   |  0  |  .  |     |     |    |
  * `-----------------------------------------------------------------------'
@@ -209,20 +211,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (FN)
  *
  * ,----------------------------------------------------------------------.
- * |    |Shift| Alt |DESKL|DESKR|Calc|    |home | up   | end |PrtScr| Del |
+ * |    |Sft,F1|Alt,F2| F3 | F4 |Calc|    |home |  up  | end |PrtScr| Del |
  * |----------------------------------------------------------------------|
- * |    |     |     |     |     |    |    |left | down |right|ScrLck|Ins  |
+ * |Vol+| F5  | F6  | F7  | F8  |    |    |left | down |right|ScrLck|Ins  |
  * |----------------------------------------------------------------------|
- * |    |     |     |     |     |Mute|MicM|pgup |LCA_dn| pgdn|      |CAPS |
+ * |Vol-| F9  | F10 | F11 | F12 |Mute|MicM|pgup |LCA_dn| pgdn|      |CAPS |
  * |----------------------------------------------------------------------|
- * |    |     |     |     |Vol- |         |Vol+ |next  |     |      |     |
+ * |    |     |     |     |     |         | Play| next |     |      |     |
  * `----------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, KC_LSFT, KC_LALT,   DESKTL,   DESKTR,  KC_CALC, KC_TRNS, KC_HOME, KC_UP,        KC_END,  KC_PSCR, KC_DEL,
-  KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK, KC_INS, 
-  KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_MUTE, MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_TRNS, KC_CAPS, 
-  KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_VOLD, KC_TRNS, KC_TRNS, KC_VOLU, KC_MNXT,      KC_NO,   KC_NO,   KC_NO
+  KC_TRNS, MTLSFT_F1, MTLALT_F2, KC_F3,   KC_F4,   KC_CALC, KC_TRNS, KC_HOME, KC_UP,        KC_END,  KC_PSCR, KC_DEL,
+  KC_VOLU, KC_F5,     KC_F6,     KC_F7,   KC_F8,   KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK, KC_INS, 
+  KC_VOLD, KC_F9,     KC_F10,    KC_F11,  KC_F12,  KC_MUTE, MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_TRNS, KC_CAPS, 
+  KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_MNXT,      KC_NO,   KC_NO,   KC_NO
 ),
 
 /* MIT Layout (ADJUST)
@@ -299,6 +301,10 @@ void persistant_default_layer_set(uint16_t default_layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_select_word(keycode, record, SELWORD)) { return false; }
+
+  const uint8_t mods = get_mods();
+  const uint8_t oneshot_mods = get_oneshot_mods();
+
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -389,57 +395,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    // UNCOMMENT TO USE SHIFT_SPACE_BACKSPACE OR SHIFT_BACKSPACE_DELETE
-    // case KC_LSFT:
-    //     // set "shift is held" variable//
-    //     shift_held = record->event.pressed;
-    //     // specify which shift is held//
-    //     held_shift = keycode;
-    //     return true;
-    //     break;
-    // case KC_RSFT:
-    //     shift_held = record->event.pressed;
-    //     held_shift = keycode;
-    //     return true;
-    //     break;
-    // case SHIFT_BACKSPACE_DELETE:
-    //     if (record->event.pressed) {
-    //         if (shift_held) {
-    //             unregister_code(held_shift);
-    //             register_code(KC_DEL);
-    //             bsdel_mods = true;
-    //         } else {
-    //             register_code(KC_BSPC);
-    //         }
-    //     } else {
-    //         if (bsdel_mods) {
-    //             unregister_code(KC_DEL);
-    //             bsdel_mods = false;
-    //         } else {
-    //             unregister_code(KC_BSPC);
-    //         }
-    //     }
-    //     return false;
-    //     break;
-    // case SHIFT_SPACE_BACKSPACE:
-    //     if (record->event.pressed) {
-    //         if (shift_held) {
-    //             unregister_code(held_shift);
-    //             register_code(KC_BSPC);
-    //             bsspace_mods = true;
-    //         } else {
-    //             register_code(KC_SPACE);
-    //         }
-    //     } else {
-    //         if (bsspace_mods) {
-    //             unregister_code(KC_BSPC);
-    //             bsspace_mods = false;
-    //         } else {
-    //             unregister_code(KC_SPACE);
-    //         }
-    //     }
-    //     return false;
-    //     break;
+    case BRACES:  // Types [], {}, or <> and puts cursor between braces.
+      if (record->event.pressed) {
+        clear_mods();  // Temporarily disable mods.
+        clear_oneshot_mods();
+        if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+          SEND_STRING("[]");
+        } else if ((mods | oneshot_mods) & MOD_MASK_CTRL) {
+          SEND_STRING("<>");
+        } else {
+          SEND_STRING("{}");
+        }
+        tap_code(KC_LEFT);  // Move cursor between braces.
+        set_mods(mods);  // Restore mods.
+      }
+      return false;
   }
   return true;
 }
