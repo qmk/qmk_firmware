@@ -24,19 +24,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------|
      * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P| [ | ] |  \  |PUp|
      * |---------------------------------------------------------------|
-     * |Ctrl   |  A|  S|  D|  F|  G|  H|  J|  K|  L| ; | ' |Return |PDn|
+     * |Caps   |  A|  S|  D|  F|  G|  H|  J|  K|  L| ; | ' |Return |PDn|
      * |---------------------------------------------------------------|
      * |Shift   |  Z|  X|  C|  V|  B|  N|  M| , | . | / |Shift | Up|Hom|
      * |---------------------------------------------------------------|
-     * |Ctrl|Alt |GUI |          Space         |GUI |Fn  | |Lef|Dow|Rig|
+     * |Ctrl|LGUI|Alt |          Space         |GUI |Fn  | |Lef|Dow|Rig|
      * `---------------------------------------------------------------'
      */
-    [0] = LAYOUT_65_ansi_blocker_split_bs(
+    [0] = LAYOUT_all(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,  KC_HOME,
         KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP,
-        KC_LCTL,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGDN,
+        KC_CAPS,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGDN,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RGUI  MO(1),            KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RGUI  MO(1),            KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     /* Keymap Fn Layer
@@ -45,17 +45,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------|
      * |     |   |Up |   |   |   |   |   |PSc|SLk|Pau|Up |   |     |   |
      * |---------------------------------------------------------------|
-     * |       |Lef|Dow|Rig|   |   |   |   |Hom|PUp|Lef|Rig|       |Vl+|
+     * |       |Lef|Dow|Rig|   |   |   |   |Hom|PUp|Lef|Rig| Reset |Vl+|
      * |---------------------------------------------------------------|
      * |        |BL-|BLT|BL+|BLS|BLM|   |   |End|PDn|Dow|      |   |Vl-|
      * |---------------------------------------------------------------|
      * |    |    |    |                        |    |    | |Prv|Ply|Nxt|
      * `---------------------------------------------------------------'
      */
-    [1] = LAYOUT_65_ansi_blocker_split_bs(
+    [1] = LAYOUT_all(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_DEL,  KC_INS,
         _______,          _______, KC_UP,   _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   _______, _______, _______,
-        _______,          KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT,          _______, KC_VOLU,
+        _______,          KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT,          RESET,   KC_VOLU,
         _______,          BL_DEC,  BL_TOGG, BL_INC,  BL_STEP, BL_BRTG, _______, _______, KC_END,  KC_PGDN, KC_DOWN,          _______, _______, KC_VOLD,
         _______, _______, _______,                            _______,                            _______, _______,          KC_MPRV, KC_MPLY, KC_MNXT
     ),
