@@ -1,4 +1,4 @@
-# Signature87
+# Signature65
 
 Project Keyboard ANSI only PCB for Kepler FC65. 
 
