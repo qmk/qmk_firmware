@@ -553,7 +553,10 @@ bool oled_on(void) {
     }
 
 #if defined(OLED_CUSTOM_TIMEOUT)
-    oled_timeout = timer_read32() + oled_timeout_kb();
+    uint32_t custom_timeout_value = oled_timeout_kb();
+    if (custom_timeout_value > 0) {
+        oled_timeout = timer_read32() + custom_timeout_value;
+    }
 #elif OLED_TIMEOUT > 0
     oled_timeout = timer_read32() + OLED_TIMEOUT;
 #endif
@@ -782,5 +785,9 @@ void oled_task(void) {
 __attribute__((weak)) bool oled_task_kb(void) { return oled_task_user(); }
 __attribute__((weak)) bool oled_task_user(void) { return true; }
 
-__attribute__((weak)) uint32_t oled_timeout_kb(void) { return oled_timeout_user(); }
-__attribute__((weak)) uint32_t oled_timeout_user(void) { return OLED_TIMEOUT; }
+__attribute__((weak)) uint32_t oled_timeout_kb(void) {
+    uint32_t timeout_value = oled_timeout_user();
+    if (timeout_value != 0) { return timeout_value; }
+    return OLED_TIMEOUT;
+}
+__attribute__((weak)) uint32_t oled_timeout_user(void) { return 0; }
