@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define ENCODERS_PAD_A { D4 }
-#define ENCODERS_PAD_B { D6 }
 #define ENCODER_RESOLUTION 2
 #define COMBO_COUNT 6
 #define COMBO_TERM 50
