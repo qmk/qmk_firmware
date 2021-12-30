@@ -37,11 +37,11 @@ This is my principles for layout:
   This is controlled by FLOW_TERM and defaults to 10. I do not
   recommend setting this to higher than 30.
 
-* Another annoying feature of Callum layer is one shot keys frozen
-  until you cancel them. This is problem when you use one hand for
-  keyboard and another for mouse. E.g. you click Ctrl and mouse to
-  get some menu, and then you want to click some item in that
-  menu. You have to remember to cancel one shot in such
+* Another annoying feature of Callum layer is one shot keys are
+  frozen until you cancel them. This is problem when you use one
+  hand for keyboard and another for mouse. E.g. you click Ctrl and
+  mouse to get some menu, and then you want to click some item in
+  that menu. You have to remember to cancel one shot in such
   situation. I have added default 500ms period (can be changed
   using FLOW_ONESHOT_TERM) where you have to press next key.
   Otherwise oneshot is canceled.
