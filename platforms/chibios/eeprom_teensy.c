@@ -1,6 +1,7 @@
 #include <ch.h>
 #include <hal.h>
 
+#include "eeprom_teensy.h"
 #include "eeconfig.h"
 
 /*************************************/
@@ -41,18 +42,6 @@
 
 #if defined(K20x) /* chip selection */
 /* Teensy 3.0, 3.1, 3.2; mchck; infinity keyboard */
-
-// The EEPROM is really RAM with a hardware-based backup system to
-// flash memory.  Selecting a smaller size EEPROM allows more wear
-// leveling, for higher write endurance.  If you edit this file,
-// set this to the smallest size your application can use.  Also,
-// due to Freescale's implementation, writing 16 or 32 bit words
-// (aligned to 2 or 4 byte boundaries) has twice the endurance
-// compared to writing 8 bit bytes.
-//
-#    ifndef EEPROM_SIZE
-#        define EEPROM_SIZE 32
-#    endif
 
 /*
     ^^^ Here be dragons:
@@ -349,8 +338,6 @@ void do_flash_cmd(volatile uint8_t *fstat)
 
 extern uint32_t __eeprom_workarea_start__;
 extern uint32_t __eeprom_workarea_end__;
-
-#    define EEPROM_SIZE 128
 
 static uint32_t flashend = 0;
 
