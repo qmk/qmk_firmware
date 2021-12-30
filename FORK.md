@@ -39,3 +39,7 @@ qmk compile
 
 Using keymap `spacez320` the file to edit is
 `keyboards/keebio/iris/keymaps/spacez320/keymap.c`.
+
+Theoretically after this you can run `qmk flash`, however I was not able to get
+this to work from the command-line and instead has to resort to using the QMK
+Toolbox on MacOSX.
