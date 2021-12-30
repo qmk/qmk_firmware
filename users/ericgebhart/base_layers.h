@@ -19,266 +19,695 @@
 #include "core_keysets.h"
 
 /******************************************************************/
-/* These are the keys for the middle and bottom edge of any layout*/
-/* That way we only need to set them once and use them everywhere */
+/* This is where I put my Keyboard layouts, Everything on the     */
+/* edges, the functions on keys like LT() and SFT_T()             */
+/* can be applied here. The physical shape of the keyboard is     */
+/* also accounted for here. This makes it very simple to add a    */
+/* new keyboard and reuse all of my layouts and layers            */
+/*                                                                */
+/* The particular pieces we define here (as needed) are:          */
+/*     * Edge pinky keys, */
+/*     * Middle section keys */
+/*     * Bottom/5th row */
+/*     * Thumbkeys */
+/*     * Any functional additions to wrap the keys. ie. LT()      */
+/*                                                                */
+/* With all of that in hand, we then create a LAYOUT wrapper      */
+/* macro that takes a list of keys, to create a keyboard matrix   */
+/* that fits the keyboard. Simple.                                */
+/*                                                                */
 /* The thumb keys, the bottom rows, etc.                          */
-/******************************************************************/
-/******************************************************************/
-/* Middle Keysets for the XD75                                    */
+/*                                                                */
+/* An attempt has been made to adapt the kinesis and ergodox      */
+/* Thumb keys to the rectangular shapes of the xd75 and viterbi.  */
+/* which are 15x and 14x matrices respectively.                   */
+/* The Corne was a perfect fit                                    */
 /******************************************************************/
 
-// For the middle keys of an xd75. It's got one more column in the middle than
-// the ergodox, or the viterbi. And the Ergodox is missing a key in column 7
-// counting from either end.  Which is the first and 3rd columns of these sets.
+/******************************************************************/
+/* * The XD75 is a 5x15 Ortholinear matrix which means it has 3   */
+/*       keys inbetween the usual left and right hand keys        */
+/* * The Viterbi is a split 5x14 Ortholinear with 2 middle keys.  */
+/* * The Ergodox is a split 5x14 Ortholinear with 2 middle keys,  */
+/*       thumbkeys. It is missing middle keys on (home) row 3.    */
+/* * The Corne is a split 3x12 with 6 thumb keys. It has no       */
+/*       extra middle keys                                        */
+/*                                                                */
+/******************************************************************/
 
-// it's all an experient.  I'm not sure what make sense here.
-// stealing what I can from the ergodox layout.
-/* The XD75 has 3 keys inbetween the usual left and right hand */
-#define ___ORTHO_15_MIDDLE_T___ OSL(LAYERS), LCTL(KC_A),  MDIA_SYMB_KP_LAYERS
-#define ___ORTHO_15_MIDDLE_1___ LCTL(KC_C),  LCTL(KC_X),  LCTL(KC_V)
-#define ___ORTHO_15_MIDDLE_2___ TO(SYMB),    TO(_RGB),    TO(KEYPAD)
-#define ___ORTHO_15_MIDDLE_3___ OSL(SYMB),   TO(MDIA),    OSL(KEYPAD)
-#define ___ORTHO_15_MIDDLE_4___ CTL_BSPC,    ALT_DEL,     XMONAD_ESC,  ALT_ENT,   CTL_SPC
+
+/******************************************************************/
+/*   In all cases these keyboards are defined in a matrix which is */
+/*   a set of rows. Maybe like so, or not.                         */
+/*                                                                 */
+/*   -------------------------|------------------------ */
+/*   | Left0 | Numbers L | mid|dle0 | numbers R | Right0 | */
+/*   | Left1 | keys0-5   | mid|dle1 | Keys6-10  | Right1 | */
+/*   | Left2 | keys11-15 | mid|dle2 | Keys16-20 | Right2 | */
+/*   | Left3 | keys20-25 | mid|dle3 | Keys25-30 | Right3 | */
+/*   | Row5L                  |                    Row5R | */
+/*   |               ThumbsL  | ThumbsR                  | */
+/*   -------------------------|------------------------ */
+
+/* Generally speaking, the keys on the right and left don't change. */
+/* Neither does the bottom row or the thumbs. Frequently the numbers */
+/* row is identical across layers. Mostly, we want our Base layers to */
+/* be predctable.                                                     */
+
+// EDGES
+// outside pinky keys row 0-3.
+// Qwerty and Bepo, - Applies
+// to foreign layouts on bepo. dvorak_bp, beakl_bp.
+#define LEFT0 KC_GRV
+#define LEFT1 KC_GRV
+#define LEFT2 KC_TAB
+#define LEFT3 KC_BSLASH
+//#define LEFT3 KC_COLN
+
+#define LEFT0_BP DB_GRV
+#define LEFT1_BP DB_GRV
+#define LEFT2_BP KC_TAB
+#define LEFT3_BP DB_BACKSLASH
+//#define LEFT3_BP BP_COLN
+
+#define RIGHT0 KC_EQL
+#define RIGHT1 KC_SLASH
+#define RIGHT2 KC_MINS
+#define RIGHT3 KC_SCLN
+
+#define RIGHT0_BP BP_EQL
+#define RIGHT1_BP BP_SLSH
+#define RIGHT2_BP BP_MINS
+#define RIGHT3_BP BP_SCLN
+
+// define our rows for the mod layer
+// takes 5 keycodes, adds mods, and left and right
+// so we get keycodes in groups of 6.
+
+//number row.
+#define ROW0_LEFT(K01, K02, K03, K04, K05)      \
+  LEFT0, K01, K02, K03, K04, K05
+
+#define ROW0_RIGHT(K01, K02, K03, K04, K05)     \
+  K01, K02, K03, K04, K05, RIGHT0
+
+#define ROW1_LEFT(K01, K02, K03, K04, K05)      \
+  LEFT1, K01, K02, K03, K04, K05
+
+#define ROW1_RIGHT(K01, K02, K03, K04, K05)     \
+  K01, K02, K03, K04, K05, RIGHT1
+
+// home row, shift, alt, ctl, gui - gui, ctl, alt, shift.
+#define ROW2_LEFT(K01, K02, K03, K04, K05)                      \
+  LEFT2, SFT_T(K01), ALT_T(K02), CTL_T(K03), GUI_T(K04), K05
+
+#define ROW2_RIGHT(K01, K02, K03, K04, K05)                   \
+  K01, GUI_T(K02),  CTL_T(K03), ALT_T(K04), SFT_T(K05), RIGHT2       \
+
+#define ROW3_LEFT(K01, K02, K03, K04, K05)      \
+  LEFT3, K01, K02, K03, K04, K05
+
+#define ROW3_RIGHT(K01, K02, K03, K04, K05)     \
+  K01, K02, K03, K04, K05, RIGHT3
+
+//bepo
+#define ROW0_LEFT_BP(K01, K02, K03, K04, K05)   \
+  LEFT0_BP, K01, K02, K03, K04, K05
+
+#define ROW0_RIGHT_BP(K01, K02, K03, K04, K05)  \
+  K01, K02, K03, K04, K05, RIGHT0_BP
+
+#define ROW1_LEFT_BP(K01, K02, K03, K04, K05)   \
+  LEFT1_BP, K01, K02, K03, K04, K05
+
+#define ROW1_RIGHT_BP(K01, K02, K03, K04, K05)  \
+  K01, K02, K03, K04, K05, RIGHT1_BP
+
+#define ROW2_LEFT_BP(K01, K02, K03, K04, K05)                   \
+  LEFT2_BP, SFT_T(K01), ALT_T(K02), CTL_T(K03), GUI_T(K04), K05
+
+#define ROW2_RIGHT_BP(K01, K02, K03, K04, K05)                          \
+  K01, GUI_T(K02),  CTL_T(K03), ALT_T(K04), SFT_T(K05), RIGHT2_BP       \
+
+#define ROW3_LEFT_BP(K01, K02, K03, K04, K05)   \
+  LEFT3_BP, K01, K02, K03, K04, K05
+
+#define ROW3_RIGHT_BP(K01, K02, K03, K04, K05)  \
+  K01, K02, K03, K04, K05, RIGHT3_BP
+
+//bepo - 6 args, no left or right added.
+#define ROW0_LEFT_BP6(K01, K02, K03, K04, K05, K06)     \
+  K01, K02, K03, K04, K05, K06
+
+#define ROW0_RIGHT_BP6(K01, K02, K03, K04, K05, K06 )   \
+  K01, K02, K03, K04, K05, K06
+
+#define ROW1_LEFT_BP6(K01, K02, K03, K04, K05, K06)     \
+  K01, K02, K03, K04, K05, K06
+
+#define ROW1_RIGHT_BP6(K01, K02, K03, K04, K05, K06 )   \
+  K01, K02, K03, K04, K05, K06
+
+#define ROW2_LEFT_BP6(K01, K02, K03, K04, K05, K06)             \
+  K01, SFT_T(K02), ALT_T(K03), CTL_T(K04), GUI_T(K05), K06
+
+#define ROW2_RIGHT_BP6(K01, K02, K03, K04, K05, K06)            \
+  K01, GUI_T(K02), RCTL_T(K03), RALT_T(K04), RSFT_T(K05), K06
+
+#define ROW3_LEFT_BP6(K01, K02, K03, K04, K05, K06)     \
+  K01, K02, K03, K04, K05, K06
+
+#define ROW3_RIGHT_BP6(K01, K02, K03, K04, K05, K06 )   \
+  K01, K02, K03, K04, K05, K06
+
+/******************************************************************/
+/* Middle Keysets for various keyboards                           */
+// MIDDLES
+/// Middle left and right keys.
+/******************************************************************/
+#define ___MIDDLE_LT___ OSL(_LAYERS)
+#define ___MIDDLE_L1___ KC_CCCV
+#define ___MIDDLE_L2___ TO(_SYMB)
+#define ___MIDDLE_L3___ TO(_NAV)
+
+#define ___MIDDLE_RT___ _X_
+#define ___MIDDLE_R1___ KC_CCCV
+#define ___MIDDLE_R2___ TO(_TOPROWS)
+#define ___MIDDLE_R3___ OSL(_KEYPAD)
+
+#define ___MIDDLE_L1_BP___ BP_CCCV
+#define ___MIDDLE_L2_BP___  TO(_SYMB_BP)
+
+#define ___MIDDLE_R1_BP___ BP_CCCV
+#define ___MIDDLE_R2_BP___ TO(_KEYPAD_BP)
+#define ___MIDDLE_R3_BP___ OSL(_KEYPAD_BP)
+
+// 3 keys in the middle of a 15x matrix
+#define ___3_MIDDLE_T___ ___MIDDLE_LT___,    LCTL(KC_A),        ___MIDDLE_RT___
+#define ___3_MIDDLE_1___ ___MIDDLE_L1___,    LCTL(KC_X),        ___MIDDLE_R1___
+#define ___3_MIDDLE_2___ ___MIDDLE_L2___,    TO(_RGB),          ___MIDDLE_R2___
+#define ___3_MIDDLE_3___ ___MIDDLE_L3___,    TO(_SYMB),   ___MIDDLE_R3___
 
 // The same, for BEPO
-#define ___ORTHO_15_MIDDLE_T_BP___ OSL(LAYERS),       LCTL(BP_A),    MDIA_SYMB_KP_LAYERS
-#define ___ORTHO_15_MIDDLE_1_BP___ LCTL(BP_C),        LCTL(BP_X),    LCTL(BP_V)
-#define ___ORTHO_15_MIDDLE_2_BP___ TO(SYMB_ON_BEPO),  TO(_RGB),      TO(KEYPAD_ON_BEPO)
-#define ___ORTHO_15_MIDDLE_3_BP___ OSL(SYMB_ON_BEPO), TO(MDIA),      OSL(KEYPAD_ON_BEPO)
+#define ___3_MIDDLE_T_BP___ ___MIDDLE_LT___,     LCTL(BP_A),         ___MIDDLE_RT___
+#define ___3_MIDDLE_1_BP___ ___MIDDLE_L1_BP___,  LCTL(BP_X),         ___MIDDLE_R1_BP___
+#define ___3_MIDDLE_2_BP___ ___MIDDLE_L2_BP___,  TO(_RGB),           ___MIDDLE_R2_BP___
+#define ___3_MIDDLE_3_BP___ ___MIDDLE_L3___,     TO(_SYMB_BP), ___MIDDLE_R3_BP___
 
-// The Viterbi only has 2 keys in the middle.
-#define ___ORTHO_14_MIDDLE_T___ OSL(LAYERS),  MDIA_SYMB_KP_LAYERS
-#define ___ORTHO_14_MIDDLE_1___ LCTL(KC_C),   LCTL(KC_V)
-#define ___ORTHO_14_MIDDLE_2___ TO(SYMB),     TO(KEYPAD)
-#define ___ORTHO_14_MIDDLE_3___ OSL(SYMB),    OSL(KEYPAD)
+// 2 keys in the middle of a 14x matrix  - For viterbi and ergodox.
+#define ___2_MIDDLE_T___ ___MIDDLE_LT___,    ___MIDDLE_RT___
+#define ___2_MIDDLE_1___ ___MIDDLE_L1___,    ___MIDDLE_R1___
+#define ___2_MIDDLE_2___ ___MIDDLE_L2___,    ___MIDDLE_R2___
+#define ___2_MIDDLE_3___ ___MIDDLE_L3___,    ___MIDDLE_R3___
+
+// The same, for BEPO
+#define ___2_MIDDLE_T_BP___ ___MIDDLE_LT___,     ___MIDDLE_RT___
+#define ___2_MIDDLE_1_BP___ ___MIDDLE_L1_BP___,  ___MIDDLE_R1_BP___
+#define ___2_MIDDLE_2_BP___ ___MIDDLE_L2_BP___,  ___MIDDLE_R2_BP___
+#define ___2_MIDDLE_3_BP___ ___MIDDLE_L3___,     ___MIDDLE_R3_BP___
+
+/********************************************************************/
+/* THUMBS  */
+/* Define the thumb clusters for all the keyboards.                 */
+/********************************************************************/
+
+// for xd75 or other layouts with a center column.
+// #define ___5_MIDDLE_THUMBS___ CTL_BSPC,    ALT_DEL,     XMONAD_ESC,  ALT_ENT,   CTL_SPC
+#define ___5_MIDDLE_THUMBS___ ALT_DEL, BSPC_TOPR, ESC_SYMB, ENT_NAV, SPC_TOPR
+#define ___5_MIDDLE_THUMBS_BP___ ALT_DEL, BSPC_TOPR_BP, ESC_SYMB_BP, ENT_NAV, SPC_TOPR_BP
+
+// for a last, 4th thumb row. for rebound.
+// backtab, home end, ----, pgup, pgdn, tab ?
+#define ___13_BOTTOM___                                           \
+  KC_BKTAB, HOME_END, KC_TAB, TT(_NAV), BSPC_SYMB, ESC_TOPR,      \
+    OSL(_LAYERS),                                               \
+    ENT_NAV, SPC_TOPR, KC_LEFT, KC_PGUP, KC_PGDN, KC_RIGHT
+
+#define ___13_BOTTOM_BP___                                \
+  KC_BKTAB, HOME_END, KC_TAB, TT(_NAV), BSPC_SYMB_BP, ESC_TOPR_BP, \
+    OSL(_LAYERS),                                                  \
+    ENT_NAV, SPC_TOPR_BP, KC_LEFT, KC_PGUP, KC_PGDN, KC_RIGHT
 
 // becomes the upper thumbs, the real 4th row if we throw away
-// the number row at the top
-#define ___ORTHO_14_MIDDLE_4___ LSFT(KC_TAB),    HOME_END,    KC_PGDN, KC_TAB
-// basically the thumb keys like on the ergodox.
-#define ___MIDDLE_THUMBS___ CTL_BSPC, ALT_DEL, XMONAD_ESC,   KC_PGDN, ALT_ENT, CTL_SPC
-
-// The same, for BEPO
-#define ___ORTHO_14_MIDDLE_T_BP___ OSL(LAYERS),       MDIA_SYMB_KP_LAYERS
-#define ___ORTHO_14_MIDDLE_1_BP___ LCTL(BP_C),        LCTL(BP_V)
-#define ___ORTHO_14_MIDDLE_2_BP___ TO(SYMB_ON_BEPO),  TO(KEYPAD_ON_BEPO)
-#define ___ORTHO_14_MIDDLE_3_BP___ OSL(SYMB_ON_BEPO), OSL(KEYPAD_ON_BEPO)
-
-#define ___ORTHO_14_MIDDLE_4_BP___ LSFT(KC_TAB), HOME_END, KC_PGUP, KC_TAB
-
-
-/********************************************************************/
-/**  The top rows for numbers, symbols and Fkeys.                  **/
-/********************************************************************/
-#define ___ORTHO_15_N___   ___NUMBER_L___,   ___ORTHO_15_MIDDLE_T___, ___NUMBER_R___
-#define ___ORTHO_15_B_N___ ___NUMBER_BEPO_L___, ___ORTHO_15_MIDDLE_T_BP___, ___NUMBER_BEPO_R___
-// the full bepo symbol row.
-#define ___ORTHO_15_B_SYMB___  BP_DLR, ___SYMBOL_BEPO_L___, ___ORTHO_15_MIDDLE_T_BP___, ___SYMBOL_BEPO_R___,  BP_EQL
-
-// transparent in the middle because I only put this on transient layers.
-#define ___ORTHO_15_FUNC_1_12___ ___FUNC_1_6___, ___3___, ___FUNC_7_12___
-
+// the number row at the top.
+// this is the 4th row on the viterbi above the thumbrow if the number
+// row is not used for numbers.
+#define ___4_MIDDLE_4___    LSFT(KC_TAB),    HOME_END,    KC_PGDN, KC_TAB
+#define ___4_MIDDLE_4b___   TAB_BKTAB,       HOME_END,    KC_PGDN, KC_PGUP
 
 /********************************************************************/
 /**  The bottom row and thumbs as needed.                          **/
 /********************************************************************/
-#define ___BOTTOM_LEFT___  LCTL(KC_C),  LCTL(KC_V),  KC_INS,  LEFT_BACKTAB, RIGHT_TAB
-#define ___BOTTOM_RIGHT___ UP_HOME,  DOWN_END,  KC_BSLASH,  LCTL(KC_V),  LCTL(KC_C)
+// I do not use those pinky keys. I had useful things there but there
+// are better more useful ways than those pinkys.
+#define ___5_BOTTOM_LEFT___  ___X2___,  KC_INS,  KC_LEFT, KC_RIGHT
+#define ___5_BOTTOM_RIGHT___ KC_UP,  KC_DOWN,  KC_BSLASH, ___X2___
+
+#define ___4_BOTTOM_LEFT___  LCTL(KC_V),  KC_INS,  KC_LEFT,   KC_RIGHT
+#define ___4_BOTTOM_RIGHT___ KC_UP,       KC_DOWN, KC_BSLASH, LCTL(KC_C)
 
 // the bottom rows  for keyboards on bepo.
 // bepo on bepo - not enough space to go around....
-#define ___BOTTOM_LEFT_BP___  LCTL(BP_C),  BP_ECIR,  LCTL(BP_V),  KC_LEFT, KC_RIGHT
-#define ___BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN,  DB_BACKSLASH,  BP_CCED,  BP_PERC
+#define ___5_BOTTOM_LEFT_BP___  _X_,    BP_EACU,  _X_,           KC_LEFT, KC_RIGHT
+#define ___5_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN,  DB_BACKSLASH,  BP_CCED,  BP_PERC
 
-// for dvorak on bepo
-#define ___BOTTOM_LEFT_FR___  LCTL(BP_C),  LCTL(BP_C),  LCTL(BP_V),  LEFT_BACKTAB, RIGHT_TAB
-#define ___BOTTOM_RIGHT_FR___ UP_HOME,  DOWN_END,  DB_BACKSLASH, LCTL(KC_V),  LCTL(KC_C)
+#define ___4_BOTTOM_LEFT_BP___  LCTL(BP_C),  BP_EACU,  KC_LEFT, KC_RIGHT
+#define ___4_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN, DB_BACKSLASH,  BP_CCED
 
-#define ___ORTHO_15_BOTTOM___     ___BOTTOM_LEFT___,    ___ORTHO_15_MIDDLE_4___, ___BOTTOM_RIGHT___
-#define ___ORTHO_15_BOTTOM_FR___  ___BOTTOM_LEFT_FR___, ___ORTHO_15_MIDDLE_4___, ___BOTTOM_RIGHT_FR___
-#define ___ORTHO_15_BOTTOM_BP___  ___BOTTOM_LEFT_BP___, ___ORTHO_15_MIDDLE_4___, ___BOTTOM_RIGHT_BP___
+// for dvorak and beakl on bepo
+#define ___5_BOTTOM_LEFT_FR___  ___X3___,  KC_LEFT, KC_RIGHT
+#define ___5_BOTTOM_RIGHT_FR___ KC_UP,  KC_DOWN,  DB_BACKSLASH, ___X2___
 
-#define ___ORTHO_14_BOTTOM___    ___BOTTOM_LEFT___,    ___ORTHO_14_MIDDLE_4___, ___BOTTOM_RIGHT___
-#define ___ORTHO_14_BOTTOM_FR___ ___BOTTOM_LEFT_FR___, ___ORTHO_14_MIDDLE_4___, ___BOTTOM_RIGHT_FR___
-#define ___ORTHO_14_BOTTOM_BP___ ___BOTTOM_LEFT_BP___, ___ORTHO_14_MIDDLE_4___, ___BOTTOM_RIGHT_BP___
-#define ___ORTHO_14_THUMBS_BOTTOM___   ___4___, ___MIDDLE_THUMBS___, ___4___
+// basically a 5th row in a 5x matrix. but maybe a 4th if there isnt a number row.
+#define ___15_BOTTOM___     ___5_BOTTOM_LEFT___,    ___5_MIDDLE_THUMBS___, ___5_BOTTOM_RIGHT___
+#define ___15_BOTTOM_FR___  ___5_BOTTOM_LEFT_FR___, ___5_MIDDLE_THUMBS___, ___5_BOTTOM_RIGHT_FR___
+#define ___15_BOTTOM_BP___  ___5_BOTTOM_LEFT_BP___, ___5_MIDDLE_THUMBS___, ___5_BOTTOM_RIGHT_BP___
 
+#define ___14_BOTTOM___    ___5_BOTTOM_LEFT___,    ___4_MIDDLE_4b___, ___5_BOTTOM_RIGHT___
+#define ___14_BOTTOM_FR___ ___5_BOTTOM_LEFT_FR___, ___4_MIDDLE_4b___, ___5_BOTTOM_RIGHT_FR___
+#define ___14_BOTTOM_BP___ ___5_BOTTOM_LEFT_BP___, ___4_MIDDLE_4b___, ___5_BOTTOM_RIGHT_BP___
+#define ___14_THUMBS_BOTTOM___   ___X4___, ___6_MIDDLE_THUMBS___, ___X4___
 
-#define ___ERGODOX_THUMB_LEFT___                \
-    OSL(SYMB), OSM(KC_LGUI),                    \
-        HOME_END,                               \
-        CTL_BSPC, ALT_DEL, GUI_ESC
+// bottom row of ergodox thumbs, bottom middle of all layouts.
+// start with the minimilist thumb row of 6, like the Corne, 2x3.
 
+#define ___THUMBS_1___    TT(_KEYPAD),    MO(_ADJUST), MO(_LAYERS), OSL(_TOPROWS)
+#define ___THUMBS_1_BP___ TT(_KEYPAD_BP), MO(_ADJUST), MO(_LAYERS), OSL(_TOPROWS_BP)
+#define ___THUMBS_2___                      HOME_END,      KC_PGUP
+#define ___THUMBS_3___                         ___6_ERGO_THUMBS___
 
-#define ___ERGODOX_THUMB_RIGHT___               \
-    KC_PGUP, OSL(KEYPAD),                       \
-        CTLGUI_PGDN,                            \
-        TT(MDIA), ALT_ENT, CTL_SPC
+#define ___4_THUMBS_1_BP___      TT(_KEYPAD_BP), KC_HOME, KC_PGUP, OSL(_TOPROWS_BP)
+#define ___4_THUMBS_1___           TT(_KEYPAD), KC_HOME, KC_PGUP, OSL(_TOPROWS)
+#define ___6_THUMBS_2___  KC_LSFT,    KC_BKTAB, KC_END,  KC_PGDN, KC_TAB, KC_RSFT
 
-#define ___ERGODOX_THUMB_RIGHT_BP___            \
-    KC_PGUP, OSL(KEYPAD_ON_BEPO),               \
-        CTLGUI_PGDN,                            \
-        TT(MDIA), ALT_ENT, CTL_SPC
+#define ___6_THUMBS_2b___    BSPC_SYMB, ESC_TOPR, KC_END,  KC_PGDN, ENT_NAV, SPC_TOPR
+#define ___6_ERGO_THUMBSb___ TT(_LAYERS), BSPC_SYMB, ESC_TOPR, ENT_NAV, TT(_NAV), KC_XM_PORD
+#define ___6_THUMBS_2b_BP___ BSPC_SYMB_BP, ESC_TOPR_BP, KC_END,  KC_PGDN, ENT_TOPR_BP, SPC_NAV
 
-#define ___ERGODOX_THUMB_LEFT_BP___             \
-    OSL(SYMB_ON_BEPO), OSM(KC_LGUI | KC_LCTL),  \
-        HOME_END,                               \
-        CTL_BSPC, ALT_DEL, GUI_ESC
+#define ___6_ERGO_THUMBS___ TT(_NAV), BSPC_SYMB, ESC_TOPR, ENT_NAV, SPC_ADJ, KC_XM_PORD
 
-/********************************************************************************/
-/* the interior rows for ortholinear keyboards. the first number is the length  */
-/* So you can put what you want on the outside ends, make new middles as needed */
-/* It would be nice to make this a little more dynamic. There is little         */
-/*  differenc between them.                                                     */
-/********************************************************************************/
+#define ___6_ERGO_THUMBS_BP___ TT(_NAV), BSPC_SYMB_BP, ESC_TOPR, ENT_NAV, SPC_ADJ_BP, BP_XM_PORD
+#define ___6_ERGO_THUMBS2_BP___ TT(_NAV), BSPC_SYMB_BP, ESC_TOPR, ENT_NAV, SPC_ADJ_BP, BP_XM_PORD
+#define ___6_MIDDLE_THUMBS___ ___6_ERGO_THUMBS___
 
-//// ortho15 core rows.  used with my xd75.
-/***********************************************************/
-/* ORTHO15 interior rows.  used with my xd75 */
-/***********************************************************/
-#define ___13_DVORAK_1___  ___DVORAK_L1___,  ___ORTHO_15_MIDDLE_1___, ___DVORAK_R1___
-#define ___13_DVORAK_2___  ___DVORAK_L2___,  ___ORTHO_15_MIDDLE_2___, ___DVORAK_R2___
-#define ___13_DVORAK_3___  ___DVORAK_L3___,  ___ORTHO_15_MIDDLE_3___, ___DVORAK_R3___
+#define ___6_CRKBD_THUMBS___ TT(_NAV) ,  BSPC_SYMB, ESC_TOPR, ENT_NAV, SPC_ADJ, TT(_LAYERS)
+#define ___6_CRKBD_THUMBS_BP___ TT(_NAV),  BSPC_SYMB_BP, ESC_TOPR_BP, ENT_NAV, SPC_ADJ_BP, TT(_LAYERS)
 
-#define ___13_QWERTY_1___  ___QWERTY_L1___, ___ORTHO_15_MIDDLE_1___, ___QWERTY_R1___
-#define ___13_QWERTY_2___  ___QWERTY_L2___, ___ORTHO_15_MIDDLE_2___, ___QWERTY_R2___
-#define ___13_QWERTY_3___  ___QWERTY_L3___, ___ORTHO_15_MIDDLE_3___, ___QWERTY_R3___
+#define ___12_DOX_ALL_THUMBS___    ___THUMBS_1___,    ___THUMBS_2___, ___THUMBS_3___
+#define ___12_DOX_ALL_THUMBS_BP___ ___THUMBS_1_BP___, ___THUMBS_2___, ___THUMBS_3___
 
-#define ___13_COLEMAK_1___ ___COLEMAK_L1___, ___ORTHO_15_MIDDLE_1___, ___COLEMAK_R1___
-#define ___13_COLEMAK_2___ ___COLEMAK_L2___, ___ORTHO_15_MIDDLE_2___, ___COLEMAK_R2___
-#define ___13_COLEMAK_3___ ___COLEMAK_L3___, ___ORTHO_15_MIDDLE_3___, ___COLEMAK_R3___
-
-#define ___13_WORKMAN_1___ ___WORKMAN_L1___, ___ORTHO_15_MIDDLE_1___, ___WORKMAN_R1___
-#define ___13_WORKMAN_2___ ___WORKMAN_L2___, ___ORTHO_15_MIDDLE_2___, ___WORKMAN_R2___
-#define ___13_WORKMAN_3___ ___WORKMAN_L3___, ___ORTHO_15_MIDDLE_3___, ___WORKMAN_R3___
-
-#define ___13_NORMAN_1___  ___NORMAN_L1___,  ___ORTHO_15_MIDDLE_1___, ___NORMAN_R1___
-#define ___13_NORMAN_2___  ___NORMAN_L2___,  ___ORTHO_15_MIDDLE_2___, ___NORMAN_R2___
-#define ___13_NORMAN_3___  ___NORMAN_L3___,  ___ORTHO_15_MIDDLE_3___, ___NORMAN_R3___
-
-#define ___13_DVORAK_B_1___ ___DVORAK_FR_L1___,  ___ORTHO_15_MIDDLE_1_BP___, ___DVORAK_FR_R1___
-#define ___13_DVORAK_B_2___ ___DVORAK_FR_L2___,  ___ORTHO_15_MIDDLE_2_BP___, ___DVORAK_FR_R2___
-#define ___13_DVORAK_B_3___ ___DVORAK_FR_L3___,  ___ORTHO_15_MIDDLE_3_BP___, ___DVORAK_FR_R3___
-
-#define ___13_BEPO_1___ ___BEPO_FR_L1___, ___ORTHO_15_MIDDLE_1_BP___, ___BEPO_FR_R1___
-#define ___13_BEPO_2___ ___BEPO_FR_L2___, ___ORTHO_15_MIDDLE_2_BP___, ___BEPO_FR_R2___
-#define ___13_BEPO_3___ ___BEPO_FR_L3___, ___ORTHO_15_MIDDLE_3_BP___, ___BEPO_FR_R3___
-
-// transparent xmonad/dvorak layer
-#define ___15_XMONAD_1___  ___,  ___DVORAK_L1___, ___3___, ___DVORAK_R1___,  ___
-#define ___15_XMONAD_2___  ___,  ___DVORAK_L2___, ___3___, ___DVORAK_R2___,  ___
-#define ___15_XMONAD_3___  ___,  ___DVORAK_L3___, ___3___, ___DVORAK_R3___,  ___
-
-// transparent xmonad/dvorak layer in bepo
-#define ___15_XMONAD_B_1___ ___,  ___DVORAK_FR_L1___,  ___3___, ___DVORAK_FR_R1___,   ___
-#define ___15_XMONAD_B_2___ ___,  ___DVORAK_FR_L2___,  ___3___, ___DVORAK_FR_R2___,   ___
-#define ___15_XMONAD_B_3___ ___,  ___DVORAK_FR_L3___,  ___3___, ___DVORAK_FR_R3___,   ___
-
-#define ___15_SYMB_1___ ___SYMBOLS6_1___,  ___3___, ___SYMPAD_1___
-#define ___15_SYMB_2___ ___SYMBOLS6_2___,  ___3___, ___SYMPAD_2___
-#define ___15_SYMB_3___ ___SYMBOLS6_3___,  ___3___, ___SYMPAD_3___
-#define ___15_SYMB_4___ ___SYMBOLS6_4___,  ___3___, ___SYMPAD_4___
-
-#define ___15_KP_1___ ___2___,  ___FUNCPAD_T___,  ___5___, ___KEYPAD_1___,  ___
-#define ___15_KP_2___ ___2___,  ___FUNCPAD_1___,  ___5___, ___KEYPAD_2___,  ___
-#define ___15_KP_3___ ___2___,  ___FUNCPAD_2___,  ___5___, ___KEYPAD_3___,  KC_PENT
-#define ___15_KP_4___ ___2___,  ___FUNCPAD_3___,  ___5___, ___KEYPAD_4___,  ___
-
-#define ___15_KP_B_1___ ___2___,  ___FUNCPAD_T___,  ___5___, ___KEYPAD_1_BP___,  ___
-#define ___15_KP_B_2___ ___2___,  ___FUNCPAD_1___,  ___5___, ___KEYPAD_2_BP___,  ___
-#define ___15_KP_B_3___ ___2___,  ___FUNCPAD_2___,  ___5___, ___KEYPAD_3_BP___,  KC_PENT
-#define ___15_KP_B_4___ ___2___,  ___FUNCPAD_3___,  ___5___, ___KEYPAD_4_BP___,  ___
-
-#define ___15_SYMB_B_1___ ___SYMBOLS6_1_BP___,  ___3___, ___SYMPAD_1_BP___
-#define ___15_SYMB_B_2___ ___SYMBOLS6_2_BP___,  ___3___, ___SYMPAD_2_BP___
-#define ___15_SYMB_B_3___ ___SYMBOLS6_3_BP___,  ___3___, ___SYMPAD_3_BP___
-#define ___15_SYMB_B_4___ ___SYMBOLS6_4_BP___,  ___3___, ___SYMPAD_4_BP___
-
-#define ___15_MDIA_1___ ___MOUSE_BTNS_L___,     ___4___, KC_VOLU, ___MUTE_PRV_PLAY_NXT_STOP___
-#define ___15_MDIA_2___ ___, ___MOUSE_LDUR___,  ___4___, KC_VOLD, ___VI_ARROWS___, ___
-#define ___15_MDIA_3___ ___, ___MWHEEL_LDUR___, ___4___, KC_PGUP, ___MOUSE_BTNS_R___
-#define ___15_MDIA_4___ ___2___, ___MACCL___,   ___4___, KC_PGDN, ___5___
-
-#define ___15_LAYERS_1___ ___X3___, ___2_LAYERS_B1___,  ___5___,  ___3_LAYERS_T_BP___,  ___X2___
-#define ___15_LAYERS_2___ ___X3___, ___2_LAYERS_B2___,  ___5___,  ___3_LAYERS_T___,     ___X2___
-#define ___15_LAYERS_3___ ___X2___, ___3_LAYERS_B3___,  ___5___,  ___3_LAYERS_T_CTL___, ___X2___
-
-#define ___15_RGB_1___ ___, ___RGB_HUE_SAT_INT_UP___,          ___5___, ___5___
-#define ___15_RGB_2___ ___, ___RGB_HUE_SAT_INT_DN___, RGB_TOG, ___4___, ___RGB_P_B_R_SW_SN___
-#define ___15_RGB_3___ ___5___,                                ___5___, ___RGB_KXGT___, ___
+#define ___16_ALL_THUMBSb___  ___4_THUMBS_1___,   ___6_THUMBS_2b___, ___6_ERGO_THUMBSb___
+#define ___16_ALL_THUMBS___   ___4_THUMBS_1___,    ___6_THUMBS_2___, ___6_ERGO_THUMBS___
+#define ___16_ALL_THUMBSb_BP___ ___4_THUMBS_1_BP___, ___6_THUMBS_2b_BP___, ___6_ERGO_THUMBS___
+#define ___16_ALL_THUMBS_BP___ ___4_THUMBS_1_BP___, ___6_THUMBS_2_BP___, ___6_ERGO_THUMBS_BP___
 
 
 
-/***********************************************************/
-/* ORTHO14 base layer interior rows.  used with my viterbi */
-/***********************************************************/
-#define ___12_DVORAK_1___  ___DVORAK_L1___,  ___ORTHO_14_MIDDLE_1___, ___DVORAK_R1___
-#define ___12_DVORAK_2___  ___DVORAK_L2___,  ___ORTHO_14_MIDDLE_2___, ___DVORAK_R2___
-#define ___12_DVORAK_3___  ___DVORAK_L3___,  ___ORTHO_14_MIDDLE_3___, ___DVORAK_R3___
+// Since our quirky block definitions are basically a list of comma separated
+// arguments, we need a wrapper in order for these definitions to be
+// expanded before being used as arguments to the LAYOUT_xxx macro.
+#if (!defined(LAYOUT) && defined(KEYMAP))
+#define LAYOUT KEYMAP
+#endif
 
-#define ___12_QWERTY_1___  ___QWERTY_L1___, ___ORTHO_14_MIDDLE_1___, ___QWERTY_R1___
-#define ___12_QWERTY_2___  ___QWERTY_L2___, ___ORTHO_14_MIDDLE_2___, ___QWERTY_R2___
-#define ___12_QWERTY_3___  ___QWERTY_L3___, ___ORTHO_14_MIDDLE_3___, ___QWERTY_R3___
+// every keyboard has it's Layout. We start there and make a var args
+// out of it.
 
-#define ___12_COLEMAK_1___ ___COLEMAK_L1___, ___ORTHO_14_MIDDLE_1___, ___COLEMAK_R1___
-#define ___12_COLEMAK_2___ ___COLEMAK_L2___, ___ORTHO_14_MIDDLE_2___, ___COLEMAK_R2___
-#define ___12_COLEMAK_3___ ___COLEMAK_L3___, ___ORTHO_14_MIDDLE_3___, ___COLEMAK_R3___
+#define LVARG_ergodox(...)    LAYOUT_ergodox(__VA_ARGS__)
+#define LVARG_edox(...)       LAYOUT_ergodox_pretty(__VA_ARGS__)
+#define LAYOUT_VARG(...)      LAYOUT(__VA_ARGS__)
+#define LAYOUT_PVARG(...)     LAYOUT_pretty(__VA_ARGS__)
 
-#define ___12_WORKMAN_1___ ___WORKMAN_L1___, ___ORTHO_14_MIDDLE_1___, ___WORKMAN_R1___
-#define ___12_WORKMAN_2___ ___WORKMAN_L2___, ___ORTHO_14_MIDDLE_2___, ___WORKMAN_R2___
-#define ___12_WORKMAN_3___ ___WORKMAN_L3___, ___ORTHO_14_MIDDLE_3___, ___WORKMAN_R3___
+#define LVARG_4x12(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
+#define LVARG_5x12(...)       LAYOUT_ortho_5x12(__VA_ARGS__)
+#define LVARG_5x14(...)       LAYOUT_ortho_5x14(__VA_ARGS__)
+#define LVARG_5x15(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
 
-#define ___12_NORMAN_1___  ___NORMAN_L1___,  ___ORTHO_14_MIDDLE_1___, ___NORMAN_R1___
-#define ___12_NORMAN_2___  ___NORMAN_L2___,  ___ORTHO_14_MIDDLE_2___, ___NORMAN_R2___
-#define ___12_NORMAN_3___  ___NORMAN_L3___,  ___ORTHO_14_MIDDLE_3___, ___NORMAN_R3___
+/*
+  | Left | Numbers L | middle | numbers R | Right |
+  | Left | keys0-5   | middle | Keys6-10  | Right |
+  | Left | keys11-15 | middle | Keys16-20 | Right |
+  | Left | keys20-25 | middle | Keys25-30 | Right |
+  |Row5L                                  Row5R   |
+  |ThumbsL                                ThumbsR |
+*/
 
-#define ___12_DVORAK_B_1___ ___DVORAK_FR_L1___,  ___ORTHO_14_MIDDLE_1_BP___, ___DVORAK_FR_R1___
-#define ___12_DVORAK_B_2___ ___DVORAK_FR_L2___,  ___ORTHO_14_MIDDLE_2_BP___, ___DVORAK_FR_R2___
-#define ___12_DVORAK_B_3___ ___DVORAK_FR_L3___,  ___ORTHO_14_MIDDLE_3_BP___, ___DVORAK_FR_R3___
+/* Assuming that left, midddle, right, row5, and thumbs stay the same, */
+/* numbers, no numbers, numbers never change, whatever.                */
+/*   we can have a layout macro that takes a nice rectangle of keys.   */
 
-#define ___12_BEPO_2___ ___BEPO_FR_L1___, ___ORTHO_14_MIDDLE_1_BP___, ___BEPO_FR_R1___
-#define ___12_BEPO_3___ ___BEPO_FR_L2___, ___ORTHO_14_MIDDLE_2_BP___, ___BEPO_FR_R2___
-#define ___12_BEPO_4___ ___BEPO_FR_L3___, ___ORTHO_14_MIDDLE_3_BP___, ___BEPO_FR_R3___
+/* Actually, because of Bepo, each keyboard currently requires four of */
+/* these macros. One for Qwerty, One for foreign layouts on bepo like */
+/* dvorak and beakl on bepo instead of on Qwerty. Then another for the Bepo */
+/* layout because unlike the rest of the layouts Bepo doesn't fit in */
+/* 3x10. It wants 3x12. So there are potentially 4 macros per keyboard here. */
+/* XXXX_base, XXXX_base_bepo, XXXX_base_bepo6, The 4th macro */
+/* is XXXXX_transient and generally works for all other */
+/* non base layers.                                       */
+/* The base and transient versions are all that is necessary, if bepo is */
+/*   not needed. */
 
 
-// transparent layers.
-#define ___14_XMONAD_1___  ___,  ___DVORAK_L1___, ___2___, ___DVORAK_R1___,  ___
-#define ___14_XMONAD_2___  ___,  ___DVORAK_L2___, ___2___, ___DVORAK_R2___,  ___
-#define ___14_XMONAD_3___  ___,  ___DVORAK_L3___, ___2___, ___DVORAK_R3___,  ___
+/* All layouts are relatively simple to make. */
+/* The ROW macros add a universal mod layer so that mods can be defined once */
+/* and used everywhere. No matter the keymap or layer. this allows actual maps */
+/* like dvorak, qwerty, colemak, beakl, etc., to be defined simply. */
 
-#define ___14_XMONAD_B_1___ ___,  ___DVORAK_FR_L1___,  ___2___, ___DVORAK_FR_R1___,   ___
-#define ___14_XMONAD_B_2___ ___,  ___DVORAK_FR_L2___,  ___2___, ___DVORAK_FR_R2___,   ___
-#define ___14_XMONAD_B_3___ ___,  ___DVORAK_FR_L3___,  ___2___, ___DVORAK_FR_R3___,   ___
 
-#define ___14_SYMB_1___ ___SYMBOLS6_1___,  ___2___, ___SYMPAD_1___
-#define ___14_SYMB_2___ ___SYMBOLS6_2___,  ___2___, ___SYMPAD_2___
-#define ___14_SYMB_3___ ___SYMBOLS6_3___,  ___2___, ___SYMPAD_3___
-#define ___14_SYMB_4___ ___SYMBOLS6_4___,  ___2___, ___SYMPAD_4___
+/* Additional, more complicated layouts can be found here.*/
+/* examples can be found in crkbd/keymaps/ericgebhart */
+/* examples can be found in kinesis/keymaps/ericgebhart */
+/* examples can be found in ergodox/keymaps/ericgebhart */
+/* examples can be found in montsinger/rebound/rev4/keymaps/ericgebhart */
 
-#define ___14_KP_1___ ___2___,  ___FUNCPAD_T___,  ___4___, ___KEYPAD_1___,  ___
-#define ___14_KP_2___ ___2___,  ___FUNCPAD_1___,  ___4___, ___KEYPAD_2___,  ___
-#define ___14_KP_3___ ___2___,  ___FUNCPAD_2___,  ___4___, ___KEYPAD_3___,  KC_PENT
-#define ___14_KP_4___ ___2___,  ___FUNCPAD_3___,  ___4___, ___KEYPAD_4___,  ___
 
-#define ___14_KP_B_1___ ___2___,  ___FUNCPAD_T___,  ___4___, ___KEYPAD_1_BP___,  ___
-#define ___14_KP_B_2___ ___2___,  ___FUNCPAD_1___,  ___4___, ___KEYPAD_2_BP___,  ___
-#define ___14_KP_B_3___ ___2___,  ___FUNCPAD_2___,  ___4___, ___KEYPAD_3_BP___,  KC_PENT
-#define ___14_KP_B_4___ ___2___,  ___FUNCPAD_3___,  ___4___, ___KEYPAD_4_BP___,  ___
 
-#define ___14_SYMB_B_1___ ___SYMBOLS6_1_BP___,  ___2___, ___SYMPAD_1_BP___
-#define ___14_SYMB_B_2___ ___SYMBOLS6_2_BP___,  ___2___, ___SYMPAD_2_BP___
-#define ___14_SYMB_B_3___ ___SYMBOLS6_3_BP___,  ___2___, ___SYMPAD_3_BP___
-#define ___14_SYMB_B_4___ ___SYMBOLS6_4_BP___,  ___2___, ___SYMPAD_4_BP___
+/********************************************************************/
+/* xiudi/xd75  - Ortholinear 5x15  */
+/********************************************************************/
+/// These first two base layout templates take sets of 5 keys, left and right.
+// Using 4 sets allows for changing the number row if you have one.
+// if you never change the number row, then use 3 sets of left and right.
+// and define the number row here.
+#define LAYOUT_5x15_base(                                         \
+                         K01, K02, K03, K04, K05,                 \
+                         K06, K07, K08, K09, K0A,                 \
+                         K11, K12, K13, K14, K15,                 \
+                         K16, K17, K18, K19, K1A,                 \
+                         K21, K22, K23, K24, K25,                 \
+                         K26, K27, K28, K29, K2A,                 \
+                         K31, K32, K33, K34, K35,                 \
+                         K36, K37, K38, K39, K3A)                 \
+  LVARG_5x15(                                                     \
+            ROW0_LEFT(K01, K02, K03, K04, K05), \
+            ___3_MIDDLE_T___,                                           \
+            ROW0_RIGHT(K06, K07, K08, K09, K0A),                        \
+                                                                        \
+            ROW1_LEFT(K11, K12, K13, K14, K15),                         \
+            ___3_MIDDLE_1___,                                           \
+            ROW1_RIGHT(K16, K17, K18, K19, K1A),                        \
+                                                                        \
+            ROW2_LEFT(K21, K22, K23, K24, K25),                         \
+            ___3_MIDDLE_2___,                                           \
+            ROW2_RIGHT(K26, K27, K28, K29, K2A),                        \
+                                                                        \
+            ROW3_LEFT(K31, K32, K33, K34, K35),                         \
+            ___3_MIDDLE_3___,                                           \
+            ROW3_RIGHT(K36, K37, K38, K39, K3A),                        \
+            ___15_BOTTOM___                                             \
+    )
 
-#define ___14_MDIA_1___ ___MOUSE_BTNS_L___,     ___3___, KC_VOLU, ___MUTE_PRV_PLAY_NXT_STOP___
-#define ___14_MDIA_2___ ___, ___MOUSE_LDUR___,  ___3___, KC_VOLD, ___VI_ARROWS___, ___
-#define ___14_MDIA_3___ ___, ___MWHEEL_LDUR___, ___3___, KC_PGUP, ___MOUSE_BTNS_R___
-#define ___14_MDIA_4___ ___2___, ___MACCL___,   ___3___, KC_PGDN, ___5___
+#define LAYOUT_5x15_base_bepo(                                          \
+                         K01, K02, K03, K04, K05,                       \
+                         K06, K07, K08, K09, K0A,                       \
+                         K11, K12, K13, K14, K15,                       \
+                         K16, K17, K18, K19, K1A,                       \
+                         K21, K22, K23, K24, K25,                   \
+                         K26, K27, K28, K29, K2A,                   \
+                         K31, K32, K33, K34, K35,                   \
+                         K36, K37, K38, K39, K3A)                   \
+  LVARG_5x15(                                                           \
+             ROW0_LEFT_BP(K01, K02, K03, K04, K05),                   \
+             ___3_MIDDLE_T___,                                          \
+             ROW0_RIGHT_BP(K06, K07, K08, K09, K0A),                    \
+                                                                        \
+             ROW1_LEFT_BP(K11, K12, K13, K14, K15),                     \
+             ___3_MIDDLE_1_BP___,                                       \
+             ROW1_RIGHT_BP(K16, K17, K18, K19, K1A),                    \
+                                                                        \
+             ROW2_LEFT_BP(K21, K22, K23, K24, K25),                     \
+             ___3_MIDDLE_2_BP___,                                       \
+             ROW2_RIGHT_BP(K26, K27, K28, K29, K2A),                    \
+                                                                        \
+             ROW3_LEFT_BP(K31, K32, K33, K34, K35),                     \
+             ___3_MIDDLE_3_BP___,                                       \
+             ROW3_RIGHT_BP(K36, K37, K38, K39, K3A),                    \
+             ___15_BOTTOM_BP___                                         \
+                                                                        )
 
-#define ___14_LAYERS_1___ ___X3___, ___2_LAYERS_B1___,  ___4___,  ___3_LAYERS_T_BP___,  ___X2___
-#define ___14_LAYERS_2___ ___X3___, ___2_LAYERS_B2___,  ___4___,  ___3_LAYERS_T___,     ___X2___
-#define ___14_LAYERS_3___ ___X2___, ___3_LAYERS_B3___,  ___4___,  ___3_LAYERS_T_CTL___, ___X2___
+// Just for bepo because it's a 3x6 matrix on each side.
+// So 3 pairs of 6 keys, left and right.
+#define Layout_5x15_base_bepo6(                                         \
+                               K01, K02, K03, K04, K05, K06,            \
+                               K07, K08, K09, K0A, K0B, K0C,            \
+                               K11, K12, K13, K14, K15, K16,            \
+                               K17, K18, K19, K1A, K1B, K1C,            \
+                               K21, K22, K23, K24, K25, K26,            \
+                               K27, K28, K29, K2A, K2B, K2C             \
+                                                   )                    \
+     LVARG_5x15(                                                        \
+                ___15_B_SYMB___,                                  \
+                ROW1_LEFT_BP6(K01, K02, K03, K04, K05, K06),            \
+                ___3_MIDDLE_1_BP___,                                    \
+                ROW1_RIGHT_BP6(K07, K08, K09, K0A, K0B, K0C),           \
+                                                                        \
+                ROW2_LEFT_BP6(K11, K12, K13, K14, K15, K16),            \
+                ___3_MIDDLE_2___,                                       \
+                ROW2_RIGHT_BP6(K17, K18, K19, K1A, K1B, K1C),           \
+                                                                        \
+                ROW3_LEFT_BP6(K21, K22, K23, K24, K25, K26),            \
+                ___3_MIDDLE_3___,                                       \
+                ROW3_RIGHT_BP6(K27, K28, K29, K2A, K2B, K2C),           \
+                ___15_BOTTOM_BP___                                      \
+                                                                        )
 
-#define ___14_RGB_1___ ___, ___RGB_HUE_SAT_INT_UP___,          ___4___, ___5___
-#define ___14_RGB_2___ ___, ___RGB_HUE_SAT_INT_DN___, RGB_TOG, ___3___, ___RGB_P_B_R_SW_SN___
-#define ___14_RGB_3___ ___5___,                                ___4___, ___RGB_KXGT___, ___
+     // 4  rows of 12. 3 columns transparent in the middle.
+#define LAYOUT_5x15_transient(                                          \
+                              K01, K02, K03, K04, K05, K06,             \
+                              K07, K08, K09, K0A, K0B, K0C,           \
+                              K11, K12, K13, K14, K15, K16,             \
+                              K17, K18, K19, K1A, K1B, K1C,             \
+                              K21, K22, K23, K24, K25, K26,             \
+                              K27, K28, K29, K2A, K2B, K2C,             \
+                              K31, K32, K33, K34, K35, K36,             \
+                              K37, K38, K39, K3A, K3B, K3C              \
+                                                                        ) \
+     LVARG_5x15(                                                  \
+                K01, K02, K03, K04, K05, K06,                           \
+                ___3___,                                                \
+                K07, K08, K09, K0A, K0B, K0C,                           \
+                K11, K12, K13, K14, K15, K16,                           \
+                ___3___,                                                \
+                K17, K18, K19, K1A, K1B, K1C,                           \
+                K21, K22, K23, K24, K25, K26,                           \
+                ___3___,                                                \
+                K27, K28, K29, K2A, K2B, K2C,                           \
+                K31, K32, K33, K34, K35, K36,                           \
+                ___3___,                                                \
+                K37, K38, K39, K3A, K3B, K3C,                           \
+                ___15___)                                               \
+
+#define _5x15_base(...)       LAYOUT_5x15_base(__VA_ARGS__)
+#define _5x15_base_bepo(...)  LAYOUT_5x15_base_bepo(__VA_ARGS__)
+#define _5x15_base_bepo6(...) LAYOUT_5x15_base_bepo6(__VA_ARGS__)
+#define _5x15_transient(...)  LAYOUT_5x15_transient(__VA_ARGS__)
+
+/********************************************************************/
+
+
+/********************************************************************/
+/* viterbi  - Ortholinear 5x14  */
+/********************************************************************/
+#define LAYOUT_5x14_base(                                               \
+                         K01, K02, K03, K04, K05,                       \
+                         K06, K07, K08, K09, K0A,                       \
+                         K11, K12, K13, K14, K15,                       \
+                         K16, K17, K18, K19, K1A,                       \
+                         K21, K22, K23, K24, K25,                       \
+                         K26, K27, K28, K29, K2A,                       \
+                         K31, K32, K33, K34, K35,                       \
+                         K36, K37, K38, K39, K3A)                       \
+  LVARG_5x14(                                                           \
+             ROW0_LEFT(K01, K02, K03, K04, K05),                        \
+             ___2_MIDDLE_T___,                                          \
+             ROW0_RIGHT(K06, K07, K08, K09, K0A),                       \
+                                                                        \
+             ROW1_LEFT(K11, K12, K13, K14, K15),                        \
+             ___2_MIDDLE_1___,                                          \
+             ROW1_RIGHT(K16, K17, K18, K19, K1A),                       \
+                                                                        \
+             ROW2_LEFT(K21, K22, K23, K24, K25),                        \
+             ___2_MIDDLE_2___,                                          \
+             ROW2_RIGHT(K26, K27, K28, K29, K2A),                       \
+                                                                        \
+             ROW3_LEFT(K31, K32, K33, K34, K35),                        \
+             ___2_MIDDLE_3___,                                          \
+             ROW3_RIGHT(K36, K37, K38, K39, K3A),                       \
+             ___14_BOTTOM___                                            \
+                                                                        )
+
+#define LAYOUT_5x14_base_bepo(                                          \
+                              K01, K02, K03, K04, K05,                  \
+                              K06, K07, K08, K09, K0A,                  \
+                              K11, K12, K13, K14, K15,                  \
+                              K16, K17, K18, K19, K1A,                  \
+                              K21, K22, K23, K24, K25,                  \
+                              K26, K27, K28, K29, K2A,                  \
+                              K31, K32, K33, K34, K35,                  \
+                              K36, K37, K38, K39, K3A)                  \
+  LVARG_5x14(                                                           \
+            ROW0_LEFT_BP(K01, K02, K03, K04, K05),                      \
+            ___2_MIDDLE_T___,                                           \
+            ROW0_RIGHT_BP(K06, K07, K08, K09, K0A),                     \
+                                                                        \
+            ROW1_LEFT_BP(K11, K12, K13, K14, K15),                      \
+            ___2_MIDDLE_1_BP___,                                        \
+            ROW1_RIGHT_BP(K16, K17, K18, K19, K1A),                     \
+                                                                        \
+            ROW2_LEFT_BP(K21, K22, K23, K24, K25),                      \
+            ___2_MIDDLE_2_BP___,                                        \
+            ROW2_RIGHT_BP(K26, K27, K28, K29, K2A),                     \
+                                                                        \
+            ROW3_LEFT_BP(K31, K32, K33, K34, K35),                      \
+            ___2_MIDDLE_3_BP___,                                        \
+            ROW3_RIGHT_BP(K36, K37, K38, K39, K3A),                     \
+            ___14_BOTTOM_BP___                                          \
+    )
+
+  // Just for bepo because it's a 3x6 matrix on each side.
+// So 3 pairs of 6 keys, left and right.
+#define LAYOUT_5x14_base_bepo6(                                 \
+                               K01, K02, K03, K04, K05, K06,    \
+                               K07, K08, K09, K0A, K0B, K0C,    \
+                               K11, K12, K13, K14, K15, K16,    \
+                               K17, K18, K19, K1A, K1B, K1C,        \
+                               K21, K22, K23, K24, K25, K26,        \
+                               K27, K28, K29, K2A, K2B, K2C             \
+                                                   )                    \
+  LVARG_5x14(                                                           \
+             ___14_B_SYMB___,                                           \
+             ROW1_LEFT_BP6(K01, K02, K03, K04, K05, K06),               \
+             ___2_MIDDLE_1_BP___,                                       \
+             ROW1_RIGHT_BP6(K07, K08, K09, K0A, K0B, K0C),              \
+                                                                        \
+             ROW2_LEFT_BP6(K11, K12, K13, K14, K15, K16),               \
+             ___2_MIDDLE_2___,                                          \
+             ROW2_RIGHT_BP6(K17, K18, K19, K1A, K1B, K1C),              \
+                                                                        \
+             ROW3_LEFT_BP6(K21, K22, K23, K24, K25, K26),               \
+             ___2_MIDDLE_3___,                                          \
+             ROW3_RIGHT_BP6(K27, K28, K29, K2A, K2B, K2C),              \
+             ___14_BOTTOM_BP___                                         \
+                                                                        )
+
+// 4  rows of 12. 2 columns transparent in the middle.
+#define LAYOUT_5x14_transient(                                          \
+                              K01, K02, K03, K04, K05, K06,             \
+                              K07, K08, K09, K0A, K0B, K0C,             \
+                              K11, K12, K13, K14, K15, K16,             \
+                              K17, K18, K19, K1A, K1B, K1C,             \
+                              K21, K22, K23, K24, K25, K26,             \
+                              K27, K28, K29, K2A, K2B, K2C,             \
+                              K31, K32, K33, K34, K35, K36,             \
+                              K37, K38, K39, K3A, K3B, K3C              \
+                                                                        ) \
+  LVARG_5x14(                                                           \
+             K01, K02, K03, K04, K05, K06,                              \
+             ___2___,                                                   \
+             K07, K08, K09, K0A, K0B, K0C,                              \
+             K11, K12, K13, K14, K15, K16,                              \
+             ___2___,                                                   \
+             K17, K18, K19, K1A, K1B, K1C,                              \
+             K21, K22, K23, K24, K25, K26,                              \
+             ___2___,                                                   \
+             K27, K28, K29, K2A, K2B, K2C,                              \
+             K31, K32, K33, K34, K35, K36,                              \
+             ___2___,                                                   \
+             K37, K38, K39, K3A, K3B, K3C,                              \
+             ___14___                                                   \
+                                                                        ) \
+
+#define _5x14_base(...)       LAYOUT_5x14_base(__VA_ARGS__)
+#define _5x14_base_bepo(...)  LAYOUT_5x14_base_bepo(__VA_ARGS__)
+#define _5x14_base_bepo6(...) LAYOUT_5x14_base_bepo6(__VA_ARGS__)
+#define _5x14_transient(...)  LAYOUT_5x14_transient(__VA_ARGS__)
+
+/********************************************************************/
+/* Ortholinear 4x12  */
+/********************************************************************/
+#define LAYOUT_4x12_base(                                               \
+                         K01, K02, K03, K04, K05,                       \
+                         K06, K07, K08, K09, K0A,                       \
+                         K11, K12, K13, K14, K15,                       \
+                         K16, K17, K18, K19, K1A,                       \
+                         K21, K22, K23, K24, K25,                       \
+                         K26, K27, K28, K29, K2A                        \
+                                                                        ) \
+  LVARG_4x12(                                                     \
+             ROW1_LEFT(K01, K02, K03, K04, K05),                  \
+             ROW1_RIGHT(K06, K07, K08, K09, K0A),                 \
+                                                                  \
+             ROW2_LEFT(K11, K12, K13, K14, K15),                  \
+             ROW2_RIGHT(K16, K17, K18, K19, K1A),                 \
+                                                                  \
+             ROW3_LEFT(K21, K22, K23, K24, K25),                  \
+             ROW3_RIGHT(K26, K27, K28, K29, K2A),                 \
+                                                                        \
+             ___12_BOTTOM___                                            \
+                                                                  )
+
+#define LAYOUT_4x12_base_bepo(                                          \
+                              K01, K02, K03, K04, K05,                  \
+                              K06, K07, K08, K09, K0A,                  \
+                              K11, K12, K13, K14, K15,                  \
+                              K16, K17, K18, K19, K1A,                  \
+                              K21, K22, K23, K24, K25,                  \
+                              K26, K27, K28, K29, K2A                  \
+                                                                        ) \
+     LVARG_4x12(                                                  \
+                ROW1_LEFT_BP(K01, K02, K03, K04, K05),              \
+                ROW1_RIGHT_BP(K06, K07, K08, K09, K0A),             \
+                                                                    \
+                ROW2_LEFT_BP(K11, K12, K13, K14, K15),              \
+                ROW2_RIGHT_BP(K16, K17, K18, K19, K1A),             \
+                                                                        \
+                ROW3_LEFT_BP(K21, K22, K23, K24, K25),                    \
+                ROW3_RIGHT_BP(K26, K27, K28, K29, K2A),                 \
+                                                                        \
+                ___12_BOTTOM_BP___                                      \
+                                                                  )
+
+     // Just for bepo because it's a 3x6 matrix on each side.
+     // So 3 pairs of 6 keys, left and right.
+#define Layout_4x12_base_bepo6(                                 \
+                               K01, K02, K03, K04, K05, K06,    \
+                               K07, K08, K09, K0A, K0B, K0C,    \
+                               K11, K12, K13, K14, K15, K16,           \
+                               K17, K18, K19, K1A, K1B, K1C,           \
+                               K21, K22, K23, K24, K25, K26,           \
+                               K27, K28, K29, K2A, K2B, K2C             \
+                                                                           ) \
+     LVARG_4x12(                                                        \
+                ROW1_LEFT_BP6(K01, K02, K03, K04, K05, K06),            \
+                ROW1_RIGHT_BP6(K07, K08, K09, K0A, K0B, K0C),           \
+                                                                        \
+                ROW2_LEFT_BP6(K11, K12, K13, K14, K15, K16),            \
+                ROW2_RIGHT_BP6(K17, K18, K19, K1A, K1B, K1C),           \
+                                                                        \
+                ROW3_LEFT_BP6(K21, K22, K23, K24, K25, K26),            \
+                ROW3_RIGHT_BP6(K27, K28, K29, K2A, K2B, K2C),           \
+                ___12_BOTTOM_BP___                                      \
+                                                                        )
+
+// takes 3 makes 4  rows of 12.
+#define LAYOUT_4x12_transient(                                          \
+                              K01, K02, K03, K04, K05, K06,             \
+                              K07, K08, K09, K0A, K0B, K0C,             \
+                              K11, K12, K13, K14, K15, K16,             \
+                              K17, K18, K19, K1A, K1B, K1C,             \
+                              K21, K22, K23, K24, K25, K26,             \
+                              K27, K28, K29, K2A, K2B, K2C              \
+                                                                        ) \
+  LVARG_4x12(                                                           \
+             K01, K02, K03, K04, K05, K06,                              \
+             K07, K08, K09, K0A, K0B, K0C,                              \
+             K11, K12, K13, K14, K15, K16,                              \
+             K17, K18, K19, K1A, K1B, K1C,                              \
+             K21, K22, K23, K24, K25, K26,                              \
+             K27, K28, K29, K2A, K2B, K2C,                              \
+             ___12___)                                                  \
+
+#define _4x12_base(...)       LAYOUT_4x12_base(__VA_ARGS__)
+#define _4x12_base_bepo(...)  LAYOUT_4x12_base_bepo(__VA_ARGS__)
+#define _4x12_base_bepo6(...) LAYOUT_4x12_base_bepo6(__VA_ARGS__)
+#define _4x12_transient(...)  LAYOUT_4x12_transient(__VA_ARGS__)

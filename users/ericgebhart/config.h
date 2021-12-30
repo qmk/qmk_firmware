@@ -3,6 +3,9 @@
 
 #include "../../config.h"
 
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
 // Sets good default for the speed of the mouse.
 #undef MOUSEKEY_INTERVAL
 #undef MOUSEKEY_DELAY
@@ -26,7 +29,7 @@
 #undef TAPPING_TERM
 #undef IGNORE_MOD_TAP_INTERRUPT
 
-#define TAPPING_TOGGLE  1
+#define TAPPING_TOGGLE  2
 #define TAPPING_TERM    200
 #define IGNORE_MOD_TAP_INTERRUPT
 
