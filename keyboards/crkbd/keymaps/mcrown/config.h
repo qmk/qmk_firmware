@@ -23,8 +23,11 @@
 /* Select hand configuration */
 #define MASTER_LEFT
 
-/* Comment this definition out if you want the main display to be output in horizontal mode */
+/* Remove this definition if you want the main display to be output in horizontal mode. */
 #define OLED_VERTICAL
+
+/* Remove this definition if both oled displays are going to be used. */
+#define ONLY_MASTER_OLED
 
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
