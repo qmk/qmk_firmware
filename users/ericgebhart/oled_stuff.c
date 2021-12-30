@@ -18,130 +18,177 @@
 #include <string.h>
 #include <stdio.h>
 
-void oled_render_default_layer_state(void) {
-  oled_write_P(PSTR("Layout: "), false);
-  switch (get_highest_layer(default_layer_state)) {
-    case _QWERTY:
-      oled_write_ln_P(PSTR("Qwerty"), false);
-      break;
-    case _COLEMAK:
-      oled_write_ln_P(PSTR("Colemak"), false);
-      break;
-    case _DVORAK_BP:
-    case _DVORAK:
-      oled_write_ln_P(PSTR("Dvorak"), false);
-      break;
+extern uint32_t current_locale;
 
+#define WRITE_STR_CASE(CASE, STRING)        \
+  case CASE:                                \
+  oled_write_P(PSTR(STRING), false);        \
+  break;                                    \
 
-      /* case _WORKMAN: */
-      // oled_write_ln_P(PSTR("Workman\n"), false);
-      /*         break; */
-      /*     case _NORMAN: */
-      // oled_write_ln_P(PSTR("Norman\n"), false);
-      /*         break; */
-      /*     case _MALTRON: */
-      // oled_write_ln_P(PSTR("Maltron\n"), false);
-      /*         break; */
-
-      /* case _EUCALYN: */
-      // oled_write_ln_P(PSTR("Eucalyn\n"), false);
-      /*   break; */
-      /* case _CARPLAX: */
-      // oled_write_ln_P(PSTR("Carplax\n"), false);
-      /*   break; */
-
-    case _BEAKL:
-    case _BEAKL_BP:
-      oled_write_ln_P(PSTR("Beakl"), false);
-      break;
-    case _BEPO:
-      oled_write_ln_P(PSTR("Bepo"), false);
-      break;
+void oled_render_locale(void) {
+  // oled_write_P(PSTR("Layout: "), false);
+  switch (current_locale) {
+    WRITE_STR_CASE(LOCALE_EN_US, " en-us")
+#ifdef BEPO_ENABLE
+      WRITE_STR_CASE(LOCALE_BEPO_FR, " bepo-fr")
+#endif
     }
+}
+
+void oled_render_default_layer_state(void) {
+  //oled_write_P(PSTR("Layout: "), false);
+  switch (get_highest_layer(default_layer_state)) {
+#ifdef DVORAK_LAYER_ENABLE
+    WRITE_STR_CASE(_DVORAK, "Dvorak")
+#endif
+#ifdef QWERTY_LAYER_ENABLE
+      WRITE_STR_CASE(_QWERTY, "Qwerty")
+#endif
+#ifdef COLEMAK_LAYER_ENABLE
+      WRITE_STR_CASE(_COLEMAK, "Colemak")
+#endif
+#ifdef BEAKL_LAYER_ENABLE
+      WRITE_STR_CASE(_BEAKL, "Beakl")
+#endif
+#ifdef WORKMAN_LAYER_ENABLE
+      WRITE_STR_CASE(_WORKMAN, "Workman")
+#endif
+#ifdef NORMAN_LAYER_ENABLE
+      WRITE_STR_CASE(_NORMAN, "Norman")
+#endif
+#ifdef MALTRON_LAYER_ENABLE
+      WRITE_STR_CASE(_MALTRON, "Maltron")
+#endif
+#ifdef EUCALYN_LAYER_ENABLE
+      WRITE_STR_CASE(_EUCALYN, "Eucalyn")
+#endif
+#ifdef CARPLAX_LAYER_ENABLE
+      WRITE_STR_CASE(_CARPLAX, "Carplax")
+#endif
+
+#ifdef BEPO_ENABLE
+#ifdef DVORAK_LAYER_ENABLE
+      WRITE_STR_CASE(_DVORAK_BP, "Dvorak")
+#endif
+#ifdef BEAKL_LAYER_ENABLE
+WRITE_STR_CASE(_BEAKL_BP, "Beakl")
+#endif
+#ifdef BEPO_LAYER_ENABLE  // Bepo only works on bepo.
+WRITE_STR_CASE(_BEPO, "Bepo")
+#endif
+#endif
+     }
 }
 
 void oled_render_layer_state(void) {
   oled_write_P(PSTR("Layer: "), false);
   switch (get_highest_layer(layer_state)) {
-    case _NAV:
-      oled_write_P(PSTR("Navigation"), false);
-      break;
-    case _LAYERS:
-      oled_write_P(PSTR("Layers"), false);
-      break;
-    case _RGB:
-      oled_write_P(PSTR("RGB"), false);
-      break;
-    case _TOPROWS:
-    case _TOPROWS_BP:
-      oled_write_P(PSTR("TopRows"), false);
-      break;
-    case _SYMB:
-    case _SYMB_BP:
-      oled_write_P(PSTR("Symbols"), false);
-      break;
-    case _KEYPAD:
-    case _KEYPAD_BP:
-      oled_write_P(PSTR("Keypad"), false);
-      break;
-    case _ADJUST:
-      oled_write_P(PSTR("Adjust"), false);
-      break;
-    }
-  oled_write_ln_P(PSTR(" "), false);
+#ifdef NAV_LAYER_ENABLE
+    WRITE_STR_CASE(_NAV, "Navigation");
+#endif
+#ifdef LAYERS_LAYER_ENABLE
+    WRITE_STR_CASE(_LAYERS, "Layers");
+#endif
+#ifdef RGB_LAYER_ENABLE
+    WRITE_STR_CASE(_RGB, "RGB");
+#endif
+#ifdef ADJUST_LAYER_ENABLE
+    WRITE_STR_CASE(_ADJUST, "Adjust");
+#endif
+
+#ifdef TOPROWS_LAYER_ENABLE
+#ifdef BEPO_ENABLE
+  case _TOPROWS_BP:
+#endif
+    WRITE_STR_CASE(_TOPROWS, "TopRows");
+#endif
+
+#ifdef SYMBOL_LAYER_ENABLE
+#ifdef BEPO_ENABLE
+  case _SYMB_BP:
+#endif
+    WRITE_STR_CASE(_SYMB, "Symbols");
+#endif
+
+#ifdef KEYPAD_LAYER_ENABLE
+#ifdef BEPO_ENABLE
+  case _KEYPAD_BP:
+#endif
+    WRITE_STR_CASE(_KEYPAD, "Keypad");
+#endif
+  }
 }
 
-// this is part of my answer to a challenge.
-// My friend Ross thinks that the only use of an oled
-// is to say which layer.
-// I think there is more. this is just a beginning.
 void oled_render_layer_map(void) {
   uint8_t lyr = get_highest_layer(layer_state);
-  if (lyr <= _BEPO) {
+  if (lyr < _LAYERS) {
     switch (get_highest_layer(default_layer_state)) {
+
+#ifdef QWERTY_LAYER_ENABLE
     case _QWERTY:
       oled_write_ln_P(PSTR("   qwert  yuiop"), false);
       oled_write_ln_P(PSTR("   asdfg  hjkl;"), false);
       oled_write_ln_P(PSTR("   zxcvb  nm,./"), false);
       break;
+#endif
+
+#ifdef COLEMAK_LAYER_ENABLE
     case _COLEMAK:
       oled_write_ln_P(PSTR("   qwfpb  jluy;"), false);
       oled_write_ln_P(PSTR("   arstg  mneio"), false);
       oled_write_ln_P(PSTR("   zxcdv  kh,./"), false);
       break;
+#endif
+
+#ifdef BEPO_ENABLE
+#ifdef DVORAK_LAYER_ENABLE
     case _DVORAK_BP:
+#endif
+#endif
     case _DVORAK:
       oled_write_ln_P(PSTR("   \",.py  fgcrl"), false);
       oled_write_ln_P(PSTR("   aoeui  dhtns"), false);
       oled_write_ln_P(PSTR("   ;qjkx  bmwvz "), false);
       break;
 
-    case _BEAKL:
+#ifdef BEPO_ENABLE
+#ifdef BEAKL_LAYER_ENABLE
     case _BEAKL_BP:
+#endif
+#endif
+    case _BEAKL:
       oled_write_ln_P(PSTR("   qhoux  gcrfz"), false);
       oled_write_ln_P(PSTR("   yiea.  dstnb"), false);
       oled_write_ln_P(PSTR("   j/,k'  wmlpv"), false);
       break;
 
+#ifdef BEPO_ENABLE
+#ifdef BEPO_LAYER_ENABLE
     case _BEPO:
-      oled_write_P(PSTR("   cbe'po`e  vdljz %"), false);
-      oled_write_P(PSTR("    auie,    tsrnmc"), false);
-      oled_write_P(PSTR("   e^a'yx.k  'qghfw"), false);
+      oled_write_ln_P(PSTR("   cbe'po`e  vdljz %"), false);
+      oled_write_ln_P(PSTR("    auie,    tsrnmc"), false);
+      oled_write_ln_P(PSTR("   e^a'yx.k  'qghfw"), false);
       break;
+#endif
+#endif
     }
 
   } else {
 
     switch (lyr) {
     case _TOPROWS:
+#ifdef BEPO_ENABLE
     case _TOPROWS_BP:
+#endif
       oled_write_ln_P(PSTR("   !@#$%  ^&*()"), false);
       oled_write_ln_P(PSTR("   40123  76598"), false);
       oled_write_ln_P(PSTR(" F1-    --    -F12"), false);
       break;
 
     case _SYMB:
+#ifdef BEPO_ENABLE
     case _SYMB_BP:
+#endif
       oled_write_ln_P(PSTR("   `<$>'  ?[_]-"), false);
       oled_write_ln_P(PSTR("  -\\(\")#  !{:}/;"), false);
       oled_write_ln_P(PSTR("   @=*+;  %&^~|"), false);
@@ -170,11 +217,10 @@ void oled_render_layer_map(void) {
 }
 
 void oled_render_keylock_status(uint8_t led_usb_state) {
-  oled_write_P(PSTR("  Lock:"), false);
-  oled_write_P(PSTR(" "), false);
+  oled_write_P(PSTR(" Lock:"), false);
   oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
   oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-  oled_write_ln_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+  oled_write_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
 }
 
 void oled_render_mod_status(uint8_t modifiers) {
@@ -204,9 +250,6 @@ const char mcode_to_name[60] = {
 
 void oled_render_keylog(void) {
   oled_write_ln(mkeylog_str, false);
-  // sometimes there's an extra row. this is because sometimes it drops
-  // to the last line. and this clears it.
-  oled_write_ln_P(PSTR(" "), false);
 }
 
 
@@ -283,11 +326,17 @@ __attribute__((weak)) void oled_render_logo(void) {
   oled_write_P(qmk_logo, false);
 }
 
+
 bool oled_task_user(void) {
+  //oled_clear();
   if (is_keyboard_master()) {
     oled_render_mod_lock_status();
+    oled_advance_page(false);
     oled_render_default_layer_state();
+    oled_render_locale();
+    oled_write_ln_P(PSTR(" "), false);
     oled_render_layer_state();
+    oled_write_ln_P(PSTR(" "), false);
 #ifdef OLED_DISPLAY_128X64
     oled_render_layer_map();
 #endif
@@ -295,6 +344,7 @@ bool oled_task_user(void) {
   } else {
     oled_render_logo();
     oled_render_default_layer_state();
+    oled_render_locale();
   }
   return(true);
 

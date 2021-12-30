@@ -51,4 +51,49 @@
 #define TAPPING_TERM    200
 #define IGNORE_MOD_TAP_INTERRUPT
 
+
+/* Control switches for my keymaps. */
+/* if needed, this goes in the keyboard's config.h */
+/* Alternately, fix the number row in the layout template. */
+/* #define BASE_NUMBER_ROW    // turn on 4 row base templates. */
+
+// Turn on the layers
+#define DVORAK_LAYER_ENABLE
+#define QWERTY_LAYER_ENABLE
+#define COLEMAK_LAYER_ENABLE
+#define BEAKL_LAYER_ENABLE
+//#define CARPLAX_LAYER_ENABLE
+//#define WORKMAN_LAYER_ENABLE
+//#define NORMAN_LAYER_ENABLE
+//#define MALTRON_LAYER_ENABLE
+//#define EUCALYN_LAYER_ENABLE
+
+// Enable bepo layers.
+// This will add bepo versions of qwerty layers if they exist.
+#define BEPO_ENABLE
+#define BEPO_LAYER_ENABLE  // Bepo only works on bepo.
+
+// enable transient function layers.
+#define SYMBOL_LAYER_ENABLE
+#define NAV_LAYER_ENABLE
+#define TOPROWS_LAYER_ENABLE
+#define LAYERS_LAYER_ENABLE
+#define KEYPAD_LAYER_ENABLE
+//#define ADJUST_LAYER_ENABLE
+//#define RGB_LAYER_ENABLE
+
+/* configure the function layers. */
+
+/* keypads */
+//#define KEYPAD_RIGHT
+#define KEYPAD_BEAKL         // beakl doesn't have a rightside, swap hands?
+
+/* symbols */
+//#define SYMBOL_BEAKL       // original
+//#define SYMBOL_BEAKL_EXT   // extended.
+#define SYMBOL_BEAKL_EXT_VI  // extended with vi keybinding in mind.
+
+/* toprows. */
+#define TOPROWS_BKL_NUMS     // center row with Beakl order. 40123 76598.
+
 #endif

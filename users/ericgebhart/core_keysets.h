@@ -214,7 +214,7 @@
 // for dvorak and all the other qwerty like keyboards on bepo
 #define ___DVORAK_FR_L1___ DB_QUOT,    DB_COMM,  DB_DOT,  BP_P,  BP_Y
 #define ___DVORAK_FR_L2___ BP_A,       BP_O,     BP_E,    BP_U,  BP_I
-#define ___DVORAK_FR_L3___ DB_SCOLON,    BP_Q,     BP_J,    BP_K,  BP_X
+#define ___DVORAK_FR_L3___ DB_SCLN,    BP_Q,     BP_J,    BP_K,  BP_X
 
 #define ___DVORAK_FR_R1___ BP_F, BP_G, BP_C,  BP_R,  BP_L
 #define ___DVORAK_FR_R2___ BP_D, BP_H, BP_T,  BP_N,  BP_S
@@ -225,45 +225,31 @@
         ___DVORAK_FR_L3___, ___DVORAK_FR_R3___
 
 /* BEAKL 15 (main layer): */
-
-#define ___DVORAK6_FR_L1___ DB_GRV,    ___DVORAK_FR_L1___
-#define ___DVORAK6_FR_L2___ TAB_BKTAB, ___DVORAK_FR_L2___
-#define ___DVORAK6_FR_L3___ ___,       ___DVORAK_FR_L3___
-
-#define ___DVORAK6_FR_R1___ ___DVORAK_FR_R1___,  BP_MIN
-#define ___DVORAK6_FR_R2___ ___DVORAK_FR_R2___,  BP_SLSH
-#define ___DVORAK6_FR_R3___ ___DVORAK_FR_R3___,  DB_BACKSLASH
-
-#define ___6DVORAK_FR___ ___6DVORAK_FR_L1___, ___6DVORAK_FR_R1___,      \
-        ___6DVORAK_FR_L2___, ___6DVORAK_FR_R2___,                       \
-        ___6DVORAK_FR_L3___, ___6DVORAK_FR_R3___
-
-// dont forget ; and -.  the 'a' home row is official placement.
 #define ___BEAKL15_FR_L1___          BP_Q, BP_H,     BP_O,    BP_U, BP_X
 #define ___BEAKL15_FR_L2___          BP_Y, BP_I,     BP_E,    BP_A, BB_DOT
 #define ___BEAKL15_FR_L2a___ BP_MIN, BP_Y, BP_I,     BP_E,    BP_A, BB_DOT
-#define ___BEAKL15_FR_L3___          BP_J, BP_SLSH, BB_COMM, BP_K, BB_QUOT
+#define ___BEAKL15_FR_L3___          BP_J, BP_SLSH,  BB_COMM, BP_K, BB_QUOT
 
 #define ___BEAKL15_FR_R1___  BP_G, BP_C, BP_R, BP_F, BP_Z
 #define ___BEAKL15_FR_R2___  BP_D, BP_S, BP_T, BP_N, BP_B
 #define ___BEAKL15_FR_R2a___ BP_D, BP_S, BP_T, BP_N, BP_B, DB_SCLN
 #define ___BEAKL15_FR_R3___  BP_W, BP_M, BP_L, BP_P, BP_V
 
-#define ___6BEAKL15_FR___ ___, ___BEAKL15_FR_L1___, ___BEAKL15_FR_R1___, ___, \
-        ___BEAKL15_FR_L2a___, ___BEAKL15_FR_R2a___,                     \
-        ___, ___BEAKL15_FR_L3___, ___BEAKL15_FR_R3___, ___
-
-#define ___BEAKL15_FR___ ___BEAKL15_FR_L1___, ___BEAKL15_FR_R1___, \
-        ___BEAKL15_FR_L2___, ___BEAKL15_FR_R2___,                \
-        ___BEAKL15_FR_L3___, ___BEAKL15_FR_R3___
+#define ___BEAKL15_FR___ ___BEAKL15_FR_L1___, ___BEAKL15_FR_R1___,      \
+    ___BEAKL15_FR_L2___, ___BEAKL15_FR_R2___,                           \
+    ___BEAKL15_FR_L3___, ___BEAKL15_FR_R3___
 
 #define ___BEPO_L1___             BP_B,    BP_EACU, BP_P,   BP_O,   BP_EGRV
 #define ___BEPO_L2___             BP_A,    BP_U,    BP_I,   BP_E,   BP_COMM
 #define ___BEPO_L3___ /*BP_ECRC*/ BP_AGRV, BP_Y,    BP_X,   BP_DOT, BP_K
+// need a C somewhere
+#define ___BEPO_L3b___            BP_C,    BP_Y,    BP_X,   BP_DOT, BP_K
 
 #define ___BEPO_R1___  /* BP_DCRC,*/  BP_V,     BP_D,  BP_L,  BP_J,  BP_Z
 #define ___BEPO_R2___  /* BP_C,   */  BP_T,     BP_S,  BP_R,  BP_N,  BP_M  //BP_CCED
 #define ___BEPO_R3___                 BP_QUOT,  BP_Q,  BP_G,  BP_H,  BP_F //BP_SFT_T_W
+// need a W too.
+#define ___BEPO_R3b___                 BP_Q,  BP_G,  BP_H,  BP_F, BP_W
 
 // Bepo for a 3x6 split.  CCED switched hands. :-(  'Altgr-c c'  does the same.
 // W has to drop down to the bottom. Silly unbalanced layout.
@@ -275,13 +261,15 @@
 #define ___BEPO6_R2___   ___BEPO_R2___,  BP_C
 #define ___BEPO6_R3___   ___BEPO_R3___, BP_W
 
+// 3x12, still missing some characters.  Home row needs 13.
 #define ___BEPO6___ ___BEPO6_L1___, ___BEPO6_R1___,  \
-        ___BEPO6_L2___, ___BEPO6_R2___,              \
-        ___BEPO6_L3___, ___BEPO6_R3___
+    ___BEPO6_L2___, ___BEPO6_R2___,                  \
+    ___BEPO6_L3___, ___BEPO6_R3___
 
+// 3x10 like all the others. missing some accents.
 #define ___BEPO___ ___BEPO_L1___, ___BEPO_R1___,  \
         ___BEPO_L2___, ___BEPO_R2___,             \
-        ___BEPO_L3___, ___BEPO_R3___
+    ___BEPO_L3b___, ___BEPO_R3b___
 
 
 /*******************************************************************/
@@ -317,7 +305,7 @@
 #define ___6SYMBOL_BEPO_R___  ___SYMBOL_BEPO_R___, BP_EQL  /*  BP_PERC */
 
 // a top qwerty style symbol row if someone wants it.
-#define ___SYMB_L_FR___   DB_EXLM,   BP_AT,    BP_HASH,  BP_DLR,   BP_PERC
+#define ___SYMB_L_FR___   BP_EXLM,   BP_AT,    BP_HASH,  BP_DLR,   BP_PERC
 #define ___SYMB_R_FR___   DB_CIRC,   BP_AMPR,  BP_ASTR,  BP_LPRN,  BP_RPRN
 
 
@@ -340,6 +328,8 @@
 #define ___SYMS___      ___SYMB_L___,           ___SYMB_R___
 #define ___BKLNUMS___   ___NUMBER_BEAKL15_L___, ___NUMBER_BEAKL15_R___
 #define ___NUMS_BP___    ___NUMBER_BEPO_L___,    ___NUMBER_BEPO_R___
-#define ___SYMS_BEPO___ ___SYMBOL_BEPO_L___,    ___SYMBOL_BEPO_L___
+#define ___SYMS_BEPO___ ___SYMBOL_BEPO_L___,    ___SYMBOL_BEPO_R___
+#define ___SYMS_FR___   ___SYMB_L_FR___,    ___SYMB_R_FR___
+#define ___12SYMS_BEPO___ ___6SYMBOL_BEPO_L___,    ___6SYMBOL_BEPO_R___
 #define ___BKLNUMS_BP___  ___NUMBER_BEAKL15_BP_L___, ___NUMBER_BEAKL15_BP_R___
 #define ___FUNCS_1_10___ ___FUNC_L___, ___FUNC_R___

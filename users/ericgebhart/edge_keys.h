@@ -87,7 +87,7 @@
 #define LEFT0_BP DB_GRV
 #define LEFT1_BP DB_GRV
 #define LEFT2_BP KC_TAB
-#define LEFT3_BP DB_BACKSLASH
+#define LEFT3_BP DB_BSLS
 //#define LEFT3_BP BP_COLN
 
 #define RIGHT0 KC_EQL
@@ -189,14 +189,14 @@
 // the bottom rows  for keyboards on bepo.
 // bepo on bepo - not enough space to go around....
 #define ___5_BOTTOM_LEFT_BP___  _X_,    BP_EACU,  _X_,           KC_LEFT, KC_RIGHT
-#define ___5_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN,  DB_BACKSLASH,  BP_CCED,  BP_PERC
+#define ___5_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN,  DB_BSLS,  BP_CCED,  BP_PERC
 
 #define ___4_BOTTOM_LEFT_BP___  LCTL(BP_C),  BP_EACU,  KC_LEFT, KC_RIGHT
-#define ___4_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN, DB_BACKSLASH,  BP_CCED
+#define ___4_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN, DB_BSLS,  BP_CCED
 
 // for dvorak and beakl on bepo
 #define ___5_BOTTOM_LEFT_FR___  ___X3___,  KC_LEFT, KC_RIGHT
-#define ___5_BOTTOM_RIGHT_FR___ KC_UP,  KC_DOWN,  DB_BACKSLASH, ___X2___
+#define ___5_BOTTOM_RIGHT_FR___ KC_UP,  KC_DOWN,  DB_BSLS, ___X2___
 
 // basically a 5th row in a 5x matrix. but maybe a 4th if there isnt a number row.
 #define ___15_BOTTOM___     ___5_BOTTOM_LEFT___,    ___5_MIDDLE_THUMBS___, ___5_BOTTOM_RIGHT___

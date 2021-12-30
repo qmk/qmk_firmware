@@ -17,41 +17,14 @@
 #include "ericgebhart.h"
 #include "caps_word.h"
 #include "g/keymap_combo.h"
+#include "altlocal_keys.h"
+#include "tap_hold.h"
+#include "locales.h"
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
 __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
 
-
-uint16_t tap_taplong_timer;
-
-inline void tap_taplong(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
-  if (record->event.pressed) {
-    tap_taplong_timer = timer_read();
-  } else {
-    if (timer_elapsed(tap_taplong_timer) > TAPPING_TERM) {
-      tap_code16(kc2);
-    } else {
-      tap_code16(kc1);
-    }
-  }
-}
-
-/* for (){}[]""''<>``. tap for open. Hold for open and close, ending inbetween. */
-/* Assumes a one character length.                                              */
-inline void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
-  if (record->event.pressed) {
-    tap_taplong_timer = timer_read();
-  }else{
-    if (timer_elapsed(tap_taplong_timer) > TAPPING_TERM) {
-      tap_code16(kc1);
-      tap_code16(kc2);
-      tap_code16(KC_LEFT);
-    } else {
-      tap_code16(kc1);
-    }
-  }
-}
 
 // Defines actions for my global custom keycodes. Defined in ericgebhart.h file
 // Then runs the _keymap's record handier if not processed here
@@ -63,32 +36,71 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif  // OLED
 
   if (!process_caps_word(keycode, record)) { return false; }
+  if (!process_alt_local_key(keycode, record)) { return false; }
+  process_tap_hold_user(keycode, record);
 
   if (process_record_keymap(keycode, record) && process_record_secrets(keycode, record)) {
     switch (keycode) {
 
-      // Handle the key translations for Dvorak on bepo. It's best if these are the first
-      // enums after SAFE_RANGE.
-    case DB_1 ... BB_QUOT:
-      if(record->event.pressed)
-        send_keycode(keycode);
-      unregister_code(keycode);
-      break;
+      /*   // Handle the key translations for Dvorak on bepo. It's best if these are the first */
+      /*   // enums after SAFE_RANGE. */
+      /* case ALT_LOCAL_KEYS_START ... ALT_LOCAL_KEYS_END: */
+      /*   if(record->event.pressed) */
+      /*     send_keycode(keycode); */
+      /*   unregister_code(keycode); */
+      /*   break; */
 
       // Set the default layer. eeprom if shifted.
-    case KC_DVORAK ... KC_BEPO:
+      // this relies on the order of the kc_enums and the enum for
+      // the layers to match. This is for the KC_DVORAK type keycodes.
+    case FIRST_LAYER ... END_OF_LAYERS:
       if (record->event.pressed) {
         uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
         if (!mods) {
-          default_layer_set(1UL << (keycode - KC_DVORAK));
+          default_layer_set(1UL << (keycode - FIRST_LAYER));
         } else if (mods & MOD_MASK_SHIFT) {
-          set_single_persistent_default_layer(1UL << (keycode - KC_DVORAK));
+          set_single_persistent_default_layer(1UL << (keycode - FIRST_LAYER));
         }
       }
       break;
 
+    case KC_SET_BASE:
+      // set the current default base to eeprom.
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(get_highest_layer(default_layer_state));
+      }
+      break;
 
-    case KC_RESET: // Custom RESET code
+      // choose a different set of default layers based on locales.
+    case KC_NEXT_LOCALE:
+      // choose another locale and set the default base to the first layer.
+      if (!record->event.pressed) {
+        if (current_locale + 1 < LOCALES_END){
+          current_locale++;
+        }else{
+          current_locale = 0;
+        }
+        default_layer_set(1UL << LOCALE_LAYER_RANGE[0]);
+      }
+      return false;
+      break;
+
+      // choose a different base layer based on locales.
+      // simply iterates over the list and sets the default layer.
+    case KC_NEXT_BASE_LAYER:
+      if (!record->event.pressed) {
+        uint8_t current = get_highest_layer(default_layer_state);
+        if (current < LOCALE_LAYER_RANGE[1]){
+          current++;
+        }else{
+          current = LOCALE_LAYER_RANGE[0];
+        }
+        default_layer_set(1UL << current);
+      }
+      return false;
+      break;
+
+    case KC_RESET:
       if (!record->event.pressed) {
         reset_keyboard();
       }
@@ -100,97 +112,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // tap_code16(LSFT(KC_SPACE));
       break;
 
+      //#include "tap_hold.def"
 
-      // tap or long tap for different key.
-    case KC_CCCV:  // One key copy/paste
-      tap_taplong(LCTL(KC_C), LCTL(KC_V), record);
-      break;
-
-    case BP_CCCV:  // One key copy/paste
-      tap_taplong(LCTL(BP_C), LCTL(BP_V), record);
-      break;
-
-    case KC_CTCN:  // New TaB/Window
-      tap_taplong(LCTL(KC_T), LCTL(KC_N), record);
-      break;
-
-    case BP_CTCN:  // New TaB/Window
-        tap_taplong(LCTL(BP_T), LCTL(BP_N), record);
-        break;
-
-    case KC_CWCQ:  // Close Tab-window/Quit
-      tap_taplong(LCTL(KC_W), LCTL(KC_Q), record);
-      break;
-
-    case BP_CWCQ:  // Close Tab-window/Quit
-      tap_taplong(LCTL(BP_W), LCTL(BP_Q), record);
-      break;
-
-    case KC_XM_PORD:  // Xmonad scratch pads or desktop
-      tap_taplong(LGUI(KC_E), LGUI(KC_T), record);
-      break;
-
-    case BP_XM_PORD:  // Xmonad scratch pads or desktop
-      tap_taplong(LGUI(BP_E), LGUI(BP_T), record);
-      break;
-
-
-      // Open on tap and Open with close and back arrow on hold.
-    case KC_OCPRN:
-      open_openclose(KC_LPRN, KC_RPRN, record);
-      break;
-
-    case BP_OCPRN:
-      open_openclose(DB_LPRN, DB_RPRN, record);
-      break;
-
-    case KC_OCBRC:
-      open_openclose(KC_LBRC, KC_RBRC, record);
-      break;
-
-    case BP_OCBRC:
-      open_openclose(KC_RBRC, KC_LBRC, record);
-      break;
-
-    case KC_OCCBR:
-      open_openclose(KC_LCBR, KC_RCBR, record);
-      break;
-
-    case BP_OCCBR:
-      open_openclose(BP_LCBR, BP_RCBR, record);
-      break;
-
-    case KC_OCDQUO:
-      open_openclose(KC_DQUO, KC_DQUO, record);
-      break;
-
-    case BP_OCDQUO:
-      open_openclose(BP_DQUO, BP_DQUO, record);
-      break;
-
-    case KC_OCQUOT:
-      open_openclose(KC_QUOT, KC_QUOT, record);
-      break;
-
-    case BP_OCQUOT:
-      open_openclose(BP_QUOT, BP_QUOT, record);
-      break;
-
-    case KC_OCGRV:
-      open_openclose(KC_GRAVE, KC_GRAVE, record);
-      break;
-
-    case BP_OCGRV:
-      open_openclose(BP_GRV, BP_GRV, record);
-      break;
-
-    case KC_OCLTGT:
-      open_openclose(KC_LT, KC_GT, record);
-      break;
-
-    case BP_OCLTGT:
-      open_openclose(BP_LDAQ, BP_RDAQ, record);
-      break;
 
 
       //Turn shift backspace into delete.

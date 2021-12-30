@@ -16,21 +16,25 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// for the creation of dvorak keys on an Bepo keyboard at the OS layer.
-// so we can create an array of reasonable size
-// for our translation keys. We have to create a
-// good range of numbers
-#define GR(x) (x-SAFE_RANGE)
+// Create custom keycodes with arbitrary shifted and unshifted keys.
+// originally for dvorak on bepo. But used by beakl on qwerty now too.
 
-// void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
+// Why?: Because the keycodes are actually defined on the computer. So
+// if you are trying to have dvorak, or beakl on bepo-fr, the shifted keys
+// are wrong. But, I want my dvorak, so this allows the pairing of keys into
+// a keycode that has shifted and non shifted behavior, outside of what the
+// locale map says on the computer.
+//
+// These are the keys for dvorak on bepo.  column one is the keycode and mods for
+// the unshifted key, the second column is the keycode and mods for the shifted key.
+// GR is Good Range.  It subtracts SAFE_RANGE from the keycode so we can make a
+// reasonably sized array without difficulties. The macro is for the constant declarations
+// the function is for when we use it.
+
+//make an alt_local_keys.def   - see the example.
+// Include this file where you have your process_record_user function,
+// call process_alt_local_key inside your process_record_user.
 
 uint8_t gr(uint16_t);
 void send_keycode(uint16_t);
-
-#define MOD_NONE 0x00
-
-// indexs for the keycode translation table.
-#define UNSHIFTED_KEY(key)  key_translations[gr(key)][0][0]
-#define UNSHIFTED_MODS(key) key_translations[gr(key)][0][1]
-#define SHIFTED_KEY(key)    key_translations[gr(key)][1][0]
-#define SHIFTED_MODS(key)   key_translations[gr(key)][1][1]
+bool process_alt_local_key(uint16_t keycode, keyrecord_t* record);

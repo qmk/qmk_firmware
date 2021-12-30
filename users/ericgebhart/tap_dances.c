@@ -48,7 +48,15 @@ void tap_dance_mouse_btns (qk_tap_dance_state_t *state, void *user_data) {
 // counting on all the qwerty layers to be less than dvorak_on_bepo
 int on_qwerty(){
     uint8_t deflayer = (biton32(default_layer_state));
-    return (deflayer < _DVORAK_BP);
+    switch(deflayer){
+    case _DVORAK_BP:
+    case _BEAKL_BP:
+    case _BEPO:
+      return (false);
+    default:
+      break;
+    }
+    return (true);
 }
 
 static void switch_default_layer(uint8_t layer) {

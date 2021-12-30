@@ -16,18 +16,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ericgebhart
-#define ericgebhart
-
-#include QMK_KEYBOARD_H
-#include "core_keysets.h"
-#include "layouts.h"
-#include "layers.h"
-#if defined(OLED_ENABLE)
-#    include "oled_stuff.h"
-#endif
-
-// Get the enums for the layers.
 enum userspace_layers {
 #ifdef DVORAK_LAYER_ENABLE
   _DVORAK = 0,
@@ -68,36 +56,22 @@ enum userspace_layers {
   _BEPO,
 #endif
 #endif
-#ifdef LAYERS_LAYER_ENABLE
   _LAYERS, // keep this here at the end of base layers.
-#endif
-#ifdef NAV_LAYER_ENABLE
   _NAV,   // transient layers
-#endif
-#ifdef SYMBOL_LAYER_ENABLE
   _SYMB,
 #ifdef BEPO_ENABLE
   _SYMB_BP,
 #endif
-#endif
-#ifdef KEYPAD_LAYER_ENABLE
   _KEYPAD,
 #ifdef BEPO_ENABLE
   _KEYPAD_BP,
 #endif
-#endif
-#ifdef TOPROWS_LAYER_ENABLE
   _TOPROWS,
 #ifdef BEPO_ENABLE
   _TOPROWS_BP,
 #endif
-#endif
-#ifdef RGB_LAYER_ENABLE
   _RGB,
-#endif
-#ifdef ADJUST_LAYER_ENABLE
   _ADJUST,
-#endif
 };
 
 // Find the first and last bepo layer so we know where it is
@@ -137,8 +111,8 @@ enum userspace_layers {
 
 // assuming en-us will always be the first layers.
 #define FIRST_EN_LAYER 0
-#endif
 
+// Our locales. so it's easy to switch between them.
 enum locales {
   LOCALE_EN_US = 0,
 #ifdef BEPO_ENABLE
@@ -146,3 +120,13 @@ enum locales {
 #endif
   LOCALES_END,
 };
+
+const uint16_t locale_layers[][2] = {
+  [LOCALE_EN_US] =      {FIRST_EN_LAYER, LAST_EN_LAYER},
+#ifdef BEPO_ENABLE
+  [LOCALE_BEPO_FR] =    {FIRST_BEPO_LAYER, LAST_BEPO_LAYER},
+#endif
+};
+
+uint32_t current_locale = 0;
+#define LOCALE_LAYER_RANGE locale_layers[current_locale]

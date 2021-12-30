@@ -20,13 +20,11 @@
 // takes 5 keycodes, adds mods, and left and right
 // so we get keycodes in groups of 6.
 // There are 3 sets of 4 rows.
-// 1 for normal 6 columns, qwerty, dvorak etc.
-// 1 for bepo/normal 6 columns, qwerty, dvorak etc. on bepo.
-// 1 for bepo 6 columns provided instead of a 5, for bepo which needs 3x12.
-// A 5 column keyboard would need another set of MACROS.
-
+// * 1 for normal 6 columns, qwerty, dvorak etc.
+// * 1 for bepo/normal 6 columns, qwerty, dvorak etc. on bepo.
+// * 5 column keyboard bepo and qwerty...sama sama.
 // These macros are used in the layout wrapper macros to introduce a mod
-// layer.  HomeRow mods and other things like that go here.
+// layer.  Home Row mods and other things like that go here.
 
 
 #include "core_keys.h"
@@ -39,16 +37,16 @@
   K01, K02, K03, K04, K05, RIGHT0
 
 #define ROW1_LEFT(K01, K02, K03, K04, K05)      \
-  LEFT1, K01, K02, K03, LT(_NAV, K04), K05
+  LEFT1, LT(_LAYERS, K01), K02, LT(_KEYPAD, K03), LT(_NAV, K04), K05
 
 #define ROW1_RIGHT(K01, K02, K03, K04, K05)     \
-  K01, K02, K03, K04, K05, RIGHT1
+  K01, K02, LT(_KEYPAD, K03), K04, LT(_LAYERS, K05), RIGHT1
 
 // home row, shift, alt, ctl, gui - gui, ctl, alt, shift.
 // using MT so we can specify left and right.
 // caps_word needs left and right shift.
 #define ROW2_LEFT(K01, K02, K03, K04, K05)                              \
-  LEFT2, MT(MOD_LSFT, K01), MT(MOD_LALT, K02), MT(MOD_LCTL, K03), MT(MOD_LGUI, K04), K05
+   LEFT2, MT(MOD_LSFT, K01), MT(MOD_LALT, K02), MT(MOD_LCTL, K03), MT(MOD_LGUI, K04), K05
 
 #define ROW2_RIGHT(K01, K02, K03, K04, K05)                             \
   K01, MT(MOD_RGUI, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), MT(MOD_RSFT, K05), RIGHT2 \

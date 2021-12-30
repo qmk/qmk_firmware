@@ -29,7 +29,11 @@
 /********************************************************************************/
 /* The following Transient/Non-Base Layers are provided within.                 */
 /* Each layer is named with the size of Keymatrix it has entries for.           */
-/* 3x12 or 4x12 are usual for these. Splitting is managed in the macros as      */
+/* 3x10 are usual for these.  I had 3x12's but I didn't need the edges really.  */
+/* It was an attempt to accommodate Bepo which is 13 columns wide.              */
+/* Even in a 3x12 Bepo is wonky. So I gave up on it. I also gave up on 4 row    */
+/* layers, I really want my keys in that 3x5 space. Everything on the edges can */
+/* stay as it is.  Splitting is managed in the macros as                        */
 /* needed. BP indicates the Bepo equivalent to the Qwerty layer when needed.    */
 /********************************************************************************/
 /*                                                                              */
@@ -41,50 +45,43 @@
 /* Compact meaning for use on a 3 row layout.                                   */
 /*                                                                              */
 /* TOPROWS - numbers, symbols, functions, all on one layer.                     */
-/* ___TOPROWS_3x12___                                                           */
-/* ___TOPROWS_BP_3x12___                                                        */
+/* ___TOPROWS_3x10___                                                           */
+/* ___TOPROWS_BP_3x10___                                                        */
 /*    // just numbers on the home row                                           */
-/* ___NUM_HOME_BEAKL_3x12___                                                    */
-/* ___NUM_HOME_BEAKL_BP_3x12___                                                 */
-/* ___NUM_HOME_3x12___                                                          */
-/* ___NUM_HOME_BP_3x12___                                                       */
+/* ___NUM_HOME_BEAKL_3x10___                                                    */
+/* ___NUM_HOME_BEAKL_BP_3x10___                                                 */
+/* ___NUM_HOME_3x10___                                                          */
+/* ___NUM_HOME_BP_3x10___                                                       */
 /*                                                                              */
 /* KEYPADS/FUNCPADS.                                                            */
-/* ___KEY_BKL_FUNC_4x12___   -- The BEAKL15 Keypad with a Funcpad on the right  */
-/* ___KEY_BKL_FUNC_BP_4x12___                                                   */
-/* ___FUNC_KEYPAD_4x12___    -- A Funcpad and a keypad                          */
-/* ___FUNC_KEYPAD_BP_4x12___ -- For Bepo                                        */
-/*                                                                              */
-/* // Compact Funcpad and keypad, 3x12                                          */
-/* ___KP_C_3x12___                                                              */
-/* ___KP_C_BP_3x12___                                                           */
-/* ___KP_C_BKL_FUNC_3x12___  -- BEAKL key/func pads.                            */
-/* ___KP_C_BKL_FUNC_BP_3x12___                                                  */
+/* ___KP_C_3x10___                                                              */
+/* ___KP_C_BP_3x10___                                                           */
+/* ___KP_C_BKL_FUNC_3x10___  -- BEAKL key/func pads.                            */
+/* ___KP_C_BKL_FUNC_BP_3x10___                                                  */
 /*                                                                              */
 /* SYMBOLS   -Beakl or Beakl extended                                           */
-/* ___SYMB_BEAKL_3x12___                                                        */
-/* ___SYMB_BEAKL_BP_3x12___                                                     */
+/* ___SYMB_BEAKL_3x10___                                                        */
+/* ___SYMB_BEAKL_BP_3x10___                                                     */
 /*                                                                              */
 /* Beakl extended symbol layer with additional corner symbols.                  */
 /* For use with non-beakl base layers.                                          */
-/* ___SYMB_BEAKLA_3x12___                                                       */
-/* ___SYMB_BEAKLA_BP_3x12___                                                    */
+/* ___SYMB_BEAKLA_3x10___                                                       */
+/* ___SYMB_BEAKLA_BP_3x10___                                                    */
 /* For use with vi bindings optimized                                           */
-/* ___SYMB_BEAKLB_3x12___                                                       */
-/* ___SYMB_BEAKLB_BP_3x12___                                                    */
+/* ___SYMB_BEAKLB_3x10___                                                       */
+/* ___SYMB_BEAKLB_BP_3x10___                                                    */
 /*                                                                              */
 /* NAVIGATION                                                                   */
-/* ___NAV_3x12___                                                               */
-/* ___NAV_4x12___                                                               */
+/* ___NAV_3x10___                                                               */
 /*                                                                              */
 /* CONTROLS                                                                     */
-/* ___RGB_3x12___                                                               */
-/* ___ADJUST_3x12___                                                            */
-/* ___LAYERS_3x12___                                                            */
-/********************************************************************************/
-/*********************************************************************/
-/* XXXXXX Layer chunk  -- These are the final layers.                */
-/*                                                                   */
+/* ___RGB_3x10___                                                               */
+/* ___ADJUST_3x10___                                                            */
+ /* ___LAYERS_3x10___                                                            */
+ /********************************************************************************/
+ /*********************************************************************/
+ /* XXXXXX Layer chunk  -- These are the final layers.                */
+ /*                                                                   */
 /* Each section defines the necessary pieces to create a layer.      */
 /* It builds them up into consistently shaped lists for the layout   */
 /* wrapper.                                                          */
@@ -108,18 +105,6 @@
 /* I currently use the beakl number row with regular symbols.      */
 /* I never use function keys for anything.                         */
 /*******************************************************************/
-#define ___12_SYMB___        ___, ___SYMS___, ___
-#define ___12_SYMB_BP___       ___12_SYMS_BEPO___,
-
-#define ___12_NUM___         ___, ___NUMS___, ___
-#define ___12_NUM_BP___        ___, ___NUMS_BP___, ___
-#define ___12_NUM_BEAKL___   ___, ___BKLNUMS___, ___
-#define ___12_NUM_BEAKL_BP___ ___, ___BKLNUMS_BP___, ___
-
-#define ___12_FUNC___        ___FUNC_1_6___, ___FUNC_7_12___
-#define ___12_SYMS_BEPO___   ___6SYMBOL_BEPO_L___, ___6SYMBOL_BEPO_R___
-#define ___12_SYMS_FR___     ___SYMB_L_FR___, ___SYMB_R_FR___
-
 // Kinesis function key row. I don't use them. but might as well define them.
 #define ___KINTFUNC_L___ KC_ESC, ___FUNC_1_6___, KC_F7, KC_F8
 // #define ___KINTFUNC_RIGHT___ KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SLCK, KC_PAUS, KC_FN0, RESET
@@ -127,28 +112,24 @@
 
 // A TOPROWS Layer.
 // set it how you like it, if you like it.
-#define ___TOPROW_1___    ___12_SYMB___
-#define ___TOPROW_2___    ___12_NUM_BEAKL___
-#define ___TOPROW_3___    ___12_FUNC___
+#define ___10TOPROW_1___    ___SYMS___
+#define ___10TOPROW_2___    ___BKLNUMS___
+#define ___10TOPROW_3___    ___FUNCS_1_10___
 
-#define ___TOPROW_1_BP___ ___12_SYMS_BEPO___
-#define ___TOPROW_2_BP___ ___12_NUM_BEAKL_BP___
-#define ___TOPROW_3_BP___ ___12_FUNC___
+#define ___10TOPROW_1_FR___ ___SYMBOL_L_FR___, ___SYMBOL_R_FR___
+
+#define ___10TOPROW_1_BP___ ___SYMBOL_BEPO_L___, ___SYMBOL_BEPO_R___
+#define ___10TOPROW_2_BP___ ___BKLNUMS_BP___
+#define ___10TOPROW_3___    ___FUNCS_1_10___
 
 /********************************************************************************/
 /* TOPROWS Layer chunk                                                          */
 /********************************************************************************/
 // altogether in a chunk.
-#define ___TOPROWS_3x12___     ___TOPROW_1___,    ___TOPROW_2___,    ___TOPROW_3___
-#define ___TOPROWS_BP_3x12___ ___TOPROW_1_BP___, ___TOPROW_2_BP___, ___TOPROW_3_BP___
-
-// Some layers with just a home row of numbers.
-// The beakl ones, r the usual ones.
-#define ___NUM_HOME_BEAKL_3x12___    ___12___, ___12_NUM_BEAKL___,    ___12___
-#define ___NUM_HOME_BEAKL_BP_3x12___ ___12___, ___12_NUM_BEAKL_BP___, ___12___
-#define ___NUM_HOME_3x12___          ___12___, ___12_NUM___,          ___12___
-#define ___NUM_HOME_BP_3x12___       ___12___, ___12_NUM_BP___,       ___12___
-
+#define ___TOPROWS_3x10___    ___10TOPROW_1___,    ___10TOPROW_2___,    ___10TOPROW_3___
+#define ___TOPROWS_BP_3x10___ ___10TOPROW_1_BP___, ___10TOPROW_2_BP___, ___10TOPROW_3___
+#define ___RAISE_3x10___      ___10TOPROW_1___,    ___NUMS___,      ___10TOPROW_3___
+#define ___RAISE_BP_3x10___   ___10TOPROW_1_BP___, ___NUMS_BP___,   ___10TOPROW_3___
 
 /********************************************************************************/
 /*  KEYPADS.  Mostly all in Bepo and Qwerty versions                            */
@@ -158,7 +139,7 @@
 /*         * 12 Function pad.                                                   */
 /*      3 row pads:                                                             */
 /*         keypad                                                               */
-/*         function pad                                                         */
+/*         function pad - 3x4, 12 function keys.                                */
 /*                                                                              */
 /*  LAYERS:                                                                     */
 /*      4 Row:                                                                  */
@@ -177,19 +158,29 @@
 /*   /698,      */
 
 // Keypads
+#define ___KEYPAD_BEAKL_L1___  _X_,        KC_PLUS,  KC_PEQL,  KC_ASTR, _X_
+#define ___KEYPAD_BEAKL_L2___  TAB_BKTAB,  KC_5,     KC_2,     KC_3,   KC_COLON
+#define ___KEYPAD_BEAKL_L3___  KC_7,       KC_DOT,   KC_1,     KC_0,   KC_4
+#define ___KEYPAD_BEAKL_L4___  KC_SLASH,   KC_6,     KC_9,     KC_8,   KC_COMM
+
 #define ___6KEYPAD_BEAKL_L1___     ___, _X_,        KC_PLUS,  KC_PEQL,  KC_ASTR, _X_
 #define ___6KEYPAD_BEAKL_L2___     ___, TAB_BKTAB,  KC_5,     KC_2,     KC_3,   KC_COLON
 #define ___6KEYPAD_BEAKL_L3___ KC_MINS, KC_7,       KC_DOT,   KC_1,     KC_0,   KC_4
 #define ___6KEYPAD_BEAKL_L4___     ___, KC_SLASH,   KC_6,     KC_9,     KC_8,   KC_COMM
 
-#define ___5KEYPAD_BEAKL_R1___     ___, KC_CIRC,  KC_PERC,  KC_TILD, ___
+#define ___KEYPAD_BEAKL_R1___     ___, KC_CIRC,  KC_PERC,  KC_TILD, ___
+
+#define ___KEYPAD_BEAKL_L1_BP___ _X_,        BP_PLUS,  BP_EQL,  BP_ASTR, _X_
+#define ___KEYPAD_BEAKL_L2_BP___ TAB_BKTAB,  BP_5,     BP_2,     BP_3,   BP_COLN
+#define ___KEYPAD_BEAKL_L3_BP___ BP_7,       BP_DOT,   BP_1,     BP_0,   BP_4
+#define ___KEYPAD_BEAKL_L4_BP___ BP_SLSH,   BP_6,     BP_9,     BP_8,   BP_COMM
 
 #define ___6KEYPAD_BEAKL_L1_BP___     ___, _X_,        BP_PLUS,  BP_EQL,  BP_ASTR, _X_
 #define ___6KEYPAD_BEAKL_L2_BP___     ___, TAB_BKTAB,  BP_5,     BP_2,     BP_3,   BP_COLN
 #define ___6KEYPAD_BEAKL_L3_BP___ BP_MINS, BP_7,       BP_DOT,   BP_1,     BP_0,   BP_4
 #define ___6KEYPAD_BEAKL_L4_BP___     ___, BP_SLSH,   BP_6,     BP_9,     BP_8,   BP_COMM
 
-#define ___5KEYPAD_BEAKL_R1_BP___     ___, BP_CIRC,  BP_PERC,  BP_TILD, ___
+#define ___KEYPAD_BEAKL_R1_BP___     ___, BP_CIRC,  BP_PERC,  BP_TILD, ___
 
 #define ___5KEYPAD_1___ _X_, KC_7,  KC_8,    KC_9,     KC_PSLS
 #define ___5KEYPAD_2___ _X_, KC_4,  KC_5,    KC_6,     KC_PAST
@@ -198,7 +189,7 @@
 // For Bepo
 #define ___5KEYPAD_1_BP___ _X_, DB_7,  DB_8,    DB_9,     BP_SLSH
 #define ___5KEYPAD_2_BP___ _X_, DB_4,  DB_5,    DB_6,     BP_ASTR
-#define ___5KEYPAD_3_BP___ _X_, DB_1,  DB_2,    DB_3,     DB_MINUS
+#define ___5KEYPAD_3_BP___ _X_, DB_1,  DB_2,    DB_3,     DB_MINS
 #define ___5KEYPAD_4_BP___ _X_, DB_0,  DB_DOT,  DB_EQL,   BP_PLUS
 
 // Keypad from the default keymap.c of the xd75
@@ -217,40 +208,46 @@
 
 // Put them together for complete left and right layers.
 // Beakl keypad with a funcpad
-#define ___12_KEYPAD_BKL_FUNCPAD_1___ ___6KEYPAD_BEAKL_L1___, _X_, ___5KEYPAD_BEAKL_R1___
-#define ___12_KEYPAD_BKL_FUNCPAD_2___ ___6KEYPAD_BEAKL_L2___, _X_, ___5_FUNCPADC_1___
-#define ___12_KEYPAD_BKL_FUNCPAD_3___ ___6KEYPAD_BEAKL_L3___, _X_, ___5_FUNCPADC_2___
-#define ___12_KEYPAD_BKL_FUNCPAD_4___ ___6KEYPAD_BEAKL_L4___, _X_, ___5_FUNCPADC_3___
+#define ___10_KEYPAD_BKL_FUNCPAD_1___ ___KEYPAD_BEAKL_L1___, ___KEYPAD_BEAKL_R1___
+#define ___10_KEYPAD_BKL_FUNCPAD_2___ ___KEYPAD_BEAKL_L2___, ___5_FUNCPADC_1___
+#define ___10_KEYPAD_BKL_FUNCPAD_3___ ___KEYPAD_BEAKL_L3___, ___5_FUNCPADC_2___
+#define ___10_KEYPAD_BKL_FUNCPAD_4___ ___KEYPAD_BEAKL_L4___, ___5_FUNCPADC_3___
 
-#define ___12_KEYPAD_BKL_FUNCPAD_1_BP___ ___6KEYPAD_BEAKL_L1_BP___, _X_, ___5KEYPAD_BEAKL_R1_BP___
-#define ___12_KEYPAD_BKL_FUNCPAD_2_BP___ ___6KEYPAD_BEAKL_L2_BP___, _X_, ___5_FUNCPADC_1___
-#define ___12_KEYPAD_BKL_FUNCPAD_3_BP___ ___6KEYPAD_BEAKL_L3_BP___, _X_, ___5_FUNCPADC_2___
-#define ___12_KEYPAD_BKL_FUNCPAD_4_BP___ ___6KEYPAD_BEAKL_L4_BP___, _X_, ___5_FUNCPADC_3___
+#define ___10_KEYPAD_BKL_FUNCPAD_1_BP___ ___KEYPAD_BEAKL_L1_BP___, ___KEYPAD_BEAKL_R1_BP___
+#define ___10_KEYPAD_BKL_FUNCPAD_2_BP___ ___KEYPAD_BEAKL_L2_BP___, ___5_FUNCPADC_1___
+#define ___10_KEYPAD_BKL_FUNCPAD_3_BP___ ___KEYPAD_BEAKL_L3_BP___, ___5_FUNCPADC_2___
+#define ___10_KEYPAD_BKL_FUNCPAD_4_BP___ ___KEYPAD_BEAKL_L4_BP___, ___5_FUNCPADC_3___
 
-// Funcpad and keypad layer for Qwerty based layers.
-#define ___12_FUNCPAD_KEYPAD_1___ ___,  ___5FUNCPAD_T___,  ___5KEYPAD_1___,  ___
-#define ___12_FUNCPAD_KEYPAD_2___ ___,  ___5FUNCPAD_1___,  ___5KEYPAD_2___,  ___
-#define ___12_FUNCPAD_KEYPAD_3___ ___,  ___5FUNCPAD_2___,  ___5KEYPAD_3___,  KC_PENT
-#define ___12_FUNCPAD_KEYPAD_4___ ___,  ___5FUNCPAD_3___,  ___5KEYPAD_4___,  ___
+#define ___10_FUNCPAD_KEYPAD_1___   ___5FUNCPAD_T___,  ___5KEYPAD_1___
+#define ___10_FUNCPAD_KEYPAD_2___   ___5FUNCPAD_1___,  ___5KEYPAD_2___
+#define ___10_FUNCPAD_KEYPAD_3___   ___5FUNCPAD_2___,  ___5KEYPAD_3___
+#define ___10_FUNCPAD_KEYPAD_4___   ___5FUNCPAD_3___,  ___5KEYPAD_4___
 
-// Funcpad and keypad layer for BEPO
-#define ___12_FUNCPAD_KEYPAD_BP_1___    ___,  ___5FUNCPAD_T_BP___,  ___5KEYPAD_1_BP___,  ___
-#define ___12_FUNCPAD_KEYPAD_BP_2___    ___,  ___5FUNCPAD_1_BP___,  ___5KEYPAD_2_BP___,  ___
-#define ___12_FUNCPAD_KEYPAD_BP_3___    ___,  ___5FUNCPAD_2_BP___,  ___5KEYPAD_3_BP___,  KC_PENT
-#define ___12_FUNCPAD_KEYPAD_BP_4___    ___,  ___5FUNCPAD_3_BP___,  ___5KEYPAD_4_BP___,  ___
+#define ___10_FUNCPAD_KEYPAD_BP_1___      ___5FUNCPAD_T_BP___,  ___5KEYPAD_1_BP___
+#define ___10_FUNCPAD_KEYPAD_BP_2___      ___5FUNCPAD_1_BP___,  ___5KEYPAD_2_BP___
+#define ___10_FUNCPAD_KEYPAD_BP_3___      ___5FUNCPAD_2_BP___,  ___5KEYPAD_3_BP___
+#define ___10_FUNCPAD_KEYPAD_BP_4___      ___5FUNCPAD_3_BP___,  ___5KEYPAD_4_BP___
 
 /********************************************************************************/
 /* COMPACT - KEYPAD and FUNCPAD.  3 Rows.                                       */
 /********************************************************************************/
 // Compact versions of each. 3 rows.
 //Compact keypad, 3 rows.
+#define ___KEYPADC_1___ ___,    KC_7,  KC_8,    KC_9,     KC_PSLS
+#define ___KEYPADC_2___ KC_DOT, KC_4,  KC_5,    KC_6,     KC_PAST
+#define ___KEYPADC_3___ KC_0,   KC_1,  KC_2,    KC_3,     KC_PMNS
+// For Bepo
+#define ___KEYPADC_1_BP___ ___,    DB_7,  DB_8,    DB_9,  BP_SLSH
+#define ___KEYPADC_2_BP___ DB_DOT, DB_4,  DB_5,    DB_6,  BP_ASTR
+#define ___KEYPADC_3_BP___ DB_0,   DB_1,  DB_2,    DB_3,  DB_MINS
+
 #define ___6KEYPADC_1___ ___,    KC_7,  KC_8,    KC_9,     KC_PSLS, ___
 #define ___6KEYPADC_2___ KC_DOT, KC_4,  KC_5,    KC_6,     KC_PAST, KC_PEQL
 #define ___6KEYPADC_3___ KC_0,   KC_1,  KC_2,    KC_3,     KC_PMNS, KC_PPLS
 // For Bepo
-#define ___6KEYPADC_1_BP___ ___,    DB_7,  DB_8,    DB_9,  BP_SLSH
+#define ___6KEYPADC_1_BP___ ___,    DB_7,  DB_8,    DB_9,  BP_SLSH,  ___
 #define ___6KEYPADC_2_BP___ DB_DOT, DB_4,  DB_5,    DB_6,  BP_ASTR,  DB_EQL
-#define ___6KEYPADC_3_BP___ DB_0,   DB_1,  DB_2,    DB_3,  DB_MINUS, DB_PLUS
+#define ___6KEYPADC_3_BP___ DB_0,   DB_1,  DB_2,    DB_3,  DB_MINS,  DB_PLUS
 
 // compact 1-12 funcpad for 3 row keyboards.
 #define ___5_FUNCPADC_1___   KC_F9, KC_F10, KC_F11, KC_F12, ___
@@ -258,144 +255,108 @@
 #define ___5_FUNCPADC_3___   KC_F1, KC_F2,  KC_F3,  KC_F4,  ___
 
 // Compact funcpads/keypad Layer
-#define ___12_KP_1C___ ___,  ___5_FUNCPADC_1___,   ___5KEYPAD_1___, ___
-#define ___12_KP_2C___ ___,  ___5_FUNCPADC_2___,   ___5KEYPAD_2___, ___
-#define ___12_KP_3C___ ___,  ___5_FUNCPADC_3___,   ___5KEYPAD_3___, ___
-// Reversed
-#define ___12_KP_FP_1C___ ___,  ___5KEYPAD_1___,   ___5_FUNCPADC_1___, ___
-#define ___12_KP_FP_2C___ ___,  ___5KEYPAD_2___,   ___5_FUNCPADC_2___, ___
-#define ___12_KP_FP_3C___ ___,  ___5KEYPAD_3___,   ___5_FUNCPADC_3___, ___
+#define ___10_KP_1C___   ___5_FUNCPADC_1___,   ___5KEYPAD_1___
+#define ___10_KP_2C___   ___5_FUNCPADC_2___,   ___5KEYPAD_2___
+#define ___10_KP_3C___   ___5_FUNCPADC_3___,   ___5KEYPAD_3___
+// Reversed keypand-funcpad
+#define ___10_KP_FP_1C___   ___5KEYPAD_1___,   ___5_FUNCPADC_1___
+#define ___10_KP_FP_2C___   ___5KEYPAD_2___,   ___5_FUNCPADC_2___
+#define ___10_KP_FP_3C___   ___5KEYPAD_3___,   ___5_FUNCPADC_3___
 
 //Bepo funcpad and keypad Layer
-#define ___12_KP_1_BP___ ___,  ___5_FUNCPADC_1___, ___5KEYPAD_1_BP___, ___
-#define ___12_KP_2_BP___ ___,  ___5_FUNCPADC_2___, ___5KEYPAD_2_BP___, ___
-#define ___12_KP_3_BP___ ___,  ___5_FUNCPADC_3___, ___5KEYPAD_3_BP___, ___
+#define ___10_KP_1_BP___ ___5_FUNCPADC_1___, ___5KEYPAD_1_BP___
+#define ___10_KP_2_BP___ ___5_FUNCPADC_2___, ___5KEYPAD_2_BP___
+#define ___10_KP_3_BP___ ___5_FUNCPADC_3___, ___5KEYPAD_3_BP___
+// Reversed keypad-funcpad  Swap hands ?
+#define ___10_KP_FP_1C_BP___   ___5KEYPAD_1_BP___,   ___5_FUNCPADC_1___
+#define ___10_KP_FP_2C_BP___   ___5KEYPAD_2_BP___,   ___5_FUNCPADC_2___
+#define ___10_KP_FP_3C_BP___   ___5KEYPAD_3_BP___,   ___5_FUNCPADC_3___
 
 /********************************************************************************/
 /* FUNCPAD and Keypad Layer chunks                                              */
 /********************************************************************************/
-// Full size, 4x12
-#define ___KEYPAD_BKL_FUNC_4x12___ \
-  ___12_KEYPAD_BKL_FUNCPAD_1___,                                        \
-    ___12_KEYPAD_BKL_FUNCPAD_2___,                                      \
-    ___12_KEYPAD_BKL_FUNCPAD_3___, \
-    ___12_KEYPAD_BKL_FUNCPAD_4___
-#define ___KEYPAD_BKL_FUNC_BP_4x12___                                   \
-   ___12_KEYPAD_BKL_FUNCPAD_1_BP___,                                    \
-     ___12_KEYPAD_BKL_FUNCPAD_2_BP___,                                  \
-     ___12_KEYPAD_BKL_FUNCPAD_3_BP___,                                  \
-     ___12_KEYPAD_BKL_FUNCPAD_4_BP___
-#define ___FUNC_KEYPAD_4x12___ \
-  ___12_FUNCPAD_KEYPAD_1___,                                    \
-    ___12_FUNCPAD_KEYPAD_2___,                                  \
-    ___12_FUNCPAD_KEYPAD_3___,                                \
-    ___12_FUNCPAD_KEYPAD_4___
-#define ___FUNC_KEYPAD_BP_4x12___ \
-    ___12_FUNCPAD_KEYPAD_BP_1___,                                       \
-      ___12_FUNCPAD_KEYPAD_BP_2___,                                     \
-      ___12_FUNCPAD_KEYPAD_BP_3___,                                     \
-      ___12_FUNCPAD_KEYPAD_BP_4___
+// Compact, 3x10
+#define ___KP_C_BKL_FUNC_3x10___                \
+  ___10_KEYPAD_BKL_FUNCPAD_2___,                \
+    ___10_KEYPAD_BKL_FUNCPAD_3___,              \
+    ___10_KEYPAD_BKL_FUNCPAD_4___
+#define ___KP_C_BKL_FUNC_BP_3x10___             \
+  ___10_KEYPAD_BKL_FUNCPAD_2_BP___,             \
+    ___10_KEYPAD_BKL_FUNCPAD_3_BP___,           \
+    ___10_KEYPAD_BKL_FUNCPAD_4_BP___
 
-// Compact, 3x12
-#define ___KP_C_BKL_FUNC_3x12___                \
-  ___12_KEYPAD_BKL_FUNCPAD_2___,                \
-    ___12_KEYPAD_BKL_FUNCPAD_3___,              \
-    ___12_KEYPAD_BKL_FUNCPAD_4___
-#define ___KP_C_BKL_FUNC_BP_3x12___             \
-  ___12_KEYPAD_BKL_FUNCPAD_2_BP___,             \
-    ___12_KEYPAD_BKL_FUNCPAD_3_BP___,           \
-    ___12_KEYPAD_BKL_FUNCPAD_4_BP___
-
-#define ___KP_C_3x12___    ___12_KP_1C___,   ___12_KP_2C___,   ___12_KP_3C___
-#define ___KP_FP_C_3x12___  ___12_KP_FP_1C___,   ___12_KP_FP_2C___,   ___12_KP_FP_3C___
-#define ___KP_C_BP_3x12___ ___12_KP_1_BP___, ___12_KP_2_BP___, ___12_KP_3_BP___
+#define ___KP_C_3x10___    ___10_KP_1C___,   ___10_KP_2C___,   ___10_KP_3C___
+#define ___KP_FP_C_3x10___  ___10_KP_FP_1C___,   ___10_KP_FP_2C___,   ___10_KP_FP_3C___
+#define ___KP_C_BP_3x10___ ___10_KP_1_BP___, ___10_KP_2_BP___, ___10_KP_3_BP___
+#define ___KP_FP_C_BP_3x10___  ___10_KP_FP_1C_BP___,   ___10_KP_FP_2C_BP___,   ___10_KP_FP_3C_BP___
 
 
 
-/********************************************************************************/
-/* SYMBOLS.  The BEAKL15 Symbol layer with or without additions.  */
+/******************************************************************/
 /*                                                                */
 /* Symbol layers:                                                 */
 /*                                                                */
-/*     BEAKL symbol layer                                         */
-/*         <$>   [_]                                              */
-/*      - \(")# %{=}| ;                                           */
-/*         :*+   &^~                                              */
+/* The BEAKL15 Symbol layer with or without additions.            */
 /*                                                                */
-/*     BEAKL Extended symbol layer                                */
-/*        `<$>' ?[_]                                              */
-/*      - \(")# %{=}| ;                                           */
-/*        @:*+; !&^~/                                             */
+/* There is the offical beakl symbol layer, an extended symbol    */
+/* layer which is expanded with: !?@`'/-;.                        */
 /*                                                                */
-/* This layer has replaced my former Symbol pad and Symbols       */
-/* layer. The Sympad was nice, But this incorporates the matching */
-/* (){}[] that I had and at the same time provides an easily      */
-/* Learnable layer that makes sense. It was also easy to          */
-/* Supplement with new keys that other layouts might need.        */
-/*                                                                */
-/* The first Layer defined is the "Official" version.             */
-/* The second Layer defined only adds to the original by          */
-/* Placing 8 keys in the pinky and index corners                  */
+/* Placing these 8 keys in the pinky and index corners            */
 /* at the edges of the, 3x3, BEAKL home Region.                   */
-/*                                                                */
-/* Namely these: !?@`'/-;                                         */
 /*                                                                */
 /* Beakl has these keys in it's base layer which isn't the case   */
 /* for other layouts like dvorak, colemak, etc.                   */
 /*                                                                */
+/* The third layer moves /:? to more accessible places.           */
+/* to make vi keybindings more accessible.                        */
+/*                                                                */
+/* Note that there are 2 widths. 12 and 10. The wider layer adds  */
+/* - and ; to the middle row edges.                               */
+/*                                                                */
+/* Official:                                                      */
+/*         <$>   [_]                                              */
+/*      - \(")# %{=}| ;                                           */
+/*         :*+   &^~                                              */
+/*                                                                */
+/* BEAKL Extended symbol layer                                    */
+/* Expanded with: !?@`'/-;                                        */
+/*                                                                */
+/* A:                                                             */
+/*        `<$>' ?[_]-                                              */
+/*      - \(")# %{=}| ;                                           */
+/*        @:*+; !&^~/                                             */
+/*                                                                */
+/* Optimized for Vi.                                              */
+/* B:                                                             */
+/*                                                                */
+/*        `<$>' ?[_]-                                             */
+/*      - \(")# !{:}/ ;                                           */
+/*        @=*+; %&^~|                                             */
+/*                                                                */
+/*                                                                */
+/* Both ; and ' could have found their dvorak positions. Analysis showed */
+/* that only caused pinky overuse. Rotating the symbols around Put better */
+/* keys on the index finger which showed a huge improvement in efficiency. */
+/* The same is true of the exclamation point.                     */
+/*                                                                */
 /******************************************************************/
 
-/******************************************************************/
-/* Official BEAKL15 Symbol layer. */
-/* BEAKL 15 (punctuation layer): */
-/*                 */
-/*    <$>   [_]    */
-/* - \(")# %{=}| ; */
-/*    :*+   &^~    */
-/******************************************************************/
-/********************************************************************************/
-/* The expanded Beakl Symbol Layer                                              */
-/*                                                                              */
-/* Expanded with: !?@`'/-;                                                      */
-/*                                                                              */
-/* This insures access to all common symbols, regardless of availabilily on     */
-/* other layers. All the extra characters are added to the pinky and index      */
-/* corners which are empty in the BEAKL symbol layer.                           */
-/*                                                                              */
-/* Both ; and ' could find their dvorak positions.                              */
-/* Analysis showed that only caused pinky overuse. Rotating the symbols around  */
-/* Put better keys on the index finger which showed a huge improvement          */
-/* in efficiency.  The same is true of the exclamation point.                   */
-/*                                                                              */
-/* A:                                                                           */
-/*   `<$>' ?[_]                                              */
-/* - \(")# %{=}| ;                                           */
-/*   @:*+; !&^~/                                             */
-/*                                                                              */
-/* B:                                                                           */
-/*  With vi bindings /:? and a leader key for vi/emacs.*/
-/*  ; is popular, I use , it's easy in dvorak.:   */
-/*                                                                              */
-/*   `<$>' ?[_]-                                             */
-/* - \(")# !{:}/ ;                                           */
-/*   @=*+; %&^~|                                             */
-/********************************************************************************/
 // Left
-#define ___SB_L1___               KC_OCLTGT,     KC_DLR,   KC_GT
-#define ___SB_L2___   KC_BACKSLASH,  KC_OCPRN,   KC_OCDQUO,   KC_RPRN,  KC_HASH
+#define ___SB_L1___               KC_OCLTGT, KC_DLR,   KC_GT
+#define ___SB_L2___ KC_BACKSLASH, KC_OCPRN,  KC_OCDQUO,   KC_RPRN,  KC_HASH
 #define ___SB_L3___               KC_COLON,  KC_ASTR,  KC_PLUS
-#define ___SB_L3b___              KC_EQL,  KC_ASTR,  KC_PLUS
+#define ___SB_L3b___              KC_EQL,    KC_ASTR,  KC_PLUS
 
 // Bepo
-#define ___SB_L1_BP___                BP_OCLTGT,   BP_DLR,   DB_GRTR
-#define ___SB_L2_BP___  DB_BACKSLASH, DB_LPRN,   BP_OCDQUO,  DB_RPRN,  DB_HASH
-#define ___SB_L3_BP___                KC_COLON,  BP_ASTR,  BP_PLUS
-#define ___SB_L3b_BP___               BP_EQL,  BP_ASTR,  BP_PLUS
+#define ___SB_L1_BP___           BP_OCLTGT, BP_DLR,    DB_GRTR
+#define ___SB_L2_BP___  DB_BSLS, DB_LPRN,   BP_OCDQUO, DB_RPRN,  DB_HASH
+#define ___SB_L3_BP___           KC_COLON,  BP_ASTR,   BP_PLUS
+#define ___SB_L3b_BP___          BP_EQL,    BP_ASTR,   BP_PLUS
 
 // Right
 #define ___SB_R1___               KC_OCBRC,   KC_UNDS,  KC_RBRC
 #define ___SB_R2___    KC_PERC,   KC_OCCBR,   KC_EQL,   KC_RCBR,  KC_PIPE
-#define ___SB_R3___               KC_AMPR,   KC_CIRC,  KC_TILD
+#define ___SB_R3___               KC_AMPR,    KC_CIRC,  KC_TILD
 
 #define ___SB_R2a___   KC_PERC, KC_OCCBR,   KC_EXLM,   KC_RCBR,  KC_PIPE
 #define ___SB_R2b___   KC_EXLM,   KC_OCCBR,   KC_COLN,  KC_RCBR,  KC_SLASH
@@ -411,113 +372,113 @@
 // ---------------------------
 // ---------------------------
 
-// Square it to 6, Add in the - and ;.
-#define ___6SYMBOLS_BEAKL_L1___  ___,     ___,  ___SB_L1___, ___
-#define ___6SYMBOLS_BEAKL_L2___  KC_MINS, ___SB_L2___
-#define ___6SYMBOLS_BEAKL_L3___  ___,     ___,  ___SB_L3___, ___
+// Square it to 5,  No - or ; on the home row outer pinkies.
+#define ___SYMBOLS_BEAKL_L1___  ___,  ___SB_L1___, ___
+#define ___SYMBOLS_BEAKL_L2___  ___SB_L2___
+#define ___SYMBOLS_BEAKL_L3___  ___,  ___SB_L3___, ___
 
-#define ___6SYMBOLS_BEAKL_R1___  ___, ___SB_R1___,  ___, ___
-#define ___6SYMBOLS_BEAKL_R2___  ___SB_R2___,            KC_SCLN
-#define ___6SYMBOLS_BEAKL_R3___  ___, ___SB_R3___,  ___, ___
+#define ___SYMBOLS_BEAKL_R1___  ___, ___SB_R1___,  ___
+#define ___SYMBOLS_BEAKL_R2___  ___SB_R2___
+#define ___SYMBOLS_BEAKL_R3___  ___, ___SB_R3___,  ___
 // ---------------------------
-#define ___6SYMBOLS_BEAKL_L1a___  ___, KC_OCGRV,  ___SB_L1___,  KC_OCQUOT
-#define ___6SYMBOLS_BEAKL_L2a___  ___6SYMBOLS_BEAKL_L2___
-#define ___6SYMBOLS_BEAKL_L3a___  ___, KC_AT,  ___SB_L3___,  KC_SCLN
+#define ___SYMBOLS_BEAKL_L1a___  KC_OCGRV,  ___SB_L1___,  KC_OCQUOT
+#define ___SYMBOLS_BEAKL_L2a___  ___SB_L2___
+#define ___SYMBOLS_BEAKL_L3a___  KC_AT,  ___SB_L3___,  KC_SCLN
 
-#define ___6SYMBOLS_BEAKL_R1a___  LSFT(KC_SLASH), ___SB_R1___,  KC_MINS, ___
-#define ___6SYMBOLS_BEAKL_R2a___  ___SB_R2a___, KC_SCLN
-#define ___6SYMBOLS_BEAKL_R3a___  KC_EXLM, ___SB_R3___,  KC_SLASH,    ___
+#define ___SYMBOLS_BEAKL_R1a___  LSFT(KC_SLASH), ___SB_R1___,  KC_MINS
+#define ___SYMBOLS_BEAKL_R2a___  ___SB_R2a___
+#define ___SYMBOLS_BEAKL_R3a___  KC_EXLM, ___SB_R3___,  KC_SLASH
 // ---------------------------
-#define ___6SYMBOLS_BEAKL_L1b___  ___, KC_OCGRV,  ___SB_L1___,  KC_OCQUOT
-#define ___6SYMBOLS_BEAKL_L2b___  ___6SYMBOLS_BEAKL_L2___
-#define ___6SYMBOLS_BEAKL_L3b___  ___, KC_AT,  ___SB_L3b___,  KC_SCLN
+#define ___SYMBOLS_BEAKL_L1b___  ___SYMBOLS_BEAKL_L1a___
+#define ___SYMBOLS_BEAKL_L2b___  ___SB_L2___
+#define ___SYMBOLS_BEAKL_L3b___  KC_AT,  ___SB_L3b___,  KC_SCLN
 
-#define ___6SYMBOLS_BEAKL_R1b___ ___6SYMBOLS_BEAKL_R1a___
-#define ___6SYMBOLS_BEAKL_R2b___  ___SB_R2b___,            KC_SCLN
-#define ___6SYMBOLS_BEAKL_R3b___  KC_PERC, ___SB_R3___,  KC_PIPE,    ___
+#define ___SYMBOLS_BEAKL_R1b___ ___SYMBOLS_BEAKL_R1a___
+#define ___SYMBOLS_BEAKL_R2b___  ___SB_R2b___
+#define ___SYMBOLS_BEAKL_R3b___  KC_PERC, ___SB_R3___,  KC_PIPE
+
+// BEPO
+#define ___SYMBOLS_BEAKL_L1_BP___  ___,  ___SB_L1___, ___
+#define ___SYMBOLS_BEAKL_L2_BP___  ___SB_L2___
+#define ___SYMBOLS_BEAKL_L3_BP___  ___,  ___SB_L3___, ___
+
+#define ___SYMBOLS_BEAKL_R1_BP___  ___, ___SB_R1___,  ___
+#define ___SYMBOLS_BEAKL_R2_BP___  ___SB_R2___
+#define ___SYMBOLS_BEAKL_R3_BP___  ___, ___SB_R3___,  ___
+// ---------------------------
+#define ___SYMBOLS_BEAKL_L1a_BP___  BP_OCGRV,  ___SB_L1___,  BP_OCQUOT
+#define ___SYMBOLS_BEAKL_L2a_BP___  ___SB_L2___
+#define ___SYMBOLS_BEAKL_L3a_BP___  BP_AT,  ___SB_L3___,  KC_SCLN
+
+#define ___SYMBOLS_BEAKL_R1a_BP___  BP_QUES, ___SB_R1___,  BP_MINS
+#define ___SYMBOLS_BEAKL_R2a_BP___  ___SB_R2a___
+#define ___SYMBOLS_BEAKL_R3a_BP___  BP_EXLM, ___SB_R3___,  BP_SLASH
+// ---------------------------
+#define ___SYMBOLS_BEAKL_L1b_BP___  ___SYMBOLS_BEAKL_L1a_BP___
+#define ___SYMBOLS_BEAKL_L2b_BP___  ___SB_L2___
+#define ___SYMBOLS_BEAKL_L3b_BP___  BP_AT,  ___SB_L3b___,  BP_SCLN
+
+#define ___SYMBOLS_BEAKL_R1b_BP___  ___SYMBOLS_BEAKL_R1a___
+#define ___SYMBOLS_BEAKL_R2b_BP___  ___SB_R2b___
+#define ___SYMBOLS_BEAKL_R3b_BP___  BP_PERC, ___SB_R3___,  KC_PIPE
 
 // ---------------------------
-// ---------------------------
-// Bepo
-#define ___6SYMBOLS_BEAKL_L1_BP___    ___,     ___,  ___SB_L1_BP___, ___
-#define ___6SYMBOLS_BEAKL_L2_BP___    BP_MINS, ___SB_L2_BP___
-#define ___6SYMBOLS_BEAKL_L3_BP___    ___,     ___,  ___SB_L3_BP___, ___
 
-#define ___6SYMBOLS_BEAKL_R1_BP___   ___,     ___SB_R1_BP___,  ___, ___
-#define ___6SYMBOLS_BEAKL_R2_BP___   ___SB_R2_BP___,                BP_SCLN
-#define ___6SYMBOLS_BEAKL_R3_BP___   ___,     ___SB_R3_BP___,  ___, ___
-// ---------------------------
-#define ___6SYMBOLS_BEAKL_L1a_BP___  ___, BP_GRV, ___SB_L1_BP___,  BP_AT
-#define ___6SYMBOLS_BEAKL_L2a_BP___  ___6SYMBOLS_BEAKL_L2_BP___
-#define ___6SYMBOLS_BEAKL_L3a_BP___  ___, BP_AT, ___SB_L3_BP___,  BP_SCLN
+// Some 10 column rows.
+#define ___10_SYM_BKL_1_BP___ ___SYMBOLS_BEAKL_L1_BP___,  ___SYMBOLS_BEAKL_R1_BP___
+#define ___10_SYM_BKL_2_BP___ ___SYMBOLS_BEAKL_L2_BP___,  ___SYMBOLS_BEAKL_R2_BP___
+#define ___10_SYM_BKL_3_BP___ ___SYMBOLS_BEAKL_L3_BP___,  ___SYMBOLS_BEAKL_R3_BP___
 
-#define ___6SYMBOLS_BEAKL_R1a_BP___  BP_QUES, ___SB_R1_BP___,  BP_MINS, ___
-#define ___6SYMBOLS_BEAKL_R2a_BP___  ___SB_R2a_BP___, BP_SCLN
-#define ___6SYMBOLS_BEAKL_R3a_BP___  BP_EXLM, ___SB_R3_BP___,  BP_SLSH, ___
-// ---------------------------
-#define ___6SYMBOLS_BEAKL_L1b_BP___  ___, BP_GRV,  ___SB_L1___,  BP_OCQUOT
-#define ___6SYMBOLS_BEAKL_L2b_BP___  ___6SYMBOLS_BEAKL_L2_BP___
-#define ___6SYMBOLS_BEAKL_L3b_BP___  ___, BP_AT,  ___SB_L3b_BP___,  BP_SCLN
-
-#define ___6SYMBOLS_BEAKL_R1b_BP___  ___, ___SB_R1_BP___,  BP_MINS, ___
-#define ___6SYMBOLS_BEAKL_R2b_BP___  ___SB_R2b_BP___,            BP_SCLN
-#define ___6SYMBOLS_BEAKL_R3b_BP___  BP_PERC, ___SB_R3_BP___,  BP_PIPE, ___
-// ---------------------------
+#define ___10_SYM_BKL_1___    ___SYMBOLS_BEAKL_L1___,  ___SYMBOLS_BEAKL_R1___
+#define ___10_SYM_BKL_2___    ___SYMBOLS_BEAKL_L2___,  ___SYMBOLS_BEAKL_R2___
+#define ___10_SYM_BKL_3___    ___SYMBOLS_BEAKL_L3___,  ___SYMBOLS_BEAKL_R3___
 
 // Some 12 column rows.
-#define ___12_SYM_BKL_1_BP___ ___6SYMBOLS_BEAKL_L1_BP___,  ___6SYMBOLS_BEAKL_R1_BP___
-#define ___12_SYM_BKL_2_BP___ ___6SYMBOLS_BEAKL_L2_BP___,  ___6SYMBOLS_BEAKL_R2_BP___
-#define ___12_SYM_BKL_3_BP___ ___6SYMBOLS_BEAKL_L3_BP___,  ___6SYMBOLS_BEAKL_R3_BP___
+#define ___10_SYM_BKL_A1_BP___ ___SYMBOLS_BEAKL_L1a_BP___,  ___SYMBOLS_BEAKL_R1a_BP___
+#define ___10_SYM_BKL_A2_BP___ ___SYMBOLS_BEAKL_L2a_BP___,  ___SYMBOLS_BEAKL_R2a_BP___
+#define ___10_SYM_BKL_A3_BP___ ___SYMBOLS_BEAKL_L3a_BP___,  ___SYMBOLS_BEAKL_R3a_BP___
 
-#define ___12_SYM_BKL_1___    ___6SYMBOLS_BEAKL_L1___,  ___6SYMBOLS_BEAKL_R1___
-#define ___12_SYM_BKL_2___    ___6SYMBOLS_BEAKL_L2___,  ___6SYMBOLS_BEAKL_R2___
-#define ___12_SYM_BKL_3___    ___6SYMBOLS_BEAKL_L3___,  ___6SYMBOLS_BEAKL_R3___
+#define ___10_SYM_BKL_A1___ ___SYMBOLS_BEAKL_L1a___,  ___SYMBOLS_BEAKL_R1a___
+#define ___10_SYM_BKL_A2___ ___SYMBOLS_BEAKL_L2a___,  ___SYMBOLS_BEAKL_R2a___
+#define ___10_SYM_BKL_A3___ ___SYMBOLS_BEAKL_L3a___,  ___SYMBOLS_BEAKL_R3a___
 
-// Some 12 column rows.
-#define ___12_SYM_BKL_A1_BP___ ___6SYMBOLS_BEAKL_L1a_BP___,  ___6SYMBOLS_BEAKL_R1a_BP___
-#define ___12_SYM_BKL_A2_BP___ ___6SYMBOLS_BEAKL_L2a_BP___,  ___6SYMBOLS_BEAKL_R2a_BP___
-#define ___12_SYM_BKL_A3_BP___ ___6SYMBOLS_BEAKL_L3a_BP___,  ___6SYMBOLS_BEAKL_R3a_BP___
+#define ___10_SYM_BKL_B1_BP___ ___SYMBOLS_BEAKL_L1b_BP___, ___SYMBOLS_BEAKL_R1b_BP___
+#define ___10_SYM_BKL_B2_BP___ ___SYMBOLS_BEAKL_L2b_BP___, ___SYMBOLS_BEAKL_R2b_BP___
+#define ___10_SYM_BKL_B3_BP___ ___SYMBOLS_BEAKL_L3b_BP___, ___SYMBOLS_BEAKL_R3b_BP___
 
-#define ___12_SYM_BKL_A1___ ___6SYMBOLS_BEAKL_L1a___,  ___6SYMBOLS_BEAKL_R1a___
-#define ___12_SYM_BKL_A2___ ___6SYMBOLS_BEAKL_L2a___,  ___6SYMBOLS_BEAKL_R2a___
-#define ___12_SYM_BKL_A3___ ___6SYMBOLS_BEAKL_L3a___,  ___6SYMBOLS_BEAKL_R3a___
-
-#define ___12_SYM_BKL_B1_BP___ ___6SYMBOLS_BEAKL_L1b_BP___, ___6SYMBOLS_BEAKL_R1b_BP___
-#define ___12_SYM_BKL_B2_BP___ ___6SYMBOLS_BEAKL_L2b_BP___, ___6SYMBOLS_BEAKL_R2b_BP___
-#define ___12_SYM_BKL_B3_BP___ ___6SYMBOLS_BEAKL_L3b_BP___, ___6SYMBOLS_BEAKL_R3b_BP___
-
-#define ___12_SYM_BKL_B1___ ___6SYMBOLS_BEAKL_L1b___, ___6SYMBOLS_BEAKL_R1b___
-#define ___12_SYM_BKL_B2___ ___6SYMBOLS_BEAKL_L2b___, ___6SYMBOLS_BEAKL_R2b___
-#define ___12_SYM_BKL_B3___ ___6SYMBOLS_BEAKL_L3b___, ___6SYMBOLS_BEAKL_R3b___
+#define ___10_SYM_BKL_B1___ ___SYMBOLS_BEAKL_L1b___, ___SYMBOLS_BEAKL_R1b___
+#define ___10_SYM_BKL_B2___ ___SYMBOLS_BEAKL_L2b___, ___SYMBOLS_BEAKL_R2b___
+#define ___10_SYM_BKL_B3___ ___SYMBOLS_BEAKL_L3b___, ___SYMBOLS_BEAKL_R3b___
 
 /********************************************************************************/
 /* The BEAKL and BEAKL-A SYMBOL LAYER Chunks                                    */
 /********************************************************************************/
 // The Official beakl symbol layer as a chunk, Bepo and Qwerty
-#define ___SYMB_BEAKL_BP_3x12___ ___12_SYM_BKL_1_BP___, \
-    ___12_SYM_BKL_2_BP___,                              \
-    ___12_SYM_BKL_3_BP___
+// 3x10
+#define ___SYMB_BEAKL_BP_3x10___ ___10_SYM_BKL_1_BP___, \
+    ___10_SYM_BKL_2_BP___,                              \
+    ___10_SYM_BKL_3_BP___
 
-#define ___SYMB_BEAKL_3x12___    ___12_SYM_BKL_1___,    \
-    ___12_SYM_BKL_2___,                                 \
-    ___12_SYM_BKL_3___
+#define ___SYMB_BEAKL_3x10___    ___10_SYM_BKL_1___,    \
+    ___10_SYM_BKL_2___,                                 \
+    ___10_SYM_BKL_3___
 
 // Alternate Beakle symbol layer with additional corner symbols.
-#define ___SYMB_BEAKLA_BP_3x12___ ___12_SYM_BKL_A1_BP___, \
-    ___12_SYM_BKL_A2_BP___,                               \
-    ___12_SYM_BKL_A3_BP___
+#define ___SYMB_BEAKLA_BP_3x10___ ___10_SYM_BKL_A1_BP___,       \
+    ___10_SYM_BKL_A2_BP___,                                     \
+    ___10_SYM_BKL_A3_BP___
 
-#define ___SYMB_BEAKLA_3x12___    ___12_SYM_BKL_A1___,  \
-    ___12_SYM_BKL_A2___,                                \
-    ___12_SYM_BKL_A3___
+#define ___SYMB_BEAKLA_3x10___    ___10_SYM_BKL_A1___,  \
+    ___10_SYM_BKL_A2___,                                \
+    ___10_SYM_BKL_A3___
 
-#define ___SYMB_BEAKLB_BP_3x12___ ___12_SYM_BKL_B1_BP___,       \
-    ___12_SYM_BKL_B2_BP___,                                     \
-    ___12_SYM_BKL_B3_BP___
+#define ___SYMB_BEAKLB_BP_3x10___ ___10_SYM_BKL_B1_BP___,       \
+    ___10_SYM_BKL_B2_BP___,                                     \
+    ___10_SYM_BKL_B3_BP___
 
-#define ___SYMB_BEAKLB_3x12___    ___12_SYM_BKL_B1___,  \
-    ___12_SYM_BKL_B2___,                                \
-    ___12_SYM_BKL_B3___
+#define ___SYMB_BEAKLB_3x10___    ___10_SYM_BKL_B1___,  \
+    ___10_SYM_BKL_B2___,                                \
+    ___10_SYM_BKL_B3___
 
 /********************************************************************************/
 /* NAVIGATION  - MOUSE, Scroll, Buttons, Arrows, Tab, Home, page up/down, End   */
@@ -550,7 +511,9 @@
 #define ___MWHEEL_LDUR___     KC_WH_L,  KC_WH_D,  KC_WH_U,  KC_WH_R
 //  really BTN 1, 2, 3, 8, 9 - according to xev.
 #define ___MOUSE_BTNS_R___    KC_BTN1,  KC_BTN3,  KC_BTN2,  KC_BTN4,  KC_BTN5
+#define ___4MOUSE_BTNS_R___    KC_BTN1,  KC_BTN3,  KC_BTN2,  KC_BTN4
 //  really BTN 9, 8, 3, 2, 1 - according to xev
+#define ___4MOUSE_BTNS_L___   KC_BTN4,  KC_BTN2,  KC_BTN3,  KC_BTN1
 #define ___MOUSE_BTNS_L___    KC_BTN5,  KC_BTN4,  KC_BTN2,  KC_BTN3,  KC_BTN1
 #define ___MOUSE_ACCL_012___  KC_ACL0,  KC_ACL1,  KC_ACL2
 #define ___MACCL___ ___MOUSE_ACCL_012___
@@ -558,6 +521,16 @@
 
 #define ___VI_ARROWS___          KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
 #define ___HOME_PGDN_PGUP_END___ KC_HOME, KC_PGDN, KC_PGUP, KC_END
+
+#define ___NAV_L_1___ ___4MOUSE_BTNS_L___, KC_ACL0
+#define ___NAV_L_2___ ___MOUSE_LDUR___,  KC_ACL1
+#define ___NAV_L_3___ ___MWHEEL_LDUR___, KC_ACL2
+#define ___NAV_L_4___ ___VI_ARROWS___,   KC_CCCV
+
+#define ___NAV_R_1___ KC_CTCN, ___4MOUSE_BTNS_R___
+#define ___NAV_R_2___ KC_CCCV, ___VI_ARROWS___
+#define ___NAV_R_3___ KC_CWCQ, ___HOME_PGDN_PGUP_END___
+#define ___NAV_R_4___ KC_CCCV, ___MOUSE_LDUR___
 
 #define ___6NAV_L_1___ ___MOUSE_BTNS_L___,           KC_ACL0
 #define ___6NAV_L_2___ TAB_BKTAB, ___MOUSE_LDUR___,  KC_ACL1
@@ -569,19 +542,18 @@
 #define ___6NAV_R_3___ KC_CWCQ, ___HOME_PGDN_PGUP_END___, ___
 #define ___6NAV_R_4___ KC_CCCV, ___MOUSE_LDUR___, ___
 
-  // compact. Initially for corne. So 3x12 per layer.
-#define ___12_NAV_1___ ___6NAV_L_1___, ___6NAV_R_1___
-#define ___12_NAV_2___ ___6NAV_L_2___, ___6NAV_R_2___
-#define ___12_NAV_3___ ___6NAV_L_3___, ___6NAV_R_3___
+// compact. 3x10 per layer.
+#define ___10_NAV_1___ ___NAV_L_1___, ___NAV_R_1___
+#define ___10_NAV_2___ ___NAV_L_2___, ___NAV_R_2___
+#define ___10_NAV_3___ ___NAV_L_3___, ___NAV_R_3___
 
-#define ___12_NAV_4___ ___6NAV_L_4___, ___6NAV_R_4___
 
 /********************************************************************************/
 /* The Navigation LAYER Chunks                                                  */
 /********************************************************************************/
 // A Navigation Layer
+#define ___NAV_3x10___ ___10_NAV_1___, ___10_NAV_2___, ___10_NAV_3___
 #define ___NAV_3x12___ ___12_NAV_1___, ___12_NAV_2___, ___12_NAV_3___
-#define ___NAV_4x12___ ___NAV_3x12___, ___12_NAV_4___
 
 
 /********************************************************************************/
@@ -611,34 +583,33 @@
 #define ___RGB_KXGT___           RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T
 
 /// An RGB Layer
-#define ___12_RGB_1___ ___, ___RGB_HUE_SAT_INT_UP___, ___,     ___6___
-#define ___12_RGB_2___ ___, ___RGB_HUE_SAT_INT_DN___, RGB_TOG, ___RGB_P_B_R_SW_SN___, ___
-#define ___12_RGB_3___ ___6___,                                ___, ___RGB_KXGT___, ___
+#define ___10_RGB_1___ ___RGB_HUE_SAT_INT_UP___, ___,     ___5___
+#define ___10_RGB_2___ ___RGB_HUE_SAT_INT_DN___, RGB_TOG, ___RGB_P_B_R_SW_SN___
+#define ___10_RGB_3___ ___5___,                                ___, ___RGB_KXGT___
 
 /********************************************************************************/
 /* The RGB LAYER Chunk                                                          */
 /********************************************************************************/
-#define ___RGB_3x12___ ___12_RGB_1___, ___12_RGB_2___, ___12_RGB_3___
+#define ___RGB_3x10___ ___10_RGB_1___, ___10_RGB_2___, ___10_RGB_3___
 
 
 /********************************************************************************/
 /* ADJUST - Miscellaneous Melange.                                              */
 /********************************************************************************/
 // For an Adjust layer. Like RBB with audio, flash, etc.
-#define ___6_ADJUST_L1___ KC_MAKE,  ___RGB_HUE_SAT_INT_UP___,       RGB_TOG
-#define ___6_ADJUST_L2___ VRSN,     MU_TOG, CK_TOGG, AU_ON, AU_OFF, CG_NORM
-#define ___6_ADJUST_L3___ MG_NKRO,  ___RGB_HUE_SAT_INT_DN___,        KC_RGB_T
+#define ___ADJUST_L1___ ___RGB_HUE_SAT_INT_UP___,       RGB_TOG
+#define ___ADJUST_L2___ MU_TOG, CK_TOGG, AU_ON, AU_OFF, CG_NORM
+#define ___ADJUST_L3___ ___RGB_HUE_SAT_INT_DN___,       KC_RGB_T
 
-#define ___6_ADJUST_R1___  ___5___,                          KC_RESET
-#define ___6_ADJUST_R2___  ___,     ___PRV_PLAY_NXT_STOP___, EEP_RST
-#define ___6_ADJUST_R3___  MG_NKRO, ___VDN_MUTE_VUP___, ___, RGB_IDL
-
+#define ___ADJUST_R1___  ___, KC_MAKE, VRSN, MG_NKRO, KC_RESET
+#define ___ADJUST_R2___  EEP_RST, ___PRV_PLAY_NXT_STOP___,
+#define ___ADJUST_R3___  MG_NKRO, ___VDN_MUTE_VUP___, RGB_IDL
 /********************************************************************************/
 /* The Adjust LAYER Chunks                                                      */
 /********************************************************************************/
-#define ___ADJUST_3x12___  ___6_ADJUST_L1___, ___6_ADJUST_R1___,    \
-                           ___6_ADJUST_L2___, ___6_ADJUST_R2___,       \
-                           ___6_ADJUST_L3___, ___6_ADJUST_R3___
+#define ___ADJUST_3x10___  ___ADJUST_L1___, ___ADJUST_R1___,    \
+    ___ADJUST_L2___, ___ADJUST_R2___,                           \
+    ___ADJUST_L3___, ___ADJUST_R3___
 
 
 /********************************************************************************/
@@ -650,28 +621,40 @@
 /*                                                                              */
 /********************************************************************************/
 //  Base Layers
-#define ___5_LAYERS_B1___ ___,        KC_BEPO,    KC_DVORAK_BP, KC_BEAKL_BP, ___
-#define ___5_LAYERS_B2___ KC_QWERTY,  KC_COLEMAK, KC_DVORAK,    KC_BEAKL, ___
-
-#define ___5_LAYERS_B3___ ___, KC_QWERTY,    KC_NORMAN,    KC_WORKMAN, ___
-#define ___5_LAYERS_B4___ ___, DF(_MALTRON), DF(_EUCALYN), DF(_CARPLAX), ___
-
-#define ___5_LAYERS_B1b___ DF(_NORMAN),  DF(_MALTRON), DF(_CARPLAX), DF(_COLEMAK), ___
-#define ___5_LAYERS_B2b___ DF(_EUCALYN), DF(_WORKMAN), DF(_QWERTY),  DF(_DVORAK), ___
-#define ___5_LAYERS_B3b___ ___,          DF(_BEAKL),   DF(_BEPO),    DF(_DVORAK_BP), ___
+// this was kc_dvorak et al. But since its configurable as to who would be here
+// that no longer makes sense. So next keys for locale and base layer. and a set to
+// make it permanent. Cycling of layers is based on current locale.
+#define ___BASE_LAYERS___ ___, KC_SET_BASE, KC_NEXT_BASE_LAYER, KC_NEXT_LOCALE, ___
 
 // transient layers.
 #define ___5_LAYERS_T___     ___, MO(_NAV),  MO(_SYMB),     MO(_KEYPAD),       MO(_TOPROWS)
+#ifdef BEPO_ENABLE
 #define ___5_LAYERS_T_BP___  ___, MO(_NAV),  MO(_SYMB_BP),  MO(_KEYPAD_BP),    MO(_TOPROWS_BP)
-#define ___5_LAYERS_T_CTL___ ___, MO(_RGB),  ___,                 ___, MO(_ADJUST)
+#else
+#define ___5_LAYERS_T_BP___  ___, MO(_NAV),  ___3___
+#endif
+
+#ifdef RGB_LAYER_ENABLE
+#define MO_RGB MO(_RGB)
+#else
+#define MO_RGB ___
+#endif
+
+#ifdef ADJUST_LAYER_ENABLE
+#define MO_ADJUST MO(_RGB)
+#else
+#define MO_ADJUST ___
+#endif
+
+#define ___5_LAYERS_T_CTL___ ___, MO_RGB, ___, ___, MO_ADJUST
 
 
 /// A Layers Layer
-#define ___12_LAYERS_1___ ___, ___5_LAYERS_B1___,  ___5_LAYERS_T_BP___,  ___
-#define ___12_LAYERS_2___ ___, ___5_LAYERS_B2___,  ___5_LAYERS_T___,     ___
-#define ___12_LAYERS_3___ KC_SPACETEST, ___5___,            ___5_LAYERS_T_CTL___, ___
+#define ___10_LAYERS_1___ ___5___,  ___5_LAYERS_T_BP___
+#define ___10_LAYERS_2___ ___BASE_LAYERS___,  ___5_LAYERS_T___
+#define ___10_LAYERS_3___ ___5___,            ___5_LAYERS_T_CTL___
 
 /********************************************************************************/
 /* The LAYERS LAYER Chunk                                                       */
 /********************************************************************************/
-#define ___LAYERS_3x12___ ___12_LAYERS_1___, ___12_LAYERS_2___, ___12_LAYERS_3___
+#define ___LAYERS_3x10___ ___10_LAYERS_1___, ___10_LAYERS_2___, ___10_LAYERS_3___

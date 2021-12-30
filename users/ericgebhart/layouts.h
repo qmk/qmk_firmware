@@ -102,29 +102,25 @@
 /* numbers, no numbers, numbers never change, whatever.                */
 /*   we can have a layout macro that takes a nice rectangle of keys.   */
 
-/* Actually, because of Bepo, each keyboard currently requires four of */
-/* these macros. One for Qwerty, One for foreign layouts on bepo like */
-/* dvorak and beakl on bepo instead of on Qwerty. Then another for the Bepo */
-/* layout because unlike the rest of the layouts Bepo doesn't fit in */
-/* 3x10. It wants 3x12. So there are potentially 4 macros per keyboard here. */
-/* XXXX_base, XXXX_base_bepo, XXXX_base_bepo6, The 4th macro */
-/* is XXXXX_transient and generally works for all other */
-/* non base layers.                                       */
-/* The base and transient versions are all that is necessary, if bepo is */
-/*   not needed. */
 
-
+/*Some keyboards need number rows, some don't. there is a setting for that */
+/* the keymap will give number rows if BASE_NUMBER_ROW is defined.*/
+/* in that case, the layout should take 4 rows of 10. */
+/* If all the layouts you might ever want would have the same top row,*/
+/* Then it could be defined like that here, and it could take 3x10.*/
 /* All layouts are relatively simple to make. */
 /* The ROW macros add a universal mod layer so that mods can be defined once */
 /* and used everywhere. No matter the keymap or layer. this allows actual maps */
 /* like dvorak, qwerty, colemak, beakl, etc., to be defined simply. */
 
 
-/* Additional, more complicated layouts can be found here.*/
-/* examples can be found in crkbd/keymaps/ericgebhart */
-/* examples can be found in kinesis/keymaps/ericgebhart */
-/* examples can be found in ergodox/keymaps/ericgebhart */
-/* examples can be found in montsinger/rebound/rev4/keymaps/ericgebhart */
+/* Additional, usage examples can be found in keyboards.*/
+/* crkbd/keymaps/ericgebhart */
+/* kinesis/keymaps/ericgebhart */
+/* ergodox_ez/keymaps/ericgebhart */
+/* keebio/viterbi/keymaps/ericgebhart */
+/* xiudi/xd75/keymaps/ericgebhart */
+/* montsinger/rebound/rev4/keymaps/ericgebhart */
 
 
 
@@ -135,15 +131,15 @@
 // Using 4 sets allows for changing the number row if you have one.
 // if you never change the number row, then use 3 sets of left and right.
 // and define the number row here.
-#define LAYOUT_5x15_base(                                         \
-                         K01, K02, K03, K04, K05,                 \
-                         K06, K07, K08, K09, K0A,                 \
-                         K11, K12, K13, K14, K15,                 \
-                         K16, K17, K18, K19, K1A,                 \
-                         K21, K22, K23, K24, K25,                 \
-                         K26, K27, K28, K29, K2A,                 \
-                         K31, K32, K33, K34, K35,                 \
-                         K36, K37, K38, K39, K3A)                 \
+#define Base_5x15(                                                \
+                  K01, K02, K03, K04, K05,                        \
+                  K06, K07, K08, K09, K0A,                        \
+                  K11, K12, K13, K14, K15,                        \
+                  K16, K17, K18, K19, K1A,                        \
+                  K21, K22, K23, K24, K25,                        \
+                  K26, K27, K28, K29, K2A,                        \
+                  K31, K32, K33, K34, K35,                        \
+                  K36, K37, K38, K39, K3A)                        \
   LVARG_5x15(                                                     \
             ROW0_LEFT(K01, K02, K03, K04, K05), \
             ___3_MIDDLE_T___,                                           \
@@ -163,15 +159,15 @@
             ___15_BOTTOM___                                             \
     )
 
-#define LAYOUT_5x15_base_bepo(                                          \
-                         K01, K02, K03, K04, K05,                       \
-                         K06, K07, K08, K09, K0A,                       \
-                         K11, K12, K13, K14, K15,                       \
-                         K16, K17, K18, K19, K1A,                       \
-                         K21, K22, K23, K24, K25,                   \
-                         K26, K27, K28, K29, K2A,                   \
-                         K31, K32, K33, K34, K35,                   \
-                         K36, K37, K38, K39, K3A)                   \
+#define Base_bepo_5x15(                                       \
+                       K01, K02, K03, K04, K05,                         \
+                             K06, K07, K08, K09, K0A,                    \
+                            K11, K12, K13, K14, K15,                    \
+                            K16, K17, K18, K19, K1A,                    \
+                            K21, K22, K23, K24, K25,                    \
+                            K26, K27, K28, K29, K2A,                    \
+                            K31, K32, K33, K34, K35,                    \
+                            K36, K37, K38, K39, K3A)                    \
   LVARG_5x15(                                                           \
              ROW0_LEFT_BP(K01, K02, K03, K04, K05),                   \
              ___3_MIDDLE_T___,                                          \
@@ -191,62 +187,27 @@
              ___15_BOTTOM_BP___                                         \
                                                                         )
 
-// Just for bepo because it's a 3x6 matrix on each side.
-// So 3 pairs of 6 keys, left and right.
-#define Layout_5x15_base_bepo6(                                         \
-                               K01, K02, K03, K04, K05, K06,            \
-                               K07, K08, K09, K0A, K0B, K0C,            \
-                               K11, K12, K13, K14, K15, K16,            \
-                               K17, K18, K19, K1A, K1B, K1C,            \
-                               K21, K22, K23, K24, K25, K26,            \
-                               K27, K28, K29, K2A, K2B, K2C             \
-                                                   )                    \
-     LVARG_5x15(                                                        \
-                ___15_B_SYMB___,                                  \
-                ROW1_LEFT_BP6(K01, K02, K03, K04, K05, K06),            \
-                ___3_MIDDLE_1_BP___,                                    \
-                ROW1_RIGHT_BP6(K07, K08, K09, K0A, K0B, K0C),           \
-                                                                        \
-                ROW2_LEFT_BP6(K11, K12, K13, K14, K15, K16),            \
-                ___3_MIDDLE_2___,                                       \
-                ROW2_RIGHT_BP6(K17, K18, K19, K1A, K1B, K1C),           \
-                                                                        \
-                ROW3_LEFT_BP6(K21, K22, K23, K24, K25, K26),            \
-                ___3_MIDDLE_3___,                                       \
-                ROW3_RIGHT_BP6(K27, K28, K29, K2A, K2B, K2C),           \
-                ___15_BOTTOM_BP___                                      \
-                                                                        )
-
-     // 4  rows of 12. 3 columns transparent in the middle.
-#define LAYOUT_5x15_transient(                                          \
-                              K01, K02, K03, K04, K05, K06,             \
-                              K07, K08, K09, K0A, K0B, K0C,           \
-                              K11, K12, K13, K14, K15, K16,             \
-                              K17, K18, K19, K1A, K1B, K1C,             \
-                              K21, K22, K23, K24, K25, K26,             \
-                              K27, K28, K29, K2A, K2B, K2C,             \
-                              K31, K32, K33, K34, K35, K36,             \
-                              K37, K38, K39, K3A, K3B, K3C              \
-                                                                        ) \
-     LVARG_5x15(                                                  \
-                K01, K02, K03, K04, K05, K06,                           \
-                ___3___,                                                \
-                K07, K08, K09, K0A, K0B, K0C,                           \
-                K11, K12, K13, K14, K15, K16,                           \
-                ___3___,                                                \
-                K17, K18, K19, K1A, K1B, K1C,                           \
-                K21, K22, K23, K24, K25, K26,                           \
-                ___3___,                                                \
-                K27, K28, K29, K2A, K2B, K2C,                           \
-                K31, K32, K33, K34, K35, K36,                           \
-                ___3___,                                                \
-                K37, K38, K39, K3A, K3B, K3C,                           \
-                ___15___)                                               \
-
-#define BASE_5x15(...)       LAYOUT_5x15_base(__VA_ARGS__)
-#define BASE_5x15_bepo(...)  LAYOUT_5x15_base_bepo(__VA_ARGS__)
-#define BASE_5x15_bepo6(...) LAYOUT_5x15_base_bepo6(__VA_ARGS__)
-#define TRANSIENT_5x15(...)  LAYOUT_5x15_transient(__VA_ARGS__)
+// 4  rows of 12. 3 columns transparent in the middle.
+#define Transient_5x15(                                       \
+                       K01, K02, K03, K04, K05,                     \
+                       K07, K08, K09, K0A, K0B,                     \
+                       K11, K12, K13, K14, K15,                     \
+                       K17, K18, K19, K1A, K1B,                 \
+                       K21, K22, K23, K24, K25,                     \
+                       K27, K28, K29, K2A, K2B                     \
+                                                              )    \
+  LVARG_5x15(                                                      \
+             ___15___,                                             \
+             ___, K01, K02, K03, K04, K05,                         \
+             ___3___,                                              \
+             K07, K08, K09, K0A, K0B, ___,                         \
+             ___, K11, K12, K13, K14, K15,                         \
+             ___3___,                                              \
+             K17, K18, K19, K1A, K1B, ___,                         \
+             ___, K21, K22, K23, K24, K25,                         \
+             ___3___,                                              \
+             K27, K28, K29, K2A, K2B, ___,                         \
+             ___15___)                                             \
 
 /********************************************************************/
 
@@ -254,15 +215,15 @@
 /********************************************************************/
 /* viterbi  - Ortholinear 5x14  */
 /********************************************************************/
-#define LAYOUT_5x14_base(                                               \
-                         K01, K02, K03, K04, K05,                       \
-                         K06, K07, K08, K09, K0A,                       \
-                         K11, K12, K13, K14, K15,                       \
-                         K16, K17, K18, K19, K1A,                       \
-                         K21, K22, K23, K24, K25,                       \
-                         K26, K27, K28, K29, K2A,                       \
-                         K31, K32, K33, K34, K35,                       \
-                         K36, K37, K38, K39, K3A)                       \
+#define Base_5x14(                                                 \
+                  K01, K02, K03, K04, K05,                              \
+                        K06, K07, K08, K09, K0A,                        \
+                        K11, K12, K13, K14, K15,                        \
+                        K16, K17, K18, K19, K1A,                        \
+                        K21, K22, K23, K24, K25,                        \
+                        K26, K27, K28, K29, K2A,                        \
+                        K31, K32, K33, K34, K35,                        \
+                        K36, K37, K38, K39, K3A)                        \
   LVARG_5x14(                                                           \
              ROW0_LEFT(K01, K02, K03, K04, K05),                        \
              ___2_MIDDLE_T___,                                          \
@@ -282,15 +243,15 @@
              ___14_BOTTOM___                                            \
                                                                         )
 
-#define LAYOUT_5x14_base_bepo(                                          \
-                              K01, K02, K03, K04, K05,                  \
-                              K06, K07, K08, K09, K0A,                  \
-                              K11, K12, K13, K14, K15,                  \
-                              K16, K17, K18, K19, K1A,                  \
-                              K21, K22, K23, K24, K25,                  \
-                              K26, K27, K28, K29, K2A,                  \
-                              K31, K32, K33, K34, K35,                  \
-                              K36, K37, K38, K39, K3A)                  \
+#define Base_bepo_5x14(                                       \
+                       K01, K02, K03, K04, K05,                         \
+                             K06, K07, K08, K09, K0A,                   \
+                             K11, K12, K13, K14, K15,                   \
+                             K16, K17, K18, K19, K1A,                   \
+                             K21, K22, K23, K24, K25,                   \
+                         K26, K27, K28, K29, K2A,                       \
+                         K31, K32, K33, K34, K35,                       \
+                         K36, K37, K38, K39, K3A)                       \
   LVARG_5x14(                                                           \
             ROW0_LEFT_BP(K01, K02, K03, K04, K05),                      \
             ___2_MIDDLE_T___,                                           \
@@ -310,63 +271,31 @@
             ___14_BOTTOM_BP___                                          \
     )
 
-  // Just for bepo because it's a 3x6 matrix on each side.
-// So 3 pairs of 6 keys, left and right.
-#define LAYOUT_5x14_base_bepo6(                                 \
-                               K01, K02, K03, K04, K05, K06,    \
-                               K07, K08, K09, K0A, K0B, K0C,    \
-                               K11, K12, K13, K14, K15, K16,    \
-                               K17, K18, K19, K1A, K1B, K1C,        \
-                               K21, K22, K23, K24, K25, K26,        \
-                               K27, K28, K29, K2A, K2B, K2C             \
-                                                   )                    \
-  LVARG_5x14(                                                           \
-             ___14_B_SYMB___,                                           \
-             ROW1_LEFT_BP6(K01, K02, K03, K04, K05, K06),               \
-             ___2_MIDDLE_1_BP___,                                       \
-             ROW1_RIGHT_BP6(K07, K08, K09, K0A, K0B, K0C),              \
-                                                                        \
-             ROW2_LEFT_BP6(K11, K12, K13, K14, K15, K16),               \
-             ___2_MIDDLE_2___,                                          \
-             ROW2_RIGHT_BP6(K17, K18, K19, K1A, K1B, K1C),              \
-                                                                        \
-             ROW3_LEFT_BP6(K21, K22, K23, K24, K25, K26),               \
-             ___2_MIDDLE_3___,                                          \
-             ROW3_RIGHT_BP6(K27, K28, K29, K2A, K2B, K2C),              \
-             ___14_BOTTOM_BP___                                         \
-                                                                        )
 
 // 4  rows of 12. 2 columns transparent in the middle.
-#define LAYOUT_5x14_transient(                                          \
-                              K01, K02, K03, K04, K05, K06,             \
-                              K07, K08, K09, K0A, K0B, K0C,             \
-                              K11, K12, K13, K14, K15, K16,             \
-                              K17, K18, K19, K1A, K1B, K1C,             \
-                              K21, K22, K23, K24, K25, K26,             \
-                              K27, K28, K29, K2A, K2B, K2C,             \
-                              K31, K32, K33, K34, K35, K36,             \
-                              K37, K38, K39, K3A, K3B, K3C              \
-                                                                        ) \
+#define Transient_5x14(                                       \
+                       K01, K02, K03, K04, K05,                     \
+                       K07, K08, K09, K0A, K0B,                    \
+                       K11, K12, K13, K14, K15,                     \
+                       K17, K18, K19, K1A, K1B,                         \
+                       K21, K22, K23, K24, K25,                     \
+                       K27, K28, K29, K2A, K2B                     \
+                                                              )         \
   LVARG_5x14(                                                           \
-             K01, K02, K03, K04, K05, K06,                              \
+             ___14___,                                                  \
+             ___, K01, K02, K03, K04, K05,                              \
              ___2___,                                                   \
-             K07, K08, K09, K0A, K0B, K0C,                              \
-             K11, K12, K13, K14, K15, K16,                              \
+             K07, K08, K09, K0A, K0B, ___,                              \
+                                                                        \
+             ___, K11, K12, K13, K14, K15,                              \
              ___2___,                                                   \
-             K17, K18, K19, K1A, K1B, K1C,                              \
-             K21, K22, K23, K24, K25, K26,                              \
+             K17, K18, K19, K1A, K1B, ___,                              \
+                                                                        \
+             ___, K21, K22, K23, K24, K25,                              \
              ___2___,                                                   \
-             K27, K28, K29, K2A, K2B, K2C,                              \
-             K31, K32, K33, K34, K35, K36,                              \
-             ___2___,                                                   \
-             K37, K38, K39, K3A, K3B, K3C,                              \
+             K27, K28, K29, K2A, K2B, ___,                              \
              ___14___                                                   \
                                                                         ) \
-
-#define BASE_5x14(...)       LAYOUT_5x14_base(__VA_ARGS__)
-#define BASE_5x14_bepo(...)  LAYOUT_5x14_base_bepo(__VA_ARGS__)
-#define BASE_5x14_bepo6(...) LAYOUT_5x14_base_bepo6(__VA_ARGS__)
-#define TRANSIENT_5x14(...)  LAYOUT_5x14_transient(__VA_ARGS__)
 
 /********************************************************************/
 /* Ortholinear 4x12  */
@@ -415,25 +344,6 @@
 
      // Just for bepo because it's a 3x6 matrix on each side.
      // So 3 pairs of 6 keys, left and right.
-#define Layout_4x12_base_bepo6(                                 \
-                               K01, K02, K03, K04, K05, K06,    \
-                               K07, K08, K09, K0A, K0B, K0C,    \
-                               K11, K12, K13, K14, K15, K16,           \
-                               K17, K18, K19, K1A, K1B, K1C,           \
-                               K21, K22, K23, K24, K25, K26,           \
-                               K27, K28, K29, K2A, K2B, K2C             \
-                                                                           ) \
-     LVARG_4x12(                                                        \
-                ROW1_LEFT_BP6(K01, K02, K03, K04, K05, K06),            \
-                ROW1_RIGHT_BP6(K07, K08, K09, K0A, K0B, K0C),           \
-                                                                        \
-                ROW2_LEFT_BP6(K11, K12, K13, K14, K15, K16),            \
-                ROW2_RIGHT_BP6(K17, K18, K19, K1A, K1B, K1C),           \
-                                                                        \
-                ROW3_LEFT_BP6(K21, K22, K23, K24, K25, K26),            \
-                ROW3_RIGHT_BP6(K27, K28, K29, K2A, K2B, K2C),           \
-                ___12_BOTTOM_BP___                                      \
-                                                                        )
 
 // takes 3 makes 4  rows of 12.
 #define LAYOUT_4x12_transient(                                          \
@@ -455,11 +365,10 @@
 
 #define BASE_4x12(...)       LAYOUT_4x12_base(__VA_ARGS__)
 #define BASE_4x12_bepo(...)  LAYOUT_4x12_base_bepo(__VA_ARGS__)
-#define BASE_4x12_bepo6(...) LAYOUT_4x12_base_bepo6(__VA_ARGS__)
 #define TRANSIENT_4x12(...)  LAYOUT_4x12_transient(__VA_ARGS__)
 
 /********************************************************************/
-/* CRKBD  Corne                                                     */
+/* CRKBD  Corne or any other 3x5/6 with 3 thumbs on each side.      */
 /*    The Corne has  3x6 matrix on both sides with 6 thumbs total   */
 /* This Macro takes 2x3x5 and gives it pinkies, and thumbs.         */
 /* Arg chunks are in the middle with the passthrough modifiers as   */
@@ -506,47 +415,22 @@
               ___6_ERGO_THUMBS_BP___                                    \
                                                                         )
 
-// No room for pinkies.
-// Just for bepo because it's a 3x6 matrix on each side.
-// So 3 pairs of 6 keys, And we lose our left and right.
-// Except it keeps the layer toggles along with the keycode
-// on the bottom.
-#define Base_bepo6_3x6_3(                                               \
-                         K01, K02, K03, K04, K05, K06,                  \
-                         K07, K08, K09, K0A, K0B, K0C,                  \
-                         K11, K12, K13, K14, K15, K16,                  \
-                         K17, K18, K19, K1A, K1B, K1C,                  \
-                         K21, K22, K23, K24, K25, K26,                  \
-                         K27, K28, K29, K2A, K2B, K2C                   \
-                                                                        ) \
-  LAYOUT_VARG(                                                          \
-              ROW1_LEFT_BP6(K01, K02, K03, K04, K05, K06),              \
-              ROW1_RIGHT_BP6(K07, K08, K09, K0A, K0B, K0C),             \
-                                                                        \
-              ROW2_LEFT_BP6(K11, K12, K13, K14, K15, K16),              \
-              ROW2_RIGHT_BP6(K17, K18, K19, K1A, K1B, K1C),             \
-                                                                        \
-              ROW3_LEFT_BP6(K21, K22, K23, K24, K25, K26),              \
-              ROW3_RIGHT_BP6(K27, K28, K29, K2A, K2B, K2C),             \
-              ___6_ERGO_THUMBS_BP___                                    \
-                                                                        )
-
 // All we really need is to add the see through thumbs to the end.
-#define Transient6_3x6_3(                                               \
-                         K01, K02, K03, K04, K05, K06,                  \
-                         K07, K08, K09, K0A, K0B, K0C,                  \
-                         K11, K12, K13, K14, K15, K16,                  \
-                         K17, K18, K19, K1A, K1B, K1C,                  \
-                         K21, K22, K23, K24, K25, K26,                  \
-                         K27, K28, K29, K2A, K2B, K2C                   \
-                                                                        ) \
+#define Transient_3x6_3(                                               \
+                        K01, K02, K03, K04, K05,                   \
+                        K07, K08, K09, K0A, K0B,                   \
+                        K11, K12, K13, K14, K15,                   \
+                        K17, K18, K19, K1A, K1B,                   \
+                        K21, K22, K23, K24, K25,                   \
+                        K27, K28, K29, K2A, K2B                   \
+                                                                       ) \
   LAYOUT_VARG(                                                          \
-              K01, K02, K03, K04, K05, K06,                             \
-              K07, K08, K09, K0A, K0B, K0C,                             \
-              K11, K12, K13, K14, K15, K16,                             \
-              K17, K18, K19, K1A, K1B, K1C,                             \
-              K21, K22, K23, K24, K25, K26,                             \
-              K27, K28, K29, K2A, K2B, K2C,                             \
+              ___, K01, K02, K03, K04, K05,                             \
+              K07, K08, K09, K0A, K0B, ___,                             \
+              ___, K11, K12, K13, K14, K15,                             \
+              K17, K18, K19, K1A, K1B, ___,                             \
+              ___, K21, K22, K23, K24, K25,                             \
+              K27, K28, K29, K2A, K2B, ___,                             \
               ___6___)
 
 //---------------------------------------------------------
@@ -593,13 +477,13 @@
                                                                         )
 
 // All we really need is to add the see through thumbs to the end.
-#define Transient5_3x5_3(                                               \
-                         K01, K02, K03, K04, K05,                       \
-                         K07, K08, K09, K0A, K0B,                       \
-                         K11, K12, K13, K14, K15,                       \
-                         K17, K18, K19, K1A, K1B,                       \
-                         K21, K22, K23, K24, K25,                       \
-                         K27, K28, K29, K2A, K2B                        \
+#define Transient_3x5_3(                                               \
+                        K01, K02, K03, K04, K05,                        \
+                        K07, K08, K09, K0A, K0B,                        \
+                        K11, K12, K13, K14, K15,                        \
+                        K17, K18, K19, K1A, K1B,                        \
+                        K21, K22, K23, K24, K25,                        \
+                        K27, K28, K29, K2A, K2B                         \
                                                                     )   \
   LAYOUT_VARG(                                                          \
               K01, K02, K03, K04, K05,                               \
@@ -613,8 +497,9 @@
 /********************************************************************/
 /* Kinesis*/
 /********************************************************************/
-// Basically an ergodox ez without the 3 pairs of middle keys.
-// Left, right, bottom, and thumbs all stay the same.
+// A 4x6 on each side, with a 4 column fifth row, and 6 thumbs on
+// each side.  - 4x6_4_6.
+// Then a giant row up top, 9 keys on each side, for function keys.
 #define Base_4x6_4_6(                                                   \
                      K01, K02, K03, K04, K05,                           \
                      K06, K07, K08, K09, K0A,                           \
@@ -670,51 +555,23 @@
                                                                         )
 
 
-// So 3 pairs of 6 keys, left and right.
-#define Base_bepo6_4x6_4_6(                                             \
-                           K01, K02, K03, K04, K05, K06,                \
-                           K07, K08, K09, K0A, K0B, K0C,                \
-                           K11, K12, K13, K14, K15, K16,                \
-                           K17, K18, K19, K1A, K1B, K1C,                \
-                           K21, K22, K23, K24, K25, K26,                \
-                           K27, K28, K29, K2A, K2B, K2C                 \
-                                                                   )    \
+#define Transient_4x6_4_6(                                             \
+                          K01, K02, K03, K04, K05,                 \
+                          K07, K08, K09, K0A, K0B,                 \
+                          K11, K12, K13, K14, K15,                 \
+                          K17, K18, K19, K1A, K1B,                 \
+                          K21, K22, K23, K24, K25,                 \
+                          K27, K28, K29, K2A, K2B                 \
+                                                                       ) \
   LAYOUT_PVARG(                                                         \
                ___KINTFUNC_L___, ___KINTFUNC_R___,                      \
-               ___6SYMBOL_BEPO_L___,                                    \
-               ___6SYMBOL_BEPO_R___,                                    \
-               ROW1_LEFT_BP6(K01, K02, K03, K04, K05, K06),             \
-               ROW1_RIGHT_BP6(K07, K08, K09, K0A, K0B, K0C),            \
-                                                                        \
-               ROW2_LEFT_BP6(K11, K12, K13, K14, K15, K16),             \
-               ROW2_RIGHT_BP6(K17, K18, K19, K1A, K1B, K1C),            \
-                                                                        \
-               ROW3_LEFT_BP6(K21, K22, K23, K24, K25, K26),             \
-               ROW3_RIGHT_BP6(K27, K28, K29, K2A, K2B, K2C),            \
-               ___4_BOTTOM_LEFT_BP___, ___4_BOTTOM_RIGHT_BP___,         \
-               ___12_DOX_ALL_THUMBS_BP___                               \
-                                                                        )
-
-#define Transient6_4x6_4_6(                                             \
-                           K01, K02, K03, K04, K05, K06,                \
-                           K07, K08, K09, K0A, K0B, K0C,                \
-                           K11, K12, K13, K14, K15, K16,                \
-                           K17, K18, K19, K1A, K1B, K1C,                \
-                           K21, K22, K23, K24, K25, K26,                \
-                           K27, K28, K29, K2A, K2B, K2C,                \
-                           K31, K32, K33, K34, K35, K36,                \
-                           K37, K38, K39, K3A, K3B, K3C                 \
-                                                                        ) \
-  LAYOUT_PVARG(                                                         \
-               ___KINTFUNC_L___, ___KINTFUNC_R___,                      \
-               K01, K02, K03, K04, K05, K06,                            \
-               K07, K08, K09, K0A, K0B, K0C,                            \
-               K11, K12, K13, K14, K15, K16,                            \
-               K17, K18, K19, K1A, K1B, K1C,                            \
-               K21, K22, K23, K24, K25, K26,                            \
-               K27, K28, K29, K2A, K2B, K2C,                            \
-               K31, K32, K33, K34, K35, K36,                            \
-               K37, K38, K39, K3A, K3B, K3C,                            \
+               ___12___,                                                \
+               ___, K01, K02, K03, K04, K05,                            \
+               K07, K08, K09, K0A, K0B, ___,                            \
+               ___, K11, K12, K13, K14, K15,                            \
+               K17, K18, K19, K1A, K1B, ___,                           \
+               ___, K21, K22, K23, K24, K25,                           \
+               K27, K28, K29, K2A, K2B, ___,                           \
                ___4___, ___4___,                                        \
                ___12___                                                 \
                                                                         )
