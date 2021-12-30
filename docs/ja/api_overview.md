@@ -1,8 +1,8 @@
 # QMK API
 
 <!---
-  original document: 0.9.50:docs/api_overview.md
-  git diff 0.9.50 HEAD -- docs/api_overview.md | cat
+  original document: 0.13.15:docs/api_overview.md
+  git diff 0.13.15 HEAD -- docs/api_overview.md | cat
 -->
 
 QMK API は、Web と GUI ツールが [QMK](https://qmk.fm/) によってサポートされるキーボード用の任意のキーマップをコンパイルするために使うことができる、非同期 API を提供します。標準のキーマップテンプレートは、C コードのサポートを必要としない全ての QMK キーコードをサポートします。キーボードのメンテナは独自のカスタムテンプレートを提供して、より多くの機能を実現することができます。

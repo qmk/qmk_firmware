@@ -2,8 +2,6 @@
   "keyboard_name": "MIO",
   "url": "https://keys.recompile.net/projects/mio/",
   "maintainer": "recompile keys",
-  "width": 8.25,
-  "height": 7.5,
   "layouts": {
     "LAYOUT": {
       "layout": [

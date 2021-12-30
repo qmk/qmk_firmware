@@ -27,7 +27,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( /* Base */
-    MECHBOARDURL,  QMKURL,  MKUK,  LEDCHANGE \
+    MECHBOARDURL,  QMKURL,  MKUK,  LEDCHANGE
   ),
 };
 
@@ -73,12 +73,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_init_user(void) {
   setPinOutput(F6);
   writePinLow(F6);
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

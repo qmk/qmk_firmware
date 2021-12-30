@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          KC_H, KC_J, KC_K, KC_L, KC_RCTRL,
 
 	// right thumb-cluster
-        DE_QST, DE_DLR,
+        DE_QUES, DE_DLR,
         LCTL(DE_C),
         KC_ESCAPE, KC_ENTER, KC_BSPACE
 ),
@@ -134,8 +134,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Diakritika
 [DIAK] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, DE_UE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DE_AE, DE_OE,
+       KC_TRNS, KC_TRNS, DE_UDIA, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DE_ADIA, DE_ODIA,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
@@ -218,8 +218,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMBOLS] = LAYOUT_ergodox(
        // left hand
        KC_TRNS,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6, //DE_LBRC,
-       KC_TRNS,DE_SQ2, DE_RING, DE_TILD, DE_AT,   DE_EXLM, DE_LPRN,
-       KC_TRNS,DE_ACUT,DE_QUOT, DE_COLN, DE_CIRC, DE_LESS,
+       KC_TRNS,DE_SUP2,DE_DEG,  DE_TILD, DE_AT,   DE_EXLM, DE_LPRN,
+       KC_TRNS,DE_ACUT,DE_QUOT, DE_COLN, DE_CIRC, DE_LABK,
        KC_TRNS,DE_EURO,DE_PLUS, DE_EQL,  DE_ASTR, DE_SLSH, DE_LCBR,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 
@@ -230,8 +230,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // right hand
        //DE_RBRC, 
        KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_TRNS,
-       DE_RPRN, DE_QST,  DE_AMPR, DE_PARA, DE_DQOT,  DE_SQ3,  KC_TRNS,
-                DE_MORE, DE_DLR,  DE_SCLN, DE_PIPE,  DE_GRV,  KC_TRNS,
+       DE_RPRN, DE_QUES, DE_AMPR, DE_SECT, DE_DQUO,  DE_SUP3, KC_TRNS,
+                DE_RABK, DE_DLR,  DE_SCLN, DE_PIPE,  DE_GRV,  KC_TRNS,
        DE_RCBR, DE_BSLS, DE_PERC, DE_HASH, DE_MINS,  DE_UNDS, KC_TRNS,
                          KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
 

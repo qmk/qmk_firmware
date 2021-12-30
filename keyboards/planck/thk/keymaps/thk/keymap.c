@@ -213,7 +213,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   return true;
 }
 
-void dip_switch_update_user(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
   switch (index) {
     case 0: {
       if (active) {
@@ -237,4 +237,5 @@ void dip_switch_update_user(uint8_t index, bool active) {
       SEND_STRING("This is a Planck THK");
       break;
   }
+    return true;
 }

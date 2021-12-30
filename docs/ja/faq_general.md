@@ -1,8 +1,8 @@
 # よくある質問
 
 <!---
-  original document: 0.8.62:docs/faq_general.md
-  git diff 0.8.62 HEAD -- docs/faq_general.md | cat
+  original document: 0.13.17:docs/faq_general.md
+  git diff 0.13.17 HEAD -- docs/faq_general.md | cat
 -->
 
 ## QMK とは何か？

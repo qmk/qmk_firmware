@@ -160,7 +160,7 @@ def rules_mk(keyboard):
 def render_layout(layout_data, render_ascii, key_labels=None):
     """Renders a single layout.
     """
-    textpad = [array('u', ' ' * 200) for x in range(50)]
+    textpad = [array('u', ' ' * 200) for x in range(100)]
     style = 'ascii' if render_ascii else 'unicode'
     box_chars = BOX_DRAWING_CHARACTERS[style]
 

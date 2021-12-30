@@ -2,8 +2,6 @@
     "keyboard_name": "Xelus Valor rev1",
     "url": "",
     "maintainer": "Xelus22",
-    "width": 17.75,
-    "height": 5,
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

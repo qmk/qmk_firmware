@@ -1,6 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+Copyright 2021 Salicylic_Acid
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,11 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
-#define DEVICE_VER      0x0002
+#define VENDOR_ID       0x04D8
+#define PRODUCT_ID      0xEB5C
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    Salicylic_Acid
 #define PRODUCT         naked60
 

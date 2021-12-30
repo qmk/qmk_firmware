@@ -15,10 +15,6 @@
  */
 #include "hannah910.h"
 
-void matrix_init_kb(void) {
-  matrix_init_user();
-  led_init_ports();
-};
 void led_init_ports(void) {
   setPinOutput(B2);
   setPinOutput(D0);
@@ -35,7 +31,7 @@ void led_set_kb(uint8_t usb_led) {
       led_set_user(usb_led);
 }
 
-uint32_t layer_state_set_user(uint32_t state)
+layer_state_t layer_state_set_user(layer_state_t state)
 {
   // if on layer 1, turn on D2 LED, otherwise off.
     if (biton32(state) == 1) {

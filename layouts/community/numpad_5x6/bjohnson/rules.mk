@@ -2,4 +2,4 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 BACKLIGHT_ENABLE = no
 NO_SECRETS = yes
-BOOTMAGIC_ENABLE = lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite

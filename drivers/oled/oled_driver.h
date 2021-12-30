@@ -190,6 +190,7 @@ bool oled_init(oled_rotation_t rotation);
 // Called at the start of oled_init, weak function overridable by the user
 // rotation - the value passed into oled_init
 // Return new oled_rotation_t if you want to override default rotation
+oled_rotation_t oled_init_kb(oled_rotation_t rotation);
 oled_rotation_t oled_init_user(oled_rotation_t rotation);
 
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
@@ -226,13 +227,17 @@ void oled_write(const char *data, bool invert);
 void oled_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
+// Useful for moving the screen in preparation for new drawing
 void oled_pan(bool left);
 
 // Returns a pointer to the requested start index in the buffer plus remaining
 // buffer length as struct
 oled_buffer_reader_t oled_read_raw(uint16_t start_index);
 
+// Writes a string to the buffer at current cursor position
 void oled_write_raw(const char *data, uint16_t size);
+
+// Writes a single byte into the buffer at the specified index
 void oled_write_raw_byte(const char data, uint16_t index);
 
 // Sets a specific pixel on or off
@@ -251,17 +256,11 @@ void oled_write_P(const char *data, bool invert);
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
 
+// Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
 #else
-// Writes a string to the buffer at current cursor position
-// Advances the cursor while writing, inverts the pixels if true
 #    define oled_write_P(data, invert) oled_write(data, invert)
-
-// Writes a string to the buffer at current cursor position
-// Advances the cursor while writing, inverts the pixels if true
-// Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 #    define oled_write_ln_P(data, invert) oled_write(data, invert)
-
 #    define oled_write_raw_P(data, size) oled_write_raw(data, size)
 #endif  // defined(__AVR__)
 
@@ -287,7 +286,8 @@ uint8_t oled_get_brightness(void);
 void oled_task(void);
 
 // Called at the start of oled_task, weak function overridable by the user
-void oled_task_user(void);
+bool oled_task_kb(void);
+bool oled_task_user(void);
 
 // Set the specific 8 lines rows of the screen to scroll.
 // 0 is the default for start, and 7 for end, which is the entire
@@ -314,6 +314,14 @@ bool oled_scroll_left(void);
 // Turns off display scrolling
 // Returns true if the screen was not scrolling or stops scrolling
 bool oled_scroll_off(void);
+
+// Returns true if the oled is currently scrolling, false if it is
+// not
+bool is_oled_scrolling(void);
+
+// Inverts the display
+// Returns true if the screen was or is inverted
+bool oled_invert(bool invert);
 
 // Returns the maximum number of characters that will fit on a line
 uint8_t oled_max_chars(void);

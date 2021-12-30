@@ -1,8 +1,6 @@
 {
   "keyboard_name": "Chimera Ortho",
   "maintainer": "qmk",
-  "width": 15.5,
-  "height": 4.25,
   "layouts": {
     "LAYOUT": {
       "layout": [

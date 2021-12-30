@@ -37,6 +37,6 @@ back/forward navigation keys.
 
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/Q3PGsiK.png)
+![Adjust layer layout](https://i.imgur.com/XC2eR2M.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/8f6a3f08350a9bbe1d414b22bca4e6c7))

@@ -15,16 +15,7 @@
  */
 #pragma once
 
-#if defined(__AVR__)
-#    include <avr/pgmspace.h>
-#    include <avr/io.h>
-#    include <avr/interrupt.h>
-#endif
-#if defined(PROTOCOL_CHIBIOS)
-#    include <hal.h>
-#    include "chibios_config.h"
-#endif
-
+#include "platform_deps.h"
 #include "wait.h"
 #include "matrix.h"
 #include "keymap.h"
@@ -38,10 +29,6 @@
 #endif
 
 #if defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
-#elif defined(RGB_MATRIX_ENABLE)
-// Dummy define RGBLIGHT_MODE_xxxx
-#    define RGBLIGHT_H_DUMMY_DEFINE
 #    include "rgblight.h"
 #endif
 
@@ -66,6 +53,10 @@
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
+
+#ifdef DEFERRED_EXEC_ENABLE
+#    include "deferred_exec.h"
+#endif
 
 extern layer_state_t default_layer_state;
 
@@ -118,6 +109,10 @@ extern layer_state_t layer_state;
 #    include "process_unicodemap.h"
 #endif
 
+#ifdef KEY_OVERRIDE_ENABLE
+#    include "process_key_override.h"
+#endif
+
 #ifdef TAP_DANCE_ENABLE
 #    include "process_tap_dance.h"
 #endif
@@ -128,6 +123,10 @@ extern layer_state_t layer_state;
 
 #ifdef AUTO_SHIFT_ENABLE
 #    include "process_auto_shift.h"
+#endif
+
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+#    include "process_dynamic_tapping_term.h"
 #endif
 
 #ifdef COMBO_ENABLE
@@ -156,6 +155,10 @@ extern layer_state_t layer_state;
 #    include "process_joystick.h"
 #endif
 
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+#    include "process_programmable_button.h"
+#endif
+
 #ifdef GRAVE_ESC_ENABLE
 #    include "process_grave_esc.h"
 #endif
@@ -170,10 +173,15 @@ extern layer_state_t layer_state;
 
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
+#    include "process_haptic.h"
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include "oled_driver.h"
+#endif
+
+#ifdef ST7565_ENABLE
+#    include "st7565.h"
 #endif
 
 #ifdef DIP_SWITCH_ENABLE
@@ -204,6 +212,10 @@ extern layer_state_t layer_state;
 #    include "encoder.h"
 #endif
 
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing_device.h"
+#endif
+
 // For tri-layer
 void          update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
 layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
@@ -216,10 +228,6 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 #define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
 #define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
 
-void     matrix_init_kb(void);
-void     matrix_scan_kb(void);
-void     matrix_init_user(void);
-void     matrix_scan_user(void);
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
 uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 bool     process_action_kb(keyrecord_t *record);
@@ -242,4 +250,6 @@ void led_set_kb(uint8_t usb_led);
 bool led_update_user(led_t led_state);
 bool led_update_kb(led_t led_state);
 
-void api_send_unicode(uint32_t unicode);
+const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad);
+const char *get_u8_str(uint8_t curr_num, char curr_pad);
+const char *get_u16_str(uint16_t curr_num, char curr_pad);

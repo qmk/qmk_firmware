@@ -1,8 +1,8 @@
 # バックライト :id=backlighting
 
 <!---
-  original document: 0.10.33:docs/feature_backlight.md
-  git diff 0.10.33 HEAD -- docs/feature_backlight.md | cat
+  original document: 0.14.14:docs/feature_backlight.md
+  git diff 0.14.14 HEAD -- docs/feature_backlight.md | cat
 -->
 
 多くのキーボードは、キースイッチを貫通して配置されたり、キースイッチの下に配置された個々の LED によって、バックライトキーをサポートします。この機能は通常スイッチごとに単一の色しか使用できないため、[RGB アンダーグロー](ja/feature_rgblight.md)および [RGB マトリックス](ja/feature_rgb_matrix.md)機能のどちらとも異なりますが、キーボードに複数の異なる単一色の LED を取り付けることは当然可能です。
@@ -67,14 +67,17 @@ BACKLIGHT_DRIVER = software
 
 バックライトを設定するには、`config.h` の中で以下の `#define` をします:
 
-| 定義                  | デフォルト | 説明                                                                                        |
-| --------------------- | ---------- | ------------------------------------------------------------------------------------------- |
-| `BACKLIGHT_PIN`       | *定義なし* | LED を制御するピン                                                                          |
-| `BACKLIGHT_LEVELS`    | `3`        | 輝度のレベルの数 (オフを除いて最大 31)                                                      |
-| `BACKLIGHT_CAPS_LOCK` | *定義なし* | バックライトを使って Caps Lock のインジケータを有効にする (専用 LED の無いキーボードのため) |
-| `BACKLIGHT_BREATHING` | *定義なし* | サポートされる場合は、バックライトの明滅動作を有効にする                                    |
-| `BREATHING_PERIOD`    | `6`        | 各バックライトの "明滅" の長さ（秒）                                                        |
-| `BACKLIGHT_ON_STATE`  | `1`        | バックライトが "オン" の時のバックライトピンの状態 - high の場合は `1`、low の場合は `0`    |
+| 定義                          | デフォルト         | 説明                                                                                          |
+| ----------------------------- | ------------------ | --------------------------------------------------------------------------------------------- |
+| `BACKLIGHT_PIN`               | *定義なし*         | LED を制御するピン                                                                            |
+| `BACKLIGHT_LEVELS`            | `3`                | 輝度のレベルの数 (オフを除いて最大 31)                                                        |
+| `BACKLIGHT_CAPS_LOCK`         | *定義なし*         | バックライトを使って Caps Lock のインジケータを有効にする (専用 LED の無いキーボードのため)   |
+| `BACKLIGHT_BREATHING`         | *定義なし*         | サポートされる場合は、バックライトの明滅動作を有効にする                                      |
+| `BREATHING_PERIOD`            | `6`                | 各バックライトの "明滅" の長さ（秒）                                                          |
+| `BACKLIGHT_ON_STATE`          | `1`                | バックライトが "オン" の時のバックライトピンの状態 - high の場合は `1`、low の場合は `0`      |
+| `BACKLIGHT_LIMIT_VAL`         | `255`              | バックライトの最大デューティサイクル -- `255` で最大輝度になり、それ未満では最大値が減少する  |
+| `BACKLIGHT_DEFAULT_LEVEL`     | `BACKLIGHT_LEVELS` | EEPROM をクリアする時に使うデフォルトのバックライトレベル                                     |
+| `BACKLIGHT_DEFAULT_BREATHING` | *定義なし*         | EEPROM をクリアする時に、バックライトのブリージングを有効にするかどうか                       |
 
 独自のキーボードを設計しているわけではない限り、通常は `BACKLIGHT_PIN` または `BACKLIGHT_ON_STATE` を変更する必要はありません。
 
@@ -97,18 +100,18 @@ BACKLIGHT_DRIVER = pwm
 
 AVR ボードでは、QMK はどのドライバを使うかを以下の表に従って自動的に決定します:
 
-| バックライトピン | AT90USB64/128 | ATmega16/32U4 | ATmega16/32U2 | ATmega32A | ATmega328/P |
-| ---------------- | ------------- | ------------- | ------------- | --------- | ----------- |
-| `B1`             |               |               |               |           | Timer 1     |
-| `B2`             |               |               |               |           | Timer 1     |
-| `B5`             | Timer 1       | Timer 1       |               |           |             |
-| `B6`             | Timer 1       | Timer 1       |               |           |             |
-| `B7`             | Timer 1       | Timer 1       | Timer 1       |           |             |
-| `C4`             | Timer 3       |               |               |           |             |
-| `C5`             | Timer 3       |               | Timer 1       |           |             |
-| `C6`             | Timer 3       | Timer 3       | Timer 1       |           |             |
-| `D4`             |               |               |               | Timer 1   |             |
-| `D5`             |               |               |               | Timer 1   |             |
+| バックライトピン | AT90USB64/128 | AT90USB162 | ATmega16/32U4 | ATmega16/32U2 | ATmega32A | ATmega328/P |
+| ---------------- | ------------- | ---------- | ------------- | ------------- | --------- | ----------- |
+| `B1`             |               |            |               |               |           | Timer 1     |
+| `B2`             |               |            |               |               |           | Timer 1     |
+| `B5`             | Timer 1       |            | Timer 1       |               |           |             |
+| `B6`             | Timer 1       |            | Timer 1       |               |           |             |
+| `B7`             | Timer 1       | Timer 1    | Timer 1       | Timer 1       |           |             |
+| `C4`             | Timer 3       |            |               |               |           |             |
+| `C5`             | Timer 3       | Timer 1    |               | Timer 1       |           |             |
+| `C6`             | Timer 3       | Timer 1    | Timer 3       | Timer 1       |           |             |
+| `D4`             |               |            |               |               | Timer 1   |             |
+| `D5`             |               |            |               |               | Timer 1   |             |
 
 他の全てのピンはタイマー支援ソフトウェア PWM を使います。
 
