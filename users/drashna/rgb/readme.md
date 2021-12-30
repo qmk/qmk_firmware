@@ -1,4 +1,10 @@
-# Layer Indication Code 
+# RGB 
+
+Custom RGB code can be disabled by setting `CUSTOM_RGBLIGHT = no` or `CUSTOM_RGB_MATRIX = no` in your `rules.mk`
+
+## RGB Light
+
+### Layer Indication Code 
 
 At least for RGB Light, the `layer_state_set` function is used to detect the current highest layer, and change the underglow based on that layer.  
 
@@ -8,7 +14,7 @@ I use the sethsv variants of the commands, so that different modes can be used, 
 
 RGB Matrix uses a custom, per board implementation, at the moment. 
 
-# RGB Light Startup Animation
+### RGB Light Startup Animation
 
 On startup, if enabled, the board will cycle through the entire hue wheel, starting and ending on the default layer color. 
 
@@ -33,11 +39,14 @@ void keyboard_post_init_rgb(void) {
 
 This could probably benefit from some cleanup and better handling. 
 
+## RGB Matrix
 
-# RGB Light Twinkling 
+### Idle Animation
 
-This enables random twinkling of the LEDs when typing. 
+This feature can be toggled with the `RGB_IDL` keycode. 
 
-# RGB Light Mod Indicators
+This sets the mode to the Heatmap Animation when typing, but will switch to the cycle in animations when idle. 
 
-Allows feedback of which mods (oneshot or otherwise) are enabled. 
+### Layer Indication
+
+This sets the modifier keys to indicate the current layer state, with the option to override the behavior. 
