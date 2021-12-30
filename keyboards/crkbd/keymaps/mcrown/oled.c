@@ -284,6 +284,7 @@ void render_status(void){
     render_keylogger_status();
 }
 
+#ifdef BOTH_KEYBOARDS_OLED
 /** @brief renders the logo to be displayed.
  *
  *  If any argument is invalid, the function has no effect.
@@ -300,6 +301,7 @@ static void render_logo(void){
 
     oled_write_P(qmk_logo, false);
 }
+#endif
 
 /** @brief executes the actions for both displays.
  *
@@ -315,11 +317,14 @@ bool oled_task_user(void){
         oled_on();
         if(true==is_keyboard_master()){
             render_status();
-        }else{
+        }
+#ifdef BOTH_KEYBOARDS_OLED
+        else{
             render_logo();
             oled_write_P(PSTR("\n"), false);
             oled_scroll_left();
         }
+#endif
     }
     return false;
 }

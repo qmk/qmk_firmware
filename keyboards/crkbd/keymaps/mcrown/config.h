@@ -26,8 +26,10 @@
 /* Remove this definition if you want the main display to be output in horizontal mode. */
 #define OLED_VERTICAL
 
-/* Remove this definition if both oled displays are going to be used. */
-#define ONLY_MASTER_OLED
+// /* Use this definition if only master's keyboard oled display will be used. */
+// #define ONLY_MASTER_OLED
+/* Use this definition if both keyboard oleds displays will be used. **/
+#define BOTH_KEYBOARDS_OLED
 
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120

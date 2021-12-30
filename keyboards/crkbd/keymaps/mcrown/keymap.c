@@ -70,9 +70,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+#ifdef BOTH_KEYBOARDS_OLED
 /* Keypress should be processed if both keyboards have a oled display
    please chelck keyboard_task() in /quantum/keyboard.c                */
 bool should_process_keypress(void) { return true; }
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
     bool user_records_press=true;
