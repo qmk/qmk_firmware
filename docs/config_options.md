@@ -141,7 +141,7 @@ If you define these options you will enable the associated feature, which may in
 ## Behaviors That Can Be Configured
 
 * `#define TAPPING_TERM 200`
-  * how long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
+  * how long before a key press becomes a hold
 * `#define TAPPING_TERM_PER_KEY`
   * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
