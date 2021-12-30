@@ -1,23 +1,15 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
 // Use custom magic number so that when switching branches, EEPROM always gets reset
 #define EECONFIG_MAGIC_NUMBER   (uint16_t)0x1339
+
+#ifdef IS_COMMAND
+#undef IS_COMMAND
+#endif
+#define IS_COMMAND() (((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) == MOD_MASK_SHIFT)
 
 /* Set Polling rate to 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1
@@ -37,7 +29,7 @@
 #        define SELECT_SOFT_SERIAL_SPEED 1
 #    endif
 #    ifdef CUSTOM_SPLIT_TRANSPORT_SYNC
-#        define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC
+#        define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC, RPC_ID_USER_WATCHDOG_SYNC
 #    endif
 #endif
 
@@ -249,17 +241,6 @@
 
 #ifndef TAPPING_TOGGLE
 #    define TAPPING_TOGGLE 1
-#endif
-
-#ifdef TAPPING_TERM
-#    undef TAPPING_TERM
-#endif  // TAPPING_TERM
-#if defined(KEYBOARD_ergodox_ez)
-#    define TAPPING_TERM 185
-#elif defined(KEYBOARD_crkbd)
-#    define TAPPING_TERM 200
-#else
-#    define TAPPING_TERM 175
 #endif
 
 #define TAP_CODE_DELAY 5

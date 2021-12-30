@@ -1,6 +1,8 @@
 # Diablo Tap Dances 
 
-My [Tap Dance](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/tap_dances.c) file includes the tap dance declarations, and everything needed for them. 
+My [Tap Dance](tap_dances.c) file includes the tap dance declarations, and everything needed for them. 
+
+To disable, add `CUSTOM_TAP_DANCE = no` to your `rules.mk`.
 
 This is used for making Diablo 3 much easier to plan, especially at high rift levels. 
 
