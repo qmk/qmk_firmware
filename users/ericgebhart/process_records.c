@@ -27,13 +27,29 @@ inline void tap_taplong(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
     tap_taplong_timer = timer_read();
   } else {
     if (timer_elapsed(tap_taplong_timer) > TAPPING_TERM) {
-      tap_code16(kc1);
-    } else {
       tap_code16(kc2);
+    } else {
+      tap_code16(kc1);
     }
   }
 }
 
+/* for (){}[]""''<>``. tap for open. Hold for open and close, ending inbetween. */
+/* Assumes a one character length.                                              */
+inline void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+  if (record->event.pressed) {
+    tap_taplong_timer = timer_read();
+  }else{
+    if (timer_elapsed(tap_taplong_timer) > TAPPING_TERM) {
+      tap_code16(kc1);
+      tap_code16(kc2);
+      tap_code16(KC_LEFT);
+
+    } else {
+      tap_code16(kc1);
+    }
+  }
+}
 
 // Defines actions for my global custom keycodes. Defined in ericgebhart.h file
 // Then runs the _keymap's record handier if not processed here
@@ -197,6 +213,65 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case BP_XM_PORD:  // Xmonad scratch pads or desktop
       tap_taplong(LGUI(BP_E), LGUI(BP_T), record);
       break;
+
+    case KC_OCPRN:
+      open_openclose(KC_LPRN, KC_RPRN, record);
+      break;
+
+    case BP_OCPRN:
+      open_openclose(DB_LPRN, DB_RPRN, record);
+      break;
+
+    case KC_OCBRC:
+      open_openclose(KC_LBRC, KC_RBRC, record);
+      break;
+
+    case BP_OCBRC:
+      open_openclose(KC_RBRC, KC_LBRC, record);
+      break;
+
+    case KC_OCCBR:
+      open_openclose(KC_LCBR, KC_RCBR, record);
+      break;
+
+    case BP_OCCBR:
+      open_openclose(BP_LCBR, BP_RCBR, record);
+      break;
+
+    case KC_OCDQUO:
+      open_openclose(KC_DQUO, KC_DQUO, record);
+      break;
+
+    case BP_OCDQUO:
+      open_openclose(BP_DQUO, BP_DQUO, record);
+      break;
+
+    case KC_OCQUOT:
+      open_openclose(KC_QUOT, KC_QUOT, record);
+      break;
+
+    case BP_OCQUOT:
+      open_openclose(BP_QUOT, BP_QUOT, record);
+      break;
+
+    case KC_OCGRV:
+      open_openclose(KC_GRAVE, KC_GRAVE, record);
+      break;
+
+    case BP_OCGRV:
+      open_openclose(BP_GRV, BP_GRV, record);
+      break;
+
+    case KC_OCLTGT:
+      open_openclose(KC_LT, KC_GT, record);
+      break;
+
+    case BP_OCLTGT:
+      open_openclose(BP_LDAQ, BP_RDAQ, record);
+      break;
+
+
+
 
       //Turn shift backspace into delete.
       /* case KC_BSPC: */

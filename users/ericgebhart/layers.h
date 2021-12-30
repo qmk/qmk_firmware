@@ -369,32 +369,32 @@
 /*   @=*+; %&^~|                                             */
 /********************************************************************************/
 // Left
-#define ___SB_L1___               KC_LT,     KC_DLR,   KC_GT
-#define ___SB_L2___   KC_BSLASH,  KC_LPRN,   KC_DQT,   KC_RPRN,  KC_HASH
+#define ___SB_L1___               KC_OCLTGT,     KC_DLR,   KC_GT
+#define ___SB_L2___   KC_BACKSLASH,  KC_OCPRN,   KC_OCDQUO,   KC_RPRN,  KC_HASH
 #define ___SB_L3___               KC_COLON,  KC_ASTR,  KC_PLUS
 #define ___SB_L3b___              KC_EQL,  KC_ASTR,  KC_PLUS
 
 // Bepo
-#define ___SB_L1_BP___                DB_LESS,   BP_DLR,   DB_GRTR
-#define ___SB_L2_BP___  DB_BACKSLASH, DB_LPRN,   BP_DQUO,  DB_RPRN,  DB_HASH
+#define ___SB_L1_BP___                BP_OCLTGT,   BP_DLR,   DB_GRTR
+#define ___SB_L2_BP___  DB_BACKSLASH, DB_LPRN,   BP_OCDQUO,  DB_RPRN,  DB_HASH
 #define ___SB_L3_BP___                KC_COLON,  BP_ASTR,  BP_PLUS
 #define ___SB_L3b_BP___               BP_EQL,  BP_ASTR,  BP_PLUS
 
 // Right
-#define ___SB_R1___               KC_LBRC,   KC_UNDS,  KC_RBRC
-#define ___SB_R2___    KC_PERC,   KC_LCBR,   KC_EQL,   KC_RCBR,  KC_PIPE
+#define ___SB_R1___               KC_OCBRC,   KC_UNDS,  KC_RBRC
+#define ___SB_R2___    KC_PERC,   KC_OCCBR,   KC_EQL,   KC_RCBR,  KC_PIPE
 #define ___SB_R3___               KC_AMPR,   KC_CIRC,  KC_TILD
 
-#define ___SB_R2a___    KC_PERC, KC_LCBR,   KC_EXLM,   KC_RCBR,  KC_PIPE
-#define ___SB_R2b___   KC_EXLM,   KC_LCBR,   KC_COLN,  KC_RCBR,  KC_SLASH
+#define ___SB_R2a___   KC_PERC, KC_OCCBR,   KC_EXLM,   KC_RCBR,  KC_PIPE
+#define ___SB_R2b___   KC_EXLM,   KC_OCCBR,   KC_COLN,  KC_RCBR,  KC_SLASH
 
 // Bepo
-#define ___SB_R1_BP___            DB_LBRC,   BP_UNDS,  DB_RBRC
-#define ___SB_R2_BP___   BP_PERC, DB_LCBR,   BP_EQL,   DB_RCBR,  DB_PIPE
+#define ___SB_R1_BP___            BP_OCBRC,   BP_UNDS,  DB_RBRC
+#define ___SB_R2_BP___  BP_PERC, BP_OCCBR,   BP_EQL,   DB_RCBR,  DB_PIPE
 #define ___SB_R3_BP___            BP_AMPR,   DB_CIRC,  DB_TILD
 
-#define ___SB_R2a_BP___ BP_PERC, DB_LCBR,   BP_EXLM,   DB_RCBR,  DB_PIPE
-#define ___SB_R2b_BP___ BP_EXLM, DB_LCBR,   KC_COLON,   DB_RCBR,  DB_SLASH
+#define ___SB_R2a_BP___ BP_PERC, BP_OCCBR,   BP_EXLM,   DB_RCBR,  DB_PIPE
+#define ___SB_R2b_BP___ BP_EXLM, BP_OCCBR,   KC_COLON,   DB_RCBR,  DB_SLASH
 
 // ---------------------------
 // ---------------------------
@@ -408,7 +408,7 @@
 #define ___6SYMBOLS_BEAKL_R2___  ___SB_R2___,            KC_SCLN
 #define ___6SYMBOLS_BEAKL_R3___  ___, ___SB_R3___,  ___, ___
 // ---------------------------
-#define ___6SYMBOLS_BEAKL_L1a___  ___, KC_GRAVE,  ___SB_L1___,  KC_QUOT
+#define ___6SYMBOLS_BEAKL_L1a___  ___, KC_OCGRV,  ___SB_L1___,  KC_OCQUOT
 #define ___6SYMBOLS_BEAKL_L2a___  ___6SYMBOLS_BEAKL_L2___
 #define ___6SYMBOLS_BEAKL_L3a___  ___, KC_AT,  ___SB_L3___,  KC_SCLN
 
@@ -416,7 +416,7 @@
 #define ___6SYMBOLS_BEAKL_R2a___  ___SB_R2a___, KC_SCLN
 #define ___6SYMBOLS_BEAKL_R3a___  KC_EXLM, ___SB_R3___,  KC_SLASH,    ___
 // ---------------------------
-#define ___6SYMBOLS_BEAKL_L1b___  ___, KC_GRAVE,  ___SB_L1___,  KC_QUOT
+#define ___6SYMBOLS_BEAKL_L1b___  ___, KC_OCGRV,  ___SB_L1___,  KC_OCQUOT
 #define ___6SYMBOLS_BEAKL_L2b___  ___6SYMBOLS_BEAKL_L2___
 #define ___6SYMBOLS_BEAKL_L3b___  ___, KC_AT,  ___SB_L3b___,  KC_SCLN
 
@@ -443,7 +443,7 @@
 #define ___6SYMBOLS_BEAKL_R2a_BP___  ___SB_R2a_BP___, BP_SCLN
 #define ___6SYMBOLS_BEAKL_R3a_BP___  BP_EXLM, ___SB_R3_BP___,  BP_SLSH, ___
 // ---------------------------
-#define ___6SYMBOLS_BEAKL_L1b_BP___  ___, BP_GRV,  ___SB_L1___,  BP_QUOT
+#define ___6SYMBOLS_BEAKL_L1b_BP___  ___, BP_GRV,  ___SB_L1___,  BP_OCQUOT
 #define ___6SYMBOLS_BEAKL_L2b_BP___  ___6SYMBOLS_BEAKL_L2_BP___
 #define ___6SYMBOLS_BEAKL_L3b_BP___  ___, BP_AT,  ___SB_L3b_BP___,  BP_SCLN
 
