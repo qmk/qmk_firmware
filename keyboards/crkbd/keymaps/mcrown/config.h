@@ -46,7 +46,7 @@
     #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
     #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-    // #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL   /* @TODO: this effect is worling just in main kerboard. Needs to be fixed or properly configured. */
+    #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
     #define ENABLE_RGB_MATRIX_BAND_VAL
 
 #endif /* End of RGB_MATRIX_ENABLE */
