@@ -78,7 +78,6 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             }
     }
 
-
     // Subtract buffer for Backspace key, reset for other non-alpha.
     if (!(KC_A <= keycode && keycode <= KC_Z)) {
         if (keycode == KC_BSPC) {
@@ -91,7 +90,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             // Set a word boundary if space, period, digit, etc. is pressed.
             // Behave more conservatively for the enter key. Reset, so that enter
             // can't be used on a word ending.
-            if (keycode == KC_ENT) {
+            if (keycode == KC_ENT || (keycode == KC_MINUS && (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT)) {
                 typo_buffer_size = 0;
             }
             keycode = KC_SPC;
