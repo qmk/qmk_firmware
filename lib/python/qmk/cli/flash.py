@@ -4,6 +4,7 @@ You can compile a keymap already in the repo or using a QMK Configurator export.
 A bootloader must be specified.
 """
 from subprocess import DEVNULL
+from json.decoder import JSONDecodeError
 
 from argcomplete.completers import FilesCompleter
 from milc import cli
@@ -82,7 +83,12 @@ def flash(cli):
 
     if cli.args.filename:
         # Handle compiling a configurator JSON
-        user_keymap = parse_configurator_json(cli.args.filename)
+        try:
+            user_keymap = parse_configurator_json(cli.args.filename)
+        except JSONDecodeError as err:
+            cli.log.error('Error parsing configurator JSON: %s', err)
+            return False
+
         keymap_path = qmk.path.keymap(user_keymap['keyboard'])
         command = compile_configurator_json(user_keymap, cli.args.bootloader, parallel=cli.config.flash.parallel, **envs)
 
