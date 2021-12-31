@@ -1,4 +1,5 @@
 /* Copyright 2021 Tybera
+ * Copyright 2021 thewerther
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,19 +23,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,      KC_DEL,
         KC_RALT,       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,              KC_PGUP,
         KC_LSFT,            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,          KC_PGDN,
-        KC_LCTL,   KC_LGUI,   KC_LALT,                       KC_SPC,                              MO(1),     KC_RCTL,   KC_LEFT,   KC_DOWN,    KC_RGHT
+        KC_LCTL,   KC_LGUI,   KC_LALT,                       LT(1, KC_SPC),                       MO(1),     KC_RCTL,   KC_LEFT,   KC_DOWN,    KC_RGHT
     ),
     [1] = LAYOUT_65_ansi_blocker(
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,          _______,
-        _______,     RGB_TOG, KC_UP,   RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_MPLY, KC_MPRV, KC_MNXT, _______,      _______,
-        _______,       KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, KC_INS,  KC_HOME, KC_PGUP, _______,             _______,
-        _______,          RESET,  RGB_SPI,  RGB_SPD, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______,  KC_END,  KC_PGDN,  _______,        _______,
+        _______,     RGB_TOG, _______,   RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_MPLY, KC_MPRV, KC_MNXT, _______,     _______,
+        _______,        _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,  _______, KC_PGUP, _______,            KC_HOME,
+        _______,           RESET,  RGB_SPI,  RGB_SPD, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______,  _______,  KC_PGDN,  _______,      KC_END,
         _______,   _______,   _______,                      _______,                              _______,   _______,   _______,   _______,    _______
     ),
 
 };
 
 void matrix_scan_user(void) {
+#   if defined(RGB_MATRIX_ENABLE)
+
     if (rgb_matrix_get_mode() == RGB_MATRIX_SOLID_REACTIVE_SIMPLE) {
         // set all underglow leds to current color
         RGB current_color = hsv_to_rgb(rgb_matrix_get_hsv());
@@ -42,5 +45,6 @@ void matrix_scan_user(void) {
             rgb_matrix_set_color(i, current_color.r, current_color.g, current_color.b);
         }
     }
+#endif
 }
 
