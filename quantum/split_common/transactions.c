@@ -631,9 +631,11 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
     }
     last_exec = timer_read32();
 #    endif
-    temp_cpi = pointing_device_driver.get_cpi();
+    temp_cpi = !pointing_device_driver.get_cpi ? 0 : pointing_device_driver.get_cpi(); // check for NULL
     if (split_shmem->pointing.cpi && memcmp(&split_shmem->pointing.cpi, &temp_cpi, sizeof(temp_cpi)) != 0) {
-        pointing_device_driver.set_cpi(split_shmem->pointing.cpi);
+        if (pointing_device_driver.set_cpi) {
+            pointing_device_driver.set_cpi(split_shmem->pointing.cpi);
+        }
     }
     memset(&temp_report, 0, sizeof(temp_report));
     temp_report = pointing_device_driver.get_report(temp_report);
