@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Project Keyboard
 #define PRODUCT         Signature65
-#define DESCRIPTION     65% PCB with JST breakout support
 
 /* key matrix size */
 #define MATRIX_ROWS    5
