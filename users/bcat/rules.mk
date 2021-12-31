@@ -1,6 +1,6 @@
 # Enable Bootmagic Lite for keyboards that don't have an easily accessible
 # reset button, but keep it disabled for all others to reduce firmware size.
-ifneq ($(filter $(strip $(KEYBOARD)),ai03/polaris dz60 kbdfans/kbd67/hotswap),)
+ifneq ($(filter $(strip $(KEYBOARD)),ai03/polaris dz60 kbdfans/kbd67/hotswap yanghu/unicorne/f411),)
 	BOOTMAGIC_ENABLE = yes
 else
 	BOOTMAGIC_ENABLE = no
