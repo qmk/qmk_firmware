@@ -2,8 +2,6 @@
     "keyboard_name": "Yampad",
     "url": "",
     "maintainer": "mattdibi",
-    "height": 5,
-    "width": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

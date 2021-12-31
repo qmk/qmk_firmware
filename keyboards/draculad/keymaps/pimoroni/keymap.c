@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "pimoroni_trackball.h"
+#include "drivers/sensors/pimoroni_trackball.h"
 #include "pointing_device.h"
 
 
@@ -37,9 +37,6 @@ enum custom_keycodes {
   BALL_RCL,//right click
   BALL_MCL,//middle click
 };
-
-
-char wpm_as_str[8];
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] =  LAYOUT(
@@ -80,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -168,14 +165,20 @@ static void render_logo(void) {
 }
 
 static void render_status(void) {
-  oled_write_P(PSTR("This is\n~~~~~~~~~\nDracu\nLad\n~~~~~~~~~\nv1.0\n~~~~~~~~~\n"), false);
-  sprintf(wpm_as_str, "WPM %03d", get_current_wpm());
-  oled_write(wpm_as_str,false);
-  led_t led_state = host_keyboard_led_state();
-  oled_write_P(PSTR("\nCaps: "), false);
-  oled_write_P(led_state.caps_lock ? PSTR("on ") : PSTR("off"), false);
-  oled_write_P(PSTR("\n"),false);
-  switch (get_highest_layer(layer_state)) {
+    oled_write_P(PSTR("This is\n~~~~~~~~~\nDracu\nLad\n~~~~~~~~~\nv1.0\n~~~~~~~~~\n"), false);
+    uint8_t n = get_current_wpm();
+    char    wpm_counter[4];
+    wpm_counter[3] = '\0';
+    wpm_counter[2] = '0' + n % 10;
+    wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
+    wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
+    oled_write_P(PSTR("WPM:"), false);
+    oled_write(wpm_counter, false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(PSTR("\nCaps: "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("on ") : PSTR("off"), false);
+    oled_write_P(PSTR("\n"), false);
+    switch (get_highest_layer(layer_state)) {
         case _BASE:
             oled_write_P(PSTR("Base   "), false);
             break;
@@ -197,12 +200,13 @@ static void render_status(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
       if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_logo();
     }
+    return false;
 }
 
 #endif

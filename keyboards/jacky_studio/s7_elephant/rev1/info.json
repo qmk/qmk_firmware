@@ -2,8 +2,6 @@
     "keyboard_name": "S7 Elephant",
     "url": "https://geekhack.org/index.php?topic=96434.0",
     "maintainer": "qmk",
-    "width": 18,
-    "height": 5,
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

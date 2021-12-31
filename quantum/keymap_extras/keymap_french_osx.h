@@ -246,15 +246,3 @@
 #define FR_IQUE S(A(FR_COMM)) // ¿
 #define FR_BSLS S(A(FR_COLN)) // (backslash)
 #define FR_PLMN S(A(FR_EQL))  // ±
-
-// DEPRECATED
-#define FR_AMP  FR_AMPR
-#define FR_EACU FR_LEAC
-#define FR_APOS FR_QUOT
-#define FR_EGRV FR_LEGR
-#define FR_CCED FR_LCCE
-#define FR_AGRV FR_LAGR
-#define FR_UGRV FR_LUGR
-#define FR_LESS FR_LABK
-#define FR_UMLT FR_DIAE
-#define FR_GRTR FR_RABK

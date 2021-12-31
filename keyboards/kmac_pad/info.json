@@ -1,8 +1,6 @@
 {
   "keyboard_name": "KMAC PAD",
   "maintainer": "talsu",
-  "width": 4,
-  "height": 6.5,
   "layouts": {
     "LAYOUT": {
       "layout": [

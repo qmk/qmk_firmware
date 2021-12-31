@@ -249,21 +249,3 @@
 #define IT_CUAC S(A(IT_M))    // Ú
 #define IT_MDDT S(A(IT_DOT))  // ·
 #define IT_MDSH S(A(IT_MINS)) // —
-
-// DEPRECATED
-#define IT_APOS IT_QUOT
-#define IT_IACC IT_IGRV
-#define IT_EACC IT_EGRV
-#define IT_OACC IT_OGRV
-#define IT_AACC IT_AGRV
-#define IT_UACC IT_UGRV
-#define IT_LESS IT_LABK
-#define IT_DQOT IT_DQUO
-#define IT_STRL IT_PND
-#define IT_QST  IT_QUES
-#define IT_CRC  IT_CIRC
-#define IT_DEGR IT_DEG
-#define IT_MORE IT_RABK
-#define IT_TILDE IT_TILD
-#define IT_GRAVE IT_GRV
-#define IT_SHRP IT_HASH

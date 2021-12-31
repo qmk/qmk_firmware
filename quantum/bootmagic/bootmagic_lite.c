@@ -19,13 +19,7 @@
  *
  * ...just incase someone wants to only change the eeprom behaviour
  */
-__attribute__((weak)) void bootmagic_lite_reset_eeprom(void) {
-#if defined(VIA_ENABLE)
-    via_eeprom_reset();
-#else
-    eeconfig_disable();
-#endif
-}
+__attribute__((weak)) void bootmagic_lite_reset_eeprom(void) { eeconfig_disable(); }
 
 /** \brief The lite version of TMK's bootmagic based on Wilba.
  *

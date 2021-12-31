@@ -122,6 +122,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TD(TD_LDCTL), MO(_ADJUST), MY_GUI,  MY_ALT,      MY_BSPC,          MY_SPC,       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
+/* Same as _QWERTY but disable wutoshift */
+[_RPT] = LAYOUT(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______,      _______,         _______,      _______, _______, _______, _______
+),
+
 [_GAME] = LAYOUT(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -130,39 +138,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_RAISE] = LAYOUT(
-    KC_ESC,  _______, FW_WRD,  KB_EOL,  _______,  _______,  KB_COPY, KC_PGUP, _______, KC_LPRN,  KC_RPRN,  KC_MINS,
-    _______, KB_BOL,  _______, KC_PGDN, _______,  TD(TD_G), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,  _______,  KC_BSLS,
-    _______, _______, KC_DEL,  _______, KB_PASTE, BK_WRD,   _______, _______, _______, _______,  _______,  KC_CALC,
-    _______, _______, _______, _______,        _______,              _______,     KC_HOME, KC_PGDN,  KC_PGUP,  KC_END
-),
-
-/* Same as _QWERTY but disable autoshift */
-[_RPT] = LAYOUT(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______,      KC_BSPC,          KC_SPC,      _______, _______, _______, _______
+    KC_ESC,  _______, FW_WRD,  KB_EOL,  TG(_RPT), _______,  KB_COPY, KC_PGUP, _______, KC_LPRN,  KC_RPRN,  KC_MINS,
+    KC_RCTL, KB_BOL,  _______, KC_PGDN, _______,  TD(TD_G), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,  _______,  KC_BSLS,
+    _______, _______, KC_DEL,  KC_CAPS, KB_PASTE, BK_WRD,   _______, _______, _______, _______,  _______,  MY_CALC,
+    KC_RCTL, _______, _______, _______,        _______,          _______,     KC_HOME, KC_PGDN,  KC_PGUP,  KC_END
 ),
 
 [_KP] = LAYOUT(
-    KC_NUMLOCK, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,  KC_F14,   KC_7,    KC_8,    KC_9,    KC_MINS, KC_EQL,
+    KC_ESC,     KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,  KC_F14,   KC_7,    KC_8,    KC_9,    KC_MINS, KC_EQL,
     _______,    KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX,  KC_4,    KC_5,    KC_6,    KC_ASTR, _______,
-    _______,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX,  KC_1,    KC_2,    KC_3,    KC_SLSH, _______,
+    KC_NUMLOCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX,  KC_1,    KC_2,    KC_3,    KC_SLSH, _______,
     _______,    _______, _______, _______,     _______,          _______,       KC_0,    KC_DOT,  KC_PLUS, KC_END
 ),
 
 [_LOWER] = LAYOUT(
-    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LBRC, KC_RBRC, KC_EQL,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, KC_PIPE,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_END,  KC_MPLY,
+    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LCBR, KC_RCBR, KC_EQL,
+    _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, _______, _______, KC_LBRC, KC_RBRC, KC_PIPE,
+    _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, _______, KC_HOME, KC_END,  KC_MPLY,
     _______, _______, _______, _______,       _______,         _______,     KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
 ),
 
 [_ADJUST] = LAYOUT(
     _______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL,
-    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,
-    _______, RGB_TOG, KB_MAKE, KB_FLSH, KB_VRSN, KB_BOOT, _______, TG_SYS,  _______, _______, _______, _______,
-    _______, _______, _______, _______,      _______,          _______,     _______, _______, _______, _______
+    KC_RCTL, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, TG(_KP), KC_BRID, KC_BRIU, KC_MUTE,
+    _______, RGB_TOG, KB_MAKE, KB_FLSH, KB_VRSN, KB_BOOT, _______, TG_SYS,  _______, _______, _______, KC_MPLY,
+    KC_RCTL, _______, _______, _______,      _______,          _______,     KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
 )
 
 /* [_ADJUST] = LAYOUT( */
@@ -174,17 +174,96 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+/* plwnck rev6 RGB layout:
+ * ----------------------------------
+ * |   6       5       4        3   |
+ * |               0                |
+ * |   7       8       1        2   |
+ * ----------------------------------
+ */
+
+const rgblight_segment_t PROGMEM rpt_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 2, HSV_PINK},
+    {7, 2, HSV_PINK}
+);
+
+const rgblight_segment_t PROGMEM game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {2, 2, HSV_RED},
+    {6, 2, HSV_RED}
+);
+
+const rgblight_segment_t PROGMEM raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {3, 4, HSV_GREEN}
+);
+
+const rgblight_segment_t PROGMEM kp_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 8, HSV_ORANGE}
+);
+
+const rgblight_segment_t PROGMEM lower_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {3, 4, HSV_BLUE}
+);
+
+const rgblight_segment_t PROGMEM adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 8, HSV_BLUE}
+);
+
+const rgblight_segment_t PROGMEM capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 1, HSV_WHITE},
+    {8, 1, HSV_WHITE}
+);
+
+const rgblight_segment_t PROGMEM numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {6, 2, HSV_PURPLE}
+);
+
+enum rgb_layer_index {
+    L_RPT,
+    L_GAME,
+    L_RAISE,
+    L_KP,
+    L_LOWER,
+    L_ADJUST,
+    L_CAPSLOCK,
+    L_NUMLOCK
+};
+
+const rgblight_segment_t * const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    [L_RPT] = rpt_layer,
+    [L_GAME] = game_layer,
+    [L_RAISE] = raise_layer,
+    [L_KP] = kp_layer,
+    [L_LOWER] = lower_layer,
+    [L_ADJUST] = adjust_layer,
+    [L_CAPSLOCK] = capslock_layer,
+    [L_NUMLOCK] = numlock_layer
+);
+
 #ifdef AUDIO_ENABLE
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
 layer_state_t layer_state_set_keymap(layer_state_t state) {
+    rgblight_set_layer_state(L_RPT, layer_state_cmp(state, _RPT));
+    rgblight_set_layer_state(L_GAME, layer_state_cmp(state, _GAME));
+    rgblight_set_layer_state(L_RAISE, layer_state_cmp(state, _RAISE));
+    rgblight_set_layer_state(L_KP, layer_state_cmp(state, _KP));
+    rgblight_set_layer_state(L_LOWER, layer_state_cmp(state, _LOWER));
+    rgblight_set_layer_state(L_ADJUST, layer_state_cmp(state, _ADJUST));
+    rgblight_set_layer_state(L_CAPSLOCK, CAPSLOCK_ON);
+    rgblight_set_layer_state(L_NUMLOCK, NUMLOCK_ON && layer_state_cmp(state, _KP));
     if (layer_state_cmp(state, _GAME) || layer_state_cmp(state, _RPT))
         autoshift_disable();
     else
         autoshift_enable();
     return update_tri_layer_state(state, _KP, _RAISE, _LOWER);
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(L_CAPSLOCK, led_state.caps_lock);
+    rgblight_set_layer_state(L_NUMLOCK, led_state.num_lock && layer_state_is(_KP));
+    return true;
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -259,7 +338,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -289,9 +368,10 @@ void encoder_update(bool clockwise) {
       #endif
     }
   }
+    return true;
 }
 
-void dip_switch_update_user(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0: {
 #ifdef AUDIO_ENABLE
@@ -320,9 +400,11 @@ void dip_switch_update_user(uint8_t index, bool active) {
                 muse_mode = false;
             }
     }
+    return true;
 }
 
 void keyboard_post_init_keymap(void) {
+    rgblight_layers = my_rgb_layers;
     bspc_timer = 0;
 }
 
@@ -408,6 +490,11 @@ void matrix_scan_keymap(void) {
         }
         SEQ_ONE_KEY(KC_C) {
             tap_code16(C(KC_C));
+        }
+        // neovim: terminal escape
+        SEQ_ONE_KEY(KC_QUOT) {
+            tap_code16(C(KC_BSLS));
+            tap_code16(C(KC_N));
         }
     }
 }
