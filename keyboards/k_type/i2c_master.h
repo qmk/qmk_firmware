@@ -58,11 +58,11 @@
 #    endif
 #endif
 
-#ifndef I2C1_SCL
-#    define I2C1_SCL 6
+#ifndef I2C1_SCL_PIN
+#    define I2C1_SCL_PIN 6
 #endif
-#ifndef I2C1_SDA
-#    define I2C1_SDA 7
+#ifndef I2C1_SDA_PIN
+#    define I2C1_SDA_PIN 7
 #endif
 
 #ifdef USE_I2CV1
@@ -118,7 +118,7 @@ typedef int16_t i2c_status_t;
 #define I2C_STATUS_ERROR (-1)
 #define I2C_STATUS_TIMEOUT (-2)
 
-void         i2c_init(I2CDriver *driver, ioportid_t scl_port, ioportid_t sda_port, iopadid_t scl_pad, iopadid_t sda_pad);
+void         i2c_init(I2CDriver *driver, ioline_t scl_pin, ioline_t sda_pin);
 i2c_status_t i2c_start(uint8_t index, uint8_t address);
 i2c_status_t i2c_transmit(uint8_t index, uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout);
 i2c_status_t i2c_receive(uint8_t index, uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);

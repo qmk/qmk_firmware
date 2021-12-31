@@ -2,8 +2,6 @@
     "keyboard_name": "KabeDon980", 
     "url": "https://kabedon.taobao.com", 
     "maintainer": "370490639", 
-    "width": 19.3, 
-    "height": 6.3, 
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -109,4 +107,3 @@
         }
     }
 }
-

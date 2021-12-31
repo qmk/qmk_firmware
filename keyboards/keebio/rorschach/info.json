@@ -2,11 +2,8 @@
   "keyboard_name": "Rorschach",
   "url": "https://keeb.io",
   "maintainer": "nooges",
-  "width": 15,
-  "height": 6,
   "layouts": {
     "LAYOUT": {
-      "key_count": 52,
       "layout": [
         { "w": 1, "x": 0, "y": 0 },
         { "w": 1, "x": 1, "y": 0 },

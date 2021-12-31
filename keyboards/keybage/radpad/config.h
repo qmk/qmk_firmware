@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_LITE_COLUMN 3
 
 /* OLED Configuration */
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     #define OLED_TIMEOUT	    60000
     #define OLED_LOGO_TIMEOUT   3000  // How long (in ms) the logo appears at start up
 #endif

@@ -103,5 +103,4 @@ Ceci est fait immédiatement après la fusion de la branche `future` précédent
     * [ ] `git push origin future`
 * Actions sur GitHub
     * [ ] Crée un PR pour `future`
-    * [ ] S'assurer que Travis ne relève aucun problème
     * [ ] Fusion le PR `future`

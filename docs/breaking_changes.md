@@ -2,10 +2,14 @@
 
 This document describes QMK's Breaking Change process. A Breaking Change is any change which modifies how QMK behaves in a way that in incompatible or potentially dangerous. We limit these changes so that users can have confidence that updating their QMK tree will not break their keymaps.
 
+This also includes any keyboard moves within the repository.
+
 The breaking change period is when we will merge PR's that change QMK in dangerous or unexpected ways. There is a built-in period of testing so we are confident that any problems caused are rare or unable to be predicted.
 
 ## What has been included in past Breaking Changes?
 
+* [2021 Nov 27](ChangeLog/20211127.md)
+* [2021 Aug 28](ChangeLog/20210828.md)
 * [2021 May 29](ChangeLog/20210529.md)
 * [2021 Feb 27](ChangeLog/20210227.md)
 * [2020 Nov 28](ChangeLog/20201128.md)
@@ -16,16 +20,17 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for August 28, 2021.
+The next Breaking Change is scheduled for February 26, 2022.
 
 ### Important Dates
 
-* [x] 2021 May 29 - `develop` is created. Each push to `master` is subsequently merged to `develop`
-* [ ] 2021 Jul 31 - `develop` closed to new PR's.
-* [ ] 2021 Jul 31 - Call for testers.
-* [ ] 2021 Aug 26 - `master` is locked, no PR's merged.
-* [ ] 2021 Aug 28 - Merge `develop` to `master`.
-* [ ] 2021 Aug 28 - `master` is unlocked. PR's can be merged again.
+* [x] 2021 Nov 27 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* [ ] 2022 Jan 31 - `develop` closed to new PR's.
+* [ ] 2022 Jan 31 - Call for testers.
+* [ ] 2022 Feb 12 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* [ ] 2022 Feb 24 - `master` is locked, no PR's merged.
+* [ ] 2022 Feb 26 - Merge `develop` to `master`.
+* [ ] 2022 Feb 26 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
 
@@ -35,8 +40,10 @@ If you want your breaking change to be included in this round you need to create
 
 Criteria for acceptance:
 
-* PR is complete and ready to merge
-* PR has a ChangeLog
+* The PR is complete and ready to merge
+* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20220226`.
+    * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PR's ID.
+    * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 
 # Checklists
 
@@ -62,6 +69,14 @@ This happens immediately after the previous `develop` branch is merged.
 ## 4 Weeks Before Merge
 
 * `develop` is now closed to new PR's, only fixes for current PR's may be merged
+* Post call for testers
+    * [ ] Discord
+    * [ ] GitHub PR
+    * [ ] https://reddit.com/r/olkb
+
+## 2 Weeks Before Merge
+
+* `develop` is now closed to existing PR merges, only bugfixes for previous merges may be included
 * Post call for testers
     * [ ] Discord
     * [ ] GitHub PR
@@ -93,10 +108,13 @@ This happens immediately after the previous `develop` branch is merged.
     * [ ] `git push upstream develop`
 * GitHub Actions
     * [ ] Create a PR for `develop`
-    * [ ] Make sure travis comes back clean
     * [ ] **Turn off 'Automatically delete head branches' for the repository** -- confirm with @qmk/directors that it is done before continuing
 * `qmk_firmware` git commands
     * [ ] `git checkout master`
     * [ ] `git pull --ff-only`
     * [ ] `git merge --no-ff develop`
     * [ ] `git push upstream master`
+
+## Post-merge operations
+
+* (Optional) [update ChibiOS + ChibiOS-Contrib on `develop`](chibios_upgrade_instructions.md)
