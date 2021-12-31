@@ -79,13 +79,78 @@ void oled_render_layer_state(void) {
   oled_write_ln_P(PSTR(" "), false);
 }
 
+void oled_render_layer_map(void) {
+  switch (get_highest_layer(layer_state)) {
+  case _QWERTY:
+    oled_write_ln_P(PSTR("qwert  yuiop"), false);
+    oled_write_ln_P(PSTR("asdfg  hjkl;"), false);
+    oled_write_ln_P(PSTR("zxcvb  nm,./"), false);
+    break;
+  case _COLEMAK:
+    oled_write_ln_P(PSTR(" qwfpb  jluy;"), false);
+    oled_write_ln_P(PSTR(" arstg  mneio"), false);
+    oled_write_ln_P(PSTR(" zxcdv  kh,./"), false);
+    break;
+  case _DVORAK_BP:
+  case _DVORAK:
+    oled_write_ln_P(PSTR("\",.py  fgcrl"), false);
+    oled_write_ln_P(PSTR("aoeui  dhtns"), false);
+    oled_write_ln_P(PSTR(";qjkx  bmwvz "), false);
+    break;
+
+  case _BEAKL:
+  case _BEAKL_BP:
+    oled_write_ln_P(PSTR("qhoux  gcrfz"), false);
+    oled_write_ln_P(PSTR("yiea.  dstnb"), false);
+    oled_write_ln_P(PSTR("j/,k'  wmlpv"), false);
+    break;
+
+  case _BEPO:
+    oled_write_P(PSTR("cbe'po`e  vdljz %"), false);
+    oled_write_P(PSTR(" auie,    tsrnmc"), false);
+    oled_write_P(PSTR("e^a'yx.k  'qghfw"), false);
+    break;
+
+  case _TOPROWS:
+  case _TOPROWS_BP:
+    oled_write_ln_P(PSTR("   !@#$%  ^&*() "), false);
+    oled_write_ln_P(PSTR("   40123  76598 "), false);
+    oled_write_ln_P(PSTR(" F1-12 "), false);
+    break;
+
+  case _SYMB:
+  case _SYMB_BP:
+    oled_write_ln_P(PSTR("   `<$>'  ?[_]-"), false);
+    oled_write_ln_P(PSTR(" - \(\")#  !{:}/ ;"), false);
+    oled_write_ln_P(PSTR("   @=*+;  %&^~|"), false);
+    break;
+
+  case _NAV:
+    oled_write_ln_P(PSTR(" mb5  4321 ac0  ctcn mb12345 "), false);
+    oled_write_ln_P(PSTR(" tab mldur ac1  cccv  ldur tab "), false);
+    oled_write_ln_P(PSTR("     wldur ac2  cwcq  hdue"), false);
+    break;
+
+  case _KEYPAD:
+    oled_write_ln_P(PSTR(" 523:"), false);
+    oled_write_ln_P(PSTR("-7.104 "), false);
+    oled_write_ln_P(PSTR(" /698, "), false);
+    break;
+
+  case _LAYERS:
+    oled_write_ln_P(PSTR("->   Bepo Dv Bkl  Nav Sym KP Trows"), false);
+    oled_write_ln_P(PSTR("->Qwy Clk Dv Bkl  Nav Sym KP Trows"), false);
+    //oled_write_ln_P(PSTR("Ctrls?-> RGB ___ ___ Adjust"), false);
+    break;
+  }
+}
+
 void oled_render_keylock_status(uint8_t led_usb_state) {
   oled_write_P(PSTR("Lock:"), false);
   oled_write_P(PSTR(" "), false);
   oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
   oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
   oled_write_ln_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
-  //  oled_write_ln_P(PSTR(" "), false);
 }
 
 void oled_render_mod_status(uint8_t modifiers) {
@@ -95,7 +160,6 @@ void oled_render_mod_status(uint8_t modifiers) {
   oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
   oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
   oled_write_P(PSTR("  "), false);
-  //oled_write_ln_P(PSTR(" "), false);
 }
 
 
@@ -194,6 +258,7 @@ bool oled_task_user(void) {
     oled_render_mod_status(get_mods() | get_oneshot_mods());
     oled_render_keylock_status(host_keyboard_leds());
     oled_render_keylog();
+    //oled_render_layer_map();
   } else {
     oled_render_logo();
     oled_render_default_layer_state();

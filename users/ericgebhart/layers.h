@@ -24,7 +24,7 @@
 /* Qwerty and Bepo versions exist as needed.                         */
 /*                                                                   */
 /* This file defines every auxillary layer I use on every keyboard   */
-/* Ergodox, keebio/viterbi, xd75, crkbd, morpho, dactyl,             */
+/* Ergodox, keebio/viterbi, xd75, rebound, crkbd, morpho, dactyl,..  */
 /*********************************************************************/
 /********************************************************************************/
 /* The following Transient/Non-Base Layers are provided within.                 */
@@ -34,6 +34,11 @@
 /********************************************************************************/
 /*                                                                              */
 /* Explore below to see what they all are.                                      */
+/* Naming gives the sizes of things, a prefix number is the length.             */
+/* BP is the bepo version of things.                                            */
+/* BKL is the beakl 15 version of a layout or chunk.                            */
+/* C on the end of a name means its a compact version of something.             */
+/* Compact meaning for use on a 3 row layout.                                   */
 /*                                                                              */
 /* TOPROWS - numbers, symbols, functions, all on one layer.                     */
 /* ___TOPROWS_3x12___                                                           */
@@ -64,6 +69,9 @@
 /* For use with non-beakl base layers.                                          */
 /* ___SYMB_BEAKLA_3x12___                                                       */
 /* ___SYMB_BEAKLA_BP_3x12___                                                    */
+/* For use with vi bindings optimized                                           */
+/* ___SYMB_BEAKLB_3x12___                                                       */
+/* ___SYMB_BEAKLB_BP_3x12___                                                    */
 /*                                                                              */
 /* NAVIGATION                                                                   */
 /* ___NAV_3x12___                                                               */
@@ -97,9 +105,8 @@
 /*                                                                 */
 /* This is, to me, a stop gap layer. If I need symbols, numbers or */
 /* function keys these rows are nicely predictable to most people. */
-/* I almost never use it because the symbol and func/keypad layers */
-/* do a better job.  But this does work if you haven't learned     */
-/* those yet.                                                      */
+/* I currently use the beakl number row with regular symbols.      */
+/* I never use function keys for anything.                         */
 /*******************************************************************/
 #define ___12_SYMB___        ___, ___SYMS___, ___
 #define ___12_SYMB_BP___       ___12_SYMS_BEPO___,
@@ -254,6 +261,10 @@
 #define ___12_KP_1C___ ___,  ___5_FUNCPADC_1___,   ___5KEYPAD_1___, ___
 #define ___12_KP_2C___ ___,  ___5_FUNCPADC_2___,   ___5KEYPAD_2___, ___
 #define ___12_KP_3C___ ___,  ___5_FUNCPADC_3___,   ___5KEYPAD_3___, ___
+// Reversed
+#define ___12_KP_FP_1C___ ___,  ___5KEYPAD_1___,   ___5_FUNCPADC_1___, ___
+#define ___12_KP_FP_2C___ ___,  ___5KEYPAD_2___,   ___5_FUNCPADC_2___, ___
+#define ___12_KP_FP_3C___ ___,  ___5KEYPAD_3___,   ___5_FUNCPADC_3___, ___
 
 //Bepo funcpad and keypad Layer
 #define ___12_KP_1_BP___ ___,  ___5_FUNCPADC_1___, ___5KEYPAD_1_BP___, ___
@@ -296,6 +307,7 @@
     ___12_KEYPAD_BKL_FUNCPAD_4_BP___
 
 #define ___KP_C_3x12___    ___12_KP_1C___,   ___12_KP_2C___,   ___12_KP_3C___
+#define ___KP_FP_C_3x12___  ___12_KP_FP_1C___,   ___12_KP_FP_2C___,   ___12_KP_FP_3C___
 #define ___KP_C_BP_3x12___ ___12_KP_1_BP___, ___12_KP_2_BP___, ___12_KP_3_BP___
 
 
