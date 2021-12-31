@@ -26,6 +26,7 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
+#define MASTER_RIGHT
 #define MATRIX_ROW_PINS { F4, D3, F6, F7, B1, B3 }
 #define MATRIX_COL_PINS { F5, B2, B5, D7, B4, B6, E6, D4 }
 #define MATRIX_ROW_PINS_RIGHT { F4, B2, F6, F7, B1, B3 }
