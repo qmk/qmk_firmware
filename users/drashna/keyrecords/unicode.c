@@ -1,33 +1,12 @@
-/* Copyright 2020 @ridingqwerty
- * Copyright 2020 @tzarc
- * Copyright 2021 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2020 @ridingqwerty
+// Copyright 2020 @tzarc
+// Copyright 2021 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "drashna.h"
 #include "process_unicode_common.h"
 
 uint16_t typing_mode;
-
-void tap_code16_nomods(uint8_t kc) {
-    uint8_t temp_mod = get_mods();
-    clear_mods();
-    clear_oneshot_mods();
-    tap_code16(kc);
-    set_mods(temp_mod);
-}
 
 void tap_unicode_glyph_nomods(uint32_t glyph) {
     uint8_t temp_mod = get_mods();
@@ -188,6 +167,7 @@ bool process_record_aussie(uint16_t keycode, keyrecord_t *record) {
 bool process_record_zalgo(uint16_t keycode, keyrecord_t *record) {
     if ((KC_A <= keycode) && (keycode <= KC_0)) {
         if (record->event.pressed) {
+
             tap_code16_nomods(keycode);
 
             int number = (rand() % (8 + 1 - 2)) + 2;
@@ -247,9 +227,12 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
-
-            break;
     }
+
+    if (((get_mods() | get_oneshot_mods()) & ~MOD_MASK_SHIFT) != 0) {
+        return true;
+    }
+
     if (((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) && record->tap.count) {
         keycode &= 0xFF;
     }
