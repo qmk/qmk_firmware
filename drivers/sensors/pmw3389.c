@@ -79,6 +79,7 @@
 #define REG_PWM_Period_Cnt             0x73
 #define REG_PWM_Width_Cnt              0x74
 
+#define CPI_STEP 50
 // clang-format on
 
 // limits to 0--319, resulting in a CPI range of 50 -- 16000 (as only steps of 50 are possible).
@@ -231,7 +232,7 @@ bool pmw3389_check_signature(void) {
 
 uint16_t pmw3389_get_cpi(void) {
     uint16_t cpival = (pmw3389_read(REG_Resolution_H) << 8) | pmw3389_read(REG_Resolution_L);
-    return (uint16_t)((cpival + 1) & 0xffff) * 50;
+    return (uint16_t)((cpival + 1) & 0xffff) * CPI_STEP;
 }
 
 
