@@ -20,7 +20,7 @@ HID Keyboard/Keypad usage ページでは 256 未満の usage が定義されて
 | Croatian                    | `keymap_croatian.h`              |
 | Czech                       | `keymap_czech.h`                 |
 | Danish                      | `keymap_danish.h`                |
-|Danish (macOS, ISO)          | `keymap_danish_osx_iso.h`        |
+| Danish (macOS, ISO)         | `keymap_danish_osx_iso.h`        |
 | Dutch (Belgium)             | `keymap_belgian.h`               |
 | English (Ireland)           | `keymap_irish.h`                 |
 | English (UK)                | `keymap_uk.h`                    |
