@@ -23,7 +23,7 @@ enum OrthoLayers {
   _MOVE_LINUX_ORTHO,
   _RAISE,
   _LOWER,
-  _ADJUST_ORTHO
+  _FUNCTION_ORTHO
 };
 
 enum OrthoKeys {
@@ -33,16 +33,16 @@ enum OrthoKeys {
   KC_FIRST
 };
 
-#define P_ADJ LT(_ADJUST_ORTHO, KC_BSPC)
-#define RAISE MO(_RAISE)
-#define LOWER MO(_LOWER)
+#define RAISE LT(_RAISE, KC_SPACE)
+#define LOWER LT(_LOWER, KC_SPACE)
+#define J_FUN MO(_FUNCTION_ORTHO)
 #define MOMAC LT(_MOVE_MAC_ORTHO, KC_ESC)
 #define MOLNX LT(_MOVE_LINUX_ORTHO, KC_ESC)
 
 void playSongForLayer(int currentLayer);
 
 #ifdef AUDIO_ENABLE
-#define QWERTY_LAYER_SONG H__NOTE(_G6),  H__NOTE(_D6),  Q__NOTE(_A5),   Q__NOTE(_E5), 
+#define QWERTY_LAYER_SONG H__NOTE(_G6),  H__NOTE(_D6),  Q__NOTE(_A5),   Q__NOTE(_E5),
 #define MAC_LAYER_SONG    H__NOTE(_E5),  H__NOTE(_A5),  Q__NOTE(_D6),   Q__NOTE(_G6), \
         ED_NOTE(_E7),     E__NOTE(_CS7), E__NOTE(_E6),  E__NOTE(_A6),   M__NOTE(_CS7, 20),
 #define LONG_AG_SWAP      Q__NOTE(_G5),  Q__NOTE(_D6),  Q__NOTE(_A6),   Q__NOTE(_E7), \
