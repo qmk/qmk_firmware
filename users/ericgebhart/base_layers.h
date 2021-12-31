@@ -112,10 +112,10 @@
   K01, K02, K03, K04, K05, RIGHT0
 
 #define ROW1_LEFT(K01, K02, K03, K04, K05)      \
-  LEFT1, K01, K02, K03, K04, K05
+  LEFT1, K01, K02, LT(_KEYPAD, K03), K04, K05
 
 #define ROW1_RIGHT(K01, K02, K03, K04, K05)     \
-  K01, K02, K03, K04, K05, RIGHT1
+  K01, K02, LT(_KEYPAD, K03), K04, K05, RIGHT1
 
 // home row, shift, alt, ctl, gui - gui, ctl, alt, shift.
 // using MT so we can specify left and right.
@@ -127,10 +127,10 @@
   K01, MT(MOD_RGUI, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), MT(MOD_RSFT, K05), RIGHT2 \
 
 #define ROW3_LEFT(K01, K02, K03, K04, K05)      \
-  LEFT3, K01, K02, LT(_NAV, K03), K04, K05
+  LEFT3, K01, LT(_TOPROWS, K02), LT(_NAV, K03), LT(_SYMB, K04), K05
 
-#define ROW3_RIGHT(K01, K02, K03, K04, K05)     \
-  K01, K02, LT(_NAV, K03), K04, K05, RIGHT3
+#define ROW3_RIGHT(K01, K02, K03, K04, K05)                             \
+  K01, LT(_SYMB, K02), LT(_NAV, K03), LT(_TOPROWS, K04), K05, RIGHT3
 
 //bepo
 #define ROW0_LEFT_BP(K01, K02, K03, K04, K05)   \
@@ -140,22 +140,22 @@
   K01, K02, K03, K04, K05, RIGHT0_BP
 
 #define ROW1_LEFT_BP(K01, K02, K03, K04, K05)   \
-  LEFT1_BP, K01, K02, K03, K04, K05
+  LEFT1_BP, K01, K02, LT(_KEYPAD, K03), K04, K05
 
 #define ROW1_RIGHT_BP(K01, K02, K03, K04, K05)  \
-  K01, K02, K03, K04, K05, RIGHT1_BP
+  K01, K02, LT(_KEYPAD, K03), K04, K05, RIGHT1_BP
 
-#define ROW2_LEFT_BP(K01, K02, K03, K04, K05)                   \
+#define ROW2_LEFT_BP(K01, K02, K03, K04, K05)                           \
   LEFT2_BP, MT(MOD_RSFT, K01), MT(MOD_LALT,K02), MT(MOD_RCTL, K03), MT(MOD_LGUI, K04), K05
 
 #define ROW2_RIGHT_BP(K01, K02, K03, K04, K05)                          \
   K01, MT(MOD_RGUI, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), MT(MOD_RSFT, K05), RIGHT2_BP \
 
 #define ROW3_LEFT_BP(K01, K02, K03, K04, K05)   \
-  LEFT3_BP, K01, K02, K03, K04, K05
+  LEFT3_BP, K01, LT(_SYMB, K02), LT(_NAV, K03), LT(_TOPROWS, K04), K05
 
-#define ROW3_RIGHT_BP(K01, K02, K03, K04, K05)  \
-  K01, K02, K03, K04, K05, RIGHT3_BP
+#define ROW3_RIGHT_BP(K01, K02, K03, K04, K05)                          \
+  K01, LT(_SYMB, K02), LT(_NAV, K03), LT(_TOPROWS, K04), K05, RIGHT3_BP
 
 //bepo - 6 args, no left or right added.
 #define ROW0_LEFT_BP6(K01, K02, K03, K04, K05, K06)     \
