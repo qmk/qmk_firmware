@@ -14,7 +14,7 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 MIDI_ENABLE = yes           # MIDI controls
 AUDIO_ENABLE = yes          # Audio output
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight. 
-TAP_DANCE_ENABLE = no 		# Enable Tap Dance Features
+TAP_DANCE_ENABLE = yes 		# Enable Tap Dance Features
 LTO_ENABLE = no 			# Link Time Optimization
 DIP_SWITCH_ENABLE=no  		# Recommended to fix no startup sound issue
 
