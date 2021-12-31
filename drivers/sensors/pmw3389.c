@@ -93,66 +93,48 @@ void print_byte(uint8_t byte) { dprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' 
 #endif
 #define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
-bool spi_start_adv(void) {
+bool pmw3389_spi_start(void) {
     bool status = spi_start(PMW3389_CS_PIN, PMW3389_SPI_LSBFIRST, PMW3389_SPI_MODE, PMW3389_SPI_DIVISOR);
+    // tNCS-SCLK, 120ns
     wait_us(1);
     return status;
 }
 
-void spi_stop_adv(void) {
-    wait_us(1);
-    spi_stop();
-}
 
-spi_status_t spi_write_adv(uint8_t reg_addr, uint8_t data) {
+spi_status_t pmw3389_write(uint8_t reg_addr, uint8_t data) {
     if (reg_addr != REG_Motion_Burst) {
         _inBurst = false;
     }
 
-    spi_start_adv();
+    pmw3389_spi_start();
     // send address of the register, with MSBit = 1 to indicate it's a write
     spi_status_t status = spi_write(reg_addr | 0x80);
     status              = spi_write(data);
 
-    // tSCLK-NCS for write operation
+    // tSCLK-NCS for write operation is 35 us
     wait_us(35);
+    spi_stop();
 
     // tSWW/tSWR (=180us) minus tSCLK-NCS. Could be shortened, but is looks like a safe lower bound
     wait_us(145);
-    spi_stop();
     return status;
 }
 
-uint8_t spi_read_adv(uint8_t reg_addr) {
-    spi_start_adv();
+uint8_t pmw3389_read(uint8_t reg_addr) {
+    pmw3389_spi_start();
     // send adress of the register, with MSBit = 0 to indicate it's a read
     spi_write(reg_addr & 0x7f);
-
+    // tSRAD (=160us)
+    wait_us(160);
     uint8_t data = spi_read();
 
-    // tSCLK-NCS for read operation is 120ns
+    // tSCLK-NCS, 120ns
     wait_us(1);
+    spi_stop();
 
     //  tSRW/tSRR (=20us) minus tSCLK-NCS
     wait_us(19);
-
-    spi_stop();
     return data;
-}
-
-void pmw3389_set_cpi(uint16_t cpi) {
-    uint16_t cpival = constrain((cpi / 50) - 1, 0, MAX_CPI);
-
-    spi_start_adv();
-    // Set upper byte first for more consistent setting of cpi
-    spi_write_adv(REG_Resolution_H, (cpival >> 8) & 0xff);
-    spi_write_adv(REG_Resolution_L, cpival & 0xff);
-    spi_stop();
-}
-
-uint16_t pmw3389_get_cpi(void) {
-    uint16_t cpival = (spi_read_adv(REG_Resolution_H) << 8) | spi_read_adv(REG_Resolution_L);
-    return (uint16_t)((cpival + 1) & 0xffff) * 50;
 }
 
 bool pmw3389_init(void) {
@@ -162,42 +144,51 @@ bool pmw3389_init(void) {
     _inBurst = false;
 
     spi_stop();
-    spi_start_adv();
+    pmw3389_spi_start();
     spi_stop();
 
-    spi_write_adv(REG_Shutdown, 0xb6);  // Shutdown first
+    pmw3389_write(REG_Shutdown, 0xb6);  // Shutdown first
     wait_ms(300);
 
-    spi_start_adv();
+    pmw3389_spi_start();
     wait_us(40);
-    spi_stop_adv();
+    spi_stop();
     wait_us(40);
-
-    spi_write_adv(REG_Power_Up_Reset, 0x5a);
+    
+    // power up, need to first drive NCS high then low, see above.
+    pmw3389_write(REG_Power_Up_Reset, 0x5a);
     wait_ms(50);
-
-    spi_read_adv(REG_Motion);
-    spi_read_adv(REG_Delta_X_L);
-    spi_read_adv(REG_Delta_X_H);
-    spi_read_adv(REG_Delta_Y_L);
-    spi_read_adv(REG_Delta_Y_H);
+    
+    //read registers and discard
+    pmw3389_read(REG_Motion);
+    pmw3389_read(REG_Delta_X_L);
+    pmw3389_read(REG_Delta_X_H);
+    pmw3389_read(REG_Delta_Y_L);
+    pmw3389_read(REG_Delta_Y_H);
 
     pmw3389_upload_firmware();
 
-    spi_stop_adv();
+    spi_stop();
 
     wait_ms(10);
     pmw3389_set_cpi(PMW3389_CPI);
 
     wait_ms(1);
 
-    spi_write_adv(REG_Config2, 0x00);
+    pmw3389_write(REG_Config2, 0x00);
 
-    spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -127, 127));
+    pmw3389_write(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -127, 127));
 
-    spi_write_adv(REG_Lift_Config, PMW3389_LIFTOFF_DISTANCE);
+    pmw3389_write(REG_Lift_Config, PMW3389_LIFTOFF_DISTANCE);
 
     bool init_success = pmw3389_check_signature();
+#ifdef CONSOLE_ENABLE
+    if (init_success) {
+        dprintf("pmw3389 signature verified");
+    } else {
+        dprintf("pmw3389 signature verification failed!");
+    }
+#endif
 
     writePinLow(PMW3389_CS_PIN);
 
@@ -205,13 +196,16 @@ bool pmw3389_init(void) {
 }
 
 void pmw3389_upload_firmware(void) {
-    spi_write_adv(REG_SROM_Enable, 0x1d);
+    //Datasheet claims we need to disable REST mode first, but during startup
+    // it's already disabled and we're not turning it on ...
+    //pmw3360_write(REG_Config2, 0x00);  // disable REST mode
+    pmw3389_write(REG_SROM_Enable, 0x1d);
 
     wait_ms(10);
 
-    spi_write_adv(REG_SROM_Enable, 0x18);
+    pmw3389_write(REG_SROM_Enable, 0x18);
 
-    spi_start_adv();
+    pmw3389_spi_start();
     spi_write(REG_SROM_Load_Burst | 0x80);
     wait_us(15);
 
@@ -223,19 +217,32 @@ void pmw3389_upload_firmware(void) {
     }
     wait_us(200);
 
-    spi_read_adv(REG_SROM_ID);
-
-    spi_write_adv(REG_Config2, 0x00);
-
-    spi_stop();
-    wait_ms(10);
+    pmw3389_read(REG_SROM_ID);
+    pmw3389_write(REG_Config2, 0x00);
 }
 
 bool pmw3389_check_signature(void) {
-    uint8_t pid      = spi_read_adv(REG_Product_ID);
-    uint8_t iv_pid   = spi_read_adv(REG_Inverse_Product_ID);
-    uint8_t SROM_ver = spi_read_adv(REG_SROM_ID);
+    uint8_t pid      = pmw3389_read(REG_Product_ID);
+    uint8_t iv_pid   = pmw3389_read(REG_Inverse_Product_ID);
+    uint8_t SROM_ver = pmw3389_read(REG_SROM_ID);
     return (pid == firmware_signature[0] && iv_pid == firmware_signature[1] && SROM_ver == firmware_signature[2]);  // signature for SROM 0x04
+}
+
+
+uint16_t pmw3389_get_cpi(void) {
+    uint16_t cpival = (pmw3389_read(REG_Resolution_H) << 8) | pmw3389_read(REG_Resolution_L);
+    return (uint16_t)((cpival + 1) & 0xffff) * 50;
+}
+
+
+void pmw3389_set_cpi(uint16_t cpi) {
+    uint16_t cpival = constrain((cpi / 50) - 1, 0, MAX_CPI);
+
+    pmw3389_spi_start();
+    // Sets upper byte first for more consistent setting of cpi
+    pmw3389_write(REG_Resolution_H, (cpival >> 8) & 0xff);
+    pmw3389_write(REG_Resolution_L, cpival & 0xff);
+    spi_stop();
 }
 
 report_pmw3389_t pmw3389_read_burst(void) {
@@ -243,48 +250,45 @@ report_pmw3389_t pmw3389_read_burst(void) {
 #ifdef CONSOLE_ENABLE
         dprintf("burst on");
 #endif
-        spi_write_adv(REG_Motion_Burst, 0x00);
+        pmw3389_write(REG_Motion_Burst, 0x00);
         _inBurst = true;
     }
 
-    spi_start_adv();
+    pmw3389_spi_start();
     spi_write(REG_Motion_Burst);
-    wait_us(35);  // waits for tSRAD
+    wait_us(35);  // waits for tSRAD_MOTBR
 
-    report_pmw3389_t data = {0};
-
-    data.motion = spi_read();
-    spi_write(0x00);  // skip Observation
-    data.dx  = spi_read();
-    data.mdx = spi_read();
-    data.dy  = spi_read();
-    data.mdy = spi_read();
+    report.motion = spi_read();
+    spi_read();  // skip Observation
+    // delta registers
+    report.dx  = spi_read();
+    report.mdx = spi_read();
+    report.dy  = spi_read();
+    report.mdy = spi_read();
+    
+        if (report.motion & 0b111) {  // panic recovery, sometimes burst mode works weird.
+        _inBurst = false;
+    }
 
     spi_stop();
 
 #ifdef CONSOLE_ENABLE
     if (debug_mouse) {
-        print_byte(data.motion);
-        print_byte(data.dx);
-        print_byte(data.mdx);
-        print_byte(data.dy);
-        print_byte(data.mdy);
+        print_byte(report.motion);
+        print_byte(report.dx);
+        print_byte(report.mdx);
+        print_byte(report.dy);
+        print_byte(report.mdy);
         dprintf("\n");
     }
 #endif
 
-    data.isMotion    = (data.motion & 0x80) != 0;
-    data.isOnSurface = (data.motion & 0x08) == 0;
-    data.dx |= (data.mdx << 8);
-    data.dx = data.dx * -1;
-    data.dy |= (data.mdy << 8);
-    data.dy = data.dy * -1;
-
-    spi_stop();
-
-    if (data.motion & 0b111) {  // panic recovery, sometimes burst mode works weird.
-        _inBurst = false;
-    }
+    report.isMotion    = (data.motion & 0x80) != 0;
+    report.isOnSurface = (data.motion & 0x08) == 0;
+    report.dx |= (data.mdx << 8);
+    report.dx = data.dx * -1;
+    report.dy |= (data.mdy << 8);
+    report.dy = data.dy * -1;
 
     return data;
 }
