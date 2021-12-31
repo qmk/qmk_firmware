@@ -81,8 +81,9 @@
 
 // clang-format on
 
+// limits to 0--319, resulting in a CPI range of 50 -- 16000 (as only steps of 50 are possible).
 #ifndef MAX_CPI
-#    define MAX_CPI 0x013F  // limits to 0--319, should be max cpi/50 -1
+#    define MAX_CPI 0x013f
 #endif
 
 bool _inBurst = false;
