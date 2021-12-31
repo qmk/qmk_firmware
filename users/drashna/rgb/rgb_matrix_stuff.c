@@ -1,18 +1,5 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "drashna.h"
 #include "rgb_matrix.h"
@@ -29,27 +16,27 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 
     switch (mode) {
         case 1:  // breathing
-            {
-                uint16_t time = scale16by8(g_rgb_timer, speed / 8);
-                hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-                RGB rgb       = hsv_to_rgb(hsv);
-                for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                    if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                        RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
-                    }
+        {
+            uint16_t time = scale16by8(g_rgb_timer, speed / 8);
+            hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+            RGB rgb       = hsv_to_rgb(hsv);
+            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+                    RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
                 }
-                break;
             }
+            break;
+        }
         default:  // Solid Color
-            {
-                RGB rgb = hsv_to_rgb(hsv);
-                for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                    if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                        RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
-                    }
+        {
+            RGB rgb = hsv_to_rgb(hsv);
+            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+                    RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
                 }
-                break;
             }
+            break;
+        }
     }
 }
 
@@ -95,3 +82,48 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+__attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) { return true; }
+void                       rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_keymap(led_min, led_max)) { return; }
+
+#if defined(RGBLIGHT_ENABLE)
+    if (!userspace_config.rgb_layer_change)
+#else
+    if (userspace_config.rgb_layer_change)
+#endif
+    {
+        switch (get_highest_layer(layer_state | default_layer_state)) {
+            case _DEFAULT_LAYER_1:
+                rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                break;
+            case _DEFAULT_LAYER_2:
+                rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                break;
+            case _DEFAULT_LAYER_3:
+                rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                break;
+            case _DEFAULT_LAYER_4:
+                rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                break;
+            case _GAMEPAD:
+                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                break;
+            case _DIABLO:
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER, led_min, led_max);
+                break;
+            case _RAISE:
+                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                break;
+            case _LOWER:
+                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                break;
+            case _ADJUST:
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
+                break;
+        }
+    }
+}
+
+__attribute__((weak)) bool rgb_matrix_indicators_keymap(void) { return true; }
+void                       rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
