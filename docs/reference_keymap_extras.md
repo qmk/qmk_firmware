@@ -24,6 +24,7 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |Croatian                         |`keymap_croatian.h`              |`sendstring_croatian.h`             |
 |Czech                            |`keymap_czech.h`                 |`sendstring_czech.h`                |
 |Danish                           |`keymap_danish.h`                |`sendstring_danish.h`               |
+|Danish (macOS, ISO)              |`keymap_danish_osx_iso.h`        |                                    |
 |Dutch (Belgium)                  |`keymap_belgian.h`               |`sendstring_belgian.h`              |
 |English (Ireland)                |`keymap_irish.h`                 |                                    |
 |English (UK)                     |`keymap_uk.h`                    |`sendstring_uk.h`                   |
