@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "spring.h"
-#include "rgblight.h"
 
 enum caps_modes{
     CAPS_MODE_UPPER = 0, //UPPER CASE 
@@ -23,8 +22,7 @@ enum caps_modes{
 };
 
 uint8_t caps_mode_index;
-uint8_t pre_hue, pre_sat, pre_val; 
-uint8_t previous_rgb_mode = 0;  
+rgblight_config_t pre_rgb;
 uint8_t dir_hue, dir_sat;
 
 bool caps_in = false; 
@@ -35,29 +33,29 @@ uint32_t caps_timer;
 
 void switch_caps_mode(uint8_t mode){
        switch(mode){
-            case CAPS_MODE_UPPER: 
-            dir_hue = 88;
-            dir_sat = 255;
+            case CAPS_MODE_UPPER:
+            dir_hue = 0;
+            dir_sat = 240; 
             break;
 
             case CAPS_MODE_LOWER: 
-            dir_hue = 0;
-            dir_sat = 240;
+            dir_hue = 88;
+            dir_sat = 255;
             break;
 
             default:
             break;           
         }
-        rgblight_sethsv_noeeprom(dir_hue,dir_sat,pre_val); 
+        rgblight_sethsv_noeeprom(dir_hue,dir_sat,pre_rgb.val); 
     
 }
 
 
 void init_caps_mode(uint8_t mode){
-    previous_rgb_mode = rgblight_get_mode();
-    pre_hue = rgblight_get_hue();
-    pre_sat = rgblight_get_sat();
-    pre_val = rgblight_get_val();
+    pre_rgb.mode = rgblight_get_mode();
+    pre_rgb.hue = rgblight_get_hue();
+    pre_rgb.sat = rgblight_get_sat();
+    pre_rgb.val = rgblight_get_val();
     caps_in = true;
 
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);  
@@ -81,8 +79,8 @@ void set_caps_mode(uint8_t mode){
 void matrix_scan_kb(void) {
 	if(caps_in){
 		if(timer_elapsed32(caps_timer) > 3000){
-            rgblight_sethsv(pre_hue, pre_sat, pre_val);	
-			rgblight_mode(previous_rgb_mode);
+            rgblight_sethsv(pre_rgb.hue, pre_rgb.sat, pre_rgb.val);	
+			rgblight_mode(pre_rgb.mode);
             caps_in = false;
 		}
 	}
