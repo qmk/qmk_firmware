@@ -118,14 +118,16 @@
   K01, K02, K03, K04, K05, RIGHT1
 
 // home row, shift, alt, ctl, gui - gui, ctl, alt, shift.
-#define ROW2_LEFT(K01, K02, K03, K04, K05)                      \
-  LEFT2, SFT_T(K01), ALT_T(K02), CTL_T(K03), GUI_T(K04), K05
+// using MT so we can specify left and right.
+// caps_word needs left and right shift.
+#define ROW2_LEFT(K01, K02, K03, K04, K05)                              \
+  LEFT2, MT(MOD_LSFT, K01), MT(MOD_LALT, K02), MT(MOD_LCTL, K03), MT(MOD_LGUI, K04), K05
 
-#define ROW2_RIGHT(K01, K02, K03, K04, K05)                   \
-  K01, GUI_T(K02),  CTL_T(K03), ALT_T(K04), SFT_T(K05), RIGHT2       \
+#define ROW2_RIGHT(K01, K02, K03, K04, K05)                             \
+  K01, MT(MOD_RGUI, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), MT(MOD_RSFT, K05), RIGHT2 \
 
 #define ROW3_LEFT(K01, K02, K03, K04, K05)      \
-  LEFT3, K01, K02, K03, K04, K05
+    LEFT3, K01, K02, K03, K04, K05
 
 #define ROW3_RIGHT(K01, K02, K03, K04, K05)     \
   K01, K02, K03, K04, K05, RIGHT3
@@ -144,10 +146,10 @@
   K01, K02, K03, K04, K05, RIGHT1_BP
 
 #define ROW2_LEFT_BP(K01, K02, K03, K04, K05)                   \
-  LEFT2_BP, SFT_T(K01), ALT_T(K02), CTL_T(K03), GUI_T(K04), K05
+  LEFT2_BP, MT(MOD_RSFT, K01), MT(MOD_LALT,K02), MT(MOD_RCTL, K03), MT(MOD_LGUI, K04), K05
 
 #define ROW2_RIGHT_BP(K01, K02, K03, K04, K05)                          \
-  K01, GUI_T(K02),  CTL_T(K03), ALT_T(K04), SFT_T(K05), RIGHT2_BP       \
+  K01, MT(MOD_RGUI, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), MT(MOD_RSFT, K05), RIGHT2_BP \
 
 #define ROW3_LEFT_BP(K01, K02, K03, K04, K05)   \
   LEFT3_BP, K01, K02, K03, K04, K05

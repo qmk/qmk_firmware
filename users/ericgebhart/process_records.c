@@ -44,7 +44,6 @@ inline void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
       tap_code16(kc1);
       tap_code16(kc2);
       tap_code16(KC_LEFT);
-
     } else {
       tap_code16(kc1);
     }
@@ -73,7 +72,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   process_record_user_oled(keycode, record);
 #endif  // OLED
 
-  /* if (!process_caps_word(keycode, record)) { return false; } */
+  if (!process_caps_word(keycode, record)) { return false; }
 
   if (process_record_keymap(keycode, record) && process_record_secrets(keycode, record)) {
     switch (keycode) {

@@ -79,4 +79,3 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
   shifted = false;
   return true;
 }
-
