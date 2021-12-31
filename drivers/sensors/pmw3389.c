@@ -35,12 +35,12 @@
 #define REG_SQUAL                      0x07
 #define REG_RawData_Sum                0x08
 #define REG_Maximum_RawData            0x09
-#define REG_Minimum_RawData            0x0A
-#define REG_Shutter_Lower              0x0B
-#define REG_Shutter_Upper              0x0C
-#define REG_Ripple_Control             0x0D
-#define REG_Resolution_L               0x0E
-#define REG_Resolution_H               0x0F
+#define REG_Minimum_RawData            0x0a
+#define REG_Shutter_Lower              0x0b
+#define REG_Shutter_Upper              0x0c
+#define REG_Ripple_Control             0x0d
+#define REG_Resolution_L               0x0e
+#define REG_Resolution_H               0x0f
 #define REG_Config2                    0x10
 #define REG_Angle_Tune                 0x11
 #define REG_Frame_Capture              0x12
@@ -51,24 +51,24 @@
 #define REG_Rest1_Downshift            0x17
 #define REG_Rest2_Rate_Lower           0x18
 #define REG_Rest2_Rate_Upper           0x19
-#define REG_Rest2_Downshift            0x1A
-#define REG_Rest3_Rate_Lower           0x1B
-#define REG_Rest3_Rate_Upper           0x1C
+#define REG_Rest2_Downshift            0x1a
+#define REG_Rest3_Rate_Lower           0x1b
+#define REG_Rest3_Rate_Upper           0x1c
 #define REG_Observation                0x24
 #define REG_Data_Out_Lower             0x25
 #define REG_Data_Out_Upper             0x26
-#define REG_SROM_ID                    0x2A
-#define REG_Min_SQ_Run                 0x2B
-#define REG_RawData_Threshold          0x2C
-#define REG_Control2                   0x2D
-#define REG_Config5_L                  0x2E
-#define REG_Config5_H                  0x2F
-#define REG_Power_Up_Reset             0X3A
-#define REG_Shutdown                   0x3B
-#define REG_Inverse_Product_ID         0x3F
+#define REG_SROM_ID                    0x2a
+#define REG_Min_SQ_Run                 0x2b
+#define REG_RawData_Threshold          0x2c
+#define REG_Control2                   0x2d
+#define REG_Config5_L                  0x2e
+#define REG_Config5_H                  0x2f
+#define REG_Power_Up_Reset             0X3a
+#define REG_Shutdown                   0x3b
+#define REG_Inverse_Product_ID         0x3f
 #define REG_LiftCutoff_Cal3            0x41
 #define REG_Angle_Snap                 0x42
-#define REG_LiftCutoff_Cal1            0x4A
+#define REG_LiftCutoff_Cal1            0x4a
 #define REG_Motion_Burst               0x50
 #define REG_SROM_Load_Burst            0x62
 #define REG_Lift_Config                0x63
@@ -144,14 +144,14 @@ void pmw3389_set_cpi(uint16_t cpi) {
 
     spi_start_adv();
     // Set upper byte first for more consistent setting of cpi
-    spi_write_adv(REG_Resolution_H, (cpival >> 8) & 0xFF);
-    spi_write_adv(REG_Resolution_L, cpival & 0xFF);
+    spi_write_adv(REG_Resolution_H, (cpival >> 8) & 0xff);
+    spi_write_adv(REG_Resolution_L, cpival & 0xff);
     spi_stop();
 }
 
 uint16_t pmw3389_get_cpi(void) {
     uint16_t cpival = (spi_read_adv(REG_Resolution_H) << 8) | spi_read_adv(REG_Resolution_L);
-    return (uint16_t)((cpival + 1) & 0xFFFF) * 50;
+    return (uint16_t)((cpival + 1) & 0xffff) * 50;
 }
 
 bool pmw3389_init(void) {
