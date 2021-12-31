@@ -70,15 +70,15 @@ or `keymap.c`:
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
-            tap_code(KC_PGDN);
+            tap_code(KC_VOLU);
         } else {
-            tap_code(KC_PGUP);
+            tap_code(KC_VOLD);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
-            tap_code(KC_DOWN);
+            tap_code(KC_PGDN);
         } else {
-            tap_code(KC_UP);
+            tap_code(KC_PGUP);
         }
     }
     return false;
