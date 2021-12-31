@@ -25,7 +25,7 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
     static bool led[MATRIX_ROWS][MATRIX_COLS];
 
     static uint32_t wait_timer = 0;
-    if (wait_timer > timer_read32()) {
+    if (wait_timer > g_rgb_timer) {
         return false;
     }
 
@@ -67,7 +67,7 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
         led[h][MID_COL] = led[h][MID_COL - 1] = (random8() & 3) ? false : true;
     }
 
-    wait_timer = timer_read32() + interval();
+    wait_timer = g_rgb_timer + interval();
     return false;
 }
 #    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
