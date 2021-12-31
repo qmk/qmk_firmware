@@ -15,20 +15,41 @@
  */
 #include QMK_KEYBOARD_H
 
+#include <keymap_us_international.h>
+// US_ACUT KC_QUOT // ´ (dead)
+// US_DGRV KC_GRV  // ` (dead)
+// US_DCIR S(US_6)    // ^ (dead)
+// US_DIAE S(US_ACUT) // ¨ (dead)
+
 enum layers {
     _QWERTZ = 0,    // base text layer
     _SYM,           // symbol layer 
-    _NAV,           // navigation layer 
+    _NAV,           // navigation layer + accents 
 };
 
-#define CTL_ESC  MT(MOD_LCTL, KC_ESC)
-#define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
-#define CTL_MINS MT(MOD_RCTL, KC_MINUS)
-#define ALT_ENT  MT(MOD_LALT, KC_ENT)
+enum unicode_names {
+    APOST,
+    QUOTE,
+    CIRCUM,
+    GRAVE,
+    ACUTE,
+    UMLAUT,
+    CEDIL_MAJ,
+    CEDIL,
+};
 
-// Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
-// The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
-// produces the key `tap` when tapped (i.e. pressed and released).
+const uint32_t PROGMEM unicode_map[] = {
+    [APOST]         = 0x0027, // '
+    [QUOTE]         = 0x0022, // "
+    [ACUTE]         = 0x00B4, // ´
+    [GRAVE]         = 0x0060, // `
+    [CIRCUM]        = 0x005E, // ^ 
+    [UMLAUT]        = 0x00A8, // ¨
+    [CEDIL_MAJ]     = 0x00C7, // Ç
+    [CEDIL]         = 0x00E7, // ç
+};
+// usage: X(ACUTE), XP(CEDIL,CEDIL_MAJ)
+
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -48,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_QWERTZ] = LAYOUT(
   KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Z,    KC_U,    KC_I,    KC_O,    KC_P,  KC_DEL,
-  KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, KC_BSPC,
+  KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L, XP(APOST,QUOTE), KC_BSPC, //  XP(APOST,QUOTE) or KC_QUOT
  KC_LSFT,    KC_Y,    KC_X,    KC_C,    KC_V,    KC_B, KC_BSLS, KC_LPRN, KC_RPRN,  KC_GRV,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SCLN, KC_CAPS,
                             KC_LCTL, KC_LGUI, KC_LALT,  KC_ENT,   MO(1),   MO(2),  KC_SPC, KC_MINS, KC_EXLM, KC_SLSH
     ),
@@ -82,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |  GUI |  Alt | Ctrl | Shift|      |                              | PgDn |  ←   |   ↓  |   →  | VolDn| Insert |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |ScLck |  |      |      | Pause|M Prev|M Play|M Next|VolMut| PrtSc  |
+ * |        |  ´   |  `   |  ^   |  ¨   |      |      |ScLck |  |      |      | Pause| ç/Ç  |M Play|M Next|VolMut| PrtSc  |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -91,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
  _______, KC_BRIU, KC_MNXT, KC_MFFD, KC_MPLY, KC_VOLU,                                     KC_HOME, KC_PGUP,   KC_UP, KC_PGDN, _______,  KC_DEL,
  _______, KC_BRID, KC_MPRV, KC_MRWD, KC_MSTP, KC_VOLD,                                      KC_END, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_BSPC,
- KC_LSFT, _______, _______, _______, _______, KC_MUTE, _______, _______, KC_RSFT,  KC_APP, KC_PSCR, _______, _______, _______, KC_SLCK,  KC_INS,
+ KC_LSFT, US_ACUT, US_DGRV, US_DCIR, US_DIAE, KC_MUTE, _______, _______, KC_RSFT,  KC_APP, KC_PSCR, XP(CEDIL,CEDIL_MAJ), _______, _______, KC_SLCK,  KC_INS,
                             KC_LCTL, KC_LGUI, KC_LALT, _______,   MO(1),   MO(2), KC_UNDO,  KC_CUT, KC_COPY, KC_PSTE
     ),
 
