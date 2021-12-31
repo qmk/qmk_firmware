@@ -25,8 +25,7 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 
 __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
 
-
-// Defines actions for my global custom keycodes. Defined in ericgebhart.h file
+ttions for my global custom keycodes. Defined in ericgebhart.h file
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
