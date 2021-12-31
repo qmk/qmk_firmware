@@ -148,7 +148,7 @@ Example:
 make crkbd:default:avrdude-split-left
 ```
 
-?> ARM controllers using `dfu-util` will require an EEPROM reset after setting handedness. This can be done using the `EEP_RST` keycode or [Bootmagic Lite](feature_bootmagic.md).
+?> ARM controllers using `dfu-util` will require an EEPROM reset after setting handedness. This can be done using the `EEP_RST` keycode or [Bootmagic Lite](feature_bootmagic.md). Controllers using emulated EEPROM will always require handedness parameter when flashing the firmware.
 
 ?> [QMK Toolbox]() can also be used to flash EEPROM handedness files. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
 
