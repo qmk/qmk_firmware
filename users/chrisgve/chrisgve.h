@@ -29,13 +29,14 @@ enum default_layers {
     _LINUX_NAV_1,   // Linux Navigation layer 1
     _LINUX_NAV_2,   // Linux Navigation layer 2
     _RAISE,         // Raise layer on ortho
+    _LOWER,         // Lower layer on ortho
+    _MOUSE,         // Mouse key layer
+    _EX_MOUSE,    // Mouse key layer (exlusive)
+    _NUM,           // Numerical layer (for 40% layouts)
     _ADJUST_MAC,    // Synonym
     _ADJUST_WIN,    // Adjust for Windows
     _ADJUST_LINUX,  // Adjust for Linux
-    _LOWER,         // Lower layer on ortho
     _CONFIG,        // Keyboard configuation layer
-    _NUM,           // Numerical layer (for 40% layouts)
-    _MOUSE,         // Mouse key layer
 };
 
 // Custom keys
@@ -145,6 +146,8 @@ enum custom_keycodes {
 #define GUI_BSL     RGUI_T(KC_BSLS)
 #define ALT_BSL     RALT_T(KC_BSLS)
 #define BSL_RSE     LT(_RAISE, KC_BSLS)
+#define S_MOUSE     LT(_MOUSE, KC_S)
+#define A_MOUSE     LT(_MOUSE, KC_A)
 
 #define END_F_M     LT(_ADJUST_MAC, KC_END)
 #define END_F_L     LT(_ADJUST_LINUX, KC_END)
@@ -178,7 +181,7 @@ enum {
 // Define the keycode for the mouse tap dance
 #define SFT_MSE     TD(TD_LSHIFT_MOUSE)
 #define CPS_CTL     TD(TD_CTRL_CAPS)
-#define TG_MSE      TG(_MOUSE)
+#define TG_MSE      TG(_EX_MOUSE)
 #define TG_NUM      TG(_NUM)
 #define TD_ADJM     TD(TD_ADJ_M_NUM)
 #define TD_ADJL     TD(TD_ADJ_L_NUM)

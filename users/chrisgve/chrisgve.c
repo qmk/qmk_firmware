@@ -77,7 +77,7 @@ bool mouse_layer = false;
 // Tap Dance definition
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once or Shift, twice for mouse layer
-    [TD_LSHIFT_MOUSE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LSFT, _MOUSE),
+    [TD_LSHIFT_MOUSE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LSFT, _EX_MOUSE),
     [TD_ADJ_M_NUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(ADJ_M, _NUM),
     [TD_ADJ_L_NUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(ADJ_L, _NUM),
     [TD_ADJ_W_NUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(ADJ_W, _NUM),
