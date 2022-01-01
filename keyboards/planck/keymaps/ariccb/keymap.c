@@ -184,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_planck_grid( /* LOWER */
   KC_GRV,  KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC, KC_COLN, KC_P7, KC_P8,   KC_P9,  KC_EQL,  KC_BSPC, 
   KC_LALT, KC_UNDS, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN, KC_M,    KC_P4, KC_P5,   KC_P6,  KC_PMNS, KC_PPLS, 
-  KC_TRNS, KC_PIPE, KC_AMPR, KC_QUOT, KC_LCBR, KC_RCBR, KC_AT,   KC_P1, KC_P2,   KC_P3,  KC_PSLS, KC_PAST, 
+  KC_TRNS, KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, KC_AT,   KC_P1, KC_P2,   KC_P3,  KC_PSLS, KC_PAST, 
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_NO,  KC_NO,   KC_NO
 ),
 
@@ -201,10 +201,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------'
  */
 [_GAMING] = LAYOUT_planck_grid( /* GAMING */
-  KC_GESC, KC_1, KC_2, KC_3,    KC_4,    KC_5,   KC_6,   KC_7,  KC_P8,   KC_9,    KC_0,    EXT_GAMING, 
-  KC_TAB,  KC_Q, KC_W, KC_E,    KC_R,    KC_T,   KC_I,   KC_P4, KC_P5,   KC_P6,   KC_PMNS, KC_PPLS, 
-  KC_LSFT, KC_A, KC_S, KC_D,    KC_F,    KC_G,   KC_K,   KC_P1, KC_P2,   KC_P3,   KC_PSLS, KC_PAST, 
-  KC_NO, KC_NO, KC_NO, KC_LCTL, KC_LALT, KC_SPC, KC_SPC, KC_P0, KC_PDOT, KC_NO,   KC_NO,   KC_NO
+  KC_GESC, KC_1,  KC_2,  KC_3,    KC_4,    KC_5,   KC_6,   KC_7,  KC_P8,   KC_9,  KC_0,    EXT_GAMING, 
+  KC_TAB,  KC_Q,  KC_W,  KC_E,    KC_R,    KC_T,   KC_I,   KC_P4, KC_P5,   KC_P6, KC_PMNS, KC_PPLS, 
+  KC_LSFT, KC_A,  KC_S,  KC_D,    KC_F,    KC_G,   KC_K,   KC_P1, KC_P2,   KC_P3, KC_PSLS, KC_PAST, 
+  KC_NO,   KC_NO, KC_NO, KC_LCTL, KC_LALT, KC_SPC, KC_SPC, KC_P0, KC_PDOT, KC_NO, KC_NO,   KC_NO
 ),
 
 /* MIT Layout (FN)
@@ -223,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, MTLSFT_F9, MTLALT_F10,KC_F11,  KC_F12,  KC_CALC, KC_VOLU, KC_HOME, KC_UP,        KC_END,  KC_PSCR, KC_DEL,
   KC_TRNS, KC_F5,     KC_F6,     KC_F7,   KC_F8,   KC_CAPS, KC_VOLD, KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK, KC_INS, 
   KC_TRNS, KC_F1,     KC_F2,     KC_F3,   KC_F4,   KC_MUTE, MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_TRNS, KC_TRNS, 
-  KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,   KC_NO
+  KC_NO,   KC_NO,     KC_NO,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,   KC_NO
 ),
 
 /* MIT Layout (ADJUST)
@@ -235,14 +235,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |----------------------------------------------------------------------------|
  * |     |     |MWUp |NWDn |      |QWERTY|COLEMAK|MI_ON|MI_OF|     |     |MU_Mod|
  * |----------------------------------------------------------------------------|
- * |MSP0 |MSP1 |MSP2 |SLEEP|      |              |     |     |     |     |      |
+ * |     |     |     |SLEEP|      |              |     |     |     |     |      |
  * `----------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
-  RESET,        KC_BTN3,      KC_BTN2,      KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_TOG, 
-  DEBUG,        KC_NO,        KC_MS_L,      KC_MS_D, KC_MS_R, GAMING,  KC_NO,   AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  RGB_MOD, 
-  KC_TRNS,      KC_WH_L,      KC_WH_U,      KC_WH_D, KC_WH_R, QWERTY,  COLEMAK, MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, MU_MOD,
-  KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
+  RESET,   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_TOG, 
+  DEBUG,   KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  KC_NO,   AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  RGB_MOD, 
+  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK, MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, MU_MOD,
+  KC_NO,   KC_NO,   KC_NO,   KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
 )
 };
 
