@@ -26,3 +26,9 @@ BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration
 UNICODE_ENABLE   = no
 SLEEP_LED_ENABLE = no
 API_SYSEX_ENABLE = no
+
+LTO_ENABLE = yes
+
+SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no
+MAGIC_ENABLE = no

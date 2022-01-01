@@ -82,71 +82,71 @@ void oled_render_layer_state(void) {
 void oled_render_layer_map(void) {
   switch (get_highest_layer(layer_state)) {
   case _QWERTY:
-    oled_write_ln_P(PSTR("qwert  yuiop"), false);
-    oled_write_ln_P(PSTR("asdfg  hjkl;"), false);
-    oled_write_ln_P(PSTR("zxcvb  nm,./"), false);
+    oled_write_ln_P(PSTR("   qwert  yuiop"), false);
+    oled_write_ln_P(PSTR("   asdfg  hjkl;"), false);
+    oled_write_ln_P(PSTR("   zxcvb  nm,./"), false);
     break;
   case _COLEMAK:
-    oled_write_ln_P(PSTR(" qwfpb  jluy;"), false);
-    oled_write_ln_P(PSTR(" arstg  mneio"), false);
-    oled_write_ln_P(PSTR(" zxcdv  kh,./"), false);
+    oled_write_ln_P(PSTR("   qwfpb  jluy;"), false);
+    oled_write_ln_P(PSTR("   arstg  mneio"), false);
+    oled_write_ln_P(PSTR("   zxcdv  kh,./"), false);
     break;
   case _DVORAK_BP:
   case _DVORAK:
-    oled_write_ln_P(PSTR("\",.py  fgcrl"), false);
-    oled_write_ln_P(PSTR("aoeui  dhtns"), false);
-    oled_write_ln_P(PSTR(";qjkx  bmwvz "), false);
+    oled_write_ln_P(PSTR("   \",.py  fgcrl"), false);
+    oled_write_ln_P(PSTR("   aoeui  dhtns"), false);
+    oled_write_ln_P(PSTR("   ;qjkx  bmwvz "), false);
     break;
 
   case _BEAKL:
   case _BEAKL_BP:
-    oled_write_ln_P(PSTR("qhoux  gcrfz"), false);
-    oled_write_ln_P(PSTR("yiea.  dstnb"), false);
-    oled_write_ln_P(PSTR("j/,k'  wmlpv"), false);
+    oled_write_ln_P(PSTR("   qhoux  gcrfz"), false);
+    oled_write_ln_P(PSTR("   yiea.  dstnb"), false);
+    oled_write_ln_P(PSTR("   j/,k'  wmlpv"), false);
     break;
 
   case _BEPO:
-    oled_write_P(PSTR("cbe'po`e  vdljz %"), false);
-    oled_write_P(PSTR(" auie,    tsrnmc"), false);
-    oled_write_P(PSTR("e^a'yx.k  'qghfw"), false);
+    oled_write_P(PSTR("   cbe'po`e  vdljz %"), false);
+    oled_write_P(PSTR("    auie,    tsrnmc"), false);
+    oled_write_P(PSTR("   e^a'yx.k  'qghfw"), false);
     break;
 
   case _TOPROWS:
   case _TOPROWS_BP:
-    oled_write_ln_P(PSTR("   !@#$%  ^&*() "), false);
-    oled_write_ln_P(PSTR("   40123  76598 "), false);
-    oled_write_ln_P(PSTR(" F1-12 "), false);
+    oled_write_ln_P(PSTR("   !@#$%  ^&*()"), false);
+    oled_write_ln_P(PSTR("   40123  76598"), false);
+    oled_write_ln_P(PSTR(" F1-    --    -F12"), false);
     break;
 
   case _SYMB:
   case _SYMB_BP:
-    oled_write_ln_P(PSTR("   `<$>'  ?[_]-"), false);
-    oled_write_ln_P(PSTR(" - \(\")#  !{:}/ ;"), false);
-    oled_write_ln_P(PSTR("   @=*+;  %&^~|"), false);
+    oled_write_ln_P(PSTR("     `<$>'  ?[_]-"), false);
+    oled_write_ln_P(PSTR("    - \(\")#  !{:}/ ;"), false);
+    oled_write_ln_P(PSTR("     @=*+;  %&^~|"), false);
     break;
 
   case _NAV:
-    oled_write_ln_P(PSTR(" mb5  4321 ac0  ctcn mb12345 "), false);
-    oled_write_ln_P(PSTR(" tab mldur ac1  cccv  ldur tab "), false);
-    oled_write_ln_P(PSTR("     wldur ac2  cwcq  hdue"), false);
+    oled_write_ln_P(PSTR("54321 0  ctn 12345"), false);
+    oled_write_ln_P(PSTR(" ldur 1  ccv ldur"), false);
+    oled_write_ln_P(PSTR(" ldur 2  cwq hdue"), false);
     break;
 
   case _KEYPAD:
-    oled_write_ln_P(PSTR(" 523:"), false);
-    oled_write_ln_P(PSTR("-7.104 "), false);
-    oled_write_ln_P(PSTR(" /698, "), false);
+    oled_write_ln_P(PSTR("     523:   F9-F12"), false);
+    oled_write_ln_P(PSTR("   -7.104   F5-F8"), false);
+    oled_write_ln_P(PSTR("    /698,   F1-F4"), false);
     break;
 
   case _LAYERS:
-    oled_write_ln_P(PSTR("->   Bepo Dv Bkl  Nav Sym KP Trows"), false);
-    oled_write_ln_P(PSTR("->Qwy Clk Dv Bkl  Nav Sym KP Trows"), false);
+    oled_write_ln_P(PSTR("   Bp Dv Bk  Nv Sy KP Tr"), false);
+    oled_write_ln_P(PSTR("Qw Cl Dv Bk  Nv Sy KP Tr"), false);
     //oled_write_ln_P(PSTR("Ctrls?-> RGB ___ ___ Adjust"), false);
     break;
   }
 }
 
 void oled_render_keylock_status(uint8_t led_usb_state) {
-  oled_write_P(PSTR("Lock:"), false);
+  oled_write_P(PSTR("  Lock:"), false);
   oled_write_P(PSTR(" "), false);
   oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
   oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
@@ -159,11 +159,10 @@ void oled_render_mod_status(uint8_t modifiers) {
   oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
   oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
   oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
-  oled_write_P(PSTR("  "), false);
 }
 
 
-char mkeylog_str[21] = {};
+char mkeylog_str[22] = {};
 
 const char mcode_to_name[60] = {
   ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
@@ -175,7 +174,7 @@ const char mcode_to_name[60] = {
 
 
 void oled_render_keylog(void) {
-  oled_write(mkeylog_str, false);
+  oled_write_ln(mkeylog_str, false);
 }
 
 
@@ -183,23 +182,22 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
   char name = ' ';
   if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
       (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-      keycode = keycode & 0xFF;
+    keycode = keycode & 0xFF;
   }
   if (keycode < 60) {
     name = mcode_to_name[keycode];
   }
 
   // update keylog
+  memset(mkeylog_str, ' ', sizeof(mkeylog_str) - 1);
   snprintf(mkeylog_str, sizeof(mkeylog_str), "%dx%d, k%2d : %c",
            record->event.key.row, record->event.key.col,
            keycode, name);
-  oled_render_keylog();
 }
 
 __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return rotation; }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  memset(mkeylog_str, '!', sizeof(mkeylog_str) - 1);
 
   // for the small screen.
   return OLED_ROTATION_180;
@@ -254,16 +252,14 @@ __attribute__((weak)) void oled_render_logo(void) {
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
     oled_render_default_layer_state();
-    oled_render_layer_state();
     oled_render_mod_status(get_mods() | get_oneshot_mods());
     oled_render_keylock_status(host_keyboard_leds());
+    oled_render_layer_state();
+    oled_render_layer_map();
     oled_render_keylog();
-    //oled_render_layer_map();
   } else {
     oled_render_logo();
     oled_render_default_layer_state();
-    // oled_driver_render_logo();
-    //oled_render_keylog();
   }
   return(true);
 
