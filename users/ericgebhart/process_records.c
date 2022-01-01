@@ -6,19 +6,6 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 
 __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
 
-// These keybards reverse the usual row column orientation of the key matrix
-// Keylogging cares.
-#if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_keebio_iris_rev2)
-#    define REVERSE_ROW_COL true
-#endif
-
-// Split keyboards need to trigger on key-up for edge-case issue
-// record event.pressed is reversed (complement) for split keyboards
-#ifndef SPLIT_KEYBOARD
-#    define SPLIT_EVENT_COMP record->event.pressed
-#else
-#    define SPLIT_EVENT_COMP !record->event.pressed
-#endif
 
 uint16_t tap_taplong_timer;
 
@@ -110,42 +97,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
-      if (!record->event.pressed) {
-#               ifndef MAKE_BOOTLOADER
-        uint8_t temp_mod = mod_config(get_mods());
-        uint8_t temp_osm = mod_config(get_oneshot_mods());
-        clear_mods();
-        clear_oneshot_mods();
-#               endif
-
-        send_string_with_delay_P(PSTR("bin/qmk"), TAP_CODE_DELAY);
-
-#               ifndef MAKE_BOOTLOADER
-        if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
-#               endif
-          {
-            send_string_with_delay_P(PSTR(" flash "), TAP_CODE_DELAY);
-#               ifndef MAKE_BOOTLOADER
-          } else {
-          send_string_with_delay_P(PSTR(" compile "), TAP_CODE_DELAY);
-#               endif
-        }
-        send_string_with_delay_P(PSTR("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP), TAP_CODE_DELAY);
-
-#               ifdef RGB_MATRIX_SPLIT_RIGHT
-        send_string_with_delay_P(PSTR(" RGB_MATRIX_SPLIT_RIGHT=yes"), TAP_CODE_DELAY);
-
-#                   ifndef OLED_DRIVER_ENABLE
-        send_string_with_delay_P(PSTR(" OLED_DRIVER_ENABLE=no"), TAP_CODE_DELAY);
-#                   endif
-#               endif
-        send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
-      }
-
-      break;
-
-
 
     case KC_RESET: // Custom RESET code
       if (!record->event.pressed) {
@@ -154,20 +105,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
 
-
-      /* case EPRM: // Resets EEPROM */
-      /*   if (record->event.pressed) { */
-      /*     eeconfig_init(); */
-      /*     default_layer_set(1UL<<eeconfig_read_default_layer()); */
-      /*     layer_state_set(layer_state); */
-      /*   } */
-      /*   return false; */
-      /*   break; */
-
-      /* case KC_SPACETEST:  // test something. */
-      /*   default_layer_set(_BEAKL); */
-      /*   //  tap_code16(SFT_T(KC_SPACE)); */
-      /*   break; */
+    case KC_SPACETEST:  // test something.
+      default_layer_set(_BEAKL);
+      //  tap_code16(SFT_T(KC_SPACE));
+      break;
 
       // tap or long tap for different key.
     case KC_CCCV:  // One key copy/paste
@@ -183,8 +124,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     case BP_CTCN:  // New TaB/Window
-      tap_taplong(LCTL(BP_T), LCTL(BP_N), record);
-      break;
+        tap_taplong(LCTL(BP_T), LCTL(BP_N), record);
+        break;
 
     case KC_CWCQ:  // Close Tab-window/Quit
       tap_taplong(LCTL(KC_W), LCTL(KC_Q), record);
@@ -259,8 +200,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
 
-
-
       //Turn shift backspace into delete.
       /* case KC_BSPC: */
       /*   { */
@@ -295,7 +234,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       /*   } */
 
 
-#       ifdef UNICODE_ENABLE
+#ifdef UNICODE_ENABLE
     case UC_FLIP:  // (ノಠ痊ಠ)ノ彡┻━┻
       if (record->event.pressed) {
         send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
@@ -316,7 +255,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         send_unicode_string("ಠ_ಠ");
       }
       break;
-#       endif
+#endif
     }
   }
   return true;
