@@ -41,10 +41,6 @@
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    0
-
-#define TAPPING_TERM 200
 
 #define TAP_CODE_DELAY 10
 
