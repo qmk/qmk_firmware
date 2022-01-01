@@ -26,8 +26,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK] = Dox_base(___NUMS___, ___COLEMAK_DH___),
     [_BEAKL]   = Dox_base(___NUMS___, ___BEAKL15___),
     // Bepo Base layers
-    [_DVORAK_BP] = Dox_bepo_base(___NUMS_BP___,          ___DVORAK_FR___),
-    [_BEAKL_BP]  = Dox_bepo_base(___BKLNUMS_BP___,   ___BEAKL15_FR___),
+    [_DVORAK_BP] = Dox_bepo_base(___NUMS_BP___,    ___DVORAK_FR___),
+    [_BEAKL_BP]  = Dox_bepo_base(___BKLNUMS_BP___, ___BEAKL15_FR___),
     [_BEPO]      = Dox_bepo_base6(___BEPO6___),
 
 
