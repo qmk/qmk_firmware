@@ -36,6 +36,8 @@ enum unicode_names {
     UMLAUT,
     CEDIL_MAJ,
     CEDIL,
+    SECTION,
+    DEGREE,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -47,24 +49,27 @@ const uint32_t PROGMEM unicode_map[] = {
     [UMLAUT]        = 0x00A8, // ¨
     [CEDIL_MAJ]     = 0x00C7, // Ç
     [CEDIL]         = 0x00E7, // ç
+    [SECTION]       = 0x00A7, // §
+    [DEGREE]        = 0x00B0, // °
 };
 // usage: X(ACUTE), XP(CEDIL,CEDIL_MAJ)
 
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    
 /*
- * Base Layer: QWERTZ
+ * 0. Base Layer: QWERTZ
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |  Esc   |   Q  |   W  |   E  |   R  |   T  |                              |   Z  |   U  |   I  |   O  |   P  |  Bksp  |
+ * |  Esc   |   Q  |   W  |   E  |   R  |   T  |                              |   Z  |   U  |   I  |   O  |   P  |  Del  |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |  Tab   |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |Ctrl/' "|
+ * |  Tab   |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ' "  | BkSpace|
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |   Y  |   X  |   C  |   V  |   B  | [ {  |CapsLk|  |F-keys|  ] } |   N  |   M  | ,  < | . >  | /  ? | RShift |
+ * | LShift |   Y  |   X  |   C  |   V  |   B  | \ |  |  (   |  |   )  |  ` ~ |   N  |   M  | ,  < | . >  | ;  : | CpLock |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |LCtrl | LGUI | LAlt/| Space| Nav  |  | Sym  | Space| AltGr| RGUI | Menu |
- *                        |      |      | Enter|      |      |  |      |      |      |      |      |
+ *                        |LCtrl | LGUI | LAlt | Enter| MO(1)|  | MO(2)| Space| - _  |  !   | / ?  |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTZ] = LAYOUT(
@@ -75,44 +80,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 /*
- * Sym Layer: Numbers and symbols
+ * 1. Sym Layer: Numbers and symbols
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |    `   |  1   |  2   |  3   |  4   |  5   |                              |   6  |  7   |  8   |  9   |  0   |   =    |
+ * |   F1   | F2   | F3   | F4   | F5   | F6   |                              |  F7  | F8   | F9   | F10  | F11  |  F12   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |    ~   |  !   |  @   |  #   |  $   |  %   |                              |   ^  |  &   |  *   |  (   |  )   |   +    |
+ * |    .   |  1   |  2   |  3   |  4   |  5   |                              |   6  |  7   |  8   |  9   |  0   |   =    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |    |   |   \  |  :   |  ;   |  -   |  [   |  {   |      |  |      |   }  |   ]  |  _   |  ,   |  .   |  /   |   ?    |
+ * |  LAlt  |   ?  |  !   |  @   |  #   |  <   |  [   |  {   |  |  }   |  ]   |   >  |  ^   |  /   |  *   |  -   |   +    |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |  $   |  %   |  &   |      | MO(1)|  | MO(2)| RAlt |   ~  |   _  |  |   |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_SYM] = LAYOUT(
    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                                       KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
   KC_DOT,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_PEQL,
- KC_LALT, KC_QUES, KC_EXLM,   KC_AT, KC_HASH,   KC_LT, KC_LBRC, KC_LCBR, KC_RCBR, KC_RBRC,   KC_GT, KC_CIRC, KC_PSLS, KC_ASTR, KC_PLUS, KC_PMNS,
-                             KC_DLR, KC_PERC, KC_AMPR, KC_DQUO,   MO(1),   MO(2), KC_RALT, KC_TILD, KC_UNDS, KC_PIPE
+ KC_LALT, KC_QUES, KC_EXLM,   KC_AT, KC_HASH,   KC_LT, KC_LBRC, KC_LCBR, KC_RCBR, KC_RBRC,   KC_GT, KC_CIRC, KC_PSLS, KC_ASTR, KC_PMNS, KC_PLUS,
+                             KC_DLR, KC_PERC, KC_AMPR, _______,   MO(1),   MO(2), KC_RALT, KC_TILD, KC_UNDS, KC_PIPE
     ),
 
 /*
- * Nav Layer: Media, navigation
+ * 2. Nav Layer: Media, navigation, accents
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              | PgUp | Home |   ↑  | End  | VolUp| Delete |
+ * |        | Brt+ | Next |      | Play | Vol+ |                              | Home | PgUp |  Up  | PgDn |      | Del    |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  GUI |  Alt | Ctrl | Shift|      |                              | PgDn |  ←   |   ↓  |   →  | VolDn| Insert |
+ * |        | Brt- | Prev |      | Stop | Vol- |                              |  End | Left | Down | Right|      | BkSpace|
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  ´   |  `   |  ^   |  ¨   |      |      |ScLck |  |      |      | Pause| ç/Ç  |M Play|M Next|VolMut| PrtSc  |
+ * | LShift |  ´   |  `   |  ^   |  ¨   | Mute |      |      |  |RShift| Menu | PrtSc| ç/Ç  | § °  |      |      | Insert |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |LCtrl | LGUI | LAlt |      | MO(1)|  | MO(2)|      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NAV] = LAYOUT(
  _______, KC_BRIU, KC_MNXT, KC_MFFD, KC_MPLY, KC_VOLU,                                     KC_HOME, KC_PGUP,   KC_UP, KC_PGDN, _______,  KC_DEL,
  _______, KC_BRID, KC_MPRV, KC_MRWD, KC_MSTP, KC_VOLD,                                      KC_END, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_BSPC,
- KC_LSFT, US_ACUT, US_DGRV, US_DCIR, US_DIAE, KC_MUTE, _______, _______, KC_RSFT,  KC_APP, KC_PSCR, XP(CEDIL,CEDIL_MAJ), _______, _______, KC_SLCK,  KC_INS,
+ KC_LSFT, US_ACUT, US_DGRV, US_DCIR, US_DIAE, KC_MUTE, _______, _______, KC_RSFT,  KC_APP, KC_PSCR, XP(CEDIL,CEDIL_MAJ), XP(SECTION,DEGREE), _______, KC_SLCK,  KC_INS,
                             KC_LCTL, KC_LGUI, KC_LALT, _______,   MO(1),   MO(2), KC_UNDO,  KC_CUT, KC_COPY, KC_PSTE
     ),
 
