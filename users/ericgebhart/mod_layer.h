@@ -108,3 +108,32 @@
 
 #define ROW3_RIGHT_BP6(K01, K02, K03, K04, K05, K06 )   \
   K01, K02, K03, K04, K05, K06
+
+// For a 5 column keyboard - no edges added.
+//number row.
+#define ROW0_LEFT5(K01, K02, K03, K04, K05)     \
+  K01, K02, K03, K04, K05
+
+#define ROW0_RIGHT5(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+#define ROW1_LEFT5(K01, K02, K03, K04, K05)             \
+  LT(_LAYERS, K01), K02, LT(_KEYPAD, K03), K04, K05
+
+#define ROW1_RIGHT5(K01, K02, K03, K04, K05)            \
+  K01, K02, LT(_KEYPAD, K03), K04, LT(_LAYERS, K05)
+
+// home row, shift, alt, ctl, gui - gui, ctl, alt, shift.
+// using MT so we can specify left and right.
+// caps_word needs left and right shift.
+#define ROW2_LEFT5(K01, K02, K03, K04, K05)                             \
+  MT(MOD_LSFT, K01), MT(MOD_LALT, K02), MT(MOD_LCTL, K03), MT(MOD_LGUI, K04), K05
+
+#define ROW2_RIGHT5(K01, K02, K03, K04, K05)                            \
+  K01, MT(MOD_RGUI, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), MT(MOD_RSFT, K05)
+
+#define ROW3_LEFT5(K01, K02, K03, K04, K05)                     \
+  K01, LT(_TOPROWS, K02), LT(_NAV, K03), LT(_SYMB, K04), K05
+
+#define ROW3_RIGHT5(K01, K02, K03, K04, K05)                    \
+  K01, LT(_SYMB, K02), LT(_NAV, K03), LT(_TOPROWS, K04), K05

@@ -12,14 +12,20 @@ locale on my OS to match my keyboard which can do qwerty or bepo locales.
 It is possible, as I do, to send a keycode invoking xmonad, to execute my
 qwerty - bepo switch on my computer. 
 
+The other thing that colors my keyboard code is that I have used the kinesis
+advantage for for more than 2 decades. I have used the ergodox for several years 
+as well, so the evolution of my keymaps starts there with space, enter, backspace 
+and delete keys on the thumbs.
+
 Layouts
 -----------
 This evolved from the old layout...wrapper code. Calling everything a wrapper seems
 silly. So I took a step back.
 
 All layouts, almost, boil down to a 3x5 x 2 matrix. Bepo is 3x6. Mostly, I want 
-my controls to
-stay the same. As we have been conditioned, these are the keys on the edges, or middle. 
+my controls to stay the same. As we have been conditioned, these are the keys on 
+the edges, or middle. Not that they can't change but I don't usually change them
+much, except the side edges, - the extra pinky column.
 the F keys, the columns to the left and right and the row on the bottom. 
 Thumb keys if you have them. Even the number row is practically the same.
 
