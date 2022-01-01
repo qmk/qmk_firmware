@@ -1,7 +1,7 @@
 {
     "keyboard_name": "bm60v2_poker",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "bdtc123",
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
