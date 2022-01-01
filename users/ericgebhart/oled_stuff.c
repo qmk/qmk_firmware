@@ -80,69 +80,76 @@ void oled_render_layer_state(void) {
 // is to say which layer.
 // I think there is more. this is just a beginning.
 void oled_render_layer_map(void) {
-  switch (get_highest_layer(layer_state)) {
-  case _QWERTY:
-    oled_write_ln_P(PSTR("   qwert  yuiop"), false);
-    oled_write_ln_P(PSTR("   asdfg  hjkl;"), false);
-    oled_write_ln_P(PSTR("   zxcvb  nm,./"), false);
-    break;
-  case _COLEMAK:
-    oled_write_ln_P(PSTR("   qwfpb  jluy;"), false);
-    oled_write_ln_P(PSTR("   arstg  mneio"), false);
-    oled_write_ln_P(PSTR("   zxcdv  kh,./"), false);
-    break;
-  case _DVORAK_BP:
-  case _DVORAK:
-    oled_write_ln_P(PSTR("   \",.py  fgcrl"), false);
-    oled_write_ln_P(PSTR("   aoeui  dhtns"), false);
-    oled_write_ln_P(PSTR("   ;qjkx  bmwvz "), false);
-    break;
+  uint8_t lyr = get_highest_layer(layer_state);
+  if (lyr <= _BEPO) {
+    switch (get_highest_layer(default_layer_state)) {
+    case _QWERTY:
+      oled_write_ln_P(PSTR("   qwert  yuiop"), false);
+      oled_write_ln_P(PSTR("   asdfg  hjkl;"), false);
+      oled_write_ln_P(PSTR("   zxcvb  nm,./"), false);
+      break;
+    case _COLEMAK:
+      oled_write_ln_P(PSTR("   qwfpb  jluy;"), false);
+      oled_write_ln_P(PSTR("   arstg  mneio"), false);
+      oled_write_ln_P(PSTR("   zxcdv  kh,./"), false);
+      break;
+    case _DVORAK_BP:
+    case _DVORAK:
+      oled_write_ln_P(PSTR("   \",.py  fgcrl"), false);
+      oled_write_ln_P(PSTR("   aoeui  dhtns"), false);
+      oled_write_ln_P(PSTR("   ;qjkx  bmwvz "), false);
+      break;
 
-  case _BEAKL:
-  case _BEAKL_BP:
-    oled_write_ln_P(PSTR("   qhoux  gcrfz"), false);
-    oled_write_ln_P(PSTR("   yiea.  dstnb"), false);
-    oled_write_ln_P(PSTR("   j/,k'  wmlpv"), false);
-    break;
+    case _BEAKL:
+    case _BEAKL_BP:
+      oled_write_ln_P(PSTR("   qhoux  gcrfz"), false);
+      oled_write_ln_P(PSTR("   yiea.  dstnb"), false);
+      oled_write_ln_P(PSTR("   j/,k'  wmlpv"), false);
+      break;
 
-  case _BEPO:
-    oled_write_P(PSTR("   cbe'po`e  vdljz %"), false);
-    oled_write_P(PSTR("    auie,    tsrnmc"), false);
-    oled_write_P(PSTR("   e^a'yx.k  'qghfw"), false);
-    break;
+    case _BEPO:
+      oled_write_P(PSTR("   cbe'po`e  vdljz %"), false);
+      oled_write_P(PSTR("    auie,    tsrnmc"), false);
+      oled_write_P(PSTR("   e^a'yx.k  'qghfw"), false);
+      break;
+    }
 
-  case _TOPROWS:
-  case _TOPROWS_BP:
-    oled_write_ln_P(PSTR("   !@#$%  ^&*()"), false);
-    oled_write_ln_P(PSTR("   40123  76598"), false);
-    oled_write_ln_P(PSTR(" F1-    --    -F12"), false);
-    break;
+  } else {
 
-  case _SYMB:
-  case _SYMB_BP:
-    oled_write_ln_P(PSTR("     `<$>'  ?[_]-"), false);
-    oled_write_ln_P(PSTR("    - \(\")#  !{:}/ ;"), false);
-    oled_write_ln_P(PSTR("     @=*+;  %&^~|"), false);
-    break;
+    switch (lyr) {
+    case _TOPROWS:
+    case _TOPROWS_BP:
+      oled_write_ln_P(PSTR("   !@#$%  ^&*()"), false);
+      oled_write_ln_P(PSTR("   40123  76598"), false);
+      oled_write_ln_P(PSTR(" F1-    --    -F12"), false);
+      break;
 
-  case _NAV:
-    oled_write_ln_P(PSTR("54321 0  ctn 12345"), false);
-    oled_write_ln_P(PSTR(" ldur 1  ccv ldur"), false);
-    oled_write_ln_P(PSTR(" ldur 2  cwq hdue"), false);
-    break;
+    case _SYMB:
+    case _SYMB_BP:
+      oled_write_ln_P(PSTR("   `<$>'  ?[_]-"), false);
+      oled_write_ln_P(PSTR("  -\\(\")#  !{:}/;"), false);
+      oled_write_ln_P(PSTR("   @=*+;  %&^~|"), false);
+      break;
 
-  case _KEYPAD:
-    oled_write_ln_P(PSTR("     523:   F9-F12"), false);
-    oled_write_ln_P(PSTR("   -7.104   F5-F8"), false);
-    oled_write_ln_P(PSTR("    /698,   F1-F4"), false);
-    break;
+    case _NAV:
+      oled_write_ln_P(PSTR("54321 0  ctn 12345"), false);
+      oled_write_ln_P(PSTR(" ldur 1  ccv ldur"), false);
+      oled_write_ln_P(PSTR(" ldur 2  cwq hdue"), false);
+      break;
 
-  case _LAYERS:
-    oled_write_ln_P(PSTR("  Bp Dv Bk|Nv S K TR"), false);
-    oled_write_ln_P(PSTR("Q Cl Dv Bk|Nv S K TR"), false);
-    oled_write_P(PSTR(" "), false);
-    //oled_write_ln_P(PSTR("Ctrls?-> RGB ___ ___ Adjust"), false);
-    break;
+    case _KEYPAD:
+      oled_write_ln_P(PSTR("     523:   F9-F12"), false);
+      oled_write_ln_P(PSTR("   -7.104   F5-F8"), false);
+      oled_write_ln_P(PSTR("    /698,   F1-F4"), false);
+      break;
+
+    case _LAYERS:
+      oled_write_ln_P(PSTR("  Bp Dv Bk|Nv S K TR"), false);
+      oled_write_ln_P(PSTR("Q Cl Dv Bk|Nv S K TR"), false);
+      oled_write_P(PSTR(" "), false);
+      //oled_write_ln_P(PSTR("Ctrls?-> RGB ___ ___ Adjust"), false);
+      break;
+    }
   }
 }
 

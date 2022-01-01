@@ -27,6 +27,7 @@ enum userspace_layers {
     _DVORAK_BP, // beginning of Bepo
     _BEAKL_BP,
     _BEPO,
+    _LAYERS,
     _NAV,   // transient layers
     _SYMB,
     _SYMB_BP,
@@ -34,7 +35,6 @@ enum userspace_layers {
     _KEYPAD_BP,
     _TOPROWS,
     _TOPROWS_BP,
-    _LAYERS,
     _RGB,
     _ADJUST,
 };

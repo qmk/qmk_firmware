@@ -106,6 +106,7 @@ enum userspace_custom_keycodes {
   KC_DVORAK_BP,
   KC_BEAKL_BP,
   KC_BEPO,
+  KC_LAYERS,
 
   // Misc.
   KC_MAKE,
@@ -143,6 +144,7 @@ enum userspace_custom_keycodes {
   UC_TABL,
   UC_SHRG,
   UC_DISA,
+  KC_SPACETEST,
   NEW_SAFE_RANGE
 };
 

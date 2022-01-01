@@ -103,11 +103,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
         if (!mods) {
-          default_layer_set(keycode - KC_DVORAK);
+          default_layer_set(1UL << (keycode - KC_DVORAK));
         } else if (mods & MOD_MASK_SHIFT) {
-          set_single_persistent_default_layer(keycode - KC_DVORAK);
-          // } else if (mods & MOD_MASK_CTRL) {
-          // set_single_persistent_default_layer(keycode - KC_DVORAK + 8);
+          set_single_persistent_default_layer(1UL << (keycode - KC_DVORAK));
         }
       }
       break;
@@ -157,14 +155,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
 
-    case EPRM: // Resets EEPROM
-      if (record->event.pressed) {
-        eeconfig_init();
-        default_layer_set(1UL<<eeconfig_read_default_layer());
-        layer_state_set(layer_state);
-      }
-      return false;
-      break;
+      /* case EPRM: // Resets EEPROM */
+      /*   if (record->event.pressed) { */
+      /*     eeconfig_init(); */
+      /*     default_layer_set(1UL<<eeconfig_read_default_layer()); */
+      /*     layer_state_set(layer_state); */
+      /*   } */
+      /*   return false; */
+      /*   break; */
+
+      /* case KC_SPACETEST:  // test something. */
+      /*   default_layer_set(_BEAKL); */
+      /*   //  tap_code16(SFT_T(KC_SPACE)); */
+      /*   break; */
 
       // tap or long tap for different key.
     case KC_CCCV:  // One key copy/paste

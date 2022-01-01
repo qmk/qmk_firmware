@@ -650,15 +650,15 @@
 /*                                                                              */
 /********************************************************************************/
 //  Base Layers
-#define ___5_LAYERS_B1___ ___, ___,        KC_BEPO,    KC_DVORAK_BP, KC_BEAKL_BP
-#define ___5_LAYERS_B2___ ___, KC_QWERTY,  KC_COLEMAK, KC_DVORAK,    KC_BEAKL
+#define ___5_LAYERS_B1___ ___,        KC_BEPO,    KC_DVORAK_BP, KC_BEAKL_BP, ___
+#define ___5_LAYERS_B2___ KC_QWERTY,  KC_COLEMAK, KC_DVORAK,    KC_BEAKL, ___
 
-#define ___5_LAYERS_B3___ ___, ___, KC_QWERTY,    KC_NORMAN,    KC_WORKMAN
-#define ___5_LAYERS_B4___ ___, ___, DF(_MALTRON), DF(_EUCALYN), DF(_CARPLAX)
+#define ___5_LAYERS_B3___ ___, KC_QWERTY,    KC_NORMAN,    KC_WORKMAN, ___
+#define ___5_LAYERS_B4___ ___, DF(_MALTRON), DF(_EUCALYN), DF(_CARPLAX), ___
 
-#define ___5_LAYERS_B1b___ ___, DF(_NORMAN),  DF(_MALTRON), DF(_CARPLAX), DF(_COLEMAK)
-#define ___5_LAYERS_B2b___ ___, DF(_EUCALYN), DF(_WORKMAN), DF(_QWERTY),  DF(_DVORAK)
-#define ___5_LAYERS_B3b___ ___, ___,          DF(_BEAKL),   DF(_BEPO),    DF(_DVORAK_BP)
+#define ___5_LAYERS_B1b___ DF(_NORMAN),  DF(_MALTRON), DF(_CARPLAX), DF(_COLEMAK), ___
+#define ___5_LAYERS_B2b___ DF(_EUCALYN), DF(_WORKMAN), DF(_QWERTY),  DF(_DVORAK), ___
+#define ___5_LAYERS_B3b___ ___,          DF(_BEAKL),   DF(_BEPO),    DF(_DVORAK_BP), ___
 
 // transient layers.
 #define ___5_LAYERS_T___     ___, TO(_NAV),  TO(_SYMB),     TO(_KEYPAD),       TO(_TOPROWS)
@@ -669,7 +669,7 @@
 /// A Layers Layer
 #define ___12_LAYERS_1___ ___, ___5_LAYERS_B1___,  ___5_LAYERS_T_BP___,  ___
 #define ___12_LAYERS_2___ ___, ___5_LAYERS_B2___,  ___5_LAYERS_T___,     ___
-#define ___12_LAYERS_3___ ___, ___5___,            ___5_LAYERS_T_CTL___, ___
+#define ___12_LAYERS_3___ KC_SPACETEST, ___5___,            ___5_LAYERS_T_CTL___, ___
 
 /********************************************************************************/
 /* The LAYERS LAYER Chunk                                                       */
