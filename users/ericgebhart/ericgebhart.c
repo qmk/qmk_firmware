@@ -89,9 +89,9 @@ const uint16_t key_translations[][2][2] = {
   [GR(DB_LESS)] =   {{BP_LDAQ, MOD_BIT(KC_RALT)}, {BP_LDAQ, MOD_BIT(KC_RALT)}},
   [GR(DB_GRTR)] =   {{BP_RDAQ, MOD_BIT(KC_RALT)}, {BP_RDAQ, MOD_BIT(KC_RALT)}},
   // Keys for BEAKL on Qwerty
-  [GR(BQ_DOT)]  =   {{KC_DOT, MOD_NONE},       {KC_AT, MOD_NONE}},
-  [GR(BQ_COMM)] =   {{KC_COMMA, MOD_NONE},     {KC_EXLM, MOD_NONE}},
-  [GR(BQ_QUOT)] =   {{KC_QUOT, MOD_NONE},      {KC_GRV, MOD_NONE}},
+  [GR(BQ_COMM)] =   {{KC_COMMA, MOD_NONE},    {KC_1, MOD_LSFT}},
+  [GR(BQ_DOT)]  =   {{KC_DOT, MOD_NONE},      {KC_2, MOD_LSFT}},
+  [GR(BQ_QUOT)] =   {{KC_QUOT, MOD_NONE},     {KC_GRV, MOD_NONE}},
 };
 
 

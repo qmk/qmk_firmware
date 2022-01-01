@@ -50,7 +50,6 @@
 /*   QHOUX GCRFZ   */
 /* - YIEA@ DSTNB ; */
 /*   J?!K` WMLPV   */
-
 #define ___BEAKL15_L1___ KC_Q, KC_H,     KC_O,    KC_U, KC_X
 #define ___BEAKL15_L2___ KC_Y, KC_I,     KC_E,    KC_A, BQ_DOT
 #define ___BEAKL15_L3___ KC_J, KC_SLASH, BQ_COMM, KC_K, BQ_QUOT

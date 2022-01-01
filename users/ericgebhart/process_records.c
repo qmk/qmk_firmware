@@ -106,8 +106,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     case KC_SPACETEST:  // test something.
-      default_layer_set(_BEAKL);
-      //  tap_code16(SFT_T(KC_SPACE));
+      // default_layer_set(_BEAKL);
+      // tap_code16(LSFT(KC_SPACE));
       break;
 
       // tap or long tap for different key.
