@@ -21,32 +21,32 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // 4x10
-  [_DVORAK]  = _5x15_base(___NUMS___, ___DVORAK___),
-  [_QWERTY]  = _5x15_base(___NUMS___, ___QWERTY___),
-  [_COLEMAK] = _5x15_base(___NUMS___, ___COLEMAK_DH___),
-  [_BEAKL]   = _5x15_base(___BKLNUMS___, ___BEAKL15___),
+  [_DVORAK]  = BASE_5x15(___NUMS___, ___DVORAK___),
+  [_QWERTY]  = BASE_5x15(___NUMS___, ___QWERTY___),
+  [_COLEMAK] = BASE_5x15(___NUMS___, ___COLEMAK_DH___),
+  [_BEAKL]   = BASE_5x15(___BKLNUMS___, ___BEAKL15___),
 
-  //[_DVORAK_BP] = _5x15_base_bepo(___DVORAK_FR___),
-  //[_BEAKL_BP]  = _5x15_base_bepo(___BEAKL15_FR___),
+  //[_DVORAK_BP] = BASE_5x15_bepo(___DVORAK_FR___),
+  //[_BEAKL_BP]  = BASE_5x15_bepo(___BEAKL15_FR___),
 
   // 4x12
-  //[_BEPO]      = _5x15_base_bepo6(___BEPO6_FR___),
+  //[_BEPO]      = BASE_5x15_bepo6(___BEPO6_FR___),
 
-  // transient macro takes a 3x12 for args
-  [_SYMB]    = _5x15_transient(___12___, ___SYMB_BEAKLA_3x12___),
-  //[_SYMB_BP] = _5x15_transient(___SYMB_BEAKLA_BP_3x12___),
+  // transient macro takes a 4x12 for args
+  [_SYMB]    = TRANSIENT_5x15(___12___, ___SYMB_BEAKLA_3x12___),
+  //[_SYMB_BP] = TRANSIENT_5x15(___12___, ___SYMB_BEAKLA_BP_3x12___),
 
-  [_TOPROWS]    = _5x15_transient(___12___, ___TOPROWS_3x12___),
-  //[_TOPROWS_BP] = _5x15_transient(___TOPROWS_BP_3x12___),
+  [_TOPROWS]    = TRANSIENT_5x15(___12___, ___TOPROWS_3x12___),
+  //[_TOPROWS_BP] = TRANSIENT_5x15(___12___, ___TOPROWS_BP_3x12___),
 
-  [_KEYPAD]    = _5x15_transient(___12___, ___KP_C_3x12___),
-  //[_KEYPAD_BP] = _5x15_transient(___KP_C_BP_3x12___),
+  [_KEYPAD]    = TRANSIENT_5x15(___12___, ___KP_C_3x12___),
+  //[_KEYPAD_BP] = TRANSIENT_5x15(___12___, ___KP_C_BP_3x12___),
 
   // Navigation and control
-  [_NAV]    = _5x15_transient(___12___, ___NAV_3x12___),
-  [_LAYERS] = _5x15_transient(___12___, ___LAYERS_3x12___),
-  //[_RGB]  = _5x15_transient(___12___, ___RGB_3x12___),
-  [_ADJUST]    = _5x15_transient(___12___, ___ADJUST_3x12___),
+  [_NAV]    = TRANSIENT_5x15(___12___, ___NAV_3x12___),
+  [_LAYERS] = TRANSIENT_5x15(___12___, ___LAYERS_3x12___),
+  //[_RGB]  = TRANSIENT_5x15(___12___, ___RGB_3x12___),
+  [_ADJUST]    = TRANSIENT_5x15(___12___, ___ADJUST_3x12___),
 };
 
 

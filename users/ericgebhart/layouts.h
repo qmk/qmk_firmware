@@ -243,10 +243,10 @@
                 K37, K38, K39, K3A, K3B, K3C,                           \
                 ___15___)                                               \
 
-#define _5x15_base(...)       LAYOUT_5x15_base(__VA_ARGS__)
-#define _5x15_base_bepo(...)  LAYOUT_5x15_base_bepo(__VA_ARGS__)
-#define _5x15_base_bepo6(...) LAYOUT_5x15_base_bepo6(__VA_ARGS__)
-#define _5x15_transient(...)  LAYOUT_5x15_transient(__VA_ARGS__)
+#define BASE_5x15(...)       LAYOUT_5x15_base(__VA_ARGS__)
+#define BASE_5x15_bepo(...)  LAYOUT_5x15_base_bepo(__VA_ARGS__)
+#define BASE_5x15_bepo6(...) LAYOUT_5x15_base_bepo6(__VA_ARGS__)
+#define TRANSIENT_5x15(...)  LAYOUT_5x15_transient(__VA_ARGS__)
 
 /********************************************************************/
 
@@ -363,10 +363,10 @@
              ___14___                                                   \
                                                                         ) \
 
-#define _5x14_base(...)       LAYOUT_5x14_base(__VA_ARGS__)
-#define _5x14_base_bepo(...)  LAYOUT_5x14_base_bepo(__VA_ARGS__)
-#define _5x14_base_bepo6(...) LAYOUT_5x14_base_bepo6(__VA_ARGS__)
-#define _5x14_transient(...)  LAYOUT_5x14_transient(__VA_ARGS__)
+#define BASE_5x14(...)       LAYOUT_5x14_base(__VA_ARGS__)
+#define BASE_5x14_bepo(...)  LAYOUT_5x14_base_bepo(__VA_ARGS__)
+#define BASE_5x14_bepo6(...) LAYOUT_5x14_base_bepo6(__VA_ARGS__)
+#define TRANSIENT_5x14(...)  LAYOUT_5x14_transient(__VA_ARGS__)
 
 /********************************************************************/
 /* Ortholinear 4x12  */
@@ -453,7 +453,7 @@
              K27, K28, K29, K2A, K2B, K2C,                              \
              ___12___)                                                  \
 
-#define _4x12_base(...)       LAYOUT_4x12_base(__VA_ARGS__)
-#define _4x12_base_bepo(...)  LAYOUT_4x12_base_bepo(__VA_ARGS__)
-#define _4x12_base_bepo6(...) LAYOUT_4x12_base_bepo6(__VA_ARGS__)
-#define _4x12_transient(...)  LAYOUT_4x12_transient(__VA_ARGS__)
+#define BASE_4x12(...)       LAYOUT_4x12_base(__VA_ARGS__)
+#define BASE_4x12_bepo(...)  LAYOUT_4x12_base_bepo(__VA_ARGS__)
+#define BASE_4x12_bepo6(...) LAYOUT_4x12_base_bepo6(__VA_ARGS__)
+#define TRANSIENT_4x12(...)  LAYOUT_4x12_transient(__VA_ARGS__)
