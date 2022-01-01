@@ -46,19 +46,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * The clockwise parameter tells you the direction of the encoder. It'll be
  * true when you turned the encoder clockwise, and false otherwise.
  */
-void encoder_update_user(uint8_t index, bool clockwise) {
-  /* With an if statement we can check which encoder was turned. */
-  if (index == 0) { /* First encoder */
-    /* And with another if statement we can check the direction. */
-    if (clockwise) {
-      /* This is where the actual magic happens: this bit of code taps on the
-         Page Down key. You can do anything QMK allows you to do here.
-         You'll want to replace these lines with the things you want your
-         encoders to do. */
-      tap_code(KC_AUDIO_VOL_UP);
-    } else {
-      /* And likewise for the other direction, this time Page Down is pressed. */
-      tap_code(KC_AUDIO_VOL_DOWN);
-    }
-  } 
-}
