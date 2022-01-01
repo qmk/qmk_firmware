@@ -55,19 +55,6 @@ inline void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
 
-  //#ifdef KEYLOGGER_ENABLE
-
-  /* #if defined(REVERSE_ROW_COL) */
-  /*   xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", */
-  /*           keycode, record->event.key.row, */
-  /*           record->event.key.col, record->event.pressed); */
-  /* #else */
-  /*   xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", */
-  /*           keycode, record->event.key.col, */
-  /*           record->event.key.row, record->event.pressed); */
-  /* #endif */
-  /* #endif  // KEYLOGGER_ENABLE */
-
 #ifdef OLED_DRIVER_ENABLE
   process_record_user_oled(keycode, record);
 #endif  // OLED

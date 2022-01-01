@@ -8,7 +8,6 @@ void oled_render_default_layer_state(void) {
     case _QWERTY:
       oled_write_ln_P(PSTR("Qwerty"), false);
       break;
-      break;
     case _COLEMAK:
       oled_write_ln_P(PSTR("Colemak"), false);
       break;
@@ -47,10 +46,7 @@ void oled_render_default_layer_state(void) {
 
 void oled_render_layer_state(void) {
   oled_write_P(PSTR("Layer: "), false);
-  switch (get_highest_layer(layer_state))
-    //        (layer_state)
-
-    {
+  switch (get_highest_layer(layer_state)) {
     case _NAV:
       oled_write_P(PSTR("Navigation"), false);
       break;
@@ -79,6 +75,10 @@ void oled_render_layer_state(void) {
   oled_write_ln_P(PSTR(" "), false);
 }
 
+// this is part of my answer to a challenge.
+// My friend Ross thinks that the only use of an oled
+// is to say which layer.
+// I think there is more. this is just a beginning.
 void oled_render_layer_map(void) {
   switch (get_highest_layer(layer_state)) {
   case _QWERTY:
@@ -138,8 +138,9 @@ void oled_render_layer_map(void) {
     break;
 
   case _LAYERS:
-    oled_write_ln_P(PSTR("   Bp Dv Bk  Nv Sy KP Tr"), false);
-    oled_write_ln_P(PSTR("Qw Cl Dv Bk  Nv Sy KP Tr"), false);
+    oled_write_ln_P(PSTR("  Bp Dv Bk|Nv S K TR"), false);
+    oled_write_ln_P(PSTR("Q Cl Dv Bk|Nv S K TR"), false);
+    oled_write_P(PSTR(" "), false);
     //oled_write_ln_P(PSTR("Ctrls?-> RGB ___ ___ Adjust"), false);
     break;
   }
@@ -161,6 +162,11 @@ void oled_render_mod_status(uint8_t modifiers) {
   oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
 }
 
+void oled_render_mod_lock_status(){
+  oled_render_mod_status(get_mods() | get_oneshot_mods());
+  oled_render_keylock_status(host_keyboard_leds());
+}
+
 
 char mkeylog_str[22] = {};
 
@@ -175,6 +181,9 @@ const char mcode_to_name[60] = {
 
 void oled_render_keylog(void) {
   oled_write_ln(mkeylog_str, false);
+  // sometimes there's an extra row. this is because sometimes it drops
+  // to the last line. and this clears it.
+  oled_write_ln_P(PSTR(" "), false);
 }
 
 
@@ -251,9 +260,8 @@ __attribute__((weak)) void oled_render_logo(void) {
 
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
+    oled_render_mod_lock_status();
     oled_render_default_layer_state();
-    oled_render_mod_status(get_mods() | get_oneshot_mods());
-    oled_render_keylock_status(host_keyboard_leds());
     oled_render_layer_state();
     oled_render_layer_map();
     oled_render_keylog();
