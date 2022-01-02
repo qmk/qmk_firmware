@@ -78,8 +78,12 @@
 #define CPI_STEP          100
 // clang-format on
 
+// limits to 0--119, resulting in a CPI range of 100 -- 12000 (as only steps of 100 are possible).
+// Note that for the PMW3389DM chip, the step size is 50 and supported range is
+// up to 16000. The datasheet does not indicate the minimum CPI though, neither
+// whether this uses 2 bytes (as 16000/50 == 320)
 #ifndef MAX_CPI
-#    define MAX_CPI 0x77  // limits to 0--119, should be max cpi/100
+#    define MAX_CPI 0x77
 #endif
 
 bool _inBurst = false;
@@ -91,6 +95,7 @@ void print_byte(uint8_t byte) { dprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' 
 
 bool pmw3360_spi_start(void) {
     bool status = spi_start(PMW3360_CS_PIN, PMW3360_SPI_LSBFIRST, PMW3360_SPI_MODE, PMW3360_SPI_DIVISOR);
+    // tNCS-SCLK, 120ns
     wait_us(1);
     return status;
 }
@@ -106,12 +111,12 @@ spi_status_t pmw3360_write(uint8_t reg_addr, uint8_t data) {
     spi_status_t status = spi_write(reg_addr | 0x80);
     status              = spi_write(data);
 
-    // tSCLK-NCS for write operation
+    // tSCLK-NCS for write operation is 35us
     wait_us(35);
+    spi_stop();
 
     // tSWW/tSWR (=180us) minus tSCLK-NCS. Could be shortened, but is looks like a safe lower bound
     wait_us(145);
-    spi_stop();
     return status;
 }
 
@@ -119,15 +124,16 @@ uint8_t pmw3360_read(uint8_t reg_addr) {
     pmw3360_spi_start();
     // send adress of the register, with MSBit = 0 to indicate it's a read
     spi_write(reg_addr & 0x7f);
+    // tSRAD (=160us)
+    wait_us(160);
     uint8_t data = spi_read();
 
     // tSCLK-NCS for read operation is 120ns
     wait_us(1);
+    spi_stop();
 
     //  tSRW/tSRR (=20us) minus tSCLK-NCS
     wait_us(19);
-
-    spi_stop();
     return data;
 }
 
@@ -149,7 +155,7 @@ bool pmw3360_init(void) {
     spi_stop();
     wait_us(40);
 
-    // reboot
+    // power up, need to first drive NCS high then low, see above.
     pmw3360_write(REG_Power_Up_Reset, 0x5a);
     wait_ms(50);
 
@@ -190,6 +196,9 @@ bool pmw3360_init(void) {
 }
 
 void pmw3360_upload_firmware(void) {
+    // Datasheet claims we need to disable REST mode first, but during startup
+    // it's already disabled and we're not turning it on ...
+    //pmw3360_write(REG_Config2, 0x00);  // disable REST mode
     pmw3360_write(REG_SROM_Enable, 0x1d);
 
     wait_ms(10);
@@ -242,14 +251,19 @@ report_pmw3360_t pmw3360_read_burst(void) {
 
     pmw3360_spi_start();
     spi_write(REG_Motion_Burst);
-    wait_us(35);  // waits for tSRAD
+    wait_us(35);  // waits for tSRAD_MOTBR
 
     report.motion = spi_read();
-    spi_write(0x00);  // skip Observation
+    spi_read();  // skip Observation
+    // delta registers
     report.dx  = spi_read();
     report.mdx = spi_read();
     report.dy  = spi_read();
     report.mdy = spi_read();
+
+    if (report.motion & 0b111) {  // panic recovery, sometimes burst mode works weird.
+        _inBurst = false;
+    }
 
     spi_stop();
 
@@ -270,10 +284,6 @@ report_pmw3360_t pmw3360_read_burst(void) {
     report.dx = report.dx * -1;
     report.dy |= (report.mdy << 8);
     report.dy = report.dy * -1;
-
-    if (report.motion & 0b111) {  // panic recovery, sometimes burst mode works weird.
-        _inBurst = false;
-    }
 
     return report;
 }
