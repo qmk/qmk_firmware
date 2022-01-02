@@ -1,3 +1,11 @@
+/*
+ * ----------------------------------------------------------------------------
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * <https://github.com/kageurufu> wrote this file.  As long as you retain this
+ * notice you can do whatever you want with this stuff. If we meet some day, and
+ * you think this stuff is worth it, you can buy me a beer in return. Frank Tackitt
+ * ----------------------------------------------------------------------------
+ */
 
 #pragma once
 
@@ -10,7 +18,7 @@
 
 // 20m timeout (20m * 60s * 1000mil)
 // #define RGB_DISABLE_TIMEOUT 1200000
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
