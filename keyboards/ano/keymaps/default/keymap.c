@@ -36,13 +36,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, KC_TRNS, KC_TRNS,   		                  KC_TRNS,         		        	  KC_TRNS, KC_TRNS,	KC_TRNS, KC_TRNS,		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
    ),
 };
-
-/* The encoder_update_user is a function.
- * It'll be called by QMK every time you turn the encoder.
- *
- * The index parameter tells you which encoder was turned. If you only have
- * one encoder, the index will always be zero.
- * 
- * The clockwise parameter tells you the direction of the encoder. It'll be
- * true when you turned the encoder clockwise, and false otherwise.
- */
