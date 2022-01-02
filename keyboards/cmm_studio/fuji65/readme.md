@@ -1,15 +1,15 @@
-# CMM.Studio Saka68
+# CMM.Studio Fuji65
 
-CMM.Studio Saka68 Keyboard
+CMM.Studio Fuji65 Keyboard
 
-![CMM.Studio Saka68](https://i.imgur.com/gZ9Thjel.png)
+![CMM.Studio Fuji65](https://i.imgur.com/dUPQpkZ.png)
 
 * Keyboard Maintainer: [CMM.Studio Freather](https://github.com/CMMS-Freather)
 * Hardware Supported: PCB, Atmega32u4
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cmm_studio/saka68/solder:default
+    make cmm_studio/fuji65/solder:default
 
 
 For reset instruction, use the physical reset button on the back of the keyboard to enter bootloader mode
