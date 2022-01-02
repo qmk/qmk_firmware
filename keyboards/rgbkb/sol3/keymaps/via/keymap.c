@@ -43,12 +43,8 @@ enum sol_layers {
 };
 
 enum sol_keycodes {
-    QWERTY = SAFE_RANGE,
-    COLEMAK,
-    GAME,
-
     // Disables touch processing
-    TCH_TOG,
+    TCH_TOG = SAFE_RANGE,
     MENU_BTN,
     MENU_UP,
     MENU_DN,
@@ -102,8 +98,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,                    KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
         _______, KC_HOME, KC_UP,   KC_END,  _______, _______, _______,                   _______, _______, KC_HOME, KC_UP,   KC_END,  KC_PSCR, KC_PGUP,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______,                   _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  KC_PGDN,
-        _______, _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, _______,
-        _______, RGB_RMOD,RGB_TOG, RGB_MOD, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU,
+        _______,  AU_TOG,  MU_TOG,  MU_MOD, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, _______,
+        _______, CK_TOGG,   CK_UP, CK_DOWN, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU,
 
         _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______
@@ -155,32 +151,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-static void rgb_matrix_increase_flags(void)
-{
-    switch (rgb_matrix_get_flags()) {
-        case LED_FLAG_ALL: {
-            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
-            rgb_matrix_set_color_all(0, 0, 0);
-            }
-            break;
-        case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
-            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-            rgb_matrix_set_color_all(0, 0, 0);
-            }
-            break;
-        case LED_FLAG_UNDERGLOW: {
-            rgb_matrix_set_flags(LED_FLAG_NONE);
-            rgb_matrix_disable_noeeprom();
-            }
-            break;
-        default: {
-            rgb_matrix_set_flags(LED_FLAG_ALL);
-            rgb_matrix_enable_noeeprom();
-            }
-            break;
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode)
     {
@@ -204,11 +174,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_rgb_matrix_default();
             }
             return false;
-        case RGB_TOG:
-            if (record->event.pressed) {
-                rgb_matrix_increase_flags();
-            }
-            return false;
         case TCH_TOG:
             if (record->event.pressed) {
                 touch_encoder_toggle();
@@ -219,7 +184,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-static void render_layer(void) {
+void render_layer_status(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer"), false);
     switch (get_highest_layer(layer_state)) {
@@ -250,42 +215,4 @@ static void render_layer(void) {
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
-}
-
-static void render_leds(void)
-{
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUMLK")     : PSTR("     "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAPLK")    : PSTR("     "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCRLK")  : PSTR("     "), false);
-}
-
-static void render_touch(void)
-{
-    // Host Touch LED Status
-    oled_write_P(!touch_encoder_toggled() ? PSTR("TOUCH")  : PSTR("     "), false);
-    oled_write_P(touch_encoder_calibrating() ? PSTR("CLBRT")  : PSTR("     "), false);
-}
-
-bool oled_task_user(void) {
-    if (is_keyboard_left()) {
-        render_icon();
-        oled_write_P(PSTR("     "), false);
-        render_layer();
-        oled_write_P(PSTR("     "), false);
-        render_leds();
-        oled_write_P(PSTR("     "), false);
-        render_touch();
-    }
-    else {
-        render_icon();
-        oled_write_P(PSTR("     "), false);
-        render_rgb_menu();
-    }
-    return false;
-}
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_270;
 }

@@ -165,4 +165,123 @@ led_config_t g_led_config = { {
     1, 1, 1, 1, 1, 1, 1, 1, 1
 } };
 // clang-format on
+
+void rgb_matrix_increase_flags(void)
+{
+    switch (rgb_matrix_get_flags()) {
+        case LED_FLAG_ALL: {
+            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        case LED_FLAG_UNDERGLOW: {
+            rgb_matrix_set_flags(LED_FLAG_NONE);
+            rgb_matrix_disable_noeeprom();
+            }
+            break;
+        default: {
+            rgb_matrix_set_flags(LED_FLAG_ALL);
+            rgb_matrix_enable_noeeprom();
+            }
+            break;
+    }
+}
 #endif
+
+
+__attribute__((weak)) 
+void render_layer_status(void) {
+    // Keymap specific, expected to be overridden
+    // Host Keyboard Layer Status
+    oled_write_P(PSTR("Layer"), false);
+    oled_write_ln_P(PSTR("Undef"), false);
+}
+
+__attribute__((weak))
+void render_leds_status(void)
+{
+    // Host Keyboard LED Status
+    static const char PROGMEM led_icon[] = {
+        0x0F,0x3A,0
+    };
+    oled_write_P(led_icon, false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(   led_state.num_lock ? PSTR("N") : PSTR(" "), false);
+    oled_write_P(  led_state.caps_lock ? PSTR("C") : PSTR(" "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("S") : PSTR(" "), false);
+}
+
+__attribute__((weak))
+void render_touch_status(void)
+{
+    // Host Touch LED Status
+    static const char PROGMEM touch_icon[] = {
+        0x12,0x3A,0
+    };
+    oled_write_P(touch_icon, false);
+    oled_write_P(         touch_encoder_is_on() ? PSTR("T") : PSTR(" "), false);
+    oled_write_P(touch_encoder_is_calibrating() ? PSTR("C") : PSTR(" "), false);
+    oled_write_P(PSTR(" "), false);
+}
+
+__attribute__((weak))
+void render_audio_status(void)
+{
+    // Host Audio Status
+    static const char PROGMEM audio_icon[] = {
+        0x0E,0x3A,0
+    };
+    oled_write_P(audio_icon, false);
+    oled_write_P( audio_is_on() ? PSTR("A")  : PSTR(" "), false);
+    oled_write_P(is_clicky_on() ? PSTR("C")  : PSTR(" "), false);
+    oled_write_P( is_music_on() ? PSTR("M")  : PSTR(" "), false);
+}
+
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    // Sol 3 uses OLED_ROTATION_270 for default rotation on both halves
+    return oled_init_user(OLED_ROTATION_270);
+}
+
+bool oled_task_kb(void) {
+    if (!oled_task_user())
+        return false;
+    
+    if (is_keyboard_left()) {
+        render_icon();
+        oled_write_P(PSTR("     "), false);
+        render_layer_status();
+        oled_write_P(PSTR("     "), false);
+        render_leds_status();
+        oled_write_P(PSTR("     "), false);
+        render_touch_status();
+        oled_write_P(PSTR("     "), false);
+        render_audio_status();
+    }
+    else {
+        render_icon();
+        oled_write_P(PSTR("     "), false);
+        render_rgb_menu();
+    }
+    return false;
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record))
+        return false;
+
+    switch(keycode) {
+#ifdef RGB_MATRIX_ENABLE
+        case RGB_TOG:
+            if (record->event.pressed) {
+                rgb_matrix_increase_flags();
+            }
+            return false;
+#endif
+    }
+    return true;
+};
