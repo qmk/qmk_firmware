@@ -2,6 +2,8 @@
     "keyboard_name": "s80 wkl",
     "url": "",
     "maintainer": "qmk",
+    "width": 18.25,
+    "height": 6.5,
     "layouts": {
         "LAYOUT": {
             "layout": [
