@@ -193,6 +193,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
+?> Enumerated list (`enum`) of custom keycodes must always be declared before `keymaps[]` array, `process_record_user()` and any other function that uses them for the compiler to recognise the keycodes.
+
 #### Advanced Macros
 
 In addition to the `process_record_user()` function, is the `post_process_record_user()` function. This runs after `process_record` and can be used to do things after a keystroke has been sent.  This is useful if you want to have a key pressed before and released after a normal key, for instance. 
