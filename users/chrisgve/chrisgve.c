@@ -203,6 +203,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             set_adj_rgb();
             break;
         case _MOUSE:
+        case _EX_MOUSE:
             cur_layer = _MSE_L;
             def_layer = false;
             mouse_layer = true;
