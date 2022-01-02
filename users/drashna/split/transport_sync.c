@@ -60,7 +60,7 @@ void keyboard_post_init_transport_sync(void) {
     transaction_register_rpc(RPC_ID_USER_KEYMAP_SYNC, user_keymap_sync);
     transaction_register_rpc(RPC_ID_USER_CONFIG_SYNC, user_config_sync);
 
-#ifdef __AVR__
+#if defined(PROTOCOL_LUFA)
     wdt_disable();
 #endif
     transaction_register_rpc(RPC_ID_USER_WATCHDOG_SYNC, watchdog_handler);

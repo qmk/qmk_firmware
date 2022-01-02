@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "drashna.h"
+#ifdef __AVR__
+#    include <avr/wdt.h>
+#endif
 
 userspace_config_t userspace_config;
 
