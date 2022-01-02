@@ -20,7 +20,7 @@
 
 # YAPF
 
-コードを整形するために [yapf](https://github.com/google/yapf) を使うことができます。[setup.cfg](setup.cfg) で設定を提供しています。
+コードを整形するために [yapf](https://github.com/google/yapf) を使うことができます。[setup.cfg](https://github.com/qmk/qmk_firmware/blob/master/setup.cfg) で設定を提供しています。
 
 # インポート
 

@@ -7,7 +7,7 @@
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     ```
 
-2. Refer to the [QMK macOS Instructions](https://github.com/qmk/qmk_firmware/blob/master/docs/getting_started_build_tools.md#macos) and install the list of tools using the `brew` command in terminal. 
+2. Refer to the [QMK macOS Instructions](https://github.com/qmk/qmk_firmware/blob/master/docs/newbs_getting_started.md#macos) and install the list of tools using the `brew` command in terminal. 
 
 3. While in terminal, issue the following command within the directory you wish to clone qmk_firmware in. 
 

@@ -15,7 +15,7 @@ Most of our style follows PEP8 with some local modifications to make things less
 
 # YAPF
 
-You can use [yapf](https://github.com/google/yapf) to style your code. We provide a config in [setup.cfg](setup.cfg).
+You can use [yapf](https://github.com/google/yapf) to style your code. We provide a config in [setup.cfg](https://github.com/qmk/qmk_firmware/blob/master/setup.cfg).
 
 # Imports
 

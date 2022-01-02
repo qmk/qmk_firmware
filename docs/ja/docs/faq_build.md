@@ -5,7 +5,7 @@
   git diff 0.12.43 HEAD -- docs/faq_build.md | cat
 -->
 
-このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](getting_started_build_tools.md) および [Make 手順](getting_started_make_guide.md)ガイドを読むべきです。
+このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](newbs_getting_started.md) および [Make 手順](getting_started_make_guide.md)ガイドを読むべきです。
 
 ## Linux でプログラムできません
 デバイスを操作するには適切な権限が必要です。Linux ユーザの場合は、以下の `udev` ルールに関する指示を見てください。`udev` に問題がある場合は、回避策は `sudo` コマンドを使うことです。このコマンドに慣れていない場合は、`man sudo` コマンドでマニュアルを確認するか、[この web ページを見てください](https://linux.die.net/man/8/sudo)。

@@ -60,7 +60,7 @@ QMK 工具箱 是一种可选的Windows和macOS下的图形化工具，它可以
 * Fedora / Red Hat / CentOS: `yum install git`
 * Arch: `pacman -S git`
 
-?> 无论你使用哪种平台，Docker都可以是你的选择[点这里进一步了解](getting_started_build_tools.md#docker)
+?> 无论你使用哪种平台，Docker都可以是你的选择[点这里进一步了解](newbs_getting_started.md#docker)
 
 ## 同步QMK工程
 
