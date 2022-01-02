@@ -5,7 +5,7 @@ All files in the root folder (`docs/`) should be in English - all other language
 A `_summary.md` file should exist in this folder with a list of links to each file, with a translated name, and link preceded by the language folder:
 
 ```markdown
- * [QMK简介](getting_started_introduction.md)
+ * [QMK简介](tutorial.md)
 ```
 
 All links to other docs pages must also be prefixed with the language folder. If the link is to a specific part of the page (ie. a certain heading), you must use the English ID for the heading, like so:

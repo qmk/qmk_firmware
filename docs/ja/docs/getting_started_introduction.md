@@ -1,8 +1,8 @@
 # はじめに
 
 <!---
-  original document: 0.8.82:docs/getting_started_introduction.md
-  git diff 0.8.82 HEAD -- docs/getting_started_introduction.md | cat
+  original document: 0.8.82:docs/tutorial.md
+  git diff 0.8.82 HEAD -- docs/tutorial.md | cat
 -->
 
 このページでは、QMK プロジェクトで作業するために知っておくべき基本的な情報について説明しようと思います。Unix シェルの操作に精通していることを前提としていますが、C について、または make を使ったコンパイルについて精通しているとは想定していません。
