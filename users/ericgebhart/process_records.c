@@ -50,42 +50,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   if (process_record_keymap(keycode, record) && process_record_secrets(keycode, record)) {
     switch (keycode) {
+
       // Handle the key translations for Dvorak on bepo. It's best if these are the first
       // enums after SAFE_RANGE.
-    case DB_1:
-    case DB_2:
-    case DB_3:
-    case DB_4:
-    case DB_5:
-    case DB_6:
-    case DB_7:
-    case DB_8:
-    case DB_9:
-    case DB_0:
-    case DB_GRV:
-    case DB_SCOLON:
-    case DB_SLASH:
-    case DB_BACKSLASH:
-    case DB_EQL:
-    case DB_DOT:
-    case DB_COMM:
-    case DB_QUOT:
-    case DB_MINUS:
-    case DB_LPRN:
-    case DB_RPRN:
-    case DB_LBRC:
-    case DB_RBRC:
-    case BQ_COMM: // beakl on qwerty
-    case BQ_DOT:
-    case BQ_QUOT:
-    case BB_COMM: // beakl on bepo
-    case BB_DOT:
-    case BB_QUOT:
+    case DB_1 ... BB_QUOT:
       if(record->event.pressed)
         send_keycode(keycode);
       unregister_code(keycode);
       break;
 
+      // Set the default layer. eeprom if shifted.
     case KC_DVORAK ... KC_BEPO:
       if (record->event.pressed) {
         uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
@@ -109,6 +83,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // default_layer_set(_BEAKL);
       // tap_code16(LSFT(KC_SPACE));
       break;
+
 
       // tap or long tap for different key.
     case KC_CCCV:  // One key copy/paste
@@ -143,6 +118,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       tap_taplong(LGUI(BP_E), LGUI(BP_T), record);
       break;
 
+
+      // Open on tap and Open with close and back arrow on hold.
     case KC_OCPRN:
       open_openclose(KC_LPRN, KC_RPRN, record);
       break;

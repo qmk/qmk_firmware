@@ -39,7 +39,7 @@
   K01, K02, K03, K04, K05, RIGHT0
 
 #define ROW1_LEFT(K01, K02, K03, K04, K05)      \
-  LEFT1, LT(_LAYERS, K01), K02, LT(_KEYPAD, K03), K04, K05
+  LEFT1, LT(_LAYERS, K01), LT(_NAV, K02), LT(_KEYPAD, K03), K04, K05
 
 #define ROW1_RIGHT(K01, K02, K03, K04, K05)                     \
   K01, K02, LT(_KEYPAD, K03), K04, LT(_LAYERS, K05), RIGHT1
@@ -54,7 +54,7 @@
   K01, MT(MOD_RGUI, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), MT(MOD_RSFT, K05), RIGHT2 \
 
 #define ROW3_LEFT(K01, K02, K03, K04, K05)                              \
-  LEFT3, K01, LT(_TOPROWS, K02), LT(_NAV, K03), LT(_SYMB, K04), K05
+  LEFT3, K01, LT(_TOPROWS, K02), K03, LT(_SYMB, K04), K05
 
 #define ROW3_RIGHT(K01, K02, K03, K04, K05)                             \
   K01, LT(_SYMB, K02), LT(_NAV, K03), LT(_TOPROWS, K04), K05, RIGHT3
