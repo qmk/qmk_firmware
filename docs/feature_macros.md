@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
-?> Enumerated list (`enum`) of custom keycodes must always be declared before `keymaps[]` array, `process_record_user()` and any other function that uses them for the compiler to recognise the keycodes.
+?> Enumerated list of custom keycodes (`enum custom_keycodes`) must always be declared before `keymaps[]` array, `process_record_user()` and any other function that uses them for the compiler to recognise the list.
 
 #### Advanced Macros
 
