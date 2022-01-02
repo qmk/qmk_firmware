@@ -1,4 +1,4 @@
-#include "5x6_alexgirarddev.h"
+#include "alexgirarddev.h"
 
 
 #ifdef SSD1306OLED
