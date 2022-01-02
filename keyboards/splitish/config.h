@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER     0x0001
 #define MANUFACTIRER   Reid Schneyer
 #define PRODUCT        Splitish
-#define DESCRIPTION    Keyboard firmware for Splitish
 
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12

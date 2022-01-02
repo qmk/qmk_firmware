@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    riconken
 #define PRODUCT         hifumi
-#define DESCRIPTION     A macropad with 6 keys
 
 /* key matrix size */
 #define MATRIX_ROWS 2

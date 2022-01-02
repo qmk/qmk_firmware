@@ -27,15 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "adc.h"
 #include "i2c_master.h"
-#include "spi.h"
+#include "shift_register.h"
 
-#include "./usb/usb2422.h"
+#include "./usb/usb_hub.h"
 
 #ifndef MD_BOOTLOADER
 
 #    include "main_arm_atsam.h"
 #    ifdef RGB_MATRIX_ENABLE
-#        include "led_matrix.h"
+#        include "md_rgb_matrix.h"
 #        include "rgb_matrix.h"
 #    endif
 #    include "issi3733_driver.h"

@@ -143,7 +143,7 @@ void matrix_init(void)
 void init_expander(void) {
     if (! i2c_initialized) {
         i2c_init();
-        wait_us(1000000);
+        wait_ms(1000);
     }
 
     if (! expander_input_pin_mask) {
@@ -310,8 +310,8 @@ void matrix_print(void)
 {
     print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
-        pbin_reverse16(matrix_get_row(row));
+        print_hex8(row); print(": ");
+        print_bin_reverse16(matrix_get_row(row));
         print("\n");
     }
 }

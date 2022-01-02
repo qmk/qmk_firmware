@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kingly-Keys
 #define PRODUCT         SMD-2% Milk
-#define DESCRIPTION     The SMD Ed. of the Milk themed 2% Keyboard by rionlion100
 
 /* key matrix size */
 #define MATRIX_ROWS 2

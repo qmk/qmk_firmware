@@ -42,9 +42,10 @@
 #    undef RGB_MATRIX_LED_FLUSH_LIMIT
 #    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
 #        define RGBLIGHT_LIMIT_VAL 100
-#        undef RGBLIGHT_SLEEP
 #    endif
 #endif
 
-#define PIMORONI_TRACKBALL_INVERT_X
-#define PIMORONI_TRACKBALL_INVERT_Y
+#ifdef TAPPING_TERM
+#    undef TAPPING_TERM
+#endif
+#define TAPPING_TERM 185

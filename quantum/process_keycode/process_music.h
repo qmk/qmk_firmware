@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_MUSIC_H
-#define PROCESS_MUSIC_H
+#pragma once
 
 #include "quantum.h"
 
@@ -45,7 +44,7 @@ void music_scale_user(void);
 void music_all_notes_off(void);
 void music_mode_cycle(void);
 
-void matrix_scan_music(void);
+void music_task(void);
 
 bool music_mask(uint16_t keycode);
 bool music_mask_kb(uint16_t keycode);
@@ -57,5 +56,3 @@ bool music_mask_user(uint16_t keycode);
 #    endif
 
 #endif  // defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
-
-#endif

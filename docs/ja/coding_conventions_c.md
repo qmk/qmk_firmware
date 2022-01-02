@@ -1,8 +1,8 @@
 # コーディング規約 (C)
 
 <!---
-  original document: 0.9.19:docs/coding_conventions_c.md
-  git diff 0.9.19 HEAD -- docs/coding_conventions_c.md | cat
+  original document: 0.13.15:docs/coding_conventions_c.md
+  git diff 0.13.15 HEAD -- docs/coding_conventions_c.md | cat
 -->
 
 私たちのスタイルのほとんどはかなり理解しやすいですが、現時点では完全に一貫しているわけではありません。変更箇所周辺のコードのスタイルと一致させる必要がありますが、そのコードに一貫性が無い場合や不明瞭な場合は以下のガイドラインに従ってください:
@@ -54,7 +54,7 @@ int foo(void) {
 
 [Clang-format](https://clang.llvm.org/docs/ClangFormat.html) は LLVM の一部で、誰もが手動で整形するほど暇ではないため、コードを自動整形することができます。私たちは、上記のコーディング規約のほとんどを適用する設定ファイルを提供しています。空白と改行のみを変更するため、省略可能な括弧は自分で付け加えることを忘れないでください。
 
-Windows で clang-format を入手するには [full LLVM インストーラ](http://llvm.org/builds/)を使い、Ubuntu では `sudo apt install clang-format` を使ってください。
+Windows で clang-format を入手するには [full LLVM インストーラ](https://llvm.org/builds/)を使い、Ubuntu では `sudo apt install clang-format` を使ってください。
 
 コマンドラインから実行する場合、オプションとして `-style=file` を渡すと、QMK ルートディレクトリ内の .clang-format 設定ファイルを自動的に見つけます。
 

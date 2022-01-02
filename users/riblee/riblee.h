@@ -18,19 +18,23 @@
 
 #include QMK_KEYBOARD_H
 
-enum preonic_layers {
+enum layer_names {
     _QWERTY,
+    _HUNGARIAN,
     _COLEMAK,
     _DVORAK,
+    _WORKMAN,
     _LOWER,
     _RAISE,
     _ADJUST
 };
 
-enum preonic_keycodes {
+enum custom_keycodes {
     QWERTY = SAFE_RANGE,
+    HUNGARIAN,
     COLEMAK,
     DVORAK,
+    WORKMAN,
     BACKLIT
 };
 

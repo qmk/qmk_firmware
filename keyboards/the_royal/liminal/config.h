@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    TheRoyalSweatshirt
 #define PRODUCT         Liminal
-#define DESCRIPTION     "A 50% keyboard with focused around spectacular keycap compatibility."
 
 /* key matrix size */
 #define MATRIX_ROWS 4

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         BDN9 Rev. 1
-#define DESCRIPTION     3x3 Macropad with Rotary Encoders
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -38,8 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { E6, B4, B2 } \
 }
 
-#define ENCODERS_PAD_A { D1, F5 }
-#define ENCODERS_PAD_B { D0, F6 }
+#define ENCODERS_PAD_A { D0, F6, B6 }
+#define ENCODERS_PAD_B { D1, F5, F7 }
 
 #define BACKLIGHT_PIN B5
 // #define BACKLIGHT_BREATHING

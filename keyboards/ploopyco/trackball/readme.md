@@ -4,8 +4,6 @@
 
 It's a DIY, QMK Powered Trackball!!!!
 
-Everything works. However the scroll wheel has some issues and acts very odd.
-
 * Keyboard Maintainer: [PloopyCo](https://github.com/ploopyco), [Drashna Jael're](https://github.com/drashna/), [Germ](https://github.com/germ/)
 * Hardware Supported: ATMega32u4 8MHz(3.3v)  
 * Hardware Availability: [Store](https://ploopy.co), [GitHub](https://github.com/ploopyco)
@@ -21,15 +19,15 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Revisions
 
-There are two main revisions for the PloopyCo Tracball, everything up to 1.004, and 1.005.   
+There are two main revisions for the PloopyCo Tracball, everything up to 1.004, and 1.005-1.006.
 
 In the 1.005 revision, button for was changed from pin B5 to B6, and the debug LED pin was changed from F7 to B5. 
 
 The PCB should indicate which revision this is.
 
-# Customzing your PloopyCo Trackball
+# Customizing your PloopyCo Trackball
 
-While the defaults are designed so that it can be plugged in and used right away, there are a number of things that you may want to change.  Such as adding DPI control, or to use the ball to scroll while holding a button.   To allow for this sort of control, there is a callback for both the scroll wheel and the mouse censor. 
+While the defaults are designed so that it can be plugged in and used right away, there are a number of things that you may want to change.  Such as adding DPI control, or to use the ball to scroll while holding a button.   To allow for this sort of control, there is a callback for both the scroll wheel and the mouse sensor. 
 
 The default behavior for this is:
 
@@ -61,25 +59,16 @@ The `PLOOPY_DPI_OPTIONS` array sets the values that you want to be able to cycle
 
 The `DPI_CONFIG` macro will cycle through the values in the array, each time you hit it.  And it stores this value in persistent memory, so it will load it the next time the device powers up. 
 
-# Programming QMK-DFU onto the PloopyCo Trackball
+## Drag Scroll
 
-If you would rather have DFU on this board, you can use the QMK-DFU bootloader on the device.  To do so, you want to run: 
+Drag Sroll is a custom keycode for the Ploopy devices that allow you to hold or tap a button and have the mouse movement translate into scrolling instead. 
 
-    make ploopyco/trackball:default:production
+Nothing needs to be enabled to use this functionality.  Just add the `DRAG_SCROLL` to your keymap. 
 
-Once you have that, you'll need to [ISP Flash](https://docs.qmk.fm/#/isp_flashing_guide) the chip with the new bootloader hex file created (or the production hex), and set the fuses:
+### Drag Scroll Configuration
 
-
-| Fuse     | Setting          |
-|----------|------------------|
-| Low      | `0xDF`           |
-| High     | `0xD8` or `0x98` |
-| Extended | `0xCB`           |
-
-Original (Caterina) settings: 
-
-| Fuse     | Setting          |
-|----------|------------------|
-| Low      | `0xFF`           |
-| High     | `0xD8`           |
-| Extended | `0xFE`           |
+* `#define PLOOPY_DRAGSCROLL_MOMENTARY` - Makes the key into a momentary key, rather than a toggle.
+* `#define PLOOPY_DRAGSCROLL_MULTIPLIER 0.75` - Sets the DPI multiplier to use when drag scroll is enabled. 
+* `#define PLOOPY_DRAGSCROLL_FIXED` - Normally, when activating Drag Scroll, it uses a fraction of the current DPI. You can define this to use a specific, set DPI rather than a fraction of the current DPI. 
+  * `#define PLOOPY_DRAGSCROLL_DPI 100` - When the fixed DPI option is enabled, this sets the DPI to be used for Drag Scroll.
+* `#define PLOOPY_DRAGSCROLL_INVERT` - This reverses the direction that the scroll is performed. 

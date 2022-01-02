@@ -17,13 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+/* Ensure we jump to bootloader if the RESET keycode was pressed */
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
+/* LSE clock */
+#define STM32_LSECLK 32768
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCA04
 #define PRODUCT_ID      0x57F5
 #define DEVICE_VER      0x0001
 #define MANUFACTURER CannonKeys
 #define PRODUCT Satisfaction75
-#define DESCRIPTION Satisfaction 75 Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -46,6 +51,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
+// I2C config
+#define I2C_DRIVER I2CD1
+#define I2C1_SCL_PIN B6
+#define I2C1_SDA_PIN B7
+#define I2C1_SCL_PAL_MODE 1
+#define I2C1_SDA_PAL_MODE 1
+#define I2C1_TIMINGR_PRESC 0x00U
+#define I2C1_TIMINGR_SCLDEL 0x03U
+#define I2C1_TIMINGR_SDADEL 0x01U
+#define I2C1_TIMINGR_SCLH 0x03U
+#define I2C1_TIMINGR_SCLL 0x09U
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
@@ -55,14 +71,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#ifdef QWIIC_MICRO_OLED_ENABLE
+// configure oled driver for the 128x32 oled
+#define OLED_UPDATE_INTERVAL 66 // ~15fps
 
-#undef I2C_ADDRESS_SA0_1
-#define I2C_ADDRESS_SA0_1 0b0111100
-#define LCDWIDTH      128
-#define LCDHEIGHT     32
+// OLED_TIMEOUT is incompatible with the OLED_OFF mode
+#define OLED_TIMEOUT 0
 
-#endif
+// OLED timeout reimplemented in the keyboard-specific code
+#define CUSTOM_OLED_TIMEOUT 60000
 
 // Custom config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.

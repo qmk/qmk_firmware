@@ -24,13 +24,13 @@
 
 // Keycodes used for starting Unicode input on different platforms
 #ifndef UNICODE_KEY_MAC
-#    define UNICODE_KEY_MAC KC_LALT
+#    define UNICODE_KEY_MAC KC_LEFT_ALT
 #endif
 #ifndef UNICODE_KEY_LNX
 #    define UNICODE_KEY_LNX LCTL(LSFT(KC_U))
 #endif
 #ifndef UNICODE_KEY_WINC
-#    define UNICODE_KEY_WINC KC_RALT
+#    define UNICODE_KEY_WINC KC_RIGHT_ALT
 #endif
 
 // Comma-delimited, ordered list of input modes selected for use (e.g. in cycle)
@@ -75,7 +75,6 @@ typedef union {
 } unicode_config_t;
 
 extern unicode_config_t unicode_config;
-extern uint8_t          unicode_saved_mods;
 
 void    unicode_input_mode_init(void);
 uint8_t get_unicode_input_mode(void);

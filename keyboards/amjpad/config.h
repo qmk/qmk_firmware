@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    AMJ
 #define PRODUCT         PAD
-#define DESCRIPTION     QMK keyboard firmware for AMJ PAD
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -53,6 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#define LED_NUM_LOCK_PIN D6
+#define LED_PIN_ON_STATE 0
 
 /* Backlight configuration
  */
@@ -85,5 +86,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

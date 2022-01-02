@@ -1,0 +1,23 @@
+{
+    "keyboard_name": "frankie_macropad",
+    "url": "https://github.com/eric-wood/macro-pad",
+    "maintainer": "eric-wood",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "k02", "x": 2, "y": 0},
+                {"label": "k03", "x": 3, "y": 0},
+
+                {"label": "k10", "x": 0, "y": 1},
+                {"label": "k11", "x": 1, "y": 1},
+                {"label": "k12", "x": 2, "y": 1},
+                {"label": "k13", "x": 3, "y": 1},
+
+                {"label": "k20", "x": 0, "y": 2},
+                {"label": "k21", "x": 1, "y": 2},
+                {"label": "k22", "x": 2, "y": 2},
+                {"label": "k23", "x": 3, "y": 2}
+            ]
+        }
+    }
+}

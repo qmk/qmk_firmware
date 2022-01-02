@@ -92,3 +92,4 @@ GRAPHICS
 # hex files
 *.hex binary
 *.eep binary
+nix/sources.nix linguist-generated=true

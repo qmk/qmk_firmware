@@ -5,13 +5,13 @@
 ## 我能用什么键码?
 看[键码](keycodes.md)你可以找到你能用的键码索引。可以的话这些链接可以连接到更广泛的文档。
 
-键码实际上定义在[common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
+键码实际上定义在[common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h).
 
 ## 默认的键码什么样?
 
 世界上有三种标准键盘设计，分别是：ANSI, ISO, and JIS. 主要是北美用ANSI(译者注：中国很多键盘使用这个), 欧洲和非洲主要使用ISO，日本使用JIS。未提及的区域通常使用ANSI或ISO。与这些设计对应的键代码如下所示：
 
-<!-- 该图片的来源: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
+<!-- 该图片的来源: https://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
 ![键盘设计图](https://i.imgur.com/5wsh5wM.png)
 
 ## 我有一些键变成了其他功能或者不工作了
@@ -31,8 +31,8 @@ QMK有两个功能，Bootmagic和命令行，它允许您在运行中更改键�
 使用抓屏的键码(`KC_PSCREEN`或`KC_PSCR`)而不用`KC_SYSREQ`。组合键'Alt + Print Screen'会被当作'System request'。
 
 见[issue #168](https://github.com/tmk/tmk_keyboard/issues/168)和
-* http://en.wikipedia.org/wiki/Magic_SysRq_key
-* http://en.wikipedia.org/wiki/System_request
+* https://en.wikipedia.org/wiki/Magic_SysRq_key
+* https://en.wikipedia.org/wiki/System_request
 
 ## 电源键不工作
 
@@ -48,13 +48,13 @@ https://github.com/tmk/tmk_keyboard/issues/67
 除非正确配置层切换，否则修改键或层可能会卡住。
 对于修改键和图层操作，必须把`KC_TRANS`放到目标层的相同位置，用于注销修改键或在释放事件时返回到上一层。
 * https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
-* http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
+* https://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
 * https://github.com/tmk/tmk_keyboard/issues/248
 
 
 ## 机械自锁开关支持Mechanical Lock Switch Support
 
-本功能用于*机械自锁开关*比如[this Alps one](http://deskthority.net/wiki/Alps_SKCL_Lock)。你可以通过向`config.h`添加以下宏来使能该功能：
+本功能用于*机械自锁开关*比如[this Alps one](https://deskthority.net/wiki/Alps_SKCL_Lock)。你可以通过向`config.h`添加以下宏来使能该功能：
 
 ```
 #define LOCKING_SUPPORT_ENABLE

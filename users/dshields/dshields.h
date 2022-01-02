@@ -15,6 +15,8 @@
 
 // mod-tap keys
 #define MT_SPC  SFT_T(KC_SPC)
+#define MT_BSPC SFT_T(KC_BSPC)
+#define MT_ESC  LGUI_T(KC_ESC)
 
 // LED/RGB controls
 #ifdef KEYBOARD_planck_light

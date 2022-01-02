@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RGBKB
 #define PRODUCT         Sol
-#define DESCRIPTION     "An RGB, split, ortho-esque keyboard"
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B3
