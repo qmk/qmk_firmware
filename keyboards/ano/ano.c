@@ -27,8 +27,7 @@
  */
  
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { 
         if (clockwise) {
             tap_code(KC_AUDIO_VOL_UP);
