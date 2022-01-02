@@ -5,7 +5,8 @@
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
+#define COMBO_MUST_HOLD_MODS
+#define COMBO_HOLD_TERM 150
 // Sets good default for the speed of the mouse.
 #undef MOUSEKEY_INTERVAL
 #undef MOUSEKEY_DELAY

@@ -1,6 +1,6 @@
 #include "ericgebhart.h"
 #include "caps_word.h"
-
+#include "g/keymap_combo.h"
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
@@ -80,7 +80,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     case KC_SPACETEST:  // test something.
-      // default_layer_set(_BEAKL);
+      // default_layer_set(1UL << _BEAKL);
       // tap_code16(LSFT(KC_SPACE));
       break;
 

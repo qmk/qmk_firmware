@@ -3,6 +3,8 @@ SRC += tap_dances.c
 SRC += process_records.c
 SRC += caps_word.c
 
+VPATH += keyboards/gboards
+
 CUSTOM_OLED_DRIVER ?= yes
 ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_OLED_DRIVER)), yes)
@@ -18,7 +20,7 @@ EXTRAKEY_ENABLE  = yes # Audio control and System control
 COMMAND_ENABLE   = no # Commands for debug and configuration
 NKRO_ENABLE      = no # USB Nkey Rollover - for issues, see github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 SWAP_HANDS_ENABLE= no # Allow swapping hands of keyboard
-KEY_LOCK_ENABLE  = yes # Enable the KC_LOCK key
+KEY_LOCK_ENABLE  = no # Enable the KC_LOCK key
 TAP_DANCE_ENABLE = no # Enable the tap dance feature.
 CONSOLE_ENABLE   = no  # Console for debug
 
@@ -32,3 +34,4 @@ LTO_ENABLE = yes
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
+COMBO_ENABLE = yes
