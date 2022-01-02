@@ -198,7 +198,7 @@ bool pmw3360_init(void) {
 void pmw3360_upload_firmware(void) {
     // Datasheet claims we need to disable REST mode first, but during startup
     // it's already disabled and we're not turning it on ...
-    //pmw3360_write(REG_Config2, 0x00);  // disable REST mode
+    // pmw3360_write(REG_Config2, 0x00);  // disable REST mode
     pmw3360_write(REG_SROM_Enable, 0x1d);
 
     wait_ms(10);
