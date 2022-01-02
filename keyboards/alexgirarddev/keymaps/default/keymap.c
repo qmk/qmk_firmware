@@ -2,7 +2,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include <print.h>
 #include "quantum.h"
 
 #define _MAIN 0
@@ -52,28 +51,77 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [_MAIN] = LAYOUT_alexgirarddev(
-        // KC_ESCAPE,    KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                                   KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_GRAVE,
-        _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, KC_TAB, KC_QUOTE, KC_COMMA, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_HOME, KC_LCTRL, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, KC_S, KC_END, KC_LALT, KC_SLASH, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_ENTER, KC_LGUI, KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT, KC_APPLICATION, KC_SPC, KC_LSHIFT, RED, GREEN, BLUE, KC_BSPACE, KC_DELETE, SYMBOL, RED, TO(_GAME), TO(_QWERTY), KC_F12),
-    [_GAME] = LAYOUT_alexgirarddev(
-        //_____________,_____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,_____________,
-        KC_ESCAPE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_GRAVE, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, KC_LALT, KC_BSPACE, _____________, _____________, KC_LCTRL, TO(_MAIN), _____________, _____________),
-    [_SYMBOL] = LAYOUT_alexgirarddev(
-        //   _____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,
-        _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, KC_BSLASH, KC_PIPE, KC_PLUS, KC_EQUAL, KC_GRAVE, _____________, KC_7, KC_8, KC_9, _____________, _____________, _____________, KC_LCBR, KC_LBRACKET, KC_LPRN, KC_SCOLON, KC_MINUS, _____________, KC_4, KC_5, KC_6, _____________, _____________, _____________, KC_RCBR, KC_RBRACKET, KC_RPRN, KC_COLN, KC_UNDS, _____________, KC_1, KC_2, KC_3, _____________, _____________, _____________, _____________, _____________, KC_0, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________),
-    [_RED] = LAYOUT_alexgirarddev(
-        // KC_F1,        KC_F2,        KC_F3,        KC_F4,        KC_F5,        KC_F6,                                                  KC_F7,        KC_F8,        KC_F9,        KC_F10,       KC_F11,       KC_F12,
-
-        LALT(KC_F4), _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, LCTL(LALT(KC_DEL)), LALT(KC_F4), KC_DITTO, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_PSCREEN, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, _____________, KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT, KC_MS_BTN4, KC_F22, KC_F23, KC_F24, RSFT(KC_F14), RSFT(KC_F15), RSFT(KC_F16), _____________, LCTL(KC_Z), LCTL(KC_Y), LCTL(KC_A), _____________, KC_MS_BTN5, RSFT(KC_F17), RSFT(KC_F18), RSFT(KC_F19), RSFT(KC_F20), RSFT(KC_F21), RSFT(KC_F22), PREV_TRK, KC_PGUP, KC_PGDOWN, RSFT(KC_F23), RSFT(KC_F24), RCTL(KC_F13), AUD_MUTE, _____________, _____________, _____________, AUD_UP, AUD_DOWN, _____________, _____________, PLAY_TRK, NEXT_TRK, _____________, _____________),
-    [_GREEN] = LAYOUT_alexgirarddev(
-        //  _____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,_____________,
-        RCTL(KC_F16), RCTL(KC_F17), RCTL(KC_F18), RCTL(KC_F19), RCTL(KC_F20), RCTL(KC_F21), RGUI(KC_F19), RGUI(KC_F20), RGUI(KC_F21), RGUI(KC_F22), RGUI(KC_F23), RGUI(KC_F24), RCTL(KC_F23), RCTL(KC_F24), RALT(KC_F13), RALT(KC_F14), RALT(KC_F15), RALT(KC_F16), R_CS(KC_F13), R_CS(KC_F14), R_CS(KC_F15), R_CS(KC_F16), R_CS(KC_F17), R_CS(KC_F18), RALT(KC_F17), LGUI(KC_UP), LGUI(KC_DOWN), L_GS(KC_LEFT), L_GS(KC_RIGHT), RALT(KC_F18), R_CS(KC_F19), R_CS(KC_F20), R_CS(KC_F21), R_CS(KC_F22), R_CS(KC_F23), R_CS(KC_F24), RALT(KC_F19), RALT(KC_F20), RALT(KC_F21), RALT(KC_F22), RALT(KC_F23), RALT(KC_F24), R_AS(KC_F13), R_AS(KC_F14), R_AS(KC_F15), R_AS(KC_F16), R_AS(KC_F17), R_AS(KC_F18), RGUI(KC_F15), R_AC(KC_F13), RGUI(KC_F17), R_AS(KC_F19), R_AS(KC_F20), R_AS(KC_F21), KC_ESCAPE, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________),
-    [_BLUE] = LAYOUT_alexgirarddev(
-        // RCTL(KC_F16), RCTL(KC_F17), RCTL(KC_F18), RCTL(KC_F19), RCTL(KC_F20), RCTL(KC_F21),                                           RGUI(KC_F19), RGUI(KC_F20), RGUI(KC_F21), RGUI(KC_F22), RGUI(KC_F23), RGUI(KC_F24),
-        R_GS(KC_F13), R_GS(KC_F14), R_GS(KC_F15), R_AC(KC_F14), R_GS(KC_F17), R_GS(KC_F18), _____________, KC_F10, KC_F11, KC_F12, _____________, KC_CAPSLOCK, _____________, R_GS(KC_F19), R_GS(KC_F20), R_GS(KC_F21), R_GS(KC_F22), R_GS(KC_F23), _____________, KC_F7, KC_F8, KC_F9, _____________, KC_NUMLOCK, _____________, R_GS(KC_F24), R_CG(KC_F13), R_CG(KC_F14), R_CG(KC_F15), R_AC(KC_F15), _____________, KC_F4, KC_F5, KC_F6, _____________, KC_SCROLLLOCK, _____________, R_CG(KC_F17), R_CG(KC_F18), R_CG(KC_F19), R_CG(KC_F20), R_CG(KC_F21), _____________, KC_F1, KC_F2, KC_F3, _____________, _____________, _____________, R_CG(KC_F22), R_CG(KC_F23), _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________, _____________),
-    [_QWERTY] = LAYOUT_alexgirarddev(
-        // KC_ESCAPE,    KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                                   KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_GRAVE,
-        KC_ESCAPE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_GRAVE, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_HOME, KC_LCTRL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_L, KC_END, KC_LALT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_W, KC_W, KC_W, KC_ENTER, KC_LGUI, KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT, KC_APPLICATION, KC_SPC, KC_LSHIFT, RED, GREEN, BLUE, KC_BSPACE, KC_DELETE, SYMBOL, RED, TO(_GAME), TO(_MAIN), _____________)};
+  [_MAIN] = LAYOUT_alexgirarddev(
+     KC_ESCAPE,    KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                                   KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_GRAVE,
+     KC_TAB,       KC_QUOTE,     KC_COMMA,     KC_DOT,       KC_P,         KC_Y,     KC_AUDIO_MUTE,            KC_MEDIA_PLAY_PAUSE,KC_F,         KC_G,         KC_C,         KC_R,         KC_L,         KC_HOME,
+     KC_LCTRL,     KC_A,         KC_O,         KC_E,         KC_U,         KC_I,                                                   KC_D,         KC_H,         KC_T,         KC_N,         KC_S,         KC_END,
+     KC_LALT,      KC_SLASH,     KC_Q,         KC_J,         KC_K,         KC_X,                                                   KC_B,         KC_M,         KC_W,         KC_V,         KC_Z,         KC_ENTER,
+     KC_LGUI,      KC_UP,        KC_DOWN,                                                                                                                                    KC_LEFT,      KC_RIGHT,     KC_APPLICATION,
+                                               KC_SPC,       KC_LSHIFT,                                                                          RED,          GREEN,
+                                                                           BLUE,         KC_BSPACE,                  KC_DELETE,    SYMBOL,
+                                                                           RED,          TO(_GAME),                  TO(_QWERTY),  KC_F12
+  ),
+   [_GAME] = LAYOUT_alexgirarddev(
+     _____________,_____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,_____________,
+     _____________,_____________,_____________,_____________,_____________,_____________,_____________,              _____________,_____________,_____________,_____________,_____________,_____________,_____________,
+     _____________,_____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,_____________,
+     _____________,_____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,_____________,
+     _____________,_____________,_____________,                                                                                                                              _____________,_____________,_____________,
+                                               _____________,_____________,                                                                      _____________,_____________,
+                                                                           KC_LALT,      _____________,              _____________,_____________,
+                                                                           KC_LCTRL,     TO(_MAIN),                  _____________,_____________
+  ),
+  [_SYMBOL] = LAYOUT_alexgirarddev(
+     _____________,_____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,_____________,
+     _____________,KC_BSLASH,    KC_PIPE,      KC_PLUS,      KC_EQUAL,     KC_GRAVE,_____________,                  _____________,_____________,KC_7,         KC_8,         KC_9,         _____________,_____________,
+     _____________,KC_LCBR,      KC_LBRACKET,  KC_LPRN,      KC_SCOLON,    KC_MINUS,                                               _____________,KC_4,         KC_5,         KC_6,         _____________,_____________,
+     _____________,KC_RCBR,      KC_RBRACKET,  KC_RPRN,      KC_COLN,      KC_UNDS,                                                _____________,KC_1,         KC_2,         KC_3,         _____________,_____________,
+     _____________,_____________,_____________,                                                                                                                              KC_0,         _____________,_____________,
+                                               _____________,_____________,                                                                      _____________,_____________,
+                                                                           _____________,_____________,             _____________,_____________,
+                                                                           _____________,_____________,             _____________,_____________
+  ),
+  [_RED] = LAYOUT_alexgirarddev(
+    LALT(KC_F4),  _____________,_____________,_____________,_____________,_____________,                                          _____________,_____________,_____________,_____________,_____________,LCTL(LALT(KC_DEL)),
+    _____________,KC_DITTO,     LCTL(KC_X),   LCTL(KC_C),   LCTL(KC_V),   KC_PSCREEN,   _____________,              _____________,KC_F14,       KC_F15,       KC_F16,       KC_F17,       KC_F18,       KC_F19,
+    _____________,KC_UP,        KC_DOWN,      KC_LEFT,      KC_RIGHT,     KC_MS_BTN4,                                             KC_F22,       KC_F23,       KC_F24,       RSFT(KC_F14), RSFT(KC_F15), RSFT(KC_F16),
+    _____________,LCTL(KC_Z),   LCTL(KC_Y),   LCTL(KC_A),   _____________,KC_MS_BTN5,                                             RSFT(KC_F17), RSFT(KC_F18), RSFT(KC_F19), RSFT(KC_F20), RSFT(KC_F21), RSFT(KC_F22),
+    PREV_TRK,     KC_PGUP,      KC_PGDOWN,                                                                                                                                  RSFT(KC_F23), RSFT(KC_F24), RCTL(KC_F13),
+                                              AUD_MUTE,     _____________,                                                                      _____________,_____________,
+                                                                          AUD_UP,       AUD_DOWN,                   _____________,_____________,
+                                                                          PLAY_TRK,     NEXT_TRK,                   _____________,_____________
+  ),
+  [_GREEN] = LAYOUT_alexgirarddev(
+    RCTL(KC_F16), RCTL(KC_F17), RCTL(KC_F18), RCTL(KC_F19), RCTL(KC_F20), RCTL(KC_F21),                                           RGUI(KC_F19), RGUI(KC_F20), RGUI(KC_F21), RGUI(KC_F22), RGUI(KC_F23), RGUI(KC_F24),
+    RCTL(KC_F23), RCTL(KC_F24), RALT(KC_F13), RALT(KC_F14), RALT(KC_F15), RALT(KC_F16),_____________,               _____________,R_CS(KC_F13), R_CS(KC_F14), R_CS(KC_F15), R_CS(KC_F16), R_CS(KC_F17), R_CS(KC_F18),
+    RALT(KC_F17), LGUI(KC_UP),  LGUI(KC_DOWN),L_GS(KC_LEFT),L_GS(KC_RIGHT),RALT(KC_F18),                                          R_CS(KC_F19), R_CS(KC_F20), R_CS(KC_F21), R_CS(KC_F22), R_CS(KC_F23), R_CS(KC_F24),
+    RALT(KC_F19), RALT(KC_F20), RALT(KC_F21), RALT(KC_F22), RALT(KC_F23), RALT(KC_F24),                                           R_AS(KC_F13), R_AS(KC_F14), R_AS(KC_F15), R_AS(KC_F16), R_AS(KC_F17), R_AS(KC_F18),
+    RGUI(KC_F15), R_AC(KC_F13), RGUI(KC_F17),                                                                                                                               R_AS(KC_F19), R_AS(KC_F20), R_AS(KC_F21),
+                                              KC_ESCAPE,    _____________,                                                                      _____________,_____________,
+                                                                           _____________,_____________,              _____________,_____________,
+                                                                           _____________,_____________,              _____________,_____________
+  ),
+  [_BLUE] = LAYOUT_alexgirarddev(
+    R_GS(KC_F13) ,R_GS(KC_F14) ,R_GS(KC_F15) ,R_AC(KC_F14) ,R_GS(KC_F17) ,R_GS(KC_F18) ,                                           _____________,KC_F10       ,KC_F11       ,KC_F12       ,_____________,KC_CAPSLOCK  ,
+    _____________,R_GS(KC_F19) ,R_GS(KC_F20) ,R_GS(KC_F21) ,R_GS(KC_F22) ,R_GS(KC_F23) ,_____________,               _____________,_____________,KC_F7        ,KC_F8        ,KC_F9        ,_____________,KC_NUMLOCK   ,
+    _____________,R_GS(KC_F24) ,R_CG(KC_F13) ,R_CG(KC_F14) ,R_CG(KC_F15) ,R_AC(KC_F15) ,                                           _____________,KC_F4        ,KC_F5        ,KC_F6        ,_____________,KC_SCROLLLOCK,
+    _____________,R_CG(KC_F17) ,R_CG(KC_F18) ,R_CG(KC_F19) ,R_CG(KC_F20) ,R_CG(KC_F21) ,                                           _____________,KC_F1        ,KC_F2        ,KC_F3        ,_____________,_____________,
+    _____________,R_CG(KC_F22) ,R_CG(KC_F23) ,                                                                                                                               _____________,_____________,_____________,
+                                              _____________,_____________,                                                                      _____________,_____________,
+                                                                          _____________,_____________,              _____________,_____________,
+                                                                          _____________,_____________,              _____________,_____________
+  ),
+  [_QWERTY] = LAYOUT_alexgirarddev(
+    KC_ESCAPE,    KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                                   KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_GRAVE,
+    KC_TAB,       KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,         _____________,              _____________,KC_Y,         KC_U,         KC_I,         KC_O,         KC_P,         KC_HOME,
+    KC_LCTRL,     KC_A,         KC_S,         KC_D,         KC_F,         KC_G,                                                   KC_H,         KC_J,         KC_K,         KC_L,         KC_L,         KC_END,
+    KC_LALT,      KC_Z,         KC_X,         KC_C,         KC_V,         KC_B,                                                   KC_N,         KC_M,         KC_W,         KC_W,         KC_W,         KC_ENTER,
+    KC_LGUI,      KC_UP,        KC_DOWN,                                                                                                                                    KC_LEFT,      KC_RIGHT,     KC_APPLICATION,
+                                              KC_SPC,       KC_LSHIFT,                                                                          RED,          GREEN,
+                                                                           BLUE,         KC_BSPACE,                  KC_DELETE,   SYMBOL,
+                                                                           RED,          TO(_GAME),                  TO(_MAIN),   _____________
+  )
+};
 
 static const char PROGMEM SymbolsIcon[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x7e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xf0, 0xf8, 0xf8, 0xf8, 0xf8, 0xfc, 0xfc, 0xfc, 0xfc, 0xfc, 0xfc, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe, 0xfc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xe0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x03, 0x03, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f,
@@ -117,39 +165,32 @@ static const char PROGMEM BlueIcon[]    = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0
                                         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0xe0, 0xf0, 0xf8, 0xfc, 0x7e, 0x3f, 0x1f, 0x0f, 0x07, 0x03, 0x01, 0x03, 0x0f, 0xff, 0xff, 0xff, 0xfe, 0xc0, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x03, 0x1f, 0x7f, 0xff, 0xff, 0xf8, 0xe0, 0xc0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0xf0, 0xff, 0xff, 0xff, 0x3f, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1f, 0x7f, 0xff, 0xff, 0xf8, 0xe0, 0xc0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0xf0,
                                         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1f, 0x7f, 0xff, 0xff, 0xff, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xff, 0xff, 0x7f, 0x7f, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
+bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
 
 #ifdef OLED_ENABLE
 static void render_status(void) {
-    //if (is_keyboard_master()) {
-        switch (get_highest_layer(layer_state)) {
-            case _MAIN:
-                oled_write_raw_P(MainIcon, sizeof(MainIcon));
-                break;
-            case _SYMBOL:
-                oled_write_raw_P(SymbolsIcon, sizeof(SymbolsIcon));
-                break;
-            case _RED:
-                oled_write_raw_P(RedIcon, sizeof(RedIcon));
-                break;
-            case _BLUE:
-                oled_write_raw_P(BlueIcon, sizeof(BlueIcon));
-                break;
-            case _GREEN:
-                oled_write_raw_P(GreenIcon, sizeof(GreenIcon));
-                break;
-            case _GAME:
-                oled_write_raw_P(GameIcon, sizeof(GameIcon));
-                break;
-            case _QWERTY:
-                oled_clear();
-        }
-    //} else {
-    //            oled_write_raw_P(GameIcon, sizeof(GameIcon));
-  //  }
+    switch (get_highest_layer(layer_state)) {
+        case _MAIN:
+            oled_write_raw_P(MainIcon, sizeof(MainIcon));
+            break;
+        case _SYMBOL:
+            oled_write_raw_P(SymbolsIcon, sizeof(SymbolsIcon));
+            break;
+        case _RED:
+            oled_write_raw_P(RedIcon, sizeof(RedIcon));
+            break;
+        case _BLUE:
+            oled_write_raw_P(BlueIcon, sizeof(BlueIcon));
+            break;
+        case _GREEN:
+            oled_write_raw_P(GreenIcon, sizeof(GreenIcon));
+            break;
+        case _GAME:
+            oled_write_raw_P(GameIcon, sizeof(GameIcon));
+            break;
+        case _QWERTY:
+            oled_clear();
+    }
 }
 
 bool oled_task_user(void) {
@@ -158,18 +199,18 @@ bool oled_task_user(void) {
 }
 #endif
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    // if (index == 0) { /* First encoder */
-    if (clockwise) {
-        tap_code_delay(KC_VOLU, 10);
-    } else {
-        tap_code_delay(KC_VOLD, 10);
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code_delay(KC_VOLD, 10);
+        } else {
+            tap_code_delay(KC_VOLU, 10);
+        }
+    } else if (index == 1) { /* Second encoder */
+        if (clockwise) {
+            tap_code_delay(KC_DOWN, 10);
+        } else {
+            tap_code_delay(KC_UP, 10);
+        }
     }
-    // } else if (index == 1) { /* Second encoder */
-    //  if (clockwise) {
-    // rgb_matrix_increase_hue();
-    // } else {
-    // rgb_matrix_decrease_hue();
-    //}
-    //  }
     return false;
 }

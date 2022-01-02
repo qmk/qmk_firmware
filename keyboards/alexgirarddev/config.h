@@ -41,7 +41,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_WPM_ENABLE
+
 #define NO_ACTION_MACRO
-#define NO_ACTION_ONESHOT
-#define NO_ACTION_TAPPING
