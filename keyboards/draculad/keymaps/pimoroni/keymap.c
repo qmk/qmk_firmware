@@ -29,13 +29,13 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  BALL_HUI,//cycles hue
-  BALL_WHT,//cycles white
-  BALL_DEC,//decreased color
-  BALL_SCR,//scrolls
-  BALL_NCL,//left click
-  BALL_RCL,//right click
-  BALL_MCL,//middle click
+  BALL_HUI = SAFE_RANGE, //cycles hue
+  BALL_WHT,              //cycles white
+  BALL_DEC,              //decreased color
+  BALL_SCR,              //scrolls
+  BALL_NCL,              //left click
+  BALL_RCL,              //right click
+  BALL_MCL,              //middle click
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
