@@ -9,7 +9,7 @@ CMM.Studio Fuji65 Keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cmm_studio/fuji65/solder:default
+    make cmm_studio/fuji65:default
 
 
 For reset instruction, use the physical reset button on the back of the keyboard to enter bootloader mode
