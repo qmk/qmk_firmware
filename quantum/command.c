@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "backlight.h"
 #endif
 
-#if defined(MOUSEKEY_ENABLE) && !defined(MK_3_SPEED)
+#if defined(MOUSEKEY_ENABLE)
 #    include "mousekey.h"
 #endif
 
@@ -53,7 +53,7 @@ static void print_version(void);
 static void print_status(void);
 static bool command_console(uint8_t code);
 static void command_console_help(void);
-#if defined(MOUSEKEY_ENABLE) && !defined(MK_3_SPEED)
+#if defined(MOUSEKEY_ENABLE)
 static bool mousekey_console(uint8_t code);
 #endif
 
@@ -73,7 +73,7 @@ bool command_proc(uint8_t code) {
             else
                 return (command_console_extra(code) || command_console(code));
             break;
-#if defined(MOUSEKEY_ENABLE) && !defined(MK_3_SPEED)
+#if defined(MOUSEKEY_ENABLE)
         case MOUSEKEY:
             mousekey_console(code);
             break;

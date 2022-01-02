@@ -20,9 +20,10 @@
 #include "wait.h"
 #include "debug.h"
 #include "print.h"
-#include "pmw3360_firmware.h"
+#include PMW3360_FIRMWARE_H
 
 // Registers
+// clang-format off
 #define REG_Product_ID                 0x00
 #define REG_Revision_ID                0x01
 #define REG_Motion                     0x02
@@ -72,10 +73,18 @@
 #define REG_Lift_Config                0x63
 #define REG_Raw_Data_Burst             0x64
 #define REG_LiftCutoff_Tune2           0x65
+// clang-format on
+
+#ifndef MAX_CPI
+#    define MAX_CPI 0x77  // limits to 0--119, should be max cpi/100
+#endif
 
 bool _inBurst = false;
 
+#ifdef CONSOLE_ENABLE
 void print_byte(uint8_t byte) { dprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')); }
+#endif
+#define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
 bool spi_start_adv(void) {
     bool status = spi_start(PMW3360_CS_PIN, PMW3360_SPI_LSBFIRST, PMW3360_SPI_MODE, PMW3360_SPI_DIVISOR);
@@ -124,20 +133,20 @@ uint8_t spi_read_adv(uint8_t reg_addr) {
     return data;
 }
 
-void pmw_set_cpi(uint16_t cpi) {
-    uint8_t cpival = constrain((cpi / 100) - 1, 0, 0x77);  // limits to 0--119
+void pmw3360_set_cpi(uint16_t cpi) {
+    uint8_t cpival = constrain((cpi / 100) - 1, 0, MAX_CPI);
 
     spi_start_adv();
     spi_write_adv(REG_Config1, cpival);
     spi_stop();
 }
 
-uint16_t pmw_get_cpi(void) {
+uint16_t pmw3360_get_cpi(void) {
     uint8_t cpival = spi_read_adv(REG_Config1);
-    return (uint16_t)(cpival & 0xFF) * 100;
+    return (uint16_t)((cpival + 1) & 0xFF) * 100;
 }
 
-bool pmw_spi_init(void) {
+bool pmw3360_init(void) {
     setPinOutput(PMW3360_CS_PIN);
 
     spi_init();
@@ -164,12 +173,12 @@ bool pmw_spi_init(void) {
     spi_read_adv(REG_Delta_Y_L);
     spi_read_adv(REG_Delta_Y_H);
 
-    pmw_upload_firmware();
+    pmw3360_upload_firmware();
 
     spi_stop_adv();
 
     wait_ms(10);
-    pmw_set_cpi(PMW3360_CPI);
+    pmw3360_set_cpi(PMW3360_CPI);
 
     wait_ms(1);
 
@@ -177,14 +186,16 @@ bool pmw_spi_init(void) {
 
     spi_write_adv(REG_Angle_Tune, constrain(ROTATIONAL_TRANSFORM_ANGLE, -30, 30));
 
-    bool init_success = pmw_check_signature();
+    spi_write_adv(REG_Lift_Config, PMW3360_LIFTOFF_DISTANCE);
+
+    bool init_success = pmw3360_check_signature();
 
     writePinLow(PMW3360_CS_PIN);
 
     return init_success;
 }
 
-void pmw_upload_firmware(void) {
+void pmw3360_upload_firmware(void) {
     spi_write_adv(REG_SROM_Enable, 0x1d);
 
     wait_ms(10);
@@ -196,7 +207,7 @@ void pmw_upload_firmware(void) {
     wait_us(15);
 
     unsigned char c;
-    for (int i = 0; i < firmware_length; i++) {
+    for (int i = 0; i < FIRMWARE_LENGTH; i++) {
         c = (unsigned char)pgm_read_byte(firmware_data + i);
         spi_write(c);
         wait_us(15);
@@ -211,16 +222,18 @@ void pmw_upload_firmware(void) {
     wait_ms(10);
 }
 
-bool pmw_check_signature(void) {
+bool pmw3360_check_signature(void) {
     uint8_t pid      = spi_read_adv(REG_Product_ID);
     uint8_t iv_pid   = spi_read_adv(REG_Inverse_Product_ID);
     uint8_t SROM_ver = spi_read_adv(REG_SROM_ID);
-    return (pid == 0x42 && iv_pid == 0xBD && SROM_ver == 0x04);  // signature for SROM 0x04
+    return (pid == firmware_signature[0] && iv_pid == firmware_signature[1] && SROM_ver == firmware_signature[2]);  // signature for SROM 0x04
 }
 
-report_pmw_t pmw_read_burst(void) {
+report_pmw3360_t pmw3360_read_burst(void) {
     if (!_inBurst) {
+#ifdef CONSOLE_ENABLE
         dprintf("burst on");
+#endif
         spi_write_adv(REG_Motion_Burst, 0x00);
         _inBurst = true;
     }
@@ -229,12 +242,7 @@ report_pmw_t pmw_read_burst(void) {
     spi_write(REG_Motion_Burst);
     wait_us(35);  // waits for tSRAD
 
-    report_pmw_t data;
-    data.motion = 0;
-    data.dx     = 0;
-    data.mdx    = 0;
-    data.dy     = 0;
-    data.mdx    = 0;
+    report_pmw3360_t data = {0};
 
     data.motion = spi_read();
     spi_write(0x00);  // skip Observation
@@ -245,6 +253,7 @@ report_pmw_t pmw_read_burst(void) {
 
     spi_stop();
 
+#ifdef CONSOLE_ENABLE
     if (debug_mouse) {
         print_byte(data.motion);
         print_byte(data.dx);
@@ -253,6 +262,7 @@ report_pmw_t pmw_read_burst(void) {
         print_byte(data.mdy);
         dprintf("\n");
     }
+#endif
 
     data.isMotion    = (data.motion & 0x80) != 0;
     data.isOnSurface = (data.motion & 0x08) == 0;
