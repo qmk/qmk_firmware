@@ -54,6 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef ENCODER_RESOLUTION
 #endif
 #define ENCODER_RESOLUTION 2
+
 // Note:  array is { col, row )
 #define ENCODERS_CW_KEY  { { 3, 2 } }
 #define ENCODERS_CCW_KEY { { 3, 4 } }
