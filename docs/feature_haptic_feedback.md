@@ -62,8 +62,9 @@ For relay switches, the hardware may already contain all of that ciruitry, and j
 |----------------------------|----------------------|--------------------------------------------------------------|
 |`SOLENOID_PIN`              | *Not defined*        |Configures the pin that the switch  is connected to.          |
 |`SOLENOID_PIN_ACTIVE_LOW`   | *Not defined*        |If defined then the switch trigger pin is active low.         |
-|`SOLENOID_PINS`              | *Not defined*       |Configures an array of pins to be used for switch activation. |
-|`SOLENOID_PINS_ACTIVE_LOW`   | *Not defined*       |Allows you to specify how each pin is pulled for activation.  |
+|`SOLENOID_PINS`             | *Not defined*        |Configures an array of pins to be used for switch activation. |
+|`SOLENOID_PINS_ACTIVE_LOW`  | *Not defined*        |Allows you to specify how each pin is pulled for activation.  |
+|`SOLENOID_RANDOM_FIRE`      | *Not defined*        |When there are multiple solenoids, will select a random one to fire.|
 |`SOLENOID_DEFAULT_DWELL`    | `12` ms              |Configures the default dwell time for the switch.             |
 |`SOLENOID_MIN_DWELL`        | `4` ms               |Sets the lower limit for the dwell.                           |
 |`SOLENOID_MAX_DWELL`        | `100` ms             |Sets the upper limit for the dwell.                           |

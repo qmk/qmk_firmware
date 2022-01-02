@@ -20,6 +20,7 @@
 #include "haptic.h"
 #include "gpio.h"
 #include "usb_device_state.h"
+#include <stdlib.h>
 
 uint8_t      solenoid_dwell  = SOLENOID_DEFAULT_DWELL;
 static pin_t solenoid_pads[] = SOLENOID_PINS;
@@ -85,12 +86,23 @@ void solenoid_fire(uint8_t index) {
  *
  */
 void solenoid_fire_handler(void) {
+#ifndef SOLENOID_RANDOM_FIRE
+    if (NUMBER_OF_SOLENOIDS > 1) {
+        uint8_t i = rand() % NUMBER_OF_SOLENOIDS;
+        if (!solenoid_on[i]) {
+            solenoid_fire(i);
+        }
+    } else {
+            solenoid_fire(0);
+    }
+#else
     for (uint8_t i = 0; i < NUMBER_OF_SOLENOIDS; i++) {
         if (!solenoid_on[i]) {
             solenoid_fire(i);
             break;
         }
     }
+#endif
 }
 
 /**
@@ -134,7 +146,7 @@ void solenoid_check(void) {
  */
 void solenoid_setup(void) {
 #ifdef SOLENOID_PINS_ACTIVE_STATE
-    bool    state_temp[] = SOLENOID_PIN_ACTIVE_STATE;
+    bool    state_temp[] = SOLENOID_PINS_ACTIVE_STATE;
     uint8_t bound_check  = (sizeof(state_temp) / sizeof(bool));
 #endif
 
