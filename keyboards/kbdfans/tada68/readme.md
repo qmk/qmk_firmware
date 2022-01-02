@@ -8,7 +8,7 @@ A compact 65% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tada68:default
+    make kbdfans/tada68:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -22,14 +22,14 @@ Out of the box the tada68 uses a .bin firmware file instead of a .hex like other
 
 1) from the `qmk_firmware\` directory run:
 ```
-$ make tada68:default:flashbin
+$ make kbdfans/tada68:default:flashbin
 ```
 
 2) Connect your keyboard to Windows computer, hit the reset button on the TADA, the lights will start flashing.
 
 3) You'll see a new drive on your computer called TADA68. Backup the original factory `FLASH.BIN` file thats inside it.
 
-4) Delete `FLASH.BIN` from the TADA drive and copy `tada68_default.bin` that was generated at the root of the qmk directory into the TADA drive.
+4) Delete `FLASH.BIN` from the TADA drive and copy `kbdfans_tada68_default.bin` that was generated at the root of the qmk directory into the TADA drive.
 
 5) *Do not eject the USB device.* Hit ESC on the keyboard. The lights will stop flashing and your firmware is loaded!
 
@@ -39,7 +39,7 @@ $ make tada68:default:flashbin
 
 1) from the `qmk_firmware\` directory run:
 ```
-$ make tada68:default:flashbin
+$ make kbdfans/tada68:default:flashbin
 ```
 
 2) Connect your keyboard to your Mac, hit the reset button on the bottom of the TADA, the lights will start flashing.
@@ -66,7 +66,7 @@ $ make tada68:default:flashbin
 
 1) from the `qmk_firmware\` directory run:
 ```
-$ make tada68:default:flashbin
+$ make kbdfans/tada68:default:flashbin
 ```
 
 2) Connect your keyboard to the computer, hit the reset button on the TADA, the lights will start flashing.
