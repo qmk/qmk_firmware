@@ -1,4 +1,9 @@
-![DZ65RGB/v3 Yuannan's Layout](https://imgur.com/a/HfLTahi)
+[DZ65RGB/v3 Yuannan's Layout Imgur Album](https://imgur.com/a/HfLTahi)
+
+![Alpha](https://i.imgur.com/Zwvl3Za.png)
+![Vim Editing Layer](https://i.imgur.com/1IsATG5.png)
+![Mouse and Autoclicker](https://i.imgur.com/IP6JwO3.png)
+![Hyper functions and RGB Layer](https://i.imgur.com/kkvjM0p.png)
 
 # Yuannan's DZ65 Custom Profile
 
