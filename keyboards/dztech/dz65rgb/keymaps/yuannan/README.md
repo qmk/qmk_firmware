@@ -1,3 +1,5 @@
+![DZ65RGB/v3 Yuannan's Layout](https://imgur.com/a/HfLTahi)
+
 # Yuannan's DZ65 Custom Profile
 
 ## Features
