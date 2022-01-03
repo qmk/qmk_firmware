@@ -481,7 +481,7 @@
                                                                         \
               ROW3_LEFT(K21, K22, K23, K24, K25),                       \
               ROW3_RIGHT(K26, K27, K28, K29, K2A),                      \
-              ___6_ERGO_THUMBS___                                      \
+              ___6_ERGO_THUMBS___                                       \
                                                                         )
 
 // So we can have different transient layers for symbols and numbers on bepo.
@@ -528,7 +528,7 @@
                                                                         \
               ROW3_LEFT_BP6(K21, K22, K23, K24, K25, K26),              \
               ROW3_RIGHT_BP6(K27, K28, K29, K2A, K2B, K2C),             \
-              ___6_ERGO_THUMBS_BP___                                   \
+              ___6_ERGO_THUMBS_BP___                                    \
                                                                         )
 
 // All we really need is to add the see through thumbs to the end.
@@ -539,7 +539,7 @@
                          K17, K18, K19, K1A, K1B, K1C,                  \
                          K21, K22, K23, K24, K25, K26,                  \
                          K27, K28, K29, K2A, K2B, K2C                   \
-                                                                )       \
+                                                                        ) \
   LAYOUT_VARG(                                                          \
               K01, K02, K03, K04, K05, K06,                             \
               K07, K08, K09, K0A, K0B, K0C,                             \
@@ -547,6 +547,67 @@
               K17, K18, K19, K1A, K1B, K1C,                             \
               K21, K22, K23, K24, K25, K26,                             \
               K27, K28, K29, K2A, K2B, K2C,                             \
+              ___6___)
+
+//---------------------------------------------------------
+//  3x5
+#define Base_3x5_3(                                                     \
+                   K01, K02, K03, K04, K05,                             \
+                   K06, K07, K08, K09, K0A,                             \
+                   K11, K12, K13, K14, K15,                             \
+                   K16, K17, K18, K19, K1A,                             \
+                   K21, K22, K23, K24, K25,                             \
+                   K26, K27, K28, K29, K2A)                             \
+  LAYOUT_VARG(                                                          \
+              ROW1_LEFT5(K01, K02, K03, K04, K05),                      \
+              ROW1_RIGHT5(K06, K07, K08, K09, K0A),                     \
+                                                                        \
+              ROW2_LEFT5(K11, K12, K13, K14, K15),                      \
+              ROW2_RIGHT5(K16, K17, K18, K19, K1A),                     \
+                                                                        \
+              ROW3_LEFT5(K21, K22, K23, K24, K25),                      \
+              ROW3_RIGHT5(K26, K27, K28, K29, K2A),                     \
+              ___6_ERGO_THUMBS___                                       \
+                                                                        )
+
+// So we can have different transient layers for symbols and numbers on bepo.
+// for layouts like dvorak on bepo.
+#define Base_bepo_3x5_3(                                                \
+                        K01, K02, K03, K04, K05,                        \
+                        K06, K07, K08, K09, K0A,                        \
+                        K11, K12, K13, K14, K15,                        \
+                        K16, K17, K18, K19, K1A,                        \
+                        K21, K22, K23, K24, K25,                        \
+                        K26, K27, K28, K29, K2A                         \
+                                                                        ) \
+  LAYOUT_VARG(                                                          \
+              ROW1_LEFT5_BP(K01, K02, K03, K04, K05),                   \
+              ROW1_RIGHT5_BP(K06, K07, K08, K09, K0A),                  \
+                                                                        \
+              ROW2_LEFT5_BP(K11, K12, K13, K14, K15),                   \
+              ROW2_RIGHT5_BP(K16, K17, K18, K19, K1A),                  \
+                                                                        \
+              ROW3_LEFT5_BP(K21, K22, K23, K24, K25),                   \
+              ROW3_RIGHT5_BP(K26, K27, K28, K29, K2A),                  \
+              ___6_ERGO_THUMBS_BP___                                    \
+                                                                        )
+
+// All we really need is to add the see through thumbs to the end.
+#define Transient5_3x5_3(                                               \
+                         K01, K02, K03, K04, K05,                       \
+                         K07, K08, K09, K0A, K0B,                       \
+                         K11, K12, K13, K14, K15,                       \
+                         K17, K18, K19, K1A, K1B,                       \
+                         K21, K22, K23, K24, K25,                       \
+                         K27, K28, K29, K2A, K2B                        \
+                                                                    )   \
+  LAYOUT_VARG(                                                          \
+              K01, K02, K03, K04, K05,                               \
+              K07, K08, K09, K0A, K0B,                              \
+              K11, K12, K13, K14, K15,                              \
+              K17, K18, K19, K1A, K1B,                              \
+              K21, K22, K23, K24, K25,                              \
+              K27, K28, K29, K2A, K2B,                          \
               ___6___)
 
 /********************************************************************/
