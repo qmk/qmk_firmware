@@ -16,7 +16,9 @@
  
 #include "deskpad.h"
 
+#ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
     const layer_state_t curr_layer = get_highest_layer(layer_state);
     if(curr_layer == 0) {
         if (clockwise) {
