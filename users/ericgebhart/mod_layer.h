@@ -37,7 +37,11 @@
   K01, K02, K03, K04, K05, RIGHT0
 
 #define ROW1_LEFT(K01, K02, K03, K04, K05)      \
+<<<<<<< HEAD
   LEFT1, LT(_LAYERS, K01), K02, LT(_KEYPAD, K03), LT(_NAV, K04), K05
+=======
+  LEFT1, K01, K02, K03, LT(_NAV, K04), K05
+>>>>>>> 5f2db4d1ad (move lt for nav off of my emacs/vi leader ','.)
 
 #define ROW1_RIGHT(K01, K02, K03, K04, K05)     \
   K01, K02, LT(_KEYPAD, K03), K04, LT(_LAYERS, K05), RIGHT1
@@ -57,6 +61,60 @@
 #define ROW3_RIGHT(K01, K02, K03, K04, K05)                             \
   K01, LT(_SYMB, K02), LT(_NAV, K03), LT(_TOPROWS, K04), K05, RIGHT3
 
+<<<<<<< HEAD
+=======
+//bepo
+#define ROW0_LEFT_BP(K01, K02, K03, K04, K05)   \
+  LEFT0_BP, K01, K02, K03, K04, K05
+
+#define ROW0_RIGHT_BP(K01, K02, K03, K04, K05)  \
+  K01, K02, K03, K04, K05, RIGHT0_BP
+
+#define ROW1_LEFT_BP(K01, K02, K03, K04, K05)           \
+  LEFT1_BP, K01, K02, K03, LT(_KEYPAD, K04), K05
+
+#define ROW1_RIGHT_BP(K01, K02, K03, K04, K05)          \
+  K01, K02, LT(_KEYPAD, K03), K04, K05, RIGHT1_BP
+
+#define ROW2_LEFT_BP(K01, K02, K03, K04, K05)                           \
+  LEFT2_BP, MT(MOD_RSFT, K01), MT(MOD_LALT,K02), MT(MOD_RCTL, K03), \
+    MT(MOD_LGUI, K04), K05
+
+#define ROW2_RIGHT_BP(K01, K02, K03, K04, K05)                   \
+  K01, MT(MOD_RGUI, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), \
+    MT(MOD_RSFT, K05), RIGHT2_BP                                 \
+
+#define ROW3_LEFT_BP(K01, K02, K03, K04, K05)                           \
+  LEFT3_BP, K01, LT(_SYMB_BP, K02), LT(_NAV, K03), LT(_TOPROWS_BP, K04), K05
+
+#define ROW3_RIGHT_BP(K01, K02, K03, K04, K05)                          \
+  K01, LT(_SYMB_BP, K02), LT(_NAV, K03), LT(_TOPROWS_BP, K04), K05, RIGHT3_BP
+
+//bepo - 6 args, no left or right added.
+#define ROW0_LEFT_BP6(K01, K02, K03, K04, K05, K06)     \
+  K01, K02, K03, K04, K05, K06
+
+#define ROW0_RIGHT_BP6(K01, K02, K03, K04, K05, K06 )   \
+  K01, K02, K03, K04, K05, K06
+
+#define ROW1_LEFT_BP6(K01, K02, K03, K04, K05, K06)     \
+  K01, K02, K03, K04, K05, K06
+
+#define ROW1_RIGHT_BP6(K01, K02, K03, K04, K05, K06 )   \
+  K01, K02, K03, K04, K05, K06
+
+#define ROW2_LEFT_BP6(K01, K02, K03, K04, K05, K06)             \
+  K01, SFT_T(K02), ALT_T(K03), CTL_T(K04), GUI_T(K05), K06
+
+#define ROW2_RIGHT_BP6(K01, K02, K03, K04, K05, K06)            \
+  K01, GUI_T(K02), RCTL_T(K03), RALT_T(K04), RSFT_T(K05), K06
+
+#define ROW3_LEFT_BP6(K01, K02, K03, K04, K05, K06)     \
+  K01, K02, K03, K04, K05, K06
+
+#define ROW3_RIGHT_BP6(K01, K02, K03, K04, K05, K06 )   \
+  K01, K02, K03, K04, K05, K06
+>>>>>>> 5f2db4d1ad (move lt for nav off of my emacs/vi leader ','.)
 
 //-----------------------------------------------y
 // For a 5 column keyboard - no edges added.
