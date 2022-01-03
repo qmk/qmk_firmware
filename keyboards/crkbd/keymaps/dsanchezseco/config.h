@@ -25,9 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-// #define MASTER_LEFT
+#define SPLIT_USB_DETECT
+
+#define MASTER_LEFT
 // #define MASTER_RIGHT
-#define EE_HANDS
+//#define EE_HANDS
 
 // lower maximum brightness to lower power usage and prevent unresponsiveness
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
