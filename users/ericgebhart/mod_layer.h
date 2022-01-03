@@ -39,7 +39,7 @@
   K01, K02, K03, K04, K05, RIGHT0
 
 #define ROW1_LEFT(K01, K02, K03, K04, K05)      \
-  LEFT1, K01, LT(_NAV, K02), K03, K04, K05
+  LEFT1, K01, K02, K03, LT(_NAV, K04), K05
 
 #define ROW1_RIGHT(K01, K02, K03, K04, K05)     \
   K01, K02, K03, K04, K05, RIGHT1
@@ -67,16 +67,18 @@
   K01, K02, K03, K04, K05, RIGHT0_BP
 
 #define ROW1_LEFT_BP(K01, K02, K03, K04, K05)           \
-  LEFT1_BP, K01, K02, LT(_KEYPAD, K03), K04, K05
+  LEFT1_BP, K01, K02, K03, LT(_KEYPAD, K04), K05
 
 #define ROW1_RIGHT_BP(K01, K02, K03, K04, K05)          \
   K01, K02, LT(_KEYPAD, K03), K04, K05, RIGHT1_BP
 
 #define ROW2_LEFT_BP(K01, K02, K03, K04, K05)                           \
-  LEFT2_BP, MT(MOD_RSFT, K01), MT(MOD_LALT,K02), MT(MOD_RCTL, K03), MT(MOD_LGUI, K04), K05
+  LEFT2_BP, MT(MOD_RSFT, K01), MT(MOD_LALT,K02), MT(MOD_RCTL, K03), \
+    MT(MOD_LGUI, K04), K05
 
-#define ROW2_RIGHT_BP(K01, K02, K03, K04, K05)                          \
-  K01, MT(MOD_RGUI, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), MT(MOD_RSFT, K05), RIGHT2_BP \
+#define ROW2_RIGHT_BP(K01, K02, K03, K04, K05)                   \
+  K01, MT(MOD_RGUI, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), \
+    MT(MOD_RSFT, K05), RIGHT2_BP                                 \
 
 #define ROW3_LEFT_BP(K01, K02, K03, K04, K05)                           \
   LEFT3_BP, K01, LT(_SYMB_BP, K02), LT(_NAV, K03), LT(_TOPROWS_BP, K04), K05
