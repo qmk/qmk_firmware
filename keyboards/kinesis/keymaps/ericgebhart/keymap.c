@@ -16,9 +16,14 @@
 */
 #include "keymap_bepo.h"
 #include "ericgebhart.h"
-#include "layouts.h"
 
 #define LAYOUT_PVARG(...)     LAYOUT_pretty(__VA_ARGS__)
+
+#define Kinesis_base(...)        Base_4x6_4_6(__VA_ARGS__)
+#define Kinesis_bepo_base(...)   Base_bepo_4x6_4_6(__VA_ARGS__)
+#define Kinesis_bepo_base6(...)  Base_bepo6_4x6_4_6(__VA_ARGS__)
+#define Kinesis_transient(...)   Transient6_4x6_4_6(__VA_ARGS__)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
