@@ -400,7 +400,7 @@ However, this will automatically disable the legacy TMK Macros and Functions fea
   * `bootloadhid`
   * `usbasploader`
 
-## Feature Options :id=feature-options
+## Feature Options {: id=feature-options }
 
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 

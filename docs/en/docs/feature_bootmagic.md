@@ -1,4 +1,4 @@
-# Bootmagic Lite :id=bootmagic-lite
+# Bootmagic Lite {: id=bootmagic-lite }
 
 The Bootmagic Lite feature that only handles jumping into the bootloader. This is great for boards that don't have a physical reset button, giving you a way to jump into the bootloader
 

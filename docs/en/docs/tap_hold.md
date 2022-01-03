@@ -39,7 +39,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-### Dynamic Tapping Term :id=dynamic-tapping-term
+### Dynamic Tapping Term {: id=dynamic-tapping-term }
 
 `DYNAMIC_TAPPING_TERM_ENABLE` is a feature you can enable in `rules.mk` that lets you use three special keys in your keymap to configure the tapping term on the fly.
 

@@ -1,9 +1,9 @@
-# Adding Default Keymaps to QMK Configurator :id=adding-default-keymaps
+# Adding Default Keymaps to QMK Configurator {: id=adding-default-keymaps }
 
 This page covers how to add a default keymap for a keyboard to QMK Configurator.
 
 
-## Technical Information :id=technical-information
+## Technical Information {: id=technical-information }
 
 QMK Configurator uses JSON as its native file format for keymaps. As much as possible, these should be kept such that they behave the same as running `make <keyboard>:default` from `qmk_firmware`.
 
@@ -27,7 +27,7 @@ f14629ed1cd7c7ec9089604d64f29a99981558e8 Remove/migrate action_get_macro()s from
 In this example, `f14629ed1cd7c7ec9089604d64f29a99981558e8` is the value that should be used for `commit`.
 
 
-## Example :id=example
+## Example {: id=example }
 
 If one wished to add a default keymap for the H87a by Hineybush, one would run the `git log` command above against the H87a's default keymap in `qmk_firmware`:
 
@@ -96,9 +96,9 @@ The default keymap uses the `LAYOUT_all` macro, so that will be the value of the
 The white space in the `layers` arrays have no effect on the functionality of the keymap, but are used to make these files easier for humans to read.
 
 
-## Caveats :id=caveats
+## Caveats {: id=caveats }
 
-### Layers can only be referenced by number :id=layer-references
+### Layers can only be referenced by number {: id=layer-references }
 
 A common QMK convention is to name layers using a series of `#define`s, or an `enum` statement:
 
@@ -112,11 +112,11 @@ enum layer_names {
 
 This works in C, but for Configurator, you *must* use the layer's numeric index – `MO(_FN)` would need to be `MO(2)` in the above example.
 
-### No support for custom code of any kind :id=custom-code
+### No support for custom code of any kind {: id=custom-code }
 
 Features that require adding functions to the keymap.c file, such as Tap Dance or Unicode, can not be compiled in Configurator **at all**. Even setting `TAP_DANCE_ENABLE = yes` in the `qmk_firmware` repository at the keyboard level will prevent Configurator from compiling **any** firmware for that keyboard. This is limited both by the API and the current spec of our JSON keymap format.
 
-### Limited Support for Custom keycodes :id=custom-keycodes
+### Limited Support for Custom keycodes {: id=custom-keycodes }
 
 There is a way to support custom keycodes: if the logic for a custom keycode is implemented at the keyboard level instead of the keymap level in qmk_firmware, that keycode *can* be used in Configurator and it *will* compile and work. Instead of using the following in your `keymap.c`:
 
@@ -188,6 +188,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 Note the call to `process_record_user()` at the end. Additionally, users of the keyboard will need to use `NEW_SAFE_RANGE` instead of `SAFE_RANGE` if they wish to add their own custom keycodes at keymap level, beyond what is provided by the keyboard.
 
 
-## Additional Reading :id=additional-reading
+## Additional Reading {: id=additional-reading }
 
 For QMK Configurator to support your keyboard, your keyboard must be present in the `master` branch of the `qmk_firmware` repository. For instructions on this, please see [Supporting Your Keyboard in QMK Configurator](reference_configurator_support.md).

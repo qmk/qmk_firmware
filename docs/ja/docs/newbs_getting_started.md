@@ -21,7 +21,7 @@
 !!! tip
     もし、Linux か Unix のコマンドを使ったことがない場合、こちらで基本的な概念や各種コマンドを学んでください。[これらの教材](newbs_learn_more_resources.md#command-line-resources)で QMK を使うのに必要なことを学ぶことができます。
 
-## 2. ビルド環境を準備する :id=set-up-your-environment
+## 2. ビルド環境を準備する {: id=set-up-your-environment }
 
 私たちは、QMK を可能な限り簡単に構築できるように努力しています。Linux か Unix 環境を用意するだけで、QMK に残りをインストールさせることができます。
 
@@ -125,7 +125,7 @@ AUR から `qmk-git` パッケージを試すこともできます:
 
 <!-- tabs:end -->
 
-## 3. QMK の設定を行う :id=set-up-qmk
+## 3. QMK の設定を行う {: id=set-up-qmk }
 
 <!-- tabs:start -->
 

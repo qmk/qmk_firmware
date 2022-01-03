@@ -1,12 +1,12 @@
-# RGB Matrix Lighting :id=rgb-matrix-lighting
+# RGB Matrix Lighting {: id=rgb-matrix-lighting }
 
 This feature allows you to use RGB LED matrices driven by external drivers. It hooks into the RGBLIGHT system so you can use the same keycodes as RGBLIGHT to control it.
 
 If you want to use single color LED's you should use the [LED Matrix Subsystem](feature_led_matrix.md) instead.
 
-## Driver configuration :id=driver-configuration
+## Driver configuration {: id=driver-configuration }
 ---
-### IS31FL3731 :id=is31fl3731
+### IS31FL3731 {: id=is31fl3731 }
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
@@ -71,7 +71,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3`).
 
 ---
-### IS31FL3733 :id=is31fl3733
+### IS31FL3733 {: id=is31fl3733 }
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
@@ -157,7 +157,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/led/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
 
 ---
-### IS31FL3737 :id=is31fl3737
+### IS31FL3737 {: id=is31fl3737 }
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3737 RGB controller. To enable it, add this to your `rules.mk`:
 
@@ -237,7 +237,7 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 
 ---
 
-### WS2812 :id=ws2812
+### WS2812 {: id=ws2812 }
 
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 
@@ -257,7 +257,7 @@ Configure the hardware via your `config.h`:
 
 ---
 
-### APA102 :id=apa102
+### APA102 {: id=apa102 }
 
 There is basic support for APA102 based addressable LED strands. To enable it, add this to your `rules.mk`:
 
@@ -278,7 +278,7 @@ Configure the hardware via your `config.h`:
 ```
 
 ---
-### AW20216 :id=aw20216
+### AW20216 {: id=aw20216 }
 There is basic support for addressable RGB matrix lighting with the SPI AW20216 RGB controller. To enable it, add this to your `rules.mk`:
 
 ```make
@@ -349,7 +349,7 @@ const aw_led PROGMEM g_aw_leds[DRIVER_LED_TOTAL] = {
 
 ---
 
-## Common Configuration :id=common-configuration
+## Common Configuration {: id=common-configuration }
 
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
@@ -382,7 +382,7 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 `// LED Index to Flag` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
 
-## Flags :id=flags
+## Flags {: id=flags }
 
 |Define                      |Value |Description                                      |
 |----------------------------|------|-------------------------------------------------|
@@ -395,7 +395,7 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 |`LED_FLAG_KEYLIGHT`         |`0x04`|If the LED is for key backlight                  |
 |`LED_FLAG_INDICATOR`        |`0x08`|If the LED is for keyboard state indication      |
 
-## Keycodes :id=keycodes
+## Keycodes {: id=keycodes }
 
 All RGB keycodes are currently shared with the RGBLIGHT system:
 
@@ -427,7 +427,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 !!! tip
     By default, if you have both the [RGB Light](feature_rgblight.md) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
 
-## RGB Matrix Effects :id=rgb-matrix-effects
+## RGB Matrix Effects {: id=rgb-matrix-effects }
 
 All effects have been configured to support current configuration values (Hue, Saturation, Value, & Speed) unless otherwise noted below. These are the effects that are currently available:
 
@@ -549,7 +549,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
     These modes also require the `RGB_MATRIX_KEYPRESSES` or `RGB_MATRIX_KEYRELEASES` define to be available.
 
 
-### RGB Matrix Effect Typing Heatmap :id=rgb-matrix-effect-typing-heatmap
+### RGB Matrix Effect Typing Heatmap {: id=rgb-matrix-effect-typing-heatmap }
 
 This effect will color the RGB matrix according to a heatmap of recently pressed
 keys. Whenever a key is pressed its "temperature" increases as well as that of
@@ -563,7 +563,7 @@ In order to change the delay of temperature decrease define
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
 ```
 
-## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects
+## Custom RGB Matrix Effects {: id=custom-rgb-matrix-effects }
 
 By setting `RGB_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from your keymap or userspace, without having to edit any QMK core files.
 
@@ -624,7 +624,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix/animations/`.
 
 
-## Colors :id=colors
+## Colors {: id=colors }
 
 These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
 
@@ -653,7 +653,7 @@ These are shorthands to popular colors. The `RGB` ones can be passed to the `set
 These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/color.h). Feel free to add to this list!
 
 
-## Additional `config.h` Options :id=additional-configh-options
+## Additional `config.h` Options {: id=additional-configh-options }
 
 ```c
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
@@ -675,7 +675,7 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
                               		// If RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 ```
 
-## EEPROM storage :id=eeprom-storage
+## EEPROM storage {: id=eeprom-storage }
 
 The EEPROM for it is currently shared with the LED Matrix system (it's generally assumed only one feature would be used at a time), but could be configured to use its own 32bit address with:
 
@@ -685,15 +685,15 @@ The EEPROM for it is currently shared with the LED Matrix system (it's generally
 
 Where `28` is an unused index from `eeconfig.h`.
 
-## Functions :id=functions
+## Functions {: id=functions }
 
-### Direct Operation :id=direct-operation
+### Direct Operation {: id=direct-operation }
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_set_color_all(r, g, b)`         |Set all of the LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
 |`rgb_matrix_set_color(index, r, g, b)`      |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255, and `index` is between 0 and `DRIVER_LED_TOTAL` (not written to EEPROM) |
 
-### Disable/Enable Effects :id=disable-enable-effects
+### Disable/Enable Effects {: id=disable-enable-effects }
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_toggle()`                       |Toggle effect range LEDs between on and off |
@@ -703,7 +703,7 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_disable()`                      |Turn effect range LEDs off, based on their previous state |
 |`rgb_matrix_disable_noeeprom()`             |Turn effect range LEDs off, based on their previous state (not written to EEPROM) |
 
-### Change Effect Mode :id=change-effect-mode
+### Change Effect Mode {: id=change-effect-mode }
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_mode(mode)`                     |Set the mode, if RGB animations are enabled |
@@ -719,7 +719,7 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_set_speed(speed)`               |Set the speed of the animations to the given value where `speed` is between 0 and 255 |
 |`rgb_matrix_set_speed_noeeprom(speed)`      |Set the speed of the animations to the given value where `speed` is between 0 and 255 (not written to EEPROM) |
 
-### Change Color :id=change-color
+### Change Color {: id=change-color }
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_increase_hue()`                 |Increase the hue for effect range LEDs. This wraps around at maximum hue |
@@ -737,7 +737,7 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_sethsv(h, s, v)`                |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
 |`rgb_matrix_sethsv_noeeprom(h, s, v)`       |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 
-### Query Current Status :id=query-current-status
+### Query Current Status {: id=query-current-status }
 |Function                         |Description                |
 |---------------------------------|---------------------------|
 |`rgb_matrix_is_enabled()`        |Gets current on/off status |
@@ -749,9 +749,9 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_get_speed()`         |Gets current speed         |
 |`rgb_matrix_get_suspend_state()` |Gets current suspend state |
 
-## Callbacks :id=callbacks
+## Callbacks {: id=callbacks }
 
-### Indicators :id=indicators
+### Indicators {: id=indicators }
 
 If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `rgb_matrix_indicators_kb` or `rgb_matrix_indicators_user` function for that:
 ```c
@@ -768,7 +768,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-### Indicator Examples :id=indicator-examples
+### Indicator Examples {: id=indicator-examples }
 
 Caps Lock indicator on alphanumeric flagged keys:
 ```c
@@ -821,7 +821,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-#### Examples :id=indicator-examples
+#### Examples {: id=indicator-examples }
 
 This example sets the modifiers to be a specific color based on the layer state.  You can use a switch case here, instead, if you would like.  This uses HSV and then converts to RGB, because this allows the brightness to be limited (important when using the WS2812 driver).
 

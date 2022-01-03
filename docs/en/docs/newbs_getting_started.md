@@ -14,7 +14,7 @@ There are a few pieces of software you'll need to get started.
 !!! tip
     If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources.md#command-line-resources) will teach you enough to be able to work with QMK.
 
-## 2. Prepare Your Build Environment :id=set-up-your-environment
+## 2. Prepare Your Build Environment {: id=set-up-your-environment }
 
 We've tried to make QMK as easy to set up as possible. You only have to prepare your Linux or Unix environment, then let QMK install the rest.
 
@@ -113,7 +113,7 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
     NOTE: remember to follow the instructions printed at the end of installation (use `pkg info -Dg "py*-qmk"` to show them again).
 
-## 3. Run QMK Setup :id=set-up-qmk
+## 3. Run QMK Setup {: id=set-up-qmk }
 
 === "Windows"
 

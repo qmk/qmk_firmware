@@ -1,4 +1,4 @@
-# PS/2 マウスサポート :id=ps2-mouse-support
+# PS/2 マウスサポート {: id=ps2-mouse-support }
 
 <!---
   original document: 0.13.17:docs/feature_ps2_mouse.md
@@ -11,7 +11,7 @@ PS/2 マウス (例えばタッチパッドあるいはトラックポイント)
 
 PS/2 デバイスの接続は、USART(最善)、割り込み(次善)、 または busywait(非推奨)の3つのやり方が有ります。
 
-## トラックポイントとコントローラ間の回路 :id=the-circuitry-between-trackpoint-and-controller
+## トラックポイントとコントローラ間の回路 {: id=the-circuitry-between-trackpoint-and-controller }
 
 動作させるには、DATA と CLK のふたつのラインを 4.7k の抵抗で 5V にプルアップしてやる必要があります。
 
@@ -28,7 +28,7 @@ MODULE    5+  --------+--+--------- PWR   CONTROLLER
 ```
 
 
-## Busywait バージョン :id=busywait-version
+## Busywait バージョン {: id=busywait-version }
 
 注意: これは非推奨です。ギクシャクした動きや、未送信の入力が発生するかもしれません。可能であれば、割り込みまたは USART バージョンを使ってください。
 
@@ -48,7 +48,7 @@ PS2_USE_BUSYWAIT = yes
 #endif
 ```
 
-## 割り込みバージョン :id=interrupt-version
+## 割り込みバージョン {: id=interrupt-version }
 
 以下の例はクロックのために D2 を、データのために D5 を使います。クロックには任意の INT あるいは PCINT ピンを、データには任意のピンを使うことができます。
 
@@ -80,7 +80,7 @@ PS2_USE_INT = yes
 #endif
 ```
 
-## USART バージョン :id=usart-version
+## USART バージョン {: id=usart-version }
 
 ATMega32u4 で USART を使うには、クロックのために PD5 を、データのために PD2 を使う必要があります。それらのいずれかが利用できない場合は、割り込みバージョンを使う必要があります。
 
@@ -132,9 +132,9 @@ PS2_USE_USART = yes
 #endif
 ```
 
-## 追加の設定 :id=additional-settings
+## 追加の設定 {: id=additional-settings }
 
-### PS/2 マウス機能 :id=ps2-mouse-features
+### PS/2 マウス機能 {: id=ps2-mouse-features }
 
 以下の PS/2 マウスプロトコルによってサポートされる設定を有効にします。
 
@@ -175,7 +175,7 @@ void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
 void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 ```
 
-### 細かい調整 :id=fine-control
+### 細かい調整 {: id=fine-control }
 
 マウスの感度と速度を変更するには以下の定義を使います。
 注意: 同じ効果のために `ps2_mouse_set_resolution` も使うことができます (ほとんどのタッチパッドではサポートされません)。
@@ -186,7 +186,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 #define PS2_MOUSE_V_MULTIPLIER 1
 ```
 
-### スクロールボタン :id=scroll-button
+### スクロールボタン {: id=scroll-button }
 
 トラックポイントを使っている場合は、スクロールのためにそれを使えるようにしたいでしょう。
 押された時にマウスを移動させる代わりにスクロールさせる「スクロールボタン」を有効にすることができます。
@@ -233,7 +233,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 #define PS2_MOUSE_SCROLL_DIVISOR_V 2
 ```
 
-### マウスとスクロールの軸の反転 :id=invert-mouse-and-scroll-axes
+### マウスとスクロールの軸の反転 {: id=invert-mouse-and-scroll-axes }
 
 X 軸と Y 軸を反転するには、以下を config.h に配置します:
 
@@ -249,7 +249,7 @@ X 軸と Y 軸を反転するには、以下を config.h に配置します:
 #define PS2_MOUSE_INVERT_V
 ```
 
-### マウスの軸の回転 :id=rotate-mouse-axes
+### マウスの軸の回転 {: id=rotate-mouse-axes }
 
 デバイスの出力を時計回りに 90 か 180 か 270 度変換します。
 
@@ -265,7 +265,7 @@ X 軸と Y 軸を反転するには、以下を config.h に配置します:
 #define PS2_MOUSE_ROTATE 90 /* 西向きのデバイスの向きの補正*/
 ```
 
-### デバッグ設定 :id=debug-settings
+### デバッグ設定 {: id=debug-settings }
 
 マウスをデバッグするには、`debug_mouse = true` を追加するか、ブートマジックを使って有効にします。
 
@@ -275,7 +275,7 @@ X 軸と Y 軸を反転するには、以下を config.h に配置します:
 #define PS2_MOUSE_DEBUG_RAW
 ```
 
-### 動作フック :id=movement-hook
+### 動作フック {: id=movement-hook }
 
 ホストに送信される前にキーマップでマウスの動作を処理します。使用例として、
 ノイズのフィルタリング、加速の追加、レイヤーの自動アクティブ化が含まれます。

@@ -210,7 +210,7 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
 it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
 
-### Defining Lighting Layers :id=defining-lighting-layers
+### Defining Lighting Layers {: id=defining-lighting-layers }
 
 By default, 8 layers are possible. This can be expanded to as many as 32 by overriding the definition of `RGBLIGHT_MAX_LAYERS` in `config.h` (e.g. `#define RGBLIGHT_MAX_LAYERS 32`). Please note, if you use a split keyboard, you will need to flash both sides of the split after changing this. Also, increasing the maximum will increase the firmware size, and will slow sync on split keyboards.
 
@@ -255,7 +255,7 @@ void keyboard_post_init_user(void) {
 ```
 Note: For split keyboards with two controllers, both sides need to be flashed when updating the contents of rgblight_layers.
 
-### Enabling and disabling lighting layers :id=enabling-lighting-layers
+### Enabling and disabling lighting layers {: id=enabling-lighting-layers }
 
 Everything above just configured the definition of each lighting layer.
 We can now enable and disable the lighting layers whenever the state of the keyboard changes:
@@ -278,7 +278,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 ```
 
-### Lighting layer blink :id=lighting-layer-blink
+### Lighting layer blink {: id=lighting-layer-blink }
 
 By including `#define RGBLIGHT_LAYER_BLINK` in your `config.h` file you can turn a lighting
 layer on for a specified duration. Once the specified number of milliseconds has elapsed
