@@ -2,6 +2,7 @@ SRC += ericgebhart.c
 SRC += tap_dances.c
 SRC += process_records.c
 SRC += caps_word.c
+SRC += altlocal_keys.c
 
 VPATH += keyboards/gboards
 

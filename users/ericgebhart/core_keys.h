@@ -20,30 +20,11 @@
 #include "process_keycode/process_tap_dance.h"
 #include "eeconfig.h"
 #include "keymap_bepo.h"
+#include "altlocal_keys.h"
 
 //#define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
 
-void tap(uint16_t keycode);
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
-
-
-// for the creation of dvorak keys on an Bepo keyboard at the OS layer.
-// so we can create an array of reasonable size
-// for our translation keys. We have to create a
-// good range of numbers
-#define GR(x) (x-SAFE_RANGE)
-
-uint8_t gr(uint16_t);
-void send_keycode(uint16_t);
-
-#define MOD_NONE 0x00
-
-// indexs for the keycode translation table.
-#define UNSHIFTED_KEY(key)  key_translations[gr(key)][0][0]
-#define UNSHIFTED_MODS(key) key_translations[gr(key)][0][1]
-#define SHIFTED_KEY(key)    key_translations[gr(key)][1][0]
-#define SHIFTED_MODS(key)   key_translations[gr(key)][1][1]
-
 
 enum userspace_custom_keycodes {
   // keep the keycodes using the send_key function close to SAFE_RANGE
