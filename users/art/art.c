@@ -216,9 +216,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       break;
-    case KC_SPACE:
+    // case KC_SPACE:
     case LT(MEDIA,KC_SPC):
-      if (record->event.pressed && caps_word_on() && !layer_state_is(BASE)) {
+    case LT(NAV,KC_SPC):
+      if (record->event.pressed && caps_word_on() && !layer_state_is(BASE) && record->tap.count == 1) {
         SEND_STRING(SS_TAP(X_CAPS));
       }
       break;

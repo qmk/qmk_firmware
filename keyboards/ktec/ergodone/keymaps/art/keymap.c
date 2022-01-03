@@ -55,13 +55,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |  ` ~   |   1  |   2  |   3  |   4  |   5  |  ESC |           | - _  |   6  |   7  |   8  |   9  |   0  |   ]    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  | ???  |           |  =   |   Y  |   U  |   I  |   O  |   P  |   [    |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |  \   |           |  =   |   Y  |   U  |   I  |   O  |   P  |   [    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Caps   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;   |   '    |
  * |--------+------+------+------+------+------| FKEYS|           | FKEYS|------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | / git| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |LCtrl |Media\| Win  |Alt   | NAV  |                                       | Home | End  |Workmn|      | RCtrl|
+ *   |  <-  |  ->  | Win  |Alt   | ctrl |                                       | Home | End  |Workmn|      | RCtrl|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        | Del  |  Ins |       | Left |  Right |
@@ -77,12 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,           KC_Q,         KC_W,       KC_E,       KC_R,              KC_T,      KC_BSLASH,
   KC_CAPS,          KC_A,         KC_S,       KC_D,       KC_F,              KC_G,
   KC_LSFT,          KC_Z,         KC_X,       KC_C,       KC_V,              KC_B,      TT(FKEYS),
-//KC_LCTRL,         KC_LWIN,      KC_LALT, LT(MEDIA, KC_LEFT), LT(NAV, KC_RIGHT),
   KC_LEFT,         KC_RIGHT,      KC_LWIN,    KC_LALT,    KC_LCTRL,
 
                                            KC_DEL,    KC_INS,
                                                       LT(MEDIA,KC_PGUP),
-                                  KC_SPC,  KC_BSPC,   LT(COMBOS,KC_PGDOWN),
+                          LT(NAV,KC_SPC),  KC_BSPC,   LT(COMBOS,KC_PGDOWN),
 
   // -----------------------------------------------------right hand-----------------------------------------------------
   KC_MINS,          KC_6,         KC_7,       KC_8,       KC_9,              KC_0,      KC_RBRC,
