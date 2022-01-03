@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       LT(_NUMLEFT, KC_ESC), DE_X,   DE_V,   DE_L,   DE_C,   DE_W,                                 /*|*/                 DE_K, DE_H, DE_G,    DE_F,   DE_Q, DE_SS,
       LALT_T(KC_TAB),        DE_U,   DE_I,   DE_A,   DE_E,   DE_O,                                 /*|*/                 DE_S, DE_N, DE_R,    DE_T,   DE_D, DE_Y,
       KC_LCTRL,              DE_UE,  DE_OE,  DE_AE,  DE_P,   DE_Z, KC_TAB, KC_LSHIFT,              /*|*/KC_LEAD, KC_TAB, DE_B, DE_M, DE_COMM, DE_DOT, DE_J, DE_MINS,
-              KC_RGUI, KC_LSHIFT, LT(_SYMBOLS, KC_DEL), LSFT_T(KC_SPC), LT(_NUMBER, KC_ENT),/*|*/LT(_NUMBER, KC_ENT), LSFT_T(KC_SPC),  LT(_SYMBOLS, KC_BSPC), KC_RSHIFT, KC_LGUI
+              KC_RGUI, KC_LSHIFT, LT(_SYMBOLS, KC_ENT), LSFT_T(KC_SPC), LT(_NUMBER, KC_DEL),/*|*/LT(_NUMBER, KC_BSPC), LSFT_T(KC_SPC),  LT(_SYMBOLS, KC_ENT), KC_RSHIFT, KC_LGUI
     ),
 /*
  * Lower Layer: Symbols
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, DE_AT,   DE_UNDS, DE_LBRC, DE_RBRC, DE_CIRC,                 /*|*/                  DE_EXLM, DE_LABK, DE_RABK, DE_EQL,  DE_AMPR, DE_SECT,
       LCTL(KC_Z), DE_BSLS, DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR,                 /*|*/                  DE_QUES, DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, DE_EURO,
       LCTL(KC_S), DE_HASH, DE_DLR,  DE_PIPE, DE_TILD, DE_GRV, _______, _______,/*|*/_______, _______, DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, DE_SCLN, _______,
-                             _______, _______, _______, _______, _______,/*|*/_______, _______, _______, _______, _______
+                             _______, _______, _______, LCTL(LGUI(KC_LEFT)), LCTL(LGUI(KC_RIGHT)),/*|*/_______, _______, _______, _______, _______
     ),
 /*
  * Raise Layer: Number keys, navigation
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUMBER] = LAYOUT(
       _______,   KC_HOME,  KC_BSPC, KC_UP,   KC_DEL, KC_END,                         /*|*/                  KC_PAST, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_PEQL,
       ALT_TAB, KC_UNDO,  KC_LEFT, KC_DOWN, KC_RIGHT,   KC_PGDOWN,                     /*|*/                  KC_PSLS, KC_P4, KC_P5, KC_P6, KC_PPLS, _______,
-      LSA(KC_TAB),   KC_AGAIN, LCA(DE_R), S(KC_F5),KC_F12,   KC_PGUP, _______, _______,/*|*/LCA(KC_DEL), _______, KC_P0,    KC_P1, KC_P2, KC_P3, KC_PDOT,  KC_PCMM,
+      LGUI(KC_TAB),   KC_AGAIN, LCA(DE_R), S(KC_F5),KC_F12,   KC_PGUP, _______, _______,/*|*/LCA(KC_DEL), _______, KC_P0,    KC_P1, KC_P2, KC_P3, KC_PDOT,  KC_PCMM,
                                          _______, _______, KC_F2, _______, _______,/*|*/LCA(KC_END), _______, _______, _______, LCA(KC_INS)
     ),
 /*
@@ -104,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'
  */
     [_NUMLEFT] = LAYOUT(
-      _______, DE_0, DE_1, DE_2, DE_3, DE_Q,                  /*|*/                  _______, _______, _______, _______, _______, _______,
-      _______, _______, DE_4, DE_5, DE_6, DE_F,                  /*|*/                  _______, _______, _______, _______, _______, _______,
-      _______, KC_MSEL,    DE_7, DE_8, DE_9, DE_G, _______, _______,/*|*/_______, _______, _______, _______, _______, _______, _______, _______,
+      _______, DE_1, DE_2, DE_3, DE_4, DE_5,                  /*|*/                  _______, _______, _______, _______, _______, _______,
+      _______, DE_6, DE_7, DE_8, DE_9, DE_0,                  /*|*/                  _______, _______, _______, _______, _______, _______,
+      _______, KC_MSEL, _______, _______, _______, DE_G, _______, _______,/*|*/_______, _______, _______, _______, _______, _______, _______, _______,
                         _______, _______, KC_MPRV, KC_MPLY, KC_MNXT,/*|*/_______, _______, _______, _______, _______
     ),
 /*
@@ -148,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       LALT_T(KC_ESC), _______, _______, _______, _______, _______,                   /*|*/                  _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                   /*|*/                  _______, _______, _______, _______, _______, _______,
       _______, DE_COMM, DE_DOT, DE_D, _______, _______, DE_J, DE_Q,/*|*/_______, _______, _______, _______, _______, _______, _______, _______,
-                                    DE_MINS, DE_F, _______, KC_SPC, _______ ,/*|*/_______, _______, _______, _______, KC_RGUI
+                                    DE_MINS, DE_F, KC_DEL, KC_SPC, KC_ENT ,/*|*/_______, KC_RGUI, _______, _______, _______
     ),
 // /*
 //  * Layer template
