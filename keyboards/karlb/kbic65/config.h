@@ -18,24 +18,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-/* Changed Vendor ID from 0xFEED to 0x424B */
-
-#define VENDOR_ID       0x424B
-#define PRODUCT_ID      0xD87A
-#define DEVICE_VER      0x0001
-
-#define MANUFACTURER    b-karl
-#define PRODUCT         kbic65
-
-/* key matrix size */
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 8
-#define MATRIX_ROW_PINS { B5, D1,  B4, D0, E6, D4, D7, C6, D2 }
-#define MATRIX_COL_PINS { B2, B6, B3, B1, F7, F6, F5, F4 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
