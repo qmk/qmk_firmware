@@ -12,7 +12,7 @@ AVR微控制器有很多种bootloader。而绝大部分 ARM 架构的 STM32 微�
 
 你需要一些桥接用的线来连接ISP刷写器以及要刷写的控制器板。一些板子上会提供已导出的ISP引脚，如果没有的话，只能临时将电线接到PCB上 -- 一般是接到开关引脚或MCU针脚上。
 
-接线比较简单，大部分情况下接到相似的上面就行。可以查阅MCU的数据手册以确定准确的 `RESET`、`SCLK`、`MOSI` 以及 `MISO` 引脚。
+接线比较简单，大部分情况下接到对应的上面就行。可以查阅MCU的数据手册以确定准确的 `RESET`、`SCLK`、`MOSI` 以及 `MISO` 引脚。
 
 ### 使用 Pro Micro 作为 ISP 刷写器
 
@@ -144,7 +144,7 @@ AVR微控制器有很多种bootloader。而绝大部分 ARM 架构的 STM32 微�
 |[Arduino Leonardo](https://github.com/arduino/ArduinoCore-avr/blob/master/bootloaders/caterina/Caterina-Leonardo.hex)*                                           |`0xFF`|`0xD8`|`0xFB`  |`2341:0036`|
 |[Arduino Micro](https://github.com/arduino/ArduinoCore-avr/blob/master/bootloaders/caterina/Caterina-Micro.hex)*                                                 |`0xFF`|`0xD8`|`0xFB`  |`2341:0037`|
 
-?> 标 * 的文件同时附带了 Arduin sketch，默认启动且也会呈现出一个串口，但那个*可不是* bootloader 设备。
+?> 标 * 的文件同时附带了 Arduino sketch，默认启动且也会呈现出一个串口，但那个*可不是* bootloader 设备。
 
 ### BootloadHID (PS2AVRGB)
 
