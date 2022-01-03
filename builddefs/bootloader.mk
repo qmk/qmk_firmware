@@ -158,6 +158,17 @@ ifeq ($(strip $(BOOTLOADER)), stm32duino)
     DFU_ARGS = -d 1EAF:0003 -a 2 -R
     DFU_SUFFIX_ARGS = -v 1EAF -p 0003
 endif
+ifeq ($(strip $(BOOTLOADER)), stm32duino_ld)
+    OPT_DEFS += -DBOOTLOADER_STM32DUINO
+    MCU_LDSCRIPT = STM32F103x6_stm32duino_bootloader
+    BOARD = STM32_F103_STM32DUINO
+    # STM32F103 does NOT have an USB bootloader in ROM (only serial), so setting anything here does not make much sense
+    STM32_BOOTLOADER_ADDRESS = 0x80000000
+
+    # Options to pass to dfu-util when flashing
+    DFU_ARGS = -d 1EAF:0003 -a 2 -R
+    DFU_SUFFIX_ARGS = -v 1EAF -p 0003
+endif
 ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     OPT_DEFS += -DBOOTLOADER_TINYUF2
 endif
