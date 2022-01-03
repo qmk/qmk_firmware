@@ -17,6 +17,7 @@
 #pragma once
 
 #define DRIVER_LED_UNDERGLOW 10
+#define TAPPING_TERM 500
 
 #if defined(RGB_MATRIX_ENABLE)
     #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
