@@ -10,12 +10,9 @@ plugins:
         - en
         - es
         - fr
-        - he
         - ja
-        - kr
         - pt
         - ru
-        - zh
       prebuild_index: true
       separator: '[\s\-\_]+'
 markdown_extensions:
@@ -169,6 +166,7 @@ repo_url: https://github.com/qmk/qmk_firmware
 site_name: QMK Firmware Docs
 site_url: https://qmk.github.io/qmk_mkdocs/devel/zh
 theme:
+  favicon: images/favicon.ico
   features:
     - navigation.expand
     #- navigation.instant
