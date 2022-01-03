@@ -273,4 +273,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-This allows you to toggle back and worth between scrolling and cursor movement by moving the mouse or trackball.  
+This allows you to toggle between scrolling and cursor movement by pressing the DRAG_SCROLL key.  
