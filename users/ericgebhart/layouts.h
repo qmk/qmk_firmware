@@ -481,7 +481,7 @@
                                                                         \
               ROW3_LEFT(K21, K22, K23, K24, K25),                       \
               ROW3_RIGHT(K26, K27, K28, K29, K2A),                      \
-              ___6_CRKBD_THUMBS___                                      \
+              ___6_ERGO_THUMBS___                                      \
                                                                         )
 
 // So we can have different transient layers for symbols and numbers on bepo.
@@ -503,7 +503,7 @@
                                                                         \
               ROW3_LEFT_BP(K21, K22, K23, K24, K25),                    \
               ROW3_RIGHT_BP(K26, K27, K28, K29, K2A),                   \
-              ___6_CRKBD_THUMBS_BP___                                   \
+              ___6_ERGO_THUMBS_BP___                                    \
                                                                         )
 
 // No room for pinkies.
@@ -528,7 +528,7 @@
                                                                         \
               ROW3_LEFT_BP6(K21, K22, K23, K24, K25, K26),              \
               ROW3_RIGHT_BP6(K27, K28, K29, K2A, K2B, K2C),             \
-              ___6_CRKBD_THUMBS_BP___                                   \
+              ___6_ERGO_THUMBS_BP___                                   \
                                                                         )
 
 // All we really need is to add the see through thumbs to the end.
