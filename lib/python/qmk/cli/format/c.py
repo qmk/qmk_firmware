@@ -74,17 +74,16 @@ def filter_files(files, core_only=False):
     """Yield only files to be formatted and skip the rest
     """
     files = list(map(normpath, filter(None, files)))
-    if core_only:
-        # Filter non-core files
-        for index, file in enumerate(files):
+
+    for file in files:
+        if core_only:
             # The following statement checks each file to see if the file path is
             # - in the core directories
             # - not in the ignored directories
             if not any(is_relative_to(file, i) for i in core_dirs) or any(is_relative_to(file, i) for i in ignored):
-                del files[index]
                 cli.log.debug("Skipping non-core file %s, as '--core-only' is used.", file)
+                continue
 
-    for file in files:
         if file.suffix[1:] in c_file_suffixes:
             yield file
         else:
