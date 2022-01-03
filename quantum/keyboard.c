@@ -125,11 +125,12 @@ void            last_encoder_activity_trigger(void) { last_encoder_modification_
 
 // Only enable this if console is enabled to print to
 #if defined(DEBUG_MATRIX_SCAN_RATE)
-static uint32_t matrix_timer           = 0;
-static uint32_t matrix_scan_count      = 0;
 static uint32_t last_matrix_scan_count = 0;
 
 void matrix_scan_perf_task(void) {
+    static uint32_t matrix_timer      = 0;
+    static uint32_t matrix_scan_count = 0;
+
     matrix_scan_count++;
 
     uint32_t timer_now = timer_read32();
@@ -146,6 +147,25 @@ void matrix_scan_perf_task(void) {
 uint32_t get_matrix_scan_rate(void) { return last_matrix_scan_count; }
 #else
 #    define matrix_scan_perf_task()
+#endif
+
+// Only enable this if console is enabled to print to
+#if defined(DEBUG_KEYBOARD_TASK_RATE)
+void keyboard_perf_task(void) {
+    static uint32_t last_flush = 0;
+    static uint32_t tick_count = 0;
+
+    tick_count++;
+
+    uint32_t timer_now = timer_read32();
+    if (TIMER_DIFF_32(timer_now, last_flush) > 1000) {
+        dprintf("keyboard task frequency: %lu\n", tick_count);
+        last_flush = timer_now;
+        tick_count = 0;
+    }
+}
+#else
+#    define keyboard_perf_task()
 #endif
 
 #ifdef MATRIX_HAS_GHOST
@@ -420,6 +440,12 @@ bool matrix_scan_task(void) {
     uint8_t keys_processed = 0;
 #endif
 
+#ifdef MATRIX_SCAN_SKIP
+    // TODO: better handling of scan throttle
+    static uint8_t scan_skip = 0;
+    if (scan_skip++ % MATRIX_SCAN_SKIP) return false;
+#endif
+
     uint8_t matrix_changed = matrix_scan();
     if (matrix_changed) last_matrix_activity_trigger();
 
@@ -551,6 +577,7 @@ void keyboard_task(void) {
     bool matrix_changed = matrix_scan_task();
     (void)matrix_changed;
 
+    keyboard_perf_task();
     quantum_task();
 
 #if defined(RGBLIGHT_ENABLE)

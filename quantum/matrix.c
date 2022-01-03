@@ -289,7 +289,7 @@ void matrix_init(void) {
 
     debounce_init(ROWS_PER_HAND);
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 #ifdef SPLIT_KEYBOARD
@@ -324,7 +324,7 @@ uint8_t matrix_scan(void) {
     changed = (changed || matrix_post_scan());
 #else
     debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
-    matrix_scan_quantum();
+    matrix_scan_kb();
 #endif
     return (uint8_t)changed;
 }

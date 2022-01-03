@@ -18,6 +18,10 @@
 #include "test_matrix.h"
 #include <string.h>
 
+// TODO: remove legacy api
+void matrix_init_quantum(void) { matrix_init_kb(); }
+void matrix_scan_quantum(void) { matrix_scan_kb(); }
+
 static matrix_row_t matrix[MATRIX_ROWS] = {};
 
 void matrix_init(void) {
