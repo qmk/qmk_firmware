@@ -9,3 +9,6 @@ milc>=1.4.2
 pygments
 pyusb
 qmk-dotty-dict
+mkdocs-git-revision-date-plugin
+mkdocs-material
+pygments

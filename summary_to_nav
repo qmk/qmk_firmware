@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+"""Convert _summary.md to mkdocs' nav tree
+"""
+
+import re
+from pathlib import Path
+
+link_re = re.compile(r'^( *)- \[(.*)]\((.*)\)')
+markdown = Path('docs/_summary.md')
+
+for line in markdown.read_text().split('\n'):
+    if not line.strip():
+        continue
+
+    line = line.replace('*', '-')
+
+    if '](' in line:
+        indent, title, page = link_re.match(line).groups()
+        print(f'  {indent}- {title}: {page}')
+    else:
+        print(f'  {line}:')
