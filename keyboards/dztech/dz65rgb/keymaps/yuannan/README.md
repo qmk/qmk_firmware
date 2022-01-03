@@ -9,7 +9,11 @@
 
 ## Features
 
-1. Much better mouse support. Now able to: move mouse around with 3 levels of acceleration, click and nav using mouse buttons 1-5, mouse scroll in all 4 directions, autoclick with 5 different levels of speed! Increase or Decrease the speeds of {500, 50, 20, 10, 1} clicks per second\*(Read Note Below). Press Shift while using the Increase or Decrease button to do the opposite. It's ready to be dropped into your keymap.c today!
+1. Much better mouse support. Now able to:
+	- Move mouse around with 3 levels of acceleration
+	- Click and nav using mouse buttons 1-5
+	- Mouse scroll in all 4 directions, autoclick with 5 different levels of speed!
+	- Increase or Decrease the speeds of {500, 50, 20, 10, 1} clicks per second \*(Read Note Below). Press Shift while using the Increase or Decrease button to do the opposite. It works for any other keyboard not just the DZ65!
 2. Ctrl and Caps swapped. The new indicator is dynamically colored and has been moved as well!
 3. Improved navigation via Vim like keys.
 4. Dynamic Macros now enabled!
