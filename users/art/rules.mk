@@ -1,5 +1,7 @@
 SRC += art.c
 
+COMBO_ENABLE = yes
+
 # saving space
 COMMAND_ENABLE = no
 CONSOLE_ENABLE = no
