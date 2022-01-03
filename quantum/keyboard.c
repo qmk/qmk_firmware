@@ -364,7 +364,7 @@ void keyboard_set_leds(uint8_t leds) {
 
 /** \brief set host led state
  *
- * Only sets state has changed
+ * Only sets state if change detected
  */
 void led_task(void) {
     static uint8_t led_status = 0;
@@ -450,6 +450,17 @@ MATRIX_LOOP_END:
     return matrix_changed;
 }
 
+/** \brief Keyboard task: Do keyboard routine jobs
+ *
+ * Do routine keyboard jobs:
+ *
+ * * scan matrix
+ * * handle mouse movements
+ * * handle midi commands
+ * * light LEDs
+ *
+ * This is repeatedly called as fast as possible.
+ */
 void keyboard_task(void) {
     bool matrix_changed = matrix_scan_task();
     (void)matrix_changed;
