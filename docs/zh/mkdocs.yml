@@ -28,7 +28,7 @@ extra:
     - name: Русский язык
       link: /master/ru/
       lang: ru
-    - name: simplified chinese
+    - name: 简体中文
       link: /master/zh/
       lang: zh
 plugins:
