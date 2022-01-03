@@ -1,6 +1,6 @@
 # Lulu
 
-![boardsource lily](https://i.imgur.com/tjvUoXT.png)
+![boardsource Lulu](https://i.imgur.com/tjvUoXT.png)
 
 The lulu is what the ergo community has needed for a long time, a high-end aesthetic split ergo 60%. With this project we not only tried to create a beautiful product but we also wanted to unify the some what split 60% community. With hotswap, per key rgb & underglow, swappable encoder and adjustable tenting with out giving up anything.
 
