@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-extern const uint16_t flow_config[FLOW_COUNT][3];
+extern const uint16_t flow_config[FLOW_COUNT][2];
 extern const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2];
 
 // Represents the states a flow key can be in
@@ -14,12 +14,6 @@ typedef enum {
     flow_down_used,
 } flow_state_t;
 
-#ifdef FLOW_TERM
-const int g_flow_term = FLOW_TERM;
-#else
-const int g_flow_term = 10;
-#endif
-
 #ifdef FLOW_ONESHOT_TERM
 const int g_flow_oneshot_term = FLOW_ONESHOT_TERM;
 #else
@@ -28,7 +22,6 @@ const int g_flow_oneshot_term = 500;
 
 flow_state_t flow_state[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = flow_up_unqueued };
 bool flow_pressed[FLOW_COUNT][2] = { [0 ... FLOW_COUNT - 1] = {false, false} };
-bool flow_timers_active[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
 uint16_t flow_timers[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = 0 };
 bool flow_timeout_timers_active[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = false };
 uint16_t flow_timeout_timers_value[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = 0 };
@@ -85,13 +78,6 @@ bool update_flow_mods(
         if (keycode == flow_config[i][0]) {
             if (pressed) {
                 flow_pressed[i][0] = true;
-                if (flow_timers_active[i]) {
-                    flow_timers_active[i] = false;
-                    flow_pressed[i][1] = true; // keycode pressed
-                    flow_triggered = true;
-                    flow_key_list_pressed[i] = true;
-                    flow_key_list_triggered[i] = true;
-                }
             } else {
                 flow_pressed[i][0] = false;
             }
@@ -106,10 +92,6 @@ bool update_flow_mods(
                     flow_key_list_triggered[i] = true;
                     flow_triggered = true;
                     flow_key_list_pressed[i] = true;
-                    pass = false;
-                 } else {
-                    flow_timers[i] = timer_read();
-                    flow_timers_active[i] = true;
                     pass = false;
                  }
             } else {
@@ -132,7 +114,7 @@ bool update_flow_mods(
         if (flow_key_list_triggered[i]) {
             if (flow_key_list_pressed[i]) {
                 if (flow_state[i] == flow_up_unqueued) {
-                    register_code(flow_config[i][2]);
+                    register_code(flow_config[i][1]);
                 }
                 flow_state[i] = flow_down_unused;
             } else {
@@ -150,7 +132,7 @@ bool update_flow_mods(
                     // If we did use the mod while trigger was held, unregister it.
                     if (!flow_pressed[i][1]) {
                         flow_state[i] = flow_up_unqueued;
-                        unregister_code(flow_config[i][2]);
+                        unregister_code(flow_config[i][1]);
                     }
                     break;
                 default:
@@ -164,7 +146,7 @@ bool update_flow_mods(
                         && !flow_second_key_pressed) {
                     // Cancel oneshot on designated cancel keydown.
                     flow_state[i] = flow_up_unqueued;
-                    unregister_code(flow_config[i][2]);
+                    unregister_code(flow_config[i][1]);
                 }
                 if (!is_flow_ignored_key(keycode)) {
                     switch (flow_state[i]) {
@@ -173,7 +155,7 @@ bool update_flow_mods(
                         break;
                     case flow_up_queued_used:
                         flow_state[i] = flow_up_unqueued;
-                        unregister_code(flow_config[i][2]);
+                        unregister_code(flow_config[i][1]);
                         break;
                     default:
                         break;
@@ -188,11 +170,11 @@ bool update_flow_mods(
                         break;
                     case flow_up_queued:
                         flow_state[i] = flow_up_unqueued;
-                        unregister_code(flow_config[i][2]);
+                        unregister_code(flow_config[i][1]);
                         break;
                     case flow_up_queued_used:
                         flow_state[i] = flow_up_unqueued;
-                        unregister_code(flow_config[i][2]);
+                        unregister_code(flow_config[i][1]);
                         break;
                     default:
                         break;
@@ -306,15 +288,11 @@ bool update_flow(
 
 void flow_matrix_scan(void) {
     for (int i = 0; i < FLOW_COUNT; i++) {
-        if (flow_timers_active[i] && timer_elapsed(flow_timers[i]) > g_flow_term) {
-            flow_timers_active[i] = false;
-            register_code(flow_config[i][1]);
-        }
         if (flow_timeout_timers_active[i]
                 && timer_elapsed(flow_timeout_timers_value[i]) > g_flow_oneshot_term) {
             flow_timeout_timers_active[i] = false;
             flow_state[i] = flow_up_unqueued;
-            unregister_code(flow_config[i][2]);
+            unregister_code(flow_config[i][1]);
         }
     }
 }

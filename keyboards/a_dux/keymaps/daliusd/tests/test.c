@@ -36,21 +36,19 @@ enum layers {
 };
 
 #define FLOW_COUNT 6
-const uint16_t flow_config[FLOW_COUNT][3] = {
-    {L_NAV, KC_A, KC_LALT},
-    {L_NAV, KC_S, KC_LGUI},
-    {L_NAV, KC_D, KC_LCTL},
-    {L_SYM, KC_K, KC_LCTL},
-    {L_SYM, KC_L, KC_LGUI},
-    {L_SYM, KC_SCLN, KC_LALT},
+const uint16_t flow_config[FLOW_COUNT][2] = {
+    {L_NAV, KC_LALT},
+    {L_NAV, KC_LGUI},
+    {L_NAV, KC_LCTL},
+    {L_SYM, KC_LCTL},
+    {L_SYM, KC_LGUI},
+    {L_SYM, KC_LALT},
 };
 
 #define FLOW_LAYERS_COUNT 1
 const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2] = {
     {OS_TMUX, _TMUX},
 };
-
-#define FLOW_TERM 30
 
 keycodes last_registered_code = KC_NO;
 uint16_t registered_codes_count = 0;
@@ -116,7 +114,6 @@ void reset() {
         flow_state[i] = flow_up_unqueued;
         flow_pressed[i][0] = false;
         flow_pressed[i][1] = false;
-        flow_timers_active[i] = false;
         flow_timeout_timers_active[i] = false;
     }
 
@@ -127,7 +124,7 @@ void reset() {
 
 MAIN
 
-TEST("navD + aD = alt")
+TEST("navD + altD = alt")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
@@ -135,21 +132,21 @@ TEST("navD + aD = alt")
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
     ASSERT_EQ(UINT, pass, true);
 
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, registered_codes_count, 1);
     ASSERT_EQ(UINT, last_registered_code, KC_LALT);
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
     ASSERT_EQ(UINT, pass, false);
 END_TEST
 
-TEST("navD + aD + aU + navU + aD + aU + aD + aU = alt+a a")
+TEST("navD + altD + altU + navU + aD + aU + aD + aU = alt+a a")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
 
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
     pass = update_flow(L_NAV, false, kp);
     ASSERT_EQ(UINT, pass, true);
@@ -159,10 +156,8 @@ TEST("navD + aD + aU + navU + aD + aU + aD + aU = alt+a a")
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
 
     pass = update_flow(KC_A, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 2);
-    ASSERT_EQ(UINT, last_registered_code, KC_A);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_A, false, kp);
     ASSERT_EQ(UINT, pass, true);
@@ -171,10 +166,8 @@ TEST("navD + aD + aU + navU + aD + aU + aD + aU = alt+a a")
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 
     pass = update_flow(KC_A, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 3);
-    ASSERT_EQ(UINT, last_registered_code, KC_A);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_A, false, kp);
     ASSERT_EQ(UINT, pass, true);
@@ -182,23 +175,21 @@ TEST("navD + aD + aU + navU + aD + aU + aD + aU = alt+a a")
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
-TEST("navD + aD + navU + aU + aD + aU + aD + aU  = alt+a")
+TEST("navD + altD + navU + altU + aD + aU + aD + aU  = alt+a a")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
 
     pass = update_flow(L_NAV, false, kp);
     ASSERT_EQ(UINT, pass, true);
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
 
     pass = update_flow(KC_A, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 2);
-    ASSERT_EQ(UINT, last_registered_code, KC_A);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_A, false, kp);
     ASSERT_EQ(UINT, pass, true);
@@ -207,10 +198,8 @@ TEST("navD + aD + navU + aU + aD + aU + aD + aU  = alt+a")
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 
     pass = update_flow(KC_A, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 3);
-    ASSERT_EQ(UINT, last_registered_code, KC_A);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_A, false, kp);
     ASSERT_EQ(UINT, pass, true);
@@ -218,91 +207,81 @@ TEST("navD + aD + navU + aU + aD + aU + aD + aU  = alt+a")
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
-TEST("navD + aD + navU + sD + sU + aU + sD + sU = alt+s s")
+TEST("navD + altD + navU + sD + sU + altU + sD + sU = alt+s s")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
 
     pass = update_flow(L_NAV, false, kp);
     ASSERT_EQ(UINT, pass, true);
 
     pass = update_flow(KC_S, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 2);
-    ASSERT_EQ(UINT, last_registered_code, KC_S);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_S, false, kp);
     ASSERT_EQ(UINT, pass, true);
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
 
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 
     pass = update_flow(KC_S, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 3);
-    ASSERT_EQ(UINT, last_registered_code, KC_S);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_S, false, kp);
     ASSERT_EQ(UINT, pass, true);
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
-TEST("navD + aD + navU + sD + sU + sD + sU + aU + sD + sU = alt+s alt+s s")
+TEST("navD + altD + navU + sD + sU + sD + sU + altU + sD + sU = alt+s alt+s s")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
 
     pass = update_flow(L_NAV, false, kp);
     ASSERT_EQ(UINT, pass, true);
 
     pass = update_flow(KC_S, true, kp);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 2);
-    ASSERT_EQ(UINT, last_registered_code, KC_S);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_S, false, kp);
     ASSERT_EQ(UINT, pass, true);
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
 
     pass = update_flow(KC_S, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 3);
-    ASSERT_EQ(UINT, last_registered_code, KC_S);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_S, false, kp);
     ASSERT_EQ(UINT, pass, true);
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
 
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 
     pass = update_flow(KC_S, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 4);
-    ASSERT_EQ(UINT, last_registered_code, KC_S);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
     pass = update_flow(KC_S, false, kp);
     ASSERT_EQ(UINT, pass, true);
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
-TEST("navD + aD + tabD + tabU + navU + aU + sD + sU = alt+tab s")
+TEST("navD + altD + tabD + tabU + navU + altU + sD + sU = alt+tab s")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
 
     pass = update_flow(KC_TAB, true, kp);
@@ -313,38 +292,36 @@ TEST("navD + aD + tabD + tabU + navU + aU + sD + sU = alt+tab s")
 
     pass = update_flow(L_NAV, false, kp);
     ASSERT_EQ(UINT, pass, true);
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 
     pass = update_flow(KC_S, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 2);
-    ASSERT_EQ(UINT, last_registered_code, KC_S);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_S, false, kp);
     ASSERT_EQ(UINT, pass, true);
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
-TEST("navD + aD + dD + dU + aU + navU + sD + sU + sD + sU = alt+ctrl+s s")
+TEST("navD + altD + ctrlD + ctrlU + altU + navU + sD + sU + sD + sU = alt+ctrl+s s")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
-    pass = update_flow(KC_D, true, kp);
+    pass = update_flow(KC_LCTL, true, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, registered_codes_count, 2);
     ASSERT_EQ(UINT, last_registered_code, KC_LCTL);
 
-    pass = update_flow(KC_D, false, kp);
+    pass = update_flow(KC_LCTL, false, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
 
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
 
@@ -353,10 +330,8 @@ TEST("navD + aD + dD + dU + aU + navU + sD + sU + sD + sU = alt+ctrl+s s")
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
 
     pass = update_flow(KC_S, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 3);
-    ASSERT_EQ(UINT, last_registered_code, KC_S);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 2);
 
     pass = update_flow(KC_S, false, kp);
     ASSERT_EQ(UINT, pass, true);
@@ -364,21 +339,19 @@ TEST("navD + aD + dD + dU + aU + navU + sD + sU + sD + sU = alt+ctrl+s s")
     ASSERT_EQ(UINT, last_unregistered_code, KC_LCTL);
 
     pass = update_flow(KC_S, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 4);
-    ASSERT_EQ(UINT, last_registered_code, KC_S);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 2);
 
     pass = update_flow(KC_S, false, kp);
     ASSERT_EQ(UINT, pass, true);
     ASSERT_EQ(UINT, unregistered_codes_count, 2);
 END_TEST
 
-TEST("navD + aD + navU + navD + tabD + tabU + navU + aU + sD + sU = alt+tab s")
+TEST("navD + altD + navU + navD + tabD + tabU + navU + altU + sD + sU = alt+tab s")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, registered_codes_count, 1);
 
@@ -400,35 +373,33 @@ TEST("navD + aD + navU + navD + tabD + tabU + navU + aU + sD + sU = alt+tab s")
 
     pass = update_flow(L_NAV, false, kp);
     ASSERT_EQ(UINT, pass, true);
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, registered_codes_count, 1);
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 
     pass = update_flow(KC_S, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 2);
-    ASSERT_EQ(UINT, last_registered_code, KC_S);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_S, false, kp);
     ASSERT_EQ(UINT, pass, true);
-    ASSERT_EQ(UINT, registered_codes_count, 2);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
-TEST("navD + aD + navU + aU + navD = alt canceled")
+TEST("navD + altD + navU + altU + navD = alt canceled")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(L_NAV, false, kp);
     ASSERT_EQ(UINT, pass, true);
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, registered_codes_count, 1);
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
@@ -440,17 +411,17 @@ TEST("navD + aD + navU + aU + navD = alt canceled")
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 END_TEST
 
-TEST("navD + aD + navU + aU + navD + aD = alt canceled + alt")
+TEST("navD + altD + navU + altU + navD + altD = alt canceled + alt")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(L_NAV, false, kp);
     ASSERT_EQ(UINT, pass, true);
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, registered_codes_count, 1);
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
@@ -461,24 +432,24 @@ TEST("navD + aD + navU + aU + navD + aD = alt canceled + alt")
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, registered_codes_count, 2);
     ASSERT_EQ(UINT, last_registered_code, KC_LALT);
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
-TEST("navD + aD + navU + aU + symD = alt canceled")
+TEST("navD + altD + navU + altU + symD = alt canceled")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(L_NAV, false, kp);
     ASSERT_EQ(UINT, pass, true);
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, registered_codes_count, 1);
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
@@ -492,32 +463,28 @@ END_TEST
 
 // One shot works properly when subsequent keys are pressed almost at once
 // but released one by one.
-TEST("navD + aD + navU + aU + sD + kD + sU + kU = alt+s k")
+TEST("navD + altD + navU + altU + sD + kD + sU + kU = alt+s k")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
 
     pass = update_flow(L_NAV, false, kp);
     ASSERT_EQ(UINT, pass, true);
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_S, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 2);
-    ASSERT_EQ(UINT, last_registered_code, KC_S);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
 
     pass = update_flow(KC_K, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 3);
-    ASSERT_EQ(UINT, last_registered_code, KC_K);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
@@ -531,58 +498,14 @@ TEST("navD + aD + navU + aU + sD + kD + sU + kU = alt+s k")
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
-TEST("aD + navD30ms + tab = alt + tab")
-    reset();
-
-    bool pass = update_flow(KC_A, true, kp);
-    ASSERT_EQ(UINT, registered_codes_count, 0);
-    ASSERT_EQ(UINT, unregistered_codes_count, 0);
-    ASSERT_EQ(UINT, pass, false);
-
-    advance_timer_and_scan(30);
-    ASSERT_EQ(UINT, registered_codes_count, 0);
-
-    pass = update_flow(L_NAV, true, kp);
-    ASSERT_EQ(UINT, registered_codes_count, 1);
-    ASSERT_EQ(UINT, last_registered_code, KC_LALT);
-    ASSERT_EQ(UINT, pass, true);
-
-    pass = update_flow(KC_TAB, true, kp);
-    ASSERT_EQ(UINT, pass, true);
-    ASSERT_EQ(UINT, registered_codes_count, 1);
-    ASSERT_EQ(UINT, unregistered_codes_count, 0);
-END_TEST
-
-TEST("aD + navD31ms + tab = a + tab")
-    reset();
-
-    bool pass = update_flow(KC_A, true, kp);
-    ASSERT_EQ(UINT, registered_codes_count, 0);
-    ASSERT_EQ(UINT, unregistered_codes_count, 0);
-    ASSERT_EQ(UINT, pass, false);
-
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 1);
-
-    pass = update_flow(L_NAV, true, kp);
-    ASSERT_EQ(UINT, registered_codes_count, 1);
-    ASSERT_EQ(UINT, last_registered_code, KC_A);
-    ASSERT_EQ(UINT, pass, true);
-
-    pass = update_flow(KC_TAB, true, kp);
-    ASSERT_EQ(UINT, pass, true);
-    ASSERT_EQ(UINT, registered_codes_count, 1);
-    ASSERT_EQ(UINT, unregistered_codes_count, 0);
-END_TEST
-
-TEST("navD + aD + aU + navU + 501ms + aD + aU + aD + aU = a a")
+TEST("navD + altD + altU + navU + 501ms + aD + aU + aD + aU = a a")
     reset();
 
     bool pass = update_flow(L_NAV, true, kp);
-    pass = update_flow(KC_A, true, kp);
+    pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
 
-    pass = update_flow(KC_A, false, kp);
+    pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
     pass = update_flow(L_NAV, false, kp);
     ASSERT_EQ(UINT, pass, true);
@@ -596,10 +519,8 @@ TEST("navD + aD + aU + navU + 501ms + aD + aU + aD + aU = a a")
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 
     pass = update_flow(KC_A, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 2);
-    ASSERT_EQ(UINT, last_registered_code, KC_A);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_A, false, kp);
     ASSERT_EQ(UINT, pass, true);
@@ -607,10 +528,8 @@ TEST("navD + aD + aU + navU + 501ms + aD + aU + aD + aU = a a")
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 
     pass = update_flow(KC_A, true, kp);
-    ASSERT_EQ(UINT, pass, false);
-    advance_timer_and_scan(31);
-    ASSERT_EQ(UINT, registered_codes_count, 3);
-    ASSERT_EQ(UINT, last_registered_code, KC_A);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
 
     pass = update_flow(KC_A, false, kp);
     ASSERT_EQ(UINT, pass, true);
