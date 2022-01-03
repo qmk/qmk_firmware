@@ -32,6 +32,7 @@ typedef enum {
 } keycodes;
 
 enum layers {
+    _BASE,
     _TMUX,
 };
 
@@ -551,7 +552,7 @@ TEST("tmuxD + tmuxU + tabD + tabU = tmux tab")
     ASSERT_EQ(UINT, pass, true);
     pass = update_flow(KC_TAB, false, kp);
     ASSERT_EQ(UINT, pass, true);
-    ASSERT_EQ(UINT, active_layer, 0);
+    ASSERT_EQ(UINT, active_layer, _BASE);
 END_TEST
 
 TEST("tmuxD + tabD + tabU + tmuxU = tmux tab")
@@ -569,7 +570,27 @@ TEST("tmuxD + tabD + tabU + tmuxU = tmux tab")
 
     pass = update_flow(OS_TMUX, false, kp);
     ASSERT_EQ(UINT, pass, false);
-    ASSERT_EQ(UINT, active_layer, 0);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+END_TEST
+
+TEST("tmuxD + tmuxU + 501ms + tabD + tabU = tab")
+    reset();
+
+    bool pass = update_flow(OS_TMUX, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+    pass = update_flow(OS_TMUX, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    advance_timer_and_scan(501);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+
+    pass = update_flow(KC_TAB, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_TAB, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, active_layer, _BASE);
 END_TEST
 
 END

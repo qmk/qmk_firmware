@@ -29,6 +29,8 @@ uint16_t flow_timeout_timers_value[FLOW_COUNT] = { [0 ... FLOW_COUNT - 1] = 0 };
 flow_state_t flow_layers_state[FLOW_LAYERS_COUNT] = {
     [0 ... FLOW_LAYERS_COUNT - 1] = flow_up_unqueued
 };
+bool flow_layer_timeout_timers_active[FLOW_LAYERS_COUNT] = { [0 ... FLOW_LAYERS_COUNT - 1] = false };
+uint16_t flow_layer_timeout_timers_value[FLOW_LAYERS_COUNT] = { [0 ... FLOW_LAYERS_COUNT - 1] = 0 };
 
 bool is_flow_cancel_key(uint16_t keycode) {
     for (int i = 0; i < FLOW_COUNT; i++) {
@@ -213,6 +215,8 @@ bool update_flow_layers(
                 case flow_down_unused:
                     // If we didn't use the layer while trigger was held, queue it.
                     flow_layers_state[i] = flow_up_queued;
+                    flow_layer_timeout_timers_active[i] = true;
+                    flow_layer_timeout_timers_value[i] = timer_read();
                     pass = false;
                     break;
                 case flow_down_used:
@@ -293,6 +297,15 @@ void flow_matrix_scan(void) {
             flow_timeout_timers_active[i] = false;
             flow_state[i] = flow_up_unqueued;
             unregister_code(flow_config[i][1]);
+        }
+    }
+
+    for (int i = 0; i < FLOW_LAYERS_COUNT; i++) {
+        if (flow_layer_timeout_timers_active[i]
+                && timer_elapsed(flow_layer_timeout_timers_value[i]) > g_flow_oneshot_term) {
+            flow_layer_timeout_timers_active[i] = false;
+            flow_layers_state[i] = flow_up_unqueued;
+            layer_off(flow_layers_config[i][1]);
         }
     }
 }
