@@ -349,6 +349,32 @@ void keyboard_init(void) {
     keyboard_post_init_kb(); /* Always keep this last */
 }
 
+/** \brief keyboard set leds
+ *
+ * FIXME: needs doc
+ */
+void keyboard_set_leds(uint8_t leds) {
+    if (debug_keyboard) {
+        debug("keyboard_set_led: ");
+        debug_hex8(leds);
+        debug("\n");
+    }
+    led_set(leds);
+}
+
+/** \brief set host led state
+ *
+ * Only sets state has changed
+ */
+void led_task(void) {
+    static uint8_t led_status = 0;
+    // update LED
+    if (led_status != host_keyboard_leds()) {
+        led_status = host_keyboard_leds();
+        keyboard_set_leds(led_status);
+    }
+}
+
 /** \brief key_event_task
  *
  * This function is responsible for calling into other systems when they need to respond to electrical switch press events.
@@ -376,7 +402,6 @@ void switch_events(uint8_t row, uint8_t col, bool pressed) {
  */
 void keyboard_task(void) {
     static matrix_row_t matrix_prev[MATRIX_ROWS];
-    static uint8_t      led_status    = 0;
     matrix_row_t        matrix_row    = 0;
     matrix_row_t        matrix_change = 0;
 #ifdef QMK_KEYS_PER_SCAN
@@ -516,22 +541,5 @@ MATRIX_LOOP_END:
     programmable_button_send();
 #endif
 
-    // update LED
-    if (led_status != host_keyboard_leds()) {
-        led_status = host_keyboard_leds();
-        keyboard_set_leds(led_status);
-    }
-}
-
-/** \brief keyboard set leds
- *
- * FIXME: needs doc
- */
-void keyboard_set_leds(uint8_t leds) {
-    if (debug_keyboard) {
-        debug("keyboard_set_led: ");
-        debug_hex8(leds);
-        debug("\n");
-    }
-    led_set(leds);
+    led_task();
 }
