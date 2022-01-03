@@ -38,6 +38,8 @@ The five different layers are the following:
 3. Navigation layer
 
 ### Base layer
+This layer is activated by default. 
+
 ```
 /*
  * 0. Base Layer: QWERTZ
@@ -56,6 +58,8 @@ The five different layers are the following:
 ```
 
 ### Symbol layer
+This layer is activated when holding `MO(1)`.
+
 ```
 /*
  * 1. Sym Layer: Numbers and symbols
@@ -74,6 +78,8 @@ The five different layers are the following:
 ```
 
 ### Navigation layer
+This layer is activated when holding `MO(2)`.
+
 ```
 /*
  * 2. Nav Layer: Media, navigation, accents
@@ -83,10 +89,12 @@ The five different layers are the following:
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | Brt- | Prev |      | Stop | Vol- |                              |  End | Left | Down | Right|ScrLck| BkSpace|
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |  ´   |  `   |  ^   |  ¨   | Mute |      |      |  |RShift| Menu | PrtSc| ç/Ç  | § °  |      |      | Insert |
+ * | LShift |  ´   |  `   |  ^   |  ¨   | Mute |      |UC_MOD|  |RShift| Menu | PrtSc| ç/Ç  | § °  |      |      | Insert |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |LCtrl | LGUI | LAlt |      | MO(1)|  | MO(2)|      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
 ```
+
+The key `UC_MOD` allows to switch between Linux and Windows unicode. Note however that [WinCompose](https://github.com/samhocevar/wincompose) must be installed on Windows (simply download and install the latest release and it will run). 
