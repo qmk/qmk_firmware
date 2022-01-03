@@ -137,3 +137,6 @@
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
+
+#define DEBUG_MATRIX_SCAN_RATE
+#define DEBUG_KEYBOARD_TASK_RATE
