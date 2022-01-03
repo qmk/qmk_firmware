@@ -6,12 +6,16 @@ extra:
 plugins:
   - search:
       lang:
+        - de
         - en
         - es
         - fr
+        - he
+        - ja
+        - kr
         - pt
         - ru
-        - ja
+        - zh
       prebuild_index: true
       separator: '[\s\-\_]+'
 markdown_extensions:

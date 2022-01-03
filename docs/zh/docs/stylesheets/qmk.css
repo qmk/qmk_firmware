@@ -1,0 +1,11 @@
+.md-nav__list {
+    padding-left: 0.25rem;
+}
+
+.md-grid {
+  max-width: initial;
+}
+
+.md-footer {
+  display: none;
+}
