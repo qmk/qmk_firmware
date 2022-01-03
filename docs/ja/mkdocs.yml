@@ -3,6 +3,34 @@ extra_css:
 extra:
   version:
     provider: mike
+  alternate:
+    - name: English
+      link: /master/en/
+      lang: en
+    - name: Deutsch
+      link: /master/de/
+      lang: de
+    - name: Español
+      link: /master/es/
+      lang: es
+    - name: français
+      link: /master/fr/
+      lang: fr
+    - name: עברית
+      link: /master/he/
+      lang: he
+    - name: 日本語
+      link: /master/jp/
+      lang: jp
+    - name: 한국어
+      link: /master/kr/
+      lang: kr
+    - name: Русский язык
+      link: /master/ru/
+      lang: ru
+    - name: simplified chinese
+      link: /master/zh/
+      lang: zh
 plugins:
   - search:
       lang:
@@ -214,7 +242,7 @@ nav:
 repo_name: qmk/qmk_firmware
 repo_url: https://github.com/qmk/qmk_firmware
 site_name: QMK Firmware Docs
-site_url: https://docs.qmk.fm/qmk_mkdocs/devel/ja
+site_url: https://docs.qmk.fm/master/ja
 theme:
   favicon: images/favicon.ico
   features:
