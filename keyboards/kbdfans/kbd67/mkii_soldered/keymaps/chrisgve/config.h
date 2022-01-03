@@ -1,2 +1,0 @@
-#define BACKLIGHT_CAPS_LOCK
-
