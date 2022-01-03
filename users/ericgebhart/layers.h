@@ -661,9 +661,9 @@
 #define ___5_LAYERS_B3b___ ___,          DF(_BEAKL),   DF(_BEPO),    DF(_DVORAK_BP), ___
 
 // transient layers.
-#define ___5_LAYERS_T___     ___, TO(_NAV),  TO(_SYMB),     TO(_KEYPAD),       TO(_TOPROWS)
-#define ___5_LAYERS_T_BP___  ___, TO(_NAV),  TO(_SYMB_BP),  TO(_KEYPAD_BP),    TO(_TOPROWS_BP)
-#define ___5_LAYERS_T_CTL___ ___, TO(_RGB),  ___,                 ___, TO(_ADJUST)
+#define ___5_LAYERS_T___     ___, MO(_NAV),  MO(_SYMB),     MO(_KEYPAD),       MO(_TOPROWS)
+#define ___5_LAYERS_T_BP___  ___, MO(_NAV),  MO(_SYMB_BP),  MO(_KEYPAD_BP),    MO(_TOPROWS_BP)
+#define ___5_LAYERS_T_CTL___ ___, MO(_RGB),  ___,                 ___, MO(_ADJUST)
 
 
 /// A Layers Layer

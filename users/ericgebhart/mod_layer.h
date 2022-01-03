@@ -39,10 +39,10 @@
   K01, K02, K03, K04, K05, RIGHT0
 
 #define ROW1_LEFT(K01, K02, K03, K04, K05)      \
-  LEFT1, LT(_LAYERS, K01), LT(_NAV, K02), LT(_KEYPAD, K03), K04, K05
+  LEFT1, K01, LT(_NAV, K02), K03, K04, K05
 
-#define ROW1_RIGHT(K01, K02, K03, K04, K05)                     \
-  K01, K02, LT(_KEYPAD, K03), K04, LT(_LAYERS, K05), RIGHT1
+#define ROW1_RIGHT(K01, K02, K03, K04, K05)     \
+  K01, K02, K03, K04, K05, RIGHT1
 
 // home row, shift, alt, ctl, gui - gui, ctl, alt, shift.
 // using MT so we can specify left and right.
