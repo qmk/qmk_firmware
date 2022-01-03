@@ -389,26 +389,16 @@ void switch_events(uint8_t row, uint8_t col, bool pressed) {
 #endif
 }
 
-/** \brief Keyboard task: Do keyboard routine jobs
+/** \brief Perform scan of keyboard matrix
  *
- * Do routine keyboard jobs:
- *
- * * scan matrix
- * * handle mouse movements
- * * handle midi commands
- * * light LEDs
- *
- * This is repeatedly called as fast as possible.
+ * Any detected changes in state are sent out as part of the processing
  */
-void keyboard_task(void) {
+bool matrix_scan_task(void) {
     static matrix_row_t matrix_prev[MATRIX_ROWS];
     matrix_row_t        matrix_row    = 0;
     matrix_row_t        matrix_change = 0;
 #ifdef QMK_KEYS_PER_SCAN
     uint8_t keys_processed = 0;
-#endif
-#ifdef ENCODER_ENABLE
-    bool encoders_changed = false;
 #endif
 
     uint8_t matrix_changed = matrix_scan();
@@ -456,9 +446,13 @@ void keyboard_task(void) {
 
 MATRIX_LOOP_END:
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_scan_perf_task();
-#endif
+    return matrix_changed;
+}
+
+void keyboard_task(void) {
+    bool matrix_changed = matrix_scan_task();
+    (void)matrix_changed;
 
 #if defined(RGBLIGHT_ENABLE)
     rgblight_task();
@@ -478,7 +472,7 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef ENCODER_ENABLE
-    encoders_changed = encoder_read();
+    bool encoders_changed = encoder_read();
     if (encoders_changed) last_encoder_activity_trigger();
 #endif
 
