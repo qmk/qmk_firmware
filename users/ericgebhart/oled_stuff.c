@@ -215,8 +215,10 @@ __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation)
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
-  // for the small screen.
+  // for the big screen.
+#ifdef OLED_DISPLAY_128X64
   return OLED_ROTATION_180;
+#endif
 
   return oled_init_keymap(rotation);
 }
@@ -270,7 +272,9 @@ bool oled_task_user(void) {
     oled_render_mod_lock_status();
     oled_render_default_layer_state();
     oled_render_layer_state();
+#ifdef OLED_DISPLAY_128X64
     oled_render_layer_map();
+#endif
     oled_render_keylog();
   } else {
     oled_render_logo();
