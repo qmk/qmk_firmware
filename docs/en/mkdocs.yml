@@ -244,6 +244,7 @@ theme:
   icon:
     repo: fontawesome/brands/github
   language: en
+  logo : images/logo.png
   name: material
   palette:
     - media: "(prefers-color-scheme: light)"
