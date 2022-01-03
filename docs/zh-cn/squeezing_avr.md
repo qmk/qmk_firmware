@@ -199,6 +199,6 @@ MUSIC_ENABLE = no
 * [Bonsai C](https://github.com/customMK/Bonsai-C) (开源, DIY/PCBA)
 * [Raspberry Pi 2040](https://www.sparkfun.com/products/18288) (当前不支持, 没有ETA)
 
-还有一些non-Pro Micro的板子也能兼容。比较流行的有：
+还有一些非Pro Micro的板子也能兼容。比较流行的有：
 
 * [WeAct Blackpill F411](https://www.aliexpress.com/item/1005001456186625.html) (~$6 刀)
