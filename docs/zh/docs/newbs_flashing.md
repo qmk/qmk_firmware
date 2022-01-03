@@ -12,15 +12,16 @@
 
 首先打开QMK工具箱应用程序。您将要在访达或资源管理器中找到固件文件。您的键盘固件可能是两种格式之一`.hex`或`.bin`。qmk会尝试将键盘的相应文件复制到“qmk_firmware”根目录中。
 
-?> 如果您在Windows或MacOS上，可以使用以下命令轻松地在资源管理器或访达中打开当前固件文件夹。
+!!! tip
+    如果您在Windows或MacOS上，可以使用以下命令轻松地在资源管理器或访达中打开当前固件文件夹。
 
-?> Windows:
+    Windows:
 
-    start .
+        start .
 
-?> macOS:
+    macOS:
 
-    open .
+        open .
 
 固件文件始终遵循此命名格式:
 

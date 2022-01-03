@@ -81,7 +81,8 @@ In addition to the functions that you can call, there are a number of callback f
 | `default_layer_state_set_kb(layer_state_t state)`   | Callback for default layer functions, for keyboard. Called on keyboard initialization. |
 | `default_layer_state_set_user(layer_state_t state)` | Callback for default layer functions, for users. Called on keyboard initialization.    |
 
-?> For additional details on how you can use these callbacks, check out the [Layer Change Code](custom_quantum_functions.md#layer-change-code) document.
+!!! tip
+    For additional details on how you can use these callbacks, check out the [Layer Change Code](custom_quantum_functions.md#layer-change-code) document.
 
 It is also possible to check the state of a particular layer using the following functions and macros.
 

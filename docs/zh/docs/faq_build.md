@@ -53,7 +53,8 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
 
 如果以上方法还是短针攻疽，那您可能需要使用[Zadig Utility](https://zadig.akeo.ie/)。下载此程序, 找到设备问题, 然后选择 `WinUSB`选项, 然后点击"Reinstall driver"。完成后再试试刷新你的键盘。倘若依然徒劳无功，那就尝试所有选项直到好用为止。
 
-?> 事实上没有一个驱动的最佳选择，有些选项就是和某些系统相辅相成。但libUSB和WinUSB似乎也算是这里的最佳选择了。
+!!! info
+    事实上没有一个驱动的最佳选择，有些选项就是和某些系统相辅相成。但libUSB和WinUSB似乎也算是这里的最佳选择了。
 如果bootloader在设备列表中没有显示，你可能要使能 "List all devices"选项在选项菜单中`Options`，然后找到有问题的bootloader设备。(译者注：在win10中可能为 查看-显示隐藏的设备)
 
 ## USB VID 和 PID

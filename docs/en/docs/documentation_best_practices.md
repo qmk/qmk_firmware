@@ -22,26 +22,53 @@ Your page should generally have multiple "H1" headings. Only H1 and H2 headings 
 
 You can have styled hint blocks drawn around text to draw attention to it.
 
-### Important
+### Warning
 
 ```
-!> This is important
+!!! warning
+    This is important
 ```
 
 Renders as:
 
-!> This is important
+!!! warning
+    This is important
 
 ### General Tips
 
 ```
-?> This is a helpful tip.
+!!! tip
+    This is a helpful tip.
 ```
 
 Renders as:
 
-?> This is a helpful tip.
+!!! tip
+    This is a helpful tip.
+    
+### Notes
 
+```
+!!! note
+    This is a note
+```
+
+!!! note
+    This is a note
+
+### Dangers
+
+```c
+!!! danger
+   This is a danger
+```
+
+!!! danger
+   This is a danger
+
+### Additional Styles 
+
+You can find a full list of Style Hint Blocks [here](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#supported-types)
 
 # Documenting Features
 

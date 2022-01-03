@@ -47,7 +47,8 @@ Default driver, the absence of configuration assumes this driver. To configure i
 WS2812_DRIVER = bitbang
 ```
 
-!> This driver is not hardware accelerated and may not be performant on heavily loaded systems.
+!!! note
+    This driver is not hardware accelerated and may not be performant on heavily loaded systems.
 
 #### Adjusting bit timings
 

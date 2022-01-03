@@ -2,7 +2,8 @@
 
 The keyboard can be made to be recognized as a joystick HID device by the operating system.
 
-!> Joystick support is not currently available on V-USB devices.
+!!! warning
+    Joystick support is not currently available on V-USB devices.
 
 The joystick feature provides two services:
  * reading analog input devices (eg. potentiometers)

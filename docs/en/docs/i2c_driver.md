@@ -34,7 +34,8 @@ No further setup is required - just connect the `SDA` and `SCL` pins of your I2C
 |ATmega32A         |`C0` |`C1` |
 |ATmega328/P       |`C5` |`C4` |
 
-?> The ATmega16/32U2 does not possess I2C functionality, and so cannot use this driver.
+!!! info
+    The ATmega16/32U2 does not possess I2C functionality, and so cannot use this driver.
 
 ## ChibiOS/ARM Configuration :id=arm-configuration
 

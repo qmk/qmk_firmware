@@ -122,9 +122,11 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
   有効にするには、_システム環境設定 > キーボード > 入力ソース_ に移動し、(_その他_ の下の) _Unicode 16進数入力_ をリストに追加し、次にメニューバーの入力ドロップダウンからそれをアクティブにします。
   デフォルトでは、このモードは Unicode 入力のために左 Option キー (`KC_LALT`) を使いますが、これは他のキーで [`UNICODE_KEY_MAC`](#input-key-configuration) を定義することで変更できます。
 
-  !> _Unicode 16進数入力_ 入力ソースの使用は、Option + 左矢印および Option + 右矢印 のような、幾つかの Option ベースのショートカットを無効にするかもしれません。
+  !!! info
+       _Unicode 16進数入力_ 入力ソースの使用は、Option + 左矢印および Option + 右矢印 のような、幾つかの Option ベースのショートカットを無効にするかもしれません。
 
-  !> `UC_OSX` は `UC_MAC` の非推奨のエイリアスで、QMK の将来のバージョンで削除されます。全ての新しいキーマップは、`UC_MAC` を使うべきです。
+  !!! warning
+      `UC_OSX` は `UC_MAC` の非推奨のエイリアスで、QMK の将来のバージョンで削除されます。全ての新しいキーマップは、`UC_MAC` を使うべきです。
 
 * **`UC_LNX`**: Linux の組み込み IBus Unicode 入力。`0x10FFFF` までのコードポイント(全ての利用可能なコードポイント)をサポートします。
 
@@ -178,7 +180,8 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
 
 コード内で `set_unicode_input_mode(x)` を呼び出すことで、入力モードを切り替えることもできます。ここで、_x_ は上記の入力モード定数のいずれか (例えば、`UC_LNX`) です。
 
-?> `matrix_init_user()` または同様の関数の中で `set_unicode_input_mode()` を呼び出すよりも、`UNICODE_SELECTED_MODES` を使うほうが望ましいです。Unicode システムとの統合性が高く、EEPROM への不要な書き込みを回避できるという利点があるからです。
+!!! tip
+    `matrix_init_user()` または同様の関数の中で `set_unicode_input_mode()` を呼び出すよりも、`UNICODE_SELECTED_MODES` を使うほうが望ましいです。Unicode システムとの統合性が高く、EEPROM への不要な書き込みを回避できるという利点があるからです。
 
 #### オーディオフィードバック
 

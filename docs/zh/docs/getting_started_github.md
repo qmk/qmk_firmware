@@ -2,7 +2,8 @@
 
 GitHub can be a little tricky to those that aren't familiar with it - this guide will walk through each step of forking, cloning, and submitting a pull request with QMK.
 
-?> 本教程假设您已安装GitHub，并且您喜欢使用命令行工作。
+!!! note
+    本教程假设您已安装GitHub，并且您喜欢使用命令行工作。
 
 首先 [GitHub上的QMK页面](https://github.com/qmk/qmk_firmware), 您能看到右上方有个按钮写着"Fork":
 

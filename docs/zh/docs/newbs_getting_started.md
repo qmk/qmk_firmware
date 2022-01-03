@@ -19,7 +19,8 @@ QMK试图通过使简单的事情变得更简单，使使不可能成为可能�
 
 你也可以下载并安装一个专用编辑器 [Sublime Text](https://www.sublimetext.com/) 或 [VS Code](https://code.visualstudio.com/)。 这大概是跨平台的最好方法了, 这些编辑器是专门为了编辑代码设计的。
 
-?>搞不清用哪种编辑器? Laurence Bradford 写了篇关于编辑器选择的文章 [a great introduction](https://learntocodewith.me/programming/basics/text-editors/)。
+!!! tip
+    搞不清用哪种编辑器? Laurence Bradford 写了篇关于编辑器选择的文章 [a great introduction](https://learntocodewith.me/programming/basics/text-editors/)。
 
 ### QMK 工具箱
 
@@ -34,7 +35,8 @@ QMK 工具箱 是一种可选的Windows和macOS下的图形化工具，它可以
 
 我们为了使QMK环境变得更容易建立已竭尽所能。你只需要准备Linux 或 Unix 环境, 然后让QMK安装剩余部分。
 
-?> 如果你从未使用过Linux/Unix的命令行,有一些你需要学习的基础概念和命令，以下资料将教会您使用QMK环境的必要能力:<br>
+!!! tip
+    如果你从未使用过Linux/Unix的命令行,有一些你需要学习的基础概念和命令，以下资料将教会您使用QMK环境的必要能力:<br>
 [必会Linux命令](https://www.guru99.com/must-know-linux-commands.html)<br>
 [一些基本的Unix命令](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
@@ -60,7 +62,8 @@ QMK 工具箱 是一种可选的Windows和macOS下的图形化工具，它可以
 * Fedora / Red Hat / CentOS: `yum install git`
 * Arch: `pacman -S git`
 
-?> 无论你使用哪种平台，Docker都可以是你的选择[点这里进一步了解](newbs_getting_started.md#docker)
+!!! tip
+    无论你使用哪种平台，Docker都可以是你的选择[点这里进一步了解](newbs_getting_started.md#docker)
 
 ## 同步QMK工程
 
@@ -71,7 +74,8 @@ git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
 cd qmk_firmware
 ```
 
-?> 如果您已经知道[如何使用GitHub](getting_started_github.md), 我们推荐您创建您自己的分支并克隆。 如果您不知道这是什么, 您完全可以忽略这句无关紧要的话。
+!!! tip
+    如果您已经知道[如何使用GitHub](getting_started_github.md), 我们推荐您创建您自己的分支并克隆。 如果您不知道这是什么, 您完全可以忽略这句无关紧要的话。
 
 QMK附带一个脚本，可帮助您设置剩余的所需内容.您可以通过输入此命令来运行它:
 

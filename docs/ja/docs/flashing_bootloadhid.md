@@ -18,7 +18,8 @@ ps2avr(GB) キーボードは ATmega32A マイクロコントローラを使い�
 
 ## bootloadHID の書き込みターゲット
 
-?> [こちら](newbs_getting_started.md)で詳しく説明されている QMK インストールスクリプトを使うと、必要な bootloadHID ツールが自動的にインストールされます。
+!!! tip
+    [こちら](newbs_getting_started.md)で詳しく説明されている QMK インストールスクリプトを使うと、必要な bootloadHID ツールが自動的にインストールされます。
 
 コマンドライン経由で書き込むには、以下のコマンドを実行してターゲット `:bootloadHID` を使います:
 

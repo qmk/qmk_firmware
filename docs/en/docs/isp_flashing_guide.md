@@ -33,7 +33,8 @@ To use a 5V/16MHz Pro Micro as an ISP flashing tool, you will first need to load
 |`16` (`B2`)|`MOSI`  |
 |`14` (`B3`)|`MISO`  |
 
-!> Note that the `10` pin on the Pro Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Pro Micro to the `RESET` on the keyboard.
+!!! note
+    The `10` pin on the Pro Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Pro Micro to the `RESET` on the keyboard.
 
 ### Teensy 2.0 as ISP
 
@@ -55,7 +56,8 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 |`B2`  |`MOSI`  |
 |`B3`  |`MISO`  |
 
-!> Note that the `B0` pin on the Teensy should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Teensy to the `RESET` on the keyboard.
+!!! note
+    The `B0` pin on the Teensy should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Teensy to the `RESET` on the keyboard.
 
 ### SparkFun PocketAVR / USBtinyISP / USBasp
 
@@ -82,7 +84,8 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 
 [Adafruit Bus Pirate](https://www.adafruit.com/product/237)
 
-!> The 5-pin "ICSP" header is for ISP flashing the PIC microcontroller of the Bus Pirate. Connect your target board to the 10-pin header opposite the USB connector instead.
+!!! note
+    The 5-pin "ICSP" header is for ISP flashing the PIC microcontroller of the Bus Pirate. Connect your target board to the 10-pin header opposite the USB connector instead.
 
 **AVRDUDE Programmer**: `buspirate`  
 **AVRDUDE Port**: Serial
@@ -139,7 +142,8 @@ There are several variants depending on the vendor, but they all mostly work the
 |[Arduino Leonardo](https://github.com/arduino/ArduinoCore-avr/blob/master/bootloaders/caterina/Caterina-Leonardo.hex)*                                           |`0xFF`|`0xD8`|`0xFB`  |`2341:0036`|
 |[Arduino Micro](https://github.com/arduino/ArduinoCore-avr/blob/master/bootloaders/caterina/Caterina-Micro.hex)*                                                 |`0xFF`|`0xD8`|`0xFB`  |`2341:0037`|
 
-?> Files marked with a * have combined Arduino sketches, which runs by default and also appears as a serial port. However, this is *not* the bootloader device.
+!!! info
+    Files marked with a * have combined Arduino sketches, which runs by default and also appears as a serial port. However, this is *not* the bootloader device.
 
 ### BootloadHID (PS2AVRGB)
 
@@ -218,7 +222,8 @@ avrdude done.  Thank you.
 
 This is a slightly more advanced topic, but may be necessary if you are switching from one bootloader to another (for example, Caterina to Atmel/QMK DFU on a Pro Micro). Fuses control some of the low-level functionality of the AVR microcontroller, such as clock speed, whether JTAG is enabled, and the size of the section of flash memory reserved for the bootloader, among other things. You can find a fuse calculator for many AVR parts [here](https://www.engbedded.com/conffuse/).
 
-!> **WARNING:** Setting incorrect fuse values, in particular the clock-related bits, may render the MCU practically unrecoverable without high voltage programming (not covered here)! Make sure to double check the commands you enter before you execute them.
+!!! danger
+    Setting incorrect fuse values, in particular the clock-related bits, may render the MCU practically unrecoverable without high voltage programming (not covered here)! Make sure to double check the commands you enter before you execute them.
 
 To set the fuses, add the following to the `avrdude` command:
 
@@ -228,7 +233,8 @@ To set the fuses, add the following to the `avrdude` command:
 
 where the `lfuse`, `hfuse` and `efuse` arguments represent the low, high and extended fuse bytes as listed in the [Hardware](#hardware) section.
 
-?> You may get a warning from `avrdude` that the extended fuse byte does not match what you provided when reading it back. If the second hex digit matches, this can usually be safely ignored, because the top four bits of this fuse do not actually exist on many AVR parts, and may read back as anything.
+!!! note
+    You may get a warning from `avrdude` that the extended fuse byte does not match what you provided when reading it back. If the second hex digit matches, this can usually be safely ignored, because the top four bits of this fuse do not actually exist on many AVR parts, and may read back as anything.
 
 ## Creating a "Production" Firmware
 

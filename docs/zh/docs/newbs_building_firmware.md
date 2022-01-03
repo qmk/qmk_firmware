@@ -8,15 +8,16 @@
 
 首先导航到键盘的 `keymaps` 文件夹.
 
-?> 如果您使用的是MacOS或Windows，可以使用以下命令轻松地打开keymaps文件夹。
+!!! tip
+    如果您使用的是MacOS或Windows，可以使用以下命令轻松地打开keymaps文件夹。
 
-?> macOS:
+    macOS:
 
-    open keyboards/<keyboard_folder>/keymaps
+        open keyboards/<keyboard_folder>/keymaps
 
-?> Windows:
+    Windows:
 
-    start .\\keyboards\\<keyboard_folder>\\keymaps
+        start .\\keyboards\\<keyboard_folder>\\keymaps
 
 ## 创建`default` 布局副本
 
@@ -44,7 +45,8 @@
 
 从这一行开始便是层列表。这行下面你会看到包括 `LAYOUT` 或 `KEYMAP`这两个词的几行, 从这些行开始就是层。在这一行下面是组成该特定层的键的列表。
 
-!> 编辑您的keymap文件时，注意不要添加或删除任何逗号。如果这样做，您将阻止您的固件编译，并且您可能不容易找出多余的或缺少的逗号在哪里。
+!!! tip
+    编辑您的keymap文件时，注意不要添加或删除任何逗号。如果这样做，您将阻止您的固件编译，并且您可能不容易找出多余的或缺少的逗号在哪里。
 
 ## 根据您的喜好自定义布局
 
@@ -54,7 +56,8 @@
 * [特性](features.md)
 * [问题与解答](faq.md)
 
-?> 当你明白布局是怎么工作时，您也要让每次改变尽可能小。一次改变很大在调试时找出问题会十分困难。
+!!! tip
+    当你明白布局是怎么工作时，您也要让每次改变尽可能小。一次改变很大在调试时找出问题会十分困难。
 
 ## 构建你的固件
 

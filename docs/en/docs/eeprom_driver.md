@@ -13,7 +13,8 @@ Driver                             | Description
 
 #### STM32 L0/L1 Configuration :id=stm32l0l1-eeprom-driver-configuration
 
-!> Resetting EEPROM using an STM32L0/L1 device takes up to 1 second for every 1kB of internal EEPROM used.
+!!! info
+    Resetting EEPROM using an STM32L0/L1 device takes up to 1 second for every 1kB of internal EEPROM used.
 
 `config.h` override                 | Description                                                                                                              | Default Value
 ------------------------------------|--------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------
@@ -48,7 +49,8 @@ RM24C512C EEPROM | `#define EEPROM_I2C_RM24C512C`  | <https://www.sparkfun.com/p
 24LC256 EEPROM   | `#define EEPROM_I2C_24LC256`    | <https://www.sparkfun.com/products/525>
 MB85RC256V FRAM  | `#define EEPROM_I2C_MB85RC256V` | <https://www.adafruit.com/product/1895>
 
-?> If you find that the EEPROM is not cooperating, ensure you've correctly shifted up your EEPROM address by 1. For example, the datasheet might state the address as `0b01010000` -- the correct value of `EXTERNAL_EEPROM_I2C_BASE_ADDRESS` needs to be `0b10100000`.
+!!! tip
+    If you find that the EEPROM is not cooperating, ensure you've correctly shifted up your EEPROM address by 1. For example, the datasheet might state the address as `0b01010000` -- the correct value of `EXTERNAL_EEPROM_I2C_BASE_ADDRESS` needs to be `0b10100000`.
 
 ## SPI Driver Configuration :id=spi-eeprom-driver-configuration
 
@@ -62,7 +64,8 @@ Currently QMK supports 25xx-series chips over SPI. As such, requires a working s
 `#define EXTERNAL_EEPROM_PAGE_SIZE`            | Page size of the EEPROM in bytes, as specified in the datasheet                      | 32
 `#define EXTERNAL_EEPROM_ADDRESS_SIZE`         | The number of bytes to transmit for the memory location within the EEPROM            | 2
 
-!> There's no way to determine if there is an SPI EEPROM actually responding. Generally, this will result in reads of nothing but zero.
+!!! note
+    There's no way to determine if there is an SPI EEPROM actually responding. Generally, this will result in reads of nothing but zero.
 
 ## Transient Driver configuration :id=transient-eeprom-driver-configuration
 

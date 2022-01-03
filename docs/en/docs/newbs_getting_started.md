@@ -11,7 +11,8 @@ There are a few pieces of software you'll need to get started.
 * [Toolbox (optional)](https://github.com/qmk/qmk_toolbox)
   * A graphical program for Windows and macOS that allows you to both program and debug your custom keyboard
 
-?> If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources.md#command-line-resources) will teach you enough to be able to work with QMK.
+!!! tip
+    If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. [These resources](newbs_learn_more_resources.md#command-line-resources) will teach you enough to be able to work with QMK.
 
 ## 2. Prepare Your Build Environment :id=set-up-your-environment
 
@@ -19,148 +20,147 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
 <!-- tabs:start -->
 
-### ** Windows **
+=== "Windows"
 
-QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. It also provides a handy `QMK MSYS` terminal shortcut to boot you directly into the correct environment.
+    QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. It also provides a handy `QMK MSYS` terminal shortcut to boot you directly into the correct environment.
 
-#### Prerequisites
+    #### Prerequisites
 
-You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is available [here](https://github.com/qmk/qmk_distro_msys/releases/latest).
+    You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is available [here](https://github.com/qmk/qmk_distro_msys/releases/latest).
 
-Alternatively, if you'd like to manually install MSYS2, the following section will walk you through the process.
+    Alternatively, if you'd like to manually install MSYS2, the following section will walk you through the process.
 
-<details>
-  <summary>Manual Install</summary>
+    ??? "Manual Install"
 
-?> Ignore the following steps if you use `QMK MSYS`.
+        !!! tip
+            Ignore the following steps if you use `QMK MSYS`.
 
-#### Prerequisites
+        #### Prerequisites
 
-You will need to install MSYS2, Git and Python. Follow the installation instructions on https://www.msys2.org.
+        You will need to install MSYS2, Git and Python. Follow the installation instructions on https://www.msys2.org.
 
-Once MSYS2 is installed, close any open MSYS terminals and open a new MinGW 64-bit terminal.
+        Once MSYS2 is installed, close any open MSYS terminals and open a new MinGW 64-bit terminal.
 
-!> **NOTE:** The MinGW 64-bit terminal is *not* the same as the MSYS terminal that opens when installation is completed. Your prompt should say "MINGW64" in purple text, rather than "MSYS". See [this page](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems) for more information on the differences.
+        !!! warning
+            The MinGW 64-bit terminal is *not* the same as the MSYS terminal that opens when installation is completed. Your prompt should say "MINGW64" in purple text, rather than "MSYS". See [this page](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems) for more information on the differences.
 
-Then run the following command:
+        Then run the following command:
 
-    pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
+            pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
 
-#### Installation
+        #### Installation
 
-Install the QMK CLI by running:
+        Install the QMK CLI by running:
 
-    python3 -m pip install qmk
+            python3 -m pip install qmk
 
-</details>
+=== "macOS"
 
-### ** macOS **
+    QMK maintains a Homebrew tap and formula which will automatically install the CLI and all necessary dependencies.
 
-QMK maintains a Homebrew tap and formula which will automatically install the CLI and all necessary dependencies.
+    #### Prerequisites
 
-#### Prerequisites
+    You will need to install Homebrew. Follow the instructions on https://brew.sh.
 
-You will need to install Homebrew. Follow the instructions on https://brew.sh.
+    #### Installation
 
-#### Installation
+    Install the QMK CLI by running:
 
-Install the QMK CLI by running:
-
-    brew install qmk/qmk/qmk
+        brew install qmk/qmk/qmk
 
 ### ** Linux/WSL **
 
-?> **Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
+    !!! note
+        **Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
 
-#### Prerequisites
+    #### Prerequisites
 
-You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
+    You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
-* Debian / Ubuntu / Devuan: `sudo apt install -y git python3-pip`
-* Fedora / Red Hat / CentOS: `sudo yum -y install git python3-pip`
-* Arch / Manjaro: `sudo pacman --needed --noconfirm -S git python-pip libffi`
-* Void: `sudo xbps-install -y git python3-pip`
-* Solus: `sudo eopkg -y install git python3`
-* Sabayon: `sudo equo install dev-vcs/git dev-python/pip`
-* Gentoo: `sudo emerge dev-vcs/git dev-python/pip`
+    * Debian / Ubuntu / Devuan: `sudo apt install -y git python3-pip`
+    * Fedora / Red Hat / CentOS: `sudo yum -y install git python3-pip`
+    * Arch / Manjaro: `sudo pacman --needed --noconfirm -S git python-pip libffi`
+    * Void: `sudo xbps-install -y git python3-pip`
+    * Solus: `sudo eopkg -y install git python3`
+    * Sabayon: `sudo equo install dev-vcs/git dev-python/pip`
+    * Gentoo: `sudo emerge dev-vcs/git dev-python/pip`
 
-#### Installation
+    #### Installation
 
-Install the QMK CLI by running:
+    Install the QMK CLI by running:
 
-    python3 -m pip install --user qmk
+        python3 -m pip install --user qmk
 
-#### Community Packages
+    #### Community Packages
 
-These packages are maintained by community members, so may not be up to date or completely functional. If you encounter problems, please report them to their respective maintainers.
+    These packages are maintained by community members, so may not be up to date or completely functional. If you encounter problems, please report them to their respective maintainers.
 
-On Arch-based distros you can install the CLI from the official repositories (NOTE: at the time of writing this package marks some dependencies as optional that should not be):
+    On Arch-based distros you can install the CLI from the official repositories (NOTE: at the time of writing this package marks some dependencies as optional that should not be):
 
-    sudo pacman -S qmk
+        sudo pacman -S qmk
 
-You can also try the `qmk-git` package from AUR:
+    You can also try the `qmk-git` package from AUR:
 
-    yay -S qmk-git
+        yay -S qmk-git
 
-###  ** FreeBSD **
+=== "FreeBSD"
 
-#### Installation
+    #### Installation
 
-Install the FreeBSD package for QMK CLI by running:
+    Install the FreeBSD package for QMK CLI by running:
 
-    pkg install -g "py*-qmk"
+        pkg install -g "py*-qmk"
 
-NOTE: remember to follow the instructions printed at the end of installation (use `pkg info -Dg "py*-qmk"` to show them again).
-
-<!-- tabs:end -->
+    NOTE: remember to follow the instructions printed at the end of installation (use `pkg info -Dg "py*-qmk"` to show them again).
 
 ## 3. Run QMK Setup :id=set-up-qmk
 
-<!-- tabs:start -->
+=== "Windows"
 
-### ** Windows **
+    After installing QMK you can set it up with this command:
 
-After installing QMK you can set it up with this command:
+        qmk setup
 
-    qmk setup
+    In most situations you will want to answer `y` to all of the prompts.
 
-In most situations you will want to answer `y` to all of the prompts.
+=== "macOS"
 
-### ** macOS **
+    After installing QMK you can set it up with this command:
 
-After installing QMK you can set it up with this command:
+        qmk setup
 
-    qmk setup
+    In most situations you will want to answer `y` to all of the prompts.
 
-In most situations you will want to answer `y` to all of the prompts.
+=== "Linux/WSL"
 
-### ** Linux/WSL **
+    After installing QMK you can set it up with this command:
 
-After installing QMK you can set it up with this command:
+        qmk setup
 
-    qmk setup
+    In most situations you will want to answer `y` to all of the prompts.
 
-In most situations you will want to answer `y` to all of the prompts.
+    !!! note
+        Note on Debian, Ubuntu and their derivatives**:
+    It's possible, that you will get an error saying something like: `bash: qmk: command not found`.
+    This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
+    Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
+    Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
 
-?>**Note on Debian, Ubuntu and their derivatives**:
-It's possible, that you will get an error saying something like: `bash: qmk: command not found`.
-This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
-Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
-Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
+=== "FreeBSD"
 
-###  ** FreeBSD **
+    After installing QMK you can set it up with this command:
 
-After installing QMK you can set it up with this command:
+        qmk setup
 
-    qmk setup
-
-In most situations you will want to answer `y` to all of the prompts.
+    In most situations you will want to answer `y` to all of the prompts.
 
 <!-- tabs:end -->
 
-?> The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [cli configuration](cli_configuration.md?id=single-key-example) and the variable `user.qmk_home`. For all available options run `qmk setup --help`.
+!!! tip
+    The qmk home folder can be specified at setup with `qmk setup -H <path>`, and modified afterwards using the [cli configuration](cli_configuration.md?id=single-key-example) and the variable `user.qmk_home`. For all available options run `qmk setup --help`.
 
-?> If you already know how to use GitHub, [we recommend that you follow these instructions](getting_started_github.md) and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+!!! tip
+    If you already know how to use GitHub, [we recommend that you follow these instructions](getting_started_github.md) and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
 
 ## 4. Test Your Build Environment
 

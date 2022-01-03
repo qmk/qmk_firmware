@@ -19,7 +19,8 @@ By default, these are set to 0 and 0, which is usually the "ESC" key on a majori
 
 And to trigger the bootloader, you hold this key down when plugging the keyboard in. Just the single key.
 
-!> Using Bootmagic Lite will **always reset** the EEPROM, so you will lose any settings that have been saved.
+!!! warning
+    Using Bootmagic Lite will **always reset** the EEPROM, so you will lose any settings that have been saved.
 
 ## Split Keyboards
 

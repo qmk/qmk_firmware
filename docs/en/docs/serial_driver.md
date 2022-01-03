@@ -1,7 +1,8 @@
 # 'serial' Driver
 This driver powers the [Split Keyboard](feature_split_keyboard.md) feature.
 
-?> Serial in this context should be read as **sending information one bit at a time**, rather than implementing UART/USART/RS485/RS232 standards.
+!!! note
+    Serial in this context should be read as **sending information one bit at a time**, rather than implementing UART/USART/RS485/RS232 standards.
 
 Drivers in this category have the following characteristics:
 * bit bang and USART Half-duplex provide data and signaling over a single conductor
@@ -39,7 +40,8 @@ Configure the driver via your config.h:
 
 #### ARM
 
-!> The bitbang driver causes connection issues with bitbang WS2812 driver
+!!! wwarning
+    The bitbang driver causes connection issues with bitbang WS2812 driver
 
 Along with the generic options above, you must also turn on the `PAL_USE_CALLBACKS` feature in your halconf.h.
 

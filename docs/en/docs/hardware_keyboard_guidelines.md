@@ -129,7 +129,8 @@ The `post_config.h` file can be used for additional post-processing, depending o
   #endif
   ```
 
-?> If you define options using `post_config.h` as in the above example, you should not define the same options in the keyboard- or user-level `config.h`.
+!!! warning
+    If you define options using `post_config.h` as in the above example, you should not define the same options in the keyboard- or user-level `config.h`.
 
 ### `rules.mk`
 
@@ -176,7 +177,8 @@ The `post_rules.mk` file can interpret `features` of a keyboard-level before `co
   endif
   ```
 
-?> See `build_keyboard.mk` and `common_features.mk` for more details.
+!!! info
+    See `build_keyboard.mk` and `common_features.mk` for more details.
 
 ### `<keyboard_name.c>`
 

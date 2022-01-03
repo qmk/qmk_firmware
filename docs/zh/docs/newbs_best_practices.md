@@ -58,7 +58,8 @@ git push --set-upstream origin dev_branch
 
 这回建立一个叫做 `dev_branch`的新分支, 检查一下, 然后想你的分叉保存分支. 使用 `--set-upstream` 参数来告诉git使用你的分叉并且当每次你对你的分支用`git push` 或 `git pull`时要使用`dev_branch`。 它仅需要在第一次push的时候使用；然后你就可以很安全的用 `git push` 或 `git pull`, 并不需要其他参数了。
 
-!> 使用 `git push`, 你可以用 `-u` 来代替 `--set-upstream` &mdash; `-u`是`--set-upstream`的简写。
+!!! tip
+    使用 `git push`, 你可以用 `-u` 来代替 `--set-upstream` &mdash; `-u`是`--set-upstream`的简写。
 
 您可以将您的分支命名为您想要的任何名称，但建议将其命名为与您要进行的更改相关的内容。
 
@@ -77,7 +78,8 @@ git commit -m "My commit message."
 
 ` git add`添加已更改到Git的*临时区域*也就是Git的“加载区域”的文件。其中包含使用 `git commit` 命令 *提交* 的并已经保存到仓库的更改。建议您使用描述性的提交消息，这样您就可以一目了然地知道更改了什么。
 
-!> 如果你修改了很多文件，但所有的文件都是同一个更改的一部分，你可以用 `git add .` 来添加当前目录中所有已更改的文件而不是单独添加每个文件.
+!!! tip
+    如果你修改了很多文件，但所有的文件都是同一个更改的一部分，你可以用 `git add .` 来添加当前目录中所有已更改的文件而不是单独添加每个文件.
 
 ### 发布更改
 

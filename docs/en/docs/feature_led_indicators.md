@@ -1,6 +1,7 @@
 # LED Indicators
 
-?> This feature requires additional configuration to work on both halves of a split keyboard see [Data sync options](feature_split_keyboard.md#data-sync-options)
+!!! info
+    This feature requires additional configuration to work on both halves of a split keyboard see [Data sync options](feature_split_keyboard.md#data-sync-options)
 
 QMK provides methods to read 5 of the LEDs defined in the HID spec:
 
@@ -15,7 +16,8 @@ There are three ways to get the lock LED state:
 * by implementing `bool led_update_kb(led_t led_state)` or `_user(led_t led_state)`; or
 * by calling `led_t host_keyboard_led_state()`
 
-!> `host_keyboard_led_state()` may already reflect a new value before `led_update_user()` is called.
+!!! hint
+    `host_keyboard_led_state()` may already reflect a new value before `led_update_user()` is called.
 
 Two more deprecated functions exist that provide the LED state as a `uint8_t`:
 
@@ -51,7 +53,8 @@ Some examples include:
   - play a sound when an LED turns on or off.
     - return `true` because you want the `_kb` function to run, and this is in addition to the default LED behavior.
 
-?> Because the `led_set_*` functions return `void` instead of `bool`, they do not allow for overriding the keyboard LED control, and thus it's recommended to use `led_update_*` instead.
+!!! info
+    Because the `led_set_*` functions return `void` instead of `bool`, they do not allow for overriding the keyboard LED control, and thus it's recommended to use `led_update_*` instead.
 
 ### Example `led_update_kb()` Implementation
 

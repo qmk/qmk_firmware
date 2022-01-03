@@ -79,7 +79,8 @@ Additionally, in the board config, you'll want to make changes to enable the DAC
 #define STM32_GPT_USE_TIM8                  TRUE
 ```
 
-?> Note: DAC1 (A4) uses TIM6, DAC2 (A5) uses TIM7, and the audio state timer uses TIM8 (configurable). 
+!!! note
+    DAC1 (A4) uses TIM6, DAC2 (A5) uses TIM7, and the audio state timer uses TIM8 (configurable). 
 
 You can also change the timer used for the overall audio state by defining the driver.  For instance: 
 

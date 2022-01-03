@@ -54,7 +54,8 @@ Grab [this file](https://gist.github.com/drashna/48e2c49ce877be592a1650f91f8473e
 
 Once you have saved this file, you will need to reload VS Code, if it was already running. 
 
-?> You should see an `extensions.json` and `settings.json` file in the `.vscode` folder, as well.
+!!! note
+    You should see an `extensions.json` and `settings.json` file in the `.vscode` folder, as well.
 
 
 Now, we will set up the MSYS2 window to show up in VSCode as the integrated terminal.  This has a number of advantages. Mostly, you can control+click on errors and jump to those files.  This makes debugging much easier.  It's also nice, in that you don't have to jump to another window. 
@@ -82,7 +83,8 @@ Now, we will set up the MSYS2 window to show up in VSCode as the integrated term
 
    If there are settings here already, then just add everything between the first and last curly brackets and separate the existing settings with a comma from the newly added ones.
 
-?> If you installed MSYS2 to a different folder, then you'll need to change the path for `terminal.integrated.shell.windows` to the correct path for your system. 
+!!! tip
+    If you installed MSYS2 to a different folder, then you'll need to change the path for `terminal.integrated.shell.windows` to the correct path for your system. 
 
 4. Hit Ctrl-<code>&#96;</code> (Grave) to bring up the terminal or go to <kbd><kbd>View</kbd> > <kbd>Terminal</kbd></kbd> (command `workbench.action.terminal.toggleTerminal`). A new terminal will be opened if there isn‘t one already.
 

@@ -109,7 +109,8 @@ qmk提供了读取HID规范包含的5个LED的方法。:
 当5个LED中任何一个的状态需要改变时，此函数将被调用。此函数通过参数输入LED参数。
 使用`IS_LED_ON(usb_led, led_name)`和`IS_LED_OFF(usb_led, led_name)`这两个宏来检查LED状态。
 
-!> `host_keyboard_leds()`可能会在`led_set_user()`被调用前返回新值。
+!!! hint
+    `host_keyboard_leds()`可能会在`led_set_user()`被调用前返回新值。
 
 ### `led_set_user()`函数示例实现
 
@@ -175,7 +176,8 @@ Ergodox boards 同时定义了最低亮度级别`LED_BRIGHTNESS_LO`和最高亮�
 * `matrix_init_*` - 在固件启动过程中间被调用。此时硬件已初始化，功能尚未初始化。
 * `keyboard_post_init_*` - 在固件启动过程最后被调用。大多数情况下，你的“客制化”代码都可以放在这里。
 
-!> 对于大多数人来说`keyboard_post_init_user`是你想要调用的函数。例如, 此时你可以设置RGB灯发光。
+!!! tip
+    对于大多数人来说`keyboard_post_init_user`是你想要调用的函数。例如, 此时你可以设置RGB灯发光。
 
 ## 键盘预初始化代码
 

@@ -8,7 +8,8 @@ QMK Firmware has a generic implementation that is usable by any board, as well a
 
 For this, we will mostly be talking about the generic implementation used by the Let's Split and other keyboards. 
 
-!> ARM split supports most QMK subsystems when using the 'serial' and 'serial_usart' drivers. I2C slave is currently unsupported.
+!!! info
+    ARM split supports most QMK subsystems when using the 'serial' and 'serial_usart' drivers. I2C slave is currently unsupported.
 
 ## Compatibility Overview
 
@@ -43,13 +44,15 @@ Another option is to use phone cables (as in, old school RJ-11/RJ-14 cables). Ma
 
 However, USB cables, SATA cables, and even just 4 wires have been known to be used for communication between the controllers. 
 
-!> Using USB cables for communication between the controllers works just fine, but the connector could be mistaken for a normal USB connection and potentially short out the keyboard, depending on how it's wired.  For this reason, they are not recommended for connecting split keyboards.  
+!!! tip
+    Using USB cables for communication between the controllers works just fine, but the connector could be mistaken for a normal USB connection and potentially short out the keyboard, depending on how it's wired.  For this reason, they are not recommended for connecting split keyboards.  
 
 ### Serial Wiring
 
 The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0/D1/D2/D3 (aka PD0/PD1/PD2/PD3) between the two Pro Micros. 
 
-?> Note that the pin used here is actually set by `SOFT_SERIAL_PIN` below.
+!!! note
+    The pin used here is actually set by `SOFT_SERIAL_PIN` below.
 
 <img alt="sk-pd0-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296488-28e9ad80-ef70-11ea-98be-c40cb48a0319.JPG" width="48%"/>
 <img alt="sk-pd2-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296490-2d15cb00-ef70-11ea-801f-5ace313013e6.JPG" width="48%"/>
@@ -329,7 +332,8 @@ void housekeeping_task_user(void) {
 }
 ```
 
-!> It is recommended that any data sync between halves happens during the master side's _housekeeping task_. This ensures timely retries should failures occur.
+!!! note 
+    It is recommended that any data sync between halves happens during the master side's _housekeeping task_. This ensures timely retries should failures occur.
 
 If only one-way data transfer is needed, helper methods are provided:
 
@@ -384,7 +388,8 @@ This option enables synchronization of the RGB Light modes between the controlle
 
 This sets how many LEDs are directly connected to each controller.  The first number is the left side, and the second number is the right side.  
 
-?> This setting implies that `RGBLIGHT_SPLIT` is enabled, and will forcibly enable it, if it's not.
+!!! info
+    This setting implies that `RGBLIGHT_SPLIT` is enabled, and will forcibly enable it, if it's not.
 
 
 ```c
@@ -397,7 +402,8 @@ Without this option, the master is the half that can detect voltage on the physi
 
 Enabled by default on ChibiOS/ARM.
 
-?> This setting will stop the ability to demo using battery packs.
+!!! tip
+    This setting will stop the ability to demo using battery packs.
 
 ```c
 #define SPLIT_USB_TIMEOUT 2000

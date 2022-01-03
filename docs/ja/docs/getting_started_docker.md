@@ -57,4 +57,5 @@ RUNTIME="podman" util/docker_build.sh keyboard:keymap:target
 
 Windows と macOS では、実行するために [Docker Machine](http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos/) が必要です。これはセットアップが面倒なので、お勧めではありません: 代わりに [QMK Toolbox](https://github.com/qmk/qmk_toolbox) を使ってください。
 
-!> Docker for Windows は [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) を有効にする必要があります。これは、Windows 7、Windows 8 および **Windows 10 Home** のような Hyper-V を搭載していない Windows のバージョンでは機能しないことを意味します。
+!!! warning
+    Docker for Windows は [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) を有効にする必要があります。これは、Windows 7、Windows 8 および **Windows 10 Home** のような Hyper-V を搭載していない Windows のバージョンでは機能しないことを意味します。
