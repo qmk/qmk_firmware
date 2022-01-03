@@ -38,21 +38,20 @@
 /*===========================================================================*/
 
 static void wb32_gpio_init(void) {
-
 #if WB32_HAS_GPIOA
-  rccEnableAPB1(RCC_APB1ENR_GPIOAEN);
+    rccEnableAPB1(RCC_APB1ENR_GPIOAEN);
 #endif
 
 #if WB32_HAS_GPIOB
-  rccEnableAPB1(RCC_APB1ENR_GPIOBEN);
+    rccEnableAPB1(RCC_APB1ENR_GPIOBEN);
 #endif
 
 #if WB32_HAS_GPIOC
-  rccEnableAPB1(RCC_APB1ENR_GPIOCEN);
+    rccEnableAPB1(RCC_APB1ENR_GPIOCEN);
 #endif
 
 #if WB32_HAS_GPIOD
-  rccEnableAPB1(RCC_APB1ENR_GPIODEN);
+    rccEnableAPB1(RCC_APB1ENR_GPIODEN);
 #endif
 }
 
@@ -69,14 +68,11 @@ static void wb32_gpio_init(void) {
  * any other initialization.
  */
 void __early_init(void) {
-
-  wb32_clock_init();
-  wb32_gpio_init();
+    wb32_clock_init();
+    wb32_gpio_init();
 }
 /**
  * @brief   Board-specific initialization code.
  * @note    You can add your board-specific code here.
  */
-void boardInit(void) {
-
-}
+void boardInit(void) {}
