@@ -233,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |----------------------------------------------------------------------------|
  * |debug| MWL | MsL |MDn  |MsR   |GAMING|      |AU_ON|AU_OFF|MU_ON|MU_OF|RGBMod|
  * |----------------------------------------------------------------------------|
- * |     |     |MWUp |NWDn |      |QWERTY|COLEMAK|MI_ON|MI_OF|     |     |MU_Mod|
+ * |     |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|MI_ON|MI_OF|     |     |MU_Mod|
  * |----------------------------------------------------------------------------|
  * |     |     |     |SLEEP|      |              |     |     |     |     |      |
  * `----------------------------------------------------------------------------'
@@ -337,6 +337,7 @@ void usl_finished(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case TD_SINGLE_HOLD:
             layer_on(_LOWER);
+            update_tri_layer(_LOWER, _RAISE, _ADJUST);
             break;
         case TD_DOUBLE_TAP:
             // Check to see if the layer is already set
@@ -363,6 +364,7 @@ void usl_reset(qk_tap_dance_state_t *state, void *user_data) {
     // If the key was held down and now is released then switch off the layer  
     if (usl_tap_state.state == TD_SINGLE_HOLD) {
         layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
     }
     usl_tap_state.state = TD_NONE;
 }
@@ -437,6 +439,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    // case UNDS_LOWER:
+    //   if (record->event.pressed) {
+    //     layer_on(_LOWER);
+    //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    //   } else {
+    //     layer_off(_LOWER);
+    //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    //   }
+    //   return false;
+    //   break;
     case BRACES:  // Types (), or {}, and puts cursor between braces.
       if (record->event.pressed) {
         clear_mods();  // Temporarily disable mods.
