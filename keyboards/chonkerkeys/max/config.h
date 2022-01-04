@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Chonkerkeys
+Copyright 2021 ANWC Limited d.b.a. Chonkerkeys
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -89,6 +89,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
 //#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 //#endif
+
+
+#define RGB_STRAND_LIMIT_VAL 255 // for limiting max current
+
+#define RGB_STRAND_0_DI_PIN B6
+#define RGB_STRAND_0_NUM 4
+
+#define RGB_STRAND_1_DI_PIN B2
+#define RGB_STRAND_1_NUM 4
+
+#define RGB_STRAND_2_DI_PIN B3
+#define RGB_STRAND_2_NUM 7
+
+#define RGB_STRAND_3_DI_PIN B1
+#define RGB_STRAND_3_NUM 4
+
+#define RGB_STRAND_4_DI_PIN B5
+#define RGB_STRAND_4_NUM 4
+
+#define RGB_STRAND_5_DI_PIN B4
+#define RGB_STRAND_5_NUM 4
+
+#define RGB_STRAND_6_DI_PIN E6
+#define RGB_STRAND_6_NUM 4
+
+#define RGB_STRAND_7_DI_PIN D7
+#define RGB_STRAND_7_NUM 5
+
+#define RGB_STRAND_8_DI_PIN C6
+#define RGB_STRAND_8_NUM 4
+
+#define RGB_STRAND_9_DI_PIN D4
+#define RGB_STRAND_9_NUM 4
+
+#define RGB_STRAND_A_DI_PIN D0
+#define RGB_STRAND_A_NUM 4
+
+#define RGB_STRAND_B_DI_PIN D5
+#define RGB_STRAND_B_NUM 5
+
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
