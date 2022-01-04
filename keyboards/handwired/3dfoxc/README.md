@@ -8,6 +8,8 @@ This is a build of [matt3o's "How to Build a Custom Keyboard" guide](https://mat
 
 Badly, because I have never done this before. Build pics available upon request, I guess.
 
+<img width="1031" alt="image" src="https://user-images.githubusercontent.com/6492494/148123622-36cae91e-97f3-40f7-a6fc-4d59b1a3ef02.png">
+
 
 ## Flashing
 
