@@ -54,12 +54,6 @@
 #define QMK_ESC_INPUT B4   // ROW pin if COL2ROW
 #define QMK_LED B0
 
-/* Tap-hold configurations */
-#define PERMISSIVE_HOLD
-
-/* Combos */
-#define COMBO_COUNT 4
-
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
