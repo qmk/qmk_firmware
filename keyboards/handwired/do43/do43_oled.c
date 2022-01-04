@@ -280,7 +280,7 @@ void render_info_mode(void) {
 // Rotate OLED display to the correct orientation
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; };
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     switch (oled_mode) {
         default:
         case OLED_INFO:
@@ -290,4 +290,5 @@ void oled_task_user(void) {
             render_wpm_mode();
             break;
     }
+    return false;
 }
