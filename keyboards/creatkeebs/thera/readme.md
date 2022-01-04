@@ -6,12 +6,13 @@ A 75% keyboard
 ### Features
 * PLateless PCB gasket
 * Decent amount of layout compatibility - [View supported layouts](https://cdn.shopify.com/s/files/1/0481/5840/8853/products/8038a8b71a5149f5bad362b28368da3_590x.png?v=1628765539)
-* Ti badge 
+* Ti badge
+* PVD weight (upgrade available) - [View supported layouts]https://cdn.shopify.com/s/files/1/0481/5840/8853/products/20210806155659_590x.png?v=1628765539)
 
 ### Additional Information
-* Keyboard Maintainer: [Timliuzhaolu](https://github.com/Timliuzhaolu)
+* Keyboard Maintainer: [Tim](https://github.com/Timliuzhaolu)
 * Hardware Supported: thera PCB
-* Hardware Availability: Closed group-buy
+* Hardware Availability: [ESCHIT.com](https://eschit.com/products/gb-thera75)
 
 Make example for this keyboard (after setting up your build environment):
 
