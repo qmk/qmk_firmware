@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ws2812.h"
+#include "ws2812_strands.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -33,15 +33,82 @@
  * The length is the number of bytes to send - three per LED.
  */
 
-static inline void ws2812_strand2_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi);
+static inline void ws2812_strand_sendarray_mask(uint8_t pin, uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi);
 
-void ws2812_strand2_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
-    DDRx_ADDRESS(RGB_STRAND_2_DI_PIN) |= pinmask(RGB_STRAND_2_DI_PIN);
+void ws2812_strand_setleds(uint8_t strand, LED_TYPE *ledarray, uint16_t number_of_leds) {
 
-    uint8_t masklo = ~(pinmask(RGB_STRAND_2_DI_PIN)) & PORTx_ADDRESS(RGB_STRAND_2_DI_PIN);
-    uint8_t maskhi = pinmask(RGB_STRAND_2_DI_PIN) | PORTx_ADDRESS(RGB_STRAND_2_DI_PIN);
+#define _STRAND_SENDARRAY(strand) \
+    DDRx_ADDRESS(RGB_STRAND_##strand##_DI_PIN) |= pinmask(RGB_STRAND_##strand##_DI_PIN); \
+    ws2812_strand_sendarray_mask( \
+            _SFR_IO_ADDR(PORTx_ADDRESS(RGB_STRAND_##strand##_DI_PIN)), \
+            (uint8_t *)ledarray, number_of_leds * sizeof(LED_TYPE), \
+            ~(pinmask(RGB_STRAND_##strand##_DI_PIN)) & PORTx_ADDRESS(RGB_STRAND_##strand##_DI_PIN), \
+            pinmask(RGB_STRAND_##strand##_DI_PIN) | PORTx_ADDRESS(RGB_STRAND_##strand##_DI_PIN))
 
-    ws2812_strand2_sendarray_mask((uint8_t *)ledarray, number_of_leds * sizeof(LED_TYPE), masklo, maskhi);
+   switch(strand) {
+#ifdef RGB_STRAND_0_DI_PIN
+        case 0:
+            _STRAND_SENDARRAY(0);
+            break;
+#endif
+#ifdef RGB_STRAND_1_DI_PIN
+        case 1:
+            _STRAND_SENDARRAY(1);
+            break;
+#endif
+#ifdef RGB_STRAND_2_DI_PIN
+        case 2:
+            _STRAND_SENDARRAY(2);
+            break;
+#endif
+#ifdef RGB_STRAND_3_DI_PIN
+        case 3:
+            _STRAND_SENDARRAY(3);
+            break;
+#endif
+#ifdef RGB_STRAND_4_DI_PIN
+        case 4:
+            _STRAND_SENDARRAY(4);
+            break;
+#endif
+#ifdef RGB_STRAND_5_DI_PIN
+        case 5:
+            _STRAND_SENDARRAY(5);
+            break;
+#endif
+#ifdef RGB_STRAND_6_DI_PIN
+        case 6:
+            _STRAND_SENDARRAY(6);
+            break;
+#endif
+#ifdef RGB_STRAND_7_DI_PIN
+        case 7:
+            _STRAND_SENDARRAY(7);
+            break;
+#endif
+#ifdef RGB_STRAND_8_DI_PIN
+        case 8:
+            _STRAND_SENDARRAY(8);
+            break;
+#endif
+#ifdef RGB_STRAND_9_DI_PIN
+        case 9:
+            _STRAND_SENDARRAY(9);
+            break;
+#endif
+#ifdef RGB_STRAND_A_DI_PIN
+        case 10:
+            _STRAND_SENDARRAY(A);
+            break;
+#endif
+#ifdef RGB_STRAND_B_DI_PIN
+        case 11:
+            _STRAND_SENDARRAY(B);
+            break;
+#endif
+        default:
+            return;
+    }
 
     _delay_us(WS2812_TRST_US);
 }
@@ -98,7 +165,7 @@ void ws2812_strand2_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
 #define w_nop8 w_nop4 w_nop4
 #define w_nop16 w_nop8 w_nop8
 
-static inline void ws2812_strand2_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi) {
+__attribute__((always_inline)) static inline void ws2812_strand_sendarray_mask(uint8_t pin, uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi) {
     uint8_t curbyte, ctr, sreg_prev;
 
     sreg_prev = SREG;
@@ -163,7 +230,7 @@ static inline void ws2812_strand2_sendarray_mask(uint8_t *data, uint16_t datlen,
                      "       dec   %0    \n\t"  //  '1' [+2] '0' [+2]
                      "       brne  loop%=\n\t"  //  '1' [+3] '0' [+4]
                      : "=&d"(ctr)
-                     : "r"(curbyte), "I"(_SFR_IO_ADDR(PORTx_ADDRESS(RGB_STRAND_2_DI_PIN))), "r"(maskhi), "r"(masklo));
+                     : "r"(curbyte), "I"(pin), "r"(maskhi), "r"(masklo));
     }
 
     SREG = sreg_prev;

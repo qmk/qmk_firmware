@@ -28,4 +28,4 @@
  *         - Send out the LED data
  *         - Wait 50us to reset the LEDs
  */
-void ws2812_strand2_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
+void ws2812_strand_setleds(uint8_t strand, LED_TYPE *ledarray, uint16_t number_of_leds);

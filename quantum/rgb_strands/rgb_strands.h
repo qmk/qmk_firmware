@@ -51,9 +51,7 @@
 #include "ws2812_strands.h"
 #include "color.h"
 
-#ifdef RGB_STRAND_0_NUM
-extern LED_TYPE led_strand_0[RGB_STRAND_0_NUM];
-#endif
+#define RGB_STRAND_MAX_NUM_LEDS 16
 
 void rgb_strands_init(void);
 void rgb_strands_task(void);
