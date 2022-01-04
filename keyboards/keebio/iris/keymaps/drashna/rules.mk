@@ -4,7 +4,6 @@ EXTRAKEY_ENABLE    = yes      # Audio control and System control
 CONSOLE_ENABLE     = no       # Console for debug
 COMMAND_ENABLE     = no       # Commands for debug and configuration
 TAP_DANCE_ENABLE   = no
-RGBLIGHT_ENABLE    = yes
 AUDIO_ENABLE       = no
 NKRO_ENABLE        = yes
 BACKLIGHT_ENABLE   = no
@@ -15,3 +14,7 @@ INDICATOR_LIGHTS            = no
 RGBLIGHT_STARTUP_ANIMATION  = no
 CUSTOM_UNICODE_ENABLE       = no
 CUSTOM_SPLIT_TRANSPORT_SYNC = no
+
+ifneq ($(strip $(KEYBOARD)), keebio/iris/rev6)
+   RGBLIGHT_ENABLE    = yes
+endif
