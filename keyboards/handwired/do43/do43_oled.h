@@ -190,10 +190,3 @@ static const char PROGMEM layer_row_2[3] = {0xcd, 0xce, 0x00};
 #define MATRIX_TOP_ROW_HORI_PADDING 3
 #define MATRIX_OLED_WIDTH 8
 #define MATRIX_OLED_HEIGHT 3
-
-#define swap(a, b)     \
-    {                  \
-        uint8_t t = a; \
-        a         = b; \
-        b         = t; \
-    }

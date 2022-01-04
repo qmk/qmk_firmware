@@ -170,6 +170,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define OLED_UPDATE_INTERVAL 50
 #endif
 
+#define swap(a, b)     \
+    {                  \
+        uint8_t t = a; \
+        a         = b; \
+        b         = t; \
+    }
+
 typedef struct __attribute__((__packed__)) {
     uint8_t *current_element;
     uint16_t remaining_element_count;
@@ -243,6 +250,27 @@ void oled_write_raw_byte(const char data, uint16_t index);
 // Sets a specific pixel on or off
 // Coordinates start at top-left and go right and down for positive x and y
 void oled_write_pixel(uint8_t x, uint8_t y, bool on);
+
+// Draws a line, from coordinates (x0, y0) to (x1, y1)
+void oled_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, bool on);
+
+// Draws a horizontal line, from coordinates (x, y) to (x + width, y)
+void oled_draw_line_hori(uint8_t x, uint8_t y, uint8_t width, bool on);
+
+// Draws a vertical line, from coordinates (x, y) to (x, y + height)
+void oled_draw_line_vert(uint8_t x, uint8_t y, uint8_t height, bool on);
+
+// Draws a rectangle, from coordinates (x, y) to (x + width, y + height)
+void oled_draw_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on);
+
+// Draws a rectangle with rounded corners, from coordinates (x, y) to (x + width, y + height)
+void oled_draw_rect_soft(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on);
+
+// Draws a filled rectangle, from coordinates (x, y) to (x + width, y + height)
+void oled_draw_rect_filled(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on);
+
+// Draws a filled rectangle with rounded corners, from coordinates (x, y) to (x + width, y + height)
+void oled_draw_rect_filled_soft(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on);
 
 #if defined(__AVR__)
 // Writes a PROGMEM string to the buffer at current cursor position

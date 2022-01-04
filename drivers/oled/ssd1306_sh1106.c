@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "print.h"
 
+#include <stdlib.h>
 #include <string.h>
 
 #include "progmem.h"
@@ -523,6 +524,100 @@ void oled_write_pixel(uint8_t x, uint8_t y, bool on) {
     if (oled_buffer[index] != data) {
         oled_buffer[index] = data;
         oled_dirty |= ((OLED_BLOCK_TYPE)1 << (index / OLED_BLOCK_SIZE));
+    }
+}
+
+void oled_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, bool on) {
+    uint8_t steep = abs(y1 - y0) > abs(x1 - x0);
+    if (steep) {
+        swap(x0, y0);
+        swap(x1, y1);
+    }
+
+    if (x0 > x1) {
+        swap(x0, x1);
+        swap(y0, y1);
+    }
+
+    uint8_t dx, dy;
+    dx = x1 - x0;
+    dy = abs(y1 - y0);
+
+    int8_t err = dx / 2;
+    int8_t ystep;
+
+    if (y0 < y1) {
+        ystep = 1;
+    } else {
+        ystep = -1;
+    }
+
+    for (; x0 < x1; x0++) {
+        if (steep) {
+            oled_write_pixel(y0, x0, on);
+        } else {
+            oled_write_pixel(x0, y0, on);
+        }
+        err -= dy;
+        if (err < 0) {
+            y0 += ystep;
+            err += dx;
+        }
+    }
+}
+
+void oled_draw_line_hori(uint8_t x, uint8_t y, uint8_t width, bool on) {
+    oled_draw_line(x, y, x + width, y, on);
+}
+
+void oled_draw_line_vert(uint8_t x, uint8_t y, uint8_t height, bool on) {
+    oled_draw_line(x, y, x, y + height, on);
+}
+
+void oled_draw_rect(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on) {
+    uint8_t tempHeight;
+
+    oled_draw_line_hori(x, y, width, on);
+    oled_draw_line_hori(x, y + height - 1, width, on);
+
+    tempHeight = height - 2;
+
+    // skip drawing vertical lines to avoid overlapping of pixel that will
+    // affect XOR plot if no pixel in between horizontal lines
+    if (tempHeight < 1) return;
+
+    oled_draw_line_vert(x, y + 1, tempHeight, on);
+    oled_draw_line_vert(x + width - 1, y + 1, tempHeight, on);
+}
+
+void oled_draw_rect_soft(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on) {
+    uint8_t tempHeight;
+
+    oled_draw_line_hori(x + 1, y, width - 2, on);
+    oled_draw_line_hori(x + 1, y + height - 1, width - 2, on);
+
+    tempHeight = height - 2;
+
+    // skip drawing vertical lines to avoid overlapping of pixel that will
+    // affect XOR plot if no pixel in between horizontal lines
+    if (tempHeight < 1) return;
+
+    oled_draw_line_vert(x, y + 1, tempHeight, on);
+    oled_draw_line_vert(x + width - 1, y + 1, tempHeight, on);
+}
+
+void oled_draw_rect_filled(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on) {
+    for (int i = x; i < x + width; i++) {
+        oled_draw_line_vert(i, y, height, on);
+    }
+}
+
+void oled_draw_rect_filled_soft(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on) {
+    for (int i = x; i < x + width; i++) {
+        if (i == x || i == (x + width - 1))
+            oled_draw_line_vert(i, y + 1, height - 2, on);
+        else
+            oled_draw_line_vert(i, y, height, on);
     }
 }
 
