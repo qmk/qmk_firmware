@@ -101,10 +101,9 @@ bool pmw3389_spi_start(void) {
     return status;
 }
 
-
 spi_status_t pmw3389_write(uint8_t reg_addr, uint8_t data) {
     pmw3389_spi_start();
-    
+
     if (reg_addr != REG_Motion_Burst) {
         _inBurst = false;
     }
@@ -134,7 +133,7 @@ uint8_t pmw3389_read(uint8_t reg_addr) {
     wait_us(1);
     spi_stop();
 
-    // tSRW/tSRR (=20us) minus tSCLK-NCS
+    //  tSRW/tSRR (=20us) minus tSCLK-NCS
     wait_us(19);
     return data;
 }
@@ -156,11 +155,11 @@ bool pmw3389_init(void) {
     wait_us(40);
     spi_stop();
     wait_us(40);
-    
+
     // power up, need to first drive NCS high then low, see above.
     pmw3389_write(REG_Power_Up_Reset, 0x5a);
     wait_ms(50);
-    
+
     // read registers and discard
     pmw3389_read(REG_Motion);
     pmw3389_read(REG_Delta_X_L);
@@ -230,12 +229,10 @@ bool pmw3389_check_signature(void) {
     return (pid == firmware_signature[0] && iv_pid == firmware_signature[1] && SROM_ver == firmware_signature[2]);  // signature for SROM 0x04
 }
 
-
 uint16_t pmw3389_get_cpi(void) {
     uint16_t cpival = (pmw3389_read(REG_Resolution_H) << 8) | pmw3389_read(REG_Resolution_L);
     return (uint16_t)((cpival + 1) & 0xffff) * CPI_STEP;
 }
-
 
 void pmw3389_set_cpi(uint16_t cpi) {
     uint16_t cpival = constrain((cpi / CPI_STEP) - 1, 0, MAX_CPI);
@@ -246,7 +243,7 @@ void pmw3389_set_cpi(uint16_t cpi) {
 
 report_pmw3389_t pmw3389_read_burst(void) {
     report_pmw3389_t report = {0};
-    
+
     if (!_inBurst) {
 #ifdef CONSOLE_ENABLE
         dprintf("burst on");
@@ -266,8 +263,8 @@ report_pmw3389_t pmw3389_read_burst(void) {
     report.mdx = spi_read();
     report.dy  = spi_read();
     report.mdy = spi_read();
-    
-        if (report.motion & 0b111) {  // panic recovery, sometimes burst mode works weird.
+
+    if (report.motion & 0b111) {  // panic recovery, sometimes burst mode works weird.
         _inBurst = false;
     }
 
