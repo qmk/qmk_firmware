@@ -82,18 +82,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (is_connected) {
             key_down(get_current_layer(), x, y);
         } else {
-            uint16_t key_config_index = keycode - CH_CUSTOM;
-            uint16_t current_layer = get_current_layer();
-            uint16_t const* keyMacros = is_windows(current_layer) ? windows_configs[key_config_index] : macos_configs[key_config_index];
-            for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
-                uint16_t code = keyMacros[i];
-                if (code == KC_NO) continue;
-                register_code(code);
+            if (keycode > CH_CUSTOM && keycode < CH_LAST_KEYCODE) {
+                uint16_t key_config_index = keycode - CH_CUSTOM;
+                uint16_t current_layer = get_current_layer();
+                uint16_t const* keyMacros = is_windows(current_layer) ? windows_configs[key_config_index] : macos_configs[key_config_index];
+                for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
+                    uint16_t code = keyMacros[i];
+                    if (code == KC_NO) continue;
+                    register_code(code);
+                }
+                for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
+                    uint16_t code = keyMacros[i];
+                    if (code == KC_NO) continue;
+                    unregister_code(code);
+                }
             }
-            for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
-                uint16_t code = keyMacros[i];
-                if (code == KC_NO) continue;
-                unregister_code(code);
+            else {
+                register_code(keycode);
+                unregister_code(keycode);
             }
         }
     }
