@@ -1,8 +1,10 @@
-# Kyria's Default Keymap
+# Kyria's lw Keymap
 
-Custom keymap for the kyria keyboard. It is intended to be used with an *English (US, intl. with dead keys)* (includes the `keymap_us_international.h` header). 
+Custom keymap for the [kyria keyboard](https://blog.splitkb.com/blog/introducing-the-kyria). It is intended to be used with an *English (US, intl. with dead keys)* keyboard layout (includes the `keymap_us_international.h` header). 
 
-The layout implements all accents and symbols found on a **swiss** keyboard. It uses Unicode for special characters. It makes use of the [Linux built-in IBus Unicode input](https://docs.qmk.fm/#/feature_unicode?id=input-modes). 
+This layout is mainly designed for every day writing and programming. 
+
+The layout implements all accents and symbols found on a **swiss** keyboard. It uses Unicode for special characters. It makes use of the [Linux built-in IBus Unicode input](https://docs.qmk.fm/#/feature_unicode?id=input-modes) and relies on [WinCompose](https://github.com/samhocevar/wincompose) for Windows. 
 
 ## Build this keymap
 ```bash
@@ -20,7 +22,7 @@ $ lsusb
 Bus 001 Device 034: ID 03eb:2ff4 Atmel Corp. atmega32u4 DFU bootloader
 ...
 ```
-If the bootloader is not visible, press the reset button of the microcontroller. The bootloader should be visible when running the `lsusb` command again. 
+If the bootloader is not visible, press the reset button of the microcontroller. The bootloader should become visible when running the `lsusb` command again. 
 
 The microcontroller can now be flashed: 
 ```bash
@@ -56,6 +58,8 @@ This layer is activated by default.
  *                        `----------------------------------'  `----------------------------------'
  */
 ```
+
+Hold down the `Enter` key to make it a shift. This compensates for the poor placement of the dedicated `LShift` key. 
 
 ### Symbol layer
 This layer is activated when holding `MO(1)`.
