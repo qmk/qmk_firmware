@@ -2,9 +2,9 @@
 
 Custom keymap for the [kyria keyboard](https://blog.splitkb.com/blog/introducing-the-kyria). It is intended to be used with an *English (US, intl. with dead keys)* keyboard layout (includes the `keymap_us_international.h` header). 
 
-This layout is mainly designed for every day writing and programming. 
+This layout is mainly designed for every day writing in either English, French or German and programming. 
 
-The layout implements all accents and symbols found on a **swiss** keyboard. It uses Unicode for special characters. It makes use of the [Linux built-in IBus Unicode input](https://docs.qmk.fm/#/feature_unicode?id=input-modes) and relies on [WinCompose](https://github.com/samhocevar/wincompose) for Windows. 
+The layout implements all accents and symbols (leveraging dead keys) found on a **swiss** keyboard. It uses Unicode for special characters. It makes use of the [Linux built-in IBus Unicode input](https://docs.qmk.fm/#/feature_unicode?id=input-modes) and relies on [WinCompose](https://github.com/samhocevar/wincompose) for Windows. 
 
 ## Build this keymap
 ```bash
