@@ -1,9 +1,9 @@
 [DZ65RGB/v3 Yuannan's Layout Imgur Album](https://imgur.com/a/BI2RjgE)
 
 ![Alpha](https://i.imgur.com/ikqvrtF.png)
-![Vim Editing Layer](https://i.imgur.com/Zm6Tf6p.png)
-![Mouse and Autoclicker](https://i.imgur.com/hoBvSRR.png)
-![Hyper functions and RGB Layer](https://i.imgur.com/QWmWaWY.png)
+![Vim Editing Layer](https://i.imgur.com/hoBvSRR.png)
+![Mouse and Autoclicker](https://i.imgur.com/QWmWaWY.png)
+![Hyper functions and RGB Layer](https://i.imgur.com/Zm6Tf6p.png)
 
 # Yuannan's DZ65 Custom Profile. Autoclicker, Vim, and more!
 
