@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |LShift/(|   Z  |   X  |   C  |   D  |   V  | `^[  |CapsLk|  |F-keys|  +*] |   K  |   H  | , ;  | . :  | -  _ |RShift/)|
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |Adjust| LAlt/| LGUI/| Sym/ | Nav/ |  | Sym/ | Nav/ | RGUI/| RAlt/| Menu |
- *                        |      | Enter| Enter| Space| Esc  |  | Enter| Space| Tab  | Bksp |      |
+ *                        |      | Supr | Enter| Space| Esc  |  | Enter| Space| Tab  | Bksp |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_COLEMAK_DH] = LAYOUT(
