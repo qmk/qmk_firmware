@@ -12,11 +12,11 @@ DIY/Assembled compact 40% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make amj40:default
+    make amjkeyboard/amj40:default
 
 Flashing example for this keyboard:
 
-    make amj40:default:flash
+    make amjkeyboard/amj40:default:flash
 
 To reset the board into bootloader mode, hold the key at the top left of the keyboard while connecting the USB cable (also erases persistent settings).
 
