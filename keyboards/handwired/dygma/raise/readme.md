@@ -41,7 +41,7 @@ Briefly each raise hand uses I2C to communicate with the Neuron:
 3. The resistors are pullup resistors for the I2C lines.
 4. Each hand draws power from the USB port.
 
-<img src="https://i.imgur.com/ai9rcHa.png" width="600">
+![](https://i.imgur.com/ai9rcHal.png)
 
 <p float="left">
   <img src="https://i.imgur.com/GvXfnpf.jpg" width="200">
