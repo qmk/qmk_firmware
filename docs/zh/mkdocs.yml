@@ -39,7 +39,6 @@ plugins:
         - es
         - fr
         - ja
-        - pt
         - ru
       prebuild_index: true
       separator: '[\s\-\_]+'
