@@ -58,10 +58,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define SPLIT_MODS_ENABLE
 #   define SPLIT_OLED_ENABLE
 #   define OLED_FONT_H "keyboards/crkbd/keymaps/soundmonster/glcdfont.c"
+#   define OLED_TIMEOUT 30000
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-#   define SPLIT_TRANSPORT_MIRROR // needs key presses from master on the slave side
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 // #   define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects

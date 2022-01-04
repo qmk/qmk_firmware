@@ -7,10 +7,6 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 #endif
 
-#ifdef OLED_ENABLE
-static uint32_t oled_timer = 0;
-#endif
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -304,13 +300,16 @@ bool oled_task_user(void) {
 #if defined(SPLIT_KEYBOARD)
     if (is_keyboard_master()) {
 #endif
-        if (timer_elapsed32(oled_timer) > 30000) {
+#if OLED_TIMEOUT > 0
+        if (last_input_activity_elapsed() > OLED_TIMEOUT) {
             oled_off();
-        }
-        else {
+        } else {
+#endif
             oled_on();
             render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+#if OLED_TIMEOUT > 0
         }
+#endif
         return false;
 #if defined(SPLIT_KEYBOARD)
     } else {
@@ -322,12 +321,6 @@ bool oled_task_user(void) {
 
 #endif
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-#ifdef OLED_ENABLE
-        oled_timer = timer_read32();
-#endif
-    // set_timelog();
-  }
   static uint16_t my_colon_timer;
 
   switch (keycode) {
