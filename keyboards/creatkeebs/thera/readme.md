@@ -1,5 +1,7 @@
 # thera
 
+![thera](https://cdn.shopify.com/s/files/1/0481/5840/8853/products/20210806155751_590x.png?v=1628765539)
+
 * Keyboard Maintainer: [Timliuzhaolu](https://github.com/Timliuzhaolu)
 * Hardware Supported: thera PCB
 
