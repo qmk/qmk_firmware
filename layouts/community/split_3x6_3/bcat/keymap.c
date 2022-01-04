@@ -18,20 +18,9 @@
 
 #include "bcat.h"
 
-enum layer {
-    LAYER_DEFAULT,
-    LAYER_LOWER,
-    LAYER_RAISE,
-    LAYER_ADJUST,
-};
-
-#define LY_LWR MO(LAYER_LOWER)
-#define LY_RSE MO(LAYER_RAISE)
-
-#define KY_CSPC LCTL(KC_SPC)
-#define KY_ZMIN LCTL(KC_EQL)
-#define KY_ZMOUT LCTL(KC_MINS)
-#define KY_ZMRST LCTL(KC_0)
+#if defined(OLED_ENABLE)
+#    include "bcat_oled.h"
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
@@ -58,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Adjust layer: http://www.keyboard-layout-editor.com/#/gists/77e7572e077b36a23eb2086017e16fee */
     [LAYER_ADJUST] = LAYOUT_split_3x6_3(
-        _______,  NK_TOGG,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,                      EEP_RST,  RESET,    _______,  _______,  _______,  _______,
+        _______,  _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,                      EEP_RST,  RESET,    _______,  _______,  _______,  _______,
         _______,  _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,                      RGB_RMOD, RGB_VAD,  RGB_VAI,  RGB_MOD,  RGB_SPI,  _______,
         _______,  _______,  _______,  KC_MUTE,  _______,  _______,                      RGB_HUI,  RGB_SAD,  RGB_SAI,  RGB_HUD,  RGB_SPD,  _______,
                                                 _______,  _______,  _______,  RGB_TOG,  _______,  _______
@@ -66,4 +55,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format on
 };
 
-layer_state_t layer_state_set_keymap(layer_state_t state) { return update_tri_layer_state(state, LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST); }
+#if defined(OLED_ENABLE)
+oled_rotation_t oled_init_user(oled_rotation_t rotation) { return is_keyboard_master() ? OLED_ROTATION_270 : OLED_ROTATION_180; }
+
+void oled_task_keymap(const oled_keyboard_state_t *keyboard_state) {
+    render_oled_layers();
+    oled_advance_page(/*clearPageRemainder=*/false);
+    render_oled_indicators(keyboard_state->leds);
+    oled_advance_page(/*clearPageRemainder=*/false);
+    oled_advance_page(/*clearPageRemainder=*/false);
+    render_oled_wpm(keyboard_state->wpm);
+    render_oled_pet(/*col=*/0, /*line=*/12, keyboard_state);
+}
+#endif

@@ -144,6 +144,8 @@ If yes, we send the string `"QMK is the best thing ever!"` to the computer via t
 We return `true` to indicate to the caller that the key press we just processed should continue to be processed as normal (as we didn't replace or alter the functionality).
 Finally, we define the keymap so that the first button activates our macro and the second button is just an escape button.
 
+?>It is recommended to use the SAFE_RANGE macro as per [Customizing Functionality](custom_quantum_functions.md).
+
 You might want to add more than one macro.
 You can do that by adding another keycode and adding another case to the switch statement, like so:
 
@@ -190,6 +192,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     },
 };
 ```
+
+?> An enumerated list of custom keycodes (`enum custom_keycodes`) must be declared before `keymaps[]` array, `process_record_user()` and any other function that use the list for the compiler to recognise it.
 
 #### Advanced Macros
 
