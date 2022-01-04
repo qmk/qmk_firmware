@@ -1,5 +1,10 @@
 # QMK配置器框架
 
+<!---
+  original document: 0.14.23:docs/configurator_architecture.md
+  git diff 0.14.23 HEAD -- docs/configurator_architecture.md | cat
+-->
+
 本章节提供了QMK配置器前端技术框架信息，若你对QMK配置器前端工程本身感兴趣，可以从[QMK配置器](https://github.com/qmk/qmk_configurator)代码库开始。
 
 # 总览

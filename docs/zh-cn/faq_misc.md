@@ -1,5 +1,10 @@
 # 其它 FAQ
 
+<!---
+  original document: 0.14.23:docs/faq_misc.md
+  git diff 0.14.23 HEAD -- docs/faq_misc.md | cat
+-->
+
 ## 怎么对键盘进行测试？ :id=testing
 
 测试键盘就简单直接，把每个按键按一遍后确认发送的是正确的就行。也可以使用[QMK配置器](https://config.qmk.fm/#/test/)的测试模式检查键盘，即便这键盘没有运行着QMK。

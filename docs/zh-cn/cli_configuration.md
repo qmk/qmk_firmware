@@ -1,5 +1,10 @@
 # QMK CLI 配置
 
+<!---
+  original document: 0.14.23:docs/cli_configuration.md
+  git diff 0.14.23 HEAD -- docs/cli_configuration.md | cat
+-->
+
 本文详述了 `qmk config` 功能及作用。
 
 # 介绍

@@ -1,5 +1,10 @@
 # QMK CLI :id=qmk-cli
 
+<!---
+  original document: 0.14.23:docs/cli.md
+  git diff 0.14.23 HEAD -- docs/cli.md | cat
+-->
+
 ## 总览 :id=overview
 
 QMK CLI可以让构建QMK键盘的过程更轻松一些，我们已提供的一批指令可用于简化及流式化地处理一些常见工作，如获取并编译QMK固件，创建新的键映射等。

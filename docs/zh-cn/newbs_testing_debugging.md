@@ -1,5 +1,10 @@
 # 测试和调试
 
+<!---
+  original document: 0.14.23:docs/newbs_testing_debugging.md
+  git diff 0.14.23 HEAD -- docs/newbs_testing_debugging.md | cat
+-->
+
 使用自定义固件刷新键盘后，您就可以测试它了。如果您幸运，一切都会完美运行，但如果没有，这份文件将帮助您找出问题所在。
 
 ## 测试

@@ -1,5 +1,10 @@
 # QMK 配置器: 入门
 
+<!---
+  original document: 0.14.23:docs/configurator_step_by_step.md
+  git diff 0.14.23 HEAD -- docs/configurator_step_by_step.md | cat
+-->
+
 本章节描述了如何使用QMK配置器构建出固件文件的过程。
 
 ## 第一步：选择键盘

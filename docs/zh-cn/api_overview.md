@@ -1,5 +1,10 @@
 # QMK API
 
+<!---
+  original document: 0.14.23:docs/api_overview.md
+  git diff 0.14.23 HEAD -- docs/api_overview.md | cat
+-->
+
 QMK API提供了一套可用于Web及GUI工具可用的异步API，用于实现将任何[QMK](https://qmk.fm/)支持的键盘的键映射方案进行编译。已有的键映射模板支持所有的QMK键码并且不需要额外的C代码需求。键盘的维护团队可以提供新的模板来启用更多功能的支持。
 
 ## App开发者

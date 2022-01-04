@@ -1,5 +1,10 @@
 # 极简式制作 - 通过配置器进行一次性的工程构建
 
+<!---
+  original document: 0.14.23:docs/easy_maker.md
+  git diff 0.14.23 HEAD -- docs/easy_maker.md | cat
+-->
+
 你是否需要一种极简的控制器编程方案，类似Proton C或Teensy 2.0，以进行一次性的工程构建？QMK提供了极简制作器，通过QMK配置器可以在几分钟内制作一个固件。
 
 有几种极简制作器，取决于你需要什么样的：

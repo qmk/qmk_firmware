@@ -1,5 +1,10 @@
 # Quantum Mechanical Keyboard固件
 
+<!---
+  original document: 0.14.23:docs/README.md
+  git diff 0.14.23 HEAD -- docs/README.md | cat
+-->
+
 ## 什么是 QMK 固件?
 
 QMK (*Quantum Mechanical Keyboard*) 是一个社区维护的用于开发计算机输入设备的开源软件。社区专注像键盘，鼠标，MIDI设备的各种电子输入设备。社区内的核心小组成员维护[QMK固件](https://github.com/qmk/qmk_firmware)，[QMK配置器](https://config.qmk.fm)，[QMK工具箱](https://github.com/qmk/qmk_toolbox)，[qmk.fm](https://qmk.fm)，并与各位社区成员维护这份文档。

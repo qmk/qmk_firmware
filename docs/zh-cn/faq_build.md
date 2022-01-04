@@ -1,5 +1,10 @@
 # 常被问及的编译问题
 
+<!---
+  original document: 0.14.23:docs/faq_build.md
+  git diff 0.14.23 HEAD -- docs/faq_build.md | cat
+-->
+
 本页涉及所有编译QMK的问题，如果你还没有试过，请先阅读[编译环境配置](zh-cn/getting_started_build_tools.md)及[Make指引](zh-cn/getting_started_make_guide.md)。
 
 ## 无法在Linux下编程

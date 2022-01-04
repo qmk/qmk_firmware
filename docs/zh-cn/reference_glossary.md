@@ -1,5 +1,10 @@
 # QMK术语表
 
+<!---
+  original document: 0.14.23:docs/reference_glossary.md
+  git diff 0.14.23 HEAD -- docs/reference_glossary.md | cat
+-->
+
 ## ARM
 多家公司生产的32位单片机系列，例如Atmel, Cypress, Kinetis, NXP, ST, 和 TI等公司。
 

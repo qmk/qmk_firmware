@@ -1,5 +1,10 @@
 # 刷写指引及Bootloader资料
 
+<!---
+  original document: 0.14.23:docs/flashing.md
+  git diff 0.14.23 HEAD -- docs/flashing.md | cat
+-->
+
 用于键盘的bootloader有很多种，几乎每一种都在使用私有的刷写协议及工具。幸运的是，形如[QMK工具箱](https://github.com/qmk/qmk_toolbox/releases)这样的工程目标就是尽量支持这些工具，本文会探讨各种bootloader的差异，以及可用的刷写方案。
 
 针对基于AVR的键盘，QMK会自动检查所要刷写的 `.hex` 文件大小是否与在 `rules.mk` 中设置的 `BOOTLOADER` 值所匹配，同时会输出字节大小信息（及最大限制）。

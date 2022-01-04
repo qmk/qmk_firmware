@@ -1,5 +1,10 @@
 # 最佳实践
 
+<!---
+  original document: 0.14.23:docs/newbs_best_practices.md
+  git diff 0.14.23 HEAD -- docs/newbs_best_practices.md | cat
+-->
+
 ## 或者说, "我应如何学会不再担心并开始爱上Git。"
 
 本文档旨在指导新手以最佳方式获得为QMK做出贡献的丝滑体验。我们将介绍为QMK做出贡献的过程，详细介绍使这项任务更容易的一些方法，然后我们将制造一些问题，来教你如何解决它们。

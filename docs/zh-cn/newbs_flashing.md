@@ -1,5 +1,10 @@
 # 刷写键盘固件 
 
+<!---
+  original document: 0.14.23:docs/newbs_flashing.md
+  git diff 0.14.23 HEAD -- docs/newbs_flashing.md | cat
+-->
+
 在自定义的固件文件构建出来后，可以刷写到键盘中了。
 
 ## 将键盘调至DFU（Bootloader）模式

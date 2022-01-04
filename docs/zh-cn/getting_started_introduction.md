@@ -1,5 +1,10 @@
 # 介绍
 
+<!---
+  original document: 0.14.23:docs/getting_started_introduction.md
+  git diff 0.14.23 HEAD -- docs/getting_started_introduction.md | cat
+-->
+
 本页解释了使用QMK项目所需的基本信息。它假定您能熟练使用Unix shell，但您不熟悉C语言也不熟悉使用make编译。
 
 ## 基本QMK结构

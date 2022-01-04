@@ -1,5 +1,10 @@
 # 获得帮助
 
+<!---
+  original document: 0.14.23:docs/getting_started_getting_help.md
+  git diff 0.14.23 HEAD -- docs/getting_started_getting_help.md | cat
+-->
+
 有很多方法来获得关于QMK的帮助.
 
 ## 实时聊天

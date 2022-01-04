@@ -1,5 +1,10 @@
 # 键映射FAQ
 
+<!---
+  original document: 0.14.23:docs/faq_keymap.md
+  git diff 0.14.23 HEAD -- docs/faq_keymap.md | cat
+-->
+
 本页包含人们经常遇到的关于键映射的问题，如果你还没阅读过[键映射概览](zh-cn/keymap.md)，请先阅读一下。
 
 ## 我能使用的键码有哪些?

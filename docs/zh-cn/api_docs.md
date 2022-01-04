@@ -1,5 +1,10 @@
 # QMK API
 
+<!---
+  original document: 0.14.23:docs/api_docs.md
+  git diff 0.14.23 HEAD -- docs/api_docs.md | cat
+-->
+
 本章节详述了QMK API的使用方法，若您是应用开发者，使用这套API可以实现[QMK](https://qmk.fm)键盘固件的编译支持。
 
 ## 总览

@@ -1,5 +1,10 @@
 # 常见问题（FAQ）
 
+<!---
+  original document: 0.14.23:docs/faq_general.md
+  git diff 0.14.23 HEAD -- docs/faq_general.md | cat
+-->
+
 ## QMK是什么?
 
 [QMK](https://github.com/qmk), 是量子机械键盘（Quantum Mechanical Keyboard）的缩写, 是制作自定义键盘工具的人组成的组织。 一切始于[QMK固件](https://github.com/qmk/qmk_firmware)项目, 可以认为是[TMK](https://github.com/tmk/tmk_keyboard)的改进版本.

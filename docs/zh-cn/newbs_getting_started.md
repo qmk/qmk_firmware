@@ -1,5 +1,10 @@
 # 配置环境
 
+<!---
+  original document: 0.14.23:docs/newbs_getting_started.md
+  git diff 0.14.23 HEAD -- docs/newbs_getting_started.md | cat
+-->
+
 构建键映射前，有一些必须安装配置的构建工具，但无论你要编译多少个固件，这一步只需要做一次。
 
 ## 1. 必备工具

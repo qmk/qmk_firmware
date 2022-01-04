@@ -1,5 +1,10 @@
 # QMK配置器
 
+<!---
+  original document: 0.14.23:docs/newbs_building_firmware_configurator.md
+  git diff 0.14.23 HEAD -- docs/newbs_building_firmware_configurator.md | cat
+-->
+
 [![QMK配置器截图](https://i.imgur.com/anw9cOL.png)](https://config.qmk.fm/)
 
 [QMK配置器](https://config.qmk.fm)是一个可用于生成`.hex`和`.bin`格式的QMK固件文件的在线交互页面。

@@ -1,4 +1,10 @@
 # Grave Escape
+
+<!---
+  original document: 0.14.23:docs/feature_grave_esc.md
+  git diff 0.14.23 HEAD -- docs/feature_grave_esc.md | cat
+-->
+
 *译注：Grave键即标准键盘中Tab键上方的 <code>&#96;</code> 键，该符号用于英法语等西语体系，辅助调整发音，中文中没有对应概念；Escape即Esc键*
 
 若你使用60%或其它没有Fn键配列的键盘，会留意到没有独立的Escape键。Grave Escape功能可以让Grave键(<code>&#96;</code>及`~`)与Escape共享一个按键

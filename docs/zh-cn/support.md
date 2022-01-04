@@ -1,5 +1,10 @@
 # 寻求帮助
 
+<!---
+  original document: 0.14.23:docs/support.md
+  git diff 0.14.23 HEAD -- docs/support.md | cat
+-->
+
 你可以从很多渠道获取QMK帮助。
 
 在你前往社区进行沟通前，请先阅览我们的社区[行为守则](https://qmk.fm/coc/)

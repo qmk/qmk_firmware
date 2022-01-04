@@ -1,5 +1,10 @@
 # 配置器问题排查
 
+<!---
+  original document: 0.14.23:docs/configurator_troubleshooting.md
+  git diff 0.14.23 HEAD -- docs/configurator_troubleshooting.md | cat
+-->
+
 ## 我的 .json 文件不可用
 
 如果该 .json 文件确实是QMK配置器中导出的，恭喜你遇到bug了，请在[QMK配置器](https://github.com/qmk/qmk_configurator/issues)库中提交一个issue。

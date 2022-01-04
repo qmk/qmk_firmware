@@ -1,5 +1,10 @@
 # 翻译QMK文档
 
+<!---
+  original document: 0.14.23:docs/translating.md
+  git diff 0.14.23 HEAD -- docs/translating.md | cat
+-->
+
 根目录下（`docs/`）的所有文件应当是英语的 - 其它语言应使用 ISO 639-1 中定义的语言编码建立子目录，后跟随一个 `-` 以及必要的国家编码。[常见的语言编码可见这里](https://www.andiamo.co.uk/resources/iso-language-codes/)。如果此目录不存在，可以新建。每个翻译过的文件的文件名，都应保持与英语版本的一致，以确保超链接的退化兼容性。
 
 文件夹下的 `_summary.md` 文件中，有链接向其它文件的地址，在翻译过的名称后，跟随的链接前应添加该语言的目录名：

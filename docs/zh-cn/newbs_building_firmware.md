@@ -1,5 +1,10 @@
 # 构建第一个固件
 
+<!---
+  original document: 0.14.23:docs/newbs_building_firmware.md
+  git diff 0.14.23 HEAD -- docs/newbs_building_firmware.md | cat
+-->
+
 现在您已经准备好了构建环境，就可以开始构建自定义固件了。在这节指南中，我们将在3个程序中开展工作——文件管理器、文本编辑器和终端。在做出心满意足的固件前，请不要关闭它们。
 ## 新建键映射
 

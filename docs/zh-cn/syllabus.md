@@ -1,5 +1,10 @@
 # QMK知识大纲
 
+<!---
+  original document: 0.14.23:docs/syllabus.md
+  git diff 0.14.23 HEAD -- docs/syllabus.md | cat
+-->
+
 这一页旨在帮你建立关于QMK的相关基础知识，并提供能引导你成为QMK大师所需的所有概念。
 
 # 基本概念

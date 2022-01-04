@@ -1,5 +1,10 @@
 # 利用Zadig安装Bootloader驱动
 
+<!---
+  original document: 0.14.23:docs/driver_installation_zadig.md
+  git diff 0.14.23 HEAD -- docs/driver_installation_zadig.md | cat
+-->
+
 QMK在主机侧会展现为一台HID键盘设备，因此不需要额外的驱动。但若要在Windows下刷写键盘固件，重置主控板时出现的bootloader设备则通常需要一些驱动程序。
 
 已知的特例有两个：常见于Pro Micro的Caterina bootloader，以及PJRC Teensys上的HalfKay bootloader, 会同时提供一个串行端口设备及一个HID设备，因此不需要额外的驱动。

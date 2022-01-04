@@ -1,5 +1,10 @@
 # 如何做贡献
 
+<!---
+  original document: 0.14.23:docs/contributing.md
+  git diff 0.14.23 HEAD -- docs/contributing.md | cat
+-->
+
 👍🎉 首先感谢各位百忙之中抽空阅读本文档，并为我们无私奉献。给您点赞啦！ 🎉👍
 
 第三方的帮助让QMK获得了成长与进步。我们希望提供一套对贡献者和维护者都感到简便实用的PR（pull request）及贡献流程，因此我们整理出了一些准则，以免你的PR在被接纳前需要大改一番。
