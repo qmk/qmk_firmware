@@ -16,34 +16,6 @@
 
 #pragma once
 
-#ifdef RGB_STRANDS_ANIMATIONS
-#    define RGB_STRANDS_EFFECT_BREATHING
-#    define RGB_STRANDS_EFFECT_RAINBOW_MOOD
-#    define RGB_STRANDS_EFFECT_RAINBOW_SWIRL
-#    define RGB_STRANDS_EFFECT_SNAKE
-#    define RGB_STRANDS_EFFECT_KNIGHT
-#    define RGB_STRANDS_EFFECT_CHRISTMAS
-#    define RGB_STRANDS_EFFECT_RGB_TEST
-#    define RGB_STRANDS_EFFECT_ALTERNATING
-#    define RGB_STRANDS_EFFECT_TWINKLE
-#endif
-
-// clang-format off
-
-#if  defined(RGB_STRANDS_EFFECT_BREATHING)     \
-  || defined(RGB_STRANDS_EFFECT_RAINBOW_MOOD)  \
-  || defined(RGB_STRANDS_EFFECT_RAINBOW_SWIRL) \
-  || defined(RGB_STRANDS_EFFECT_SNAKE)         \
-  || defined(RGB_STRANDS_EFFECT_KNIGHT)        \
-  || defined(RGB_STRANDS_EFFECT_CHRISTMAS)     \
-  || defined(RGB_STRANDS_EFFECT_RGB_TEST)      \
-  || defined(RGB_STRANDS_EFFECT_ALTERNATING)   \
-  || defined(RGB_STRANDS_EFFECT_TWINKLE)
-#    define RGB_STRANDS_USE_TIMER
-#endif
-
-// clang-format on
-
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
@@ -51,11 +23,31 @@
 #include "ws2812_strands.h"
 #include "color.h"
 
+#define RGB_STRANDS_MAX 12
 #define RGB_STRAND_MAX_NUM_LEDS 16
+
+typedef enum {
+    RGB_STRAND_EFFECT_NONE = 0,
+    RGB_STRAND_EFFECT_STATIC,
+    RGB_STRAND_EFFECT_DRAINSWIRL,
+    RGB_STRAND_EFFECT_MOMENTARY,
+    RGB_STRAND_EFFECT_LIKE,
+    RGB_STRAND_EFFECT_BLINKY,
+    RGB_STRAND_EFFECT_MAX,
+} rgb_strands_anim_t;
 
 void rgb_strands_init(void);
 void rgb_strands_task(void);
 void rgb_strands_suspend(void);
 void rgb_strands_wakeup(void);
 
+/** Set all LEDs in the specified strand to the same color */
+void rgb_strand_set_color(uint8_t strand, uint8_t r, uint8_t g, uint8_t b);
+
+void rgb_strand_start_animation(uint8_t strand, rgb_strands_anim_t effect, void *config);
+
+/** Low(er) level color setting.
+ * @param strand Strand ID, 0 to 11
+ * @param leds pointer to LEDs
+ * @param num_leds number of LEDs in leds array */
 void rgb_strand_set(uint8_t strand, LED_TYPE *leds, uint8_t num_leds);
