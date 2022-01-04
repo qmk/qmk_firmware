@@ -91,7 +91,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#endif
 
 
-#define RGB_STRAND_LIMIT_VAL 255 // for limiting max current
+#define RGB_STRAND_LIMIT_VAL 185 // for limiting max current
 
 #define RGB_STRAND_0_DI_PIN B6
 #define RGB_STRAND_0_NUM 4
@@ -128,7 +128,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_STRAND_B_DI_PIN D5
 #define RGB_STRAND_B_NUM 5
-
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
