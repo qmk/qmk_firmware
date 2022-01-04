@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------------------------------------------------------------------------|
  * |     |Menu |     |     |     |     |     |SELWORD|Copy|Paste|WinPst|P2TXT|
  * |-------------------------------------------------------------------------|
- * |     |     |     |     |     |    |Braces|Braces2|  <  |  >  |  ?  |  |  |
+ * |     |     |     |     |     |    |Braces|Braces2|  <  |  >  |  ?  |  !  |
  * |-------------------------------------------------------------------------|
  * |     |     |     |     |     |           |       |     |     |     |     |
  * `-------------------------------------------------------------------------'
@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
   KC_TRNS, DESKTL,  DESKTR,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC, 
   KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_PTXT, 
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_PIPE,  
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_EXLM,  
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_NO,       KC_NO
 ),
 
