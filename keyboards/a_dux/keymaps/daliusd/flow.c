@@ -86,17 +86,17 @@ bool update_flow_mods(
             if (flow_pressed[i][1]) {
                 flow_second_key_pressed = true;
             }
-        // KC key
+        // KC mod key
         } else if (keycode == flow_config[i][1]) {
             if (pressed) {
-                flow_pressed[i][1] = true;
                 if (flow_pressed[i][0]) {
+                    flow_pressed[i][1] = true;
                     flow_key_list_triggered[i] = true;
                     flow_triggered = true;
                     flow_key_list_pressed[i] = true;
                     pass = false;
                  }
-            } else {
+            } else if (flow_pressed[i][1]) {
                 flow_pressed[i][1] = false;
                 if (flow_pressed[i][0]) {
                     flow_key_list_triggered[i] = true;

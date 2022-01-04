@@ -240,6 +240,37 @@ TEST("navD + altD + navU + sD + sU + altU + sD + sU = alt+s s")
     ASSERT_EQ(UINT, unregistered_codes_count, 1);
 END_TEST
 
+TEST("altD + navD + altU + navU + sD + sU + sD + sU = s s")
+    reset();
+
+    bool pass = update_flow(KC_LALT, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(L_NAV, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+
+    pass = update_flow(KC_LALT, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(L_NAV, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+
+    ASSERT_EQ(UINT, registered_codes_count, 0);
+    ASSERT_EQ(UINT, unregistered_codes_count, 0);
+
+    pass = update_flow(KC_S, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_S, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 0);
+    ASSERT_EQ(UINT, unregistered_codes_count, 0);
+
+    pass = update_flow(KC_S, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    pass = update_flow(KC_S, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 0);
+    ASSERT_EQ(UINT, unregistered_codes_count, 0);
+END_TEST
+
 TEST("navD + altD + navU + sD + sU + sD + sU + altU + sD + sU = alt+s alt+s s")
     reset();
 
