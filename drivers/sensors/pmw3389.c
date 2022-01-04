@@ -134,7 +134,7 @@ uint8_t pmw3389_read(uint8_t reg_addr) {
     wait_us(1);
     spi_stop();
 
-    //  tSRW/tSRR (=20us) minus tSCLK-NCS
+    // tSRW/tSRR (=20us) minus tSCLK-NCS
     wait_us(19);
     return data;
 }
@@ -161,7 +161,7 @@ bool pmw3389_init(void) {
     pmw3389_write(REG_Power_Up_Reset, 0x5a);
     wait_ms(50);
     
-    //read registers and discard
+    // read registers and discard
     pmw3389_read(REG_Motion);
     pmw3389_read(REG_Delta_X_L);
     pmw3389_read(REG_Delta_X_H);
