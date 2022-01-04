@@ -36,6 +36,10 @@
 #    include "rgb_matrix.h"
 #endif
 
+#ifdef RGB_STRANDS_ENABLE
+#    include "rgb_strands.h"
+#endif
+
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootloader.h"
@@ -165,6 +169,10 @@ extern layer_state_t layer_state;
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "process_rgb.h"
+#endif
+
+#ifdef RGB_STRANDS_ENABLE
+#    include "process_rgb_strands.h"
 #endif
 
 #ifdef HD44780_ENABLE

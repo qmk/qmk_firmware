@@ -49,6 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
 #endif
+#ifdef RGB_STRANDS_ENABLE
+#    include "rgb_strands.h"
+#endif
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
@@ -319,6 +322,9 @@ void keyboard_init(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
 #endif
+#ifdef RGBSTRANDS_ENABLE
+    rgb_strands_init();
+#endif
 #ifdef ENCODER_ENABLE
     encoder_init();
 #endif
@@ -444,6 +450,10 @@ MATRIX_LOOP_END:
 #endif
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_task();
+#endif
+
+#ifdef RGB_STRANDS_ENABLE
+    rgb_strands_task();
 #endif
 
 #if defined(BACKLIGHT_ENABLE)

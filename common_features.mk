@@ -349,6 +349,37 @@ endif
     endif
 endif
 
+RGB_STRANDS_ENABLE ?= no
+VALID_RGB_STRANDS_TYPES := WS2812
+
+ifeq ($(strip $(RGB_STRANDS_CUSTOM_DRIVER)), yes)
+    RGB_STRANDS_DRIVER ?= custom
+endif
+
+ifeq ($(strip $(RGB_STRANDS_ENABLE)), yes)
+    RGB_STRANDS_DRIVER ?= WS2812
+
+    ifeq ($(filter $(RGB_STRANDS_DRIVER),$(VALID_RGB_STRANDS_TYPES)),)
+        $(error RGB_STRANDS_DRIVER="$(RGB_STRANDS_DRIVER)" is not a valid RGB strand type)
+    else
+        COMMON_VPATH += $(QUANTUM_DIR)/rgb_strands
+        POST_CONFIG_H += $(QUANTUM_DIR)/rgb_strands/rgb_strands_post_config.h
+        OPT_DEFS += -DRGB_STRANDS_ENABLE
+        SRC += $(QUANTUM_DIR)/color.c
+        SRC += $(QUANTUM_DIR)/rgb_strands/rgb_strands.c
+        SRC += $(QUANTUM_DIR)/process_keycode/process_rgb_strands.c
+        CIE1931_CURVE := yes
+    endif
+
+    ifeq ($(strip $(RGB_STRANDS_DRIVER)), WS2812)
+        WS2812_STRANDS_DRIVER_REQUIRED := yes
+    endif
+
+    ifeq ($(strip $(RGB_STRANDS_DRIVER)), custom)
+        OPT_DEFS += -DRGB_STRANDS_CUSTOM_DRIVER
+    endif
+endif
+
 ifeq ($(strip $(RGB_KEYCODES_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_rgb.c
 endif
@@ -436,6 +467,11 @@ endif
 ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
     COMMON_VPATH += $(DRIVER_PATH)/led
     SRC += apa102.c
+endif
+
+ifeq ($(strip $(WS2812_STRANDS_DRIVER_REQUIRED)), yes)
+    OPT_DEFS += -DWS2812_STRANDS_DRIVER
+    SRC += ws2812_strands.c
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
