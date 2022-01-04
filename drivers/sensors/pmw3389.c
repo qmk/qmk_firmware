@@ -79,7 +79,7 @@
 #define REG_PWM_Period_Cnt             0x73
 #define REG_PWM_Width_Cnt              0x74
 
-#define CPI_STEP  50
+#define CPI_STEP       50
 // clang-format on
 
 // limits to 0--319, resulting in a CPI range of 50 -- 16000 (as only steps of 50 are possible).
