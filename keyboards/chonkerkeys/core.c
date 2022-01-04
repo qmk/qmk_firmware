@@ -1,5 +1,6 @@
 #include "quantum.h"
 #include "keyconfig.h"
+#include "rgb_strands/rgb_strands.h"
 
 // This file is not meant to be compiled directly, but included in keymap.c
 // LAYER_COUNT, keymaps etc are defined in config.c
@@ -96,11 +97,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     if (code == KC_NO) continue;
                     unregister_code(code);
                 }
-            }
-            else {
+            } else {
                 register_code(keycode);
                 unregister_code(keycode);
             }
+            rgb_strand_start_animation(
+                    key_strand[record->event.key.row][record->event.key.col],
+                    key_anim[record->event.key.row][record->event.key.col],
+                    NULL);
         }
     }
     return false;

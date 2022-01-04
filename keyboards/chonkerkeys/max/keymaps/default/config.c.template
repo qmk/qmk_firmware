@@ -64,14 +64,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {
             CH_ZOOM_VIDEO_TOGGLE,
             CH_ZOOM_RAISE_HAND_TOGGLE,
-            CH_CUSTOM,
-            CH_CUSTOM
+            KC_A,
+            KC_MEDIA_NEXT_TRACK
         },
         {
             CH_ZOOM_MUTE_TOGGLE,
             CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE,
-            CH_CUSTOM,
-            CH_CUSTOM
+            CH_SWITCH_WINDOW,
+            KC_MEDIA_PLAY_PAUSE
         }
     },
     {
@@ -84,14 +84,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {
             CH_ZOOM_VIDEO_TOGGLE,
             CH_ZOOM_RAISE_HAND_TOGGLE,
-            KC_NO,
-            KC_NO
+            KC_A,
+            KC_MEDIA_NEXT_TRACK
         },
         {
             CH_ZOOM_MUTE_TOGGLE,
             CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE,
-            KC_NO,
-            KC_NO
+            CH_SWITCH_WINDOW,
+            KC_MEDIA_PLAY_PAUSE
         }
     }
+};
+
+const uint8_t key_strand[MATRIX_ROWS][MATRIX_COLS] = {
+    { 3,  2,  1,  0},
+    { 7,  6,  5,  4},
+    {11, 10,  9,  8}
+};
+
+const rgb_strands_anim_t key_anim[MATRIX_ROWS][MATRIX_COLS] = {
+    {RGB_STRAND_EFFECT_NONE, RGB_STRAND_EFFECT_DRAINSWIRL, RGB_STRAND_EFFECT_NONE,      RGB_STRAND_EFFECT_NONE},
+    {RGB_STRAND_EFFECT_NONE, RGB_STRAND_EFFECT_LIKE,       RGB_STRAND_EFFECT_MOMENTARY, RGB_STRAND_EFFECT_MOMENTARY},
+    {RGB_STRAND_EFFECT_NONE, RGB_STRAND_EFFECT_BLINKY,     RGB_STRAND_EFFECT_MOMENTARY, RGB_STRAND_EFFECT_MOMENTARY},
 };
