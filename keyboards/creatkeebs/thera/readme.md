@@ -4,7 +4,7 @@ A 75% keyboard
 ![thera](https://cdn.shopify.com/s/files/1/0481/5840/8853/products/20210806155751_590x.png?v=1628765539)
 
 ### Features
-* PLateless PCB gasket
+* Plateless PCB gasket
 * Decent amount of layout compatibility - [View supported layouts](https://cdn.shopify.com/s/files/1/0481/5840/8853/products/8038a8b71a5149f5bad362b28368da3_590x.png?v=1628765539)
 * Ti badge
 * PVD weight (upgrade available) - [View upgraded weight](https://cdn.shopify.com/s/files/1/0481/5840/8853/products/20210806155659_590x.png?v=1628765539)
