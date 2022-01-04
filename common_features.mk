@@ -368,7 +368,6 @@ ifeq ($(strip $(RGB_STRANDS_ENABLE)), yes)
         SRC += $(QUANTUM_DIR)/color.c
         SRC += $(QUANTUM_DIR)/rgb_strands/rgb_strands.c
         SRC += $(QUANTUM_DIR)/process_keycode/process_rgb_strands.c
-        CIE1931_CURVE := yes
     endif
 
     ifeq ($(strip $(RGB_STRANDS_DRIVER)), WS2812)
