@@ -287,9 +287,9 @@ report_pmw3389_t pmw3389_read_burst(void) {
     report.isMotion    = (report.motion & 0x80) != 0;
     report.isOnSurface = (report.motion & 0x08) == 0;
     report.dx |= (report.mdx << 8);
-    report.dx  =  report.dx * -1;
+    report.dx = report.dx * -1;
     report.dy |= (report.mdy << 8);
-    report.dy  =  report.dy * -1;
+    report.dy = report.dy * -1;
 
     return report;
 }
