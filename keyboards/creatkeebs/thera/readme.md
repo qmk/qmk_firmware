@@ -10,7 +10,7 @@ A 75% keyboard
 * PVD weight (upgrade available)
 
 ### Additional Information
-* Keyboard Maintainer: [Tim](https://github.com/Timliuzhaolu)
+* Keyboard Maintainer: [Tim](https://github.com/Timliuzhaolu/qmk_firmware)
 * Hardware Supported: thera PCB
 * Hardware Availability: [ESCHIT.com](https://eschit.com/products/gb-thera75)
 
