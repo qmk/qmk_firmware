@@ -1,7 +1,7 @@
 /*
 Copyright 2019 @foostan
 Copyright 2020 Drashna Jaelre <@drashna>
-Copyright 202q Rocco Meli <@RMeli>
+Copyright 2021 Rocco Meli <@RMeli>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

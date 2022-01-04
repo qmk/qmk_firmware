@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_LED_TOTAL RGBLED_NUM
 #    define RGB_MATRIX_SPLIT \
         { 27, 27 }
-#    define SPLIT_TRANSPORT_MIRROR
+#   define SPLIT_TRANSPORT_MIRROR
 #   define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #   define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #   define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
