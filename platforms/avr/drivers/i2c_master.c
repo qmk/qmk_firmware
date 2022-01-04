@@ -35,6 +35,9 @@
 #define I2C_ACTION_READ 0x01
 #define I2C_ACTION_WRITE 0x00
 
+#define I2C_ACTION_READ 0x01
+#define I2C_ACTION_WRITE 0x00
+
 #define TWBR_val (((F_CPU / F_SCL) - 16) / 2)
 
 #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))

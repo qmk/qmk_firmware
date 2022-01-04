@@ -115,6 +115,15 @@ typedef struct _split_slave_pointing_sync_t {
 } split_slave_pointing_sync_t;
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
+#if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+#    include "pointing_device.h"
+typedef struct _split_slave_pointing_sync_t {
+    uint8_t        checksum;
+    report_mouse_t report;
+    uint16_t       cpi;
+} split_slave_pointing_sync_t;
+#endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 typedef struct _rpc_sync_info_t {
     int8_t  transaction_id;
@@ -185,6 +194,10 @@ typedef struct _split_shared_memory_t {
 #if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
     split_slave_pointing_sync_t pointing;
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
+#if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+    split_slave_pointing_sync_t pointing;
+#endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     rpc_sync_info_t rpc_info;
