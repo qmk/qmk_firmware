@@ -54,9 +54,10 @@ Check if the events are reaching your OS with either:
 
 	cat /dev/input/by-id/YOUR_KEYBOARD
 or
+
 	evtest /dev/input/by-id/YOUR_KEYBOARD
 
-It should end in "event-\*". In my case it was "/dev/input/by-id/usb-DZTECH_DZ65RGBV3-if02-event-mouse" which was a symlink to /dev/input/event12. It **WILL** vary on your setup.
+It should end in "event-\*". In my case it was "/dev/input/by-id/usb-DZTECH_DZ65RGBV3-if02-event-mouse" which was a symlink to "/dev/input/event12". It **WILL** vary on your setup.
 
 If it has an output when you autoclick then it's a driver issue.
 
@@ -65,4 +66,4 @@ Therefore check with:
 	libinput debug-events --device  /dev/input/by-id/usb-DZTECH_DZ65RGBV3-if02-event-mouse --verbose
 
 If you experience "DEBOUNCE" events then it's a driver issues and should be able to disabled with the above method.
-If you have any other issues feel free to make bug report or pull request.
+If you have any other issues feel free to make bug report or pull request to libinput. I doubt it's an issue with QMK or my code.
