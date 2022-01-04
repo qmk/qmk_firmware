@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maple Computing
 #define PRODUCT         C39
-#define DESCRIPTION     A compact 39 key keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -57,18 +56,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 //#define FORCE_NKRO
-
-/*
- * Magic Key Options
- *
- * Magic keys are hotkey commands that allow control over firmware functions of
- * the keyboard. They are best used in combination with the HID Listen program,
- * found here: https://www.pjrc.com/teensy/hid_listen.html
- *
- * The options below allow the magic key functionality to be changed. This is
- * useful if your keyboard/keypad is missing keys and you want magic key support.
- *
- */
 
 /*
  * Feature disable options

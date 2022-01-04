@@ -18,10 +18,6 @@ Soporte para direccionar pines en el ProMicro por su nombre Arduino en lugar de 
 
 Soporte para pantallas OLED basadas en SSD1306. Para obtener más información consulta la página de [Característica de Controlador OLED](feature_oled_driver.md).
 
-## uGFX
-
-Puedes hacer uso de uGFX dentro de QMK para manejar LCDs de caracteres y gráficos, matrices de LED, OLED, TFT, y otras tecnologías de visualización. Esto necesita ser mejor documentado. Si estás tratando de hacer esto y leer el código no ayuda por favor [abre una issue](https://github.com/qmk/qmk_firmware/issues/new) y podemos ayudarte por el proceso.
-
 ## WS2812 (Solo AVR)
 
 Soporte para LEDs WS2811/WS2812{a,b,c}. Para obtener más información consulta la página de [Luz RGB](feature_rgblight.md).
@@ -33,4 +29,3 @@ Soporte para hasta 2 controladores. Cada controlador implementa 2 matrices charl
 ## IS31FL3733
 
 Soporte para hasta un solo controlador con espacio para expansión. Cada controlador puede controlar 192 LEDs individuales o 64 LEDs RGB. Para obtener más información sobre cómo configurar el controlador, consulta la página de [Matriz RGB](feature_rgb_matrix.md).
-

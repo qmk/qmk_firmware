@@ -1,8 +1,8 @@
 # `info.json`
 
 <!---
-  original document: 0.9.46:docs/reference_info_json.md
-  git diff 0.9.46 HEAD -- docs/reference_info_json.md | cat
+  original document: 0.10.33:docs/reference_info_json.md
+  git diff 0.10.33 HEAD -- docs/reference_info_json.md | cat
 -->
 
 このファイルは [QMK API](https://github.com/qmk/qmk_api) によって使われます。このファイルは [QMK Configurator](https://config.qmk.fm/) がキーボードの画像を表示するために必要な情報を含んでいます。ここにメタデータを設定することもできます。
@@ -20,29 +20,19 @@
    * キーボードの製品ページ、[QMK.fm/keyboards](https://qmk.fm/keyboards) のページ、あるいはキーボードに関する情報を説明する他のページの URL。
 * `maintainer`
    * メンテナの GitHub のユーザ名、あるいはコミュニティが管理するキーボードの場合は `qmk`
-* `width`
-   * キー単位でのキーボードの幅
-* `height`
-   * キー単位でのキーボードの高さ
 * `layouts`
    * 物理的なレイアウト表現。詳細は以下のセクションを見てください。
 
 ### レイアウトの形式
 
-`info.json` ファイル内の辞書の `layouts` 部分は、幾つかの入れ子になった辞書を含みます。外側のレイヤーは QMK レイアウトマクロで構成されます。例えば、`LAYOUT_ansi` あるいは `LAYOUT_iso`。各レイアウトマクロ内には、`width`、 `height`、`key_count` のキーがあります。これらは自明でなければなりません。
+`info.json` ファイル内の辞書の `layouts` 部分は、幾つかの入れ子になった辞書を含みます。外側のレイヤーは QMK レイアウトマクロで構成されます。例えば、`LAYOUT_ansi` あるいは `LAYOUT_iso`。
 
-* `width`
-   * オプション: キー単位でのレイアウトの幅
-* `height`
-   * オプション: キー単位でのレイアウトの高さ
-* `key_count`
-   * **必須**: このレイアウトのキーの数
 * `layout`
    * 物理レイアウトを説明するキー辞書のリスト。詳細は次のセクションを見てください。
 
 ### キー辞書形式
 
-レイアウトの各キー辞書は、キーの物理プロパティを記述します。<http://keyboard-layout-editor.com> の Raw Code に精通している場合、多くの概念が同じであることが分かります。可能な限り同じキー名とレイアウトの選択を再利用しますが、keyboard-layout-editor とは異なって各キーはステートレスで、前のキーからプロパティを継承しません。
+レイアウトの各キー辞書は、キーの物理プロパティを記述します。<https://keyboard-layout-editor.com> の Raw Code に精通している場合、多くの概念が同じであることが分かります。可能な限り同じキー名とレイアウトの選択を再利用しますが、keyboard-layout-editor とは異なって各キーはステートレスで、前のキーからプロパティを継承しません。
 
 全てのキーの位置と回転は、キーボードの左上と、各キーの左上を基準にして指定されます。
 

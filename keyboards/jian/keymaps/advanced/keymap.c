@@ -191,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_base_wrapper(QWERTY_base),
 
 #ifdef DIPS_ENABLE
-[_DIPS] = LAYOUT_DIPS(\
+[_DIPS] = LAYOUT_dips(\
   LAYOUT0, LAYOUT1, LAYOUT2, LAYOUT3, DIP_ISO, FLIP_TH, \
   LAYOUT0, LAYOUT1, LAYOUT2, LAYOUT3, DIP_ISO, FLIP_TH \
 ),
@@ -278,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif // ALT_LAYOUTS_ENABLE
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 

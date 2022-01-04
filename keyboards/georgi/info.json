@@ -2,8 +2,6 @@
     "keyboard_name": "Georgi",
     "url": "http://gboards.ca",
     "maintainer": "germ",
-    "width": 13.2,
-    "height": 3.68,
     "layouts": {
         "LAYOUT_georgi": {
             "layout": [

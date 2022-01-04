@@ -40,8 +40,9 @@
 // CTRL when held, ESC when tapped
 #define CTL_ESC CTL_T(KC_ESC)
 
-// Reset RGB mode to layer signalling
-#define RGB_RST F(0)
+enum custom_keycodes {
+    RGB_RST = SAFE_RANGE
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: Base Layer (Default Layer) */
@@ -103,21 +104,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 };
 
-/* This is a list of user defined functions. F(N) corresponds to item N
-   of this list.
- */
-const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_FUNCTION(0),  // Calls action_function()
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch (id) {
-    case 0:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(206, 255, 255);
-      }
-  }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RGB_RST:
+            if (record->event.pressed) {
+                rgblight_mode(1);
+                rgblight_sethsv(206, 255, 255);
+            }
+            return false;
+    }
+    return true;
 }
 
 enum layer_id {
@@ -134,23 +130,23 @@ enum layer_id {
 void clueboard_set_led(uint8_t id, uint8_t val) {
   switch (id) {
     case LAYER_BASE:
-      rgblight_sethsv_noeeprom(190, 255, val);
+      rgblight_sethsv_noeeprom(135, 255, val);
       break;
     case LAYER_FUNCTION:
-      rgblight_sethsv_noeeprom(46, 255, val);
+      rgblight_sethsv_noeeprom(32, 255, val);
       break;
     case LAYER_MEDIA:
-      rgblight_sethsv_noeeprom(86, 255, val);
+      rgblight_sethsv_noeeprom(60, 255, val);
       break;
     case LAYER_CONTROL:
-      rgblight_sethsv_noeeprom(346, 255, val);
+      rgblight_sethsv_noeeprom(245, 255, val);
       break;
     case LAYER_MOUSE:
-      rgblight_sethsv_noeeprom(206, 255, val);
+      rgblight_sethsv_noeeprom(146, 255, val);
       break;
 #if defined(MIDI_ENABLE)
     case LAYER_MIDI:
-      rgblight_sethsv_noeeprom(316, 255, val);
+      rgblight_sethsv_noeeprom(224, 255, val);
       break;
 #endif
   }
@@ -158,15 +154,15 @@ void clueboard_set_led(uint8_t id, uint8_t val) {
 
 const uint16_t oct_hues[10] = {
   0,
-  30,
+  20,
+  40,
   60,
-  90,
+  80,
+  100,
   120,
-  150,
-  180,
-  210,
-  240,
-  300
+  140,
+  160,
+  180
 };
 
 #define MAX_OCT  9

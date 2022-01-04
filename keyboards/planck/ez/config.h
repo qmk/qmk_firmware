@@ -1,5 +1,6 @@
-/*
- * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+/* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2015 ZSA Technology Labs Inc (@zsa)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +18,14 @@
 
 #pragma once
 
+#undef VENDOR_ID
+#define VENDOR_ID       0x3297
+#undef PRODUCT_ID
+#define PRODUCT_ID      0xC6CE
+#undef MANUFACTURER
+#define MANUFACTURER    ZSA Technology Labs
+#undef PRODUCT
+#define PRODUCT         Planck EZ
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0000
 
@@ -48,7 +57,10 @@
 
 #define MUSIC_MAP
 #undef AUDIO_VOICES
-#undef C6_AUDIO
+#undef AUDIO_PIN
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 // #define DEBOUNCE 6
@@ -97,29 +109,6 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-/*
- * MIDI options
- */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
-
 // #define WS2812_LED_N 2
 // #define RGBLED_NUM WS2812_LED_N
 // #define WS2812_TIM_N 2
@@ -131,26 +120,74 @@
 //#define WS2812_EXTERNAL_PULLUP
 
 #define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
 
 #define DRIVER_COUNT 1
-#define DRIVER_1_LED_TOTAL 47
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define DRIVER_LED_TOTAL 47
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define RGB_MATRIX_LED_PROCESS_LIMIT 5
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26
-
+// RGB Matrix Animation modes. Explicitly enabled
+// For full list of effects, see:
+// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
+#define ENABLE_RGB_MATRIX_ALPHAS_MODS
+#define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+#define ENABLE_RGB_MATRIX_BREATHING
+#define ENABLE_RGB_MATRIX_BAND_SAT
+#define ENABLE_RGB_MATRIX_BAND_VAL
+#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+#define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+#define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+#define ENABLE_RGB_MATRIX_CYCLE_ALL
+#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+#define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+#define ENABLE_RGB_MATRIX_DUAL_BEACON
+#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+#define ENABLE_RGB_MATRIX_RAINDROPS
+#define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#define ENABLE_RGB_MATRIX_HUE_BREATHING
+#define ENABLE_RGB_MATRIX_HUE_PENDULUM
+#define ENABLE_RGB_MATRIX_HUE_WAVE
+#define ENABLE_RGB_MATRIX_PIXEL_RAIN
+#define ENABLE_RGB_MATRIX_PIXEL_FLOW
+#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+// enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
+#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#define ENABLE_RGB_MATRIX_SPLASH
+#define ENABLE_RGB_MATRIX_MULTISPLASH
+#define ENABLE_RGB_MATRIX_SOLID_SPLASH
+#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define TAPPING_TOGGLE  1
 
-#define MOUSEKEY_INTERVAL       20
-#define MOUSEKEY_DELAY          0
-#define MOUSEKEY_TIME_TO_MAX    60
-#define MOUSEKEY_MAX_SPEED      7
-#define MOUSEKEY_WHEEL_DELAY 0
+#define MOUSEKEY_INTERVAL           20
+#define MOUSEKEY_DELAY              0
+#define MOUSEKEY_TIME_TO_MAX        60
+#define MOUSEKEY_MAX_SPEED          7
+#define MOUSEKEY_WHEEL_DELAY        400
+#define MOUSEKEY_WHEEL_INTERVAL     MOUSEKEY_INTERVAL
+#define MOUSEKEY_WHEEL_MAX_SPEED    MOUSEKEY_MAX_SPEED
+#define MOUSEKEY_WHEEL_TIME_TO_MAX  MOUSEKEY_TIME_TO_MAX

@@ -2,8 +2,6 @@
     "keyboard_name": "ErgoDash rev1.2",
     "url": "",
     "maintainer": "qmk",
-    "width": 19,
-    "height": 8.375,
     "layouts": {
         "LAYOUT_4key": {
             "layout": [

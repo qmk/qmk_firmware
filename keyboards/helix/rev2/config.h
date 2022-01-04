@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yushakobo
 #define PRODUCT         Helix Beta
-#define DESCRIPTION     A split keyboard for the cheap makers
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
@@ -43,10 +42,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 // Helix keyboard OLED support
-//      see ./rules.mk: OLED_ENABLE=yes or no
-#ifdef OLED_ENABLE
+//      see ./local_features.mk: OLED_SELECT=local
+#ifdef OLED_LOCAL_ENABLE
   #define SSD1306OLED
 #endif
+
+#define OLED_UPDATE_INTERVAL 50
 
 /* Select rows configuration */
 // Rows are 4 or 5

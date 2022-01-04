@@ -1,4 +1,4 @@
-Copyright 2020 Alan Pocklington <ajp10304@gmail.com> @ajp10304
+Copyright 2021 Alan Pocklington <ajp10304@gmail.com> @ajp10304
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # AJP10304 Custom 40% Layout
-# For the Planck, Shark, JJ40 and Atreus50
+# For the Planck, Shark, Quark, JJ40 and Atreus50
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
@@ -116,7 +116,7 @@ Activated when `fn` and `raise` held together.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |
 | :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ESC   |      |      |      |      |      |      |      | BTN3 |      |      |      |
+| ESC   |      |      |      |      |      | W_L  | W_UP | BTN3 | W_DWN| W_R  |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
 |       |      |      |      |      |      |      |      |      |      |      |      |

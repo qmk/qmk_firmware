@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    westfoxtrot
 #define PRODUCT         cypher
-#define DESCRIPTION     Cypher
 
 /* key matrix size */
 #define MATRIX_ROWS 10

@@ -19,12 +19,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x6060
+#define VENDOR_ID    0x4558 // "EX"
+#define PRODUCT_ID   0xE605 // E6.5
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Exclusive / E-Team
 #define PRODUCT      E6.5
-#define DESCRIPTION  E6.5 QMK PCB(LED)
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -39,6 +38,9 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+#define LED_CAPS_LOCK_PIN B6
+#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 #define BACKLIGHT_PIN B7

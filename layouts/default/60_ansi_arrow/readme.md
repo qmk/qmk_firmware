@@ -1,28 +1,22 @@
-# 60_ansi_arrow and Keymap
+# 60_ansi_arrow Keymap
 
-Default 60% ANSI Arrow keyboard layout and keymap by [Sendy YK](https://mr.sendyyk.com).
+Default 60 ANSI Arrow Keymap by [Sendy YK](https://mr.sendyyk.com).
 
-## 60% ANSI Arrow Layout
-
-![LAYOUT_60_ansi_arrow](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow.png)
-
-## Keymap
-
-### Default Layer
-
-![_BASE](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-0.png)
-
-### Fn Layer 1
-
-Press and hold *right* **Ctrl** key.
-
-![_FN](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-1.png)
-
-### Fn Layer 2
-
-Press and hold *right* **Alt** key.
-
-![_SETTINGS](https://raw.githubusercontent.com/mrsendyyk/files/public/qmk/firmware/layouts/community/60_ansi_arrow/mrsendyyk/images/layout-60-ansi-arrow-keymap---layer-2.png)
+```c
+    /*
+     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+     * │Esc│1  │2  │3  │4  │5  │6  │7  │8  │9  │0  │-  │+  │Bspc   │
+     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+     * │Tab  │Q  │W  │E  │R  │T  │Y  │U  │I  │O  │P  │[  │]  │\    │
+     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
+     * │Caps  │A  │S  │D  │F  │G  │H  │J  │K  │L  │;  │'  │Enter   │
+     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴┬───┬───┤
+     * │Shift   │Z  │X  │C  │V  │B  │N  │M  │,  │.  │Shift │↑  │/  │
+     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬───┼───┼───┤
+     * │Ctrl│GUI │Alt │Space                   │Alt│GUI│←  │↓  │→  │
+     * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┘
+     */
+```
 
 ## Build The Firmware
 

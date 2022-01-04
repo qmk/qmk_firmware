@@ -31,6 +31,9 @@ Currently QMK supports 24xx-series chips over I2C. As such, requires a working i
 `#define EXTERNAL_EEPROM_PAGE_SIZE`         | Page size of the EEPROM in bytes, as specified in the datasheet                     | 32
 `#define EXTERNAL_EEPROM_ADDRESS_SIZE`      | The number of bytes to transmit for the memory location within the EEPROM           | 2
 `#define EXTERNAL_EEPROM_WRITE_TIME`        | Write cycle time of the EEPROM, as specified in the datasheet                       | 5
+`#define EXTERNAL_EEPROM_WP_PIN`            | If defined the WP pin will be toggled appropriately when writing to the EEPROM.     | _none_
+
+Some I2C EEPROM manufacturers explicitly recommend against hardcoding the WP pin to ground. This is in order to protect the eeprom memory content during power-up/power-down/brown-out conditions at low voltage where the eeprom is still operational, but the i2c master output might be unpredictable. If a WP pin is configured, then having an external pull-up on the WP pin is recommended.
 
 Default values and extended descriptions can be found in `drivers/eeprom/eeprom_i2c.h`.
 
@@ -40,6 +43,7 @@ Module           | Equivalent `#define`            | Source
 -----------------|---------------------------------|------------------------------------------
 CAT24C512 EEPROM | `#define EEPROM_I2C_CAT24C512`  | <https://www.sparkfun.com/products/14764>
 RM24C512C EEPROM | `#define EEPROM_I2C_RM24C512C`  | <https://www.sparkfun.com/products/14764>
+24LC64 EEPROM    | `#define EEPROM_I2C_24LC64`     | <https://www.microchip.com/wwwproducts/en/24LC64>
 24LC128 EEPROM   | `#define EEPROM_I2C_24LC128`    | <https://www.microchip.com/wwwproducts/en/24LC128>
 24LC256 EEPROM   | `#define EEPROM_I2C_24LC256`    | <https://www.sparkfun.com/products/525>
 MB85RC256V FRAM  | `#define EEPROM_I2C_MB85RC256V` | <https://www.adafruit.com/product/1895>

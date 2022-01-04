@@ -1,8 +1,8 @@
 #include "nsrev2.h"
 
-// TODO:
 #ifdef SWAP_HANDS_ENABLE
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+__attribute__ ((weak))
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
   {{0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}, {5, 4}},
   {{0, 5}, {1, 5}, {2, 5}, {3, 5}, {4, 5}, {5, 5}},
   {{0, 6}, {1, 6}, {2, 6}, {3, 6}, {4, 6}, {5, 6}},
@@ -14,6 +14,7 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 };
 #endif
 
+#ifdef BACKLIGHT_ENABLE
 static bool backlight_was_toggled = false;
 
 void suspend_power_down_kb(void) {
@@ -29,6 +30,7 @@ void suspend_wakeup_init_kb(void) {
         backlight_was_toggled = false;
     }
 }
+#endif
 
 #ifdef PHYSICAL_LEDS_ENABLE
 void led_init_kb(void)

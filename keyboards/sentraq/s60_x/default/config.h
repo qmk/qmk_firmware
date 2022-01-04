@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Sentraq
 #define PRODUCT         S60-X
-#define DESCRIPTION     QMK keyboard firmware for S60-X
 
 /* key matrix size */
 #define MATRIX_ROWS 5

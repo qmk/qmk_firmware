@@ -2,8 +2,6 @@
     "keyboard_name": "Nightmare",
     "url": "https://keyhive.xyz/shop/nightmare-pcb-and-case",
     "maintainer": "cfbender",
-    "width": 15.25,
-    "height": 4,
     "layouts": {
         "LAYOUT_default": {
             "layout": [

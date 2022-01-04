@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 LAYOUT( /* Base - L0 */
   KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-  LT3_TAB, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NO_APOS, MT_RSFT_ENT,
+  LT3_TAB, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NO_QUOT, MT_RSFT_ENT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,  MO(4),
   KC_LCTL, KC_LGUI, MO(4), KC_LALT,  MO(2),      KC_SPC,        MO(1),  KC_RCTL, KC_LEFT, KC_DOWN,   KC_RGHT
 ),
@@ -84,7 +84,7 @@ LAYOUT( /* Right modifier - L1 */
    */
 
 LAYOUT( /* Left modifier - L2 */
-  NO_SECT, KC_EXCLAIM,  NO_QUO2, KC_HASH,  NO_BULT,  KC_PERCENT, NO_AMPR, NO_SLSH, NO_EQL, NO_PLUS, NO_BSLS, KC_DELETE,
+  NO_SECT, KC_EXCLAIM,  NO_DQUO, KC_HASH,  NO_CURR,  KC_PERCENT, NO_AMPR, NO_SLSH, NO_EQL, NO_PLUS, NO_BSLS, KC_DELETE,
   _______, _______, NO_QUES, NO_LCBR, NO_LBRC, NO_LPRN, NO_RPRN, NO_RBRC, NO_RCBR, KC_F10, KC_F11, KC_F12,
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_PGUP,  _______,
   _______, _______, _______, KC_CAPS, _______,     _______,      _______, _______, KC_HOME, KC_PGDN, KC_END
@@ -122,9 +122,9 @@ LAYOUT( /* Hold Tab down - L3 */
    */
 
 LAYOUT( /* Norsk - L4 */
-  _______, _______,   NO_AT,  NO_PND,  NO_DLR, NO_TILD, _______, NO_QUOT, NO_ACUT,  NO_GRV,   NO_AA, _______,
-  _______, _______, _______, NO_EURO, _______, _______, _______, _______, NO_CIRC, NO_OSLH,   NO_AE, _______,
-  _______, NO_LESS, _______, _______, _______, _______, _______,   NO_MU, _______, _______, _______, _______,
+  _______, _______,   NO_AT,  NO_PND,  NO_DLR, NO_TILD, _______, NO_QUOT, NO_ACUT,  NO_GRV, NO_ARNG, _______,
+  _______, _______, _______, NO_EURO, _______, _______, _______, _______, NO_CIRC, NO_OSTR,   NO_AE, _______,
+  _______, NO_LABK, _______, _______, _______, _______, _______, NO_MICR, _______, _______, _______, _______,
   _______, _______, _______, _______, _______,     _______,      _______,   TO(5), _______, _______, _______
 ),
 

@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,7 +25,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER   0x0001
 #define MANUFACTURER    geekhack
 #define PRODUCT         jd40v2
-#define DESCRIPTION     t.m.k. keyboard firmware for JD40 MKII
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -69,5 +67,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-
-#endif
