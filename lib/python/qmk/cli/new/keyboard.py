@@ -66,9 +66,11 @@ def new_keyboard(cli):
     keyboard_type = cli.args.type if cli.args.type else choice('Keyboard Type:', KEYBOARD_TYPES, default=0)
 
     # Get username
-    user_name = None
+    user_name = cli.args.username
+    if user_name:
+        cli.log.info(f'Using GitHub User Name: {user_name}')
     while not user_name:
-        user_name = question('Your GitHub User Name:', default=find_user_name())
+        user_name = question('Your GitHub User Name:', default=cli.config.user.name if cli.config.user.name else git_get_username())
 
         if not user_name:
             cli.log.error('You didn\'t provide a username, and we couldn\'t find one set in your QMK or Git configs. Please try again.')
@@ -95,15 +97,6 @@ def new_keyboard(cli):
     cli.log.info(f'{{fg_green}}Created a new keyboard called {{fg_cyan}}{new_keyboard_name}{{fg_green}}.{{fg_reset}}')
     cli.log.info(f'To start working on things, `cd` into {{fg_cyan}}{keyboard_path}{{fg_reset}},')
     cli.log.info('or open the directory in your preferred text editor.')
-
-
-def find_user_name():
-    if cli.args.username:
-        return cli.args.username
-    elif cli.config.user.name:
-        return cli.config.user.name
-    else:
-        return git_get_username()
 
 
 def template_tree(src: Path, dst: Path, replacements: dict):
