@@ -1,5 +1,10 @@
 # 键码概览
 
+<!---
+  original document: 0.14.23:docs/keycodes.md
+  git diff 0.14.23 HEAD -- docs/keycodes.md | cat
+-->
+
 在定义新的[键映射](zh-cn/keymap.md)时须有合法的键定义，本文记录了可在 QMK 中使用的所有符号的键码。
 
 本文仅作为资料索引，每一组按键都会链接到详细解释它们实际功能的文档页面中。
