@@ -69,5 +69,6 @@ void bootmagic_lite(void) {
 
 如果您想调整之前那些通过完整版Magic引导功能才能控制的设置时，更多信息参见[Magic Keycodes](zh-cn/keycodes_magic.md)。
 
-这个Command功能，之前叫做Magic，并且允许您控制键盘的多种功能。虽然它和Magic键码共用一些功能，但是它也允许您做magic键码做不到的事情。例如，在控制台上生成版本信息。更多信息参见[Command](zh-cn/feature_command.md)。
+Command功能（之前叫做Magic）也允许您控制键盘的多种功能。虽然它和Magic键码共用一些功能，但是它也允许您做magic键码做不到的事情。例如，在控制台上生成版本信息。更多信息参见[Command](zh-cn/feature_command.md)。
+
 
