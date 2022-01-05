@@ -34,7 +34,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_WH_U);
         }
     }
-    else if(curr_layer == 1) {
+    else if(curr_layer == 2) {
         if (clockwise) {
             tap_code16(C(KC_WH_U));
         } else {
