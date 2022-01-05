@@ -34,4 +34,4 @@
 #define ENCODERS_PAD_B { B7 }
 
 /* Specifies the number of pulses the encoder registers between each detent */
-#define ENCODER_RESOLUTION 2
+#define ENCODER_RESOLUTION 4
