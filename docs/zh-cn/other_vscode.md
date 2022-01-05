@@ -1,5 +1,10 @@
 #  在Visual Studio Code中设置QMK开发环境
 
+<!---
+  original document: 0.15.12:docs/other_vscode.md 
+  git diff 0.15.12 HEAD -- docs/other_vscode.md  | cat
+-->
+
 [Visual Studio Code](https://code.visualstudio.com/) (VS Code) 是一款支援非常多种不同编程语言的开源编辑器。
 
 相比于使用简陋的文本编辑器，形如VS Code这样的多功能编辑器有诸多优势，比如：
