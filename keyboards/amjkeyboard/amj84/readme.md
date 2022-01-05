@@ -1,6 +1,6 @@
 # amj84
 
-![amj84](imgur.com image replace me!)
+![amj84](https://i.imgur.com/oKAkyBW.jpeg)
 
 A 84 key keyboard by AMJ
 
