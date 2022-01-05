@@ -1,5 +1,10 @@
 #Magic引导 (精简版)
 
+<!---
+  original document: 0.15.12:docs/feature_bootmagic.md
+  git diff 0.15.12 HEAD -- docs/feature_bootmagic.md | cat
+-->
+
 Magic引导 (精简版)的功能只局限于如何进入引导模式。如果您键盘的PCB上面没有重置按钮(reset)，这能让您更简单的进入引导模式。
 
 但是，在有些键盘的固件中，这一项属性是默认被禁用的。如果您的键盘符合这种情况，那么您必须在您的 `rules.mk` 文件中进行如下设置：
