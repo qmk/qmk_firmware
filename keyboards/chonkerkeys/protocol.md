@@ -82,18 +82,47 @@ TODO: Custom executable path?
 
 No data.
 
-#### UpdateLightCommand
-
-| data                                          | size in byte | Note                                                          |
-| --------------------------------------------- | ------------ | ------------------------------------------------------------- |
-| key                                           | 2            | first byte encode x coordinate, last byte encode y coordinate |
-| state as defined by the light type of the key | 1            |
-
-See Light type and state for more details.
-
 #### EnterBootLoaderCommand
 
 TODO
+
+#### SetLEDCommand
+
+|data|size in byte|Note|
+|----|------------|----|
+|animation type|1|256 type|
+|key x|1||
+|key y|1||
+|R|1||
+|G|1||
+|B|1||
+|animation data|animation-specific||
+
+##### Animation Data
+
+###### Steady
+
+N/A
+
+###### Blink
+
+|data|size in byte|Note|
+|----|------------|----|
+|frequency|1|Unit is TBC|
+
+###### Like animation
+
+N/A
+
+###### Leave meeting animation
+
+N/A
+
+###### Momentary
+
+|data|size in byte|Note|
+|----|------------|----|
+|duration|1|Unit is 1/100 of a second, range is 10ms to 2560ms|
 
 ---
 
@@ -108,69 +137,3 @@ TODO
 #### LayerSwitchedEvent
 
 TODO
-
-## Light Type and Their State
-
-It's currently unknown whehter all light type has at most 3 states. This doc is written as if some light type has more than 3 states (otherwise, we just need to define state once and go on to define the light types, one is L \* S, one is L + S).
-
-A lighting effect consists of 2 parts: the type and the state. The type denotes a cateogry to which the light belongs, usually aligns with the category of the key. E.g. a key with a mute icon should have a `Mute` light type. The state denotes what behavior the light should currently have. Most keys have at least on/off state. Some might have more, e.g. share screen which has an intermediate state to representing user is picking a screen.
-
-The firmware stores and only stores the light type. At start up, the app sends whatever state the keyboard should be in via the protocol. The firmware then stores the state in RAM. When unplugged, the keyboard keeps the light type via firmware, but lose the light state.
-
-When the app needs to tell the keyboard to light up, it uses the configuration it reads from `GetConfigCommand` to get the light type, make sure it matches the operation it wants to perform (e.g. the operation might be triggered by zoom changing mute state, it then validates the light type is light type `Mute`), and then grab the appropriate value for the state. The app only sends state, as light type is already stored in the configuration in firmware.
-
-### Binary Size Concern
-
-This design assumes the firmware has enough space to store all the lighting routine code + configuration. That is, each key already stores its lighting type in the configuration. For example, a key can be assigned the `LightType.Mute` enumeration. When the firmware receives this command, it parses the key coordinate, get the configuration for that key, and obtain the light type and color. Knowing the key has a mute light type, it would then turn the key's LED to red when it receives off state, encoding as `0`, and green for on state, encoded as `1`. Every light state/patterns is encoded in its light type and state.
-
-More example: share screen's light type is defined as the `LightType.ShareScreen` enumeration. It has 3 state: on, off, and intermediate. On and off are straight-forward, single-color lighting. Intermediate is a rotating singel color pattern. The state itself doesn't actually encode how the lighting pattern work. The code does. All that the state encode is all 3 of these possible states.
-
-In this design, there will be lots of branching in the firmware's code. The branch would be based on light type + state. Each state would then "do its own thing", controlling how the LED work.
-
-It is thus conceivable that the firmware simply does not have enough room for all the code and data (as other key configurations might consume a large amount of binary storage). It's not estimatable how many storage code consumes, but we can calculate how much data is consumed for light. Suppose that:
-
-- each key has a light type, and
-- each layer's key can have different light type, and
-- there are `x` keys, and
-- there are `y` layers, and
-- each light type consumes 1 byte (for a total of 256 light types)
-
-Assuming a naive, uniform 2d array for storage, the number of bytes consumed by light type is thus
-
-```
-bytes = 1 * x * y
-
-// Assuming 6 layers
-// For model "Original"
-bytes = 1 * 8 * 4 * 6 = 192 = ~0.6%
-
-// For model "Max"
-bytes = 1 * 8 * 6 * 6 = 288 = ~1%
-```
-
-A bare minimum QMK firmware already consumes 57% of the available size as of the time of writing.
-
-More work can be done to use variable size encoding so that "holes" on the board (i.e. a board slot that doesn't have a key inserted) doesn't consume any storage.
-
----
-
-This section documents the light type and their state. Unless otherwise specified, the enum value is the state sent in the `UpdateLightCommand`.
-
-### LightType.Mute
-
-```
-enum LightTypeMuteState {
-    Off = 0,
-    On
-}
-```
-
-### LightType.ShareScreen
-
-```
-enum LightTypeShareScreenState {
-    Off = 0,
-    Intermediate,
-    On
-}
-```
