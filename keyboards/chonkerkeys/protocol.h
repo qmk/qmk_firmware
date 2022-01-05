@@ -1,5 +1,7 @@
 #pragma once
 
+#include "command.h"
+
 void on_connected(void);
 
 void on_get_version(void);
@@ -7,6 +9,20 @@ void on_get_version(void);
 void on_get_config(void);
 
 void on_reset(void);
+
+void on_set_led(struct command_set_led *set_led);
+
+// Technically these should be defined as function pointer and core.c would assign function to the pointer for proper
+// inversion of control, but this firmware couldn't afford such abstraction due to perf penalty.
+void set_led_steady(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b);
+
+void set_led_blink(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint8_t frequency_tbc);
+
+void set_led_like(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b);
+
+void set_led_leave_meeting(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b);
+
+void set_led_momentary(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint32_t duration_ms);
 
 uint8_t get_layer_count(void);
 
