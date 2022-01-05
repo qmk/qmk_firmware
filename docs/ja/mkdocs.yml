@@ -7,39 +7,17 @@ extra:
     - name: English
       link: /master/en/
       lang: en
-    - name: Deutsch
-      link: /master/de/
-      lang: de
-    - name: Español
-      link: /master/es/
-      lang: es
-    - name: français
-      link: /master/fr/
-      lang: fr
-    - name: עברית
-      link: /master/he/
-      lang: he
     - name: 日本語
       link: /master/jp/
       lang: jp
-    - name: 한국어
-      link: /master/kr/
-      lang: kr
-    - name: Русский язык
-      link: /master/ru/
-      lang: ru
     - name: 简体中文
       link: /master/zh/
       lang: zh
 plugins:
   - search:
       lang:
-        - de
         - en
-        - es
-        - fr
         - ja
-        - ru
       prebuild_index: true
       separator: '[\s\-\_]+'
 markdown_extensions:
