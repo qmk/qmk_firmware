@@ -264,8 +264,8 @@ static bool layer_state_handlers_master(matrix_row_t master_matrix[], matrix_row
 }
 
 static void layer_state_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    layer_state         = split_shmem->layers.layer_state;
-    default_layer_state = split_shmem->layers.default_layer_state;
+    layer_state_set(split_shmem->layers.layer_state);
+    default_layer_set(split_shmem->layers.default_layer_state);
 }
 
 // clang-format off
