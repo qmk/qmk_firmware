@@ -1,5 +1,10 @@
 # 重新同步已失去同步状态的Git分支
 
+<!---
+  original document: 0.15.12:docs/newbs_git_resynchronize_a_branch.md 
+  git diff 0.15.12 HEAD -- docs/newbs_git_resynchronize_a_branch.md  | cat
+-->
+
 假设你在自己的 `master` 分支之上有提交，并且想和QMK仓库进行同步，可以通过 `git pull` 拉取QMK的 `master` 分支到你的库，但同时Github也会提醒你当前分支相比 `qmk:master` 有几个领先的提交，会在你向QMK发起pr时造成麻烦。
 
 ?> 本文中的场景基于[在你Fork的主干上：频繁更新，不要提交](zh-ch/newbs_git_using_your_master_branch.md)一文。如果你对那篇文章不熟悉，请先阅读它，再回来继续。
