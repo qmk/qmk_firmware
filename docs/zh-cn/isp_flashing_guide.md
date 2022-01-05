@@ -1,5 +1,10 @@
 # ISP刷写指南
 
+<!---
+  original document: 0.15.12:docs/isp_flashing_guide.md 
+  git diff 0.15.12 HEAD -- docs/isp_flashing_guide.md  | cat
+-->
+
 如果想通过USB刷写微控制器，我们需要bootloader的支持。bootloader存储在闪存的特定区块中，它的职责也包括将真正的固件应用程序（即QMK）写入到闪存的其余区块中。
 
 不过，有时也会出现bootloader损坏需要重新刷写的情况，又或者是你希望换一个bootloader程序。我们无法通过已有的bootloader达成这个目标，原因很明显，它无法覆写掉正在运行中的自己。因此，你需要对微控制器进行ISP刷写。
