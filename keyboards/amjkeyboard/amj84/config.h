@@ -6,7 +6,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x00D8//A+M+J
+#define VENDOR_ID    0x00D8 //A+M+J
 #define PRODUCT_ID   0x6068
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Han Chen
