@@ -79,6 +79,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         is_either_pressed = record->event.pressed;
     }
+
+    uint8_t row = record->event.key.row;
+    uint8_t col = record->event.key.col;
     if (record->event.pressed) {
         if (is_connected) {
             key_down(get_current_layer(), x, y);
@@ -101,11 +104,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(keycode);
                 unregister_code(keycode);
             }
-            rgb_strand_start_animation(
-                    key_strand[record->event.key.row][record->event.key.col],
-                    key_anim[record->event.key.row][record->event.key.col],
-                    NULL);
+            rgb_strands_anim_t anim = key_anim[row][col];
+            rgb_strand_animation_start(key_strand[row][col], anim,
+                    get_default_rgb_strand_anim_config(anim),
+                    RGB_STRAND_ANIM_STATE_STEADY);
         }
+    } else { // released
+        rgb_strand_animation_set_state(key_strand[row][col], RGB_STRAND_ANIM_STATE_START);
     }
     return false;
 }

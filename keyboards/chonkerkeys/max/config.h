@@ -47,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define RGB_STRANDS_NUM 12       // number of strands
 #define RGB_STRAND_LIMIT_VAL 150 // for limiting max current otherwise it will malfunction
 
 #define RGB_STRAND_0_DI_PIN B6
