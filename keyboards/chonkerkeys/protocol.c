@@ -4,30 +4,8 @@
 #include "event_type.h"
 #include "event.h"
 #include "command.h"
+#include "led_animation_type.h"
 #include <stdio.h>
-
-uint8_t get_key_light_type(uint8_t x, uint8_t y) {
-    return mute;
-}
-
-void update_light(uint8_t type, uint8_t state) {
-    // TODO
-    if (type == mute) {
-        if (state == 0) {
-            SEND_STRING("mute light is off");
-        } else if (state == 1) {
-            SEND_STRING("mute light is on");
-        }
-    } else if (type == share_screen) {
-        if (state == 0) {
-            SEND_STRING("share screen light is off");
-        } else if (state == 1) {
-            SEND_STRING("share screen light is intermediate");
-        } else if (state == 2) {
-            SEND_STRING("share screen light is on");
-        }
-    }
-}
 
 const extern uint32_t firmware_version;
 void on_get_version() {
@@ -65,12 +43,30 @@ void on_reset() {
     reset_keyboard();
 }
 
+void on_set_led(struct command_set_led *set_led) {
+    if (set_led->type == led_animation_type_steady) {
+        set_led_steady(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->g);
+    } else if (set_led->type == led_animation_type_blink) {
+        set_led_blink(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->g, set_led->animation_data.blink_frequency);
+    } else if (set_led->type == led_animation_type_like) {
+        set_led_like(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->g);
+    } else if (set_led->type == led_animation_type_leave_meeting) {
+        set_led_leave_meeting(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->g);
+    } else if (set_led->type == led_animation_type_momentary) {
+        // TODO: Is this conversion needed? If 10ms is easier to calculate due to processor clock speed etc, skip this
+        // conversion.
+        float duration_10ms = set_led->animation_data.momentary_duration_10ms;
+        uint32_t duration_ms = (uint32_t) (duration_10ms / 10.0f);
+        set_led_momentary(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->g, duration_ms);
+    }
+}
+
 uint32_t command_index = 0;
 // Assume little endian
 uint8_t command_type = 0;
 uint16_t remaining_bytes = 0;
 union command_t {
-    struct command_update_light update_light;
+    struct command_set_led set_led;
 } command;
 
 const uint8_t index_command_type = 0;
@@ -132,9 +128,9 @@ void _parse_data(uint8_t index, uint8_t c) {
         // No-op
     } else if (command_type == command_type_reset) {
         // No-op
-    } else if (command_type == command_type_update_light) {
-        uint8_t* update_light = (uint8_t*) &command.update_light;
-        update_light[index] = c;
+    } else if (command_type == command_type_set_led) {
+        uint8_t* set_led = (uint8_t*) &command.set_led;
+        set_led[index] = c;
     }
 }
 
@@ -177,9 +173,7 @@ void _dispatch_command(void) {
         on_connected();
     } else if (command_type == command_type_reset) {
         on_reset();
-    } else if (command_type == command_type_update_light) {
-        // TODO: Look up light type from key_x and key_y
-        uint8_t light_type = get_key_light_type(command.update_light.key_x, command.update_light.key_y);
-        update_light(light_type, command.update_light.state);
+    } else if (command_type == command_type_set_led) {
+        on_set_led(&command.set_led);
     }
 }
