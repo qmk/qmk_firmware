@@ -31,9 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // otherwise the other promicro v3 isn't found
 #define SPLIT_USB_DETECT
 
-#define SSD1306OLED
-
-#define USE_SERIAL_PD2
 
 
 #define OLED_DRIVER_ENABLE
