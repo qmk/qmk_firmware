@@ -43,6 +43,8 @@ TODO: Do we need a special header to indicate it's the start of a command/event?
 
 ### Protocol List
 
+---
+
 #### GetVersionCommand/GetVersionResponseEvent
 
 ##### Command
@@ -54,6 +56,8 @@ No data.
 |data|size in byte|Note|
 |----|------------|----|
 |firmware version| 4 | type is uint32_t |
+
+---
 
 #### GetConfigCommand/GetConfigResponseEvent
 
@@ -78,13 +82,19 @@ No data.
 TODO: Custom label? Is it a thing?
 TODO: Custom executable path?
 
+---
+
 #### ConnectCommand
 
 No data.
 
-#### EnterBootLoaderCommand
+---
 
-TODO
+#### ResetCommand
+
+No data.
+
+---
 
 #### SetLEDCommand
 
@@ -102,7 +112,7 @@ TODO
 
 ###### Steady
 
-N/A
+No data.
 
 ###### Blink
 
@@ -112,11 +122,11 @@ N/A
 
 ###### Like animation
 
-N/A
+No data.
 
 ###### Leave meeting animation
 
-N/A
+No data.
 
 ###### Momentary
 
