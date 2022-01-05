@@ -196,9 +196,9 @@ void rgb_matrix_indicators_user(void) {
 #define _CONFIG 4
 
 // Layer names shortcuts
-#define _QWY _QWERTY
-#define _CMK _COLEMAK_DH
-#define _CFG _CONFIG
+#define _QWY 0
+#define _CMK 1
+#define _CFG 4
 
 // Rename tap dances for keymap
 #define TD_LSPC TD(TD_LSPO_CAPS)
@@ -262,7 +262,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //|--------------------------|  |--------------------------|
   ),
 
-  [_CFG] = LAYOUT_split_3x6_3(
+  [_CONFIG] = LAYOUT_split_3x6_3(
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
         RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_ASRP, XXXXXXX, XXXXXXX, XXXXXXX,DF(_QWY),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
