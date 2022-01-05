@@ -24,25 +24,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-#define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
 // otherwise the other promicro v3 isn't found
 #define SPLIT_USB_DETECT
 
-#define SSD1306OLED
-
-#define USE_SERIAL_PD2
-
-
-#define OLED_DRIVER_ENABLE
-
 //#define TAPPING_FORCE_HOLD
 
- // #define TAPPING_TERM 100
+// #define TAPPING_TERM 100
 
- // #define RGBLIGHT_ENABLE
+// #define RGBLIGHT_ENABLE
 #ifdef RGBLIGHT_ENABLE
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
