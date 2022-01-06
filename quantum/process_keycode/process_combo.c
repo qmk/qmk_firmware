@@ -342,7 +342,7 @@ combo_t* overlaps(combo_t *combo1, combo_t *combo2) {
     return combo1;
 }
 
-#ifdef COMBO_MUST_PRESS_IN_ORDER
+#if defined(COMBO_MUST_PRESS_IN_ORDER) || defined(COMBO_MUST_PRESS_IN_ORDER_PER_COMBO)
 static bool keys_pressed_in_order(uint16_t combo_index, combo_t *combo, uint16_t key_index, uint16_t keycode, keyrecord_t *record) {
 #    ifdef COMBO_MUST_PRESS_IN_ORDER_PER_COMBO
     if (!get_combo_must_press_in_order(combo_index, combo)) {
@@ -375,7 +375,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     }
 
     bool key_is_part_of_combo = (!COMBO_DISABLED(combo) && is_combo_enabled()
-#ifdef COMBO_MUST_PRESS_IN_ORDER
+#if defined(COMBO_MUST_PRESS_IN_ORDER) || defined(COMBO_MUST_PRESS_IN_ORDER_PER_COMBO)
                                  && keys_pressed_in_order(combo_index, combo, key_index, keycode, record)
 #endif
 #ifdef COMBO_SHOULD_TRIGGER
