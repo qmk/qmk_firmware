@@ -18,8 +18,8 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_mechmini_v1)
+#if defined(KEYBOARD_mechkeys_mechmini_v1)
 #    include "v1.h"
-#elif defined(KEYBOARD_mechmini_v2)
+#elif defined(KEYBOARD_mechkeys_mechmini_v2)
 #    include "v2.h"
 #endif
