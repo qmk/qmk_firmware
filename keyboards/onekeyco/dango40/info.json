@@ -3,8 +3,8 @@
     "url": "https://github.com/swiftrax",
     "maintainer": "Swiftrax",
     "layouts": {
-        "LAYOUT": {
-            "layout_all": [
+        "LAYOUT_all": {
+            "layout": [
                 {"label":"0,0", "x":0, "y":0},
                 {"label":"0,1", "x":1, "y":0},
                 {"label":"0,2", "x":2, "y":0},
