@@ -2,6 +2,9 @@
     "keyboard_name": "JJ50",
     "url": "",
     "maintainer": "qmk",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_5x12"
+    },
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [
