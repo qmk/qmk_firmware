@@ -4,8 +4,49 @@
 #include "event_type.h"
 #include "event.h"
 #include "command.h"
+#include "rgb_strands.h"
+#include "color.h"
 #include "led_animation_type.h"
 #include <stdio.h>
+#include <string.h>
+
+uint8_t get_key_light_type(uint8_t x, uint8_t y) {
+    return mute;
+}
+
+void update_light(uint8_t type, uint8_t state) {
+    // TODO: need to figure out the RGB strand for the light type
+    //uint8_t strand = key_strand[0][0];
+    uint8_t strand = 0;
+
+    if (type == mute) {
+        if (state == 0) {
+            // off
+            rgb_strand_set_color(strand, HSV_OFF);
+        } else if (state == 1) {
+            // mute
+            rgb_strand_set_color(strand, HSV_RED);
+        } else if (state == 2) {
+            // unmute
+            rgb_strand_set_color(strand, HSV_GREEN);
+        }
+    } else if (type == share_screen) {
+        if (state == 0) {
+            // off
+            rgb_strand_set_color(strand, HSV_OFF);
+        } else if (state == 1) {
+            // blinking
+            const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(RGB_STRAND_EFFECT_BLINKY);
+            rgb_strand_anim_config_t cfg;
+            memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
+            cfg.num_times = 0; // blink forever until shared
+            rgb_strand_animation_start(strand, RGB_STRAND_EFFECT_BLINKY, &cfg, RGB_STRAND_ANIM_STATE_START);
+        } else if (state == 2) {
+            // screen sharing
+            rgb_strand_set_color(strand, HSV_GREEN);
+        }
+    }
+}
 
 const extern uint32_t firmware_version;
 void on_get_version() {

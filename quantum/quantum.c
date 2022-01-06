@@ -293,6 +293,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_rgb(keycode, record) &&
 #endif
+#ifdef RGB_STRANDS_ENABLE
+            process_rgb_strands(keycode, record) &&
+#endif
 #ifdef JOYSTICK_ENABLE
             process_joystick(keycode, record) &&
 #endif
@@ -521,6 +524,10 @@ void suspend_power_down_quantum(void) {
     rgblight_suspend();
 #    endif
 
+#    ifdef RGB_STRANDS_ENABLE
+    rgb_strands_suspend();
+#    endif
+
 #    if defined(LED_MATRIX_ENABLE)
     led_matrix_set_suspend_state(true);
 #    endif
@@ -565,6 +572,10 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
 // Wake up underglow
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
     rgblight_wakeup();
+#endif
+
+#ifdef RGB_STRANDS_ENABLE
+    rgb_strands_wakeup();
 #endif
 
 #if defined(LED_MATRIX_ENABLE)

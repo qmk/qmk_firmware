@@ -11,6 +11,8 @@ enum custom_keycodes {
     CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE,
     CH_ZOOM_RAISE_HAND_TOGGLE,
     CH_ZOOM_LEAVE_MEETING,
+    CH_SWITCH_WINDOW,
+    CH_LAST_KEYCODE
 };
 
 #define KEY_MACROS_MAX_COUNT  3
@@ -24,6 +26,7 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LALT, KC_S, KC_NO },
     { KC_LALT, KC_Y, KC_NO },
     { KC_LALT, KC_Q, KC_NO },
+    { KC_LALT, KC_TAB, KC_NO },
 };
 
 const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
@@ -34,4 +37,5 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LGUI, KC_LSHIFT, KC_S },
     { KC_LALT, KC_Y, KC_NO },
     { KC_LGUI, KC_W, KC_NO },
+    { KC_LGUI, KC_TAB, KC_NO },
 };

@@ -9,7 +9,7 @@ BOOTLOADER = caterina
 #
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 VIRTSER_ENABLE = yes
-MOUSEKEY_ENABLE = no       # Mouse keys
+MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
@@ -19,4 +19,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+RGB_STRANDS_ENABLE = yes    # Enable keyboard multiple RGB strands
 AUDIO_ENABLE = no           # Audio output
+CIE1931_CURVE = no          # Don't load the curve table to save space
