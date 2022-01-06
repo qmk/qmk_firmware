@@ -1,6 +1,9 @@
 # MCU name
 MCU = STM32F303
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 # Touch encoder needs
 SRC += ../common/touch_encoder.c
 SRC += ../common/common_oled.c
@@ -22,7 +25,7 @@ DYNAMIC_MACRO_ENABLE = yes
 DIP_SWITCH_ENABLE = yes
 
 WS2812_DRIVER = pwm
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
+RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 
