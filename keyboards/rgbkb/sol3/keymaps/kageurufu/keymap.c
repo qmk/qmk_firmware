@@ -29,7 +29,6 @@ extern keymap_config_t keymap_config;
   */
 #define EXPAND_LAYOUT(...) LAYOUT(__VA_ARGS__, \
       KC_VOLD, KC_VOLU, KC_VOLD, KC_VOLU, KC_VOLD, KC_VOLU,                                     KC_VOLD, KC_VOLU, KC_VOLD, KC_VOLU, KC_VOLD, KC_VOLU, \
-      KC_VOLD, KC_VOLU, KC_VOLD, KC_VOLU, KC_VOLD, KC_VOLU,                                     KC_VOLD, KC_VOLU, KC_VOLD, KC_VOLU, KC_VOLD, KC_VOLU, \
       KC_MNXT, KC_MPLY, KC_MPRV, KC_VOLD, KC_VOLU,                                                       KC_MNXT, KC_MPLY, KC_MPRV, KC_VOLD, KC_VOLU )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
