@@ -65,6 +65,26 @@ void on_connected() {
     is_connected = true;
 }
 
+void set_led_steady(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b) {
+    SEND_STRING("steady");
+}
+
+void set_led_blink(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint8_t frequency_tbc) {
+    SEND_STRING("blink");
+}
+
+void set_led_like(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b) {
+    SEND_STRING("like");
+}
+
+void set_led_leave_meeting(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b) {
+    SEND_STRING("leave meeting");
+}
+
+void set_led_momentary(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint32_t duration_ms) {
+    SEND_STRING("momentary");
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool is_either_pressed = false;
     uint8_t x = record->event.key.col;
