@@ -1,3 +1,9 @@
+#ifdef REMOVE_DEBOUNCE
+#ifdef DEBOUNCE
+#undef DEBOUNCE
+#endif
+#endif
+
 
 #ifdef REDUCE_RGB
 

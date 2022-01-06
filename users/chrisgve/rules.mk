@@ -7,3 +7,7 @@ endif
 ifeq ($(strip $(MACROS_ENABLED)), yes)
 	OPT_DEFS += -DMACROS_ENABLED
 endif
+
+ifeq ($(strip $(REMOVE_DEBOUNCE)), yes)
+	OPT_DEFS += -DREMOVE_DEBOUNCE
+endif
