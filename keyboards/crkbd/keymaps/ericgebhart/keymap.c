@@ -16,15 +16,6 @@
 */
 #include "ericgebhart.h"
 
-extern uint8_t is_master;
-
-#ifdef RGBLIGHT_ENABLE
-// Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
-enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
-
 #define Crkbd_base(...)        Base_3x6_3(__VA_ARGS__)
 #define Crkbd_bepo(...)        Base_bepo_3x6_3(__VA_ARGS__)
 #define Crkbd_bepo6(...)       Base_bepo6_3x6_3(__VA_ARGS__)
