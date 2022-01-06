@@ -1,7 +1,7 @@
 
 # Ploopy Trackball Mini
 
-![Ploopyco Trackball Mini](mini.jpg)
+![Ploopyco Trackball Mini](https://ploopy.co/wp-content/uploads/2021/07/mini4.jpg)
 
 It's a DIY, QMK Powered Trackball...Mini!
 
@@ -29,7 +29,7 @@ Occasionally, new revisions of the PCB will be released. Every board comes with 
 
 Match the firmware that you flash onto the board with the designator on the board.
 
-# Customzing your Ploopy Mini Trackball
+# Customizing your Ploopy Mini Trackball
 
 While the defaults are designed so that it can be plugged in and used right away, there are a number of things that you may want to change, such as adding DPI control, or using the ball to scroll while holding a button. To allow for this sort of control, there is a callback for both the scroll wheel and the mouse sensor.
 
