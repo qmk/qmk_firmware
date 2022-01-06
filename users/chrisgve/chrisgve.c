@@ -68,6 +68,11 @@ uint8_t cur_layer = _DEF_L;
 bool apple_fn_pressed = false;
 bool mouse_layer = false;
 
+#ifdef SHIFT_ENABLE
+bool lshift = false;
+bool rshift = false;
+#endif
+
 // Tap dance configuration
 
 // Mouse
@@ -272,6 +277,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+#ifdef SHIFT_ENABLE
+        /* Monitor shift state */
+        case SFT_MSE:
+        case KC_LSFT:
+            if (!record->event.pressed) {
+                lshift = true;
+            } else {
+                lshift = false;
+            }
+            break;
+        case QUT_SFT:
+        case R_SHIFT:
+        case KC_RSFT:
+            if (!record->event.pressed) {
+                rshift = true;
+            } else {
+                rshift = false;
+            }
+            break;
+        case CU_BSPC:
+            SHIFT_SWITCH(KC_DEL, KC_BSPC)
+        case CU_SPBC:
+            SHIFT_SWITCH(KC_BSPC, KC_SPC)
+#endif
 #ifdef APPLE_FN_ENABLE
         /* Detect if KC_APPLE_FN is pressed */
         case INV_AFN:
