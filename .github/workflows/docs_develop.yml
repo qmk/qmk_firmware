@@ -28,7 +28,7 @@ jobs:
         python3 -m pip install -r requirements.txt
 
     - name: Build docs
-      run: ./build_translations.sh develop
+      run: ./util/build_translations.sh develop
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@4.1.4

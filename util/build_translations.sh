@@ -23,7 +23,7 @@ cp versions.json ../site/
 # Build the translations
 for translation in ??/; do
 	echo '*** Setting up symlinks for language' $translation
-	../symlink_translation.sh $translation
+	../util/symlink_translation.sh $translation
 
 	echo '*** Building site for language' $translation
 	pushd $translation

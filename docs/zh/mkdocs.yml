@@ -5,13 +5,13 @@ extra:
     provider: mike
   alternate:
     - name: English
-      link: /master/en/
+      link: /devel/en/
       lang: en
     - name: 日本語
-      link: /master/jp/
+      link: /devel/jp/
       lang: jp
     - name: 简体中文
-      link: /master/zh/
+      link: /devel/zh/
       lang: zh
 plugins:
   - search:
@@ -45,7 +45,7 @@ markdown_extensions:
 nav:
   - Home: README.md
   - 完全菜鸟指南:
-    - Introduction: tutorial.md
+    - Introduction: newbs.md
     - 入门: newbs_getting_started.md
     - 构建你的第一个固件: newbs_building_firmware.md
     - 刷新固件: newbs_flashing.md
@@ -56,7 +56,7 @@ nav:
       - 重新同步一个分支: newbs_git_resynchronize_a_branch.md
     - 学习资源: newbs_learn_more_resources.md
   - QMK基础:
-    - QMK简介: tutorial.md
+    - QMK简介: newbs.md
     - QMK命令行工具: cli.md
     - QMK命令行工具配置: cli_configuration.md
     - 向QMK贡献代码: contributing.md
@@ -169,7 +169,7 @@ nav:
 repo_name: qmk/qmk_firmware
 repo_url: https://github.com/qmk/qmk_firmware
 site_name: QMK Firmware Docs
-site_url: https://docs.qmk.fm/master/zh
+site_url: https://docs.qmk.fm/devel/zh
 theme:
   favicon: images/favicon.ico
   features:

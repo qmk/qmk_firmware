@@ -5,13 +5,13 @@ extra:
     provider: mike
   alternate:
     - name: English
-      link: /master/en/
+      link: /devel/en/
       lang: en
     - name: 日本語
-      link: /master/jp/
+      link: /devel/jp/
       lang: jp
     - name: 简体中文
-      link: /master/zh/
+      link: /devel/zh/
       lang: zh
 plugins:
   - search:
@@ -233,7 +233,7 @@ nav:
 repo_name: qmk/qmk_firmware
 repo_url: https://github.com/qmk/qmk_firmware
 site_name: QMK Firmware Docs
-site_url: https://docs.qmk.fm/master/en
+site_url: https://docs.qmk.fm/devel/en
 theme:
   favicon: images/favicon.ico
   features:

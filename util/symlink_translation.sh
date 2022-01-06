@@ -12,7 +12,7 @@ fi
 
 translation=$1
 
-cd "$(dirname "${BASH_SOURCE[0]}")"/docs/en
+cd "$(dirname "${BASH_SOURCE[0]}")"/../docs/en
 
 for file in $(find docs -type f); do
 	if ! [ -e ../${translation}/${file} ]; then
