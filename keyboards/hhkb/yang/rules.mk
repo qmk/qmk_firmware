@@ -26,6 +26,3 @@ LAYOUTS = 60_hhkb
 # Custom matrix file for the HHKB
 CUSTOM_MATRIX = lite
 SRC += matrix.c
-
-# Disable debounce
-DEBOUNCE = 0
