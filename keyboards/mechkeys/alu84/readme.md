@@ -10,11 +10,11 @@ A 75% keyboard made and sold by MECHKEYS.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make alu84:default
+    make mechkeys/alu84:default
 
 Flashing example for this keyboard:
 
-    make alu84:default:flash
+    make mechkeys/alu84:default:flash
 
 To reset the board into bootloader mode, hold Space+B while plugging the cable in.
 

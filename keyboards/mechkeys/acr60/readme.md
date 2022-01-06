@@ -10,11 +10,11 @@ A customizable 60% keyboard made and sold by mechkeys.ca [More info on MECHKEYS]
 
 Make example for this keyboard (after setting up your build environment):
 
-    make acr60:default
+    make mechkeys/acr60:default
 
 Flashing example for this keyboard:
 
-    make acr60:default:flash
+    make mechkeys/acr60:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 
