@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - master
+    - develop
     paths:
     - 'tmk_core/**'
     - 'quantum/**'
@@ -26,18 +27,18 @@ jobs:
 
     - name: Install dependencies
       run: |
-        apt-get update && apt-get install -y rsync nodejs npm doxygen
-        npm install -g moxygen
+        apt-get update && apt-get install -y rsync nodejs npm
+        npm install -g lunr lunr-languages
+        python3 -m pip install mkdocs-git-revision-date-plugin mkdocs-material mkdocs-literate-nav mkdocs-same-dir pygments
 
     - name: Build docs
-      run: |
-        qmk --verbose generate-docs
+      run: ./util/build_translations.sh ${{ github.ref }}
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BASE_BRANCH: master
-        BRANCH: gh-pages
-        FOLDER: .build/docs
-        GIT_CONFIG_EMAIL: hello@qmk.fm
+        branch: gh-pages
+        folder: site
+        git-config-email: hello@qmk.fm
+        target-folder: ${{ github.ref }}

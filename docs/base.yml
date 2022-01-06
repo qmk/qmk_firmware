@@ -1,0 +1,82 @@
+extra_css:
+  - stylesheets/qmk.css
+extra:
+  version:
+    provider: mike
+  alternate:
+    - name: English
+      link: /qmk_mkdocs/devel/en/
+      lang: en
+    - name: 日本語
+      link: /qmk_mkdocs/devel/ja/
+      lang: ja
+    - name: 简体中文
+      link: /qmk_mkdocs/devel/zh/
+      lang: zh
+  plugins:
+  - literate-nav:
+      nav_file: _summary.md
+  - search:
+      lang:
+        - en
+        - ja
+      prebuild_index: true
+      separator: '[\s\-\_]+'
+markdown_extensions:
+  - admonition
+  - attr_list
+  - codehilite:
+      guess_lang: false
+  - def_list
+  - fenced_code
+  - footnotes
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.keys
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tasklist
+  - pymdownx.tilde
+  - sane_lists
+  - tables
+  - toc:
+      marker: ''
+      permalink: true
+      toc_depth: 3
+  - wikilinks
+repo_name: qmk/qmk_firmware
+repo_url: https://github.com/qmk/qmk_firmware
+site_name: QMK Firmware Docs
+site_dir: ./site/
+theme:
+  favicon: images/favicon.ico
+  features:
+    - navigation.expand
+    #- navigation.instant
+    - navigation.sections
+    - search.highlight
+    - search.share
+    - search.suggest
+  font:
+    text: Varela Round
+    code: Source Code Pro
+  icon:
+    repo: fontawesome/brands/github
+  language: en
+  logo : images/logo.png
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: light blue
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: light blue
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
