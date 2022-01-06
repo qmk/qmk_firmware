@@ -5,9 +5,9 @@
 An alternative controler for the HHKB designed by YANG (yangdigi)
 based on the hasu controller.
 
-Keyboard Maintainer: [Kan-Ru Chen](https://github.com/kanru)  
-Hardware Supported: YANG HHKB BLE Controller  
-Hardware Availability: https://kbdfans.com/products/hhkb-ble-mod-upgrade-module
+* Keyboard Maintainer: [Kan-Ru Chen](https://github.com/kanru)  
+* Hardware Supported: YANG HHKB BLE Controller  
+* Hardware Availability: https://kbdfans.com/products/hhkb-ble-mod-upgrade-module
 
 Make example for this keyboard (after setting up your build environment):
 
