@@ -12,10 +12,6 @@ This is my principles for layout:
 
 * The less features are used the better.
 
-* trilayer is cool.
-
-* There is 🐍 key for no reason.
-
 * There is simple TMUX layer.
 
 ## Improvements over Callum
