@@ -19,4 +19,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+RGB_STRANDS_ENABLE = yes    # Enable keyboard multiple RGB strands
 AUDIO_ENABLE = no           # Audio output
+CIE1931_CURVE = no          # Don't load the curve table to save space
