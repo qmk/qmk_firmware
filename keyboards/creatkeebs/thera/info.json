@@ -1,5 +1,7 @@
 {
-	"name": "thera-via",
+	"keyboad_name": "thera",
+    "url": "eschit.com",
+    "maintainer": "Tim"
 	"vendorId": "0xFEED",
 	"productId": "0x6060",
 	"lighting": "none",
