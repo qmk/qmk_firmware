@@ -1,4 +1,5 @@
 # jonavin's GMMK Pro ISO layout
+# Thanks to RustyBrakes for the keymap adjustments and ISO Layout testing
 
 - Add Fn layer keys from Glorious Core mapping that's missing in the default qmk mapping
 - Add PrtScr, Scroll Lock, Break, NumLock to Fn layer
@@ -50,16 +51,3 @@ INVERT_NUMLOCK_INDICATOR
 COLEMAK_LAYER_ENABLE = yes
     - Enabled optional 5th layer for COLEMAK layout
     - Use Shift and encoder to enter 5th layer, right led indicator lights up BLUE
-    
-## All layers diagram
-Default layer
-![image](https://user-images.githubusercontent.com/71780717/124177658-82324880-da7e-11eb-9421-b69100131062.png)
-
-Fn Layer
-![image](https://user-images.githubusercontent.com/71780717/131255937-06c9691b-835f-4c94-93e6-6d1dc3de272b.png)
-
-Layer 2 (Caps Lock Mod)
-![image](https://user-images.githubusercontent.com/71780717/124177683-8b231a00-da7e-11eb-9434-e2475f679a54.png)
-
-Optional COLEMAK layer
-![image](https://user-images.githubusercontent.com/71780717/131235050-980d2f54-2d23-4ae8-a83f-9fcdbe60d6cb.png)

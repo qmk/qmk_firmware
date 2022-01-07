@@ -1,4 +1,5 @@
 /* Copyright 2021 Jonavin Eng
+ * Copyright 2022 RustyBrakes (ISO conversion)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
