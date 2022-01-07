@@ -48,7 +48,6 @@
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 10
 #define RGBLIGHT_VAL_STEP 10
-#define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_LIMIT_VAL 130 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 #endif
 #define DEBOUNCE 5
