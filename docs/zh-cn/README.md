@@ -36,7 +36,7 @@ QMK提供了很多功能，对应着很多可供浏览的配套文档。大部�
 * 可以在我们的论坛及聊天室进行互助：
     * [/r/olkb](https://www.reddit.com/r/olkb/)
     * [Discord服务器](https://discord.gg/Uq7gcHh)
-* 点击页面下方的"Edit This Page"，可以对文档提供贡献。
+* 点击页面下方的“Edit This Page”，可以对文档提供贡献。
 * [将这份文档翻译为你的语言](zh-cn/translating.md)
 * [上报bug](https://github.com/qmk/qmk_firmware/issues/new/choose)
 * [发起Pull Request](zh-cn/contributing.md)

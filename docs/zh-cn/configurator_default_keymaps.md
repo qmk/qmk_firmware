@@ -25,7 +25,7 @@ QMK配置器使用JSON作为键映射的本地文件格式。我们尽力确保�
 
 额外地，大部分键映射中还有一个 `commit` 项，该项并不是QMK配置器后端服务API所需，而是用于告知配置器维护者这份JSON键映射数据来源于代码库中的哪个版本的键映射。该值为 `qmk_firmware` 代码库中最后一次修改键盘默认 `keymap.c` 文件提交的commit的SHA标记。该SHA值的获取方式是拉取[`qmk/qmk_firmware` 库的 `master`分支](https://github.com/qmk/qmk_firmware/tree/master/)后，执行 `git log -1 --pretty=oneline -- keyboards/<keyboard>/keymaps/default/keymap.c`（若键盘有什么问题且存在 `keymap.json` 文件，则用之作为替代），执行结果应类似于：
 
-```shell
+```
 f14629ed1cd7c7ec9089604d64f29a99981558e8 Remove/migrate action_get_macro()s from default keymaps (#5625)
 ```
 
@@ -36,7 +36,7 @@ f14629ed1cd7c7ec9089604d64f29a99981558e8 Remove/migrate action_get_macro()s from
 
 若某人想添加H87a Hineybush键盘的默认键映射方案，应到 `qmk_firmware` 下H87a的默认键映射下执行上述 `git log` 命令：
 
-```shell
+```
 user ~/qmk_firmware (master)
 $ git log -1 --pretty=oneline master -- keyboards/hineybush/h87a/keymaps/default/keymap.c
 ef8878fba5d3786e3f9c66436da63a560cd36ac9 Hineybush h87a lock indicators (#8237)

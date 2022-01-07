@@ -164,7 +164,7 @@
 
   * QMK参考信息
     * [参与到QMK](zh-cn/contributing.md)
-    * [翻译QMK文档](translating.md)
+    * [翻译QMK文档](zh-cn/translating.md)<!--but should we translate this? currently keep it fallback-->
     * [配置](zh-cn/config_options.md)
     * [数据驱动配置](zh-cn/data_driven_config.md)
     * [Make指引](zh-cn/getting_started_make_guide.md)
