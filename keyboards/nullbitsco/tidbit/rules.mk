@@ -22,7 +22,7 @@ ENCODER_ENABLE = yes        # Use rotary encoder
 LTO_ENABLE = yes            # Link-time optimization
 
 # Project specific files
-SRC += i2c_master.c \
-    common/bitc_led.c \
-    common/remote_kb.c \
+SRC += common/bitc_led.c \
+    common/remote_kb.c
+QUANTUM_LIB_SRC += i2c_master.c \
     uart.c

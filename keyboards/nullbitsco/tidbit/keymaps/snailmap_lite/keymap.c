@@ -160,19 +160,14 @@ static void render_wpm_counters(uint8_t current_wpm) {
     uint8_t cursorposition_cur = 13;
     uint8_t cursorposition_max = 14;
 
-    char wpm_counter[4];
-    wpm_counter[3] = '\0';
-    wpm_counter[2] = '0' + current_wpm % 10;
-    wpm_counter[1] = '0' + (current_wpm / 10) % 10;
-    wpm_counter[0] = '0' + (current_wpm / 100) % 10;
     oled_set_cursor(0, cursorposition_cur);
-    oled_write(wpm_counter, false);
+    oled_write(get_u8_str(current_wpm, '0'), false);
 
     if (current_wpm > oled_data.max_wpm) {
         oled_data.max_wpm = current_wpm;
         oled_data.wpm_limit = oled_data.max_wpm + 20;
         oled_set_cursor(0, cursorposition_max);
-        oled_write(wpm_counter, false);
+        oled_write(get_u8_str(current_wpm, '0'), false);
     }
 }
 
@@ -264,12 +259,6 @@ bool oled_task_user(void) {
     }
     // Get current WPM, subtract 25% for accuracy and prevent large jumps caused by simultaneous keypresses
     uint8_t current_wpm = get_current_wpm();
-    // Note: This will most likely be removed once QMK's WPM calculation is updated
-    current_wpm -= current_wpm >> 2;
-    if (current_wpm > oled_data.wpm_limit) {
-        current_wpm = oled_data.max_wpm;
-        set_current_wpm(oled_data.max_wpm);
-    }
     // Write active layer name to display
     render_layer_state();
     // Update WPM counters
