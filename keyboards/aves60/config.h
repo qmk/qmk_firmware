@@ -10,7 +10,7 @@
 #define PRODUCT_ID      0xD408
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    I/O Keyboards
-#define PRODUCT         Aves60
+#define PRODUCT         Aves 60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
