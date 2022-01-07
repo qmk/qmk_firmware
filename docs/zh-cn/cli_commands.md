@@ -123,6 +123,20 @@ qmk flash -b
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
+## `qmk cd`
+
+该命令会启动一个新的 shell 会话并定位到 `qmk_firmware` 所在目录。
+
+须留意如果你已经位于 `QMK_HOME` 下的某个位置（比如 `keyboards/` 目录中），该指令不会生效。
+
+若要退回到原来的 shell 会话，只需要执行 `exit`。
+
+**使用方法**:
+
+```
+qmk cd
+```
+
 ## `qmk console`
 
 该命令用于连接键盘终端并展示调试信息。仅当键盘固件通过 `CONSOLE_ENABLE=yes` 编译时有效。
@@ -374,6 +388,33 @@ qmk format-c
 qmk format-c -b branch_name
 ```
 
+## `qmk generate-compilation-database`
+
+**用法**:
+
+```
+qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]
+```
+
+创建新 `compile_commands.json` 文件。
+
+你的IDE/编辑器是否使用了“编程语言本地服务器”（language server）且 _总是_ 无法找到全部的包含文件（include files）？是不是很讨厌红色的波浪线？想不想让你的编辑器看得懂 `#include QMK_KEYBOARD_H`？你需要的是一个[编译数据库](https://clang.llvm.org/docs/JSONCompilationDatabase.html)！而 QMK 可以帮助你构建出一个。
+
+该命令需要知道你在构建的是哪个键盘及键映射，它使用与 `qmk compile` 命令一样的选项：参数、当前目录以及配置文件。
+
+**示例：**
+
+```
+$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
+$ qmk generate-compilation-database
+Ψ Making clean
+Ψ Gathering build instructions from make -n gh60/satan:colemak
+Ψ Found 50 compile commands
+Ψ Writing build database to /Users/you/src/qmk_firmware/compile_commands.json
+```
+
+现在可以打开你的开发环境并享受没有波浪线的日子了。
+
 ## `qmk docs`
 
 该命令会在本地启动一个HTTP服务，从而你可以浏览及改进文档，默认端口号为8936，使用 `-b`/`--browser` 开关可以让该命令自动通过默认浏览器打开链接地址。
@@ -445,3 +486,18 @@ qmk format-python
 ```
 qmk pytest
 ```
+
+**示例**:
+
+执行全部的测试套件：
+
+    qmk pytest
+
+执行指定的测试用例组：
+
+    qmk pytest -t qmk.tests.test_cli_commands
+
+执行单个测试用例：
+
+    qmk pytest -t qmk.tests.test_cli_commands.test_c2json
+    qmk pytest -t qmk.tests.test_qmk_path
