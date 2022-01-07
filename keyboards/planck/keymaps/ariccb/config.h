@@ -43,6 +43,11 @@
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 #define TAPPING_TERM 150
+#define IGNORE_MOD_TAP_INTERRUPT
+#define HOLD_ON_OTHER_KEY_PRESS
+
+
+
 #define MOUSEKEY_INTERVAL 16        //Time between cursor movements in milliseconds.
                                     //If the refresh rate of your display is 60Hz, you could set it to 16 (1/60). As this raises the cursor speed significantly, you may want to lower MOUSEKEY_MAX_SPEED
 #define MOUSEKEY_MAX_SPEED 5        //Maximum cursor speed at which acceleration stops
