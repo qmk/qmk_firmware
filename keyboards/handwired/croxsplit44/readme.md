@@ -8,11 +8,9 @@ Thanks to ak666666 for the base case layout : https://www.thingiverse.com/thing:
 * Keyboard Maintainer: https://github.com/Samux6146
 * Hardware Supported: handwired, teensy ++ 2.0
 
+Make example for this keyboard (after setting up your build environment):
 
-Make example:
-        make handwiered/croxsplit44:default
-or if you want to use via:
-        make handwiered/croxsplit44:via
+    make handwired/croxsplit44:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
