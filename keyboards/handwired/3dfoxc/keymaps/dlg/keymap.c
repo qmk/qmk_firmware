@@ -16,10 +16,12 @@
 
 #include QMK_KEYBOARD_H
 
-#define _BL 0
-#define _FL 1
-#define _MAC 2
-#define _LA 3
+enum custom_layers {
+    _BL,
+    _FL,
+    _MAC,
+    _LA,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
