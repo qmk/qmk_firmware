@@ -1,5 +1,10 @@
 # 充分利用AVR
 
+<!---
+  original document: 0.15.12:docs/squeezing_avr.md
+  git diff 0.15.12 HEAD -- docs/squeezing_avr.md | cat
+-->
+
 AVR对空间限制极其严格，随着QMK的持续开发，无法再适应这些限制，所以对AVR的支持可能会成为历史。
 
 话说回来，如果想要减小固件编译后的大小，你可以采取如下操作：
