@@ -1,15 +1,15 @@
-# 42
+# carpolly
 
-42-keys ergonomic keyboard running on Adafruit Feather BLE.
+Keyboard Maintainer: Paul Enrico N. Viola (https://github.com/PollyV1)
+Hardware Supported: Teensy 2 controller
+Hardware Availability: https://github.com/PollyV1/Carpolly
 
-![42](https://github.com/nglgzz/42/raw/master/42.jpg)
+carpolly - a handwired keyboard on a teensy 2 controller
 
-Keyboard Maintainer: [Angelo Gazzola (nglgzz)](https://github.com/nglgzz)  
-Hardware Supported: 42 (rev2, rev3), Feather 32u4 BLE  
-Hardware Availability: [GitHub](https://github.com/nglgzz/42/)
+https://imgur.com/w691sNn
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/42:default
+    make carpolly/default:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
