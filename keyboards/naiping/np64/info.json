@@ -2,8 +2,6 @@
     "keyboard_name": "np64",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT": "LAYOUT_64_ansi"
     },

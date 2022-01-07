@@ -38,6 +38,9 @@ static const I2CConfig i2cconfig = {
     I2C1_OPMODE,
     I2C1_CLOCK_SPEED,
     I2C1_DUTY_CYCLE,
+#elif defined(WB32F3G71xx)
+    I2C1_OPMODE,
+    I2C1_CLOCK_SPEED,
 #else
     // This configures the I2C clock to 400khz assuming a 72Mhz clock
     // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
@@ -63,16 +66,16 @@ __attribute__((weak)) void i2c_init(void) {
         is_initialised = true;
 
         // Try releasing special pins for a short time
-        palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_INPUT);
-        palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
+        palSetLineMode(I2C1_SCL_PIN, PAL_MODE_INPUT);
+        palSetLineMode(I2C1_SDA_PIN, PAL_MODE_INPUT);
 
         chThdSleepMilliseconds(10);
 #if defined(USE_GPIOV1)
-        palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, I2C1_SCL_PAL_MODE);
-        palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, I2C1_SDA_PAL_MODE);
+        palSetLineMode(I2C1_SCL_PIN, I2C1_SCL_PAL_MODE);
+        palSetLineMode(I2C1_SDA_PIN, I2C1_SDA_PAL_MODE);
 #else
-        palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
-        palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+        palSetLineMode(I2C1_SCL_PIN, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
+        palSetLineMode(I2C1_SDA_PIN, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
 #endif
     }
 }
@@ -102,7 +105,7 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
     i2cStart(&I2C_DRIVER, &i2cconfig);
 
     uint8_t complete_packet[length + 1];
-    for (uint8_t i = 0; i < length; i++) {
+    for (uint16_t i = 0; i < length; i++) {
         complete_packet[i + 1] = data[i];
     }
     complete_packet[0] = regaddr;
@@ -111,10 +114,33 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
     return chibios_to_qmk(&status);
 }
 
+i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
+    i2c_address = devaddr;
+    i2cStart(&I2C_DRIVER, &i2cconfig);
+
+    uint8_t complete_packet[length + 2];
+    for (uint16_t i = 0; i < length; i++) {
+        complete_packet[i + 2] = data[i];
+    }
+    complete_packet[0] = regaddr >> 8;
+    complete_packet[1] = regaddr & 0xFF;
+
+    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), complete_packet, length + 2, 0, 0, TIME_MS2I(timeout));
+    return chibios_to_qmk(&status);
+}
+
 i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_address = devaddr;
     i2cStart(&I2C_DRIVER, &i2cconfig);
     msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), &regaddr, 1, data, length, TIME_MS2I(timeout));
+    return chibios_to_qmk(&status);
+}
+
+i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
+    i2c_address = devaddr;
+    i2cStart(&I2C_DRIVER, &i2cconfig);
+    uint8_t register_packet[2] = {regaddr >> 8, regaddr & 0xFF};
+    msg_t   status             = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), register_packet, 2, data, length, TIME_MS2I(timeout));
     return chibios_to_qmk(&status);
 }
 

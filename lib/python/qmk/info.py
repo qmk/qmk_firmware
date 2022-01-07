@@ -25,14 +25,21 @@ def _valid_community_layout(layout):
     return (Path('layouts/default') / layout).exists()
 
 
+def _remove_newlines_from_labels(layouts):
+    for layout_name, layout_json in layouts.items():
+        for key in layout_json['layout']:
+            if '\n' in key['label']:
+                key['label'] = key['label'].split('\n')[0]
+
+
 def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
     cur_dir = Path('keyboards')
-    rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
-    if 'DEFAULT_FOLDER' in rules:
-        keyboard = rules['DEFAULT_FOLDER']
-        rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk', rules)
+    root_rules_mk = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
+
+    if 'DEFAULT_FOLDER' in root_rules_mk:
+        keyboard = root_rules_mk['DEFAULT_FOLDER']
 
     info_data = {
         'keyboard_name': str(keyboard),
@@ -99,6 +106,9 @@ def info_json(keyboard):
     # Check that the reported matrix size is consistent with the actual matrix size
     _check_matrix(info_data)
 
+    # Remove newline characters from layout labels
+    _remove_newlines_from_labels(layouts)
+
     return info_data
 
 
@@ -111,11 +121,6 @@ def _extract_features(info_data, rules):
         del rules['BOOTMAGIC_ENABLE']
     if rules.get('BOOTMAGIC_ENABLE') == 'full':
         rules['BOOTMAGIC_ENABLE'] = 'on'
-
-    # Skip non-boolean features we haven't implemented special handling for
-    for feature in 'HAPTIC_ENABLE', 'QWIIC_ENABLE':
-        if rules.get(feature):
-            del rules[feature]
 
     # Process the rest of the rules as booleans
     for key, value in rules.items():
@@ -619,6 +624,8 @@ def arm_processor_rules(info_data, rules):
     if 'bootloader' not in info_data:
         if 'STM32' in info_data['processor']:
             info_data['bootloader'] = 'stm32-dfu'
+        elif 'WB32' in info_data['processor']:
+            info_data['bootloader'] = 'wb32-dfu'
         else:
             info_data['bootloader'] = 'unknown'
 
@@ -691,8 +698,8 @@ def merge_info_jsons(keyboard, info_data):
 
             if layout_name in info_data['layouts']:
                 if len(info_data['layouts'][layout_name]['layout']) != len(layout['layout']):
-                    msg = '%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s'
-                    _log_error(info_data, msg % (info_data['keyboard_folder'], layout_name, len(layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout'])))
+                    msg = 'Number of keys for %s does not match! info.json specifies %d keys, C macro specifies %d'
+                    _log_error(info_data, msg % (layout_name, len(layout['layout']), len(info_data['layouts'][layout_name]['layout'])))
                 else:
                     for new_key, existing_key in zip(layout['layout'], info_data['layouts'][layout_name]['layout']):
                         existing_key.update(new_key)

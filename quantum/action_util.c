@@ -32,16 +32,6 @@ static uint8_t weak_override_mods = 0;
 static uint8_t suppressed_mods    = 0;
 #endif
 
-#ifdef USB_6KRO_ENABLE
-#    define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
-#    define RO_SUB(a, b) ((a - b + KEYBOARD_REPORT_KEYS) % KEYBOARD_REPORT_KEYS)
-#    define RO_INC(a) RO_ADD(a, 1)
-#    define RO_DEC(a) RO_SUB(a, 1)
-static int8_t cb_head  = 0;
-static int8_t cb_tail  = 0;
-static int8_t cb_count = 0;
-#endif
-
 // TODO: pointer variable is not needed
 // report_keyboard_t keyboard_report = {};
 report_keyboard_t *keyboard_report = &(report_keyboard_t){};
@@ -180,7 +170,7 @@ void reset_oneshot_layer(void) {
 void clear_oneshot_layer_state(oneshot_fullfillment_t state) {
     uint8_t start_state = oneshot_layer_data;
     oneshot_layer_data &= ~state;
-    if ((!get_oneshot_layer_state() && start_state != oneshot_layer_data) || keymap_config.oneshot_disable) {
+    if ((!get_oneshot_layer_state() && start_state != oneshot_layer_data) && !keymap_config.oneshot_disable) {
         layer_off(get_oneshot_layer());
         reset_oneshot_layer();
     }
@@ -199,6 +189,7 @@ void oneshot_set(bool active) {
     if (keymap_config.oneshot_disable != active) {
         keymap_config.oneshot_disable = active;
         eeconfig_update_keymap(keymap_config.raw);
+        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         dprintf("Oneshot: active: %d\n", active);
     }
 }

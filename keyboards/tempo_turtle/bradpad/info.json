@@ -2,8 +2,6 @@
     "keyboard_name": "bradpad",
     "url": "https://tempoturtle.com",
     "maintainer": "wxyangf",
-    "width": 4,
-    "height": 5,
     "diode_direction": "ROW2COL",
     "matrix_pins":{
         "rows":["B7", "D5", "C7", "D2", "D3"],

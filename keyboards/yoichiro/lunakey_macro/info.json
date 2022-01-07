@@ -2,8 +2,6 @@
     "keyboard_name": "Lunakey Macro",
     "url": "",
     "maintainer": "Yoichiro Tanaka",
-    "width": 4.5,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

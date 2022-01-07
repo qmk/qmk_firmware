@@ -2,8 +2,6 @@
     "keyboard_name": "TKC Portico",
     "url": "",
     "maintainer": "TerryMathews",
-    "width": 16,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_65_ansi_blocker",
     },

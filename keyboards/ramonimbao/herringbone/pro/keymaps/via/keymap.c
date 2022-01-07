@@ -88,12 +88,14 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         encoder_cw.pressed = true;
         encoder_cw.time = (timer_read() | 1);
         action_exec(encoder_cw);
+        wait_ms(20);
         anim_sleep = timer_read32();
         oled_on();
     } else {
         encoder_ccw.pressed = true;
         encoder_ccw.time = (timer_read() | 1);
         action_exec(encoder_ccw);
+        wait_ms(20);
         anim_sleep = timer_read32();
         oled_on();
     }
@@ -132,7 +134,7 @@ static void render_pattern(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // Render Herringbone pattern
     render_pattern();
     oled_render();
@@ -146,5 +148,6 @@ void oled_task_user(void) {
     oled_set_cursor(0, 2);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
     oled_render();
+    return false;
 }
 #endif

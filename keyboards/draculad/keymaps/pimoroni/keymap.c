@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "drivers/sensors/pimoroni_trackball.h"
-#include "pointing_device.h"
 
 
 enum layer_number {
@@ -29,13 +27,13 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  BALL_HUI,//cycles hue
-  BALL_WHT,//cycles white
-  BALL_DEC,//decreased color
-  BALL_SCR,//scrolls
-  BALL_NCL,//left click
-  BALL_RCL,//right click
-  BALL_MCL,//middle click
+  BALL_HUI = SAFE_RANGE, //cycles hue
+  BALL_WHT,              //cycles white
+  BALL_DEC,              //decreased color
+  BALL_SCR,              //scrolls
+  BALL_NCL,              //left click
+  BALL_RCL,              //right click
+  BALL_MCL,              //middle click
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -78,8 +76,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef OLED_ENABLE
-
-
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
  if (is_keyboard_master()) {
@@ -200,20 +196,31 @@ static void render_status(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
       if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_logo();
     }
+    return false;
 }
 
-#endif
+#endif //OLED_ENABLE
 
 uint8_t white = 0;
 uint8_t red = 255;
 uint8_t green = 0;
 uint8_t blue = 0;
+
+bool set_scrolling = false;
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (set_scrolling) {
+        mouse_report.h = mouse_report.x;
+        mouse_report.v = mouse_report.y;
+        mouse_report.x = mouse_report.y = 0; 
+    }
+    return mouse_report;
+}
 
 void ball_increase_hue(void){
       if(red!=255&&green!=255&&blue!=255){
@@ -232,7 +239,7 @@ void ball_increase_hue(void){
       } else if(green ==0&&blue>0&&red==255){
         blue -=15;
       }
-      trackball_set_rgbw(red,green,blue,white);
+      pimoroni_trackball_set_rgbw(red,green,blue,white);
 }
 
 void decrease_color(void){
@@ -245,7 +252,7 @@ void decrease_color(void){
   if (blue>0){
     blue-=15;
   }
-  trackball_set_rgbw(red,green,blue,white);
+  pimoroni_trackball_set_rgbw(red,green,blue,white);
 }
 
 void cycle_white(void){
@@ -254,7 +261,7 @@ void cycle_white(void){
   } else{
     white=0;
   }
-  trackball_set_rgbw(red,green,blue,white);
+  pimoroni_trackball_set_rgbw(red,green,blue,white);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
@@ -279,9 +286,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 
   case BALL_SCR:
    if(record->event.pressed){
-     trackball_set_scrolling(true);
+     set_scrolling = true;
    } else{
-     trackball_set_scrolling(false);
+     set_scrolling = false;
    }
    break;
 
@@ -297,6 +304,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
   }
   return true;
 }
+
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
@@ -324,4 +332,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     // the missing ones are encoder 1 on the right side and encoder 3 on the left side
     return true;
 }
-#endif
+#endif // ENCODER_ENABLE

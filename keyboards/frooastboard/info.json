@@ -2,8 +2,6 @@
     "keyboard_name": "Frooastboard",
     "url": "https://github.com/frooastside/qmk_firmware/tree/master/keyboards/frooastboard",
     "maintainer": "frooastside",
-    "width": 2,
-    "height": 2,
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "layouts": {

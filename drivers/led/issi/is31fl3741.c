@@ -61,6 +61,14 @@
 #    define ISSI_PERSISTENCE 0
 #endif
 
+#ifndef ISSI_SWPULLUP
+#    define ISSI_SWPULLUP PUR_32KR
+#endif
+
+#ifndef ISSI_CSPULLUP
+#    define ISSI_CSPULLUP PUR_32KR
+#endif
+
 #define ISSI_MAX_LEDS 351
 
 // Transfer buffer for TWITransmitData()
@@ -73,7 +81,7 @@ uint8_t g_twi_transfer_buffer[20] = {0xFF};
 // buffers and the transfers in IS31FL3741_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
 uint8_t g_pwm_buffer[DRIVER_COUNT][ISSI_MAX_LEDS];
-bool    g_pwm_buffer_update_required                      = false;
+bool    g_pwm_buffer_update_required[DRIVER_COUNT]        = {false};
 bool    g_scaling_registers_update_required[DRIVER_COUNT] = {false};
 
 uint8_t g_scaling_registers[DRIVER_COUNT][ISSI_MAX_LEDS];
@@ -157,7 +165,7 @@ void IS31FL3741_init(uint8_t addr) {
     // Set Golbal Current Control Register
     IS31FL3741_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
     // Set Pull up & Down for SWx CSy
-    IS31FL3741_write_register(addr, ISSI_REG_PULLDOWNUP, 0x77);
+    IS31FL3741_write_register(addr, ISSI_REG_PULLDOWNUP, ((ISSI_CSPULLUP << 4) | ISSI_SWPULLUP));
 
     // IS31FL3741_update_led_scaling_registers(addr, 0xFF, 0xFF, 0xFF);
 
@@ -166,13 +174,14 @@ void IS31FL3741_init(uint8_t addr) {
 }
 
 void IS31FL3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    is31_led led;
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
-        is31_led led = g_is31_leds[index];
+        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
-        g_pwm_buffer[led.driver][led.r] = red;
-        g_pwm_buffer[led.driver][led.g] = green;
-        g_pwm_buffer[led.driver][led.b] = blue;
-        g_pwm_buffer_update_required    = true;
+        g_pwm_buffer[led.driver][led.r]          = red;
+        g_pwm_buffer[led.driver][led.g]          = green;
+        g_pwm_buffer[led.driver][led.b]          = blue;
+        g_pwm_buffer_update_required[led.driver] = true;
     }
 }
 
@@ -183,7 +192,8 @@ void IS31FL3741_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3741_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led = g_is31_leds[index];
+    is31_led led;
+    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
     if (red) {
         g_scaling_registers[led.driver][led.r] = 0xFF;
@@ -206,12 +216,12 @@ void IS31FL3741_set_led_control_register(uint8_t index, bool red, bool green, bo
     g_scaling_registers_update_required[led.driver] = true;
 }
 
-void IS31FL3741_update_pwm_buffers(uint8_t addr1, uint8_t addr2) {
-    if (g_pwm_buffer_update_required) {
-        IS31FL3741_write_pwm_buffer(addr1, g_pwm_buffer[0]);
+void IS31FL3741_update_pwm_buffers(uint8_t addr, uint8_t index) {
+    if (g_pwm_buffer_update_required[index]) {
+        IS31FL3741_write_pwm_buffer(addr, g_pwm_buffer[index]);
     }
 
-    g_pwm_buffer_update_required = false;
+    g_pwm_buffer_update_required[index] = false;
 }
 
 void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue) {
@@ -219,7 +229,7 @@ void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
     g_pwm_buffer[pled->driver][pled->g] = green;
     g_pwm_buffer[pled->driver][pled->b] = blue;
 
-    g_pwm_buffer_update_required = true;
+    g_pwm_buffer_update_required[pled->driver] = true;
 }
 
 void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index) {

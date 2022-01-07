@@ -2,11 +2,8 @@
   "keyboard_name": "half_n_half",
   "url": "",
   "maintainer": "qmk",
-  "width": 14,
-  "height": 4,
   "layouts": {
     "LAYOUT": {
-      "key_count": 44,
       "layout": [
           {"label":"L00", "x":0, "y":0},
           {"label":"L01", "x":1, "y":0},
@@ -59,4 +56,3 @@
     }
   }
 }
-  
