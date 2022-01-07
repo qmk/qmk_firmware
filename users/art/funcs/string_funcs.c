@@ -1,3 +1,9 @@
+// Copyright 2021 Artjoms Rizihs (@artjomsR)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "art.h"
+#include "string_funcs.h"
+
 bool mac_ctrl_on;
 
 int char_to_bspace;
@@ -12,13 +18,12 @@ const uint16_t PROGMEM combo_ctrl_left[] = {KC_Q, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_ctrl_right[] = {KC_E, KC_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo_up, KC_UP),
-    COMBO(combo_left, KC_LEFT),
-    COMBO(combo_right, KC_RIGHT),
-    COMBO(combo_down, KC_DOWN),
-    COMBO(combo_ctrl_left, LCTL(KC_LEFT)),
-    COMBO(combo_ctrl_right, LCTL(KC_RIGHT)),
-    // COMBO(combo_, LCTL(KC_Z)), // keycodes with modifiers are possible too!
+  COMBO(combo_up, KC_UP),
+  COMBO(combo_left, KC_LEFT),
+  COMBO(combo_right, KC_RIGHT),
+  COMBO(combo_down, KC_DOWN),
+  COMBO(combo_ctrl_left, LCTL(KC_LEFT)),
+  COMBO(combo_ctrl_right, LCTL(KC_RIGHT)),
 };
 
 bool is_mac_with_base_layer_off(void) {

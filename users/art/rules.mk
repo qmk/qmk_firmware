@@ -1,5 +1,6 @@
 SRC += art.c
 SRC += funcs/led_funcs.c
+SRC += funcs/string_funcs.c
 
 COMBO_ENABLE = yes
 

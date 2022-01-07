@@ -3,7 +3,7 @@
 #include "ctype.h"
 #include "secret_definitions.h"
 #include "funcs/led_funcs.h"
-#include "funcs/string_funcs.c"
+#include "funcs/string_funcs.h"
 
 static const int COPY_DELAY = 50;
 static const int INCOGNITO_DELAY = 500;
