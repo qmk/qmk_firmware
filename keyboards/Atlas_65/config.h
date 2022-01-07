@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFA7E
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x6565
+#define PRODUCT_ID      0x1000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Joshua Nguyen
 #define PRODUCT         atlas_65
