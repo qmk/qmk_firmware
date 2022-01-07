@@ -1,7 +1,7 @@
-const int NUM_LED_ON = 4;
-const int SCROLL_LED_ON = 1;
-const int NUM_SCROLL_LED_ON = 5;
-const int ALL_OFF = 0;
+// Copyright 2021 Artjoms Rizihs (@artjomsR)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "led_funcs.h"
 
 bool hw_caps_on;
 

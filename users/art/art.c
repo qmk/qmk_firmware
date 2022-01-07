@@ -2,7 +2,7 @@
 #include "string.h"
 #include "ctype.h"
 #include "secret_definitions.h"
-#include "funcs/led_funcs.c"
+#include "funcs/led_funcs.h"
 #include "funcs/string_funcs.c"
 
 static const int COPY_DELAY = 50;

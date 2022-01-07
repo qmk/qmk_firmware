@@ -5,7 +5,6 @@
 #define CTL_ALT(kc) (CTL_ALT_START + ((kc) & 0xff))
 
 extern bool is_win;
-#define BLINKING_INTERVAL 25
 #define TYPING_INTERVAL 20
 #define LONG_TYPING_INTERVAL 50
 
