@@ -79,7 +79,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     
-    return true;
+    return false;
 }
 
 void matrix_scan_user(void) {
