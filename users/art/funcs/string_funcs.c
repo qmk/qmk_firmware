@@ -8,12 +8,16 @@ const uint16_t PROGMEM combo_up[] = {KC_W, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_left[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_right[] = {KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_down[] = {KC_S, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_ctrl_left[] = {KC_Q, KC_E, COMBO_END};
+const uint16_t PROGMEM combo_ctrl_right[] = {KC_E, KC_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo_up, KC_UP),
     COMBO(combo_left, KC_LEFT),
     COMBO(combo_right, KC_RIGHT),
     COMBO(combo_down, KC_DOWN),
+    COMBO(combo_ctrl_left, LCTL(KC_LEFT)),
+    COMBO(combo_ctrl_right, LCTL(KC_RIGHT)),
     // COMBO(combo_, LCTL(KC_Z)), // keycodes with modifiers are possible too!
 };
 

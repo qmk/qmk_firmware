@@ -207,12 +207,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      * ------------------------------------------------------------------------ */
     case KC_CAPS:
       if (record->event.pressed && !layer_state_is(BASE))  {
-        if (hw_caps_on) {
+        if (get_mods() & MOD_MASK_SHIFT) {
+          full_caps_mode = true;
+          led_show_variable_status(full_caps_mode);
+          if (hw_caps_on) {
+            SEND_STRING(SS_TAP(X_CAPS));
+          }
+        } else if (hw_caps_on) {
           full_caps_mode = false;
-        }
-        else if (get_mods() & MOD_MASK_SHIFT) {
-            full_caps_mode = true;
-            led_show_variable_status(full_caps_mode);
         }
       }
       break;
