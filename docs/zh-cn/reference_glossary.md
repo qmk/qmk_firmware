@@ -95,7 +95,7 @@ Français （法语）标准键盘布局。用键盘的前六个字母命名。
 ## Macro(宏)
 本功能可以在敲击单个键后发送多个按键事件(hid报告)。
 
-* [宏文档](zh-ch/feature_macros.md)
+* [宏文档](zh-cn/feature_macros.md)
 
 ## MCU(单片机、微控制单元)
 微控制单元，键盘的处理器。
