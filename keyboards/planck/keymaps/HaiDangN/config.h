@@ -48,3 +48,5 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 9
