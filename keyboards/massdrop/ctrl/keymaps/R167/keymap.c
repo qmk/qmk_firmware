@@ -1,3 +1,6 @@
+// Copyright 2021 Winston Durand (@R167)
+// SPDX-License-Identifier: MIT
+
 #include QMK_KEYBOARD_H
 
 enum ctrl_keycodes {
@@ -28,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN] = LAYOUT(
         SLEEP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, KC_MUTE,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   KC_MPLY, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, SLEEP,     KC_MPLY, _______, _______,
         _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, _______, _______, _______, _______,   KC_MPRV, KC_MNXT, _______,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______, _______,
         _______, RGB_TOG, _______, _______, _______, MD_BOOT, NK_TOGG, _______, _______, _______, _______, _______,                              _______,
@@ -124,10 +127,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case SLEEP:
             if (record->event.pressed) {
-                tap_code16(G(A(KC_EJCT)));
+                // CMD+ALT+EJECT doesn't always reliably trigger. fall back mode
+                // tap_code16(G(A(KC_EJCT)));
+                tap_code16(LCTL(LGUI(KC_Q)));
                 asleep = true;
                 rgb_matrix_set_flags(LED_FLAG_NONE);
                 rgb_matrix_disable_noeeprom();
+            } else if (IS_RELEASED(record->event)) {
+                tap_code(KC_ESCAPE);
             }
             return false;
         default:
