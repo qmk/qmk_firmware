@@ -6,9 +6,13 @@ Keyboard Maintainer: Paul Enrico N. Viola (https://github.com/PollyV1)<br />    
 
 carpolly - a handwired keyboard on a teensy 2 controller
 
+## Make 
+
 Make example for this keyboard (after setting up your build environment):
 
     make carpolly/default:default
+
+## Flashing
 
 Flashing example for this keyboard:
 
