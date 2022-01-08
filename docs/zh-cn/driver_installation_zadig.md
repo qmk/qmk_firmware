@@ -56,15 +56,15 @@ Zadig可以自动检测到bootloader设备，但有时你需要在 **Options（�
 
 ![设备属性中的INF名称值](https://i.imgur.com/Bu4mk9m.png)
 
-之后使用管理员权限打开一个命令行窗口（在开始菜单处输出 `cmd` 并点击Ctrl+Shift+回车）。执行 `pnputil /enum-drivers`（Windows 7及之后版本为 `pnputil -e`） 并找到 `INF名称` 与 `Published Name（发布名称）` 一致的项：
+之后使用管理员权限打开一个命令行窗口（在开始菜单处输出 `cmd` 并点击Ctrl+Shift+回车）。执行 `pnputil /enum-drivers` 并找到 `INF名称` 与 `Published Name（发布名称）` 一致的项：
 
 ![对pnputil输出中匹配驱动项进行高亮展示](https://i.imgur.com/3RrSjzW.png)
 
-执行 `pnputil /delete-driver oemXX.inf /uninstall`（Windows 7及之后版本为 `pnputil -d oemXX.inf`），之后该驱动会被删除，相关设备也不再使用该驱动，但设备是不会被移除的。
+执行 `pnputil /delete-driver oemXX.inf /uninstall`，之后该驱动会被删除，相关设备也不再使用该驱动，但设备是不会被移除的。
 
 与上一节相似，本流程也可能需要执行多次，因为一个设备可能会有多个可用的驱动。
 
-!> **警告：** 操作过程中*务必非常小心*！以免不小心卸载掉其它关键驱动。如果你对操作不是很确定，多次检查 `/enum-drivers`（或 `-e`）的输出信息，也可以考虑执行 `/delete-driver` 时不添加 `/uninstall` 开关（Windows 7及之后版本不适用）。
+!> **警告：** 操作过程中*务必非常小心*！以免不小心卸载掉其它关键驱动。如果你对操作不是很确定，多次检查 `/enum-drivers`的输出信息，也可以考虑执行 `/delete-driver` 时不添加 `/uninstall` 开关\。
 
 ## 已知驱动列表 :id=list-of-known-bootloaders
 

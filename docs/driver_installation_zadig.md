@@ -60,7 +60,6 @@ Run `pnputil /delete-driver oemXX.inf /uninstall`. This will delete the driver a
 
 As with the previous section, this process may need to be repeated multiple times, as multiple drivers can be applicable to the same device.
 
-?> The `pnputil` command in older Windows version(like Windows 7) can only apply legacy type paramters, like `-e` instead of `/enum-drivers`, but that is deprecated. for more information, see [PnPUtil Command Syntax](https://docs.microsoft.com/en-us/windows-hardware/drivers/devtest/pnputil-command-syntax) from offical Microsoft.
 !> **WARNING:** Be *extremely careful* when doing this! You could potentially uninstall the driver for some other critical device. If you are unsure, double check the output of `/enum-drivers`, and omit the `/uninstall` flag when running `/delete-driver`.
 
 ## List of Known Bootloaders
