@@ -1,8 +1,8 @@
 #  调试 FAQ
 
 <!---
-  original document: 0.14.23:docs/faq_debug.md
-  git diff 0.14.23 HEAD -- docs/faq_debug.md | cat
+  original document: 0.15.12:docs/faq_debug.md
+  git diff 0.15.12 HEAD -- docs/faq_debug.md | cat
 -->
 
 此页面详细介绍了人们对键盘故障排除的各种常见问题。
@@ -23,11 +23,15 @@ void keyboard_post_init_user(void) {
 
 ## 调试工具
 
-有两种可用的调试工具。
+有多种可用于调试的工具。
 
 ### 使用QMK工具箱调试
 
 在兼容的平台上，[QMK工具箱](https://github.com/qmk/qmk_toolbox)可以展示你的键盘的调试输出。
+
+### 使用 QMK CLI 进行调试
+
+倾向于在终端进行调试？使用 [QMK CLI 命令行](zh-cn/cli_commands.md#qmk-console)可以展示键盘输出的调试信息。
 
 ### 使用hid_listen调试
 
