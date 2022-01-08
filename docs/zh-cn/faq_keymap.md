@@ -1,8 +1,8 @@
 # 键映射FAQ
 
 <!---
-  original document: 0.14.23:docs/faq_keymap.md
-  git diff 0.14.23 HEAD -- docs/faq_keymap.md | cat
+  original document: 0.15.12:docs/faq_keymap.md
+  git diff 0.15.12 HEAD -- docs/faq_keymap.md | cat
 -->
 
 本页包含人们经常遇到的关于键映射的问题，如果你还没阅读过[键映射概览](zh-cn/keymap.md)，请先阅读一下。
@@ -36,7 +36,7 @@ QMK有两个功能系列，Bootmagic及指令，都可以让键盘随时变得�
 
 快速恢复的办法是插入键盘时按住空格+`Backspace`键，这样会重置键盘内存储的设置信息，键盘就会恢复常态。如果问题依旧存在，请参考：
 
-* [Bootmagic Lite](zh-cn/feature_bootmagic.md)
+* [Bootmagic](zh-cn/feature_bootmagic.md)
 * [指令](zh-cn/feature_command.md) 
 
 ## 菜单键（Menu）不可用

@@ -1,8 +1,8 @@
 # 介绍
 
 <!---
-  original document: 0.14.23:docs/getting_started_introduction.md
-  git diff 0.14.23 HEAD -- docs/getting_started_introduction.md | cat
+  original document: 0.15.12:docs/getting_started_introduction.md
+  git diff 0.15.12 HEAD -- docs/getting_started_introduction.md | cat
 -->
 
 本页解释了使用QMK项目所需的基本信息。它假定您能熟练使用Unix shell，但您不熟悉C语言也不熟悉使用make编译。
@@ -13,7 +13,7 @@ QMK是[Jun Wako](https://github.com/tmk)的[tmk_keyboard](https://github.com/tmk
 
 ### 用户空间结构
 
-在`users`文件夹里面的目录是每个用户的目录。这个文件夹里面放的是用户们在不同键盘都能用到的代码。详见[用户空间特性](feature_userspace.md) 
+在`users`文件夹里面的目录是每个用户的目录。这个文件夹里面放的是用户们在不同键盘都能用到的代码。详见[用户空间特性](zh-cn/feature_userspace.md) 
 
 ### 键盘项目结构
 

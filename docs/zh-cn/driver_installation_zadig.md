@@ -1,8 +1,8 @@
 # 利用Zadig安装Bootloader驱动
 
 <!---
-  original document: 0.14.23:docs/driver_installation_zadig.md
-  git diff 0.14.23 HEAD -- docs/driver_installation_zadig.md | cat
+  original document: 0.15.12:docs/driver_installation_zadig.md
+  git diff 0.15.12 HEAD -- docs/driver_installation_zadig.md | cat
 -->
 
 QMK在主机侧会展现为一台HID键盘设备，因此不需要额外的驱动。但若要在Windows下刷写键盘固件，重置主控板时出现的bootloader设备则通常需要一些驱动程序。
@@ -13,8 +13,8 @@ QMK在主机侧会展现为一台HID键盘设备，因此不需要额外的驱�
 
 ## 安装
 
-将键盘重置为bootloader模式，点击 `RESET` 键码（可能在别的层中），或按一下通常在主控板背面上的重置开关，如果你的键盘上没有前两者，尝试在按住Esc键或空格+`B`键时插上键盘（更多信息参见[Bootmagic Lite](zh-cn/feature_bootmagic.md)）。有些键盘使用[指令](zh-cn/feature_command.md)功能来代替Bootmagic，这种情况下，可以在键盘插入状态下点击 左Shift+右Shift+`B` 或 左Shift+右Shift+Esc组合键来进入bootloader模式。
-也有一些键盘需要特别的操作才能进入bootloader状态。例如，[Bootmagic Lite](zh-cn/feature_bootmagic.md)键（默认为：Esc键）在其它键上，比如左Control；或是指令组合键（默认为：左Shift+右Shift）为其它组合，如左Control+右Control。当不确定的时候，可以查阅一下主控板的README文件。
+将键盘重置为bootloader模式，点击 `RESET` 键码（可能在别的层中），或按一下通常在主控板背面上的重置开关，如果你的键盘上没有前两者，尝试在按住Esc键或空格+`B`键时插上键盘（更多信息参见[Bootmagic](zh-cn/feature_bootmagic.md)）。有些键盘使用[指令](zh-cn/feature_command.md)功能来代替Bootmagic，这种情况下，可以在键盘插入状态下点击 左Shift+右Shift+`B` 或 左Shift+右Shift+Esc组合键来进入bootloader模式。
+也有一些键盘需要特别的操作才能进入bootloader状态。例如，[Bootmagic](zh-cn/feature_bootmagic.md)键（默认为：Esc键）在其它键上，比如左Control；或是指令组合键（默认为：左Shift+右Shift）为其它组合，如左Control+右Control。当不确定的时候，可以查阅一下主控板的README文件。
 
 若要将USBaspLoader设备置为bootloader模式，请在按住 `BOOT` 按钮时点击 `RESET` 按钮，或是在按住 `BOOT` 按钮时插入USB线缆。
 

@@ -1,8 +1,8 @@
 # 键映射总览
 
 <!---
-  original document: 0.14.23:docs/keymap.md
-  git diff 0.14.23 HEAD -- docs/keymap.md | cat
+  original document: 0.15.12:docs/keymap.md
+  git diff 0.15.12 HEAD -- docs/keymap.md | cat
 -->
 
 QMK键映射定义在C源文件中，其数据结构上是一个容纳了数组的数组。外层数组容纳了各个层，内层各数组则为层内的键列表。基本所有键盘都通过定义 `LAYOUT()` 宏来创建该两级数组。
@@ -30,8 +30,9 @@ QMK键映射定义在C源文件中，其数据结构上是一个容纳了数组�
        1 /___________// |               1 `--------------------------
        0 /___________/  V low           0 `--------------------------
 翻译：
-    |原文|译文|
-    |--|--|
+
+    |原文                       |译文         |
+    |--------------------------|-------------|
     |Keymap: 32 Layers         | 键映射：32个层|
     |stack of layers           | 层堆栈       |
     |precedence                | 优先级       |
@@ -65,8 +66,9 @@ QMK键映射定义在C源文件中，其数据结构上是一个容纳了数组�
     `--- default_layer = 0           `--- default_layer = 1
          layer_state   = 0x00000001       layer_state   = 0x00000002
 翻译：
-    |原文|译文|
-    |--|--|
+
+    |原文                    |译文         |
+    |-----------------------|-------------|
     |Initial state of Keymap| 键映射原始状态|
     |Change base layout     | 更改了基础层  |
 

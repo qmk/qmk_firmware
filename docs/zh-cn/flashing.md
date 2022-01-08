@@ -1,8 +1,8 @@
 # 刷写指引及Bootloader资料
 
 <!---
-  original document: 0.14.23:docs/flashing.md
-  git diff 0.14.23 HEAD -- docs/flashing.md | cat
+  original document: 0.15.12:docs/flashing.md
+  git diff 0.15.12 HEAD -- docs/flashing.md | cat
 -->
 
 用于键盘的bootloader有很多种，几乎每一种都在使用私有的刷写协议及工具。幸运的是，形如[QMK工具箱](https://github.com/qmk/qmk_toolbox/releases)这样的工程目标就是尽量支持这些工具，本文会探讨各种bootloader的差异，以及可用的刷写方案。
@@ -53,7 +53,7 @@ QMK维护了[一个LUFA DFU bootloader的分支版本](https://github.com/qmk/lu
 //#define QMK_LED E6
 //#define QMK_SPEAKER C6
 ```
-目前来讲不推荐将 `QMK_ESC` 键设置成与[Bootmagic Lite](zh-cn/feature_bootmagic.md)同一个键，否则按下该键时只会让MCU在bootloader模式上反复进出。
+目前来讲不推荐将 `QMK_ESC` 键设置成与[Bootmagic](zh-cn/feature_bootmagic.md)同一个键，否则按下该键时只会让MCU在bootloader模式上反复进出。
 
 制造商及型号字符串自动从 `config.h` 中获取，并会在型号后追加 " Bootloader"。
 
@@ -225,7 +225,7 @@ BOOTLOADER = qmk-hid
 
 ## STM32/APM32 DFU
 
-所有的STM32及APM32 MCU系列，除F103型号外（参见[STM32duino小节](#stem32duino)）都在出场时预装了bootloader且无法修改或删除。
+所有的STM32及APM32 MCU系列，除F103型号外（参见[STM32duino小节](#stm32duino)）都在出场时预装了bootloader且无法修改或删除。
 
 为确保对STM32-DFU bootloader的兼容性，请添加如下代码块至 `rules.mk`（可选替代项为 `apm32-dfu`）：
 

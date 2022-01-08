@@ -1,8 +1,8 @@
 # 如何做贡献
 
 <!---
-  original document: 0.14.23:docs/contributing.md
-  git diff 0.14.23 HEAD -- docs/contributing.md | cat
+  original document: 0.15.12:docs/contributing.md
+  git diff 0.15.12 HEAD -- docs/contributing.md | cat
 -->
 
 👍🎉 首先感谢各位百忙之中抽空阅读本文档，并为我们无私奉献。给您点赞啦！ 🎉👍
@@ -111,7 +111,7 @@ enum my_keycodes {
 
 在发起pull request前，请通过文档预览来检查你的本地更改。可以在 `qmk_firmware/` 目录下执行以下命令来配置文档开发环境：
 
-    ./bin/qmk docs
+    qmk docs
 
 或者，如果你有安装Python 3，可以尝试：
 

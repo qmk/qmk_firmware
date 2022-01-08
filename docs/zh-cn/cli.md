@@ -1,8 +1,8 @@
 # QMK CLI :id=qmk-cli
 
 <!---
-  original document: 0.14.23:docs/cli.md
-  git diff 0.14.23 HEAD -- docs/cli.md | cat
+  original document: 0.15.12:docs/cli.md
+  git diff 0.15.12 HEAD -- docs/cli.md | cat
 -->
 
 ## 总览 :id=overview
