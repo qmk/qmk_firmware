@@ -1,6 +1,6 @@
 # carpolly
 
-[Imgur](https://i.imgur.com/w691sNn.jpg[/img)
+![carpool](https://i.imgur.com/w691sNn.jpg[/img)
 
 Keyboard Maintainer: Paul Enrico N. Viola (https://github.com/PollyV1)<br />                                                                                                     Hardware Supported: Teensy 2 controller<br />                                                                                                                                     Hardware Availability: [PollyV1] https://github.com/PollyV1/Carpolly<br />
 
