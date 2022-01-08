@@ -281,7 +281,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         /* Monitor shift state */
         case SFT_MSE:
         case KC_LSFT:
-            if (!record->event.pressed) {
+            if (record->event.pressed) {
                 lshift = true;
             } else {
                 lshift = false;
@@ -290,16 +290,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QUT_SFT:
         case R_SHIFT:
         case KC_RSFT:
-            if (!record->event.pressed) {
+            if (record->event.pressed) {
                 rshift = true;
             } else {
                 rshift = false;
             }
             break;
-        case CU_BSPC:
-            SHIFT_SWITCH(KC_DEL, KC_BSPC)
-        case CU_SPBC:
-            SHIFT_SWITCH(KC_BSPC, KC_SPC)
+        case KC_BSPC:
+            if (record->event.pressed) {
+                if (lshift || rshift) {
+                    if (lshift) {
+                        unregister_code(KC_LSFT);
+                    } else {
+                        unregister_code(KC_RSFT);
+                    }
+                    register_code(KC_DEL);
+                    if (lshift) {
+                        register_code(KC_LSFT);
+                    } else {
+                        register_code(KC_RSFT);
+                    }
+                }
+            } else {
+               if (lshift || rshift) {
+                   unregister_code(KC_DEL);
+               }
+            }
+            break;
 #endif
 #ifdef APPLE_FN_ENABLE
         /* Detect if KC_APPLE_FN is pressed */
