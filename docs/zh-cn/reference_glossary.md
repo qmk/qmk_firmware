@@ -41,12 +41,12 @@ Français （法语）标准键盘布局。用键盘的前六个字母命名。
 ## Dynamic Macro(动态宏)
 一种记录在键盘上的宏，当键盘拔出或计算机重新启动时，宏将丢失。
 
-* [动态宏文档](feature_dynamic_macros.md)
+* [动态宏文档](zh-cn/feature_dynamic_macros.md)
 
 ## Eclipse
 是一种受C语言开发者追捧的集成开发环境(IDE)。
 
-* [Eclipse安装说明](eclipse.md)
+* [Eclipse安装说明](zh-cn/other_eclipse.md)
 
 ## Firmware(固件)
 用来控制单片机的软件。
@@ -64,7 +64,7 @@ Français （法语）标准键盘布局。用键盘的前六个字母命名。
 从键盘接收调试消息的接口。 您可以使用[QMK Flasher](https://github.com/qmk/qmk_flasher)或[PJRC's hid_listen](https://www.pjrc.com/teensy/hid_listen.html)查看这些消息
 
 ## Keycode(键码)
-表示特定键的2字节数据。`0x00`-`0xFF`用于[基本键码](keycodes_basic.md)而`0x100`-`0xFFFF`用于[量子键码](quantum_keycodes.md).
+表示特定键的2字节数据。`0x00`-`0xFF`用于[基本键码](zh-cn/keycodes_basic.md)而`0x100`-`0xFFFF`用于[量子键码](zh-cn/quantum_keycodes.md).
 
 ## Key Down
 一个键按下尚未抬起时触发的事件。
@@ -81,7 +81,7 @@ Français （法语）标准键盘布局。用键盘的前六个字母命名。
 ## Leader Key(前导键、设置菜单键)
 本功能允许您点击前导键，然后按顺序按1-3个键子来激活按键或其他量子功能。
 
-* [前导键文档](feature_leader_key.md)
+* [前导键文档](zh-cn/feature_leader_key.md)
 
 ## LED
 发光二极管，键盘上最常用的指示灯装置。
@@ -95,7 +95,7 @@ Français （法语）标准键盘布局。用键盘的前六个字母命名。
 ## Macro(宏)
 本功能可以在敲击单个键后发送多个按键事件(hid报告)。
 
-* [宏文档](feature_macros.md)
+* [宏文档](zh-ch/feature_macros.md)
 
 ## MCU(单片机、微控制单元)
 微控制单元，键盘的处理器。
@@ -106,7 +106,7 @@ Français （法语）标准键盘布局。用键盘的前六个字母命名。
 ## Mousekeys(鼠标键)
 本功能在您敲击键盘时会控制鼠标光标。
 
-* [鼠标键文档](feature_mouse_keys.md)
+* [鼠标键文档](zh-cn/feature_mouse_keys.md)
 
 ## N-Key Rollover (NKRO、全键无冲)
 一种术语，适用于能够同时报告任意数量按键的键盘。
@@ -135,7 +135,7 @@ HID报告中的一个1字节的数字，表示一个键子。这些数字在下�
 ## Space Cadet键盘的shift键
 一种特殊的shift设置，能让你通过敲击左或右shift一次或多次键入不同的括号。
 
-* [Space Cadet键盘文档](feature_space_cadet.md)
+* [Space Cadet键盘文档](zh-cn/feature_space_cadet.md)
 
 ## Tap(敲击、单击)
 按下并抬起一个键。在某些情况下您需要区分键按下和键抬起，但是单击把两个事件都包括了。
@@ -143,7 +143,7 @@ HID报告中的一个1字节的数字，表示一个键子。这些数字在下�
 ## Tap Dance(多击键)
 本功能允许向同一个键子分配多个键码，并根据按键次数区分。
 
-* [多击键文档](feature_tap_dance.md)
+* [多击键文档](zh-cn/feature_tap_dance.md)
 
 ## Teensy
 一种低成本AVR开发板<!--译者吐槽：我怎么感觉成本不低。好吧，我穷。 -->，通常用于手工连线键盘。这个teensy是有点小贵但是halfkay bootloader会让它刷写十分简单，所以也很常用。
@@ -154,12 +154,12 @@ HID报告中的一个1字节的数字，表示一个键子。这些数字在下�
 ## Unicode
 在广阔的计算机世界中，Unicode是一组编码方案，用于表示任何语言中的字符。 与qmk相关的是，它意味着使用各种操作系统方案来发送Unicode码点，而不是扫描码。
 
-* [Unicode文档](feature_unicode.md)
+* [Unicode文档](zh-cn/feature_unicode.md)
 
 ## Unit Testing(单元测试)
 针对qmk的自动测试框架。单元测试帮助我们确信我们的更改不会破坏任何东西。
 
-* [单元测试文档](unit_testing.md)
+* [单元测试文档](zh-cn/unit_testing.md)
 
 ## USB
 通用串行总线，键盘最常见的有线接口。
