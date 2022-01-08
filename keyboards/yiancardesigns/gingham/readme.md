@@ -10,11 +10,11 @@ Hardware Availability: https://yiancar-designs.com/, https://novelkeys.xyz, http
 
 Make example for this keyboard (after setting up your build environment):
 
-    make gingham:default
+    make yiancardesigns/gingham:default
 
 Flashing example for this keyboard:
 
-    make gingham:default:flash
+    make yiancardesigns/gingham:default:flash
 
 Bootloader:
 use usbasploader HSGW's my repository.

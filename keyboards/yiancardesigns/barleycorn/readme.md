@@ -10,11 +10,11 @@ An f-row less compact 1800 kit with only through hole components.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make barleycorn:default
+    make yiancardesigns/barleycorn:default
 
 Flashing example for this keyboard:
 
-    make barleycorn:default:flash
+    make yiancardesigns/barleycorn:default:flash
 
 Bootloader:
 use usbasploader from HSGW's repository.

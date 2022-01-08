@@ -10,11 +10,11 @@ An alice layout kit with only through hole components.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make seigaiha:default
+    make yiancardesigns/seigaiha:default
 
 Flashing example for this keyboard:
 
-    make seigaiha:default:flash
+    make yiancardesigns/seigaiha:default:flash
 
 Bootloader:
 use usbasploader from HSGW's repository.
