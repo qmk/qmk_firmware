@@ -60,3 +60,4 @@
 
 /* PMW3360 Settings */
 #define PMW3360_CS_PIN             B0
+#define POINTING_DEVICE_INVERT_Y
