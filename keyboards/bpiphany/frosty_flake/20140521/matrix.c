@@ -18,6 +18,7 @@
 #include <util/delay.h>
 #include "matrix.h"
 
+
 static matrix_row_t scan_col(void) {
     // Each of the 8 columns is read off pins as below
     //   7  6  5  4  3  2  1  0
