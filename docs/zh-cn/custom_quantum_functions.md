@@ -1,8 +1,8 @@
 # 如何定制化键盘功能
 
 <!---
-  original document: 0.14.23:docs/custom_quantum_functions.md
-  git diff 0.14.23 HEAD -- docs/custom_quantum_functions.md | cat
+  original document: 0.15.12:docs/custom_quantum_functions.md
+  git diff 0.15.12 HEAD -- docs/custom_quantum_functions.md | cat
 -->
 
 对于很多人来说对客制化键盘的诉求不只是向电脑输入按下的键。你肯定想实现比简单按键和宏更复杂的功能。QMK支持基于注入点的代码注入，功能重写，另外还可以自定义键盘在不同情况下的行为。
@@ -408,4 +408,70 @@ void eeconfig_init_user(void) {  // EEPROM被重置
 * 键映射：`void eeconfig_init_user(void)`, `uint32_t eeconfig_read_user(void)` 和 `void eeconfig_update_user(uint32_t val)`
 
 `val` 是你想写入EEPROM的值，`eeconfig_read_*`函数会从EEPROM返回一个32位(双字)的值。
+
+### 定时执行 :id=deferred-execution
+
+QMK支持在特定时间间隔后执行回调，以代替手动的计时器管理。
+
+#### 定时回调函数
+
+所有的 _定时回调函数_ 使用同样的函数签名，如下：
+
+```c
+uint32_t my_callback(uint32_t trigger_time, void *cb_arg) {
+    /* 处理了一些工作 */
+    bool repeat = my_deferred_functionality();
+    return repeat ? 500 : 0;
+}
+```
+
+第一个参数 `trigger_time` 为预期的执行时间，如果因为其它事情造成了延迟未能在准确的时间点执行，可以利用这个参数“追赶”或者跳过这次间隔，取决于你的目的是什么。
+
+第二个参数 `cb_arg` 为下述的 `defer_exec()` 传入的参数，由此可以获取调用时的状态信息。
+
+返回值为该函数下一次期望被回调的时间间隔毫秒数 -- 若返回 `0` 则会自动被注销掉。上例中，通过执行假想的 `my_deferred_functionality()` 函数来决策回调是否继续下去 -- 若是，则给出一个 `500` 毫秒的延迟计划，否则，返回 `0` 来告知定时处理后台任务该计划已执行完毕。
+
+?> 须留意返回的延时时间是相对原定的触发时间点的，而不是回调执行完的时间点。这样可以防止偶发的执行延迟影响稳定的定时事件计划。
+
+#### 注册定时回调
+
+在定义好回调后，通过如下API进行定时回调注册：
+
+```c
+deferred_token my_token = defer_exec(1500, my_callback, NULL);
+```
+
+第一个参数为执行 `my_callback` 的毫秒时间延迟 -- 上例中为 `1500` 毫秒，即 1.5 秒。
+
+第三个参数为回调执行时传入的 `cb_arg` 参数。须确保该值在回调时依旧有效 -- 局部函数内的变量会在回调执行前就被释放掉因此不能用。如果并不需要这个参数，可以传入 `NULL`。
+
+返回值 `deferred_token` 可被用于在回调执行前取消该定时计划。如果该函数调用失败，会返回 `INVALID_DEFERRED_TOKEN`，一般错误原因是延时值被设置为 `0` 或回调函数参数为 `NULL`，还有一种可能是已有过量的回调在等待被处理 -- 可以按照下述方法修改这个阈值。
+
+#### 延长定时回调时间
+
+由 `defer_exec()` 返回的 `deferred_token` 可以用来修改回调执行所需等待的时延值：
+```c
+// 重新调整 my_token 后续的执行计划为当前时间起800ms后
+extend_deferred_exec(my_token, 800);
+```
+
+#### 取消定时回调
+
+由 `defer_exec()` 返回的 `deferred_token` 可以用来取消掉后续的执行计划：
+```c
+// 取消 my_token 的后续回调
+cancel_deferred_exec(my_token);
+```
+
+一旦 token 被取消了，即视为不再可用。重新使用该 token 是不支持的。
+
+#### 定时回调的限制
+
+可安排的定时回调计划数量是有限的，由 `MAX_DEFERRED_EXECUTORS` 定义的值确定。
+
+如果定时回调注册失败了，可以在对应的键盘或键映射下的 `config.h` 文件中修改该值，比如将默认的 8 改为 16：
+
+```c
+#define MAX_DEFERRED_EXECUTORS 16
+```
 
