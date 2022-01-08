@@ -1,6 +1,6 @@
 # aves60
 
-![Aves60](https://i.imgur.com/U5UpFAV.jpg)
+![Aves60](https://i.imgur.com/U5UpFAVl.jpg)
 
 A universally compatible 60% PCB.
 
