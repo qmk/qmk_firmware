@@ -1,8 +1,8 @@
 # QMK知识大纲
 
 <!---
-  original document: 0.14.23:docs/syllabus.md
-  git diff 0.14.23 HEAD -- docs/syllabus.md | cat
+  original document: 0.15.12:docs/syllabus.md
+  git diff 0.15.12 HEAD -- docs/syllabus.md | cat
 -->
 
 这一页旨在帮你建立关于QMK的相关基础知识，并提供能引导你成为QMK大师所需的所有概念。
@@ -36,6 +36,7 @@
         * [RGB灯光](zh-cn/feature_rgblight.md)
         * [RGB矩阵](zh-cn/feature_rgb_matrix.md)
     * [点按配置](zh-cn/tap_hold.md)
+    * [充分利用AVR的存储空间](zh-cn/squeezing_avr.md)
 * **深入键映射**
     * [键映射](zh-cn/keymap.md)
     * [键码与自定义函数](zh-cn/custom_quantum_functions.md)
