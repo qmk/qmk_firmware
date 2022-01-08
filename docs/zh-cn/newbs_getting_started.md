@@ -71,7 +71,7 @@ QMK维护了一套Homebrew tap和formula以用于自动安装命令行程序及�
 
 安装QMK命令行程序：
 
-    brew install qmk
+    brew install qmk/qmk/qmk
 
 ### ** Linux/WSL **
 
