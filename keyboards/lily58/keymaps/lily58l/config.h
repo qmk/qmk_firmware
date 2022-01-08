@@ -4,6 +4,7 @@ This is the c configuration file for the keymap
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
 Copyright 2020 Ben Roesner (keycapsss.com)
+Copyleft  2021 Niolang - personnal adaptation for b├ępo
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,14 +24,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 #define MASTER_LEFT
+#define IGNORE_MOD_TAP_INTERRUPT
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_ANIMATIONS
-#    define RGBLIGHT_HUE_STEP 6 // number of steps to cycle through the hue by
-#    define RGBLIGHT_SAT_STEP 6 // number of steps to increment the saturation by
-#    define RGBLIGHT_VAL_STEP 6 // number of steps to increment the brightness by
+#    define RGBLIGHT_HUE_STEP 5 // number of steps to cycle through the hue by
+#    define RGBLIGHT_SAT_STEP 30 // number of steps to increment the saturation by
+#    define RGBLIGHT_VAL_STEP 30 // number of steps to increment the brightness by
 #    define RGBLIGHT_SLEEP //  the RGB lighting will be switched off when the host goes to sleep
 #endif
 
