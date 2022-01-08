@@ -21,4 +21,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 2 ways:
 
 * **Physical reset button**: Briefly press the button on the controller.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available. (Layer 3 + T)
+* **Keycode in layout**: Longpress ALT + ESC
