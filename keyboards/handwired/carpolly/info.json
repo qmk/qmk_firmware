@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Carpolly",
     "url": "https://github.com/PollyV1",
-    "maintainer": "qmk",
+    "maintainer": "Paul Enrico N. Viola",
     "layouts": {
         "LAYOUT": {
             "layout": [
