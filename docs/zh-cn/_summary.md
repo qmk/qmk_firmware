@@ -14,6 +14,7 @@
   * [QMK问题排查](zh-cn/faq_misc.md)
   * [调试QMK](zh-cn/faq_debug.md)
   * [键映射FAQ](zh-cn/faq_keymap.md)
+  * [充分利用AVR的存储空间](zh-cn/squeezing_avr.md)
   * [术语表](zh-cn/reference_glossary.md)
 
 * 配置器(Configurator)
