@@ -1,8 +1,8 @@
 # QMK术语表
 
 <!---
-  original document: 0.14.23:docs/reference_glossary.md
-  git diff 0.14.23 HEAD -- docs/reference_glossary.md | cat
+  original document: 0.15.12:docs/reference_glossary.md
+  git diff 0.15.12 HEAD -- docs/reference_glossary.md | cat
 -->
 
 ## ARM
