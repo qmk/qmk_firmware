@@ -64,7 +64,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -83,51 +83,45 @@ static void render_named_logo(void) {
   oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
 
-static void render_logo(void) {
-      static const char PROGMEM raw_logo[] = {
-        255,  1, 93, 85,117,  1, 49, 41, 37,125, 33,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,255,255,  0,  0,  7, 63,255,254,240,128,192,240,254,255, 63,  7,  0,  0,  0,  0,192,192,224,224,224,224,224,224,192,128,  0,  0,255,255,  0,  0,192,240,254,255, 63,  7,  7, 63,255,254,240,192,  0,  0,  0,127,255,255,239,206,206,206,206,207,207,207, 14,  0,255,255,128,129,129,129,129,128,156,128,128,148,140,133,149,129,128,128,128,144,148,133,145,137,129,157,129,129,129,128,128,128,255
-    };
-      oled_write_raw_P(raw_logo, sizeof(raw_logo));
-}
-
 static void render_status(void) {
-  render_logo();
-  //  oled_write_P(PSTR("Xenon by Narinari\n\n"), false);
-  //
-  //  // Host Keyboard Layer Status
-  //  oled_write_P(PSTR("Layer: "), false);
-  //  switch (get_highest_layer(layer_state)) {
-  //      case _QWERTY:
-  //          oled_write_P(PSTR("Default\n"), false);
-  //          break;
-  //      case _LOWER:
-  //          oled_write_P(PSTR("Lower\n"), false);
-  //          break;
-  //      case _RAISE:
-  //          oled_write_P(PSTR("Raise\n"), false);
-  //          break;
-  //      default:
-  //          oled_write_P(PSTR("Undefined\n"), false);
-  //  }
+  oled_write_P(PSTR("\n\n\n-----\nXENON\n-----\n\n"), false);
+
+  // Host Keyboard Layer Status
+  switch (get_highest_layer(layer_state)) {
+      case _QWERTY:
+          oled_write_P(PSTR("Base \n"), false);
+          break;
+      case _LOWER:
+          oled_write_P(PSTR("Lower\n"), false);
+          break;
+      case _RAISE:
+          oled_write_P(PSTR("Raise\n"), false);
+          break;
+      default:
+          oled_write_P(PSTR("Undef\n"), false);
+  }
+  oled_write_P(PSTR("Layer\n"), false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if (is_keyboard_master()) {
     render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
   } else {
     render_named_logo();
   }
+
+  return true;
 }
 #endif
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
         if (clockwise) {
-	    tap_code(KC_VOLU);
-        } else {
 	    tap_code(KC_VOLD);
+        } else {
+	    tap_code(KC_VOLU);
         }
     }
     else if (index == 1) {
@@ -138,5 +132,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 	    tap_code(KC_PGUP);
         }
     }
+
+    return true;
 }
 #endif
