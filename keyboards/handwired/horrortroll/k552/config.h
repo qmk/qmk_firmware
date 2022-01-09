@@ -36,6 +36,10 @@
 /* Direction of diode (COL2ROW or ROW2COL) */
 #define DIODE_DIRECTION ROW2COL
 
+/* Bootmagic reset */
+#define BOOTMAGIC_LITE_ROW 4
+#define BOOTMAGIC_LITE_COLUMN 6
+
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 

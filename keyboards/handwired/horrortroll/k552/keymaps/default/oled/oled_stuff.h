@@ -20,12 +20,6 @@
 #include "lib/wave.c"
 
 #ifdef OLED_ENABLE
-    oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-        wave_timer = timer_read();
-
-        return rotation;
-    }
-
     bool oled_task_user(void) {
         led_t led_usb_state = host_keyboard_led_state();
         static uint8_t old_layer;
