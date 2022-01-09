@@ -140,4 +140,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ## 其它信息
 
-在[点按配置](tap_hold.md)中描述了影响Mod-Tap行为的标记。
+在[点按配置](zh-cn/tap_hold.md)中描述了影响Mod-Tap行为的标记。

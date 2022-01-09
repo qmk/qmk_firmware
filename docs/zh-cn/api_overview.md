@@ -13,7 +13,7 @@ QMK API提供了一套可用于Web及GUI工具可用的异步API，用于实现�
 
 ## 键盘维护团队
 
-若您希望强化您维护的键盘方案在QMK编译API中的支持，请参阅[键盘支持](zh-ch/reference_configurator_support.md)。
+若您希望强化您维护的键盘方案在QMK编译API中的支持，请参阅[键盘支持](zh-cn/reference_configurator_support.md)。
 
 ## 后端开发者
 
