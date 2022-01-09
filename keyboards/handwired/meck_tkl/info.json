@@ -3,7 +3,7 @@
     "url": "github.com/gabrielkim13",
     "maintainer": "gabrielkim13",
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_tkl_ansi": {
             "layout": [
                 { "label": "Esc", "x": 0, "y": 0 },
                 { "label": "F1", "x": 2, "y": 0 },
