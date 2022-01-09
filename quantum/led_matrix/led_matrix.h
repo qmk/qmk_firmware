@@ -2,6 +2,7 @@
  * Copyright 2017 Jack Humbert
  * Copyright 2018 Yiancar
  * Copyright 2019 Clueboard
+ * Copyright 2021 Leo Deng
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +27,9 @@
 
 #ifdef IS31FL3731
 #    include "is31fl3731-simple.h"
+#endif
+#ifdef IS31FL3733
+#    include "is31fl3733-simple.h"
 #endif
 
 #ifndef LED_MATRIX_LED_FLUSH_LIMIT
