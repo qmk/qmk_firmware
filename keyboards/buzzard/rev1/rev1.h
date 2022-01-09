@@ -50,5 +50,3 @@
     { R28,   R29,   R30,   R31,   R32,   R33   }, \
     { R37,   R38,   R39,   KC_NO, KC_NO, KC_NO }, \
 }
-
-#define LAYOUT_split_3x6_3 LAYOUT
