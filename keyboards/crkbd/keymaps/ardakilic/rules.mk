@@ -1,4 +1,4 @@
-OLED_DRIVER_ENABLE  = yes
+OLED_ENABLE  = yes
 EXTRAKEY_ENABLE = yes # for media keys
 
 # bongo cat
