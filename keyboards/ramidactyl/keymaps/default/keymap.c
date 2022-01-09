@@ -128,6 +128,15 @@ bool showedJump = true;
 
 /* logic */
 static void render_luna(int LUNA_X, int LUNA_Y) {
+
+        /* this fixes the screen on and off bug */
+    if (current_wpm > 0) {
+        oled_on();
+        anim_sleep = timer_read32();
+    } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
+        oled_off();
+        return;
+    }
     /* Sit */
     static const char PROGMEM sit[2][ANIM_SIZE] = {/* 'sit1', 32x22px */
                                                    {
@@ -227,13 +236,7 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
         animate_luna();
     }
 
-    /* this fixes the screen on and off bug */
-    if (current_wpm > 0) {
-        oled_on();
-        anim_sleep = timer_read32();
-    } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
-        oled_off();
-    }
+
 }
 
 /* KEYBOARD PET END */
@@ -262,16 +265,6 @@ static void print_status_narrow(void) {
 
     oled_write_raw_P(windows_logo, sizeof(windows_logo));
 
-    // oled_set_cursor(0, 3);
-
-    // switch (get_highest_layer(default_layer_state)) {
-    //     case _QWERTY:
-    //         oled_write("QWRTY", false);
-    //         break;
-    //     default:
-    //         oled_write("UNDEF", false);
-    // }
-
     oled_set_cursor(0, 5);
 
     /* Print current layer */
@@ -295,10 +288,7 @@ static void print_status_narrow(void) {
 
 
     /* KEYBOARD PET RENDER START */
-
     render_luna(0, 13);
-
-    /* KEYBOARD PET RENDER END */
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_90; }
