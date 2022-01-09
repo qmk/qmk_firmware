@@ -141,10 +141,13 @@ Processing combos has two buffers, one for the key presses, another for the comb
 ## Modifier Combos
 If a combo resolves to a Modifier, the window for processing the combo can be extended independently from normal combos. By default, this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_HOLD_TERM 150` (default: `TAPPING_TERM`). With `COMBO_MUST_HOLD_MODS`, you cannot tap the combo any more which makes the combo less prone to misfires.
 
-## Per Combo Timing, Holding and Tapping
-For each combo, it is possible to configure the time window it has to pressed in, if it needs to be held down, or if it needs to be tapped.
+## Strict key press order
+By defining `COMBO_MUST_PRESS_IN_ORDER` combos only activate when the keys are pressed in the same order as they are defined in the key array.
 
-For example, tap-only combos are useful if any (or all) of the underlying keys is a Mod-Tap or a Layer-Tap key. When you tap the combo, you get the combo result. When you press the combo and hold it down, the combo doesn't actually activate. Instead the keys are processed separately as if the combo wasn't even there.
+## Per Combo Timing, Holding, Tapping and Key Press Order
+For each combo, it is possible to configure the time window it has to pressed in, if it needs to be held down, if it needs to be tapped, or if its keys need to be pressed in order.
+
+For example, tap-only combos are useful if any (or all) of the underlying keys are mod-tap or layer-tap keys. When you tap the combo, you get the combo result. When you press the combo and hold it down, the combo doesn't activate. Instead the keys are processed separately as if the combo wasn't even there.
 
 In order to use these features, the following configuration options and functions need to be defined. Coming up with useful timings and configuration is left as an exercise for the reader.
 
@@ -153,6 +156,7 @@ In order to use these features, the following configuration options and function
 | `COMBO_TERM_PER_COMBO`      | uint16_t get_combo_term(uint16_t index, combo_t \*combo)  | Optional per-combo timeout window. (default: `COMBO_TERM`)                                             |
 | `COMBO_MUST_HOLD_PER_COMBO` | bool get_combo_must_hold(uint16_t index, combo_t \*combo) | Controls if a given combo should fire immediately on tap or if it needs to be held. (default: `false`) |
 | `COMBO_MUST_TAP_PER_COMBO`  | bool get_combo_must_tap(uint16_t index, combo_t \*combo)  | Controls if a given combo should fire only if tapped within `COMBO_HOLD_TERM`. (default: `false`)      |
+| `COMBO_MUST_PRESS_IN_ORDER_PER_COMBO` | bool get_combo_must_press_in_order(uint16_t index, combo_t \*combo) | Controls if a given combo should fire only if its keys are pressed in order. (default: `true`) |
 
 Examples:
 ```c
@@ -215,6 +219,38 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
     }
     return false;
 
+}
+
+bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
+    switch (combo_index) {
+        /* List combos here that you want to only activate if their keys
+         * are pressed in the same order as they are defined in the combo's key
+         * array. */
+        case COMBO_NAME_HERE:
+            return true;
+        default:
+            return false;
+    }
+}
+```
+
+## Generic hook to (dis)allow a combo activation
+
+By defining `COMBO_SHOULD_TRIGGER` and its companying function `bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record)` you can block or allow combos to activate on the conditions of your choice.
+For example, you could disallow some combos on the base layer and allow them on another. Or disable combos on the home row when a timer is running.
+
+Examples:
+```c
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    /* Disable combo `SOME_COMBO` on layer `_LAYER_A` */
+    switch (combo_index) {
+        case SOME_COMBO:
+            if (layer_state_is(_LAYER_A)) {
+                return false;
+            }
+    }
+
+    return true;
 }
 ```
 
