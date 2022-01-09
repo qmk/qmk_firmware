@@ -465,14 +465,8 @@ bool oled_task_user(void) {
         // oled_write(wpm_str, false);                       // writes wpm on top left corner of string
 
         // This way it's more size efficient than calling sprintf
-        uint8_t n = get_current_wpm();
-        char wpm_counter[4];
-        wpm_counter[3] = '\0';
-        wpm_counter[2] = '0' + n % 10;
-        wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-        wpm_counter[0] = n / 10 ? '0' + n / 10 : ' ';
         oled_write_P(PSTR("WPM: "), false);
-        oled_write(wpm_counter, false);
+        oled_write(get_u8_str(get_current_wpm(), ' '), false);
         // This way it's more size efficient than calling sprintf
 
         led_t led_state = host_keyboard_led_state();  // caps lock stuff, prints CAPS on new line if caps led is on
