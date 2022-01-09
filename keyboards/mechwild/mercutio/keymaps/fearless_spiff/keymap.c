@@ -18,8 +18,6 @@
 
 #include QMK_KEYBOARD_H
 #include "keymap_german.h"
-#include <stdio.h>
-#include "print.h"
 
 // OLED setup for bongocat
 #define IDLE_FRAMES 5
@@ -282,8 +280,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* hide wpm display for now
             oled_set_cursor(13,3);
-            sprintf(wpm_str, "WPM: %03d", get_current_wpm());
-            oled_write(wpm_str, false);
+            oled_write_P(PSTR("WPM: "), false);
+            oled_write(get_u8_str(get_current_wpm(), ' '), false);
     */
 
       return true;
