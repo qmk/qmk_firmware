@@ -216,25 +216,25 @@ def test_info_matrix_render():
 def test_c2json():
     result = check_subcommand("c2json", "-kb", "handwired/pytest/has_template", "-km", "default", "keyboards/handwired/pytest/has_template/keymaps/default/keymap.c")
     check_returncode(result)
-    assert result.stdout.strip() == '{"keyboard": "handwired/pytest/has_template", "documentation": "This file is a keymap.json file for handwired/pytest/has_template", "keymap": "default", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
+    assert result.stdout == '{\n    "keyboard": "handwired/pytest/has_template",\n    "keymap": "default",\n    "layout": "LAYOUT_ortho_1x1",\n    "layers": [\n                [\n                        "KC_A"\n                ]\n    ],\n    "documentation": "This file is a keymap.json file for handwired/pytest/has_template"\n}\n'
 
 
 def test_c2json_nocpp():
     result = check_subcommand("c2json", "--no-cpp", "-kb", "handwired/pytest/has_template", "-km", "default", "keyboards/handwired/pytest/has_template/keymaps/nocpp/keymap.c")
     check_returncode(result)
-    assert result.stdout.strip() == '{"keyboard": "handwired/pytest/has_template", "documentation": "This file is a keymap.json file for handwired/pytest/has_template", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
+    assert result.stdout == '{\n    "keyboard": "handwired/pytest/has_template",\n    "keymap": "default",\n    "layout": "LAYOUT",\n    "layers": [\n                [\n                        "KC_ENTER"\n                ]\n    ],\n    "documentation": "This file is a keymap.json file for handwired/pytest/has_template"\n}\n'
 
 
 def test_c2json_stdin():
     result = check_subcommand_stdin("keyboards/handwired/pytest/has_template/keymaps/default/keymap.c", "c2json", "-kb", "handwired/pytest/has_template", "-km", "default", "-")
     check_returncode(result)
-    assert result.stdout.strip() == '{"keyboard": "handwired/pytest/has_template", "documentation": "This file is a keymap.json file for handwired/pytest/has_template", "keymap": "default", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
+    assert result.stdout == '{\n    "keyboard": "handwired/pytest/has_template",\n    "keymap": "default",\n    "layout": "LAYOUT_ortho_1x1",\n    "layers": [\n                [\n                        "KC_A"\n                ]\n    ],\n    "documentation": "This file is a keymap.json file for handwired/pytest/has_template"\n}\n'
 
 
 def test_c2json_nocpp_stdin():
     result = check_subcommand_stdin("keyboards/handwired/pytest/has_template/keymaps/nocpp/keymap.c", "c2json", "--no-cpp", "-kb", "handwired/pytest/has_template", "-km", "default", "-")
     check_returncode(result)
-    assert result.stdout.strip() == '{"keyboard": "handwired/pytest/has_template", "documentation": "This file is a keymap.json file for handwired/pytest/has_template", "keymap": "default", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
+    assert result.stdout == '{\n    "keyboard": "handwired/pytest/has_template",\n    "keymap": "default",\n    "layout": "LAYOUT",\n    "layers": [\n                [\n                        "KC_ENTER"\n                ]\n    ],\n    "documentation": "This file is a keymap.json file for handwired/pytest/has_template"\n}\n'
 
 
 def test_clean():

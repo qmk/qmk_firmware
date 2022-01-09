@@ -63,4 +63,4 @@ def c2json(cli):
             cli.log.info('Wrote keymap to %s.', cli.args.output)
 
     else:
-        print(json.dumps(keymap_json))
+        print(json.dumps(keymap_json, cls=KeymapJSONEncoder))
