@@ -31,14 +31,14 @@ QMK键映射定义在C源文件中，其数据结构上是一个容纳了数组�
        0 /___________/  V low           0 `--------------------------
 翻译：
 
-    |原文                       |译文         |
-    |--------------------------|-------------|
-    |Keymap: 32 Layers         | 键映射：32个层|
-    |stack of layers           | 层堆栈       |
-    |precedence                | 优先级       |
-    |high/low                  | 高/低        |
-    |layer: action code matrix | 层：动作码矩阵|
-    |row/column                | 行/列        |
+|原文                       |译文         |
+|--------------------------|-------------|
+|Keymap: 32 Layers         | 键映射：32个层|
+|stack of layers           | 层堆栈       |
+|precedence                | 优先级       |
+|high/low                  | 高/低        |
+|layer: action code matrix | 层：动作码矩阵|
+|row/column                | 行/列        |
 
 有时，键映射中存储的动作码在一些文档中也被称作键码，主要是由TMK沿袭而来的习惯。
 
@@ -67,10 +67,10 @@ QMK键映射定义在C源文件中，其数据结构上是一个容纳了数组�
          layer_state   = 0x00000001       layer_state   = 0x00000002
 翻译：
 
-    |原文                    |译文         |
-    |-----------------------|-------------|
-    |Initial state of Keymap| 键映射原始状态|
-    |Change base layout     | 更改了基础层  |
+|原文                    |译文         |
+|-----------------------|-------------|
+|Initial state of Keymap| 键映射原始状态|
+|Change base layout     | 更改了基础层  |
 
 另外，可以通过修改 `layer_state` 做到其他层对基础层的覆盖，以实现诸如导航键、功能键（F1-F12）、多媒体键等特殊动作。
 
