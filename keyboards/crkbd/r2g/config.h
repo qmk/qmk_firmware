@@ -2,6 +2,7 @@
 Copyright 2019 @foostan
 Copyright 2020 Drashna Jaelre <@drashna>
 Copyright 2021 Elliot Powell @e11i0t23
+Copyright 2021 Rocco Meli <@rmeli>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN      D3
 
 #ifdef RGBLIGHT_ENABLE
-
 #   define RGBLIGHT_EFFECT_BREATHING
 #   define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #   define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -37,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGBLIGHT_EFFECT_RGB_TEST
 #   define RGBLIGHT_EFFECT_ALTERNATING
 #   define RGBLIGHT_EFFECT_TWINKLE
-
 #   define RGBLED_NUM 54
 #   define RGBLED_SPLIT \
         { 27, 27 }
@@ -48,8 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_LED_TOTAL RGBLED_NUM
 #    define RGB_MATRIX_SPLIT \
         { 27, 27 }
-#    define SPLIT_TRANSPORT_MIRROR
-
+#   define SPLIT_TRANSPORT_MIRROR
 #   define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #   define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #   define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
