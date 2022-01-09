@@ -76,6 +76,14 @@ enum custom_keycodes {
 #    define GRAVE_ESC_CTRL_OVERRIDE
 #endif
 
+#ifndef GRAVE_ESC_ALT_OVERRIDE
+#   define GRAVE_ESC_ALT_OVERRIDE
+#endif
+
+#ifndef GRAVE_ESC_GUI_OVERRIDE
+#   define GRAVE_ESC_GUI_OVERRIDE
+#endif
+
 // RGB standard colors
 // CAPS LOCK color  - Warm white
 #define RGB_CAPS_R 0xe6
