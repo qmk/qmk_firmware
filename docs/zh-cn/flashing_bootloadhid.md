@@ -1,8 +1,8 @@
 # BootloadHID刷写指引及资料
 
 <!---
-  original document: 0.14.23:docs/flashing_bootloadhid.md
-  git diff 0.14.23 HEAD -- docs/flashing_bootloadhid.md | cat
+  original document: 0.15.12:docs/flashing_bootloadhid.md
+  git diff 0.15.12 HEAD -- docs/flashing_bootloadhid.md | cat
 -->
 
 ps2avr(GB)基于一片ATmega32A微控制器及特殊的bootloader，无法使用常规的QMK方法进行刷写。

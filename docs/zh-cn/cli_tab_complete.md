@@ -1,8 +1,8 @@
 # QMK Tab补全
 
 <!---
-  original document: 0.14.23:docs/cli_tab_complete.md
-  git diff 0.14.23 HEAD -- docs/cli_tab_complete.md | cat
+  original document: 0.15.12:docs/cli_tab_complete.md
+  git diff 0.15.12 HEAD -- docs/cli_tab_complete.md | cat
 -->
 
 在使用Bash 4.2及更高版本、Zsh或FiSH时，可以启用QMK CLI的Tab补全功能，可以实现对 `qmk` 参数中的开关、键盘、文件等参数的自动补全。

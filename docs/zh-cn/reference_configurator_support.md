@@ -1,8 +1,8 @@
 # 在QMK配置器中支持您的键盘
 
 <!---
-  original document: 0.14.23:docs/reference_configurator_support.md
-  git diff 0.14.23 HEAD -- docs/reference_configurator_support.md | cat
+  original document: 0.15.12:docs/reference_configurator_support.md
+  git diff 0.15.12 HEAD -- docs/reference_configurator_support.md | cat
 -->
 
 本章节详述了如何在[QMK配置器](https://config.qmk.fm/)中对键盘进行支持。
