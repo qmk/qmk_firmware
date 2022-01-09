@@ -1,6 +1,6 @@
 # Cradio keyboards
 
-![Cradio](https://github.com/davidphilipbarr/hypergolic/raw/main/hypergarlic/ht.png)
+![Cradio](https://raw.githubusercontent.com/filterpaper/filterpaper.github.io/main/images/cradio.png)
 
 Cradio are low-profile 34-key split-keyboards designed by [@davidphilipbarr](https://github.com/davidphilipbarr), with no diodes and direct micro-controller pin wiring.
 
