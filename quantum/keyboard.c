@@ -349,6 +349,32 @@ void keyboard_init(void) {
     keyboard_post_init_kb(); /* Always keep this last */
 }
 
+/** \brief keyboard set leds
+ *
+ * FIXME: needs doc
+ */
+void keyboard_set_leds(uint8_t leds) {
+    if (debug_keyboard) {
+        debug("keyboard_set_led: ");
+        debug_hex8(leds);
+        debug("\n");
+    }
+    led_set(leds);
+}
+
+/** \brief set host led state
+ *
+ * Only sets state if change detected
+ */
+void led_task(void) {
+    static uint8_t led_status = 0;
+    // update LED
+    if (led_status != host_keyboard_leds()) {
+        led_status = host_keyboard_leds();
+        keyboard_set_leds(led_status);
+    }
+}
+
 /** \brief key_event_task
  *
  * This function is responsible for calling into other systems when they need to respond to electrical switch press events.
@@ -363,27 +389,16 @@ void switch_events(uint8_t row, uint8_t col, bool pressed) {
 #endif
 }
 
-/** \brief Keyboard task: Do keyboard routine jobs
+/** \brief Perform scan of keyboard matrix
  *
- * Do routine keyboard jobs:
- *
- * * scan matrix
- * * handle mouse movements
- * * handle midi commands
- * * light LEDs
- *
- * This is repeatedly called as fast as possible.
+ * Any detected changes in state are sent out as part of the processing
  */
-void keyboard_task(void) {
+bool matrix_scan_task(void) {
     static matrix_row_t matrix_prev[MATRIX_ROWS];
-    static uint8_t      led_status    = 0;
     matrix_row_t        matrix_row    = 0;
     matrix_row_t        matrix_change = 0;
 #ifdef QMK_KEYS_PER_SCAN
     uint8_t keys_processed = 0;
-#endif
-#ifdef ENCODER_ENABLE
-    bool encoders_changed = false;
 #endif
 
     uint8_t matrix_changed = matrix_scan();
@@ -431,9 +446,24 @@ void keyboard_task(void) {
 
 MATRIX_LOOP_END:
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_scan_perf_task();
-#endif
+    return matrix_changed;
+}
+
+/** \brief Keyboard task: Do keyboard routine jobs
+ *
+ * Do routine keyboard jobs:
+ *
+ * * scan matrix
+ * * handle mouse movements
+ * * handle midi commands
+ * * light LEDs
+ *
+ * This is repeatedly called as fast as possible.
+ */
+void keyboard_task(void) {
+    bool matrix_changed = matrix_scan_task();
+    (void)matrix_changed;
 
 #if defined(RGBLIGHT_ENABLE)
     rgblight_task();
@@ -453,7 +483,7 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef ENCODER_ENABLE
-    encoders_changed = encoder_read();
+    bool encoders_changed = encoder_read();
     if (encoders_changed) last_encoder_activity_trigger();
 #endif
 
@@ -516,22 +546,5 @@ MATRIX_LOOP_END:
     programmable_button_send();
 #endif
 
-    // update LED
-    if (led_status != host_keyboard_leds()) {
-        led_status = host_keyboard_leds();
-        keyboard_set_leds(led_status);
-    }
-}
-
-/** \brief keyboard set leds
- *
- * FIXME: needs doc
- */
-void keyboard_set_leds(uint8_t leds) {
-    if (debug_keyboard) {
-        debug("keyboard_set_led: ");
-        debug_hex8(leds);
-        debug("\n");
-    }
-    led_set(leds);
+    led_task();
 }
