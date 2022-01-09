@@ -30,13 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     The Ramidactyl ergo keyboard
 #define PRODUCT         ramidactyl 5x6
 
-/* mouse config */
-#define MOUSEKEY_INTERVAL       20
-#define MOUSEKEY_DELAY          0
-#define MOUSEKEY_TIME_TO_MAX    60
-#define MOUSEKEY_MAX_SPEED      7
-#define MOUSEKEY_WHEEL_DELAY 0
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
@@ -63,15 +56,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-// WS2812 RGB LED strip input and number of LEDs
-#define RGB_DI_PIN D3
-#define RGBLED_NUM 12
+// // WS2812 RGB LED strip input and number of LEDs
+// #define RGB_DI_PIN D3
+// #define RGBLED_NUM 12
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
 
 // wiring of the encoder (right side)
 #define ENCODERS_PAD_A { F4 }
@@ -79,22 +67,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // define de timing for the tap dance time out
 #define TAPPING_TERM 200
-
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
