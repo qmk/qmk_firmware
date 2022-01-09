@@ -9,10 +9,10 @@
 
 第三方的帮助让QMK获得了成长与进步。我们希望提供一套对贡献者和维护者都感到简便实用的PR（pull request）及贡献流程，因此我们整理出了一些准则，以免你的PR在被接纳前需要大改一番。
 
-* [项目概况](#项目概况)
-* [代码规范](#代码规范)
-* [一般教程](#一般教程)
-* [行为守则对于我来说有何意义？](#行为守则对于我来说有何意义？)
+* [项目概况](#project-overview)
+* [代码规范](#coding-conventions)
+* [一般教程](#general-guidelines)
+* [行为守则对于我来说有何意义？](#what-does-the-code-of-conduct-mean-for-me)
 
 ## 这文章巨长无比不想读啊! 我就想问个问题而已!
 
@@ -26,7 +26,7 @@
   * https://opensource.com/life/16/10/how-ask-technical-questions
   * http://www.catb.org/esr/faqs/smart-questions.html
 
-# 项目概况
+# 项目概况 :id=project-overview
 
 QMK很大一部分是C语言编写的，小部分特性是C++的。QMK的设计目标是在键盘上的嵌入式处理器中工作，如AVR([LUFA](https://www.fourwalledcubicle.com/LUFA.php))和ARM ([ChibiOS](https://www.chibios.org))。如果您对Arduino很熟悉的话，会发现优缺点也基本是相似的。但无论你之前是否有Arduino使用经验，都不会影响你参与到QMK贡献中来。
 
@@ -58,14 +58,14 @@ QMK很大一部分是C语言编写的，小部分特性是C++的。QMK的设计�
 14. 维护人员会通知您要更改什么地方，然后您就按照建议改一改。
 15. 你的pull request合并成功了，恭喜！
 
-# 代码规范
+# 代码规范 :id=coding-conventions
 
 我们的编码风格很容易掌握，如果你有C语言或Python编码经验，跟随我们的编码风格不会有什么困难。
 
 * [编码规范 - C](zh-cn/coding_conventions_c.md)
 * [编码规范 - Python](zh-cn/coding_conventions_python.md)
 
-# 基本准则
+# 基本准则 :id=general-guidelines
 
 在QMK中存在多种类型的修改需求，因此也会有审查严格性上的差异。请在做出任何修改时留意，你的改动隶属于什么类型。
 
@@ -164,12 +164,12 @@ QMK的最终归宿是键盘。有些键盘是社区维护的，有一些是制�
 * commit数量尽量合理，否则你的PR可能会被我们压缩。
 * 不要把新键盘定义或新键映射与关键改动放在一个PR中。先提交关键改动。
 * 给你的特性编写[单元测试](zh-cn/unit_testing.md)。
-* 你编辑的文件风格要一致，如果风格不明确或者是混搭风的，请先阅读上方的[代码规范](#代码规范)。
+* 你编辑的文件风格要一致，如果风格不明确或者是混搭风的，请先阅读上方的[代码规范](#coding-conventions)。
 
 ## 重构
 
 为了保持QMK脉络清晰，QMK的深度重构工作已在规划中，并会通过合作者进行相应的修改。如果你有重构的思路或建议请[创建一个issue](https://github.com/qmk/qmk_firmware/issues), 我们很乐意讨论一下QMK可以如何改进。
 
-# 行为守则对于我来说有何意义？
+# 行为守则对于我来说有何意义？ :id=what-does-the-code-of-conduct-mean-for-me
 
 我们的[行为守则](https://qmk.fm/coc/) 指出您有责任尊重并礼貌地对待项目中的每个人，无论他们的身份如何。如果你是我们行为守则所描述的不当行为的受害者，我们将站在你这边，尽最大努力对施暴者进行谴责。
