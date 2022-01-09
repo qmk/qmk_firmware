@@ -46,14 +46,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F12,  KC_LCTL, KC_LGUI, MO(_FUNCTN), KC_LALT,    MO(_NUMBRS),      KC_SPACE,         MO(_FUNCTN), KC_RALT, KC_RCTL, KC_RGUI
          )
 };
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) {
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    }  else{
-      tap_code(KC_VOLD);
-    }
-  }
-  return true;
-}
