@@ -7,7 +7,6 @@ from milc import cli
 
 from qmk.comment_remover import comment_remover
 
-default_key_entry = {'x': -1, 'y': 0, 'w': 1}
 single_comment_regex = re.compile(r'\s+/[/*].*$')
 multi_comment_regex = re.compile(r'/\*(.|\n)*?\*/', re.MULTILINE)
 
@@ -63,15 +62,14 @@ def find_layouts(file):
             matrix_locations = _parse_matrix_locations(matrix, file, macro_name)
 
             # Parse the layout entries into a basic structure
-            default_key_entry['x'] = -1  # Set to -1 so _default_key(key) will increment it to 0
-            layout = layout.strip()
-            parsed_layout = [_default_key(key) for key in layout.split(',')]
-
-            for i, key in enumerate(parsed_layout):
-                if 'label' not in key:
-                    cli.log.error('Invalid LAYOUT macro in %s: Empty parameter name in macro %s at pos %s.', file, macro_name, i)
-                elif key['label'] in matrix_locations:
-                    key['matrix'] = matrix_locations[key['label']]
+            parsed_layout = []
+            for x, y, label in _parse_layout_labels(layout):
+                if not label:
+                    cli.log.error('Invalid LAYOUT macro in %s: Empty parameter name in macro %s for x=%s y=%s.', file, macro_name, x, y)
+                key_entry = {'label': label, 'w': 1, 'x': x, 'y': y}
+                if label in matrix_locations:
+                    key_entry['matrix'] = matrix_locations[label]
+                parsed_layout.append(key_entry)
 
             parsed_layouts[macro_name] = {
                 'layout': parsed_layout,
@@ -131,18 +129,6 @@ def parse_config_h_file(config_h_file, config_h=None):
     return config_h
 
 
-def _default_key(label=None):
-    """Increment x and return a copy of the default_key_entry.
-    """
-    default_key_entry['x'] += 1
-    new_key = default_key_entry.copy()
-
-    if label:
-        new_key['label'] = label
-
-    return new_key
-
-
 def _parse_layout_macro(layout_macro):
     """Split the LAYOUT macro into its constituent parts
     """
@@ -151,6 +137,13 @@ def _parse_layout_macro(layout_macro):
     layout, matrix = layout.split(')', 1)
 
     return macro_name, layout, matrix
+
+
+def _parse_layout_labels(layout):
+    """Parse labels from layout parameter list and generate positions
+    """
+    for x, label in enumerate(layout.strip().split(',')):
+        yield x, 0, label
 
 
 def _parse_matrix_locations(matrix, file, macro_name):
