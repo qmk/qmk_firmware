@@ -267,11 +267,11 @@ bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 GREP ?= grep
 NRFUTIL ?= nrfutil
 
-$(TARGET).ble.zip: $(TARGET).bin
+$(TARGET).ble.zip: $(BUILD_DIR)/$(TARGET).bin
 	if ! type "nrfutil" > /dev/null 2>&1; then \
 		echo 'ERROR: nrfutil is not found'; exit 1;\
 	fi
-	$(NRFUTIL) pkg generate --debug-mode --hw-version 0 --sd-req 0x8C --key-file $(PRIV_KEY) --application $(TARGET).bin $(TARGET).zip
+	$(NRFUTIL) pkg generate --debug-mode --hw-version 0 --sd-req 0x8C --key-file $(PRIV_KEY) --application $(BUILD_DIR)/$(TARGET).bin $(TARGET).zip
 
 dfu_ble: $(TARGET).ble.zip
 
@@ -279,7 +279,7 @@ zip: $(BUILD_DIR)/$(TARGET).bin
 	if ! type "nrfutil" > /dev/null 2>&1; then \
 		echo 'ERROR: nrfutil is not found'; exit 1;\
 	fi
-	$(NRFUTIL) pkg generate --debug-mode --hw-version 52 --sd-req 0xA9 --application $(TARGET).bin $(TARGET).zip
+	$(NRFUTIL) pkg generate --debug-mode --hw-version 52 --sd-req 0xA9 --application $(BUILD_DIR)/$(TARGET).bin $(TARGET).zip
 
 nrfutil: zip
 	if $(GREP) -q -s Microsoft /proc/version; then \
@@ -306,8 +306,8 @@ nrfutil: zip
 	fi
 
 uf2: $(BUILD_DIR)/$(TARGET).bin
-	./util/uf2conv.py -f nrf52 -b 0x26000 -o $(TARGET).uf2 $(TARGET).bin -c
-	-./util/uf2conv.py -f nrf52 -b 0x26000 $(TARGET).bin
+	./util/uf2conv.py -f nrf52 -b 0x26000 -o $(TARGET).uf2 $(BUILD_DIR)/$(TARGET).bin -c
+	-./util/uf2conv.py -f nrf52 -b 0x26000 $(BUILD_DIR)/$(TARGET).bin
 
 elf: $(NRFLIB)
 
