@@ -1,12 +1,13 @@
 # carpolly
 
-Keyboard Maintainer: Paul Enrico N. Viola (https://github.com/PollyV1)
-Hardware Supported: Teensy 2 controller
-Hardware Availability: https://github.com/PollyV1/Carpolly
+![](https://i.imgur.com/w691sNnl.png)
 
-carpolly - a handwired keyboard on a teensy 2 controller
+A handwired keyboard on a teensy 2 controller
 
-https://imgur.com/w691sNn
+* Keyboard Maintainer: Paul Enrico N. Viola (https://github.com/PollyV1)
+* Hardware Supported: Teensy 2 controller
+* Hardware Availability: https://github.com/PollyV1/Carpolly
+
 
 Make example for this keyboard (after setting up your build environment):
 
