@@ -266,9 +266,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------------------------------------------|                    |-----------------------------------------------------|
         RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_ASRP, XXXXXXX, XXXXXXX, XXXXXXX,DF(_QWY),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                       UC_MOD, KC_ASTG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                       UC_MOD, KC_ASTG,   NK_ON, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,                      UC_RMOD, KC_ASDN, XXXXXXX, XXXXXXX, XXXXXXX,DF(_CMK),
+      XXXXXXX,RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,                      UC_RMOD, KC_ASDN,  NK_OFF, XXXXXXX, XXXXXXX,DF(_CMK),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,   _______, _______, _______
                                       //|--------------------------|  |--------------------------|
