@@ -1,8 +1,8 @@
 # 如何在QMK中使用GitHub
 
 <!---
-  original document: 0.14.23:docs/getting_started_github.md
-  git diff 0.14.23 HEAD -- docs/getting_started_github.md | cat
+  original document: 0.15.12:docs/getting_started_github.md
+  git diff 0.15.12 HEAD -- docs/getting_started_github.md | cat
 -->
 
 GitHub can be a little tricky to those that aren't familiar with it - this guide will walk through each step of forking, cloning, and submitting a pull request with QMK.

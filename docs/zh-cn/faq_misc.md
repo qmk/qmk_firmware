@@ -1,8 +1,8 @@
 # 其它 FAQ
 
 <!---
-  original document: 0.14.23:docs/faq_misc.md
-  git diff 0.14.23 HEAD -- docs/faq_misc.md | cat
+  original document: 0.15.12:docs/faq_misc.md
+  git diff 0.15.12 HEAD -- docs/faq_misc.md | cat
 -->
 
 ## 怎么对键盘进行测试？ :id=testing
