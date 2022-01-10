@@ -75,3 +75,6 @@ bool qp_pixdata(painter_device_t device, const void QP_RESIDENT_FLASH_OR_RAM *pi
 
 // Set a specific pixel
 bool qp_setpixel(painter_device_t device, uint16_t x, uint16_t y, uint8_t hue, uint8_t sat, uint8_t val);
+
+// Draw a line
+bool qp_line(painter_device_t device, uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t hue, uint8_t sat, uint8_t val);

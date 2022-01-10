@@ -73,3 +73,65 @@ bool qp_setpixel(painter_device_t device, uint16_t x, uint16_t y, uint8_t hue, u
     qp_dprintf("qp_setpixel: %s\n", ret ? "ok" : "fail");
     return ret;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter External API: qp_line
+
+bool qp_line(painter_device_t device, uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t hue, uint8_t sat, uint8_t val) {
+    if (x0 == x1 || y0 == y1) {
+        qp_dprintf("qp_line(%d, %d, %d, %d): entry (deferring to qp_rect)\n", (int)x0, (int)y0, (int)x1, (int)y1);
+        bool ret = qp_rect(device, x0, y0, x1, y1, hue, sat, val, true);
+        qp_dprintf("qp_line(%d, %d, %d, %d): %s (deferred to qp_rect)\n", (int)x0, (int)y0, (int)x1, (int)y1, ret ? "ok" : "fail");
+        return ret;
+    }
+
+    qp_dprintf("qp_line(%d, %d, %d, %d): entry\n", (int)x0, (int)y0, (int)x1, (int)y1);
+    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    if (!driver->validate_ok) {
+        qp_dprintf("qp_line: fail (validation_ok == false)\n");
+        return false;
+    }
+
+    if (!qp_comms_start(device)) {
+        qp_dprintf("Failed to start comms in qp_line\n");
+        return false;
+    }
+
+    qp_internal_fill_pixdata(device, 1, hue, sat, val);
+
+    // draw angled line using Bresenham's algo
+    int16_t x      = ((int16_t)x0);
+    int16_t y      = ((int16_t)y0);
+    int16_t slopex = ((int16_t)x0) < ((int16_t)x1) ? 1 : -1;
+    int16_t slopey = ((int16_t)y0) < ((int16_t)y1) ? 1 : -1;
+    int16_t dx     = abs(((int16_t)x1) - ((int16_t)x0));
+    int16_t dy     = -abs(((int16_t)y1) - ((int16_t)y0));
+
+    int16_t e  = dx + dy;
+    int16_t e2 = 2 * e;
+
+    bool ret = true;
+    while (x != x1 || y != y1) {
+        if (!qp_internal_setpixel_impl(device, x, y)) {
+            ret = false;
+            break;
+        }
+        e2 = 2 * e;
+        if (e2 >= dy) {
+            e += dy;
+            x += slopex;
+        }
+        if (e2 <= dx) {
+            e += dx;
+            y += slopey;
+        }
+    }
+    // draw the last pixel
+    if (!qp_internal_setpixel_impl(device, x, y)) {
+        ret = false;
+    }
+
+    qp_comms_stop(device);
+    qp_dprintf("qp_line(%d, %d, %d, %d): %s\n", (int)x0, (int)y0, (int)x1, (int)y1, ret ? "ok" : "fail");
+    return ret;
+}
