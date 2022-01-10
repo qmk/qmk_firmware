@@ -2,7 +2,7 @@
 QUANTUM_PAINTER_DRIVERS ?=
 
 # The list of permissible drivers that can be listed in QUANTUM_PAINTER_DRIVERS
-VALID_QUANTUM_PAINTER_DRIVERS := ili9163_spi ili9341_spi st7789_spi gc9a01_spi
+VALID_QUANTUM_PAINTER_DRIVERS := ili9163_spi ili9341_spi st7789_spi gc9a01_spi ssd1351_spi
 
 #-------------------------------------------------------------------------------
 
@@ -69,6 +69,16 @@ define handle_quantum_painter_driver
             $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
             $(DRIVER_PATH)/painter/gc9a01/qp_gc9a01.c
 
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ssd1351_spi)
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI_DC_RESET := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_SSD1351_ENABLE -DQUANTUM_PAINTER_SSD1351_SPI_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/tft_panel \
+            $(DRIVER_PATH)/painter/ssd1351
+        SRC += \
+            $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
+            $(DRIVER_PATH)/painter/ssd1351/qp_ssd1351.c
 
     endif
 endef
