@@ -16,10 +16,12 @@
 
 #include QMK_KEYBOARD_H
 
-#define _BL 0
-#define _FL 1
-#define _AL 2
-#define _LL 3
+enum layer_names {
+    _BL, 
+    _FL, 
+    _AL, 
+    _LL, 
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: Base Layer (Default Layer)
