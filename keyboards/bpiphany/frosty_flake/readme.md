@@ -1,7 +1,7 @@
 # Frosty Flake Controller
 
-This is the firmware for Rev. 20140521 of the Frosty Flake controller
-by [Bathroom Epiphanies](http://bathroomepiphanies.com/controllers/),
+This is the firmware for the Frosty Flake controller by
+[Bathroom Epiphanies](http://bathroomepiphanies.com/controllers/),
 a replacement controller for the [Cooler Master Quick Fire
 Rapid](http://www.coolermaster.com/peripheral/keyboards/quickfirerapid/).
 
@@ -10,6 +10,10 @@ Firmware](https://github.com/BathroomEpiphanies/epiphanies_tmk_keyboard/tree/mas
 but has been cleaned up to match the
 [schematic](https://deskthority.net/wiki/File:Frosty_Flake_Schematics.pdf)
 and gone through some minor refactoring for QMK.
+
+## Revision support
+There are two revisions of this controller. 20140521 is built by default.
+If you need to build for 20130602, it can be built with `make bpiphany/frosty_flake/20130602`
 
 ## 104 and 87 layout support
 
