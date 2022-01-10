@@ -33,8 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {K400, K401, K402, K403, K404, K405, K406, K407, K408, K409, K410, K411}  \
 }
 
-enum layer_names { _QW = 0, _LWR, _RSE, _ADJ };
-
 static inline void led_lwr(const bool on) {
 #ifdef LED_NUM_LOCK_PIN
     writePin(LED_NUM_LOCK_PIN, on);
