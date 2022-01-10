@@ -14,6 +14,10 @@
   #include "5x6.h"
 #endif
 
+#ifdef KEYBOARD_runner3680_5x6_5x8
+  #include "5x6_5x8.h"
+#endif
+
 #ifdef KEYBOARD_runner3680_4x8
   #include "4x8.h"
 #endif

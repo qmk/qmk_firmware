@@ -1,3 +1,6 @@
+// Copyright 2022 Soundmonster (@soundmonster)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
@@ -5,10 +8,6 @@ extern keymap_config_t keymap_config;
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
-#endif
-
-#ifdef OLED_ENABLE
-static uint32_t oled_timer = 0;
 #endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -278,53 +277,19 @@ void render_layer_state(void) {
     }
 }
 
-void render_status_main(void) {
-    render_logo();
-    render_space();
-    render_layer_state();
-    render_space();
-    render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
-    render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
-}
-
-void render_status_secondary(void) {
-    render_logo();
-    render_space();
-    render_layer_state();
-    render_space();
-    render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
-    render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
-}
-
-void suspend_power_down_user() {
-    oled_off();
-}
-
 bool oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 30000) {
-        oled_off();
-        return;
-    }
-#ifndef SPLIT_KEYBOARD
-    else { oled_on(); }
-#endif
-
-    if (is_keyboard_master()) {
-        render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-    } else {
-        render_status_secondary();
-    }
+    // Renders the current keyboard state (layers and mods)
+    render_logo();
+    render_space();
+    render_layer_state();
+    render_space();
+    render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
+    render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
     return false;
 }
 
 #endif
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-#ifdef OLED_ENABLE
-        oled_timer = timer_read32();
-#endif
-    // set_timelog();
-  }
   static uint16_t my_colon_timer;
 
   switch (keycode) {

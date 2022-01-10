@@ -19,4 +19,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PRODUCT_ID   0x6500
 #define DEVICE_VER   0x0001
-#define PRODUCTION   Haus Rev. 1
+#define PRODUCT      Haus Rev. 1
