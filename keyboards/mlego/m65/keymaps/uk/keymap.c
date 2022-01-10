@@ -184,14 +184,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     }
 }
 
-#ifdef ENCODER_ENABLE
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    my_encoders(index, clockwise);
-    return true;
-}
-#endif
-
 layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
 
@@ -220,5 +212,40 @@ void keyboard_post_init_user(void) {
     debug_matrix   = true;
     debug_keyboard = true;
 #endif
+}
+#endif
+
+#ifdef ENCODER_ENABLE
+
+#    define MEDIA_KEY_DELAY 10
+
+static inline void my_encoders(const uint8_t index, const bool clockwise) {
+    if (index == 0) { /* First encoder */
+        if (IS_LAYER_ON(_LWR)) {
+            if (clockwise) {
+                rgblight_decrease_val_noeeprom();
+            } else {
+                rgblight_increase_val_noeeprom();
+            }
+        } else if (IS_LAYER_ON(_RSE)) {
+            if (clockwise) {
+                rgblight_decrease_hue_noeeprom();
+            } else {
+                rgblight_increase_hue_noeeprom();
+            }
+
+        } else {
+            if (clockwise) {
+                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
+            } else {
+                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
+            }
+        }
+    }
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    my_encoders(index, clockwise);
+    return true;
 }
 #endif
