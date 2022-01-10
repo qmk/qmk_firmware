@@ -16,6 +16,7 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
+LTO_ENABLE = yes            # Enable Link Time Optimization
 
 RGB_MATRIX_ENABLE = yes     # Enable RGB Matrix feature
 RGB_MATRIX_DRIVER = WS2812 	# ID67 uses WS2812 driver
