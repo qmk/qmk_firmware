@@ -21,7 +21,7 @@
 
 // Layers
 enum layers {
-    _COLEMAK,
+    _COLEMAK = 0,
     _QWERTY,
     _SYMBOLS,
     _NAVIGATION,
@@ -29,31 +29,33 @@ enum layers {
 };
 
 // Custom Keycodes
+// clang-format off
 #define _NAV_SPC LT(_NAVIGATION, KC_SPC)  // _NAVIGATION when held, SPACE when tapped
-#define _SYM_ENT LT(_SYMBOLS, KC_ENT)     // _SYMBOLS when held, ENTER when tapped
-#define CTL_BSPC MT(MOD_LCTL, KC_BSPC)    // CTRL when held, BACKSPACE when tapped
-#define ALT_DEL MT(MOD_LALT, KC_DEL)      // ALT when held, DELETE when tapped
-#define SFT_TAB MT(MOD_LSFT, KC_TAB)      // SHIFT when held, TAB when tapped
-#define C_TAB C(KC_TAB)                   // CTRL+TAB
-#define CS_TAB C(S(KC_TAB))               // SHIFT+CTRL+TAB
-#define CUT C(KC_X)                       // CTRL+X
-#define COPY C(KC_INS)                    // CTRL+INSERT
-#define PASTE S(KC_INS)                   // SHIFT+INSERT
+#define _SYM_ENT LT(_SYMBOLS, KC_ENT)     // _SYMBOLS when held,    ENTER when tapped
+#define CTL_BSPC MT(MOD_LCTL, KC_BSPC)    // CTRL when held,    BACKSPACE when tapped
+#define ALT_DEL  MT(MOD_LALT, KC_DEL)     // ALT when held,        DELETE when tapped
+#define SFT_TAB  MT(MOD_LSFT, KC_TAB)     // SHIFT when held,       TAB when tapped
+#define C_TAB    C(KC_TAB)                // CTRL+TAB
+#define CS_TAB   C(S(KC_TAB))             // CTRL+SHIFT+TAB
+#define CUT      C(KC_X)                  // CTRL+X
+#define COPY     C(KC_INS)                // CTRL+INSERT
+#define PASTE    S(KC_INS)                // SHIFT+INSERT
 #define AUTOFILL C(S(KC_L))               // Bitwarden Autofill, CTRL+SHIFT+L
 
 // i3 config
-#define I3MOD KC_LGUI           // $mod
-#define OPEN G(KC_SPC)          // $mod+SPACE
-#define QUIT G(S(KC_Q))         // $mod+SHIFT+Q
-#define WIN G(C(KC_SPC))        // $mod+CTRL+SPACE
-#define BROWSER G(KC_ENTER)     // $mod+ENTER
-#define TERM G(S(KC_ENTER))     // $mod+CTRL+ENTER
-#define NXTWS G(KC_TAB)         // $mod+TAB
-#define PRVWS G(S(KC_TAB))      // $mod+SHIFT+TAB
-#define MOVWS G(KC_LSFT)        // $mod+SHIFT+$X
-#define CRYWS G(KC_LALT)        // $mod+ALT+$X
-#define MVWSL G(C(S(KC_LEFT)))  // $mod+CTRL+SHIFT+LEFT
-#define MVWSR G(C(S(KC_RGHT)))  // $mod+CTRL+SHIFT+RIGHT
+#define I3MOD    KC_LGUI           // $mod
+#define OPEN     G(KC_SPC)         // $mod+SPACE
+#define QUIT     G(S(KC_Q))        // $mod+SHIFT+Q
+#define WIN      G(C(KC_SPC))      // $mod+CTRL+SPACE
+#define BROWSER  G(KC_ENTER)       // $mod+ENTER
+#define TERM     G(S(KC_ENTER))    // $mod+CTRL+ENTER
+#define NXTWS    G(KC_TAB)         // $mod+TAB
+#define PRVWS    G(S(KC_TAB))      // $mod+SHIFT+TAB
+#define MOVWS    G(KC_LSFT)        // $mod+SHIFT+$X
+#define CRYWS    G(KC_LALT)        // $mod+ALT+$X
+#define MVWSL    G(C(S(KC_LEFT)))  // $mod+CTRL+SHIFT+LEFT
+#define MVWSR    G(C(S(KC_RGHT)))  // $mod+CTRL+SHIFT+RIGHT
+// clang-format on
 
 enum custom_keycodes {
     M_TILD = SAFE_RANGE,  // ~
