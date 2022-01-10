@@ -28,3 +28,5 @@ RAW_ENABLE = yes
 
 QUANTUM_LIB_SRC += i2c_master.c
 SRC += leds.c matrix.c
+
+DEFAULT_FOLDER = handwired/dygma/raise/ansi
