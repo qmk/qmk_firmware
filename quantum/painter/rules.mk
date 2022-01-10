@@ -2,7 +2,7 @@
 QUANTUM_PAINTER_DRIVERS ?=
 
 # The list of permissible drivers that can be listed in QUANTUM_PAINTER_DRIVERS
-VALID_QUANTUM_PAINTER_DRIVERS :=
+VALID_QUANTUM_PAINTER_DRIVERS := st7789_spi
 
 #-------------------------------------------------------------------------------
 
@@ -24,6 +24,18 @@ define handle_quantum_painter_driver
 
     ifeq ($$(filter $$(strip $$(CURRENT_PAINTER_DRIVER)),$$(VALID_QUANTUM_PAINTER_DRIVERS)),)
         $$(error "$$(CURRENT_PAINTER_DRIVER)" is not a valid Quantum Painter driver)
+
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),st7789_spi)
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI_DC_RESET := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_ST7789_ENABLE -DQUANTUM_PAINTER_ST7789_SPI_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/tft_panel \
+            $(DRIVER_PATH)/painter/st77xx
+        SRC += \
+            $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
+            $(DRIVER_PATH)/painter/st77xx/qp_st7789.c
+
 
     endif
 endef
