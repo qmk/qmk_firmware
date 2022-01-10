@@ -6,8 +6,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x1003
-#define PRODUCT_ID   0x1501
+#define VENDOR_ID    0x1003 // P,C (Paper Crane)
+#define PRODUCT_ID   0x1501 // '21 keyboard 1
 #define DEVICE_VER   0x0001
 #define MANUFACTURER PaperCraneKeyboards
 #define PRODUCT      gerald65
@@ -31,7 +31,7 @@
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
+#define DIODE_DIRECTION ROW2COL
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
