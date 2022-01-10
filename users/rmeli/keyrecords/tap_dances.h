@@ -3,6 +3,22 @@
 
 // https://beta.docs.qmk.fm/using-qmk/software-features/feature_tap_dance#example-4-quad-function-tap-dance-id-example-4
 
+// + ---------- +
+// + TAP DANCES |
+// + ---------- +
+
+// Tap dance enums
+enum {
+    TD_LSPO_CAPS, // Tap once for (, hold once for LSFT, tap twice for CAPS
+    TD_RSPC_CAPS, // Tap once for ), hold once for RSFT, tap twice for CAPS
+    TD_ESC_DEL, // Tap once for KC_ESC, twice for KC_DEL
+};
+
+// Rename tap dances for keymap with shortcuts
+#define TD_LSPC TD(TD_LSPO_CAPS)
+#define TD_RSPC TD(TD_RSPC_CAPS)
+#define TD_ED TD(TD_ESC_DEL)
+
 // + ----------- +
 // + KEY PRESSES |
 // + ----------- +

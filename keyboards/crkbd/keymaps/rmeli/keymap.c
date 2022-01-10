@@ -51,34 +51,6 @@ bool oled_task_user(void) {
     return false;
 }
 
-
-// + ---------- +
-// + TAP DANCES |
-// + ---------- +
-
-// Tap dance enums
-enum {
-    TD_LSPO_CAPS, // Tap once for (, hold once for LSFT, tap twice for CAPS
-    TD_RSPC_CAPS, // Tap once for ), hold once for RSFT, tap twice for CAPS
-    TD_ESC_DEL, // Tap once for KC_ESC, twice for KC_DEL
-};
-
-// Tap dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_LSPO_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LSPO_CAPS_finished, LSPO_CAPS_reset),
-    [TD_RSPC_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RSPC_CAPS_finished, RSPC_CAPS_reset),
-    [TD_ESC_DEL] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_DEL),
-};
-
-// + --------- +
-// + SHORTCUTS |
-// + --------- +
-
-// Rename tap dances for keymap with shortcuts
-#define TD_LSPC TD(TD_LSPO_CAPS)
-#define TD_RSPC TD(TD_RSPC_CAPS)
-#define TD_ED TD(TD_ESC_DEL)
-
 // + ------- +
 // + KEY MAP |
 // + ------- +

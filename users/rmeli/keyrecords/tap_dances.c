@@ -1,9 +1,20 @@
 #include "keyrecords/tap_dances.h"
 
+// + ---------- +
+// + TAP DANCES |
+// + ---------- +
 
-// + --------- +
-// + TAP DANCE |
-// + --------- +
+// Tap dances definitions
+// Need to needs to be defined in a .c file to avoid a linker error (multiple definitions)
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_LSPO_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LSPO_CAPS_finished, LSPO_CAPS_reset),
+    [TD_RSPC_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RSPC_CAPS_finished, RSPC_CAPS_reset),
+    [TD_ESC_DEL] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_DEL),
+};
+
+// + ------ +
+// + DANCES |
+// + ------ +
 
 // https://github.com/qmk/qmk_firmware/blob/9294258c02d3e025e01935a06c4d9f1997535bda/users/gordon/gordon.c#L112-L135
 td_state_t hold_cur_dance(qk_tap_dance_state_t *state) {
