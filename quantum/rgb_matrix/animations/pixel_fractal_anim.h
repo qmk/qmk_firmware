@@ -31,6 +31,10 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
 
     inline uint32_t interval(void) { return 3000 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16); }
 
+    if (params->init) {
+        rgb_matrix_set_color_all(0, 0, 0);
+    }
+
     RGB rgb = rgb_matrix_hsv_to_rgb(rgb_matrix_config.hsv);
     for (uint8_t h = 0; h < MATRIX_ROWS; ++h) {
         for (uint8_t l = 0; l < MID_COL - 1; ++l) {  // Light and move left columns outwards
