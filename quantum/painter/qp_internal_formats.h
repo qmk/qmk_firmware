@@ -30,3 +30,20 @@ typedef union QP_PACKED qp_pixel_t {
     uint32_t dummy;
 } qp_pixel_t;
 _Static_assert(sizeof(qp_pixel_t) == 4, "Invalid size for qp_pixel_t");
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter image format
+
+typedef enum qp_image_format_t {
+    // Pixel formats available in the QGF frame format
+    GRAYSCALE_1BPP = 0x00,
+    GRAYSCALE_2BPP = 0x01,
+    GRAYSCALE_4BPP = 0x02,
+    GRAYSCALE_8BPP = 0x03,
+    PALETTE_1BPP   = 0x04,
+    PALETTE_2BPP   = 0x05,
+    PALETTE_4BPP   = 0x06,
+    PALETTE_8BPP   = 0x07,
+} qp_image_format_t;
+
+typedef enum painter_compression_t { IMAGE_UNCOMPRESSED, IMAGE_COMPRESSED_RLE } painter_compression_t;

@@ -9,10 +9,21 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter global configurables (add to your keyboard's config.h)
 
+// This controls the maximum number of images that Quantum Painter can load. Increasing this number in order to load
+// more images increases the amount of RAM required.
+#ifndef QUANTUM_PAINTER_NUM_IMAGES
+#    define QUANTUM_PAINTER_NUM_IMAGES 8
+#endif  // QUANTUM_PAINTER_NUM_IMAGES
 // This controls the maximum size of the pixel data buffer used for single blocks of transmission. Larger buffers means
 // more data is processed at one time, with less frequent transmissions, at the cost of RAM.
 #ifndef QP_PIXDATA_BUFFER_SIZE
 #    define QP_PIXDATA_BUFFER_SIZE 32
+#endif
+
+// This controls whether 256-color palettes are supported -- basically unusable on AVR due to the associated RAM
+// requirements on the internal buffer sizes.
+#ifndef QUANTUM_PAINTER_SUPPORTS_256_PALETTE
+#    define QUANTUM_PAINTER_SUPPORTS_256_PALETTE FALSE
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -45,6 +56,14 @@ typedef const void *painter_device_t;
 
 // Rotation type
 typedef enum { QP_ROTATION_0, QP_ROTATION_90, QP_ROTATION_180, QP_ROTATION_270 } painter_rotation_t;
+
+// Image handle type
+typedef struct painter_image_desc_t {
+    uint16_t width;
+    uint16_t height;
+    uint16_t frame_count;
+} painter_image_desc_t;
+typedef const painter_image_desc_t *painter_image_handle_t;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API
@@ -87,3 +106,10 @@ bool qp_circle(painter_device_t device, uint16_t x, uint16_t y, uint16_t radius,
 
 // Draw an ellipse
 bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex, uint16_t sizey, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
+
+// Load an image from memory. Image can be unloaded by invoking qp_close_image() below
+// - Returns NULL if unable to load
+painter_image_handle_t qp_load_image_mem(const void QP_RESIDENT_FLASH_OR_RAM *buffer);
+
+// Closes an image handle when no longer in use. Returns true if successfully closed.
+bool qp_close_image(painter_image_handle_t image);
