@@ -20,3 +20,6 @@ void qp_internal_fill_pixdata(painter_device_t device, uint32_t num_pixels, uint
 
 // qp_setpixel internal implementation, but uses the global pixdata buffer with pre-converted native pixel. Only the first pixel is used.
 bool qp_internal_setpixel_impl(painter_device_t device, uint16_t x, uint16_t y);
+
+// qp_rect internal implementation, but uses the global pixdata buffer with pre-converted native pixels.
+bool qp_internal_fillrect_helper_impl(painter_device_t device, uint16_t l, uint16_t t, uint16_t r, uint16_t b);

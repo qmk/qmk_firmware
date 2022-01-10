@@ -135,3 +135,72 @@ bool qp_line(painter_device_t device, uint16_t x0, uint16_t y0, uint16_t x1, uin
     qp_dprintf("qp_line(%d, %d, %d, %d): %s\n", (int)x0, (int)y0, (int)x1, (int)y1, ret ? "ok" : "fail");
     return ret;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter External API: qp_rect
+
+bool qp_internal_fillrect_helper_impl(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
+    uint32_t                 pixels_in_pixdata = qp_internal_num_pixels_in_buffer(device);
+    struct painter_driver_t *driver            = (struct painter_driver_t *)device;
+
+    uint16_t l = QP_MIN(left, right);
+    uint16_t r = QP_MAX(left, right);
+    uint16_t t = QP_MIN(top, bottom);
+    uint16_t b = QP_MAX(top, bottom);
+    uint16_t w = r - l + 1;
+    uint16_t h = b - t + 1;
+
+    uint32_t remaining = w * h;
+    driver->driver_vtable->viewport(device, l, t, r, b);
+    while (remaining > 0) {
+        uint32_t transmit = QP_MIN(remaining, pixels_in_pixdata);
+        if (!driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, transmit)) {
+            return false;
+        }
+        remaining -= transmit;
+    }
+    return true;
+}
+
+bool qp_rect(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint8_t hue, uint8_t sat, uint8_t val, bool filled) {
+    qp_dprintf("qp_rect(%d, %d, %d, %d): entry\n", (int)left, (int)top, (int)right, (int)bottom);
+    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    if (!driver->validate_ok) {
+        qp_dprintf("qp_rect: fail (validation_ok == false)\n");
+        return false;
+    }
+
+    // Cater for cases where people have submitted the coordinates backwards
+    uint16_t l = QP_MIN(left, right);
+    uint16_t r = QP_MAX(left, right);
+    uint16_t t = QP_MIN(top, bottom);
+    uint16_t b = QP_MAX(top, bottom);
+    uint16_t w = r - l + 1;
+    uint16_t h = b - t + 1;
+
+    bool ret = true;
+    if (!qp_comms_start(device)) {
+        qp_dprintf("Failed to start comms in qp_rect\n");
+        return false;
+    }
+
+    if (filled) {
+        // Fill up the pixdata buffer with the required number of native pixels
+        qp_internal_fill_pixdata(device, w * h, hue, sat, val);
+
+        // Perform the draw
+        ret = qp_internal_fillrect_helper_impl(device, l, t, r, b);
+    } else {
+        // Fill up the pixdata buffer with the required number of native pixels
+        qp_internal_fill_pixdata(device, QP_MAX(w, h), hue, sat, val);
+
+        // Draw 4x filled single-width rects to create an outline
+        if (!qp_internal_fillrect_helper_impl(device, l, t, r, t) || !qp_internal_fillrect_helper_impl(device, l, b, r, b) || !qp_internal_fillrect_helper_impl(device, l, t + 1, l, b - 1) || !qp_internal_fillrect_helper_impl(device, r, t + 1, r, b - 1)) {
+            ret = false;
+        }
+    }
+
+    qp_comms_stop(device);
+    qp_dprintf("qp_rect(%d, %d, %d, %d): %s\n", (int)l, (int)t, (int)r, (int)b, ret ? "ok" : "fail");
+    return ret;
+}
