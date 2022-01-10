@@ -45,3 +45,28 @@ uint32_t qp_comms_send(painter_device_t device, const void QP_RESIDENT_FLASH_OR_
 
     return driver->comms_vtable->comms_send(device, data, byte_count);
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Comms APIs that use a D/C pin
+
+void qp_comms_command(painter_device_t device, uint8_t cmd) {
+    struct painter_driver_t *                   driver       = (struct painter_driver_t *)device;
+    struct painter_comms_with_command_vtable_t *comms_vtable = (struct painter_comms_with_command_vtable_t *)driver->comms_vtable;
+    comms_vtable->send_command(device, cmd);
+}
+
+void qp_comms_command_databyte(painter_device_t device, uint8_t cmd, uint8_t data) {
+    qp_comms_command(device, cmd);
+    qp_comms_send(device, &data, sizeof(data));
+}
+
+uint32_t qp_comms_command_databuf(painter_device_t device, uint8_t cmd, const void QP_RESIDENT_FLASH_OR_RAM *data, uint32_t byte_count) {
+    qp_comms_command(device, cmd);
+    return qp_comms_send(device, data, byte_count);
+}
+
+void qp_comms_bulk_command_sequence(painter_device_t device, const uint8_t QP_RESIDENT_FLASH_OR_RAM *sequence, size_t sequence_len) {
+    struct painter_driver_t *                   driver       = (struct painter_driver_t *)device;
+    struct painter_comms_with_command_vtable_t *comms_vtable = (struct painter_comms_with_command_vtable_t *)driver->comms_vtable;
+    comms_vtable->bulk_command_sequence(device, sequence, sequence_len);
+}

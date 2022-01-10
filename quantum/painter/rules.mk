@@ -15,6 +15,9 @@ SRC += \
     $(QUANTUM_DIR)/painter/qp_stream.c
 
 
+# Comms flags
+QUANTUM_PAINTER_NEEDS_COMMS_SPI ?= no
+
 # Handler for each driver
 define handle_quantum_painter_driver
     CURRENT_PAINTER_DRIVER := $1
@@ -27,3 +30,18 @@ endef
 
 # Iterate through the listed drivers for the build, including what's necessary
 $(foreach qp_driver,$(QUANTUM_PAINTER_DRIVERS),$(eval $(call handle_quantum_painter_driver,$(qp_driver))))
+
+# If SPI comms is needed, set up the required files
+ifeq ($(strip $(QUANTUM_PAINTER_NEEDS_COMMS_SPI)), yes)
+    OPT_DEFS += -DQUANTUM_PAINTER_SPI_ENABLE
+    QUANTUM_LIB_SRC += spi_master.c
+    VPATH += $(DRIVER_PATH)/painter/comms
+    SRC += \
+        $(QUANTUM_DIR)/painter/qp_comms.c \
+        $(DRIVER_PATH)/painter/comms/qp_comms_spi.c
+
+    ifeq ($(strip $(QUANTUM_PAINTER_NEEDS_COMMS_SPI_DC_RESET)), yes)
+        OPT_DEFS += -DQUANTUM_PAINTER_SPI_DC_RESET_ENABLE
+    endif
+endif
+
