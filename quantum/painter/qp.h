@@ -160,3 +160,8 @@ painter_font_handle_t qp_load_font_mem(const void QP_RESIDENT_FLASH_OR_RAM *buff
 
 // Closes a font handle when no longer in use. Returns true if successfully closed.
 bool qp_close_font(painter_font_handle_t font);
+
+// Draw text to the display
+int16_t qp_textwidth(painter_font_handle_t font, const char QP_RESIDENT_FLASH_OR_RAM *str);
+int16_t qp_drawtext(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char QP_RESIDENT_FLASH_OR_RAM *str);
+int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char QP_RESIDENT_FLASH_OR_RAM *str, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
