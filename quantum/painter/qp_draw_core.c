@@ -22,6 +22,17 @@ _Static_assert((QP_PIXDATA_BUFFER_SIZE > 0) && (QP_PIXDATA_BUFFER_SIZE % 16) == 
 // Buffer used for transmitting native pixel data to the downstream device.
 uint8_t qp_internal_global_pixdata_buffer[QP_PIXDATA_BUFFER_SIZE];
 
+// Static buffer to contain a generated color palette
+static bool       generated_palette = false;
+static int16_t    generated_steps   = -1;
+static qp_pixel_t interpolated_fg_hsv888;
+static qp_pixel_t interpolated_bg_hsv888;
+#if QUANTUM_PAINTER_SUPPORTS_256_PALETTE
+qp_pixel_t qp_internal_global_pixel_lookup_table[256];
+#else
+qp_pixel_t qp_internal_global_pixel_lookup_table[16];
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Helpers
 
@@ -52,6 +63,50 @@ void qp_internal_fill_pixdata(painter_device_t device, uint32_t num_pixels, uint
         driver->driver_vtable->append_pixels(device, qp_internal_global_pixdata_buffer, &color, i, 1, &palette_idx);
     }
 }
+
+// Resets the global palette so that it can be regenerated. Only needed if the colors are identical, but a different display is used with a different internal pixel format.
+void qp_internal_invalidate_palette(void) {
+    generated_palette = false;
+    generated_steps   = -1;
+}
+
+// Interpolates between two colors to generate a palette
+bool qp_internal_interpolate_palette(qp_pixel_t fg_hsv888, qp_pixel_t bg_hsv888, int16_t steps) {
+    // Check if we need to generate a new palette -- if the input parameters match then assume the palette can stay unchanged.
+    // This may present a problem if using the same parameters but a different screen converts pixels -- use qp_internal_invalidate_palette() to reset.
+    if (generated_palette == true && generated_steps == steps && memcmp(&interpolated_fg_hsv888, &fg_hsv888, sizeof(fg_hsv888)) == 0 && memcmp(&interpolated_bg_hsv888, &bg_hsv888, sizeof(bg_hsv888)) == 0) {
+        // We already have the correct palette, no point regenerating it.
+        return false;
+    }
+
+    // Save the parameters so we know whether we can skip generation
+    generated_palette      = true;
+    generated_steps        = steps;
+    interpolated_fg_hsv888 = fg_hsv888;
+    interpolated_bg_hsv888 = bg_hsv888;
+
+    int16_t hue_fg = fg_hsv888.hsv888.h;
+    int16_t hue_bg = bg_hsv888.hsv888.h;
+
+    // Make sure we take the "shortest" route from one hue to the other
+    if ((hue_fg - hue_bg) >= 128) {
+        hue_bg += 256;
+    } else if ((hue_fg - hue_bg) <= -128) {
+        hue_bg -= 256;
+    }
+
+    // Interpolate each of the lookup table entries
+    for (int16_t i = 0; i < steps; ++i) {
+        qp_internal_global_pixel_lookup_table[i].hsv888.h = (uint8_t)((hue_fg - hue_bg) * i / (steps - 1) + hue_bg);
+        qp_internal_global_pixel_lookup_table[i].hsv888.s = (uint8_t)((fg_hsv888.hsv888.s - bg_hsv888.hsv888.s) * i / (steps - 1) + bg_hsv888.hsv888.s);
+        qp_internal_global_pixel_lookup_table[i].hsv888.v = (uint8_t)((fg_hsv888.hsv888.v - bg_hsv888.hsv888.v) * i / (steps - 1) + bg_hsv888.hsv888.v);
+
+        qp_dprintf("qp_internal_interpolate_palette: %3d of %d -- H: %3d, S: %3d, V: %3d\n", (int)(i + 1), (int)steps, (int)qp_internal_global_pixel_lookup_table[i].hsv888.h, (int)qp_internal_global_pixel_lookup_table[i].hsv888.s, (int)qp_internal_global_pixel_lookup_table[i].hsv888.v);
+    }
+
+    return true;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_setpixel
 
