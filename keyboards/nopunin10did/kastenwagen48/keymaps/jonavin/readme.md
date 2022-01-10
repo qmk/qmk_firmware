@@ -3,7 +3,7 @@ Designed to match my other keymaps
 
 NOTE: Uses userpace user/jonavin
 
-Feature changes from Default48
+Feature changes from Default
   - Bottom row mapping LCtrl, LAlt, LGui, spacebars, MO(2)/LOWER, MO(1)/FN, RCtrl
   - CAPS as MO(3)/RAISE - tap to toggle
   - numpad in MO(3) layer
@@ -20,6 +20,7 @@ Feature changes from Default48
       - Left Ctrl held - navigate next/prev words
       - Left Alt held - change media next/prev track
       - RAISE + Encode push toggles between volume change and tab scrolling
+    - ENCODER_DIRECTION_FLIP has been defined to avoid issues with encoder going in opposition direction
 
 OPTIONS in rules.mk
 ---------------------------------------

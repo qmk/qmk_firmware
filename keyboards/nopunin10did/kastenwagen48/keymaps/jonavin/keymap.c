@@ -1,5 +1,5 @@
 /* Copyright 2021 W. Alex Ronke, a.k.a. NoPunIn10Did (w.alex.ronke@gmail.com)
- * Copyright 2021 Jonavin Eng, @Jonavin
+ * Copyright 2022 Jonavin Eng, @Jonavin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
