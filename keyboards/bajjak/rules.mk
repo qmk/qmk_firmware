@@ -29,8 +29,6 @@ DEBOUNCE_TYPE = eager_pr
 SRC += matrix.c 
 QUANTUM_LIB_SRC += i2c_master.c
 
-# LAYOUTS = bajjak
-
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no
 BACKLIGHT_SUPPORTED = no
