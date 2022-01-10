@@ -1,7 +1,8 @@
 # Kastenwagen
 
-![Jabberwocky](https://diplomacyvariants.files.wordpress.com/2021/03/dexterous_jabberwocky.jpg)
-TBD: update image
+![Kastenwagen 1840](https://diplomacyvariants.files.wordpress.com/2022/01/late-harvest-on-kastenwagen.png)
+![Kastenwagen 48](https://diplomacyvariants.files.wordpress.com/2022/01/kastenwagen-48-concept-art.png)
+
 
 A description TBD: 
 * Kastenwagen 1840 (with numpad)
@@ -30,3 +31,5 @@ Make example for the 48 model:
     make nopunin10did/kastenwagen:default48
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+![Kastenwagen Default Layouts](https://diplomacyvariants.files.wordpress.com/2022/01/kastenwagen-default-layouts.png)
