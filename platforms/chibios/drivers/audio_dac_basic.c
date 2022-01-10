@@ -48,6 +48,15 @@
 #    define AUDIO_PIN_ALT -1
 #endif
 
+// Check to seee if the dac audio triggers are set. If not set them to the defaults for the f303
+#if !defined(AUDIO_DAC_CH1_TRIGGER)
+#   define AUDIO_DAC_CH1_TRIGGER 0b000
+#endif
+
+#if !defined(AUDIO_DAC_CH1_TRIGGER)
+#   define AUDIO_DAC_CH2_TRIGGER 0b010
+#endif
+
 #if !defined(AUDIO_STATE_TIMER)
 #    define AUDIO_STATE_TIMER GPTD8
 #endif
@@ -98,8 +107,8 @@ static const DACConfig dac_conf_ch2 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = 
  * EXTI9      0b110
  * SWTRIG     0b111
  */
-static const DACConversionGroup dac_conv_grp_ch1 = {.num_channels = 1U, .trigger = DAC_TRG(0b000)};
-static const DACConversionGroup dac_conv_grp_ch2 = {.num_channels = 1U, .trigger = DAC_TRG(0b010)};
+static const DACConversionGroup dac_conv_grp_ch1 = {.num_channels = 1U, .trigger = DAC_TRG(AUDIO_DAC_CH1_TRIGGER)};
+static const DACConversionGroup dac_conv_grp_ch2 = {.num_channels = 1U, .trigger = DAC_TRG(AUDIO_DAC_CH2_TRIGGER)};
 
 void channel_1_start(void) {
     gptStart(&GPTD6, &gpt6cfg1);
@@ -215,9 +224,13 @@ void audio_driver_initialize(void) {
      *
      * this is done here, reaching directly into the stm32 registers since chibios has not implemented BOFF handling yet
      * (see: chibios/os/hal/ports/STM32/todo.txt '- BOFF handling in DACv1.'
+     *
+     * This Explict setting to 0 does not seem to be needed for the G4 Series
      */
+#   if !defined(AUDIO_NO_BOFF)
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
+#   endif
 
     // start state-updater
     gptStart(&AUDIO_STATE_TIMER, &gptStateUpdateCfg);
