@@ -59,6 +59,8 @@
 
 #define MATRIX_IO_DELAY 5
 
+#define RGBLIGHT_LAYERS
+
 #define RGBLED_NUM 16
 #define RGBLED_SPLIT \
     { 8, 8 }

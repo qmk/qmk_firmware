@@ -36,7 +36,6 @@
     { R45, R44, R43, R42, R41, R40 }  \
 }
 
-enum layer_names { _QW = 0, _LWR, _RSE, _ADJ };
 
 static inline void led_lwr(const bool on) {
 #ifdef LED_NUM_LOCK_PIN
@@ -56,32 +55,3 @@ static inline void led_caps(const bool on) {
 #endif
 }
 
-#ifdef ENCODER_ENABLE
-
-#    define MEDIA_KEY_DELAY 10
-
-static inline void my_encoders(const uint8_t index, const bool clockwise) {
-    if (index == 0 || (index == 1)) { /* First encoder on each side*/
-        if (IS_LAYER_ON(_LWR)) {
-            if (clockwise) {
-                rgblight_decrease_val_noeeprom();
-            } else {
-                rgblight_increase_val_noeeprom();
-            }
-        } else if (IS_LAYER_ON(_RSE)) {
-            if (clockwise) {
-                rgblight_decrease_hue_noeeprom();
-            } else {
-                rgblight_increase_hue_noeeprom();
-            }
-
-        } else {
-            if (clockwise) {
-                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
-            } else {
-                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
-            }
-        }
-    }
-}
-#endif
