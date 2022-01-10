@@ -84,3 +84,6 @@ bool qp_rect(painter_device_t device, uint16_t left, uint16_t top, uint16_t righ
 
 // Draw a circle
 bool qp_circle(painter_device_t device, uint16_t x, uint16_t y, uint16_t radius, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
+
+// Draw an ellipse
+bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex, uint16_t sizey, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
