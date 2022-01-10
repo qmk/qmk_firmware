@@ -51,3 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_DRIVER PWMD4
 #define BACKLIGHT_BREATHING
 
+/* Bootmagic Lite key configuration, Backspace */
+#define BOOTMAGIC_LITE_ROW 1
+#define BOOTMAGIC_LITE_COLUMN 14
