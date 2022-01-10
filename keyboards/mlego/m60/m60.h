@@ -55,32 +55,3 @@ static inline void led_caps(const bool on) {
 #endif
 }
 
-#ifdef ENCODER_ENABLE
-
-#    define MEDIA_KEY_DELAY 10
-
-static inline void my_encoders(const uint8_t index, const bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (IS_LAYER_ON(_LWR)) {
-            if (clockwise) {
-                rgblight_decrease_val_noeeprom();
-            } else {
-                rgblight_increase_val_noeeprom();
-            }
-        } else if (IS_LAYER_ON(_RSE)) {
-            if (clockwise) {
-                rgblight_decrease_hue_noeeprom();
-            } else {
-                rgblight_increase_hue_noeeprom();
-            }
-
-        } else {
-            if (clockwise) {
-                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
-            } else {
-                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
-            }
-        }
-    }
-}
-#endif
