@@ -38,3 +38,6 @@ bool qp_internal_interpolate_palette(qp_pixel_t fg_hsv888, qp_pixel_t bg_hsv888,
 
 // Resets the global palette so that it can be regenerated. Only needed if the colors are identical, but a different display is used with a different internal pixel format.
 void qp_internal_invalidate_palette(void);
+
+// Helper shared between image and font rendering -- sets up the global palette to match the palette block specified in the asset. Expects the stream to be positioned at the start of the block header.
+bool qp_internal_load_qgf_palette(qp_stream_t* stream, uint8_t bpp);

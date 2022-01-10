@@ -107,6 +107,37 @@ bool qp_internal_interpolate_palette(qp_pixel_t fg_hsv888, qp_pixel_t bg_hsv888,
     return true;
 }
 
+// Helper shared between image and font rendering -- sets up the global palette to match the palette block specified in the asset. Expects the stream to be positioned at the start of the block header.
+bool qp_internal_load_qgf_palette(qp_stream_t *stream, uint8_t bpp) {
+    qgf_palette_v1_t palette_descriptor;
+    if (qp_stream_read(&palette_descriptor, sizeof(qgf_palette_v1_t), 1, stream) != 1) {
+        qp_dprintf("Failed to read palette_descriptor, expected length was not %d\n", (int)sizeof(qgf_palette_v1_t));
+        return false;
+    }
+
+    // BPP determines the number of palette entries, each entry is a HSV888 triplet.
+    const uint16_t palette_entries = 1u << bpp;
+
+    // Ensure we aren't reusing any palette
+    qp_internal_invalidate_palette();
+
+    // Read the palette entries
+    for (uint16_t i = 0; i < palette_entries; ++i) {
+        // Read the palette entry
+        qgf_palette_entry_v1_t entry;
+        if (qp_stream_read(&entry, sizeof(qgf_palette_entry_v1_t), 1, stream) != 1) {
+            return false;
+        }
+
+        // Update the lookup table
+        qp_internal_global_pixel_lookup_table[i].hsv888.h = entry.h;
+        qp_internal_global_pixel_lookup_table[i].hsv888.s = entry.s;
+        qp_internal_global_pixel_lookup_table[i].hsv888.v = entry.v;
+    }
+
+    return true;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_setpixel
 
