@@ -1,15 +1,19 @@
-# choc_taro
+# rabbit_capture_plan
 
-![choc_taro](https://i.gyazo.com/717ddeed13cd2f956ed01b71c6e96f87.jpg)
+![rabbit_capture_plan](https://i.gyazo.com/eb25048b17906f897253e8be18db001c.jpg)
 
-gh60 compatible choc keyboard
+This is 70 keys split keyboard with trackball.
 
 * Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)
-* Hardware Supported: choc taro pcb
+* Hardware Supported: rabbit capture plan pcb
 * Hardware Availability: booth([@kakunpc](https://kakunpc.booth.pm/))
 
 Make example for this keyboard (after setting up your build environment):
 
-    make choc_taro:default
+    make kakunpc/rabbit_capture_plan:default
+
+Flashing example for this keyboard:
+
+    make kakunpc/rabbit_capture_plan:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

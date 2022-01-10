@@ -15,10 +15,10 @@
  */
 #pragma once
 
-#ifdef KEYBOARD_business_card_alpha
+#ifdef KEYBOARD_kakunpc_business_card_alpha
     #include "alpha.h"
 #endif
-#ifdef KEYBOARD_business_card_beta
+#ifdef KEYBOARD_kakunpc_business_card_beta
     #include "beta.h"
 #endif
 
