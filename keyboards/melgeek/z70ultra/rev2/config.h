@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x6575
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MelGeek
-#define PRODUCT         Z70Ultra
+#define PRODUCT         Z70Ultra rev2
 
 /* key matrix size */
 #define MATRIX_ROWS 5
