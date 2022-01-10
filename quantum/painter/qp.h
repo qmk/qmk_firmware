@@ -136,6 +136,9 @@ painter_image_handle_t qp_load_image_mem(const void QP_RESIDENT_FLASH_OR_RAM *bu
 // Closes an image handle when no longer in use. Returns true if successfully closed.
 bool qp_close_image(painter_image_handle_t image);
 
+// Draw an image on the device
+bool qp_drawimage(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image);
+bool qp_drawimage_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
 // Load a font from memory. Font can be unloaded by invoking qp_close_font() below
 // - Returns NULL if unable to load
 painter_font_handle_t qp_load_font_mem(const void QP_RESIDENT_FLASH_OR_RAM *buffer);
