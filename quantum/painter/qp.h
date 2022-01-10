@@ -72,3 +72,6 @@ bool qp_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t 
 
 // Stream pixel data in the device's native format into the previously-set viewport
 bool qp_pixdata(painter_device_t device, const void QP_RESIDENT_FLASH_OR_RAM *pixel_data, uint32_t native_pixel_count);
+
+// Set a specific pixel
+bool qp_setpixel(painter_device_t device, uint16_t x, uint16_t y, uint8_t hue, uint8_t sat, uint8_t val);
