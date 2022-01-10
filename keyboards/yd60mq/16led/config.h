@@ -1,5 +1,5 @@
 #pragma once
 
 #define DEVICE_VER 0x0002
-#define RGB_DISABLE_WHEN_USB_SUSPENDED 1
+#define RGBLIGHT_SLEEP
 #define RGBLED_NUM 16
