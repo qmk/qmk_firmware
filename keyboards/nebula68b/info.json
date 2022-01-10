@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "yiancar",
     "layouts": {
-        "LAYOUT_68_ansi": {
+        "LAYOUT_68_ansi_split_bs": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
