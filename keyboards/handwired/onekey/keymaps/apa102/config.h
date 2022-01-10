@@ -1,5 +1,0 @@
-#pragma once
-
-#define RGBLED_NUM 40
-#define APA102_DEFAULT_BRIGHTNESS 5
-#define RGBLIGHT_ANIMATIONS

@@ -1,1 +1,0 @@
-# The default keymap for krush65 solder
