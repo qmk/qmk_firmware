@@ -13,7 +13,8 @@ SRC += \
     $(QUANTUM_DIR)/color.c \
     $(QUANTUM_DIR)/painter/qp.c \
     $(QUANTUM_DIR)/painter/qp_stream.c \
-    $(QUANTUM_DIR)/painter/qp_draw_core.c
+    $(QUANTUM_DIR)/painter/qp_draw_core.c \
+    $(QUANTUM_DIR)/painter/qp_draw_circle.c
 
 
 # Comms flags
