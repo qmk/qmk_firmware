@@ -16,6 +16,7 @@ SRC += \
     $(QUANTUM_DIR)/painter/qgf.c \
     $(QUANTUM_DIR)/painter/qff.c \
     $(QUANTUM_DIR)/painter/qp_draw_core.c \
+    $(QUANTUM_DIR)/painter/qp_draw_codec.c \
     $(QUANTUM_DIR)/painter/qp_draw_circle.c \
     $(QUANTUM_DIR)/painter/qp_draw_ellipse.c \
     $(QUANTUM_DIR)/painter/qp_draw_image.c \

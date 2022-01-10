@@ -24,6 +24,13 @@ bool qp_internal_setpixel_impl(painter_device_t device, uint16_t x, uint16_t y);
 // qp_rect internal implementation, but uses the global pixdata buffer with pre-converted native pixels.
 bool qp_internal_fillrect_helper_impl(painter_device_t device, uint16_t l, uint16_t t, uint16_t r, uint16_t b);
 
+// Convert from input pixel data + palette to equivalent pixels
+typedef int16_t (*qp_internal_byte_input_callback)(void* cb_arg);
+typedef bool (*qp_internal_pixel_output_callback)(qp_pixel_t* palette, uint8_t index, void* cb_arg);
+bool qp_internal_decode_palette(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_pixel_t* palette, qp_internal_pixel_output_callback output_callback, void* output_arg);
+bool qp_internal_decode_grayscale(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_internal_pixel_output_callback output_callback, void* output_arg);
+bool qp_internal_decode_recolor(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_pixel_t fg_hsv888, qp_pixel_t bg_hsv888, qp_internal_pixel_output_callback output_callback, void* output_arg);
+
 // Global variable used for interpolated pixel lookup table.
 #if QUANTUM_PAINTER_SUPPORTS_256_PALETTE
 extern qp_pixel_t qp_internal_global_pixel_lookup_table[256];
@@ -41,3 +48,35 @@ void qp_internal_invalidate_palette(void);
 
 // Helper shared between image and font rendering -- sets up the global palette to match the palette block specified in the asset. Expects the stream to be positioned at the start of the block header.
 bool qp_internal_load_qgf_palette(qp_stream_t* stream, uint8_t bpp);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter codec functions
+
+enum qp_internal_rle_mode_t {
+    MARKER_BYTE,
+    REPEATING_RUN,
+    NON_REPEATING_RUN,
+};
+
+struct qp_internal_byte_input_state {
+    painter_device_t device;
+    qp_stream_t*     src_stream;
+    int16_t          curr;
+    union {
+        // RLE-specific
+        struct {
+            enum qp_internal_rle_mode_t mode;
+            uint8_t                     remain;  // number of bytes remaining in the current mode
+        } rle;
+    };
+};
+
+struct qp_internal_pixel_output_state {
+    painter_device_t device;
+    uint32_t         pixel_write_pos;
+    uint32_t         max_pixels;
+};
+
+bool qp_internal_pixel_appender(qp_pixel_t* palette, uint8_t index, void* cb_arg);
+
+qp_internal_byte_input_callback qp_internal_prepare_input_state(struct qp_internal_byte_input_state* input_state, painter_compression_t compression);
