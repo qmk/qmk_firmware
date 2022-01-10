@@ -2,7 +2,7 @@
 
 ![Cradio](https://raw.githubusercontent.com/filterpaper/filterpaper.github.io/main/images/cradio.png)
 
-Cradio are minimalist 34-key split-keyboards designed with no diodes using direct micro-controller pin wiring.
+Cradio are minimalist 34-key split-keyboards designed with no diodes, using direct micro-controller pin wiring.
 
 ## Keyboard Info
 
