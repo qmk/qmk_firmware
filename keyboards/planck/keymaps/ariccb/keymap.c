@@ -37,8 +37,9 @@
 #define MICMUTE LCTL(LSFT(KC_M))
 #define DESKTR LGUI(LCTL(KC_RGHT))  // move one virtual desktop to the right
 #define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
-#define MTLSFT_F9 MT(MOD_LSFT, KC_F9)
-#define MTLALT_F10 MT(MOD_LALT, KC_F10)
+#define MTLCTL_F9 MT(MOD_LSFT, KC_F9)
+#define MTLSFT_F10 MT(MOD_LSFT, KC_F10)
+#define MTLALT_F11 MT(MOD_LALT, KC_F11)
 #define MTLGUI_Z MT(MOD_LGUI, KC_Z)
 #define MTLALT_PL MT(MOD_LALT, KC_MPLY)
 #define MTLALT_NXT MT(MOD_LALT, KC_MNXT)
@@ -153,17 +154,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (RAISE)
  *
  * ,-------------------------------------------------------------------------.
- * |     |  !  |     |     |     |     |     |  Cut  | Undo| Redo|  =  | Bsp |  
+ * |  ~  |  !  |     |     |     |Vol+| Vol- |  Cut  | Undo| Redo|  =  | Bsp |  
  * |-------------------------------------------------------------------------|
  * |     |Menu |     |     |     |DeskL|DeskR|SELWORD|Copy|Paste|WinPst|P2TXT|
  * |-------------------------------------------------------------------------|
  * |     |     |     |     |     |    |Braces|Braces2|  <  |  >  |  ?  |  !  |
  * |-------------------------------------------------------------------------|
- * |     |     |     |     |Adjust|           |       |     |     |     |     |
+ * |     |     |     |     |Adjust|           |      |     |     |     |     |
  * `-------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
-  KC_TRNS, KC_EXLM, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC, 
+  KC_TILD, KC_EXLM, KC_TRNS,  KC_TRNS, KC_TRNS, KC_VOLU, KC_VOLD, KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC, 
   KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS,  DESKTL,  DESKTR,  SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_PTXT, 
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_EXLM,  
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(6),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_NO,       KC_NO
@@ -209,34 +210,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (FN)
  *
- * ,----------------------------------------------------------------------.
- * |    |Sft,F9|Alt,F10|F11| F12|Calc|Vol+|home |  up  | end |PrtScr| Del |
- * |----------------------------------------------------------------------|
- * |    | F5  | F6  | F7  | F8  |CAPS|Vol-|left | down |right|ScrLck|Ins  |
- * |----------------------------------------------------------------------|
- * |    | F1  | F2  | F3  | F4  |Mute|MicM|pgup |LCA_dn| pgdn|ADJUST|     |
- * |----------------------------------------------------------------------|
- * |    |     |     |     |     |         |     |Alt,MNext|  |      |     |
- * `----------------------------------------------------------------------'
+ * ,-------------------------------------------------------------------------. 
+ * |    |Sft,F9|Alt,F10|F11| F12|MyComp|Calc|home |  up  | end |PrtScr| Del  |
+ * |-------------------------------------------------------------------------|
+ * |    | F5  | F6  | F7  | F8  |DESKL|DESKR|left | down |right|ScrLck| CAPS |
+ * |-------------------------------------------------------------------------|
+ * |    | F1  | F2  | F3  | F4  |Mute |MicM |pgup |LCA_dn| pgdn|Pse/Brk| Ins |
+ * |-------------------------------------------------------------------------|
+ * |    |     |     |     |     |           |     |Alt,MNext|  |      |      |
+ * `-------------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, MTLSFT_F9, MTLALT_F10,KC_F11,  KC_F12,  KC_CALC, KC_VOLU, KC_HOME, KC_UP,        KC_END,  KC_PSCR, KC_DEL,
-  KC_TRNS, KC_F5,     KC_F6,     KC_F7,   KC_F8,   KC_CAPS, KC_VOLD, KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK, KC_INS, 
-  KC_TRNS, KC_F1,     KC_F2,     KC_F3,   KC_F4,   KC_MUTE, MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_TRNS, KC_TRNS, 
-  KC_NO,   KC_NO,     KC_NO,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,   KC_NO
+  KC_TRNS, MTLCTL_F9, MTLSFT_F10, MTLALT_F11,  KC_F12,  KC_MYCM, KC_CALC, KC_HOME, KC_UP,        KC_END,  KC_PSCR,  KC_DEL,
+  KC_TRNS, KC_F5,     KC_F6,      KC_F7,       KC_F8,   DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,  KC_CAPS, 
+  KC_TRNS, KC_F1,     KC_F2,      KC_F3,       KC_F4,   KC_MUTE, MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS, 
+  KC_NO,   KC_NO,     KC_NO,      KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,    KC_NO
 ),
 
 /* MIT Layout (ADJUST)
  *
- * ,----------------------------------------------------------------------------.
- * |reset| Ms3 | Ms2 |MsUp | Ms1  |  Hue+|   Hue-| Sat+| Sat-|Brt+ |Brt- |RGB Tg|
- * |----------------------------------------------------------------------------|
- * |debug| MWL | MsL |MDn  |MsR   |GAMING|      |AU_ON|AU_OFF|MU_ON|MU_OF|RGBMod|
- * |----------------------------------------------------------------------------|
- * |     |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|MI_ON|MI_OF|     |     |MU_Mod|
- * |----------------------------------------------------------------------------|
- * |     |     |     |SLEEP|      |              |     |     |     |     |      |
- * `----------------------------------------------------------------------------'
+ * ,-----------------------------------------------------------------------------.
+ * |reset| Ms3 | Ms2 |MsUp | Ms1  |  Hue+|  Hue- | Sat+| Sat- |Brt+ |Brt- |RGB Tg|
+ * |-----------------------------------------------------------------------------|
+ * |debug| MWL | MsL |MDn  |MsR   |GAMING|       |AU_ON|AU_OFF|MU_ON|MU_OF|RGBMod|
+ * |-----------------------------------------------------------------------------|
+ * |     |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|MI_ON|MI_OF |     |     |MU_Mod|
+ * |-----------------------------------------------------------------------------|
+ * |     |     |     |SLEEP|      |              |     |      |     |     |      |
+ * `-----------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
   RESET,   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_TOG, 
