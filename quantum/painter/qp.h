@@ -14,6 +14,22 @@
 #ifndef QUANTUM_PAINTER_NUM_IMAGES
 #    define QUANTUM_PAINTER_NUM_IMAGES 8
 #endif  // QUANTUM_PAINTER_NUM_IMAGES
+
+// This controls the maximum number of fonts that Quantum Painter can load. Increasing this number in order to load
+// more fonts increases the amount of RAM required.
+#ifndef QUANTUM_PAINTER_NUM_FONTS
+#    define QUANTUM_PAINTER_NUM_FONTS 4
+#endif  // QUANTUM_PAINTER_NUM_FONTS
+
+// This controls whether or not fonts should be cached in RAM. Under normal circumstances, fonts can have quite random
+// access patterns, and due to timing of flash memory or external storage, it can be a significant speedup moving the
+// font into RAM before use. Defaults to "off", but if it's enabled it will fallback to reading from the original
+// location if corresponding RAM could not be allocated (such as being too large).
+// Final note: don't bother setting this to TRUE for AVR. Fonts fit in the available RAM.
+#ifndef QUANTUM_PAINTER_LOAD_FONTS_TO_RAM
+#    define QUANTUM_PAINTER_LOAD_FONTS_TO_RAM FALSE
+#endif
+
 // This controls the maximum size of the pixel data buffer used for single blocks of transmission. Larger buffers means
 // more data is processed at one time, with less frequent transmissions, at the cost of RAM.
 #ifndef QP_PIXDATA_BUFFER_SIZE
@@ -65,6 +81,12 @@ typedef struct painter_image_desc_t {
 } painter_image_desc_t;
 typedef const painter_image_desc_t *painter_image_handle_t;
 
+// Font handle type
+typedef struct painter_font_desc_t {
+    uint8_t line_height;
+} painter_font_desc_t;
+typedef const painter_font_desc_t *painter_font_handle_t;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API
 
@@ -113,3 +135,10 @@ painter_image_handle_t qp_load_image_mem(const void QP_RESIDENT_FLASH_OR_RAM *bu
 
 // Closes an image handle when no longer in use. Returns true if successfully closed.
 bool qp_close_image(painter_image_handle_t image);
+
+// Load a font from memory. Font can be unloaded by invoking qp_close_font() below
+// - Returns NULL if unable to load
+painter_font_handle_t qp_load_font_mem(const void QP_RESIDENT_FLASH_OR_RAM *buffer);
+
+// Closes a font handle when no longer in use. Returns true if successfully closed.
+bool qp_close_font(painter_font_handle_t font);
