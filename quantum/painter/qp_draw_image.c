@@ -5,6 +5,7 @@
 #include <qp_draw.h>
 #include <qp_comms.h>
 #include <qgf.h>
+#include <deferred_exec.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // QGF image handles
@@ -253,4 +254,119 @@ bool qp_drawimage_recolor(painter_device_t device, uint16_t x, uint16_t y, paint
     qp_pixel_t       fg_hsv888  = {.hsv888 = {.h = hue_fg, .s = sat_fg, .v = val_fg}};
     qp_pixel_t       bg_hsv888  = {.hsv888 = {.h = hue_bg, .s = sat_bg, .v = val_bg}};
     return qp_drawimage_recolor_impl(device, x, y, image, 0, &frame_info, fg_hsv888, bg_hsv888);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter External API: qp_animate
+
+deferred_token qp_animate(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image) { return qp_animate_recolor(device, x, y, image, 0, 0, 255, 0, 0, 0); }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter External API: qp_animate_recolor
+
+typedef struct animation_state_t {
+    painter_device_t       device;
+    uint16_t               x;
+    uint16_t               y;
+    painter_image_handle_t image;
+    qp_pixel_t             fg_hsv888;
+    qp_pixel_t             bg_hsv888;
+    uint16_t               frame_number;
+    deferred_token         defer_token;
+} animation_state_t;
+
+static deferred_executor_t animation_executors[QUANTUM_PAINTER_CONCURRENT_ANIMATIONS] = {0};
+static animation_state_t   animation_states[QUANTUM_PAINTER_CONCURRENT_ANIMATIONS]    = {0};
+
+static deferred_token qp_render_animation_state(animation_state_t *state, uint16_t *delay_ms) {
+    qgf_frame_info_t frame_info = {0};
+    qp_dprintf("qp_render_animation_state: entry (frame #%d)\n", (int)state->frame_number);
+    bool ret = qp_drawimage_recolor_impl(state->device, state->x, state->y, state->image, state->frame_number, &frame_info, state->fg_hsv888, state->bg_hsv888);
+    if (ret) {
+        ++state->frame_number;
+        if (state->frame_number >= state->image->frame_count) {
+            state->frame_number = 0;
+        }
+        *delay_ms = frame_info.delay;
+    }
+    qp_dprintf("qp_render_animation_state: %s (delay %dms)\n", ret ? "ok" : "fail", (int)(*delay_ms));
+    return ret;
+}
+
+static uint32_t animation_callback(uint32_t trigger_time, void *cb_arg) {
+    animation_state_t *state = (animation_state_t *)cb_arg;
+    uint16_t           delay_ms;
+    bool               ret = qp_render_animation_state(state, &delay_ms);
+    if (!ret) {
+        // Setting the device to NULL clears the animation slot
+        state->device = NULL;
+    }
+    // If we're successful, keep animating -- returning 0 cancels the deferred execution
+    return ret ? delay_ms : 0;
+}
+
+deferred_token qp_animate_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg) {
+    qp_dprintf("qp_animate_recolor: entry\n");
+
+    animation_state_t *anim_state = NULL;
+    for (int i = 0; i < QUANTUM_PAINTER_CONCURRENT_ANIMATIONS; ++i) {
+        if (animation_states[i].device == NULL) {
+            anim_state = &animation_states[i];
+            break;
+        }
+    }
+
+    if (!anim_state) {
+        qp_dprintf("qp_animate_recolor: fail (could not find free animation slot)\n");
+        return INVALID_DEFERRED_TOKEN;
+    }
+
+    // Prepare the animation state
+    anim_state->device       = device;
+    anim_state->x            = x;
+    anim_state->y            = y;
+    anim_state->image        = image;
+    anim_state->fg_hsv888    = (qp_pixel_t){.hsv888 = {.h = hue_fg, .s = sat_fg, .v = val_fg}};
+    anim_state->bg_hsv888    = (qp_pixel_t){.hsv888 = {.h = hue_bg, .s = sat_bg, .v = val_bg}};
+    anim_state->frame_number = 0;
+
+    // Draw the first frame
+    uint16_t delay_ms;
+    if (!qp_render_animation_state(anim_state, &delay_ms)) {
+        anim_state->device = NULL;  // disregard the allocated animation slot
+        qp_dprintf("qp_animate_recolor: fail (could not render first frame)\n");
+        return INVALID_DEFERRED_TOKEN;
+    }
+
+    // Set up the timer
+    anim_state->defer_token = defer_exec_advanced(animation_executors, QUANTUM_PAINTER_CONCURRENT_ANIMATIONS, delay_ms, animation_callback, anim_state);
+    if (anim_state->defer_token == INVALID_DEFERRED_TOKEN) {
+        anim_state->device = NULL;  // disregard the allocated animation slot
+        qp_dprintf("qp_animate_recolor: fail (could not set up animation executor)\n");
+        return INVALID_DEFERRED_TOKEN;
+    }
+
+    qp_dprintf("qp_animate_recolor: ok (deferred token = %d)\n", (int)anim_state->defer_token);
+    return anim_state->defer_token;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter External API: qp_stop_animation
+
+void qp_stop_animation(deferred_token anim_token) {
+    for (int i = 0; i < QUANTUM_PAINTER_CONCURRENT_ANIMATIONS; ++i) {
+        if (animation_states[i].defer_token == anim_token) {
+            cancel_deferred_exec_advanced(animation_executors, QUANTUM_PAINTER_CONCURRENT_ANIMATIONS, anim_token);
+            animation_states[i].device = NULL;
+            return;
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter Core API: qp_internal_animation_tick
+
+void qp_internal_animation_tick(void) {
+    static uint32_t last_anim_exec = 0;
+    deferred_exec_advanced_task(animation_executors, QUANTUM_PAINTER_CONCURRENT_ANIMATIONS, &last_anim_exec);
 }

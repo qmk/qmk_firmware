@@ -5,6 +5,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <deferred_exec.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter global configurables (add to your keyboard's config.h)
@@ -29,6 +30,12 @@
 #ifndef QUANTUM_PAINTER_LOAD_FONTS_TO_RAM
 #    define QUANTUM_PAINTER_LOAD_FONTS_TO_RAM FALSE
 #endif
+
+// This controls the maximum number of animations that Quantum Painter can play simultaneously. Increasing this number
+// in order to play more animations at the same time increases the amount of RAM required.
+#ifndef QUANTUM_PAINTER_CONCURRENT_ANIMATIONS
+#    define QUANTUM_PAINTER_CONCURRENT_ANIMATIONS 4
+#endif  // QUANTUM_PAINTER_CONCURRENT_ANIMATIONS
 
 // This controls the maximum size of the pixel data buffer used for single blocks of transmission. Larger buffers means
 // more data is processed at one time, with less frequent transmissions, at the cost of RAM.
@@ -139,6 +146,14 @@ bool qp_close_image(painter_image_handle_t image);
 // Draw an image on the device
 bool qp_drawimage(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image);
 bool qp_drawimage_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
+
+// Draw an animation on the device. Returns INVALID_DEFERRED_TOKEN if the animation could not be kicked off. Animation can be canceled by passing the token to qp_stop_animation() below.
+deferred_token qp_animate(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image);
+deferred_token qp_animate_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
+
+// Cancels an animation
+void qp_stop_animation(deferred_token anim_token);
+
 // Load a font from memory. Font can be unloaded by invoking qp_close_font() below
 // - Returns NULL if unable to load
 painter_font_handle_t qp_load_font_mem(const void QP_RESIDENT_FLASH_OR_RAM *buffer);

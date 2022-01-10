@@ -1,5 +1,6 @@
 # Quantum Painter Configurables
 QUANTUM_PAINTER_DRIVERS ?=
+QUANTUM_PAINTER_ANIMATIONS_ENABLE ?= yes
 
 # The list of permissible drivers that can be listed in QUANTUM_PAINTER_DRIVERS
 VALID_QUANTUM_PAINTER_DRIVERS := ili9163_spi ili9341_spi st7789_spi gc9a01_spi ssd1351_spi
@@ -22,6 +23,11 @@ SRC += \
     $(QUANTUM_DIR)/painter/qp_draw_image.c \
     $(QUANTUM_DIR)/painter/qp_draw_text.c
 
+# Check if people want animations... enable the defered exec if so.
+ifeq ($(strip $(QUANTUM_PAINTER_ANIMATIONS_ENABLE)), yes)
+    DEFERRED_EXEC_ENABLE := yes
+    OPT_DEFS += -DQUANTUM_PAINTER_ANIMATIONS_ENABLE
+endif
 
 # Comms flags
 QUANTUM_PAINTER_NEEDS_COMMS_SPI ?= no
