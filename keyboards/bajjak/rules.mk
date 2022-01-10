@@ -21,7 +21,6 @@ CUSTOM_MATRIX    = lite # Custom matrix file for the BAJJAK
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 UNICODE_ENABLE   = yes  # Unicode
 SWAP_HANDS_ENABLE= yes  # Allow swapping hands of keyboard
-SLEEP_LED_ENABLE = no
 
 DEBOUNCE_TYPE = eager_pr
 
