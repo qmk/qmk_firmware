@@ -6,6 +6,8 @@ Kastenwagen 1840 is a 40% keyboard with a mini-numpad and dedicated arrows.  The
 
 A second model of Kastenwagen, the [Kastenwagen 48](https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/kastenwagen48), is similar but replaces the numpad with a three-key macro column.
 
+Please note that the Kastenwagen 1840 via-compatible keymap firmware is also compatible with the Kastenwagen 48.  The Kastenwagen 48 does not have a dedicated via-compatible firmware.
+
 For more information, join the [NoPunIn10Key Discord](https://discord.gg/sku2Y6w).
 
 * Keyboard Maintainer: [Alex Ronke](diplomacyvariants.wordpress.com), also known as NoPunIn10Did. 

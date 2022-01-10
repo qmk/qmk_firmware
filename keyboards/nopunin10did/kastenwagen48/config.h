@@ -1,4 +1,4 @@
-/* Copyright 2021 W. Alex Ronke, a.k.a. NoPunIn10Did (w.alex.ronke@gmail.com)
+/* Copyright 2022 W. Alex Ronke, a.k.a. NoPunIn10Did (w.alex.ronke@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,18 +20,18 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID           0x4E50  // "NP"
-#define PRODUCT_ID          0x4B57  // "KW"
+#define PRODUCT_ID          0x4B30  // Hex for "K" and 48
 #define DEVICE_VER          0x0001
 #define MANUFACTURER        NoPunIn10Did
-#define PRODUCT             Kastenwagen
+#define PRODUCT             Kastenwagen 48
 
 /* key matrix size */
 #define MATRIX_ROWS         8
-#define MATRIX_COLS         9
+#define MATRIX_COLS         8
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS     { B4, B5, B7, D5, C7, F1, F0, B6 }
-#define MATRIX_COL_PINS     { F4, F5, F6, F7, B1, B3, B2, E6, D7 }
+#define MATRIX_COL_PINS     { F4, F5, F6, F7, B1, B3, B2, E6 }
 #define UNUSED_PINS
 
 /* Indicator LEDs */
