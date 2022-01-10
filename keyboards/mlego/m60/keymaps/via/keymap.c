@@ -17,6 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+enum layer_names {
+    _QW = 0,
+    _LWR,
+    _RSE,
+    _ADJ
+};
+
 #ifdef RGBLIGHT_ENABLE
 
 const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_PURPLE});
