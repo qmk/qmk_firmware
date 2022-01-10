@@ -10,7 +10,8 @@ OPT_DEFS += -DQUANTUM_PAINTER_ENABLE
 COMMON_VPATH += $(QUANTUM_DIR)/painter
 SRC += \
     $(QUANTUM_DIR)/utf8.c \
-    $(QUANTUM_DIR)/color.c
+    $(QUANTUM_DIR)/color.c \
+    $(QUANTUM_DIR)/painter/qp_stream.c
 
 
 # Handler for each driver
