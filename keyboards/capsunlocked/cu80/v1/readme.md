@@ -1,6 +1,6 @@
 # CU80
 
-![cu80](https://cdn11.bigcommerce.com/s-vdedjo0w46/images/stencil/900x900/products/287/2336/DSCF3583__16019.1567722956.png?c=2)
+![cu80](https://i.imgur.com/p8D4POn.png)
 
 A customizable 80% keyboard.
 
@@ -10,6 +10,6 @@ A customizable 80% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cu80:default
+    make capsunlocked/cu80/v1:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
