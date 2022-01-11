@@ -77,7 +77,7 @@
                 { "label": "RShift", "x": 12.25, "y": 4, "w": 1.5 },
                 { "label": "Up", "x": 13.75, "y": 4 },
                 { "label": "LCtrl", "x": 0.25, "y": 5, "w": 1.5 },
-                { "label": "LAlt", "x": 1.25, "y": 5 },
+                { "label": "LAlt", "x": 1.75, "y": 5 },
                 { "label": "LFn", "x": 2.75, "y": 5 },
                 { "label": "Super", "x": 3.75, "y": 5 },
                 { "label": "Space", "x": 4.75, "y": 5, "w": 2 },
