@@ -21,7 +21,7 @@
 #include "wait.h"
 #include "debug.h"
 #include "print.h"
-#include PMW3360_FIRMWARE_H
+#include "pmw3360_firmware.h"
 
 // Registers
 // clang-format off
