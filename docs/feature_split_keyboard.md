@@ -138,7 +138,7 @@ Next, you will have to flash the EEPROM files once for the correct hand to the c
 * Pro micro compatible controllers (like Elite-C) with DFU bootloader:
   * `:dfu-split-left`
   * `:dfu-split-right`
-* ARM controllers (like Proton-C) with DFU bootloader:
+* ARM controllers with a DFU compatible bootloader (e.g. Proton-C):
   * `:dfu-util-split-left`
   * `:dfu-util-split-right`
 
