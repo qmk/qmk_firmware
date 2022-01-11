@@ -30,6 +30,7 @@ enum layers {
     _MOUSE,
     _MISC,
     _FUNC,
+    _CMD,
 };
 
 enum custom_keycodes {
@@ -52,8 +53,10 @@ enum custom_keycodes {
 // #define L_NAV       MO(_NAV)
 #define L_SYM       MO(_SYM)
 #define L_MOUSE     TG(_MOUSE)
+#define L_CMD       LM(_CMD, MOD_LGUI)
 
 #define K_PRINT     (QK_LCTL | QK_LSFT | QK_LGUI | KC_4)
+#define K_STAB      LSFT(KC_TAB)
 
 // flow_config should correspond to following format:
 // * layer keycode
@@ -108,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_DELT ,KC_BSPC ,KC_ESC  ,KC_TILDE,OS_TMUX ,                          XXXXXXX ,XXXXXXX ,KC_COMM ,KC_DOT  ,RESET   ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    _______
+                                     L_CMD   ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -169,6 +172,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_F11  ,KC_F12  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
+  //                                └────────┘   └────────┘       └────────┘   └────────┘
+  ),
+
+  [_CMD] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
+     XXXXXXX ,KC_W    ,XXXXXXX ,KC_TILDE,KC_T    ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     KC_A    ,XXXXXXX ,XXXXXXX ,KC_TAB  ,K_STAB  ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX ,XXXXXXX ,KC_C    ,KC_V    ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
+                                     XXXXXXX ,    KC_SPC  ,        XXXXXXX ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 };
