@@ -67,21 +67,21 @@ enum custom_keycodes {
 
 // set the permissive hold if not already set
 #ifndef PERMISSIVE_HOLD
-#    define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD
 #endif
 
 // when defined GRAVE_ESC will always act as ESC when CTRL is held.
 // we ensure it to be set
 #ifndef GRAVE_ESC_CTRL_OVERRIDE
-#    define GRAVE_ESC_CTRL_OVERRIDE
+#define GRAVE_ESC_CTRL_OVERRIDE
 #endif
 
 #ifndef GRAVE_ESC_ALT_OVERRIDE
-#   define GRAVE_ESC_ALT_OVERRIDE
+#define GRAVE_ESC_ALT_OVERRIDE
 #endif
 
 #ifndef GRAVE_ESC_GUI_OVERRIDE
-#   define GRAVE_ESC_GUI_OVERRIDE
+#define GRAVE_ESC_GUI_OVERRIDE
 #endif
 
 // RGB standard colors
