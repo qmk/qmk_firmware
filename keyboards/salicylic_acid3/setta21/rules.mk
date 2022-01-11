@@ -21,6 +21,6 @@ USE_I2C = no
 RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
 
-DEFAULT_FOLDER = setta21/rev1
+DEFAULT_FOLDER = salicylic_acid3/setta21/rev1
 
 LAYOUTS = numpad_6x4

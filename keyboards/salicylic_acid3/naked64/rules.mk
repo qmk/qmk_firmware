@@ -21,4 +21,4 @@ USE_I2C = no
 
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = naked64/rev1
+DEFAULT_FOLDER = salicylic_acid3/naked64/rev1

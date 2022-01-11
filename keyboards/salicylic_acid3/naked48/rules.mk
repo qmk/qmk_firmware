@@ -21,4 +21,4 @@ RGB_MATRIX_DRIVER = WS2812
 
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = naked48/rev1
+DEFAULT_FOLDER = salicylic_acid3/naked48/rev1
