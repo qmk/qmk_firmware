@@ -1,4 +1,4 @@
-# UM-70
+# UM-A
 
 ![UM-A](https://i.imgur.com/Bm1mRDbl.jpg)
 
