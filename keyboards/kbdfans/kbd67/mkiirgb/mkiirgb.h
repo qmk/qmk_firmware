@@ -22,5 +22,7 @@
     #include "v2.h"
 #elif defined(KEYBOARD_kbdfans_kbd67_mkiirgb_v3)
     #include "v3.h"
+#elif defined(KEYBOARD_kbdfans_kbd67_mkiirgb_v4)
+    #include "v4.h"	
 #endif
 #include "quantum.h"
