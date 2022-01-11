@@ -1,4 +1,4 @@
-/* Copyright 2021 Laneware Peripherals
+/* Copyright 2021, 2022 Jonavin Eng
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,19 +13,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "macro1.h"
 
+#pragma once
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-        return false;
-    }
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    return false;
-}
+#define TAPPING_TOGGLE 2
+// TT set to two taps
+
+/*  Handle GRAVESC combo keys */
+#define GRAVE_ESC_ALT_OVERRIDE
+    //Always send Escape if Alt is pressed
+#define GRAVE_ESC_CTRL_OVERRIDE
+    //Always send Escape if Control is pressed
+
+#define TAPPING_TERM 180
+
+#define ENCODER_DIRECTION_FLIP  // compensate for opposite encoder direction
+#define ENCODER_DEFAULTACTIONS_INDEX 1  // Set default encoder functions to encoder 1
