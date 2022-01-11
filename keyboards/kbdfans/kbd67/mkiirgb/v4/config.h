@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x1227
 #define DEVICE_VER      0x0004
 #define MANUFACTURER    KBDFANS
-#define PRODUCT         KBD67MKIIRGB_V4
+#define PRODUCT         KBD67 MKII RGB V4
 
 /* key matrix size */
 #define MATRIX_ROWS 5
