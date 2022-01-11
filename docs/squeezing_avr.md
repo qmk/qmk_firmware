@@ -147,6 +147,7 @@ For RGB Matrix, these need to be explicitly enabled as well. To disable any that
 #undef ENABLE_RGB_MATRIX_HUE_PENDULUM
 #undef ENABLE_RGB_MATRIX_HUE_WAVE
 #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+#undef ENABLE_RGB_MATRIX_PIXEL_FLOW
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
 
 #undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
