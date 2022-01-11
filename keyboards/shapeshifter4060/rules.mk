@@ -1,9 +1,6 @@
 # MCU name
 MCU = atmega32u4
 
-# Processor frequency
-F_CPU = 8000000
-
 # Bootloader selection
 BOOTLOADER = caterina
 
@@ -18,6 +15,3 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 #BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 KEY_LOCK_ENABLE = no
-
-BLUETOOTH_ENABLE = yes
-BLUETOOTH_DRIVER = AdafruitBLE
