@@ -41,6 +41,7 @@ enum custom_keycodes {
   TM_SLCT,
   TM_SRCH,
   TM_URL,
+  OS_NAV,
   OS_TMUX,
   OS_MISC,
   OS_FUNC,
@@ -48,7 +49,7 @@ enum custom_keycodes {
 
 // Shortcut to make keymap more readable
 
-#define L_NAV       MO(_NAV)
+// #define L_NAV       MO(_NAV)
 #define L_SYM       MO(_SYM)
 #define L_MOUSE     TG(_MOUSE)
 
@@ -58,16 +59,16 @@ enum custom_keycodes {
 // * layer keycode
 // * modifier keycode
 const uint16_t flow_config[FLOW_COUNT][2] = {
-    {L_NAV, KC_LALT},
-    {L_NAV, KC_LGUI},
-    {L_NAV, KC_LCTL},
-    {L_NAV, KC_LSFT},
+    {OS_NAV, KC_LALT},
+    {OS_NAV, KC_LGUI},
+    {OS_NAV, KC_LCTL},
     {L_SYM, KC_LCTL},
     {L_SYM, KC_LGUI},
     {L_SYM, KC_LALT},
 };
 
 const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2] = {
+    {OS_NAV, _NAV},
     {OS_TMUX, _TMUX},
     {OS_MISC, _MISC},
     {OS_FUNC, _FUNC},
@@ -83,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                          KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     L_NAV   ,    KC_SPC  ,        KC_LSFT ,    L_SYM
+                                     OS_NAV  ,    KC_SPC  ,        KC_LSFT ,    L_SYM
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -105,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,KC_ESC  ,KC_TILDE,OS_TMUX ,                          XXXXXXX ,XXXXXXX ,KC_COMM ,KC_DOT  ,XXXXXXX ,
+     KC_DELT ,KC_BSPC ,KC_ESC  ,KC_TILDE,OS_TMUX ,                          XXXXXXX ,XXXXXXX ,KC_COMM ,KC_DOT  ,RESET   ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      _______ ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘

@@ -1,4 +1,5 @@
 #include "flow.h"
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 
@@ -285,9 +286,9 @@ bool update_flow(
     bool pressed,
     keypos_t key_position
 ) {
-    if (!update_flow_mods(keycode, pressed)) return false;
-    if (!update_flow_layers(keycode, pressed, key_position)) return false;
-    return true;
+    bool pass = update_flow_mods(keycode, pressed);
+    pass = update_flow_layers(keycode, pressed, key_position) & pass;
+    return pass;
 }
 
 void flow_matrix_scan(void) {

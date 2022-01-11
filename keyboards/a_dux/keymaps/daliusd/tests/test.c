@@ -26,6 +26,7 @@ typedef enum {
     L_NAV,
     L_SYM,
 
+    OS_NAV,
     OS_TMUX,
 
     SAFE_RANGE
@@ -33,10 +34,12 @@ typedef enum {
 
 enum layers {
     _BASE,
+    _NAV,
     _TMUX,
+    _LAYER_COUNT,
 };
 
-#define FLOW_COUNT 6
+#define FLOW_COUNT 7
 const uint16_t flow_config[FLOW_COUNT][2] = {
     {L_NAV, KC_LALT},
     {L_NAV, KC_LGUI},
@@ -44,10 +47,12 @@ const uint16_t flow_config[FLOW_COUNT][2] = {
     {L_SYM, KC_LCTL},
     {L_SYM, KC_LGUI},
     {L_SYM, KC_LALT},
+    {OS_NAV, KC_LALT},
 };
 
-#define FLOW_LAYERS_COUNT 1
+#define FLOW_LAYERS_COUNT 2
 const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2] = {
+    {OS_NAV, _NAV},
     {OS_TMUX, _TMUX},
 };
 
@@ -84,17 +89,38 @@ typedef struct {
 keypos_t kp = {0, 0};
 
 uint8_t active_layer = 0;
+uint8_t key_layer = 0;
+
+bool active_layers_array[_LAYER_COUNT] = { false, false, false };
 
 void layer_off(uint8_t layer) {
-    active_layer = 0;
+    active_layers_array[layer] = false;
+
+    active_layer = _LAYER_COUNT - 1;
+    while (active_layers_array[active_layer] == false && active_layer > 0) {
+        active_layer--;
+    }
+
+    key_layer = active_layer;
 }
 
 void layer_on(uint8_t layer) {
-    active_layer = layer;
+    active_layers_array[layer] = true;
+
+    active_layer = _LAYER_COUNT - 1;
+    while (active_layers_array[active_layer] == false && active_layer > 0) {
+        active_layer--;
+    }
+
+    key_layer = active_layer;
+}
+
+void set_key_layer(uint8_t layer) {
+    key_layer = layer;
 }
 
 uint8_t read_source_layers_cache(keypos_t keypos) {
-    return active_layer;
+    return key_layer;
 }
 
 #include "../flow.c"
@@ -622,6 +648,144 @@ TEST("tmuxD + tmuxU + 501ms + tabD + tabU = tab")
     pass = update_flow(KC_TAB, false, kp);
     ASSERT_EQ(UINT, pass, true);
     ASSERT_EQ(UINT, active_layer, _BASE);
+END_TEST
+
+TEST("navD + navU + tmuxD + tmuxU + tabD + tabU = tmux tab")
+    reset();
+
+    bool pass = update_flow(OS_NAV, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _NAV);
+    pass = update_flow(OS_NAV, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _NAV);
+
+    set_key_layer(_NAV);
+    pass = update_flow(OS_TMUX, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+    set_key_layer(_NAV);
+    pass = update_flow(OS_TMUX, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    set_key_layer(_TMUX);
+    pass = update_flow(KC_TAB, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    set_key_layer(_TMUX);
+    pass = update_flow(KC_TAB, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+END_TEST
+
+TEST("navD + tmuxD + tabD + navU + tmuxU + tabU = tmux tab")
+    reset();
+
+    set_key_layer(_BASE);
+    bool pass = update_flow(OS_NAV, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _NAV);
+
+    set_key_layer(_NAV);
+    pass = update_flow(OS_TMUX, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    set_key_layer(_TMUX);
+    pass = update_flow(KC_TAB, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    set_key_layer(_BASE);
+    pass = update_flow(OS_NAV, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _TMUX);
+
+    set_key_layer(_NAV);
+    pass = update_flow(OS_TMUX, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+
+    set_key_layer(_TMUX);
+    pass = update_flow(KC_TAB, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+END_TEST
+
+TEST("navD + altD + altU + navU + sD + sU = alt+s")
+    reset();
+
+    bool pass = update_flow(OS_NAV, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _NAV);
+
+    set_key_layer(_NAV);
+    pass = update_flow(KC_LALT, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _NAV);
+
+    set_key_layer(_NAV);
+    pass = update_flow(KC_LALT, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _NAV);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
+    ASSERT_EQ(UINT, last_registered_code, KC_LALT);
+    ASSERT_EQ(UINT, unregistered_codes_count, 0);
+
+    set_key_layer(_BASE);
+    pass = update_flow(OS_NAV, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+
+    set_key_layer(_BASE);
+    pass = update_flow(KC_S, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
+
+    set_key_layer(_BASE);
+    pass = update_flow(KC_S, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+    ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
+END_TEST
+
+TEST("navD + altD + navU + altU + sD + sU = alt+s")
+    reset();
+
+    bool pass = update_flow(OS_NAV, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _NAV);
+
+    set_key_layer(_NAV);
+    pass = update_flow(KC_LALT, true, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _NAV);
+
+    set_key_layer(_BASE);
+    pass = update_flow(OS_NAV, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+
+    set_key_layer(_NAV);
+    pass = update_flow(KC_LALT, false, kp);
+    ASSERT_EQ(UINT, pass, false);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
+    ASSERT_EQ(UINT, last_registered_code, KC_LALT);
+    ASSERT_EQ(UINT, unregistered_codes_count, 0);
+
+    set_key_layer(_BASE);
+    pass = update_flow(KC_S, true, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, registered_codes_count, 1);
+
+    set_key_layer(_BASE);
+    pass = update_flow(KC_S, false, kp);
+    ASSERT_EQ(UINT, pass, true);
+    ASSERT_EQ(UINT, active_layer, _BASE);
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+    ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 END_TEST
 
 END
