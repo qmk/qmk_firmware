@@ -28,11 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Key matrix size */
 #define MATRIX_ROWS 6
-#define MATRIX_COLS 5
+#define MATRIX_COLS 7
 
 /* Key matrix pins */
-#define MATRIX_ROW_PINS { F5, B2, B3, B1, F7, F6 }
-#define MATRIX_COL_PINS { B5, D7, C6, D4, B6 }
+#define MATRIX_ROW_PINS { C6, D7, B4, D4, E6, B2 }
+#define MATRIX_COL_PINS { B3, B1, F7, A1, A2, A3, B5 }
 #define UNUSED_PINS
 
 /* Encoder pins */
@@ -46,9 +46,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define OLED_FONT_H "keyboards/mechwild/murphpad/lib/murphpadfont.c"
+#define OLED_FONT_H "keyboards/mechwild/bde/rev2/lib/rev2.c"
 
-#define RGB_DI_PIN B6
+//#define RGB_DI_PIN B2
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 8
 #    define RGBLIGHT_HUE_STEP 8
@@ -73,7 +73,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1
