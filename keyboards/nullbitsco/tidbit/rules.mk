@@ -7,19 +7,17 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
-NKRO_ENABLE = no            # USB Nkey Rollover
+NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-MIDI_ENABLE = no            # MIDI support
-AUDIO_ENABLE = no           # Audio output on port C6
-ENCODER_ENABLE = yes        # Use rotary encoder
-LTO_ENABLE = yes            # Link-time optimization
+AUDIO_ENABLE = no           # Audio output
+ENCODER_ENABLE = yes
+LTO_ENABLE = yes
 
 # Project specific files
 SRC += common/bitc_led.c \
