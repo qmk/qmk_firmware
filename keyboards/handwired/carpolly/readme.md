@@ -2,7 +2,9 @@
 
 ![carpool](https://i.imgur.com/w691sNn.jpg)
 
-Keyboard Maintainer: Paul Enrico N. Viola (https://github.com/PollyV1)<br />                                                                                                     Hardware Supported: Teensy 2 controller<br />                                                                                                                                     Hardware Availability: [PollyV1] https://github.com/PollyV1/Carpolly<br />
+* Keyboard Maintainer: Paul Enrico N. Viola (https://github.com/PollyV1)
+* Hardware Supported: Teensy 2 controller
+* Hardware Availability: [PollyV1] https://github.com/PollyV1/Carpolly
 
 carpolly - a handwired keyboard on a teensy 2 controller
 
