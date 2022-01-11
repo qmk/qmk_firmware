@@ -3,7 +3,7 @@
     "url": "https://github.com/davidphilipbarr/Sweep",
     "maintainer": "@davidphilipbarr",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_split_3x5_2": {
             "layout": [
                 {"x": 0, "y": 1.27},
                 {"x": 1, "y": 0.31},
