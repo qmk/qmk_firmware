@@ -135,7 +135,7 @@ Next, you will have to flash the EEPROM files once for the correct hand to the c
 * AVR controllers with the Caterina bootloader (e.g. Pro Micro):
   * `:avrdude-split-left`
   * `:avrdude-split-right`
-* Pro micro compatible controllers (like Elite-C) with DFU bootloader:
+* AVR controllers with the stock Amtel DFU or DFU compatible bootloader (e.g. Elite-C):
   * `:dfu-split-left`
   * `:dfu-split-right`
 * ARM controllers with a DFU compatible bootloader (e.g. Proton-C):
