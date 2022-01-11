@@ -1,4 +1,5 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+/* Copyright 2021 Alabastard (@Alabastard-64)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  * Copyright 2019 Sunjun Kim
  * Copyright 2020 Ploopy Corporation
  *
@@ -20,40 +21,40 @@
 
 #include <stdint.h>
 
-#ifndef PMW3360_CPI
-#    define PMW3360_CPI 1600
+#ifndef PMW3389_CPI
+#    define PMW3389_CPI 2000
 #endif
 
-#ifndef PMW3360_CLOCK_SPEED
-#    define PMW3360_CLOCK_SPEED 2000000
+#ifndef PMW3389_CLOCK_SPEED
+#    define PMW3389_CLOCK_SPEED 2000000
 #endif
 
-#ifndef PMW3360_SPI_LSBFIRST
-#    define PMW3360_SPI_LSBFIRST false
+#ifndef PMW3389_SPI_LSBFIRST
+#    define PMW3389_SPI_LSBFIRST false
 #endif
 
-#ifndef PMW3360_SPI_MODE
-#    define PMW3360_SPI_MODE 3
+#ifndef PMW3389_SPI_MODE
+#    define PMW3389_SPI_MODE 3
 #endif
 
-#ifndef PMW3360_SPI_DIVISOR
+#ifndef PMW3389_SPI_DIVISOR
 #    ifdef __AVR__
-#        define PMW3360_SPI_DIVISOR (F_CPU / PMW3360_CLOCK_SPEED)
+#        define PMW3389_SPI_DIVISOR (F_CPU / PMW3389_CLOCK_SPEED)
 #    else
-#        define PMW3360_SPI_DIVISOR 64
+#        define PMW3389_SPI_DIVISOR 64
 #    endif
 #endif
 
-#ifndef PMW3360_LIFTOFF_DISTANCE
-#    define PMW3360_LIFTOFF_DISTANCE 0x02
+#ifndef PMW3389_LIFTOFF_DISTANCE
+#    define PMW3389_LIFTOFF_DISTANCE 0x02
 #endif
 
 #ifndef ROTATIONAL_TRANSFORM_ANGLE
 #    define ROTATIONAL_TRANSFORM_ANGLE 0x00
 #endif
 
-#ifndef PMW3360_CS_PIN
-#    error "No chip select pin defined -- missing PMW3360_CS_PIN"
+#ifndef PMW3389_CS_PIN
+#    error "No chip select pin defined -- missing PMW3389_CS_PIN"
 #endif
 
 typedef struct {
@@ -64,12 +65,12 @@ typedef struct {
     int8_t  mdx;
     int16_t dy;  // displacement on y directions.
     int8_t  mdy;
-} report_pmw3360_t;
+} report_pmw3389_t;
 
-bool     pmw3360_init(void);
-void     pmw3360_upload_firmware(void);
-bool     pmw3360_check_signature(void);
-uint16_t pmw3360_get_cpi(void);
-void     pmw3360_set_cpi(uint16_t cpi);
+bool     pmw3389_init(void);
+void     pmw3389_upload_firmware(void);
+bool     pmw3389_check_signature(void);
+uint16_t pmw3389_get_cpi(void);
+void     pmw3389_set_cpi(uint16_t cpi);
 /* Reads and clears the current delta values on the sensor */
-report_pmw3360_t pmw3360_read_burst(void);
+report_pmw3389_t pmw3389_read_burst(void);
