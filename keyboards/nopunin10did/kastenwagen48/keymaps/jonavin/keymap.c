@@ -54,14 +54,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_ENABLE       // Encoder Functionality
-    bool encoder_update_keymap(uint8_t index, bool clockwise) {
-        switch (index) {
-            case 0:         // Top left encoder
-                encoder_action_volume(clockwise);
-                break;
-            default:
-                break;
-        }
-        return true;  // fall to encoder_update_user and encoder_update_kb definitions
+bool encoder_update_keymap(uint8_t index, bool clockwise) {
+    switch (index) {
+        case 0:         // Top left encoder
+            encoder_action_volume(clockwise);
+            break;
+        default:
+            break;
     }
+    return true;  // fall to encoder_update_user and encoder_update_kb definitions
+}
 #endif
