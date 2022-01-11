@@ -15,7 +15,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
 * **Bootmagic reset**: Hold down the Esc key on the left side or '7' key on the right side and plug in the keyboard.
 
