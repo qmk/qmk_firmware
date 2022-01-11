@@ -35,9 +35,11 @@
 #define _GAMING 7
 
 #define MICMUTE LCTL(LSFT(KC_M))
+#define ALTTAB LALT(KC_TAB)
+#define SELLINE LSFT(SELWORD)
 #define DESKTR LGUI(LCTL(KC_RGHT))  // move one virtual desktop to the right
 #define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
-#define MTLCTL_F9 MT(MOD_LSFT, KC_F9)
+#define MTLCTL_F9 MT(MOD_LCTL, KC_F9)
 #define MTLSFT_F10 MT(MOD_LSFT, KC_F10)
 #define MTLALT_F11 MT(MOD_LALT, KC_F11)
 #define MTLGUI_Z MT(MOD_LGUI, KC_Z)
@@ -68,7 +70,8 @@ enum planck_keycodes {
   EXT_GAMING,
   SELWORD,
   BRACES,
-  BRACES2
+  BRACES2,
+  ARROW
 }; 
 
 // Define a type for as many tap dance states as you need
@@ -153,27 +156,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (RAISE)
  *
- * ,-------------------------------------------------------------------------.
- * |  ~  |  !  |     |     |     |Vol+| Vol- |  Cut  | Undo| Redo|  =  | Bsp |  
- * |-------------------------------------------------------------------------|
- * |     |Menu |     |     |     |DeskL|DeskR|SELWORD|Copy|Paste|WinPst|P2TXT|
- * |-------------------------------------------------------------------------|
- * |     |     |     |     |     |    |Braces|Braces2|  <  |  >  |  ?  |  !  |
- * |-------------------------------------------------------------------------|
- * |     |     |     |     |Adjust|           |      |     |     |     |     |
- * `-------------------------------------------------------------------------'
+ * ,-----------------------------------------------------------------------------.
+ * |  ~  |  !  |     |     |      |      |ARROW  |  Cut  | Undo| Redo|  =  | Bsp |  
+ * |-----------------------------------------------------------------------------|
+ * |     |Menu |     |     |      |      |SELLINE|SELWORD|Copy|Paste|WinPst|P2TXT|
+ * |-----------------------------------------------------------------------------|
+ * |     |Vol+ |Vol- | Mute|      |      |Braces |Braces2|  <  |  >  |  ?  |  !  |
+ * |-----------------------------------------------------------------------------|
+ * |     |     |     |     |Adjust|              |       |     |     |     |     |
+ * `-----------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
-  KC_TILD, KC_EXLM, KC_TRNS,  KC_TRNS, KC_TRNS, KC_VOLU, KC_VOLD, KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC, 
-  KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS,  DESKTL,  DESKTR,  SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_PTXT, 
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_EXLM,  
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(6),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_NO,       KC_NO
+  KC_TILD, KC_EXLM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ARROW,   KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC, 
+  KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SELLINE, SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_PTXT, 
+  KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_EXLM,  
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(6),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_NO,       KC_NO
 ),
 
 /* MIT Layout (LOWER)
  * 
  * ,-----------------------------------------------------------------------.
- * |  `  |  !  |  #  |  $  |  [  |  ]  |  :  |  7  |  8  |  9  |  =  | Bsp |
+ * |  `  |  !  |  #  |  $  |  <  |  >  |  :  |  7  |  8  |  9  |  =  | Bsp |
  * |-----------------------------------------------------------------------|
  * | Alt |  _  |  ^  |  %  |  (  |  )  |  M  |  4  |  5  |  6  |  -  |  +  |
  * |-----------------------------------------------------------------------|
@@ -183,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid( /* LOWER */
-  KC_GRV,  KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC, KC_COLN, KC_P7, KC_P8,   KC_P9,  KC_EQL,  KC_BSPC, 
+  KC_GRV,  KC_EXLM, KC_HASH, KC_DLR,  KC_LABK, KC_RABK, KC_COLN, KC_P7, KC_P8,   KC_P9,  KC_EQL,  KC_BSPC, 
   KC_LALT, KC_UNDS, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN, KC_M,    KC_P4, KC_P5,   KC_P6,  KC_PMNS, KC_PPLS, 
   KC_TRNS, KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, KC_AT,   KC_P1, KC_P2,   KC_P3,  KC_PSLS, KC_PAST, 
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_NO,  KC_NO,   KC_NO
@@ -210,29 +213,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (FN)
  *
- * ,-------------------------------------------------------------------------. 
- * |    |Sft,F9|Alt,F10|F11| F12|MyComp|Calc|home |  up  | end |PrtScr| Del  |
- * |-------------------------------------------------------------------------|
- * |    | F5  | F6  | F7  | F8  |DESKL|DESKR|left | down |right|ScrLck| CAPS |
- * |-------------------------------------------------------------------------|
- * |    | F1  | F2  | F3  | F4  |Mute |MicM |pgup |LCA_dn| pgdn|Pse/Brk| Ins |
- * |-------------------------------------------------------------------------|
- * |    |     |     |     |     |           |     |Alt,MNext|  |      |      |
- * `-------------------------------------------------------------------------'
+ * ,----------------------------------------------------------------------------. 
+ * | |Ctl,F9 |Sft,F10|Alt,F11| F12 |MyComp|Calc  |home |  up  | end |PrtScr| Del |
+ * |-----------------------------------------------------------------------------|
+ * |    | F5 |   F6  |   F7  | F8  |DeskL |DeskR |left | down |right|ScrLck| CAPS|
+ * |-----------------------------------------------------------------------------|
+ * |    | F1 |   F2  |   F3  | F4  |ALTTAB| MicM |pgup |LCA_dn| pgdn|Pse/Brk| Ins|
+ * |-----------------------------------------------------------------------------|
+ * |    |    |       |       |     |             |     |Alt,MNext|  |      |     |
+ * `-----------------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, MTLCTL_F9, MTLSFT_F10, MTLALT_F11,  KC_F12,  KC_MYCM, KC_CALC, KC_HOME, KC_UP,        KC_END,  KC_PSCR,  KC_DEL,
-  KC_TRNS, KC_F5,     KC_F6,      KC_F7,       KC_F8,   DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,  KC_CAPS, 
-  KC_TRNS, KC_F1,     KC_F2,      KC_F3,       KC_F4,   KC_MUTE, MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS, 
-  KC_NO,   KC_NO,     KC_NO,      KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,    KC_NO
+  KC_TRNS, MTLCTL_F9, MTLSFT_F10, MTLALT_F11, KC_F12,  KC_MYCM, KC_CALC, KC_HOME, KC_UP,        KC_END,  KC_PSCR,   KC_DEL,
+  KC_TRNS, KC_F5,     KC_F6,      KC_F7,      KC_F8,   KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,   KC_CAPS, 
+  KC_TRNS, KC_F1,     KC_F2,      KC_F3,      KC_F4,   ALTTAB,  MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS, 
+  KC_NO,   KC_NO,     KC_NO,      KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,    KC_NO
 ),
 
 /* MIT Layout (ADJUST)
  *
  * ,-----------------------------------------------------------------------------.
- * |reset| Ms3 | Ms2 |MsUp | Ms1  |  Hue+|  Hue- | Sat+| Sat- |Brt+ |Brt- |RGB Tg|
+ * |RGBtog|Ms3 | Ms2 |MsUp | Ms1  |  Hue+|  Hue- | Sat+| Sat- |Brt+ |Brt- | RESET|
  * |-----------------------------------------------------------------------------|
- * |debug| MWL | MsL |MDn  |MsR   |GAMING|       |AU_ON|AU_OFF|MU_ON|MU_OF|RGBMod|
+ * |RGBMod| MWL | MsL |MDn  |MsR  |GAMING|       |AU_ON|AU_OFF|MU_ON|MU_OF| DEBUG|
  * |-----------------------------------------------------------------------------|
  * |     |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|MI_ON|MI_OF |     |     |MU_Mod|
  * |-----------------------------------------------------------------------------|
@@ -240,8 +243,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
-  RESET,   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_TOG, 
-  DEBUG,   KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  KC_NO,   AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  RGB_MOD, 
+  RGB_TOG, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RESET, 
+  RGB_MOD, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  KC_NO,   AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  DEBUG, 
   KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK, MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, MU_MOD,
   KC_NO,   KC_NO,   KC_NO,   KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
 )
@@ -456,27 +459,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         clear_mods();  // Temporarily disable mods.
         clear_oneshot_mods();
         if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-          SEND_STRING("<>");
-        } else {
           SEND_STRING("()");
+        } else {
+          SEND_STRING("<>");
         }
         tap_code(KC_LEFT);  // Move cursor between braces.
         set_mods(mods);  // Restore mods.
       }
       return false;
-      case BRACES2:  // Types [], or <>, and puts cursor between braces.
+    case BRACES2:  // Types [], or <>, and puts cursor between braces.
       if (record->event.pressed) {
         clear_mods();  // Temporarily disable mods.
         clear_oneshot_mods();
         if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-          SEND_STRING("[]");
-        } else {
           SEND_STRING("{}");
+        } else {
+          SEND_STRING("[]");
         }
         tap_code(KC_LEFT);  // Move cursor between braces.
         set_mods(mods);  // Restore mods.
       }
       return false;
+    case ARROW:  // Arrow macro, types -> or =>.
+    if (record->event.pressed) {
+      if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {  // Is shift held?
+        del_mods(MOD_MASK_SHIFT);  // Temporarily delete shift.
+        del_oneshot_mods(MOD_MASK_SHIFT);
+        SEND_STRING("=>");
+        set_mods(mods);            // Restore mods.
+      } else {
+        SEND_STRING("->");
+      }
+    }
+    return false;
   }
   return true;
 }
