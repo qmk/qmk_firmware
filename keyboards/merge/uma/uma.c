@@ -97,7 +97,6 @@ static void print_status_narrow(void) {
 
 bool oled_task_kb(void) {
     if (!oled_task_user()) { return false; }
-    current_wpm = get_current_wpm();
     if (is_keyboard_master()) {
         print_status_narrow();
         //render_logo();
