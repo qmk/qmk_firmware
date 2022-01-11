@@ -1,6 +1,6 @@
 # relic
 
-![relic](https://i.imgur.com/oqveJc2.jpg)
+![relic](https://i.imgur.com/oqveJc2h.jpg)
 
 This is an 11-unit unibody split keyboard with an exploded spacebar cluster on bottom
 
