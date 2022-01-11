@@ -190,6 +190,14 @@ bool update_flow_mods(
     return pass;
 }
 
+void change_pressed_status(uint16_t keycode, bool pressed) {
+    for (int i = 0; i < FLOW_COUNT; i++) {
+        if (flow_config[i][0] == keycode) {
+            flow_pressed[i][0] = pressed;
+        }
+    }
+}
+
 bool update_flow_layers(
     uint16_t keycode,
     bool pressed,
@@ -207,6 +215,7 @@ bool update_flow_layers(
                 // Trigger keydown
                 if (flow_layers_state[i] == flow_up_unqueued) {
                     layer_on(layer);
+                    change_pressed_status(trigger, true);
                 }
                 flow_layers_state[i] = flow_down_unused;
                 pass = false;
@@ -219,11 +228,13 @@ bool update_flow_layers(
                     flow_layer_timeout_timers_active[i] = true;
                     flow_layer_timeout_timers_value[i] = timer_read();
                     pass = false;
+                    change_pressed_status(trigger, true);
                     break;
                 case flow_down_used:
                     // If we did use the layer while trigger was held, turn off it.
                     flow_layers_state[i] = flow_up_unqueued;
                     layer_off(layer);
+                    change_pressed_status(trigger, false);
                     pass = false;
                     break;
                 default:
@@ -237,6 +248,7 @@ bool update_flow_layers(
                     // Cancel oneshot layer on designated cancel keydown.
                     flow_layers_state[i] = flow_up_unqueued;
                     layer_off(layer);
+                    change_pressed_status(trigger, false);
                     pass = false;
                 }
                 if (key_layer == layer) {
@@ -251,6 +263,7 @@ bool update_flow_layers(
                    case flow_up_queued_used:
                         flow_layers_state[i] = flow_up_unqueued;
                         layer_off(layer);
+                        change_pressed_status(trigger, false);
                         pass = false;
                         break;
                     default:
@@ -265,10 +278,12 @@ bool update_flow_layers(
                     case flow_up_queued:
                         flow_layers_state[i] = flow_up_unqueued;
                         layer_off(layer);
+                        change_pressed_status(trigger, false);
                         break;
                     case flow_up_queued_used:
                         flow_layers_state[i] = flow_up_unqueued;
                         layer_off(layer);
+                        change_pressed_status(trigger, false);
                         break;
                     default:
                         break;
@@ -307,6 +322,7 @@ void flow_matrix_scan(void) {
             flow_layer_timeout_timers_active[i] = false;
             flow_layers_state[i] = flow_up_unqueued;
             layer_off(flow_layers_config[i][1]);
+            change_pressed_status(flow_layers_config[i][0], false);
         }
     }
 }

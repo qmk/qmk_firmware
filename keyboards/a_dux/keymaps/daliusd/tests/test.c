@@ -788,23 +788,22 @@ TEST("navD + altD + navU + altU + sD + sU = alt+s")
     ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 END_TEST
 
-/*
-TODO: Think how to make this case work
-
 TEST("navD + navU + altD + altU + sD + sU = alt+s")
     reset();
 
     bool pass = update_flow(OS_NAV, true, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, active_layer, _NAV);
+    ASSERT_EQ(UINT, flow_pressed[6][0], true);
     pass = update_flow(OS_NAV, false, kp);
     ASSERT_EQ(UINT, pass, false);
     ASSERT_EQ(UINT, active_layer, _NAV);
+    ASSERT_EQ(UINT, flow_pressed[6][0], true);
 
     set_key_layer(_NAV);
     pass = update_flow(KC_LALT, true, kp);
     ASSERT_EQ(UINT, pass, false);
-    ASSERT_EQ(UINT, active_layer, _BASE);
+    ASSERT_EQ(UINT, active_layer, _NAV);
     set_key_layer(_NAV);
     pass = update_flow(KC_LALT, false, kp);
     ASSERT_EQ(UINT, pass, false);
@@ -814,17 +813,16 @@ TEST("navD + navU + altD + altU + sD + sU = alt+s")
     ASSERT_EQ(UINT, unregistered_codes_count, 0);
 
     set_key_layer(_BASE);
-    pass = update_flow(KC_TAB, true, kp);
+    pass = update_flow(KC_S, true, kp);
     ASSERT_EQ(UINT, pass, true);
     ASSERT_EQ(UINT, registered_codes_count, 1);
-    ASSERT_EQ(UINT, unregistered_codes_count, 1);
-    ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 
     set_key_layer(_BASE);
-    pass = update_flow(KC_TAB, false, kp);
+    pass = update_flow(KC_S, false, kp);
     ASSERT_EQ(UINT, pass, true);
     ASSERT_EQ(UINT, active_layer, _BASE);
+    ASSERT_EQ(UINT, unregistered_codes_count, 1);
+    ASSERT_EQ(UINT, last_unregistered_code, KC_LALT);
 END_TEST
-*/
 
 END
