@@ -19,4 +19,4 @@ AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = jisplit89/rev1
+DEFAULT_FOLDER = salicylic_acid3/jisplit89/rev1
