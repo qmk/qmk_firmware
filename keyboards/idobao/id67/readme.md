@@ -16,14 +16,14 @@ Currently there are two variants for the id67:
 
 Make examples for this keyboard (after setting up your build environment):
 
-    make id67/default_rgb:default
+    make idobao/id67/default_rgb:default
 
-    make id67/rgb:default
+    make idobao/id67/rgb:default
 
 Flashing examples for this keyboard:
 
-    make id67/default_rgb:default:flash
+    make idobao/id67/default_rgb:default:flash
 
-    make id67/rgb:default:flash
+    make idobao/id67/rgb:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
