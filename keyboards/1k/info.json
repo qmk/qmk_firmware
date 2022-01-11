@@ -3,7 +3,7 @@
   "url": "",
   "maintainer": "MakotoKurauchi",
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_ortho_1x1": {
       "layout": [
         {"x":0, "y":0}
       ]
