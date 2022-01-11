@@ -1,17 +1,15 @@
-# NP_64
+# Tiger910
 
-![NP_64](https://i.imgur.com/DzLy87M.png)
+![Tiger910](https://www.hualigs.cn/image/60272570d2764.jpg)
 
-A 60% keyboard based on STM32f303
+A 65% keyboard 
 
-* Keyboard Maintainer:  [Weirdo](https://github.com/weirdo-f) (https://weirdo-f.github.io)
-* Hardware Supported: NP_64
+* Keyboard Maintainer:  [Weirdo](https://weirdo-f.github.io)(https://github.com/1248314361)
+* Hardware Supported: Tiger910
 * Hardware Availability: Not yet
 
 Make example for this keyboard (after setting up your build environment):
 
-    make naiping/np64:default
-
-The RST pin and GND pin on the board can be quickly shortened twice to enter DFU mode, and then the program can be written.
+    make weirdo/tiger910:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
