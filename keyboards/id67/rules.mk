@@ -1,0 +1,1 @@
+DEFAULT_FOLDER=id67/rgb
