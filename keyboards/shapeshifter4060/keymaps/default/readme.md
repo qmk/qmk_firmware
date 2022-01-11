@@ -1,6 +1,6 @@
 # Default layout
 
-This is the default layout for the Laptreus
+This is the default layout for the Shapeshifter 4060
 
 ## Layout
 
