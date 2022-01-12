@@ -36,7 +36,6 @@
 
 #define MICMUTE LCTL(LSFT(KC_M))
 #define ALTTAB LALT(KC_TAB)
-#define SELLINE LSFT(SELWORD)
 #define DESKTR LGUI(LCTL(KC_RGHT))  // move one virtual desktop to the right
 #define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
 #define MTLCTL_F9 MT(MOD_LCTL, KC_F9)
@@ -167,14 +166,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
-  KC_TILD, KC_EXLM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ARROW,   KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC, 
-  KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SELLINE, SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_PTXT, 
-  KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_EXLM,  
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(6),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_NO,       KC_NO
+  KC_TILD, KC_EXLM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ARROW,         KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC, 
+  KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LSFT(SELWORD), SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_PTXT, 
+  KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS, BRACES,        BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_EXLM,  
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(6),   KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS,  KC_NO,       KC_NO
 ),
 
 /* MIT Layout (LOWER)
- * 
+ * XZ
  * ,-----------------------------------------------------------------------.
  * |  `  |  !  |  #  |  $  |  <  |  >  |  :  |  7  |  8  |  9  |  =  | Bsp |
  * |-----------------------------------------------------------------------|
@@ -433,27 +432,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistant_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
-      break;
-    // case RAISE:
-    //   if (record->event.pressed) {
-    //     layer_on(_RAISE);
-    //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    //   } else {
-    //     layer_off(_RAISE);
-    //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    //   }
-    //   return false;
-    //   break;
-    // case UNDS_LOWER:
-    //   if (record->event.pressed) {
-    //     layer_on(_LOWER);
-    //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    //   } else {
-    //     layer_off(_LOWER);
-    //     update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    //   }
-    //   return false;
-    //   break;
+      break;    
     case BRACES:  // Types (), or {}, and puts cursor between braces.
       if (record->event.pressed) {
         clear_mods();  // Temporarily disable mods.
@@ -494,4 +473,175 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   return true;
+}
+
+
+enum combo_events {
+  EM_EMAIL,
+  HTML_DIV,
+  HTML_P,
+  HTML_TITLE,
+  HTML_HTML,
+  HTML_HEAD,
+  HTML_BODY,
+  HTML_FOOTER,
+  HTML_A_HREF,
+  HTML_IMG,
+  HTML_GENERIC_TAG,
+  COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
+
+const uint16_t PROGMEM email_combo[] = {KC_E, KC_M, COMBO_END};
+const uint16_t PROGMEM html_div_combo[] = {KC_D, KC_V, COMBO_END};
+const uint16_t PROGMEM html_p_combo[] = {KC_P, KC_B, COMBO_END};
+const uint16_t PROGMEM html_title_combo[] = {KC_T, KC_G, COMBO_END};
+const uint16_t PROGMEM html_html_combo[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM html_head_combo[] = {KC_W, KC_F, COMBO_END};
+const uint16_t PROGMEM html_body_combo[] = {KC_R, KC_S, COMBO_END};
+const uint16_t PROGMEM html_footer_combo[] = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM html_a_href_combo[] = {KC_A, KC_R, COMBO_END};
+const uint16_t PROGMEM html_img_combo[] = {KC_E, KC_I, COMBO_END};
+const uint16_t PROGMEM html_generic_tag_combo[] = {KC_U, KC_Y, COMBO_END};
+// const uint8_t combo_mods = get_mods();
+// const uint8_t combo_oneshot_mods = get_oneshot_mods();
+
+combo_t key_combos[] = {
+  [EM_EMAIL] = COMBO_ACTION(email_combo),
+  [HTML_DIV] = COMBO_ACTION(html_div_combo),
+  [HTML_P] = COMBO_ACTION(html_p_combo),
+  [HTML_TITLE] = COMBO_ACTION(html_title_combo),
+  [HTML_HTML] = COMBO_ACTION(html_html_combo),
+  [HTML_HEAD] = COMBO_ACTION(html_head_combo),
+  [HTML_BODY] = COMBO_ACTION(html_body_combo),
+  [HTML_FOOTER] = COMBO_ACTION(html_footer_combo),
+  [HTML_A_HREF] = COMBO_ACTION(html_a_href_combo),
+  [HTML_IMG] = COMBO_ACTION(html_img_combo),
+  [HTML_GENERIC_TAG] = COMBO_ACTION(html_generic_tag_combo),
+};
+/* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case EM_EMAIL:
+      if (pressed) {
+        SEND_STRING("aricbouwers@outlook.com");
+      }
+      break;
+    case HTML_DIV:
+      if (pressed) {
+        SEND_STRING("<div>");
+        tap_code16(KC_ESC);
+        tap_code16(KC_ENT);
+        SEND_STRING("</div>");
+        tap_code16(KC_UP);
+        tap_code16(KC_END);
+        tap_code16(KC_ENT);
+        tap_code16(KC_TAB);
+      }
+      break;
+    case HTML_P:
+      if (pressed) {
+        SEND_STRING("<p>");
+        tap_code16(KC_ESC);
+        tap_code16(KC_ENT);
+        SEND_STRING("</p>");
+        tap_code16(KC_UP);
+        tap_code16(KC_END);
+        tap_code16(KC_ENT);
+        tap_code16(KC_TAB);
+      }
+      break;
+    case HTML_TITLE:
+      if (pressed) {
+        SEND_STRING("<title></title>");
+        tap_code16(KC_LEFT);
+        tap_code16(KC_LEFT);
+        tap_code16(KC_LEFT);
+        tap_code16(KC_LEFT);
+        tap_code16(KC_LEFT);
+        tap_code16(KC_LEFT);
+        tap_code16(KC_LEFT);
+        tap_code16(KC_LEFT);        
+      }
+      break;
+    case HTML_HTML:
+      if (pressed) {
+        SEND_STRING("<html lang=\"en\">");
+        tap_code16(KC_ESC);
+        tap_code16(KC_ENT);
+        SEND_STRING("</html>");
+        tap_code16(KC_UP);
+        tap_code16(KC_END);
+        tap_code16(KC_ENT);
+        tap_code16(KC_TAB);
+      }
+      break;
+    case HTML_HEAD:
+      if (pressed) {
+        SEND_STRING("<head>");
+        tap_code16(KC_ESC);
+        tap_code16(KC_ENT);
+        SEND_STRING("</head>");
+        tap_code16(KC_UP);
+        tap_code16(KC_END);
+        tap_code16(KC_ENT);
+        tap_code16(KC_TAB);
+      }
+      break;
+    case HTML_BODY:
+      if (pressed) {
+        SEND_STRING("<body>");
+        tap_code16(KC_ESC);
+        tap_code16(KC_ENT);
+        SEND_STRING("</body>");
+        tap_code16(KC_UP);
+        tap_code16(KC_END);
+        tap_code16(KC_ENT);
+        tap_code16(KC_TAB);
+      }
+      break;
+    case HTML_FOOTER:
+      if (pressed) {
+        SEND_STRING("<footer>");
+        tap_code16(KC_ESC);
+        tap_code16(KC_ENT);
+        SEND_STRING("</footer>");
+        tap_code16(KC_UP);
+        tap_code16(KC_END);
+        tap_code16(KC_ENT);
+        tap_code16(KC_TAB);
+      }
+      break;
+    case HTML_A_HREF:
+      if (pressed) {
+        SEND_STRING("<a href=\"link_goes_here\">name_of_link_goes_here</a>");
+        tap_code16(KC_HOME);
+        for (int i = 0; i < 9; i++) {
+          tap_code16(KC_RGHT);
+        }
+      }
+      break;
+    case HTML_IMG:
+      if (pressed) {
+        SEND_STRING("<img src=\"image_source_or_link_goes_here\" alt=\"name_if_cant_load\" width=\"num_pixels\" height=\"num_pixels\">");
+        tap_code16(KC_HOME);
+        for (int i = 0; i < 10; i++) {
+          tap_code16(KC_RGHT);
+        }
+      }
+      break;
+    case HTML_GENERIC_TAG:
+      if (pressed) {
+        SEND_STRING("<TAG></TAG>");
+        tap_code16(KC_ESC);
+        for (int i = 0; i < 9; i++) {
+          tap_code16(KC_LEFT);
+        }      
+        tap_code16(LCTL(KC_D));
+        tap_code16(LCTL(KC_D));
+        tap_code16(KC_BSPC);
+      }
+      break;
+  }
 }
