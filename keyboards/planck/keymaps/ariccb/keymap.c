@@ -558,7 +558,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case HTML_TITLE:
       if (pressed) {
         SEND_STRING("<title></title>");
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
           tap_code16(KC_LEFT);
         }               
       }
@@ -566,7 +566,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       case CSS_STYLE:
       if (pressed) {
         SEND_STRING("<style></style>");
-         for (int i = 0; i < 7; i++) {
+         for (int i = 0; i < 8; i++) {
           tap_code16(KC_LEFT);
         }        
       }
