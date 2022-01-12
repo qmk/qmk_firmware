@@ -34,7 +34,7 @@
 #define _ADJUST 6
 #define _GAMING 7
 
-#define MICMUTE LCTL(LSFT(KC_M))
+#define MICMUTE LCTL(LALT(KC_M))
 #define ALTTAB LALT(KC_TAB)
 #define DESKTR LGUI(LCTL(KC_RGHT))  // move one virtual desktop to the right
 #define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
@@ -224,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
   KC_TRNS, MTLCTL_F9, MTLSFT_F10, MTLALT_F11, KC_F12,  KC_MYCM, KC_CALC, KC_HOME, KC_UP,        KC_END,  KC_PSCR,   KC_DEL,
-  KC_TRNS, KC_F5,     KC_F6,      KC_F7,      KC_F8,   KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,   KC_CAPS, 
+  KC_TRNS, KC_F5,     KC_F6,      KC_F7,      KC_F8,   DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,   KC_CAPS, 
   KC_TRNS, KC_F1,     KC_F2,      KC_F3,      KC_F4,   ALTTAB,  MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS, 
   KC_NO,   KC_NO,     KC_NO,      KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,    KC_NO
 ),
@@ -478,45 +478,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 enum combo_events {
   EM_EMAIL,
-  HTML_DIV,
   HTML_P,
   HTML_TITLE,
+  HTML_DIV,
   HTML_HTML,
   HTML_HEAD,
   HTML_BODY,
   HTML_FOOTER,
   HTML_A_HREF,
   HTML_IMG,
+  CSS_STYLE,
   HTML_GENERIC_TAG,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM email_combo[] = {KC_E, KC_M, COMBO_END};
-const uint16_t PROGMEM html_div_combo[] = {KC_D, KC_V, COMBO_END};
 const uint16_t PROGMEM html_p_combo[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM html_title_combo[] = {KC_T, KC_G, COMBO_END};
+const uint16_t PROGMEM html_div_combo[] = {KC_D, KC_V, COMBO_END};
 const uint16_t PROGMEM html_html_combo[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM html_head_combo[] = {KC_W, KC_F, COMBO_END};
 const uint16_t PROGMEM html_body_combo[] = {KC_R, KC_S, COMBO_END};
 const uint16_t PROGMEM html_footer_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM html_a_href_combo[] = {KC_A, KC_R, COMBO_END};
 const uint16_t PROGMEM html_img_combo[] = {KC_E, KC_I, COMBO_END};
+const uint16_t PROGMEM css_style_combo[] = {KC_S, KC_T, COMBO_END};
 const uint16_t PROGMEM html_generic_tag_combo[] = {KC_U, KC_Y, COMBO_END};
 // const uint8_t combo_mods = get_mods();
 // const uint8_t combo_oneshot_mods = get_oneshot_mods();
 
 combo_t key_combos[] = {
   [EM_EMAIL] = COMBO_ACTION(email_combo),
-  [HTML_DIV] = COMBO_ACTION(html_div_combo),
   [HTML_P] = COMBO_ACTION(html_p_combo),
   [HTML_TITLE] = COMBO_ACTION(html_title_combo),
+  [HTML_DIV] = COMBO_ACTION(html_div_combo),
   [HTML_HTML] = COMBO_ACTION(html_html_combo),
   [HTML_HEAD] = COMBO_ACTION(html_head_combo),
   [HTML_BODY] = COMBO_ACTION(html_body_combo),
   [HTML_FOOTER] = COMBO_ACTION(html_footer_combo),
   [HTML_A_HREF] = COMBO_ACTION(html_a_href_combo),
   [HTML_IMG] = COMBO_ACTION(html_img_combo),
+  [CSS_STYLE] = COMBO_ACTION(css_style_combo),
   [HTML_GENERIC_TAG] = COMBO_ACTION(html_generic_tag_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
@@ -555,14 +558,17 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case HTML_TITLE:
       if (pressed) {
         SEND_STRING("<title></title>");
-        tap_code16(KC_LEFT);
-        tap_code16(KC_LEFT);
-        tap_code16(KC_LEFT);
-        tap_code16(KC_LEFT);
-        tap_code16(KC_LEFT);
-        tap_code16(KC_LEFT);
-        tap_code16(KC_LEFT);
-        tap_code16(KC_LEFT);        
+        for (int i = 0; i < 7; i++) {
+          tap_code16(KC_LEFT);
+        }               
+      }
+      break;
+      case CSS_STYLE:
+      if (pressed) {
+        SEND_STRING("<style></style>");
+         for (int i = 0; i < 7; i++) {
+          tap_code16(KC_LEFT);
+        }        
       }
       break;
     case HTML_HTML:
