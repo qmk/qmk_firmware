@@ -247,7 +247,7 @@ To enable `retro tapping`, add the following to your `config.h`:
 
 Holding and releasing a dual function key without pressing another key will result in nothing happening. With retro tapping enabled, releasing the key without pressing another will send the original keycode even if it is outside the tapping term.
 
-For instance, holding and releasing `LT(2, KC_SPACE)` without hitting another key will result in nothing happening. With this enabled, it will send `KC_SPACE` instead.
+For instance, holding and releasing `LT(2, KC_SPC)` without hitting another key will result in nothing happening. With this enabled, it will send `KC_SPC` instead.
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
@@ -260,7 +260,7 @@ You can then add the following function to your keymap:
 ```c
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(2, KC_SPACE):
+        case LT(2, KC_SPC):
             return true;
         default:
             return false;

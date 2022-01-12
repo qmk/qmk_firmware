@@ -43,8 +43,6 @@ void wait_us(uint16_t duration);
 
 #include "_wait.c"
 
-#define CPU_CLOCK STM32_SYSCLK
-
 /* For GPIOs on ARM-based MCUs, the input pins are sampled by the clock of the bus
  * to which the GPIO is connected.
  * The connected buses differ depending on the various series of MCUs.

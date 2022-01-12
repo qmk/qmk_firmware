@@ -74,8 +74,7 @@ enum steno_keycodes {
 };
 
 #ifdef STENO_COMBINEDMAP
-enum steno_combined_keycodes
-{
+enum steno_combined_keycodes {
     STN_S3 = QK_STENO_COMB,
     STN_TKL,
     STN_PWL,

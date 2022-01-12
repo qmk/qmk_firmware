@@ -67,7 +67,7 @@ static const uint8_t boltmap[64] PROGMEM = {TXB_NUL, TXB_NUM, TXB_NUM, TXB_NUM, 
 
 #ifdef STENO_COMBINEDMAP
 /* Used to look up when pressing the middle row key to combine two consonant or vowel keys */
-static const uint16_t combinedmap_first[] PROGMEM = {STN_S1, STN_TL, STN_PL, STN_HL, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR, STN_A, STN_E};
+static const uint16_t combinedmap_first[] PROGMEM  = {STN_S1, STN_TL, STN_PL, STN_HL, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR, STN_A, STN_E};
 static const uint16_t combinedmap_second[] PROGMEM = {STN_S2, STN_KL, STN_WL, STN_RL, STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR, STN_O, STN_U};
 #endif
 
@@ -174,11 +174,10 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
             return false;
 
 #ifdef STENO_COMBINEDMAP
-        case QK_STENO_COMB ... QK_STENO_COMB_MAX:
-        {
+        case QK_STENO_COMB ... QK_STENO_COMB_MAX: {
             uint8_t result;
-            result = process_steno(combinedmap_first[keycode-QK_STENO_COMB], record);
-            result &= process_steno(combinedmap_second[keycode-QK_STENO_COMB], record);
+            result = process_steno(combinedmap_first[keycode - QK_STENO_COMB], record);
+            result &= process_steno(combinedmap_second[keycode - QK_STENO_COMB], record);
             return result;
         }
 #endif

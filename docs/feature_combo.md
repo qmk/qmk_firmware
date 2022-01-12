@@ -173,7 +173,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // i.e. the exact array of keys you defined for the combo.
     // This can be useful if your combos have a common key and you want to apply the
     // same combo term for all of them.
-    if (combo->keys[0] == KC_ENTER) { // if first key in the array is KC_ENTER
+    if (combo->keys[0] == KC_ENT) { // if first key in the array is Enter
         return 150;
     }
 

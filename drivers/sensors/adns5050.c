@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include "adns5050.h"
 #include "wait.h"
 #include "debug.h"
@@ -61,13 +60,9 @@ void adns_sync(void) {
     writePinHigh(ADNS_CS_PIN);
 }
 
-void adns_cs_select(void) {
-    writePinLow(ADNS_CS_PIN);
-}
+void adns_cs_select(void) { writePinLow(ADNS_CS_PIN); }
 
-void adns_cs_deselect(void) {
-    writePinHigh(ADNS_CS_PIN);
-}
+void adns_cs_deselect(void) { writePinHigh(ADNS_CS_PIN); }
 
 uint8_t adns_serial_read(void) {
     setPinInput(ADNS_SDIO_PIN);
@@ -121,7 +116,7 @@ uint8_t adns_read_reg(uint8_t reg_addr) {
     // We don't need a minimum tSRAD here. That's because a 4ms wait time is
     // already included in adns_serial_write(), so we're good.
     // See page 10 and 15 of the ADNS spec sheet.
-    //wait_us(4);
+    // wait_us(4);
 
     uint8_t byte = adns_serial_read();
 
@@ -138,7 +133,7 @@ uint8_t adns_read_reg(uint8_t reg_addr) {
 
 void adns_write_reg(uint8_t reg_addr, uint8_t data) {
     adns_cs_select();
-    adns_serial_write( 0b10000000 | reg_addr );
+    adns_serial_write(0b10000000 | reg_addr);
     adns_serial_write(data);
     adns_cs_deselect();
 }
@@ -155,7 +150,7 @@ report_adns_t adns_read_burst(void) {
     // We don't need a minimum tSRAD here. That's because a 4ms wait time is
     // already included in adns_serial_write(), so we're good.
     // See page 10 and 15 of the ADNS spec sheet.
-    //wait_us(4);
+    // wait_us(4);
 
     uint8_t x = adns_serial_read();
     uint8_t y = adns_serial_read();
@@ -180,13 +175,11 @@ int8_t convert_twoscomp(uint8_t data) {
 }
 
 // Don't forget to use the definitions for CPI in the header file.
-void adns_set_cpi(uint8_t cpi) {
-    adns_write_reg(REG_MOUSE_CONTROL2, cpi);
-}
+void adns_set_cpi(uint8_t cpi) { adns_write_reg(REG_MOUSE_CONTROL2, cpi); }
 
 bool adns_check_signature(void) {
-    uint8_t pid = adns_read_reg(REG_PRODUCT_ID);
-    uint8_t rid = adns_read_reg(REG_REVISION_ID);
+    uint8_t pid  = adns_read_reg(REG_PRODUCT_ID);
+    uint8_t rid  = adns_read_reg(REG_REVISION_ID);
     uint8_t pid2 = adns_read_reg(REG_PRODUCT_ID2);
 
     return (pid == 0x12 && rid == 0x01 && pid2 == 0x26);

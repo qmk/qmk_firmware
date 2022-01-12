@@ -7,7 +7,7 @@ BOOTLOADER = stm32-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = yes      # Enter bootloader mode when holding the ESC key.
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -22,5 +22,7 @@ ENCODER_ENABLE = no         # Enable rotary encoder support
 AUDIO_ENABLE = no           # Audio output
 KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+mouse+extra
 
-HAPTIC_ENABLE += SOLENOID
+HAPTIC_ENABLE = yes
+HAPTIC_DRIVER = SOLENOID
+
 LAYOUTS = fullsize_ansi fullsize_iso

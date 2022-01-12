@@ -50,10 +50,8 @@
 #define DEBOUNCE 3
 
 /* disable these deprecated features by default */
-//#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-//#    define NO_ACTION_MACRO
-//#    define NO_ACTION_FUNCTION
-//#endif
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
@@ -84,14 +82,9 @@
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define DRIVER_ADDR_1 0b1110100
-//#define DRIVER_ADDR_2 0b1110110
 
 #define DRIVER_COUNT 1
-#define DRIVER_1_LED_TOTAL 6
-//#define DRIVER_1_LED_TOTAL 25
-//#define DRIVER_2_LED_TOTAL 24
-//#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define DRIVER_LED_TOTAL 6
 #endif
 //#define RGB_DI_PIN B7
 //#ifdef RGB_DI_PIN

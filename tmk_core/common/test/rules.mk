@@ -16,6 +16,7 @@ eeprom_stm32_tiny_INC := $(eeprom_stm32_INC)
 eeprom_stm32_large_INC := $(eeprom_stm32_INC)
 
 eeprom_stm32_SRC := \
+	$(TOP_DIR)/drivers/eeprom/eeprom_driver.c \
 	$(TMK_PATH)/common/test/eeprom_stm32_tests.cpp \
 	$(TMK_PATH)/common/test/flash_stm32_mock.c \
 	$(TMK_PATH)/common/chibios/eeprom_stm32.c

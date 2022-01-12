@@ -245,10 +245,9 @@ static void render_info(void) {
     }
 
     // Print string received via HID RAW
-    oled_write_ln(receive_buffer, false);
-}
+    oled_write_ln(receive_buffer, false);}
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     static bool finished_timer = false;
     if (!finished_timer && (timer_elapsed(startup_timer) < 1000)) {
         render_logo();
@@ -259,6 +258,8 @@ void oled_task_user(void) {
         }
         render_info();
     }
+    return false;
+
 }
 
 #ifdef RAW_ENABLE

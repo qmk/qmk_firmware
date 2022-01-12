@@ -125,7 +125,6 @@ uint16_t handle_encoder_clockwise(){
 #endif
     case ENC_MODE_CLOCK_SET:
       update_time_config(1);
-      queue_for_send = true;
       break;
   }
   return mapped_code;
@@ -171,7 +170,6 @@ uint16_t handle_encoder_ccw(){
 
     case ENC_MODE_CLOCK_SET:
       update_time_config(-1);
-      queue_for_send = true;
       break;
   }
   return mapped_code;

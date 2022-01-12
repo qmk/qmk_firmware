@@ -8,7 +8,6 @@ on:
   pull_request:
     paths:
     - 'lib/python/**'
-    - 'bin/qmk'
     - 'requirements.txt'
     - '.github/workflows/cli.yml'
 

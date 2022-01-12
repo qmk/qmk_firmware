@@ -18,11 +18,11 @@
 #    define IS_TAPPING_PRESSED() (IS_TAPPING() && tapping_key.event.pressed)
 #    define IS_TAPPING_RELEASED() (IS_TAPPING() && !tapping_key.event.pressed)
 #    define IS_TAPPING_KEY(k) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (k)))
-#ifndef COMBO_ENABLE
-#    define IS_TAPPING_RECORD(r) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)))
-#else
-#    define IS_TAPPING_RECORD(r) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)) && tapping_key.keycode == r->keycode)
-#endif
+#    ifndef COMBO_ENABLE
+#        define IS_TAPPING_RECORD(r) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)))
+#    else
+#        define IS_TAPPING_RECORD(r) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)) && tapping_key.keycode == r->keycode)
+#    endif
 
 __attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) { return TAPPING_TERM; }
 
@@ -212,11 +212,15 @@ bool process_tapping(keyrecord_t *keyp) {
                     if (tapping_key.tap.count > 1) {
                         debug("Tapping: Start new tap with releasing last tap(>1).\n");
                         // unregister key
-                        process_record(&(keyrecord_t){.tap = tapping_key.tap, .event.key = tapping_key.event.key, .event.time = event.time, .event.pressed = false,
-#ifdef COMBO_ENABLE
-                                .keycode = tapping_key.keycode,
-#endif
-                                });
+                        process_record(&(keyrecord_t){
+                            .tap           = tapping_key.tap,
+                            .event.key     = tapping_key.event.key,
+                            .event.time    = event.time,
+                            .event.pressed = false,
+#    ifdef COMBO_ENABLE
+                            .keycode = tapping_key.keycode,
+#    endif
+                        });
                     } else {
                         debug("Tapping: Start while last tap(1).\n");
                     }
@@ -254,11 +258,15 @@ bool process_tapping(keyrecord_t *keyp) {
                     if (tapping_key.tap.count > 1) {
                         debug("Tapping: Start new tap with releasing last timeout tap(>1).\n");
                         // unregister key
-                        process_record(&(keyrecord_t){.tap = tapping_key.tap, .event.key = tapping_key.event.key, .event.time = event.time, .event.pressed = false,
-#ifdef COMBO_ENABLE
-                                .keycode = tapping_key.keycode,
-#endif
-                                });
+                        process_record(&(keyrecord_t){
+                            .tap           = tapping_key.tap,
+                            .event.key     = tapping_key.event.key,
+                            .event.time    = event.time,
+                            .event.pressed = false,
+#    ifdef COMBO_ENABLE
+                            .keycode = tapping_key.keycode,
+#    endif
+                        });
                     } else {
                         debug("Tapping: Start while last timeout tap(1).\n");
                     }

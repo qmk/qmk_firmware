@@ -127,7 +127,7 @@ bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 #    ifndef NO_AUTO_SHIFT_SPECIAL
         case KC_TAB:
         case KC_MINUS ... KC_SLASH:
-        case KC_NONUS_BSLASH:
+        case KC_NONUS_BACKSLASH:
 #    endif
             return true;
     }

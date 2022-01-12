@@ -7,7 +7,7 @@ F_CPU = 8000000
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration

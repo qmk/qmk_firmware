@@ -54,10 +54,8 @@
 #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #define DISABLE_RGB_MATRIX_DIGITAL_RAIN
 #define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
-#define DRIVER_COUNT 2
-#define DRIVER_1_LED_TOTAL 52
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define DRIVER_COUNT 1
+#define DRIVER_LED_TOTAL 52
 #endif
 
 /* disable these deprecated features by default */

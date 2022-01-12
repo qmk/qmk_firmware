@@ -65,7 +65,7 @@ void sleep_led_timer_callback(void) {
 
 /* LPTMR clock options */
 #    define LPTMR_CLOCK_MCGIRCLK 0 /* 4MHz clock */
-#    define LPTMR_CLOCK_LPO 1 /* 1kHz clock */
+#    define LPTMR_CLOCK_LPO 1      /* 1kHz clock */
 #    define LPTMR_CLOCK_ERCLK32K 2 /* external 32kHz crystal */
 #    define LPTMR_CLOCK_OSCERCLK 3 /* output from OSC */
 
@@ -121,7 +121,7 @@ void sleep_led_init(void) {
     MCG->C2 |= MCG_C2_IRCS;  // fast (4MHz) internal ref clock
 #        if defined(KL27)    // divide the 8MHz IRC by 2, to have the same MCGIRCLK speed as others
     MCG->MC |= MCG_MC_LIRC_DIV2_DIV2;
-#        endif /* KL27 */
+#        endif                  /* KL27 */
     MCG->C1 |= MCG_C1_IRCLKEN;  // enable internal ref clock
     //  to work in stop mode, also MCG_C1_IREFSTEN
     //  Divide 4MHz by 2^N (N=6) => 62500 irqs/sec =>

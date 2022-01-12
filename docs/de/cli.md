@@ -51,25 +51,6 @@ Wir suchen nach Freiwilligen, die ein `qmk`-Package für weitere Betriebssysteme
 * Installiere mit einem [virtualenv](https://virtualenv.pypa.io/en/latest/).
 * Weise den User an, die Umgebungs-Variable `QMK_HOME` zu setzen, um die Firmware-Quelle anders einzustellen als `~/qmk_firmware`.
 
-# Lokale CLI
-
-Wenn Du die globale CLI nicht verwenden möchtest, beinhaltet `qmk_firmware` auch eine lokale CLI. Du kannst sie hier finden: `qmk_firmware/bin/qmk`. Du kannst den `qmk`-Befehl aus irgendeinem Datei-Verzeichnis ausführen und es wird immer auf dieser Kopie von `qmk_firmware` arbeiten.
-
-**Beispiel**:
-
-```
-$ ~/qmk_firmware/bin/qmk hello
-Ψ Hello, World!
-```
-
-## Einschränkungen der lokalen CLI
-
-Hier ein Vergleich mit der globalen CLI:
-
-* Die lokale CLI unterstützt kein `qmk setup` oder `qmk clone`.
-* Die lokale CLI arbeitet immer innerhalb der selben `qmk_firmware`-Verzeichnisstruktur, auch wenn Du mehrere Repositories geklont hast.
-* Die lokale CLI läuft nicht in einer virtualenv. Daher ist es möglich, dass Abhängigkeiten (dependencies) miteinander in Konflikt kommen/stehen.
-
 # CLI-Befehle
 
 ## `qmk compile`

@@ -9,7 +9,7 @@ BOOTLOADER = atmel-dfu
 #
 CUSTOM_MATRIX           = yes # Custom matrix file for the ErgoDone
 UNICODE_ENABLE          = yes # Unicode
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE         = yes  # Mouse keys
 EXTRAKEY_ENABLE         = yes # Audio control and System control
 CONSOLE_ENABLE          = yes # Console for debug

@@ -19,7 +19,6 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-XT_ENABLE = yes
 CUSTOM_MATRIX = yes
 
-SRC += matrix.c
+SRC += matrix.c xt_interrupt.c

@@ -1,7 +1,7 @@
 SYSTEM_TYPE := $(shell gcc -dumpmachine)
 GCC_VERSION := $(shell gcc --version 2>/dev/null)
 
-CC = gcc
+CC = $(CC_PREFIX) gcc
 OBJCOPY =
 OBJDUMP =
 SIZE =

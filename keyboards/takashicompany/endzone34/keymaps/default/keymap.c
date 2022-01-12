@@ -77,7 +77,7 @@ static void render_logo(void) {
     oled_write_raw_P(my_logo, sizeof(my_logo));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
 
     render_logo();
 
@@ -108,5 +108,6 @@ void oled_task_user(void) {
 
     oled_write_ln(count_str, false);
 
+    return false;
 }
 #endif

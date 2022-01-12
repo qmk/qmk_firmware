@@ -64,7 +64,13 @@ typedef uint8_t pin_t;
         PORT->Group[SAMD_PORT(pin)].OUTCLR.reg = SAMD_PIN_MASK(pin); \
     } while (0)
 
-#define writePin(pin, level) ((level) ? (writePinHigh(pin)) : (writePinLow(pin)))
+#define writePin(pin, level)                                             \
+    do {                                                                 \
+        if (level)                                                       \
+            PORT->Group[SAMD_PORT(pin)].OUTSET.reg = SAMD_PIN_MASK(pin); \
+        else                                                             \
+            PORT->Group[SAMD_PORT(pin)].OUTCLR.reg = SAMD_PIN_MASK(pin); \
+    } while (0)
 
 #define readPin(pin) ((PORT->Group[SAMD_PORT(pin)].IN.reg & SAMD_PIN_MASK(pin)) != 0)
 

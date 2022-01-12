@@ -2,7 +2,7 @@
 ##############################################################################
 # Compiler settings
 #
-CC = avr-gcc
+CC = $(CC_PREFIX) avr-gcc
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
 SIZE = avr-size

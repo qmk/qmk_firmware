@@ -85,10 +85,6 @@ Premièrement, vous devez compiler le firmware avec l'option de compilation `NKR
 
 Essayez la commande `Magic` **N** (`LShift+RShift+N` par défaut) si **NKRO** ne fonctionne toujours pas. Vous pouvez utiliser cette commande pour basculer temporairement entre le mode **NKRO** et **6KRO**. Sous certaines conditions, **NKRO** ne fonctionnera pas et vous devrez basculer en **6KRO**, en particulier lorsque vous êtes dans le BIOS.
 
-Si votre firmware est compilé avec `BOOTMAGIC_ENABLE` vous devrez l'activer avec la commande `BootMagic` **N** (`Espace+N` par défaut). Cette option est enregistrée dans l'EEPROM et sera gardé entre deux cycles de démarrage.
-
-https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
-
 ## Le TrackPoint a besoin Circuit de réinitialisation (Support de souris PS/2)
 
 Sans circuit de réinitialisation vous allez avoir des résultats inconsistants à cause de la mauvaise initialisation du matériel. Regardez le schéma du circuit du TPM754.

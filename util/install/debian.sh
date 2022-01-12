@@ -15,7 +15,8 @@ _qmk_install() {
         build-essential clang-format diffutils gcc git unzip wget zip \
         python3-pip binutils-avr gcc-avr avr-libc binutils-arm-none-eabi \
         gcc-arm-none-eabi libnewlib-arm-none-eabi avrdude dfu-programmer \
-        dfu-util teensy-loader-cli libhidapi-hidraw0 libusb-dev
+        dfu-util teensy-loader-cli libhidapi-hidraw0 libusb-dev \
+        picolibc-riscv64-unknown-elf gcc-riscv64-unknown-elf binutils-riscv64-unknown-elf
 
     python3 -m pip install --user -r $QMK_FIRMWARE_DIR/requirements.txt
 }

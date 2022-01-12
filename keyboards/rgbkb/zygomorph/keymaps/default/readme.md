@@ -84,7 +84,7 @@ see `qmk_firmware/keyboards/zygomorph/rev1/keymaps/default/rules.mk`
 
 # Variables you can set for Zygomorph
 
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes        # Console for debug(+400)
