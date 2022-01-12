@@ -10,7 +10,7 @@ With this feature one can specify keys that behave differently, based on the amo
 
 First, you will need `TAP_DANCE_ENABLE = yes` in your `rules.mk`, because the feature is disabled by default. This adds a little less than 1k to the firmware size. 
 
-Optionally, you might want to set a custom `TAPPING_TERM` time by adding something like this in you `config.h`:
+Optionally, you might want to set a custom `TAPPING_TERM` time by adding something like this in your `config.h` file:
 
 ```c
 #define TAPPING_TERM 175
