@@ -17,4 +17,11 @@
 #include "virtser.h"
 #include "../protocol.c"
 #include "config.c"
+
+const uint8_t key_strand[MATRIX_ROWS][MATRIX_COLS] = {
+    { 3,  2,  1,  0},
+    { 7,  6,  5,  4},
+    {11, 10,  9,  8}
+};
+
 #include "../core.c"
