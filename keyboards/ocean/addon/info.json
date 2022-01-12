@@ -2,8 +2,6 @@
     "keyboard_name": "AddOn",
     "url": "tokopedia.com/kbdksp",
     "maintainer": "Ocean",
-    "width": 7.25,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
