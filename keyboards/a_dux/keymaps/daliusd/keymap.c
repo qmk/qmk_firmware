@@ -25,7 +25,7 @@ enum layers {
     _QWERTY,
     _SYM,
     _NAV,
-    _TRI,
+    _MISC,
     _TMUX,
     _MOUSE,
     _FUNC,
@@ -40,32 +40,40 @@ enum custom_keycodes {
   TM_SLCT,
   TM_SRCH,
   TM_URL,
+  OS_NAV,
+  OS_SYM,
+  OS_MISC,
   OS_TMUX,
   OS_FUNC,
 };
 
 // Shortcut to make keymap more readable
 
-#define L_NAV       MO(_NAV)
-#define L_SYM       MO(_SYM)
+// #define L_NAV       MO(_NAV)
+// #define L_SYM       MO(_SYM)
 #define L_MOUSE     TG(_MOUSE)
 
 #define K_PRINT     (QK_LCTL | QK_LSFT | QK_LGUI | KC_4)
 #define K_CSPC      LCTL(KC_SPC)
+#define K_GUI_C     LGUI(KC_C)
+#define K_GUI_V     LGUI(KC_V)
 
 // flow_config should correspond to following format:
 // * layer keycode
 // * modifier keycode
 const uint16_t flow_config[FLOW_COUNT][2] = {
-    {L_NAV, KC_LALT},
-    {L_NAV, KC_LGUI},
-    {L_NAV, KC_LCTL},
-    {L_SYM, KC_LCTL},
-    {L_SYM, KC_LGUI},
-    {L_SYM, KC_LALT},
+    {OS_NAV, KC_LALT},
+    {OS_NAV, KC_LGUI},
+    {OS_NAV, KC_LCTL},
+    {OS_SYM, KC_LCTL},
+    {OS_SYM, KC_LGUI},
+    {OS_SYM, KC_LALT},
 };
 
 const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2] = {
+    {OS_NAV, _NAV},
+    {OS_SYM, _SYM},
+    {OS_MISC, _MISC},
     {OS_TMUX, _TMUX},
     {OS_FUNC, _FUNC},
 };
@@ -80,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                          KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     L_NAV   ,    KC_SPC  ,        KC_LSFT ,    L_SYM
+                                     OS_NAV  ,    KC_SPC  ,        KC_LSFT ,    OS_SYM
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -92,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,KC_EQL  ,KC_LCBR ,KC_RCBR ,XXXXXXX ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,XXXXXXX ,KC_BSLS ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    _______
+                                     _______ ,    _______ ,        _______ ,    OS_MISC
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -102,13 +110,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,KC_ESC  ,KC_TILDE,OS_TMUX ,                          K_CSPC  ,XXXXXXX ,KC_COMM ,KC_DOT  ,XXXXXXX ,
+     KC_TILDE,KC_BSPC ,K_GUI_C ,K_GUI_V ,OS_TMUX ,                          K_CSPC  ,XXXXXXX ,KC_COMM ,KC_DOT  ,RESET   ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    _______
+                                     KC_ESC  ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
-  [_TRI] = LAYOUT(
+  [_MISC] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      RESET   ,L_MOUSE ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_BRID ,KC_BRIU ,XXXXXXX ,KC_PSCR ,K_PRINT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
@@ -199,9 +207,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _SYM, _NAV, _TRI);
-}
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//     return update_tri_layer_state(state, _SYM, _NAV, _TRI);
+// }
 
 void matrix_scan_user(void) {
     flow_matrix_scan();
