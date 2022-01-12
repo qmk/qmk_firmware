@@ -19,4 +19,4 @@ AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = numpad_5x4
 
-DEFAULT_FOLDER = angel17/rev1
+DEFAULT_FOLDER = kakunpc/angel17/rev1

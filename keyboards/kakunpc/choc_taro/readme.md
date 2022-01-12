@@ -1,15 +1,15 @@
-# angel17
+# choc_taro
 
-![angel17](https://i.gyazo.com/30787446262c5818bc60e0ffb34c96ed.jpg)
+![choc_taro](https://i.gyazo.com/717ddeed13cd2f956ed01b71c6e96f87.jpg)
 
-Keyboard for tablets.
+gh60 compatible choc keyboard
 
-Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)  
-Hardware Supported: angel17_alpha, promicro  
-Hardware Availability: booth([@kakunpc](https://kakunpc.booth.pm/))
+* Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)
+* Hardware Supported: choc taro pcb
+* Hardware Availability: booth([@kakunpc](https://kakunpc.booth.pm/))
 
 Make example for this keyboard (after setting up your build environment):
 
-    make angel17:default
+    make kakunpc/choc_taro:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

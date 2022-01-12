@@ -20,4 +20,4 @@ OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 SPLIT_KEYBOARD = no
 
-DEFAULT_FOLDER = suihankey/rev1
+DEFAULT_FOLDER = kakunpc/suihankey/rev1
