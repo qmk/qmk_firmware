@@ -35,6 +35,7 @@ typedef enum { FLASH_BUSY = 1, FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_ERROR_OPT,
 FLASH_Status FLASH_WaitForLastOperation(uint32_t Timeout);
 FLASH_Status FLASH_ErasePage(uint32_t Page_Address);
 FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data);
+FLASH_Status FLASH_ProgramDoubleWord(uint32_t Address, uint64_t Data);
 
 void FLASH_Unlock(void);
 void FLASH_Lock(void);
