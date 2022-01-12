@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "quantum.h"
 
-#include "drivers/issi/is31fl3731.h"
+#include "drivers/led/issi/is31fl3731.h"
 
 /*
 |      Left        ||    Right       |

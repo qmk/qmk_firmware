@@ -152,6 +152,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case WORKMAN:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_WORKMAN);
+            }
+            return false;
+            break;
         case HUNGARIAN:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_HUNGARIAN);
@@ -169,22 +175,61 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case CG_NORM:
+            set_unicode_input_mode(UC_MAC);
+            break;
+        case CG_SWAP:
+            set_unicode_input_mode(UC_LNX);
+            break;
     }
     return true;
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static char receive_buffer[128] = {};
 static uint8_t receive_buffer_length = 0;
+uint16_t startup_timer;
 
-void oled_task_user(void) {
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    startup_timer = timer_read();
+    return rotation;
+}
+
+static void render_logo(void) {
+    static const char PROGMEM raw_logo[] = {
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0, 96, 96, 96,240,248,255, 63, 56,255,255,248, 63, 63,248,255,255, 56, 63,255,248,240, 96, 96, 96,  0,  0,  0,  0,  0,252,254, 38, 54, 60,  8,240,152,152,248,240, 24,248,224,248,120,224,240,120, 96,248,248,248,248, 32,248,248, 24, 24,240,248,248,248,240,240,248,152,152,254,254,  0,  0,  0,254,254,152,248,240, 24,248,224,240,120,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,219,219,219,255,255,255,240,192,143,159, 63,  0,  0, 63,159,143,192,240,255,255,255,219,219,219,  0,  0,  0,  0,  0,192,225,112, 48, 48, 48,112,225,129,  1,240,240,240,193,  1,  0,  1,193,240,240,241,  1,  1,241,240,193,225,112, 48,  0,  1,  1,  1,  1,240,241, 49, 49, 49,  0,240,240,  0,129,193,129,193,192,  0,196,135,193,192,128,128,192,192,128,  0,  0,192,128,  0,128,192,128,  0,  0,192,192,128,128,192,192,192,128,  0,128,192,128,192,192,  0,128,192,192,192,128,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  6,  6,  6, 15, 31,255,255, 31,255,255, 31,252,252, 31,255,255, 31,255,255, 31, 15,  6,  6,  6,  0,  0,  0,  0,  0, 15, 31, 56, 48, 48, 48, 60,127,103, 96, 63, 63,  0,  7, 63, 56, 31,  7,  0, 63, 63,  0,  0, 63, 63,  7, 30, 60, 48,  0,  0,  0,  0,  0, 63, 31,  3,  3,  3,  0, 63, 63,  0, 31, 63,  1,  0,  0,  0, 63, 31,  0,  1, 63, 63,  0,  0, 63, 63,  0,  7, 63, 60, 63,  7, 31, 60, 63, 15,  0, 28, 60, 54, 54, 63, 63,  0, 63, 63,  1,  0,  0, 31, 63, 54, 54, 55, 55,  2,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,128,128,128,128,128,  0,  0,192,192,192,  0,192,192,192,  0,  0,  0,  0,  0,  0,192,192,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255, 29,127,255,247,224,  0,254,254,254,  0,255,255,255,198,254,254,254,  0,  0,255,255,255,124,254,254,214,214,222,222, 92,124,254,254,214,214,222,222, 92,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    };
+
+    oled_write_raw_P(raw_logo, sizeof(raw_logo));
+}
+
+static void render_info(void) {
     // Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
 
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
+            if (layer_state_cmp(default_layer_state, _QWERTY)) {
+                oled_write_P(PSTR("Qwerty\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _COLEMAK)) {
+                oled_write_P(PSTR("Colmak\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _DVORAK)) {
+                oled_write_P(PSTR("Dvorak\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _WORKMAN)) {
+                oled_write_P(PSTR("Workman\n"), false);
+            } else if (layer_state_cmp(default_layer_state, _HUNGARIAN)) {
+                oled_write_P(PSTR("HUN Qwerty\n"), false);
+            } else {
+                oled_write_P(PSTR("Undefined\n"), false);
+            }
             break;
         case _LOWER:
             oled_write_P(PSTR("Lower\n"), false);
@@ -200,7 +245,21 @@ void oled_task_user(void) {
     }
 
     // Print string received via HID RAW
-    oled_write_ln(receive_buffer, false);
+    oled_write_ln(receive_buffer, false);}
+
+bool oled_task_user(void) {
+    static bool finished_timer = false;
+    if (!finished_timer && (timer_elapsed(startup_timer) < 1000)) {
+        render_logo();
+    } else {
+        if (!finished_timer) {
+            oled_clear();
+            finished_timer = true;
+        }
+        render_info();
+    }
+    return false;
+
 }
 
 #ifdef RAW_ENABLE

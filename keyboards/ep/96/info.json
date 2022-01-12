@@ -1,11 +1,8 @@
 {
     "keyboard_name": "ep96",
     "maintainer": "e11i0t23",
-    "width": 19,
-    "height": 6,
     "layouts": {
         "LAYOUT": {
-            "key_count": 100,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1, "y":0},

@@ -51,18 +51,3 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,               _______,          _______,_______,_______,     KC_HOME,_______,KC_END  \
     ),
 };
-
-/* Give numbers some descriptive names */
-#define ACTION_LEDS_ALL 1
-#define ACTION_LEDS_GAME 2
-
-const uint16_t fn_actions[] = {
-    [2] = ACTION_FUNCTION(ACTION_LEDS_ALL),
-    [3] = ACTION_FUNCTION(ACTION_LEDS_GAME),
-
-    [4] = ACTION_USAGE_CONSUMER(0x1B4),
-    [5] = ACTION_USAGE_CONSUMER(0x196),
-    [6] = ACTION_USAGE_CONSUMER(0x1A6),
-    [7] = ACTION_USAGE_CONSUMER(0x1A0),
-
-};

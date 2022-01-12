@@ -1,7 +1,5 @@
 {
     "keyboard_name": "Eagle/Viper V2",
-    "width": 15,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT_eagle": "LAYOUT_60_ansi",
         "LAYOUT_viper": "LAYOUT_60_hhkb",

@@ -4,7 +4,7 @@
 
 A 60% keyboard based on STM32f303
 
-* Keyboard Maintainer:  [Weirdo](https://weirdo-f.github.io)(https://github.com/1248314361)
+* Keyboard Maintainer:  [Weirdo](https://github.com/weirdo-f) (https://weirdo-f.github.io)
 * Hardware Supported: NP_hhkb
 * Hardware Availability: Not yet
 

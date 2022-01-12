@@ -2,8 +2,6 @@
     "keyboard_name": "suihankey",
     "url": "https://kakunpc.booth.pm/",
     "maintainer": "kakunpc",
-    "width": 6.4,
-    "height": 4.85,
     "layouts": {
         "LAYOUT": {
             "layout": [

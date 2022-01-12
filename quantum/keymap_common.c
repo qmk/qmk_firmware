@@ -40,7 +40,10 @@ extern keymap_config_t keymap_config;
 action_t action_for_key(uint8_t layer, keypos_t key) {
     // 16bit keycodes - important
     uint16_t keycode = keymap_key_to_keycode(layer, key);
+    return action_for_keycode(keycode);
+};
 
+action_t action_for_keycode(uint16_t keycode) {
     // keycode remapping
     keycode = keycode_config(keycode);
 
@@ -53,7 +56,7 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
 
     switch (keycode) {
         case KC_A ... KC_EXSEL:
-        case KC_LCTRL ... KC_RGUI:
+        case KC_LEFT_CTRL ... KC_RIGHT_GUI:
             action.code = ACTION_KEY(keycode);
             break;
 #ifdef EXTRAKEY_ENABLE
@@ -69,7 +72,7 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
             action.code = ACTION_MOUSEKEY(keycode);
             break;
 #endif
-        case KC_TRNS:
+        case KC_TRANSPARENT:
             action.code = ACTION_TRANSPARENT;
             break;
         case QK_MODS ... QK_MODS_MAX:;
