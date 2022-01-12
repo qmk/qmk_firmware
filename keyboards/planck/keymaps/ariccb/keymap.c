@@ -34,7 +34,7 @@
 #define _ADJUST 6
 #define _GAMING 7
 
-#define MICMUTE LCTL(LSFT(KC_M))
+#define MICMUTE LCTL(LALT(KC_M))
 #define ALTTAB LALT(KC_TAB)
 #define DESKTR LGUI(LCTL(KC_RGHT))  // move one virtual desktop to the right
 #define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
@@ -224,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
   KC_TRNS, MTLCTL_F9, MTLSFT_F10, MTLALT_F11, KC_F12,  KC_MYCM, KC_CALC, KC_HOME, KC_UP,        KC_END,  KC_PSCR,   KC_DEL,
-  KC_TRNS, KC_F5,     KC_F6,      KC_F7,      KC_F8,   KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,   KC_CAPS, 
+  KC_TRNS, KC_F5,     KC_F6,      KC_F7,      KC_F8,   DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,   KC_CAPS, 
   KC_TRNS, KC_F1,     KC_F2,      KC_F3,      KC_F4,   ALTTAB,  MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS, 
   KC_NO,   KC_NO,     KC_NO,      KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,    KC_NO
 ),
