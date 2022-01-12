@@ -332,7 +332,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [GIT_C] = LAYOUT_ergodox(  
   // -----------------------------------------------------left hand-----------------------------------------------------
   XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
-  XXXXXXX,          XXXXXXX,          XXXXXXX,          G_CHER,           XXXXXXX,          XXXXXXX,          XXXXXXX,
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
   XXXXXXX,          XXXXXXX,          XXXXXXX,          G_CHEC,           XXXXXXX,          XXXXXXX,
   _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
   XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          _______,
