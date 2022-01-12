@@ -17,4 +17,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-DEFAULT_FOLDER = business_card/beta
+DEFAULT_FOLDER = kakunpc/business_card/beta
