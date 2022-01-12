@@ -44,7 +44,7 @@ static bool PIXEL_FLOW(effect_params_t* params) {
         wait_timer = g_rgb_timer + interval();
     }
 
-    return led_max < DRIVER_LED_TOTAL;
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
 #    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
