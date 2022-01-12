@@ -5,17 +5,17 @@
   git diff 0.15.12 HEAD -- docs/squeezing_avr.md | cat
 -->
 
-AVR对空间限制极其严格，随着QMK的持续开发，无法再适应这些限制，所以对AVR的支持可能会成为历史。
+AVR对空间限制极其严格，随着QMK的持续发展，并逐渐到达一个临界点，即由于空间限制无法承载其发展，届时将难以再支持AVR。
 
 话说回来，如果想要减小固件编译后的大小，你可以采取如下操作：
 
 ## `rules.mk` 配置
-第一步，也是非常关键的一步，允许*连接时间优化*(link time optimizatio)，在rules.mk中添加如下配置：
+第一步，也是非常关键的一步，允许*链接时优化*(link time optimization)，在rules.mk中添加如下配置：
 
 ```make
 LTO_ENABLE = yes
 ```
-打开此配置后，会让最后的编译操作花费更长的时间，但是生成的编译文件会更小。同时还会禁用*活动方法*(Action Functions)和*活动宏*(Action Macros)，两者都已不建议使用。
+打开此配置后，会让最后的编译操作花费更长的时间，但是生成的编译文件会更小。同时还会禁用*活动函数*(Action Functions)和*活动宏*(Action Macros)，两者都已不建议使用。
 
 在大多数情形下，这都将节省很多空间。
 
