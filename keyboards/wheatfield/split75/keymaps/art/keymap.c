@@ -1,5 +1,5 @@
-#include <art.h>
-#include <sendstring_workman_zxcvm.h>
+#include "art.h"
+#include "sendstring_workman_zxcvm.h"
 #include "user_config.c"
 
 enum custom_keycodes {

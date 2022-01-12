@@ -1,6 +1,4 @@
 #include "art.h"
-#include "string.h"
-#include "ctype.h"
 #include "secret_definitions.h"
 #include "funcs/led_funcs.h"
 #include "funcs/string_funcs.h"

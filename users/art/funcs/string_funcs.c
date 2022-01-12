@@ -3,6 +3,7 @@
 
 #include "art.h"
 #include "string_funcs.h"
+#include "string.h"
 
 bool mac_ctrl_on;
 
