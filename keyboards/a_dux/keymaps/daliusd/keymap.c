@@ -28,9 +28,7 @@ enum layers {
     _TRI,
     _TMUX,
     _MOUSE,
-    _MISC,
     _FUNC,
-    _CMD,
 };
 
 enum custom_keycodes {
@@ -42,38 +40,33 @@ enum custom_keycodes {
   TM_SLCT,
   TM_SRCH,
   TM_URL,
-  OS_NAV,
   OS_TMUX,
-  OS_MISC,
   OS_FUNC,
 };
 
 // Shortcut to make keymap more readable
 
-// #define L_NAV       MO(_NAV)
+#define L_NAV       MO(_NAV)
 #define L_SYM       MO(_SYM)
 #define L_MOUSE     TG(_MOUSE)
-#define L_CMD       LM(_CMD, MOD_LGUI)
 
 #define K_PRINT     (QK_LCTL | QK_LSFT | QK_LGUI | KC_4)
-#define K_STAB      LSFT(KC_TAB)
+#define K_CSPC      LCTL(KC_SPC)
 
 // flow_config should correspond to following format:
 // * layer keycode
 // * modifier keycode
 const uint16_t flow_config[FLOW_COUNT][2] = {
-    {OS_NAV, KC_LALT},
-    {OS_NAV, KC_LGUI},
-    {OS_NAV, KC_LCTL},
+    {L_NAV, KC_LALT},
+    {L_NAV, KC_LGUI},
+    {L_NAV, KC_LCTL},
     {L_SYM, KC_LCTL},
     {L_SYM, KC_LGUI},
     {L_SYM, KC_LALT},
 };
 
 const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2] = {
-    {OS_NAV, _NAV},
     {OS_TMUX, _TMUX},
-    {OS_MISC, _MISC},
     {OS_FUNC, _FUNC},
 };
 
@@ -87,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                          KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     OS_NAV  ,    KC_SPC  ,        KC_LSFT ,    L_SYM
+                                     L_NAV   ,    KC_SPC  ,        KC_LSFT ,    L_SYM
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -109,21 +102,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,KC_ESC  ,KC_TILDE,OS_TMUX ,                          XXXXXXX ,XXXXXXX ,KC_COMM ,KC_DOT  ,RESET   ,
+     KC_DELT ,KC_BSPC ,KC_ESC  ,KC_TILDE,OS_TMUX ,                          K_CSPC  ,XXXXXXX ,KC_COMM ,KC_DOT  ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     L_CMD   ,    _______ ,        _______ ,    _______
+                                     _______ ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
   [_TRI] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX ,L_MOUSE ,XXXXXXX ,OS_MISC ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     RESET   ,L_MOUSE ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_BRID ,KC_BRIU ,XXXXXXX ,KC_PSCR ,K_PRINT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,XXXXXXX ,DEBUG   ,OS_FUNC ,XXXXXXX ,                          KC_MPRV ,KC_MPLY ,XXXXXXX ,KC_MNXT ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,OS_FUNC ,
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_VOLD ,KC_VOLU ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    _______
+                                     XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -151,18 +144,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
-  [_MISC] = LAYOUT(
-  //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     RESET   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_BRID ,KC_BRIU ,XXXXXXX ,KC_PSCR ,K_PRINT ,
-  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,DEBUG   ,XXXXXXX ,XXXXXXX ,                          KC_MPRV ,KC_MPLY ,XXXXXXX ,KC_MNXT ,XXXXXXX ,
-  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_VOLD ,KC_VOLU ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
-  //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
-  //                                └────────┘   └────────┘       └────────┘   └────────┘
-  ),
-
   [_FUNC] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,
@@ -172,18 +153,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_F11  ,KC_F12  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
-  //                                └────────┘   └────────┘       └────────┘   └────────┘
-  ),
-
-  [_CMD] = LAYOUT(
-  //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX ,KC_W    ,XXXXXXX ,KC_TILDE,KC_T    ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
-  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_A    ,XXXXXXX ,XXXXXXX ,KC_TAB  ,K_STAB  ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
-  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,KC_C    ,KC_V    ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
-  //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     XXXXXXX ,    KC_SPC  ,        XXXXXXX ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 };
