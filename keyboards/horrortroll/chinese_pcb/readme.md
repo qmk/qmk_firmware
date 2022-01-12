@@ -11,9 +11,3 @@ This is a folder for collection code of Chinese PCB, where they only sold one-ti
   | Devil68 Pro   | Atmega32U4  | 68 Keys (65%) | RGB  | No   | No    | Lost contact info of Maker on Taobao, no source code |
   |               |             |               |      |      |       |                                                      |
 </details>
-
-## Contact me if you have any problem
-
-**Discord:** HorrorTroll#0975  
-**Facebook:** https://www.facebook.com/PhamChonChe.Duc/  
-**Email:** sonicvipduc@gmail.com
