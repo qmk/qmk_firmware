@@ -3,12 +3,12 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[0] = LAYOUT(
-		KC_VOLD, MO(1), KC_VOLU, 
+		KC_VOLD, MO(1), KC_VOLU,
 		LCTL(KC_C), LCTL(KC_X), LCTL(KC_V),
 		KC_F1, KC_F2, KC_RSFT),
 
 	[1] = LAYOUT(
-		KC_A, KC_TRNS, KC_B, 
+		KC_A, KC_TRNS, KC_B,
 		RGB_TOG, RGB_MOD, KC_TRNS,
 		KC_TRNS,KC_TRNS,KC_TRNS)
 };
@@ -28,7 +28,7 @@ void matrix_init_user(void) {
 bool is_alt_tab_active = false; // ALT_TAB激活状态。
 uint16_t alt_tab_timer = 0;     // ALT_TAB状态计时器。
 
-void matrix_scan_user(void) 
+void matrix_scan_user(void)
 {
     if (is_alt_tab_active)
     {
@@ -43,7 +43,7 @@ void matrix_scan_user(void)
 bool is_rshift_pressed = false; // RSHIFT按下状态。
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) 
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
     switch (keycode)
     {
@@ -65,24 +65,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
 
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
 		if (!is_rshift_pressed){
 
         	if (clockwise) {
         	action_exec((keyevent_t){
         					.key = (keypos_t){.row = 0, .col = 0}, .pressed = true, .time = (timer_read() | 1)  /* time should not be 0 */
-                       });  
+                       });
         	action_exec((keyevent_t){
         					.key = (keypos_t){.row = 0, .col = 0}, .pressed = false, .time = (timer_read() | 1)  /* time should not be 0 */
-                       });  
+                       });
            } else {
         	action_exec((keyevent_t){
         					.key = (keypos_t){.row = 0, .col = 2}, .pressed = true, .time = (timer_read() | 1)  /* time should not be 0 */
                        });
         	action_exec((keyevent_t){
         					.key = (keypos_t){.row = 0, .col = 2}, .pressed = false, .time = (timer_read() | 1)  /* time should not be 0 */
-                       });  
+                       });
            }
            							}
 		else{
@@ -111,6 +111,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 			}
 
     }
+    return true;
 }
 
 void led_set_user(uint8_t usb_led) {
@@ -134,15 +135,15 @@ void led_set_user(uint8_t usb_led) {
 	}
 
 	if (usb_led & (1 << USB_LED_COMPOSE)) {
-		
+
 	} else {
-		
+
 	}
 
 	if (usb_led & (1 << USB_LED_KANA)) {
-		
+
 	} else {
-		
+
 	}
 
 }
