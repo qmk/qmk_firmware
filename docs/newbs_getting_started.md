@@ -167,6 +167,10 @@ In most situations you will want to answer `y` to all of the prompts.
 Now that your QMK build environment is set up, you can build a firmware for your keyboard. Start by trying to build the keyboard's default keymap. You should be able to do that with a command in this format:
 
     qmk compile -kb <keyboard> -km default
+    
+To find the name of your <keyboard>, for example Corne:
+
+    qmk list-keyboards | grep 'corne'
 
 For example, to build a firmware for a Clueboard 66% you would use:
 
