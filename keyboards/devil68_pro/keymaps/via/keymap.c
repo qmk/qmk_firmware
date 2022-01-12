@@ -14,10 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rgb_matrix.h"
-#include "progmem.h"
-#include "config.h"
-#include "eeprom.h"
 #include <string.h>
 #include <math.h>
 
