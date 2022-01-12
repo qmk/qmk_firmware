@@ -6,11 +6,11 @@ Now that you have setup your build environment you are ready to start building c
 
 You can configure your build environment to set the defaults and make working with QMK less tedious. Let's do that now!
 
-Most people new to QMK only have 1 keyboard. You can find the name of your keyboard from a supported list using the command `qmk list-keyboards`. That list of keyboards are folder names found within `qmk_firmware/keyboards`.
-
-You can set the name of your keyboard from that list as default with the `qmk config` command. For example, to set your default keyboard to `clueboard/66/rev4`:
+Most people new to QMK only have 1 keyboard. You can set this keyboard as your default with the `qmk config` command. For example, to set your default keyboard to `clueboard/66/rev4`:
 
     qmk config user.keyboard=clueboard/66/rev4
+
+?> The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev4`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.
 
 You can also set your default keymap name. Most people use their GitHub username like the keymap name from the previous steps:
 
