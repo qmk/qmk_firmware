@@ -124,7 +124,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(keycode);
                 unregister_code(keycode);
             }
-            rgb_strands_anim_t anim = key_anim[row][col];
+            uint8_t current_layer = get_current_layer();
+            rgb_strands_anim_t anim = key_anim[current_layer][row][col];
             rgb_strand_animation_start(key_strand[row][col], anim,
                     get_default_rgb_strand_anim_config(anim),
                     RGB_STRAND_ANIM_STATE_STEADY);
