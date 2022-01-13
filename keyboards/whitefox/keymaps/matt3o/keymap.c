@@ -16,6 +16,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+    AL_FILE = SAFE_RANGE,
+    AL_WWW,
+    AL_HELP,
+    AL_CMD
+};
+
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
      * ,---------------------------------------------------------------.
@@ -45,25 +52,44 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,KC_TRNS,KC_TRNS,               KC_TRNS,          KC_TRNS,KC_TRNS,KC_TRNS,     KC_HOME,KC_PGDN,KC_END  \
     ),
     [2] = LAYOUT( \
-        KC_SLEP,KC_P1,  KC_P2,  KC_P3,  KC_P4,  KC_P5,  KC_P6,  KC_P7,  KC_P8,  KC_P9,  KC_P0,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_FN2, \
-        KC_TRNS,KC_TRNS,KC_FN5 ,KC_FN6 ,KC_TRNS,KC_FN7 ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_PSCR,KC_TRNS,KC_TRNS,KC_TRNS,     KC_FN3, \
-        KC_CAPS,KC_TRNS,KC_TRNS,KC_TRNS,KC_FN4 ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,\
+        KC_SLEP,KC_P1,  KC_P2,  KC_P3,  KC_P4,  KC_P5,  KC_P6,  KC_P7,  KC_P8,  KC_P9,  KC_P0,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_NO, \
+        KC_TRNS,KC_TRNS,AL_WWW ,AL_HELP ,KC_TRNS,AL_CMD ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_PSCR,KC_TRNS,KC_TRNS,KC_TRNS,     KC_NO, \
+        KC_CAPS,KC_TRNS,KC_TRNS,KC_TRNS,AL_FILE ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,\
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_CALC,KC_TRNS,KC_TRNS,KC_TRNS,KC_MAIL,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,KC_TRNS,\
         KC_TRNS,KC_TRNS,KC_TRNS,               KC_TRNS,          KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,KC_TRNS,KC_TRNS \
     ),
 };
 
-/* Give numbers some descriptive names */
-#define ACTION_LEDS_ALL 1
-#define ACTION_LEDS_GAME 2
-
-const uint16_t fn_actions[] = {
-    [2] = ACTION_FUNCTION(ACTION_LEDS_ALL),
-    [3] = ACTION_FUNCTION(ACTION_LEDS_GAME),
-
-    [4] = ACTION_USAGE_CONSUMER(0x1B4),
-    [5] = ACTION_USAGE_CONSUMER(0x196),
-    [6] = ACTION_USAGE_CONSUMER(0x1A6),
-    [7] = ACTION_USAGE_CONSUMER(0x1A0),
-
-};
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case AL_FILE:
+            if (record->event.pressed) {
+                host_consumer_send(0x1B4); // AL File Browser
+            } else {
+                host_consumer_send(0);
+            }
+            return false;
+        case AL_WWW:
+            if (record->event.pressed) {
+                host_consumer_send(0x196); // AL Internet Browser
+            } else {
+                host_consumer_send(0);
+            }
+            return false;
+        case AL_HELP:
+            if (record->event.pressed) {
+                host_consumer_send(0x1A6); // AL Integrated Help Center
+            } else {
+                host_consumer_send(0);
+            }
+            return false;
+        case AL_CMD:
+            if (record->event.pressed) {
+                host_consumer_send(0x1A0); // AL Command Line Processor/Run
+            } else {
+                host_consumer_send(0);
+            }
+            return false;
+    }
+    return true;
+}

@@ -2,8 +2,6 @@
     "keyboard_name": "LeftyNumpad",
     "url": "https://github.com/tomswartz07",
     "maintainer": "Tom Swartz",
-    "width": 5,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

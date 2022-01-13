@@ -2,8 +2,6 @@
     "keyboard_name": "loop",
     "url": "",
     "maintainer": "Work Louder",
-    "width": 12,
-    "height": 1,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -2,8 +2,6 @@
     "keyboard_name": "allison_numpad",
     "url": "www.yiancar-designs.com",
     "maintainer": "Yiancar",
-    "width": 4,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

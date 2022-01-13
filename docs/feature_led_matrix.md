@@ -49,10 +49,12 @@ Here is an example using 2 drivers.
 
 !> Note the parentheses, this is so when `LED_DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)` will give very different results than `rand() % LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL`.
 
+For split keyboards using `LED_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `DRIVER_ADDR_1` for one and `DRIVER_ADDR_2` for the other one. Then, in `g_is31_leds`, fill out the correct driver index (0 or 1). If using one address, use `DRIVER_ADDR_1` for both, and use index 0 for `g_is31_leds`.
+
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *    driver
  *    |  LED address
@@ -63,7 +65,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731-simple.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731-simple.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
 
 ---
 
@@ -164,26 +166,26 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 
 |Define                                                 |Description                                    |
 |-------------------------------------------------------|-----------------------------------------------|
-|`#define DISABLE_LED_MATRIX_ALPHAS_MODS`               |Disables `LED_MATRIX_ALPHAS_MODS`              |
-|`#define DISABLE_LED_MATRIX_BREATHING`                 |Disables `LED_MATRIX_BREATHING`                |
-|`#define DISABLE_LED_MATRIX_BAND`                      |Disables `LED_MATRIX_BAND`                     |
-|`#define DISABLE_LED_MATRIX_BAND_PINWHEEL`             |Disables `LED_MATRIX_BAND_PINWHEEL`            |
-|`#define DISABLE_LED_MATRIX_BAND_SPIRAL`               |Disables `LED_MATRIX_BAND_SPIRAL`              |
-|`#define DISABLE_LED_MATRIX_CYCLE_LEFT_RIGHT`          |Disables `LED_MATRIX_CYCLE_LEFT_RIGHT`         |
-|`#define DISABLE_LED_MATRIX_CYCLE_UP_DOWN`             |Disables `LED_MATRIX_CYCLE_UP_DOWN`            |
-|`#define DISABLE_LED_MATRIX_CYCLE_OUT_IN`              |Disables `LED_MATRIX_CYCLE_OUT_IN`             |
-|`#define DISABLE_LED_MATRIX_DUAL_BEACON`               |Disables `LED_MATRIX_DUAL_BEACON`              |
-|`#define DISABLE_LED_MATRIX_SOLID_REACTIVE_SIMPLE`     |Disables `LED_MATRIX_SOLID_REACTIVE_SIMPLE`    |
-|`#define DISABLE_LED_MATRIX_SOLID_REACTIVE_WIDE`       |Disables `LED_MATRIX_SOLID_REACTIVE_WIDE`      |
-|`#define DISABLE_LED_MATRIX_SOLID_REACTIVE_MULTIWIDE`  |Disables `LED_MATRIX_SOLID_REACTIVE_MULTIWIDE` |
-|`#define DISABLE_LED_MATRIX_SOLID_REACTIVE_CROSS`      |Disables `LED_MATRIX_SOLID_REACTIVE_CROSS`     |
-|`#define DISABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS` |Disables `LED_MATRIX_SOLID_REACTIVE_MULTICROSS`|
-|`#define DISABLE_LED_MATRIX_SOLID_REACTIVE_NEXUS`      |Disables `LED_MATRIX_SOLID_REACTIVE_NEXUS`     |
-|`#define DISABLE_LED_MATRIX_SOLID_REACTIVE_MULTINEXUS` |Disables `LED_MATRIX_SOLID_REACTIVE_MULTINEXUS`|
-|`#define DISABLE_LED_MATRIX_SOLID_SPLASH`              |Disables `LED_MATRIX_SOLID_SPLASH`             |
-|`#define DISABLE_LED_MATRIX_SOLID_MULTISPLASH`         |Disables `LED_MATRIX_SOLID_MULTISPLASH`        |
-|`#define DISABLE_LED_MATRIX_WAVE_LEFT_RIGHT`           |Disables `LED_MATRIX_WAVE_LEFT_RIGHT`          |
-|`#define DISABLE_LED_MATRIX_WAVE_UP_DOWN`              |Disables `LED_MATRIX_WAVE_UP_DOWN`             |
+|`#define ENABLE_LED_MATRIX_ALPHAS_MODS`                |Enables `LED_MATRIX_ALPHAS_MODS`              |
+|`#define ENABLE_LED_MATRIX_BREATHING`                  |Enables `LED_MATRIX_BREATHING`                |
+|`#define ENABLE_LED_MATRIX_BAND`                       |Enables `LED_MATRIX_BAND`                     |
+|`#define ENABLE_LED_MATRIX_BAND_PINWHEEL`              |Enables `LED_MATRIX_BAND_PINWHEEL`            |
+|`#define ENABLE_LED_MATRIX_BAND_SPIRAL`                |Enables `LED_MATRIX_BAND_SPIRAL`              |
+|`#define ENABLE_LED_MATRIX_CYCLE_LEFT_RIGHT`           |Enables `LED_MATRIX_CYCLE_LEFT_RIGHT`         |
+|`#define ENABLE_LED_MATRIX_CYCLE_UP_DOWN`              |Enables `LED_MATRIX_CYCLE_UP_DOWN`            |
+|`#define ENABLE_LED_MATRIX_CYCLE_OUT_IN`               |Enables `LED_MATRIX_CYCLE_OUT_IN`             |
+|`#define ENABLE_LED_MATRIX_DUAL_BEACON`                |Enables `LED_MATRIX_DUAL_BEACON`              |
+|`#define ENABLE_LED_MATRIX_SOLID_REACTIVE_SIMPLE`      |Enables `LED_MATRIX_SOLID_REACTIVE_SIMPLE`    |
+|`#define ENABLE_LED_MATRIX_SOLID_REACTIVE_WIDE`        |Enables `LED_MATRIX_SOLID_REACTIVE_WIDE`      |
+|`#define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTIWIDE`   |Enables `LED_MATRIX_SOLID_REACTIVE_MULTIWIDE` |
+|`#define ENABLE_LED_MATRIX_SOLID_REACTIVE_CROSS`       |Enables `LED_MATRIX_SOLID_REACTIVE_CROSS`     |
+|`#define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS`  |Enables `LED_MATRIX_SOLID_REACTIVE_MULTICROSS`|
+|`#define ENABLE_LED_MATRIX_SOLID_REACTIVE_NEXUS`       |Enables `LED_MATRIX_SOLID_REACTIVE_NEXUS`     |
+|`#define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTINEXUS`  |Enables `LED_MATRIX_SOLID_REACTIVE_MULTINEXUS`|
+|`#define ENABLE_LED_MATRIX_SOLID_SPLASH`               |Enables `LED_MATRIX_SOLID_SPLASH`             |
+|`#define ENABLE_LED_MATRIX_SOLID_MULTISPLASH`          |Enables `LED_MATRIX_SOLID_MULTISPLASH`        |
+|`#define ENABLE_LED_MATRIX_WAVE_LEFT_RIGHT`            |Enables `LED_MATRIX_WAVE_LEFT_RIGHT`          |
+|`#define ENABLE_LED_MATRIX_WAVE_UP_DOWN`               |Enables `LED_MATRIX_WAVE_UP_DOWN`             |
 
 ## Custom LED Matrix Effects :id=custom-led-matrix-effects
 
@@ -219,7 +221,7 @@ static bool my_cool_effect(effect_params_t* params) {
   for (uint8_t i = led_min; i < led_max; i++) {
     led_matrix_set_value(i, 0xFF);
   }
-  return led_max < DRIVER_LED_TOTAL;
+  return led_matrix_check_finished_leds(led_max);
 }
 
 // e.g: A more complex effect, relying on external methods and state, with
@@ -233,8 +235,7 @@ static bool my_cool_effect2_complex_run(effect_params_t* params) {
   for (uint8_t i = led_min; i < led_max; i++) {
     led_matrix_set_value(i, some_global_state++);
   }
-
-  return led_max < DRIVER_LED_TOTAL;
+  return led_matrix_check_finished_leds(led_max);
 }
 static bool my_cool_effect2(effect_params_t* params) {
   if (params->init) my_cool_effect2_complex_init(params);
@@ -244,14 +245,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 #endif // LED_MATRIX_CUSTOM_EFFECT_IMPLS
 ```
 
-For inspiration and examples, check out the built-in effects under `quantum/led_matrix_animations/`
-
-
-
-
-
-
-
+For inspiration and examples, check out the built-in effects under `quantum/led_matrix/animations/`.
 
 
 ## Additional `config.h` Options :id=additional-configh-options
@@ -262,7 +256,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 #define LED_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
 #define LED_DISABLE_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
 #define LED_DISABLE_AFTER_TIMEOUT 0 // OBSOLETE: number of ticks to wait until disabling effects
-#define LED_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
+#define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define LED_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define LED_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define LED_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs
@@ -348,32 +342,5 @@ In addition, there are the advanced indicator functions.  These are aimed at tho
 ```c
 void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     LED_MATRIX_INDICATOR_SET_VALUE(index, value);
-}
-```
-
-## Suspended State :id=suspended-state
-To use the suspend feature, make sure that `#define LED_DISABLE_WHEN_USB_SUSPENDED true` is added to the `config.h` file. 
-
-Additionally add this to your `<keyboard>.c`:
-
-```c
-void suspend_power_down_kb(void) {
-    led_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    led_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-```
-or add this to your `keymap.c`:
-```c
-void suspend_power_down_user(void) {
-    led_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_user(void) {
-    led_matrix_set_suspend_state(false);
 }
 ```

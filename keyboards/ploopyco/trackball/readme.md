@@ -25,7 +25,7 @@ In the 1.005 revision, button for was changed from pin B5 to B6, and the debug L
 
 The PCB should indicate which revision this is.
 
-# Customzing your PloopyCo Trackball
+# Customizing your PloopyCo Trackball
 
 While the defaults are designed so that it can be plugged in and used right away, there are a number of things that you may want to change.  Such as adding DPI control, or to use the ball to scroll while holding a button.   To allow for this sort of control, there is a callback for both the scroll wheel and the mouse sensor. 
 

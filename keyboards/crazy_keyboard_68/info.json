@@ -2,8 +2,6 @@
     "keyboard_name": "crazy_keyboard_68",
     "url": "",
     "maintainer": "chent7",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

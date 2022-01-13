@@ -2,11 +2,8 @@
     "keyboard_name": "Austin",
     "url": "",
     "maintainer": "qmk",
-    "width": 19.75,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_all": {
-            "key_count": 105,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},

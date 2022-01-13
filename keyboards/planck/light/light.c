@@ -16,7 +16,7 @@
 
 #include "light.h"
 
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -105,11 +105,6 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record)
-{
-    return process_record_user(keycode, record);
-}
-
 uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) {
     // Spacebar has 2 leds 41 & 42, so add 42 to the array here, and 41 will be added
     // by the default lookup code that runs after this
@@ -118,11 +113,6 @@ uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t
         return 1;
     }
     return 0;
-}
-
-void matrix_scan_kb(void)
-{
-    matrix_scan_user();
 }
 
 void suspend_power_down_kb(void)
