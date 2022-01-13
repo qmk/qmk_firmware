@@ -209,17 +209,15 @@ void pmw3389_upload_firmware(void) {
     pmw3389_spi_start();
     spi_write(REG_SROM_Load_Burst | 0x80);
     wait_us(15);
-
-#ifdef PMW3389_LEGACY_FIRMWARE_UPLOAD
+    
+    // Using spi_transmit did not work during testing for the PMW3389
     unsigned char c;
     for (int i = 0; i < FIRMWARE_LENGTH; i++) {
         c = (unsigned char)pgm_read_byte(firmware_data + i);
         spi_write(c);
         wait_us(15);
     }
-#else
-    spi_transmit(firmware_data, sizeof(firmware_data));
-#endif
+
     wait_us(200);
 
     pmw3389_read(REG_SROM_ID);
