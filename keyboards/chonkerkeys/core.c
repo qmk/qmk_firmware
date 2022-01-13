@@ -65,21 +65,21 @@ void on_connected() {
     is_connected = true;
 }
 
-void fromAppToFirmwareOrigin(uint8_t *x, uint8_t *y) {
+void from_app_to_firmware_origin(uint8_t *x, uint8_t *y) {
     // TODO: Flip x as well once w use top-right as origin
     // *x = MATRIX_COLS - 1 - *x;
     *y = MATRIX_ROWS - 1 - *y;
 }
 
 void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim) {
-    fromAppToFirmwareOrigin(&x, &y);
+    from_app_to_firmware_origin(&x, &y);
     rgb_strand_animation_start(key_strand[y][x], anim,
         get_default_rgb_strand_anim_config(anim),
         RGB_STRAND_ANIM_STATE_STEADY);
 }
 
 void set_led_off(uint8_t key_x, uint8_t key_y) {
-    fromAppToFirmwareOrigin(&key_x, &key_y);
+    from_app_to_firmware_origin(&key_x, &key_y);
     rgb_strand_animation_set_state(key_strand[key_y][key_x], RGB_STRAND_ANIM_STATE_START);
 }
 
