@@ -174,7 +174,6 @@ The PMW 3389 is an SPI driven optical sensor, that uses a built in IR LED for su
 |`PMW3389_SPI_DIVISOR`            | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
 |`PMW3389_LIFTOFF_DISTANCE`       | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
 |`ROTATIONAL_TRANSFORM_ANGLE`     | (Optional) Allows for the sensor data to be rotated +/- 30 degrees directly in the sensor. | `0`           |
-|`PMW3389_LEGACY_FIRMWARE_UPLOAD` | (Optional) Switches to older, manual upload of firmware, for compatibility.                | _not defined_ |
 
 The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
 
