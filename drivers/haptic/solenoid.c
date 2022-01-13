@@ -93,7 +93,7 @@ void solenoid_fire_handler(void) {
             solenoid_fire(i);
         }
     } else {
-            solenoid_fire(0);
+        solenoid_fire(0);
     }
 #else
     for (uint8_t i = 0; i < NUMBER_OF_SOLENOIDS; i++) {
