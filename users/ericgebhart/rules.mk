@@ -6,12 +6,10 @@ SRC += altlocal_keys.c
 
 VPATH += keyboards/gboards
 
-CUSTOM_OLED_DRIVER ?= yes
+OLED_ENABLE = yes
+
 ifeq ($(strip $(OLED_ENABLE)), yes)
-    ifeq ($(strip $(CUSTOM_OLED_DRIVER)), yes)
         SRC += $(USER_PATH)/oled_stuff.c
-        OPT_DEFS += -DCUSTOM_OLED_DRIVER_CODE
-    endif
 endif
 
 

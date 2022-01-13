@@ -58,7 +58,7 @@ inline void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
   process_record_user_oled(keycode, record);
 #endif  // OLED
 
