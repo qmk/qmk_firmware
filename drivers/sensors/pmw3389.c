@@ -210,7 +210,7 @@ void pmw3389_upload_firmware(void) {
     spi_write(REG_SROM_Load_Burst | 0x80);
     wait_us(15);
 
-    // During testing spi_transmit failed to load firmware only using legacy
+    // legacy only for PMW3389 spi_transmit failed to load firmware
     unsigned char c;
     for (int i = 0; i < FIRMWARE_LENGTH; i++) {
         c = (unsigned char)pgm_read_byte(firmware_data + i);
