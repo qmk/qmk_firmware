@@ -40,9 +40,9 @@ bool led_update_kb(led_t led_state) {
 
 // Turns off all bottom LEDs
 void turn_off_bottom_leds(void){
-	writePin(LED3_PIN, 1);
 	writePin(LED4_PIN, 1);
 	writePin(LED5_PIN, 1);
+	writePin(LED6_PIN, 1);
 }
 
 /*
