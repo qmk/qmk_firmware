@@ -24,7 +24,7 @@ KEY_LOCK_ENABLE  = no # Enable the KC_LOCK key
 TAP_DANCE_ENABLE = no # Enable the tap dance feature.
 CONSOLE_ENABLE   = no  # Console for debug
 
-BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no  # Enable Bootmagic Lite
 UNICODE_ENABLE   = no
 SLEEP_LED_ENABLE = no
 
