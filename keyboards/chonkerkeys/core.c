@@ -76,15 +76,17 @@ void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim) {
     rgb_strand_animation_start(key_strand[y][x], anim,
         get_default_rgb_strand_anim_config(anim),
         RGB_STRAND_ANIM_STATE_STEADY);
+    rgb_strand_animation_set_state(key_strand[y][x], RGB_STRAND_ANIM_STATE_START);
 }
 
 void set_led_off(uint8_t key_x, uint8_t key_y) {
-    from_app_to_firmware_origin(&key_x, &key_y);
-    rgb_strand_animation_set_state(key_strand[key_y][key_x], RGB_STRAND_ANIM_STATE_START);
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_NONE);
 }
 
 void set_led_steady(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b) {
-    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_STATIC);
+    // Seems STATIC isn't working, use momentary for now
+    // TODO: Fix STATIC
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_MOMENTARY);
 }
 
 void set_led_blink(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint8_t frequency_tbc) {
