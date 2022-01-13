@@ -78,6 +78,11 @@ void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim) {
         RGB_STRAND_ANIM_STATE_STEADY);
 }
 
+void set_led_off(uint8_t key_x, uint8_t key_y) {
+    fromAppToFirmwareOrigin(&key_x, &key_y);
+    rgb_strand_animation_set_state(key_strand[key_y][key_x], RGB_STRAND_ANIM_STATE_START);
+}
+
 void set_led_steady(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b) {
     start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_STATIC);
 }

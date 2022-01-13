@@ -12,6 +12,8 @@ void on_reset(void);
 
 void on_set_led(struct command_set_led *set_led);
 
+void set_led_off(uint8_t key_x, uint8_t key_y);
+
 // Technically these should be defined as function pointer and core.c would assign function to the pointer for proper
 // inversion of control, but this firmware couldn't afford such abstraction due to perf penalty.
 void set_led_steady(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b);

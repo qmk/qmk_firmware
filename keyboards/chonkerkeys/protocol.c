@@ -10,44 +10,6 @@
 #include <stdio.h>
 #include <string.h>
 
-uint8_t get_key_light_type(uint8_t x, uint8_t y) {
-    return mute;
-}
-
-void update_light(uint8_t type, uint8_t state) {
-    // TODO: need to figure out the RGB strand for the light type
-    //uint8_t strand = key_strand[0][0];
-    uint8_t strand = 0;
-
-    if (type == mute) {
-        if (state == 0) {
-            // off
-            rgb_strand_set_color(strand, HSV_OFF);
-        } else if (state == 1) {
-            // mute
-            rgb_strand_set_color(strand, HSV_RED);
-        } else if (state == 2) {
-            // unmute
-            rgb_strand_set_color(strand, HSV_GREEN);
-        }
-    } else if (type == share_screen) {
-        if (state == 0) {
-            // off
-            rgb_strand_set_color(strand, HSV_OFF);
-        } else if (state == 1) {
-            // blinking
-            const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(RGB_STRAND_EFFECT_BLINKY);
-            rgb_strand_anim_config_t cfg;
-            memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
-            cfg.num_times = 0; // blink forever until shared
-            rgb_strand_animation_start(strand, RGB_STRAND_EFFECT_BLINKY, &cfg, RGB_STRAND_ANIM_STATE_START);
-        } else if (state == 2) {
-            // screen sharing
-            rgb_strand_set_color(strand, HSV_GREEN);
-        }
-    }
-}
-
 const extern uint32_t firmware_version;
 void on_get_version() {
     struct event_get_version_response resp;
@@ -85,20 +47,22 @@ void on_reset() {
 }
 
 void on_set_led(struct command_set_led *set_led) {
-    if (set_led->type == led_animation_type_steady) {
-        set_led_steady(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->g);
+    if (set_led->type == led_animation_type_off) {
+        set_led_off(set_led->key_x, set_led->key_y);
+    } else if (set_led->type == led_animation_type_steady) {
+        set_led_steady(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->b);
     } else if (set_led->type == led_animation_type_blink) {
-        set_led_blink(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->g, set_led->animation_data.blink_frequency);
+        set_led_blink(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->b, set_led->animation_data.blink_frequency);
     } else if (set_led->type == led_animation_type_like) {
-        set_led_like(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->g);
+        set_led_like(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->b);
     } else if (set_led->type == led_animation_type_leave_meeting) {
-        set_led_leave_meeting(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->g);
+        set_led_leave_meeting(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->b);
     } else if (set_led->type == led_animation_type_momentary) {
         // TODO: Is this conversion needed? If 10ms is easier to calculate due to processor clock speed etc, skip this
         // conversion.
         float duration_10ms = set_led->animation_data.momentary_duration_10ms;
         uint32_t duration_ms = (uint32_t) (duration_10ms / 10.0f);
-        set_led_momentary(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->g, duration_ms);
+        set_led_momentary(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->b, duration_ms);
     }
 }
 
