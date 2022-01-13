@@ -1,3 +1,6 @@
+// Copyright 2022 Artjoms Rizihs (@artjomsR)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 #include QMK_KEYBOARD_H
 #include "art_user_config.c"

@@ -1,3 +1,6 @@
+// Copyright 2022 Artjoms Rizihs (@artjomsR)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "art.h"
 #include "secret_definitions.h"
 #include "funcs/led_funcs.h"

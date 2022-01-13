@@ -1,4 +1,4 @@
-// Copyright 2021 Artjoms Rizihs (@artjomsR)
+// Copyright 2022 Artjoms Rizihs (@artjomsR)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
