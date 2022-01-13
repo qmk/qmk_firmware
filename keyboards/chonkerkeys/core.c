@@ -65,24 +65,37 @@ void on_connected() {
     is_connected = true;
 }
 
+void fromAppToFirmwareOrigin(uint8_t *x, uint8_t *y) {
+    // TODO: Flip x as well once w use top-right as origin
+    // *x = MATRIX_COLS - 1 - *x;
+    *y = MATRIX_ROWS - 1 - *y;
+}
+
+void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim) {
+    fromAppToFirmwareOrigin(&x, &y);
+    rgb_strand_animation_start(key_strand[y][x], anim,
+        get_default_rgb_strand_anim_config(anim),
+        RGB_STRAND_ANIM_STATE_STEADY);
+}
+
 void set_led_steady(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b) {
-    SEND_STRING("steady");
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_STATIC);
 }
 
 void set_led_blink(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint8_t frequency_tbc) {
-    SEND_STRING("blink");
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_BLINKY);
 }
 
 void set_led_like(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b) {
-    SEND_STRING("like");
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_LIKE);
 }
 
 void set_led_leave_meeting(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b) {
-    SEND_STRING("leave meeting");
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_DRAINSWIRL);
 }
 
 void set_led_momentary(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint32_t duration_ms) {
-    SEND_STRING("momentary");
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_MOMENTARY);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
