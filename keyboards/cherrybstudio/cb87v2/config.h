@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x8788
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    CherryB.Studio
-#define PRODUCT         CherryB.Studio CB87v2
+#define PRODUCT         CB87v2
 
 /* key matrix size */
 #define MATRIX_ROWS 10
