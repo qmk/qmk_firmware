@@ -13,17 +13,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,KC_TRNS,KC_TRNS)
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-
-	switch (id) {
-
-	}
-	return MACRO_NONE;
-}
-
-void matrix_init_user(void) {
-}
 
 bool is_alt_tab_active = false; // ALT_TAB激活状态。
 uint16_t alt_tab_timer = 0;     // ALT_TAB状态计时器。
@@ -114,36 +103,3 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-void led_set_user(uint8_t usb_led) {
-
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-		DDRD |= (1 << 0); PORTD &= ~(1 << 0);
-	} else {
-		DDRD &= ~(1 << 0); PORTD &= ~(1 << 0);
-	}
-
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		DDRD |= (1 << 5); PORTD &= ~(1 << 5);
-	} else {
-		DDRD &= ~(1 << 5); PORTD &= ~(1 << 5);
-	}
-
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-		DDRD |= (1 << 4); PORTD &= ~(1 << 4);
-	} else {
-		DDRD &= ~(1 << 4); PORTD &= ~(1 << 4);
-	}
-
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_KANA)) {
-
-	} else {
-
-	}
-
-}

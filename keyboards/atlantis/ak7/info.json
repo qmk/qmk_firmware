@@ -1,8 +1,6 @@
 {
     "keyboard_name": "AK21", 
     "maintainer": "Atlantis", 
-    "width": 4, 
-    "height": 6, 
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [
