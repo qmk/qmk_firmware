@@ -6,15 +6,15 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
+#define VENDOR_ID    0x5258 // RX
 #define PRODUCT_ID   0x0000
 #define DEVICE_VER   0x0001
-#define MANUFACTURER raylax
-#define PRODUCT      RX Demo
+#define MANUFACTURER RAYLAX DEMO
+#define PRODUCT      RAYLAX DEMO
 
 /* key matrix size */
 #define MATRIX_ROWS 1
-#define MATRIX_COLS 3
+#define MATRIX_COLS 1
 
 /*
  * Keyboard Matrix Assignments
@@ -26,8 +26,8 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { D0 }
-#define MATRIX_COL_PINS { F1, F0, B0 }
+#define MATRIX_ROW_PINS { B4 }
+#define MATRIX_COL_PINS { B5 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */

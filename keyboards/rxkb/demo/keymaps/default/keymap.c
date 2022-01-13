@@ -7,16 +7,12 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    BASE,
-    L1
+    BASE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [BASE] = LAYOUT(
-        LT(L1, KC_1), KC_2, KC_3
+        KC_X
     ),
-    [L1] = LAYOUT(
-        NO, KC_C, KC_V
-    )
 };
