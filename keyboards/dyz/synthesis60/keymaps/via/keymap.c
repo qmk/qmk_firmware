@@ -45,17 +45,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("Synthesis60\nLayer: "), false);
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-}
-#endif
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     if (get_highest_layer(state) != 0) {
