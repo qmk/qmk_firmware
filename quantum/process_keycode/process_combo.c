@@ -221,6 +221,10 @@ static inline void dump_key_buffer(void) {
     }
 
     key_buffer_next = key_buffer_size = 0;
+
+#if TAP_CODE_DELAY > 0
+    wait_ms(TAP_CODE_DELAY);
+#endif
 }
 
 #define NO_COMBO_KEYS_ARE_DOWN (0 == COMBO_STATE(combo))
