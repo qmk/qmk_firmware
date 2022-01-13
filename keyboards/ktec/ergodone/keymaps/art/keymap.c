@@ -1,3 +1,6 @@
+// Copyright 2022 Artjoms Rizihs (@artjomsR)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "art.h"
 #include "sendstring_workman_zxcvm.h"
 #include "user_config.c"
