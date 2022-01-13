@@ -19,8 +19,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x414B
-#define PRODUCT_ID      0x0051
+#define VENDOR_ID       0x416B
+#define PRODUCT_ID      0x0081
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Atlantis
 #define PRODUCT         AK81_VE
