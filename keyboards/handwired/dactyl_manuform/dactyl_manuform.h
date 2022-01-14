@@ -16,6 +16,8 @@
 #    include "5x7.h"
 #elif defined(KEYBOARD_handwired_dactyl_manuform_6x6)
 #    include "6x6.h"
+#elif defined(KEYBOARD_handwired_dactyl_manuform_6x7)
+#    include "6x7.h"
 #elif defined(KEYBOARD_handwired_dactyl_manuform_dmote_62key)
 #    include "62key.h"
 #endif
