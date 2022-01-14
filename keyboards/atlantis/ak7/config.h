@@ -67,5 +67,3 @@
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_LIMIT_VAL 200
 #endif
-
-#endif
