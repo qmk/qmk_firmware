@@ -3,8 +3,6 @@
     "keyboard_folder": "gk6",
     "url": "https://gizmo.engineering/",
     "maintainer": "federicoweber",
-    "width": 12,
-    "height": 5,
     "layouts": {
         "LAYOUT_gk6_2x2u": {
             "layout": [

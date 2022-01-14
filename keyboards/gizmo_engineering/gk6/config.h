@@ -43,6 +43,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
+// Use ~ key for the bootloader
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
+
 // RGB Matrix
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_ADDR_2 0b1110111
@@ -57,18 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_STARTUP_SAT 255
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define RGB_MATRIX_KEYPRESSES
 
-#define DISABLE_RGB_MATRIX_ALPHAS_MODS
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#define DISABLE_RGB_MATRIX_SPLASH
-#define DISABLE_RGB_MATRIX_SOLID_SPLASH
-#define DISABLE_RGB_MATRIX_BAND_SAT
-#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-
-// Use ~ key for the bootloader
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
