@@ -1,8 +1,8 @@
 # QMK CLI 配置
 
 <!---
-  original document: 0.14.23:docs/cli_configuration.md
-  git diff 0.14.23 HEAD -- docs/cli_configuration.md | cat
+  original document: 0.15.12:docs/cli_configuration.md
+  git diff 0.15.12 HEAD -- docs/cli_configuration.md | cat
 -->
 
 本文详述了 `qmk config` 功能及作用。
@@ -52,7 +52,7 @@ user.keymap: None -> default
 
 ## 设置配置值
 
-在配置项的键后加=号进行值的设置，配置项的键必须是 `<section>.<key>` 的完整形式。
+在配置项的键后加 = 号进行值的设置，配置项的键必须是 `<section>.<key>` 的完整形式。
 
 举例：
 

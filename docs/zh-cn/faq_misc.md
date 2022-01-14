@@ -38,7 +38,7 @@ Size after:
 ## NKRO 不好使
 首先请确保在编译固件时有在**Makefile**中启用 `NKRO_ENABLE`
 
-如果依旧不行，尝试一下 `神奇`**N** 指令（默认是左Shift+右Shift+N），这个指令可以让键盘在**NKRO**和**6KRO**模式间临时切换。有的场景下**NKRO**无法工作必须切换到**6KRO**模式，比如在BIOS中操作时。
+如果依旧不行，尝试一下 `Magic` **N** 指令（默认是左Shift+右Shift+N），这个指令可以让键盘在**NKRO**和**6KRO**模式间临时切换。有的场景下**NKRO**无法工作必须切换到**6KRO**模式，比如在BIOS中操作时。
 
 如果你的固件编译时指定了 `BOOTMAGIC_ENABLE` ，则需要使用 `BootMagic`**N** 指令（默认是空格+N）。这个配置保存在EEPROM中，断电也会留存。
 

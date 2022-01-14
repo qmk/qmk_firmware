@@ -49,7 +49,7 @@ void keyboard_post_init_user(void) {
 
 * `print("string")`: 字符串输出
 * `uprintf("%s string", var)`: 格式化字符串输出
-* `dprint("string")` 仅调试模式下，字符串输出Print a simple string, but only when debug mode is enabled
+* `dprint("string")` 仅调试模式下，字符串输出
 * `dprintf("%s string", var)`: 仅调试模式下，格式化字符串输出
 
 ## 调试示例
