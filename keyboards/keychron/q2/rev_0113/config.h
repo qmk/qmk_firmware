@@ -16,12 +16,13 @@
 
 #pragma once
 
-#include "quantum.h"
+/* USB Device descriptor parameter */
+#define PRODUCT_ID      0x0113
+#define DEVICE_VER      0x0100
 
-#if   defined(KEYBOARD_keychron_q1_rev_0100)
-#    include "rev_0100.h"
-#elif defined(KEYBOARD_keychron_q1_rev_0101)
-#    include "rev_0101.h"
-#elif defined(KEYBOARD_keychron_q1_rev_0102)
-#    include "rev_0102.h"
-#endif
+/* Encoder used pins */
+#define ENCODERS_PAD_A { A10 }
+#define ENCODERS_PAD_B { B5 }
+
+/* Specifies the number of pulses the encoder registers between each detent */
+#define ENCODER_RESOLUTION 2
