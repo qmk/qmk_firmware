@@ -162,15 +162,8 @@ void render_keylock_status(uint8_t led_usb_state) {
 
 void render_matrix_scan_rate(void) {
 #ifdef DEBUG_MATRIX_SCAN_RATE
-    char     matrix_rate[5];
-    uint16_t n     = get_matrix_scan_rate();
-    matrix_rate[4] = '\0';
-    matrix_rate[3] = '0' + n % 10;
-    matrix_rate[2] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    matrix_rate[1] = n / 10 ? '0' + n / 10 : ' ';
-    matrix_rate[0] = ' ';
     oled_write_P(PSTR("MS:"), false);
-    oled_write(matrix_rate, false);
+    oled_write(get_u16_str(get_matrix_scan_rate(), ' '), false);
 #endif
 }
 
