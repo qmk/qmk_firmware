@@ -145,6 +145,18 @@ An example of a sequence which is affected by the “permissive hold” mode:
 - `KC_L` Up
 - `LT(2, KC_A)` Up
 
+```
+                         TAPPING_TERM   
+  +---------------------------|--------+
+  | +----------------------+  |        |
+  | | LT(2, KC_A)          |  |        |
+  | +----------------------+  |        |
+  |    +--------------+       |        |
+  |    | KC_L         |       |        |
+  |    +--------------+       |        |
+  +---------------------------|--------+
+```
+
 Normally, if you do all this within the `TAPPING_TERM` (default: 200ms), this will be registered as `al` by the firmware and host system.  With the `PERMISSIVE_HOLD` option enabled, the Layer Tap key is considered as a layer switch if another key is tapped, and the above sequence would be registered as `KC_RGHT` (the mapping of `L` on layer 2). We could describe this sequence as a “nested press” (the modified key's key down and key up events are “nested” between the dual-role key's key down and key up events).
 
 However, this slightly different sequence will not be affected by the “permissive hold” mode:
@@ -153,6 +165,18 @@ However, this slightly different sequence will not be affected by the “permiss
 - `KC_L` Down (the `L` key is also mapped to `KC_RGHT` on layer 2)
 - `LT(2, KC_A)` Up
 - `KC_L` Up
+
+```
+                         TAPPING_TERM   
+  +---------------------------|--------+
+  | +-------------+           |        |
+  | | LT(2, KC_A) |           |        |
+  | +-------------+           |        |
+  |       +--------------+    |        |
+  |       | KC_L         |    |        |
+  |       +--------------+    |        |
+  +---------------------------|--------+
+```
 
 In the sequence above the dual-role key is released before the other key is released, and if that happens within the tapping term, the “permissive hold” mode will still choose the tap action for the dual-role key, and the sequence will be registered as `al` by the host. We could describe this as a “rolling press” (the two keys' key down and key up events behave as if you were rolling a ball across the two keys, first pressing each key down in sequence and then releasing them in the same order).
 
@@ -197,6 +221,18 @@ An example of a sequence which is affected by the “hold on other key press” 
 - `KC_L` Down (the `L` key is also mapped to `KC_RGHT` on layer 2)
 - `LT(2, KC_A)` Up
 - `KC_L` Up
+
+```
+                         TAPPING_TERM
+  +---------------------------|--------+
+  | +-------------+           |        |
+  | | LT(2, KC_A) |           |        |
+  | +-------------+           |        |
+  |       +--------------+    |        |
+  |       | KC_L         |    |        |
+  |       +--------------+    |        |
+  +---------------------------|--------+
+```
 
 Normally, if you do all this within the `TAPPING_TERM` (default: 200ms), this will be registered as `al` by the firmware and host system.  With the `HOLD_ON_OTHER_KEY_PRESS` option enabled, the Layer Tap key is considered as a layer switch if another key is pressed, and the above sequence would be registered as `KC_RGHT` (the mapping of `L` on layer 2).
 
@@ -244,6 +280,18 @@ An example of a sequence which will be affected by the `IGNORE_MOD_TAP_INTERRUPT
 - `KC_X` Down
 - `SFT_T(KC_A)` Up
 - `KC_X` Up
+
+```
+                         TAPPING_TERM
+  +---------------------------|--------+
+  | +-------------+           |        |
+  | | SFT_T(KC_A) |           |        |
+  | +-------------+           |        |
+  |       +--------------+    |        |
+  |       | KC_X         |    |        |
+  |       +--------------+    |        |
+  +---------------------------|--------+
+```
 
 Normally, this would send a capital `X` (`SHIFT`+`x`), even if the sequence is performed faster than the `TAPPING_TERM`.  However, if the `IGNORE_MOD_TAP_INTERRUPT` option is enabled, the `SFT_T(KC_A)` key must be held longer than the `TAPPING_TERM` to register the hold action.  A quick tap will output `ax` in this case, while a hold will still output a capital `X` (`SHIFT`+`x`).
 
@@ -326,6 +374,18 @@ To enable `retro tapping`, add the following to your `config.h`:
 Holding and releasing a dual function key without pressing another key will result in nothing happening. With retro tapping enabled, releasing the key without pressing another will send the original keycode even if it is outside the tapping term.
 
 For instance, holding and releasing `LT(2, KC_SPC)` without hitting another key will result in nothing happening. With this enabled, it will send `KC_SPC` instead.
+
+```
+               TAPPING_TERM
+  +-----------------|------------------+
+  | +---------------|-------+          |
+  | | LT(2, KC_SPC) |       |          |
+  | +---------------|-------+          |
+  |                 |                  |
+  |                 |                  |
+  |                 |                  |
+  +-----------------|------------------+
+```
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
