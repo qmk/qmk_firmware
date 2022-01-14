@@ -67,3 +67,7 @@
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_LIMIT_VAL 200
 #endif
+
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 1
+#define BOOTMAGIC_LITE_COLUMN 0
