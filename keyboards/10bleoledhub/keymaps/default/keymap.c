@@ -55,7 +55,10 @@ static void render_logo(void) {
 }
 
 #ifdef OLED_ENABLE
-void oled_task_user(void) { render_logo(); }
+bool oled_task_user(void) {
+    render_logo();
+    return false;
+}
 #endif
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

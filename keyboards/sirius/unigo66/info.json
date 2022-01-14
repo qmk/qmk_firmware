@@ -2,8 +2,6 @@
     "keyboard_name": "UniGo66",
     "url": "https://discord.gg/GJ8bdM",
     "maintainer": "qmk",
-    "width": 17,
-    "height": 7,
     "layouts": {
         "LAYOUT": {
             "layout": [

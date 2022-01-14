@@ -1,8 +1,6 @@
 {
     "keyboard_name": "Lx3 Whale 75",
     "maintainer": "ebastler",
-    "width": 16.25,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

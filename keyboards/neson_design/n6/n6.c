@@ -187,7 +187,7 @@ static void self_testing(void)
     update_ticks();
 }
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location
@@ -232,8 +232,6 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, C9_16, C7_15, C6_15},
 };
 #endif
-__attribute__((weak))
-void matrix_init_user(void) {}
 
 void matrix_init_kb(void)
 {

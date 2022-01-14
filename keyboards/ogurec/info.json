@@ -2,8 +2,6 @@
     "keyboard_name": "ogurec", 
     "url": "http://www.keyboard-layout-editor.com/#/gists/f1bda3a87822868599cf6e3c4340f594", 
     "maintainer": "drhigsby", 
-    "width": 12, 
-    "height": 3, 
     "layouts": {
         "LAYOUT_ortho_3x12": {
             "layout": [

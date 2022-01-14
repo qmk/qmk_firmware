@@ -1,9 +1,6 @@
 {
     "keyboard_name": "Ergodone",
     "maintainer": "Yu He",
-    "width": 17,
-    "height": 8,
-
     "layouts": {
       "LAYOUT_ergodox": {
 

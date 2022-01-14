@@ -2,8 +2,6 @@
     "keyboard_name": "absinthe",
     "url": "https://github.com/cfbender/keyboards/tree/master/absinthe",
     "maintainer": "cfbender",
-    "width": 18.25,
-    "height": 5,
     "layouts": {
         "LAYOUT_default": {
             "layout": [

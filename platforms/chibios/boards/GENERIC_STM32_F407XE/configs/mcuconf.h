@@ -344,9 +344,6 @@
 #define STM32_USB_OTG2_RX_FIFO_SIZE         1024
 #define STM32_USB_HOST_WAKEUP_DURATION      2
 
-#define STM32_USB_OTG_THREAD_PRIO           NORMALPRIO+1
-#define STM32_USB_OTG_THREAD_STACK_SIZE     128
-
 /*
  * WDG driver system settings.
  */

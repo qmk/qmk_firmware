@@ -34,9 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // // right half adafruit feather
 // #define MATRIX_COL_PINS { F1, F0, B1, B2, B3, D2 }
 // #define MATRIX_ROW_PINS { D6, B7, B6, B5, D7, C6 }
-// #define AdafruitBleResetPin D4
-// #define AdafruitBleCSPin    B4
-// #define AdafruitBleIRQPin   E6
 
 #define DIODE_DIRECTION COL2ROW
 
