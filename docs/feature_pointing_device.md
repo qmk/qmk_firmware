@@ -134,6 +134,7 @@ The Pimoroni Trackball module is a I2C based breakout board with an RGB enable t
 
 ### PMW 3360 Sensor
 
+This drivers supports multiple sensors _per_ controller, so 2 can be attached at the same side for split keyboards (or unsplit keyboards).
 To use the PMW 3360 sensor, add this to your `rules.mk`
 
 ```make
@@ -145,6 +146,7 @@ The PMW 3360 is an SPI driven optical sensor, that uses a built in IR LED for su
 | Setting                     | Description                                                                                | Default       |
 |-----------------------------|--------------------------------------------------------------------------------------------|---------------|
 |`PMW3360_CS_PIN`                 | (Required) Sets the Cable Select pin connected to the sensor.                              | _not defined_ |
+|`PMW3360_CS_PINS`                | (Alternative) Sets the Cable Select pins connected to multiple sensors.                    | _not defined_ |
 |`PMW3360_CLOCK_SPEED`            | (Optional) Sets the clock speed that the sensor runs at.                                   | `2000000`     |
 |`PMW3360_SPI_LSBFIRST`           | (Optional) Sets the Least/Most Significant Byte First setting for SPI.                     | `false`       |
 |`PMW3360_SPI_MODE`               | (Optional) Sets the SPI Mode for the sensor.                                               | `3`           |
@@ -154,6 +156,36 @@ The PMW 3360 is an SPI driven optical sensor, that uses a built in IR LED for su
 |`PMW3360_FIRMWARE_UPLOAD_FAST`   | (Optional) Skips the 15us wait between firmware blocks.                                    | _not defined_ |
 
 The CPI range is 100-12000, in increments of 100. Defaults to 1600 CPI.
+
+To use multiple sensors, instead of setting `PMW3360_CS_PIN` you need to set `PMW3360_CS_PINS` and also handle and merge the read from this sensor in user code.
+Note that different (per sensor) values of CPI, speed liftoff, rotational angle or flipping of X/Y is not currently supported.
+
+```c
+// in config.h:
+#define PMW3360_CS_PINS { B5, B6 }
+
+// in keyboard.c:
+#ifdef POINTING_DEVICE_ENABLE
+void pointing_device_init_kb(void) {
+    pmw3360_init(1);  // index 1 is the second device.
+    pointing_device_set_cpi(800);  // applies to both sensors
+    pointing_device_init_user();
+}
+
+// Contains report from sensor #0 already, need to merge in from sensor #1
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    report_pmw3360_t data = pmw3360_read_burst(1);
+    if (data.isOnSurface && data.isMotion) {
+// From quantum/pointing_device_drivers.c
+#define constrain_hid(amt) ((amt) < -127 ? -127 : ((amt) > 127 ? 127 : (amt)))
+        mouse_report.x = constrain_hid(mouse_report.x + data.dx);
+        mouse_report.y = constrain_hid(mouse_report.y + data.dy);
+    }
+    return pointing_device_task_user(mouse_report);
+}
+#endif
+
+```
 
 ### PMW 3389 Sensor
 
