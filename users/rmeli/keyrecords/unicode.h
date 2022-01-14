@@ -46,7 +46,7 @@ const uint32_t PROGMEM unicode_map[] = {
     // KC_O
     [oGRV]  = 0x00F2, // ò
     [OGRV]  = 0x00D2, // Ò
-    [oUML]  = 0x00EF, // ö
+    [oUML]  = 0x00F6, // ö
     [OUML]  = 0x00D6, // Ö
     // KC_U
     [uGRV]  = 0x00F9, // ù
