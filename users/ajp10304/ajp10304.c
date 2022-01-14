@@ -24,6 +24,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
+    case COLEMAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_COLEMAK);
+      }
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -157,12 +161,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case M_MODE:
         if (record->event.pressed) {
-            SEND_STRING("PC");
+            send_string("PC ");
+            send_string(get_highest_layer(default_layer_state) == _COLEMAK ? "COLEMAK" : "QWERTY");
         }
         break;
     case M_MODE_MAC:
         if (record->event.pressed) {
-            SEND_STRING("OSX");
+            send_string("OSX ");
+            send_string(get_highest_layer(default_layer_state) == _COLEMAK ? "COLEMAK" : "QWERTY");
         }
         break;
   }
