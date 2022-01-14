@@ -1,11 +1,5 @@
 #include QMK_KEYBOARD_H
 
-/*
-enum alt_keycodes {
-    SWITCH_USB = SAFE_RANGE,
-};
-*/
-
 
 #ifdef RGB_MATRIX_ENABLE
     static uint32_t idle_timer;
@@ -39,17 +33,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
-/*
-void switch_usb(void) {
-    if (usb_host_port == USB_HOST_PORT_2) {USB_set_host_by_port_num(1); }
-    else {USB_set_host_by_port_num(2); }
-}
-*/
-
 void keyboard_post_init_user(void) {
     #ifdef RGB_MATRIX_ENABLE
         rgblight_enable();
         rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+        rgb_matrix_set_flags(LED_FLAG_ALL);
         led_on = true;
         rgblight_sethsv(COLOR);
     #endif
