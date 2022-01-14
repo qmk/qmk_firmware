@@ -26,22 +26,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    MechWild
 #define PRODUCT         BDE Rev2
 
+#define STACK_SPLIT
+
 /* Key matrix size */
-#define MATRIX_ROWS 6
+//#define MATRIX_ROWS 6
+#define MATRIX_ROWS 12
 #define MATRIX_COLS 7
 
 /* Key matrix pins */
 #define MATRIX_ROW_PINS { C6, D7, B4, D4, E6, B2 }
-#define MATRIX_COL_PINS { B3, B1, F7, A1, A2, A3, B5 }
+#define MATRIX_COL_PINS { B3, B1, F7, F6, F5, F4, B5 }
 #define UNUSED_PINS
 
-/* Encoder pins */
+/* Split Pin Definition, comment out if not being used in split mode*/
+#define SOFT_SERIAL_PIN D2
+
+/* Encoder pins, Only set if not being used in split mode */
+#ifndef SOFT_SERIAL_PIN
+
 #define ENCODERS_PAD_A { D3 }
 #define ENCODERS_PAD_B { D2 }
 
 /* Encoder resolution */
 #define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
+#else
+/* Use I2C or Serial, not both */
+#define USE_SERIAL
+// #define USE_I2C
+
+/* Select hand configuration */
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+// #define EE_HANDS
+
+#endif
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW

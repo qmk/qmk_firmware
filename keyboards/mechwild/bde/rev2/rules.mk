@@ -1,4 +1,4 @@
-# MCU name
+ # MCU name
 MCU = atmega32u4
 
 # Bootloader selection
@@ -19,6 +19,8 @@ NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-ENCODER_ENABLE = yes        # Enable encoder
+ENCODER_ENABLE = no        # Enable encoder
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306       # Enable OLED Screen
+
+SPLIT_KEYBOARD = yes

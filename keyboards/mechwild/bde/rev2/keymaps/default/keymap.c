@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		oled_write_P(logo_4, false);
 	}
 
-	void oled_task_user(void) {
+	bool oled_task_user(void) {
 		render_logo();
 		oled_set_cursor(0,6);
 
@@ -110,5 +110,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     oled_write_ln_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_ln_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    
+    return false;
+        
 	}
 #endif
