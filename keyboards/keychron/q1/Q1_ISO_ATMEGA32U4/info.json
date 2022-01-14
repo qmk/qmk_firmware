@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "Keychron Q1", 
-    "url": "https://github.com/Keychron", 
-    "maintainer": "lalalademaxiya1", 
+    "keyboard_name": "Keychron Q1",
+    "url": "https://github.com/Keychron",
+    "maintainer": "lalalademaxiya1",
     "layouts": {
         "LAYOUT_iso_83": {
             "layout": [
@@ -81,7 +81,7 @@
                 {"label":">", "x":10.25, "y":4.25},
                 {"label":"?", "x":11.25, "y":4.25},
                 {"label":"Shift", "x":12.25, "y":4.25, "w":1.75},
-                {"label":"\u2191", "x":14.25, "y":4.5},
+                {"label":"Up", "x":14.25, "y":4.5},
 
                 {"label":"Ctrl", "x":0, "y":5.25, "w":1.25},
                 {"label":"Win", "x":1.25, "y":5.25, "w":1.25},
@@ -90,9 +90,9 @@
                 {"label":"Alt", "x":10, "y":5.25},
                 {"label":"Fn", "x":11, "y":5.25},
                 {"label":"Ctrl", "x":12, "y":5.25},
-                {"label":"\u2190", "x":13.25, "y":5.5},
-                {"label":"\u2193", "x":14.25, "y":5.5},
-                {"label":"\u2192", "x":15.25, "y":5.5}
+                {"label":"Left", "x":13.25, "y":5.5},
+                {"label":"Down", "x":14.25, "y":5.5},
+                {"label":"Right", "x":15.25, "y":5.5}
             ]
         }
     }

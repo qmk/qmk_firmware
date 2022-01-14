@@ -18,9 +18,9 @@
 
 #include "quantum.h"
 
-#if   defined(KEYBOARD_KEYCHRON_Q1_Q1_ANSI_ATMEGA32U4)
+#if   defined(KEYBOARD_keychron_q1_Q1_ANSI_ATMEGA32U4)
 #    include "Q1_ANSI_ATMEGA32U4.h"
-#elif defined(KEYBOARD_KEYCHRON_Q1_Q1_ISO_ATMEGA32U4)
+#elif defined(KEYBOARD_keychron_q1_Q1_ISO_ATMEGA32U4)
 #    include "Q1_ISO_ATMEGA32U4.h"
 #elif defined(KEYBOARD_keychron_q1_Q1_ANSI_STM32L432_EC11)
 #    include "Q1_ANSI_STM32L432_EC11.h"
