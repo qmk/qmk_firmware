@@ -32,13 +32,12 @@ RGB_MATRIX_EFFECT(SOLID_REACTIVE_MULTINEXUS2)
 // Define effects inside the `RGB_MATRIX_CUSTOM_EFFECT_IMPLS` ifdef block
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-
 static HSV SOLID_REACTIVE_WIDE_GRADIENT_MULTI(HSV hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
     // uint8_t cast is a lazy trick for "rain"-like loop in animation
     uint8_t delta_time = (uint8_t) (tick - dist);
-    uint16_t effect = delta_time > 235 || dist > 32 ? 235 : delta_time;
-    uint16_t val = 255 - effect;
-    hsv.v  = dist < 32 ? qadd8(hsv.v, val) : qsub8(hsv.v, 20);
+    uint8_t effect = delta_time > 235 || dist > 24 ? 235 : delta_time;
+    uint8_t val = 255 - effect;
+    hsv.v  = dist < 24 ? qadd8(hsv.v, val) : qsub8(hsv.v, val);
     if (hsv.v < rgb_matrix_config.hsv.h / 3) {
         hsv.v = rgb_matrix_config.hsv.h / 3;
     }
