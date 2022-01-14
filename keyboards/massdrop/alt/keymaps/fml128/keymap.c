@@ -70,6 +70,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //case SWITCH_USB:
         //    switch_usb();
         //    return false;
+        #ifdef RGB_MATRIX_ENABLE
+            case MO(1):
+                if(record->event.pressed) {
+                    rgblight_sethsv(HSV_PINK);
+                    return true;
+                } else {
+                    rgblight_sethsv(COLOR);
+                }
+        #endif
         default:
             return true; //Process all other keycodes normally
         }
