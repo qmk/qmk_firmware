@@ -157,7 +157,7 @@ Example sequence 2 (the `L` key is also mapped to `KC_RGHT` on layer 2):
   |            +--------------+ |      |
   +-----------------------------|------+
 ```
-The above sequence will not send a `KC_RGHT` but a `KC_L`, since `LT(2, KC_A)` is not held longer than the `TAPPING_TERM`.
+The above sequence will not send `KC_RGHT` but `KC_A` `KC_L` instead, since `LT(2, KC_A)` is not held longer than the `TAPPING_TERM`.
 
 ---
 
@@ -174,7 +174,7 @@ Example sequence 3 (Mod Tap):
   |       +--------------+    |        |
   +---------------------------|--------+
 ```
-Based on the examples above, you might have expected the output of the above sequence to be `ax`
+Based previous examples, you might have expected the output of the above sequence to be `KC_A` `KC_X`
 since `SFT_T(KC_A)` is NOT held longer than the `TAPPING_TERM`.
 However, the actual output would be capital `X` (`SHIFT` + `x`) due to reasons
 explained under [Ignore Mod Tap Interrupt](#ignore-mod-tap-interrupt).
