@@ -38,6 +38,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MO(_FUNC),             KC_LCTL,    KC_LALT,     KC_LGUI,   LOWER,   KC_BSPC, KC_LCTL, KC_LALT, KC_SPC,  RAISE,   KC_LSHIFT, KC_BTN2,   KC_RCTL,    MO(_FUNC2)
 ),
 
+/* Colemak-DHm
+ * ,-----------------------------------------|             |-----------------------------------------.
+ * | Esc  |   Q  |   W  |   F  |   P  |   B  |             |   J  |   L  |   U  |   Y  |  ;:  | Bksp |
+ * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ * | Tab  |   A  |   R  |   S  |   T  |   G  |             |   M  |   N  |   E  |   I  |  O  | Enter|
+ * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ * | Shft |   Z  |   X  |   C  |   D  |   V  |             |   K  |   H  |  ,<  |  .>  |  /?  | Shft |
+ * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Fn   | Ctrl | Alt  | GUI  |Lower | Bksp | Ctrl | Alt  |Space |Raise | Shift| MENU | Ctrl | Fn2  |
+ * `-------------------------------------------------------------------------------------------------'
+ */
+[_QWERTY] = LAYOUT(
+  LT(_NUMPAD, KC_ESC),   KC_Q,       KC_W,        KC_F,      KC_P,    KC_B,                      KC_J,    KC_L,    KC_U,      KC_Y,      KC_SCLN,    KC_BSPC              ,
+  MT(MOD_LSFT, KC_TAB),  KC_A,       KC_R,        KC_S,      KC_T,    KC_G,                      KC_M,    KC_N,    KC_E,      KC_I,      KC_O,       MT(MOD_RSFT, KC_ENT) ,
+  KC_LSHIFT,             KC_Z,       KC_X,        KC_C,      KC_D,    KC_V,                      KC_K,    KC_H,    KC_COMM,   KC_DOT,    KC_SLSH,    KC_RSHIFT            ,
+  MO(_FUNC),             KC_LCTL,    KC_LALT,     KC_LGUI,   LOWER,   KC_BSPC, KC_LCTL, KC_LALT, KC_SPC,  RAISE,   KC_LSHIFT, KC_BTN2,   KC_RCTL,    MO(_FUNC2)
+),
+
 /* Function
  * ,------------------------------------------             |-----------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |             |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
@@ -93,20 +111,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Adjust (Lower + Raise)
- * ,------------------------------------------             |-----------------------------------------.
- * | ???? | Reset|Qwerty|      |      | REC1 |             | REC2 |      |      |      |      |  Del |
- * |------+------+------+------+------+-------             |------+------+------+------+------+------|
- * | CAPS |      |      |      |      | PLAY1|             | PLAY2| Mute | Vol+ | Play |      |      |
- * |------+------+------+------+------+------|             |------+------+------+------+------+------|
- * | PC/MC|      |      |      |      | STOP |             | STOP | Prev | Vol- | Next |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-------------------------------------------------------------------------------------------------'
+ * ,------------------------------------------             |------------------------------------------.
+ * | ???? | Reset|Qwerty|      |      | REC1 |             | REC2 |      |      |      |      |  Del  |
+ * |------+------+------+------+------+-------             |------+------+------+------+------+-------|
+ * | CAPS |      |      |      |      | PLAY1|             | PLAY2| Mute | Vol+ | Play |      |Qwerty |
+ * |------+------+------+------+------+------|             |------+------+------+------+------+-------|
+ * | PC/MC|      |      |      |      | STOP |             | STOP | Prev | Vol- | Next |      |Colemak|
+ * |------+------+------+------+------+------+------+------+------+------+------+------+------+-------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |      |       |
+ * `--------------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT(
   M_CUSTOM, RESET,   QWERTY,  _______, _______, DYN_REC_START1,                    DYN_REC_START2,  _______,             _______,           _______,              _______,  KC_DEL  ,
-  KC_CAPS,  _______, _______, _______, _______, DYN_MACRO_PLAY1,                   DYN_MACRO_PLAY2, KC_AUDIO_MUTE,       KC_AUDIO_VOL_UP,   KC_MEDIA_PLAY_PAUSE,  _______,  _______ ,
-  TG(_MAC), _______, _______, _______, _______, DYN_REC_STOP,                      DYN_REC_STOP,    KC_MEDIA_PREV_TRACK, KC_AUDIO_VOL_DOWN, KC_MEDIA_NEXT_TRACK,  _______,  _______ ,
+  KC_CAPS,  _______, _______, _______, _______, DYN_MACRO_PLAY1,                   DYN_MACRO_PLAY2, KC_AUDIO_MUTE,       KC_AUDIO_VOL_UP,   KC_MEDIA_PLAY_PAUSE,  _______,  QWERTY  ,
+  TG(_MAC), _______, _______, _______, _______, DYN_REC_STOP,                      DYN_REC_STOP,    KC_MEDIA_PREV_TRACK, KC_AUDIO_VOL_DOWN, KC_MEDIA_NEXT_TRACK,  _______,  COLEMAK ,
   _______,  _______, _______, _______, _______, _______,         _______, _______, _______,         _______,             _______,           _______,              _______,  _______
 ),
 

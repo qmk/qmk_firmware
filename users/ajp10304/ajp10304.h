@@ -18,6 +18,7 @@
 
 enum ajp10304_layers {
   _QWERTY,
+  _COLEMAK,
   _MAC,
   _LOWER,
   _MLWR,
@@ -34,6 +35,7 @@ enum ajp10304_layers {
 
 enum ajp10304_keycodes {
   QWERTY = SAFE_RANGE,
+  COLEMAK,
   MAC,
   FUNC,
   MFNC,
