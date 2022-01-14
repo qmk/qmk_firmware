@@ -7,10 +7,10 @@ Based on the ["matthewrobo" keymap](https://github.com/qmk/qmk_firmware/tree/mas
 ## Layers
 
 ### Base Layer
-![Base Layer](https://i.imgur.com/qMXpYUb.png)
+> **NOTE**: Reverted **LShift**, **RShift** and **Caps Lock** keys behavior to default ones
 
-### Navigation Layer
-![Navigation Layer](https://i.imgur.com/RSp12Sh.png)
+![Base Layer](https://i.imgur.com/xDPrFu7.png)
+
 
 ### Function Layer
 ![Function Layer](https://i.imgur.com/dp7zs0I.png)

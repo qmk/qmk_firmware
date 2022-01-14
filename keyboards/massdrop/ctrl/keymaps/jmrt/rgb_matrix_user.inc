@@ -68,6 +68,8 @@ static HSV SOLID_REACTIVE_NEXUS_math2(HSV hsv, int16_t dx, int16_t dy, uint8_t d
     return hsv;
 }
 
+
+
 bool REACTIVE_GRADIENT_MULTI                  (effect_params_t* params) { return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_WIDE_GRADIENT_MULTI); }
 bool REACTIVE_GRADIENT_SINGLE                  (effect_params_t* params) { return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_REACTIVE_WIDE_GRADIENT_SINGLE); }
 

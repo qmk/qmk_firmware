@@ -61,7 +61,6 @@ bool rgb_enabled_flag;  // Current LED state flag. If false then LED is off.
 
 enum layout_names {
     _KL = 0,  // Keys Layout: The main keyboard layout that has all the characters
-    _NL,      // Navigation Layout: Cursor keys and numpad inputs
     _FL,      // Function Layout: The function key activated layout with default functions and some added ones
 };
 
