@@ -18,10 +18,10 @@
 
 #include "quantum.h"
 
-#if   defined(KEYBOARD_keychron_q1_rev_0100)
-#    include "rev_0100.h"
-#elif defined(KEYBOARD_keychron_q1_rev_0102)
-#    include "rev_0102.h"
-#elif defined(KEYBOARD_keychron_q1_rev_0107)
-#    include "rev_0107.h"
+#if   defined(KEYBOARD_KEYCHRON_Q1_Q1_ANSI_ATMEGA32U4)
+#    include "Q1_ANSI_ATMEGA32U4.h"
+#elif defined(KEYBOARD_KEYCHRON_Q1_Q1_ISO_ATMEGA32U4)
+#    include "Q1_ISO_ATMEGA32U4.h"
+#elif defined(KEYBOARD_keychron_q1_Q1_ANSI_STM32L432_EC11)
+#    include "Q1_ANSI_STM32L432_EC11.h"
 #endif
