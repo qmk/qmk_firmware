@@ -226,13 +226,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-#define L_QWERTY 2
-#define L_DVORAK 4
-#define L_LOWER 8
-#define L_RAISE 16
-#define L_TOP 32
-#define L_BOTTOM 64
-
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("layer: "), false);
     switch (get_highest_layer(layer_state|default_layer_state)) {
