@@ -43,9 +43,6 @@
 
 #define ENCODERS 1
 
-#ifdef ENCODER_RESOLUTION
-    #undef ENCODER_RESOLUTION
-#endif
 #define ENCODER_RESOLUTION 2
 
 // Note:  array is { col, row )
