@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311 }  \
 }
 
-enum layer_names { _QW = 0, _LWR, _RSE, _ADJ };
 static inline void led_lwr(const bool on) {
 #ifdef LED_NUM_LOCK_PIN
     writePin(LED_NUM_LOCK_PIN, on);
@@ -49,32 +48,3 @@ static inline void led_caps(const bool on) {
 #endif
 }
 
-#ifdef ENCODER_ENABLE
-
-#    define MEDIA_KEY_DELAY 10
-
-static inline void my_encoders(const uint8_t index, const bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (IS_LAYER_ON(_LWR)) {
-            if (clockwise) {
-                rgblight_decrease_val_noeeprom();
-            } else {
-                rgblight_increase_val_noeeprom();
-            }
-        } else if (IS_LAYER_ON(_RSE)) {
-            if (clockwise) {
-                rgblight_decrease_hue_noeeprom();
-            } else {
-                rgblight_increase_hue_noeeprom();
-            }
-
-        } else {
-            if (clockwise) {
-                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
-            } else {
-                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
-            }
-        }
-    }
-}
-#endif
