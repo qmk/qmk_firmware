@@ -11,6 +11,7 @@
 #define DEVICE_VER   0x0001
 #define MANUFACTURER RAYLAX DEMO
 #define PRODUCT      RAYLAX DEMO
+#define DESCRIPTION  RAYLAX DEMO ONEKEY
 
 /* key matrix size */
 #define MATRIX_ROWS 1
