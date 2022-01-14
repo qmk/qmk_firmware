@@ -1,6 +1,9 @@
 # MCU name
 MCU = STM32F303
 
+# Bootloader selection
+BOOTLOADER = stm32-dfu
+
 # Touch encoder needs
 SRC += ../common/touch_encoder.c
 SRC += ../common/common_oled.c
