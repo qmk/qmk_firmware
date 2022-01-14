@@ -1,3 +1,5 @@
+// Copyright 2021 Anton Kavalkou (@antosha417)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
 //#define USE_MATRIX_I2C
@@ -14,7 +16,16 @@
 
 #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM
-    #define RGBLIGHT_ANIMATIONS
+    #define RGBLIGHT_EFFECT_BREATHING
+    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+    #define RGBLIGHT_EFFECT_SNAKE
+    #define RGBLIGHT_EFFECT_KNIGHT
+    #define RGBLIGHT_EFFECT_CHRISTMAS
+    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+    #define RGBLIGHT_EFFECT_RGB_TEST
+    #define RGBLIGHT_EFFECT_ALTERNATING
+    #define RGBLIGHT_EFFECT_TWINKLE
     #define RGBLED_NUM 27
     #define RGBLIGHT_LIMIT_VAL 120
     #define RGBLIGHT_HUE_STEP 10

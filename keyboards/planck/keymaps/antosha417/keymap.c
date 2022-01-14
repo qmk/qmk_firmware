@@ -1,8 +1,8 @@
+// Copyright 2021 Anton Kavalkou (@antosha417)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 #include <sendstring_dvorak.h>
 #include "muse.h"
-
-extern keymap_config_t keymap_config;
 
 enum layers {
   _QWERTY,
@@ -281,7 +281,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -311,6 +311,7 @@ void encoder_update(bool clockwise) {
       #endif
     }
   }
+  return false;
 }
 
 bool dip_switch_update_user(uint8_t index, bool active) {

@@ -1,6 +1,7 @@
+// Copyright 2021 Anton Kavalkou (@antosha417)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 #include <sendstring_dvorak.h>
-#include <stdio.h>
 
 typedef union {
   uint32_t raw;
@@ -234,50 +235,29 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("layer: "), false);
-    if (layer_state < L_QWERTY) {
-      oled_write_ln_P(PSTR("qwerty"), false);
-    } else if (layer_state < L_DVORAK) {
-      oled_write_ln_P(PSTR("dvorak"), false);
-    } else if (layer_state < L_LOWER) {
-      oled_write_ln_P(PSTR("lower"), false);
-    } else if (layer_state < L_RAISE) {
-      oled_write_ln_P(PSTR("raise"), false);
-    } else if (layer_state < L_TOP) {
-      oled_write_ln_P(PSTR("top"), false);
-    } else if (layer_state < L_BOTTOM) {
-      oled_write_ln_P(PSTR("bottom"), false);
-    } else {
-      oled_write_ln_P(PSTR("unknown"), false);
+    switch (get_highest_layer(layer_state|default_layer_state)) {
+      case _QWERTY:
+        oled_write_ln_P(PSTR("qwerty"), false);
+        break
+      case _DVORAK:
+        oled_write_ln_P(PSTR("dvorak"), false);
+        break;
+      case _LOWER:
+        oled_write_ln_P(PSTR("lower"), false);
+        break;
+      case_RAISE:
+        oled_write_ln_P(PSTR("raise"), false);
+        break;
+      case _TOP:
+        oled_write_ln_P(PSTR("top"), false);
+        break;
+      case _BOTTOM:
+        oled_write_ln_P(PSTR("bottom"), false);
+        break;
+      default:
+        oled_write_ln_P(PSTR("unknown"), false);
+        break;
     }
-}
-
-
-char keylog_str[24] = {};
-
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
-    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
-
-void set_keylog(uint16_t keycode, keyrecord_t *record) {
-  char name = ' ';
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
-  if (keycode < 60) {
-    name = code_to_name[keycode];
-  }
-
-  // update keylog
-  snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
-           record->event.key.row, record->event.key.col,
-           keycode, name);
-}
-
-void oled_render_keylog(void) {
-    oled_write(keylog_str, false);
 }
 
 void render_bootmagic_status(bool status) {
@@ -306,9 +286,8 @@ void oled_render_logo(void) {
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-	oled_write_ln_P(PSTR("nice cock"), false);
+        oled_write_ln_P(PSTR("nice cock"), false);
         oled_render_layer_state();
-        // oled_render_keylog();
     } else {
         oled_render_logo();
     }
@@ -324,7 +303,7 @@ void keyboard_post_init_user(void) {
 
 void set_english_language(void) {
   layer_on(_DVORAK);
-  tap_code16(LSFT(LCTL(LGUI(KC_1)))); // the same as SEND_STRING(SS_LSFT(SS_LCTL(SS_LGUI(SS_TAP(X_1)))));
+  tap_code16(LSFT(LCTL(LGUI(KC_1))));
 }
 
 void set_russian_language(void) {

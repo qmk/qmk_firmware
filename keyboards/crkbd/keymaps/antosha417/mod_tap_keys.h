@@ -1,3 +1,6 @@
+// Copyright 2021 Anton Kavalkou (@antosha417)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 // MOD_TAP_KEY(key, tap_action, mod_on_action, mod_off_action)
 
 MOD_TAP_KEY(S_GUIQ, tap_code(KC_S), {layer_on(_DVORAK); register_code(KC_LGUI);}, {layer_off(_DVORAK); unregister_code(KC_LGUI);})
