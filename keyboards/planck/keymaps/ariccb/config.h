@@ -47,6 +47,8 @@
 // #define IGNORE_MOD_TAP_INTERRUPT
 // #define HOLD_ON_OTHER_KEY_PRESS 
 
+#define COMBO_TERM 20
+
 
 
 #define MOUSEKEY_INTERVAL 16        //Time between cursor movements in milliseconds.
