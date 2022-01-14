@@ -48,7 +48,8 @@ void switch_usb(void) {
 
 void keyboard_post_init_user(void) {
     #ifdef RGB_MATRIX_ENABLE
-        rgblight_enable_noeeprom();
+        rgblight_enable();
+        rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
         led_on = true;
         rgblight_sethsv(COLOR);
     #endif
@@ -73,7 +74,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef RGB_MATRIX_ENABLE
             case MO(1):
                 if(record->event.pressed) {
-                    rgblight_sethsv(HSV_PINK);
+                    rgblight_sethsv(HSV_PURPLE);
                     return true;
                 } else {
                     rgblight_sethsv(COLOR);
