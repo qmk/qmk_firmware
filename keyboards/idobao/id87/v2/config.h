@@ -43,7 +43,7 @@
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 103 /* 16 Bottom 6 top*/
+#define RGBLED_NUM 103 /* 16 Bottom 87 top*/
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
