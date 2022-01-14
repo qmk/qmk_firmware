@@ -18,10 +18,12 @@
 
 #include "quantum.h"
 
-#if   defined(KEYBOARD_keychron_q1_rev_0100)
-#    include "rev_0100.h"
-#elif defined(KEYBOARD_keychron_q1_rev_0101)
-#    include "rev_0101.h"
-#elif defined(KEYBOARD_keychron_q1_rev_0102)
-#    include "rev_0102.h"
+#if   defined(KEYBOARD_keychron_q2_rev_0110)
+#    include "rev_0110.h"
+#elif defined(KEYBOARD_keychron_q2_rev_0111)
+#    include "rev_0111.h"
+#elif defined(KEYBOARD_keychron_q2_rev_0112)
+#    include "rev_0112.h"
+#elif defined(KEYBOARD_keychron_q2_rev_0113)
+#    include "rev_0113.h"
 #endif

@@ -14,14 +14,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "q2.h"
 
-#include "quantum.h"
+const matrix_row_t matrix_mask[] = {
+    0b1111111111111111,
+    0b1111111111111111,
+    0b1111111111111111,
+    0b1111111111111111,
+    0b1111111111101111,
+};
 
-#if   defined(KEYBOARD_keychron_q1_rev_0100)
-#    include "rev_0100.h"
-#elif defined(KEYBOARD_keychron_q1_rev_0101)
-#    include "rev_0101.h"
-#elif defined(KEYBOARD_keychron_q1_rev_0102)
-#    include "rev_0102.h"
-#endif
+bool dip_switch_update_kb(uint8_t index, bool active) {
+    if (!dip_switch_update_user(index, active)) { return false;}
+    if (index == 0) {
+        default_layer_set(1UL << (active ? 1 : 0));
+    }
+    return true;
+}
