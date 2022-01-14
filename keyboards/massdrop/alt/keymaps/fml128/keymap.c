@@ -1,13 +1,17 @@
 #include QMK_KEYBOARD_H
 
+/*
 enum alt_keycodes {
     SWITCH_USB = SAFE_RANGE,
 };
+*/
+
 
 #ifdef RGB_MATRIX_ENABLE
-    //static uint32_t idle_timer;
-    //static bool led_on = true;
+    static uint32_t idle_timer;
+    static bool led_on;
 #endif
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_65_ansi_blocker(
@@ -19,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_65_ansi_blocker(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, \
-        SWITCH_USB, _______, _______, _______, _______, _______, _______, _______,_______,_______, _______, _______, _______, _______, _______, \
+        _______, _______, _______, _______, _______, _______, _______, _______,_______,_______, _______, _______, _______, _______, _______, \
         RESET, _______,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_PGUP, _______, \
         _______, _______, _______,                            _______,                            KC_RCTL, _______, _______, KC_PGDN, _______  \
@@ -42,30 +46,33 @@ void switch_usb(void) {
 }
 */
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
     #ifdef RGB_MATRIX_ENABLE
+        rgblight_enable_noeeprom();
+        led_on = true;
         rgblight_sethsv(COLOR);
     #endif
 }
 
-/*
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        #ifdef RGB_MATRIX_ENABLE
-            if (!led_on) {
-                rgblight_enable_noeeprom();
-                led_on = true;
-            }
-        idle_timer = timer_read();
-        #endif
-    }
+    #ifdef RGB_MATRIX_ENABLE
+        if (record->event.pressed) {
+                if (!led_on) {
+                    rgblight_enable_noeeprom();
+                    led_on = true;
+                }
+            idle_timer = timer_read();
+        }
+    #endif
+
     switch (keycode) {
-        case SWITCH_USB:
-            switch_usb();
-            return false;
+        //case SWITCH_USB:
+        //    switch_usb();
+        //    return false;
         default:
             return true; //Process all other keycodes normally
-  }
+        }
 }
 
 void matrix_scan_user(void) {
@@ -77,4 +84,3 @@ void matrix_scan_user(void) {
     #endif
 }
 
-*/
