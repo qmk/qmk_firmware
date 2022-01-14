@@ -1,4 +1,4 @@
-/* Copyright 2020 Kyle McCreery 
+/* Copyright 2022 Kyle McCreery 
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the GNU General Public License as published by 
@@ -14,4 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  */
 
-#include "bde.h"
+#pragma once
+/* Making it so you need to hold the modifier and other key for the time together, helps not accidentally hit activate the hold functions of bottom row*/
+#define IGNORE_MOD_TAP_INTERRUPT
+
+/* Setting tap term, helps not accidentally hit activate the hold functions of bottom row*/
+#define TAPPING_TERM 250

@@ -1,13 +1,16 @@
 /*
 Copyright 2021 Kyle McCreery
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
+
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -23,63 +26,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    MechWild
 #define PRODUCT         MurphPad
 
-#define SOFT_SERIAL_PIN D2
-
-//#ifndef SOFT_SERIAL_PIN /* Non-Split Definitions */
-///* Key matrix size */
-//#define MATRIX_ROWS 6
-//#define MATRIX_COLS 5
-//
-///* Key matrix pins */
-//#define MATRIX_ROW_PINS { F5, B2, B3, B1, F7, F6 }
-//#define MATRIX_COL_PINS { B5, D7, C6, D4, B6 }
-//#define UNUSED_PINS
-//
-///* Encoder pins in regular mode */
-//#define ENCODERS_PAD_A { E6, D2 }
-//#define ENCODERS_PAD_B { B4, D3 }
-//
-///* COL2ROW, ROW2COL */
-//#define DIODE_DIRECTION COL2ROW
-//
-//#else /* Split Definitions */
 /* Key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 5
 
 /* Key matrix pins */
-#define MATRIX_ROW_PINS { B5, D7, C6, D4, B6 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, F5 }
+#define MATRIX_ROW_PINS { F5, B2, B3, B1, F7, F6 }
+#define MATRIX_COL_PINS { B5, D7, C6, D4, B6 }
 #define UNUSED_PINS
 
-/* Use I2C or Serial, not both */
-#define USE_SERIAL
-// #define USE_I2C
-
-/* Select hand configuration */
-// #define MASTER_LEFT
-#define MASTER_RIGHT
-// #define EE_HANDS
-
-/* Encoder pins in split mode */
-#define ENCODERS_PAD_A { E6 }
-#define ENCODERS_PAD_B { B4 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-//#endif 
+/* Encoder pins */
+#define ENCODERS_PAD_A { E6, D2 }
+#define ENCODERS_PAD_B { B4, D3 }
 
 /* Encoder resolution */
 #define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
 
+/* COL2ROW, ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+
 #define OLED_FONT_H "keyboards/mechwild/murphpad/lib/murphpadfont.c"
 
 #define RGB_DI_PIN F4
 #ifdef RGB_DI_PIN
-#    define RGBLED_SPLIT { 8, 8 }
-#    define RGBLED_NUM 16
+#    define RGBLED_NUM 8
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
