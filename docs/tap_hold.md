@@ -126,6 +126,61 @@ The code which decides between the tap and hold actions of dual-role keys suppor
 
 Note that until the tap-or-hold decision completes (which happens when either the dual-role key is released, or the tapping term has expired, or the extra condition for the selected decision mode is satisfied), key events are delayed and not transmitted to the host immediately.  The default mode gives the most delay (if the dual-role key is held down, this mode always waits for the whole tapping term), and the other modes may give less delay when other keys are pressed, because the hold action may be selected earlier.
 
+### Default Mode
+Example sequence 1 (the `L` key is also mapped to `KC_RGHT` on layer 2):
+
+```
+             TAPPING_TERM
+  +---------------|--------------------+
+  | +-------------|-------+            |
+  | | LT(2, KC_A) |       |            |
+  | +-------------|-------+            |
+  |               | +--------------+   |
+  |               | | KC_L         |   |
+  |               | +--------------+   |
+  +---------------|--------------------+
+```
+The above sequence would send a `KC_RGHT`, since `LT(2, KC_A)` is held longer than the `TAPPING_TERM`.
+
+---
+
+Example sequence 2 (the `L` key is also mapped to `KC_RGHT` on layer 2):
+
+```
+                           TAPPING_TERM
+  +-----------------------------|------+
+  | +---------------+           |      |
+  | | LT(2, KC_A)   |           |      |
+  | +---------------+           |      |
+  |            +--------------+ |      |
+  |            | KC_L         | |      |
+  |            +--------------+ |      |
+  +-----------------------------|------+
+```
+The above sequence will not send a `KC_RGHT` but a `KC_L`, since `LT(2, KC_A)` is not held longer than the `TAPPING_TERM`.
+
+---
+
+Example sequence 3 (Mod Tap):
+
+```
+                         TAPPING_TERM
+  +---------------------------|--------+
+  | +-------------+           |        |
+  | | SFT_T(KC_A) |           |        |
+  | +-------------+           |        |
+  |       +--------------+    |        |
+  |       | KC_X         |    |        |
+  |       +--------------+    |        |
+  +---------------------------|--------+
+```
+Based on the examples above, you might have expected the output of the above sequence to be `ax`
+since `SFT_T(KC_A)` is NOT held longer than the `TAPPING_TERM`.
+However, the actual output would be capital `X` (`SHIFT` + `x`) due to reasons
+explained under [Ignore Mod Tap Interrupt](#ignore-mod-tap-interrupt).
+
+
+
 ### Permissive Hold
 
 The “permissive hold” mode can be enabled for all dual-role keys by adding the corresponding option to `config.h`:
