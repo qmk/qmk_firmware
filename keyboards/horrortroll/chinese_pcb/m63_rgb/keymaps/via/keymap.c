@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 };
 
-void keyboard_post_init_kb(void) {
+void keyboard_post_init_user(void) {
     user_config.raw = eeconfig_read_user();
     switch (user_config.rgb_mode) {
         case RGB_MODE_ALL:
