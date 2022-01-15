@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
     #ifdef RGB_MATRIX_ENABLE
-        rgblight_enable();
+        rgblight_enable_noeeprom();
         rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
         rgb_matrix_set_flags(LED_FLAG_ALL);
         rgblight_sethsv(COLOR);
