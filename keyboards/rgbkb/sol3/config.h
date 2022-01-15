@@ -13,7 +13,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x3535
-#define PRODUCT_ID      0x3505
+#define PRODUCT_ID      0x3510
 #define MANUFACTURER    RGBKB
 #define PRODUCT         Sol 3
 
