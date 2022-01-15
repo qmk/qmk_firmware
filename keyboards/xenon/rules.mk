@@ -10,7 +10,6 @@ BOOTLOADER = caterina
 EXTRAKEY_ENABLE = yes      # Audio control and System control
 CONSOLE_ENABLE = yes       # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
-# TODO Test this
 NKRO_ENABLE = no           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality on B7 by default
 SPLIT_KEYBOARD = yes       # Split common
