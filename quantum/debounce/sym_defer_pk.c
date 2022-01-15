@@ -49,7 +49,7 @@ static debounce_counter_t *debounce_counters;
 static fast_timer_t        last_time;
 static bool                counters_need_update;
 
-#define DEBOUNCE_ELAPSED 0
+#    define DEBOUNCE_ELAPSED 0
 
 static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t elapsed_time);
 static void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows);
@@ -74,10 +74,10 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     bool updated_last = false;
 
     if (counters_need_update) {
-        fast_timer_t now = timer_read_fast();
+        fast_timer_t now          = timer_read_fast();
         fast_timer_t elapsed_time = TIMER_DIFF_FAST(now, last_time);
 
-        last_time = now;
+        last_time    = now;
         updated_last = true;
         if (elapsed_time > UINT8_MAX) {
             elapsed_time = UINT8_MAX;

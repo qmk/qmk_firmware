@@ -71,8 +71,9 @@ static void render_RIP(void) {
   oled_write_raw_P(my_logo, sizeof(my_logo));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   render_RIP();
+    return false;
   }
 
 #endif

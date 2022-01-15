@@ -28,5 +28,5 @@ bool SOLID_REACTIVE_MULTINEXUS(effect_params_t* params) { return effect_runner_r
 #            endif
 
 #        endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#    endif      // !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_NEXUS) || !defined(DISABLE_LED_MATRIX_SOLID_REACTIVE_MULTINEXUS)
+#    endif      // defined(ENABLE_LED_MATRIX_SOLID_REACTIVE_NEXUS) || defined(ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTINEXUS)
 #endif          // LED_MATRIX_KEYREACTIVE_ENABLED

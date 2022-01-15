@@ -23,21 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    dyz
 #define PRODUCT         selka40
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 

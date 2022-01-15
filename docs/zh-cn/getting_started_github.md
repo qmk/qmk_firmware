@@ -32,7 +32,6 @@ Submodule path 'lib/chibios': checked out '587968d6cbc2b0e1c7147540872f2a67e59ca
 Submodule path 'lib/chibios-contrib': checked out 'ede48346eee4b8d6847c19bc01420bee76a5e486'
 Submodule path 'lib/googletest': checked out 'ec44c6c1675c25b9827aacd08c02433cccde7780'
 Submodule path 'lib/lufa': checked out 'ce10f7642b0459e409839b23cc91498945119b4d'
-Submodule path 'lib/ugfx': checked out '3e97b74e03c93631cdd3ddb2ce43b963fdce19b2'
 ```
 
 现在你本地计算机有QMK的分叉了,你可以添加你的布局了, 为你的键盘编译并刷新固件吧。如果你觉得你的修改很不错, 你可以添加,提交,然后想你的分叉推出（pull）你的改变，像这样:

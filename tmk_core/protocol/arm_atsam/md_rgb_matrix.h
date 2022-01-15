@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _LED_MATRIX_H_
 
 #include "quantum.h"
+#include "eeprom.h"
 
 // From keyboard
 #include "config_led.h"
@@ -79,7 +80,6 @@ typedef struct issi3733_led_s {
 
 extern issi3733_driver_t issidrv[ISSI3733_DRIVER_COUNT];
 
-extern uint8_t gcr_desired;
 extern uint8_t gcr_breathe;
 extern uint8_t gcr_actual;
 extern uint8_t gcr_actual_last;
@@ -128,6 +128,8 @@ typedef struct led_instruction_s {
     uint32_t id1;    // Bitwise id, IDs 32-63
     uint32_t id2;    // Bitwise id, IDs 64-95
     uint32_t id3;    // Bitwise id, IDs 96-127
+    uint32_t id4;    // Bitwise id, IDs 128-159
+    uint32_t id5;    // Bitwise id, IDs 160-191
     uint8_t  layer;
     uint8_t  r;
     uint8_t  g;
@@ -138,14 +140,43 @@ typedef struct led_instruction_s {
 
 extern led_instruction_t led_instructions[];
 
-extern uint8_t led_animation_breathing;
-extern uint8_t led_animation_id;
-extern float   led_animation_speed;
-extern uint8_t led_lighting_mode;
-extern uint8_t led_enabled;
-extern uint8_t led_animation_breathe_cur;
-extern uint8_t led_animation_direction;
-extern uint8_t breathe_dir;
+typedef struct led_config_s {
+    uint8_t ver;  // assumed to be zero on eeprom reset
+
+    uint8_t desired_gcr;
+    uint8_t animation_breathing;
+    uint8_t animation_id;
+    float   animation_speed;
+    uint8_t lighting_mode;
+    uint8_t enabled;
+    uint8_t animation_breathe_cur;
+    uint8_t animation_direction;
+    uint8_t animation_breathe_dir;
+    uint8_t animation_orientation;
+    uint8_t animation_circular;
+    float   edge_brightness;
+    float   ratio_brightness;
+    uint8_t edge_mode;
+} md_led_config_t;
+
+extern md_led_config_t md_led_config;
+
+void md_led_changed(void);
+
+#    define gcr_desired md_led_config.desired_gcr
+#    define led_animation_breathing md_led_config.animation_breathing
+#    define led_animation_id md_led_config.animation_id
+#    define led_animation_speed md_led_config.animation_speed
+#    define led_lighting_mode md_led_config.lighting_mode
+#    define led_enabled md_led_config.enabled
+#    define led_animation_breathe_cur md_led_config.animation_breathe_cur
+#    define led_animation_direction md_led_config.animation_direction
+#    define breathe_dir md_led_config.animation_breathe_dir
+#    define led_animation_orientation md_led_config.animation_orientation
+#    define led_animation_circular md_led_config.animation_circular
+#    define led_edge_brightness md_led_config.edge_brightness
+#    define led_ratio_brightness md_led_config.ratio_brightness
+#    define led_edge_mode md_led_config.edge_mode
 
 #    define LED_MODE_NORMAL 0  // Must be 0
 #    define LED_MODE_KEYS_ONLY 1
@@ -153,6 +184,21 @@ extern uint8_t breathe_dir;
 #    define LED_MODE_INDICATORS_ONLY 3
 #    define LED_MODE_MAX_INDEX LED_MODE_INDICATORS_ONLY  // Must be highest value
 
+#    define LED_EDGE_MODE_ALL 0                        // All edge LEDs are active (Must be 0)
+#    define LED_EDGE_MODE_ALTERNATE 1                  // Alternate mode of edge LEDs are active (Intention is for 'only every other edge LED' to be active)
+#    define LED_EDGE_MODE_MAX LED_EDGE_MODE_ALTERNATE  // Must be the highest valued LED edge mode
+
+#    define LED_EDGE_FULL_MODE 255  // LEDs configured with this scan code will always be on for edge lighting modes
+#    define LED_EDGE_ALT_MODE 254   // LEDs configured with this scan code will turn off in edge alternating mode
+#    define LED_EDGE_MIN_SCAN 254   // LEDs configured with scan code >= to this are assigned as edge LEDs
+#    define LED_INDICATOR_SCAN 253  // LEDs configured as dedicated indicators
+
+#    define LED_IS_KEY(scan) (scan < LED_INDICATOR_SCAN)         // Return true if an LED's scan value indicates it is a key LED
+#    define LED_IS_EDGE(scan) (scan >= LED_EDGE_MIN_SCAN)        // Return true if an LED's scan value indicates an edge LED
+#    define LED_IS_EDGE_ALT(scan) (scan == LED_EDGE_ALT_MODE)    // Return true if an LED's scan value indicates an alternate edge mode LED
+#    define LED_IS_INDICATOR(scan) (scan == LED_INDICATOR_SCAN)  // Return true if an LED's scan value indicates it is a dedicated Indicator
+#else
+extern uint8_t gcr_desired;
 #endif  // USE_MASSDROP_CONFIGURATOR
 
 #endif  //_LED_MATRIX_H_
