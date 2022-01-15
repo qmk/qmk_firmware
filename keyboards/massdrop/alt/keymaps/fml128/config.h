@@ -1,7 +1,7 @@
 #define USB_POLLING_INTERVAL_MS 1
 
 #define COLOR HSV_GREEN
-#define BACKLIGHT_TIMEOUT 2 // (minutes)
+#define BACKLIGHT_TIMEOUT 5 // (minutes)
 
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
 

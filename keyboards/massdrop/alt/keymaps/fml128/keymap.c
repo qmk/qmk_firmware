@@ -2,7 +2,8 @@
 
 
 #ifdef RGB_MATRIX_ENABLE
-    static uint32_t idle_timer;
+    static uint16_t idle_timer;
+    static uint8_t minute_counter;
     static bool led_on;
 #endif
 
@@ -38,21 +39,21 @@ void keyboard_post_init_user(void) {
         rgblight_enable();
         rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
         rgb_matrix_set_flags(LED_FLAG_ALL);
-        led_on = true;
         rgblight_sethsv(COLOR);
+
+        led_on = true;
+        idle_timer = timer_read();
+        minute_counter = 0;
     #endif
 }
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef RGB_MATRIX_ENABLE
-        if (record->event.pressed) {
-                if (!led_on) {
-                    rgblight_enable_noeeprom();
-                    led_on = true;
-                }
+            rgblight_enable_noeeprom();
+            led_on = true;
             idle_timer = timer_read();
-        }
+            minute_counter = 0;
     #endif
 
     switch (keycode) {
@@ -69,15 +70,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
         #endif
         default:
-            return true; //Process all other keycodes normally
+            return true;
         }
 }
 
 void matrix_scan_user(void) {
     #ifdef RGB_MATRIX_ENABLE
-        if ( led_on && timer_elapsed(idle_timer) > BACKLIGHT_TIMEOUT * 60000) {
-            rgblight_disable_noeeprom();
-            led_on = false;
+        if (led_on) {
+            if (timer_elapsed(idle_timer) >= 60000) {
+                minute_counter++;
+                idle_timer = timer_read();
+
+                if (minute_counter >= BACKLIGHT_TIMEOUT) {
+                    rgblight_disable_noeeprom();
+                    led_on = false;
+                    minute_counter = 0;
+                    idle_timer = timer_read();
+                }
+            }
         }
     #endif
 }
