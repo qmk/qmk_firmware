@@ -137,42 +137,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
 #endif
-
-        case HAEN_A:
-            if (__PRESSED__) {
-                haen_keycode(KC_A);
-            }
-            break;
-        case HAEN_B:
-            if (__PRESSED__) {
-                haen_keycode(KC_B);
-            }
-            break;
-        case HAEN_C:
-            if (__PRESSED__) {
-                haen_keycode(KC_C);
-            }
-            break;
-        case HAEN_D:
-            if (__PRESSED__) {
-                haen_keycode(KC_D);
-            }
-            break;
-        case HAEN_E:
-            if (__PRESSED__) {
-                haen_keycode(KC_E);
-            }
-            break;
-        case HAEN_F:
-            if (__PRESSED__) {
-                haen_keycode(KC_F);
-            }
-            break;
-        case HAEN_G:
-            if (__PRESSED__) {
-                haen_keycode(KC_G);
-            }
-            break;
             // 괄호 커서이동 기능
         case KC_COMM:
             if (__PRESSED__ /* && (brkt_pressed||prns_pressed)*/) {
