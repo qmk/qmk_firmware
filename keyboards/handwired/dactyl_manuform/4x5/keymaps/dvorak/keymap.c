@@ -1,4 +1,4 @@
-#include "dactyl_manuform.h"
+#include "quantum.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 
