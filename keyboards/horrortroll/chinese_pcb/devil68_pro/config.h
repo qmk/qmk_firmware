@@ -19,8 +19,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x7666
-#define PRODUCT_ID      0x6668
+#define VENDOR_ID       0x7516
+#define PRODUCT_ID      0x6001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    HorrorTroll
 #define PRODUCT         Devil68 Pro
@@ -33,8 +33,8 @@
 #define MATRIX_ROW_PINS { B7, B3, B2, F6, F7 }
 #define MATRIX_COL_PINS { B1, B0, B5, B6, C6, C7, E2, D0, D1, D2, D3, D5, D4, D6, D7, B4 }
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_ROW 3
+#define BOOTMAGIC_LITE_COLUMN 6
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
