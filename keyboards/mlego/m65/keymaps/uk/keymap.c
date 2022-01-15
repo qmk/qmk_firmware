@@ -32,7 +32,8 @@ enum layer_names {
 #endif
 
 #ifdef OLED_ENABLE
-static uint16_t logo_timer = 0;
+static uint16_t draw_logo_timer = 0;
+static uint16_t show_logo_timer = 0;
 
     static const char PROGMEM m65_logo[] = {
         0x91, 0x92, 0x93, 0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa5, 0xa5, 0xa5, 0xa5, 0xa5, 0xa5,
@@ -450,17 +451,18 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
-#define LOGO_TIMEOUT 2000
+#define LOGO_RENDER 50
+#define SHOW_LOGO 5000
 bool oled_task_user(void) {
 
-  if (!is_logo_on){
-    if (timer_elapsed(logo_timer) < LOGO_TIMEOUT) {
-        logo_timer = timer_read();
+    if (timer_elapsed(draw_logo_timer) < LOGO_RENDER){
+        draw_logo_timer = timer_read();
         render_logo();
-    } else {
-        is_logo_on = true;
-    user_oled_magic();
-  }
+    }
+
+    if (timer_elapsed(show_logo_timer) > SHOW_LOGO){
+        show_logo_timer = timer_read();
+        user_oled_magic();
     }
     return false;
 }
