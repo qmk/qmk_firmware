@@ -30,6 +30,10 @@ __attribute__((weak)) void bootloader_jump(void) {
 
     *bootKeyPtr = bootKey;
 
+    keyboard_jump();
+}
+
+__attribute__((weak)) void keyboard_jump(void) {
     // setup watchdog timeout
     wdt_enable(WDTO_60MS);
 

@@ -17,5 +17,6 @@
 #include "bootloader.h"
 
 __attribute__((weak)) void bootloader_jump(void) {}
+__attribute__((weak)) void keyboard_jump(void) { NVIC_SystemReset(); }
 
 __attribute__((weak)) void enter_bootloader_mode_if_requested(void) {}

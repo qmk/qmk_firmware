@@ -34,8 +34,12 @@ __attribute__((weak)) void bootloader_jump(void) {
     UCSR1B = 0;
     _delay_ms(5); // 5 seems to work fine
 
-    // watchdog reset
     reset_key = BOOTLOADER_RESET_KEY;
+    keyboard_jump();
+}
+
+__attribute__((weak)) void keyboard_jump(void) {
+    // watchdog reset
     wdt_enable(WDTO_250MS);
     for (;;)
         ;

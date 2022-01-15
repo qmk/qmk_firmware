@@ -2,9 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "drashna.h"
-#ifdef __AVR__
-#    include <avr/wdt.h>
-#endif
 
 userspace_config_t userspace_config;
 
@@ -74,51 +71,4 @@ void tap_code16_nomods(uint16_t kc) {
     clear_oneshot_mods();
     tap_code16(kc);
     set_mods(temp_mod);
-}
-
-/**
- * @brief Run shutdown routine and soft reboot firmware.
- *
- */
-
-#ifdef HAPTIC_ENABLE
-#    include "haptic.h"
-#endif
-
-#ifdef AUDIO_ENABLE
-#    ifndef GOODBYE_SONG
-#        define GOODBYE_SONG SONG(GOODBYE_SOUND)
-#    endif
-float reset_song[][2] = GOODBYE_SONG;
-#endif
-
-void software_reset(void) {
-    clear_keyboard();
-#if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
-    process_midi_all_notes_off();
-#endif
-#ifdef AUDIO_ENABLE
-#    ifndef NO_MUSIC_MODE
-    music_all_notes_off();
-#    endif
-    uint16_t timer_start = timer_read();
-    PLAY_SONG(reset_song);
-    shutdown_user();
-    while (timer_elapsed(timer_start) < 250) wait_ms(1);
-    stop_all_notes();
-#else
-    shutdown_user();
-    wait_ms(250);
-#endif
-#ifdef HAPTIC_ENABLE
-    haptic_shutdown();
-#endif
-
-#if defined(PROTOCOL_LUFA)
-    wdt_enable(WDTO_250MS);
-#elif defined(PROTOCOL_CHIBIOS)
-#    if defined(MCU_STM32) || defined(MCU_KINETIS)
-    NVIC_SystemReset();
-#    endif
-#endif
 }

@@ -121,7 +121,7 @@ __attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t 
 
 __attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
 
-void reset_keyboard(void) {
+void shutdown_quantum(void) {
     clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
     process_midi_all_notes_off();
@@ -143,7 +143,16 @@ void reset_keyboard(void) {
 #ifdef HAPTIC_ENABLE
     haptic_shutdown();
 #endif
+}
+
+void reset_keyboard(void) {
+    shutdown_quantum();
     bootloader_jump();
+}
+
+void soft_reset_keyboard(void) {
+    shutdown_quantum();
+    keyboard_jump();
 }
 
 /* Convert record into usable keycode via the contained event. */
@@ -339,6 +348,10 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
             case QK_CLEAR_EEPROM:
                 eeconfig_init();
+                soft_reset_keyboard();
+                return false;
+            case QK_REBOOT:
+                soft_reset_keyboard();
                 return false;
 #ifdef VELOCIKEY_ENABLE
             case VLK_TOG:

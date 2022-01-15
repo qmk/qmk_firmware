@@ -27,6 +27,11 @@ __attribute__((weak)) void bootloader_jump(void) {
     eeprom_write_byte((uint8_t *)1, 0x00);
 
     // watchdog reset
+    keyboard_jump();
+}
+
+__attribute__((weak)) void keyboard_jump(void) {
+    // watchdog reset
     wdt_enable(WDTO_250MS);
     for (;;)
         ;

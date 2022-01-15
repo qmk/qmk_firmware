@@ -47,7 +47,6 @@ enum userspace_custom_keycodes {
     KC_ZALGO,
     KC_ACCEL,
     AUTO_CTN,                                 // Toggle Autocorrect status
-    REBOOT,
     NEW_SAFE_RANGE                            // use "NEWPLACEHOLDER for keymap specific codes
 };
 
@@ -147,3 +146,5 @@ We use custom codes here, so we can substitute the right stuff
 #    define KC_D3_3 KC_3
 #    define KC_D3_4 KC_4
 #endif  // TAP_DANCE_ENABLE
+
+#define REBOOT QK_REBOOT

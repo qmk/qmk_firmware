@@ -17,3 +17,11 @@
 #include "bootloader.h"
 
 __attribute__((weak)) void bootloader_jump(void) {}
+__attribute__((weak)) void keyboard_jump(void) {
+    // setup watchdog timeout
+    wdt_enable(WDTO_60MS);
+
+    // wait for watchdog timer to trigger
+    while (1) {
+    }
+}
