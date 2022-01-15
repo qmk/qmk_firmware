@@ -18,4 +18,4 @@
 
 #include "test_common.h"
 
-#define PERMISSIVE_HOLD
+#define RETRO_SHIFT

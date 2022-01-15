@@ -497,7 +497,7 @@ void process_action(keyrecord_t *record, action_t action) {
                 default:
                     if (event.pressed) {
                         if (tap_count > 0) {
-#    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+#    ifdef HOLD_ON_OTHER_KEY_PRESS
                             if (
 #        ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
                                 get_hold_on_other_key_press(get_event_keycode(record->event, false), record) &&
