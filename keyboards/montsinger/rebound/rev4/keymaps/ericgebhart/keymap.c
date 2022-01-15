@@ -17,32 +17,18 @@
 #include "ericgebhart.h"
 #include "layouts.h"
 
+// Point the keymap macros at the proper layouts.
+// Base layers 4x10, no numbers, just a 3x10 for the keymap.
+// Transient function layers are all 3x10.
+// The 4th row and middle 3 buttons remain as base defines it.
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  // Qwerty based Base layers
-  [_DVORAK]  = Rebound_base(___DVORAK___),
-  [_BEAKL]   = Rebound_base(___BEAKL15___),
-  [_COLEMAK] = Rebound_base(___COLEMAK_DH___),
-  [_QWERTY]  = Rebound_base(___QWERTY___),
+#define BASE Rebound_base
+#define BEPO Rebound_base_bepo
+#define TRANS Rebound_transient
 
-  // Bepo base layers
-  [_BEAKL_BP]  = Rebound_base_bepo(___BEAKL15_FR___),
-  [_DVORAK_BP] = Rebound_base_bepo(___DVORAK_FR___),
-  [_BEPO]      = Rebound_base_bepo6(___BEPO6___),
+#undef BEPO_ENABLE
 
-  // Transient layers.
-  [_SYMB]    = Rebound_transient(___SYMB_BEAKLA_3x12___),
-  [_SYMB_BP] = Rebound_transient(___SYMB_BEAKLA_BP_3x12___),
-
-  [_KEYPAD]    = Rebound_transient(___KP_C_3x12___),
-  [_KEYPAD_BP] = Rebound_transient(___KP_C_BP_3x12___),
-
-  [_TOPROWS]    = Rebound_transient(___TOPROWS_3x12___),
-  [_TOPROWS_BP] = Rebound_transient(___TOPROWS_BP_3x12___),
-  [_NAV]    = Rebound_transient(___NAV_3x12___),
-  [_LAYERS] = Rebound_transient(___LAYERS_3x12___),
-};
-
+#include "map.h"
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
   switch(get_highest_layer(layer_state)){
@@ -64,38 +50,3 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   }
   return true;
 }
-
-#ifdef OLED_ENABLE
-void oled_task_user(void) {
-  // Host Keyboard Layer Status
-  oled_write_P(PSTR(""), false);
-
-  switch (get_highest_layer(layer_state)) {
-  case _BASE:
-    oled_write_P(PSTR("Rebound\n"), false);
-    oled_write_P(PSTR("Rev4\n"), false);
-    break;
-  case _NAV:
-    oled_write_P(PSTR("Nav\n"), false);
-    break;
-  case _SYMB_BEAKL:
-  case _SYMB:
-    oled_write_P(PSTR("Symbols\n"), false);
-    break;
-  case _KEYPAD:
-    oled_write_P(PSTR("Top Rows\n"), false);
-    break;
-  default:
-    // Or use the write_ln shortcut over adding '\n' to the end of your string
-    oled_write_ln_P(PSTR("Undefined"), false);
-  }
-
-  // Host Keyboard LED Status
-  led_t led_state = host_keyboard_led_state();
-  oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-  oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
-  oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-
-}
-
-#endif

@@ -19,35 +19,16 @@
 
 #define LAYOUT_PVARG(...)     LAYOUT_pretty(__VA_ARGS__)
 
-#define Kinesis_base(...)        Base_4x6_4_6(__VA_ARGS__)
-#define Kinesis_bepo_base(...)   Base_bepo_4x6_4_6(__VA_ARGS__)
-#define Kinesis_bepo_base6(...)  Base_bepo6_4x6_4_6(__VA_ARGS__)
-#define Kinesis_transient(...)   Transient6_4x6_4_6(__VA_ARGS__)
+// Base layers 4x10, so numbers are enabled, and a 3x10 for the keymap.
+// Transient function layers are all 3x10.
+
+#define BASE Base_4x6_4_6
+#define BEPO Base_bepo_4x6_4_6
+#define TRANS Transient_4x6_4_6
+
+// tell the keymap we want to specify number rows.
+// 4x10 input instead 3x10.
+#define BASE_NUMBER_ROW    // turn on 4 row base templates.
 
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-  // Qwerty Base layers
-  [_DVORAK]  = Kinesis_base(___NUMS___, ___DVORAK___),
-  [_QWERTY]  = Kinesis_base(___NUMS___, ___QWERTY___),
-  [_COLEMAK] = Kinesis_base(___NUMS___, ___COLEMAK_DH___),
-  [_BEAKL]   = Kinesis_base(___BKLNUMS___, ___BEAKL15___),
-  // Bepo Base layers
-  [_DVORAK_BP] = Kinesis_bepo_base(___NUMS_BP___, ___DVORAK_FR___),
-  [_BEAKL_BP]  = Kinesis_bepo_base(___BKLNUMS_BP___,   ___BEAKL15_FR___),
-
-  [_BEPO]      = Kinesis_bepo_base6(___BEPO6___),
-
-  // transient layers.
-  // Switch to using a transient layer macro
-  [_SYMB]    = Kinesis_transient(___12_FUNC___, ___SYMB_BEAKLA_3x12___),
-  [_SYMB_BP] = Kinesis_transient(___12_FUNC___, ___SYMB_BEAKLA_BP_3x12___),
-
-  [_TOPROWS]    = Kinesis_transient(___12___, ___TOPROWS_3x12___),
-  [_TOPROWS_BP] = Kinesis_transient(___12___, ___TOPROWS_BP_3x12___),
-
-  [_NAV]    = Kinesis_transient(___12___, ___NAV_3x12___),
-  [_LAYERS] = Kinesis_transient(___12___, ___LAYERS_3x12___),
-  [_ADJUST] = Kinesis_transient(___12___, ___ADJUST_3x12___),
-  //[_RGB]    = Kinesis_transient(___12___, ___RGB_3x12___),
-};
+#include "map.h"

@@ -20,13 +20,13 @@
         /********************************************************************/
 
 #define LVARG_rebound(...)    LAYOUT_all(__VA_ARGS__)
-#define LAYOUT_rebound_base(                                            \
-                            K01, K02, K03, K04, K05,                    \
-                            K06, K07, K08, K09, K0A,                    \
-                            K11, K12, K13, K14, K15,                    \
-                            K16, K17, K18, K19, K1A,                    \
-                            K21, K22, K23, K24, K25,                    \
-                            K26, K27, K28, K29, K2A                     \
+#define Rebound_base(                                                   \
+                     K01, K02, K03, K04, K05,                           \
+                     K06, K07, K08, K09, K0A,                           \
+                     K11, K12, K13, K14, K15,                           \
+                           K16, K17, K18, K19, K1A,                     \
+                           K21, K22, K23, K24, K25,                     \
+                           K26, K27, K28, K29, K2A                      \
                                                                         ) \
   LVARG_rebound(                                                        \
                 ROW1_LEFT(K01, K02, K03, K04, K05),                     \
@@ -42,10 +42,10 @@
                 ___13_BOTTOM___                                         \
                                                                         )
 
-#define LAYOUT_rebound_base_bepo(                                       \
-                                 K01, K02, K03, K04, K05,               \
-                                 K06, K07, K08, K09, K0A,               \
-                                 K11, K12, K13, K14, K15,               \
+#define Rebound_base_bepo(                                              \
+                          K01, K02, K03, K04, K05,                      \
+                          K06, K07, K08, K09, K0A,                      \
+                          K11, K12, K13, K14, K15,                      \
                                  K16, K17, K18, K19, K1A,               \
                                  K21, K22, K23, K24, K25,               \
                                  K26, K27, K28, K29, K2A                \
@@ -64,50 +64,21 @@
                 ___13_BOTTOM_BP___                                      \
                                                                         )
 
-// Just for bepo because it's a 3x6 matrix on each side.
-// So 3 pairs of 6 keys, left and right.
-#define LAYOUT_rebound_base_bepo6(                                      \
-                                  K01, K02, K03, K04, K05, K06,         \
-                                  K07, K08, K09, K0A, K0B, K0C,         \
-                                  K11, K12, K13, K14, K15, K16,         \
-                                  K17, K18, K19, K1A, K1B, K1C,         \
-                                  K21, K22, K23, K24, K25, K26,         \
-                                  K27, K28, K29, K2A, K2B, K2C          \
+#define Rebound_transient(                                             \
+                          K01, K02, K03, K04, K05,                     \
+                          K07, K08, K09, K0A, K0B,               \
+                          K11, K12, K13, K14, K15,                     \
+                          K17, K18, K19, K1A, K1B,                     \
+                          K21, K22, K23, K24, K25,                      \
+                          K27, K28, K29, K2A, K2B                       \
                                                                         ) \
   LVARG_rebound(                                                        \
-                ROW1_LEFT_BP6(K01, K02, K03, K04, K05, K06),            \
-                ROW1_RIGHT_BP6(K07, K08, K09, K0A, K0B, K0C),           \
-                                                                        \
-                ROW2_LEFT_BP6(K11, K12, K13, K14, K15, K16),            \
-                KC_CCCV,                                                \
-                ROW2_RIGHT_BP6(K17, K18, K19, K1A, K1B, K1C),           \
-                                                                        \
-                ROW3_LEFT_BP6(K21, K22, K23, K24, K25, K26),            \
-                MO(_ADJUST),                                            \
-                ROW3_RIGHT_BP6(K27, K28, K29, K2A, K2B, K2C),           \
-                ___13_BOTTOM_BP___                                      \
-                                                                        )
-
-#define LAYOUT_rebound_transient(                                       \
-                                 K01, K02, K03, K04, K05, K06,          \
-                                 K07, K08, K09, K0A, K0B, K0C,          \
-                                 K11, K12, K13, K14, K15, K16,          \
-                                 K17, K18, K19, K1A, K1B, K1C,          \
-                                 K21, K22, K23, K24, K25, K26,          \
-                                 K27, K28, K29, K2A, K2B, K2C           \
-                                                                        ) \
-  LVARG_rebound(                                                        \
-                K01, K02, K03, K04, K05, K06,                           \
-                K07, K08, K09, K0A, K0B, K0C,                           \
-                K11, K12, K13, K14, K15, K16,                           \
+                ___, K01, K02, K03, K04, K05,                           \
+                K07, K08, K09, K0A, K0B, ___,                           \
+                ___, K11, K12, K13, K14, K15,                           \
                 ___,                                                    \
-                K17, K18, K19, K1A, K1B, K1C,                           \
-                K21, K22, K23, K24, K25, K26,                           \
+                K17, K18, K19, K1A, K1B, ___,                        \
+                ___, K21, K22, K23, K24, K25,                           \
                 ___,                                                    \
-                K27, K28, K29, K2A, K2B, K2C,                           \
+                K27, K28, K29, K2A, K2B, ___,                           \
                 ___, ___12___)
-
-#define Rebound_base(...)       LAYOUT_rebound_base(__VA_ARGS__)
-#define Rebound_base_bepo(...)  LAYOUT_rebound_base_bepo(__VA_ARGS__)
-#define Rebound_base_bepo6(...) LAYOUT_rebound_base_bepo6(__VA_ARGS__)
-#define Rebound_transient(...)  LAYOUT_rebound_transient(__VA_ARGS__)

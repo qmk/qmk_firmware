@@ -15,19 +15,17 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "keymap_bepo.h"
 #include "ericgebhart.h"
 
+#define BASE Base_5x15
+#define BEPO Base_bepo_5x15
+#define TRANS Transient_5x15
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  // 4x10
-  [_DVORAK]  = BASE_5x15(___NUMS___, ___DVORAK___),
-  [_QWERTY]  = BASE_5x15(___NUMS___, ___QWERTY___),
-  [_COLEMAK] = BASE_5x15(___NUMS___, ___COLEMAK_DH___),
-  [_BEAKL]   = BASE_5x15(___BKLNUMS___, ___BEAKL15___),
+// tell the keymap we want to specify number rows.
+// 4x10 input instead 3x10.
+#define BASE_NUMBER_ROW    // turn on 4 row base templates.
 
-  //[_DVORAK_BP] = BASE_5x15_bepo(___DVORAK_FR___),
-  //[_BEAKL_BP]  = BASE_5x15_bepo(___BEAKL15_FR___),
+#include "map.h"
 
   // 4x12
   //[_BEPO]      = BASE_5x15_bepo6(___BEPO6_FR___),
