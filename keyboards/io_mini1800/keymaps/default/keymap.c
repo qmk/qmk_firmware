@@ -19,6 +19,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+    return true;
+}
+
+
 //[_BASE] = LAYOUT_3u(
 //        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_MINS, KC_EQL,  KC_BSPC,   KC_INS, KC_HOME,   KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS,
 //        KC_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,  KC_P,  KC_LBRC, KC_RBRC, KC_BSLS,      KC_END, KC_DEL,    KC_P7, KC_P8, KC_P9,
