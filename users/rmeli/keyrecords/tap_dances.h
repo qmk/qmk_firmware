@@ -9,9 +9,9 @@
 
 // Tap dance enums
 enum {
-    TD_LSPO_CAPS, // Tap once for (, hold once for LSFT, tap twice for CAPS
-    TD_RSPC_CAPS, // Tap once for ), hold once for RSFT, tap twice for CAPS
-    TD_ESC_DEL, // Tap once for KC_ESC, twice for KC_DEL
+    TD_LSPO_CAPS,  // Tap once for (, hold once for LSFT, tap twice for CAPS
+    TD_RSPC_CAPS,  // Tap once for ), hold once for RSFT, tap twice for CAPS
+    TD_ESC_DEL,    // Tap once for KC_ESC, twice for KC_DEL
 };
 
 // Rename tap dances for keymap with shortcuts
@@ -33,7 +33,7 @@ typedef enum {
 
 // Key press state
 typedef struct {
-    bool is_press_action;
+    bool       is_press_action;
     td_state_t state;
 } td_tap_t;
 

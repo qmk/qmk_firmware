@@ -9,7 +9,7 @@
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LSPO_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LSPO_CAPS_finished, LSPO_CAPS_reset),
     [TD_RSPC_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RSPC_CAPS_finished, RSPC_CAPS_reset),
-    [TD_ESC_DEL] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_DEL),
+    [TD_ESC_DEL]   = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_DEL),
 };
 
 // + ------ +
@@ -20,19 +20,23 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 td_state_t hold_cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted) {
-            if (!state->pressed) return TD_SINGLE_TAP;
-            else return TD_SINGLE_HOLD;
+            if (!state->pressed)
+                return TD_SINGLE_TAP;
+            else
+                return TD_SINGLE_HOLD;
+        } else {
+            if (!state->pressed)
+                return TD_SINGLE_TAP;
+            else
+                return TD_SINGLE_HOLD;
         }
-        else {
-            if (!state->pressed) return TD_SINGLE_TAP;
-            else return TD_SINGLE_HOLD;
-        }
-    }
-    else if (state->count == 2) {
-        if (state->pressed) return TD_NONE;
-        else return TD_DOUBLE_TAP;
-    }
-    else return TD_NONE;
+    } else if (state->count == 2) {
+        if (state->pressed)
+            return TD_NONE;
+        else
+            return TD_DOUBLE_TAP;
+    } else
+        return TD_NONE;
 }
 
 // + ------------------------------------------------ +
@@ -40,27 +44,38 @@ td_state_t hold_cur_dance(qk_tap_dance_state_t *state) {
 // + ------------------------------------------------ +
 
 // Create an instance of 'td_tap_t' for the 'LSPO_CAPS' tap dance.
-static td_tap_t LSPO_CAPS_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
+static td_tap_t LSPO_CAPS_state = {.is_press_action = true, .state = TD_NONE};
 
 void LSPO_CAPS_finished(qk_tap_dance_state_t *state, void *user_data) {
     LSPO_CAPS_state.state = hold_cur_dance(state);
     switch (LSPO_CAPS_state.state) {
-        case TD_SINGLE_TAP: register_code16(KC_LPRN); break;
-        case TD_SINGLE_HOLD: register_code16(KC_LSFT); break;
-        case TD_DOUBLE_TAP: register_code16(KC_CAPS); break;
-        case TD_NONE: break;
+        case TD_SINGLE_TAP:
+            register_code16(KC_LPRN);
+            break;
+        case TD_SINGLE_HOLD:
+            register_code16(KC_LSFT);
+            break;
+        case TD_DOUBLE_TAP:
+            register_code16(KC_CAPS);
+            break;
+        case TD_NONE:
+            break;
     }
 }
 
 void LSPO_CAPS_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (LSPO_CAPS_state.state) {
-        case TD_SINGLE_TAP: unregister_code16(KC_LPRN); break;
-        case TD_SINGLE_HOLD: unregister_code16(KC_LSFT); break;
-        case TD_DOUBLE_TAP: unregister_code16(KC_CAPS); break;
-        case TD_NONE: break;
+        case TD_SINGLE_TAP:
+            unregister_code16(KC_LPRN);
+            break;
+        case TD_SINGLE_HOLD:
+            unregister_code16(KC_LSFT);
+            break;
+        case TD_DOUBLE_TAP:
+            unregister_code16(KC_CAPS);
+            break;
+        case TD_NONE:
+            break;
     }
     LSPO_CAPS_state.state = TD_NONE;
 }
@@ -70,27 +85,38 @@ void LSPO_CAPS_reset(qk_tap_dance_state_t *state, void *user_data) {
 // + -------------------------------------------------- +
 
 // Create an instance of 'td_tap_t' for the 'RSPC_CAPS' tap dance.
-static td_tap_t RSPC_CAPS_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
+static td_tap_t RSPC_CAPS_state = {.is_press_action = true, .state = TD_NONE};
 
 void RSPC_CAPS_finished(qk_tap_dance_state_t *state, void *user_data) {
     RSPC_CAPS_state.state = hold_cur_dance(state);
     switch (RSPC_CAPS_state.state) {
-        case TD_SINGLE_TAP: register_code16(KC_RPRN); break;
-        case TD_SINGLE_HOLD: register_code16(KC_RSFT); break;
-        case TD_DOUBLE_TAP: register_code16(KC_CAPS); break;
-        case TD_NONE: break;
+        case TD_SINGLE_TAP:
+            register_code16(KC_RPRN);
+            break;
+        case TD_SINGLE_HOLD:
+            register_code16(KC_RSFT);
+            break;
+        case TD_DOUBLE_TAP:
+            register_code16(KC_CAPS);
+            break;
+        case TD_NONE:
+            break;
     }
 }
 
 void RSPC_CAPS_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (RSPC_CAPS_state.state) {
-        case TD_SINGLE_TAP: unregister_code16(KC_RPRN); break;
-        case TD_SINGLE_HOLD: unregister_code16(KC_RSFT); break;
-        case TD_DOUBLE_TAP: unregister_code16(KC_CAPS); break;
-        case TD_NONE: break;
+        case TD_SINGLE_TAP:
+            unregister_code16(KC_RPRN);
+            break;
+        case TD_SINGLE_HOLD:
+            unregister_code16(KC_RSFT);
+            break;
+        case TD_DOUBLE_TAP:
+            unregister_code16(KC_CAPS);
+            break;
+        case TD_NONE:
+            break;
     }
     RSPC_CAPS_state.state = TD_NONE;
 }
