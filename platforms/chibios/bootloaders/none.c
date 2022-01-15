@@ -16,4 +16,8 @@
 
 #include "bootloader.h"
 
+#pragma message "Unknown bootloader set, you may not be able to enter bootloader using software reset"
+
 __attribute__((weak)) void bootloader_jump(void) {}
+
+__attribute__((weak)) void enter_bootloader_mode_if_requested(void) {}
