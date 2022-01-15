@@ -52,6 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
+#ifdef AUTO_SHIFT_ENABLE
+#    include "process_auto_shift.h"
+#endif
 #ifdef STENO_ENABLE
 #    include "process_steno.h"
 #endif

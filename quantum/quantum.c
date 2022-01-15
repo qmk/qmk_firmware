@@ -47,10 +47,6 @@ float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
 #endif
 
-#ifdef AUTO_SHIFT_ENABLE
-#    include "process_auto_shift.h"
-#endif
-
 uint8_t extract_mod_bits(uint16_t code) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:
