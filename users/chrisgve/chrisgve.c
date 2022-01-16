@@ -39,6 +39,12 @@ __attribute__ ((weak))
  *
  *****************************************/
 
+
+// Debug
+#ifdef CONSOLE_ENABLE
+#include "print.h"
+#endif
+
 // EEPROM user configuration
 
 typedef union {
@@ -286,6 +292,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
                 lshift = false;
             }
+
             break;
         case QUT_SFT:
         case R_SHIFT:
@@ -296,27 +303,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rshift = false;
             }
             break;
-        case KC_BSPC:
-            if (record->event.pressed) {
-                if (lshift || rshift) {
-                    if (lshift) {
-                        unregister_code(KC_LSFT);
-                    } else {
-                        unregister_code(KC_RSFT);
-                    }
-                    register_code(KC_DEL);
-                    if (lshift) {
-                        register_code(KC_LSFT);
-                    } else {
-                        register_code(KC_RSFT);
-                    }
-                }
-            } else {
-               if (lshift || rshift) {
-                   unregister_code(KC_DEL);
-               }
-            }
-            break;
+        case CU_BSPC:
+            SHIFT_NO(KC_BSPC, KC_DEL)
 #endif
 #ifdef APPLE_FN_ENABLE
         /* Detect if KC_APPLE_FN is pressed */

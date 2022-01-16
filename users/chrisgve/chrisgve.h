@@ -183,11 +183,19 @@ enum custom_keycodes {
 #    define SHIFT_NORM(kc1, kc2)          \
         if (record->event.pressed) {      \
             if (lshift || rshift) {       \
-                register_code(KC_LSFT);   \
+                if (lshift) {             \
+                    register_code(KC_LSFT); \
+                } else {                  \
+                    register_code(KC_RSFT); \
+                }                         \
                 unregister_code(kc2);     \
                 register_code(kc2);       \
             } else {                      \
-                unregister_code(KC_LSFT); \
+                if (lshift) {             \
+                    unregister_code(KC_LSFT); \
+                } else {                  \
+                    unregister_code(KC_RSFT); \
+                }                         \
                 unregister_code(kc1);     \
                 register_code(kc1);       \
             }                             \
@@ -201,11 +209,19 @@ enum custom_keycodes {
 #    define SHIFT_SWITCH(kc1, kc2)        \
         if (record->event.pressed) {      \
             if (lshift || rshift) {       \
-                unregister_code(KC_LSFT); \
+                if (lshift) {             \
+                    unregister_code(KC_LSFT); \
+                } else {                  \
+                    unregister_code(KC_RSFT); \
+                }                         \
                 unregister_code(kc2);     \
                 register_code(kc2);       \
             } else {                      \
-                register_code(KC_LSFT);   \
+                if (lshift) {             \
+                    register_code(KC_LSFT); \
+                } else {                  \
+                    register_code(KC_RSFT); \
+                }                         \
                 unregister_code(kc1);     \
                 register_code(kc1);       \
             }                             \
@@ -213,9 +229,15 @@ enum custom_keycodes {
             unregister_code(kc1);         \
             unregister_code(kc2);         \
             if (lshift || rshift)         \
-                register_code(KC_LSFT);   \
-            else                          \
+                if (lshift) {             \
+                    register_code(KC_LSFT); \
+                } else {                  \
+                    register_code(KC_RSFT); \
+                }                         \
+            else {                        \
                 unregister_code(KC_LSFT); \
+                unregister_code(KC_RSFT); \
+            }                             \
         }                                 \
         return false;
 
@@ -234,9 +256,13 @@ enum custom_keycodes {
             unregister_code(kc1);         \
             unregister_code(kc2);         \
             if (lshift || rshift)         \
-                register_code(KC_LSFT);   \
+                if (lshift)               \
+                    register_code(KC_LSFT); \
+                else                      \
+                    register_code(KC_RSFT); \
             else                          \
                 unregister_code(KC_LSFT); \
+            }                             \
         }                                 \
         return false;
 
@@ -244,6 +270,7 @@ enum custom_keycodes {
 #    define SHIFT_NO(kc1, kc2)            \
         if (record->event.pressed) {      \
             unregister_code(KC_LSFT);     \
+            unregister_code(KC_RSFT);     \
             if (lshift || rshift) {       \
                 unregister_code(kc2);     \
                 register_code(kc2);       \
@@ -254,10 +281,16 @@ enum custom_keycodes {
         } else {                          \
             unregister_code(kc1);         \
             unregister_code(kc2);         \
-            if (lshift || rshift)         \
-                register_code(KC_LSFT);   \
-            else                          \
+            if (lshift || rshift) {       \
+                if (lshift) {             \
+                    register_code(KC_LSFT); \
+                } else {                  \
+                    register_code(KC_RSFT); \
+                }                         \
+            } else {                      \
                 unregister_code(KC_LSFT); \
+                    unregister_code(KC_RSFT); \
+            }                             \
         }                                 \
         return false;
 
