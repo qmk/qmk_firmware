@@ -213,7 +213,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case HOME_E:
     case HOME_I:
     case HOME_O:
-        return TAPPING_TERM + 50;
+        return TAPPING_TERM + 75;
     default:
         return TAPPING_TERM;
     }
@@ -238,6 +238,23 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+// https://docs.qmk.fm/#/tap_hold?id=permissive-hold
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case HOME_A:
+        case HOME_O:
+        case SFT_Z:
+        case SFT_SLSH:
+        case SFT_BSLS:
+        case NUM_BSPC:
+        case FUN_SPC:
+            // Immediately select the hold action when another key is tapped.
+            return true;
+        default:
+            // Do not select the hold action when another key is tapped.
+            return false;
+    }
+}
 
 /* custom lighting configuration */
 // microcontroller leds

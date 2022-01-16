@@ -13,6 +13,10 @@
 #define TAPPING_FORCE_HOLD
 #define TAPPING_FORCE_HOLD_PER_KEY
 
+// Allow modifiers to be activated within the typing term
+#define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD_PER_KEY
+
 /*
   allow the microdox board to work with either controller plugged in
   docs: https://beta.docs.qmk.fm/using-qmk/hardware-features/feature_split_keyboard#handedness-by-eeprom
