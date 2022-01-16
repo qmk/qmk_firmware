@@ -1,17 +1,19 @@
 # Modified layout for Rev 6 Planck.
 
 # Current main alterations:
-# ⚙ Dvorak as base layer
-# ⚙ Punctuation / Number layer moved onto home row for Lower / Raise
-# ⚙ Encoder exists in space of first Row 1, Column 1
+⚙ Dvorak as base layer
+⚙ Punctuation / Number layer moved onto home row for Lower / Raise
+⚙ Encoder exists in space of first Row 1, Column 1
+⚙ Dipswitch settings removed
+
 
 /* EXAMPLE-LAYER
  *        .----------------------------------------------------------------------------.
- *  (RSET)|      |      |      |      |      |      |  F1  |  F2  |  F3  |  F4  |      |
+ *  (ECDR)|      |      |      |      |      |      |      |      |      |      |      |
  * .------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |  F5  |  F6  |  F7  |  F8  |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+--^---+------+------+---^--+------+------+------+------|
- * |      |      |      |      |      |      |      |  F9  |  F10 |  F11 |  F12 |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
