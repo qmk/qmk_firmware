@@ -215,6 +215,9 @@
                   LAYOUT: 'LAYOUT_all'
           }
     },
+    idobo: {
+        target: 'idobao/id75'
+    },
     'jj40': {
           target: 'kprepublic/jj40'
     },
