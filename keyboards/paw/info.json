@@ -1,0 +1,31 @@
+{
+    "keyboard_name": "Paw",
+    "url": "",
+    "maintainer": "Aeternus",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {
+                    "label": "↑",
+                    "x": 1,
+                    "y": 0
+                },
+                {
+                    "label": "←",
+                    "x": 0,
+                    "y": 1
+                },
+                {
+                    "label": "↓",
+                    "x": 1,
+                    "y": 1
+                },
+                {
+                    "label": "→",
+                    "x": 2,
+                    "y": 1
+                }
+            ]
+        }
+    }
+}
