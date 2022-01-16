@@ -1,8 +1,6 @@
 # Acheron Elongate rev. Beta QMK firmware repository
 
-<p align="center">
-  <img align="middle" src="https://i.imgur.com/G9LESkU.jpg"  width="800"> 
-</p>
+![](https://i.imgur.com/G9LESkUh.jpg)
 
 * Keyboard Maintainer: [Gondolindrim](https://github.com/Gondolindrim)
 * Hardware Supported: [open-source PCB](https://github.com/AcheronProject/Elongate) powered by STM32F072 microcontroller
