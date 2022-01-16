@@ -60,22 +60,16 @@
           target: 'kprepublic/bm43a'
     },
     bm60poker: {
-          target: 'kprepublic/bm60hsrgb_poker'
+          target: 'kprepublic/bm60poker'
     },
     bm60rgb: {
-          target: 'kprepublic/bm60hsrgb'
+          target: 'kprepublic/bm60rgb'
     },
     bm60rgb_iso: {
-          target: 'kprepublic/bm60hsrgb_iso'
-    },
-    bm65rgb:{
-          target: 'kprepublic/bm65hsrgb'
-    },
-    bm65rgb_iso:{
-        target: 'kprepublic/bm65hsrgb_iso'
+          target: 'kprepublic/bm60rgb_iso'
     },
     bm68rgb: {
-          target: 'kprepublic/bm68hsrgb'
+          target: 'kprepublic/bm68rgb'
     },
     'bpiphany/pegasushoof': {
           target: 'bpiphany/pegasushoof/2013'
