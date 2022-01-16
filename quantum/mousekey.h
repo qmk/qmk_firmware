@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #    ifndef MOUSEKEY_MOVE_DELTA
 #        ifndef MK_KINETIC_SPEED
-#            define MOUSEKEY_MOVE_DELTA 9
+#            define MOUSEKEY_MOVE_DELTA 8
 #        else
 #            define MOUSEKEY_MOVE_DELTA 25
 #        endif
@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #    ifndef MOUSEKEY_INTERVAL
 #        ifndef MK_KINETIC_SPEED
-#            define MOUSEKEY_INTERVAL 30
+#            define MOUSEKEY_INTERVAL 20
 #        else
 #            define MOUSEKEY_INTERVAL 8
 #        endif

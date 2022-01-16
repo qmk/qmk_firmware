@@ -60,8 +60,8 @@ This is the default mode. You can adjust the cursor and scrolling acceleration u
 |Define                      |Default|Description                                              |
 |----------------------------|-------|---------------------------------------------------------|
 |`MOUSEKEY_DELAY`            |10     |Delay between pressing a movement key and cursor movement|
-|`MOUSEKEY_INTERVAL`         |30     |Time between cursor movements in milliseconds            |
-|`MOUSEKEY_MOVE_DELTA`       |9      |Step size                                                |
+|`MOUSEKEY_INTERVAL`         |20     |Time between cursor movements in milliseconds            |
+|`MOUSEKEY_MOVE_DELTA`       |8      |Step size                                                |
 |`MOUSEKEY_MAX_SPEED`        |10     |Maximum cursor speed at which acceleration stops         |
 |`MOUSEKEY_TIME_TO_MAX`      |30     |Time until maximum cursor speed is reached               |
 |`MOUSEKEY_WHEEL_DELAY`      |300    |Delay between pressing a wheel key and wheel movement    |
