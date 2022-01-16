@@ -1,4 +1,4 @@
-# QMK知识大纲
+# QMK大纲
 
 <!---
   original document: 0.15.12:docs/syllabus.md

@@ -1,8 +1,8 @@
 # QMK配置器
 
 <!---
-  original document: 0.14.23:docs/newbs_building_firmware_configurator.md
-  git diff 0.14.23 HEAD -- docs/newbs_building_firmware_configurator.md | cat
+  original document: 0.15.12:docs/newbs_building_firmware_configurator.md
+  git diff 0.15.12 HEAD -- docs/newbs_building_firmware_configurator.md | cat
 -->
 
 [![QMK配置器截图](https://i.imgur.com/anw9cOL.png)](https://config.qmk.fm/)
@@ -15,4 +15,4 @@ QMK配置器在Chrome及Firefox中工作良好。
 
 !> **来自于第三方工具的文件数据无法保证与QMK兼容，如Keyboard Layout Editor(KLE)或kbfirmware，请不要加载或导入这些文件。QMK配置器是一个独立的工具。**
 
-更多信息请参见[QMK配置器: 入门](zh-cn/configurator_step_by_step.md).
+更多信息请参见[QMK配置器: 入门](zh-cn/configurator_step_by_step.md)。

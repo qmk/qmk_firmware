@@ -6,7 +6,7 @@
   * [刷写固件](zh-cn/newbs_flashing.md)
   * [寻求帮助](zh-cn/support.md)
   * [其它资源](zh-cn/newbs_learn_more_resources.md)
-  * [QMK知识大纲](zh-cn/syllabus.md)
+  * [QMK大纲](zh-cn/syllabus.md)
 
 * FAQ
   * [常规FAQ](zh-cn/faq_general.md)
@@ -59,7 +59,7 @@
       * [ISP刷写指南](zh-cn/isp_flashing_guide.md)
 
   * 键码入门
-    * [键码列表](zh-cn/keycodes.md)
+    * [键码汇总](zh-cn/keycodes.md)
     * [基础键码](zh-cn/keycodes_basic.md)
     * [语言特定的键码](zh-cn/reference_keymap_extras.md)
     * [修饰键](zh-cn/feature_advanced_keycodes.md)
@@ -86,10 +86,10 @@
     * [层](zh-cn/feature_layers.md)
     * [粘滞键](zh-cn/one_shot_keys.md)
     * [光标设备](zh-cn/feature_pointing_device.md)
-    * [Raw HID](zh-cn/feature_rawhid.md)
+    * [原生HID](zh-cn/feature_rawhid.md)
     * [Sequencer](zh-cn/feature_sequencer.md)
     * [换手](zh-cn/feature_swap_hands.md)
-    * [多击键](zh-cn/feature_tap_dance.md)
+    * [一键多用](zh-cn/feature_tap_dance.md)
     * [点按配置](zh-cn/tap_hold.md)
     * [终端](zh-cn/feature_terminal.md)
     * [Unicode](zh-cn/feature_unicode.md)
