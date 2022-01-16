@@ -14,6 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <string.h>
+#include <math.h>
+
+#include <lib/lib8tion/lib8tion.h>
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -92,7 +97,7 @@ void keyboard_post_init_kb(void) {
             break;
         case RGB_MODE_NONE:
             rgb_matrix_set_flags(LED_FLAG_NONE);
-            rgb_matrix_disable_noeeprom();
+            rgb_matrix_set_color_all(0, 0, 0);
             break;
     }
 }
@@ -250,7 +255,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     break;
                     case (LED_FLAG_UNDERGLOW): {
                         rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_disable_noeeprom();
+                        rgb_matrix_set_color_all(0, 0, 0);
                         user_config.rgb_mode = RGB_MODE_NONE;
                     }
                     break;
@@ -311,13 +316,18 @@ void rgb_matrix_indicators_user(void) {
             break;
     }
 
+    HSV      hsv = rgb_matrix_config.hsv;
+    uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
+    hsv.h        = time;
+    RGB      rgb = hsv_to_rgb(hsv);
+
     if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
         if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(52, 217, 71, 115);
+            rgb_matrix_set_color(52, rgb.r, rgb.g, rgb.b);
         }
     } else {
         if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(52, 217, 71, 115);
+            rgb_matrix_set_color(52, rgb.r, rgb.g, rgb.b);
         } else {
             rgb_matrix_set_color(52, 0, 0, 0);
         }
