@@ -1,8 +1,8 @@
 # 常见问题（FAQ）
 
 <!---
-  original document: 0.14.23:docs/faq_general.md
-  git diff 0.14.23 HEAD -- docs/faq_general.md | cat
+  original document: 0.15.12:docs/faq_general.md
+  git diff 0.15.12 HEAD -- docs/faq_general.md | cat
 -->
 
 ## QMK是什么?

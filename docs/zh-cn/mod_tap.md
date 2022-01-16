@@ -1,8 +1,8 @@
 # Mod-Tap
 
 <!---
-  original document: 0.14.23:docs/mod_tap.md
-  git diff 0.14.23 HEAD -- docs/mod_tap.md | cat
+  original document: 0.15.12:docs/mod_tap.md
+  git diff 0.15.12 HEAD -- docs/mod_tap.md | cat
 -->
 
 Mod-Tap键 `MT(mod, kc)` 在按住时功能为修饰键，在点击时则是常规键码。举例来讲，可以设计出一个按键，当点击时发送Escape，按下时则作为Control或Shift

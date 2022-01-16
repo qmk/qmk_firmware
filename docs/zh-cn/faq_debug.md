@@ -1,8 +1,8 @@
 #  调试 FAQ
 
 <!---
-  original document: 0.14.23:docs/faq_debug.md
-  git diff 0.14.23 HEAD -- docs/faq_debug.md | cat
+  original document: 0.15.12:docs/faq_debug.md
+  git diff 0.15.12 HEAD -- docs/faq_debug.md | cat
 -->
 
 此页面详细介绍了人们对键盘故障排除的各种常见问题。

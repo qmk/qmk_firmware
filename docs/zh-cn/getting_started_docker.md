@@ -1,8 +1,8 @@
 # Docker快速上手指引
 
 <!---
-  original document: 0.14.23:docs/getting_started_docker.md
-  git diff 0.14.23 HEAD -- docs/getting_started_docker.md | cat
+  original document: 0.15.12:docs/getting_started_docker.md
+  git diff 0.15.12 HEAD -- docs/getting_started_docker.md | cat
 -->
 
 本工程包含了一套Docker工作流，可以方便地在不更改你主系统环境情况下完成新固件文件的构建工作。这同时也保证了在你拉取该工程代码后的编译环境与其他人以及QMK开发者的一致。当你需要其他人协助你排查遇到的问题时会方便很多。

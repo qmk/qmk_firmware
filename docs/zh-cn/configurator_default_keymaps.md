@@ -1,8 +1,8 @@
 # 向QMK配置器中添加默认键映射 :id=adding-default-keymaps
 
 <!---
-  original document: 0.14.23:docs/configurator_default_keymaps.md
-  git diff 0.14.23 HEAD -- docs/configurator_default_keymaps.md | cat
+  original document: 0.15.12:docs/configurator_default_keymaps.md
+  git diff 0.15.12 HEAD -- docs/configurator_default_keymaps.md | cat
 -->
 
 本章节描述了如何向QMK配置器中添加一款键盘的默认键映射

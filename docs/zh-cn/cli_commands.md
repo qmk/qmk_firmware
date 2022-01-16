@@ -1,8 +1,8 @@
 # QMK CLI 命令
 
 <!---
-  original document: 0.14.23:docs/cli_commands.md
-  git diff 0.14.23 HEAD -- docs/cli_commands.md | cat
+  original document: 0.15.12:docs/cli_commands.md
+  git diff 0.15.12 HEAD -- docs/cli_commands.md | cat
 -->
 
 # 用户命令

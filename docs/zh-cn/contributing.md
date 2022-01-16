@@ -1,8 +1,8 @@
 # 如何做贡献
 
 <!---
-  original document: 0.14.23:docs/contributing.md
-  git diff 0.14.23 HEAD -- docs/contributing.md | cat
+  original document: 0.15.12:docs/contributing.md
+  git diff 0.15.12 HEAD -- docs/contributing.md | cat
 -->
 
 👍🎉 首先感谢各位百忙之中抽空阅读本文档，并为我们无私奉献。给您点赞啦！ 🎉👍
