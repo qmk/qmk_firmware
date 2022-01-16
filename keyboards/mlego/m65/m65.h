@@ -96,8 +96,18 @@ enum unicode_names {
     lL1,
     lk1,
     lK1,
+    ra,
+    rA,
+    ra1,
+    rA1,
     rc,
     rC,
+    ri,
+    rI,
+    rs,
+    rS,
+    rt,
+    rT,
 };
 
 static inline void led_lwr(const bool on) {

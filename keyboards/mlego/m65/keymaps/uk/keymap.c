@@ -82,70 +82,80 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(m
 #endif
 
 const uint32_t PROGMEM unicode_map[] = {
-    [la]  = 0x03B1,   // α
-    [lA]  = 0x0391,   // Α
-    [lb]  = 0x03B2,   // β
-    [lB]  = 0x0392,   // Β
-    [lc]  = 0x03C7,   // χ
-    [lC]  = 0x0307,   //
-    [ld]  = 0x03B4,   // δ
-    [lD]  = 0x2202,   // ∂
-    [le]  = 0x03B5,   // ε
-    [lE]  = 0x2107,   // ℇ
-    [lf]  = 0x03C6,   // φ
-    [lF]  = 0x03C8,   // ψ
-    [lg]  = 0x03B3,   // γ
-    [lG]  = 0x0393,   // Γ
-    [lh]  = 0x210F,   // ℏ
-    [lH]  = 0x1D4D7,  // 𝓗
-    [li]  = 0x222B,   // ∫
-    [lI]  = 0x222E,   // ∮
-    [lj]  = 0x2208,   // ∈
-    [lJ]  = 0x2209,   // ∉
-    [lk]  = 0x03F0,   // ϰ
-    [lK]  = 0x2206,   // ∆
-    [ll]  = 0x03BB,   // λ
-    [lL]  = 0x039B,   // Λ
-    [lm]  = 0x03BC,   // μ
-    [lM]  = 0x2218,   // ∘
-    [ln]  = 0x03B7,   // η
-    [lN]  = 0x222A,   // ∪
-    [lo]  = 0x221E,   // ∞
-    [lO]  = 0x2297,   // ⊗
-    [lp]  = 0x03C0,   // π
-    [lP]  = 0x220F,   // ∏
-    [lq]  = 0x03C3,   // σ
-    [lQ]  = 0x03D5,   // ϕ
-    [lr]  = 0x03C1,   // ρ
-    [lR]  = 0x2207,   // ∇
-    [ls]  = 0x2211,   // ∑
-    [lS]  = 0x2A0B,   // ⨋
-    [lt]  = 0x03D1,   // ϑ
-    [lT]  = 0x03B8,   // θ
-    [lu]  = 0x03C4,   // τ
-    [lU]  = 0x2102,   // ℂ
-    [lv]  = 0x03BD,   // χ
-    [lV]  = 0x039D,   // Ν
-    [lw]  = 0x03C9,   // ω
-    [lW]  = 0x03A9,   // Ω
-    [lx]  = 0x03BE,   // ξ
-    [lX]  = 0x039E,   // Ξ
-    [ly]  = 0x211d,   // ℝ
-    [lY]  = 0x2124,   // ℤ
-    [lz]  = 0x03B6,   // ζ
-    [lZ]  = 0x2221,   // ∡
-    [lc1] = 0x224A,   // ≊
-    [lC1] = 0x2248,   // ≈
-    [lp1] = 0x00B1,   // ±
-    [lP1] = 0x2213,   // ∓
-    [lq1] = 0x00D7,   // ×
-    [lQ1] = 0x22C5,   // ⋅
-    [ll1] = 0x1D53C,  // 𝔼
-    [lL1] = 0x212b,   // Å
-    [lk1] = 0x221D,   // ∝
-    [lK1] = 0x2112,   // ℒ
-    [rc]  = 0x00E7,   // ç
-    [rC]  = 0x00C7,   // Ç
+    [la]  = 0x03B1 , // α
+    [lA]  = 0x0391 , // Α
+    [lb]  = 0x03B2 , // β
+    [lB]  = 0x0392 , // Β
+    [lc]  = 0x03C7 , // χ
+    [lC]  = 0x0307 , //
+    [ld]  = 0x03B4 , // δ
+    [lD]  = 0x2202 , // ∂
+    [le]  = 0x03B5 , // ε
+    [lE]  = 0x2107 , // ℇ
+    [lf]  = 0x03C6 , // φ
+    [lF]  = 0x03C8 , // ψ
+    [lg]  = 0x03B3 , // γ
+    [lG]  = 0x0393 , // Γ
+    [lh]  = 0x210F , // ℏ
+    [lH]  = 0x1D4D7, // 𝓗
+    [li]  = 0x222B , // ∫
+    [lI]  = 0x222E , // ∮
+    [lj]  = 0x2208 , // ∈
+    [lJ]  = 0x2209 , // ∉
+    [lk]  = 0x03F0 , // ϰ
+    [lK]  = 0x2206 , // ∆
+    [ll]  = 0x03BB , // λ
+    [lL]  = 0x039B , // Λ
+    [lm]  = 0x03BC , // μ
+    [lM]  = 0x2218 , // ∘
+    [ln]  = 0x03B7 , // η
+    [lN]  = 0x222A , // ∪
+    [lo]  = 0x221E , // ∞
+    [lO]  = 0x2297 , // ⊗
+    [lp]  = 0x03C0 , // π
+    [lP]  = 0x220F , // ∏
+    [lq]  = 0x03C3 , // σ
+    [lQ]  = 0x03D5 , // ϕ
+    [lr]  = 0x03C1 , // ρ
+    [lR]  = 0x2207 , // ∇
+    [ls]  = 0x2211 , // ∑
+    [lS]  = 0x2A0B , // ⨋
+    [lt]  = 0x03D1 , // ϑ
+    [lT]  = 0x03B8 , // θ
+    [lu]  = 0x03C4 , // τ
+    [lU]  = 0x2102 , // ℂ
+    [lv]  = 0x03BD , // χ
+    [lV]  = 0x039D , // Ν
+    [lw]  = 0x03C9 , // ω
+    [lW]  = 0x03A9 , // Ω
+    [lx]  = 0x03BE , // ξ
+    [lX]  = 0x039E , // Ξ
+    [ly]  = 0x211d , // ℝ
+    [lY]  = 0x2124 , // ℤ
+    [lz]  = 0x03B6 , // ζ
+    [lZ]  = 0x2221 , // ∡
+    [lc1] = 0x224A , // ≊
+    [lC1] = 0x2248 , // ≈
+    [lp1] = 0x00B1 , // ±
+    [lP1] = 0x2213 , // ∓
+    [lq1] = 0x00D7 , // ×
+    [lQ1] = 0x22C5 , // ⋅
+    [ll1] = 0x1D53C, // 𝔼
+    [lL1] = 0x212b , // Å
+    [lk1] = 0x221D , // ∝
+    [lK1] = 0x2112 , // ℒ
+    [ra]  = 0x0103 , // ă
+    [rA]  = 0x0102 , // Ă
+    [ra1] = 0x00E2 , // â
+    [rA1] = 0x00C2 , // Â
+    [rc]  = 0x00E7 , // ç
+    [rC]  = 0x00C7 , // Ç
+    [ri]  = 0x00EE , // î
+    [rI]  = 0x00CE , // Î
+    [rs]  = 0x0219 , // ș
+    [rS]  = 0x0218 , // Ș
+    [rt]  = 0x021B , // ț
+    [rT]  = 0x021A , // Ț
 };
 
 // clang-format off
@@ -230,26 +240,26 @@ lower layer shifted
  * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
  * │ ⇧(│MB1│ ∡ │ Ξ │ ̇  │ Ν │ Β │ ∪ │ ∘ │ ≈ │ ∓ │MSU│ ⋅ │
  * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
- * │ ⎈ │   │lwr│⎇  │rse│   │   │   │⎇  │ ⇧)│MSL│MSD│MSR│
+ * │ ⎈ │MB4│lwr│⎇  │rse│   │   │   │⎇  │ ⇧)│MSL│MSD│MSR│
  * └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
 MB - mouse buttons
 MS - mouse directions
 */
  [_LWR] = LAYOUT_ortho_5x13(
-     KC_GRV , KC_MUTE, KC_VOLU, KC_VOLD, KC_MPRV, KC_MPLY, KC_MNXT, G(KC_P), KC_SLEP, KC_WAKE, KC_PSCR, KC_DEL , UK_EQL  ,
-     KC_BTN3, XP(lq  , lQ)    , XP(lw  , lW)    , XP(le  , lE)    , XP(lr  , lR)    , XP(lt  , lT)    , XP(ly  , lY)     , XP(lu, lU)  , XP(li, lI)   , XP(lo, lO)   , XP(lp , lP)    , _______, _______,
-     KC_BTN2, XP(la  , lA)    , XP(ls  , lS)    , XP(ld  , lD)    , XP(lf  , lF)    , XP(lg  , lG)    , XP(lh  , lH)     , XP(lj, lJ)  , XP(lk, lK)   , XP(ll, lL)   , XP(ll1, lL1)   , XP(lk1 , lK1)   , _______,
-     _______, KC_BTN1, XP(lz  , lZ)    , XP(lx  , lX)    , XP(lc  , lC)    , XP(lv  , lV)    , XP(lb  , lB)    , XP(ln   , lN)  , XP(lm, lM)  , XP(lc1, lC1) , XP(lp1, lP1)  , KC_MS_U, XP(lq1 , lQ1)   ,
-     _______, KC_BTN4, _______, _______, _______, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R),
+     KC_GRV ,  KC_MUTE,  KC_VOLU,  KC_VOLD,  KC_MPRV,  KC_MPLY,  KC_MNXT,  G(KC_P),  KC_SLEP,    KC_WAKE,    KC_PSCR,      KC_DEL,      UK_EQL,
+     KC_BTN3,XP(lq,lQ),XP(lw,lW),XP(le,lE),XP(lr,lR),XP(lt,lT),XP(ly,lY),XP(lu,lU),XP(li,lI),  XP(lo,lO),  XP(lp,lP),     _______,     _______,
+     KC_BTN2,XP(la,lA),XP(ls,lS),XP(ld,lD),XP(lf,lF),XP(lg,lG),XP(lh,lH),XP(lj,lJ),XP(lk,lK),  XP(ll,lL),XP(ll1,lL1), XP(lk1,lK1),     _______,
+     _______,  KC_BTN1,XP(lz,lZ),XP(lx,lX),XP(lc,lC),XP(lv,lV),XP(lb,lB),XP(ln,lN),XP(lm,lM),XP(lc1,lC1),XP(lp1,lP1),     KC_MS_U, XP(lq1,lQ1),
+     _______,  KC_BTN4,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    KC_MS_L,     KC_MS_D,    KC_MS_R),
 
 /*
 raise layer
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
  * │ ⎋ │ F1│ F2│ F3│ F4│ F5│ F6│ F7│ F8│ F9│F10│F11│F12│
  * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
- * │   │   │   │   │   │   │   │   │   │   │   │   │   │
+ * │   │ â │   │   │   │ ț │   │   │ î │   │   │   │   │
  * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
- * │ ⇪ │   │   │   │   │   │   │   │   │   │   │   │   │
+ * │ ⇪ │ ă │ ș │   │   │   │   │   │   │   │   │   │   │
  * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
  * │   │   │   │   │ ç │   │   │   │   │   │   │MWU│   │
  * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
@@ -260,9 +270,9 @@ raise layer shifted
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
  * │   │   │   │   │   │   │   │   │   │   │   │   │   │
  * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
- * │   │   │   │   │   │   │   │   │   │   │   │   │   │
+ * │   │ Â │   │   │   │ Ț │   │   │ Î │   │   │   │   │
  * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
- * │   │   │   │   │   │   │   │   │   │   │   │   │   │
+ * │   │ Ă │ Ș │   │   │   │   │   │   │   │   │   │   │
  * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
  * │   │   │   │   │ Ç │   │   │   │   │   │   │   │   │
  * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
@@ -270,11 +280,11 @@ raise layer shifted
  * └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
 */
   [_RSE] = LAYOUT_ortho_5x13(
-      KC_ESC , KC_F1  , KC_F2  , KC_F3  ,  KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12  ,
-      _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______ ,
-      KC_CAPS, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______ ,
-      _______, _______, _______, _______,XP(rc,rC), _______, _______, _______, _______, _______, _______, KC_WH_U, _______ ,
-      _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_R),
+      KC_ESC ,    KC_F1  ,   KC_F2  , KC_F3  ,  KC_F4  ,  KC_F5  , KC_F6  , KC_F7  ,  KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12  ,
+      _______,XP(ra1,rA1),   _______, _______,  _______,XP(rt,rT), _______, _______,XP(ri,rI), _______, _______, _______, _______ ,
+      KC_CAPS,  XP(ra,rA), XP(rs,rS), _______,  _______,  _______, _______, _______,  _______, _______, _______, _______, _______ ,
+      _______,    _______,   _______, _______,XP(rc,rC),  _______, _______, _______,  _______, _______, _______, KC_WH_U, _______ ,
+      _______,    _______,   _______, _______,  _______,  _______, _______, _______,  _______, _______, KC_WH_L, KC_WH_D, KC_WH_R),
 /*
 adj layer
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
@@ -301,7 +311,7 @@ adj layer
 // let us assume we start with both layers off
 bool toggle_lwr = false;
 bool toggle_rse = false;
-bool is_logo_on = false;
+bool is_logo_on = true;
 
 bool led_update_user(led_t led_state) {
     // Disable the default LED update code, so that lock LEDs could be reused to show layer status.
@@ -452,18 +462,18 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 #define LOGO_RENDER 50
-#define SHOW_LOGO 5000
+#define SHOW_LOGO 2000
 bool oled_task_user(void) {
 
-    if (timer_elapsed(draw_logo_timer) < LOGO_RENDER){
+    if ((timer_elapsed(draw_logo_timer) < LOGO_RENDER)){
         draw_logo_timer = timer_read();
         render_logo();
+    } else if (timer_elapsed(show_logo_timer) > SHOW_LOGO){
+        show_logo_timer = timer_read();
+    } else {
+      user_oled_magic();
     }
 
-    if (timer_elapsed(show_logo_timer) > SHOW_LOGO){
-        show_logo_timer = timer_read();
-        user_oled_magic();
-    }
     return false;
 }
 
