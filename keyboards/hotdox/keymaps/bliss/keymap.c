@@ -17,8 +17,10 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#define BASE 0 // default layer
-#define FUNC 1 // functions keys, numbpad, and arrows
+enum layer_names {
+    BASE, // default layer
+    FUNC, // functions keys, numbpad, and arrows
+};
 
 enum custom_keycodes {
   VRSN = SAFE_RANGE,
