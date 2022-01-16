@@ -19,7 +19,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4025
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    di0ib
@@ -28,7 +28,7 @@
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-//more detailed config options start below: 
+//more detailed config options start below:
 
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */

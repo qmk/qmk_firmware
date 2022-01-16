@@ -5,7 +5,7 @@ MCU = atmega32u4
 BOOTLOADER = caterina
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 CUSTOM_MATRIX           = yes # Custom matrix file for the ErgoDone
 UNICODE_ENABLE          = yes # Unicode
@@ -14,8 +14,7 @@ MOUSEKEY_ENABLE         = yes # Mouse keys
 EXTRAKEY_ENABLE         = yes # Audio control and System control
 CONSOLE_ENABLE          = no  # Console for debug
 COMMAND_ENABLE          = no  # Commands for debug and configuration
-SLEEP_LED_ENABLE        = no  # Breathing sleep LED during USB suspend
-NKRO_ENABLE             = yes # USB Nkey Rollover - not yet supported in LUFA
+NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE        = no  # Enable keyboard backlight functionality
 SWAP_HANDS_ENABLE       = no  # Disable Onehand
 RGBLIGHT_ENABLE         = no
