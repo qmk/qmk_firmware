@@ -2,7 +2,8 @@
 
 CMM.Studio Fuji65 Keyboard
 
-![CMM.Studio Fuji65](https://i.imgur.com/dUPQpkZ.png)
+![CMM.Studio Fuji65](https://i.imgur.com/dUPQpkZh.png)
+
 
 * Keyboard Maintainer: [CMM.Studio Freather](https://github.com/CMMS-Freather)
 * Hardware Supported: PCB, Atmega32u4
