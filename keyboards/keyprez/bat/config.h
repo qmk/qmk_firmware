@@ -1,4 +1,4 @@
-// Copyright 2022 Michal Petrik (@Michal Petrik)
+// Copyright 2022 Keyprez (@keyprez)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -6,11 +6,12 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define VENDOR_ID    0x6b7a
+#define PRODUCT_ID   0x6261
 #define DEVICE_VER   0x0001
-#define MANUFACTURER Michal Petrik
+#define MANUFACTURER Keyprez
 #define PRODUCT      bat
+#define DESCRIPTION  bat
 
 /* key matrix size */
 #define MATRIX_ROWS 8

@@ -1,7 +1,11 @@
 {
     "keyboard_name": "bat",
     "url": "",
-    "maintainer": "Michal Petrik",
+    "maintainer": "Keyprez",
+    "vendorId": "0x5241",
+    "productId": "0x006a",
+    "lighting": "none",
+    "matrix": { "rows": 8, "cols": 6 },
     "layouts": {
         "LAYOUT": {
             "layout": [
