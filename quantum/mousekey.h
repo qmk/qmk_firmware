@@ -66,10 +66,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define MOUSEKEY_TIME_TO_MAX 30
 #    endif
 #    ifndef MOUSEKEY_WHEEL_DELAY
-#        define MOUSEKEY_WHEEL_DELAY 300
+#        define MOUSEKEY_WHEEL_DELAY 10
 #    endif
 #    ifndef MOUSEKEY_WHEEL_INTERVAL
-#        define MOUSEKEY_WHEEL_INTERVAL 100
+#        define MOUSEKEY_WHEEL_INTERVAL 80
 #    endif
 #    ifndef MOUSEKEY_WHEEL_MAX_SPEED
 #        define MOUSEKEY_WHEEL_MAX_SPEED 8
