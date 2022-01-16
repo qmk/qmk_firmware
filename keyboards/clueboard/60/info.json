@@ -25,7 +25,7 @@
     "rows": ["B0", "B1", "B2", "A15", "A10"]
   },
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x2350",
     "vid": "0xC1ED"
   },

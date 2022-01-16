@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xE401
-#define DEVICE_VER      0x0E41
+#define DEVICE_VER      0x0100
 #define MANUFACTURER    That-Canadian
 #define PRODUCT         Lets Split Eh?
 
