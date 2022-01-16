@@ -123,7 +123,7 @@ void enter_bootloader_mode_if_requested(void) { /* Jumping to bootloader is not 
 #    if defined(BOOTLOADER_KIIBOHD)
 /* Kiibohd Bootloader (MCHCK and Infinity KB) */
 #        define SCB_AIRCR_VECTKEY_WRITEMAGIC 0x05FA0000
-const uint8_t              sys_reset_to_loader_magic[] = "\xff\x00\x7fRESET TO LOADER\x7f\x00\xff";
+const uint8_t              sys_reset_to_loader_magic[] = "\xff\x00\x7fRESET TO LOADER\x7f\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 __attribute__((weak)) void bootloader_jump(void) {
     void *volatile vbat = (void *)VBAT;
     __builtin_memcpy(vbat, (const void *)sys_reset_to_loader_magic, sizeof(sys_reset_to_loader_magic));

@@ -102,10 +102,10 @@
 // Row 1
 #define SK_RNGA S(SK_SCLN) // ° (dead)
 #define SK_1    S(SK_PLUS) // 1
-#define SK_2    S(SK_LACU) // 2
+#define SK_2    S(SK_LCAR) // 2
 #define SK_3    S(SK_SCAR) // 3
 #define SK_4    S(SK_CCAR) // 4
-#define SK_5    S(SK_TACU) // 5
+#define SK_5    S(SK_TCAR) // 5
 #define SK_6    S(SK_ZCAR) // 6
 #define SK_7    S(SK_YACU) // 7
 #define SK_8    S(SK_AACU) // 8
