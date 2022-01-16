@@ -553,7 +553,7 @@
           target: 'xelus/valor/rev1'
     },
     yd60mq: {
-          target: 'yd60mq/12led'
+          target: 'ymdk/yd60mq/12led'
     },
     ymd75: {
           target: 'ymd75/rev1'
