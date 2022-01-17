@@ -481,5 +481,20 @@ This command runs the python test suite. If you make changes to python code you 
 **Usage**:
 
 ```
-qmk pytest
+qmk pytest [-t TEST]
 ```
+
+**Examples**:
+
+Run entire test suite:
+
+    qmk pytest
+
+Run test group:
+
+    qmk pytest -t qmk.tests.test_cli_commands
+
+Run single test:
+
+    qmk pytest -t qmk.tests.test_cli_commands.test_c2json
+    qmk pytest -t qmk.tests.test_qmk_path
