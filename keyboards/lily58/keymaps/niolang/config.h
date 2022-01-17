@@ -32,7 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_ANIMATIONS
 #    define RGBLIGHT_HUE_STEP 5 // number of steps to cycle through the hue by
-#    define RGBLIGHT_SAT_STEP 30 // number of steps to increment the saturation by
-#    define RGBLIGHT_VAL_STEP 30 // number of steps to increment the brightness by
-#    define RGBLIGHT_SLEEP //  the RGB lighting will be switched off when the host goes to sleep
+#    define RGBLIGHT_SAT_STEP 10 // number of steps to increment the saturation by
+#    define RGBLIGHT_VAL_STEP 10 // number of steps to increment the brightness by
+#    define RGBLIGHT_SLEEP // the RGB lighting will be switched off when the host goes to sleep
+#	 define RGBLIGHT_LAYERS //
+#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 #endif

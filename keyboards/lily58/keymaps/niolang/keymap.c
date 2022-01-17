@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Tab  |  B | |   É  | P &  | O œ  |   È  |                    |  !^  |   V  |   D  |   L  |   J  |  Z   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |LCTRL |   A  |   Uù |  I¨  |  E€  | ,;'  |-------.    ,-------|  C/ç |  Tᵉ  |   S  |   R  |   N  |  M   |
- * |------+------+------+------+------+------|   Ê   |    |SUPPR  |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|CtPtScn|    |SUPPR  |------+------+------+------+------+------|
  * |LShift|  À \ | Y {  | X }  | .:…  | K ~  |-------|    |-------|  ’?  |   Q  |   G  |   H  |   F  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| AltGr|
@@ -55,11 +55,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_BEPO] = LAYOUT(
-  MT(KC_CAPS, KC_ESC), BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN,                  BP_AT,    BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, BP_W,
-  KC_TAB,              BP_B,    BP_EACU, BP_P,    BP_O,    BP_EGRV,                  BP_DCIR,  BP_V,    BP_D,    BP_L,    BP_J,    BP_Z,
-  KC_LCTRL,            BP_A,    BP_U,    BP_I,    BP_E,    BP_COMM,         MT(BP_CCED, BP_C), BP_T,    BP_S,    BP_R,    BP_N,    BP_M,
-  KC_LSFT,             BP_AGRV, BP_Y,    BP_X,  BP_DOT,    BP_K, BP_ECIR,   KC_DEL,  BP_QUOT,  BP_Q,    BP_G,    BP_H,    BP_F,    KC_RSFT,
-                                          KC_LALT, KC_LGUI, LOWER, KC_SPC,  KC_ENT,  RAISE, KC_BSPC, KC_RALT
+  MT(KC_CAPS, KC_ESC), BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN,                                 BP_AT,    BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, BP_W,
+  KC_TAB,              BP_B,    BP_EACU, BP_P,    BP_O,    BP_EGRV,                                 BP_DCIR,  BP_V,    BP_D,    BP_L,    BP_J,    BP_Z,
+  KC_LCTRL,            BP_A,    BP_U,    BP_I,    BP_E,    BP_COMM,                        MT(BP_CCED, BP_C), BP_T,    BP_S,    BP_R,    BP_N,    BP_M,
+  KC_LSFT,             BP_AGRV, BP_Y,    BP_X,  BP_DOT,    BP_K, LSFT(KC_PSCR),     KC_DEL,  BP_QUOT,  BP_Q,    BP_G,    BP_H,    BP_F,    KC_RSFT,
+                                        KC_LALT, KC_LGUI, LOWER, KC_SPC,                    KC_ENT,  RAISE, KC_BSPC, KC_RALT
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -68,26 +68,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  F7  |  F8  |  F9  | F10  | F11  | F12  |                    |   -  |   4  |   5  |   6  |   %  |  ^   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |LCTRL |  c+c |  c+v |  Up  | home | end  |-------.    ,-------|   /  |   1  |   2  |   3  |   <  |  >   |
- * |------+------+------+------+------+------|   Ê   |    |SUPPR  |------+------+------+------+------+------|
- * |LShift|  c+x | Left | Down | Right| pscr |-------|    |-------|   *  |   0  |   (  |   )  |   {  |   }  |
+ * |------+------+------+------+------+------|TGHi/Lo|    |SUPPR  |------+------+------+------+------+------|
+ * |LShift|  c+x | Left | Down | Right| pscr |-------|    |-------|   *  |   0  |   .  |   ,  |   (  |   )  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| AltGr|
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 [_LOWER] = LAYOUT(
-  KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,                     BP_PLUS, BP_7, BP_8,    BP_9,    BP_EQL,  BP_HASH,
-  KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,                    BP_MINS, BP_4, BP_5,    BP_6,    BP_LABK, BP_RABK, 
-  _______, KC_COPY, KC_PSTE2, KC_UP,   KC_HOME, KC_END,                    BP_SLSH, BP_1, BP_2,    BP_3,    KC_2 ,   KC_3,
-  _______, KC_CUT,  KC_LEFT,  KC_DOWN, KC_RGHT, KC_PSCR, _______, _______, BP_ASTR, BP_0, BP_LPRN, BP_RPRN, BP_LCBR, BP_RCBR,
-                             _______, _______, _______, _______, _______,  _______, _______, _______
+  KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,                       KC_PPLS, KC_P7, KC_P8,   KC_P9,   BP_EQL,  BP_HASH,
+  KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,                      KC_PMNS, KC_P4, KC_P5,   KC_P6,   BP_PERC, BP_RABK, 
+  _______, KC_COPY, KC_PSTE2, KC_UP,   KC_HOME, KC_END,                      KC_PSLS, KC_P1, KC_P2,   KC_P3,   BP_LABK, BP_RABK,
+  _______, KC_CUT,  KC_LEFT,  KC_DOWN, KC_RGHT, KC_PSCR,TG(_RAISE), _______, KC_PAST, KC_P0, KC_PDOT, KC_PCMM, BP_LPRN, BP_RPRN,
+                                _______, _______, _______, _______, _______,  _______, _______, _______
 ),
 [_RAISE] = LAYOUT(
-  KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,                     BP_PLUS, BP_7, BP_8,    BP_9,    BP_EQL,  BP_HASH,
-  KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,                    BP_MINS, BP_4, BP_5,    BP_6,    BP_LABK, BP_RABK, 
-  _______, KC_COPY, KC_PSTE2, KC_UP,   KC_HOME, KC_END,                    BP_SLSH, BP_1, BP_2,    BP_3,    KC_2 ,   KC_3,
-  _______, KC_CUT,  KC_LEFT,  KC_DOWN, KC_RGHT, KC_PSCR, _______, _______, BP_ASTR, BP_0, BP_LPRN, BP_RPRN, BP_LCBR, BP_RCBR,
-                             _______, _______, _______, _______, _______,  _______, _______, _______
+  KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,                       KC_PPLS, KC_P7, KC_P8,   KC_P9,   BP_EQL,  BP_HASH,
+  KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,                      KC_PMNS, KC_P4, KC_P5,   KC_P6,   BP_PERC, BP_CIRC, 
+  _______, KC_COPY, KC_PSTE2, KC_UP,   KC_HOME, KC_END,                      KC_PSLS, KC_P1, KC_P2,   KC_P3,   BP_LABK, BP_RABK,
+  _______, KC_CUT,  KC_LEFT,  KC_DOWN, KC_RGHT, KC_PSCR,TG(_LOWER), _______, KC_PAST, KC_P0, KC_PDOT, KC_PCMM, BP_LPRN, BP_RPRN,
+                                _______, _______, _______, _______, _______,  _______, _______, _______
 ),
 
 /* ADJUST
@@ -339,3 +339,22 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 #endif
+
+//layer led modification
+// Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
+const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 6, HSV_RED},       // Light 6 LEDs, starting with LED 0
+    {35, 6, HSV_RED}       // Light 6 LEDs, starting with LED 35
+);
+// Now define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_capslock_layer
+);
+void keyboard_post_init_user(void) {
+    // Enable the LED layers
+    rgblight_layers = my_rgb_layers;
+}
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(0, led_state.caps_lock);
+    return true;
+}
