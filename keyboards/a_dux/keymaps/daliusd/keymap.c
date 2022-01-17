@@ -217,6 +217,15 @@ enum combos {
   XC_GUI_C,
   CV_GUI_V,
   DF_ESC,
+  SPACE_A,
+  SPACE_C,
+  SPACE_E,
+  SPACE_R,
+  SPACE_I,
+  SPACE_S,
+  SPACE_U,
+  SPACE_Y,
+  SPACE_Z,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -225,10 +234,104 @@ const uint16_t PROGMEM zx_combo[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM space_a_combo[] = {KC_SPC, KC_A, COMBO_END};
+const uint16_t PROGMEM space_c_combo[] = {KC_SPC, KC_C, COMBO_END};
+const uint16_t PROGMEM space_e_combo[] = {KC_SPC, KC_E, COMBO_END};
+const uint16_t PROGMEM space_r_combo[] = {KC_SPC, KC_R, COMBO_END};
+const uint16_t PROGMEM space_i_combo[] = {KC_SPC, KC_I, COMBO_END};
+const uint16_t PROGMEM space_s_combo[] = {KC_SPC, KC_S, COMBO_END};
+const uint16_t PROGMEM space_u_combo[] = {KC_SPC, KC_U, COMBO_END};
+const uint16_t PROGMEM space_y_combo[] = {KC_SPC, KC_Y, COMBO_END};
+const uint16_t PROGMEM space_z_combo[] = {KC_SPC, KC_Z, COMBO_END};
 
 combo_t key_combos[COMBO_LENGTH] = {
   [ZX_GUI_X] = COMBO(zx_combo, K_GUI_X),
   [XC_GUI_C] = COMBO(xc_combo, K_GUI_C),
   [CV_GUI_V] = COMBO(cv_combo, K_GUI_V),
-  [DF_ESC] = COMBO(df_combo, KC_ESC)
+  [DF_ESC] = COMBO(df_combo, KC_ESC),
+  [SPACE_A] = COMBO_ACTION(space_a_combo),
+  [SPACE_C] = COMBO_ACTION(space_c_combo),
+  [SPACE_E] = COMBO_ACTION(space_e_combo),
+  [SPACE_I] = COMBO_ACTION(space_i_combo),
+  [SPACE_R] = COMBO_ACTION(space_r_combo),
+  [SPACE_S] = COMBO_ACTION(space_s_combo),
+  [SPACE_U] = COMBO_ACTION(space_u_combo),
+  [SPACE_Y] = COMBO_ACTION(space_y_combo),
+  [SPACE_Z] = COMBO_ACTION(space_z_combo),
 };
+
+
+void swap_layout(void) {
+    uint8_t saved_mods = get_mods();
+    clear_mods();
+    tap_code16(K_CSPC);
+    set_mods(saved_mods);
+}
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case SPACE_A:
+      if (pressed) {
+        swap_layout();
+        tap_code16(KC_1);
+        swap_layout();
+      }
+      break;
+    case SPACE_C:
+      if (pressed) {
+        swap_layout();
+        tap_code16(KC_2);
+        swap_layout();
+      }
+      break;
+    case SPACE_E:
+      if (pressed) {
+        swap_layout();
+        tap_code16(KC_3);
+        swap_layout();
+      }
+      break;
+    case SPACE_R:
+      if (pressed) {
+        swap_layout();
+        tap_code16(KC_4);
+        swap_layout();
+      }
+      break;
+    case SPACE_I:
+      if (pressed) {
+        swap_layout();
+        tap_code16(KC_5);
+        swap_layout();
+      }
+      break;
+    case SPACE_S:
+      if (pressed) {
+        swap_layout();
+        tap_code16(KC_6);
+        swap_layout();
+      }
+      break;
+    case SPACE_U:
+      if (pressed) {
+        swap_layout();
+        tap_code16(KC_7);
+        swap_layout();
+      }
+      break;
+    case SPACE_Y:
+      if (pressed) {
+        swap_layout();
+        tap_code16(KC_8);
+        swap_layout();
+      }
+      break;
+    case SPACE_Z:
+      if (pressed) {
+        swap_layout();
+        tap_code16(KC_EQL);
+        swap_layout();
+      }
+      break;
+  }
+}
