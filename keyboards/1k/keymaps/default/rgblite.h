@@ -15,8 +15,8 @@ static void rgblite_increase_hue(void) {
     static uint8_t state = 0;
 
     HSV hsv = { 255, 255, 255 };
-    state = (state + 10) % 360;
     hsv.h = state;
+    state = (state + 8) % 256;
 
     rgblite_setrgb(hsv_to_rgb(hsv));
 
