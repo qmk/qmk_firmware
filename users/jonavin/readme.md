@@ -120,6 +120,5 @@ LIST OF COMPATIBLE KEYMAPS
 - mechwild/murphpad
 - mechwild/OBE
 - kbdfans/kdb67
-- nopunin10did/kastenwagen (*)
+- nopunin10did/kastenwagen48
 
-    (*) coming soon

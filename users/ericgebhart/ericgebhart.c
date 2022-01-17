@@ -27,11 +27,7 @@
 float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
 
-static uint16_t copy_paste_timer;
 userspace_config_t userspace_config;
-
-void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
-
 
 // Add reconfigurable functions here, for keymap customization
 // This allows for a global, userspace functions, and continued
@@ -44,22 +40,13 @@ __attribute__ ((weak))
 void matrix_scan_keymap(void) {}
 
 __attribute__ ((weak))
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-__attribute__ ((weak))
-bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-__attribute__ ((weak))
 uint32_t layer_state_set_keymap (uint32_t state) {
   return state;
 }
 
 __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
+<<<<<<< HEAD
 
 // check default layerstate to see which layer we are on.
 // if (biton32(layer_state) == _DIABLO) {  --- current layer
@@ -640,3 +627,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_XMONAD_ESC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
   [TD_MOUSE_BTNS] = ACTION_TAP_DANCE_FN(tap_dance_mouse_btns)
 };
+=======
+>>>>>>> d02be63000a4f5efe728f36608c33bcdaee08330
