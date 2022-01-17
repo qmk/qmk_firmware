@@ -1,4 +1,4 @@
-/* Copyright 2021 cyril279
+/* Copyright 2022 Jan Lindblom (@janlindblom)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
 #include "sendstring_swedish.h"
