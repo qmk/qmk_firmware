@@ -1,8 +1,8 @@
 # 如何定制化键盘功能
 
 <!---
-  original document: 0.14.23:docs/custom_quantum_functions.md
-  git diff 0.14.23 HEAD -- docs/custom_quantum_functions.md | cat
+  original document: 0.15.12:docs/custom_quantum_functions.md
+  git diff 0.15.12 HEAD -- docs/custom_quantum_functions.md | cat
 -->
 
 对于很多人来说对客制化键盘的诉求不只是向电脑输入按下的键。你肯定想实现比简单按键和宏更复杂的功能。QMK支持基于注入点的代码注入，功能重写，另外还可以自定义键盘在不同情况下的行为。

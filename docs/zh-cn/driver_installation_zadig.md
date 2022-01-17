@@ -1,8 +1,8 @@
 # 利用Zadig安装Bootloader驱动
 
 <!---
-  original document: 0.14.23:docs/driver_installation_zadig.md
-  git diff 0.14.23 HEAD -- docs/driver_installation_zadig.md | cat
+  original document: 0.15.12:docs/driver_installation_zadig.md
+  git diff 0.15.12 HEAD -- docs/driver_installation_zadig.md | cat
 -->
 
 QMK在主机侧会展现为一台HID键盘设备，因此不需要额外的驱动。但若要在Windows下刷写键盘固件，重置主控板时出现的bootloader设备则通常需要一些驱动程序。

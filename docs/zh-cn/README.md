@@ -1,8 +1,8 @@
 # Quantum Mechanical Keyboard固件
 
 <!---
-  original document: 0.14.23:docs/README.md
-  git diff 0.14.23 HEAD -- docs/README.md | cat
+  original document: 0.15.12:docs/README.md
+  git diff 0.15.12 HEAD -- docs/README.md | cat
 -->
 
 ## 什么是 QMK 固件?

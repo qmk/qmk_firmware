@@ -1,8 +1,8 @@
 # 键映射总览
 
 <!---
-  original document: 0.14.23:docs/keymap.md
-  git diff 0.14.23 HEAD -- docs/keymap.md | cat
+  original document: 0.15.12:docs/keymap.md
+  git diff 0.15.12 HEAD -- docs/keymap.md | cat
 -->
 
 QMK键映射定义在C源文件中，其数据结构上是一个容纳了数组的数组。外层数组容纳了各个层，内层各数组则为层内的键列表。基本所有键盘都通过定义 `LAYOUT()` 宏来创建该两级数组。

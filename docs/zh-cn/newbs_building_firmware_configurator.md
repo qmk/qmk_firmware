@@ -1,8 +1,8 @@
 # QMK配置器
 
 <!---
-  original document: 0.14.23:docs/newbs_building_firmware_configurator.md
-  git diff 0.14.23 HEAD -- docs/newbs_building_firmware_configurator.md | cat
+  original document: 0.15.12:docs/newbs_building_firmware_configurator.md
+  git diff 0.15.12 HEAD -- docs/newbs_building_firmware_configurator.md | cat
 -->
 
 [![QMK配置器截图](https://i.imgur.com/anw9cOL.png)](https://config.qmk.fm/)

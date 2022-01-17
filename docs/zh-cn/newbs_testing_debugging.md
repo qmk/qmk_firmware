@@ -1,8 +1,8 @@
 # 测试和调试
 
 <!---
-  original document: 0.14.23:docs/newbs_testing_debugging.md
-  git diff 0.14.23 HEAD -- docs/newbs_testing_debugging.md | cat
+  original document: 0.15.12:docs/newbs_testing_debugging.md
+  git diff 0.15.12 HEAD -- docs/newbs_testing_debugging.md | cat
 -->
 ## 测试
 

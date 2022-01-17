@@ -1,8 +1,8 @@
 # 寻求帮助
 
 <!---
-  original document: 0.14.23:docs/support.md
-  git diff 0.14.23 HEAD -- docs/support.md | cat
+  original document: 0.15.12:docs/support.md
+  git diff 0.15.12 HEAD -- docs/support.md | cat
 -->
 
 你可以从很多渠道获取QMK帮助。

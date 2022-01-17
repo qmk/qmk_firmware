@@ -1,8 +1,8 @@
 # QMK入门教程
 
 <!---
-  original document: 0.14.23:docs/newbs.md
-  git diff 0.14.23 HEAD -- docs/newbs.md | cat
+  original document: 0.15.12:docs/newbs.md
+  git diff 0.15.12 HEAD -- docs/newbs.md | cat
 -->
 
 就像计算机一样，每把键盘里也有一个处理器，它的职责是在你点击键盘时，检测到这个动作并反馈给计算机。QMK固件即是为了这个目的而设计的一种"软件"，负责检测点击，反馈给电脑。当你构建出一个自定义键映射时，就是在创建一个新的键盘"软件"。

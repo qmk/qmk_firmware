@@ -1,8 +1,8 @@
 # 学习资源
 
 <!---
-  original document: 0.14.23:docs/newbs_learn_more_resources.md
-  git diff 0.14.23 HEAD -- docs/newbs_learn_more_resources.md | cat
+  original document: 0.15.12:docs/newbs_learn_more_resources.md
+  git diff 0.15.12 HEAD -- docs/newbs_learn_more_resources.md | cat
 -->
 
 这些资源旨在让QMK社区的新成员更了解新手教程中的基础知识。

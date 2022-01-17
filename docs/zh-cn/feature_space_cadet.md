@@ -2,8 +2,8 @@
 <!-- Deliberately not translated, leave it to a suitable translation -->
 
 <!---
-  original document: 0.14.23:docs/feature_space_cadet.md
-  git diff 0.14.23 HEAD -- docs/feature_space_cadet.md | cat
+  original document: 0.15.12:docs/feature_space_cadet.md
+  git diff 0.15.12 HEAD -- docs/feature_space_cadet.md | cat
 -->
 
 *译注：Space Cadet来源于(在西方早期程序员中)著名的键盘Space Cadet Keyboard，具体信息参见下面的链接或[维基百科](https://en.wikipedia.org/wiki/Space-cadet_keyboard)*

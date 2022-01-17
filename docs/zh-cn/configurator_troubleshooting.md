@@ -1,8 +1,8 @@
 # 配置器问题排查
 
 <!---
-  original document: 0.14.23:docs/configurator_troubleshooting.md
-  git diff 0.14.23 HEAD -- docs/configurator_troubleshooting.md | cat
+  original document: 0.15.12:docs/configurator_troubleshooting.md
+  git diff 0.15.12 HEAD -- docs/configurator_troubleshooting.md | cat
 -->
 
 ## 我的 .json 文件不可用

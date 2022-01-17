@@ -1,8 +1,8 @@
 # Grave Escape
 
 <!---
-  original document: 0.14.23:docs/feature_grave_esc.md
-  git diff 0.14.23 HEAD -- docs/feature_grave_esc.md | cat
+  original document: 0.15.12:docs/feature_grave_esc.md
+  git diff 0.15.12 HEAD -- docs/feature_grave_esc.md | cat
 -->
 
 *译注：Grave键即标准键盘中Tab键上方的 <code>&#96;</code> 键，该符号用于英法语等西语体系，辅助调整发音，中文中没有对应概念；Escape即Esc键*
