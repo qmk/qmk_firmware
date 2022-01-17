@@ -7,16 +7,14 @@ SRC += ../common/common_oled.c
 QUANTUM_LIB_SRC += i2c_master.c
 
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no           # Audio output
 
 WS2812_DRIVER = pwm
