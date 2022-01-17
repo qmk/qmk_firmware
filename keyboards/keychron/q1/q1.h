@@ -20,8 +20,18 @@
 
 #if   defined(KEYBOARD_keychron_q1_Q1_ANSI_ATMEGA32U4)
 #    include "Q1_ANSI_ATMEGA32U4.h"
+#elif defined(KEYBOARD_keychron_q1_Q1_ANSI_ATMEGA32U4_EC11)
+#    include "Q1_ANSI_ATMEGA32U4_EC11.h"
 #elif defined(KEYBOARD_keychron_q1_Q1_ISO_ATMEGA32U4)
 #    include "Q1_ISO_ATMEGA32U4.h"
+#elif defined(KEYBOARD_keychron_q1_Q1_ISO_ATMEGA32U4_EC11)
+#    include "Q1_ISO_ATMEGA32U4_EC11.h"
+#elif defined(KEYBOARD_keychron_q1_Q1_ANSI_STM32L432)
+#    include "Q1_ANSI_STM32L432.h"
 #elif defined(KEYBOARD_keychron_q1_Q1_ANSI_STM32L432_EC11)
 #    include "Q1_ANSI_STM32L432_EC11.h"
+#elif defined(KEYBOARD_keychron_q1_Q1_ISO_STM32L432)
+#    include "Q1_ISO_STM32L432.h"
+#elif defined(KEYBOARD_keychron_q1_Q1_ISO_STM32L432_EC11)
+#    include "Q1_ISO_STM32L432_EC11.h"
 #endif

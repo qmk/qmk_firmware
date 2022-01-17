@@ -184,7 +184,11 @@ void clear_eeprom(void) {
 
 #if   defined(KEYBOARD_keychron_q1_Q1_ANSI_ATMEGA32U4)
     // Do nothing here.
+#elif defined(KEYBOARD_keychron_q1_Q1_ANSI_ATMEGA32U4_EC11)
+    // Do nothing here.
 #elif defined(KEYBOARD_keychron_q1_Q1_ISO_ATMEGA32U4)
+    // Do nothing here.
+#elif defined(KEYBOARD_keychron_q1_Q1_ISO_ATMEGA32U4_EC11)
     // Do nothing here.
 #else
     void restart_usb_driver(USBDriver *usbp) {
