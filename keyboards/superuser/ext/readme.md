@@ -2,7 +2,7 @@
 
 An EXT TKL PCB supporting 7u bottom row only.
 
-* Keyboard Maintainer: superuser
+* Keyboard Maintainer: [kaylanm](https://github.com/kaylanm)
 * Hardware Supported: superuser ext
 * Hardware Availability: Group buy
 

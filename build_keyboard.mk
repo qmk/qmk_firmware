@@ -10,7 +10,8 @@ endif
 
 .DEFAULT_GOAL := all
 
-include common.mk
+include paths.mk
+include $(BUILDDEFS_PATH)/message.mk
 
 # Set the qmk cli to use
 QMK_BIN ?= qmk
@@ -31,20 +32,6 @@ endif
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
 KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
-
-# For split boards we need to set a master half.
-MASTER ?= left
-ifdef master
-    MASTER = $(master)
-endif
-
-ifeq ($(MASTER),right)
-    OPT_DEFS += -DMASTER_IS_ON_RIGHT
-else
-    ifneq ($(MASTER),left)
-$(error MASTER does not have a valid value(left/right))
-    endif
-endif
 
 ifdef SKIP_VERSION
     OPT_DEFS += -DSKIP_VERSION
@@ -115,6 +102,7 @@ include $(INFO_RULES_MK)
 # Check for keymap.json first, so we can regenerate keymap.c
 include build_json.mk
 
+# Pull in keymap level rules.mk
 ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     # Look through the possible keymap folders until we find a matching keymap.c
     ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
@@ -177,7 +165,7 @@ ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
     include platforms/chibios/boards/QMK_PROTON_C/convert_to_proton_c.mk
 endif
 
-include quantum/mcu_selection.mk
+include $(BUILDDEFS_PATH)/mcu_selection.mk
 
 # Find all the C source files to be compiled in subfolders.
 KEYBOARD_SRC :=
@@ -345,6 +333,7 @@ ifeq ("$(USER_NAME)","")
 endif
 USER_PATH := users/$(USER_NAME)
 
+# Pull in user level rules.mk
 -include $(USER_PATH)/rules.mk
 ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
@@ -354,7 +343,24 @@ ifneq ("$(wildcard $(USER_PATH)/post_config.h)","")
 endif
 
 # Disable features that a keyboard doesn't support
--include disable_features.mk
+-include $(BUILDDEFS_PATH)/disable_features.mk
+
+# Pull in post_rules.mk files from all our subfolders
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_1)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_2)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_3)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_4)/post_rules.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_rules.mk)","")
+    include $(KEYBOARD_PATH_5)/post_rules.mk
+endif
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
@@ -380,9 +386,10 @@ VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
 
 include common_features.mk
+include $(BUILDDEFS_PATH)/generic_features.mk
 include $(TMK_PATH)/protocol.mk
-include $(TMK_PATH)/common.mk
-include bootloader.mk
+include $(PLATFORM_PATH)/common.mk
+include $(BUILDDEFS_PATH)/bootloader.mk
 
 SRC += $(patsubst %.c,%.clib,$(LIB_SRC))
 SRC += $(patsubst %.c,%.clib,$(QUANTUM_LIB_SRC))
@@ -397,39 +404,34 @@ ifneq ($(REQUIRE_PLATFORM_KEY),)
     endif
 endif
 
-include $(TMK_PATH)/$(PLATFORM_KEY).mk
+include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
+-include $(PLATFORM_PATH)/$(PLATFORM_KEY)/flash.mk
+
 ifneq ($(strip $(PROTOCOL)),)
     include $(TMK_PATH)/protocol/$(strip $(shell echo $(PROTOCOL) | tr '[:upper:]' '[:lower:]')).mk
 else
     include $(TMK_PATH)/protocol/$(PLATFORM_KEY).mk
 endif
--include $(TOP_DIR)/platforms/$(PLATFORM_KEY)/flash.mk
 
 # TODO: remove this bodge?
 PROJECT_DEFS := $(OPT_DEFS)
 PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
 PROJECT_CONFIG := $(CONFIG_H)
 
-ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-    VISUALIZER_DIR = $(QUANTUM_DIR)/visualizer
-    VISUALIZER_PATH = $(QUANTUM_PATH)/visualizer
-    include $(VISUALIZER_PATH)/visualizer.mk
-endif
-
 CONFIG_H += $(POST_CONFIG_H)
 ALL_CONFIGS := $(PROJECT_CONFIG) $(CONFIG_H)
 
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
-$(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) $(GFXDEFS) \
+$(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) \
 -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(QMK_KEYBOARD_H)\" \
 -DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\" \
 -DQMK_SUBPROJECT -DQMK_SUBPROJECT_H -DQMK_SUBPROJECT_CONFIG_H
 $(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
 $(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
-$(KEYBOARD_OUTPUT)_SRC := $(CHIBISRC) $(GFXSRC)
-$(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS) $(GFXDEFS)
-$(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC) $(GFXINC)
+$(KEYBOARD_OUTPUT)_SRC := $(PLATFORM_SRC)
+$(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS)
+$(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC)
 $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.
@@ -445,7 +447,7 @@ check-size: build
 check-md5: build
 objs-size: build
 
-include show_options.mk
+include $(BUILDDEFS_PATH)/show_options.mk
 include $(TMK_PATH)/rules.mk
 
 # Ensure we have generated files available for each of the objects

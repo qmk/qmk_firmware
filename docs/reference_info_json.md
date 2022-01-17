@@ -9,33 +9,39 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<n
 The `info.json` file is a JSON formatted dictionary with the following keys available to be set. You do not have to set all of them, merely the keys that apply to your keyboard.
 
 * `keyboard_name`
-  * A free-form text string describing the keyboard.
-  * Example: `Clueboard 66%`
+    * A free-form text string describing the keyboard.
+    * Example: `Clueboard 66%`
+* `manufacturer`
+    * A free-form text string describing the keyboard's manufacturer.
+    * Example: `Clueboard`
 * `url`
-  * A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.
+    * A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.
+    * Example: `https://clueboard.co`
 * `maintainer`
-  * GitHub username of the maintainer, or `qmk` for community maintained boards
+    * GitHub username of the maintainer, or `qmk` for community maintained boards.
+    * Example: `skullydazed`
 * `debounce`
-  * How many milliseconds (ms) to wait for debounce to happen. (Default: 5)
+    * The amount of time in milliseconds to wait for debounce to happen.
+    * Default: `5`
 * `diode_direction`
-  * The direction diodes face. See [`DIRECT_PINS` in the hardware configuration](https://docs.qmk.fm/#/config_options?id=hardware-options) for more details.
+    * The direction diodes face. See [`DIRECT_PINS` in the hardware configuration](https://docs.qmk.fm/#/config_options?id=hardware-options) for more details.
 * `layout_aliases`
-  * A dictionary containing layout aliases. The key is the alias and the value is a layout in `layouts` it maps to.
+    * A dictionary containing layout aliases. The key is the alias and the value is a layout in `layouts` it maps to.
 * `layouts`
-  * Physical Layout representations. See the [Layout Format](#layout_format) section for more detail.
+    * Physical Layout representations. See the [Layout Format](#layout_format) section for more detail.
 * `matrix_pins`
-  * Configure the pins corresponding to columns and rows, or direct pins. See [Matrix Pins](#matrix_pins) for more detail.
+    * Configure the pins corresponding to columns and rows, or direct pins. See the [Matrix Pins](#matrix_pins) section for more detail.
 * `rgblight`
-  * Configure the [RGB Lighting feature](feature_rgblight.md). See the [RGB Lighting](#rgb_lighting) section for more detail.
+    * Configure the [RGB Lighting feature](feature_rgblight.md). See the [RGB Lighting](#rgb_lighting) section for more detail.
 * `usb`
-  * Configure USB VID, PID, and other parameters. See [USB](#USB) for more detail.
+    * Configure USB VID, PID, and other parameters. See the [USB](#USB) section for more detail.
 
 ### Layout Format
 
 Within our `info.json` file the `layouts` portion of the dictionary contains several nested dictionaries. The outer layer consists of QMK layout macros, for example `LAYOUT_ansi` or `LAYOUT_iso`.
 
 * `layout`
-  * A list of Key Dictionaries describing the physical layout. See the next section for more details.
+    * A list of Key Dictionaries describing the physical layout. See the next section for more details.
 
 ### Key Dictionary Format
 
@@ -44,18 +50,20 @@ Each Key Dictionary in a layout describes the physical properties of a key. If y
 All key positions and rotations are specified in relation to the top-left corner of the keyboard, and the top-left corner of each key.
 
 * `x`
-  * **Required**: The absolute position of the key in the horizontal axis, in Key Units.
+    * **Required**. The absolute position of the key in the horizontal axis, in Key Units.
 * `y`
-  * **Required**: The absolute position of the key in the vertical axis, in Key Units.
+    * **Required**. The absolute position of the key in the vertical axis, in Key Units.
 * `w`
-  * The width of the key, in Key Units. Ignored if `ks` is provided. Default: `1`
+    * The width of the key, in Key Units.
+    * Default: `1`
 * `h`
-  * The height of the key, in Key Units. Ignored if `ks` is provided. Default: `1`
+    * The height of the key, in Key Units.
+    * Default: `1`
 * `label`
-  * What to name this position in the matrix.
-  * This should usually correspond to the keycode for the first layer of the default keymap.
+    * What to name this position in the matrix. This should usually correspond to the keycode for the first layer of the default keymap.
 * `matrix`
-  * A 2 item list describing the row and column location for this key.
+    * A two item list describing the row and column location for this key.
+    * Example: `[0, 4]`
 
 ### Matrix Pins
 
@@ -69,11 +77,11 @@ Example:
 
 ```json
 {
-  "diode_direction": "COL2ROW",
-  "matrix_pins": {
-    "cols": ["F4", "E6", "B1", "D2"],
-    "rows": ["B0", "D3", "D5", "D4", "D6"]
-  }
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["F4", "E6", "B1", "D2"],
+        "rows": ["B0", "D3", "D5", "D4", "D6"]
+    }
 }
 ```
 
@@ -144,23 +152,23 @@ Example:
 }
 ```
 
-#### RGB Light Animations
+#### RGBLight Animations
 
 The following animations can be enabled:
 
-| Key | Description |
-|-----|-------------|
-| `all` | Enable all additional animation modes. |
-| `alternating` | Enable alternating animation mode. |
-| `breathing` | Enable breathing animation mode. |
-| `christmas` | Enable christmas animation mode. |
-| `knight` | Enable knight animation mode. |
-| `rainbow_mood` | Enable rainbow mood animation mode. |
-| `rainbow_swirl` | Enable rainbow swirl animation mode. |
-| `rgb_test` | Enable RGB test animation mode. |
-| `snake` | Enable snake animation mode. |
-| `static_gradient` | Enable static gradient mode. |
-| `twinkle` | Enable twinkle animation mode. |
+|Key              |Description                           |
+|-----------------|--------------------------------------|
+|`all`            |Enable all additional animation modes.|
+|`alternating`    |Enable alternating animation mode.    |
+|`breathing`      |Enable breathing animation mode.      |
+|`christmas`      |Enable christmas animation mode.      |
+|`knight`         |Enable knight animation mode.         |
+|`rainbow_mood`   |Enable rainbow mood animation mode.   |
+|`rainbow_swirl`  |Enable rainbow swirl animation mode.  |
+|`rgb_test`       |Enable RGB test animation mode.       |
+|`snake`          |Enable snake animation mode.          |
+|`static_gradient`|Enable static gradient mode.          |
+|`twinkle`        |Enable twinkle animation mode.        |
 
 ### USB
 
@@ -170,10 +178,10 @@ Example:
 
 ```json
 {
-  "usb": {
-    "vid": "0xC1ED",
-    "pid": "0x23B0",
-    "device_ver": "0x0001"
-  }
+    "usb": {
+        "vid": "0xC1ED",
+        "pid": "0x23B0",
+        "device_ver": "0x0001"
+    }
 }
 ```

@@ -39,9 +39,9 @@ Output the version of QMK Firmware on device.
 ## QMK Features
 ----
 
-### RGBLIGHT_SLEEP
+### RGBLIGHT_SLEEP and RGB_DISABLE_WHEN_USB_SUSPENDED
 
-Ensures that when my computer is in sleep mode, the keyboard underglow lights will also be off. 
+Ensures that when my computer is in sleep mode, the keyboard underglow and inswitch RGB lights will also be off. 
 
 ### Audio Clicky
 

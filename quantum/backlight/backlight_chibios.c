@@ -8,9 +8,13 @@
 #    define BACKLIGHT_LIMIT_VAL 255
 #endif
 
-// GPIOV2 && GPIOV3
 #ifndef BACKLIGHT_PAL_MODE
-#    define BACKLIGHT_PAL_MODE 2
+#    if defined(USE_GPIOV1)
+#        define BACKLIGHT_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#    else
+// GPIOV2 && GPIOV3
+#        define BACKLIGHT_PAL_MODE 5
+#    endif
 #endif
 
 // GENERIC
@@ -70,7 +74,7 @@ static uint32_t rescale_limit_val(uint32_t val) {
 
 void backlight_init_ports(void) {
 #ifdef USE_GPIOV1
-    palSetPadMode(PAL_PORT(BACKLIGHT_PIN), PAL_PAD(BACKLIGHT_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+    palSetPadMode(PAL_PORT(BACKLIGHT_PIN), PAL_PAD(BACKLIGHT_PIN), BACKLIGHT_PAL_MODE);
 #else
     palSetPadMode(PAL_PORT(BACKLIGHT_PIN), PAL_PAD(BACKLIGHT_PIN), PAL_MODE_ALTERNATE(BACKLIGHT_PAL_MODE));
 #endif

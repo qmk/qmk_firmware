@@ -24,7 +24,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
     - no "old-school" or other low-level GPIO/I2C/SPI functions may be used -- must use QMK abstractions unless justifiable (and laziness is not valid justification)
     - timing abstractions should be followed too:
         - `wait_ms()` instead of `_delay_ms()` (remove `#include <util/delay.h>` too)
-        - `timer_read()` and `timer_read32()` etc. -- see [timer.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/timer.h) for the timing APIs
+        - `timer_read()` and `timer_read32()` etc. -- see [timer.h](https://github.com/qmk/qmk_firmware/blob/master/platforms/timer.h) for the timing APIs
     - if you think a new abstraction is useful, you're encouraged to:
         - prototype it in your own keyboard until it's feature-complete
         - discuss it with QMK Collaborators on Discord
@@ -101,6 +101,9 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - submitters can have a personal (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
 - Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
+- Do not include source files from another keyboard or vendors keyboard folder. Including core files is fine. 
+  - For instance, only `wilba_tech` boards using be including `keyboards/wilba_tech/wt_main.c` and  `keyboards/wilba_tech/wt_rgb_backlight.c`. But including `drivers/sensors/pmw3360.c` is absolutely fine.
+  - Code that needs to be used by multiple boards is a candidate for core code changes, and should be separated out.
 
 Also, specific to ChibiOS:
 - **strong** preference to using existing ChibiOS board definitions.
@@ -115,6 +118,10 @@ Also, specific to ChibiOS:
 ## Core PRs
 
 - must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
+- any support for new hardware now requires a corresponding test board under `keyboards/handwired/onekey`
+    - for new MCUs, a new "child" keyboard should be added that targets your newly-added MCU, so that builds can be verified
+    - for new hardware support such as display panels, core-side matrix implementations, or other peripherals, an associated keymap should be provided
+    - if an existing keymap exists that can leverage this functionality this may not be required (e.g. a new RGB driver chip, supported by the `rgb` keymap) -- consult with the QMK Collaborators on Discord to determine if there is sufficient overlap already
 - other requirements are at the discretion of QMK collaborators
     - core is a lot more subjective given the breadth of posted changes
 

@@ -37,7 +37,6 @@
     "vid": "0xC1ED"
   },
   "layout_aliases": {
-    "KEYMAP": "LAYOUT_numpad_5x4",
     "LAYOUT": "LAYOUT_numpad_5x4"
   },
   "layouts": {

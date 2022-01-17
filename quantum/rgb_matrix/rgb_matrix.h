@@ -23,7 +23,6 @@
 #include "rgb_matrix_types.h"
 #include "color.h"
 #include "quantum.h"
-#include "rgb_matrix_legacy_enables.h"
 
 #ifdef IS31FL3731
 #    include "is31fl3731.h"
@@ -33,6 +32,8 @@
 #    include "is31fl3737.h"
 #elif defined(IS31FL3741)
 #    include "is31fl3741.h"
+#elif defined(CKLED2001)
+#    include "ckled2001.h"
 #elif defined(AW20216)
 #    include "aw20216.h"
 #elif defined(WS2812)
@@ -48,14 +49,33 @@
 #endif
 
 #if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
-#    define RGB_MATRIX_USE_LIMITS(min, max)                        \
-        uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter; \
-        uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;          \
-        if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+#    if defined(RGB_MATRIX_SPLIT)
+#        define RGB_MATRIX_USE_LIMITS(min, max)                                                   \
+            uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter;                            \
+            uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;                                     \
+            if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;                                   \
+            uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;                                     \
+            if (is_keyboard_left() && (max > k_rgb_matrix_split[0])) max = k_rgb_matrix_split[0]; \
+            if (!(is_keyboard_left()) && (min < k_rgb_matrix_split[0])) min = k_rgb_matrix_split[0];
+#    else
+#        define RGB_MATRIX_USE_LIMITS(min, max)                        \
+            uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter; \
+            uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;          \
+            if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+#    endif
 #else
-#    define RGB_MATRIX_USE_LIMITS(min, max) \
-        uint8_t min = 0;                    \
-        uint8_t max = DRIVER_LED_TOTAL;
+#    if defined(RGB_MATRIX_SPLIT)
+#        define RGB_MATRIX_USE_LIMITS(min, max)                                                   \
+            uint8_t       min                   = 0;                                              \
+            uint8_t       max                   = DRIVER_LED_TOTAL;                               \
+            const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;                               \
+            if (is_keyboard_left() && (max > k_rgb_matrix_split[0])) max = k_rgb_matrix_split[0]; \
+            if (!(is_keyboard_left()) && (min < k_rgb_matrix_split[0])) min = k_rgb_matrix_split[0];
+#    else
+#        define RGB_MATRIX_USE_LIMITS(min, max) \
+            uint8_t min = 0;                    \
+            uint8_t max = DRIVER_LED_TOTAL;
+#    endif
 #endif
 
 #define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) \
@@ -213,6 +233,18 @@ typedef struct {
     /* Flush any buffered changes to the hardware. */
     void (*flush)(void);
 } rgb_matrix_driver_t;
+
+static inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {
+#if defined(RGB_MATRIX_SPLIT)
+    if (is_keyboard_left()) {
+        uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
+        return led_idx < k_rgb_matrix_split[0];
+    } else
+        return led_idx < DRIVER_LED_TOTAL;
+#else
+    return led_idx < DRIVER_LED_TOTAL;
+#endif
+}
 
 extern const rgb_matrix_driver_t rgb_matrix_driver;
 
