@@ -51,7 +51,7 @@
 #define ISSI_REG_CSPULLUP 0x10       // PG3
 
 #ifndef ISSI_TIMEOUT
-#    define ISSI_TIMEOUT 100
+#    define ISSI_TIMEOUT 5000
 #endif
 
 #ifndef ISSI_PERSISTENCE
@@ -80,12 +80,12 @@ bool IS31FL3733_write_register(uint8_t index, uint8_t addr, uint8_t reg, uint8_t
 
 #if ISSI_PERSISTENCE > 0
     for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-        if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT) != 0) {
+        if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 2, TIME_US2I(ISSI_TIMEOUT)) != 0) {
             return false;
         }
     }
 #else
-    if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT) != 0) {
+    if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 2, TIME_US2I(ISSI_TIMEOUT)) != 0) {
         return false;
     }
 #endif
@@ -110,12 +110,12 @@ bool IS31FL3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffe
 
 #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-            if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT) != 0) {
+            if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 17, TIME_US2I(ISSI_TIMEOUT)) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT) != 0) {
+        if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 17, TIME_US2I(ISSI_TIMEOUT)) != 0) {
             return false;
         }
 #endif
