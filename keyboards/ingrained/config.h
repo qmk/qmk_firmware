@@ -6,10 +6,10 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define VENDOR_ID    0xB33F
+#define PRODUCT_ID   0x58E4
 #define DEVICE_VER   0x0001
-#define MANUFACTURER jpuerto96
+#define MANUFACTURER s8erdude
 #define PRODUCT      ingrained
 
 /* key matrix size */
