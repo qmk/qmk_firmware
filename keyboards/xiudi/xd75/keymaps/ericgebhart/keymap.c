@@ -27,44 +27,6 @@
 
 #include "map.h"
 
-  // 4x12
-  //[_BEPO]      = BASE_5x15_bepo6(___BEPO6_FR___),
-
-  // transient macro takes a 4x12 for args
-  [_SYMB]    = TRANSIENT_5x15(___12___, ___SYMB_BEAKLA_3x12___),
-  //[_SYMB_BP] = TRANSIENT_5x15(___12___, ___SYMB_BEAKLA_BP_3x12___),
-
-  [_TOPROWS]    = TRANSIENT_5x15(___12___, ___TOPROWS_3x12___),
-  //[_TOPROWS_BP] = TRANSIENT_5x15(___12___, ___TOPROWS_BP_3x12___),
-
-  [_KEYPAD]    = TRANSIENT_5x15(___12___, ___KP_C_3x12___),
-  //[_KEYPAD_BP] = TRANSIENT_5x15(___12___, ___KP_C_BP_3x12___),
-
-  // Navigation and control
-  [_NAV]    = TRANSIENT_5x15(___12___, ___NAV_3x12___),
-  [_LAYERS] = TRANSIENT_5x15(___12___, ___LAYERS_3x12___),
-  //[_RGB]  = TRANSIENT_5x15(___12___, ___RGB_3x12___),
-  [_ADJUST]    = TRANSIENT_5x15(___12___, ___ADJUST_3x12___),
-
-  //[_DVORAK_BP] = BASE_5x15_bepo(___DVORAK_FR___),
-  //[_BEAKL_BP]  = BASE_5x15_bepo(___BEAKL15_FR___),
-
-  // 4x12
-  //[_BEPO]      = BASE_5x15_bepo6(___BEPO6_FR___),
-
-  // transient macro takes a 4x12 for args
-  [_SYMB]    = TRANSIENT_5x15(___12___, ___SYMB_BEAKLA_3x12___),
-  //[_SYMB_BP] = TRANSIENT_5x15(___12___, ___SYMB_BEAKLA_BP_3x12___),
-
-  [_TOPROWS]    = TRANSIENT_5x15(___12___, ___TOPROWS_3x12___),
-  //[_TOPROWS_BP] = TRANSIENT_5x15(___12___, ___TOPROWS_BP_3x12___),
-
-  [_KEYPAD]    = TRANSIENT_5x15(___12___, ___KP_C_3x12___),
-  //[_KEYPAD_BP] = TRANSIENT_5x15(___12___, ___KP_C_BP_3x12___),
-
-};
-
-
 /********************************************************************************/
 /* Using layers to do RGB underlighting */
 /********************************************************************************/
