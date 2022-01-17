@@ -66,7 +66,7 @@ uint8_t gr(uint16_t kc){
 void send_keycode(uint16_t kc){
   uint8_t tmp_mods = get_mods();
   bool is_shifted = ( tmp_mods & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)) );
-  //uint8_t key[2][2] = key_translationsMK_KEY(kc)];
+
   // need to turn of the shift if it is on.
   unregister_mods((MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)));
   if(is_shifted){
