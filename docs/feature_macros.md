@@ -46,7 +46,7 @@ If you type in a language other than English, or use a non-QWERTY layout like Co
 {
     "keyboard": "handwired/my_macropad",
     "keymap": "my_keymap",
-    "host_layout": "dvorak",
+    "host_language": "dvorak",
     "macros": [
         ["Hello, World!"]
     ],
@@ -192,6 +192,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     },
 };
 ```
+
+?> An enumerated list of custom keycodes (`enum custom_keycodes`) must be declared before `keymaps[]` array, `process_record_user()` and any other function that use the list for the compiler to recognise it.
 
 #### Advanced Macros
 
