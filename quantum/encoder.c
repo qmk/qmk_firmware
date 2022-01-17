@@ -94,13 +94,13 @@ void encoder_init(void) {
 }
 
 static uint8_t encoder_update(uint8_t index, uint8_t state) {
-    state = state & 0xF;
-    if (state & 0x8) {
-        state = state ^ 0xF;
+    int8_t pulse = state & 0xF;
+    if (pulse & 0x8) {
+        pulse = pulse ^ 0xF;
     }
+    pulse = encoder_LUT[pulse];
 
     uint8_t i = index;
-
 #ifdef ENCODER_RESOLUTIONS
     uint8_t resolution = encoder_resolutions[i];
 #else
@@ -111,7 +111,6 @@ static uint8_t encoder_update(uint8_t index, uint8_t state) {
     index += thisHand;
 #endif
 
-    int8_t pulse = encoder_LUT[state];
     encoder_pulses[i] += pulse;
     if (encoder_pulses[i] >= resolution) {
         encoder_pulses[i] -= resolution;
@@ -124,6 +123,13 @@ static uint8_t encoder_update(uint8_t index, uint8_t state) {
     }
 
     encoder_value[index] += pulse;
+
+#ifdef ENCODER_DEFAULT_POS
+    if ((state & 0x3) == ENCODER_DEFAULT_POS) {
+        encoder_pulses[i] = 0;
+    }
+#endif
+
     return 1;
 }
 
