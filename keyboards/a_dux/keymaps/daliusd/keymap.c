@@ -40,8 +40,6 @@ enum custom_keycodes {
   TM_SLCT,
   TM_SRCH,
   TM_URL,
-  OS_NAV,
-  OS_SYM,
   OS_MISC,
   OS_TMUX,
   OS_FUNC,
@@ -49,12 +47,13 @@ enum custom_keycodes {
 
 // Shortcut to make keymap more readable
 
-// #define L_NAV       MO(_NAV)
-// #define L_SYM       MO(_SYM)
+#define L_NAV       MO(_NAV)
+#define L_SYM       MO(_SYM)
 #define L_MOUSE     TG(_MOUSE)
 
 #define K_PRINT     (QK_LCTL | QK_LSFT | QK_LGUI | KC_4)
 #define K_CSPC      LCTL(KC_SPC)
+#define K_GUI_X     LGUI(KC_X)
 #define K_GUI_C     LGUI(KC_C)
 #define K_GUI_V     LGUI(KC_V)
 
@@ -62,17 +61,15 @@ enum custom_keycodes {
 // * layer keycode
 // * modifier keycode
 const uint16_t flow_config[FLOW_COUNT][2] = {
-    {OS_NAV, KC_LALT},
-    {OS_NAV, KC_LGUI},
-    {OS_NAV, KC_LCTL},
-    {OS_SYM, KC_LCTL},
-    {OS_SYM, KC_LGUI},
-    {OS_SYM, KC_LALT},
+    {L_NAV, KC_LALT},
+    {L_NAV, KC_LGUI},
+    {L_NAV, KC_LCTL},
+    {L_SYM, KC_LCTL},
+    {L_SYM, KC_LGUI},
+    {L_SYM, KC_LALT},
 };
 
 const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2] = {
-    {OS_NAV, _NAV},
-    {OS_SYM, _SYM},
     {OS_MISC, _MISC},
     {OS_TMUX, _TMUX},
     {OS_FUNC, _FUNC},
@@ -88,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                          KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     OS_NAV  ,    KC_SPC  ,        KC_LSFT ,    OS_SYM
+                                     L_NAV   ,    KC_SPC  ,        KC_LSFT ,    L_SYM
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -100,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,KC_EQL  ,KC_LCBR ,KC_RCBR ,XXXXXXX ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,XXXXXXX ,KC_BSLS ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    OS_MISC
+                                     _______ ,    _______ ,        _______ ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -110,9 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_TILDE,KC_BSPC ,K_GUI_C ,K_GUI_V ,OS_TMUX ,                          K_CSPC  ,XXXXXXX ,KC_COMM ,KC_DOT  ,RESET   ,
+     KC_DEL  ,KC_BSPC ,OS_MISC ,KC_TILDE,OS_TMUX ,                          K_CSPC  ,XXXXXXX ,KC_COMM ,KC_DOT  ,RESET   ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     KC_ESC  ,    _______ ,        _______ ,    _______
+                                     XXXXXXX ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -214,3 +211,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
     flow_matrix_scan();
 }
+
+enum combos {
+  ZX_GUI_X,
+  XC_GUI_C,
+  CV_GUI_V,
+  DF_ESC,
+  COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
+const uint16_t PROGMEM zx_combo[] = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
+
+combo_t key_combos[COMBO_LENGTH] = {
+  [ZX_GUI_X] = COMBO(zx_combo, K_GUI_X),
+  [XC_GUI_C] = COMBO(xc_combo, K_GUI_C),
+  [CV_GUI_V] = COMBO(cv_combo, K_GUI_V),
+  [DF_ESC] = COMBO(df_combo, KC_ESC)
+};
