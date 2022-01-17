@@ -182,13 +182,13 @@ void clear_eeprom(void) {
     rgb_matrix_sethsv_noeeprom(HSV_OFF);
 }
 
-#if   defined(KEYBOARD_keychron_q1_Q1_ANSI_ATMEGA32U4)
+#if   defined(KEYBOARD_keychron_q1_q1_ansi_atmega32u4)
     // Do nothing here.
-#elif defined(KEYBOARD_keychron_q1_Q1_ANSI_ATMEGA32U4_EC11)
+#elif defined(KEYBOARD_keychron_q1_q1_ansi_atmega32u4_ec11)
     // Do nothing here.
-#elif defined(KEYBOARD_keychron_q1_Q1_ISO_ATMEGA32U4)
+#elif defined(KEYBOARD_keychron_q1_q1_iso_atmega32u4)
     // Do nothing here.
-#elif defined(KEYBOARD_keychron_q1_Q1_ISO_ATMEGA32U4_EC11)
+#elif defined(KEYBOARD_keychron_q1_q1_iso_atmega32u4_ec11)
     // Do nothing here.
 #else
     void restart_usb_driver(USBDriver *usbp) {

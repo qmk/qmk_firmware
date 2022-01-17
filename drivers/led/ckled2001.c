@@ -124,10 +124,30 @@ void CKLED2001_init(uint8_t addr) {
 
     // Set CURRENT PAGE (Page 4)
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, CURRENT_TUNE_PAGE);
+    // for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
+    //     CKLED2001_write_register(addr, i, 0xFF);
+    // }
     for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
-        CKLED2001_write_register(addr, i, 0xFF);
+        switch (i) {
+            case 0:
+            case 1:
+            case 3:
+            case 4:
+            case 6:
+            case 7:
+            case 9:
+            case 10:
+            case 12:
+                CKLED2001_write_register(addr, i, 0xFF);
+                continue;
+            case 2:
+            case 5:
+            case 8:
+            case 11:
+                CKLED2001_write_register(addr, i, 0xA0);
+                continue;
+        }
     }
-
     // Enable LEDs ON/OFF
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_CONTROL_PAGE);
     for (int i = 0; i < LED_CONTROL_ON_OFF_LENGTH; i++) {
