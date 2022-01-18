@@ -85,9 +85,9 @@ This is an extension of the accelerated mode. The kinetic mode uses a quadratic 
 |Define                                |Default  |Description                                                    |
 |--------------------------------------|---------|---------------------------------------------------------------|
 |`MK_KINETIC_SPEED`                    |undefined|Enable kinetic mode                                            |
-|`MOUSEKEY_DELAY`                      |8        |Delay between pressing a movement key and cursor movement      |
-|`MOUSEKEY_INTERVAL`                   |8        |Time between cursor movements in milliseconds                  |
-|`MOUSEKEY_MOVE_DELTA`                 |25       |Step size for accelerating from initial to base speed          |
+|`MOUSEKEY_DELAY`                      |5        |Delay between pressing a movement key and cursor movement      |
+|`MOUSEKEY_INTERVAL`                   |10       |Time between cursor movements in milliseconds                  |
+|`MOUSEKEY_MOVE_DELTA`                 |5        |Step size for accelerating from initial to base speed          |
 |`MOUSEKEY_INITIAL_SPEED`              |100      |Initial speed of the cursor in pixel per second                |
 |`MOUSEKEY_BASE_SPEED`                 |1000     |Maximum cursor speed at which acceleration stops               |
 |`MOUSEKEY_DECELERATED_SPEED`          |400      |Decelerated cursor speed                                       |
