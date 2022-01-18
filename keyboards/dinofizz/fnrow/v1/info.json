@@ -2,8 +2,6 @@
   "keyboard_name": "FnRow v1",
   "maintainer": "dinofizz",
   "url": "https://github.com/dinofizz/fnrow-pcb",
-  "width": 15,
-  "height": 1,
   "layouts": {
     "LAYOUT_fn_row": {
       "layout": [

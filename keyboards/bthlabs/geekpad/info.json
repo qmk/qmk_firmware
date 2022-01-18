@@ -2,8 +2,6 @@
   "keyboard_name": "BTHLabs GeekPad",
   "url": "https://git.bthlabs.pl/tomekwojcik/geekpad",
   "maintainer": "Tomek Wójcik <contact@bthlabs.pl>",
-  "width": 3,
-  "height": 3,
   "layouts": {
     "LAYOUT": {
       "layout": [

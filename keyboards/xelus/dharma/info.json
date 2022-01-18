@@ -2,8 +2,6 @@
     "keyboard_name": "Xelus Dharma",
     "url": "",
     "maintainer": "Xelus22",
-    "height": 5.25,
-    "width": 19.5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

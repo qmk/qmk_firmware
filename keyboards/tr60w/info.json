@@ -2,8 +2,6 @@
     "keyboard_name": "TR60W",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [

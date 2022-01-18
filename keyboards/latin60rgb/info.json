@@ -2,8 +2,6 @@
   "keyboard_name": "latin60rgb",
   "url": "",
   "maintainer": "latincompass",
-  "width": 14,
-  "height": 5,
   "layouts": {
     "LAYOUT_60_latin_hhkb": {
       "layout": [

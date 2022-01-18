@@ -2,8 +2,6 @@
     "keyboard_name": "Cascade",
     "url": "https://studiokestra.ca/cascade/",
     "maintainer": "Studio Kestra",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

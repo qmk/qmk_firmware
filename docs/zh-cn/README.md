@@ -1,7 +1,6 @@
 # QMK机械键盘固件
 
 [![当前版本](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
-[![开发状态](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
 [![异议](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
 [![文档状态](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
 [![GitHub贡献者](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)

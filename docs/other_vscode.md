@@ -108,7 +108,6 @@ This installs a bunch of Git related tools that may make using Git with QMK Firm
 * [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview) - _[Optional]_ - Makes the markdown preview in VS Code more like GitHub's.
 * [VS Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack) - _[Optional]_ - This extension allows somebody else to access your workspace (or you to access somebody else's workspace) and help out.  This is great if you're having issues and need some help from somebody.
 * [VIM Keymap](https://marketplace.visualstudio.com/items?itemName=GiuseppeCesarano.vim-keymap) - _[Optional]_ - For those that prefer VIM style keybindings. There are other options for this, too. 
-* [Travis CI Status](https://marketplace.visualstudio.com/items?itemName=felixrieseberg.vsc-travis-ci-status) - _[Optional]_ - This shows the current Travis CI status, if you have it set up.
 
 Restart once you've installed any extensions
 

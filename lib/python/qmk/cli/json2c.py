@@ -33,7 +33,7 @@ def json2c(cli):
         cli.args.output = None
 
     # Generate the keymap
-    keymap_c = qmk.keymap.generate_c(user_keymap['keyboard'], user_keymap['layout'], user_keymap['layers'])
+    keymap_c = qmk.keymap.generate_c(user_keymap)
 
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)

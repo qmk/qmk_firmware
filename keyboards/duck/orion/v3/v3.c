@@ -37,7 +37,3 @@ bool led_update_kb(led_t led_state) {
     }
     return true;
 }
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  return process_record_user(keycode, record);
-}

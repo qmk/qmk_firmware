@@ -2,8 +2,6 @@
     "keyboard_name": "nano",
     "url": "",
     "maintainer": "Work Louder",
-    "width": 3,
-    "height": 1,
     "layouts": {
         "LAYOUT": {
             "layout": [
