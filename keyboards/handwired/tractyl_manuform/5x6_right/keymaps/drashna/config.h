@@ -20,3 +20,9 @@
 
 #define DEBOUNCE 60
 #define ENCODER_DEFAULT_POS 0x3
+
+#ifdef OLED_DRIVER_SH1107
+#    undef OLED_DISPLAY_128X64
+#endif
+
+#define OLED_BRIGHTNESS 60

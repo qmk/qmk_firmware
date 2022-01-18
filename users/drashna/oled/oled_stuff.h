@@ -37,7 +37,9 @@ void            render_pointing_dpi_status(uint8_t padding);
 void            oled_driver_render_logo_left(void);
 void            oled_driver_render_logo_right(void);
 
-#ifdef OLED_DISPLAY_128X64
+#if defined(OLED_DISPLAY_128X128) || defined(OLED_DISPLAY_128X64)
+#    define OLED_DISPLAY_VERBOSE
+
 #    define OLED_RENDER_KEYLOGGER         "Keylogger: "
 
 #    define OLED_RENDER_LAYOUT_NAME       "Layout: "

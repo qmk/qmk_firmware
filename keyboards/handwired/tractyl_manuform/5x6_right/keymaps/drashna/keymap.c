@@ -305,4 +305,6 @@ void oled_driver_render_logo_left(void) {
 #    endif
     oled_set_cursor(0, 4);
 }
+
+oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 #endif
