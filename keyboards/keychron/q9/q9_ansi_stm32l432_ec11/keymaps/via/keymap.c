@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define ENCODERS 1
 static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS]    = {{ 5, 4 }};
+static keypos_t encoder_cw[ENCODERS]    = {{ 4, 4 }};
 static keypos_t encoder_ccw[ENCODERS]  = {{ 5, 4 }};
 
 void encoder_action_unregister(void) {
