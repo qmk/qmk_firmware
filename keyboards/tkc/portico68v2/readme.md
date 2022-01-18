@@ -1,6 +1,6 @@
 # TKC Portico68 v2
 
-![TKC Portico](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/tkc/portico/portico-clear_overhead_1024x1024.webp)
+![TKC Portico68](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/tkc/portico/portico-clear_overhead_1024x1024.webp)
 
 A 65% keyboard kit with per-key and underglow RGB lighting.
 
