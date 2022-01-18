@@ -13,5 +13,4 @@ TAP_DANCE_ENABLE = yes
 
 APPLE_FN_ENABLE = yes
 
-# REDUCE_RGB = yes
-
+SHIFT_ENABLE = yes

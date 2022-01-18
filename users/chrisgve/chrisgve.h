@@ -34,8 +34,8 @@ enum default_layers {
     _ADJUST_MAC,    // Synonym
     _ADJUST_WIN,    // Adjust for Windows
     _ADJUST_LINUX,  // Adjust for Linux
-    _EX_MOUSE,      // Mouse key layer (exlusive)
     _NUM,           // Numerical layer (for 40% layouts)
+    _EX_MOUSE,      // Mouse key layer (exlusive)
     _CONFIG,        // Keyboard configuation layer
 };
 
@@ -319,8 +319,8 @@ enum {
 // Define the keycode for the mouse tap dance
 #        define SFT_MSE TD(TD_LSHIFT_MOUSE)
 #        define CPS_CTL TD(TD_CTRL_CAPS)
-#        define TG_MSE TG(_EX_MOUSE)
-#        define TG_NUM TG(_NUM)
+#        define TG_MSE  TG(_EX_MOUSE)
+#        define TG_NUM  TG(_NUM)
 #        define TD_ADJM TD(TD_ADJ_M_NUM)
 #        define TD_ADJL TD(TD_ADJ_L_NUM)
 #        define TD_ADJW TD(TD_ADJ_W_NUM)
@@ -328,7 +328,7 @@ enum {
 #    else
 
 #        define SFT_MSE KC_RSFT
-#        define TG_MSE _______
+#        define TG_MSE  _______
 #        define CPS_CTL CTL_T(KC_CAPS)
 #        define TAB_CTL CTL_T(KC_TAB)
 
