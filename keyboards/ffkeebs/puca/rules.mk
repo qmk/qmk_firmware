@@ -19,4 +19,7 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes        # Enable rotary encoder support
 OLED_ENABLE = yes           # Enable OLED support
 
+OLED_DRIVER_ENABLE  = yes
+WPM_ENABLE = yes
+
 LTO_ENABLE = yes            # Enable Link Time Optimization to reduce firmware size
