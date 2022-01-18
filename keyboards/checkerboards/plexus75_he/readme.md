@@ -1,6 +1,6 @@
 # Plexus75_HE
 
-![Plexus75_HE](https://i.imgur.com/ZRoCN6Q.png)
+![Plexus75_HE](https://i.imgur.com/niz4raR.png)
 
 The Plexus75_HE is a hotswap version of the Plexus75. Another difference is the included RGB underglow. What is the OG Plexus75? It is a 60% ortholinear keyboard based on the XD75 but instead of an all 1u bottom row the Plexus75 has a more traditional bottom row similar to reg. 60% boards.
 
