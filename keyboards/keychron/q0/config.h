@@ -49,7 +49,7 @@
 #define USB_POLLING_INTERVAL_MS 1
 
 /* Only use 2 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
 /* We have 2KB EEPROM size on STM32L432 */
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
