@@ -31,4 +31,3 @@
 
 /* Specifies the number of pulses the encoder registers between each detent */
 #define ENCODER_RESOLUTION 4
-
