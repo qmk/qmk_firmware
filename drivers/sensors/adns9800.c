@@ -135,11 +135,11 @@ void adns9800_init() {
     wait_us(15);
 
     // send all bytes of the firmware
-    unsigned char c;
-    for (int i = 0; i < FIRMWARE_LENGTH; i++) {
-        c = (unsigned char)pgm_read_byte(adns9800_firmware_data + i);
-        spi_write(c);
+    for (uint16_t i = 0; i < FIRMWARE_LENGTH; i++) {
+        spi_write(pgm_read_byte(firmware_data + i));
+#ifndef ADNS9800_FIRMWARE_UPLOAD_FAST
         wait_us(15);
+#endif
     }
 
     spi_stop();
