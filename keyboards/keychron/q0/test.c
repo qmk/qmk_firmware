@@ -1,6 +1,6 @@
 #include "eeconfig.h"
 
-#define _LIGHT 1
+#define _FN1 1
 
 enum colors { WHITE, RED, GREEN, BLUE };
 enum colors led_color_status = WHITE;
@@ -25,7 +25,7 @@ void clear_eeprom(void);
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MO(_LIGHT):
+        case MO(_FN1):
             if (record->event.pressed) {
                 key_press += 1;
                 key_count += 1;
