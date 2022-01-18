@@ -217,15 +217,15 @@ enum combos {
   XC_GUI_C,
   CV_GUI_V,
   DF_ESC,
-  SPACE_A,
-  SPACE_C,
+  SPACE_Q,
+  SPACE_W,
   SPACE_E,
   SPACE_R,
-  SPACE_I,
-  SPACE_S,
-  SPACE_U,
+  SPACE_T,
   SPACE_Y,
-  SPACE_Z,
+  SPACE_U,
+  SPACE_I,
+  SPACE_O,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -234,30 +234,30 @@ const uint16_t PROGMEM zx_combo[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM space_a_combo[] = {KC_SPC, KC_A, COMBO_END};
-const uint16_t PROGMEM space_c_combo[] = {KC_SPC, KC_C, COMBO_END};
+const uint16_t PROGMEM space_q_combo[] = {KC_SPC, KC_Q, COMBO_END};
+const uint16_t PROGMEM space_w_combo[] = {KC_SPC, KC_W, COMBO_END};
 const uint16_t PROGMEM space_e_combo[] = {KC_SPC, KC_E, COMBO_END};
 const uint16_t PROGMEM space_r_combo[] = {KC_SPC, KC_R, COMBO_END};
-const uint16_t PROGMEM space_i_combo[] = {KC_SPC, KC_I, COMBO_END};
-const uint16_t PROGMEM space_s_combo[] = {KC_SPC, KC_S, COMBO_END};
-const uint16_t PROGMEM space_u_combo[] = {KC_SPC, KC_U, COMBO_END};
+const uint16_t PROGMEM space_t_combo[] = {KC_SPC, KC_T, COMBO_END};
 const uint16_t PROGMEM space_y_combo[] = {KC_SPC, KC_Y, COMBO_END};
-const uint16_t PROGMEM space_z_combo[] = {KC_SPC, KC_Z, COMBO_END};
+const uint16_t PROGMEM space_u_combo[] = {KC_SPC, KC_U, COMBO_END};
+const uint16_t PROGMEM space_i_combo[] = {KC_SPC, KC_I, COMBO_END};
+const uint16_t PROGMEM space_o_combo[] = {KC_SPC, KC_O, COMBO_END};
 
 combo_t key_combos[COMBO_LENGTH] = {
   [ZX_GUI_X] = COMBO(zx_combo, K_GUI_X),
   [XC_GUI_C] = COMBO(xc_combo, K_GUI_C),
   [CV_GUI_V] = COMBO(cv_combo, K_GUI_V),
   [DF_ESC] = COMBO(df_combo, KC_ESC),
-  [SPACE_A] = COMBO_ACTION(space_a_combo),
-  [SPACE_C] = COMBO_ACTION(space_c_combo),
+  [SPACE_Q] = COMBO_ACTION(space_q_combo),
+  [SPACE_W] = COMBO_ACTION(space_w_combo),
   [SPACE_E] = COMBO_ACTION(space_e_combo),
-  [SPACE_I] = COMBO_ACTION(space_i_combo),
   [SPACE_R] = COMBO_ACTION(space_r_combo),
-  [SPACE_S] = COMBO_ACTION(space_s_combo),
-  [SPACE_U] = COMBO_ACTION(space_u_combo),
+  [SPACE_T] = COMBO_ACTION(space_t_combo),
   [SPACE_Y] = COMBO_ACTION(space_y_combo),
-  [SPACE_Z] = COMBO_ACTION(space_z_combo),
+  [SPACE_U] = COMBO_ACTION(space_u_combo),
+  [SPACE_I] = COMBO_ACTION(space_i_combo),
+  [SPACE_O] = COMBO_ACTION(space_o_combo),
 };
 
 
@@ -270,14 +270,14 @@ void swap_layout(void) {
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
-    case SPACE_A:
+    case SPACE_Q:
       if (pressed) {
         swap_layout();
         tap_code16(KC_1);
         swap_layout();
       }
       break;
-    case SPACE_C:
+    case SPACE_W:
       if (pressed) {
         swap_layout();
         tap_code16(KC_2);
@@ -298,14 +298,14 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         swap_layout();
       }
       break;
-    case SPACE_I:
+    case SPACE_T:
       if (pressed) {
         swap_layout();
         tap_code16(KC_5);
         swap_layout();
       }
       break;
-    case SPACE_S:
+    case SPACE_Y:
       if (pressed) {
         swap_layout();
         tap_code16(KC_6);
@@ -319,14 +319,14 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         swap_layout();
       }
       break;
-    case SPACE_Y:
+    case SPACE_I:
       if (pressed) {
         swap_layout();
         tap_code16(KC_8);
         swap_layout();
       }
       break;
-    case SPACE_Z:
+    case SPACE_O:
       if (pressed) {
         swap_layout();
         tap_code16(KC_EQL);
