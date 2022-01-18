@@ -217,16 +217,12 @@ __attribute__((weak)) void pointing_device_task(void) {
     };
 #endif
 
-#if defined(POINTING_DEVICE_TASK_THROTTLE_MS)
+#if (POINTING_DEVICE_TASK_THROTTLE_MS > 0)
     static uint32_t last_exec = 0;
     if (timer_elapsed32(last_exec) < POINTING_DEVICE_TASK_THROTTLE_MS) {
         return;
     }
     last_exec = timer_read32();
-#else
-#    if defined(SPLIT_POINTING_ENABLE)
-#        pragma message("It's recommended you enable a throttle when sharing pointing devices.")
-#    endif
 #endif
 
     // Gather report info
