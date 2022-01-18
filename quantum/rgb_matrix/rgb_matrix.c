@@ -164,17 +164,9 @@ void eeconfig_debug_rgb_matrix(void) {
     dprintf("rgb_matrix_config.flags = %d\n", rgb_matrix_config.flags);
 }
 
-uint32_t eeconfig_read_rgb_matrix(void) {
-#ifdef EEPROM_ENABLE
-    return eeprom_read_dword(EECONFIG_RGB_MATRIX);
-#else
-    return 0;
-#endif
-}
-
 void rgb_matrix_reload_from_eeprom(void) {
     /* Reset back to what we have in eeprom */
-    rgb_matrix_config.raw = eeconfig_read_rgb_matrix();
+    eeconfig_init_rgb_matrix();
     eeconfig_debug_rgb_matrix();  // display current eeprom values
     if (rgb_matrix_config.enable) {
         rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
