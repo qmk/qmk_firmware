@@ -31,10 +31,10 @@ enum default_layers {
     _RAISE,         // Raise layer on ortho
     _LOWER,         // Lower layer on ortho
     _MOUSE,         // Mouse key layer
-    _EX_MOUSE,      // Mouse key layer (exlusive)
     _ADJUST_MAC,    // Synonym
     _ADJUST_WIN,    // Adjust for Windows
     _ADJUST_LINUX,  // Adjust for Linux
+    _EX_MOUSE,      // Mouse key layer (exlusive)
     _NUM,           // Numerical layer (for 40% layouts)
     _CONFIG,        // Keyboard configuation layer
 };
