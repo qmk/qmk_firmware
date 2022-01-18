@@ -144,28 +144,28 @@ void set_mse_rgb(void) {
 
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_user(void) {
-    if (caps_lock) {
-        set_caps_rgb();
-    } else {
-        switch(cur_layer) {
-            case _DEF_L:
+    switch(cur_layer) {
+        case _DEF_L:
+            if (caps_lock) {
+                set_caps_rgb();
+            } else {
                 reset_rgb();
-                break;
-            case _NAV1_L:
-                set_nav_1_rgb();
-                break;
-            case _NAV2_L:
-                set_nav_2_rgb();
-                break;
-            case _ADJ_L:
-                set_adj_rgb();
-                break;
-            case _MSE_L:
-                set_mse_rgb();
-                break;
-            default:
-                break;
-        }
+            }
+            break;
+        case _NAV1_L:
+            set_nav_1_rgb();
+            break;
+        case _NAV2_L:
+            set_nav_2_rgb();
+            break;
+        case _ADJ_L:
+            set_adj_rgb();
+            break;
+        case _MSE_L:
+            set_mse_rgb();
+            break;
+        default:
+            break;
     }
 
     // Board specific handling
