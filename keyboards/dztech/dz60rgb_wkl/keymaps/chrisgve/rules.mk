@@ -1,7 +1,8 @@
-# VIA_ENABLE = yes
 LTO_ENABLE = yes
 
-# APPLE_FN_ENABLE = yes
+USER_NAME := chrisgve
+
+APPLE_FN_ENABLE = yes
 NKRO_ENABLE = yes
 
 SRC += chrisgve.c
@@ -11,4 +12,4 @@ RGBMATRIX_ENABLE = yes
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 REDUCE_RGB = yes
-
+SHIFT_ENABLE = yes
