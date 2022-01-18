@@ -17,6 +17,16 @@
 
 #include QMK_KEYBOARD_H
 
+/*
+TODO: setup tapdance to behave on CPS_CTL in this manner:
+- Hold: left control
+- Press once: nothing unless caps lock is on, in that case, set caps lock to off
+- Press twice: nothing unless caps lock is off, in that case, set caps lock to on
+*/
+
+
+
+
 // Custom layers
 enum default_layers {
     _QWERTY_MAC,    // QWERTY Mac base layout
