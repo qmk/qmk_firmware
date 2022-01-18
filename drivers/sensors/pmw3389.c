@@ -212,7 +212,7 @@ void pmw3389_upload_firmware(void) {
 
     for (uint16_t i = 0; i < FIRMWARE_LENGTH; i++) {
         spi_write(pgm_read_byte(firmware_data + i));
-#ifdef PMW3389_FIRMWARE_UPLOAD_COMPATIBILITY
+#ifndef PMW3389_FIRMWARE_UPLOAD_FAST
         wait_us(15);
 #endif
     }
