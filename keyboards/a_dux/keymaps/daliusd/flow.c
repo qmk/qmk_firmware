@@ -1,7 +1,4 @@
 #include "flow.h"
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdio.h>
 
 extern const uint16_t flow_config[FLOW_COUNT][2];
 extern const uint16_t flow_layers_config[FLOW_LAYERS_COUNT][2];

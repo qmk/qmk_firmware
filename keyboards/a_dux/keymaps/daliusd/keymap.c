@@ -16,6 +16,7 @@
 #include QMK_KEYBOARD_H
 
 #include "flow.h"
+#include "commaspace.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -166,6 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!update_flow(keycode, record->event.pressed, record->event.key)) return false;
+    if (!update_commaspace(keycode, record->event.pressed)) return false;
 
     switch (keycode) {
         case TM_LEFT:
@@ -204,10 +206,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     return update_tri_layer_state(state, _SYM, _NAV, _TRI);
-// }
-
 void matrix_scan_user(void) {
     flow_matrix_scan();
 }
@@ -217,15 +215,6 @@ enum combos {
   XC_GUI_C,
   CV_GUI_V,
   DF_ESC,
-  SPACE_Q,
-  SPACE_W,
-  SPACE_E,
-  SPACE_R,
-  SPACE_T,
-  SPACE_Y,
-  SPACE_U,
-  SPACE_I,
-  SPACE_O,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -234,104 +223,10 @@ const uint16_t PROGMEM zx_combo[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM space_q_combo[] = {KC_SPC, KC_Q, COMBO_END};
-const uint16_t PROGMEM space_w_combo[] = {KC_SPC, KC_W, COMBO_END};
-const uint16_t PROGMEM space_e_combo[] = {KC_SPC, KC_E, COMBO_END};
-const uint16_t PROGMEM space_r_combo[] = {KC_SPC, KC_R, COMBO_END};
-const uint16_t PROGMEM space_t_combo[] = {KC_SPC, KC_T, COMBO_END};
-const uint16_t PROGMEM space_y_combo[] = {KC_SPC, KC_Y, COMBO_END};
-const uint16_t PROGMEM space_u_combo[] = {KC_SPC, KC_U, COMBO_END};
-const uint16_t PROGMEM space_i_combo[] = {KC_SPC, KC_I, COMBO_END};
-const uint16_t PROGMEM space_o_combo[] = {KC_SPC, KC_O, COMBO_END};
 
 combo_t key_combos[COMBO_LENGTH] = {
   [ZX_GUI_X] = COMBO(zx_combo, K_GUI_X),
   [XC_GUI_C] = COMBO(xc_combo, K_GUI_C),
   [CV_GUI_V] = COMBO(cv_combo, K_GUI_V),
   [DF_ESC] = COMBO(df_combo, KC_ESC),
-  [SPACE_Q] = COMBO_ACTION(space_q_combo),
-  [SPACE_W] = COMBO_ACTION(space_w_combo),
-  [SPACE_E] = COMBO_ACTION(space_e_combo),
-  [SPACE_R] = COMBO_ACTION(space_r_combo),
-  [SPACE_T] = COMBO_ACTION(space_t_combo),
-  [SPACE_Y] = COMBO_ACTION(space_y_combo),
-  [SPACE_U] = COMBO_ACTION(space_u_combo),
-  [SPACE_I] = COMBO_ACTION(space_i_combo),
-  [SPACE_O] = COMBO_ACTION(space_o_combo),
 };
-
-
-void swap_layout(void) {
-    uint8_t saved_mods = get_mods();
-    clear_mods();
-    tap_code16(K_CSPC);
-    set_mods(saved_mods);
-}
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case SPACE_Q:
-      if (pressed) {
-        swap_layout();
-        tap_code16(KC_1);
-        swap_layout();
-      }
-      break;
-    case SPACE_W:
-      if (pressed) {
-        swap_layout();
-        tap_code16(KC_2);
-        swap_layout();
-      }
-      break;
-    case SPACE_E:
-      if (pressed) {
-        swap_layout();
-        tap_code16(KC_3);
-        swap_layout();
-      }
-      break;
-    case SPACE_R:
-      if (pressed) {
-        swap_layout();
-        tap_code16(KC_4);
-        swap_layout();
-      }
-      break;
-    case SPACE_T:
-      if (pressed) {
-        swap_layout();
-        tap_code16(KC_5);
-        swap_layout();
-      }
-      break;
-    case SPACE_Y:
-      if (pressed) {
-        swap_layout();
-        tap_code16(KC_6);
-        swap_layout();
-      }
-      break;
-    case SPACE_U:
-      if (pressed) {
-        swap_layout();
-        tap_code16(KC_7);
-        swap_layout();
-      }
-      break;
-    case SPACE_I:
-      if (pressed) {
-        swap_layout();
-        tap_code16(KC_8);
-        swap_layout();
-      }
-      break;
-    case SPACE_O:
-      if (pressed) {
-        swap_layout();
-        tap_code16(KC_EQL);
-        swap_layout();
-      }
-      break;
-  }
-}
