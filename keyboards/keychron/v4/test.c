@@ -206,5 +206,5 @@ void clear_eeprom(void) {
 }
 
 void restart_usb_driver(USBDriver *usbp) {
+    // Do nothing here.
 }
-

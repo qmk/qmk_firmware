@@ -18,6 +18,6 @@
 
 #include "quantum.h"
 
-#if   defined(KEYBOARD_keychron_v4_V4_ANSI_STM32L432)
-#    include "V4_ANSI_STM32L432.h"
+#if   defined(KEYBOARD_keychron_v4_v4_ansi_stm32l432)
+#    include "v4_ansi_stm32l432.h"
 #endif
