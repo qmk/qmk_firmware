@@ -47,10 +47,6 @@ float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
 #endif
 
-#ifdef AUTO_SHIFT_ENABLE
-#    include "process_auto_shift.h"
-#endif
-
 uint8_t extract_mod_bits(uint16_t code) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:
@@ -400,73 +396,8 @@ void matrix_init_quantum() {
     matrix_init_kb();
 }
 
-void matrix_scan_quantum() {
-#if defined(AUDIO_ENABLE) && defined(AUDIO_INIT_DELAY)
-    // There are some tasks that need to be run a little bit
-    // after keyboard startup, or else they will not work correctly
-    // because of interaction with the USB device state, which
-    // may still be in flux...
-    //
-    // At the moment the only feature that needs this is the
-    // startup song.
-    static bool     delayed_tasks_run  = false;
-    static uint16_t delayed_task_timer = 0;
-    if (!delayed_tasks_run) {
-        if (!delayed_task_timer) {
-            delayed_task_timer = timer_read();
-        } else if (timer_elapsed(delayed_task_timer) > 300) {
-            audio_startup();
-            delayed_tasks_run = true;
-        }
-    }
-#endif
-
-#if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
-    music_task();
-#endif
-
-#ifdef KEY_OVERRIDE_ENABLE
-    key_override_task();
-#endif
-
-#ifdef SEQUENCER_ENABLE
-    sequencer_task();
-#endif
-
-#ifdef TAP_DANCE_ENABLE
-    tap_dance_task();
-#endif
-
-#ifdef COMBO_ENABLE
-    combo_task();
-#endif
-
-#ifdef LED_MATRIX_ENABLE
-    led_matrix_task();
-#endif
-
-#ifdef WPM_ENABLE
-    decay_wpm();
-#endif
-
-#ifdef HAPTIC_ENABLE
-    haptic_task();
-#endif
-
-#ifdef DIP_SWITCH_ENABLE
-    dip_switch_read(false);
-#endif
-
-#ifdef AUTO_SHIFT_ENABLE
-    autoshift_matrix_scan();
-#endif
-
-    matrix_scan_kb();
-}
-
-#ifdef HD44780_ENABLED
-#    include "hd44780.h"
-#endif
+// TODO: remove legacy api
+void matrix_scan_quantum() { matrix_scan_kb(); }
 
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on

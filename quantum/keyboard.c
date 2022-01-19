@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
+#include "quantum.h"
 #include "keyboard.h"
 #include "matrix.h"
 #include "keymap.h"
@@ -450,6 +451,73 @@ MATRIX_LOOP_END:
     return matrix_changed;
 }
 
+/** \brief Tasks previously located in matrix_scan_quantum
+ *
+ * TODO: rationalise against keyboard_task and current split role
+ */
+void quantum_task(void) {
+#ifdef SPLIT_KEYBOARD
+    // some tasks should only run on master
+    if (!is_keyboard_master()) return;
+#endif
+
+#if defined(AUDIO_ENABLE) && defined(AUDIO_INIT_DELAY)
+    // There are some tasks that need to be run a little bit
+    // after keyboard startup, or else they will not work correctly
+    // because of interaction with the USB device state, which
+    // may still be in flux...
+    //
+    // At the moment the only feature that needs this is the
+    // startup song.
+    static bool     delayed_tasks_run  = false;
+    static uint16_t delayed_task_timer = 0;
+    if (!delayed_tasks_run) {
+        if (!delayed_task_timer) {
+            delayed_task_timer = timer_read();
+        } else if (timer_elapsed(delayed_task_timer) > 300) {
+            audio_startup();
+            delayed_tasks_run = true;
+        }
+    }
+#endif
+
+#if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
+    music_task();
+#endif
+
+#ifdef KEY_OVERRIDE_ENABLE
+    key_override_task();
+#endif
+
+#ifdef SEQUENCER_ENABLE
+    sequencer_task();
+#endif
+
+#ifdef TAP_DANCE_ENABLE
+    tap_dance_task();
+#endif
+
+#ifdef COMBO_ENABLE
+    combo_task();
+#endif
+
+#ifdef WPM_ENABLE
+    decay_wpm();
+#endif
+
+#ifdef HAPTIC_ENABLE
+    haptic_task();
+#endif
+
+#ifdef DIP_SWITCH_ENABLE
+    dip_switch_read(false);
+#endif
+
+#ifdef AUTO_SHIFT_ENABLE
+    autoshift_matrix_scan();
+#endif
+}
+
 /** \brief Keyboard task: Do keyboard routine jobs
  *
  * Do routine keyboard jobs:
@@ -464,6 +532,8 @@ MATRIX_LOOP_END:
 void keyboard_task(void) {
     bool matrix_changed = matrix_scan_task();
     (void)matrix_changed;
+
+    quantum_task();
 
 #if defined(RGBLIGHT_ENABLE)
     rgblight_task();
