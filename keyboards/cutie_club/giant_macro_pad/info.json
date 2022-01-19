@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "cutie-club",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"k00_00", "x":0, "y":0},
                 {"label":"k00_01", "x":1, "y":0},
