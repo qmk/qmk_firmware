@@ -127,6 +127,7 @@ void render_keylogger_status(void) {
  *
  */
 void render_default_layer_state(void) {
+    oled_set_cursor(4, 3);
     oled_write_P(PSTR(OLED_RENDER_LAYOUT_NAME), false);
     switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
@@ -142,9 +143,6 @@ void render_default_layer_state(void) {
             oled_write_P(PSTR(OLED_RENDER_LAYOUT_DVORAK), false);
             break;
     }
-#ifdef OLED_DISPLAY_VERBOSE
-    oled_advance_page(true);
-#endif
 }
 
 /**
@@ -152,23 +150,109 @@ void render_default_layer_state(void) {
  *
  */
 void render_layer_state(void) {
-    oled_write_P(PSTR(OLED_RENDER_LAYER_NAME), false);
 #ifdef OLED_DISPLAY_VERBOSE
+    static const char PROGMEM tri_layer_image[4][3][18] = {
+        {
+            {
+                0x80, 0x80, 0x40, 0x40, 0x20, 0x20,
+                0x10, 0x10, 0x08, 0x08, 0x10, 0x10,
+                0x20, 0x20, 0x40, 0x40, 0x80, 0x80
+            },
+            {
+                0x88, 0x88, 0x5D, 0x5D, 0x3E, 0x3E,
+                0x7C, 0x7C, 0xF8, 0xF8, 0x7C, 0x7C,
+                0x3E, 0x3E, 0x5D, 0x5D, 0x88, 0x88
+            },
+            {
+                0x00, 0x00, 0x01, 0x01, 0x02, 0x02,
+                0x04, 0x04, 0x08, 0x08, 0x04, 0x04,
+                0x02, 0x02, 0x01, 0x01, 0x00, 0x00
+            }
+        },
+        {
+            {
+                0x80, 0x80, 0xC0, 0xC0, 0xE0, 0xE0,
+                0xF0, 0xF0, 0xF8, 0xF8, 0xF0, 0xF0,
+                0xE0, 0xE0, 0xC0, 0xC0, 0x80, 0x80
+            },
+            {
+                0x88, 0x88, 0x55, 0x55, 0x23, 0x23,
+                0x47, 0x47, 0x8F, 0x8F, 0x47, 0x47,
+                0x23, 0x23, 0x55, 0x55, 0x88, 0x88
+            },
+            {
+                0x00, 0x00, 0x01, 0x01, 0x02, 0x02,
+                0x04, 0x04, 0x08, 0x08, 0x04, 0x04,
+                0x02, 0x02, 0x01, 0x01, 0x00, 0x00
+            }
+        },
+        {
+            {
+                0x80, 0x80, 0x40, 0x40, 0x20, 0x20,
+                0x10, 0x10, 0x08, 0x08, 0x10, 0x10,
+                0x20, 0x20, 0x40, 0x40, 0x80, 0x80
+            },
+            {
+                0x88, 0x88, 0xD5, 0xD5, 0xE2, 0xE2,
+                0xC4, 0xC4, 0x88, 0x88, 0xC4, 0xC4,
+                0xE2, 0xE2, 0xD5, 0xD5, 0x88, 0x88
+            },
+            {
+                0x00, 0x00, 0x01, 0x01, 0x03, 0x03,
+                0x07, 0x07, 0x0F, 0x0F, 0x07, 0x07,
+                0x03, 0x03, 0x01, 0x01, 0x00, 0x00
+            }
+        },
+        {
+            {
+                0x80, 0x80, 0x40, 0xC0, 0x60, 0xA0,
+                0x50, 0xB0, 0x58, 0xA8, 0x50, 0xB0,
+                0x60, 0xA0, 0x40, 0xC0, 0x80, 0x80
+            },
+            {
+                0x88, 0x88, 0x5D, 0xD5, 0x6B, 0xB6,
+                0x6D, 0xD6, 0xAD, 0xDA, 0x6D, 0xD6,
+                0x6B, 0xB6, 0x5D, 0xD5, 0x88, 0x88
+            },
+            {
+                0x00, 0x00, 0x01, 0x01, 0x03, 0x02,
+                0x05, 0x06, 0x0D, 0x0A, 0x05, 0x06,
+                0x03, 0x02, 0x01, 0x01, 0x00, 0x00
+            }
+        }
+    };
+
+    uint8_t layer_is = 0;
+    if (layer_state_is(_ADJUST)) {
+        layer_is = 3;
+    } else if (layer_state_is(_RAISE)) {
+        layer_is = 1;
+    } else if (layer_state_is(_LOWER)) {
+        layer_is = 2;
+    }
+
+    oled_set_cursor(0, 3);
+    oled_write_raw_P(tri_layer_image[layer_is][0], sizeof(tri_layer_image[0][0]));
+    oled_set_cursor(4, 4);
+    oled_write_P(PSTR("Diablo 2"), layer_state_is(_DIABLOII));
     oled_write_P(PSTR(" "), false);
-#endif
-    oled_write_P(PSTR(OLED_RENDER_LAYER_LOWER), layer_state_is(_LOWER));
-#ifdef OLED_DISPLAY_VERBOSE
-    oled_write_P(PSTR(" "), false);
-#endif
-    oled_write_P(PSTR(OLED_RENDER_LAYER_RAISE), layer_state_is(_RAISE));
-#ifdef OLED_DISPLAY_VERBOSE
-    oled_advance_page(true);
-    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("Diablo 3"), layer_state_is(_DIABLO));
+
+    oled_set_cursor(0, 4);
+    oled_write_raw_P(tri_layer_image[layer_is][1], sizeof(tri_layer_image[0][0]));
+    oled_set_cursor(4, 5);
     oled_write_P(PSTR("GamePad"), layer_state_is(_GAMEPAD));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("Diablo"), layer_state_is(_DIABLO));
-    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("  "), false);
     oled_write_P(PSTR("Mouse"), layer_state_is(_MOUSE));
+
+    oled_set_cursor(0, 5);
+    oled_write_raw_P(tri_layer_image[layer_is][2], sizeof(tri_layer_image[0][0]));
+    oled_set_cursor(0, 6);
+#else
+    oled_write_P(PSTR(OLED_RENDER_LAYER_NAME), false);
+    oled_write_P(PSTR(OLED_RENDER_LAYER_LOWER), layer_state_is(_LOWER));
+    oled_write_P(PSTR(OLED_RENDER_LAYER_RAISE), layer_state_is(_RAISE));
+    oled_advance_page(true);
 #endif
 }
 
@@ -474,5 +558,18 @@ bool oled_task_user(void) {
     } else {
         render_keylock_status(host_keyboard_leds());
     }
+#ifdef OLED_DISPLAY_128X128
+    oled_set_cursor(0, 9);
+    static const char PROGMEM raw_logo[] = {
+        0,192, 32, 16,  8,  4,  2,  1,  1,  1,  1,  1,  1,  1,  1,  3,  7, 15, 31, 63,127,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,127, 63, 31, 15,  7,  3,  1,  1,  1,  1,  1,  1,  1,  1,  2,  4,  8, 16, 32,192,  0,
+        0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  3,  7, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,  7,  3,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0,
+        0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0,
+        0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0,
+        0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0,
+        0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0,
+        0,  3,  4,  8, 16, 32, 64,128,128,128,128,128,128,128,192,224,240,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,240,224,192,128,128,128,128,128,128,128, 64, 32, 16,  8,  4,  3,  0,
+    };
+    oled_write_raw_P(raw_logo, sizeof(raw_logo));
+#endif
     return false;
 }
