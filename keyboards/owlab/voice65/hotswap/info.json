@@ -2,10 +2,11 @@
     "keyboard_name": "voice65 hotswap",
     "url": "https://www.popkeyboard.com/products/67968vn00mzx",
     "maintainer": "kb-elmo",
-    "width": 16,
-    "height": 5,
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},

@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_LEFT, KC_DOWN, KC_RIGHT,_______, _______, _______,    _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, _______,
         _______, _______, _______, _______, _______, EEP_RST, _______,    _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, _______,
         _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, KC_KP_0, KC_PDOT, KC_PENT, _______,
-        
+
         _______, _______, _______, _______,                                                          _______, _______, _______, _______,
         _______, _______, _______, _______, _______,                                        _______, _______, _______, _______, _______
     )
@@ -159,6 +159,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+//#define MATRIX_SCAN_DEBUG
+#if !defined(MATRIX_SCAN_DEBUG)
 static void render_layer(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer"), false);
@@ -190,8 +192,8 @@ static void render_touch(void)
     oled_write_P(!touch_encoder_toggled() ? PSTR("TOUCH")  : PSTR("     "), false);
     oled_write_P(touch_encoder_calibrating() ? PSTR("CLBRT")  : PSTR("     "), false);
 }
-
-/*static uint32_t scan_counter = 0;
+#else
+static uint32_t scan_counter = 0;
 static uint32_t scan_value = 0;
 static uint16_t scan_timer = 1000;
 
@@ -218,27 +220,28 @@ void render_debug_scan(void) {
     static char buffer[6] = {0};
     snprintf(buffer, sizeof(buffer), "%5d", scan_value);
     oled_write_ln_P(buffer, false);
-}*/
+}
+#endif
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
+#if !defined(MATRIX_SCAN_DEBUG)
     if (is_keyboard_left()) {
         render_layer();
         oled_write_P(PSTR("     "), false);
         render_leds();
         oled_write_P(PSTR("     "), false);
         render_touch();
-        //oled_write_P(PSTR("     "), false);
-        //render_debug_scan();
-        oled_set_cursor(0, 12);
-        render_icon();
     }
     else {
         render_rgb_menu();
-        //oled_write_P(PSTR("     "), false);
-        //render_debug_scan();
-        oled_set_cursor(0, 12);
-        render_icon();
     }
+#else
+    oled_write_P(PSTR("     "), false);
+    render_debug_scan();
+#endif
+    oled_set_cursor(0, 12);
+    render_icon();
+    return false;
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {

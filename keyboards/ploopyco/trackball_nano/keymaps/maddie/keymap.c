@@ -21,14 +21,14 @@
 // safe range starts at `PLOOPY_SAFE_RANGE` instead.
 uint8_t scroll_enabled = 0;
 uint8_t lock_state = 0;
-int16_t delta_x = 0;
-int16_t delta_y = 0;
+int8_t  delta_x        = 0;
+int8_t  delta_y        = 0;
 
-void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y) {
-	if (scroll_enabled) {
-		delta_x += x;
+void process_mouse_user(report_mouse_t *mouse_report, int8_t x, int8_t y) {
+    if (scroll_enabled) {
+        delta_x += x;
 		delta_y += y;
-		
+
 		if (delta_x > 60) {
 			mouse_report->h = 1;
 			delta_x = 0;
@@ -44,10 +44,10 @@ void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y) {
 			mouse_report->v = 1;
 			delta_y = 0;
 		}
-	} else {
-		mouse_report->x = x;
+    } else {
+        mouse_report->x = x;
 		mouse_report->y = y;
-	}
+    }
 }
 
 void keyboard_post_init_user(void) {
@@ -62,7 +62,7 @@ bool led_update_user(led_t led_state) {
 		scroll_timer = timer_read();
 		lock_count = 0;
 	}
-    
+
 	if (led_state.num_lock != lock_state) {
 		lock_count++;
 
@@ -73,7 +73,7 @@ bool led_update_user(led_t led_state) {
 			delta_y = 0;
 		}
 	}
-    
+
 	lock_state = led_state.num_lock;
 	return true;
 }

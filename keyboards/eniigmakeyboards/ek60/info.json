@@ -2,8 +2,6 @@
     "keyboard_name": "ek60",
     "url": "",
     "maintainer": "adamws",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout":[

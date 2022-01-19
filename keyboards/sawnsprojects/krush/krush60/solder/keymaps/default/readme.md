@@ -1,0 +1,1 @@
+# The keymap default for krush60

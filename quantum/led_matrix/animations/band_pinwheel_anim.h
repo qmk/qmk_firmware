@@ -7,4 +7,4 @@ static uint8_t BAND_PINWHEEL_math(uint8_t val, int16_t dx, int16_t dy, uint8_t t
 bool BAND_PINWHEEL(effect_params_t* params) { return effect_runner_dx_dy(params, &BAND_PINWHEEL_math); }
 
 #    endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_LED_MATRIX_BAND_PINWHEEL
+#endif      // ENABLE_LED_MATRIX_BAND_PINWHEEL

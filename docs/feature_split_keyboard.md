@@ -130,14 +130,17 @@ To enable this method, add the following to your `config.h` file:
 #define EE_HANDS
 ```
 
-However, you'll have to flash the EEPROM files for the correct hand to each controller.  You can do this manually, or there are targets for avrdude and dfu to do this, while flashing the firmware: 
+Next, you will have to flash the EEPROM files once for the correct hand to the controller on each halve. You can do this manually with the following bootloader targets while flashing the firmware:
 
-* `:avrdude-split-left`
-* `:avrdude-split-right`
-* `:dfu-split-left`
-* `:dfu-split-right`
-* `:dfu-util-split-left`
-* `:dfu-util-split-right`
+* AVR controllers with the Caterina bootloader (e.g. Pro Micro):
+  * `:avrdude-split-left`
+  * `:avrdude-split-right`
+* AVR controllers with the stock Amtel DFU or DFU compatible bootloader (e.g. Elite-C):
+  * `:dfu-split-left`
+  * `:dfu-split-right`
+* ARM controllers with a DFU compatible bootloader (e.g. Proton-C):
+  * `:dfu-util-split-left`
+  * `:dfu-util-split-right`
 
 Example:
 
@@ -145,9 +148,13 @@ Example:
 make crkbd:default:avrdude-split-left
 ```
 
+?> ARM controllers using `dfu-util` will require an EEPROM reset after setting handedness. This can be done using the `EEP_RST` keycode or [Bootmagic Lite](feature_bootmagic.md). Controllers using emulated EEPROM will always require handedness parameter when flashing the firmware.
+
+?> [QMK Toolbox]() can also be used to flash EEPROM handedness files. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
+
 This setting is not changed when re-initializing the EEPROM using the `EEP_RST` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
-You can find the `EEPROM` files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common). 
+You can find the `EEPROM` files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common).
 
 #### Handedness by `#define`
 
@@ -219,47 +226,52 @@ One communication attempt will be allowed everytime this amount of time has pass
 
 Set to 0 to disable this throttling of communications while disconnected. This can save you a couple of bytes of firmware size.
 
+
+### Data Sync Options
+
+The following sync options add overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. These can be enabled by adding the chosen option(s) to your `config.h` file.
+
 ```c
 #define SPLIT_TRANSPORT_MIRROR
 ```
 
-This mirrors the master side matrix to the slave side for features that react or require knowledge of master side key presses on the slave side. The purpose of this feature is to support cosmetic use of key events (e.g. RGB reacting to keypresses). This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This mirrors the master side matrix to the slave side for features that react or require knowledge of master side key presses on the slave side. The purpose of this feature is to support cosmetic use of key events (e.g. RGB reacting to keypresses).
 
 ```c
 #define SPLIT_LAYER_STATE_ENABLE
 ```
 
-This enables syncing of the layer state between both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the currently active layer. This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables syncing of the layer state between both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the currently active layer.
 
 ```c
 #define SPLIT_LED_STATE_ENABLE
 ```
 
-This enables syncing of the Host LED status (caps lock, num lock, etc) between both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the Host LED status. This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables syncing of the Host LED status (caps lock, num lock, etc) between both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the Host LED status.
 
 ```c
 #define SPLIT_MODS_ENABLE
 ```
 
-This enables transmitting modifier state (normal, weak and oneshot) to the non primary side of the split keyboard. The purpose of this feature is to support cosmetic use of modifer state (e.g. displaying status on an OLED screen). This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables transmitting modifier state (normal, weak and oneshot) to the non primary side of the split keyboard. The purpose of this feature is to support cosmetic use of modifer state (e.g. displaying status on an OLED screen).
 
 ```c
 #define SPLIT_WPM_ENABLE
 ```
 
-This enables transmitting the current WPM to the slave side of the split keyboard. The purpose of this feature is to support cosmetic use of WPM (e.g. displaying the current value on an OLED screen). This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables transmitting the current WPM to the slave side of the split keyboard. The purpose of this feature is to support cosmetic use of WPM (e.g. displaying the current value on an OLED screen).
 
 ```c
 #define SPLIT_OLED_ENABLE
 ```
 
-This enables transmitting the current OLED on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing. This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables transmitting the current OLED on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing.
 
 ```c
 #define SPLIT_ST7565_ENABLE
 ```
 
-This enables transmitting the current ST7565 on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing. This adds overhead to the split communication protocol and may negatively impact the matrix scan speed when enabled. 
+This enables transmitting the current ST7565 on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing.
 
 ### Custom data sync between sides :id=custom-data-sync
 

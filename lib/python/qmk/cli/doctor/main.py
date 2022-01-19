@@ -79,12 +79,13 @@ def doctor(cli):
     cli.log.info('CLI version: %s', cli.version)
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
-    status = os_tests()
+    status = os_status = os_tests()
+    git_status = git_tests()
 
-    status = git_tests()
+    if git_status == CheckStatus.ERROR or (os_status == CheckStatus.OK and git_status == CheckStatus.WARNING):
+        status = git_status
 
-    venv = in_virtualenv()
-    if venv:
+    if in_virtualenv():
         cli.log.info('CLI installed in virtualenv.')
 
     # Make sure the basic CLI tools we need are available and can be executed.

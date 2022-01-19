@@ -25,7 +25,7 @@ When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 #endif
 
 #if DEBOUNCE > 0
-static bool debouncing = false;
+static bool         debouncing = false;
 static fast_timer_t debouncing_time;
 
 void debounce_init(uint8_t num_rows) {}

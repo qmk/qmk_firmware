@@ -2,8 +2,6 @@
     "keyboard_name": "rgb60",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT_60_wkl": "LAYOUT_60_ansi_tsangan_split_rshift",
         "LAYOUT_60_wkl_split_bs": "LAYOUT_60_tsangan_hhkb"

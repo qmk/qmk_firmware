@@ -7,4 +7,4 @@ static uint8_t CYCLE_LEFT_RIGHT_math(uint8_t val, uint8_t i, uint8_t time) { ret
 bool CYCLE_LEFT_RIGHT(effect_params_t* params) { return effect_runner_i(params, &CYCLE_LEFT_RIGHT_math); }
 
 #    endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_LED_MATRIX_CYCLE_LEFT_RIGHT
+#endif      // ENABLE_LED_MATRIX_CYCLE_LEFT_RIGHT

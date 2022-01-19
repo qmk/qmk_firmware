@@ -2,8 +2,6 @@
   "keyboard_name": "uzu42",
   "url": "https://github.com/nrtkbb/Keyboards/tree/master/uzu42",
   "maintainer": "nrtkbb",
-  "width": 13,
-  "height": 4.43,
   "layouts": {
     "LAYOUT": {
       "layout": [

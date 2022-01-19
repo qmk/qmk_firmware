@@ -34,57 +34,12 @@ keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = TRACKBALL_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
 
-bool     BurstState  = false; // init burst state for Trackball module
-uint16_t MotionStart = 0;     // Timer for accel, 0 is resting state
 
-__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
-    mouse_report->x = x;
-    mouse_report->y = y;
-}
-
-__attribute__((weak)) kb_pointer_data_t process_mouse(void) {
-    kb_pointer_data_t temp_data = {.mouse_x = 0, .mouse_y = 0};
-
-    report_pmw_t data = pmw_read_burst();
-    if (data.isOnSurface && data.isMotion) {
-        // Reset timer if stopped moving
-        if (!data.isMotion) {
-            if (MotionStart != 0) MotionStart = 0;
-            return temp_data;
-        }
-
-        // Set timer if new motion
-        if ((MotionStart == 0) && data.isMotion) {
-            if (debug_mouse) dprintf("Starting motion.\n");
-            MotionStart = timer_read();
-        }
-
-        if (debug_mouse) { dprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart); }
-        if (debug_mouse) { dprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy); }
-#if defined(PROFILE_LINEAR)
-        float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
-        data.dx *= scale;
-        data.dy *= scale;
-#elif defined(PROFILE_INVERSE)
-        // TODO
-#else
-        // no post processing
-#endif
-
-        // Wrap to HID size
-        data.dx = constrain(data.dx, -127, 127);
-        data.dy = constrain(data.dy, -127, 127);
-        if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
-        // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
-
-        temp_data.mouse_x = -data.dx;
-        temp_data.mouse_y = data.dy;
-    }
-    return temp_data;
-}
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-    if (!process_record_user(keycode, record)) { return false; }
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
 
 #ifdef POINTING_DEVICE_ENABLE
     if (keycode == DPI_CONFIG && record->event.pressed) {
@@ -106,11 +61,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #ifndef MOUSEKEY_ENABLE
     if (IS_MOUSEKEY_BUTTON(keycode)) {
         report_mouse_t currentReport = pointing_device_get_report();
-        if (record->event.pressed) {
-            currentReport.buttons |= 1 << (keycode - KC_MS_BTN1);
-        } else {
-            currentReport.buttons &= ~(1 << (keycode - KC_MS_BTN1));
-        }
+        currentReport.buttons        = pointing_device_handle_buttons(currentReport.buttons, record->event.pressed, keycode - KC_MS_BTN1);
         pointing_device_set_report(currentReport);
         pointing_device_send();
     }
@@ -119,57 +70,41 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 __attribute__((weak)) void keyboard_pre_init_sync(void) {}
-
-// Hardware Setup
-void keyboard_pre_init_kb(void) {
+__attribute__((weak)) void keyboard_pre_init_sub(void) {}
+void                       keyboard_pre_init_kb(void) {
     // debug_enable  = true;
     // debug_matrix  = true;
     // debug_mouse   = true;
     // debug_encoder = true;
 
-    /* Ground all output pins connected to ground. This provides additional
-     * pathways to ground. If you're messing with this, know this: driving ANY
-     * of these pins high will cause a short. On the MCU. Ka-blooey.
-     */
-
     // This is the debug LED.
 #if defined(DEBUG_LED_PIN)
     setPinOutput(DEBUG_LED_PIN);
-    writePin(DEBUG_LED_PIN, debug_enable);
+    writePin(DEBUG_LED_PIN, !debug_enable);
 #endif
 
+    keyboard_pre_init_sub();
     keyboard_pre_init_sync();
     keyboard_pre_init_user();
 }
 
-#ifdef POINTING_DEVICE_ENABLE
-void pointing_device_init(void) {
-    if (!is_keyboard_left()) {
-        // initialize ball sensor
-        pmw_spi_init();
-    }
-    trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
+__attribute__((weak)) void keyboard_post_init_sync(void) {}
+void                       keyboard_post_init_kb(void) {
+    keyboard_post_init_sync();
+    keyboard_post_init_user();
 }
 
-void pointing_device_task(void) {
-    report_mouse_t mouse_report = pointing_device_get_report();
-    kb_pointer_data_t data         = {.mouse_x = mouse_report.x, .mouse_y = mouse_report.y};
-    if (is_keyboard_left()) {
-        if (is_keyboard_master()) {
-            data = kb_pointer_sync_get();
-            process_mouse_user(&mouse_report, data.mouse_x, data.mouse_y);
-        }
-    } else {
-        data = process_mouse();
-        if (!is_keyboard_master()) {
-            kb_pointer_sync_send(data.mouse_x, data.mouse_y);
-        } else {
-            process_mouse_user(&mouse_report, data.mouse_x, data.mouse_y);
-        }
-    }
+#ifdef POINTING_DEVICE_ENABLE
+void pointing_device_init_kb(void) {
+    trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    pointing_device_init_user();
+}
 
-    pointing_device_set_report(mouse_report);
-    pointing_device_send();
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    if (is_keyboard_master()) {
+        mouse_report = pointing_device_task_user(mouse_report);
+    }
+    return mouse_report;
 }
 #endif
 
@@ -183,11 +118,13 @@ void eeconfig_init_kb(void) {
 }
 
 __attribute__((weak)) void matrix_init_sub_kb(void) {}
-void matrix_init_kb(void) {
+void                       matrix_init_kb(void) {
     // is safe to just read DPI setting since matrix init
     // comes before pointing device init.
     keyboard_config.raw = eeconfig_read_kb();
-    if (keyboard_config.dpi_config > DPI_OPTION_SIZE) { eeconfig_init_kb(); }
+    if (keyboard_config.dpi_config > DPI_OPTION_SIZE) {
+        eeconfig_init_kb();
+    }
     matrix_init_sub_kb();
     matrix_init_user();
 }
@@ -197,3 +134,13 @@ void                       matrix_scan_kb(void) {
     matrix_scan_sub_kb();
     matrix_scan_user();
 }
+
+__attribute__((weak)) void housekeeping_task_sync(void) {}
+void                       housekeeping_task_kb(void) {
+    housekeeping_task_sync();
+    // no need for user function, is called already
+}
+
+#ifdef POINTING_DEVICE_ENABLE
+void matrix_power_up(void) { pointing_device_task(); }
+#endif

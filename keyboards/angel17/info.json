@@ -2,8 +2,6 @@
     "keyboard_name": "angel17",
     "url": "https://kakunpc.booth.pm/",
     "maintainer": "kakunpc",
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

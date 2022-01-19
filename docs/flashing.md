@@ -127,7 +127,7 @@ To ensure compatibility with the USBasploader bootloader, make sure this block i
 
 ```make
 # Bootloader selection
-BOOTLOADER = USBasp
+BOOTLOADER = usbasploader
 ```
 
 Compatible flashers:
@@ -153,13 +153,13 @@ To ensure compatibility with the bootloadHID bootloader, make sure this block is
 
 ```make
 # Bootloader selection
-BOOTLOADER = bootloadHID
+BOOTLOADER = bootloadhid
 ```
 
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [bootloadHID CLI](https://www.obdev.at/products/vusb/bootloadhid.html) / `:bootloadHID` target in QMK (recommended command line)
+* [bootloadHID CLI](https://www.obdev.at/products/vusb/bootloadhid.html) / `:bootloadhid` target in QMK (recommended command line)
 * [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash)
 
 Flashing sequence:
@@ -290,7 +290,7 @@ Compatible flashers:
 Flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode (this may only enter the MCU into a "secure" bootloader mode; see https://github.com/qmk/qmk_firmware/issues/6112)
+    * Tap the `RESET` keycode
     * Press the `RESET` button on the PCB
 2. Wait for the OS to detect the device
 3. Flash a .bin file

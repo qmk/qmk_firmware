@@ -2,8 +2,6 @@
     "keyboard_name": "Let's Split",
     "url": "",
     "maintainer": "qmk",
-    "width": 13,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

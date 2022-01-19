@@ -7,8 +7,6 @@
         "pid": "0x69A1",
         "device_ver": "0x0001"
     },
-    "width": 5,
-    "height": 2,
     "diode_direction": "COL2ROW",
     "layouts": {
         "LAYOUT_ortho_2x5": {
