@@ -1,7 +1,5 @@
 # chocV
 
-![%(KEYBOARD)s](imgur.com image replace me!)
-
 A 36 key choc keyboard based on the [Horizon](https://github.com/skarrmann/horizon)
 construction and a trimmed down [BabyV](https://www.instagram.com/eyeohdesigns/?hl=en) layout!
 
