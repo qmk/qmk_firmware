@@ -38,6 +38,10 @@
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
 
+#if defined(RGB_MATRIX_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+#    define VIA_QMK_RGB_MATRIX_ENABLE
+#endif
+
 #include "quantum.h"
 
 #include "via.h"
@@ -59,14 +63,10 @@ void via_qmk_rgblight_set_value(uint8_t *data);
 void via_qmk_rgblight_get_value(uint8_t *data);
 #endif
 
-#if defined(RGB_MATRIX_ENABLE)
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
 void via_qmk_rgb_matrix_set_value(uint8_t *data);
 void via_qmk_rgb_matrix_get_value(uint8_t *data);
-#endif
-
-#if defined(LED_MATRIX_ENABLE)
-void via_qmk_led_matrix_set_value(uint8_t *data);
-void via_qmk_led_matrix_get_value(uint8_t *data);
+void eeconfig_update_rgb_matrix(void);
 #endif
 
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
@@ -297,16 +297,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
             via_qmk_rgblight_set_value(command_data);
 #endif
-#if defined(RGB_MATRIX_ENABLE)
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
             via_qmk_rgb_matrix_set_value(command_data);
-#endif
-#if defined(LED_MATRIX_ENABLE)
-            via_qmk_led_matrix_set_value(command_data);
 #endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(RGB_MATRIX_ENABLE) && !defined(LED_MATRIX_ENABLE)
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -319,16 +316,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
             via_qmk_rgblight_get_value(command_data);
 #endif
-#if defined(RGB_MATRIX_ENABLE)
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
             via_qmk_rgb_matrix_set_value(command_data);
 #endif
-#if defined(LED_MATRIX_ENABLE)
-            via_qmk_led_matrix_set_value(command_data);
-#endif
-#if defined(VIA_CUSTOM_LIGHTING_ENABLE) || defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE)
+#if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(RGB_MATRIX_ENABLE) && !defined(LED_MATRIX_ENABLE)
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -341,10 +335,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
             eeconfig_update_rgblight_current();
 #endif
-#if defined(VIA_CUSTOM_LIGHTING_ENABLE) || defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE)
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+            eeconfig_update_rgb_matrix();
+#endif
+#if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
-#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(RGB_MATRIX_ENABLE) && !defined(LED_MATRIX_ENABLE)
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE)
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -518,68 +515,24 @@ void via_qmk_rgblight_set_value(uint8_t *data) {
 
 #endif // #if defined(VIA_QMK_RGBLIGHT_ENABLE)
 
-#if defined(RGB_MATRIX_ENABLE)
-#include "keyboards/wilba_tech/wt_rgb_backlight_api.h"
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
 
 void via_qmk_rgb_matrix_get_value(uint8_t *data) {
     uint8_t *value_id   = &(data[0]);
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
-        case id_use_split_backspace ... id_disable_hhkb_blocker_leds:
-            *value_data = false;
-            break;
-        case id_disable_when_usb_suspended:
-#    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-            *value_data = true;
-#    else
-            *value_data = false;
-#    endif
-            break;
-        case id_disable_after_timeout:
-#    ifdef RGB_DISABLE_TIMEOUT
-#        if RGB_DISABLE_TIMEOUT > 0
-            *value_data = true;
-#        else
-            *value_data = false;
-#        endif
-#    else
-            *value_data = false;
-#    endif
-            break;
-        case id_brightness:
+        case id_qmk_rgblight_brightness:
             value_data[0] = rgb_matrix_get_val();
             break;
-        case id_effect:
-            value_data[0] = rgb_matrix_get_mode();
+        case id_qmk_rgblight_effect:
+            value_data[0] = rgb_matrix_is_enabled() ? rgb_matrix_get_mode() : 0;
             break;
-        case id_effect_speed:
+        case id_qmk_rgblight_effect_speed:
             value_data[0] = rgb_matrix_get_speed();
             break;
-        case id_color_1:
-        case id_color_2:
+        case id_qmk_rgblight_color:
             value_data[0] = rgb_matrix_get_hue();
             value_data[1] = rgb_matrix_get_sat();
-            break;
-        case id_caps_lock_indicator_color:
-        case id_layer_1_indicator_color:
-        case id_layer_2_indicator_color:
-        case id_layer_3_indicator_color:
-            value_data[0] = rgb_matrix_get_hue();
-            value_data[1] = rgb_matrix_get_sat();
-            break;
-        case id_caps_lock_indicator_row_col:
-        case id_layer_1_indicator_row_col:
-        case id_layer_2_indicator_row_col:
-        case id_layer_3_indicator_row_col:
-            value_data[0] = 0;
-            value_data[1] = 0;
-            break;
-        case id_alphas_mods:
-            for ( int i=0; i<5; i++ )
-            {
-                *(value_data+i*2) = 0;
-                *(value_data+i*2+1) = 0;
-            }
             break;
     }
 }
@@ -588,142 +541,24 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data) {
     uint8_t *value_id   = &(data[0]);
     uint8_t *value_data = &(data[1]);
     switch (*value_id) {
-        case id_use_split_backspace ... id_disable_hhkb_blocker_leds:
-        case id_disable_when_usb_suspended:
-        case id_disable_after_timeout:
-        case id_color_2:
-        case id_caps_lock_indicator_color:
-        case id_caps_lock_indicator_row_col:
-        case id_layer_1_indicator_color:
-        case id_layer_1_indicator_row_col:
-        case id_layer_2_indicator_color:
-        case id_layer_2_indicator_row_col:
-        case id_layer_3_indicator_color:
-        case id_layer_3_indicator_row_col:
-        case id_alphas_mods:
-            break;
-        case id_brightness:
+        case id_qmk_rgblight_brightness:
             rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), value_data[0]);
             break;
-        case id_effect:
-            rgb_matrix_mode_noeeprom(value_data[0]);
+        case id_qmk_rgblight_effect:
             if (value_data[0] == 0) {
                 rgb_matrix_disable_noeeprom();
             } else {
+                rgb_matrix_mode_noeeprom(value_data[0]);
                 rgb_matrix_enable_noeeprom();
             }
             break;
-        case id_effect_speed:
+        case id_qmk_rgblight_effect_speed:
             rgb_matrix_set_speed_noeeprom(value_data[0]);
             break;
-        case id_color_1:
+        case id_qmk_rgblight_color:
             rgb_matrix_sethsv_noeeprom(value_data[0], value_data[1], rgb_matrix_get_val());
             break;
     }
 }
-#endif  // #if defined(RGB_MATRIX_ENABLE)
-#if defined(LED_MATRIX_ENABLE)
-#include "keyboards/wilba_tech/wt_rgb_backlight_api.h"
 
-void via_qmk_led_matrix_get_value(uint8_t *data) {
-    uint8_t *value_id   = &(data[0]);
-    uint8_t *value_data = &(data[1]);
-    switch (*value_id) {
-        case id_use_split_backspace ... id_disable_hhkb_blocker_leds:
-        case id_disable_hhkb_blocker_leds:
-            *value_data = false;
-            break;
-        case id_disable_when_usb_suspended:
-#    ifdef LED_DISABLE_WHEN_USB_SUSPENDED
-            *value_data = true;
-#    else
-            *value_data = false;
-#    endif
-            break;
-        case id_disable_after_timeout:
-#    ifdef LED_DISABLE_TIMEOUT
-#        if LED_DISABLE_TIMEOUT > 0
-            *value_data = true;
-#        else
-            *value_data = false;
-#        endif
-#    else
-            *value_data = false;
-#    endif
-            break;
-        case id_brightness:
-            value_data[0] = led_matrix_get_val();
-            break;
-        case id_effect:
-            value_data[0] = led_matrix_get_mode();
-            break;
-        case id_effect_speed:
-            value_data[0] = led_matrix_get_speed();
-            break;
-        case id_color_1:
-        case id_color_2:
-            value_data[0] = led_matrix_get_hue();
-            value_data[1] = led_matrix_get_sat();
-            break;
-        case id_caps_lock_indicator_color:
-        case id_layer_1_indicator_color:
-        case id_layer_2_indicator_color:
-        case id_layer_3_indicator_color:
-            value_data[0] = led_matrix_get_hue();
-            value_data[1] = led_matrix_get_sat();
-            break;
-        case id_caps_lock_indicator_row_col:
-        case id_layer_1_indicator_row_col:
-        case id_layer_2_indicator_row_col:
-        case id_layer_3_indicator_row_col:
-            value_data[0] = 0;
-            value_data[1] = 0;
-            break;
-        case id_alphas_mods:
-            for ( int i=0; i<5; i++ )
-            {
-                *(value_data+i*2) = 0;
-                *(value_data+i*2+1) = 0;
-            }
-            break;
-    }
-}
-
-void via_qmk_led_matrix_set_value(uint8_t *data) {
-    uint8_t *value_id   = &(data[0]);
-    uint8_t *value_data = &(data[1]);
-    switch (*value_id) {
-        case id_use_split_backspace ... id_disable_hhkb_blocker_leds:
-        case id_disable_when_usb_suspended:
-        case id_disable_after_timeout:
-        case id_color_2:
-        case id_caps_lock_indicator_color:
-        case id_caps_lock_indicator_row_col:
-        case id_layer_1_indicator_color:
-        case id_layer_1_indicator_row_col:
-        case id_layer_2_indicator_color:
-        case id_layer_2_indicator_row_col:
-        case id_layer_3_indicator_color:
-        case id_layer_3_indicator_row_col:
-        case id_alphas_mods:
-            break;
-        case id_brightness:
-            led_matrix_sethsv_noeeprom(led_matrix_get_hue(), led_matrix_get_sat(), value_data[0]);
-            break;
-        case id_effect:
-            led_matrix_mode_noeeprom(value_data[0]);
-            if (value_data[0] == 0) {
-                led_matrix_disable_noeeprom();
-            } else {
-                led_matrix_enable_noeeprom();
-            }
-            break;
-        case id_effect_speed:
-            led_matrix_set_speed_noeeprom(value_data[0]);
-            break;
-        case id_color_1:
-            led_matrix_sethsv_noeeprom(value_data[0], value_data[1], led_matrix_get_val());
-            break;
-    }
-}
-#endif  // #if defined(LED_MATRIX_ENABLE)
+#endif  // #if defined(VIA_QMK_RGB_MATRIX_ENABLE)
