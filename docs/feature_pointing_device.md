@@ -47,7 +47,6 @@ The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surfac
 |`ADNS9800_SPI_MODE`             | (Optional) Sets the SPI Mode for the sensor.                           | `3`           |
 |`ADNS9800_SPI_DIVISOR`          | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_      |
 |`ADNS9800_CS_PIN`               | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
-|`ADNS9800_FIRMWARE_UPLOAD_FAST` | (Optional) Skips the 15us wait between firmware blocks.                | _not defined_ |
 
 
 The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI. 
