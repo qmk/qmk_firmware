@@ -9,7 +9,7 @@
 #endif
 
 #ifdef CUSTOM_UNICODE_ENABLE
-#include "process_unicode_common.h"
+#    include "process_unicode_common.h"
 extern unicode_config_t unicode_config;
 #endif
 #ifdef AUDIO_ENABLE
@@ -24,8 +24,10 @@ extern bool tap_toggling;
 extern bool swap_hands;
 #endif
 
-static bool watchdog_ping_done = false;
-static uint32_t watchdog_timer = 0;
+#ifdef SPLIT_USB_DETECT
+static bool     watchdog_ping_done = false;
+static uint32_t watchdog_timer     = 0;
+#endif
 
 extern userspace_config_t userspace_config;
 extern bool               host_driver_disabled;
@@ -51,8 +53,9 @@ void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiato
     }
 }
 
+#ifdef SPLIT_USB_DETECT
 void watchdog_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) { watchdog_ping_done = true; }
-
+#endif
 
 void keyboard_post_init_transport_sync(void) {
     // Register keyboard state sync split transaction
@@ -60,11 +63,13 @@ void keyboard_post_init_transport_sync(void) {
     transaction_register_rpc(RPC_ID_USER_KEYMAP_SYNC, user_keymap_sync);
     transaction_register_rpc(RPC_ID_USER_CONFIG_SYNC, user_config_sync);
 
-#if defined(PROTOCOL_LUFA)
+#ifdef SPLIT_USB_DETECT
+#    if defined(PROTOCOL_LUFA)
     wdt_disable();
-#endif
+#    endif
     transaction_register_rpc(RPC_ID_USER_WATCHDOG_SYNC, watchdog_handler);
     watchdog_timer = timer_read32();
+#endif
 }
 
 void user_transport_update(void) {
@@ -107,9 +112,9 @@ void user_transport_update(void) {
 void user_transport_sync(void) {
     if (is_keyboard_master()) {
         // Keep track of the last state, so that we can tell if we need to propagate to slave
-        static uint16_t              last_keymap = 0;
-        static uint32_t              last_config = 0, last_sync[3], last_user_state = 0;
-        bool                         needs_sync = false;
+        static uint16_t last_keymap = 0;
+        static uint32_t last_config = 0, last_sync[3], last_user_state = 0;
+        bool            needs_sync = false;
 
         // Check if the state values are different
         if (memcmp(&transport_user_state, &last_user_state, sizeof(transport_user_state))) {
@@ -167,6 +172,7 @@ void user_transport_sync(void) {
         }
     }
 
+#ifdef SPLIT_USB_DETECT
     if (!watchdog_ping_done) {
         if (is_keyboard_master()) {
             if (timer_elapsed32(watchdog_timer) > 100) {
@@ -186,6 +192,7 @@ void user_transport_sync(void) {
             }
         }
     }
+#endif
 }
 
 void housekeeping_task_user(void) {
