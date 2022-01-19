@@ -24,7 +24,7 @@ extern bool host_driver_disabled;
 
 #ifndef KEYLOGGER_LENGTH
 // #    ifdef OLED_DISPLAY_128X64
-#    define KEYLOGGER_LENGTH ((uint8_t)(OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH))
+#    define KEYLOGGER_LENGTH ((uint8_t)(OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH) - OLED_KEYLOGGER_LENGTH)
 // #    else
 // #        define KEYLOGGER_LENGTH (uint8_t *(OLED_DISPLAY_WIDTH / OLED_FONT_HEIGHT))
 // #    endif
@@ -119,9 +119,6 @@ void update_log(void) {
  */
 void render_keylogger_status(void) {
     oled_write_P(PSTR(OLED_RENDER_KEYLOGGER), false);
-#ifdef OLED_DISPLAY_128X128
-    oled_advance_page(true);
-#endif
     oled_write(keylog_str, false);
 }
 
