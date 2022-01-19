@@ -37,7 +37,7 @@ enum layers {
 #define HOME_N CMD_T(KC_N)
 #define HOME_E OPT_T(KC_E)
 #define HOME_I CTL_T(KC_I)
-#define HOME_O SFT_T(KC_O)
+#define HOME_O RSFT_T(KC_O)
 #define HOME_DWN CMD_T(KC_DOWN)
 #define HOME_UP OPT_T(KC_UP)
 #define HOME_RGT CTL_T(KC_RGHT)
@@ -255,6 +255,49 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+
+// https://precondition.github.io/home-row-mods#rolled-modifiers-cancellation
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+
+    case KC_U:
+        /*
+        This piece of code nullifies the effect of Right Shift when tapping
+        the KC_U key.
+        This helps rolling over RSFT_T(KC_O) and KC_U
+        to obtain the intended "ou" instead of "U".
+        Consequently, capital U can only be obtained by tapping KC_U
+        and holding LSFT_T(KC_A) (which is the left Shift mod tap).
+        */
+
+        /*
+        Detect the tap.
+        We're only interested in overriding the tap behaviour
+        in a certain cicumstance. The hold behaviour can stay the same.
+        */
+        if (record->event.pressed && record->tap.count > 0) {
+            // Detect right Shift
+            if (get_mods() & MOD_BIT(KC_RSHIFT)) {
+                // temporarily disable right Shift
+                // so that we can send KC_O and KC_U
+                // without Shift on.
+                unregister_mods(MOD_BIT(KC_RSHIFT));
+                tap_code(KC_O);
+                tap_code(KC_U);
+                // restore the mod state
+                add_mods(MOD_BIT(KC_RSHIFT));
+                // to prevent QMK from processing KC_U as usual in our special case
+                return false;
+            }
+        }
+         /*else process RCTL_T(KC_N) as usual.*/
+        return true;
+
+    // case KC_N:
+    // next case here
+    }
+    return true;
+};
 
 /* custom lighting configuration */
 // microcontroller leds
