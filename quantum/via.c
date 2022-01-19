@@ -525,7 +525,7 @@ void via_qmk_rgb_matrix_get_value(uint8_t *data) {
             value_data[0] = rgb_matrix_get_val();
             break;
         case id_qmk_rgblight_effect:
-            value_data[0] = rgb_matrix_is_enabled() ? rgb_matrix_get_mode() : 0;
+            value_data[0] = rgb_matrix_get_mode();
             break;
         case id_qmk_rgblight_effect_speed:
             value_data[0] = rgb_matrix_get_speed();
@@ -545,10 +545,10 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data) {
             rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), value_data[0]);
             break;
         case id_qmk_rgblight_effect:
+            rgb_matrix_mode_noeeprom(value_data[0]);
             if (value_data[0] == 0) {
                 rgb_matrix_disable_noeeprom();
             } else {
-                rgb_matrix_mode_noeeprom(value_data[0]);
                 rgb_matrix_enable_noeeprom();
             }
             break;
