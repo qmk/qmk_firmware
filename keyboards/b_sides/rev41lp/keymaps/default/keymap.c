@@ -15,17 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-enum layer_names {
-    _BASE,
-    _LOWER,
-    _RAISE,
-    _ADJUST
-};
-
-#define LOWER  MO(_LOWER)
-#define RAISE  MO(_RAISE)
-#define ADJUST MO(_ADJUST)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_rev41lp(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
