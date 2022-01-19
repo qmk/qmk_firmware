@@ -1,5 +1,5 @@
 // Copyright 2021 Google LLC
-// Copyright 2022 @filterpaper
+// Copyright 2021 @filterpaper
 // SPDX-License-Identifier: Apache-2.0
 // Original source: https://getreuer.info/posts/keyboards/autocorrection
 
@@ -7,9 +7,14 @@
 #include <string.h>
 
 #if __has_include("autocorrection_data.h")
+#    pragma GCC push_options
+#    pragma GCC optimize("O0")
 #    include "autocorrection_data.h"
 #    if AUTOCORRECTION_MIN_LENGTH < 4
 #        error Minimum Length is too short and may cause overflows
+#    endif
+#    if DICTIONARY_SIZE > SIZE_MAX
+#        error Dictionary size excees maximum size permitted
 #    endif
 
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
@@ -55,10 +60,16 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             }
 #    endif
         default:
+            // Disable autocorrection while a mod other than shift is active.
+            if (((get_mods() | get_oneshot_mods()) & ~MOD_MASK_SHIFT) != 0) {
+                typo_buffer_size = 0;
+                return true;
+            }
             if (!record->event.pressed) {
                 return true;
             }
     }
+
 
     // Subtract buffer for Backspace key, reset for other non-alpha.
     if (!(KC_A <= keycode && keycode <= KC_Z)) {
@@ -137,6 +148,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
+#    pragma GCC pop_options
 #else
 #    pragma message "Warning!!! Autocorrect is not corretly setup!"
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record) { return true; }
