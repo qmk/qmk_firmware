@@ -3,7 +3,7 @@
 A 36 key choc keyboard based on the [Horizon](https://github.com/skarrmann/horizon)
 construction and a trimmed down [BabyV](https://www.instagram.com/eyeohdesigns/?hl=en) layout!
 
-![chocV Lineage](https://github.com/brickbots/chocV/images/lineage.jpeg "chocV Lineage")
+![chocV Lineage](https://raw.githubusercontent.com/brickbots/chocV/main/images/lineage.jpeg "chocV Lineage")
 
 * Keyboard Maintainer: [Brickbots](https://github.com/brickbots)
 * Hardware Supported: The chocV PCB is public domain and is compatible with any
