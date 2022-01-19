@@ -173,7 +173,7 @@ void tap_dance_task() {
             tap_user_defined = action->custom_tapping_term;
         } else {
 #ifdef TAPPING_TERM_PER_KEY
-            tap_user_defined = get_tapping_term(action->state.keycode, NULL);
+            tap_user_defined = get_tapping_term(action->state.keycode, &(keyrecord_t){});
 #else
             tap_user_defined = TAPPING_TERM;
 #endif
