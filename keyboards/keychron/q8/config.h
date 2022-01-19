@@ -22,14 +22,14 @@
 #define PRODUCT         Keychron Q8
 
 /* key matrix size */
-#define MATRIX_ROWS 5
+#define MATRIX_ROWS 4
 #define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS \
-    { B4, B3, A15, A14, A13 }
+    { B3, A15, A14, A13 }
 #define MATRIX_COL_PINS \
-    { C14, C15, A0, A1, A2, A3, A4, A5, A6, A7, B0, B1, A8, A9, H3 }
+    { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, A2, A1, A0, C15, C14 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -43,24 +43,18 @@
 /* DIP switch */
 #define DIP_SWITCH_MATRIX_GRID \
     {                          \
-        { 4, 4 }               \
+        { 3, 4 }               \
     }
 
 /* RGB Matrix Driver Configuration */
 #define DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110100
 
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
-#define PHASE_CHANNEL MSKPHASE_9CHANNEL
-
 /* NKRO */
 #define FORCE_NKRO
 
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {3, 4} }
 
 /* Set USB polling rate as 1 milliseconds */
 #define USB_POLLING_INTERVAL_MS 1

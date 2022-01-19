@@ -24,9 +24,6 @@
 #define DRIVER_1_LED_TOTAL 52
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
-#define PHASE_CHANNEL MSKPHASE_9CHANNEL
-
 /* Encoder used pins */
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { B4 }
