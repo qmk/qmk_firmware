@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0E41
 #define MANUFACTURER    That-Canadian
 #define PRODUCT         Lets Split Eh?
-#define DESCRIPTION     An on-board component Lets Split w/ USB-C
 
 /* key matrix size */
 // Rows are doubled-up

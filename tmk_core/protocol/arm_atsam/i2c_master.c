@@ -28,6 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #    define I2C_LED_USE_DMA 1  // Set 1 to use background DMA transfers for leds, Set 0 to use inline software transfers
 
+DmacDescriptor dmac_desc;
+DmacDescriptor dmac_desc_wb;
+
 static uint8_t i2c_led_q[I2C_Q_SIZE];  // I2C queue circular buffer
 static uint8_t i2c_led_q_s;            // Start of circular buffer
 static uint8_t i2c_led_q_e;            // End of circular buffer
@@ -561,4 +564,23 @@ uint8_t i2c_led_q_run(void) {
 
     return 1;
 }
+
+__attribute__((weak)) void i2c_init(void) {
+    static bool is_initialised = false;
+    if (!is_initialised) {
+        is_initialised = true;
+
+        i2c0_init();
+    }
+}
+
+i2c_status_t i2c_transmit(uint8_t address, const uint8_t *data, uint16_t length, uint16_t timeout) {
+    uint8_t ret                 = i2c0_transmit(address, (uint8_t *)data, length, timeout);
+    SERCOM0->I2CM.CTRLB.bit.CMD = 0x03;
+    while (SERCOM0->I2CM.SYNCBUSY.bit.SYSOP) {
+        DBGC(DC_USB_WRITE2422_BLOCK_SYNC_SYSOP);
+    }
+    return ret ? I2C_STATUS_SUCCESS : I2C_STATUS_ERROR;
+}
+
 #endif  // !defined(MD_BOOTLOADER) && defined(RGB_MATRIX_ENABLE)

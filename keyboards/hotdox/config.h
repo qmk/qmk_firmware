@@ -10,7 +10,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Alpaca Keyboards
 #define PRODUCT         ErgoDox 76 "HotDox"
-#define DESCRIPTION     QMK FW for the "HotDox"
 
 /* key matrix size */
 #define MATRIX_ROWS 6

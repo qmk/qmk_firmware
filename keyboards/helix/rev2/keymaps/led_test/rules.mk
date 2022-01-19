@@ -18,8 +18,8 @@ LED_UNDERGLOW_ENABLE = no    # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes         # LED animations
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 
+OLED_SELECT = core
+ifeq ($(strip $(OLED_ENABLE)), yes)
+    SRC += oled_display.c
+endif
 SRC += led_test_init.c
-
-# convert Helix-specific options (that represent combinations of standard options)
-#   into QMK standard options.
-include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))

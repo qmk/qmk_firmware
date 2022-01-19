@@ -1,11 +1,9 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define PRODUCT         S65-PLUS
-#define DESCRIPTION     q.m.k. keyboard firmware for S65-PLUS
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
@@ -46,5 +44,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#endif

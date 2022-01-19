@@ -28,13 +28,6 @@ void matrix_init_kb(void) {
   matrix_init_user();
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  // put your per-action keyboard code here
-  // runs for every action, just before processing by the firmware
-
-  return process_record_user(keycode, record);
-}
-
 bool led_update_kb(led_t led_state) {
   if(led_update_user(led_state)) {
     writePin(C7, !led_state.caps_lock);

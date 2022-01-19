@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <quantum.h>
-#include <i2c_master.h>
+#include "quantum.h"
+#include "i2c_master.h"
 #include <string.h>
 #include "model01.h"
 
@@ -23,16 +23,3 @@ void matrix_init_kb(void) {
   set_all_leds_to(0, 0, 0);
   matrix_init_user();
 }
-
-void matrix_scan_kb(void) {
-  matrix_scan_user();
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-}
-
-__attribute__ ((weak))
-void matrix_init_user(void) {
-}
-

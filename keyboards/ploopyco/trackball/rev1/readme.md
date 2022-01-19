@@ -13,8 +13,8 @@ Once you have that, you'll need to [ISP Flash](https://docs.qmk.fm/#/isp_flashin
 
 | Fuse     | Setting          |
 |----------|------------------|
-| Low      | `0xDF`           |
-| High     | `0xD8` or `0x98` |
+| Low      | `0x52`           |
+| High     | `0x99`           |
 | Extended | `0xCB`           |
 
 Original (Caterina) settings: 

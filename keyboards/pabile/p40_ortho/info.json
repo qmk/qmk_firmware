@@ -1,9 +1,5 @@
 {
-    "keyboard_name": "", 
-    "url": "", 
     "maintainer": "qmk", 
-    "width": 10, 
-    "height": 4, 
     "layouts": {
         "LAYOUT_ortho_4x10": {
             "layout": [

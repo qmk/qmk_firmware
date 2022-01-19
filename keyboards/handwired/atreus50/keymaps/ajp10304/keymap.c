@@ -1,3 +1,19 @@
+/* Copyright 2021 Alan Pocklington
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 #include "keymap_uk.h"
 #include "ajp10304.h"
@@ -19,6 +35,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT(_NUMPAD, KC_ESC),   KC_Q,       KC_W,        KC_E,      KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,      KC_O,      KC_P,       KC_BSPC              ,
   MT(MOD_LSFT, KC_TAB),  KC_A,       KC_S,        KC_D,      KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,      KC_L,      KC_SCLN,    MT(MOD_RSFT, KC_ENT) ,
   KC_LSHIFT,             KC_Z,       KC_X,        KC_C,      KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM,   KC_DOT,    KC_SLSH,    KC_RSHIFT            ,
+  MO(_FUNC),             KC_LCTL,    KC_LALT,     KC_LGUI,   LOWER,   KC_BSPC, KC_LCTL, KC_LALT, KC_SPC,  RAISE,   KC_LSHIFT, KC_BTN2,   KC_RCTL,    MO(_FUNC2)
+),
+
+/* Colemak-DHm
+ * ,-----------------------------------------|             |-----------------------------------------.
+ * | Esc  |   Q  |   W  |   F  |   P  |   B  |             |   J  |   L  |   U  |   Y  |  ;:  | Bksp |
+ * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ * | Tab  |   A  |   R  |   S  |   T  |   G  |             |   M  |   N  |   E  |   I  |  O  | Enter|
+ * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ * | Shft |   Z  |   X  |   C  |   D  |   V  |             |   K  |   H  |  ,<  |  .>  |  /?  | Shft |
+ * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Fn   | Ctrl | Alt  | GUI  |Lower | Bksp | Ctrl | Alt  |Space |Raise | Shift| MENU | Ctrl | Fn2  |
+ * `-------------------------------------------------------------------------------------------------'
+ */
+[_QWERTY] = LAYOUT(
+  LT(_NUMPAD, KC_ESC),   KC_Q,       KC_W,        KC_F,      KC_P,    KC_B,                      KC_J,    KC_L,    KC_U,      KC_Y,      KC_SCLN,    KC_BSPC              ,
+  MT(MOD_LSFT, KC_TAB),  KC_A,       KC_R,        KC_S,      KC_T,    KC_G,                      KC_M,    KC_N,    KC_E,      KC_I,      KC_O,       MT(MOD_RSFT, KC_ENT) ,
+  KC_LSHIFT,             KC_Z,       KC_X,        KC_C,      KC_D,    KC_V,                      KC_K,    KC_H,    KC_COMM,   KC_DOT,    KC_SLSH,    KC_RSHIFT            ,
   MO(_FUNC),             KC_LCTL,    KC_LALT,     KC_LGUI,   LOWER,   KC_BSPC, KC_LCTL, KC_LALT, KC_SPC,  RAISE,   KC_LSHIFT, KC_BTN2,   KC_RCTL,    MO(_FUNC2)
 ),
 
@@ -77,26 +111,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Adjust (Lower + Raise)
- * ,------------------------------------------             |-----------------------------------------.
- * | ???? | Reset|Qwerty|      |      | REC1 |             | REC2 |      |      |      |      |  Del |
- * |------+------+------+------+------+-------             |------+------+------+------+------+------|
- * | CAPS |      |      |      |      | PLAY1|             | PLAY2| Mute | Vol+ | Play |      |      |
- * |------+------+------+------+------+------|             |------+------+------+------+------+------|
- * | PC/MC|      |      |      |      | STOP |             | STOP | Prev | Vol- | Next |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-------------------------------------------------------------------------------------------------'
+ * ,------------------------------------------             |------------------------------------------.
+ * | ???? | Reset|Qwerty|      |      | REC1 |             | REC2 |      |      |      |      |  Del  |
+ * |------+------+------+------+------+-------             |------+------+------+------+------+-------|
+ * | CAPS |      |      |      |      | PLAY1|             | PLAY2| Mute | Vol+ | Play |      |Qwerty |
+ * |------+------+------+------+------+------|             |------+------+------+------+------+-------|
+ * | PC/MC|      |      |      |      | STOP |             | STOP | Prev | Vol- | Next |      |Colemak|
+ * |------+------+------+------+------+------+------+------+------+------+------+------+------+-------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |      |       |
+ * `--------------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT(
   M_CUSTOM, RESET,   QWERTY,  _______, _______, DYN_REC_START1,                    DYN_REC_START2,  _______,             _______,           _______,              _______,  KC_DEL  ,
-  KC_CAPS,  _______, _______, _______, _______, DYN_MACRO_PLAY1,                   DYN_MACRO_PLAY2, KC_AUDIO_MUTE,       KC_AUDIO_VOL_UP,   KC_MEDIA_PLAY_PAUSE,  _______,  _______ ,
-  TG(_MAC), _______, _______, _______, _______, DYN_REC_STOP,                      DYN_REC_STOP,    KC_MEDIA_PREV_TRACK, KC_AUDIO_VOL_DOWN, KC_MEDIA_NEXT_TRACK,  _______,  _______ ,
+  KC_CAPS,  _______, _______, _______, _______, DYN_MACRO_PLAY1,                   DYN_MACRO_PLAY2, KC_AUDIO_MUTE,       KC_AUDIO_VOL_UP,   KC_MEDIA_PLAY_PAUSE,  _______,  QWERTY  ,
+  TG(_MAC), _______, _______, _______, _______, DYN_REC_STOP,                      DYN_REC_STOP,    KC_MEDIA_PREV_TRACK, KC_AUDIO_VOL_DOWN, KC_MEDIA_NEXT_TRACK,  _______,  COLEMAK ,
   _______,  _______, _______, _______, _______, _______,         _______, _______, _______,         _______,             _______,           _______,              _______,  _______
 ),
 
 /* Mouse
  * ,------------------------------------------             |-----------------------------------------.
- * | ESC  |      |      |      |      |      |             |      |      | BTN3 |      |      |      |
+ * | ESC  |      |      |      |      |      |             | WH_L | WH_UP| BTN3 | WH_D | WH_R |      |
  * |------+------+------+------+------+-------             |------+------+------+------+------+------|
  * | ACC0 | ACC1 | ACC2 |      |      |      |             |      | BTN1 |  UP  | BTN2 |      |      |
  * |------+------+------+------+------+------|             |------+------+------+------+------+------|
@@ -106,10 +140,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------------------------------------------------------------------------------------'
  */
 [_MOUSE] = LAYOUT(
-    KC_ESC ,      _______,      _______,      _______, _______, _______,                   _______, _______,    KC_MS_BTN3, _______,    _______, _______ ,
-    KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, _______, _______, _______,                   _______, KC_MS_BTN1, KC_MS_UP,   KC_MS_BTN2,  _______, _______ ,
-    KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, _______, _______, _______,                   _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, _______, _______ ,
-    _______,      _______,      _______,      _______, _______, _______, _______, _______, _______, _______,    _______,    _______,     _______, _______
+    KC_ESC ,      _______,      _______,      _______, _______, _______,                   KC_MS_WH_LEFT, KC_MS_WH_UP, KC_MS_BTN3, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, _______ ,
+    KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, _______, _______, _______,                   _______,       KC_MS_BTN1,  KC_MS_UP,   KC_MS_BTN2,    _______,        _______ ,
+    KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, _______, _______, _______,                   _______,       KC_MS_LEFT,  KC_MS_DOWN, KC_MS_RIGHT,   _______,        _______ ,
+    _______,      _______,      _______,      _______, _______, _______, _______, _______, _______,       _______,     _______,    _______,       _______,        _______
 ),
 
 

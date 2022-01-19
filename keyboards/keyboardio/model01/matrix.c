@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <quantum.h>
-#include <i2c_master.h>
+#include "quantum.h"
+#include "i2c_master.h"
 #include <string.h>
 #include "model01.h"
 
@@ -25,6 +25,17 @@
 static matrix_row_t rows[MATRIX_ROWS];
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
 
+// user-defined overridable functions
+
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
+
+// helper functions
 inline
 uint8_t matrix_rows(void) {
   return MATRIX_ROWS;
@@ -85,8 +96,8 @@ matrix_row_t matrix_get_row(uint8_t row) {
 void matrix_print(void) {
   print("\nr/c 0123456789ABCDEF\n");
   for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    phex(row); print(": ");
-    pbin_reverse16(matrix_get_row(row));
+    print_hex8(row); print(": ");
+    print_bin_reverse16(matrix_get_row(row));
     print("\n");
   }
 }

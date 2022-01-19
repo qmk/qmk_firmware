@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -25,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6007
 #define MANUFACTURER    Maple Computing
 #define PRODUCT         Launch Pad
-#define DESCRIPTION     An all-in-on macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -65,6 +63,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef SUBPROJECT_rev1
     #include "rev1/config.h"
-#endif
-
 #endif

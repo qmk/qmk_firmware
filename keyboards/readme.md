@@ -1,5 +1,6 @@
 # Included Keyboards
-QMK runs on a diverse range of keyboards. Some of these keyboards are officially supported and see constant community contributions, while others are part of the repository for historical reasons.
+
+QMK runs on a diverse range of keyboards. Some of these keyboards are well maintained and see constant community contributions, while others are part of the repository for historical reasons.
 
 ## Official QMK Keyboards
 
@@ -62,4 +63,4 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Vision Division](/keyboards/vision_division) &mdash; Full Size / Split Linear Keyboard by IBNobody.
 * [XD004](/keyboards/xd004) &mdash; 1x4 macro keyboard sold by KPrepublic.
 * [XD75](/keyboards/xd75) &mdash; 15x5 ortholinear keyboard by XIUDI.
-* [YMDK NP21](/keyboards/ymdk_np21) &mdash; ps2avrGB based number pad (numpad) sold by YMDK on Aliexpress. 
+* [YMDK NP21](/keyboards/ymdk_np21) &mdash; ps2avrGB based number pad (numpad) sold by YMDK on Aliexpress.

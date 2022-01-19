@@ -16,24 +16,24 @@ void matrix_scan_user(void) {
             counter++;
             if (counter == 1) {
                 top = 1;
-                writePin(INDICATOR_PIN_0, !top);
-                wait_ms(200);
+                writePin(INDICATOR_PIN_0, top);
+                wait_ms(300);
                 top = 0;
-                writePin(INDICATOR_PIN_0, !top);
+                writePin(INDICATOR_PIN_0, top);
             }
             if (counter == 2) {
                 middle = 1;
-                writePin(INDICATOR_PIN_1, !middle);
-                wait_ms(200);
+                writePin(INDICATOR_PIN_1, middle);
+                wait_ms(300);
                 middle = 0;
-                writePin(INDICATOR_PIN_1, !middle);
+                writePin(INDICATOR_PIN_1, middle);
             }
             if (counter == 3) {
                 bottom = 1;
-                writePin(INDICATOR_PIN_2, !bottom);
-                wait_ms(200);
+                writePin(INDICATOR_PIN_2, bottom);
+                wait_ms(300);
                 bottom = 0;
-                writePin(INDICATOR_PIN_2, !bottom);
+                writePin(INDICATOR_PIN_2, bottom);
             }
             if (counter == 4) {
                 is_enabled = is_rgblight_startup = false;

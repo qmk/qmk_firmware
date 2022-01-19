@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef PROCESS_TAP_DANCE_H
-#define PROCESS_TAP_DANCE_H
+
+#pragma once
 
 #ifdef TAP_DANCE_ENABLE
 
@@ -85,7 +85,7 @@ extern qk_tap_dance_action_t tap_dance_actions[];
 
 void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record);
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record);
-void matrix_scan_tap_dance(void);
+void tap_dance_task(void);
 void reset_tap_dance(qk_tap_dance_state_t *state);
 
 void qk_tap_dance_pair_on_each_tap(qk_tap_dance_state_t *state, void *user_data);
@@ -99,7 +99,5 @@ void qk_tap_dance_dual_role_reset(qk_tap_dance_state_t *state, void *user_data);
 #else
 
 #    define TD(n) KC_NO
-
-#endif
 
 #endif

@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#undef DESCRIPTION
-#define DESCRIPTION     QMK keyboard firmware for TADA68 with QMK bootloader
-
 #define QMK_ESC_OUTPUT F0 // usually COL
 #define QMK_ESC_INPUT D0 // usually ROW
 #define QMK_LED B6

@@ -1,13 +1,100 @@
 # デバッグの FAQ
 
 <!---
-  original document: 0.10.33:docs/faq_debug.md
-  git diff 0.10.33 HEAD -- docs/faq_debug.md | cat
+  original document: 0.12.45:docs/faq_debug.md
+  git diff 0.12.45 HEAD -- docs/faq_debug.md | cat
 -->
 
 このページは、キーボードのトラブルシューティングについての様々な一般的な質問を説明します。
 
-# デバッグコンソール
+## デバッグ :id=debugging
+
+`rules.mk` へ `CONSOLE_ENABLE = yes` の設定をするとキーボードはデバッグ情報を出力します。デフォルトの出力は非常に限られたものですが、デバッグモードをオンにすることでデバッグ情報の量を増やすことが出来ます。キーマップの `DEBUG` キーコードを使用するか、デバッグモードを有効にする[コマンド](ja/feature_command.md)機能を使用するか、以下のコードをキーマップに追加します。
+
+```c
+void keyboard_post_init_user(void) {
+  // 希望する動作に合わせて値をカスタマイズします
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
+}
+```
+
+## デバッグツール
+
+キーボードのデバッグに使えるツールは2つあります。
+
+### QMK Toolbox を使ったデバッグ
+
+互換性のある環境では、[QMK Toolbox](https://github.com/qmk/qmk_toolbox) を使うことでキーボードからのデバッグメッセージを表示できます。
+
+### hid_listen を使ったデバッグ
+
+ターミナルベースの方法がお好みですか？PJRC が提供する [hid_listen](https://www.pjrc.com/teensy/hid_listen.html) もデバッグメッセージの表示に使用できます。ビルド済みの実行ファイルは Windows、Linux、MacOS 用が用意されています。
+
+## 独自のデバッグメッセージを送信する
+
+[カスタムコード](ja/custom_quantum_functions.md)内からデバッグメッセージを出力すると便利な場合があります。それはとても簡単です。ファイルの先頭に `print.h` のインクルードを追加します:
+
+```c
+#include "print.h"
+```
+
+その後は、いくつかの異なった print 関数を使用することが出来ます:
+
+* `print("string")`: シンプルな文字列を出力します
+* `uprintf("%s string", var)`: フォーマットされた文字列を出力します
+* `dprint("string")` デバッグモードが有効な場合のみ、シンプルな文字列を出力します
+* `dprintf("%s string", var)`: デバッグモードが有効な場合のみ、フォーマットされた文字列を出力します
+
+## デバッグの例
+
+以下は現実世界での実際のデバッグ手法の例を集めたものです。
+
+### マトリックス上のどの場所でキー押下が起こったか？
+
+移植する場合や、PCB の問題を診断する場合、キー入力が正しくスキャンされているかどうかを確認することが役立つ場合があります。この手法でのロギングを有効化するには、`keymap.c` へ以下のコードを追加します。
+
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // コンソールが有効化されている場合、マトリックス上の位置とキー押下状態を出力します
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u, interrupt: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+#endif
+  return true;
+}
+```
+
+出力例
+```text
+Waiting for device:.......
+Listening:
+KL: kc: 169, col: 0, row: 0, pressed: 1
+KL: kc: 169, col: 0, row: 0, pressed: 0
+KL: kc: 174, col: 1, row: 0, pressed: 1
+KL: kc: 174, col: 1, row: 0, pressed: 0
+KL: kc: 172, col: 2, row: 0, pressed: 1
+KL: kc: 172, col: 2, row: 0, pressed: 0
+```
+
+### キースキャンにかかる時間の測定
+
+パフォーマンスの問題をテストする場合、スイッチマトリックスをスキャンする頻度を知ることが役立ちます。この手法でのロギングを有効化するには `config.h` へ以下のコードを追加します。
+
+```c
+#define DEBUG_MATRIX_SCAN_RATE
+```
+
+出力例
+```text
+  > matrix scan frequency: 315
+  > matrix scan frequency: 313
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+```
 
 ## `hid_listen` がデバイスを認識できない
 デバイスのデバッグコンソールの準備ができていない場合、以下のように表示されます:
@@ -25,116 +112,20 @@ Listening:
 
 この 'Listening:' のメッセージが表示されない場合は、[Makefile] を `CONSOLE_ENABLE=yes` に設定してビルドしてみてください
 
-Linux のような OS でデバイスにアクセスするには、権限が必要かもしれません。
-- `sudo hid_listen` を試してください
+Linux のような OS でデバイスにアクセスするには、特権が必要かもしれません。`sudo hid_listen` を試してください。
+
+多くの Linux ディストリビューションでは、次の内容で `/etc/udev/rules.d/70-hid-listen.rules` というファイルを作成することで、root として hid_listen を実行する必要がなくなります:
+
+```
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="abcd", ATTRS{idProduct}=="def1", TAG+="uaccess", RUN{builtin}+="uaccess"
+```
+
+abcd と def1 をキーボードのベンダーとプロダクト IDに置き換えてください。文字は小文字でなければなりません。`RUN{builtin}+="uaccess"` の部分は、古いディストリビューションでのみ必要です。
 
 ## コンソールにメッセージが表示されない
 以下を調べてください:
 - *hid_listen* がデバイスを検出する。上記を見てください。
 - **Magic**+d を使ってデバッグを有効にする。[マジックコマンド](https://github.com/tmk/tmk_keyboard#magic-commands)を見てください。
-- `debug_enable=true` を設定します。[テストとデバッグ](ja/newbs_testing_debugging.md#debugging)を見てください
-- デバッグ print の代わりに 'print' 関数を使ってみてください。**common/print.h** を見てください。
+- `debug_enable=true` を設定します。[デバッグ](#debugging)を見てください。
+- デバッグプリントの代わりに `print` 関数を使ってみてください。**common/print.h** を見てください。
 - コンソール機能を持つ他のデバイスを切断します。[Issue #97](https://github.com/tmk/tmk_keyboard/issues/97) を見てください。
-
-***
-
-# 雑多なこと
-## 安全性の考慮
-
-あなたはおそらくキーボードを「文鎮化」したくないでしょう。文鎮化するとファームウェアを書き換えられないようになります。リスクがあまりに高い(そしてそうでないかもしれない)ものの一部のリストを示します。
-
-- キーボードマップに RESET が含まれない場合、DFU モードに入るには、PCB のリセットボタンを押す必要があります。底部のネジを外す必要があります。
-- tmk_core / common にあるファイルを触るとキーボードが操作不能になるかもしれません。
-- .hex ファイルが大きすぎると問題を引き起こします; `make dfu` コマンドはブロックを削除し、
-サイズを検査し(おっと、間違った順序です！)、エラーを出力し、
-キーボードへの書き込みに失敗し、DFU モードのままになります。
-   - この目的のためには、Planck の最大の .hex ファイルサイズは 7000h (10進数で28672)であることに注意してください。
-
-```
-Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
-Creating load file for Flash: .build/planck_rev4_cbbrowne.hex                                       [OK]
-
-Size after:
-   text    data     bss     dec     hex filename
-      0   22396       0   22396    577c planck_rev4_cbbrowne.hex
-```
-
-- 上のファイルのサイズは 22396/577ch で、28672/7000h より小さいです
-- 適切な替わりの .hex ファイルがある限り、それをロードして再試行することができます
-- あなたがキーボードの Makefile で指定したかもしれない一部のオプションは、余分なメモリを消費します; BOOTMAGIC_ENABLE、MOUSEKEY_ENABLE、EXTRAKEY_ENABLE、CONSOLE_ENABLE、API_SYSEX_ENABLE に注意してください
-- DFU ツールは(オプションの余計なフルーツサラダを投げ込まない限り)ブートローダに書き込むことを許可しないので、
-ここにはリスクはほとんどありません。
-- EEPROM の書き込みサイクルは、約100000です。ファームウェアを繰り返し継続的に書き換えるべきではありません。それは最終的に EEPROM を焼き焦がします。
-
-## NKRO が動作しません
-最初に、**Makefile** 内でビルドオプション `NKRO_ENABLE` を使ってファームウェアをコンパイルする必要があります。
-
-**NKRO** がまだ動作しない場合は、`Magic` **N** コマンド(デフォルトでは `LShift+RShift+N`)を試してみてください。**NKRO** モードと **6KRO** モード間を一時的に切り替えるためにこのコマンドを使うことができます。**NKRO** が機能しない状況、特に BIOS の場合は **6KRO** モードに切り替える必要があります。
-
-ファームウェアを `BOOTMAGIC_ENABLE` でビルドした場合、`ブートマジック` **N** コマンドで切り替える必要があります (デフォルトでは `Space+N`)。この設定は EEPROM に格納され、電源を入れ直しても保持されます。
-
-https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
-
-
-## TrackPoint はリセット回路が必要です (PS/2 マウスサポート)
-リセット回路が無いとハードウェアの不適切な初期化のために一貫性の無い結果になります。TPM754 の回路図を見てください。
-
-- http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
-- http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
-
-
-## 16 を超えるマトリックの列を読み込めない
-列が 16 を超える場合、[matrix.h] の `read_cols()` 内の `1<<16` の代わりに `1UL<<16` を使ってください。
-
-C では、AVR の場合 `1` は [16 bit] である [int] 型の1を意味し、15 を超えて左にシフトすることはできません。`1<<16` すると予期しないゼロが発生します。`1UL` として [unsigned long] 型を使う必要があります。
-
-http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
-
-## 特別なエクストラキーが動作しない (システム、オーディオコントロールキー)
-QMK でそれらを使うには、`rules.mk` 内で `EXTRAKEY_ENABLE` を定義する必要があります。
-
-```
-EXTRAKEY_ENABLE = yes          # オーディオ制御とシステム制御
-```
-
-## スリープから復帰しない
-
-Windows では、**デバイスマネージャ**の**電源の管理**タブ内の `このデバイスで、コンピュータのスタンバイ状態を解除できるようにする` 設定を調べてください。また BIOS 設定も調べてください。
-
-スリープ中に任意のキーを押すとホストが起動するはずです。
-
-## Arduino を使っていますか？
-
-**Arduino のピンの命名は実際のチップと異なることに注意してください。** 例えば、Arduino のピン `D0` は `PD0` ではありません。回路図を自身で確認してください。
-
-- http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
-- http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
-
-Arduino の Leonardo と micro には **ATMega32U4** が載っていて、TMK 用に使うことができますが、Arduino のブートローダが問題になることがあります。
-
-## JTAG を有効にする
-
-デフォルトでは、キーボードが起動するとすぐに JTAG デバッグインタフェースが無効になります。JTAG 対応 MCU は `JTAGEN` ヒューズが設定された状態で出荷されており、キーボードがスイッチマトリックス、LED などに使用している可能性のある MCU の特定のピンを乗っ取ります。
-
-JTAG を有効にしたままにしたい場合は、単に以下のものを `config.h` に追加します:
-
-```c
-#define NO_JTAG_DISABLE
-```
-
-## USB 3 の互換性
-USB 3 ポートで問題がある人がいると聞きました。USB 2 ポートを試してください。
-
-
-## Mac の互換性
-### OS X 10.11 と Hub
-https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
-
-
-## リジューム (スリープとウェークアップ)/電源サイクルの問題
-一部の人がキーボードが BIOS で動作しなくなった、またはリジューム(電源サイクル)の後で動作しなくなったと報告しました。
-
-今のところ、この問題の根本は明確ではないですが、幾つかのビルドオプションが関係しているようです。Makefileで、`CONSOLE_ENABLE`、`NKRO_ENABLE`、`SLEEP_LED_ENABLE` あるいは他のオプションを無効にしてみてください。
-
-https://github.com/tmk/tmk_keyboard/issues/266
-https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778

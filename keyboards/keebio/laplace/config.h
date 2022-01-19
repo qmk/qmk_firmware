@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
 #define PRODUCT         Laplace
-#define DESCRIPTION     40 percent staggered keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8

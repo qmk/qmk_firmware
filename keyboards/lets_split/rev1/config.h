@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Wootpatoot
 #define PRODUCT         Lets Split v1
-#define DESCRIPTION     A split keyboard for the cheap makers
 
 /* key matrix size */
 // Rows are doubled-up

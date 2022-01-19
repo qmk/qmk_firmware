@@ -16,7 +16,7 @@
 
 // Choose pin to use for audio. C6 is the one iris uses.
 #ifdef AUDIO_ENABLE
-#    define C6_AUDIO
+#    define AUDIO_PIN C6
 #    define STARTUP_SONG SONG(NO_SOUND)  // No startup song.
 #endif
 

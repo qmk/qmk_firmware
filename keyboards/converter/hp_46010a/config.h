@@ -21,10 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID         0xFEED
 #define PRODUCT_ID        0x6060
-#define DEVICE_VER        1
+#define DEVICE_VER        0x0001
 #define MANUFACTURER      QMK
 #define PRODUCT           46010A keyboard converter
-#define DESCRIPTION       46010A keyboard converter
                           
 #define MATRIX_ROWS       14
 #define MATRIX_COLS       8

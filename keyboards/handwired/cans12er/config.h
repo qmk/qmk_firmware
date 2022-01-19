@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Can
 #define PRODUCT         cans12er
-#define DESCRIPTION     a simple 3x4 keypad. every part can be manufactured at home
 
 /* key matrix size */
 #define MATRIX_ROWS 3

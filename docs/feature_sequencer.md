@@ -85,4 +85,3 @@ While the tempo defines the absolute speed at which the sequencer goes through t
 |`void sequencer_activate_track(uint8_t track);`                      |Activate the `track`                                   |
 |`void sequencer_deactivate_track(uint8_t track);`                    |Deactivate the `track`                                 |
 |`void sequencer_toggle_single_active_track(uint8_t track);`          |Set `track` as the only active track or deactivate all |
-

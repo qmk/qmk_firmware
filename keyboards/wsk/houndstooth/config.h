@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Worldspawn00
 #define PRODUCT         Houndstooth
-#define DESCRIPTION     12-column split ortho 40% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8

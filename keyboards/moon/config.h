@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    EVE
 #define PRODUCT         Moon
-#define DESCRIPTION     A tenkeyless keyboard with astonishing curves
 
 /* key matrix size */
 #define MATRIX_ROWS 8

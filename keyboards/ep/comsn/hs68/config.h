@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Elliot Powell
 #define PRODUCT ephs68
-#define DESCRIPTION     A Hotswapable keyboard for kayak
 
 /* key matrix size */
 #define MATRIX_ROWS 5

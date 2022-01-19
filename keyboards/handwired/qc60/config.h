@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x00C6
 #define MANUFACTURER    PeiorisBoards
 #define PRODUCT         QC60
-#define DESCRIPTION     Split 60% staggered keyboard
 
 /* key matrix size */
 // Rows are doubled-up

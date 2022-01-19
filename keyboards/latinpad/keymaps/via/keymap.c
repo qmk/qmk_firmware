@@ -1,6 +1,6 @@
 /* Keymap _0: (Base Layer) Default Layer
    * .-----------.
-   * |PGUP | PGDN| 
+   * |PGUP | PGDN|
    * |-----------------------.
    * |  7  |  8  |  9  | MO1 |
    * |-----|-----|-----|-----|
@@ -13,7 +13,7 @@
    */
      /* Keymap _1: (Second Layer) second Layer
    * .---------------.
-   * |NUMLOCK|Calc.  | 
+   * |NUMLOCK|Calc.  |
    * |--------------------------------.
    * |RGB_TOG|RGB_MOD|RGB_M_K|RGB_M_X |
    * |-------|-------|-------|--------|
@@ -46,11 +46,14 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) { render_logo(); }
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
+    render_logo();
+    return false;
+}
 #endif
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {
     if (clockwise) {
       tap_code(KC_AUDIO_VOL_UP);
@@ -64,5 +67,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_BRIGHTNESS_DOWN);
     }
   }
+    return true;
 }
 void matrix_init_user(void) { render_logo(); }

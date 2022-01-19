@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6964 /* "id" */
-#define PRODUCT_ID      0x0080
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    IDOBAO
-#define PRODUCT         ID80
-#define DESCRIPTION     A 75% hotswap keyboard
-
 /* key matrix size */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 11
@@ -65,7 +57,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
 
-#define CAPS_LOCK_LED_PIN C7
+#define LED_CAPS_LOCK_PIN C7
+#define LED_PIN_ON_STATE 0
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN

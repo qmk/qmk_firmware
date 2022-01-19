@@ -2,7 +2,7 @@
 
 [Stenography](https://en.wikipedia.org/wiki/Stenotype) is a method of writing most often used by court reports, closed-captioning, and real-time transcription for the deaf. In stenography words are chorded syllable by syllable with a mixture of spelling, phonetic, and shortcut (briefs) strokes. Professional stenographers can reach 200-300 WPM without any of the strain usually found in standard typing and with far fewer errors (>99.9% accuracy).
 
-The [Open Steno Project](http://www.openstenoproject.org/) has built an open-source program called Plover that provides real-time translation of steno strokes into words and commands. It has an established dictionary and supports
+The [Open Steno Project](https://www.openstenoproject.org/) has built an open-source program called Plover that provides real-time translation of steno strokes into words and commands. It has an established dictionary and supports
 
 ## Plover with QWERTY Keyboard :id=plover-with-qwerty-keyboard
 
@@ -32,7 +32,7 @@ GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything
 
 Firstly, enable steno in your keymap's Makefile. You may also need disable mousekeys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
 
-```makefile
+```make
 STENO_ENABLE = yes
 MOUSEKEY_ENABLE = no
 ```
@@ -40,8 +40,8 @@ MOUSEKEY_ENABLE = no
 In your keymap create a new layer for Plover. You will need to include `keymap_steno.h`. See `planck/keymaps/steno/keymap.c` for an example. Remember to create a key to switch to the layer as well as a key for exiting the layer. If you would like to switch modes on the fly you can use the keycodes `QK_STENO_BOLT` and `QK_STENO_GEMINI`. If you only want to use one of the protocols you may set it up in your initialization function:
 
 ```c
-void matrix_init_user() {
-  steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
+void eeconfig_init_user() {
+    steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 }
 ```
 
@@ -52,7 +52,6 @@ On the display tab click 'Open stroke display'. With Plover disabled you should 
 ## Learning Stenography :id=learning-stenography
 
 * [Learn Plover!](https://sites.google.com/site/learnplover/)
-* [QWERTY Steno](http://qwertysteno.com/Home/)
 * [Steno Jig](https://joshuagrams.github.io/steno-jig/)
 * More resources at the Plover [Learning Stenography](https://github.com/openstenoproject/plover/wiki/Learning-Stenography) wiki
 
@@ -130,3 +129,18 @@ As defined in `keymap_steno.h`.
 |`STN_RES2`||(GeminiPR only)|
 |`STN_PWR`||(GeminiPR only)|
 
+If you do not want to hit two keys with one finger combined keycodes can be used. These are also defined in `keymap_steno.h`, and causes both keys to be reported as pressed or released. To use these keycodes define `STENO_COMBINEDMAP` in your `config.h` file.
+
+|Combined key   | Key1   | Key 2    |
+|---------------|--------|----------|
+|STN_S3         | STN_S1 | STN_S2   |
+|STN_TKL        | STN_TL | STN_KL   |
+|STN_PWL        | STN_PL | STN_WL   |
+|STN_HRL        | STN_HL | STN_RL   |
+|STN_FRR        | STN_FR | STN_RR   |
+|STN_PBR        | STN_PR | STN_BR   |
+|STN_LGR        | STN_LR | STN_GR   |
+|STN_TSR        | STN_TR | STN_SR   |
+|STN_DZR        | STN_DR | STN_ZR   |
+|STN_AO         | STN_A  | STN_O    |
+|STN_EU         | STN_E  | STN_U    |

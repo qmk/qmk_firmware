@@ -24,8 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x1156
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Pekaso
-#define PRODUCT         The Fortitude60 Keyboard
-#define DESCRIPTION     Split 60 keyboard.
+#define PRODUCT         Fortitude60
 
 /* key matrix size */
 // Rows are doubled-up
@@ -44,10 +43,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define SOFT_SERIAL_PIN D2
 
-#define EE_HANDS
+//#define EE_HANDS
 
 #define SPLIT_USB_DETECT
-#define SPLIT_USB_TIMEOUT 1000
+#define SPLIT_USB_TIMEOUT 500
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

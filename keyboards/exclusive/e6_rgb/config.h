@@ -12,7 +12,6 @@
 #define DEVICE_VER      0x0062
 #define MANUFACTURER    astro
 #define PRODUCT         e6rgb
-#define DESCRIPTION     60% rgb keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -32,8 +31,6 @@
 #define RGBLIGHT_VAL_STEP 8
 
 #define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
 
-#define DRIVER_COUNT 2
-#define DRIVER_1_LED_TOTAL 63
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define DRIVER_COUNT 1
+#define DRIVER_LED_TOTAL 63

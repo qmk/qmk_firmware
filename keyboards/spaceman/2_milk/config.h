@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Spaceman
 #define PRODUCT         2% Milk
-#define DESCRIPTION     A milk themed 2% Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 2

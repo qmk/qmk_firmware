@@ -14,11 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_KEY_LOCK_H
-#define PROCESS_KEY_LOCK_H
+#pragma once
 
 #include "quantum.h"
 
 bool process_key_lock(uint16_t *keycode, keyrecord_t *record);
-
-#endif  // PROCESS_KEY_LOCK_H

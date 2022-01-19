@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Worldspawn00
 #define PRODUCT         Jerkin
-#define DESCRIPTION     Alice style 30% board
 
 /* key matrix size */
 #define MATRIX_ROWS 3

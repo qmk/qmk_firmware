@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER gtips
 #define PRODUCT reviung61
-#define DESCRIPTION A 61-key keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5 

@@ -15,27 +15,38 @@
  */
 #include "rev3.h"
 
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
+#ifdef RGB_MATRIX_ENABLE
+led_config_t g_led_config = { {
+    // Key Matrix to LED Index
+    { NO_LED, 6,      NO_LED, NO_LED, 5,      NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, 0      },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, 4,      NO_LED, NO_LED, 3,      NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, 7,      NO_LED, NO_LED, 2,      NO_LED },
+    { NO_LED, 1,      NO_LED, NO_LED, 8,      NO_LED },
+}, {
+    // LED Index to Physical Position
+    {112, 39}, {148, 60}, {206, 53}, {206, 3}, {150, 3}, {74, 3}, {18, 3}, {18, 54}, {77, 60}
+}, {
+    // LED Index to Flag
+    LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
+    LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
+} };
 
-void matrix_scan_kb(void) {
-	matrix_scan_user();
-}
-
-#ifdef DIP_SWITCH_ENABLE
- __attribute__((weak))
-void dip_update(uint8_t index, bool active) {}
-
- __attribute__((weak))
-void dip_switch_update_user(uint8_t index, bool active) {
-    dip_update(index, active);
-}
+// LED physical location index
+//     6 5 4 3
+//        0
+//     7 8 1 2
 #endif
+
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{5, 4}, {4, 4}, {3, 4}, {2, 4}, {1, 4}, {0, 4}},
     {{5, 5}, {4, 5}, {3, 5}, {2, 5}, {1, 5}, {0, 5}},
     {{5, 6}, {4, 6}, {3, 6}, {2, 6}, {1, 6}, {0, 6}},

@@ -87,7 +87,7 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
     UCIS_SYM("poop", 0x1F4A9),                // 💩
     UCIS_SYM("rofl", 0x1F923),                // 🤣
     UCIS_SYM("cuba", 0x1F1E8, 0x1F1FA),       // 🇨🇺
-    UCIS_SYM("look", 0x0CA0, 0x005F, 0x0CA0), // ಠ_ಠ
+    UCIS_SYM("look", 0x0CA0, 0x005F, 0x0CA0)  // ಠ_ಠ
 );
 ```
 
@@ -126,6 +126,8 @@ The following input modes are available:
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
   By default, this mode uses Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) to start Unicode input, but this can be changed by defining [`UNICODE_KEY_LNX`](#input-key-configuration) with a different keycode. This might be required for IBus versions ≥1.5.15, where Ctrl+Shift+U behavior is consolidated into Ctrl+Shift+E.
 
+  Users who wish support in non-GTK apps without IBus may need to resort to a more indirect method, such as creating a custom keyboard layout ([more on this method](#custom-linux-layout)).
+  
 * **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
 
   To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Reboot afterwards.
@@ -228,7 +230,7 @@ send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
 
 Example uses include sending Unicode strings when a key is pressed, as described in [Macros](feature_macros.md).
 
-### `send_unicode_hex_string()`
+### `send_unicode_hex_string()` (Deprecated)
 
 Similar to `send_unicode_string()`, but the characters are represented by their Unicode code points, written in hexadecimal and separated by spaces. For example, the table flip above would be achieved with:
 
@@ -270,3 +272,22 @@ AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
 
 If you enable the US International layout on the system, it will use punctuation to accent the characters. For instance, typing "\`a" will result in à.
 You can find details on how to enable this [here](https://support.microsoft.com/en-us/help/17424/windows-change-keyboard-layout).
+
+## Software keyboard layout on Linux :id=custom-linux-layout
+
+This method does not require Unicode support on the keyboard itself but instead uses a custom keyboard layout for Xorg. This is how special characters are inserted by regular keyboards. This does not require IBus and works in practically all software. Help on creating a custom layout can be found [here](https://www.linux.com/news/creating-custom-keyboard-layouts-x11-using-xkb/), [here](http://karols.github.io/blog/2013/11/18/creating-custom-keyboard-layouts-for-linux/) and [here](https://wiki.archlinux.org/index.php/X_keyboard_extension). An example of how you could edit the `us` layout to gain 🤣 on `RALT(KC_R)`:
+
+Edit the keyboard layout file `/usr/share/X11/xkb/symbols/us`.
+
+Inside `xkb_symbols "basic" {`, add `include "level3(ralt_switch)"`.
+
+Find the line defining the R key and add an entry to the list, making it look like this:
+```
+key <AD04> {	[	  r,	R, U1F923		]	};
+```
+
+Save the file and run the command `setxkbmap us` to reload the layout.
+
+You can define one custom character for key defined in the layout, and another if you populate the fourth layer. Additional layers up to 8th are also possible.
+
+This method is specific to the computer on which you set the custom layout. The custom keys will be available only when Xorg is running. To avoid accidents, you should always reload the layout using `setxkbmap`, otherwise an invalid layout could prevent you from logging into your system, locking you out.

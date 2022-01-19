@@ -1,10 +1,7 @@
 {
   "keyboard_name": "Sun Type 5",
-  "keyboard_folder": "converter/sun_usb/type5",
   "url": "",
   "maintainer": "qmk",
-  "width": 24.75,
-  "height": 7,
   "layouts": {
     "LAYOUT_jp_unix": {
       "layout": [
