@@ -1,6 +1,6 @@
 # Compatible Microcontrollers
 
-QMK runs on any USB-capable AVR or ARM microcontroller with enough flash space - generally 32kB or more for AVR, though it will *just* squeeze into 16kB with most features disabled.
+QMK runs on any USB-capable AVR or ARM microcontroller with enough flash space - generally 32kB+ for AVR, and 64kB+ for ARM. With significant disabling of features, QMK may *just* squeeze into 16kB AVR MCUs.
 
 ## Atmel AVR
 
