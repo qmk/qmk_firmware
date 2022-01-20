@@ -41,10 +41,10 @@ void            oled_driver_render_logo_right(void);
 #    define OLED_DISPLAY_VERBOSE
 
 #    define OLED_RENDER_KEYLOGGER         "Keylogger: "
-#    define OLED_KEYLOGGER_LENGTH         11
+#    define OLED_KEYLOGGER_LENGTH         12
 #    define OLED_RENDER_LAYOUT_NAME       "Layout: "
 #    define OLED_RENDER_LAYOUT_QWERTY     "Qwerty"
-#    define OLED_RENDER_LAYOUT_COLEMAK_DH "Colemak-DH"
+#    define OLED_RENDER_LAYOUT_COLEMAK_DH "ColemkDH"
 #    define OLED_RENDER_LAYOUT_COLEMAK    "Colemak"
 #    define OLED_RENDER_LAYOUT_DVORAK     "Dvorak"
 #    define OLED_RENDER_LAYOUT_WORKMAN    "Workman"
@@ -60,11 +60,11 @@ void            oled_driver_render_logo_right(void);
 #    define OLED_RENDER_LAYER_MODS        "Mods"
 
 #    define OLED_RENDER_LOCK_NAME         "Lock: "
-#    define OLED_RENDER_LOCK_NUML         "NUML"
+#    define OLED_RENDER_LOCK_NUML         "NUM"
 #    define OLED_RENDER_LOCK_CAPS         "CAPS"
 #    define OLED_RENDER_LOCK_SCLK         "SCLK"
 
-#    define OLED_RENDER_MODS_NAME         "Mods:"
+#    define OLED_RENDER_MODS_NAME         "Mods"
 #    define OLED_RENDER_MODS_SFT          "Sft"
 #    define OLED_RENDER_MODS_CTL          "Ctl"
 #    define OLED_RENDER_MODS_ALT          "Alt"
