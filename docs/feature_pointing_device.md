@@ -30,7 +30,7 @@ The ADNS 5050 sensor uses a serial type protocol for communication, and requires
 
 The CPI range is 125-1375, in increments of 125. Defaults to 500 CPI.
 
-### ADSN 9800 Sensor
+### ADNS 9800 Sensor
 
 To use the ADNS 9800 sensor, add this to your `rules.mk`
 
