@@ -66,6 +66,15 @@ void    send_digitizer(report_digitizer_t *report);
 /* host struct */
 host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
 
+#ifdef BLUETOOTH_ENABLE
+#    include "outputselect.h"
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+#        include "bluefruit_le.h"
+#    elif BLUETOOTH_RN42
+#        include "rn42.h"
+#    endif
+#endif
+
 #ifdef VIRTSER_ENABLE
 void virtser_task(void);
 #endif
@@ -208,6 +217,9 @@ void protocol_pre_task(void) {
 void protocol_post_task(void) {
 #ifdef CONSOLE_ENABLE
     console_task();
+#endif
+#ifdef BLUETOOTH_BLUEFRUIT_LE
+    bluefruit_le_task();
 #endif
 #ifdef MIDI_ENABLE
     midi_ep_task();
