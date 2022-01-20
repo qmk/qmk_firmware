@@ -267,21 +267,24 @@ void render_logo(void) {
     oled_write_raw_P(logo, sizeof(logo));
 }
 enum Layers{
-    L_BASE, L_LOWER, L_RAISE, L_ADJUST
+    _QWERTY,
+    _RAISE,
+    _LOWER,
+    _ADJUST
 };
 
 void process_layer_state(void) {
     switch (get_highest_layer(layer_state)) {
-        case L_BASE:
+        case _QWERTY:
             render_layer1_logo();
             break;
-        case L_LOWER:
+        case _LOWER:
             render_layer2_logo();
             break;
-        case L_RAISE:
+        case _RAISE:
             render_layer3_logo();
             break;
-        case L_ADJUST:
+        case _ADJUST:
             render_layer4_logo();
             break;
     }
