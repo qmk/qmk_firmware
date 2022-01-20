@@ -24,7 +24,7 @@ extern bool tap_toggling;
 extern bool swap_hands;
 #endif
 
-#ifdef SPLIT_USB_DETECT
+#if defined(SPLIT_WATCHDOG_TIMEOUT)
 static bool     watchdog_ping_done = false;
 static uint32_t watchdog_timer     = 0;
 #endif
@@ -53,7 +53,7 @@ void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiato
     }
 }
 
-#ifdef SPLIT_USB_DETECT
+#if defined(SPLIT_WATCHDOG_TIMEOUT)
 void watchdog_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) { watchdog_ping_done = true; }
 #endif
 
@@ -63,7 +63,7 @@ void keyboard_post_init_transport_sync(void) {
     transaction_register_rpc(RPC_ID_USER_KEYMAP_SYNC, user_keymap_sync);
     transaction_register_rpc(RPC_ID_USER_CONFIG_SYNC, user_config_sync);
 
-#ifdef SPLIT_USB_DETECT
+#if defined(SPLIT_WATCHDOG_TIMEOUT)
 #    if defined(PROTOCOL_LUFA)
     wdt_disable();
 #    endif
@@ -172,7 +172,7 @@ void user_transport_sync(void) {
         }
     }
 
-#ifdef SPLIT_USB_DETECT
+#if defined(SPLIT_WATCHDOG_TIMEOUT)
     if (!watchdog_ping_done) {
         if (is_keyboard_master()) {
             if (timer_elapsed32(watchdog_timer) > 100) {

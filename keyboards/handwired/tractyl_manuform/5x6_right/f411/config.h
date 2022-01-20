@@ -48,7 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT \
     { 26, 26 }
-#define RGBLIGHT_LIMIT_VAL 150
 
 #define DEBUG_LED_PIN      C13
 
