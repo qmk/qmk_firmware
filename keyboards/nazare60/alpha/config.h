@@ -32,17 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { A3 , F0 , B9 , A15, B3 }
 #define DIODE_DIRECTION COL2ROW
 
-//#define BACKLIGHT_PIN           A6
-//#define BACKLIGHT_PWM_DRIVER    PWMD3
-//#define BACKLIGHT_PWM_CHANNEL   1
-//#define BACKLIGHT_PAL_MODE      1
-//#define BACKLIGHT_LEVELS 6
-//#define BACKLIGHT_BREATHING
-//#define BREATHING_PERIOD 6
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
 
@@ -56,21 +45,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGT_LIMIT_VAL 200
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_ANIMATIONS
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

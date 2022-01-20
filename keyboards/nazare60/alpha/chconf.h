@@ -1,4 +1,4 @@
- /* Copyright 2020-2022 Gondolindrim
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,13 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
- #pragma once
 
-#include "quantum.h"
+#pragma once
 
-#if defined(KEYBOARD_nazare60_alpha)
-  #include "alpha.h"
-#elif defined(KEYBOARD_nazare60_beta)
-  #include "beta.h"
-#endif
+#define CH_CFG_ST_FREQUENCY 10000
+
+#include_next <chconf.h>
