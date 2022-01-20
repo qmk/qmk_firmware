@@ -8,8 +8,10 @@ On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are
 
 ## QMK Keycodes :id=qmk-keycodes
 
-|Key              |Aliases  |Description                                            |
-|-----------------|---------|-------------------------------------------------------|
-|`QK_BOOTLOADER`  |`QK_BOOT`|Put the keyboard into bootloader mode for flashing     |
-|`QK_DEBUG_TOGGLE`|`DB_TOGG`|Toggle debug mode                                      |
-|`QK_CLEAR_EEPROM`|`EE_CLR` |Reinitializes the keyboard's EEPROM (persistent memory)|
+<<<<<<< HEAD
+|Key              |Aliases  |Description                                                                      |
+|-----------------|---------|---------------------------------------------------------------------------------|
+|`QK_BOOTLOADER`  |`QK_BOOT`|Put the keyboard into bootloader mode for flashing                               |
+|`QK_DEBUG_TOGGLE`|`DB_TOGG`|Toggle debug mode                                                                |
+|`QK_CLEAR_EEPROM`|`EE_CLR` |Reinitializes the keyboard's EEPROM (persistent memory)                          |
+|`KC_MAKE`        |         |Sends `qmk compile -kb (keyboard) -km (keymap)`, or `qmk flash` if shift is held |
