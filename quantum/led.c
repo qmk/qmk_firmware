@@ -13,7 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
+#include "led.h"
+#include "host.h"
+#include "debug.h"
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
@@ -167,7 +169,7 @@ void led_task(void) {
 
         if (debug_keyboard) {
             debug("led_task: ");
-            debug_hex8(leds);
+            debug_hex8(led_status);
             debug("\n");
         }
         led_set(led_status);
