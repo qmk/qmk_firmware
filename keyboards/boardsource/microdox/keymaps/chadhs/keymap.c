@@ -18,9 +18,10 @@ enum layers {
 /* thumb mods */
 #define NUM_BSPC LT(_NUM_NAV,KC_BSPC)
 #define FUN_SPC LT(_FUNCTION,KC_SPC)
+#define CMD_TAB CMD_T(KC_TAB)
 #define GFUN_SPC LT(_GAME_FUN,KC_SPC)
 #define GNUM_SPC LT(_GAME_NUM,KC_SPC)
-#define CMD_TAB CMD_T(KC_TAB)
+#define GOPT_ENT OPT_T(KC_ENT)
 
 /* misc mods */
 #define GAME TG(_GAME)
@@ -130,14 +131,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  | SFT  |      |      |      |      |            |      |      |      |      |      |
  '------'------'------'------'------'            '------'------'------'------'------'
                   .------.------.------.      .------.------.------.
-                  | ↓↓↓  |      | SPC  |      | SPC  |      | ↓↓↓  |
+                  | ↓↓↓  |      | SPC  |      | SPC  | ENT  | ↓↓↓  |
                   |      | CTL  |      |      | GFUN | OPT  |      |
                   '------'------'------'      '------'------'------'
 */
-  KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-  KC_ESC,  KC_A, KC_S,    KC_D,    KC_F,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
-  KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,        KC_N,    KC_M,    KC_COMM, KC_DOT,  GAME,
-                 KC_TRNS, KC_LCTL, KC_SPC,     GFUN_SPC,  KC_LOPT, KC_TRNS
+  KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,        KC_Y,     KC_U,     KC_I,    KC_O,    KC_P,
+  KC_ESC,  KC_A, KC_S,    KC_D,    KC_F,        KC_H,     KC_J,     KC_K,    KC_L,    KC_SCLN,
+  KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,        KC_N,     KC_M,     KC_COMM, KC_DOT,  GAME,
+                 KC_TRNS, KC_LCTL, KC_SPC,      GFUN_SPC, GOPT_ENT, KC_TRNS
 ),
 
 [_GAME_FUN] = LAYOUT_split_3x5_3(
