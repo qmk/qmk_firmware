@@ -21,7 +21,7 @@
 #    include "backlight.h"
 extern backlight_config_t backlight_config;
 #else
-// Cannot use BACKLIGHT_CAPS_LOCK without backlight being enabled
+#    pragma message "Cannot use BACKLIGHT_CAPS_LOCK without backlight being enabled"
 #    undef BACKLIGHT_CAPS_LOCK
 #endif
 
