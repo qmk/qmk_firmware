@@ -44,7 +44,7 @@ enum custom_keycodes {
 
   // Git layer
   GIT_KEY, DDASH, RM,
-  TAG, UPSTREAM, ORIGIN, REVERT,
+  TAG, REMOTE, UPSTREAM, INIT, ORIGIN, REVERT,
   PUSH, STATUS, DEVELOP, GLOBAL, LOG, COMMIT,
   REBASE, MAIN, CHECKOUT, ADD,
   BRANCH, PULL, MERGE, STASH, FETCH, CLONE
@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [TOP] = LAYOUT_all(
       _______, NOT,   _______,  _______, MATH,  _______,   EXP, _______,   MUL,  _______, _______,   SSCRIPT,  SUM, LTX_CDFC, _______,
-      QQUAD  , AND, OR, UNION, INTERSECTION, SUBSET, SUPERSET, FORALL, INFTY, EXISTS, PARTIAL, LCORNER, RCORNER, _______,
+      QQUAD  , AND, OR, INTERSECTION, UNION, SUBSET, SUPERSET, FORALL, INFTY, EXISTS, PARTIAL, LCORNER, RCORNER, _______,
       BEGIN  , FALSE, TRUE, TD(TD_PROVES_MODELS), DASHV, UP, DOWN, TD(TD_LEFT_ARROW), TD(TD_RIGHT_ARROW), IFF, _______, PRIME, _______,
       _______, _______, LLCORNER, ULCORNER, NEQ, SIMEQ, EQUIV, LEQ,  GEQ, _______, ELLIPSIS, FRAC, _______, _______, _______,
       _______, _______, _______,                   SPC, SPC, SPC, _______, _______,                  _______, _______, _______
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [GIT] = LAYOUT_all(
       GIT_KEY, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DDASH,   _______, _______, RM,
-      TAG    , _______, _______, _______, _______, _______, _______, UPSTREAM,_______, ORIGIN,  _______, _______, _______, REVERT,
+      TAG    , _______, _______, _______, REMOTE,  _______, _______, UPSTREAM,INIT,    ORIGIN,  _______, _______, _______, REVERT,
       PUSH   , _______, STATUS,  DEVELOP, _______, GLOBAL , _______, _______, _______, LOG    , _______, _______, COMMIT,
       REBASE , _______, _______, _______, _______, _______, _______, _______, MAIN,    _______, _______, _______, CHECKOUT, CHECKOUT, ADD,
       BRANCH , PULL   , MERGE  ,                   SPC, SPC, SPC,    STASH,   STASH,             FETCH,  FETCH  , CLONE
@@ -749,9 +749,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
         }
       break;
+    case REMOTE:
+      if (record->event.pressed) {
+        SEND_STRING("remote ");
+        } else {
+        }
+      break;
     case UPSTREAM:
       if (record->event.pressed) {
         SEND_STRING("upstream ");
+        } else {
+        }
+      break;
+    case INIT:
+      if (record->event.pressed) {
+        SEND_STRING("init ");
         } else {
         }
       break;
