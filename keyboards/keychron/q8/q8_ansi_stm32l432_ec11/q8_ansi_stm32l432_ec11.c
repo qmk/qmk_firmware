@@ -75,6 +75,7 @@ const ckled2001_led PROGMEM g_ckled2001_leds[DRIVER_LED_TOTAL] = {
     {0, F_10,   D_10,   E_10},
     {0, F_6,    D_6,    E_6},
     {0, F_5,    D_5,    E_5},
+    {0, F_4,    D_4,    E_4},
     {0, F_3,    D_3,    E_3},
     {0, F_2,    D_2,    E_2},
     {0, C_4,    A_4,    B_4}

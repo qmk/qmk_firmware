@@ -25,8 +25,8 @@
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 
 /* Encoder used pins */
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { B4 }
+#define ENCODERS_PAD_A { B4 }
+#define ENCODERS_PAD_B { B5 }
 
 /* Specifies the number of pulses the encoder registers between each detent */
 #define ENCODER_RESOLUTION 4
