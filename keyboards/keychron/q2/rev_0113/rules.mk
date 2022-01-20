@@ -1,13 +1,5 @@
 # MCU name
-# MCU = STM32L432
-MCU = cortex-m4
-ARMV = 7
-MCU_FAMILY = STM32
-MCU_SERIES = STM32L4xx
-MCU_LDSCRIPT = STM32L432xB
-MCU_STARTUP = stm32l4xx
-BOARD = GENERIC_STM32_L433XC
-PLATFORM_NAME = platform_l432
+MCU = STM32L433
 
 # Build Options
 #   change yes to no to disable
