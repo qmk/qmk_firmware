@@ -135,3 +135,24 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
     led_set_kb(usb_led);
     led_update_kb((led_t)usb_led);
 }
+
+/** \brief set host led state
+ *
+ * Only sets state if change detected
+ */
+void led_task(void) {
+    static uint8_t last_led_status = 0;
+
+    // update LED
+    uint8_t led_status = host_keyboard_leds();
+    if (last_led_status != led_status) {
+        last_led_status = led_status;
+
+        if (debug_keyboard) {
+            debug("led_task: ");
+            debug_hex8(leds);
+            debug("\n");
+        }
+        led_set(led_status);
+    }
+}
