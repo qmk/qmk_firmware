@@ -15,7 +15,6 @@
  */
 
 #include "quantum.h"
-#include "magic.h"
 
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
@@ -368,35 +367,8 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
 
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) { layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3)); }
 
-void matrix_init_quantum() {
-    magic();
-    led_init_ports();
-#ifdef BACKLIGHT_ENABLE
-    backlight_init_ports();
-#endif
-#ifdef AUDIO_ENABLE
-    audio_init();
-#endif
-#ifdef LED_MATRIX_ENABLE
-    led_matrix_init();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init();
-#endif
-#if defined(UNICODE_COMMON_ENABLE)
-    unicode_input_mode_init();
-#endif
-#ifdef HAPTIC_ENABLE
-    haptic_init();
-#endif
-#if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
-    set_output(OUTPUT_AUTO);
-#endif
-
-    matrix_init_kb();
-}
-
 // TODO: remove legacy api
+void matrix_init_quantum() { matrix_init_kb(); }
 void matrix_scan_quantum() { matrix_scan_kb(); }
 
 //------------------------------------------------------------------------------

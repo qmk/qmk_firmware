@@ -139,8 +139,6 @@ __attribute__((weak)) void matrix_slave_scan_user(void) {}
 
 __attribute__((weak)) void matrix_init(void) {
 #ifdef SPLIT_KEYBOARD
-    split_pre_init();
-
     thisHand = isLeftHand ? 0 : (ROWS_PER_HAND);
     thatHand = ROWS_PER_HAND - thisHand;
 #endif
@@ -156,10 +154,6 @@ __attribute__((weak)) void matrix_init(void) {
     debounce_init(ROWS_PER_HAND);
 
     matrix_init_quantum();
-
-#ifdef SPLIT_KEYBOARD
-    split_post_init();
-#endif
 }
 
 __attribute__((weak)) uint8_t matrix_scan(void) {
