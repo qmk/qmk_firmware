@@ -16,7 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
@@ -223,10 +222,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef BACKLIGHT_ENABLE
           backlight_step();
         #endif
-        PORTE &= ~(1<<6);
       } else {
         unregister_code(KC_RSFT);
-        PORTE |= (1<<6);
       }
       return false;
       break;

@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef REV6_CONFIG_H
-#define REV6_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
+#define PRODUCT_ID 0xA4F9
 #define DEVICE_VER 0x0006
 
 #undef MATRIX_ROWS
@@ -37,18 +37,29 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-/* Note: These are not used for arm boards. They're here purely as documentation.
- * #define MATRIX_ROW_PINS { PB0, PB1, PB2, PA15, PA10 }
- * #define MATRIX_COL_PINS { PA2, PA3, PA6, PB14, PB15, PA8, PA9, PA7, PB3, PB4, PC14, PC15, PC13, PB5, PB6 }
- * #define UNUSED_PINS
- */
+/* Note: These are not used for arm boards. They're here purely as documentation. */
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+
+#define MATRIX_ROW_PINS { A10, A9, A8, B15, C13, C14, C15, A2 }
+#define MATRIX_COL_PINS { B11, B10, B2, B1, A7, B0 }
+
+#define UNUSED_PINS
+
+#define ENCODERS_PAD_A { B12 }
+#define ENCODERS_PAD_B { B13 }
+
+#define DIP_SWITCH_PINS { B14, A15, A0, B9 }
 
 #define MUSIC_MAP
 #undef AUDIO_VOICES
-#undef C6_AUDIO
+#undef AUDIO_PIN
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 6
+// #define DEBOUNCE 6
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
@@ -76,11 +87,6 @@
  */
 //#define FORCE_NKRO
 
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-	keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -99,37 +105,18 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
+
 /*
- * MIDI options
+ * WS2812 Underglow Matrix options
  */
+#define RGB_DI_PIN A1
+#define RGBLED_NUM 9
+#define DRIVER_LED_TOTAL RGBLED_NUM
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
+#define WS2812_PWM_DRIVER PWMD2
+#define WS2812_PWM_CHANNEL 2
+#define WS2812_PWM_PAL_MODE 1
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM2
+#define WS2812_DMA_CHANNEL 2
 
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
-
-#define WS2812_LED_N 2
-#define RGBLED_NUM WS2812_LED_N
-#define WS2812_TIM_N 2
-#define WS2812_TIM_CH 2
-#define PORT_WS2812     GPIOA
-#define PIN_WS2812      1
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA stream for TIMx_UP (look up in reference manual under DMA Channel selection)
-//#define WS2812_DMA_CHANNEL 7                  // DMA channel for TIMx_UP
-//#define WS2812_EXTERNAL_PULLUP
-
-#endif
+#define RGB_DISABLE_WHEN_USB_SUSPENDED

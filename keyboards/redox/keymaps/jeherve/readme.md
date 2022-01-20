@@ -1,7 +1,7 @@
 # A Colemak keymap for the Redox keyboard
 
 ----
-![jeherve-redox-layout-3](https://user-images.githubusercontent.com/426388/45171716-69888200-b203-11e8-822d-7bc91f9f6c07.jpg)
+![jeherve-redox-layout-5](https://user-images.githubusercontent.com/426388/116534030-56f67600-a8e2-11eb-9bf3-3ce5362d717a.png)
 
 ----
 
@@ -25,6 +25,14 @@ My keymap uses 5 layers:
 
 ## Changelog
 
+- 2021.04.29
+	- Update code to replace deprecated code.
+	- Fix non-breaking space key.
+- 2018.12.20
+	- 2 new Macro keys, to invoke [Alfred](https://www.alfredapp.com/) and [1Password](https://1password.com/).
+	- No more Right Command key or Expose key, I didn't use those much.
+	- Updates to use newer QMK function to call ¯\_(ツ)_/¯
+	- Fix: you can now move back to the base layer when double tapping the thumb keys to switch to the Nav layer. 👍
 - 2018.09.06
 	- Initial submission to QMK. It's alive! ⌨️
 

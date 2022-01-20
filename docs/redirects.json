@@ -43,6 +43,10 @@
             {
                 "from": "unicode.html",
                 "to": "feature_unicode.html"
+            },
+            {
+                "from": "python_development.html",
+                "to": "cli_development.html"
             }
         ]
 }

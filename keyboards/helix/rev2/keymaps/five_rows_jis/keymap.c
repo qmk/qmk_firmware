@@ -46,10 +46,6 @@ enum custom_keycodes {
   #endif
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Layer Mode aliases
 #define DL_BAS  DF(_BASE)
 #define DL_BASE DF(_BAS_E)
@@ -59,7 +55,7 @@ enum custom_keycodes {
 #define ML_RAIE MO(_RAI_E)
 #define ML_ADJ  MO(_ADJUST)
 
-#if HELIX_ROWS == 5
+#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Qwerty JIS Normal
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -76,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_BASE] = LAYOUT( \
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
-    JP_ZHTG, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_AT,   \
+    JP_ZKHK, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_AT,   \
     KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_COLN, \
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,  \
     KC_LCTL, KC_LALT, KC_LGUI, ML_ADJ,  ML_LOW,  KC_SPC,  KC_BSPC, KC_SPC,  KC_SPC,  ML_RAI,  KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT  \
@@ -99,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,                   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   \
     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_AT,                     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   \
     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_COLN,                   XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   \
-    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_ENT,  JP_ZHTG, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   \
+    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_ENT,  JP_ZKHK, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   \
     KC_SPC,  ML_RAIE, JP_RBRC, KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT, ML_ADJ,  KC_LCTL, KC_LALT, KC_LGUI, JP_LBRC, ML_LOWE, KC_BSPC \
     ),
 
@@ -204,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, RESET,   RGBRST,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, RESET,   RGBRST,  XXXXXXX, XXXXXXX, XXXXXXX, \
     XXXXXXX, DL_BAS,  DL_BASE, AG_NORM, AG_SWAP, XXXXXXX,                   XXXXXXX, DL_BAS,  DL_BASE, AG_NORM, AG_SWAP, XXXXXXX, \
     XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,                   XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, \
-    XXXXXXX, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, \
+    XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
     ),
 };

@@ -27,16 +27,16 @@
 //#define NO_ACTION_FUNCTION
 
 #ifdef AUDIO_ENABLE
-#define STARTUP_SONG SONG(MARIO_MUSHROOM)
-#define DEFAULT_LAYER_SONGS {                   \
-    SONG(QWERTY_SOUND),                         \
-    SONG(COLEMAK_SOUND),                        \
-    SONG(DVORAK_SOUND),                         \
-    SONG(ZELDA_TREASURE),                       \
-  }
+#define STARTUP_SONG SONG(STARTUP_SOUND)
+#define DEFAULT_LAYER_SONGS { \
+        SONG(QWERTY_SOUND),   \
+        SONG(COLEMAK_SOUND),  \
+        SONG(DVORAK_SOUND),   \
+        SONG(WORKMAN_SOUND),  \
+        }
 #define AUDIO_VOICES
 #define AUDIO_CLICKY
-#define C6_AUDIO
+#define AUDIO_PIN C6
 #endif
 
 #endif

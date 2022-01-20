@@ -1,5 +1,4 @@
-#ifndef SPLIT_KEYBOARD_UTIL_H
-#define SPLIT_KEYBOARD_UTIL_H
+#pragma once
 
 #include <stdbool.h>
 #include "eeconfig.h"
@@ -12,8 +11,6 @@ extern volatile bool isLeftHand;
 void matrix_slave_scan(void);
 
 void split_keyboard_setup(void);
-bool has_usb(void);
+bool is_helix_master(void);
 
 void matrix_master_OLED_init (void);
-
-#endif

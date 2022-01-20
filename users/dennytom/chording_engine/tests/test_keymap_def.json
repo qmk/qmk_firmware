@@ -1,0 +1,145 @@
+{
+  "keys": [
+    "TOP1", "TOP2", "TOP3", "TOP4", "TOP5", "TOP6", "TOP7", "TOP8", "TOP9", "TOP0", 
+    "BOT1", "BOT2", "BOT3", "BOT4", "BOT5", "BOT6", "BOT7", "BOT8", "BOT9", "BOT0"
+  ],
+  "parameters": {
+    "do_not_include_QMK": true,
+    "layout_function_name": "LAYOUT_test",
+    "chord_timeout": 100,
+    "dance_timeout": 200,
+    "leader_timeout": 750,
+    "tap_timeout": 50,
+    "command_max_length": 5,
+    "leader_max_length": 5,
+    "dynamic_macro_max_length": 20,
+    "string_max_length": 16,
+    "long_press_multiplier": 3,
+    "default_pseudolayer": "QWERTY"
+  },
+  "layers": [
+    {
+      "type": "auto"
+    },
+    {
+      "type": "manual",
+      "keycodes": ["KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_6", "KC_7", "KC_8", "KC_9", "KC_0",
+                   "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_Y", "KC_U", "KC_I", "KC_O", "KC_P"
+      ]
+    }
+  ],
+  "chord_sets": [
+    {
+      "name": "rows",
+      "chords": [
+        ["TOP1"], ["TOP2"], ["TOP3"], ["TOP4"], ["TOP5"], ["TOP6"], ["TOP7"], ["TOP8"], ["TOP9"], ["TOP0"],
+        ["TOP1", "BOT1"], ["TOP2", "BOT2"], ["TOP3", "BOT3"], ["TOP4", "BOT4"], ["TOP5", "BOT5"], ["TOP6", "BOT6"], ["TOP7", "BOT7"], ["TOP8", "BOT8"], ["TOP9", "BOT9"], ["TOP0", "BOT0"],
+        ["BOT1"], ["BOT2"], ["BOT3"], ["BOT4"], ["BOT5"], ["BOT6"], ["BOT7"], ["BOT8"], ["BOT9"], ["BOT0"]
+      ]
+    },
+    {
+      "name": "cols",
+      "chords": [
+        ["TOP1", "TOP2"], ["TOP2", "TOP3"], ["TOP3", "TOP4"], ["TOP4", "TOP5"], ["TOP5", "TOP6"], ["TOP6", "TOP7"], ["TOP7", "TOP8"], ["TOP8", "TOP9"], ["TOP9", "TOP0"],
+        ["TOP1", "TOP2", "BOT1", "BOT2"], ["TOP2", "TOP3", "BOT2", "BOT3"], ["TOP3", "TOP4", "BOT3", "BOT4"], ["TOP4", "TOP5", "BOT4", "BOT5"], ["TOP5", "TOP6", "BOT5", "BOT6"], ["TOP6", "TOP7", "BOT6", "BOT7"], ["TOP7", "TOP8", "BOT7", "BOT8"], ["TOP8", "TOP9", "BOT8", "BOT9"], ["TOP9", "TOP0", "BOT9", "BOT0"],
+        ["BOT1", "BOT2"], ["BOT2", "BOT3"], ["BOT3", "BOT4"], ["BOT4", "BOT5"], ["BOT5", "BOT6"], ["BOT6", "BOT7"], ["BOT7", "BOT8"], ["BOT8", "BOT9"], ["BOT9", "BOT0"]
+      ]
+    },
+    {
+      "name": "asetniop",
+      "chords": [
+        ["TOP1"], ["TOP2"], ["TOP3"], ["TOP4"], ["TOP7"], ["TOP8"], ["TOP9"], ["TOP0"],
+        ["TOP1", "TOP2"], ["TOP2", "TOP3"], ["TOP3", "TOP4"], ["TOP4", "TOP7"], ["TOP7", "TOP8"], ["TOP8", "TOP9"], ["TOP9", "TOP0"],
+        ["TOP1", "TOP3"], ["TOP2", "TOP4"], ["TOP3", "TOP7"], ["TOP4", "TOP8"], ["TOP7", "TOP9"], ["TOP8", "TOP0"],
+        ["TOP1", "TOP4"], ["TOP2", "TOP7"], ["TOP3", "TOP8"], ["TOP4", "TOP9"], ["TOP7", "TOP0"],
+        ["TOP1", "TOP7"], ["TOP2", "TOP8"], ["TOP3", "TOP9"], ["TOP4", "TOP0"],
+        ["TOP1", "TOP8"], ["TOP2", "TOP9"], ["TOP3", "TOP0"],
+        ["TOP1", "TOP9"], ["TOP2", "TOP0"],
+        ["TOP1", "TOP0"]
+      ]
+    }
+  ],
+  "pseudolayers": [
+    {
+      "name": "ALWAYS_ON",
+      "chords": [
+        {
+            "type": "visual",
+            "chord": [
+              " ", " ", " ", " ", " ", " ", " ", "X", "X", "X",
+              " ", " ", " ", " ", " ", " ", " ", "X", "X", "X"
+            ], 
+            "keycode": "MO(FNC, NUM)"
+          }
+      ]
+    },
+    {
+      "name": "QWERTY",
+        "chords": [
+          {
+            "type": "chord_set",
+            "set": "rows",
+            "keycodes": [
+              "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P",
+              "A", "S", "D", "F", "G", "H", "J", "K", "L", ";",
+              "AS(Z)", "KK(X, LCTL)", "KL(C, NUM)", "KM(V, LALT)", "B", "N", "M", "COMMA", ".", "M(double_dance, KC_9, KC_0)"
+            ]
+          },
+          {
+            "type": "chord_set",
+            "set": "cols",
+              "keycodes": [
+                "ESC", "", "", "", "", "", "", "", "",
+                "", "LEAD", "", "", "CMD", "", "", "", "",
+                "LSFT", "O(LSFT)", "", "", "", "O(NUM)", "MO(NUM)", "", "DF(NUM)"
+              ]
+          },
+          {
+            "type": "visual",
+            "chord": [
+              "X", "X", " ", " ", " ", " ", " ", " ", " ", " ",
+              "X", "X", " ", " ", " ", " ", " ", " ", " ", " "
+            ], 
+            "keycode": "LOCK"
+          }
+        ]
+    },
+    {
+      "name": "NUM",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+            "", "", "", "", "", "", "", "", "", "",
+            "", "KC_LEFT", "D(KC_1, KC_2, KC_3)", "", "", "", "DM_RECORD", "DM_NEXT", "DM_END", "DM_PLAY"
+          ]
+        },
+        {
+          "type": "simple",
+          "chord": ["BOT1"],
+          "keycode": "MK(KC_LCTL, KC_LSFT)"
+        }
+      ]
+    },
+    {
+      "name": "FNC",
+      "chords": []
+    }
+  ],
+  "leader_sequences": [
+    {
+      "name": "fnc_L1",
+      "function": "void fnc_L1(void) { key_in(KC_A); clear_keyboard(); }",
+      "sequence": ["KC_O", "KC_P"]
+    },
+    {
+      "name": "fnc_L2",
+      "function": "void fnc_L2(void) { key_in(KC_S); clear_keyboard(); }",
+      "sequence": ["KC_P", "KC_O"]
+    }
+  ],
+  "extra_code": "void double_dance(const struct Chord* self) {\n    switch (*self->state) {\n        case ACTIVATED:\n            *self->counter = (*self->counter + 1) % 2;\n            break;\n        case PRESS_FROM_ACTIVE:\n            if (*self->counter == 1) {\n                key_in(self->value1);\n            } else {\n                key_in(self->value2);\n            }\n            *self->state = FINISHED_FROM_ACTIVE;\n            break;\n        case FINISHED:\n            if (*self->counter == 1) {\n                tap_key(self->value1);\n            } else {\n                tap_key(self->value2);\n            }\n            *self->counter = 0;\n            *self->state = IDLE;\n            break;\n        case RESTART:\n            if (*self->counter == 1) {\n                key_out(self->value1);\n            } else {\n                key_out(self->value2);\n            }\n            *self->counter = 0;\n            break;\n        default:\n            break;\n    }\n}\n",
+  "extra_dependencies": []
+}

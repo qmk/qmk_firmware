@@ -584,11 +584,6 @@ def unicode_macro_cases(config):
     for macro_id, uc_hex in config['unicode_macros'].items():
         hi = int(uc_hex, 16) >> 8
         lo = int(uc_hex, 16) & 0xFF
-        unimacro_keys = ", ".join(
-            "T({})".format(
-                "KP_" + digit if digit.isdigit() else digit
-            ) for digit in uc_hex
-        )
         yield UNICODE_MACRO_TEMPLATE.format(
             macro_id=macro_id, hi=hi, lo=lo
         )
@@ -667,9 +662,6 @@ def iter_keymap_parts(config, keymaps):
         yield "[L{0}] = KEYMAP({1}\n),\n".format(i, keymap_lines)
 
     yield "};\n\n"
-
-    # no idea what this is for
-    yield "const uint16_t PROGMEM fn_actions[] = {};\n"
 
     # macros
     yield MACROCODE.format(

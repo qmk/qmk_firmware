@@ -1,10 +1,6 @@
 {
     "keyboard_name": "Fleuron v1.0", 
-    "url": "", 
     "maintainer": "qmk", 
-    "bootloader": "", 
-    "width": 16, 
-    "height": 6, 
     "layouts": {
         "LAYOUT_ortho_6x16": {
             "layout": [

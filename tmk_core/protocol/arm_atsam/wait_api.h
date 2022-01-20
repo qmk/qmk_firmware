@@ -5,4 +5,3 @@ void wait_ms(uint64_t msec);
 void wait_us(uint16_t usec);
 
 #endif
-

@@ -8,7 +8,6 @@
 #include QMK_KEYBOARD_H
 
 #define X KC_NO
-#define _______ KC_TRNS
 
 extern keymap_config_t keymap_config;
 

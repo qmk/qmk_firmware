@@ -1,0 +1,163 @@
+enum chord_states {
+    IDLE,
+    READY,
+    ACTIVATED,
+    DEACTIVATED,
+    PRESS_FROM_ACTIVE,
+    FINISHED_FROM_ACTIVE,
+    IDLE_IN_DANCE,
+    READY_IN_DANCE,
+    FINISHED,
+    LOCKED,
+    READY_LOCKED,
+    RESTART,
+    IN_ONE_SHOT
+};
+
+struct Chord {
+    uint32_t keycodes_hash;
+    uint8_t pseudolayer;
+    uint8_t* state;
+    uint8_t* counter;
+    uint16_t value1;
+    uint8_t value2;
+    void (*function) (const struct Chord*);
+};
+
+uint8_t current_pseudolayer = DEFAULT_PSEUDOLAYER;
+bool lock_next = false;
+uint16_t chord_timer = 0;
+uint16_t dance_timer = 0;
+bool autoshift_mode = true;
+uint8_t keycode_index = 0;
+uint8_t command_mode = 0;
+uint8_t command_ind = 0;
+bool in_leader_mode = false;
+uint8_t leader_ind = 0;
+uint16_t leader_timer = 0;
+uint8_t dynamic_macro_mode = false;
+uint8_t dynamic_macro_ind = 0;
+bool a_key_went_through = false;
+struct Chord* last_chord = NULL;
+
+bool handle_US_ANSI_shifted_keys(int16_t keycode, bool in) {
+    bool is_US_ANSI_shifted = true;
+    
+    int16_t regular_keycode = KC_NO;
+    switch (keycode) {
+        case KC_TILDE:
+            regular_keycode = KC_GRAVE;
+            break;
+        case KC_EXCLAIM:
+            regular_keycode = KC_1;
+            break;
+        case KC_AT:
+            regular_keycode = KC_2;
+            break;
+        case KC_HASH:
+            regular_keycode = KC_3;
+            break;
+        case KC_DOLLAR:
+            regular_keycode = KC_4;
+            break;
+        case KC_PERCENT:
+            regular_keycode = KC_5;
+            break;
+        case KC_CIRCUMFLEX:
+            regular_keycode = KC_6;
+            break;
+        case KC_AMPERSAND:
+            regular_keycode = KC_7;
+            break;
+        case KC_ASTERISK:
+            regular_keycode = KC_8;
+            break;
+        case KC_LEFT_PAREN:
+            regular_keycode = KC_9;
+            break;
+        case KC_RIGHT_PAREN:
+            regular_keycode = KC_0;
+            break;
+        case KC_UNDERSCORE:
+            regular_keycode = KC_MINUS;
+            break;
+        case KC_PLUS:
+            regular_keycode = KC_EQUAL;
+            break;
+        case KC_LEFT_CURLY_BRACE:
+            regular_keycode = KC_LBRACKET;
+            break;
+        case KC_RIGHT_CURLY_BRACE:
+            regular_keycode = KC_RBRACKET;
+            break;
+        case KC_PIPE:
+            regular_keycode = KC_BSLASH;
+            break;
+        case KC_COLON:
+            regular_keycode = KC_SCOLON;
+            break;
+        case KC_DOUBLE_QUOTE:
+            regular_keycode = KC_QUOTE;
+            break;
+        case KC_LEFT_ANGLE_BRACKET:
+            regular_keycode = KC_COMMA;
+            break;
+        case KC_RIGHT_ANGLE_BRACKET:
+            regular_keycode = KC_DOT;
+            break;
+        case KC_QUESTION:
+            regular_keycode = KC_SLASH;
+            break;
+        default:
+            is_US_ANSI_shifted = false;
+    }
+    if (is_US_ANSI_shifted) {
+        if (in) {
+            register_code(KC_LSFT);
+            register_code(regular_keycode);
+        } else {
+            unregister_code(regular_keycode);
+            unregister_code(KC_LSFT);
+        }
+    }
+    return is_US_ANSI_shifted;
+}
+
+void key_in(int16_t keycode) {
+    if (command_mode == 1 && command_ind < COMMAND_MAX_LENGTH) {
+        command_buffer[command_ind] = keycode;
+        command_ind++;
+        a_key_went_through = true;
+    } else if (in_leader_mode && leader_ind < LEADER_MAX_LENGTH) {
+        leader_buffer[leader_ind] = keycode;
+        leader_ind++;
+        a_key_went_through = true;
+    } else if (dynamic_macro_mode && dynamic_macro_ind < DYNAMIC_MACRO_MAX_LENGTH) {
+        dynamic_macro_buffer[dynamic_macro_ind] = keycode;
+        dynamic_macro_ind++;
+        a_key_went_through = true;
+    } else {
+        if (!handle_US_ANSI_shifted_keys(keycode, true)) {
+            register_code(keycode);
+        }
+        send_keyboard_report();
+        a_key_went_through = true;
+    }
+}
+
+void key_out(int16_t keycode) {
+    if (command_mode == 0) {
+        if (!handle_US_ANSI_shifted_keys(keycode, false)) {
+            if (command_mode == 0 && in_leader_mode == false && dynamic_macro_mode == false) {
+                unregister_code(keycode);
+            }
+        }
+        send_keyboard_report();
+    }
+}
+
+void tap_key(int16_t keycode) {
+    key_in(keycode);
+    wait_ms(TAP_TIMEOUT);
+    key_out(keycode);
+}

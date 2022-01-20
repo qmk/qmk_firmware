@@ -26,14 +26,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // If you need more program area, try select and reduce rgblight modes to use.
 
 // Selection of RGBLIGHT MODE to use.
-#undef RGBLIGHT_EFFECT_BREATHING
-#undef RGBLIGHT_EFFECT_RAINBOW_MOOD
-#undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#undef RGBLIGHT_EFFECT_SNAKE
-#undef RGBLIGHT_EFFECT_KNIGHT
-#undef RGBLIGHT_EFFECT_CHRISTMAS
-#undef RGBLIGHT_EFFECT_STATIC_GRADIENT
-//#undef RGBLIGHT_EFFECT_RGB_TEST // led_test keymap need only this.
-#undef RGBLIGHT_EFFECT_ALTERNATING
+#if defined(LED_ANIMATIONS)
+   //#define RGBLIGHT_EFFECT_BREATHING
+   //#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+   //#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+   //#define RGBLIGHT_EFFECT_SNAKE
+   //#define RGBLIGHT_EFFECT_KNIGHT
+   //#define RGBLIGHT_EFFECT_CHRISTMAS
+   //#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+   #define RGBLIGHT_EFFECT_RGB_TEST   // led_test keymap need only this.
+   //#define RGBLIGHT_EFFECT_ALTERNATING
+#endif
 
 #endif /* CONFIG_USER_H */

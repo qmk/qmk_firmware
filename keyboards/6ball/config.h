@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    That-Canadian
 #define PRODUCT         6-Ball
-#define DESCRIPTION     6-Ball Macropuck
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -39,15 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F7
-#define RGBLIGHT_TIMER
+
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 6    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 #define TAPPING_TERM 200
-
-#endif

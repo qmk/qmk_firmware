@@ -1,6 +1,6 @@
 # Clueboard 17% (Formerly Cluepad)
 
-![Clueboard 17%](https://static1.squarespace.com/static/55c13bdee4b099be5dcb82eb/5842fbdce3df28eae5ec557e/5844fb2cb8a79bbdfd63bad1/1498501250178/IMGP3931.jpg?format=750w)
+![Clueboard 17%](https://i.imgur.com/3XBC5c0.jpg)
 
 A basic 17 key numpad PCB.
 
@@ -13,4 +13,4 @@ Make example for this keyboard (after setting up your build environment):
 
     make clueboard/17:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

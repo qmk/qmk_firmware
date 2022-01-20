@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_RBRC,          KC_Y,    KC_U,    KC_I,     KC_O,      KC_P,             MEH_T(KC_BSLS),
                          KC_H,    KC_J,    KC_K,     KC_L,      LT(APP,KC_SCLN),  ALL_T(KC_QUOT),
        S(KC_TAB),        KC_N,    KC_M,    KC_COMM,  KC_DOT,    LT(APP,KC_SLSH),  KC_RSFT,
-                                  KC_RGUI, KC_UP,    KC_DOWN,   KC_FN3,           KC_FN1,
+                                  KC_RGUI, KC_UP,    KC_DOWN,   TT(CNTL),         TT(SYMB),
        LALT(KC_LGUI),    S(KC_LGUI),
        LT(APP,KC_PGUP),
        LT(SYMB,KC_PGDN), KC_ENT, KC_SPC
@@ -175,32 +175,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),
-    [2] = ACTION_LAYER_TAP_TOGGLE(APP),
-    [3] = ACTION_LAYER_TAP_TOGGLE(CNTL)             // FN1 - Momentary Layer 1 (Symbols)
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
 };
 
 // Runs constantly in the background, in a loop.

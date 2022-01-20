@@ -18,7 +18,7 @@ if [ -z "$USERNAME" ]; then
     exit 1
 fi
 
-cd ..
+cd "$(dirname "$0")/.."
 
 if [ ! -d "keyboards/$KB_PATH" ]; then
 	printf "Error! keyboards/%s does not exist!\n" "$KB_PATH"

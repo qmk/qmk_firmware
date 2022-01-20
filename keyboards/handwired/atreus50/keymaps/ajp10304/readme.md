@@ -1,10 +1,13 @@
 # AJP10304 Custom Atreus50 Layout
-# Also available for the Planck and JJ40
+# Also available for the Planck, Shark, Quark and JJ40
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
 
 **Note:** The below tables assume a UK layout.
+
+#### Flashing
+Refer to the README.md of the keyboard you want to flash.
 
 ##### Main Qwerty Layer
 
@@ -18,6 +21,16 @@ the second is the output when shift is applied.
 | Tab  |   A  |   S  |   D  |   F  |   G  |      |      |   H  |   J  |   K  |   L  |  ;:  | Enter|
 | Shft |   Z  |   X  |   C  |   V  |   B  |      |      |   N  |   M  |  ,<  |  .>  |  /?  | Shft |
 | Fn   | Ctrl | Alt  | GUI  |Lower | Bksp | Ctrl | Alt  |Space |Raise | Shift| MENU | Ctrl | Fn2  |
+
+##### Main Colemak-DHm Layer
+
+|      |      |      |     |       |      |      |      |       |       |       |      |      |      |
+| ---- |:----:| :---:|:---:|:-----:|:----:| :---:| :---:|:-----:|:-----:|:-----:|:----:|:----:| ----:|
+| Esc  |   Q  |   W  |  F  |   P   |  B   |      |      |   J   |   L   |   U   |  Y   |  ;:  | Bksp |
+| Tab  |   A  |   R  |  S  |   T   |  G   |      |      |   M   |   N   |   E   |  I   |  O   | Enter|
+| Shft |   Z  |   X  |  C  |   D   |  V   |      |      |   K   |   H   |  ,<   |  .>  |  /?  | Shft |
+| Fn   | Ctrl | Alt  | GUI | Lower | Bksp | Ctrl | Alt  | Space | Raise | Shift | MENU | Ctrl | Fn2  |
+
 
 ##### Function Layer
 Activated when `fn` held in the above `qwerty` layer.
@@ -43,13 +56,13 @@ Activated when `Lower` is held in the above `qwerty` layer.
 | Shift |  \|  |  `¬  |  #~  |  '@  |  -_  |      |      |  =+  |  #~  |  [{  |  ]}  |  '@  |Shift |
 |       |      |      |      |Lower | Del  | Ctrl | Alt  |Space |      | Next | Vol- | Vol+ | Play |
 
- ##### Raise Layer
- Activated when `Raise` is held in the above `qwerty` layer.
+##### Raise Layer
+Activated when `Raise` is held in the above `qwerty` layer.
 
- * Preferred layer for typing brackets.
- * Allows for cursor navigation to be used solely with the right hand.
- * WRDSEL: Select the word where the cursor is.
- * |< and >|: Apply `ctrl` to `left` and `right` respectively for word jumping.
+* Preferred layer for typing brackets.
+* Allows for cursor navigation to be used solely with the right hand.
+* WRDSEL: Select the word where the cursor is.
+* |< and >|: Apply `ctrl` to `left` and `right` respectively for word jumping.
 
 |       |      |      |      |      |      |      |      |       |      |      |      |       |      |
 | :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---: | :---:| :---:| :---:| :---: | :---:|
@@ -70,12 +83,12 @@ To finish the recording, press STOP. To replay the macro, press either PLAY1 or 
 * MAC: Toggle MAC OS extensions to layers. This allows MLWR to be enabled with LOWER,
 MRSE with RAISE, MFNC with FUNC and MFNC2 with FUNC2 respectively.
 
-|       |      |      |      |      |      |      |      |      |      |      |      |      |      |
-| :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ????  | Reset|Qwerty|      |      | REC1 |      |      | REC2 |      |      |      |      |  Del |
-| CAPS  |      |      |      |      | PLAY1|      |      |PLAY2 | Mute | Vol+ | Play |      |      |
-| MAC   |      |      |      |      | STOP1|      |      |STOP2 | Prev | Vol- | Next |      |      |
-|       |      |      |      |      |      | Ctrl | Alt  |      |      | DYN  |      |      |      |
+|       |      |      |      |      |      |      |      |      |      |      |      |      |         |
+| :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|:-------:|
+| ????  | Reset|Qwerty|      |      | REC1 |      |      | REC2 |      |      |      |      |   Del   |
+| CAPS  |      |      |      |      | PLAY1|      |      |PLAY2 | Mute | Vol+ | Play |      | Qwerty  |
+| MAC   |      |      |      |      | STOP1|      |      |STOP2 | Prev | Vol- | Next |      | Colemak |
+|       |      |      |      |      |      | Ctrl | Alt  |      |      | DYN  |      |      |         |
 
 ##### Function 2 Layer
 Activated when `fn` held in the above `qwerty` layer.
@@ -98,11 +111,20 @@ Activated when `fn` and `raise` held together.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |      |      |
 | :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ESC   |      |      |      |      |      |      |      |      |      |      |      |      |      |
+| ESC   |      |      |      |      |      |      |      | W_L  | W_UP | BTN3 | W_DWN| W_R  |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
 |       |      |      |      |      |      | Ctrl | Alt  |      |      |      |      |      |      |
 
+##### Number Pad Layout
+Activated when holding `Esc` key.
 
-##Program Command
-teensy_loader_cli -w -mmcu=atmega32u4 handwired_atreus50_ajp10304.hex
+|       |      |      |      |      |      |      |      |      |      |      |      |      |      |
+| :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
+|       |      |      |      |      |      |      |      |NMLOCK|   7  |   8  |   9  |   /  |      |
+|       |      |      |      |      |      |      |      |      |   4  |   5  |   6  |   *  |      |
+|       |      |      |      |      |      |      |      |      |   1  |   2  |   3  |   +  |      |
+|       |      |      |      |      |      | Ctrl | Alt  |      |   0  |   .  |   ,  |   -  |      |
+
+
+

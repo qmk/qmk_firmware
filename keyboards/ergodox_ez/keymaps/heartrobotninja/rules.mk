@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE=no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 COMMAND_ENABLE=no
 SLEEP_LED_ENABLE=no
 NKRO_ENABLE = yes
@@ -30,6 +30,3 @@ KEYMAP_BRANCH = $(shell \
 
 OPT_DEFS += -DKEYMAP_VERSION=\"$(KEYMAP_VERSION)\\\#$(KEYMAP_BRANCH)\"
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

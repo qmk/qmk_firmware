@@ -69,10 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
-};
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
@@ -87,11 +83,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 1:
         if (record->event.pressed) { // For resetting EEPROM
           eeconfig_init();
-        }
-        break;
-        case 2:
-        if (record->event.pressed) { // For resetting EEPROM
-          api_send_unicode(0x0CA0);
         }
         break;
       }

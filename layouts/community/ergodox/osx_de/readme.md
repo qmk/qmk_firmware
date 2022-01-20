@@ -1,4 +1,4 @@
-#Ergodox EZ für OSX 
+# Ergodox EZ für OSX 
 
 Dies ist nur ein kleiner Tweak der bestehenden firmware für das ErgoDox-EZ-Keyboard. Leider passte das layout nicht wirklich für OSX, deswegen habe ich einige Anpassungen gemacht. Dabei wurden folgende features umgesetzt:
 
@@ -14,7 +14,6 @@ Dies ist nur ein kleiner Tweak der bestehenden firmware für das ErgoDox-EZ-Keyb
 # Erstellt Mit Dem ErgodoxLayoutGenerator
 
 Der ErgodoxLayoutGenerator ist ein kleines Werkzeug, welches die Erstellung und Pflege der eigenen Keymaps erleichtern soll. Es ist in java geschrieben und kann [hier](https://github.com/sboesebeck/ErgodoxLayoutGenerator/releases) heruntergeladen werden. Damit das Tool funktioniert sollte das offizielle Oracle JDK in aktueller Version installiert sein.
-Die Dokumentation für den ELG kann man [hier](https://boesebeck.name/2016/04/16/ergodoxlayoutgenerator-documentation/) nachlesen (momentan leider nur in Englisch verfügbar).
 
 
 

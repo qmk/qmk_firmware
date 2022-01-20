@@ -18,10 +18,6 @@
 
 #include QMK_KEYBOARD_H
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 //Arrow Cluster Toggle
 static bool arrow_toggle = false;
 

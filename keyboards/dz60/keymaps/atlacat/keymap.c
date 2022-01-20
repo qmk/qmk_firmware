@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define RGB_STA RGB_M_P //rgb static
 #define RGB_BRE RGB_M_B //rgb breathe
 #define RGB_RAI RGB_M_R //rgb rainbow

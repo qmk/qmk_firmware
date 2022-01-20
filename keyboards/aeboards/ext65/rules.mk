@@ -1,0 +1,1 @@
+DEFAULT_FOLDER = aeboards/ext65/rev2

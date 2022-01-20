@@ -1,0 +1,2 @@
+COMB(gbClick,       KC_BTN1,         KC_G, KC_B)
+COMB(fvClick,       KC_BTN2,         KC_F, KC_V)

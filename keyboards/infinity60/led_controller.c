@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * datasheet: http://www.issi.com/WW/pdf/31FL3731C.pdf
  */
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 #include "print.h"
 #include "led.h"
 #include "host.h"
@@ -110,26 +110,26 @@ uint8_t pwm_register_array[9] = {0};
 msg_t is31_select_page(uint8_t page) {
   tx[0] = IS31_COMMANDREGISTER;
   tx[1] = page;
-  return i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, tx, 2, NULL, 0, US2ST(IS31_TIMEOUT));
+  return i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, tx, 2, NULL, 0, TIME_US2I(IS31_TIMEOUT));
 }
 
 msg_t is31_write_data(uint8_t page, uint8_t *buffer, uint8_t size) {
   is31_select_page(page);
-  return i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, buffer, size, NULL, 0, US2ST(IS31_TIMEOUT));
+  return i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, buffer, size, NULL, 0, TIME_US2I(IS31_TIMEOUT));
 }
 
 msg_t is31_write_register(uint8_t page, uint8_t reg, uint8_t data) {
   is31_select_page(page);
   tx[0] = reg;
   tx[1] = data;
-  return i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, tx, 2, NULL, 0, US2ST(IS31_TIMEOUT));
+  return i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, tx, 2, NULL, 0, TIME_US2I(IS31_TIMEOUT));
 }
 
 msg_t is31_read_register(uint8_t page, uint8_t reg, uint8_t *result) {
   is31_select_page(page);
 
   tx[0] = reg;
-  return i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, tx, 1, result, 1, US2ST(IS31_TIMEOUT));
+  return i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, tx, 1, result, 1, TIME_US2I(IS31_TIMEOUT));
 }
 
 /* ========================
@@ -194,7 +194,7 @@ static THD_FUNCTION(LEDthread, arg) {
     // wait for a message (asynchronous)
     // (messages are queued (up to LED_MAILBOX_NUM_MSGS) if they can't
     //  be processed right away
-    chMBFetch(&led_mailbox, &msg, TIME_INFINITE);
+    chMBFetchTimeout(&led_mailbox, &msg, TIME_INFINITE);
     msg_type = msg & 0xFF; //first byte is action information
     msg_args[0] = (msg >> 8) & 0xFF;
     msg_args[1] = (msg >> 16) & 0XFF;

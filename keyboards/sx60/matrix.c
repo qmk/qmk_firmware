@@ -30,11 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 
-#ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
+#ifndef DEBOUNCE
+#   define DEBOUNCE 5
 #endif
 
-#if (DEBOUNCING_DELAY > 0)
+#if (DEBOUNCE > 0)
     static uint16_t debouncing_time;
     static bool debouncing = false;
 #endif
@@ -113,13 +113,6 @@ uint8_t matrix_cols(void) {
 }
 
 void matrix_init(void) {
-
-    /* To use PORTF disable JTAG with writing JTD bit twice within four cycles. */
-    #if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
-        MCUCR |= _BV(JTD);
-        MCUCR |= _BV(JTD);
-    #endif
-
     mcp23018_status = true;
 
     /* initialize row and col */
@@ -137,7 +130,7 @@ void matrix_init(void) {
 
 uint8_t matrix_scan(void)
 {
-    if (mcp23018_status) { 
+    if (mcp23018_status) {
         /* if there was an error */
         if (++mcp23018_reset_loop == 0) {
             /* since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
@@ -154,7 +147,7 @@ uint8_t matrix_scan(void)
 
     /* Set row, read cols */
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-#       if (DEBOUNCING_DELAY > 0)
+#       if (DEBOUNCE > 0)
             bool matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
 
             if (matrix_changed) {
@@ -166,8 +159,8 @@ uint8_t matrix_scan(void)
 #       endif
     }
 
-#   if (DEBOUNCING_DELAY > 0)
-        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
+#   if (DEBOUNCE > 0)
+        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCE)) {
             for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
                 matrix[i] = matrix_debouncing[i];
             }
@@ -181,7 +174,7 @@ uint8_t matrix_scan(void)
 
 bool matrix_is_modified(void)
 {
-#if (DEBOUNCING_DELAY > 0)
+#if (DEBOUNCE > 0)
     if (debouncing) return false;
 #endif
     return true;
@@ -190,7 +183,7 @@ bool matrix_is_modified(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & ((matrix_row_t)1<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline
@@ -210,7 +203,7 @@ void matrix_print(void)
     print_matrix_header();
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
+        print_hex8(row); print(": ");
         print_matrix_row(row);
         print("\n");
     }
@@ -246,19 +239,15 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     select_row(current_row);
     wait_us(30);
 
-    if (mcp23018_status) { 
+    if (mcp23018_status) {
         /* if there was an error */
         return 0;
     } else {
-        uint16_t data = 0;
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOA);             if (mcp23018_status) goto out;
-        mcp23018_status = i2c_start(I2C_ADDR_READ);     if (mcp23018_status) goto out;
-        data = i2c_readNak();
-        data = ~data;
-    out:
-        i2c_stop();
-        current_matrix[current_row] |= (data << 8);
+        uint8_t data = 0;
+        mcp23018_status = i2c_readReg(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
+        if (!mcp23018_status) {
+            current_matrix[current_row] |= (~((uint16_t)data) << 8);
+        }
     }
 
     /* For each col... */
@@ -279,17 +268,14 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 static void select_row(uint8_t row)
 {
-    if (mcp23018_status) { 
+    if (mcp23018_status) {
         /* if there was an error do nothing */
     } else {
         /* set active row low  : 0
            set active row output : 1
            set other rows hi-Z : 1 */
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE);   if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOB);            if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(0xFF & ~(1<<abs(row-4))); if (mcp23018_status) goto out;
-    out:
-        i2c_stop();
+        uint8_t port = 0xFF & ~(1<<abs(row-4));
+        mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOB, &port, 1, I2C_TIMEOUT);
     }
 
     uint8_t pin = row_pins[row];

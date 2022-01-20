@@ -1,4 +1,4 @@
-/* Copyright 2017 Mathias Andersson <wraul@dbox.se>
+/* Copyright 2017-2019 Mathias Andersson <wraul@dbox.se>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,61 +15,15 @@
  */
 #include "kmac.h"
 
-void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-    led_init_ports();
-    matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
-    matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    // put your per-action keyboard code here
-    // runs for every action, just before processing by the firmware
-
-    return process_record_user(keycode, record);
-}
-
-void led_init_ports(void) {
-    DDRB |= (1<<0); // OUT
-    DDRE |= (1<<6); // OUT
-}
-
-/* LED pin configuration
- * Scroll Lock: Low PE6
- * Caps Lock: Low PB0
- */
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK))
-    {
-        PORTB &= ~(1<<0); // LO
-    }
-    else
-    {
-        PORTB |= (1<<0); // HI
-    }
-
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK))
-    {
-        PORTE &= ~(1<<6); // LO
-    }
-    else
-    {
-        PORTE |= (1<<6); // HI
-    }
-
-    led_set_user(usb_led);
-}
+#define F_ROW_MASK 0b01
+#define WASD_MASK 0b10
 
 void backlight_init_ports(void) {
-    DDRB |= (1<<1) | (1<<2) | (1<<3) | (1<<4); // OUT
-    DDRD |= (1<<7); // OUT
+    setPinOutput(B1);
+    setPinOutput(B2);
+    setPinOutput(B3);
+    setPinOutput(B4);
+    setPinOutput(D7);
 }
 
 /* Backlight pin configuration
@@ -79,31 +33,24 @@ void backlight_init_ports(void) {
  * S: Low PB3
  * D: Low PD7
  */
-void backlight_set(uint8_t level)
-{
+void backlight_set(uint8_t level) {
     // F-row
-    if(level & (1<<0))
-    {
-        PORTB |= (1<<1); // HI
-    }
-    else
-    {
-        PORTB &= ~(1<<1); // LO
+    if (level & F_ROW_MASK) {
+        writePinHigh(B1);
+    } else {
+        writePinLow(B1);
     }
 
     // WASD
-    if(level & (1<<1))
-    {
-        PORTB &= ~(1<<4); // LO
-        PORTB &= ~(1<<2); // LO
-        PORTB &= ~(1<<3); // LO
-        PORTD &= ~(1<<7); // LO
-    }
-    else
-    {
-        PORTB |= (1<<4); // HI
-        PORTB |= (1<<2); // HI
-        PORTB |= (1<<3); // HI
-        PORTD |= (1<<7); // HI
+    if (level & WASD_MASK) {
+        writePinLow(B2);
+        writePinLow(B3);
+        writePinLow(B4);
+        writePinLow(D7);
+    } else {
+        writePinHigh(B2);
+        writePinHigh(B3);
+        writePinHigh(B4);
+        writePinHigh(D7);
     }
 }

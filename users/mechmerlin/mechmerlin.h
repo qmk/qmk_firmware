@@ -5,13 +5,15 @@
 enum userspace_layers {
   _BL = 0, // Base Layer
   _FL,     // Function Layer
-  _AL      // Arrow Layer
+  _AL,     // Arrow Layer
+  _CL      // Control Layer
 };
 
 // Enum of custom keycodes defined in process_record_user
 enum keycodes {
-    KC_FNX, // Hold for FN layer, tap to toggle ARROWS layer. 
+    KC_FNX, // Hold for FN layer, tap to toggle ARROWS layer.
+    KC_VER, // Version macro.
 };
 
 // Custom #defined keycodes
-#define KC_CTCP MT(KC_LCTL, KC_CAPS)
+#define KC_CTCP CTL_T(KC_CAPS)

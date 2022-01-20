@@ -25,7 +25,6 @@ These features can be used in your keyboard.
 * Media Control Key   - Volume Down/Up, Mute, Next/Prev track, Play, Stop and etc
 * USB NKRO            - 248 keys(+ 8 modifiers) simultaneously
 * PS/2 mouse support  - PS/2 mouse(TrackPoint) as composite device
-* Keyboard protocols  - PS/2, ADB, M0110, Sun and other old keyboard protocols
 * User Function       - Customizable function of key with writing code
 * Macro               - Very primitive at this time
 * Keyboard Tricks     - Oneshot modifier and modifier with tapping feature
@@ -48,7 +47,7 @@ Complete firmwares for various keyboards and protocol converters.
 License
 -------
 **GPLv2** or later. Some protocol files are under **Modified BSD License**.
-LUFA, PJRC and V-USB stack have their own license respectively.
+ChibiOS, LUFA and V-USB stack have their own license respectively.
 
 
 
@@ -67,7 +66,6 @@ Start Your Own Project
     #define PRODUCT_ID      0xBEEF
     #define MANUFACTURER    t.m.k.
     #define PRODUCT         Macway mod
-    #define DESCRIPTION     t.m.k. keyboard firmware for Macway mod
 
 #### 2. Keyboard matrix configuration
     #define MATRIX_ROWS 8
@@ -85,9 +83,9 @@ Architecture
       /          /| Keys/Mouse | Protocol  |d| | Action      | | | Protocol  |
      /__________/ |<-----------|  LUFA     |r| |  Layer, Tap | | |  Matrix   |
      |.--------.| |   LED      |  V-USB    |i| |-------------| | |  PS/2,IBM |             __________________
-     ||        || |----------->|  PJRC     |v| | Keymap      | | |  ADB,M0110|  Keys      / /_/_/_/_/_/_/_/ /|
-     ||  Host  || |  Console   |  iWRAP(BT)|e| | Mousekey    | | |  SUN/NEWS |<----------/ /_/_/_/_/_/_/_/ / /
-     ||________||/.<-----------|  UART     |r| | Report      | | |  X68K/PC98| Control  / /_/_/_/_/_/_/_/ / /
+     ||        || |----------->|  UART     |v| | Keymap      | | |           |  Keys      / /_/_/_/_/_/_/_/ /|
+     ||  Host  || |  Console   |           |e| | Mousekey    | | |           |<----------/ /_/_/_/_/_/_/_/ / /
+     ||________||/.<-----------|           |r| | Report      | | |           | Control  / /_/_/_/_/_/_/_/ / /
      `_========_'/|            |---------------------------------------------|-------->/___ /_______/ ___/ /
      |_o______o_|/             | Sendchar, Print, Debug, Command, ...        |         |_________________|/
                                +---------------------------------------------+              Keyboard
@@ -133,14 +131,8 @@ Files and Directories
 
 ### Keyboard Protocols
 * lufa/     - LUFA USB stack
-* pjrc/     - PJRC USB stack
 * vusb/     - Objective Development V-USB
-* iwrap/    - Bluetooth HID for Bluegiga iWRAP
 * ps2.c     - PS/2 protocol
-* adb.c     - Apple Desktop Bus protocol
-* m0110.c   - Macintosh 128K/512K/Plus keyboard protocol
-* news.c    - Sony NEWS keyboard protocol
-* x68k.c    - Sharp X68000 keyboard protocol
 * serial_soft.c - Asynchronous Serial protocol implemented by software
 
 

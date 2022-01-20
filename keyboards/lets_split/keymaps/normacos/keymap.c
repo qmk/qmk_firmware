@@ -26,10 +26,6 @@ enum custom_keycodes {
   CHROME
 };
 
-// Fillers (to make layering more clear)
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Mod taps
 #define SFT_ENT    SFT_T(KC_ENT)	// Tap for Enter, hold for Shift
 #define CTL_ESC    CTL_T(KC_ESC)	// Tap for Escape, hold for Control

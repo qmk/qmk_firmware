@@ -1,17 +1,16 @@
-MCU = at90usb646
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = yes         # Console for debug
+COMMAND_ENABLE = no         # Commands for debug and configuration
+NKRO_ENABLE = yes           # Enable N-Key Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+AUDIO_ENABLE = no           # Audio output
 
-# Extra source files for IS3731 lighting
-SRC = TWIlib.c issi.c lighting.c
+DEFAULT_FOLDER = lfkeyboards/smk65/revb
 
-# Processor frequency.
-F_CPU = 16000000
-
-# Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
-
-# Input clock frequency.
-F_USB = $(F_CPU)
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+LAYOUTS = 65_ansi 65_iso

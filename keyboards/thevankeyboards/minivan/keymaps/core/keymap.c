@@ -4,9 +4,6 @@
 #define _L1 1
 #define _L2 2
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QW] = LAYOUT( /* Qwerty */
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
@@ -26,7 +23,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, KC_COMM, KC_SLSH, KC_RBRC, KC_LBRC, KC_BSLS, _______, _______,
     _______, _______, _______,                   _______, _______,                   _______, _______, _______
   ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 };

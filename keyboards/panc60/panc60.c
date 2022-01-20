@@ -13,13 +13,5 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "panc60.h"
-
-#include <avr/pgmspace.h>
-#include "action_layer.h"
-#include "i2c.h"
-#include "quantum.h"
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-}

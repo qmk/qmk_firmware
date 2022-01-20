@@ -1,3 +1,7 @@
-SRC += pico/matrix.c \
-	   pico/split_util.c \
-	   ws2812.c
+# Helix Spacific Build Options default values
+OLED_ENABLE = no            # OLED_ENABLE
+LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
+LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
+LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
+LED_ANIMATIONS = yes        # LED animations
+IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)

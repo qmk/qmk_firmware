@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include "matrix.h"
 #include "test_matrix.h"
 #include <string.h>
@@ -31,33 +30,18 @@ uint8_t matrix_scan(void) {
     return 1;
 }
 
-matrix_row_t matrix_get_row(uint8_t row) {
-    return matrix[row];
-}
+matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
 
-void matrix_print(void) {
+void matrix_print(void) {}
 
-}
+void matrix_init_kb(void) {}
 
-void matrix_init_kb(void) {
+void matrix_scan_kb(void) {}
 
-}
+void press_key(uint8_t col, uint8_t row) { matrix[row] |= 1 << col; }
 
-void matrix_scan_kb(void) {
+void release_key(uint8_t col, uint8_t row) { matrix[row] &= ~(1 << col); }
 
-}
+void clear_all_keys(void) { memset(matrix, 0, sizeof(matrix)); }
 
-void press_key(uint8_t col, uint8_t row) {
-    matrix[row] |= 1 << col;
-}
-
-void release_key(uint8_t col, uint8_t row) {
-    matrix[row] &= ~(1 << col);
-}
-
-void clear_all_keys(void) {
-    memset(matrix, 0, sizeof(matrix));
-}
-
-void led_set(uint8_t usb_led) {
-}
+void led_set(uint8_t usb_led) {}

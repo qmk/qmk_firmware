@@ -1,14 +1,10 @@
-#ifndef FRENCHDEV_V1_H
-#define FRENCHDEV_V1_H
+#pragma once
 
 #include "quantum.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include "i2cmaster.h"
+#include "i2c_master.h"
 #include <util/delay.h>
-
-#define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
-#define CPU_16MHz       0x00
 
 // I2C aliases and register addresses (see "mcp23018.md" on tmk repository)
 #define I2C_ADDR        0b0100000
@@ -24,6 +20,7 @@
 #define OLATB           0x15
 
 extern uint8_t mcp23018_status;
+#define I2C_TIMEOUT 100
 
 void init_frenchdev(void);
 void frenchdev_blink_all_leds(void);
@@ -77,7 +74,7 @@ inline void frenchdev_led_all_set(uint8_t n)
     frenchdev_led_3_set(n);
 }
 
-#define KEYMAP(                                                 \
+#define LAYOUT(                                                 \
                                                                 \
          k01, k02, k03, k04, k05, k06,                        k09, k0a, k0b, k0c, k0d, k0e,      \
     k10, k11, k12, k13, k14, k15, k16,                        k19, k1a, k1b, k1c, k1d, k1e, k1f, \
@@ -111,5 +108,3 @@ inline void frenchdev_led_all_set(uint8_t n)
     { k51,   k41,  k31,   k21,   k11,   k01   },   \
     { k50,   k40,  k30,   k20,   k10,   KC_NO }   \
    }
-
-#endif

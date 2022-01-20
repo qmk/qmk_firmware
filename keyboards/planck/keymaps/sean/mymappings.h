@@ -33,7 +33,3 @@
 #define KC_MB5 KC_MS_BTN5
 #define KC_MWUP KC_MS_WH_UP
 #define KC_MWDN KC_MS_WH_DOWN
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO

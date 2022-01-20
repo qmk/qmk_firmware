@@ -17,26 +17,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
 
-// TODO: share these strings with usbconfig.h
-// Edit usbconfig.h to change these.
 #define MANUFACTURER    YMDK
-#define PRODUCT         ymd75 / mt84
-#define DESCRIPTION     75% Keyboard
-
-/* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
-#define DIODE_DIRECTION ROW2COL
+#define PRODUCT         YMD75 / MT84
 
 #define BACKLIGHT_LEVELS 12
+
+#define LED_CAPS_LOCK_PIN D1
 
 #define RGB_DI_PIN E2
 #define RGBLED_NUM 16
@@ -44,11 +37,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 15
 #define RGBLIGHT_VAL_STEP 18
-
-#define NO_UART 1
-#define BOOTLOADHID_BOOTLOADER 1
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
-
-#endif
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3

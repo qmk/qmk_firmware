@@ -6,6 +6,3 @@
 #
 UNICODE_ENABLE   = yes  # Unicode
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

@@ -2,7 +2,6 @@
 # Only enable things here that are generic to all keyboards. A yes or no here
 # will override keyboard/keymap specific values
 #
-#BOOTMAGIC_ENABLE = no    # Virtual DIP switch configuration(+1000)
 #COMMAND_ENABLE   = no    # Commands for debug and configuration
 #CONSOLE_ENABLE   = no    # Console for debug(+400)
 EXTRAKEY_ENABLE  = yes   # Audio control and System control(+450)
@@ -11,6 +10,3 @@ MOUSEKEY_ENABLE  = yes   # Mouse keys(+4700)
 TAP_DANCE_ENABLE = yes   # Enable tap dancing
 #UNICODE_ENABLE   = no    # Unicode
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

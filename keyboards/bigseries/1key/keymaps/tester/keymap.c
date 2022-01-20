@@ -28,10 +28,6 @@ LAYOUT(
 
 bool initialized = 0;
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  return MACRO_NONE ;
-}
-
 void matrix_init_user(void) {
   if (!initialized){
       dprintf("Initializing in matrix_scan_user");
@@ -46,9 +42,6 @@ void matrix_init_user(void) {
     }
 }
 
-void matrix_scan_user(void) {
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case KC_A:
@@ -59,38 +52,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   }
   return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
-  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_KANA)) {
-
-  } else {
-
-  }
-
 }

@@ -40,10 +40,6 @@ enum roadkit_keycodes {
 
 #include "dynamic_macro.h"
 
-// Fillers to make keymaps cleaner looking
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUMPAD] = LAYOUT_numpad_4x4( /* Numpad */
     KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_PLUS,  \
@@ -75,10 +71,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______, _______,    \
     _______,            _______                            \
   ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 void persistant_default_layer_set(uint16_t default_layer) {

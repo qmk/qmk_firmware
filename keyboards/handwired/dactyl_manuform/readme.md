@@ -1,4 +1,4 @@
-Dactyl Manuform (4x5, 5x6, 5x7, 6x6)
+Dactyl Manuform (4x5, 5x6, 5x7, 6x6, 6x7)
 ======
 the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
 ![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
@@ -49,6 +49,11 @@ A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and th
 Keymap of Loligagger from geekhack.
 
 ### [Keymaps 6x6](/keyboards/handwired/dactyl_manuform/6x6/keymaps/)
+
+#### Default
+Simple QWERTY layout with 3 Layers.
+
+### [Keymaps 6x7](/keyboards/handwired/dactyl_manuform/6x7/keymaps/)
 
 #### Default
 Simple QWERTY layout with 3 Layers.
@@ -131,17 +136,9 @@ file will run on both hands instead of having to flash left and right handed
 versions of the firmware to each half. To flash the EEPROM file for the left
 half run:
 ```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:eeprom-lefthand.eep
-// or the equivalent in dfu-programmer
-
+make handwired/dactyl_promicro:default:dfu-split-left
+make handwired/dactyl_promicro:default:dfu-split-right
 ```
-and similarly for right half
-```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:eeprom-righhand.eep
-// or the equivalent in dfu-programmer
-```
-
-NOTE: replace `$(COM_PORT)` with the port of your device (e.g. `/dev/ttyACM0`)
 
 After you have flashed the EEPROM, you then need to set `EE_HANDS` in your config.h, rebuild the hex files and reflash.
 
@@ -162,6 +159,6 @@ Also, if the slave board is producing weird characters in certain columns,
 update the following line in `matrix.c` to the following:
 
 ```
-// _delay_us(30);  // without this wait read unstable value.
-_delay_us(300);  // without this wait read unstable value.
+// wait_us(30);  // without this wait read unstable value.
+wait_us(300);  // without this wait read unstable value.
 ```

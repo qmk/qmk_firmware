@@ -14,8 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef HID_LIBER_H
-#define HID_LIBER_H
+#pragma once
 
 #include "quantum.h"
 
@@ -69,7 +68,3 @@
 /* Q */   { ___ , ___ , KQ2 , ___ , ___ , ___ , ___ , KQ7 }, \
 /* R */   { ___ , ___ , ___ , ___ , KR4 , ___ , ___ , ___ }  \
 }
-
-
-
-#endif

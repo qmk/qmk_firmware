@@ -5,14 +5,25 @@ This page covers questions people often have about keymaps. If you haven't you s
 ## What Keycodes Can I Use?
 See [Keycodes](keycodes.md) for an index of keycodes available to you. These link to more extensive documentation when available.
 
-Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
+Keycodes are actually defined in [quantum/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h).
 
 ## What Are the Default Keycodes?
 
 There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:
 
-<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/070a530eedaed36a2d77f3f6fd455677 -->
-![Keyboard Layout Image](https://i.imgur.com/gvlNUpQ.png)
+<!-- Source for this image: https://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
+![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
+
+## How Can I Make Custom Names For Complex Keycodes?
+
+Sometimes, for readability's sake, it's useful to define custom names for some keycodes. People often define custom names using `#define`. For example:
+
+```c
+#define FN_CAPS LT(_FL, KC_CAPS)
+#define ALT_TAB LALT(KC_TAB)
+```
+
+This will allow you to use `FN_CAPS` and `ALT_TAB` in your keymap, keeping it more readable.
 
 ## Some Of My Keys Are Swapped Or Not Working
 
@@ -20,23 +31,23 @@ QMK has two features, Bootmagic and Command, which allow you to change the behav
 
 As a quick fix try holding down `Space`+`Backspace` while you plug in your keyboard. This will reset the stored settings on your keyboard, returning those keys to normal operation. If that doesn't work look here:
 
-* [Bootmagic](feature_bootmagic.md)
+* [Bootmagic Lite](feature_bootmagic.md)
 * [Command](feature_command.md) 
 
 ## The Menu Key Isn't Working
 
 The key found on most modern keyboards that is located between `KC_RGUI` and `KC_RCTL` is actually called `KC_APP`. This is because when that key was invented there was already a key named `MENU` in the relevant standards, so MS chose to call that the `APP` key.
 
-## `KC_SYSREQ` Isn't Working
-Use keycode for Print Screen(`KC_PSCREEN` or `KC_PSCR`) instead of `KC_SYSREQ`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
+## `KC_SYSTEM_REQUEST` Isn't Working
+Use keycode for Print Screen (`KC_PRINT_SCREEN`/`KC_PSCR`) instead of `KC_SYSTEM_REQUEST`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
 
 See [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) and
-* http://en.wikipedia.org/wiki/Magic_SysRq_key
-* http://en.wikipedia.org/wiki/System_request
+* https://en.wikipedia.org/wiki/Magic_SysRq_key
+* https://en.wikipedia.org/wiki/System_request
 
 ## Power Keys Aren't Working
 
-Somewhat confusingly, there are two "Power" keycodes in QMK: `KC_POWER` in the Keyboard/Keypad HID usage page, and `KC_SYSTEM_POWER` (or `KC_PWR`) in the Consumer page.
+Somewhat confusingly, there are two "Power" keycodes in QMK: `KC_KB_POWER` in the Keyboard/Keypad HID usage page, and `KC_SYSTEM_POWER` (or `KC_PWR`) in the Consumer page.
 
 The former is only recognized on macOS, while the latter, `KC_SLEP` and `KC_WAKE` are supported by all three major operating systems, so it is recommended to use those instead. Under Windows, these keys take effect immediately, however on macOS they must be held down until a dialog appears.
 
@@ -46,16 +57,16 @@ https://github.com/tmk/tmk_keyboard/issues/67
 
 ## Modifier/Layer Stuck
 Modifier keys or layers can be stuck unless layer switching is configured properly.
-For Modifier keys and layer actions you have to place `KC_TRANS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
+For Modifier keys and layer actions you have to place `KC_TRNS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
 
 * https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
-* http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
+* https://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
 * https://github.com/tmk/tmk_keyboard/issues/248
 
 
 ## Mechanical Lock Switch Support
 
-This feature is for *mechanical lock switch* like [this Alps one](http://deskthority.net/wiki/Alps_SKCL_Lock). You can enable it by adding this to your `config.h`:
+This feature is for *mechanical lock switch* like [this Alps one](https://deskthority.net/wiki/Alps_SKCL_Lock). You can enable it by adding this to your `config.h`:
 
 ```
 #define LOCKING_SUPPORT_ENABLE
@@ -64,27 +75,11 @@ This feature is for *mechanical lock switch* like [this Alps one](http://desktho
 
 After enabling this feature use keycodes `KC_LCAP`, `KC_LNUM` and `KC_LSCR` in your keymap instead.
 
-Old vintage mechanical keyboards occasionally have lock switches but modern ones don't have. ***You don't need this feature in most case and just use keycodes `KC_CAPS`, `KC_NLCK` and `KC_SLCK`.***
+Old vintage mechanical keyboards occasionally have lock switches but modern ones don't have. ***You don't need this feature in most case and just use keycodes `KC_CAPS`, `KC_NUM` and `KC_SCRL`.***
 
 ## Input Special Characters Other Than ASCII like Cédille 'Ç'
-NO UNIVERSAL METHOD TO INPUT THOSE WORKS OVER ALL SYSTEMS. You have to define **MACRO** in way specific to your OS or layout.
 
-See this post for example **MACRO** code.
-
-http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p195620
-
-On **Windows** you can use `AltGr` key or **Alt code**.
-* http://en.wikipedia.org/wiki/AltGr_key
-* http://en.wikipedia.org/wiki/Alt_code
-
-On **Mac** OS defines `Option` key combinations.
-* http://en.wikipedia.org/wiki/Option_key#Alternative_keyboard_input
-
-On **Xorg** you can use `compose` key, instead.
-* http://en.wikipedia.org/wiki/Compose_key
-
-And see this for **Unicode** input.
-* http://en.wikipedia.org/wiki/Unicode_input
+See the [Unicode](feature_unicode.md) feature.
 
 ## `Fn` Key on macOS
 
@@ -94,13 +89,6 @@ It is technically possible to get QMK to send this key. However, doing so requir
 Even worse, it is not recognized unless the keyboard's VID and PID match that of a real Apple keyboard. The legal issues that official QMK support for this feature may create mean it is unlikely to happen.
 
 See [this issue](https://github.com/qmk/qmk_firmware/issues/2179) for detailed information.
-
-
-## Media Control Keys in Mac OSX
-#### KC_MNXT and KC_MPRV Does Not Work on Mac
-Use `KC_MFFD`(`KC_MEDIA_FAST_FORWARD`) and `KC_MRWD`(`KC_MEDIA_REWIND`) instead of `KC_MNXT` and `KC_MPRV`.
-See https://github.com/tmk/tmk_keyboard/issues/195
-
 
 ## Keys Supported in Mac OSX?
 You can know which keycodes are supported in OSX from this source code.
@@ -137,51 +125,6 @@ https://github.com/tekezo/Karabiner/issues/403
 
 See the [Grave Escape](feature_grave_esc.md) feature.
 
-## Arrow on Right Modifier Keys with Dual-Role
-This turns right modifier keys into arrow keys when the keys are tapped while still modifiers when the keys are hold. In TMK the dual-role function is dubbed **TAP**.
-```
-
-#include "keymap_common.h"
-
-
-/* Arrow keys on right modifier keys with TMK dual role feature
- *
- *  https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#213-modifier-with-tap-keydual-role
- *  https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
- */
-const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* 0: qwerty */
-    [0] = KEYMAP( \
-        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, NUHS,BSPC, \
-        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
-        LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT,  \
-        LSFT,NUBS,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,FN0, ESC, \
-        FN4, LGUI,LALT,          SPC,                     APP, FN2, FN1, FN3),
-    [1] = KEYMAP( \
-        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,\
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,FN5, TRNS, \
-        TRNS,TRNS,TRNS,          TRNS,                    TRNS,FN7, FN6, FN8),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_UP),
-    [1] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_DOWN),
-    [2] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_LEFT),
-    [3] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_RIGHT),
-    [4] = ACTION_LAYER_MOMENTARY(1),
-    [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_PGUP),
-    [6] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_PGDN),
-    [7] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_HOME),
-    [8] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_END),
-};
-
-```
-
-Dual-role key: https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
-
-
 ## Eject on Mac OSX
 `KC_EJCT` keycode works on OSX. https://github.com/tmk/tmk_keyboard/issues/250
 It seems Windows 10 ignores the code and Linux/Xorg recognizes but has no mapping by default.
@@ -211,20 +154,3 @@ here real_mods lost state for 'physical left shift'.
 
 weak_mods is ORed with real_mods when keyboard report is sent.
 https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57
-
-## Timer Functionality
-
-It's possible to start timers and read values for time-specific events - here's an example:
-
-```c
-static uint16_t key_timer;
-key_timer = timer_read();
-
-if (timer_elapsed(key_timer) < 100) {
-  // do something if less than 100ms have passed
-} else {
-  // do something if 100ms or more have passed
-}
-```
-
-It's best to declare the `static uint16_t key_timer;` at the top of the file, outside of any code blocks you're using it in.

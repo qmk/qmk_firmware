@@ -1,3 +1,0 @@
-SWAP_HANDS_ENABLE = no
-
-BOOTLOADER = qmk-dfu

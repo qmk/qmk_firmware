@@ -1,6 +1,6 @@
 # teckinesis Layout
 
-*A blend of TECK and Kinesis layouts, based on ["The Ordinary Layout" by Nicholas Keene](http://qmk.fm/keyboards/ergodox_ez/keymaps/ordinary/#the-ordinary-layout-a-familiar-and-powerful-layout)*
+*A blend of TECK and Kinesis layouts, based on ["The Ordinary Layout" by Nicholas Keene](/layouts/community/ergodox/ordinary)*
 
 I love "The Ordinary Layout", but I still use a [TECK](https://www.trulyergonomic.com/store/index.php)
 at the office, and I found the transition back and forth to be a bit more difficult than I expected.

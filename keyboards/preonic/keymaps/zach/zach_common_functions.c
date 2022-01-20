@@ -5,9 +5,7 @@
 #include "keymap_colemak.h"
 extern keymap_config_t keymap_config;
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+#undef C
 #define C(n)    RCTL(n)
 #define CADKEY  RCTL(RALT(KC_DEL))
 

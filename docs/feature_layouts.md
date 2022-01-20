@@ -25,7 +25,7 @@ The `layouts/default/` and `layouts/community/` are two examples of layout "repo
 
 Each layout folder is named (`[a-z0-9_]`) after the physical aspects of the layout, in the most generic way possible, and contains a `readme.md` with the layout to be defined by the keyboard:
 
-```md
+```markdown
 # 60_ansi
 
    LAYOUT_60_ansi
@@ -50,6 +50,35 @@ The folder name must be added to the keyboard's `rules.mk`:
     LAYOUTS = 60_iso
 
 but the `LAYOUT_<layout>` variable must be defined in `<folder>.h` as well.
+
+## Building a Keymap
+
+You should be able to build the keyboard keymap with a command in this format:
+
+    make <keyboard>:<layout>
+
+### Conflicting layouts
+When a keyboard supports multiple layout options,
+
+    LAYOUTS = ortho_4x4 ortho_4x12
+
+And a layout exists for both options,
+```
+layouts/
++ community/
+| + ortho_4x4/
+| | + <layout>/
+| | | + ...
+| + ortho_4x12/
+| | + <layout>/
+| | | + ...
+| + ...
+```
+
+The FORCE_LAYOUT argument can be used to specify which layout to build
+
+    make <keyboard>:<layout> FORCE_LAYOUT=ortho_4x4
+    make <keyboard>:<layout> FORCE_LAYOUT=ortho_4x12
 
 ## Tips for Making Layouts Keyboard-Agnostic
 

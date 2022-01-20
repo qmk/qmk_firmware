@@ -333,10 +333,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(1)
-};
-
 void matrix_scan_user(void) {
 
     uint8_t layer = biton32(layer_state);

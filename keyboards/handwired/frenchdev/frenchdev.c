@@ -1,5 +1,26 @@
 #include "frenchdev.h"
-#include "i2cmaster.h"
+
+extern inline void frenchdev_board_led_on(void);
+extern inline void frenchdev_led_1_on(void);
+extern inline void frenchdev_led_2_on(void);
+extern inline void frenchdev_led_3_on(void);
+extern inline void frenchdev_led_on(uint8_t led);
+
+extern inline void frenchdev_board_led_off(void);
+extern inline void frenchdev_led_1_off(void);
+extern inline void frenchdev_led_2_off(void);
+extern inline void frenchdev_led_3_off(void);
+extern inline void frenchdev_led_off(uint8_t led);
+
+extern inline void frenchdev_led_all_on(void);
+extern inline void frenchdev_led_all_off(void);
+
+extern inline void frenchdev_led_1_set(uint8_t n);
+extern inline void frenchdev_led_2_set(uint8_t n);
+extern inline void frenchdev_led_3_set(uint8_t n);
+extern inline void frenchdev_led_set(uint8_t led, uint8_t n);
+
+extern inline void frenchdev_led_all_set(uint8_t n);
 
 bool i2c_initialized = 0;
 uint8_t mcp23018_status = 0x20;
@@ -31,15 +52,15 @@ void frenchdev_blink_all_leds(void)
     frenchdev_led_all_off();
     frenchdev_led_all_set(LED_BRIGHTNESS_HI);
     frenchdev_led_1_on();
-    _delay_ms(50);
+    wait_ms(50);
     frenchdev_led_2_on();
-    _delay_ms(50);
+    wait_ms(50);
     frenchdev_led_3_on();
-    _delay_ms(50);
+    wait_ms(50);
     frenchdev_led_1_off();
-    _delay_ms(50);
+    wait_ms(50);
     frenchdev_led_2_off();
-    _delay_ms(50);
+    wait_ms(50);
     frenchdev_led_3_off();
     frenchdev_led_all_off();
 }
@@ -54,28 +75,28 @@ uint8_t init_mcp23018(void) {
     // cli();
     if (i2c_initialized == 0) {
         i2c_init();  // on pins D(1,0)
-        i2c_initialized++;
-        _delay_ms(1000);
+        i2c_initialized = true;;
+        wait_ms(1000);
     }
 
     // set pin direction
     // - unused  : input  : 1
     // - input   : input  : 1
     // - driving : output : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(IODIRA);            if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00111111);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(IODIRA, I2C_TIMEOUT);            if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00000000, I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00111111, I2C_TIMEOUT);        if (mcp23018_status) goto out;
     i2c_stop();
 
     // set pull-up
     // - unused  : on  : 1
     // - input   : on  : 1
     // - driving : off : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(GPPUA);             if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00111111);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(GPPUA, I2C_TIMEOUT);             if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00000000, I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00111111, I2C_TIMEOUT);        if (mcp23018_status) goto out;
 
 out:
     i2c_stop();
@@ -84,4 +105,3 @@ out:
 
     return mcp23018_status;
 }
-

@@ -26,9 +26,6 @@ enum custom_keycodes {
 // Use Dynamic macro
 #include "dynamic_macro.h"
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define KC_LOWR LT(_LOWER, KC_MHEN)    // タップで無変換     ホールドでLower
 #define KC_RASE LT(_RAISE, KC_HENK)    // タップで変換       ホールドでRaise
 #define KC_LSLB MT(MOD_LSFT, JP_LBRC)  // タップで[          ホールドで左Shift
@@ -93,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_RAISE] = LAYOUT( \
     _______, KC_EXLM, JP_AT,   KC_HASH, KC_DLR,  KC_PERC, JP_UNDS,    JP_GRV,  JP_CIRC, JP_AMPR, KC_INS,  JP_YEN,  KC_ALPS, _______, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_LCBR,    JP_RCBR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN, JP_DQT,  \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_LCBR,    JP_RCBR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN, JP_DQUO, \
     KC_LSFT, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MNXT,    KC_PGUP, XXXXXXX, XXXXXXX, KC_LT,   KC_GT,   KC_QUES, KC_RSFT, \
     _______, _______, JP_PIPE, _______, _______, _______, _______,    KC_PGDN, _______, _______, _______, _______, _______, _______ \
   ),
@@ -148,7 +145,7 @@ void matrix_init_user(void) {
 #endif
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #ifdef RGBLIGHT_ENABLE
     switch (biton32(state)) {

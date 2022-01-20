@@ -1,14 +1,8 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
@@ -36,5 +30,3 @@
 #define LSPO_KEY KC_8
 #define RSPC_KEY KC_9
 #define PERMISSIVE_HOLD
-
-#endif

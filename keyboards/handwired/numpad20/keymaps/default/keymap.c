@@ -1,16 +1,11 @@
-#include "numpad20.h"
-
-#define KC_ KC_TRNS
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-    LEFT,RGHT, UP ,DOWN, \
-     P7 , P8 , P9 ,PLUS, \
-     P4 , P5 , P6 ,MINS, \
-     P1 , P2 , P3 , ENT, \
-     P0 ,DOT ,RGHT, TAB \
-    )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
+    KC_LEFT, KC_RGHT, KC_UP,   KC_DOWN,
+    KC_P7,   KC_P8,   KC_P9,   KC_PLUS,
+    KC_P4,   KC_P5,   KC_P6,   KC_MINS,
+    KC_P1,   KC_P2,   KC_P3,   KC_ENT,
+    KC_P0,   KC_DOT,  KC_RGHT, KC_TAB
+  )
 };

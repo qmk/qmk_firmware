@@ -5,7 +5,6 @@
 #include "vim.h"
 
 #define VERSION_STRING QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION
-#define _______ KC_TRNS
 #define X_____X KC_TRNS
 #define KC_ATM LGUI(LSFT(KC_P))
 #define KC_ATP LGUI(LCTL(KC_P))
@@ -152,19 +151,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,
     _______,_______,_______
   ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(1)
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch(id) {
-    case 0:
-        if (record->event.pressed) { SEND_STRING (VERSION_STRING); }
-        break;
-  }
-return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

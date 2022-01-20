@@ -5,7 +5,7 @@ root = true
 
 [*]
 indent_style = space
-indent_size = 2
+indent_size = 4
 
 # We recommend you to keep these unchanged
 charset = utf-8
@@ -16,12 +16,18 @@ insert_final_newline = true
 trim_trailing_whitespace = false
 indent_size = 4
 
+[{qmk,*.py}]
+charset = utf-8
+max_line_length = 200
+
 # Make these match what we have in .gitattributes
 [*.mk]
 end_of_line = lf
+indent_style = tab
 
 [Makefile]
 end_of_line = lf
+indent_style = tab
 
 [*.sh]
 end_of_line = lf

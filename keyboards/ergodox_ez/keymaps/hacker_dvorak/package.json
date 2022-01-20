@@ -1,0 +1,15 @@
+{
+  "name": "hacker_dvorak",
+  "version": "1.0.0",
+  "description": "Inspired by the [*Programmer Dvorak*](https://www.kaufmann.no/roland/dvorak) keyboard layout, cherry picked ideas from other layouts in the [EZ Repository](https://configure.ergodox-ez.com/search?q=dvorak&legacy=true), a character distribution [heatmap vizualizer](https://run.plnkr.co/plunks/5EEO8nJ2wRzYAfT3), my own subjective use cases and lots of trial and error.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "SalchiPapa",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "gulp": "^4.0.0",
+    "gulp-run-command": "0.0.9"
+  }
+}

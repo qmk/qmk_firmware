@@ -18,10 +18,6 @@ extern keymap_config_t keymap_config;
 #define LAYER2 M(_L2)
 #define LAYER3 M(_L3)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 void matrix_init_user(void) {
 	backlight_level(4);
 }
@@ -204,10 +200,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_AUDIO_MUTE, \
     _______,             _______,             _______,             _______
   ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {

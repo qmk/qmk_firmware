@@ -28,5 +28,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F6, F7, D6, C7, F5, F4, F1, F0, D2, D3, D5, B3, B2, B1, B0 }
 #define UNUSED_PINS
 
+// configure oled driver for the 128x32 oled
+#define OLED_UPDATE_INTERVAL 33 // ~30fps
+
+/* ws2812 RGB LED*/
+#define RGB_DI_PIN D4
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 14     // Number of LEDs
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
 
 

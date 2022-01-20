@@ -1,2 +1,4 @@
-BACKLIGHT_ENABLE = no
+# Bootloader selection
 BOOTLOADER = caterina
+
+BACKLIGHT_ENABLE = no

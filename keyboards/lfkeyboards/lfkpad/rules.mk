@@ -1,13 +1,27 @@
-SRC = TWIlib.c issi.c lighting.c
-
+# MCU name
 MCU = atmega32u4
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
-F_CPU = 16000000
-F_USB = $(F_CPU)
-ARCH = AVR8
+# Bootloader selection
+BOOTLOADER = atmel-dfu
 
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+MOUSEKEY_ENABLE = no         # Mouse keys
+EXTRAKEY_ENABLE = yes        # Audio control and System control
+CONSOLE_ENABLE = no          # Console for debug
+COMMAND_ENABLE = no          # Commands for debug and configuration
+NKRO_ENABLE = no            # Enable N-Key Rollover
+BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
+RGBLIGHT_CUSTOM_DRIVER = yes # RGB code is implemented in lfkeyboards, not qmk base
+AUDIO_ENABLE = no            # Audio output
+SLEEP_LED_ENABLE = yes
+
+ISSI_ENABLE = yes            # If the I2C pullup resistors aren't installed this must be disabled
+WATCHDOG_ENABLE = no         # Resets keyboard if matrix_scan() isn't run every 250ms
+
+SRC = TWIlib.c issi.c lighting.c
 
 LAYOUTS = numpad_6x4
