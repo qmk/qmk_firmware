@@ -17,6 +17,8 @@
 #include "q1.h"
 #include "test.c"
 
+#ifdef DIP_SWITCH_ENABLE
+
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) { return false;}
     if (index == 0) {
@@ -24,3 +26,24 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     }
     return true;
 }
+
+#endif
+
+
+#if defined(RGB_MATRIX_ENABLE) && !defined(DISABLE_CAPS_LOCK_LIGHT)
+
+#define CAPS_LOCK_LED_INDEX 45
+#define CAPS_LOCK_BRIGHTNESS 0xFF
+#ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #undef CAPS_LOCK_BRIGHTNESS
+    #define CAPS_LOCK_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
+__attribute__((weak))
+void rgb_matrix_indicators_user(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, CAPS_LOCK_BRIGHTNESS, CAPS_LOCK_BRIGHTNESS, CAPS_LOCK_BRIGHTNESS);  // white
+    }
+}
+
+#endif
