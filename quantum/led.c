@@ -136,6 +136,23 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
     led_update_kb((led_t)usb_led);
 }
 
+/** \brief Trigger behaviour on transition to suspend
+ */
+void led_suspend(void) {
+    uint8_t leds_off = 0;
+#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+    if (is_backlight_enabled()) {
+        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
+        leds_off |= (1 << USB_LED_CAPS_LOCK);
+    }
+#endif
+    led_set(leds_off);
+}
+
+/** \brief Trigger behaviour on transition from suspend
+ */
+void led_wakeup(void) { led_set(host_keyboard_leds()); }
+
 /** \brief set host led state
  *
  * Only sets state if change detected

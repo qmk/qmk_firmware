@@ -433,14 +433,7 @@ void suspend_power_down_quantum(void) {
 #    endif
 
     // Turn off LED indicators
-    uint8_t leds_off = 0;
-#    if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
-    if (is_backlight_enabled()) {
-        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
-        leds_off |= (1 << USB_LED_CAPS_LOCK);
-    }
-#    endif
-    led_set(leds_off);
+    led_suspend();
 
 // Turn off audio
 #    ifdef AUDIO_ENABLE
@@ -491,7 +484,7 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
 #endif
 
     // Restore LED indicators
-    led_set(host_keyboard_leds());
+    led_wakeup();
 
 // Wake up underglow
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
