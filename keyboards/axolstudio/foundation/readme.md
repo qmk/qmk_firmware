@@ -1,19 +1,25 @@
-# highspec
+# Axolstudio Foundation Gamma
 
-![highspec](imgur.com image replace me!)
+![foundation](https://i.imgur.com/wxLv3oGl.jpg)
 
-*A short description of the keyboard/project*
+Seamless, Screwless, Gasket mounted F13 TKL
 
-* Keyboard Maintainer: [kb-elmo<mail@elmo.space>](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [kb-elmo](https://github.com/kb-elmo)
+* Hardware Supported: Axolstudio Foundation F13 PCB
+* Hardware Availability: https://axolstudio.ca/foundation-gamma
 
 Make example for this keyboard (after setting up your build environment):
 
-    make highspec:default
+    make axolstudio/foundation:default
 
 Flashing example for this keyboard:
 
-    make highspec:default:flash
+    make axolstudio/foundation:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+* **Bootmagic reset**: Hold down the top left key and plug in the keyboard
+* **Physical reset button**: Briefly press the button labeled "SW1" on the back of the PCB
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
