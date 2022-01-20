@@ -40,13 +40,13 @@ POINTING_DEVICE_DRIVER = adns9800
 
 The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surface tracking. 
 
-| Setting                | Description                                                            | Default       |
-|------------------------|------------------------------------------------------------------------|---------------|
-|`ADNS9800_CLOCK_SPEED`  | (Optional) Sets the clock speed that the sensor runs at.               | `2000000`     |
-|`ADNS9800_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`       |
-|`ADNS9800_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `3`           |
-|`ADNS9800_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_      |
-|`ADNS9800_CS_PIN`       | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
+| Setting                        | Description                                                            | Default       |
+|--------------------------------|------------------------------------------------------------------------|---------------|
+|`ADNS9800_CLOCK_SPEED`          | (Optional) Sets the clock speed that the sensor runs at.               | `2000000`     |
+|`ADNS9800_SPI_LSBFIRST`         | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`       |
+|`ADNS9800_SPI_MODE`             | (Optional) Sets the SPI Mode for the sensor.                           | `3`           |
+|`ADNS9800_SPI_DIVISOR`          | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_      |
+|`ADNS9800_CS_PIN`               | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
 
 
 The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI. 
@@ -150,8 +150,8 @@ The PMW 3360 is an SPI driven optical sensor, that uses a built in IR LED for su
 |`PMW3360_SPI_MODE`               | (Optional) Sets the SPI Mode for the sensor.                                               | `3`           |
 |`PMW3360_SPI_DIVISOR`            | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
 |`PMW3360_LIFTOFF_DISTANCE`       | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
-|`ROTATIONAL_TRANSFORM_ANGLE`     | (Optional) Allows for the sensor data to be rotated +/- 127 degrees directly in the sensor. | `0`           |
-|`PMW3360_LEGACY_FIRMWARE_UPLOAD` | (Optional) Switches to older, manual upload of firmware, for compatibility.                | _not defined_     |
+|`ROTATIONAL_TRANSFORM_ANGLE`     | (Optional) Allows for the sensor data to be rotated +/- 127 degrees directly in the sensor.| `0`           |
+|`PMW3360_FIRMWARE_UPLOAD_FAST`   | (Optional) Skips the 15us wait between firmware blocks.                                    | _not defined_ |
 
 The CPI range is 100-12000, in increments of 100. Defaults to 1600 CPI.
 
@@ -174,6 +174,7 @@ The PMW 3389 is an SPI driven optical sensor, that uses a built in IR LED for su
 |`PMW3389_SPI_DIVISOR`            | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
 |`PMW3389_LIFTOFF_DISTANCE`       | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
 |`ROTATIONAL_TRANSFORM_ANGLE`     | (Optional) Allows for the sensor data to be rotated +/- 30 degrees directly in the sensor. | `0`           |
+|`PMW3389_FIRMWARE_UPLOAD_FAST`   | (Optional) Skips the 15us wait between firmware blocks.                                    | _not defined_ |
 
 The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
 

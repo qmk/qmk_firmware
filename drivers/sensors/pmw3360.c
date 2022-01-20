@@ -206,16 +206,12 @@ void pmw3360_upload_firmware(void) {
     spi_write(REG_SROM_Load_Burst | 0x80);
     wait_us(15);
 
-#ifdef PMW3360_LEGACY_FIRMWARE_UPLOAD
-    unsigned char c;
-    for (int i = 0; i < FIRMWARE_LENGTH; i++) {
-        c = (unsigned char)pgm_read_byte(firmware_data + i);
-        spi_write(c);
+    for (uint16_t i = 0; i < FIRMWARE_LENGTH; i++) {
+        spi_write(pgm_read_byte(firmware_data + i));
+#ifndef PMW3360_FIRMWARE_UPLOAD_FAST
         wait_us(15);
-    }
-#else
-    spi_transmit(firmware_data, sizeof(firmware_data));
 #endif
+    }
     wait_us(200);
 
     pmw3360_read(REG_SROM_ID);
