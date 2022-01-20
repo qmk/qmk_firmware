@@ -497,7 +497,7 @@ __attribute__((weak)) void oled_driver_render_logo_right(void) {
 #endif
 }
 
-void render_kitty(void);
+__attribute__((weak)) void render_kitty(void){}
 
 void oled_driver_render_logo_left(void) {
 #if defined(OLED_DISPLAY_VERBOSE)
@@ -577,10 +577,13 @@ bool oled_task_user(void) {
     update_log();
 
     if (is_keyboard_master()) {
+#ifndef OLED_DISPLAY_TEST
         if (timer_elapsed32(oled_timer) > 30000) {
             oled_off();
             return false;
-        } else {
+        } else
+#endif
+        {
             oled_on();
         }
     }
