@@ -11,6 +11,22 @@
 static const qp_pixel_t qp_pixel_white QP_RESIDENT_FLASH = {.hsv888 = {.h = 0, .s = 0, .v = 255}};
 static const qp_pixel_t qp_pixel_black QP_RESIDENT_FLASH = {.hsv888 = {.h = 0, .s = 0, .v = 0}};
 
+bool qp_internal_bpp_capable(uint8_t bits_per_pixel) {
+#if !(QUANTUM_PAINTER_SUPPORTS_256_PALETTE)
+    if (bits_per_pixel > 4) {
+        qp_dprintf("qp_internal_decode_palette: image bpp greater than 4\n");
+        return false;
+    }
+#endif
+
+    if (bits_per_pixel > 8) {
+        qp_dprintf("qp_internal_decode_palette: image bpp greater than 8\n");
+        return false;
+    }
+
+    return true;
+}
+
 bool qp_internal_decode_palette(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_pixel_t* palette, qp_internal_pixel_output_callback output_callback, void* output_arg) {
     const uint8_t pixel_bitmask    = (1 << bits_per_pixel) - 1;
     const uint8_t pixels_per_byte  = 8 / bits_per_pixel;

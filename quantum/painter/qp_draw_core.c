@@ -133,6 +133,8 @@ bool qp_internal_load_qgf_palette(qp_stream_t *stream, uint8_t bpp) {
         qp_internal_global_pixel_lookup_table[i].hsv888.h = entry.h;
         qp_internal_global_pixel_lookup_table[i].hsv888.s = entry.s;
         qp_internal_global_pixel_lookup_table[i].hsv888.v = entry.v;
+
+        qp_dprintf("qp_internal_load_qgf_palette: %3d of %d -- H: %3d, S: %3d, V: %3d\n", (int)(i + 1), (int)palette_entries, (int)qp_internal_global_pixel_lookup_table[i].hsv888.h, (int)qp_internal_global_pixel_lookup_table[i].hsv888.s, (int)qp_internal_global_pixel_lookup_table[i].hsv888.v);
     }
 
     return true;

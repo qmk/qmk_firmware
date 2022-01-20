@@ -144,6 +144,12 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
         needs_pixconvert = qp_internal_interpolate_palette(fg_hsv888, bg_hsv888, palette_entries);
     }
 
+    if (!qp_internal_bpp_capable(info->bpp)) {
+        qp_dprintf("qp_drawimage_recolor: fail (image bpp too high (%d), check QUANTUM_PAINTER_SUPPORTS_256_PALETTE)\n", (int)info->bpp);
+        qp_comms_stop(device);
+        return false;
+    }
+
     if (needs_pixconvert) {
         // Convert the palette to native format
         if (!driver->driver_vtable->palette_convert(device, palette_entries, qp_internal_global_pixel_lookup_table)) {

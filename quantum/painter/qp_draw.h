@@ -12,6 +12,9 @@
 // Global variable used for native pixel data streaming.
 extern uint8_t qp_internal_global_pixdata_buffer[QP_PIXDATA_BUFFER_SIZE];
 
+// Check if the supplied bpp is capable of being rendered
+bool qp_internal_bpp_capable(uint8_t bits_per_pixel);
+
 // Returns the number of pixels that can fit in the pixdata buffer
 uint32_t qp_internal_num_pixels_in_buffer(painter_device_t device);
 
