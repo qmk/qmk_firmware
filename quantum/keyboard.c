@@ -16,11 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
-#include "magic.h"
 #include "quantum.h"
 #include "keyboard.h"
 #include "matrix.h"
 #include "keymap.h"
+#include "magic.h"
 #include "host.h"
 #include "led.h"
 #include "keycode.h"
