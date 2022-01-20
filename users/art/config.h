@@ -6,7 +6,7 @@
 #undef TAPPING_TOGGLE
 #define TAPPING_TOGGLE 2
 
-#define COMBO_COUNT 6
+#define COMBO_SHOULD_TRIGGER
 
 // saving space
 #define LAYER_STATE_16BIT // remove if using more than 16 layers
