@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "MaiTheSan",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 { "label": "K00 (F6,B2)", "x": 0, "y": 0 },
                 { "label": "K01 (F6,B5)", "x": 1, "y": 0 },
