@@ -44,11 +44,16 @@
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
 #define PHASE_CHANNEL MSKPHASE_9CHANNEL
 
-/* Set the maxium brightness as 190 in order to limit the current to 450mA */
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 190
+/* Set the maxium brightness as 192 in order to limit the current to 450mA */
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (24 * 8)  // 0 = RGB_MATRIX_VAL_STEP
 
 /* Set USB polling rate as 1 milliseconds */
 #define USB_POLLING_INTERVAL_MS 1
 
 /* We have 2KB EEPROM size on STM32L432 */
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
+
+/* Sets the default hue and saturation values */
+/* = Royal Blue (#4169E1) */
+#define RGB_MATRIX_STARTUP_HUE 159
+#define RGB_MATRIX_STARTUP_SAT 181
