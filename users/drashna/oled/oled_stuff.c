@@ -510,8 +510,6 @@ __attribute__((weak)) void oled_driver_render_logo_right(void) {
 #endif
 
 static uint8_t  animation_frame     = 0;
-static uint32_t anim_timer          = 0;
-static uint16_t anim_frame_duration = 500;
 static uint8_t  animation_type      = 0;
 
 void render_kitty(void) {
@@ -587,35 +585,40 @@ void render_kitty(void) {
         }
     };
 
-    // can't change animation frame duration here, otherwise, it gets stuck.
-    // weirdly, it seems to work fine if it's in keymap.c but not here.
-    // Should move this block to the deferred execution?
-    if (timer_elapsed32(anim_timer) > anim_frame_duration) {
-        anim_timer          = timer_read32();
-#ifdef POINTING_DEVICE_ENABLE
-        if (tap_toggling) {
-            animation_frame = (animation_frame + 1) % OLED_RTOGI_FRAMES;
-            animation_type = 3;
-        } else
-#endif
-        {
-            if (get_current_wpm() <= OLED_SLEEP_SPEED) {
-                animation_frame     = (animation_frame + 1) % OLED_SLEEP_FRAMES;
-                animation_type      = 0;
-            } else if (get_current_wpm() > OLED_WAKE_SPEED) {
-                animation_frame     = (animation_frame + 1) % OLED_WAKE_FRAMES;
-                animation_type      = 1;
-            } else if (get_current_wpm() >= OLED_KAKI_SPEED) {
-                animation_frame     = (animation_frame + 1) % OLED_KAKI_FRAMES;
-                animation_type      = 2;
-            }
-        }
-    }
-
     for (uint8_t i = 0; i < 4; i++) {
         oled_set_cursor(1, i + 2);
         oled_write_raw_P(animation[animation_type][animation_frame][i], OLED_ANIM_SIZE);
     }
+}
+
+uint32_t kitty_animation_phases(uint32_t triger_time, void *cb_arg) {
+    uint32_t anim_frame_duration = 500;
+    // can't change animation frame duration here, otherwise, it gets stuck.
+    // weirdly, it seems to work fine if it's in keymap.c but not here.
+    // Should move this block to the deferred execution?
+#ifdef POINTING_DEVICE_ENABLE
+    if (tap_toggling) {
+        animation_frame = (animation_frame + 1) % OLED_RTOGI_FRAMES;
+        animation_type = 3;
+        anim_frame_duration = 300;
+    } else
+#endif
+    {
+        if (get_current_wpm() <= OLED_SLEEP_SPEED) {
+            animation_frame     = (animation_frame + 1) % OLED_SLEEP_FRAMES;
+            animation_type      = 0;
+            anim_frame_duration = 500;
+        } else if (get_current_wpm() > OLED_WAKE_SPEED) {
+            animation_frame     = (animation_frame + 1) % OLED_WAKE_FRAMES;
+            animation_type      = 1;
+            anim_frame_duration = 800;
+        } else if (get_current_wpm() >= OLED_KAKI_SPEED) {
+            animation_frame     = (animation_frame + 1) % OLED_KAKI_FRAMES;
+            animation_type      = 2;
+            anim_frame_duration = 500;
+        }
+    }
+    return anim_frame_duration;
 }
 
 void oled_driver_render_logo_left(void) {
@@ -688,6 +691,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
     }
+
+    defer_exec(1500, kitty_animation_phases, NULL);
 
     oled_clear();
     oled_render();

@@ -91,6 +91,7 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(strip $(OLED_DISPLAY_TEST)), yes)
         OPT_DEFS += -DOLED_DISPLAY_TEST
     endif
+    DEFERRED_EXEC_ENABLE = yes
 endif
 
 CUSTOM_POINTING_DEVICE ?= yes
