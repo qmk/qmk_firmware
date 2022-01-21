@@ -21,7 +21,9 @@ bool update_commaspace(
     bool pressed
 ) {
     if (keycode == KC_COMM) {
-        comma_pressed = true;
+        if (!(get_mods() & MOD_MASK_SHIFT)) {
+            comma_pressed = true;
+        }
     } else if (comma_pressed) {
         if (keycode != KC_LSFT) {
             comma_pressed = false;
