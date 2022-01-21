@@ -106,16 +106,6 @@ led_config_t g_led_config = { {
     1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1
 } };
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_color_all(0, 0, 0);
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
- void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
 #endif
 
 /* Left B9   Right B8 */
@@ -259,7 +249,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     planck_ez_left_led_off();
     planck_ez_right_led_off();
     state = layer_state_set_user(state);
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case PLANCK_EZ_LED_LOWER:
             planck_ez_left_led_on();

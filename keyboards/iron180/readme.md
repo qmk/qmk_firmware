@@ -31,3 +31,16 @@ Then, after accessing the DFU state, use a tool like `dfu-util` or the QMK Toolb
     make iron180:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## The 'caps lock backlight' feature
+
+The Iron180 firmware allows the user to adjust the backlight according to the caps lock key. This will toggle *all backlight LEDs* according to caps lock, enabling backlight when caps is on and disabling when it is off.
+
+This option is specially useful if you are only interested in the caps lock LED and want it to work as an indicator; however, it must be noted that this works keyboard-wide, so if that is your case you should only solder the caps lock key LED and none else.
+
+This option is disabled by default; in order to enable it, you must un-comment the last line in `config.h`:
+
+    // Turn backlight on-off according to capslock
+    #define CAPSLOCK_BACKLIGHT
+
+Then compile and flash the firmware.
