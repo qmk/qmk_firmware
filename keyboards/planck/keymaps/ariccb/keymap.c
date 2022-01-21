@@ -17,6 +17,7 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 #include "features/select_word.h"
+#include "features/caps_word.h"
 
 // using the Word Selection QMK Macro by Pascal Getreuer, found here: https://getreuer.info/posts/keyboards/select-word/index.html 
 // THANKS Pascal for such amazing functionality!!
@@ -45,6 +46,8 @@
 #define MTLALT_PL MT(MOD_LALT, KC_MPLY)
 #define MTLALT_NXT MT(MOD_LALT, KC_MNXT)
 #define MTENTER MT(MOD_LCTL, KC_ENT)
+#define MTRSFTBSLS MT(MOD_RSFT, KC_BSLS)
+#define MTRCTLQUO MT(MOD_RCTL, KC_QUOT)
 #define MTTAB MT(MOD_LCTL | MOD_LGUI | MOD_LALT, KC_TAB)
 #define LTESC LT(_FN, KC_ESC)
 #define MTPLAY MT(MOD_RALT, KC_MPLY)
@@ -120,17 +123,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,------------------------------------------------------------------------.
  * |FN,Esc|  q  |  w  |  e  |  r  |  t  |  y  |  u  |  i  |  o  |  p  |Bsp  |
  * |------------------------------------------------------------------------|
-  |CSW,Tab|  a  |  s  |  d  |  f  |  g  |  h  |  j  |  k  |  l  |  ;  |  '  |
+  |CSW,Tab|  a  |  s  |  d  |  f  |  g  |  h  |  j  |  k  |  l  |  ;  |Ctl,'|
  * |------------------------------------------------------------------------|
- * |Shift |Win,z|  x  |  c  |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |  \  |
+ * |Shift |Win,z|  x  |  c  |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |Sft,\|
  * |------------------------------------------------------------------------|
  * |      |     |     |Ctl,Ent|LOWER|  Space  |RAISE|Alt,Play|  |     |     |
  * `------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid( /* QWERTY */
     LTESC,   KC_Q,      KC_W,     KC_E,    KC_R,           KC_T,   KC_Y,   KC_U,   KC_I,      KC_O,   KC_P,    KC_BSPC,
-    MTTAB,   KC_A,      KC_S,     KC_D,    KC_F,           KC_G,   KC_H,   KC_J,   KC_K,      KC_L,   KC_SCLN, KC_QUOT, 
-    KC_LSFT, MTLGUI_Z,  KC_X,     KC_C,    KC_V,           KC_B,   KC_N,   KC_M,   KC_COMM,   KC_DOT, KC_SLSH, KC_BSLS, 
+    MTTAB,   KC_A,      KC_S,     KC_D,    KC_F,           KC_G,   KC_H,   KC_J,   KC_K,      KC_L,   KC_SCLN, MTRCTLQUO, 
+    KC_LSFT, MTLGUI_Z,  KC_X,     KC_C,    KC_V,           KC_B,   KC_N,   KC_M,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS, 
     KC_NO,   KC_NO,     KC_NO,    MTENTER, TD(UNDS_LOWER), KC_SPC, KC_SPC, MO(3),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
  ),
 
@@ -139,17 +142,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,------------------------------------------------------------------------.
  * |FN,ESC|  q  |  w  |  f  |  p  |  b  |  j  |  l  |  u  |  y  |  ;  | Bsp |
  * |------------------------------------------------------------------------|
-  |CSW,Tab|  a  |  r  |  s  |  t  |  g  |  m  |  n  |  e  |  i  |  o  |  '  |
+  |CSW,Tab|  a  |  r  |  s  |  t  |  g  |  m  |  n  |  e  |  i  |  o  |Ctl,'|
  * |------------------------------------------------------------------------|
- * |Shift |Win,z|  x  |  c  |  d  |  v  |  k  |  h  |  ,  |  .  |  /  |  \  |
+ * |Shift |Win,z|  x  |  c  |  d  |  v  |  k  |  h  |  ,  |  .  |  /  |Sft,\|
  * |------------------------------------------------------------------------|
  * |      |     |   |Ctl,Ent|LWR,_|   Space   |RAISE|Alt,Play|  |     |     |
  * `------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid( /* COLEMAK */
     LTESC,   KC_Q,     KC_W,     KC_F,    KC_P,           KC_B,   KC_J,   KC_L,   KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
-    MTTAB,   KC_A,     KC_R,     KC_S,    KC_T,           KC_G,   KC_M,   KC_N,   KC_E,      KC_I,   KC_O,    KC_QUOT, 
-    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,           KC_V,   KC_K,   KC_H,   KC_COMM,   KC_DOT, KC_SLSH, KC_BSLS, 
+    MTTAB,   KC_A,     KC_R,     KC_S,    KC_T,           KC_G,   KC_M,   KC_N,   KC_E,      KC_I,   KC_O,    MTRCTLQUO, 
+    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,           KC_V,   KC_K,   KC_H,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS, 
     KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(UNDS_LOWER), KC_SPC, KC_SPC, MO(3),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
  ),
 
@@ -380,6 +383,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_select_word(keycode, record, SELWORD)) { return false; }
+  if (!process_caps_word(keycode, record)) { return false; }
 
   const uint8_t mods = get_mods();
   const uint8_t oneshot_mods = get_oneshot_mods();
@@ -478,6 +482,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 enum combo_events {
   EM_EMAIL,
+  EM_WORK_EMAIL,
   HTML_P,
   HTML_TITLE,
   HTML_DIV,
@@ -489,27 +494,33 @@ enum combo_events {
   HTML_IMG,
   CSS_STYLE,
   HTML_GENERIC_TAG,
+  CTLRGHT,
+  CTLLEFT,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM email_combo[] = {KC_E, KC_M, COMBO_END};
-const uint16_t PROGMEM html_p_combo[] = {KC_P, KC_B, COMBO_END};
-const uint16_t PROGMEM html_title_combo[] = {KC_T, KC_G, COMBO_END};
-const uint16_t PROGMEM html_div_combo[] = {KC_D, KC_V, COMBO_END};
-const uint16_t PROGMEM html_html_combo[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM html_head_combo[] = {KC_W, KC_F, COMBO_END};
-const uint16_t PROGMEM html_body_combo[] = {KC_R, KC_S, COMBO_END};
-const uint16_t PROGMEM html_footer_combo[] = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM html_a_href_combo[] = {KC_A, KC_R, COMBO_END};
-const uint16_t PROGMEM html_img_combo[] = {KC_E, KC_I, COMBO_END};
-const uint16_t PROGMEM css_style_combo[] = {KC_S, KC_T, COMBO_END};
-const uint16_t PROGMEM html_generic_tag_combo[] = {KC_U, KC_Y, COMBO_END};
+const uint16_t PROGMEM email_work_combo[] = {KC_E, KC_K, COMBO_END};
+const uint16_t PROGMEM html_p_combo[] = {KC_P, KC_H, COMBO_END};
+const uint16_t PROGMEM html_title_combo[] = {KC_T, KC_H, COMBO_END};
+const uint16_t PROGMEM html_div_combo[] = {KC_D, KC_H, COMBO_END};
+const uint16_t PROGMEM html_html_combo[] = {KC_Q, KC_H, COMBO_END};
+const uint16_t PROGMEM html_head_combo[] = {KC_W, KC_H, COMBO_END};
+const uint16_t PROGMEM html_body_combo[] = {KC_R, KC_H, COMBO_END};
+const uint16_t PROGMEM html_footer_combo[] = {KC_X, KC_H, COMBO_END};
+const uint16_t PROGMEM html_a_href_combo[] = {KC_A, KC_H, COMBO_END};
+const uint16_t PROGMEM html_img_combo[] = {KC_I, KC_H, COMBO_END};
+const uint16_t PROGMEM css_style_combo[] = {KC_S, KC_H, COMBO_END};
+const uint16_t PROGMEM html_generic_tag_combo[] = {KC_COMMA, KC_H, COMBO_END};
+const uint16_t PROGMEM ctrrght_combo[] = {KC_RGHT, KC_DOWN, COMBO_END};
+const uint16_t PROGMEM ctrleft_combo[] = {KC_LEFT, KC_DOWN, COMBO_END};
 // const uint8_t combo_mods = get_mods();
 // const uint8_t combo_oneshot_mods = get_oneshot_mods();
 
 combo_t key_combos[] = {
   [EM_EMAIL] = COMBO_ACTION(email_combo),
+  [EM_WORK_EMAIL] = COMBO_ACTION(email_work_combo),
   [HTML_P] = COMBO_ACTION(html_p_combo),
   [HTML_TITLE] = COMBO_ACTION(html_title_combo),
   [HTML_DIV] = COMBO_ACTION(html_div_combo),
@@ -521,6 +532,8 @@ combo_t key_combos[] = {
   [HTML_IMG] = COMBO_ACTION(html_img_combo),
   [CSS_STYLE] = COMBO_ACTION(css_style_combo),
   [HTML_GENERIC_TAG] = COMBO_ACTION(html_generic_tag_combo),
+  [CTLRGHT] = COMBO_ACTION(ctrrght_combo),
+  [CTLLEFT] = COMBO_ACTION(ctrleft_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
@@ -529,6 +542,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case EM_EMAIL:
       if (pressed) {
         SEND_STRING("aricbouwers@outlook.com");
+      }
+      break;
+    case EM_WORK_EMAIL:
+      if (pressed) {
+        SEND_STRING("acrossonbouwers@rjc.ca");
       }
       break;
     case HTML_DIV:
@@ -648,6 +666,16 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code16(LCTL(KC_D));
         tap_code16(KC_BSPC);
       }
+      break;
+    case CTLLEFT:
+      if (pressed) {        
+        tap_code16(C(KC_LEFT));   
+      }      
+      break;
+    case CTLRGHT:
+      if (pressed) {        
+        tap_code16(C(KC_RGHT));   
+      }      
       break;
   }
 }
