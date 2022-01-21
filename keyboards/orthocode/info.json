@@ -5,9 +5,9 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"Rotary", "x":0.5, "y":0},
+                {"label":"Mute", "x":0.5, "y":0},
 
-                {"label":"Game", "x":0.5, "y":1},
+                {"label":"RGB Tog", "x":0.5, "y":1},
                 {"label":"Esc", "x":1.75, "y":1},
                 {"label":"1", "x":3, "y":1},
                 {"label":"2", "x":4, "y":1},
@@ -23,7 +23,7 @@
                 {"label":"+", "x":16.5, "y":1},
                 {"label":"Home", "x":17.5, "y":1},
 
-                {"label":"M1", "x":0.25, "y":2},
+                {"label":"RGB Mode", "x":0.25, "y":2},
                 {"label":"Tab", "x":1.5, "y":2, "w":1.5},
                 {"label":"Q", "x":3, "y":2},
                 {"label":"W", "x":4, "y":2},
@@ -39,8 +39,8 @@
                 {"label":"Delete", "x":17, "y":2},
                 {"label":"End", "x":18, "y":2},
 
-                {"label":"M2", "x":0, "y":3},
-                {"label":"Ctrl", "x":1.25, "y":3, "w":1.75},
+                {"label":"RGB RMode", "x":0, "y":3},
+                {"label":"Caps", "x":1.25, "y":3, "w":1.75},
                 {"label":"A", "x":3, "y":3},
                 {"label":"S", "x":4, "y":3},
                 {"label":"D", "x":5, "y":3},
@@ -54,7 +54,7 @@
                 {"label":"\"", "x":15.5, "y":3},
                 {"label":"Enter", "x":16.5, "y":3, "w":2.25},
 
-                {"label":"Layer", "x":0.75, "y":4, "w":2.25},
+                {"label":"Shift", "x":0.75, "y":4, "w":2.25},
                 {"label":"Z", "x":3, "y":4},
                 {"label":"X", "x":4, "y":4},
                 {"label":"C", "x":5, "y":4},
