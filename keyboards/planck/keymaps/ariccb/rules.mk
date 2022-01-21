@@ -3,6 +3,7 @@
 #   the appropriate keymap folder that will get included automatically
 #
 SRC += features/select_word.c
+SRC += features/caps_word.c
 
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
