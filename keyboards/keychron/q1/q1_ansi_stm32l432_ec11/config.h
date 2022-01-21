@@ -59,8 +59,3 @@
 
 /* Specifies the number of pulses the encoder registers between each detent */
 #define ENCODER_RESOLUTION 4
-
-/* Sets the default hue and saturation values */
-/* = Royal Blue (#4169E1) */
-#define RGB_MATRIX_STARTUP_HUE 159
-#define RGB_MATRIX_STARTUP_SAT 181

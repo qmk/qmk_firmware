@@ -52,8 +52,3 @@
 
 /* We have 2KB EEPROM size on STM32L432 */
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
-
-/* Sets the default hue and saturation values */
-/* = Royal Blue (#4169E1) */
-#define RGB_MATRIX_STARTUP_HUE 159
-#define RGB_MATRIX_STARTUP_SAT 181

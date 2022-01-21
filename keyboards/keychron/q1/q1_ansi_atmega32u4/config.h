@@ -40,8 +40,3 @@
 #define DRIVER_1_LED_TOTAL 59
 #define DRIVER_2_LED_TOTAL 23
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
-/* Sets the default hue and saturation values */
-/* = Royal Blue (#4169E1) */
-#define RGB_MATRIX_STARTUP_HUE 159
-#define RGB_MATRIX_STARTUP_SAT 181
