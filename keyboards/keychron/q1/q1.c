@@ -30,9 +30,8 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 #endif
 
 
-#if defined(RGB_MATRIX_ENABLE) && !defined(DISABLE_CAPS_LOCK_LIGHT)
+#if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
 
-#define CAPS_LOCK_LED_INDEX 45
 #define CAPS_LOCK_BRIGHTNESS 0xFF
 #ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #undef CAPS_LOCK_BRIGHTNESS
