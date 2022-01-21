@@ -41,7 +41,9 @@ void            oled_driver_render_logo_right(void);
 #    define OLED_DISPLAY_VERBOSE
 
 #    define OLED_RENDER_KEYLOGGER         "Keylogger: "
-#    define OLED_KEYLOGGER_LENGTH         12
+#    ifndef OLED_KEYLOGGER_LENGTH
+#        define OLED_KEYLOGGER_LENGTH         9
+#    endif
 #    define OLED_RENDER_LAYOUT_NAME       "Layout: "
 #    define OLED_RENDER_LAYOUT_QWERTY     "Qwerty"
 #    define OLED_RENDER_LAYOUT_COLEMAK_DH "ColemkDH"
@@ -86,7 +88,9 @@ void            oled_driver_render_logo_right(void);
 #    define OLED_RENDER_WPM_COUNTER       "WPM: "
 #else
 #    define OLED_RENDER_KEYLOGGER         "KLogr"
-#    define OLED_KEYLOGGER_LENGTH         0
+#    ifndef OLED_KEYLOGGER_LENGTH
+#        define OLED_KEYLOGGER_LENGTH         5
+#    endif
 
 #    define OLED_RENDER_LAYOUT_NAME       "Lyout"
 #    define OLED_RENDER_LAYOUT_QWERTY     " QRTY"
@@ -130,5 +134,7 @@ void            oled_driver_render_logo_right(void);
 #    define OLED_RENDER_USER_NUKE         "Nuke"
 
 #    define OLED_RENDER_WPM_COUNTER       "WPM: "
-
 #endif
+
+
+extern char                      keylog_str[OLED_KEYLOGGER_LENGTH];

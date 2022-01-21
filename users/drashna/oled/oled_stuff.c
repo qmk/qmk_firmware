@@ -22,18 +22,10 @@
 
 extern bool host_driver_disabled;
 
-#ifndef KEYLOGGER_LENGTH
-// #    ifdef OLED_DISPLAY_128X64
-#    define KEYLOGGER_LENGTH ((uint8_t)(OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH) - OLED_KEYLOGGER_LENGTH)
-// #    else
-// #        define KEYLOGGER_LENGTH (uint8_t *(OLED_DISPLAY_WIDTH / OLED_FONT_HEIGHT))
-// #    endif
-#endif
-
-uint32_t        oled_timer                       = 0;
-static char     keylog_str[KEYLOGGER_LENGTH + 1] = {0};
-static uint16_t log_timer                        = 0;
-static const char PROGMEM display_border[3] = {  0x0, 0xFF,  0x0 };
+uint32_t                  oled_timer                            = 0;
+char                      keylog_str[OLED_KEYLOGGER_LENGTH]     = {0};
+static uint16_t           log_timer                             = 0;
+static const char PROGMEM display_border[3]                     = {0x0, 0xFF, 0x0};
 
 // clang-format off
 static const char PROGMEM code_to_name[256] = {
@@ -66,7 +58,7 @@ static const char PROGMEM code_to_name[256] = {
 void add_keylog(uint16_t keycode, keyrecord_t *record) {
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
         if (((keycode & 0xFF) == KC_BSPC) && mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) {
-            memset(keylog_str, ' ', sizeof(keylog_str) - 1);
+            memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
             return;
         }
         if (record->tap.count) {
@@ -79,12 +71,10 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
         return;
     }
 
-    for (uint8_t i = 1; i < KEYLOGGER_LENGTH; i++) {
-        keylog_str[i - 1] = keylog_str[i];
-    }
+    memmove(keylog_str, keylog_str + 1, OLED_KEYLOGGER_LENGTH - 1);
 
     if (keycode < (sizeof(code_to_name) / sizeof(char))) {
-        keylog_str[(KEYLOGGER_LENGTH - 1)] = pgm_read_byte(&code_to_name[keycode]);
+        keylog_str[(OLED_KEYLOGGER_LENGTH - 1)] = pgm_read_byte(&code_to_name[keycode]);
     }
 
     log_timer = timer_read();
@@ -695,7 +685,9 @@ void render_status_main(void) {
 __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return rotation; }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    memset(keylog_str, ' ', sizeof(keylog_str) - 1);
+    if (is_keyboard_master()) {
+        memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
+    }
 
     oled_clear();
     oled_render();
@@ -727,14 +719,19 @@ bool oled_task_user(void) {
     oled_write_raw_P(header_image, sizeof(header_image));
     oled_set_cursor(0, 1);
 #endif
-    // if (is_keyboard_left()) {
+
+#ifndef OLED_DISPLAY_TEST
+    if (is_keyboard_left()) {
+#endif
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-    // } else {
-    //     render_status_secondary();
-    // }
+#ifndef OLED_DISPLAY_TEST
+    } else {
+        render_status_secondary();
+    }
+#endif
 
 #if defined(OLED_DISPLAY_128X128)
-    if (is_keyboard_master()) {
+    if (!is_keyboard_left()) {
         render_keylogger_status();
     }
 #endif

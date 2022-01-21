@@ -57,11 +57,23 @@ void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiato
 void watchdog_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) { watchdog_ping_done = true; }
 #endif
 
+#ifdef OLED_ENABLE
+#include "oled/oled_stuff.h"
+void keylogger_string_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
+    if (initiator2target_buffer_size == OLED_KEYLOGGER_LENGTH) {
+        memcpy(&keylog_str, initiator2target_buffer, initiator2target_buffer_size);
+    }
+}
+#endif
+
 void keyboard_post_init_transport_sync(void) {
     // Register keyboard state sync split transaction
     transaction_register_rpc(RPC_ID_USER_STATE_SYNC, user_state_sync);
     transaction_register_rpc(RPC_ID_USER_KEYMAP_SYNC, user_keymap_sync);
     transaction_register_rpc(RPC_ID_USER_CONFIG_SYNC, user_config_sync);
+#ifdef OLED_ENABLE
+    transaction_register_rpc(RPC_ID_USER_KEYLOG_STR, keylogger_string_sync);
+#endif
 
 #if defined(SPLIT_WATCHDOG_TIMEOUT)
 #    if defined(PROTOCOL_LUFA)
@@ -113,7 +125,7 @@ void user_transport_sync(void) {
     if (is_keyboard_master()) {
         // Keep track of the last state, so that we can tell if we need to propagate to slave
         static uint16_t last_keymap = 0;
-        static uint32_t last_config = 0, last_sync[3], last_user_state = 0;
+        static uint32_t last_config = 0, last_sync[4], last_user_state = 0;
         bool            needs_sync = false;
 
         // Check if the state values are different
@@ -170,6 +182,19 @@ void user_transport_sync(void) {
                 last_sync[2] = timer_read32();
             }
         }
+
+#ifdef OLED_ENABLE
+        if (timer_elapsed32(last_sync[3]) > 250) {
+            needs_sync = true;
+        }
+
+        // Perform the sync if requested
+        if (needs_sync) {
+            if (transaction_rpc_send(RPC_ID_USER_KEYLOG_STR, OLED_KEYLOGGER_LENGTH, &keylog_str)) {
+                last_sync[3] = timer_read32();
+            }
+        }
+#endif
     }
 
 #if defined(SPLIT_WATCHDOG_TIMEOUT)
@@ -193,6 +218,7 @@ void user_transport_sync(void) {
         }
     }
 #endif
+
 }
 
 void housekeeping_task_user(void) {
