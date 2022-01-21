@@ -595,7 +595,7 @@ enum quantum_keycodes {
 
     MAGIC_TOGGLE_CONTROL_CAPSLOCK,
 
-    KC_MAKE,
+    QK_MAKE,
 
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE

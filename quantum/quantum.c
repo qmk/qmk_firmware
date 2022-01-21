@@ -359,7 +359,7 @@ bool process_record_quantum(keyrecord_t *record) {
                 break;
 #endif
 #if defined(QMK_KEYBOARD) && defined(QMK_KEYMAP)  // tests don't generate these defines
-            case KC_MAKE:                         // Compiles the firmware, and adds the flash command based on keyboard bootloader
+            case QK_MAKE:                         // Compiles the firmware, and adds the flash command based on keyboard bootloader
             {
                 uint8_t temp_mod = mod_config(get_mods()) | mod_config(get_oneshot_mods());
                 clear_mods();
