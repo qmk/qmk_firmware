@@ -3,4 +3,4 @@ UNICODE_ENABLE = no
 #CONSOLE_ENABLE = yes
 COMBO_ENABLE = yes
 
-SRC += flow.c commaspace.c
+SRC += flow.c commaspace.c swapper.c
