@@ -17,7 +17,7 @@ void update_swapper(
         } else {
             unregister_code(KC_TAB);
         }
-    } else if (active) {
+    } else if (active && keycode != KC_LSFT) {
         unregister_code(KC_LGUI);
         active = false;
     }
