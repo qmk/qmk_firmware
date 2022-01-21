@@ -1099,6 +1099,8 @@ void midi_ep_task(void) {
 
 #ifdef VIRTSER_ENABLE
 
+void virtser_init(void) {}
+
 void virtser_send(const uint8_t byte) { chnWrite(&drivers.serial_driver.driver, &byte, 1); }
 
 __attribute__((weak)) void virtser_recv(uint8_t c) {

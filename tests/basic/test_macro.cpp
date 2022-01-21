@@ -24,10 +24,25 @@ class Macro : public TestFixture {};
 
 #define AT_TIME(t) WillOnce(InvokeWithoutArgs([current_time]() { EXPECT_EQ(timer_elapsed32(current_time), t); }))
 
+extern "C" const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    if (record->event.pressed) {
+        switch (id) {
+            case 0:
+                return MACRO(D(LSFT), T(H), U(LSFT), T(E), T(L), T(L), T(O), T(SPACE), W(100), D(LSFT), T(W), U(LSFT), I(10), T(O), T(R), T(L), T(D), D(LSFT), T(1), U(LSFT), END);
+        }
+    }
+    return MACRO_NONE;
+};
+
 TEST_F(Macro, PlayASimpleMacro) {
     TestDriver driver;
     InSequence s;
-    press_key(8, 0);
+    auto       key_macro = KeymapKey(0, 8, 0, M(0));
+
+    set_keymap({key_macro});
+
+    key_macro.press();
+
     uint32_t current_time = timer_read32();
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT))).AT_TIME(0);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT, KC_H))).AT_TIME(0);
@@ -68,4 +83,6 @@ TEST_F(Macro, PlayASimpleMacro) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LEFT_SHIFT))).AT_TIME(210);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).AT_TIME(220);
     run_one_scan_loop();
+
+    key_macro.release();
 }

@@ -378,11 +378,12 @@ define PARSE_ALL_KEYMAPS
 endef
 
 define BUILD_TEST
-    TEST_NAME := $1
+    TEST_PATH := $1
+    TEST_NAME := $$(notdir $$(TEST_PATH))
     MAKE_TARGET := $2
     COMMAND := $1
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_test.mk $$(MAKE_TARGET)
-    MAKE_VARS := TEST=$$(TEST_NAME) FULL_TESTS="$$(FULL_TESTS)"
+    MAKE_VARS := TEST=$$(TEST_NAME) TEST_PATH=$$(TEST_PATH) FULL_TESTS="$$(FULL_TESTS)"
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
     ifneq ($$(MAKE_TARGET),clean)
@@ -406,7 +407,7 @@ define PARSE_TEST
     ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else
-        MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME),$$(TEST)),$$(TEST),))
+        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME), $$(notdir $$(TEST))), $$(TEST),))
     endif
     $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
 endef

@@ -81,9 +81,9 @@ def test_hello():
 
 
 def test_format_python():
-    result = check_subcommand('format-python', '--dry-run')
+    result = check_subcommand('format-python', '-n', '-a')
     check_returncode(result)
-    assert 'Python code in `lib/python` is correctly formatted.' in result.stdout
+    assert 'Successfully formatted the python code.' in result.stdout
 
 
 def test_list_keyboards():
@@ -140,6 +140,14 @@ def test_json2c():
     result = check_subcommand('json2c', 'keyboards/handwired/pytest/has_template/keymaps/default_json/keymap.json')
     check_returncode(result)
     assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
+
+
+def test_json2c_macros():
+    result = check_subcommand("json2c", 'keyboards/handwired/pytest/macro/keymaps/default/keymap.json')
+    check_returncode(result)
+    assert 'LAYOUT_ortho_1x1(MACRO_0)' in result.stdout
+    assert 'case MACRO_0:' in result.stdout
+    assert 'SEND_STRING("Hello, World!"SS_TAP(X_ENTER));' in result.stdout
 
 
 def test_json2c_stdin():

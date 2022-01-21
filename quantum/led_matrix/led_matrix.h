@@ -23,7 +23,6 @@
 #include <stdbool.h>
 #include "led_matrix_types.h"
 #include "quantum.h"
-#include "led_matrix_legacy_enables.h"
 
 #ifdef IS31FL3731
 #    include "is31fl3731-simple.h"

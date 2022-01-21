@@ -388,7 +388,7 @@ VPATH += $(COMMON_VPATH)
 include common_features.mk
 include $(BUILDDEFS_PATH)/generic_features.mk
 include $(TMK_PATH)/protocol.mk
-include $(TMK_PATH)/common.mk
+include $(PLATFORM_PATH)/common.mk
 include $(BUILDDEFS_PATH)/bootloader.mk
 
 SRC += $(patsubst %.c,%.clib,$(LIB_SRC))
@@ -404,13 +404,14 @@ ifneq ($(REQUIRE_PLATFORM_KEY),)
     endif
 endif
 
-include $(TMK_PATH)/$(PLATFORM_KEY).mk
+include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
+-include $(PLATFORM_PATH)/$(PLATFORM_KEY)/flash.mk
+
 ifneq ($(strip $(PROTOCOL)),)
     include $(TMK_PATH)/protocol/$(strip $(shell echo $(PROTOCOL) | tr '[:upper:]' '[:lower:]')).mk
 else
     include $(TMK_PATH)/protocol/$(PLATFORM_KEY).mk
 endif
--include $(TOP_DIR)/platforms/$(PLATFORM_KEY)/flash.mk
 
 # TODO: remove this bodge?
 PROJECT_DEFS := $(OPT_DEFS)
@@ -424,8 +425,7 @@ OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) \
 -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(QMK_KEYBOARD_H)\" \
--DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\" \
--DQMK_SUBPROJECT -DQMK_SUBPROJECT_H -DQMK_SUBPROJECT_CONFIG_H
+-DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\"
 $(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
 $(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
 $(KEYBOARD_OUTPUT)_SRC := $(PLATFORM_SRC)

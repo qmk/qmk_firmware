@@ -15,3 +15,5 @@ VPATH                  +=  keyboards/gboards/
 ifeq ($(strip $(DEBUG_MATRIX)), yes)
     OPT_DEFS += -DDEBUG_MATRIX
 endif
+
+TAP_DANCE_ENABLE = yes

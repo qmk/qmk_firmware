@@ -193,8 +193,9 @@ void IS31FL3731_init(uint8_t addr) {
 }
 
 void IS31FL3731_set_value(int index, uint8_t value) {
+    is31_led led;
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
-        is31_led led = g_is31_leds[index];
+        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         // Subtract 0x24 to get the second index of g_pwm_buffer
         g_pwm_buffer[led.driver][led.v - 0x24]   = value;
@@ -209,7 +210,8 @@ void IS31FL3731_set_value_all(uint8_t value) {
 }
 
 void IS31FL3731_set_led_control_register(uint8_t index, bool value) {
-    is31_led led = g_is31_leds[index];
+    is31_led led;
+    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
     uint8_t control_register = (led.v - 0x24) / 8;
     uint8_t bit_value        = (led.v - 0x24) % 8;

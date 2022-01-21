@@ -1,5 +1,3 @@
-PROTOCOL_DIR = protocol
-
 TMK_COMMON_SRC +=	\
 	$(PROTOCOL_DIR)/host.c \
 	$(PROTOCOL_DIR)/report.c \

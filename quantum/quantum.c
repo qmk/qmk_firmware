@@ -275,6 +275,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef AUTO_SHIFT_ENABLE
             process_auto_shift(keycode, record) &&
 #endif
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+            process_dynamic_tapping_term(keycode, record) &&
+#endif
 #ifdef TERMINAL_ENABLE
             process_terminal(keycode, record) &&
 #endif
@@ -531,6 +534,10 @@ void suspend_power_down_quantum(void) {
 #    ifdef ST7565_ENABLE
     st7565_off();
 #    endif
+#    if defined(POINTING_DEVICE_ENABLE)
+    // run to ensure scanning occurs while suspended
+    pointing_device_task();
+#    endif
 #endif
 }
 
@@ -567,4 +574,60 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
     rgb_matrix_set_suspend_state(false);
 #endif
     suspend_wakeup_init_kb();
+}
+
+/** \brief converts unsigned integers into char arrays
+ *
+ * Takes an unsigned integer and converts that value into an equivalent char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ */
+
+const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad) {
+    buf[buf_len - 1] = '\0';
+    for (size_t i = 0; i < buf_len - 1; ++i) {
+        char c               = '0' + curr_num % 10;
+        buf[buf_len - 2 - i] = (c == '0' && i == 0) ? '0' : (curr_num > 0 ? c : curr_pad);
+        curr_num /= 10;
+    }
+    return buf;
+}
+
+/** \brief converts uint8_t into char array
+ *
+ * Takes an uint8_t, and uses an internal static buffer to render that value into a char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ *
+ * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
+ *       contents. Use the result immediately, instead of caching it.
+ */
+const char *get_u8_str(uint8_t curr_num, char curr_pad) {
+    static char    buf[4]   = {0};
+    static uint8_t last_num = 0xFF;
+    static char    last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) {
+        return buf;
+    }
+    last_num = curr_num;
+    last_pad = curr_pad;
+    return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
+}
+
+/** \brief converts uint16_t into char array
+ *
+ * Takes an uint16_t, and uses an internal static buffer to render that value into a char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ *
+ * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
+ *       contents. Use the result immediately, instead of caching it.
+ */
+const char *get_u16_str(uint16_t curr_num, char curr_pad) {
+    static char     buf[6]   = {0};
+    static uint16_t last_num = 0xFF;
+    static char     last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) {
+        return buf;
+    }
+    last_num = curr_num;
+    last_pad = curr_pad;
+    return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
 }

@@ -181,8 +181,9 @@ void IS31FL3731_init(uint8_t addr) {
 }
 
 void IS31FL3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    is31_led led;
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
-        is31_led led = g_is31_leds[index];
+        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         // Subtract 0x24 to get the second index of g_pwm_buffer
         g_pwm_buffer[led.driver][led.r - 0x24]   = red;
@@ -199,7 +200,8 @@ void IS31FL3731_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3731_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led = g_is31_leds[index];
+    is31_led led;
+    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
     uint8_t control_register_r = (led.r - 0x24) / 8;
     uint8_t control_register_g = (led.g - 0x24) / 8;

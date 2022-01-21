@@ -524,6 +524,11 @@ enum quantum_keycodes {
     // Additional magic key
     MAGIC_TOGGLE_GUI,
 
+    // Adjust tapping term on the fly
+    DT_PRNT,
+    DT_UP,
+    DT_DOWN,
+
     // Programmable Button
     PROGRAMMABLE_BUTTON_1,
     PROGRAMMABLE_BUTTON_2,
@@ -557,6 +562,40 @@ enum quantum_keycodes {
     PROGRAMMABLE_BUTTON_30,
     PROGRAMMABLE_BUTTON_31,
     PROGRAMMABLE_BUTTON_32,
+
+    // Dedicated macro keys for Configurator and VIA
+    MACRO_0,
+    MACRO_1,
+    MACRO_2,
+    MACRO_3,
+    MACRO_4,
+    MACRO_5,
+    MACRO_6,
+    MACRO_7,
+    MACRO_8,
+    MACRO_9,
+    MACRO_10,
+    MACRO_11,
+    MACRO_12,
+    MACRO_13,
+    MACRO_14,
+    MACRO_15,
+    MACRO_16,
+    MACRO_17,
+    MACRO_18,
+    MACRO_19,
+    MACRO_20,
+    MACRO_21,
+    MACRO_22,
+    MACRO_23,
+    MACRO_24,
+    MACRO_25,
+    MACRO_26,
+    MACRO_27,
+    MACRO_28,
+    MACRO_29,
+    MACRO_30,
+    MACRO_31,
 
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE

@@ -1,2 +1,2 @@
-LTO_ENABLE = yes
 VIA_ENABLE = yes
+SPACE_CADET_ENABLE = no
