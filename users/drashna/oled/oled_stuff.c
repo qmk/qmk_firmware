@@ -27,6 +27,8 @@ char                      keylog_str[OLED_KEYLOGGER_LENGTH]     = {0};
 static uint16_t           log_timer                             = 0;
 static const char PROGMEM display_border[3]                     = {0x0, 0xFF, 0x0};
 
+deferred_token kittoken;
+
 // clang-format off
 static const char PROGMEM code_to_name[256] = {
 //   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
@@ -692,7 +694,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
         memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
     }
 
-    defer_exec(1500, kitty_animation_phases, NULL);
+    kittoken = defer_exec(3000, kitty_animation_phases, NULL);
 
     oled_clear();
     oled_render();
