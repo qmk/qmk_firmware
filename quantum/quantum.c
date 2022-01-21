@@ -302,12 +302,12 @@ bool process_record_quantum(keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
 #ifndef NO_RESET
-            case RESET:
+            case QK_BOOTLOADER:
                 reset_keyboard();
                 return false;
 #endif
 #ifndef NO_DEBUG
-            case DEBUG:
+            case QK_DEBUG_TOGGLE:
                 debug_enable ^= 1;
                 if (debug_enable) {
                     print("DEBUG: enabled.\n");
@@ -316,7 +316,7 @@ bool process_record_quantum(keyrecord_t *record) {
                 }
 #endif
                 return false;
-            case EEPROM_RESET:
+            case QK_CLEAR_EEPROM:
                 eeconfig_init();
                 return false;
 #ifdef VELOCIKEY_ENABLE
