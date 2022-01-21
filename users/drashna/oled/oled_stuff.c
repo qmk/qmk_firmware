@@ -646,9 +646,9 @@ void oled_driver_render_logo_left(void) {
 #    endif
     oled_set_cursor(7, 3);
 #    if defined(KEYBOARD_handwired_tractyl_manuform)
-    render_pointing_dpi_status(kb_config_data.device_cpi, 0);
+    render_pointing_dpi_status(0);
 #    elif defined(KEYBOARD_bastardkb_charybdis)
-    render_pointing_dpi_status(, 1);
+    render_pointing_dpi_status(1);
 #    endif
     oled_set_cursor(0, 6);
 #else
