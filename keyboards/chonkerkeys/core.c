@@ -71,6 +71,11 @@ void from_app_to_firmware_origin(uint8_t *x, uint8_t *y) {
     *y = MATRIX_ROWS - 1 - *y;
 }
 
+void from_firmware_to_app_origin(uint8_t *x, uint8_t *y) {
+    // app to firmware is the reverse op of itself, so just call it once more
+    from_app_to_firmware_origin(x, y);
+}
+
 void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim) {
     from_app_to_firmware_origin(&x, &y);
     rgb_strand_animation_start(key_strand[y][x], anim,
@@ -107,10 +112,12 @@ void set_led_momentary(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool is_either_pressed = false;
-    uint8_t x = record->event.key.col;
+    uint8_t app_x = record->event.key.col;
+    uint8_t app_y = record->event.key.row;
     // QMK uses top left as origin, but the app uses KU origin (i.e. bottom left) for switching layer
-    uint8_t y = MATRIX_ROWS - 1 - record->event.key.row;
-    if (x == 0 && y <= 1) {
+    from_firmware_to_app_origin(&app_x, &app_y);
+    // Requirement is, use the bottom row and left-most keys as key-switching hotkey
+    if (app_y == 0 && app_x <= 1) {
         if (record->event.pressed) {   
             if (is_either_pressed) {
                 switch_layer();
@@ -124,7 +131,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t col = record->event.key.col;
     if (record->event.pressed) {
         if (is_connected) {
-            key_down(get_current_layer(), x, y);
+            key_down(get_current_layer(), app_x, app_y);
         } else {
             if (keycode > CH_CUSTOM && keycode < CH_LAST_KEYCODE) {
                 uint16_t key_config_index = keycode - CH_CUSTOM;
