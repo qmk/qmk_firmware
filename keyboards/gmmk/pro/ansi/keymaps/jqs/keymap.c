@@ -98,6 +98,9 @@ int rightAll[] = { 68, 71, 74, 77, 81, 84, 88, 92 };
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         rgb_matrix_set_color_all(RGB_WHITE);
+        for (int i = 0; i < 2; i++) {
+            rgb_matrix_set_color(numCaps[i], 255,255,255);
+        }
     } else {
         HSV hsv = {thisHue, thisSat, thisVal};
         RGB rgb = hsv_to_rgb(hsv);
