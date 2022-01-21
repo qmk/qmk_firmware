@@ -719,8 +719,8 @@ enum quantum_keycodes {
 #define QK_GESC QK_GRAVE_ESCAPE
 
 #define QK_BOOT QK_BOOTLOADER
-#define QK_DBUG QK_DEBUG_TOGGLE
-#define QK_CLEE QK_CLEAR_EEPROM
+#define DB_TOGG QK_DEBUG_TOGGLE
+#define EE_CLR QK_CLEAR_EEPROM
 
 // Audio Clicky aliases
 #define CK_TOGG CLICKY_TOGGLE
