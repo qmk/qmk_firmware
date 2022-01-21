@@ -120,6 +120,10 @@ If you define these options you will disable the associated feature, which can s
   * disable debugging
 * `#define NO_PRINT`
   * disable printing/debugging using hid_listen
+* `#define NO_RESET`
+  * disable `RESET` keycode
+* `#define NO_COMPILE_KEYCODE`
+  * disable the `QK_MAKE` keycode
 * `#define NO_ACTION_LAYER`
   * disable layers
 * `#define NO_ACTION_TAPPING`
