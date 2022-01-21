@@ -113,21 +113,21 @@ def test_list_keymaps_community():
 
 
 def test_list_keymaps_kb_only():
-    result = check_subcommand('list-keymaps', '-kb', 'niu_mini')
+    result = check_subcommand('list-keymaps', '-kb', 'moonlander')
     check_returncode(result)
-    assert 'default' and 'via' in result.stdout
+    assert 'default' and 'oyrx' and 'webusb' in result.stdout
 
 
 def test_list_keymaps_vendor_kb():
-    result = check_subcommand('list-keymaps', '-kb', 'ai03/lunar')
+    result = check_subcommand('list-keymaps', '-kb', 'planck/ez')
     check_returncode(result)
-    assert 'default' and 'via' in result.stdout
+    assert 'default' and 'oryx' and 'webusb' in result.stdout
 
 
-def test_list_keymaps_vendor_kb_rev():
-    result = check_subcommand('list-keymaps', '-kb', 'kbdfans/kbd67/mkiirgb/v2')
-    check_returncode(result)
-    assert 'default' and 'via' in result.stdout
+# def test_list_keymaps_vendor_kb_rev():
+#     result = check_subcommand('list-keymaps', '-kb', 'kbdfans/kbd67/mkiirgb/v2')
+#     check_returncode(result)
+#     assert 'default' and 'via' in result.stdout
 
 
 def test_list_keymaps_no_keyboard_found():
