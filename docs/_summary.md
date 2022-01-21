@@ -52,6 +52,7 @@
       * [Your Fork](newbs_git_using_your_master_branch.md)
       * [Merge Conflicts](newbs_git_resolving_merge_conflicts.md)
       * [Fixing Your Branch](newbs_git_resynchronize_a_branch.md)
+      * [Using GitHub Actions](newbs_git_action.md)
 
   * Simple Keycodes
     * [Full List](keycodes.md)
