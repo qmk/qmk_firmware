@@ -6,11 +6,13 @@ on:
   pull_request:
     paths-ignore:
       - '**.md'
+  workflow_dispatch:
 
 
 jobs:
-  build-default:
+  build-firmware:
     runs-on: ubuntu-latest
+    container: qmkfm/qmk_cli
     strategy:
       fail-fast: false
       matrix:
@@ -26,7 +28,8 @@ jobs:
           - oryx
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout QMK Firmware
+      uses: actions/checkout@v2
       with:
         fetch-depth: 1
         persist-credentials: false
@@ -35,18 +38,10 @@ jobs:
     - name: Build
       id: build
       run: |
-        TARGET="${{ matrix.keyboard }}"
+        qmk compile -kb ${{ matrix.keyboard}} -km ${{ matrix.keymap }}
 
-        if [ -n "${{ matrix.keymap }}" ]; then
-           TARGET="${TARGET}:${{ matrix.keymap }}"
-        fi
-
-        sed -i 's/run --rm -it/run --rm/' util/docker_build.sh
-        util/docker_build.sh ${TARGET}
-
-        ls
-
-        echo ::set-output name=artifact-name::${TARGET//[:<>|*?\\\/]/_}
+        TARGET="$(echo "${{ matrix.keyboard }}" | sed 's#/#_#g')_${{matrix.keymap}}"
+        echo ::set-output name=artifact-name::${TARGET}
         echo "Artifact-name: ${{ steps.build.outputs.artifact-name }}"
 
     - name: Archive artifacts
