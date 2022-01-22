@@ -305,8 +305,9 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
         } else {
             return;
         }
-    } else if (is_keyboard_left() && (i >= k_rgb_matrix_split[0]))
+    } else if (i >= k_rgb_matrix_split[0]) {
         return;
+    }
 #    endif
 
     rgb_matrix_ws2812_array[i].r = r;
