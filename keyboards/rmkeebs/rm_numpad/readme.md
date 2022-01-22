@@ -13,6 +13,11 @@ A simple numpad with the addition of a few features:
 * Keyboard Maintainer: [RuckerMachine](https://github.com/RuckerMachine)
 * Hardware Supported: RM Keebs RM Numpad kits available at [RMKeebs](https://www.rmkeebs.com/product/rm-numpad/)
 
+## Bootloader
+
+Enter the bootloader by briefly pressing the reset button on the back of the PCB.  A hole in the back of the case gives you access to the button.
+
+
 Make example for this keyboard (after setting up your build environment):
 
     make rm_numpad:default
