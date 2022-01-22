@@ -13,7 +13,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "fave84h.h"
 
-led_config_t g_led_config = {
+#ifdef RGB_MATRIX_ENABLE
+    led_config_t g_led_config = {
     {
         // Key Matrix to LED Index
         { 47, NO_LED, 48,     49,     50, 51,     52,     53,     54,     55, 56,     57,     58,     59,     60,     61,     62 },
@@ -46,3 +47,4 @@ led_config_t g_led_config = {
         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     }
 };
+#endif
