@@ -352,7 +352,3 @@
     { K80, K81, XXX, XXX, XXX, K85, XXX, XXX }, \
     { K90, XXX, K92, XXX, XXX, K95, XXX, K97 }, \
 }
-
-#define LAYOUT_60_iso_tsangan  LAYOUT_60_ansi_tsangan
-
-#define LAYOUT_60_iso_tsangan_split_bs  LAYOUT_60_ansi_tsangan_split_bs
