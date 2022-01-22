@@ -2,8 +2,6 @@
     "keyboard_name": "rm_numpad",
     "url": "https://www.rmkeebs.com/product/rm-numpad/",
     "maintainer": "RuckerMachine",
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT_default": {
             "layout": [

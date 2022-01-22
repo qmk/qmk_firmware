@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x524e  /* RN (RMKeebs Numpad) */
+#define PRODUCT_ID   0x524E  /* RN (RMKeebs Numpad) */
 #define DEVICE_VER   0x0001
 #define MANUFACTURER RMKeebs
 #define PRODUCT      rm_numpad
