@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define REV2
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xEDED
 #define PRODUCT_ID      0x6575
