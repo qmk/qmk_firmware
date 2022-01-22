@@ -10,7 +10,7 @@ Both the Dexterous and Sinister use the same firmware.  The numpad and the four 
 
 For more information, join the [NoPunIn10Key Discord](https://discord.gg/sku2Y6w).
 
-* Keyboard Maintainer: [Alex Ronke](https://nopunin10did.com/), also known as NoPunIn10Did.
+* Keyboard Maintainer: [Alex Ronke](https://nopunin10did.com/), also known as [NoPunIn10Did](https://github.com/NoPunIn10Did)
 * Hardware Supported: Dexterous Jabberwocky and Sinister Jabberwocky (2021 March)
 * Hardware Availability: Currently by request only
 
