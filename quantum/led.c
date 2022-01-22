@@ -17,7 +17,7 @@
 #include "host.h"
 #include "debug.h"
 
-#if defined(BACKLIGHT_CAPS_LOCK)
+#ifdef BACKLIGHT_CAPS_LOCK
 #    ifdef BACKLIGHT_ENABLE
 #        include "backlight.h"
 extern backlight_config_t backlight_config;
