@@ -345,7 +345,7 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 ### Low level Functions
 |Function                                    |Description                                |
 |--------------------------------------------|-------------------------------------------|
-|`rgblight_set()`                            |Flash out led buffers to LEDs              |
+|`rgblight_set()`                            |Flush out led buffers to LEDs              |
 |`rgblight_set_clipping_range(pos, num)`     |Set clipping Range. see [Clipping Range](#clipping-range) |
 
 Example:
