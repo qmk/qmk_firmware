@@ -70,6 +70,15 @@ void                       shutdown_user(void) {
 __attribute__((weak)) void suspend_power_down_keymap(void) {}
 
 void suspend_power_down_user(void) {
+    if (layer_state_is(_GAMEPAD)) {
+        layer_off(_GAMEPAD);
+    }
+    if (layer_state_is(_DIABLO)) {
+        layer_off(_DIABLO);
+    }
+    if (layer_state_is(_DIABLOII)) {
+        layer_off(_DIABLOII);
+    }
 #ifdef OLED_ENABLE
     oled_off();
 #endif
@@ -78,12 +87,6 @@ void suspend_power_down_user(void) {
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
 void                       suspend_wakeup_init_user(void) {
-    if (layer_state_is(_GAMEPAD)) {
-        layer_off(_GAMEPAD);
-    }
-    if (layer_state_is(_DIABLO)) {
-        layer_off(_DIABLO);
-    }
     suspend_wakeup_init_keymap();
 }
 
