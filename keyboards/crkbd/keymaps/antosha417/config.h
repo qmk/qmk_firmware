@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-//#define USE_MATRIX_I2C
 
 /* Select hand configuration */
 
