@@ -17,19 +17,21 @@
 #include "host.h"
 #include "debug.h"
 
-#ifdef BACKLIGHT_ENABLE
-#    include "backlight.h"
+#ifdef BACKLIGHT_CAPS_LOCK
+#    ifdef BACKLIGHT_ENABLE
+#        include "backlight.h"
 extern backlight_config_t backlight_config;
-#else
-#    pragma message "Cannot use BACKLIGHT_CAPS_LOCK without backlight being enabled"
-#    undef BACKLIGHT_CAPS_LOCK
+#    else
+#        pragma message "Cannot use BACKLIGHT_CAPS_LOCK without backlight being enabled"
+#        undef BACKLIGHT_CAPS_LOCK
+#    endif
 #endif
 
 #ifndef LED_PIN_ON_STATE
 #    define LED_PIN_ON_STATE 1
 #endif
 
-#if defined(BACKLIGHT_CAPS_LOCK)
+#ifdef BACKLIGHT_CAPS_LOCK
 /** \brief Caps Lock indicator using backlight (for keyboards without dedicated LED)
  */
 static void handle_backlight_caps_lock(led_t led_state) {
