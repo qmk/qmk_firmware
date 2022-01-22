@@ -87,7 +87,7 @@ void matrix_scan_user(void) {
 
 //change colors and rgb modes on layer change
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case raise:
         rgblight_mode_noeeprom(1);
         rgblight_setrgb(0xc7, 0x00, 0xf4);
@@ -103,4 +103,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
   return state;
 };
-

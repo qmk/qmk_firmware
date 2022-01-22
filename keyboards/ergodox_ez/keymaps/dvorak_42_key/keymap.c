@@ -79,9 +79,9 @@ enum custom_keycodes {
 
   SCREEN_READREG_1,
   SCREEN_READREG_2,
-  SCREEN_READREG_3, 
+  SCREEN_READREG_3,
   SCREEN_PASTEREG_1,
-  SCREEN_PASTEREG_2, 
+  SCREEN_PASTEREG_2,
   SCREEN_PASTEREG_3,
 
   // Windows 10 macros,
@@ -659,7 +659,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
             SEND_STRING("paste 1\n");
-            break;        
+            break;
         case SCREEN_PASTEREG_2:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
@@ -686,7 +686,7 @@ void led_set_user(uint8_t usb_led) {
 
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_2_off();

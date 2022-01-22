@@ -134,7 +134,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     // tmux screen
     else if (index == 1) {
-        switch(biton32(layer_state)){
+        switch(get_highest_layer(layer_state)){
              case 0:
                 if (clockwise) {
                     send_string(SS_LCTL("B")"p");
@@ -182,4 +182,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, 4));
     return state;
 }
-

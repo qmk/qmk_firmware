@@ -37,7 +37,7 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
 void rgb_matrix_indicators_user(void)
 {
 	if (!g_suspend_state) {
-		switch (biton32(layer_state)) {
+		switch (get_highest_layer(layer_state)) {
 		case _QWERTY:
 			rgb_matrix_layer_helper(0x00, 0x0F, 0xFF); break;
 
@@ -46,7 +46,7 @@ void rgb_matrix_indicators_user(void)
 		}
 	}
 
-	switch (biton32(layer_state)) {
+	switch (get_highest_layer(layer_state)) {
 	case _FNM:
 		rgb_matrix_set_color(0, 0x00, 0xFF, 0x00);
 		rgb_matrix_set_color(1, 0x00, 0x00, 0x00);

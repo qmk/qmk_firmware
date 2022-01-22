@@ -325,7 +325,7 @@ static void render_status(void) {
 
   // Define layers here
   oled_write_P(PSTR("Layer"), false);
-  uint8_t layer = layer_state ? biton(layer_state) : get_highest_layer(default_layer_state);
+  uint8_t layer = get_highest_layer(layer_state|default_layer_state);
   switch (layer) {
     case _QWERTY:
       oled_write_P(PSTR("BASE "), false);

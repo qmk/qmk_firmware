@@ -8,7 +8,7 @@
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. 
+ * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -103,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_EQL, S(KC_EQL),   RALT(KC_2), RALT(KC_3), RALT(KC_4), RALT(KC_E), KC_RBRC, RALT(KC_7), RALT(KC_8), RALT(KC_9),    RALT(KC_0), RALT(KC_MINS),
   KC_LSFT, KC_NUBS, RALT(KC_NUBS), S(KC_NUBS), DGRMCRO, XXXXXXX, XXXXXXX,   RALT(KC_M),   KC_RBRC,  S(KC_RBRC), RALT(KC_RBRC),       _______,
   _______, _______,       KC_RALT,    _______,TO(_ADJUST), _______, _______,      _______,   _______,     _______,       _______, TO(_QWERTY)
-), 
- 
+),
+
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -257,10 +257,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 else {
                     workmode = false;
-                    return false;       
-                }           
+                    return false;
+                }
         }
-        
+
     }
     return true;
 }
@@ -293,7 +293,7 @@ void rgbflag(uint8_t r, uint8_t g, uint8_t b) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 //  if(rgblight_get_mode() == 1) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _QWERTY:
         if(!workmode){
             rgblight_mode(9);
@@ -312,7 +312,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             tap_code(KC_NLCK);
         }
         rgbflag(0xFF,  0x00, 0x00);
-        
+
         break;
     case _ADJUST:
         rgblight_mode(1);
@@ -350,7 +350,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         rgblight_mode(1);
         if(bnumlock) {
             tap_code(KC_NLCK);
-        }        
+        }
         rgbflag(0xFF,  0xFF, 0xFF);
         break;
     }
@@ -363,8 +363,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     //Layer LED indicators
 
     uint32_t layer = layer_state;
-    
-    
+
+
     if (layer & (1<<2)) {
         if(!bnumlock) {
             numlock_changed = true;
@@ -373,10 +373,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             bnumlock = true;
         }
     }
-} 
+}
  */
- 
- 
+
+
 void led_set_user(uint8_t usb_led) {
 
     if (usb_led & (1 << USB_LED_NUM_LOCK)) {

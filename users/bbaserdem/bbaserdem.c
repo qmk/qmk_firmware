@@ -627,7 +627,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     state = layer_state_set_keymap (state);
 #ifdef RGBLIGHT_ENABLE
     // Change RGB lighting depending on the last layer activated
-    rgblight_change( biton32(state) );
+    rgblight_change( get_highest_layer(state) );
 #endif
     return state;
 }

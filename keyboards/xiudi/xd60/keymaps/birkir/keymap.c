@@ -47,7 +47,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     edit = false;
   }
 
-  switch (biton32(state)) {
+  switch (get_highest_layer(state)) {
     case 1:
       rgblight_mode(1);
       rgblight_setrgb(0xD3, 0x7F, 0xED);

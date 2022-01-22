@@ -50,7 +50,7 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_keymap(layer_state_t state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case 1:
             rgblight_sethsv_noeeprom_magenta();
             break;

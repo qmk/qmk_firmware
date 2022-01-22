@@ -228,7 +228,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
-  switch (biton32(state)) {
+  switch (get_highest_layer(state)) {
     case SYMB:
         ergodox_right_led_1_on();
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_red(); rgblight_mode_noeeprom(1); }
@@ -268,4 +268,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
   return state;
 }
-

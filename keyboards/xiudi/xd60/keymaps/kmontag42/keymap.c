@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Loop
 void matrix_scan_user(void) {
   static uint8_t old_layer = 255;
-  uint8_t new_layer = biton32(layer_state);
+  uint8_t new_layer = get_highest_layer(layer_state);
 
   if (old_layer != new_layer) {
     switch (new_layer) {

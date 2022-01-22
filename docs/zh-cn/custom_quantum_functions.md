@@ -267,7 +267,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 ### `layer_state_set_*` 函数文档
 
-* 键盘/各子版本：`uint32_t layer_state_set_kb(uint32_t state)`
+* 键盘/各子版本：`layer_state_t layer_state_set_kb(layer_state_t state)`
 * 布局: `layer_state_t layer_state_set_user(layer_state_t state)`
 
 
@@ -474,4 +474,3 @@ cancel_deferred_exec(my_token);
 ```c
 #define MAX_DEFERRED_EXECUTORS 16
 ```
-

@@ -271,7 +271,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Makes sure to update the good tri-layer if a layer changes
 layer_state_t layer_state_set_user(layer_state_t state) {
-	switch (biton32(default_layer_state)) {
+	switch (get_highest_layer(default_layer_state)) {
 		case _QWERTY_LAYER:
 			state = update_tri_layer_state(state, _RAISE_LAYER, _QWERTY_LOWER_LAYER, _ALTER_LAYER);
 			break;
@@ -290,7 +290,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // Makes the tri-layer
 layer_state_t default_layer_state_set_kb(layer_state_t state) {
-	switch (biton32(state)) {
+	switch (get_highest_layer(state)) {
 		case _QWERTY_LAYER:
 			state = update_tri_layer_state(state, _RAISE_LAYER, _QWERTZ_LOWER_LAYER, _ALTER_LAYER);
 			state = update_tri_layer_state(state, _RAISE_LAYER, _COLEMA_LOWER_LAYER, _ALTER_LAYER);

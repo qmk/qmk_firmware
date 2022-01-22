@@ -64,7 +64,7 @@ typedef uint32_t layer_state_t;
 #    ifndef MAX_LAYER
 #        define MAX_LAYER 32
 #    endif
-#    define get_highest_layer(state) biton32(state)
+#    define get_highest_layer(state) get_highest_layer(state)
 #else
 #    error Layer Mask size not specified.  HOW?!
 #endif
