@@ -154,13 +154,13 @@ void encoder_update_raw(uint8_t* slave_state) {
     uint8_t changed = 0;
     uint8_t index   = thatHand;
     for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++, index++) {
-#ifndef ENCODER_DIRECTION_FLIP
+#    ifndef ENCODER_DIRECTION_FLIP
         int8_t delta = slave_state[i] - encoder_value[index];
-#else
+#    else
         int8_t delta = encoder_value[index] - slave_state[i];
-#endif
+#    endif
         int8_t incr = (delta >> 7); /* if delta <= -1 then incr = -1 else incr = 1 */
-        bool   cw = incr & 1;       /* if incr < 0 then cw = false else cw = true */
+        bool   cw   = incr & 1;     /* if incr < 0 then cw = false else cw = true */
         incr |= 1;
         changed |= incr;
         while (delta != 0) {
