@@ -119,9 +119,7 @@ void cps_ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_mods(MOD_BIT(KC_LCTL));
             break;
         case TD_DOUBLE_SINGLE_TAP:
-            if (!caps_lock) {
-                register_code16(KC_CAPS);
-            }
+            register_code16(KC_CAPS);
             break;
         default:
             break;
@@ -139,9 +137,7 @@ void cps_ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
             unregister_mods(MOD_BIT(KC_LCTL));
             break;
         case TD_DOUBLE_SINGLE_TAP:
-            if (!caps_lock) {
-                unregister_code16(KC_CAPS);
-            }
+            unregister_code16(KC_CAPS);
             break;
         default:
             break;
