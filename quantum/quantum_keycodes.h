@@ -80,8 +80,8 @@ enum quantum_keycodes {
     QK_UNICODEMAP_PAIR_MAX = 0xFFFF,
 
     // Loose keycodes - to be used directly
-    RESET = 0x5C00,
-    DEBUG,  // 5C01
+    QK_BOOTLOADER = 0x5C00,
+    QK_DEBUG_TOGGLE,  // 5C01
 
     // Magic
     MAGIC_SWAP_CONTROL_CAPSLOCK,       // 5C02
@@ -106,7 +106,7 @@ enum quantum_keycodes {
     MAGIC_TOGGLE_ALT_GUI,              // 5C15
 
     // Grave Escape
-    GRAVE_ESC,  // 5C16
+    QK_GRAVE_ESCAPE,  // 5C16
 
     // Auto Shift
     KC_ASUP,   // 5C17
@@ -379,7 +379,7 @@ enum quantum_keycodes {
     OUT_USB,   // 5CDE
 
     // Clear EEPROM
-    EEPROM_RESET,  // 5CDF
+    QK_CLEAR_EEPROM,  // 5CDF
 
     // Unicode
     UNICODE_MODE_FORWARD,  // 5CE0
@@ -716,9 +716,11 @@ enum quantum_keycodes {
 #define MACROTAP(kc) (QK_MACRO | (FUNC_TAP << 8) | (kc))
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
-#define KC_GESC GRAVE_ESC
+#define QK_GESC QK_GRAVE_ESCAPE
 
-#define EEP_RST EEPROM_RESET
+#define QK_BOOT QK_BOOTLOADER
+#define DB_TOGG QK_DEBUG_TOGGLE
+#define EE_CLR QK_CLEAR_EEPROM
 
 // Audio Clicky aliases
 #define CK_TOGG CLICKY_TOGGLE
@@ -964,3 +966,5 @@ enum quantum_keycodes {
 #define PB_32 PROGRAMMABLE_BUTTON_32
 #define PROGRAMMABLE_BUTTON_MIN PROGRAMMABLE_BUTTON_1
 #define PROGRAMMABLE_BUTTON_MAX PROGRAMMABLE_BUTTON_32
+
+#include "quantum_keycodes_legacy.h"
