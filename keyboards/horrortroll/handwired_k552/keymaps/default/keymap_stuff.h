@@ -80,7 +80,7 @@ enum layer_keycodes {
     RGB_C_E,             //Cycle user effect
 };
 
-void keyboard_post_init_kb(void) {
+void keyboard_post_init_user(void) {
     user_config.raw = eeconfig_read_user();
     switch (user_config.rgb_mode) {
         case RGB_MODE_ALL:
