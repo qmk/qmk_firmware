@@ -738,7 +738,7 @@ bool oled_task_user(void) {
 #endif
 
 #if defined(OLED_DISPLAY_128X128)
-    if (!is_keyboard_left()) {
+    if (is_keyboard_left()) {
         render_keylogger_status();
     }
 #endif

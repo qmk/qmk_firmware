@@ -127,6 +127,9 @@ void user_transport_sync(void) {
         static uint16_t last_keymap = 0;
         static uint32_t last_config = 0, last_sync[4], last_user_state = 0;
         bool            needs_sync = false;
+#ifdef OLED_ENABLE
+        static char     keylog_temp[OLED_KEYLOGGER_LENGTH] = { 0 };
+#endif
 
         // Check if the state values are different
         if (memcmp(&transport_user_state, &last_user_state, sizeof(transport_user_state))) {
@@ -181,9 +184,15 @@ void user_transport_sync(void) {
             if (transaction_rpc_send(RPC_ID_USER_CONFIG_SYNC, sizeof(transport_userspace_config), &transport_userspace_config)) {
                 last_sync[2] = timer_read32();
             }
+            needs_sync = false;
         }
 
 #ifdef OLED_ENABLE
+        // Check if the state values are different
+        if (memcmp(&keylog_str, &keylog_temp, OLED_KEYLOGGER_LENGTH)) {
+            needs_sync = true;
+            memcpy(&keylog_temp, &keylog_str, OLED_KEYLOGGER_LENGTH);
+        }
         if (timer_elapsed32(last_sync[3]) > 250) {
             needs_sync = true;
         }
@@ -193,6 +202,7 @@ void user_transport_sync(void) {
             if (transaction_rpc_send(RPC_ID_USER_KEYLOG_STR, OLED_KEYLOGGER_LENGTH, &keylog_str)) {
                 last_sync[3] = timer_read32();
             }
+            needs_sync = false;
         }
 #endif
     }
