@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define EEPROM_I2C_24LC128
+#define EEPROM_I2C_24LC256
 //#define I2C1_CLOCK_SPEED 400000
 //#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
@@ -71,3 +71,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 
 #define TAP_CODE_DELAY 50
+
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 16383 // Overriding to use more EEPROM
