@@ -1,9 +1,9 @@
 # rm_numpad
 
 <!---
-TODO: Add image when final product is ready for sale.
-![rm_numpad](imgur.com image replace me!)
+TODO: update image when final product is ready for sale.
 -->
+[rm_numpad](https://i.imgur.com/1hqUHIn.jpg)
 
 A simple numpad with the addition of a few features:
 * A few additional buttons.  The default keymap has these set to "Pause", "Previous Track", and "Next Track"
