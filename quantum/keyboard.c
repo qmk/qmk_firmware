@@ -342,6 +342,7 @@ void keyboard_init(void) {
     split_pre_init();
 #endif
     matrix_init();
+    quantum_init();
 #if defined(CRC_ENABLE)
     crc_init();
 #endif
