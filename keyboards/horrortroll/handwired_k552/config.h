@@ -19,22 +19,25 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x7516 //Redragon
+#define VENDOR_ID       0x7516
 #define PRODUCT_ID      0x5104
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Redragon
+#define MANUFACTURER    HorrorTroll
 #define PRODUCT         K552 Kumara
 
 /* Key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
 
-/* Key matrix pin           0    1,   2,  3,  4,  5,  6,   7,   8,  9, 10, 11, 12,  13, 14, 15, 16 */
+/* key matrix pins */
 #define MATRIX_ROW_PINS { C12, C10, A10, A8, C8, C9 }
 #define MATRIX_COL_PINS { B15,  C6,  C7, A3, A1, C3, C1, B14, B13, A9, B3, B4, A0, C11, A2, C0, C2 }
 
-/* Direction of diode (COL2ROW or ROW2COL) */
+/* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
+
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCE 5
 
 /* Bootmagic reset */
 #define BOOTMAGIC_LITE_ROW 4
@@ -46,9 +49,6 @@
 /* Change USB Polling Rate to 1000hz and a larger keys per scan for elite gaming */
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 12
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* EEPROM size */
 #define EEPROM_PAGE_SIZE

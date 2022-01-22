@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "k552.h"
+#include "handwired_k552.h"
 
 // OLED animation
 #include "lib/logo.c"
