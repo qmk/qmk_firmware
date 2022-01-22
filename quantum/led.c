@@ -16,6 +16,7 @@
 #include "led.h"
 #include "host.h"
 #include "debug.h"
+#include "gpio.h"
 
 #ifdef BACKLIGHT_CAPS_LOCK
 #    ifdef BACKLIGHT_ENABLE
