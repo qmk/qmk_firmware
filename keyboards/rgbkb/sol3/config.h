@@ -13,18 +13,21 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x3535
-#define PRODUCT_ID      0x3505
+#define PRODUCT_ID      0x3510
 #define MANUFACTURER    RGBKB
-#define PRODUCT         Mün
+#define PRODUCT         Sol 3
 
 #define USB_POLLING_INTERVAL_MS 1
 
 /* Matrix Configuration - Rows are doubled up */
-#define MATRIX_ROWS 14
+#define MATRIX_ROWS 12
 // Last pins reserved for encoder / touch encoder support
-#define MATRIX_ROW_PINS { A1, A3, B3, A13, B15, NO_PIN, NO_PIN }
-#define MATRIX_COLS 7
-#define MATRIX_COL_PINS { A0, B11, B0, B10, B12, B2, A8 }
+#define MATRIX_ROW_PINS       { B15,  A8, A15, B12, A3, NO_PIN }
+#define MATRIX_ROW_PINS_RIGHT { B15, B14,  A8, A13, A7, NO_PIN }
+#define MATRIX_COLS 8
+// Empty matrix entries used for encoder / touch encoder support
+#define MATRIX_COL_PINS       { A6, A7, B0, B2, B1,  B9,  B3,  B4 }
+#define MATRIX_COL_PINS_RIGHT { B9, B8, B4, A6, A3, B10, B12, B11 }
 #define MATRIX_IO_DELAY 5
 
 #define BUSY_WAIT
@@ -38,8 +41,12 @@
 #define TOUCH_SEGMENTS 3
 
 /* Encoder Configuration */
-#define ENCODERS_PAD_A { B8, B9 }
-#define ENCODERS_PAD_B { A14, A15 }
+//      Matrix Entries  k36/k35(E1SW>B13), k33/k32, k7/k28
+#define ENCODERS_PAD_A { A1, B10, A13 }
+#define ENCODERS_PAD_B { A2, B11, B14 }
+//      Matrix Entries  k72/k71(E5SW>B0), k69/k68, k43/k64
+#define ENCODERS_PAD_A_RIGHT { A1, C15,  B3 }
+#define ENCODERS_PAD_B_RIGHT { A2, C14, B13 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -49,7 +56,7 @@
 #define CRC8_USE_TABLE
 
 /* Split Keyboard Configuration */
-#define EE_HANDS
+#define SPLIT_HAND_PIN C13
 #define SPLIT_USB_DETECT
 // also handles the SERIAL_USART_TX_PIN define
 #define SOFT_SERIAL_PIN A9
@@ -73,15 +80,28 @@
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_TRANSACTION_IDS_KB TOUCH_ENCODER_SYNC, RGB_MENU_SYNC
 
+/* LED Turbo DIP Switch */
+#define DIP_SWITCH_PINS { A14, B13 }
+#define DIP_SWITCH_PINS_RIGHT { A14, B0 }
+
 /* RGB LED Configuration */
 #define RGB_DI_PIN B5
-#define RGBLED_NUM 98
-#define RGBLED_SPLIT { 49, 49 }
-#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 156
+#define RGBLED_SPLIT { 78, 78 }
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
 #define DRIVER_LED_TOTAL RGBLED_NUM
 #define RGB_MATRIX_SPLIT RGBLED_SPLIT
-#define RGB_MATRIX_CENTER { 128, 34 }
+#define RGB_MATRIX_CENTER { 81, 28 }
 #define RGB_MATRIX_LED_FLUSH_LIMIT 33
 #define RGB_MATRIX_LED_PROCESS_LIMIT 10
 #define RGB_MATRIX_KEYPRESSES
@@ -152,3 +172,11 @@
 #define TOUCH_UPDATE_INTERVAL 33
 #define OLED_UPDATE_INTERVAL 33
 #define TAP_CODE_DELAY 5
+
+/* Audio Configuration */
+#define AUDIO_PIN A4
+#define AUDIO_PIN_ALT A5
+#define AUDIO_PIN_ALT_AS_NEGATIVE
+#define AUDIO_CLICKY
+#define AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE
+#define AUDIO_DAC_OFF_VALUE 0
