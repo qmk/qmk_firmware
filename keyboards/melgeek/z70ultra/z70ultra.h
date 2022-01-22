@@ -16,9 +16,9 @@
 
 #pragma once
 
-#if defined(REV2)
+#if defined(KEYBOARD_melgeek_z70ultra_rev2)
 	#include "rev2.h"
-#elif defined(REV1)
+#elif defined(KEYBOARD_melgeek_z70ultra_rev1)
 	#include "rev1.h"
 #endif
 
