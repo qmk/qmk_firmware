@@ -360,6 +360,7 @@ enum {
 // Mac only definitions
 #define M_NAV_1 LT(_MAC_NAV_1, KC_D)
 #define M_NAV_2 MO(_MAC_NAV_2)
+#define M_F_NAV LT(_MAC_NAV_2, KC_F)
 #define M_F_WRD A(KC_RIGHT)
 #define M_B_WRD A(KC_LEFT)
 #define M_YANK  G(KC_C)
@@ -369,6 +370,7 @@ enum {
 // Linux only definitions
 #define L_NAV_1 LT(_LINUX_NAV_1, KC_D)
 #define L_NAV_2 MO(_LINUX_NAV_2)
+#define L_F_NAV LT(_LINUX_NAV_2, KC_F)
 #define L_F_WRD A(KC_RIGHT)
 #define L_B_WRD A(KC_LEFT)
 #define L_YANK  C(KC_C)
@@ -378,6 +380,7 @@ enum {
 // Windows only definitions
 #define W_NAV_1 LT(_WIN_NAV_1, KC_D)
 #define W_NAV_2 MO(_WIN_NAV_2)
+#define W_F_NAV LT(_WIN_NAV_2, KC_F)
 #define W_F_WRD C(KC_RIGHT)
 #define W_B_WRD C(KC_LEFT)
 #define W_YANK  C(KC_C)
