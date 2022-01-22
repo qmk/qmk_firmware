@@ -54,7 +54,7 @@ include tests/test_common/build.mk
 include $(TEST_PATH)/test.mk
 endif
 
-include common_features.mk
+include $(BUILDDEFS_PATH)/common_features.mk
 include $(BUILDDEFS_PATH)/generic_features.mk
 include $(PLATFORM_PATH)/common.mk
 include $(TMK_PATH)/protocol.mk
@@ -63,7 +63,7 @@ include $(QUANTUM_PATH)/encoder/tests/rules.mk
 include $(QUANTUM_PATH)/sequencer/tests/rules.mk
 include $(PLATFORM_PATH)/test/rules.mk
 ifneq ($(filter $(FULL_TESTS),$(TEST)),)
-include build_full_test.mk
+include $(BUILDDEFS_PATH)/build_full_test.mk
 endif
 
 $(TEST)_SRC += \
@@ -77,7 +77,7 @@ $(TEST_OBJ)/$(TEST)_DEFS := $($(TEST)_DEFS)
 $(TEST_OBJ)/$(TEST)_CONFIG := $($(TEST)_CONFIG)
 
 include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
-include $(TMK_PATH)/rules.mk
+include $(BUILDDEFS_PATH)/common_rules.mk
 
 
 $(shell mkdir -p $(BUILD_DIR)/test 2>/dev/null)
