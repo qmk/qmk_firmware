@@ -125,8 +125,8 @@ COMPARE_AND_REMOVE_FROM_RULE = $(eval $(call COMPARE_AND_REMOVE_FROM_RULE_HELPER
 # and MATCHED_ITEM to the item that was matched
 define TRY_TO_MATCH_RULE_FROM_LIST_HELPER
     # $$(info R $$(RULE))
-    TOKEN1:=$$(shell python -c "import sys; print((sys.argv[1].split(':',1)+[''])[0])" $$(RULE))
-    TOKENr:=$$(shell python -c "import sys; print((sys.argv[1].split(':',1)+[''])[1])" $$(RULE))
+    TOKEN1:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[0])" $$(RULE))
+    TOKENr:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[1])" $$(RULE))
     # $$(info TOKEN1 $$(TOKEN1) TOKENr $$(TOKENr))
     FOUNDx:=$$(shell echo $1 | tr " " "\n" | grep -Fx $$(TOKEN1))
     # $$(info $$(FOUNDx))
