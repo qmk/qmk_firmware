@@ -85,6 +85,69 @@ bool rshift = false;
 #ifdef MOUSEKEY_ENABLE
 #ifdef TAP_DANCE_ENABLE
 
+// Define a type containing the tapdance states to be tested
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_SINGLE_TAP
+} td_state_t;
+
+// Global instacne of the tapdacne state type
+static td_state_t td_state;
+
+td_state_t cur_dance(qk_tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
+    }
+
+    if(state->count == 2) return TD_DOUBLE_SINGLE_TAP;
+    else return TD_UNKNOWN;
+}
+
+void cps_ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case TD_SINGLE_TAP:
+            if (caps_lock) {
+                register_code16(KC_CAPS);
+            }
+            break;
+        case TD_SINGLE_HOLD:
+            register_mods(MOD_BIT(KC_LCTL));
+            break;
+        case TD_DOUBLE_SINGLE_TAP:
+            if (!caps_lock) {
+                register_code16(KC_CAPS);
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+void cps_ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state)  {
+        case TD_SINGLE_TAP:
+            if (caps_lock) {
+                unregister_code16(KC_CAPS);
+            }
+            break;
+        case TD_SINGLE_HOLD:
+            unregister_mods(MOD_BIT(KC_LCTL));
+            break;
+        case TD_DOUBLE_SINGLE_TAP:
+            if (!caps_lock) {
+                unregister_code16(KC_CAPS);
+            }
+            break;
+        default:
+            break;
+    }
+}
+
 // Tap Dance definition
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once or Shift, twice for mouse layer
@@ -92,7 +155,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_ADJ_M_NUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(ADJ_M, _NUM),
     [TD_ADJ_L_NUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(ADJ_L, _NUM),
     [TD_ADJ_W_NUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(ADJ_W, _NUM),
-    [TD_CTRL_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_CAPS),
+//    [TD_CTRL_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_CAPS),
+    [TD_CTRL_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cps_ctl_finished, cps_ctl_reset),
 };
 
 #endif
