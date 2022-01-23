@@ -31,7 +31,6 @@
     #define RGBLIGHT_VAL_STEP 17
 #endif
 
-#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 #define TAPPING_TERM 200
 #define IGNORE_MOD_TAP_INTERRUPT
 #define COMBO_TERM 30
