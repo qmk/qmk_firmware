@@ -27,7 +27,9 @@ __attribute__((weak)) void bootloader_jump(void) {
     eeprom_write_byte((uint8_t *)1, 0x00);
 
     // watchdog reset
-    mcu_reset();
+    wdt_enable(WDTO_250MS);
+    for (;;)
+        ;
 }
 
 __attribute__((weak)) void mcu_reset(void) {
