@@ -2,12 +2,12 @@
 #    undef DEBOUNCE
 #endif
 
-#ifdef TAPPING_TERM
+/* #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
 #    define TAPPING_TERM 100
 #else
 #    define TAPPING_TERM 100
-#endif
+#endif */
 
 #ifndef RETRO_TAPPING
 #    define RETRO_TAPPING
