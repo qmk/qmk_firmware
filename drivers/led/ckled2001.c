@@ -126,7 +126,10 @@ void CKLED2001_init(uint8_t addr) {
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, CURRENT_TUNE_PAGE);
     for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
         switch (i) {
-            case 2: case 5: case 8: case 11:
+            case 2:
+            case 5:
+            case 8:
+            case 11:
                 CKLED2001_write_register(addr, i, 0xA0);
                 break;
             default:
