@@ -43,7 +43,9 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [STM32G474](https://www.st.com/en/microcontrollers-microprocessors/stm32g4x4.html)
  * [STM32L412](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
  * [STM32L422](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
+ * [STM32L432](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
  * [STM32L433](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x3.html)
+ * [STM32L442](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
  * [STM32L443](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x3.html)
 
 ### WestBerryTech (WB32)
