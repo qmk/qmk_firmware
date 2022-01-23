@@ -149,7 +149,7 @@ enum custom_keycodes {
 #define KC_FUNC KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12
 
 // #define CPS_CTL     CTL_T(KC_CAPS)
-// #define TAB_CTL CTL_T(KC_TAB)
+#define TAB_CTL CTL_T(KC_TAB)
 #define ADJ_M MO(_ADJUST_MAC)
 #define ADJ_L MO(_ADJUST_LINUX)
 #define ADJ_W MO(_ADJUST_WIN)
@@ -340,7 +340,6 @@ enum {
 #        define SFT_MSE KC_RSFT
 #        define TG_MSE  _______
 #        define CPS_CTL CTL_T(KC_CAPS)
-#        define TAB_CTL CTL_T(KC_TAB)
 
 #    endif
 #endif
