@@ -86,8 +86,8 @@ ifneq ($(strip $(SPLIT_KEYBOARD)), yes)
 
   CUSTOM_MATRIX = yes
 
-  SRC += pico/matrix.c
-  SRC += pico/split_util.c
+  SRC += pico/legacy_matrix.c
+  SRC += pico/legacy_split_util.c
 endif
 
 ########
