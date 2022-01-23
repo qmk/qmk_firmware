@@ -36,7 +36,7 @@ __attribute__((weak)) void bootloader_jump(void) {
     *DBGMCU_CMD = DBGMCU_CMD_RESET;
 }
 
-__attribute__((weak)) void keyboard_jump(void) {
+__attribute__((weak)) void mcu_reset(void) {
      *DBGMCU_CMD = DBGMCU_CMD_RESET;
 }
 

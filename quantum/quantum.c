@@ -152,7 +152,7 @@ void reset_keyboard(void) {
 
 void soft_reset_keyboard(void) {
     shutdown_quantum();
-    keyboard_jump();
+    mcu_reset();
 }
 
 /* Convert record into usable keycode via the contained event. */

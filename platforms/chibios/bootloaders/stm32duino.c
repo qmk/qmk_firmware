@@ -18,5 +18,5 @@
 
 #include <ch.h>
 
-__attribute__((weak)) void bootloader_jump(void) { keyboard_jump(); }
-__attribute__((weak)) void keyboard_jump(void) { NVIC_SystemReset(); }
+__attribute__((weak)) void bootloader_jump(void) { mcu_reset(); }
+__attribute__((weak)) void mcu_reset(void) { NVIC_SystemReset(); }

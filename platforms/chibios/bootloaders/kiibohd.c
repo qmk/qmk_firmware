@@ -30,4 +30,4 @@ __attribute__((weak)) void bootloader_jump(void) {
     // request reset
     SCB->AIRCR = SCB_AIRCR_VECTKEY_WRITEMAGIC | SCB_AIRCR_SYSRESETREQ_Msk;
 }
-__attribute__((weak)) void keyboard_jump(void) {}
+__attribute__((weak)) void mcu_reset(void) {}

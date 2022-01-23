@@ -24,4 +24,4 @@ __attribute__((weak)) void bootloader_jump(void) {
     __BKPT(0);
 }
 
-__attribute__((weak)) void keyboard_jump(void) {}
+__attribute__((weak)) void mcu_reset(void) {}

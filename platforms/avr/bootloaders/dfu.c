@@ -35,10 +35,10 @@ __attribute__((weak)) void bootloader_jump(void) {
     _delay_ms(5); // 5 seems to work fine
 
     reset_key = BOOTLOADER_RESET_KEY;
-    keyboard_jump();
+    mcu_reset();
 }
 
-__attribute__((weak)) void keyboard_jump(void) {
+__attribute__((weak)) void mcu_reset(void) {
     // watchdog reset
     wdt_enable(WDTO_250MS);
     for (;;)

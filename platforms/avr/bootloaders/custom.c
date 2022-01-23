@@ -17,7 +17,7 @@
 #include "bootloader.h"
 
 __attribute__((weak)) void bootloader_jump(void) {}
-__attribute__((weak)) void keyboard_jump(void) {
+__attribute__((weak)) void mcu_reset(void) {
     // setup watchdog timeout
     wdt_enable(WDTO_60MS);
 

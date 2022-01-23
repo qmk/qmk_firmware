@@ -30,10 +30,10 @@ __attribute__((weak)) void bootloader_jump(void) {
 
     *bootKeyPtr = bootKey;
 
-    keyboard_jump();
+    mcu_reset();
 }
 
-__attribute__((weak)) void keyboard_jump(void) {
+__attribute__((weak)) void mcu_reset(void) {
     // setup watchdog timeout
     wdt_enable(WDTO_60MS);
 
