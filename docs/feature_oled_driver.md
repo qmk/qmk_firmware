@@ -84,6 +84,8 @@ static void render_logo(void) {
 }
 ```
 
+?> The default font file is located at `drivers/oled/glcdfont.c` and its location can be overwritten with the `OLED_FONT_H` configuration option. Font file content can be edited with external tools such as [Helix Font Editor](https://helixfonteditor.netlify.app/) and [Logo Editor](https://joric.github.io/qle/).
+
 ## Buffer Read Example
 For some purposes, you may need to read the current state of the OLED display
 buffer. The `oled_read_raw` function can be used to safely read bytes from the
