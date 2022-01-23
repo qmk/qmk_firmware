@@ -105,7 +105,7 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
                 mouse_timer = timer_read();
                 break;
             }
-            if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
+            if (layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
                 layer_off(_MOUSE);
             }
             mouse_keycode_tracker = 0;
