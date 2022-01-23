@@ -252,8 +252,6 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
 
 void matrix_init(void) {
 #ifdef SPLIT_KEYBOARD
-    split_pre_init();
-
     // Set pinout for right half if pinout for that half is defined
     if (!isLeftHand) {
 #    ifdef DIRECT_PINS_RIGHT
@@ -292,10 +290,6 @@ void matrix_init(void) {
     debounce_init(ROWS_PER_HAND);
 
     matrix_init_quantum();
-
-#ifdef SPLIT_KEYBOARD
-    split_post_init();
-#endif
 }
 
 #ifdef SPLIT_KEYBOARD

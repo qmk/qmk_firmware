@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keyboard.h"
 #include "matrix.h"
 #include "keymap.h"
+#include "magic.h"
 #include "host.h"
 #include "led.h"
 #include "keycode.h"
@@ -100,6 +101,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
+#endif
+#ifdef SPLIT_KEYBOARD
+#    include "split_util.h"
+#endif
+#ifdef BLUETOOTH_ENABLE
+#    include "outputselect.h"
 #endif
 
 static uint32_t last_input_modification_time = 0;
@@ -291,6 +298,36 @@ void housekeeping_task(void) {
     housekeeping_task_user();
 }
 
+/** \brief Init tasks previously located in matrix_init_quantum
+ *
+ * TODO: rationalise against keyboard_init and current split role
+ */
+void quantum_init(void) {
+    magic();
+    led_init_ports();
+#ifdef BACKLIGHT_ENABLE
+    backlight_init_ports();
+#endif
+#ifdef AUDIO_ENABLE
+    audio_init();
+#endif
+#ifdef LED_MATRIX_ENABLE
+    led_matrix_init();
+#endif
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_init();
+#endif
+#if defined(UNICODE_COMMON_ENABLE)
+    unicode_input_mode_init();
+#endif
+#ifdef HAPTIC_ENABLE
+    haptic_init();
+#endif
+#if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
+    set_output(OUTPUT_AUTO);
+#endif
+}
+
 /** \brief keyboard_init
  *
  * FIXME: needs doc
@@ -301,7 +338,11 @@ void keyboard_init(void) {
 #ifdef VIA_ENABLE
     via_init();
 #endif
+#ifdef SPLIT_KEYBOARD
+    split_pre_init();
+#endif
     matrix_init();
+    quantum_init();
 #if defined(CRC_ENABLE)
     crc_init();
 #endif
@@ -341,6 +382,9 @@ void keyboard_init(void) {
 #endif
 #ifdef VIRTSER_ENABLE
     virtser_init();
+#endif
+#ifdef SPLIT_KEYBOARD
+    split_post_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
