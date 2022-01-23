@@ -119,24 +119,21 @@ endef
 # a function that returns the value
 COMPARE_AND_REMOVE_FROM_RULE = $(eval $(call COMPARE_AND_REMOVE_FROM_RULE_HELPER,$1))$(RULE_FOUND)
 
-# Try to find the longest match for the start of the rule to be checked
+# Try to find a match for the start of the rule to be checked
 # $1 The list to be checked
 # If a match is found, then RULE_FOUND is set to true
 # and MATCHED_ITEM to the item that was matched
 define TRY_TO_MATCH_RULE_FROM_LIST_HELPER
-    # $$(info R $$(RULE))
+    # Split on ":", padding with empty strings to avoid indexing issues
     TOKEN1:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[0])" $$(RULE))
     TOKENr:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[1])" $$(RULE))
-    # $$(info TOKEN1 $$(TOKEN1) TOKENr $$(TOKENr))
+
     FOUNDx:=$$(shell echo $1 | tr " " "\n" | grep -Fx $$(TOKEN1))
-    # $$(info $$(FOUNDx))
     ifneq ($$(FOUNDx),)
-        BEST_MATCH := $$(FOUNDx)
         RULE := $$(TOKENr)
         RULE_FOUND := true
-        MATCHED_ITEM := $$(FOUNDx)
+        MATCHED_ITEM := $$(TOKEN1)
     else
-        BEST_MATCH :=
         RULE_FOUND := false
         MATCHED_ITEM :=
     endif
