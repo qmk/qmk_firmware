@@ -51,7 +51,6 @@ endif
 ## TODO
 
 * layers redo
-* secrets
 * Grave esc: \` with alt
 * Single key tilde
 * raise tap dance
@@ -67,8 +66,6 @@ endif
 * /users/bbaserdem/README.md
   * locking layers
   * Mouse emulation, complete with diagonal keys.
-* /users/byungyoonc/readme.md
-  * secrets
 * /users/callum/readme.md
   * Hold `sym` and `nav` together to activate the numbers layer.
 * /users/replicaJunction/readme.md

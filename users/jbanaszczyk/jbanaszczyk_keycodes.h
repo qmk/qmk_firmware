@@ -11,12 +11,6 @@
 enum custom_keycodes {
     KC_TEST = PLACEHOLDER_SAFE_RANGE,
 
-    KC_SECRET_1,
-    KC_SECRET_2,
-    KC_SECRET_3,
-    KC_SECRET_4,
-    KC_SECRET_5,
-
     KC_DO_NOT_SLEEP_START,
     KC_DO_NOT_SLEEP_STOP,
 
