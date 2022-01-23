@@ -2,7 +2,7 @@
 
 #include "timer.h"
 
-static uint32_t reset_point = 0;
+static uint32_t ticks_offset = 0;
 #if CH_CFG_ST_RESOLUTION < 32
 static uint32_t last_systime = 0;
 static uint32_t overflow     = 0;
@@ -34,7 +34,7 @@ void timer_init(void) { timer_clear(); }
 
 void timer_clear(void) {
     chSysLock();
-    reset_point = get_system_time_ticks();
+    ticks_offset = get_system_time_ticks();
     chSysUnlock();
 }
 
@@ -42,10 +42,10 @@ uint16_t timer_read(void) { return (uint16_t)timer_read32(); }
 
 uint32_t timer_read32(void) {
     chSysLock();
-    uint32_t systime = get_system_time_ticks() - reset_point;
+    uint32_t ticks = get_system_time_ticks() - ticks_offset;
     chSysUnlock();
 
-    return (uint32_t)TIME_I2MS(systime);
+    return (uint32_t)TIME_I2MS(ticks);
 }
 
 uint16_t timer_elapsed(uint16_t last) { return TIMER_DIFF_16(timer_read(), last); }
