@@ -32,6 +32,23 @@ static inline uint32_t get_system_time_ticks(void) {
     return systime;
 }
 
+#if CH_CFG_ST_RESOLUTION < 32
+static virtual_timer_t update_timer;
+
+// Update the system tick counter every half of the timer overflow period; this should keep the tick counter correct
+// even if something blocks timer interrupts for 1/2 of the timer overflow period.
+#    define UPDATE_INTERVAL (((sysinterval_t)1) << (CH_CFG_ST_RESOLUTION - 1))
+
+// VT callback function to keep the overflow bits of the system tick counter updated.
+static void update_fn(void *arg) {
+    (void)arg;
+    chSysLockFromISR();
+    get_system_time_ticks();
+    chVTSetI(&update_timer, UPDATE_INTERVAL, update_fn, NULL);
+    chSysUnlockFromISR();
+}
+#endif
+
 // The highest multiple of CH_CFG_ST_FREQUENCY that fits into uint32_t.  This number of ticks will necessarily
 // correspond to some integer number of seconds.
 #define OVERFLOW_ADJUST_TICKS ((uint32_t)((UINT32_MAX / CH_CFG_ST_FREQUENCY) * CH_CFG_ST_FREQUENCY))
@@ -40,7 +57,13 @@ static inline uint32_t get_system_time_ticks(void) {
 // OVERFLOW_ADJUST_TICKS corresponds to an integer number of seconds).
 #define OVERFLOW_ADJUST_MS (TIME_I2MS(OVERFLOW_ADJUST_TICKS))
 
-void timer_init(void) { timer_clear(); }
+void timer_init(void) {
+    timer_clear();
+#if CH_CFG_ST_RESOLUTION < 32
+    chVTObjectInit(&update_timer);
+    chVTSet(&update_timer, UPDATE_INTERVAL, update_fn, NULL);
+#endif
+}
 
 void timer_clear(void) {
     chSysLock();
