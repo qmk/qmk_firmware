@@ -19,6 +19,10 @@ endif
 # Otherwise the [OK], [ERROR] and [WARN] messages won't be displayed correctly
 override SILENT := false
 
+ifdef SKIP_VERSION
+    SKIP_GIT := yes
+endif
+
 ifndef SUB_IS_SILENT
 ifndef SKIP_GIT
     QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
@@ -50,47 +54,11 @@ ABS_ROOT_MAKEFILE := $(abspath $(ROOT_MAKEFILE))
 ABS_STARTING_DIR := $(dir $(ABS_STARTING_MAKEFILE))
 ABS_ROOT_DIR := $(dir $(ABS_ROOT_MAKEFILE))
 STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
-BUILD_DIR := $(ROOT_DIR)/.build
-TEST_DIR := $(BUILD_DIR)/test
+
+include paths.mk
+
+TEST_OUTPUT_DIR := $(BUILD_DIR)/test
 ERROR_FILE := $(BUILD_DIR)/error_occurred
-
-# Helper function to process the newt element of a space separated path
-# It works a bit like the traditional functional head tail
-# so the CURRENT_PATH_ELEMENT will become the new head
-# and the PATH_ELEMENTS are the rest that are still unprocessed
-define NEXT_PATH_ELEMENT
-    $$(eval CURRENT_PATH_ELEMENT := $$(firstword  $$(PATH_ELEMENTS)))
-    $$(eval PATH_ELEMENTS := $$(wordlist  2,9999,$$(PATH_ELEMENTS)))
-endef
-
-# We change the / to spaces so that we more easily can work with the elements
-# separately
-PATH_ELEMENTS := $(subst /, ,$(STARTING_DIR))
-# Initialize the path elements list for further processing
-$(eval $(call NEXT_PATH_ELEMENT))
-
-
-# Phony targets to enable a few simple make commands outside the main processing below.
-.PHONY: list-keyboards
-list-keyboards:
-	util/list_keyboards.sh | sort -u | tr '\n' ' '
-
-.PHONY: generate-keyboards-file
-generate-keyboards-file:
-	util/list_keyboards.sh | sort -u
-
-.PHONY: clean
-clean:
-	echo -n 'Deleting .build/ ... '
-	rm -rf $(BUILD_DIR)
-	echo 'done.'
-
-.PHONY: distclean
-distclean: clean
-	echo -n 'Deleting *.bin, *.hex, and *.uf2 ... '
-	rm -f *.bin *.hex *.uf2
-	echo 'done.'
-
 
 .DEFAULT_GOAL := all:all
 
@@ -387,7 +355,7 @@ define BUILD_TEST
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
     ifneq ($$(MAKE_TARGET),clean)
-        TEST_EXECUTABLE := $$(TEST_DIR)/$$(TEST_NAME).elf
+        TEST_EXECUTABLE := $$(TEST_OUTPUT_DIR)/$$(TEST_NAME).elf
         TESTS += $$(TEST_NAME)
         TEST_MSG := $$(MSG_TEST)
         $$(TEST_NAME)_COMMAND := \
@@ -404,6 +372,7 @@ define PARSE_TEST
     TESTS :=
     TEST_NAME := $$(firstword $$(subst :, ,$$(RULE)))
     TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME):,,$$(RULE)))
+    include $(ROOT_DIR)/testlist.mk
     ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else
@@ -426,7 +395,6 @@ define SET_SILENT_MODE
     endif
 endef
 
-include paths.mk
 include $(BUILDDEFS_PATH)/message.mk
 
 ifeq ($(strip $(BREAK_ON_ERRORS)), yes)
@@ -496,14 +464,22 @@ git-submodule:
 	git submodule sync --recursive
 	git submodule update --init --recursive --progress
 
-# Generate the version.h file
-ifdef SKIP_GIT
-VERSION_H_FLAGS := --skip-git
-endif
-ifdef SKIP_VERSION
-VERSION_H_FLAGS := --skip-all
-SKIP_GIT := yes
-endif
-$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o quantum/version.h)
+.PHONY: list-keyboards
+list-keyboards:
+	util/list_keyboards.sh | sort -u | tr '\n' ' '
 
-include $(ROOT_DIR)/testlist.mk
+.PHONY: generate-keyboards-file
+generate-keyboards-file:
+	util/list_keyboards.sh | sort -u
+
+.PHONY: clean
+clean:
+	echo -n 'Deleting .build/ ... '
+	rm -rf $(BUILD_DIR)
+	echo 'done.'
+
+.PHONY: distclean
+distclean: clean
+	echo -n 'Deleting *.bin, *.hex, and *.uf2 ... '
+	rm -f *.bin *.hex *.uf2
+	echo 'done.'
