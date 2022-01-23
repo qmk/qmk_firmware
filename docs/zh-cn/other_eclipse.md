@@ -1,8 +1,8 @@
 # 在Eclipse中设置QMK开发环境
 
 <!---
-  original document: 0.15.12:docs/other_eclipse.md 
-  git diff 0.15.12 HEAD -- docs/other_eclipse.md  | cat
+  original document: 0.15.16:docs/other_eclipse.md 
+  git diff 0.15.16 HEAD -- docs/other_eclipse.md  | cat
 -->
 
 *译注：由于译者没有Eclipse环境，部分菜单项可能与真实描述不同，请酌情甄别，并欢迎提pr进行修改完善*
