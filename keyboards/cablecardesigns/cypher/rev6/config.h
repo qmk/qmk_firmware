@@ -1,4 +1,4 @@
-// Copyright 2021 Cable Car Designs (@westfoxtrot)
+// Copyright 2022 Cable Car Designs (@westfoxtrot)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
@@ -35,9 +35,9 @@
 
 #define BACKLIGHT_PIN D0
 
-#define RGB_DI_PIN E6
+#define RGB_DI_PIN D5
 #ifdef RGB_DI_PIN
-   #define RGBLED_NUM 10
+   #define RGBLED_NUM 3
    #define RGBLIGHT_HUE_STEP 12
    #define RGBLIGHT_SAT_STEP 25
    #define RGBLIGHT_VAL_STEP 12
