@@ -18,5 +18,5 @@
 
 #include <ch.h>
 
-__attribute__((weak)) void bootloader_jump(void) { mcu_reset(); }
-__attribute__((weak)) void mcu_reset(void) {}
+__attribute__((weak)) void bootloader_jump(void) { NVIC_SystemReset(); }
+__attribute__((weak)) void mcu_reset(void) {} // unknown method, ATM

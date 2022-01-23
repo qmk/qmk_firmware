@@ -58,7 +58,7 @@ __attribute__((weak)) void bootloader_jump(void) {
     wait_ms(100);
 
     // Issue a system reset to get the ROM bootloader to execute, with BOOT0 high
-    mcu_reset();
+    NVIC_SystemReset();
 }
 
 __attribute__((weak)) void mcu_reset(void) { NVIC_SystemReset(); }
