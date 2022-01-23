@@ -326,6 +326,9 @@ void quantum_init(void) {
 #if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
     set_output(OUTPUT_AUTO);
 #endif
+#ifdef COMBO_ENABLE
+    combo_enable();
+#endif
 }
 
 /** \brief keyboard_init
