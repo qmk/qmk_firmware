@@ -12,6 +12,7 @@
 #include "test_logger.hpp"
 #include "test_matrix.h"
 #include "test_keymap_key.hpp"
+#include "timer.h"
 
 extern "C" {
 #include "action.h"
@@ -57,6 +58,7 @@ void TestFixture::TearDownTestCase() {}
 
 TestFixture::TestFixture() {
     m_this = this;
+    timer_clear();
 }
 
 TestFixture::~TestFixture() {
