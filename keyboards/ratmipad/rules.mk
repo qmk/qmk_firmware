@@ -2,13 +2,7 @@
 MCU = atmega32u4
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
+
 BOOTLOADER = caterina
 
 # Build Options
@@ -27,7 +21,6 @@ MIDI_ENABLE = no            # MIDI support
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 ENCODER_ENABLE = yes
-EXTRAFLAGS += -flto 
 LTO_ENABLE = yes
 NO_USB_STARTUP_CHECK = yes
 LEADER_ENABLE = no
