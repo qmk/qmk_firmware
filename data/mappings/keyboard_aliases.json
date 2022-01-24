@@ -263,6 +263,9 @@
     'lfkeyboards/smk65': {
           target: 'lfkeyboards/smk65/revb'
     },
+    m3v3van: {
+          target: 'matthewdias/m3n3van'
+    },
     'maartenwut/atom47/rev2': {
           target: 'evyd13/atom47/rev2'
     },
@@ -356,8 +359,14 @@
     'mechlovin/hannah65': {
           target: 'mechlovin/hannah65/rev1'
     },
+    minim: {
+          target: 'matthewdias/minim'
+    },
     model01: {
           target: 'keyboardio/model01'
+    },
+    model_v: {
+          target: 'matthewdias/model_v'
     },
     m0lly: {
           target: 'tkc/m0lly'
@@ -500,6 +509,9 @@
     },
     'tokyo60': {
           target: 'tokyokeyboard/tokyo60'
+    },
+    'txuu': {
+          target: 'matthewdias/txuu'
     },
     underscore33: {
           target: 'underscore33/rev1'
