@@ -45,7 +45,7 @@
 #define PHASE_CHANNEL MSKPHASE_9CHANNEL
 
 /* Set the maxium brightness as 192 in order to limit the current to 450mA */
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (24 * 8)  // 0 = RGB_MATRIX_VAL_STEP
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (24 * 8)  // 8 = RGB_MATRIX_VAL_STEP
 
 /* Set USB polling rate as 1 milliseconds */
 #define USB_POLLING_INTERVAL_MS 1
