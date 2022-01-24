@@ -572,7 +572,6 @@ void process_action(keyrecord_t *record, action_t action) {
 #            if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                         do_release_oneshot = false;
                         if (event.pressed) {
-                            del_mods(get_oneshot_locked_mods());
                             if (get_oneshot_layer_state() == ONESHOT_TOGGLED) {
                                 reset_oneshot_layer();
                                 layer_off(action.layer_tap.val);
@@ -582,10 +581,8 @@ void process_action(keyrecord_t *record, action_t action) {
                                 set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
                             }
                         } else {
-                            add_mods(get_oneshot_locked_mods());
                             if (tap_count >= ONESHOT_TAP_TOGGLE) {
                                 reset_oneshot_layer();
-                                clear_oneshot_locked_mods();
                                 set_oneshot_layer(action.layer_tap.val, ONESHOT_TOGGLED);
                             } else {
                                 clear_oneshot_layer_state(ONESHOT_PRESSED);
