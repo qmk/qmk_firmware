@@ -1,7 +1,7 @@
 # thera
 A 75% keyboard
 
-![thera](https://i.imgur.com/7w7ARcP.jpg)
+![thera](https://i.imgur.com/7w7ARcPh.jpg)
 
 ### Features
 * Plateless PCB gasket
