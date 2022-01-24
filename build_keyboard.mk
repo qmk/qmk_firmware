@@ -37,6 +37,15 @@ ifdef SKIP_VERSION
     OPT_DEFS += -DSKIP_VERSION
 endif
 
+# Generate the version.h file
+ifdef SKIP_VERSION
+VERSION_H_FLAGS := --skip-all
+endif
+ifdef SKIP_GIT
+VERSION_H_FLAGS := --skip-git
+endif
+$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o quantum/version.h)
+
 # Determine which subfolders exist.
 KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
 KEYBOARD_FOLDER_PATH_2 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_1)))
