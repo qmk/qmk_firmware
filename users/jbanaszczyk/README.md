@@ -71,3 +71,5 @@ endif
 * /users/replicaJunction/readme.md
   * CAPS_WORD
   * Mouse Jiggler
+* shift backspaxe for delete
+  * https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete

@@ -5,8 +5,7 @@ DYNAMIC_MACRO_ENABLE = yes
 DO_NOT_SLEEP_ENABLE = yes
 
 SRC += jbanaszczyk.c \
-       do_not_sleep.c \
-       process_records.c
+       do_not_sleep.c
 
 #----------------------------------------
 

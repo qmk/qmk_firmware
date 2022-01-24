@@ -5,6 +5,8 @@
 
 #define TAPPING_TERM 220
 
+#define DYNAMIC_MACRO_NO_NESTING
+
 #ifdef NKRO_ENABLE
 #define FORCE_NKRO
 #endif
