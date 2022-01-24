@@ -18,15 +18,14 @@
 
 #include "samd51j18a.h"
 
-#ifdef KEYBOARD_massdrop_ctrl
 // WARNING: These are only for CTRL bootloader release "v2.18Jun 22 2018 17:28:08" for bootloader_jump support
 extern uint32_t _eram;
-
-#    define BOOTLOADER_MAGIC 0x3B9ACA00
-#    define MAGIC_ADDR (uint32_t *)((intptr_t)(&_eram) - 4)
+#define BOOTLOADER_MAGIC 0x3B9ACA00
+#define MAGIC_ADDR (uint32_t *)((intptr_t)(&_eram) - 4)
 
 // CTRL keyboards released with bootloader version below must use RAM method. Otherwise use WDT method.
 void bootloader_jump(void) {
+#ifdef KEYBOARD_massdrop_ctrl
     uint8_t  ver_ram_method[] = "v2.18Jun 22 2018 17:28:08";  // The version to match (NULL terminated by compiler)
     uint8_t *ver_check        = ver_ram_method;               // Pointer to version match string for traversal
     uint8_t *ver_rom          = (uint8_t *)0x21A0;            // Pointer to address in ROM where this specific bootloader version would exist
@@ -39,16 +38,12 @@ void bootloader_jump(void) {
     if (!*ver_check) {                   // If check version pointer is NULL, all characters have matched
         *MAGIC_ADDR = BOOTLOADER_MAGIC;  // Set magic number into RAM
         NVIC_SystemReset();              // Perform system reset
-
         while (1)
             ;  // Won't get here
     }
-}
+#endif
 
-#else
-
-// Set watchdog timer to reset. Directs the bootloader to stay in programming mode.
-void bootloader_jump(void) {
+    // Set watchdog timer to reset. Directs the bootloader to stay in programming mode.
     WDT->CTRLA.bit.ENABLE = 0;
 
     while (WDT->SYNCBUSY.bit.ENABLE)
@@ -65,8 +60,6 @@ void bootloader_jump(void) {
         ;
     while (!WDT->CTRLA.bit.ENABLE)
         ;
-
     while (1)
         ;  // Wait on timeout
 }
-#endif
