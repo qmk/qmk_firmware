@@ -51,6 +51,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {  L10,  L11,  L12,  L13,  L14,  L15,  L16,  L17,  L18,  L19,  L1A,  L1B  },  \
     {  L20,  L21,  L22,  L23,  L24,  L25,  L26,  L27,  L28,  L29,  L2A,  L2B  },  \
     {  L30,  L31,  L32,  L33,  L34,  L35,  L36,  L37,  L38,  L39,  L3A,  L3B  },  \
+    {  L40,  L41,  L42,  L43,  L44,  L45,  L46,  L47,  L48,  L49,  L4A,  L4B  }  \
+  }
+
+/*
+#define LAYOUT( \
+    L00, L01, L02, L03, L04, L05, L06, L07, L08, L09, L0A, L0B, \
+    L10, L11, L12, L13, L14, L15, L16, L17, L18, L19, L1A, L1B, \
+    L20, L21, L22, L23, L24, L25, L26, L27, L28, L29, L2A, L2B, \
+    L30, L31, L32, L33, L34, L35, L36, L37, L38, L39, L3A, L3B, \
+    L40, L41, L42, L43, L44, L45, L46, L47, L48, L49, L4A, L4B  \
+  ) \
+  { \
+    {  L00,  L01,  L02,  L03,  L04,  L05,  L06,  L07,  L08,  L09,  L0A,  L0B  },  \
+    {  L10,  L11,  L12,  L13,  L14,  L15,  L16,  L17,  L18,  L19,  L1A,  L1B  },  \
+    {  L20,  L21,  L22,  L23,  L24,  L25,  L26,  L27,  L28,  L29,  L2A,  L2B  },  \
+    {  L30,  L31,  L32,  L33,  L34,  L35,  L36,  L37,  L38,  L39,  L3A,  L3B  },  \
     {  L40,  L41,  L42,  L43,  L44,  L45,  L46,  L47,  L48,  L49,  L4A,  L4B  },  \
     {KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO  },  \
     {KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO  },  \
@@ -107,3 +123,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO  }   \
   }
 
+*/
