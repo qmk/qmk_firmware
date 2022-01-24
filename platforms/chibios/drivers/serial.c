@@ -179,8 +179,6 @@ void interrupt_handler(void *arg) {
     // wait for the sync to finish sending
     serial_delay();
 
-    *trans->status = (checksum_computed == checksum_received) ? TRANSACTION_ACCEPTED : TRANSACTION_DATA_ERROR;
-
     // end transaction
     serial_input();
 
@@ -193,17 +191,12 @@ void interrupt_handler(void *arg) {
 /////////
 //  start transaction by initiator
 //
-// int  soft_serial_transaction(int sstd_index)
+// bool  soft_serial_transaction(int sstd_index)
 //
-// Returns:
-//    TRANSACTION_END
-//    TRANSACTION_NO_RESPONSE
-//    TRANSACTION_DATA_ERROR
 // this code is very time dependent, so we need to disable interrupts
-int soft_serial_transaction(int sstd_index) {
-    if (sstd_index > NUM_TOTAL_TRANSACTIONS) return TRANSACTION_TYPE_ERROR;
+bool soft_serial_transaction(int sstd_index) {
+    if (sstd_index > NUM_TOTAL_TRANSACTIONS) return false;
     split_transaction_desc_t *trans = &split_transaction_table[sstd_index];
-    if (!trans->status) return TRANSACTION_TYPE_ERROR;  // not registered
 
     // TODO: remove extra delay between transactions
     serial_delay();
@@ -226,7 +219,7 @@ int soft_serial_transaction(int sstd_index) {
         // slave failed to pull the line low, assume not present
         dprintf("serial::NO_RESPONSE\n");
         chSysUnlock();
-        return TRANSACTION_NO_RESPONSE;
+        return false;
     }
 
     // if the slave is present syncronize with it
@@ -266,7 +259,7 @@ int soft_serial_transaction(int sstd_index) {
         serial_high();
 
         chSysUnlock();
-        return TRANSACTION_DATA_ERROR;
+        return false;
     }
 
     // always, release the line when not in use
@@ -274,5 +267,5 @@ int soft_serial_transaction(int sstd_index) {
     serial_output();
 
     chSysUnlock();
-    return TRANSACTION_END;
+    return true;
 }
