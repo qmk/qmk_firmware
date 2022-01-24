@@ -54,7 +54,7 @@ char* enc_mode_str[] = {"Splash", \
     "Backlight Brightness", \
     "Underglow Brightness", \
     "Underglow Mode", \
-        "Underglow Color", \
+    "Underglow Color", \
     "Scroll Wheel"
 };
 
@@ -203,7 +203,6 @@ void draw_splash(void) {
     uint8_t i, j, k, temp;
     uint16_t count;
     count = 0;
-    //uint8_t *graphic = &splash;
     temp = splash[count];
     for (i = 0; i < 4 ; i++) {
         for (j = 0; j < 128; j++) {
@@ -304,8 +303,6 @@ void handle_encoder_switch_process_record(keyrecord_t *record) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.key.row == ENCODER_MATRIX_ROW && record->event.key.col == ENCODER_MATRIX_COL){
-//temporarily test with escape key until new boards arrive
-//if (record->event.key.row == 0 && record->event.key.col == 0){
         handle_encoder_switch_process_record(record);
     }
     return process_record_user(keycode, record);
