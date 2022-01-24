@@ -2,8 +2,6 @@
   "keyboard_name": "RATMIPAD",
   "url": "https://github.com/nendezkombet/ratmipad",
   "maintainer": "sandipratama/nendezkombet",
-  "width": 3,
-  "height": 3,
   "layouts": {
     "LAYOUT": {
       "layout":
