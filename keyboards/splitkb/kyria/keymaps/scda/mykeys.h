@@ -1,4 +1,4 @@
-// replaces #include "keymap_german_osx.h"
+// short version to replace #include "keymap_german_osx.h"
 # pragma once
 
 #define DE_AE    A(KC_A)    // Ä
@@ -10,16 +10,20 @@
 
 // aliases for readability
 
-#define LETTERS  DF(_LETTERS)
-// #define QWERTY   DF(_QWERTY) // TBD
+// #define QWERTY   DF(_QWERTY) // todo: different letter layouts
 
+#define XOY      TO(_LETTERS)
 #define SYM      TO(_SYMBOLS)
 #define NUM      TO(_NUMBERS)
 #define NAV      TO(_NAV)
-#define MCO      TO(_MEDIA_CODE)
-// #define CTL      TO(_KBD_CTRL) // TBD
+#define MECO     TO(_MEDIA_CODE)
+#define HYPA     OSL(_HYPER)
+// #define CTL      TO(_KBD_CTRL) // todo: kbd ctrl layer
 
-#define CTL_ESC  MT(MOD_LCTL, KC_ESC)
-#define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
-#define CTL_MINS MT(MOD_RCTL, KC_MINUS)
-#define ALT_ENT  MT(MOD_LALT, KC_ENT)
+#define ALT_TAB  ALT_T(KC_TAB)
+#define CMD_SPC  GUI_T(KC_SPACE)
+#define SFT_ENT  SFT_T(KC_ENT)
+#define CMD_BSP  GUI_T(KC_BSPC)
+#define ALT_DEL  ALT_T(KC_DEL)
+
+
