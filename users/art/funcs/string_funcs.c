@@ -11,31 +11,31 @@ int char_to_bspace;
 int char_to_del;
 
 enum combo_events {
-  WR_UP,
-  WE_LEFT,
-  ER_RIGHT,
-  SF_DOWN,
-  QE_PREV_WORD,
-  ET_NEXT_WORD,
-  QR_HOME,
-  WT_END,
+  HOMEROW_UP,
+  HOMEROW_LEFT,
+  HOMEROW_RIGHT,
+  HOMEROW_DOWN,
+  HOMEROW_PREV_WORD,
+  HOMEROW_NEXT_WORD,
+  HOMEROW_HOME,
+  HOMEROW_END,
 
-  Q1_F1,
-  W2_F2,
-  E3_F3,
-  R4_F4,
-  T5_F5,
-  Y6_F6,
-  U7_F7,
-  I8_F8,
-  O9_F9,
-  P0_F10,
-  // _F11,
-  QUOTE_LBRACE_F12,
+  ED_F1,
+  ED_F2,
+  ED_F3,
+  ED_F4,
+  ED_F5,
+  ED_F6,
+  ED_F7,
+  ED_F8,
+  ED_F9,
+  ED_F10,
+  ED_F11,
+  ED_F12,
 
-  BSPACE_DEL_ENTER,
+  ED_ENTER,
 
-  LEFT_RIGHT_C_S_ENTER,
+  ED_CS_ENTER,
   BSPC_LSFT_CLEAR,
   COMBO_LENGTH
 };
@@ -69,32 +69,32 @@ const uint16_t PROGMEM done_sm[] = {KC_LEFT, KC_RIGHT, COMBO_END};
 const uint16_t PROGMEM clear_line_combo[] = {KC_BSPC, KC_LSFT, COMBO_END};
 
 combo_t key_combos[] = {
-  [WR_UP] = COMBO(combo_up, KC_UP),
-  [WE_LEFT] = COMBO(combo_left, KC_LEFT),
-  [ER_RIGHT] = COMBO(combo_right, KC_RIGHT),
-  [SF_DOWN] = COMBO(combo_down, KC_DOWN),
-  [QE_PREV_WORD] = COMBO_ACTION(combo_prev_word),
-  [ET_NEXT_WORD] = COMBO_ACTION(combo_next_word),
-  [QR_HOME] = COMBO(combo_end, KC_HOME),
-  [WT_END] = COMBO(combo_home, KC_END),
+  [HOMEROW_UP] = COMBO(combo_up, KC_UP),
+  [HOMEROW_LEFT] = COMBO(combo_left, KC_LEFT),
+  [HOMEROW_RIGHT] = COMBO(combo_right, KC_RIGHT),
+  [HOMEROW_DOWN] = COMBO(combo_down, KC_DOWN),
+  [HOMEROW_PREV_WORD] = COMBO_ACTION(combo_prev_word),
+  [HOMEROW_NEXT_WORD] = COMBO_ACTION(combo_next_word),
+  [HOMEROW_HOME] = COMBO(combo_end, KC_HOME),
+  [HOMEROW_END] = COMBO(combo_home, KC_END),
 
   #if defined(KEYBOARD_ktec_ergodone)
-  [BSPACE_DEL_ENTER] = COMBO(combo_enter, KC_ENTER),
+  [ED_ENTER] = COMBO(combo_enter, KC_ENTER),
 
-  [Q1_F1] = COMBO(combo_f1, KC_F1),
-  [W2_F2] = COMBO(combo_f2, KC_F2),
-  [E3_F3] = COMBO(combo_f3, KC_F3),
-  [R4_F4] = COMBO(combo_f4, KC_F4),
-  [T5_F5] = COMBO(combo_f5, KC_F5),
-  [Y6_F6] = COMBO(combo_f6, KC_F6),
-  [U7_F7] = COMBO(combo_f7, KC_F7),
-  [I8_F8] = COMBO(combo_f8, KC_F8),
-  [O9_F9] = COMBO(combo_f9, KC_F9),
-  [P0_F10] = COMBO(combo_f10, KC_F10),
+  [ED_F1] = COMBO(combo_f1, KC_F1),
+  [ED_F2] = COMBO(combo_f2, KC_F2),
+  [ED_F3] = COMBO(combo_f3, KC_F3),
+  [ED_F4] = COMBO(combo_f4, KC_F4),
+  [ED_F5] = COMBO(combo_f5, KC_F5),
+  [ED_F6] = COMBO(combo_f6, KC_F6),
+  [ED_F7] = COMBO(combo_f7, KC_F7),
+  [ED_F8] = COMBO(combo_f8, KC_F8),
+  [ED_F9] = COMBO(combo_f9, KC_F9),
+  [ED_F10] = COMBO(combo_f10, KC_F10),
 
-  [QUOTE_LBRACE_F12] = COMBO(combo_f12, KC_F12),
+  [ED_F12] = COMBO(combo_f12, KC_F12),
 
-  [LEFT_RIGHT_C_S_ENTER] = COMBO_ACTION(done_sm),
+  [ED_CS_ENTER] = COMBO_ACTION(done_sm),
   #endif
 
   [BSPC_LSFT_CLEAR] = COMBO_ACTION(clear_line_combo),
@@ -102,7 +102,7 @@ combo_t key_combos[] = {
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
-      case QE_PREV_WORD:
+      case HOMEROW_PREV_WORD:
         if (pressed) {
           if (is_win) {
             tap_code16(C(KC_LEFT));
@@ -111,7 +111,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
           }
         }
         break;
-      case ET_NEXT_WORD:
+      case HOMEROW_NEXT_WORD:
         if (pressed) {
           if (is_win) {
             tap_code16(C(KC_RIGHT));
@@ -127,7 +127,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
           tap_code16(KC_BSPC);
         }
         break;
-      case LEFT_RIGHT_C_S_ENTER:
+      case ED_CS_ENTER:
         if (pressed) {
           tap_code16(C(S(KC_ENTER)));
         }
