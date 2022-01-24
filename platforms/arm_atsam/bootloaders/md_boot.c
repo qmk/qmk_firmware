@@ -38,22 +38,28 @@ void bootloader_jump(void) {
     if (!*ver_check) {                   // If check version pointer is NULL, all characters have matched
         *MAGIC_ADDR = BOOTLOADER_MAGIC;  // Set magic number into RAM
         NVIC_SystemReset();              // Perform system reset
-        while (1);  // Won't get here
+        while (1)
+            ;  // Won't get here
     }
 #endif
 
     // Set watchdog timer to reset. Directs the bootloader to stay in programming mode.
     WDT->CTRLA.bit.ENABLE = 0;
 
-    while (WDT->SYNCBUSY.bit.ENABLE);
-    while (WDT->CTRLA.bit.ENABLE);
+    while (WDT->SYNCBUSY.bit.ENABLE)
+        ;
+    while (WDT->CTRLA.bit.ENABLE)
+        ;
 
     WDT->CONFIG.bit.WINDOW   = 0;
     WDT->CONFIG.bit.PER      = 0;
     WDT->EWCTRL.bit.EWOFFSET = 0;
     WDT->CTRLA.bit.ENABLE    = 1;
 
-    while (WDT->SYNCBUSY.bit.ENABLE);
-    while (!WDT->CTRLA.bit.ENABLE);
-    while (1);  // Wait on timeout
+    while (WDT->SYNCBUSY.bit.ENABLE)
+        ;
+    while (!WDT->CTRLA.bit.ENABLE)
+        ;
+    while (1)
+        ;  // Wait on timeout
 }
