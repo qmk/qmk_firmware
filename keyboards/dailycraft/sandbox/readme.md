@@ -1,5 +1,7 @@
 # sandbox keyboard
 
+![sandbox keyboard](https://raw.githubusercontent.com/yfuku/sandbox_keyboard/main/images/sandbox.jpeg)
+
 macropad
 
 * Keyboard Maintainer: [yfuku](https://github.com/yfuku)
