@@ -42,13 +42,13 @@ enum combo_events {
 uint16_t COMBO_LEN = COMBO_LENGTH; // do not remove - needed for combos to work
 
 const uint16_t PROGMEM combo_up[] = {KC_W, KC_R, COMBO_END};
-const uint16_t PROGMEM combo_left[] = {KC_W, KC_E, COMBO_END};
-const uint16_t PROGMEM combo_right[] = {KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM combo_left[] = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_right[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_down[] = {KC_S, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_prev_word[] = {KC_Q, KC_E, COMBO_END};
-const uint16_t PROGMEM combo_next_word[] = {KC_E, KC_T, COMBO_END};
-const uint16_t PROGMEM combo_end[] = {KC_Q, KC_R, COMBO_END};
-const uint16_t PROGMEM combo_home[] = {KC_W, KC_T, COMBO_END};
+const uint16_t PROGMEM combo_prev_word[] = {KC_A, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_next_word[] = {KC_D, KC_G, COMBO_END};
+const uint16_t PROGMEM combo_end[] = {KC_W, KC_E, COMBO_END};
+const uint16_t PROGMEM combo_home[] = {KC_E, KC_R, COMBO_END};
 
 const uint16_t PROGMEM combo_enter[] = {KC_BSPC, KC_DEL, COMBO_END};
 
@@ -61,9 +61,9 @@ const uint16_t PROGMEM combo_f6[] = {KC_6, KC_Y, COMBO_END};
 const uint16_t PROGMEM combo_f7[] = {KC_7, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_f8[] = {KC_8, KC_I, COMBO_END};
 const uint16_t PROGMEM combo_f9[] = {KC_9, KC_O, COMBO_END};
-const uint16_t PROGMEM combo_f10[] = {KC_0,KC_P, COMBO_END};
-// const uint16_t PROGMEM combo_f11[] = {KC_, KC_, COMBO_END};
-const uint16_t PROGMEM combo_f12[] = {KC_LBRC, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM combo_f10[] = {KC_SCLN, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM combo_f11[] = {LT(GIT,KC_SLSH), KC_RSFT, COMBO_END};
+const uint16_t PROGMEM combo_f12[] = {KC_RALT, KC_RCTRL, COMBO_END};
 
 const uint16_t PROGMEM done_sm[] = {KC_LEFT, KC_RIGHT, COMBO_END};
 const uint16_t PROGMEM clear_line_combo[] = {KC_BSPC, KC_LSFT, COMBO_END};
@@ -91,7 +91,7 @@ combo_t key_combos[] = {
   [ED_F8] = COMBO(combo_f8, KC_F8),
   [ED_F9] = COMBO(combo_f9, KC_F9),
   [ED_F10] = COMBO(combo_f10, KC_F10),
-
+  [ED_F11] = COMBO(combo_f11, KC_F11),
   [ED_F12] = COMBO(combo_f12, KC_F12),
 
   [ED_CS_ENTER] = COMBO_ACTION(done_sm),
