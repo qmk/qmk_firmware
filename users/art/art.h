@@ -63,7 +63,6 @@ enum custom_keycodes_art {
   BRACES,
   DASHES,
   PARENTHS,
-  SM_READPNT,
   STARS,
   QUOTES,
   QUOTES_RU,
@@ -92,6 +91,10 @@ enum custom_keycodes_art {
   G_STAT,
   G_STSH,
   G_SHOW,
+
+  K_CUST1,
+  K_CUST2,
+  K_CUST3,
 
   K_SECR1,
   K_SECR2,

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "art.h"
+#include "custom_definitions.h"
 #include "secret_definitions.h"
 #include "funcs/led_funcs.h"
 #include "funcs/string_funcs.h"
@@ -500,15 +501,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         char_to_del = 2;
       }
       break;
-    case SM_READPNT:
-      if (record->event.pressed) {
-        SEND_STRING(
-          SS_DOWN(X_LCTL) SS_TAP(X_F7)
-          SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_TAP(X_SCLN)
-          SS_UP(X_LSFT) SS_UP(X_LCTL)
-          SS_TAP(X_ESC));
-      }
-      break;
     case STARS:
       if (record->event.pressed) {
         clear_mods();
@@ -696,6 +688,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
+    case K_CUST1 ... K_CUST3: // custom strings not stored in source control
+      if (!record->event.pressed) {
+          send_string_remembering_length(custom[keycode - K_CUST1]);
+          blink_leds(NUM_SCROLL_LED_ON);
+      }
+      break;
     case K_SECR1 ... K_SECR4: // Secrets!  Externally defined strings, not stored in repo
       if (!record->event.pressed) {
           send_string_remembering_length(secrets[keycode - K_SECR1]);

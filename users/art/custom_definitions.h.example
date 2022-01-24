@@ -1,0 +1,5 @@
+static char * custom[] = {
+  "",
+  "",
+  ""
+};
