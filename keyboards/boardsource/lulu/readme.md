@@ -16,7 +16,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make boardsource/lulu:default:dfu
+    make boardsource/lulu:default:flash
 
 Reset keyboard by holding down top left key while you plug in the usb cable. Or by pushing the reset switch on the pcb.
 
