@@ -25,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 extern keymap_config_t keymap_config;
 
-static uint8_t real_mods  = 0;
-static uint8_t weak_mods  = 0;
+static uint8_t real_mods = 0;
+static uint8_t weak_mods = 0;
 #ifdef KEY_OVERRIDE_ENABLE
 static uint8_t weak_override_mods = 0;
 static uint8_t suppressed_mods    = 0;
