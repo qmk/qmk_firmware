@@ -1,3 +1,5 @@
+// Copyright 2021 Taeyoon Kim (@partrita)
+// SPDX-License-Identifier: GPL-2.0-or-later
 // /*
 //   Set any config.h overrides for your specific keymap here.
 //   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
@@ -11,19 +13,6 @@
 
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define TAPPING_FORCE_HOLD
-
-// to reduce memory
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
-
-// Auto Shift
-// #define NO_AUTO_SHIFT_ALPHA
-// #define AUTO_SHIFT_TIMEOUT TAPPING_TERM
-// #define AUTO_SHIFT_NO_SETUP
 
 // Recommended for heavy chording.          
 #define QMK_KEYS_PER_SCAN 4
@@ -46,7 +35,6 @@
 
 //disable broken animations
 #ifdef RGB_MATRIX_ENABLE
-
 #    undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #    undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #    undef ENABLE_RGB_MATRIX_BREATHING
@@ -64,9 +52,6 @@
 #    undef ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
 #    undef ENABLE_RGB_MATRIX_CYCLE_SPIRAL
 #    undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-
 #    undef RGB_MATRIX_STARTUP_MODE
-
 #    define RGBLIGHT_HUE_STEP 20
-
 #endif

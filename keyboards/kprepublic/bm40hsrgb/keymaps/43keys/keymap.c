@@ -1,3 +1,6 @@
+// Copyright 2021 Taeyoon Kim (@partrita)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 #include "keymap_korean.h"
 
@@ -19,14 +22,6 @@ enum layers {
 #define HOME_QU LGUI_T(KC_QUOT)
 
 // layer keys
-// #define Lay_Z LT(_Nav,KC_Z)
-// #define Lay_X LT(_Mouse,KC_X)
-// #define Lay_C LT(_Rsym,KC_C)
-// // #define Lay_V LT(_Rsym,KC_V)
-// // #define Lay_M LT(_Lsym,KC_M)
-// #define Lay_COM LT(_Lsym,KC_COMM)
-// #define Lay_DOT LT(_Func,KC_DOT)
-// #define Lay_SLSH LT(_Num,KC_SLSH)
 #define Lay_SPC LT(_Func,KC_SPC)
 #define NAVI MO(_Navi)
 #define NUMB MO(_Numb)
@@ -62,19 +57,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // color by layer
 layer_state_t layer_state_set_user(layer_state_t state) {
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case _Navi:
-            rgblight_mode(11);
+            rgblight_mode_noeeprom(11);
             break;
         case _Numb:
-            rgblight_mode(5);
+            rgblight_mode_noeeprom(5);
             break;
         case _Func:
-            rgblight_mode(1);
+            rgblight_mode_noeeprom(1);
             break;
         default:
-            rgblight_mode(22);
+            rgblight_mode_noeeprom(22);
     }
 
     return state;
