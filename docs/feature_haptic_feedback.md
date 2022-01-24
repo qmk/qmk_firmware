@@ -191,9 +191,6 @@ With the entry of `#define NO_HAPTIC_MOD` in config.h, the following keys will n
 * `TT()` layer tap toggle keys, when held to activate a layer. However when tapped `TAPPING_TOGGLE` times to permanently toggle the layer, on the last tap haptic feedback is still triggered.
 * `MT()` mod tap keys, when held to keep a usual modifier key pressed. However when tapped, and the key is quickly released, and sends a keycode, haptic feedback is still triggered. See also [Mod-Tap](mod_tap.md).
 
-### NO_HAPTIC_FN
-With the entry of `#define NO_HAPTIC_FN` in config.h, deprecated `fn_actions` type function keys will not trigger a feedback.
-
 ### NO_HAPTIC_ALPHA
 With the entry of `#define NO_HAPTIC_ALPHA` in config.h, none of the alpha keys (A ... Z) will trigger a feedback.
 
