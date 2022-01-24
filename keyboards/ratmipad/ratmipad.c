@@ -16,9 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "ratmipad.h"
 
-void eeconfig_init_kb(void) {
-#endif
-
-    eeconfig_update_kb(0);
-    eeconfig_init_user();
-}
