@@ -96,9 +96,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,                          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_LPRN ,KC_RPRN ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_GRV  ,KC_PLUS ,KC_LBRC ,KC_RBRC ,XXXXXXX ,                          KC_MINS ,KC_PIPE ,KC_LCTL ,KC_LGUI ,KC_LALT ,
+     XXXXXXX ,KC_GRV  ,KC_PLUS ,KC_LBRC ,KC_RBRC ,                          KC_MINS ,KC_PIPE ,KC_LCTL ,KC_LGUI ,KC_LALT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,KC_EQL  ,KC_LCBR ,KC_RCBR ,XXXXXXX ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,OS_MISC ,KC_BSLS ,
+     XXXXXXX ,KC_BSPC ,KC_EQL  ,KC_LCBR ,KC_RCBR ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,OS_MISC ,KC_BSLS ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      _______ ,    _______ ,        _______ ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
