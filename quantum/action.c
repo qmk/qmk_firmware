@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 #include "action_layer.h"
 #include "action_tapping.h"
-#include "action_macro.h"
 #include "action_util.h"
 #include "action.h"
 #include "wait.h"
@@ -634,12 +633,7 @@ void process_action(keyrecord_t *record, action_t action) {
             break;
 #    endif
 #endif
-            /* Extentions */
-#ifndef NO_ACTION_MACRO
-        case ACT_MACRO:
-            action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
-            break;
-#endif
+
 #ifdef SWAP_HANDS_ENABLE
         case ACT_SWAP_HANDS:
             switch (action.swap.code) {
@@ -712,11 +706,6 @@ void process_action(keyrecord_t *record, action_t action) {
                     }
 #    endif
             }
-#endif
-#ifndef NO_ACTION_FUNCTION
-        case ACT_FUNCTION:
-            action_function(record, action.func.id, action.func.opt);
-            break;
 #endif
         default:
             break;
@@ -1041,7 +1030,6 @@ void clear_keyboard_but_mods_and_keys() {
     host_consumer_send(0);
 #endif
     clear_weak_mods();
-    clear_macro_mods();
     send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
     mousekey_clear();
@@ -1104,12 +1092,6 @@ bool is_tap_action(action_t action) {
                     return true;
             }
             return false;
-        case ACT_MACRO:
-        case ACT_FUNCTION:
-            if (action.func.opt & FUNC_TAP) {
-                return true;
-            }
-            return false;
     }
     return false;
 }
@@ -1165,12 +1147,6 @@ void debug_action(action_t action) {
             break;
         case ACT_LAYER_TAP_EXT:
             dprint("ACT_LAYER_TAP_EXT");
-            break;
-        case ACT_MACRO:
-            dprint("ACT_MACRO");
-            break;
-        case ACT_FUNCTION:
-            dprint("ACT_FUNCTION");
             break;
         case ACT_SWAP_HANDS:
             dprint("ACT_SWAP_HANDS");

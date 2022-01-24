@@ -37,10 +37,6 @@ enum quantum_keycodes {
     QK_RALT                 = 0x1400,
     QK_RGUI                 = 0x1800,
     QK_MODS_MAX             = 0x1FFF,
-    QK_FUNCTION             = 0x2000,
-    QK_FUNCTION_MAX         = 0x2FFF,
-    QK_MACRO                = 0x3000,
-    QK_MACRO_MAX            = 0x3FFF,
     QK_LAYER_TAP            = 0x4000,
     QK_LAYER_TAP_MAX        = 0x4FFF,
     QK_TO                   = 0x5000,
@@ -709,12 +705,6 @@ enum quantum_keycodes {
 #define S(kc) LSFT(kc)
 #define A(kc) LALT(kc)
 #define G(kc) LGUI(kc)
-
-// Deprecated - do not use
-#define F(kc) (QK_FUNCTION | (kc))
-#define M(kc) (QK_MACRO | (kc))
-#define MACROTAP(kc) (QK_MACRO | (FUNC_TAP << 8) | (kc))
-#define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
 #define QK_GESC QK_GRAVE_ESCAPE
 

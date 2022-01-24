@@ -25,9 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 extern keymap_config_t keymap_config;
 
-static uint8_t real_mods  = 0;
-static uint8_t weak_mods  = 0;
-static uint8_t macro_mods = 0;
+static uint8_t real_mods = 0;
+static uint8_t weak_mods = 0;
 #ifdef KEY_OVERRIDE_ENABLE
 static uint8_t weak_override_mods = 0;
 static uint8_t suppressed_mods    = 0;
@@ -224,7 +223,6 @@ bool is_oneshot_enabled(void) { return keymap_config.oneshot_disable; }
 void send_keyboard_report(void) {
     keyboard_report->mods = real_mods;
     keyboard_report->mods |= weak_mods;
-    keyboard_report->mods |= macro_mods;
 
 #ifndef NO_ACTION_ONESHOT
     if (oneshot_mods) {
@@ -324,33 +322,6 @@ void set_suppressed_override_mods(uint8_t mods) { suppressed_mods = mods; }
  */
 void clear_suppressed_override_mods(void) { suppressed_mods = 0; }
 #endif
-
-/* macro modifier */
-/** \brief get macro mods
- *
- * FIXME: needs doc
- */
-uint8_t get_macro_mods(void) { return macro_mods; }
-/** \brief add macro mods
- *
- * FIXME: needs doc
- */
-void add_macro_mods(uint8_t mods) { macro_mods |= mods; }
-/** \brief del macro mods
- *
- * FIXME: needs doc
- */
-void del_macro_mods(uint8_t mods) { macro_mods &= ~mods; }
-/** \brief set macro mods
- *
- * FIXME: needs doc
- */
-void set_macro_mods(uint8_t mods) { macro_mods = mods; }
-/** \brief clear macro mods
- *
- * FIXME: needs doc
- */
-void clear_macro_mods(void) { macro_mods = 0; }
 
 #ifndef NO_ACTION_ONESHOT
 /** \brief get oneshot mods

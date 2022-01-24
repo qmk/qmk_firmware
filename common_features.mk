@@ -20,7 +20,6 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/led.c \
     $(QUANTUM_DIR)/action.c \
     $(QUANTUM_DIR)/action_layer.c \
-    $(QUANTUM_DIR)/action_macro.c \
     $(QUANTUM_DIR)/action_tapping.c \
     $(QUANTUM_DIR)/action_util.c \
     $(QUANTUM_DIR)/eeconfig.c \
