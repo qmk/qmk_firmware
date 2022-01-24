@@ -65,9 +65,13 @@ void on_connected() {
     is_connected = true;
 }
 
+uint8_t from_x_y_to_index(uint8_t x, uint8_t y) {
+    return (y * MATRIX_COLS) + x;
+}
+
 void from_app_to_firmware_origin(uint8_t *x, uint8_t *y) {
     // TODO: Flip x as well once w use top-right as origin
-    // *x = MATRIX_COLS - 1 - *x;
+    *x = MATRIX_COLS - 1 - *x;
     *y = MATRIX_ROWS - 1 - *y;
 }
 
@@ -78,10 +82,11 @@ void from_firmware_to_app_origin(uint8_t *x, uint8_t *y) {
 
 void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim) {
     from_app_to_firmware_origin(&x, &y);
-    rgb_strand_animation_start(key_strand[y][x], anim,
+    uint8_t rgb_strand = from_x_y_to_index(x, y);
+    rgb_strand_animation_start(rgb_strand, anim,
         get_default_rgb_strand_anim_config(anim),
         RGB_STRAND_ANIM_STATE_STEADY);
-    rgb_strand_animation_set_state(key_strand[y][x], RGB_STRAND_ANIM_STATE_START);
+    rgb_strand_animation_set_state(rgb_strand, RGB_STRAND_ANIM_STATE_START);
 }
 
 void set_led_off(uint8_t key_x, uint8_t key_y) {
@@ -129,6 +134,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     uint8_t row = record->event.key.row;
     uint8_t col = record->event.key.col;
+    uint8_t key_strand = from_x_y_to_index(col, row);
     if (record->event.pressed) {
         if (is_connected) {
             key_down(get_current_layer(), app_x, app_y);
@@ -153,12 +159,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             uint8_t current_layer = get_current_layer();
             rgb_strands_anim_t anim = key_anim[current_layer][row][col];
-            rgb_strand_animation_start(key_strand[row][col], anim,
+            rgb_strand_animation_start(key_strand, anim,
                     get_default_rgb_strand_anim_config(anim),
                     RGB_STRAND_ANIM_STATE_STEADY);
         }
     } else { // released
-        rgb_strand_animation_set_state(key_strand[row][col], RGB_STRAND_ANIM_STATE_START);
+        rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
     }
     return false;
 }
