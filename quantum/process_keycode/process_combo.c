@@ -700,7 +700,7 @@ void activate_combo(queued_record_t *qrecord) {
 
     if (!combo->keycode) {
 #ifdef COMBO_DETAILED_EVENTS_PER_COMBO
-        if (get_combo_needs_details (combo_index, combo)) {
+        if (get_combo_needs_details(combo_index, combo)) {
             triggers[0]                  = qrecord->record;
             uint8_t       trigger_index  = 1;
             combo_state_t consumed_state = ((combo_index << COMBO_STATE_BITS) & COMBO_KEY_CONSUMED);
