@@ -46,8 +46,6 @@ The Astar mini has all pins exposed , so you can do 18x8
 If you want a speaker, LEDs, etc., you'll need to free up a pin.  I recommend joining columns
 R and L to the same pin.
 
-Building - add ASTAR=1 to the compile line or leave out for teensy2++
-
 Make example for this keyboard (after setting up your build environment):
 
     make handwired/ms_sculpt_mobile:default
