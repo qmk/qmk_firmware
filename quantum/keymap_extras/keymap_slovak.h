@@ -128,7 +128,7 @@
 
 /* AltGr symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │ ~ │   │ ^ │ ˘ │ ° │ ˛ │ ` │ ˙ │   │ ˝ │ ¨ │ ¸ │       │
+ * │   │ ~ │ ˇ │ ^ │ ˘ │ ° │ ˛ │ ` │ ˙ │   │ ˝ │ ¨ │ ¸ │       │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
  * │     │ \ │ | │ € │   │   │   │   │   │   │ ' │ ÷ │ × │     │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
@@ -141,8 +141,10 @@
  */
 // Row 1
 #define SK_TILD ALGR(SK_PLUS) // ~
+// already defined SK_CARN       ˇ (dead)
 #define SK_CIRC ALGR(SK_SCAR) // ^ (dead)
 #define SK_BREV ALGR(SK_CCAR) // ˘ (dead)
+// already defined SK_RNGA       ° (dead)
 #define SK_OGON ALGR(SK_TCAR) // ˛ (dead)
 #define SK_GRV  ALGR(SK_ZCAR) // `
 #define SK_DOTA ALGR(SK_YACU) // ˙ (dead)
