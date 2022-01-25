@@ -141,10 +141,8 @@
  */
 // Row 1
 #define SK_TILD ALGR(SK_PLUS) // ~
-#define SK_CNAL ALGR(SK_LCAR) //ˇ (dead) as in caron alternative
 #define SK_CIRC ALGR(SK_SCAR) // ^ (dead)
 #define SK_BREV ALGR(SK_CCAR) // ˘ (dead)
-#define SK_DGAL ALGR(SK_TCAR) // ° (dead) as in degree alternative
 #define SK_OGON ALGR(SK_TCAR) // ˛ (dead)
 #define SK_GRV  ALGR(SK_ZCAR) // `
 #define SK_DOTA ALGR(SK_YACU) // ˙ (dead)
