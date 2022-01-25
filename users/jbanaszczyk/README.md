@@ -50,26 +50,14 @@ endif
 
 ## TODO
 
-* layers redo
-* Grave esc: \` with alt
-* Single key tilde
-* raise tap dance
-* Fn tap dance
 * Autoreset
-* qmk_firmware\keyboards\omnikeyish\dynamic_macro.h
-* LTO_ENABLE
 
 ## Inspirations
 
 * /users/alfrdmalr/readme.md
   * Leader Key Sequence: R-E-S-E-T
-* /users/bbaserdem/README.md
-  * locking layers
-  * Mouse emulation, complete with diagonal keys.
 * /users/callum/readme.md
   * Hold `sym` and `nav` together to activate the numbers layer.
 * /users/replicaJunction/readme.md
   * CAPS_WORD
   * Mouse Jiggler
-* shift backspaxe for delete
-  * https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete

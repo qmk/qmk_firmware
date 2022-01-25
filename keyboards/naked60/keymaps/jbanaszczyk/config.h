@@ -1,9 +1,10 @@
 #pragma once
 
-// Set Polling rate to 1000Hz
-#define USB_POLLING_INTERVAL_MS 1
+//#define USB_POLLING_INTERVAL_MS 10
 
-#define TAPPING_TERM 220
+#define TAPPING_TERM 165
+
+#define AUTO_SHIFT_TIMEOUT 165
 
 #define DYNAMIC_MACRO_NO_NESTING
 
