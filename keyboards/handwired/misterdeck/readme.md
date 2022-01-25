@@ -1,6 +1,6 @@
 # MisterDeck
 
-![MisteRdeck](https://i.imgur.com/FTPWqkX.jpeg)
+![MisteRdeck](https://i.imgur.com/FTPWqkXh.jpeg)
 
 A 3D-printed streamdeck like keyboard featuring 12 keys and 4 sliders
 
