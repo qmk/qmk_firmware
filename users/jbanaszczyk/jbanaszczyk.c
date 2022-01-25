@@ -65,11 +65,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         ;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    dprintf("Layer changed to %d\n",state);
-    return state;
-}
-
 /* Hooks: __attribute__((weak))
 ----------------------------------------
 quantum.c:
@@ -94,7 +89,7 @@ matrix.c:
 ----------------------------------------
 action_layer.c:
   layer_state_t default_layer_state_set_user(layer_state_t state) { return state; }
-//  layer_state_t layer_state_set_user(layer_state_t state) { return state; }
+  layer_state_t layer_state_set_user(layer_state_t state) { return state; }
 ----------------------------------------
 eeconfig.c:
   void eeconfig_init_user(void) { eeconfig_update_user(0); }
