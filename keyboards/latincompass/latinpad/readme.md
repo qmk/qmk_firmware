@@ -1,14 +1,14 @@
-# Latin60RGB
+# Latinpad
 
-![Latin60rgb](https://github.com/latincompass/latin62RGB-keyboard/blob/main/PCB-%20(1).png)
+![Latinpad](https://github.com/latincompass/2-RotaryEncoder-pad/blob/master/1.jpg)
 
- 60% RGB keyboard use IS31FL3733 IC like HHKB
+macro 2 rotary encoder pad
 
 * Keyboard Maintainer: [latincompass](https://github.com/latincompass)
-* Hardware Availability: https://github.com/latincompass/latin62RGB-keyboard/blob/main/PCB-%20(1).png
+* Hardware Availability: https://github.com/latincompass/2-RotaryEncoder-pad
 
 Make example for this keyboard (after setting up your build environment):
 
-    make latin60rgb:default
+    make latincompass/latinpad:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
