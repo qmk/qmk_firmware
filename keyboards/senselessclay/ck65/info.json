@@ -2,8 +2,11 @@
     "keyboard_name": "CK65",
     "url": "https://candykeys.com",
     "maintainer": "hadi",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_iso"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_iso": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1!", "x":1, "y":0},
