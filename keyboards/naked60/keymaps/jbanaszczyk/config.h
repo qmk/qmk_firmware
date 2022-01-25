@@ -7,6 +7,8 @@
 
 #define DYNAMIC_MACRO_NO_NESTING
 
+#define GRAVE_ESC_CTRL_OVERRIDE
+
 #ifdef NKRO_ENABLE
 #define FORCE_NKRO
 #endif
