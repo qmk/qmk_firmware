@@ -17,7 +17,6 @@
 
 #include "flow.h"
 #include "commaspace.h"
-#include "swapper.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -45,7 +44,6 @@ enum custom_keycodes {
   OS_MISC,
   OS_TMUX,
   OS_FUNC,
-  K_SWAP,
 };
 
 // Shortcut to make keymap more readable
@@ -57,9 +55,6 @@ enum custom_keycodes {
 #define K_PRINT     (QK_LCTL | QK_LSFT | QK_LGUI | KC_4)
 #define K_VIDEO     (QK_LSFT | QK_LGUI | KC_5)
 #define K_CSPC      LCTL(KC_SPC)
-#define K_GUI_X     LGUI(KC_X)
-#define K_GUI_C     LGUI(KC_C)
-#define K_GUI_V     LGUI(KC_V)
 
 // flow_config should correspond to following format:
 // * layer keycode
@@ -173,8 +168,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!update_flow(keycode, record->event.pressed, record->event.key)) return false;
     if (!update_commaspace(keycode, record->event.pressed)) return false;
 
-    update_swapper(K_SWAP, keycode, record->event.pressed);
-
     switch (keycode) {
         case TM_LEFT:
             if (!record->event.pressed) return true;
@@ -215,18 +208,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
     flow_matrix_scan();
 }
-
-enum combos {
-  XC_GUI_C,
-  CV_GUI_V,
-  COMBO_LENGTH
-};
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
-const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
-
-combo_t key_combos[COMBO_LENGTH] = {
-  [XC_GUI_C] = COMBO(xc_combo, K_GUI_C),
-  [CV_GUI_V] = COMBO(cv_combo, K_GUI_V),
-};
