@@ -91,5 +91,3 @@ user_song_list.h
 compile_commands.json
 .clangd/
 .cache/
-
-si
