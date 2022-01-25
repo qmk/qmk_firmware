@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 
 enum layer_names {
     _0,
@@ -44,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_ENABLE
 
-void render_layer_state(void) {
+void render_status(void) {
     switch (get_highest_layer(layer_state)) {
         case _0:
             oled_write_ln_P(PSTR("Layer: Default"), false);
@@ -63,53 +62,9 @@ void render_layer_state(void) {
     }
 }
 
-char keylog_str[24]  = {};
-char keylogs_str[21] = {};
-int  keylogs_str_idx = 0;
-
-const char code_to_name[60] = {' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
-
-void set_keylog(uint16_t keycode, keyrecord_t *record) {
-    char name = ' ';
-    if (keycode < 60) {
-        name = code_to_name[keycode];
-    }
-
-    // update keylog
-    snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c", record->event.key.row, record->event.key.col, keycode, name);
-
-    // update keylogs
-    if (keylogs_str_idx == sizeof(keylogs_str) - 1) {
-        keylogs_str_idx = 0;
-        for (int i = 0; i < sizeof(keylogs_str) - 1; i++) {
-            keylogs_str[i] = ' ';
-        }
-    }
-
-    keylogs_str[keylogs_str_idx] = name;
-    keylogs_str_idx++;
-}
-
-const char *read_keylog(void) { return keylog_str; }
-const char *read_keylogs(void) { return keylogs_str; }
-
 bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        render_layer_state();
-        oled_write_ln(read_keylog(), false);
-        oled_write_ln(read_keylogs(), false);
-    } else {
-        oled_write_ln("sandbox keyboard", false);
-    }
-
+    render_status();
     return false;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        set_keylog(keycode, record);
-    }
-    return true;
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
