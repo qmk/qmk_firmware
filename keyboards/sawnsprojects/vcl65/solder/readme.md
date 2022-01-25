@@ -1,6 +1,6 @@
 # VCL65 solder
 
-![VCL65 solder](https://i.imgur.com/ofSfOTf.jpg)
+![VCL65 solder](https://i.imgur.com/ofSfOTfh.jpg)
 
 A 65% keyboard PCB made and sold under the name "VCL65 Solder" by SawnsProjects with Hoaq in Private Discord GB. 
 

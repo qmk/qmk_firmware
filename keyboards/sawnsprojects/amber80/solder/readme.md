@@ -1,6 +1,6 @@
 # Amber80 solder
 
-![Amber80](https://i.imgur.com/ygUgpqZ.jpg)
+![Amber80](https://i.imgur.com/ygUgpqZh.jpg)
 
 A TKL keyboard sold in several variants.
 
