@@ -17,8 +17,8 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_ogurec_left_pm)
+#if defined(KEYBOARD_drhigsby_ogurec_left_pm)
 #    include "left_pm.h"
-#elif defined(KEYBOARD_ogurec_right_pm)
+#elif defined(KEYBOARD_drhigsby_ogurec_right_pm)
 #    include "right_pm.h"
 #endif
