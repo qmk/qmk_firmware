@@ -68,6 +68,7 @@ const uint16_t flow_config[FLOW_COUNT][2] = {
     {L_NAV, KC_LALT},
     {L_NAV, KC_LGUI},
     {L_NAV, KC_LCTL},
+    {L_NAV, KC_LSFT},
     {L_SYM, KC_LCTL},
     {L_SYM, KC_LGUI},
     {L_SYM, KC_LALT},
@@ -111,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_LALT ,KC_LGUI ,KC_LCTL ,KC_TAB  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DEL  ,KC_BSPC ,K_SWAP  ,KC_TILDE,OS_TMUX ,                          K_CSPC  ,XXXXXXX ,KC_COMM ,KC_DOT  ,XXXXXXX ,
+     KC_LSFT ,KC_BSPC ,KC_ESC  ,KC_TILDE,OS_TMUX ,                          K_CSPC  ,XXXXXXX ,KC_COMM ,KC_DOT  ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -216,22 +217,16 @@ void matrix_scan_user(void) {
 }
 
 enum combos {
-  ZX_GUI_X,
   XC_GUI_C,
   CV_GUI_V,
-  DF_ESC,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM zx_combo[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
 
 combo_t key_combos[COMBO_LENGTH] = {
-  [ZX_GUI_X] = COMBO(zx_combo, K_GUI_X),
   [XC_GUI_C] = COMBO(xc_combo, K_GUI_C),
   [CV_GUI_V] = COMBO(cv_combo, K_GUI_V),
-  [DF_ESC] = COMBO(df_combo, KC_ESC),
 };
