@@ -24,7 +24,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x0003 // FAve 87H
 #define DEVICE_VER   0x0001 // Version 1
 #define MANUFACTURER    Lx3
-#define PRODUCT         FAve-87H
+#define PRODUCT         FAve 87H
 
 /* key matrix size */
 #define MATRIX_ROWS 6
