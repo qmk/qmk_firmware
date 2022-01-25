@@ -37,7 +37,7 @@
 #define DRIVER_ADDR_2 0b1011111
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 58  // -1, disable LED under EC11
+#define DRIVER_1_LED_TOTAL 59
 #define DRIVER_2_LED_TOTAL 23
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
