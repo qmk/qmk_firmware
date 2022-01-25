@@ -1,7 +1,7 @@
 {
     "keyboard_name": "handwired/maple60",
     "url": "",
-    "maintainer": "Toofty5",
+    "maintainer": "qmk",
     "layouts": {
         "LAYOUT": {
             "layout": [
