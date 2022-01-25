@@ -2,8 +2,11 @@
     "keyboard_name": "CK60",
     "url": "https://candykeys.com",
     "maintainer": "had-i",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_60_iso"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_60_iso": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
