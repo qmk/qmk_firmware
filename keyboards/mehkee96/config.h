@@ -23,6 +23,6 @@
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3
 
-#define RGBLED_NUM 16
+#define RGBLED_NUM 18
 #define RGBLIGHT_ANIMATIONS
 /* key combination for command */
