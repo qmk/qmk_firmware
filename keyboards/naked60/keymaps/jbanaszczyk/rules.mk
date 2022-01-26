@@ -1,2 +1,2 @@
 SPLIT_KEYBOARD = no
-
+VIA_ENABLE = no

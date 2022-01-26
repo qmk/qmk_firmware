@@ -1,68 +1,88 @@
 #include "quantum.h"
 #include "jbanaszczyk.h"
 #include "do_not_sleep.h"
+#include "auto_caps_off.h"
+
+const key_override_t shift_backspace_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+	&shift_backspace_override,
+	NULL
+};
 
 void keyboard_post_init_user(void) {
 #ifndef NO_DEBUG
-    debug_enable = true;
+	debug_enable = true;
 #endif
 #ifdef DO_NOT_SLEEP
-#    ifdef DO_NOT_SLEEP_START_LOCKED
-    do_not_sleep_lock();
-#    else
-    do_not_sleep_enable();
+#    ifdef DO_NOT_SLEEP_AUTOSTART
+	do_not_sleep_enable();
 #    endif
-#endif
-}
-
-void matrix_scan_user(void) {
-#ifdef DO_NOT_SLEEP
-    do_not_sleep_scan();
 #endif
 }
 
 void startup_user() {
 #ifndef NO_DEBUG
-    debug_enable = true;
+	debug_enable = true;
 #endif
 }
 
 void shutdown_user() {
 #ifdef DO_NOT_SLEEP
-    do_not_sleep_disable();
+	do_not_sleep_disable();
 #endif
 }
 
 void suspend_power_down_user(void) {
 #ifdef DO_NOT_SLEEP
-    do_not_sleep_disable();
+	do_not_sleep_disable();
 #endif
 }
 
 void suspend_wakeup_init_user(void) {
 #ifdef DO_NOT_SLEEP
-    do_not_sleep_enable();
+#ifdef DO_NOT_SLEEP_AUTOSTART
+	do_not_sleep_enable();
+#    endif
 #endif
 }
 
 static bool process_record_debug(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        dprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n", keycode, record->event.key.row, record->event.key.col, get_highest_layer(layer_state), record->event.pressed, get_mods(), get_oneshot_mods(), record->tap.count);
-    }
-    //    if (record->event.pressed) {
-    //        dprintf("KL: kc: %u\n", keycode);
-    //    }
-    return true;
+	if (record->event.pressed) {
+		dprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n",
+				keycode,
+				record->event.key.row,
+				record->event.key.col,
+				get_highest_layer(layer_state),
+				record->event.pressed,
+				get_mods(),
+				get_oneshot_mods(),
+				record->tap.count);
+	}
+	//    if (record->event.pressed) {
+	//        dprintf("KL: kc: %u\n", keycode);
+	//    }
+	return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true
-
-           && process_record_debug(keycode, record)
-#ifdef DO_NOT_SLEEP
-           && do_not_sleep_process(keycode, record)
+	return true
+		&& process_record_debug(keycode, record)
+#ifdef AUTO_CAPS_OFF
+		&& process_record_auto_caps_off(keycode, record)
 #endif
-        ;
+#ifdef DO_NOT_SLEEP
+		&& process_record_do_not_sleep(keycode, record)
+#endif
+		;
+}
+
+bool led_update_user(led_t led_state) {
+	return true
+#ifdef AUTO_CAPS_OFF
+		&& led_update_auto_caps_off()
+#endif
+		;
 }
 
 /* Hooks: __attribute__((weak))
@@ -77,7 +97,7 @@ quantum.c:
 ----------------------------------------
 matrix_common.c:
   void matrix_init_user(void) {}
-//  void matrix_scan_user(void) {}
+  void matrix_scan_user(void) {}
 ----------------------------------------
 keyboard.c:
   void keyboard_pre_init_user(void) {}
@@ -108,7 +128,7 @@ encoder.c:
 ----------------------------------------
 led.c:
   void led_set_user(uint8_t usb_led) {}
-  bool led_update_user(led_t led_state) { return true; }
+//  bool led_update_user(led_t led_state) { return true; }
 ----------------------------------------
 pointing_device.c:
   void pointing_device_init_user(void) {}
