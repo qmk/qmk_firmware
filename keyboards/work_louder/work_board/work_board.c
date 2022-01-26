@@ -34,9 +34,14 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #    ifdef RGB_MATRIX_ENABLE
 #        error Cannot run OLED and Per Key RGB at the same time due to pin conflicts
 #    endif
-__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_90; }
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_90;
+}
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     oled_write_P(PSTR("LAYER"), false);
     oled_write_P(PSTR("Lower"), layer_state_is(3));
     oled_write_P(PSTR("Raise"), layer_state_is(4));
@@ -70,6 +75,8 @@ __attribute__((weak)) void oled_task_user(void) {
     oled_write_P(logo[0][1], !keymap_config.swap_lctl_lgui);
     oled_write_P(logo[1][1], keymap_config.swap_lctl_lgui);
     oled_write_P(PSTR(" NKRO"), keymap_config.nkro);
+
+    return false;
 }
 #endif
 

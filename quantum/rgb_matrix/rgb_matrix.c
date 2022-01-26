@@ -178,14 +178,7 @@ uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *l
 
 void rgb_matrix_update_pwm_buffers(void) { rgb_matrix_driver.flush(); }
 
-void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
-    if (!is_keyboard_left() && index >= k_rgb_matrix_split[0])
-        rgb_matrix_driver.set_color(index - k_rgb_matrix_split[0], red, green, blue);
-    else if (is_keyboard_left() && index < k_rgb_matrix_split[0])
-#endif
-        rgb_matrix_driver.set_color(index, red, green, blue);
-}
+void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) { rgb_matrix_driver.set_color(index, red, green, blue); }
 
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
@@ -282,12 +275,8 @@ static void rgb_task_timers(void) {
 
     // Update double buffer timers
 #if RGB_DISABLE_TIMEOUT > 0
-    if (rgb_anykey_timer < UINT32_MAX) {
-        if (UINT32_MAX - deltaTime < rgb_anykey_timer) {
-            rgb_anykey_timer = UINT32_MAX;
-        } else {
-            rgb_anykey_timer += deltaTime;
-        }
+    if (rgb_anykey_timer + deltaTime <= UINT32_MAX) {
+        rgb_anykey_timer += deltaTime;
     }
 #endif  // RGB_DISABLE_TIMEOUT > 0
 

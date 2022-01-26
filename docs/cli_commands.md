@@ -118,6 +118,68 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
+## `qmk cd`
+
+This command opens a new shell in your `qmk_firmware` directory.
+
+Note that if you are already somewhere within `QMK_HOME` (for example, the `keyboards/` folder), nothing will happen.
+
+To exit out into the parent shell, simply type `exit`.
+
+**Usage**:
+
+```
+qmk cd
+```
+
+## `qmk console`
+
+This command lets you connect to keyboard consoles to get debugging messages. It only works if your keyboard firmware has been compiled with `CONSOLE_ENABLE=yes`.
+
+**Usage**:
+
+```
+qmk console [-d <pid>:<vid>[:<index>]] [-l] [-n] [-t] [-w <seconds>]
+```
+
+**Examples**:
+
+Connect to all available keyboards and show their console messages:
+
+```
+qmk console
+```
+
+List all devices:
+
+```
+qmk console -l
+```
+
+Show only messages from clueboard/66/rev3 keyboards:
+
+```
+qmk console -d C1ED:2370
+```
+
+Show only messages from the second clueboard/66/rev3:
+
+```
+qmk console -d C1ED:2370:2
+```
+
+Show timestamps and VID:PID instead of names:
+
+```
+qmk console -n -t
+```
+
+Disable bootloader messages:
+
+```
+qmk console --no-bootloaders
+```
+
 ## `qmk doctor`
 
 This command examines your environment and alerts you to potential build or flash problems. It can fix many of them if you want it to.
@@ -352,6 +414,8 @@ Now open your dev environment and live a squiggly-free life.
 This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
 Use the `-b`/`--browser` flag to automatically open the local webserver in your default browser.
 
+This command runs `docsify serve` if `docsify-cli` is installed (which provides live reload), otherwise Python's builtin HTTP server module will be used.
+
 **Usage**:
 
 ```
@@ -417,5 +481,20 @@ This command runs the python test suite. If you make changes to python code you 
 **Usage**:
 
 ```
-qmk pytest
+qmk pytest [-t TEST]
 ```
+
+**Examples**:
+
+Run entire test suite:
+
+    qmk pytest
+
+Run test group:
+
+    qmk pytest -t qmk.tests.test_cli_commands
+
+Run single test:
+
+    qmk pytest -t qmk.tests.test_cli_commands.test_c2json
+    qmk pytest -t qmk.tests.test_qmk_path

@@ -17,7 +17,6 @@
 /* Address for jumping to bootloader on STM32 chips. */
 /* It is chip dependent, the correct number can be looked up by checking against ST's application note AN2606.
  */
-#define STM32_BOOTLOADER_ADDRESS 0x1FFF0000
 
 #define PAL_STM32_OSPEED_HIGHEST PAL_STM32_OSPEED_HIGH
 

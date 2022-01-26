@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to my userspace will be documented in this file.
 
+## [0.4.1] - 2021-10-30
+
+### Added
+- `RGB_DISABLE_WHEN_USB_SUSPENDED` added in `config.h`. Couple of my boards now have per key RGB and have been staying on when my computer sleeps. 
 ## [0.4.0] - 2021-10-05
 
 ### Added

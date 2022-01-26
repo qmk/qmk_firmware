@@ -15,6 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define FLUSH_TIMEOUT 5000
+#define EECONFIG_MD_LED ((uint8_t*)(EECONFIG_SIZE + 64))
+#define MD_LED_CONFIG_VERSION 1
+
 #ifdef RGB_MATRIX_ENABLE
 #    include "arm_atsam_protocol.h"
 #    include "led.h"
@@ -23,8 +27,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include <math.h>
 
 #    ifdef USE_MASSDROP_CONFIGURATOR
+// TODO?: wire these up to keymap.c
+md_led_config_t md_led_config = {0};
+
+EECONFIG_DEBOUNCE_HELPER(md_led, EECONFIG_MD_LED, md_led_config);
+
+void eeconfig_update_md_led_default(void) {
+    md_led_config.ver = MD_LED_CONFIG_VERSION;
+
+    gcr_desired               = LED_GCR_MAX;
+    led_animation_orientation = 0;
+    led_animation_direction   = 0;
+    led_animation_breathing   = 0;
+    led_animation_id          = 0;
+    led_animation_speed       = 4.0f;
+    led_lighting_mode         = LED_MODE_NORMAL;
+    led_enabled               = 1;
+    led_animation_breathe_cur = BREATHE_MIN_STEP;
+    breathe_dir               = 1;
+    led_animation_circular    = 0;
+    led_edge_brightness       = 1.0f;
+    led_ratio_brightness      = 1.0f;
+    led_edge_mode             = LED_EDGE_MODE_ALL;
+
+    eeconfig_flush_md_led(true);
+}
+
+void md_led_changed(void) { eeconfig_flag_md_led(true); }
+
+// todo: use real task rather than this bodge
+void housekeeping_task_kb(void) { eeconfig_flush_md_led_task(FLUSH_TIMEOUT); }
+
 __attribute__((weak)) led_instruction_t led_instructions[] = {{.end = 1}};
 static void                             md_rgb_matrix_config_override(int i);
+#    else
+uint8_t gcr_desired;
 #    endif  // USE_MASSDROP_CONFIGURATOR
 
 void SERCOM1_0_Handler(void) {
@@ -56,7 +93,6 @@ issi3733_driver_t issidrv[ISSI3733_DRIVER_COUNT];
 issi3733_led_t led_map[ISSI3733_LED_COUNT] = ISSI3733_LED_MAP;
 RGB            led_buffer[ISSI3733_LED_COUNT];
 
-uint8_t gcr_desired;
 uint8_t gcr_actual;
 uint8_t gcr_actual_last;
 #    ifdef USE_MASSDROP_CONFIGURATOR
@@ -218,6 +254,13 @@ static void led_set_all(uint8_t r, uint8_t g, uint8_t b) {
 static void init(void) {
     DBGC(DC_LED_MATRIX_INIT_BEGIN);
 
+#    ifdef USE_MASSDROP_CONFIGURATOR
+    eeconfig_init_md_led();
+    if (md_led_config.ver != MD_LED_CONFIG_VERSION) {
+        eeconfig_update_md_led_default();
+    }
+#    endif
+
     issi3733_prepare_arrays();
 
     md_rgb_matrix_prepare();
@@ -330,21 +373,6 @@ const rgb_matrix_driver_t rgb_matrix_driver = {.init = init, .flush = flush, .se
 
 #    ifdef USE_MASSDROP_CONFIGURATOR
 // Ported from Massdrop QMK GitHub Repo
-
-// TODO?: wire these up to keymap.c
-uint8_t led_animation_orientation = 0;
-uint8_t led_animation_direction   = 0;
-uint8_t led_animation_breathing   = 0;
-uint8_t led_animation_id          = 0;
-float   led_animation_speed       = 4.0f;
-uint8_t led_lighting_mode         = LED_MODE_NORMAL;
-uint8_t led_enabled               = 1;
-uint8_t led_animation_breathe_cur = BREATHE_MIN_STEP;
-uint8_t breathe_dir               = 1;
-uint8_t led_animation_circular    = 0;
-float   led_edge_brightness       = 1.0f;
-float   led_ratio_brightness      = 1.0f;
-uint8_t led_edge_mode             = LED_EDGE_MODE_ALL;
 
 static void led_run_pattern(led_setup_t* f, float* ro, float* go, float* bo, float pos) {
     float po;

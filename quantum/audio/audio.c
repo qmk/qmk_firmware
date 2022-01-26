@@ -160,6 +160,8 @@ void audio_toggle(void) {
     eeconfig_update_audio(audio_config.raw);
     if (audio_config.enable) {
         audio_on_user();
+    } else {
+        audio_off_user();
     }
 }
 
@@ -172,6 +174,7 @@ void audio_on(void) {
 
 void audio_off(void) {
     PLAY_SONG(audio_off_song);
+    audio_off_user();
     wait_ms(100);
     audio_stop_all();
     audio_config.enable = 0;

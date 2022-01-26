@@ -21,23 +21,23 @@ static void render_status(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case _VIM:
-            oled_write_P(PSTR("VIM\n\nBUFFER       SCROLL"), false);
+            oled_write_P(PSTR("VIM      \n\nBUFFER         SCROLL"), false);
             break;
         case _FIGMA:
-            oled_write_P(PSTR("FIGMA\n\nVOLUME         ZOOM"), false);
+            oled_write_P(PSTR("FIGMA    \n\nTABS             ZOOM"), false);
             break;
         case _BROWSER:
-            oled_write_P(PSTR("BROWSER\n\nTABS         SCROLL"), false);
+            oled_write_P(PSTR("BROWSER  \n\nTABS           SCROLL"), false);
             break;
-        case _TERMINAL:
-            oled_write_P(PSTR("TERMINAL\n\nVOLUME       SCROLL"), false);
+        case _BASE:
+            oled_write_P(PSTR("BASE     \n\nVOLUME         SCROLL"), false);
             break;
         default:
             oled_write_P(PSTR("Undef\n"), false);
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_status();
+    return false;
 }
-

@@ -1,6 +1,7 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2018 Jack Humbert
  * Copyright 2018 Yiancar
+ * Copyright 2021 Doni Crosby
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,6 +55,14 @@
 
 #ifndef ISSI_PERSISTENCE
 #    define ISSI_PERSISTENCE 0
+#endif
+
+#ifndef ISSI_SWPULLUP
+#    define ISSI_SWPULLUP PUR_0R
+#endif
+
+#ifndef ISSI_CSPULLUP
+#    define ISSI_CSPULLUP PUR_0R
 #endif
 
 // Transfer buffer for TWITransmitData()
@@ -143,6 +152,10 @@ void IS31FL3737_init(uint8_t addr) {
 
     // Select PG3
     IS31FL3737_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
+    // Set de-ghost pull-up resistors (SWx)
+    IS31FL3737_write_register(addr, ISSI_REG_SWPULLUP, ISSI_SWPULLUP);
+    // Set de-ghost pull-down resistors (CSx)
+    IS31FL3737_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
     // Set global current to maximum.
     IS31FL3737_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
     // Disable software shutdown.
@@ -153,8 +166,9 @@ void IS31FL3737_init(uint8_t addr) {
 }
 
 void IS31FL3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    is31_led led;
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
-        is31_led led = g_is31_leds[index];
+        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         g_pwm_buffer[led.driver][led.r]          = red;
         g_pwm_buffer[led.driver][led.g]          = green;
@@ -170,7 +184,8 @@ void IS31FL3737_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3737_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led = g_is31_leds[index];
+    is31_led led;
+    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
     uint8_t control_register_r = led.r / 8;
     uint8_t control_register_g = led.g / 8;

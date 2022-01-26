@@ -56,7 +56,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [AB_ESC] = COMBO(ab_combo, KC_ESC),
   [JK_TAB] = COMBO(jk_combo, KC_TAB),
   [QW_SFT] = COMBO(qw_combo, KC_LSFT)
-  [SD_LAYER] = COMBO(layer_combo, MO(_LAYER)),
+  [SD_LAYER] = COMBO(sd_combo, MO(_LAYER)),
 };
 ```
 
@@ -100,7 +100,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
 This will send "john.doe@example.com" if you chord E and M together, and clear the current line with Backspace and Left-Shift. You could change this to do stuff like play sounds or change settings.
 
-It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/), it is possible to run your own custom keycodes from combos. Just define the custom keycode, program its functionality in `process_record_user`, and define a combo with `COMBO(<key_array>, <your_custom_keycode>)`.
+It is worth noting that `COMBO_ACTION`s are not needed anymore. As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/), it is possible to run your own custom keycodes from combos. Just define the custom keycode, program its functionality in `process_record_user`, and define a combo with `COMBO(<key_array>, <your_custom_keycode>)`. See the first example in [Macros](feature_macros.md).
 
 ## Keycodes
 You can enable, disable and toggle the Combo feature on the fly. This is useful if you need to disable them temporarily, such as for a game. The following keycodes are available for use in your `keymap.c`
@@ -141,10 +141,13 @@ Processing combos has two buffers, one for the key presses, another for the comb
 ## Modifier Combos
 If a combo resolves to a Modifier, the window for processing the combo can be extended independently from normal combos. By default, this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_HOLD_TERM 150` (default: `TAPPING_TERM`). With `COMBO_MUST_HOLD_MODS`, you cannot tap the combo any more which makes the combo less prone to misfires.
 
-## Per Combo Timing, Holding and Tapping
-For each combo, it is possible to configure the time window it has to pressed in, if it needs to be held down, or if it needs to be tapped.
+## Strict key press order
+By defining `COMBO_MUST_PRESS_IN_ORDER` combos only activate when the keys are pressed in the same order as they are defined in the key array.
 
-For example, tap-only combos are useful if any (or all) of the underlying keys is a Mod-Tap or a Layer-Tap key. When you tap the combo, you get the combo result. When you press the combo and hold it down, the combo doesn't actually activate. Instead the keys are processed separately as if the combo wasn't even there.
+## Per Combo Timing, Holding, Tapping and Key Press Order
+For each combo, it is possible to configure the time window it has to pressed in, if it needs to be held down, if it needs to be tapped, or if its keys need to be pressed in order.
+
+For example, tap-only combos are useful if any (or all) of the underlying keys are mod-tap or layer-tap keys. When you tap the combo, you get the combo result. When you press the combo and hold it down, the combo doesn't activate. Instead the keys are processed separately as if the combo wasn't even there.
 
 In order to use these features, the following configuration options and functions need to be defined. Coming up with useful timings and configuration is left as an exercise for the reader.
 
@@ -153,6 +156,7 @@ In order to use these features, the following configuration options and function
 | `COMBO_TERM_PER_COMBO`      | uint16_t get_combo_term(uint16_t index, combo_t \*combo)  | Optional per-combo timeout window. (default: `COMBO_TERM`)                                             |
 | `COMBO_MUST_HOLD_PER_COMBO` | bool get_combo_must_hold(uint16_t index, combo_t \*combo) | Controls if a given combo should fire immediately on tap or if it needs to be held. (default: `false`) |
 | `COMBO_MUST_TAP_PER_COMBO`  | bool get_combo_must_tap(uint16_t index, combo_t \*combo)  | Controls if a given combo should fire only if tapped within `COMBO_HOLD_TERM`. (default: `false`)      |
+| `COMBO_MUST_PRESS_IN_ORDER_PER_COMBO` | bool get_combo_must_press_in_order(uint16_t index, combo_t \*combo) | Controls if a given combo should fire only if its keys are pressed in order. (default: `true`) |
 
 Examples:
 ```c
@@ -173,7 +177,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // i.e. the exact array of keys you defined for the combo.
     // This can be useful if your combos have a common key and you want to apply the
     // same combo term for all of them.
-    if (combo->keys[0] == KC_ENTER) { // if first key in the array is KC_ENTER
+    if (combo->keys[0] == KC_ENT) { // if first key in the array is Enter
         return 150;
     }
 
@@ -215,6 +219,38 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
     }
     return false;
 
+}
+
+bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
+    switch (combo_index) {
+        /* List combos here that you want to only activate if their keys
+         * are pressed in the same order as they are defined in the combo's key
+         * array. */
+        case COMBO_NAME_HERE:
+            return true;
+        default:
+            return false;
+    }
+}
+```
+
+## Generic hook to (dis)allow a combo activation
+
+By defining `COMBO_SHOULD_TRIGGER` and its companying function `bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record)` you can block or allow combos to activate on the conditions of your choice.
+For example, you could disallow some combos on the base layer and allow them on another. Or disable combos on the home row when a timer is running.
+
+Examples:
+```c
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    /* Disable combo `SOME_COMBO` on layer `_LAYER_A` */
+    switch (combo_index) {
+        case SOME_COMBO:
+            if (layer_state_is(_LAYER_A)) {
+                return false;
+            }
+    }
+
+    return true;
 }
 ```
 

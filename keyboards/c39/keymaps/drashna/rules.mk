@@ -5,7 +5,7 @@ BOARD = QMK_PROTON_C
 # Bootloader selection
 BOOTLOADER = stm32-dfu
 
-BOOTMAGIC_ENABLE = yes
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = yes

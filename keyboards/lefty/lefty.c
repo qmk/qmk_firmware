@@ -17,7 +17,10 @@
 #include "lefty.h"
 
 #ifdef OLED_ENABLE
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
 
@@ -39,5 +42,6 @@ __attribute__((weak)) void oled_task_user(void) {
             oled_write_ln_P(PSTR("Undefined"), false);
     }
 
+    return true;
 }
 #endif

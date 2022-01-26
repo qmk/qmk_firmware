@@ -273,12 +273,6 @@ void matrix_slave_scan(void) {
 #endif
 }
 
-bool matrix_is_modified(void)
-{
-    if (debouncing) return false;
-    return true;
-}
-
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {

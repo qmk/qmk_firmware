@@ -32,30 +32,26 @@ typedef union {
     };
 } keyboard_config_t;
 
+typedef union {
+    uint32_t raw;
+    struct {
+        uint16_t device_cpi;
+    };
+} kb_config_data_t;
+
 extern keyboard_config_t keyboard_config;
+extern kb_config_data_t kb_config_data;
 
 enum ploopy_keycodes {
     DPI_CONFIG = SAFE_RANGE,
     KEYMAP_SAFE_RANGE,
 };
 
-typedef struct {
-    uint16_t device_cpi;
-} kb_config_data_t;
-
-__attribute__((aligned(16))) typedef struct {
-    int8_t x;
-    int8_t y;
-} kb_mouse_report_t;
-
-extern kb_mouse_report_t sync_mouse_report;
-
-void process_mouse(void);
-void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y);
-void trackball_set_cpi(uint16_t cpi);
 void matrix_init_sub_kb(void);
 void matrix_scan_sub_kb(void);
 
 void keyboard_pre_init_sync(void);
 void keyboard_post_init_sync(void);
 void housekeeping_task_sync(void);
+
+void kb_config_sync_handler(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer);

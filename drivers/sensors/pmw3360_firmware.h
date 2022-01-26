@@ -20,7 +20,12 @@
 
 #include "progmem.h"
 
+// PID, Inverse PID, SROM version
+const uint8_t firmware_signature[] PROGMEM = {0x42, 0xBD, 0x04};
+
 #define FIRMWARE_LENGTH 4094
+
+// Firmware Blob foor PMW3360
 
 // clang-format off
 const uint8_t firmware_data[FIRMWARE_LENGTH] PROGMEM = {

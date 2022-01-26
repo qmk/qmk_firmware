@@ -19,7 +19,7 @@
 #include "sequencer.h"
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
+#define _______ KC_TRANSPARENT
 #define XXXXXXX KC_NO
 
 enum quantum_keycodes {
@@ -37,10 +37,6 @@ enum quantum_keycodes {
     QK_RALT                 = 0x1400,
     QK_RGUI                 = 0x1800,
     QK_MODS_MAX             = 0x1FFF,
-    QK_FUNCTION             = 0x2000,
-    QK_FUNCTION_MAX         = 0x2FFF,
-    QK_MACRO                = 0x3000,
-    QK_MACRO_MAX            = 0x3FFF,
     QK_LAYER_TAP            = 0x4000,
     QK_LAYER_TAP_MAX        = 0x4FFF,
     QK_TO                   = 0x5000,
@@ -80,8 +76,8 @@ enum quantum_keycodes {
     QK_UNICODEMAP_PAIR_MAX = 0xFFFF,
 
     // Loose keycodes - to be used directly
-    RESET = 0x5C00,
-    DEBUG,  // 5C01
+    QK_BOOTLOADER = 0x5C00,
+    QK_DEBUG_TOGGLE,  // 5C01
 
     // Magic
     MAGIC_SWAP_CONTROL_CAPSLOCK,       // 5C02
@@ -106,7 +102,7 @@ enum quantum_keycodes {
     MAGIC_TOGGLE_ALT_GUI,              // 5C15
 
     // Grave Escape
-    GRAVE_ESC,  // 5C16
+    QK_GRAVE_ESCAPE,  // 5C16
 
     // Auto Shift
     KC_ASUP,   // 5C17
@@ -379,7 +375,7 @@ enum quantum_keycodes {
     OUT_USB,   // 5CDE
 
     // Clear EEPROM
-    EEPROM_RESET,  // 5CDF
+    QK_CLEAR_EEPROM,  // 5CDF
 
     // Unicode
     UNICODE_MODE_FORWARD,  // 5CE0
@@ -524,6 +520,11 @@ enum quantum_keycodes {
     // Additional magic key
     MAGIC_TOGGLE_GUI,
 
+    // Adjust tapping term on the fly
+    DT_PRNT,
+    DT_UP,
+    DT_DOWN,
+
     // Programmable Button
     PROGRAMMABLE_BUTTON_1,
     PROGRAMMABLE_BUTTON_2,
@@ -557,6 +558,42 @@ enum quantum_keycodes {
     PROGRAMMABLE_BUTTON_30,
     PROGRAMMABLE_BUTTON_31,
     PROGRAMMABLE_BUTTON_32,
+
+    // Dedicated macro keys for Configurator and VIA
+    MACRO_0,
+    MACRO_1,
+    MACRO_2,
+    MACRO_3,
+    MACRO_4,
+    MACRO_5,
+    MACRO_6,
+    MACRO_7,
+    MACRO_8,
+    MACRO_9,
+    MACRO_10,
+    MACRO_11,
+    MACRO_12,
+    MACRO_13,
+    MACRO_14,
+    MACRO_15,
+    MACRO_16,
+    MACRO_17,
+    MACRO_18,
+    MACRO_19,
+    MACRO_20,
+    MACRO_21,
+    MACRO_22,
+    MACRO_23,
+    MACRO_24,
+    MACRO_25,
+    MACRO_26,
+    MACRO_27,
+    MACRO_28,
+    MACRO_29,
+    MACRO_30,
+    MACRO_31,
+
+    MAGIC_TOGGLE_CONTROL_CAPSLOCK,
 
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
@@ -599,69 +636,67 @@ enum quantum_keycodes {
 #define MOD_MEH 0x7
 
 // US ANSI shifted keycode aliases
-#define KC_TILD LSFT(KC_GRV)  // ~
-#define KC_TILDE KC_TILD
+#define KC_TILDE LSFT(KC_GRAVE)  // ~
+#define KC_TILD KC_TILDE
 
-#define KC_EXLM LSFT(KC_1)  // !
-#define KC_EXCLAIM KC_EXLM
+#define KC_EXCLAIM LSFT(KC_1)  // !
+#define KC_EXLM KC_EXCLAIM
 
 #define KC_AT LSFT(KC_2)  // @
 
 #define KC_HASH LSFT(KC_3)  // #
 
-#define KC_DLR LSFT(KC_4)  // $
-#define KC_DOLLAR KC_DLR
+#define KC_DOLLAR LSFT(KC_4)  // $
+#define KC_DLR KC_DOLLAR
 
-#define KC_PERC LSFT(KC_5)  // %
-#define KC_PERCENT KC_PERC
+#define KC_PERCENT LSFT(KC_5)  // %
+#define KC_PERC KC_PERCENT
 
-#define KC_CIRC LSFT(KC_6)  // ^
-#define KC_CIRCUMFLEX KC_CIRC
+#define KC_CIRCUMFLEX LSFT(KC_6)  // ^
+#define KC_CIRC KC_CIRCUMFLEX
 
-#define KC_AMPR LSFT(KC_7)  // &
-#define KC_AMPERSAND KC_AMPR
+#define KC_AMPERSAND LSFT(KC_7)  // &
+#define KC_AMPR KC_AMPERSAND
 
-#define KC_ASTR LSFT(KC_8)  // *
-#define KC_ASTERISK KC_ASTR
+#define KC_ASTERISK LSFT(KC_8)  // *
+#define KC_ASTR KC_ASTERISK
 
-#define KC_LPRN LSFT(KC_9)  // (
-#define KC_LEFT_PAREN KC_LPRN
+#define KC_LEFT_PAREN LSFT(KC_9)  // (
+#define KC_LPRN KC_LEFT_PAREN
 
-#define KC_RPRN LSFT(KC_0)  // )
-#define KC_RIGHT_PAREN KC_RPRN
+#define KC_RIGHT_PAREN LSFT(KC_0)  // )
+#define KC_RPRN KC_RIGHT_PAREN
 
-#define KC_UNDS LSFT(KC_MINS)  // _
-#define KC_UNDERSCORE KC_UNDS
+#define KC_UNDERSCORE LSFT(KC_MINUS)  // _
+#define KC_UNDS KC_UNDERSCORE
 
-#define KC_PLUS LSFT(KC_EQL)  // +
+#define KC_PLUS LSFT(KC_EQUAL)  // +
 
-#define KC_LCBR LSFT(KC_LBRC)  // {
-#define KC_LEFT_CURLY_BRACE KC_LCBR
+#define KC_LEFT_CURLY_BRACE LSFT(KC_LEFT_BRACKET)  // {
+#define KC_LCBR KC_LEFT_CURLY_BRACE
 
-#define KC_RCBR LSFT(KC_RBRC)  // }
-#define KC_RIGHT_CURLY_BRACE KC_RCBR
+#define KC_RIGHT_CURLY_BRACE LSFT(KC_RIGHT_BRACKET)  // }
+#define KC_RCBR KC_RIGHT_CURLY_BRACE
 
-#define KC_LABK LSFT(KC_COMM)  // <
-#define KC_LEFT_ANGLE_BRACKET KC_LABK
+#define KC_LEFT_ANGLE_BRACKET LSFT(KC_COMMA)  // <
+#define KC_LABK KC_LEFT_ANGLE_BRACKET
+#define KC_LT KC_LEFT_ANGLE_BRACKET
 
-#define KC_RABK LSFT(KC_DOT)  // >
-#define KC_RIGHT_ANGLE_BRACKET KC_RABK
+#define KC_RIGHT_ANGLE_BRACKET LSFT(KC_DOT)  // >
+#define KC_RABK KC_RIGHT_ANGLE_BRACKET
+#define KC_GT KC_RIGHT_ANGLE_BRACKET
 
-#define KC_COLN LSFT(KC_SCLN)  // :
-#define KC_COLON KC_COLN
+#define KC_COLON LSFT(KC_SEMICOLON)  // :
+#define KC_COLN KC_COLON
 
-#define KC_PIPE LSFT(KC_BSLS)  // |
+#define KC_PIPE LSFT(KC_BACKSLASH)  // |
 
-#define KC_LT LSFT(KC_COMM)  // <
+#define KC_QUESTION LSFT(KC_SLASH)  // ?
+#define KC_QUES KC_QUESTION
 
-#define KC_GT LSFT(KC_DOT)  // >
-
-#define KC_QUES LSFT(KC_SLSH)  // ?
-#define KC_QUESTION KC_QUES
-
-#define KC_DQT LSFT(KC_QUOT)  // "
-#define KC_DOUBLE_QUOTE KC_DQT
-#define KC_DQUO KC_DQT
+#define KC_DOUBLE_QUOTE LSFT(KC_QUOTE)  // "
+#define KC_DQUO KC_DOUBLE_QUOTE
+#define KC_DQT KC_DOUBLE_QUOTE
 
 #define KC_DELT KC_DELETE  // Del key (four letter code)
 
@@ -671,15 +706,11 @@ enum quantum_keycodes {
 #define A(kc) LALT(kc)
 #define G(kc) LGUI(kc)
 
-// Deprecated - do not use
-#define F(kc) (QK_FUNCTION | (kc))
-#define M(kc) (QK_MACRO | (kc))
-#define MACROTAP(kc) (QK_MACRO | (FUNC_TAP << 8) | (kc))
-#define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
+#define QK_GESC QK_GRAVE_ESCAPE
 
-#define KC_GESC GRAVE_ESC
-
-#define EEP_RST EEPROM_RESET
+#define QK_BOOT QK_BOOTLOADER
+#define DB_TOGG QK_DEBUG_TOGGLE
+#define EE_CLR QK_CLEAR_EEPROM
 
 // Audio Clicky aliases
 #define CK_TOGG CLICKY_TOGGLE
@@ -712,6 +743,7 @@ enum quantum_keycodes {
 #define CL_NORM MAGIC_UNSWAP_CONTROL_CAPSLOCK
 #define CL_CTRL MAGIC_CAPSLOCK_TO_CONTROL
 #define CL_CAPS MAGIC_UNCAPSLOCK_TO_CONTROL
+#define CL_TOGG MAGIC_TOGGLE_CONTROL_CAPSLOCK
 
 #define LCG_SWP MAGIC_SWAP_LCTL_LGUI
 #define LCG_NRM MAGIC_UNSWAP_LCTL_LGUI
@@ -809,12 +841,12 @@ enum quantum_keycodes {
 #define CMD_T(kc) LCMD_T(kc)
 #define WIN_T(kc) LWIN_T(kc)
 
-#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)  // Left Control + Shift e.g. for gnome-terminal
-#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)  // Meh is a less hyper version of the Hyper key -- doesn't include GUI, so just Left Control + Shift + Alt
-#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)  // Left Control + Alt + GUI
-#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)  // Right Control + Alt + GUI
+#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)                         // Left Control + Shift e.g. for gnome-terminal
+#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)              // Meh is a less hyper version of the Hyper key -- doesn't include GUI, so just Left Control + Shift + Alt
+#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)             // Left Control + Alt + GUI
+#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)             // Right Control + Alt + GUI
 #define HYPR_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc)  // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
-#define LSG_T(kc) MT(MOD_LSFT | MOD_LGUI, kc)  // Left Shift + GUI
+#define LSG_T(kc) MT(MOD_LSFT | MOD_LGUI, kc)                         // Left Shift + GUI
 #define SGUI_T(kc) LSG_T(kc)
 #define SCMD_T(kc) LSG_T(kc)
 #define SWIN_T(kc) LSG_T(kc)
@@ -845,7 +877,7 @@ enum quantum_keycodes {
 
 #define UC_M_MA UNICODE_MODE_MAC
 #define UNICODE_MODE_OSX UNICODE_MODE_MAC  // Deprecated alias
-#define UC_M_OS UNICODE_MODE_MAC  // Deprecated alias
+#define UC_M_OS UNICODE_MODE_MAC           // Deprecated alias
 #define UC_M_LN UNICODE_MODE_LNX
 #define UC_M_WI UNICODE_MODE_WIN
 #define UC_M_BS UNICODE_MODE_BSD
@@ -924,3 +956,5 @@ enum quantum_keycodes {
 #define PB_32 PROGRAMMABLE_BUTTON_32
 #define PROGRAMMABLE_BUTTON_MIN PROGRAMMABLE_BUTTON_1
 #define PROGRAMMABLE_BUTTON_MAX PROGRAMMABLE_BUTTON_32
+
+#include "quantum_keycodes_legacy.h"

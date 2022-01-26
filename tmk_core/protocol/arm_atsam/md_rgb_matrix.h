@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _LED_MATRIX_H_
 
 #include "quantum.h"
+#include "eeprom.h"
 
 // From keyboard
 #include "config_led.h"
@@ -79,7 +80,6 @@ typedef struct issi3733_led_s {
 
 extern issi3733_driver_t issidrv[ISSI3733_DRIVER_COUNT];
 
-extern uint8_t gcr_desired;
 extern uint8_t gcr_breathe;
 extern uint8_t gcr_actual;
 extern uint8_t gcr_actual_last;
@@ -140,19 +140,43 @@ typedef struct led_instruction_s {
 
 extern led_instruction_t led_instructions[];
 
-extern uint8_t led_animation_breathing;
-extern uint8_t led_animation_id;
-extern float   led_animation_speed;
-extern uint8_t led_lighting_mode;
-extern uint8_t led_enabled;
-extern uint8_t led_animation_breathe_cur;
-extern uint8_t led_animation_direction;
-extern uint8_t breathe_dir;
-extern uint8_t led_animation_orientation;
-extern uint8_t led_animation_circular;
-extern float   led_edge_brightness;
-extern float   led_ratio_brightness;
-extern uint8_t led_edge_mode;
+typedef struct led_config_s {
+    uint8_t ver;  // assumed to be zero on eeprom reset
+
+    uint8_t desired_gcr;
+    uint8_t animation_breathing;
+    uint8_t animation_id;
+    float   animation_speed;
+    uint8_t lighting_mode;
+    uint8_t enabled;
+    uint8_t animation_breathe_cur;
+    uint8_t animation_direction;
+    uint8_t animation_breathe_dir;
+    uint8_t animation_orientation;
+    uint8_t animation_circular;
+    float   edge_brightness;
+    float   ratio_brightness;
+    uint8_t edge_mode;
+} md_led_config_t;
+
+extern md_led_config_t md_led_config;
+
+void md_led_changed(void);
+
+#    define gcr_desired md_led_config.desired_gcr
+#    define led_animation_breathing md_led_config.animation_breathing
+#    define led_animation_id md_led_config.animation_id
+#    define led_animation_speed md_led_config.animation_speed
+#    define led_lighting_mode md_led_config.lighting_mode
+#    define led_enabled md_led_config.enabled
+#    define led_animation_breathe_cur md_led_config.animation_breathe_cur
+#    define led_animation_direction md_led_config.animation_direction
+#    define breathe_dir md_led_config.animation_breathe_dir
+#    define led_animation_orientation md_led_config.animation_orientation
+#    define led_animation_circular md_led_config.animation_circular
+#    define led_edge_brightness md_led_config.edge_brightness
+#    define led_ratio_brightness md_led_config.ratio_brightness
+#    define led_edge_mode md_led_config.edge_mode
 
 #    define LED_MODE_NORMAL 0  // Must be 0
 #    define LED_MODE_KEYS_ONLY 1
@@ -173,7 +197,8 @@ extern uint8_t led_edge_mode;
 #    define LED_IS_EDGE(scan) (scan >= LED_EDGE_MIN_SCAN)        // Return true if an LED's scan value indicates an edge LED
 #    define LED_IS_EDGE_ALT(scan) (scan == LED_EDGE_ALT_MODE)    // Return true if an LED's scan value indicates an alternate edge mode LED
 #    define LED_IS_INDICATOR(scan) (scan == LED_INDICATOR_SCAN)  // Return true if an LED's scan value indicates it is a dedicated Indicator
-
+#else
+extern uint8_t gcr_desired;
 #endif  // USE_MASSDROP_CONFIGURATOR
 
 #endif  //_LED_MATRIX_H_
