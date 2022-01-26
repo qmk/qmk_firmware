@@ -1,5 +1,5 @@
 /*
-Copyright 2020 ipetepete, 2021 deadolus, 2022 stoffl
+Copyright 2020 ipetepete, 2021 deadolus, 2022 p4yne
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
