@@ -1,6 +1,7 @@
 # Unicorn
 
-*A short description of the keyboard/project*
+Unicorn is a split 65% keyboard with an extra column on the right side. 
+It has support for optional hot swap sockets and a rotary encoder on the right side.
 
 * Keyboard Maintainer: [Keyprez](https://github.com/keyprez)
 * Hardware Supported: *Pro micro compatible controllers*
