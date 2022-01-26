@@ -30,6 +30,13 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 #endif
 
+// Custom layer types
+enum layertypes {
+  LYR_SOLID, // fullsize coloring
+  LYR_TRANS, // used keys in layer color, lower layer shines through on unused keys
+  LYR_BLACK  // only used key in layer color
+};
+
 // Defines names for use in layer keycodes and the keymap
 enum layers {
   _LVL0_,
