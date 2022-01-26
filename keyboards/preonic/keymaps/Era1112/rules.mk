@@ -1,3 +1,6 @@
+## Copyright 2022 Era James (@Era1112)
+## SPDX-License-Identifier: GPL-2.0-or-later
+
 # DEFAULT STATEMENTS
 # ==================
 

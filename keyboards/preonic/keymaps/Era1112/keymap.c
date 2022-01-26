@@ -1,3 +1,6 @@
+// Copyright 2022 Era James(@Era1112)
+// SPDX - License - Identifier: GPL - 2.0 - or -later
+
 #include QMK_KEYBOARD_H                     // Default statement
 
 #define HSV_RETRO_CONSOLE   36, 150, 255    //HSV_YELLOW = 43, 255, 255
@@ -7,8 +10,7 @@
 //--------------------------------------------//
 #ifdef RGBLIGHT_ENABLE
 
-void keyboard_post_init_user(void)
-{
+void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom(); // Enables RGB, without saving settings
     rgblight_sethsv_noeeprom(HSV_RETRO_CONSOLE);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
@@ -18,8 +20,7 @@ void keyboard_post_init_user(void)
 
 //----------- Layer names -----------//
 //-----------------------------------//
-enum preonic_layers
-{
+enum preonic_layers {
   _QWERTY,
   _LOWER,
   _RAISE,
@@ -40,8 +41,7 @@ enum preonic_layers
 
 //----------- Called when dynamic buffer full -----------//
 //-------------------------------------------------------//
-void backlight_toggle(void)
-{
+void backlight_toggle(void) {
 #ifdef AUDIO_ENABLE
 
     PLAY_SONG(dynamicBufferFullSound);
@@ -59,12 +59,6 @@ typedef enum {
     TD_1_HOLD,
     TD_2_TAP,
     TD_2_HOLD,
-    /*TD_3_TAP,
-    TD_4_TAP,
-    TD_5_TAP*/
-    // TD_DOUBLE_SINGLE_TAP, // Send two single taps
-    // TD_TRIPLE_TAP,
-    // TD_TRIPLE_HOLD
 } td_state_t;
 
 typedef struct {
@@ -103,61 +97,22 @@ td_state_t cur_dance(qk_tap_dance_state_t* state);
  */
 td_state_t cur_dance(qk_tap_dance_state_t* state) {
     if (state->count == 1) {
-        if (state->interrupted || !state->pressed) return TD_1_TAP;
+        if (state->interrupted || !state->pressed) {
+            return TD_1_TAP;
+        }
         // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
-        else return TD_1_HOLD;
-    }
-    else if (state->count == 2)
-    {
+        } else {
+        return TD_1_HOLD;
+        }
+    } else if (state->count == 2) {
         // TD_DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
         // action when hitting 'pp'. Suggested use case for this return value is when you want to send two
         // keystrokes of the key, and not the 'double tap' action/macro.
-        //if (state->interrupted) return TD_DOUBLE_SINGLE_TAP;
-        //else
         if (state->pressed) return TD_2_HOLD;
         else return TD_2_TAP;
-    }
-    else
+    } else {
         return TD_UNKNOWN;
-    //else if (state->count == 3)
-    //{
-    //    // TD_DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
-    //    // action when hitting 'pp'. Suggested use case for this return value is when you want to send two
-    //    // keystrokes of the key, and not the 'double tap' action/macro.
-    //    //if (state->interrupted) return TD_DOUBLE_SINGLE_TAP;
-    //    //else
-    //    if (state->pressed) return TD_3_TAP;
-    //    else return TD_3_TAP;
-    //}
-    //else if (state->count == 4)
-    //{
-    //    // TD_DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
-    //    // action when hitting 'pp'. Suggested use case for this return value is when you want to send two
-    //    // keystrokes of the key, and not the 'double tap' action/macro.
-    //    //if (state->interrupted) return TD_DOUBLE_SINGLE_TAP;
-    //    //else
-    //    if (state->pressed) return TD_4_TAP;
-    //    else return TD_4_TAP;
-    //}
-    //else if (state->count == 5)
-    //{
-    //    // TD_DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
-    //    // action when hitting 'pp'. Suggested use case for this return value is when you want to send two
-    //    // keystrokes of the key, and not the 'double tap' action/macro.
-    //    //if (state->interrupted) return TD_DOUBLE_SINGLE_TAP;
-    //    //else
-    //    if (state->pressed) return TD_5_TAP;
-    //    else return TD_5_TAP;
-    //}
-    //
-    // Assumes no one is trying to type the same letter three times (at least not quickly).
-    // If your tap dance key is 'KC_W', and you want to type "www." quickly - then you will need to add
-    // an exception here to return a 'TD_TRIPLE_SINGLE_TAP', and define that enum just like 'TD_DOUBLE_SINGLE_TAP'
-    /*if (state->count == 3) {
-        if (state->interrupted || !state->pressed) return TD_TRIPLE_TAP;
-        else return TD_TRIPLE_HOLD;
-    }*/
-    
+    }
 }
 
 
@@ -185,13 +140,6 @@ void twoCapsLock_finished(qk_tap_dance_state_t* state, void* user_data) {
 #endif  // AUDIO_ENABLE
         break;
     case TD_2_HOLD: register_code(KC_LSFT); break;      
-    /*case TD_3_TAP: register_code(KC_LSFT); break;
-    case TD_4_TAP: register_code(KC_LSFT); break;
-    case TD_5_TAP: register_code(KC_LSFT); break;*/
-    //    // Last case is for fast typing. Assuming your key is `f`:
-    //    // For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
-    //    // In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
-    //case TD_DOUBLE_SINGLE_TAP: tap_code(KC_X); register_code(KC_X);
     }
 }
 
@@ -208,10 +156,6 @@ void twoCapsLock_reset(qk_tap_dance_state_t* state, void* user_data) {
 #endif  // AUDIO_ENABLE
         break;
     case TD_2_HOLD: unregister_code(KC_LSFT); break;
-   /* case TD_3_TAP: unregister_code(KC_LSFT); break;
-    case TD_4_TAP: unregister_code(KC_LSFT); break;
-    case TD_5_TAP: unregister_code(KC_LSFT); break;*/
-    //case TD_DOUBLE_SINGLE_TAP: unregister_code(KC_X);
     }
     twoCapsLock_tap_state.state = TD_NONE;
 }
@@ -219,38 +163,24 @@ void twoCapsLock_reset(qk_tap_dance_state_t* state, void* user_data) {
 
 //----------- Rotary Encoder --------------//
 //----------------------------------------//
-bool encoder_update_user(uint8_t index, bool clockwise)
-{
-    if (layer_state_is(_QWERTY))
-    {
-        if (clockwise)
-        {
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (layer_state_is(_QWERTY)) {
+        if (clockwise) {
             tap_code(KC_WH_U);
-        }
-        else
-        {
+        } else {
             tap_code(KC_WH_D);
         }
     }
-    else if (layer_state_is(_LOWER))
-    {
-        if (clockwise)
-        {
+    else if (layer_state_is(_LOWER)) {
+        if (clockwise) {
             tap_code16(S(KC_F3));
-        }
-        else
-        {
+        } else {
             tap_code(KC_F3);
         }
-    }
-    else if (layer_state_is(_RAISE))
-    {
-        if (clockwise)
-        {
+    } else if (layer_state_is(_RAISE)) {
+        if (clockwise) {
             tap_code16(C(KC_Z));
-        }
-        else
-        {
+        } else {
             tap_code16(C(KC_Y));
         }
     }
@@ -259,13 +189,11 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 
 //----------- Custom keycodes ------------//
 //----------------------------------------//
-enum
-{
+enum {
     TD_2_CAPSLOCK
 };
 
-enum custom_keycodes
-{
+enum custom_keycodes {
     CU_BLNKON = SAFE_RANGE,
     CU_BLNKOFF,
     CU_RGBON,
@@ -275,127 +203,106 @@ enum custom_keycodes
 
 static bool blinky = false;         // Track blinky behavior on/off for keycode
 
-qk_tap_dance_action_t tap_dance_actions[] =
-{
+qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_2_CAPSLOCK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, twoCapsLock_finished, twoCapsLock_reset)
 };
 
 
 //----------- Intercepts and overrides ------------//
 //-------------------------------------=-----------//
-bool process_record_user(uint16_t keycode, keyrecord_t* record)
-{
-    switch (keycode)
-    {
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
     // Turn RGB LEDs off
     case CU_RGBOFF:
 
         // If pressed
-        if (record->event.pressed)
-        {
+        if (record->event.pressed) {
             rgblight_sethsv_noeeprom(HSV_OFF);   
             return true;
-        }
 
         // If released
-        else
+        } else {
             return true;
-
+        }
 
     // Turn RGB LEDs on
     case CU_RGBON:
 
         // If pressed
-        if (record->event.pressed)
-        {
+        if (record->event.pressed) {
             rgblight_sethsv_noeeprom(HSV_RETRO_CONSOLE);  
             return true;
-        }
 
         // If released
-        else
+        } else {
             return true;
-
+        }
 
     // Turn blinky LEDs off
     case CU_BLNKOFF:
 
         // If pressed
-        if (record->event.pressed)
-        {
+        if (record->event.pressed) {
             blinky = false;
             return true;
-        }
 
         // If released
-        else
+        } else {
             return true;
-
+        }
 
     // Turn blinky LEDs on
     case CU_BLNKON:
 
         // If pressed
-        if (record->event.pressed)
-        {
+        if (record->event.pressed) {
             blinky = true;
             return true;
-        }
 
         // If released
-        else
+        } else {
             return true;
-
+        }
 
     // Sound when Dynamic recording started
     case DYN_REC_START1:
 
         // If pressed
-        if (record->event.pressed)
-        {
+        if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
             PLAY_SONG(dynamicBufferRecordSound);
         #endif  // AUDIO_ENABLE
             return true; // Let QMK send the press/release events
-        }
 
         // If released
-        else
+        } else {
             return true; // Let QMK send the press/release events
-
+        }
 
     // Sound when Dynamic recording stopped
     case DYN_REC_STOP:
 
         // If pressed
-        if (record->event.pressed)
-        {
+        if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
             PLAY_SONG(dynamicBufferFullSound); 
         #endif  // AUDIO_ENABLE
             return true; // Let QMK send the enter press/release events
-        }
 
         // If released
-        else
+        } else {
             return true; // Let QMK send the press/release events
-
+        }
 
     // Encoder Click
     case ENC_MODE:
-        if (record->event.pressed)
-        {
-            if (layer_state_is(_QWERTY))
-            {
+        if (record->event.pressed) {
+            if (layer_state_is(_QWERTY)) {
                 tap_code(KC_BTN1);
                 return false;
-            }
-            else if (layer_state_is(_LOWER))
-            {
+            } else if (layer_state_is(_LOWER)) {
                 return false;
-            }
-            else if (layer_state_is(_RAISE))
-            {
+            } else if (layer_state_is(_RAISE)) {
                 return false;
             }
         }
@@ -403,9 +310,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
     // Adds blinks if blinky is on
     default:
-        if (blinky == true)
-        {   rgblight_toggle();  }
-        return true; // Process all other keycodes normally
+        if (blinky == true) {
+            rgblight_toggle();
+        }
+
+    return true; // Process all other keycodes normally
 
     }
 }
@@ -413,12 +322,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
 //----------- Keymap ------------//
 //-------------------------------//
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
-{
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [_QWERTY] = LAYOUT_ortho_5x12   // main layer
-    (
-        // (Non-disabled top row) KC_MINS,            KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_6,           KC_7,           KC_8,       KC_9,       KC_0,       KC_EQL,
+    // main layer
+    [_QWERTY] = LAYOUT_ortho_5x12 (
+        // (Non-disabled top row), uncomment and replace if you want preonic-style instead of planck-style
+        // KC_MINS,            KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_6,           KC_7,           KC_8,       KC_9,       KC_0,       KC_EQL,
 		KC_NO,              KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,
         KC_TAB,             KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_Y,           KC_U,           KC_I,       KC_O,       KC_P,       KC_BSPC,
         KC_ESC,             KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_H,           KC_J,           KC_K,       KC_L,       KC_SCLN,    KC_ENT,
@@ -426,8 +335,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
         ENC_MODE,           KC_LCTL,        KC_LGUI,        KC_LALT,        MO(_LOWER),     KC_SPC,         KC_SPC,         MO(_RAISE),     KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT
     ),
 
-    [_LOWER] = LAYOUT_ortho_5x12    // lower key        
-    (
+    // lower key
+    [_LOWER] = LAYOUT_ortho_5x12 (
         DYN_MACRO_PLAY1,    DYN_REC_START1, DYN_REC_STOP,   KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,            KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,
         KC_TRNS,            KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_6,           KC_7,               KC_8,           KC_9,       KC_0,       KC_DEL,
         KC_BSPC,            KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_QUOT,            KC_GRV,         KC_LCBR,    KC_RCBR,    KC_TRNS,
@@ -435,8 +344,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
         KC_TRNS,            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        MO(_ADJUST),        KC_HOME,        KC_PGDN,    KC_PGUP,    KC_END
     ),
 
-    [_RAISE] = LAYOUT_ortho_5x12    // raise key
-    (
+    // raise key
+    [_RAISE] = LAYOUT_ortho_5x12 (
         DYN_MACRO_PLAY1,    DYN_REC_START1, DYN_REC_STOP,   KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,            KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,
         KC_TRNS,            KC_EXLM,        KC_AT,          KC_HASH,        KC_DLR,         KC_PERC,        KC_CIRC,        KC_AMPR,            KC_ASTR,        KC_LPRN,    KC_RPRN,    KC_DEL,
         KC_DEL,             KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_DQUO,            KC_TILD,        KC_LBRC,    KC_RBRC,    KC_TRNS,
@@ -444,8 +353,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
         KC_TRNS,            KC_TRNS,        KC_TRNS,        KC_TRNS,        MO(_ADJUST),    KC_TRNS,        KC_TRNS,        KC_TRNS,            KC_MUTE,        KC_VOLD,    KC_VOLU,    KC_F24
     ),
 
-    [_ADJUST] = LAYOUT_ortho_5x12   // hardware adjust layer, raise+lower
-    (
+    // hardware adjust layer, raise+lower
+    [_ADJUST] = LAYOUT_ortho_5x12 (
         AU_ON,              AU_OFF,          CK_ON,           CK_OFF,          KC_NO,           KC_NO,           KC_NO,       KC_NO,           KC_NO,       KC_NO,       KC_NO,       KC_NO,
 																																															
         CU_RGBON,           CU_RGBOFF,       CU_BLNKON,       CU_BLNKOFF,      KC_NO,           KC_NO,           KC_NO,       KC_NO,           KC_NO,       KC_NO,       KC_NO,       KC_NO,
