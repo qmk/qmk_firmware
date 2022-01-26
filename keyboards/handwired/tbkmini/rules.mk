@@ -38,4 +38,3 @@ RGBLIGHT_SUPPORTED = yes
 
 LAYOUTS = split_3x6_3
 
-COMBO_ENABLE = yes
