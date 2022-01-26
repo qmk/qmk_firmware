@@ -34,7 +34,12 @@
 // Explicitly override it if the keyboard uses a microcontroller with
 // more EEPROM *and* it makes sense to increase it.
 #ifndef DYNAMIC_KEYMAP_EEPROM_MAX_ADDR
-#    if defined(EEPROM_TRANSIENT)
+#    if defined(EEPROM_CUSTOM)
+#        ifndef EEPROM_SIZE
+#            error EEPROM_SIZE has not been defined for custom driver.
+#        endif
+#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (EEPROM_SIZE - 1)
+#    elif defined(EEPROM_TRANSIENT)
 #        include "eeprom_transient.h"
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (TRANSIENT_EEPROM_SIZE - 1)
 #    elif defined(EEPROM_I2C)
@@ -63,11 +68,6 @@
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 511
 #    elif defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega32U4__)
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
-#    elif defined(EEPROM_CUSTOM)
-#        ifndef EEPROM_SIZE
-#            error EEPROM_SIZE has not been defined for custom driver.
-#        endif
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (EEPROM_SIZE - 1)
 #    else
 #        error Unknown EEPROM driver.
 #    endif
