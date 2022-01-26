@@ -49,6 +49,9 @@
 #    elif defined(EEPROM_TEENSY)
 #        include "eeprom_teensy.h"
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (EEPROM_SIZE - 1)
+#    elif defined(EEPROM_STM32_FLASH_EMULATED)
+#        include "eeprom_stm32_defs.h"
+#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (FEE_DENSITY_BYTES - 1)
 #    elif defined(EEPROM_SAMD)
 #        include "eeprom_samd.h"
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (EEPROM_SIZE - 1)
@@ -58,8 +61,15 @@
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4095
 #    elif defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_AT90USB162__) || defined(__AVR_ATtiny85__)
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 511
-#    else
+#    elif defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega32U4__)
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
+#    elif defined(EEPROM_CUSTOM)
+#        ifndef EEPROM_SIZE
+#            error EEPROM_SIZE has not been defined for custom driver.
+#        endif
+#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (EEPROM_SIZE - 1)
+#    else
+#        error Unknown EEPROM driver.
 #    endif
 #endif
 
