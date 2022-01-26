@@ -317,7 +317,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             via_qmk_rgblight_get_value(command_data);
 #endif
 #if defined(VIA_QMK_RGB_MATRIX_ENABLE)
-            via_qmk_rgb_matrix_set_value(command_data);
+            via_qmk_rgb_matrix_get_value(command_data);
 #endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
