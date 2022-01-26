@@ -50,6 +50,8 @@ extern void bluefruit_le_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8
 /* Compute battery voltage by reading an analog pin.
  * Returns the integer number of millivolts */
 extern uint32_t bluefruit_le_read_battery_voltage(void);
+extern uint8_t  bluefruit_le_read_battery_level(void);
+extern bool     bluefruit_le_report_battery_level(uint8_t level);
 
 extern bool bluefruit_le_set_mode_leds(bool on);
 extern bool bluefruit_le_set_power_level(int8_t level);

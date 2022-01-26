@@ -441,6 +441,8 @@ bool bluefruit_le_enable_keyboard(void) {
     static const char kGapDevName[] PROGMEM = "AT+GAPDEVNAME=" STR(PRODUCT);
     // Turn on keyboard support
     static const char kHidEnOn[] PROGMEM = "AT+BLEHIDEN=1";
+    // Turn on battery service
+    static const char kBattEnOn[] PROGMEM = "AT+BLEBATTEN=1";
 
     // Adjust intervals to improve latency.  This causes the "central"
     // system (computer/tablet) to poll us every 10-30 ms.  We can't
@@ -455,7 +457,11 @@ bool bluefruit_le_enable_keyboard(void) {
     // Turn down the power level a bit
     static const char  kPower[] PROGMEM             = "AT+BLEPOWERLEVEL=-12";
     static PGM_P const configure_commands[] PROGMEM = {
-        kEcho, kGapIntervals, kGapDevName, kHidEnOn, kPower, kATZ,
+        kEcho,     kGapIntervals, kGapDevName, kHidEnOn,
+#ifdef SAMPLE_BATTERY
+        kBattEnOn,
+#endif
+        kPower,    kATZ,
     };
 
     uint8_t i;
@@ -552,8 +558,8 @@ void bluefruit_le_task(void) {
 #ifdef SAMPLE_BATTERY
     if (timer_elapsed(state.last_battery_update) > BatteryUpdateInterval && resp_buf.empty()) {
         state.last_battery_update = timer_read();
-
-        state.vbat = analogReadPin(BATTERY_LEVEL_PIN);
+        state.vbat                = analogReadPin(BATTERY_LEVEL_PIN);
+        bluefruit_le_report_battery_level(bluefruit_le_read_battery_level());
     }
 #endif
 }
@@ -672,6 +678,32 @@ void bluefruit_le_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan,
 #endif
 
 uint32_t bluefruit_le_read_battery_voltage(void) { return state.vbat; }
+
+// https://learn.adafruit.com/adafruit-feather-32u4-bluefruit-le/power-management#measuring-battery-2177042-9
+uint8_t bluefruit_le_read_battery_level(void) {
+    float min_voltage = 3.2;
+    float max_voltage = 4.2;
+    float voltage     = bluefruit_le_read_battery_voltage() * 2 * 3.3 / 1024;
+    if (voltage <= min_voltage) {
+        return 0;
+    };
+    if (voltage >= max_voltage) {
+        return 100;
+    }
+    return (voltage - min_voltage) / (max_voltage - min_voltage) * 100;
+}
+
+// https://learn.adafruit.com/adafruit-feather-32u4-bluefruit-le/ble-services#at-plus-blebattval-2435794-58
+bool bluefruit_le_report_battery_level(uint8_t level) {
+    char cmd[46];
+    if (!state.configured) {
+        return false;
+    }
+    snprintf(cmd, sizeof(cmd), "AT+BLEBATTVAL=%d", level);
+    // Sets the current battery level in percentage (0..100)
+    // for the Battery Service (if enabled).
+    return at_command(cmd, NULL, 0, false);
+}
 
 bool bluefruit_le_set_mode_leds(bool on) {
     if (!state.configured) {
