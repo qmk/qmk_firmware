@@ -18,7 +18,7 @@
 
 #define LED_NUM_LOCK_PIN D0
 #define LED_CAPS_LOCK_PIN D1
-#define LED_PIN_ON_STATE 0
+#define LED_PIN_ON_STATE 1
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3
