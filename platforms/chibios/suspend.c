@@ -13,15 +13,6 @@
 #include "led.h"
 #include "wait.h"
 
-/** \brief suspend idle
- *
- * FIXME: needs doc
- */
-void suspend_idle(uint8_t time) {
-    // TODO: this is not used anywhere - what units is 'time' in?
-    wait_ms(time);
-}
-
 /** \brief suspend power down
  *
  * FIXME: needs doc

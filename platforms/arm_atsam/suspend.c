@@ -3,13 +3,6 @@
 #include "md_rgb_matrix.h"
 #include "suspend.h"
 
-/** \brief Suspend idle
- *
- * FIXME: needs doc
- */
-void suspend_idle(uint8_t time) { /* Note: Not used anywhere currently */
-}
-
 /** \brief Run user level Power down
  *
  * FIXME: needs doc
