@@ -26,10 +26,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_KP_ENTER,	KC_KP_ASTERISK,	KC_KP_0,	KC_KP_DOT\
 	),
 	[_MUSIC] = LAYOUT(
-			KC_NO,		KC_NO,		KC_NO, \
-	TO(_FN),	KC_NO,		KC_NO,		KC_NO,\
+			KC_F22,		KC_F23,		KC_F24, \
+	TO(_FN),	KC_F19,		KC_F20,		KC_F21,\
 	KC_ESC,		KC_MPRV,	KC_MPLY,	KC_MNXT,\
-	KC_KP_ENTER,	KC_NO,		KC_NO,		KC_NO,\
+	KC_KP_ENTER,	KC_F13,		KC_F14,		KC_F15,\
 	KC_MPLY,	KC_LALT,	KC_LCTL,	KC_LGUI\
 	),
 	[_FN] = LAYOUT(
@@ -71,9 +71,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 	case 1:
 		if (index == 0) {
 			if (clockwise) {
-				TG(layter_state+1)
+				tap_code(KC_VOLU);
 			} else {
-				TG(layter_state+1);
+				tap_code(KC_VOLD);
 			}
 		}
 		else { /* Second encoder */
