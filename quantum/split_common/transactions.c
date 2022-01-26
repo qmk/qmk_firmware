@@ -624,7 +624,7 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 #    endif
     report_mouse_t temp_report;
     uint16_t       temp_cpi;
-#    ifdef POINTING_DEVICE_TASK_THROTTLE_MS
+#    if (POINTING_DEVICE_TASK_THROTTLE_MS > 0)
     static uint32_t last_exec = 0;
     if (timer_elapsed32(last_exec) < POINTING_DEVICE_TASK_THROTTLE_MS) {
         return;
