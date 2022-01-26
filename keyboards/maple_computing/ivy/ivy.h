@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef KEYBOARD_ivy_rev1
+#ifdef KEYBOARD_maple_computing_ivy_rev1
     #include "rev1.h"
 #endif
 

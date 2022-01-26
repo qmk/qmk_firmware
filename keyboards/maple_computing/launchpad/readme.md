@@ -21,7 +21,7 @@ A fantastic project for beginners to learn to solder, veteran's of the hobby who
 
 Make example for this keyboard (after setting up your build environment):
 
-    make launchpad/rev1:default
+    make maple_computing/launchpad/rev1:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
