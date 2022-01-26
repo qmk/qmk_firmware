@@ -49,14 +49,6 @@
 // #define HSV_YELLOW       43, 255, 255
 // #define HSV_OFF         HSV_BLACK
 
-// Custom Layer Types
-// fullsize coloring
-#define LYR_SOLID 255 
-// used keys in layer color, lower layer shines through on unused keys
-#define LYR_TRANS 125 
-// only used key in layer color
-#define LYR_BLACK   0 
-
 
 //========================================================== CONFIGURABLE DEFAULTS ==========================================================
 #define RGB_DEFAULT_TIME_OUT 30
