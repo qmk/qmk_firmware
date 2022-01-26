@@ -26,19 +26,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     if (IS_LAYER_ON(0)) {  // on Raise layer control up down scrolling
         if (index == 0) {
             if (clockwise) {
-                if (!is_alt_tab_active) {
-                    is_alt_tab_active = true;
-                    register_code(KC_LGUI);
-                }
-                alt_tab_timer = timer_read();
-                tap_code(KC_TAB);
+                tap_code(KC_VOLU);
             } else {
-                if (!is_alt_tab_active) {
-                    is_alt_tab_active = true;
-                    register_code(KC_LGUI);
-                }
-                alt_tab_timer = timer_read();
-                tap_code16(S(KC_TAB));
+                tap_code(KC_VOLD);
             }
         } else if (index == 1) {
             if (clockwise) {
@@ -63,20 +53,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (IS_LAYER_ON(2)) {  // on Nav layer controls window
         if (index == 0) {
-            if (clockwise) {
-                if (!is_alt_tab_active) {
-                    is_alt_tab_active = true;
-                    register_code(KC_LALT);
-                }
-                alt_tab_timer = timer_read();
-                tap_code(KC_TAB);
+                if (clockwise) {
+                tap_code(KC_VOLU);
             } else {
-                if (!is_alt_tab_active) {
-                    is_alt_tab_active = true;
-                    register_code(KC_LALT);
-                }
-                alt_tab_timer = timer_read();
-                tap_code16(S(KC_TAB));
+                tap_code(KC_VOLD);
             }
         } else if (index == 1) {
             if (clockwise) {

@@ -19,47 +19,47 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// Base layer (numpad)
 	[_BASE] = LAYOUT(
-				KC_KP_SLASH,	KC_KP_ASTERISK,	KC_KP_MINUS, \
-	TO(_MUSIC),		KC_KP_7,		KC_KP_8,		KC_KP_9,\
-	KC_ESC,		KC_KP_4,		KC_KP_5,		KC_KP_6,\
-	KC_KP_ENTER,	KC_KP_1,		KC_KP_2,		KC_KP_3,\
-	KC_KP_ENTER,	KC_KP_PLUS,		KC_KP_0,		KC_KP_DOT\
+			KC_KP_EQUAL,	KC_KP_PLUS,	KC_KP_MINUS, \
+	TO(_MUSIC),	KC_KP_7,	KC_KP_8,	KC_KP_9,\
+	KC_ESC,		KC_KP_4,	KC_KP_5,	KC_KP_6,\
+	KC_KP_ENTER,	KC_KP_1,	KC_KP_2,	KC_KP_3,\
+	KC_KP_ENTER,	KC_KP_ASTERISK,	KC_KP_0,	KC_KP_DOT\
 	),
 	[_MUSIC] = LAYOUT(
-				KC_F22,	KC_F23,	KC_F24, \
-	TO(_FN),		KC_F19,	KC_F20,	KC_F21,\
+			KC_NO,		KC_NO,		KC_NO, \
+	TO(_FN),	KC_NO,		KC_NO,		KC_NO,\
 	KC_ESC,		KC_MPRV,	KC_MPLY,	KC_MNXT,\
-	KC_KP_ENTER,	KC_F13,	KC_F14,	KC_F15,\
+	KC_KP_ENTER,	KC_NO,		KC_NO,		KC_NO,\
 	KC_MPLY,	KC_LALT,	KC_LCTL,	KC_LGUI\
 	),
 	[_FN] = LAYOUT(
-				KC_F10,	KC_F11,	KC_F12, \
-	TO(_FN2),		KC_F7,	KC_F8,	KC_F9,\
-	KC_ESC,		KC_F4,	KC_F5,	KC_F6,\
-	KC_KP_ENTER,	KC_F1,	KC_F2,	KC_F3,\
+			KC_F10,		KC_F11,		KC_F12, \
+	TO(_FN2),	KC_F7,		KC_F8,		KC_F9,\
+	KC_ESC,		KC_F4,		KC_F5,		KC_F6,\
+	KC_KP_ENTER,	KC_F1,		KC_F2,		KC_F3,\
 	KC_KP_ENTER,	KC_LALT,	KC_LCTL,	KC_LGUI\
 	),
 	[_FN2] = LAYOUT(
-				KC_F22,	KC_F23,	KC_F24, \
-	TO(_NAV),		KC_F19,	KC_F20,	KC_F21,\
-	KC_ESC,		KC_F16,	KC_F17,	KC_F18,\
-	KC_KP_ENTER,	KC_F13,	KC_F14,	KC_F15,\
+			KC_F22,		KC_F23,		KC_F24, \
+	TO(_NAV),	KC_F19,		KC_F20,		KC_F21,\
+	KC_ESC,		KC_F16,		KC_F17,		KC_F18,\
+	KC_KP_ENTER,	KC_F13,		KC_F14,		KC_F15,\
 	KC_KP_ENTER,	KC_LALT,	KC_LCTL,	KC_LGUI\
 	),
 	[_NAV] = LAYOUT(
 			KC_CUT,		KC_COPY,	KC_PASTE,\
-	TO(_FUNC),	KC_HOME,		KC_UP,	KC_PGUP,\
-	KC_LGUI,	A(KC_LEFT),		A(KC_BSPC),	A(KC_RIGHT),\
+	TO(_FUNC),	KC_HOME,	KC_UP,		KC_PGUP,\
+	KC_LGUI,	A(KC_LEFT),	A(KC_BSPC),	A(KC_RIGHT),\
 	KC_LALT,	KC_END,		KC_DOWN,	KC_PGDN,\
-	KC_LSFT,	KC_TAB,		KC_SPC,	KC_ENT
+	KC_LSFT,	KC_TAB,		KC_SPC,		KC_ENT
 	),
 	// Function layer (numpad)
 	[_FUNC] = LAYOUT(
-				        KC_NO,	RGB_TOG,	KC_NO,
-		TO(_BASE),		KC_NO,	RGB_MOD,	KC_NO,
-		KC_ESC,	   	 KC_NO,	RGB_HUI,	KC_NO,
-		KC_KP_ENTER,	KC_NO,	RGB_SAI,	KC_NO,
-		PROG,		    KC_NO,	RGB_VAI,	TO(_BASE)
+			KC_NO,		RGB_TOG,	KC_NO,
+	TO(_BASE),	KC_NO,		RGB_MOD,	KC_NO,
+	KC_ESC,		KC_NO,		RGB_HUI,	KC_NO,
+	KC_KP_ENTER,	KC_NO,		RGB_SAI,	KC_NO,
+	PROG,		KC_NO,		RGB_VAI,	TO(_BASE)
 	),
 };
 
@@ -71,9 +71,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 	case 1:
 		if (index == 0) {
 			if (clockwise) {
-				tap_code(KC_VOLU);
+				TG(layter_state+1)
 			} else {
-				tap_code(KC_VOLD);
+				TG(layter_state+1);
 			}
 		}
 		else { /* Second encoder */
