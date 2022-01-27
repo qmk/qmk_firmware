@@ -1,16 +1,16 @@
 // #define BACKLIGHT_CAPS_LOCK
 
-#ifdef DEBOUNCE
+/* #ifdef DEBOUNCE
 #    undef DEBOUNCE
-#endif
+#endif */
 
-#ifdef TAPPING_TERM
+/* #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
-#    define TAPPING_TERM 175
+#    define TAPPING_TERM 150
 #else
-#    define TAPPING_TERM 175
-#endif
+#    define TAPPING_TERM 150
+#endif */
 
-#ifndef RETRO_TAPPING
+/* #ifndef RETRO_TAPPING
 #    define RETRO_TAPPING
-#endif
+#endif */
