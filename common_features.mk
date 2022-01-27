@@ -214,6 +214,7 @@ else
       SRC += $(PLATFORM_COMMON_DIR)/eeprom_samd.c
     else ifeq ($(PLATFORM),TEST)
       # Test harness "EEPROM"
+      OPT_DEFS += -DEEPROM_TEST_HARNESS
       SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
     endif
   endif

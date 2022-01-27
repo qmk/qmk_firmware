@@ -56,6 +56,15 @@ void     eeprom_update_block(const void *__src, void *__dst, size_t __n);
 #    define TOTAL_EEPROM_BYTE_COUNT 2048
 #elif defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #    define TOTAL_EEPROM_BYTE_COUNT 4096
+#elif defined(EEPROM_TEST_HARNESS)
+#    ifndef FLASH_STM32_MOCKED
+// Normal tests
+#        define TOTAL_EEPROM_BYTE_COUNT 32
+#    else
+// Flash wear-leveling testing
+#        include "eeprom_stm32_tests.h"
+#        define TOTAL_EEPROM_BYTE_COUNT EEPROM_SIZE
+#    endif
 #else
 #    error Unknown EEPROM driver.
 #endif
