@@ -2,6 +2,7 @@
 #include "jbanaszczyk.h"
 #include "do_not_sleep.h"
 #include "auto_caps_off.h"
+#include "caps_word.h"
 
 const key_override_t shift_backspace_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 
@@ -68,9 +69,15 @@ static bool process_record_debug(uint16_t keycode, keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	return true
 		&& process_record_debug(keycode, record)
+
 #ifdef AUTO_CAPS_OFF
 		&& process_record_auto_caps_off(keycode, record)
 #endif
+
+#ifdef CAPS_WORD
+		&& process_record_caps_word(keycode, record)
+#endif
+
 #ifdef DO_NOT_SLEEP
 		&& process_record_do_not_sleep(keycode, record)
 #endif

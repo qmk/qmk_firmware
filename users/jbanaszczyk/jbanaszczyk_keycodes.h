@@ -14,5 +14,7 @@ enum custom_keycodes {
   KC_DO_NOT_SLEEP_START,
   KC_DO_NOT_SLEEP_STOP,
 
+  KC_CAPS_WORD,
+
   NEW_SAFE_RANGE
 };

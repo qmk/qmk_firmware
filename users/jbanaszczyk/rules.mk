@@ -15,6 +15,7 @@ KEY_OVERRIDE_ENABLE = yes
 
 DO_NOT_SLEEP_ENABLE = yes
 AUTO_CAPS_OFF_ENABLE = yes
+CAPS_WORD_ENABLE = yes
 
 SRC += jbanaszczyk.c
 
@@ -28,4 +29,9 @@ endif
 ifeq ($(strip $(AUTO_CAPS_OFF_ENABLE)), yes)
 	OPT_DEFS += -DAUTO_CAPS_OFF
 	SRC += auto_caps_off.c
+endif
+
+ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)
+	OPT_DEFS += -DCAPS_WORD
+	SRC += caps_word.c
 endif

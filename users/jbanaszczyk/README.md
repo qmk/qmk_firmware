@@ -67,9 +67,9 @@ endif
 
 ## TODO
 
+* DO_NOT_SLEEP persistent configuration 
+
 ## Inspirations
 
-* /users/callum/readme.md
-    * Hold `sym` and `nav` together to activate the numbers layer.
 * /users/replicaJunction/readme.md
     * CAPS_WORD

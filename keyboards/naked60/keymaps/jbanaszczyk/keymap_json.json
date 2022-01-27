@@ -110,7 +110,7 @@
       "KC_GT",
       "KC_NO",
       "KC_NO",
-      "KC_NO",
+      "ANY(KC_CAPS_WORD)",
       "KC_CAPS",
       "KC_NO",
       "KC_NO",

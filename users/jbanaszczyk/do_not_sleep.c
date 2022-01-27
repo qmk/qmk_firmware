@@ -2,6 +2,7 @@
 #include "quantum.h"
 #include <deferred_exec.h>
 #include "do_not_sleep.h"
+#include "jbanaszczyk_keycodes.h"
 
 #ifndef DO_NOT_SLEEP_SECONDS
 #define DO_NOT_SLEEP_SECONDS (5*60UL)
