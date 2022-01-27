@@ -1,6 +1,6 @@
-#ifdef DEBOUNCE
+/* #ifdef DEBOUNCE
 #    undef DEBOUNCE
-#endif
+#endif */
 
 /* #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
