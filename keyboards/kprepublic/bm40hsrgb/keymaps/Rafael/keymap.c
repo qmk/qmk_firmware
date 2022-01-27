@@ -262,14 +262,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
-                //rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 5);
+                rgb_matrix_mode(RGB_MATRIX_ALPHAS_MODS);
                 set_single_persistent_default_layer(_QWERTY);
             }
             return false;
             break;
         case COLEMAK:
             if (record->event.pressed) {
-                //rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 5);
+                rgb_matrix_mode(RGB_MATRIX_SOLID_MULTISPLASH);
                 set_single_persistent_default_layer(_COLEMAK);
             }
             return false;
@@ -283,7 +283,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SHORTCUTS:
             if (record->event.pressed) {
-                //rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+                rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
                 check_scenes();
                 check_toggles();
                 set_single_persistent_default_layer(_SHORTCUTS);
