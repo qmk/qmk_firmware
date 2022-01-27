@@ -51,7 +51,7 @@ bool setAndRead(pin_t pin, bool val) {
     return encoder_read();
 }
 
-class EncoderSplitTestLeftEqRight : public ::testing::Test {
+class EncoderSplitTestNoLeft : public ::testing::Test {
    protected:
     void SetUp() override {
         updates_array_idx = 0;
@@ -62,35 +62,27 @@ class EncoderSplitTestLeftEqRight : public ::testing::Test {
     }
 };
 
-TEST_F(EncoderSplitTestLeftEqRight, TestInitLeft) {
+TEST_F(EncoderSplitTestNoLeft, TestInitLeft) {
     isLeftHand = true;
-    encoder_init();
-    EXPECT_EQ(pinIsInputHigh[0], true);
-    EXPECT_EQ(pinIsInputHigh[1], true);
-    EXPECT_EQ(pinIsInputHigh[2], true);
-    EXPECT_EQ(pinIsInputHigh[3], true);
-    EXPECT_EQ(pinIsInputHigh[4], false);
-    EXPECT_EQ(pinIsInputHigh[5], false);
-    EXPECT_EQ(pinIsInputHigh[6], false);
-    EXPECT_EQ(pinIsInputHigh[7], false);
-    EXPECT_EQ(updates_array_idx, 0);  // no updates received
-}
-
-TEST_F(EncoderSplitTestLeftEqRight, TestInitRight) {
-    isLeftHand = false;
     encoder_init();
     EXPECT_EQ(pinIsInputHigh[0], false);
     EXPECT_EQ(pinIsInputHigh[1], false);
     EXPECT_EQ(pinIsInputHigh[2], false);
     EXPECT_EQ(pinIsInputHigh[3], false);
-    EXPECT_EQ(pinIsInputHigh[4], true);
-    EXPECT_EQ(pinIsInputHigh[5], true);
-    EXPECT_EQ(pinIsInputHigh[6], true);
-    EXPECT_EQ(pinIsInputHigh[7], true);
     EXPECT_EQ(updates_array_idx, 0);  // no updates received
 }
 
-TEST_F(EncoderSplitTestLeftEqRight, TestOneClockwiseLeft) {
+TEST_F(EncoderSplitTestNoLeft, TestInitRight) {
+    isLeftHand = false;
+    encoder_init();
+    EXPECT_EQ(pinIsInputHigh[0], true);
+    EXPECT_EQ(pinIsInputHigh[1], true);
+    EXPECT_EQ(pinIsInputHigh[2], true);
+    EXPECT_EQ(pinIsInputHigh[3], true);
+    EXPECT_EQ(updates_array_idx, 0);  // no updates received
+}
+
+TEST_F(EncoderSplitTestNoLeft, TestOneClockwiseLeft) {
     isLeftHand = true;
     encoder_init();
     // send 4 pulses. with resolution 4, that's one step and we should get 1 update.
@@ -99,37 +91,35 @@ TEST_F(EncoderSplitTestLeftEqRight, TestOneClockwiseLeft) {
     setAndRead(0, true);
     setAndRead(1, true);
 
-    EXPECT_EQ(updates_array_idx, 1);  // one update received
-    EXPECT_EQ(updates[0].index, 0);
-    EXPECT_EQ(updates[0].clockwise, true);
+    EXPECT_EQ(updates_array_idx, 0);  // no updates received
 }
 
-TEST_F(EncoderSplitTestLeftEqRight, TestOneClockwiseRightSent) {
+TEST_F(EncoderSplitTestNoLeft, TestOneClockwiseRightSent) {
     isLeftHand = false;
     encoder_init();
     // send 4 pulses. with resolution 4, that's one step and we should get 1 update.
-    setAndRead(6, false);
-    setAndRead(7, false);
-    setAndRead(6, true);
-    setAndRead(7, true);
+    setAndRead(2, false);
+    setAndRead(3, false);
+    setAndRead(2, true);
+    setAndRead(3, true);
 
     uint8_t slave_state[32] = {0};
     encoder_state_raw(slave_state);
 
-    EXPECT_EQ(slave_state[0], 0);
-    EXPECT_EQ(slave_state[1], 0xFF);
+    EXPECT_EQ(slave_state[0], 0xFF);
+    EXPECT_EQ(slave_state[1], 0);
 }
 
-TEST_F(EncoderSplitTestLeftEqRight, TestMultipleEncodersRightReceived) {
+TEST_F(EncoderSplitTestNoLeft, TestMultipleEncodersRightReceived) {
     isLeftHand = true;
     encoder_init();
 
-    uint8_t slave_state[32] = {1, 0xFF};  // First right encoder is CCW, Second right encoder CW
+    uint8_t slave_state[32] = {1, 0xFF};  // First right encoder is CCW, Second right encoder no change, third right encoder CW
     encoder_update_raw(slave_state);
 
     EXPECT_EQ(updates_array_idx, 2);  // two updates received, one for each changed item on the right side
-    EXPECT_EQ(updates[0].index, 2);
+    EXPECT_EQ(updates[0].index, 3);
     EXPECT_EQ(updates[0].clockwise, false);
-    EXPECT_EQ(updates[1].index, 3);
+    EXPECT_EQ(updates[1].index, 4);
     EXPECT_EQ(updates[1].clockwise, true);
 }

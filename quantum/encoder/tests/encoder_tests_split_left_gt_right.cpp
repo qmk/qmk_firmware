@@ -117,7 +117,7 @@ TEST_F(EncoderSplitTestLeftGreaterThanRight, TestOneClockwiseRightSent) {
     setAndRead(6, true);
     setAndRead(7, true);
 
-    uint8_t slave_state[NUM_ENCODERS_RIGHT] = {0};
+    uint8_t slave_state[32] = {0};
     encoder_state_raw(slave_state);
 
     EXPECT_EQ(slave_state[0], 0xFF);
@@ -128,7 +128,7 @@ TEST_F(EncoderSplitTestLeftGreaterThanRight, TestMultipleEncodersRightReceived) 
     isLeftHand = true;
     encoder_init();
 
-    uint8_t slave_state[NUM_ENCODERS_RIGHT] = {1, 0xFF};  // First right encoder is CCW, Second right encoder no change, third right encoder CW
+    uint8_t slave_state[32] = {1, 0xFF};  // First right encoder is CCW, Second right encoder no change, third right encoder CW
     encoder_update_raw(slave_state);
 
     EXPECT_EQ(updates_array_idx, 2);  // two updates received, one for each changed item on the right side
