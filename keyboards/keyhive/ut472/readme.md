@@ -11,7 +11,7 @@ or purchased at keyhive.xyz
 
 To create a hex file for the UT47.2, run:
 
-    make ut472:default
+    make keyhive/ut472:default
 
 ## Layout
 

@@ -10,7 +10,7 @@ A 40% alice-like keyboard with an arrow cluster.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make smallice:default
+    make keyhive/smallice:default
 
 ### Flash
 
