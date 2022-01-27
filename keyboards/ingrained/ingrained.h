@@ -15,7 +15,7 @@
  */
 #define XXX KC_NO
 
-#define LAYOUT_3x6( \
+#define LAYOUT_split_3x6_3( \
     k00, k01, k02, k03, k04, k05,	k011, k010, k09, k08, k07, k06,\
     k10, k11, k12, k13, k14, k15,	k111, k110, k19, k18, k17, k16,\
     k20, k21, k22, k23, k24, k25,	k211, k210, k29, k28, k27, k26,\
