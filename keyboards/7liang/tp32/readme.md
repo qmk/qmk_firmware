@@ -1,14 +1,14 @@
 # Tp32
 
-![tp32](https://github.com/skyjun/tp32/img/01.jpg)
+![tp32](https://github.com/skyjun/tp32/tree/main/img/01.jpg)
 
-![tp32](https://github.com/skyjun/tp32/img/05.jpg)
+![tp32](https://github.com/skyjun/tp32/tree/main/img/05.jpg)
 
 this is trackpoint 32 keys keyboard
 
 * Keyboard Maintainer: [skyjun](https://github.com/skyjun/tp32)
 * Hardware Supported: pcb, 3d files, thinkpad trackpoint
-* Hardware Availability: [gerber](https://github.com/skyjun/tp32/gerber), [stl](https://github.com/skyjun/tp32/stl), [at OSHWHUB](https://oshwhub.com/pkerr/keyborard-juk-32-rev-a)
+* Hardware Availability: [gerber](https://github.com/skyjun/tp32/tree/main/gerber), [stl](https://github.com/skyjun/tp32/tree/main/stl), [at OSHWHUB](https://oshwhub.com/pkerr/keyborard-juk-32-rev-a)
 
 Make example for this keyboard (after setting up your build environment):
 
