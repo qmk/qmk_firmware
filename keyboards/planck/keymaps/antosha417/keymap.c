@@ -1,7 +1,7 @@
 // Copyright 2021 Anton Kavalkou (@antosha417)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
-#include <sendstring_dvorak.h>
+#include "sendstring_dvorak.h"
 #include "muse.h"
 
 enum layers {
