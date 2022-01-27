@@ -16,7 +16,7 @@ bool is_caps_word_enabled(void) {
 void caps_word_enable(void) {
 	if (is_caps_word_enabled()) {
 		return;
-	};
+	}
 	dprintf("caps_word_enable\n");
 	is_caps_word_on = true;
 	tap_code(KC_CAPS_LOCK);
