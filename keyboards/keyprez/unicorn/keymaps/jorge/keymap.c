@@ -1,4 +1,4 @@
-// Copyright 2022 Keyprez (https://github.com/kwyprez)
+// Copyright 2022 Keyprez (https://github.com/keyprez)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
