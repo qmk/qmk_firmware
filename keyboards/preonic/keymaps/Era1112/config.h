@@ -44,7 +44,7 @@
 	#define AUDIO_CLICKY_FREQ_DEFAULT 800.0f    // Default 440
 	#define AUDIO_CLICKY_FREQ_MAX 1500.0f       // Defaul 1500
 	#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f   // Default 0.05
-	#define AUDIO_CLICKY_DELAY_DURATION 0.5f    // Default 1
+	#define AUDIO_CLICKY_DELAY_DURATION 0.1f    // Default 1
 #endif  //AUDIO_ENABLE
 
 #define RGBLIGHT_SLEEP                  // RGB lights turn off when host sleeps
