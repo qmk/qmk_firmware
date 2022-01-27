@@ -32,3 +32,5 @@ ifeq ($(strip $(KEYBOARD)), handwired/tractyl_manuform/5x6_right/teensy2pp)
     CAPS_WORD_ENABLE             = yes
 endif
 # DEBOUNCE_TYPE = sym_eager_pk
+
+OLED_DRIVER = custom
