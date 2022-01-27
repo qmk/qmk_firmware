@@ -2,12 +2,9 @@
 #include <avr/sleep.h>
 #include <avr/wdt.h>
 #include <avr/interrupt.h>
-#include "matrix.h"
-#include "action.h"
 #include "suspend.h"
+#include "action.h"
 #include "timer.h"
-#include "led.h"
-#include "host.h"
 
 #ifdef PROTOCOL_LUFA
 #    include "lufa.h"
@@ -78,6 +75,18 @@ static void power_down(uint8_t wdto) {
     // Disable watchdog after sleep
     wdt_disable();
 }
+
+/* watchdog timeout */
+ISR(WDT_vect) {
+    // compensate timer for sleep
+    switch (wdt_timeout) {
+        case WDTO_15MS:
+            timer_count += 15 + 2;  // WDTO_15MS + 2(from observation)
+            break;
+        default:;
+    }
+}
+
 #endif
 
 /** \brief Suspend power down
@@ -102,18 +111,6 @@ void suspend_power_down(void) {
 #endif
 }
 
-__attribute__((weak)) void matrix_power_up(void) {}
-__attribute__((weak)) void matrix_power_down(void) {}
-bool                       suspend_wakeup_condition(void) {
-    matrix_power_up();
-    matrix_scan();
-    matrix_power_down();
-    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-        if (matrix_get_row(r)) return true;
-    }
-    return false;
-}
-
 /** \brief run immediately after wakeup
  *
  * FIXME: needs doc
@@ -124,16 +121,3 @@ void suspend_wakeup_init(void) {
 
     suspend_wakeup_init_quantum();
 }
-
-#if !defined(NO_SUSPEND_POWER_DOWN) && defined(WDT_vect)
-/* watchdog timeout */
-ISR(WDT_vect) {
-    // compensate timer for sleep
-    switch (wdt_timeout) {
-        case WDTO_15MS:
-            timer_count += 15 + 2;  // WDTO_15MS + 2(from observation)
-            break;
-        default:;
-    }
-}
-#endif
