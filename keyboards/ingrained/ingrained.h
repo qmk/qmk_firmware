@@ -30,7 +30,7 @@
     { k26, k27, k28, k29, k210, k211 },\
     { XXX, XXX, XXX, k39, k310, k311 }\
 }
-#define LAYOUT_3x5( \
+#define LAYOUT_split_3x5_3( \
     k01, k02, k03, k04, k05,	k011, k010, k09, k08, k07,\
     k11, k12, k13, k14, k15,	k111, k110, k19, k18, k17,\
     k21, k22, k23, k24, k25,	k211, k210, k29, k28, k27,\
