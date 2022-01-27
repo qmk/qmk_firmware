@@ -73,18 +73,8 @@
 #    endif
 #endif
 
-/* These bits are used for optimizing encoding of bytes, 0 and 1 */
-#define FEE_WORD_ENCODING 0x8000
-#define FEE_VALUE_NEXT 0x6000
-#define FEE_VALUE_RESERVED 0x4000
-#define FEE_VALUE_ENCODED 0x2000
-#define FEE_BYTE_RANGE 0x80
-
 /* Addressable range 16KByte: 0 <-> (0x1FFF << 1) */
 #define FEE_ADDRESS_MAX_SIZE 0x4000
-
-/* Flash word value after erase */
-#define FEE_EMPTY_WORD ((uint16_t)0xFFFF)
 
 /* Size of combined compacted eeprom and write log pages */
 #define FEE_DENSITY_MAX_SIZE (FEE_PAGE_COUNT * FEE_PAGE_SIZE)

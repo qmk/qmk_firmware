@@ -38,11 +38,13 @@
 #endif
 
 #if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > (TOTAL_EEPROM_BYTE_COUNT - 1)
+#    pragma message STR(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) " > " STR((TOTAL_EEPROM_BYTE_COUNT - 1))
 #    error DYNAMIC_KEYMAP_EEPROM_MAX_ADDR is configured to use more space than what is available for the selected EEPROM driver
 #endif
 
 // Due to usage of uint16_t check for max 65535
 #if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 65535
+#    pragma message STR(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) " > 65535"
 #    error DYNAMIC_KEYMAP_EEPROM_MAX_ADDR must be less than 65536
 #endif
 
@@ -67,6 +69,7 @@
 // or DYNAMIC_KEYMAP_EEPROM_MAX_ADDR to increase it, *only if* the microcontroller has
 // more than the default.
 #if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR < 100
+#    pragma message STR(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR) " < 100"
 #    error Dynamic keymaps are configured to use more EEPROM than is available.
 #endif
 

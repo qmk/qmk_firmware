@@ -63,7 +63,7 @@ void     eeprom_update_block(const void *__src, void *__dst, size_t __n);
 #    else
 // Flash wear-leveling testing
 #        include "eeprom_stm32_tests.h"
-#        define TOTAL_EEPROM_BYTE_COUNT EEPROM_SIZE
+#        define TOTAL_EEPROM_BYTE_COUNT (EEPROM_SIZE)
 #    endif
 #else
 #    error Unknown EEPROM driver.

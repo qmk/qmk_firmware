@@ -133,6 +133,16 @@
  */
 
 #include "eeprom_stm32_defs.h"
+/* These bits are used for optimizing encoding of bytes, 0 and 1 */
+#define FEE_WORD_ENCODING 0x8000
+#define FEE_VALUE_NEXT 0x6000
+#define FEE_VALUE_RESERVED 0x4000
+#define FEE_VALUE_ENCODED 0x2000
+#define FEE_BYTE_RANGE 0x80
+
+/* Flash word value after erase */
+#define FEE_EMPTY_WORD ((uint16_t)0xFFFF)
+
 #if !defined(FEE_PAGE_SIZE) || !defined(FEE_PAGE_COUNT) || !defined(FEE_MCU_FLASH_SIZE) || !defined(FEE_PAGE_BASE_ADDRESS)
 #    error "not implemented."
 #endif
