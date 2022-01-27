@@ -1,13 +1,13 @@
 /*
- * 
+ *
  * An Italian ANSI layout
- * Version 0.3 
- * 
+ * Version 0.3
+ *
  * Created by Silvio Gulizia on the basis of the default Planck keymap.
  * Thanks to SomeBuddyOnReddit, gepeirl, fauxpark, BXO511, drashna, and ridingqwerty.
  *
- * The layout is based on the original Planck layout when used with language set to Italian on your Mac. 
- * Accented vowels have been moverd on RAISE ("è", "ì", and "ù") and LOWER ("é", "ò", and "à")
+ * The layout is based on the original Planck layout when used with language set to Italian on your Mac.
+ * Accented vowels have been moverd on RAISE ("ï¿½", "ï¿½", and "ï¿½") and LOWER ("ï¿½", "ï¿½", and "ï¿½")
  *
  */
 
@@ -40,18 +40,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  ~   |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |  (   |  )   | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |Enter |  F1  |  F2  |  F3  |  F4  |  F5  |      |   _  |   =  |  é   |  ò   |  à   |
+ * |Enter |  F1  |  F2  |  F3  |  F4  |  F5  |      |   _  |   =  |  ï¿½   |  ï¿½   |  ï¿½   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F6  |  F7  |  F8  |  F9  |      |NUMPAD|   §  |   ±  |  {   |  }   |  |   |
+ * |      |  F6  |  F7  |  F8  |  F9  |      |NUMPAD|   ï¿½  |   ï¿½  |  {   |  }   |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 
 [_LOWER] = LAYOUT_ortho_4x12(
-    IT_TILDE, IT_EXLM, IT_AT,   IT_SHRP, IT_DLR,  IT_PERC, IT_CRC,  IT_AMPR,    IT_ASTR, IT_LPRN,    IT_RPRN, KC_DEL,
-    KC_ENT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, S(IT_MINS), IT_EQL,  S(IT_EACC), IT_OACC, IT_AACC,
-    _______,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   _______, NUMPAD,  S(IT_UACC), IT_PLMN, IT_LCBR,    IT_RCBR, IT_PIPE,
+    IT_TILD,  IT_EXLM, IT_AT,   IT_HASH, IT_DLR,  IT_PERC, IT_CIRC, IT_AMPR,    IT_ASTR, IT_LPRN,    IT_RPRN, KC_DEL,
+    KC_ENT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, S(IT_MINS), IT_EQL,  S(IT_EGRV), IT_OGRV, IT_AGRV,
+    _______,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   _______, NUMPAD,  S(IT_UGRV), IT_PLMN, IT_LCBR,    IT_RCBR, IT_PIPE,
     _______,  _______, _______, _______, _______, _______, _______, _______,    KC_MNXT, KC_VOLD,    KC_VOLU, KC_MPLY
 ),
 
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  `   |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      | SGCOM| DESK |      |      |      |   -  |   +  |   è  |   ì  |  ù   |
+ * |      |      | SGCOM| DESK |      |      |      |   -  |   +  |   ï¿½  |   ï¿½  |  ï¿½   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Caps |      | PHONE| SVIV |VIVERE|      |NUMPAD|      |      |  [   |   ]  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -67,8 +67,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_ortho_4x12(
-    IT_GRAVE, IT_1,    IT_2,    IT_3,	 IT_4,    IT_5,    IT_6,    IT_7,    IT_8,    IT_9,    IT_0,    _______,
-    _______,  _______, SECRET0, SECRET1, _______, _______, _______, IT_MINS, IT_PLUS, IT_EACC, IT_IACC, IT_UACC,
+    IT_GRV,   IT_1,    IT_2,    IT_3,	 IT_4,    IT_5,    IT_6,    IT_7,    IT_8,    IT_9,    IT_0,    _______,
+    _______,  _______, SECRET0, SECRET1, _______, _______, _______, IT_MINS, IT_PLUS, IT_EGRV, IT_IGRV, IT_UGRV,
     KC_CAPS,  _______, SECRET2, SECRET3, SECRET4, _______, NUMPAD,  SECRET5, _______, IT_LBRC, IT_RBRC, IT_BSLS,
     _______,  _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
@@ -162,7 +162,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -192,6 +192,7 @@ void encoder_update(bool clockwise) {
       #endif
     }
   }
+    return true;
 }
 
 void matrix_scan_user(void) {

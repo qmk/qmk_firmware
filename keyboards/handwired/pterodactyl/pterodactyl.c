@@ -3,7 +3,7 @@
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 // swap-hands action needs a matrix to define the swap
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0,11}, {0,10}, {0,9},  {0,8},  {0,7},  {0,6},     {0,5},  {0,4},  {0,3},  {0,2},  {0,1},  {0,0}},
     {{1,11}, {1,11}, {1,9},  {1,8},  {1,7},  {1,6},     {1,5},  {1,4},  {1,3},  {1,2},  {1,1},  {1,0}},
     {{2,11}, {2,12}, {2,9},  {2,8},  {2,7},  {2,6},     {2,5},  {2,4},  {2,3},  {2,2},  {2,1},  {2,0}},

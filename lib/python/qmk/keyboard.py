@@ -6,10 +6,10 @@ from pathlib import Path
 import os
 from glob import glob
 
+import qmk.path
 from qmk.c_parse import parse_config_h_file
 from qmk.json_schema import json_load
 from qmk.makefile import parse_rules_mk_file
-from qmk.path import is_keyboard, under_qmk_firmware
 
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
@@ -36,7 +36,7 @@ base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
 def find_keyboard_from_dir():
     """Returns a keyboard name based on the user's current directory.
     """
-    relative_cwd = under_qmk_firmware()
+    relative_cwd = qmk.path.under_qmk_firmware()
 
     if relative_cwd and len(relative_cwd.parts) > 1 and relative_cwd.parts[0] == 'keyboards':
         # Attempt to extract the keyboard name from the current directory
@@ -47,8 +47,21 @@ def find_keyboard_from_dir():
             keymap_index = len(current_path.parts) - current_path.parts.index('keymaps') - 1
             current_path = current_path.parents[keymap_index]
 
-        if is_keyboard(current_path):
+        if qmk.path.is_keyboard(current_path):
             return str(current_path)
+
+
+def find_readme(keyboard):
+    """Returns the readme for this keyboard.
+    """
+    cur_dir = qmk.path.keyboard(keyboard)
+    keyboards_dir = Path('keyboards')
+    while not (cur_dir / 'readme.md').exists():
+        if cur_dir == keyboards_dir:
+            return None
+        cur_dir = cur_dir.parent
+
+    return cur_dir / 'readme.md'
 
 
 def keyboard_folder(keyboard):
@@ -67,7 +80,7 @@ def keyboard_folder(keyboard):
         rules_mk = parse_rules_mk_file(rules_mk_file)
         keyboard = rules_mk.get('DEFAULT_FOLDER', keyboard)
 
-    if not is_keyboard(keyboard):
+    if not qmk.path.is_keyboard(keyboard):
         raise ValueError(f'Invalid keyboard: {keyboard}')
 
     return keyboard
@@ -147,7 +160,7 @@ def rules_mk(keyboard):
 def render_layout(layout_data, render_ascii, key_labels=None):
     """Renders a single layout.
     """
-    textpad = [array('u', ' ' * 200) for x in range(50)]
+    textpad = [array('u', ' ' * 200) for x in range(100)]
     style = 'ascii' if render_ascii else 'unicode'
     box_chars = BOX_DRAWING_CHARACTERS[style]
 

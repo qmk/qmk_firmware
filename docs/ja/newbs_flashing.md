@@ -1,12 +1,12 @@
-# ファームウェアを書きこむ
+# ファームウェアを書き込む
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.9.44:docs/newbs_flashing.md
-  git diff 0.9.44 HEAD -- docs/newbs_flashing.md | cat
+  original document: 0.12.45:docs/newbs_flashing.md
+  git diff 0.12.45 HEAD -- docs/newbs_flashing.md | cat
 -->
 
-カスタムファームウェアは出来たので、キーボードに書き込みたくなるでしょう/フラッシュしたくなるでしょう。
+カスタムファームウェアは出来たので、いよいよキーボードへの書き込み(フラッシュ)です。
 
 ## キーボードを DFU (Bootloader) モードにする
 
@@ -50,17 +50,21 @@ Finder またはエクスプローラーでファームウェアのファイル�
 
 Windows か macOS を使用している場合、現在のフォルダをエクスプローラーか Finder で簡単に開くためのコマンドがあります。
 
-#### Windows
+<!-- tabs:start -->
+
+#### ** Windows **
 
 ```
 start .
 ```
 
-#### macOS
+#### ** macOS **
 
 ```
 open .
 ```
+
+<!-- tabs:end -->
 
 ファームウェアファイルは常に以下の命名形式に従っています:
 
@@ -117,11 +121,13 @@ QMK Toolbox の `Flash` ボタンをクリックします。次のような出�
 
     WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
 
-この場合、あなたは明示的にブートローダを指定する方法を使わなければなりません。詳細は、[ファームウェアのフラッシュ](ja/flashing.md) ガイドを参照してください。
+この場合、あなたは明示的にブートローダを指定する方法を使わなければなりません。詳細は、[ファームウェアのフラッシュ](ja/flashing.md)ガイドを参照してください。
 
 ## テストしましょう！
 
-おめでとうございます！ カスタムファームウェアがキーボードにプログラムされました！
+おめでとうございます！カスタムファームウェアがキーボードにプログラムされ、テストする準備ができました！
 
-使ってみて、すべてがあなたの望むように動作するかどうか確認してください。
-この初心者ガイドを完全なものにするために [テストとデバッグ](ja/newbs_testing_debugging.md) を書いたので、ファームウェアの検証とカスタム機能のトラブルシューティング方法について学ぶには、こちらをご覧ください。
+少し運が良ければ全てが完璧に機能しますが、そうでない場合は何が問題なのかを理解するのに役立つ手順があります。
+通常、キーボードのテストは非常に簡単です。全てのキーをひとつずつ押して、期待するキーが送信されることを確認します。例え QMK で動作していない場合でも、[QMK Configurator](https://config.qmk.fm/#/test/) のテストモードを使用すると、キーボードをチェックできます。
+
+まだ動作しませんか？詳細については FAQ トピックを参照するか、[Discord でチャット](https://discord.gg/Uq7gcHh)してください。

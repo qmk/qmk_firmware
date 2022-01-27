@@ -1,6 +1,3 @@
-#ifndef V2017_H
-#define V2017_H
+#pragma once
 
 #include "christmas_tree.h"
-
-#endif

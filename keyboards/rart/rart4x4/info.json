@@ -2,8 +2,6 @@
     "keyboard_name": "RART4X4",
     "url": "",
     "maintainer": "Alabahuy",
-    "width": 4,
-    "height": 4,
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [

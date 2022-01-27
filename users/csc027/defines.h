@@ -201,8 +201,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Windows Terminal Layer
  *
+ *  Contains shortcuts for pane and tab usage for Windows Terminal
+ *
  * ,-----------------------------------.  ,-----------------------------------.
- * |     |Tab 1|Tab 2|Tab 3|Tab 4|Tab 5|  |Tab 6|Tab 7|Tab 8|Tab 9|     |BkSpc|
+ * |     |Tab 1|Tab 2|Tab 3|Tab 4|Tab 5|  |Tab 6|Tab 7|Tab 8|Tab 9|TrCnP|BkSpc|
  * |-----------------------------------|  |-----------------------------------|
  * |     |     |Split|Close|     |     |  |FcsLf|FcsDn|FcsUp|FcsRt|     |     |
  * |-----------------------------------|  |-----------------------------------|
@@ -217,8 +219,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ________________WINDOWS_TERMINAL_L3________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MC_trpv,  XXXXXXX
 #define ________________WINDOWS_TERMINAL_L4________________  _______,  _______,  _______,  _______,  _______,  _______
 
-#define ________________WINDOWS_TERMINAL_R1________________  MC_trt6,  MC_trt7,  MC_trt8,  MC_trt9,  XXXXXXX,  KC_BSPC
-#define ________________WINDOWS_TERMINAL_R2________________  MC_trpl,  MC_trpd,  MC_trpu,  MC_trpr,  MC_trcp,  XXXXXXX
+#define ________________WINDOWS_TERMINAL_R1________________  MC_trt6,  MC_trt7,  MC_trt8,  MC_trt9,  MC_trcp,  KC_BSPC
+#define ________________WINDOWS_TERMINAL_R2________________  MC_trpl,  MC_trpd,  MC_trpu,  MC_trpr,  XXXXXXX,  XXXXXXX
 #define ________________WINDOWS_TERMINAL_R3________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
 #define ________________WINDOWS_TERMINAL_R4________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
 
