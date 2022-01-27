@@ -8,7 +8,7 @@
 #define _FN	2
 #define _FN2	3
 #define _NAV	4
-#define _FUNC	5
+#define _RGB	5
 
 bool reversed = false; // ADD this near the begining of keymap.c
 
@@ -21,47 +21,47 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// Base layer (numpad)
 	[_BASE] = LAYOUT(
-			KC_KP_EQUAL,	KC_KP_PLUS,	KC_KP_MINUS, \
-	TO(_MUSIC),	KC_KP_7,	KC_KP_8,	KC_KP_9,\
-	KC_ESC,		KC_KP_4,	KC_KP_5,	KC_KP_6,\
+			KC_KP_ASTERISK,	KC_KP_PLUS,	KC_KP_MINUS, \
+	KC_ESC,		KC_KP_7,	KC_KP_8,	KC_KP_9,\
+	KC_KP_SLASH,	KC_KP_4,	KC_KP_5,	KC_KP_6,\
 	KC_KP_ENTER,	KC_KP_1,	KC_KP_2,	KC_KP_3,\
-	REVERSE,	KC_KP_ASTERISK,	KC_KP_0,	KC_KP_DOT\
+	REVERSE,	KC_KP_EQUAL,	KC_KP_0,	KC_KP_DOT\
 	),
 	[_MUSIC] = LAYOUT(
-			KC_F22,		KC_F23,		KC_F24, \
-	TO(_FN),	KC_F19,		KC_F20,		KC_F21,\
+			KC_NO,		KC_MUTE,	KC_NO, \
+	KC_MSEL,	KC_NO,		KC_VOLU,	KC_NO,\
 	KC_ESC,		KC_MPRV,	KC_MPLY,	KC_MNXT,\
-	KC_KP_ENTER,	KC_F13,		KC_F14,		KC_F15,\
-	REVERSE,	KC_LALT,	KC_LCTL,	KC_LGUI\
+	KC_KP_ENTER,	KC_NO,		KC_VOLD,	KC_NO,\
+	KC_MUTE,	KC_LALT,	KC_LCTL,	KC_LGUI\
 	),
 	[_FN] = LAYOUT(
 			KC_F10,		KC_F11,		KC_F12, \
-	TO(_FN2),	KC_F7,		KC_F8,		KC_F9,\
+	KC_NO,		KC_F7,		KC_F8,		KC_F9,\
 	KC_ESC,		KC_F4,		KC_F5,		KC_F6,\
 	KC_KP_ENTER,	KC_F1,		KC_F2,		KC_F3,\
 	REVERSE,	KC_LALT,	KC_LCTL,	KC_LGUI\
 	),
 	[_FN2] = LAYOUT(
 			KC_F22,		KC_F23,		KC_F24, \
-	TO(_NAV),	KC_F19,		KC_F20,		KC_F21,\
+	KC_NO,		KC_F19,		KC_F20,		KC_F21,\
 	KC_ESC,		KC_F16,		KC_F17,		KC_F18,\
 	KC_KP_ENTER,	KC_F13,		KC_F14,		KC_F15,\
 	REVERSE,	KC_LALT,	KC_LCTL,	KC_LGUI\
 	),
 	[_NAV] = LAYOUT(
 			KC_CUT,		KC_COPY,	KC_PASTE,\
-	TO(_FUNC),	KC_HOME,	KC_UP,		KC_PGUP,\
+	KC_NO,		KC_HOME,	KC_UP,		KC_PGUP,\
 	KC_LGUI,	A(KC_LEFT),	A(KC_BSPC),	A(KC_RIGHT),\
 	KC_LALT,	KC_END,		KC_DOWN,	KC_PGDN,\
 	REVERSE,	KC_TAB,		KC_SPC,		KC_ENT
 	),
 	// Function layer (numpad)
-	[_FUNC] = LAYOUT(
+	[_RGB] = LAYOUT(
 			KC_NO,		RGB_TOG,	KC_NO,
-	TO(_BASE),	KC_NO,		RGB_MOD,	KC_NO,
+	KC_NO,		KC_NO,		RGB_MOD,	KC_NO,
 	KC_ESC,		KC_NO,		RGB_HUI,	KC_NO,
 	KC_KP_ENTER,	KC_NO,		RGB_SAI,	KC_NO,
-	REVERSE,	KC_NO,		RGB_VAI,	TO(_BASE)
+	REVERSE,	KC_NO,		RGB_VAI,	KC_NO
 	),
 };
 
@@ -100,19 +100,28 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 			}
 		}}
 	if (index == 1) {
-		if (reversed) {
+		switch (get_highest_layer(layer_state)) {
+		case 1:
 			if (clockwise) {
-				tap_code16(KC_RIGHT);
+				tap_code16(KC_VOLU);
 			} else {
-				tap_code16(KC_LEFT);
-		}} else {
-			if (clockwise) {
-				tap_code16(KC_UP);
-			} else {
-				tap_code16(KC_DOWN);
+				tap_code16(KC_VOLD);
 			}
-		}
-	}
+			break;
+		default:
+			if (reversed) {
+				if (clockwise) {
+					tap_code16(KC_RIGHT);
+				} else {
+					tap_code16(KC_LEFT);
+			}} else {
+				if (clockwise) {
+					tap_code16(KC_UP);
+				} else {
+					tap_code16(KC_DOWN);
+				}
+			}
+	}}
 	return true;
 // ENCODERS END
 };
@@ -144,11 +153,11 @@ static void print_status_narrow(void) {
 
 			break;
 		case 1:
-			oled_write_P(PSTR("Mus\n"), true);
+			oled_write_P(PSTR("Music"), true);
 			oled_write_P(PSTR(" | | "), false);
-			oled_write_P(PSTR(" | | "), false);
-			oled_write_P(PSTR("<|P|>"), false);
-			oled_write_P(PSTR(" | | "), false);
+			oled_write_P(PSTR(" |^| "), false);
+			oled_write_P(PSTR("<-P->"), false);
+			oled_write_P(PSTR(" |v| "), false);
 			oled_write_P(PSTR(" | | \n"), false);
 			oled_write_ln_P(PSTR("ESC"), false);
 			oled_write_ln_P(PSTR("ENTER"), false);
