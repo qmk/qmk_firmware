@@ -1,6 +1,6 @@
 # How to install:
   ```console
-  $ make planck/rev6:antosha417:dfu-util
+  $ make planck/rev6:antosha417:<span class="x x-first x-last">flash</span>
   ```
 # Useful:
   * [keycodes](https://docs.qmk.fm/#/keycodes)
