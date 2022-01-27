@@ -2,8 +2,6 @@
     "keyboard_name": "nknl7en", 
     "url": "https://salicylic-acid3.hatenablog.com/", 
     "maintainer": "Salicylic_acid3", 
-    "width": 17.25, 
-    "height": 5.25, 
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -63,8 +61,8 @@
                 {"label":"8,3", "x":11, "y":3},
                 {"label":"8,4", "x":12, "y":3},
                 {"label":"8,5", "x":13, "y":3, "w":1.75},
-                {"label":"8,8", "x":16.25, "y":3},
                 {"label":"8,6", "x":15, "y":3.25},
+                {"label":"8,8", "x":16.25, "y":3},
                 {"label":"4,0", "x":0, "y":4, "w":1.25},
                 {"label":"4,1", "x":1.25, "y":4, "w":1.25},
                 {"label":"4,2", "x":2.5, "y":4, "w":1.25},

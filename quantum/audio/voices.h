@@ -18,9 +18,6 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#if defined(__AVR__)
-#    include <avr/io.h>
-#endif
 #include "wait.h"
 #include "luts.h"
 

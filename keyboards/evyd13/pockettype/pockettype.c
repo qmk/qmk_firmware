@@ -15,12 +15,6 @@
  */
 #include "pockettype.h"
 
-void matrix_init_kb(void) {
-	led_init_ports();
-  
-	matrix_init_user();
-};
-
 void led_init_ports(void) {
     // * Enable LED anodes (Vbus pin is replaced by B0 on some boards)
     setPinOutput(B0);

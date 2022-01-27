@@ -65,7 +65,7 @@ out:
     return mcp23018_status;
 }
 
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     { {0,0}, {0,7}, {2,7}, {3,7} },
     { {0,8}, {1,8}, {2,8}, {3,8} },
     { {0,9}, {1,9}, {2,9}, {3,9} },

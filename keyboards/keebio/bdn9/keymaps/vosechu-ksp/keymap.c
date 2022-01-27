@@ -58,7 +58,7 @@ bool panic_mode = false;
 bool flight_mode = false;
 bool rcs_mode = false;
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     base_mode = false;
     panic_mode = false;
     flight_mode = false;
@@ -106,7 +106,7 @@ void keyboard_post_init_user(void) {
 //     return true;
 // }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if(base_mode == true) {
         if (index == 0) {
             if (clockwise) {
@@ -169,4 +169,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             }
         }
     }
+    return true;
 }

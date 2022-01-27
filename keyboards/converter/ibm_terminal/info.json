@@ -2,8 +2,6 @@
   "keyboard_name": "Keyboard converter for IBM terminal keyboard",
   "url": "",
   "maintainer": "qmk",
-  "width": 24.75,
-  "height": 8,
   "layouts": {
     "LAYOUT": {
       "layout": [

@@ -2,8 +2,6 @@
     "keyboard_name": "Split Tester",
     "url": "",
     "maintainer": "nooges",
-    "width": 2,
-    "height": 1,
     "layouts": {
         "LAYOUT": {
             "layout": [

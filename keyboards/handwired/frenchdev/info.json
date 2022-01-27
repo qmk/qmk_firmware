@@ -1,7 +1,5 @@
 {
   "maintainer": "qmk",
-  "width": 20,
-  "height": 9.5,
   "layouts": {
     "LAYOUT": {
       "layout": [

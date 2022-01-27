@@ -37,8 +37,8 @@ enum custom_keycodes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MACRO] = LAYOUT(
-        A(S(KC_N)),    HELLO,         CH_SUSP,       TO(_MACRO), 
-        KC_MPRV,       KC_MPLY,       KC_MNXT,       TO(_NUMPAD), 
+        A(S(KC_N)),    HELLO,         CH_SUSP,       TO(_MACRO),
+        KC_MPRV,       KC_MPLY,       KC_MNXT,       TO(_NUMPAD),
         C(A(KC_COMM)), KC_F5,         C(A(KC_DOT)),  TO(_RGB),
         MO(_FN),       CH_ASST,       CH_CPNL),
 
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,     KC_NO,     KC_NO,     KC_TRNS,
         KC_NO,     KC_NO,     KC_NO),
 };
-// clang-format on 
+// clang-format on
 
 typedef enum layer_ack {
     ACK_NO = 0,
@@ -79,20 +79,20 @@ const rgblight_segment_t PROGMEM _no_layer[]  = RGBLIGHT_LAYER_SEGMENTS({0, 3, H
 const rgblight_segment_t PROGMEM _yes_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 3, HSV_GREEN});
 const rgblight_segment_t PROGMEM _meh_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 3, HSV_YELLOW});
 
-// clang-format on 
+// clang-format on
 const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [LAYER_OFFSET + 0] = _macro_layer,
     [LAYER_OFFSET + 1] = _numpad_layer,
     [LAYER_OFFSET + 2] = _rgb_layer,
     [LAYER_OFFSET + 3] = _fn_layer,
-   
+
     [ACK_OFFSET + ACK_NO] = _no_layer,
     [ACK_OFFSET + ACK_YES] = _yes_layer,
     [ACK_OFFSET + ACK_MEH] = _meh_layer,
 
     [ACK_OFFSET + ACK_MEH + 1] = NULL
 };
-// clang-format off 
+// clang-format off
 
 const uint8_t PROGMEM _n_rgb_layers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
 
@@ -200,7 +200,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
         case _RGB:
             if (index == 0) {
@@ -234,4 +234,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             }
             break;
     }
+    return true;
 }
