@@ -563,7 +563,7 @@ void via_qmk_rgb_matrix_get_value(uint8_t *data) {
             value_data[0] = rgb_matrix_get_mode();
             break;
         case id_qmk_rgblight_effect_speed:
-            value_data[0] = speed_to_rgblight(rgb_matrix_get_speed());;
+            value_data[0] = speed_to_rgblight(rgb_matrix_get_speed());
             break;
         case id_qmk_rgblight_color:
             value_data[0] = rgb_matrix_get_hue();
