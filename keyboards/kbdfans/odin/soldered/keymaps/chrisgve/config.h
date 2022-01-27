@@ -6,9 +6,9 @@
 
 #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
-#    define TAPPING_TERM 100
+#    define TAPPING_TERM 175
 #else
-#    define TAPPING_TERM 100
+#    define TAPPING_TERM 175
 #endif
 
 #ifndef RETRO_TAPPING
