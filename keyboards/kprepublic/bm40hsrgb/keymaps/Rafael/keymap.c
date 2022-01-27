@@ -25,37 +25,38 @@ static int active_scene = 0;
 
 void check_toggles(void) {
     if(discord_mute){
-        rgblight_setrgb_range(0, 255, 0, 1, 3);
+        rgb_matrix_set_color(0, 0, 255, 0);
     } else{
-        rgblight_setrgb_range(0, 0, 0, 1, 3);
+        rgb_matrix_set_color(0, 0, 0, 0);
     }
     if(stream_mute){
-        rgblight_setrgb_range(255, 0, 0, 12, 14);
+        rgb_matrix_set_color(0,255, 0, 0);
     } else{
-        rgblight_setrgb_range(0, 0, 0, 12, 14);
+        rgb_matrix_set_color(0, 0, 0, 0);
     }
 }
 
 void check_scenes(void) {
     switch(active_scene) {
         case 0:
-            rgblight_setrgb(RGB_WHITE);
+            rgb_matrix_set_color_all(RGB_WHITE);
             break;
         case 1:
-            rgblight_setrgb(RGB_TEAL);
+            rgb_matrix_set_color_all(RGB_TEAL);
             break;
         case 2:
-            rgblight_setrgb(RGB_PINK);
+            rgb_matrix_set_color_all(RGB_PINK);
             break;
         case 3:
-            rgblight_setrgb(RGB_YELLOW);
+            rgb_matrix_set_color_all(RGB_YELLOW);
             break;
     }
 }
 
 #define SPCMOV LT(_MOV, KC_SPC)
 #define TABNUM LT(_NUM, KC_TAB)
-#define RAISE LT(_RAISE, KC_ENT)
+//#define RAISE LT(_RAISE, KC_ENT)
+#define RAISE MO(_RAISE)
 #define LOWER LT(_LOWER, KC_BSPC)
 #define NUM MO(_NUM)
 
@@ -178,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+-------------+------+------+------+------+------|
      * | Bksp | Home | End  | Shift| Ctrl |PgDown| Left | Down |  Up  | Right| Del  | Enter|
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |      |      |      |      |      |      |      |      |      |      |      |      |
+     * |      |      |      |      |alt+ct|      |      |      |      |      |      |      |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * |      |      |      |      |      |   *******   | Enter|      |      |      |      |
      * `-----------------------------------------------------------------------------------'
@@ -189,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MOV] = LAYOUT_planck_mit(
             XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_PGUP , C(KC_INS) , XXXXXXX , XXXXXXX , XXXXXXX  , S(KC_INS) , XXXXXXX,
             KC_BSPC , KC_HOME , KC_END  , KC_LSFT , KC_LCTL , KC_PGDN , KC_LEFT   , KC_DOWN , KC_UP   , KC_RIGHT , KC_DEL    , KC_ENT ,
-            _______ , XXXXXXX , XXXXXXX , KC_CAPS , XXXXXXX , XXXXXXX , XXXXXXX   , XXXXXXX , XXXXXXX , XXXXXXX  , XXXXXXX   , _______,
+            _______ , XXXXXXX , XXXXXXX , KC_CAPS , C(KC_LALT) , XXXXXXX , XXXXXXX   , XXXXXXX , XXXXXXX , XXXXXXX  , XXXXXXX   , _______,
             _______ , _______ , _______ , _______ , XXXXXXX ,         _______     , KC_ENT  , _______ , _______  , _______   , _______
             ),
 
@@ -261,28 +262,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
-                rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 5);
+                //rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 5);
                 set_single_persistent_default_layer(_QWERTY);
             }
             return false;
             break;
         case COLEMAK:
             if (record->event.pressed) {
-                rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 5);
+                //rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 5);
                 set_single_persistent_default_layer(_COLEMAK);
             }
             return false;
             break;
         case GAME:
             if (record->event.pressed) {
-                rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT);
+                rgb_matrix_mode(RGB_MATRIX_CYCLE_ALL);
                 set_single_persistent_default_layer(_GAME);
             }
             return false;
             break;
         case SHORTCUTS:
             if (record->event.pressed) {
-                rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+                //rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
                 check_scenes();
                 check_toggles();
                 set_single_persistent_default_layer(_SHORTCUTS);
@@ -329,5 +330,46 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
                 check_toggles();
             }
             break;
+    }
+}
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    //for (uint8_t i = led_min; i <= led_max; i++) {
+    for (uint8_t i = led_min; i <= led_max; i++) {
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case _RAISE:
+                rgb_matrix_set_color(1, RGB_BLUE);
+                rgb_matrix_set_color(2, RGB_BLUE);
+                rgb_matrix_set_color(3, RGB_BLUE);
+                rgb_matrix_set_color(4, RGB_BLUE);
+                break;
+            case _LOWER:
+                rgb_matrix_set_color(1, RGB_YELLOW);
+                rgb_matrix_set_color(2, RGB_YELLOW);
+                rgb_matrix_set_color(3, RGB_YELLOW);
+                rgb_matrix_set_color(4, RGB_YELLOW);
+                break;
+            case _NUM:
+                rgb_matrix_set_color(19, RGB_GREEN);
+                rgb_matrix_set_color(20, RGB_GREEN);
+                rgb_matrix_set_color(21, RGB_GREEN);
+                rgb_matrix_set_color(7, RGB_GREEN);
+                rgb_matrix_set_color(8, RGB_GREEN);
+                rgb_matrix_set_color(9, RGB_GREEN);
+                rgb_matrix_set_color(31, RGB_GREEN);
+                rgb_matrix_set_color(32, RGB_GREEN);
+                rgb_matrix_set_color(33, RGB_GREEN);
+                rgb_matrix_set_color(42, RGB_GREEN);
+                rgb_matrix_set_color(43, RGB_GREEN);
+                rgb_matrix_set_color(44, RGB_GREEN);
+                break;
+            case _ADJUST:
+                rgb_matrix_set_color(1, RGB_RED);
+                rgb_matrix_set_color(2, RGB_RED);
+                rgb_matrix_set_color(3, RGB_RED);
+                rgb_matrix_set_color(4, RGB_RED);
+                break;
+            default:
+                break;
+        }
     }
 }
