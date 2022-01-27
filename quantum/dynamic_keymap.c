@@ -29,48 +29,16 @@
 #    define DYNAMIC_KEYMAP_MACRO_COUNT 16
 #endif
 
-// This is the default EEPROM max address to use for dynamic keymaps.
-// The default is the ATmega32u4 EEPROM max address.
-// Explicitly override it if the keyboard uses a microcontroller with
-// more EEPROM *and* it makes sense to increase it.
+#ifndef TOTAL_EEPROM_BYTE_COUNT
+#    error Unknown total EEPROM size. Cannot derive maximum for dynamic keymaps.
+#endif
+
 #ifndef DYNAMIC_KEYMAP_EEPROM_MAX_ADDR
-#    if defined(EEPROM_CUSTOM)
-#        ifndef EEPROM_SIZE
-#            error EEPROM_SIZE has not been defined for custom driver.
-#        endif
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (EEPROM_SIZE - 1)
-#    elif defined(EEPROM_TRANSIENT)
-#        include "eeprom_transient.h"
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (TRANSIENT_EEPROM_SIZE - 1)
-#    elif defined(EEPROM_I2C)
-#        include "eeprom_i2c.h"
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (EXTERNAL_EEPROM_BYTE_COUNT - 1)
-#    elif defined(EEPROM_SPI)
-#        include "eeprom_spi.h"
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (EXTERNAL_EEPROM_BYTE_COUNT - 1)
-#    elif defined(EEPROM_STM32_L0_L1)
-#        include "eeprom_stm32_L0_L1.h"
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (STM32_ONBOARD_EEPROM_SIZE - 1)
-#    elif defined(EEPROM_TEENSY)
-#        include "eeprom_teensy.h"
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (EEPROM_SIZE - 1)
-#    elif defined(EEPROM_STM32_FLASH_EMULATED)
-#        include "eeprom_stm32_defs.h"
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (FEE_DENSITY_BYTES - 1)
-#    elif defined(EEPROM_SAMD)
-#        include "eeprom_samd.h"
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (EEPROM_SIZE - 1)
-#    elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__)
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
-#    elif defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4095
-#    elif defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_AT90USB162__) || defined(__AVR_ATtiny85__)
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 511
-#    elif defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega32U4__)
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
-#    else
-#        error Unknown EEPROM driver.
-#    endif
+#    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (TOTAL_EEPROM_BYTE_COUNT - 1)
+#endif
+
+#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > (TOTAL_EEPROM_BYTE_COUNT - 1)
+#    error DYNAMIC_KEYMAP_EEPROM_MAX_ADDR is configured to use more space than what is available for the selected EEPROM driver.
 #endif
 
 // Due to usage of uint16_t check for max 65535
