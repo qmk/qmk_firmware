@@ -1,11 +1,3 @@
-/*
- * @Description    : 
- * @version        : 
- * @Author         : JunLee
- * @Date           : 2022-01-27 09:50:12
- * @LastEditTime   : 2022-01-27 11:42:35
- * @FilePath       : \qmk_firmware\keyboards\7liang\tp32\v1\config.h
- */
 
 #pragma once
 
