@@ -35,11 +35,11 @@
 #define sizeof_member(type, member) sizeof(((type *)NULL)->member)
 
 #define trans_initiator2target_initializer_cb(member, cb) \
-    { &dummy, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), 0, 0, cb }
+    { sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), 0, 0, cb }
 #define trans_initiator2target_initializer(member) trans_initiator2target_initializer_cb(member, NULL)
 
 #define trans_target2initiator_initializer_cb(member, cb) \
-    { &dummy, 0, 0, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), cb }
+    { 0, 0, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), cb }
 #define trans_target2initiator_initializer(member) trans_target2initiator_initializer_cb(member, NULL)
 
 #define transport_write(id, data, length) transport_execute_transaction(id, data, length, NULL, 0)
@@ -658,10 +658,9 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 
 ////////////////////////////////////////////////////
 
-uint8_t                  dummy;
 split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     // Set defaults
-    [0 ...(NUM_TOTAL_TRANSACTIONS - 1)] = {NULL, 0, 0, 0, 0, 0},
+    [0 ...(NUM_TOTAL_TRANSACTIONS - 1)] = {0, 0, 0, 0, 0},
 
 #ifdef USE_I2C
     [I2C_EXECUTE_CALLBACK] = trans_initiator2target_initializer(transaction_id),

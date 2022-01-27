@@ -99,7 +99,7 @@ bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, 
         memcpy(split_trans_initiator2target_buffer(trans), initiator2target_buf, len);
     }
 
-    if (soft_serial_transaction(id) != TRANSACTION_END) {
+    if (!soft_serial_transaction(id)) {
         return false;
     }
 

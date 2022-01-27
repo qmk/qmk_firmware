@@ -409,13 +409,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
 
     // target recive phase
     if (trans->initiator2target_buffer_size > 0) {
-        if (serial_recive_packet((uint8_t *)split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size)) {
-            *trans->status = TRANSACTION_ACCEPTED;
-        } else {
-            *trans->status = TRANSACTION_DATA_ERROR;
-        }
-    } else {
-        *trans->status = TRANSACTION_ACCEPTED;
+        serial_recive_packet((uint8_t *)split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size);
     }
 
     sync_recv();  // weit initiator output to high
@@ -424,18 +418,12 @@ ISR(SERIAL_PIN_INTERRUPT) {
 /////////
 //  start transaction by initiator
 //
-// int  soft_serial_transaction(int sstd_index)
+// bool  soft_serial_transaction(int sstd_index)
 //
-// Returns:
-//    TRANSACTION_END
-//    TRANSACTION_NO_RESPONSE
-//    TRANSACTION_DATA_ERROR
 // this code is very time dependent, so we need to disable interrupts
-int soft_serial_transaction(int sstd_index) {
-    if (sstd_index > NUM_TOTAL_TRANSACTIONS) return TRANSACTION_TYPE_ERROR;
+bool soft_serial_transaction(int sstd_index) {
+    if (sstd_index > NUM_TOTAL_TRANSACTIONS) return false;
     split_transaction_desc_t *trans = &split_transaction_table[sstd_index];
-
-    if (!trans->status) return TRANSACTION_TYPE_ERROR;  // not registered
 
     cli();
 
@@ -463,9 +451,8 @@ int soft_serial_transaction(int sstd_index) {
             // slave failed to pull the line low, assume not present
             serial_output();
             serial_high();
-            *trans->status = TRANSACTION_NO_RESPONSE;
             sei();
-            return TRANSACTION_NO_RESPONSE;
+            return false;
         }
         _delay_sub_us(SLAVE_INT_ACK_WIDTH_UNIT);
     }
@@ -476,9 +463,8 @@ int soft_serial_transaction(int sstd_index) {
         if (!serial_recive_packet((uint8_t *)split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size)) {
             serial_output();
             serial_high();
-            *trans->status = TRANSACTION_DATA_ERROR;
             sei();
-            return TRANSACTION_DATA_ERROR;
+            return false;
         }
     }
 
@@ -493,19 +479,8 @@ int soft_serial_transaction(int sstd_index) {
     // always, release the line when not in use
     sync_send();
 
-    *trans->status = TRANSACTION_END;
     sei();
-    return TRANSACTION_END;
-}
-
-int soft_serial_get_and_clean_status(int sstd_index) {
-    split_transaction_desc_t *trans = &split_transaction_table[sstd_index];
-    cli();
-    int retval     = *trans->status;
-    *trans->status = 0;
-    ;
-    sei();
-    return retval;
+    return true;
 }
 #endif
 
