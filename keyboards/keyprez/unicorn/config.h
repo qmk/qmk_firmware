@@ -1,4 +1,4 @@
-// Copyright %(YEAR)s %(YOUR_NAME)s (@%(USER_NAME)s)
+// Copyright 2022 Keyprez (https://github.com/kwyprez)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
