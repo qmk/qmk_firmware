@@ -510,11 +510,11 @@ enum mouse_keys {
 #ifdef VIA_ENABLE
     KC_MS_UP = 0xF0,
 #else
-    KC_MS_UP = 0xED,
+    KC_MS_UP = 0xCD,
 #endif
     KC_MS_DOWN,
     KC_MS_LEFT,
-    KC_MS_RIGHT, // 0xF0
+    KC_MS_RIGHT,
     KC_MS_BTN1,
     KC_MS_BTN2,
     KC_MS_BTN3,
