@@ -1,27 +1,18 @@
-# trackpoint32
+# Tp32
 
-![trackpoint32](imgur.com image replace me!)
+![tp32](https://github.com/skyjun/tp32/img/01.jpg)
 
-*A short description of the keyboard/project*
+![tp32](https://github.com/skyjun/tp32/img/05.jpg)
 
-* Keyboard Maintainer: [Pkerr](https://github.com/sky_jun@qq.com)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+this is trackpoint 32 keys keyboard
+
+* Keyboard Maintainer: [skyjun](https://github.com/skyjun/tp32)
+* Hardware Supported: pcb, 3d files, thinkpad trackpoint
+* Hardware Availability: [gerber](https://github.com/skyjun/tp32/gerber), [stl](https://github.com/skyjun/tp32/stl), [at OSHWHUB](https://oshwhub.com/pkerr/keyborard-juk-32-rev-a)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make trackpoint32:default
+    make 7liang/tp32:default
 
-Flashing example for this keyboard:
-
-    make trackpoint32:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
-
-## Bootloader
-
-Enter the bootloader in 3 ways:
-
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
