@@ -1,4 +1,4 @@
-# Glacier
+# glacier
 A 80% keyboard
 
 ![glacier](https://cdn.shopify.com/s/files/1/0481/5840/8853/products/4b8d52820aab652152cd749123d3f8b_6a073c5e-336d-47b4-90fc-8b0fe5a790fe_720x.png?v=1641814324)
