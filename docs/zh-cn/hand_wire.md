@@ -1,8 +1,8 @@
 # 手工搭建指南
 
 <!---
-  original document: 0.15.12:docs/hand_wire.md 
-  git diff 0.15.12 HEAD -- docs/hand_wire.md  | cat
+  original document: 0.15.17:docs/hand_wire.md 
+  git diff 0.15.17 HEAD -- docs/hand_wire.md  | cat
 -->
 
 ## 模块清单
