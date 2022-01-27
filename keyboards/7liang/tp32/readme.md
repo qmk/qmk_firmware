@@ -1,8 +1,8 @@
 # Tp32
 
-![tp32](https://github.com/skyjun/tp32/tree/main/img/01.jpg)
+![tp32](https://github.com/skyjun/tp32/blob/main/img/01.jpg)
 
-![tp32](https://github.com/skyjun/tp32/tree/main/img/05.jpg)
+![tp32](https://github.com/skyjun/tp32/blob/main/img/05.jpg)
 
 this is trackpoint 32 keys keyboard
 
