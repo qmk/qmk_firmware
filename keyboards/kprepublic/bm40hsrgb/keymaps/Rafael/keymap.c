@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------------------------------.
      * | Tab* |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * | Ctrl*|   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  '"  |
+     * | Ctrl*|   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  | Enter|
      * |------+------+------+------+------+------|------+------+------+------+------+------|
      * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Shift|
      * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -176,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------------------------------.
      * |      |      |      |      |      | PgUp | CIns |      |      |      | SIns |      |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * | Bksp | Home | End  | Shift| Ctrl |PgDown| Left | Down |  Up  | Right| Del  |      |
+     * | Bksp | Home | End  | Shift| Ctrl |PgDown| Left | Down |  Up  | Right| Del  | Enter|
      * |------+------+------+------+------+------|------+------+------+------+------+------|
      * |      |      |      |      |      |      |      |      |      |      |      |      |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -215,7 +215,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------------------------------.
      * | Tab  | F24  | F23  | F22  |      |      |      | KP7  | KP8  | KP9  |      |      |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * | Ctrl | F19  | F20  | F19  |      |      |      | KP4  | KP5  | KP6  |      |      |
+     * | Ctrl | F21  | F20  | F19  |      |      |      | KP4  | KP5  | KP6  |      |      |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
      * | Shift| F18  | F17  | F16  |      |      |      | KP1  | KP2  | KP3  |      |      |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -238,9 +238,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------------------------------.
      * | Reset|Qwerty| RGB+ | Bri+ |      |      |      | Vol- | Play | Vol+ | Mute | Game |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * |      |      | RGB- | Bri- | MOUS1| MOUS2| MOUSL| MOUSD| MOUSU| MOUSR|      |      |
+     * |      |      | RGB- | Bri- | MOUS1| MOUS2| MOUSL| MOUSD| MOUSU| MOUSR|      | SHORT|
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |      |BLtogg|BLstep| sat+ | sat- |      |      | ACC0 | ACC1 | ACC2 |      |      |
+     * |      |BLtogg|BLstep| sat+ | sat- |      |      | ACC0 | ACC1 | ACC2 |      |COLEMK|
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * |      |      |      |      | **** |             | **** |      |      |      |      |
      * `-----------------------------------------------------------------------------------'
@@ -248,7 +248,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_planck_mit(
             RESET   , QWERTY  , RGB_HUI , RGB_VAI , XXXXXXX , XXXXXXX, XXXXXXX , KC_VOLD, KC_MPLY, KC_VOLU, KC_MUTE, GAME   ,
             XXXXXXX , XXXXXXX , RGB_HUD , RGB_VAD , KC_BTN1 , KC_BTN2, KC_MS_L , KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, SHORTCUTS ,
-            XXXXXXX , RGB_TOG , RGB_MOD , RGB_SAI , RGB_SAD , _______, _______ , KC_ACL0, KC_ACL1, KC_ACL2, _______, _______,
+            XXXXXXX , RGB_TOG , RGB_MOD , RGB_SAI , RGB_SAD , _______, _______ , KC_ACL0, KC_ACL1, KC_ACL2, _______, COLEMAK,
             XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , _______ ,     XXXXXXX      , _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
             )
 };
