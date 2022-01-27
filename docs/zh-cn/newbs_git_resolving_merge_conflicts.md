@@ -1,17 +1,16 @@
 # 解决合并冲突
 
 <!---
-  original document: 0.15.12:docs/newbs_git_resolving_merge_conflicts.md 
-  git diff 0.15.12 HEAD -- docs/newbs_git_resolving_merge_conflicts.md  | cat
+  original document: 0.15.17:docs/newbs_git_resolving_merge_conflicts.md 
+  git diff 0.15.17 HEAD -- docs/newbs_git_resolving_merge_conflicts.md  | cat
 -->
 
 有时在你致力于一个较长周期才能完成的分支时，其它人提交的变更会与你提交的pull request中的变更发生冲突。我们将这种多个人编辑同一个模块同一个文件时产生的场景叫做 *合并冲突*
 
-?> 本文中的场景基于[在你Fork的主干上：频繁更新，不要提交](zh-ch/newbs_git_using_your_master_branch.md)一文。如果你对那篇文章不熟悉，请先阅读它，再回来继续。
+?> 本文中的场景基于[在你Fork的主干上：频繁更新，不要提交](zh-cn/newbs_git_using_your_master_branch.md)一文。如果你对那篇文章不熟悉，请先阅读它，再回来继续。
 
 ## 变基/衍合（rebase）
 
-*译注：（git新手请跳过这一段译注）大部分开源仓库倾向于rebase而不是merge，是因为commit tree的整洁要比精确记录你的各个commit更重要，并且冲突场景非常多。参见[rebase VS merge](https://www.zhoulujun.cn/html/tools/VCS/git/5838.html)，及[官方文档](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%8F%98%E5%9F%BA)*
 
 Git的*变基*操作会将提交历史中的提交节点摘除并回滚，然后统一提交到一个新节点上。在解决合并冲突时，可以通过对当前分支进行变基，来获取从分支拉取到当前时刻的所有变更。
 

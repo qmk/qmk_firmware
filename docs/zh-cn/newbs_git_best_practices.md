@@ -1,8 +1,8 @@
 # QMK所采用的Git最佳实践
 
 <!---
-  original document: 0.15.12:docs/newbs_git_best_practices.md 
-  git diff 0.15.12 HEAD -- docs/newbs_git_best_practices.md  | cat
+  original document: 0.15.17:docs/newbs_git_best_practices.md 
+  git diff 0.15.17 HEAD -- docs/newbs_git_best_practices.md  | cat
 -->
 
 *译者注：对于git相关的部分，除广为接受的名词外，会尽量保留git命令及各种术语的英文版本，部分名词及关键部分会附带中文翻译*

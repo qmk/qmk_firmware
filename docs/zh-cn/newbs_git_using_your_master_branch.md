@@ -1,8 +1,8 @@
 # 在你Fork的主干上：频繁更新，不要提交
 
 <!---
-  original document: 0.15.12:docs/newbs_git_using_your_master_branch.md 
-  git diff 0.15.12 HEAD -- docs/newbs_git_using_your_master_branch.md  | cat
+  original document: 0.15.17:docs/newbs_git_using_your_master_branch.md 
+  git diff 0.15.17 HEAD -- docs/newbs_git_using_your_master_branch.md  | cat
 -->
 
 我们强烈推荐所有QMK开发者，无论在哪里做什么改动，频繁更新你的 `master` 分支，但***不要***在其上提交。相对地，将你所有的改动提交到开发分支上并提交一个pull request。
