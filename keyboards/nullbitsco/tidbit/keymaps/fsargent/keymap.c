@@ -138,14 +138,20 @@ static void print_status_narrow(void) {
 	switch (get_highest_layer(layer_state)) {
 		case 0:
 			oled_write_P(PSTR("Num\n"), false);
-			oled_write_P(PSTR("/|*|-"), false);
+			oled_write_P(PSTR("*|+|-"), false);
 			oled_write_P(PSTR("7|8|9"), false);
 			oled_write_P(PSTR("4|5|6"), false);
 			oled_write_P(PSTR("1|2|3"), false);
-			oled_write_P(PSTR("A|C|G\n"), false);
+			oled_write_P(PSTR("=|0|.\n"), false);
 
 			oled_write_ln_P(PSTR("ESC"), false);
-			oled_write_ln_P(PSTR("ENTER"), false);
+			oled_write_ln_P(PSTR("/"), false);
+			oled_write_P(PSTR("ENTER"), false);
+			if (reversed == true) {
+				oled_write_ln_P(PSTR("<->"), true);
+			} else {
+				oled_write_ln_P(PSTR("<->"), false);
+			}
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
@@ -159,9 +165,10 @@ static void print_status_narrow(void) {
 			oled_write_P(PSTR("<-P->"), false);
 			oled_write_P(PSTR(" |v| "), false);
 			oled_write_P(PSTR(" | | \n"), false);
+			oled_write_P(PSTR("Media"), false);
 			oled_write_ln_P(PSTR("ESC"), false);
-			oled_write_ln_P(PSTR("ENTER"), false);
-			oled_write_ln_P(PSTR(""), false);
+			oled_write_P(PSTR("ENTER"), false);
+			oled_write_ln_P(PSTR("Vol"), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 
@@ -173,11 +180,14 @@ static void print_status_narrow(void) {
 			oled_write_P(PSTR("4|5|6"), false);
 			oled_write_P(PSTR("1|2|3"), false);
 			oled_write_P(PSTR("A|C|G\n"), false);
-
+			oled_write_ln_P(PSTR("NA"), false);
 			oled_write_ln_P(PSTR("ESC"), false);
-			oled_write_ln_P(PSTR("ENTER"), false);
-			oled_write_ln_P(PSTR(""), false);
-			oled_write_ln_P(PSTR(""), false);
+			oled_write_P(PSTR("ENTER"), false);
+			if (reversed == true) {
+				oled_write_ln_P(PSTR("<->"), true);
+			} else {
+				oled_write_ln_P(PSTR("<->"), false);
+			}			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 
 			break;
@@ -188,10 +198,14 @@ static void print_status_narrow(void) {
 			oled_write_P(PSTR("16-18"), false);
 			oled_write_P(PSTR("13-15"), false);
 			oled_write_P(PSTR("A|C|G\n"), false);
-
+			oled_write_ln_P(PSTR("NA"), false);
 			oled_write_ln_P(PSTR("ESC"), false);
-			oled_write_ln_P(PSTR("ENTER"), false);
-			oled_write_ln_P(PSTR(""), false);
+			oled_write_P(PSTR("ENTER"), false);
+			if (reversed == true) {
+				oled_write_ln_P(PSTR("<->"), true);
+			} else {
+				oled_write_ln_P(PSTR("<->"), false);
+			}			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			break;
@@ -201,12 +215,15 @@ static void print_status_narrow(void) {
 			oled_write_P(PSTR("h|^|u"), false);
 			oled_write_P(PSTR("<|x|>"), false);
 			oled_write_P(PSTR("e|v|d"), false);
-			oled_write_P(PSTR("t|_|E"), false);
-			oled_write_ln_P(PSTR(""), false);
-			oled_write_ln_P(PSTR(""), false);
-			oled_write_ln_P(PSTR(""), false);
-			oled_write_ln_P(PSTR(""), false);
-			oled_write_ln_P(PSTR(""), false);
+			oled_write_P(PSTR("t|_|E\n"), false);
+			oled_write_ln_P(PSTR("NA"), false);
+			oled_write_ln_P(PSTR("GUI"), false);
+			oled_write_ln_P(PSTR("ALT"), false);
+			if (reversed == true) {
+				oled_write_ln_P(PSTR("<->"), true);
+			} else {
+				oled_write_ln_P(PSTR("<->"), false);
+			}			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			break;
 		 case 5:
@@ -215,11 +232,15 @@ static void print_status_narrow(void) {
 			oled_write_P(PSTR("8Mode"), false);
 			oled_write_P(PSTR("6Hue\n"), false);
 			oled_write_P(PSTR("2Sat\n"), false);
-			oled_write_P(PSTR("0Val\n"), false);
-			oled_write_ln_P(PSTR(""), false);
-			oled_write_ln_P(PSTR(""), false);
-			oled_write_ln_P(PSTR(""), false);
-			oled_write_ln_P(PSTR(""), false);
+			oled_write_ln_P(PSTR("0Val\n"), false);
+			oled_write_ln_P(PSTR("NA"), false);
+			oled_write_ln_P(PSTR("ESC"), false);
+			oled_write_P(PSTR("ENTER"), false);
+			if (reversed == true) {
+				oled_write_ln_P(PSTR("<->"), true);
+			} else {
+				oled_write_ln_P(PSTR("<->"), false);
+			}
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			break;
