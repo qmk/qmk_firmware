@@ -5,14 +5,16 @@
 
 #define _BASE	0
 #define _MUSIC	1
-#define _FN		2
+#define _FN	2
 #define _FN2	3
 #define _NAV	4
 #define _FUNC	5
 
+bool reversed = false; // ADD this near the begining of keymap.c
+
 
 enum custom_keycodes {
-	PROG = SAFE_RANGE,
+	REVERSE = SAFE_RANGE,
 };
 
 
@@ -23,35 +25,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	TO(_MUSIC),	KC_KP_7,	KC_KP_8,	KC_KP_9,\
 	KC_ESC,		KC_KP_4,	KC_KP_5,	KC_KP_6,\
 	KC_KP_ENTER,	KC_KP_1,	KC_KP_2,	KC_KP_3,\
-	KC_KP_ENTER,	KC_KP_ASTERISK,	KC_KP_0,	KC_KP_DOT\
+	REVERSE,	KC_KP_ASTERISK,	KC_KP_0,	KC_KP_DOT\
 	),
 	[_MUSIC] = LAYOUT(
 			KC_F22,		KC_F23,		KC_F24, \
 	TO(_FN),	KC_F19,		KC_F20,		KC_F21,\
 	KC_ESC,		KC_MPRV,	KC_MPLY,	KC_MNXT,\
 	KC_KP_ENTER,	KC_F13,		KC_F14,		KC_F15,\
-	KC_MPLY,	KC_LALT,	KC_LCTL,	KC_LGUI\
+	REVERSE,	KC_LALT,	KC_LCTL,	KC_LGUI\
 	),
 	[_FN] = LAYOUT(
 			KC_F10,		KC_F11,		KC_F12, \
 	TO(_FN2),	KC_F7,		KC_F8,		KC_F9,\
 	KC_ESC,		KC_F4,		KC_F5,		KC_F6,\
 	KC_KP_ENTER,	KC_F1,		KC_F2,		KC_F3,\
-	KC_KP_ENTER,	KC_LALT,	KC_LCTL,	KC_LGUI\
+	REVERSE,	KC_LALT,	KC_LCTL,	KC_LGUI\
 	),
 	[_FN2] = LAYOUT(
 			KC_F22,		KC_F23,		KC_F24, \
 	TO(_NAV),	KC_F19,		KC_F20,		KC_F21,\
 	KC_ESC,		KC_F16,		KC_F17,		KC_F18,\
 	KC_KP_ENTER,	KC_F13,		KC_F14,		KC_F15,\
-	KC_KP_ENTER,	KC_LALT,	KC_LCTL,	KC_LGUI\
+	REVERSE,	KC_LALT,	KC_LCTL,	KC_LGUI\
 	),
 	[_NAV] = LAYOUT(
 			KC_CUT,		KC_COPY,	KC_PASTE,\
 	TO(_FUNC),	KC_HOME,	KC_UP,		KC_PGUP,\
 	KC_LGUI,	A(KC_LEFT),	A(KC_BSPC),	A(KC_RIGHT),\
 	KC_LALT,	KC_END,		KC_DOWN,	KC_PGDN,\
-	KC_LSFT,	KC_TAB,		KC_SPC,		KC_ENT
+	REVERSE,	KC_TAB,		KC_SPC,		KC_ENT
 	),
 	// Function layer (numpad)
 	[_FUNC] = LAYOUT(
@@ -59,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	TO(_BASE),	KC_NO,		RGB_MOD,	KC_NO,
 	KC_ESC,		KC_NO,		RGB_HUI,	KC_NO,
 	KC_KP_ENTER,	KC_NO,		RGB_SAI,	KC_NO,
-	PROG,		KC_NO,		RGB_VAI,	TO(_BASE)
+	REVERSE,	KC_NO,		RGB_VAI,	TO(_BASE)
 	),
 };
 
@@ -67,35 +69,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ENCODERS
 bool encoder_update_user(uint8_t index, bool clockwise) {
 	/* With an if statement we can check which encoder was turned. */
-	switch (get_highest_layer(layer_state)) {
-	case 1:
-		if (index == 0) {
+
+	if (index == 0) {
+		switch (get_highest_layer(layer_state)) {
+		case 0:
 			if (clockwise) {
-				tap_code(KC_VOLU);
+				layer_move(get_highest_layer(layer_state)+1);
 			} else {
-				tap_code(KC_VOLD);
+				layer_move(5);
 			}
-		}
-		else { /* Second encoder */
+			break;
+		case 5:
 			if (clockwise) {
-				tap_code16(KC_MNXT);
+				layer_move(0);
 			} else {
-				tap_code16(KC_MPRV);
+				layer_move(get_highest_layer(layer_state)-1);
 			}
-		}
-		break;
-	default:
-		if (index == 0) { /* First encoder */
+
+			break;
+		default:
 			if (clockwise) {
-				tap_code(KC_UP);
+				layer_move(get_highest_layer(layer_state)+1);
 			} else {
-				tap_code(KC_DOWN);
+				layer_move(get_highest_layer(layer_state)-1);
 			}
-		} else { /* Second encoder */
 			if (clockwise) {
 				tap_code16(KC_RIGHT);
 			} else {
 				tap_code16(KC_LEFT);
+			}
+		}}
+	if (index == 1) {
+		if (reversed) {
+			if (clockwise) {
+				tap_code16(KC_RIGHT);
+			} else {
+				tap_code16(KC_LEFT);
+		}} else {
+			if (clockwise) {
+				tap_code16(KC_UP);
+			} else {
+				tap_code16(KC_DOWN);
 			}
 		}
 	}
@@ -114,7 +128,7 @@ static void print_status_narrow(void) {
 
 	switch (get_highest_layer(layer_state)) {
 		case 0:
-			oled_write_ln_P(PSTR("Num"), false);
+			oled_write_P(PSTR("Num\n"), false);
 			oled_write_P(PSTR("/|*|-"), false);
 			oled_write_P(PSTR("7|8|9"), false);
 			oled_write_P(PSTR("4|5|6"), false);
@@ -122,65 +136,77 @@ static void print_status_narrow(void) {
 			oled_write_P(PSTR("A|C|G\n"), false);
 
 			oled_write_ln_P(PSTR("ESC"), false);
-			oled_write_P(PSTR("ENTER"), false);
+			oled_write_ln_P(PSTR("ENTER"), false);
+			oled_write_ln_P(PSTR(""), false);
+			oled_write_ln_P(PSTR(""), false);
+			oled_write_ln_P(PSTR(""), false);
+
 
 			break;
 		case 1:
-			oled_write_ln_P(PSTR("Mus"), true);
-			oled_write_ln_P(PSTR(" | | "), false);
-			oled_write_ln_P(PSTR(" | | "), false);
-			oled_write_ln_P(PSTR("<|P|>"), false);
-			oled_write_ln_P(PSTR(" | | "), false);
-			oled_write_ln_P(PSTR(" | | "), false);
+			oled_write_P(PSTR("Mus\n"), true);
+			oled_write_P(PSTR(" | | "), false);
+			oled_write_P(PSTR(" | | "), false);
+			oled_write_P(PSTR("<|P|>"), false);
+			oled_write_P(PSTR(" | | "), false);
+			oled_write_P(PSTR(" | | \n"), false);
+			oled_write_ln_P(PSTR("ESC"), false);
+			oled_write_ln_P(PSTR("ENTER"), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
+			oled_write_ln_P(PSTR(""), false);
+
 			break;
 		case 2:
-			oled_write_ln_P(PSTR("Fn"), true);
+			oled_write_P(PSTR("Fn\n"), true);
 			oled_write_P(PSTR("10-12"), false);
 			oled_write_P(PSTR("7|8|9"), false);
 			oled_write_P(PSTR("4|5|6"), false);
 			oled_write_P(PSTR("1|2|3"), false);
-			oled_write_P(PSTR("A|C|G"), false);
-
-
-			oled_write_ln_P(PSTR("ESC"), false);
-			oled_write_P(PSTR("ENTER"), false);
-
-			break;
-		case 3:
-			oled_write_ln_P(PSTR("Fn2"), true);
-			oled_write_ln_P(PSTR("22-24"), false);
-			oled_write_ln_P(PSTR("19-21"), false);
-			oled_write_ln_P(PSTR("16-18"), false);
-			oled_write_ln_P(PSTR("13-15"), false);
-			oled_write_ln_P(PSTR("A|C|G"), false);
+			oled_write_P(PSTR("A|C|G\n"), false);
 
 			oled_write_ln_P(PSTR("ESC"), false);
 			oled_write_ln_P(PSTR("ENTER"), false);
+			oled_write_ln_P(PSTR(""), false);
+			oled_write_ln_P(PSTR(""), false);
+			oled_write_ln_P(PSTR(""), false);
 
+			break;
+		case 3:
+			oled_write_P(PSTR("Fn2\n"), true);
+			oled_write_P(PSTR("22-24"), false);
+			oled_write_P(PSTR("19-21"), false);
+			oled_write_P(PSTR("16-18"), false);
+			oled_write_P(PSTR("13-15"), false);
+			oled_write_P(PSTR("A|C|G\n"), false);
+
+			oled_write_ln_P(PSTR("ESC"), false);
+			oled_write_ln_P(PSTR("ENTER"), false);
+			oled_write_ln_P(PSTR(""), false);
+			oled_write_ln_P(PSTR(""), false);
+			oled_write_ln_P(PSTR(""), false);
 			break;
 		case 4:
-			oled_write_ln_P(PSTR("Nav\n"), true);
-			oled_write_ln_P(PSTR("H|^|u"), false);
-			oled_write_ln_P(PSTR("L|x|R"), false);
-			oled_write_ln_P(PSTR("E|v|V"), false);
-			oled_write_ln_P(PSTR("->_E"), false);
+			oled_write_P(PSTR("Nav\n"), true);
+			oled_write_P(PSTR("x|c|p"), false);
+			oled_write_P(PSTR("h|^|u"), false);
+			oled_write_P(PSTR("<|x|>"), false);
+			oled_write_P(PSTR("e|v|d"), false);
+			oled_write_P(PSTR("t|_|E"), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
-
 			break;
 		 case 5:
-			oled_write_ln_P(PSTR("RGB\n"), true);
+			oled_write_P(PSTR("RGB\n"), true);
 			oled_write_P(PSTR("*Togg"), false);
 			oled_write_P(PSTR("8Mode"), false);
-			oled_write_ln_P(PSTR("6Hue"), false);
-			oled_write_ln_P(PSTR("2Sat"), false);
-			oled_write_ln_P(PSTR("0Val"), false);
+			oled_write_P(PSTR("6Hue\n"), false);
+			oled_write_P(PSTR("2Sat\n"), false);
+			oled_write_P(PSTR("0Val\n"), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
@@ -189,7 +215,7 @@ static void print_status_narrow(void) {
 			oled_write_ln_P(PSTR(""), false);
 			break;
 		default:
-			oled_write_ln_P(PSTR("Undef"), false);
+			oled_write_P(PSTR("Undef"), false);
 	}
 }
 
@@ -212,15 +238,12 @@ void matrix_scan_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	process_record_remote_kb(keycode, record);
 	switch(keycode) {
-		case PROG:
+		case REVERSE:
 			if (record->event.pressed) {
-				set_bitc_LED(LED_DIM);
-				rgblight_disable_noeeprom();
-				bootloader_jump(); //jump to bootloader
+				reversed = !reversed;
 			}
 		break;
-
-		default:
+	default:
 		break;
 	}
 	return true;
