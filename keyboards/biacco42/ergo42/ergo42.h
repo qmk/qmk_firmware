@@ -2,6 +2,6 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_ergo42_rev1
+#ifdef KEYBOARD_biacco42_ergo42_rev1
     #include "rev1.h"
 #endif

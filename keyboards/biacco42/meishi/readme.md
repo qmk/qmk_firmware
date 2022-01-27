@@ -13,7 +13,7 @@ Hardware Availability: [Tanoshi life - Booth](https://biacco42.booth.pm/)
 Make example for this keyboard (after setting up your build environment):
 
 ```
-$ make meishi:default:avrdude
+$ make biacco42/meishi:default:avrdude
 ```
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.

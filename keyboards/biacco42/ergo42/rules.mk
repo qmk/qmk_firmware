@@ -19,4 +19,4 @@ AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = ergo42/rev1
+DEFAULT_FOLDER = biacco42/ergo42/rev1
