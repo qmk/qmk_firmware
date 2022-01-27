@@ -5,7 +5,6 @@
   git diff 0.15.16 HEAD -- docs/other_eclipse.md  | cat
 -->
 
-*译注：由于译者没有Eclipse环境，部分菜单项可能与真实描述不同，请酌情甄别，并欢迎提pr进行修改完善*
 
 [Eclipse][1]是一款广泛用于Java开发的[集成开发环境](https://en.wikipedia.org/wiki/Integrated_development_environment)（IDE），但有着强大的插件体系允许自定义开发其它语言及用途。
 
