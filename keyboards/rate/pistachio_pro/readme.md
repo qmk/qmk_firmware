@@ -10,11 +10,11 @@ This is a JIS layout TKL keyboard with 89 keys, encoder and OLED.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make pistachio_pro:default
+    make rate/pistachio_pro:default
 
 Flashing example for this keyboard:
 
-    make pistachio_pro:default:flash
+    make rate/pistachio_pro:default:flash
 
 To reset the keyboard into bootloader mode, press the reset switch on the underside.
 
