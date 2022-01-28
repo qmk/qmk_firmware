@@ -1,9 +1,9 @@
 {
     "keyboard_name": "Tp32",
-    "url": "",
-    "maintainer": "sky_jun@qq.com",
+    "url": "https://github.com/skyjun/tp32",
+    "maintainer": "SevenLiang",
     "layouts": {
-        "LAYOUT_rotho_3x12": {
+        "LAYOUT_ortho_3x12": {
             "layout": [
                 {"x": 0, "y": 0}, {"x": 1, "y": 0}, {"x": 2, "y": 0}, {"x": 3, "y": 0}, {"x": 4, "y": 0},
                 {"x": 7, "y": 0}, {"x": 8, "y": 0}, {"x": 9, "y": 0}, {"x": 10, "y": 0}, {"x": 11, "y": 0},
