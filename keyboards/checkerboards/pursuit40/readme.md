@@ -1,15 +1,15 @@
-# Quark
+# Pursuit40
 
-![Quark](https://i.imgur.com/WcvKyf4l.jpg)
+![Pursuit40](https://i.imgur.com/Ay3k75tl.jpg)
 
-The Quark PCB is a modified layout for the Planck by OLKB. It's similar to a Planck, but the bottom row was designed to be more useable-larger than 1u keys.
+The Pursuit40 PCB is a modified layout Panc40 by Alex Panc. It's similar to traditional ortho but the bottom row keys are larger than 1u. 
 
 * Keyboard Maintainer: [Nasp](https://github.com/npspears)
-* Hardware Supported: Planck
-* Hardware Availability: https://forms.gle/ZpGtQjBNtsbuSV767
+* Hardware Supported: Panc40
+* Hardware Availability: https://panc.co/store/ols/products/panc40-keyboard-pnc-kyb1
 
 Make example for this keyboard (after setting up your build environment):
 
-    make quark:default
+    make checkerboards/pursuit40:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
