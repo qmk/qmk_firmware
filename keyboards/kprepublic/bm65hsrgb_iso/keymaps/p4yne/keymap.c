@@ -16,7 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap.h"
 #include "sendstring_german.h"
-#include "rgb_matrix.h"
 
 #ifdef TAP_DANCE_ENABLE
 enum {
