@@ -15,6 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma once
+
 #define COLOR HSV_GREEN // define solid color
 #define BACKLIGHT_TIMEOUT 5 // (minutes)
 
