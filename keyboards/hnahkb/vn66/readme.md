@@ -1,19 +1,19 @@
-# stella
+# VN66
 
-![stella](https://i.imgur.com/jaiG578l.jpg)
+![vn66](https://i.imgur.com/Eo28suIl.jpg)
 
-A custom keyboard design for VGS community
+A compact 60% keyboard for VNMK
 
-* Keyboard Maintainer: [HnahKB](https://github.com/vuhopkep)
-* Hardware Supported: Stella Keyboard
-* Hardware Availability: [VGS](https://www.facebook.com/groups/vietnamgamingsetup/permalink/2403066473102277)
+* Keyboard Maintainer: VNMK Community
+* Hardware Supported: VN66 PCB rev.2
+* Hardware Availability: https://geekhack.org/index.php?topic=101754.0
 
 Make example for this keyboard (after setting up your build environment):
 
-    make stella:default
+    make hnahkb/vn66:default
 
 Flashing example for this keyboard:
 
-    make stella:default:flash
+    make hnahkb/vn66:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
