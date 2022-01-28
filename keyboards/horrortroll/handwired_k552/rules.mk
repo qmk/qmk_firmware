@@ -1,11 +1,13 @@
 # MCU name
 MCU = STM32F103
 
-MCU_LDSCRIPT = k552_f103
-BOARD = k552
-
-# Bootloader selection
-BOOTLOADER = stm32duino
+# Custom loader configuration
+MCU_LDSCRIPT = STM32F103xC_stm32duino_bootloader
+OPT_DEFS += -DBOOTLOADER_STM32DUINO
+BOARD = STM32_F103XC_STM32DUINO
+STM32_BOOTLOADER_ADDRESS = 0x80000000
+DFU_ARGS = -d 1EAF:0003 -a 2 -R
+DFU_SUFFIX_ARGS = -v 1EAF -p 0003
 
 # Build Options
 #   change yes to no to disable

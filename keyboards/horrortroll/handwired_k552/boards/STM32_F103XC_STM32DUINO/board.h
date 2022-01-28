@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2015 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -16,6 +16,10 @@
 
 #ifndef _BOARD_H_
 #define _BOARD_H_
+
+/*
+ * Setup for a Generic STM32F103 board.
+ */
 
 /*
  * Board identifier.
@@ -37,24 +41,25 @@
  * linker script. For x8 parts use xC here and change to the x8 linker
  * script in the project Makefile.
  */
-#pragma once
-#include_next <board.h>
-#undef STM32F103xB
 #define STM32F103xE
 
 /*
  * IO pins assignments
- *
- * numbering is sorted by onboard/connectors, as from the schematics in
- * http://www.vcc-gnd.com/read.php?tid=369
  */
 
 /* on-board */
-#define GPIOA_USBDM             11      // pin 8
-#define GPIOA_USBDP             12      // pin 9
 
-#define GPIOC_OSC32_IN          14
-#define GPIOC_OSC32_OUT         15
+#define GPIOA_LED               8
+#define GPIOD_OSC_IN            0
+#define GPIOD_OSC_OUT           1
+
+/* In case your board has a "USB enable" hardware
+   controlled by a pin, define it here. (It could be just
+   a 1.5k resistor connected to D+ line.)
+*/
+/*
+#define GPIOB_USB_DISC          10
+*/
 
 /*
  * I/O ports initial setup, this configuration is established soon after reset
@@ -83,25 +88,31 @@
 /*
  * Port A setup.
  * Everything input with pull-up except:
+ * PA2  - Alternate output  (USART2 TX).
+ * PA3  - Normal input      (USART2 RX).
+ * PA9  - Alternate output  (USART1 TX).
+ * PA10 - Normal input      (USART1 RX).
  */
-#define VAL_GPIOACRL            0x88888888      /*  PA7...PA0 */
-#define VAL_GPIOACRH            0x88888888      /* PA15...PA8 */
+#define VAL_GPIOACRL            0x88884B88      /*  PA7...PA0 */
+#define VAL_GPIOACRH            0x888884B8      /* PA15...PA8 */
 #define VAL_GPIOAODR            0xFFFFFFFF
 
 /*
  * Port B setup.
  * Everything input with pull-up except:
+ * PB10    - Push Pull output  (USB switch).
  */
 #define VAL_GPIOBCRL            0x88888888      /*  PB7...PB0 */
-#define VAL_GPIOBCRH            0x88888888      /* PB15...PB8 */
+#define VAL_GPIOBCRH            0x88888388      /* PB15...PB8 */
 #define VAL_GPIOBODR            0xFFFFFFFF
 
 /*
  * Port C setup.
  * Everything input with pull-up except:
+ * PC13    - Push Pull output  (LED).
  */
 #define VAL_GPIOCCRL            0x88888888      /*  PC7...PC0 */
-#define VAL_GPIOCCRH            0x88888888      /* PC15...PC8 */
+#define VAL_GPIOCCRH            0x88388888      /* PC15...PC8 */
 #define VAL_GPIOCODR            0xFFFFFFFF
 
 /*
@@ -125,12 +136,27 @@
 /*
  * USB bus activation macro, required by the USB driver.
  */
-#define usb_lld_connect_bus(usbp)	/* always connected */
+/* The point is that most of the generic STM32F103* boards
+   have a 1.5k resistor connected on one end to the D+ line
+   and on the other end to some pin. Or even a slightly more
+   complicated "USB enable" circuit, controlled by a pin.
+   That should go here.
+
+   However on some boards (e.g. one that I have), there's no
+   such hardware. In which case it's better to not do anything.
+*/
+/*
+#define usb_lld_connect_bus(usbp) palClearPad(GPIOB, GPIOB_USB_DISC)
+*/
+#define usb_lld_connect_bus(usbp) palSetPadMode(GPIOA, 12, PAL_MODE_INPUT);
 
 /*
  * USB bus de-activation macro, required by the USB driver.
  */
-#define usb_lld_disconnect_bus(usbp)	/* always connected */
+/*
+#define usb_lld_disconnect_bus(usbp) palSetPad(GPIOB, GPIOB_USB_DISC)
+*/
+#define usb_lld_disconnect_bus(usbp) palSetPadMode(GPIOA, 12, PAL_MODE_OUTPUT_PUSHPULL); palClearPad(GPIOA, 12);
 
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus
