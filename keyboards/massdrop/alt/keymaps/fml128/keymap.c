@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifdef RGB_MATRIX_ENABLE
-    static uint16_t idle_timer;
-    static uint8_t minute_counter;
-    static bool led_on;
+static uint16_t idle_timer;
+static uint8_t minute_counter;
+static bool led_on;
 #endif
 
 
