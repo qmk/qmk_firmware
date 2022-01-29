@@ -95,9 +95,8 @@ __attribute__((weak)) void tap_code16(uint16_t code) {
     register_code16(code);
     if (code == KC_CAPS_LOCK) {
         wait_ms(TAP_HOLD_CAPS_DELAY);
-    }
-    else if (TAP_CODE_DELAY > 0) {
-        wait_ms(TAP_CODE_DELAY); 
+    } else if (TAP_CODE_DELAY > 0) {
+        wait_ms(TAP_CODE_DELAY);
     }
     unregister_code16(code);
 }
