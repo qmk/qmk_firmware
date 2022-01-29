@@ -19,4 +19,4 @@ AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes       # Enables split keyboard support
 
-DEFAULT_FOLDER = runner3680/5x8
+DEFAULT_FOLDER = omkbd/runner3680/5x8
