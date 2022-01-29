@@ -13,11 +13,11 @@ Original work performed by Michael L. Walker, all credit goes to him. I've tidie
 
 Make example for this keyboard (after setting up your build environment):
 
-    make wheatfield/split75:default
+    make mt/split75:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make wheatfield/split75:default:flash
+    make mt/split75:default:flash
 
 or
 

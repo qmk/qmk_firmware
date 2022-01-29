@@ -12,11 +12,11 @@ It supports standard 84-key layout, with hotswap sockets and per-key RGB backlig
 
 Make example for this keyboard (after setting up your build environment):
 
-    make wheatfield/mt84:default
+    make mt/mt84:default
     
 Flashing example for this keyboard:
 
-    make wheatfield/mt84:default:flash
+    make mt/mt84:default:flash
 
 To put the board into bootloader mode, either press the reset button on the bottom the PCB or hold Space+B while plugging it in.
 
