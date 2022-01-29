@@ -1,4 +1,4 @@
-/* Copyright 2020-2022 Gondolindrim
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,10 +16,10 @@
 
 #pragma once
 
-#include "quantum.h"
+#include_next <mcuconf.h>
 
-#if defined(KEYBOARD_acheron_elongate_beta)
-  #include "beta.h"
-#elif defined(KEYBOARD_acheron_elongate_delta)
-  #include "delta.h"
-#endif
+#undef STM32_PWM_USE_TIM3
+#define STM32_PWM_USE_TIM3 TRUE
+
+#undef STM32_SPI_USE_SPI2
+#define STM32_SPI_USE_SPI2 TRUE

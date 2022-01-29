@@ -1,4 +1,4 @@
-/* Copyright 2020-2022 Gondolindrim
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,10 +16,10 @@
 
 #pragma once
 
-#include "quantum.h"
+#define CH_CFG_ST_FREQUENCY 10000
 
-#if defined(KEYBOARD_acheron_elongate_beta)
-  #include "beta.h"
-#elif defined(KEYBOARD_acheron_elongate_delta)
-  #include "delta.h"
-#endif
+#define CH_CFG_OPTIMIZE_SPEED FALSE
+
+#define CH_CFG_USE_CONDVARS_TIMEOUT FALSE
+
+#include_next <chconf.h>
