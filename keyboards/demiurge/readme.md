@@ -9,7 +9,7 @@
 - Hardware Supported: Demiurge PCB
 - Hardware Availability: Through group-buy
 
-Make examples for this keyboard (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
     make demiurge:default
 
