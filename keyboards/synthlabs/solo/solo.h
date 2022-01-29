@@ -2,8 +2,6 @@
 
 #include "quantum.h"
 
-#ifndef SYNTH_LABS_SOLO_H
-#define SYNTH_LABS_SOLO_H
 
 #define XXX KC_NO
 
