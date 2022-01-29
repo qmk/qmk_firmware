@@ -4,7 +4,7 @@ This keyboard is a mini 1800 with a minimal navigation cluster, which also offer
 
 * Keyboard Maintainer: [s8erdude](https://github.com/jpuerto96)
 * Hardware Supported: IO-Mini 1800
-* Hardware Availability: [Open Source PCB](https://github.com/jpuerto96/io-mini1800)
+* Hardware Availability: [P3D Store](https://p3dstore.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
