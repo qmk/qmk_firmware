@@ -17,7 +17,14 @@ And because I'm Korean, a combo for Korean and English keyboard conversion has b
 
 Press and hold to activate the keys in parentheses.
 
+
+https://imgur.com/a/UkKfCYm
+
+
 ## _BASE(QWERTY)
+
+![](https://i.imgur.com/PuHFVXT.png)
+
 
 | Q | W | E | R | T | | | Y | U | I | O | P | 
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -27,6 +34,8 @@ Press and hold to activate the keys in parentheses.
 
 ## _Navi
 
+![](https://i.imgur.com/BwDHx64.png)
+
 | Mousewheel left | Mousewheel down | Mousewheel up | Mousewheel right | ESC | | | DEL | HOME | PageDown | PageUP | END | 
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | A(GUI) | S(Alt) | D(Ctrl) | F(Shift) |  TAB | |  | ENTER | J(Shift) | K(Ctrl)  | L(Alt) | '(GUI) |
@@ -35,6 +44,8 @@ Press and hold to activate the keys in parentheses.
 
 ## _Numb
 
+![](https://i.imgur.com/lPPyUsk.png)
+
 | [ | 7 | 8 | 9 | ] | | | DEL |  |  |  |  | 
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | ; | 4 | 5 | 6 | = | |  | ENTER | J(Shift) | K(Ctrl)  | L(Alt) | '(GUI) |
@@ -42,6 +53,8 @@ Press and hold to activate the keys in parentheses.
 | | | | 0|  - | | | Backspace | | | | |  
 
 ## _Func
+
+![](https://i.imgur.com/rz0jaoe.png)
 
 | F12 | F7 | F8 | F9 | PrintScreen | | | RESET |  |  |  |  | 
 |---|---|---|---|---|---|---|---|---|---|---|---|
