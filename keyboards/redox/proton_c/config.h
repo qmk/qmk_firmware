@@ -20,7 +20,6 @@
 // wiring of each half
 #define MATRIX_ROW_PINS { B5, B3, B2, B1, B0 }
 #define MATRIX_COL_PINS { A1, A0, B8, B13, B14, B15, B9 }
-// #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5} //uncomment this line and comment line above if you need to reverse left-to-right key order
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
