@@ -1,4 +1,4 @@
-/* Copyright 2020-2022 Gondolindrim
+/* Copyright 2020 Gondolindrim
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,12 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include "quantum.h"
-
-#if defined(KEYBOARD_acheron_elongate_beta)
-  #include "beta.h"
-#elif defined(KEYBOARD_acheron_elongate_delta)
-  #include "delta.h"
-#endif
+#include "beta.h"
