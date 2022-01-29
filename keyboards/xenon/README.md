@@ -1,7 +1,6 @@
-Xenon
-=====
+# Xenon
 
-![Xenon](https://i.imgur.com/QYMDzGF.jpg)
+![Xenon](https://i.imgur.com/QYMDzGFh.jpg)
 
 Xenon is 60% columnar staggered keyboard.
 
@@ -10,11 +9,9 @@ Xenon is 60% columnar staggered keyboard.
 * Full color LED
 * Prototype board area (behind the promicro)
 
-Keyboard Maintainer: [Narinari](https://github.com/narinari)
-
-Keymap Maintainer: [Kyrremann](https://github.com/Kyrremann)
-
-Keyboard files can be found here: https://github.com/narinari/xenon-keyboard
+* Keyboard Maintainer: [Narinari](https://github.com/narinari)
+* Keymap Maintainer: [Kyrremann](https://github.com/Kyrremann)
+* Keyboard files can be found here: https://github.com/narinari/xenon-keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
