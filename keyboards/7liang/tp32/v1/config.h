@@ -50,6 +50,7 @@
 
 #define RGBLIGHT_SLEEP
 
+#define LED_PIN_ON_STATE    0
 #define LED_CAPS_LOCK_PIN   F5
 #define LED_NUM_LOCK_PIN    F4
 // 按键灯，按下任意键都会亮一下
