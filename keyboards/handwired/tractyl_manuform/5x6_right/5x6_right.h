@@ -26,6 +26,8 @@
 #    include "teensy2pp.h"
 #elif defined(KEYBOARD_handwired_tractyl_manuform_5x6_right_elite_c)
 #    include "elite_c.h"
+#else
+#    error "Unrecognized keyboard defined"
 #endif
 
 #include "quantum.h"

@@ -23,6 +23,10 @@
 #    include "5x6_right.h"
 #elif defined(KEYBOARD_handwired_tractyl_manuform_4x6_right)
 #    include "4x6_right.h"
+#elif defined(KEYBOARD_handwired_tractyl_manuform_6x7_right)
+#    include "6x7_right.h"
+#else
+#    error "No recognized keyboard defined"
 #endif
 
 typedef union {
