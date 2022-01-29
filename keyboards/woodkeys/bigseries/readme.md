@@ -10,7 +10,7 @@ Hardware Availability:  [Woodkeys.click](https://woodkeys.click), [NovelKeys](ht
 
 Make example for these keyboards (after setting up your build environment):
 
-    make bigseries/1key:default
-    make bigseries/3key:ctrl-alt-del
+    make woodkeys/bigseries/1key:default
+    make woodkeys/bigseries/3key:ctrl-alt-del
 
 See [build environment setup](https://docs.qmk.fm/install-build-tools) then the [make instructions](https://docs.qmk.fm/build-compile-instructions) for more information.

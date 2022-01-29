@@ -1,6 +1,6 @@
 # Big Series Keyboard
 
-![Big Series 3-Key](https://woodkeys.click/wp-content/uploads/2018/04/BigSeries_3u_Case_2018-Apr-03_07-03-31PM-000_CustomizedView20086357020.png)
+![Big Series 1-Key](https://woodkeys.click/wp-content/uploads/2017/12/woodkeys_419.jpg)
 
 A PCB for the Big Series Switch by [NovelKeys](https://novelkeys.xyz). Available in 1, 2, 3, and 4 switch versions from [Woodkeys.click](https://woodkeys.click/product-category/big-series/).
 
@@ -10,6 +10,6 @@ Hardware Availability:  [Woodkeys.click](https://woodkeys.click), [NovelKeys](ht
 
 Make example for this keyboard (after setting up your build environment):
 
-    make bigseries/3key:default
+    make woodkeys/bigseries/1key:default
 
 See [build environment setup](https://docs.qmk.fm/install-build-tools) then the [make instructions](https://docs.qmk.fm/build-compile-instructions) for more information.
