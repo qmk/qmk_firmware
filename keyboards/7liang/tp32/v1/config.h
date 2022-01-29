@@ -35,7 +35,6 @@
 
 #define RGB_DI_PIN          F0
 #define RGBLED_NUM          32
-#define RGBLIGHT_ANIMATIONS
 
 // animations enable
 #define RGBLIGHT_EFFECT_BREATHING

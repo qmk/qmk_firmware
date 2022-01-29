@@ -1,4 +1,4 @@
-/* Copyright 2022 SevenLiang(@skyjun)
+/* Copyright 2022 Se1enLiang(@skyjun)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,9 +36,19 @@ bool led_update_kb(led_t led_state)
     return led_update_user(led_state);
 }
 
+static uint8_t key_tracker  = 0;
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 {
-    writePin(LED_KEY_PRESS_PIN, !record->event.pressed);
+    if (record->event.pressed)
+    {
+        key_tracker++;
+    }
+    else
+    {
+        key_tracker--;
+    }
+
+    writePin(LED_KEY_PRESS_PIN, !key_tracker);
 
     return process_record_user(keycode, record);
 }
