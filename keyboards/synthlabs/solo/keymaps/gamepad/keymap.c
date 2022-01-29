@@ -1,3 +1,6 @@
+// Copyright 2022 Aaron Hong (@hongaaronc)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "joystick.h"
