@@ -1,6 +1,6 @@
 # Demiurge
 
-![demiurge-img-1](https://imgur.com/a/mCoEfMa.png)
+![demiurge-img-1](https://i.imgur.com/gnQ2Pj6h.jpeg)
 
 # Keyboard Info
 
