@@ -10,6 +10,6 @@ Le Chiffre (ironically, "the number" in French is a 30% keyboard designed by tom
 
 Make example for this keyboard (after setting up your build environment):
 
-    make le_chiffre:default
+    make tominabox1/le_chiffre:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
