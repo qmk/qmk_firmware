@@ -31,7 +31,7 @@
             ["C4", "A7", "A3", "F4"],
             ["C5", null, null, "F5"],
             ["C6", null, null, "F6"],
-            ["C7", null, null, "F7"],
+            ["C7", null, null, "F7"]
         ]
     },
     "usb": {
