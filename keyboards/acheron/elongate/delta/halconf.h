@@ -1,4 +1,4 @@
-/* Copyright 2020-2022 Gondolindrim
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,10 +16,8 @@
 
 #pragma once
 
-#include "quantum.h"
+#define HAL_USE_PWM TRUE
 
-#if defined(KEYBOARD_acheron_elongate_beta)
-  #include "beta.h"
-#elif defined(KEYBOARD_acheron_elongate_delta)
-  #include "delta.h"
-#endif
+#define HAL_USE_SPI TRUE
+
+#include_next <halconf.h>

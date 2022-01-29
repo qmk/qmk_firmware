@@ -1,4 +1,4 @@
-/* Copyright 2020-2022 Gondolindrim
+/* Copyright 2018
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,10 +16,12 @@
 
 #pragma once
 
-#include "quantum.h"
+#define IGNORE_MOD_TAP_INTERRUPT  // MT key must be held longer than tapping term for
+                                  // modifer to be registered
+#define RETRO_TAPPING_PER_KEY
+#define TAPPING_TERM_PER_KEY
 
-#if defined(KEYBOARD_acheron_elongate_beta)
-  #include "beta.h"
-#elif defined(KEYBOARD_acheron_elongate_delta)
-  #include "delta.h"
-#endif
+#define COMBO_COUNT 2             // number of combos used
+#define COMBO_TERM 40             // time out for combos in ms
+#define TAPPING_TERM 200          // time out for tap-hold in ms
+
