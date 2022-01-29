@@ -67,6 +67,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+const key_override_t up_key_override = ko_make_basic(MOD_MASK_CTRL, KC_UP, KC_PGUP);
+const key_override_t dn_key_override = ko_make_basic(MOD_MASK_CTRL, KC_DOWN, KC_PGDN);
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+       &up_key_override,
+       &dn_key_override,
+       NULL // Null terminate the array of overrides!
+};
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
