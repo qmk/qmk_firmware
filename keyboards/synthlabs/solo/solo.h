@@ -37,4 +37,3 @@
         {   K08, K09, K10                                       },                  \
         {               XXX, K12, XXX, K14, XXX, K16, XXX       }                   \
     }
-#endif // SYNTH_LABS_SOLO
