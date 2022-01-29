@@ -38,7 +38,7 @@
 #define SERIAL_USART_TX_PIN B6     // USART TX pin
 #define SERIAL_USART_RX_PIN B7     // USART RX pin
 // #define USART1_REMAP             // Remap USART TX and RX pins on STM32F103 MCUs, see table below.
-// #define SERIAL_USART_PIN_SWAP    // Swap TX and RX pins if keyboard is master halve.
+#define SERIAL_USART_PIN_SWAP    // Swap TX and RX pins if keyboard is master halve.
                                    // Check if this feature is necessary with your keyboard design and available on the mcu.
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
                                    //  0: 460800 baud
