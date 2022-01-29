@@ -1,35 +1,3 @@
-/*
-
-Introduction:
-This keyboard layout centers around Dvorak,  harnesing the power of the Kyria thumb
-clusters and layers to reduce finger movement.
-Qwerty is present so you don't have to remap games and any other programs you use.
-
-
-Guiding ideology:
-- Use thumb keys as much as possible
-- Minimise home row departure
-- Minimize or eliminate non home row pinkie finger use
-- Create macros for very common key shortcuts (ctrl + c/v/s, ctrl+shift+home etc.)
-- Create macros for very common commands (git status, git pull, git push etc.)
-
-- Use hints to indicate current layer (rgb lighting/OLED display)
-- Allow graceful layer handling (emergency return to default layer/layer index layer)
-
-
-Layers (6)
-
-Base1: dvorak
-Base2: qwerty
-
-Layer_1: navigation & keypad
-Layer_2: F keys
-Layer_3: FE macros
-Layer_4: Git macros
-
-*/
-
-// https://github.com/qmk/qmk_firmware/blob/master/keyboards/splitkb/kyria/keymaps/asapjockey/keymap.c
 
 #include QMK_KEYBOARD_H
 
@@ -38,6 +6,7 @@ Layer_4: Git macros
 enum layers {
   DVORAK = 0,
   QWERTY,
+  LAYERS
 };
 
 // Future Layers
@@ -88,19 +57,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |  ESC   |  ' " | , <  |   .  |   P  |   Y  |                              |   F  |   G  |   C  |   R  |   L  |L_Qwerty|
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |  Tab   |   A  |   O  |   E  |   U  |   I  |                              |   D  |   H  |   T  |   N  |   S  |        |
+ * |  Tab   |   A  |   O  |   E  |   U  |   I  |                              |   D  |   H  |   T  |   N  |   S  |L_Layers|
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LShift | :  ; |   Q  |   J  |   K  |   X  |      |      |  |  Win |      |   B  |   M  |   W  |   V  |   Z  | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'	
- *                        |      |      | LCtrl| Space| Bksp |  |      | ENTER|  Del |      |      |
+ *                        |      |      | LCtrl| Space| Bksp |  |R_Alt | ENTER|  Del |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
   [DVORAK] = LAYOUT(
-    KC_ESC,  KC_QUOT, KC_COMM,KC_DOT ,KC_P,    KC_Y,                                                KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    TG(QWERTY),
-    KC_TAB,  KC_A,    KC_O,   KC_E,   KC_U,    KC_I,                                                KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    XXXXXXX,
+    KC_ESC,  KC_QUOT, KC_COMM,KC_DOT ,KC_P,    KC_Y,                                                KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    DF(QWERTY),
+    KC_TAB,  KC_A,    KC_O,   KC_E,   KC_U,    KC_I,                                                KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    DF(LAYERS),
     KC_LSFT, KC_SCLN, KC_Q,   KC_J,   KC_K,    KC_X,    XXXXXXX,  XXXXXXX,  KC_LWIN,    XXXXXXX,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-                          XXXXXXX,   XXXXXXX, KC_LCTL,  KC_SPC,   KC_BSPC,  XXXXXXX,    KC_ENT,     KC_DEL,  XXXXXXX,  XXXXXXX
+                          XXXXXXX,   XXXXXXX, KC_LCTL,  KC_SPC,   KC_BSPC,  KC_RALT,    KC_ENT,     KC_DEL,  XXXXXXX,  XXXXXXX
   ),
 
 
@@ -111,9 +80,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: QWERTY
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |  ESC   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |        |
+ * |  ESC   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |L_Dvorak|
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |  Tab   |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |L_Dvorak|
+ * |  Tab   |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |L_Layers|
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |      |  |  Win |      |   N  |   M  | ,  < | . >  | /  ? | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'	
@@ -122,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [QWERTY] = LAYOUT(
-      KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    XXXXXXX,
-      KC_TAB,  KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, TG(DVORAK),
-      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    XXXXXXX, XXXXXXX,    KC_LWIN,  XXXXXXX,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
+      KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    DF(DVORAK),
+      KC_TAB,  KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, DF(LAYERS),
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    XXXXXXX, XXXXXXX,    KC_LWIN,  XXXXXXX,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                             XXXXXXX,   XXXXXXX, KC_LCTL, KC_SPC,  KC_BSPC,   XXXXXXX,  KC_ENT,     KC_DEL,  XXXXXXX,  XXXXXXX
     ),
 
@@ -241,6 +210,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
+/*
+ * Adjust Layer: Layer index
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |L_Dvorak|
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |Dvorak|QWERTY|      |      |      |                              |      |      |      |      |      |L_Layers|
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [LAYERS] = LAYOUT(
+      _______, _______, _______, _______, _______, _______,                                    _______, _______, _______, _______,  _______, DF(DVORAK),
+      _______, DF(DVORAK), DF(QWERTY), _______, _______, _______,                              _______, _______, _______, _______,  _______, DF(LAYERS),
+      _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
+    ),
+
+
+
 // /*
 //  * Layer template
 //  *
@@ -313,6 +305,9 @@ static void render_status(void) {
             break;
         case QWERTY:
             oled_write_P(PSTR("Qwerty\n"), false);
+            break;
+        case LAYERS:
+            oled_write_P(PSTR("Layer Index\n"), false);
             break;
         default:
             oled_write_P(PSTR("ERR No Layer!\n"), false);
