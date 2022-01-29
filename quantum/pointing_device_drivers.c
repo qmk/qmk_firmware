@@ -23,7 +23,11 @@
 #include <stddef.h>
 
 // hid mouse reports cannot exceed -127 to 127, so constrain to that value
-#define constrain_hid(amt) ((amt) < -127 ? -127 : ((amt) > 127 ? 127 : (amt)))
+#ifdef MOUSE_EXT_REPORT
+#    define constrain_hid(amt) ((amt) < -32767 ? -32767 : ((amt) > 32767 ? 32767 : (amt)))
+#else
+#    define constrain_hid(amt) ((amt) < -127 ? -127 : ((amt) > 127 ? 127 : (amt)))
+#endif
 
 // get_report functions should probably be moved to their respective drivers.
 #if defined(POINTING_DEVICE_DRIVER_adns5050)

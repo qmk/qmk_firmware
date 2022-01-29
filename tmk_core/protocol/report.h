@@ -206,8 +206,15 @@ typedef struct {
     uint8_t report_id;
 #endif
     uint8_t buttons;
+#ifdef MOUSE_EXT_REPORT
+    int16_t x;
+    int16_t y;
+    int8_t boot_x;
+    int8_t boot_y;
+#else
     int8_t  x;
     int8_t  y;
+#endif
     int8_t  v;
     int8_t  h;
 } __attribute__((packed)) report_mouse_t;
