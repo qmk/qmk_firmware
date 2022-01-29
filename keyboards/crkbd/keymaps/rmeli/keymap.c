@@ -56,11 +56,13 @@ bool oled_task_user(void) {
 // + ------- +
 
 // Layer names
-#define _QWERTY 0
-#define _COLEMAK_DH 1
-#define _DWN 2
-#define _UP 3
-#define _CONFIG 4
+enum layer_names {
+    _QWERTY,
+    _COLEMAK_DH,
+    _DWN,
+    _UP,
+    _CONFIG,
+};
 
 // Layer names shortcuts
 #define _QWY 0
