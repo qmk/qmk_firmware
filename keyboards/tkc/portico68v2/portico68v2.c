@@ -141,8 +141,5 @@ void rgb_matrix_indicators_kb(void) {
             }
         }
     }
-	if (!rgb_matrix_is_enabled()) {
-		rgb_matrix_driver.flush();
-    }
 }
 #endif
