@@ -27,60 +27,56 @@ We've deliberately omitted some features:
 
 ```
 | TAB   |  Q  |  W  |  E  |  R  |  T  |---------------------------|  Y  |  U  |  I  |  O  |  P  | BKSPC |
-| CTRL  |  A  |  S  |  D  |  F  |  G  |---------------------------|  H  |  J  |  K  |  L  |  ;  |   '   |
+| CAPS  |  A  |  S  |  D  |  F  |  G  |---------------------------|  H  |  J  |  K  |  L  |  ;  | ENTER |
 | SHIFT |  Z  |  X  |  C  |  V  |  B  |  ~  |---------------| ESC |  N  |  M  |  ,  |  .  |  /  | SHIFT |
---------------|ENTER|-----| GUI | ALT | Num | Nav |---| Sym |SPACE| ALT | GUI |-----| APP |--------------
+--------------|CTRL |-----| GUI | ALT | Num | Nav |---| Sym |SPACE| ALT | GUI |-----|  '  |--------------
 ```
 
-The base layer can be either of QWERTY, Colemak-DH or Dvorak,
-  with identical non-alpha and non-symbol keys.
-QWERTY is the default.
+The base layer provides a very standard key layout:
 
-A standard keyboard layout is used for:
-
-- Tab, backspace and shift keys in the outer columns.
-- Alt/option and GUI/command keys on both thumbs, with the location swappable for windows or mac.
+- Return, Tab, backspace and shift keys in the outer columns.
+- Alt/option and win/command keys on both thumbs, with the location swappable for windows or mac.
 - A space key on the right thumb.
 
 The differences from a standard layout are:
 
 - There are three additional "shift" keys
   to access the navigation/editing, symbol/function, and number layers.
-- Enter is on the left thumb or ring finger.
-  This location allowed preserving the more common right-hand keys.
-  Feel free to swap it with the quote key or have it share the right shift key
-    as a mod-tap key.
-- Control is in the caps lock spot.
 - Esc and `~ are above the thumbs.
-- The rarer AltGr key is in a layer.
+- The Menu and AltGr keys are on a layer.
+
+The default layout is QWERTY with alternatives of Dvorak and Colemak-DH
+and the alt/option and win/command key locations are swappable for windows or mac.
 
 <details>
 <summary>Details of Dvorak and Colemak-DH</summary>
-In the Dvorak layout, the outer home row key is the "/?" symbols
+The Dvorak and Colemak-DH base layers
+  have identical non-alpha and non-symbol keys as the QWERTY base layer.
+In the Dvorak layout, the symbol key in the bottom row is the "/?" symbols
   so that the same 12 symbols are taken care of on the base layer.
 
 ```
 Dvorak
 | TAB   |  '  |  ,  |  .  |  P  |  Y  |---------------------------|  F  |  G  |  C  |  R  |  L  | BKSPC |
-| CTRL  |  A  |  O  |  E  |  U  |  I  |---------------------------|  D  |  H  |  T  |  N  |  S  |  /    |
+| CAPS  |  A  |  O  |  E  |  U  |  I  |---------------------------|  D  |  H  |  T  |  N  |  S  | ENTER |
 | SHIFT |  ;  |  Q  |  J  |  K  |  X  |  ~  |---------------| ESC |  B  |  M  |  W  |  V  |  Z  | SHIFT |
---------------|ENTER|-----| GUI | ALT | Num | Nav |---| Sym |SPACE| ALT | GUI |-----| APP |--------------
+--------------|CTRL |-----| GUI | ALT | Num | Nav |---| Sym |SPACE| ALT | GUI |-----|  /  |--------------
 
 Colemak-DH
 | TAB   |  Q  |  W  |  F  |  P  |  B  |---------------------------|  J  |  L  |  U  |  Y  |  ;  | BKSPC |
-| CTRL  |  A  |  R  |  S  |  T  |  G  |---------------------------|  M  |  N  |  E  |  I  |  O  |   '   |
+| CAPS  |  A  |  R  |  S  |  T  |  G  |---------------------------|  M  |  N  |  E  |  I  |  O  | ENTER |
 | SHIFT |  Z  |  X  |  C  |  D  |  V  |  ~  |---------------| ESC |  K  |  H  |  ,  |  .  |  /  | SHIFT |
---------------|ENTER|-----| GUI | ALT | Num | Nav |---| Sym |SPACE| ALT | GUI |-----| APP |--------------
+--------------|CTRL |-----| GUI | ALT | Num | Nav |---| Sym |SPACE| ALT | GUI |-----|  '  |--------------
 ```
 </details>
 
 ## Navigation, Editing and Media Layer
 
 ```
-| CAPS  | INS |     |     |     |VOL+ |---------------------------|PG_UP|HOME |     |  END|     | DEL   |
-| CTRL  | GUI | ALT |CTRL |SHIFT|VOL- |---------------------------|PG_DN|LEFT | UP  |RIGHT|     | CTRL  |
-| SHIFT |UNDO | CUT |COPY |PASTE|REDO |MUTE |---------------| ESC |     |WORDL|DOWN |WORDR|RALT | SHIFT |
---------------|ENTER|-----| GUI | ALT | Num | *** |---| Adj |BSPC | ALT | GUI |-----| APP |--------------
+|       | INS |     |     |     |VOL+ |---------------------------|PG_UP|HOME |     |  END|     | DEL   |
+|       | GUI | ALT |CTRL |SHIFT|VOL- |---------------------------|PG_DN|LEFT | UP  |RIGHT|     | ENTER |
+| SHIFT |UNDO | CUT |COPY |PASTE|REDO |MUTE |---------------| ESC |RALT |WORDL|DOWN |WORDR|MENU | SHIFT |
+--------------|CTRL |-----| GUI | ALT | Num | *** |---| Adj |BSPC | ALT | GUI |-----|CTRL |--------------
 ```
 Holding down the Nav key accesses a navigation and editing layer:
 
@@ -96,33 +92,33 @@ Holding down the Nav key accesses a navigation and editing layer:
 - The base layer modifiers and escape are in the same spots as on the base layer,
   and a right-hand control key is added.
 - Media volume and play keys are on the left, accessible with one hand.
-- AltGr and caps lock fill out the layer.
+- Menu and AltGr keys fill out the layer.
 - A few keys do nothing and are available for more user-specific needs.
 
 ## Symbol and Function Layer
 
 ```
-| F12   |  !  |  @  |  #  |  $  |  %  |---------------------------|  ^  |  &  |  *  |  (  |  )  | BSPC  |
-| CTRL  | F1  | F2  | F3  | F4  | F5  |---------------------------|  |  |SHIFT|CTRL | ALT | GUI | CTRL  |
-| SHIFT | F6  | F7  | F8  | F9  | F10 | F11 |---------------| ESC |  \  |  [  |  ]  |  {  |  }  | SHIFT |
---------------|ENTER|-----| GUI | ALT | Num | Adj |---| *** |SPACE| ALT | GUI |-----| APP |--------------
+| F11   |  !  |  @  |  #  |  $  |  %  |---------------------------|  ^  |  &  |  *  |  (  |  )  | BSPC  |
+| F12   | F1  | F2  | F3  | F4  | F5  |---------------------------|  |  |SHIFT|CTRL | ALT | GUI | ENTER |
+| SHIFT | F6  | F7  | F8  | F9  | F10 |PRTSC|---------------| ESC |  \  |  [  |  ]  |  {  |  }  | SHIFT |
+--------------|CTRL |-----| GUI | ALT | Num | Adj |---| *** |SPACE| ALT | GUI |-----|CTRL |--------------
 ```
 Holding down the Sym key accesses a layer of symbol and function keys:
 
 - The symbols usually found on the number keys are in the top row.
   If desired, you can use these positions for other things,
   as the symbols are also accessible from the number pad layer with the shift key.
-- The remaining symbols appear on the right.
+- Several more symbols appear on the right.
 - The function keys are on the left, beginning with two rows of five.
 - A row of modifiers in the home row allows the comfortable creation of any modifier and function key combination.  
 - The base layer modifier and escape keys are still available, as is a right-hand control key.
 
 ##  Number Pad and Algebraic Layer
 ```
-|       |  -  |  +  |  =  |  /  |  *  |---------------------------|  .  |  7  |  8  |  9  |     | BSPC  |
-| CTRL  | GUI | ALT |CTRL |SHIFT|     |---------------------------|  0  |  1  |  2  |  3  |  _  | CTRL  |
+| TAB   |  -  |  +  |  =  |  /  |  *  |---------------------------|  .  |  7  |  8  |  9  |     | BSPC  |
+|       | GUI | ALT |CTRL |SHIFT|     |---------------------------|  0  |  1  |  2  |  3  |  _  | ENTER |
 | SHIFT |     |     |     |     |     |     |---------------| ESC |  ,  |  4  |  5  |  6  |     | SHIFT |
---------------|ENTER|-----| GUI | ALT | *** |     |---|     |BSPC | ALT | GUI |-----| APP |--------------
+--------------|CTRL |-----| GUI | ALT | *** |     |---|     |BSPC | ALT | GUI |-----|CTRL |--------------
 ```
 Holding down the Num key accesses a number pad and arithmetic symbols:
 
@@ -136,7 +132,7 @@ Holding down the Num key accesses a number pad and arithmetic symbols:
 ## Adjust Layer
 ```
 |       |QWERT|DVORK|COLMK|AG_SWAP|AG_NORM|-----------------------|     |     |     |     |     |       |
-|       |     |     |     |     |     |---------------------------|MOD+ |BRI+ |HUE+ |SAT+ |     |       |
+|       |     |     |     |CTR_S|CTR_N|---------------------------|MOD+ |BRI+ |HUE+ |SAT+ |     |       |
 | RESET |     |     |     |     |     |     |--------------|RGBTOG|MOD- |BRI- |HUE- |SAT- |     |       |
 --------------|     |-----|     |     |     | *** |---| *** |     |     |     |-----|     |--------------
 ```
@@ -204,7 +200,7 @@ Or, you can use the graphical configurator to edit the keymap. To do that:
 - Save the keymap using the green down arrow button.
 - Copy those changes back into your QMK repository and reformat for easy reading using the format script:
 ```
-./keyboards/handwired/hillside/keymaps/json2hill.py --input <Your download directory>/default.json > ./keyboards/handwired/hillside/keymaps/default/keymap.json
+./keyboards/handwired/hillside/0_1/keymaps/json2hill.py --input <Your download directory>/default.json > ./keyboards/handwired/hillside/0_1/keymaps/default/keymap.json
 ```
    You may need to make that script executable with ```chmod +x```. After your keymap is safely copied and formated, you may want to remove the keymap from your download directory so later downloads will automatically receive the same file name.
 
