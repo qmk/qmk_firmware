@@ -24,8 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID               0x44DD
 #define MANUFACTURER            Drashna
 
-#define USB_POLLING_INTERVAL_MS 1
-
 /* disable debug print */
 // #define NO_DEBUG
 
