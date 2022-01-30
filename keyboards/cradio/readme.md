@@ -1,19 +1,18 @@
 # Cradio keyboards
 
-![Cradio](https://github.com/davidphilipbarr/hypergolic/raw/main/hypergarlic/ht.png)
+![Cradio](https://raw.githubusercontent.com/filterpaper/filterpaper.github.io/main/images/cradio.png)
 
-Cradio are low-profile 34-key split-keyboards designed by [@davidphilipbarr](https://github.com/davidphilipbarr), with no diodes and direct micro-controller pin wiring.
+Cradio are minimalist 34-key split-keyboards designed with no diodes, using direct micro-controller pin wiring.
 
 ## Keyboard Info
 
-* Keyboard Maintainer: [davidphilipbarr](https://github.com/davidphilipbarr)
+* Keyboard Maintainer: [David Barr](https://github.com/davidphilipbarr)
 * Hardware Supported:
     * [Cradio](https://github.com/davidphilipbarr/36keys/tree/master/34Keys)
     * [Sweep](https://github.com/davidphilipbarr/Sweep)
-    * [Hypergarlic](https://github.com/davidphilipbarr/hypergolic/tree/main/hypergarlic)
-    * [Paroxysm](https://github.com/davidphilipbarr/hypergolic/tree/main/paroxysm)
+    * [Hypergolic](https://github.com/davidphilipbarr/hypergolic)
     * Variants of the same 34-key direct pin PCB
-* Hardware Availability: order PCBs with gerber files from the repository
+* Hardware Availability: order PCBs using gerber files from the repository
 
 Make example for this keyboard (after setting up your build environment):
 

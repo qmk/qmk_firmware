@@ -4,6 +4,7 @@ MCU = atmega32u4
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
+# Build Options
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
@@ -22,3 +23,5 @@ LTO_ENABLE = yes
 
 SRC += matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
+
+LAYOUTS = split_3x5_2

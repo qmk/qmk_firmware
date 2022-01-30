@@ -143,7 +143,7 @@ void pmw3360_set_cpi(uint16_t cpi) {
 
 uint16_t pmw3360_get_cpi(void) {
     uint8_t cpival = spi_read_adv(REG_Config1);
-    return (uint16_t)(cpival & 0xFF) * 100;
+    return (uint16_t)((cpival + 1) & 0xFF) * 100;
 }
 
 bool pmw3360_init(void) {

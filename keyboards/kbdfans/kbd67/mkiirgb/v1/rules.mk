@@ -5,6 +5,9 @@ BOARD = QMK_PROTON_C
 # Bootloader selection
 BOOTLOADER = stm32-dfu
 
+# Build Options
+#   change yes to no to disable
+#
 BACKLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes              # Mouse keys

@@ -24,3 +24,7 @@
 #ifdef KEYBOARD_wings42_rev1_extkeys
 #    include "rev1_extkeys.h"
 #endif
+#ifdef KEYBOARD_wings42_rev2
+#    include "rev2.h"
+#endif
+

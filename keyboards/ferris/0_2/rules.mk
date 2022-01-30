@@ -4,6 +4,7 @@ MCU = STM32F072
 # Bootloader selection
 BOOTLOADER = stm32-dfu
 
+# Build Options
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
@@ -22,3 +23,5 @@ LTO_ENABLE = no
 
 SRC += matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
+
+LAYOUTS = split_3x5_2
