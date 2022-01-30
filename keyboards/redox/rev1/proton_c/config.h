@@ -4,40 +4,32 @@
 #pragma once
 
 #include "config_common.h"
+#undef SOFT_SERIAL_PIN
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D44 // "MD"
-#define PRODUCT_ID      0x5244 // "RD"
+#undef DEVICE_VER
 #define DEVICE_VER      0x0101 // added 1 for the rev1 + proton c
-#define MANUFACTURER    Falbatech
-#define PRODUCT         The Redox Keyboard
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
 
 // wiring of each half
+#undef MATRIX_ROW_PINS
 #define MATRIX_ROW_PINS { B5, B3, B2, B1, B0 }
+#undef MATRIX_COL_PINS
 #define MATRIX_COL_PINS { A1, A0, B8, B13, B14, B15, B9 }
 
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
+// //we are using hardware serial, so lets undef the softserial used otherwise
 
 /* serial.c configuration for split keyboard */
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
-#define SERIAL_USART_TX_PIN B6     // USART TX pin
+/* 
+   Because the rev1 config defines SOFT_SERIAL_PIN, we need to undef it, redefine it, and also assign 
+   it to avoid a redefine error.
+ */
+#undef SOFT_SERIAL_PIN
+#define SOFT_SERIAL_PIN B6     // USART TX pin
+
 #define SERIAL_USART_RX_PIN B7     // USART RX pin
-// #define USART1_REMAP             // Remap USART TX and RX pins on STM32F103 MCUs, see table below.
+#define SERIAL_USART_TX_PIN SOFT_SERIAL_PIN     // USART TX pin
+
 #define SERIAL_USART_PIN_SWAP    // Swap TX and RX pins if keyboard is master halve.
                                    // Check if this feature is necessary with your keyboard design and available on the mcu.
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
@@ -52,17 +44,9 @@
 #define SERIAL_USART_RX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_TIMEOUT 20    // USART driver timeout. default 20
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /* ws2812 RGB LED */
+#undef RGB_DI_PIN
 #define RGB_DI_PIN A9
-
-#define RGBLED_NUM 14    // Number of LEDs
-
-#define RGBLIGHT_SPLIT   // sync LEDs between RIGHT and LEFT hand
 
 /*
  * Feature disable options

@@ -1,9 +1,11 @@
+// Copyright 2022 xerootg
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
-#include "../redox.h"
+#include "redox.h"
 
 #include "quantum.h"
-
 
 #ifdef USE_I2C
 #include <stddef.h>
