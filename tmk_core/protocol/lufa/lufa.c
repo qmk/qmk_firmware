@@ -67,9 +67,9 @@ extern keymap_config_t keymap_config;
 
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
-#    ifdef MODULE_ADAFRUIT_BLE
-#        include "adafruit_ble.h"
-#    elif MODULE_RN42
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+#        include "bluefruit_le.h"
+#    elif BLUETOOTH_RN42
 #        include "rn42.h"
 #    endif
 #endif
@@ -645,9 +645,9 @@ static void send_keyboard(report_keyboard_t *report) {
 
 #ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#    ifdef MODULE_ADAFRUIT_BLE
-        adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
-#    elif MODULE_RN42
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+        bluefruit_le_send_keys(report->mods, report->keys, sizeof(report->keys));
+#    elif BLUETOOTH_RN42
         rn42_send_keyboard(report);
 #    endif
         return;
@@ -691,10 +691,10 @@ static void send_mouse(report_mouse_t *report) {
 
 #    ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef MODULE_ADAFRUIT_BLE
+#        ifdef BLUETOOTH_BLUEFRUIT_LE
         // FIXME: mouse buttons
-        adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
-#        elif MODULE_RN42
+        bluefruit_le_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
+#        elif BLUETOOTH_RN42
         rn42_send_mouse(report);
 #        endif
         return;
@@ -763,9 +763,9 @@ static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
 #    ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef MODULE_ADAFRUIT_BLE
-        adafruit_ble_send_consumer_key(data);
-#        elif MODULE_RN42
+#        ifdef BLUETOOTH_BLUEFRUIT_LE
+        bluefruit_le_send_consumer_key(data);
+#        elif BLUETOOTH_RN42
         rn42_send_consumer(data);
 #        endif
         return;
@@ -1013,7 +1013,7 @@ void protocol_pre_init(void) {
     setup_usb();
     sei();
 
-#if defined(MODULE_RN42)
+#if defined(BLUETOOTH_RN42)
     rn42_init();
 #endif
 
@@ -1066,8 +1066,8 @@ void protocol_post_task(void) {
     MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
-#ifdef MODULE_ADAFRUIT_BLE
-    adafruit_ble_task();
+#ifdef BLUETOOTH_BLUEFRUIT_LE
+    bluefruit_le_task();
 #endif
 
 #ifdef VIRTSER_ENABLE
