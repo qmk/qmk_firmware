@@ -21,4 +21,4 @@ SPLIT_KEYBOARD = yes
 
 LAYOUTS = ortho_4x12
 
-DEFAULT_FOLDER = lets_split_eh/eh
+DEFAULT_FOLDER = maple_computing/lets_split_eh/eh
