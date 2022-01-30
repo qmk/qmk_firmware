@@ -20,5 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef DESCRIPTION
 
 
-#define MANUFACTURER        FML128.ch
-#define PRODUCT             FMK128
+#define MANUFACTURER        "FML128.ch"
+#define PRODUCT             "FMK128"
+#define DESCRIPTION         "FMK128"
