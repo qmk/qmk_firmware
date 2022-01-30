@@ -32,6 +32,7 @@ enum combo_events {
   ED_F10,
   ED_F11,
   ED_F12,
+  ED_PSCREEN,
 
   ED_ENTER,
 
@@ -61,9 +62,10 @@ const uint16_t PROGMEM combo_f6[] = {KC_6, KC_Y, COMBO_END};
 const uint16_t PROGMEM combo_f7[] = {KC_7, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_f8[] = {KC_8, KC_I, COMBO_END};
 const uint16_t PROGMEM combo_f9[] = {KC_9, KC_O, COMBO_END};
-const uint16_t PROGMEM combo_f10[] = {KC_SCLN, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM combo_f10[] = {KC_0, KC_P, COMBO_END};
 const uint16_t PROGMEM combo_f11[] = {LT(GIT,KC_SLSH), KC_RSFT, COMBO_END};
 const uint16_t PROGMEM combo_f12[] = {KC_RALT, KC_RCTRL, COMBO_END};
+const uint16_t PROGMEM combo_pscreen[] = {TO(WORKMAN), KC_RALT, COMBO_END};
 
 const uint16_t PROGMEM done_sm[] = {KC_LEFT, KC_RIGHT, COMBO_END};
 const uint16_t PROGMEM clear_line_combo[] = {KC_BSPC, KC_LSFT, COMBO_END};
@@ -93,6 +95,7 @@ combo_t key_combos[] = {
   [ED_F10] = COMBO(combo_f10, KC_F10),
   [ED_F11] = COMBO(combo_f11, KC_F11),
   [ED_F12] = COMBO(combo_f12, KC_F12),
+  [ED_PSCREEN] = COMBO(combo_pscreen, KC_PSCREEN),
 
   [ED_CS_ENTER] = COMBO_ACTION(done_sm),
   #endif
