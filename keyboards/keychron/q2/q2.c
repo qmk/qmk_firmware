@@ -25,6 +25,8 @@ const matrix_row_t matrix_mask[] = {
     0b1111111111101111,
 };
 
+#ifdef DIP_SWITCH_ENABLE
+
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) { return false;}
     if (index == 0) {
@@ -32,3 +34,36 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     }
     return true;
 }
+
+#endif  // DIP_SWITCH_ENABLE
+
+#if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
+
+#define CAPS_LOCK_MAX_BRIGHTNESS 0xFF
+#ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #undef CAPS_LOCK_MAX_BRIGHTNESS
+    #define CAPS_LOCK_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
+#define CAPS_LOCK_VAL_STEP 8
+#ifdef RGB_MATRIX_VAL_STEP
+    #undef CAPS_LOCK_VAL_STEP
+    #define CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
+#endif
+
+__attribute__((weak))
+void rgb_matrix_indicators_user(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        uint8_t b = rgb_matrix_get_val();
+        if (b < CAPS_LOCK_VAL_STEP) {
+            b = CAPS_LOCK_VAL_STEP;
+        } else if (b < (CAPS_LOCK_MAX_BRIGHTNESS - CAPS_LOCK_VAL_STEP)) {
+            b += CAPS_LOCK_VAL_STEP;  // one step more than current brightness
+        } else {
+            b = CAPS_LOCK_MAX_BRIGHTNESS;
+        }
+        rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, b, b, b);  // white, with the adjusted brightness    }
+    }
+}
+
+#endif  // CAPS_LOCK_LED_INDEX
