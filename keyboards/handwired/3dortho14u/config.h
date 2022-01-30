@@ -10,7 +10,7 @@
 #define PRODUCT_ID   0x3DC1
 #define DEVICE_VER   0x0001
 #define MANUFACTURER xia0
-#define PRODUCT      3dchloe
+#define PRODUCT      3dortho14u
 
 /* key matrix size */
 #define MATRIX_ROWS 5

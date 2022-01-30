@@ -1,6 +1,6 @@
-# 3dchloe
+# 13ortho14u
 
-![3dchloe](imgur.com image replace me!)
+![3dortho14u](imgur.com image replace me!)
 
 *A short description of the keyboard/project*
 
@@ -10,11 +10,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make 3dchloe:default
+    make 3dortho14u:default
 
 Flashing example for this keyboard:
 
-    make 3dchloe:default:flash
+    make 3dortho14u:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
