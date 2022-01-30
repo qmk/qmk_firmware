@@ -19,4 +19,4 @@ AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = minidox/rev1
+DEFAULT_FOLDER = maple_computing/minidox/rev1
