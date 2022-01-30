@@ -26,17 +26,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-const keypos_t keypos_cw  = { .row=1, .col=2 };
-const keypos_t keypos_ccw = { .row=1, .col=0 };
 #if defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
 
-uint16_t get_keycode_at_pos(keypos_t keypos) {
-    return keymap_key_to_keycode(layer_switch_get_layer(keypos), keypos);
+#ifdef ENCODERS
+static uint8_t encoder_state[] = {0};
+static keypos_t encoder_cw[] = ENCODERS_CW_KEY;
+static keypos_t encoder_ccw[] = ENCODERS_CCW_KEY;
+#endif
+
+void encoder_action_unregister(void) {
+#ifdef ENCODERS
+    for (int index = 0; index < ENCODERS; ++index) {
+        if (encoder_state[index]) {
+            keyevent_t encoder_event = (keyevent_t) {
+                .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
+                .pressed = false,
+                .time = (timer_read() | 1)
+            };
+            encoder_state[index] = 0;
+            action_exec(encoder_event);
+        }
+    }
+#endif
+}
+
+void encoder_action_register(uint8_t index, bool clockwise) {
+#ifdef ENCODERS
+    keyevent_t encoder_event = (keyevent_t) {
+        .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
+        .pressed = true,
+        .time = (timer_read() | 1)
+    };
+    encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
+    action_exec(encoder_event);
+#endif
+}
+
+void matrix_scan_user(void) {
+    encoder_action_unregister();
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    tap_code(get_keycode_at_pos(clockwise ? keypos_cw : keypos_ccw));
-    return true;
+    encoder_action_register(index, clockwise);
+    return false;
 }
 
 #endif

@@ -1,7 +1,7 @@
 {
   "keyboard_name": "Synth Labs Solo",
   "url": "http://solo.synthlabs.io",
-  "maintainer": "Nostril",
+  "maintainer": "hongaaronc",
   "bootloader": "atmel-dfu",
   "processor": "atmega32u4",
   "debounce": 5,

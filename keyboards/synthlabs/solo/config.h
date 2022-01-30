@@ -12,10 +12,12 @@
 #define MANUFACTURER    Synth Labs
 #define PRODUCT         Solo
 
+#define ENCODERS 1
 #define ENCODER_RESOLUTION 4.5
-
 #define ENCODERS_PAD_A { B2 }
 #define ENCODERS_PAD_B { B3 }
+#define ENCODERS_CW_KEY { { 2, 1 } }
+#define ENCODERS_CCW_KEY { { 0, 1 } }
 
 /* key matrix size */
 #define MATRIX_ROWS 3
