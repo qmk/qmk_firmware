@@ -33,6 +33,13 @@
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+/* Rotary encoder options */
+#define ENCODER_RESOLUTIONS { 4, 4 }
+#define ENCODERS_PAD_A { B1, B3 }
+#define ENCODERS_PAD_B { B2, B4 }
+
+
+
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */

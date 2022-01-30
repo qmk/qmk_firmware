@@ -20,6 +20,3 @@ VIA_ENABLE = yes
 VIAL_ENABLE = yes
 
 ENCODER_ENABLE = yes
-define ENCODER_RESOLUTIONS { 4, 4 }
-define ENCODERS_PAD_A { B1, B3 }
-define ENCODERS_PAD_B { B2, B4 }
