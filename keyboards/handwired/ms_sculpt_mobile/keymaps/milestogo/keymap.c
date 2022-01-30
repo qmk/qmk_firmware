@@ -21,7 +21,7 @@
 #include "virtser.h"
 #include <print.h>
 
-#define LAYOUT_local LAYOUT_mobile_XUA
+#define LAYOUT_local LAYOUT_mobile_xua
 #define LAYOUT_local_wrap(...) LAYOUT_local(__VA_ARGS__)
 
 // Shorter spacing
