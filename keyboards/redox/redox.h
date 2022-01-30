@@ -18,8 +18,6 @@
 
 #if defined(KEYBOARD_redox_rev1)
 #     include "rev1.h"
-#elif defined(KEYBOARD_redox_rev1_proton_c)
-#    include "proton_c.h"
 #elif defined(KEYBOARD_redox_media)
 #    include "media.h"
 #endif

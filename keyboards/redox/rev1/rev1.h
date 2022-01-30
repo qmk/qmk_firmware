@@ -1,9 +1,10 @@
-// Copyright 2022 xerootg
-// SPDX-License-Identifier: GPL-2.0-or-later
-
 #pragma once
 
 #include "redox.h"
+
+#if defined(KEYBOARD_redox_rev1_proton_c)
+#    include "proton_c.h"
+#endif
 
 #include "quantum.h"
 
