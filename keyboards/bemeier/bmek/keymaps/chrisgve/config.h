@@ -9,6 +9,6 @@
 #    define TAPPING_TERM 100
 #endif */
 
-#ifndef RETRO_TAPPING
+/* #ifndef RETRO_TAPPING
 #    define RETRO_TAPPING
-#endif
+#endif */
