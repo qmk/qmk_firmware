@@ -50,7 +50,7 @@ Flashing example for this keyboard:
 
     make mlego/m65/rev4:default:flash
 
-To enter flashing mode, on microcontroller keep pressed BOOT0 and then NRST, release NRST and then after 0.5s or so  release BOOT0.
+To enter flashing mode, press in the same time, LWR+RSE+r, alternatively on microcontroller keep pressed BOOT0 and then NRST, release NRST and then after 0.5s or so  release BOOT0.
 
 
 
