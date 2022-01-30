@@ -4,7 +4,6 @@
 #pragma once
 
 #include "config_common.h"
-#undef SOFT_SERIAL_PIN
 
 /* USB Device descriptor parameter */
 #undef DEVICE_VER
