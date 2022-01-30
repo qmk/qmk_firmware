@@ -1,0 +1,25 @@
+{
+    "name": "Snatchpad",
+    "vendorId": "0x6662",
+    "productId": "0x7370",
+    "lighting": "none",
+    "matrix": {
+        "rows": 3,
+        "cols": 3
+    },
+    "layouts": {
+        "keymap":
+            [
+                [{"x":0.5},"0,0","0,1","0,2"],
+                [{"x":0.5},"1,0","1,1","1,2"],
+                [{"x":0.5},"2,0",{"d":true},"2,1","2,2"],
+                [
+                  "0,0\n\n\n\n\n\n\n\n\ne",
+                  "0,1\n\n\n\n\n\n\n\n\ne",
+                  "1,0\n\n\n\n\n\n\n\n\ne",
+                  "1,1\n\n\n\n\n\n\n\n\ne"
+                ]
+            ]
+
+    }
+}

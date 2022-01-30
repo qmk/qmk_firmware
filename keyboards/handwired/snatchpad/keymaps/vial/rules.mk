@@ -1,0 +1,1 @@
+VIAL_ENCODERS_ENABLE = yes
