@@ -64,12 +64,3 @@ endif
 
 * DO_NOT_SLEEP
 * AUTO_CAPS_OFF
-
-## TODO
-
-* DO_NOT_SLEEP persistent configuration 
-
-## Inspirations
-
-* /users/replicaJunction/readme.md
-    * CAPS_WORD
