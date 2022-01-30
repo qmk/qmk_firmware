@@ -41,8 +41,14 @@
     'atom47/rev3': {
           target: 'maartenwut/atom47/rev3'
     },
+    bakeneko60: {
+          target: 'kkatano/bakeneko60'
+    },
     bakeneko65: {
-          target: 'bakeneko65/rev2'
+          target: 'kkatano/bakeneko65/rev2'
+    },
+    bakeneko80: {
+          target: 'kkatano/bakeneko80'
     },
     bear_face: {
           target: 'bear_face/v1'
