@@ -48,28 +48,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS  
     ),
 };
-
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        switch (get_highest_layer(layer_state)) {
-            case 0:
-                // main layer - move mouse right (CW) and left (CCW)
-                if (clockwise) {
-                    tap_code_delay(KC_VOLU, 10);
-                } else {
-                    tap_code_delay(KC_VOLD, 10);
-                }
-                break;
-            default:
-                // other layers - =/+ (quals/plus) (CW) and -/_ (minus/underscore) (CCW)
-                if (clockwise) {
-                    tap_code16(C(KC_EQL));
-                } else {
-                    tap_code(C(KC_MINS));
-                }
-                break;
-        }
-    }
-    return false;
-}
