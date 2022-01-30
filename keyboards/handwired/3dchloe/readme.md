@@ -5,7 +5,7 @@
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [xiao](https://github.com/xia0)
-* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Supported: Teensy 2.0
 * Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
