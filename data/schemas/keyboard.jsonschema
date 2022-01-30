@@ -45,7 +45,7 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["AdafruitBLE", "RN42"]
+                    "enum": ["BluefruitLE", "RN42"]
                 },
                 "lto": {"type": "boolean"},
             }
