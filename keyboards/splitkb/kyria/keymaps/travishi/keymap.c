@@ -269,6 +269,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }
 
+
+//Kyria logo
 static void render_kyria_logo(void) {
     static const char PROGMEM kyria_logo[] = {
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,192,224,240,112,120, 56, 60, 28, 30, 14, 14, 14,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 14, 14, 14, 30, 28, 60, 56,120,112,240,224,192,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -283,6 +285,8 @@ static void render_kyria_logo(void) {
     oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
 }
 
+
+//QMK logo
 static void render_qmk_logo(void) {
   static const char PROGMEM qmk_logo[] = {
     0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
@@ -292,19 +296,26 @@ static void render_qmk_logo(void) {
   oled_write_P(qmk_logo, false);
 }
 
-static void render_status(void) {
+
+static void render_keymap(void) {
     // QMK Logo and version information
-    render_qmk_logo();
-    oled_write_P(PSTR("       Kyria rev1.4\n\n"), false);
+    //render_qmk_logo();
+    //oled_write_P(PSTR("       Kyria rev1.4\n\n"), false);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case DVORAK:
             oled_write_P(PSTR("Dvorak\n"), false);
+            oled_write_P(PSTR("' , . p y f g c r l"), false);
+            oled_write_P(PSTR("a o e i u d h t n s"), false);
+            oled_write_P(PSTR("; q j k x b m w v z"), false);
             break;
         case QWERTY:
             oled_write_P(PSTR("Qwerty\n"), false);
+            oled_write_P(PSTR("q w e r t y u i o p"), false);
+            oled_write_P(PSTR("a s d f g h j k l ;"), false);
+            oled_write_P(PSTR("z x c v b n m , . /"), false);
             break;
         case LAYERS:
             oled_write_P(PSTR("Layer Index\n"), false);
@@ -313,18 +324,25 @@ static void render_status(void) {
             oled_write_P(PSTR("ERR No Layer!\n"), false);
     }
 
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("       "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("       "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
+
 }
+
+
+// Host Keyboard LED Status
+static void render_indicator_status(void) {
+  led_t led_state = host_keyboard_led_state();
+  oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("       "), false);
+  oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("       "), false);
+  oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
+}
+
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-        render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        render_keymap(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
-        render_kyria_logo();
+        //render_kyria_logo();
+        render_indicator_status();
     }
     return false;
 }
