@@ -13,6 +13,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+#if defined(JOYSTICK_ENABLE) && defined(ENCODER_ENABLE)
+
 int16_t joystick_position = 0;
 int16_t pulses_per_revolution = 24;     // Depends on encoder model. Usually 18ppr or 24ppr for Bourns EC11s.
 int16_t full_joystick_value = 32767;    // Equivalent to max value of int16. +full_joystick_value is +1.0 axis output. -full_joystick_value is -1.0 axis output.
@@ -29,3 +31,5 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     return true;
 }
+
+#endif
