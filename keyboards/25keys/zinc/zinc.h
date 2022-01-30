@@ -1,9 +1,9 @@
 #pragma once
 
-#ifdef KEYBOARD_zinc_reva
+#ifdef KEYBOARD_25keys_zinc_reva
     #include "reva.h"
 #endif
-#ifdef KEYBOARD_zinc_rev1
+#ifdef KEYBOARD_25keys_zinc_rev1
     #include "rev1.h"
 #endif
 

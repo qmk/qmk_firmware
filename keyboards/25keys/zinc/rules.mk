@@ -19,7 +19,7 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.  Do not enable this w
 RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = WS2812
 
-DEFAULT_FOLDER = zinc/rev1
+DEFAULT_FOLDER = 25keys/zinc/rev1
 
 #SRC += i2c.c
 SRC += serial.c
