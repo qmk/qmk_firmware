@@ -401,7 +401,7 @@ static void render_logo(void) {
 
 void user_oled_magic(void) {
     // Host Keyboard Layer Status
-    oled_write_P(PSTR("R1: Layer: "), false);
+    oled_write_P(PSTR("Layer: "), false);
 
     switch (get_highest_layer(layer_state)) {
         case _QW:
@@ -424,8 +424,13 @@ void user_oled_magic(void) {
     // Host Keyboard LED Status
     led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("Lower ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CapsLock ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("Raise ") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CapsLock ") : PSTR("    "), false);
+#ifdef WPM_ENABLE
+    oled_write_P(PSTR("\nwpm: "), false);
+    uint8_t wpm = get_current_wpm();
+    oled_write_P(wpm != 0 ? get_u8_str(wpm,' ') : PSTR("   "), false);
+#endif
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
