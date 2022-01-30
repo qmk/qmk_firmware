@@ -27,7 +27,7 @@ void keyboard_pre_init_kb(void) {
 }
 
 
-void boardInit(void){
+void board_init(void){
 	// initialize anything that needs ChibiOS
 	
     // disable JTAG  to enable PB3 and PB4

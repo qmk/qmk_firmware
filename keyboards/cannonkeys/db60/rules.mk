@@ -8,7 +8,7 @@ BOOTLOADER = stm32-dfu
 DFU_SUFFIX_ARGS = -v FFFF -p FFFF
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes   # Mouse keys
