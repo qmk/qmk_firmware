@@ -16,7 +16,7 @@
 
 #pragma once
 
-#ifdef KEYBOARD_squiggle_rev1
+#ifdef KEYBOARD_ibnuda_squiggle_rev1
     #include "rev1.h"
 #endif
 
