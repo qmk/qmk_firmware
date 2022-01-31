@@ -153,11 +153,11 @@ static void start_effects(void);
 #define effect_white() r_effect = 0xFF, g_effect = 0xFF, b_effect = 0xFF
 #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
 
-static uint32_t previous_layer = -1;
+static uint8_t previous_layer = 255;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t current_layer = get_highest_layer(state);
-    if (previous_layer == -1) {
+    if (previous_layer == 255) {
         previous_layer = current_layer;
     }
     switch (current_layer) {
