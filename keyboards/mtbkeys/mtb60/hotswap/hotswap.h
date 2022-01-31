@@ -18,6 +18,8 @@
 
 #include "quantum.h"
 
+#define ___ KC_NO
+
 #define LAYOUT( \
     k00, k10, k20, k30, k40, k50, k60, k70, k80, k90, ka0, kb0, kc0,      ke0, \
          k11, k21, k31, k41, k51, k61, k71, k81, k91, ka1, kb1, kc1, kd1, ke1, \
@@ -25,9 +27,9 @@
     k03,      k23, k33, k43, k53, k63, k73, k83, k93, ka3, kb3,      kd3,      \
     k04, k14, k24,                k64,                ka4, kb4,      kd4, ke4  \
 ) { \
-    { k00,   k10,   k20, k30,   k40,   k50,   k60, k70,   k80,   k90,   ka0, kb0, kc0,   KC_NO, ke0   }, \
-    { KC_NO, k11,   k21, k31,   k41,   k51,   k61, k71,   k81,   k91,   ka1, kb1, kc1,   kd1,   ke1   }, \
-    { k02,   KC_NO, k22, k32,   k42,   k52,   k62, k72,   k82,   k92,   ka2, kb2, kc2,   kd2,   KC_NO }, \
-    { k03,   KC_NO, k23, k33,   k43,   k53,   k63, k73,   k83,   k93,   ka3, kb3, KC_NO, kd3,   KC_NO }, \
-    { k04,   k14,   k24, KC_NO, KC_NO, KC_NO, k64, KC_NO, KC_NO, KC_NO, ka4, kb4, kd4,   KC_NO, ke4   }  \
+    { k00, k10, k20, k30, k40, k50, k60, k70, k80, k90, ka0, kb0, kc0, ___, ke0 }, \
+    { ___, k11, k21, k31, k41, k51, k61, k71, k81, k91, ka1, kb1, kc1, kd1, ke1 }, \
+    { k02, ___, k22, k32, k42, k52, k62, k72, k82, k92, ka2, kb2, kc2, kd2, ___ }, \
+    { k03, ___, k23, k33, k43, k53, k63, k73, k83, k93, ka3, kb3, ___, kd3, ___ }, \
+    { k04, k14, k24, ___, ___, ___, k64, ___, ___, ___, ka4, kb4, kd4, ___, ke4 }  \
 }
