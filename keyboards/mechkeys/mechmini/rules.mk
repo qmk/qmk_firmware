@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = mechmini/v2
+DEFAULT_FOLDER = mechkeys/mechmini/v2

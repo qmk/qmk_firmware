@@ -8,7 +8,7 @@ A 40% ortholinear/staggered keyboard, that was originally bootmapper and can be 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mechmini/v1:default
+    make mechkeys/mechmini/v1:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
