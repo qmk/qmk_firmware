@@ -1,12 +1,12 @@
 # maple60
 
-![maple60](imgur.com image replace me!)
+A handwired 60% keyboard with maple case.
 
-*A short description of the keyboard/project*
+<img src="https://user-images.githubusercontent.com/6307033/151084291-9d7a800d-4619-462d-a24c-768d7e9213cc.jpg" width="200"> <img src="https://user-images.githubusercontent.com/6307033/151084297-91f25027-c272-4aa3-ad2b-c35896eb2a2d.jpg" width="200">
 
 * Keyboard Maintainer: [Jay](https://github.com/Toofty5)
-* Hardware Supported: Custom
-* Hardware Availability: Custom
+* Hardware Supported: [Elite C v4](https://keeb.io/products/elite-c-low-profile-version-usb-c-pro-micro-replacement-atmega32u4)
+* Hardware Availability: See Above
 
 Make example for this keyboard (after setting up your build environment):
 
