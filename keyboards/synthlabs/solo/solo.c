@@ -1,3 +1,6 @@
+// Copyright 2022 Aaron Hong (@hongaaronc)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "solo.h"
 
 #if !defined(VIA_ENABLE) && !defined(JOYSTICK_ENABLE) && defined(ENCODER_ENABLE)
