@@ -16,7 +16,6 @@
 #include QMK_KEYBOARD_H
 
 #include "flow.h"
-#include "commaspace.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -30,6 +29,7 @@ enum layers {
     _TMUX,
     _MOUSE,
     _FUNC,
+    _LT,
 };
 
 enum custom_keycodes {
@@ -160,13 +160,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
+
+  [_LT] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
+     KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,                          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_PLUS ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          KC_6    ,KC_7    ,KC_8    ,KC_EQL  ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,KC_COMM ,KC_DOT  ,XXXXXXX ,
+  //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
+                                     XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
+  //                                └────────┘   └────────┘       └────────┘   └────────┘
+  ),
 };
 
 #define TMUX_PREFIX SS_DOWN(X_LCTL) "b" SS_UP(X_LCTL)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!update_flow(keycode, record->event.pressed, record->event.key)) return false;
-    if (!update_commaspace(keycode, record->event.pressed)) return false;
 
     switch (keycode) {
         case TM_LEFT:
@@ -207,4 +218,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_scan_user(void) {
     flow_matrix_scan();
+}
+
+bool lang_layer_on = false;
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _SYM, _NAV, _LT);
+    uint8_t hl = get_highest_layer(state);
+    if (hl == _LT) {
+        if (!lang_layer_on) {
+            tap_code16(LCTL(KC_SPC));
+            lang_layer_on = true;
+        }
+    } else {
+        if (lang_layer_on) {
+            tap_code16(LCTL(KC_SPC));
+            lang_layer_on = false;
+        }
+    }
+
+    return state;
 }
