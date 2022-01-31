@@ -92,7 +92,7 @@ def lint(cli):
         # Gather data about the keyboard.
         ok = True
         keyboard_path = keyboard(kb)
-        keyboard_info = info_json(kb)
+        keyboard_info = info_json(kb, exit_on_failure=False)
 
         # Check for errors in the info.json
         if keyboard_info['parse_errors']:

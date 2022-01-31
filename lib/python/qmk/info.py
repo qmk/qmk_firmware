@@ -32,7 +32,7 @@ def _remove_newlines_from_labels(layouts):
                 key['label'] = key['label'].split('\n')[0]
 
 
-def info_json(keyboard):
+def info_json(keyboard, exit_on_failure=True):
     """Generate the info.json data for a specific keyboard.
     """
     cur_dir = Path('keyboards')
@@ -80,8 +80,11 @@ def info_json(keyboard):
 
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
-        cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
-        exit(1)
+        if exit_on_failure:
+            cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
+            exit(1)
+        else:
+            _log_error(info_data, 'Invalid API data: %s: %s: %s' % (keyboard, json_path, e.message))
 
     # Make sure we have at least one layout
     if not info_data.get('layouts'):
