@@ -2,9 +2,6 @@
     "keyboard_name": "Arya", 
     "url": "https://kapcave.com/products/arya", 
     "maintainer": "nachie", 
-    "layout_aliases": {
-        "LAYOUT_all": "LAYOUT_alice_split_bs"
-    },
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [
