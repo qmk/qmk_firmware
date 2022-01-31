@@ -12,19 +12,19 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-    KC_MRWD, KC_MFFD, TG(1)  ,
-    KC_MPRV, KC_MNXT, KC_MPLY,
-    KC_MUTE,          KC_RSFT
+    KC_ESC , KC_SPC , MO(2)  ,
+    KC_MPRV, KC_MNXT, KC_ENT ,
+    KC_MUTE,          KC_MPLY
   ),
   [1] = LAYOUT(
-    _______, _______, _______,
-    _______, _______, _______,
-    _______,          _______
+    KC_LOCK, KC_UP  , _______,
+    KC_LEFT, KC_DOWN, KC_RGHT,
+    KC_BTN1,          KC_BTN2
   ),
   [2] = LAYOUT(
     _______, _______, _______,
     _______, _______, _______,
-    _______,          _______
+    TO(0)  ,          TO(1)
   ),
   [3] = LAYOUT(
     _______, _______, _______,
