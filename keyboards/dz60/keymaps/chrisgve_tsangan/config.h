@@ -4,3 +4,4 @@
 
 #define PERMISSIVE_HOLD
 
+#define DEBOUNCE 5
