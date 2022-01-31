@@ -211,24 +211,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 host_consumer_send(0);
             }
             return false;  // Skip all further processing of this key
-        case KC_TASK:
-            if (record->event.pressed) {
-                register_code(KC_LWIN);
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_LWIN);
-                unregister_code(KC_TAB);
-            }
-            return false;  // Skip all further processing of this key
-        case KC_FLXP:
-            if (record->event.pressed) {
-                register_code(KC_LWIN);
-                register_code(KC_E);
-            } else {
-                unregister_code(KC_LWIN);
-                unregister_code(KC_E);
-            }
-            return false;  // Skip all further processing of this key
     #ifdef NKRO_ENABLE
     #if RGB_CONFIRMATION_BLINKING_TIME > 0
         case NK_TOGG:
