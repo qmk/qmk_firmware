@@ -1,8 +1,9 @@
 // #define BACKLIGHT_CAPS_LOCK
 
-/* #ifdef DEBOUNCE
+#ifdef DEBOUNCE
 #    undef DEBOUNCE
-#endif */
+#endif
+#define DEBOUNCE 10
 
 /* #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
