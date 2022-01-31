@@ -29,10 +29,11 @@ char buffer[80]       = "";
 char cmd_buffer[CMD_BUFF_SIZE][80];
 bool cmd_buffer_enabled = true;  // replace with ifdef?
 char newline[2]         = "\n";
-char arguments[6][20];
 bool firstTime = true;
 
 short int current_cmd_buffer_pos = 0;  // used for up/down arrows - keeps track of where you are in the command buffer
+
+static terminal_ctx_t ctx;
 
 __attribute__((weak)) const char terminal_prompt[8] = "> ";
 
@@ -50,22 +51,20 @@ __attribute__((weak)) const char keycode_to_ascii_lut[58] = {0, 0, 0, 0, 'a', 'b
 
 __attribute__((weak)) const char shifted_keycode_to_ascii_lut[58] = {0, 0, 0, 0, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', 0, 0, 0, '\t', ' ', '_', '+', '{', '}', '|', 0, ':', '\'', '~', '<', '>', '?'};
 
-struct stringcase {
-    char *string;
-    void (*func)(void);
-} typedef stringcase;
 
 void enable_terminal(void) {
     terminal_enabled = true;
     strcpy(buffer, "");
     memset(cmd_buffer, 0, CMD_BUFF_SIZE * 80);
-    for (int i = 0; i < 6; i++) strcpy(arguments[i], "");
+    memset(&ctx, 0, sizeof(ctx));
+
     // select all text to start over
     // SEND_STRING(SS_LCTL("a"));
     send_string(terminal_prompt);
 }
 
-void disable_terminal(void) {
+static void disable_terminal(terminal_ctx_t *ctx) {
+    (void)ctx;
     terminal_enabled = false;
     SEND_STRING("\n");
 }
@@ -92,7 +91,7 @@ void push_to_cmd_buffer(void) {
     }
 }
 
-void terminal_about(void) {
+static void terminal_about(terminal_ctx_t *ctx) {
     SEND_STRING("QMK Firmware\n");
     SEND_STRING("  v");
     SEND_STRING(QMK_VERSION);
@@ -100,25 +99,32 @@ void terminal_about(void) {
     SEND_STRING(QMK_BUILDDATE);
     send_string(newline);
 #ifdef TERMINAL_HELP
-    if (strlen(arguments[1]) != 0) {
-        SEND_STRING("You entered: ");
-        send_string(arguments[1]);
-        send_string(newline);
+    for (int i = 0; i < ctx->args_no; i++) {
+        if (strlen(ctx->args[i]) != 0) {
+            SEND_STRING("You entered: ");
+            send_string(ctx->args[i]);
+            send_string(newline);
+        }
     }
 #endif
 }
 
-void terminal_help(void);
 
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 
-void terminal_keycode(void) {
-    if (strlen(arguments[1]) != 0 && strlen(arguments[2]) != 0 && strlen(arguments[3]) != 0) {
+static void terminal_keycode(terminal_ctx_t *ctx) {
+    if (ctx->args_no < 3) {
+#ifdef TERMINAL_HELP
+        SEND_STRING("usage: keycode <layer> <row> <col>\n");
+        return;
+#endif
+    }
+    if (strlen(ctx->args[1]) != 0 && strlen(ctx->args[2]) != 0 && strlen(ctx->args[3]) != 0) {
         char     keycode_dec[5];
         char     keycode_hex[5];
-        uint16_t layer   = strtol(arguments[1], (char **)NULL, 10);
-        uint16_t row     = strtol(arguments[2], (char **)NULL, 10);
-        uint16_t col     = strtol(arguments[3], (char **)NULL, 10);
+        uint16_t layer   = strtol(ctx->args[1], (char **)NULL, 10);
+        uint16_t row     = strtol(ctx->args[2], (char **)NULL, 10);
+        uint16_t col     = strtol(ctx->args[3], (char **)NULL, 10);
         uint16_t keycode = pgm_read_word(&keymaps[layer][row][col]);
         itoa(keycode, keycode_dec, 10);
         itoa(keycode, keycode_hex, 16);
@@ -127,16 +133,18 @@ void terminal_keycode(void) {
         SEND_STRING(" (");
         send_string(keycode_dec);
         SEND_STRING(")\n");
-    } else {
-#ifdef TERMINAL_HELP
-        SEND_STRING("usage: keycode <layer> <row> <col>\n");
-#endif
     }
 }
 
-void terminal_keymap(void) {
-    if (strlen(arguments[1]) != 0) {
-        uint16_t layer = strtol(arguments[1], (char **)NULL, 10);
+static void terminal_keymap(terminal_ctx_t *ctx) {
+    if (ctx->args_no < 1) {
+#ifdef TERMINAL_HELP
+        SEND_STRING("usage: keymap <layer>\n");
+#endif
+    }
+
+    if (strlen(ctx->args[1]) != 0) {
+        uint16_t layer = strtol(ctx->args[1], (char **)NULL, 10);
         for (int r = 0; r < MATRIX_ROWS; r++) {
             for (int c = 0; c < MATRIX_COLS; c++) {
                 uint16_t keycode = pgm_read_word(&keymaps[layer][r][c]);
@@ -146,14 +154,11 @@ void terminal_keymap(void) {
             }
             send_string(newline);
         }
-    } else {
-#ifdef TERMINAL_HELP
-        SEND_STRING("usage: keymap <layer>\n");
-#endif
     }
 }
 
-void print_cmd_buff(void) {
+static void print_cmd_buff(terminal_ctx_t *ctx) {
+    (void)ctx;
     /* without the below wait, a race condition can occur wherein the
      buffer can be printed before it has been fully moved */
     wait_ms(250);
@@ -168,22 +173,44 @@ void print_cmd_buff(void) {
     }
 }
 
-void flush_cmd_buffer(void) {
+static void flush_cmd_buffer(terminal_ctx_t *ctx) {
+    (void)ctx;
     memset(cmd_buffer, 0, CMD_BUFF_SIZE * 80);
     SEND_STRING("Buffer Cleared!\n");
 }
 
-stringcase terminal_cases[] = {{"about", terminal_about}, {"help", terminal_help}, {"keycode", terminal_keycode}, {"keymap", terminal_keymap}, {"flush-buffer", flush_cmd_buffer}, {"print-buffer", print_cmd_buff}, {"exit", disable_terminal}};
+void terminal_help(terminal_ctx_t *ctx);
 
-void terminal_help(void) {
+static stringcase_t *user_terminal_cases;
+
+static const stringcase_t terminal_cases[] = {
+    {"about"        , terminal_about}   ,
+    {"help"         , terminal_help}    ,
+    {"keycode"      , terminal_keycode} ,
+    {"keymap"       , terminal_keymap}  ,
+    {"flush-buffer" , flush_cmd_buffer} ,
+    {"print-buffer" , print_cmd_buff}   ,
+    {"exit"         , disable_terminal} ,
+    {NULL           , NULL}
+};
+
+void terminal_help(terminal_ctx_t *ctx) {
     SEND_STRING("commands available:\n  ");
-    for (stringcase *case_p = terminal_cases; case_p != terminal_cases + sizeof(terminal_cases) / sizeof(terminal_cases[0]); case_p++) {
+    for (const stringcase_t *case_p = terminal_cases; case_p != NULL && case_p->func != NULL; case_p++) {
         send_string(case_p->string);
         SEND_STRING(" ");
     }
+    if (user_terminal_cases != NULL)
+        for (stringcase_t *case_p = user_terminal_cases; case_p->string != NULL && case_p->func != NULL; case_p++) {
+            send_string(case_p->string);
+            SEND_STRING(" ");
+        }
     send_string(newline);
 }
 
+void process_terminal_register_user_command(stringcase_t * table) {
+    user_terminal_cases = table;
+}
 void command_not_found(void) {
     wait_ms(50);  // sometimes buffer isnt grabbed quick enough
     SEND_STRING("command \"");
@@ -199,25 +226,37 @@ void process_terminal_command(void) {
     uint8_t i = 0;
     pch       = strtok(buffer, " ");
     while (pch != NULL) {
-        strcpy(arguments[i], pch);
+        strcpy(ctx.args[i], pch);
+        ctx.args_no++;
         pch = strtok(NULL, " ");
         i++;
     }
 
     bool command_found = false;
-    for (stringcase *case_p = terminal_cases; case_p != terminal_cases + sizeof(terminal_cases) / sizeof(terminal_cases[0]); case_p++) {
+    for (const stringcase_t *case_p = terminal_cases;
+            case_p != terminal_cases + sizeof(terminal_cases) / sizeof(terminal_cases[0]); case_p++) {
         if (0 == strcmp(case_p->string, buffer)) {
             command_found = true;
-            (*case_p->func)();
+            (*case_p->func)(&ctx);
             break;
         }
     }
+    // Search commands in users commands table
+    if (user_terminal_cases != NULL)
+        for (stringcase_t *case_p = user_terminal_cases;
+                case_p->string != NULL && case_p->func != NULL; case_p++) {
+            if (0 == strcmp(case_p->string, buffer)) {
+                command_found = true;
+                (*case_p->func)(&ctx);
+                break;
+            }
+        }
 
     if (!command_found) command_not_found();
 
     if (terminal_enabled) {
         strcpy(buffer, "");
-        for (int i = 0; i < 6; i++) strcpy(arguments[i], "");
+        memset(&ctx, 0, sizeof(ctx));
         SEND_STRING(SS_TAP(X_HOME));
         send_string(terminal_prompt);
     }
@@ -238,7 +277,7 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
 
     if (terminal_enabled && record->event.pressed) {
         if (keycode == TERM_OFF && record->event.pressed) {
-            disable_terminal();
+            disable_terminal(NULL);
             return false;
         }
 
