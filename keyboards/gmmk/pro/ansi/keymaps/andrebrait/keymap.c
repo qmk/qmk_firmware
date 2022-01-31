@@ -156,7 +156,7 @@ static void start_effects(void);
 static uint32_t previous_layer = -1;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    uint32_t current_layer = get_highest_layer(state);
+    uint8_t current_layer = get_highest_layer(state);
     if (previous_layer == -1) {
         previous_layer = current_layer;
     }
