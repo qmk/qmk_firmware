@@ -3,7 +3,9 @@
 #ifdef DEBOUNCE
 #    undef DEBOUNCE
 #endif
-#define DEBOUNCE 10
+#define DEBOUNCE 5
+
+#define PERMISSIVE_HOLD
 
 /* #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
