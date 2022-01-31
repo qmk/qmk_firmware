@@ -26,7 +26,9 @@ extern bool host_driver_disabled;
 uint32_t                  oled_timer                        = 0;
 char                      keylog_str[OLED_KEYLOGGER_LENGTH] = {0};
 static uint16_t           log_timer                         = 0;
+#ifdef OLED_DISPLAY_VERBOSE
 static const char PROGMEM display_border[3]                 = {0x0, 0xFF, 0x0};
+#endif
 
 deferred_token kittoken;
 
@@ -540,6 +542,7 @@ void render_wpm(uint8_t padding) {
 // vertical_offset          = 0;
 
 void render_wpm_graph(uint8_t max_lines_graph, uint8_t vertical_offset) {
+#ifdef WPM_ENABLE
     static uint16_t timer   = 0;
     static uint8_t  x       = OLED_DISPLAY_HEIGHT - 1;
     uint8_t         currwpm = get_current_wpm();
@@ -588,6 +591,7 @@ void render_wpm_graph(uint8_t max_lines_graph, uint8_t vertical_offset) {
 
         timer = timer_read();  // refresh the timer for the next iteration
     }
+#endif
 }
 
 #if defined(POINTING_DEVICE_ENABLE)
