@@ -763,7 +763,7 @@ See also: [Unicode Support](feature_unicode.md)
 
 |Key                   |Aliases  |Description                                                     |
 |----------------------|---------|----------------------------------------------------------------|
-|`UC(c)`               |         |Send Unicode code point `c`                                     |
+|`UC(c)`               |         |Send Unicode code point `c`, up to `0x7FFF`                     |
 |`X(i)`                |         |Send Unicode code point at index `i` in `unicode_map`           |
 |`XP(i, j)`            |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
 |`UNICODE_MODE_FORWARD`|`UC_MOD` |Cycle through selected input modes                              |

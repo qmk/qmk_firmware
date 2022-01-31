@@ -20,6 +20,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "progmem.h"
 
 typedef struct is31_led {
     uint8_t driver : 2;
