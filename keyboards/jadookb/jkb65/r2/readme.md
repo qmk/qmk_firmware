@@ -10,11 +10,11 @@ R2 version of JKB65
 
 Make example for this keyboard (after setting up your build environment):
 
-    make jadookb/jkb65/R2:default
+    make jadookb/jkb65/r2:default
 
 Flashing example for this keyboard:
 
-    make jadookb/jkb65/R2:default:flash
+    make jadookb/jkb65/r2:default:flash
 
 To reset the board into bootloader mode, do the following step:
 
