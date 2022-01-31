@@ -34,7 +34,7 @@ def generate_api(cli):
 
     # Generate and write keyboard specific JSON files
     for keyboard_name in list_keyboards():
-        kb_all[keyboard_name] = info_json(keyboard_name)
+        kb_all[keyboard_name] = info_json(keyboard_name, exit_on_failure=False)
         keyboard_dir = v1_dir / 'keyboards' / keyboard_name
         keyboard_info = keyboard_dir / 'info.json'
         keyboard_readme = keyboard_dir / 'readme.md'
