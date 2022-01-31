@@ -21,3 +21,7 @@
 
 #define BACKLIGHT_CAPS_LOCK
 
+#define DEBOUNCE 5
+
+#define PERMISSIVE_HOLD
+
