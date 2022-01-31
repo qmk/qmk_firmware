@@ -2,8 +2,11 @@
     "keyboard_name": "FreebirdTKL",
     "url": "https://keebsforall.com",
     "maintainer": "KnoblesseOblige",
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi"
+    },
     "layouts": {
-        "LAYOUT_ansi": {
+        "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"label":"0,0", "x":0, "y":0},
                 {"label":"0,1", "x":1.25, "y":0},
