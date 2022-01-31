@@ -6,7 +6,7 @@
         "LAYOUT_all": "LAYOUT_alice_split_bs"
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_alice_split_bs": {
             "layout": [
                 {"label":"Esc", "x":2.75, "y":5.9},
                 {"label":"\u00ac", "x":4, "y":6.0},
