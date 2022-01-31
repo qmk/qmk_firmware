@@ -165,6 +165,7 @@ void eeconfig_debug_rgb_matrix(void) {
 }
 
 void rgb_matrix_reload_from_eeprom(void) {
+    rgb_matrix_disable_noeeprom();
     /* Reset back to what we have in eeprom */
     eeconfig_init_rgb_matrix();
     eeconfig_debug_rgb_matrix();  // display current eeprom values
