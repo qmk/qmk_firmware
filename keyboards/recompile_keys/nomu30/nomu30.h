@@ -16,9 +16,9 @@
 #pragma once
 
 #include "quantum.h"
-#ifdef KEYBOARD_nomu30_rev1
+#ifdef KEYBOARD_recompile_keys_nomu30_rev1
     #include "rev1.h"
-#elif KEYBOARD_nomu30_rev2
+#elif KEYBOARD_recompile_keys_nomu30_rev2
     #include "rev2.h"
 #endif
 
