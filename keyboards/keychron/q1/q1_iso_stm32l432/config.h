@@ -52,3 +52,6 @@
 
 /* We have 2KB EEPROM size on STM32L432 */
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
+
+/* Enable caps-lock LED */
+#define CAPS_LOCK_LED_INDEX 44
