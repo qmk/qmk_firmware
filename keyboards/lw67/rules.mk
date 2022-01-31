@@ -5,8 +5,6 @@ MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 
 # Build Options
-ENCODER_ENABLE = yes
-
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
