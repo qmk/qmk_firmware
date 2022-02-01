@@ -12,8 +12,8 @@ Two controllers are supported: the Pro Micro, and the Adafruit Feather BLE 32u4.
 
 Make examples for this keyboard (after setting up your build environment):
 
-    make meira/featherble:default  # for Feather BLE 32u4 controllers
-    make meira/promicro:default    # for Pro Micro controllers
+    make woodkeys/meira/featherble:default  # for Feather BLE 32u4 controllers
+    make woodkeys/meira/promicro:default    # for Pro Micro controllers
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

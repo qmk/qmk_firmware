@@ -30,5 +30,5 @@ CUSTOM_MATRIX = yes
 #endif
 SRC += matrix.c TWIlib.c issi.c lighting.c
 
-DEFAULT_FOLDER = meira/promicro
+DEFAULT_FOLDER = woodkeys/meira/promicro
 LAYOUTS = ortho_4x12
