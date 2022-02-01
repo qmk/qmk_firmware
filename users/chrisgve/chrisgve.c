@@ -250,15 +250,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case L_F_NAV:
         case W_F_NAV:
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
-            return g_tapping_term / 2;
-#else
-            return TAPPING_TERM / 2;
-#endif
-        default:
-#ifdef DYNAMIC_TAPPING_TERM_ENABLE
             return g_tapping_term;
 #else
             return TAPPING_TERM;
+#endif
+        default:
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+            return g_tapping_term / 2;
+#else
+            return TAPPING_TERM / 2;
 #endif
     }
 }
