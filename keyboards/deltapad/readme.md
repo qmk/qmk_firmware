@@ -1,3 +1,4 @@
+<img src="https://github.com/rich239/qmk_firmware/tree/master/keyboards/deltapad/deltapad.png?raw=true" alt="deltapad.png">
 *A short description of the keyboard/project*
 
 A 4x4 keypad
