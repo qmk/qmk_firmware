@@ -16,9 +16,7 @@
 
 #pragma once
 
-#define TRACKBALL_DPI_OPTIONS { 1200, 1800, 2600, 3400 }
-
-#define DEBOUNCE 60
+#define DEBOUNCE 45
 #define ENCODER_DEFAULT_POS 0x3
 
 #ifdef OLED_DRIVER_SH1107

@@ -1,4 +1,4 @@
-/* Copyright 2019 Ryota Goto
+/* Copyright 2021 Andre Brait
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,4 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "kbdpad_mk2.h"
+
+#pragma once
+
+#ifdef RGB_MATRIX_ENABLE
+    #define RGB_DISABLE_TIMEOUT 1200000     // 20 minutes (20 * 60 * 1000ms)
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED
+#endif
