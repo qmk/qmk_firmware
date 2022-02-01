@@ -1,19 +1,20 @@
-# VN66
+# freyr
 
-![vn66](https://i.imgur.com/Eo28suIl.jpg)
+![Freyr](https://i.imgur.com/MeOrzoIl.jpg)
 
-A compact 60% keyboard for VNMK
+Freyr is a tenkeyless keyboard, support ansi and iso layout.
 
-* Keyboard Maintainer: VNMK Community
-* Hardware Supported: VN66 PCB rev.2
-* Hardware Availability: https://geekhack.org/index.php?topic=101754.0
+[Full layout here](http://www.keyboard-layout-editor.com/#/gists/438ef0c58c46ec28c80d9894ffcff177)
+
+* Keyboard Maintainer: [HnahKB](https://github.com/vuhopkep)
+* Hardware Supported: Freyr.revB PCB
 
 Make example for this keyboard (after setting up your build environment):
 
-    make vn66:default
+    make hnahkb/freyr:default
 
 Flashing example for this keyboard:
 
-    make vn66:default:flash
+    make hnahkb/freyr:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
