@@ -233,6 +233,75 @@ void rgb_matrix_indicators_user(void) {
 }
 #endif
 
+#ifdef TAPPING_TERM_PER_KEY
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        default:
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+            return g_tapping_term;
+#else
+            return TAPPING_TERM;
+#endif
+    }
+}
+#endif
+
+#ifdef PERMISSIVE_HOLD_PER_KEY
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // Immediately select the hold action when another key is tapped.
+        // return true;
+        default:
+            // Do not select the hold action for other keys
+            return false;
+    }
+}
+#endf
+
+#ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // Immediately select the hold action when another key is pressed
+        // return true;
+        default:
+            // Do not select the hold action when another key is pressed
+            return false;
+    }
+}
+#endif
+
+#ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // Do not force the mod-tap key press to be handled as a modifier
+        // if any other key was pressed while the mod-tap key is held down.
+        // return true;
+        default:
+            // Force the mod-tap key press to e handled as a modifier if any
+            // other key was pressed while the mod-tap key is held down.
+            return false;
+    }
+}
+#endif
+
+#ifdef TAPPING_FORCE_HOLD_PER_KEY
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        default:
+            return false;
+    }
+}
+#endif
+
+#ifdef RETRO_TAPPING_PER_KEY
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        default:
+            return false;
+    }
+}
+#endif
+
 // Handling of layer color
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     if (caps_lock) {

@@ -1,3 +1,10 @@
+// Standard config
+
+#define TAPPING_TERM 200
+#define PERMISSIVE_HOLD
+
+// DEBOUNCE
+
 #ifdef REMOVE_DEBOUNCE
 #ifdef DEBOUNCE
 #undef DEBOUNCE
