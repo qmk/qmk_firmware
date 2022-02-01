@@ -1,3 +1,6 @@
+// Copyright 2022 Patrick Gilligan (@patrickgilsf)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 //#include "raw_hid.h"
 
@@ -70,7 +73,7 @@ KEY7 - Full Screen
 KEY8 - Show/Hide Chat; // If KEY7 is down, up to layer 1.
 KEY9 - Minimal Window;
 
---Layer 1 - 
+--Layer 1 - [PC Zoom Shortcuts]
 KEY10 - Mute Mic/Toggle Keyboard Light;
 KEY11 - Mute Video; // If KEY10 is down, back to layer 0
 KEY12 - Raise/Lower Hand;
@@ -90,7 +93,7 @@ KEY23 -
 KEY24 -
 KEY25 - 
 KEY26 - If KEY25 is down, back to layer 1
-KEY27 - If KEY25 && KEY26 are down, puts it in setup mode
+KEY27 - If KEY19 && KEY25 are down, puts it in setup mode
 */
 
 //initialize booleans for stacked functions:
@@ -377,7 +380,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KEY27:
         if (record->event.pressed) {
             kp_27 = true;
-            if (kp_25 && kp_26) {
+            if (kp_19 && kp_25) {
                 rgblight_setrgb(RGB_WHITE);
                 reset_keyboard();
             }
@@ -402,6 +405,7 @@ void keyboard_post_init_user(void) {
   rgblight_setrgb(RGB_ORANGE);
   rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); 
   set_single_persistent_default_layer(0); 
+  rgblight_set(); //added this per comment on Discord, trying to get rgb setup
 }
 
 //RGB control for layers
@@ -427,5 +431,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
 return state;    
 }
-
-
