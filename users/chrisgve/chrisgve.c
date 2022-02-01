@@ -270,6 +270,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #ifdef PERMISSIVE_HOLD_PER_KEY
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        // case TAB_CTL:
+        // case CPS_CTL:
         case ADM_BSL:
         case ADL_BSL:
         case ADW_BSL:

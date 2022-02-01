@@ -13,4 +13,5 @@ make kbdfans/kbd67/rev2:chrisgve_v3
 make winx:chrisgve
 make hineybush/h60:chrisgve
 make hifinger75:chrisgve
+make bemeier/bmek/rev3:chrisgve
 
