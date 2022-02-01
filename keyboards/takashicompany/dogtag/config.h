@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT      DogTag
 
 /* key matrix size */
-#define MATRIX_ROWS 2 * 2
+#define MATRIX_ROWS 3 * 2
 #define MATRIX_COLS 5
 
 /*
@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { B2, B6 }
+#define MATRIX_ROW_PINS { B2, B6, B3}
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1 }
 #define MATRIX_ROW_PINS_RIGHT { B2, B6 }
 #define MATRIX_COL_PINS_RIGHT { B1, F7, F6, F5, F4 }

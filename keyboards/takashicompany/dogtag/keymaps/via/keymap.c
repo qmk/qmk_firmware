@@ -19,12 +19,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     LAYOUT(
         LT(1, KC_ESC), KC_Q, KC_W, KC_E,                 KC_Y, KC_U, KC_I, KC_O,
-        KC_LSFT,       KC_A, KC_S, KC_D, KC_SPC, KC_TAB, KC_H, KC_J, KC_K, KC_L
+        KC_LSFT,       KC_A, KC_S, KC_D, KC_SPC, KC_TAB, KC_H, KC_J, KC_K, KC_L,
+        KC_1, KC_2, KC_3, KC_4
     ),
 
     LAYOUT(
         KC_TRNS, RGB_MOD, RGB_HUI, RGB_SAI,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, RGB_M_P, RGB_M_K, RGB_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+        KC_TRNS, RGB_M_P, RGB_M_K, RGB_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_5, KC_6, KC_7, KC_8
     )
 
 };
