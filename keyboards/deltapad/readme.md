@@ -1,10 +1,6 @@
-# deltapad
-
-
-
 *A short description of the keyboard/project*
 
-A 4x4 keypad 
+A 4x4 keypad
 
 * Keyboard Maintainer: [Richard Snijder](https://github.com/rich239)
 * Hardware Supported: Atmel 32u4 based keypads
@@ -25,4 +21,3 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in the following way:
 
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-
