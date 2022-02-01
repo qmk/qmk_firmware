@@ -1,4 +1,4 @@
-AUTO_SHIFT_ENABLE = yes # Auto Shift
+AUTO_SHIFT_ENABLE = no # Auto Shift
 COMBO_ENABLE=yes
 CONSOLE_ENABLE = no
 ENCODER_ENABLE = yes

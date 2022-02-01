@@ -187,7 +187,8 @@ static void print_status_narrow(void) {
 				oled_write_ln_P(PSTR("<->"), true);
 			} else {
 				oled_write_ln_P(PSTR("<->"), false);
-			}			oled_write_ln_P(PSTR(""), false);
+			}
+			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 
 			break;
@@ -205,7 +206,8 @@ static void print_status_narrow(void) {
 				oled_write_ln_P(PSTR("<->"), true);
 			} else {
 				oled_write_ln_P(PSTR("<->"), false);
-			}			oled_write_ln_P(PSTR(""), false);
+			}
+			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			break;
@@ -223,7 +225,8 @@ static void print_status_narrow(void) {
 				oled_write_ln_P(PSTR("<->"), true);
 			} else {
 				oled_write_ln_P(PSTR("<->"), false);
-			}			oled_write_ln_P(PSTR(""), false);
+			}
+			oled_write_ln_P(PSTR(""), false);
 			oled_write_ln_P(PSTR(""), false);
 			break;
 		 case 5:
