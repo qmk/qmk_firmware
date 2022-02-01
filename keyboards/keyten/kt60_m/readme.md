@@ -2,7 +2,7 @@
 
 60% MX PCB with a minimum number of required layouts.
 
-![kt60-M image](https://i.imgur.com/ZAdGKmQ.jpg)
+![kt60-M image](https://i.imgur.com/ZAdGKmQl.jpg)
 
 * Keyboard Maintainer: [keyten](https://github.com/key10iq)
 * Hardware Supported: keyten kt60-M
