@@ -236,6 +236,24 @@ void rgb_matrix_indicators_user(void) {
 #ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case TAB_CTL:
+        case S_SHIFT:
+        case A_SHIFT:
+        case S_MOUSE:
+        case A_MOUSE:
+        case SLS_SFT:
+        case CPS_CTL:
+        case M_NAV_1:
+        case L_NAV_1:
+        case W_NAV_1:
+        case M_F_NAV:
+        case L_F_NAV:
+        case W_F_NAV:
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+            return g_tapping_term / 2;
+#else
+            return TAPPING_TERM / 2;
+#endif
         default:
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
             return g_tapping_term;
@@ -249,20 +267,43 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #ifdef PERMISSIVE_HOLD_PER_KEY
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // Immediately select the hold action when another key is tapped.
-        // return true;
+        case ADM_BSL:
+        case ADL_BSL:
+        case ADW_BSL:
+        case END_F_M:
+        case END_F_L:
+        case END_F_W:
+        case PGDN_FM:
+        case PGDN_FL:
+        case PGDN_FW:
+        case SPC_LWR:
+        case SPC_RSE:
+        case M_NAV_1:
+        case L_NAV_1:
+        case W_NAV_1:
+        case M_F_NAV:
+        case L_F_NAV:
+        case W_F_NAV:
+            // Immediately select the hold action when another key is tapped.
+            // return true;
+            return true;
         default:
             // Do not select the hold action for other keys
             return false;
     }
 }
-#endf
+#endif
 
 #ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // Immediately select the hold action when another key is pressed
-        // return true;
+        case TAB_CTL:
+        case R_SHIFT:
+        case QUT_SFT:
+        case CPS_CTL:
+            // Immediately select the hold action when another key is pressed
+            // return true;
+            return true;
         default:
             // Do not select the hold action when another key is pressed
             return false;
