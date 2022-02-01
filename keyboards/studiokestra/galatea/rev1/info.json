@@ -3,7 +3,7 @@
     "url": "https://studiokestra.ca/galatea",
     "maintainer": "Studio Kestra",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0}, 
                 {"label":"F1", "x":1.25, "y":0}, 

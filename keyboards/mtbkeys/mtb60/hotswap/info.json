@@ -3,7 +3,7 @@
     "url": "mtbkeys.com",
     "maintainer": "MTBKeys",
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label": "Esc"       , "x":  0, "y": 0        },
                 {"label": "!"         , "x":  1, "y": 0        },
