@@ -1,4 +1,4 @@
-<img src="https://github.com/rich239/qmk_firmware/tree/master/keyboards/deltapad/deltapad.jpg?raw=true" alt="deltapad.png">
+![DeltaPad](https://github.com/rich239/qmk_firmware/tree/master/keyboards/deltapad/deltapad.jpg)
 *A short description of the keyboard/project*
 
 A 4x4 keypad
