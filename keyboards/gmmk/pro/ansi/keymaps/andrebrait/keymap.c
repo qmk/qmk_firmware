@@ -25,20 +25,18 @@ enum layers {
 };
 
 enum custom_keycodes {
-    #ifdef VIA_ENABLE
-    KC_MISSION_CONTROL = USER00,
-    #else
     KC_MISSION_CONTROL = SAFE_RANGE,
-    #endif
-    KC_LAUNCHPAD,
-    KC_TASK,
-    KC_FLXP,
-    KC_LTOG,
-    KC_FN,
+    KC_LAUNCHPAD
 };
 
+#define KC_TASK LGUI(KC_TAB)
+#define KC_FLXP LGUI(KC_E)
 #define KC_MCTL KC_MISSION_CONTROL
 #define KC_LPAD KC_LAUNCHPAD
+#define TO_WINB TO(WIN_BASE)
+#define TO_MACB TO(MAC_BASE)
+#define MO_WINF MO(WIN_FN)
+#define MO_MACF MO(MAC_FN)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -72,14 +70,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
         KC_CAPS, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
         KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LGUI,  KC_LALT,                            KC_SPC,                             KC_RALT,   KC_FN, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LGUI,  KC_LALT,                            KC_SPC,                             KC_RALT, MO_WINF, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     [WIN_FN] = LAYOUT(
         _______, KC_BRID,  KC_BRIU, KC_TASK, KC_FLXP, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, KC_INS,           XXXXXXX,
         XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PSCR,
         RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,            KC_PAUS,
-        KC_LTOG, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_SCRL,
+        TO_MACB, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_SCRL,
         _______,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
         _______, _______,  _______,                            XXXXXXX,                            _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
     ),
@@ -90,14 +88,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
         KC_CAPS, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
         KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LALT,  KC_LGUI,                            KC_SPC,                             KC_RALT,   KC_FN, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LALT,  KC_LGUI,                            KC_SPC,                             KC_RALT, MO_MACF, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     [MAC_FN] = LAYOUT(
         _______, KC_BRID,  KC_BRIU, KC_MCTL, KC_LPAD, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, KC_INS,           XXXXXXX,
         XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PSCR,
         RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,            KC_BRMU,
-        KC_LTOG, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_BRMD,
+        TO_WINB, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_BRMD,
         _______,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
         _______, _______,  _______,                            XXXXXXX,                            _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
     )
@@ -144,24 +142,21 @@ static void start_effects(void);
 static uint8_t previous_effect_layer = 255;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
+    uint8_t current_layer = get_highest_layer(state);
+    switch (current_layer) {
         case WIN_BASE:
-        case WIN_FN:
-            if (previous_effect_layer == WIN_BASE) {
-                break;
+            if (previous_effect_layer != current_layer) {
+                previous_effect_layer = current_layer;
+                effect_blue();
+                start_effects();
             }
-            previous_effect_layer = WIN_BASE;
-            effect_blue();
-            start_effects();
             break;
         case MAC_BASE:
-        case MAC_FN:
-            if (previous_effect_layer == MAC_BASE) {
-                break;
+            if (previous_effect_layer != current_layer) {
+                previous_effect_layer = current_layer;
+                effect_white();
+                start_effects();
             }
-            previous_effect_layer = MAC_BASE;
-            effect_white();
-            start_effects();
             break;
     }
     return state;
@@ -184,8 +179,6 @@ bool led_update_user(led_t led_state) {
 
 #endif // RGB_MATRIX_ENABLE
 
-static bool fn_pressed = false;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_MISSION_CONTROL:
@@ -202,56 +195,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 host_consumer_send(0);
             }
             return false;  // Skip all further processing of this key
-        case KC_TASK:
-            if (record->event.pressed) {
-                register_code(KC_LWIN);
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_LWIN);
-                unregister_code(KC_TAB);
-            }
-            return false;  // Skip all further processing of this key
-        case KC_FLXP:
-            if (record->event.pressed) {
-                register_code(KC_LWIN);
-                register_code(KC_E);
-            } else {
-                unregister_code(KC_LWIN);
-                unregister_code(KC_E);
-            }
-            return false;  // Skip all further processing of this key
-        case KC_FN:
-            if (record->event.pressed) {
-                fn_pressed = true;
-                if (IS_LAYER_ON(WIN_BASE)) {
-                    layer_on(WIN_FN);
-                } else if (IS_LAYER_ON(MAC_BASE)) {
-                    layer_on(MAC_FN);
-                }
-            } else {
-                fn_pressed = false;
-                if (IS_LAYER_ON(WIN_FN)) {
-                    layer_off(WIN_FN);
-                } else if (IS_LAYER_ON(MAC_FN)) {
-                    layer_off(MAC_FN);
-                }
-            }
-            return false;  // Skip all further processing of this key
-        case KC_LTOG:
-            if (record->event.pressed) {
-                if (IS_LAYER_ON(WIN_FN)) {
-                    layer_move(MAC_BASE);
-                    if (fn_pressed) {
-                        layer_on(MAC_FN);
-                    }
-                } else if (IS_LAYER_ON(MAC_FN)) {
-                    layer_move(WIN_BASE);
-                    if (fn_pressed) {
-                        layer_on(WIN_FN);
-                    }
-                }
-            }
-            return false;  // Skip all further processing of this key
     #ifdef RGB_MATRIX_ENABLE
     #ifdef NKRO_ENABLE
         case NK_TOGG:
@@ -264,24 +207,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     effect_green();
                 }
                 start_effects();
-            }
-            break;
-        case NK_ON:
-            if (record->event.pressed) {
-                if (!keymap_config.nkro) {
-                    /* Turning NKRO ON */
-                    effect_green();
-                    start_effects();
-                }
-            }
-            break;
-        case NK_OFF:
-            if (record->event.pressed) {
-                if (keymap_config.nkro) {
-                    /* Turning NKRO OFF */
-                    effect_red();
-                    start_effects();
-                }
             }
             break;
     #endif // NKRO_ENABLE
