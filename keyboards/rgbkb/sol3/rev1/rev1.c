@@ -39,7 +39,7 @@ const encodermap_t touch_encoder_map[NUMBER_OF_TOUCH_ENCODERS][TOUCH_ENCODER_OPT
     { { 7, 7 }, { 6, 7 }, { 8, 7 }, { 11, 6 }, { 11, 7 }, }  // Touch Encoder 1 matrix entries
 };
 
-static bool limit_lightning = false;
+static bool limit_lightning = true;
 
 RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
     if (limit_lightning) hsv.v /= 2;
