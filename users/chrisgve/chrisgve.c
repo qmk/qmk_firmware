@@ -241,6 +241,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case A_SHIFT:
         case S_MOUSE:
         case A_MOUSE:
+        case SFT_MSE:
+        case SPC_LWR:
+        case SPC_RSE:
         case SLS_SFT:
         case CPS_CTL:
         case M_NAV_1:
@@ -276,8 +279,8 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
         case PGDN_FM:
         case PGDN_FL:
         case PGDN_FW:
-        case SPC_LWR:
-        case SPC_RSE:
+        // case SPC_LWR:
+        // case SPC_RSE:
         case M_NAV_1:
         case L_NAV_1:
         case W_NAV_1:
@@ -301,6 +304,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
         case R_SHIFT:
         case QUT_SFT:
         case CPS_CTL:
+        case SFT_MSE:
             // Immediately select the hold action when another key is pressed
             // return true;
             return true;
