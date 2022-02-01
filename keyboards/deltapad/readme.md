@@ -1,4 +1,6 @@
 ![DeltaPad](https://github.com/rich239/qmk_firmware/blob/master/keyboards/deltapad/deltapad.jpg)
+
+
 *A short description of the keyboard/project*
 
 A 4x4 keypad
