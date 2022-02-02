@@ -295,6 +295,14 @@ def git_get_branch():
         return git_branch.stdout.strip()
 
 
+def git_get_tag():
+    """Returns the current tag for a repo, or None.
+    """
+    git_tag = cli.run(['git', 'describe', '--abbrev=0', '--tags'])
+    if git_tag.returncode == 0:
+        return git_tag.stdout.strip()
+
+
 def git_is_dirty():
     """Returns 1 if repo is dirty, or 0 if clean
     """
