@@ -1,8 +1,8 @@
 # ISP刷写指南
 
 <!---
-  original document: 0.15.12:docs/isp_flashing_guide.md 
-  git diff 0.15.12 HEAD -- docs/isp_flashing_guide.md  | cat
+  original document: 0.15.18:docs/isp_flashing_guide.md
+  git diff 0.15.18 HEAD -- docs/isp_flashing_guide.md  | cat
 -->
 
 如果想通过USB刷写微控制器，我们需要bootloader的支持。bootloader存储在闪存的特定区块中，它的职责也包括将真正的固件应用程序（即QMK）写入到闪存的其余区块中。
@@ -63,13 +63,14 @@ AVR微控制器有很多种bootloader。而绝大部分 ARM 架构的 STM32 微�
 
 !> 注意 `B0` 引脚须接到键盘控制器的 `RESET` 引脚上，***不要***把 Teensy 的 `RESET` 引脚接到键盘的 `RESET` 引脚上去。
 
-### SparkFun PocketAVR / USBtinyISP / USBasp
+### SparkFun PocketAVR / USBtinyISP
 
-[SparkFun PocketAVR](https://www.sparkfun.com/products/9825)  
-[Adafruit USBtinyISP](https://www.adafruit.com/product/46)  
-[Thomas Fischl's USBasp](https://www.fischl.de/usbasp/)
+[SparkFun PocketAVR](https://www.sparkfun.com/products/9825)
+[Adafruit USBtinyISP](https://www.adafruit.com/product/46)
 
-**AVRDUDE 编程器**: `usbtiny` / `usbasp`  
+!> SparkFun PocketAVR 以及 USBtinyISP **不支持**闪存空间大于 64 KiB 的AVR芯片（比如 AT90USB128 系列），这个问题在 [SparkFun PocketAVR 的购买页](https://www.sparkfun.com/products/9825)以及 [USBtinyISP 的 FAQ页面](https://learn.adafruit.com/usbtinyisp/f-a-q#faq-2270879)中有提及。如果你想在 AT90USB128 芯片上使用上述编程器，`avrdude` 将会给出一个验证错误，并且 bootloader 将无法正确写入（[issue #3286](https://github.com/qmk/qmk_firmware/issues/3286) 为这个情况的一个例子）。
+
+**AVRDUDE 编程器**: `usbtiny`
 **AVRDUDE 端口**: `usb`
 
 #### 接线
@@ -83,6 +84,23 @@ AVR微控制器有很多种bootloader。而绝大部分 ARM 架构的 STM32 微�
 |`MOSI`   |`MOSI`  |
 |`MISO`   |`MISO`  |
 
+### USBasp
+
+[Thomas Fischl's USBasp](https://www.fischl.de/usbasp/)
+
+**AVRDUDE 编程器**: `usbasp`  
+**AVRDUDE 端口**: `usb`
+
+#### 接线
+
+|ISP      |Keyboard|
+|---------|--------|
+|`VCC`    |`VCC`   |
+|`GND`    |`GND`   |
+|`RST`    |`RESET` |
+|`SCLK`   |`SCLK`  |
+|`MOSI`   |`MOSI`  |
+|`MISO`   |`MISO`  |
 
 ### Bus Pirate
 
