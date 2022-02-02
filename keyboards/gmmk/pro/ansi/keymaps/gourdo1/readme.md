@@ -1,6 +1,6 @@
 # gourdo1's GMMK Pro layout
 
-This layout is based on Jonavin's GMMK Pro layout with some modifications to functionality and RGB.
+This layout is based on Jonavin's GMMK Pro layout with some modifications to keymap, functionality and RGB.
 
 Features:
 
