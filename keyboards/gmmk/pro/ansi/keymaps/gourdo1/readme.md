@@ -3,6 +3,7 @@
 This layout is based on Jonavin's GMMK Pro layout with some modifications to functionality and RGB.
 
 Features:
+
 	* Most default Glorious shortcuts enabled
 	* Re-worked/simplified overlay numpad upon Capslock key hold (temp) or double press (locked) with RGB highlighting
 	* Capslock toggled by double press of left Shift key or FN+Capslock
