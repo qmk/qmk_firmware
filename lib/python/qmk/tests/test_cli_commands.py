@@ -113,7 +113,7 @@ def test_list_keymaps_community():
 
 
 def test_list_keymaps_kb_only():
-    result = check_subcommand('list-keymaps', '-kb', 'niu_mini')
+    result = check_subcommand('list-keymaps', '-kb', 'contra')
     check_returncode(result)
     assert 'default' and 'via' in result.stdout
 
