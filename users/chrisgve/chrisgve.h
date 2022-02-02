@@ -305,7 +305,35 @@ enum custom_keycodes {
                 }                         \
             } else {                      \
                 unregister_code(KC_LSFT); \
-                    unregister_code(KC_RSFT); \
+                unregister_code(KC_RSFT); \
+            }                             \
+        }                                 \
+        return false;
+
+// Never with Ctrl
+#    define CTRL_NO(kc1, kc2)            \
+        if (record->event.pressed) {      \
+            unregister_code(KC_LCTL);     \
+            unregister_code(KC_RCTL);     \
+            if (lctrl || rctrl) {       \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+            if (lctrl || rctrl) {       \
+                if (lctrl) {             \
+                    register_code(KC_LCTL); \
+                } else {                  \
+                    register_code(KC_RCTL); \
+                }                         \
+            } else {                      \
+                unregister_code(KC_LCTL); \
+                unregister_code(KC_RCTL); \
             }                             \
         }                                 \
         return false;

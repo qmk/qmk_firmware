@@ -77,6 +77,8 @@ bool mouse_layer = false;
 #ifdef SHIFT_ENABLE
 bool lshift = false;
 bool rshift = false;
+bool lctrl = false;
+bool rctrl = false;
 #endif
 
 // Tap dance configuration
@@ -480,8 +482,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rshift = false;
             }
             break;
+        case TAB_CTL:
+        case CPS_CTL:
+        case KC_LCTL:
+            if (record->event.pressed) {
+                lctrl = true;
+            } else {
+                lctrl = false;
+            }
+            break;
+        case KC_RCTL:
+            if (record->event.pressed) {
+                rctrl = true;
+            } else {
+                rctrl = false;
+            }
+            break;
         case CU_BSPC:
-            SHIFT_NO(KC_BSPC, KC_DEL)
+            // SHIFT_NO(KC_BSPC, KC_DEL)
+            CTRL_NO(KC_BSPC, KC_DEL)
 #endif
 #ifdef APPLE_FN_ENABLE
         /* Detect if KC_APPLE_FN is pressed */
