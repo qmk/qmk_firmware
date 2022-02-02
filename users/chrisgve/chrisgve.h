@@ -375,7 +375,7 @@ enum custom_keycodes {
 #    define ALT_SWITCH(kc1, kc2)        \
         if (record->event.pressed) {      \
             if (lalt || ralt) {       \
-                if (latl) {             \
+                if (lalt) {             \
                     unregister_code(KC_LALT); \
                 } else {                  \
                     unregister_code(KC_RALT); \
@@ -465,7 +465,6 @@ enum custom_keycodes {
                     register_code(KC_RSFT); \
             else                          \
                 unregister_code(KC_LSFT); \
-            }                             \
         }                                 \
         return false;
 
@@ -490,7 +489,6 @@ enum custom_keycodes {
                     register_code(KC_RCTL); \
             else                          \
                 unregister_code(KC_LCTL); \
-            }                             \
         }                                 \
         return false;
 
@@ -515,11 +513,10 @@ enum custom_keycodes {
                     register_code(KC_RALT); \
             else                          \
                 unregister_code(KC_LALT); \
-            }                             \
         }                                 \
         return false;
 
-// Always with control
+// Always with gui
 #    define GUI_ALL(kc1, kc2)           \
         if (record->event.pressed) {      \
             register_code(KC_LGUI);       \
@@ -540,7 +537,6 @@ enum custom_keycodes {
                     register_code(KC_RGUI); \
             else                          \
                 unregister_code(KC_LGUI); \
-            }                             \
         }                                 \
         return false;
 
