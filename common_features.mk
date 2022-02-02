@@ -188,9 +188,10 @@ else
         # Emulated EEPROM
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_FLASH_EMULATED
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
+        COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/eeprom
         SRC += eeprom_driver.c
-        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
-        SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+        SRC += eeprom_flash_emulated.c
+        SRC += flash_stm32.c
       else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
         # True EEPROM on STM32L0xx, L1xx
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_L0_L1
