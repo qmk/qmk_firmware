@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
+#include <ch.h>
+#include <hal.h>
+
 #if defined(K20x)
 /* Teensy 3.0, 3.1, 3.2; mchck; infinity keyboard */
 // The EEPROM is really RAM with a hardware-based backup system to
