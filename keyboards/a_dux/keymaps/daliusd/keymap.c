@@ -227,12 +227,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t hl = get_highest_layer(state);
     if (hl == _LT) {
         if (!lang_layer_on) {
-            tap_code16(LCTL(KC_SPC));
+            tap_code16(LCTL(KC_SPC)); // swap language
             lang_layer_on = true;
         }
     } else {
         if (lang_layer_on) {
-            tap_code16(LCTL(KC_SPC));
+            tap_code16(LCTL(KC_SPC)); // swap language
             lang_layer_on = false;
         }
     }

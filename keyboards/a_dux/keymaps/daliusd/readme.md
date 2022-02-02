@@ -14,6 +14,10 @@ This is my principles for layout:
 
 * There is simple TMUX layer.
 
+* Common keys must be accessible using two keys where possible.
+  Therefore I have some keys accessible both using two keys, while
+  there is 3 keys access option as well.
+
 ## Improvements over Callum
 
 * I have added one shot layers compatible with Callum's one shot
@@ -32,9 +36,6 @@ This is my principles for layout:
   Otherwise oneshot is canceled.
 
 Since differences are quite significant I named this `flow`.
-
-NOTE: this is still work in progress and might change in the
-future.
 
 ## Using flow with your keyboard
 
@@ -106,18 +107,193 @@ ways:
   separate terminal, tab or tmux pane. Make changes to `flow.c` or
   `./tests/test.c` and see if you have not broken any tests.
 
+## Lithuanian letters
+
+There are at least two ways how to enter Lithuanian letters: to
+use Unicode support from QMK or to switch OS language when
+necessary. Unicode support has some problems:
+
+* it is OS specific (you need to change Unicode input mode based
+  on your OS and I sometimes switch between Mac OS X and Ubuntu).
+  This is minor issue but it is still issue.
+
+* There is bug in Mac OS X and I can't enter `Š` using unicode
+  input method.
+
+* Unicode Hex Input in Mac OS X is not perfect and there are some
+  minor issue while using it.
+
+This leaves us with other option to use OS language switching as
+you most probably have done before. Still there is space for
+improvement. E.g. I have added Lithuanian letters to trilayer and
+trilayer activation toggles OS language (this works because I use
+only two languages). Check `layer_state_set_user` implementation
+for details.
+
 # Rejected ideas
 
-* Sometimes when I press `NAV (layer key) + S + Tab` to get
-  `Command + Tab` I ended up with `S + Nav + Tab`. This happened
-  because I did that really fast and sometimes clicked S slightly
-  earlier than NAV layer key. Initially I have solved this problem
-  using Combo keys, but that's additional dependency and combo
-  keys are not ideal for Callum layer. You need to release both
-  keys to trigger Combo key release. Therefore I have written
-  custom code that allows pressing S some milliseconds earlier.
-  This is controlled by FLOW_TERM and defaults to 10. I do not
-  recommend setting this to higher than 30.
+## Mods as combos
 
-  This idea was rejected because it looks like 10ms did not made
-  that big difference.
+Sometimes when I press `NAV (layer key) + S + Tab` to get `Command
++ Tab` I ended up with `S + Nav + Tab`. This happened because I
+did that really fast and sometimes clicked S slightly earlier than
+NAV layer key. Initially I have solved this problem using Combo
+keys, but that's additional dependency and combo keys are not
+ideal for Callum layer. You need to release both keys to trigger
+Combo key release. Therefore I have written custom code that
+allows pressing S some milliseconds earlier. This is controlled by
+FLOW_TERM and defaults to 10. I do not recommend setting this to
+higher than 30.
+
+This idea was rejected because it looks like 10ms did not made
+that big difference.
+
+## Swapper
+
+Idea of swapper is to have key that registers Mode key (e.g.
+Command while layer and some key is pressed) to simulate two key
+combo, e.g. Command + Tab. Overall I found that 3 keys combo that
+I have currently for swapping windows is equally good as 2 keys
+swapper. Another problem with swapper is that it is OS specific.
+Still if you want here is swapper implementation I have used:
+
+```c
+bool active;
+
+void update_swapper(
+    uint16_t trigger,
+    uint16_t keycode,
+    bool pressed
+) {
+    if (keycode == trigger) {
+        if (pressed) {
+            if (!active) {
+                active = true;
+                register_code(KC_LGUI);
+            }
+            register_code(KC_TAB);
+        } else {
+            unregister_code(KC_TAB);
+        }
+    } else if (active && keycode != KC_LSFT && keycode != KC_LEFT && keycode != KC_RIGHT) {
+        unregister_code(KC_LGUI);
+        active = false;
+    }
+}
+```
+
+## Combos
+
+I have seen that some people use two letter horizontal combos for
+some actions, e.g. XC for Command+C, CV for Command+V, JK for ESC
+and etc. I found that this kind of kicks me out of the flow when
+working as it requires different kind of action and I need to
+pause to make that action.
+
+## Comma-space
+
+I have noticed that I put space after comma `,` usually. That
+means I can use comma + letter for something else with backspace,
+e.g. for Lithuanian letters. Performance wise that works OK, but
+practically that does not feel really good. Trilayer with language
+layer switch works better.
+
+Still if you are interested here is comma-space implementation:
+
+```c
+void swap_layout(void) {
+    uint8_t saved_mods = get_mods();
+    clear_mods();
+    tap_code16(LCTL(KC_SPC));
+    set_mods(saved_mods);
+}
+
+void press_with_layout_swap(uint16_t keycode) {
+    tap_code16(KC_BSPC);
+    swap_layout();
+    tap_code16(keycode);
+    swap_layout();
+}
+
+bool comma_pressed = false;
+
+bool update_commaspace(
+    uint16_t keycode,
+    bool pressed
+) {
+    if (keycode == KC_COMM) {
+        if (!(get_mods() & MOD_MASK_SHIFT)) {
+            comma_pressed = true;
+        }
+    } else if (comma_pressed) {
+        if (keycode != KC_LSFT) {
+            comma_pressed = false;
+        }
+
+        switch(keycode) {
+            case KC_Q:
+                if (pressed) {
+                    press_with_layout_swap(KC_1);
+                    return false;
+                }
+                break;
+            case KC_W:
+                if (pressed) {
+                    press_with_layout_swap(KC_2);
+                    return false;
+                }
+                break;
+            case KC_E:
+                if (pressed) {
+                    press_with_layout_swap(KC_3);
+                    return false;
+                }
+                break;
+            case KC_R:
+                if (pressed) {
+                    press_with_layout_swap(KC_4);
+                    return false;
+                }
+                break;
+            case KC_T:
+                if (pressed) {
+                    press_with_layout_swap(KC_5);
+                    return false;
+                }
+                break;
+            case KC_Y:
+                if (pressed) {
+                    press_with_layout_swap(KC_6);
+                    return false;
+                }
+                break;
+            case KC_U:
+                if (pressed) {
+                    press_with_layout_swap(KC_7);
+                    return false;
+                }
+                break;
+            case KC_I:
+                if (pressed) {
+                    press_with_layout_swap(KC_8);
+                    return false;
+                }
+                break;
+            case KC_O:
+                if (pressed) {
+                    press_with_layout_swap(KC_EQL);
+                    return false;
+                }
+                break;
+        }
+    }
+
+    return true;
+};
+```
+
+## Using one shot layers on top layer keys (NAV and SYM)
+
+While this looked promising and fun it was really easy to get lost
+in which layer you actually are. You can still use it as `flow`
+supports this scenario, but I do not recommend it.
