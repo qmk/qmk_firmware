@@ -110,10 +110,12 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
         **macro_pointer = *record;
         *macro_pointer += direction;
     } else {
-        dynamic_macro_record_key_user(direction, record);
+        // TBD: perform some action when the recording is still in progress but has consumed the available macro buffer
+        dprint("dynamic macro: end of buffer. New key record not added to buffer.\n");
     }
 
     dprintf("dynamic macro: slot %d length: %d/%d\n", DYNAMIC_MACRO_CURRENT_SLOT(), DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer), DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end));
+    dynamic_macro_record_key_user(direction, record);
 }
 
 /**
