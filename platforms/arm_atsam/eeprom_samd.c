@@ -18,11 +18,7 @@
 #include "samd51j18a.h"
 #include "core_cm4.h"
 #include "component/nvmctrl.h"
-
-#ifndef EEPROM_SIZE
-#    include "eeconfig.h"
-#    define EEPROM_SIZE (((EECONFIG_SIZE + 3) / 4) * 4)  // based off eeconfig's current usage, aligned to 4-byte sizes, to deal with LTO
-#endif
+#include "eeprom_samd.h"
 
 #ifndef MAX
 #    define MAX(X, Y) ((X) > (Y) ? (X) : (Y))

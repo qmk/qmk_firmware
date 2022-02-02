@@ -186,20 +186,21 @@ else
     else ifeq ($(PLATFORM),CHIBIOS)
       ifneq ($(filter STM32F3xx_% STM32F1xx_% %_STM32F401xC %_STM32F401xE %_STM32F405xG %_STM32F411xE %_STM32F072xB %_STM32F042x6 %_GD32VF103xB %_GD32VF103x8, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
         # Emulated EEPROM
-        OPT_DEFS += -DEEPROM_DRIVER
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_FLASH_EMULATED
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
         SRC += eeprom_driver.c
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
       else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
         # True EEPROM on STM32L0xx, L1xx
-        OPT_DEFS += -DEEPROM_DRIVER
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_L0_L1
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
         COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/eeprom
         SRC += eeprom_driver.c
         SRC += eeprom_stm32_L0_L1.c
       else ifneq ($(filter $(MCU_SERIES),KL2x K20x),)
         # Teensy EEPROM implementations
+        OPT_DEFS += -DEEPROM_TEENSY
         SRC += eeprom_teensy.c
       else
         # Fall back to transient, i.e. non-persistent
@@ -209,9 +210,11 @@ else
       endif
     else ifeq ($(PLATFORM),ARM_ATSAM)
       # arm_atsam EEPROM
-      SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+      OPT_DEFS += -DEEPROM_SAMD
+      SRC += $(PLATFORM_COMMON_DIR)/eeprom_samd.c
     else ifeq ($(PLATFORM),TEST)
       # Test harness "EEPROM"
+      OPT_DEFS += -DEEPROM_TEST_HARNESS
       SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
     endif
   endif

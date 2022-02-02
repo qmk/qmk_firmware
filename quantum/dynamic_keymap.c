@@ -29,24 +29,22 @@
 #    define DYNAMIC_KEYMAP_MACRO_COUNT 16
 #endif
 
-// This is the default EEPROM max address to use for dynamic keymaps.
-// The default is the ATmega32u4 EEPROM max address.
-// Explicitly override it if the keyboard uses a microcontroller with
-// more EEPROM *and* it makes sense to increase it.
+#ifndef TOTAL_EEPROM_BYTE_COUNT
+#    error Unknown total EEPROM size. Cannot derive maximum for dynamic keymaps.
+#endif
+
 #ifndef DYNAMIC_KEYMAP_EEPROM_MAX_ADDR
-#    if defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__)
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
-#    elif defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4095
-#    elif defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_AT90USB162__) || defined(__AVR_ATtiny85__)
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 511
-#    else
-#        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
-#    endif
+#    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (TOTAL_EEPROM_BYTE_COUNT - 1)
+#endif
+
+#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > (TOTAL_EEPROM_BYTE_COUNT - 1)
+#    pragma message STR(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) " > " STR((TOTAL_EEPROM_BYTE_COUNT - 1))
+#    error DYNAMIC_KEYMAP_EEPROM_MAX_ADDR is configured to use more space than what is available for the selected EEPROM driver
 #endif
 
 // Due to usage of uint16_t check for max 65535
 #if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR > 65535
+#    pragma message STR(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) " > 65535"
 #    error DYNAMIC_KEYMAP_EEPROM_MAX_ADDR must be less than 65536
 #endif
 
@@ -71,6 +69,7 @@
 // or DYNAMIC_KEYMAP_EEPROM_MAX_ADDR to increase it, *only if* the microcontroller has
 // more than the default.
 #if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR < 100
+#    pragma message STR(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR) " < 100"
 #    error Dynamic keymaps are configured to use more EEPROM than is available.
 #endif
 

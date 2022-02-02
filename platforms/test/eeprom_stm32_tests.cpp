@@ -17,8 +17,6 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "flash_stm32.h"
-#include "eeprom_stm32.h"
 #include "eeprom.h"
 }
 
@@ -46,7 +44,6 @@ extern "C" {
  *
  */
 
-#define EEPROM_SIZE (FEE_PAGE_SIZE * FEE_PAGE_COUNT / 2)
 #define LOG_SIZE EEPROM_SIZE
 #define LOG_BASE (MOCK_FLASH_SIZE - LOG_SIZE)
 #define EEPROM_BASE (LOG_BASE - EEPROM_SIZE)
