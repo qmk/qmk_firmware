@@ -1,7 +1,7 @@
 {
     "keyboard_name": "7V Hotswap PCBs",
     "url": "http://www.fjlaboratories.com/",
-    "maintainer": "FJLabs",
+    "maintainer": "mrnoisytiger",
     "layouts": {
         "LAYOUT_75_all": {
             "layout": [
