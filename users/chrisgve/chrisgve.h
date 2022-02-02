@@ -195,6 +195,32 @@ enum custom_keycodes {
 // smart shift keycode, this is governed by the SHIFT_ENABLE switch
 #ifdef SHIFT_ENABLE
 
+// Normal ctrl status
+#    define CTRL_NORM(kc1, kc2)          \
+        if (record->event.pressed) {      \
+            if (lctrl || rctrl) {       \
+                if (lctrl) {             \
+                    register_code(KC_LCTL); \
+                } else {                  \
+                    register_code(KC_RCTL); \
+                }                         \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                if (lctrl) {             \
+                    unregister_code(KC_LCTL); \
+                } else {                  \
+                    unregister_code(KC_RCTL); \
+                }                         \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+        }                                 \
+        return false;
+
 // Normal shift status
 #    define SHIFT_NORM(kc1, kc2)          \
         if (record->event.pressed) {      \
@@ -218,6 +244,42 @@ enum custom_keycodes {
         } else {                          \
             unregister_code(kc1);         \
             unregister_code(kc2);         \
+        }                                 \
+        return false;
+
+// Inverted ctrl status
+#    define CTRL_SWITCH(kc1, kc2)        \
+        if (record->event.pressed) {      \
+            if (lctrl || rctrl) {       \
+                if (lctrl) {             \
+                    unregister_code(KC_LCTL); \
+                } else {                  \
+                    unregister_code(KC_RCTL); \
+                }                         \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                if (lctrl) {             \
+                    register_code(KC_LCTL); \
+                } else {                  \
+                    register_code(KC_RCTL); \
+                }                         \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+            if (lctrl || rctrl)         \
+                if (lctrl) {             \
+                    register_code(KC_LCTL); \
+                } else {                  \
+                    register_code(KC_RCTL); \
+                }                         \
+            else {                        \
+                unregister_code(KC_LCTL); \
+                unregister_code(KC_RCTL); \
+            }                             \
         }                                 \
         return false;
 
@@ -278,6 +340,31 @@ enum custom_keycodes {
                     register_code(KC_RSFT); \
             else                          \
                 unregister_code(KC_LSFT); \
+            }                             \
+        }                                 \
+        return false;
+
+// Always with control
+#    define CTRL_ALL(kc1, kc2)           \
+        if (record->event.pressed) {      \
+            register_code(KC_LCTL);       \
+            if (lctrl || rctrl) {       \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+            if (lctrl || rctrl)         \
+                if (lctrl)               \
+                    register_code(KC_LCTL); \
+                else                      \
+                    register_code(KC_RCTL); \
+            else                          \
+                unregister_code(KC_LCTL); \
             }                             \
         }                                 \
         return false;
