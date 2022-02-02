@@ -53,25 +53,6 @@ bool led_update_kb(led_t led_state) {
     return res;
 }
 
-// override the default implementation to avoid re-initialization
-void i2c_init(void)
-{
-    static bool initialized = false;
-    if (initialized) {
-        return;
-    } else {
-        initialized = true;
-    }
-
-    // Try releasing special pins for a short time
-    palSetLineMode(I2C1_SCL_PIN, PAL_MODE_INPUT);
-    palSetLineMode(I2C1_SDA_PIN, PAL_MODE_INPUT);
-
-    chThdSleepMilliseconds(10);
-    palSetLineMode(I2C1_SCL_PIN, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
-    palSetLineMode(I2C1_SDA_PIN, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
-}
-
 #define REBOOT_MAGIC 0x41544B42
 void shutdown_user(void)
 {

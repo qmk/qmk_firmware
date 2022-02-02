@@ -97,7 +97,7 @@ def generate_develop_pr_list(cli):
         match = git_expr.search(line)
         if match:
             pr_info = _get_pr_info(cache, gh, match.group("pr"))
-            commit_info = {'hash': match.group("hash"), 'title': match.group("title"), 'pr_num': int(match.group("pr")), 'pr_labels': [label.name for label in pr_info.labels.items]}
+            commit_info = {'hash': match.group("hash"), 'title': pr_info['title'], 'pr_num': int(match.group("pr")), 'pr_labels': [label.name for label in pr_info.labels.items]}
             _categorise_commit(commit_info)
 
     def _dump_commit_list(name, collection):

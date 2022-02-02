@@ -28,7 +28,7 @@
               "y": 1
             }
           ]
-        },
+        }
     },
     "matrix_pins": {
         "rows": ["B0", "B1"],
@@ -37,6 +37,6 @@
     "usb": {
         "vid": "0x4642",
         "pid": "0x6F21",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1"
     }
 }

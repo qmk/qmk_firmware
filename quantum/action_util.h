@@ -49,13 +49,6 @@ void    del_weak_mods(uint8_t mods);
 void    set_weak_mods(uint8_t mods);
 void    clear_weak_mods(void);
 
-/* macro modifier */
-uint8_t get_macro_mods(void);
-void    add_macro_mods(uint8_t mods);
-void    del_macro_mods(uint8_t mods);
-void    set_macro_mods(uint8_t mods);
-void    clear_macro_mods(void);
-
 /* oneshot modifier */
 uint8_t get_oneshot_mods(void);
 void    add_oneshot_mods(uint8_t mods);

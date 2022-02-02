@@ -30,6 +30,7 @@
 #     bootloadhid  HIDBootFlash compatible (ATmega32A)
 #     usbasploader USBaspLoader (ATmega328P)
 # ARM:
+#     halfkay      PJRC Teensy
 #     kiibohd      Input:Club Kiibohd bootloader (only used on their boards)
 #     stm32duino   STM32Duino (STM32F103x8)
 #     stm32-dfu    STM32 USB DFU in ROM
@@ -43,6 +44,8 @@
 ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
     OPT_DEFS += -DBOOTLOADER_ATMEL_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
+    BOOTLOADER_TYPE = dfu
+
     ifneq (,$(filter $(MCU), at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647))
         BOOTLOADER_SIZE = 4096
     endif
@@ -53,6 +56,8 @@ endif
 ifeq ($(strip $(BOOTLOADER)), lufa-dfu)
     OPT_DEFS += -DBOOTLOADER_LUFA_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
+    BOOTLOADER_TYPE = dfu
+
     ifneq (,$(filter $(MCU), at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647))
         BOOTLOADER_SIZE ?= 4096
     endif
@@ -63,6 +68,8 @@ endif
 ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
     OPT_DEFS += -DBOOTLOADER_QMK_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
+    BOOTLOADER_TYPE = dfu
+
     ifneq (,$(filter $(MCU), at90usb162 atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb647))
         BOOTLOADER_SIZE ?= 4096
     endif
@@ -73,10 +80,14 @@ endif
 ifeq ($(strip $(BOOTLOADER)), qmk-hid)
     OPT_DEFS += -DBOOTLOADER_QMK_HID
     OPT_DEFS += -DBOOTLOADER_HID
+    BOOTLOADER_TYPE = dfu
+
     BOOTLOADER_SIZE ?= 4096
 endif
 ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
+    BOOTLOADER_TYPE = halfkay
+
     ifeq ($(strip $(MCU)), atmega32u4)
         BOOTLOADER_SIZE = 512
     endif
@@ -86,18 +97,26 @@ ifeq ($(strip $(BOOTLOADER)), halfkay)
 endif
 ifeq ($(strip $(BOOTLOADER)), caterina)
     OPT_DEFS += -DBOOTLOADER_CATERINA
+    BOOTLOADER_TYPE = caterina
+
     BOOTLOADER_SIZE = 4096
 endif
 ifneq (,$(filter $(BOOTLOADER), bootloadhid bootloadHID))
     OPT_DEFS += -DBOOTLOADER_BOOTLOADHID
+    BOOTLOADER_TYPE = bootloadhid
+
     BOOTLOADER_SIZE = 4096
 endif
 ifneq (,$(filter $(BOOTLOADER), usbasploader USBasp))
     OPT_DEFS += -DBOOTLOADER_USBASP
+    BOOTLOADER_TYPE = usbasploader
+
     BOOTLOADER_SIZE = 4096
 endif
 ifeq ($(strip $(BOOTLOADER)), lufa-ms)
     OPT_DEFS += -DBOOTLOADER_MS
+    BOOTLOADER_TYPE = dfu
+
     BOOTLOADER_SIZE ?= 8192
     FIRMWARE_FORMAT = bin
 cpfirmware: lufa_warning
@@ -115,6 +134,7 @@ endif
 
 ifeq ($(strip $(BOOTLOADER)), stm32-dfu)
     OPT_DEFS += -DBOOTLOADER_STM32_DFU
+    BOOTLOADER_TYPE = stm32_dfu
 
     # Options to pass to dfu-util when flashing
     DFU_ARGS ?= -d 0483:DF11 -a 0 -s 0x08000000:leave
@@ -122,6 +142,7 @@ ifeq ($(strip $(BOOTLOADER)), stm32-dfu)
 endif
 ifeq ($(strip $(BOOTLOADER)), apm32-dfu)
     OPT_DEFS += -DBOOTLOADER_APM32_DFU
+    BOOTLOADER_TYPE = stm32_dfu
 
     # Options to pass to dfu-util when flashing
     DFU_ARGS ?= -d 314B:0106 -a 0 -s 0x08000000:leave
@@ -129,6 +150,7 @@ ifeq ($(strip $(BOOTLOADER)), apm32-dfu)
 endif
 ifeq ($(strip $(BOOTLOADER)), gd32v-dfu)
     OPT_DEFS += -DBOOTLOADER_GD32V_DFU
+    BOOTLOADER_TYPE = gd32v_dfu
 
     # Options to pass to dfu-util when flashing
     DFU_ARGS ?= -d 28E9:0189 -a 0 -s 0x08000000:leave
@@ -136,6 +158,8 @@ ifeq ($(strip $(BOOTLOADER)), gd32v-dfu)
 endif
 ifeq ($(strip $(BOOTLOADER)), kiibohd)
     OPT_DEFS += -DBOOTLOADER_KIIBOHD
+    BOOTLOADER_TYPE = kiibohd
+
     ifeq ($(strip $(MCU_ORIG)), MK20DX128)
         MCU_LDSCRIPT = MK20DX128BLDR4
     endif
@@ -151,8 +175,7 @@ ifeq ($(strip $(BOOTLOADER)), stm32duino)
     OPT_DEFS += -DBOOTLOADER_STM32DUINO
     MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
     BOARD = STM32_F103_STM32DUINO
-    # STM32F103 does NOT have an USB bootloader in ROM (only serial), so setting anything here does not make much sense
-    STM32_BOOTLOADER_ADDRESS = 0x80000000
+    BOOTLOADER_TYPE = stm32duino
 
     # Options to pass to dfu-util when flashing
     DFU_ARGS = -d 1EAF:0003 -a 2 -R
@@ -160,4 +183,17 @@ ifeq ($(strip $(BOOTLOADER)), stm32duino)
 endif
 ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     OPT_DEFS += -DBOOTLOADER_TINYUF2
+    BOOTLOADER_TYPE = tinyuf2
+endif
+ifeq ($(strip $(BOOTLOADER)), halfkay)
+    OPT_DEFS += -DBOOTLOADER_HALFKAY
+    BOOTLOADER_TYPE = halfkay
+endif
+ifeq ($(strip $(BOOTLOADER)), md-boot)
+    OPT_DEFS += -DBOOTLOADER_MD_BOOT
+    BOOTLOADER_TYPE = md_boot
+endif
+
+ifeq ($(strip $(BOOTLOADER_TYPE)),)
+    BOOTLOADER_TYPE = none
 endif

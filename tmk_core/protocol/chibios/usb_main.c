@@ -734,7 +734,7 @@ void init_usb_driver(USBDriver *usbp) {
      * after a reset.
      */
     usbDisconnectBus(usbp);
-    wait_ms(1500);
+    wait_ms(50);
     usbStart(usbp, &usbcfg);
     usbConnectBus(usbp);
 
@@ -1098,6 +1098,8 @@ void midi_ep_task(void) {
 #endif
 
 #ifdef VIRTSER_ENABLE
+
+void virtser_init(void) {}
 
 void virtser_send(const uint8_t byte) { chnWrite(&drivers.serial_driver.driver, &byte, 1); }
 

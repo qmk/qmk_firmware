@@ -20,7 +20,6 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/led.c \
     $(QUANTUM_DIR)/action.c \
     $(QUANTUM_DIR)/action_layer.c \
-    $(QUANTUM_DIR)/action_macro.c \
     $(QUANTUM_DIR)/action_tapping.c \
     $(QUANTUM_DIR)/action_util.c \
     $(QUANTUM_DIR)/eeconfig.c \
@@ -109,7 +108,7 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/mousekey.c
 endif
 
-VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_pinnacle_i2c cirque_pinnacle_spi pmw3360 pimoroni_trackball custom
+VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_pinnacle_i2c cirque_pinnacle_spi pmw3360 pmw3389 pimoroni_trackball custom
 POINTING_DEVICE_DRIVER ?= custom
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)
@@ -144,6 +143,9 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3360)
             OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
             QUANTUM_LIB_SRC += spi_master.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3389)
+            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            QUANTUM_LIB_SRC += spi_master.c
         endif
     endif
 endif
@@ -155,47 +157,64 @@ ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
 else
   OPT_DEFS += -DEEPROM_ENABLE
   ifeq ($(strip $(EEPROM_DRIVER)), custom)
+    # Custom EEPROM implementation -- only needs to implement init/erase/read_block/write_block
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_CUSTOM
     COMMON_VPATH += $(DRIVER_PATH)/eeprom
     SRC += eeprom_driver.c
   else ifeq ($(strip $(EEPROM_DRIVER)), i2c)
+    # External I2C EEPROM implementation
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_I2C
     COMMON_VPATH += $(DRIVER_PATH)/eeprom
     QUANTUM_LIB_SRC += i2c_master.c
     SRC += eeprom_driver.c eeprom_i2c.c
   else ifeq ($(strip $(EEPROM_DRIVER)), spi)
+    # External SPI EEPROM implementation
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_SPI
     COMMON_VPATH += $(DRIVER_PATH)/eeprom
     QUANTUM_LIB_SRC += spi_master.c
     SRC += eeprom_driver.c eeprom_spi.c
   else ifeq ($(strip $(EEPROM_DRIVER)), transient)
+    # Transient EEPROM implementation -- no data storage but provides runtime area for it
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
     COMMON_VPATH += $(DRIVER_PATH)/eeprom
     SRC += eeprom_driver.c eeprom_transient.c
   else ifeq ($(strip $(EEPROM_DRIVER)), vendor)
+    # Vendor-implemented EEPROM
     OPT_DEFS += -DEEPROM_VENDOR
     ifeq ($(PLATFORM),AVR)
       # Automatically provided by avr-libc, nothing required
     else ifeq ($(PLATFORM),CHIBIOS)
       ifneq ($(filter STM32F3xx_% STM32F1xx_% %_STM32F401xC %_STM32F401xE %_STM32F405xG %_STM32F411xE %_STM32F072xB %_STM32F042x6 %_GD32VF103xB %_GD32VF103x8, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
-        OPT_DEFS += -DEEPROM_DRIVER
+        # Emulated EEPROM
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_FLASH_EMULATED
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
         SRC += eeprom_driver.c
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
       else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
-        OPT_DEFS += -DEEPROM_DRIVER
+        # True EEPROM on STM32L0xx, L1xx
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_L0_L1
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
         COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/eeprom
         SRC += eeprom_driver.c
         SRC += eeprom_stm32_L0_L1.c
+      else ifneq ($(filter $(MCU_SERIES),KL2x K20x),)
+        # Teensy EEPROM implementations
+        OPT_DEFS += -DEEPROM_TEENSY
+        SRC += eeprom_teensy.c
       else
-        # This will effectively work the same as "transient" if not supported by the chip
-        SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
+        # Fall back to transient, i.e. non-persistent
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
+        COMMON_VPATH += $(DRIVER_PATH)/eeprom
+        SRC += eeprom_driver.c eeprom_transient.c
       endif
     else ifeq ($(PLATFORM),ARM_ATSAM)
-      SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+      # arm_atsam EEPROM
+      OPT_DEFS += -DEEPROM_SAMD
+      SRC += $(PLATFORM_COMMON_DIR)/eeprom_samd.c
     else ifeq ($(PLATFORM),TEST)
+      # Test harness "EEPROM"
+      OPT_DEFS += -DEEPROM_TEST_HARNESS
       SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
     endif
   endif
@@ -356,7 +375,7 @@ endif
 ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
-    SRC += $(TMK_DIR)/protocol/serial_uart.c
+    QUANTUM_LIB_SRC += uart.c
 endif
 
 VARIABLE_TRACE ?= no
@@ -604,6 +623,7 @@ ifeq ($(strip $(UNICODE_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(UNICODE_COMMON)), yes)
+    OPT_DEFS += -DUNICODE_COMMON_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
 endif
 
@@ -712,7 +732,7 @@ ifeq ($(strip $(XAP_ENABLE)), yes)
 endif
 
 BLUETOOTH_ENABLE ?= no
-VALID_BLUETOOTH_DRIVER_TYPES := AdafruitBLE RN42 custom
+VALID_BLUETOOTH_DRIVER_TYPES := BluefruitLE RN42 custom
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     ifeq ($(filter $(strip $(BLUETOOTH_DRIVER)),$(VALID_BLUETOOTH_DRIVER_TYPES)),)
         $(error "$(BLUETOOTH_DRIVER)" is not a valid Bluetooth driver type)
@@ -722,15 +742,16 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
     SRC += outputselect.c
 
-    ifeq ($(strip $(BLUETOOTH_DRIVER)), AdafruitBLE)
-        OPT_DEFS += -DMODULE_ADAFRUIT_BLE
+    ifeq ($(strip $(BLUETOOTH_DRIVER)), BluefruitLE)
+        OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE
         SRC += analog.c
-        SRC += $(DRIVER_PATH)/bluetooth/adafruit_ble.cpp
+        SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
         QUANTUM_LIB_SRC += spi_master.c
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
-        OPT_DEFS += -DMODULE_RN42
-        SRC += $(TMK_DIR)/protocol/serial_uart.c
+        OPT_DEFS += -DBLUETOOTH_RN42
+        SRC += $(DRIVER_PATH)/bluetooth/rn42.c
+        QUANTUM_LIB_SRC += uart.c
     endif
 endif

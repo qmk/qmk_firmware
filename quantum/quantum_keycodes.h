@@ -37,10 +37,6 @@ enum quantum_keycodes {
     QK_RALT                 = 0x1400,
     QK_RGUI                 = 0x1800,
     QK_MODS_MAX             = 0x1FFF,
-    QK_FUNCTION             = 0x2000,
-    QK_FUNCTION_MAX         = 0x2FFF,
-    QK_MACRO                = 0x3000,
-    QK_MACRO_MAX            = 0x3FFF,
     QK_LAYER_TAP            = 0x4000,
     QK_LAYER_TAP_MAX        = 0x4FFF,
     QK_TO                   = 0x5000,
@@ -80,8 +76,8 @@ enum quantum_keycodes {
     QK_UNICODEMAP_PAIR_MAX = 0xFFFF,
 
     // Loose keycodes - to be used directly
-    RESET = 0x5C00,
-    DEBUG,  // 5C01
+    QK_BOOTLOADER = 0x5C00,
+    QK_DEBUG_TOGGLE,  // 5C01
 
     // Magic
     MAGIC_SWAP_CONTROL_CAPSLOCK,       // 5C02
@@ -106,7 +102,7 @@ enum quantum_keycodes {
     MAGIC_TOGGLE_ALT_GUI,              // 5C15
 
     // Grave Escape
-    GRAVE_ESC,  // 5C16
+    QK_GRAVE_ESCAPE,  // 5C16
 
     // Auto Shift
     KC_ASUP,   // 5C17
@@ -379,7 +375,7 @@ enum quantum_keycodes {
     OUT_USB,   // 5CDE
 
     // Clear EEPROM
-    EEPROM_RESET,  // 5CDF
+    QK_CLEAR_EEPROM,  // 5CDF
 
     // Unicode
     UNICODE_MODE_FORWARD,  // 5CE0
@@ -597,6 +593,8 @@ enum quantum_keycodes {
     MACRO_30,
     MACRO_31,
 
+    MAGIC_TOGGLE_CONTROL_CAPSLOCK,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -708,15 +706,11 @@ enum quantum_keycodes {
 #define A(kc) LALT(kc)
 #define G(kc) LGUI(kc)
 
-// Deprecated - do not use
-#define F(kc) (QK_FUNCTION | (kc))
-#define M(kc) (QK_MACRO | (kc))
-#define MACROTAP(kc) (QK_MACRO | (FUNC_TAP << 8) | (kc))
-#define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
+#define QK_GESC QK_GRAVE_ESCAPE
 
-#define KC_GESC GRAVE_ESC
-
-#define EEP_RST EEPROM_RESET
+#define QK_BOOT QK_BOOTLOADER
+#define DB_TOGG QK_DEBUG_TOGGLE
+#define EE_CLR QK_CLEAR_EEPROM
 
 // Audio Clicky aliases
 #define CK_TOGG CLICKY_TOGGLE
@@ -749,6 +743,7 @@ enum quantum_keycodes {
 #define CL_NORM MAGIC_UNSWAP_CONTROL_CAPSLOCK
 #define CL_CTRL MAGIC_CAPSLOCK_TO_CONTROL
 #define CL_CAPS MAGIC_UNCAPSLOCK_TO_CONTROL
+#define CL_TOGG MAGIC_TOGGLE_CONTROL_CAPSLOCK
 
 #define LCG_SWP MAGIC_SWAP_LCTL_LGUI
 #define LCG_NRM MAGIC_UNSWAP_LCTL_LGUI
@@ -961,3 +956,5 @@ enum quantum_keycodes {
 #define PB_32 PROGRAMMABLE_BUTTON_32
 #define PROGRAMMABLE_BUTTON_MIN PROGRAMMABLE_BUTTON_1
 #define PROGRAMMABLE_BUTTON_MAX PROGRAMMABLE_BUTTON_32
+
+#include "quantum_keycodes_legacy.h"

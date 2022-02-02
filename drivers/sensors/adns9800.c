@@ -135,10 +135,8 @@ void adns9800_init() {
     wait_us(15);
 
     // send all bytes of the firmware
-    unsigned char c;
-    for (int i = 0; i < FIRMWARE_LENGTH; i++) {
-        c = (unsigned char)pgm_read_byte(adns9800_firmware_data + i);
-        spi_write(c);
+    for (uint16_t i = 0; i < FIRMWARE_LENGTH; i++) {
+        spi_write(pgm_read_byte(firmware_data + i));
         wait_us(15);
     }
 
@@ -154,8 +152,8 @@ void adns9800_init() {
 }
 
 config_adns9800_t adns9800_get_config(void) {
-    uint8_t config_1 = adns9800_read(REG_Configuration_I);
-    return (config_adns9800_t){(config_1 & 0xFF) * CPI_STEP};
+    uint8_t cpival = adns9800_read(REG_Configuration_I);
+    return (config_adns9800_t){(cpival & 0xFF) * CPI_STEP};
 }
 
 void adns9800_set_config(config_adns9800_t config) {
@@ -164,8 +162,8 @@ void adns9800_set_config(config_adns9800_t config) {
 }
 
 uint16_t adns9800_get_cpi(void) {
-    uint8_t config_1 = adns9800_read(REG_Configuration_I);
-    return (uint16_t){(config_1 & 0xFF) * CPI_STEP};
+    uint8_t cpival = adns9800_read(REG_Configuration_I);
+    return (uint16_t)(cpival & 0xFF) * CPI_STEP;
 }
 
 void adns9800_set_cpi(uint16_t cpi) {
@@ -184,7 +182,7 @@ static int16_t convertDeltaToInt(uint8_t high, uint8_t low) {
 }
 
 report_adns9800_t adns9800_get_report(void) {
-    report_adns9800_t report = {0, 0};
+    report_adns9800_t report = {0};
 
     adns9800_spi_start();
 

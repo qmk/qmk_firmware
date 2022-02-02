@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "lufa.h"
 #endif
 
-#ifdef MODULE_ADAFRUIT_BLE
-#    include "adafruit_ble.h"
+#ifdef BLUETOOTH_BLUEFRUIT_LE
+#    include "bluefruit_le.h"
 #endif
 
 uint8_t desired_output = OUTPUT_DEFAULT;
@@ -54,8 +54,8 @@ uint8_t auto_detect_output(void) {
         return OUTPUT_USB;
     }
 
-#ifdef MODULE_ADAFRUIT_BLE
-    if (adafruit_ble_is_connected()) {
+#ifdef BLUETOOTH_BLUEFRUIT_LE
+    if (bluefruit_le_is_connected()) {
         return OUTPUT_BLUETOOTH;
     }
 #endif

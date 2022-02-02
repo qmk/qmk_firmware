@@ -232,19 +232,19 @@ ISR(TIMERx_OVF_vect) {
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
 static uint16_t cie_lightness(uint16_t v) {
-    if (v <= ICRx / 12)  // If the value is less than or equal to ~8% of max
+    if (v <= (uint32_t)ICRx / 12)  // If the value is less than or equal to ~8% of max
     {
         return v / 9;  // Same as dividing by 900%
     } else {
         // In the next two lines values are bit-shifted. This is to avoid loosing decimals in integer math.
-        uint32_t y   = (((uint32_t)v + ICRx / 6) << 5) / (ICRx / 6 + ICRx);  // If above 8%, add ~16% of max, and normalize with (max + ~16% max)
-        uint32_t out = (y * y * y * ICRx) >> 15;                             // Cube it and undo the bit-shifting. (which is now three times as much due to the cubing)
+        uint32_t y   = (((uint32_t)v + (uint32_t)ICRx / 6) << 5) / ((uint32_t)ICRx / 6 + ICRx);  // If above 8%, add ~16% of max, and normalize with (max + ~16% max)
+        uint32_t out = (y * y * y * ICRx) >> 15;                                                 // Cube it and undo the bit-shifting. (which is now three times as much due to the cubing)
 
         if (out > ICRx)  // Avoid overflows
         {
             out = ICRx;
         }
-        return out;
+        return (uint16_t)out;
     }
 }
 

@@ -17,6 +17,7 @@
 #include "print.h"
 #include "process_combo.h"
 #include "action_tapping.h"
+#include "action.h"
 
 #ifdef COMBO_COUNT
 __attribute__((weak)) combo_t key_combos[COMBO_COUNT];
@@ -40,8 +41,16 @@ __attribute__((weak)) bool get_combo_must_tap(uint16_t index, combo_t *combo) { 
 __attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) { return COMBO_TERM; }
 #endif
 
+#ifdef COMBO_MUST_PRESS_IN_ORDER_PER_COMBO
+__attribute__((weak)) bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) { return true; }
+#endif
+
 #ifdef COMBO_PROCESS_KEY_RELEASE
 __attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) { return false; }
+#endif
+
+#ifdef COMBO_SHOULD_TRIGGER
+__attribute__((weak)) bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) { return true; }
 #endif
 
 #ifndef COMBO_NO_TIMER
@@ -185,6 +194,9 @@ void clear_combos(void) {
 static inline void dump_key_buffer(void) {
     /* First call start from 0 index; recursive calls need to start from i+1 index */
     static uint8_t key_buffer_next = 0;
+#if TAP_CODE_DELAY > 0
+    bool delay_done = false;
+#endif
 
     if (key_buffer_size == 0) {
         return;
@@ -210,6 +222,15 @@ static inline void dump_key_buffer(void) {
 #endif
         }
         record->event.time = 0;
+        clear_weak_mods();
+
+#if TAP_CODE_DELAY > 0
+        // only delay once and for a non-tapping key
+        if (!delay_done && !is_tap_record(record)) {
+            delay_done = true;
+            wait_ms(TAP_CODE_DELAY);
+        }
+#endif
     }
 
     key_buffer_next = key_buffer_size = 0;
@@ -350,6 +371,28 @@ combo_t *overlaps(combo_t *combo1, combo_t *combo2) {
     return combo1;
 }
 
+#if defined(COMBO_MUST_PRESS_IN_ORDER) || defined(COMBO_MUST_PRESS_IN_ORDER_PER_COMBO)
+static bool keys_pressed_in_order(uint16_t combo_index, combo_t *combo, uint16_t key_index, uint16_t keycode, keyrecord_t *record) {
+#    ifdef COMBO_MUST_PRESS_IN_ORDER_PER_COMBO
+    if (!get_combo_must_press_in_order(combo_index, combo)) {
+        return true;
+    }
+#    endif
+    if (
+        // The `state` bit for the key being pressed.
+        (1 << key_index) ==
+        // The *next* combo key's bit.
+        (COMBO_STATE(combo) + 1)
+        // E.g. two keys already pressed: `state == 11`.
+        // Next possible `state` is `111`.
+        // So the needed bit is `100` which we get with `11 + 1`.
+    ) {
+        return true;
+    }
+    return false;
+}
+#endif
+
 static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record, uint16_t combo_index) {
     uint8_t  key_count = 0;
     uint16_t key_index = -1;
@@ -360,7 +403,14 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         return false;
     }
 
-    bool key_is_part_of_combo = !COMBO_DISABLED(combo) && is_combo_enabled();
+    bool key_is_part_of_combo = (!COMBO_DISABLED(combo) && is_combo_enabled()
+#if defined(COMBO_MUST_PRESS_IN_ORDER) || defined(COMBO_MUST_PRESS_IN_ORDER_PER_COMBO)
+                                 && keys_pressed_in_order(combo_index, combo, key_index, keycode, record)
+#endif
+#ifdef COMBO_SHOULD_TRIGGER
+                                 && combo_should_trigger(combo_index, combo, keycode, record)
+#endif
+    );
 
     if (record->event.pressed && key_is_part_of_combo) {
         uint16_t time = _get_combo_term(combo_index, combo);

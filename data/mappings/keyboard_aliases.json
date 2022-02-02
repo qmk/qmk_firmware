@@ -41,8 +41,14 @@
     'atom47/rev3': {
           target: 'maartenwut/atom47/rev3'
     },
+    bakeneko60: {
+          target: 'kkatano/bakeneko60'
+    },
     bakeneko65: {
-          target: 'bakeneko65/rev2'
+          target: 'kkatano/bakeneko65/rev2'
+    },
+    bakeneko80: {
+          target: 'kkatano/bakeneko80'
     },
     bear_face: {
           target: 'bear_face/v1'
@@ -215,6 +221,9 @@
                   LAYOUT: 'LAYOUT_all'
           }
     },
+    idobo: {
+        target: 'idobao/id75'
+    },
     'jj40': {
           target: 'kprepublic/jj40'
     },
@@ -259,6 +268,9 @@
     },
     'lfkeyboards/smk65': {
           target: 'lfkeyboards/smk65/revb'
+    },
+    m3v3van: {
+          target: 'matthewdias/m3n3van'
     },
     'maartenwut/atom47/rev2': {
           target: 'evyd13/atom47/rev2'
@@ -344,14 +356,23 @@
     'mechlovin/hannah65/mechlovin9': {
           target: 'mechlovin/mechlovin9/rev1'
     },
+    'mechlovin/hex4b': {
+          target: 'mechlovin/hex4b/rev1'
+    },
     'melgeek/z70ultra': {
           target: 'melgeek/z70ultra/rev1'
     },
     'mechlovin/hannah65': {
           target: 'mechlovin/hannah65/rev1'
     },
+    minim: {
+          target: 'matthewdias/minim'
+    },
     model01: {
           target: 'keyboardio/model01'
+    },
+    model_v: {
+          target: 'matthewdias/model_v'
     },
     m0lly: {
           target: 'tkc/m0lly'
@@ -495,6 +516,9 @@
     'tokyo60': {
           target: 'tokyokeyboard/tokyo60'
     },
+    'txuu': {
+          target: 'matthewdias/txuu'
+    },
     underscore33: {
           target: 'underscore33/rev1'
     },
@@ -547,7 +571,7 @@
           target: 'xelus/valor/rev1'
     },
     yd60mq: {
-          target: 'yd60mq/12led'
+          target: 'ymdk/yd60mq/12led'
     },
     ymd75: {
           target: 'ymd75/rev1'

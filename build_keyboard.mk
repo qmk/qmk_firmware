@@ -37,6 +37,14 @@ ifdef SKIP_VERSION
     OPT_DEFS += -DSKIP_VERSION
 endif
 
+# Generate the version.h file
+ifdef SKIP_VERSION
+VERSION_H_FLAGS := --skip-all
+endif
+ifdef SKIP_GIT
+VERSION_H_FLAGS := --skip-git
+endif
+
 # Determine which subfolders exist.
 KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
 KEYBOARD_FOLDER_PATH_2 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_1)))
@@ -156,6 +164,11 @@ $(KEYMAP_OUTPUT)/src/config.h: $(KEYMAP_JSON)
 generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
 
 endif
+
+generated-files: $(KEYMAP_OUTPUT)/src/version.h
+$(KEYMAP_OUTPUT)/src/version.h:
+	[ -d $(KEYMAP_OUTPUT)/src ] || mkdir -p $(KEYMAP_OUTPUT)/src
+	$(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o $(KEYMAP_OUTPUT)/src/version.h
 
 ifeq ($(strip $(CTPC)), yes)
   CONVERT_TO_PROTON_C=yes
@@ -384,6 +397,7 @@ VPATH += $(KEYMAP_PATH)
 VPATH += $(USER_PATH)
 VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
+VPATH += $(KEYMAP_OUTPUT)/src
 
 include common_features.mk
 
@@ -449,8 +463,7 @@ OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) \
 -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(QMK_KEYBOARD_H)\" \
--DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\" \
--DQMK_SUBPROJECT -DQMK_SUBPROJECT_H -DQMK_SUBPROJECT_CONFIG_H
+-DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\"
 $(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
 $(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
 $(KEYBOARD_OUTPUT)_SRC := $(PLATFORM_SRC)

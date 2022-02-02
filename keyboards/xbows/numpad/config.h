@@ -47,51 +47,25 @@
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-#    define ENABLE_RGB_MATRIX_ALPHAS_MODS
-#    define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-#    define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-#    define ENABLE_RGB_MATRIX_BREATHING
-#    define ENABLE_RGB_MATRIX_BAND_SAT
-#    define ENABLE_RGB_MATRIX_BAND_VAL
-#    define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#    define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-#    define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#    define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
-#    define ENABLE_RGB_MATRIX_CYCLE_ALL
-#    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#    define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-#    define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
-#    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#    define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#    define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-#    define ENABLE_RGB_MATRIX_DUAL_BEACON
-#    define ENABLE_RGB_MATRIX_RAINBOW_BEACON
-#    define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-#    define ENABLE_RGB_MATRIX_RAINDROPS
-#    define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-#    define ENABLE_RGB_MATRIX_HUE_BREATHING
-#    define ENABLE_RGB_MATRIX_HUE_PENDULUM
-#    define ENABLE_RGB_MATRIX_HUE_WAVE
-#    define ENABLE_RGB_MATRIX_PIXEL_RAIN
-#    define ENABLE_RGB_MATRIX_PIXEL_FLOW
-#    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-// enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
-#    define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-#    define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
+#    define ENABLE_RGB_MATRIX_BREATHING           // Single hue brightness cycling animation
+#    define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL     // Single hue spinning spiral fades brightness
+#    define ENABLE_RGB_MATRIX_CYCLE_ALL           // Full keyboard solid hue cycling through full gradient
+#    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT    // Full gradient scrolling left to right
+#    define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN       // Full gradient scrolling top to bottom
+#    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN        // Full gradient scrolling out to in
+#    define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL      // Full gradient spinning pinwheel around center of keyboard
+#    define ENABLE_RGB_MATRIX_CYCLE_SPIRAL        // Full gradient spinning spiral around center of keyboard
+#    define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS   // Full dual gradients spinning two halfs of keyboard
+#    define ENABLE_RGB_MATRIX_RAINDROPS           // Randomly changes a single key's hue
+
 // enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#    define ENABLE_RGB_MATRIX_SPLASH
-#    define ENABLE_RGB_MATRIX_MULTISPLASH
-#    define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE   // Pulses keys hit to hue & value then fades value out
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE          // Static single hue, pulses keys hit to shifted hue then fades to current hue
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE     // Hue & value pulse near a single key hit then fades value out
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS    // Hue & value pulse the same column and row of a single key hit then fades value out
+#    define ENABLE_RGB_MATRIX_SPLASH                  // Full gradient & value pulse away from a single key hit then fades value out
+#    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH       // Hue & value pulse away from multiple key hits then fades value out
 
 #    define DRIVER_ADDR_1 0b1110111
 #    define DRIVER_COUNT 1

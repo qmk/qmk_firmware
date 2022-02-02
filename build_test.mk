@@ -43,6 +43,7 @@ all: elf
 VPATH += $(COMMON_VPATH)
 PLATFORM:=TEST
 PLATFORM_KEY:=test
+BOOTLOADER_TYPE:=none
 
 ifeq ($(strip $(DEBUG)), 1)
 CONSOLE_ENABLE = yes

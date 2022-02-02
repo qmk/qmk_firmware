@@ -35,8 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_SYSTEM(code) (KC_PWR <= (code) && (code) <= KC_WAKE)
 #define IS_CONSUMER(code) (KC_MUTE <= (code) && (code) <= KC_BRID)
 
-#define IS_FN(code) (KC_FN0 <= (code) && (code) <= KC_FN31)
-
 #define IS_MOUSEKEY(code) (KC_MS_UP <= (code) && (code) <= KC_MS_ACCEL2)
 #define IS_MOUSEKEY_MOVE(code) (KC_MS_UP <= (code) && (code) <= KC_MS_RIGHT)
 #define IS_MOUSEKEY_BUTTON(code) (KC_MS_BTN1 <= (code) && (code) <= KC_MS_BTN8)
@@ -61,11 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOD_MASK_CAG (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI)
 #define MOD_MASK_SAG (MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
 #define MOD_MASK_CSAG (MOD_MASK_CTRL | MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
-
-#define FN_BIT(code) (1 << FN_INDEX(code))
-#define FN_INDEX(code) ((code)-KC_FN0)
-#define FN_MIN KC_FN0
-#define FN_MAX KC_FN31
 
 // clang-format off
 
@@ -509,41 +502,7 @@ enum internal_special_keycodes {
     KC_MEDIA_FAST_FORWARD,
     KC_MEDIA_REWIND,
     KC_BRIGHTNESS_UP,
-    KC_BRIGHTNESS_DOWN,
-
-    /* Fn keys */
-    KC_FN0 = 0xC0,
-    KC_FN1,
-    KC_FN2,
-    KC_FN3,
-    KC_FN4,
-    KC_FN5,
-    KC_FN6,
-    KC_FN7,
-    KC_FN8,
-    KC_FN9,
-    KC_FN10,
-    KC_FN11,
-    KC_FN12,
-    KC_FN13,
-    KC_FN14,
-    KC_FN15,
-    KC_FN16,  // 0xD0
-    KC_FN17,
-    KC_FN18,
-    KC_FN19,
-    KC_FN20,
-    KC_FN21,
-    KC_FN22,
-    KC_FN23,
-    KC_FN24,
-    KC_FN25,
-    KC_FN26,
-    KC_FN27,
-    KC_FN28,
-    KC_FN29,
-    KC_FN30,
-    KC_FN31
+    KC_BRIGHTNESS_DOWN
 };
 
 enum mouse_keys {

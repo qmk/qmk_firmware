@@ -35,11 +35,11 @@
 #define sizeof_member(type, member) sizeof(((type *)NULL)->member)
 
 #define trans_initiator2target_initializer_cb(member, cb) \
-    { &dummy, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), 0, 0, cb }
+    { sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), 0, 0, cb }
 #define trans_initiator2target_initializer(member) trans_initiator2target_initializer_cb(member, NULL)
 
 #define trans_target2initiator_initializer_cb(member, cb) \
-    { &dummy, 0, 0, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), cb }
+    { 0, 0, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), cb }
 #define trans_target2initiator_initializer(member) trans_target2initiator_initializer_cb(member, NULL)
 
 #define transport_write(id, data, length) transport_execute_transaction(id, data, length, NULL, 0)
@@ -579,11 +579,88 @@ static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 #endif  // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
 
 ////////////////////////////////////////////////////
+// POINTING
 
-uint8_t                  dummy;
+#if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
+static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+#    if defined(POINTING_DEVICE_LEFT)
+    if (is_keyboard_left()) {
+        return true;
+    }
+#    elif defined(POINTING_DEVICE_RIGHT)
+    if (!is_keyboard_left()) {
+        return true;
+    }
+#    endif
+    static uint32_t last_update = 0;
+    static uint16_t last_cpi    = 0;
+    report_mouse_t  temp_state;
+    uint16_t        temp_cpi;
+    bool            okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &temp_state, &split_shmem->pointing.report, sizeof(temp_state));
+    if (okay) pointing_device_set_shared_report(temp_state);
+    temp_cpi = pointing_device_get_shared_cpi();
+    if (temp_cpi && memcmp(&last_cpi, &temp_cpi, sizeof(temp_cpi)) != 0) {
+        memcpy(&split_shmem->pointing.cpi, &temp_cpi, sizeof(temp_cpi));
+        okay = transport_write(PUT_POINTING_CPI, &split_shmem->pointing.cpi, sizeof(split_shmem->pointing.cpi));
+        if (okay) {
+            last_cpi = temp_cpi;
+        }
+    }
+    return okay;
+}
+
+extern const pointing_device_driver_t pointing_device_driver;
+
+static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+#    if defined(POINTING_DEVICE_LEFT)
+    if (!is_keyboard_left()) {
+        return;
+    }
+#    elif defined(POINTING_DEVICE_RIGHT)
+    if (is_keyboard_left()) {
+        return;
+    }
+#    endif
+    report_mouse_t temp_report;
+    uint16_t       temp_cpi;
+#    if (POINTING_DEVICE_TASK_THROTTLE_MS > 0)
+    static uint32_t last_exec = 0;
+    if (timer_elapsed32(last_exec) < POINTING_DEVICE_TASK_THROTTLE_MS) {
+        return;
+    }
+    last_exec = timer_read32();
+#    endif
+    temp_cpi = !pointing_device_driver.get_cpi ? 0 : pointing_device_driver.get_cpi();  // check for NULL
+    if (split_shmem->pointing.cpi && memcmp(&split_shmem->pointing.cpi, &temp_cpi, sizeof(temp_cpi)) != 0) {
+        if (pointing_device_driver.set_cpi) {
+            pointing_device_driver.set_cpi(split_shmem->pointing.cpi);
+        }
+    }
+    memset(&temp_report, 0, sizeof(temp_report));
+    temp_report = pointing_device_driver.get_report(temp_report);
+    memcpy(&split_shmem->pointing.report, &temp_report, sizeof(temp_report));
+    // Now update the checksum given that the pointing has been written to
+    split_shmem->pointing.checksum = crc8(&temp_report, sizeof(temp_report));
+}
+
+#    define TRANSACTIONS_POINTING_MASTER() TRANSACTION_HANDLER_MASTER(pointing)
+#    define TRANSACTIONS_POINTING_SLAVE() TRANSACTION_HANDLER_SLAVE(pointing)
+#    define TRANSACTIONS_POINTING_REGISTRATIONS [GET_POINTING_CHECKSUM] = trans_target2initiator_initializer(pointing.checksum), [GET_POINTING_DATA] = trans_target2initiator_initializer(pointing.report), [PUT_POINTING_CPI] = trans_initiator2target_initializer(pointing.cpi),
+
+#else  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
+#    define TRANSACTIONS_POINTING_MASTER()
+#    define TRANSACTIONS_POINTING_SLAVE()
+#    define TRANSACTIONS_POINTING_REGISTRATIONS
+
+#endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
+////////////////////////////////////////////////////
+
 split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     // Set defaults
-    [0 ...(NUM_TOTAL_TRANSACTIONS - 1)] = {NULL, 0, 0, 0, 0, 0},
+    [0 ...(NUM_TOTAL_TRANSACTIONS - 1)] = {0, 0, 0, 0, 0},
 
 #ifdef USE_I2C
     [I2C_EXECUTE_CALLBACK] = trans_initiator2target_initializer(transaction_id),
@@ -604,6 +681,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_WPM_REGISTRATIONS
     TRANSACTIONS_OLED_REGISTRATIONS
     TRANSACTIONS_ST7565_REGISTRATIONS
+    TRANSACTIONS_POINTING_REGISTRATIONS
 // clang-format on
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
@@ -629,6 +707,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_WPM_MASTER();
     TRANSACTIONS_OLED_MASTER();
     TRANSACTIONS_ST7565_MASTER();
+    TRANSACTIONS_POINTING_MASTER();
     return true;
 }
 
@@ -647,6 +726,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_WPM_SLAVE();
     TRANSACTIONS_OLED_SLAVE();
     TRANSACTIONS_ST7565_SLAVE();
+    TRANSACTIONS_POINTING_SLAVE();
 }
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
