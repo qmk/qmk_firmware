@@ -79,6 +79,10 @@ bool lshift = false;
 bool rshift = false;
 bool lctrl = false;
 bool rctrl = false;
+bool lalt = false;
+bool ralt = false;
+bool lgui = false;
+bool rgui = false;
 #endif
 
 // Tap dance configuration
@@ -496,6 +500,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rctrl = true;
             } else {
                 rctrl = false;
+            }
+            break;
+        case KC_LALT:
+            if (record->event.pressed) {
+                lalt = true;
+            } else {
+                lalt = false;
+            }
+            break;
+        case KC_RALT:
+            if (record->event.pressed) {
+                ralt = true;
+            } else {
+                ralt = false;
+            }
+            break;
+        case KC_LGUI:
+            if (record->event.pressed) {
+                lgui = true;
+            } else {
+                lgui = false;
+            }
+            break;
+        case KC_RGUI:
+            if (record->event.pressed) {
+                rgui = true;
+            } else {
+                rgui = false;
             }
             break;
         case CU_BSPC:

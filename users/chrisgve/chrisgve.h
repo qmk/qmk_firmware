@@ -195,6 +195,32 @@ enum custom_keycodes {
 // smart shift keycode, this is governed by the SHIFT_ENABLE switch
 #ifdef SHIFT_ENABLE
 
+// Normal shift status
+#    define SHIFT_NORM(kc1, kc2)          \
+        if (record->event.pressed) {      \
+            if (lshift || rshift) {       \
+                if (lshift) {             \
+                    register_code(KC_LSFT); \
+                } else {                  \
+                    register_code(KC_RSFT); \
+                }                         \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                if (lshift) {             \
+                    unregister_code(KC_LSFT); \
+                } else {                  \
+                    unregister_code(KC_RSFT); \
+                }                         \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+        }                                 \
+        return false;
+
 // Normal ctrl status
 #    define CTRL_NORM(kc1, kc2)          \
         if (record->event.pressed) {      \
@@ -221,22 +247,22 @@ enum custom_keycodes {
         }                                 \
         return false;
 
-// Normal shift status
-#    define SHIFT_NORM(kc1, kc2)          \
+// Normal alt status
+#    define ALT_NORM(kc1, kc2)          \
         if (record->event.pressed) {      \
-            if (lshift || rshift) {       \
-                if (lshift) {             \
-                    register_code(KC_LSFT); \
+            if (lalt || ralt) {       \
+                if (lalt) {             \
+                    register_code(KC_LALT); \
                 } else {                  \
-                    register_code(KC_RSFT); \
+                    register_code(KC_RALT); \
                 }                         \
                 unregister_code(kc2);     \
                 register_code(kc2);       \
             } else {                      \
-                if (lshift) {             \
-                    unregister_code(KC_LSFT); \
+                if (lalt) {             \
+                    unregister_code(KC_LALT); \
                 } else {                  \
-                    unregister_code(KC_RSFT); \
+                    unregister_code(KC_RALT); \
                 }                         \
                 unregister_code(kc1);     \
                 register_code(kc1);       \
@@ -244,6 +270,68 @@ enum custom_keycodes {
         } else {                          \
             unregister_code(kc1);         \
             unregister_code(kc2);         \
+        }                                 \
+        return false;
+
+// Normal gui status
+#    define GUI_NORM(kc1, kc2)          \
+        if (record->event.pressed) {      \
+            if (lgui || rgui) {       \
+                if (lgui) {             \
+                    register_code(KC_LGUI); \
+                } else {                  \
+                    register_code(KC_RGUI); \
+                }                         \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                if (lgui) {             \
+                    unregister_code(KC_LGUI); \
+                } else {                  \
+                    unregister_code(KC_RGUI); \
+                }                         \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+        }                                 \
+        return false;
+
+// Inverted shift status
+#    define SHIFT_SWITCH(kc1, kc2)        \
+        if (record->event.pressed) {      \
+            if (lshift || rshift) {       \
+                if (lshift) {             \
+                    unregister_code(KC_LSFT); \
+                } else {                  \
+                    unregister_code(KC_RSFT); \
+                }                         \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                if (lshift) {             \
+                    register_code(KC_LSFT); \
+                } else {                  \
+                    register_code(KC_RSFT); \
+                }                         \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+            if (lshift || rshift)         \
+                if (lshift) {             \
+                    register_code(KC_LSFT); \
+                } else {                  \
+                    register_code(KC_RSFT); \
+                }                         \
+            else {                        \
+                unregister_code(KC_LSFT); \
+                unregister_code(KC_RSFT); \
+            }                             \
         }                                 \
         return false;
 
@@ -283,22 +371,22 @@ enum custom_keycodes {
         }                                 \
         return false;
 
-// Inverted shift status
-#    define SHIFT_SWITCH(kc1, kc2)        \
+// Inverted alt status
+#    define ALT_SWITCH(kc1, kc2)        \
         if (record->event.pressed) {      \
-            if (lshift || rshift) {       \
-                if (lshift) {             \
-                    unregister_code(KC_LSFT); \
+            if (lalt || ralt) {       \
+                if (latl) {             \
+                    unregister_code(KC_LALT); \
                 } else {                  \
-                    unregister_code(KC_RSFT); \
+                    unregister_code(KC_RALT); \
                 }                         \
                 unregister_code(kc2);     \
                 register_code(kc2);       \
             } else {                      \
-                if (lshift) {             \
-                    register_code(KC_LSFT); \
+                if (lalt) {             \
+                    register_code(KC_LALT); \
                 } else {                  \
-                    register_code(KC_RSFT); \
+                    register_code(KC_RALT); \
                 }                         \
                 unregister_code(kc1);     \
                 register_code(kc1);       \
@@ -306,18 +394,55 @@ enum custom_keycodes {
         } else {                          \
             unregister_code(kc1);         \
             unregister_code(kc2);         \
-            if (lshift || rshift)         \
-                if (lshift) {             \
-                    register_code(KC_LSFT); \
+            if (lalt || ralt)         \
+                if (lalt) {             \
+                    register_code(KC_LALT); \
                 } else {                  \
-                    register_code(KC_RSFT); \
+                    register_code(KC_RALT); \
                 }                         \
             else {                        \
-                unregister_code(KC_LSFT); \
-                unregister_code(KC_RSFT); \
+                unregister_code(KC_LALT); \
+                unregister_code(KC_RALT); \
             }                             \
         }                                 \
         return false;
+
+// Inverted gui status
+#    define GUI_SWITCH(kc1, kc2)        \
+        if (record->event.pressed) {      \
+            if (lgui || rgui) {       \
+                if (lgui) {             \
+                    unregister_code(KC_LGUI); \
+                } else {                  \
+                    unregister_code(KC_RGUI); \
+                }                         \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                if (lgui) {             \
+                    register_code(KC_LGUI); \
+                } else {                  \
+                    register_code(KC_RGUI); \
+                }                         \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+            if (lgui || rgui)         \
+                if (lgui) {             \
+                    register_code(KC_LGUI); \
+                } else {                  \
+                    register_code(KC_RGUI); \
+                }                         \
+            else {                        \
+                unregister_code(KC_LGUI); \
+                unregister_code(KC_RGUI); \
+            }                             \
+        }                                 \
+        return false;
+
 
 // Always shifted
 #    define SHIFT_ALL(kc1, kc2)           \
@@ -365,6 +490,56 @@ enum custom_keycodes {
                     register_code(KC_RCTL); \
             else                          \
                 unregister_code(KC_LCTL); \
+            }                             \
+        }                                 \
+        return false;
+
+// Always with alt
+#    define ALT_ALL(kc1, kc2)           \
+        if (record->event.pressed) {      \
+            register_code(KC_LALT);       \
+            if (lalt || ralt) {       \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+            if (lalt || ralt)         \
+                if (lalt)               \
+                    register_code(KC_LALT); \
+                else                      \
+                    register_code(KC_RALT); \
+            else                          \
+                unregister_code(KC_LALT); \
+            }                             \
+        }                                 \
+        return false;
+
+// Always with control
+#    define GUI_ALL(kc1, kc2)           \
+        if (record->event.pressed) {      \
+            register_code(KC_LGUI);       \
+            if (lgui || rgui) {       \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+            if (lgui || rgui)         \
+                if (lgui)               \
+                    register_code(KC_LGUI); \
+                else                      \
+                    register_code(KC_RGUI); \
+            else                          \
+                unregister_code(KC_LGUI); \
             }                             \
         }                                 \
         return false;
@@ -421,6 +596,62 @@ enum custom_keycodes {
             } else {                      \
                 unregister_code(KC_LCTL); \
                 unregister_code(KC_RCTL); \
+            }                             \
+        }                                 \
+        return false;
+
+// Never with Alt
+#    define ALT_NO(kc1, kc2)            \
+        if (record->event.pressed) {      \
+            unregister_code(KC_LALT);     \
+            unregister_code(KC_RALT);     \
+            if (lalt || ralt) {       \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+            if (lalt || ralt) {       \
+                if (lalt) {             \
+                    register_code(KC_LALT); \
+                } else {                  \
+                    register_code(KC_RALT); \
+                }                         \
+            } else {                      \
+                unregister_code(KC_LALT); \
+                unregister_code(KC_RALT); \
+            }                             \
+        }                                 \
+        return false;
+
+// Never with gui
+#    define GUI_NO(kc1, kc2)            \
+        if (record->event.pressed) {      \
+            unregister_code(KC_LGUI);     \
+            unregister_code(KC_RGUI);     \
+            if (lgui || rgui) {       \
+                unregister_code(kc2);     \
+                register_code(kc2);       \
+            } else {                      \
+                unregister_code(kc1);     \
+                register_code(kc1);       \
+            }                             \
+        } else {                          \
+            unregister_code(kc1);         \
+            unregister_code(kc2);         \
+            if (lgui || rgui) {       \
+                if (lgui) {             \
+                    register_code(KC_LGUI); \
+                } else {                  \
+                    register_code(KC_RGUI); \
+                }                         \
+            } else {                      \
+                unregister_code(KC_LGUI); \
+                unregister_code(KC_RGUI); \
             }                             \
         }                                 \
         return false;
