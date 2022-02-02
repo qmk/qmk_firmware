@@ -1,0 +1,3 @@
+USER_NAME := yfuku
+VIA_ENABLE = yes
+ENCODER_ENABLE = yes
