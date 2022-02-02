@@ -1,0 +1,18 @@
+LTO_ENABLE = yes
+
+NKRO_ENABLE = yes
+
+USER_NAME := chrisgve
+
+SRC += chrisgve.c
+
+MOUSEKEY_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+RGBMATRIX_ENABLE = no
+RGBLIGHT_ENABLE = yes
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
+
+VIA_ENABLE = no
+
+SHIFT_ENABLE = yes
