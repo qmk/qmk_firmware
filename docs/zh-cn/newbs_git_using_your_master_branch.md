@@ -51,7 +51,7 @@ git checkout -b dev_branch
 git push --set-upstream origin dev_branch
 ```
 
-以上操作会创建 `dev_branch` 新分支，检出（check out）并保存到你的for中。`--set-upstream` 参数用于告知git使用你的for仓库来处理 `dev_branch` 分支下的 `git push` 及 `git pull` 命令，且仅需要在第一次执行push命令时指定，之后再次执行 `git push` 或是 `git pull` 都无需加入该参数了。
+以上操作会创建 `dev_branch` 新分支，检出（check out）并保存到你的fork中。`--set-upstream` 参数用于告知git使用你的fork仓库来处理 `dev_branch` 分支下的 `git push` 及 `git pull` 命令，且仅需要在第一次执行push命令时指定，之后再次执行 `git push` 或是 `git pull` 都无需加入该参数了。
 
 ?> 在 `git push` 时，可以使用 `-u` 替代 `--set-upstram` &mdash; `-u` 为 `--set-upsream` 参数的别名。
 
