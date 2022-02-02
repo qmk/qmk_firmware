@@ -197,7 +197,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
 	}
 
-// Add INS as SHIFT-modified DEL key
+// Add INS as SHIFT-modified BackSpace key
+    case KC_BSPC:
+    {
+        // Initialize a boolean variable that keeps track of the delete key status: registered or not?
+        static bool inskey_registered;
+        if (record->event.pressed) {
+            // Detect the activation of either shift keys
+            if (mod_state & MOD_MASK_SHIFT) {
+                // First temporarily canceling both shifts so that
+                // shift isn't applied to the KC_INS keycode
+                del_mods(MOD_MASK_SHIFT);
+                register_code(KC_INS);
+                // Update the boolean variable to reflect the status of KC_INS
+                inskey_registered = true;
+                // Reapplying modifier state so that the held shift key(s)
+                // still work even after having tapped the Delete/Insert key.
+                set_mods(mod_state);
+                return false;
+            }
+        } else { // on release of KC_BSPC
+            // In case KC_INS is still being sent even after the release of KC_BSPC
+            if (inskey_registered) {
+                unregister_code(KC_INS);
+                inskey_registered = false;
+                return false;
+            }
+        }
+	}
+
+/* Add INS as SHIFT-modified DEL key
     case KC_DEL:
     {
         // Initialize a boolean variable that keeps track of the delete key status: registered or not?
@@ -225,6 +254,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
 	}
+*/
+
 #ifdef IDLE_TIMEOUT_ENABLE
     case RGB_TOI:
         if(record->event.pressed) {
