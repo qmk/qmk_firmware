@@ -18,22 +18,21 @@
 
 #include "quantum.h"
 
-#define TERMINAL_MAX_ARGS   6
-#define TERMINAL_ARGS_LEN  20
+#define TERMINAL_MAX_ARGS 6
+#define TERMINAL_ARGS_LEN 20
 
 typedef struct {
     size_t args_no;
-    char args[TERMINAL_MAX_ARGS][TERMINAL_ARGS_LEN];
+    char   args[TERMINAL_MAX_ARGS][TERMINAL_ARGS_LEN];
 } terminal_ctx_t;
 
 typedef struct {
     char *string;
-    void (*func)(terminal_ctx_t*);
-}  stringcase_t;
-
+    void (*func)(terminal_ctx_t *);
+} stringcase_t;
 
 extern const char keycode_to_ascii_lut[58];
 extern const char shifted_keycode_to_ascii_lut[58];
 extern const char terminal_prompt[8];
 bool              process_terminal(uint16_t keycode, keyrecord_t *record);
-void process_terminal_register_user_command(stringcase_t * table);
+void              process_terminal_register_user_command(stringcase_t *table);

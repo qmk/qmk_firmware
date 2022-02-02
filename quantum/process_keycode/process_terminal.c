@@ -29,7 +29,7 @@ char buffer[80]       = "";
 char cmd_buffer[CMD_BUFF_SIZE][80];
 bool cmd_buffer_enabled = true;  // replace with ifdef?
 char newline[2]         = "\n";
-bool firstTime = true;
+bool firstTime          = true;
 
 short int current_cmd_buffer_pos = 0;  // used for up/down arrows - keeps track of where you are in the command buffer
 
@@ -50,7 +50,6 @@ float terminal_song[][2] = TERMINAL_SONG;
 __attribute__((weak)) const char keycode_to_ascii_lut[58] = {0, 0, 0, 0, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 0, 0, 0, '\t', ' ', '-', '=', '[', ']', '\\', 0, ';', '\'', '`', ',', '.', '/'};
 
 __attribute__((weak)) const char shifted_keycode_to_ascii_lut[58] = {0, 0, 0, 0, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', 0, 0, 0, '\t', ' ', '_', '+', '{', '}', '|', 0, ':', '\'', '~', '<', '>', '?'};
-
 
 void enable_terminal(void) {
     terminal_enabled = true;
@@ -108,7 +107,6 @@ static void terminal_about(terminal_ctx_t *ctx) {
     }
 #endif
 }
-
 
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 
@@ -183,16 +181,7 @@ void terminal_help(terminal_ctx_t *ctx);
 
 static stringcase_t *user_terminal_cases;
 
-static const stringcase_t terminal_cases[] = {
-    {"about"        , terminal_about}   ,
-    {"help"         , terminal_help}    ,
-    {"keycode"      , terminal_keycode} ,
-    {"keymap"       , terminal_keymap}  ,
-    {"flush-buffer" , flush_cmd_buffer} ,
-    {"print-buffer" , print_cmd_buff}   ,
-    {"exit"         , disable_terminal} ,
-    {NULL           , NULL}
-};
+static const stringcase_t terminal_cases[] = {{"about", terminal_about}, {"help", terminal_help}, {"keycode", terminal_keycode}, {"keymap", terminal_keymap}, {"flush-buffer", flush_cmd_buffer}, {"print-buffer", print_cmd_buff}, {"exit", disable_terminal}, {NULL, NULL}};
 
 void terminal_help(terminal_ctx_t *ctx) {
     SEND_STRING("commands available:\n  ");
@@ -208,9 +197,7 @@ void terminal_help(terminal_ctx_t *ctx) {
     send_string(newline);
 }
 
-void process_terminal_register_user_command(stringcase_t * table) {
-    user_terminal_cases = table;
-}
+void process_terminal_register_user_command(stringcase_t *table) { user_terminal_cases = table; }
 void command_not_found(void) {
     wait_ms(50);  // sometimes buffer isnt grabbed quick enough
     SEND_STRING("command \"");
@@ -222,7 +209,7 @@ void process_terminal_command(void) {
     // we capture return bc of the order of events, so we need to manually send a newline
     send_string(newline);
 
-    char *  pch;
+    char   *pch;
     uint8_t i = 0;
     pch       = strtok(buffer, " ");
     while (pch != NULL) {
@@ -233,8 +220,7 @@ void process_terminal_command(void) {
     }
 
     bool command_found = false;
-    for (const stringcase_t *case_p = terminal_cases;
-            case_p != terminal_cases + sizeof(terminal_cases) / sizeof(terminal_cases[0]); case_p++) {
+    for (const stringcase_t *case_p = terminal_cases; case_p != terminal_cases + sizeof(terminal_cases) / sizeof(terminal_cases[0]); case_p++) {
         if (0 == strcmp(case_p->string, buffer)) {
             command_found = true;
             (*case_p->func)(&ctx);
@@ -243,8 +229,7 @@ void process_terminal_command(void) {
     }
     // Search commands in users commands table
     if (user_terminal_cases != NULL)
-        for (stringcase_t *case_p = user_terminal_cases;
-                case_p->string != NULL && case_p->func != NULL; case_p++) {
+        for (stringcase_t *case_p = user_terminal_cases; case_p->string != NULL && case_p->func != NULL; case_p++) {
             if (0 == strcmp(case_p->string, buffer)) {
                 command_found = true;
                 (*case_p->func)(&ctx);
