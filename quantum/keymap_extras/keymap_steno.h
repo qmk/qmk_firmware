@@ -72,3 +72,20 @@ enum steno_keycodes {
     STN_ZR,
     STN__MAX = STN_ZR,  // must be less than QK_STENO_BOLT
 };
+
+#ifdef STENO_COMBINEDMAP
+enum steno_combined_keycodes {
+    STN_S3 = QK_STENO_COMB,
+    STN_TKL,
+    STN_PWL,
+    STN_HRL,
+    STN_FRR,
+    STN_PBR,
+    STN_LGR,
+    STN_TSR,
+    STN_DZR,
+    STN_AO,
+    STN_EU,
+    STN_COMB_MAX = STN_EU,
+};
+#endif

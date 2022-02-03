@@ -151,12 +151,3 @@
 // Row 3
 #define ES_LCBR ALGR(ES_ACUT) // {
 #define ES_RCBR ALGR(ES_CCED) // }
-
-// DEPRECATED
-#define ES_OVRR ES_MORD
-#define ES_APOS ES_QUOT
-#define ES_LESS ES_LABK
-#define ES_ASML ES_FORD
-#define ES_OVDT ES_BULT
-#define ES_UMLT ES_DIAE
-#define ES_GRTR ES_RABK

@@ -15,10 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
-
-
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
     [0] = LAYOUT(
         KC_MUTE, KC_MPLY, R_M_TOG, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,  MO(1)
     ),
@@ -29,9 +27,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RESET,   _______, R_M_TOG, R_M_MOD, R_M_HUI, R_M_HUD, R_M_SAI, R_M_SAD, R_M_VAI, R_M_VAD, _______, _______
     )
 };
+// clang-format on
 
-
-// void encoder_update_user(uint8_t index, bool clockwise) {
+// bool encoder_update_user(uint8_t index, bool clockwise) {
 //     if (index == 0) {
 //         if (clockwise) {
 //             tap_code(KC_VOLD);
@@ -51,4 +49,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //             rgb_matrix_step();
 //         }
 //     }
+//     return false;
 // }

@@ -23,10 +23,10 @@
 
 
 static void init(void) {
-    i2c_init(&I2CD1, I2C1_SCL_BANK, I2C1_SDA_BANK, I2C1_SCL, I2C1_SDA);
+    i2c_init(&I2CD1, I2C1_SCL_PIN, I2C1_SDA_PIN);
     IS31FL3733_init(0, DRIVER_ADDR_1, 0);
 #    ifdef USE_I2C2
-    i2c_init(&I2CD2, I2C2_SCL_BANK, I2C2_SDA_BANK, I2C2_SCL, I2C2_SDA);
+    i2c_init(&I2CD2, I2C2_SCL_PIN, I2C2_SDA_PIN);
     IS31FL3733_init(1, DRIVER_ADDR_2, 0);
 #    endif
     for (int index = 0; index < DRIVER_LED_TOTAL; index++) {

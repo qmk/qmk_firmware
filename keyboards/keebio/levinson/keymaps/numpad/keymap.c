@@ -40,11 +40,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |    Enter    |   +  |   -  |   =  | MO(1)|      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[0] = LAYOUT_ortho_4x12( \
-    KC_KP_0,     KC_KP_1, KC_KP_4,    KC_KP_7,     KC_BSPACE,      OSL(1),  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
-    KC_COMMA,    KC_KP_2, KC_KP_5,    KC_KP_8,     KC_KP_SLASH,    KC_DOWN, KC_NO, KC_A,  KC_B,  KC_C,  KC_D,  KC_NO, \
-    KC_KP_DOT,   KC_KP_3, KC_KP_6,    KC_KP_9,     KC_KP_ASTERISK, KC_UP,   KC_NO, KC_E,  KC_F,  KC_G,  KC_H,  KC_NO, \
-    KC_KP_ENTER, KC_NO,   KC_KP_PLUS, KC_KP_MINUS, KC_KP_EQUAL,    MO(1),  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  \
+[0] = LAYOUT_ortho_4x12(
+    KC_KP_0,     KC_KP_1, KC_KP_4,    KC_KP_7,     KC_BSPACE,      OSL(1),  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_COMMA,    KC_KP_2, KC_KP_5,    KC_KP_8,     KC_KP_SLASH,    KC_DOWN, KC_NO, KC_A,  KC_B,  KC_C,  KC_D,  KC_NO,
+    KC_KP_DOT,   KC_KP_3, KC_KP_6,    KC_KP_9,     KC_KP_ASTERISK, KC_UP,   KC_NO, KC_E,  KC_F,  KC_G,  KC_H,  KC_NO,
+    KC_KP_ENTER, KC_NO,   KC_KP_PLUS, KC_KP_MINUS, KC_KP_EQUAL,    MO(1),  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 ),
 /* Macro layer - the number keys are macros,
  * other functions on remaining keys
@@ -58,11 +58,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   NumLock   | RESET|      |      | Calc |
  * `-----------------------------------------'
  */
-[1] = LAYOUT_ortho_4x12( \
-    M0,         M1, M4, M7, KC_NO, KC_ESC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
-    KC_LEFT,    M2, M5, M8, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
-    KC_RIGHT,   M3, M6, M8, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
-    KC_NUMLOCK, RESET, KC_NO, KC_NO, KC_CALC, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  \
+[1] = LAYOUT_ortho_4x12(
+    M0,         M1, M4, M7, KC_NO, KC_ESC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_LEFT,    M2, M5, M8, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_RIGHT,   M3, M6, M8, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NUMLOCK, RESET, KC_NO, KC_NO, KC_CALC, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 )
 };
 

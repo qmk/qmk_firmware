@@ -1,8 +1,6 @@
 {
     "keyboard_name": "Atomic",
     "maintainer": "jackhumbert",
-    "width": 15,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT_grid": "LAYOUT_ortho_5x15"
     },

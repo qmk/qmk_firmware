@@ -2,8 +2,6 @@
     "keyboard_name": "Tripel",
     "url": "https://github.com/peej/tripel-keyboard",
     "maintainer": "Peej",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_7u": {
             "layout": [

@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "is31fl3733-dual.h"
 
 
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, B_1,  A_1,  C_1  },
     { 0, B_2,  A_2,  C_2  },
     { 0, B_3,  A_3,  C_3  },
@@ -67,11 +67,11 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, H_7,  G_7,  I_7  },
     { 0, H_8,  G_8,  I_8  },
     { 0, H_9,  G_9,  I_9  },
-    { 0, H_10, G_10,  I_10 },
-    { 0, H_11, G_11,  I_11 },
-    { 0, H_12, G_12,  I_12 },
-    { 0, H_13, G_13,  I_13 },
-    { 0, H_14, G_14,  I_14 },
+    { 0, H_10, G_10, I_10 },
+    { 0, H_11, G_11, I_11 },
+    { 0, H_12, G_12, I_12 },
+    { 0, H_13, G_13, I_13 },
+    { 0, H_14, G_14, I_14 },
     { 0, H_15, G_15, I_15 },
     { 0, H_16, G_16, I_16 },
 
@@ -84,15 +84,15 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, K_7,  J_7,  L_7  },
     { 0, K_8,  J_8,  L_8  },
     { 0, K_9,  J_9,  L_9  },
-    { 0, K_10, J_10,  L_10 },
-    { 0, K_11, J_11,  L_11 },
-    { 0, K_12, J_12,  L_12 },
-    { 0, K_13, J_13,  L_13 },
-    { 0, K_14, J_14,  L_14 },
+    { 0, K_10, J_10, L_10 },
+    { 0, K_11, J_11, L_11 },
+    { 0, K_12, J_12, L_12 },
+    { 0, K_13, J_13, L_13 },
+    { 0, K_14, J_14, L_14 },
     { 0, K_15, J_15, L_15 },
     { 0, K_16, J_16, L_16 },
 
-    // Driver 2 is on I2C2 - currently not usable with i2c_master
+    // Driver 2 is on I2C2
     { 1, B_1,  A_1,  C_1  },
     { 1, B_2,  A_2,  C_2  },
     { 1, B_3,  A_3,  C_3  },
@@ -176,7 +176,7 @@ led_config_t g_led_config = {
         { 0, 42.67 }, { 13.18, 42.67 }, { 26.35, 42.67 }, { 39.53, 42.67 }, { 52.71, 42.67 }, { 65.88, 42.67 }, { 79.06, 42.67 }, { 92.24, 42.67 }, { 105.41, 42.67 }, { 118.59, 42.67 }, { 131.77, 42.67 }, { 144.94, 42.67 },                    { 171.29, 42.67 },
         { 0, 53.33 },                   { 26.35, 53.33 }, { 39.53, 53.33 }, { 52.71, 53.33 }, { 65.88, 53.33 }, { 79.06, 53.33 }, { 92.24, 53.33 }, { 105.41, 53.33 }, { 118.59, 53.33 }, { 131.77, 53.33 }, { 144.94, 53.33 },                    { 171.29, 53.33 },                              { 210.82, 53.33 },
         { 0, 64    }, { 13.18, 64    }, { 26.35, 64    },                                                       { 79.06, 64    },                                                         { 131.77, 64    }, { 144.94, 64    }, { 158.12, 64    }, { 171.29, 64    },           { 197.65, 64    }, { 210.82, 64    }, { 224, 64    },
-        
+
         // Underglow LED
         { 224, 64 }, { 206.77, 64 }, { 189.54, 64 }, { 172.31, 64 }, { 155.08, 64 }, { 137.85, 64 }, { 120.61, 64 }, { 103.38, 64 }, { 86.15, 64 }, { 68.92, 64 }, { 51.69, 64 }, { 34.46, 64 }, { 17.23, 64 }, { 0, 64 },
         { 0, 42.67 }, { 0, 21.33 },
@@ -197,10 +197,39 @@ led_config_t g_led_config = {
         2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,
 
         2,                                                  2,
-        
+
         2,                                                  2,
 
         2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,
     }
 };
 #endif
+
+
+void keyboard_pre_init_kb(void) {
+#ifdef RGB_MATRIX_ENABLE
+    // Turn on LED controller
+    setPinOutput(B16);
+    writePinHigh(B16);
+#endif
+    keyboard_pre_init_user();
+}
+
+void matrix_init_kb(void) {
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
+
+#ifdef RGB_MATRIX_ENABLE
+    /*
+     * Since K20x is stuck with a 32 byte EEPROM (see tmk_core/common/chibios/eeprom_teensy.c),
+     * and neither led_matrix_eeconfig.speed or .flags fit in this boundary, just force their values to default on boot.
+     */
+#    if !defined(RGB_MATRIX_STARTUP_SPD)
+#        define RGB_MATRIX_STARTUP_SPD UINT8_MAX / 2
+#    endif
+    rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD),
+    rgb_matrix_set_flags(LED_FLAG_ALL);
+#endif
+
+    matrix_init_user();
+}

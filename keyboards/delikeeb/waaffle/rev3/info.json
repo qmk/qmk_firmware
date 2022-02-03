@@ -2,8 +2,6 @@
     "keyboard_name": "waaffle",
     "url": "",
     "maintainer": "noclew",
-    "width": 16.25,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_5x16": {
             "layout":

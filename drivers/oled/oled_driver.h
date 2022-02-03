@@ -190,6 +190,7 @@ bool oled_init(oled_rotation_t rotation);
 // Called at the start of oled_init, weak function overridable by the user
 // rotation - the value passed into oled_init
 // Return new oled_rotation_t if you want to override default rotation
+oled_rotation_t oled_init_kb(oled_rotation_t rotation);
 oled_rotation_t oled_init_user(oled_rotation_t rotation);
 
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
@@ -285,7 +286,8 @@ uint8_t oled_get_brightness(void);
 void oled_task(void);
 
 // Called at the start of oled_task, weak function overridable by the user
-void oled_task_user(void);
+bool oled_task_kb(void);
+bool oled_task_user(void);
 
 // Set the specific 8 lines rows of the screen to scroll.
 // 0 is the default for start, and 7 for end, which is the entire
@@ -312,6 +314,14 @@ bool oled_scroll_left(void);
 // Turns off display scrolling
 // Returns true if the screen was not scrolling or stops scrolling
 bool oled_scroll_off(void);
+
+// Returns true if the oled is currently scrolling, false if it is
+// not
+bool is_oled_scrolling(void);
+
+// Inverts the display
+// Returns true if the screen was or is inverted
+bool oled_invert(bool invert);
 
 // Returns the maximum number of characters that will fit on a line
 uint8_t oled_max_chars(void);

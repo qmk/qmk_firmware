@@ -35,9 +35,6 @@
 #define ENCODERS_PAD_A { F7 }
 #define ENCODERS_PAD_B { F6 }
 #define ENCODER_RESOLUTION 4
-#define AdafruitBleResetPin D4
-#define AdafruitBleCSPin B4
-#define AdafruitBleIRQPin E6
 #define UNUSED_PINS
 
 /* RGB Light Configuration */

@@ -2,8 +2,6 @@
     "keyboard_name": "Ninjin",
     "url": "",
     "maintainer": "Xelus",
-    "width": 18.25,
-    "height": 6.25,
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_tkl_ansi_tsangan"
     },

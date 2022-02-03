@@ -2,8 +2,6 @@
     "keyboard_name": "scatter42",
     "url": "https://github.com/bbrfkr/keyboards/tree/master/scatter42",
     "maintainer": "bbrfkr",
-    "width": 14,
-    "height": 5.125,
     "layouts": {
         "LAYOUT": {
             "layout": [

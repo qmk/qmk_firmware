@@ -21,7 +21,6 @@
 
 import hid
 import time
-import string
 import psutil
 import GPUtil
 import datetime

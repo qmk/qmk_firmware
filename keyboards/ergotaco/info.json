@@ -2,8 +2,6 @@
     "keyboard_name": "ErgoTaco",
     "url": "http://gboards.ca",
     "maintainer": "germ",
-    "width": 13,
-    "height": 2.75,
     "layouts": {
         "LAYOUT": {
             "layout": [

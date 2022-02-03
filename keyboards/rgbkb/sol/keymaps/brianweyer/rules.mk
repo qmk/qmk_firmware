@@ -4,7 +4,7 @@
 LED_MIRRORED            = no        # Mirror LEDs across halves (enable DIP 1 on slave, and DIP 2 and 3 on master)
 
 # Misc
-OLED_DRIVER_ENABLE      = yes       # Enable the OLED Driver
+OLED_ENABLE     = yes       # Enable the OLED Driver
 
 
 

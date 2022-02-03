@@ -119,4 +119,4 @@ uint16_t sequencer_get_step_duration(void);
 uint16_t get_beat_duration(uint8_t tempo);
 uint16_t get_step_duration(uint8_t tempo, sequencer_resolution_t resolution);
 
-void matrix_scan_sequencer(void);
+void sequencer_task(void);

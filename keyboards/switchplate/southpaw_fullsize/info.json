@@ -2,8 +2,6 @@
     "keyboard_name": "southpaw_fullsize", 
     "url": "", 
     "maintainer": "ai03", 
-    "width": 22.5, 
-    "height": 6.25, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

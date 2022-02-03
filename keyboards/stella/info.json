@@ -2,8 +2,6 @@
     "keyboard_name": "Stella",
     "url": "",
     "maintainer": "VGS",
-    "width": 18.25,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

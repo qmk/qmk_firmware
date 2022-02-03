@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "isolation",
+    "url": "",
+    "maintainer": "kb-elmo",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x":0.25, "y":0, "w":1.25, "h":2}
+            ]
+        }
+    }
+}

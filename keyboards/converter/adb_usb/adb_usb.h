@@ -17,10 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Ported to QMK by Peter Roe <pete@13bit.me>
 */
 
-#ifndef ADB_USB_H
-#define ADB_USB_H
+#pragma once
 
 #include "quantum.h"
+
+#define XXX KC_NO
 
 /* M0115/M3501 Apple Extended Keyboard ANSI
  * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.             ,---.
@@ -39,29 +40,29 @@ Ported to QMK by Peter Roe <pete@13bit.me>
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
 #define LAYOUT_ext_ansi( \
-    K35,    K7A,K78,K63,K76,K60,K61,K62,K64,K65,K6D,K67,K6F, K69,K6B,K71,              K7F, \
-    K32,K12,K13,K14,K15,K17,K16,K1A,K1C,K19,K1D,K1B,K18,K33, K72,K73,K74,  K47,K51,K4B,K43, \
-    K30,K0C,K0D,K0E,K0F,K11,K10,K20,K22,K1F,K23,K21,K1E,K2A, K75,K77,K79,  K59,K5B,K5C,K4E, \
-    K39,K00,K01,K02,K03,K05,K04,K26,K28,K25,K29,K27,    K24,               K56,K57,K58,K45, \
-    K38,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,        K7B,     K3E,      K53,K54,K55,     \
-    K36,K3A,K37,        K31,                        K7C,K7D, K3B,K3D,K3C,  K52,    K41,K4C  \
+    k35,      k7A, k78, k63, k76, k60, k61, k62, k64, k65, k6D, k67, k6F,  k69, k6B, k71,                 k7F, \
+    k32, k12, k13, k14, k15, k17, k16, k1A, k1C, k19, k1D, k1B, k18, k33,  k72, k73, k74,  k47, k51, k4B, k43, \
+    k30, k0C, k0D, k0E, k0F, k11, k10, k20, k22, k1F, k23, k21, k1E, k2A,  k75, k77, k79,  k59, k5B, k5C, k4E, \
+    k39, k00, k01, k02, k03, k05, k04, k26, k28, k25, k29, k27,      k24,                  k56, k57, k58, k45, \
+    k38, k06, k07, k08, k09, k0B, k2D, k2E, k2B, k2F, k2C,           k7B,       k3E,       k53, k54, k55,\
+    k36, k3A, k37,           k31,                               k7C, k7D,  k3B, k3D, k3C,  k52,      k41, k4C \
 ) { \
-    { K00,   K01,   K02,   K03, K04,   K05,   K06,   K07    }, \
-    { K08,   K09,   KC_NO, K0B, K0C,   K0D,   K0E,   K0F    }, \
-    { K10,   K11,   K12,   K13, K14,   K15,   K16,   K17    }, \
-    { K18,   K19,   K1A,   K1B, K1C,   K1D,   K1E,   K1F    }, \
-    { K20,   K21,   K22,   K23, K24,   K25,   K26,   K27    }, \
-    { K28,   K29,   K2A,   K2B, K2C,   K2D,   K2E,   K2F    }, \
-    { K30,   K31,   K32,   K33, KC_NO, K35,   K36,   K37    }, \
-    { K38,   K39,   K3A,   K3B, K3C,   K3D,   K3E,   KC_NO, }, \
-    { KC_NO, K41,   KC_NO, K43, KC_NO, K45,   KC_NO, K47    }, \
-    { KC_NO, KC_NO, KC_NO, K4B, K4C,   KC_NO, K4E,   KC_NO, }, \
-    { KC_NO, K51,   K52,   K53, K54,   K55,   K56,   K57    }, \
-    { K58,   K59,   KC_NO, K5B, K5C,   KC_NO, KC_NO, KC_NO, }, \
-    { K60,   K61,   K62,   K63, K64,   K65,   KC_NO, K67    }, \
-    { KC_NO, K69,   KC_NO, K6B, KC_NO, K6D,   KC_NO, K6F    }, \
-    { KC_NO, K71,   K72,   K73, K74,   K75,   K76,   K77    }, \
-    { K78,   K79,   K7A,   K7B, K7C,   K7D,   KC_NO, K7F    }  \
+    { k00, k01, k02, k03, k04, k05, k06, k07 }, \
+    { k08, k09, XXX, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17 }, \
+    { k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27 }, \
+    { k28, k29, k2A, k2B, k2C, k2D, k2E, k2F }, \
+    { k30, k31, k32, k33, XXX, k35, k36, k37 }, \
+    { k38, k39, k3A, k3B, k3C, k3D, k3E, XXX }, \
+    { XXX, k41, XXX, k43, XXX, k45, XXX, k47 }, \
+    { XXX, XXX, XXX, k4B, k4C, XXX, k4E, XXX }, \
+    { XXX, k51, k52, k53, k54, k55, k56, k57 }, \
+    { k58, k59, XXX, k5B, k5C, XXX, XXX, XXX }, \
+    { k60, k61, k62, k63, k64, k65, XXX, k67 }, \
+    { XXX, k69, XXX, k6B, XXX, k6D, XXX, k6F }, \
+    { XXX, k71, k72, k73, k74, k75, k76, k77 }, \
+    { k78, k79, k7A, k7B, k7C, k7D, XXX, k7F } \
 }
 
 /* M0116 Apple Standard Keyboard ANSI
@@ -81,29 +82,27 @@ Ported to QMK by Peter Roe <pete@13bit.me>
  * +---------------------------------------------------------+ +-------+---+---+
  */
 #define LAYOUT_m0116_ansi( \
-                           K7F,                                              \
-   K35,K12,K13,K14,K15,K17,K16,K1A,K1C,K19,K1D,K1B,K18,K33, K47,K51,K4B,K43, \
-   K30,K0C,K0D,K0E,K0F,K11,K10,K20,K22,K1F,K23,K21,K1E,     K59,K5B,K5C,K45, \
-   K36,K00,K01,K02,K03,K05,K04,K26,K28,K25,K29,K27,    K24, K56,K57,K58,K4E, \
-   K38,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,        K7B, K53,K54,K55,     \
-   K39,K3A,K37,K32,        K31,        K2A,K3B,K3C,K3D,K3E, K52,    K41,K4C  \
+                                  k7F, \
+    k35, k12, k13, k14, k15, k17, k16, k1A, k1C, k19, k1D, k1B, k18, k33,  k47, k51, k4B, k43, \
+    k30, k0C, k0D, k0E, k0F, k11, k10, k20, k22, k1F, k23, k21, k1E,       k59, k5B, k5C, k45, \
+    k36, k00, k01, k02, k03, k05, k04, k26, k28, k25, k29, k27,      k24,  k56, k57, k58, k4E, \
+    k38, k06, k07, k08, k09, k0B, k2D, k2E, k2B, k2F, k2C,           k7B,  k53, k54, k55, \
+    k39, k3A, k37, k32,           k31,           k2A, k3B, k3C, k3D, k3E,  k52,      k41, k4C \
 ) { \
-  { K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07   }, \
-  { K08,   K09,   KC_NO, K0B,   K0C,   K0D,   K0E,   K0F   }, \
-  { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17   }, \
-  { K18,   K19,   K1A,   K1B,   K1C,   K1D,   K1E,   K1F   }, \
-  { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27   }, \
-  { K28,   K29,   K2A,   K2B,   K2C,   K2D,   K2E,   K2F   }, \
-  { K30,   K31,   K32,   K33,   KC_NO, K35,   K36,   K37   }, \
-  { K38,   K39,   K3A,   K3B,   K3C,   K3D,   K3E,   KC_NO }, \
-  { KC_NO, K41,   KC_NO, K43,   KC_NO, K45,   KC_NO, K47   }, \
-  { KC_NO, KC_NO, KC_NO, K4B,   K4C,   KC_NO, K4E,   KC_NO }, \
-  { KC_NO, K51,   K52,   K53,   K54,   K55,   K56,   K57   }, \
-  { K58,   K59,   KC_NO, K5B,   K5C,   KC_NO, KC_NO, KC_NO }, \
-  { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-  { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-  { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-  { KC_NO, KC_NO, KC_NO, K7B,   KC_NO, KC_NO, KC_NO, K7F   }  \
+    { k00, k01, k02, k03, k04, k05, k06, k07 }, \
+    { k08, k09, XXX, k0B, k0C, k0D, k0E, k0F }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17 }, \
+    { k18, k19, k1A, k1B, k1C, k1D, k1E, k1F }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27 }, \
+    { k28, k29, k2A, k2B, k2C, k2D, k2E, k2F }, \
+    { k30, k31, k32, k33, XXX, k35, k36, k37 }, \
+    { k38, k39, k3A, k3B, k3C, k3D, k3E, XXX }, \
+    { XXX, k41, XXX, k43, XXX, k45, XXX, k47 }, \
+    { XXX, XXX, XXX, k4B, k4C, XXX, k4E, XXX }, \
+    { XXX, k51, k52, k53, k54, k55, k56, k57 }, \
+    { k58, k59, XXX, k5B, k5C, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, k7B, XXX, XXX, XXX, k7F } \
 }
-
-#endif

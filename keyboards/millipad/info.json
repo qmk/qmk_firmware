@@ -2,8 +2,6 @@
     "keyboard_name": "millipad",
     "url": "https://github.com/GLozares/millipad",
     "maintainer": "Jirou",
-    "width": 6,
-    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

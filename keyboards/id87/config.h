@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 #endif
 
-#define CAPS_LOCK_LED_PIN C7
+#define LED_CAPS_LOCK_PIN C7
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5

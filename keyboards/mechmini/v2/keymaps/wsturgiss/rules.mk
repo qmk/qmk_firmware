@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE = full	# Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 CONSOLE_ENABLE = no	# Console for debug(+400)
 COMMAND_ENABLE = no    # Commands for debug and configuration
 SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend

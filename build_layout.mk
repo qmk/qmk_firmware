@@ -7,7 +7,6 @@ define SEARCH_LAYOUTS_REPO
     LAYOUT_KEYMAP_C := $$(LAYOUT_KEYMAP_PATH)/keymap.c
     ifneq ("$$(wildcard $$(LAYOUT_KEYMAP_JSON))","")
         -include $$(LAYOUT_KEYMAP_PATH)/rules.mk
-        KEYMAP_C := $(KEYBOARD_OUTPUT)/src/keymap.c
         KEYMAP_JSON := $$(LAYOUT_KEYMAP_JSON)
         KEYMAP_PATH := $$(LAYOUT_KEYMAP_PATH)
     else ifneq ("$$(wildcard $$(LAYOUT_KEYMAP_C))","")
@@ -31,6 +30,3 @@ ifneq ($(FORCE_LAYOUT),)
 endif
 
 $(foreach LAYOUT,$(LAYOUTS),$(eval $(call SEARCH_LAYOUTS)))
-
-# Use rule from build_json.mk, but update prerequisite in case KEYMAP_JSON was updated
-$(KEYBOARD_OUTPUT)/src/keymap.c: $(KEYMAP_JSON)

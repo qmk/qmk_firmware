@@ -1,9 +1,7 @@
 {
     "keyboard_name": "suv1.1",
     "url": "www.clawboards.xyz",
-    "maintainer": "AAClawson (AlisGraveNil)",
-    "width": 22.5,
-    "height": 6.5,
+    "maintainer": "AlisGraveNil",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -117,4 +115,3 @@
         }
     }
 }
-

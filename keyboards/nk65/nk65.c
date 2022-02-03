@@ -18,7 +18,7 @@
 #endif
 
 #include "nk65.h"
-#include "drivers/issi/is31fl3733.h"
+#include "drivers/led/issi/is31fl3733.h"
 
 /* Indicator LEDS are part of the LED driver
  * Top LED is blue only. LED driver 2 RGB 7 Green channel

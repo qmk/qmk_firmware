@@ -2,8 +2,6 @@
     "keyboard_name": "Southpaw75",
     "url": "",
     "maintainer": "qmk",
-    "width": 19,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

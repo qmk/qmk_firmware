@@ -2,8 +2,6 @@
     "keyboard_name": "aek 2 usb", 
     "url": "https://github.com/kb-elmo/aek2_usb", 
     "maintainer": "kb-elmo", 
-    "width": 23, 
-    "height": 7, 
     "layouts": {
         "LAYOUT": {
             "layout": [

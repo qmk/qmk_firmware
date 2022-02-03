@@ -1,7 +1,7 @@
 
 # Ploopy Trackball Mini
 
-![Ploopyco Trackball Mini](mini.jpg)
+![Ploopyco Trackball Mini](https://ploopy.co/wp-content/uploads/2021/07/mini4.jpg)
 
 It's a DIY, QMK Powered Trackball...Mini!
 
@@ -29,7 +29,7 @@ Occasionally, new revisions of the PCB will be released. Every board comes with 
 
 Match the firmware that you flash onto the board with the designator on the board.
 
-# Customzing your Ploopy Mini Trackball
+# Customizing your Ploopy Mini Trackball
 
 While the defaults are designed so that it can be plugged in and used right away, there are a number of things that you may want to change, such as adding DPI control, or using the ball to scroll while holding a button. To allow for this sort of control, there is a callback for both the scroll wheel and the mouse sensor.
 
@@ -56,7 +56,7 @@ Additionally, you can change the DPI/CPI or speed of the trackball by calling `a
 To configure/set your own array, there are two defines to use, `PLOOPY_DPI_OPTIONS` to set the array, and `PLOOPY_DPI_DEFAULT`. 
 
 ```c
-#define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375}
+#define PLOOPY_DPI_OPTIONS { 375, 750, 1375}
 #define PLOOPY_DPI_DEFAULT 2
 ```
 
@@ -73,7 +73,7 @@ Nothing needs to be enabled to use this functionality.  Just add the `DRAG_SCROL
 ### Drag Scroll Configuration
 
 * `#define PLOOPY_DRAGSCROLL_MOMENTARY` - Makes the key into a momentary key, rather than a toggle.
-* `#define PLOOPY_DRAGSCROLL_DPI CPI375` - When the fixed DPI option is enabled, this sets the DPI to be used for Drag Scroll.
+* `#define PLOOPY_DRAGSCROLL_DPI 375` - When the fixed DPI option is enabled, this sets the DPI to be used for Drag Scroll.
 * `#define PLOOPY_DRAGSCROLL_INVERT` - This reverses the direction that the scroll is performed. 
 ## Fuse settings
 

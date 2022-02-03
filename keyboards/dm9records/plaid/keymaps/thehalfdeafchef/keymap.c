@@ -125,7 +125,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
 }
 
 // When LOWER and RAISE are held together, go to the FUNCTION layer
-uint32_t layer_state_set_user(uint32_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _FUNCTION); }
+layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _FUNCTION); }
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {

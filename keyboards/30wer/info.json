@@ -2,8 +2,6 @@
     "keyboard_name": "30wer", 
     "url": "", 
     "maintainer": "qmk", 
-    "width": 13.25, 
-    "height": 3, 
     "layouts": {
         "LAYOUT": {
             "layout": [

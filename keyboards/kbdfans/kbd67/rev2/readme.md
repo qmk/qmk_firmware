@@ -1,10 +1,10 @@
 # KBD67 rev2
 
-65% pcb with blocker. Revision 2 (Manufactured after 05/01/19). 
+65% keyboard with RGB underglow originally sold for the Tofu 65 and Tada 68 keyboards.
 
-Keyboard Maintainer: [Vorror](https://github.com/vorror)  
-Hardware Supported: KBD67v2 PCB (Sometimes sold under the name "KBD65")  
-Hardware Availability: KBDFans [Keyboard Kit](https://kbdfans.cn/products/coming-soon-kbd67-mechanical-keyboard-diy-kit), [PCB](https://kbdfans.cn/collections/65/products/kbd65-65-custom-mechanical-keyboard-pcb)
+* Keyboard Maintainer: [Vorror](https://github.com/vorror)
+* Hardware Supported: KBD67v2 PCB (Sometimes sold under the name "KBD65")
+* Hardware Availability: KBDFans [Keyboard Kit](https://kbdfans.cn/products/coming-soon-kbd67-mechanical-keyboard-diy-kit), [PCB](https://kbdfans.cn/collections/65/products/kbd65-65-custom-mechanical-keyboard-pcb)
 
 Make example for this keyboard (after setting up your build environment):
 

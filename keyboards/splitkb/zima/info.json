@@ -2,8 +2,6 @@
     "keyboard_name": "Zima",
     "url": "splitkb.com",
     "maintainer": "splitkb.com, drashna",
-    "width": 3,
-    "height": 4,
     "layouts": {
         "LAYOUT_ortho_4x3": {
             "layout": [

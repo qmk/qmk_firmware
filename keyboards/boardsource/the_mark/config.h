@@ -41,8 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-#define MATRIX_ROW_PINS {B0, B1, B2, B3, B4,}
-#define MATRIX_COL_PINS { B5, B6, B7, F5, C7, D0, D1, D2, D3, D4, D5, D6, D7,F0, F1, F4}
+#define MATRIX_ROW_PINS {B0, B1, B2, B3, B4}
+#define MATRIX_COL_PINS {B5, B6, B7, F5, C7, D0, D1, D2, D3, D4, D5, D6, D7,F0, F1, F4}
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
@@ -56,11 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB matrix support */
 #ifdef RGB_MATRIX_ENABLE
-#define DRIVER_LED_TOTAL 24 // Number of LEDs
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#    ifndef RGB_DISABLE_WHEN_USB_SUSPENDED
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
-#    endif
+#    define DRIVER_LED_TOTAL 24  // Number of LEDs
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #endif
 
 /*

@@ -2,8 +2,6 @@
     "keyboard_name": "bt66tech60",
     "url": "",
     "maintainer": "bt66tech",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_60_ansi": {
 "layout": [
@@ -12,4 +10,3 @@
     }
   }
 }
-

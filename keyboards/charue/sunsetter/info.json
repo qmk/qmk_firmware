@@ -2,8 +2,6 @@
     "keyboard_name": "Sunsetter",
     "url": "https://charue-design.com/products/sunsetter",
     "maintainer": "coarse",
-    "width": 18.25,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

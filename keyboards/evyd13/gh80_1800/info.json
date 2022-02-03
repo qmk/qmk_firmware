@@ -2,8 +2,6 @@
     "keyboard_name": "GH80-1800", 
     "url": "https://github.com/evyd13/gh80-series/tree/master/GH80-1800", 
     "maintainer": "evyd13", 
-    "width": 19.5, 
-    "height": 7.25, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

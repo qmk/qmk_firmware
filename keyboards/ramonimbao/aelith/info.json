@@ -2,8 +2,6 @@
     "keyboard_name": "AELITH",
     "url": "",
     "maintainer": "Ramon Imbao",
-    "width": 19,
-    "height": 5,
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

@@ -9,8 +9,6 @@
 
 extern i2c_status_t mcp23018_status;
 #define I2C_TIMEOUT 1000
-#define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
-#define CPU_16MHz       0x00
 
 // I2C aliases and register addresses (see "mcp23018.md")
 //#define I2C_ADDR        0b0100000

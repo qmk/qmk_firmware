@@ -2,11 +2,8 @@
   "keyboard_name": "TKC1800",
   "url": "",
   "maintainer": "qmk",
-  "width": 19.5,
-  "height": 7.25,
   "layouts": {
     "LAYOUT": {
-      "key_count": 107,
       "layout": [
         { "label": "Esc", "x": 0, "y": 0 },
         { "label": "F1", "x": 1.25, "y": 0 },

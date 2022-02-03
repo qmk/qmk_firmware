@@ -43,8 +43,8 @@ LAYOUT(
 ),
 
 LAYOUT(
-  KC_FN6,  KC_FN7,  KC_FN8,  KC_FN9,  KC_FN10, KC_FN11, KC_FN12, KC_FN13, KC_FN14, KC_FN15, KC_FN16, KC_DELETE,
-  _______, _______, _______, _______, _______, _______, _______, KC_FN17, KC_FN18, KC_FN19, KC_FN20, KC_FN21,
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_DELETE,
+  _______, _______, _______, _______, _______, _______, _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
   _______, _______, _______, KC_CAPS, _______,     _______,      _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),

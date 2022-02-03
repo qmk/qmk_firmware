@@ -50,7 +50,7 @@ extern joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT];
 enum joystick_status { JS_INITIALIZED = 1, JS_UPDATED = 2 };
 
 typedef struct {
-    uint8_t buttons[JOYSTICK_BUTTON_COUNT / 8 + 1];
+    uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
 
     int16_t axes[JOYSTICK_AXES_COUNT];
     uint8_t status : 2;

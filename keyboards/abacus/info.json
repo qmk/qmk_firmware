@@ -2,11 +2,8 @@
     "keyboard_name": "Abacus",
     "url": "https://www.github.com/nickolaij",
     "maintainer": "nickolaij",
-    "width": 12.75,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
-            "key_count": 45,
             "layout": [
                 {"label":"k00", "x":0, "y":0, "w":1},
                 {"label":"k01", "x":1, "y":0, "w":1},

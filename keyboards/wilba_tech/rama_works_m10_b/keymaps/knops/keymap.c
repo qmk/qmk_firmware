@@ -23,14 +23,8 @@ void set_led_state(int ledId, bool state)
 {
 }
 
-void led_init_ports()
-{
-}
-
 void led_set_layer(int layer)
 {
-    led_init_ports();
-
     led_set_layer(0);
 
     /*KNOPS_SIMPLELED_STATES*/

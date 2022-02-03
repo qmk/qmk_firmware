@@ -1,1 +1,1 @@
-# The rate's keymap for pistachio_mp
+# The rate's keymap for pistachio_pro

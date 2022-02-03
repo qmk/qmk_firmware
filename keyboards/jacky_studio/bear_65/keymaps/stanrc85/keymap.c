@@ -47,22 +47,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       TG(_DEFAULT), _______, _______, _______,                             _______,     _______,                        RGB_HUD, RGB_VAD, RGB_HUI
     )
 };
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case _FN1_60:
-        break;
-    case _FN2_60:
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-        break;
-    case _DEFAULT:
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_MULTISPLASH);
-        break;
-    case _QWERTY:
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
-        break;
-    default: //  for any other layers, or the default layer
-        break;
-    }
-    return state;
-}

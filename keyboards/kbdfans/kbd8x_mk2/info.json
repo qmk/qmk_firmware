@@ -2,8 +2,6 @@
     "keyboard_name": "kbd8x_mk2", 
     "url": "https://kb.ai03.me/projects/kbd8x-mkii.html", 
     "maintainer": "ai03", 
-    "width": 18.25, 
-    "height": 6.25, 
     "layouts": {
         "LAYOUT": {
             "layout": [

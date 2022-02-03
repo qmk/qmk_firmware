@@ -2,8 +2,6 @@
     "keyboard_name": "Pistachio", 
     "url": "", 
     "maintainer": "rate", 
-    "width": 19.25, 
-    "height": 6.75, 
     "layouts": {
         "LAYOUT": {
             "layout": [{"label":"ESC", "x":1.25, "y":0.25},

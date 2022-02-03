@@ -58,7 +58,7 @@ void keyboard_post_init_user(void)
 __attribute__((weak)) void suspend_power_down_keymap(void) {}
 
 void suspend_power_down_user(void) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     oled_off();
 #endif
     suspend_power_down_keymap();

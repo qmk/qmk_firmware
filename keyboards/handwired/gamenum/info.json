@@ -2,8 +2,6 @@
   "keyboard_name": "gamenum", 
   "url": "", 
   "maintainer": "qmk", 
-  "width": 4, 
-  "height": 5, 
   "layouts": {
     "LAYOUT": {
       "layout": [

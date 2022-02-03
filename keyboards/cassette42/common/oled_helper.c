@@ -1,4 +1,4 @@
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include QMK_KEYBOARD_H
 #    include <stdio.h>
 #    include <string.h>

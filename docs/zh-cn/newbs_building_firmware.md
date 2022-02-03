@@ -1,81 +1,68 @@
 # 构建第一个固件
 
-现在您已经建立了构建环境，就可以开始构建自定义固件了。对于本指南的这一部分，我们将在3个程序之间切换——文件管理器、文本编辑器和终端窗口。请保持所有3个程序打开，直到您完成并对键盘固件满意。
+<!---
+  original document: 0.15.12:docs/newbs_building_firmware.md
+  git diff 0.15.12 HEAD -- docs/newbs_building_firmware.md | cat
+-->
 
-如果您在按照指南第一部分的操作之后关闭并重新打开了终端窗口，请不要忘记输入“cd qmk_firmware”，来使您的终端位于正确的目录。
+现在您已经准备好了构建环境，就可以开始构建自定义固件了。在这节指南中，我们将在3个程序中开展工作——文件管理器、文本编辑器和终端。在做出心满意足的固件前，请不要关闭它们。
+## 新建键映射
 
-## 导航到您的keymaps文件夹
+也许你会考虑从默认键映射复制一份来开始，如果你遵循编译环境配置指南到了最后，那么使用QMK命令行可以简单地做到：
 
-首先导航到键盘的 `keymaps` 文件夹.
+    qmk new-keymap
 
-?> 如果您使用的是MacOS或Windows，可以使用以下命令轻松地打开keymaps文件夹。
+如果你的环境没有那样配置，或者你有多个键盘要做，可以指定键盘名：
 
-?> macOS:
+    qmk new-keymap -kb <keyboard_name>
 
-    open keyboards/<keyboard_folder>/keymaps
+检查命令行输出，应该类似于：
 
-?> Windows:
+    Ψ <github_username> keymap directory created in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>
 
-    start .\\keyboards\\<keyboard_folder>\\keymaps
+上面就是创建出的新 `keymap.c` 文件的路径。
 
-## 创建`default` 布局副本
+## 使用趁手的编辑器打开 `keymap.c`
 
-打开`keymaps`文件夹后，您将需要创建`default`文件夹的副本。我们强烈建议您将文件夹命名为与GitHub用户名相同的名称，但您也可以使用任何您想使用的名称，只要它只包含小写字母、数字和下划线字符。
-
-要自动执行此过程，您还可以选择运行`new_keymap.sh`脚本。
-
-导航到`qmk_firmware/util` 目录然后输入以下命令：
-
-```
-./new_keymap.sh <keyboard path> <username>
-```
-
-例如，一个名字叫ymzcdg的用户要创建1up60hse的布局，他需要输入
-
-```
-./new_keymap.sh 1upkeyboards/1up60hse ymzcdg
-```
-
-## 在你最钟爱的文本编辑器中打开`keymap.c`
-
-打开你的`keymap.c`. 在这个文件中，您可以找到控制键盘行为的结构。 在你的`keymap.c` 的顶部有一些让布局更易读的define和enum。在靠下的位置你会找到一行和下面这句很像的:
+在编辑器中打开 `keymap.c`，可以看到控制键盘所有功能的关键结构。`keymap.c` 文件头部的一些define和enum定义能让代码容易阅读一些，继续往下会找到这么一行：
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-从这一行开始便是层列表。这行下面你会看到包括 `LAYOUT` 或 `KEYMAP`这两个词的几行, 从这些行开始就是层。在这一行下面是组成该特定层的键的列表。
+这行是所有层定义的起点，往下能看到有 `LAYOUT` 的行，都是一个层定义的起始，其下方为该层的组成定义。
 
-!> 编辑您的keymap文件时，注意不要添加或删除任何逗号。如果这样做，您将阻止您的固件编译，并且您可能不容易找出多余的或缺少的逗号在哪里。
+!> 编辑时请非常留意不要错误增加/删除了逗号分隔符，否则很可能无法编译固件，且很难排查是哪里的逗号不对。
 
-## 根据您的喜好自定义布局
+## 按照个人喜好设计层级
 
-如何完成这一步骤完全取决于您。改变一直困扰着你的问题，或者完全重做所有的事情。如果您不需要全部图层，可以删除图层，或者将图层总数增加到32个。查看以下文档，了解可以在此处定义的内容:
+这一步的目标完全取决于你，既可以去修复一个你不爽的问题，也可以完全重写一个新的。你可以删除不需要的层，或是增加层到32个的上限，QMK功能丰富，可以在左边的导航栏中寻找“使用QMK”一节，浏览完整的功能信息，也可以看看这些比较简单的：
 
-* [键码](keycodes.md)
-* [特性](features.md)
-* [问题与解答](faq.md)
+* [基础键码](zh-cn/keycodes_basic.md)
+* [量子键码](zh-cn/quantum_keycodes.md)
+* [Grave/Escape](zh-cn/feature_grave_esc.md)
+* [鼠标键](zh-cn/feature_mouse_keys.md)
 
-?> 当你明白布局是怎么工作时，您也要让每次改变尽可能小。一次改变很大在调试时找出问题会十分困难。
+?> 你大概理解了键映射如何工作的话，留心尽量少去做改动，改动越多出了问题越难排查。
 
-## 构建你的固件
+## 构建固件 :id=build-your-firmware
 
-完成对布局的更改后，您就要构建固件了。为此，请返回终端窗口并运行build命令:
+对键映射做完修改后，该编译固件了。回到终端中使用编译命令：
 
-    make <my_keyboard>:<my_keymap>
+    qmk compile
 
-例如，如果您的keymap名为“xyverz”，并且您正在为rev5 planck构建一个keymap，那么您将使用此命令：
+如果没有完整地配置环境，或你有多个目标键盘，可以指定键盘及键映射：
 
-    make planck/rev5:xyverz
+    qmk compile -kb <keyboard> -km <keymap>
 
-在编译过程中，你将看到屏幕上有很多输出，通知您正在编译哪些文件他应该以与下文类似的输出结束:
+编译完成后，会输出详尽的编译产出文件信息，其末尾应该看起来像这样：
 
 ```
-Linking: .build/planck_rev5_xyverz.elf                                                              [OK]
-Creating load file for flashing: .build/planck_rev5_xyverz.hex                                      [OK]
-Copying planck_rev5_xyverz.hex to qmk_firmware folder                                               [OK]
-Checking file size of planck_rev5_xyverz.hex                                                        [OK]
- * File size is fine - 18392/28672
+Linking: .build/planck_rev5_default.elf                                                             [OK]
+Creating load file for flashing: .build/planck_rev5_default.hex                                     [OK]
+Copying planck_rev5_default.hex to qmk_firmware folder                                              [OK]
+Checking file size of planck_rev5_default.hex                                                       [OK]
+ * The firmware size is fine - 27312/28672 (95%, 1360 bytes free)
 ```
 
-## 刷新你的固件
+## 刷写固件
 
-请移步 [Flashing Firmware](newbs_flashing.md) 来继续。
+参阅[刷写固件](zh-cn/newbs_flashing.md)以了解如何将固件写入键盘主控。

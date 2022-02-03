@@ -26,20 +26,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  FN  |
  * `------'
  */
-[_L1] = LAYOUT( \
-    KC_1, \
-    KC_2, \
-    MO(_FUNC)  \
+[_L1] = LAYOUT(
+    KC_1,
+    KC_2,
+    MO(_FUNC)
 ),
 
-[_FUNC] = LAYOUT( \
-    CALTDEL, \
-    TSKMGR, \
-    _______ \
+[_FUNC] = LAYOUT(
+    CALTDEL,
+    TSKMGR,
+    _______
 )
 
 };
-
-void matrix_init_user(void) {
-
-}

@@ -16,7 +16,7 @@
 #include "latin60rgb.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, K_13, J_13, L_13 },
     { 0, K_12, J_12, L_12 },
     { 0, K_11, J_11, L_11 },

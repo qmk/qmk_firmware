@@ -2,8 +2,6 @@
   "keyboard_name": "The Ruler",
   "url": "",
   "maintainer": "qmk",
-  "width": 7,
-  "height": 1,
   "layouts": {
       "LAYOUT": {
           "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":4, "y":0}, {"x":5, "y":0, "w":2}]

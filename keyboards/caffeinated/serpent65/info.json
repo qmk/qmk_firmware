@@ -1,10 +1,7 @@
 {
     "keyboard_name": "Serpent65",
-    "keyboard_folder": "caffeinated/serpent65",
     "url": "https",
     "maintainer": "jrfhoutx",
-    "width": 16.25,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

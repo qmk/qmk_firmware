@@ -2,8 +2,6 @@
     "keyboard_name": "akiS",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/xelus/akis",
     "maintainer": "Xelus22",
-    "width": 16,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT_65_all": "LAYOUT_all"
     },

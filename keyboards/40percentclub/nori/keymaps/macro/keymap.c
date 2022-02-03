@@ -17,25 +17,9 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ortho_4x4( /* Base */
-    KC_INT1,  KC_INT2,  KC_INT3,  KC_INT5, \
-    KC_F13,   KC_F14,   KC_F15,   KC_F16,  \
-    KC_F17,   KC_F18,   KC_F19,   KC_F20,  \
-    KC_F21,   KC_F22,   KC_F23,   KC_F24   \
+    KC_INT1,  KC_INT2,  KC_INT3,  KC_INT5,
+    KC_F13,   KC_F14,   KC_F15,   KC_F16,
+    KC_F17,   KC_F18,   KC_F19,   KC_F20,
+    KC_F21,   KC_F22,   KC_F23,   KC_F24
   ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

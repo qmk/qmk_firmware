@@ -44,7 +44,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //  to only scroll in one direction, if you wanted, as well. In fact,
 // there is no reason that you need to send this to the mouse report.
 // You could have it register a key, instead.
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
+void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
     if (is_drag_scroll) {
         mouse_report->h = x;
         mouse_report->v = y;

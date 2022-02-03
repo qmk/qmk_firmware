@@ -26,16 +26,12 @@ LAYOUT(/* Base */
 ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
-
-void led_set_user(uint8_t usb_led) {}
-
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
                                             0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
@@ -43,5 +39,8 @@ static void render_logo(void) {
 
     oled_write_P(qmk_logo, false);
 }
-void oled_task_user(void) { render_logo(); }
+bool oled_task_user(void) {
+    render_logo();
+    return false;
+}
 #endif

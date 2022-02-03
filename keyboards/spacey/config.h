@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define VENDOR_ID    0x5641 // "VA"
+#define PRODUCT_ID   0x2045 // "Space E"
 #define DEVICE_VER   0x0001
 #define MANUFACTURER vanilla
 #define PRODUCT      spacey

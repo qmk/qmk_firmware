@@ -122,9 +122,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [BROWSER_CONTROL] = LAYOUT(
-    MEH(KC_0), KC_BTN3,      KC_MS_U,            KC_BTN1,             KC_BTN2,                      KC_UP,      KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   MEH(KC_9),
-    MEH(KC_1), KC_MS_L,      KC_MS_D,            KC_MS_R,             MEH(KC_6),                    KC_DOWN,    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT),
-    MEH(KC_2), W10_TASKVIEW, W10_WORKSPACE_LEFT, W10_WORKSPACE_RIGHT, MEH(KC_7),                    MEH(KC_8),  RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,
+    MEH(KC_C), KC_BTN3,      KC_MS_U,            KC_BTN1,             KC_BTN2,                      KC_UP,      KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   MEH(KC_9),
+    MEH(KC_D), KC_MS_L,      KC_MS_D,            KC_MS_R,             MEH(KC_6),                    KC_DOWN,    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT),
+    MEH(KC_E), W10_TASKVIEW, W10_WORKSPACE_LEFT, W10_WORKSPACE_RIGHT, MEH(KC_7),                    MEH(KC_8),  RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,
     KC_TRNS,   KC_TRNS,      KC_TRNS,            KC_TRNS,             KC_TRNS, KC_TRNS, RCTL(KC_W), RCTL(KC_T), KC_TRNS,             KC_TRNS,     KC_TRNS,       KC_TRNS
   ),
 };

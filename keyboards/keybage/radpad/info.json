@@ -2,8 +2,6 @@
     "keyboard_name": "radpad",
     "url": "",
     "maintainer": "Brandon Schlack",
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT_4x4_encoders": {
             "layout": [

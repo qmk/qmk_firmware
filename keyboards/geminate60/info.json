@@ -2,8 +2,6 @@
     "keyboard_name": "geminate60",
     "url": "",
     "maintainer": "Weirdo-F",
-    "width": 15,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

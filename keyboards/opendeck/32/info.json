@@ -1,7 +1,5 @@
 {
     "keyboard_name": "OpenDeck 32",
-    "width": 8,
-    "height": 4,
     "layouts": {
         "LAYOUT_ortho_4x8": {
             "layout": [

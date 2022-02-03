@@ -16,6 +16,9 @@
 
 #include <stdint.h>
 #include <string.h>
+#if defined(EXTERNAL_EEPROM_WP_PIN)
+#    include "gpio.h"
+#endif
 
 /*
     Note that the implementations of eeprom_XXXX_YYYY on AVR are normally
@@ -50,7 +53,14 @@ static inline void fill_target_address(uint8_t *buffer, const void *addr) {
     }
 }
 
-void eeprom_driver_init(void) { i2c_init(); }
+void eeprom_driver_init(void) {
+    i2c_init();
+#if defined(EXTERNAL_EEPROM_WP_PIN)
+    /* We are setting the WP pin to high in a way that requires at least two bit-flips to change back to 0 */
+    writePin(EXTERNAL_EEPROM_WP_PIN, 1);
+    setPinInputHigh(EXTERNAL_EEPROM_WP_PIN);
+#endif
+}
 
 void eeprom_driver_erase(void) {
 #if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
@@ -89,6 +99,11 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
     uint8_t * read_buf    = (uint8_t *)buf;
     uintptr_t target_addr = (uintptr_t)addr;
 
+#if defined(EXTERNAL_EEPROM_WP_PIN)
+    setPinOutput(EXTERNAL_EEPROM_WP_PIN);
+    writePin(EXTERNAL_EEPROM_WP_PIN, 0);
+#endif
+
     while (len > 0) {
         uintptr_t page_offset  = target_addr % EXTERNAL_EEPROM_PAGE_SIZE;
         int       write_length = EXTERNAL_EEPROM_PAGE_SIZE - page_offset;
@@ -116,4 +131,10 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
         target_addr += write_length;
         len -= write_length;
     }
+
+#if defined(EXTERNAL_EEPROM_WP_PIN)
+    /* We are setting the WP pin to high in a way that requires at least two bit-flips to change back to 0 */
+    writePin(EXTERNAL_EEPROM_WP_PIN, 1);
+    setPinInputHigh(EXTERNAL_EEPROM_WP_PIN);
+#endif
 }

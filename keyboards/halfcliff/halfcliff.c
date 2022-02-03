@@ -16,7 +16,7 @@
 
 #include "halfcliff.h"
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -27,14 +27,18 @@ enum layer_names {
 /*    _FN */
 };
 
-__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
     }
     return rotation;
 }
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
   if (!is_keyboard_master()) {
     static const char PROGMEM qmk_logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
@@ -68,6 +72,7 @@ __attribute__((weak)) void oled_task_user(void) {
       oled_write_P(led_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
       oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK\n") : PSTR("      \n"), false);
     }
+    return false;
 }
 #endif
 

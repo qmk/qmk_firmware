@@ -1,15 +1,4 @@
 #include QMK_KEYBOARD_H
-#include <LUFA/Drivers/Peripheral/TWI.h>
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
-#ifdef USE_I2C
-#include "i2c.h"
-#endif
-#ifdef SSD1306OLED
-#include "ssd1306.h"
-#endif
-extern keymap_config_t keymap_config;
 
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
@@ -19,12 +8,12 @@ extern rgblight_config_t rgblight_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _LOWER 3
-#define _RAISE 4
-#define _FNLAYER 6
-#define _NUMLAY 7
-#define _MOUSECURSOR 8
-#define _ADJUST 16
+#define _LOWER 1
+#define _RAISE 2
+#define _FNLAYER 3
+#define _NUMLAY 4
+#define _MOUSECURSOR 5
+#define _ADJUST 6
 
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
@@ -41,10 +30,7 @@ enum preonic_keycodes {
   RGBLED_DECREASE_SAT,
   RGBLED_INCREASE_VAL,
   RGBLED_DECREASE_VAL,
-};
-
-enum macro_keycodes {
-  KC_DEMOMACRO,
+  DEMOMACRO,
 };
 
 // Custom macros
@@ -57,7 +43,6 @@ enum macro_keycodes {
 #define LT_MC(kc)   LT(_MOUSECURSOR, kc)        // L-ayer T-ap M-ouse C-ursor
 #define LT_RAI(kc)  LT(_RAISE, kc)              // L-ayer T-ap to Raise
 #define TG_NUMLAY   TG(_NUMLAY)                 //Toggle for layer _NUMLAY
-#define DEMOMACRO    M(KC_DEMOMACRO)                // My login macros
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -322,29 +307,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case DEMOMACRO:
+      if (record->event.pressed) {
+        SEND_STRING("hello world");
+      }
+      return false;
+      break;
   }
   return true;
 }
 
 void matrix_init_user(void) {
-  #ifdef USE_I2C
-    i2c_master_init();
-  #ifdef SSD1306OLED
-  // calls code for the SSD1306 OLED
-        _delay_ms(400);
-        TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-        iota_gfx_init();   // turns on the display
-  #endif
-  #endif
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-}
-
-void matrix_scan_user(void) {
-    #ifdef SSD1306OLED
-     iota_gfx_task();  // this is what updates the display continuously
-    #endif
+#ifdef AUDIO_ENABLE
+    startup_user();
+#endif
 }
 
 #ifdef AUDIO_ENABLE
@@ -373,109 +349,3 @@ void music_scale_user(void)
 }
 
 #endif
-
-/*
- * Macro definition
- */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    if (!eeconfig_is_enabled()) {
-      eeconfig_init();
-    }
-
-    switch (id) {
-      case KC_DEMOMACRO:
-        if (record->event.pressed){
-          return MACRO (I(1), T(H),T(E),T(L), T(L), T(O), T(SPACE), T(W), T(O), T(R), T(L), T(D),  END);
-        }
-    }
-
-    return MACRO_NONE;
-}
-
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-//assign the right code to your layers for OLED display
-#define L_BASE 0
-#define L_LOWER 8
-#define L_RAISE 16
-#define L_FNLAYER 64
-#define L_NUMLAY 128
-#define L_NLOWER 136
-#define L_NFNLAYER 192
-#define L_MOUSECURSOR 256
-#define L_ADJUST 65560
-
-void iota_gfx_task_user(void) {
-#if DEBUG_TO_SCREEN
-  if (debug_enable) {
-    return;
-  }
-#endif
-
-  struct CharacterMatrix matrix;
-
-  matrix_clear(&matrix);
-  matrix_write_P(&matrix, PSTR("USB: "));
-#ifdef PROTOCOL_LUFA
-  switch (USB_DeviceState) {
-    case DEVICE_STATE_Unattached:
-      matrix_write_P(&matrix, PSTR("Unattached"));
-      break;
-    case DEVICE_STATE_Suspended:
-      matrix_write_P(&matrix, PSTR("Suspended"));
-      break;
-    case DEVICE_STATE_Configured:
-      matrix_write_P(&matrix, PSTR("Connected"));
-      break;
-    case DEVICE_STATE_Powered:
-      matrix_write_P(&matrix, PSTR("Powered"));
-      break;
-    case DEVICE_STATE_Default:
-      matrix_write_P(&matrix, PSTR("Default"));
-      break;
-    case DEVICE_STATE_Addressed:
-      matrix_write_P(&matrix, PSTR("Addressed"));
-      break;
-    default:
-      matrix_write_P(&matrix, PSTR("Invalid"));
-  }
-#endif
-
-// Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-
-  char buf[40];
-  snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
-  matrix_write_P(&matrix, PSTR("\n\nLayer: "));
-    switch (layer_state) {
-        case L_BASE:
-           matrix_write_P(&matrix, PSTR("Default"));
-           break;
-        case L_RAISE:
-           matrix_write_P(&matrix, PSTR("Raise"));
-           break;
-        case L_LOWER:
-           matrix_write_P(&matrix, PSTR("Lower"));
-           break;
-        case L_ADJUST:
-           matrix_write_P(&matrix, PSTR("ADJUST"));
-           break;
-        default:
-           matrix_write(&matrix, buf);
- }
-
-  // Host Keyboard LED Status
-  char led[40];
-    snprintf(led, sizeof(led), "\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(&matrix, led);
-  matrix_update(&display, &matrix);
-}

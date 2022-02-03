@@ -1,8 +1,6 @@
 {
     "keyboard_name": "A65I",
     "maintainer": "Lfgberg",
-    "width": 16,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_65_ansi_blocker",
         "LAYOUT_ansi_splitbs": "LAYOUT_65_ansi_blocker_split_bs",

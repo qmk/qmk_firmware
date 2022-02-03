@@ -2,8 +2,6 @@
   "keyboard_name": "ketch",
   "url": "https://trashman.wiki/pcbs/ketch",
   "maintainer": "jetpacktuxedo",
-  "width": 12.75,
-  "height": 4,
   "layouts": {
     "LAYOUT": {
       "layout": [
@@ -50,4 +48,3 @@
     }
   }
 }
-

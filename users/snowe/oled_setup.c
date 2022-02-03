@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 #    include QMK_KEYBOARD_H
 #    include "quantum.h"
@@ -121,7 +121,7 @@ void render_bootmagic_status(void) {
     oled_write_ln(wpm, false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_master) {
         oled_render_layer_state();
         oled_render_keylog();
@@ -136,6 +136,7 @@ void oled_task_user(void) {
         render_stars();
 #    endif
     }
+    return false;
 }
 
-#endif  // OLED_DRIVER_ENABLE
+#endif  // OLED_ENABLE

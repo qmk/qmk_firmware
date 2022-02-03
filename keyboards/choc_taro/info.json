@@ -2,8 +2,6 @@
     "keyboard_name": "choc_taro",
     "url": "https://kakunpc.booth.pm/",
     "maintainer": "kakunpc",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -2,11 +2,8 @@
     "keyboard_name": "Moon",
     "url": "https://geekhack.org/index.php?topic=90379.0",
     "maintainer": "qmk",
-    "width": 18.25,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_all": {
-            "key_count": 88,
             "layout": [
                 {"label":"Esc", "x":0, "y":0}, 
                 {"label":"F1", "x":2, "y":0}, 
@@ -99,7 +96,6 @@
             ]
         },
         "LAYOUT_tkl_ansi": {
-            "key_count": 87,
             "layout": [
                 {"label":"Esc", "x":0, "y":0}, 
                 {"label":"F1", "x":2, "y":0}, 
@@ -191,7 +187,6 @@
             ]
         },
         "LAYOUT_tkl_ansi_wkl": {
-            "key_count": 84,
             "layout": [
                 {"label":"Esc", "x":0, "y":0}, 
                 {"label":"F1", "x":2, "y":0}, 
@@ -280,7 +275,6 @@
             ]
         },
         "LAYOUT_tkl_iso": {
-            "key_count": 88,
             "layout": [
                 {"label":"Esc", "x":0, "y":0}, 
                 {"label":"F1", "x":2, "y":0}, 
@@ -373,7 +367,6 @@
             ]
         },
         "LAYOUT_tkl_iso_wkl": {
-            "key_count": 85,
             "layout": [
                 {"label":"Esc", "x":0, "y":0}, 
                 {"label":"F1", "x":2, "y":0}, 
@@ -464,4 +457,3 @@
         }
     }
 }
-

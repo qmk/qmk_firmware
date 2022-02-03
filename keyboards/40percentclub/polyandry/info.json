@@ -1,0 +1,27 @@
+{
+    "keyboard_name": "Polyandry",
+    "url": "",
+    "maintainer": "QMK",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "k000", "x": 0, "y": 0},
+                {"label": "k001", "x": 1, "y": 0},
+                {"label": "k002", "x": 2, "y": 0},
+
+                {"label": "k003", "x": 0, "y": 1},
+                {"label": "k004", "x": 1, "y": 1},
+                {"label": "k005", "x": 2, "y": 1},
+
+                {"label": "k006", "x": 0, "y": 2},
+                {"label": "k007", "x": 1, "y": 2},
+                {"label": "k008", "x": 2, "y": 2},
+
+                {"label": "k009", "x": 0, "y": 3},
+                {"label": "k010", "x": 1, "y": 3},
+                {"label": "k011", "x": 2, "y": 3}
+
+            ]
+        }
+    }
+}

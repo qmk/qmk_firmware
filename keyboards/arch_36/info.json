@@ -2,8 +2,6 @@
     "keyboard_name": "Arch-36",
     "url": "",
     "maintainer": "obosob",
-    "width": 14,
-    "height": 5.1,
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

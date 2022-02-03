@@ -2,8 +2,6 @@
     "keyboard_name": "Four Banger",
     "url": "",
     "maintainer": "qmk",
-    "width": 2,
-    "height": 2,
     "layouts": {
         "LAYOUT_ortho_2x2": {
             "layout": [

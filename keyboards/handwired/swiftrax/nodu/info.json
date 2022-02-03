@@ -2,8 +2,6 @@
     "keyboard_name": "Nodu", 
     "url": "github.com/swiftrax", 
     "maintainer": "Swiftrax", 
-    "width": 15, 
-    "height": 5, 
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_ansi_split_bs_rshift"
     },

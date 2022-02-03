@@ -2,8 +2,6 @@
     "keyboard_name": "novem",
     "url": "",
     "maintainer": "Jose I. Martinez",
-    "width": 3,
-    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

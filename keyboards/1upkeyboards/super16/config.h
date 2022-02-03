@@ -83,6 +83,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    elif defined RGB_MATRIX_ENABLE
 #        define RGB_MATRIX_KEYPRESSES   // reacts to keypresses
 #        define RGB_MATRIX_FRAMEBUFFER_EFFECTS  // reacts to keyreleases (instead of keypresses)
+// RGB Matrix Animation modes. Explicitly enabled
+// For full list of effects, see:
+// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
+#        define ENABLE_RGB_MATRIX_ALPHAS_MODS
+#        define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#        define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+#        define ENABLE_RGB_MATRIX_BREATHING
+#        define ENABLE_RGB_MATRIX_BAND_SAT
+#        define ENABLE_RGB_MATRIX_BAND_VAL
+#        define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+#        define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+#        define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+#        define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+#        define ENABLE_RGB_MATRIX_CYCLE_ALL
+#        define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#        define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+#        define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+#        define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+#        define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#        define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+#        define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+#        define ENABLE_RGB_MATRIX_DUAL_BEACON
+#        define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#        define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+#        define ENABLE_RGB_MATRIX_RAINDROPS
+#        define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#        define ENABLE_RGB_MATRIX_HUE_BREATHING
+#        define ENABLE_RGB_MATRIX_HUE_PENDULUM
+#        define ENABLE_RGB_MATRIX_HUE_WAVE
+#        define ENABLE_RGB_MATRIX_PIXEL_RAIN
+#        define ENABLE_RGB_MATRIX_PIXEL_FLOW
+#        define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+// enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
+#        define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#        define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#        define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#        define ENABLE_RGB_MATRIX_SPLASH
+#        define ENABLE_RGB_MATRIX_MULTISPLASH
+#        define ENABLE_RGB_MATRIX_SOLID_SPLASH
+#        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #    endif
 #endif
@@ -126,58 +174,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define FORCE_NKRO
 
 /*
- * Magic Key Options
- *
- * Magic keys are hotkey commands that allow control over firmware functions of
- * the keyboard. They are best used in combination with the HID Listen program,
- * found here: https://www.pjrc.com/teensy/hid_listen.html
- *
- * The options below allow the magic key functionality to be changed. This is
- * useful if your keyboard/keypad is missing keys and you want magic key support.
- *
- */
-
-/* key combination for magic key command */
-/* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
-
-/* control how magic key switches layers */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM false
-
-/* override magic key keymap */
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
-//#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
-//#define MAGIC_KEY_HELP1          H
-//#define MAGIC_KEY_HELP2          SLASH
-//#define MAGIC_KEY_DEBUG          D
-//#define MAGIC_KEY_DEBUG_MATRIX   X
-//#define MAGIC_KEY_DEBUG_KBD      K
-//#define MAGIC_KEY_DEBUG_MOUSE    M
-//#define MAGIC_KEY_VERSION        V
-//#define MAGIC_KEY_STATUS         S
-//#define MAGIC_KEY_CONSOLE        C
-//#define MAGIC_KEY_LAYER0_ALT1    ESC
-//#define MAGIC_KEY_LAYER0_ALT2    GRAVE
-//#define MAGIC_KEY_LAYER0         0
-//#define MAGIC_KEY_LAYER1         1
-//#define MAGIC_KEY_LAYER2         2
-//#define MAGIC_KEY_LAYER3         3
-//#define MAGIC_KEY_LAYER4         4
-//#define MAGIC_KEY_LAYER5         5
-//#define MAGIC_KEY_LAYER6         6
-//#define MAGIC_KEY_LAYER7         7
-//#define MAGIC_KEY_LAYER8         8
-//#define MAGIC_KEY_LAYER9         9
-//#define MAGIC_KEY_BOOTLOADER     PAUSE
-//#define MAGIC_KEY_LOCK           CAPS
-//#define MAGIC_KEY_EEPROM         E
-//#define MAGIC_KEY_NKRO           N
-//#define MAGIC_KEY_SLEEP_LED      Z
-
-/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
@@ -194,26 +190,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-/*
- * MIDI options
- */
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
 
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0

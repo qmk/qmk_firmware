@@ -4,7 +4,7 @@
 
 First, enable MIDI by adding the following to your `rules.mk`:
 
-```makefile
+```make
 MIDI_ENABLE = yes
 ```
 

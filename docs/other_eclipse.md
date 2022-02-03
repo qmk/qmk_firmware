@@ -11,7 +11,7 @@ Using an IDE such as Eclipse provides many advantages over a plain text editor, 
 * static code analysis
 * many other tools such as debugging, code formatting, showing call hierarchies etc.
 
-The purpose of the is page is to document how to set-up Eclipse for developing AVR software, and working on the QMK code base.
+The purpose of this page is to document how to set-up Eclipse for developing AVR software, and working on the QMK code base.
 
 Note that this set-up has been tested on Ubuntu 16.04 only for the moment.
 

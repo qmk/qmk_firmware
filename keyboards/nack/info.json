@@ -2,8 +2,6 @@
     "keyboard_name": "nack",
     "url": "https://github.com/farfalleflickan/nack",
     "maintainer": "farfalleflickan",
-    "width": 13,
-    "height": 4,
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x13"
     },

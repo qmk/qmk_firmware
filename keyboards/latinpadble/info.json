@@ -2,8 +2,6 @@
     "keyboard_name": "latinpadble",
     "url": "https://github.com/latincompass/2-RotaryEncoder-pad",
     "maintainer": "haierwangwei2005",
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT_pad": {
             "layout": [

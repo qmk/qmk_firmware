@@ -2,8 +2,6 @@
   "keyboard_name": "Treadstone48",
   "url": "https://github.com/marksard/Keyboards",
   "maintainer": "marksard",
-  "width": 14.75,
-  "height": 4,
   "layouts": {
     "LAYOUT_base": {
       "layout": [

@@ -29,7 +29,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    see tmk_core/common/action_tapping.c */
 
 #undef OLED_UPDATE_INTERVAL
-#define OLED_UPDATE_INTERVAL 50
+#ifdef DEBUG_MATRIX_SCAN_RATE
+#    define OLED_UPDATE_INTERVAL 500
+#else
+#    define OLED_UPDATE_INTERVAL 50
+#endif
 
 // place overrides here
 

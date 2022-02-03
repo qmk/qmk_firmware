@@ -4,7 +4,7 @@
 #
 TAP_DANCE_ENABLE = no       # Enable TapDance functionality
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys(+1500)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = no         # Console for debug(+400)
@@ -17,6 +17,5 @@ UNICODE_ENABLE = no         # Unicode
 UNICODEMAP_ENABLE = no      # Enable extended unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6#VARIABLE_TRACE = no         # Use this to debug changes to variable values
-API_SYSEX_ENABLE = no       # This enables using the Quantum SYSEX API to send strings(+5390)
 KEY_LOCK_ENABLE = no        # This enables key lock(+260)
 SPLIT_KEYBOARD = no         # This enables split keyboard support and includes all necessary files located at quantum/split_common

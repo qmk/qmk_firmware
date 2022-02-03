@@ -2,8 +2,6 @@
   "keyboard_name": "Bloomer",
   "url": "https://github.com/cozykeys/bloomer",
   "maintainer": "pcewing",
-  "width": 15,
-  "height": 6,
   "layouts": {
     "LAYOUT": {
       "layout": [

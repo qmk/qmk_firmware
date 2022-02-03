@@ -2,11 +2,8 @@
   "keyboard_name": "Toad",
   "url": "",
   "maintainer": "qmk",
-  "width": 15,
-  "height": 6.5,
   "layouts": {
     "LAYOUT_all": {
-      "key_count": 78,
       "layout": [
         {"label":"K000", "x":0, "y":0},
         {"label":"K001", "x":2, "y":0},
@@ -90,7 +87,6 @@
     },
 
     "LAYOUT_ansi_wk": {
-      "key_count": 74,
       "layout": [
         {"label":"K000", "x":0, "y":0}, 
         {"label":"K001", "x":2, "y":0}, 
@@ -170,7 +166,6 @@
     },
  
     "LAYOUT_ansi_wkl": {
-      "key_count": 71,
       "layout": [
         {"label":"K000", "x":0, "y":0}, 
         {"label":"K001", "x":2, "y":0}, 
@@ -247,7 +242,6 @@
     },
 
     "LAYOUT_iso_wk": {
-      "key_count": 75,
       "layout": [
         {"label":"K000", "x":0, "y":0}, 
         {"label":"K001", "x":2, "y":0}, 
@@ -328,7 +322,6 @@
     },
  
     "LAYOUT_iso_wkl": {
-      "key_count": 72,
       "layout": [
         {"label":"K000", "x":0, "y":0}, 
         {"label":"K001", "x":2, "y":0}, 
@@ -406,4 +399,3 @@
     }
   }
 }
-

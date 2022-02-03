@@ -1,5 +1,4 @@
-#ifndef STAPELBERG_CONFIG_H
-#define STAPELBERG_CONFIG_H
+#pragma once
 
 #include "../config.h"
 #include "config_common.h"
@@ -46,5 +45,3 @@
 */
 
 #define IGNORE_MOD_TAP_INTERRUPT
-
-#endif

@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef MAP23017_H
-#define MAP23017_H
+
+#pragma once
 
 #define EXPANDER_ADDR 0x27
 #define I2C_TIMEOUT 200 // milliseconds
@@ -67,5 +67,3 @@ void expander_init(void);
 void expander_select(uint8_t pin);
 void expander_unselect(uint8_t pin);
 void expander_unselect_all(void);
-
-#endif

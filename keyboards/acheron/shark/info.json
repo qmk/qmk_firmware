@@ -2,11 +2,8 @@
   "keyboard_name": "SharkPCB",
   "url": "https://gondolindrim.github.io/AcheronDocs/shark/intro.html",
   "maintainer": "Gondolindrim",
-  "width": 12,
-  "height": 4,
   "layouts": {
     "LAYOUT_ortho_4x12": {
-      "key_count": 48,
       "layout": [
         { "x": 0, "y": 0 },
         { "x": 1, "y": 0 },

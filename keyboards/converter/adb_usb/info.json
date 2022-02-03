@@ -2,8 +2,6 @@
   "keyboard_name": "ADB to USB Keyboard Converter",
   "url": "",
   "maintainer": "qmk",
-  "width": 22.5,
-  "height": 7,
   "layouts": {
     "LAYOUT_ext_ansi": {
       "layout": [

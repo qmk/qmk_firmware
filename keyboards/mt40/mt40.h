@@ -13,31 +13,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef MT40_H
-#define MT40_H
+
+#pragma once
 
 #include "quantum.h"
 
+#define XXX KC_NO
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
 #define LAYOUT_planck_mit( \
-    K00,  K01,  K02,  K03,  K04,  K05,  K06,  K07,  K08,  K09,  K0A,  K0B, \
-    K10,  K11,  K12,  K13,  K14,  K15,  K16,  K17,  K18,  K19,  K1A,  K1B, \
-    K20,  K21,  K22,  K23,  K24,  K25,  K26,  K27,  K28,  K29,  K2A,  K2B, \
-    K30,  K31,  K32,  K33,  K34,     K35,     K37,  K38,  K39,  K3A,  K3B \
+    k40, k31, k32, k33, k34, k35, k52, k5C, k6C, k62, k3A, k4E, \
+    k30, k21, k22, k23, k24, k25, k53, k5D, k6D, k63, k2A, k2B, \
+    k10, k11, k12, k13, k14, k15, k54, k5E, k6E, k64, k1A, k66, \
+    k20, k00, k01, k02, k04,    k05,   k0B, k56, k58, k57, k59 \
 ) { \
-    { K31,   K32,   K33,   KC_NO, K34,   K35,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K37,   KC_NO, KC_NO, KC_NO }, \
-    { K20,   K21,   K22,   K23,   K24,   K25,   KC_NO, KC_NO, KC_NO, KC_NO, K2A,   KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { K30,   K11,   K12,   K13,   K14,   K15,   KC_NO, KC_NO, KC_NO, KC_NO, K1A,   K1B,   KC_NO, KC_NO, KC_NO }, \
-    { K10,   K01,   K02,   K03,   K04,   K05,   KC_NO, KC_NO, KC_NO, KC_NO, K0A,   KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { K00,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K0B   }, \
-    { KC_NO, KC_NO, K06,   K16,   K26,   K35,   K38,   K3A,   K39,   K3B,   KC_NO, KC_NO, K07,   K17,   K27   }, \
-    { KC_NO, KC_NO, K09,   K19,   K29,   KC_NO, K2B,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K08,   K18,   K28   }  \
+    { k00, k01, k02, XXX, k04, k05, XXX, XXX, XXX, XXX, XXX, k0B, XXX, XXX, XXX }, \
+    { k10, k11, k12, k13, k14, k15, XXX, XXX, XXX, XXX, k1A, XXX, XXX, XXX, XXX }, \
+    { k20, k21, k22, k23, k24, k25, XXX, XXX, XXX, XXX, k2A, k2B, XXX, XXX, XXX }, \
+    { k30, k31, k32, k33, k34, k35, XXX, XXX, XXX, XXX, k3A, XXX, XXX, XXX, XXX }, \
+    { k40, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, k4E }, \
+    { XXX, XXX, k52, k53, k54, k05, k56, k57, k58, k59, XXX, XXX, k5C, k5D, k5E }, \
+    { XXX, XXX, k62, k63, k64, XXX, k66, XXX, XXX, XXX, XXX, XXX, k6C, k6D, k6E } \
 }
 
 #define LAYOUT LAYOUT_planck_mit
-
-#endif

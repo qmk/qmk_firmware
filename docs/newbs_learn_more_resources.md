@@ -20,6 +20,7 @@ Not sure which text editor to use?
 Editors specifically made for code:
 * [Sublime Text](https://www.sublimetext.com/)
 * [VS Code](https://code.visualstudio.com/)
+* [Atom](https://atom.io/)
 
 ### Git resources
 

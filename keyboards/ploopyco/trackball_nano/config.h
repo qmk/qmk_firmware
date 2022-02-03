@@ -45,3 +45,9 @@
    a polling rate as possible. */
 #define USB_POLLING_INTERVAL_MS 1
 #define USB_MAX_POWER_CONSUMPTION 100
+
+#define ADNS5050_SCLK_PIN         B7
+#define ADNS5050_SDIO_PIN         C6
+#define ADNS5050_CS_PIN           B4
+
+#define POINTING_DEVICE_ROTATION_270

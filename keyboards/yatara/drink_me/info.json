@@ -2,11 +2,8 @@
   "keyboard_name": "Drink Me",
   "url": "https://github.com/yatara-cc",
   "maintainer": "yatara-cc",
-  "width": 4,
-  "height": 1,
   "layouts": {
     "LAYOUT": {
-      "key_count": 4,
       "layout": [
         {
           "label": "K0",

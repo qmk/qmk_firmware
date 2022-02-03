@@ -2,8 +2,6 @@
     "keyboard_name": "Chevron",
     "url": "",
     "maintainer": "ramonimbao",
-    "width": 14.5,
-    "height": 5,
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

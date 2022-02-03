@@ -16,10 +16,12 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-    container: qmkfm/base_container
+    container: qmkfm/qmk_cli
 
     steps:
-    - uses: rlespinasse/github-slug-action@v3.x
+    - name: Install dependencies
+      run: |
+        apt-get update && apt-get install -y dos2unix
 
     - uses: actions/checkout@v2
       with:
@@ -31,12 +33,19 @@ jobs:
         output: ' '
         fileOutput: ' '
 
-    - name: Run qmk cformat and qmk pyformat
+    - name: Run qmk formatters
       shell: 'bash {0}'
       run: |
-        qmk cformat --core-only -n $(< ~/files.txt)
-        cformat_exit=$?
-        qmk pyformat -n
-        pyformat_exit=$?
+        cat ~/files_added.txt ~/files_modified.txt > ~/files_changed.txt
+        qmk format-c --core-only $(< ~/files_changed.txt) || true
+        qmk format-python $(< ~/files_changed.txt) || true
+        qmk format-text $(< ~/files_changed.txt) || true
 
-        exit $((cformat_exit + pyformat_exit))
+    - name: Fail when formatting required
+      run: |
+        git diff
+        for file in $(git diff --name-only); do
+          echo "File '${file}' Requires Formatting"
+          echo "::error file=${file}::Requires Formatting"
+        done
+        test -z "$(git diff --name-only)"

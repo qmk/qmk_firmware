@@ -2,8 +2,6 @@
     "keyboard_name": "nano. slider",
     "url": "",
     "maintainer": "qmk",
-    "width": 4,
-    "height": 3.25,
     "layouts": {
         "LAYOUT": {
             "layout": [

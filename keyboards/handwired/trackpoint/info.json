@@ -2,8 +2,6 @@
     "keyboard_name": "Trackpoint",
     "url": "",
     "maintainer": "qmk",
-    "width": 3,
-    "height": 1,
     "layouts": {
         "LAYOUT": {
             "layout": [

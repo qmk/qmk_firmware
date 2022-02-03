@@ -88,15 +88,6 @@ voltage                   +----------------------
 ## QMK でサポートされるデバウンスアルゴリズム
 
 QMK はデバウンス API を介して複数のデバウンスアルゴリズムをサポートします。
-どのデバウンスメソッドが呼ばれるかのロジックは下記のとおりです。```rules.mk``` で設定された様々な定義をチェックします。
-
-```
-DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
-DEBOUNCE_TYPE?= sym_defer_g
-ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
-    QUANTUM_SRC += $(DEBOUNCE_DIR)/$(strip $(DEBOUNCE_TYPE)).c
-endif
-```
 
 ### デバウンスの選択
 
@@ -135,11 +126,3 @@ DEBOUNCE_TYPE = <アルゴリズムの名前>
 * デバウンスは、全てのマトリクススキャンの後で発生します。
 * MATRIX_ROWS ではなく num_rows を使って、分割キーボードが正しくサポートされるようにします。
 * アルゴリズムが他のキーボードにも適用できる可能性がある場合、```quantum/debounce``` に追加することを検討してください。
-
-### 古い名前
-次の既存のアルゴリズムの古い名前は引き続きサポートされますが、代わりに新しい名前を使うことを推奨します。
-
-* sym_g - sym_defer_g の古い名前
-* eager_pk - sym_eager_pk の古い名前
-* sym_pk - sym_defer_pk の古い名前
-* eager_pr - sym_eager_pr の古い名前

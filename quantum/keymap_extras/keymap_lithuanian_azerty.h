@@ -138,7 +138,7 @@
 #define LT_CIRC ALGR(LT_COMM) // ^
 #define LT_AMPR ALGR(LT_DOT)  // &
 #define LT_ASTR ALGR(LT_EQL)  // *
-#define LT_LBRC ALGR(LT_LRPN) // [
+#define LT_LBRC ALGR(LT_LPRN) // [
 #define LT_RBRC ALGR(LT_RPRN) // ]
 #define LT_QUOT ALGR(LT_QUES) // '
 #define LT_PERC ALGR(LT_X)    // %

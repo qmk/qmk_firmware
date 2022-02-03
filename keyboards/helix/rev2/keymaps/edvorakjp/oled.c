@@ -2,7 +2,7 @@
 #include <string.h>
 #include "oled.h"
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 void render_host_led_state(void) {
     char    led_state_str[24];
     uint8_t leds = host_keyboard_leds();
@@ -56,7 +56,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return is_keyboard_left() ? rotation : rotation ^ OLED_ROTATION_180;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_left()) {
         render_mode_icon(!get_enable_kc_lang());
         render_layer_state();
@@ -64,5 +64,6 @@ void oled_task_user(void) {
     } else {
         render_logo();
     }
+    return false;
 }
-#endif  // OLED_DRIVER_ENABLE
+#endif  // OLED_ENABLE

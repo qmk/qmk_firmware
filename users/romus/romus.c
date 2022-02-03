@@ -72,7 +72,7 @@ __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
 // Set RGBLIGHT state depending on layer
 void rgblight_change( uint8_t this_layer ) {
     // Enable RGB light; will not work without this
-	//rgblight_enable_noeeprom();	
+	//rgblight_enable_noeeprom();
 	// Change RGB light
     switch ( this_layer ) {
         case _DV:
@@ -83,21 +83,21 @@ void rgblight_change( uint8_t this_layer ) {
             // Do yellow for alternate
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom( 60,255,255);
-			
+
 
             break;
         case _GA:
             // Do purple for game
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(285,255,255);
-			
+
 
             break;
         case _NU:
             // Do azure for number
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(186,200,255);
-			
+
 
             break;
         case _SE:
@@ -105,27 +105,27 @@ void rgblight_change( uint8_t this_layer ) {
 			rgblight_enable_noeeprom();
 
             rgblight_sethsv_noeeprom( 16,255,255);
-			
+
             break;
         case _MO:
             // Do green for mouse
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(120,255,255);
-			
+
 
             break;
         case _MU:
             // Do orange for music
-			
+
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom( 39,255,255);
-			
+
             break;
         default:
             // Something went wrong
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(  0,255,255);
-			
+
             break;
     }
 }
@@ -189,7 +189,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-#endif 
+#endif
 
         // Lock functionality: These layers are locked if the LOCKED buttons are
         // pressed. Otherwise, they are momentary toggles
@@ -225,7 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-            
+
         // Layer switches with sound
         case K_GAMES:
             if (record->event.pressed) {
@@ -546,7 +546,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 |*-----LAYER CHANGE-----*|
 \*----------------------*/
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
 
     state = layer_state_set_keymap (state);
 #ifdef RGBLIGHT_ENABLE

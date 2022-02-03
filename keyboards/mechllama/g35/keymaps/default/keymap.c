@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-#if defined(OLED_DRIVER_ENABLE)
+#if defined(OLED_ENABLE)
 const char* get_layer_name(uint8_t layer) {
     switch (layer) {
         case _BASE:
@@ -66,7 +66,8 @@ const char* get_layer_name(uint8_t layer) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     oled_write_ln_P(get_layer_name(biton32(layer_state)), false);
+    return false;
 }
 #endif

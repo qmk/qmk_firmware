@@ -23,10 +23,6 @@
 #ifdef EEPROM_ENABLE
 #    include "eeprom.h"
 #endif
-#ifdef STM32_EEPROM_ENABLE
-#    include <hal.h>
-#    include "eeprom_stm32.h"
-#endif
 #include "wait.h"
 #include "progmem.h"
 #include "timer.h"

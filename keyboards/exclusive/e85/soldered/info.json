@@ -2,11 +2,8 @@
     "keyboard_name": "Exclusive E8.5 TKL",
     "url": "",
     "maintainer": "qmk",
-    "width": 18.25,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_all": {
-            "key_count": 91,
             "layout": [
                 {"label":"K00 (E6,D0)", "x":0, "y":0},
                 {"label":"K01 (E6,D1)", "x":1.25, "y":0},
@@ -103,7 +100,6 @@
         },
 
         "LAYOUT_ansi_standard": {
-            "key_count": 88,
             "layout": [
                 {"label":"K00 (E6,D0)", "x":0, "y":0},
                 {"label":"K01 (E6,D1)", "x":1.25, "y":0},
@@ -197,7 +193,6 @@
         },
 
         "LAYOUT_ansi_tsangan": {
-            "key_count": 87,
             "layout": [
                 {"label":"K00 (E6,D0)", "x":0, "y":0},
                 {"label":"K01 (E6,D1)", "x":1.25, "y":0},
@@ -289,5 +284,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }

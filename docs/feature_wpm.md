@@ -10,11 +10,23 @@ For split keyboards using soft serial, the computed WPM score will be available 
 
 ## Configuration
 
-|Define                       |Default       | Description                                                                              |
-|-----------------------------|--------------|------------------------------------------------------------------------------------------|
-|`WPM_SMOOTHING`              |`0.0487`      | Sets the smoothing to about 40 keystrokes                                                |
-|`WPM_ESTIMATED_WORD_SIZE`    |`5`           | This is the value used when estimating average word size (for regression and normal use) |
-|`WPM_ALLOW_COUNT_REGRESSOIN` |_Not defined_ | If defined allows the WPM to be decreased when hitting Delete or Backspace               |
+| Define                       | Default       | Description                                                                              |
+|------------------------------|---------------|------------------------------------------------------------------------------------------|
+| `WPM_ESTIMATED_WORD_SIZE`    | `5`           | This is the value used when estimating average word size (for regression and normal use) |
+| `WPM_ALLOW_COUNT_REGRESSION` | _Not defined_ | If defined allows the WPM to be decreased when hitting Delete or Backspace               |
+| `WPM_UNFILTERED`             | _Not defined_ | If undefined (the default), WPM values will be smoothed to avoid sudden changes in value |
+| `WPM_SAMPLE_SECONDS`         | `5`           | This defines how many seconds of typing to average, when calculating WPM                 |
+| `WPM_SAMPLE_PERIODS`         | `50`          | This defines how many sampling periods to use when calculating WPM                       |
+| `WPM_LAUNCH_CONTROL`         | _Not defined_ | If defined, WPM values will be calculated using partial buffers when typing begins       |
+
+'WPM_UNFILTERED' is potentially useful if you're filtering data in some other way (and also because it reduces the code required for the WPM feature), or if reducing measurement latency to a minimum is important for you.
+
+Increasing 'WPM_SAMPLE_SECONDS' will give more smoothly changing WPM values at the expense of slightly more latency to the WPM calculation.
+
+Increasing 'WPM_SAMPLE_PERIODS' will improve the smoothness at which WPM decays once typing stops, at a cost of approximately this many bytes of firmware space.
+
+If 'WPM_LAUNCH_CONTROL' is defined, whenever WPM drops to zero, the next time typing begins WPM will be calculated based only on the time since that typing began, instead of the whole period of time specified by WPM_SAMPLE_SECONDS.  This results in reaching an accurate WPM value much faster, even when filtering is enabled and a large WPM_SAMPLE_SECONDS value is specified.
+
 ## Public Functions
 
 |Function                  |Description                                       |
@@ -35,7 +47,7 @@ bool wpm_keycode_user(uint16_t keycode) {
     } else if (keycode > 0xFF) {
         keycode = 0;
     }
-    if ((keycode >= KC_A && keycode <= KC_0) || (keycode >= KC_TAB && keycode <= KC_SLASH)) {
+    if ((keycode >= KC_A && keycode <= KC_0) || (keycode >= KC_TAB && keycode <= KC_SLSH)) {
         return true;
     }
 

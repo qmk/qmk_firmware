@@ -31,7 +31,7 @@
 #define  NO_RCBR  RALT(KC_0)        //  }
 #define  NO_COLN  LSFT(KC_DOT)      //  :
 #define  NO_SCLN  LSFT(KC_COMM)     //  ;
-#define  NO_MU    RALT(KC_M)        //  µ
+#define  NO_MICR  RALT(KC_M)        //  µ
 #define  NO_EURO  RALT(KC_E)        //  €
 #define  NO_SECT  LSFT(KC_GRV)      //  §
 #define  NO_GERC  RALT(KC_COMM)     //  ¸

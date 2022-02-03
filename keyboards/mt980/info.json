@@ -2,11 +2,8 @@
   "keyboard_name": "mt980",
   "url": "https://shop110310565.taobao.com",
   "maintainer": "walkerstop",
-  "width": 19.5,
-  "height": 6.75,
   "layouts": {
     "LAYOUT": {
-      "key_count": 103,
       "layout": [
         {"label":"K50", "x":0, "y":0},
         {"label":"K52", "x":1.25, "y":0},

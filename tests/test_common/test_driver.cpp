@@ -27,7 +27,10 @@ TestDriver::~TestDriver() { m_this = nullptr; }
 
 uint8_t TestDriver::keyboard_leds(void) { return m_this->m_leds; }
 
-void TestDriver::send_keyboard(report_keyboard_t* report) { m_this->send_keyboard_mock(*report); }
+void TestDriver::send_keyboard(report_keyboard_t* report) {
+    test_logger.trace() << *report;
+    m_this->send_keyboard_mock(*report);
+}
 
 void TestDriver::send_mouse(report_mouse_t* report) { m_this->send_mouse_mock(*report); }
 
