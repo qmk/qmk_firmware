@@ -58,6 +58,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
         endif
         ifeq ($(strip $(RGBLIGHT_STARTUP_ANIMATION)), yes)
             OPT_DEFS += -DRGBLIGHT_STARTUP_ANIMATION
+            DEFERRED_EXEC_ENABLE = yes
         endif
     endif
 endif
