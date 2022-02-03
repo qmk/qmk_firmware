@@ -2,8 +2,11 @@
     "keyboard_name": "meow65",
     "url": "https://github.com/mrninhvn/meow65-pcb",
     "maintainer": "mrninhvn",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 { "label": "K00 (C6,F5)", "x": 0, "y": 0 },
                 { "label": "K01 (C6,F6)", "x": 1, "y": 0 },
