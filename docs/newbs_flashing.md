@@ -96,7 +96,7 @@ This has been made pretty simple compared to what it used to be. When you are re
 
     qmk flash
 
-If you have not configured your keyboard/keymap name in the CLI, or you have multiple keyboards, you can specify the keyboard and keymap:
+If you did not configure your keyboard/keymap name in the CLI according to the [Configure your build environment](newbs_getting_started.md) section, or you have multiple keyboards, you can specify the keyboard and keymap:
 
     qmk flash -kb <my_keyboard> -km <my_keymap>
 
