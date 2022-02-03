@@ -61,3 +61,6 @@ for more options.
 
 #undef MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX    64
+
+
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
