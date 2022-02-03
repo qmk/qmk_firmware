@@ -16,7 +16,7 @@
  #include "canary60rgb.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, J_14, K_14,  L_14 },
     { 0, J_13, K_13,  L_13 },
     { 0, J_12, K_12,  L_12 },

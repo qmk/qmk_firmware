@@ -4,10 +4,10 @@ Customized xd60 keymap based on yuuki's but a step sideways with Mac support. Fo
 
 ## Programming Instructions
 
-Change the layout in `keymap.c` then run `make xd60-petesmom`. The compiled file will be located in `.build/xd60_petesmom.hex` relative to the project root. To flash it onto your keyboard, use whatever program works on your OS. I personally use `dfu-programmer`, and run:
+Change the layout in `keymap.c` then run `make xiudi/xd60:petesmom`. The compiled file will be located in `.build/xiudi_xd60_petesmom.hex` relative to the project root. To flash it onto your keyboard, use whatever program works on your OS. I personally use `dfu-programmer`, and run:
 
 * `sudo dfu-programmer atmega32u4 erase`
-* `sudo dfu-programmer atmega32u4 flash .build/xd60-petesmom.hex`
+* `sudo dfu-programmer atmega32u4 flash .build/xiudi_xd60-petesmom.hex`
 * `sudo dfu-programmer atmega32u4 start`
 
 ## Layout

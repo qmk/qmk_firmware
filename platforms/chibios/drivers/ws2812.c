@@ -6,7 +6,7 @@
 /* Adapted from https://github.com/bigjosh/SimpleNeoPixelDemo/ */
 
 #ifndef NOP_FUDGE
-#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX)
+#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(GD32VF103) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX)
 #        define NOP_FUDGE 0.4
 #    else
 #        error("NOP_FUDGE configuration required")
@@ -22,8 +22,14 @@
 #    define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_OPENDRAIN
 #endif
 
+// The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
+// to values like 600000 ns. If it is too small, the pixels will show nothing most of the time.
+#ifndef WS2812_RES
+#    define WS2812_RES (1000 * WS2812_TRST_US)  // Width of the low gap between bits to cause a frame to latch
+#endif
+
 #define NUMBER_NOPS 6
-#define CYCLES_PER_SEC (STM32_SYSCLK / NUMBER_NOPS * NOP_FUDGE)
+#define CYCLES_PER_SEC (CPU_CLOCK / NUMBER_NOPS * NOP_FUDGE)
 #define NS_PER_SEC (1000000000L)  // Note that this has to be SIGNED since we want to be able to check for negative values of derivatives
 #define NS_PER_CYCLE (NS_PER_SEC / CYCLES_PER_SEC)
 #define NS_TO_CYCLES(n) ((n) / NS_PER_CYCLE)
@@ -40,19 +46,6 @@
         }                                           \
     } while (0)
 
-// These are the timing constraints taken mostly from the WS2812 datasheets
-// These are chosen to be conservative and avoid problems rather than for maximum throughput
-
-#define T1H 900           // Width of a 1 bit in ns
-#define T1L (1250 - T1H)  // Width of a 1 bit in ns
-
-#define T0H 350           // Width of a 0 bit in ns
-#define T0L (1250 - T0H)  // Width of a 0 bit in ns
-
-// The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
-// to values like 600000 ns. If it is too small, the pixels will show nothing most of the time.
-#define RES (1000 * WS2812_TRST_US)  // Width of the low gap between bits to cause a frame to latch
-
 void sendByte(uint8_t byte) {
     // WS2812 protocol wants most significant bits first
     for (unsigned char bit = 0; bit < 8; bit++) {
@@ -61,15 +54,15 @@ void sendByte(uint8_t byte) {
         if (is_one) {
             // 1
             writePinHigh(RGB_DI_PIN);
-            wait_ns(T1H);
+            wait_ns(WS2812_T1H);
             writePinLow(RGB_DI_PIN);
-            wait_ns(T1L);
+            wait_ns(WS2812_T1L);
         } else {
             // 0
             writePinHigh(RGB_DI_PIN);
-            wait_ns(T0H);
+            wait_ns(WS2812_T0H);
             writePinLow(RGB_DI_PIN);
-            wait_ns(T0L);
+            wait_ns(WS2812_T0L);
         }
     }
 }
@@ -108,7 +101,7 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
 #endif
     }
 
-    wait_ns(RES);
+    wait_ns(WS2812_RES);
 
     chSysUnlock();
 }

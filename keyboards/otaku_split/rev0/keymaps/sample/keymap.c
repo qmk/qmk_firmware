@@ -35,12 +35,12 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_wrapper(\
-			KC_GRAVE, KC_1,  KC_2,  KC_3,  KC_4,  KC_5,  KC_6,             KC_7,  KC_8,  KC_9,  KC_0,  KC_MINUS  ,KC_EQL,KC_JYEN,KC_BSPC,\
-			KC_TAB,   _________________QWERTY_L1_________________,KC_Y,    _________________QWERTY_R1_________________,KC_LBRC,KC_RBRC,KC_ENT,\
-			KC_CAPS,  _________________QWERTY_L2_________________,         _________________QWERTY_R2_________________,KC_QUOT,KC_NUHS,\
-			KC_LSHIFT,_________________QWERTY_L3_________________,    KC_B,_________________QWERTY_R3_________________,KC_RO,KC_RSHIFT,\
-			KC_LCTRL, KC_LGUI,KC_LALT,KC_MHEN,KC_TAB,KC_SPC,    KC_ENT,KC_BSPC,KC_HENK,KC_KANA,KC_RALT,KC_RGUI,KC_APP,KC_RCTRL\
+  [0] = LAYOUT_wrapper(
+			KC_GRAVE, KC_1,  KC_2,  KC_3,  KC_4,  KC_5,  KC_6,             KC_7,  KC_8,  KC_9,  KC_0,  KC_MINUS  ,KC_EQL,KC_JYEN,KC_BSPC,
+			KC_TAB,   _________________QWERTY_L1_________________,KC_Y,    _________________QWERTY_R1_________________,KC_LBRC,KC_RBRC,KC_ENT,
+			KC_CAPS,  _________________QWERTY_L2_________________,         _________________QWERTY_R2_________________,KC_QUOT,KC_NUHS,
+			KC_LSHIFT,_________________QWERTY_L3_________________,    KC_B,_________________QWERTY_R3_________________,KC_RO,KC_RSHIFT,
+			KC_LCTRL, KC_LGUI,KC_LALT,KC_MHEN,KC_TAB,KC_SPC,    KC_ENT,KC_BSPC,KC_HENK,KC_KANA,KC_RALT,KC_RGUI,KC_APP,KC_RCTRL
   ),
 };
 

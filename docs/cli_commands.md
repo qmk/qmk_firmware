@@ -382,6 +382,33 @@ qmk format-c
 qmk format-c -b branch_name
 ```
 
+## `qmk generate-compilation-database`
+
+**Usage**:
+
+```
+qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]
+```
+
+Creates a `compile_commands.json` file.
+
+Does your IDE/editor use a language server but doesn't _quite_ find all the necessary include files? Do you hate red squigglies? Do you wish your editor could figure out `#include QMK_KEYBOARD_H`? You might need a [compilation database](https://clang.llvm.org/docs/JSONCompilationDatabase.html)! The qmk tool can build this for you.
+
+This command needs to know which keyboard and keymap to build. It uses the same configuration options as the `qmk compile` command: arguments, current directory, and config files.
+
+**Example:**
+
+```
+$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
+$ qmk generate-compilation-database
+Ψ Making clean
+Ψ Gathering build instructions from make -n gh60/satan:colemak
+Ψ Found 50 compile commands
+Ψ Writing build database to /Users/you/src/qmk_firmware/compile_commands.json
+```
+
+Now open your dev environment and live a squiggly-free life.
+
 ## `qmk docs`
 
 This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
@@ -454,5 +481,20 @@ This command runs the python test suite. If you make changes to python code you 
 **Usage**:
 
 ```
-qmk pytest
+qmk pytest [-t TEST]
 ```
+
+**Examples**:
+
+Run entire test suite:
+
+    qmk pytest
+
+Run test group:
+
+    qmk pytest -t qmk.tests.test_cli_commands
+
+Run single test:
+
+    qmk pytest -t qmk.tests.test_cli_commands.test_c2json
+    qmk pytest -t qmk.tests.test_qmk_path

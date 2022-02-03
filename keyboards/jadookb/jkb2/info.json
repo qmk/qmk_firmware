@@ -1,0 +1,10 @@
+{
+  "keyboard_name": "jkb2",
+  "url": "https://jadookb.com/",
+  "maintainer": "Wizard-GG",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [ {"label":"z","x": 0, "y": 0 }, {"label":"x","x": 1, "y": 0 }]
+    }
+  }
+}

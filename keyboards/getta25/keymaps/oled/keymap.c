@@ -182,7 +182,7 @@ void render_status(void) {
     render_keylock_status(host_keyboard_led_state());
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     static const char PROGMEM font_logo[] = {
         0x80,0x81,0x82,0x83,0x84,
         0xa0,0xa1,0xa2,0xa3,0xa4,
@@ -199,6 +199,7 @@ void oled_task_user(void) {
     oled_write_P(font_logo, false);
 
     render_status();  // Renders the current keyboard state (layer, lock)
+    return false;
 }
 
 #endif

@@ -19,6 +19,6 @@ layout](https://github.com/qmk/qmk_firmware/tree/master/layouts/community/60_tsa
 
 ## Function 2 layer
 
-![Function 2 layer layout](https://i.imgur.com/vJaCzVo.png)
+![Function 2 layer layout](https://i.imgur.com/DW03vvJ.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/6e1068e4f91bbacccaf5ac0acbeec79c))

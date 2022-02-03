@@ -68,7 +68,7 @@ LED_TYPE g_ws2812_leds[WS2812_LED_TOTAL];
 
 #include "progmem.h"
 #include "quantum/color.h"
-#include "tmk_core/common/eeprom.h"
+#include "eeprom.h"
 
 #include "via.h" // uses EEPROM address, lighting value IDs
 #define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
@@ -158,7 +158,7 @@ uint32_t g_any_key_hit = 0;
 // ADDR_2 is not needed. it is here as a dummy
 #define ISSI_ADDR_1 0x50
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -239,7 +239,7 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_1 0x50
 #define ISSI_ADDR_2 0x52
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -382,7 +382,7 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 // set to 0 for write, 1 for read (as per I2C protocol)
 #define ISSI_ADDR_1 0x74
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -414,7 +414,7 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_2 0x76  // 11101[10] <- SDA
 #define ISSI_ADDR_3 0x75  // 11101[01] <- SCL
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -541,7 +541,7 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_1 0x74
 #define ISSI_ADDR_2 0x76
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -622,7 +622,7 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_1 0x74
 #define ISSI_ADDR_2 0x77
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |   R location
@@ -709,7 +709,7 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_1 0x74
 #define ISSI_ADDR_2
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, C1_9,  C3_10, C4_10}, // LB1
     {0, C1_10, C2_10, C4_11}, // LB2
     {0, C1_11, C2_11, C3_11}, // LB3
@@ -729,7 +729,7 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_1 0x74
 #define ISSI_ADDR_2 0x76
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
