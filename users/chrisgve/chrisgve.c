@@ -242,17 +242,22 @@ void rgb_matrix_indicators_user(void) {
 #ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case TAB_CTL:
         case S_SHIFT:
         case A_SHIFT:
         case R_SHIFT:
         case S_MOUSE:
-        case A_MOUSE:
         case SFT_MSE:
         case SPC_LWR:
         case SPC_RSE:
         case SLS_SFT:
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+            return g_tapping_term;
+#else
+            return TAPPING_TERM;
+#endif
         case CPS_CTL:
+        case TAB_CTL:
+        case A_MOUSE:
         case M_NAV_1:
         case L_NAV_1:
         case W_NAV_1:
@@ -260,9 +265,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case L_F_NAV:
         case W_F_NAV:
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
-            return g_tapping_term;
+            return g_tapping_term * 0.75;
 #else
-            return TAPPING_TERM;
+            return TAPPING_TERM * 0.75;
 #endif
         default:
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
@@ -290,12 +295,12 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
         case PGDN_FW:
         // case SPC_LWR:
         // case SPC_RSE:
-        case M_NAV_1:
-        case L_NAV_1:
-        case W_NAV_1:
-        case M_F_NAV:
-        case L_F_NAV:
-        case W_F_NAV:
+        // case M_NAV_1:
+        // case L_NAV_1:
+        // case W_NAV_1:
+        // case M_F_NAV:
+        // case L_F_NAV:
+        // case W_F_NAV:
         case R_SHIFT:
             // Immediately select the hold action when another key is tapped.
             // return true;

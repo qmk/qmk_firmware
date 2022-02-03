@@ -17,13 +17,6 @@
 
 #include QMK_KEYBOARD_H
 
-/*
-TODO: setup tapdance to behave on CPS_CTL in this manner:
-- Hold: left control
-- Press once: nothing unless caps lock is on, in that case, set caps lock to off
-- Press twice: nothing unless caps lock is off, in that case, set caps lock to on
-*/
-
 
 
 
@@ -148,7 +141,6 @@ enum custom_keycodes {
 
 #define KC_FUNC KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12
 
-// #define CPS_CTL     CTL_T(KC_CAPS)
 #define TAB_CTL CTL_T(KC_TAB)
 #define ADJ_M MO(_ADJUST_MAC)
 #define ADJ_L MO(_ADJUST_LINUX)
