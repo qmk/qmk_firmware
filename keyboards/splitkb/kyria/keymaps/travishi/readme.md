@@ -18,6 +18,9 @@ Qwerty is present so you don't have to remap games and any other programs you us
 ## Current Layers
 Base1: dvorak
 Base2: qwerty
+Base3: Index layer
+
+MO layer: Numbers, symbols & volume controls
 
 ## Future Layers
 Layer_1: navigation & keypad
@@ -28,12 +31,33 @@ Layer_4: Git macros
 
 ## Issues
 ### Major so far
-- [ ] Arrows / navs missing
-- [ ] Symbols and numbers missing
-- [ ] Function keys missing (NUM CAPS SCROLL)
-- [ ] Media functions missing
+- [ ] Home/End navs missing
 
 ### Minor
 - [ ] Backlight LEDs dont indicate layer
 - [ ] OLEDs not showing overly useful info (Especially the right OLED)
 - [ ] Not fully using thumb clusters
+- [ ] Function keys missing (NUM CAPS SCROLL)
+
+
+
+### Layer template
+```
+//  * ,-------------------------------------------.                              ,-------------------------------------------.
+//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+//  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+//  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+//  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+//  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+//  *                        |      |      |      |      |      |  |      |      |      |      |      |
+//  *                        |      |      |      |      |      |  |      |      |      |      |      |
+//  *                        `----------------------------------'  `----------------------------------'
+//  */
+//     [_LAYERINDEX] = LAYOUT(
+//       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
+//       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
+//       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+//                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+//     ),
+```
