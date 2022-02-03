@@ -60,7 +60,8 @@ bool process_select_word(uint16_t keycode, keyrecord_t* record,
         tap_code16(LSFT(KC_E));
         unregister_code16(LCTL(KC_A));
 #else
-        SEND_STRING(SS_TAP(X_HOME) SS_LSFT(SS_TAP(X_END)));
+        tap_code(KC_HOME);
+        tap_code16(LSFT(KC_END));
 #endif  // MAC_HOTKEYS
         set_mods(mods);
         state = STATE_FIRST_LINE;
