@@ -250,13 +250,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case SPC_LWR:
         case SPC_RSE:
         case SLS_SFT:
-#ifdef DYNAMIC_TAPPING_TERM_ENABLE
-            return g_tapping_term;
-#else
-            return TAPPING_TERM;
-#endif
-        case CPS_CTL:
-        case TAB_CTL:
         case A_MOUSE:
         case M_NAV_1:
         case L_NAV_1:
@@ -264,6 +257,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case M_F_NAV:
         case L_F_NAV:
         case W_F_NAV:
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+            return g_tapping_term;
+#else
+            return TAPPING_TERM;
+#endif
+        case CPS_CTL:
+        case TAB_CTL:
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
             return g_tapping_term * 0.75;
 #else
@@ -346,6 +346,14 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
 #ifdef TAPPING_FORCE_HOLD_PER_KEY
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        /* case A_MOUSE:
+        case M_NAV_1:
+        case L_NAV_1:
+        case W_NAV_1:
+        case M_F_NAV:
+        case L_F_NAV:
+        case W_F_NAV:
+            return true; */
         default:
             return false;
     }
