@@ -196,6 +196,8 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 
 * `#define RGB_DI_PIN D7`
   * WS2812 の DI 端子につなぐピン
+* `#define ENABLE_RGB_MATRIX_EFFECTS`
+  * RGBマトリックスのデフォルトエフェクトをすべて有効にする
 * `#define RGBLIGHT_ANIMATIONS`
   * RGB アニメーションを実行します
 * `#define RGBLIGHT_LAYERS`
