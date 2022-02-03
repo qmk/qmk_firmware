@@ -13,10 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "outputselect.h"
-
-#if defined(PROTOCOL_LUFA)
-#    include "lufa.h"
-#endif
+#include "usb_util.h"
 
 #ifdef BLUETOOTH_BLUEFRUIT_LE
 #    include "bluefruit_le.h"
@@ -39,18 +36,12 @@ void set_output(uint8_t output) {
  */
 __attribute__((weak)) void set_output_user(uint8_t output) {}
 
-static bool is_usb_configured(void) {
-#if defined(PROTOCOL_LUFA)
-    return USB_DeviceState == DEVICE_STATE_Configured;
-#endif
-}
-
 /** \brief Auto Detect Output
  *
  * FIXME: Needs doc
  */
 uint8_t auto_detect_output(void) {
-    if (is_usb_configured()) {
+    if (usb_connected_state()) {
         return OUTPUT_USB;
     }
 
