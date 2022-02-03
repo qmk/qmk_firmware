@@ -1,7 +1,7 @@
 /* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
-   Copyright 2021 Jonavin
-   Copyright 2022 @gourdo1
-
+   Copyright 2021 Jonavin Eng @Jonavin
+   Copyright 2022 gourdo1 <jcblake@outlook.com>
+   
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
