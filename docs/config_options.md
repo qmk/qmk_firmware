@@ -214,6 +214,8 @@ If you define these options you will enable the associated feature, which may in
 
 * `#define RGB_DI_PIN D7`
   * pin the DI on the WS2812 is hooked-up to
+* `#define ENABLE_RGB_MATRIX_EFFECTS`
+  * Enable all default RGB Matrix effects
 * `#define RGBLIGHT_ANIMATIONS`
   * run RGB animations
 * `#define RGBLIGHT_LAYERS`

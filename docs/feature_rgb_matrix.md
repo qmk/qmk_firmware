@@ -483,6 +483,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 
 |Define                                                |Description                                   |
 |------------------------------------------------------|----------------------------------------------|
+|`#define ENABLE_RGB_MATRIX_EFFECTS`                   |Enables all default RGB Matrix effects        |
 |`#define ENABLE_RGB_MATRIX_ALPHAS_MODS`               |Enables `RGB_MATRIX_ALPHAS_MODS`              |
 |`#define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN`          |Enables `RGB_MATRIX_GRADIENT_UP_DOWN`         |
 |`#define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT`       |Enables `RGB_MATRIX_GRADIENT_LEFT_RIGHT`      |
