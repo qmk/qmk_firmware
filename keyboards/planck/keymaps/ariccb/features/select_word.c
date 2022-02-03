@@ -43,7 +43,8 @@ bool process_select_word(uint16_t keycode, keyrecord_t* record,
       register_code(KC_LCTL);
 #endif  // MAC_HOTKEYS
       if (state == STATE_NONE) {
-        SEND_STRING(SS_TAP(X_RGHT) SS_TAP(X_LEFT));
+        tap_code(KC_RGHT);
+        tap_code(KC_LEFT);
       }
       register_code(KC_LSFT);
       register_code(KC_RGHT);
@@ -55,9 +56,12 @@ bool process_select_word(uint16_t keycode, keyrecord_t* record,
         clear_oneshot_mods();
 #endif  // NO_ACTION_ONESHOT
 #ifdef MAC_HOTKEYS
-        SEND_STRING(SS_LCTL("a" SS_LSFT("e")));
+        register_code16(LCTL(KC_A));
+        tap_code16(LSFT(KC_E));
+        unregister_code16(LCTL(KC_A));
 #else
-        SEND_STRING(SS_TAP(X_HOME) SS_LSFT(SS_TAP(X_END)));
+        tap_code(KC_HOME);
+        tap_code16(LSFT(KC_END));
 #endif  // MAC_HOTKEYS
         set_mods(mods);
         state = STATE_FIRST_LINE;
