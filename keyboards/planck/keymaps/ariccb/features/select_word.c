@@ -43,7 +43,8 @@ bool process_select_word(uint16_t keycode, keyrecord_t* record,
       register_code(KC_LCTL);
 #endif  // MAC_HOTKEYS
       if (state == STATE_NONE) {
-        SEND_STRING(SS_TAP(X_RGHT) SS_TAP(X_LEFT));
+        tap_code(KC_RGHT);
+        tap_code(KC_LEFT);
       }
       register_code(KC_LSFT);
       register_code(KC_RGHT);
