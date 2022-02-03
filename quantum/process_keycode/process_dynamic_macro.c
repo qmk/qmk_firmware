@@ -33,7 +33,7 @@ __attribute__((weak)) void dynamic_macro_record_start_user(void) { dynamic_macro
 
 __attribute__((weak)) void dynamic_macro_play_user(int8_t direction) { dynamic_macro_led_blink(); }
 
-__attribute__((weak)) void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record, bool success) { if(!success) dynamic_macro_led_blink(); }
 
 __attribute__((weak)) void dynamic_macro_record_end_user(int8_t direction) { dynamic_macro_led_blink(); }
 
@@ -97,6 +97,8 @@ void dynamic_macro_play(keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_
  * @param record[in]     The current keypress.
  */
 void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_pointer, keyrecord_t *macro2_end, int8_t direction, keyrecord_t *record) {
+    bool success = false;
+
     /* If we've just started recording, ignore all the key releases. */
     if (!record->event.pressed && *macro_pointer == macro_buffer) {
         dprintln("dynamic macro: ignoring a leading key-up event");
@@ -110,12 +112,14 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
         **macro_pointer = *record;
         *macro_pointer += direction;
     } else {
-        // TBD: perform some action when the recording is still in progress but has consumed the available macro buffer
         dprint("dynamic macro: end of buffer. New key record not added to buffer.\n");
+		success = false;
+		dynamic_macro_record_key_user(direction, record, success);
     }
 
     dprintf("dynamic macro: slot %d length: %d/%d\n", DYNAMIC_MACRO_CURRENT_SLOT(), DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer), DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end));
-    dynamic_macro_record_key_user(direction, record);
+    success = true;
+	dynamic_macro_record_key_user(direction, record, success);
 }
 
 /**

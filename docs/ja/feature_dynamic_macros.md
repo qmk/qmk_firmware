@@ -65,7 +65,7 @@ direction がどのマクロであるかを示すことに注意してくださ�
 
 * `dynamic_macro_record_start_user(void)` - マクロの記録を開始する時に起動されます。
 * `dynamic_macro_play_user(int8_t direction)` - マクロを再生する時に起動されます。
-* `dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record)` - マクロの記録中に各キー押下で起動されます。
+* `dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record, bool success)` - マクロの記録中に各キー押下で起動されます。
 * `dynamic_macro_record_end_user(int8_t direction)` - マクロの記録を停止した時に起動されます。
 
 さらに、動的マクロ機能が有効な場合にバックライトを点滅させるために `dynamic_macro_led_blink()` を呼び出すことができます。
