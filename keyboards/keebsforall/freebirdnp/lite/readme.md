@@ -2,9 +2,9 @@
 
 A basic numpad build to support the freebird range of products by keebsforall
 
-Keyboard Maintainer: [e11i0t23](https://github.com/e11i0t23)  
-Hardware Supported:  FreebirdNP Lite
-Hardware Availability: [KeebsForAll](https://keebsforall.com)  
+* Keyboard Maintainer: [e11i0t23](https://github.com/e11i0t23)
+* Hardware Supported:  FreebirdNP Lite
+* Hardware Availability: [KeebsForAll](https://keebsforall.com)
 
 Make example for this keyboard (after setting up your build environment):
 
