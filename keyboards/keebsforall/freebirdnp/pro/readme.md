@@ -4,9 +4,9 @@ A basic numpad build to support the freebird range of products by keebsforall
 
 Pro Model features an Frow and Encoder
 
-Keyboard Maintainer: [e11i0t23](https://github.com/e11i0t23)  
-Hardware Supported:  FreebirdNP Pro
-Hardware Availability: [KeebsForAll](https://keebsforall.com)  
+* Keyboard Maintainer: [e11i0t23](https://github.com/e11i0t23)
+* Hardware Supported:  FreebirdNP Pro
+* Hardware Availability: [KeebsForAll](https://keebsforall.com)
 
 Make example for this keyboard (after setting up your build environment):
 
