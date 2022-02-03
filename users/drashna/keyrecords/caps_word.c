@@ -3,13 +3,27 @@
 
 #include "caps_word.h"
 
+#ifndef IS_COMMAND
+#    define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
+#endif
+
 bool caps_word_enabled = false;
 bool caps_word_shifted = false;
 
+/**
+ * @brief Handler for Caps Word feature.
+ *
+ * This checks the keycodes, and applies shift to the correct keys, if and when needid.
+ *
+ * @param keycode Keycode from matrix
+ * @param record keyrecord_t data structure
+ * @return true Continue processing keycode and sent to host
+ * @return false Stop processing keycode, and do not send to host
+ */
 bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
     if (!caps_word_enabled) {
         // Pressing both shift keys at the same time enables caps word.
-        if (((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
+        if (IS_COMMAND()) {
             clear_mods();
             clear_oneshot_mods();
             caps_word_shifted = false;

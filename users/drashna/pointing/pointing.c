@@ -1,18 +1,5 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2021 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "pointing.h"
 
@@ -55,19 +42,15 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
                 layer_on(_MOUSE);
             }
         }
-    }
-    return pointing_device_task_keymap(mouse_report);
-}
-
-void matrix_scan_pointing(void) {
-    if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
+    } else if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
         layer_off(_MOUSE);
-    }
-    if (tap_toggling) {
+    } else if (tap_toggling) {
         if (!layer_state_is(_MOUSE)) {
             layer_on(_MOUSE);
         }
     }
+
+    return pointing_device_task_keymap(mouse_report);
 }
 
 bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
@@ -99,7 +82,7 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
         case MO(_MOUSE):
 #if defined(KEYBOARD_ploopy) || defined(KEYBOARD_handwired_tractyl_manuform)
         case DPI_CONFIG:
-#elif defined(KEYBOARD_bastardkb_charybdis)
+#elif defined(KEYBOARD_bastardkb_charybdis) && !defined(NO_CHARYBDIS_KEYCODES)
         case SAFE_RANGE ... (CHARYBDIS_SAFE_RANGE-1):
 #endif
         case KC_MS_UP ... KC_MS_WH_RIGHT:
@@ -111,6 +94,12 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
             record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
             mouse_timer = timer_read();
             break;
+        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
+            break;
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            if (record->event.pressed || !record->tap.count) {
+                break;
+            }
         default:
             if (IS_NOEVENT(record->event)) break;
             if ((keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) && (((keycode >> 0x8) & 0xF) == _MOUSE)) {
@@ -118,7 +107,7 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
                 mouse_timer = timer_read();
                 break;
             }
-            if (layer_state_is(_MOUSE) && !mouse_keycode_tracker) {
+            if (layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
                 layer_off(_MOUSE);
             }
             mouse_keycode_tracker = 0;

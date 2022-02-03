@@ -1,5 +1,5 @@
 // Copyright 2021 Google LLC
-// Copyright 2022 @filterpaper
+// Copyright 2021 @filterpaper
 // SPDX-License-Identifier: Apache-2.0
 // Original source: https://getreuer.info/posts/keyboards/autocorrection
 
@@ -7,11 +7,24 @@
 #include <string.h>
 
 #if __has_include("autocorrection_data.h")
+#    pragma GCC push_options
+#    pragma GCC optimize("O0")
 #    include "autocorrection_data.h"
 #    if AUTOCORRECTION_MIN_LENGTH < 4
 #        error Minimum Length is too short and may cause overflows
 #    endif
+#    if DICTIONARY_SIZE > SIZE_MAX
+#        error Dictionary size excees maximum size permitted
+#    endif
 
+/**
+ * @brief Process handler for autocorrect feature
+ *
+ * @param keycode Keycode registered by matrix press, per keymap
+ * @param record keyrecord_t structure
+ * @return true Continue processing keycodes, and send to host
+ * @return false Stop processing keycodes, and don't send to host
+ */
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
     static uint8_t typo_buffer[AUTOCORRECTION_MAX_LENGTH] = {KC_SPC};
     static uint8_t typo_buffer_size                       = 1;
@@ -48,6 +61,14 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             keycode &= 0xFF;
             break;
 #    endif
+#    ifdef SWAP_HANDS_ENABLE
+        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
+            if (keycode >= 0x56F0 || record->event.pressed || !record->tap.count) {
+                return true;
+            }
+            keycode &= 0xFF;
+            break;
+#    endif
 #    ifndef NO_ACTION_ONESHOT
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
             if ((keycode & 0xF) == MOD_LSFT) {
@@ -55,6 +76,11 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             }
 #    endif
         default:
+            // Disable autocorrection while a mod other than shift is active.
+            if (((get_mods() | get_oneshot_mods()) & ~MOD_MASK_SHIFT) != 0) {
+                typo_buffer_size = 0;
+                return true;
+            }
             if (!record->event.pressed) {
                 return true;
             }
@@ -72,7 +98,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
             // Set a word boundary if space, period, digit, etc. is pressed.
             // Behave more conservatively for the enter key. Reset, so that enter
             // can't be used on a word ending.
-            if (keycode == KC_ENT) {
+            if (keycode == KC_ENT || (keycode == KC_MINUS && (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT)) {
                 typo_buffer_size = 0;
             }
             keycode = KC_SPC;
@@ -137,6 +163,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
+#    pragma GCC pop_options
 #else
 #    pragma message "Warning!!! Autocorrect is not corretly setup!"
 bool process_autocorrection(uint16_t keycode, keyrecord_t* record) { return true; }

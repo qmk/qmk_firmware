@@ -2,14 +2,16 @@
 
 This is my personal userspace file.  Most of my code exists here, as it's heavily shared.
 
-* [RGB Customization](readme/rgb.md)
-* [Diablo Tap Dancing](readme/tap_dance.md)
-* [Keymap Wrappers](readme/wrappers.md)
-* [Custom Function Handlers](readme/handlers.md)
-* [Secret Macros](readme/secrets.md)
-* [Custom Keycodes](readme/keycodes.md)
-
-
-## Pro Micro Hacking
-
-See [this thread](https://www.reddit.com/r/olkb/comments/8sxgzb/replace_pro_micro_bootloader_with_qmk_dfu/) for details on how to flash QMK DFU to Pro Micros. 
+* [Callback (keymap+misc)](callbacks.md)
+* [Keycode Handling](keyrecords/readme.md)
+  * [Autocorrection](keyrecords/autocorrection/readme.md)
+  * [Cap Words](keyrecords/capwords.md)
+  * [Diablo Tap Dancing](keyrecords/tap_dance.md)
+  * [Keymap Wrappers](keyrecords/wrappers.md)
+  * [Secret Macros](keyrecords/secrets.md)
+  * [Custom Keycodes](keyrecords/keycodes.md)
+  * [Unicode Input](keyrecords/unicode.md)
+* [OLED Display](oled/readme.md)
+* [Pointing Devices](pointing/readme.md)
+* [RGB Customization](rgb/readme.md)
+* [Split Transport](split/readme.md)

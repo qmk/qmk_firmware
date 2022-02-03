@@ -70,15 +70,15 @@ or `keymap.c`:
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
-            tap_code(KC_PGDN);
+            tap_code_delay(KC_VOLU, 10);
         } else {
-            tap_code(KC_PGUP);
+            tap_code_delay(KC_VOLD, 10);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
-            tap_code(KC_DOWN);
+            rgb_matrix_increase_hue();
         } else {
-            tap_code(KC_UP);
+            rgb_matrix_decrease_hue();
         }
     }
     return false;
@@ -100,9 +100,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
         } else if (index == 1) {
             if (clockwise) {
-                tap_code(KC_VOLU);
+                tap_code_delay(KC_VOLU, 10);
             } else {
-                tap_code(KC_VOLD);
+                tap_code_delay(KC_VOLD, 10);
             }
         }
     } else {  /* Layer 0 */
@@ -114,9 +114,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
         } else if (index == 1) {
             if (clockwise) {
-                tap_code(KC_DOWN);
+                rgb_matrix_increase_speed();
             } else {
-                tap_code(KC_UP);
+                rgb_matrix_decrease_speed();
             }
         }
     }
@@ -124,13 +124,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
+?> Media and mouse countrol keycodes such as `KC_VOLU` and `KC_WH_D` requires `EXTRAKEY_ENABLE = yes` and `MOUSEKEY_ENABLE = yes` respectively in user's `rules.mk` if they are not enabled as default on keyboard level configuration.
+
 ## Hardware
 
 The A an B lines of the encoders should be wired directly to the MCU, and the C/common lines should be wired to ground.
 
 ## Multiple Encoders
 
-Multiple encoders may share pins so long as each encoder has a distinct pair of pins. 
+Multiple encoders may share pins so long as each encoder has a distinct pair of pins when the following conditions are met:
+- using detent encoders
+- pads must be high at the detent stability point which is called 'default position' in QMK
+- no more than two encoders sharing a pin can be turned at the same time 
 
 For example you can support two encoders using only 3 pins like this
 ```
