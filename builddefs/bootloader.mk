@@ -38,9 +38,18 @@
 # RISC-V:
 #     gd32v-dfu    GD32V USB DFU in ROM
 #
+# If you need to provide your own implementation, you can set inside `rules.mk`
+# `BOOTLOADER = custom` -- you'll need to provide your own implementations. See
+# the respective file under `platforms/<PLATFORM>/bootloaders/custom.c` to see
+# which functions may be overridden.
+#
 # BOOTLOADER_SIZE can still be defined manually, but it's recommended
 # you add any possible configuration to this list
 
+ifeq ($(strip $(BOOTLOADER)), custom)
+    OPT_DEFS += -DBOOTLOADER_CUSTOM
+    BOOTLOADER_TYPE = custom
+endif
 ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
     OPT_DEFS += -DBOOTLOADER_ATMEL_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
@@ -195,5 +204,5 @@ ifeq ($(strip $(BOOTLOADER)), md-boot)
 endif
 
 ifeq ($(strip $(BOOTLOADER_TYPE)),)
-    BOOTLOADER_TYPE = none
+    $(error No bootloader specified. Please set an appropriate 'BOOTLOADER' in your keyboard's 'rules.mk' file)
 endif
