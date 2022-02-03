@@ -71,11 +71,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_left())
     return OLED_ROTATION_180;  // flips the display 180 to see it from my side
@@ -83,7 +83,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 const char *read_logo(void);
-void oled_task_user(void){
+bool oled_task_user(void){
     switch (biton32(layer_state)){
         case _DVORAK:
             oled_write_ln_P(PSTR("DVRK"), false);
@@ -102,5 +102,6 @@ void oled_task_user(void){
     }
   //now print logo
   oled_write(read_logo(), false);
+    return false;
 }
 #endif

@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RAISE] = LAYOUT_ortho_4x12(
         KC_GRV,  _______, _______, KC_LBRC, KC_RBRC, _______, _______, KC_7,    KC_8,    KC_9,   KC_0,     _______,
         _______, _______, _______, KC_LCBR, KC_RCBR, _______, _______, KC_4,    KC_5,    KC_6,   KC_MINUS, KC_BSLS,
-        _______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3,   KC_EQUAL, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3,   KC_EQUAL, KC_ENT,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MPLY
     ),
 
@@ -86,8 +86,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN1] = LAYOUT_ortho_4x12(
-        KC_MENU, DP_ON,   KC_PGDN, KC_UP,   KC_PGUP, KC_INS,  _______, KC_PGUP, KC_UP,   KC_PGDN, KC_PSCR, _______,
-        KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_DEL ,
+        KC_APP,  DP_ON,   KC_PGDN, KC_UP,   KC_PGUP, KC_INS,  KC_CAPS, KC_PGUP, KC_UP,   KC_PGDN, KC_PSCR, _______,
+        _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_DEL ,
         _______, _______, _______, _______, _______, KC_END,  KC_END,  _______, KC_VOLD, KC_VOLU, KC_MUTE, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, DP_ON,   _______, _______, _______
     ),
@@ -293,7 +293,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-void dip_update(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0:
             if (active) {
@@ -318,6 +318,7 @@ void dip_update(uint8_t index, bool active) {
 #endif
             }
     }
+    return true;
 }
 
 void matrix_scan_user(void) {

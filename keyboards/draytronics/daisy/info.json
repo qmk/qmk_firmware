@@ -2,8 +2,6 @@
     "keyboard_name": "Draytronics DAISY",
     "url": "https://www.draytronics.co.uk/daisy",
     "maintainer": "ghostseven",
-    "width": 4,
-    "height": 3,
     "layout_aliases": {
         "LAYOUT_daisy": "LAYOUT"
     },

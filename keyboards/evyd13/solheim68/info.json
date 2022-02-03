@@ -2,8 +2,6 @@
     "keyboard_name": "Solheim68", 
     "url": "https://github.com/evyd13/solheim68", 
     "maintainer": "evyd13", 
-    "width": 17.25, 
-    "height": 5, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -2,8 +2,6 @@
     "keyboard_name": "Potato 65 Hotswap",
     "url": "https://github.com/Aeonstrife/potato65hotswap",
     "maintainer": "Maelkk",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

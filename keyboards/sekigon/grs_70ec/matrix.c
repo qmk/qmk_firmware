@@ -71,11 +71,13 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     return updated;
 }
 
-void matrix_post_scan(void) {
+bool matrix_post_scan(void) {
+    bool changed = false;
     if (is_keyboard_master()) {
         static uint8_t error_count;
 
-        if (!transport_master(matrix + thatHand)) {
+        matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
+        if (!transport_master(matrix + thatHand, slave_matrix)) {
             error_count++;
 
             if (error_count > ERROR_DISCONNECT_COUNT) {
@@ -83,25 +85,35 @@ void matrix_post_scan(void) {
                 dprintf("Error: disconnect split half\n");
                 for (int i = 0; i < ROWS_PER_HAND; ++i) {
                     matrix[thatHand + i] = 0;
+                    slave_matrix[i]      = 0;
                 }
+
+                changed = true;
             }
         } else {
             error_count = 0;
+
+            for (int i = 0; i < ROWS_PER_HAND; ++i) {
+                if (matrix[thatHand + i] != slave_matrix[i]) {
+                    matrix[thatHand + i] = slave_matrix[i];
+                    changed              = true;
+                }
+            }
         }
 
         matrix_scan_quantum();
     } else {
-        transport_slave(matrix + thisHand);
+        transport_slave(matrix + thatHand, matrix + thisHand);
 
         matrix_slave_scan_user();
     }
+    return changed;
 }
 
 uint8_t matrix_scan(void) {
-    bool changed = matrix_scan_custom(raw_matrix);
+    bool changed = matrix_scan_custom(raw_matrix) || matrix_post_scan();
 
     debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
 
-    matrix_post_scan();
     return changed;
 }

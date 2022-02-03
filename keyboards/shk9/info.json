@@ -2,9 +2,6 @@
     "keyboard_name": "SHK9",
     "url": "http://superhuman.website",
     "maintainer": "Sam Hudson",
-    "width": 3,
-    "height": 3,
-    "lighting": "none",
     "layouts": {
         "LAYOUT_ortho_3x3": {
           "layout": [

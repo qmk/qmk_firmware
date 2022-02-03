@@ -22,7 +22,6 @@ keymap:
 via:
   - keyboards/**/keymaps/via/*
 cli:
-  - bin/qmk
   - requirements.txt
   - lib/python/**/*
 python:

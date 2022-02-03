@@ -2,8 +2,6 @@
     "keyboard_name": "SquishyTKL",
     "url": "",
     "maintainer": "Ramon Imbao",
-    "width": 18.25,
-    "height": 5,
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [
@@ -69,7 +67,7 @@
                 {"x":10.25, "y":3}, 
                 {"x":11.25, "y":3}, 
                 {"x":12.25, "y":3, "w":1.75},
-                {"x":14, "y":3} 
+                {"x":14, "y":3}, 
                 {"x":16.25, "y":3}, 
                 
                 {"x":0, "y":4, "w":1.25}, 

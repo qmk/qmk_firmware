@@ -1,0 +1,1 @@
+AUDIO_ENABLE = yes

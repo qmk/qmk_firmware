@@ -5,7 +5,7 @@ EXTRAKEY_ENABLE = yes
 AUDIO_ENABLE = yes 
 
 ifeq ($(MCU),at90usb1286)
-BOOTMAGIC_ENABLE = no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 BLUETOOTH_ENABLE = no

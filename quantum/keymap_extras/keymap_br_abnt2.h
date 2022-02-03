@@ -158,23 +158,3 @@
 #define BR_MORD ALGR(BR_RBRC) // º
 // Row 4
 #define BR_CRUZ ALGR(BR_C)    // ₢
-
-// DEPRECATED
-#define BR_CCDL BR_CCED
-#define BR_DQT  BR_DQUO
-#define BR_TRMA BR_DIAE
-#define BR_GRAV BR_GRV
-#define BR_KPDT BR_PDOT
-#define BR_KPCM BR_PCMM
-#define BR_1UP  BR_SUP1
-#define BR_2UP  BR_SUP2
-#define BR_3UP  BR_SUP3
-#define BR_ASLS BR_SLSH
-#define BR_AQST BR_QUES
-
-// Not present on Windows 10?
-#define BR_NDTD ALGR(BR_TILD)   // ~
-#define BR_NDAC ALGR(BR_ACUT)   // ´
-#define BR_NDGV ALGR(BR_QUOT)   // `
-#define BR_NDCR ALGR(BR_CIRC)   // ^
-#define BR_NDTR ALGR(BR_DIAE)   // ¨
