@@ -1,23 +1,15 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
 // Use custom magic number so that when switching branches, EEPROM always gets reset
 #define EECONFIG_MAGIC_NUMBER   (uint16_t)0x1339
+
+#ifdef IS_COMMAND
+#undef IS_COMMAND
+#endif
+#define IS_COMMAND() (((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) == MOD_MASK_SHIFT)
 
 /* Set Polling rate to 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1
@@ -37,7 +29,7 @@
 #        define SELECT_SOFT_SERIAL_SPEED 1
 #    endif
 #    ifdef CUSTOM_SPLIT_TRANSPORT_SYNC
-#        define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC
+#        define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_STATE_SYNC, RPC_ID_USER_KEYMAP_SYNC, RPC_ID_USER_CONFIG_SYNC, RPC_ID_USER_WATCHDOG_SYNC, RPC_ID_USER_KEYLOG_STR
 #    endif
 #endif
 
@@ -77,7 +69,7 @@
 #    endif
 #endif  // !AUDIO_ENABLE
 
-#define UNICODE_SELECTED_MODES UC_WIN, UC_MAC
+#define UNICODE_SELECTED_MODES UC_WINC, UC_MAC
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_SLEEP
@@ -200,7 +192,7 @@
 #    ifdef OLED_FONT_H
 #        undef OLED_FONT_H
 #    endif
-#    define OLED_FONT_H   "drashna_font.h"
+#    define OLED_FONT_H   "oled/drashna_font.h"
 #    define OLED_FONT_END 255
 // #    define OLED_FONT_5X5
 // #    define OLED_FONT_AZTECH
@@ -251,17 +243,6 @@
 #    define TAPPING_TOGGLE 1
 #endif
 
-#ifdef TAPPING_TERM
-#    undef TAPPING_TERM
-#endif  // TAPPING_TERM
-#if defined(KEYBOARD_ergodox_ez)
-#    define TAPPING_TERM 185
-#elif defined(KEYBOARD_crkbd)
-#    define TAPPING_TERM 200
-#else
-#    define TAPPING_TERM 175
-#endif
-
 #define TAP_CODE_DELAY 5
 
 /* Disable unused and unneeded features to reduce on firmware size */
@@ -289,4 +270,25 @@
 #    define C13 PAL_LINE(GPIOC, 13)
 #    define C14 PAL_LINE(GPIOC, 14)
 #    define C15 PAL_LINE(GPIOC, 15)
+#endif
+
+#ifdef OLED_DRIVER_SH1107
+#    define OLED_DISPLAY_CUSTOM
+#    define OLED_IC_SH1107 2
+#    define OLED_DISPLAY_128X128
+#    define OLED_DISPLAY_WIDTH 128
+#    define OLED_DISPLAY_HEIGHT 128
+#    define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
+#    define OLED_BLOCK_TYPE uint32_t
+#    define OLED_SOURCE_MAP \
+        { 0, 8, 16, 24, 32, 40, 48, 56 }
+#    define OLED_TARGET_MAP \
+        { 56, 48, 40, 32, 24, 16, 8, 0 }
+#    define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)
+#    define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
+#    define OLED_COM_PINS COM_PINS_ALT
+#    define OLED_IC OLED_IC_SH1107
+#    ifndef OLED_BRIGHTNESS
+#        define OLED_BRIGHTNESS 50
+#    endif
 #endif
