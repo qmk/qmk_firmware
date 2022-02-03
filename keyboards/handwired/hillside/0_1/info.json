@@ -1,7 +1,7 @@
 {
     "matrix_pins": {
         "rows": ["D7", "E6", "B4", "B5"],
-        "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],
+        "cols": ["F6", "F7", "B1", "B3", "B2", "B6"]
      },    
     "diode_direction": "COL2ROW",
 
@@ -9,5 +9,5 @@
       "vid": "0xFEED",
       "pid": "0x67C0",
       "device_ver": "0x0001"
-    },
+    }
 }

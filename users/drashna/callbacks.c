@@ -105,16 +105,9 @@ void                       matrix_scan_user(void) {
     run_diablo_macro_check();
 #endif  // TAP_DANCE_ENABLE
 
-#if defined(RGBLIGHT_ENABLE)
-    matrix_scan_rgb_light();
-#endif  // RGBLIGHT_ENABLE
 #if defined(RGB_MATRIX_ENABLE)
     matrix_scan_rgb_matrix();
 #endif
-#if defined(POINTING_DEVICE_ENABLE)
-    matrix_scan_pointing();
-#endif
-
     matrix_scan_secret();
 
     matrix_scan_keymap();
