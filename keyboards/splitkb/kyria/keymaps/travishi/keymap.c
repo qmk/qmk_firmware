@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [DVORAK] = LAYOUT(
     KC_ESC,  KC_QUOT, KC_COMM,KC_DOT ,KC_P,    KC_Y,                                                KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    DF(QWERTY),
     KC_TAB,  KC_A,    KC_O,   KC_E,   KC_U,    KC_I,                                                KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    DF(LAYERS),
-    KC_LSFT, KC_SCLN, KC_Q,   KC_J,   KC_K,    KC_X,  XXXXXXX,  MO(NUMSYM),  KC_LWIN,    MO(AUDCON),    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
+    KC_LSFT, KC_SCLN, KC_Q,   KC_J,   KC_K,    KC_X,  XXXXXXX,  MO(NUMSYM),  KC_LWIN,    XXXXXXX,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
                           KC_LEFT,   KC_RGHT, KC_LCTL,  KC_SPC,   KC_BSPC,  KC_RALT,    KC_ENT,     KC_DEL,  KC_UP,  KC_DOWN
   ),
 
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [QWERTY] = LAYOUT(
       KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    DF(DVORAK),
       KC_TAB,  KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, DF(LAYERS),
-      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,  XXXXXXX, MO(NUMSYM),    KC_LWIN,  MO(AUDCON),     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,  XXXXXXX, MO(NUMSYM),    KC_LWIN,  XXXXXXX,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                             KC_LEFT,   KC_RGHT, KC_LCTL, KC_SPC,  KC_BSPC,    KC_RALT,  KC_ENT,     KC_DEL,  KC_UP,  KC_DOWN
     ),
 
@@ -268,7 +268,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYERS] = LAYOUT(
       _______, _______, _______, _______, DF(DVORAK), _______,                                    _______, _______, _______, _______,  _______, DF(DVORAK),
       _______, _______, _______, _______, DF(QWERTY), _______,                                    _______, _______, _______, _______,  _______, _______,
-      _______, _______, _______, _______, DF(NUMSYM), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, MO(NUMSYM), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -314,7 +314,7 @@ static void render_keymap(void) {
           oled_write_P(PSTR("Num & Sym\n\n"), false);
           oled_write_P(PSTR("`12345 | 67890= \n"), false);
           oled_write_P(PSTR("~!@#$P | ^&*()+ \n"), false);
-          oled_write_P(PSTR("| \\:;-[{ }]_,./? \n"), false);
+          oled_write_P(PSTR("|\\:;-[{ }]_,./? \n"), false);
           break;
       case LAYERS:
           oled_write_P(PSTR("Index Layer\n\n"), false);
