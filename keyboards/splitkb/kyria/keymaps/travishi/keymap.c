@@ -1,5 +1,5 @@
-
 #include QMK_KEYBOARD_H
+
 
 
 /* uint16_t copy_paste_timer; */
@@ -9,7 +9,6 @@ enum layers {
   QWERTY,
   LAYERS,
   NUMSYM,
-  AUDCON,
 };
 
 // Future Layers
@@ -49,6 +48,53 @@ enum custom_keycodes {
 //     }
 //   }
 // };
+
+/*
+// https://docs.qmk.fm/#/feature_rgblight?id=lighting-layers
+const rgblight_segment_t PROGMEM led_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 9, HSV_ORANGE},
+);
+
+const rgblight_segment_t PROGMEM led_dvorak_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 9, HSV_CYAN}
+);
+
+const rgblight_segment_t PROGMEM led_index_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 9, HSV_WHITE}
+);
+
+// Now define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    led_qwerty_layer,
+    led_dvorak_layer,
+    led_index_layer
+);
+
+// Enable the LED layers
+void keyboard_post_init_user(void) {
+    rgblight_layers = my_rgb_layers;
+}
+
+
+// Assign LED settings to Layers
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(0, led_state.caps_lock);
+    return true;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(1, layer_state_cmp(state, _DVORAK));
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(2, layer_state_cmp(state, _FN));
+    rgblight_set_layer_state(3, layer_state_cmp(state, _ADJUST));
+    return state;
+}
+*/
+
+
 
 
 
@@ -105,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 /*
- * Sym Layer: Numbers and symbols
+ * Sym Layer: Numbers, symbols & Vol control
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |    `   |  1   |  2   |  3   |  4   |  5   |                              |   6  |  7   |  8   |  9   |  0   |   =    |
@@ -114,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |    |   |   \  |  :   |  ;   |  -   |  [   |  {   |      |  |      |   }  |   ]  |  _   |  ,   |  .   |  /   |   ?    |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |Dvorak|Dvorak|Dvorak|Dvorak|Dvorak|  |Dvorak|Dvorak|Dvorak|Dvorak|Dvorak|
+ *                        |      |      | LCtrl|      |      |  |      |      | Mute |Vol U |Vol D |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
@@ -122,31 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GRV ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                       KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
       KC_TILD , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
       KC_PIPE , KC_BSLS, KC_COLN, KC_SCLN, KC_MINS, KC_LBRC, KC_LCBR, _______, _______, KC_RCBR, KC_RBRC, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
-                                 DF(DVORAK), DF(DVORAK), DF(DVORAK), DF(DVORAK), DF(DVORAK), DF(DVORAK), DF(DVORAK), DF(DVORAK), DF(DVORAK), DF(DVORAK)
-    ),
-
-
-
-
-  /*
-   * Volume controls
-   *
-   * ,-------------------------------------------.                              ,-------------------------------------------.
-   * |        |      |      |      |      |      |                              |      |      |VOL UP|      |      |        |
-   * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-   * |        |      | MUTE |      |      |      |                              |      |      |VOL DOWN|      |      |        |
-   * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-   * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
-   * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-   *                        |      |      |      |      |      |  |      |      |      |      |      |
-   *                        |      |      |      |      |      |  |      |      |      |      |      |
-   *                        `----------------------------------'  `----------------------------------'
- */
-    [AUDCON] = LAYOUT(
-      KC_MUTE, KC_MUTE, KC_MUTE, KC_MUTE, KC_MUTE, KC_MUTE,                                     KC_VOLU, KC_VOLU, KC_VOLU, KC_VOLU, KC_VOLU, DF(DVORAK),
-      KC_MUTE, KC_MUTE, KC_MUTE, KC_MUTE, KC_MUTE, KC_MUTE,                                     KC_VOLD, KC_VOLD, KC_VOLD, KC_VOLD, KC_VOLD, DF(LAYERS),
-      KC_MUTE, KC_MUTE, KC_MUTE, KC_MUTE, KC_MUTE, KC_MUTE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+                                  _______, _______, KC_LCTL, _______, _______, _______, _______, KC_MUTE, KC_VOLU, KC_VOLD
     ),
 
 
@@ -173,7 +195,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    KC_DEL,  MO(RAISE), MO(ADJUST), KC_ESC,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
                           XXXXXXX,   KC_LALT, XXXXXXX, KC_BSPC, MO(LOWER), KC_ENT,     KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
   ),
- */
+
+*/
 
 
 
@@ -232,45 +255,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Layer index
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              |      |      |      |      |      |L_Dvorak|
+ * |        |      |      |      |Dvorak|      |                              |      |      |      |      |      |L_Dvorak|
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |Dvorak|QWERTY|NUMSYM|      |      |                              |      |      |      |      |      |L_Layers|
+ * |        |      |      |      |QWERTY|      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * |        |      |      |      |NUMSYM|      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [LAYERS] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                    _______, _______, _______, _______,  _______, DF(DVORAK),
-      _______, DF(DVORAK), DF(QWERTY), DF(NUMSYM), DF(AUDCON), _______,                           _______, _______, _______, _______,  _______, DF(LAYERS),
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, DF(DVORAK), _______,                                    _______, _______, _______, _______,  _______, DF(DVORAK),
+      _______, _______, _______, _______, DF(QWERTY), _______,                                    _______, _______, _______, _______,  _______, _______,
+      _______, _______, _______, _______, DF(NUMSYM), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
-
-
-
-// /*
-//  * Layer template
-//  *
-//  * ,-------------------------------------------.                              ,-------------------------------------------.
-//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
-//  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
-//  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
-//  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-//  *                        |      |      |      |      |      |  |      |      |      |      |      |
-//  *                        |      |      |      |      |      |  |      |      |      |      |      |
-//  *                        `----------------------------------'  `----------------------------------'
-//  */
-//     [_LAYERINDEX] = LAYOUT(
-//       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-//       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-//       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-//                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-//     ),
 
 };
 
@@ -285,13 +285,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_ENABLE
 
 
+
+
+
+
+
+
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }
 
 
 static void render_keymap(void) {
-
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer: "), false);
   switch (get_highest_layer(default_layer_state)) {
@@ -303,27 +309,18 @@ static void render_keymap(void) {
           break;
       case QWERTY:
           oled_write_P(PSTR("Qwerty\n\n"), false);
-          oled_write_P(PSTR("q w e r t   y u i o p \n"), false);
-          oled_write_P(PSTR("a s d f g   h j k l ; \n"), false);
-          oled_write_P(PSTR("z x c v b   n m , . / \n"), false);
+          break;
+      case NUMSYM:
+          oled_write_P(PSTR("Num & Sym\n\n"), false);
+          oled_write_P(PSTR("`12345 | 67890= \n"), false);
+          oled_write_P(PSTR("~!@#$P | ^&*()+ \n"), false);
+          oled_write_P(PSTR("| \\:;-[{ }]_,./? \n"), false);
           break;
       case LAYERS:
           oled_write_P(PSTR("Index Layer\n\n"), false);
-          oled_write_P(PSTR("- - - - - | - - - - - \n"), false);
-          oled_write_P(PSTR("- D Q N S | - - - - - \n"), false);
-          oled_write_P(PSTR("- - - - - | - - - - - \n"), false);
-          break;
-      case NUMSYM:
-          oled_write_P(PSTR("Numbers & Symbols\n\n"), false);
-          oled_write_P(PSTR("` 1 2 3 4 5 6 7 8 9 0 =\n"), false);
-          oled_write_P(PSTR("~ ! @ # $ P ^ & * ( ) +\n"), false);
-          oled_write_P(PSTR("| \\ : ; - [{}] _ , . / ?\n"), false);
-          break;
-      case AUDCON:
-          oled_write_P(PSTR("Audio Controls\n\n"), false);
-          oled_write_P(PSTR("MUTE | Volume Up\n"), false);
-          oled_write_P(PSTR("MUTE | Volume Down \n"), false);
-          oled_write_P(PSTR("MUTE |   \n"), false);
+          oled_write_P(PSTR("- - - D - | - - - - - \n"), false);
+          oled_write_P(PSTR("- - - Q - | - - - - - \n"), false);
+          oled_write_P(PSTR("- - - N - | - - - - - \n"), false);
           break;
       default:
           oled_write_P(PSTR("ERR No Layer!\n"), false);
@@ -331,20 +328,22 @@ static void render_keymap(void) {
 }
 
 
+
 // Host Keyboard LED Status
+/*
 static void render_indicator_status(void) {
   led_t led_state = host_keyboard_led_state();
   oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("       "), false);
   oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("       "), false);
   oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
-
+*/
 
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
     render_keymap();
   } else {
-    render_indicator_status();
+    //render_indicator_status();
     oled_write_P(PSTR("       Kyria rev1.4\n\n"), false);
   }
   return false;
