@@ -29,7 +29,7 @@ LT(1,JP_ZKHK),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,   
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  RSFT_T(JP_BSLS),   KC_UP, KC_PGDN,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-     KC_LCTRL, KC_LGUI, KC_LALT, KC_MHEN,  KC_SPC,  KC_SPC,  KC_SPC,  KC_SPC, KC_HENK, KC_KANA,  KC_APP,          KC_LEFT, KC_DOWN, KC_RGHT
+     KC_LCTL, KC_LGUI, KC_LALT, JP_MHEN,  KC_SPC,  KC_SPC,  KC_SPC,  KC_SPC, JP_HENK, JP_KANA,  KC_APP,          KC_LEFT, KC_DOWN, KC_RGHT
   //|-----------------------------------------------------+--------------------------------------------------------------------------------'
   ),
   [1] = LAYOUT(
