@@ -73,8 +73,6 @@ The current list of available languages is:
 | **turkish_f** | **turkish_q** | **uk** | **us_international** |
 | **workman** | **workman_zxcvm** |
 
-Detailed information for keyboard layouts, please see [kbdlayout.info](http://kbdlayout.info/) (though marked as specified for Windows, but mostly are still same on other systems)
-
 ### Macro Basics
 
 Each macro is an array consisting of strings and objects (dictionaries). Strings are typed to your computer while objects allow you to control how your macro is typed out.
