@@ -1,0 +1,5 @@
+Build Firmware in QMK MSYS
+
+cd qmk_firmware
+
+make 0_tallmanlabs/bigfoot
