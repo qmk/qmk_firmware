@@ -193,7 +193,7 @@ def new_keyboard(cli):
             cli.echo(f"    {key.ljust(10)}:   {value}")
 
     # TODO: detach community layout and rename to just "LAYOUT"
-    if default_layout is 'none of the above':
+    if default_layout == 'none of the above':
         default_layout = "ortho_4x4"
 
     # begin with making the deepest folder in the tree
