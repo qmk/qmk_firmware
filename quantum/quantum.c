@@ -381,17 +381,6 @@ __attribute__((weak)) void startup_user() {}
 
 __attribute__((weak)) void shutdown_user() {}
 
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_power_down_user(void) {}
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
-
 void suspend_power_down_quantum(void) {
 #ifndef NO_SUSPEND_POWER_DOWN
 // Turn off backlight
@@ -438,18 +427,6 @@ void suspend_power_down_quantum(void) {
 #    endif
 #endif
 }
-
-/** \brief run user level code immediately after wakeup
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_wakeup_init_user(void) {}
-
-/** \brief run keyboard level code immediately after wakeup
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
 
 __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
 // Turn on backlight
