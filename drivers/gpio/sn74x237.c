@@ -62,12 +62,6 @@ void sn74x237_latch(void) {
 #endif
 }
 
-void sn74x237_unlatch(void) {
-#if defined(SN74X237_LE_PIN)
-    writePinLow(SN74X237_LE_PIN);
-#endif
-}
-
 void sn74x237_set_addr(uint8_t address) {
     for (int i = 0; i < ADDRESS_PIN_COUNT; i++) {
         writePin(address_pins[i], address & (1 << i));

@@ -41,13 +41,6 @@ void sn74x237_set_enabled(bool enabled);
 void sn74x237_latch(void);
 
 /**
- * Unlatch the output pins.
- *
- * Pulls the Latch Enable pin low, if defined.
- */
-void sn74x237_unlatch(void);
-
-/**
  * Set the output pin address.
  *
  * \param address The address to set, from 0 to 7.
