@@ -46,9 +46,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
       case 2:
           if (clockwise) {
-            tap_code16(LCTL(KC_MINUS);
+            tap_code16(LCTL(KC_MINUS));
           } else {
-            tap_code16(LCTL(KC_EQUAL);
+            tap_code16(LCTL(KC_EQUAL));
           }
         return false;
 
@@ -76,9 +76,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
       case 2:
       if (clockwise) {
-        tap_code16(LCTL(KC_Y);
+        tap_code16(LCTL(KC_Y));
       } else {
-        tap_code16(LCTL(KC_Z);
+        tap_code16(LCTL(KC_Z));
       }
         return false;
 
