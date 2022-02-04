@@ -1,13 +1,15 @@
 ## DELTAPAD
 
-![DeltaPad](https://github.com/rich239/JPGS/blob/main/deltapad.jpg)
+![DeltaPad](https://github.com/rich239/qmk_firmware/blob/master/keyboards/deltapad/deltapad.jpg)
+
+
+*A short description of the keyboard/project*
 
 A 4x4 keypad
 
 * Keyboard Maintainer: [Richard Snijder](https://github.com/rich239)
 * Hardware Supported: Atmel 32u4 based keypads
 
-![DeltaPad](https://github.com/rich239/JPGS/blob/main/Deltapad-White.jpg)
 
 Make example for this keyboard (after setting up your build environment):
 
