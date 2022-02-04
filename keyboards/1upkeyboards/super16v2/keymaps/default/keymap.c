@@ -16,20 +16,12 @@
 
 #include QMK_KEYBOARD_H
 
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _BASE,
-    _FN
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  [0] = LAYOUT_ortho_4x4( /* Base */
+    RGB_TOG,    KC_1,    KC_2,    KC_3,
+    RGB_MOD,    KC_4,    KC_5,    KC_6,
+    RGB_TOG,    KC_7,    KC_8,    KC_9,
+    RGB_MOD,    KC_A,    KC_B,    KC_C
+  ),
 };
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
-    [_BASE] = LAYOUT(
-        KC_A,    KC_1,    MO(_FN),
-            KC_TAB,   KC_SPC
-    ),
-    [_FN] = LAYOUT(
-        _______, _______,  _______,
-            RESET,    XXXXXXX
-    )
-};
