@@ -17,4 +17,3 @@ NKRO_ENABLE      = no  # USB Nkey Rollover - if this doesn't work, see here: htt
 BACKLIGHT_ENABLE = no # Enable keyboard backlight functionality
 AUDIO_ENABLE     = no
 RGBLIGHT_ENABLE  = no
-OLED_DRIVER_ENABLE = no
