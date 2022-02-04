@@ -11,8 +11,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 */
 
 #pragma once
@@ -20,9 +19,9 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x23F8
-#define PRODUCT_ID      0x10p4
-#define DEVICE_VER      0
+#define VENDOR_ID       0x636F
+#define PRODUCT_ID      0x0001
+#define DEVICE_VER      1.0
 #define MANUFACTURER    evancook.audio
 #define PRODUCT         tenpad
 
