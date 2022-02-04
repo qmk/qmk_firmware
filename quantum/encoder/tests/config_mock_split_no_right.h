@@ -11,9 +11,9 @@
 #define ENCODERS_PAD_B \
     { 1, 3 }
 #define ENCODERS_PAD_A_RIGHT \
-    { }
+    {}
 #define ENCODERS_PAD_B_RIGHT \
-    { }
+    {}
 
 #ifdef __cplusplus
 extern "C" {

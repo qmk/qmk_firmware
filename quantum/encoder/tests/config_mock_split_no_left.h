@@ -7,9 +7,9 @@
 
 /* Here, "pins" from 0 to 31 are allowed. */
 #define ENCODERS_PAD_A \
-    { }
+    {}
 #define ENCODERS_PAD_B \
-    { }
+    {}
 #define ENCODERS_PAD_A_RIGHT \
     { 0, 2 }
 #define ENCODERS_PAD_B_RIGHT \
