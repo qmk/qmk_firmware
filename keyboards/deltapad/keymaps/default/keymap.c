@@ -153,4 +153,3 @@ void eeconfig_init_user(void) {
   rgblight_enable(); // Enable RGB by default
   rgblight_sethsv_orange();  // Set it to orange by default
 }
-("\n")
