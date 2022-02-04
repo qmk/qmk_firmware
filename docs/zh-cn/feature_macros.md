@@ -78,8 +78,6 @@
 | **turkish_f** | **turkish_q** | **uk** | **us_international** |
 | **workman** | **workman_zxcvm** |
 
-针对键盘布局的详细信息，可以参阅 [kbdlayout.info](http://kbdlayout.info/)（尽管这些信息是针对Windows的，但绝大多数在其它系统的表现也是一致的）
-
 ### 宏的基础用法
 
 每个宏由字符串及对象（字典）组成，字符串会直接输出至电脑，而对象可以用来控制宏的输出方式。
