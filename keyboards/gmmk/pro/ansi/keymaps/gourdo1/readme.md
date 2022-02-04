@@ -47,6 +47,7 @@ RGB
     * FN + Z to turn off all RGB lights except rgb indicators; press again to toggle
 
 Link to latest firmware binary: https://github.com/gourdo1/qmk_firmware/tree/master/keyboards/gmmk/pro/ansi/keymaps/gourdo1/gmmk_pro_ansi_gourdo1.bin
+
 Link to cheatsheet: https://github.com/gourdo1/qmk_firmware/tree/master/keyboards/gmmk/pro/ansi/keymaps/gourdo1/GMMK_Pro_Cheatsheet.pdf
 
 	
