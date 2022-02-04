@@ -321,7 +321,7 @@ void keyboard_post_init_keymap(void) {
     // keyboard_post_init_user() moved to userspace
     #ifdef RGB_MATRIX_ENABLE
         rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-        rgb_matrix_set_color_all(RGB_NAUTILUS); // Default startup colour
+        rgb_matrix_sethsv_noeeprom(129, 255, 170); // Default startup colour
         activate_rgb_nightmode(false);  // Set to true if you want to startup in nightmode, otherwise use Fn + Z to toggle
     #endif
 }
