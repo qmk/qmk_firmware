@@ -14,15 +14,13 @@ static bool PIXEL_FLOW(effect_params_t* params) {
         return false;
     }
 
-    inline uint32_t interval(void) {
-        return 3000 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16);
-    }
+    inline uint32_t interval(void) { return 3000 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16); }
 
     if (params->init) {
         // Clear LEDs and fill the state array
         rgb_matrix_set_color_all(0, 0, 0);
         for (uint8_t j = 0; j < DRIVER_LED_TOTAL; ++j) {
-            led[j] = (random8() & 2) ? (RGB){0,0,0} : hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v});
+            led[j] = (random8() & 2) ? (RGB){0, 0, 0} : hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v});
         }
     }
 
@@ -35,11 +33,11 @@ static bool PIXEL_FLOW(effect_params_t* params) {
 
     if (!rgb_matrix_check_finished_leds(led_max)) {
         // Shift LED state forward
-        for (uint8_t j = 0; j < led_max-1; ++j) {
-            led[j] = led[j+1];
+        for (uint8_t j = 0; j < led_max - 1; ++j) {
+            led[j] = led[j + 1];
         }
         // Fill last LED
-        led[led_max-1] = (random8() & 2) ? (RGB){0,0,0} : hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v});
+        led[led_max - 1] = (random8() & 2) ? (RGB){0, 0, 0} : hsv_to_rgb((HSV){random8(), qadd8(random8() >> 1, 127), rgb_matrix_config.hsv.v});
         // Set pulse timer
         wait_timer = g_rgb_timer + interval();
     }
