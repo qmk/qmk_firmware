@@ -106,8 +106,8 @@ TEST_F(EncoderSplitTestNoLeft, TestOneClockwiseRightSent) {
     uint8_t slave_state[32] = {0};
     encoder_state_raw(slave_state);
 
-    EXPECT_EQ(slave_state[0], 0xFF);
-    EXPECT_EQ(slave_state[1], 0);
+    EXPECT_EQ(slave_state[0], 0);
+    EXPECT_EQ(slave_state[1], 0xFF);
 }
 
 TEST_F(EncoderSplitTestNoLeft, TestMultipleEncodersRightReceived) {
@@ -118,8 +118,8 @@ TEST_F(EncoderSplitTestNoLeft, TestMultipleEncodersRightReceived) {
     encoder_update_raw(slave_state);
 
     EXPECT_EQ(updates_array_idx, 2);  // two updates received, one for each changed item on the right side
-    EXPECT_EQ(updates[0].index, 3);
+    EXPECT_EQ(updates[0].index, 0);
     EXPECT_EQ(updates[0].clockwise, false);
-    EXPECT_EQ(updates[1].index, 4);
+    EXPECT_EQ(updates[1].index, 1);
     EXPECT_EQ(updates[1].clockwise, true);
 }

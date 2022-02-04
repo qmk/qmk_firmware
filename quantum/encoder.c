@@ -172,7 +172,7 @@ bool encoder_read(void) {
 #ifdef SPLIT_KEYBOARD
 void last_encoder_activity_trigger(void);
 
-void encoder_state_raw(uint8_t *slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * thatCount); }
+void encoder_state_raw(uint8_t *slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * thisCount); }
 
 void encoder_update_raw(uint8_t *slave_state) {
     bool changed = false;

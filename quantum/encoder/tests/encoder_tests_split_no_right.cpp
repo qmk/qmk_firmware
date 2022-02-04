@@ -91,14 +91,16 @@ TEST_F(EncoderSplitTestNoRight, TestOneClockwiseLeft) {
     setAndRead(0, true);
     setAndRead(1, true);
 
-    EXPECT_EQ(updates_array_idx, 0);  // no updates received
+    EXPECT_EQ(updates_array_idx, 1);  // one updates received
+    EXPECT_EQ(updates[0].index, 0);
+    EXPECT_EQ(updates[0].clockwise, true);
 }
 
 TEST_F(EncoderSplitTestNoRight, TestOneClockwiseRightSent) {
     isLeftHand = false;
     encoder_init();
 
-    uint8_t slave_state[32] = {0xAA};
+    uint8_t slave_state[32] = {0xAA, 0xAA};
     encoder_state_raw(slave_state);
 
     EXPECT_EQ(slave_state[0], 0xAA);
@@ -109,7 +111,7 @@ TEST_F(EncoderSplitTestNoRight, TestMultipleEncodersRightReceived) {
     isLeftHand = true;
     encoder_init();
 
-    uint8_t slave_state[32] = {1, 0xFF};  // First right encoder is CCW, Second right encoder no change, third right encoder CW
+    uint8_t slave_state[32] = {1, 0xFF};  // These values would trigger updates if there were encoders on the other side
     encoder_update_raw(slave_state);
 
     EXPECT_EQ(updates_array_idx, 0);  // no updates received -- no right-hand encoders
