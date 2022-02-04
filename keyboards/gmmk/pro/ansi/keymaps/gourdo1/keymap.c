@@ -283,7 +283,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(LED_CAPS, RGB_OFFBLUE);
         break;
 
-<<<<<<< HEAD
         // RAISE mode (RGB color mix testing)
     case _RAISE:
         rgb_matrix_set_color(LED_Q, RGB_TEST1);
@@ -313,21 +312,13 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         break;
     }
 }
-=======
->>>>>>> 646b00f900b72208e9a729eb6e9e8e2c976a8c1a
 #endif
 
 void keyboard_post_init_keymap(void) {
     // keyboard_post_init_user() moved to userspace
     #ifdef RGB_MATRIX_ENABLE
-<<<<<<< HEAD
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
     rgb_matrix_sethsv_noeeprom(129, 255, 170); // Default startup colour
     activate_rgb_nightmode(false); // Set to true if you want to startup in nightmode, otherwise use Fn + Z to toggle
-=======
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-        rgb_matrix_sethsv_noeeprom(129, 255, 170); // Default startup colour
-        activate_rgb_nightmode(false);  // Set to true if you want to startup in nightmode, otherwise use Fn + Z to toggle
->>>>>>> 646b00f900b72208e9a729eb6e9e8e2c976a8c1a
     #endif
 }
