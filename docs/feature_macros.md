@@ -40,7 +40,7 @@ You can define up to 32 macros in a `keymap.json` file, as used by [Configurator
 
 ### Selecting Your Host Keyboard Layout
 
-If you type in a language other than English, or use a non-QWERTY layout like Colemak, Dvorak, or Workman, you may have set your computer's input language to match this layout. This presents a challenge when creating macros- you may need to type different keys to get the same letters! To address this you can add the `host_language` key to your keymap.json, like so:
+If you type in a language other than English, or use a non-QWERTY layout like Colemak, Dvorak, or Workman, you may have set your computer's input language to match this layout. This presents a challenge when creating macros - you may need to type different keys to get the same letters! To address this you can add the `host_language` key to your `keymap.json`, like so:
 
 ```json
 {
@@ -75,7 +75,7 @@ The current list of available languages is:
 
 ### Macro Basics
 
-Each macro is an array consisting of strings and objects (dictionaries.) Strings are typed to your computer while objects allow you to control how your macro is typed out.
+Each macro is an array consisting of strings and objects (dictionaries). Strings are typed to your computer while objects allow you to control how your macro is typed out.
 
 #### Object Format
 
