@@ -710,9 +710,9 @@ const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 #define ISSI_ADDR_1 0x30
-#define ISSI_ADDR_2 
+#define ISSI_ADDR_2
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |   R location
@@ -998,7 +998,7 @@ const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
     {112,64}, {100,48}, {84,48}, {68,48}, {52,48}, {36,48}, {64,60}, {44,60}, {24,64},
     {108,32}, {92,32}, {76,32}, {60,32}, {44,32}, {28,32}, {255,255}, {10,48}, {4,64},
     // LD0..LD1762
-	
+
     {124,32}, {140,32}, {156,32}, {172,32}, {188,32}, {214,32}, {180,48}, {202,48}, {224,48},
     {116,48}, {132,48}, {148,48}, {164,48}, {255,255}, {160,60}, {180,64}, {208,64}, {255,255}
 };

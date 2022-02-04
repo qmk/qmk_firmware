@@ -109,7 +109,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define DRIVER_ADDR_1 0b0110000
-#    define DRIVER_ADDR_2 0b0110000  // this is here for compliancy reasons.
 #    define DRIVER_COUNT 1
 #    define DRIVER_1_LED_TOTAL 98
 #    define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
