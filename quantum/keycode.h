@@ -539,7 +539,7 @@ enum mouse_keys {
     /* Acceleration */
     KC_MS_ACCEL0,
     KC_MS_ACCEL1,
-    KC_MS_ACCEL2 // 0xFF
+    KC_MS_ACCEL2 // 0xDF, or 0xFF if via enabled
 };
 
 #include "keycode_legacy.h"
