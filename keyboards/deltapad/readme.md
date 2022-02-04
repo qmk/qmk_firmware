@@ -1,6 +1,6 @@
 ## DELTAPAD
 
-![DeltaPad](https://github.com/rich239/qmk_firmware/blob/master/keyboards/deltapad/deltapad.jpg)
+![DeltaPad](https://i.imgur.com/uWlOiU4.jpeg)
 
 
 *A short description of the keyboard/project*
@@ -10,6 +10,7 @@ A 4x4 keypad
 * Keyboard Maintainer: [Richard Snijder](https://github.com/rich239)
 * Hardware Supported: Atmel 32u4 based keypads
 
+![DeltaPad](https://i.imgur.com/YClI9dV.jpg)
 
 Make example for this keyboard (after setting up your build environment):
 
