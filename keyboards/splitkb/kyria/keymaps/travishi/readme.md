@@ -16,17 +16,17 @@ Qwerty is present so you don't have to remap games and any other programs you us
 
 
 ## Current Layers
-Base1: dvorak
-Base2: qwerty
-Base3: Index layer
+- Base1: dvorak
+- Base2: qwerty
+- Base3: Index layer
 
 MO layer: Numbers, symbols & volume controls
 
 ## Future Layers
-Layer_1: navigation & keypad
-Layer_2: F keys
-Layer_3: FE macros
-Layer_4: Git macros
+- Layer_1: navigation & keypad
+- Layer_2: F keys
+- Layer_3: FE macros
+- Layer_4: Git macros
 
 
 ## Issues
@@ -61,3 +61,4 @@ Layer_4: Git macros
 //                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 //     ),
 ```
+

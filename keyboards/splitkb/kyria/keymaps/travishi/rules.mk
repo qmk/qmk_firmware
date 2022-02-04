@@ -3,7 +3,8 @@ LEADER_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306   # Enables the use of OLED displays
-#WPM_ENABLE = yes
+
+WPM_ENABLE = yes
 
 
 # Disabled features
