@@ -1,0 +1,3 @@
+# an_achronism's custom 106-key layout (107-key if you stick the appropriate keys on RShift and JIS backslash, which are already mapped for convenience).
+
+# The only unmapped keys on the entire membrane are the bottom right corner of the numpad (unused lower half of Enter), which you can add into the keymap by changing the appropriate KC_NO to whatever you want, and the Wheelwriter's Code key, which I haven't placed in the matrix itself yet.
