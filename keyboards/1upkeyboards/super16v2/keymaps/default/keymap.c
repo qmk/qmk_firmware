@@ -18,10 +18,17 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ortho_4x4( /* Base */
-    RGB_TOG,    KC_1,    KC_2,    KC_3,
-    RGB_MOD,    KC_4,    KC_5,    KC_6,
-    RGB_TOG,    KC_7,    KC_8,    KC_9,
-    RGB_MOD,    KC_A,    KC_B,    KC_C
+    KC_P7,    KC_P8,    KC_P9,    KC_PMNS,
+    KC_P4,    KC_P5,    KC_P6,    KC_PPLS,
+    KC_P1,    KC_P2,    KC_P3,    KC_PSLS,
+    MO(1),    KC_P0,    KC_PDOT,  KC_PENT
+  ),
+
+  [1] = LAYOUT_ortho_4x4( /* Fn Layer */
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
+    KC_TRNS,    KC_TRNS,    KC_TRNS,    RESET
   ),
 };
 
