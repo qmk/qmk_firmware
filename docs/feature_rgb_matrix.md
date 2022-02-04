@@ -455,7 +455,6 @@ enum rgb_matrix_effects {
     RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight ammount in a wave to the right, then back to the left
     RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight ammount and then back down in a wave to the right
     RGB_MATRIX_PIXEL_FRACTAL,       // Single hue fractal filled keys pulsing horizontally out to edges
-    RGB_MATRIX_PIXEL_FLOW,          // Pulsing RGB flow along LED wiring with random hues
     RGB_MATRIX_PIXEL_RAIN,          // Randomly light keys with random hues
 #if define(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM!
@@ -511,7 +510,6 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_RGB_MATRIX_HUE_PENDULUM`              |Enables `RGB_MATRIX_HUE_PENDULUM`             |
 |`#define ENABLE_RGB_MATRIX_HUE_WAVE`                  |Enables `RGB_MATRIX_HUE_WAVE `                |
 |`#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL`             |Enables `RGB_MATRIX_PIXEL_FRACTAL`            |
-|`#define ENABLE_RGB_MATRIX_PIXEL_FLOW`                |Enables `RGB_MATRIX_PIXEL_FLOW`               |
 |`#define ENABLE_RGB_MATRIX_PIXEL_RAIN`                |Enables `RGB_MATRIX_PIXEL_RAIN`               |
 
 ?> These modes don't require any additional defines.
