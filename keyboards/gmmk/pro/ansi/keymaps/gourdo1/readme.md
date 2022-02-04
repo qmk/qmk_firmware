@@ -5,6 +5,7 @@ This Windows-centric layout is based on Jonavin's GMMK Pro layout with some modi
 Features:
 
 Basic Shortcuts
+
 	* Most default Glorious shortcuts enabled
 	* Fn-Backslash for Bootloader mode
 	* Capslock toggled by double tap of Left Shift key or FN + Capslock (RGB highlighted)
@@ -14,12 +15,14 @@ Basic Shortcuts
 	* PrtScrn, Scroll Lock, Pause/Break are top right on the keyboard: Fn+F11, Fn+F12, Fn+Home
 
 Numpad Overlay Layer
+
 	* Re-worked/simplified overlay numpad upon Capslock key hold (temp) or double press (locked) with RGB highlighting
 	* Numpad layer (capslock key) disables much of keyboard, except X, C, V for cut, copy, paste, WASD become cursor keys and all number keys become numpad versions (so Alt character codes work regardless of which number keys you use)
 	* Numpad turns both right arrow and End keys into Numpad-Enter for convenience.
 	* Fn & N keys light up orange if system numlock is off (inverted status), indicating numpad keys will not deliver expected output (FN + N to toggle)
 
 Encoder Functionality
+
 	* Default knob turn changes volume; button press toggles mute
 	* FN knob turn changes RGB idle timeout
 	* holding Left Shift changes layers
@@ -29,6 +32,7 @@ Encoder Functionality
 	* holding Left Alt changes media prev/next track
 
 RGB
+
 	* RGB backlight lighting effect: FN + up/down
 	* RGB backlight effect speed: FN + left/right
 	* RGB backlight hue cycle: FN + A/D
