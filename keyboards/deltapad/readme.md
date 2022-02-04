@@ -2,9 +2,6 @@
 
 ![DeltaPad](https://github.com/rich239/JPGS/blob/main/deltapad.jpg)
 
-
-*A short description of the keyboard/project*
-
 A 4x4 keypad
 
 * Keyboard Maintainer: [Richard Snijder](https://github.com/rich239)
