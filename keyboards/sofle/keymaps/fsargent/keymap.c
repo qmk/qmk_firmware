@@ -48,15 +48,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MT(MOD_LALT,KC_QUOT):
-            // Do not force the mod-tap key press to be handled as a modifier
-            // if any other key was pressed while the mod-tap key is held down.
-            return true;
-        default:
-            // Force the mod-tap key press to be handled as a modifier if any
-            // other key was pressed while the mod-tap key is held down.
-            return false;
-    }
+	// Do not force the mod-tap key press to be handled as a modifier
+	// if any other key was pressed while the mod-tap key is held down.
+		case MT(MOD_LGUI,KC_MINS): return true;
+		case MT(MOD_LCTL,KC_EQL): return true;
+		case MT(MOD_LALT,KC_QUOT): return true;
+	default:
+	// Force the mod-tap key press to be handled as a modifier if any
+	// other key was pressed while the mod-tap key is held down.
+		return false;
+	}
 }
 
 
