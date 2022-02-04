@@ -3,9 +3,9 @@
 A 2x5 macropad designed by Evan Cook, with the design goal of being compact in the Z axis
 [Default Layout](https://raw.githubusercontent.com/evanmcook/tenpad/main/keyboard-layout.jpg)
 
-Keyboard Maintainer: [Evan Cook](https://github.com/evanmcook/)  
-Hardware Supported: tenpad Macropad PCB  
-Hardware Availability: [tenpad Github](https://github.com/evanmcook/tenpad)  
+* Keyboard Maintainer: [Evan Cook](https://github.com/evanmcook/)
+* Hardware Supported: tenpad Macropad PCB
+* Hardware Availability: [tenpad Github](https://github.com/evanmcook/tenpad)
 
 Make example for this keyboard (after setting up your build environment):
 
