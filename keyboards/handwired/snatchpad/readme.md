@@ -2,19 +2,19 @@
 
 ![snatchpad](imgur.com image replace me!)
 
-*A short description of the keyboard/project*
+A 6-key macropad with 2 rotary encoders for drawing. [Vial keymap](https://github.com/vial-kb/vial-qmk) is suggested due to rotary encoder remapping support.
 
 * Keyboard Maintainer: [xia0](https://github.com/xia0)
-* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Supported: ATmega32u4 - Arduino Pro Micro suggested.
 * Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
 
-    make snatchpad:default
+    make handwired/snatchpad:default
 
 Flashing example for this keyboard:
 
-    make snatchpad:default:flash
+    make handwired/snatchpad:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
