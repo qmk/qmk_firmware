@@ -9,7 +9,8 @@ Basic Shortcuts
 	* Most default Glorious shortcuts enabled
 	* Fn-Backslash for Bootloader mode
 	* Capslock toggled by double tap of Left Shift key or FN + Capslock (RGB highlighted)
-	* Gaming mode (FN + Win-key) locks out Win-key as well as double-tap Shift Capslock; Also RGB highlights WSAD and nearby gaming related keys
+	* Gaming mode (FN + Win-key) locks out Win-key as well as double-tap Shift Capslock; Also RGB highlights WSAD and nearby gaming
+        related keys
 	* Home key on F-key row, Del key next to Backspace
 	* Insert accessible via Shift-Backspace (so shift delete still works in Windows Explorer)
 	* PrtScrn, Scroll Lock, Pause/Break are top right on the keyboard: Fn+F11, Fn+F12, Fn+Home
@@ -17,9 +18,11 @@ Basic Shortcuts
 Numpad Overlay Layer
 
 	* Re-worked/simplified overlay numpad upon Capslock key hold (temp) or double press (locked) with RGB highlighting
-	* Numpad layer (capslock key) disables much of keyboard, except X, C, V for cut, copy, paste, WASD become cursor keys and all number keys become numpad versions (so Alt character codes work regardless of which number keys you use)
+	* Numpad layer (capslock key) disables much of keyboard, except X, C, V for cut, copy, paste, WASD become cursor keys and all number
+        keys become numpad versions (so Alt character codes work regardless of which number keys you use)
 	* Numpad turns both right arrow and End keys into Numpad-Enter for convenience.
-	* Fn & N keys light up orange if system numlock is off (inverted status), indicating numpad keys will not deliver expected output (FN + N to toggle)
+	* Fn & N keys light up orange if system numlock is off (inverted status), indicating numpad keys will not deliver expected output
+        (FN + N to toggle)
 
 Encoder Functionality
 
