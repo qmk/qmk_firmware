@@ -25,7 +25,7 @@ ifneq ($(FORCE_LAYOUT),)
         $(info Forcing layout: $(FORCE_LAYOUT))
         LAYOUTS := $(FORCE_LAYOUT)
     else
-        $(error Forced layout does not exist)
+        $(call CATASTROPHIC_ERROR,Invalid layout,Forced layout does not exist)
     endif
 endif
 
