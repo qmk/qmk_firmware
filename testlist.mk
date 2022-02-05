@@ -8,7 +8,7 @@ include $(PLATFORM_PATH)/test/testlist.mk
 define VALIDATE_TEST_LIST
     ifneq ($1,)
         ifeq ($$(findstring -,$1),-)
-            $$(error Test names can't contain '-', but '$1' does)
+            $$(call CATASTROPHIC_ERROR,Invalid test name,Test names can't contain '-', but '$1' does.)
         else
             $$(eval $$(call VALIDATE_TEST_LIST,$$(firstword $2),$$(wordlist 2,9999,$2)))
         endif
