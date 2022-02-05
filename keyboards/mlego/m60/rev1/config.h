@@ -18,8 +18,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x6161
+#define PRODUCT_ID 0x6161
+#define DEVICE_VER 0x0003
 
 #define MATRIX_ROW_PINS \
     { A6, A7, B0, B1, B10 }
