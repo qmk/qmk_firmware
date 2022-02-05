@@ -339,6 +339,9 @@ const PROGMEM naginata_keymap ngmap[] = {
 
   {.key = B_J|B_K|B_T       , .kana = "/"}, // ・
 
+  // 非標準の変換
+  {.key = B_V|B_DOT|B_COMM  , .kana = "fe"      }, // ふぇ
+
 };
 
 const PROGMEM naginata_keymap_long ngmapl[] = {
