@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,6 +45,5 @@
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* Change USB Polling Rate to 1000hz and a larger keys per scan for elite gaming */
-#define USB_POLLING_INTERVAL_MS 1
+/* Larger keys per scan */
 #define QMK_KEYS_PER_SCAN 12
