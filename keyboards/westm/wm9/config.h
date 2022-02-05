@@ -63,29 +63,20 @@
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
 
-
+/* Default Oled init */
 #define OLED_DISPLAY_128X64
-// #define OLED_DISPLAY_WIDTH 128
-// #define OLED_DISPLAY_HEIGHT 64
-// #define OLED_TIMEOUT 300000
-#define OLED_BRIGHTNESS 128
+#define OLED_BRIGHTNESS 255
 
-
-
-// #define I2C1_SCL_BANK GPIOB
-// #define I2C1_SDA_BANK GPIOB
-
+/* I2C for Oled */
 #define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN B6
 #define I2C1_SDA_PIN B7
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1
 
-// #define I2C1_TIMINGR_PRESC 0x02U
-// #define I2C1_TIMINGR_SCLDEL 0x00U
-// #define I2C1_TIMINGR_SDADEL 0x00U
-// #define I2C1_TIMINGR_SCLH 0x02U
-// #define I2C1_TIMINGR_SCLL 0x09U
+/* Required for SH1106 Oled Driver */
+#define OLED_IC OLED_IC_SH1106
+#define OLED_COLUMN_OFFSET 2 // SH1106 screen is a little off to the left
 
 #define I2C1_TIMINGR_PRESC 0x00U
 #define I2C1_TIMINGR_SCLDEL 0x03U
@@ -93,5 +84,4 @@
 #define I2C1_TIMINGR_SCLH 0x03U
 #define I2C1_TIMINGR_SCLL 0x09U
 
-// configure oled driver for the 128x64 oled
-// #define OLED_UPDATE_INTERVAL 66 // ~15fps
+#define OLED_UPDATE_INTERVAL 66
