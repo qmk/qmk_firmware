@@ -264,8 +264,20 @@ static bool layer_state_handlers_master(matrix_row_t master_matrix[], matrix_row
 }
 
 static void layer_state_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    layer_state         = split_shmem->layers.layer_state;
-    default_layer_state = split_shmem->layers.default_layer_state;
+    if (layer_state != split_shmem->layers.layer_state) {
+        layer_state         = split_shmem->layers.layer_state;
+
+#if defined(SPLIT_LAYER_STATE_SET)
+        layer_state         = layer_state_set_kb(layer_state);
+#endif 
+    }
+    if (default_layer_state != split_shmem->layers.default_layer_state) {
+        default_layer_state = split_shmem->layers.default_layer_state;
+
+#if defined(SPLIT_LAYER_STATE_SET)
+        default_layer_state = default_layer_state_set_kb(default_layer_state);
+#endif
+    }
 }
 
 // clang-format off
