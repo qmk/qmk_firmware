@@ -23,6 +23,7 @@ enum layer_names {
     _FN                 //  FuNction layer. This must be at the end of the enumurate to use the range from _LS_FN ... _LS_FN_MAX for FN layer LED settings.
 };
 
+//  Layer State
 #define _LS_BASE           (1UL << _BASE)
 #define _LS_TRANS          (1UL << _BASE         | 1UL << _TRANS)
 

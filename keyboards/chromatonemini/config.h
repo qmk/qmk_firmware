@@ -241,11 +241,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-#    define AUDIO_PIN B6  // use PB6 = PIN10 as Audio output
+#   define AUDIO_PIN B6  // use PB6 = PIN10 as Audio output
 // #define DAC_SAMPLE_MAX 32768U
-#    define DAC_SAMPLE_MAX 65535U
+#   define DAC_SAMPLE_MAX 65535U
 // #define AUDIO_CLICKY
-#    define NO_MUSIC_MODE
+#   define NO_MUSIC_MODE
 // #define STARTUP_SONG SONG(FANTASIE_IMPROMPTU)
 // #define STARTUP_SONG SONG(NOCTURNE_OP_9_NO_1)
 // #define STARTUP_SONG SONG(USSR_ANTHEM)
@@ -268,17 +268,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - etc.
 */
 #ifdef MIDI_ENABLE
-#    define MIDI_ADVANCED
+#   define MIDI_ADVANCED
+// Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
+#   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
 
 /*
  * Encoder options
  */
 #ifdef ENCODER_ENABLE
-#    define ENCODERS_PAD_A { B5 }
-#    define ENCODERS_PAD_B { B4 }
-#    define ENCODER_RESOLUTION 4
-#    define TAP_CODE_DELAY 10
+#   define ENCODERS_PAD_A { B5 }
+#   define ENCODERS_PAD_B { B4 }
+#   define ENCODER_RESOLUTION 4
+#   define TAP_CODE_DELAY 10
 
 #define ENCODERS 1
 #define ENCODERS_CW_KEY  { {7, 2} }

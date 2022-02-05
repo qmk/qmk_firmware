@@ -40,13 +40,11 @@
     { k31, k32,  k33,  k34,   k35, k36, k37, KC_NO   }  \
 }
 
-// Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
-#define MIDI_INITIAL_VELOCITY 117
 
 #ifdef RGB_MATRIX_ENABLE
-    extern led_config_t g_led_config;
-    extern const uint8_t led_scale_indicator[12][12];
-    extern const uint8_t led_single_col_indicator[37][3];
+extern led_config_t g_led_config;
+extern const uint8_t led_scale_indicator[12][12];
+extern const uint8_t led_single_col_indicator[37][3];
 
     //  default base layer color
 #   define BASE_LAYER_COLOR  RGB_DARKGOLDENROD
