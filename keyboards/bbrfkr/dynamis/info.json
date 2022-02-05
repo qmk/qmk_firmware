@@ -366,7 +366,7 @@
                 }
             ]
         },
-        "LAYOUT_ALL_ISO": {
+        "LAYOUT_iso": {
             "layout": [
                 {
                     "label": "`",
