@@ -17,17 +17,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* TODO:
- * cheatsheet https://jayliu50.github.io/qmk-cheatsheet/
- * macro alt+w => alt+tab
- * macro number keys => symbols
- * macro scln => quot
- * combo arrow keys (adjacent)
- * combo toggle layers (instead of MO)
- * macros https://getreuer.info/posts/keyboards/macros/index.html#next-sentence-macro
- * MT ctrl+win: MT(MOD_LCTL | MOD_LGUI, KC_XXX)
- */
-
 #include QMK_KEYBOARD_H
 #include "features/caps_word.h"
 
@@ -87,46 +76,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       return 190;
   }
 }
-
-/*
-// Overrides
-const key_override_t alt_tab_override =  ko_make_basic(MOD_MASK_ALT, RSFT_T(KC_J), LALT(KC_TAB));
-const key_override_t **key_overrides = (const key_override_t *[]) {
-    &alt_tab_override,
-    NULL
-};
-
-// Tap Dance
-enum tapdance_events {
-    ONE_EXLM = 0,
-    TWO_AT,
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [ONE_EXLM] = ACTION_TAP_DANCE_DOUBLE(MEH_T(KC_1), KC_EXLM),
-    [TWO_AT] = ACTION_TAP_DANCE_DOUBLE(LCA_T(KC_2), KC_AT),
-};
-
-// Combos
-enum combo_events {
-    COMBO_LEFT,
-    COMBO_DOWN,
-    COMBO_UP,
-    COMBO_RIGHT,
-    COMBO_LENGTH
-};
-const uint16_t PROGMEM left_combo[] = {KC_H, RSFT_T(KC_J), COMBO_END};
-const uint16_t PROGMEM down_combo[] = {RSFT_T(KC_J), RCTL_T(KC_K), COMBO_END};
-const uint16_t PROGMEM up_combo[] = {RCTL_T(KC_K), RALT_T(KC_L), COMBO_END};
-const uint16_t PROGMEM right_combo[] = {RALT_T(KC_L), RGUI_T(KC_SCLN), COMBO_END};
-uint16_t COMBO_LEN = COMBO_LENGTH;
-combo_t key_combos[] = {
-    [COMBO_LEFT] = COMBO(left_combo, KC_LEFT),
-    [COMBO_DOWN] = COMBO(down_combo, KC_DOWN),
-    [COMBO_UP] = COMBO(up_combo, KC_UP),
-    [COMBO_RIGHT] = COMBO(right_combo, KC_RIGHT),
-};
-*/
 
 // RGB timeout
 #define RGB_CUSTOM_TIMEOUT 5 // in minutes
