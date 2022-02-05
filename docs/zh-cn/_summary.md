@@ -85,7 +85,7 @@
     * [按键重定义](zh-cn/feature_key_overrides.md)
     * [层](zh-cn/feature_layers.md)
     * [粘滞键](zh-cn/one_shot_keys.md)
-    * [光标设备](zh-cn/feature_pointing_device.md)
+    * [定位设备](zh-cn/feature_pointing_device.md)
     * [原生HID](zh-cn/feature_rawhid.md)
     * [Sequencer](zh-cn/feature_sequencer.md)
     * [换手](zh-cn/feature_swap_hands.md)
