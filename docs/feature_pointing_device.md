@@ -2,7 +2,7 @@
 
 Pointing Device is a generic name for a feature intended to be generic: moving the system pointer around.  There are certainly other options for it - like mousekeys - but this aims to be easily modifiable and hardware driven.  You can implement custom keys to control functionality, or you can gather information from other peripherals and insert it directly here - let QMK handle the processing for you.
 
-To enable Pointing Device, uncomment the following line in your rules.mk:
+To enable Pointing Device, add the following line in your rules.mk and specify one of the driver options below.
 
 ```make
 POINTING_DEVICE_ENABLE = yes
@@ -181,7 +181,13 @@ The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
 
 ### Custom Driver
 
-If you have a sensor type that isn't supported here, you can manually implement it, by adding these functions (with the correct implementation for your device):
+If you have a sensor type that isn't supported above, a custom option is available by adding the following to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = custom
+```
+
+Using the custom driver will require implementing the following functions:
 
 ```c
 void           pointing_device_driver_init(void) {}
