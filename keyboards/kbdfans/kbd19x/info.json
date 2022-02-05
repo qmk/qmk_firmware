@@ -1,7 +1,7 @@
 {
     "keyboard_name": "KBD19x",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/kbdfans/kbd19x",
-    "maintainer": "qmk",
+    "maintainer": "jshuf, mechmerlin",
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [
