@@ -91,7 +91,7 @@
                 {"label": "PGDOWN",  "x": 10.5, "y": 5},
                 {"label": "LEFT",    "x": 11.5, "y": 5},
                 {"label": "DOWN",    "x": 12.5, "y": 5},
-                {"label": "RIGHT",   "x": 13.5, "y": 5},
+                {"label": "RIGHT",   "x": 13.5, "y": 5}
             ]
         }
     }
