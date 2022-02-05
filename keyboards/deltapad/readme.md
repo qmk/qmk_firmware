@@ -1,4 +1,4 @@
-## DELTAPAD
+# DELTAPAD
 
 ![DeltaPad](https://i.imgur.com/uWlOiU4.jpeg)
 
