@@ -15,10 +15,14 @@
  */
 
 #include "dynamis.h"
-#include "pointing_device.h"
-extern const pointing_device_driver_t pointing_device_driver;
 
-report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    mouse_report.y = -mouse_report.y;
-    return mouse_report;
+bool encoder_update_user(uint8_t index, bool clockwise) {
+   if (index == 0) { /* First encoder */
+      if (clockwise) {
+         tap_code(KC_WH_D);
+      } else {
+         tap_code(KC_WH_U);
+      }
+   }
+   return false;
 }
