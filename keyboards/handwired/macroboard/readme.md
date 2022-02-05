@@ -2,7 +2,7 @@
 
 ![macroboard](https://i.imgur.com/AY5Y1Ez.png)
 
-*A short description of the keyboard/project*
+3D printable half preonic (5x6 OLKB) with purpose of being macroboard or if you want to have different switches for gaming while having normal full keyboard for typing.
 
 * Keyboard Maintainer: [Michał Szczepaniak](https://github.com/Michal-Szczepaniak)
 * Hardware Supported: Blackpill
