@@ -32,19 +32,19 @@ enum custom_user_layers {
 enum custom_user_keycodes {
     KC_00 = SAFE_RANGE,
         ENCFUNC,
-        KC_WINLCK, //Toggles Win key on and off
-        RGB_TOI, // Timeout idle time up
-        RGB_TOD, // Timeout idle time down
-        RGB_NITE, // Turns off all rgb but allow rgb indicators to work
+        KC_WINLCK,     // Toggles Win key on and off
+        RGB_TOI,       // Timeout idle time up
+        RGB_TOD,       // Timeout idle time down
+        RGB_NITE,      // Turns off all rgb but allow rgb indicators to work
 
-        EMO_SHRUG, // `\_("/)_/`
-        EMO_CONFUSE, // (*_*)
-        EMO_SAD, // :'-(
-        EMO_NERVOUS, // (~_~;)
-        EMO_JOY, // (^o^)
-        EMO_TEARS, // (T_T)
+        EMO_SHRUG,     // `\_("/)_/`
+        EMO_CONFUSE,   // (*_*)
+        EMO_SAD,       // :'-(
+        EMO_NERVOUS,   // (~_~;)
+        EMO_JOY,       // (^o^)
+        EMO_TEARS,     // (T_T)
 
-        KC_TSTOG, // Tab Scroll Toggle
+        KC_TSTOG,      // Tab Scroll Toggle
 
         NEW_SAFE_RANGE // new safe range for keymap level custom keycodes
 };

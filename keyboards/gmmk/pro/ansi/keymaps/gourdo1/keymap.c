@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_ENABLE) && !defined(ENCODER_DEFAULTACTIONS_ENABLE) // Encoder Functionality when not using userspace defaults
 void encoder_action_rgbhue(bool clockwise) {
-    if (clockwise)
+    if (clockwise)       
         rgblight_increase_hue_noeeprom();
     else
         rgblight_decrease_hue_noeeprom();
@@ -185,9 +185,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(LED_L7, RGB_CHARTREUSE);
         rgb_matrix_set_color(LED_L8, RGB_CHARTREUSE);
         rgb_matrix_set_color(LED_LSFT, RGB_CHARTREUSE);
-        //rgb_matrix_set_color(LED_END, RGB_CHARTREUSE);
-        //rgb_matrix_set_color(LED_R7, RGB_CHARTREUSE);
-        //rgb_matrix_set_color(LED_R8, RGB_CHARTREUSE);
     }
 
     // Winkey disabled (gaming) mode RGB setup
@@ -319,7 +316,7 @@ void keyboard_post_init_keymap(void) {
     // keyboard_post_init_user() moved to userspace
     #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-    rgb_matrix_sethsv_noeeprom(24, 255, 127); // Default startup colour (AKA RGB_NAUTILUS)
+    rgb_matrix_sethsv_noeeprom(20, 255, 127); // Default startup color (Hue:amber Saturation:full Value(bright):mid)
     activate_rgb_nightmode(false); // Set to true if you want to startup in nightmode, otherwise use Fn + Z to toggle
     #endif
 }

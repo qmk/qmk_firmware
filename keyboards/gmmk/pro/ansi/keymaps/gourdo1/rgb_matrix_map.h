@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 // Custom GMMK Pro-specific RGB color customizations (defaults found in quantum/color.h)
 #define RGB_GODSPEED 0x00, 0xE4, 0xFF     // color for matching keycaps
-#define RGB_NAUTILUS 0x00, 0xA4, 0xA9     // Nautilus Font colours
+#define RGB_NAUTILUS 0x00, 0xA4, 0xA9     // Nautilus Font colors
 #define RGB_OFFBLUE 0x00, 0x80, 0xFF      // new color: blue with a hint of green
 #define RGB_DKRED 0x28, 0x00, 0x00        // new color: dark red
 #define RGB_ORANGE2 0xFF, 0x28, 0x00      // fix: reduced green from 80 to 28
