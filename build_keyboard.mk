@@ -140,7 +140,7 @@ ifeq ("$(wildcard $(KEYMAP_PATH))", "")
         # If we haven't found a keymap yet fall back to community layouts
         include build_layout.mk
     else
-        $(error Could not find keymap)
+        $(call CATASTROPHIC_ERROR,Invalid keymap,Could not find keymap)
         # this state should never be reached
     endif
 endif
