@@ -342,7 +342,6 @@ const PROGMEM naginata_keymap ngmap[] = {
   // 非標準の変換
   {.key = B_V|B_DOT|B_COMM  , .kana = "fe"      }, // ふぇ
   {.key = B_X|B_C|B_M       , .kana = "pyu"     }, // ピュ
-
 };
 
 const PROGMEM naginata_keymap_long ngmapl[] = {
@@ -733,6 +732,44 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
     if (fghj_buf > 0) {
       tap_code(fghj_buf);
       fghj_buf = 0;
+
+      // Shift + Jで、先にShiftを外した場合にShiftがリリースされない不具合対策
+      switch (keycode) {
+        case KC_LCTRL:
+        case KC_LSHIFT:
+        case KC_LALT:
+        case KC_LGUI:
+        case KC_RCTRL:
+        case KC_RSHIFT:
+        case KC_RALT:
+        case KC_RGUI:
+          unregister_code(keycode);
+          break;
+        case LCTL_T(0x01) ... LCTL_T(0xFF):
+          unregister_code(KC_LCTRL);
+          break;
+        case LSFT_T(0x01) ... LSFT_T(0xFF):
+          unregister_code(KC_LSHIFT);
+          break;
+        case LALT_T(0x01) ... LALT_T(0xFF):
+          unregister_code(KC_LALT);
+          break;
+        case LGUI_T(0x01) ... LGUI_T(0xFF):
+          unregister_code(KC_LGUI);
+          break;
+        case RCTL_T(0x01) ... RCTL_T(0xFF):
+          unregister_code(KC_RCTRL);
+          break;
+        case RSFT_T(0x01) ... RSFT_T(0xFF):
+          unregister_code(KC_RSHIFT);
+          break;
+        case RALT_T(0x01) ... RALT_T(0xFF):
+          unregister_code(KC_RALT);
+          break;
+        case RGUI_T(0x01) ... RGUI_T(0xFF):
+          unregister_code(KC_RGUI);
+          break;
+      }
       return false;
     }
   }
