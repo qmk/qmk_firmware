@@ -21,17 +21,17 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x574D // WM
-#define PRODUCT_ID      0x0001 
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001 // Revision prototype
 #define MANUFACTURER    WestM
-#define PRODUCT         WestM68
+#define PRODUCT         WM9
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 3
+#define MATRIX_COLS 3
 
-#define MATRIX_ROW_PINS { A13, B9, F1, A10, A9 }
-#define MATRIX_COL_PINS { B14, B13, B12, B11, B10, B2, B1, B8, B7, B6, B5, B4, B3, A15, A14 }
+#define MATRIX_ROW_PINS { A14, A15, B3 }
+#define MATRIX_COL_PINS { B8, B5, B4 }
 #define DIODE_DIRECTION COL2ROW
 
 #define RGBLIGHT_EFFECT_BREATHING
@@ -45,8 +45,8 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 // The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN A8
-#define RGBLED_NUM 19
+#define RGB_DI_PIN F1
+#define RGBLED_NUM 14
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -62,3 +62,22 @@
 /* Hold ESC key (first key of first column) to trigger bootloader */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
+
+
+#define OLED_DISPLAY_128X64
+// #define OLED_TIMEOUT 300000
+// #define OLED_BRIGHTNESS 128
+
+#define I2C_DRIVER I2CD1
+#define I2C1_SCL_PIN B6
+#define I2C1_SDA_PIN B7
+#define I2C1_SCL_PAL_MODE 1
+#define I2C1_SDA_PAL_MODE 1
+#define I2C1_TIMINGR_PRESC 0x00U
+#define I2C1_TIMINGR_SCLDEL 0x03U
+#define I2C1_TIMINGR_SDADEL 0x01U
+#define I2C1_TIMINGR_SCLH 0x03U
+#define I2C1_TIMINGR_SCLL 0x09U
+
+// configure oled driver for the 128x64 oled
+// #define OLED_UPDATE_INTERVAL 66 // ~15fps

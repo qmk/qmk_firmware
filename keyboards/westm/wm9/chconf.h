@@ -15,9 +15,13 @@
  */
 
 
-#include "westm68.h"
+#pragma once
 
-void board_init(void) {
-    rgblight_toggle();
-    rgblight_set();
-}
+#define CH_CFG_ST_FREQUENCY 10000
+
+#define CH_CFG_OPTIMIZE_SPEED FALSE
+
+#define CH_CFG_USE_CONDVARS_TIMEOUT FALSE
+
+#include_next <chconf.h>
+

@@ -15,9 +15,12 @@
  */
 
 
-#include "westm68.h"
+#include QMK_KEYBOARD_H
 
-void board_init(void) {
-    rgblight_toggle();
-    rgblight_set();
-}
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT_macropad(
+        RGB_TOG, RGB_MOD, KC_3,
+        RGB_VAI, RGB_VAD, KC_6,
+        KC_7, KC_8, KC_9
+    )
+};

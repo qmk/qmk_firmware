@@ -14,10 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
 
-#include "westm68.h"
+#define HAL_USE_I2C TRUE
 
-void board_init(void) {
-    rgblight_toggle();
-    rgblight_set();
-}
+// #define HAL_USE_PWM TRUE
+
+// #define HAL_USE_SPI TRUE
+
+#include_next <halconf.h>
+

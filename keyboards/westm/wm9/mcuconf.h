@@ -14,10 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
 
-#include "westm68.h"
+#include_next <mcuconf.h>
 
-void board_init(void) {
-    rgblight_toggle();
-    rgblight_set();
-}
+#undef STM32_I2C_USE_I2C1
+#define STM32_I2C_USE_I2C1 TRUE
+
+// #undef STM32_PWM_USE_TIM3
+// #define STM32_PWM_USE_TIM3 TRUE
+
+// #undef STM32_SPI_USE_SPI2
+// #define STM32_SPI_USE_SPI2 TRUE
