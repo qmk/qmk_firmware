@@ -244,6 +244,12 @@ This mirrors the master side matrix to the slave side for features that react or
 This enables syncing of the layer state between both halves of the split keyboard. The main purpose of this feature is to enable support for use of things like OLED display of the currently active layer.
 
 ```c
+#define SPLIT_LAYER_STATE_SET
+```
+
+This enables calling of `layer_state_set_kb` and `default_layer_set_kb` on the slave side of the keyboard when the layer changes. This allows actions to be triggered on layer change, such as LED changes or haptic feedback.
+
+```c
 #define SPLIT_LED_STATE_ENABLE
 ```
 
