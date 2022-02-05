@@ -6,6 +6,8 @@
 
 #if defined(KEYBOARD_handwired_tractyl_manuform)
 #    define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
+#elif defined(KEYBOARD_bastardkb_charybdis)
+#    define PLACEHOLDER_SAFE_RANGE CHARYBDIS_SAFE_RANGE
 #else
 #    define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
 #endif
