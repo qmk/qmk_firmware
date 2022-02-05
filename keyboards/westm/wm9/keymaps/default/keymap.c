@@ -30,18 +30,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
-
-bool oled_task_user(void) {
-    render_logo();
-
-    return false;
-}
-
-oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    return OLED_ROTATION_0;
-}
+// oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+//     return OLED_ROTATION_0;
+// }
 
 static void render_logo(void) {
     static const char PROGMEM my_logo[] = {
@@ -112,6 +105,13 @@ static void render_logo(void) {
     };
 
     oled_write_raw_P(my_logo, sizeof(my_logo));
+}
+
+
+bool oled_task_user(void) {
+    render_logo();
+
+    return false;
 }
 
 #endif
