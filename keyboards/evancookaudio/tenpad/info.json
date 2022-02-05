@@ -4,7 +4,7 @@
     "maintainer": "evanmcook",
     "layouts": {
 
-	"LAYOUT": {
+	"LAYOUT_ortho_2x5": {
         "layout": [
             { "label": "K01", "x": 0, "y": 0 },
             { "label": "K02", "x": 1, "y": 0 },
