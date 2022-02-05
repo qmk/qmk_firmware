@@ -273,6 +273,12 @@ This enables transmitting the current OLED on/off status to the slave side of th
 
 This enables transmitting the current ST7565 on/off status to the slave side of the split keyboard. The purpose of this feature is to support state (on/off state only) syncing.
 
+```c
+#define SPLIT_HAPTIC_ENABLE
+```
+
+This enables triggering of haptic feedback on the slave side of the split keyboard. For DRV2605L this will send the mode, but for solenoids it is expected that the desired mode is already set up on the slave.
+
 ### Custom data sync between sides :id=custom-data-sync
 
 QMK's split transport allows for arbitrary data transactions at both the keyboard and user levels. This is modelled on a remote procedure call, with the master invoking a function on the slave side, with the ability to send data from master to slave, process it slave side, and send data back from slave to master.

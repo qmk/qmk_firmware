@@ -52,3 +52,7 @@ bool transaction_rpc_exec(int8_t transaction_id, uint8_t initiator2target_buffer
 
 #define transaction_rpc_send(transaction_id, initiator2target_buffer_size, initiator2target_buffer) transaction_rpc_exec(transaction_id, initiator2target_buffer_size, initiator2target_buffer, 0, NULL)
 #define transaction_rpc_recv(transaction_id, target2initiator_buffer_size, target2initiator_buffer) transaction_rpc_exec(transaction_id, 0, NULL, target2initiator_buffer_size, target2initiator_buffer)
+
+#if defined(SPLIT_HAPTIC_ENABLE)
+extern uint8_t split_haptic_play;
+#endif

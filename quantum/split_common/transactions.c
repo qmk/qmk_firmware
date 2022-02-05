@@ -25,6 +25,9 @@
 #include "transport.h"
 #include "split_util.h"
 #include "transaction_id_define.h"
+#if !defined(NO_ACTION_LAYER) && defined(SPLIT_HAPTIC_ENABLE)
+#include "haptic.h"
+#endif
 
 #define SYNC_TIMER_OFFSET 2
 
@@ -579,6 +582,43 @@ static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 #endif  // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
 
 ////////////////////////////////////////////////////
+// Haptic
+
+#if !defined(NO_ACTION_LAYER) && defined(SPLIT_HAPTIC_ENABLE)
+
+uint8_t split_haptic_play = 0xFF;
+
+static bool haptic_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    bool okay = transport_write(PUT_HAPTIC, &split_haptic_play, sizeof(split_haptic_play));
+    
+    split_haptic_play = 0xFF;
+    
+    return okay;
+}
+
+static void haptic_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    if (split_shmem->haptic_play != 0xFF) {
+        haptic_set_mode(split_shmem->haptic_play);
+	haptic_play();
+    }
+}
+
+// clang-format off
+#    define TRANSACTIONS_HAPTIC_MASTER() TRANSACTION_HANDLER_MASTER(haptic)
+#    define TRANSACTIONS_HAPTIC_SLAVE() TRANSACTION_HANDLER_SLAVE(haptic)
+#    define TRANSACTIONS_HAPTIC_REGISTRATIONS \
+    [PUT_HAPTIC]         = trans_initiator2target_initializer(haptic_play),
+// clang-format on
+
+#else  // !defined(NO_ACTION_LAYER) && defined(SPLIT_LAYER_STATE_ENABLE)
+
+#    define TRANSACTIONS_HAPTIC_MASTER()
+#    define TRANSACTIONS_HAPTIC_SLAVE()
+#    define TRANSACTIONS_HAPTIC_REGISTRATIONS
+
+#endif  // !defined(NO_ACTION_LAYER) && defined(SPLIT_HAPTIC_ENABLE)
+
+////////////////////////////////////////////////////
 
 uint8_t                  dummy;
 split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
@@ -604,6 +644,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_WPM_REGISTRATIONS
     TRANSACTIONS_OLED_REGISTRATIONS
     TRANSACTIONS_ST7565_REGISTRATIONS
+    TRANSACTIONS_HAPTIC_REGISTRATIONS
 // clang-format on
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
@@ -629,6 +670,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_WPM_MASTER();
     TRANSACTIONS_OLED_MASTER();
     TRANSACTIONS_ST7565_MASTER();
+    TRANSACTIONS_HAPTIC_MASTER();
     return true;
 }
 
@@ -647,6 +689,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_WPM_SLAVE();
     TRANSACTIONS_OLED_SLAVE();
     TRANSACTIONS_ST7565_SLAVE();
+    TRANSACTIONS_HAPTIC_SLAVE();
 }
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

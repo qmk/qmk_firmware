@@ -78,6 +78,10 @@ enum serial_transaction_id {
     PUT_ST7565,
 #endif  // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
 
+#if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+    PUT_HAPTIC,
+#endif  // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     PUT_RPC_INFO,
     PUT_RPC_REQ_DATA,
