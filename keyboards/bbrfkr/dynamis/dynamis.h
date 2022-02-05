@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT_ALL_ANSI( \
+#define LAYOUT_ansi( \
       C00, C01, C02, C03, C04, C05, C06, C56, C55, C54, C53, C52, C51, C50, C90, \
       C10, C11, C12, C13, C14, C15, C16, C66, C65, C64, C63, C62, C61, C60, \
       C20, C21, C22, C23, C24, C25, C26, C76, C75, C74, C73, C72,      C70, \
