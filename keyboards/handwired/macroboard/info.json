@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "Michał Szczepaniak",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_5x6": {
             "layout": [
                 {"label": "k00", "x": 0, "y": 0},
                 {"label": "k01", "x": 1, "y": 0},
