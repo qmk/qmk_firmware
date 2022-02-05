@@ -213,41 +213,38 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     case _FN1: // on Fn layer select what the encoder does when pressed
         rgb_matrix_set_color(LED_FN, RGB_RED); //FN key
 
-        //NEW RGB LIGHTING TO CORRESPOND TO ACTIVE FN LAYER KEYS:
-        rgb_matrix_set_color(LED_F1, RGB_RED);
-        rgb_matrix_set_color(LED_F2, RGB_RED);
-        rgb_matrix_set_color(LED_F3, RGB_RED);
-        rgb_matrix_set_color(LED_F4, RGB_RED);
-        rgb_matrix_set_color(LED_F5, RGB_RED);
-        rgb_matrix_set_color(LED_F6, RGB_RED);
-        rgb_matrix_set_color(LED_F7, RGB_RED);
-        rgb_matrix_set_color(LED_F8, RGB_RED);
-        rgb_matrix_set_color(LED_F9, RGB_RED);
-        rgb_matrix_set_color(LED_F10, RGB_RED);
-        rgb_matrix_set_color(LED_F11, RGB_RED);
-        rgb_matrix_set_color(LED_INS, RGB_RED);
-        rgb_matrix_set_color(LED_W, RGB_RED);
-        rgb_matrix_set_color(LED_A, RGB_RED);
-        rgb_matrix_set_color(LED_S, RGB_RED);
-        rgb_matrix_set_color(LED_D, RGB_RED);
-        rgb_matrix_set_color(LED_Z, RGB_RED);
+        //NEW RGB LIGHTING TO RING KEYBOARD ON FN LAYER ACTIVATION:
+        for (uint8_t j = 0; j < ARRAYSIZE(LED_LIST_FUNCROW); j++) {
+            rgb_matrix_set_color(LED_LIST_FUNCROW[j], RGB_RED);
+        }
+		rgb_matrix_set_color(LED_LCTL, RGB_RED);
+        rgb_matrix_set_color(LED_LALT, RGB_RED);
+        rgb_matrix_set_color(LED_SPC, RGB_RED);
         rgb_matrix_set_color(LED_LWIN, RGB_RED);
-        rgb_matrix_set_color(LED_U, RGB_RED);
-        rgb_matrix_set_color(LED_I, RGB_RED);
-        rgb_matrix_set_color(LED_O, RGB_RED);
+        rgb_matrix_set_color(LED_RALT, RGB_RED);
+        rgb_matrix_set_color(LED_FN, RGB_OFFBLUE);
+        rgb_matrix_set_color(LED_RCTL, RGB_RED);
         rgb_matrix_set_color(LED_BSLS, RGB_RED);
-        rgb_matrix_set_color(LED_CAPS, RGB_RED);
-        rgb_matrix_set_color(LED_N, RGB_RED);
-        rgb_matrix_set_color(LED_COMM, RGB_RED);
-        rgb_matrix_set_color(LED_DOT, RGB_RED);
-        rgb_matrix_set_color(LED_PGUP, RGB_RED);
-        rgb_matrix_set_color(LED_PGDN, RGB_RED);
-        rgb_matrix_set_color(LED_END, RGB_RED);
-        rgb_matrix_set_color(LED_UP, RGB_RED);
+        rgb_matrix_set_color(LED_L1, RGB_RED);
+        rgb_matrix_set_color(LED_L2, RGB_RED);
+        rgb_matrix_set_color(LED_L3, RGB_RED);
+        rgb_matrix_set_color(LED_L4, RGB_RED);
+        rgb_matrix_set_color(LED_L5, RGB_RED);
+        rgb_matrix_set_color(LED_L6, RGB_RED);
+        rgb_matrix_set_color(LED_L7, RGB_RED);
+        rgb_matrix_set_color(LED_L8, RGB_RED);
         rgb_matrix_set_color(LED_DOWN, RGB_RED);
         rgb_matrix_set_color(LED_LEFT, RGB_RED);
         rgb_matrix_set_color(LED_RIGHT, RGB_RED);
-
+        rgb_matrix_set_color(LED_R1, RGB_RED);
+        rgb_matrix_set_color(LED_R2, RGB_RED);
+        rgb_matrix_set_color(LED_R3, RGB_RED);
+        rgb_matrix_set_color(LED_R4, RGB_RED);
+        rgb_matrix_set_color(LED_R5, RGB_RED);
+        rgb_matrix_set_color(LED_R6, RGB_RED);
+        rgb_matrix_set_color(LED_R7, RGB_RED);
+        rgb_matrix_set_color(LED_R8, RGB_RED);
+		
         /*  FN layer for reference:
               ESC		F1		F2		F3		  F4		F5		F6		 F7		  F8		F9		F10		F11		  F12	   DEL
             _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_CALC,          _______,
