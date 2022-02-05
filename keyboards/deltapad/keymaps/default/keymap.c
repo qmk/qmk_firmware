@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 static uint32_t rgb_preview_timer = 0;
 #endif
-extern rgblight_config_t rgblight_config;
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
