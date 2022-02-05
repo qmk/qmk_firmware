@@ -4,3 +4,4 @@ Tested on:
 
 * Planck/rev4
 * Jotanck
+* Kprepublic bm40hrgb

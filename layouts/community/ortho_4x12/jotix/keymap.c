@@ -4,14 +4,21 @@ enum layers {
   _QWERTY,
   _LOWER,
   _RAISE,
+  _NUMPAD,
+  _MOUSE,
+  _ADJUST,
 };
 
-#define LOWER   MO(_LOWER)
-#define RAISE   MO(_RAISE)
+#define LOWER  MO(_LOWER)
+#define RAISE  MO(_RAISE)
+#define NUMPAD TG(_NUMPAD)
+#define MOUSE  TG(_MOUSE)
+#define ADJUST MO(_ADJUST)
 
-static bool is_ctl_pressed;
-static bool is_esc_pressed;
-static bool is_bspc_pressed;
+#define RGB_M_1 RGB_MODE_PLAIN
+#define RGB_M_2 RGB_MODE_BREATHE
+#define RGB_M_3 RGB_MODE_RAINBOW
+#define RGB_M_4 RGB_MODE_SWIRL
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -33,9 +40,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
     _______,KC_VOLD,KC_MUTE,KC_VOLU,DM_PLY1,DM_REC1,DM_RSTP,KC_PSCR,KC_SLCK,KC_PAUS,_______,_______,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-    _______,KC_MPRV,KC_MPLY,KC_MNXT,DM_PLY2,DM_REC2,KC_INS, KC_APP, _______,_______,_______,_______,
+    _______,KC_MPRV,KC_MPLY,KC_MNXT,DM_PLY2,DM_REC2,DM_RSTP,KC_INS, _______,_______,_______,_______,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+    _______,_______,_______,ADJUST, _______,_______,_______,_______,_______,_______,_______,_______
 // └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
 ),
 
@@ -50,12 +57,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END
 // └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
 ),
+
+
+[_NUMPAD] = LAYOUT_ortho_4x12 (
+// ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+    NUMPAD, _______,_______,_______,_______,_______,_______,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    KC_NLCK,_______,_______,_______,_______,_______,_______,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,KC_P1,  KC_P2,  KC_P3,  KC_PSLS,KC_PENT,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,KC_P0,  KC_PDOT,_______,KC_PAST,_______
+// └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
+),
+
+[_MOUSE] = LAYOUT_ortho_4x12 (
+// ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+    MOUSE,  KC_BTN1,KC_MS_U,KC_BTN2,KC_WH_U,_______,_______,KC_BTN1,KC_MS_U,KC_BTN2,KC_WH_U,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,_______,_______,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+// └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
+),
+
+[_ADJUST] = LAYOUT_ortho_4x12 (
+// ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+    _______,RESET,  _______,_______,RGB_TOG,RGB_M_1,RGB_M_2,RGB_M_3,RGB_M_4,RGB_MOD,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,RGB_SAI,_______,_______,_______,RGB_HUI,_______,_______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,RGB_VAI,NUMPAD, MOUSE,  _______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+// └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
+)
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   #ifdef JOTANCK_LEDS
-  writePin(JOTANCK_LED1, (get_highest_layer(state) == _LOWER));
-  writePin(JOTANCK_LED2, (get_highest_layer(state) == _RAISE));
+  writePin(JOTANCK_LED1, (get_highest_layer(state) == _MOUSE));
+  writePin(JOTANCK_LED2, (get_highest_layer(state) == _NUMPAD));
   #endif
   return state;
 }
@@ -68,23 +112,29 @@ bool led_update_user(led_t led_state) {
   return true;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) { 
-    case KC_LCTL:
-      is_ctl_pressed = record->event.pressed;
-      break;
-    case KC_ESC:
-      is_esc_pressed = record->event.pressed;
-      break;
-    case KC_BSPC:
-      is_bspc_pressed = record->event.pressed;
-      break;
-  };
-  return true;
-}
+#ifdef RGB_MATRIX_ENABLE
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+  
+  // Caps Lock indicator on alphanumeric flagged keys:
+  if (host_keyboard_led_state().caps_lock) {
+    for (uint8_t i = led_min; i <= led_max; i++) {
+      if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
+        rgb_matrix_set_color(i, RGB_WHITE);
+      }
+    }
+  }
 
-void matrix_scan_user(void) {
-  if (is_ctl_pressed && is_esc_pressed && is_bspc_pressed) {
-    reset_keyboard();
+  // Layer indicator with only configured keys:
+  if (get_highest_layer(layer_state) > 0) {uint8_t layer = get_highest_layer(layer_state);
+    for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+      for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+        uint8_t index = g_led_config.matrix_co[row][col];
+        if (index >= led_min && index <= led_max && index != NO_LED && 
+          keymap_key_to_keycode(layer, (keypos_t){col,row}) > KC_TRNS) {
+          rgb_matrix_set_color(index, RGB_RED);
+        }
+      }
+    }
   }
 }
+#endif
