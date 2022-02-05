@@ -3,7 +3,7 @@
     "url": "https://github.com/bbrfkr/keyboards",
     "maintainer": "bbrfkr",
     "layouts": {
-        "LAYOUT_ALL_ANSI": {
+        "LAYOUT_ansi": {
             "layout": [
                 {
                     "label": "`",
