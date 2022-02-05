@@ -21,7 +21,7 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x636F
 #define PRODUCT_ID      0x0001
-#define DEVICE_VER      1.0
+#define DEVICE_VER      0x0000
 #define MANUFACTURER    evancook.audio
 #define PRODUCT         tenpad
 
