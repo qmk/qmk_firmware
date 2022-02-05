@@ -14,4 +14,5 @@ ifeq ($(strip $(KEYBOARD)), fractal)
     RGBLIGHT_ENABLE             = yes
     RGBLIGHT_STARTUP_ANIMATION  = yes
     BOOTLOADER                  = qmk-dfu
+    CUSTOM_UNICODE_ENABLE       = no
 endif

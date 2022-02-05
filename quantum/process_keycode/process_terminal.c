@@ -257,12 +257,12 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                     process_terminal_command();
                     return false;
                     break;
-                case KC_ESC:
+                case KC_ESCAPE:
                     SEND_STRING("\n");
                     enable_terminal();
                     return false;
                     break;
-                case KC_BSPC:
+                case KC_BACKSPACE:
                     str_len = strlen(buffer);
                     if (str_len > 0) {
                         buffer[str_len - 1] = 0;
@@ -284,7 +284,7 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                         str_len = strlen(buffer);
                         for (int i = 0; i < str_len; ++i) {
                             send_string(SS_TAP(X_BSPACE));  // clear w/e is on the line already
-                            // process_terminal(KC_BSPC,record);
+                            // process_terminal(KC_BACKSPACE,record);
                         }
                         strncpy(buffer, cmd_buffer[current_cmd_buffer_pos], 80);
 
@@ -299,7 +299,7 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                         str_len = strlen(buffer);
                         for (int i = 0; i < str_len; ++i) {
                             send_string(SS_TAP(X_BSPACE));  // clear w/e is on the line already
-                            // process_terminal(KC_BSPC,record);
+                            // process_terminal(KC_BACKSPACE,record);
                         }
                         strncpy(buffer, cmd_buffer[current_cmd_buffer_pos], 79);
 
@@ -311,7 +311,7 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                 default:
                     if (keycode <= 58) {
                         char_to_add = 0;
-                        if (get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
+                        if (get_mods() & (MOD_BIT(KC_LEFT_SHIFT) | MOD_BIT(KC_RIGHT_SHIFT))) {
                             char_to_add = shifted_keycode_to_ascii_lut[keycode];
                         } else if (get_mods() == 0) {
                             char_to_add = keycode_to_ascii_lut[keycode];

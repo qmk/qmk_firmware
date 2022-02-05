@@ -28,28 +28,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define UNUSED_PINS \
     { C15 }
-// B2 used for BOOT1, has internal pull down?
-// A9 has internal pull-down
-// A11 and A12 are used for USB sense.  DO NOT USE.
 
 #define DIODE_DIRECTION     COL2ROW
 
-#define USB_VBUS_PIN        B10
+// #define USB_VBUS_PIN        B10 // doesn't seem to work for me on one of my controllers... */
 #define SPLIT_HAND_PIN      C14  // high = left, low = right
 
 // WS2812 RGB LED strip input and number of LEDs
 #define RGB_DI_PIN          A1
-#define WS2812_PWM_DRIVER   PWMD5  // default: PWMD2
+#define WS2812_PWM_DRIVER   PWMD2  // default: PWMD2
 #define WS2812_PWM_CHANNEL  2      // default: 2
-#define WS2812_PWM_PAL_MODE 2      // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
+#define WS2812_PWM_PAL_MODE 1      // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
+#define WS2812_EXTERNAL_PULLUP
 //#define WS2812_PWM_COMPLEMENTARY_OUTPUT // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).
-#define WS2812_DMA_STREAM   STM32_DMA1_STREAM0  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-#define WS2812_DMA_CHANNEL  6                   // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#define WS2812_DMA_STREAM   STM32_DMA1_STREAM7  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#define WS2812_DMA_CHANNEL  3                   // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#define WS2812_PWM_TARGET_PERIOD 800000
 
-#define RGBLED_NUM          20
+
+#define RGBLED_NUM          52
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT \
-    { 10, 10 }
+    { 26, 26 }
 
 #define DEBUG_LED_PIN      C13
 
@@ -69,15 +69,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_RX_PAL_MODE 7    // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_TIMEOUT     100  // USART driver timeout. default 100
 
+
+#define CRC8_USE_TABLE
+#define CRC8_OPTIMIZE_SPEED
+
 /* i2c config for oleds */
 #define I2C_DRIVER        I2CD1
-#define I2C1_SCL_BANK     GPIOB
-#define I2C1_SDA_BANK     GPIOB
-#define I2C1_SCL          8
-#define I2C1_SDA          9
+#define I2C1_SCL_PIN      B8
+#define I2C1_SDA_PIN      B9
 #define I2C1_SCL_PAL_MODE 4
 #define I2C1_SDA_PAL_MODE 4
-#define I2C1_CLOCK_SPEED  400000
+// #define I2C1_CLOCK_SPEED  400000
 
 /* encoder config */
 #define ENCODERS_PAD_A \
@@ -96,13 +98,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* eeprom config */
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
-#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    8
+#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    64
 // #define EXTERNAL_EEPROM_BYTE_COUNT           8196
 // #define EXTERNAL_EEPROM_PAGE_SIZE            32
 // #define EXTERNAL_EEPROM_ADDRESS_SIZE         2
 // #define DEBUG_EEPROM_OUTPUT
 
+#ifdef EEPROM_SPI
+#    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8195
+#endif
+
 /* pmw3360 config  */
 #define PMW3360_CS_PIN                       B0
 #define PMW3360_SPI_MODE                     3
-#define PMW3360_SPI_DIVISOR                  4
+#define PMW3360_SPI_DIVISOR                  64
+#define PMW3360_FIRMWARE_UPLOAD_FAST

@@ -10,6 +10,7 @@ It is used on his
 * [Sentraq S60-X RGB](https://github.com/qmk/qmk_firmware/tree/master/keyboards/s60_x)
 * [Waldo](https://github.com/qmk/qmk_firmware/tree/master/keyboards/waldo)
 * [Zeal60 Rev4](https://github.com/qmk/qmk_firmware/tree/master/keyboards/zeal60)  
+* [AN-C](https://github.com/qmk/qmk_firmware/tree/master/keyboards/cannonkeys/an_c)
 
 ## Keymap Notes
 - Highly influenced by the KBP V60 and WKL B.Face standard layouts

@@ -5,7 +5,7 @@
     "debounce": 5,
     "processor": "MKL26Z64",
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic": true,
         "extrakey": true,
         "mousekey": true
     },
@@ -23,7 +23,7 @@
             ["LINE_PIN9",  null,         "LINE_PIN16"],
             ["LINE_PIN10", null,         "LINE_PIN15"],
             ["LINE_PIN11", null,         "LINE_PIN14"],
-            ["LINE_PIN12", "E30",        "LINE_PIN13"],
+            ["LINE_PIN12", "E30",        "LINE_PIN13"]
         ]
     },
     "usb": {

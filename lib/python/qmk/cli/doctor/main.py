@@ -11,7 +11,7 @@ from milc.questions import yesno
 from qmk import submodules
 from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM
 from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules
-from qmk.commands import git_check_repo, git_get_branch, git_is_dirty, git_get_remotes, git_check_deviation, in_virtualenv
+from qmk.commands import git_check_repo, git_get_branch, git_get_tag, git_is_dirty, git_get_remotes, git_check_deviation, in_virtualenv
 
 
 def os_tests():
@@ -47,6 +47,11 @@ def git_tests():
         git_branch = git_get_branch()
         if git_branch:
             cli.log.info('Git branch: %s', git_branch)
+
+            repo_version = git_get_tag()
+            if repo_version:
+                cli.log.info('Repo version: %s', repo_version)
+
             git_dirty = git_is_dirty()
             if git_dirty:
                 cli.log.warning('{fg_yellow}Git has unstashed/uncommitted changes.')
@@ -79,12 +84,13 @@ def doctor(cli):
     cli.log.info('CLI version: %s', cli.version)
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
-    status = os_tests()
+    status = os_status = os_tests()
+    git_status = git_tests()
 
-    status = git_tests()
+    if git_status == CheckStatus.ERROR or (os_status == CheckStatus.OK and git_status == CheckStatus.WARNING):
+        status = git_status
 
-    venv = in_virtualenv()
-    if venv:
+    if in_virtualenv():
         cli.log.info('CLI installed in virtualenv.')
 
     # Make sure the basic CLI tools we need are available and can be executed.

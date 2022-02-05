@@ -37,7 +37,7 @@ sudo udevadm trigger
 **Reset Key**: Hold down key nearest to the USB socket while plugging in the keyboard.
 
 ```bash
-make xd002:default:flash
+make xiudi/xd002:default:flash
 
 # or directly with...
 micronucleus --run <firmware.hex>

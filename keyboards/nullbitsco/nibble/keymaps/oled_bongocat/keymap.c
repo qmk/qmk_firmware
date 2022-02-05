@@ -155,7 +155,7 @@ static void render_anim(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_anim();
     oled_set_cursor(0, 14);
 
@@ -168,6 +168,8 @@ void oled_task_user(void) {
     wpm_counter[1] = '0';
     wpm_counter[0] = '>';
     oled_write_ln(wpm_counter, false);
+
+    return false;
 }
 #endif
 

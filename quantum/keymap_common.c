@@ -56,7 +56,7 @@ action_t action_for_keycode(uint16_t keycode) {
 
     switch (keycode) {
         case KC_A ... KC_EXSEL:
-        case KC_LCTRL ... KC_RGUI:
+        case KC_LEFT_CTRL ... KC_RIGHT_GUI:
             action.code = ACTION_KEY(keycode);
             break;
 #ifdef EXTRAKEY_ENABLE
@@ -72,7 +72,7 @@ action_t action_for_keycode(uint16_t keycode) {
             action.code = ACTION_MOUSEKEY(keycode);
             break;
 #endif
-        case KC_TRNS:
+        case KC_TRANSPARENT:
             action.code = ACTION_TRANSPARENT;
             break;
         case QK_MODS ... QK_MODS_MAX:;

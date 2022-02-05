@@ -16,10 +16,6 @@
 
 #include "drashna.h"
 
-#ifndef UNICODE_ENABLE
-#    define UC(x) KC_NO
-#endif
-
 enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
 
 // clang-format off
@@ -32,10 +28,10 @@ enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
     ) \
     LAYOUT_moonlander_wrapper( \
         KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,        UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS, \
-        KC_TAB,  K01,     K02,     K03,     K04,     K05,   TG_DBLO,TG_DBLO,   K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-        KC_C1R3, K11,     K12,     K13,     K14,     K15,  TG_GAME,TG_GAME,  K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
+        KC_TAB,  K01,     K02,     K03,     K04,     K05,     TG_DBLO,        TG_DBLO, K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
+        KC_C1R3, K11,     K12,     K13,     K14,     K15,     TG_GAME,        TG_GAME, K16,     K17,     K18,     K19,     K1A,     RALT_T(K1B), \
         KC_MLSF, CTL_T(K21), K22,  K23,     K24,     K25,                              K26,     K27,     K28,     K29,  RCTL_T(K2A),KC_MRSF, \
-        KC_GRV,  OS_MEH,  OS_HYPR, KC_LBRC, KC_RBRC,          KC_NO,          KC_DEL,           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E), \
+        KC_GRV,  OS_MEH,  OS_HYPR, KC_LBRC, KC_RBRC,          UC_CLUE,        KC_DEL,           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC_IRNY, \
                                             KC_SPC,  BK_LWER, OS_LALT,        OS_RGUI, DL_RAIS, KC_ENT \
     )
 
@@ -67,20 +63,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [_GAMEPAD] = LAYOUT_moonlander_wrapper(
-        KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_4, HYPR(KC_Q),                 KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,
-        KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                    UC_SHRG, UC_DISA, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,    KC_TRNS,            TG_GAME, KC_I,    KC_O,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,                                      KC_N,    KC_M,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_ESC,  XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4, HYPR(KC_Q),                 _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, KC_NO,
+        KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                    UC_SHRG, UC_DISA, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,    _______,            TG_GAME, KC_I,    KC_O,    XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,                                      KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
         KC_GRV,  KC_U,    KC_I,    KC_Y,    KC_T,             KC_PSCR,                 _______,          KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
-                                            KC_V,    KC_SPC,  KC_H,                    KC_NO, KC_NO,  KC_SWAP_NUM
+                                            KC_V,    KC_SPC,  KC_H,                    KC_NO, XXXXXXX,KC_SWAP_NUM
     ),
     [_DIABLO] = LAYOUT_moonlander_wrapper(
-        KC_ESC,  KC_V,    KC_D,    KC_LALT, KC_NO,   KC_NO,   KC_NO,                   KC_TRNS, KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_NO,
-        KC_TAB,  KC_S,    KC_I,    KC_F,    KC_M,    KC_T,    KC_TRNS,                 KC_TRNS, KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_NO,   KC_1,    KC_2,    KC_3,    KC_4,    KC_G,    KC_TRNS,                 KC_TRNS, KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_LCTL, KC_D3_1, KC_D3_2, KC_D3_3, KC_D3_4, KC_Z,                                      KC_N,    KC_M,     KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        KC_NO,   KC_NO,   KC_L,    KC_J,    KC_F,             KC_PSCR,                 KC_NO,            KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_ESC,  KC_V,    KC_D,    KC_LALT, XXXXXXX, XXXXXXX, XXXXXXX,                 _______, KC_F9,   KC_F10,   KC_F11,  KC_F12,  XXXXXXX, KC_NO,
+        KC_TAB,  KC_S,    KC_I,    KC_F,    KC_M,    KC_T,    _______,                 _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4,    KC_G,    XXXXXXX,                 _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        KC_LCTL, KC_D3_1, KC_D3_2, KC_D3_3, KC_D3_4, KC_Z,                                      KC_N,    KC_M,     XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        XXXXXXX, XXXXXXX, KC_L,    KC_J,    KC_F,             KC_PSCR,                 XXXXXXX,          XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
                           KC_DIABLO_CLEAR,  SFT_T(KC_SPACE),  ALT_T(KC_Q),             KC_PGDN, KC_DEL,  KC_ENT
+    ),
+    [_DIABLOII] = LAYOUT_moonlander_wrapper(
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_GRV,  XXXXXXX,                 _______, KC_F9,   KC_F10,   KC_F11,  KC_F12,  XXXXXXX, KC_NO,
+        KC_TAB,  KC_A,    KC_T,    KC_Q,    KC_I,    KC_M,    TG(_DIABLOII),           _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        KC_S,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,                 _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        KC_LCTL, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                                    KC_N,    KC_M,     XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+        XXXXXXX, XXXXXXX, KC_G,    KC_F,    KC_L,             KC_V,                    XXXXXXX,          XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
+                                            KC_G,    KC_LSFT, KC_LCTL,                 KC_PGDN, KC_DEL,  KC_ENT
     ),
 
     [_LOWER] = LAYOUT_moonlander_wrapper(
@@ -102,12 +106,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_ADJUST] = LAYOUT_moonlander_wrapper(
-        KC_MAKE, _________________FUNC_LEFT_________________, UC_MOD,         KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
-        VRSN,    _________________ADJUST_L1_________________, _______,        _______, _________________ADJUST_R1_________________, EEP_RST,
-        _______, _________________ADJUST_L2_________________, _______,        _______, _________________ADJUST_R2_________________, RGB_IDL,
-        _______, _________________ADJUST_L3_________________,                          _________________ADJUST_R3_________________, TG_MODS,
-        _______, _______, _______, _______, _______,          _______,        _______,          _______, _______, _______, _______, KC_PAUS,
-                                            _______, _______, _______,        _______, _______, _______
+        KC_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_NOMODE,_______,   KC_NUKE,KC_NOMODE,KC_BLOCKS,KC_REGIONAL,_______,_______, KC_RST,
+        VRSN,    _________________ADJUST_L1_________________, TG(_DIABLOII),  _______, _________________ADJUST_R1_________________, EEP_RST,
+        KEYLOCK, _________________ADJUST_L2_________________, _______,        _______, _________________ADJUST_R2_________________, RGB_IDL,
+        UC_MOD,  _________________ADJUST_L3_________________,                          _________________ADJUST_R3_________________, TG_MODS,
+        _______, _______, _______, _______, _______,          _______,        _______,          _______, _______, _______, _______, AUTO_CTN,
+                                            REBOOT,  _______, _______,        _______, _______, _______
     ),
 };
 
@@ -160,7 +164,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     if (layer_state_is(_GAMEPAD)) {
         RGB_MATRIX_INDICATOR_SET_COLOR(11, 0x00, 0xFF, 0x00);  // Q
         RGB_MATRIX_INDICATOR_SET_COLOR(16, 0x00, 0xFF, 0xFF);  // W
@@ -176,37 +180,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         RGB_MATRIX_INDICATOR_SET_COLOR(20, 0x7A, 0x00, 0xFF);                                          // 3
     }
 
-    if (userspace_config.rgb_layer_change) {
-        switch (get_highest_layer(layer_state|default_layer_state)) {
-            case _DEFAULT_LAYER_1:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DEFAULT_LAYER_2:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DEFAULT_LAYER_3:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DEFAULT_LAYER_4:
-                rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, 0, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-        }
-    }
+    return true;
 }
 #endif
 

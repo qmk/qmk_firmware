@@ -22,8 +22,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-void    analogReference(uint8_t mode);
-int16_t analogRead(uint8_t pin);
+void analogReference(uint8_t mode);
 
 int16_t analogReadPin(pin_t pin);
 uint8_t pinToMux(pin_t pin);

@@ -15,6 +15,14 @@
  */
 #include QMK_KEYBOARD_H
 
+#define LAYOUT_via( \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
+    k00_a, k00_b, k01_a, k01_b, k02_a, k02_b    \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b }, \
+    { k00_a, k00_b, k01_a, k01_b, k02_a, k02_b }  \
+}
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_via(
