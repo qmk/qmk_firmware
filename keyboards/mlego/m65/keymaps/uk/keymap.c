@@ -262,24 +262,15 @@ adj layer
 };
 // clang-format on
 
-// let us assume we start with both layers off
-static bool toggle_lwr = false;
-static bool toggle_rse = false;
-
 bool led_update_user(led_t led_state) {
     // Disable the default LED update code, so that lock LEDs could be reused to show layer status.
     return false;
 }
 
 void matrix_scan_user(void) {
-    led_lwr(toggle_lwr);
-    led_rse(toggle_rse);
-    led_t led_state = host_keyboard_led_state();
-    led_caps(led_state.caps_lock);
-    if (layer_state_is(_ADJ)) {
-        led_lwr(true);
-        led_rse(true);
-    }
+
+    toggle_leds();
+
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -294,13 +285,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         case (TT(_LWR)):
             if (!record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
                 // This runs before the TT() handler toggles the layer state, so the current layer state is the opposite of the final one after toggle.
-                toggle_lwr = !layer_state_is(_LWR);
+                set_led_toggle(_LWR, !layer_state_is(_LWR));
             }
             return true;
             break;
         case (TT(_RSE)):
             if (record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
-                toggle_rse = !layer_state_is(_RSE);
+                set_led_toggle(_RSE, !layer_state_is(_RSE));
             }
             return true;
             break;

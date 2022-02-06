@@ -126,6 +126,9 @@ void init_timer(void);
 #endif
 
 
+void toggle_leds(void);
+void set_led_toggle(const uint8_t, const bool);
+
 static inline void led_lwr(const bool on) {
 #ifdef LED_NUM_LOCK_PIN
     writePin(LED_NUM_LOCK_PIN, on);

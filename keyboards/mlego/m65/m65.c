@@ -17,7 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "m65.h"
 
+// let us assume we start with both layers off
+static bool toggle_lwr = false;
+static bool toggle_rse = false;
+
 #ifdef OLED_ENABLE
+
 static uint32_t oled_logo_timer = 0;
 static bool clear_logo = true;
 static const char PROGMEM m65_logo[] = {
@@ -26,6 +31,39 @@ static const char PROGMEM m65_logo[] = {
     0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
     0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
     0};
+
+#endif
+
+
+void set_led_toggle(const uint8_t layer, const bool state){
+
+    switch (layer) {
+        case _LWR:
+          toggle_lwr = state;
+          break;
+        case _RSE:
+          toggle_rse = state;
+          break;
+        default:
+          break;
+    }
+}
+
+void toggle_leds(void){
+
+    led_lwr(toggle_lwr);
+    led_rse(toggle_rse);
+    led_t led_state = host_keyboard_led_state();
+    led_caps(led_state.caps_lock);
+    if (layer_state_is(_ADJ)) {
+        led_lwr(true);
+        led_rse(true);
+    }
+
+}
+
+
+#ifdef OLED_ENABLE
 
 void init_timer(void){
    oled_logo_timer = timer_read32();
