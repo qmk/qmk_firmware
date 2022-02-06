@@ -63,7 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 
-#define RGB_DI_PIN E2
+#define RGB_DI_PIN B6
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 96       /* 16 underglow LEDs, 80 top LEDs */
