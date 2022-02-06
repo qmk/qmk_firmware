@@ -186,7 +186,8 @@ void clear_screen(void) {
 }
 
 #    define SHOW_LOGO 5000
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
     if ((timer_elapsed32(oled_logo_timer) < SHOW_LOGO)){
         render_logo();
     }else{
