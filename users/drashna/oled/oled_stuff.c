@@ -629,7 +629,7 @@ __attribute__((weak)) void oled_driver_render_logo_right(void) {
 
 //#define ANIM_FRAME_DURATION 500 // how long each frame lasts in ms
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
-#define OLED_ANIM_SIZE 32  // number of bytes in array, minimize for adequate firmware size, max is 1024
+#define OLED_ANIM_SIZE 36
 #define OLED_ANIM_ROWS 4
 #define OLED_ANIM_MAX_FRAMES 3
 #if (OLED_SLEEP_FRAMES > OLED_ANIM_MAX_FRAMES) || (OLED_WAKE_FRAMES > OLED_ANIM_MAX_FRAMES) || (OLED_KAKI_FRAMES > OLED_ANIM_MAX_FRAMES) || (OLED_RTOGI_FRAMES > OLED_ANIM_MAX_FRAMES)
