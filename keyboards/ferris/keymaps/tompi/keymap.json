@@ -131,8 +131,8 @@
       "KC_NO",
       "KC_TRNS",
       "KC_HASH",
-      "KC_TILD",
-      "KC_SLSH",
+      "KC_QUOT",
+      "KC_EXLM",
       "KC_DQUO",
       "KC_DLR",
       "KC_TRNS",
@@ -141,9 +141,9 @@
       "KC_TRNS",
       "KC_TRNS",
       "KC_TRNS",
-      "KC_MINS",
-      "KC_BSLS",
-      "KC_GRV",
+      "KC_QUOT",
+      "KC_SCLN",
+      "KC_LBRC",
       "KC_TRNS",
       "RGB_RMOD",
       "KC_TRNS",
@@ -295,5 +295,5 @@
       "KC_TRNS"
     ]
   ],
-  "author": "@pierrec83"
+  "author": "thomas.haukland@gmail.com"
 }
