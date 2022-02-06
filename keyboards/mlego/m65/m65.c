@@ -185,6 +185,10 @@ void clear_screen(void) {
     }
 }
 
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_180;
+}
+
 #    define SHOW_LOGO 5000
 bool oled_task_kb(void) {
     if (!oled_task_user()) { return false; }

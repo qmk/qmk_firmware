@@ -117,30 +117,3 @@ void keyboard_post_init_user(void) {
 
 #endif
 }
-
-#ifdef ENCODER_ENABLE
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-
-    if (!encoder_update_user(index,clockwise)) {
-      return false;
-    }
-    return true;
-}
-
-#endif
-
-#ifdef OLED_ENABLE
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-}
-
-bool oled_task_kb(void) {
-    if (!oled_task_user()) {
-        return false;
-    }
-    return true;
-}
-
-#endif
