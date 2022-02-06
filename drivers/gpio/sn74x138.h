@@ -40,7 +40,7 @@ void sn74x138_set_enabled(bool enabled);
 
 /**
  * Set the output pin address.
- * 
+ *
  * The selected output pin will be pulled low, while the remaining output pins will be high.
  *
  * \param address The address to set, from 0 to 7.
