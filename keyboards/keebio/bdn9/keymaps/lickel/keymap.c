@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-#ifdef RGBLIGHT_ANIMATIONS
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     uint8_t layer = get_highest_layer(state);
 
     switch (layer) {
@@ -71,27 +71,27 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
         case _XCODE:
             rgblight_sethsv_noeeprom(HSV_BLUE);
-#    ifdef RGB_MATRIX_ENABLE
+#    if defined(RGB_MATRIX_ENABLE) && defined(ENABLE_RGB_MATRIX_BREATHING)
             rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-#    else
+#    elif defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_EFFECT_BREATHING)
             rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 1);
 #    endif
             break;
 
         case _CUST1:
             rgblight_sethsv_noeeprom(HSV_GREEN);
-#    ifdef RGB_MATRIX_ENABLE
+#    if defined(RGB_MATRIX_ENABLE) && defined(ENABLE_RGB_MATRIX_BREATHING)
             rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-#    else
+#    elif defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_EFFECT_BREATHING)
             rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 1);
 #    endif
             break;
 
         case _CUST2:
             rgblight_sethsv_noeeprom(HSV_PURPLE);
-#    ifdef RGB_MATRIX_ENABLE
+#    if defined(RGB_MATRIX_ENABLE) && defined(ENABLE_RGB_MATRIX_BREATHING)
             rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-#    else
+#    elif defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_EFFECT_BREATHING)
             rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 1);
 #    endif
             break;
@@ -107,7 +107,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t layer = get_highest_layer(layer_state);
 
     switch (layer) {
-#ifdef RGBLIGHT_ANIMATIONS
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
         case 0:  // Reset
             if (index == _LEFT) {
                 if (clockwise) {
