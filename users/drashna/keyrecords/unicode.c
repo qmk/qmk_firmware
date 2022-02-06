@@ -8,6 +8,11 @@
 
 uint16_t typing_mode;
 
+/**
+ * @brief Registers the unicode keystrokes based on desired unicode
+ *
+ * @param glyph Unicode character, supports up to 0x1FFFF (or higher)
+ */
 void tap_unicode_glyph_nomods(uint32_t glyph) {
     uint8_t temp_mod = get_mods();
     clear_mods();
@@ -43,6 +48,15 @@ typedef uint32_t (*translator_function_t)(bool is_shifted, uint32_t keycode);
         return ret;                                                             \
     }
 
+/**
+ * @brief Handler function for outputting unicode.
+ *
+ * @param keycode Keycode from matrix.
+ * @param record keyrecord_t data structure
+ * @param translator translator lut for different unicode modes
+ * @return true Continue processing matrix press, and send to host
+ * @return false Replace keycode, and do not send to host
+ */
 bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, translator_function_t translator) {
     uint8_t temp_mod   = get_mods();
     uint8_t temp_osm   = get_oneshot_mods();
@@ -167,7 +181,6 @@ bool process_record_aussie(uint16_t keycode, keyrecord_t *record) {
 bool process_record_zalgo(uint16_t keycode, keyrecord_t *record) {
     if ((KC_A <= keycode) && (keycode <= KC_0)) {
         if (record->event.pressed) {
-
             tap_code16_nomods(keycode);
 
             int number = (rand() % (8 + 1 - 2)) + 2;
@@ -181,6 +194,15 @@ bool process_record_zalgo(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+/**
+ * @brief Main handler for unicode input
+ *
+ * @param keycode Keycode from switch matrix
+ * @param record keyrecord_t data struture
+ * @return true Send keycode from matrix to host
+ * @return false Stop processing and do not send to host
+ */
 
 bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -262,9 +284,11 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
     } else if (typing_mode == KC_ZALGO) {
         return process_record_zalgo(keycode, record);
     }
-    return process_unicode_common(keycode, record);
+    return true;
 }
 
-void matrix_init_unicode(void) {
-    unicode_input_mode_init();
-}
+/**
+ * @brief Initialize the default unicode mode on firmware startu
+ *
+ */
+void matrix_init_unicode(void) { unicode_input_mode_init(); }
