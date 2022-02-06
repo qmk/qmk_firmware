@@ -17,17 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#ifdef RGBLIGHT_ENABLE
-
-const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_PURPLE});
-const rgblight_segment_t PROGMEM my_lwr_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_CYAN});
-const rgblight_segment_t PROGMEM my_rse_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_RED});
-const rgblight_segment_t PROGMEM my_adj_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_GREEN});
-
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_qwerty_layer, my_lwr_layer, my_rse_layer, my_adj_layer);
-
-#endif
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -96,10 +85,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #ifdef RGBLIGHT_ENABLE
 
-    rgblight_set_layer_state(0, layer_state_cmp(state, _QW));
-    rgblight_set_layer_state(1, layer_state_cmp(state, _LWR));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _RSE));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _ADJ));
+    set_rgb_layers(state);
 
 #endif
 
@@ -109,7 +95,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _QW));
+    set_default_rgb_layers(state);
     return state;
 }
 
@@ -120,7 +106,7 @@ void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
 
     // Enable the LED layers
-    rgblight_layers = my_rgb_layers;
+    rgblight_layers = my_rgb();
 
 #endif
 
