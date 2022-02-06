@@ -82,11 +82,9 @@ ifeq ("$(PLATFORM_NAME)","")
     PLATFORM_NAME = platform
 endif
 
+PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
 ifeq ("$(wildcard $(PLATFORM_MK))","")
-    PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
-    ifeq ("$(wildcard $(PLATFORM_MK))","")
-        PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
-    endif
+PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
 endif
 
 include $(STARTUP_MK)
@@ -215,6 +213,31 @@ endif
 # Linker script selection.
 ##############################################################################
 
+CONFDIR = $(HALCONFDIR)
+
+# HAL-OSAL files (optional).
+include $(CHIBIOS)/os/hal/hal.mk
+
+ifeq ("$(PLATFORM_NAME)","")
+	PLATFORM_NAME = platform
+endif
+
+include $(BOARD_MK)
+-include $(CHIBIOS)/os/hal/osal/rt/osal.mk         # ChibiOS <= 19.x
+-include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk     # ChibiOS >= 20.x
+# RTOS files (optional).
+include $(CHIBIOS)/os/rt/rt.mk
+# Compability with old version
+
+# Other files (optional).
+include $(CHIBIOS)/os/hal/lib/streams/streams.mk
+
+RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
+ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
+RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
+endif
+
+# Define linker script file here
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/ld/$(MCU_LDSCRIPT).ld)","")

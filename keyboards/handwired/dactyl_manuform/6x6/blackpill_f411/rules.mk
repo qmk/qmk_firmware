@@ -5,7 +5,7 @@
 MCU = STM32F411
 
 # Bootloader selection
-BOOTLOADER = tinyuf2
+BOOTLOADER = uf2-tinyuf2
 
 # Build Options
 #   change yes to no to disable

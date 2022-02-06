@@ -300,13 +300,13 @@ Flashing sequence:
 
 Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on the F401/F411 blackpill.
 
-The `rules.mk` setting for this bootloader is `tinyuf2`, and can be specified at the keymap or user level.
+The `rules.mk` setting for this bootloader is `uf2-tinyuf2`, and can be specified at the keymap or user level.
 
 To ensure compatibility with the tinyuf2 bootloader, make sure this block is present in your `rules.mk`:
 
 ```make
 # Bootloader selection
-BOOTLOADER = tinyuf2
+BOOTLOADER = uf2-tinyuf2
 ```
 
 Compatible flashers:
