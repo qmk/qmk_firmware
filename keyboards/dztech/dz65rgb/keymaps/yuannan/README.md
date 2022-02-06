@@ -22,22 +22,23 @@
 	- Deleting from cursor to start of line
 	- Deleting form cursor to end of line
 6. VIA support.
-7. Improved granularity of the RGB Matrix now with steps of 8/256 (32 steps!)
-8. The default toggle for RGB now sets the matrix to be on low brightness. Why? If the matrix is completely toggled off then the indicators for Caps Locks and FN are also completely off. You can completely turn it off by pressing shift while processing the "RGB_TOG" keycode. (It is {FN1+FN2+Shift+Space} on this keymap, also read "Note Autoclick".)
+7. Improved granularity of the RGB Matrix. Now with steps of 8/256, which is 32 steps!
+8. The default toggle for RGB now sets the matrix to be on low brightness. Why? If the matrix is completely toggled off then the indicators for Caps Locks and FN are also completely off. You can completely turn it off by pressing shift while processing the "RGB_TOG" keycode. (It is {FN1+FN2+Shift+Space} on this keymap.)
 9. Disabled some effects to free up more space.
 
 ### Notes
 
-#### Note Autoclick
-The RGB animation on the board actually eats a lot of CPU cycles. Enough to actually put a massive dent in the clicks per second output. So if you wish for optimal CPS then disable the RGB. Even you set the brightness all the way down to 0 the animation code will still run. This is true as of (2022/01/02), I hope someone may fix this so if the brightness is set to 0 it will not run the animations. In the meantime I have created a second array of delays for the autoclicker while RGB mode is active. Users should note there is yet another caveat to this. Because of  the FN layer indicator setting it's own colour the animation does not compute it for that key. When your FN layers are mostly populated like it is on this keymap it actually speeds up the animation compute time by a lot because the animation does not need to compute the static colors for that layer. I could compensate for this once again but it'll be a chase into oblivion.
+#### Note Autoclicker Speed
 
-TL;DR: The CPS is not accurate and it **CANNOT** be while the RGB lighting is on! Setting brightness to 0 is not the same, it needs to be off COMPLETELY. It is {FN1+FN2+Shift+Space} on this keymap. (Read Feature #8)
+The click events are now programmed with the new Deferred Execution API (https://docs.qmk.fm/#/custom_quantum_functions?id=deferred-execution).
+
+While it's programmed to input with a delay of 1ms (500CPS), the result will vary depending on your board and host. This is a massive improvment compared to timer based events. This new API is much faster and will work with less interference from other tasks on the board.
 
 #### Note Autoclick Linux libinput (Linux autoclicker not working)
 
-Linux's input driver (libinput) has a debounce feature. This is useful in normal usage as a person cannot feasibly click more than 20CPS. However when the keyboard tries to input 50+CPS and sometimes up to 500~1000CPS this is a problem.
+Linux's input driver (libinput) has a debounce feature. This is useful in normal usage as a person cannot feasibly click more than 20CPS. However when the keyboard tries to input 50+CPS and sometimes up to ~500CPS this is a problem.
 
-Create a file at "/etc/libinput/local-overrides.quirks" with the content:
+Create a file at "/etc/libinput/local-overrides.quirks" with the contents:
 
 	[Never Debounce]
 	MatchUdevType=mouse
@@ -53,14 +54,15 @@ If it is using libinput then it will show contents. Otherwise search for "evdev"
 
 Check if the events are reaching your OS with either:
 
-	$cat /dev/input/by-id/YOUR_KEYBOARD
+	$evtest /dev/input/by-id/YOUR_KEYBOARD
+
 or
 
-	$evtest /dev/input/by-id/YOUR_KEYBOARD
+	$cat /dev/input/by-id/YOUR_KEYBOARD
 
 It should end in `event-mouse`. In my case it was `/dev/input/by-id/usb-DZTECH_DZ65RGBV3-if02-event-mouse` which was a symlink to `/dev/input/event12`. It **WILL** vary on your setup.
 
-The output will appear "garbled" as it's trying to interoperate binary into text. The underlying data is actually a struct of the form
+The output will appear "garbled" as it's trying to interoperate the data stream into text. The underlying data is actually a struct of the form:
 
 	struct input_event {
 		struct timeval time;
@@ -78,4 +80,5 @@ View libinput with:
 	$libinput debug-events --device  /dev/input/by-id/usb-DZTECH_DZ65RGBV3-if02-event-mouse --verbose
 
 If you experience "DEBOUNCE" events then it's a driver issue and should be able to be disabled with the above method, restart your display manager or just reboot afterwards.
-If you have any issues feel free to make bug report or pull request to me, QMK, or libinput.
+
+If you have any issues feel free to make bug report or pull request to me, QMK, or libinput. Please send logs along with any steps you have tried.

@@ -66,20 +66,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #define CLICKSPEEDS 5
-const uint16_t clickspeed_sets[2][CLICKSPEEDS] = {{1000, 99, 49, 19, 0}, {1000, 87, 42, 14, 0}};
+const uint16_t clickspeed_sets[CLICKSPEEDS] = {1000, 100, 50, 20, 1};
 uint16_t clickspeed_set = CLICKSPEEDS - 1;
-bool autoclick = false;
-bool rapid_burst = false;
-uint16_t autoclick_timer = 0;
-
-void matrix_scan_user(void) {
-    if (rapid_burst){
-        tap_code(KC_BTN1);
-    } else if (autoclick && timer_elapsed(autoclick_timer) > (clickspeed_sets[rgb_matrix_is_enabled()][clickspeed_set])) {
-		tap_code(KC_BTN1);
-		autoclick_timer = timer_read();
-    }
-}
+deferred_token autoclick_token = INVALID_DEFERRED_TOKEN;
+bool rapid = false;
 
 void decrement_click_speed(void){
 	clickspeed_set += CLICKSPEEDS - 1;
@@ -91,29 +81,47 @@ void increment_click_speed(void){
 	clickspeed_set %= CLICKSPEEDS;
 }
 
-bool low_brightness = false;
+uint32_t autoclick_callback(uint32_t trigger_time, void *cb_arg){
+    tap_code(KC_BTN1);
+
+    return rapid ? 1 : clickspeed_sets[clickspeed_set];
+}
+
+void start_autoclicker(void){
+    autoclick_token = defer_exec(1, autoclick_callback, NULL);
+}
+
+void stop_autoclicker(void){
+    cancel_deferred_exec(autoclick_token);
+    autoclick_token = INVALID_DEFERRED_TOKEN;
+}
+
 // Custom process key to allow for custom keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
     switch (keycode) {
         case AUTOCLICK_TOGGLE:
             if (record->event.pressed) {
-                autoclick = !autoclick;
-                autoclick_timer = timer_read();
+                if (autoclick_token == INVALID_DEFERRED_TOKEN){
+                    start_autoclicker();
+                } else{
+                    stop_autoclicker();
+                }
             }
             break;
 		case AUTO_BURST:
-            if (record->event.pressed) {
-                autoclick = true;
-                autoclick_timer = timer_read();
-            } else{
-				autoclick = false;
+            if (record->event.pressed && (autoclick_token == INVALID_DEFERRED_TOKEN)) {
+                start_autoclicker();
+            } else if (autoclick_token != INVALID_DEFERRED_TOKEN){
+                stop_autoclicker();
 			}
             break;
         case RAPID_BURST:
             if (record->event.pressed){
-                rapid_burst = true;
+                rapid = true;
+                start_autoclicker();
             } else{
-                rapid_burst = false;
+                rapid = false;
+                stop_autoclicker();
             }
             break;
         case INC_CLICK_SPEED:
@@ -152,12 +160,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 		case RGB_TOG:
 			if(record->event.pressed){
 				if (!(get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))){
-					if(low_brightness){
+					if(rgb_matrix_get_val() < 128){
 						rgb_matrix_sethsv(rgb_matrix_get_hue(), rgb_matrix_get_sat(), 255);
 					} else{
 						rgb_matrix_sethsv(rgb_matrix_get_hue(), rgb_matrix_get_sat(), 0);
 					}
-					low_brightness = !low_brightness;
 					return false;
 				}
 			}
