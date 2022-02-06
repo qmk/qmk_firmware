@@ -74,7 +74,7 @@
                 {"x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-		"LAYOUT_tsangan": {
+		"LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
@@ -144,7 +144,7 @@
                 {"x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-		"LAYOUT_iso": {
+		"LAYOUT_60_iso_tsangan": {
             "layout": [
 				{"x":0, "y":0},
 				{"x":1, "y":0},
