@@ -110,6 +110,22 @@ enum unicode_names {
     rT,
 };
 
+
+enum layer_names {
+    _QW = 0,
+    _LWR,
+    _RSE,
+    _ADJ
+};
+
+#ifdef OLED_ENABLE
+void user_oled_magic(void);
+void render_logo(void);
+void clear_screen(void);
+void init_timer(void);
+#endif
+
+
 static inline void led_lwr(const bool on) {
 #ifdef LED_NUM_LOCK_PIN
     writePin(LED_NUM_LOCK_PIN, on);
