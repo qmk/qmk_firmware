@@ -27,6 +27,8 @@
 
 #ifdef IS31FL3731
 #    include "is31fl3731-simple.h"
+#elif defined(IS31FLCOMMON)
+#    include "is31flcommon.h"
 #endif
 #ifdef IS31FL3733
 #    include "is31fl3733-simple.h"

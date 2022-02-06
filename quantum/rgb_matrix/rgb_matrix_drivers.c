@@ -23,7 +23,7 @@
  * be here if shared between boards.
  */
 
-#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3741) || defined(CKLED2001)
+#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3741) || defined(IS31FLCOMMON) || defined(CKLED2001)
 #    include "i2c_master.h"
 
 // TODO: Remove this at some later date
@@ -81,6 +81,18 @@ static void init(void) {
 #    elif defined(IS31FL3741)
     IS31FL3741_init(DRIVER_ADDR_1);
 
+#    elif defined(IS31FLCOMMON)
+    IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
+#        if defined(DRIVER_ADDR_2)
+    IS31FL_common_init(DRIVER_ADDR_2, ISSI_SSR_2);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL_common_init(DRIVER_ADDR_3, ISSI_SSR_3);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL_common_init(DRIVER_ADDR_4, ISSI_SSR_4);
+#                endif
+#            endif
+#        endif
+
 #    elif defined(CKLED2001)
     CKLED2001_init(DRIVER_ADDR_1);
 #        if defined(DRIVER_ADDR_2)
@@ -106,6 +118,8 @@ static void init(void) {
         IS31FL3737_set_led_control_register(index, enabled, enabled, enabled);
 #    elif defined(IS31FL3741)
         IS31FL3741_set_led_control_register(index, enabled, enabled, enabled);
+#    elif defined(IS31FLCOMMON)
+        IS31FL_RGB_set_scaling_buffer(index, enabled, enabled, enabled);
 #    elif defined(CKLED2001)
         CKLED2001_set_led_control_register(index, enabled, enabled, enabled);
 #    endif
@@ -144,6 +158,21 @@ static void init(void) {
 
 #    elif defined(IS31FL3741)
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
+
+#    elif defined(IS31FLCOMMON)
+#        ifdef ISSI_MANUAL_SCALING
+    IS31FL_set_manual_scaling_buffer();
+#        endif
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
 
 #    elif defined(CKLED2001)
     CKLED2001_update_led_control_registers(DRIVER_ADDR_1, 0);
@@ -229,6 +258,27 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .flush = flush,
     .set_color = IS31FL3741_set_color,
     .set_color_all = IS31FL3741_set_color_all,
+};
+
+#    elif defined(IS31FLCOMMON)
+static void flush(void) {
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
+}
+
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init = init,
+    .flush = flush,
+    .set_color = IS31FL_RGB_set_color,
+    .set_color_all = IS31FL_RGB_set_color_all,
 };
 
 #    elif defined(CKLED2001)
