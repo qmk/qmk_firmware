@@ -1,4 +1,5 @@
 /* Copyright 2020 Nidzo Tomic <tomicn8@hotmail.com>
+ * Copyright 2022 an_achronism <87213873+an-achronism@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

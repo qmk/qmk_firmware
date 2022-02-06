@@ -1,4 +1,5 @@
 /* Copyright 2020 Nidzo Tomic <tomicn8@hotmail.com>
+ * Copyright 2022 an_achronism <87213873+an-achronism@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,17 +23,17 @@ enum keyboard_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
      * ,-------------------------------------------------------------------------------------------------.
-     * |Esc|   | F1| F2| F3| F4| | F5| F6| F7| F8| | F9|F10|F11|F12|    |PSc|ScL| Ps|                    |
+     * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12|    |PSc|ScL|Pse|                    |
      * |                                                                                                 |
-     * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|  ¥|BSp|    |Ins|Hom|PgU|    |Num|  /|  *|  -|
+     * |`  |1  |2  |3  |4  |5  |6  |7  |8  |9  |0  |-  |=  |¥  |BSp|    |Ins|Hom|PgU|    |Num|/  |*  |-  |
      * |-----------------------------------------------------------|    |-----------|    |---------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \|    |Del|End|PgD|    |  7|  8|  9|  +|
+     * |Tab  |Q  |W  |E  |R  |T  |Y  |U  |I  |O  |P  |[  |]  |\    |    |Del|End|PgD|    |7  |8  |9  |+  |
      * |-----------------------------------------------------------|                     |---------------|
-     * |CapsLk|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|  #|Ent |                     |  4|  5|  6|  =|
+     * |CapsLk|A  |S  |D  |F  |G  |H  |J  |K  |L  |;  |'  |#  |Ent |                     |4  |5  |6  |=  |
      * |-----------------------------------------------------------|                     |---------------|
-     * |Shift|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|  \|Shift|        | Up|        |  1|  2|  3|Ent|
+     * |Shift|\  |Z  |X  |C  |V  |B  |N  |M  |,  |.  |/  |\  |Shift|        |Up |        |1  |2  |3  |Ent|
      * |-----------------------------------------------------------|        |---|        |---------------|
-     * |Ctrl |   |Alt  |           Space          |Alt Gr|   |Ctrl |    | Lt| Dn| Rt|    |  0|  ,|  .|GUI|
+     * |Ctrl |   |Alt  |           Space          |Alt Gr|   |Ctrl |    |Lt |Dn |Rt |    |0  |,  |.  |GUI|
      * `-------------------------------------------------------------------------------------------------'
      */
     [_BL] = LAYOUT_all(

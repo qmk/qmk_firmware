@@ -1,4 +1,4 @@
-/* Copyright 2020 Nidzo Tomic <tomicn8@hotmail.com>
+/* Copyright 2022 an_achronism <87213873+an-achronism@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,17 +23,17 @@ enum keyboard_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
      * ,-------------------------------------------------------------------------------------------------.
-     * |Esc|   | F1| F2| F3| F4| | F5| F6| F7| F8| | F9|F10|F11|F12|    |PSc|ScL|Cap|                    |
+     * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12|    |PSc|ScL|Cap|                    |
      * |                                                                                                 |
-     * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|BSp|Pse|    |Ins|Hom|PgU|    |Num|  /|  *|  =|
+     * |`  |1  |2  |3  |4  |5  |6  |7  |8  |9  |0  |-  |=  |BSp|Pse|    |Ins|Hom|PgU|    |Num|/  |*  |=  |
      * |-----------------------------------------------------------|    |-----------|    |---------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|RCtrl|    |Del|End|PgD|    |  7|  8|  9|  -|
+     * |Tab  |Q  |W  |E  |R  |T  |Y  |U  |I  |O  |P  |[  |]  |RCtrl|    |Del|End|PgD|    |7  |8  |9  |-  |
      * |-----------------------------------------------------------|                     |---------------|
-     * |LCtrl |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|  #|Rtn |                     |  4|  5|  6|  +|
+     * |LCtrl |A  |S  |D  |F  |G  |H  |J  |K  |L  |;  |'  |#  |Rtn |                     |4  |5  |6  |+  |
      * |-----------------------------------------------------------|                     |---------------|
-     * |LShift|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|RShift  |        | Up|        |  1|  2|  3|Ent|
+     * |LShift|\  |Z  |X  |C  |V  |B  |N  |M  |,  |.  |/  |RShift  |        |Up |        |1  |2  |3  |Ent|
      * |-----------------------------------------------------------|        |---|        |-----------|   |
-     * |Esc/LAlt| |LGUI |           Space           |BS/Fn|  |RAlt |    | Lt| Dn| Rt|    |  0|Fn |  .|   |
+     * |Esc/LAlt| |LGUI |           Space           |BS/Fn|  |RAlt |    |Lt |Dn |Rt |    |0  |Fn |  .|   |
      * `-------------------------------------------------------------------------------------------------'
      */
     [_BL] = LAYOUT_all(
@@ -44,10 +44,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_INT1, KC_RSFT,                     KC_UP,              KC_P1,   KC_P2,   KC_P3,   KC_PENT,
       LALT_T(KC_ESC),   KC_LGUI,                            KC_SPC,                                      LT(_FN, KC_BSPC), KC_RALT,            KC_LEFT, KC_DOWN, KC_RGHT,   KC_P0,   MO(_FN), KC_PDOT, KC_NO),
     [_FN] = LAYOUT_all(
-      KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_MSTP, C(KC_BRK), KC_TRNS, KC_TRNS, KC_TRNS,   KC_F10,  KC_F11,  KC_F12,  KC_PWR,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_MPRV, KC_MNXT, KC_APP,             KC_TRNS, KC_TRNS, KC_TRNS,   KC_F7,   KC_F8,   KC_F9,   KC_SLEP,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY,                                         KC_F4,   KC_F5,   KC_F6,   KC_CALC,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     KC_TRNS,            KC_F1,   KC_F2,   KC_F3,   KC_EJCT,
-      KC_TRNS,          KC_TRNS,                            KC_SPC,                                      KC_TRNS,          KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+      _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MSTP, C(KC_BRK), _______, _______, _______,   KC_F10,  KC_F11,  KC_F12,  KC_PWR,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_MPRV, KC_MNXT, KC_APP,             _______, _______, _______,   KC_F7,   KC_F8,   KC_F9,   KC_SLEP,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY,                                         KC_F4,   KC_F5,   KC_F6,   KC_CALC,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                     _______,            KC_F1,   KC_F2,   KC_F3,   KC_EJCT,
+      _______,          _______,                            _______,                                     _______,          _______,            _______, _______, _______,   _______, _______, _______, _______),
 };
