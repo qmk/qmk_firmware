@@ -74,6 +74,7 @@
     * [Mod-Tap](zh-cn/mod_tap.md)
     * [宏](zh-cn/feature_macros.md)
     * [鼠标键](zh-cn/feature_mouse_keys.md)
+    * [可编程键](zh-cn/feature_programmable_button.md)
     * [Space Cadet Shift](zh-cn/feature_space_cadet.md)
     * [US ANSI上档键值](zh-cn/keycodes_us_ansi_shifted.md)
 
