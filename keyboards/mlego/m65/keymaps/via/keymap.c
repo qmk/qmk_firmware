@@ -25,6 +25,7 @@ const rgblight_segment_t PROGMEM my_rse_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0,
 const rgblight_segment_t PROGMEM my_adj_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_GREEN});
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_qwerty_layer, my_lwr_layer, my_rse_layer, my_adj_layer);
+
 #endif
 
 // clang-format off
@@ -101,6 +102,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+
 #ifdef RGBLIGHT_ENABLE
 
     rgblight_set_layer_state(0, layer_state_cmp(state, _QW));
@@ -109,6 +111,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(3, layer_state_cmp(state, _ADJ));
 
 #endif
+
     return update_tri_layer_state(state, _LWR, _RSE, _ADJ);
 }
 
@@ -119,14 +122,23 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+#endif
+
 void keyboard_post_init_user(void) {
+
+#ifdef RGBLIGHT_ENABLE
+
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
+
+#endif
+
 #ifdef OLED_ENABLE
+
     init_timer();
+
 #endif
 }
-#endif
 
 #ifdef ENCODER_ENABLE
 
@@ -161,6 +173,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     my_encoders(index, clockwise);
     return true;
 }
+
 #endif
 
 #ifdef OLED_ENABLE
