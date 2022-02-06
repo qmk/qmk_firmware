@@ -26,7 +26,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-DEFAULT_FOLDER = infinity60/led
+DEFAULT_FOLDER = input_club/infinity60/led
 
 LAYOUTS = 60_ansi_split_bs_rshift
 
