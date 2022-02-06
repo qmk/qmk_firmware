@@ -5,16 +5,18 @@
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [xiao](https://github.com/xia0)
-* Hardware Supported: Teensy 2.0
+* Hardware Supported:
+  * rev1: Teensy 2.0 (ATmega32u4)
+  * rev2: Arduino Pro Micro (ATmega32u4)
 * Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
 
-    make 3dortho14u:default
+    make 3dortho14u/rev1:default
 
 Flashing example for this keyboard:
 
-    make 3dortho14u:default:flash
+    make 3dortho14u/rev1:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
