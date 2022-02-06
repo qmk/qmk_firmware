@@ -21,7 +21,7 @@
 	- Deleting entire line
 	- Deleting from cursor to start of line
 	- Deleting form cursor to end of line
-6. VIA/VIAL support.
+6. VIA support.
 7. Improved granularity of the RGB Matrix now with steps of 8/256 (32 steps!)
 8. The default toggle for RGB now sets the matrix to be on low brightness. Why? if the matrix is completely toggled off then the indicators for Caps Locks and FN are also completely off. You can completely turn it off by pressing shift while processing the "RGB_TOG" keycode. (It is FN1+FN2+Shift+Space on this keymap)
 8. Disabled some effects to free up more space.
