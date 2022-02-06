@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "matrix.h"
 #include "quantum.h"
-#include "sn74x237.h"
+#include "sn74x138.h"
 
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
@@ -31,7 +31,7 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
  * col 4: B5
  * col 5: D7
  *
- * These columns use a 74HC237D 3 to 8 bit demultiplexer.
+ * These columns use a 74HC138 3 to 8 bit demultiplexer.
  *                A2   A1   A0
  * col / pin:    PD0  PD1  PD2
  * 6:              1    1    1
@@ -50,7 +50,7 @@ static void select_col(uint8_t col) {
     if (col_pins[col] != NO_PIN) {
         writePinLow(col_pins[col]);
     } else {
-        sn74x237_set_addr(13 - col);
+        sn74x138_set_addr(13 - col);
     }
 }
 
@@ -59,7 +59,7 @@ static void unselect_col(uint8_t col) {
         setPinOutput(col_pins[col]);
         writePinHigh(col_pins[col]);
     } else {
-        sn74x237_set_addr(0);
+        sn74x138_set_addr(0);
     }
 }
 
@@ -73,7 +73,7 @@ static void unselect_cols(void) {
     }
 
     // Demultiplexer
-    sn74x237_set_addr(0);
+    sn74x138_set_addr(0);
 }
 
 static void init_pins(void) {
@@ -120,7 +120,7 @@ void matrix_init_custom(void) {
     // initialize key pins
     init_pins();
     // initialize demultiplexer
-    sn74x237_init();
+    sn74x138_init();
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
