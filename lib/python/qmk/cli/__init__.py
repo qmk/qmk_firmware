@@ -16,12 +16,14 @@ import_names = {
     # A mapping of package name to importable name
     'pep8-naming': 'pep8ext_naming',
     'pyusb': 'usb.core',
+    'qmk-dotty-dict': 'dotty_dict'
 }
 
 safe_commands = [
     # A list of subcommands we always run, even when the module imports fail
     'clone',
     'config',
+    'doctor',
     'env',
     'setup',
 ]
@@ -29,18 +31,23 @@ safe_commands = [
 subcommands = [
     'qmk.cli.bux',
     'qmk.cli.c2json',
+    'qmk.cli.cd',
     'qmk.cli.cformat',
     'qmk.cli.chibios.confmigrate',
     'qmk.cli.clean',
     'qmk.cli.compile',
-    'qmk.cli.console',
     'qmk.cli.docs',
     'qmk.cli.doctor',
     'qmk.cli.fileformat',
     'qmk.cli.flash',
+    'qmk.cli.format.c',
     'qmk.cli.format.json',
+    'qmk.cli.format.python',
+    'qmk.cli.format.text',
     'qmk.cli.generate.api',
+    'qmk.cli.generate.compilation_database',
     'qmk.cli.generate.config_h',
+    'qmk.cli.generate.develop_pr_list',
     'qmk.cli.generate.dfu_header',
     'qmk.cli.generate.docs',
     'qmk.cli.generate.info_json',
@@ -48,12 +55,14 @@ subcommands = [
     'qmk.cli.generate.layouts',
     'qmk.cli.generate.rgb_breathe_table',
     'qmk.cli.generate.rules_mk',
+    'qmk.cli.generate.version_h',
     'qmk.cli.hello',
     'qmk.cli.info',
     'qmk.cli.json2c',
     'qmk.cli.lint',
     'qmk.cli.list.keyboards',
     'qmk.cli.list.keymaps',
+    'qmk.cli.list.layouts',
     'qmk.cli.kle2json',
     'qmk.cli.multibuild',
     'qmk.cli.new.keyboard',
@@ -61,6 +70,26 @@ subcommands = [
     'qmk.cli.pyformat',
     'qmk.cli.pytest',
 ]
+
+
+def _install_deps(requirements):
+    """Perform the installation of missing requirements.
+
+    If we detect that we are running in a virtualenv we can't write into we'll use sudo to perform the pip install.
+    """
+    command = [sys.executable, '-m', 'pip', 'install']
+
+    if sys.prefix != sys.base_prefix:
+        # We are in a virtualenv, check to see if we need to use sudo to write to it
+        if not os.access(sys.prefix, os.W_OK):
+            print('Notice: Using sudo to install modules to location owned by root:', sys.prefix)
+            command.insert(0, 'sudo')
+
+    elif not os.access(sys.prefix, os.W_OK):
+        # We can't write to sys.prefix, attempt to install locally
+        command.append('--local')
+
+    return _run_cmd(*command, '-r', requirements)
 
 
 def _run_cmd(*command):
@@ -155,8 +184,14 @@ if int(milc_version[0]) < 2 and int(milc_version[1]) < 4:
     print(f'Your MILC library is too old! Please upgrade: python3 -m pip install -U -r {str(requirements)}')
     exit(127)
 
+# Make sure we can run binaries in the same directory as our Python interpreter
+python_dir = os.path.dirname(sys.executable)
+
+if python_dir not in os.environ['PATH'].split(':'):
+    os.environ['PATH'] = ":".join((python_dir, os.environ['PATH']))
+
 # Check to make sure we have all our dependencies
-msg_install = 'Please run `python3 -m pip install -r %s` to install required python dependencies.'
+msg_install = f'Please run `{sys.executable} -m pip install -r %s` to install required python dependencies.'
 args = sys.argv[1:]
 while args and args[0][0] == '-':
     del args[0]
@@ -166,7 +201,7 @@ safe_command = args and args[0] in safe_commands
 if not safe_command:
     if _broken_module_imports('requirements.txt'):
         if yesno('Would you like to install the required Python modules?'):
-            _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt')
+            _install_deps('requirements.txt')
         else:
             print()
             print(msg_install % (str(Path('requirements.txt').resolve()),))
@@ -175,7 +210,7 @@ if not safe_command:
 
     if cli.config.user.developer and _broken_module_imports('requirements-dev.txt'):
         if yesno('Would you like to install the required developer Python modules?'):
-            _run_cmd(sys.executable, '-m', 'pip', 'install', '-r', 'requirements-dev.txt')
+            _install_deps('requirements-dev.txt')
         elif yesno('Would you like to disable developer mode?'):
             _run_cmd(sys.argv[0], 'config', 'user.developer=None')
         else:
@@ -190,7 +225,7 @@ for subcommand in subcommands:
     try:
         __import__(subcommand)
 
-    except ModuleNotFoundError as e:
+    except (ImportError, ModuleNotFoundError) as e:
         if safe_command:
             print(f'Warning: Could not import {subcommand}: {e.__class__.__name__}, {e}')
         else:

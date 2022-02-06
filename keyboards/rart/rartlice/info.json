@@ -2,8 +2,6 @@
     "keyboard_name": "Rartlice",
     "url": "",
     "maintainer": "Alabahuy",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

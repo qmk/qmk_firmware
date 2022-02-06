@@ -2,7 +2,7 @@
 
 A 65% Keyboard from Swiftcables
 
-* Keyboard Maintainer: [Steven Phillips (spoonik)](https://github.com/keyboardcollective)
+* Keyboard Maintainer: [Steven Phillips (spooknik)](https://github.com/keyboardcollective)
 * Hardware Supported: Swift65 Solder
 * Hardware Availability: Soom from Swiftcables
 

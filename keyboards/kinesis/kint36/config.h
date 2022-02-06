@@ -50,8 +50,12 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+/* Well-worn Cherry MX key switches can bounce for up to 20ms, despite the
+ * Cherry data sheet specifying 5ms. Because we use the sym_eager_pk debounce
+ * algorithm, this debounce latency only affects key releases (not key
+ * presses). */
+#undef DEBOUNCE
+#define DEBOUNCE 20
 
 #define IGNORE_MOD_TAP_INTERRUPT
 
@@ -59,8 +63,14 @@
 // from its 10ms default to the 1ms minimum that USB 1.x (Full Speed) allows:
 #define USB_POLLING_INTERVAL_MS 1
 
+// The Teensy 3.6 consumes about 80 mA of current at its full speed of 180 MHz:
+// https://forum.pjrc.com/threads/47256-What-is-the-power-consumption-of-the-Teensy-3-6
+#define USB_MAX_POWER_CONSUMPTION 100
+
 #define LED_PIN_ON_STATE 0
 #define LED_NUM_LOCK_PIN A14
 #define LED_CAPS_LOCK_PIN C7
 #define LED_SCROLL_LOCK_PIN A5
 #define LED_COMPOSE_PIN E26
+
+#define EEPROM_SIZE 4096

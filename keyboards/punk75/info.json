@@ -2,8 +2,6 @@
     "keyboard_name": "punk75",
     "url": "",
     "maintainer": "dsanchezseco",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_5x15": {
             "layout": [

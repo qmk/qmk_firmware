@@ -21,12 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _CODE 1  // Code layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT_daisy(
+    [_BASE] = LAYOUT(
       KC_MUTE,                     KC_HOME,
       MO(_CODE), KC_MPRV, KC_MNXT, KC_MPLY,
       C(KC_LEFT), C(KC_UP), C(KC_DOWN), C(KC_RIGHT)
     ),
-    [_CODE] = LAYOUT_daisy(
+    [_CODE] = LAYOUT(
       KC_MUTE,                     KC_END,
       _______, RGB_MOD, RGB_VAI, RGB_TOG,
       G(S(KC_5)), G(A(KC_ESC)), G(KC_F), RESET

@@ -15,9 +15,7 @@
  */
 #pragma once
 
-#if defined(BOOTMAGIC_ENABLE)
-#    include "bootmagic_full.h"
-#elif defined(BOOTMAGIC_LITE)
+#if defined(BOOTMAGIC_LITE)
 #    include "bootmagic_lite.h"
 #endif
 
