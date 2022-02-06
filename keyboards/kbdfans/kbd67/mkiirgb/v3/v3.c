@@ -95,7 +95,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 };
 
 #define __ NO_LED
-#define KBD67_CAPS_LOCK_LED_INDEX 30
+#define CAPS_LOCK_LED_INDEX 30
 
 led_config_t g_led_config = { {
     // Key Matrix to LED Index
@@ -121,10 +121,34 @@ led_config_t g_led_config = { {
     1, 1, 1,       4,       1,    1, 1,    1, 1
 } };
 
+#endif
+
+#if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
+
+#ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define CAPS_LOCK_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#else
+    #define CAPS_LOCK_MAX_BRIGHTNESS 0xFF
+#endif
+
+#ifdef RGB_MATRIX_VAL_STEP
+    #define CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
+#else
+    #define CAPS_LOCK_VAL_STEP 8
+#endif
+
 __attribute__ ((weak))
 void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(KBD67_CAPS_LOCK_LED_INDEX, 0xFF, 0xFF, 0xFF);
+        uint8_t b = rgb_matrix_get_val();
+        if (b < CAPS_LOCK_VAL_STEP) {
+            b = CAPS_LOCK_VAL_STEP;
+        } else if (b < (CAPS_LOCK_MAX_BRIGHTNESS - CAPS_LOCK_VAL_STEP)) {
+            b += CAPS_LOCK_VAL_STEP;  // one step more than current brightness
+        } else {
+            b = CAPS_LOCK_MAX_BRIGHTNESS;
+        }
+        rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, b, b, b);  // white, with the adjusted brightness
     }
 }
 
