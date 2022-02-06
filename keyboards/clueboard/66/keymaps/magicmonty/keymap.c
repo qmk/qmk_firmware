@@ -199,7 +199,7 @@ void matrix_scan_user(void) {
 
     if (!rgblight_config.enable || rgblight_config.mode != 1) { return; }
 
-    uint32_t layer = layer_state;
+    layer_state_t layer = layer_state;
     uint8_t val = rgblight_config.val;
 
     if (layer & (1<<_FL)) {
