@@ -82,7 +82,7 @@ void dynamic_macro_play(keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_
 
     clear_keyboard();
 
-    layer_state = saved_layer_state;
+    layer_state_set(saved_layer_state);
 
     dynamic_macro_play_user(direction);
 }
