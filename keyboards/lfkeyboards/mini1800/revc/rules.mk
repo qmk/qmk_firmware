@@ -5,9 +5,6 @@ MCU = at90usb646
 BOOTLOADER = atmel-dfu
 OPT_DEFS += -DLFK_TKL_REV_$(LFK_REV)
 
-# Extra source files for IS3731 lighting
-SRC = TWIlib.c issi.c lighting.c
-
 # Build Options
 #   change yes to no to disable
 #
@@ -28,6 +25,9 @@ SLEEP_LED_ENABLE = yes
 
 ISSI_ENABLE = yes           # If the I2C pullup resistors aren't install this must be disabled
 WATCHDOG_ENABLE = yes       # Resets keyboard if matrix_scan isn't run every 250ms
+
+# Extra source files for IS3731 lighting
+SRC = TWIlib.c issi.c lighting.c
 
 ifeq ($(strip $(ISSI_ENABLE)), yes)
     TMK_COMMON_DEFS += -DISSI_ENABLE
