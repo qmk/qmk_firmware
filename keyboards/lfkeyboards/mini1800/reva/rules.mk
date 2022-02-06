@@ -3,7 +3,6 @@ MCU = at90usb1286
 
 # Bootloader selection
 BOOTLOADER = atmel-dfu
-OPT_DEFS += -DLFK_TKL_REV_$(LFK_REV)
 
 # Build Options
 #   change yes to no to disable
