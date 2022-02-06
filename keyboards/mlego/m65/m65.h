@@ -125,6 +125,11 @@ void clear_screen(void);
 void init_timer(void);
 #endif
 
+#ifdef ENCODER_ENABLE
+void my_encoders(const uint8_t, const bool);
+bool encoder_update_user(uint8_t, bool);
+#endif
+
 
 void toggle_leds(void);
 void set_led_toggle(const uint8_t, const bool);

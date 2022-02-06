@@ -62,6 +62,41 @@ void toggle_leds(void){
 
 }
 
+#ifdef ENCODER_ENABLE
+
+#    define MEDIA_KEY_DELAY 10
+
+void my_encoders(const uint8_t index, const bool clockwise) {
+    if (index == 0) { /* First encoder */
+        if (IS_LAYER_ON(_LWR)) {
+            if (clockwise) {
+                rgblight_decrease_val_noeeprom();
+            } else {
+                rgblight_increase_val_noeeprom();
+            }
+        } else if (IS_LAYER_ON(_RSE)) {
+            if (clockwise) {
+                rgblight_decrease_hue_noeeprom();
+            } else {
+                rgblight_increase_hue_noeeprom();
+            }
+
+        } else {
+            if (clockwise) {
+                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
+            } else {
+                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
+            }
+        }
+    }
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    my_encoders(index, clockwise);
+    return false;
+}
+
+#endif
 
 #ifdef OLED_ENABLE
 
@@ -117,8 +152,6 @@ void clear_screen(void) {
       clear_logo = false;
     }
 }
-
-
 
 #    define SHOW_LOGO 5000
 bool oled_task_user(void) {
