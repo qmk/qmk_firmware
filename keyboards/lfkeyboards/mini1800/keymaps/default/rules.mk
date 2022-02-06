@@ -5,8 +5,9 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
-AUDIO_ENABLE = yes          # Audio output
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+AUDIO_ENABLE = yes          # Audio output
+
 # RGB code is implemented in lfkeyboards, not WS2812
 RGBLIGHT_CUSTOM_DRIVER = yes
 SLEEP_LED_ENABLE = yes
