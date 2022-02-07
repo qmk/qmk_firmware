@@ -64,10 +64,10 @@ COLEMAK_LAYER_ENABLE = yes   		 - Enabled optional 5th layer for COLEMAK layout.
 
 ## All layers diagram
 Default layer
-![image](https://user-images.githubusercontent.com/71780717/124177658-82324880-da7e-11eb-9421-b69100131062.png)
+![image](https://github.com/gourdo1/media/blob/main/base.png)
 
 Fn Layer
-![image](https://user-images.githubusercontent.com/71780717/131255937-06c9691b-835f-4c94-93e6-6d1dc3de272b.png)
+![image](https://github.com/gourdo1/media/blob/main/fn1.png)
 
 Layer 2 (Caps Lock Mod)
 ![image](https://user-images.githubusercontent.com/71780717/124177683-8b231a00-da7e-11eb-9434-e2475f679a54.png)
