@@ -367,15 +367,15 @@ bool process_record_quantum(keyrecord_t *record) {
                 clear_oneshot_mods();
                 send_string_with_delay_P(PSTR("qmk"), TAP_CODE_DELAY);
                 if (temp_mod & MOD_MASK_SHIFT) {  // if shift is held, flash rather than compile
-                    send_string_with_delay_P(PSTR(" flash "), TAP_CODE_DELAY);
+                    SEND_STRING_DELAY(" flash ", TAP_CODE_DELAY);
                 } else {
-                    send_string_with_delay_P(PSTR(" compile "), TAP_CODE_DELAY);
+                    SEND_STRING_DELAY(" compile ", TAP_CODE_DELAY);
                 }
-                send_string_with_delay_P(PSTR("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP), TAP_CODE_DELAY);
+                SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP, TAP_CODE_DELAY);
 #        ifdef CONVERT_TO_PROTON_C  // If CTPC is set, ensure it stays set
-                send_string_with_delay_P(PSTR(" -e CTPC=yes"), TAP_CODE_DELAY);
+                SEND_STRING_DELAY(" -e CTPC=yes", TAP_CODE_DELAY);
 #        endif
-                send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
+                SEND_STRING_DELAY(SS_TAP(X_ENTER), TAP_CODE_DELAY);
             }
 #    endif
 #endif
