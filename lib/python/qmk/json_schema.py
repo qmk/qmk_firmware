@@ -16,7 +16,11 @@ def json_load(json_file):
     Note: file must be a Path object.
     """
     try:
-        return hjson.load(json_file.open(encoding='utf-8'))
+        # Get the IO Stream for Path objects
+        # Not necessary if the data is provided via stdin
+        if isinstance(json_file, Path):
+            json_file = json_file.open(encoding='utf-8')
+        return hjson.load(json_file)
 
     except (json.decoder.JSONDecodeError, hjson.HjsonDecodeError) as e:
         cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
