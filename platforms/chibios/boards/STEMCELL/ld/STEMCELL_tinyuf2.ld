@@ -1,5 +1,6 @@
 /*
     ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
+    Copyright (C) 2022 Mega Mind
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,8 +16,9 @@
 */
 
 /*
- * STM32F401xC memory setup.
+ * STeMCell (STM32F4x1Cx) memory setup.
  */
+
 MEMORY
 {
     flash0 (rx) : org = 0x08000000 + 64k, len = 256k - 64k /* tinyuf2 bootloader requires app to be located at 64k offset for this MCU */
