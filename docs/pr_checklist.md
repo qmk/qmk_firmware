@@ -8,7 +8,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 - PR should be submitted using a non-`master` branch on the source repository
     - this does not mean you target a different branch for your PR, rather that you're not working out of your own master branch
-    - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch) page after merging -- (end of this document will contain the contents of the message)
+    - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch.md) page after merging -- (end of this document will contain the contents of the message)
 - newly-added directories and filenames must be lowercase
     - this rule may be relaxed if upstream sources originally had uppercase characters (e.g. LUFA, ChibiOS, or imported files from other repositories etc.)
     - if there is valid justification (i.e. consistency with existing core files etc.) this can be relaxed
@@ -76,9 +76,9 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - `<keyboard>.c`
     - empty `xxxx_xxxx_kb()` or other weak-defined default implemented functions removed
     - commented-out functions removed too
-    - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions?id=keyboard_pre_init_-function-documentation)
-    - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix?id=lite)
-    - prefer LED indicator [Configuration Options](feature_led_indicators?id=configuration-options) to custom `led_update_*()` implementations where possible
+    - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions.md?id=keyboard_pre_init_-function-documentation)
+    - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix.md?id=lite)
+    - prefer LED indicator [Configuration Options](feature_led_indicators.md?id=configuration-options) to custom `led_update_*()` implementations where possible
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
     - `LAYOUT` macros should use standard definitions if applicable
@@ -113,7 +113,7 @@ Also, specific to ChibiOS:
 - New board definitions must not be embedded in a keyboard PR
     - See [Core PRs](#core-pr) below for the procedure for adding a new board to QMK
 - if a board definition is unavoidable, `board.c` must have a standard `__early_init()` (as per normal ChibiOS board defs) and an empty `boardInit()`:
-    - see Arm/ChibiOS [early initialization](platformdev_chibios_earlyinit?id=board-init)
+    - see Arm/ChibiOS [early initialization](platformdev_chibios_earlyinit.md?id=board-init)
     - `__early_init()` should be replaced by either `early_hardware_init_pre()` or `early_hardware_init_post()` as appropriate
     - `boardInit()` should be migrated to `board_init()`
 
