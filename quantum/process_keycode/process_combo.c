@@ -208,7 +208,7 @@ __attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) { 
 #endif
 
 #ifdef COMBO_CONTIGUOUS_PER_COMBO
-__attribute__((weak)) bool get_combo_is_contiguous(uint16_t index, combo_t *combo) { return true; }
+__attribute__((weak)) bool get_combo_interrupted(uint16_t index, combo_t *combo, keyrecord_t *record) { return true; }
 #endif
 
 #ifdef COMBO_DETAILED_EVENTS_PER_COMBO
@@ -466,12 +466,12 @@ combo_active_state_t *init_combo_active_state(combo_state_t combo_index) {
 /* Insert into ripe queue, maintaining sort in order of increasing combo index */
 void ripen_combo(combo_state_t combo_index, combo_t *combo) {
     combo_iterator_t iter;
-    if (combo_index < GET_NEXT_COMBO_DIRECT(&ripe_head)) {
+    if (combo_index > GET_NEXT_COMBO_DIRECT(&ripe_head)) {
         combo_queue_insert(&ripe_head, combo_index, combo);
         return;
     }
     for (ALL_COMBOS_IN_QUEUE(&ripe_head, &iter)) {
-        if (combo_index < iter.combo_index) {
+        if (combo_index > iter.combo_index) {
             break;
         }
     }
@@ -540,7 +540,7 @@ void resolve_conflicts(void) {
             for (ALL_COMBOS_IN_KEY(qrecord, &conflict_iter)) {
                 uint8_t overlap = get_combo_overlap(ripe_iter.combo, conflict_iter.combo);
                 if (overlap) {
-                    if ((ripe_iter.combo_index < conflict_iter.combo_index) || (overlap < combo_length)) {
+                    if ((ripe_iter.combo_index > conflict_iter.combo_index) || (overlap < combo_length)) {
                         combo_iter_remove(&conflict_iter);
                         combo_queue_insert(&inactive_head, conflict_iter.combo_index, conflict_iter.combo);
                     } else {
@@ -608,6 +608,8 @@ void expire_key(queued_record_t *qrecord, uint16_t until, uint16_t tap) {
             }
         }
     }
+
+    resolve_conflicts();
 }
 
 /* Forces expiration (with specified keycode tap if tap!=0) of all combos
@@ -929,7 +931,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
                     DECREMENT_STATE(iter.combo);
                 } else
 #ifdef COMBO_CONTIGUOUS_PER_COMBO
-                    if (get_combo_is_contiguous(iter.combo_index, iter.combo))
+                    if (get_combo_interrupted(iter.combo_index, iter.combo, &qrecord->record))
 #endif
                 {
                     /* Inactivate partial combos that don't include this key
@@ -970,7 +972,7 @@ void reset_combos(void) {
     key_buffer_head = key_buffer_size = 0;
     ripe_head = active_head = COMBO_NULL_STATE;
 
-    inactive_head = 0;
+    inactive_head  = 0;
     combo_t *combo = &key_combos[0];
     for (combo_state_t i = 0; i < COMBO_LEN; i++) {
         combo = &key_combos[i];
