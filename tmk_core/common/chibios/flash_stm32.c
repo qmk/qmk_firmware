@@ -164,6 +164,39 @@ FLASH_Status FLASH_ErasePage(uint32_t Page_Address) {
     return status;
 }
 
+#if defined(STM32L4XX)
+/**
+ * @brief  Programs double words at a specified address.
+ * @param  Address: specifies the address to be programmed.
+ * @param  Data: specifies the data to be programmed.
+ * @retval FLASH Status: The returned value can be: FLASH_ERROR_PG,
+ *   FLASH_ERROR_WRP, FLASH_COMPLETE or FLASH_TIMEOUT.
+ */
+FLASH_Status FLASH_ProgramDoubleWord(uint32_t Address, uint64_t Data) {
+    FLASH_Status status = FLASH_BAD_ADDRESS;
+
+    if (IS_FLASH_ADDRESS(Address)) {
+        /* Wait for last operation to be completed */
+        status = FLASH_WaitForLastOperation(ProgramTimeout);
+        if (status == FLASH_COMPLETE) {
+            /* if the previous operation is completed, proceed to program the new data */
+            FLASH->CR |= FLASH_CR_PG;
+            *(__IO uint32_t*)Address = (uint32_t)Data;
+            __ISB();
+            *(__IO uint32_t*)(Address + 4U) = (uint32_t)(Data >> 32);
+            /* Wait for last operation to be completed */
+            status = FLASH_WaitForLastOperation(ProgramTimeout);
+            if (status != FLASH_TIMEOUT) {
+                /* if the program operation is completed, disable the PG Bit */
+                FLASH->CR &= ~FLASH_CR_PG;
+            }
+            FLASH->SR = (FLASH_SR_EOP | FLASH_SR_PGERR | FLASH_SR_WRPERR);
+        }
+    }
+    return status;
+}
+
+#else
 /**
  * @brief  Programs a half word at a specified address.
  * @param  Address: specifies the address to be programmed.
@@ -186,38 +219,6 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
 #endif
             FLASH->CR |= FLASH_CR_PG;
             *(__IO uint16_t*)Address = Data;
-            /* Wait for last operation to be completed */
-            status = FLASH_WaitForLastOperation(ProgramTimeout);
-            if (status != FLASH_TIMEOUT) {
-                /* if the program operation is completed, disable the PG Bit */
-                FLASH->CR &= ~FLASH_CR_PG;
-            }
-            FLASH->SR = (FLASH_SR_EOP | FLASH_SR_PGERR | FLASH_SR_WRPERR);
-        }
-    }
-    return status;
-}
-
-#if defined(STM32L4XX)
-/**
- * @brief  Programs double words at a specified address.
- * @param  Address: specifies the address to be programmed.
- * @param  Data: specifies the data to be programmed.
- * @retval FLASH Status: The returned value can be: FLASH_ERROR_PG,
- *   FLASH_ERROR_WRP, FLASH_COMPLETE or FLASH_TIMEOUT.
- */
-FLASH_Status FLASH_ProgramDoubleWord(uint32_t Address, uint64_t Data) {
-    FLASH_Status status = FLASH_BAD_ADDRESS;
-
-    if (IS_FLASH_ADDRESS(Address)) {
-        /* Wait for last operation to be completed */
-        status = FLASH_WaitForLastOperation(ProgramTimeout);
-        if (status == FLASH_COMPLETE) {
-            /* if the previous operation is completed, proceed to program the new data */
-            FLASH->CR |= FLASH_CR_PG;
-            *(__IO uint32_t*)Address = (uint32_t)Data;
-            __ISB();
-            *(__IO uint32_t*)(Address + 4U) = (uint32_t)(Data >> 32);
             /* Wait for last operation to be completed */
             status = FLASH_WaitForLastOperation(ProgramTimeout);
             if (status != FLASH_TIMEOUT) {
