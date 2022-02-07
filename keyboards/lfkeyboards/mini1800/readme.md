@@ -18,7 +18,7 @@ Flashing example for this keyboard:
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+To reset the board into bootloader mode, do one of the following:
 
 * **Physical reset button**: Briefly press the button on the bottom of the PCB (between Q and W keys)
 * **Keycode in keymap**: Press the key mapped to `RESET` if it is available (`Fn`+`Right Shift`, then tap `Enter` by default)
