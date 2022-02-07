@@ -50,37 +50,37 @@ For keyboard with RGB lighting, layers are tracked and color is set for
 ## Color management based on layer or Key caps state
 
 Colors are defined as follow
-- RGB_CAPS_R/G/B  Color used for caps lock
-- RGB_NAV1_R/G/B  Color used for the "S-layer"
-- RGB_NAV2_R/G/B  Color used for the "F-layer"
-- RGB_MSE_R/G/B   Color used for the mouse layers
-- RGB_ADJ_R/G/B   Color used for the function/adjust layers
-- RGB_NUM_R/G/B   Color used for numpad mode
+- `RGB_CAPS_R/G/B`  Color used for caps lock
+- `RGB_NAV1_R/G/B`  Color used for the "S-layer"
+- `RGB_NAV2_R/G/B`  Color used for the "F-layer"
+- `RGB_MSE_R/G/B`   Color used for the mouse layers
+- `RGB_ADJ_R/G/B`   Color used for the function/adjust layers
+- `RGB_NUM_R/G/B`   Color used for numpad mode
 
 ## Reusable definitions and code
 
 ### Standard layouts
 
-- _QWERTY_MAC: default layer for Mac
-- _MAC_NAV_1: S-layer for Mac
-- _MAC_NAV_2: F-layer for Mac
-- _QWERTY_LINUX: default layer for Linux
-- _LINUX_NAV_1: S-layer for Linux
-- _LINUX_NAV_2: F-layer for Linux
-- _QWERTY_WIN: default layer for Windows
-- _WIN_NAV_1: S-layer for Windows
-- _WIN_NAV_2: F-layer for Windows
-- _RAISE: Raise layer for ortho
-- _LOWER: Lower layer for ortho
-- _MOUSE: Temporary mouse layer
-- _EX_MOUSE: Exclusive mouse layer
-- _ADJUST_MAC: Adjust/Function layer for Mac
-- _ADJUST_LINUX: Adjust/Function layer for Linux
-- _ADJUST_WIN: Adjust/Function layer for Windows
+- `_QWERTY_MAC`: default layer for Mac
+- `_MAC_NAV_1`: S-layer for Mac
+- `_MAC_NAV_2`: F-layer for Mac
+- `_QWERTY_LINUX`: default layer for Linux
+- `_LINUX_NAV_1`: S-layer for Linux
+- `_LINUX_NAV_2`: F-layer for Linux
+- `_QWERTY_WIN`: default layer for Windows
+- `_WIN_NAV_1`: S-layer for Windows
+- `_WIN_NAV_2`: F-layer for Windows
+- `_RAISE`: Raise layer for ortho
+- `_LOWER`: Lower layer for ortho
+- `_MOUSE`: Temporary mouse layer
+- `_EX_MOUSE`: Exclusive mouse layer
+- `_ADJUST_MAC`: Adjust/Function layer for Mac
+- `_ADJUST_LINUX`: Adjust/Function layer for Linux
+- `_ADJUST_WIN`: Adjust/Function layer for Windows
 
 ### Custom keycodes
 
-- DF_M_P: Make the Mac layer the default persistent layer (EEPROM)
-- DF_L_P: Make the Linux layer the default persistent layer
-- DF_W-P: Make the Windows layer the default persistent layer
-- CU_BSPC: Backspace key and Delete key when combined with Ctrl (L or R)
+- `DF_M_P`: Make the Mac layer the default persistent layer (EEPROM)
+- `DF_L_P`: Make the Linux layer the default persistent layer
+- `DF_W-P`: Make the Windows layer the default persistent layer
+- `CU_BSPC`: Backspace key and Delete key when combined with Ctrl (L or R)
