@@ -1,7 +1,7 @@
 {
-  "keyboard_name": "Kapl", 
-  "url": "https://github.com/keyzog/kapl", 
-  "maintainer": "keyzog", 
+  "keyboard_name": "Kapl",
+  "url": "https://github.com/keyzog/kapl",
+  "maintainer": "keyzog",
   "layouts": {
       "LAYOUT": {
           "layout": [
