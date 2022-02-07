@@ -44,6 +44,14 @@ static uint8_t ADDR2PAGE(uint32_t Page_Address) {
             return 2;
         case 0x0800C000 ... 0x0800FFFF:
             return 3;
+        case 0x08010000 ... 0x08013FFF:
+            return 4;
+        case 0x08014000 ... 0x08017FFF:
+            return 5;
+        case 0x08018000 ... 0x0801BFFF:
+            return 6;
+        case 0x0801C000 ... 0x0801FFFF:
+            return 7;
     }
 
     // TODO: bad times...
@@ -163,7 +171,7 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
     if (IS_FLASH_ADDRESS(Address)) {
         /* Wait for last operation to be completed */
         status = FLASH_WaitForLastOperation(ProgramTimeout);
-        if (status == FLASH_COMPLETE) {
+        if (status != FLASH_BUSY) {
             /* if the previous operation is completed, proceed to program the new data */
 
 #if defined(FLASH_CR_PSIZE)

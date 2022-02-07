@@ -109,6 +109,7 @@
 #    define SERIAL_USART_DRIVER      SD1
 #    define I2C1_SCL_PIN             D0
 #    define I2C1_SDA_PIN             D1
+#    define FEE_PAGE_BASE_ADDRESS    0x08014000
 
 #else
 #    define A0 PAL_LINE(GPIOA, 0)
