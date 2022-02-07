@@ -19,6 +19,7 @@ This snippet serves two main purposes
 - Overall layout
 The base concept is to work around a HHKB format or a close derivative as below
 
+|     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
 | --- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |  \  |  `  |
 | Tab |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |   Bkspc   |
