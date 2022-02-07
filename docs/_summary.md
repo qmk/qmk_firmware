@@ -4,6 +4,7 @@
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
   * [Getting Help/Support](support.md)
+  * [Building With GitHub Userspace](newbs_building_firmware_workflow.md)
   * [Other Resources](newbs_learn_more_resources.md)
   * [Syllabus](syllabus.md)
 
