@@ -53,5 +53,11 @@
             "type": "string",
             "description": "asdf"
         }
-    }
+    },
+    "required": [
+        "keyboard",
+        "keymap",
+        "layout",
+        "layers"
+    ]
 }
