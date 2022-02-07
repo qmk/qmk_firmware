@@ -1,8 +1,8 @@
 #include "redox_w.h"
 
 void led_init(void) {
-	DDRD  |= (1<<1);
-	PORTD |= (1<<1);
+	DDRD  |= (1<<0) | (1<<1);
+	PORTD |= (1<<0) | (1<<1);
 	DDRF  |= (1<<4) | (1<<5);
 	PORTF |= (1<<4) | (1<<5);
 }
