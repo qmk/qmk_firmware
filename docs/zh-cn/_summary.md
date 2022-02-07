@@ -125,7 +125,7 @@
     * [Velocikey](zh-cn/feature_velocikey.md)
 
 * QMK开发
-  * [PR Checklist](zh-cn/pr_checklist.md)
+  * [PR 审阅规则清单](zh-cn/pr_checklist.md)
   * 打破兼容的改动
     * [总览](zh-cn/breaking_changes.md)
     * [我的PR已打上标记](zh-cn/breaking_changes_instructions.md)
