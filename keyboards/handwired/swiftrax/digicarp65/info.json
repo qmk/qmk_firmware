@@ -232,7 +232,7 @@
                 {"label": "r4_09", "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65_iso_splitbs": {
+        "LAYOUT_65_iso_split_bs": {
             "layout": [
                 {"label": "r1_01", "x": 0, "y": 0},
                 {"label": "r1_02", "x": 1, "y": 0},
