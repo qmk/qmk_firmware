@@ -55,22 +55,22 @@ rules.mk Options
 ================
 
 STARTUP_NUMLOCK_ON = yes     		 - turns on NUMLOCK by default
-ENCODER_DEFAULTACTIONS_ENABLE = yes  - Enabled default encoder funtions
+ENCODER_DEFAULTACTIONS_ENABLE = yes  - Enabled default encoder functions
 TD_LSFT_CAPSLOCK_ENABLE = yes    	 - This will enable double tap on Left Shift to toggle CAPSLOCK when using KC_LSFTCAPS
 IDLE_TIMEOUT_ENABLE = yes   		 - Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
 INVERT_NUMLOCK_INDICATOR   			 - inverts the Numlock indicator, LED is on when numlock is off -- numlock interferes with numpad keys, so should generally be off when numpad layer is active.
 COLEMAK_LAYER_ENABLE = yes   		 - Enabled optional 5th layer for COLEMAK layout. Use Shift and encoder to enter 5th layer.
 
 
-## All layers diagram
-Default layer
-![image](https://github.com/gourdo1/media/blob/main/base.png)
+## Layer Diagrams
+Base layer
+![image](https://raw.githubusercontent.com/gourdo1/media/main/base.png)
 
 Fn Layer
-![image](https://github.com/gourdo1/media/blob/main/fn1.png)
+![image](https://raw.githubusercontent.com/gourdo1/media/main/fn1.png)
 
-Layer 2 (Caps Lock Mod)
-![image](https://user-images.githubusercontent.com/71780717/124177683-8b231a00-da7e-11eb-9434-e2475f679a54.png)
+Layer 2 (Numpad)
+![image](https://raw.githubusercontent.com/gourdo1/media/main/numpad.png)
 
 Optional COLEMAK layer
 ![image](https://user-images.githubusercontent.com/71780717/131235050-980d2f54-2d23-4ae8-a83f-9fcdbe60d6cb.png)
