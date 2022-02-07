@@ -7,8 +7,8 @@ A TKL keyboard with hotswap sockets and in switch RGB.
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: ID87 v2
 * Hardware Availability: 
-https://drop.com/buy/idobao-id87-v2-tkl-mechanical-keyboard-kit
-https://idobao.net/products/idobao-id87-v2-tkl-pcb-mounted-hot-swappable-mechanical-keyboard-kit
+  * https://drop.com/buy/idobao-id87-v2-tkl-mechanical-keyboard-kit
+  * https://idobao.net/products/idobao-id87-v2-tkl-pcb-mounted-hot-swappable-mechanical-keyboard-kit
 
 Make example for this keyboard (after setting up your build environment):
 
