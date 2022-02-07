@@ -1,5 +1,6 @@
 /*
     ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
+    Copyright (C) 2022 Mega Mind
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -27,14 +28,14 @@
 /*===========================================================================*/
 
 /*
- * Setup for STMicroelectronics STM32F401C-Discovery board.
+ * Setup for STeMCell
  */
 
 /*
  * Board identifier.
  */
-#define BOARD_ST_STM32F401C_DISCOVERY
-#define BOARD_NAME                  "STMicroelectronics STM32F401C-Discovery"
+#define BOARD_STEMCELL
+#define BOARD_NAME                  "STeMCell"
 
 /*
  * Board oscillators-related settings.
