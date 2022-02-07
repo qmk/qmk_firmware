@@ -62,7 +62,7 @@ def create_validator(schema):
     """Creates a validator for the given schema id.
     """
     schema_store = compile_schema_store()
-    resolver = jsonschema.RefResolver.from_schema(schema_store['qmk.keyboard.v1'], store=schema_store)
+    resolver = jsonschema.RefResolver.from_schema(schema_store[schema], store=schema_store)
 
     return jsonschema.Draft7Validator(schema_store[schema], resolver=resolver).validate
 
