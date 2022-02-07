@@ -27,11 +27,3 @@ WATCHDOG_ENABLE = yes       # Resets keyboard if matrix_scan isn't run every 250
 
 # Extra source files for IS3731 lighting
 SRC = TWIlib.c issi.c lighting.c
-
-ifeq ($(strip $(ISSI_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DISSI_ENABLE
-endif
-
-ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
-endif
