@@ -17,28 +17,45 @@
 #include QMK_KEYBOARD_H
 
 #ifdef VIA_ENABLE
-#    define USER_START USER00
+    #define USER_START USER00
 #else
-#    define USER_START SAFE_RANGE
+    #define USER_START SAFE_RANGE
 #endif
 
-enum layers { MAC_BASE, MAC_FN, WIN_BASE, WIN_FN };
+enum layers{
+  MAC_BASE,
+  MAC_FN,
+  WIN_BASE,
+  WIN_FN
+};
 
-enum custom_keycodes { KC_MISSION_CONTROL = USER_START, KC_LAUNCHPAD, KC_LOPTN, KC_ROPTN, KC_LCMMD, KC_RCMMD, KC_TASK_VIEW, KC_FILE_EXPLORER };
+enum custom_keycodes {
+    KC_MISSION_CONTROL = USER_START,
+    KC_LAUNCHPAD,
+    KC_LOPTN,
+    KC_ROPTN,
+    KC_LCMMD,
+    KC_RCMMD,
+    KC_TASK_VIEW,
+    KC_FILE_EXPLORER
+};
 
 typedef struct PACKED {
     uint8_t len;
     uint8_t keycode[2];
 } key_combination_t;
 
-key_combination_t key_comb_list[2] = {{2, {KC_LWIN, KC_TAB}}, {2, {KC_LWIN, KC_E}}};
+key_combination_t key_comb_list[2] = {
+    {2, {KC_LWIN, KC_TAB}},
+    {2, {KC_LWIN, KC_E}}
+};
 
 #define KC_MCTL KC_MISSION_CONTROL
 #define KC_LPAD KC_LAUNCHPAD
 #define KC_TASK KC_TASK_VIEW
 #define KC_FLXP KC_FILE_EXPLORER
 
-static uint8_t mac_keycode[4] = {KC_LOPT, KC_ROPT, KC_LCMD, KC_RCMD};
+static uint8_t mac_keycode[4] = { KC_LOPT, KC_ROPT, KC_LCMD, KC_RCMD };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_all(
@@ -76,28 +93,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
 
-#    define ENCODERS 1
+#define ENCODERS 1
 static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS]    = {{8, 5}};
-static keypos_t encoder_ccw[ENCODERS]   = {{7, 5}};
+static keypos_t encoder_cw[ENCODERS]    = {{ 8, 5 }};
+static keypos_t encoder_ccw[ENCODERS]  = {{ 7, 5 }};
 
 void encoder_action_unregister(void) {
     for (int index = 0; index < ENCODERS; ++index) {
         if (encoder_state[index]) {
-            keyevent_t encoder_event = (keyevent_t){.key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index], .pressed = false, .time = (timer_read() | 1)};
-            encoder_state[index]     = 0;
+            keyevent_t encoder_event = (keyevent_t) {
+                .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
+                .pressed = false,
+                .time = (timer_read() | 1)
+            };
+            encoder_state[index] = 0;
             action_exec(encoder_event);
         }
     }
 }
 
 void encoder_action_register(uint8_t index, bool clockwise) {
-    keyevent_t encoder_event = (keyevent_t){.key = clockwise ? encoder_cw[index] : encoder_ccw[index], .pressed = true, .time = (timer_read() | 1)};
-    encoder_state[index]     = (clockwise ^ 1) | (clockwise << 1);
+    keyevent_t encoder_event = (keyevent_t) {
+        .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
+        .pressed = true,
+        .time = (timer_read() | 1)
+    };
+    encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
     action_exec(encoder_event);
 }
 
-void matrix_scan_user(void) { encoder_action_unregister(); }
+void matrix_scan_user(void) {
+    encoder_action_unregister();
+}
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     encoder_action_register(index, clockwise);
@@ -108,16 +135,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_LOPTN:
-        case KC_ROPTN:
-        case KC_LCMMD:
-        case KC_RCMMD:
-            if (record->event.pressed) {
-                register_code(mac_keycode[keycode - KC_LOPTN]);
-            } else {
-                unregister_code(mac_keycode[keycode - KC_LOPTN]);
-            }
-            return false;
         case KC_MISSION_CONTROL:
             if (record->event.pressed) {
                 host_consumer_send(0x29F);
@@ -130,6 +147,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 host_consumer_send(0x2A0);
             } else {
                 host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
+        case KC_LOPTN:
+        case KC_ROPTN:
+        case KC_LCMMD:
+        case KC_RCMMD:
+            if (record->event.pressed) {
+                register_code(mac_keycode[keycode - KC_LOPTN]);
+            } else {
+                unregister_code(mac_keycode[keycode - KC_LOPTN]);
             }
             return false;  // Skip all further processing of this key
         case KC_TASK:
@@ -145,6 +172,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;  // Skip all further processing of this key
         default:
-            return true;  // Process all other keycodes normally
+            return true;   // Process all other keycodes normally
     }
 }

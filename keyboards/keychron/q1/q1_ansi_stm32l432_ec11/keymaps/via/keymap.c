@@ -135,6 +135,20 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case KC_MISSION_CONTROL:
+            if (record->event.pressed) {
+                host_consumer_send(0x29F);
+            } else {
+                host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
+        case KC_LAUNCHPAD:
+            if (record->event.pressed) {
+                host_consumer_send(0x2A0);
+            } else {
+                host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
         case KC_LOPTN:
         case KC_ROPTN:
         case KC_LCMMD:
@@ -143,20 +157,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(mac_keycode[keycode - KC_LOPTN]);
             } else {
                 unregister_code(mac_keycode[keycode - KC_LOPTN]);
-            }
-            return false;
-        case KC_MCTL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
-        case KC_LPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
             }
             return false;  // Skip all further processing of this key
         case KC_TASK:
@@ -172,6 +172,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;  // Skip all further processing of this key
         default:
-            return true;  // Process all other keycodes normally
+            return true;   // Process all other keycodes normally
     }
 }
