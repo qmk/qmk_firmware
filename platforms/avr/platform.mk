@@ -19,6 +19,12 @@ COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fpack-struct
 COMPILEFLAGS += -fshort-enums
 
+# Linker relaxation is only possible if
+# link time optimizations are not enabled.
+ifeq ($(strip $(LTO_ENABLE)), no)
+	COMPILEFLAGS += -mrelax
+endif
+
 ASFLAGS += $(AVR_ASFLAGS)
 
 CFLAGS += $(COMPILEFLAGS) $(AVR_CFLAGS)
@@ -28,7 +34,7 @@ CFLAGS += -fno-strict-aliasing
 CXXFLAGS += $(COMPILEFLAGS)
 CXXFLAGS += -fno-exceptions -std=c++11
 
-LDFLAGS +=-Wl,--gc-sections
+LDFLAGS += -Wl,--gc-sections
 
 OPT_DEFS += -DF_CPU=$(F_CPU)UL
 
