@@ -22,10 +22,10 @@ The base concept is to work around a HHKB format or a close derivative as below
 |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
 | --- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |  \  |  `  |
-| Tab |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |   Bkspc   |
-| Ctl |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |      Return     |
-| Sft |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |       Shift     | Fn  |
-| Ctl | Alt | Gui |                     Space                           | Alt | Gui | Ctl |
+| Tab |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  | Backspace |
+| Ctrl |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |      Return    |
+| Shift |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |      Shift    | Fn  |
+| Ctrl | Alt | Gui |                     Space                         | Alt | Gui | Ctrl |
 
 ## Color management based on layer or Key caps state
 
