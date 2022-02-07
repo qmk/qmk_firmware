@@ -59,8 +59,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_R),
 
   [_ADJ] = LAYOUT_ortho_5x13(
-      RGB_MOD, RGB_RMOD, A(KC_F2), _______, _______, _______, _______, _______, _______, _______, _______, _______ , RGB_M_SW,
-      RGB_HUI, RGB_HUD , RGB_M_P , _______, RESET  , RGB_M_T, _______, _______, _______, _______, _______, _______ , RGB_M_SN,
+      RGB_MOD, RGB_RMOD, A(KC_F2), _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_T , RGB_M_SW,
+      RGB_HUI, RGB_HUD , RGB_M_P , _______, RESET  , _______, _______, _______, _______, _______, _______, _______ , RGB_M_SN,
       RGB_SAI, RGB_SAD , RGB_M_B , _______, _______, _______, _______, _______, _______, _______, _______, _______ , RGB_M_K ,
       RGB_VAI, RGB_VAD , RGB_M_R , _______, _______, _______, _______, _______, _______, _______, _______, _______ , RGB_M_X ,
       RGB_TOG, _______ , _______ , _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_TW, RGB_M_G),
@@ -69,8 +69,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 // let us assume we start with both layers off
-bool toggle_lwr = false;
-bool toggle_rse = false;
+static bool toggle_lwr = false;
+static bool toggle_rse = false;
 
 bool led_update_user(led_t led_state) {
     // Disable the default LED update code, so that lock LEDs could be reused to show layer status.

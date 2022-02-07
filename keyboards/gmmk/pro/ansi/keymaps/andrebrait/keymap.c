@@ -1,5 +1,5 @@
 /* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
-   Copyright 2021 Andre Brait <andrebrait@gmail.com>
+   Copyright 2022 Andre Brait <andrebrait@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,11 +17,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#ifdef RGB_MATRIX_ENABLE
-    #ifndef RGB_CONFIRMATION_BLINKING_TIME
-        #define RGB_CONFIRMATION_BLINKING_TIME 2000 // 2 seconds
-    #endif
-#endif // RGB_MATRIX_ENABLE
+enum layers {
+    WIN_BASE = 0,
+    WIN_FN,
+    MAC_BASE,
+    MAC_FN
+};
+
+enum custom_keycodes {
+    KC_MISSION_CONTROL = SAFE_RANGE,
+    KC_LAUNCHPAD
+};
+
+#define KC_TASK LGUI(KC_TAB)
+#define KC_FLXP LGUI(KC_E)
+#define KC_MCTL KC_MISSION_CONTROL
+#define KC_LPAD KC_LAUNCHPAD
+#define TO_WINB TO(WIN_BASE)
+#define TO_MACB TO(MAC_BASE)
+#define MO_WINF MO(WIN_FN)
+#define MO_MACF MO(MAC_FN)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -45,25 +60,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // This keyboard defaults to 6KRO instead of NKRO for compatibility reasons (some KVMs and BIOSes are incompatible with NKRO).
     // Since this is, among other things, a "gaming" keyboard, a key combination to enable NKRO on the fly is provided for convenience.
     // Press Fn+N to toggle between 6KRO and NKRO. This setting is persisted to the EEPROM and thus persists between restarts.
-    [0] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,           KC_MUTE,
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_HOME,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
-        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(1),   KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+    //
+    // RGB and function keys are inspired by the Keychron Q1 layouts instead of using the default keys.
+    //
+    // KC_PAUS/KC_BRMU and KC_SCRL/KC_BRMD are aliases for the same keys, but their names reflect better the function in each layout.
+    [WIN_BASE] = LAYOUT(
+        KC_ESC,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,           KC_MUTE,
+        KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_HOME,
+        KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
+        KC_CAPS, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
+        KC_LCTL, KC_LGUI,  KC_LALT,                            KC_SPC,                             KC_RALT, MO_WINF, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [1] = LAYOUT(
-        _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_INS,           _______,
-        _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_PSCR,
-        _______, _______, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,            _______,
-        _______, _______, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
-        _______,          _______, RGB_HUI, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,          _______, RGB_MOD, _______,
-        _______, _______, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
+    [WIN_FN] = LAYOUT(
+        _______, KC_BRID,  KC_BRIU, KC_TASK, KC_FLXP, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, KC_INS,           XXXXXXX,
+        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PSCR,
+        RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,            KC_PAUS,
+        TO_MACB, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_SCRL,
+        _______,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, _______,  _______,                            XXXXXXX,                            _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
+    [MAC_BASE] = LAYOUT(
+        KC_ESC,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,           KC_MUTE,
+        KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_HOME,
+        KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
+        KC_CAPS, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
+        KC_LCTL, KC_LALT,  KC_LGUI,                            KC_SPC,                             KC_RALT, MO_MACF, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+    ),
 
+    [MAC_FN] = LAYOUT(
+        _______, KC_BRID,  KC_BRIU, KC_MCTL, KC_LPAD, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, KC_INS,           XXXXXXX,
+        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PSCR,
+        RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,            KC_BRMU,
+        TO_WINB, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_BRMD,
+        _______,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, _______,  _______,                            XXXXXXX,                            _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
+    )
 };
 // clang-format on
 
@@ -80,13 +115,14 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 #ifdef RGB_MATRIX_ENABLE
 
+#define RGB_CONFIRMATION_BLINKING_TIME 2000 // 2 seconds
+
 /* Renaming those to make the purpose on this keymap clearer */
 #define LED_FLAG_CAPS LED_FLAG_NONE
 #define LED_FLAG_EFFECTS LED_FLAG_INDICATOR
 
 static void set_rgb_caps_leds(void);
 
-#if RGB_CONFIRMATION_BLINKING_TIME > 0
 static uint16_t effect_started_time = 0;
 static uint8_t r_effect = 0x0, g_effect = 0x0, b_effect = 0x0;
 static void start_effects(void);
@@ -100,7 +136,31 @@ static void start_effects(void);
 #endif
 #define effect_red() r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0
 #define effect_green() r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0
-#endif // RGB_CONFIRMATION_BLINKING_TIME > 0
+#define effect_blue() r_effect = 0x0, g_effect = 0x0, b_effect = 0xFF
+#define effect_white() r_effect = 0xFF, g_effect = 0xFF, b_effect = 0xFF
+
+static uint8_t previous_effect_layer = 255;
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    uint8_t current_layer = get_highest_layer(state);
+    switch (current_layer) {
+        case WIN_BASE:
+            if (previous_effect_layer != current_layer) {
+                previous_effect_layer = current_layer;
+                effect_blue();
+                start_effects();
+            }
+            break;
+        case MAC_BASE:
+            if (previous_effect_layer != current_layer) {
+                previous_effect_layer = current_layer;
+                effect_white();
+                start_effects();
+            }
+            break;
+    }
+    return state;
+}
 
 bool led_update_user(led_t led_state) {
     if (led_state.caps_lock) {
@@ -117,10 +177,26 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 
+#endif // RGB_MATRIX_ENABLE
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case KC_MISSION_CONTROL:
+            if (record->event.pressed) {
+                host_consumer_send(0x29F);
+            } else {
+                host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
+        case KC_LAUNCHPAD:
+            if (record->event.pressed) {
+                host_consumer_send(0x2A0);
+            } else {
+                host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
+    #ifdef RGB_MATRIX_ENABLE
     #ifdef NKRO_ENABLE
-    #if RGB_CONFIRMATION_BLINKING_TIME > 0
         case NK_TOGG:
             if (record->event.pressed) {
                 if (keymap_config.nkro) {
@@ -133,25 +209,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 start_effects();
             }
             break;
-        case NK_ON:
-            if (record->event.pressed) {
-                if (!keymap_config.nkro) {
-                    /* Turning NKRO ON */
-                    effect_green();
-                    start_effects();
-                }
-            }
-            break;
-        case NK_OFF:
-            if (record->event.pressed) {
-                if (keymap_config.nkro) {
-                    /* Turning NKRO OFF */
-                    effect_red();
-                    start_effects();
-                }
-            }
-            break;
-    #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
     #endif // NKRO_ENABLE
         case RGB_MOD:
         case RGB_RMOD:
@@ -166,7 +223,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (rgb_matrix_get_flags() != LED_FLAG_ALL) {
                     /* Ignore changes to RGB settings while only it's supposed to be OFF */
-                    return false;
+                    return false;  // Skip all further processing of this key
                 }
             }
             break;
@@ -174,9 +231,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (rgb_matrix_is_enabled()) {
                     switch (rgb_matrix_get_flags()) {
-                        #if RGB_CONFIRMATION_BLINKING_TIME > 0
                         case LED_FLAG_EFFECTS:
-                        #endif
                         case LED_FLAG_CAPS:
                             /* Turned ON because of EFFECTS or CAPS, is actually OFF */
                             /* Change to LED_FLAG_ALL to signal it's really ON */
@@ -186,14 +241,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             break;
                         case LED_FLAG_ALL:
                             /* Is actually ON */
-                            #if RGB_CONFIRMATION_BLINKING_TIME > 0
                             if (effect_started_time > 0) {
                                 /* Signal EFFECTS */
                                 rgb_matrix_set_flags(LED_FLAG_EFFECTS);
                                 /* Will be re-enabled by the processing of the toggle */
                                 rgb_matrix_disable_noeeprom();
                             } else
-                            #endif
                             if (host_keyboard_led_state().caps_lock) {
                                 /* Signal CAPS */
                                 rgb_matrix_set_flags(LED_FLAG_CAPS);
@@ -205,13 +258,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+    #endif // RGB_MATRIX_ENABLE
     }
     return true;
 }
 
-
+#ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_user() {
-    #if RGB_CONFIRMATION_BLINKING_TIME > 0
     if (effect_started_time > 0) {
         /* Render blinking EFFECTS */
         const uint16_t deltaTime = sync_timer_elapsed(effect_started_time);
@@ -241,7 +294,6 @@ void rgb_matrix_indicators_user() {
             }
         }
     }
-    #endif // RGB_CONFIRMATION_BLINKING_TIME > 0
     if (rgb_matrix_get_flags() == LED_FLAG_CAPS) {
         rgb_matrix_set_color_all(0x0, 0x0, 0x0);
     }
@@ -250,7 +302,6 @@ void rgb_matrix_indicators_user() {
     }
 }
 
-#if RGB_CONFIRMATION_BLINKING_TIME > 0
 static void start_effects() {
     effect_started_time = sync_timer_read();
     if (!rgb_matrix_is_enabled()) {
@@ -262,7 +313,6 @@ static void start_effects() {
         rgb_matrix_set_flags(LED_FLAG_EFFECTS);
     }
 }
-#endif // RGB_CONFIRMATION_BLINKING_TIME > 0
 
 // RGB led number layout, function of the key
 
