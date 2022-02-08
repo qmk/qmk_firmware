@@ -73,12 +73,8 @@ def new_keyboard(cli):
         if not user_name:
             cli.log.error('You didn\'t provide a username, and we couldn\'t find one set in your QMK or Git configs. Please try again.')
 
-            # Exit if passed by arg
-            if cli.args.username:
-                return False
-
     real_name = None
-    while not real_name:
+    if not real_name:
         real_name = question('Your real name:', default=user_name)
 
     keyboard_basename = keyboard_path.name
