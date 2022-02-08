@@ -67,7 +67,6 @@ function build_executor() {
 
         make distclean >/dev/null 2>&1
 
-        git clean -xfd >/dev/null 2>&1 || true
         git checkout -f $revision >/dev/null 2>&1 || { echo "Failed to check out revision ${revision}" >&2 ; exit 1 ; }
         make -j${job_count} $keyboard_target >/dev/null 2>&1 || true
         file_size=$(arm-none-eabi-size .build/*.elf 2>/dev/null | awk '/elf/ {print $1}' 2>/dev/null || true)
