@@ -34,28 +34,8 @@
 #    define FLASH_KEY1 0x45670123U
 #    define FLASH_KEY2 0xCDEF89ABU
 
-static uint8_t ADDR2PAGE(uint32_t Page_Address) {
-    switch (Page_Address) {
-        case 0x08000000 ... 0x08003FFF:
-            return 0;
-        case 0x08004000 ... 0x08007FFF:
-            return 1;
-        case 0x08008000 ... 0x0800BFFF:
-            return 2;
-        case 0x0800C000 ... 0x0800FFFF:
-            return 3;
-        case 0x08010000 ... 0x08013FFF:
-            return 4;
-        case 0x08014000 ... 0x08017FFF:
-            return 5;
-        case 0x08018000 ... 0x0801BFFF:
-            return 6;
-        case 0x0801C000 ... 0x0801FFFF:
-            return 7;
-    }
-
-    // TODO: bad times...
-    return 7;
+static inline uint8_t ADDR2PAGE(uint32_t Page_Address) {
+    return (Page_Address - 0x08000000)/0x4000;
 }
 #endif
 
