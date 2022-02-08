@@ -20,10 +20,12 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _DVORAK 0
-#define _SYMB 1
-#define _QWERTY 2
-#define _ADJUST 3
+enum layers {
+    _DVORAK,
+    _SYMB,
+    _QWERTY,
+    _ADJUST,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
