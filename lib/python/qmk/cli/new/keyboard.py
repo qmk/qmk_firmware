@@ -143,18 +143,23 @@ def augment_community_info(src, dest):
 
 def prompt_keyboard():
     prompt = """{fg_yellow}Name Your Keyboard Project{style_reset_all}
-
 For more infomation, see:
 https://docs.qmk.fm/#/hardware_keyboard_guidelines?id=naming-your-keyboardproject
 
-keyboard Name? """
+Keyboard Name? """
 
-    return question(prompt, validate=lambda x: not keyboard(x).exists())
+    kb_name = False
+    while not kb_name:
+        kb_name = question(prompt)
+        if keyboard(kb_name).exists():
+            prompt = f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} already exists! Please choose a different name:'
+            kb_name = False
+    return kb_name
 
 
 def prompt_user():
-    prompt = """{fg_yellow}Attribution{style_reset_all}
-
+    prompt = """{fg_cyan}=========={fg_reset}
+{fg_yellow}Attribution{style_reset_all}
 Used for maintainer, copyright, etc
 
 Your GitHub Username? """
@@ -162,8 +167,8 @@ Your GitHub Username? """
 
 
 def prompt_name(def_name):
-    prompt = """{fg_yellow}More Attribution{style_reset_all}
-
+    prompt = """{fg_cyan}=========={fg_reset}
+{fg_yellow}More Attribution{style_reset_all}
 Used for maintainer, copyright, etc
 
 Your Real Name? """
@@ -171,8 +176,8 @@ Your Real Name? """
 
 
 def prompt_layout():
-    prompt = """{fg_yellow}Pick Base Layout{style_reset_all}
-
+    prompt = """{fg_cyan}=========={fg_reset}
+{fg_yellow}Pick Base Layout{style_reset_all}
 As a starting point, one of the common layouts can be used to bootstrap the process
 
 Default Layout? """
@@ -184,8 +189,8 @@ Default Layout? """
 
 
 def prompt_mcu():
-    prompt = """{fg_yellow}What Powers Your Project{style_reset_all}
-
+    prompt = """{fg_cyan}=========={fg_reset}
+{fg_yellow}What Powers Your Project{style_reset_all}
 For more infomation, see:
 https://docs.qmk.fm/#/compatible_microcontrollers
 
