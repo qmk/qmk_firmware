@@ -158,7 +158,7 @@ Keyboard Name? """
 
 
 def prompt_user():
-    prompt = """{fg_cyan}=========={fg_reset}
+    prompt = """
 {fg_yellow}Attribution{style_reset_all}
 Used for maintainer, copyright, etc
 
@@ -167,7 +167,7 @@ Your GitHub Username? """
 
 
 def prompt_name(def_name):
-    prompt = """{fg_cyan}=========={fg_reset}
+    prompt = """
 {fg_yellow}More Attribution{style_reset_all}
 Used for maintainer, copyright, etc
 
@@ -176,7 +176,7 @@ Your Real Name? """
 
 
 def prompt_layout():
-    prompt = """{fg_cyan}=========={fg_reset}
+    prompt = """
 {fg_yellow}Pick Base Layout{style_reset_all}
 As a starting point, one of the common layouts can be used to bootstrap the process
 
@@ -189,7 +189,7 @@ Default Layout? """
 
 
 def prompt_mcu():
-    prompt = """{fg_cyan}=========={fg_reset}
+    prompt = """
 {fg_yellow}What Powers Your Project{style_reset_all}
 For more infomation, see:
 https://docs.qmk.fm/#/compatible_microcontrollers
