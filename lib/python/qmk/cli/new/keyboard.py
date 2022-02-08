@@ -19,6 +19,44 @@ from qmk.json_schema import deep_update
 COMMUNITY = Path('layouts/default/')
 TEMPLATE = Path('data/templates/keyboard/')
 
+MCU2BOOTLOADER = {
+    "MKL26Z64": "halfkay",
+    "MK20DX128": "halfkay",
+    "MK20DX256": "halfkay",
+    "MK66FX1M0": "halfkay",
+    "STM32F042": "stm32-dfu",
+    "STM32F072": "stm32-dfu",
+    "STM32F103": "stm32duino",
+    "STM32F303": "stm32-dfu",
+    "STM32F401": "stm32-dfu",
+    "STM32F405": "stm32-dfu",
+    "STM32F407": "stm32-dfu",
+    "STM32F411": "stm32-dfu",
+    "STM32F446": "stm32-dfu",
+    "STM32G431": "stm32-dfu",
+    "STM32G474": "stm32-dfu",
+    "STM32L412": "stm32-dfu",
+    "STM32L422": "stm32-dfu",
+    "STM32L432": "stm32-dfu",
+    "STM32L433": "stm32-dfu",
+    "STM32L442": "stm32-dfu",
+    "STM32L443": "stm32-dfu",
+    "GD32VF103": "gd32v-dfu",
+    "WB32F3G71": "wb32-dfu",
+    "atmega16u2": "atmel-dfu",
+    "atmega32u2": "atmel-dfu",
+    "atmega16u4": "atmel-dfu",
+    "atmega32u4": "atmel-dfu",
+    "at90usb162": "atmel-dfu",
+    "at90usb646": "atmel-dfu",
+    "at90usb647": "atmel-dfu",
+    "at90usb1286": "atmel-dfu",
+    "at90usb1287": "atmel-dfu",
+    "atmega32a": "bootloadhid",
+    "atmega328p": "usbasploader",
+    "atmega328": "usbasploader",
+}
+
 # defaults
 schema = dotty(load_jsonschema('keyboard'))
 mcu_types = sorted(schema["properties.processor.enum"], key=str.casefold)
@@ -54,6 +92,12 @@ def validate_keyboard_name(name):
     """
     regex = re.compile(r'^[a-z0-9][a-z0-9/_]+$')
     return bool(regex.match(name))
+
+
+def select_default_bootloader(mcu):
+    """Provide sane defaults for bootloader
+    """
+    return MCU2BOOTLOADER.get(mcu, "custom")
 
 
 def replace_placeholders(src, dest, tokens):
@@ -169,6 +213,7 @@ def new_keyboard(cli):
     real_name = cli.args.realname or cli.args.username if cli.args.realname or cli.args.username else prompt_name(user_name)
     default_layout = cli.args.layout if cli.args.layout else prompt_layout()
     mcu = cli.args.type if cli.args.type else prompt_mcu()
+    bootloader = select_default_bootloader(mcu)
 
     if not validate_keyboard_name(kb_name):
         cli.log.error('Keyboard names must contain only {fg_cyan}lowercase a-z{fg_reset}, {fg_cyan}0-9{fg_reset}, and {fg_cyan}_{fg_reset}! Please choose a different name.')
@@ -178,14 +223,7 @@ def new_keyboard(cli):
         cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} already exists! Please choose a different name.')
         return 1
 
-    tokens = {
-        'YEAR': str(date.today().year),
-        'KEYBOARD': kb_name,
-        'USER_NAME': user_name,
-        'REAL_NAME': real_name,
-        'LAYOUT': default_layout,
-        'MCU': mcu,
-    }
+    tokens = {'YEAR': str(date.today().year), 'KEYBOARD': kb_name, 'USER_NAME': user_name, 'REAL_NAME': real_name, 'LAYOUT': default_layout, 'MCU': mcu, 'BOOTLOADER': bootloader}
 
     if cli.config.general.verbose:
         cli.log.info("Creating keyboard with:")
