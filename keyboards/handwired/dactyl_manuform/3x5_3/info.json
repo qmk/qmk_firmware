@@ -1,6 +1,6 @@
 {
     "keyboard_name": "Dactyl Manuform 3x5_3",
-    "url": "https://github.com/dlford/qmk_firmware",
+    "url": "https://www.dlford.io/keyboard-build-guide-per-key-rgb-leds/",
     "maintainer": "dlford",
     "layouts": {
         "LAYOUT": {

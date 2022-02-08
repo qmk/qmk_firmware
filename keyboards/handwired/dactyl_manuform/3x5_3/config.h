@@ -27,7 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Dactyl Minidox (3x5+3)
 
 // Communication
-#define USE_I2C
+// #define USE_I2C
+#define USE_SERIAL
 
 /* key matrix size */
 // Rows are doubled-up
@@ -45,20 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_LED_TOTAL 36
 #define RGB_MATRIX_SPLIT { 18, 18 }
 #define RGB_MATRIX_CENTER { 133, 54 }
-
-// Remove upward config options
-/* Set 0 if debouncing isn't needed */
-#ifdef DEBOUNCE
-  #undef DEBOUNCE
-#endif
-
-/* serial.c configuration for split keyboard */
-#ifdef USE_SERIAL
-  #undef USE_SERIAL
-#endif
-#ifdef SOFT_SERIAL_PIN
-  #undef SOFT_SERIAL_PIN
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #undef LOCKING_SUPPORT_ENABLE
