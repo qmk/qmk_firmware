@@ -102,14 +102,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_DUAL_BEACON
 #        define ENABLE_RGB_MATRIX_RAINBOW_BEACON
 #        define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-#        define ENABLE_RGB_MATRIX_RAINDROPS
-#        define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-#        define ENABLE_RGB_MATRIX_HUE_BREATHING
-#        define ENABLE_RGB_MATRIX_HUE_PENDULUM
-#        define ENABLE_RGB_MATRIX_HUE_WAVE
-#        define ENABLE_RGB_MATRIX_PIXEL_RAIN
-#        define ENABLE_RGB_MATRIX_PIXEL_FLOW
-#        define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 // enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
 #        define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #        define ENABLE_RGB_MATRIX_DIGITAL_RAIN
@@ -131,6 +123,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define DRIVER_LED_TOTAL RGBLED_NUM
 #        define RGB_MATRIX_SPLIT { 34, 34 }
 #        define RGB_DISABLE_WHEN_USB_SUSPENDED
-//#        define RGB_MATRIX_KEYPRESSES
+#        define RGB_MATRIX_KEYPRESSES
 #    endif
 #endif
