@@ -35,7 +35,19 @@
 #    define FLASH_KEY2 0xCDEF89ABU
 
 static inline uint8_t ADDR2PAGE(uint32_t Page_Address) {
-    return (Page_Address - 0x08000000)/0x4000;
+    switch (Page_Address) {
+        case 0x08000000 ... 0x08003FFF:
+            return 0;
+        case 0x08004000 ... 0x08007FFF:
+            return 1;
+        case 0x08008000 ... 0x0800BFFF:
+            return 2;
+        case 0x0800C000 ... 0x0800FFFF:
+            return 3;
+    }
+
+    // TODO: bad times...
+    return 7;
 }
 #endif
 
@@ -151,7 +163,7 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
     if (IS_FLASH_ADDRESS(Address)) {
         /* Wait for last operation to be completed */
         status = FLASH_WaitForLastOperation(ProgramTimeout);
-        if (status != FLASH_BUSY) {
+        if (status == FLASH_COMPLETE) {
             /* if the previous operation is completed, proceed to program the new data */
 
 #if defined(FLASH_CR_PSIZE)
