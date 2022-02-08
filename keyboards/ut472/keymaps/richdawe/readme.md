@@ -25,5 +25,7 @@ Spacebar held is L2 modifier, space on tap
 
 "Hold down the Bootmagic key (Space by default) and the desired hotkey while plugging in your keyboard. For example, holding Space+B should cause it to enter the bootloader."
 
-TODO: try numpad into middle for less awkward chording for nums/syms. Maybe also have space have dual funciton, L1 mod on hold?
+TODO: try numpad into middle for less awkward chording for nums/syms.
 TODO: Put Bootmagic on a different key than space? https://beta.docs.qmk.fm/using-qmk/hardware-features/feature_bootmagic
+TODO: http://www.keyboard-layout-editor.com/ layout for it
+TODO: blog post about UT472, 2u stab PCB stab clip in, 5 pin switch support (Durock T1s), link to other places, had to reset board using button on PCB after accidentally stopping BootMagic from working!
