@@ -1,5 +1,5 @@
 /* Copyright 2018 Carlos Filoteo
- * Copyright 2021 Richard Dawe
+ * Copyright 2021-2022 Richard Dawe
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ LAYOUT(
 
   /* FN Layer 1
    * ,-------------------------------------------------------------------------.
-   * |     |  1  |  2  |  3  |  :  |     |     |     |     |  0  |     |       |
+   * |     |  1  |  2  |  3  |  :  |     |     |     |  :  |  0  |  .  |       |
    * |-------------------------------------------------------------------------+
    * |      |  4  |  5  |  6  |  .  |     |     |  -  |  =  |  [  |  ]  |  \   |
    * |-------------------------------------------------------------------------+
@@ -56,7 +56,7 @@ LAYOUT(
    */
 
 LAYOUT( /* Right */
-  _______, KC_1,    KC_2,    KC_3,    KC_COLON, _______, _______, _______, _______,  KC_0,    _______, _______,
+  _______, KC_1,    KC_2,    KC_3,    KC_COLON, _______, _______, _______, KC_COLON, KC_0,    KC_DOT,  _______,
   _______, KC_4,    KC_5,    KC_6,    KC_DOT,   _______, _______, KC_MINS, KC_EQL,   KC_LBRC, KC_RBRC, KC_BSLS,
   _______, KC_7,    KC_8,    KC_9,    KC_0,     _______, _______, _______, KC_LBRC,  KC_RBRC, KC_PGUP, _______,
   KC_TILDE,_______, _______, _______, _______,     _______,       _______, KC_GRV,   KC_HOME, KC_PGDN, KC_END
