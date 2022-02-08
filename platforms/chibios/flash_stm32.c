@@ -213,10 +213,10 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
         if (status == FLASH_COMPLETE) {
             /* if the previous operation is completed, proceed to program the new data */
 
-#if defined(FLASH_CR_PSIZE)
+#    if defined(FLASH_CR_PSIZE)
             FLASH->CR &= ~FLASH_CR_PSIZE;
             FLASH->CR |= FLASH_CR_PSIZE_0;
-#endif
+#    endif
             FLASH->CR |= FLASH_CR_PG;
             *(__IO uint16_t*)Address = Data;
             /* Wait for last operation to be completed */
