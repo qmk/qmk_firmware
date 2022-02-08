@@ -21,9 +21,9 @@
 
 MEMORY
 {
-    flash0 (rx) : org = 0x08000000, len = 32k        /* Sector 0 - TinyUF2 bootloader */
-    flash1 (rx) : org = 0x08008000, len = 32k        /* Sector 1 - Emulated eeprom */
-    flash2 (rx) : org = 0x08010000, len = 256k - 64k /* Sector 2 - Firmware Code */
+    flash0 (rx) : org = 0x08000000, len = 32k        /* Sector 0,1 - TinyUF2 bootloader */
+    flash1 (rx) : org = 0x08008000, len = 32k        /* Sector 2,3 - Emulated eeprom */
+    flash2 (rx) : org = 0x08010000, len = 256k - 64k /* Sector 4..6 - Firmware Code */
     flash3 (rx) : org = 0x00000000, len = 0
     flash4 (rx) : org = 0x00000000, len = 0
     flash5 (rx) : org = 0x00000000, len = 0
