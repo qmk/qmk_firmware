@@ -34,7 +34,7 @@
 #    define FLASH_KEY1 0x45670123U
 #    define FLASH_KEY2 0xCDEF89ABU
 
-static inline uint8_t ADDR2PAGE(uint32_t Page_Address) {
+static uint8_t ADDR2PAGE(uint32_t Page_Address) {
     switch (Page_Address) {
         case 0x08000000 ... 0x08003FFF:
             return 0;
