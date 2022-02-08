@@ -1,6 +1,6 @@
 # Super 16 V2
 
-*A short description of the keyboard/project*
+A 4x4 macropad with RGB inswitch lighting and underglow. 
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: 1upkeyboards Super 16 V2
