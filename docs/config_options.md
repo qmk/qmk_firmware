@@ -124,10 +124,6 @@ If you define these options you will disable the associated feature, which can s
   * disable tap dance and other tapping features
 * `#define NO_ACTION_ONESHOT`
   * disable one-shot modifiers
-* `#define NO_ACTION_MACRO`
-  * disable old-style macro handling using `MACRO()`, `action_get_macro()` _(deprecated)_
-* `#define NO_ACTION_FUNCTION`
-  * disable old-style function handling using `fn_actions`, `action_function()` _(deprecated)_
 
 ## Features That Can Be Enabled
 
@@ -383,7 +379,6 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * A list of [layouts](feature_layouts.md) this keyboard supports.
 * `LTO_ENABLE`
   * Enables Link Time Optimization (LTO) when compiling the keyboard.  This makes the process take longer, but it can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).
-However, this will automatically disable the legacy TMK Macros and Functions features, as these break when LTO is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`.  (Note: This does not affect QMK [Macros](feature_macros.md) and [Layers](feature_layers.md).)
 
 ## AVR MCU Options
 * `MCU = atmega32u4`
@@ -407,7 +402,7 @@ Use these to enable or disable building certain features. The more you have enab
 * `MAGIC_ENABLE`
   * MAGIC actions (BOOTMAGIC without the boot)
 * `BOOTMAGIC_ENABLE`
-  * Virtual DIP switch configuration
+  * Enable Bootmagic Lite
 * `MOUSEKEY_ENABLE`
   * Mouse keys
 * `EXTRAKEY_ENABLE`
@@ -434,8 +429,8 @@ Use these to enable or disable building certain features. The more you have enab
   * MIDI controls
 * `UNICODE_ENABLE`
   * Unicode
-* `BLUETOOTH`
-  * Current options are AdafruitBLE, RN42
+* `BLUETOOTH_ENABLE`
+  * Current options are BluefruitLE, RN42
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 * `CUSTOM_MATRIX`
@@ -446,6 +441,10 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
+* `DEFERRED_EXEC_ENABLE`
+  * Enables deferred executor support -- timed delays before callbacks are invoked. See [deferred execution](custom_quantum_functions.md#deferred-execution) for more information.
+* `DYNAMIC_TAPPING_TERM_ENABLE`
+  * Allows to configure the global tapping term on the fly.
 
 ## USB Endpoint Limitations
 

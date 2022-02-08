@@ -63,17 +63,13 @@ extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
 #ifdef SPLIT_KEYBOARD
 // row offsets for each hand
-uint8_t thisHand, thatHand;
+extern uint8_t thisHand, thatHand;
 #endif
 
 // user-defined overridable functions
 __attribute__((weak)) void matrix_init_pins(void);
 __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
 __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter);
-#ifdef SPLIT_KEYBOARD
-__attribute__((weak)) void matrix_slave_scan_kb(void) { matrix_slave_scan_user(); }
-__attribute__((weak)) void matrix_slave_scan_user(void) {}
-#endif
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
@@ -256,8 +252,6 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
 
 void matrix_init(void) {
 #ifdef SPLIT_KEYBOARD
-    split_pre_init();
-
     // Set pinout for right half if pinout for that half is defined
     if (!isLeftHand) {
 #    ifdef DIRECT_PINS_RIGHT
@@ -296,10 +290,6 @@ void matrix_init(void) {
     debounce_init(ROWS_PER_HAND);
 
     matrix_init_quantum();
-
-#ifdef SPLIT_KEYBOARD
-    split_post_init();
-#endif
 }
 
 #ifdef SPLIT_KEYBOARD
@@ -307,35 +297,6 @@ void matrix_init(void) {
 __attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     transport_master(master_matrix, slave_matrix);
     return true;  // Treat the transport as always connected
-}
-
-bool matrix_post_scan(void) {
-    bool changed = false;
-    if (is_keyboard_master()) {
-        static bool  last_connected              = false;
-        matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
-        if (transport_master_if_connected(matrix + thisHand, slave_matrix)) {
-            changed = memcmp(matrix + thatHand, slave_matrix, sizeof(slave_matrix)) != 0;
-
-            last_connected = true;
-        } else if (last_connected) {
-            // reset other half when disconnected
-            memset(slave_matrix, 0, sizeof(slave_matrix));
-            changed = true;
-
-            last_connected = false;
-        }
-
-        if (changed) memcpy(matrix + thatHand, slave_matrix, sizeof(slave_matrix));
-
-        matrix_scan_quantum();
-    } else {
-        transport_slave(matrix + thatHand, matrix + thisHand);
-
-        matrix_slave_scan_kb();
-    }
-
-    return changed;
 }
 #endif
 

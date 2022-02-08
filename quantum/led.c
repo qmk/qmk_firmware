@@ -13,21 +13,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
+#include "led.h"
+#include "host.h"
+#include "debug.h"
+#include "gpio.h"
 
-#ifdef BACKLIGHT_ENABLE
-#    include "backlight.h"
+#ifdef BACKLIGHT_CAPS_LOCK
+#    ifdef BACKLIGHT_ENABLE
+#        include "backlight.h"
 extern backlight_config_t backlight_config;
-#else
-// Cannot use BACKLIGHT_CAPS_LOCK without backlight being enabled
-#    undef BACKLIGHT_CAPS_LOCK
+#    else
+#        pragma message "Cannot use BACKLIGHT_CAPS_LOCK without backlight being enabled"
+#        undef BACKLIGHT_CAPS_LOCK
+#    endif
 #endif
 
 #ifndef LED_PIN_ON_STATE
 #    define LED_PIN_ON_STATE 1
 #endif
 
-#if defined(BACKLIGHT_CAPS_LOCK)
+#ifdef BACKLIGHT_CAPS_LOCK
 /** \brief Caps Lock indicator using backlight (for keyboards without dedicated LED)
  */
 static void handle_backlight_caps_lock(led_t led_state) {
@@ -134,4 +139,42 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
 
     led_set_kb(usb_led);
     led_update_kb((led_t)usb_led);
+}
+
+/** \brief Trigger behaviour on transition to suspend
+ */
+void led_suspend(void) {
+    uint8_t leds_off = 0;
+#ifdef BACKLIGHT_CAPS_LOCK
+    if (is_backlight_enabled()) {
+        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
+        leds_off |= (1 << USB_LED_CAPS_LOCK);
+    }
+#endif
+    led_set(leds_off);
+}
+
+/** \brief Trigger behaviour on transition from suspend
+ */
+void led_wakeup(void) { led_set(host_keyboard_leds()); }
+
+/** \brief set host led state
+ *
+ * Only sets state if change detected
+ */
+void led_task(void) {
+    static uint8_t last_led_status = 0;
+
+    // update LED
+    uint8_t led_status = host_keyboard_leds();
+    if (last_led_status != led_status) {
+        last_led_status = led_status;
+
+        if (debug_keyboard) {
+            debug("led_task: ");
+            debug_hex8(led_status);
+            debug("\n");
+        }
+        led_set(led_status);
+    }
 }

@@ -32,6 +32,9 @@
 #    define I2C_START_RETRY_COUNT 20
 #endif  // I2C_START_RETRY_COUNT
 
+#define I2C_ACTION_READ 0x01
+#define I2C_ACTION_WRITE 0x00
+
 #define TWBR_val (((F_CPU / F_SCL) - 16) / 2)
 
 #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
@@ -154,7 +157,7 @@ int16_t i2c_read_nack(uint16_t timeout) {
 }
 
 i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2c_status_t status = i2c_start(address | I2C_WRITE, timeout);
+    i2c_status_t status = i2c_start(address | I2C_ACTION_WRITE, timeout);
 
     for (uint16_t i = 0; i < length && status >= 0; i++) {
         status = i2c_write(data[i], timeout);
@@ -166,7 +169,7 @@ i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length,
 }
 
 i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2c_status_t status = i2c_start(address | I2C_READ, timeout);
+    i2c_status_t status = i2c_start(address | I2C_ACTION_READ, timeout);
 
     for (uint16_t i = 0; i < (length - 1) && status >= 0; i++) {
         status = i2c_read_ack(timeout);

@@ -106,6 +106,7 @@ __attribute__((weak)) void unicode_input_start(void) {
                 tap_code(KC_NUM_LOCK);
             }
             register_code(KC_LEFT_ALT);
+            wait_ms(UNICODE_TYPE_DELAY);
             tap_code(KC_KP_PLUS);
             break;
         case UC_WINC:

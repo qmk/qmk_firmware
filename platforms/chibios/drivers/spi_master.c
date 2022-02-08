@@ -54,6 +54,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
         return false;
     }
 
+#ifndef WB32F3G71xx
     uint16_t roundedDivisor = 2;
     while (roundedDivisor < divisor) {
         roundedDivisor <<= 1;
@@ -62,6 +63,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     if (roundedDivisor < 2 || roundedDivisor > 256) {
         return false;
     }
+#endif
 
 #if defined(K20x) || defined(KL2x)
     spiConfig.tar0 = SPIx_CTARn_FMSZ(7) | SPIx_CTARn_ASC(1);
@@ -135,6 +137,37 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     }
 
     spiConfig.cpr = (roundedDivisor - 1) >> 1;
+
+#elif defined(WB32F3G71xx)
+    if (!lsbFirst) {
+        osalDbgAssert(lsbFirst != FALSE, "unsupported lsbFirst");
+    }
+
+    if (divisor < 1) {
+        return false;
+    }
+
+    spiConfig.SPI_BaudRatePrescaler = (divisor << 2);
+
+    switch (mode) {
+        case 0:
+            spiConfig.SPI_CPHA = SPI_CPHA_1Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_Low;
+            break;
+        case 1:
+            spiConfig.SPI_CPHA = SPI_CPHA_2Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_Low;
+            break;
+        case 2:
+            spiConfig.SPI_CPHA = SPI_CPHA_1Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_High;
+            break;
+        case 3:
+            spiConfig.SPI_CPHA = SPI_CPHA_2Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_High;
+            break;
+    }
+
 #else
     spiConfig.cr1 = 0;
 

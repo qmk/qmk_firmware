@@ -163,8 +163,9 @@ void IS31FL3736_init(uint8_t addr) {
 }
 
 void IS31FL3736_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    is31_led led;
     if (index >= 0 && index < DRIVER_LED_TOTAL) {
-        is31_led led = g_is31_leds[index];
+        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         g_pwm_buffer[led.driver][led.r] = red;
         g_pwm_buffer[led.driver][led.g] = green;
@@ -180,7 +181,8 @@ void IS31FL3736_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3736_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led = g_is31_leds[index];
+    is31_led led;
+    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
     // IS31FL3733
     // The PWM register for a matrix position (0x00 to 0xBF) can be

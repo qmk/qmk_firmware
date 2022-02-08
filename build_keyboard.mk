@@ -37,6 +37,17 @@ ifdef SKIP_VERSION
     OPT_DEFS += -DSKIP_VERSION
 endif
 
+# Generate the version.h file
+ifdef SKIP_VERSION
+VERSION_H_FLAGS := --skip-all
+endif
+ifdef SKIP_GIT
+VERSION_H_FLAGS := --skip-git
+endif
+
+# Generate the board's version.h file.
+$(shell $(QMK_BIN) generate-version-h $(VERSION_H_FLAGS) -q -o $(KEYMAP_OUTPUT)/src/version.h)
+
 # Determine which subfolders exist.
 KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
 KEYBOARD_FOLDER_PATH_2 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_1)))
@@ -129,7 +140,7 @@ ifeq ("$(wildcard $(KEYMAP_PATH))", "")
         # If we haven't found a keymap yet fall back to community layouts
         include build_layout.mk
     else
-        $(error Could not find keymap)
+        $(call CATASTROPHIC_ERROR,Invalid keymap,Could not find keymap)
         # this state should never be reached
     endif
 endif
@@ -158,7 +169,7 @@ generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
 endif
 
 ifeq ($(strip $(CTPC)), yes)
-  CONVERT_TO_PROTON_C=yes
+    CONVERT_TO_PROTON_C=yes
 endif
 
 ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
@@ -384,11 +395,13 @@ VPATH += $(KEYMAP_PATH)
 VPATH += $(USER_PATH)
 VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
+VPATH += $(KEYBOARD_OUTPUT)/src
+VPATH += $(KEYMAP_OUTPUT)/src
 
 include common_features.mk
 include $(BUILDDEFS_PATH)/generic_features.mk
 include $(TMK_PATH)/protocol.mk
-include $(TMK_PATH)/common.mk
+include $(PLATFORM_PATH)/common.mk
 include $(BUILDDEFS_PATH)/bootloader.mk
 
 SRC += $(patsubst %.c,%.clib,$(LIB_SRC))
@@ -404,13 +417,14 @@ ifneq ($(REQUIRE_PLATFORM_KEY),)
     endif
 endif
 
-include $(TMK_PATH)/$(PLATFORM_KEY).mk
+include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
+-include $(PLATFORM_PATH)/$(PLATFORM_KEY)/flash.mk
+
 ifneq ($(strip $(PROTOCOL)),)
     include $(TMK_PATH)/protocol/$(strip $(shell echo $(PROTOCOL) | tr '[:upper:]' '[:lower:]')).mk
 else
     include $(TMK_PATH)/protocol/$(PLATFORM_KEY).mk
 endif
--include $(TOP_DIR)/platforms/$(PLATFORM_KEY)/flash.mk
 
 # TODO: remove this bodge?
 PROJECT_DEFS := $(OPT_DEFS)
@@ -424,8 +438,7 @@ OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) \
 -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(QMK_KEYBOARD_H)\" \
--DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\" \
--DQMK_SUBPROJECT -DQMK_SUBPROJECT_H -DQMK_SUBPROJECT_CONFIG_H
+-DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\"
 $(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
 $(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
 $(KEYBOARD_OUTPUT)_SRC := $(PLATFORM_SRC)

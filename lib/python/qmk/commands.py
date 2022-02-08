@@ -190,7 +190,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
     target = f'{keyboard_filesafe}_{user_keymap["keymap"]}'
     keyboard_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keyboard_filesafe}')
     keymap_output = Path(f'{keyboard_output}_{user_keymap["keymap"]}')
-    c_text = qmk.keymap.generate_c(user_keymap['keyboard'], user_keymap['layout'], user_keymap['layers'])
+    c_text = qmk.keymap.generate_c(user_keymap)
     keymap_dir = keymap_output / 'src'
     keymap_c = keymap_dir / 'keymap.c'
 
@@ -293,6 +293,14 @@ def git_get_branch():
 
     if git_branch.returncode == 0:
         return git_branch.stdout.strip()
+
+
+def git_get_tag():
+    """Returns the current tag for a repo, or None.
+    """
+    git_tag = cli.run(['git', 'describe', '--abbrev=0', '--tags'])
+    if git_tag.returncode == 0:
+        return git_tag.stdout.strip()
 
 
 def git_is_dirty():

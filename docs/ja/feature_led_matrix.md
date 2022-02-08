@@ -52,7 +52,7 @@ I2C IS31FL3731 RGB コントローラを使ったアドレス指定可能な LED
 
 `<keyboard>.c` に全ての LED を列挙する配列を定義します:
 
-    const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+    const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     /* これらの位置については IS31 マニュアルを参照してください
     *   driver
     *   |  LED address

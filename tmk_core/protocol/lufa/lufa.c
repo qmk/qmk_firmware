@@ -67,10 +67,10 @@ extern keymap_config_t keymap_config;
 
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
-#    ifdef MODULE_ADAFRUIT_BLE
-#        include "adafruit_ble.h"
-#    else
-#        include "../serial.h"
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+#        include "bluefruit_le.h"
+#    elif BLUETOOTH_RN42
+#        include "rn42.h"
 #    endif
 #endif
 
@@ -89,46 +89,6 @@ extern keymap_config_t keymap_config;
 #ifdef JOYSTICK_ENABLE
 #    include "joystick.h"
 #endif
-
-// https://cdn.sparkfun.com/datasheets/Wireless/Bluetooth/bluetooth_cr_UG-v1.0r.pdf#G7.663734
-static inline uint16_t CONSUMER2RN42(uint16_t usage) {
-    switch (usage) {
-        case AC_HOME:
-            return 0x0001;
-        case AL_EMAIL:
-            return 0x0002;
-        case AC_SEARCH:
-            return 0x0004;
-        case AL_KEYBOARD_LAYOUT:
-            return 0x0008;
-        case AUDIO_VOL_UP:
-            return 0x0010;
-        case AUDIO_VOL_DOWN:
-            return 0x0020;
-        case AUDIO_MUTE:
-            return 0x0040;
-        case TRANSPORT_PLAY_PAUSE:
-            return 0x0080;
-        case TRANSPORT_NEXT_TRACK:
-            return 0x0100;
-        case TRANSPORT_PREV_TRACK:
-            return 0x0200;
-        case TRANSPORT_STOP:
-            return 0x0400;
-        case TRANSPORT_EJECT:
-            return 0x0800;
-        case TRANSPORT_FAST_FORWARD:
-            return 0x1000;
-        case TRANSPORT_REWIND:
-            return 0x2000;
-        case TRANSPORT_STOP_EJECT:
-            return 0x4000;
-        case AL_LOCAL_BROWSER:
-            return 0x8000;
-        default:
-            return 0;
-    }
-}
 
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
@@ -685,17 +645,10 @@ static void send_keyboard(report_keyboard_t *report) {
 
 #ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#    ifdef MODULE_ADAFRUIT_BLE
-        adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
-#    elif MODULE_RN42
-        serial_send(0xFD);
-        serial_send(0x09);
-        serial_send(0x01);
-        serial_send(report->mods);
-        serial_send(report->reserved);
-        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-            serial_send(report->keys[i]);
-        }
+#    ifdef BLUETOOTH_BLUEFRUIT_LE
+        bluefruit_le_send_keys(report->mods, report->keys, sizeof(report->keys));
+#    elif BLUETOOTH_RN42
+        rn42_send_keyboard(report);
 #    endif
         return;
     }
@@ -738,19 +691,11 @@ static void send_mouse(report_mouse_t *report) {
 
 #    ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef MODULE_ADAFRUIT_BLE
+#        ifdef BLUETOOTH_BLUEFRUIT_LE
         // FIXME: mouse buttons
-        adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
-#        else
-        serial_send(0xFD);
-        serial_send(0x00);
-        serial_send(0x03);
-        serial_send(report->buttons);
-        serial_send(report->x);
-        serial_send(report->y);
-        serial_send(report->v);  // should try sending the wheel v here
-        serial_send(report->h);  // should try sending the wheel h here
-        serial_send(0x00);
+        bluefruit_le_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
+#        elif BLUETOOTH_RN42
+        rn42_send_mouse(report);
 #        endif
         return;
     }
@@ -818,18 +763,10 @@ static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
 #    ifdef BLUETOOTH_ENABLE
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef MODULE_ADAFRUIT_BLE
-        adafruit_ble_send_consumer_key(data);
-#        elif MODULE_RN42
-        static uint16_t last_data = 0;
-        if (data == last_data) return;
-        last_data       = data;
-        uint16_t bitmap = CONSUMER2RN42(data);
-        serial_send(0xFD);
-        serial_send(0x03);
-        serial_send(0x03);
-        serial_send(bitmap & 0xFF);
-        serial_send((bitmap >> 8) & 0xFF);
+#        ifdef BLUETOOTH_BLUEFRUIT_LE
+        bluefruit_le_send_consumer_key(data);
+#        elif BLUETOOTH_RN42
+        rn42_send_consumer(data);
 #        endif
         return;
     }
@@ -1076,8 +1013,8 @@ void protocol_pre_init(void) {
     setup_usb();
     sei();
 
-#if defined(MODULE_RN42)
-    serial_init();
+#if defined(BLUETOOTH_RN42)
+    rn42_init();
 #endif
 
     /* wait for USB startup & debug output */
@@ -1129,8 +1066,8 @@ void protocol_post_task(void) {
     MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
-#ifdef MODULE_ADAFRUIT_BLE
-    adafruit_ble_task();
+#ifdef BLUETOOTH_BLUEFRUIT_LE
+    bluefruit_le_task();
 #endif
 
 #ifdef VIRTSER_ENABLE

@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 DYNAMIC_KEYMAP_ENABLE = no
 LTO_ENABLE = yes
 AUDIO_ENABLE = no

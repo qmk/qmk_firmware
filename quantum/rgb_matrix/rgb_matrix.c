@@ -164,6 +164,16 @@ void eeconfig_debug_rgb_matrix(void) {
     dprintf("rgb_matrix_config.flags = %d\n", rgb_matrix_config.flags);
 }
 
+void rgb_matrix_reload_from_eeprom(void) {
+    rgb_matrix_disable_noeeprom();
+    /* Reset back to what we have in eeprom */
+    eeconfig_init_rgb_matrix();
+    eeconfig_debug_rgb_matrix();  // display current eeprom values
+    if (rgb_matrix_config.enable) {
+        rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
+    }
+}
+
 __attribute__((weak)) uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) { return 0; }
 
 uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i) {
@@ -275,12 +285,8 @@ static void rgb_task_timers(void) {
 
     // Update double buffer timers
 #if RGB_DISABLE_TIMEOUT > 0
-    if (rgb_anykey_timer < UINT32_MAX) {
-        if (UINT32_MAX - deltaTime < rgb_anykey_timer) {
-            rgb_anykey_timer = UINT32_MAX;
-        } else {
-            rgb_anykey_timer += deltaTime;
-        }
+    if (rgb_anykey_timer + deltaTime <= UINT32_MAX) {
+        rgb_anykey_timer += deltaTime;
     }
 #endif  // RGB_DISABLE_TIMEOUT > 0
 
