@@ -202,7 +202,7 @@ flash_status_t flash_erase_chip(void) {
     return response;
 }
 
-flash_status_t flash_erase_sector(const void *addr) {
+flash_status_t flash_erase_sector(uint32_t addr) {
     flash_status_t response    = FLASH_STATUS_SUCCESS;
     uintptr_t      target_addr = (uintptr_t)addr;
 
