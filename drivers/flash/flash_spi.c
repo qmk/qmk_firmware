@@ -287,7 +287,6 @@ flash_status_t flash_erase_block(uint32_t addr) {
 flash_status_t flash_read_block(uint8_t *buf, const void *addr, size_t len) {
     flash_status_t response    = FLASH_STATUS_SUCCESS;
     uint8_t *      read_buf    = (uint8_t *)buf;
-    uintptr_t      target_addr = (uintptr_t)addr;
 
     /* Wait for the write-in-progress bit to be cleared. */
     response= spi_flash_wait_while_busy();
