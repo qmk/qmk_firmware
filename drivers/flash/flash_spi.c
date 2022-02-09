@@ -315,7 +315,7 @@ flash_status_t flash_read_block(uint8_t *buf, const void *addr, size_t len) {
     return response;
 }
 
-flash_status_t flash_write_block(const uint8_t *buf, void *addr, size_t len) {
+flash_status_t flash_write_block(uint32_t addr, const void *buf, size_t len) {
     flash_status_t response    = FLASH_STATUS_SUCCESS;
     uint8_t *      write_buf   = (uint8_t *)buf;
 
