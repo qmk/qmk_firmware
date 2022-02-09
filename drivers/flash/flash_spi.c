@@ -222,7 +222,7 @@ flash_status_t flash_erase_sector(uint32_t addr) {
     }
 
     /* Erase Sector. */
-    response = spi_flash_transmit((uint8_t)FLASH_CMD_SE, addr, NULL, 0);
+    response = spi_flash_transaction(FLASH_CMD_SE, addr, NULL, 0);
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to erase sector! [spi flash erase sector]\n");
         return response;
