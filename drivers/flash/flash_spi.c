@@ -125,7 +125,7 @@ static flash_status_t spi_flash_write_disable(void) {
 }
 
 /* This function is used for read transfer, write transfer and erase transfer. */
-static flash_status_t spi_flash_transmit(uint8_t cmd, uintptr_t addr, uint8_t *data, size_t len) {
+static flash_status_t spi_flash_transaction(uint8_t cmd, uint32_t addr, uint8_t *data, size_t len) {
     flash_status_t response = FLASH_STATUS_SUCCESS;
     uint8_t buffer[EXTERNAL_FLASH_ADDRESS_SIZE + 1];
 
