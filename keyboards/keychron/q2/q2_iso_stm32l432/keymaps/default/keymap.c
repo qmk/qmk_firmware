@@ -33,12 +33,12 @@ enum layers{
 enum custom_keycodes {
     KC_MISSION_CONTROL = USER_START,
     KC_LAUNCHPAD,
-    KC_TASK_VIEW,
-    KC_FILE_EXPLORER,
     KC_LOPTN,
     KC_ROPTN,
     KC_LCMMD,
-    KC_RCMMD
+    KC_RCMMD,
+    KC_TASK_VIEW,
+    KC_FILE_EXPLORER
 };
 
 #define KC_WAVE S(KC_GRV)
@@ -98,6 +98,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case KC_MISSION_CONTROL:
+            if (record->event.pressed) {
+                host_consumer_send(0x29F);
+            } else {
+                host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
+        case KC_LAUNCHPAD:
+            if (record->event.pressed) {
+                host_consumer_send(0x2A0);
+            } else {
+                host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
         case KC_LOPTN:
         case KC_ROPTN:
         case KC_LCMMD:
@@ -106,20 +120,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(mac_keycode[keycode - KC_LOPTN]);
             } else {
                 unregister_code(mac_keycode[keycode - KC_LOPTN]);
-            }
-            return false;
-        case KC_MCTL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
-        case KC_LPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
             }
             return false;  // Skip all further processing of this key
         case KC_TASK:
