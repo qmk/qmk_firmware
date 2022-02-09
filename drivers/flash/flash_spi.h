@@ -123,13 +123,13 @@ void flash_init(void);
 
 flash_status_t flash_erase_chip(void);
 
-flash_status_t flash_erase_block(const void *addr);
+flash_status_t flash_erase_block(uint32_t addr);
 
-flash_status_t flash_erase_sector(const void *addr);
+flash_status_t flash_erase_sector(uint32_t addr);
 
-flash_status_t flash_read_block(uint8_t *buf, const void *addr, size_t len);
+flash_status_t flash_read_block(uint32_t addr, void *buf, size_t len);
 
-flash_status_t flash_write_block(const uint8_t *buf, void *addr, size_t len);
+flash_status_t flash_write_block(uint32_t addr, const void *buf, size_t len);
 
 #ifdef __cplusplus
 }
