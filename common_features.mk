@@ -208,7 +208,7 @@ ifneq ($(strip $(FLASH_DRIVER)), no)
         $(error FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid FLASH driver)
     else
         OPT_DEFS += -DFLASH_ENABLE
-        ifeq ($(strip $(EEPROM_DRIVER)), spi)
+        ifeq ($(strip $(FLASH_DRIVER)), spi)
             OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
             COMMON_VPATH += $(DRIVER_PATH)/flash
             SRC += flash_spi.c
