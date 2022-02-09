@@ -343,7 +343,7 @@ flash_status_t flash_write_block(uint32_t addr, const void *buf, size_t len) {
 #endif  // DEBUG_FLASH_SPI_OUTPUT
 
         /* Perform the write. */
-        response = spi_flash_transmit((uint8_t)FLASH_CMD_PP, addr, write_buf, write_length);
+        response = spi_flash_transaction(FLASH_CMD_PP, addr, write_buf, write_length);
         if (response != FLASH_STATUS_SUCCESS) {
             dprint("Failed to write block! [spi flash write block]\n");
             return response;
