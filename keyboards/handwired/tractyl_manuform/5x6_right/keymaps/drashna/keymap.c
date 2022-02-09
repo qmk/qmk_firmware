@@ -60,9 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_MOUSE] = LAYOUT_5x6_right(
-        _______, _______, _______, _______, _______, _______,                     DPI_CONFIG, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,                        KC_WH_U, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,                        KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, _______,
+        _______, _______, _______, _______, _______, _______,                        KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, DPI_CONFIG,
         _______, _______, _______, _______, _______, _______,                        KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
                           _______, _______,                                                            _______, _______,
                                             _______, _______,                                 KC_BTN3,
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, _______,      _______, _______
     ),
     [_GAMEPAD] = LAYOUT_5x6_right(
-        KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_4,                        DPI_CONFIG, _______, _______, _______, _______, _______,
+        KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_4,                           _______, _______, _______, _______, _______, _______,
         KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,                           _______, _______, _______, _______, _______, _______,
         KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                           _______, _______, _______, _______, _______, _______,
         KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_H,                           _______, _______, _______, _______, _______, _______,
@@ -145,7 +145,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_MEDIA]           = { { _______, _______ }, { _______, _______ } },
     [_RAISE]           = { { _______, _______ }, { KC_PGDN, KC_PGUP } },
     [_LOWER]           = { { RGB_MOD, RGB_RMOD}, { RGB_HUD, RGB_HUI } },
-    [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _F______ } },
+    [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _______ } },
 };
 // clang-format on
 #else
@@ -165,5 +165,49 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef OLED_ENABLE
+extern uint16_t typing_mode;
+
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return OLED_ROTATION_180; }
+
+void oled_render_large_display(void) {
+    if (is_keyboard_left()) {
+        render_wpm_graph(54, 64);
+    } else {
+        oled_advance_page(true);
+        oled_advance_page(true);
+
+        static const char PROGMEM logo[] = {
+            0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
+            0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
+            0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
+        };
+        oled_write_P(logo, false);
+
+        oled_set_cursor(1, 14);
+        oled_write_ln_P(PSTR("Unicode:"), false);
+        switch (typing_mode) {
+            case KC_WIDE:
+                oled_write_P(PSTR("        Wide"), false);
+                break;
+            case KC_SCRIPT:
+                oled_write_P(PSTR("      Script"), false);
+                break;
+            case KC_BLOCKS:
+                oled_write_P(PSTR("      Blocks"), false);
+                break;
+            case KC_REGIONAL:
+                oled_write_P(PSTR("    Regional"), false);
+                break;
+            case KC_AUSSIE:
+                oled_write_P(PSTR("      Aussie"), false);
+                break;
+            case KC_ZALGO:
+                oled_write_P(PSTR("       Zalgo"), false);
+                break;
+            default:
+                oled_write_P(PSTR("      Normal"), false);
+                break;
+        }
+    }
+}
 #endif
