@@ -99,7 +99,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
     The sector count of the FLASH, calculated by total FLASH size and sector size.
 */
-#define EXTERNAL_FLASH_SECTOR_COUNT (EXTERNAL_FLASH_SIZE / EXTERNAL_FLASH_SECTOR_SIZE)
+#define EXTERNAL_FLASH_SECTOR_COUNT ((EXTERNAL_FLASH_SIZE) / (EXTERNAL_FLASH_SECTOR_SIZE))
 
 /*
     The page count of the FLASH, calculated by total FLASH size and page size.
