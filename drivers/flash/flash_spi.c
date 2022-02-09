@@ -284,7 +284,7 @@ flash_status_t flash_erase_block(uint32_t addr) {
     return response;
 }
 
-flash_status_t flash_read_block(uint8_t *buf, const void *addr, size_t len) {
+flash_status_t flash_read_block(uint32_t addr, void *buf, size_t len) {
     flash_status_t response    = FLASH_STATUS_SUCCESS;
     uint8_t *      read_buf    = (uint8_t *)buf;
 
