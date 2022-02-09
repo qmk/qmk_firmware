@@ -11,7 +11,6 @@
 #define DEVICE_VER   0x0001
 #define MANUFACTURER protozoa.studio
 #define PRODUCT      protozoa.studio foundation
-#define DESCRIPTION  protozoa.studio foundation
 
 /* key matrix size */
 #define MATRIX_ROWS 5
