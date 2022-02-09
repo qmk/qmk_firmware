@@ -1,20 +1,22 @@
-![foundation]
+# foundation
 
-the foundation pcb was designed for protozoa studio's foundation line of keyboards.
+The foundation pcb was designed for protozoa studio's foundation line of keyboards.
 
-Keyboard Maintainer: wavtype
+* Keyboard Maintainer: wavtype
 
 Make example for this keyboard (after setting up your build environment):
-make wavtype/foundation:via
+
+    make wavtype/foundation:default
 
 Flashing example for this keyboard:
-make wavtype/foundation:via:flash
 
-See the build environment setup and the make instructions for more information. Brand new to QMK? Start with our Complete Newbs Guide.
+    make wavtype/foundation:default:flash
 
-Bootloader
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
 Enter the bootloader in 3 ways:
-
-Bootmagic reset: Hold down the key at (0,1) in the matrix (Escaoe key) and plug in the keyboard
-Physical reset button: Briefly press the button on the back of the PCB
-Keycode in layout: Press the key mapped to RESET if it is available (by default this is set to "Fn + R")
+* **Bootmagic reset**: Hold down the key at (0,1) in the matrix (Escaoe key) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB
+* **Keycode in layout**: Press the key mapped to RESET if it is available (by default this is set to "Fn + R")
