@@ -141,6 +141,27 @@ def augment_community_info(src, dest):
     dest.write_text(json.dumps(info, cls=InfoJSONEncoder))
 
 
+def _question(*args, **kwargs):
+    """Ugly workaround until 'milc' learns to display a repromt msg
+    """
+    #TODO: Remove this once milc.questions.question handles reprompt messages
+
+    reprompt = kwargs["reprompt"]
+    del kwargs["reprompt"]
+    validate = kwargs["validate"]
+    del kwargs["validate"]
+
+    prompt = args[0]
+    ret = None
+    while not ret:
+        ret = question(prompt, **kwargs)
+        if not validate(ret):
+            ret = None
+            prompt = reprompt
+
+    return ret
+
+
 def prompt_keyboard():
     prompt = """{fg_yellow}Name Your Keyboard Project{style_reset_all}
 For more infomation, see:
@@ -148,13 +169,9 @@ https://docs.qmk.fm/#/hardware_keyboard_guidelines?id=naming-your-keyboardprojec
 
 Keyboard Name? """
 
-    kb_name = False
-    while not kb_name:
-        kb_name = question(prompt)
-        if keyboard(kb_name).exists():
-            prompt = f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} already exists! Please choose a different name:'
-            kb_name = False
-    return kb_name
+    errmsg = f'Keyboard already exists! Please choose a different name:'
+
+    return _question(prompt, reprompt=errmsg, validate=lambda x: not keyboard(x).exists())
 
 
 def prompt_user():
