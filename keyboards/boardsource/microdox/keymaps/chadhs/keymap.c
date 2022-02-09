@@ -195,7 +195,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // https://precondition.github.io/home-row-mods#finding-the-sweet-spot
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case CMD_TAB: // make CMD SPC faster
+    case CMD_TAB:  // make CMD SPC faster
+    case SFT_Z:    // make bottom row SFT faster
+    case SFT_SLSH: // make bottom row SFT faster
+    case SFT_BSLS: // make bottom row SFT faster
         return false;
     default:
         return true;
@@ -242,11 +245,6 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 // https://docs.qmk.fm/#/tap_hold?id=permissive-hold
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case HOME_A:
-        case HOME_O:
-        case SFT_Z:
-        case SFT_SLSH:
-        case SFT_BSLS:
         case NUM_BSPC:
         case FUN_SPC:
             // Immediately select the hold action when another key is tapped.
@@ -257,48 +255,47 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+// TODO: try again to get this working; wondering if permissive hold was interfering
 // https://precondition.github.io/home-row-mods#rolled-modifiers-cancellation
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-
-    case KC_U:
-        /*
-        This piece of code nullifies the effect of Right Shift when tapping
-        the KC_U key.
-        This helps rolling over RSFT_T(KC_O) and KC_U
-        to obtain the intended "ou" instead of "U".
-        Consequently, capital U can only be obtained by tapping KC_U
-        and holding LSFT_T(KC_A) (which is the left Shift mod tap).
-        */
-
-        /*
-        Detect the tap.
-        We're only interested in overriding the tap behaviour
-        in a certain cicumstance. The hold behaviour can stay the same.
-        */
-        if (record->event.pressed && record->tap.count > 0) {
-            // Detect right Shift
-            if (get_mods() & MOD_BIT(KC_RSHIFT)) {
-                // temporarily disable right Shift
-                // so that we can send KC_O and KC_U
-                // without Shift on.
-                unregister_mods(MOD_BIT(KC_RSHIFT));
-                tap_code(KC_O);
-                tap_code(KC_U);
-                // restore the mod state
-                add_mods(MOD_BIT(KC_RSHIFT));
-                // to prevent QMK from processing KC_U as usual in our special case
-                return false;
-            }
-        }
-         /*else process RCTL_T(KC_N) as usual.*/
-        return true;
-
-    // case KC_N:
-    // next case here
-    }
-    return true;
-};
+//bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//    switch (keycode) {
+//        case KC_U:
+//            /*
+//            This piece of code nullifies the effect of Right Shift when tapping
+//            the KC_U key.
+//            This helps rolling over RSFT_T(KC_O) and KC_U
+//            to obtain the intended "ou" instead of "U".
+//            Consequently, capital U can only be obtained by tapping KC_U
+//            and holding LSFT_T(KC_A) (which is the left Shift mod tap).
+//            */
+//
+//            /*
+//            Detect the tap.
+//            We're only interested in overriding the tap behaviour
+//            in a certain cicumstance. The hold behaviour can stay the same.
+//            */
+//            if (record->event.pressed && record->tap.count > 0) {
+//                // Detect right Shift
+//                if (get_mods() & MOD_BIT(KC_RSHIFT)) {
+//                    // temporarily disable right Shift
+//                    // so that we can send KC_O and KC_U
+//                    // without Shift on.
+//                    unregister_mods(MOD_BIT(KC_RSHIFT));
+//                    tap_code(KC_O);
+//                    tap_code(KC_U);
+//                    // restore the mod state
+//                    add_mods(MOD_BIT(KC_RSHIFT));
+//                    // to prevent QMK from processing KC_U as usual in our special case
+//                    return false;
+//                }
+//            }
+//             /*else process RCTL_T(KC_N) as usual.*/
+//            return true;
+//    // case KC_N:
+//        // next case here
+//    }
+//    return true;
+//};
 
 /* custom lighting configuration */
 // microcontroller leds
