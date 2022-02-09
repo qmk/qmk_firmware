@@ -70,6 +70,15 @@ void                       shutdown_user(void) {
 __attribute__((weak)) void suspend_power_down_keymap(void) {}
 
 void suspend_power_down_user(void) {
+    if (layer_state_is(_GAMEPAD)) {
+        layer_off(_GAMEPAD);
+    }
+    if (layer_state_is(_DIABLO)) {
+        layer_off(_DIABLO);
+    }
+    if (layer_state_is(_DIABLOII)) {
+        layer_off(_DIABLOII);
+    }
 #ifdef OLED_ENABLE
     oled_off();
 #endif
@@ -78,12 +87,6 @@ void suspend_power_down_user(void) {
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
 void                       suspend_wakeup_init_user(void) {
-    if (layer_state_is(_GAMEPAD)) {
-        layer_off(_GAMEPAD);
-    }
-    if (layer_state_is(_DIABLO)) {
-        layer_off(_DIABLO);
-    }
     suspend_wakeup_init_keymap();
 }
 
@@ -102,16 +105,9 @@ void                       matrix_scan_user(void) {
     run_diablo_macro_check();
 #endif  // TAP_DANCE_ENABLE
 
-#if defined(RGBLIGHT_ENABLE)
-    matrix_scan_rgb_light();
-#endif  // RGBLIGHT_ENABLE
 #if defined(RGB_MATRIX_ENABLE)
     matrix_scan_rgb_matrix();
 #endif
-#if defined(POINTING_DEVICE_ENABLE)
-    matrix_scan_pointing();
-#endif
-
     matrix_scan_secret();
 
     matrix_scan_keymap();

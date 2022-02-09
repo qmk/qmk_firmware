@@ -1,4 +1,5 @@
-/* Copyright 2022 takishim
+/* Copyright 2020 kkatano
+   Copyright 2022 takishim
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
