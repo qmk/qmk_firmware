@@ -144,7 +144,7 @@ def augment_community_info(src, dest):
 def _question(*args, **kwargs):
     """Ugly workaround until 'milc' learns to display a repromt msg
     """
-    #TODO: Remove this once milc.questions.question handles reprompt messages
+    # TODO: Remove this once milc.questions.question handles reprompt messages
 
     reprompt = kwargs["reprompt"]
     del kwargs["reprompt"]
@@ -169,7 +169,7 @@ https://docs.qmk.fm/#/hardware_keyboard_guidelines?id=naming-your-keyboardprojec
 
 Keyboard Name? """
 
-    errmsg = f'Keyboard already exists! Please choose a different name:'
+    errmsg = 'Keyboard already exists! Please choose a different name:'
 
     return _question(prompt, reprompt=errmsg, validate=lambda x: not keyboard(x).exists())
 
