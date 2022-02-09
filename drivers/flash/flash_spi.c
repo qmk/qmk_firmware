@@ -291,7 +291,7 @@ flash_status_t flash_read_block(uint32_t addr, void *buf, size_t len) {
     }
 
     /* Perform read. */
-    response = spi_flash_transmit((uint8_t)FLASH_CMD_READ, (uint32_t)addr, read_buf, len);
+    response = spi_flash_transaction(FLASH_CMD_READ, addr, read_buf, len);
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to read block! [spi flash read block]\n");
         memset(read_buf, 0, len);
