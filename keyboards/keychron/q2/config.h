@@ -34,6 +34,9 @@
 #define MATRIX_COL_PINS \
     { C14, C15, A0, A1, A2, A3, A4, A5, A6, A7, B0, B1, A8, A9, H3 }
 
+/* We make pin H3 with a stronger pull resistor than the internal MCU pins */
+#define MATRIX_UNSELECT_DRIVE_HIGH
+
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
