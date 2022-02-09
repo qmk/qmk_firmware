@@ -1,18 +1,6 @@
-/* Copyright 2020 zvecr<git@zvecr.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2022 zvecr<git@zvecr.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "mcp23018.h"
 #include "i2c_master.h"
 #include "wait.h"
@@ -40,7 +28,7 @@ void mcp23018_init(uint8_t addr) {
     }
 }
 
-bool mcp23018_set_config(uint8_t slave_addr, uint8_t port, uint8_t conf) {
+bool mcp23018_set_config(uint8_t slave_addr, mcp23018_port_t port, uint8_t conf) {
     uint8_t addr         = SLAVE_TO_ADDR(slave_addr);
     uint8_t cmdDirection = port ? CMD_IODIRB : CMD_IODIRA;
     uint8_t cmdPullup    = port ? CMD_GPPUB : CMD_GPPUA;
@@ -60,7 +48,7 @@ bool mcp23018_set_config(uint8_t slave_addr, uint8_t port, uint8_t conf) {
     return true;
 }
 
-bool mcp23018_set_output(uint8_t slave_addr, uint8_t port, uint8_t conf) {
+bool mcp23018_set_output(uint8_t slave_addr, mcp23018_port_t port, uint8_t conf) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
     uint8_t cmd  = port ? CMD_GPIOB : CMD_GPIOA;
 
@@ -86,7 +74,7 @@ bool mcp23018_set_output_all(uint8_t slave_addr, uint8_t confA, uint8_t confB) {
     return true;
 }
 
-bool mcp23018_readPins(uint8_t slave_addr, uint8_t port, uint8_t* out) {
+bool mcp23018_readPins(uint8_t slave_addr, mcp23018_port_t port, uint8_t* out) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
     uint8_t cmd  = port ? CMD_GPIOB : CMD_GPIOA;
 
