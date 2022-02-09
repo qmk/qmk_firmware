@@ -104,7 +104,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
     The page count of the FLASH, calculated by total FLASH size and page size.
 */
-#define EXTERNAL_FLASH_PAGE_COUNT ((EXTERNAL_FLASH_SIZE << 10) / EXTERNAL_FLASH_PAGE_SIZE)
+#define EXTERNAL_FLASH_PAGE_COUNT ((EXTERNAL_FLASH_SIZE) / (EXTERNAL_FLASH_PAGE_SIZE))
 
 typedef int16_t flash_status_t;
 
