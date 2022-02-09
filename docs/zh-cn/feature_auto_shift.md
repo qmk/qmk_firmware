@@ -1,84 +1,55 @@
-# Auto Shift: Why Do We Need a Shift Key?
+# Auto Shift：我们为什么需要一个 Shift 键？
 
-Tap a key and you get its character. Tap a key, but hold it *slightly* longer
-and you get its shifted state. Voilà! No shift key needed!
+按下一个键你将得到它的字符。按下一个键，但是按住 *稍微* 长一会，你得到它的 shift 状态。瞧！我们不需要 shift 键！
 
-## Why Auto Shift?
+## 为什么需要 Auto Shift？
 
-Many people suffer from various forms of RSI. A common cause is stretching your
-fingers repetitively long distances. For us on the keyboard, the pinky does that
-all too often when reaching for the shift key. Auto Shift looks to alleviate that
-problem.
+很多人遭受各种形式的重复性劳损（RSI）。一个共同的原因是重复的长距离使用手指。在我们使用键盘时，当要按下 shift 键时，小指就会经常这样做。Auto Shift 看起来可以缓解这个问题。
 
-## How Does It Work?
+## 它是如何工作的？
 
-When you tap a key, it stays depressed for a short period of time before it is
-then released. This depressed time is a different length for everyone. Auto Shift
-defines a constant `AUTO_SHIFT_TIMEOUT` which is typically set to twice your
-normal pressed state time. When you press a key, a timer starts, and if you
-have not released the key after the `AUTO_SHIFT_TIMEOUT` period, then a shifted
-version of the key is emitted. If the time is less than the `AUTO_SHIFT_TIMEOUT`
-time, or you press another key, then the normal state is emitted.
+当你按下一个键，在释放之前，它会保持一小段时间的按下状态。这个按下的时间，对每个人来说长短不同。Auto Shift 定义了一个常量 `AUTO_SHIFT_TIMEOUT`，它是你正常按下时间的两倍。当你按下一个键，一个计时器启动，如果你在 `AUTO_SHIFT_TIMEOUT` 时间内没有释放按键，此键以 shift 后状态发送。如果时间小于 `AUTO_SHIFT_TIMEOUT`，或者你按下了其他键，此键以正常状态发送。
 
-If `AUTO_SHIFT_REPEAT` is defined, there is keyrepeat support. Holding the key
-down will repeat the shifted key, though this can be disabled with
-`AUTO_SHIFT_NO_AUTO_REPEAT`. If you want to repeat the normal key, then tap it
-once then immediately (within `TAPPING_TERM`) hold it down again (this works
-with the shifted value as well if auto-repeat is disabled).
+如果 `AUTO_SHIFT_REPEAT` 被定义，将支持重复发送按键。按住某键会重复发送其 shift 状态，你可以通过 `AUTO_SHIFT_NO_AUTO_REPEAT` 来禁用。如果你想重复正常状态，按下一次之后再马上按住（在 `TAPPING_TERM` 时间内）（如果 auto-repeat 被禁用，这也可以作用于 shift 状态后的值）。
 
-There are also the `get_auto_shift_repeat` and `get_auto_shift_no_auto_repeat`
-functions for more granular control. Neither will have an effect unless
-`AUTO_SHIFT_REPEAT_PER_KEY` or `AUTO_SHIFT_NO_AUTO_REPEAT_PER_KEY` respectively
-are defined.
+这里还提供了两个函数来进行更细粒度的控制，`get_auto_shift_repeat`  和  `get_auto_shift_no_auto_repeat`。只有当 `AUTO_SHIFT_REPEAT_PER_KEY` 或 `AUTO_SHIFT_NO_AUTO_REPEAT_PER_KEY` 被定义时才能起作用。
 
-## Are There Limitations to Auto Shift?
+## Auto shift 有什么局限性吗？
 
-Yes, unfortunately.
+很遗憾，有。
 
-1. You will have characters that are shifted when you did not intend on shifting, and
-   other characters you wanted shifted, but were not. This simply comes down to
-   practice. As we get in a hurry, we think we have hit the key long enough for a
-   shifted version, but we did not. On the other hand, we may think we are tapping
-   the keys, but really we have held it for a little longer than anticipated.
-2. Additionally, with keyrepeat the desired shift state can get mixed up. It will
-   always 'belong' to the last key pressed. For example, keyrepeating a capital
-   and then tapping something lowercase (whether or not it's an Auto Shift key)
-   will result in the capital's *key* still being held, but shift not.
-3. Auto Shift does not apply to Tap Hold keys. For automatic shifting of Tap Hold
-   keys see [Retro Shift](#retro-shift).
+1. 你可能得到某些字符的 shift 状态，但你不想要，或者某些字符你想要它们的 shift 状态，但是没有得到。这可以简单地归结为多练习。有时候着急，感觉已经按下了足够长的时间可以得到 shift 状态，其实没有。另一方面，我们感觉只是点按了一下键，但实际上已经按下超过预期的时间了。
+2. 另外，在键重复时，可能搞混 shift 状态。它总是取决于最后按下的键。比如，重复发送一个大写字母，然后按下一个小写的键（无论是否为 Auto Shift 键）都会使那个大写字母的键仍被按住，但不是 shift 状态。
+3. Auto Shift 不支持 Tap Hold 键。如果要自动 shift Tap Hold 键，可以查看 [Retro Shift](#retro-shift)。
 
-## How Do I Enable Auto Shift?
+## 如何启用 Auto Shift？
 
-Add to your `rules.mk` in the keymap folder:
+在 keymap 目录 `rules.mk` 中添加：
 
     AUTO_SHIFT_ENABLE = yes
 
-If no `rules.mk` exists, you can create one.
+如果 `rules.mk` 不存在，可以创建一个新的。
 
-Then compile and install your new firmware with Auto Key enabled! That's it!
+然后编译和安装带有 Auto Shift 的新固件！就是这样！
 
-## Modifiers
+## 修饰键
 
-By default, Auto Shift is disabled for any key press that is accompanied by one or more
-modifiers. Thus, Ctrl+A that you hold for a really long time is not the same
-as Ctrl+Shift+A.
+默认情况下，Auto Shift 伴随一个或多个修饰键时，是禁用的。就是说，Ctrl+A 你按下了一个很长的时间也不等同于 Ctrl+Shift+A。
 
-You can re-enable Auto Shift for modifiers by adding a define to your `config.h`
+你可以重启修饰键的 Auto Shift 通过在 `config.h` 增加如下定义：
 
 ```c
 #define AUTO_SHIFT_MODIFIERS
 ```
 
-In which case, Ctrl+A held past the `AUTO_SHIFT_TIMEOUT` will be sent as Ctrl+Shift+A
+这样，Ctrl+A 按下 `AUTO_SHIFT_TIMEOUT` 时间，会被发送为 Ctrl+Shift+A
 
 
-## Configuring Auto Shift
+## 配置 Auto Shift
 
-If desired, there is some configuration that can be done to change the
-behavior of Auto Shift. This is done by setting various variables the
-`config.h` file located in your keymap folder. If no `config.h` file exists, you can create one.
+必要时，这里有一些配置项可以改变 Auto Shift的行为。通过配置在 keymap 目录下的 `config.h` 文件中的一系列变量来完成。如果没有 `config.h` 文件，你可以新建一个。
 
-A sample is
+一个样例：
 
 ```c
 #pragma once
@@ -87,28 +58,21 @@ A sample is
 #define NO_AUTO_SHIFT_SPECIAL
 ```
 
-### AUTO_SHIFT_TIMEOUT (Value in ms)
+### AUTO_SHIFT_TIMEOUT （单位为 ms）
 
-This controls how long you have to hold a key before you get the shifted state.
-Obviously, this is different for everyone. For the common person, a setting of
-135 to 150 works great. However, one should start with a value of at least 175, which
-is the default value. Then work down from there. The idea is to have the shortest time required to get the shifted state without having false positives.
+它控制在得到一个 shift 状态前，你最多可以按下一个键多久。显然，这个值因人而异。对大多数人，设置 135-150 比较适宜。然而，一开始的值应该至少是 175，这也是默认值。然后从此值慢慢减小。我们的想法是获取最短的能够得到 shift 状态的时间，并且不出错。
 
-Play with this value until things are perfect. Many find that all will work well
-at a given value, but one or two keys will still emit the shifted state on
-occasion. This is simply due to habit and holding some keys a little longer
-than others. Once you find this value, work on tapping your problem keys a little
-quicker than normal and you will be set.
+调整这个值直到一切变得完美。许多人发现在给定值的情况下所有键工作正常，但某些时候总有一两个键（错误的）发送 shift 状态。这是习惯造成的，按下某些键比其他键时间稍长一些。当你发现时，你可以比平时更快的按下这些出问题的键，这将会被设置好。
 
-?> Auto Shift has three special keys that can help you get this value right very quick. See "Auto Shift Setup" for more details!
+?> Auto Shift 有三个特殊键可以帮助你快速设置正确的值。详见“Auto Shift Setup”！
 
-For more granular control of this feature, you can add the following to your `config.h`:
+你可以在 `config.h` 添加如下配置，获取更细粒度的控制：
 
 ```c
 #define AUTO_SHIFT_TIMEOUT_PER_KEY
 ```
 
-You can then add the following function to your keymap:
+你可以接着在 keymap 中添加下面的函数：
 
 ```c
 uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
@@ -124,30 +88,26 @@ uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-Note that you cannot override individual keys that are in one of those groups
-if you are using them; trying to add a case for `KC_A` in the above example will
-not compile as `AUTO_SHIFT_ALPHA` is there. A possible solution is a second switch
-above to handle individual keys with no default case and only referencing the
-groups in the below fallback switch.
+注意，你不能覆盖存在于其中任何一个你正在使用的组中的个别键。比如在上面例子中，增加 `KC_A` 将不会编译，因为存在 `AUTO_SHIFT_ALPHA`。一个可行的解决方法是，在上面增加第二个 switch 来承载这些个别键，但不要定义 default 块，而且只能引用下方 switch 中 fallback 中的组（译注：fallback 应该指的是 default 块中处理的部分）。
 
-### NO_AUTO_SHIFT_SPECIAL (simple define)
+### NO_AUTO_SHIFT_SPECIAL（简单定义）
 
-Do not Auto Shift special keys, which include -\_, =+, [{, ]}, ;:, '", ,<, .>,
+特殊键不设置 Auto Shift，它们包括 -\_, =+, [{, ]}, ;:, '", ,<, .>,
 and /?
 
-### NO_AUTO_SHIFT_NUMERIC (simple define)
+### NO_AUTO_SHIFT_NUMERIC（简单定义）
 
-Do not Auto Shift numeric keys, zero through nine.
+数字键不设置 Auto Shift，包括0 到 9。
 
-### NO_AUTO_SHIFT_ALPHA (simple define)
+### NO_AUTO_SHIFT_ALPHA（简单定义）
 
-Do not Auto Shift alpha characters, which include A through Z.
+字母键不设置 Auto Shift，包括 A 到 Z。
 
-### Auto Shift Per Key
+### Auto Shift 每个键
 
-There are functions that allows you to determine which keys shold be autoshifted, much like the tap-hold keys.
+这里有几个函数允许你决定哪些键可以设置 Auto Shift，很像 tap-hold 键。
 
-The first of these, used to simply add a key to Auto Shift, is `get_custom_auto_shifted_key`:
+第一个函数 `get_custom_auto_shifted_key` 用来简单添加一个键 Auto Shift：
 
 ```c
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
@@ -160,7 +120,7 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-For more granular control, there is `get_auto_shifted_key`. The default function looks like this:
+`get_auto_shifted_key` 提供更细粒度支持。默认函数如下：
 
 ```c
 bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
@@ -182,30 +142,21 @@ bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-This functionality is enabled by default, and does not need a define.
+这些功能默认可用，无需额外定义。
 
-### AUTO_SHIFT_REPEAT (simple define)
+### AUTO_SHIFT_REPEAT（简单定义）
 
-Enables keyrepeat.
+启用键重复
 
-### AUTO_SHIFT_NO_AUTO_REPEAT (simple define)
+### AUTO_SHIFT_NO_AUTO_REPEAT（简单定义）
 
-Disables automatically keyrepeating when `AUTO_SHIFT_TIMEOUT` is exceeded.
+超过 `AUTO_SHIFT_TIMEOUT` 但不启用按键重复。
 
-## Custom Shifted Values
+## 自定义 Shift 值
 
-Especially on small keyboards, the default shifted value for many keys is not
-optimal. To provide more customizability, there are two user-definable
-functions, `autoshift_press/release_user`. These register or unregister the
-correct value for the passed key. Below is an example adding period to Auto
-Shift and making its shifted value exclamation point. Make sure to use weak
-mods - setting real would make any keys following it use their shifted values
-as if you were holding the key. Clearing of modifiers is handled by Auto Shift,
-and the OS-sent shift value if keyrepeating multiple keys is always that of
-the last key pressed (whether or not it's an Auto Shift key).
+特别是在一些小键盘上，默认的 shift 值在很多键上表现不好。为了提供更多的定制化，这里有两个用户可定义函数，`autoshift_press/release_user`。它们为传递的键注册或取消注册正确的值。下面是一个例子，添加句号为 Auto Shift 然后使它的 shift 状态为感叹号。确保使用 weak mods，设置为 real 将使得任何追加的键使用他们的 shift 值，只要你按住这个键。清除修饰键是由 Auto Shift 处理的，如果你重复按了多个键，操作系统总是发送最后按下的键的 shift 值（无论是否为 Auto Shift 键）。
 
-You can also have non-shifted keys for the shifted values (or even no shifted
-value), just don't set a shift modifier!
+只要你不设置 shift 修饰键，你也可以得到非 shift 键的 shift 值（甚至得到非 shift 值）。
 
 ```c
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
@@ -226,7 +177,7 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
             if (shifted) {
                 add_weak_mods(MOD_BIT(KC_LSFT));
             }
-            // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
+            // & 0xFF 获取 Tap Holds 中的 Tap 键，使用 Retro Shift 时需要
             register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
     }
 }
@@ -237,9 +188,8 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
             unregister_code16((!shifted) ? KC_DOT : KC_EXLM);
             break;
         default:
-            // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
-            // The IS_RETRO check isn't really necessary here, always using
-            // keycode & 0xFF would be fine.
+            // & 0xFF 获取 Tap Holds 中的 Tap 键，使用 Retro Shift 时需要
+            // IS_RETRO 检查在这里并不是必须的，全部替换为 keycode & 0xFF 也可以。
             unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
     }
 }
@@ -247,110 +197,85 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
 
 ## Retro Shift
 
-Holding and releasing a Tap Hold key without pressing another key will ordinarily
-result in only the hold. With `retro shift` enabled this action will instead
-produce a shifted version of the tap keycode on release.
+按住然后释放一个 Tap Hold 键，并且没有按下其他键，通常结果只有按住（触发的行为）。通过启用 `retro shift` ，这个行为将会在键释放的时候替换为它的 shift 值。
 
-It does not require [Retro Tapping](tap_hold.md#retro-tapping) to be enabled, and
-if both are enabled the state of `retro tapping` will only apply if the tap keycode
-is not matched by Auto Shift. `RETRO_TAPPING_PER_KEY` and its corresponding
-function, however, are checked before `retro shift` is applied.
+它不依赖 [Retro Tapping](tap_hold.md#retro-tapping) 被启用，如果两者都启用，`retro tapping` 的状态仅适用于按下的键不是 Auto Shift。`RETRO_TAPPING_PER_KEY` 和它相应的函数在 `retro shift` 生效之前被检查。
 
-To enable `retro shift`, add the following to your `config.h`:
+在 `config.h` 中添加如下配置启用 `retro shift`：
 
 ```c
 #define RETRO_SHIFT
 ```
 
-If `RETRO_SHIFT` is defined to a value, hold times greater than that value will
-not produce a tap on release for Mod Taps, and instead triggers the hold action.
-This enables modifiers to be held for combining with mouse clicks without
-generating taps on release. For example:
+如果 `RETRO_SHIFT` 被赋值，按住时间超过这个值，对于 Mod Tap 将不处理为按下并释放，而是替换触发为它的按住行为。它使得被按住的修饰键可以组合鼠标点击，而不是释放之后产生按键。比如：
 
 ```c
 #define RETRO_SHIFT 500
 ```
 
-This value (if set) must be greater than one's `TAPPING_TERM`, as the key press
-must be designated as a 'hold' by `process_tapping` before we send the modifier.
-There is no such limitation in regards to `AUTO_SHIFT_TIMEOUT` for normal keys.
+这个值（如果设置过）必须大于 `TAPPING_TERM`，按键被 `process_tapping` 认定为“按住”状态必须在发送为修饰键之前。对于普通键的 `AUTO_SHIFT_TIMEOUT` 则无此限制。
 
-### Retro Shift and Tap Hold Configurations
+### Retro Shift 和 Tap Hold 配置项
 
-Tap Hold Configurations work a little differently when using Retro Shift.
-Referencing `TAPPING_TERM` makes little sense, as holding longer would result in
-shifting one of the keys.
+Tap Hold 配置项在使用 Retro Shift 时有一点不同。引用 `TAPPING_TERM` 没有多大意义，因为按住超过这个时间将得到一个键的 shift 状态结果。
 
-`IGNORE_MOD_TAP_INTERRUPT` changes *only* rolling from a mod tap (releasing it
-first), sending both keys instead of the modifier on the second. Its effects on
-nested presses are ignored.
+`IGNORE_MOD_TAP_INTERRUPT` 仅当 mod tap 时改变（要先释放），发送两个键，而不是修饰键加第二个键。它在嵌套点击被忽略时生效。
 
-As nested taps were changed to act as though `PERMISSIVE_HOLD` is set unless only
-`IGNORE_MOD_TAP_INTERRUPT` is (outside of Retro Shift), and Retro Shift ignores
-`IGNORE_MOD_TAP_INTERRUPT`, `PERMISSIVE_HOLD` has no effect on Mod Taps.
+嵌套点击会被更改为如同 `PERMISSIVE_HOLD` 被设置，除非 `IGNORE_MOD_TAP_INTERRUPT` 在 Retro Shift 范围外，并且 Retro Shift 忽略 `IGNORE_MOD_TAP_INTERRUPT`， `PERMISSIVE_HOLD` 对 Mod Tap 没有影响。
 
-Nested taps will *always* act as though the `TAPPING_TERM` was exceeded for both
-Mod and Layer Tap keys.
+在 Mod 和 Layer Tap 键中嵌套点击，总是表现的像是超过了 `TAPPING_TERM`。
 
-## Using Auto Shift Setup
+## 使用 Auto Shift Setup
 
-This will enable you to define three keys temporarily to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
+这将允许你定义三个键来临时增加、减少以及打印你的 `AUTO_SHIFT_TIMEOUT`。
 
 ### Setup
 
-Map three keys temporarily in your keymap:
+在你的 keymap 中临时定义三个键：
 
-| Key Name | Description                                         |
-|----------|-----------------------------------------------------|
-| KC_ASDN  | Lower the Auto Shift timeout variable (down)        |
-| KC_ASUP  | Raise the Auto Shift timeout variable (up)          |
-| KC_ASRP  | Report your current Auto Shift timeout value        |
-| KC_ASON  | Turns on the Auto Shift Function                    |
-| KC_ASOFF | Turns off the Auto Shift Function                   |
-| KC_ASTG  | Toggles the state of the Auto Shift feature         |
+| 键名称   | 描述                               |
+| -------- | ---------------------------------- |
+| KC_ASDN  | 减小 Auto Shift 超时时间参数（下） |
+| KC_ASUP  | 增加 Auto Shift 超时时间参数（上） |
+| KC_ASRP  | 打印当前 Auto Shift 超时时间数值   |
+| KC_ASON  | 打开 Auto Shift 函数               |
+| KC_ASOFF | 关闭 Auto Shift 函数               |
+| KC_ASTG  | 切换 Auto Shift 特性的状态         |
 
-Compile and upload your new firmware.
+编译以及上传你的新固件。
 
-### Use
+### 使用
 
-It is important to note that during these tests, you should be typing
-completely normal and with no intention of shifted keys.
+请注意，在进行下面测试时，你应该非常自然的点击，并且没有意图触发按键的 shift 状态。
 
-1. Type multiple sentences of alphabetical letters.
-2. Observe any upper case letters.
-3. If there are none, press the key you have mapped to `KC_ASDN` to decrease
-   time Auto Shift timeout value and go back to step 1.
-4. If there are some upper case letters, decide if you need to work on tapping
-   those keys with less down time, or if you need to increase the timeout.
-5. If you decide to increase the timeout, press the key you have mapped to
-   `KC_ASUP` and go back to step 1.
-6. Once you are happy with your results, press the key you have mapped to
-   `KC_ASRP`. The keyboard will type by itself the value of your
-   `AUTO_SHIFT_TIMEOUT`.
-7. Update `AUTO_SHIFT_TIMEOUT` in your `config.h` with the value reported.
-8. Add `AUTO_SHIFT_NO_SETUP` to your `config.h`.
-9. Remove the key bindings `KC_ASDN`, `KC_ASUP` and `KC_ASRP`.
-10. Compile and upload your new firmware.
+1. 在字母表字母范围内输出多行句子。
+2. 留意所有的大写字母。
+3. 如果没有，按下你设置为 `KC_ASDN` 的按键来减少 Auto Shift 的超时时间的值，然后返回步骤1。
+4. 如果有一些大写字母，请自己决定你应该在按这些键时，减少超时时间还是增加超时时间。
+5. 如果你决定增加超时时间，按下你设置为 `KC_ASUP` 的按键，然后返回步骤1。
+6. 当你满意自己的设置，按下你设置为 `KC_ASRP` 的键。键盘将打印你设置的 `AUTO_SHIFT_TIMEOUT`。
+7. 在 `config.h` 中更新 `AUTO_SHIFT_TIMEOUT` 为刚才打印的时间。
+8. 在 `config.h` 中添加 `AUTO_SHIFT_NO_SETUP`。
+9. 移除绑定了 `KC_ASDN`， `KC_ASUP` 和 `KC_ASRP` 的按键。
+10. 编译以及上传你的新固件。
 
-#### An Example Run
+#### 一个测试例子
 
     hello world. my name is john doe. i am a computer programmer playing with
     keyboards right now.
-
-    [PRESS KC_ASDN quite a few times]
-
+    
+    [按下 KC_ASDN 一段时间]
+    
     heLLo woRLd. mY nAMe is JOHn dOE. i AM A compUTeR proGRaMMER PlAYiNG witH
     KEYboArDS RiGHT NOw.
-
-    [PRESS KC_ASUP a few times]
-
+    
+    [按下 KC_ASUP 一段时间]
+    
     hello world. my name is john Doe. i am a computer programmer playing with
     keyboarDs right now.
-
-    [PRESS KC_ASRP]
-
+    
+    [按下 KC_ASRP]
+    
     115
 
-The keyboard typed `115` which represents your current `AUTO_SHIFT_TIMEOUT`
-value. You are now set! Practice on the *D* key a little bit that showed up
-in the testing and you'll be golden.
+键盘打印 `115`，代表你当前的 `AUTO_SHIFT_TIMEOUT` 值。你现在可以设置它！稍微练习一下在测试中展示的 D 键（译注：应该指 KC_ASDN 键），你会成功的！
