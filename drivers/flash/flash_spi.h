@@ -35,9 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef EXTERNAL_FLASH_SPI_CLOCK_DIVISOR
 #    ifdef __AVR__
-#        define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 8
+#        define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 4
 #    else
-#        define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 18
+#        define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 8
 #    endif
 #endif
 
