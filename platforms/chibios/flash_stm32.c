@@ -180,6 +180,8 @@ FLASH_Status FLASH_ProgramDoubleWord(uint32_t Address, uint64_t Data) {
         status = FLASH_WaitForLastOperation(ProgramTimeout);
         if (status == FLASH_COMPLETE) {
             /* if the previous operation is completed, proceed to program the new data */
+            /* disable data cache first */
+            FLASH->ACR &= ~FLASH_ACR_DCEN;
             FLASH->CR |= FLASH_CR_PG;
             *(__IO uint32_t*)Address = (uint32_t)Data;
             __ISB();
@@ -191,6 +193,11 @@ FLASH_Status FLASH_ProgramDoubleWord(uint32_t Address, uint64_t Data) {
                 FLASH->CR &= ~FLASH_CR_PG;
             }
             FLASH->SR = (FLASH_SR_EOP | FLASH_SR_PGERR | FLASH_SR_WRPERR);
+            /* reset data cache */
+            FLASH->ACR |= FLASH_ACR_DCRST;
+            FLASH->ACR &= ~FLASH_ACR_DCRST;
+            /* enable data cache */
+            FLASH->ACR |= FLASH_ACR_DCEN;
         }
     }
     return status;
