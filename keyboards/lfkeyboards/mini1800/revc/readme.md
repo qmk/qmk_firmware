@@ -1,19 +1,17 @@
-# Mini1800
+# Mini1800 RevC
+
+The first public release of the Mini1800.
 
 * Keyboard Maintainer: [LFKeyboards](https://github.com/lfkeyboards)
-* Hardware Supported:
-  * [Mini1800 RevA](reva/) - Green PCB with AT90USB1286
-  * [Mini1800 RevC](revc/) - Black PCB with AT90USB646; first public release
+* Hardware Supported: Mini1800 RevC (Black PCB with AT90USB646)
 * Hardware Availability: [LFKeyboards.com](https://www.lfkeyboards.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make lfkeyboards/mini1800/reva:default
     make lfkeyboards/mini1800/revc:default
 
 Flashing example for this keyboard:
 
-    make lfkeyboards/mini1800/reva:default:flash
     make lfkeyboards/mini1800/revc:default:flash
 
 ## Bootloader
