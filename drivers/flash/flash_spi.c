@@ -315,7 +315,7 @@ flash_status_t flash_write_block(uint32_t addr, const void *buf, size_t len) {
 
     while (len > 0) {
         uint32_t page_offset  = addr % EXTERNAL_FLASH_PAGE_SIZE;
-        size_t    write_length = EXTERNAL_FLASH_PAGE_SIZE - page_offset;
+        size_t   write_length = EXTERNAL_FLASH_PAGE_SIZE - page_offset;
         if (write_length > len) {
             write_length = len;
         }
