@@ -1,11 +1,15 @@
 # naut's U80-A keymap
 
+Typing layer
 ![naut's U80-A keymap layer 0](https://i.imgur.com/Q15XLar.jpg)
 
+Miscellaneous 
 ![naut's U80-A keymap layer 1](https://i.imgur.com/XBi7O2r.jpg)
 
+RGB lighting
 ![naut's U80-A keymap layer 2](https://i.imgur.com/Z70usJQ.jpg)
 
+Keyboard lockout
 ![naut's U80-A keymap layer 3](https://i.imgur.com/Mrhngmy.jpg)
 
 HHKB style base layer. Fn1 layer to toggle capslock and control media on the arrow keys. Fn2 to control the rgb led's. Fn3 turns off key input so you can mash buttons to your heart's content.
