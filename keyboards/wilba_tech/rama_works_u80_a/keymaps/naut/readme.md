@@ -1,10 +1,10 @@
 # naut's U80-A keymap
 
 Typing layer
-![naut's U80-A keymap layer 0](https://i.imgur.com/Q15XLar.jpg)
+![naut's U80-A keymap layer 0](https://i.imgur.com/mcTGCI2.jpg)
 
 Miscellaneous 
-![naut's U80-A keymap layer 1](https://i.imgur.com/XBi7O2r.jpg)
+![naut's U80-A keymap layer 1](https://i.imgur.com/FJom2Bu.jpg)
 
 RGB lighting
 ![naut's U80-A keymap layer 2](https://i.imgur.com/Z70usJQ.jpg)
