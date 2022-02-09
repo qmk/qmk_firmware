@@ -1,23 +1,24 @@
 #include QMK_KEYBOARD_H
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {__KEYMAP_GOES_HERE__};
 
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {__KEYMAP_GOES_HERE__};
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {
             case 0:
+                // main layer, volume
                 if (clockwise) {
-                    tap_code(KC_MS_R);
+                    tap_code(KC_VOLU);
                 } else {
-                    tap_code(KC_MS_L);
+                    tap_code(KC_VOLD);
                 }
                 break;
-
             default:
+                // rgb control layer, effects
                 if (clockwise) {
-                    tap_code(KC_EQL);
+                    rgblight_step();
                 } else {
-                    tap_code(KC_MINS);
+                    rgblight_step_reverse();
                 }
                 break;
         }
