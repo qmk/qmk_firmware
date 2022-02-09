@@ -262,7 +262,7 @@ flash_status_t flash_erase_block(uint32_t addr) {
     }
 
     /* Erase Block. */
-    response = spi_flash_transmit((uint8_t)FLASH_CMD_BE, addr, NULL, 0);
+    response = spi_flash_transaction(FLASH_CMD_BE, addr, NULL, 0);
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to erase block! [spi flash erase block]\n");
         return response;
