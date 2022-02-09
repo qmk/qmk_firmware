@@ -9,4 +9,6 @@ BOOTLOADER = atmel-dfu
 #
 BACKLIGHT_DRIVER = custom
 
-SRC = ../lfkeyboards/TWIlib.c ../lfkeyboards/issi.c ../lfkeyboards/lighting.c
+# TODO: This needs to be refactored -- keyboards should not be referencing files from other manufacturers
+VPATH += keyboards/lfkeyboards
+SRC = TWIlib.c issi.c lighting.c
