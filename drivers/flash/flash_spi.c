@@ -249,8 +249,8 @@ flash_status_t flash_erase_block(const void *addr) {
     uintptr_t      target_addr = (uintptr_t)addr;
 
     /* Check that the address exceeds the limit. */
-    if ((target_addr + (EXTERNAL_FLASH_BLOCK_SIZE << 10)) >= (EXTERNAL_FLASH_SIZE << 10) ||
-        ((target_addr % (EXTERNAL_FLASH_BLOCK_SIZE << 10)) != 0)) {
+    if ((target_addr + (EXTERNAL_FLASH_BLOCK_SIZE)) >= (EXTERNAL_FLASH_SIZE) ||
+        ((target_addr % (EXTERNAL_FLASH_BLOCK_SIZE)) != 0)) {
         dprintf("Flash erase block address over limit! [addr:0x%x]\n", (uint32_t)target_addr);
         return FLASH_STATUS_ERROR;
     }
