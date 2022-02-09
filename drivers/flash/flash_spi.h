@@ -85,10 +85,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /*
-    The total size of the FLASH in Kbytes, as specified in the datasheet.
+    The total size of the FLASH in bytes, as specified in the datasheet.
 */
 #ifndef EXTERNAL_FLASH_SIZE
-#    define EXTERNAL_FLASH_SIZE 512
+#    define EXTERNAL_FLASH_SIZE (512 * 1024)
 #endif
 
 /*
