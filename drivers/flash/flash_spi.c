@@ -204,7 +204,6 @@ flash_status_t flash_erase_chip(void) {
 
 flash_status_t flash_erase_sector(uint32_t addr) {
     flash_status_t response    = FLASH_STATUS_SUCCESS;
-    uintptr_t      target_addr = (uintptr_t)addr;
 
     /* Check that the address exceeds the limit. */
     if ((target_addr + (EXTERNAL_FLASH_SECTOR_SIZE)) >= (EXTERNAL_FLASH_SIZE) ||
