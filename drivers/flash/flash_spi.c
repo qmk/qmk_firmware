@@ -202,8 +202,8 @@ flash_status_t flash_erase_sector(uint32_t addr) {
     flash_status_t response = FLASH_STATUS_SUCCESS;
 
     /* Check that the address exceeds the limit. */
-    if ((target_addr + (EXTERNAL_FLASH_SECTOR_SIZE)) >= (EXTERNAL_FLASH_SIZE) || ((target_addr % (EXTERNAL_FLASH_SECTOR_SIZE)) != 0)) {
-        dprintf("Flash erase sector address over limit! [addr:0x%x]\n", (uint32_t)target_addr);
+    if ((addr + (EXTERNAL_FLASH_SECTOR_SIZE)) >= (EXTERNAL_FLASH_SIZE) || ((addr % (EXTERNAL_FLASH_SECTOR_SIZE)) != 0)) {
+        dprintf("Flash erase sector address over limit! [addr:0x%x]\n", (uint32_t)addr);
         return FLASH_STATUS_ERROR;
     }
 
@@ -222,7 +222,7 @@ flash_status_t flash_erase_sector(uint32_t addr) {
     }
 
     /* Erase Sector. */
-    response = spi_flash_transmit((uint8_t)FLASH_CMD_SE, target_addr, NULL, 0);
+    response = spi_flash_transmit((uint8_t)FLASH_CMD_SE, addr, NULL, 0);
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to erase sector! [spi flash erase sector]\n");
         return response;
@@ -242,8 +242,8 @@ flash_status_t flash_erase_block(uint32_t addr) {
     flash_status_t response = FLASH_STATUS_SUCCESS;
 
     /* Check that the address exceeds the limit. */
-    if ((target_addr + (EXTERNAL_FLASH_BLOCK_SIZE)) >= (EXTERNAL_FLASH_SIZE) || ((target_addr % (EXTERNAL_FLASH_BLOCK_SIZE)) != 0)) {
-        dprintf("Flash erase block address over limit! [addr:0x%x]\n", (uint32_t)target_addr);
+    if ((addr + (EXTERNAL_FLASH_BLOCK_SIZE)) >= (EXTERNAL_FLASH_SIZE) || ((addr % (EXTERNAL_FLASH_BLOCK_SIZE)) != 0)) {
+        dprintf("Flash erase block address over limit! [addr:0x%x]\n", (uint32_t)addr);
         return FLASH_STATUS_ERROR;
     }
 
@@ -262,7 +262,7 @@ flash_status_t flash_erase_block(uint32_t addr) {
     }
 
     /* Erase Block. */
-    response = spi_flash_transmit((uint8_t)FLASH_CMD_BE, target_addr, NULL, 0);
+    response = spi_flash_transmit((uint8_t)FLASH_CMD_BE, addr, NULL, 0);
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to erase block! [spi flash erase block]\n");
         return response;
@@ -291,7 +291,7 @@ flash_status_t flash_read_block(uint32_t addr, void *buf, size_t len) {
     }
 
     /* Perform read. */
-    response = spi_flash_transmit((uint8_t)FLASH_CMD_READ, (uintptr_t)target_addr, read_buf, len);
+    response = spi_flash_transmit((uint8_t)FLASH_CMD_READ, (uint32_t)addr, read_buf, len);
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to read block! [spi flash read block]\n");
         memset(read_buf, 0, len);
@@ -299,7 +299,7 @@ flash_status_t flash_read_block(uint32_t addr, void *buf, size_t len) {
     }
 
 #if defined(CONSOLE_ENABLE) && defined(DEBUG_FLASH_SPI_OUTPUT)
-    dprintf("[SPI FLASH R] 0x%08lX: ", ((uint32_t)target_addr));
+    dprintf("[SPI FLASH R] 0x%08lX: ", ((uint32_t)addr));
     for (size_t i = 0; i < len; ++i) {
         dprintf(" %02X", (int)(((uint8_t *)read_buf)[i]));
     }
@@ -314,7 +314,7 @@ flash_status_t flash_write_block(uint32_t addr, const void *buf, size_t len) {
     uint8_t *      write_buf = (uint8_t *)buf;
 
     while (len > 0) {
-        uintptr_t page_offset  = target_addr % EXTERNAL_FLASH_PAGE_SIZE;
+        uint32_t page_offset  = addr % EXTERNAL_FLASH_PAGE_SIZE;
         size_t    write_length = EXTERNAL_FLASH_PAGE_SIZE - page_offset;
         if (write_length > len) {
             write_length = len;
@@ -335,7 +335,7 @@ flash_status_t flash_write_block(uint32_t addr, const void *buf, size_t len) {
         }
 
 #if defined(CONSOLE_ENABLE) && defined(DEBUG_FLASH_SPI_OUTPUT)
-        dprintf("[SPI FLASH W] 0x%08lX: ", ((uint32_t)target_addr));
+        dprintf("[SPI FLASH W] 0x%08lX: ", ((uint32_t)addr));
         for (size_t i = 0; i < write_length; i++) {
             dprintf(" %02X", (int)(uint8_t)(write_buf[i]));
         }
@@ -343,14 +343,14 @@ flash_status_t flash_write_block(uint32_t addr, const void *buf, size_t len) {
 #endif  // DEBUG_FLASH_SPI_OUTPUT
 
         /* Perform the write. */
-        response = spi_flash_transmit((uint8_t)FLASH_CMD_PP, target_addr, write_buf, write_length);
+        response = spi_flash_transmit((uint8_t)FLASH_CMD_PP, addr, write_buf, write_length);
         if (response != FLASH_STATUS_SUCCESS) {
             dprint("Failed to write block! [spi flash write block]\n");
             return response;
         }
 
         write_buf += write_length;
-        target_addr += write_length;
+        addr += write_length;
         len -= write_length;
     }
 
