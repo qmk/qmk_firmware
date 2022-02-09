@@ -243,7 +243,7 @@ flash_status_t flash_erase_sector(uint32_t addr) {
     return response;
 }
 
-flash_status_t flash_erase_block(const void *addr) {
+flash_status_t flash_erase_block(uint32_t addr) {
     flash_status_t response    = FLASH_STATUS_SUCCESS;
     uintptr_t      target_addr = (uintptr_t)addr;
 
