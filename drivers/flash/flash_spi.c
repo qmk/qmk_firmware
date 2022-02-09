@@ -320,7 +320,6 @@ flash_status_t flash_read_block(uint8_t *buf, const void *addr, size_t len) {
 flash_status_t flash_write_block(const uint8_t *buf, void *addr, size_t len) {
     flash_status_t response    = FLASH_STATUS_SUCCESS;
     uint8_t *      write_buf   = (uint8_t *)buf;
-    uintptr_t      target_addr = (uintptr_t)addr;
 
     while (len > 0) {
         uintptr_t page_offset  = target_addr % EXTERNAL_FLASH_PAGE_SIZE;
