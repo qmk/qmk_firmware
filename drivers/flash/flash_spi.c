@@ -299,7 +299,7 @@ flash_status_t flash_read_block(uint32_t addr, void *buf, size_t len) {
     }
 
 #if defined(CONSOLE_ENABLE) && defined(DEBUG_FLASH_SPI_OUTPUT)
-    dprintf("[SPI FLASH R] 0x%08lX: ", ((uint32_t)addr));
+    dprintf("[SPI FLASH R] 0x%08lX: ", addr);
     for (size_t i = 0; i < len; ++i) {
         dprintf(" %02X", (int)(((uint8_t *)read_buf)[i]));
     }
