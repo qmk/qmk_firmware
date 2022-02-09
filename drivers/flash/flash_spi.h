@@ -94,7 +94,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
     The block count of the FLASH, calculated by total FLASH size and block size.
 */
-#define EXTERNAL_FLASH_BLOCK_COUNT (EXTERNAL_FLASH_SIZE / EXTERNAL_FLASH_BLOCK_SIZE)
+#define EXTERNAL_FLASH_BLOCK_COUNT ((EXTERNAL_FLASH_SIZE) / (EXTERNAL_FLASH_BLOCK_SIZE))
 
 /*
     The sector count of the FLASH, calculated by total FLASH size and sector size.
