@@ -20,6 +20,7 @@
 
 // clang-format off
 
+// keymap adapted for http://marin.jb.free.fr/qwerty-fr/
 
 /* AltGr symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -119,7 +120,7 @@
 #define QF_PLMN S(RALT(KC_EQUAL)) // ±
 // Row 2
 #define QF_ACIU S(RALT(KC_Q))    // Â
-#define QF_ECUU  S(RALT(KC_W))   // É
+#define QF_ECUU S(RALT(KC_W))    // É
 #define QF_EGRU S(RALT(KC_E))    // È
 #define QF_COPY S(RALT(KC_R))    // ©
 #define QF_PIU  S(RALT(KC_T))    // Π
@@ -132,7 +133,7 @@
 #define QF_RDQU S(RALT(KC_RBRC)) // ”
 // Row 3
 #define QF_AGRU S(RALT(KC_A))    // À
-#define QF_AEU S(RALT(KC_S))     // Æ
+#define QF_AEU  S(RALT(KC_S))    // Æ
 #define QF_EDIU S(RALT(KC_D))    // Ë
 #define QF_DELT S(RALT(KC_F))    // Δ
 #define QF_BETA S(RALT(KC_G))    // β
@@ -146,7 +147,7 @@
 // Row 4
 #define QF_GTEQ S(RALT(KC_NUBS)) // ≥
 #define QF_ADIU S(RALT(KC_Z))    // Ä
-#define QF_DIV S(RALT(KC_X))     // ÷
+#define QF_DIV  S(RALT(KC_X))    // ÷
 #define QF_CCDU S(RALT(KC_C))    // Ç
 #define QF_OMEU S(RALT(KC_V))    // Ω
 #define QF_THRN S(RALT(KC_B))    // þ
