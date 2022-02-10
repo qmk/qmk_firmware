@@ -15,3 +15,31 @@
  */
 
 #include "sandbox.h"
+
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
+    if (!oled_task_user()) { return false; }
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_ln_P(PSTR("Layer: Default"), false);
+            break;
+        case 1:
+            oled_write_ln_P(PSTR("Layer: 1"), false);
+            break;
+        case 2:
+            oled_write_ln_P(PSTR("Layer: 2"), false);
+            break;
+        case 3:
+            oled_write_ln_P(PSTR("Layer: 3"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR("Layer: Undefined"), false);
+    }
+
+        return true;
+}
+
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_180;
+}
+#endif
