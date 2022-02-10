@@ -44,7 +44,7 @@
 // #define IGNORE_MOD_TAP_INTERRUPT
 // #define HOLD_ON_OTHER_KEY_PRESS
 
-#define COMBO_TERM 20
+#define COMBO_TERM 50
 
 
 
