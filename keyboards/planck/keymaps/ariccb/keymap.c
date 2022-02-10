@@ -27,7 +27,7 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _COLEMAK_VCP 1
+#define _COLEMAK 1
 #define _LOWER 2
 #define _RAISE 3
 #define _NUMPAD 4
@@ -60,7 +60,7 @@
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK_VCP,
+  COLEMAK,
   LOWER,
   RAISE,
   FN,
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(UNDS_LOWER), KC_SPC, KC_SPC, MO(3),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
  ),
 
- /* MIT Layout (COLEMAK_VCP)
+ /* MIT Layout (COLEMAK)
  *
  * ,------------------------------------------------------------------------.
  * |FN,ESC|  q  |  w  |  f  |  d  |  b  |  j  |  l  |  u  |  y  |  ;  | Bsp |
@@ -149,10 +149,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |     |   |Ctl,Ent|LWR,_|   Space   |RAISE|Alt,Play|  |     |     |
  * `------------------------------------------------------------------------'
  */
-[_COLEMAK_VCP] = LAYOUT_planck_grid( /* COLEMAK_VCP */
-    LTESC,   KC_Q,     KC_W,     KC_F,    KC_D,           KC_B,   KC_J,   KC_L,   KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
+[_COLEMAK] = LAYOUT_planck_grid( /* COLEMAK */
+    LTESC,   KC_Q,     KC_W,     KC_F,    KC_P,           KC_B,   KC_J,   KC_L,   KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
     MTTAB,   KC_A,     KC_R,     KC_S,    KC_T,           KC_G,   KC_M,   KC_N,   KC_E,      KC_I,   KC_O,    MTRCTLQUO,
-    KC_LSFT, MTLGUI_Z, KC_X,     KC_V,    KC_C,           KC_P,   KC_K,   KC_H,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
+    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,           KC_V,   KC_K,   KC_H,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
     KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(UNDS_LOWER), KC_SPC, KC_SPC, MO(3),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
  ),
 
@@ -247,7 +247,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
   RGB_TOG, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD,     RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RESET,
   RGB_MOD, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  KC_NO,       AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  DEBUG,
-  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK_VCP, MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, MU_MOD,
+  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK, MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, MU_MOD,
   KC_NO,   KC_NO,   KC_NO,   KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
 )
 };
@@ -256,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 float layerswitch_song[][2] = SONG(PLANCK_SOUND);
 float tone_startup[][2]     = SONG(STARTUP_SOUND);
 float tone_qwerty[][2]      = SONG(QWERTY_SOUND);
-float tone_COLEMAK_VCP[][2] = SONG(COLEMAK_SOUND);
+float tone_COLEMAK[][2] = SONG(COLEMAK_SOUND);
 float music_scale[][2]      = SONG(MUSIC_SCALE_SOUND);
 float tone_goodbye[][2]     = SONG(GOODBYE_SOUND);
 
@@ -426,9 +426,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case COLEMAK_VCP:
+    case COLEMAK:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK_VCP);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
       break;
@@ -501,8 +501,16 @@ enum combo_events {
   HTML_IMG,
   CSS_STYLE,
   HTML_GENERIC_TAG,
-  CTLRGHT,
-  CTLLEFT,
+  CTRLRIGHT,
+  CTRLLEFT,
+  UNDO,
+  REDO,
+  CUT,
+  COPY,
+  PASTE,
+  PASTECLIPBOARD,
+  PASTETEXT,
+  SELECTALL,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
@@ -520,8 +528,17 @@ const uint16_t PROGMEM html_a_href_combo[] = {KC_A, KC_DOT, COMBO_END};
 const uint16_t PROGMEM html_img_combo[] = {KC_F, KC_DOT, COMBO_END};
 const uint16_t PROGMEM css_style_combo[] = {KC_S, KC_DOT, COMBO_END};
 const uint16_t PROGMEM html_generic_tag_combo[] = {KC_G, KC_DOT, COMBO_END};
-const uint16_t PROGMEM ctrrght_combo[] = {KC_RGHT, KC_DOWN, COMBO_END};
-const uint16_t PROGMEM ctrleft_combo[] = {KC_LEFT, KC_DOWN, COMBO_END};
+const uint16_t PROGMEM ctrlright_combo[] = {KC_RGHT, KC_DOWN, COMBO_END};
+const uint16_t PROGMEM ctrlleft_combo[] = {KC_LEFT, KC_DOWN, COMBO_END};
+const uint16_t PROGMEM undo_combo[] = {MTLGUI_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM redo_combo[] = {MTLGUI_Z, KC_R, COMBO_END};
+const uint16_t PROGMEM cut_combo[] = {MTLGUI_Z, KC_C, COMBO_END};
+const uint16_t PROGMEM copy_combo[] = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM paste_combo[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM pasteclip_combo[] = {KC_X, KC_D, COMBO_END};
+const uint16_t PROGMEM pastetxt_combo[] = {KC_X, KC_V, COMBO_END};
+const uint16_t PROGMEM selectall_combo[] = {MTLGUI_Z, KC_D, COMBO_END};
+
 // const uint8_t combo_mods = get_mods();
 // const uint8_t combo_oneshot_mods = get_oneshot_mods();
 
@@ -539,8 +556,16 @@ combo_t key_combos[] = {
   [HTML_IMG] = COMBO_ACTION(html_img_combo),
   [CSS_STYLE] = COMBO_ACTION(css_style_combo),
   [HTML_GENERIC_TAG] = COMBO_ACTION(html_generic_tag_combo),
-  [CTLRGHT] = COMBO_ACTION(ctrrght_combo),
-  [CTLLEFT] = COMBO_ACTION(ctrleft_combo),
+  [CTRLRIGHT] = COMBO_ACTION(ctrlright_combo),
+  [CTRLLEFT] = COMBO_ACTION(ctrlleft_combo),
+  [UNDO] = COMBO_ACTION(undo_combo),
+  [REDO] = COMBO_ACTION(redo_combo),
+  [CUT] = COMBO_ACTION(cut_combo),
+  [COPY] = COMBO_ACTION(copy_combo),
+  [PASTE] = COMBO_ACTION(paste_combo),
+  [PASTECLIPBOARD] = COMBO_ACTION(pasteclip_combo),
+  [PASTETEXT] = COMBO_ACTION(pastetxt_combo),
+  [SELECTALL] = COMBO_ACTION(selectall_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
@@ -650,14 +675,54 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code16(KC_BSPC);
       }
       break;
-    case CTLLEFT:
+    case CTRLLEFT:
       if (pressed) {
         tap_code16(C(KC_LEFT));
       }
       break;
-    case CTLRGHT:
+    case CTRLRIGHT:
       if (pressed) {
         tap_code16(C(KC_RGHT));
+      }
+      break;
+    case UNDO:
+      if (pressed) {
+        tap_code16(C(KC_Z));
+      }
+      break;
+    case REDO:
+      if (pressed) {
+        tap_code16(C(KC_Y));
+      }
+      break;
+    case CUT:
+      if (pressed) {
+        tap_code16(C(KC_X));
+      }
+      break;
+    case COPY:
+      if (pressed) {
+        tap_code16(C(KC_C));
+      }
+      break;
+    case PASTE:
+      if (pressed) {
+        tap_code16(C(KC_V));
+      }
+      break;
+    case PASTECLIPBOARD:
+      if (pressed) {
+        tap_code16(LWIN(KC_V));
+      }
+      break;
+    case PASTETEXT:
+      if (pressed) {
+        tap_code16(C(S(KC_V)));
+      }
+      break;
+    case SELECTALL:
+      if (pressed) {
+        tap_code16(C(KC_A));
       }
       break;
   }
