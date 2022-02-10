@@ -9,11 +9,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make latin17rgb:default
+    make latincompass/latin17rgb:default
 
 Flashing example for this keyboard:
 
-    make latin17rgb:default:flash
+    make latincompass/latin17rgb:default:flash
 
 To reset the board into bootloader mode, hold the key at the top left of the keyboard while connecting the USB cable (also erases persistent settings).
 
