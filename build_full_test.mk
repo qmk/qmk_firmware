@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 $(TEST)_INC := \
-	tests\test_common\common_config.h
+	tests/test_common/common_config.h
 
 $(TEST)_SRC := \
 	$(TMK_COMMON_SRC) \
