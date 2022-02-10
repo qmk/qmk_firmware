@@ -3,7 +3,7 @@
     "url": "https://github.com/joedinkle/eyeohdesigns/tree/main/keyboards/sprh",
     "maintainer": "eye oh designs",
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_ac5": {
             "layout": [
                 {"label":"Mute", "x":0.5, "y":0},
                 {"label":"Esc", "x":1.5, "y":0},
