@@ -27,18 +27,24 @@ enum combo_events {
 
 const uint16_t PROGMEM led_adjust_combo[] = {KC_LEFT, KC_RGHT, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
-    [LED_ADJUST] = COMBO_ACTION(led_adjust_combo)
-};
-
-bool led_adjust_active = false;
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [DEFAULT] = LAYOUT(
         KC_END,  KC_UP,   KC_MUTE,
         KC_LEFT, KC_DOWN, KC_RGHT
     )
 };
+
+combo_t key_combos[COMBO_COUNT] = {
+    [LED_ADJUST] = COMBO_ACTION(led_adjust_combo)
+};
+
+bool led_adjust_active = false;
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    if (combo_index == LED_ADJUST) {
+        led_adjust_active = pressed;
+    }
+}
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
@@ -62,10 +68,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
 
     return true;
-}
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-    if (combo_index == LED_ADJUST) {
-        led_adjust_active = pressed;
-    }
 }
