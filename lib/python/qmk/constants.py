@@ -17,6 +17,45 @@ CHIBIOS_PROCESSORS = 'cortex-m0', 'cortex-m0plus', 'cortex-m3', 'cortex-m4', 'MK
 LUFA_PROCESSORS = 'at90usb162', 'atmega16u2', 'atmega32u2', 'atmega16u4', 'atmega32u4', 'at90usb646', 'at90usb647', 'at90usb1286', 'at90usb1287', None
 VUSB_PROCESSORS = 'atmega32a', 'atmega328p', 'atmega328', 'attiny85'
 
+# Bootloaders of the supported processors
+MCU2BOOTLOADER = {
+    "MKL26Z64": "halfkay",
+    "MK20DX128": "halfkay",
+    "MK20DX256": "halfkay",
+    "MK66FX1M0": "halfkay",
+    "STM32F042": "stm32-dfu",
+    "STM32F072": "stm32-dfu",
+    "STM32F103": "stm32duino",
+    "STM32F303": "stm32-dfu",
+    "STM32F401": "stm32-dfu",
+    "STM32F405": "stm32-dfu",
+    "STM32F407": "stm32-dfu",
+    "STM32F411": "stm32-dfu",
+    "STM32F446": "stm32-dfu",
+    "STM32G431": "stm32-dfu",
+    "STM32G474": "stm32-dfu",
+    "STM32L412": "stm32-dfu",
+    "STM32L422": "stm32-dfu",
+    "STM32L432": "stm32-dfu",
+    "STM32L433": "stm32-dfu",
+    "STM32L442": "stm32-dfu",
+    "STM32L443": "stm32-dfu",
+    "GD32VF103": "gd32v-dfu",
+    "WB32F3G71": "wb32-dfu",
+    "atmega16u2": "atmel-dfu",
+    "atmega32u2": "atmel-dfu",
+    "atmega16u4": "atmel-dfu",
+    "atmega32u4": "atmel-dfu",
+    "at90usb162": "atmel-dfu",
+    "at90usb646": "atmel-dfu",
+    "at90usb647": "atmel-dfu",
+    "at90usb1286": "atmel-dfu",
+    "at90usb1287": "atmel-dfu",
+    "atmega32a": "bootloadhid",
+    "atmega328p": "usbasploader",
+    "atmega328": "usbasploader",
+}
+
 # Common format strings
 DATE_FORMAT = '%Y-%m-%d'
 DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S %Z'
