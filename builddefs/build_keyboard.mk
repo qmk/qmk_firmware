@@ -111,7 +111,7 @@ INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard
 include $(INFO_RULES_MK)
 
 # Check for keymap.json first, so we can regenerate keymap.c
-include build_json.mk
+include $(BUILDDEFS_PATH)/build_json.mk
 
 # Pull in keymap level rules.mk
 ifeq ("$(wildcard $(KEYMAP_PATH))", "")
@@ -138,7 +138,7 @@ ifeq ("$(wildcard $(KEYMAP_PATH))", "")
         KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
     else ifneq ($(LAYOUTS),)
         # If we haven't found a keymap yet fall back to community layouts
-        include build_layout.mk
+        include $(BUILDDEFS_PATH)/build_layout.mk
     else
         $(call CATASTROPHIC_ERROR,Invalid keymap,Could not find keymap)
         # this state should never be reached
@@ -398,7 +398,7 @@ VPATH += $(COMMON_VPATH)
 VPATH += $(KEYBOARD_OUTPUT)/src
 VPATH += $(KEYMAP_OUTPUT)/src
 
-include common_features.mk
+include $(BUILDDEFS_PATH)/common_features.mk
 include $(BUILDDEFS_PATH)/generic_features.mk
 include $(TMK_PATH)/protocol.mk
 include $(PLATFORM_PATH)/common.mk
@@ -460,7 +460,7 @@ check-md5: build
 objs-size: build
 
 include $(BUILDDEFS_PATH)/show_options.mk
-include $(TMK_PATH)/rules.mk
+include $(BUILDDEFS_PATH)/common_rules.mk
 
 # Ensure we have generated files available for each of the objects
 define GEN_FILES
