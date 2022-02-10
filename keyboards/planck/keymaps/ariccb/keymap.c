@@ -511,6 +511,8 @@ enum combo_events {
   PASTECLIPBOARD,
   PASTETEXT,
   SELECTALL,
+  EXCLAMATION,
+  EQUALS,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
@@ -538,6 +540,8 @@ const uint16_t PROGMEM paste_combo[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM pasteclip_combo[] = {KC_X, KC_D, COMBO_END};
 const uint16_t PROGMEM pastetxt_combo[] = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM selectall_combo[] = {MTLGUI_Z, KC_D, COMBO_END};
+const uint16_t PROGMEM exclamation_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM equals_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
 
 // const uint8_t combo_mods = get_mods();
 // const uint8_t combo_oneshot_mods = get_oneshot_mods();
@@ -566,6 +570,8 @@ combo_t key_combos[] = {
   [PASTECLIPBOARD] = COMBO_ACTION(pasteclip_combo),
   [PASTETEXT] = COMBO_ACTION(pastetxt_combo),
   [SELECTALL] = COMBO_ACTION(selectall_combo),
+  [EXCLAMATION] = COMBO_ACTION(exclamation_combo),
+  [EQUALS] = COMBO_ACTION(equals_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
@@ -723,6 +729,16 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case SELECTALL:
       if (pressed) {
         tap_code16(C(KC_A));
+      }
+      break;
+    case EXCLAMATION:
+      if (pressed) {
+        tap_code16(KC_EXLM);
+      }
+      break;
+    case EQUALS:
+      if (pressed) {
+        tap_code16(KC_EQL);
       }
       break;
   }
