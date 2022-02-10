@@ -1,3 +1,13 @@
+#
+# Raspberry Pi RP2040 specific drivers
+##############################################################################
+COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/vendor/$(MCU_FAMILY)/$(MCU_SERIES)
+
+ifeq ($(strip $(WS2812_DRIVER)), vendor)
+    OPT_DEFS += -DRP_DMA_REQUIRED=TRUE
+endif
+
+#
 # Raspberry Pi Pico SDK Support
 ##############################################################################
 ADEFS  += -DCRT0_VTOR_INIT=1 \
