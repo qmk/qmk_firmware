@@ -158,7 +158,7 @@ def is_keymap_dir(keymap, c=True, json=True, additional_files=None):
             return True
 
 
-def generate_json(keymap, keyboard, layout, layers):
+def generate_json(keymap, keyboard, layout, layers, macros=None):
     """Returns a `keymap.json` for the specified keyboard, layout, and layers.
 
     Args:
@@ -173,11 +173,16 @@ def generate_json(keymap, keyboard, layout, layers):
 
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
+
+        macros
+            A sequence of strings containing macros to implement for this keyboard.
     """
     new_keymap = template_json(keyboard)
     new_keymap['keymap'] = keymap
     new_keymap['layout'] = layout
     new_keymap['layers'] = layers
+    if macros:
+        new_keymap['macros'] = macros
 
     return new_keymap
 
