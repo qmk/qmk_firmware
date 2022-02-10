@@ -56,18 +56,14 @@
 
 #elif defined(CONVERT_TO_STEMCELL)
 
-/* #if SOFT_SERIAL_PIN==D0 || SOFT_SERIAL_PIN==D1
-#    define SERIAL_USART_DRIVER      SD1
-#    define USART1_REMAP
-#elif  SOFT_SERIAL_PIN==D2 || SOFT_SERIAL_PIN==D3
-#    define SERIAL_USART_DRIVER      SD2
-#    define USART2_REMAP
-#endif */
-
 // Left side (front)
 #    ifdef CONVERT_TO_STEMCELL_UART_SWAP
 #        define D3 PAL_LINE(GPIOA, 3)
 #        define D2 PAL_LINE(GPIOA, 2)
+#    ifndef SERIAL_USART_DRIVER
+#        define SERIAL_USART_DRIVER      SD2
+#    endif
+// #        define USART2_REMAP
 #    else
 #        define D3 PAL_LINE(GPIOA, 2)
 #        define D2 PAL_LINE(GPIOA, 3)
@@ -106,7 +102,6 @@
 #    define D5 PAL_LINE(GPIOA, 8)
 #    define B0 PAL_LINE(GPIOA, 9) // unconnected pin
 
-#    define SERIAL_USART_DRIVER      SD1
 #    define I2C1_SCL_PIN             D0
 #    define I2C1_SDA_PIN             D1
 #    define FEE_PAGE_BASE_ADDRESS    0x08008000
