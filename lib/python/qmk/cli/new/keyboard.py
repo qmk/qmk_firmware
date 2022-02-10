@@ -231,7 +231,7 @@ def new_keyboard(cli):
     cli.echo('')
 
     kb_name = cli.args.keyboard if cli.args.keyboard else prompt_keyboard()
-    user_name = cli.args.username if cli.args.username else prompt_user()
+    user_name = cli.args.username or cli.config.new_keyboard.name if cli.args.username or cli.config.new_keyboard.name else prompt_user()
     real_name = cli.args.realname or cli.args.username if cli.args.realname or cli.args.username else prompt_name(user_name)
     default_layout = cli.args.layout if cli.args.layout else prompt_layout()
     mcu = cli.args.type if cli.args.type else prompt_mcu()
