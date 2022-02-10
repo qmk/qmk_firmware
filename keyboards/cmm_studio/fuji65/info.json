@@ -1,7 +1,7 @@
 {
     "keyboard_name": "cmm.studio fuji65",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "CMMS-Freather",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -20,7 +20,7 @@
                 { "label": "K0C (B5,D2)", "x": 12, "y": 0 },
                 { "label": "K0D (B5,D1)", "x": 13, "y": 0 },
                 { "label": "K0E (B5,D0)", "x": 14, "y": 0 },
-                { "label": "K10 (B4,F7)", "x": 0, "y": 1 },
+                { "label": "K10 (B4,F7)", "x": 0, "y": 1.5 },
                 { "label": "K11 (B4,F6)", "x": 1.5, "y": 1 },
                 { "label": "K12 (B4,F5)", "x": 2.5, "y": 1 },
                 { "label": "K13 (B4,F4)", "x": 3.5, "y": 1 },
