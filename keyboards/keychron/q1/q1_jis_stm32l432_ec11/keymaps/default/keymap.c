@@ -90,20 +90,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TRNS,            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
          KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                      KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
 };
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_LOPTN:
-        case KC_ROPTN:
-        case KC_LCMMD:
-        case KC_RCMMD:
-            if (record->event.pressed) {
-                register_code(mac_keycode[keycode - KC_LOPTN]);
-            } else {
-                unregister_code(mac_keycode[keycode - KC_LOPTN]);
-            }
-            return false;
         case KC_MISSION_CONTROL:
-           if (record->event.pressed) {
+            if (record->event.pressed) {
                 host_consumer_send(0x29F);
             } else {
                 host_consumer_send(0);
@@ -114,6 +105,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 host_consumer_send(0x2A0);
             } else {
                 host_consumer_send(0);
+            }
+            return false;  // Skip all further processing of this key
+        case KC_LOPTN:
+        case KC_ROPTN:
+        case KC_LCMMD:
+        case KC_RCMMD:
+            if (record->event.pressed) {
+                register_code(mac_keycode[keycode - KC_LOPTN]);
+            } else {
+                unregister_code(mac_keycode[keycode - KC_LOPTN]);
             }
             return false;  // Skip all further processing of this key
         case KC_TASK:
@@ -129,7 +130,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;  // Skip all further processing of this key
         default:
-            return true;  // Process all other keycodes normally
+            return true;   // Process all other keycodes normally
     }
 }
-

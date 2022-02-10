@@ -18,7 +18,7 @@
 
 /* USB Device descriptor parameter */
 #define PRODUCT_ID      0x010b
-#define DEVICE_VER      0x0200
+#define DEVICE_VER      0x0201
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -44,12 +44,15 @@
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
 #define PHASE_CHANNEL MSKPHASE_9CHANNEL
 
-/* Set the maxium brightness as 190 in order to limit the current to 450mA */
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 185
+/* Set the maxium brightness as 192 in order to limit the current to 450mA */
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (24*8)
 
 /* Encoder used pins */
 #define ENCODERS_PAD_A { A10 }
 #define ENCODERS_PAD_B { A8 }
 
-/* Specifies the number of pulses the encoder registers between each detent */
-#define ENCODER_RESOLUTION 4
+/* We have 2KB EEPROM size on STM32L432 */
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
+
+/* Enable caps-lock LED */
+#define CAPS_LOCK_LED_INDEX 45

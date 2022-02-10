@@ -36,12 +36,8 @@
 #define DEBOUNCE 5
 
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
+#define DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110111
-#define DRIVER_ADDR_2 0b1110100
-
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
-#define PHASE_CHANNEL MSKPHASE_9CHANNEL
 
 /* DIP switch */
 #define DIP_SWITCH_MATRIX_GRID  { {4,4} }
@@ -117,3 +113,9 @@
 #ifdef VIA_ENABLE
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
+
+// Just for testing RGB matrix
+// preventing inadvertent entry into dfu mode during power on
+#define RGB_MATRIX_KEYPRESSES
+#define BOOTMAGIC_LITE_ROW 4
+#define BOOTMAGIC_LITE_COLUMN 5
