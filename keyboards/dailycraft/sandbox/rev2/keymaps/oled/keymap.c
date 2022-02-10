@@ -41,34 +41,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-#ifdef OLED_ENABLE
-
-void render_status(void) {
-    switch (get_highest_layer(layer_state)) {
-        case _0:
-            oled_write_ln_P(PSTR("Layer: Default"), false);
-            break;
-        case _1:
-            oled_write_ln_P(PSTR("Layer: 1"), false);
-            break;
-        case _2:
-            oled_write_ln_P(PSTR("Layer: 2"), false);
-            break;
-        case _3:
-            oled_write_ln_P(PSTR("Layer: 3"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Layer: Undefined"), false);
-    }
-}
-
-bool oled_task_user(void) {
-    render_status();
-    return false;
-}
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-}
-
-#endif
