@@ -1,6 +1,6 @@
 # m40
 
-![m40](https://imgur.com/bWXH3FV)
+![m40](https://i.imgur.com/bWXH3FVl.jpeg)
 
 *This is very simple 5x5 macropad for general use. It does not come with any particular layout, it is assumed that layouts will be built on the qmk configurator site. Row and column pins start on the edge of Arduino, if smaller board is required, you can simply connect only first x row/column pairs to the board and get the size of the board you need.*
 
