@@ -1,5 +1,5 @@
 # Defalt to the ansi version
-DEFAULT_FOLDER = idobao/id80/ansi
+DEFAULT_FOLDER = idobao/id80/v1/ansi
 
 # MCU name
 MCU = atmega32u4
