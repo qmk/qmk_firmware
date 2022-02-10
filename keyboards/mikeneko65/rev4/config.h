@@ -1,4 +1,5 @@
-/* Copyright 2022 takishim
+/* Copyright 2020 kkatano
+   Copyright 2022 takishim
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -40,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { D0, D2, D5, C6, C7 }
-#define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, E6, B0, B7, D4, D6, D7, B4, B5, B6 }
+#define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, E6, B0, B7, D4, D6, D7, B6, B5, B4 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
