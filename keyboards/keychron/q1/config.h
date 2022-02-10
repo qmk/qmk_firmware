@@ -36,6 +36,13 @@
 /* Disable RGB lighting when PC is in suspend */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
+/* Set USB polling rate as 1000Hz */
+#define USB_POLLING_INTERVAL_MS 1
+
+/* Use key row 5 and column 4 for bootmagic lite */
+#define BOOTMAGIC_LITE_ROW 5
+#define BOOTMAGIC_LITE_COLUMN 5
+
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -89,3 +96,5 @@
 #ifdef VIA_ENABLE
 #define VIA_QMK_RGBLIGHT_ENABLE
 #endif
+
+// #define RGB_MATRIX_KEYPRESSES

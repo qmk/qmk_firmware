@@ -17,8 +17,8 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0108
-#define DEVICE_VER      0x0200
+#define PRODUCT_ID      0x010a
+#define DEVICE_VER      0x0201
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -37,8 +37,8 @@
 #define DRIVER_ADDR_2 0b1110100
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 45
-#define DRIVER_2_LED_TOTAL 38
+#define DRIVER_1_LED_TOTAL 46
+#define DRIVER_2_LED_TOTAL 40
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
@@ -51,4 +51,4 @@
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
 
 /* Enable caps-lock LED */
-#define CAPS_LOCK_LED_INDEX 44
+#define CAPS_LOCK_LED_INDEX 45
