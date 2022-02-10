@@ -6,10 +6,10 @@
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [
-                {"label":"F1", "x":0, "y":1},
-                {"label":"F2", "x":1, "y":1},
-                {"label":"F3", "x":2, "y":1},
-                {"label":"MUTE", "x":3, "y":1},
+                {"label":"F1", "x":0, "y":0},
+                {"label":"F2", "x":1, "y":0},
+                {"label":"F3", "x":2, "y":0},
+                {"label":"MUTE", "x":3, "y":0},
 
                 {"label":"Num Lock", "x":0, "y":1},
                 {"label":"/", "x":1, "y":1},
@@ -36,10 +36,10 @@
         },
         "LAYOUT_ortho_6x4": {
             "layout": [
-                {"label":"F1", "x":0, "y":1},
-                {"label":"F2", "x":1, "y":1},
-                {"label":"F3", "x":2, "y":1},
-                {"label":"MUTE", "x":3, "y":1},
+                {"label":"F1", "x":0, "y":0},
+                {"label":"F2", "x":1, "y":0},
+                {"label":"F3", "x":2, "y":0},
+                {"label":"MUTE", "x":3, "y":0},
 
                 {"label":"Num Lock", "x":0, "y":1},
                 {"label":"/", "x":1, "y":1},
