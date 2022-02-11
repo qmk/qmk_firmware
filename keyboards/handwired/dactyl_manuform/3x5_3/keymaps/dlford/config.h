@@ -28,21 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT // ignore hold mod if another tap occurs within tapping term
 #define PERMISSIVE_HOLD_PER_KEY // activate mod top hold earlier if another key is pressed AND released per key
 #define TAPPING_FORCE_HOLD_PER_KEY // disable double tap hold key repeat per key
-#ifdef MOUSEKEY_INTERVAL
-  #undef MOUSEKEY_INTERVAL
-#endif
-#ifdef MOUSEKEY_DELAY
-  #undef MOUSEKEY_DELAY
-#endif
-#ifdef MOUSEKEY_TIME_TO_MAX
-  #undef MOUSEKEY_TIME_TO_MAX
-#endif
-#ifdef MOUSEKEY_MAX_SPEED
-  #undef MOUSEKEY_MAX_SPEED
-#endif
-#ifdef MOUSEKEY_WHEEL_DELAY
-  #undef MOUSEKEY_WHEEL_DELAY
-#endif
+#undef MOUSEKEY_INTERVAL
+#undef MOUSEKEY_DELAY
+#undef MOUSEKEY_TIME_TO_MAX
+#undef MOUSEKEY_MAX_SPEED
+#undef MOUSEKEY_WHEEL_DELAY
 #define MK_KINETIC_SPEED
 #define MOUSEKEY_DELAY              100
 #define MOUSEKEY_INTERVAL           35
