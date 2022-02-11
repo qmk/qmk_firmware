@@ -551,7 +551,7 @@ In order to change the delay of temperature decrease define `RGB_MATRIX_TYPING_H
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
 ```
 
-Heatmap effect may not light up the correct adjacent LEDs for certain key matrix layout such as split keyboards. The following define will limit the effect to just pressed keys:
+Heatmap effect may not light up the correct adjacent LEDs for certain key matrix layout such as split keyboards. The following define will limit the effect to pressed keys only:
 ```c
 #define RGB_MATRIX_TYPING_HEATMAP_SLIM
 ```
