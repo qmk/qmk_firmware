@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
      _______,        MI_OCTD, MI_OCTU, MI_VELD, MI_VELU,         _______,
-                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_RMOD, RGB_MOD,
                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_SPD, RGB_SPI, RGB_VAD, RGB_VAI,
@@ -90,23 +90,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void eeconfig_init_user(void) {  // EEPROM is getting reset!
-  #ifdef RGB_MATRIX_ENABLE
-  rgb_matrix_enable();
-  rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD);
-  rgb_matrix_sethsv(HSV_BLUE);
-
-  rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE);
-  // rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-  #endif
-}
-
-void keyboard_post_init_user(void) {
+void my_init(void){
     //  Set octave to MI_OCT_0
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
 
     // avoid using 127 since it is used as a special number in some sound sources.
     midi_config.velocity = MIDI_INITIAL_VELOCITY;
+}
+
+void eeconfig_init_user(void) {  // EEPROM is getting reset!
+    midi_init();
+    my_init();
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_enable();
+    rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD);
+    rgb_matrix_sethsv(HSV_BLUE);
+
+    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE);
+    // rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+#endif
+}
+
+void keyboard_post_init_user(void) {
+    my_init();
 };
 
 #ifdef RGB_MATRIX_ENABLE

@@ -111,6 +111,7 @@ enum custom_keycodes {
 #define AS_CLASS LCTL(KC_N)
 #define AS_FINDUSAGE LALT(KC_F7)
 #define AS_BACK LCTL(LALT(KC_LEFT))
+#define AS_BRACKET LCTL(LSFT(KC_M))
 #define AS_GO_DECLARATION LCTL(KC_B)
 #define AS_GO_IMPLEMENTATION LCTL(LALT(KC_B))
 #define AS_CLOSETAB LCTL(KC_F4)
@@ -118,6 +119,12 @@ enum custom_keycodes {
 #define AS_COPYLINEDOWN LCTL(KC_D)
 #define AS_DEL_LINE LCTL(KC_Y)
 #define AS_LINE LCTL(KC_G)
+#define AS_CMT_BLOCK LCTL(LSFT(KC_SLSH))
+#define AS_CMT_LINE LCTL(KC_SLSH)
+#define AS_BM_PREV LALT(KC_P)
+#define AS_BM_NEXT LALT(KC_N)
+#define AS_BM_TOGGLE KC_F11
+#define AS_BM_LIST LSFT(KC_F11)
 
 // visual studio code shortcuts
 #define VS_FILE LCTL(KC_P)
@@ -148,7 +155,7 @@ enum custom_keycodes {
 #define VS_BM_PREV LCTL(LALT(KC_P))
 #define VS_BM_NEXT LCTL(LALT(KC_N))
 #define VS_BM_TOGGLE LCTL(LALT(KC_K))
-#define VS_BM_LABEL LCTL(LALT(KC_B))
+#define VS_BM_CLEARALL LCTL(LALT(KC_C))
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -362,12 +369,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_TRNS,         KC_TRNS,       KC_TRNS,           KC_TRNS,              KC_TRNS,              KC_TRNS,
-       KC_TRNS, AS_COPYLINEDOWN, AS_FINDUSAGE,  AS_GO_DECLARATION, AS_GO_IMPLEMENTATION, AS_LINE,              KC_TRNS,
-                AS_CLOSETAB,     AS_TABLEFT,    AS_TABRIGHT,       AS_SYMBOL,            AS_CLASS,             AS_BACK,
-       KC_TRNS, KC_TRNS,         KC_TRNS,       KC_TRNS,           KC_TRNS,              AS_CLOSETOOLWINDOW,   KC_TRNS,
+       KC_TRNS,      KC_TRNS,         KC_TRNS,       KC_TRNS,           KC_TRNS,              KC_TRNS,              KC_TRNS,
+       AS_CMT_LINE,  AS_COPYLINEDOWN, AS_FINDUSAGE,  AS_GO_DECLARATION, AS_GO_IMPLEMENTATION, AS_LINE,              AS_BRACKET,
+                     AS_CLOSETAB,     AS_TABLEFT,    AS_TABRIGHT,       AS_SYMBOL,            AS_CLASS,             AS_BACK,
+       AS_CMT_BLOCK, KC_TRNS,         AS_BM_PREV,    AS_BM_NEXT,        KC_TRNS,              AS_CLOSETOOLWINDOW,   AS_BM_TOGGLE,
                          // bottom row
-                         KC_TRNS,     KC_TRNS,     KC_TRNS,        KC_TRNS,              KC_TRNS,
+                         KC_TRNS,     AS_BM_LIST,    KC_TRNS,        KC_TRNS,              KC_TRNS,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -393,7 +400,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      VS_CLOSETAB,      VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
        VS_CMT_BLOCK, KC_TRNS,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
                                        // bottom row
-                                       VS_COMMANDS,   VS_OPEN_FILE,     VS_TERMINAL,         VS_CLOSEPANEL,   VS_BM_LABEL,
+                                       VS_COMMANDS,   VS_BM_LIST,       VS_BM_LISTALL,       VS_CLOSEPANEL,   VS_BM_CLEARALL,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,

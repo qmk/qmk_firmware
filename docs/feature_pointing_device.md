@@ -30,7 +30,7 @@ The ADNS 5050 sensor uses a serial type protocol for communication, and requires
 
 The CPI range is 125-1375, in increments of 125. Defaults to 500 CPI.
 
-### ADSN 9800 Sensor
+### ADNS 9800 Sensor
 
 To use the ADNS 9800 sensor, add this to your `rules.mk`
 
@@ -150,6 +150,7 @@ The PMW 3360 is an SPI driven optical sensor, that uses a built in IR LED for su
 |`PMW3360_SPI_LSBFIRST`       | (Optional) Sets the Least/Most Significant Byte First setting for SPI.                     | `false`       |
 |`PMW3360_SPI_MODE`           | (Optional) Sets the SPI Mode for the sensor.                                               | `3`           |
 |`PMW3360_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
+|`PMW3360_LIFTOFF_DISTANCE`   | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
 |`ROTATIONAL_TRANSFORM_ANGLE` | (Optional) Allows for the sensor data to be rotated +/- 30 degrees directly in the sensor. | `0`           |
 
 The CPI range is 100-12000, in increments of 100. Defaults to 1600 CPI.
@@ -219,9 +220,11 @@ Additionally, by default, `pointing_device_send()` will only send a report when 
 
 Also, you use the `has_mouse_report_changed(new, old)` function to check to see if the report has changed.
 
-## Example
+## Examples
 
-In the following example, a custom key is used to click the mouse and scroll 127 units vertically and horizontally, then undo all of that when released - because that's a totally useful function.  Listen, this is an example:
+### Custom Mouse Keycode
+
+In this example, a custom key is used to click the mouse and scroll 127 units vertically and horizontally, then undo all of that when released - because that's a totally useful function.
 
 ```c
 case MS_SPECIAL:
@@ -241,3 +244,33 @@ case MS_SPECIAL:
 ```
 
 Recall that the mouse report is set to zero (except the buttons) whenever it is sent, so the scrolling would only occur once in each case.
+
+### Drag Scroll or Mouse Scroll
+
+A very common implementation is to use the mouse movement to scroll instead of moving the cursor on the system.  This uses the `pointing_device_task_user` callback to intercept and modify the mouse report before it's sent to the host system. 
+
+```c
+enum custom_keycodes {
+    DRAG_SCROLL = SAFE_RANGE,
+};
+
+bool set_scrolling = false;
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (set_scrolling) {
+        mouse_report.h = mouse_report.x;
+        mouse_report.v = mouse_report.y;
+        mouse_report.x = mouse_report.y = 0
+    }
+    return mouse_report;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == DRAG_SCROLL && record->event.pressed) {
+        set_scrolling = !set_scrolling;
+    }
+    return true;
+}
+```
+
+This allows you to toggle between scrolling and cursor movement by pressing the DRAG_SCROLL key.  
