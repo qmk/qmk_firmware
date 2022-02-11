@@ -13,7 +13,7 @@ Hardware Availability: [MECHKEYS Mechmini 2.0](https://mechkeys.ca/collections/k
 
 Make example for this keyboard (after setting up your build environment), this will make the Mechmini 2.0 default keymap (split space):
 
-    make mechmini/v2:default
+    make mechkeys/mechmini/v2:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
