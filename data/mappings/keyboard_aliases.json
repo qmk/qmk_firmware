@@ -782,10 +782,13 @@
         target: 'idobao/id67/rgb'
     },
     id80: {
-        target: 'idobao/id80'
+        target: 'idobao/id80/v1'
+    },
+    id87: {
+        target: 'idobao/id87/v1'
     },
     idobo: {
-        target: 'idobao/id75'
+        target: 'idobao/id75/v1'
     },
     infinity60: {
         target: 'input_club/infinity60'
@@ -816,6 +819,27 @@
     },
     kprepublic/bm68hsrgb: {
         target: 'kprepublic/bm68hsrgb/rev1'
+    },
+    latin17rgb: {
+        target: 'latincompass/latin17rgb'
+    },
+    latin47ble: {
+        target: 'latincompass/latin47ble'
+    },
+    latin60rgb: {
+        target: 'latincompass/latin60rgb'
+    },
+    latin64ble: {
+        target: 'latincompass/latin64ble'
+    },
+    latin6rgb: {
+        target: 'latincompass/latin6rgb'
+    },
+    latinpad: {
+        target: 'latincompass/latinpad'
+    },
+    latinpadble: {
+        target: 'latincompass/latinpadble'
     },
     launchpad/rev1: {
         target: 'maple_computing/launchpad/rev1'
