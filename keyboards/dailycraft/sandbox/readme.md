@@ -1,6 +1,6 @@
 # sandbox keyboard
 
-![sandbox keyboard](https://i.imgur.com/CaJmz28.jpg)
+![sandbox keyboard](https://i.imgur.com/CaJmz28h.jpg)
 
 macropad
 
