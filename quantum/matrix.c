@@ -47,13 +47,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef DIRECT_PINS
-static SPLIT_MUTABLE pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+static SPLIT_MUTABLE pin_t direct_pins[ROWS_PER_HAND][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 #    ifdef MATRIX_ROW_PINS
-static SPLIT_MUTABLE_ROW pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static SPLIT_MUTABLE_ROW pin_t row_pins[ROWS_PER_HAND] = MATRIX_ROW_PINS;
 #    endif  // MATRIX_ROW_PINS
 #    ifdef MATRIX_COL_PINS
-static SPLIT_MUTABLE_COL pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static SPLIT_MUTABLE_COL pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
 #    endif  // MATRIX_COL_PINS
 #endif
 
@@ -102,7 +102,7 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 #ifdef DIRECT_PINS
 
 __attribute__((weak)) void matrix_init_pins(void) {
-    for (int row = 0; row < MATRIX_ROWS; row++) {
+    for (int row = 0; row < ROWS_PER_HAND; row++) {
         for (int col = 0; col < MATRIX_COLS; col++) {
             pin_t pin = direct_pins[row][col];
             if (pin != NO_PIN) {
@@ -270,16 +270,16 @@ void matrix_init(void) {
     // Set pinout for right half if pinout for that half is defined
     if (!isLeftHand) {
 #    ifdef DIRECT_PINS_RIGHT
-        const pin_t direct_pins_right[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS_RIGHT;
-        for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        const pin_t direct_pins_right[ROWS_PER_HAND][MATRIX_COLS] = DIRECT_PINS_RIGHT;
+        for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
             for (uint8_t j = 0; j < MATRIX_COLS; j++) {
                 direct_pins[i][j] = direct_pins_right[i][j];
             }
         }
 #    endif
 #    ifdef MATRIX_ROW_PINS_RIGHT
-        const pin_t row_pins_right[MATRIX_ROWS] = MATRIX_ROW_PINS_RIGHT;
-        for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        const pin_t row_pins_right[ROWS_PER_HAND] = MATRIX_ROW_PINS_RIGHT;
+        for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
             row_pins[i] = row_pins_right[i];
         }
 #    endif
