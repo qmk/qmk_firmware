@@ -707,7 +707,7 @@ endif
 ifeq ($(strip $(PS2_USE_BUSYWAIT)), yes)
     PS2_ENABLE := yes
     SRC += ps2_busywait.c
-    SRC += ps2_io_avr.c
+    SRC += ps2_io.c
     OPT_DEFS += -DPS2_USE_BUSYWAIT
 endif
 
