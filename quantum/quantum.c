@@ -362,9 +362,12 @@ bool process_record_quantum(keyrecord_t *record) {
 #    if defined(QMK_KEYBOARD) && defined(QMK_KEYMAP)  // tests don't generate these defines
             case QK_MAKE:                             // Compiles the firmware, and adds the flash command based on keyboard bootloader
             {
-                uint8_t temp_mod = mod_config(get_mods()) | mod_config(get_oneshot_mods());
+                uint8_t temp_mod = mod_config(get_mods());
                 clear_mods();
+#        ifndef NO_ACTION_ONESHOT
+                temp_mod |= mod_config(get_oneshot_mods());
                 clear_oneshot_mods();
+#        endif
                 send_string_with_delay_P(PSTR("qmk"), TAP_CODE_DELAY);
                 if (temp_mod & MOD_MASK_SHIFT) {  // if shift is held, flash rather than compile
                     SEND_STRING_DELAY(" flash ", TAP_CODE_DELAY);
