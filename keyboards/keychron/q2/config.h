@@ -52,10 +52,7 @@
 #define MATRIX_MASKED
 
 /* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID \
-    {                          \
-        { 4, 4 }               \
-    }
+#define DIP_SWITCH_MATRIX_GRID  { {4,4} }
 
 /* NKRO */
 #define FORCE_NKRO
