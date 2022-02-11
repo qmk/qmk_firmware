@@ -219,6 +219,21 @@ else
   endif
 endif
 
+VALID_FLASH_DRIVER_TYPES := spi
+FLASH_DRIVER ?= no
+ifneq ($(strip $(FLASH_DRIVER)), no)
+    ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
+        $(error FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid FLASH driver)
+    else
+        OPT_DEFS += -DFLASH_ENABLE
+        ifeq ($(strip $(FLASH_DRIVER)), spi)
+            OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
+            COMMON_VPATH += $(DRIVER_PATH)/flash
+            SRC += flash_spi.c
+        endif
+    endif
+endif
+
 RGBLIGHT_ENABLE ?= no
 VALID_RGBLIGHT_TYPES := WS2812 APA102 custom
 
