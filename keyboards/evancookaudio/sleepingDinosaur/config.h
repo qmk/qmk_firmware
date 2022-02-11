@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x0002
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    evancook.audio
-#define PRODUCT         sleepingDinosaur
+#define PRODUCT         sleepingdinosaur
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
