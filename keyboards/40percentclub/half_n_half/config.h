@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0A0C
-#define DEVICE_VER      0x4A1F
+#define VENDOR_ID       0x4025 // 40%
+#define PRODUCT_ID      0x4A1F
+#define DEVICE_VER      0x0100
 #define MANUFACTURER    di0ib
 #define PRODUCT         half_n_half
 

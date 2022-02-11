@@ -16,13 +16,14 @@
 
 #include "process_printer.h"
 #include "action_util.h"
+#include "uart.h"
 
 bool    printing_enabled = false;
 uint8_t character_shift  = 0;
 
 void enable_printing(void) {
     printing_enabled = true;
-    serial_init();
+    uart_init(19200);
 }
 
 void disable_printing(void) { printing_enabled = false; }
@@ -35,7 +36,7 @@ uint8_t shifted_numbers[10] = {0x21, 0x40, 0x23, 0x24, 0x25, 0x5E, 0x26, 0x2A, 0
 
 void print_char(char c) {
     USB_Disable();
-    serial_send(c);
+    uart_write(c);
     USB_Init();
 }
 

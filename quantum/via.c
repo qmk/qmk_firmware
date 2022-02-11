@@ -96,6 +96,7 @@ void via_init(void) {
     // Let keyboard level test EEPROM valid state,
     // but not set it valid, it is done here.
     via_init_kb();
+    via_set_layout_options_kb(via_get_layout_options());
 
     // If the EEPROM has the magic, the data is good.
     // OK to load from EEPROM.
@@ -131,7 +132,10 @@ uint32_t via_get_layout_options(void) {
     return value;
 }
 
+__attribute__((weak)) void via_set_layout_options_kb(uint32_t value) {}
+
 void via_set_layout_options(uint32_t value) {
+    via_set_layout_options_kb(value);
     // Start at the least significant byte
     void *target = (void *)(VIA_EEPROM_LAYOUT_OPTIONS_ADDR + VIA_EEPROM_LAYOUT_OPTIONS_SIZE - 1);
     for (uint8_t i = 0; i < VIA_EEPROM_LAYOUT_OPTIONS_SIZE; i++) {

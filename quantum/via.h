@@ -159,6 +159,7 @@ void via_init(void);
 // Used by VIA to store and retrieve the layout options.
 uint32_t via_get_layout_options(void);
 void     via_set_layout_options(uint32_t value);
+void     via_set_layout_options_kb(uint32_t value);
 
 // Called by QMK core to process VIA-specific keycodes.
 bool process_record_via(uint16_t keycode, keyrecord_t *record);

@@ -133,10 +133,6 @@
  */
 
 #include "eeprom_stm32_defs.h"
-#if !defined(FEE_PAGE_SIZE) || !defined(FEE_PAGE_COUNT) || !defined(FEE_MCU_FLASH_SIZE) || !defined(FEE_PAGE_BASE_ADDRESS)
-#    error "not implemented."
-#endif
-
 /* These bits are used for optimizing encoding of bytes, 0 and 1 */
 #define FEE_WORD_ENCODING 0x8000
 #define FEE_VALUE_NEXT 0x6000
@@ -144,69 +140,11 @@
 #define FEE_VALUE_ENCODED 0x2000
 #define FEE_BYTE_RANGE 0x80
 
-/* Addressable range 16KByte: 0 <-> (0x1FFF << 1) */
-#define FEE_ADDRESS_MAX_SIZE 0x4000
-
 /* Flash word value after erase */
 #define FEE_EMPTY_WORD ((uint16_t)0xFFFF)
 
-/* Size of combined compacted eeprom and write log pages */
-#define FEE_DENSITY_MAX_SIZE (FEE_PAGE_COUNT * FEE_PAGE_SIZE)
-
-#ifndef FEE_MCU_FLASH_SIZE_IGNORE_CHECK /* *TODO: Get rid of this check */
-#    if FEE_DENSITY_MAX_SIZE > (FEE_MCU_FLASH_SIZE * 1024)
-#        pragma message STR(FEE_DENSITY_MAX_SIZE) " > " STR(FEE_MCU_FLASH_SIZE * 1024)
-#        error emulated eeprom: FEE_DENSITY_MAX_SIZE is greater than available flash size
-#    endif
-#endif
-
-/* Size of emulated eeprom */
-#ifdef FEE_DENSITY_BYTES
-#    if (FEE_DENSITY_BYTES > FEE_DENSITY_MAX_SIZE)
-#        pragma message STR(FEE_DENSITY_BYTES) " > " STR(FEE_DENSITY_MAX_SIZE)
-#        error emulated eeprom: FEE_DENSITY_BYTES exceeds FEE_DENSITY_MAX_SIZE
-#    endif
-#    if (FEE_DENSITY_BYTES == FEE_DENSITY_MAX_SIZE)
-#        pragma message STR(FEE_DENSITY_BYTES) " == " STR(FEE_DENSITY_MAX_SIZE)
-#        warning emulated eeprom: FEE_DENSITY_BYTES leaves no room for a write log.  This will greatly increase the flash wear rate!
-#    endif
-#    if FEE_DENSITY_BYTES > FEE_ADDRESS_MAX_SIZE
-#        pragma message STR(FEE_DENSITY_BYTES) " > " STR(FEE_ADDRESS_MAX_SIZE)
-#        error emulated eeprom: FEE_DENSITY_BYTES is greater than FEE_ADDRESS_MAX_SIZE allows
-#    endif
-#    if ((FEE_DENSITY_BYTES) % 2) == 1
-#        error emulated eeprom: FEE_DENSITY_BYTES must be even
-#    endif
-#else
-/* Default to half of allocated space used for emulated eeprom, half for write log */
-#    define FEE_DENSITY_BYTES (FEE_PAGE_COUNT * FEE_PAGE_SIZE / 2)
-#endif
-
-/* Size of write log */
-#ifdef FEE_WRITE_LOG_BYTES
-#    if ((FEE_DENSITY_BYTES + FEE_WRITE_LOG_BYTES) > FEE_DENSITY_MAX_SIZE)
-#        pragma message STR(FEE_DENSITY_BYTES) " + " STR(FEE_WRITE_LOG_BYTES) " > " STR(FEE_DENSITY_MAX_SIZE)
-#        error emulated eeprom: FEE_WRITE_LOG_BYTES exceeds remaining FEE_DENSITY_MAX_SIZE
-#    endif
-#    if ((FEE_WRITE_LOG_BYTES) % 2) == 1
-#        error emulated eeprom: FEE_WRITE_LOG_BYTES must be even
-#    endif
-#else
-/* Default to use all remaining space */
-#    define FEE_WRITE_LOG_BYTES (FEE_PAGE_COUNT * FEE_PAGE_SIZE - FEE_DENSITY_BYTES)
-#endif
-
-/* Start of the emulated eeprom compacted flash area */
-#define FEE_COMPACTED_BASE_ADDRESS FEE_PAGE_BASE_ADDRESS
-/* End of the emulated eeprom compacted flash area */
-#define FEE_COMPACTED_LAST_ADDRESS (FEE_COMPACTED_BASE_ADDRESS + FEE_DENSITY_BYTES)
-/* Start of the emulated eeprom write log */
-#define FEE_WRITE_LOG_BASE_ADDRESS FEE_COMPACTED_LAST_ADDRESS
-/* End of the emulated eeprom write log */
-#define FEE_WRITE_LOG_LAST_ADDRESS (FEE_WRITE_LOG_BASE_ADDRESS + FEE_WRITE_LOG_BYTES)
-
-#if defined(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) && (DYNAMIC_KEYMAP_EEPROM_MAX_ADDR >= FEE_DENSITY_BYTES)
-#    error emulated eeprom: DYNAMIC_KEYMAP_EEPROM_MAX_ADDR is greater than the FEE_DENSITY_BYTES available
+#if !defined(FEE_PAGE_SIZE) || !defined(FEE_PAGE_COUNT) || !defined(FEE_MCU_FLASH_SIZE) || !defined(FEE_PAGE_BASE_ADDRESS)
+#    error "not implemented."
 #endif
 
 /* In-memory contents of emulated eeprom for faster access */

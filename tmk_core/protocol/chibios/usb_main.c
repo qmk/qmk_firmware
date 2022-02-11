@@ -734,7 +734,7 @@ void init_usb_driver(USBDriver *usbp) {
      * after a reset.
      */
     usbDisconnectBus(usbp);
-    wait_ms(1500);
+    wait_ms(50);
     usbStart(usbp, &usbcfg);
     usbConnectBus(usbp);
 
@@ -972,6 +972,35 @@ void send_system(uint16_t data) {
 void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
     send_extra(REPORT_ID_CONSUMER, data);
+#endif
+}
+
+void send_programmable_button(uint32_t data) {
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    if (usbGetTransmitStatusI(&USB_DRIVER, SHARED_IN_EPNUM)) {
+        /* Need to either suspend, or loop and call unlock/lock during
+         * every iteration - otherwise the system will remain locked,
+         * no interrupts served, so USB not going through as well.
+         * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[SHARED_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
+            osalSysUnlock();
+            return;
+        }
+    }
+    static report_programmable_button_t report = {
+        .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
+    };
+
+    report.usage = data;
+
+    usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)&report, sizeof(report));
+    osalSysUnlock();
 #endif
 }
 

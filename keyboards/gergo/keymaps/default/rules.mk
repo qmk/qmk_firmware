@@ -27,6 +27,7 @@ ifneq ($(strip $(SCROLLSTEP)),)
 endif
 ifeq ($(strip $(BALLER)), yes)
 	POINTING_DEVICE_ENABLE	= yes
+    POINTING_DEVICE_DRIVER = custom
     OPT_DEFS += -DBALLER
 endif
 ifeq ($(strip $(DEBUG_BALLER)), yes)

@@ -2,9 +2,11 @@
 MCU = atmega32a
 
 # Bootloader selection
-BOOTLOADER = atmel-dfu
+BOOTLOADER = bootloadhid
 
-# build options
+# Build Options
+#   change yes to no to disable
+#
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes

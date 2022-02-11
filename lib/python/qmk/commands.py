@@ -213,7 +213,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         '-r',
         '-R',
         '-f',
-        'build_keyboard.mk',
+        'builddefs/build_keyboard.mk',
     ])
 
     if bootloader:
@@ -293,6 +293,14 @@ def git_get_branch():
 
     if git_branch.returncode == 0:
         return git_branch.stdout.strip()
+
+
+def git_get_tag():
+    """Returns the current tag for a repo, or None.
+    """
+    git_tag = cli.run(['git', 'describe', '--abbrev=0', '--tags'])
+    if git_tag.returncode == 0:
+        return git_tag.stdout.strip()
 
 
 def git_is_dirty():
