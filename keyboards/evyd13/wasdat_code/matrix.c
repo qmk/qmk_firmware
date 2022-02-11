@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
-/* Columns 6 and 9-15 use a 74HC138 3 to 8 bit demultiplexer.
+/* Columns 6 and 9-15 use a 74HC138 3-to-8 demultiplexer.
  * D4 is the enable pin, must be set high to use it.
  *
  * 0:  F7
@@ -121,10 +121,10 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 }
 
 void matrix_init_custom(void) {
-    // initialize key pins
-    init_pins();
     // initialize demultiplexer
     sn74x138_init();
+    // initialize key pins
+    init_pins();
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
