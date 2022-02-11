@@ -349,10 +349,15 @@ static void flush(void) {
 static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
 #    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
     const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
-    if (!is_keyboard_left() && (i >= k_rgb_matrix_split[0])) {
-        i -= k_rgb_matrix_split[0];
-    } else if (is_keyboard_left() && (i >= k_rgb_matrix_split[0]))
+    if (!is_keyboard_left()) {
+        if (i >= k_rgb_matrix_split[0]) {
+            i -= k_rgb_matrix_split[0];
+        } else {
+            return;
+        }
+    } else if (i >= k_rgb_matrix_split[0]) {
         return;
+    }
 #    endif
 
     rgb_matrix_ws2812_array[i].r = r;
