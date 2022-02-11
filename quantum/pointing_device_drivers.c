@@ -101,7 +101,7 @@ const pointing_device_driver_t pointing_device_driver = {
 #        ifdef TAPPING_TERM_PER_KEY
 #            include "action.h"
 #            include "action_tapping.h"
-#            define CIRQUE_PINNACLE_TAPPING_TERM get_tapping_term(KC_BTN1, NULL)
+#            define CIRQUE_PINNACLE_TAPPING_TERM get_tapping_term(KC_BTN1, &(keyrecord_t){})
 #        else
 #            ifdef TAPPING_TERM
 #                define CIRQUE_PINNACLE_TAPPING_TERM TAPPING_TERM
