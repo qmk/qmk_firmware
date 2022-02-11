@@ -39,10 +39,6 @@
 /* Set USB polling rate as 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1
 
-/* Use key row 5 and column 4 for bootmagic lite */
-#define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COLUMN 5
-
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -97,4 +93,9 @@
 #define VIA_QMK_RGBLIGHT_ENABLE
 #endif
 
+/* Just for testing RGB matrix
+ * Preventing inadvertent entry into dfu mode during power on
+ */
 // #define RGB_MATRIX_KEYPRESSES
+#define BOOTMAGIC_LITE_ROW 5
+#define BOOTMAGIC_LITE_COLUMN 5
