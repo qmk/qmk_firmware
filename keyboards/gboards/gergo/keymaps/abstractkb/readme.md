@@ -5,6 +5,6 @@
 This is my personal modification to the stock gergo keymap.
 
 ## Settings
-To edit various settings, enable the 1u trackball and whatnot please modify /keyboards/gergo/keymaps/default/rules.mk
+To edit various settings, enable the 1u trackball and whatnot please modify /keyboards/gboards/gergo/keymaps/default/rules.mk
 
 Ideally you should copy this directory and make your changes there. If you come up with a good layout submit a PR!
