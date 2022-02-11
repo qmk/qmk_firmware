@@ -43,8 +43,8 @@ enum combo_events {
 uint16_t COMBO_LEN = COMBO_LENGTH; // do not remove - needed for combos to work
 
 const uint16_t PROGMEM combo_up[] = {KC_W, KC_R, COMBO_END};
-const uint16_t PROGMEM combo_left[] = {KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM combo_right[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_left[] = {KC_S, KC_E, COMBO_END};
+const uint16_t PROGMEM combo_right[] = {KC_F, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_down[] = {KC_S, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_prev_word[] = {KC_A, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_next_word[] = {KC_D, KC_G, COMBO_END};
