@@ -1,6 +1,6 @@
 # sandbox keyboard
 
-![sandbox keyboard](https://raw.githubusercontent.com/yfuku/sandbox_keyboard/main/images/sandbox.jpeg)
+![sandbox keyboard](https://imgur.com/CaJmz28)
 
 macropad
 
