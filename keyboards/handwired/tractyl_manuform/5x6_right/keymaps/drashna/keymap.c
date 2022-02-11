@@ -204,8 +204,11 @@ void oled_render_large_display(void) {
             case KC_ZALGO:
                 oled_write_P(PSTR("       Zalgo"), false);
                 break;
-            default:
+            case KC_NOMODE:
                 oled_write_P(PSTR("      Normal"), false);
+                break;
+            default:
+                oled_write_P(PSTR("     Unknown"), false);
                 break;
         }
     }
