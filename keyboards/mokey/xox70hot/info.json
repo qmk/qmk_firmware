@@ -1,9 +1,12 @@
 {
     "keyboard_name": "xox70hot",
     "url": "",
-    "maintainer": "Mokey",
+    "maintainer": "rhmokey",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_tkl_nofrow_ansi_tsangan"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_nofrow_ansi_tsangan": {
             "layout": [
                 {"label":"k00", "x":0, "y":0},
                 {"label":"k01", "x":1, "y":0},
@@ -22,7 +25,7 @@
                 {"label":"k0f", "x":15.25, "y":0},
                 {"label":"k0g", "x":16.25, "y":0},
                 {"label":"k0h", "x":17.25, "y":0},
-                
+
                 {"label":"k10", "x":0, "y":1, "w":1.5},
                 {"label":"k12", "x":1.5, "y":1},
                 {"label":"k13", "x":2.5, "y":1},
@@ -40,7 +43,7 @@
                 {"label":"k1f", "x":15.25, "y":1},
                 {"label":"k1g", "x":16.25, "y":1},
                 {"label":"k1h", "x":17.25, "y":1},
-                
+
                 {"label":"k20", "x":0, "y":2, "w":1.75},
                 {"label":"k22", "x":1.75, "y":2},
                 {"label":"k23", "x":2.75, "y":2},
@@ -54,7 +57,7 @@
                 {"label":"k2b", "x":10.75, "y":2},
                 {"label":"k2c", "x":11.75, "y":2},
                 {"label":"k2d", "x":12.75, "y":2, "w":2.25},
-                
+
                 {"label":"k30", "x":0, "y":3, "w":2.25},
                 {"label":"k32", "x":2.25, "y":3},
                 {"label":"k33", "x":3.25, "y":3},
