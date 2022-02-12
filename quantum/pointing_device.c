@@ -39,7 +39,9 @@ uint16_t       shared_cpi          = 0;
  *
  * @param[in] new_mouse_report report_mouse_t
  */
-void pointing_device_set_shared_report(report_mouse_t new_mouse_report) { shared_mouse_report = new_mouse_report; }
+void pointing_device_set_shared_report(report_mouse_t new_mouse_report) {
+    shared_mouse_report = new_mouse_report;
+}
 
 /**
  * @brief Gets current pointing device CPI if supported
@@ -50,7 +52,9 @@ void pointing_device_set_shared_report(report_mouse_t new_mouse_report) { shared
  *
  * @return cpi value as uint16_t
  */
-uint16_t pointing_device_get_shared_cpi(void) { return shared_cpi; }
+uint16_t pointing_device_get_shared_cpi(void) {
+    return shared_cpi;
+}
 
 #    if defined(POINTING_DEVICE_LEFT)
 #        define POINTING_DEVICE_THIS_SIDE is_keyboard_left()
@@ -60,7 +64,7 @@ uint16_t pointing_device_get_shared_cpi(void) { return shared_cpi; }
 #        define POINTING_DEVICE_THIS_SIDE true
 #    endif
 
-#endif  // defined(SPLIT_POINTING_ENABLE)
+#endif // defined(SPLIT_POINTING_ENABLE)
 
 static report_mouse_t local_mouse_report = {};
 
@@ -73,7 +77,9 @@ extern const pointing_device_driver_t pointing_device_driver;
  * @param[in] old report_mouse_t
  * @return bool result
  */
-__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) { return memcmp(&new, &old, sizeof(new)); }
+__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) {
+    return memcmp(&new, &old, sizeof(new));
+}
 
 /**
  * @brief Keyboard level code pointing device initialisation
@@ -95,7 +101,9 @@ __attribute__((weak)) void pointing_device_init_user(void) {}
  * @param[in] mouse_report report_mouse_t
  * @return report_mouse_t
  */
-__attribute__((weak)) report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) { return pointing_device_task_user(mouse_report); }
+__attribute__((weak)) report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    return pointing_device_task_user(mouse_report);
+}
 
 /**
  * @brief Weak function allowing for user level mouse report modification
@@ -105,7 +113,9 @@ __attribute__((weak)) report_mouse_t pointing_device_task_kb(report_mouse_t mous
  * @param[in] mouse_report report_mouse_t
  * @return report_mouse_t
  */
-__attribute__((weak)) report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) { return mouse_report; }
+__attribute__((weak)) report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    return mouse_report;
+}
 
 /**
  * @brief Handles pointing device buttons
@@ -246,7 +256,7 @@ __attribute__((weak)) void pointing_device_task(void) {
 #    endif
 #else
     local_mouse_report = pointing_device_driver.get_report(local_mouse_report);
-#endif  // defined(SPLIT_POINTING_ENABLE)
+#endif // defined(SPLIT_POINTING_ENABLE)
 
     // allow kb to intercept and modify report
 #if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
@@ -275,14 +285,18 @@ __attribute__((weak)) void pointing_device_task(void) {
  *
  * @return report_mouse_t
  */
-report_mouse_t pointing_device_get_report(void) { return local_mouse_report; }
+report_mouse_t pointing_device_get_report(void) {
+    return local_mouse_report;
+}
 
 /**
  * @brief Sets mouse report used be pointing device task
  *
  * @param[in] new_mouse_report
  */
-void pointing_device_set_report(report_mouse_t new_mouse_report) { local_mouse_report = new_mouse_report; }
+void pointing_device_set_report(report_mouse_t new_mouse_report) {
+    local_mouse_report = new_mouse_report;
+}
 
 /**
  * @brief Gets current pointing device CPI if supported
@@ -422,7 +436,9 @@ report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_repo
  * @param[in] right_report report_mouse_t
  * @return pointing_device_task_combined_user(left_report, right_report) by default
  */
-__attribute__((weak)) report_mouse_t pointing_device_task_combined_kb(report_mouse_t left_report, report_mouse_t right_report) { return pointing_device_task_combined_user(left_report, right_report); }
+__attribute__((weak)) report_mouse_t pointing_device_task_combined_kb(report_mouse_t left_report, report_mouse_t right_report) {
+    return pointing_device_task_combined_user(left_report, right_report);
+}
 
 /**
  * @brief Weak function allowing for user level mouse report modification
@@ -435,5 +451,7 @@ __attribute__((weak)) report_mouse_t pointing_device_task_combined_kb(report_mou
  * @param[in] right_report report_mouse_t
  * @return pointing_device_combine_reports(left_report, right_report) by default
  */
-__attribute__((weak)) report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) { return pointing_device_combine_reports(left_report, right_report); }
+__attribute__((weak)) report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
+    return pointing_device_combine_reports(left_report, right_report);
+}
 #endif

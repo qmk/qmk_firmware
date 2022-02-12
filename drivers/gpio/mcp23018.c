@@ -10,11 +10,11 @@
 #define TIMEOUT 100
 
 enum {
-    CMD_IODIRA = 0x00,  // i/o direction register
+    CMD_IODIRA = 0x00, // i/o direction register
     CMD_IODIRB = 0x01,
-    CMD_GPPUA  = 0x0C,  // GPIO pull-up resistor register
+    CMD_GPPUA  = 0x0C, // GPIO pull-up resistor register
     CMD_GPPUB  = 0x0D,
-    CMD_GPIOA  = 0x12,  // general purpose i/o port register (write modifies OLAT)
+    CMD_GPIOA  = 0x12, // general purpose i/o port register (write modifies OLAT)
     CMD_GPIOB  = 0x13,
 };
 

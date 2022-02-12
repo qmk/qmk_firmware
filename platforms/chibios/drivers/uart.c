@@ -43,7 +43,9 @@ void uart_init(uint32_t baud) {
     }
 }
 
-void uart_write(uint8_t data) { sdPut(&SERIAL_DRIVER, c); }
+void uart_write(uint8_t data) {
+    sdPut(&SERIAL_DRIVER, c);
+}
 
 uint8_t uart_read(void) {
     msg_t res = sdGet(&SERIAL_DRIVER);
@@ -51,8 +53,14 @@ uint8_t uart_read(void) {
     return (uint8_t)res;
 }
 
-void uart_transmit(const uint8_t *data, uint16_t length) { sdWrite(&SERIAL_DRIVER, data, length); }
+void uart_transmit(const uint8_t *data, uint16_t length) {
+    sdWrite(&SERIAL_DRIVER, data, length);
+}
 
-void uart_receive(uint8_t *data, uint16_t length) { sdRead(&SERIAL_DRIVER, data, length); }
+void uart_receive(uint8_t *data, uint16_t length) {
+    sdRead(&SERIAL_DRIVER, data, length);
+}
 
-bool uart_available(void) { return !sdGetWouldBlock(&SERIAL_DRIVER); }
+bool uart_available(void) {
+    return !sdGetWouldBlock(&SERIAL_DRIVER);
+}

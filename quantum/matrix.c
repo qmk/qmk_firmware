@@ -51,15 +51,15 @@ static SPLIT_MUTABLE pin_t direct_pins[ROWS_PER_HAND][MATRIX_COLS] = DIRECT_PINS
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 #    ifdef MATRIX_ROW_PINS
 static SPLIT_MUTABLE_ROW pin_t row_pins[ROWS_PER_HAND] = MATRIX_ROW_PINS;
-#    endif  // MATRIX_ROW_PINS
+#    endif // MATRIX_ROW_PINS
 #    ifdef MATRIX_COL_PINS
 static SPLIT_MUTABLE_COL pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
-#    endif  // MATRIX_COL_PINS
+#    endif // MATRIX_COL_PINS
 #endif
 
 /* matrix state(1:on, 0:off) */
-extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
-extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
+extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
+extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
 #ifdef SPLIT_KEYBOARD
 // row offsets for each hand
@@ -86,7 +86,9 @@ static inline void setPinOutput_writeHigh(pin_t pin) {
 }
 
 static inline void setPinInputHigh_atomic(pin_t pin) {
-    ATOMIC_BLOCK_FORCEON { setPinInputHigh(pin); }
+    ATOMIC_BLOCK_FORCEON {
+        setPinInputHigh(pin);
+    }
 }
 
 static inline uint8_t readMatrixPin(pin_t pin) {
@@ -171,8 +173,8 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
-    if (!select_row(current_row)) {  // Select row
-        return;                      // skip NO_PIN row
+    if (!select_row(current_row)) { // Select row
+        return;                     // skip NO_PIN row
     }
     matrix_output_select_delay();
 
@@ -187,7 +189,7 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
 
     // Unselect row
     unselect_row(current_row);
-    matrix_output_unselect_delay(current_row, current_row_value != 0);  // wait for all Col signals to go HIGH
+    matrix_output_unselect_delay(current_row, current_row_value != 0); // wait for all Col signals to go HIGH
 
     // Update the matrix
     current_matrix[current_row] = current_row_value;
@@ -234,8 +236,8 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
     bool key_pressed = false;
 
     // Select col
-    if (!select_col(current_col)) {  // select col
-        return;                      // skip NO_PIN col
+    if (!select_col(current_col)) { // select col
+        return;                     // skip NO_PIN col
     }
     matrix_output_select_delay();
 
@@ -254,13 +256,13 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
 
     // Unselect col
     unselect_col(current_col);
-    matrix_output_unselect_delay(current_col, key_pressed);  // wait for all Row signals to go HIGH
+    matrix_output_unselect_delay(current_col, key_pressed); // wait for all Row signals to go HIGH
 }
 
 #        else
 #            error DIODE_DIRECTION must be one of COL2ROW or ROW2COL!
 #        endif
-#    endif  // defined(MATRIX_ROW_PINS) && defined(MATRIX_COL_PINS)
+#    endif // defined(MATRIX_ROW_PINS) && defined(MATRIX_COL_PINS)
 #else
 #    error DIODE_DIRECTION is not defined!
 #endif
@@ -311,7 +313,7 @@ void matrix_init(void) {
 // Fallback implementation for keyboards not using the standard split_util.c
 __attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     transport_master(master_matrix, slave_matrix);
-    return true;  // Treat the transport as always connected
+    return true; // Treat the transport as always connected
 }
 #endif
 

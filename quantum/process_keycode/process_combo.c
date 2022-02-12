@@ -30,33 +30,45 @@ extern uint16_t COMBO_LEN;
 __attribute__((weak)) void process_combo_event(uint16_t combo_index, bool pressed) {}
 
 #ifdef COMBO_MUST_HOLD_PER_COMBO
-__attribute__((weak)) bool get_combo_must_hold(uint16_t index, combo_t *combo) { return false; }
+__attribute__((weak)) bool get_combo_must_hold(uint16_t index, combo_t *combo) {
+    return false;
+}
 #endif
 
 #ifdef COMBO_MUST_TAP_PER_COMBO
-__attribute__((weak)) bool get_combo_must_tap(uint16_t index, combo_t *combo) { return false; }
+__attribute__((weak)) bool get_combo_must_tap(uint16_t index, combo_t *combo) {
+    return false;
+}
 #endif
 
 #ifdef COMBO_TERM_PER_COMBO
-__attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) { return COMBO_TERM; }
+__attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    return COMBO_TERM;
+}
 #endif
 
 #ifdef COMBO_MUST_PRESS_IN_ORDER_PER_COMBO
-__attribute__((weak)) bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) { return true; }
+__attribute__((weak)) bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
+    return true;
+}
 #endif
 
 #ifdef COMBO_PROCESS_KEY_RELEASE
-__attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) { return false; }
+__attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
+    return false;
+}
 #endif
 
 #ifdef COMBO_SHOULD_TRIGGER
-__attribute__((weak)) bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
 #endif
 
 #ifndef COMBO_NO_TIMER
 static uint16_t timer = 0;
 #endif
-static bool     b_combo_enable = true;  // defaults to enabled
+static bool     b_combo_enable = true; // defaults to enabled
 static uint16_t longest_term   = 0;
 
 typedef struct {
@@ -462,7 +474,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
                     // get possible longer waiting time for tap-/hold-only combos.
                     longest_term = _get_wait_time(combo_index, combo);
                 }
-            }  // if timer elapsed end
+            } // if timer elapsed end
         }
     } else {
         // chord releases
@@ -477,7 +489,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             else if (get_combo_must_tap(combo_index, combo)) {
                 // immediately apply tap-only combo
                 apply_combo(combo_index, combo);
-                apply_combos();  // also apply other prepared combos and dump key buffer
+                apply_combos(); // also apply other prepared combos and dump key buffer
 #    ifdef COMBO_PROCESS_KEY_RELEASE
                 if (process_combo_key_release(combo_index, combo, key_index, keycode)) {
                     release_combo(combo_index, combo);
@@ -559,7 +571,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
             key_buffer[key_buffer_size++] = (queued_record_t){
                 .record      = *record,
                 .keycode     = keycode,
-                .combo_index = -1,  // this will be set when applying combos
+                .combo_index = -1, // this will be set when applying combos
             };
         }
     } else {
@@ -598,7 +610,9 @@ void combo_task(void) {
 #endif
 }
 
-void combo_enable(void) { b_combo_enable = true; }
+void combo_enable(void) {
+    b_combo_enable = true;
+}
 
 void combo_disable(void) {
 #ifndef COMBO_NO_TIMER
@@ -618,4 +632,6 @@ void combo_toggle(void) {
     }
 }
 
-bool is_combo_enabled(void) { return b_combo_enable; }
+bool is_combo_enabled(void) {
+    return b_combo_enable;
+}

@@ -65,7 +65,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define DEBUG_FLASH_SPI_OUTPUT
 
-static bool spi_flash_start(void) { return spi_start(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN, EXTERNAL_FLASH_SPI_LSBFIRST, EXTERNAL_FLASH_SPI_MODE, EXTERNAL_FLASH_SPI_CLOCK_DIVISOR); }
+static bool spi_flash_start(void) {
+    return spi_start(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN, EXTERNAL_FLASH_SPI_LSBFIRST, EXTERNAL_FLASH_SPI_MODE, EXTERNAL_FLASH_SPI_CLOCK_DIVISOR);
+}
 
 static flash_status_t spi_flash_wait_while_busy(void) {
     uint32_t       deadline = timer_read32() + EXTERNAL_FLASH_SPI_TIMEOUT;
@@ -160,7 +162,9 @@ static flash_status_t spi_flash_transaction(uint8_t cmd, uint32_t addr, uint8_t 
     return response;
 }
 
-void flash_init(void) { spi_init(); }
+void flash_init(void) {
+    spi_init();
+}
 
 flash_status_t flash_erase_chip(void) {
     flash_status_t response = FLASH_STATUS_SUCCESS;
@@ -304,7 +308,7 @@ flash_status_t flash_read_block(uint32_t addr, void *buf, size_t len) {
         dprintf(" %02X", (int)(((uint8_t *)read_buf)[i]));
     }
     dprintf("\n");
-#endif  // DEBUG_FLASH_SPI_OUTPUT
+#endif // DEBUG_FLASH_SPI_OUTPUT
 
     return response;
 }
@@ -340,7 +344,7 @@ flash_status_t flash_write_block(uint32_t addr, const void *buf, size_t len) {
             dprintf(" %02X", (int)(uint8_t)(write_buf[i]));
         }
         dprintf("\n");
-#endif  // DEBUG_FLASH_SPI_OUTPUT
+#endif // DEBUG_FLASH_SPI_OUTPUT
 
         /* Perform the write. */
         response = spi_flash_transaction(FLASH_CMD_PP, addr, write_buf, write_length);

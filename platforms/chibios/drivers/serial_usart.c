@@ -238,7 +238,7 @@ void soft_serial_initiator_init(void) {
     usart_master_init(&serial_driver);
 
 #if defined(MCU_STM32) && defined(SERIAL_USART_PIN_SWAP)
-    serial_config.cr2 |= USART_CR2_SWAP;  // master has swapped TX/RX pins
+    serial_config.cr2 |= USART_CR2_SWAP; // master has swapped TX/RX pins
 #endif
 
     sdStart(serial_driver, &serial_config);

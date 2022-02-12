@@ -120,7 +120,7 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     int8_t          report_x = 0, report_y = 0;
     static bool     is_z_down = false;
 
-    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());  // Scale coordinates to arbitrary X, Y resolution
+    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale()); // Scale coordinates to arbitrary X, Y resolution
 
     if (x && y && touchData.xValue && touchData.yValue) {
         report_x = (int8_t)(touchData.xValue - x);
@@ -207,11 +207,13 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360)
-static void pmw3360_device_init(void) { pmw3360_init(); }
+static void pmw3360_device_init(void) {
+    pmw3360_init();
+}
 
 report_mouse_t pmw3360_get_report(report_mouse_t mouse_report) {
     report_pmw3360_t data        = pmw3360_read_burst();
-    static uint16_t  MotionStart = 0;  // Timer for accel, 0 is resting state
+    static uint16_t  MotionStart = 0; // Timer for accel, 0 is resting state
 
     if (data.isOnSurface && data.isMotion) {
         // Reset timer if stopped moving
@@ -243,11 +245,13 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 // clang-format on
 #elif defined(POINTING_DEVICE_DRIVER_pmw3389)
-static void pmw3389_device_init(void) { pmw3389_init(); }
+static void pmw3389_device_init(void) {
+    pmw3389_init();
+}
 
 report_mouse_t pmw3389_get_report(report_mouse_t mouse_report) {
     report_pmw3389_t data        = pmw3389_read_burst();
-    static uint16_t  MotionStart = 0;  // Timer for accel, 0 is resting state
+    static uint16_t  MotionStart = 0; // Timer for accel, 0 is resting state
 
     if (data.isOnSurface && data.isMotion) {
         // Reset timer if stopped moving
@@ -280,9 +284,13 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 #else
 __attribute__((weak)) void           pointing_device_driver_init(void) {}
-__attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) { return mouse_report; }
-__attribute__((weak)) uint16_t       pointing_device_driver_get_cpi(void) { return 0; }
-__attribute__((weak)) void           pointing_device_driver_set_cpi(uint16_t cpi) {}
+__attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
+    return mouse_report;
+}
+__attribute__((weak)) uint16_t pointing_device_driver_get_cpi(void) {
+    return 0;
+}
+__attribute__((weak)) void pointing_device_driver_set_cpi(uint16_t cpi) {}
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {

@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "keymap.h"  // to get keymaps[][][]
+#include "keymap.h" // to get keymaps[][][]
 #include "eeprom.h"
-#include "progmem.h"  // to read default from flash
-#include "quantum.h"  // for send_string()
+#include "progmem.h" // to read default from flash
+#include "quantum.h" // for send_string()
 #include "dynamic_keymap.h"
-#include "via.h"  // for default VIA_EEPROM_ADDR_END
+#include "via.h" // for default VIA_EEPROM_ADDR_END
 
 #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
 #    define DYNAMIC_KEYMAP_LAYER_COUNT 4
@@ -79,7 +79,9 @@
 #    define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE (DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + 1)
 #endif
 
-uint8_t dynamic_keymap_get_layer_count(void) { return DYNAMIC_KEYMAP_LAYER_COUNT; }
+uint8_t dynamic_keymap_get_layer_count(void) {
+    return DYNAMIC_KEYMAP_LAYER_COUNT;
+}
 
 void *dynamic_keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t column) {
     // TODO: optimize this with some left shifts
@@ -151,9 +153,13 @@ uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
     }
 }
 
-uint8_t dynamic_keymap_macro_get_count(void) { return DYNAMIC_KEYMAP_MACRO_COUNT; }
+uint8_t dynamic_keymap_macro_get_count(void) {
+    return DYNAMIC_KEYMAP_MACRO_COUNT;
+}
 
-uint16_t dynamic_keymap_macro_get_buffer_size(void) { return DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE; }
+uint16_t dynamic_keymap_macro_get_buffer_size(void) {
+    return DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE;
+}
 
 void dynamic_keymap_macro_get_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
     void *   source = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + offset);

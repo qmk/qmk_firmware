@@ -71,12 +71,12 @@ uint8_t ps2_host_send(uint8_t data) {
 
     /* terminate a transmission if we have */
     inhibit();
-    wait_us(100);  // 100us [4]p.13, [5]p.50
+    wait_us(100); // 100us [4]p.13, [5]p.50
 
     /* 'Request to Send' and Start bit */
     data_lo();
     clock_hi();
-    WAIT(clock_lo, 10000, 10);  // 10ms [5]p.50
+    WAIT(clock_lo, 10000, 10); // 10ms [5]p.50
 
     /* Data bit */
     for (uint8_t i = 0; i < 8; i++) {
@@ -143,7 +143,7 @@ uint8_t ps2_host_recv(void) {
     idle();
 
     /* start bit [1] */
-    WAIT(clock_lo, 100, 1);  // TODO: this is enough?
+    WAIT(clock_lo, 100, 1); // TODO: this is enough?
     WAIT(data_lo, 1, 2);
     WAIT(clock_hi, 50, 3);
 

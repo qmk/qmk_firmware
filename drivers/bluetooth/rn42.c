@@ -61,7 +61,9 @@ static inline uint16_t rn42_consumer_usage_to_bitmap(uint16_t usage) {
     }
 }
 
-void rn42_init(void) { uart_init(RN42_BAUD_RATE); }
+void rn42_init(void) {
+    uart_init(RN42_BAUD_RATE);
+}
 
 void rn42_send_keyboard(report_keyboard_t *report) {
     uart_write(0xFD);
@@ -81,8 +83,8 @@ void rn42_send_mouse(report_mouse_t *report) {
     uart_write(report->buttons);
     uart_write(report->x);
     uart_write(report->y);
-    uart_write(report->v);  // should try sending the wheel v here
-    uart_write(report->h);  // should try sending the wheel h here
+    uart_write(report->v); // should try sending the wheel v here
+    uart_write(report->h); // should try sending the wheel h here
     uart_write(0x00);
 }
 

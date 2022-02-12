@@ -775,7 +775,9 @@ void kbd_in_cb(USBDriver *usbp, usbep_t ep) {
 /* start-of-frame handler
  * TODO: i guess it would be better to re-implement using timers,
  *  so that this is not going to have to be checked every 1ms */
-void kbd_sof_cb(USBDriver *usbp) { (void)usbp; }
+void kbd_sof_cb(USBDriver *usbp) {
+    (void)usbp;
+}
 
 /* Idle requests timer code
  * callback (called from ISR, unlocked state) */
@@ -815,7 +817,9 @@ static void keyboard_idle_timer_cb(void *arg) {
 }
 
 /* LED status */
-uint8_t keyboard_leds(void) { return keyboard_led_state; }
+uint8_t keyboard_leds(void) {
+    return keyboard_led_state;
+}
 
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
@@ -915,7 +919,9 @@ void send_mouse(report_mouse_t *report) {
 }
 
 #else  /* MOUSE_ENABLE */
-void send_mouse(report_mouse_t *report) { (void)report; }
+void send_mouse(report_mouse_t *report) {
+    (void)report;
+}
 #endif /* MOUSE_ENABLE */
 
 /* ---------------------------------------------------------
@@ -1107,7 +1113,9 @@ void raw_hid_task(void) {
 
 #ifdef MIDI_ENABLE
 
-void send_midi_packet(MIDI_EventPacket_t *event) { chnWrite(&drivers.midi_driver.driver, (uint8_t *)event, sizeof(MIDI_EventPacket_t)); }
+void send_midi_packet(MIDI_EventPacket_t *event) {
+    chnWrite(&drivers.midi_driver.driver, (uint8_t *)event, sizeof(MIDI_EventPacket_t));
+}
 
 bool recv_midi_packet(MIDI_EventPacket_t *const event) {
     size_t size = chnReadTimeout(&drivers.midi_driver.driver, (uint8_t *)event, sizeof(MIDI_EventPacket_t), TIME_IMMEDIATE);
@@ -1130,7 +1138,9 @@ void midi_ep_task(void) {
 
 void virtser_init(void) {}
 
-void virtser_send(const uint8_t byte) { chnWrite(&drivers.serial_driver.driver, &byte, 1); }
+void virtser_send(const uint8_t byte) {
+    chnWrite(&drivers.serial_driver.driver, &byte, 1);
+}
 
 __attribute__((weak)) void virtser_recv(uint8_t c) {
     // Ignore by default
@@ -1174,7 +1184,7 @@ void send_joystick_packet(joystick_t *joystick) {
           joystick->axes[5],
 #        endif
         },
-#    endif  // JOYSTICK_AXES_COUNT>0
+#    endif // JOYSTICK_AXES_COUNT>0
 
 #    if JOYSTICK_BUTTON_COUNT > 0
         .buttons = {
@@ -1190,7 +1200,7 @@ void send_joystick_packet(joystick_t *joystick) {
             joystick->buttons[3],
 #        endif
         }
-#    endif  // JOYSTICK_BUTTON_COUNT>0
+#    endif // JOYSTICK_BUTTON_COUNT>0
     };
 
     // chnWrite(&drivers.joystick_driver.driver, (uint8_t *)&rep, sizeof(rep));

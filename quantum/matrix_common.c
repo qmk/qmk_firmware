@@ -33,9 +33,13 @@ extern const matrix_row_t matrix_mask[];
 
 // user-defined overridable functions
 
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+__attribute__((weak)) void matrix_init_kb(void) {
+    matrix_init_user();
+}
 
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+__attribute__((weak)) void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
 
 __attribute__((weak)) void matrix_init_user(void) {}
 
@@ -43,11 +47,17 @@ __attribute__((weak)) void matrix_scan_user(void) {}
 
 // helper functions
 
-inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
+inline uint8_t matrix_rows(void) {
+    return MATRIX_ROWS;
+}
 
-inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
+inline uint8_t matrix_cols(void) {
+    return MATRIX_COLS;
+}
 
-inline bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & ((matrix_row_t)1 << col)); }
+inline bool matrix_is_on(uint8_t row, uint8_t col) {
+    return (matrix[row] & ((matrix_row_t)1 << col));
+}
 
 inline matrix_row_t matrix_get_row(uint8_t row) {
     // Matrix mask lets you disable switches in the returned matrix data. For example, if you have a
@@ -124,16 +134,26 @@ bool matrix_post_scan(void) {
 #endif
 
 /*　`matrix_io_delay ()` exists for backwards compatibility. From now on, use matrix_output_unselect_delay().　*/
-__attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
-__attribute__((weak)) void matrix_output_select_delay(void) { waitInputPinDelay(); }
-__attribute__((weak)) void matrix_output_unselect_delay(uint8_t line, bool key_pressed) { matrix_io_delay(); }
+__attribute__((weak)) void matrix_io_delay(void) {
+    wait_us(MATRIX_IO_DELAY);
+}
+__attribute__((weak)) void matrix_output_select_delay(void) {
+    waitInputPinDelay();
+}
+__attribute__((weak)) void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
+    matrix_io_delay();
+}
 
 // CUSTOM MATRIX 'LITE'
 __attribute__((weak)) void matrix_init_custom(void) {}
-__attribute__((weak)) bool matrix_scan_custom(matrix_row_t current_matrix[]) { return true; }
+__attribute__((weak)) bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    return true;
+}
 
 #ifdef SPLIT_KEYBOARD
-__attribute__((weak)) void matrix_slave_scan_kb(void) { matrix_slave_scan_user(); }
+__attribute__((weak)) void matrix_slave_scan_kb(void) {
+    matrix_slave_scan_user();
+}
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
 #endif
 
@@ -170,4 +190,6 @@ __attribute__((weak)) uint8_t matrix_scan(void) {
     return changed;
 }
 
-__attribute__((weak)) bool peek_matrix(uint8_t row_index, uint8_t col_index, bool raw) { return 0 != ((raw ? raw_matrix[row_index] : matrix[row_index]) & (MATRIX_ROW_SHIFTER << col_index)); }
+__attribute__((weak)) bool peek_matrix(uint8_t row_index, uint8_t col_index, bool raw) {
+    return 0 != ((raw ? raw_matrix[row_index] : matrix[row_index]) & (MATRIX_ROW_SHIFTER << col_index));
+}

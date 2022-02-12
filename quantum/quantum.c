@@ -56,7 +56,7 @@ uint8_t extract_mod_bits(uint16_t code) {
 
     uint8_t mods_to_send = 0;
 
-    if (code & QK_RMODS_MIN) {  // Right mod flag is set
+    if (code & QK_RMODS_MIN) { // Right mod flag is set
         if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RIGHT_CTRL);
         if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RIGHT_SHIFT);
         if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RIGHT_ALT);
@@ -71,7 +71,9 @@ uint8_t extract_mod_bits(uint16_t code) {
     return mods_to_send;
 }
 
-void do_code16(uint16_t code, void (*f)(uint8_t)) { f(extract_mod_bits(code)); }
+void do_code16(uint16_t code, void (*f)(uint8_t)) {
+    f(extract_mod_bits(code));
+}
 
 __attribute__((weak)) void register_code16(uint16_t code) {
     if (IS_MOD(code) || code == KC_NO) {
@@ -101,13 +103,21 @@ __attribute__((weak)) void tap_code16(uint16_t code) {
     unregister_code16(code);
 }
 
-__attribute__((weak)) bool process_action_kb(keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_action_kb(keyrecord_t *record) {
+    return true;
+}
 
-__attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) { return process_record_user(keycode, record); }
+__attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    return process_record_user(keycode, record);
+}
 
-__attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
 
-__attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t *record) { post_process_record_user(keycode, record); }
+__attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    post_process_record_user(keycode, record);
+}
 
 __attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
 
@@ -123,7 +133,8 @@ void reset_keyboard(void) {
     uint16_t timer_start = timer_read();
     PLAY_SONG(goodbye_song);
     shutdown_user();
-    while (timer_elapsed(timer_start) < 250) wait_ms(1);
+    while (timer_elapsed(timer_start) < 250)
+        wait_ms(1);
     stop_all_notes();
 #else
     shutdown_user();
@@ -178,7 +189,7 @@ bool pre_process_record_quantum(keyrecord_t *record) {
             true)) {
         return false;
     }
-    return true;  // continue processing
+    return true; // continue processing
 }
 
 /* Get keycode, and then call keyboard function */
@@ -367,11 +378,17 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
     return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
 }
 
-void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) { layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3)); }
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+    layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
+}
 
 // TODO: remove legacy api
-void matrix_init_quantum() { matrix_init_kb(); }
-void matrix_scan_quantum() { matrix_scan_kb(); }
+void matrix_init_quantum() {
+    matrix_init_kb();
+}
+void matrix_scan_quantum() {
+    matrix_scan_kb();
+}
 
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
