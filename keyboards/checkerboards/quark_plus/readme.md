@@ -10,7 +10,7 @@ The Quark Plus is a premium Quark for those that want more features of the origi
 
 Make example for this keyboard (after setting up your build environment):
 
-    make quark_plus:default
+    make checkerboards/quark_plus:default
 
 To enter the bootloader, press the hardware button on the back of the PCB just to the left of the USB connector.
 
