@@ -120,4 +120,6 @@
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
 
 // VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE
+//#define VIA_CUSTOM_LIGHTING_ENABLE
+#define DRIVER_ADDR_1 0x74
+#define DRIVER_ADDR_2 0x76
