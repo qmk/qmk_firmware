@@ -77,7 +77,9 @@
 #define MSB1              0x80
 // clang-format on
 
-void adns9800_spi_start(void) { spi_start(ADNS9800_CS_PIN, false, ADNS9800_SPI_MODE, ADNS9800_SPI_DIVISOR); }
+void adns9800_spi_start(void) {
+    spi_start(ADNS9800_CS_PIN, false, ADNS9800_SPI_MODE, ADNS9800_SPI_DIVISOR);
+}
 
 void adns9800_write(uint8_t reg_addr, uint8_t data) {
     adns9800_spi_start();

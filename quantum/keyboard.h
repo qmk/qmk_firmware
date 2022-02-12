@@ -44,13 +44,21 @@ typedef struct {
  * 1) (time == 0) to handle (keyevent_t){} as empty event
  * 2) Matrix(255, 255) to make TICK event available
  */
-static inline bool IS_NOEVENT(keyevent_t event) { return event.time == 0 || (event.key.row == 255 && event.key.col == 255); }
-static inline bool IS_PRESSED(keyevent_t event) { return (!IS_NOEVENT(event) && event.pressed); }
-static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) && !event.pressed); }
+static inline bool IS_NOEVENT(keyevent_t event) {
+    return event.time == 0 || (event.key.row == 255 && event.key.col == 255);
+}
+static inline bool IS_PRESSED(keyevent_t event) {
+    return (!IS_NOEVENT(event) && event.pressed);
+}
+static inline bool IS_RELEASED(keyevent_t event) {
+    return (!IS_NOEVENT(event) && !event.pressed);
+}
 
 /* Tick event */
-#define TICK \
-    (keyevent_t) { .key = (keypos_t){.row = 255, .col = 255}, .pressed = false, .time = (timer_read() | 1) }
+#define TICK                                                                                    \
+    (keyevent_t) {                                                                              \
+        .key = (keypos_t){.row = 255, .col = 255}, .pressed = false, .time = (timer_read() | 1) \
+    }
 
 /* it runs once at early stage of startup before keyboard_init. */
 void keyboard_setup(void);
@@ -68,18 +76,18 @@ void keyboard_pre_init_user(void);
 void keyboard_post_init_kb(void);
 void keyboard_post_init_user(void);
 
-void housekeeping_task(void);       // To be executed by the main loop in each backend TMK protocol
-void housekeeping_task_kb(void);    // To be overridden by keyboard-level code
-void housekeeping_task_user(void);  // To be overridden by user/keymap-level code
+void housekeeping_task(void);      // To be executed by the main loop in each backend TMK protocol
+void housekeeping_task_kb(void);   // To be overridden by keyboard-level code
+void housekeeping_task_user(void); // To be overridden by user/keymap-level code
 
-uint32_t last_input_activity_time(void);     // Timestamp of the last matrix or encoder activity
-uint32_t last_input_activity_elapsed(void);  // Number of milliseconds since the last matrix or encoder activity
+uint32_t last_input_activity_time(void);    // Timestamp of the last matrix or encoder activity
+uint32_t last_input_activity_elapsed(void); // Number of milliseconds since the last matrix or encoder activity
 
-uint32_t last_matrix_activity_time(void);     // Timestamp of the last matrix activity
-uint32_t last_matrix_activity_elapsed(void);  // Number of milliseconds since the last matrix activity
+uint32_t last_matrix_activity_time(void);    // Timestamp of the last matrix activity
+uint32_t last_matrix_activity_elapsed(void); // Number of milliseconds since the last matrix activity
 
-uint32_t last_encoder_activity_time(void);     // Timestamp of the last encoder activity
-uint32_t last_encoder_activity_elapsed(void);  // Number of milliseconds since the last encoder activity
+uint32_t last_encoder_activity_time(void);    // Timestamp of the last encoder activity
+uint32_t last_encoder_activity_elapsed(void); // Number of milliseconds since the last encoder activity
 
 uint32_t get_matrix_scan_rate(void);
 

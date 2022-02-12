@@ -26,7 +26,9 @@
 
 uint16_t g_tapping_term = TAPPING_TERM;
 
-__attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) { return g_tapping_term; }
+__attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    return g_tapping_term;
+}
 
 #    ifdef TAPPING_TERM_PER_KEY
 #        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(get_record_keycode(&tapping_key, false), &tapping_key))
@@ -35,15 +37,21 @@ __attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *r
 #    endif
 
 #    ifdef TAPPING_FORCE_HOLD_PER_KEY
-__attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) { return false; }
+__attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    return false;
+}
 #    endif
 
 #    ifdef PERMISSIVE_HOLD_PER_KEY
-__attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) { return false; }
+__attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    return false;
+}
 #    endif
 
 #    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-__attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) { return false; }
+__attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    return false;
+}
 #    endif
 
 #    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)

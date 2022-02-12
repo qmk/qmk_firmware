@@ -127,12 +127,12 @@ uint8_t udd_ctrl_buffer[USB_DEVICE_EP_CTRL_SIZE];
 
 /** Bit definitions about endpoint control state machine for udd_ep_control_state */
 typedef enum {
-    UDD_EPCTRL_SETUP                  = 0,  //!< Wait a SETUP packet
-    UDD_EPCTRL_DATA_OUT               = 1,  //!< Wait a OUT data packet
-    UDD_EPCTRL_DATA_IN                = 2,  //!< Wait a IN data packet
-    UDD_EPCTRL_HANDSHAKE_WAIT_IN_ZLP  = 3,  //!< Wait a IN ZLP packet
-    UDD_EPCTRL_HANDSHAKE_WAIT_OUT_ZLP = 4,  //!< Wait a OUT ZLP packet
-    UDD_EPCTRL_STALL_REQ              = 5,  //!< STALL enabled on IN & OUT packet
+    UDD_EPCTRL_SETUP                  = 0, //!< Wait a SETUP packet
+    UDD_EPCTRL_DATA_OUT               = 1, //!< Wait a OUT data packet
+    UDD_EPCTRL_DATA_IN                = 2, //!< Wait a IN data packet
+    UDD_EPCTRL_HANDSHAKE_WAIT_IN_ZLP  = 3, //!< Wait a IN ZLP packet
+    UDD_EPCTRL_HANDSHAKE_WAIT_OUT_ZLP = 4, //!< Wait a OUT ZLP packet
+    UDD_EPCTRL_STALL_REQ              = 5, //!< STALL enabled on IN & OUT packet
 } udd_ctrl_ep_state_t;
 
 /** Global variable to give and record information of the set up request management */
@@ -363,11 +363,17 @@ void udd_ep_abort(udd_ep_id_t ep) {
     }
 }
 
-bool udd_is_high_speed(void) { return false; }
+bool udd_is_high_speed(void) {
+    return false;
+}
 
-uint16_t udd_get_frame_number(void) { return usb_device_get_frame_number(&usb_device); }
+uint16_t udd_get_frame_number(void) {
+    return usb_device_get_frame_number(&usb_device);
+}
 
-uint16_t udd_get_micro_frame_number(void) { return usb_device_get_micro_frame_number(&usb_device); }
+uint16_t udd_get_micro_frame_number(void) {
+    return usb_device_get_micro_frame_number(&usb_device);
+}
 
 void udd_ep_free(udd_ep_id_t ep) {
     struct usb_device_endpoint_config config_ep;
@@ -436,7 +442,9 @@ bool udd_ep_alloc(udd_ep_id_t ep, uint8_t bmAttributes, uint16_t MaxEndpointSize
     return true;
 }
 
-bool udd_ep_is_halted(udd_ep_id_t ep) { return usb_device_endpoint_is_halted(&usb_device, ep); }
+bool udd_ep_is_halted(udd_ep_id_t ep) {
+    return usb_device_endpoint_is_halted(&usb_device, ep);
+}
 
 bool udd_ep_set_halt(udd_ep_id_t ep) {
     uint8_t ep_num = ep & USB_EP_ADDR_MASK;
@@ -591,9 +599,13 @@ bool udd_ep_run(udd_ep_id_t ep, bool b_shortpacket, uint8_t *buf, iram_size_t bu
     }
 }
 
-void udd_set_address(uint8_t address) { usb_device_set_address(&usb_device, address); }
+void udd_set_address(uint8_t address) {
+    usb_device_set_address(&usb_device, address);
+}
 
-uint8_t udd_getaddress(void) { return usb_device_get_address(&usb_device); }
+uint8_t udd_getaddress(void) {
+    return usb_device_get_address(&usb_device);
+}
 
 void udd_send_remotewakeup(void) {
     uint32_t try
@@ -913,7 +925,7 @@ static void _usb_device_lpm_suspend(struct usb_module *module_inst, void *pointe
     usb_device_enable_callback(&usb_device, USB_DEVICE_CALLBACK_WAKEUP);
 
     //#warning Here the sleep mode must be choose to have a DFLL startup time < bmAttribut.HIRD
-    udd_sleep_mode(UDD_STATE_SUSPEND_LPM);  // Enter in LPM SUSPEND mode
+    udd_sleep_mode(UDD_STATE_SUSPEND_LPM); // Enter in LPM SUSPEND mode
     if ((*lpm_wakeup_enable)) {
         UDC_REMOTEWAKEUP_LPM_ENABLE();
     }

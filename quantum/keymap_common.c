@@ -77,7 +77,7 @@ action_t action_for_keycode(uint16_t keycode) {
         case QK_MODS ... QK_MODS_MAX:;
             // Has a modifier
             // Split it up
-            action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF);  // adds modifier to key
+            action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF); // adds modifier to key
             break;
 #ifndef NO_ACTION_LAYER
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:

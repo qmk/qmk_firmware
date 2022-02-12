@@ -9,7 +9,7 @@
  */
 void suspend_power_down(void) {
 #ifdef RGB_MATRIX_ENABLE
-    I2C3733_Control_Set(0);  // Disable LED driver
+    I2C3733_Control_Set(0); // Disable LED driver
 #endif
 
     suspend_power_down_kb();
