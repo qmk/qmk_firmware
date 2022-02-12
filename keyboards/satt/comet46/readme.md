@@ -11,7 +11,7 @@ Firmware for nordic MCUs: [SRC and precompiled](https://github.com/satt99/comet4
 
 Make example for this keyboard (after setting up your build environment):
 
-    make comet46:default
+    make satt/comet46:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
