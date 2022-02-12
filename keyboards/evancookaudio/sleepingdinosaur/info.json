@@ -3,8 +3,7 @@
     "url": "https://evancook.audio/",
     "maintainer": "evanmcook",
     "layouts": {
-
-        "LAYOUT_ortho_5x6": {
+        "LAYOUT": {
             "layout": [
                 {"label":"1", "x":0, "y":0}, 
                 {"label":"2", "x":1, "y":0}, 
