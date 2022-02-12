@@ -586,7 +586,7 @@
           target: 'wilba_tech/zeal65'
     },
     # Moved 2022 Q1 cycle
-    6ball: {
+    6ball: {    6ball: {
         target: 'maple_computing/6ball'
     },
     7skb: {
@@ -594,6 +594,9 @@
     },
     7splus: {
         target: 'salicylic_acid3/7splus'
+    },
+    acr60: {
+        target: 'mechkeys/acr60'
     },
     adalyn: {
         target: 'tominabox1/adalyn'
@@ -612,6 +615,9 @@
     },
     allison_numpad: {
         target: 'prototypist/allison_numpad'
+    },
+    alu84: {
+        target: 'mechkeys/alu84'
     },
     angel17: {
         target: 'kakunpc/angel17'
@@ -667,6 +673,9 @@
     business_card/beta: {
         target: 'kakunpc/business_card/beta'
     },
+    butterstick: {
+        target: 'gboards/butterstick'
+    },
     c39: {
         target: 'maple_computing/c39'
     },
@@ -705,6 +714,9 @@
     },
     cocoa40: {
         target: 'recompile_keys/cocoa40'
+    },
+    comet46: {
+        target: 'satt/comet46'
     },
     cu24: {
         target: 'capsunlocked/cu24'
@@ -748,6 +760,12 @@
     ergodox_infinity: {
         target: 'input_club/ergodox_infinity'
     },
+    ergotaco: {
+        target: 'gboards/ergotaco'
+    },
+    espectro: {
+        target: 'mechkeys/espectro'
+    },
     felix: {
         target: 'unikeyboard/felix'
     },
@@ -760,6 +778,12 @@
     geminate60: {
         target: 'weirdo/geminate60'
     },
+    georgi: {
+        target: 'gboards/georgi'
+    },
+    gergo: {
+        target: 'gboards/gergo'
+    },
     getta25: {
         target: 'salicylic_acid3/getta25'
     },
@@ -771,6 +795,9 @@
     },
     halberd: {
         target: 'kagizaraya/halberd'
+    },
+    hecomi/alpha: {
+        target: 'takashiski/hecomi/alpha'
     },
     hid_liber: {
         target: 'bpiphany/hid_liber'
@@ -862,6 +889,12 @@
     m3n3van: {
         target: 'matthewdias/m3n3van'
     },
+    mechmini/v1: {
+        target: 'mechkeys/mechmini/v1'
+    },
+    mechmini/v2: {
+        target: 'mechkeys/mechmini/v2'
+    },
     meira: {
         target: 'woodkeys/meira'
     },
@@ -883,6 +916,9 @@
     model_v: {
         target: 'matthewdias/model_v'
     },
+    montex: {
+        target: 'idobao/montex/v1'
+    },
     nafuda: {
         target: 'salicylic_acid3/nafuda'
     },
@@ -903,6 +939,9 @@
     },
     naked64: {
         target: 'salicylic_acid3/naked64'
+    },
+    namecard2x4: {
+        target: 'takashiski/namecard2x4'
     },
     nebula12: {
         target: 'spaceholdings/nebula12'
@@ -939,6 +978,12 @@
     },
     ogurec: {
         target: 'drhigsby/ogurec'
+    },
+    otaku_split/rev0: {
+        target: 'takashiski/otaku_split/rev0'
+    },
+    otaku_split/rev1: {
+        target: 'takashiski/otaku_split/rev1'
     },
     owl8: {
         target: 'dailycraft/owl8'
