@@ -1,2 +1,2 @@
-BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no	# Mouse keys(+4700)

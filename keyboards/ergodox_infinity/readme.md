@@ -13,18 +13,16 @@ for the left and right halves seperately.  To flash them:
 
   - Install the firmware with `sudo make ergodox_infinity:keymapname:dfu-util`
 
-  - Build right hand firmware with `make ergodox_infinity:keymapname MASTER=right`
-
   - Plug in the right hand keyboard only.
 
   - Press the program button (back of keyboard, above thumb pad).
 
-  - Install the firmware with `sudo make ergodox_infinity:keymapname:dfu-util MASTER=right`
+  - Install the firmware with `sudo make ergodox_infinity:keymapname:dfu-util`
 
 More information on the Infinity firmware is available in the [TMK/chibios for
 Input Club Infinity Ergodox](https://github.com/fredizzimo/infinity_ergodox/blob/master/README.md)
 
-## Infinity Master/Two Halves
+## Infinity Two Halves
 
 The Infinity is two completely independent keyboards, that can connect together.
 You have a few options in how you flash the firmware:
@@ -32,21 +30,10 @@ You have a few options in how you flash the firmware:
 - Add `#define EE_HANDS` to your config.h, initialize the EEPROM values (see below),
   and then flash the same firmware to both halves.
 
-- Flash the left half, rebuild the firmware with "MASTER=right" and then flash
-  the right half.  This allows you to plug in either half directly to the
-  computer and is what the above instructions do.
-
-- Flash the left half, then flash the same firmware on the right.  This only
-  works when the left half is plugged directly to the computer and the keymap
-  is mirrored.  It saves the small extra step of rebuilding with
-  "MASTER=right".
-
-- The same as the previous one but with "MASTER=right" when you build the
-  firmware, then flash the same firmware to both halves.  You just have to
-  directly connect the right half to the computer.
+- Flash with the instructions above, which assume the left hand is connected to USB.
 
 - For minor changes such as changing only the keymap without having updated
-  any part of the firmware code itself, you can program only the MASTER half,
+  any part of the firmware code itself, you can program only the half connected to USB,
   but it is safest to program both halves.
 
 ### EE_HANDS initialization
@@ -74,7 +61,6 @@ They only need to be done once, unless you reset the EEPROM later.
   - Add `#define EE_HANDS` to the config.h file of your keymap, and build your firmware using
     `make ergodox_infinity:keymapname`.
 
-  - After this, you can flash both halves with the same firmware, _without_ having to rebuild with
-    "MASTER=right" or risking a mirrored keyboard when connected the wrong way.
+  - After this, you can flash both halves with the same firmware, _without_ risking a mirrored keyboard when connected the wrong way.
     If you reset your EEPROM later, you'll have to follow these steps again, though.
 

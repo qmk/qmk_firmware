@@ -107,7 +107,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 /* oled stuff :) */
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #define IDLE_FRAMES 5
 #define IDLE_SPEED 20 // below this wpm value your animation will idle
 #define TAP_FRAMES 2
@@ -262,7 +262,7 @@ static void render_cat(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     static bool finished_timer = false;
     if (!finished_timer && (timer_elapsed(startup_timer) < 3000)) {
         render_logo();
@@ -286,6 +286,7 @@ void oled_task_user(void) {
             render_layer();
         }
     }
+    return false;
 }
 #endif
 

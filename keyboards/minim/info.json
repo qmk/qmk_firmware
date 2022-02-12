@@ -2,8 +2,6 @@
     "keyboard_name": "minim",
     "url": "https://github.com/matthewdias/minim",
     "maintainer": "matthewdias",
-    "width": 14.5,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

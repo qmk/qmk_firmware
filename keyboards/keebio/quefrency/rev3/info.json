@@ -2,8 +2,6 @@
     "keyboard_name": "Quefrency rev3",
     "url": "https://keeb.io",
     "maintainer": "nooges",
-    "width": 19.25,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60"
     },

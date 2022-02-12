@@ -2,10 +2,11 @@
     "keyboard_name": "Cupar19 Giant Macro Pad",
     "url": "",
     "maintainer": "cutie-club",
-    "height": 20,
-    "width": 20,
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ortho_20x20"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_20x20": {
             "layout": [
                 {"label":"k00_00", "x":0, "y":0},
                 {"label":"k00_01", "x":1, "y":0},

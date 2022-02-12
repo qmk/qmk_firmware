@@ -1,8 +1,6 @@
 {
     "keyboard_name": "ASH-1800",
     "maintainer": "angelbirth",
-    "width": 19.5,
-    "height": 7.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

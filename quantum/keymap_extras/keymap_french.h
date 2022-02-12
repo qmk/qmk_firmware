@@ -152,14 +152,3 @@
 // Row 2
 #define FR_EURO ALGR(KC_E)   // €
 #define FR_CURR ALGR(FR_DLR) // ¤
-
-// DEPRECATED
-#define FR_AMP   FR_AMPR
-#define FR_APOS  FR_QUOT
-#define FR_LESS  FR_LABK
-#define FR_OVRR  FR_DEG
-#define FR_UMLT  FR_DIAE
-#define FR_MU    FR_MICR
-#define FR_GRTR  FR_RABK
-#define FR_CCIRC FR_CIRC
-#define FR_BULT  FR_CURR

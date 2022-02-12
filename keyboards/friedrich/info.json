@@ -2,8 +2,6 @@
     "keyboard_name": "Friedrich", 
     "url": "https://github.com/MarvFPV/Friedrich",
     "maintainer": "kb-elmo<mail@elmo.space>", 
-    "width": 13, 
-    "height": 5, 
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0, "y":0},
