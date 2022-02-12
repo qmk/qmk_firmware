@@ -585,8 +585,8 @@
     zeal65: {
           target: 'wilba_tech/zeal65'
     },
-    # Moved 2022 Q1 cycle
-    6ball: {    6ball: {
+    # Moved during 2022 Q1 cycle
+    6ball: {
         target: 'maple_computing/6ball'
     },
     7skb: {
