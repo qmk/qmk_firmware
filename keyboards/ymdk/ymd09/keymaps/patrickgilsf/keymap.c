@@ -1,6 +1,13 @@
 // Copyright 2022 Patrick Gilligan (@patrickgilsf)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+/* This is my 9 key YMDK that I use to control Zoom. I have some future goals with the project as well:
+
+    - Leverage Zoom SDK and node-hid to sync true mute status with kb rgb backlight
+    - added rgb coloration for when the video is muted
+*/    
+
+
 #include QMK_KEYBOARD_H
 //#include "raw_hid.h"
 
@@ -74,7 +81,7 @@ KEY8 - Show/Hide Chat; // If KEY7 is down, up to layer 1.
 KEY9 - Minimal Window;
 
 --Layer 1 - [PC Zoom Shortcuts]
-KEY10 - Mute Mic/Toggle Keyboard Light;
+KEY10 - Mute Mic/Toggle Keyboard Light; 
 KEY11 - Mute Video; // If KEY10 is down, back to layer 0
 KEY12 - Raise/Lower Hand;
 KEY13 - Speaker/Gallery View Toggle
