@@ -2,8 +2,6 @@
     "keyboard_name": "molecule",
     "url": "https://github.com/bbrfkr/keyboards/tree/master/molecule",
     "maintainer": "bbrfkr",
-    "width": 14.75, 
-    "height": 5, 
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -2,8 +2,6 @@
     "keyboard_name": "Technik-S",
     "url": "",
     "maintainer": "Boardsource",
-    "width": 12,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

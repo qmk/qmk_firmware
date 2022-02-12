@@ -2,8 +2,6 @@
     "keyboard_name": "Hub20",
     "url": "https://github.com/joshajohnson/hub20",
     "maintainer": "joshajohnson",
-    "width": 4,
-    "height": 6,
     "layouts": {
       "LAYOUT_all": {
         "layout": [

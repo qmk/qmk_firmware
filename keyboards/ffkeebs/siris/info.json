@@ -2,8 +2,6 @@
     "keyboard_name": "Siris",
     "url": "https: //github.com/swiftrax",
     "maintainer": "Swiftrax",
-    "width": 16,
-    "height": 5.5,
     "layouts": {
         "LAYOUT": {
             "layout": [

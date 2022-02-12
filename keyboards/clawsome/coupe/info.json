@@ -1,9 +1,7 @@
 {
     "keyboard_name": "Coupe",
     "url": "www.clawboards.xyz",
-    "maintainer": "AAClawson (AlisGraveNil)",
-    "width": 15,
-    "height": 5,
+    "maintainer": "AlisGraveNil",
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

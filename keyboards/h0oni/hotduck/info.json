@@ -2,8 +2,6 @@
     "keyboard_name": "hotDuck", 
     "url": "", 
     "maintainer": "h0oni", 
-    "width": 17.25, 
-    "height": 4, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [{"label":"Esc", "x":0, "y":0}, 

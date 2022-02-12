@@ -31,18 +31,23 @@ safe_commands = [
 subcommands = [
     'qmk.cli.bux',
     'qmk.cli.c2json',
+    'qmk.cli.cd',
     'qmk.cli.cformat',
     'qmk.cli.chibios.confmigrate',
     'qmk.cli.clean',
     'qmk.cli.compile',
-    'qmk.cli.console',
     'qmk.cli.docs',
     'qmk.cli.doctor',
     'qmk.cli.fileformat',
     'qmk.cli.flash',
+    'qmk.cli.format.c',
     'qmk.cli.format.json',
+    'qmk.cli.format.python',
+    'qmk.cli.format.text',
     'qmk.cli.generate.api',
+    'qmk.cli.generate.compilation_database',
     'qmk.cli.generate.config_h',
+    'qmk.cli.generate.develop_pr_list',
     'qmk.cli.generate.dfu_header',
     'qmk.cli.generate.docs',
     'qmk.cli.generate.info_json',
@@ -50,12 +55,14 @@ subcommands = [
     'qmk.cli.generate.layouts',
     'qmk.cli.generate.rgb_breathe_table',
     'qmk.cli.generate.rules_mk',
+    'qmk.cli.generate.version_h',
     'qmk.cli.hello',
     'qmk.cli.info',
     'qmk.cli.json2c',
     'qmk.cli.lint',
     'qmk.cli.list.keyboards',
     'qmk.cli.list.keymaps',
+    'qmk.cli.list.layouts',
     'qmk.cli.kle2json',
     'qmk.cli.multibuild',
     'qmk.cli.new.keyboard',
@@ -177,8 +184,14 @@ if int(milc_version[0]) < 2 and int(milc_version[1]) < 4:
     print(f'Your MILC library is too old! Please upgrade: python3 -m pip install -U -r {str(requirements)}')
     exit(127)
 
+# Make sure we can run binaries in the same directory as our Python interpreter
+python_dir = os.path.dirname(sys.executable)
+
+if python_dir not in os.environ['PATH'].split(':'):
+    os.environ['PATH'] = ":".join((python_dir, os.environ['PATH']))
+
 # Check to make sure we have all our dependencies
-msg_install = 'Please run `python3 -m pip install -r %s` to install required python dependencies.'
+msg_install = f'Please run `{sys.executable} -m pip install -r %s` to install required python dependencies.'
 args = sys.argv[1:]
 while args and args[0][0] == '-':
     del args[0]

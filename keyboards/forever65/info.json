@@ -14,15 +14,13 @@
         "device_ver": "0x0001"
     },
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
     },
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
