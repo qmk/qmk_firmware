@@ -82,3 +82,7 @@ View libinput with:
 If you experience "DEBOUNCE" events then it's a driver issue and should be able to be disabled with the above method, restart your display manager or just reboot afterwards.
 
 If you have any issues feel free to make bug report or pull request to me, QMK, or libinput. Please send logs along with any steps you have tried.
+
+#### ALT Position
+
+The physical Right_Alt is mapped as a Left_Alt. This is to ensure compatibility in legacy and programs which treat them differently. A key example would be the TTY system in Linux.
