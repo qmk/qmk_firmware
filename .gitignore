@@ -20,6 +20,7 @@
 # QMK-specific
 api_data/v1
 doxygen/
+quantum/version.h
 *.bin
 *.eep
 *.hex

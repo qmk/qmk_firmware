@@ -203,4 +203,6 @@ i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uin
     return chibios_to_qmk(&status);
 }
 
-void i2c_stop(void) { i2cStop(&I2C_DRIVER); }
+void i2c_stop(void) {
+    i2cStop(&I2C_DRIVER);
+}

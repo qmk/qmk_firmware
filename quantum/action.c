@@ -53,14 +53,20 @@ int retro_tapping_counter = 0;
 #endif
 
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { return false; }
+__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+    return false;
+}
 #endif
 
 #ifdef RETRO_TAPPING_PER_KEY
-__attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) { return false; }
+__attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    return false;
+}
 #endif
 
-__attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) { return true; }
+__attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) {
+    return true;
+}
 
 /** \brief Called to execute an action.
  *
@@ -163,10 +169,14 @@ void process_record_nocache(keyrecord_t *record) {
     disable_action_cache = false;
 }
 #else
-void process_record_nocache(keyrecord_t *record) { process_record(record); }
+void process_record_nocache(keyrecord_t *record) {
+    process_record(record);
+}
 #endif
 
-__attribute__((weak)) bool process_record_quantum(keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_record_quantum(keyrecord_t *record) {
+    return true;
+}
 
 __attribute__((weak)) void post_process_record_quantum(keyrecord_t *record) {}
 
@@ -688,7 +698,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     /* tap key */
                     if (tap_count > 0) {
                         if (swap_held) {
-                            swap_hands = !swap_hands;  // undo hold set up in _tap_hint
+                            swap_hands = !swap_hands; // undo hold set up in _tap_hint
                             swap_held  = false;
                         }
                         if (event.pressed) {
@@ -696,11 +706,11 @@ void process_action(keyrecord_t *record, action_t action) {
                         } else {
                             wait_ms(TAP_CODE_DELAY);
                             unregister_code(action.swap.code);
-                            *record = (keyrecord_t){};  // hack: reset tap mode
+                            *record = (keyrecord_t){}; // hack: reset tap mode
                         }
                     } else {
                         if (swap_held && !event.pressed) {
-                            swap_hands = !swap_hands;  // undo hold set up in _tap_hint
+                            swap_hands = !swap_hands; // undo hold set up in _tap_hint
                             swap_held  = false;
                         }
                     }
@@ -862,9 +872,13 @@ __attribute__((weak)) void register_code(uint8_t code) {
         }
 #ifdef EXTRAKEY_ENABLE
     else if
-        IS_SYSTEM(code) { host_system_send(KEYCODE2SYSTEM(code)); }
+        IS_SYSTEM(code) {
+            host_system_send(KEYCODE2SYSTEM(code));
+        }
     else if
-        IS_CONSUMER(code) { host_consumer_send(KEYCODE2CONSUMER(code)); }
+        IS_CONSUMER(code) {
+            host_consumer_send(KEYCODE2CONSUMER(code));
+        }
 #endif
 #ifdef MOUSEKEY_ENABLE
     else if
@@ -927,9 +941,13 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
             send_keyboard_report();
         }
     else if
-        IS_SYSTEM(code) { host_system_send(0); }
+        IS_SYSTEM(code) {
+            host_system_send(0);
+        }
     else if
-        IS_CONSUMER(code) { host_consumer_send(0); }
+        IS_CONSUMER(code) {
+            host_consumer_send(0);
+        }
 #ifdef MOUSEKEY_ENABLE
     else if
         IS_MOUSEKEY(code) {
@@ -956,7 +974,9 @@ __attribute__((weak)) void tap_code_delay(uint8_t code, uint16_t delay) {
  *
  * \param code The basic keycode to tap. If `code` is `KC_CAPS_LOCK`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
  */
-__attribute__((weak)) void tap_code(uint8_t code) { tap_code_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY); }
+__attribute__((weak)) void tap_code(uint8_t code) {
+    tap_code_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
+}
 
 /** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
@@ -1100,7 +1120,9 @@ bool is_tap_action(action_t action) {
  *
  * FIXME: Needs documentation.
  */
-void debug_event(keyevent_t event) { dprintf("%04X%c(%u)", (event.key.row << 8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time); }
+void debug_event(keyevent_t event) {
+    dprintf("%04X%c(%u)", (event.key.row << 8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time);
+}
 /** \brief Debug print (FIXME: Needs better description)
  *
  * FIXME: Needs documentation.

@@ -34,13 +34,19 @@ static uint16_t       last_system_report              = 0;
 static uint16_t       last_consumer_report            = 0;
 static uint32_t       last_programmable_button_report = 0;
 
-void host_set_driver(host_driver_t *d) { driver = d; }
+void host_set_driver(host_driver_t *d) {
+    driver = d;
+}
 
-host_driver_t *host_get_driver(void) { return driver; }
+host_driver_t *host_get_driver(void) {
+    return driver;
+}
 
 #ifdef SPLIT_KEYBOARD
 uint8_t split_led_state = 0;
-void    set_split_host_keyboard_leds(uint8_t led_state) { split_led_state = led_state; }
+void    set_split_host_keyboard_leds(uint8_t led_state) {
+    split_led_state = led_state;
+}
 #endif
 
 uint8_t host_keyboard_leds(void) {
@@ -51,7 +57,9 @@ uint8_t host_keyboard_leds(void) {
     return (*driver->keyboard_leds)();
 }
 
-led_t host_keyboard_led_state(void) { return (led_t)host_keyboard_leds(); }
+led_t host_keyboard_led_state(void) {
+    return (led_t)host_keyboard_leds();
+}
 
 /* send report */
 void host_keyboard_send(report_keyboard_t *report) {
@@ -131,8 +139,14 @@ void host_programmable_button_send(uint32_t report) {
     (*driver->send_programmable_button)(report);
 }
 
-uint16_t host_last_system_report(void) { return last_system_report; }
+uint16_t host_last_system_report(void) {
+    return last_system_report;
+}
 
-uint16_t host_last_consumer_report(void) { return last_consumer_report; }
+uint16_t host_last_consumer_report(void) {
+    return last_consumer_report;
+}
 
-uint32_t host_last_programmable_button_report(void) { return last_programmable_button_report; }
+uint32_t host_last_programmable_button_report(void) {
+    return last_programmable_button_report;
+}

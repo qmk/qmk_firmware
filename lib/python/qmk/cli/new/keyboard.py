@@ -1,15 +1,82 @@
 """This script automates the creation of new keyboard directories using a starter template.
 """
+import re
+import json
+import shutil
 from datetime import date
 from pathlib import Path
-import re
+from dotty_dict import dotty
 
-from qmk.commands import git_get_username
-import qmk.path
 from milc import cli
 from milc.questions import choice, question
 
-KEYBOARD_TYPES = ['avr', 'ps2avrgb']
+from qmk.commands import git_get_username
+from qmk.json_schema import load_jsonschema
+from qmk.path import keyboard
+from qmk.json_encoders import InfoJSONEncoder
+from qmk.json_schema import deep_update
+
+COMMUNITY = Path('layouts/default/')
+TEMPLATE = Path('data/templates/keyboard/')
+
+MCU2BOOTLOADER = {
+    "MKL26Z64": "halfkay",
+    "MK20DX128": "halfkay",
+    "MK20DX256": "halfkay",
+    "MK66FX1M0": "halfkay",
+    "STM32F042": "stm32-dfu",
+    "STM32F072": "stm32-dfu",
+    "STM32F103": "stm32duino",
+    "STM32F303": "stm32-dfu",
+    "STM32F401": "stm32-dfu",
+    "STM32F405": "stm32-dfu",
+    "STM32F407": "stm32-dfu",
+    "STM32F411": "stm32-dfu",
+    "STM32F446": "stm32-dfu",
+    "STM32G431": "stm32-dfu",
+    "STM32G474": "stm32-dfu",
+    "STM32L412": "stm32-dfu",
+    "STM32L422": "stm32-dfu",
+    "STM32L432": "stm32-dfu",
+    "STM32L433": "stm32-dfu",
+    "STM32L442": "stm32-dfu",
+    "STM32L443": "stm32-dfu",
+    "GD32VF103": "gd32v-dfu",
+    "WB32F3G71": "wb32-dfu",
+    "atmega16u2": "atmel-dfu",
+    "atmega32u2": "atmel-dfu",
+    "atmega16u4": "atmel-dfu",
+    "atmega32u4": "atmel-dfu",
+    "at90usb162": "atmel-dfu",
+    "at90usb646": "atmel-dfu",
+    "at90usb647": "atmel-dfu",
+    "at90usb1286": "atmel-dfu",
+    "at90usb1287": "atmel-dfu",
+    "atmega32a": "bootloadhid",
+    "atmega328p": "usbasploader",
+    "atmega328": "usbasploader",
+}
+
+# defaults
+schema = dotty(load_jsonschema('keyboard'))
+mcu_types = sorted(schema["properties.processor.enum"], key=str.casefold)
+available_layouts = sorted([x.name for x in COMMUNITY.iterdir() if x.is_dir()])
+
+
+def mcu_type(mcu):
+    """Callable for argparse validation.
+    """
+    if mcu not in mcu_types:
+        raise ValueError
+    return mcu
+
+
+def layout_type(layout):
+    """Callable for argparse validation.
+    """
+    if layout not in available_layouts:
+        raise ValueError
+    return layout
 
 
 def keyboard_name(name):
@@ -27,8 +94,111 @@ def validate_keyboard_name(name):
     return bool(regex.match(name))
 
 
+def select_default_bootloader(mcu):
+    """Provide sane defaults for bootloader
+    """
+    return MCU2BOOTLOADER.get(mcu, "custom")
+
+
+def replace_placeholders(src, dest, tokens):
+    """Replaces the given placeholders in each template file.
+    """
+    content = src.read_text()
+    for key, value in tokens.items():
+        content = content.replace(f'%{key}%', value)
+
+    dest.write_text(content)
+
+
+def augment_community_info(src, dest):
+    """Splice in any additional data into info.json
+    """
+    info = json.loads(src.read_text())
+    template = json.loads(dest.read_text())
+
+    # merge community with template
+    deep_update(info, template)
+
+    # avoid assumptions on macro name by using the first available
+    first_layout = next(iter(info["layouts"].values()))["layout"]
+
+    # guess at width and height now its optional
+    width, height = (0, 0)
+    for item in first_layout:
+        width = max(width, int(item["x"]) + 1)
+        height = max(height, int(item["y"]) + 1)
+
+    info["matrix_pins"] = {
+        "cols": ["C2"] * width,
+        "rows": ["D1"] * height,
+    }
+
+    # assume a 1:1 mapping on matrix to electrical
+    for item in first_layout:
+        item["matrix"] = [int(item["y"]), int(item["x"])]
+
+    # finally write out the updated info.json
+    dest.write_text(json.dumps(info, cls=InfoJSONEncoder))
+
+
+def prompt_keyboard():
+    prompt = """{fg_yellow}Name Your Keyboard Project{style_reset_all}
+
+For more infomation, see:
+https://docs.qmk.fm/#/hardware_keyboard_guidelines?id=naming-your-keyboardproject
+
+keyboard Name? """
+
+    return question(prompt, validate=lambda x: not keyboard(x).exists())
+
+
+def prompt_user():
+    prompt = """{fg_yellow}Attribution{style_reset_all}
+
+Used for maintainer, copyright, etc
+
+Your GitHub Username? """
+    return question(prompt, default=git_get_username())
+
+
+def prompt_name(def_name):
+    prompt = """{fg_yellow}More Attribution{style_reset_all}
+
+Used for maintainer, copyright, etc
+
+Your Real Name? """
+    return question(prompt, default=def_name)
+
+
+def prompt_layout():
+    prompt = """{fg_yellow}Pick Base Layout{style_reset_all}
+
+As a starting point, one of the common layouts can be used to bootstrap the process
+
+Default Layout? """
+    # avoid overwhelming user - remove some?
+    filtered_layouts = [x for x in available_layouts if not any(xs in x for xs in ['_split', '_blocker', '_tsangan', '_f13'])]
+    filtered_layouts.append("none of the above")
+
+    return choice(prompt, filtered_layouts, default=len(filtered_layouts) - 1)
+
+
+def prompt_mcu():
+    prompt = """{fg_yellow}What Powers Your Project{style_reset_all}
+
+For more infomation, see:
+https://docs.qmk.fm/#/compatible_microcontrollers
+
+MCU? """
+    # remove any options strictly used for compatibility
+    filtered_mcu = [x for x in mcu_types if not any(xs in x for xs in ['cortex', 'unknown'])]
+
+    return choice(prompt, filtered_mcu, default=filtered_mcu.index("atmega32u4"))
+
+
 @cli.argument('-kb', '--keyboard', help='Specify the name for the new keyboard directory', arg_only=True, type=keyboard_name)
-@cli.argument('-t', '--type', help='Specify the keyboard type', arg_only=True, choices=KEYBOARD_TYPES)
+@cli.argument('-l', '--layout', help='Community layout to bootstrap with', arg_only=True, type=layout_type)
+@cli.argument('-t', '--type', help='Specify the keyboard MCU type', arg_only=True, type=mcu_type)
 @cli.argument('-u', '--username', help='Specify your username (default from Git config)', arg_only=True)
 @cli.argument('-n', '--realname', help='Specify your real name if you want to use that. Defaults to username', arg_only=True)
 @cli.subcommand('Creates a new keyboard directory')
@@ -38,102 +208,49 @@ def new_keyboard(cli):
     cli.log.info('{style_bright}Generating a new QMK keyboard directory{style_normal}')
     cli.echo('')
 
-    # Get keyboard name
-    new_keyboard_name = None
-    while not new_keyboard_name:
-        new_keyboard_name = cli.args.keyboard if cli.args.keyboard else question('Keyboard Name:')
-        if not validate_keyboard_name(new_keyboard_name):
-            cli.log.error('Keyboard names must contain only {fg_cyan}lowercase a-z{fg_reset}, {fg_cyan}0-9{fg_reset}, and {fg_cyan}_{fg_reset}! Please choose a different name.')
+    kb_name = cli.args.keyboard if cli.args.keyboard else prompt_keyboard()
+    user_name = cli.args.username if cli.args.username else prompt_user()
+    real_name = cli.args.realname or cli.args.username if cli.args.realname or cli.args.username else prompt_name(user_name)
+    default_layout = cli.args.layout if cli.args.layout else prompt_layout()
+    mcu = cli.args.type if cli.args.type else prompt_mcu()
+    bootloader = select_default_bootloader(mcu)
 
-            # Exit if passed by arg
-            if cli.args.keyboard:
-                return False
+    if not validate_keyboard_name(kb_name):
+        cli.log.error('Keyboard names must contain only {fg_cyan}lowercase a-z{fg_reset}, {fg_cyan}0-9{fg_reset}, and {fg_cyan}_{fg_reset}! Please choose a different name.')
+        return 1
 
-            new_keyboard_name = None
-            continue
+    if keyboard(kb_name).exists():
+        cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} already exists! Please choose a different name.')
+        return 1
 
-        keyboard_path = qmk.path.keyboard(new_keyboard_name)
-        if keyboard_path.exists():
-            cli.log.error(f'Keyboard {{fg_cyan}}{new_keyboard_name}{{fg_reset}} already exists! Please choose a different name.')
+    tokens = {'YEAR': str(date.today().year), 'KEYBOARD': kb_name, 'USER_NAME': user_name, 'REAL_NAME': real_name, 'LAYOUT': default_layout, 'MCU': mcu, 'BOOTLOADER': bootloader}
 
-            # Exit if passed by arg
-            if cli.args.keyboard:
-                return False
+    if cli.config.general.verbose:
+        cli.log.info("Creating keyboard with:")
+        for key, value in tokens.items():
+            cli.echo(f"    {key.ljust(10)}:   {value}")
 
-            new_keyboard_name = None
+    # TODO: detach community layout and rename to just "LAYOUT"
+    if default_layout == 'none of the above':
+        default_layout = "ortho_4x4"
 
-    # Get keyboard type
-    keyboard_type = cli.args.type if cli.args.type else choice('Keyboard Type:', KEYBOARD_TYPES, default=0)
+    # begin with making the deepest folder in the tree
+    keymaps_path = keyboard(kb_name) / 'keymaps/'
+    keymaps_path.mkdir(parents=True)
 
-    # Get username
-    user_name = None
-    while not user_name:
-        user_name = question('Your GitHub User Name:', default=find_user_name())
+    # copy in keymap.c or keymap.json
+    community_keymap = Path(COMMUNITY / f'{default_layout}/default_{default_layout}/')
+    shutil.copytree(community_keymap, keymaps_path / 'default')
 
-        if not user_name:
-            cli.log.error('You didn\'t provide a username, and we couldn\'t find one set in your QMK or Git configs. Please try again.')
+    # process template files
+    for file in list(TEMPLATE.iterdir()):
+        replace_placeholders(file, keyboard(kb_name) / file.name, tokens)
 
-            # Exit if passed by arg
-            if cli.args.username:
-                return False
+    # merge in infos
+    community_info = Path(COMMUNITY / f'{default_layout}/info.json')
+    augment_community_info(community_info, keyboard(kb_name) / community_info.name)
 
-    real_name = None
-    while not real_name:
-        real_name = question('Your real name:', default=user_name)
-
-    keyboard_basename = keyboard_path.name
-    replacements = {
-        "YEAR": str(date.today().year),
-        "KEYBOARD": keyboard_basename,
-        "USER_NAME": user_name,
-        "YOUR_NAME": real_name,
-    }
-
-    template_dir = Path('data/templates')
-    template_tree(template_dir / 'base', keyboard_path, replacements)
-    template_tree(template_dir / keyboard_type, keyboard_path, replacements)
-
-    cli.echo('')
-    cli.log.info(f'{{fg_green}}Created a new keyboard called {{fg_cyan}}{new_keyboard_name}{{fg_green}}.{{fg_reset}}')
-    cli.log.info(f'To start working on things, `cd` into {{fg_cyan}}{keyboard_path}{{fg_reset}},')
+    cli.log.info(f'{{fg_green}}Created a new keyboard called {{fg_cyan}}{kb_name}{{fg_green}}.{{fg_reset}}')
+    cli.log.info(f'To start working on things, `cd` into {{fg_cyan}}keyboards/{kb_name}{{fg_reset}},')
     cli.log.info('or open the directory in your preferred text editor.')
-
-
-def find_user_name():
-    if cli.args.username:
-        return cli.args.username
-    elif cli.config.user.name:
-        return cli.config.user.name
-    else:
-        return git_get_username()
-
-
-def template_tree(src: Path, dst: Path, replacements: dict):
-    """Recursively copy template and replace placeholders
-
-    Args:
-        src (Path)
-            The source folder to copy from
-        dst (Path)
-            The destination folder to copy to
-        replacements (dict)
-            a dictionary with "key":"value" pairs to replace.
-
-    Raises:
-        FileExistsError
-            When trying to overwrite existing files
-    """
-
-    dst.mkdir(parents=True, exist_ok=True)
-
-    for child in src.iterdir():
-        if child.is_dir():
-            template_tree(child, dst / child.name, replacements=replacements)
-
-        if child.is_file():
-            file_name = dst / (child.name % replacements)
-
-            with file_name.open(mode='x') as dst_f:
-                with child.open() as src_f:
-                    template = src_f.read()
-                    dst_f.write(template % replacements)
+    cli.log.info(f"And build with {{fg_yellow}}qmk compile -kb {kb_name} -km default{{fg_reset}}.")

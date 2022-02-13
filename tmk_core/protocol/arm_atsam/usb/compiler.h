@@ -876,66 +876,66 @@ typedef struct {
 // kmod #define LOW       0
 // kmod #define HIGH      1
 
-typedef int8_t   S8;   //!< 8-bit signed integer.
-typedef uint8_t  U8;   //!< 8-bit unsigned integer.
-typedef int16_t  S16;  //!< 16-bit signed integer.
-typedef uint16_t U16;  //!< 16-bit unsigned integer.
-typedef int32_t  S32;  //!< 32-bit signed integer.
-typedef uint32_t U32;  //!< 32-bit unsigned integer.
-typedef int64_t  S64;  //!< 64-bit signed integer.
-typedef uint64_t U64;  //!< 64-bit unsigned integer.
-typedef float    F32;  //!< 32-bit floating-point number.
-typedef double   F64;  //!< 64-bit floating-point number.
+typedef int8_t   S8;  //!< 8-bit signed integer.
+typedef uint8_t  U8;  //!< 8-bit unsigned integer.
+typedef int16_t  S16; //!< 16-bit signed integer.
+typedef uint16_t U16; //!< 16-bit unsigned integer.
+typedef int32_t  S32; //!< 32-bit signed integer.
+typedef uint32_t U32; //!< 32-bit unsigned integer.
+typedef int64_t  S64; //!< 64-bit signed integer.
+typedef uint64_t U64; //!< 64-bit unsigned integer.
+typedef float    F32; //!< 32-bit floating-point number.
+typedef double   F64; //!< 64-bit floating-point number.
 
-#    define MSB(u16) (((U8 *)&(u16))[1])  //!< Most significant byte of \a u16.
-#    define LSB(u16) (((U8 *)&(u16))[0])  //!< Least significant byte of \a u16.
+#    define MSB(u16) (((U8 *)&(u16))[1]) //!< Most significant byte of \a u16.
+#    define LSB(u16) (((U8 *)&(u16))[0]) //!< Least significant byte of \a u16.
 
-#    define MSH(u32) (((U16 *)&(u32))[1])   //!< Most significant half-word of \a u32.
-#    define LSH(u32) (((U16 *)&(u32))[0])   //!< Least significant half-word of \a u32.
-#    define MSB0W(u32) (((U8 *)&(u32))[3])  //!< Most significant byte of 1st rank of \a u32.
-#    define MSB1W(u32) (((U8 *)&(u32))[2])  //!< Most significant byte of 2nd rank of \a u32.
-#    define MSB2W(u32) (((U8 *)&(u32))[1])  //!< Most significant byte of 3rd rank of \a u32.
-#    define MSB3W(u32) (((U8 *)&(u32))[0])  //!< Most significant byte of 4th rank of \a u32.
-#    define LSB3W(u32) MSB0W(u32)           //!< Least significant byte of 4th rank of \a u32.
-#    define LSB2W(u32) MSB1W(u32)           //!< Least significant byte of 3rd rank of \a u32.
-#    define LSB1W(u32) MSB2W(u32)           //!< Least significant byte of 2nd rank of \a u32.
-#    define LSB0W(u32) MSB3W(u32)           //!< Least significant byte of 1st rank of \a u32.
+#    define MSH(u32) (((U16 *)&(u32))[1])  //!< Most significant half-word of \a u32.
+#    define LSH(u32) (((U16 *)&(u32))[0])  //!< Least significant half-word of \a u32.
+#    define MSB0W(u32) (((U8 *)&(u32))[3]) //!< Most significant byte of 1st rank of \a u32.
+#    define MSB1W(u32) (((U8 *)&(u32))[2]) //!< Most significant byte of 2nd rank of \a u32.
+#    define MSB2W(u32) (((U8 *)&(u32))[1]) //!< Most significant byte of 3rd rank of \a u32.
+#    define MSB3W(u32) (((U8 *)&(u32))[0]) //!< Most significant byte of 4th rank of \a u32.
+#    define LSB3W(u32) MSB0W(u32)          //!< Least significant byte of 4th rank of \a u32.
+#    define LSB2W(u32) MSB1W(u32)          //!< Least significant byte of 3rd rank of \a u32.
+#    define LSB1W(u32) MSB2W(u32)          //!< Least significant byte of 2nd rank of \a u32.
+#    define LSB0W(u32) MSB3W(u32)          //!< Least significant byte of 1st rank of \a u32.
 
-#    define MSW(u64) (((U32 *)&(u64))[1])   //!< Most significant word of \a u64.
-#    define LSW(u64) (((U32 *)&(u64))[0])   //!< Least significant word of \a u64.
-#    define MSH0(u64) (((U16 *)&(u64))[3])  //!< Most significant half-word of 1st rank of \a u64.
-#    define MSH1(u64) (((U16 *)&(u64))[2])  //!< Most significant half-word of 2nd rank of \a u64.
-#    define MSH2(u64) (((U16 *)&(u64))[1])  //!< Most significant half-word of 3rd rank of \a u64.
-#    define MSH3(u64) (((U16 *)&(u64))[0])  //!< Most significant half-word of 4th rank of \a u64.
-#    define LSH3(u64) MSH0(u64)             //!< Least significant half-word of 4th rank of \a u64.
-#    define LSH2(u64) MSH1(u64)             //!< Least significant half-word of 3rd rank of \a u64.
-#    define LSH1(u64) MSH2(u64)             //!< Least significant half-word of 2nd rank of \a u64.
-#    define LSH0(u64) MSH3(u64)             //!< Least significant half-word of 1st rank of \a u64.
-#    define MSB0D(u64) (((U8 *)&(u64))[7])  //!< Most significant byte of 1st rank of \a u64.
-#    define MSB1D(u64) (((U8 *)&(u64))[6])  //!< Most significant byte of 2nd rank of \a u64.
-#    define MSB2D(u64) (((U8 *)&(u64))[5])  //!< Most significant byte of 3rd rank of \a u64.
-#    define MSB3D(u64) (((U8 *)&(u64))[4])  //!< Most significant byte of 4th rank of \a u64.
-#    define MSB4D(u64) (((U8 *)&(u64))[3])  //!< Most significant byte of 5th rank of \a u64.
-#    define MSB5D(u64) (((U8 *)&(u64))[2])  //!< Most significant byte of 6th rank of \a u64.
-#    define MSB6D(u64) (((U8 *)&(u64))[1])  //!< Most significant byte of 7th rank of \a u64.
-#    define MSB7D(u64) (((U8 *)&(u64))[0])  //!< Most significant byte of 8th rank of \a u64.
-#    define LSB7D(u64) MSB0D(u64)           //!< Least significant byte of 8th rank of \a u64.
-#    define LSB6D(u64) MSB1D(u64)           //!< Least significant byte of 7th rank of \a u64.
-#    define LSB5D(u64) MSB2D(u64)           //!< Least significant byte of 6th rank of \a u64.
-#    define LSB4D(u64) MSB3D(u64)           //!< Least significant byte of 5th rank of \a u64.
-#    define LSB3D(u64) MSB4D(u64)           //!< Least significant byte of 4th rank of \a u64.
-#    define LSB2D(u64) MSB5D(u64)           //!< Least significant byte of 3rd rank of \a u64.
-#    define LSB1D(u64) MSB6D(u64)           //!< Least significant byte of 2nd rank of \a u64.
-#    define LSB0D(u64) MSB7D(u64)           //!< Least significant byte of 1st rank of \a u64.
+#    define MSW(u64) (((U32 *)&(u64))[1])  //!< Most significant word of \a u64.
+#    define LSW(u64) (((U32 *)&(u64))[0])  //!< Least significant word of \a u64.
+#    define MSH0(u64) (((U16 *)&(u64))[3]) //!< Most significant half-word of 1st rank of \a u64.
+#    define MSH1(u64) (((U16 *)&(u64))[2]) //!< Most significant half-word of 2nd rank of \a u64.
+#    define MSH2(u64) (((U16 *)&(u64))[1]) //!< Most significant half-word of 3rd rank of \a u64.
+#    define MSH3(u64) (((U16 *)&(u64))[0]) //!< Most significant half-word of 4th rank of \a u64.
+#    define LSH3(u64) MSH0(u64)            //!< Least significant half-word of 4th rank of \a u64.
+#    define LSH2(u64) MSH1(u64)            //!< Least significant half-word of 3rd rank of \a u64.
+#    define LSH1(u64) MSH2(u64)            //!< Least significant half-word of 2nd rank of \a u64.
+#    define LSH0(u64) MSH3(u64)            //!< Least significant half-word of 1st rank of \a u64.
+#    define MSB0D(u64) (((U8 *)&(u64))[7]) //!< Most significant byte of 1st rank of \a u64.
+#    define MSB1D(u64) (((U8 *)&(u64))[6]) //!< Most significant byte of 2nd rank of \a u64.
+#    define MSB2D(u64) (((U8 *)&(u64))[5]) //!< Most significant byte of 3rd rank of \a u64.
+#    define MSB3D(u64) (((U8 *)&(u64))[4]) //!< Most significant byte of 4th rank of \a u64.
+#    define MSB4D(u64) (((U8 *)&(u64))[3]) //!< Most significant byte of 5th rank of \a u64.
+#    define MSB5D(u64) (((U8 *)&(u64))[2]) //!< Most significant byte of 6th rank of \a u64.
+#    define MSB6D(u64) (((U8 *)&(u64))[1]) //!< Most significant byte of 7th rank of \a u64.
+#    define MSB7D(u64) (((U8 *)&(u64))[0]) //!< Most significant byte of 8th rank of \a u64.
+#    define LSB7D(u64) MSB0D(u64)          //!< Least significant byte of 8th rank of \a u64.
+#    define LSB6D(u64) MSB1D(u64)          //!< Least significant byte of 7th rank of \a u64.
+#    define LSB5D(u64) MSB2D(u64)          //!< Least significant byte of 6th rank of \a u64.
+#    define LSB4D(u64) MSB3D(u64)          //!< Least significant byte of 5th rank of \a u64.
+#    define LSB3D(u64) MSB4D(u64)          //!< Least significant byte of 4th rank of \a u64.
+#    define LSB2D(u64) MSB5D(u64)          //!< Least significant byte of 3rd rank of \a u64.
+#    define LSB1D(u64) MSB6D(u64)          //!< Least significant byte of 2nd rank of \a u64.
+#    define LSB0D(u64) MSB7D(u64)          //!< Least significant byte of 1st rank of \a u64.
 
-#    define LSB0(u32) LSB0W(u32)  //!< Least significant byte of 1st rank of \a u32.
-#    define LSB1(u32) LSB1W(u32)  //!< Least significant byte of 2nd rank of \a u32.
-#    define LSB2(u32) LSB2W(u32)  //!< Least significant byte of 3rd rank of \a u32.
-#    define LSB3(u32) LSB3W(u32)  //!< Least significant byte of 4th rank of \a u32.
-#    define MSB3(u32) MSB3W(u32)  //!< Most significant byte of 4th rank of \a u32.
-#    define MSB2(u32) MSB2W(u32)  //!< Most significant byte of 3rd rank of \a u32.
-#    define MSB1(u32) MSB1W(u32)  //!< Most significant byte of 2nd rank of \a u32.
-#    define MSB0(u32) MSB0W(u32)  //!< Most significant byte of 1st rank of \a u32.
+#    define LSB0(u32) LSB0W(u32) //!< Least significant byte of 1st rank of \a u32.
+#    define LSB1(u32) LSB1W(u32) //!< Least significant byte of 2nd rank of \a u32.
+#    define LSB2(u32) LSB2W(u32) //!< Least significant byte of 3rd rank of \a u32.
+#    define LSB3(u32) LSB3W(u32) //!< Least significant byte of 4th rank of \a u32.
+#    define MSB3(u32) MSB3W(u32) //!< Most significant byte of 4th rank of \a u32.
+#    define MSB2(u32) MSB2W(u32) //!< Most significant byte of 3rd rank of \a u32.
+#    define MSB1(u32) MSB1W(u32) //!< Most significant byte of 2nd rank of \a u32.
+#    define MSB0(u32) MSB0W(u32) //!< Most significant byte of 1st rank of \a u32.
 
 #    if defined(__ICCARM__)
 #        define SHORTENUM __packed
@@ -1031,7 +1031,9 @@ static inline void convert_16_bit_to_byte_address(uint16_t value, uint8_t *data)
  * @return 16-Bit value
  * @ingroup apiPalApi
  */
-static inline uint16_t convert_byte_array_to_16_bit(uint8_t *data) { return (data[0] | ((uint16_t)data[1] << 8)); }
+static inline uint16_t convert_byte_array_to_16_bit(uint8_t *data) {
+    return (data[0] | ((uint16_t)data[1] << 8));
+}
 
 /* Converts a 4 Byte array into a 32-Bit value */
 static inline uint32_t convert_byte_array_to_32_bit(uint8_t *data) {

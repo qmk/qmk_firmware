@@ -156,59 +156,59 @@
 
 #        if SELECT_SOFT_SERIAL_SPEED == 0
 // Very High speed
-#            define SERIAL_DELAY 4  // micro sec
+#            define SERIAL_DELAY 4 // micro sec
 #            if __GNUC__ < 6
-#                define READ_WRITE_START_ADJUST 33  // cycles
-#                define READ_WRITE_WIDTH_ADJUST 3   // cycles
+#                define READ_WRITE_START_ADJUST 33 // cycles
+#                define READ_WRITE_WIDTH_ADJUST 3  // cycles
 #            else
-#                define READ_WRITE_START_ADJUST 34  // cycles
-#                define READ_WRITE_WIDTH_ADJUST 7   // cycles
+#                define READ_WRITE_START_ADJUST 34 // cycles
+#                define READ_WRITE_WIDTH_ADJUST 7  // cycles
 #            endif
 #        elif SELECT_SOFT_SERIAL_SPEED == 1
 // High speed
-#            define SERIAL_DELAY 6  // micro sec
+#            define SERIAL_DELAY 6 // micro sec
 #            if __GNUC__ < 6
-#                define READ_WRITE_START_ADJUST 30  // cycles
-#                define READ_WRITE_WIDTH_ADJUST 3   // cycles
+#                define READ_WRITE_START_ADJUST 30 // cycles
+#                define READ_WRITE_WIDTH_ADJUST 3  // cycles
 #            else
-#                define READ_WRITE_START_ADJUST 33  // cycles
-#                define READ_WRITE_WIDTH_ADJUST 7   // cycles
+#                define READ_WRITE_START_ADJUST 33 // cycles
+#                define READ_WRITE_WIDTH_ADJUST 7  // cycles
 #            endif
 #        elif SELECT_SOFT_SERIAL_SPEED == 2
 // Middle speed
-#            define SERIAL_DELAY 12             // micro sec
-#            define READ_WRITE_START_ADJUST 30  // cycles
+#            define SERIAL_DELAY 12            // micro sec
+#            define READ_WRITE_START_ADJUST 30 // cycles
 #            if __GNUC__ < 6
-#                define READ_WRITE_WIDTH_ADJUST 3  // cycles
+#                define READ_WRITE_WIDTH_ADJUST 3 // cycles
 #            else
-#                define READ_WRITE_WIDTH_ADJUST 7  // cycles
+#                define READ_WRITE_WIDTH_ADJUST 7 // cycles
 #            endif
 #        elif SELECT_SOFT_SERIAL_SPEED == 3
 // Low speed
-#            define SERIAL_DELAY 24             // micro sec
-#            define READ_WRITE_START_ADJUST 30  // cycles
+#            define SERIAL_DELAY 24            // micro sec
+#            define READ_WRITE_START_ADJUST 30 // cycles
 #            if __GNUC__ < 6
-#                define READ_WRITE_WIDTH_ADJUST 3  // cycles
+#                define READ_WRITE_WIDTH_ADJUST 3 // cycles
 #            else
-#                define READ_WRITE_WIDTH_ADJUST 7  // cycles
+#                define READ_WRITE_WIDTH_ADJUST 7 // cycles
 #            endif
 #        elif SELECT_SOFT_SERIAL_SPEED == 4
 // Very Low speed
-#            define SERIAL_DELAY 36             // micro sec
-#            define READ_WRITE_START_ADJUST 30  // cycles
+#            define SERIAL_DELAY 36            // micro sec
+#            define READ_WRITE_START_ADJUST 30 // cycles
 #            if __GNUC__ < 6
-#                define READ_WRITE_WIDTH_ADJUST 3  // cycles
+#                define READ_WRITE_WIDTH_ADJUST 3 // cycles
 #            else
-#                define READ_WRITE_WIDTH_ADJUST 7  // cycles
+#                define READ_WRITE_WIDTH_ADJUST 7 // cycles
 #            endif
 #        elif SELECT_SOFT_SERIAL_SPEED == 5
 // Ultra Low speed
-#            define SERIAL_DELAY 48             // micro sec
-#            define READ_WRITE_START_ADJUST 30  // cycles
+#            define SERIAL_DELAY 48            // micro sec
+#            define READ_WRITE_START_ADJUST 30 // cycles
 #            if __GNUC__ < 6
-#                define READ_WRITE_WIDTH_ADJUST 3  // cycles
+#                define READ_WRITE_WIDTH_ADJUST 3 // cycles
 #            else
-#                define READ_WRITE_WIDTH_ADJUST 7  // cycles
+#                define READ_WRITE_WIDTH_ADJUST 7 // cycles
 #            endif
 #        else
 #            error invalid SELECT_SOFT_SERIAL_SPEED value
@@ -223,29 +223,45 @@
 #    define SLAVE_INT_ACK_WIDTH 4
 
 inline static void serial_delay(void) ALWAYS_INLINE;
-inline static void serial_delay(void) { _delay_us(SERIAL_DELAY); }
+inline static void serial_delay(void) {
+    _delay_us(SERIAL_DELAY);
+}
 
 inline static void serial_delay_half1(void) ALWAYS_INLINE;
-inline static void serial_delay_half1(void) { _delay_us(SERIAL_DELAY_HALF1); }
+inline static void serial_delay_half1(void) {
+    _delay_us(SERIAL_DELAY_HALF1);
+}
 
 inline static void serial_delay_half2(void) ALWAYS_INLINE;
-inline static void serial_delay_half2(void) { _delay_us(SERIAL_DELAY_HALF2); }
+inline static void serial_delay_half2(void) {
+    _delay_us(SERIAL_DELAY_HALF2);
+}
 
 inline static void serial_output(void) ALWAYS_INLINE;
-inline static void serial_output(void) { setPinOutput(SOFT_SERIAL_PIN); }
+inline static void serial_output(void) {
+    setPinOutput(SOFT_SERIAL_PIN);
+}
 
 // make the serial pin an input with pull-up resistor
 inline static void serial_input_with_pullup(void) ALWAYS_INLINE;
-inline static void serial_input_with_pullup(void) { setPinInputHigh(SOFT_SERIAL_PIN); }
+inline static void serial_input_with_pullup(void) {
+    setPinInputHigh(SOFT_SERIAL_PIN);
+}
 
 inline static uint8_t serial_read_pin(void) ALWAYS_INLINE;
-inline static uint8_t serial_read_pin(void) { return !!readPin(SOFT_SERIAL_PIN); }
+inline static uint8_t serial_read_pin(void) {
+    return !!readPin(SOFT_SERIAL_PIN);
+}
 
 inline static void serial_low(void) ALWAYS_INLINE;
-inline static void serial_low(void) { writePinLow(SOFT_SERIAL_PIN); }
+inline static void serial_low(void) {
+    writePinLow(SOFT_SERIAL_PIN);
+}
 
 inline static void serial_high(void) ALWAYS_INLINE;
-inline static void serial_high(void) { writePinHigh(SOFT_SERIAL_PIN); }
+inline static void serial_high(void) {
+    writePinHigh(SOFT_SERIAL_PIN);
+}
 
 void soft_serial_initiator_init(void) {
     serial_output();
@@ -286,7 +302,7 @@ static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
 
     _delay_sub_us(READ_WRITE_START_ADJUST);
     for (i = 0, byte = 0, p = PARITY; i < bit; i++) {
-        serial_delay_half1();  // read the middle of pulses
+        serial_delay_half1(); // read the middle of pulses
         if (serial_read_pin()) {
             byte = (byte << 1) | 1;
             p ^= 1;
@@ -298,7 +314,7 @@ static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
         serial_delay_half2();
     }
     /* recive parity bit */
-    serial_delay_half1();  // read the middle of pulses
+    serial_delay_half1(); // read the middle of pulses
     pb = serial_read_pin();
     _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
     serial_delay_half2();
@@ -330,7 +346,7 @@ void serial_write_chunk(uint8_t data, uint8_t bit) {
     }
     serial_delay();
 
-    serial_low();  // sync_send() / senc_recv() need raise edge
+    serial_low(); // sync_send() / senc_recv() need raise edge
 }
 
 static void serial_send_packet(uint8_t *buffer, uint8_t size) NO_INLINE;
@@ -356,19 +372,19 @@ static uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) {
 }
 
 inline static void change_sender2reciver(void) {
-    sync_send();                 // 0
-    serial_delay_half1();        // 1
-    serial_low();                // 2
-    serial_input_with_pullup();  // 2
-    serial_delay_half1();        // 3
+    sync_send();                // 0
+    serial_delay_half1();       // 1
+    serial_low();               // 2
+    serial_input_with_pullup(); // 2
+    serial_delay_half1();       // 3
 }
 
 inline static void change_reciver2sender(void) {
-    sync_recv();           // 0
-    serial_delay();        // 1
-    serial_low();          // 3
-    serial_output();       // 3
-    serial_delay_half1();  // 4
+    sync_recv();          // 0
+    serial_delay();       // 1
+    serial_low();         // 3
+    serial_output();      // 3
+    serial_delay_half1(); // 4
 }
 
 static inline uint8_t nibble_bits_count(uint8_t bits) {
@@ -391,11 +407,11 @@ ISR(SERIAL_PIN_INTERRUPT) {
     }
     serial_delay_half1();
 
-    serial_high();  // response step1 low->high
+    serial_high(); // response step1 low->high
     serial_output();
     _delay_sub_us(SLAVE_INT_ACK_WIDTH_UNIT * SLAVE_INT_ACK_WIDTH);
     split_transaction_desc_t *trans = &split_transaction_table[tid];
-    serial_low();  // response step2 ack high->low
+    serial_low(); // response step2 ack high->low
 
     // If the transaction has a callback, we can execute it now
     if (trans->slave_callback) {
@@ -412,7 +428,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
         serial_recive_packet((uint8_t *)split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size);
     }
 
-    sync_recv();  // weit initiator output to high
+    sync_recv(); // weit initiator output to high
 }
 
 /////////

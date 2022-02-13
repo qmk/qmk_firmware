@@ -32,21 +32,21 @@ int16_t adc_read(uint8_t mux);
 }
 #endif
 
-#define ADC_REF_EXTERNAL 0                          // AREF, Internal Vref turned off
-#define ADC_REF_POWER _BV(REFS0)                    // AVCC with external capacitor on AREF pin
-#define ADC_REF_INTERNAL (_BV(REFS1) | _BV(REFS0))  // Internal 2.56V Voltage Reference with external capacitor on AREF pin (1.1V for 328P)
+#define ADC_REF_EXTERNAL 0                         // AREF, Internal Vref turned off
+#define ADC_REF_POWER _BV(REFS0)                   // AVCC with external capacitor on AREF pin
+#define ADC_REF_INTERNAL (_BV(REFS1) | _BV(REFS0)) // Internal 2.56V Voltage Reference with external capacitor on AREF pin (1.1V for 328P)
 
 // These prescaler values are for high speed mode, ADHSM = 1
 #if F_CPU == 16000000L || F_CPU == 12000000L
-#    define ADC_PRESCALER (_BV(ADPS2) | _BV(ADPS1))  // /64
+#    define ADC_PRESCALER (_BV(ADPS2) | _BV(ADPS1)) // /64
 #elif F_CPU == 8000000L
-#    define ADC_PRESCALER (_BV(ADPS2) | _BV(ADPS0))  // /32
+#    define ADC_PRESCALER (_BV(ADPS2) | _BV(ADPS0)) // /32
 #elif F_CPU == 4000000L
-#    define ADC_PRESCALER (_BV(ADPS2))  // /16
+#    define ADC_PRESCALER (_BV(ADPS2)) // /16
 #elif F_CPU == 2000000L
-#    define ADC_PRESCALER (_BV(ADPS1) | _BV(ADPS0))  // /8
+#    define ADC_PRESCALER (_BV(ADPS1) | _BV(ADPS0)) // /8
 #elif F_CPU == 1000000L
-#    define ADC_PRESCALER _BV(ADPS1)  // /4
+#    define ADC_PRESCALER _BV(ADPS1) // /4
 #else
-#    define ADC_PRESCALER _BV(ADPS0)  // /2
+#    define ADC_PRESCALER _BV(ADPS0) // /2
 #endif

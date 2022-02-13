@@ -59,11 +59,11 @@
 
 typedef struct {
     int8_t  motion;
-    bool    isMotion;     // True if a motion is detected.
-    bool    isOnSurface;  // True when a chip is on a surface
-    int16_t dx;           // displacement on x directions. Unit: Count. (CPI * Count = Inch value)
+    bool    isMotion;    // True if a motion is detected.
+    bool    isOnSurface; // True when a chip is on a surface
+    int16_t dx;          // displacement on x directions. Unit: Count. (CPI * Count = Inch value)
     int8_t  mdx;
-    int16_t dy;  // displacement on y directions.
+    int16_t dy; // displacement on y directions.
     int8_t  mdy;
 } report_pmw3389_t;
 

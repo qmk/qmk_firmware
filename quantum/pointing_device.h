@@ -103,5 +103,5 @@ report_mouse_t pointing_device_combine_reports(report_mouse_t left_report, repor
 report_mouse_t pointing_device_task_combined_kb(report_mouse_t left_report, report_mouse_t right_report);
 report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report);
 report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_report);
-#    endif  // defined(POINTING_DEVICE_COMBINED)
-#endif      // defined(SPLIT_POINTING_ENABLE)
+#    endif // defined(POINTING_DEVICE_COMBINED)
+#endif     // defined(SPLIT_POINTING_ENABLE)
