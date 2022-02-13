@@ -184,7 +184,7 @@ MCU? """
 @cli.argument('-kb', '--keyboard', help='Specify the name for the new keyboard directory', arg_only=True, type=keyboard_name)
 @cli.argument('-l', '--layout', help='Community layout to bootstrap with', arg_only=True, type=layout_type)
 @cli.argument('-t', '--type', help='Specify the keyboard MCU type', arg_only=True, type=mcu_type)
-@cli.argument('-u', '--username', help='Specify your username (default from Git config)', arg_only=True)
+@cli.argument('-u', '--username', help='Specify your username (default from Git config)', dest='name')
 @cli.argument('-n', '--realname', help='Specify your real name if you want to use that. Defaults to username', arg_only=True)
 @cli.subcommand('Creates a new keyboard directory')
 def new_keyboard(cli):
@@ -194,8 +194,8 @@ def new_keyboard(cli):
     cli.echo('')
 
     kb_name = cli.args.keyboard if cli.args.keyboard else prompt_keyboard()
-    user_name = cli.args.username or cli.config.new_keyboard.name if cli.args.username or cli.config.new_keyboard.name else prompt_user()
-    real_name = cli.args.realname or cli.args.username if cli.args.realname or cli.args.username else prompt_name(user_name)
+    user_name = cli.config.new_keyboard.name if cli.config.new_keyboard.name else prompt_user()
+    real_name = cli.args.realname or cli.config.new_keyboard.name if cli.args.realname or cli.config.new_keyboard.name else prompt_name(user_name)
     default_layout = cli.args.layout if cli.args.layout else prompt_layout()
     mcu = cli.args.type if cli.args.type else prompt_mcu()
     bootloader = select_default_bootloader(mcu)
