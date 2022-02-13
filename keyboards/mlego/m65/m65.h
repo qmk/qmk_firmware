@@ -108,6 +108,12 @@ enum unicode_names {
     rS,
     rt,
     rT,
+    ro,
+    rO,
+    ra2,
+    rA2,
+    ra3,
+    rA3
 };
 
 
