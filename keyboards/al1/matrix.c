@@ -44,15 +44,9 @@ static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
  */
 static void select_col(uint8_t col) {
     sn74x154_set_addr(col);
-    sn74x154_set_enabled(true);
-}
-
-static void unselect_cols(void) {
-    sn74x154_set_enabled(false);
 }
 
 static void init_pins(void) {
-    unselect_cols();
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         setPinInputHigh(row_pins[x]);
     }
@@ -85,15 +79,13 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         }
     }
 
-    // Unselect col
-    unselect_cols();
-
     return matrix_changed;
 }
 
 void matrix_init_custom(void) {
     // initialize demultiplexer
     sn74x154_init();
+    sn74x154_set_enabled(true);
     // initialize key pins
     init_pins();
 }
