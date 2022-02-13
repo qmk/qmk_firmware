@@ -159,10 +159,14 @@ ifneq ("$(wildcard $(KEYMAP_JSON))", "")
 
 # Add rules to generate the keymap files - indentation here is important
 $(KEYMAP_OUTPUT)/src/keymap.c: $(KEYMAP_JSON)
-	$(QMK_BIN) json2c --quiet --output $(KEYMAP_C) $(KEYMAP_JSON)
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) json2c --quiet --output $(KEYMAP_C) $(KEYMAP_JSON))
+	@$(BUILD_CMD)
 
 $(KEYMAP_OUTPUT)/src/config.h: $(KEYMAP_JSON)
-	$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_H)
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --keymap $(KEYMAP) --output $(KEYMAP_H))
+	@$(BUILD_CMD)
 
 generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
 
@@ -326,13 +330,19 @@ endif
 CONFIG_H += $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
 
 $(KEYBOARD_OUTPUT)/src/info_config.h: $(INFO_JSON_FILES)
-	$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_config.h
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/info_config.h)
+	@$(BUILD_CMD)
 
 $(KEYBOARD_OUTPUT)/src/default_keyboard.h: $(INFO_JSON_FILES)
-	$(QMK_BIN) generate-keyboard-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/default_keyboard.h
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-keyboard-h --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/default_keyboard.h)
+	@$(BUILD_CMD)
 
 $(KEYBOARD_OUTPUT)/src/layouts.h: $(INFO_JSON_FILES)
-	$(QMK_BIN) generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-layouts --quiet --keyboard $(KEYBOARD) --output $(KEYBOARD_OUTPUT)/src/layouts.h)
+	@$(BUILD_CMD)
 
 generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.h $(KEYBOARD_OUTPUT)/src/layouts.h
 
@@ -399,30 +409,6 @@ VPATH += $(KEYBOARD_OUTPUT)/src
 VPATH += $(KEYMAP_OUTPUT)/src
 
 include $(BUILDDEFS_PATH)/common_features.mk
-
-# XAP embedded info.json
-ifeq ($(strip $(XAP_ENABLE)), yes)
-
-$(KEYMAP_OUTPUT)/src/info_json_gz.h: $(INFO_JSON_FILES)
-	mkdir -p $(KEYMAP_OUTPUT)/src
-	$(QMK_BIN) info -f json -kb $(KEYBOARD) -km $(KEYMAP) | gzip -c9 > $(KEYMAP_OUTPUT)/src/info.json.gz
-	cd $(KEYMAP_OUTPUT)/src >/dev/null 2>&1 \
-		&& xxd -i info.json.gz info_json_gz.h \
-		&& cd - >/dev/null 2>&1
-
-XAP_FILES := $(shell ls -1 data/xap/* | sort | xargs echo)
-
-$(KEYMAP_OUTPUT)/src/xap_generated.inl: $(XAP_FILES)
-	$(QMK_BIN) xap-generate-qmk-inc -o "$(KEYMAP_OUTPUT)/src/xap_generated.inl"
-
-$(KEYMAP_OUTPUT)/src/xap_generated.h: $(XAP_FILES)
-	$(QMK_BIN) xap-generate-qmk-h -o "$(KEYMAP_OUTPUT)/src/xap_generated.h" -kb $(KEYBOARD)
-
-generated-files: $(KEYMAP_OUTPUT)/src/info_json_gz.h $(KEYMAP_OUTPUT)/src/xap_generated.inl $(KEYMAP_OUTPUT)/src/xap_generated.h
-
-VPATH += $(KEYMAP_OUTPUT)/src
-endif
-
 include $(BUILDDEFS_PATH)/generic_features.mk
 include $(TMK_PATH)/protocol.mk
 include $(PLATFORM_PATH)/common.mk

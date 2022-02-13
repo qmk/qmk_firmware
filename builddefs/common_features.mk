@@ -45,6 +45,10 @@ else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
 endif
 
+ifeq ($(strip $(XAP_ENABLE)), yes)
+    include $(BUILDDEFS_PATH)/xap.mk
+endif
+
 AUDIO_ENABLE ?= no
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     ifeq ($(PLATFORM),CHIBIOS)
