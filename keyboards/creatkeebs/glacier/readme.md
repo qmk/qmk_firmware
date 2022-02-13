@@ -1,7 +1,7 @@
 # glacier
 A 80% keyboard
 
-![glacier](https://imgur.com/gallery/9nREnv8)
+![glacier](https://i.imgur.com/BeyreN1.png)
 
 ### Features
 * PCB gasket
