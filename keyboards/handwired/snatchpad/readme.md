@@ -1,12 +1,19 @@
 # snatchpad
 
-![snatchpad](imgur.com image replace me!)
+![snatchpad](https://github.com/xia0/keeb_files/blob/main/snatchpad/images/20220213_0004.jpg?raw=true)
 
-A 6-key macropad with 2 rotary encoders for drawing. [Vial keymap](https://github.com/vial-kb/vial-qmk) is suggested due to rotary encoder remapping support.
+A 6-key macropad with 2 rotary encoders intended for use as a pointing device. [Vial](https://github.com/vial-kb/vial-qmk) can be used to remap the encoders.
+
+In addition to the 3d printed parts and microcontroller, the following hardware is required:
+* 4 * 3x3 mm heated inserts
+* 4 * 4mm M3 bolt
+* USB daughter board
+
+---
 
 * Keyboard Maintainer: [xia0](https://github.com/xia0)
-* Hardware Supported: ATmega32u4 - Arduino Pro Micro suggested.
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: e.g. Arduino Pro Micro
+* Hardware Availability: [github](https://github.com/xia0/keeb_files/tree/main/snatchpad)
 
 Make example for this keyboard (after setting up your build environment):
 
