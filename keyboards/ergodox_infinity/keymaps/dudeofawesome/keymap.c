@@ -471,8 +471,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_user() {
-  backlight_enable();
-  backlight_level(BACKLIGHT_LEVELS);
+  led_matrix_enable_noeeprom();
+  led_matrix_set_val_noeeprom(UINT8_MAX);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

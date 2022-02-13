@@ -25,3 +25,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI, KC_APP,  KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     )
 };
+
+#ifdef RGBLIGHT_ENABLE
+const rgblight_segment_t PROGMEM ll_none[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, HSV_OFF},
+    {1, 1, HSV_OFF}
+);
+
+const rgblight_segment_t PROGMEM ll_cl[] = RGBLIGHT_LAYER_SEGMENTS(
+    {1, 1, HSV_OFF}
+);
+
+const rgblight_segment_t PROGMEM ll_sl[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, HSV_OFF}
+);
+
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(ll_none, ll_cl, ll_sl);
+
+void keyboard_post_init_kb(void) {
+    rgblight_layers = rgb_layers;
+
+    keyboard_post_init_user();
+}
+
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+
+    if (res) {
+        uint8_t lock_bits = led_state.scroll_lock << 1 | led_state.caps_lock;
+        for (uint8_t i=0; i<3; i++) {
+            rgblight_set_layer_state(i, false);
+        }
+        if (lock_bits < 3) {
+            rgblight_set_layer_state(lock_bits, true);
+        }
+    }
+
+    return res;
+}
+#endif

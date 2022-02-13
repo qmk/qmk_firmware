@@ -15,8 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef REV3_CONFIG_H
-#define REV3_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0003
@@ -107,5 +106,3 @@
 #define WS2812_PWM_PAL_MODE 1
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM2
 #define WS2812_DMA_CHANNEL 2
-
-#endif

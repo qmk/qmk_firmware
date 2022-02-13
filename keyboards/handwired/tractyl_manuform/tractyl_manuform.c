@@ -34,55 +34,7 @@ keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = TRACKBALL_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
 
-bool     BurstState  = false;  // init burst state for Trackball module
-uint16_t MotionStart = 0;      // Timer for accel, 0 is resting state
 
-__attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int8_t x, int8_t y) {
-    mouse_report->x = x;
-    mouse_report->y = y;
-}
-
-__attribute__((weak)) void process_mouse(void) {
-    report_pmw_t data = pmw_read_burst();
-    // Reset timer if stopped moving
-    if (!data.isMotion) {
-        if (MotionStart != 0) MotionStart = 0;
-        return;
-    }
-
-    if (data.isOnSurface) {
-        // Set timer if new motion
-        if (MotionStart == 0) {
-            if (debug_mouse) dprintf("Starting motion.\n");
-            MotionStart = timer_read();
-        }
-
-        if (debug_mouse) {
-            dprintf("Delt] d: %d t: %u\n", abs(data.dx) + abs(data.dy), MotionStart);
-        }
-        if (debug_mouse) {
-            dprintf("Pre ] X: %d, Y: %d\n", data.dx, data.dy);
-        }
-#if defined(PROFILE_LINEAR)
-        float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
-        data.dx *= scale;
-        data.dy *= scale;
-#elif defined(PROFILE_INVERSE)
-        // TODO
-#else
-        // no post processing
-#endif
-
-        // Wrap to HID size
-        data.dx = constrain(data.dx, -127, 127);
-        data.dy = constrain(data.dy, -127, 127);
-        if (debug_mouse) dprintf("Cons] X: %d, Y: %d\n", data.dx, data.dy);
-        // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
-
-        sync_mouse_report.x = -data.dx;
-        sync_mouse_report.y = data.dy;
-    }
-}
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) {
@@ -109,11 +61,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #ifndef MOUSEKEY_ENABLE
     if (IS_MOUSEKEY_BUTTON(keycode)) {
         report_mouse_t currentReport = pointing_device_get_report();
-        if (record->event.pressed) {
-            currentReport.buttons |= 1 << (keycode - KC_MS_BTN1);
-        } else {
-            currentReport.buttons &= ~(1 << (keycode - KC_MS_BTN1));
-        }
+        currentReport.buttons        = pointing_device_handle_buttons(currentReport.buttons, record->event.pressed, keycode - KC_MS_BTN1);
         pointing_device_set_report(currentReport);
         pointing_device_send();
     }
@@ -122,6 +70,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 __attribute__((weak)) void keyboard_pre_init_sync(void) {}
+__attribute__((weak)) void keyboard_pre_init_sub(void) {}
 void                       keyboard_pre_init_kb(void) {
     // debug_enable  = true;
     // debug_matrix  = true;
@@ -134,6 +83,7 @@ void                       keyboard_pre_init_kb(void) {
     writePin(DEBUG_LED_PIN, !debug_enable);
 #endif
 
+    keyboard_pre_init_sub();
     keyboard_pre_init_sync();
     keyboard_pre_init_user();
 }
@@ -145,33 +95,16 @@ void                       keyboard_post_init_kb(void) {
 }
 
 #ifdef POINTING_DEVICE_ENABLE
-void pointing_device_init(void) {
-    if (!is_keyboard_left()) {
-        // initialize ball sensor
-        pmw_spi_init();
-    }
+void pointing_device_init_kb(void) {
     trackball_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    pointing_device_init_user();
 }
 
-void pointing_device_task(void) {
-    report_mouse_t mouse_report = pointing_device_get_report();
-
-    if (is_keyboard_left()) {
-        if (is_keyboard_master()) {
-            transaction_rpc_recv(RPC_ID_POINTER_STATE_SYNC, sizeof(sync_mouse_report), &sync_mouse_report);
-            process_mouse_user(&mouse_report, sync_mouse_report.x, sync_mouse_report.y);
-        }
-    } else {
-        process_mouse();
-        if (is_keyboard_master()) {
-            process_mouse_user(&mouse_report, sync_mouse_report.x, sync_mouse_report.y);
-            sync_mouse_report.x = 0;
-            sync_mouse_report.y = 0;
-        }
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    if (is_keyboard_master()) {
+        mouse_report = pointing_device_task_user(mouse_report);
     }
-
-    pointing_device_set_report(mouse_report);
-    pointing_device_send();
+    return mouse_report;
 }
 #endif
 

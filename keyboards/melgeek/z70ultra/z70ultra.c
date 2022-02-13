@@ -18,7 +18,7 @@
 
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS28_SW1, CS30_SW1, CS29_SW1}, /* RGB10 */
     {0, CS28_SW2, CS30_SW2, CS29_SW2}, /* RGB11 */
     {0, CS28_SW3, CS30_SW3, CS29_SW3}, /* RGB12 */

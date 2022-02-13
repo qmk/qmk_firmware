@@ -28,7 +28,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Setting Handedness
 
-Keyboard uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default. The make commands are:
+Firmware uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default and it must be *configured once* on each side. The make commands are:
 
     make a_dux:default:dfu-split-left
     make a_dux:default:dfu-split-right

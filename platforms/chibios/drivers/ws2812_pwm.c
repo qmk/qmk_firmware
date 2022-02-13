@@ -5,7 +5,9 @@
 /* Adapted from https://github.com/joewa/WS2812-LED-Driver_ChibiOS/ */
 
 #ifdef RGBW
-#    error "RGBW not supported"
+#    define WS2812_CHANNELS 4
+#else
+#    define WS2812_CHANNELS 3
 #endif
 
 #ifndef WS2812_PWM_DRIVER
@@ -40,15 +42,15 @@
 // Default Push Pull
 #ifndef WS2812_EXTERNAL_PULLUP
 #    if defined(USE_GPIOV1)
-#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    else
-#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST | PAL_PUPDR_FLOATING
 #    endif
 #else
 #    if defined(USE_GPIOV1)
-#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE_OPENDRAIN
 #    else
-#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN | PAL_OUTPUT_SPEED_HIGHEST | PAL_PUPDR_FLOATING
 #    endif
 #endif
 
@@ -59,7 +61,7 @@
 
 /* --- PRIVATE CONSTANTS ---------------------------------------------------- */
 
-#define WS2812_PWM_FREQUENCY (STM32_SYSCLK / 2)                             /**< Clock frequency of PWM, must be valid with respect to system clock! */
+#define WS2812_PWM_FREQUENCY (CPU_CLOCK / 2)                                /**< Clock frequency of PWM, must be valid with respect to system clock! */
 #define WS2812_PWM_PERIOD (WS2812_PWM_FREQUENCY / WS2812_PWM_TARGET_PERIOD) /**< Clock period in ticks. 1 / 800kHz = 1.25 uS (as per datasheet) */
 
 /**
@@ -68,8 +70,9 @@
  * The reset period for each frame is defined in WS2812_TRST_US.
  * Calculate the number of zeroes to add at the end assuming 1.25 uS/bit:
  */
-#define WS2812_RESET_BIT_N (1000 * WS2812_TRST_US / 1250)
-#define WS2812_COLOR_BIT_N (RGBLED_NUM * 24)                   /**< Number of data bits */
+#define WS2812_COLOR_BITS (WS2812_CHANNELS * 8)
+#define WS2812_RESET_BIT_N (1000 * WS2812_TRST_US / WS2812_TIMING)
+#define WS2812_COLOR_BIT_N (RGBLED_NUM * WS2812_COLOR_BITS)    /**< Number of data bits */
 #define WS2812_BIT_N (WS2812_COLOR_BIT_N + WS2812_RESET_BIT_N) /**< Total number of bits in a frame */
 
 /**
@@ -114,7 +117,7 @@
  *
  * @return                          The bit index
  */
-#define WS2812_BIT(led, byte, bit) (24 * (led) + 8 * (byte) + (7 - (bit)))
+#define WS2812_BIT(led, byte, bit) (WS2812_COLOR_BITS * (led) + 8 * (byte) + (7 - (bit)))
 
 #if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
 /**
@@ -228,6 +231,20 @@
 #    define WS2812_BLUE_BIT(led, bit) WS2812_BIT((led), 0, (bit))
 #endif
 
+#ifdef RGBW
+/**
+ * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given white bit
+ *
+ * @note    The white byte is the last byte in the color packet
+ *
+ * @param[in] led:                  The led index [0, @ref WS2812_LED_N)
+ * @param[in] bit:                  The bit index [0, 7]
+ *
+ * @return                          The bit index
+ */
+#    define WS2812_WHITE_BIT(led, bit) WS2812_BIT((led), 3, (bit))
+#endif
+
 /* --- PRIVATE VARIABLES ---------------------------------------------------- */
 
 static uint32_t ws2812_frame_buffer[WS2812_BIT_N + 1]; /**< Buffer for a frame */
@@ -296,6 +313,17 @@ void ws2812_write_led(uint16_t led_number, uint8_t r, uint8_t g, uint8_t b) {
         ws2812_frame_buffer[WS2812_BLUE_BIT(led_number, bit)]  = ((b >> bit) & 0x01) ? WS2812_DUTYCYCLE_1 : WS2812_DUTYCYCLE_0;
     }
 }
+void ws2812_write_led_rgbw(uint16_t led_number, uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
+    // Write color to frame buffer
+    for (uint8_t bit = 0; bit < 8; bit++) {
+        ws2812_frame_buffer[WS2812_RED_BIT(led_number, bit)]   = ((r >> bit) & 0x01) ? WS2812_DUTYCYCLE_1 : WS2812_DUTYCYCLE_0;
+        ws2812_frame_buffer[WS2812_GREEN_BIT(led_number, bit)] = ((g >> bit) & 0x01) ? WS2812_DUTYCYCLE_1 : WS2812_DUTYCYCLE_0;
+        ws2812_frame_buffer[WS2812_BLUE_BIT(led_number, bit)]  = ((b >> bit) & 0x01) ? WS2812_DUTYCYCLE_1 : WS2812_DUTYCYCLE_0;
+#ifdef RGBW
+        ws2812_frame_buffer[WS2812_WHITE_BIT(led_number, bit)] = ((w >> bit) & 0x01) ? WS2812_DUTYCYCLE_1 : WS2812_DUTYCYCLE_0;
+#endif
+    }
+}
 
 // Setleds for standard RGB
 void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
@@ -306,6 +334,10 @@ void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
     }
 
     for (uint16_t i = 0; i < leds; i++) {
+#ifdef RGBW
+        ws2812_write_led_rgbw(i, ledarray[i].r, ledarray[i].g, ledarray[i].b, ledarray[i].w);
+#else
         ws2812_write_led(i, ledarray[i].r, ledarray[i].g, ledarray[i].b);
+#endif
     }
 }

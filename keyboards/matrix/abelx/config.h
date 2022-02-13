@@ -34,7 +34,7 @@
 #define GET_PORT(pp) (((pp) >> 8) & 0xFF)
 #define GET_PIN(pp) ((pp) & 0xFF)
 
-#define MATRIX_ROW_PINS { \
+#define CUSTOM_MATRIX_ROW_PINS { \
     DEF_PIN(TCA6424_PORT2, 7), \
     DEF_PIN(TCA6424_PORT2, 6), \
     DEF_PIN(TCA6424_PORT2, 0), \
@@ -42,7 +42,7 @@
     DEF_PIN(TCA6424_PORT2, 4), \
     DEF_PIN(TCA6424_PORT2, 5) }
 
-#define MATRIX_COL_PINS { \
+#define CUSTOM_MATRIX_COL_PINS { \
     DEF_PIN(TCA6424_PORT2, 1), \
     DEF_PIN(TCA6424_PORT1, 7), \
     DEF_PIN(TCA6424_PORT1, 6), \

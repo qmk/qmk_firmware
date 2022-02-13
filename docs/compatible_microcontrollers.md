@@ -27,6 +27,7 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [STM32F103](https://www.st.com/en/microcontrollers-microprocessors/stm32f103.html)
  * [STM32F303](https://www.st.com/en/microcontrollers-microprocessors/stm32f303.html)
  * [STM32F401](https://www.st.com/en/microcontrollers-microprocessors/stm32f401.html)
+ * [STM32F405](https://www.st.com/en/microcontrollers-microprocessors/stm32f405-415.html)
  * [STM32F407](https://www.st.com/en/microcontrollers-microprocessors/stm32f407-417.html)
  * [STM32F411](https://www.st.com/en/microcontrollers-microprocessors/stm32f411.html)
  * [STM32F446](https://www.st.com/en/microcontrollers-microprocessors/stm32f446.html)
@@ -37,12 +38,23 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [STM32L433](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x3.html)
  * [STM32L443](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x3.html)
 
+### WestBerryTech (WB32)
+
+ * [WB32F3G71xx](http://www.westberrytech.com)
+
 ### NXP (Kinetis)
 
  * [MKL26Z64](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/kl-series-cortex-m0-plus/kinetis-kl2x-72-96-mhz-usb-ultra-low-power-microcontrollers-mcus-based-on-arm-cortex-m0-plus-core:KL2x)
  * [MK20DX128](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k2x-usb/kinetis-k20-50-mhz-full-speed-usb-mixed-signal-integration-microcontrollers-based-on-arm-cortex-m4-core:K20_50)
  * [MK20DX256](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k2x-usb/kinetis-k20-72-mhz-full-speed-usb-mixed-signal-integration-microcontrollers-mcus-based-on-arm-cortex-m4-core:K20_72)
+ * [MK66FX1M0](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k6x-ethernet/kinetis-k66-180-mhz-dual-high-speed-full-speed-usbs-2mb-flash-microcontrollers-mcus-based-on-arm-cortex-m4-core:K66_180)
 
 ## Atmel ATSAM
 
 There is limited support for one of Atmel's ATSAM microcontrollers, that being the [ATSAMD51J18A](https://www.microchip.com/wwwproducts/en/ATSAMD51J18A) used by the [Massdrop keyboards](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop).
+
+## RISC-V
+
+### GigaDevice
+
+[ChibiOS-Contrib](https://github.com/ChibiOS/ChibiOS-Contrib) has support for the GigaDevice [GD32VF103 series](https://www.gigadevice.com/products/microcontrollers/gd32/risc-v/mainstream-line/gd32vf103-series/) microcontrollers and provides configurations for the [SiPeed Longan Nano](https://longan.sipeed.com/en/) development board that uses this microcontroller. It is largely pin and feature compatible with STM32F103 and STM32F303 microcontrollers.

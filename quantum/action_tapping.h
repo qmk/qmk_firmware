@@ -33,10 +33,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
 uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 void     action_tapping_process(keyrecord_t record);
+#endif
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record);
 bool     get_permissive_hold(uint16_t keycode, keyrecord_t *record);
 bool     get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record);
 bool     get_tapping_force_hold(uint16_t keycode, keyrecord_t *record);
 bool     get_retro_tapping(uint16_t keycode, keyrecord_t *record);
+
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+extern uint16_t g_tapping_term;
 #endif

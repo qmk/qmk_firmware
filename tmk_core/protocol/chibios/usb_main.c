@@ -39,6 +39,7 @@
 #    include "led.h"
 #endif
 #include "wait.h"
+#include "usb_device_state.h"
 #include "usb_descriptor.h"
 #include "usb_driver.h"
 
@@ -70,7 +71,12 @@ uint8_t                keyboard_protocol __attribute__((aligned(2))) = 1;
 uint8_t                keyboard_led_state                            = 0;
 volatile uint16_t      keyboard_idle_count                           = 0;
 static virtual_timer_t keyboard_idle_timer;
-static void            keyboard_idle_timer_cb(void *arg);
+
+#if CH_KERNEL_MAJOR >= 7
+static void keyboard_idle_timer_cb(struct ch_virtual_timer *, void *arg);
+#elif CH_KERNEL_MAJOR <= 6
+static void keyboard_idle_timer_cb(void *arg);
+#endif
 
 report_keyboard_t keyboard_report_sent = {{0}};
 #ifdef MOUSE_ENABLE
@@ -412,6 +418,7 @@ static inline bool usb_event_queue_dequeue(usbevent_t *event) {
 }
 
 static inline void usb_event_suspend_handler(void) {
+    usb_device_state_set_suspend(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif /* SLEEP_LED_ENABLE */
@@ -419,6 +426,7 @@ static inline void usb_event_suspend_handler(void) {
 
 static inline void usb_event_wakeup_handler(void) {
     suspend_wakeup_init();
+    usb_device_state_set_resume(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
     // NOTE: converters may not accept this
@@ -439,6 +447,15 @@ void usb_event_queue_task(void) {
             case USB_EVENT_WAKEUP:
                 last_suspend_state = false;
                 usb_event_wakeup_handler();
+                break;
+            case USB_EVENT_CONFIGURED:
+                usb_device_state_set_configuration(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
+                break;
+            case USB_EVENT_UNCONFIGURED:
+                usb_device_state_set_configuration(false, 0);
+                break;
+            case USB_EVENT_RESET:
+                usb_device_state_set_reset();
                 break;
             default:
                 // Nothing to do, we don't handle it.
@@ -482,13 +499,14 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
             if (last_suspend_state) {
                 usb_event_queue_enqueue(USB_EVENT_WAKEUP);
             }
+            usb_event_queue_enqueue(USB_EVENT_CONFIGURED);
             return;
         case USB_EVENT_SUSPEND:
-            usb_event_queue_enqueue(USB_EVENT_SUSPEND);
             /* Falls into.*/
         case USB_EVENT_UNCONFIGURED:
             /* Falls into.*/
         case USB_EVENT_RESET:
+            usb_event_queue_enqueue(event);
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
                 chSysLockFromISR();
                 /* Disconnection event on suspend.*/
@@ -761,7 +779,12 @@ void kbd_sof_cb(USBDriver *usbp) { (void)usbp; }
 
 /* Idle requests timer code
  * callback (called from ISR, unlocked state) */
+#if CH_KERNEL_MAJOR >= 7
+static void keyboard_idle_timer_cb(struct ch_virtual_timer *timer, void *arg) {
+    (void)timer;
+#elif CH_KERNEL_MAJOR <= 6
 static void keyboard_idle_timer_cb(void *arg) {
+#endif
     USBDriver *usbp = (USBDriver *)arg;
 
     osalSysLockFromISR();
@@ -1075,6 +1098,8 @@ void midi_ep_task(void) {
 #endif
 
 #ifdef VIRTSER_ENABLE
+
+void virtser_init(void) {}
 
 void virtser_send(const uint8_t byte) { chnWrite(&drivers.serial_driver.driver, &byte, 1); }
 

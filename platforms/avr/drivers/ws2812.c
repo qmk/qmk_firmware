@@ -52,20 +52,15 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
   using the fast 800kHz clockless WS2811/2812 protocol.
 */
 
-// Timing in ns
-#define w_zeropulse 350
-#define w_onepulse 900
-#define w_totalperiod 1250
-
 // Fixed cycles used by the inner loop
 #define w_fixedlow 2
 #define w_fixedhigh 4
 #define w_fixedtotal 8
 
 // Insert NOPs to match the timing, if possible
-#define w_zerocycles (((F_CPU / 1000) * w_zeropulse) / 1000000)
-#define w_onecycles (((F_CPU / 1000) * w_onepulse + 500000) / 1000000)
-#define w_totalcycles (((F_CPU / 1000) * w_totalperiod + 500000) / 1000000)
+#define w_zerocycles (((F_CPU / 1000) * WS2812_T0H) / 1000000)
+#define w_onecycles (((F_CPU / 1000) * WS2812_T1H + 500000) / 1000000)
+#define w_totalcycles (((F_CPU / 1000) * WS2812_TIMING + 500000) / 1000000)
 
 // w1_nops - nops between rising edge and falling edge - low
 #if w_zerocycles >= w_fixedlow

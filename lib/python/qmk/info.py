@@ -122,11 +122,6 @@ def _extract_features(info_data, rules):
     if rules.get('BOOTMAGIC_ENABLE') == 'full':
         rules['BOOTMAGIC_ENABLE'] = 'on'
 
-    # Skip non-boolean features we haven't implemented special handling for
-    for feature in 'HAPTIC_ENABLE', 'QWIIC_ENABLE':
-        if rules.get(feature):
-            del rules[feature]
-
     # Process the rest of the rules as booleans
     for key, value in rules.items():
         if key.endswith('_ENABLE'):
@@ -629,6 +624,8 @@ def arm_processor_rules(info_data, rules):
     if 'bootloader' not in info_data:
         if 'STM32' in info_data['processor']:
             info_data['bootloader'] = 'stm32-dfu'
+        elif 'WB32' in info_data['processor']:
+            info_data['bootloader'] = 'wb32-dfu'
         else:
             info_data['bootloader'] = 'unknown'
 
