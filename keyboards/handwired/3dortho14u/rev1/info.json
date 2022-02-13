@@ -21,10 +21,10 @@
     "unicode": false
     },
     "indicators": {
-      "caps_lock": "D5"
+      "caps_lock": "F0"
     },
     "matrix_pins": {
-      "cols": ["D0", "D1", "D2", "D3", "C6", "C7", "D5", "D4", "D6", "D7", "B4", "B5", "B6", "F7", "F6"],
+      "cols": ["D0", "D1", "D2", "D3", "C6", "C7", "D5", "D4", "D6", "D7", "B4", "B5", "B6", "F7"],
       "rows": ["B0", "B1", "B2", "B3", "B7"]
     },
     "usb": {
