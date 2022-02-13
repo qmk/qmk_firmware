@@ -13,8 +13,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [NAV] = LAYOUT(
-        RESET,   _______, _______, _______,
-        KC_PGUP, KC_UP,   _______, KC_PGUP,
+        RESET,   XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_PGUP, KC_UP,   XXXXXXX, KC_PGUP,
         TO(NUM),   KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
     ),
 
