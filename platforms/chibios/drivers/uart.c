@@ -44,7 +44,7 @@ void uart_init(uint32_t baud) {
 }
 
 void uart_write(uint8_t data) {
-    sdPut(&SERIAL_DRIVER, c);
+    sdPut(&SERIAL_DRIVER, data);
 }
 
 uint8_t uart_read(void) {
