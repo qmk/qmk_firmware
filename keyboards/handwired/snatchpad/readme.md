@@ -5,7 +5,7 @@
 A 6-key macropad with 2 rotary encoders intended for use as a pointing device.
 
 In addition to the 3d printed parts and microcontroller, the following hardware is required:
-* 4 * 3x3 mm heated inserts
+* 4 * 3x3 mm threaded inserts
 * 4 * 4mm M3 bolt
 * USB daughter board
 
