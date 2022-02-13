@@ -10,8 +10,10 @@ In addition to the 3d printed parts and microcontroller, the following hardware 
   * 8 * M3 muts and CA glue
     OR
   * 8 * 3x3 mm heated insert
+* Optional:
+  * USB daughter board
 
-
+---
 
 * Keyboard Maintainer: [xia0](https://github.com/xia0)
 * Hardware Supported:
