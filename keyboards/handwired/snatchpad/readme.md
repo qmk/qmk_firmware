@@ -2,7 +2,7 @@
 
 ![snatchpad etch-a-sketch macropad](https://github.com/xia0/keeb_files/blob/main/snatchpad/images/20220213_0004.jpg?raw=true)
 
-A 6-key macropad with 2 rotary encoders intended for use as a pointing device. [Vial](https://github.com/vial-kb/vial-qmk) can be used to remap the encoders.
+A 6-key macropad with 2 rotary encoders intended for use as a pointing device. 
 
 In addition to the 3d printed parts and microcontroller, the following hardware is required:
 * 4 * 3x3 mm heated inserts
