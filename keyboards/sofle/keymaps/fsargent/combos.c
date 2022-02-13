@@ -51,6 +51,40 @@ combo_t key_combos[] = {
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
+    if (layer_state_is(0)) {
+	    switch (combo_index) {
+            case DELWD:
+                if (pressed) {
+                    tap_code16(A(KC_BSPC));
+                }
+                break;
+            case CUT:
+                if (pressed) {
+                    tap_code16(G(KC_X));
+                }
+                break;
+            case CPY:
+                if (pressed) {
+                    tap_code16(G(KC_C));
+                }
+                break;
+            case PST:
+                if (pressed) {
+                    tap_code16(G(KC_V));
+                }
+                break;
+	case CTRLC:
+            if (pressed) {
+                tap_code16(C(KC_C));
+            }
+            break;
+	case CMD_ENTER:
+            if (pressed) {
+                tap_code16(G(KC_ENT));
+            }
+            break;
+	}
+    }
     if (layer_state_is(1)) {
         switch (combo_index) {
             case DELWD:
@@ -73,55 +107,17 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                     tap_code16(C(KC_V));
                 }
                 break;
+	case WINTGSYM:
+		if (pressed) {
+			layer_invert(3);
+		}
+		break;
         }
-    } else {
-        switch (combo_index) {
-            case DELWD:
-                if (pressed) {
-                    tap_code16(A(KC_BSPC));
-                }
-                break;
-            case CUT:
-                if (pressed) {
-                    tap_code16(G(KC_X));
-                }
-                break;
-            case CPY:
-                if (pressed) {
-                    tap_code16(G(KC_C));
-                }
-                break;
-            case PST:
-                if (pressed) {
-                    tap_code16(G(KC_V));
-                }
-                break;
-        }
-    };
+    }
     switch (combo_index) {
         case TGSYM:
             if (pressed) {
                 layer_invert(3);
-            }
-            break;
-	case WINTGSYM:
-            if (pressed) {
-                layer_invert(3);
-            }
-            break;
-        case CTILD:
-            if (pressed) {
-                tap_code16(C(KC_GRAVE));
-            }
-            break;
-        case CTRLC:
-            if (pressed) {
-                tap_code16(C(KC_C));
-            }
-            break;
-        case CTRLR:
-            if (pressed) {
-                tap_code16(C(KC_R));
             }
             break;
         case CAL:
@@ -147,11 +143,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case CTRLALTDEL:
             if (pressed) {
                 tap_code16(C(A(KC_DEL)));
-            }
-            break;
-        case CMD_ENTER:
-            if (pressed) {
-                tap_code16(G(KC_ENT));
             }
             break;
     }
