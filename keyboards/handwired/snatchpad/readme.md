@@ -1,6 +1,6 @@
 # snatchpad
 
-![snatchpad etch-a-sketch macropad](https://i.imgur.com/aRIM8Na.jpg)
+![snatchpad etch-a-sketch macropad](https://i.imgur.com/aRIM8Nah.jpg)
 
 A 6-key macropad with 2 rotary encoders intended for use as a pointing device.
 
