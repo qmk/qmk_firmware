@@ -9,7 +9,7 @@ In addition to the 3d printed parts and microcontroller, the following hardware 
 * Either:
   * 8 * M3 muts and CA glue
     OR
-  * 8 * 3x3 mm heated insert
+  * 8 * 3x3 mm threaded insert
 * Optional:
   * USB daughter board
 
