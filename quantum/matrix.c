@@ -46,6 +46,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SPLIT_MUTABLE_COL const
 #endif
 
+#if defined(OPTICAL_MATRIX)
+#    ifndef PRESSED_KEY_PIN_STATE
+#        define PRESSED_KEY_PIN_STATE 1
+#    endif
+#else
+#    ifndef PRESSED_KEY_PIN_STATE
+#        define PRESSED_KEY_PIN_STATE 0
+#    endif
+#endif
+
 #ifdef DIRECT_PINS
 static SPLIT_MUTABLE pin_t direct_pins[ROWS_PER_HAND][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
@@ -122,7 +132,7 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
         pin_t pin = direct_pins[current_row][col_index];
         if (pin != NO_PIN) {
-            current_row_value |= readPin(pin) ? 0 : row_shifter;
+            current_row_value |= readPin(pin) ? PRESSED_KEY_PIN_STATE : row_shifter;
         }
     }
 
@@ -184,12 +194,12 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
         uint8_t pin_state = readMatrixPin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
-        current_row_value |= pin_state ? 0 : row_shifter;
+        current_row_value |= pin_state ? PRESSED_KEY_PIN_STATE : row_shifter;
     }
 
     // Unselect row
     unselect_row(current_row);
-    matrix_output_unselect_delay(current_row, current_row_value != 0); // wait for all Col signals to go HIGH
+    matrix_output_unselect_delay(current_row, current_row_value != PRESSED_KEY_PIN_STATE); // wait for all Col signals to go HIGH
 
     // Update the matrix
     current_matrix[current_row] = current_row_value;
@@ -244,7 +254,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
         // Check row pin state
-        if (readMatrixPin(row_pins[row_index]) == 0) {
+        if (readMatrixPin(row_pins[row_index]) == PRESSED_KEY_PIN_STATE) {
             // Pin LO, set col bit
             current_matrix[row_index] |= row_shifter;
             key_pressed = true;
