@@ -4,7 +4,7 @@
 
 A symmetrical 14u wide ortholinear keyboard.
 
-* Keyboard Maintainer: [xiao](https://github.com/xia0)
+* Keyboard Maintainer: [xia0](https://github.com/xia0)
 * Hardware Supported:
   * Arduino Pro Micro (ATmega32u4)
 * Hardware Availability: [github](https://github.com/xia0/keeb_files/tree/main/3dortho14u)

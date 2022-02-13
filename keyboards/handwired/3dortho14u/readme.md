@@ -4,7 +4,7 @@
 
 A symmetrical 14u wide ortholinear keyboard.
 
-* Keyboard Maintainer: [xiao](https://github.com/xia0)
+* Keyboard Maintainer: [xia0](https://github.com/xia0)
 * Hardware Supported:
   * rev1: Teensy 2.0 (ATmega32u4)
   * rev2: Arduino Pro Micro (ATmega32u4)
