@@ -1,6 +1,6 @@
-# 13ortho14u
+# 3dortho14u
 
-![3dortho14u](imgur.com image replace me!)
+![3dortho14u](https://github.com/xia0/keyboard_docs/blob/main/3dortho14u/images/20220213_0007.jpg?raw=true)
 
 *A short description of the keyboard/project*
 
@@ -8,7 +8,7 @@
 * Hardware Supported:
   * rev1: Teensy 2.0 (ATmega32u4)
   * rev2: Arduino Pro Micro (ATmega32u4)
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: [github](https://github.com/xia0/keeb_files/tree/main/3dortho14u)
 
 Make example for this keyboard (after setting up your build environment):
 
