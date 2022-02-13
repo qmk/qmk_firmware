@@ -10,7 +10,7 @@
 #define TABL G(S(KC_LBRC))
 #define TABR G(S(KC_RBRC))
 #define SPCL A(G(KC_LEFT))
-#define SPCR A(G(KC_RGHT))
+#define SPC_R A(G(KC_RGHT))
 #define LA_SYM MO(SYM)
 #define LA_NAV MO(NAV)
 
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [NAV] = LAYOUT_callum(
         KC_TAB,  SW_WIN,  TABL,    TABR,    KC_VOLU, RESET,   HOME,    KC_UP,   END,     KC_DEL,
         OS_SHFT, OS_CTRL, OS_ALT,  OS_CMD,  KC_VOLD, KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
-        SPCL,    SPCR,    BACK,    FWD,     KC_MPLY, XXXXXXX, KC_PGDN, KC_PGUP, SW_LANG, KC_ENT,
+        SPCL,    SPC_R,   BACK,    FWD,     KC_MPLY, XXXXXXX, KC_PGDN, KC_PGUP, SW_LANG, KC_ENT,
                                    _______, _______, _______, _______
     ),
 

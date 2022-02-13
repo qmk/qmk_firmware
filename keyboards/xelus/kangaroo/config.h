@@ -43,8 +43,8 @@
 #define LOCKING_RESYNC_ENABLE
 
 // I2C OLED defines
-#define I2C1_SCL 8
-#define I2C1_SDA 9
+#define I2C1_SCL_PIN B8
+#define I2C1_SDA_PIN B9
 
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1

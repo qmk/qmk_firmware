@@ -43,6 +43,15 @@
 
 /* Underglow + top RGB configuration */
 #define RGB_DI_PIN D4
+#define RGBLIGHT_ANIMATIONS
+
+#if !defined(RGBLED_NUM)
+/* RGB LED count
+ * No external LED PCB: 10
+ * External LED PCB: 14
+ */
+#    define RGBLED_NUM 14
+#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE

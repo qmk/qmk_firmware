@@ -2,13 +2,13 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.9.0:docs/newbs_building_firmware_configurator.md
-  git diff 0.9.0 HEAD -- docs/newbs_building_firmware_configurator.md | cat
+  original document: 0.12.45:docs/newbs_building_firmware_configurator.md
+  git diff 0.12.45 HEAD -- docs/newbs_building_firmware_configurator.md | cat
 -->
 
 [![QMK Configurator Screenshot](https://i.imgur.com/anw9cOL.png)](https://config.qmk.fm/)
 
-[QMK Configurator](https://config.qmk.fm) は、QMKファームウェアの hex ファイルを生成するオンライングラフィカルユーザーインターフェイスです。
+[QMK Configurator](https://config.qmk.fm) は、QMKファームウェアの `.hex` や `.bin` ファイルを生成するオンライングラフィカルユーザーインターフェイスです。
 
 [ビデオチュートリアル](https://www.youtube.com/watch?v=-imgglzDMdY) を見てください。
 多くの人は、それが自分のキーボードのプログラミングを始めるのに十分な情報であることに気づくでしょう。

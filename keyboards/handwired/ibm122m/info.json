@@ -1,10 +1,6 @@
 {
   "keyboard_name": "IBM Model M 122-key",
-  "url": "",
   "maintainer": "qmk",
-  "bootloader": "",
-  "width": 24.75,
-  "height": 8,
   "layouts": {
     "LAYOUT": {
       "layout": [

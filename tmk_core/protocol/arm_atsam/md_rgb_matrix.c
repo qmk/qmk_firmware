@@ -15,16 +15,54 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "arm_atsam_protocol.h"
-#include "tmk_core/common/led.h"
-#include "rgb_matrix.h"
-#include <string.h>
-#include <math.h>
+#define FLUSH_TIMEOUT 5000
+#define EECONFIG_MD_LED ((uint8_t*)(EECONFIG_SIZE + 64))
+#define MD_LED_CONFIG_VERSION 1
 
-#ifdef USE_MASSDROP_CONFIGURATOR
+#ifdef RGB_MATRIX_ENABLE
+#    include "arm_atsam_protocol.h"
+#    include "led.h"
+#    include "rgb_matrix.h"
+#    include <string.h>
+#    include <math.h>
+
+#    ifdef USE_MASSDROP_CONFIGURATOR
+// TODO?: wire these up to keymap.c
+md_led_config_t md_led_config = {0};
+
+EECONFIG_DEBOUNCE_HELPER(md_led, EECONFIG_MD_LED, md_led_config);
+
+void eeconfig_update_md_led_default(void) {
+    md_led_config.ver = MD_LED_CONFIG_VERSION;
+
+    gcr_desired               = LED_GCR_MAX;
+    led_animation_orientation = 0;
+    led_animation_direction   = 0;
+    led_animation_breathing   = 0;
+    led_animation_id          = 0;
+    led_animation_speed       = 4.0f;
+    led_lighting_mode         = LED_MODE_NORMAL;
+    led_enabled               = 1;
+    led_animation_breathe_cur = BREATHE_MIN_STEP;
+    breathe_dir               = 1;
+    led_animation_circular    = 0;
+    led_edge_brightness       = 1.0f;
+    led_ratio_brightness      = 1.0f;
+    led_edge_mode             = LED_EDGE_MODE_ALL;
+
+    eeconfig_flush_md_led(true);
+}
+
+void md_led_changed(void) { eeconfig_flag_md_led(true); }
+
+// todo: use real task rather than this bodge
+void housekeeping_task_kb(void) { eeconfig_flush_md_led_task(FLUSH_TIMEOUT); }
+
 __attribute__((weak)) led_instruction_t led_instructions[] = {{.end = 1}};
 static void                             md_rgb_matrix_config_override(int i);
-#endif  // USE_MASSDROP_CONFIGURATOR
+#    else
+uint8_t gcr_desired;
+#    endif  // USE_MASSDROP_CONFIGURATOR
 
 void SERCOM1_0_Handler(void) {
     if (SERCOM1->I2CM.INTFLAG.bit.ERROR) {
@@ -55,20 +93,19 @@ issi3733_driver_t issidrv[ISSI3733_DRIVER_COUNT];
 issi3733_led_t led_map[ISSI3733_LED_COUNT] = ISSI3733_LED_MAP;
 RGB            led_buffer[ISSI3733_LED_COUNT];
 
-uint8_t gcr_desired;
 uint8_t gcr_actual;
 uint8_t gcr_actual_last;
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
 uint8_t gcr_breathe;
 float   breathe_mult;
 float   pomod;
-#endif
+#    endif
 
-#define ACT_GCR_NONE 0
-#define ACT_GCR_INC 1
-#define ACT_GCR_DEC 2
+#    define ACT_GCR_NONE 0
+#    define ACT_GCR_INC 1
+#    define ACT_GCR_DEC 2
 
-#define LED_GCR_STEP_AUTO 2
+#    define LED_GCR_STEP_AUTO 2
 
 static uint8_t gcr_min_counter;
 static uint8_t v_5v_cat_hit;
@@ -78,11 +115,11 @@ void gcr_compute(void) {
     uint8_t action  = ACT_GCR_NONE;
     uint8_t gcr_use = gcr_desired;
 
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
     if (led_animation_breathing) {
         gcr_use = gcr_breathe;
     }
-#endif
+#    endif
 
     // If the 5v takes a catastrophic hit, disable the LED drivers briefly, assert auto gcr mode, min gcr and let the auto take over
     if (v_5v < V5_CAT) {
@@ -150,7 +187,7 @@ void gcr_compute(void) {
             gcr_actual -= LED_GCR_STEP_AUTO;
             gcr_min_counter = 0;
 
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
             // If breathe mode is active, the top end can fluctuate if the host can not supply enough current
             // So set the breathe GCR to where it becomes stable
             if (led_animation_breathing == 1) {
@@ -159,7 +196,7 @@ void gcr_compute(void) {
                 //    and the same would happen maybe one or two more times. Therefore I'm favoring
                 //    powering through one full breathe and letting gcr settle completely
             }
-#endif
+#    endif
         }
     }
 }
@@ -196,26 +233,33 @@ void md_rgb_matrix_prepare(void) {
     }
 }
 
-void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b) {
+static void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b) {
     if (i < ISSI3733_LED_COUNT) {
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
         md_rgb_matrix_config_override(i);
-#else
+#    else
         led_buffer[i].r = r;
         led_buffer[i].g = g;
         led_buffer[i].b = b;
-#endif
+#    endif
     }
 }
 
-void led_set_all(uint8_t r, uint8_t g, uint8_t b) {
+static void led_set_all(uint8_t r, uint8_t g, uint8_t b) {
     for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++) {
         led_set_one(i, r, g, b);
     }
 }
 
-void init(void) {
+static void init(void) {
     DBGC(DC_LED_MATRIX_INIT_BEGIN);
+
+#    ifdef USE_MASSDROP_CONFIGURATOR
+    eeconfig_init_md_led();
+    if (md_led_config.ver != MD_LED_CONFIG_VERSION) {
+        eeconfig_update_md_led_default();
+    }
+#    endif
 
     issi3733_prepare_arrays();
 
@@ -227,16 +271,16 @@ void init(void) {
     DBGC(DC_LED_MATRIX_INIT_COMPLETE);
 }
 
-void flush(void) {
-#ifdef USE_MASSDROP_CONFIGURATOR
+static void flush(void) {
+#    ifdef USE_MASSDROP_CONFIGURATOR
     if (!led_enabled) {
         return;
     }  // Prevent calculations and I2C traffic if LED drivers are not enabled
-#else
+#    else
     if (!sr_exp_data.bit.SDB_N) {
         return;
     }  // Prevent calculations and I2C traffic if LED drivers are not enabled
-#endif
+#    endif
 
     // Wait for previous transfer to complete
     while (i2c_led_q_running) {
@@ -249,7 +293,7 @@ void flush(void) {
         *led_map[i].rgb.b = led_buffer[i].b;
     }
 
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
     breathe_mult = 1;
 
     if (led_animation_breathing) {
@@ -275,7 +319,7 @@ void flush(void) {
     pomod = (uint32_t)pomod % 10000;
     pomod /= 100.0f;
 
-#endif  // USE_MASSDROP_CONFIGURATOR
+#    endif  // USE_MASSDROP_CONFIGURATOR
 
     uint8_t drvid;
 
@@ -290,26 +334,26 @@ void flush(void) {
     i2c_led_q_run();
 }
 
-void md_rgb_matrix_indicators(void) {
+void md_rgb_matrix_indicators_advanced(uint8_t led_min, uint8_t led_max) {
     uint8_t kbled = keyboard_leds();
     if (kbled && rgb_matrix_config.enable) {
-        for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++) {
+        for (uint8_t i = led_min; i < led_max; i++) {
             if (
-#if USB_LED_NUM_LOCK_SCANCODE != 255
+#    if USB_LED_NUM_LOCK_SCANCODE != 255
                 (led_map[i].scan == USB_LED_NUM_LOCK_SCANCODE && (kbled & (1 << USB_LED_NUM_LOCK))) ||
-#endif  // NUM LOCK
-#if USB_LED_CAPS_LOCK_SCANCODE != 255
+#    endif  // NUM LOCK
+#    if USB_LED_CAPS_LOCK_SCANCODE != 255
                 (led_map[i].scan == USB_LED_CAPS_LOCK_SCANCODE && (kbled & (1 << USB_LED_CAPS_LOCK))) ||
-#endif  // CAPS LOCK
-#if USB_LED_SCROLL_LOCK_SCANCODE != 255
+#    endif  // CAPS LOCK
+#    if USB_LED_SCROLL_LOCK_SCANCODE != 255
                 (led_map[i].scan == USB_LED_SCROLL_LOCK_SCANCODE && (kbled & (1 << USB_LED_SCROLL_LOCK))) ||
-#endif  // SCROLL LOCK
-#if USB_LED_COMPOSE_SCANCODE != 255
+#    endif  // SCROLL LOCK
+#    if USB_LED_COMPOSE_SCANCODE != 255
                 (led_map[i].scan == USB_LED_COMPOSE_SCANCODE && (kbled & (1 << USB_LED_COMPOSE))) ||
-#endif  // COMPOSE
-#if USB_LED_KANA_SCANCODE != 255
+#    endif  // COMPOSE
+#    if USB_LED_KANA_SCANCODE != 255
                 (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1 << USB_LED_KANA))) ||
-#endif  // KANA
+#    endif  // KANA
                 (0)) {
                 if (rgb_matrix_get_flags() & LED_FLAG_INDICATOR) {
                     led_buffer[i].r = 255 - led_buffer[i].r;
@@ -327,19 +371,8 @@ const rgb_matrix_driver_t rgb_matrix_driver = {.init = init, .flush = flush, .se
 =                           Legacy Lighting Support                            =
 ==============================================================================*/
 
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
 // Ported from Massdrop QMK GitHub Repo
-
-// TODO?: wire these up to keymap.c
-uint8_t led_animation_orientation = 0;
-uint8_t led_animation_direction   = 0;
-uint8_t led_animation_breathing   = 0;
-uint8_t led_animation_id          = 0;
-float   led_animation_speed       = 4.0f;
-uint8_t led_lighting_mode         = LED_MODE_NORMAL;
-uint8_t led_enabled               = 1;
-uint8_t led_animation_breathe_cur = BREATHE_MIN_STEP;
-uint8_t breathe_dir               = 1;
 
 static void led_run_pattern(led_setup_t* f, float* ro, float* go, float* bo, float pos) {
     float po;
@@ -397,16 +430,32 @@ static void led_run_pattern(led_setup_t* f, float* ro, float* go, float* bo, flo
     }
 }
 
+#        define RGB_MAX_DISTANCE 232.9635f
+
 static void md_rgb_matrix_config_override(int i) {
     float ro = 0;
     float go = 0;
     float bo = 0;
-
-    float po = (led_animation_orientation) ? (float)g_led_config.point[i].y / 64.f * 100 : (float)g_led_config.point[i].x / 224.f * 100;
+    float po;
 
     uint8_t highest_active_layer = biton32(layer_state);
 
-    if (led_lighting_mode == LED_MODE_KEYS_ONLY && HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+    if (led_animation_circular) {
+        // TODO: should use min/max values from LED configuration instead of
+        // hard-coded 224, 64
+        // po = sqrtf((powf(fabsf((disp.width / 2) - (led_cur->x - disp.left)), 2) + powf(fabsf((disp.height / 2) - (led_cur->y - disp.bottom)), 2))) / disp.max_distance * 100;
+        po = sqrtf((powf(fabsf((224 / 2) - (float)g_led_config.point[i].x), 2) + powf(fabsf((64 / 2) - (float)g_led_config.point[i].y), 2))) / RGB_MAX_DISTANCE * 100;
+    } else {
+        if (led_animation_orientation) {
+            po = (float)g_led_config.point[i].y / 64.f * 100;
+        } else {
+            po = (float)g_led_config.point[i].x / 224.f * 100;
+        }
+    }
+
+    if (led_edge_mode == LED_EDGE_MODE_ALTERNATE && LED_IS_EDGE_ALT(led_map[i].scan)) {
+        // Do not act on this LED (Edge alternate lighting mode)
+    } else if (led_lighting_mode == LED_MODE_KEYS_ONLY && HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
         // Do not act on this LED
     } else if (led_lighting_mode == LED_MODE_NON_KEYS_ONLY && !HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
         // Do not act on this LED
@@ -464,9 +513,30 @@ static void md_rgb_matrix_config_override(int i) {
         }
     }
 
+    // Adjust edge LED brightness
+    if (led_edge_brightness != 1 && LED_IS_EDGE(led_map[i].scan)) {
+        ro *= led_edge_brightness;
+        go *= led_edge_brightness;
+        bo *= led_edge_brightness;
+    }
+
+    // Adjust ratio of key vs. underglow (edge) LED brightness
+    if (LED_IS_EDGE(led_map[i].scan) && led_ratio_brightness > 1.0) {
+        // Decrease edge (underglow) LEDs
+        ro *= (2.0 - led_ratio_brightness);
+        go *= (2.0 - led_ratio_brightness);
+        bo *= (2.0 - led_ratio_brightness);
+    } else if (LED_IS_KEY(led_map[i].scan) && led_ratio_brightness < 1.0) {
+        // Decrease KEY LEDs
+        ro *= led_ratio_brightness;
+        go *= led_ratio_brightness;
+        bo *= led_ratio_brightness;
+    }
+
     led_buffer[i].r = (uint8_t)ro;
     led_buffer[i].g = (uint8_t)go;
     led_buffer[i].b = (uint8_t)bo;
 }
 
-#endif  // USE_MASSDROP_CONFIGURATOR
+#    endif  // USE_MASSDROP_CONFIGURATOR
+#endif      // RGB_MATRIX_ENABLE

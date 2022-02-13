@@ -1,0 +1,1 @@
+WPM_ENABLE = yes

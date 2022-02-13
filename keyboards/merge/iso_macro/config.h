@@ -18,7 +18,7 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4D65
 #define PRODUCT_ID      0x1200
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Merge

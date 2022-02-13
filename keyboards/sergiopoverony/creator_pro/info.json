@@ -1,0 +1,20 @@
+{
+  "keyboard_name": "Creator Pro",
+  "url": "https://github.com/sergiopoverony",
+  "maintainer": "SergioPoverony",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"x":0, "y":0},
+        {"x":1, "y":0},
+        {"x":2, "y":0},
+        {"x":3, "y":0},
+        {"x":4.5, "y":0.5},
+        {"x":0, "y":1},
+        {"x":1, "y":1},
+        {"x":2, "y":1},
+        {"x":3, "y":1}
+      ]
+    }
+  }
+}

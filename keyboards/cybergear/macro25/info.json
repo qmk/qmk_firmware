@@ -1,0 +1,23 @@
+{
+    "keyboard_name": "Macro225 (mk-macro-01)",
+    "url": "https://github.com/CyberGear/mk-macro-01",
+    "maintainer": "CyberGear",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0x69A1",
+        "device_ver": "0x0001"
+    },
+    "diode_direction": "COL2ROW",
+    "layouts": {
+        "LAYOUT_ortho_2x5": {
+            "layout": [
+                {"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":4, "y":0},
+                {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":3, "y":1}, {"x":4, "y":1}
+            ]
+        }
+    },
+    "matrix_pins": {
+        "rows": ["E6", "B4"],
+        "cols": ["B1", "F7", "F6", "F5", "F4"]
+    }
+}

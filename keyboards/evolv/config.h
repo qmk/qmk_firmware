@@ -53,12 +53,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 16
-#define RGBLIGT_LIMIT_VAL 200
+#define RGBLIGHT_LIMIT_VAL 200
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_ANIMATIONS
 
 #define ENCODERS_PAD_A { B3 }
 #define ENCODERS_PAD_B { A15 }
+#define ENCODER_RESOLUTION 2
+#define TAPPING_TERM 200
 
 /*
  * Feature disable options

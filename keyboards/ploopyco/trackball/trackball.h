@@ -19,11 +19,8 @@
 #pragma once
 
 #include "quantum.h"
-#include "spi_master.h"
-#include "pmw3360.h"
 #include "analog.h"
 #include "opt_encoder.h"
-#include "pointing_device.h"
 #if defined(KEYBOARD_ploopyco_trackball_rev1)
 #    include "rev1.h"
 #elif defined(KEYBOARD_ploopyco_trackball_rev1_005)
@@ -36,24 +33,32 @@
 #define OPT_ENC1_MUX 0
 #define OPT_ENC2_MUX 4
 
-void process_mouse(report_mouse_t* mouse_report);
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y);
-void process_wheel(report_mouse_t* mouse_report);
-void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v);
-
 #define LAYOUT(BL, BM, BR, BF, BB) \
     { {BL, BM, BR, BF, BB}, }
 
 typedef union {
-  uint32_t raw;
-  struct {
-    uint8_t    dpi_config;
-  };
+    uint32_t raw;
+    struct {
+        uint8_t dpi_config;
+    };
 } keyboard_config_t;
 
 extern keyboard_config_t keyboard_config;
+extern uint16_t          dpi_array[];
 
 enum ploopy_keycodes {
+#ifdef VIA_ENABLE
+    DPI_CONFIG = USER00,
+#else
     DPI_CONFIG = SAFE_RANGE,
+#endif
+    DRAG_SCROLL,
+#ifdef VIA_ENABLE
+    PLOOPY_SAFE_RANGE = SAFE_RANGE,
+#else
     PLOOPY_SAFE_RANGE,
+#endif
 };
+
+bool encoder_update_user(uint8_t index, bool clockwise);
+bool encoder_update_kb(uint8_t index, bool clockwise);

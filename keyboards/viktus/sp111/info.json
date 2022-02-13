@@ -2,8 +2,6 @@
     "keyboard_name": "SP-111", 
     "url": "https://thekey.company/products/sp-111", 
     "maintainer": "blindassassin111", 
-    "width": 22.5, 
-    "height": 6.75, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

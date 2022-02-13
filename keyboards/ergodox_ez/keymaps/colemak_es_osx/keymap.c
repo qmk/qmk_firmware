@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = LAYOUT_ergodox(
 // left hand
-        KC_ESC,     KC_1,       KC_2,           KC_3,           KC_4,        KC_5,        ES_LESS,
+        KC_ESC,     KC_1,       KC_2,           KC_3,           KC_4,        KC_5,        ES_LABK,
         KC_TAB,     KC_Q,       KC_W,           KC_F,           KC_P,        KC_G,        KC_HOME,
         KC_CAPS,    KC_A,       KC_R,           KC_S,           KC_T,        KC_D,
         KC_LSFT,    KC_Z,       KC_X,           KC_C,           KC_V,        KC_B,        KC_GRV,
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // right hand
         ES_IEXL,        KC_6,           KC_7,       KC_8,       KC_9,       KC_0,       KC_BSPC,
-        KC_END,         KC_J,           KC_L,       KC_U,       KC_Y,       ES_NTIL,    ES_APOS,
+        KC_END,         KC_J,           KC_L,       KC_U,       KC_Y,       ES_NTIL,    ES_QUOT,
                         KC_H,           KC_N,       KC_E,       KC_I,       KC_O,       KC_ENT,
         ES_MINS,        KC_K,           KC_M,       KC_COMM,    KC_DOT,     KC_UP,      KC_RSFT,
                                 GUI_T(ES_ACUT), ALT_T(KC_BSLS), KC_LEFT,    KC_DOWN,    KC_RIGHT,
@@ -358,7 +358,7 @@ void led_3_on(void) {
     ergodox_right_led_3_set(max_led_value);
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
 
     if(layer_state_cmp(state ,IDEA)) {
         led_1_on();

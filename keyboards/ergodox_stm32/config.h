@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x1308
-#define DEVICE_VER 0x101
+#define DEVICE_VER 0x0101
 #define MANUFACTURER ErgoDox
 #define PRODUCT ErgoDox STM
 

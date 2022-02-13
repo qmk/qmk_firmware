@@ -1,9 +1,5 @@
 #include "rev2.h"
 
-void uart_init(void) {
-    SERIAL_UART_INIT();
-}
-
 void led_init(void) {
     setPinOutput(D1); // Pin to green, set as output
     writePinHigh(D1); // Turn it off
@@ -17,14 +13,13 @@ void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
     matrix_init_user();
-    uart_init();
     led_init();
 }
 
 /*
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 {{9, 0}, {8, 0}, {7, 0}, {6, 0}, {5, 0}, {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0}},
 {{9, 1}, {8, 1}, {7, 1}, {6, 1}, {5, 1}, {4, 1}, {3, 1}, {2, 1}, {1, 1}, {0, 1}},
 {{9, 2}, {8, 2}, {7, 2}, {6, 2}, {5, 2}, {4, 2}, {3, 2}, {2, 2}, {1, 2}, {0, 2}},

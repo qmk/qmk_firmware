@@ -16,15 +16,6 @@
 
 #pragma once
 
-/* Use I2C or Serial, not both */
-
-// #define USE_SERIAL
-#define USE_I2C
-
-/* Select hand configuration */
-
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
 #define EE_HANDS
 
 #ifdef RGBLIGHT_ENABLE
@@ -43,7 +34,7 @@
 #endif  // RGBLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
-#    define C6_AUDIO
+#    define AUDIO_PIN C6
 #    ifdef RGBLIGHT_ENABLE
 #        ifndef __arm__
 #            define NO_MUSIC_MODE

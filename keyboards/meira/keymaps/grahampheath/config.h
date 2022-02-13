@@ -21,7 +21,7 @@
 
 // place overrides here
 #define MUSIC_MASK (keycode != KC_NO)
-#define C6_AUDIO
+#define AUDIO_PIN C6
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)

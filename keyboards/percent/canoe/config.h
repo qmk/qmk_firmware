@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CANOE_CONFIG_H
-#define CANOE_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -38,9 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
+#define LED_CAPS_LOCK_PIN D1
+
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3
 
 #define RGBLIGHT_ANIMATIONS
-
-#endif

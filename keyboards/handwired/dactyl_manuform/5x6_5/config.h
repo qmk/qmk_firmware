@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define PRODUCT_ID      0x3536
-#define DEVICE_VER      0x0002
-#define PRODUCT         Dactyl-Manuform (5x6)
+#define PRODUCT_ID 0x3536
+#define DEVICE_VER 0x0002
+#define PRODUCT    Dactyl-Manuform (5x6)
 
 /* key matrix size */
 // Rows are doubled-up
@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 
 // wiring of each half
-// ../../../../docs/proton_c_conversion.md
 #define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5 }
 #define MATRIX_ROW_PINS { F6, F7, B1, B3, B2, B6 }
 

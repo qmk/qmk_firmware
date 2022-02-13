@@ -19,12 +19,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4B47 // KG
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MrT1ddl3s
-#define PRODUCT         knobgoblin
-
+#define PRODUCT         Knob Goblin
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 5
@@ -43,3 +42,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define DEBOUNCE 2
+
+/*Bootmagic position definition because (0,0) is not used*/
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 1

@@ -44,6 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, C2, C3, C4, C5, D7 }
 #define DIODE_DIRECTION COL2ROW
 
+#define LED_CAPS_LOCK_PIN D1
+
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3
 

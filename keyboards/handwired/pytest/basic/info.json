@@ -1,0 +1,9 @@
+{
+    "layouts": {
+        "LAYOUT_custom": {
+            "layout": [
+                { "label": "KC_Q", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 }
+            ]
+        }
+    }
+}

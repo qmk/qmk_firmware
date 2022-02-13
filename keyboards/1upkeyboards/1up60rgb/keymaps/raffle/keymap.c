@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //***************************** Function bodies  *****************************//
 // enable tri-layer state for _raise + _rgb = _adjust
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _raise, _rgb, _adjust);
 }
 
@@ -110,21 +110,3 @@ void led_set_user(uint8_t usb_led) {
   }
 
 }
-
-//*********** Empty fxns from default map that I'm not modifying ***********//
-// onboard macro support
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  ;
-
-  switch (id) {
-
-  }
-  return MACRO_NONE;
-}
-
-// initialize matrix 
-void matrix_init_user(void) {
-}
-
-
-

@@ -229,7 +229,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (!alpha_pressed) {
             tap_code(clockwise ? KC_VOLD : KC_VOLU);
@@ -243,14 +243,15 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(clockwise ? KC_PGUP : KC_PGDN);
         }
     }
+    return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_0;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     /* Host Keyboard Layer Status */
     uint8_t current_layer = get_highest_layer(layer_state);
 
@@ -336,5 +337,6 @@ void oled_task_user(void) {
         }
     }
 
+    return false;
 }
 #endif

@@ -6,9 +6,6 @@
 #include "i2c_master.h"
 #include <util/delay.h>
 
-#define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
-#define CPU_16MHz       0x00
-
 // I2C aliases and register addresses (see "mcp23018.md" on tmk repository)
 #define I2C_ADDR        0b0100000
 #define I2C_ADDR_WRITE  ( (I2C_ADDR<<1) | I2C_WRITE )

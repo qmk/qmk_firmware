@@ -1,10 +1,7 @@
 {
   "keyboard_name": "Sun Type 3",
-  "keyboard_folder": "converter/sun_usb/type3",
   "url": "",
   "maintainer": "qmk",
-  "width": 21,
-  "height": 6,
   "layouts": {
     "LAYOUT": {
       "layout": [

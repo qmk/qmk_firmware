@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_MNXT);
@@ -46,9 +46,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_MPRV);
         }
     }
+    return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE  //Special thanks to Sickbabies for this great OLED widget!
+#ifdef OLED_ENABLE  //Special thanks to Sickbabies for this great OLED widget!
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_90;  // rotates for proper orientation
 }
@@ -143,13 +144,14 @@ void render_mod_status(uint8_t modifiers) {
     oled_write_ln_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_lechiffre_logo();
     oled_set_cursor(0,3);
     // render_layer_status();	// Renders the current keyboard state (layer, lock, caps, scroll, etc)
 	render_mod_status(get_mods()|get_oneshot_mods());
 	render_keylock_status(host_keyboard_led_state());
 	render_keylogger_status();
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

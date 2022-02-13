@@ -56,14 +56,3 @@ extern host_driver_t lufa_driver;
 #ifdef __cplusplus
 }
 #endif
-
-#ifdef API_ENABLE
-#    include "api.h"
-#endif
-
-#ifdef API_SYSEX_ENABLE
-#    include "api_sysex.h"
-// Allocate space for encoding overhead.
-// The header and terminator are not stored to save a few bytes of precious ram
-#    define MIDI_SYSEX_BUFFER (API_SYSEX_MAX_SIZE + API_SYSEX_MAX_SIZE / 7 + (API_SYSEX_MAX_SIZE % 7 ? 1 : 0))
-#endif

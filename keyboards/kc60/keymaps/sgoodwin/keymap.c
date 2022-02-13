@@ -28,9 +28,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,  KC_TRNS,  KC_TRNS,                       KC_SPC,                                 KC_NO,    DEBUG,    RESET,     KC_TRNS, KC_NO     \
       ),
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-  return MACRO_NONE;
-};
