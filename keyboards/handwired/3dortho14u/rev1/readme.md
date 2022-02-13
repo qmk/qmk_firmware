@@ -2,7 +2,7 @@
 
 ![3dortho14u](https://github.com/xia0/keyboard_docs/blob/main/3dortho14u/images/20220213_0007.jpg?raw=true)
 
-*A short description of the keyboard/project*
+A symmetrical 14u wide ortholinear keyboard.
 
 * Keyboard Maintainer: [xiao](https://github.com/xia0)
 * Hardware Supported:
