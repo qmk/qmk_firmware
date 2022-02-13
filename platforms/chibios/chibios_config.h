@@ -34,6 +34,10 @@
 #    if !defined(I2C1_CLOCK_SPEED)
 #        define I2C1_CLOCK_SPEED 400000
 #    endif
+
+#    define SPI_SCK_PAL_MODE (PAL_MODE_ALTERNATE_SPI | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_DRIVE4)
+#    define SPI_MOSI_PAL_MODE SPI_SCK_PAL_MODE
+#    define SPI_MISO_PAL_MODE SPI_SCK_PAL_MODE
 #endif
 
 // STM32 compatibility

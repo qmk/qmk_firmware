@@ -20,7 +20,7 @@
 
 static pin_t currentSlavePin = NO_PIN;
 
-#if defined(K20x) || defined(KL2x)
+#if defined(K20x) || defined(KL2x) || defined(RP2040)
 static SPIConfig spiConfig = {NULL, 0, 0, 0};
 #else
 static SPIConfig spiConfig = {false, NULL, 0, 0, 0, 0};
@@ -167,7 +167,36 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
             spiConfig.SPI_CPOL = SPI_CPOL_High;
             break;
     }
+#elif defined(MCU_RP)
+    if (lsbFirst) {
+        osalDbgAssert(lsbFirst == false, "RP2040s PrimeCell SPI implementation does not support sending LSB first.");
+    }
 
+    // Motorola frame format and 8bit transfer data size.
+    spiConfig.SSPCR0 = SPI_SSPCR0_FRF_MOTOROLA | SPI_SSPCR0_DSS_8BIT;
+    // Serial output clock = (ck_sys or ck_peri) / (SSPCPSR->CPSDVSR * (1 +
+    // SSPCR0->SCR)). SCR is always set to zero, as QMK SPI API expects the
+    // passed divisor to be the only value to divide the input clock by.
+    spiConfig.SSPCPSR = roundedDivisor; // Even number from 2 to 254
+
+    switch (mode) {
+        case 0:
+            spiConfig.SSPCR0 &= ~SPI_SSPCR0_SPO; // Clock polarity: low
+            spiConfig.SSPCR0 &= ~SPI_SSPCR0_SPH; // Clock phase: sample on first edge
+            break;
+        case 1:
+            spiConfig.SSPCR0 &= ~SPI_SSPCR0_SPO; // Clock polarity: low
+            spiConfig.SSPCR0 |= SPI_SSPCR0_SPH;  // Clock phase: sample on second edge transition
+            break;
+        case 2:
+            spiConfig.SSPCR0 |= SPI_SSPCR0_SPO;  // Clock polarity: high
+            spiConfig.SSPCR0 &= ~SPI_SSPCR0_SPH; // Clock phase: sample on first edge
+            break;
+        case 3:
+            spiConfig.SSPCR0 |= SPI_SSPCR0_SPO; // Clock polarity: high
+            spiConfig.SSPCR0 |= SPI_SSPCR0_SPH; // Clock phase: sample on second edge transition
+            break;
+    }
 #else
     spiConfig.cr1 = 0;
 
