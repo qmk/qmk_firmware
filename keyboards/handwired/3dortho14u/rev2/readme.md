@@ -1,6 +1,6 @@
 # 3dortho14u
 
-![3dortho14u](https://i.imgur.com/us16LYT.jpg)
+![3dortho14u](https://i.imgur.com/us16LYTh.jpg)
 
 A symmetrical 14u wide ortholinear keyboard.
 
