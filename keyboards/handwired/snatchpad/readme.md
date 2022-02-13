@@ -1,8 +1,8 @@
 # snatchpad
 
-![snatchpad etch-a-sketch macropad](https://github.com/xia0/keeb_files/blob/main/snatchpad/images/20220213_0004.jpg?raw=true)
+![snatchpad etch-a-sketch macropad](https://i.imgur.com/aRIM8Na.jpg)
 
-A 6-key macropad with 2 rotary encoders intended for use as a pointing device. 
+A 6-key macropad with 2 rotary encoders intended for use as a pointing device.
 
 In addition to the 3d printed parts and microcontroller, the following hardware is required:
 * 4 * 3x3 mm heated inserts
