@@ -4,6 +4,13 @@
 
 A symmetrical 14u wide ortholinear keyboard.
 
+In addition to the 3d printed parts and microcontroller, the following hardware is required:
+* 8 * 12 mm M2 bolt
+* Either:
+  * 8 * M3 muts and CA glue
+    OR
+  * 8 * 3x3 mm heated insert
+
 * Keyboard Maintainer: [xia0](https://github.com/xia0)
 * Hardware Supported:
   * rev1: Teensy 2.0 (ATmega32u4)
