@@ -63,7 +63,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case NUM:
             lain_set_led(1, 1);
             lain_set_led(2, 0);
@@ -84,10 +84,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        lain_set_led(0, 1);
-    } else {
-        lain_set_led(0, 0);
-    }
+bool led_update_user(led_t led_state) {
+    lain_set_led(0, led_state.caps_lock);
+    return false;
 }

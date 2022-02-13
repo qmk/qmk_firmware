@@ -5,8 +5,6 @@
 
 #include "quantum.h"
 
-#define LAIN_EEPROM_LED_ADDR (EECONFIG_SIZE)
-
 typedef union {
     uint32_t raw;
     struct {
