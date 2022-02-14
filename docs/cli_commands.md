@@ -335,6 +335,23 @@ This command cleans up the `.build` folder. If `--all` is passed, any .hex or .b
 qmk clean [-a]
 ```
 
+## `qmk via2json`
+
+This command an generate a keymap.json from a VIA keymap backup. Both the layers and the macros are converted, enabling users to easily move away from a VIA-enabled firmware without writing any code or reimplementing their keymaps in QMK Configurator.
+
+**Usage**:
+
+```
+qmk via2json -kb KEYBOARD [-l LAYOUT] [-km KEYMAP] [-o OUTPUT] filename
+```
+
+**Example:**
+
+```
+$ qmk via2json -kb ai03/polaris -o polaris_keymap.json polaris_via_backup.json
+Ψ Wrote keymap to /home/you/qmk_firmware/polaris_keymap.json
+```
+
 ---
 
 # Developer Commands
