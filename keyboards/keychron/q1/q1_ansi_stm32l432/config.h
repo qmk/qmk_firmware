@@ -18,7 +18,7 @@
 
 /* USB Device descriptor parameter */
 #define PRODUCT_ID      0x0106
-#define DEVICE_VER      0x0200
+#define DEVICE_VER      0x0202
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -46,9 +46,6 @@
 
 /* Set the maxium brightness as 192 in order to limit the current to 450mA */
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS (24 * 8)  // 8 = RGB_MATRIX_VAL_STEP
-
-/* Set USB polling rate as 1 milliseconds */
-#define USB_POLLING_INTERVAL_MS 1
 
 /* We have 2KB EEPROM size on STM32L432 */
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
