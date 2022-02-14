@@ -5,6 +5,7 @@ colorama
 fnvhash
 hid
 hjson
+Jinja2
 jsonschema>=3
 milc>=1.4.2
 pygments

@@ -1,10 +1,21 @@
 """This script handles the XAP protocol data files.
 """
-import re
+import os
 import hjson
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+from qmk.constants import QMK_FIRMWARE
 from typing import OrderedDict
 
-from qmk.constants import QMK_FIRMWARE
+
+def _get_jinja2_env(data_templates_xap_subdir: str):
+    templates_dir = os.path.join(QMK_FIRMWARE, 'data', 'templates', 'xap', data_templates_xap_subdir)
+    j2 = Environment(loader=FileSystemLoader(templates_dir), autoescape=select_autoescape())
+    return j2
+
+
+def render_xap_output(data_templates_xap_subdir, file_to_render, defs):
+    j2 = _get_jinja2_env(data_templates_xap_subdir)
+    return j2.get_template(file_to_render).render(xap=defs, xap_str=hjson.dumps(defs))
 
 
 def _merge_ordered_dicts(dicts):

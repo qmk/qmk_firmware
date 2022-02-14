@@ -16,7 +16,8 @@ import_names = {
     # A mapping of package name to importable name
     'pep8-naming': 'pep8ext_naming',
     'pyusb': 'usb.core',
-    'qmk-dotty-dict': 'dotty_dict'
+    'qmk-dotty-dict': 'dotty_dict',
+    'Jinja2': 'jinja2'
 }
 
 safe_commands = [

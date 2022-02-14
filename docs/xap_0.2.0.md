@@ -50,13 +50,14 @@ Any request will generate at least one corresponding response, with the exceptio
 Response messages will always be prefixed by the originating request _token_, directly followed by that request's _response flags_, then the response payload length:
 
 | Bit 7 | Bit 6 | Bit 5 | Bit 4 | Bit 3 | Bit 2 | Bit 1 | Bit 0 |
-|--|--|--|--|--|--|--|--|
-| Unlocked | Unlocking | - | - | - | - | Secure Failure | Success |
+| -- | -- | -- | -- | -- | -- | -- | -- |
+| `UNLOCKED` | `UNLOCK_IN_PROGRESS` | `-` | `-` | `-` | `-` | `SECURE_FAILURE` | `SUCCESS` |
 
-* `Bit 7`: When this bit is set, an _unlock sequence_ has completed, and _secure routes_ may be invoked.
-* `Bit 6`: When this bit is set, an _unlock sequence_ is in progress.
-* `Bit 1`: When this bit is set, the requested _route_ was marked _secure_ but an _unlock sequence_ has not completed.
-* `Bit 0`: When this bit is set, the request was successfully handled. If not set, all payload data should be disregarded, and the request retried if appropriate (with a new token).
+* Bit 7 (`UNLOCKED`): When this bit is set, an _unlock sequence_ has completed, and _secure routes_ may be invoked.
+* Bit 6 (`UNLOCK_IN_PROGRESS`): When this bit is set, an _unlock sequence_ is in progress.
+* Bit 1 (`SECURE_FAILURE`): When this bit is set, the requested _route_ was marked _secure_ but an _unlock sequence_ has not completed.
+* Bit 0 (`SUCCESS`): When this bit is set, the request was successfully handled. If not set, all payload data should be disregarded, and the request retried if appropriate (with a new token).
+
 
 ### Example "conversation":
 

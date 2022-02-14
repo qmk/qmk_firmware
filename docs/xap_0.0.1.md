@@ -41,10 +41,11 @@ This token is followed by a `u8` signifying the length of data in the request.
 Response messages will always be prefixed by the originating request _token_, directly followed by that request's _response flags_, then the response payload length:
 
 | Bit 7 | Bit 6 | Bit 5 | Bit 4 | Bit 3 | Bit 2 | Bit 1 | Bit 0 |
-|--|--|--|--|--|--|--|--|
-| - | - | - | - | - | - | - | Success |
+| -- | -- | -- | -- | -- | -- | -- | -- |
+| `-` | `-` | `-` | `-` | `-` | `-` | `-` | `SUCCESS` |
 
-* `Bit 0`: When this bit is set, the request was successfully handled. If not set, all payload data should be disregarded, and the request retried if appropriate (with a new token).
+* Bit 0 (`SUCCESS`): When this bit is set, the request was successfully handled. If not set, all payload data should be disregarded, and the request retried if appropriate (with a new token).
+
 
 ### Example "conversation":
 

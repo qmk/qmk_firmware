@@ -9,13 +9,13 @@
         order: [
             page_header
             type_docs
-            !type_docs!
+            !type_docs.md.j2
             term_definitions
-            !term_definitions!
+            !term_definitions.md.j2
             request_response
             reserved_tokens
             response_flags
-            !response_flags!
+            !response_flags.md.j2
             example_conversation
         ]
 
