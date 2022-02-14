@@ -1,47 +1,78 @@
-## Introduction
+# Introduction
 This keyboard layout centers around Dvorak,  harnesing the power of the Kyria thumb
-clusters and layers to reduce finger movement.
-Qwerty is present so you don't have to remap games and any other programs you use.
+clusters and layers to reduce finger and wrist movement.
 
+![A very rare fren](pics/fren.png)
+
+## Important note!
+This keymap will only work if you have all the kyria keys available! If you've used 2u keys on the thumb cluster, or have broken off a column, this layout will not work!
+
+---
+
+## Features
+
+**Dvorak:** So you don't have to leave the home row so much.
+
+**Qwerty:** So you don't have to remap common programs.
+
+**Custom FPS gaming layer:** Because the WASD stagger is so extreme on the Kyria.
+
+**A number layer:** To access numbers, symbols and volume controls.
+
+**Index Layer:** To help navigate thru base layers without wasting accessible keys.
+
+And a very *very* rare **fren** to tag along on your adventures.
 
 ## Guiding ideology
-- Use thumb keys as much as possible
-- Minimise home row departure
-- Minimize or eliminate non home row pinkie finger use
-- Create macros for very common key shortcuts (ctrl + c/v/s, ctrl+shift+home etc.)
-- Create macros for very common commands (git status, git pull, git push etc.)
+- Use lower thumb keys as much as possible.
+- Minimise home row departure.
+- Minimize or eliminate non home row pinkie finger use.
+- Create macros for very common key shortcuts (ctrl + c/v/s, ctrl+shift+home etc.).
+- Create macros for very common commands (git status, git pull, git push etc.).
 
-- Use hints to indicate current layer (rgb lighting/OLED display)
-- Allow graceful layer handling (emergency return to default layer/layer index layer)
+- Use hints to indicate current layer (rgb lighting/OLED display).
+- Allow graceful layer handling (emergency return to default layer/layer index layer).
 
 
-## Current Layers
+---
+
+
+# Current Layers
 - Base1: dvorak
 - Base2: qwerty
-- Base3: Index layer
-
-MO layer: Numbers, symbols & volume controls
+- Base3: Gaming layer (WASD is too staggered on Kyria)
+- MO layer: Number, Symbol & volume control layer
 
 ## Future Layers
-- Layer_1: navigation & keypad
-- Layer_2: F keys
-- Layer_3: FE macros
-- Layer_4: Git macros
+
+- F keys
+- FE macros
+- Git macros
+
+---
 
 
-## Issues
-### Major so far
+# Issues
+### Major
 - [ ] Home/End navs missing
 
 ### Minor
 - [ ] Backlight LEDs dont indicate layer
-- [ ] OLEDs not showing overly useful info (Especially the right OLED)
 - [ ] Not fully using thumb clusters
-- [ ] Function keys missing (NUM CAPS SCROLL)
+- [ ] Function keys and indicators missing (NUM, CAPS, SCROLL)
 
+---
 
+# Helpful Links
 
-### Layer template
+- QMK Docs https://docs.qmk.fm/#/
+- [Keymap diagram editor for the Kyria](http://www.keyboard-layout-editor.com/##@_name=Kyria%3B&@_y:0.25&x:3&a:7%3B&=&_x:9%3B&=%3B&@_y:-0.75&x:2%3B&=&_x:1%3B&=&_x:7%3B&=&_x:1%3B&=%3B&@_y:-0.875&x:5%3B&=&_x:5%3B&=%3B&@_y:-0.625%3B&=&=&_x:13%3B&=&=%3B&@_y:-0.75&x:3%3B&=&_x:9%3B&=%3B&@_y:-0.75&x:2%3B&=&_x:1%3B&=&_x:7%3B&=&_x:1%3B&=%3B&@_y:-0.875&x:5%3B&=&_x:5%3B&=%3B&@_y:-0.625%3B&=&=&_x:13%3B&=&=%3B&@_y:-0.75&x:3%3B&=&_x:9%3B&=%3B&@_y:-0.75&x:2%3B&=&_x:1%3B&=&_x:7%3B&=&_x:1%3B&=%3B&@_y:-0.875&x:5%3B&=&_x:5%3B&=%3B&@_y:-0.625%3B&=&=&_x:13%3B&=&=%3B&@_y:-0.5&x:2.5%3B&=&_x:10%3B&=%3B&@_rx:4&ry:8.175&y:-4.675000000000001&x:-0.5%3B&=%3B&@_rx:13&y:-4.675000000000001&x:-0.5%3B&=%3B&@_r:15&rx:4&y:-4.675000000000001&x:-0.5%3B&=%3B&@_r:30&y:-2&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:45&y:-2&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:-45&rx:13&y:-5.675000000000001&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:-30&y:-2&x:-0.5%3B&=%3B&@_x:-0.5%3B&=%3B&@_r:-15&y:-1&x:-0.5%3B&=)
+- [Thomas' Guide for creating OLED images](https://docs.splitkb.com/hc/en-us/articles/360013811280)
+- [Image converter](https://javl.github.io/image2cpp/)
+
+---
+
+## Layer template
 ```
 //  * ,-------------------------------------------.                              ,-------------------------------------------.
 //  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |

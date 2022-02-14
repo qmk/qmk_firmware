@@ -10,6 +10,7 @@ enum layers {
   QWERTY,
   LAYERS,
   NUMSYM,
+  FPSGAMES,
 };
 
 // Future Layers
@@ -107,19 +108,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |  ESC   |  ' " | , <  |   .  |   P  |   Y  |                              |   F  |   G  |   C  |   R  |   L  |L_Qwerty|
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |  Tab   |   A  |   O  |   E  |   U  |   I  |                              |   D  |   H  |   T  |   N  |   S  |L_Layers|
+ * |  Tab   |   A  |   O  |   E  |   U  |   I  |                              |   D  |   H  |   T  |   N  |   S  |   -    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift | :  ; |   Q  |   J  |   K  |   X  |      |L_NumS|  |  Win |      |   B  |   M  |   W  |   V  |   Z  | RShift |
+ * | LShift | :  ; |   Q  |   J  |   K  |   X  |LCtrl |      |  |  Win |L_Lay |   B  |   M  |   W  |   V  |   Z  | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'	
- *                        | Left |Right | LCtrl| Space| Bksp |  |R_Alt | ENTER|  Del |  Up  | Down |
+ *                        | Left |Right |L_NumS| Space| Bksp |  |R_Alt | ENTER|  Del |  Up  | Down |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
   [DVORAK] = LAYOUT(
     KC_ESC,  KC_QUOT, KC_COMM,KC_DOT ,KC_P,    KC_Y,                                                KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    DF(QWERTY),
-    KC_TAB,  KC_A,    KC_O,   KC_E,   KC_U,    KC_I,                                                KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    DF(LAYERS),
-    KC_LSFT, KC_SCLN, KC_Q,   KC_J,   KC_K,    KC_X,  XXXXXXX,  MO(NUMSYM),  KC_LWIN,    XXXXXXX,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-                          KC_LEFT,   KC_RGHT, KC_LCTL,  KC_SPC,   KC_BSPC,  KC_RALT,    KC_ENT,     KC_DEL,  KC_UP,  KC_DOWN
+    KC_TAB,  KC_A,    KC_O,   KC_E,   KC_U,    KC_I,                                                KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
+    KC_LSFT, KC_SCLN, KC_Q,   KC_J,   KC_K,    KC_X,  KC_LCTL,  XXXXXXX,  KC_LWIN,    DF(LAYERS),   KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
+                       KC_LEFT, KC_RGHT, MO(NUMSYM),  KC_SPC,   KC_BSPC,  KC_RALT,    KC_ENT,     KC_DEL,  KC_UP,  KC_DOWN
   ),
 
 
@@ -132,19 +133,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |  ESC   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |L_Dvorak|
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |  Tab   |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |L_Layers|
+ * |  Tab   |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |L_NumS|  |  Win |      |   N  |   M  | ,  < | . >  | /  ? | RShift |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |LCtrl |      |  |  Win |L_Lay |   N  |   M  | ,  < | . >  | /  ? | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'	
- *                        | Left |Right | LCtrl| Space| Bksp |  | RAlt | ENTER|  Del |  Up  | Down |
+ *                        | Left |Right |L_NumS| Space| Bksp |  | RAlt | ENTER|  Del |  Up  | Down |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [QWERTY] = LAYOUT(
       KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    DF(DVORAK),
-      KC_TAB,  KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, DF(LAYERS),
-      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,  XXXXXXX, MO(NUMSYM),    KC_LWIN,  XXXXXXX,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                            KC_LEFT,   KC_RGHT, KC_LCTL, KC_SPC,  KC_BSPC,    KC_RALT,  KC_ENT,     KC_DEL,  KC_UP,  KC_DOWN
+      KC_TAB,  KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, XXXXXXX,
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,  KC_LCTL, XXXXXXX,    KC_LWIN,  DF(LAYERS),    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+                         KC_LEFT,  KC_RGHT, MO(NUMSYM), KC_SPC, KC_BSPC,    KC_RALT,  KC_ENT,     KC_DEL,  KC_UP,  KC_DOWN
     ),
 
 
@@ -152,24 +153,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 /*
- * Sym Layer: Numbers, symbols & Vol control
+ * Base Layer: FPSGAMES
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |    `   |  1   |  2   |  3   |  4   |  5   |                              |   6  |  7   |  8   |  9   |  0   |   =    |
+ * |  ESC   |  1   |   Q  |   W  |   E  |   R  |                              |      |      |      |      |      |L_Dvorak|
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |    ~   |  !   |  @   |  #   |  $   |  %   |                              |   ^  |  &   |  *   |  (   |  )   |   +    |
+ * |  Tab   |  2   |   A  |   S  |   D  |   F  |                              |      |  F1  |  F2  |  F3  |  F4 |         |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * | LShift |  3   |   Z  |   X  |   C   |  V  |      |L_NumS|  |      |L_Lay |      |      |      |      |     |         |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'	
+ *                        |      |      | LCtrl| Space| LAlt |  |      |      | Mute |Vol U |Vol D |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [FPSGAMES] = LAYOUT(
+      KC_ESC,  KC_1,   KC_Q,   KC_W,   KC_E,    KC_R,                                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   DF(DVORAK),
+      KC_TAB,  KC_2,   KC_A,   KC_S,   KC_D,    KC_F,                                             XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,     XXXXXXX,
+      KC_LSFT, KC_3,   KC_Z,   KC_X,   KC_C,    KC_V,  XXXXXXX, MO(NUMSYM),    XXXXXXX, DF(LAYERS), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                           XXXXXXX,  XXXXXXX, KC_LCTL, KC_SPC,  KC_LALT,       XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLU, KC_VOLD
+    ),
+
+
+
+
+
+/*
+ * MO Layer: Numbers, symbols & Vol control
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |    `   |  !   |  @   |  #   |  $   |  %   |                              |   ^  |  &   |  *   |  (   |  )   |   +    |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |    ~   |  1   |  2   |  3   |  4   |  5   |                              |   6  |  7   |  8   |  9   |  0   |   =    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |    |   |   \  |  :   |  ;   |  -   |  [   |  {   |      |  |      |   }  |   ]  |  _   |  ,   |  .   |  /   |   ?    |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      | LCtrl|      |      |  |      |      | Mute |Vol U |Vol D |
+ *                        | Left |Right |      |      |      |  |      |      | Mute |Vol U |Vol D |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [NUMSYM] = LAYOUT(
-      KC_GRV ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                       KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
-      KC_TILD , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
-      KC_PIPE , KC_BSLS, KC_COLN, KC_SCLN, KC_MINS, KC_LBRC, KC_LCBR, _______, _______, KC_RCBR, KC_RBRC, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
-                                  _______, _______, KC_LCTL, _______, _______, _______, _______, KC_MUTE, KC_VOLU, KC_VOLD
+      KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR, KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
+      KC_TILD, KC_1,    KC_2,    KC_3,    KC_4,   KC_5,                                         KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_EQL,
+      KC_PIPE, KC_BSLS, KC_COLN, KC_SCLN, KC_MINS, KC_LBRC, KC_LCBR, XXXXXXX, XXXXXXX, KC_RCBR, KC_RBRC, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
+                                 KC_LEFT, KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLU, KC_VOLD
     ),
 
 
@@ -256,7 +282,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Layer index
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |Dvorak|      |                              |      |      |      |      |      |L_Dvorak|
+ * |        |      |      |FPSGames|Dvorak|    |                            |      |      |      |      |      |L_Dvorak|
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      |      |      |QWERTY|      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
@@ -267,7 +293,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [LAYERS] = LAYOUT(
-      _______, _______, _______, _______, DF(DVORAK), _______,                                    _______, _______, _______, _______,  _______, DF(DVORAK),
+      _______, _______, _______, DF(FPSGAMES), DF(DVORAK), _______,                                    _______, _______, _______, _______,  _______, DF(DVORAK),
       _______, _______, _______, _______, DF(QWERTY), _______,                                    _______, _______, _______, _______,  _______, _______,
       _______, _______, _______, _______, MO(NUMSYM), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -497,6 +523,9 @@ static void render_keymap(void) {
           break;
       case QWERTY:
           oled_write_P(PSTR("Qwerty\n\n"), false);
+          oled_write_P(PSTR("q w e r t   y u i o p \n"), false);
+          oled_write_P(PSTR("a s d f g   h j k l ; \n"), false);
+          oled_write_P(PSTR("z x c v b   n m , . / \n"), false);
           break;
       case NUMSYM:
           oled_write_P(PSTR("Num & Sym\n\n"), false);
@@ -504,9 +533,15 @@ static void render_keymap(void) {
           oled_write_P(PSTR("~!@#$P | ^&*()+ \n"), false);
           oled_write_P(PSTR("|\\:;-[{ }]_,./? \n"), false);
           break;
+      case FPSGAMES:
+          oled_write_P(PSTR("FPS Games \n\n"), false);
+          oled_write_P(PSTR("1 q W e r | \n"), false);
+          oled_write_P(PSTR("2 A S D f | \n"), false);
+          oled_write_P(PSTR("3 z x c v | \n"), false);
+          break;
       case LAYERS:
           oled_write_P(PSTR("Index Layer\n\n"), false);
-          oled_write_P(PSTR("- - - D - | - - - - - \n"), false);
+          oled_write_P(PSTR("- - G D - | - - - - - \n"), false);
           oled_write_P(PSTR("- - - Q - | - - - - - \n"), false);
           oled_write_P(PSTR("- - - N - | - - - - - \n"), false);
           break;
