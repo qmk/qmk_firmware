@@ -4,7 +4,7 @@
 
 _A short description of the keyboard/project_
 
--   Keyboard Maintainer: [Michal Petrik](https://github.com/Michal Petrik)
+-   Keyboard Maintainer: [Michal Petrik](https://github.com/vikingviolinist)
 -   Hardware Supported: _The PCBs, controllers supported_
 -   Hardware Availability: _Links to where you can find this hardware_
 
