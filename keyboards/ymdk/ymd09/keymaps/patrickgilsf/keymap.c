@@ -100,6 +100,12 @@ KEY26 - If KEY25 is down, back to layer 1
 KEY27 - If KEY19 && KEY25 are down, puts it in setup mode
 */
 
+/* Here is the LED map, from various testing
+x x 0
+x x 3
+x x x
+*/
+
 //initialize booleans for stacked functions:
 bool kp_1 = false;
     bool micMute = false; //1a bounces between toggle presses
@@ -148,7 +154,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (micMute == false) {  
                 micMute = true;       
                 tap_code16(LSFT(LGUI(KC_A)));                            
-                rgblight_setrgb(RGB_RED);
+                ///rgblight_setrgb(RGB_RED);
+                rgblight_setrgb_at(RGB_RED,2);
             }   else if (micMute == true) {
                     micMute = false;
                     tap_code16(LSFT(LGUI(KC_A)));
@@ -164,7 +171,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (vidMute == false) {
                 vidMute = true;
                 tap_code16(LSFT(LGUI(KC_V)));
-                rgblight_setrgb_range(62, 103, 168, 1, 9);
+                //rgblight_setrgb_range(62, 103, 168, 0, 9);
+                rgblight_setrgb_at(62, 103, 168, 1);
             }   else if (vidMute == true) {
                 vidMute = false;
                 tap_code16(LSFT(LGUI(KC_V)));
