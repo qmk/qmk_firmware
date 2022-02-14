@@ -178,19 +178,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (LOWER)
  * XZ
  * ,-----------------------------------------------------------------------.
- * |  `  |  !  |  #  |  $  |  <  |  >  |  :  |  7  |  8  |  9  |  =  | Bsp |
+ * |  `  |  !  |  #  |  [  |  ]  |  $  |  :  |  7  |  8  |  9  |  =  | Bsp |
  * |-----------------------------------------------------------------------|
- * |  '  |  _  |  ^  |  %  |  (  |  )  |  M  |  4  |  5  |  6  |  -  |  +  |
+ * |  '  |  _  |  ^  |  (  |  )  |  %  |  M  |  4  |  5  |  6  |  -  |  +  |
  * |-----------------------------------------------------------------------|
- * |Shift|  |  |  &  |  "  |  {  |  }  |  @  |  1  |  2  |  3  |  /  |  *  |
+ * |Shift|  |  |  &  |  {  |  }  |  "  |  @  |  1  |  2  |  3  |  /  |  *  |
  * |-----------------------------------------------------------------------|
  * |     |     |     |     |     |         |MO(6),0|  .  |     |     |     |
  * `-----------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid( /* LOWER */
-  KC_GRV,  KC_EXLM, KC_HASH, KC_DLR,  KC_LABK, KC_RABK, KC_COLN, KC_P7, KC_P8,   KC_P9,  KC_EQL,  KC_BSPC,
-  KC_QUOT, KC_UNDS, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN, KC_M,    KC_P4, KC_P5,   KC_P6,  KC_PMNS, KC_PPLS,
-  KC_TRNS, KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, KC_AT,   KC_P1, KC_P2,   KC_P3,  KC_PSLS, KC_PAST,
+  KC_GRV,  KC_EXLM, KC_HASH, KC_LBRC, KC_RBRC, KC_DLR,  KC_COLN, KC_P7, KC_P8,   KC_P9,  KC_EQL,  KC_BSPC,
+  KC_QUOT, KC_UNDS, KC_CIRC, KC_LPRN, KC_RPRN, KC_PERC, KC_M,    KC_P4, KC_P5,   KC_P6,  KC_PMNS, KC_PPLS,
+  KC_TRNS, KC_PIPE, KC_AMPR, KC_LCBR, KC_RCBR, KC_DQUO, KC_AT,   KC_P1, KC_P2,   KC_P3,  KC_PSLS, KC_PAST,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_NO,  KC_NO,   KC_NO
 ),
 
@@ -226,8 +226,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, MTLCTL_F9, MTLSFT_F10, MTLALT_F11, KC_F12,  KC_MYCM, KC_CALC, KC_HOME, KC_UP,        KC_END,  KC_PSCR,   KC_DEL,
-  KC_TRNS, KC_F5,     KC_F6,      KC_F7,      KC_F8,   DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,   KC_CAPS,
+  KC_TRNS, MTLCTL_F9, MTLSFT_F10, MTLALT_F11, KC_F12,  KC_MYCM, KC_CALC, KC_HOME, KC_UP,        KC_END,  KC_PSCR,  KC_DEL,
+  KC_TRNS, KC_F5,     KC_F6,      KC_F7,      KC_F8,   DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,  KC_CAPS,
   KC_TRNS, KC_F1,     KC_F2,      KC_F3,      KC_F4,   ALT_TAB, MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS,
   KC_NO,   KC_NO,     KC_NO,      KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,    KC_NO
 ),
@@ -239,16 +239,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------------|
  * |RGBMod| MWL | MsL |MDn  |MsR  |GAMING|       |AU_ON|AU_OFF|MU_ON|MU_OF| DEBUG|
  * |-----------------------------------------------------------------------------|
- * |     |MWLft|MWUp |NWDn |NWRght|QWERTY|CMK_VCP|MI_ON|MI_OF |     |     |MU_Mod|
+ * |     |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|MI_ON|MI_OF |     |     |MU_Mod|
  * |-----------------------------------------------------------------------------|
  * |     |     |     |SLEEP|      |              |     |      |     |     |      |
  * `-----------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
-  RGB_TOG, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD,     RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RESET,
-  RGB_MOD, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  KC_NO,       AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  DEBUG,
+  RGB_TOG, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RESET,
+  RGB_MOD, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  KC_NO,   AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  DEBUG,
   KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK, MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, MU_MOD,
-  KC_NO,   KC_NO,   KC_NO,   KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
+  KC_NO,   KC_NO,   KC_NO,   KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
 )
 };
 
@@ -256,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 float layerswitch_song[][2] = SONG(PLANCK_SOUND);
 float tone_startup[][2]     = SONG(STARTUP_SOUND);
 float tone_qwerty[][2]      = SONG(QWERTY_SOUND);
-float tone_COLEMAK[][2] = SONG(COLEMAK_SOUND);
+float tone_colemak[][2]     = SONG(COLEMAK_SOUND);
 float music_scale[][2]      = SONG(MUSIC_SCALE_SOUND);
 float tone_goodbye[][2]     = SONG(GOODBYE_SOUND);
 
@@ -341,7 +341,7 @@ void usl_finished(qk_tap_dance_state_t *state, void *user_data) {
     usl_tap_state.state = cur_dance(state);
     switch (usl_tap_state.state) {
         case TD_SINGLE_TAP:
-            tap_code16(KC_UNDS);
+            tap_code16(KC_MINS);
             break;
         case TD_SINGLE_HOLD:
             layer_on(_LOWER);
@@ -515,33 +515,33 @@ enum combo_events {
   EQUALS,
   COMBO_LENGTH
 };
-uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
+uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead
 
-const uint16_t PROGMEM email_combo[] = {KC_E, KC_M, COMBO_END};
-const uint16_t PROGMEM email_work_combo[] = {KC_E, KC_K, COMBO_END};
-const uint16_t PROGMEM html_p_combo[] = {KC_P, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_title_combo[] = {KC_T, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_div_combo[] = {KC_D, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_html_combo[] = {KC_Q, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_head_combo[] = {KC_W, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_body_combo[] = {KC_R, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_footer_combo[] = {KC_X, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_a_href_combo[] = {KC_A, KC_DOT, COMBO_END};
-const uint16_t PROGMEM html_img_combo[] = {KC_F, KC_DOT, COMBO_END};
-const uint16_t PROGMEM css_style_combo[] = {KC_S, KC_DOT, COMBO_END};
+const uint16_t PROGMEM email_combo[]            = {KC_E, KC_M, COMBO_END};
+const uint16_t PROGMEM email_work_combo[]       = {KC_E, KC_K, COMBO_END};
+const uint16_t PROGMEM html_p_combo[]           = {KC_P, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_title_combo[]       = {KC_T, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_div_combo[]         = {KC_D, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_html_combo[]        = {KC_Q, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_head_combo[]        = {KC_W, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_body_combo[]        = {KC_R, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_footer_combo[]      = {KC_X, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_a_href_combo[]      = {KC_A, KC_DOT, COMBO_END};
+const uint16_t PROGMEM html_img_combo[]         = {KC_F, KC_DOT, COMBO_END};
+const uint16_t PROGMEM css_style_combo[]        = {KC_S, KC_DOT, COMBO_END};
 const uint16_t PROGMEM html_generic_tag_combo[] = {KC_G, KC_DOT, COMBO_END};
-const uint16_t PROGMEM ctrlright_combo[] = {KC_RGHT, KC_DOWN, COMBO_END};
-const uint16_t PROGMEM ctrlleft_combo[] = {KC_LEFT, KC_DOWN, COMBO_END};
-const uint16_t PROGMEM undo_combo[] = {MTLGUI_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM redo_combo[] = {MTLGUI_Z, KC_C, COMBO_END};
-const uint16_t PROGMEM cut_combo[] = {KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM copy_combo[] = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM paste_combo[] = {KC_C, KC_D, COMBO_END};
-const uint16_t PROGMEM pasteclip_combo[] = {KC_X, KC_D, COMBO_END};
-const uint16_t PROGMEM pastetxt_combo[] = {KC_X, KC_V, COMBO_END};
-const uint16_t PROGMEM selectall_combo[] = {MTLGUI_Z, KC_D, COMBO_END};
-const uint16_t PROGMEM exclamation_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
-const uint16_t PROGMEM equals_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
+const uint16_t PROGMEM ctrlright_combo[]        = {KC_RGHT, KC_DOWN, COMBO_END};
+const uint16_t PROGMEM ctrlleft_combo[]         = {KC_LEFT, KC_DOWN, COMBO_END};
+const uint16_t PROGMEM undo_combo[]             = {MTLGUI_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM redo_combo[]             = {MTLGUI_Z, KC_C, COMBO_END};
+const uint16_t PROGMEM cut_combo[]              = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM copy_combo[]             = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM paste_combo[]            = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM pasteclip_combo[]        = {KC_X, KC_D, COMBO_END};
+const uint16_t PROGMEM pastetxt_combo[]         = {KC_X, KC_V, COMBO_END};
+const uint16_t PROGMEM selectall_combo[]        = {MTLGUI_Z, KC_D, COMBO_END};
+const uint16_t PROGMEM exclamation_combo[]      = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM equals_combo[]           = {KC_COMMA, KC_DOT, COMBO_END};
 
 // const uint8_t combo_mods = get_mods();
 // const uint8_t combo_oneshot_mods = get_oneshot_mods();
