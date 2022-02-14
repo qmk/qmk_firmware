@@ -102,9 +102,9 @@ KEY27 - If KEY19 && KEY25 are down, puts it in setup mode
 
 //initialize booleans for stacked functions:
 bool kp_1 = false;
-    bool kp_1a = false; //1a bounces between toggle presses
+    bool micMute = false; //1a bounces between toggle presses
 bool kp_2 = false;
-    bool kp_2a = false;
+    bool vidMute = false;
 bool kp_3 = false;
 bool kp_4 = false;
 bool kp_5 = false;
@@ -145,12 +145,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             kp_1 = true;
         } else {
             kp_1 = false;
-            if (kp_1a == false) {  
-                kp_1a = true;       
+            if (micMute == false) {  
+                micMute = true;       
                 tap_code16(LSFT(LGUI(KC_A)));                            
                 rgblight_setrgb(RGB_RED);
-            }   else if (kp_1a == true) {
-                    kp_1a = false;
+            }   else if (micMute == true) {
+                    micMute = false;
                     tap_code16(LSFT(LGUI(KC_A)));
                     rgblight_setrgb(RGB_ORANGE);
                 };
@@ -161,14 +161,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             kp_2 = true;
         } else {
             kp_2 = false;
-            if (kp_2a == false) {
-                kp_2a = true;
+            if (vidMute == false) {
+                vidMute = true;
                 tap_code16(LSFT(LGUI(KC_V)));
                 rgblight_setrgb_range(62, 103, 168, 1, 9);
-            }   else if (kp_2a == true) {
-                kp_2a = false;
+            }   else if (vidMute == true) {
+                vidMute = false;
                 tap_code16(LSFT(LGUI(KC_V)));
-                if (kp_1a) {
+                if (micMute) {
                     rgblight_setrgb(RGB_ORANGE);
                 } else {
                     rgblight_setrgb(RGB_RED);
@@ -430,7 +430,7 @@ void keyboard_post_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         default:
-            if (kp_1a) {
+            if (micMute) {
                 rgblight_setrgb(RGB_RED);
             }   else {
                 rgblight_setrgb(RGB_ORANGE);
