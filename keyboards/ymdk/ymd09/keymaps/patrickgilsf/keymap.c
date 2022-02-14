@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /* This is my 9 key YMDK that I use to control Zoom. I have some future goals with the project as well:
-
     - Leverage Zoom SDK and node-hid to sync true mute status with kb rgb backlight
     - added rgb coloration for when the video is muted
 */    
@@ -79,7 +78,6 @@ KEY6 - Next Page of Gallery
 KEY7 - Full Screen
 KEY8 - Show/Hide Chat; // If KEY7 is down, up to layer 1.
 KEY9 - Minimal Window;
-
 --Layer 1 - [PC Zoom Shortcuts]
 KEY10 - Mute Mic/Toggle Keyboard Light; 
 KEY11 - Mute Video; // If KEY10 is down, back to layer 0
@@ -90,7 +88,6 @@ KEY15 - Next Page of Gallery
 KEY16 - Full Screen
 KEY17 - Show/Hide Chat; // If KEY7 is down, down to layer 0.
 KEY18 - Minimal Window; // If KEY7 is down, up to layer 2
-
 -- Layer 2 -
 KEY19 - 
 KEY20 - 
@@ -107,6 +104,7 @@ KEY27 - If KEY19 && KEY25 are down, puts it in setup mode
 bool kp_1 = false;
     bool kp_1a = false; //1a bounces between toggle presses
 bool kp_2 = false;
+    bool kp_2a = false;
 bool kp_3 = false;
 bool kp_4 = false;
 bool kp_5 = false;
@@ -161,9 +159,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KEY2:
         if (record->event.pressed) {
             kp_2 = true;
-        }   else {
+        } else {
+            kp_2 = false;
+            if (kp_2a == false) {
+                kp_2a = true;
                 tap_code16(LSFT(LGUI(KC_V)));
-                kp_2 = false;
+                rgblight_setrgb_range(62, 103, 168, 1, 9);
+            }   else if (kp_2a == true) {
+                kp_2a = false;
+                tap_code16(LSFT(LGUI(KC_V)));
+                if (kp_1a) {
+                    rgblight_setrgb(RGB_ORANGE);
+                } else {
+                    rgblight_setrgb(RGB_RED);
+                }
+            }                
         }
         break;
     case KEY3:
@@ -409,10 +419,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 void keyboard_post_init_user(void) {
   // Call the post init code.
   rgblight_enable_noeeprom(); // enables Rgb, without saving settings
-  rgblight_setrgb(RGB_ORANGE);
+  rgblight_set(); //added this per comment on Discord, trying to get rgb setup
+  rgblight_setrgb(RGB_BLUE); //chaning this does not change the lights color
   rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); 
   set_single_persistent_default_layer(0); 
-  rgblight_set(); //added this per comment on Discord, trying to get rgb setup
+  
 }
 
 //RGB control for layers

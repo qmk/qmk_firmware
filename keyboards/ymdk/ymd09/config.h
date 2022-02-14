@@ -38,8 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-#define RGB_DI_PIN E2
-#ifdef RGB_DI_PIN
+ #define RGB_DI_PIN E2
+ #ifdef RGB_DI_PIN
  #define RGBLED_NUM 9
  #define RGBLIGHT_HUE_STEP 8
  #define RGBLIGHT_SAT_STEP 8
