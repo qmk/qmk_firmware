@@ -7,9 +7,9 @@ Ergonomic 40% keyboard.
 serial exprement lain themed.    
 licensed under #lainttl (https://www.nbcuni.co.jp/rondorobe/anime/lain/ttl/)
 
-Keyboard Maintainer: [Takuya Urakawa @hsgw](https://github.com/hsgw), https://5z6p.com   
-Hardware Supported: onboard MCU.   
-Hardware Availability: Group buy. (https://5z6p.com/products/lain/)   
+* Keyboard Maintainer: [Takuya Urakawa @hsgw](https://github.com/hsgw), https://5z6p.com
+* Hardware Supported: onboard MCU.
+* Hardware Availability: Group buy. (https://5z6p.com/products/lain/)
 
 Make example for this keyboard (after setting up your build environment):
 
