@@ -76,6 +76,8 @@
 #   define RGBLED_NUM 27
 #   define DRIVER_LED_TOTAL RGBLED_NUM
 
+#   define RGB_MATRIX_CENTER { 112, 48 }
+
 #   define RGB_MATRIX_KEYPRESS
 #   define RGB_MATRIX_RELEASES
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
