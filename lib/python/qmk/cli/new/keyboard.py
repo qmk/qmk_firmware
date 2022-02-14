@@ -15,47 +15,10 @@ from qmk.json_schema import load_jsonschema
 from qmk.path import keyboard
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import deep_update
+from qmk.constants import MCU2BOOTLOADER
 
 COMMUNITY = Path('layouts/default/')
 TEMPLATE = Path('data/templates/keyboard/')
-
-MCU2BOOTLOADER = {
-    "MKL26Z64": "halfkay",
-    "MK20DX128": "halfkay",
-    "MK20DX256": "halfkay",
-    "MK66FX1M0": "halfkay",
-    "STM32F042": "stm32-dfu",
-    "STM32F072": "stm32-dfu",
-    "STM32F103": "stm32duino",
-    "STM32F303": "stm32-dfu",
-    "STM32F401": "stm32-dfu",
-    "STM32F405": "stm32-dfu",
-    "STM32F407": "stm32-dfu",
-    "STM32F411": "stm32-dfu",
-    "STM32F446": "stm32-dfu",
-    "STM32G431": "stm32-dfu",
-    "STM32G474": "stm32-dfu",
-    "STM32L412": "stm32-dfu",
-    "STM32L422": "stm32-dfu",
-    "STM32L432": "stm32-dfu",
-    "STM32L433": "stm32-dfu",
-    "STM32L442": "stm32-dfu",
-    "STM32L443": "stm32-dfu",
-    "GD32VF103": "gd32v-dfu",
-    "WB32F3G71": "wb32-dfu",
-    "atmega16u2": "atmel-dfu",
-    "atmega32u2": "atmel-dfu",
-    "atmega16u4": "atmel-dfu",
-    "atmega32u4": "atmel-dfu",
-    "at90usb162": "atmel-dfu",
-    "at90usb646": "atmel-dfu",
-    "at90usb647": "atmel-dfu",
-    "at90usb1286": "atmel-dfu",
-    "at90usb1287": "atmel-dfu",
-    "atmega32a": "bootloadhid",
-    "atmega328p": "usbasploader",
-    "atmega328": "usbasploader",
-}
 
 # defaults
 schema = dotty(load_jsonschema('keyboard'))
@@ -141,20 +104,42 @@ def augment_community_info(src, dest):
     dest.write_text(json.dumps(info, cls=InfoJSONEncoder))
 
 
+def _question(*args, **kwargs):
+    """Ugly workaround until 'milc' learns to display a repromt msg
+    """
+    # TODO: Remove this once milc.questions.question handles reprompt messages
+
+    reprompt = kwargs["reprompt"]
+    del kwargs["reprompt"]
+    validate = kwargs["validate"]
+    del kwargs["validate"]
+
+    prompt = args[0]
+    ret = None
+    while not ret:
+        ret = question(prompt, **kwargs)
+        if not validate(ret):
+            ret = None
+            prompt = reprompt
+
+    return ret
+
+
 def prompt_keyboard():
     prompt = """{fg_yellow}Name Your Keyboard Project{style_reset_all}
-
 For more infomation, see:
 https://docs.qmk.fm/#/hardware_keyboard_guidelines?id=naming-your-keyboardproject
 
-keyboard Name? """
+Keyboard Name? """
 
-    return question(prompt, validate=lambda x: not keyboard(x).exists())
+    errmsg = 'Keyboard already exists! Please choose a different name:'
+
+    return _question(prompt, reprompt=errmsg, validate=lambda x: not keyboard(x).exists())
 
 
 def prompt_user():
-    prompt = """{fg_yellow}Attribution{style_reset_all}
-
+    prompt = """
+{fg_yellow}Attribution{style_reset_all}
 Used for maintainer, copyright, etc
 
 Your GitHub Username? """
@@ -162,8 +147,8 @@ Your GitHub Username? """
 
 
 def prompt_name(def_name):
-    prompt = """{fg_yellow}More Attribution{style_reset_all}
-
+    prompt = """
+{fg_yellow}More Attribution{style_reset_all}
 Used for maintainer, copyright, etc
 
 Your Real Name? """
@@ -171,8 +156,8 @@ Your Real Name? """
 
 
 def prompt_layout():
-    prompt = """{fg_yellow}Pick Base Layout{style_reset_all}
-
+    prompt = """
+{fg_yellow}Pick Base Layout{style_reset_all}
 As a starting point, one of the common layouts can be used to bootstrap the process
 
 Default Layout? """
@@ -184,8 +169,8 @@ Default Layout? """
 
 
 def prompt_mcu():
-    prompt = """{fg_yellow}What Powers Your Project{style_reset_all}
-
+    prompt = """
+{fg_yellow}What Powers Your Project{style_reset_all}
 For more infomation, see:
 https://docs.qmk.fm/#/compatible_microcontrollers
 
@@ -199,7 +184,7 @@ MCU? """
 @cli.argument('-kb', '--keyboard', help='Specify the name for the new keyboard directory', arg_only=True, type=keyboard_name)
 @cli.argument('-l', '--layout', help='Community layout to bootstrap with', arg_only=True, type=layout_type)
 @cli.argument('-t', '--type', help='Specify the keyboard MCU type', arg_only=True, type=mcu_type)
-@cli.argument('-u', '--username', help='Specify your username (default from Git config)', arg_only=True)
+@cli.argument('-u', '--username', help='Specify your username (default from Git config)', dest='name')
 @cli.argument('-n', '--realname', help='Specify your real name if you want to use that. Defaults to username', arg_only=True)
 @cli.subcommand('Creates a new keyboard directory')
 def new_keyboard(cli):
@@ -209,8 +194,8 @@ def new_keyboard(cli):
     cli.echo('')
 
     kb_name = cli.args.keyboard if cli.args.keyboard else prompt_keyboard()
-    user_name = cli.args.username if cli.args.username else prompt_user()
-    real_name = cli.args.realname or cli.args.username if cli.args.realname or cli.args.username else prompt_name(user_name)
+    user_name = cli.config.new_keyboard.name if cli.config.new_keyboard.name else prompt_user()
+    real_name = cli.args.realname or cli.config.new_keyboard.name if cli.args.realname or cli.config.new_keyboard.name else prompt_name(user_name)
     default_layout = cli.args.layout if cli.args.layout else prompt_layout()
     mcu = cli.args.type if cli.args.type else prompt_mcu()
     bootloader = select_default_bootloader(mcu)
