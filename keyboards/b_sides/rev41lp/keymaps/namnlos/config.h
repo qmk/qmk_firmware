@@ -15,27 +15,29 @@
  */
 #pragma once
 
-#include "config_common.h"
+#undef BACKLIGHT_LEVELS
+#define BACKLIGHT_LEVELS 11
+#undef BACKLIGHT_LIMIT_VAL
+#define BACKLIGHT_LIMIT_VAL 255
+#define BACKLIGHT_DEFAULT_LEVEL 3
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
-    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
-)
+#define COMBO_COUNT 3
+#define IGNORE_MOD_TAP_INTERRUPT
+
+#define UNICODE_SELECTED_MODES UC_WINC, UC_WIN, UC_MAC, UC_LNX
+
+#define TAPPING_FORCE_HOLD
+#define TAPPING_TERM 200
+#define TAPPING_TERM_PER_KEY
 
 #define LAYER_STATE_8BIT
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_ONESHOT
 
-#define COMBO_COUNT 3
-#define UNICODE_SELECTED_MODES UC_WINC, UC_WIN, UC_MAC, UC_LNX
-#define IGNORE_MOD_TAP_INTERRUPT
-
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 200
-#define TAPPING_TERM_PER_KEY
-
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
+
+/* key combination for command */
+#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))

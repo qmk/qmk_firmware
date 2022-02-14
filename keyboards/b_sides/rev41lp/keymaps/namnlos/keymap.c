@@ -25,7 +25,6 @@ enum layer_names {
     _ADJUST
 };
 
-// Custom keycodes for send_string-stuff.
 enum custom_keycodes {
     SK_NOT_EQL = SAFE_RANGE,
     SK_LEQ,
@@ -37,19 +36,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SK_NOT_EQL:
             if (record->event.pressed) {
-                // when keycode is pressed
                 SEND_STRING("!=");
             }
             break;
         case SK_LEQ:
             if (record->event.pressed) {
-                // when keycode is pressed
                 SEND_STRING("<=");
             }
             break;
         case SK_GEQ:
             if (record->event.pressed) {
-                // when keycode is pressed
                 SEND_STRING(">=");
             }
             break;
@@ -125,53 +121,49 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 // Some defines for the keys below
 #define CK_ESC LT(_RAISE, KC_ESC)
-#define CK_BSPC MT(MOD_LCTL, KC_BSPC)
-#define CK_DEL MT(MOD_LALT, KC_DEL)
+#define CK_BSPC LCTL_T(KC_BSPC)
+#define CK_DEL LALT_T(KC_DEL)
 #define CK_ENT1 LT(_LOWER, KC_ENT)
 #define CK_ENT2 LT(_RAISE, KC_ENT)
-#define CK_TAB MT(MOD_RALT, KC_TAB)
-#define CK_ADIA MT(MOD_RCTL, SE_ADIA)
-#define CK_QUOT MT(MOD_RSFT, SE_QUOT)
+#define CK_TAB RALT_T(KC_TAB)
+#define CK_ADIA RCTL_T(SE_ADIA)
+#define CK_QUOT RSFT_T(SE_QUOT)
+#define CK_SPC RSFT_T(KC_SPC)
 
 #ifdef UNICODE_ENABLE
-#    define EM_DASH 0x2014
-#    define EN_DASH 0x2013
-#    define CK_ENDASH UC(EN_DASH)
-#    define CK_EMDASH UC(EM_DASH)
+#    define CK_NDASH UC(0x2013)
+#    define CK_MDASH UC(0x2014)
 #else
-#    define CK_ENDASH KC_TRNS
-#    define CK_EMDASH KC_TRNS
+#    define CK_NDASH KC_TRNS
+#    define CK_MDASH KC_TRNS
 #endif
-#define LOWER  MO(_LOWER)
-#define RAISE  MO(_RAISE)
-#define ADJUST MO(_ADJUST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_rev41lp(
-    CK_ESC,   KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     SE_ARNG,
-    CK_BSPC,  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     SE_ODIA,  CK_ADIA,
-    CK_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  CK_QUOT,
-                                            CK_DEL, CK_ENT1,   KC_SPC, CK_ENT2,     CK_TAB
+    CK_ESC,   KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,  SE_ARNG,
+    CK_BSPC,  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,               KC_H,     KC_J,     KC_K,     KC_L,  SE_ODIA,  CK_ADIA,
+    CK_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,               KC_N,     KC_M,  SE_COMM,   SE_DOT,  SE_MINS,  CK_QUOT,
+                                          CK_DEL,   CK_ENT1,  KC_SPC,   CK_ENT2,   CK_TAB
   ),
 
   [_LOWER] = LAYOUT_rev41lp(
- SK_NOT_EQL,  SE_EXLM,  SE_AT,    SE_HASH,  SE_DLR,    SE_PERC,            SE_CIRC,  SE_AMPR,  SE_ASTR,  SE_LPRN,  SE_RPRN,  KC_DEL,
-     SK_LEQ,  SE_UNDS,  SE_PLUS,  SE_LCBR,  SE_RCBR,   SE_PIPE,            KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  SE_GRV,   SE_TILD,
-     SK_GEQ,  KC_ESC,   KC_LGUI,  KC_LALT,  KC_CAPS,   SE_DQUO,            KC_HOME,  KC_END,   KC_PGUP,  KC_PGDN,  KC_PSCR,  RSFT_T(KC_SPC),
+ SK_NOT_EQL,  SE_EXLM,    SE_AT,  SE_HASH,   SE_DLR,   SE_PERC,            SE_CIRC,  SE_AMPR,  SE_ASTR,  SE_LPRN,  SE_RPRN,  CK_NDASH,
+     SK_LEQ,  SE_UNDS,  SE_PLUS,  SE_LCBR,  SE_RCBR,   SE_PIPE,            KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,   SE_GRV,   SE_TILD,
+     SK_GEQ,   KC_ESC,  KC_LGUI,  KC_LALT,  KC_CAPS,   SE_DQUO,            KC_HOME,   KC_END,  KC_PGUP,  KC_PGDN,  KC_PSCR,    CK_SPC,
                                             _______,   _______,  KC_ENT,   _______,  _______
   ),
 
   [_RAISE] = LAYOUT_rev41lp(
-    _______,  SE_1,     SE_2,     SE_3,     SE_4,      SE_5,               SE_6,     SE_7,     SE_8,     SE_9,     SE_0,     KC_DEL,
-    _______,  SE_MINS,  SE_EQL,   SE_LBRC,  SE_RBRC,   SE_BSLS,            KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,
-    _______,  KC_ESC,   KC_RGUI,  KC_RALT,  KC_CAPS,   KC_QUOT,            KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,
-                                            SE_LABK,   SE_RABK, KC_BSPC, _______,  _______
+    _______,     SE_1,     SE_2,     SE_3,     SE_4,      SE_5,               SE_6,   SE_7,   SE_8,    SE_9,    SE_0,  CK_MDASH,
+    _______,  SE_MINS,   SE_EQL,  SE_LBRC,  SE_RBRC,   SE_BSLS,              KC_F1,  KC_F2,  KC_F3,   KC_F4,   KC_F5,     KC_F6,
+    _______,   KC_ESC,  KC_RGUI,  KC_RALT,  KC_CAPS,   KC_QUOT,              KC_F7,  KC_F8,  KC_F9,  KC_F10,  KC_F11,    KC_F12,
+                                            SE_LABK,   SE_RABK,  KC_BSPC,  _______,  _______
   ),
 
   [_ADJUST] = LAYOUT_rev41lp(
-    XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,   BL_DEC,   BL_TOGG,            BL_BRTG,   BL_INC,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,            RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,   XXXXXXX, XXXXXXX,   BL_OFF,   BL_DEC,   BL_TOGG,            BL_BRTG,   BL_INC,    BL_ON,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   BL_STEP,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,   UC_M_WC, UC_M_MA,  UC_M_LN,  XXXXXXX,   XXXXXXX,            RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
                                                _______, _______, _______,  _______,  _______
   )
 };
