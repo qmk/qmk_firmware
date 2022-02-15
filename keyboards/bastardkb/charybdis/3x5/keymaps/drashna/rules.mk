@@ -3,8 +3,9 @@ MCU = STM32F411
 
 # Bootloader selection
 # BOOTLOADER = stm32-dfu
-BOOTLOADER = tinyuf2
+BOOTLOADER := tinyuf2
 
+LTO_ENABLE := no
 
 BOOTMAGIC_ENABLE = yes     # Enable Bootmagic Lite
 KEYBOARD_SHARED_EP = yes
