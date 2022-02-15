@@ -25,7 +25,7 @@ int8_t  delta_x        = 0;
 int8_t  delta_y        = 0;
 
 // Dummy
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{ KC_NO }};
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};
 
 void process_mouse_user(report_mouse_t *mouse_report, int8_t x, int8_t y) {
     if (scroll_enabled) {

@@ -21,4 +21,4 @@
 // safe range starts at `PLOOPY_SAFE_RANGE` instead.
 
 // Dummy
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{ KC_NO }};
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};
