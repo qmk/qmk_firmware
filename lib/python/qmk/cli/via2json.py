@@ -41,8 +41,10 @@ def _convert_macros(via_macros):
             if '{' in m or '}' in m:
                 # Found keycode(s)
                 keycodes = m.split(',')
-                # Remove curly braces from around keycodes
-                keycodes = list(map(lambda s: s.strip('{}'), keycodes))
+                # Remove whitespaces and curly braces from around keycodes
+                keycodes = list(map(lambda s: s.strip(' {}'), keycodes))
+                # Remove the KC prefix
+                keycodes = list(map(lambda s: s.replace('KC_',''), keycodes))
                 macro_data.append({"action": "tap", "keycodes": keycodes})
             else:
                 # Found text
