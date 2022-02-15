@@ -23,11 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CTRLSC LCTL_T(KC_ESC)
 #define MOSCLN LT(_MOUSE,KC_SCLN)
 #define ACCENTS LT(_ACCENTS,KC_RALT)
-#define FUN LT(_FUN,KC_LGUI)
+#define FUN LT(_FUN,KC_SPC)
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define SPCNAV LT(_NAV,KC_SPC)
 #define SFTENT MT(MOD_RSFT,KC_ENT)
+#define TABLGUI LGUI_T(KC_TAB)
 
 #define SC_F1 LSFT(LCTL(KC_F1))
 #define SC_F2 LSFT(LCTL(KC_F2))
@@ -66,16 +67,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Base
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  | Tab    |   Q    |   W    |   E    |   R    |   T    |                    |   Y    |   U    |   I    |   O    |   P    | Bksp   |
+//  |Tab/LGui|   Q    |   W    |   E    |   R    |   T    |                    |   Y    |   U    |   I    |   O    |   P    | Bksp   |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  | CtrlSc |   A    |   S    |   D    |   F    |   G    |                    |   H    |   J    |   K    |   L    | ;/Mous |   '    |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 //  | Shift  |   Z    |   X    |   C    |   V    |   B    |                    |   N    |   M    |   ,    |   .    |   /    | SftEnT |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |  LALT  | LOWER  |  FUN   |  | Spc/NAV| RAISE  |ACCENTS |
+//                                      |  LALT  | LOWER  |Spc/FUN |  | Spc/NAV| RAISE  |ACCENTS |
 //                                      `--------------------------'  `--------------------------'
   [_BASE] = LAYOUT_split_3x6_3(
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+      TABLGUI,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
        CTRLSC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,  MOSCLN, KC_QUOT,
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SFTENT,
                                           KC_LALT,   LOWER,     FUN,     SPCNAV,   RAISE, ACCENTS
@@ -190,11 +191,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
+// Mouse
+//  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
+//  |        |        | Wh up  | Ms up  | Wh dn  |        |                    |        |        |        |        |        |        |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  |        |        | Ms lft | Ms dn  | Ms rgt |        |                    |        |  btn1  |  btn3  |  btn2  |        |        |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  |        |        | Wh lft |        | Wh rgt |        |                    |        |        |        |        |        |        |
+//  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
+//                                      |        |        |        |  |        |        |        |
+//                                      `--------------------------'  `--------------------------'
   [_MOUSE] = LAYOUT_split_3x6_3(
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
-       CTRLSC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,  MOSCLN, KC_QUOT,
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SFTENT,
-                                          KC_LALT,   LOWER,     FUN,     SPCNAV,   RAISE, ACCENTS
+      _______, _______, KC_WH_U, KC_MS_U, KC_WH_D, _______,                      _______, _______, _______, _______, _______, _______,
+      _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,                      _______, KC_BTN1, KC_BTN3, KC_BTN2, _______, _______,
+      _______, _______, KC_WH_L, _______, KC_WH_R, _______,                      _______, _______, _______, _______, _______, _______,
+                                          _______, _______, _______,    _______, _______, _______
 
   ),
 
@@ -202,7 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
+                                          _______, _______, _______,    _______, _______, _______
   )
 };
 
