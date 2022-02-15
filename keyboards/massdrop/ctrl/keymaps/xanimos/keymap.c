@@ -26,7 +26,7 @@ static const char * sendstring_commands[] = {
     "git add ",
     "git diff ",
     "git reset --soft ",
-    "git branch list",
+    "git branch --list",
     "git checkout ",
     "git remote add ",
     "git fetch ",
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //   CAPS       A        S        D        F        G        H        J        K        L        ;        '      ENTER
         _______, _______, _______, _______, _______, _______,   KC_P4,   KC_P5,   KC_P6, _______, _______, _______, _______,
     //   SHIFT      Z        X        C        V        B        N        M        ,        .        /      RSHIFT                               UP
-        _______, _______, _______, _______, _______, _______,   KC_P1,   KC_P2,   KC_P3, KC_PDOT, _______, _______,                            _______,
+        _______, _______, _______, _______, _______,   KC_P1,   KC_P2,   KC_P3, KC_PDOT, _______, _______, _______,                            _______,
     //   CTRL      GUI      ALT                       SPACE                               RALT     MENU     RGUI     RCTRL             LEFT     DOWN     RIGHT
         _______, _______, _______,                     KC_P0,                            _______, _______, _______, _______,          _______, _______, _______
     ),
@@ -159,7 +159,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     //  _______, _______, _______, _______, _______, _______,   KC_P4,   KC_P5,   KC_P6, _______, _______, _______, _______,
         __OFF__, __OFF__, __OFF__, __OFF__, __OFF__, __OFF__,    TURQ,    TURQ,    TURQ, __OFF__, __OFF__, __OFF__, __OFF__,
     //  _______, _______, _______, _______, _______, _______,   KC_P1,   KC_P2,   KC_P3, KC_PDOT, _______, _______,                            _______,
-        __OFF__, __OFF__, __OFF__, __OFF__, __OFF__, __OFF__,    CYAN,    CYAN,    CYAN,   AZURE, __OFF__, __OFF__,                            __OFF__,
+        __OFF__, __OFF__, __OFF__, __OFF__, __OFF__,    CYAN,    CYAN,    CYAN,   AZURE, __OFF__, __OFF__, __OFF__,                            __OFF__,
     //  _______, _______, _______,                     KC_P0,                            _______, _______, _______, _______,          _______, _______, _______
         __OFF__, __OFF__, __OFF__,                      CYAN,                            __OFF__, __OFF__, __OFF__, __OFF__,          __OFF__, __OFF__, __OFF__
     },
