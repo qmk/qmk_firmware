@@ -1,7 +1,7 @@
 Uthol
 ===
 
-A handwired 50% (12x5) ortholinear keyboard made Uthol
+A handwired 50% (12x5) ortholinear keyboard made by Uthol
 
 Keyboard Maintainer: Uthol
 
