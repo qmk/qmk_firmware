@@ -2,7 +2,7 @@
 
 #ifdef COMBO_ENABLE
 
-enum combo_events { BKT, WINTGSYM, TGSYM, CBRC, PAREN, LTGT, CTRLALTDEL, CMD_ENTER, ENTER, TAB, SHIFT_TAB, CTRLC, CTRLR, CUT, CPY, PST, CAL, DELWD, EML, PHONE, EMW, WINDELWD, CTILD, CTILD_SHIFT, COMBO_LENGTH };
+enum combo_events { BKT, RST, WINTGSYM, TGSYM, CBRC, PAREN, LTGT, CTRLALTDEL, CMD_ENTER, ENTER, TAB, SHIFT_TAB, CTRLC, CTRLR, CUT, CPY, PST, CAL, DELWD, EML, PHONE, EMW, WINDELWD, CTILD, CTILD_SHIFT, COMBO_LENGTH };
 uint16_t COMBO_LEN = COMBO_LENGTH;  // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM asdf_combo[]    = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
@@ -19,6 +19,7 @@ const uint16_t PROGMEM qr_combo[] = {KC_Q, KC_R, COMBO_END};
 const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM gravminus_combo[] = {KC_GRAVE, KC_MINUS, COMBO_END};
 
 const uint16_t PROGMEM cal_combo[]   = {KC_C, KC_A, KC_L, COMBO_END};
 const uint16_t PROGMEM phone_combo[] = {KC_P, KC_Q, COMBO_END};
@@ -36,7 +37,8 @@ combo_t key_combos[] = {
     [CTILD]       = COMBO_ACTION(qw_combo),
     [CTILD_SHIFT] = COMBO_ACTION(jk_combo),
     [TGSYM]       = COMBO_ACTION(thumbs_combo),
-    [WINTGSYM]       = COMBO_ACTION(win_thumbs_combo),
+    [WINTGSYM]      = COMBO_ACTION(win_thumbs_combo),
+    [RST]  = COMBO_ACTION(gravminus_combo),
 
     // 4 key combos
     [CMD_ENTER]  = COMBO_ACTION(asdf_combo),
@@ -115,6 +117,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         }
     }
     switch (combo_index) {
+	case RST:
+		if (pressed) {
+			tap_code16(RESET);
+		}
+		break;
         case TGSYM:
             if (pressed) {
                 layer_invert(3);

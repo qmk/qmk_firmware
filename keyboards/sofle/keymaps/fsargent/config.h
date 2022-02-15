@@ -22,6 +22,13 @@ see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 */
 
+// #if defined(OLED_FONT_H)
+// #    undef OLED_FONT_H
+// #endif
+
+// #define OLED_FONT_H "users/curry/glcdfont.c"
+
+
 #define EE_HANDS
 
 #define NO_ACTION_MACRO

@@ -20,22 +20,64 @@
 #ifdef ENCODER_ENABLE
 
 // enum layers { BASE, WIN, GAME, SYM, NAV, WINNAV};
+bool reversed = false;  // ADD this near the begining of keymap.c
+
+uint8_t encoder_mode = 0;
+enum encoder_modes { ARROWS, TASKS, MUSIC, PAGES };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (IS_LAYER_ON(SYM)) {  // on Nav layer controls window
+    if (encoder_mode == ARROWS) {  // on Nav layer controls window
         if (index == 0) {
-            if (reversed) {
-                if (clockwise) {
-                    tap_code16(KC_RIGHT);
-                } else {
-                    tap_code16(KC_LEFT);
-                }
+            if (clockwise) {
+                tap_code16(KC_UP);
             } else {
+                tap_code16(KC_DOWN);
+            }
+        } else if (index == 1) {
+            if (clockwise) {
+                tap_code16(KC_RIGHT);
+            } else {
+                tap_code16(KC_LEFT);
+            }
+        }
+    } else if (encoder_mode == TASKS) {  // on Nav layer controls window
+        if (!IS_LAYER_ON(WIN)) {
+            if (index == 0) {
                 if (clockwise) {
-                    tap_code16(KC_UP);
+                    tap_code16(C(KC_TAB));
                 } else {
-                    tap_code16(KC_DOWN);
+                    tap_code16(C(S(KC_TAB)));
                 }
+
+            } else if (index == 1) {
+                if (clockwise) {
+                    tap_code16(G(S(KC_GRV)));
+                } else {
+                    tap_code16(G(KC_GRV));
+                }
+            }
+        } else {
+            if (index == 0) {
+                if (clockwise) {
+                    tap_code16(C(KC_TAB));
+                } else {
+                    tap_code16(C(S(KC_TAB)));
+                }
+
+            } else if (index == 1) {
+                if (clockwise) {
+                    tap_code16(C(S(KC_GRV)));
+                } else {
+                    tap_code16(C(KC_GRV));
+                }
+            }
+        }
+    } else if (encoder_mode == MUSIC) {  // on Nav layer controls window
+        if (index == 0) {
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
             }
         } else if (index == 1) {
             if (clockwise) {
@@ -44,48 +86,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 tap_code(KC_MNXT);
             }
         }
-    } else if (IS_LAYER_ON(NAV)) {  // on Nav layer controls window
+    } else {
         if (index == 0) {
-            if (reversed) {
-                if (clockwise) {
-                    tap_code16(KC_RIGHT);
-                } else {
-                    tap_code16(KC_LEFT);
-                }
+             if (!clockwise) {
+                tap_code16(KC_PGDOWN);
             } else {
-                if (clockwise) {
-                    tap_code16(KC_UP);
-                } else {
-                    tap_code16(KC_DOWN);
-                }
+                tap_code16(KC_PGUP);
             }
         } else if (index == 1) {
-             if (clockwise) {
-                tap_code(KC_VOLD);
+            if (!clockwise) {
+                tap_code16(KC_PGUP);
             } else {
-                tap_code(KC_VOLU);
-            }
-        }
-    } else {  // on other layers browser  tab switching
-        if (index == 0) {
-            if (reversed) {
-                if (clockwise) {
-                    tap_code16(C(KC_TAB));
-                } else {
-                    tap_code16(C(S(KC_TAB)));
-                }
-            } else {
-                if (clockwise) {
-                    tap_code16(G(S(KC_GRV)));
-                } else {
-                    tap_code16(G(KC_GRV));
-                }
-            }
-        } else if (index == 1) {
-            if (clockwise) {
-                tap_code(KC_VOLD);
-            } else {
-                tap_code(KC_VOLU);
+                tap_code16(KC_PGDOWN);
             }
         }
     }
