@@ -1,6 +1,7 @@
 {
     "keyboard_name": "%KEYBOARD%",
     "maintainer": "%USER_NAME%",
+    "manufacturer": "%REAL_NAME%",
     "processor": "%MCU%",
     "bootloader": "%BOOTLOADER%",
     "diode_direction": "COL2ROW",

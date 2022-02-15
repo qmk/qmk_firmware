@@ -208,7 +208,15 @@ def new_keyboard(cli):
         cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} already exists! Please choose a different name.')
         return 1
 
-    tokens = {'YEAR': str(date.today().year), 'KEYBOARD': kb_name, 'USER_NAME': user_name, 'REAL_NAME': real_name, 'LAYOUT': default_layout, 'MCU': mcu, 'BOOTLOADER': bootloader}
+    tokens = {  # Comment here is to force multiline formatting
+        'YEAR': str(date.today().year),
+        'KEYBOARD': kb_name,
+        'USER_NAME': user_name,
+        'REAL_NAME': real_name,
+        'LAYOUT': default_layout,
+        'MCU': mcu,
+        'BOOTLOADER': bootloader
+    }
 
     if cli.config.general.verbose:
         cli.log.info("Creating keyboard with:")
