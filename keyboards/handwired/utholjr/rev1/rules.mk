@@ -4,7 +4,7 @@ MCU = STM32F401
 # Bootloader selection
 BOOTLOADER = stm32-dfu
 
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes     # Enable Bootmagic Lite
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 KEYBOARD_SHARED_EP = yes
 OLED_ENABLE = yes
