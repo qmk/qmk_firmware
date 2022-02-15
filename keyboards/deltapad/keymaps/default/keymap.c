@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-//extern rgblight_config_t rgblight_config;
+extern rgblight_config_t rgblight_config;
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 static uint32_t rgb_preview_timer = 0;
 #endif
