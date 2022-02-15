@@ -1,4 +1,5 @@
 /* Copyright 2022 Jordan Duabe
+ * Copyright 2022 peepeetee
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,6 +44,10 @@
 
 #define DIODE_DIRECTION ROW2COL
 
+#define LED_CAPS_LOCK_PIN C6
+#define LED_SCROLL_LOCK_PIN C7
+#define LED_NUM_LOCK_PIN B5
+#define LED_PIN_ON_STATE 0
 #define BACKLIGHT_PIN B6
 // #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 5
@@ -53,7 +58,6 @@
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 180 /* The maximum brightness level */
   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
                                            /*== all animations enable ==*/
   #define RGBLIGHT_ANIMATIONS
