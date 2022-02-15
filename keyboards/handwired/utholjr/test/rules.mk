@@ -3,7 +3,7 @@ MCU = atmega32u4
 
 BOOTLOADER = caterina
 
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes     # Enable Bootmagic Lite
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 I2C_ENABLE = yes
 OLED_ENABLE = yes
