@@ -2,7 +2,7 @@
 This keyboard layout centers around Dvorak,  harnesing the power of the Kyria thumb
 clusters and layers to reduce finger and wrist movement.
 
-![A very rare fren](pics/fren.png)
+![A very rare fren](fren.png)
 
 ## Important note!
 This keymap will only work if you have all the kyria keys available! If you've used 2u keys on the thumb cluster, or have broken off a column, this layout will not work!
