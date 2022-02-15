@@ -53,6 +53,10 @@
         "oneOf": [
             {
                 "type": "string",
+                "enum": ["NO_PIN"]
+            },
+            {
+                "type": "string",
                 "pattern": "^[A-K]\\d{1,2}$"
             },
             {
