@@ -80,8 +80,10 @@ def _via_to_keymap(via_backup, keyboard_data, keymap_layout):
     pos = 0
     for row_num in range(0, keyboard_data['matrix_size']['rows']):
         for col_num in range(0, keyboard_data['matrix_size']['cols']):
-            if sorting_hat[pos][1][0] != row_num or sorting_hat[pos][1][1] != col_num:
-                sorting_hat.insert(pos, [None, [row_num, col_num]])
+            if pos >= len(sorting_hat) or sorting_hat[pos][1][0] != row_num or sorting_hat[pos][1][1] != col_num:
+                    sorting_hat.insert(pos, [None, [row_num, col_num]])
+            else:
+                sorting_hat.append([None, [row_num, col_num]])
             pos += 1
 
     keymap_data = list()
