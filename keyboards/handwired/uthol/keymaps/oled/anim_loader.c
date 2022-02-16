@@ -59,7 +59,7 @@ static void render_anim(void) {
 bool oled_task_user(void) {
     render_anim(); 
     oled_write_P(PSTR("Layer:"), false);
-    switch (get_highest_layer(layer_state  | default_layer_state)) {
+    switch (get_highest_layer(layer_state   |  default_layer_state)) {
         case _QWERTY:
             oled_write_P(PSTR("QWERTY\n"), false);
             break;
@@ -79,6 +79,6 @@ bool oled_task_user(void) {
             oled_write_ln_P(PSTR("Undefined"), false);
     }
     sprintf(wpm_str, "WPM:%03d", get_current_wpm());  // edit the string to change what shows up, edit %03d to change how many digits show up
-    oled_write(wpm_str, false);                       // writes wpm on top left corner of string
+    oled_write(wpm_str, false);                       // writes wpm
     return false;
 }

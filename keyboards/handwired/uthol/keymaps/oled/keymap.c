@@ -24,6 +24,7 @@ enum uthol_layers {
   _RAISE,
   _SETTINGS
 };
+
 #define QWERTY DF(_QWERTY)
 #define COLEMAK DF(_COLEMAK)
 #define LOWER MO(_LOWER)
