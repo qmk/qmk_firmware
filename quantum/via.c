@@ -72,7 +72,7 @@ void eeconfig_update_rgb_matrix(void);
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
 // EEPROM is invalid and use/save defaults.
 bool via_eeprom_is_valid(void) {
-    char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+    char   *p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
     uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
     uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
     uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
@@ -83,7 +83,7 @@ bool via_eeprom_is_valid(void) {
 // Sets VIA/keyboard level usage of EEPROM to valid/invalid
 // Keyboard level code (eg. via_init_kb()) should not call this
 void via_eeprom_set_valid(bool valid) {
-    char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+    char   *p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
     uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
     uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
     uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
@@ -520,10 +520,10 @@ void via_qmk_rgblight_set_value(uint8_t *data) {
 // VIA supports only 4 discrete values for effect speed; map these to some
 // useful speed values for RGB Matrix.
 enum speed_values {
-    RGBLIGHT_SPEED_0 = UINT8_MAX / 16,  // not 0 to avoid really slow effects
+    RGBLIGHT_SPEED_0 = UINT8_MAX / 16, // not 0 to avoid really slow effects
     RGBLIGHT_SPEED_1 = UINT8_MAX / 4,
-    RGBLIGHT_SPEED_2 = UINT8_MAX / 2,      // matches the default value
-    RGBLIGHT_SPEED_3 = UINT8_MAX / 4 * 3,  // UINT8_MAX is really fast
+    RGBLIGHT_SPEED_2 = UINT8_MAX / 2,     // matches the default value
+    RGBLIGHT_SPEED_3 = UINT8_MAX / 4 * 3, // UINT8_MAX is really fast
 };
 
 static uint8_t speed_from_rgblight(uint8_t rgblight_speed) {
@@ -596,4 +596,4 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data) {
     }
 }
 
-#endif  // #if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+#endif // #if defined(VIA_QMK_RGB_MATRIX_ENABLE)
