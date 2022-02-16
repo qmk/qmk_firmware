@@ -207,10 +207,10 @@ typedef struct {
 #endif
     uint8_t buttons;
 #ifdef MOUSE_EXT_REPORT
-    int16_t x;
-    int16_t y;
     int8_t boot_x;
     int8_t boot_y;
+    int16_t x;
+    int16_t y;
 #else
     int8_t  x;
     int8_t  y;
