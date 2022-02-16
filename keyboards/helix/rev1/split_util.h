@@ -15,3 +15,7 @@ bool has_usb(void);
 void keyboard_slave_loop(void);
 
 void matrix_master_OLED_init (void);
+
+// stubs as this is handled by legacy code
+static inline void split_pre_init(void){}
+static inline void split_post_init(void){}
