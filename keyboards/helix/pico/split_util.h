@@ -14,3 +14,7 @@ void split_keyboard_setup(void);
 bool is_helix_master(void);
 
 void matrix_master_OLED_init (void);
+
+// stubs as this is handled by legacy code
+static inline void split_pre_init(void){}
+static inline void split_post_init(void){}
