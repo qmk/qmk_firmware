@@ -44,7 +44,7 @@ When [handedness](feature_split_keyboard.md#setting-handedness) is predetermined
     }
 ```
 
-If you choose the top right key on the right side, it is `R05` on the top layout. Within the key matrix below, `R05` is on row 4, columnn 4. To set that key as Bootmagic Lite trigger for the right halve, add these entries to your `config.h` file:
+If you pick the top right key for the right halve, it is `R05` on the top layout. Within the key matrix below, `R05` is located on row 4 columnn 4. To use that key as the right halve's Bootmagic Lite trigger, add these entries to your `config.h` file:
 
 ```c
 #define BOOTMAGIC_LITE_ROW_RIGHT 4
