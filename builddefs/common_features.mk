@@ -646,8 +646,9 @@ ifeq ($(strip $(HAPTIC_ENABLE)),yes)
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
-    SRC += platforms/avr/drivers/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/lcd
+    SRC += hd44780.c
 endif
 
 VALID_OLED_DRIVER_TYPES := SSD1306 custom
