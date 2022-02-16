@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "q1.h"
+#pragma once
 
-bool dip_switch_update_kb(uint8_t index, bool active) {
-    if (!dip_switch_update_user(index, active)) { return false;}
-    if (index == 0) {
-        default_layer_set(1UL << (active ? 2 : 0));
-    }
-    return true;
-}
+#define CH_CFG_ST_FREQUENCY 10000
+
+#define CH_CFG_OPTIMIZE_SPEED FALSE
+
+#define CH_CFG_USE_CONDVARS_TIMEOUT FALSE
+
+#include_next <chconf.h>
