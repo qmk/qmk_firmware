@@ -1,0 +1,47 @@
+$(info -------------------------)
+$(info override_helix_options.mk)
+$(info -------------------------)
+
+  ifneq ($(strip $(HELIX)),)
+    COMMA=,
+    helix_override_option := $(subst $(COMMA), , $(HELIX))
+    ifneq ($(filter oled,$(helix_override_option)),)
+      OLED_ENABLE = yes
+    endif
+    ifneq ($(filter back,$(helix_override_option)),)
+      LED_BACK_ENABLE = yes
+    else ifneq ($(filter under,$(helix_override_option)),)
+      LED_UNDERGLOW_ENABLE = yes
+    endif
+    ifneq ($(filter audio-off,$(helix_override_option)),)
+      AUDIO_ENABLE = no
+    endif
+    ifneq ($(filter na,$(helix_override_option)),)
+      LED_ANIMATIONS = no
+    endif
+    ifneq ($(filter no_ani,$(helix_override_option)),)
+      LED_ANIMATIONS = no
+    endif
+    ifneq ($(filter no-ani,$(helix_override_option)),)
+      LED_ANIMATIONS = no
+    endif
+    ifneq ($(filter ios,$(helix_override_option)),)
+      IOS_DEVICE_ENABLE = yes
+    endif
+    ifneq ($(filter sc,$(helix_override_option)),)
+      SPLIT_KEYBOARD = yes
+    endif
+    ifneq ($(filter no-sc,$(helix_override_option)),)
+      SPLIT_KEYBOARD = no
+    endif
+    ifneq ($(filter split-common,$(helix_override_option)),)
+      SPLIT_KEYBOARD = yes
+    endif
+    ifneq ($(filter scan,$(helix_override_option)),)
+      # use DEBUG_MATRIX_SCAN_RATE
+      # see docs/newbs_testing_debugging.md
+      OPT_DEFS +=  -DDEBUG_MATRIX_SCAN_RATE
+      CONSOLE_ENABLE = yes
+    endif
+    SHOW_HELIX_OPTIONS = yes
+  endif
