@@ -139,13 +139,9 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 
 #    else
             /* Boot protocol XY ignored in Report protocol */
-            HID_RI_USAGE_PAGE(8, 0xff), /* Vendor */
-            HID_RI_USAGE(8, 0xff), /* Vendor  */
-            HID_RI_LOGICAL_MINIMUM(8, -127),
-            HID_RI_LOGICAL_MAXIMUM(8, 127),
             HID_RI_REPORT_COUNT(8, 0x02),
             HID_RI_REPORT_SIZE(8, 0x08),
-            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
+            HID_RI_INPUT(8, HID_IOF_CONSTANT),
 
             HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
             HID_RI_USAGE(8, 0x30), /* Usage X */
