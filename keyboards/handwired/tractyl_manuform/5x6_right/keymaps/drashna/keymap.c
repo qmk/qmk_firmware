@@ -149,6 +149,16 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 // clang-format on
 #else
+
+deferred_token encoder_token = INVALID_DEFERRED_TOKEN;
+static int8_t last_direction = -1;
+
+static uint32_t encoder_callback(uint32_t trigger_time, void *cb_arg) {
+    unregister_code(last_direction ? KC_WH_D : KC_WH_U);
+    last_direction = -1;
+    return 0;
+}
+
 bool encoder_update_user(uint8_t index, bool clockwise) {
 #    ifdef SWAP_HANDS_ENABLE
     if (swap_hands) {
@@ -158,7 +168,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         tap_code_delay(clockwise ? KC_VOLD : KC_VOLU, 5);
     } else if (index == 1) {
-        tap_code_delay(clockwise ? KC_WH_D : KC_WH_U, 5);
+        if (last_direction != clockwise || encoder_token == INVALID_DEFERRED_TOKEN) {
+            uint8_t keycode = clockwise ? KC_WH_D : KC_WH_U;
+            last_direction = clockwise;
+            if (encoder_token == INVALID_DEFERRED_TOKEN) {
+                cancel_deferred_exec(encoder_token);
+                unregister_code(clockwise ? KC_WH_U : KC_WH_D);
+            }
+            register_code(keycode);
+            encoder_token = defer_exec(200, encoder_callback, NULL);
+        } else {
+            extend_deferred_exec(encoder_token, 150);
+        }
     }
     return false;
 }
