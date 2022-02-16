@@ -1,3 +1,5 @@
+SPLIT_KEYBOARD = yes
+
 # Helix Spacific Build Options default values
 OLED_ENABLE = no            # OLED_ENABLE
 LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
