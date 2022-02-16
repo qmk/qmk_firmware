@@ -38,13 +38,15 @@
    - etc.
 */
 //#define MIDI_ADVANCED
-
+#define COMBO_ONLY_FROM_LAYER 2
 #define TAPPING_TERM 150
+#define COMBO_TERM (TAPPING_TERM/5)
+#define ADAPTIVE_TERM 140
 #define IGNORE_MOD_TAP_INTERRUPT
 // #define IGNORE_MOD_TAP_INTERRUPT
 // #define HOLD_ON_OTHER_KEY_PRESS
 
-#define COMBO_TERM 50
+
 
 
 

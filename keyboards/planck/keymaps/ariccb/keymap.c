@@ -18,6 +18,7 @@
 #include "muse.h"
 #include "features/select_word.h"
 #include "features/caps_word.h"
+#include "features/adaptive_keys.h"
 
 // using the Word Selection QMK Macro by Pascal Getreuer, found here: https://getreuer.info/posts/keyboards/select-word/index.html
 // THANKS Pascal for such amazing functionality!!
@@ -39,18 +40,17 @@
 #define MICMUTE LALT(KC_M)
 #define DESKTR LGUI(LCTL(KC_RGHT))  // move one virtual desktop to the right
 #define DESKTL LGUI(LCTL(KC_LEFT))  // move one virtual desktop to the left
-#define MTLALT_F5 MT(MOD_LALT, KC_F5)
-#define MTLCTL_F6 MT(MOD_LCTL, KC_F6)
-#define MTLSFT_F7 MT(MOD_LSFT, KC_F7)
+#define MTLCTL_F9 MT(MOD_LCTL, KC_9)
+#define MTLSFT_F10 MT(MOD_LSFT, KC_F10)
+#define MTLALT_F11 MT(MOD_LALT, KC_F11)
 #define MTLGUI_Z MT(MOD_LGUI, KC_Z)
 #define MTLGUI_X MT(MOD_LGUI, KC_X)
 #define MTLALT_PL MT(MOD_LALT, KC_MPLY)
 #define MTLALT_NXT MT(MOD_LALT, KC_MNXT)
 #define MTENTER MT(MOD_LCTL, KC_ENT)
 #define MTRSFTBSLS MT(MOD_RSFT, KC_BSLS)
-#define MTRSFTZ MT(MOD_RSFT, KC_Z)
+#define MTRSFTBSLS MT(MOD_RSFT, KC_BSLS)
 #define MTRCTLQUO MT(MOD_RCTL, KC_QUOT)
-#define MTRCTLJ MT(MOD_RCTL, KC_J)
 #define MTTAB MT(MOD_LCTL | MOD_LGUI | MOD_LALT, KC_TAB)
 #define FNESC LT(_FN, KC_ESC)
 #define LOWER_T LT(_LOWER, KC_T)
@@ -143,23 +143,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(MINS_LOWER), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
   ),
 
- /* MIT Layout (HANDSDOWNNEU)
+ /* MIT Layout (HANDSDOWNNEU Modded)
  *
  * ,------------------------------------------------------------------------.
- * |FN,Esc | j  |  f  |  m  |  p  |  v  |  ;  |  .  |  /  |  "  |  '  |Bsp  |
+ * |FN,Esc | w  |  f  |  m  |  p  |  v  |  /  |  .  |  q  |  ,  |  ;  |Bsp  |
  * |------------------------------------------------------------------------|
-   |GCA,Tab| r  |  s  |  n  |  d  |  w  |  ,  |  a  |  e  |  i  |  h  |Ctl,j|
+   |GCA,Tab| r  |  s  |  n  |  t  |  g  |  k  |  a  |  e  |  i  |  h  |Ctl,'|
  * |------------------------------------------------------------------------|
- * |Shift |Win,x|  g  |  l  |  c  |  b  |  -  |  u  |  o  |  y  |  k  |Sft,z|
+ * |Shift |Win,x|  c  |  l  |  d  |  b  |  j  |  u  |  o  |  y  |  z  |Sft,\|
  * |------------------------------------------------------------------------|
- * |      |     |     |Ctl,Ent|LWR,t|  Space  |RAISE|Alt,Play|  |     |     |
+ * |      |     |     |Ctl,Ent|LWR,-|  Space  |RAISE|Alt,Play|  |     |     |
  * `------------------------------------------------------------------------'
  */
 [_HANDSDOWN] = LAYOUT_planck_grid( /* HANDS DOWN GOLD */
-    FNESC,   KC_J,     KC_F,     KC_M,    KC_P,    KC_V,   KC_SCLN,  KC_DOT, KC_SLSH,   KC_DQUO, KC_QUOT, KC_BSPC,
-    MTTAB,   KC_R,     KC_S,     KC_N,    KC_D,    KC_W,   KC_COMMA, KC_A,   KC_E,      KC_I,    KC_H,    MTRCTLJ,
-    KC_LSFT, MTLGUI_X, KC_G,     KC_L,    KC_C,    KC_B,   KC_MINUS, KC_U,   KC_O,      KC_Y,    KC_K,    MTRSFTZ,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, LOWER_T, KC_SPC, KC_SPC,   MO(4),  MTLALT_PL, KC_NO,   KC_NO,   KC_NO
+    FNESC,   KC_W,     KC_F,     KC_M,    KC_P,           KC_V,   KC_SLSH,  KC_DOT,   KC_Q,      KC_COMMA, KC_SCLN, KC_BSPC,
+    MTTAB,   KC_R,     KC_S,     KC_N,    KC_T,           KC_G,   KC_K,     KC_A,     KC_E,      KC_I,     KC_H,    MTRCTLQUO,
+    KC_LSFT, MTLGUI_X, KC_C,     KC_L,    KC_D,           KC_B,   KC_J,     KC_U,     KC_O,      KC_Y,     KC_Z,    MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(MINS_LOWER), KC_SPC, KC_SPC,   MO(4),    MTLALT_PL, KC_NO,    KC_NO,   KC_NO
  ),
 
  /* MIT Layout (COLEMAK)
@@ -184,39 +184,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (RAISE)
  *
  * ,----------------------------------------------------------------------------.
- * |  ~  |  !  |     |     |      |      |      |  Cut  | Undo| Redo|P2TXT| Bsp |
+ * |     |     |     |     |      |      |      |  Cut  | Undo| Redo|  =  | Bsp |
  * |----------------------------------------------------------------------------|
  * |     |Menu |     |     |      |      |ARROW |SELWORD|Copy|Paste|WinPst|  "  |
  * |----------------------------------------------------------------------------|
- * |     |Vol+ |Vol- | Mute|      |      |Braces|Braces2|  <  |  >  |  ?  |  !  |
+ * |     |Vol+ |Vol- | Mute|  <  |   >   |Braces|Braces2|     |     |  ?  |  !  |
  * |----------------------------------------------------------------------------|
  * |     |     |     |     |Adjust|             |       |     |     |     |     |
  * `----------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
-  KC_TILD, KC_EXLM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_CUT,  KC_UNDO, KC_REDO,  KC_PTXT,     KC_BSPC,
+  KC_TRNS, KC_TRNS, KC_LABK, KC_RABK, KC_TRNS, KC_TRNS, KC_TRNS, KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,     KC_BSPC,
   KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ARROW,   SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_DQUO,
-  KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_EXLM,
+  KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_LABK, KC_RABK, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_EXLM,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(7),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_NO,       KC_NO
 ),
 
 /* MIT Layout (LOWER)
  * XZ
  * ,-----------------------------------------------------------------------.
- * |  `  |  !  |  #  |  [  |  ]  |  $  |  :  |  7  |  8  |  9  |  =  | Bsp |
+ * |  `  |  !  |  #  |  $  |  [  |  ]  |  :  |  7  |  8  |  9  |  =  | Bsp |
  * |-----------------------------------------------------------------------|
- * |TLOWER| _  |  ^  |  (  |  )  |  %  |  M  |  4  |  5  |  6  |  -  |  +  |
+ * |S(TAB)| ~  |  ^  |  %  |  (  |  )  |  M  |  4  |  5  |  6  |  -  |  +  |
  * |-----------------------------------------------------------------------|
- * |Shift|  |  |  &  |  {  |  }  |  "  |  @  |  1  |  2  |  3  |  /  |  *  |
+ * |Shift|  |  |  &  |  "  |  {  |  }  |  @  |  1  |  2  |  3  |  /  |  *  |
  * |-----------------------------------------------------------------------|
- * |     |     |    |Ctl,Ent|    |           |  0  |  .  |     |     |     |this is colemakthis is qwerty
+ * |     |     |    |Ctl,Ent|    |           |  0  |  .  |     |     |     |
  * `-----------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid( /* LOWER */
-  KC_GRV,  KC_EXLM, KC_HASH, KC_LBRC, KC_RBRC, KC_DLR,  KC_COLN, KC_P7, KC_P8,   KC_P9,  KC_EQL,  KC_BSPC,
-  TG(4),   KC_UNDS, KC_CIRC, KC_LPRN, KC_RPRN, KC_PERC, KC_M,    KC_P4, KC_P5,   KC_P6,  KC_PMNS, KC_PPLS,
-  KC_TRNS, KC_PIPE, KC_AMPR, KC_LCBR, KC_RCBR, KC_DQUO, KC_AT,   KC_P1, KC_P2,   KC_P3,  KC_PSLS, KC_PAST,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_NO,  KC_NO,   KC_NO
+  KC_GRV,    KC_EXLM, KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC, KC_COLN, KC_P7, KC_P8,   KC_P9,  KC_EQL,  KC_BSPC,
+  S(KC_TAB), KC_TILD, KC_CIRC, KC_PERC, KC_LPRN, KC_RPRN, KC_M,    KC_P4, KC_P5,   KC_P6,  KC_PMNS, KC_PPLS,
+  KC_TRNS,   KC_PIPE, KC_AMPR, KC_DQUO, KC_LCBR, KC_RCBR, KC_AT,   KC_P1, KC_P2,   KC_P3,  KC_PSLS, KC_PAST,
+  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_NO,  KC_NO,   KC_NO
 ),
 
 /* MIT Layout (GAMING)
@@ -240,40 +240,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MIT Layout (FN)
  *
- * ,--------------------------------------------------------------------------.
- * |    | F9 | F10  | F11  | F12 |MyComp|Calc  |home |  up  | end |PrtScr| Del |
- * |---------------------------------------------------------------------------|
- * |  |Alt,F5|Ctl,F6|Sft,F7| F8  |DeskL |DeskR |left | down |right|ScrLck| CAPS|
- * |---------------------------------------------------------------------------|
- * |    | F1 |  F2  |  F3  | F4  |ALT_TAB|MicM |pgup |LCA_dn| pgdn|Pse/Brk| Ins|
- * |---------------------------------------------------------------------------|
- * |    |    |      |      |     |             |     |Alt,MNext|  |      |     |
- * `---------------------------------------------------------------------------'
+ * ,----------------------------------------------------------------------------.
+ * | |Ctl,F9|Sft,F10|Alt,F11| F12 |MyComp|Calc |home |  up  | end |PrtScr| Del  |
+ * |----------------------------------------------------------------------------|
+ * |    | F5 |  F6  |  F7   | F8  |DeskL  |DeskR|left | down |right|ScrLck| CAPS|
+ * |----------------------------------------------------------------------------|
+ * |    | F1 |  F2  |  F3   | F4  |ALT_TAB|MicM |pgup |LCA_dn| pgdn|Pse/Brk| Ins|
+ * |----------------------------------------------------------------------------|
+ * |    |    |      |       |     |             |     |Alt,MNext|  |      |     |
+ * `----------------------------------------------------------------------------'
  */
 [_FN] = LAYOUT_planck_grid( /* FUNCTION */
-  KC_TRNS, KC_F9,     KC_F10,     KC_F11,     KC_F12,  KC_MYCM, KC_CALC, KC_HOME, KC_UP,        KC_END,  KC_PSCR,  KC_DEL,
-  KC_TRNS, MTLALT_F5, MTLCTL_F6,  MTLSFT_F7,  KC_F8,   DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,  KC_CAPS,
+  KC_TRNS, MTLCTL_F9, MTLSFT_F10, MTLALT_F11, KC_F12,  KC_MYCM, KC_CALC, KC_HOME, KC_UP,        KC_END,  KC_PSCR,  KC_DEL,
+  KC_TRNS, KC_F5,     KC_F6,      KC_F7,      KC_F8,   DESKTL,  DESKTR,  KC_LEFT, KC_DOWN,      KC_RGHT, KC_SLCK,  KC_CAPS,
   KC_TRNS, KC_F1,     KC_F2,      KC_F3,      KC_F4,   ALT_TAB, MICMUTE, KC_PGUP, LCA(KC_DOWN), KC_PGDN, KC_PAUSE, KC_INS,
   KC_NO,   KC_NO,     KC_NO,      KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MTLALT_NXT,   KC_NO,   KC_NO,    KC_NO
 ),
 
 /* MIT Layout (ADJUST)
  *
- * ,-----------------------------------------------------------------------------.
- * |RGBtog|Ms3 | Ms2 |MsUp | Ms1  |  Hue+|  Hue- | Sat+| Sat- |Brt+ |Brt- | RESET|
- * |-----------------------------------------------------------------------------|
- * |RGBMod| MWL | MsL |MDn  |MsR  |GAMING|HANDSDOWN|AU_ON|AU_OFF|MU_ON|MU_OF| DEBUG|
- * |-----------------------------------------------------------------------------|
- * |     |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|MI_ON|MI_OF |     |     |MU_Mod|
- * |-----------------------------------------------------------------------------|
- * |     |     |     |SLEEP|      |              |     |NumLock|     |     |      |
- * `-----------------------------------------------------------------------------'
+ * ,------------------------------------------------------------------------------.
+ * |RGBtog|Ms3 | Ms2 |MsUp | Ms1  |  Hue+|  Hue- | Sat+| Sat- |Brt+ |Brt- | RESET |
+ * |------------------------------------------------------------------------------|
+ * |RGBMod| MWL | MsL |MDn  |MsR  |GAMING|HANDSDOWN|AU_ON|AU_OFF|MU_ON|MU_OF|DEBUG|
+ * |------------------------------------------------------------------------------|
+ * |     |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|MI_ON|MI_OF |     |     |MU_Mod |
+ * |------------------------------------------------------------------------------|
+ * |     |     |     |SLEEP|      |              |     |NumLock|    |     |       |
+ * `------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
-  RGB_TOG, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD,      RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RESET,
+  RGB_TOG, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD,   RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RESET,
   RGB_MOD, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  DEBUG,
-  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,      MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, MU_MOD,
-  KC_NO,   KC_NO,   KC_NO,   KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_NUM,  KC_TRNS, KC_NO,   KC_NO
+  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, MU_MOD,
+  KC_NO,   KC_NO,   KC_NO,   KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_NUM,  KC_TRNS, KC_NO,   KC_NO
 )
 };
 
@@ -410,6 +410,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_select_word(keycode, record, SELWORD)) { return false; }
   if (!process_caps_word(keycode, record)) { return false; }
+  if (!process_adaptive_key(keycode, record)) { return false; }
 
   const uint8_t mods = get_mods();
   const uint8_t oneshot_mods = get_oneshot_mods();
@@ -532,8 +533,6 @@ enum combo_events {
   HTML_IMG,
   CSS_STYLE,
   HTML_GENERIC_TAG,
-  CTRLRIGHT,
-  CTRLLEFT,
   UNDO,
   REDO,
   CUT,
@@ -549,10 +548,9 @@ enum combo_events {
   MULTIPLY,
   DIVIDE,
   DQUOTE,
-  QUOTE,
+  UNDERSCORE,
   TWODQUOTE,
   SCBIGRAM,
-  TOGGLELOWER,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead
@@ -570,27 +568,18 @@ const uint16_t PROGMEM html_a_href_combo[]      = {KC_A, KC_DOT, COMBO_END};
 const uint16_t PROGMEM html_img_combo[]         = {KC_F, KC_DOT, COMBO_END};
 const uint16_t PROGMEM css_style_combo[]        = {KC_S, KC_DOT, COMBO_END};
 const uint16_t PROGMEM html_generic_tag_combo[] = {KC_G, KC_DOT, COMBO_END};
-const uint16_t PROGMEM ctrlright_combo[]        = {KC_RGHT, KC_DOWN, COMBO_END};
-const uint16_t PROGMEM ctrlleft_combo[]         = {KC_LEFT, KC_DOWN, COMBO_END};
 const uint16_t PROGMEM undo_combo[]             = {KC_W, KC_F, COMBO_END};
-const uint16_t PROGMEM redo_combo[]             = {KC_W, KC_P, COMBO_END};
-const uint16_t PROGMEM cut_combo[]              = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM redo_combo[]             = {KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM cut_combo[]              = {MTLGUI_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM copy_combo[]             = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM paste_combo[]            = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM pasteclip_combo[]        = {KC_X, KC_D, COMBO_END};
 const uint16_t PROGMEM pastetxt_combo[]         = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM selectall_combo[]        = {MTLGUI_Z, KC_D, COMBO_END};
 const uint16_t PROGMEM exclamation_combo[]      = {KC_DOT, KC_SLSH, COMBO_END};
-const uint16_t PROGMEM equals_combo[]           = {KC_Y, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM plus_combo[]             = {KC_O, MTRCTLQUO, COMBO_END};
-const uint16_t PROGMEM minus_combo[]            = {KC_I, MTRCTLQUO, COMBO_END};
-const uint16_t PROGMEM multiply_combo[]         = {KC_SLSH, MTRSFTBSLS, COMBO_END};
-const uint16_t PROGMEM divide_combo[]           = {KC_DOT, MTRSFTBSLS, COMBO_END};
-const uint16_t PROGMEM dquote_combo[]           = {KC_H, KC_COMMA, COMBO_END};
-const uint16_t PROGMEM quote_combo[]            = {KC_COMMA, KC_DOT, COMBO_END};
-const uint16_t PROGMEM twodquote_combo[]        = {KC_H, KC_DOT, COMBO_END};
+const uint16_t PROGMEM underscore_combo[]       = {KC_COMMA, KC_DOT, COMBO_END};
+const uint16_t PROGMEM twodquote_combo[]        = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM scbigram_combo[]         = {KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM togglelower_combo[]      = {LOWER_T, KC_C, COMBO_END};
 
 // const uint8_t combo_mods = get_mods();
 // const uint8_t combo_oneshot_mods = get_oneshot_mods();
@@ -609,8 +598,6 @@ combo_t key_combos[] = {
   [HTML_IMG] = COMBO_ACTION(html_img_combo),
   [CSS_STYLE] = COMBO_ACTION(css_style_combo),
   [HTML_GENERIC_TAG] = COMBO_ACTION(html_generic_tag_combo),
-  [CTRLRIGHT] = COMBO_ACTION(ctrlright_combo),
-  [CTRLLEFT] = COMBO_ACTION(ctrlleft_combo),
   [UNDO] = COMBO_ACTION(undo_combo),
   [REDO] = COMBO_ACTION(redo_combo),
   [CUT] = COMBO_ACTION(cut_combo),
@@ -620,16 +607,9 @@ combo_t key_combos[] = {
   [PASTETEXT] = COMBO_ACTION(pastetxt_combo),
   [SELECTALL] = COMBO_ACTION(selectall_combo),
   [EXCLAMATION] = COMBO_ACTION(exclamation_combo),
-  [EQUALS] = COMBO_ACTION(equals_combo),
-  [PLUS] = COMBO_ACTION(plus_combo),
-  [MINUS] = COMBO_ACTION(minus_combo),
-  [MULTIPLY] = COMBO_ACTION(multiply_combo),
-  [DIVIDE] = COMBO_ACTION(divide_combo),
-  [DQUOTE] = COMBO_ACTION(dquote_combo),
-  [QUOTE] = COMBO_ACTION(quote_combo),
+  [UNDERSCORE] = COMBO_ACTION(underscore_combo),
   [TWODQUOTE] = COMBO_ACTION(twodquote_combo),
   [SCBIGRAM] = COMBO_ACTION(scbigram_combo),
-  [TOGGLELOWER] = COMBO_ACTION(togglelower_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
@@ -742,16 +722,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code16(KC_BSPC);
       }
       break;
-    case CTRLLEFT:
-      if (pressed) {
-        tap_code16(C(KC_LEFT));
-      }
-      break;
-    case CTRLRIGHT:
-      if (pressed) {
-        tap_code16(C(KC_RGHT));
-      }
-      break;
     case UNDO:
       if (pressed) {
         tap_code16(C(KC_Z));
@@ -797,39 +767,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code16(KC_EXLM);
       }
       break;
-    case EQUALS:
+    case UNDERSCORE:
       if (pressed) {
-        tap_code16(KC_EQL);
-      }
-      break;
-    case PLUS:
-      if (pressed) {
-        tap_code16(KC_PLUS);
-      }
-      break;
-    case MINUS:
-      if (pressed) {
-        tap_code16(KC_MINUS);
-      }
-      break;
-    case MULTIPLY:
-      if (pressed) {
-        tap_code16(KC_PAST);
-      }
-      break;
-    case DIVIDE:
-      if (pressed) {
-        tap_code16(KC_PSLS);
-      }
-      break;
-    case DQUOTE:
-      if (pressed) {
-        tap_code16(KC_DQUO);
-      }
-      break;
-    case QUOTE:
-      if (pressed) {
-        tap_code16(KC_QUOT);
+        tap_code16(KC_UNDS);
       }
       break;
     case TWODQUOTE:
@@ -849,22 +789,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       if (pressed) {
         tap_code16(KC_S);
         tap_code16(KC_C);
-      }
-      break;
-    case TOGGLELOWER:
-      // Check to see if the layer is already set
-      if (layer_state_is(_LOWER)) {
-          // If already set, then switch it off
-          layer_off(_LOWER);
-          #ifdef AUDIO_ENABLE
-            PLAY_SONG(tone_goodbye);
-          #endif
-      } else {
-          // If not already set, then switch the layer on
-          layer_on(_LOWER);
-          #ifdef AUDIO_ENABLE
-            PLAY_SONG(layerswitch_song);
-          #endif
       }
       break;
   }
