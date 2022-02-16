@@ -59,9 +59,9 @@ static void render_anim(void) {
 bool oled_task_user(void) {
     render_anim(); 
     oled_write_P(PSTR("Layer:"), false);
-    switch (get_highest_layer(layer_state)) {
+    switch (get_highest_layer(layer_state  | default_layer_state)) {
         case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write_P(PSTR("QWERTY\n"), false);
             break;
         case _LOWER:
             oled_write_P(PSTR("Lower\n"), false);
@@ -69,14 +69,13 @@ bool oled_task_user(void) {
         case _RAISE:
             oled_write_P(PSTR("Raise\n"), false);
             break;
-        case _COLEMARK:
-            oled_write_P(PSTR("Colemark\n"), false);
+        case _COLEMAK:
+            oled_write_P(PSTR("Colemak\n"), false);
             break;
         case _SETTINGS:
             oled_write_P(PSTR("Settings\n"), false);
             break;
         default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_ln_P(PSTR("Undefined"), false);
     }
     sprintf(wpm_str, "WPM:%03d", get_current_wpm());  // edit the string to change what shows up, edit %03d to change how many digits show up
