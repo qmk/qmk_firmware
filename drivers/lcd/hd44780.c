@@ -127,12 +127,14 @@ bool hd44780_busy(void) {
 }
 
 void hd44780_command(uint8_t command) {
-    while (hd44780_busy());
+    while (hd44780_busy())
+        ;
     hd44780_write(command, false);
 }
 
 void hd44780_data(uint8_t data) {
-    while (hd44780_busy());
+    while (hd44780_busy())
+        ;
     hd44780_write(data, true);
 }
 
@@ -231,7 +233,8 @@ void hd44780_define_char(uint8_t index, uint8_t *data) {
 }
 
 void hd44780_putc(char c) {
-    while (hd44780_busy());
+    while (hd44780_busy())
+        ;
     uint8_t current_position = hd44780_read(false);
 
     if (c == '\n') {
