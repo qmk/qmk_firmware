@@ -72,9 +72,9 @@ Do change the `manufacturer` and `keyboard_name` lines to accurately reflect you
     "keyboard_name": "my_awesome_keyboard",
     "maintainer": "You",
     "usb": {
-        "device_ver": "0x0001",
+        "vid": "0xFEED",
         "pid": "0x0000",
-        "vid": "0xFEED"
+        "device_version": "1.0.0"
     },
 ```
 
