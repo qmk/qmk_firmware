@@ -188,15 +188,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |----------------------------------------------------------------------------|
  * |     |Menu |     |     |      |      |ARROW |SELWORD|Copy|Paste|WinPst|  "  |
  * |----------------------------------------------------------------------------|
- * |     |Vol+ |Vol- | Mute|  <  |   >   |Braces|Braces2|     |     |  ?  |  !  |
+ * |     |Vol+ |Vol- | Mute|      |      |Braces|Braces2|  <  |  >  |  ?  |     |
  * |----------------------------------------------------------------------------|
  * |     |     |     |     |Adjust|             |       |     |     |     |     |
  * `----------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
-  KC_TRNS, KC_TRNS, KC_LABK, KC_RABK, KC_TRNS, KC_TRNS, KC_TRNS, KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,     KC_BSPC,
+  KC_TRNS, KC_TRNS, KC_LABK, KC_RABK, KC_TRNS, KC_TRNS, KC_TRNS, KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC,
   KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ARROW,   SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_DQUO,
-  KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_LABK, KC_RABK, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_EXLM,
+  KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(7),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_NO,       KC_NO
 ),
 
@@ -541,7 +541,7 @@ enum combo_events {
   PASTECLIPBOARD,
   PASTETEXT,
   SELECTALL,
-  EXCLAMATION,
+  QUESTIONMARK,
   EQUALS,
   PLUS,
   MINUS,
@@ -576,7 +576,7 @@ const uint16_t PROGMEM paste_combo[]            = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM pasteclip_combo[]        = {KC_X, KC_D, COMBO_END};
 const uint16_t PROGMEM pastetxt_combo[]         = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM selectall_combo[]        = {MTLGUI_Z, KC_D, COMBO_END};
-const uint16_t PROGMEM exclamation_combo[]      = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM questionmark_combo[]      = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM underscore_combo[]       = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM twodquote_combo[]        = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM scbigram_combo[]         = {KC_S, KC_D, COMBO_END};
@@ -606,7 +606,7 @@ combo_t key_combos[] = {
   [PASTECLIPBOARD] = COMBO_ACTION(pasteclip_combo),
   [PASTETEXT] = COMBO_ACTION(pastetxt_combo),
   [SELECTALL] = COMBO_ACTION(selectall_combo),
-  [EXCLAMATION] = COMBO_ACTION(exclamation_combo),
+  [QUESTIONMARK] = COMBO_ACTION(questionmark_combo),
   [UNDERSCORE] = COMBO_ACTION(underscore_combo),
   [TWODQUOTE] = COMBO_ACTION(twodquote_combo),
   [SCBIGRAM] = COMBO_ACTION(scbigram_combo),
@@ -762,9 +762,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code16(C(KC_A));
       }
       break;
-    case EXCLAMATION:
+    case QUESTIONMARK:
       if (pressed) {
-        tap_code16(KC_EXLM);
+        tap_code16(KC_QUES);
       }
       break;
     case UNDERSCORE:

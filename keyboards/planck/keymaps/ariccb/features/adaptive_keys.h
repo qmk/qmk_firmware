@@ -29,7 +29,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 #define AK_BOTH_START(key, def_key)                                            \
   default:                                                                     \
     return_state = true;                                                       \
-    tap_code(first);                                                           \
+    tap_code16(first);                                                           \
     }                                                                          \
     break;                                                                     \
   case key:                                                                    \
@@ -55,16 +55,16 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 #include "adaptive_keys.def"
         default:
           return_state = true;
-          tap_code(first);
+          tap_code16(first);
         }
       }
       if (return_state) {
         set_mods(saved_mods);
       } else {
         set_mods(prior_saved_mods);
-        tap_code(first);
+        tap_code16(first);
         clear_mods();
-        tap_code(second);
+        tap_code16(second);
       }
     }
     switch (keycode) {
@@ -98,7 +98,7 @@ void matrix_scan_user(void) {
 #undef AK_BOTH_START
 #define AK_BOTH_START(key, default_key)                                        \
   case key:                                                                    \
-    tap_code(default_key);                                                     \
+    tap_code16(default_key);                                                     \
     break;
 
 #include "adaptive_keys.def"
