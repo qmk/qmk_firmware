@@ -328,10 +328,24 @@ bool oled_task_user(void) {
     return false;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    set_keylog(keycode, record);
-  }
-  return true;
-}
 #endif // OLED_ENABLE
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+#ifdef OLED_ENABLE
+    if (record->event.pressed) {
+        set_keylog(keycode, record);
+    }
+#endif // OLED_ENABLE
+
+    switch (keycode) {
+        case FUN:
+            if  (!host_keyboard_led_state().num_lock) {
+                tap_code(KC_NUMLOCK);
+            }
+        return true;
+        break;
+    }
+    return true;
+}
+
