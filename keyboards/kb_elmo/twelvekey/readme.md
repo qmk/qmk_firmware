@@ -1,6 +1,6 @@
 # Twelvekey
 
-![twelvekey](https://i.imgur.com/xBQIvpml.png)
+![twelvekey](https://i.imgur.com/59sSO8kl.jpg)
 
 Simple 12-key macropad
 
@@ -17,3 +17,8 @@ Flashing example for this keyboard:
     make kb_elmo/twelvekey:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+* **Bootmagic reset**: Hold down the top left key and plug in the keyboard
+* **Physical reset button**: Hold down the button labeled "BOOT" and briefly press the button labeled "RESET" on the back of the PCB

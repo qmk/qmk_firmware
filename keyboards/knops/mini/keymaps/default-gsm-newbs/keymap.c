@@ -203,27 +203,7 @@ void set_layer_led(int layerId) {
 	}
 }
 
-void matrix_init_user(void) {
-	led_init_ports();
-
-	PORTB |= (1 << 7);
-	DDRB &= ~(1<<7);
-
-	PORTD |= (1<<7);
-	PORTC |= (1<<6);
-	PORTC |= (1<<7);
-	PORTD |= (1<<4);
-	PORTE |= (1<<6);
-	PORTB |= (1<<4);
-	PORTD |= (1<<6);
-
-	set_layer_led(0);
-}
-
-void matrix_scan_user(void) {
-}
-
-void led_init_ports() {
+void led_init_ports_user(void) {
   // led voor switch #1
 	DDRD |= (1<<7);
 	PORTD &= ~(1<<7);
@@ -274,6 +254,26 @@ void led_init_ports() {
 	DDRB |= (1<<6);
 	DDRB |= (1<<0);
 	//led_set_layer(0);
+}
+
+void matrix_init_user(void) {
+	led_init_ports_user();
+
+	PORTB |= (1 << 7);
+	DDRB &= ~(1<<7);
+
+	PORTD |= (1<<7);
+	PORTC |= (1<<6);
+	PORTC |= (1<<7);
+	PORTD |= (1<<4);
+	PORTE |= (1<<6);
+	PORTB |= (1<<4);
+	PORTD |= (1<<6);
+
+	set_layer_led(0);
+}
+
+void matrix_scan_user(void) {
 }
 
 void led_set_user(uint8_t usb_led) {

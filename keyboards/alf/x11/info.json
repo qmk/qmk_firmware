@@ -2,11 +2,8 @@
   "keyboard_name": "x11",
   "url": "",
   "maintainer": "qmk",
-  "width": 18.25,
-  "height": 6.5,
   "layouts": {
     "LAYOUT": {
-      "key_count": 88,
       "layout": [
         {"label":"K00", "x":0, "y":0},
         {"label":"K01", "x":2, "y":0},

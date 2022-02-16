@@ -19,7 +19,7 @@
 #include "config_common.h"
 
 #define VENDOR_ID       0x6B62
-#define PRODUCT_ID      0x6869
+#define PRODUCT_ID      0x8989
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Clackery
 #define PRODUCT         Basketweave
@@ -50,10 +50,9 @@
  */
 // #define GRAVE_ESC_CTRL_OVERRIDE
 
-#define ENCODERS_PAD_A { D7 }
-#define ENCODERS_PAD_B { C0 }
+#define ENCODERS_PAD_A { C0 }
+#define ENCODERS_PAD_B { D7 }
 #define ENCODER_RESOLUTION 4
-#define ENCODER_DIRECTION_FLIP
 #define TAP_CODE_DELAY 10
 
 /* Bootmagic Lite key configuration */

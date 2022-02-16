@@ -20,11 +20,9 @@
 
 #include "musical_notes.h"
 
-#if __GNUC__ > 5  // don't use for older gcc compilers since check isn't supported.
-#    if __has_include("user_song_list.h")
-#        include "user_song_list.h"
-#    endif  // if file exists
-#endif      // __GNUC__
+#if __has_include("user_song_list.h")
+#    include "user_song_list.h"
+#endif  // if file exists
 
 #define NO_SOUND
 

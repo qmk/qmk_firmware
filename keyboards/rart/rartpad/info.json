@@ -2,8 +2,6 @@
   "keyboard_name": "RARTPAD",
   "url": "",
   "maintainer": "Alabahuy",
-  "width": 5,
-  "height": 4,
   "layouts": {
       "LAYOUT_ortho_5x4": {
             "layout": [

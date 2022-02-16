@@ -2,8 +2,6 @@
     "keyboard_name": "ikki68",
     "url": "https://ikki68.com/",
     "maintainer": "qmk",
-    "width": 17.5,
-    "height": 5,
     "layouts": {
         "LAYOUT_68_ansi": {
             "layout": [

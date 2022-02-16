@@ -2,8 +2,6 @@
     "keyboard_name": "Soyuz", 
     "url": "https://github.com/ai03-2725/soyuz", 
     "maintainer": "ai03", 
-    "width": 4, 
-    "height": 5, 
     "layouts": {
         "LAYOUT_ortho_5x4": {
             "layout": [
