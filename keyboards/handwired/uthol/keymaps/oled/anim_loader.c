@@ -23,7 +23,7 @@ char wpm_str[10];
 
 #    define ANIM_SIZE 1024  // number of bytes in array, minimize for adequate firmware size, max is 1024
 #    define ANIM_FRAMES 50 // Number of frames
-#    define ANIM_FRAME_DURATION 120 // How long each frame lasts in ms
+#    define ANIM_FRAME_DURATION 160 // How long each frame lasts in ms
 
 uint32_t anim_timer         = 0;
 uint32_t anim_sleep         = 0;
@@ -57,8 +57,7 @@ static void render_anim(void) {
 
 // Used to draw on to the oled screen
 bool oled_task_user(void) {
-    render_anim();  // renders pixelart
-     // Host Keyboard Layer Status
+    render_anim(); 
     oled_write_P(PSTR("Layer:"), false);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
