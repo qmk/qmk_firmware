@@ -103,6 +103,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
         SRC += $(USER_PATH)/pointing/pointing.c
         OPT_DEFS += -DCUSTOM_POINTING_DEVICE
+        OPT_DEFS += -DMOUSE_EXT_REPORT
     endif
 endif
 
