@@ -4,22 +4,35 @@
 #   Post-processing rules convert keyboard-specific shortcuts (that represent
 #   combinations of standard options) into QMK standard options.
 #
-
 -include $(strip $(HELIX_TOP_DIR)/pico/override_helix_options.mk) ## File dedicated to maintenance
 
-  ifneq ($(strip $(HELIX)),)
-    COMMA=,
-    helix_option := $(subst $(COMMA), , $(HELIX))
-    ifneq ($(filter no-ani,$(helix_option)),)
-      LED_ANIMATIONS = no
-    endif
-    ifneq ($(filter ios,$(helix_option)),)
-      IOS_DEVICE_ENABLE = yes
-    endif
-    SHOW_HELIX_OPTIONS = yes
-  endif
+# Parse 'HELIX=xx,yy,zz' option
+ifneq ($(strip $(HELIX)),)
+    # make HELIX=ios helix/pico:AKEYMAP
+    # make HELIX=no-ani helix/pico:AKEYMAP
+    # make HELIX=ios,no-ani helix/pico:AKEYMAP
+    define HELIX_OPTION_PARSE
+        # parce 'no-ani' 'ios'
+        $(if $(SHOW_PARCE),$(info parse .$1.))  #debug
+        $(if $(HELIX_OVERRIDE_PARSE),$(call HELIX_OVERRIDE_PARSE,$1))
 
+        ifeq ($(strip $1),ios)
+            IOS_DEVICE_ENABLE = yes
+        endif
+        ifneq ($(filter na no_ani no-ani,$(strip $1)),)
+            LED_ANIMATIONS = no
+        endif
+    endef # end of HELIX_OPTION_PARSE
+
+    COMMA=,
+    $(eval $(foreach A_OPTION_NAME,$(subst $(COMMA), ,$(HELIX)),  \
+        $(call HELIX_OPTION_PARSE,$(A_OPTION_NAME))))
+    SHOW_HELIX_OPTIONS = yes
+endif
+
+# Toggle between using split_common or the traditional implementation.
 ifneq ($(strip $(SPLIT_KEYBOARD)), yes)
+  # use the traditional implementation.
   SRC += local_drivers/serial.c
   KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
 
@@ -90,6 +103,7 @@ ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
   $(info -- CONSOLE_ENABLE     = $(CONSOLE_ENABLE))
   $(info -- OPT_DEFS           = $(OPT_DEFS))
   $(info -- LTO_ENABLE         = $(LTO_ENABLE))
+  $(info -- DEBUG_MATRIX_SCAN_RATE_ENABLE = $(DEBUG_MATRIX_SCAN_RATE_ENABLE))
   $(info )
 endif
 
