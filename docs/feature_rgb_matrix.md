@@ -418,6 +418,8 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 `RGB_MODE_PLAIN`, `RGB_MODE_BREATHE`, `RGB_MODE_RAINBOW`, and `RGB_MODE_SWIRL` are the only ones that are mapped properly. The rest don't have a direct equivalent, and are not mapped.
 
 ?> `RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUD)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions-idfunctions) should be used instead.
+
+
 !> By default, if you have both the [RGB Light](feature_rgblight.md) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
 
 ## RGB Matrix Effects :id=rgb-matrix-effects
@@ -555,9 +557,7 @@ In order to change the delay of temperature decrease define
 
 ## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects
 
-By setting `RGB_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from your keymap or userspace, without having to edit any QMK core files.
-
-To declare new effects, create a `rgb_matrix_user.inc` file in the user keymap directory or userspace folder.
+By setting `RGB_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defined directly from your keymap or userspace, without having to edit any QMK core files. To declare new effects, create a `rgb_matrix_user.inc` file in the user keymap directory or userspace folder.
 
 ?> Hardware maintainers who want to limit custom effects to a specific keyboard can create a `rgb_matrix_kb.inc` file in the root of the keyboard directory, and add `RGB_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
 
@@ -809,6 +809,8 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 }
 ```
+
+?> Split keyboards will require layer state data syncing with `#define SPLIT_LAYER_STATE_ENABLE`. See [Data Sync Options](feature_split_keyboard?id=data-sync-options) for more details.
 
 #### Examples :id=indicator-examples
 
