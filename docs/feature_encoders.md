@@ -85,7 +85,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
-!> If you return `true`, this will allow the keyboard level code to run, as well.  Returning `false` will override the keyboard level code.  Depending on how the keyboard level function is set up. 
+!> If you return `true`, it will allow the keyboard level code to run as well. Returning `false` will override the keyboard level code, depending on how the keyboard function is set up. 
 
 Layer conditions can also be used with the callback function like the following:
 
