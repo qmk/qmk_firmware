@@ -1,2 +1,2 @@
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
 WPM_ENABLE = yes
