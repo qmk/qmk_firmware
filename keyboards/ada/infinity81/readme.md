@@ -2,11 +2,11 @@
 
 ![infinity81](https://i.imgur.com/9d6IcuA.jpg)
 
-*A short description of the keyboard/project*
+A per key RGB 75% with blocker keyboard
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: infinity81
-* Hardware Availability: not avaliable at this time
+* Hardware Availability: no longer avaliable - future groupbuy possible
 
 Make example for this keyboard (after setting up your build environment):
 
