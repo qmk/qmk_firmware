@@ -78,7 +78,7 @@ bool oled_task_user(void) {
         default:
             oled_write_ln_P(PSTR("Undefined"), false);
     }
-    sprintf(wpm_str, "WPM:%03d", get_current_wpm());  // edit the string to change what shows up, edit %03d to change how many digits show up
-    oled_write(wpm_str, false);                       // writes wpm
+    oled_write_P(PSTR("WPM:"), false);
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
     return false;
 }
