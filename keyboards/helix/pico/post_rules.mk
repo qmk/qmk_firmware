@@ -69,28 +69,14 @@ ifeq ($(strip $(LED_ANIMATIONS)), yes)
     OPT_DEFS += -DLED_ANIMATIONS
 endif
 
-ifeq ($(strip $(OLED_ENABLE)), yes)
-    SRC += local_drivers/i2c.c
-    SRC += local_drivers/ssd1306.c
-    KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
-    OPT_DEFS += -DOLED_ENABLE
-    ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
-        OPT_DEFS += -DLOCAL_GLCDFONT
-    endif
-endif
-
 ifeq ($(strip $(AUDIO_ENABLE)),yes)
   ifeq ($(strip $(RGBLIGHT_ENABLE)),yes)
-    LTO_ENABLE = yes
-  endif
-  ifeq ($(strip $(OLED_ENABLE)),yes)
     LTO_ENABLE = yes
   endif
 endif
 
 ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
   $(info Helix Spacific Build Options)
-  $(info -  OLED_ENABLE          = $(OLED_ENABLE))
   $(info -  LED_BACK_ENABLE      = $(LED_BACK_ENABLE))
   $(info -  LED_UNDERGLOW_ENABLE = $(LED_UNDERGLOW_ENABLE))
   $(info -  LED_ANIMATIONS       = $(LED_ANIMATIONS))
@@ -106,5 +92,3 @@ ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
   $(info -- DEBUG_MATRIX_SCAN_RATE_ENABLE = $(DEBUG_MATRIX_SCAN_RATE_ENABLE))
   $(info )
 endif
-
-OLED_ENABLE = no # disable OLED in TOP/common_features.mk

@@ -20,14 +20,6 @@
 //  for the old keymap.c.
 uint8_t is_master = false;
 
-#ifdef SSD1306OLED
-#include "ssd1306.h"
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	return process_record_gfx(keycode,record) && process_record_user(keycode, record);
-}
-#endif
-
 void matrix_init_kb(void) {
     // Each keymap.c should use is_keyboard_master() instead of is_master.
     // But keep is_master for a while for backwards compatibility
@@ -43,9 +35,3 @@ void keyboard_post_init_kb(void) {
 #endif
     keyboard_post_init_user();
 }
-
-#if defined(SPLIT_KEYBOARD) && defined(SSD1306OLED)
-void matrix_slave_scan_user(void) {
-    matrix_scan_user();
-}
-#endif
