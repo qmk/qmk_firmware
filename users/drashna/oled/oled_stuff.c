@@ -19,6 +19,9 @@
 #ifdef UNICODE_COMMON_ENABLE
 #    include "process_unicode_common.h"
 #endif
+#    ifdef AUDIO_CLICKY
+#        include "process_clicky.h"
+#    endif
 #include <string.h>
 
 extern bool host_driver_disabled;
@@ -456,14 +459,18 @@ extern bool tap_toggling;
 
 void render_user_status(void) {
 #ifdef AUDIO_ENABLE
-    bool is_audio_on = false, is_clicky_on = false;
+    bool is_audio_on = false, l_is_clicky_on = false;
 #    ifdef SPLIT_KEYBOARD
 
-    is_audio_on  = user_state.audio_enable;
-    is_clicky_on = user_state.audio_clicky_enable;
+    is_audio_on = user_state.audio_enable;
+#        ifdef AUDIO_CLICKY
+    l_is_clicky_on = user_state.audio_clicky_enable;
+#        endif
 #    else
     is_audio_on  = is_audio_on();
-    is_clicky_on = is_clicky_on();
+#        ifdef AUDIO_CLICKY
+    l_is_clicky_on = is_clicky_on();
+#        endif
 #    endif
 #endif
 #if defined(OLED_DISPLAY_VERBOSE)
@@ -488,7 +495,7 @@ void render_user_status(void) {
 
 #    ifdef AUDIO_CLICKY
     static const char PROGMEM audio_clicky_status[2][3] = {{0xF4, 0xF5, 0}, {0xF6, 0xF7, 0}};
-    oled_write_P(audio_clicky_status[is_clicky_on && is_audio_on], false);
+    oled_write_P(audio_clicky_status[l_is_clicky_on && is_audio_on], false);
 #        if !defined(OLED_DISPLAY_VERBOSE)
     oled_write_P(PSTR(" "), false);
 #        endif
