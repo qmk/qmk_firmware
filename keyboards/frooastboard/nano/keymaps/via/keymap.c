@@ -1,4 +1,4 @@
-/* Copyright 2021 frooastside
+/* Copyright 2021-2022 frooastside
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,25 +19,9 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT(
 		KC_Z, KC_X,
-		TO(1), KC_TILD),
+		LT(1, KC_ESC), KC_TILD),
 
 	[1] = LAYOUT(
-		RGB_TOG, RGB_MOD,
-		TO(2), TO(0)),
-
-	[2] = LAYOUT(
-		RGB_HUD, RGB_HUI,
-		TO(3), TO(1)),
-
-	[3] = LAYOUT(
-		RGB_SAD, RGB_SAI,
-		TO(4), TO(2)),
-
-	[4] = LAYOUT(
-		RGB_VAD, RGB_VAI,
-		TO(5), TO(3)),
-
-	[5] = LAYOUT(
-		KC_TRNS, KC_TRNS,
-		RESET, TO(4))
+		KC_F23, KC_F24,
+		KC_TRNS, RGB_TOG)
 };
