@@ -1,10 +1,10 @@
 # Happy Frog Keyboard
 
-![HFKB](https://i.imgur.com/0EWBzNth.jpeg)
+![HFKB](https://i.imgur.com/sgPqgIBh.jpg)
 
-![HFKB](https://i.imgur.com/m8z1kMVh.jpeg)
+![HFKB](https://i.imgur.com/GnKMFQgh.jpg)
 
-![HFKB](https://i.imgur.com/AZIfVzNh.jpeg)
+![HFKB](https://i.imgur.com/9nKnonEh.jpg)
 
 A 60% Keybaord HHKB Layout with:
   - Multiple layout

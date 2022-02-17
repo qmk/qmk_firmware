@@ -1,4 +1,4 @@
-/* Copyright 2021 jfescobar18
+/* Copyright 2022 jfescobar18
   * 
   * This program is free software: you can redistribute it and/or modify 
   * it under the terms of the GNU General Public License as published by 
@@ -51,3 +51,8 @@
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
+
+/* Onboard LEDs */
+#define LED_00 D1
+#define LED_01 D2
+#define LED_02 D3
