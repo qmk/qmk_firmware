@@ -399,6 +399,7 @@ __attribute__((weak)) void startup_user() {}
 __attribute__((weak)) void shutdown_user() {}
 
 void suspend_power_down_quantum(void) {
+    suspend_power_down_kb();
 #ifndef NO_SUSPEND_POWER_DOWN
 // Turn off backlight
 #    ifdef BACKLIGHT_ENABLE
