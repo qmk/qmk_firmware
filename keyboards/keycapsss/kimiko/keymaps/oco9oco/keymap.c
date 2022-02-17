@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  __________________NUMROW_L_________________,                            __________________NUMROW_R_________________, KC_MINS,
     KC_GRAVE,__________________QWERTY_L1________________,                            __________________QWERTY_R1________________, KC_EQL,
     KC_CAPS, __________________QWERTY_HOME_L2___________,                            __________________QWERTY_HOME_R2___________, KC_QUOT,
-    KC_LSFT, __________________QWERTY_L3________________, _______,          KC_B,    __________________QWERTY_R3________________, KC_BSLS,
+    KC_LSFT, __________________QWERTY_L3_SFTZ___________, _______,          KC_B,    __________________QWERTY_R3________________, KC_BSLS,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
                       KC_LGUI, KC_LALT, THUMB_L1,THUMB_L2,THUMB_L3,         THUMB_R3,THUMB_R2,THUMB_R1,KC_LALT, KC_LGUI
 ),
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------| 
     _______, KC_WH_D, KC_BTN2, KC_BTN3, KC_BTN1, KC_WH_U,                            __________________NUMROW_R_________________, _______, 
     _______, __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, _______, 
-    _______, __________________QWERTY_L2________________,                            __________________QWERTY_R2________________, _______, 
+    _______, __________________QWERTY_L2_SFTA___________,                            __________________QWERTY_R2________________, _______, 
     _______, __________________QWERTY_L3________________, _______,          _______, __________________QWERTY_R3________________, _______, 
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
                       _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______ 
@@ -137,6 +137,8 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case THUMB_L2:
             return true;
+        case SFTT_A:
+            if (record->event.key.row==1 && record->event.key.col>2){return true;} else{clear_mods();return false;}
         case SFTT_Z:    
             if (record->event.key.row==1 && record->event.key.col>2){return true;} else{return false;}
         default:
@@ -146,6 +148,8 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 // Ignore mod tap interrupt
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case SFTT_A:
+            if (record->event.key.row==1 && record->event.key.col>2){return false;} else {clear_mods();return true;}
         case SFTT_Z:
            if (record->event.key.row==1 && record->event.key.col>2){return false;} else {return true;}
         case SFTT_F:

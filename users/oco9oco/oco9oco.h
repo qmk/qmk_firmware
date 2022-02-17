@@ -1,16 +1,4 @@
-/*
-Copyright 2022 oco9oco <oco9oco@gmail.com>
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+// oco9oco.h
 
 #include QMK_KEYBOARD_H
 //#include <stdio.h> 
@@ -52,7 +40,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //     |--------|--------|--------|--------|--------|
 #define __________________QWERTY_L1________________ KC_Q, KC_W, KC_E, KC_R, KC_T 
 #define __________________QWERTY_L2________________ KC_A, KC_S, KC_D, KC_F, KC_G
-#define __________________QWERTY_L3________________ SFTT_Z, KC_X, KC_C, KC_V, KC_B
+#define __________________QWERTY_L3_SFTZ___________ SFTT_Z, KC_X, KC_C, KC_V, KC_B
+
+#define __________________QWERTY_L2_SFTA___________ SFTT_A, KC_S, KC_D, KC_F, KC_G
+#define __________________QWERTY_L3________________ KC_Z, KC_X, KC_C, KC_V, KC_B
 //     |--------|--------|--------|--------|--------|
 #define __________________QWERTY_R1________________ KC_Y, KC_U, KC_I, KC_O, KC_P
 #define __________________QWERTY_R2________________ KC_H, KC_J, KC_K, KC_L, KC_SCLN
