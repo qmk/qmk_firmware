@@ -2,11 +2,11 @@
 
 ![ada1800mini](https://i.imgur.com/87Rn2MJ.jpeg)
 
-*A short description of the keyboard/project*
+A per key RGB mini 1800 keyboard
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: ada1800mini
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: no longer avaliable - future groupbuy possible
 
 Make example for this keyboard (after setting up your build environment):
 
