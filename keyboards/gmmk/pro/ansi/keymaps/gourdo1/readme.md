@@ -27,6 +27,7 @@ Numpad Overlay Layer
 Encoder Functionality
 
 	* Default knob turn changes volume; button press toggles mute
+	* Exponential encoder - quick repeated volume up doubles increase; quick repeated volume down triples decrease
 	* FN knob turn changes RGB idle timeout
 	* holding Left Shift changes layers
 	* holding Right Shift navigates page up/down
@@ -46,9 +47,9 @@ RGB
 	* RGB indicators on left side LEDs: Capslock (green), Scroll Lock (red), and Num Lock not set (orange) 
     * FN + Z to turn off all RGB lights except rgb indicators; press again to toggle
 
-Link to latest firmware binary: https://github.com/gourdo1/qmk_firmware/tree/master/keyboards/gmmk/pro/ansi/keymaps/gourdo1/gmmk_pro_ansi_gourdo1.bin
+Link to latest firmware binary: https://github.com/gourdo1/media/raw/main/gmmk_pro_ansi_gourdo1.bin
 
-Link to cheatsheet: https://github.com/gourdo1/qmk_firmware/tree/master/keyboards/gmmk/pro/ansi/keymaps/gourdo1/GMMK_Pro_Cheatsheet.pdf
+Link to cheatsheet: https://github.com/gourdo1/media/raw/main/GMMK_Pro_Cheatsheet.pdf
 
 	
 rules.mk Options
