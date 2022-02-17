@@ -171,7 +171,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         if (last_direction != clockwise || encoder_token == INVALID_DEFERRED_TOKEN) {
             uint8_t keycode = clockwise ? KC_WH_D : KC_WH_U;
             last_direction = clockwise;
-            if (encoder_token == INVALID_DEFERRED_TOKEN) {
+            if (encoder_token != INVALID_DEFERRED_TOKEN) {
                 cancel_deferred_exec(encoder_token);
                 unregister_code(clockwise ? KC_WH_U : KC_WH_D);
             }
