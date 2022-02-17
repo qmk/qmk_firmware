@@ -17,9 +17,6 @@
 
 //Animation loader file
 #include "helix.c" //animation file
-#include <stdio.h>
-
-char wpm_str[10];
 
 #    define ANIM_SIZE 1024  // number of bytes in array, minimize for adequate firmware size, max is 1024
 #    define ANIM_FRAMES 50 // Number of frames
