@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001 // Revision pre-Alpha
 #define MANUFACTURER    AcheronProject
 #define PRODUCT         KeebsPCB
-#define DESCRIPTION     AcheronProject KeebsPCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

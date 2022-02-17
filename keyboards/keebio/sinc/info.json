@@ -2,8 +2,6 @@
     "keyboard_name": "Sinc",
     "url": "https://keeb.io",
     "maintainer": "nooges",
-    "width": 19,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_75": {
             "layout": [

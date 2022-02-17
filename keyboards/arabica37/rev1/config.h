@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    CalciumNitride
 #define PRODUCT         Arabica3/7
-#define DESCRIPTION     A split keyboard with 3x6 column staggered keys, 1 pinkie key and 3 thumb keys
 
 #define USE_SERIAL
 #define SOFT_SERIAL_PIN D2

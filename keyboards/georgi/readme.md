@@ -6,7 +6,7 @@ A compact 20% (12x2) Split Keyboard for steno and QWERTY.
 
 [More info on qmk.fm](http://qmk.fm/georgi/)
 
-Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)  
+Keyboard Maintainer: [Jane Bernhardt](https://github.com/germ)  
 Hardware Supported: Georgi   
 Hardware Availability: [gboards.ca](http://gboards.ca)  
 

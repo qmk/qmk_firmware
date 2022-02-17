@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER yanfali
 #define PRODUCT fruity60
-#define DESCRIPTION An Adafruit BLE 32u4 capable 60
 
 /* key matrix size */
 #define MATRIX_ROWS 6

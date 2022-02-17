@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -27,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    unknown
 #define PRODUCT         Chimera Ergo
-#define DESCRIPTION     q.m.k. keyboard firmware for Chimera Ergo
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -61,19 +59,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //UART settings for communication with the RF microcontroller
 #define SERIAL_UART_BAUD 1000000
-#define SERIAL_UART_DATA UDR1
-#define SERIAL_UART_UBRR (F_CPU / (16UL * SERIAL_UART_BAUD) - 1)
-#define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
 #define SERIAL_UART_RXD_PRESENT (UCSR1A & _BV(RXC1))
-#define SERIAL_UART_INIT() do { \
-    	/* baud rate */ \
-    	UBRR1L = SERIAL_UART_UBRR; \
-    	/* baud rate */ \
-    	UBRR1H = SERIAL_UART_UBRR >> 8; \
-    	/* enable TX and RX */ \
-    	UCSR1B = _BV(TXEN1) | _BV(RXEN1); \
-    	/* 8-bit data */ \
-    	UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
-  	} while(0)
-
-#endif
+#define SERIAL_UART_INIT_CUSTOM       \
+    /* enable TX and RX */            \
+    UCSR1B = _BV(TXEN1) | _BV(RXEN1); \
+    /* 8-bit data */                  \
+    UCSR1C = _BV(UCSZ11) | _BV(UCSZ10);

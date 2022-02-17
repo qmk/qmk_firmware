@@ -10,7 +10,7 @@
 
 #ifdef AUDIO_ENABLE
 float test_sound[][2] = SONG(STARTUP_SOUND);
-#include <audio/audio.h>
+#include "audio.h"
 #endif
 
 uint16_t click_hz = CLICK_HZ;
@@ -28,12 +28,12 @@ void matrix_init_kb(void)
     audio_init();
     PLAY_SONG(test_sound);
     // Fix port B5
-    cbi(DDRB, 5);
-    sbi(PORTB, 5);
+    setPinInput(B5);
+    writePinHigh(B5);
 #else
     // If we're not using the audio pin, drive it low
-    sbi(DDRC, 6);
-    cbi(PORTC, 6);
+    setPinOutput(C6);
+    writePinLow(C6);
 #endif
 #ifdef ISSI_ENABLE
     issi_init();
@@ -161,13 +161,6 @@ void reset_keyboard_kb(){
     wdt_reset();
 #endif
     reset_keyboard();
-}
-
-void led_set_kb(uint8_t usb_led)
-{
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-    led_set_user(usb_led);
 }
 
 // LFK lighting info

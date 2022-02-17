@@ -2,8 +2,6 @@
     "keyboard_name": "Canoe Gen2", 
     "url": "", 
     "maintainer": "evyd13", 
-    "width": 16, 
-    "height": 5, 
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [

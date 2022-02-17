@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -9,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Play Keyboard
 #define PRODUCT         pk60
-#define DESCRIPTION     A 60% keyboard PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -48,6 +46,4 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
-
 #endif

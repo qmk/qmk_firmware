@@ -14,8 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef CONFIG_H
-#define CONFIG_H
+
+#pragma once
 
 #include "config_common.h"
 
@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    WoodKeys.click
 #define PRODUCT         BigSeries Triple Keyboard
-#define DESCRIPTION     Triple key board for Novelkeys Big Series Switch
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -55,6 +54,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLIGHT_LIMIT_VAL
 #endif
 #define RGBLIGHT_LIMIT_VAL 128
-#endif
-
 #endif

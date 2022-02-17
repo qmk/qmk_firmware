@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    TheRoyalSweatshirt
 #define PRODUCT         RoMac+
-#define DESCRIPTION     A *Plaid inspired twelve-key macropad with upgraded features
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 3

@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    TheRoyalSweatshirt
 #define PRODUCT         romac
-#define DESCRIPTION     A *Plaid inspired twelve-key macropad 
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 3

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    KeyPCB/Keebio
 #define PRODUCT         BDN9-BLE
-#define DESCRIPTION     3x3 Bluetooth Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 3

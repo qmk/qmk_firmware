@@ -2,8 +2,6 @@
   "keyboard_name": "pilcrow",
   "url": "",
   "maintainer": "qmk",
-  "width": 10,
-  "height": 4,
   "layouts": {
     "LAYOUT": {
       "layout": [

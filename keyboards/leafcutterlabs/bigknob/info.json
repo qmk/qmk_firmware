@@ -1,0 +1,10 @@
+{
+  "keyboard_name": "bigknob",
+  "url": "",
+  "maintainer": "qmk",
+  "layouts": {
+    "LAYOUT_ortho_1x5": {
+      "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":4, "y":0}]
+    }
+  }
+}

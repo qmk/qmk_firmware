@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ReverseStudio
 #define PRODUCT         DecadePad
-#define DESCRIPTION     6x4Pad
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -42,6 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
+
+#define LED_NUM_LOCK_PIN D4
+#define LED_PIN_ON_STATE 0
 
 /* number of backlight levels */
 /* Set 0 if debouncing isn't needed */

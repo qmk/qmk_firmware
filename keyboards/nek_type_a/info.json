@@ -2,8 +2,6 @@
     "keyboard_name": "NEK Type A",
     "url": "",
     "maintainer": "ecopoesis",
-    "width": 19.75,
-    "height": 6.25,
     "layouts": {
         "LAYOUT": {
             "layout": [

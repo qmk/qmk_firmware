@@ -4,7 +4,7 @@
 
 It's a Taco with a side of HASL. A 12 key fiesta of a board.
 
-Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)  
+Keyboard Maintainer: [Jane Bernhardt](https://github.com/germ)  
 Hardware Supported: ErgoTaco  
 Hardware Availability: [gboards.ca](http://gboards.ca)  
 

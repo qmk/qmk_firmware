@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    rockydbull
 #define PRODUCT         Catch22 Hotswap Macropad
-#define DESCRIPTION     Budget 22 Key Hotswap Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 5

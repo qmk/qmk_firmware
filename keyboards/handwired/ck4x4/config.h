@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER QMK
 #define PRODUCT CK4x4
-#define DESCRIPTION Cannon Keys 4x4 MacroPad
 
 /* key matrix size */
 #define MATRIX_ROWS 4

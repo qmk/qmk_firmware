@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Hybrid
 #define PRODUCT         KVT
-#define DESCRIPTION     SouthPaw Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6

@@ -14,17 +14,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- #pragma once
+#pragma once
 
+#include <cstdint>
+#include <unordered_map>
+#include <optional>
 #include "gtest/gtest.h"
+#include "keyboard.h"
+#include "test_keymap_key.hpp"
 
 class TestFixture : public testing::Test {
-public:
+   public:
+    static TestFixture* m_this;
+
     TestFixture();
     ~TestFixture();
     static void SetUpTestCase();
     static void TearDownTestCase();
 
+    void set_keymap(std::initializer_list<KeymapKey> keycodes);
+    void add_key(const KeymapKey key);
+
+    const KeymapKey* find_key(const layer_t layer_t, const keypos_t position) const;
+    void                     get_keycode(const layer_t layer, const keypos_t position, uint16_t* result) const;
+
     void run_one_scan_loop();
     void idle_for(unsigned ms);
+
+    void expect_layer_state(layer_t layer) const;
+
+   protected:
+    void                   print_test_log() const;
+    std::vector<KeymapKey> keymap;
 };

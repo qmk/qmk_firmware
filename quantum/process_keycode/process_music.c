@@ -146,7 +146,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
 
     if (music_activated || midi_activated) {
         if (record->event.pressed) {
-            if (keycode == KC_LCTL) {  // Start recording
+            if (keycode == KC_LEFT_CTRL) {  // Start recording
                 music_all_notes_off();
                 music_sequence_recording = true;
                 music_sequence_recorded  = false;
@@ -155,7 +155,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
 
-            if (keycode == KC_LALT) {  // Stop recording/playing
+            if (keycode == KC_LEFT_ALT) {  // Stop recording/playing
                 music_all_notes_off();
                 if (music_sequence_recording) {  // was recording
                     music_sequence_recorded = true;
@@ -165,7 +165,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
 
-            if (keycode == KC_LGUI && music_sequence_recorded) {  // Start playing
+            if (keycode == KC_LEFT_GUI && music_sequence_recorded) {  // Start playing
                 music_all_notes_off();
                 music_sequence_recording = false;
                 music_sequence_playing   = true;
@@ -191,7 +191,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
             note = music_starting_note + music_offset + 36 + music_map[record->event.key.row][record->event.key.col];
         } else {
             uint8_t position = music_map[record->event.key.row][record->event.key.col];
-            note             = music_starting_note + music_offset + 36 + SCALE[position % 12] + (position / 12) * 12;
+            note             = music_starting_note + music_offset + 36 + SCALE[position % 7] + (position / 7) * 12;
         }
 #    else
         if (music_mode == MUSIC_MODE_CHROMATIC)
@@ -296,7 +296,7 @@ void music_mode_cycle(void) {
 #    endif
 }
 
-void matrix_scan_music(void) {
+void music_task(void) {
     if (music_sequence_playing) {
         if ((music_sequence_timer == 0) || (timer_elapsed(music_sequence_timer) > music_sequence_interval)) {
             music_sequence_timer = timer_read();

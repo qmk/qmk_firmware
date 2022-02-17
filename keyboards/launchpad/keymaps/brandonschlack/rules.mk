@@ -5,7 +5,7 @@ IS_MACROPAD = yes
 BOOTLOADER = atmel-dfu
 
 # Build Options
-BOOTMAGIC_ENABLE = lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
 CONSOLE_ENABLE = yes         # Console for debug(+400)
 MOUSEKEY_ENABLE = yes        # Use mouse keys for scrolling.

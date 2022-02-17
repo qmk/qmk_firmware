@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0002
 #define MANUFACTURER Montsinger
 #define PRODUCT Rewind
-#define DESCRIPTION "5x10 ortho that fits inside a puffy VHS case"
 
 /* key matrix size */
 

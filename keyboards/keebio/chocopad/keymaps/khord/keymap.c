@@ -4,22 +4,8 @@
 #define _FN1 1
 #define _FN2 2
 
-// Fillers to make layering more clear
-#define KC_ KC_TRNS
-#define KC_XX KC_NO
-
 #define KC_L1 LT(1, KC_P0)
 #define KC_L2 LT(2, KC_SPC)
-#define KC_RST RESET
-#define KC_BSTP BL_STEP
-#define KC_RTOG RGB_TOG
-#define KC_RMOD RGB_MOD
-#define KC_RHUI RGB_HUI
-#define KC_RHUD RGB_HUD
-#define KC_RSAI RGB_SAI
-#define KC_RSAD RGB_SAD
-#define KC_RVAI RGB_VAI
-#define KC_RVAD RGB_VAD
 #define KC_MAC1 ADMIN
 #define KC_MAC2 SMSPC
 #define KC_M192 M192
@@ -35,40 +21,25 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_BASE] = LAYOUT_kc(
-  //,----+----+----+----.
-      P7 , P8 , P9 ,BSPC,
-  //|----+----+----+----|
-      P4 , P5 , P6 ,TAB ,
-  //|----+----+----+----|
-      P1 , P2 , P3 ,PENT,
-  //|----+----+----+----|
-      L1 , L2 ,PDOT,PSLS
-  //`----+----+----+----'
+  [_BASE] = LAYOUT_ortho_4x4(
+    KC_P7,   KC_P8,   KC_P9,   KC_BSPC,
+    KC_P4,   KC_P5,   KC_P6,   KC_TAB ,
+    KC_P1,   KC_P2,   KC_P3,   KC_PENT,
+    KC_L1,   KC_L2,   KC_PDOT, KC_PSLS
   ),
 
-  [_FN1] = LAYOUT_kc(
-  //,----+----+----+----.
-     ESC ,MAC1,MAC2,DEL ,
-  //|----+----+----+----|
-     LEFT,DOWN, UP ,RGHT,
-  //|----+----+----+----|
-     M192,M255, XX , XX ,
-  //|----+----+----+----|
-         , XX ,    , XX
-  //`----+----+----+----'
+  [_FN1] = LAYOUT_ortho_4x4(
+    KC_ESC,  KC_MAC1, KC_MAC2, KC_DEL ,
+    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+    KC_M192, KC_M255, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, _______, XXXXXXX
   ),
 
-  [_FN2] = LAYOUT_kc(
-  //,----+----+----+----.
-     RST , XX , XX , XX ,
-  //|----+----+----+----|
-     RTOG,RHUI,RSAI,RVAI,
-  //|----+----+----+----|
-     RMOD,RHUD,RSAD,RVAD,
-  //|----+----+----+----|
-     BSTP,    , XX , XX
-  //`----+----+----+----'
+  [_FN2] = LAYOUT_ortho_4x4(
+    RESET,   XXXXXXX, XXXXXXX, XXXXXXX,
+    RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
+    RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,
+    BL_STEP, _______, XXXXXXX, XXXXXXX
   )
 
 };

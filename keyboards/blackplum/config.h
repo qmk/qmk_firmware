@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x1001
 #define MANUFACTURER    Pixlup
 #define PRODUCT         Blackplum Keeb
-#define DESCRIPTION     Blackplum 68 Percent Mechanical Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 9

@@ -40,14 +40,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,          KC_Q,           KC_W,     KC_E,     KC_R,     KC_T,   TG(SYMB),
         KC_ESC,          KC_A,           KC_S,     KC_D,     KC_F,     KC_G,
         KC_LSFT,         DE_Y,           KC_X,     KC_C,     KC_V,     KC_B,   ALL_T(KC_NO),
-        KC_LGUI,      DE_CIRC, DE_LESS,  KC_LEFT,  KC_RIGHT,
+        KC_LGUI,      DE_CIRC, DE_LABK,  KC_LEFT,  KC_RIGHT,
                                                KC_LCTRL, KC_LALT,
                                                               KC_HOME,
                                                KC_SPC ,KC_DEL,KC_END,
         // right hand
         KC_PSCREEN,   KC_6,   KC_7,    KC_8,    KC_9,    KC_0,        KC_MINS,
-        TG(MDIA),     DE_Z,   KC_U,    KC_I,    KC_O,    KC_P,        LT(SHRT,DE_UE),
-                      KC_H,   KC_J,    KC_K,    KC_L,    DE_OE,       LT(MDIA,DE_AE),
+        TG(MDIA),     DE_Z,   KC_U,    KC_I,    KC_O,    KC_P,        LT(SHRT,DE_UDIA),
+                      KC_H,   KC_J,    KC_K,    KC_L,    DE_ODIA,     LT(MDIA,DE_ADIA),
         MEH_T(KC_NO),     KC_N,   KC_M,    KC_COMM, KC_DOT,  DE_MINS,     KC_RSFT,
                               KC_UP,   KC_DOWN, DE_HASH, DE_PLUS,     LCA_T(KC_NO),
         KC_RALT, KC_RCTRL,
@@ -183,26 +183,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
 };
 
 // Runs constantly in the background, in a loop.
