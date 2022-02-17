@@ -366,7 +366,7 @@ void usl_finished(qk_tap_dance_state_t *state, void *user_data) {
     usl_tap_state.state = cur_dance(state);
     switch (usl_tap_state.state) {
         case TD_SINGLE_TAP:
-            tap_code16(KC_MINS);
+            set_oneshot_mods(MOD_LSFT);
             break;
         case TD_SINGLE_HOLD:
             layer_on(_LOWER);
