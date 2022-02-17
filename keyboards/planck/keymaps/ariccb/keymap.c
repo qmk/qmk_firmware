@@ -19,6 +19,7 @@
 #include "features/select_word.h"
 #include "features/caps_word.h"
 #include "features/adaptive_keys.h"
+#include "features/autocorrection.h"
 
 // using the Word Selection QMK Macro by Pascal Getreuer, found here: https://getreuer.info/posts/keyboards/select-word/index.html
 // THANKS Pascal for such amazing functionality!!
@@ -98,7 +99,7 @@ typedef struct {
 
  // Our custom tap dance keys; add any other tap dance keys to this enum
 enum {
-    MINS_LOWER,
+    OSSHIFT,
     PLAY_RAISE
 };
 
@@ -140,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     FNESC,   KC_Q,     KC_W,     KC_E,    KC_R,           KC_T,   KC_Y,   KC_U,   KC_I,      KC_O,   KC_P,    KC_BSPC,
     MTTAB,   KC_A,     KC_S,     KC_D,    KC_F,           KC_G,   KC_H,   KC_J,   KC_K,      KC_L,   KC_SCLN, MTRCTLQUO,
     KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_V,           KC_B,   KC_N,   KC_M,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(MINS_LOWER), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(OSSHIFT), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
   ),
 
  /* MIT Layout (HANDSDOWNNEU Modded)
@@ -159,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     FNESC,   KC_W,     KC_F,     KC_M,    KC_P,           KC_V,   KC_SLSH,  KC_DOT,   KC_Q,      KC_COMMA, KC_SCLN, KC_BSPC,
     MTTAB,   KC_R,     KC_S,     KC_N,    KC_T,           KC_G,   KC_K,     KC_A,     KC_E,      KC_I,     KC_H,    MTRCTLQUO,
     KC_LSFT, MTLGUI_X, KC_C,     KC_L,    KC_D,           KC_B,   KC_J,     KC_U,     KC_O,      KC_Y,     KC_Z,    MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(MINS_LOWER), KC_SPC, KC_SPC,   MO(4),    MTLALT_PL, KC_NO,    KC_NO,   KC_NO
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(OSSHIFT), KC_SPC, KC_SPC,   MO(4),    MTLALT_PL, KC_NO,    KC_NO,   KC_NO
  ),
 
  /* MIT Layout (COLEMAK)
@@ -178,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     FNESC,  KC_Q,     KC_W,     KC_F,    KC_P,           KC_B,   KC_J,   KC_L,   KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
     MTTAB,   KC_A,     KC_R,     KC_S,    KC_T,           KC_G,   KC_M,   KC_N,   KC_E,      KC_I,   KC_O,    MTRCTLQUO,
     KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,           KC_V,   KC_K,   KC_H,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(MINS_LOWER), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(OSSHIFT), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
  ),
 
 /* MIT Layout (RAISE)
@@ -404,13 +405,14 @@ void usl_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 // Associate our tap dance key with its functionality
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [MINS_LOWER] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, usl_finished, usl_reset, 175)
+    [OSSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, usl_finished, usl_reset, 110)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_select_word(keycode, record, SELWORD)) { return false; }
   if (!process_caps_word(keycode, record)) { return false; }
   if (!process_adaptive_key(keycode, record)) { return false; }
+  if (!process_autocorrection(keycode, record)) { return false; }
 
   const uint8_t mods = get_mods();
   const uint8_t oneshot_mods = get_oneshot_mods();
@@ -576,7 +578,7 @@ const uint16_t PROGMEM paste_combo[]            = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM pasteclip_combo[]        = {KC_X, KC_D, COMBO_END};
 const uint16_t PROGMEM pastetxt_combo[]         = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM selectall_combo[]        = {MTLGUI_Z, KC_D, COMBO_END};
-const uint16_t PROGMEM questionmark_combo[]      = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM questionmark_combo[]     = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM underscore_combo[]       = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM twodquote_combo[]        = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM scbigram_combo[]         = {KC_S, KC_D, COMBO_END};
