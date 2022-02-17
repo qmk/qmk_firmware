@@ -29,15 +29,6 @@
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 #define kc5(a,b,c,d,e) KC_##a, KC_##b, KC_##c, KC_##d, KC_##e
 
-extern keymap_config_t keymap_config;
-
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
-extern uint8_t is_master;
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
