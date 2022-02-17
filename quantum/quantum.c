@@ -488,6 +488,7 @@ __attribute__((weak)) void suspend_power_down_user(void) {}
 __attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
 
 void suspend_power_down_quantum(void) {
+    suspend_power_down_kb();
 #ifndef NO_SUSPEND_POWER_DOWN
 // Turn off backlight
 #    ifdef BACKLIGHT_ENABLE
