@@ -27,6 +27,7 @@ Numpad Overlay Layer
 Encoder Functionality
 
 	* Default knob turn changes volume; button press toggles mute
+	* Exponential encoder - quick repeated volume up doubles increase; quick repeated volume down triples decrease
 	* FN knob turn changes RGB idle timeout
 	* holding Left Shift changes layers
 	* holding Right Shift navigates page up/down
