@@ -176,9 +176,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 unregister_code(clockwise ? KC_WH_U : KC_WH_D);
             }
             register_code(keycode);
-            encoder_token = defer_exec(200, encoder_callback, NULL);
+            encoder_token = defer_exec(MOUSEKEY_WHEEL_DELAY + MOUSEKEY_WHEEL_INTERVAL, encoder_callback, NULL);
         } else {
-            extend_deferred_exec(encoder_token, 150);
+            extend_deferred_exec(encoder_token, MOUSEKEY_WHEEL_INTERVAL);
         }
     }
     return false;
