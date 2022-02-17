@@ -213,13 +213,13 @@ typedef struct {
 #endif
     uint8_t buttons;
 #ifdef MOUSE_EXT_REPORT
-    int8_t  boot_x;
-    int8_t  boot_y;
+    int8_t boot_x;
+    int8_t boot_y;
 #endif
     mouse_xy_report_t x;
     mouse_xy_report_t y;
-    int8_t v;
-    int8_t h;
+    int8_t            v;
+    int8_t            h;
 } __attribute__((packed)) report_mouse_t;
 
 typedef struct {

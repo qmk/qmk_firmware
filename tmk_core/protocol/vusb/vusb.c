@@ -501,8 +501,8 @@ const PROGMEM uchar shared_hid_report[] = {
 #    else
     0x16, 0xFF, 0x81, // Logical Minimum (-32767) (?)
     0x26, 0xFF, 0x7F, // Logical Maximum (32767)
-    0x95, 0x02, //     Report Count (2)
-    0x75, 0x10, //     Report Size (16)
+    0x95, 0x02,       // Report Count (2)
+    0x75, 0x10,       // Report Size (16)
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
 
