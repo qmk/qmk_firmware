@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Teimor Epstein
+/* Copyright 2022 @ Teimor Epstein
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Win Caps language change
+/* Windows CapsLock language change */
 static td_tap_t win_caps_language_tap_state = {
     .is_press_action = true,
     .state = TD_NONE

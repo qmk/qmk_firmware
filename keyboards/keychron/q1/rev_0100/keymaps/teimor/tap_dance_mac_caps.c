@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Mac Caps language change
+/* macOS CapsLock language change */
 static td_tap_t mac_caps_language_tap_state = {
     .is_press_action = true,
     .state = TD_NONE

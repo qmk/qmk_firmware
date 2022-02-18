@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Teimor Epstein
+/* Copyright 2022 @ Teimor Epstein
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,10 +60,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
     }
 }
-
-// void rgb_matrix_set_color(uint8_t led_min, uint8_t led_max, uint8_t red, uint8_t green, uint8_t blue) {
-//     for (uint8_t i = led_min; i < led_max; i++) rgb_matrix_set_color(i, red, green, blue);
-// }
 
 void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t layer, bool (*is_keycode)(uint16_t), uint8_t red, uint8_t green, uint8_t blue) {
     for (uint8_t i = led_min; i < led_max; i++) {
