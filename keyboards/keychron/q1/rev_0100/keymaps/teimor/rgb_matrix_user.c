@@ -81,12 +81,13 @@ void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t l
 }
 
 bool is_caps_lock_indicator(uint16_t keycode) {
+    bool indicator = keycode == KC_CAPS || keycode == KC_LGMAC || keycode == KC_LGWIN;
 #ifdef CAPS_LOCK_INDICATOR_LIGHT_60
     return (KC_A <= keycode && keycode <= KC_CAPS) || \
     (KC_LEFT_CTRL <= keycode && keycode <= KC_RIGHT_GUI) || \
-    keycode == KX_MACFN || keycode == KX_LGMAC || keycode == KX_WINFN;
+    keycode == KC_MACFN || keycode == KC_WINFN || indicator;
 #else
-    return keycode == KC_CAPS;
+    return indicator;
 #endif
 }
 
