@@ -95,9 +95,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
         } else if (index == 1) {
             if (!clockwise) {
-                tap_code16(KC_PGUP);
+                tap_code16(A(KC_PGUP));
             } else {
-                tap_code16(KC_PGDOWN);
+                tap_code16(A(KC_PGDOWN));
             }
         }
     }

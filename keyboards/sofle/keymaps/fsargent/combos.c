@@ -19,7 +19,7 @@ const uint16_t PROGMEM qr_combo[] = {KC_Q, KC_R, COMBO_END};
 const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM gravminus_combo[] = {KC_GRAVE, KC_MINUS, COMBO_END};
+const uint16_t PROGMEM gravminus_combo[] = {KC_5, KC_6, COMBO_END};
 
 const uint16_t PROGMEM cal_combo[]   = {KC_C, KC_A, KC_L, COMBO_END};
 const uint16_t PROGMEM phone_combo[] = {KC_P, KC_Q, COMBO_END};
