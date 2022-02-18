@@ -1,4 +1,4 @@
-/* Copyright 2021 frooastside
+/* Copyright 2021-2022 frooastside
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,15 +16,37 @@
 
 #pragma once
 
-#define RGBLIGHT_EFFECT_BREATHING
+#include "config_common.h"
+
+/* USB Device descriptor parameter */
+#define MANUFACTURER    frooastside
+#define PRODUCT         Frooastboard Nano
+
+/* key matrix size */
+#define MATRIX_ROWS 2
+#define MATRIX_COLS 2
+
+#define BOOTMAGIC_LITE_ROW 1
+#define BOOTMAGIC_LITE_COLUMN 1
+
+#define RGB_DI_PIN B4
+#define RGBLED_NUM 8
+
+#define RGBLIGHT_SLEEP
+
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+
+#define RGBLIGHT_DEFAULT_HUE 234
+
+#define RGBLIGHT_LIMIT_VAL 255
+#define RGBLIGHT_DEFAULT_VAL 190
+
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_SNAKE
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 2
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD + 2
