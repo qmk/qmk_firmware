@@ -22,30 +22,29 @@
 #    include <inttypes.h>
 
 typedef struct {
-    uint8_t  count;
-    uint8_t  oneshot_mods;
-    uint8_t  weak_mods;
-    uint16_t keycode;
-    uint16_t interrupting_keycode;
     uint16_t timer;
-    bool     interrupted;
-    bool     pressed;
-    bool     finished;
+    uint16_t interrupting_keycode;
+    uint8_t  count;
+    uint8_t  weak_mods;
+#    ifndef NO_ACTION_ONESHOT
+    uint8_t oneshot_mods;
+#    endif
+    bool pressed : 1;
+    bool finished : 1;
+    bool interrupted : 1;
 } qk_tap_dance_state_t;
-
-#    define TD(n) (QK_TAP_DANCE | ((n)&0xFF))
 
 typedef void (*qk_tap_dance_user_fn_t)(qk_tap_dance_state_t *state, void *user_data);
 
 typedef struct {
+    qk_tap_dance_state_t state;
     struct {
         qk_tap_dance_user_fn_t on_each_tap;
         qk_tap_dance_user_fn_t on_dance_finished;
         qk_tap_dance_user_fn_t on_reset;
     } fn;
-    qk_tap_dance_state_t state;
-    uint16_t             custom_tapping_term;
-    void *               user_data;
+    uint16_t custom_tapping_term;
+    void *   user_data;
 } qk_tap_dance_action_t;
 
 typedef struct {
@@ -79,14 +78,19 @@ typedef struct {
 #    define ACTION_TAP_DANCE_FN_ADVANCED_TIME(user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset, tap_specific_tapping_term) \
         { .fn = {user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset}, .user_data = NULL, .custom_tapping_term = tap_specific_tapping_term, }
 
+#    define TD(n) (QK_TAP_DANCE | TD_INDEX(n))
+#    define TD_INDEX(code) ((code)&0xFF)
+#    define TAP_DANCE_KEYCODE(state) TD(((qk_tap_dance_action_t *)state) - tap_dance_actions)
+
 extern qk_tap_dance_action_t tap_dance_actions[];
+
+void reset_tap_dance(qk_tap_dance_state_t *state);
 
 /* To be used internally */
 
 void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record);
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record);
 void tap_dance_task(void);
-void reset_tap_dance(qk_tap_dance_state_t *state);
 
 void qk_tap_dance_pair_on_each_tap(qk_tap_dance_state_t *state, void *user_data);
 void qk_tap_dance_pair_finished(qk_tap_dance_state_t *state, void *user_data);

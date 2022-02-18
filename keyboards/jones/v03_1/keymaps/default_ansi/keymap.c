@@ -322,7 +322,7 @@ static tap ql_tap_state = {
 // Functions that control what our tap dance key does
 void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
-    switch(state->keycode) {
+    switch(TAP_DANCE_KEYCODE(state)) {
         case TD(TD_ESC_NUM): // ESC key action
             switch (ql_tap_state.state) {
                 case SINGLE_TAP:
@@ -351,7 +351,7 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch(state->keycode) {
+    switch(TAP_DANCE_KEYCODE(state)) {
         case TD(TD_ESC_NUM):
             // If the key was held down and now is released then switch off the layer
             if (ql_tap_state.state == TAP_HOLD) {
