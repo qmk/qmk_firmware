@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPCNAV LT(_NAV,KC_SPC)
 #define SFTENT MT(MOD_RSFT,KC_ENT)
 #define TABLGUI LGUI_T(KC_TAB)
+#define BASE DF(_BASE)
+#define GAMING DF(_GAMING)
+#define GAMING2 MO(_GAMING2)
 
 #define SC_F1 LSFT(LCTL(KC_F1))
 #define SC_F2 LSFT(LCTL(KC_F2))
@@ -38,6 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum crkbd_layers {
   _BASE,
   _GAMING,
+  _GAMING2,
   _ACCENTS,
   _LOWER,
   _RAISE,
@@ -83,21 +87,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-// TEMPLATE
+// Gaming
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  |        |        |        |        |        |        |                    |        |        |        |        |        |        |
+//  |  Tab   |   Q    |   W    |   E    |   R    |   T    |                    |   Y    |   U    |   I    |   O    |   P    | Bksp   |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |        |        |        |        |        |                    |        |        |        |        |        |        |
+//  | Shift  |   A    |   S    |   D    |   F    |   G    |                    |   H    |   J    |   K    |   L    | ;/Mous |   '    |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |        |        |        |        |        |                    |        |        |        |        |        |        |
+//  | Ctrl   |   Z    |   X    |   C    |   V    |   B    |                    |   N    |   M    |   ,    |   .    |   /    | SftEnT |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
-//                                      |        |        |        |  |        |        |        |
+//                                      |  LALT  |GAMING2 | Space  |  | Spc/NAV| RAISE  |ACCENTS |
 //                                      `--------------------------'  `--------------------------'
   [_GAMING] = LAYOUT_split_3x6_3(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
-       CTRLSC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,  MOSCLN, KC_QUOT,
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SFTENT,
-                                          KC_LALT,   LOWER,     FUN,     SPCNAV,   RAISE, ACCENTS
+      KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,  MOSCLN, KC_QUOT,
+      KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SFTENT,
+                                          KC_LALT, GAMING2,  KC_SPC,     SPCNAV,   RAISE, ACCENTS
+
+  ),
+
+// Gaming 2
+//  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
+//  |  LGui  |   1    |   2    |   3    |   4    |   5    |                    |        |        |        |        |        |        |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  |  Esc   |   6    |   7    |   8    |   9    |   0    |                    |        |        |        |        |        |        |
+//  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+//  |  Ctrl  | Base   |        |  Vol-  |  Vol+  |  Mute  |                    |        |        |        |        |        |        |
+//  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
+//                                      |        |        |        |  |        |        |        |
+//                                      `--------------------------'  `--------------------------'
+  [_GAMING2] = LAYOUT_split_3x6_3(
+      KC_LGUI,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       KC_ESC,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_LCTL,    BASE, XXXXXXX, KC_VOLD, KC_VOLU, KC_MUTE,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                          _______, _______, _______,    _______, _______, _______
 
   ),
 
@@ -123,16 +145,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
 //  |   ~    |   !    |   @    |   #    |   $    |   %    |                    |   ^    |   &    |   *    |   (    |   )    |  Del   |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |        |        |        |        |        |                    |        |   _    |   +    |   {    |   }    |   |    |
+//  |        | SC_F1  | SC_F2  | SC_F3  | SC_F4  |        |                    |        |   _    |   +    |   {    |   }    |   |    |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |        |        |        |        |        |                    |        |        |        |        |        |        |
+//  |        | Gaming |        |  Vol-  |  Vol+  |  Mute  |                    |        |        |        |        |        |        |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
 //                                      |        |        |        |  |        |        |        |
 //                                      `--------------------------'  `--------------------------'
   [_LOWER] = LAYOUT_split_3x6_3(
       KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,
-      _______, _______, _______, _______, _______, _______,                      _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+      _______,   SC_F1,   SC_F2,   SC_F3,   SC_F4, XXXXXXX,                      XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+      _______,  GAMING, XXXXXXX, KC_VOLD, KC_VOLU, KC_MUTE,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                                           _______, _______, _______,   _______,  _______, _______
 
   ),
@@ -149,26 +171,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                      `--------------------------'  `--------------------------'
   [_RAISE] = LAYOUT_split_3x6_3(
        KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,
-      _______, _______, _______, _______, _______, _______,                      _______, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,
-      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                                           _______, _______, _______,   _______,  _______, _______
 
   ),
 
 // Functions and keypad
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-//  |        | SC_F1  | SC_F2  | SC_F3  | SC_F4  |        |                    |        |   7    |   8    |   9    |        |        |
+//  |        |   F1   |   F2   |   F2   |   F4   |        |                    |        |   7    |   8    |   9    |        |        |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |        |        |  Vol-  |  Vol+  |  Mute  |                    |        |   4    |   5    |   6    |   -    |   /    |
+//  |        |   F5   |   F6   |   F7   |   F8   |        |                    |        |   4    |   5    |   6    |   -    |   /    |
 //  |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-//  |        |        |        |        |        |        |                    |        |   1    |   2    |   3    |   +    |   *    |
+//  |        |   F9   |   F10  |   F11  |   F12  |        |                    |        |   1    |   2    |   3    |   +    |   *    |
 //  `--------+--------+--------+--------+--------+--------+--------.  .--------+--------+--------+--------+--------+--------+--------'
 //                                      |        |        |        |  |   =    |   0    |   .    |
 //                                      `--------------------------'  `--------------------------'
   [_FUN] = LAYOUT_split_3x6_3(
-      _______,   SC_F1,   SC_F2,   SC_F3,   SC_F4, _______,                      _______,   KC_P7,   KC_P8,   KC_P9, _______, _______,
-      _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE,                      _______,   KC_P4,   KC_P5,   KC_P6, KC_PMNS, KC_PSLS,
-      _______, _______, _______, _______, _______, _______,                      _______,   KC_P1,   KC_P2,   KC_P3, KC_PPLS, KC_PAST,
+      _______,   KC_F1,    KC_F2,  KC_F3,   KC_F4, XXXXXXX,                      XXXXXXX,   KC_P7,   KC_P8,   KC_P9, XXXXXXX, _______,
+      _______,   KC_F5,    KC_F6,  KC_F7,   KC_F8, KC_MUTE,                      XXXXXXX,   KC_P4,   KC_P5,   KC_P6, KC_PMNS, KC_PSLS,
+      _______,   KC_F9,   KC_F10, KC_F11,  KC_F12, XXXXXXX,                      XXXXXXX,   KC_P1,   KC_P2,   KC_P3, KC_PPLS, KC_PAST,
                                           _______, _______, _______,   KC_PENT,    KC_P0, KC_PDOT
 
   ),
@@ -230,12 +252,15 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 void oled_render_layer_state(void) {
-    switch (get_highest_layer(layer_state)) {
+    switch (get_highest_layer(layer_state|default_layer_state)) {
     case _BASE:
         oled_write_ln_P(PSTR("Default"), false);
         break;
     case _GAMING:
        oled_write_ln_P(PSTR("Gaming"), false);
+        break;
+    case _GAMING2:
+       oled_write_ln_P(PSTR("Gaming 2"), false);
         break;
     case _ACCENTS:
        oled_write_ln_P(PSTR("Accents"), false);
