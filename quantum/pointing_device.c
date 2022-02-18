@@ -357,16 +357,6 @@ static inline int8_t pointing_device_hv_clamp(int16_t value) {
     }
 }
 
-#    ifdef MOUSE_EXT_REPORT
-#        define XY_REPORT_MIN INT16_MIN
-#        define XY_REPORT_MAX INT16_MAX
-typedef int32_t clamp_range_t;
-#    else
-#        define XY_REPORT_MIN INT8_MIN
-#        define XY_REPORT_MAX INT8_MAX
-typedef int16_t clamp_range_t;
-#    endif
-
 /**
  * @brief clamps int16_t to int8_t
  *
