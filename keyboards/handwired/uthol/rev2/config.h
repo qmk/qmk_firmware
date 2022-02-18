@@ -17,9 +17,6 @@
 
 #pragma once
 
-#ifndef REV2_CONFIG_H
-#define REV2_CONFIG_H
-
 #include "config_common.h"
 
 #define DEVICE_VER 0x0002
@@ -30,5 +27,3 @@
 #define MATRIX_ROW_PINS { B1, F7, F6, F5, F4 }
 #define MATRIX_COL_PINS { D3, D2, D1, D0, D4, C6, D7, B5, B4, B6, B2, B3 }
 #define UNUSED_PINS
-
-#endif

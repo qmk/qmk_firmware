@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-include "progmem.h"
+#include "progmem.h"
 
     static const char PROGMEM animation[][1024] = {
         // 'frame_00_delay-0', 128x64px
