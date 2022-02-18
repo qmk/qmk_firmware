@@ -820,19 +820,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       }
       break;
     case LOWERTOGGLE:
-      // Check to see if the layer is already set
-      if (IS_LAYER_ON(_LOWER)) {
-          // If already set, then switch it off
-          layer_off(_LOWER);
-          #ifdef AUDIO_ENABLE
-              PLAY_SONG(tone_goodbye);
-          #endif
-      } else {
-          // If not already set, then switch the layer on
-          layer_on(_LOWER);
-          #ifdef AUDIO_ENABLE
-              PLAY_SONG(layerswitch_song);
-          #endif
+      if (pressed) {
+        layer_invert(_LOWER);
+        #ifdef AUDIO_ENABLE
+            PLAY_SONG(layerswitch_song);
+        #endif
       }
       break;
   }
