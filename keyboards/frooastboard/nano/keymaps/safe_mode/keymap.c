@@ -1,8 +1,8 @@
-/* Copyright 2021 Dan Nixon
+/* Copyright 2021-2022 frooastside
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -14,24 +14,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include QMK_KEYBOARD_H
 
-#include "config_common.h"
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+	[0] = LAYOUT(
+		KC_Z, KC_X,
+		TO(1), KC_TILD),
 
-#define VENDOR_ID       0x1209
-#define PRODUCT_ID      0x2925
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    DanNixon
-#define PRODUCT         Aya
+	[1] = LAYOUT(
+		RGB_TOG, RGB_MOD,
+		TO(2), TO(0)),
 
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
+	[2] = LAYOUT(
+		RGB_HUD, RGB_HUI,
+		TO(3), TO(1)),
 
-#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
-#define DIODE_DIRECTION ROW2COL
+	[3] = LAYOUT(
+		RGB_SAD, RGB_SAI,
+		TO(4), TO(2)),
 
-#define DEBOUNCE 5
+	[4] = LAYOUT(
+		RGB_VAD, RGB_VAI,
+		TO(5), TO(3)),
 
-#define SPLIT_HAND_PIN B5
-#define USE_I2C
+	[5] = LAYOUT(
+		KC_TRNS, KC_TRNS,
+		RESET, TO(4))
+};
