@@ -1,6 +1,6 @@
 {
-    "keyboard_name": "Frooastboard",
-    "url": "https://github.com/frooastside/qmk_firmware/tree/master/keyboards/frooastboard",
+    "keyboard_name": "Frooastboard Nano",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/frooastboard/nano",
     "maintainer": "frooastside",
     "debounce": 5,
     "diode_direction": "COL2ROW",
