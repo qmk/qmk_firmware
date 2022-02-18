@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------------------------------------------------------------------------|
  * |Shift |Win,z|  x  |  c  |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |Sft,\|
  * |------------------------------------------------------------------------|
- * |      |     |     |Ctl,Ent|LWR,-|  Space  |RAISE|Alt,Play|  |     |     |
+ * |      |  |  |Ctl,Ent|LWR,OSSft|   Space   |RAISE|Alt,Play|  |     |     |
  * `------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid( /* QWERTY */
@@ -161,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------------------------------------------------------------------------|
  * |Shift |Win,x|  c  |  l  |  d  |  b  |  j  |  u  |  o  |  y  |  z  |Sft,\|
  * |------------------------------------------------------------------------|
- * |      |     |     |Ctl,Ent|LWR,-|  Space  |RAISE|Alt,Play|  |     |     |
+ * |      |  |  |Ctl,Ent|LWR,OSSft|   Space   |RAISE|Alt,Play|  |     |     |
  * `------------------------------------------------------------------------'
  */
 [_HANDSDOWN] = LAYOUT_planck_grid( /* HANDS DOWN GOLD */
@@ -180,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------------------------------------------------------------------------|
  * |Shift |Win,z|  x  |  v  |  c  |  p  |  k  |  h  |  ,  |  .  |  /  |Sft,\|
  * |------------------------------------------------------------------------|
- * |      |     |   |Ctl,Ent|LWR,-|   Space   |RAISE|Alt,Play|  |     |     |
+ * |      |  |  |Ctl,Ent|LWR,OSSft|   Space   |RAISE|Alt,Play|  |     |     |
  * `------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid( /* COLEMAK */
@@ -447,7 +447,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_CAPS:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
+          PLAY_SONG(tone_startup);
         #endif
         register_code(KC_CAPS);
       }
@@ -580,6 +580,7 @@ enum combo_events {
   RIGHT,
   UP,
   DOWN,
+  CAPSWORD,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead
@@ -614,6 +615,8 @@ const uint16_t PROGMEM left_combo[]             = {KC_N, KC_E, COMBO_END};
 const uint16_t PROGMEM right_combo[]            = {KC_E, KC_I, COMBO_END};
 const uint16_t PROGMEM up_combo[]               = {KC_N, KC_U, COMBO_END};
 const uint16_t PROGMEM down_combo[]             = {KC_H, KC_E, COMBO_END};
+const uint16_t PROGMEM capsword_combo[]         = {KC_LSFT, MTRSFTBSLS, COMBO_END};
+
 
 
 // const uint8_t combo_mods = get_mods();
@@ -650,6 +653,7 @@ combo_t key_combos[] = {
   [RIGHT] = COMBO_ACTION(right_combo),
   [UP] = COMBO_ACTION(up_combo),
   [DOWN] = COMBO_ACTION(down_combo),
+  [CAPSWORD] = COMBO_ACTION(capsword_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
@@ -834,33 +838,26 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case LOWERTOGGLE:
       if (pressed) {
         layer_invert(_LOWER);
-        #ifdef AUDIO_ENABLE
-            PLAY_SONG(layerswitch_song);
-        #endif
+        if(IS_LAYER_ON(_LOWER)){
+          #ifdef AUDIO_ENABLE
+              PLAY_SONG(tone_startup);
+          #endif
+        }
+        if(IS_LAYER_OFF(_LOWER)){
+          #ifdef AUDIO_ENABLE
+              PLAY_SONG(tone_goodbye);
+          #endif
+        }
       }
       break;
     case LEFT:
       if (pressed) {
-        clear_mods();  // Temporarily disable mods.
-        clear_oneshot_mods();
-        if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-          tap_code16(KC_LEFT);
-        } else {
           tap_code16(C(KC_LEFT));
-        }
-        set_mods(mods);  // Restore mods.
         }
         break;
     case RIGHT:
       if (pressed) {
-        clear_mods();  // Temporarily disable mods.
-        clear_oneshot_mods();
-        if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-          tap_code16(KC_RGHT);
-        } else {
           tap_code16(C(KC_RGHT));
-        }
-        set_mods(mods);  // Restore mods.
         }
         break;
     case UP:
@@ -873,16 +870,21 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code16(KC_DOWN);
       }
       break;
+    case CAPSWORD:
+      if (pressed) {
+        caps_word_set(true);  // Activate
+      }
+      break;
+    }
+};
+void caps_word_set_user(bool active) {
+  if (active) {
+    #ifdef AUDIO_ENABLE
+        PLAY_SONG(tone_startup);
+    #endif
+  } else {
+    #ifdef AUDIO_ENABLE
+        PLAY_SONG(tone_goodbye);
+    #endif
   }
 };
- void caps_word_set_user(bool active) {
-    if (active) {
-      #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-      #endif
-    } else {
-      #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_goodbye);
-      #endif
-    }
-  }
