@@ -83,33 +83,41 @@ enum planck_keycodes {
   ALT_TAB
 };
 
-// Define a type for as many tap dance states as you need
-typedef enum {
-    TD_NONE,
-    TD_UNKNOWN,
-    TD_SINGLE_TAP,
-    TD_SINGLE_HOLD,
-    TD_DOUBLE_TAP
-} td_state_t;
+// // ****UNCOMMENT IF GOING TO USE TAP DANCE FEATURES AGAIN *****
+// // Define a type for as many tap dance states as you need
+// typedef enum {
+//     TD_NONE,
+//     TD_UNKNOWN,
+//     TD_SINGLE_TAP,
+//     TD_SINGLE_HOLD,
+//     TD_DOUBLE_TAP
+// } td_state_t;
 
-typedef struct {
-    bool is_press_action;
-    td_state_t state;
-} td_tap_t;
+// typedef struct {
+//     bool is_press_action;
+//     td_state_t state;
+// } td_tap_t;
 
- // Our custom tap dance keys; add any other tap dance keys to this enum
-enum {
-    OSSHIFT,
-    PLAY_RAISE
-};
+//  // Our custom tap dance keys; add any other tap dance keys to this enum
+// enum {
+//     OSSHIFT,
+//     PLAY_RAISE
+// };
 
-// Declare the functions to be used with your tap dance key(s)
-// Function associated with all tap dances
-td_state_t cur_dance(qk_tap_dance_state_t *state);
 
-// Functions associated with individual tap dances
-void usl_finished(qk_tap_dance_state_t *state, void *user_data);
-void usl_reset(qk_tap_dance_state_t *state, void *user_data);
+
+// // Declare the functions to be used with your tap dance key(s)
+// // Function associated with all tap dances
+// td_state_t cur_dance(qk_tap_dance_state_t *state);
+
+// // Functions associated with individual tap dances
+// void usl_finished(qk_tap_dance_state_t *state, void *user_data);
+// void usl_reset(qk_tap_dance_state_t *state, void *user_data);
+// // ****UNCOMMENT IF GOING TO USE TAP DANCE FEATURES AGAIN ******
+
+
+
+
 
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
@@ -138,10 +146,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid( /* QWERTY */
-    FNESC,   KC_Q,     KC_W,     KC_E,    KC_R,           KC_T,   KC_Y,   KC_U,   KC_I,      KC_O,   KC_P,    KC_BSPC,
-    MTTAB,   KC_A,     KC_S,     KC_D,    KC_F,           KC_G,   KC_H,   KC_J,   KC_K,      KC_L,   KC_SCLN, MTRCTLQUO,
-    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_V,           KC_B,   KC_N,   KC_M,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(OSSHIFT), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
+    FNESC,   KC_Q,     KC_W,     KC_E,    KC_R,               KC_T,   KC_Y,   KC_U,   KC_I,      KC_O,   KC_P,    KC_BSPC,
+    MTTAB,   KC_A,     KC_S,     KC_D,    KC_F,               KC_G,   KC_H,   KC_J,   KC_K,      KC_L,   KC_SCLN, MTRCTLQUO,
+    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_V,               KC_B,   KC_N,   KC_M,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F21), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
   ),
 
  /* MIT Layout (HANDSDOWNNEU Modded)
@@ -157,10 +165,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_HANDSDOWN] = LAYOUT_planck_grid( /* HANDS DOWN GOLD */
-    FNESC,   KC_W,     KC_F,     KC_M,    KC_P,           KC_V,   KC_SLSH,  KC_DOT,   KC_Q,      KC_COMMA, KC_SCLN, KC_BSPC,
-    MTTAB,   KC_R,     KC_S,     KC_N,    KC_T,           KC_G,   KC_K,     KC_A,     KC_E,      KC_I,     KC_H,    MTRCTLQUO,
-    KC_LSFT, MTLGUI_X, KC_C,     KC_L,    KC_D,           KC_B,   KC_J,     KC_U,     KC_O,      KC_Y,     KC_Z,    MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(OSSHIFT), KC_SPC, KC_SPC,   MO(4),    MTLALT_PL, KC_NO,    KC_NO,   KC_NO
+    FNESC,   KC_W,     KC_F,     KC_M,    KC_P,               KC_V,   KC_SLSH,  KC_DOT,   KC_Q,      KC_COMMA, KC_SCLN, KC_BSPC,
+    MTTAB,   KC_R,     KC_S,     KC_N,    KC_T,               KC_G,   KC_K,     KC_A,     KC_E,      KC_I,     KC_H,    MTRCTLQUO,
+    KC_LSFT, MTLGUI_X, KC_C,     KC_L,    KC_D,               KC_B,   KC_J,     KC_U,     KC_O,      KC_Y,     KC_Z,    MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F21), KC_SPC, KC_SPC,   MO(4),    MTLALT_PL, KC_NO,    KC_NO,   KC_NO
  ),
 
  /* MIT Layout (COLEMAK)
@@ -176,10 +184,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid( /* COLEMAK */
-    FNESC,  KC_Q,     KC_W,     KC_F,    KC_P,           KC_B,   KC_J,   KC_L,   KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
-    MTTAB,   KC_A,     KC_R,     KC_S,    KC_T,           KC_G,   KC_M,   KC_N,   KC_E,      KC_I,   KC_O,    MTRCTLQUO,
-    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,           KC_V,   KC_K,   KC_H,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, TD(OSSHIFT), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
+    FNESC,   KC_Q,     KC_W,     KC_F,    KC_P,               KC_B,   KC_J,   KC_L,   KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
+    MTTAB,   KC_A,     KC_R,     KC_S,    KC_T,               KC_G,   KC_M,   KC_N,   KC_E,      KC_I,   KC_O,    MTRCTLQUO,
+    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,               KC_V,   KC_K,   KC_H,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F21), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
  ),
 
 /* MIT Layout (RAISE)
@@ -346,67 +354,73 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 //  [0] = ACTION_TAP_DANCE_FN (dance_media),
 // };
 
-// Determine the current tap dance state
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
-    if (state->interrupted) return TD_SINGLE_HOLD;
-    if (state->count == 1) {
-        if (!state->pressed) return TD_SINGLE_TAP;
-        else return TD_SINGLE_HOLD;
-    } else if (state->count == 2) return TD_DOUBLE_TAP;
-    else return TD_UNKNOWN;
-};
 
-// Initialize tap structure associated with example tap dance key
-static td_tap_t usl_tap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
 
-// Functions that control what our tap dance key does
-void usl_finished(qk_tap_dance_state_t *state, void *user_data) {
-    usl_tap_state.state = cur_dance(state);
-    switch (usl_tap_state.state) {
-        case TD_SINGLE_TAP:
-            set_oneshot_mods(MOD_LSFT);
-            break;
-        case TD_SINGLE_HOLD:
-            layer_on(_LOWER);
-            // update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            break;
-        case TD_DOUBLE_TAP:
-            // Check to see if the layer is already set
-            if (layer_state_is(_LOWER)) {
-                // If already set, then switch it off
-                layer_off(_LOWER);
-                #ifdef AUDIO_ENABLE
-                  PLAY_SONG(tone_goodbye);
-                #endif
-            } else {
-                // If not already set, then switch the layer on
-                layer_on(_LOWER);
-                #ifdef AUDIO_ENABLE
-                  PLAY_SONG(layerswitch_song);
-                #endif
-            }
-            break;
-        default:
-            break;
-    }
-};
+// // **** start of Tap-dance code****
+// // Determine the current tap dance state
+// td_state_t cur_dance(qk_tap_dance_state_t *state) {
+//     if (state->interrupted) return TD_SINGLE_HOLD;
+//     if (state->count == 1) {
+//         if (!state->pressed) return TD_SINGLE_TAP;
+//         else return TD_SINGLE_HOLD;
+//     } else if (state->count == 2) return TD_DOUBLE_TAP;
+//     else return TD_UNKNOWN;
+// };
 
-void usl_reset(qk_tap_dance_state_t *state, void *user_data) {
-    // If the key was held down and now is released then switch off the layer
-    if (usl_tap_state.state == TD_SINGLE_HOLD) {
-        layer_off(_LOWER);
-        // update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    usl_tap_state.state = TD_NONE;
-};
+// // Initialize tap structure associated with example tap dance key
+// static td_tap_t usl_tap_state = {
+//     .is_press_action = true,
+//     .state = TD_NONE
+// };
 
-// Associate our tap dance key with its functionality
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [OSSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, usl_finished, usl_reset, 110)
-};
+// // Functions that control what our tap dance key does
+// void usl_finished(qk_tap_dance_state_t *state, void *user_data) {
+//     usl_tap_state.state = cur_dance(state);
+//     switch (usl_tap_state.state) {
+//         case TD_SINGLE_TAP:
+//             set_oneshot_mods(MOD_LSFT);
+//             break;
+//         case TD_SINGLE_HOLD:
+//             layer_on(_LOWER);
+//             // update_tri_layer(_LOWER, _RAISE, _ADJUST);
+//             break;
+//         case TD_DOUBLE_TAP:
+//             // Check to see if the layer is already set
+//             if (layer_state_is(_LOWER)) {
+//                 // If already set, then switch it off
+//                 layer_off(_LOWER);
+//                 #ifdef AUDIO_ENABLE
+//                   PLAY_SONG(tone_goodbye);
+//                 #endif
+//             } else {
+//                 // If not already set, then switch the layer on
+//                 layer_on(_LOWER);
+//                 #ifdef AUDIO_ENABLE
+//                   PLAY_SONG(layerswitch_song);
+//                 #endif
+//             }
+//             break;
+//         default:
+//             break;
+//     }
+// };
+
+// void usl_reset(qk_tap_dance_state_t *state, void *user_data) {
+//     // If the key was held down and now is released then switch off the layer
+//     if (usl_tap_state.state == TD_SINGLE_HOLD) {
+//         layer_off(_LOWER);
+//         // update_tri_layer(_LOWER, _RAISE, _ADJUST);
+//     }
+//     usl_tap_state.state = TD_NONE;
+// };
+
+// // Associate our tap dance key with its functionality
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//     [OSSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, usl_finished, usl_reset, 110)
+// };
+// // **** end of Tap-dance code****
+
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_select_word(keycode, record, SELWORD)) { return false; }
@@ -516,6 +530,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case LT(_LOWER, KC_F21):
+        if (record->tap.count > 0) {
+          if (record->event.pressed) {
+            set_oneshot_mods(MOD_LSFT);
+          }
+          return false;
+      }
+      break;
   }
   return true;
 };
@@ -553,6 +575,7 @@ enum combo_events {
   UNDERSCORE,
   TWODQUOTE,
   SCBIGRAM,
+  LOWERTOGGLE,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead
@@ -582,6 +605,8 @@ const uint16_t PROGMEM questionmark_combo[]     = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM underscore_combo[]       = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM twodquote_combo[]        = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM scbigram_combo[]         = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM lowertoggle_combo[]      = {LT(_LOWER, KC_F21), MTENTER, COMBO_END};
+
 
 // const uint8_t combo_mods = get_mods();
 // const uint8_t combo_oneshot_mods = get_oneshot_mods();
@@ -612,6 +637,7 @@ combo_t key_combos[] = {
   [UNDERSCORE] = COMBO_ACTION(underscore_combo),
   [TWODQUOTE] = COMBO_ACTION(twodquote_combo),
   [SCBIGRAM] = COMBO_ACTION(scbigram_combo),
+  [LOWERTOGGLE] = COMBO_ACTION(lowertoggle_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
@@ -793,5 +819,32 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code16(KC_C);
       }
       break;
+    case LOWERTOGGLE:
+      // Check to see if the layer is already set
+      if (IS_LAYER_ON(_LOWER)) {
+          // If already set, then switch it off
+          layer_off(_LOWER);
+          #ifdef AUDIO_ENABLE
+              PLAY_SONG(tone_goodbye);
+          #endif
+      } else {
+          // If not already set, then switch the layer on
+          layer_on(_LOWER);
+          #ifdef AUDIO_ENABLE
+              PLAY_SONG(layerswitch_song);
+          #endif
+      }
+      break;
   }
 };
+ void caps_word_set_user(bool active) {
+    if (active) {
+      #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_qwerty);
+      #endif
+    } else {
+      #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_goodbye);
+      #endif
+    }
+  }
