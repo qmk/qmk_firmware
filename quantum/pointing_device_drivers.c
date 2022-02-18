@@ -25,7 +25,6 @@
 #define CONSTRAIN_HID(amt) ((amt) < INT8_MIN ? INT8_MIN : ((amt) > INT8_MAX ? INT8_MAX : (amt)))
 #define CONSTRAIN_HID_XY(amt) ((amt) < XY_REPORT_MIN ? XY_REPORT_MIN : ((amt) > XY_REPORT_MAX ? XY_REPORT_MAX : (amt)))
 
-
 // get_report functions should probably be moved to their respective drivers.
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
 report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
@@ -156,11 +155,25 @@ const pointing_device_driver_t pointing_device_driver = {
 
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 
+mouse_xy_report_t pimoroni_trackball_adapt_values(clamp_range_t* offset) {
+    if (*offset > XY_REPORT_MAX) {
+        *offset -= XY_REPORT_MAX;
+        return (mouse_xy_report_t)XY_REPORT_MAX;
+    } else if (*offset < XY_REPORT_MIN) {
+        *offset += XY_REPORT_MAX;
+        return (mouse_xy_report_t)XY_REPORT_MIN;
+    } else {
+        mouse_xy_report_t temp_return = *offset;
+        *offset                       = 0;
+        return temp_return;
+    }
+}
+
 report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
-    static uint16_t debounce      = 0;
-    static uint8_t  error_count   = 0;
-    pimoroni_data_t pimoroni_data = {0};
-    static clamp_range_t  x_offset = 0, y_offset = 0;
+    static uint16_t      debounce      = 0;
+    static uint8_t       error_count   = 0;
+    pimoroni_data_t      pimoroni_data = {0};
+    static clamp_range_t x_offset = 0, y_offset = 0;
 
     if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT) {
         i2c_status_t status = read_pimoroni_trackball(&pimoroni_data);
@@ -173,8 +186,8 @@ report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
                 if (!debounce) {
                     x_offset += pimoroni_trackball_get_offsets(pimoroni_data.right, pimoroni_data.left, PIMORONI_TRACKBALL_SCALE);
                     y_offset += pimoroni_trackball_get_offsets(pimoroni_data.down, pimoroni_data.up, PIMORONI_TRACKBALL_SCALE);
-                    mouse_report.x = CONSTRAIN_HID_XY(x_offset);
-                    mouse_report.y = CONSTRAIN_HID_XY(y_offset);
+                    mouse_report.x = pimoroni_trackball_adapt_values(&x_offset);
+                    mouse_report.y = pimoroni_trackball_adapt_values(&y_offset);
                 } else {
                     debounce--;
                 }
