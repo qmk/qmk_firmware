@@ -18,7 +18,11 @@
 #include "tap_dance_mac_caps.c"
 #include "tap_dance_win_caps.c"
 
+// clang-format off
+
 qk_tap_dance_action_t tap_dance_actions[] = {
     [MAC_CAPS_LANGUAGE_CHANGE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, mac_caps_language_finished, mac_caps_language_reset),
     [WIN_CAPS_LANGUAGE_CHANGE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, win_caps_language_finished, win_caps_language_reset)
 };
+
+// clang-format on

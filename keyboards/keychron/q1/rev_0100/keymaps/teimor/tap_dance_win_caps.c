@@ -15,25 +15,34 @@
  */
 
 /* Windows CapsLock language change */
-static td_tap_t win_caps_language_tap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
+static td_tap_t win_caps_language_tap_state = {.is_press_action = true, .state = TD_NONE};
 
 void win_caps_language_finished(qk_tap_dance_state_t *state, void *user_data) {
     win_caps_language_tap_state.state = current_dance(state);
     switch (win_caps_language_tap_state.state) {
-        case TD_SINGLE_TAP: register_code(KC_LGUI); register_code(KC_SPACE); break;
-        case TD_SINGLE_HOLD: register_code(KC_CAPS_LOCK); break;
-        default: break;
+        case TD_SINGLE_TAP:
+            register_code(KC_LGUI);
+            register_code(KC_SPACE);
+            break;
+        case TD_SINGLE_HOLD:
+            register_code(KC_CAPS_LOCK);
+            break;
+        default:
+            break;
     }
 }
 
 void win_caps_language_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (win_caps_language_tap_state.state) {
-        case TD_SINGLE_TAP: unregister_code(KC_SPACE); unregister_code(KC_LGUI); break;
-        case TD_SINGLE_HOLD: unregister_code(KC_CAPS_LOCK); break;
-        default: break;
+        case TD_SINGLE_TAP:
+            unregister_code(KC_SPACE);
+            unregister_code(KC_LGUI);
+            break;
+        case TD_SINGLE_HOLD:
+            unregister_code(KC_CAPS_LOCK);
+            break;
+        default:
+            break;
     }
     win_caps_language_tap_state.state = TD_NONE;
 }

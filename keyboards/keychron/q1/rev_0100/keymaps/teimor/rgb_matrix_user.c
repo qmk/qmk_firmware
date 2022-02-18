@@ -32,16 +32,17 @@ void rgb_matrix_init_user(void) {
 }
 
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    uint8_t current_layer = get_highest_layer(layer_state|default_layer_state);
+    uint8_t current_layer = get_highest_layer(layer_state | default_layer_state);
     switch (current_layer) {
         case MAC_BASE:
         case WIN_BASE:
 #if defined CAPS_LOCK_INDICATOR_COLOR && defined MAC_LAYER_DEFAULT_COLOR && defined WIN_LAYER_DEFAULT_COLOR
             if (host_keyboard_led_state().caps_lock) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
-            }
-            else if (current_layer == MAC_BASE) rgb_matrix_set_color_all(MAC_LAYER_DEFAULT_COLOR);
-            else if (current_layer == WIN_BASE) rgb_matrix_set_color_all(WIN_LAYER_DEFAULT_COLOR);
+            } else if (current_layer == MAC_BASE)
+                rgb_matrix_set_color_all(MAC_LAYER_DEFAULT_COLOR);
+            else if (current_layer == WIN_BASE)
+                rgb_matrix_set_color_all(WIN_LAYER_DEFAULT_COLOR);
 #endif
             break;
         case MAC_FN:
@@ -49,8 +50,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #if defined MAC_LAYER_DEFAULT_COLOR && defined WIN_LAYER_DEFAULT_COLOR
             if (current_layer == MAC_FN) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_not_transparent, MAC_LAYER_DEFAULT_COLOR);
-            }
-            else if (current_layer == WIN_FN) {
+            } else if (current_layer == WIN_FN) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_not_transparent, WIN_LAYER_DEFAULT_COLOR);
             }
 #endif
@@ -69,8 +69,10 @@ void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t l
         }
 #if defined MAC_LAYER_DEFAULT_COLOR && defined WIN_LAYER_DEFAULT_COLOR
         else {
-            if (layer == MAC_BASE) rgb_matrix_set_color(i, MAC_LAYER_DEFAULT_COLOR);
-            else if (layer == WIN_BASE) rgb_matrix_set_color(i, WIN_LAYER_DEFAULT_COLOR);
+            if (layer == MAC_BASE)
+                rgb_matrix_set_color(i, MAC_LAYER_DEFAULT_COLOR);
+            else if (layer == WIN_BASE)
+                rgb_matrix_set_color(i, WIN_LAYER_DEFAULT_COLOR);
         }
 #endif
     }
@@ -79,9 +81,7 @@ void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t l
 bool is_caps_lock_indicator(uint16_t keycode) {
     bool indicator = keycode == KC_CAPS || keycode == KC_LGMAC || keycode == KC_LGWIN;
 #ifdef CAPS_LOCK_INDICATOR_LIGHT_60
-    return (KC_A <= keycode && keycode <= KC_CAPS) || \
-    (KC_LEFT_CTRL <= keycode && keycode <= KC_RIGHT_GUI) || \
-    keycode == KC_MACFN || keycode == KC_WINFN || indicator;
+    return (KC_A <= keycode && keycode <= KC_CAPS) || (KC_LEFT_CTRL <= keycode && keycode <= KC_RIGHT_GUI) || keycode == KC_MACFN || keycode == KC_WINFN || indicator;
 #else
     return indicator;
 #endif

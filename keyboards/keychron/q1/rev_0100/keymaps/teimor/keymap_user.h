@@ -37,5 +37,5 @@ enum {
 #define KC_LGWIN TD(WIN_CAPS_LANGUAGE_CHANGE)
 #define KC_MACFN MO(MAC_FN)
 #define KC_WINFN MO(WIN_FN)
-#define KC_LMAC  LCTL(LGUI(KC_Q))
+#define KC_LMAC LCTL(LGUI(KC_Q))
 #define KC_MACPS LGUI(LSFT(KC_5))
