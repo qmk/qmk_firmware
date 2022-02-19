@@ -48,11 +48,3 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     }
 	return state;
 }
-
-bool led_update_kb(led_t led_state) {
-  bool res = led_update_user(led_state);
-  if(res) {
-    writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-  }
-  return res;
-}
