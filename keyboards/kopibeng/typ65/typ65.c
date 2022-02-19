@@ -20,7 +20,8 @@ void keyboard_pre_init_kb (void) {
   setPinOutput(INDICATOR_0);
   setPinOutput(INDICATOR_1);
   setPinOutput(INDICATOR_2);
-  setPinOutput(LED_CAPS_LOCK_PIN);
+
+  keyboard_pre_init_user();
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
