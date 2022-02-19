@@ -15,6 +15,10 @@
  */
 
 #include "oled/oled_stuff.h"
+#include <string.h>
+#include <math.h>
+
+#include <lib/lib8tion/lib8tion.h>
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -22,8 +26,8 @@
 // entirely and just use numbers.
 
 enum layer_names {
-    _BASE = 0,
-    _FN = 1
+    _BASE,
+    _FN,
 };
 
 // For CUSTOM_GRADIENT
@@ -76,7 +80,7 @@ enum layer_keycodes {
     RGB_C_E,             //Cycle user effect
 };
 
-void keyboard_post_init_kb(void) {
+void keyboard_post_init_user(void) {
     user_config.raw = eeconfig_read_user();
     switch (user_config.rgb_mode) {
         case RGB_MODE_ALL:
@@ -84,7 +88,7 @@ void keyboard_post_init_kb(void) {
             rgb_matrix_enable_noeeprom();
             break;
         case RGB_MODE_KEYLIGHT:
-            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT);
+            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
             rgb_matrix_set_color_all(0, 0, 0);
             break;
         case RGB_MODE_UNDERGLOW:
@@ -93,7 +97,7 @@ void keyboard_post_init_kb(void) {
             break;
         case RGB_MODE_NONE:
             rgb_matrix_set_flags(LED_FLAG_NONE);
-            rgb_matrix_disable_noeeprom();
+            rgb_matrix_set_color_all(0, 0, 0);
             break;
     }
 }
@@ -216,12 +220,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 switch (rgb_matrix_get_mode()) {
                     case RGB_MATRIX_CUSTOM_CUSTOM_GRADIENT:
-                        rgb_matrix_mode(RGB_MATRIX_CUSTOM_DIAGONAL);
-                        return false;
-                    case RGB_MATRIX_CUSTOM_DIAGONAL:
                         rgb_matrix_mode(RGB_MATRIX_CUSTOM_COOL_DIAGONAL);
                         return false;
                     case RGB_MATRIX_CUSTOM_COOL_DIAGONAL:
+                        rgb_matrix_mode(RGB_MATRIX_CUSTOM_FLOWER_BLOOMING);
+                        return false;
+                    case RGB_MATRIX_CUSTOM_FLOWER_BLOOMING:
                         rgb_matrix_mode(RGB_MATRIX_CUSTOM_RAINBOW_REACTIVE_SIMPLE);
                         return false;
                     case RGB_MATRIX_CUSTOM_RAINBOW_REACTIVE_SIMPLE:
@@ -253,7 +257,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     break;
                     case (LED_FLAG_UNDERGLOW): {
                         rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_disable_noeeprom();
+                        rgb_matrix_set_color_all(0, 0, 0);
                         user_config.rgb_mode = RGB_MODE_NONE;
                     }
                     break;
@@ -268,43 +272,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 	}
+
     return true;
 }
 
 void rgb_matrix_indicators_user(void) {
-    switch (get_highest_layer(layer_state)) {
-        case _FN:
-            rgb_matrix_set_color( 0, 0, 0, 0); rgb_matrix_set_color( 1, 0, 0, 0); rgb_matrix_set_color( 2, 0, 0, 0); rgb_matrix_set_color( 3, 0, 0, 0);
-            rgb_matrix_set_color( 4, 0, 0, 0); rgb_matrix_set_color( 5, 0, 0, 0); rgb_matrix_set_color( 6, 0, 0, 0); rgb_matrix_set_color(11, 0, 0, 0);
-            rgb_matrix_set_color(12, 0, 0, 0); rgb_matrix_set_color(13, 0, 0, 0); rgb_matrix_set_color(14, 0, 0, 0); rgb_matrix_set_color(15, 0, 0, 0);
-            rgb_matrix_set_color(16, 0, 0, 0); rgb_matrix_set_color(17, 0, 0, 0); rgb_matrix_set_color(18, 0, 0, 0); rgb_matrix_set_color(19, 0, 0, 0);
-            rgb_matrix_set_color(23, 0, 0, 0); rgb_matrix_set_color(24, 0, 0, 0); rgb_matrix_set_color(25, 0, 0, 0); rgb_matrix_set_color(32, 0, 0, 0);
-            rgb_matrix_set_color(33, 0, 0, 0); rgb_matrix_set_color(34, 0, 0, 0); rgb_matrix_set_color(35, 0, 0, 0); rgb_matrix_set_color(36, 0, 0, 0);
-            rgb_matrix_set_color(37, 0, 0, 0); rgb_matrix_set_color(38, 0, 0, 0); rgb_matrix_set_color(39, 0, 0, 0); rgb_matrix_set_color(40, 0, 0, 0);
-            rgb_matrix_set_color(41, 0, 0, 0); rgb_matrix_set_color(42, 0, 0, 0); rgb_matrix_set_color(43, 0, 0, 0); rgb_matrix_set_color(44, 0, 0, 0);
-            rgb_matrix_set_color(45, 0, 0, 0); rgb_matrix_set_color(46, 0, 0, 0); rgb_matrix_set_color(47, 0, 0, 0); rgb_matrix_set_color(54, 0, 0, 0);
-            rgb_matrix_set_color(56, 0, 0, 0); rgb_matrix_set_color(57, 0, 0, 0); rgb_matrix_set_color(58, 0, 0, 0); rgb_matrix_set_color(59, 0, 0, 0);
-            rgb_matrix_set_color(60, 0, 0, 0); rgb_matrix_set_color(61, 0, 0, 0); rgb_matrix_set_color(62, 0, 0, 0); rgb_matrix_set_color(63, 0, 0, 0);
-            rgb_matrix_set_color(64, 0, 0, 0); rgb_matrix_set_color(65, 0, 0, 0); rgb_matrix_set_color(68, 0, 0, 0); rgb_matrix_set_color(70, 0, 0, 0);
-            rgb_matrix_set_color(71, 0, 0, 0);
-            break;
-    }
+    HSV      hsv = rgb_matrix_config.hsv;
+    uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
+    hsv.h        = time;
+    RGB      rgb = hsv_to_rgb(hsv);
 
     if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
         if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(25, 217, 71, 115);
+            rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
         }
         if (host_keyboard_led_state().scroll_lock) {
-            rgb_matrix_set_color(73, 217, 71, 115);
+            rgb_matrix_set_color(73, rgb.r, rgb.g, rgb.b);
         }
     } else {
         if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(25, 217, 71, 115);
+            rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
         } else {
             rgb_matrix_set_color(25, 0, 0, 0);
         }
         if (host_keyboard_led_state().scroll_lock) {
-            rgb_matrix_set_color(73, 217, 71, 115);
+            rgb_matrix_set_color(73, rgb.r, rgb.g, rgb.b);
         } else {
             rgb_matrix_set_color(73, 0, 0, 0);
         }

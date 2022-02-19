@@ -1,19 +1,18 @@
-/*
-Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #pragma once
 
@@ -23,14 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
-/* Change USB Polling Rate to 1000hz and a larger keys per scan for elite gaming */
-#define USB_POLLING_INTERVAL_MS 1
-#define QMK_KEYS_PER_SCAN 12
-
 #ifdef RGB_MATRIX_ENABLE
+    /* RGB Matrix config */
     #undef RGB_MATRIX_KEYPRESSES
 
     /* RGB Matrix effect */
@@ -47,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
     #undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
     #undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+    #undef ENABLE_RGB_MATRIX_RAINBOW_BEACON
     #undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
     #undef ENABLE_RGB_MATRIX_RAINDROPS
     #undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS

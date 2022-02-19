@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x0007
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Gopolar
-#define PRODUCT         GG86
+#define PRODUCT         GG86 Tai-Chi
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -33,22 +33,25 @@
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B7, D5 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C6, B6, B5, B4, D7, D6, D4, C7, E6, D2, D3 }
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-/* RGB Matrix config */
-#define RGB_DI_PIN E2
+/* Forcing to use NKRO instead 6KRO */
+#define FORCE_NKRO
+
+/* Change USB Polling Rate to 1000hz and a larger keys per scan for elite gaming */
+#define USB_POLLING_INTERVAL_MS 1
+#define QMK_KEYS_PER_SCAN 12
 
 /* Use the custom font */
 #define OLED_FONT_H "lib/glcdfont.c"
 
 #ifdef RGB_MATRIX_ENABLE
+    /* RGB Matrix config */
+    #define RGB_DI_PIN E2
     #define DRIVER_LED_TOTAL 100
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
     #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
