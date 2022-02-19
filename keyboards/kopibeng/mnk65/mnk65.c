@@ -15,21 +15,3 @@
  */
 
 #include "mnk65.h"
-
-void matrix_init_kb(void) {
-	// Initialize indicator LEDs to output
-    
-    setPinOutput(LED_CAPS_LOCK_PIN);
-
-	matrix_init_user();
-}
-
-bool led_update_kb(led_t led_state) {
-
-    bool res = led_update_user(led_state);
-
-    if(res) {
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-    }
-    return res;
-}
