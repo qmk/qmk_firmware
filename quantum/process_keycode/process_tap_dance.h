@@ -22,7 +22,6 @@
 #    include <inttypes.h>
 
 typedef struct {
-    uint16_t timer;
     uint16_t interrupting_keycode;
     uint8_t  count;
     uint8_t  weak_mods;
