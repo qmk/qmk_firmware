@@ -106,12 +106,6 @@ bool process_record_user_oled(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void update_log(void) {
-    if (timer_elapsed(log_timer) > 750) {
-        // add_keylog(0);
-    }
-}
-
 /**
  * @brief Renders keylogger buffer to oled
  *
@@ -453,7 +447,7 @@ void render_bootmagic_status(void) {
 #endif
 }
 
-#if defined(POINTING_DEVICE_ENABLE)
+#if defined(CUSTOM_POINTING_DEVICE)
 extern bool tap_toggling;
 #endif
 
@@ -485,7 +479,7 @@ void render_user_status(void) {
 #    if !defined(OLED_DISPLAY_VERBOSE)
     oled_write_P(PSTR(" "), false);
 #    endif
-#elif defined(POINTING_DEVICE_ENABLE)
+#elif defined(CUSTOM_POINTING_DEVICE)
     static const char PROGMEM mouse_lock[3] = {0xF2, 0xF3, 0};
     oled_write_P(mouse_lock, tap_toggling);
 #endif
@@ -730,7 +724,7 @@ void render_kitty(void) {
 
 uint32_t kitty_animation_phases(uint32_t triger_time, void *cb_arg) {
     static uint32_t anim_frame_duration = 500;
-#ifdef POINTING_DEVICE_ENABLE
+#ifdef CUSTOM_POINTING_DEVICE
     if (tap_toggling) {
         animation_frame     = (animation_frame + 1) % OLED_RTOGI_FRAMES;
         animation_type      = 3;
@@ -784,7 +778,7 @@ void oled_driver_render_logo_left(void) {
     render_matrix_scan_rate(2);
 #    endif
     oled_set_cursor(7, 2);
-#    if defined(KEYBOARD_bastardkb_charybdis) || defined(KEYBOARD_handwired_tractyl_manuform)
+#    if (defined(KEYBOARD_bastardkb_charybdis) || defined(KEYBOARD_handwired_tractyl_manuform)) && defined(POINTING_DEVICE_ENABLE)
     render_pointing_dpi_status(charybdis_get_pointer_sniping_enabled() ? charybdis_get_pointer_sniping_dpi() : charybdis_get_pointer_default_dpi(), 1);
 
 // credit and thanks to jaspertandy on discord for these images
@@ -885,7 +879,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 __attribute__((weak)) bool oled_task_keymap(void) { return true; }
 
 bool oled_task_user(void) {
-    update_log();
 
     if (is_keyboard_master()) {
 #ifndef OLED_DISPLAY_TEST

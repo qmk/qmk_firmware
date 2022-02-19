@@ -204,6 +204,7 @@ void oled_render_large_display(void) {
         };
         oled_write_P(logo, false);
 
+#ifdef CUSTOM_UNICODE_ENABLE
         oled_set_cursor(1, 14);
         oled_write_ln_P(PSTR("Unicode:"), false);
         switch (typing_mode) {
@@ -232,6 +233,7 @@ void oled_render_large_display(void) {
                 oled_write_P(PSTR("     Unknown"), false);
                 break;
         }
+#endif
     }
 }
 #endif
