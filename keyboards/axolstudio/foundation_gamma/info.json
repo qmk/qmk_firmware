@@ -2,8 +2,6 @@
     "keyboard_name": "Foundation Gamma", 
     "url": "https://axolstudio.ca/foundation-gamma", 
     "maintainer": "kb-elmo", 
-    "width": 18.25, 
-    "height": 6.5, 
     "layouts": {
         "LAYOUT_ansi_tsangan": {
             "layout": [
