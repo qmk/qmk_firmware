@@ -1,20 +1,20 @@
-# bamfk1
+# BAMFK-1
 
-![bamfk1](imgur.com image replace me!)
+![bamfk1](https://cdn.shopify.com/s/files/1/1851/5125/products/bamfk-1-back_1100x.png?v=1635304218)
 
-*A short description of the keyboard/project*
+PCB for the Big Switch with support for horizontal rotary encoders.
 
-* Keyboard Maintainer: [Danny Nguyen](https://github.com/nooges)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Keebio](https://github.com/nooges)
+* Hardware Supported: BAMFK-1 PCB
+* Hardware Availability: [Keebio](https://keeb.io/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make bamfk1:default
+    make keebio/bamfk1:default
 
 Flashing example for this keyboard:
 
-    make bamfk1:default:flash
+    make keebio/bamfk1:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
