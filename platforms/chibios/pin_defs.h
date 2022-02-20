@@ -63,7 +63,6 @@
 #    ifndef SERIAL_USART_DRIVER
 #        define SERIAL_USART_DRIVER      SD2
 #    endif
-// #        define USART2_REMAP
 #    else
 #        define D3 PAL_LINE(GPIOA, 2)
 #        define D2 PAL_LINE(GPIOA, 3)
