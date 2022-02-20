@@ -45,5 +45,5 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     } else {
         tap_code16(dynamic_keymap_get_keycode(layer, 1, 2 * index));
     }
-    return true;
+    return false;
 }

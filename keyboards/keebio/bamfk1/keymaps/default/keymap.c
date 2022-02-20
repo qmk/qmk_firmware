@@ -37,10 +37,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______    // Right encoder turns
     )
 };
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    uint8_t layer = get_highest_layer(layer_state);
-    uint16_t code = pgm_read_word(&(keymaps[layer][1][2 * index + clockwise]));
-    tap_code16(code);
-    return true;
-}
