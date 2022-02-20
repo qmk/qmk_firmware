@@ -1,6 +1,6 @@
 # Proton C MCU settings for converting AVR projects
 TARGET := $(TARGET)_stemcell
-MCU := STM32F401
+MCU := STM32F411
 BOARD := STEMCELL
 BOOTLOADER := tinyuf2
 OPT_DEFS += -DCONVERT_TO_STEMCELL
