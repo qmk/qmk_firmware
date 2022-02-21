@@ -18,7 +18,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x1BBE  
+#define VENDOR_ID       0xABBE  
 #define PRODUCT_ID      0x4C4D
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Labbe
