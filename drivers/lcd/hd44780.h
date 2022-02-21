@@ -20,6 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
+/**
+ * \defgroup hd44780
+ *
+ * HD44780 Character LCD Driver
+ * \{
+ */
+
 /*
  * HD44780 instructions
  * https://www.sparkfun.com/datasheets/LCD/HD44780.pdf
@@ -171,7 +178,7 @@ void hd44780_set_cursor(uint8_t col, uint8_t line);
 void hd44780_define_char(uint8_t index, uint8_t *data);
 
 /**
- * \brief Print a character to the display. The newline character `\n` will move the cursor to the start of the next line.
+ * \brief Print a character to the display. The newline character will move the cursor to the start of the next line.
  * 
  * The exact character shown may depend on the ROM code of your particular display - refer to the datasheet for the full character set.
  *
@@ -186,11 +193,11 @@ void hd44780_putc(char c);
  */
 void hd44780_puts(const char *s);
 
-#if defined(__AVR__)
+#if defined(__AVR__) || defined(__DOXYGEN__)
 /**
  * \brief Define a custom character from PROGMEM.
  *
- * On ARM devices, this function is simply an alias of `hd44780_define_char()`.
+ * On ARM devices, this function is simply an alias of hd44780_define_char().
  *
  * \param index The index of the custom character to define, from 0 to 7.
  * \param data A PROGMEM array of 8 bytes containing the 5-bit row data of the character, where the first byte is the topmost row, and the least significant bit of each byte is the rightmost column.
@@ -200,7 +207,7 @@ void hd44780_define_char_P(uint8_t index, const uint8_t *data);
 /**
  * \brief Print a string of characters from PROGMEM to the display.
  *
- * On ARM devices, this function is simply an alias of `hd44780_puts()`.
+ * On ARM devices, this function is simply an alias of hd44780_puts().
  *
  * \param s The PROGMEM string to print.
  */
@@ -209,3 +216,5 @@ void hd44780_puts_P(const char *s);
 #    define hd44780_define_char_P(index, data) hd44780_define_char(index, data)
 #    define hd44780_puts_P(s) hd44780_puts(s)
 #endif
+
+/** \} */
