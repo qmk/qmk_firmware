@@ -88,7 +88,7 @@ extern bool disable_action_cache;
 
 /* Code for handling one-handed key modifiers. */
 #ifdef SWAP_HANDS_ENABLE
-extern bool           swap_hands;
+extern bool                   swap_hands;
 extern const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS];
 #    if (MATRIX_COLS <= 8)
 typedef uint8_t swap_state_row_t;
