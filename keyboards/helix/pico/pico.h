@@ -17,11 +17,6 @@
 
 #include "helix.h"
 
-#ifndef SPLIT_KEYBOARD
-  extern bool is_helix_master(void);
-  #define is_keyboard_master() is_helix_master()
-#endif
-
 // Each keymap.c should use is_keyboard_master() instead of 'is_master', 'has_usb()'.
 // But keep 'is_master' for a while for backwards compatibility
 //  for the old keymap.c.

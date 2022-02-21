@@ -30,23 +30,6 @@ ifneq ($(strip $(HELIX)),)
     SHOW_HELIX_OPTIONS = yes
 endif
 
-# Toggle between using split_common or the traditional implementation.
-ifneq ($(strip $(SPLIT_KEYBOARD)), yes)
-  # use the traditional implementation.
-  SRC += local_drivers/serial.c
-  KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
-
-  # A workaround until #7089 is merged.
-  #   serial.c must not be compiled with the -lto option.
-  #   The current LIB_SRC has a side effect with the -fno-lto option, so use it.
-  LIB_SRC += local_drivers/serial.c
-
-  CUSTOM_MATRIX = yes
-
-  SRC += pico/matrix.c
-  SRC += pico/split_util.c
-endif
-
 ########
 # convert Helix-specific options (that represent combinations of standard options)
 #   into QMK standard options.
