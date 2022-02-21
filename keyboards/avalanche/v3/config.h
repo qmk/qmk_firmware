@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    vitvlkv
 #define PRODUCT         Avalanche
-#define DESCRIPTION     QMK keyboard firmware for Avalanche
 
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
