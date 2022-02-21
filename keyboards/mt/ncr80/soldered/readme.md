@@ -1,6 +1,6 @@
 # NCR-80
 
-![NCR-80](https://i.imgur.com/kAjbAPL.jpg)
+![NCR-80](https://i.imgur.com/kAjbAPLl.jpg)
 
 > Re-imagination of the classic rebranded Cherry G81-3000 by NCR
 

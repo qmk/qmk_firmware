@@ -13,7 +13,6 @@ COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = yes          # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
-BLUETOOTH_ENABLE = no      # Enable Bluetooth
 AUDIO_ENABLE = no          # Audio output
 
 LAYOUTS = tkl_ansi tkl_iso tkl_ansi_wkl tkl_iso_wkl
