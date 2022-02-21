@@ -16,12 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-#ifdef VIA_ENABLE
-    #define USER_START USER00
-#else
-    #define USER_START SAFE_RANGE
-#endif
-
 enum layers{
     MAC_BASE,
     MAC_FN,
@@ -30,7 +24,7 @@ enum layers{
 };
 
 enum custom_keycodes {
-    KC_MISSION_CONTROL = USER_START,
+    KC_MISSION_CONTROL = SAFE_RANGE,
     KC_LAUNCHPAD,
     KC_LOPTN,
     KC_ROPTN,
