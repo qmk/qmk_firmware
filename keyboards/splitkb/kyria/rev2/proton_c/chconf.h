@@ -1,4 +1,4 @@
-/* Copyright 2022 Thomas Baart <thomas@splitkb.com>
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,22 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#include "quantum.h"
+#define CH_CFG_ST_RESOLUTION 16
+#define CH_CFG_ST_FREQUENCY  10000
 
-#if defined(KEYBOARD_splitkb_kyria_rev1)
-#    include "rev1.h"
-#endif
-#if defined(KEYBOARD_splitkb_kyria_rev2)
-#    include "rev2.h"
-#endif
-
-/* This a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
+#include_next "chconf.h"
