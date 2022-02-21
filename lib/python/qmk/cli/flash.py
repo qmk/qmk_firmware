@@ -12,7 +12,7 @@ import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.flashers import flash
+from qmk.flashers import flasher
 
 
 def print_bootloader_help():
@@ -66,13 +66,13 @@ def flash(cli):
             command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean')
             cli.run(command, capture_output=False, stdin=DEVNULL)
 
-    breakpoint()
-    if cli.args.filename.suffix == '.json':
-        # Compile Configurator JSON and flash it
-        pass
-    else:
-        # Try to flash binary firmware
-        flash('atmega32u4', cli.args.filename)
+    # if cli.args.filename.suffix == '.json':
+    #     # Compile Configurator JSON and flash it
+    #     pass
+    # else:
+    #     # Try to flash binary firmware
+    #     flash('atmega32u4', cli.args.filename)
+    flasher('atmega32u4', cli.args.filename)
 
     # Build the environment vars
     envs = {}
