@@ -1,4 +1,4 @@
-/* Copyright 2019 Erovia
+/* Copyright 2021 LAZYDESIGNERS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,18 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "dimple.h"
 
-void dimple_led_on() {
-  writePinLow(E6);
-}
+#pragma once
 
-void dimple_led_off() {
-  writePinHigh(E6);
-}
-
-void keyboard_pre_init_kb(void) {
-  // Initialize Caps Lock LED
-  setPinOutput(E6);
-  keyboard_pre_init_user();
-}
+#define TAPPING_TERM 170
