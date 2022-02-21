@@ -125,11 +125,10 @@ uint8_t ps2_host_recv_response(void) {
     // Command may take 25ms/20ms at most([5]p.46, [3]p.21)
     // 250 * 100us(wait for start bit in ps2_host_recv)
     uint8_t data = 0;
-    uint8_t try
-        = 250;
+    uint8_t try  = 250;
     do {
         data = ps2_host_recv();
-    } while (try --&&ps2_error);
+    } while (try-- && ps2_error);
     return data;
 }
 

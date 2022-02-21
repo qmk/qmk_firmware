@@ -608,11 +608,10 @@ uint8_t udd_getaddress(void) {
 }
 
 void udd_send_remotewakeup(void) {
-    uint32_t try
-        = 5;
+    uint32_t try = 5;
     udd_wait_clock_ready();
     udd_sleep_mode(UDD_STATE_IDLE);
-    while (2 != usb_get_state_machine_status(&usb_device) && try --) {
+    while (2 != usb_get_state_machine_status(&usb_device) && try--) {
         usb_device_send_remote_wake_up(&usb_device);
     }
 }
