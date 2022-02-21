@@ -41,6 +41,5 @@
 	{ K300,  KC_NO, K302,  K303,  K304,  KC_NO, K306,  K307,  K308,  K309,  KC_NO, KC_NO }  \
 }
 
-
 void dimple_led_on(void);
 void dimple_led_off(void);
