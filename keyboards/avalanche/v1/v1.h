@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "../avalanche.h"
+#include "avalanche.h"
 
 #include "quantum.h"
 
