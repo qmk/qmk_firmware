@@ -13,7 +13,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev1.h"
+#include "rev2.h"
+
+// Mask out handedness diode to prevent it
+// from keeping the keyboard awake
+// - just mirroring `KC_NO` in the `LAYOUT`
+//   macro to keep it simple
+const matrix_row_t matrix_mask[] = {
+    0b11111100,
+    0b11111100,
+    0b11111111,
+    0b00101111,
+    0b11111100,
+    0b11111100,
+    0b11111111,
+    0b00101111,
+};
 
 #ifdef SWAP_HANDS_ENABLE
 // clang-format off
@@ -32,26 +47,25 @@ __attribute__ ((weak)) const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATR
 
 #ifdef RGB_MATRIX_ENABLE
 /* Map physical under glow LEDs for RGB matrix support
- *
- *  09, 05, xx, xx, 04, xx,                   xx, 14, xx, xx, 15, 19,
- *  xx, xx, xx, xx, xx, 03,                   13, xx, xx, xx, xx, xx,
- *  08, 06, 07, xx, xx, xx, 00, xx,   xx, 10, xx, xx, xx, 17, 16, 18,
- *                  xx, 02, 01, xx,   xx, xx, xx, 11, 12, xx
+ *  09, 02, xx, xx, 01, xx,                   xx, 11, xx, xx, 12, 19,
+ *  xx, xx, xx, xx, xx, 00,                   10, xx, xx, xx, xx, xx,
+ *  08, 03, 04, xx, xx, xx, 07, xx,   xx, 17, xx, xx, xx, 14, 13, 18,
+ *                  xx, 05, 06, xx,   xx, xx, xx, 16, 15, xx
  */
 led_config_t g_led_config = { {
     // Key Matrix to LED Index
-    { NO_LED, NO_LED, NO_LED, 4,      NO_LED, NO_LED, 5,      9     },
-    { NO_LED, NO_LED, 3,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, 0,      NO_LED, NO_LED, NO_LED, 7,      6,      8      },
-    { NO_LED, NO_LED, 1,      2,      NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, NO_LED, NO_LED, 14,     NO_LED, NO_LED, 15,     19     },
-    { NO_LED, NO_LED, 13,     NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, 10,     NO_LED, NO_LED, NO_LED, 17,     16,     18     },
-    { NO_LED, NO_LED, 11,     12,     NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, 1,      NO_LED, NO_LED, 2,      9     },
+    { NO_LED, NO_LED, 0,      NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, 7,      NO_LED, NO_LED, NO_LED, 4,      3,      8      },
+    { NO_LED, NO_LED, 6,      5,      NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, 11,     NO_LED, NO_LED, 12,     19     },
+    { NO_LED, NO_LED, 10,     NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, 17,     NO_LED, NO_LED, NO_LED, 14,     13,     18     },
+    { NO_LED, NO_LED, 16,     15,     NO_LED, NO_LED, NO_LED, NO_LED },
 }, {
     // LED Index to Physical Position
-    {91,40}, {77,56}, {63,56}, {77,24}, {63,8}, {21,8}, {21,40}, {35,40}, {7,40}, {7,8},
-    {133,40}, {147,56}, {161,56}, {147,24}, {161,8}, {203,8}, {203,40}, {189,40}, {217,40}, {217,8}
+    {77,24}, {63,8}, {21,8}, {21,40}, {35,40}, {63,56}, {77,56}, {91,40}, {7,40}, {7,8},
+    {147,24}, {161,8}, {203,8}, {203,40}, {189,40}, {161,56}, {147,56}, {133,40}, {217,40}, {217,8}
 }, {
     // LED Index to Flag
     LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
