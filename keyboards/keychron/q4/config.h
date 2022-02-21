@@ -116,6 +116,6 @@
 
 // Just for testing RGB matrix
 // preventing inadvertent entry into dfu mode during power on
-#define RGB_MATRIX_KEYPRESSES
+// #define RGB_MATRIX_KEYPRESSES
 #define BOOTMAGIC_LITE_ROW 4
 #define BOOTMAGIC_LITE_COLUMN 5

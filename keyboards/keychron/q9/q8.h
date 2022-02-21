@@ -14,21 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "q9.h"
-#include "test.c"
+#pragma once
 
-const matrix_row_t matrix_mask[] = {
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111101111,
-};
+#include "quantum.h"
 
-bool dip_switch_update_kb(uint8_t index, bool active) {
-    if (!dip_switch_update_user(index, active)) { return false;}
-    if (index == 0) {
-        default_layer_set(1UL << (active ? 1 : 0));
-    }
-    return true;
-}
+#if defined(KEYBOARD_keychron_q8_q8_ansi_stm32l432)
+#    include "q8_ansi_stm32l432.h"
+#elif defined(KEYBOARD_keychron_q8_q8_ansi_stm32l432_ec11)
+#    include "q8_ansi_stm32l432_ec11.h"
+#endif

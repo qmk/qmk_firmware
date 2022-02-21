@@ -19,7 +19,7 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x3434
 #define MANUFACTURER    Keychron
-#define PRODUCT         Keychron Q9
+#define PRODUCT         Keychron Q8
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL

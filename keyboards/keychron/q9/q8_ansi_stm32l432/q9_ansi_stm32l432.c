@@ -17,6 +17,7 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
+
 const ckled2001_led PROGMEM g_ckled2001_leds[DRIVER_LED_TOTAL] = {
 /* Refer to CKLED manual for these locations
  *   driver
@@ -123,4 +124,5 @@ led_config_t g_led_config = {
         4,    4,    4,          4,          4,          4,    4,          4,          4,    4,    4
     }
 };
+
 #endif
