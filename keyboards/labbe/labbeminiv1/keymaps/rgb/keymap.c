@@ -18,11 +18,3 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_wasd( KC_W, KC_A, KC_S, KC_D),
 };
-
-
-/*void matrix_init_user(void) {
-    // Set RGB to rainbow mood light
-    rgblight_enable();
-    rgblight_sethsv(255,255,255);
-    rgblight_mode(6);
-}*/
