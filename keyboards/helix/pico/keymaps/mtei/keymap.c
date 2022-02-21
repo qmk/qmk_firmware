@@ -14,17 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
-#ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
-#endif
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
-#ifdef CONSOLE_ENABLE
-  #include <print.h>
-#endif
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 #define kc5(a,b,c,d,e) KC_##a, KC_##b, KC_##c, KC_##d, KC_##e
