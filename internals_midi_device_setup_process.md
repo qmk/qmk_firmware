@@ -1,4 +1,4 @@
-# group `midi_device_setup_process` {#group__midi__device__setup__process}
+# group `midi_device_setup_process` 
 
 These are method that you must use to initialize and run a device.
 
@@ -11,7 +11,7 @@ These are method that you must use to initialize and run a device.
 
 ## Members
 
-#### `public void `[`midi_device_init`](#group__midi__device__setup__process_1gaf29deddc94ea98a59daa0bde1aefd9d9)`(`[`MidiDevice`](.build/docs/internals_midi_device.md#struct__midi__device)` * device)` {#group__midi__device__setup__process_1gaf29deddc94ea98a59daa0bde1aefd9d9}
+#### `public void `[`midi_device_init`](#group__midi__device__setup__process_1gaf29deddc94ea98a59daa0bde1aefd9d9)`(`[`MidiDevice`](.build/docs/internals_midi_device.md#struct__midi__device)` * device)` 
 
 Initialize a device.
 
@@ -20,7 +20,7 @@ You must call this before using the device in question.
 #### Parameters
 * `device` the device to initialize
 
-#### `public void `[`midi_device_process`](#group__midi__device__setup__process_1gaa3d5993d0e998a1b59bbf5ab9c7b492b)`(`[`MidiDevice`](.build/docs/internals_midi_device.md#struct__midi__device)` * device)` {#group__midi__device__setup__process_1gaa3d5993d0e998a1b59bbf5ab9c7b492b}
+#### `public void `[`midi_device_process`](#group__midi__device__setup__process_1gaa3d5993d0e998a1b59bbf5ab9c7b492b)`(`[`MidiDevice`](.build/docs/internals_midi_device.md#struct__midi__device)` * device)` 
 
 Process input data.
 
