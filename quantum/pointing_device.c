@@ -77,8 +77,8 @@ extern const pointing_device_driver_t pointing_device_driver;
  * @param[in] old report_mouse_t
  * @return bool result
  */
-__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new, report_mouse_t old) {
-    return memcmp(&new, &old, sizeof(new));
+__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new_report, report_mouse_t old_report) {
+    return memcmp(&new_report, &old_report, sizeof(new_report));
 }
 
 /**
