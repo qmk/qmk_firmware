@@ -7,7 +7,7 @@
   "layout": "LAYOUT_split_3x5_2",
   "layers": [
     [
-      "KC_Q",
+      "LT(5,KC_Q)",
       "KC_W",
       "KC_F",
       "KC_P",
@@ -16,12 +16,12 @@
       "KC_L",
       "KC_U",
       "KC_Y",
-      "KC_BSLS",
+      "KC_SCLN",
       "KC_A",
       "KC_R",
       "KC_S",
       "KC_T",
-      "KC_L",
+      "KC_G",
       "KC_M",
       "KC_N",
       "KC_E",
@@ -36,11 +36,11 @@
       "KC_H",
       "LALT_T(KC_COMM)",
       "LCTL_T(KC_DOT)",
-      "LSFT_T(KC_MINS)",
+      "LSFT_T(KC_SLSH)",
       "LT(6,KC_ESC)",
       "KC_BSPC",
       "KC_SPC",
-      "KC_ENT"
+      "LT(4,KC_ENT)"
     ],
     [
       "KC_TRNS",
