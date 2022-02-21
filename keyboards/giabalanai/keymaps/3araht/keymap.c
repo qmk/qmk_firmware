@@ -61,6 +61,7 @@ enum layer_names {
     _FAKE_B_SYSTEM,      //  MIDI fake B-system doesn't have correct assignments on top two rows. The bottom 3 rows are B-system.
     _C_SYSTEM_BASS2ROW,  //  counter bass system
     _C_SYSTEM_ENTIRELY,  //  single notes for both left and right keybaords.
+    _C_SYSTEM_FREEBASS,  //  C-system Free Bass
     _CHROMATONE,
     _CFLIP_BASS2ROW,     //  180 degree flipped layout on right side keyboard
     _QWERTY,
@@ -179,6 +180,7 @@ enum custom_keycodes {
     BSYSTEM,  // B-SYSTEM layout
     CNTBASC,  // CouNTer BASs C-system layout
     CSYSALL,  // C-SYStem ALL layout
+    CSYSFBS,  // C-SYStem Free BaSs
     CHRTONE,  // CHRomaTONE layout
     CFLIP2B,  // C-system FLIPped 2(to) Backwards
     TGLBASS,  // ToGgLe BASS unison
@@ -243,6 +245,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, MI_D,    MI_F,    MI_Ab,   MI_B,    MI_D_1,  MI_F_1,  MI_Ab_1, MI_B_1,  MI_D_2,  MI_F_2,
           XXXXXXX, MI_Db,   MI_E,    MI_G,    MI_Bb,   MI_Db_1, MI_E_1,  MI_G_1,  MI_Bb_1, MI_Db_2, MI_E_2,  MI_G_2,
             MI_C,    MI_Eb,   MI_Fs,   MI_A,    MI_C_1,  MI_Eb_1, MI_Fs_1, MI_A_1,  MI_C_2,  MI_Eb_2, MI_Fs_2, MI_A_2,
+
+    MI_Fs_2,                                                                                                    _______, _______,
+      MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4,  MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5,    FN_MUTE,
+    MI_G_2,  MI_Bb_2, MI_Db_3, MI_E_3,  MI_G_3,  MI_Bb_3, MI_Db_4, MI_E_4,  MI_G_4,  MI_Bb_4, MI_Db_5, MI_E_5,  MI_G_5,
+      MI_A_2,  MI_C_3,  MI_Eb_3, MI_Fs_3, MI_A_3,  MI_C_4,  MI_Eb_4, MI_Fs_4, MI_A_4,  MI_C_5,  MI_Eb_5, MI_Fs_5
+  ),
+
+  /* C-system free bass */
+  [_C_SYSTEM_FREEBASS] = LAYOUT(
+    MI_Db_3,  MI_Bb_2,  MI_G_2,   MI_E_2,   MI_Db_2,  MI_Bb_1, MI_G_1,   MI_E_1,  MI_Db_1,  MI_Bb,  MI_G,  MI_E,
+      MI_C_3,   MI_A_2,   MI_Fs_2,  MI_Eb_2,  MI_C_2,   MI_A_1,  MI_Fs_1,  MI_Eb_1,  MI_C_1,  MI_A,   MI_Fs, MI_Eb,
+        MI_B_2,   MI_Ab_2,  MI_F_2,   MI_D_2,   MI_B_1,  MI_Ab_1,   MI_F_1,  MI_D_1,   MI_B,    MI_Ab,  MI_F,  MI_D,
+          MI_Bb_2, MI_G_2,   MI_E_2,   MI_Db_2,  MI_Bb_1, MI_G_1,    MI_E_1,  MI_Db_1,   MI_Bb,  MI_G,   MI_E,  MI_Db,
+            MI_A_2,  MI_Fs_2,  MI_Eb_2,  MI_C_2,   MI_A_1,  MI_Fs_1,   MI_Eb_1,  MI_C_1,   MI_A,   MI_Fs,  MI_Eb, MI_C,
 
     MI_Fs_2,                                                                                                    _______, _______,
       MI_Ab_2, MI_B_2,  MI_D_3,  MI_F_3,  MI_Ab_3, MI_B_3,  MI_D_4,  MI_F_4,  MI_Ab_4, MI_B_4,  MI_D_5,  MI_F_5,    FN_MUTE,
@@ -322,7 +338,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Fn */
   [_FN] = LAYOUT(
-    CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
+    CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, CFLIP2B, CSYSFBS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
       DF_QWER, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMICH,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -330,7 +346,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     XXXXXXX,                                                                                                          XXXXXXX, XXXXXXX,
       MI_OCT_N2, MI_OCT_N1, MI_OCT_0, MI_OCT_1, MI_OCT_2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EEP_RST,   _______,
-    CSYSTEM, BSYSTEM,  CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, MI_VELD, MI_VELU, XXXXXXX, RGB_TOG,
+    CSYSTEM, BSYSTEM,  CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B, CSYSFBS, XXXXXXX, XXXXXXX, MI_VELD, MI_VELU, XXXXXXX, RGB_TOG,
       XXXXXXX,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, TGLUVEL, MELDYAL, MELODYS, MELDYAH
   )
 };
@@ -349,7 +365,7 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS({1,
 
 // Light up fn layer keys
 const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(                           //  left keyboard
-                                                                         {0,   6, HSV_ORANGE},      //  MIDI layouts
+                                                                         {0,   7, HSV_ORANGE},      //  MIDI layouts
                                                                          {11,  1, HSV_RED},         //  RGB_TOG
                                                                          {12,  1, HSV_WHITE},       //  DF_QWER
                                                                          {13,  1, HSV_CORAL},       //  TGLBASS
@@ -376,7 +392,7 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {53,  1, HSV_PINK},
 #endif
                                                                                                     //  right keyboard
-                                                                         {60,  6, HSV_ORANGE},      //  MIDI layouts
+                                                                         {60,  7, HSV_ORANGE},      //  MIDI layouts
                                                                          {74,  1, HSV_CORAL},       //  TGLBASS
                                                                          {85,  1, HSV_BLUE},        //  MIDI Oct
                                                                          {86,  1, HSV_CYAN},        //  MIDI Oct
@@ -384,7 +400,7 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {88,  1, HSV_GREEN},       //  MIDI Oct
                                                                          {89,  1, HSV_CHARTREUSE},  //  MIDI Oct
                                                                          {96,  1, HSV_PINK},        //  EEP_RST
-                                                                         {98,  6, HSV_ORANGE},      //  MIDI layouts
+                                                                         {98,  7, HSV_ORANGE},      //  MIDI layouts
                                                                          {107, 1, HSV_YELLOW},      //  MI_VELD
                                                                          {108, 1, HSV_GREEN},       //  MI_VELU
                                                                          {110, 1, HSV_RED},         //  RGB_TOG
@@ -394,8 +410,6 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {121, 1, HSV_GOLD},        //  MELODYS
                                                                          {122, 1, HSV_SPRINGGREEN}  //  MELDYAH
 );
-
-
 
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_fn_layer, my_adjust_layer);
@@ -573,6 +587,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CFLIP2B:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_CFLIP_BASS2ROW);
+            }
+            break;
+
+        case CSYSFBS:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_C_SYSTEM_FREEBASS);
             }
             break;
 
