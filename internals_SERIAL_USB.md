@@ -92,6 +92,8 @@ Serial Driver initialization.
 
 This function is implicitly invoked by `halInit()`, there is no need to explicitly initialize the driver.
 
+@init
+
 #### `public void `[`qmkusbObjectInit`](#group___s_e_r_i_a_l___u_s_b_1gaf8ba926d88993cb4fab100f1ef427e0b)`(`[`QMKUSBDriver`](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` * qmkusbp,const `[`QMKUSBConfig`](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_config)` * config)` {#group___s_e_r_i_a_l___u_s_b_1gaf8ba926d88993cb4fab100f1ef427e0b}
 
 Initializes a generic full duplex driver object.
@@ -100,6 +102,8 @@ The HW dependent part of the initialization has to be performed outside, usually
 
 #### Parameters
 * `qmkusbp` pointer to a `[QMKUSBDriver](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` structure
+
+@init
 
 #### `public void `[`qmkusbStart`](#group___s_e_r_i_a_l___u_s_b_1ga82f3c032f7fb6832a60d6048f69c3e3d)`(`[`QMKUSBDriver`](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` * qmkusbp,const `[`QMKUSBConfig`](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_config)` * config)` {#group___s_e_r_i_a_l___u_s_b_1ga82f3c032f7fb6832a60d6048f69c3e3d}
 
@@ -110,6 +114,8 @@ Configures and starts the driver.
 
 * `config` the serial over USB driver configuration
 
+@api
+
 #### `public void `[`qmkusbStop`](#group___s_e_r_i_a_l___u_s_b_1gaa032aca2a467800dc0dc0e205b4757d5)`(`[`QMKUSBDriver`](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` * qmkusbp)` {#group___s_e_r_i_a_l___u_s_b_1gaa032aca2a467800dc0dc0e205b4757d5}
 
 Stops the driver.
@@ -119,6 +125,8 @@ Any thread waiting on the driver's queues will be awakened with the message `MSG
 #### Parameters
 * `qmkusbp` pointer to a `[QMKUSBDriver](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` object
 
+@api
+
 #### `public void `[`qmkusbSuspendHookI`](#group___s_e_r_i_a_l___u_s_b_1gad59935eea3dab7a0584fd759c884e814)`(`[`QMKUSBDriver`](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` * qmkusbp)` {#group___s_e_r_i_a_l___u_s_b_1gad59935eea3dab7a0584fd759c884e814}
 
 USB device suspend handler.
@@ -127,6 +135,8 @@ Generates a `CHN_DISCONNECT` event and puts queues in non-blocking mode, this wa
 
 #### Parameters
 * `qmkusbp` pointer to a `[QMKUSBDriver](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` object
+
+@iclass
 
 #### `public void `[`qmkusbWakeupHookI`](#group___s_e_r_i_a_l___u_s_b_1ga9bc8dd88462d0e3b39f7fdfec2c3ee55)`(`[`QMKUSBDriver`](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` * qmkusbp)` {#group___s_e_r_i_a_l___u_s_b_1ga9bc8dd88462d0e3b39f7fdfec2c3ee55}
 
@@ -139,12 +149,16 @@ If this function is not called from an ISR then an explicit call to `osalOsResch
 #### Parameters
 * `qmkusbp` pointer to a `[QMKUSBDriver](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` object
 
+@iclass
+
 #### `public void `[`qmkusbConfigureHookI`](#group___s_e_r_i_a_l___u_s_b_1ga920acd9f8890b819614515b73923b72f)`(`[`QMKUSBDriver`](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` * qmkusbp)` {#group___s_e_r_i_a_l___u_s_b_1ga920acd9f8890b819614515b73923b72f}
 
 USB device configured handler.
 
 #### Parameters
 * `qmkusbp` pointer to a `[QMKUSBDriver](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` object
+
+@iclass
 
 #### `public bool `[`qmkusbRequestsHook`](#group___s_e_r_i_a_l___u_s_b_1gabae5bdec8abeac31be61c976301c37ba)`(USBDriver * usbp)` {#group___s_e_r_i_a_l___u_s_b_1gabae5bdec8abeac31be61c976301c37ba}
 
@@ -177,6 +191,8 @@ The SOF interrupt is used for automatic flushing of incomplete buffers pending i
 
 #### Parameters
 * `qmkusbp` pointer to a `[QMKUSBDriver](.build/docs/internals_SERIAL_USB.md#struct_q_m_k_u_s_b_driver)` object
+
+@iclass
 
 #### `public void `[`qmkusbDataTransmitted`](#group___s_e_r_i_a_l___u_s_b_1ga2baecc9d4f4ec49c7e26b5dd0740c7cd)`(USBDriver * usbp,usbep_t ep)` {#group___s_e_r_i_a_l___u_s_b_1ga2baecc9d4f4ec49c7e26b5dd0740c7cd}
 

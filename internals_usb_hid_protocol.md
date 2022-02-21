@@ -8,67 +8,7 @@ protocol definitions
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`enum `[`usb_reqid_hid`](#group__usb__hid__protocol_1gaa7c41bb1274630413fb8f1e9a8acb3e5)            | Hid USB requests (bRequest)
-`enum `[`usb_descriptor_type_hid`](#group__usb__hid__protocol_1ga75d07fddd98e94eee499e34ce80eebc7)            | HID USB descriptor types.
-`enum `[`usb_hid_item_report_type`](#group__usb__hid__protocol_1gab8c213eaa38f71a4aae0c2bb7341f170)            | HID Type for report descriptor.
-`enum `[`usb_hid_report_type`](#group__usb__hid__protocol_1ga5832b449d0ccdae41b51ee5436e8df28)            | HID report type.
-`enum `[`usb_hid_protocol`](#group__usb__hid__protocol_1gaf68d2167c72cb42e4788cbeba994c255)            | HID protocol.
 `struct `[`usb_hid_descriptor_t`](#structusb__hid__descriptor__t) | HID Descriptor.
-
-## Members
-
-#### `enum `[`usb_reqid_hid`](#group__usb__hid__protocol_1gaa7c41bb1274630413fb8f1e9a8acb3e5) {#group__usb__hid__protocol_1gaa7c41bb1274630413fb8f1e9a8acb3e5}
-
- Values                         | Descriptions                                
---------------------------------|---------------------------------------------
-USB_REQ_HID_GET_REPORT            | 
-USB_REQ_HID_GET_IDLE            | 
-USB_REQ_HID_GET_PROTOCOL            | 
-USB_REQ_HID_SET_REPORT            | 
-USB_REQ_HID_SET_IDLE            | 
-USB_REQ_HID_SET_PROTOCOL            | 
-
-Hid USB requests (bRequest)
-
-#### `enum `[`usb_descriptor_type_hid`](#group__usb__hid__protocol_1ga75d07fddd98e94eee499e34ce80eebc7) {#group__usb__hid__protocol_1ga75d07fddd98e94eee499e34ce80eebc7}
-
- Values                         | Descriptions                                
---------------------------------|---------------------------------------------
-USB_DT_HID            | 
-USB_DT_HID_REPORT            | 
-USB_DT_HID_PHYSICAL            | 
-
-HID USB descriptor types.
-
-#### `enum `[`usb_hid_item_report_type`](#group__usb__hid__protocol_1gab8c213eaa38f71a4aae0c2bb7341f170) {#group__usb__hid__protocol_1gab8c213eaa38f71a4aae0c2bb7341f170}
-
- Values                         | Descriptions                                
---------------------------------|---------------------------------------------
-USB_HID_ITEM_REPORT_TYPE_MAIN            | 
-USB_HID_ITEM_REPORT_TYPE_GLOBAL            | 
-USB_HID_ITEM_REPORT_TYPE_LOCAL            | 
-USB_HID_ITEM_REPORT_TYPE_LONG            | 
-
-HID Type for report descriptor.
-
-#### `enum `[`usb_hid_report_type`](#group__usb__hid__protocol_1ga5832b449d0ccdae41b51ee5436e8df28) {#group__usb__hid__protocol_1ga5832b449d0ccdae41b51ee5436e8df28}
-
- Values                         | Descriptions                                
---------------------------------|---------------------------------------------
-USB_HID_REPORT_TYPE_INPUT            | 
-USB_HID_REPORT_TYPE_OUTPUT            | 
-USB_HID_REPORT_TYPE_FEATURE            | 
-
-HID report type.
-
-#### `enum `[`usb_hid_protocol`](#group__usb__hid__protocol_1gaf68d2167c72cb42e4788cbeba994c255) {#group__usb__hid__protocol_1gaf68d2167c72cb42e4788cbeba994c255}
-
- Values                         | Descriptions                                
---------------------------------|---------------------------------------------
-USB_HID_PROCOTOL_BOOT            | 
-USB_HID_PROCOTOL_REPORT            | 
-
-HID protocol.
 
 # struct `usb_hid_descriptor_t` {#structusb__hid__descriptor__t}
 

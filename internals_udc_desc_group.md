@@ -40,18 +40,8 @@ Configuration descriptor and UDI link for one USB speed.
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public `[`usb_conf_desc_t](.build/docs/internals_usb_protocol_group.md#structusb__conf__desc__t)[UDC_DESC_STORAGE`](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f)` * `[`desc`](#structudc__config__speed__t_1a6603d52f85ab88bc45af669a01c4b73a) | USB configuration descriptor.
-`public `[`udi_api_t](.build/docs/internals_udi_group.md#structudi__api__t)[UDC_DESC_STORAGE](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f) *[UDC_DESC_STORAGE`](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f)` * `[`udi_apis`](#structudc__config__speed__t_1a6b3a118ab8cad1b5fd0a3a1e8cf2ba36) | Array of UDI API pointer.
 
 ## Members
-
-#### `public `[`usb_conf_desc_t](.build/docs/internals_usb_protocol_group.md#structusb__conf__desc__t)[UDC_DESC_STORAGE`](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f)` * `[`desc`](#structudc__config__speed__t_1a6603d52f85ab88bc45af669a01c4b73a) {#structudc__config__speed__t_1a6603d52f85ab88bc45af669a01c4b73a}
-
-USB configuration descriptor.
-
-#### `public `[`udi_api_t](.build/docs/internals_udi_group.md#structudi__api__t)[UDC_DESC_STORAGE](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f) *[UDC_DESC_STORAGE`](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f)` * `[`udi_apis`](#structudc__config__speed__t_1a6b3a118ab8cad1b5fd0a3a1e8cf2ba36) {#structudc__config__speed__t_1a6b3a118ab8cad1b5fd0a3a1e8cf2ba36}
-
-Array of UDI API pointer.
 
 # struct `udc_config_t` {#structudc__config__t}
 
@@ -61,19 +51,6 @@ All information about the USB Device.
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`public `[`usb_dev_desc_t](.build/docs/internals_usb_protocol_group.md#structusb__dev__desc__t)[UDC_DESC_STORAGE`](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f)` * `[`confdev_lsfs`](#structudc__config__t_1af7a4ce04947ddceb4c621cfd1da6e19f) | USB device descriptor for low or full speed.
-`public `[`udc_config_speed_t](.build/docs/internals_udc_desc_group.md#structudc__config__speed__t)[UDC_DESC_STORAGE`](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f)` * `[`conf_lsfs`](#structudc__config__t_1a5f1714368d3c5fc176c1d31705e8ab89) | USB configuration descriptor and UDI API pointers for low or full speed.
-`public `[`usb_dev_bos_desc_t](.build/docs/internals_usb_protocol_group.md#structusb__dev__bos__desc__t)[UDC_DESC_STORAGE`](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f)` * `[`conf_bos`](#structudc__config__t_1a1618a7226bcdbef10cf749598ce5d2af) | 
 
 ## Members
-
-#### `public `[`usb_dev_desc_t](.build/docs/internals_usb_protocol_group.md#structusb__dev__desc__t)[UDC_DESC_STORAGE`](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f)` * `[`confdev_lsfs`](#structudc__config__t_1af7a4ce04947ddceb4c621cfd1da6e19f) {#structudc__config__t_1af7a4ce04947ddceb4c621cfd1da6e19f}
-
-USB device descriptor for low or full speed.
-
-#### `public `[`udc_config_speed_t](.build/docs/internals_udc_desc_group.md#structudc__config__speed__t)[UDC_DESC_STORAGE`](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f)` * `[`conf_lsfs`](#structudc__config__t_1a5f1714368d3c5fc176c1d31705e8ab89) {#structudc__config__t_1a5f1714368d3c5fc176c1d31705e8ab89}
-
-USB configuration descriptor and UDI API pointers for low or full speed.
-
-#### `public `[`usb_dev_bos_desc_t](.build/docs/internals_usb_protocol_group.md#structusb__dev__bos__desc__t)[UDC_DESC_STORAGE`](.build/docs/internals_undefined.md#group__udc__desc__group_1gae086959cec07a2e71ab069e25a51764f)` * `[`conf_bos`](#structudc__config__t_1a1618a7226bcdbef10cf749598ce5d2af) {#structudc__config__t_1a1618a7226bcdbef10cf749598ce5d2af}
 

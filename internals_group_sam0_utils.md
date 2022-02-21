@@ -142,7 +142,7 @@ Calls the routine at address *addr*.
 
 It generates a long call opcode.
 
-For example, `Long_call(0x80000000)' generates a software reset on a UC3 if it is invoked from the CPU supervisor mode.
+For example, [Long_call(0x80000000)](.build/docs/internals_undefined.md#group__group__sam0__utils_1ga5b759626f343cc1af9159cc02b763837) generates a software reset on a UC3 if it is invoked from the CPU supervisor mode.
 
 #### Parameters
 * `addr` Address of the routine to call.
