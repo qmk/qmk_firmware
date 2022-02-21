@@ -7,7 +7,7 @@ from subprocess import DEVNULL
 from milc import cli
 
 DOCS_PATH = Path('docs/')
-BUILD_PATH = Path('.build/docs/')
+BUILD_PATH = Path('.build/')
 
 
 @cli.subcommand('Build QMK documentation.', hidden=False if cli.config.user.developer else True)
@@ -19,9 +19,9 @@ def generate_docs(cli):
     """
 
     if BUILD_PATH.exists():
-        shutil.rmtree(BUILD_PATH)
+        shutil.rmtree(BUILD_PATH / 'docs')
 
-    shutil.copytree(DOCS_PATH, BUILD_PATH)
+    shutil.copytree(DOCS_PATH, BUILD_PATH / 'docs')
 
     # When not verbose we want to hide all output
     args = {
@@ -34,6 +34,6 @@ def generate_docs(cli):
 
     # Generate internal docs
     cli.run(['doxygen', 'Doxyfile'], **args)
-    cli.run(['moxygen', '-q', '-a', '-g', '-o', BUILD_PATH / 'internals_%s.md', 'doxygen/xml'], **args)
+    cli.run(['moxygen', '-q', '-g', '-o', BUILD_PATH / 'docs/internals_%s.md', BUILD_PATH / 'doxygen/xml'], **args)
 
-    cli.log.info('Successfully generated internal docs to %s.', BUILD_PATH)
+    cli.log.info('Successfully generated internal docs to %s.', BUILD_PATH / 'docs')
