@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include QMK_KEYBOARD_H
+#include "keymap_user.h"
 #include "tap_dance_setup.c"
 #include "tap_dance_mac_caps.c"
 #include "tap_dance_win_caps.c"
