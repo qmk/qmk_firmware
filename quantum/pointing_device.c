@@ -292,10 +292,10 @@ report_mouse_t pointing_device_get_report(void) {
 /**
  * @brief Sets mouse report used be pointing device task
  *
- * @param[in] new_mouse_report
+ * @param[in] mouse_report
  */
-void pointing_device_set_report(report_mouse_t new_mouse_report) {
-    local_mouse_report = new_mouse_report;
+void pointing_device_set_report(report_mouse_t mouse_report) {
+    local_mouse_report = mouse_report;
 }
 
 /**
