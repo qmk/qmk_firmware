@@ -16,8 +16,11 @@
 
 #pragma once
 
-#define HAL_USE_SPI TRUE
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+#include "config_common.h"
 
-#include_next <halconf.h>
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+#define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B12
+#define EXTERNAL_FLASH_SIZE 8
+
+/* SPI Config for LED Driver */
+#define SPI_DRIVER SPIDQ

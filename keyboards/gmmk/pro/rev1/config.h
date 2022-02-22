@@ -16,8 +16,7 @@
 
 #pragma once
 
-#define HAL_USE_SPI TRUE
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+#include "config_common.h"
 
-#include_next <halconf.h>
+/* SPI Config for LED Driver */
+#define SPI_DRIVER SPID1

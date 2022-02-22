@@ -1,0 +1,1 @@
+#define KEYBOARD_SHARED_EP TRUE

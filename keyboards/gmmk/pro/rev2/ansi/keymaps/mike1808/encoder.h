@@ -1,4 +1,4 @@
-/* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
+/* Copyright 2021 Mikael Manukyan <arm.localhost@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,10 +14,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+// To add a new functionality define a new state here and then assign
+// the handler to the `encoder_callback`
+#include "quantum.h"
 
-#define HAL_USE_SPI TRUE
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+enum encoder_state {
+    ENCODER_VOLUME = 0,
+    ENCODER_RGB_HUE,
+    ENCODER_RGB_SAT,
+    ENCODER_RGB_VAL,
+    ENCODER_RGB_EFFECT_SPEED,
+    ENCODER_RGB_EFFECT,
+};
 
-#include_next <halconf.h>
+typedef void (*encoder_callback)(void);
+
+#define ENCODER_DEFAULT ENCODER_VOLUME
+
+void volume_up(void);
+void volume_down(void);

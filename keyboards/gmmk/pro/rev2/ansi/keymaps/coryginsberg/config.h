@@ -1,4 +1,5 @@
 /* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
+   Copyright 2021 Cory Ginsberg (@coryginsberg)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,14 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "quantum.h"
+// #define TAPPING_TOGGLE 2
+// TT set to two taps
 
-#if defined(KEYBOARD_gmmk_pro_rev1_ansi)
-#    include "rev1/ansi/ansi.h"
-#elif defined(KEYBOARD_gmmk_pro_rev1_iso)
-#    include "rev1/iso/iso.h"
-#elif defined(KEYBOARD_gmmk_pro_rev2_ansi)
-#    include "rev2/ansi/ansi.h"
-#elif defined(KEYBOARD_gmmk_pro_rev2_iso)
-#    include "rev2/iso/iso.h"
-#endif  // GMMK Pro revisions
+#define TAPPING_TERM 250
+#define RGBLIGHT_DEFAULT_MODE SOLID_WHITE

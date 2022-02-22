@@ -1,4 +1,4 @@
-/* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
+/* Copyright 2021 Mikael Manukyan <arm.localhost@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,11 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
+#include "quantum.h"
 
-#define HAL_USE_SPI TRUE
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+void store_rgb_state_to_eeprom(void);
 
-#include_next <halconf.h>
+typedef void (*key_press_handler)(bool);
+
+typedef struct KeyPressState KeyPressState;
+struct KeyPressState {
+        int _count;
+        void (*press)(KeyPressState *self);
+        void (*release)(KeyPressState *self);
+        void (*reset)(KeyPressState *self);
+        key_press_handler hander;
+};
+
+KeyPressState *NewKeyPressState(key_press_handler);

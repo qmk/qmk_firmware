@@ -18,19 +18,23 @@
 
 #include "config_common.h"
 
+#define RGB_DISABLE_WHEN_USB_SUSPENDED TRUE
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+#define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B14
+
 /* USB Device descriptor parameter */
 #define DEVICE_VER 0x0001
 #define VENDOR_ID 0x320F
 #define PRODUCT_ID 0x5044
 #define MANUFACTURER Glorious
-#define PRODUCT GMMK Pro
+#define PRODUCT GMMK 2 96
 
 /* key matrix size */
-#define MATRIX_ROWS 11
+#define MATRIX_ROWS 14
 #define MATRIX_COLS 8
 
 #define MATRIX_ROW_PINS \
-    { B0, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10 }
+    { B0, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13 }
 #define MATRIX_COL_PINS \
     { A0, A1, A2, A3, A4, A8, A9, A10 }
 
@@ -38,14 +42,10 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Hold ESC on start up to clear EEPROM and boot into bootloader mode */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 3
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
 
 #define TAP_CODE_DELAY 10
-#define ENCODERS_PAD_A \
-    { C15 }
-#define ENCODERS_PAD_B \
-    { C14 }
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -53,16 +53,21 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* SPI Config for LED Driver */
+#define SPI_DRIVER SPIDQ
 #define SPI_SCK_PIN A5
-#define SPI_MOSI_PIN A6
-#define SPI_MISO_PIN A7
+#define SPI_MOSI_PIN A7
+#define SPI_MISO_PIN A6
 
-#define DRIVER_1_CS B13
-#define DRIVER_2_CS B14
+#define DRIVER_1_CS A15
+#define DRIVER_2_CS B15
 #define DRIVER_1_EN C13
 #define DRIVER_2_EN C13
 
 #define DRIVER_COUNT 2
+
+#define DRIVER_1_LED_TOTAL 66
+#define DRIVER_2_LED_TOTAL 54
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

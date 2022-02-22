@@ -1,4 +1,4 @@
-/* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
+/* Copyright 2021 Mikael Manukyan <arm.localhost@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,11 +13,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
+#include "mike1808.h"
 
-#define HAL_USE_SPI TRUE
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
 
-#include_next <halconf.h>
+bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
+
+bool process_record_encoder(uint16_t keycode, keyrecord_t *record);
+
+bool process_record_fun(uint16_t keycode, keyrecord_t *record);
+
+void keyboard_post_init_encoder(void);

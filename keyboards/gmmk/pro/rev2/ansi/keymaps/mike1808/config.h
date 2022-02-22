@@ -1,4 +1,4 @@
-/* Copyright 2021 Glorious, LLC <salman@pcgamingrace.com>
+/* Copyright 2021 Mikael Manukyan <arm.localhost@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,10 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#define COMBO_COUNT 1
+#define COMBO_TERM 100
 
-#define HAL_USE_SPI TRUE
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_DISABLE_TIMEOUT 90000
 
-#include_next <halconf.h>
+#define MACRO_TIMER 5
+
+#define TAPPING_TOGGLE 3
+
+#define WPM_SMOOTHING 0.1
+
+// this is for macOS so keyboard can work after sleep
+#define NO_USB_STARTUP_CHECK

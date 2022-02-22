@@ -14,10 +14,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#define HAL_USE_SPI TRUE
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-
-#include_next <halconf.h>
+#define KEYBOARD_SHARED_EP TRUE
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3

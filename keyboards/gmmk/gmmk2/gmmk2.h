@@ -16,8 +16,14 @@
 
 #pragma once
 
-#define HAL_USE_SPI TRUE
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+#include "quantum.h"
 
-#include_next <halconf.h>
+#if defined(KEYBOARD_gmmk_gmmk2_p65_ansi)
+#    include "p65/ansi/ansi.h"
+#elif defined(KEYBOARD_gmmk_gmmk2_p65_iso)
+#    include "p65/iso/iso.h"
+#elif defined(KEYBOARD_gmmk_gmmk2_p96_ansi)
+#    include "p96/ansi/ansi.h"
+#elif defined(KEYBOARD_gmmk_gmmk2_p96_iso)
+#    include "p96/iso/iso.h"
+#endif  // GMMK V2 revisions
