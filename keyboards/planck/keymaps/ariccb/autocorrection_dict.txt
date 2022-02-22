@@ -295,20 +295,21 @@ vitual        -> virtual
 yeild         -> yield
 
 ## Catch words with apostrophes' in the wrong spot
-havent'       -> haven't
-dont'         -> don't
-didnt'        -> didn't
-wont'         -> won't
-arent'        -> aren't
-thats'        -> that's
-whats'        -> what's
-couldnt'      -> couldn't
-hadnt'        -> hadn't
-cant'         -> can't
-shouldnt'     -> shouldn't
-theyr'        -> they're
-the're        -> they're
-whos'         -> who's
+havent':      -> haven't
+dont':        -> don't
+didnt':       -> didn't
+wont':        -> won't
+arent':       -> aren't
+thats':       -> that's
+whats':       -> what's
+whats:        -> what's
+couldnt':     -> couldn't
+hadnt':       -> hadn't
+cant':        -> can't
+shouldnt':    -> shouldn't
+theyr':       -> they're
+the're:       -> they're
+whos':        -> who's
 
 ## Catch skipped spaces between common words.
 :alot:        -> a lot
