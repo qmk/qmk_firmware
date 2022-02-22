@@ -1,6 +1,6 @@
 # KBMG68
 
-![KBMG68](https://www.keebmonkey.com/products/kbmg68)
+![KBMG68](https://cdn.shopify.com/s/files/1/0463/5980/6101/products/IMG_2062_600x.jpg?v=1636042030)
 
 The Keebmonkey KBMG68 should be the cheapest gasket keyboard you can ever have. Both the plate and the PCB are gasket mounted, resulting in a deep thocky sound. The shell of the kit is made of 6-layers of acrylic boards, leaving huge space for modding and continuous improvements (even though this kit already sounds perfect when it's out of the box).
 
