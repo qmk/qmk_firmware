@@ -1,6 +1,6 @@
 # lain
 
-![lain](https://i.imgur.com/V0mR1Bg.jpg)
+![lain](https://i.imgur.com/V0mR1Bgh.jpg)
 
 Ergonomic 40% keyboard.
 
