@@ -114,4 +114,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
-#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+#define OLED_FONT_H "keyboards/crkbd/keymaps/toinux/glcdfont.c"
