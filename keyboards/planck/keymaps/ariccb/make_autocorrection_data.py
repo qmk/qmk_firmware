@@ -81,7 +81,7 @@ def parse_file(file_name: str) -> List[Tuple[str, str]]:
       continue
 
     # Check that `typo` is valid.
-    if not(all([ord('a') <= ord(c) <= ord('z') or c == ':' for c in typo])):
+    if not(all([ord('a') <= ord(c) <= ord('z') or c == ':' or  c == "'" for c in typo])):
       print(f'Error:{line_number}: Typo "{typo}" has '
             'characters other than a-z and :.')
       sys.exit(1)
@@ -219,6 +219,8 @@ def serialize_trie(autocorrections: List[Tuple[str, str]],
       if ord('a') <= ord(c) <= ord('z'):
         return ord(c) - ord('a') + KC_A
       elif c == ':':
+        return KC_SPC
+      elif c == "'":
         return KC_SPC
       else:
         raise ValueError(f'Invalid character: {c}')

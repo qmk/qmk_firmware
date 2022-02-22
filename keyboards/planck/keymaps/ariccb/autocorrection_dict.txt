@@ -75,6 +75,7 @@ becasue       -> because
 beccause      -> because
 becouse       -> because
 becuase       -> because
+beacause      -> because
 
 ## Common words, 11-20.
 theese        -> these
@@ -127,6 +128,7 @@ claer         -> clear
 comapny       -> company
 contian       -> contain
 elasped       -> elapsed
+eardh         -> earch
 feild         -> field
 fitler        -> filter
 firts         -> first
@@ -195,7 +197,11 @@ cognizent     -> cognizant
 copywrite:    -> copyright
 choosen       -> chosen
 collegue      -> colleague
+eihgt         -> eight
 excercise     -> exercise
+excede        -> exceed
+exilerate     -> exhilarate
+fullfil:      -> fulfill
 :grammer      -> grammar
 :guage        -> gauge
 govement      -> government
@@ -243,6 +249,7 @@ seperat       -> separat
 spectogram    -> spectrogram
 symetric      -> symmetric
 tolerence     -> tolerance
+teint         -> tient
 
 
 ## Words particularly for coding.
@@ -287,6 +294,21 @@ virutal       -> virtual
 vitual        -> virtual
 yeild         -> yield
 
+## Catch words with apostrophes' in the wrong spot
+havent'       -> haven't
+dont'         -> don't
+didnt'        -> didn't
+wont'         -> won't
+arent'        -> aren't
+thats'        -> that's
+whats'        -> what's
+couldnt'      -> couldn't
+hadnt'        -> hadn't
+cant'         -> can't
+shouldnt'     -> shouldn't
+theyr'        -> they're
+the're        -> they're
+whos'         -> who's
 
 ## Catch skipped spaces between common words.
 :alot:        -> a lot
@@ -329,11 +351,13 @@ fromthe       -> from the
 :usally       -> usually
 abilties      -> abilities
 abilty        -> ability
+absense       -> absence
 abvove        -> above
 accesories    -> accessories
 accomodate    -> accommodate
 acommodate    -> accommodate
 acomplish     -> accomplish
+acceptible    -> acceptable
 actualy       -> actually
 acurate       -> accurate
 acutally      -> actually
@@ -460,6 +484,8 @@ sugest        -> suggest
 sumary        -> summary
 supress       -> suppress
 surpress      -> suppress
+suprise       -> surprise
+supose        -> suppose
 thresold      -> threshold
 tongiht       -> tonight
 tranpose      -> transpose
