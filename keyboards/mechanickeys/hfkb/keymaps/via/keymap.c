@@ -89,29 +89,10 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case MO(1):
-      if (record->event.pressed) {
-        writePinHigh(LED_00);
-      } else {
-        writePinLow(LED_00);
-      }
-      return false;
-    case MO(2):
-      if (record->event.pressed) {
-        writePinHigh(LED_01);
-      } else {
-        writePinLow(LED_01);
-      }
-      return false;
-    case MO(3):
-        if (record->event.pressed) {
-        writePinHigh(LED_02);
-      } else {
-        writePinLow(LED_02);
-      }
-      return false;
-  }
-  return true;
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(LED_00, layer_state_cmp(state, 1);
+    writePin(LED_01, layer_state_cmp(state, 2);
+    writePin(LED_02, layer_state_cmp(state, 3);
+    
+    return state;
 }
