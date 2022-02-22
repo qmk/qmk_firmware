@@ -5,36 +5,37 @@
 
 #include "quantum.h"
 
-
 #define XXX KC_NO
 
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
-#define LAYOUT_all(                                                                 \
-                        K01, K02, K03, K04, K05, K06, K07,                          \
-        K08, K09, K10,                                                              \
-                        K11, K12, K13, K14, K15, K16, K17                           \
-    ) {                                                                             \
-        {               K01, K02, K03, K04, K05, K06, K07       },                  \
-        {   K08, K09, K10                                       },                  \
-        {               K11, K12, K13, K14, K15, K16, K17       }                   \
-    }
-#define LAYOUT_left(                                                                \
-                             K02,      K04,      K06,                               \
-        K08, K09, K10,                                                              \
-                        K11,      K13,      K15,      K17                           \
-    ) {                                                                             \
-        {               XXX, K02, XXX, K04, XXX, K06, XXX       },                  \
-        {   K08, K09, K10                                       },                  \
-        {               K11, XXX, K13, XXX, K15, XXX, K17       }                   \
-    }
-#define LAYOUT_right(                                                               \
-                 K16,      K14,      K12,                                           \
-                                            K08, K09, K10,                          \
-            K07,      K05,      K03,      K01                                       \
-    ) {                                                                             \
-        {               K01, XXX, K03, XXX, K05, XXX, K07       },                  \
-        {   K08, K09, K10                                       },                  \
-        {               XXX, K12, XXX, K14, XXX, K16, XXX       }                   \
-    }
+#define LAYOUT_all( \
+                   k00, k01, k02, k03, k04, k05, k06, \
+    k10, k11, k12, \
+                   k20, k21, k22, k23, k24, k25, k26 \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06 }, \
+    { k10, k11, k12, XXX, XXX, XXX, XXX }, \
+    { k20, k21, k22, k23, k24, k25, k26 } \
+}
+
+#define LAYOUT_left( \
+                     k01, k03, k05, \
+    k10, k11, k12, \
+                   k20, k22, k24, k26 \
+) { \
+    { XXX, k01, XXX, k03, XXX, k05, XXX }, \
+    { k10, k11, k12, XXX, XXX, XXX, XXX }, \
+    { k20, XXX, k22, XXX, k24, XXX, k26 } \
+}
+
+#define LAYOUT_right( \
+      k25, k23, k21, \
+                       k10, k11, k12, \
+    k06, k04, k02, k00 \
+) { \
+    { k00, XXX, k02, XXX, k04, XXX, k06 }, \
+    { k10, k11, k12, XXX, XXX, XXX, XXX }, \
+    { XXX, k21, XXX, k23, XXX, k25, XXX } \
+}
