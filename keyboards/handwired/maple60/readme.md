@@ -2,7 +2,8 @@
 
 A handwired 60% keyboard with maple case.
 
-<img src="https://user-images.githubusercontent.com/6307033/151084291-9d7a800d-4619-462d-a24c-768d7e9213cc.jpg" width="200"> <img src="https://user-images.githubusercontent.com/6307033/151084297-91f25027-c272-4aa3-ad2b-c35896eb2a2d.jpg" width="200">
+![inside](https://i.imgur.com/mDJDwTt.jpg)
+![finished](https://i.imgur.com/gIoEg6c.jpg)
 
 * Keyboard Maintainer: [Jay](https://github.com/Toofty5)
 * Hardware Supported: [Elite C v4](https://keeb.io/products/elite-c-low-profile-version-usb-c-pro-micro-replacement-atmega32u4)
