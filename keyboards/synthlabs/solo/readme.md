@@ -4,9 +4,9 @@
 
 The Solo Macropad by Synth Labs.
 
-Keyboard Maintainer: [Nostril](https://github.com/hongaaronc)  
-Hardware Supported: Synth Labs Solo
-Hardware Availability: [https://solo.synthlabs.io/](https://solo.synthlabs.io/)
+* Keyboard Maintainer: [Nostril](https://github.com/hongaaronc)
+* Hardware Supported: Synth Labs Solo
+* Hardware Availability: [https://solo.synthlabs.io/](https://solo.synthlabs.io/)
 
 Make example for this keyboard (after setting up your build environment):
 
