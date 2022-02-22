@@ -6,9 +6,6 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x534E // "SN"
-#define PRODUCT_ID      0x3031 // "01"
-#define DEVICE_VER      0x0001
 #define MANUFACTURER    Synth Labs
 #define PRODUCT         Solo
 
@@ -22,12 +19,6 @@
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 7
-
-#define DIRECT_PINS { { C6, D6, B5, B4, D7, B6, D4 }, { NO_PIN, B7, NO_PIN }, { F0, F7, F4, F5, F6, F1, C7 } }
-#define UNUSED_PINS { D0, D1, D2, D3, D5, B0, B1 }
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 17
