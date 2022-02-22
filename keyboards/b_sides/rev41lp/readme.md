@@ -4,9 +4,9 @@
 
 Inspired by the REVIUNG series by Gtips, the rev41lp is 41-key column staggered keyboard designed for use with low-profile pg1350 switches.
 
-Keyboard Maintainer: [cyril](https://github.com/cyril279)  
-Hardware Supported: The REVlp PCBs, Pro Micro supported, bluetooth controller friendly.  
-Hardware Availability: [PCB Data](https://github.com/cyril279/keyboards/tree/main/revlp)  
+* Keyboard Maintainer: [cyril](https://github.com/cyril279)
+* Hardware Supported: The REVlp PCBs, Pro Micro supported, bluetooth controller friendly.
+* Hardware Availability: [PCB Data](https://github.com/cyril279/keyboards/tree/main/revlp)
 
 Make example for this keyboard (after setting up your build environment):
 
