@@ -13,7 +13,7 @@
 #define PRODUCT         Solo
 
 #define ENCODERS 1
-#define ENCODER_RESOLUTION 4.5
+#define ENCODER_RESOLUTION 4
 #define ENCODERS_PAD_A { B2 }
 #define ENCODERS_PAD_B { B3 }
 #define ENCODERS_CW_KEY { { 2, 1 } }
