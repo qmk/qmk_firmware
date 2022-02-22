@@ -408,7 +408,7 @@ The `val` is the value of the data that you want to write to EEPROM.  And the `e
 
 ### Deferred Execution :id=deferred-execution
 
-QMK has the ability to execute a callback after a specified period of time, rather than having to manually manage timers.
+QMK has the ability to execute a callback after a specified period of time, rather than having to manually manage timers. To enable this functionality, set `DEFERRED_EXEC_ENABLE = yes` in rules.mk.
 
 #### Deferred executor callbacks
 
