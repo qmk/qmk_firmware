@@ -130,13 +130,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define CK_QUOT RSFT_T(SE_QUOT)
 #define CK_SPC RSFT_T(KC_SPC)
 
-#ifdef UNICODE_ENABLE
-#    define CK_NDASH UC(0x2013)
-#    define CK_MDASH UC(0x2014)
-#else
-#    define CK_NDASH KC_TRNS
-#    define CK_MDASH KC_TRNS
-#endif
+#define CK_NDASH UC(0x2013)
+#define CK_MDASH UC(0x2014)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_rev41lp(
