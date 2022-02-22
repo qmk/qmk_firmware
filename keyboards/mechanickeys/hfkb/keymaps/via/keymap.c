@@ -90,9 +90,9 @@ void matrix_init_kb(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePin(LED_00, layer_state_cmp(state, 1);
-    writePin(LED_01, layer_state_cmp(state, 2);
-    writePin(LED_02, layer_state_cmp(state, 3);
+    writePin(LED_00, layer_state_cmp(state, 1));
+    writePin(LED_01, layer_state_cmp(state, 2));
+    writePin(LED_02, layer_state_cmp(state, 3));
     
     return state;
 }

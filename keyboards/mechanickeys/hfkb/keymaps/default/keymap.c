@@ -37,3 +37,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TRNS, KC_TRNS,                            KC_TRNS,                   KC_TRNS, KC_TRNS
   ),
 };
+
+void keyboard_pre_init_kb(void) {
+    setPinOutput(LED_00);
+    setPinOutput(LED_01);
+    setPinOutput(LED_02);
+    keyboard_pre_init_user();
+}
+
+void shutdown_user() {
+    writePinLow(LED_00);
+    writePinLow(LED_01);
+    writePinLow(LED_02);
+}
+
+void matrix_init_kb(void) {
+    uint8_t led_delay_ms = 80;
+    for (int i = 0; i < 2; i++) {
+        writePinHigh(LED_00);
+        writePinHigh(LED_01);
+        writePinHigh(LED_02);
+        wait_ms(led_delay_ms);
+        writePinLow(LED_00);
+        writePinLow(LED_01);
+        writePinLow(LED_02);
+        if (i < 1) {
+            wait_ms(led_delay_ms);
+        }
+    }
+
+    matrix_init_user();
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(LED_00, layer_state_cmp(state, 1));
+    writePin(LED_01, layer_state_cmp(state, 2));
+    writePin(LED_02, layer_state_cmp(state, 3));
+    
+    return state;
+}
