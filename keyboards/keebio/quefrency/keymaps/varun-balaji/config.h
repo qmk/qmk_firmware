@@ -22,9 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // Use I2C, not Serial 
-//#define USE_I2C
+#define USE_I2C
 // Use serial if there's no resistors between the I2C ports
-#define USE_SERIAL
+//#define USE_SERIAL
 
 // Select handedness by EEPROM (add :avrdude-split-left or :avrdude-split-right when compiling e.g: make crkbd:default:avrdude-split-left)
 #define EE_HANDS
@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef MATRIX_COL_PINS
 #endif
 #define MATRIX_ROW_PINS { B5, B4, E6, D7, C6 }
-#define MATRIX_COL_PINS { D0, D1, D4, F6, F7, B1, B3, B2, B6}
+#define MATRIX_COL_PINS { F4, F5, D4, F6, F7, B1, B3, B2, B6}
 
 // Wiring of right half (todo)
 #ifdef MATRIX_ROW_PINS_RIGHT
@@ -58,8 +58,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MATRIX_COL_PINS_RIGHT
     #undef MATRIX_COL_PINS_RIGHT
 #endif
-#define MATRIX_ROW_PINS_RIGHT { B3, B2, B6, B4, D7 }
-#define MATRIX_COL_PINS_RIGHT { F1, F0, F4, F5, F6, D5, C7, D3, B7 }
+#define MATRIX_ROW_PINS_RIGHT { D4, C6, D7, E6, B4 }
+#define MATRIX_COL_PINS_RIGHT { B5, B6, B2, B3, B1, F7, F6, F5, F4 }
 
 // Custom layout (figure out wiring later)
 #ifdef LAYOUT
