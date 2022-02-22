@@ -14,6 +14,7 @@ enum crkbd_layers {
 };
 
 #define CTRLSC LCTL_T(KC_ESC)
+#define QUORCTL RCTL_T(KC_QUOT)
 #define MOSCLN LT(_MOUSE,KC_SCLN)
 #define ACCENTS LT(_ACCENTS,KC_RALT)
 #define FUN LT(_FUN,KC_SPC)
