@@ -1,6 +1,6 @@
 # Synth Labs Solo
 
-![Synth Labs Solo](https://i.imgur.com/uVUtfks.png)
+![Synth Labs Solo](https://i.imgur.com/uVUtfksh.png)
 
 The Solo Macropad by Synth Labs.
 
