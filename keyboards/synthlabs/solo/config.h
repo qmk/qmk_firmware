@@ -23,8 +23,7 @@
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 7
 
-/* Pins D0 and D2 are actually unused, but are included in DIRECT_PINS to fill space in the keyboard matrix to hold CW and CCW keycodes */
-#define DIRECT_PINS { { C6, D6, B5, B4, D7, B6, D4 }, { D0, B7, D2 }, { F0, F7, F4, F5, F6, F1, C7 } }
+#define DIRECT_PINS { { C6, D6, B5, B4, D7, B6, D4 }, { NO_PIN, B7, NO_PIN }, { F0, F7, F4, F5, F6, F1, C7 } }
 #define UNUSED_PINS { D0, D1, D2, D3, D5, B0, B1 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
