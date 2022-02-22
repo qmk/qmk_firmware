@@ -73,8 +73,8 @@ extern const pointing_device_driver_t pointing_device_driver;
 /**
  * @brief Compares 2 mouse reports for difference and returns result
  *
- * @param[in] new report_mouse_t
- * @param[in] old report_mouse_t
+ * @param[in] new_report report_mouse_t
+ * @param[in] old_report report_mouse_t
  * @return bool result
  */
 __attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new_report, report_mouse_t old_report) {
