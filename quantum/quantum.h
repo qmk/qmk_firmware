@@ -20,6 +20,11 @@
 #include "matrix.h"
 #include "keymap.h"
 
+#include "keycode.h"
+#include "quantum_keycodes.h"
+#include "host.h"
+#include "keycode_config.h"
+
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif

@@ -24,6 +24,7 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootmagic.h"
+#include "keycode_config.h"
 
 keymap_config_t keymap_config;
 
