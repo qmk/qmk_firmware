@@ -93,9 +93,6 @@
 #define VIA_QMK_RGBLIGHT_ENABLE
 #endif
 
-/* Just for testing RGB matrix
- * Preventing inadvertent entry into dfu mode during power on
- */
 // #define RGB_MATRIX_KEYPRESSES
-#define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COLUMN 5
+// #define BOOTMAGIC_LITE_ROW 5
+// #define BOOTMAGIC_LITE_COLUMN 5

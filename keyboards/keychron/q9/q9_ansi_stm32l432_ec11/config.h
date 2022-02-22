@@ -14,21 +14,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "q8.h"
-#include "test.c"
+#pragma once
 
-const matrix_row_t matrix_mask[] = {
-    0b111111111111111,
-    0b111111111111111,
-    0b111111111111111,
-    0b111111111111111,
-    0b111111111101111,
-};
+/* USB Device descriptor parameter */
+#define PRODUCT_ID      0x0191
+#define DEVICE_VER      0x0100
 
-bool dip_switch_update_kb(uint8_t index, bool active) {
-    if (!dip_switch_update_user(index, active)) { return false;}
-    if (index == 0) {
-        default_layer_set(1UL << (active ? 1 : 0));
-    }
-    return true;
-}
+/* RGB Matrix Configuration */
+#define DRIVER_1_LED_TOTAL 52
+#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+
+/* Encoder used pins */
+#define ENCODERS_PAD_A { B4 }
+#define ENCODERS_PAD_B { B5 }
+
+/* Specifies the number of pulses the encoder registers between each detent */
+#define ENCODER_RESOLUTION 4
+
+/* Enable caps-lock LED */
+#define CAPS_LOCK_LED_INDEX 15

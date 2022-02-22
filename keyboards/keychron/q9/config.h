@@ -19,50 +19,51 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x3434
 #define MANUFACTURER    Keychron
-#define PRODUCT         Keychron Q8
+#define PRODUCT         Keychron Q9
+
+/* key matrix size */
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 15
+
+/* key matrix pins */
+#define MATRIX_ROW_PINS \
+    { B3, A15, A14, A13 }
+#define MATRIX_COL_PINS \
+    { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, A2, A1, A0, C15, C14 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* Key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/* Key matrix pins */
-#define MATRIX_ROW_PINS { B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { C14, C15, A0, A1, A2, A3, A4, A5, A6, A7, B0, B1, A8, A9, H3 }
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-/* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1110111
-#define DRIVER_ADDR_2 0b1110100
-
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
-#define PHASE_CHANNEL MSKPHASE_9CHANNEL
-
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {4, 4} }
 
 /* Disable DIP switch in matrix data */
 #define MATRIX_MASKED
 
+/* DIP switch */
+#define DIP_SWITCH_MATRIX_GRID \
+    {                          \
+        { 3, 4 }               \
+    }
+
+/* RGB Matrix Driver Configuration */
+#define DRIVER_COUNT 1
+#define DRIVER_ADDR_1 0b1110100
+
 /* NKRO */
 #define FORCE_NKRO
 
-/* Turn off effects when suspended */
+/* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 /* Set USB polling rate as 1 milliseconds */
 #define USB_POLLING_INTERVAL_MS 1
 
-/* Use 5 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
-
 /* We have 2KB EEPROM size on STM32L432 */
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
+
+/* Use 5 dynamic keymap layers */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -115,5 +116,7 @@
 
 /* Allow VIA to edit lighting */
 #ifdef VIA_ENABLE
-#define VIA_QMK_RGBLIGHT_ENABLE
+#    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
+
+#define RGB_MATRIX_KEYPRESSES

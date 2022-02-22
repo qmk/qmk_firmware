@@ -1,18 +1,18 @@
-# Keychron Q8
+# Keychron Q9
 
-A customizable 65% and ergonomic keyboard.
+A customizable 40% keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
-* Hardware Supported: Keychron Q8
+* Hardware Supported: Keychron Q9
 * Hardware Availability: [Keychron](https://www.keychron.com)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q8/q8_ansi_stm32l432:default
+    make keychron/q9/q9_ansi_stm32l432:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make keychron/q8/q8_ansi_stm32l432:default:flash
+    make keychron/q9/q9_ansi_stm32l432:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 

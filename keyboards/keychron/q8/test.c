@@ -49,7 +49,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return true;
 
         case KC_J:
-        case RGB_RMOD:
+        case KC_Z:
             if (key_count_flag && record->event.pressed) {
                 key_count += 1;
                 if(key_count == 3) {
@@ -86,7 +86,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
 
-        case KC_HOME:
+        /*case KC_HOME:*/
+        case KC_PGDN:
             if (record->event.pressed) {
                 if(key_count_flag) {
                     key_press += 1;
@@ -193,6 +194,4 @@ void clear_eeprom(void) {
 }
 
 void restart_usb_driver(USBDriver *usbp) {
-    // Do nothing here.
 }
-

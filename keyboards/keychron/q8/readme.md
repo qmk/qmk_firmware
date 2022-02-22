@@ -1,6 +1,6 @@
 # Keychron Q8
 
-A customizable 60% keyboard.
+A customizable 65% and ergonomic keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q8
