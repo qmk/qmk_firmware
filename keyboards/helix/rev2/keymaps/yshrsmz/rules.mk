@@ -17,3 +17,6 @@ OLED_ENABLE = yes            # OLED_ENABLE
 # LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = no        # LED animations
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
+
+SPLIT_KEYBOARD = not_yet_compatibile_split_common
+OLED_SELECT = not_yet_compatibile_qmk_standard_oled

@@ -22,3 +22,6 @@ LED_ANIMATIONS = yes        # LED animations
 
 LED_BACK_ENABLE = no
 LED_UNDERGLOW_ENABLE = yes
+
+SPLIT_KEYBOARD = not_yet_compatibile_split_common
+OLED_SELECT = not_yet_compatibile_qmk_standard_oled
