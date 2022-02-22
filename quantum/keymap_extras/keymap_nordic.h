@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "keymap.h"
+#include "keycodes.h"
 
 // Normal characters
 #define NO_HALF KC_GRV
