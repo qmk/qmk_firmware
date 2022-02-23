@@ -596,11 +596,10 @@ void udd_set_address(uint8_t address) { usb_device_set_address(&usb_device, addr
 uint8_t udd_getaddress(void) { return usb_device_get_address(&usb_device); }
 
 void udd_send_remotewakeup(void) {
-    uint32_t try
-        = 5;
+    uint32_t try = 5;
     udd_wait_clock_ready();
     udd_sleep_mode(UDD_STATE_IDLE);
-    while (2 != usb_get_state_machine_status(&usb_device) && try --) {
+    while (2 != usb_get_state_machine_status(&usb_device) && try--) {
         usb_device_send_remote_wake_up(&usb_device);
     }
 }
