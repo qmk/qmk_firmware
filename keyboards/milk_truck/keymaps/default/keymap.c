@@ -156,6 +156,8 @@ bool oled_task_user(void) {
 	render_mod_status(get_mods()|get_oneshot_mods());
 	render_keylock_status(host_keyboard_led_state());
 	render_keylogger_status();
+
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
