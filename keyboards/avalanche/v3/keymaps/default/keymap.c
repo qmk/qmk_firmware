@@ -1,4 +1,4 @@
-// Copyright 2022 vitvlkv (@vlkv)
+// Copyright 2022 Viatly Volkov (@vlkv)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*
@@ -62,3 +62,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return true;
 }
+
