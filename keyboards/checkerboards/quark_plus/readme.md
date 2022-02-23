@@ -1,6 +1,6 @@
 # Quark_Plus
 
-![Quark_Plus](https://i.imgur.com/4TI6BA0.png)
+![Quark_Plus](https://i.imgur.com/4TI6BA0h.png)
 
 The Quark Plus is a premium Quark for those that want more features of the original. It features support for 4 rotary encoders (it is recommended to use 1 per left and right side), LED backlighting, RGB underglow, JST connector, and compatibility for earlier revisions of your favorite ortholinear keyboard.
 
