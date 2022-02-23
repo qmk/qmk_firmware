@@ -271,18 +271,17 @@ void print_eeprom(void) {
 }
 
 static flash_status_t external_flash_program_half_word(uint32_t addr, uint16_t value) {
-    uint8_t *dest = (uint8_t *)addr;
     uint8_t *src  = (uint8_t *)&value;
 
-    return flash_write_block(src, dest, 2);
+    return flash_write_block(addr, src, 2);
 }
 
 static uint32_t EEPROM_Init(void) {
     /* Load emulated eeprom contents from compacted flash into memory */
-    uint16_t *src  = (uint16_t *)FEE_COMPACTED_BASE_ADDRESS;
+    uint32_t src  = (uint32_t)FEE_COMPACTED_BASE_ADDRESS;
     uint16_t *dest = (uint16_t *)DataBuf;
 
-    flash_read_block((uint8_t *)dest, (uint8_t *)src, FEE_COMPACTED_LAST_ADDRESS - FEE_COMPACTED_BASE_ADDRESS);
+    flash_read_block(src, (uint8_t *)dest, FEE_COMPACTED_LAST_ADDRESS - FEE_COMPACTED_BASE_ADDRESS);
 
     for (int i = 0; i < ((FEE_COMPACTED_LAST_ADDRESS - FEE_COMPACTED_BASE_ADDRESS) >> 1); i++, ++dest) {
         *dest = ~*dest;
@@ -299,7 +298,7 @@ static uint32_t EEPROM_Init(void) {
     for (log_addr = (uint16_t *)FEE_WRITE_LOG_BASE_ADDRESS; log_addr < (uint16_t *)FEE_WRITE_LOG_LAST_ADDRESS; ++log_addr) {
         uint16_t address;
 
-        flash_read_block((uint8_t *)&address, (uint8_t *)log_addr, 0x02);
+        flash_read_block((uint32_t)log_addr, (uint8_t *)&address, 0x02);
         if (address == FEE_EMPTY_WORD) {
             break;
         }
@@ -318,7 +317,7 @@ static uint32_t EEPROM_Init(void) {
                 if (++log_addr >= (uint16_t *)FEE_WRITE_LOG_LAST_ADDRESS) {
                     break;
                 }
-                flash_read_block((uint8_t *)&wvalue, (uint8_t *)log_addr, 0x02);
+                flash_read_block((uint32_t)log_addr, (uint8_t *)&wvalue, 0x02);
                 wvalue = ~wvalue;
                 if (!wvalue) {
                     eeprom_printf("Incomplete write at log_addr: 0x%04x;\n", (uint32_t)log_addr);
@@ -364,14 +363,14 @@ static uint32_t EEPROM_Init(void) {
 static void eeprom_clear(void) {
     uint32_t erase_addr = EXTERNAL_FLASH_PAGE_BASE_ADDRESS;
 
-    for ( ; erase_addr < (uint32_t)(EXTERNAL_FLASH_SIZE << 10);) {
-        
+    for ( ; erase_addr < (uint32_t)(EXTERNAL_FLASH_SIZE);) {
+
         if (erase_addr % ((uint32_t)(EXTERNAL_FLASH_SECTOR_SIZE)) != 0) {
             eeprom_printf("The external Flash address to be erased is incorrect: 0x%08x\n", (uint32_t)erase_addr);
             break;
         }
-        flash_erase_sector((void *)erase_addr);
-        erase_addr += (uint32_t)(EXTERNAL_FLASH_SECTOR_SIZE << 10);
+        flash_erase_sector(erase_addr);
+        erase_addr += (uint32_t)(EXTERNAL_FLASH_SECTOR_SIZE);
     }
 
     empty_slot = (uint16_t *)FEE_WRITE_LOG_BASE_ADDRESS;
@@ -417,10 +416,10 @@ static uint8_t eeprom_compact(void) {
 
 static uint8_t eeprom_write_direct_entry(uint16_t Address) {
     /* Check if we can just write this directly to the compacted flash area */
-    uintptr_t directAddress = FEE_COMPACTED_BASE_ADDRESS + (Address & 0xFFFE);
+    uint32_t directAddress = FEE_COMPACTED_BASE_ADDRESS + (Address & 0xFFFE);
     uint16_t wvalue;
 
-    flash_read_block((uint8_t *)&wvalue, (uint8_t *)directAddress, 0x02);
+    flash_read_block(directAddress, (uint8_t *)&wvalue, 0x02);
     if (wvalue == FEE_EMPTY_WORD) {
         /* Write the value directly to the compacted area without a log entry */
         wvalue = ~*(uint16_t *)(&DataBuf[Address & 0xFFFE]);
@@ -428,7 +427,7 @@ static uint8_t eeprom_write_direct_entry(uint16_t Address) {
         /* Early exit if a write isn't needed */
         if (wvalue == FEE_EMPTY_WORD) return FLASH_STATUS_SUCCESS;
 
-        eeprom_printf("external_flash_program_half_word(0x%08x, 0x%04x) [DIRECT]\n", (uint32_t)directAddress, wvalue);
+        eeprom_printf("external_flash_program_half_word(0x%08x, 0x%04x) [DIRECT]\n", directAddress, wvalue);
         flash_status_t status = external_flash_program_half_word(directAddress, wvalue);
 
         return status;
@@ -692,27 +691,3 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
         EEPROM_WriteDataByte((uintptr_t)dest, *src);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

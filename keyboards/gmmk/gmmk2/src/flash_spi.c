@@ -32,45 +32,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* ID comands */
-#define     FLASH_CMD_RDID         0x9F    /* RDID (Read Identification) */
-#define     FLASH_CMD_RES          0xAB    /* RES (Read Electronic ID) */
-#define     FLASH_CMD_REMS         0x90    /* REMS (Read Electronic & Device ID) */
+#define FLASH_CMD_RDID 0x9F /* RDID (Read Identification) */
+#define FLASH_CMD_RES 0xAB  /* RES (Read Electronic ID) */
+#define FLASH_CMD_REMS 0x90 /* REMS (Read Electronic & Device ID) */
 
 /* register comands */
-#define     FLASH_CMD_WRSR         0x01    /* WRSR (Write Status register) */
-#define     FLASH_CMD_RDSR         0x05    /* RDSR (Read Status register) */
+#define FLASH_CMD_WRSR 0x01 /* WRSR (Write Status register) */
+#define FLASH_CMD_RDSR 0x05 /* RDSR (Read Status register) */
 
 /* READ comands */
-#define     FLASH_CMD_READ         0x03    /* READ (1 x I/O) */
-#define     FLASH_CMD_FASTREAD     0x0B    /* FAST READ (Fast read data) */
-#define     FLASH_CMD_DREAD        0x3B    /* DREAD (1In/2 Out fast read) */
+#define FLASH_CMD_READ 0x03     /* READ (1 x I/O) */
+#define FLASH_CMD_FASTREAD 0x0B /* FAST READ (Fast read data) */
+#define FLASH_CMD_DREAD 0x3B    /* DREAD (1In/2 Out fast read) */
 
 /* Program comands */
-#define     FLASH_CMD_WREN         0x06    /* WREN (Write Enable) */
-#define     FLASH_CMD_WRDI         0x04    /* WRDI (Write Disable) */
-#define     FLASH_CMD_PP           0x02    /* PP (page program) */
+#define FLASH_CMD_WREN 0x06 /* WREN (Write Enable) */
+#define FLASH_CMD_WRDI 0x04 /* WRDI (Write Disable) */
+#define FLASH_CMD_PP 0x02   /* PP (page program) */
 
 /* Erase comands */
-#define     FLASH_CMD_SE           0x20    /* SE (Sector Erase) */
-#define     FLASH_CMD_BE           0xD8    /* BE (Block Erase) */
-#define     FLASH_CMD_CE           0x60    /* CE (Chip Erase) hex code: 60 or C7 */
+#define FLASH_CMD_SE 0x20 /* SE (Sector Erase) */
+#define FLASH_CMD_BE 0xD8 /* BE (Block Erase) */
+#define FLASH_CMD_CE 0x60 /* CE (Chip Erase) hex code: 60 or C7 */
 
 /* Mode setting comands */
-#define     FLASH_CMD_DP           0xB9    /* DP (Deep Power Down) */
-#define     FLASH_CMD_RDP          0xAB    /* RDP (Release form Deep Power Down) */
+#define FLASH_CMD_DP 0xB9  /* DP (Deep Power Down) */
+#define FLASH_CMD_RDP 0xAB /* RDP (Release form Deep Power Down) */
 
 /* Status register */
-#define     FLASH_FLAG_WIP         0x01    /* Write in progress bit */
-#define     FLASH_FLAG_WEL         0x02    /* Write enable latch bit */
+#define FLASH_FLAG_WIP 0x01 /* Write in progress bit */
+#define FLASH_FLAG_WEL 0x02 /* Write enable latch bit */
 
 // #define DEBUG_FLASH_SPI_OUTPUT
 
-static bool spi_flash_start(void) { return wb32_spi_start(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN, EXTERNAL_FLASH_SPI_LSBFIRST, EXTERNAL_FLASH_SPI_MODE, EXTERNAL_FLASH_SPI_CLOCK_DIVISOR); }
+static bool spi_flash_start(void) {
+    return wb32_spi_start(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN, EXTERNAL_FLASH_SPI_LSBFIRST, EXTERNAL_FLASH_SPI_MODE, EXTERNAL_FLASH_SPI_CLOCK_DIVISOR);
+}
 
 static flash_status_t spi_flash_wait_while_busy(void) {
     uint32_t       deadline = timer_read32() + EXTERNAL_FLASH_SPI_TIMEOUT;
     flash_status_t response = FLASH_STATUS_SUCCESS;
-    uint8_t retval;
+    uint8_t        retval;
 
     do {
         bool res = spi_flash_start();
@@ -95,7 +97,6 @@ static flash_status_t spi_flash_wait_while_busy(void) {
 }
 
 static flash_status_t spi_flash_write_enable(void) {
-
     bool res = spi_flash_start();
     if (!res) {
         dprint("Failed to start SPI! [spi flash write enable]\n");
@@ -110,7 +111,6 @@ static flash_status_t spi_flash_write_enable(void) {
 }
 
 static flash_status_t spi_flash_write_disable(void) {
-
     bool res = spi_flash_start();
     if (!res) {
         dprint("Failed to start SPI! [spi flash write disable]\n");
@@ -125,9 +125,9 @@ static flash_status_t spi_flash_write_disable(void) {
 }
 
 /* This function is used for read transfer, write transfer and erase transfer. */
-static flash_status_t spi_flash_transmit(uint8_t cmd, uintptr_t addr, uint8_t *data, size_t len) {
+static flash_status_t spi_flash_transaction(uint8_t cmd, uint32_t addr, uint8_t *data, size_t len) {
     flash_status_t response = FLASH_STATUS_SUCCESS;
-    uint8_t buffer[EXTERNAL_FLASH_ADDRESS_SIZE + 1];
+    uint8_t        buffer[EXTERNAL_FLASH_ADDRESS_SIZE + 1];
 
     buffer[0] = cmd;
     for (int i = 0; i < EXTERNAL_FLASH_ADDRESS_SIZE; ++i) {
@@ -145,15 +145,15 @@ static flash_status_t spi_flash_transmit(uint8_t cmd, uintptr_t addr, uint8_t *d
 
     if ((!response) && (data != NULL)) {
         switch (cmd) {
-          case FLASH_CMD_READ:
-              response = wb32_spi_receive(data, len);
-              break;
-          case FLASH_CMD_PP:
-              response = wb32_spi_transmit(data, len);
-              break;
-          default:
-              response = FLASH_STATUS_ERROR;
-              break;
+            case FLASH_CMD_READ:
+                response = wb32_spi_receive(data, len);
+                break;
+            case FLASH_CMD_PP:
+                response = wb32_spi_transmit(data, len);
+                break;
+            default:
+                response = FLASH_STATUS_ERROR;
+                break;
         }
     }
 
@@ -170,7 +170,7 @@ flash_status_t flash_erase_chip(void) {
     flash_status_t response = FLASH_STATUS_SUCCESS;
 
     /* Wait for the write-in-progress bit to be cleared. */
-    response= spi_flash_wait_while_busy();
+    response = spi_flash_wait_while_busy();
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to check WIP flag! [spi flash erase chip]\n");
         return response;
@@ -193,7 +193,7 @@ flash_status_t flash_erase_chip(void) {
     wb32_spi_stop();
 
     /* Wait for the write-in-progress bit to be cleared.*/
-    response= spi_flash_wait_while_busy();
+    response = spi_flash_wait_while_busy();
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to check WIP flag! [spi flash erase chip]\n");
         return response;
@@ -202,19 +202,17 @@ flash_status_t flash_erase_chip(void) {
     return response;
 }
 
-flash_status_t flash_erase_sector(const void *addr) {
-    flash_status_t response    = FLASH_STATUS_SUCCESS;
-    uintptr_t      target_addr = (uintptr_t)addr;
+flash_status_t flash_erase_sector(uint32_t addr) {
+    flash_status_t response = FLASH_STATUS_SUCCESS;
 
     /* Check that the address exceeds the limit. */
-    if ((target_addr + (EXTERNAL_FLASH_SECTOR_SIZE << 10)) >= (EXTERNAL_FLASH_SIZE << 10) ||
-        ((target_addr % (EXTERNAL_FLASH_SECTOR_SIZE << 10)) != 0)) {
-        dprintf("Flash erase sector address over limit! [addr:0x%x]\n", (uint32_t)target_addr);
+    if ((addr + (EXTERNAL_FLASH_SECTOR_SIZE)) >= (EXTERNAL_FLASH_SIZE) || ((addr % (EXTERNAL_FLASH_SECTOR_SIZE)) != 0)) {
+        dprintf("Flash erase sector address over limit! [addr:0x%x]\n", (uint32_t)addr);
         return FLASH_STATUS_ERROR;
     }
 
     /* Wait for the write-in-progress bit to be cleared. */
-    response= spi_flash_wait_while_busy();
+    response = spi_flash_wait_while_busy();
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to check WIP flag! [spi flash erase sector]\n");
         return response;
@@ -228,14 +226,14 @@ flash_status_t flash_erase_sector(const void *addr) {
     }
 
     /* Erase Sector. */
-    response = spi_flash_transmit((uint8_t)FLASH_CMD_SE, target_addr, NULL, 0);
+    response = spi_flash_transaction(FLASH_CMD_SE, addr, NULL, 0);
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to erase sector! [spi flash erase sector]\n");
         return response;
     }
 
     /* Wait for the write-in-progress bit to be cleared.*/
-    response= spi_flash_wait_while_busy();
+    response = spi_flash_wait_while_busy();
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to check WIP flag! [spi flash erase sector]\n");
         return response;
@@ -244,19 +242,17 @@ flash_status_t flash_erase_sector(const void *addr) {
     return response;
 }
 
-flash_status_t flash_erase_block(const void *addr) {
-    flash_status_t response    = FLASH_STATUS_SUCCESS;
-    uintptr_t      target_addr = (uintptr_t)addr;
+flash_status_t flash_erase_block(uint32_t addr) {
+    flash_status_t response = FLASH_STATUS_SUCCESS;
 
     /* Check that the address exceeds the limit. */
-    if ((target_addr + (EXTERNAL_FLASH_BLOCK_SIZE << 10)) >= (EXTERNAL_FLASH_SIZE << 10) ||
-        ((target_addr % (EXTERNAL_FLASH_BLOCK_SIZE << 10)) != 0)) {
-        dprintf("Flash erase block address over limit! [addr:0x%x]\n", (uint32_t)target_addr);
+    if ((addr + (EXTERNAL_FLASH_BLOCK_SIZE)) >= (EXTERNAL_FLASH_SIZE) || ((addr % (EXTERNAL_FLASH_BLOCK_SIZE)) != 0)) {
+        dprintf("Flash erase block address over limit! [addr:0x%x]\n", (uint32_t)addr);
         return FLASH_STATUS_ERROR;
     }
 
     /* Wait for the write-in-progress bit to be cleared. */
-    response= spi_flash_wait_while_busy();
+    response = spi_flash_wait_while_busy();
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to check WIP flag! [spi flash erase block]\n");
         return response;
@@ -270,14 +266,14 @@ flash_status_t flash_erase_block(const void *addr) {
     }
 
     /* Erase Block. */
-    response = spi_flash_transmit((uint8_t)FLASH_CMD_BE, target_addr, NULL, 0);
+    response = spi_flash_transaction(FLASH_CMD_BE, addr, NULL, 0);
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to erase block! [spi flash erase block]\n");
         return response;
     }
 
     /* Wait for the write-in-progress bit to be cleared.*/
-    response= spi_flash_wait_while_busy();
+    response = spi_flash_wait_while_busy();
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to check WIP flag! [spi flash erase block]\n");
         return response;
@@ -286,13 +282,12 @@ flash_status_t flash_erase_block(const void *addr) {
     return response;
 }
 
-flash_status_t flash_read_block(uint8_t *buf, const void *addr, size_t len) {
-    flash_status_t response    = FLASH_STATUS_SUCCESS;
-    uint8_t *      read_buf    = (uint8_t *)buf;
-    uintptr_t      target_addr = (uintptr_t)addr;
+flash_status_t flash_read_block(uint32_t addr, void *buf, size_t len) {
+    flash_status_t response = FLASH_STATUS_SUCCESS;
+    uint8_t *      read_buf = (uint8_t *)buf;
 
     /* Wait for the write-in-progress bit to be cleared. */
-    response= spi_flash_wait_while_busy();
+    response = spi_flash_wait_while_busy();
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to check WIP flag! [spi flash read block]\n");
         memset(read_buf, 0, len);
@@ -300,7 +295,7 @@ flash_status_t flash_read_block(uint8_t *buf, const void *addr, size_t len) {
     }
 
     /* Perform read. */
-    response = spi_flash_transmit((uint8_t)FLASH_CMD_READ, (uintptr_t)target_addr, read_buf, len);
+    response = spi_flash_transaction(FLASH_CMD_READ, addr, read_buf, len);
     if (response != FLASH_STATUS_SUCCESS) {
         dprint("Failed to read block! [spi flash read block]\n");
         memset(read_buf, 0, len);
@@ -308,30 +303,29 @@ flash_status_t flash_read_block(uint8_t *buf, const void *addr, size_t len) {
     }
 
 #if defined(CONSOLE_ENABLE) && defined(DEBUG_FLASH_SPI_OUTPUT)
-    dprintf("[SPI FLASH R] 0x%08lX: ", ((uint32_t)target_addr));
+    dprintf("[SPI FLASH R] 0x%08lX: ", addr);
     for (size_t i = 0; i < len; ++i) {
         dprintf(" %02X", (int)(((uint8_t *)read_buf)[i]));
     }
     dprintf("\n");
-#endif  // DEBUG_FLASH_SPI_OUTPUT
+#endif // DEBUG_FLASH_SPI_OUTPUT
 
     return response;
 }
 
-flash_status_t flash_write_block(const uint8_t *buf, void *addr, size_t len) {
-    flash_status_t response    = FLASH_STATUS_SUCCESS;
-    uint8_t *      write_buf   = (uint8_t *)buf;
-    uintptr_t      target_addr = (uintptr_t)addr;
+flash_status_t flash_write_block(uint32_t addr, const void *buf, size_t len) {
+    flash_status_t response  = FLASH_STATUS_SUCCESS;
+    uint8_t *      write_buf = (uint8_t *)buf;
 
     while (len > 0) {
-        uintptr_t page_offset  = target_addr % EXTERNAL_FLASH_PAGE_SIZE;
-        size_t    write_length = EXTERNAL_FLASH_PAGE_SIZE - page_offset;
+        uint32_t page_offset  = addr % EXTERNAL_FLASH_PAGE_SIZE;
+        size_t   write_length = EXTERNAL_FLASH_PAGE_SIZE - page_offset;
         if (write_length > len) {
             write_length = len;
         }
 
         /* Wait for the write-in-progress bit to be cleared. */
-        response= spi_flash_wait_while_busy();
+        response = spi_flash_wait_while_busy();
         if (response != FLASH_STATUS_SUCCESS) {
             dprint("Failed to check WIP flag! [spi flash write block]\n");
             return response;
@@ -345,37 +339,37 @@ flash_status_t flash_write_block(const uint8_t *buf, void *addr, size_t len) {
         }
 
 #if defined(CONSOLE_ENABLE) && defined(DEBUG_FLASH_SPI_OUTPUT)
-        dprintf("[SPI FLASH W] 0x%08lX: ", ((uint32_t)target_addr));
+        dprintf("[SPI FLASH W] 0x%08lX: ", addr);
         for (size_t i = 0; i < write_length; i++) {
             dprintf(" %02X", (int)(uint8_t)(write_buf[i]));
         }
         dprintf("\n");
-#endif  // DEBUG_FLASH_SPI_OUTPUT
+#endif // DEBUG_FLASH_SPI_OUTPUT
 
         /* Perform the write. */
-        response = spi_flash_transmit((uint8_t)FLASH_CMD_PP, target_addr, write_buf, write_length);
+        response = spi_flash_transaction(FLASH_CMD_PP, addr, write_buf, write_length);
         if (response != FLASH_STATUS_SUCCESS) {
             dprint("Failed to write block! [spi flash write block]\n");
             return response;
         }
 
         write_buf += write_length;
-        target_addr += write_length;
+        addr += write_length;
         len -= write_length;
     }
 
     /* Wait for the write-in-progress bit to be cleared. */
-    response= spi_flash_wait_while_busy();
+    response = spi_flash_wait_while_busy();
     if (response != FLASH_STATUS_SUCCESS) {
-      dprint("Failed to check WIP flag! [spi flash write block]\n");
-      return response;
+        dprint("Failed to check WIP flag! [spi flash write block]\n");
+        return response;
     }
 
     /* Disable writes. */
-    response= spi_flash_write_disable();
+    response = spi_flash_write_disable();
     if (response != FLASH_STATUS_SUCCESS) {
-      dprint("Failed to write-disable! [spi flash write block]\n");
-      return response;
+        dprint("Failed to write-disable! [spi flash write block]\n");
+        return response;
     }
 
     return response;

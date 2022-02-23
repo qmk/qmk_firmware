@@ -35,9 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef EXTERNAL_FLASH_SPI_CLOCK_DIVISOR
 #    ifdef __AVR__
-#        define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 8
+#        define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 4
 #    else
-#        define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 18
+#        define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 8
 #    endif
 #endif
 
@@ -71,40 +71,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /*
-    The sector size of the FLASH in Kbytes, as specified in the datasheet.
+    The sector size of the FLASH in bytes, as specified in the datasheet.
 */
 #ifndef EXTERNAL_FLASH_SECTOR_SIZE
-#    define EXTERNAL_FLASH_SECTOR_SIZE 4
+#    define EXTERNAL_FLASH_SECTOR_SIZE (4 * 1024)
 #endif
 
 /*
-    The block size of the FLASH in Kbytes, as specified in the datasheet.
+    The block size of the FLASH in bytes, as specified in the datasheet.
 */
 #ifndef EXTERNAL_FLASH_BLOCK_SIZE
-#    define EXTERNAL_FLASH_BLOCK_SIZE 64
+#    define EXTERNAL_FLASH_BLOCK_SIZE (64 * 1024)
 #endif
 
 /*
-    The total size of the FLASH in Kbytes, as specified in the datasheet.
+    The total size of the FLASH in bytes, as specified in the datasheet.
 */
 #ifndef EXTERNAL_FLASH_SIZE
-#    define EXTERNAL_FLASH_SIZE 512
+#    define EXTERNAL_FLASH_SIZE (512 * 1024)
 #endif
 
 /*
     The block count of the FLASH, calculated by total FLASH size and block size.
 */
-#define EXTERNAL_FLASH_BLOCK_COUNT (EXTERNAL_FLASH_SIZE / EXTERNAL_FLASH_BLOCK_SIZE)
+#define EXTERNAL_FLASH_BLOCK_COUNT ((EXTERNAL_FLASH_SIZE) / (EXTERNAL_FLASH_BLOCK_SIZE))
 
 /*
     The sector count of the FLASH, calculated by total FLASH size and sector size.
 */
-#define EXTERNAL_FLASH_SECTOR_COUNT (EXTERNAL_FLASH_SIZE / EXTERNAL_FLASH_SECTOR_SIZE)
+#define EXTERNAL_FLASH_SECTOR_COUNT ((EXTERNAL_FLASH_SIZE) / (EXTERNAL_FLASH_SECTOR_SIZE))
 
 /*
     The page count of the FLASH, calculated by total FLASH size and page size.
 */
-#define EXTERNAL_FLASH_PAGE_COUNT ((EXTERNAL_FLASH_SIZE << 10) / EXTERNAL_FLASH_PAGE_SIZE)
+#define EXTERNAL_FLASH_PAGE_COUNT ((EXTERNAL_FLASH_SIZE) / (EXTERNAL_FLASH_PAGE_SIZE))
 
 typedef int16_t flash_status_t;
 
@@ -123,13 +123,13 @@ void flash_init(void);
 
 flash_status_t flash_erase_chip(void);
 
-flash_status_t flash_erase_block(const void *addr);
+flash_status_t flash_erase_block(uint32_t addr);
 
-flash_status_t flash_erase_sector(const void *addr);
+flash_status_t flash_erase_sector(uint32_t addr);
 
-flash_status_t flash_read_block(uint8_t *buf, const void *addr, size_t len);
+flash_status_t flash_read_block(uint32_t addr, void *buf, size_t len);
 
-flash_status_t flash_write_block(const uint8_t *buf, void *addr, size_t len);
+flash_status_t flash_write_block(uint32_t addr, const void *buf, size_t len);
 
 #ifdef __cplusplus
 }
