@@ -29,11 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb.c"
 #endif
 
-// TODO : gérer ctrl + shift + escape
-// faire un LT avec TAB ?
-// remplacer spacefn avec nav sur ; à la place de la souris ?
-// => ins et del seraient inaccessible, utiliser des combos à la place ?
-
 // TEMPLATE
 //  ,-----------------------------------------------------.                    ,-----------------------------------------------------.
 //  |        |        |        |        |        |        |                    |        |        |        |        |        |        |
