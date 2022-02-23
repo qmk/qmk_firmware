@@ -446,7 +446,7 @@ static bool command_common(uint8_t code) {
 
         // NKRO toggle
         case MAGIC_KC(MAGIC_KEY_NKRO):
-            clear_keyboard();  // clear to prevent stuck keys
+            clear_keyboard(); // clear to prevent stuck keys
             keymap_config.nkro = !keymap_config.nkro;
             if (keymap_config.nkro) {
                 print("NKRO: on\n");
