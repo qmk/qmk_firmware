@@ -149,7 +149,7 @@ void render_mod_status(uint8_t modifiers) {
     oled_write_ln_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_milktruck_logo();
     oled_set_cursor(0,3);
     render_layer_status();	// Renders the current keyboard state (layer, lock, caps, scroll, etc)
