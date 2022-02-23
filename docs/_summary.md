@@ -37,7 +37,6 @@
   * Guides
     * [Customizing Functionality](custom_quantum_functions.md)
     * [Driver Installation with Zadig](driver_installation_zadig.md)
-    * [Easy Maker for One Offs](easy_maker.md)
     * [Keymap Overview](keymap.md)
     * Development Environments
       * [Docker Guide](getting_started_docker.md)
@@ -53,9 +52,6 @@
       * [Your Fork](newbs_git_using_your_master_branch.md)
       * [Merge Conflicts](newbs_git_resolving_merge_conflicts.md)
       * [Fixing Your Branch](newbs_git_resynchronize_a_branch.md)
-    * Keyboard Building
-      * [Hand Wiring Guide](hand_wire.md)
-      * [ISP Flashing Guide](isp_flashing_guide.md)
 
   * Simple Keycodes
     * [Full List](keycodes.md)
@@ -124,6 +120,12 @@
     * [Thermal Printer](feature_thermal_printer.md)
     * [Velocikey](feature_velocikey.md)
 
+  * Keyboard Building
+    * [Easy Maker for One Offs](easy_maker.md)
+    * [Porting Keyboards](porting_your_keyboard_to_qmk.md)
+    * [Hand Wiring Guide](hand_wire.md)
+    * [ISP Flashing Guide](isp_flashing_guide.md)
+
 * Developing QMK
   * [PR Checklist](pr_checklist.md)
   * Breaking Changes
@@ -134,7 +136,6 @@
 
   * C Development
     * [ARM Debugging Guide](arm_debugging.md)
-    * [AVR Processors](hardware_avr.md)
     * [Coding Conventions](coding_conventions_c.md)
     * [Compatible Microcontrollers](compatible_microcontrollers.md)
     * [Drivers](hardware_drivers.md)
