@@ -18,8 +18,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x0001
-#define PRODUCT_ID 0x0001
+#define VENDOR_ID 0x7262
+#define PRODUCT_ID 0x6D74
 #define DEVICE_VER 0x0001
 #define MANUFACTURER drmmr
 #define PRODUCT milk_truck keyboard
