@@ -204,7 +204,7 @@ ifeq ($(strip $(BOOTLOADER)), md-boot)
 endif
 ifeq ($(strip $(BOOTLOADER)), wb32-dfu)
     OPT_DEFS += -DBOOTLOADER_WB32_DFU
-    BOOTLOADER_TYPE = wb32-dfu
+    BOOTLOADER_TYPE = wb32_dfu
 endif
 
 ifeq ($(strip $(BOOTLOADER_TYPE)),)
