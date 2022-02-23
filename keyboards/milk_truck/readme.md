@@ -2,11 +2,7 @@
 
 ![Milk Truck](https://imgur.com/NUmiTDS.jpg)
 
-<<<<<<< HEAD
-Milk Truck is a dairy-filled, left-handed, numpad-having, extended-minivan, forty-percent keyboard.
-=======
 A dairy-filled, left-handed, numpad-having, extended-minivan, forty-percent keyboard.
->>>>>>> 06ec0d0c5108a1fdc3f2b18be745c60e3fae663f
 
 * Keyboard Maintainer: [Ryan Boone](https://github.com/rjboone) (Drmmr#0004)
 * Hardware Supported: Milk Truck
