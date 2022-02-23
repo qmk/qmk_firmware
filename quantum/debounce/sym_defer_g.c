@@ -44,9 +44,7 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     }
 }
 
-bool debounce_active(void) { return debouncing; }
-
 void debounce_free(void) {}
-#else  // no debouncing.
+#else // no debouncing.
 #    include "none.c"
 #endif

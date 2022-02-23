@@ -24,8 +24,6 @@
 #include "print.h"
 #include "modelm.h"
 
-#define DEBUG 0
-
 #define SPI_TIMEOUT 100
 
 /* Keyboard Matrix Assignments */
@@ -62,10 +60,9 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     row_data = spi_read() << 8;
     row_data |= spi_read();
 
-#if DEBUG
-    print_hex8(~row_data);
-    uprint(" ");
-#endif
+    debug_hex8(~row_data);
+    dprint(" ");
+
     // For each row...
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
         // Store last value of row prior to reading
@@ -105,9 +102,8 @@ void matrix_init_custom(void) {
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
 
-#if DEBUG
-    uprint("\r\nScan: ");
-#endif
+    dprint("\r\nScan: ");
+
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
         changed |= read_rows_on_col(current_matrix, current_col);

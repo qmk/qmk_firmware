@@ -36,7 +36,7 @@ static SerialDriver* serial_driver = &SERIAL_USART_DRIVER;
 static inline bool react_to_transactions(void);
 static inline bool __attribute__((nonnull)) receive(uint8_t* destination, const size_t size);
 static inline bool __attribute__((nonnull)) send(const uint8_t* source, const size_t size);
-static inline int  initiate_transaction(uint8_t sstd_index);
+static inline bool initiate_transaction(uint8_t sstd_index);
 static inline void usart_clear(void);
 
 /**
@@ -206,14 +206,12 @@ static inline bool react_to_transactions(void) {
      to signal that the slave is ready to receive possible transaction buffers  */
     sstd_index ^= HANDSHAKE_MAGIC;
     if (!send(&sstd_index, sizeof(sstd_index))) {
-        *trans->status = TRANSACTION_DATA_ERROR;
         return false;
     }
 
     /* Receive transaction buffer from the master. If this transaction requires it.*/
     if (trans->initiator2target_buffer_size) {
         if (!receive(split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size)) {
-            *trans->status = TRANSACTION_DATA_ERROR;
             return false;
         }
     }
@@ -226,12 +224,10 @@ static inline bool react_to_transactions(void) {
     /* Send transaction buffer to the master. If this transaction requires it. */
     if (trans->target2initiator_buffer_size) {
         if (!send(split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size)) {
-            *trans->status = TRANSACTION_DATA_ERROR;
             return false;
         }
     }
 
-    *trans->status = TRANSACTION_ACCEPTED;
     return true;
 }
 
@@ -242,7 +238,7 @@ void soft_serial_initiator_init(void) {
     usart_master_init(&serial_driver);
 
 #if defined(MCU_STM32) && defined(SERIAL_USART_PIN_SWAP)
-    serial_config.cr2 |= USART_CR2_SWAP;  // master has swapped TX/RX pins
+    serial_config.cr2 |= USART_CR2_SWAP; // master has swapped TX/RX pins
 #endif
 
     sdStart(serial_driver, &serial_config);
@@ -252,11 +248,9 @@ void soft_serial_initiator_init(void) {
  * @brief Start transaction from the master half to the slave half.
  *
  * @param index Transaction Table index of the transaction to start.
- * @return int TRANSACTION_NO_RESPONSE in case of Timeout.
- *             TRANSACTION_TYPE_ERROR in case of invalid transaction index.
- *             TRANSACTION_END in case of success.
+ * @return bool Indicates success of transaction.
  */
-int soft_serial_transaction(int index) {
+bool soft_serial_transaction(int index) {
     /* Clear the receive queue, to start with a clean slate.
      * Parts of failed transactions or spurious bytes could still be in it. */
     usart_clear();
@@ -266,25 +260,19 @@ int soft_serial_transaction(int index) {
 /**
  * @brief Initiate transaction to slave half.
  */
-static inline int initiate_transaction(uint8_t sstd_index) {
+static inline bool initiate_transaction(uint8_t sstd_index) {
     /* Sanity check that we are actually starting a valid transaction. */
     if (sstd_index >= NUM_TOTAL_TRANSACTIONS) {
         dprintln("USART: Illegal transaction Id.");
-        return TRANSACTION_TYPE_ERROR;
+        return false;
     }
 
     split_transaction_desc_t* trans = &split_transaction_table[sstd_index];
 
-    /* Transaction is not registered. Abort. */
-    if (!trans->status) {
-        dprintln("USART: Transaction not registered.");
-        return TRANSACTION_TYPE_ERROR;
-    }
-
     /* Send transaction table index to the slave, which doubles as basic handshake token. */
     if (!send(&sstd_index, sizeof(sstd_index))) {
         dprintln("USART: Send Handshake failed.");
-        return TRANSACTION_TYPE_ERROR;
+        return false;
     }
 
     uint8_t sstd_index_shake = 0xFF;
@@ -295,14 +283,14 @@ static inline int initiate_transaction(uint8_t sstd_index) {
      */
     if (!receive(&sstd_index_shake, sizeof(sstd_index_shake)) || (sstd_index_shake != (sstd_index ^ HANDSHAKE_MAGIC))) {
         dprintln("USART: Handshake failed.");
-        return TRANSACTION_NO_RESPONSE;
+        return false;
     }
 
     /* Send transaction buffer to the slave. If this transaction requires it. */
     if (trans->initiator2target_buffer_size) {
         if (!send(split_trans_initiator2target_buffer(trans), trans->initiator2target_buffer_size)) {
             dprintln("USART: Send failed.");
-            return TRANSACTION_NO_RESPONSE;
+            return false;
         }
     }
 
@@ -310,9 +298,9 @@ static inline int initiate_transaction(uint8_t sstd_index) {
     if (trans->target2initiator_buffer_size) {
         if (!receive(split_trans_target2initiator_buffer(trans), trans->target2initiator_buffer_size)) {
             dprintln("USART: Receive failed.");
-            return TRANSACTION_NO_RESPONSE;
+            return false;
         }
     }
 
-    return TRANSACTION_END;
+    return true;
 }

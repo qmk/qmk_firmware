@@ -21,8 +21,8 @@
 
 /* Matrix Configuration - Rows are doubled up */
 #define MATRIX_ROWS 14
-// B1, A2 reserved for encoder / touch encoder support
-#define MATRIX_ROW_PINS { A1, A3, B3, A13, B15, B1, A2 }
+// Last pins reserved for encoder / touch encoder support
+#define MATRIX_ROW_PINS { A1, A3, B3, A13, B15, NO_PIN, NO_PIN }
 #define MATRIX_COLS 7
 #define MATRIX_COL_PINS { A0, B11, B0, B10, B12, B2, A8 }
 #define MATRIX_IO_DELAY 5
@@ -35,11 +35,11 @@
 #define TOUCH_DEADZONE 50 // width of a "button", wider inputs will be interpreted as a swipe
 #define TOUCH_TERM 350 // time of a "button" touch, longer inputs will be a swipe
 #define TOUCH_RESOLUTION 25 // sensitivity of swipes, lower=faster
+#define TOUCH_SEGMENTS 3
 
 /* Encoder Configuration */
 #define ENCODERS_PAD_A { B8, B9 }
 #define ENCODERS_PAD_B { A14, A15 }
-#define TOUCH_SEGMENTS 3
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
