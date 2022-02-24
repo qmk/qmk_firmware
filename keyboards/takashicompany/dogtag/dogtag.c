@@ -20,13 +20,13 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     keypos_t key;
     if (index == 0) {
         if (clockwise) {
-            key.row = 3;
-            key.col = 2;
-        } else {
-            key.row = 3;
+            key.row = 2;
             key.col = 1;
+        } else {
+            key.row = 2;
+            key.col = 0;
         }
-        uint8_t  layer   = layer_switch_get_layer(key);
+        uint8_t layer = layer_switch_get_layer(key);
         uint16_t keycode = keymap_key_to_keycode(layer, key);
 
         tap_code16(keycode);
