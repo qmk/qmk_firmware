@@ -48,7 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 25
 #define RGBLIGHT_ANIMATIONS
-// #define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 5 }
 
 #define ENCODERS_PAD_A { F6 }
 #define ENCODERS_PAD_B { F7 }
