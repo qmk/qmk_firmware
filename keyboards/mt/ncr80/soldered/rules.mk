@@ -15,4 +15,4 @@ BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no          # Audio output
 
-LAYOUTS = tkl_ansi tkl_iso tkl_ansi_wkl tkl_iso_wkl
+LAYOUTS = tkl_ansi tkl_iso
