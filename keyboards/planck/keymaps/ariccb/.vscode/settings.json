@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "select_word.h": "c"
+        "select_word.h": "c",
+        "*.def": "c"
     }
 }
