@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*
-qmk compile -kb avalanche/v2 -km default_v2
-qmk flash -kb avalanche/v2 -km default_v2
+qmk compile -kb avalanche/v2 -km default
+qmk flash -kb avalanche/v2 -km default
 */
 
 #include QMK_KEYBOARD_H

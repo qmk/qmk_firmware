@@ -1,5 +1,5 @@
 MCU = atmega32u4
 BOOTLOADER = caterina
-RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
+RGBLIGHT_ENABLE = yes
 SPLIT_KEYBOARD = yes
 ENCODER_ENABLE = yes

@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*
-qmk compile -kb avalanche/v3 -km default_v3
-qmk flash -kb avalanche/v3 -km default_v3
+qmk compile -kb avalanche/v3 -km default
+qmk flash -kb avalanche/v3 -km default
 */
 
 #include QMK_KEYBOARD_H
@@ -62,4 +62,3 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return true;
 }
-
