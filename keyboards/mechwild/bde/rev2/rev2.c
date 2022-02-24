@@ -17,7 +17,6 @@
 
 #include "bde.h"
 
-
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
@@ -61,16 +60,16 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 		oled_write_ln_P(PSTR("Layer"), false);
 
     switch (get_highest_layer(layer_state)) {
-        case _BASE:
+        case 0:
             oled_write_ln_P(PSTR("Base"), false);
             break;
-        case _FN1:
+        case 1:
             oled_write_ln_P(PSTR("FN 1"), false);
             break;
-        case _FN2:
+        case 2:
             oled_write_ln_P(PSTR("FN 2"), false);
             break;
-        case _FN3:
+        case 3:
             oled_write_ln_P(PSTR("FN 3"), false);
             break;
         default:
