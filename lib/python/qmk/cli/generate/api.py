@@ -12,9 +12,8 @@ from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import json_load
 from qmk.keyboard import find_readme, list_keyboards
 
-TEMPLATE = Path('data/templates/api/')
-BUILD_PATH = Path('.build/')
-BUILD_API_PATH = BUILD_PATH / 'api_data'
+TEMPLATE_PATH = Path('data/templates/api/')
+BUILD_API_PATH = Path('.build/api_data/')
 
 
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't write the data to disk.")
@@ -26,7 +25,7 @@ def generate_api(cli):
     if BUILD_API_PATH.exists():
         shutil.rmtree(BUILD_API_PATH)
 
-    shutil.copytree(TEMPLATE, BUILD_API_PATH)
+    shutil.copytree(TEMPLATE_PATH, BUILD_API_PATH)
 
     v1_dir = BUILD_API_PATH / 'v1'
     keyboard_all_file = v1_dir / 'keyboards.json'  # A massive JSON containing everything
