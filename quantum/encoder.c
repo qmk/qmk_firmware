@@ -59,6 +59,8 @@ static uint8_t thisHand, thatHand;
 static uint8_t encoder_value[NUMBER_OF_ENCODERS] = {0};
 #endif
 
+__attribute__((weak)) void encoder_wait_pullup_charge(void) { wait_us(100); }
+
 __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { return true; }
 
 __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) { return encoder_update_user(index, clockwise); }
@@ -84,7 +86,9 @@ void encoder_init(void) {
     for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
         setPinInputHigh(encoders_pad_a[i]);
         setPinInputHigh(encoders_pad_b[i]);
-
+    }
+    encoder_wait_pullup_charge();
+    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
         encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
     }
 
@@ -119,6 +123,11 @@ static bool encoder_update(uint8_t index, uint8_t state) {
         encoder_update_kb(index, ENCODER_CLOCKWISE);
     }
     encoder_pulses[i] %= resolution;
+#ifdef ENCODER_DEFAULT_POS
+    if ((state & 0x3) == ENCODER_DEFAULT_POS) {
+        encoder_pulses[i] = 0;
+    }
+#endif
     return changed;
 }
 

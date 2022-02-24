@@ -2,8 +2,6 @@
     "keyboard_name": "fluorite",
     "url": "",
     "maintainer": "ihotsuno, qmk",
-    "width": 24,
-    "height": 9,
     "layouts": {
         "LAYOUT": {
             "layout": [

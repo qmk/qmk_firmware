@@ -2,8 +2,6 @@
     "keyboard_name": "TheVanKeyboards Caravan",
     "url": "",
     "maintainer": "qmk",
-    "width": 13.75,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

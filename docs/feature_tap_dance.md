@@ -10,7 +10,7 @@ With this feature one can specify keys that behave differently, based on the amo
 
 First, you will need `TAP_DANCE_ENABLE = yes` in your `rules.mk`, because the feature is disabled by default. This adds a little less than 1k to the firmware size. 
 
-Optionally, you might want to set a custom `TAPPING_TERM` time by adding something like this in you `config.h`:
+Optionally, you might want to set a custom `TAPPING_TERM` time by adding something like this in your `config.h` file:
 
 ```c
 #define TAPPING_TERM 175
@@ -29,7 +29,7 @@ After this, you'll want to use the `tap_dance_actions` array to specify what act
 * `ACTION_TAP_DANCE_FN(fn)`: Calls the specified function - defined in the user keymap - with the final tap count of the tap dance action.
 * `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)`: Calls the first specified function - defined in the user keymap - on every tap, the second function when the dance action finishes (like the previous option), and the last function when the tap dance action resets.
 * ~~`ACTION_TAP_DANCE_FN_ADVANCED_TIME(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn, tap_specific_tapping_term)`~~: This functions identically to the `ACTION_TAP_DANCE_FN_ADVANCED` function, but uses a custom tapping term for it, instead of the predefined `TAPPING_TERM`.
-    * This is deprecated in favor of the Per Key Tapping Term functionality, as outlined [here](custom_quantum_functions.md#Custom_Tapping_Term). You'd want to check for the specific `TD()` macro that you want to use (such as `TD(TD_ESC_CAPS)`) instead of using this specific Tap Dance function.
+    * This is deprecated in favor of the Per Key Tapping Term functionality, as outlined [here](tap_hold.md#tapping-term). You'd want to check for the specific `TD()` macro that you want to use (such as `TD(TD_ESC_CAPS)`) instead of using this specific Tap Dance function.
 
 
 The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise. 
@@ -50,7 +50,7 @@ The main entry point is `process_tap_dance()`, called from `process_record_quant
 
 This means that you have `TAPPING_TERM` time to tap the key again; you do not have to input all the taps within a single `TAPPING_TERM` timeframe. This allows for longer tap counts, with minimal impact on responsiveness.
 
-Our next stop is `matrix_scan_tap_dance()`. This handles the timeout of tap-dance keys.
+Our next stop is `tap_dance_task()`. This handles the timeout of tap-dance keys.
 
 For the sake of flexibility, tap-dance actions can be either a pair of keycodes, or a user function. The latter allows one to handle higher tap counts, or do extra things, like blink the LEDs, fiddle with the backlighting, and so on. This is accomplished by using an union, and some clever macros.
 
@@ -243,7 +243,7 @@ Now, at the bottom of your `keymap.c` file, you'll need to add the following:
  *
  * How to figure out tap dance state: interrupted and pressed.
  *
- * Interrupted: If the state of a dance dance is "interrupted", that means that another key has been hit
+ * Interrupted: If the state of a dance is "interrupted", that means that another key has been hit
  *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
  *
  * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
@@ -299,7 +299,7 @@ void x_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case TD_SINGLE_TAP: register_code(KC_X); break;
-        case TD_SINGLE_HOLD: register_code(KC_LCTRL); break;
+        case TD_SINGLE_HOLD: register_code(KC_LCTL); break;
         case TD_DOUBLE_TAP: register_code(KC_ESC); break;
         case TD_DOUBLE_HOLD: register_code(KC_LALT); break;
         // Last case is for fast typing. Assuming your key is `f`:
@@ -312,7 +312,7 @@ void x_finished(qk_tap_dance_state_t *state, void *user_data) {
 void x_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case TD_SINGLE_TAP: unregister_code(KC_X); break;
-        case TD_SINGLE_HOLD: unregister_code(KC_LCTRL); break;
+        case TD_SINGLE_HOLD: unregister_code(KC_LCTL); break;
         case TD_DOUBLE_TAP: unregister_code(KC_ESC); break;
         case TD_DOUBLE_HOLD: unregister_code(KC_LALT);
         case TD_DOUBLE_SINGLE_TAP: unregister_code(KC_X);
@@ -393,6 +393,9 @@ void altlp_finished(qk_tap_dance_state_t *state, void *user_data) {
         case TD_DOUBLE_SINGLE_TAP: // Allow nesting of 2 parens `((` within tapping term
             tap_code16(KC_LPRN);
             register_code16(KC_LPRN);
+            break;
+        default:
+            break;
     }
 }
 
@@ -406,6 +409,9 @@ void altlp_reset(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case TD_DOUBLE_SINGLE_TAP:
             unregister_code16(KC_LPRN);
+            break;
+        default:
+            break;
     }
 }
 
@@ -489,6 +495,8 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
                 // If not already set, then switch the layer on
                 layer_on(_MY_LAYER);
             }
+            break;
+        default:
             break;
     }
 }

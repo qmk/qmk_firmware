@@ -63,22 +63,22 @@ static i2c_status_t chibios_to_qmk(const msg_t* status) {
     }
 }
 
-__attribute__((weak)) void i2c_init(I2CDriver *driver, ioportid_t scl_port, ioportid_t sda_port, iopadid_t scl_pad, iopadid_t sda_pad) {
+__attribute__((weak)) void i2c_init(I2CDriver *driver, ioline_t scl_pin, ioline_t sda_pin) {
     static uint8_t index = 0;
     if (index < I2C_COUNT) {
-        
+
         // Try releasing special pins for a short time
-        palSetPadMode(scl_port, scl_pad, PAL_MODE_INPUT);
-        palSetPadMode(sda_port, sda_pad, PAL_MODE_INPUT);
+        palSetLineMode(scl_pin, PAL_MODE_INPUT);
+        palSetLineMode(sda_pin, PAL_MODE_INPUT);
 
         chThdSleepMilliseconds(10);
 
 #if defined(USE_GPIOV1)
-        palSetPadMode(scl_port, scl_pad, I2C1_SCL_PAL_MODE);
-        palSetPadMode(sda_port, sda_pad, I2C1_SDA_PAL_MODE);
+        palSetLineMode(scl_pin, I2C1_SCL_PAL_MODE);
+        palSetLineMode(sda_pin, I2C1_SDA_PAL_MODE);
 #else
-        palSetPadMode(scl_port, scl_pad, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
-        palSetPadMode(sda_port, sda_pad, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+        palSetLineMode(scl_pin, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
+        palSetLineMode(sda_pin, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
 #endif
 
         drivers[index++] = driver;

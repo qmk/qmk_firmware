@@ -1,0 +1,29 @@
+{
+    "keyboard_name": "FMe",
+    "url": "",
+    "maintainer": "keebzdotnet",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
+    "layouts": {
+        "LAYOUT_all": {
+            "layout": [
+                {"label":"k00", "x":0, "y":0},
+                {"label":"k13", "x":1, "y":0},
+                {"label":"k14", "x":2, "y":0},
+                {"label":"k12", "x":3, "y":0},
+                {"label":"k10", "x":4, "y":0},
+
+                {"label":"k11", "x":0.25, "y":1},
+                {"label":"k04", "x":1.25, "y":1},
+                {"label":"k02", "x":2.25, "y":1},
+                {"label":"k03", "x":3.25, "y":1, "w":1.75},
+
+                {"label":"k22", "x":0.25, "y":2, "w":2.75},
+                {"label":"k32", "x":3, "y":3},
+                {"label":"k21", "x":3, "y":2, "w":2},
+                {"label":"k01", "x":4, "y":3}
+            ]
+        }
+    }
+}

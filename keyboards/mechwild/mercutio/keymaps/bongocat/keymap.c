@@ -80,7 +80,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;  // flips the display 180 degrees
 }
@@ -187,12 +187,13 @@ static void render_anim(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
         render_anim();
         oled_set_cursor(0,4);
         sprintf(wpm_str, "WPM: %03d", get_current_wpm());
         oled_write(wpm_str, false);
 
+    return false;
 }
 
 #endif

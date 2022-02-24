@@ -2,8 +2,6 @@
     "keyboard_name": "MB-44",
     "url": "",
     "maintainer": "melonbred",
-    "width": 3,
-    "height": 2,
     "layouts": {
         "LAYOUT_default": {
             "layout": [
@@ -52,7 +50,7 @@
                 {"x":11.75, "y":3}
             ]
         },
-        "LAYOUT_2u_split": {
+        "LAYOUT_2u_space": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -101,7 +99,7 @@
                 {"x":11.75, "y":3}
             ]
         },
-        "LAYOUT_2u1u_split": {
+        "LAYOUT_2u1u_space": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -150,7 +148,7 @@
                 {"x":11.75, "y":3}
             ]
         },
-        "LAYOUT_3u_split": {
+        "LAYOUT_3u_space": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
