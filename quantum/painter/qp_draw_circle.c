@@ -2,10 +2,10 @@
 // Copyright 2021 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include <qp.h>
-#include <qp_internal.h>
-#include <qp_comms.h>
-#include <qp_draw.h>
+#include "qp.h"
+#include "qp_internal.h"
+#include "qp_comms.h"
+#include "qp_draw.h"
 
 // Utilize 8-way symmetry to draw circles
 static bool qp_circle_helper_impl(painter_device_t device, uint16_t centerx, uint16_t centery, uint16_t offsetx, uint16_t offsety, bool filled) {

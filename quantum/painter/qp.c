@@ -3,9 +3,10 @@
 
 #include <quantum.h>
 #include <utf8.h>
-#include <qp_internal.h>
-#include <qp_comms.h>
-#include <qp_draw.h>
+
+#include "qp_internal.h"
+#include "qp_comms.h"
+#include "qp_draw.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Internal driver validation

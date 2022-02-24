@@ -85,7 +85,7 @@ ${license}
 #include <qp.h>
 
 extern const uint32_t ${var_prefix}_${sane_name}_length;
-extern const uint8_t  ${var_prefix}_${sane_name}[${byte_count}] QP_RESIDENT_FLASH;
+extern const uint8_t  ${var_prefix}_${sane_name}[${byte_count}] ;
 """
 
 
@@ -101,7 +101,7 @@ ${license}
 const uint32_t ${var_prefix}_${sane_name}_length = ${byte_count};
 
 // clang-format off
-const uint8_t ${var_prefix}_${sane_name}[${byte_count}] QP_RESIDENT_FLASH = {
+const uint8_t ${var_prefix}_${sane_name}[${byte_count}] = {
 ${bytes_lines}
 };
 // clang-format on

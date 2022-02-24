@@ -4,10 +4,10 @@
 #include <quantum.h>
 #include <utf8.h>
 
-#include <qp_internal.h>
-#include <qp_draw.h>
-#include <qp_comms.h>
-#include <qff.h>
+#include "qp_internal.h"
+#include "qp_draw.h"
+#include "qp_comms.h"
+#include "qff.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // QFF font handles
@@ -38,7 +38,7 @@ static qff_font_handle_t font_descriptors[QUANTUM_PAINTER_NUM_FONTS] = {0};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_load_font_mem
 
-painter_font_handle_t qp_load_font_mem(const void QP_RESIDENT_FLASH_OR_RAM *buffer) {
+painter_font_handle_t qp_load_font_mem(const void *buffer) {
     qp_dprintf("qp_load_font_mem: entry\n");
     qff_font_handle_t *font = NULL;
 
@@ -57,7 +57,7 @@ painter_font_handle_t qp_load_font_mem(const void QP_RESIDENT_FLASH_OR_RAM *buff
     }
 
     // Assume we can read the graphics descriptor
-    font->mem_stream = qp_make_memory_stream((void QP_RESIDENT_FLASH_OR_RAM *)buffer, sizeof(qff_font_descriptor_v1_t));
+    font->mem_stream = qp_make_memory_stream((void *)buffer, sizeof(qff_font_descriptor_v1_t));
 
     // Update the length of the stream to match, and rewind to the start
     font->mem_stream.length   = qff_get_total_size(&font->stream);
@@ -273,7 +273,7 @@ static inline bool qp_drawtext_prepare_glyph_for_render(qff_font_handle_t *qff_f
 }
 
 // Function to iterate over each UTF8 codepoint, invoking the callback for each decoded glyph
-static inline bool qp_iterate_code_points(qff_font_handle_t *qff_font, const char QP_RESIDENT_FLASH_OR_RAM *str, code_point_handler handler, void *cb_arg) {
+static inline bool qp_iterate_code_points(qff_font_handle_t *qff_font, const char *str, code_point_handler handler, void *cb_arg) {
     while (*str) {
         int32_t code_point = 0;
         str                = decode_utf8(str, &code_point);
@@ -359,7 +359,7 @@ static inline bool qp_font_code_point_handler_drawglyph(qff_font_handle_t *qff_f
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_textwidth
 
-int16_t qp_textwidth(painter_font_handle_t font, const char QP_RESIDENT_FLASH_OR_RAM *str) {
+int16_t qp_textwidth(painter_font_handle_t font, const char *str) {
     qff_font_handle_t *qff_font = (qff_font_handle_t *)font;
     if (!qff_font->validate_ok) {
         qp_dprintf("qp_textwidth: fail (invalid font)\n");
@@ -375,7 +375,7 @@ int16_t qp_textwidth(painter_font_handle_t font, const char QP_RESIDENT_FLASH_OR
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_drawtext
 
-int16_t qp_drawtext(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char QP_RESIDENT_FLASH_OR_RAM *str) {
+int16_t qp_drawtext(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str) {
     // Offload to the recolor variant, substituting fg=white bg=black.
     // Traditional LCDs with those colors will need to manually invoke qp_drawtext_recolor with the colors reversed.
     return qp_drawtext_recolor(device, x, y, font, str, 0, 0, 255, 0, 0, 0);
@@ -384,7 +384,7 @@ int16_t qp_drawtext(painter_device_t device, uint16_t x, uint16_t y, painter_fon
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_drawtext_recolor
 
-int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char QP_RESIDENT_FLASH_OR_RAM *str, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg) {
+int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg) {
     qp_dprintf("qp_drawtext_recolor: entry\n");
     struct painter_driver_t *driver = (struct painter_driver_t *)device;
     if (!driver->validate_ok) {

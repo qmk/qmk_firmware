@@ -4,8 +4,8 @@
 // Quantum Graphics File "QGF" File Format.
 // See https://docs.qmk.fm/#/quantum_painter_qgf for more information.
 
-#include <qgf.h>
-#include <qp_draw.h>
+#include "qgf.h"
+#include "qp_draw.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // QGF API
@@ -26,7 +26,7 @@ bool qgf_validate_block_header(qgf_block_header_v1_t *desc, uint8_t expected_typ
 
 bool qgf_parse_format(qp_image_format_t format, uint8_t *bpp, bool *has_palette) {
     // clang-format off
-    static const struct QP_RESIDENT_FLASH QP_PACKED {
+    static const struct  QP_PACKED {
         uint8_t bpp;
         bool    has_palette;
     } formats[] = {

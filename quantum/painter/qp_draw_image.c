@@ -1,11 +1,11 @@
 // Copyright 2021 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include <qp_internal.h>
-#include <qp_draw.h>
-#include <qp_comms.h>
-#include <qgf.h>
-#include <deferred_exec.h>
+#include "qp_internal.h"
+#include "qp_draw.h"
+#include "qp_comms.h"
+#include "qgf.h"
+#include "deferred_exec.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // QGF image handles
@@ -27,7 +27,7 @@ static qgf_image_handle_t image_descriptors[QUANTUM_PAINTER_NUM_IMAGES] = {0};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_load_image_mem
 
-painter_image_handle_t qp_load_image_mem(const void QP_RESIDENT_FLASH_OR_RAM *buffer) {
+painter_image_handle_t qp_load_image_mem(const void *buffer) {
     qp_dprintf("qp_load_image_mem: entry\n");
     qgf_image_handle_t *image = NULL;
 
@@ -46,7 +46,7 @@ painter_image_handle_t qp_load_image_mem(const void QP_RESIDENT_FLASH_OR_RAM *bu
     }
 
     // Assume we can read the graphics descriptor
-    image->mem_stream = qp_make_memory_stream((void QP_RESIDENT_FLASH_OR_RAM *)buffer, sizeof(qgf_graphics_descriptor_v1_t));
+    image->mem_stream = qp_make_memory_stream((void *)buffer, sizeof(qgf_graphics_descriptor_v1_t));
 
     // Update the length of the stream to match, and rewind to the start
     image->mem_stream.length   = qgf_get_total_size(&image->stream);

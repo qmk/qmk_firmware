@@ -1,14 +1,14 @@
 // Copyright 2021 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include <qp_internal.h>
-#include <qp_comms.h>
-#include <qp_ssd1351.h>
-#include <qp_ssd1351_opcodes.h>
-#include <qp_tft_panel.h>
+#include "qp_internal.h"
+#include "qp_comms.h"
+#include "qp_ssd1351.h"
+#include "qp_ssd1351_opcodes.h"
+#include "qp_tft_panel.h"
 
 #ifdef QUANTUM_PAINTER_SSD1351_SPI_ENABLE
-#    include <qp_comms_spi.h>
+#    include "qp_comms_spi.h"
 #endif  // QUANTUM_PAINTER_SSD1351_SPI_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ bool qp_ssd1351_init(painter_device_t device, painter_rotation_t rotation) {
     tft_panel_dc_reset_painter_device_t *driver = (tft_panel_dc_reset_painter_device_t *)device;
 
     // clang-format off
-    const uint8_t ssd1351_init_sequence[] QP_RESIDENT_FLASH = {
+    const uint8_t ssd1351_init_sequence[] = {
         // Command,                 Delay, N, Data[N]
         SSD1351_COMMANDLOCK,           5,  1, 0x12,
         SSD1351_COMMANDLOCK,           5,  1, 0xB1,
@@ -47,7 +47,7 @@ bool qp_ssd1351_init(painter_device_t device, painter_rotation_t rotation) {
     qp_comms_bulk_command_sequence(device, ssd1351_init_sequence, sizeof(ssd1351_init_sequence));
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
-    const uint8_t madctl[] QP_RESIDENT_FLASH = {
+    const uint8_t madctl[] = {
         [QP_ROTATION_0]   = SSD1351_MADCTL_BGR | SSD1351_MADCTL_MY,
         [QP_ROTATION_90]  = SSD1351_MADCTL_BGR | SSD1351_MADCTL_MX | SSD1351_MADCTL_MY | SSD1351_MADCTL_MV,
         [QP_ROTATION_180] = SSD1351_MADCTL_BGR | SSD1351_MADCTL_MX,
@@ -62,7 +62,7 @@ bool qp_ssd1351_init(painter_device_t device, painter_rotation_t rotation) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver vtable
 
-const struct tft_panel_dc_reset_painter_driver_vtable_t QP_RESIDENT_FLASH ssd1351_driver_vtable = {
+const struct tft_panel_dc_reset_painter_driver_vtable_t ssd1351_driver_vtable = {
     .base =
         {
             .init            = qp_ssd1351_init,
@@ -97,8 +97,8 @@ painter_device_t qp_ssd1351_make_spi_device(uint16_t panel_width, uint16_t panel
     for (uint32_t i = 0; i < SSD1351_NUM_DEVICES; ++i) {
         tft_panel_dc_reset_painter_device_t *driver = &ssd1351_drivers[i];
         if (!driver->base.driver_vtable) {
-            driver->base.driver_vtable         = (const struct painter_driver_vtable_t QP_RESIDENT_FLASH *)&ssd1351_driver_vtable;
-            driver->base.comms_vtable          = (const struct painter_comms_vtable_t QP_RESIDENT_FLASH *)&spi_comms_with_dc_vtable;
+            driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&ssd1351_driver_vtable;
+            driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
             driver->base.rotation              = QP_ROTATION_0;

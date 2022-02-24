@@ -1,15 +1,15 @@
 // Copyright 2021 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include <qp_internal.h>
-#include <qp_draw.h>
-#include <qp_comms.h>
+#include "qp_internal.h"
+#include "qp_draw.h"
+#include "qp_comms.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Palette / Monochrome-format decoder
 
-static const qp_pixel_t qp_pixel_white QP_RESIDENT_FLASH = {.hsv888 = {.h = 0, .s = 0, .v = 255}};
-static const qp_pixel_t qp_pixel_black QP_RESIDENT_FLASH = {.hsv888 = {.h = 0, .s = 0, .v = 0}};
+static const qp_pixel_t qp_pixel_white = {.hsv888 = {.h = 0, .s = 0, .v = 255}};
+static const qp_pixel_t qp_pixel_black = {.hsv888 = {.h = 0, .s = 0, .v = 0}};
 
 bool qp_internal_bpp_capable(uint8_t bits_per_pixel) {
 #if !(QUANTUM_PAINTER_SUPPORTS_256_PALETTE)

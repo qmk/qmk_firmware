@@ -3,8 +3,8 @@
 
 #ifdef QUANTUM_PAINTER_SPI_ENABLE
 
-#    include <spi_master.h>
-#    include <qp_comms_spi.h>
+#    include "spi_master.h"
+#    include "qp_comms_spi.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Base SPI support
@@ -30,7 +30,7 @@ bool qp_comms_spi_start(painter_device_t device) {
     return spi_start(comms_config->chip_select_pin, comms_config->lsb_first, comms_config->mode, comms_config->divisor);
 }
 
-uint32_t qp_comms_spi_send_data(painter_device_t device, const void QP_RESIDENT_FLASH_OR_RAM *data, uint32_t byte_count) {
+uint32_t qp_comms_spi_send_data(painter_device_t device, const void *data, uint32_t byte_count) {
     uint32_t       bytes_remaining = byte_count;
     const uint8_t *p               = (const uint8_t *)data;
     while (bytes_remaining > 0) {
@@ -50,7 +50,7 @@ void qp_comms_spi_stop(painter_device_t device) {
     writePinHigh(comms_config->chip_select_pin);
 }
 
-const struct painter_comms_vtable_t QP_RESIDENT_FLASH spi_comms_vtable = {
+const struct painter_comms_vtable_t spi_comms_vtable = {
     .comms_init  = qp_comms_spi_init,
     .comms_start = qp_comms_spi_start,
     .comms_send  = qp_comms_spi_send_data,
@@ -88,7 +88,7 @@ bool qp_comms_spi_dc_reset_init(painter_device_t device) {
     return true;
 }
 
-uint32_t qp_comms_spi_dc_reset_send_data(painter_device_t device, const void QP_RESIDENT_FLASH_OR_RAM *data, uint32_t byte_count) {
+uint32_t qp_comms_spi_dc_reset_send_data(painter_device_t device, const void *data, uint32_t byte_count) {
     struct painter_driver_t *              driver       = (struct painter_driver_t *)device;
     struct qp_comms_spi_dc_reset_config_t *comms_config = (struct qp_comms_spi_dc_reset_config_t *)driver->comms_config;
     writePinHigh(comms_config->dc_pin);
@@ -102,7 +102,7 @@ void qp_comms_spi_dc_reset_send_command(painter_device_t device, uint8_t cmd) {
     spi_write(cmd);
 }
 
-void qp_comms_spi_dc_reset_bulk_command_sequence(painter_device_t device, const uint8_t QP_RESIDENT_FLASH_OR_RAM *sequence, size_t sequence_len) {
+void qp_comms_spi_dc_reset_bulk_command_sequence(painter_device_t device, const uint8_t *sequence, size_t sequence_len) {
     for (size_t i = 0; i < sequence_len;) {
         uint8_t command   = sequence[i];
         uint8_t delay     = sequence[i + 1];
@@ -118,7 +118,7 @@ void qp_comms_spi_dc_reset_bulk_command_sequence(painter_device_t device, const 
     }
 }
 
-const struct painter_comms_with_command_vtable_t QP_RESIDENT_FLASH spi_comms_with_dc_vtable = {
+const struct painter_comms_with_command_vtable_t spi_comms_with_dc_vtable = {
     .base =
         {
             .comms_init  = qp_comms_spi_dc_reset_init,

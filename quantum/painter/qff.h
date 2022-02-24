@@ -9,9 +9,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include <qp_stream.h>
-#include <qp_internal.h>
-#include <qgf.h>
+#include "qp_stream.h"
+#include "qp_internal.h"
+#include "qgf.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // QFF structures

@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include <gpio.h>
-#include <qp_internal.h>
+#include "gpio.h"
+#include "qp_internal.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter SSD1351 configurables (add to your keyboard's config.h)

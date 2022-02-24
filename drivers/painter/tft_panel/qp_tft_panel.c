@@ -1,11 +1,11 @@
 // Copyright 2021 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include <color.h>
-#include <qp_internal.h>
-#include <qp_comms.h>
-#include <qp_draw.h>
-#include <qp_tft_panel.h>
+#include "color.h"
+#include "qp_internal.h"
+#include "qp_comms.h"
+#include "qp_draw.h"
+#include "qp_tft_panel.h"
 
 #define BYTE_SWAP(x) (((((uint16_t)(x)) >> 8) & 0x00FF) | ((((uint16_t)(x)) << 8) & 0xFF00))
 
@@ -104,7 +104,7 @@ bool qp_tft_panel_viewport(painter_device_t device, uint16_t left, uint16_t top,
 }
 
 // Stream pixel data to the current write position in GRAM
-bool qp_tft_panel_pixdata(painter_device_t device, const void QP_RESIDENT_FLASH_OR_RAM *pixel_data, uint32_t native_pixel_count) {
+bool qp_tft_panel_pixdata(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count) {
     qp_comms_send(device, pixel_data, native_pixel_count * sizeof(uint16_t));
     return true;
 }

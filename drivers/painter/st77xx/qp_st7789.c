@@ -2,15 +2,15 @@
 // Copyright 2021 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include <qp_internal.h>
-#include <qp_comms.h>
-#include <qp_st7789.h>
-#include <qp_st77xx_opcodes.h>
-#include <qp_st7789_opcodes.h>
-#include <qp_tft_panel.h>
+#include "qp_internal.h"
+#include "qp_comms.h"
+#include "qp_st7789.h"
+#include "qp_st77xx_opcodes.h"
+#include "qp_st7789_opcodes.h"
+#include "qp_tft_panel.h"
 
 #ifdef QUANTUM_PAINTER_ST7789_SPI_ENABLE
-#    include <qp_comms_spi.h>
+#    include "qp_comms_spi.h"
 #endif  // QUANTUM_PAINTER_ST7789_SPI_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ static inline void st7789_automatic_viewport_offsets(painter_device_t device, pa
     const struct {
         uint16_t offset_x;
         uint16_t offset_y;
-    } rotation_offsets_240x240[] QP_RESIDENT_FLASH = {
+    } rotation_offsets_240x240[] = {
         [QP_ROTATION_0]   = { .offset_x =  0, .offset_y =  0 },
         [QP_ROTATION_90]  = { .offset_x =  0, .offset_y =  0 },
         [QP_ROTATION_180] = { .offset_x =  0, .offset_y = 80 },
@@ -50,7 +50,7 @@ static inline void st7789_automatic_viewport_offsets(painter_device_t device, pa
 
 bool qp_st7789_init(painter_device_t device, painter_rotation_t rotation) {
     // clang-format off
-    const uint8_t st7789_init_sequence[] QP_RESIDENT_FLASH = {
+    const uint8_t st7789_init_sequence[] = {
         // Command,                 Delay, N, Data[N]
         ST77XX_CMD_RESET,            120,  0,
         ST77XX_CMD_SLEEP_OFF,          5,  0,
@@ -63,7 +63,7 @@ bool qp_st7789_init(painter_device_t device, painter_rotation_t rotation) {
     qp_comms_bulk_command_sequence(device, st7789_init_sequence, sizeof(st7789_init_sequence));
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
-    const uint8_t madctl[] QP_RESIDENT_FLASH = {
+    const uint8_t madctl[] = {
         [QP_ROTATION_0]   = ST77XX_MADCTL_RGB,
         [QP_ROTATION_90]  = ST77XX_MADCTL_RGB | ST77XX_MADCTL_MX | ST77XX_MADCTL_MV,
         [QP_ROTATION_180] = ST77XX_MADCTL_RGB | ST77XX_MADCTL_MX | ST77XX_MADCTL_MY,
@@ -81,7 +81,7 @@ bool qp_st7789_init(painter_device_t device, painter_rotation_t rotation) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver vtable
 
-const struct tft_panel_dc_reset_painter_driver_vtable_t QP_RESIDENT_FLASH st7789_driver_vtable = {
+const struct tft_panel_dc_reset_painter_driver_vtable_t st7789_driver_vtable = {
     .base =
         {
             .init            = qp_st7789_init,
@@ -116,8 +116,8 @@ painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_
     for (uint32_t i = 0; i < ST7789_NUM_DEVICES; ++i) {
         tft_panel_dc_reset_painter_device_t *driver = &st7789_drivers[i];
         if (!driver->base.driver_vtable) {
-            driver->base.driver_vtable         = (const struct painter_driver_vtable_t QP_RESIDENT_FLASH *)&st7789_driver_vtable;
-            driver->base.comms_vtable          = (const struct painter_comms_vtable_t QP_RESIDENT_FLASH *)&spi_comms_with_dc_vtable;
+            driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&st7789_driver_vtable;
+            driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
             driver->base.rotation              = QP_ROTATION_0;

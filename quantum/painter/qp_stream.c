@@ -1,7 +1,7 @@
 // Copyright 2021 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include <qp_stream.h>
+#include "qp_stream.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Stream API
@@ -22,7 +22,7 @@ uint32_t qp_stream_read_impl(void *output_buf, uint32_t member_size, uint32_t nu
     return i / member_size;
 }
 
-uint32_t qp_stream_write_impl(const void QP_RESIDENT_FLASH_OR_RAM *input_buf, uint32_t member_size, uint32_t num_members, qp_stream_t *stream) {
+uint32_t qp_stream_write_impl(const void *input_buf, uint32_t member_size, uint32_t num_members, qp_stream_t *stream) {
     uint8_t *input_ptr = (uint8_t *)input_buf;
 
     uint32_t i;
@@ -105,7 +105,7 @@ bool mem_is_eof(qp_stream_t *stream) {
     return s->is_eof;
 }
 
-qp_memory_stream_t qp_make_memory_stream(void QP_RESIDENT_FLASH_OR_RAM *buffer, int32_t length) {
+qp_memory_stream_t qp_make_memory_stream(void *buffer, int32_t length) {
     qp_memory_stream_t stream = {
         .base =
             {
@@ -115,7 +115,7 @@ qp_memory_stream_t qp_make_memory_stream(void QP_RESIDENT_FLASH_OR_RAM *buffer, 
                 .tell   = mem_tell,
                 .is_eof = mem_is_eof,
             },
-        .buffer   = (uint8_t QP_RESIDENT_FLASH_OR_RAM *)buffer,
+        .buffer   = (uint8_t *)buffer,
         .length   = length,
         .position = 0,
     };

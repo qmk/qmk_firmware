@@ -5,7 +5,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <deferred_exec.h>
+
+#include "deferred_exec.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter global configurables (add to your keyboard's config.h)
@@ -49,27 +50,8 @@
 #    define QUANTUM_PAINTER_SUPPORTS_256_PALETTE FALSE
 #endif
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// AVR split address space shenanigans
-
 // Mark certain types that there should be no padding bytes between members.
 #define QP_PACKED __attribute__((packed))
-
-// Ensure we can mark certain data as being available in flash, only.
-#ifdef __FLASH
-#    define QP_RESIDENT_FLASH __flash
-#else
-// BEWARE: This case will also apply to C++ code on AVR as it has no concept of named address spaces
-#    define QP_RESIDENT_FLASH
-#endif
-
-// Ensure we can mark certain data as being available in flash or ram.
-#ifdef __MEMX
-#    define QP_RESIDENT_FLASH_OR_RAM __memx
-#else
-// BEWARE: This case will also apply to C++ code on AVR as it has no concept of named address spaces
-#    define QP_RESIDENT_FLASH_OR_RAM
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter types
@@ -119,7 +101,7 @@ void qp_set_viewport_offsets(painter_device_t device, uint16_t offset_x, uint16_
 bool qp_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom);
 
 // Stream pixel data in the device's native format into the previously-set viewport
-bool qp_pixdata(painter_device_t device, const void QP_RESIDENT_FLASH_OR_RAM *pixel_data, uint32_t native_pixel_count);
+bool qp_pixdata(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count);
 
 // Set a specific pixel
 bool qp_setpixel(painter_device_t device, uint16_t x, uint16_t y, uint8_t hue, uint8_t sat, uint8_t val);
@@ -138,7 +120,7 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
 
 // Load an image from memory. Image can be unloaded by invoking qp_close_image() below
 // - Returns NULL if unable to load
-painter_image_handle_t qp_load_image_mem(const void QP_RESIDENT_FLASH_OR_RAM *buffer);
+painter_image_handle_t qp_load_image_mem(const void *buffer);
 
 // Closes an image handle when no longer in use. Returns true if successfully closed.
 bool qp_close_image(painter_image_handle_t image);
@@ -156,12 +138,12 @@ void qp_stop_animation(deferred_token anim_token);
 
 // Load a font from memory. Font can be unloaded by invoking qp_close_font() below
 // - Returns NULL if unable to load
-painter_font_handle_t qp_load_font_mem(const void QP_RESIDENT_FLASH_OR_RAM *buffer);
+painter_font_handle_t qp_load_font_mem(const void *buffer);
 
 // Closes a font handle when no longer in use. Returns true if successfully closed.
 bool qp_close_font(painter_font_handle_t font);
 
 // Draw text to the display
-int16_t qp_textwidth(painter_font_handle_t font, const char QP_RESIDENT_FLASH_OR_RAM *str);
-int16_t qp_drawtext(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char QP_RESIDENT_FLASH_OR_RAM *str);
-int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char QP_RESIDENT_FLASH_OR_RAM *str, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
+int16_t qp_textwidth(painter_font_handle_t font, const char *str);
+int16_t qp_drawtext(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str);
+int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);

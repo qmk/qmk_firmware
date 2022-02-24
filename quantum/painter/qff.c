@@ -4,8 +4,8 @@
 // Quantum Font File "QFF" File Format.
 // See https://docs.qmk.fm/#/quantum_painter_qff for more information.
 
-#include <qff.h>
-#include <qp_draw.h>
+#include "qff.h"
+#include "qp_draw.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // QFF API

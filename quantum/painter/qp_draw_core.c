@@ -2,10 +2,10 @@
 // Copyright 2021 Paul Cotter (@gr1mr3aver)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include <qp_internal.h>
-#include <qp_comms.h>
-#include <qp_draw.h>
-#include <qgf.h>
+#include "qp_internal.h"
+#include "qp_comms.h"
+#include "qp_draw.h"
+#include "qgf.h"
 
 _Static_assert((QP_PIXDATA_BUFFER_SIZE > 0) && (QP_PIXDATA_BUFFER_SIZE % 16) == 0, "QP_PIXDATA_BUFFER_SIZE needs to be a non-zero multiple of 16");
 

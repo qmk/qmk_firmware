@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include <gpio.h>
-#include <qp_internal.h>
+#include "gpio.h"
+#include "qp_internal.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter ILI9341 configurables (add to your keyboard's config.h)

@@ -2,9 +2,9 @@
 // Copyright 2021 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include <qp_internal.h>
-#include <qp_comms.h>
-#include <qp_draw.h>
+#include "qp_internal.h"
+#include "qp_comms.h"
+#include "qp_draw.h"
 
 // Utilize 4-way symmetry to draw an ellipse
 static bool qp_ellipse_helper_impl(painter_device_t device, uint16_t centerx, uint16_t centery, uint16_t offsetx, uint16_t offsety, bool filled) {
