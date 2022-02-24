@@ -1,6 +1,6 @@
 # ada1800mini
 
-![ada1800mini](https://i.imgur.com/87Rn2MJ.jpeg)
+![ada1800mini](https://i.imgur.com/87Rn2MJh.jpeg)
 
 A per key RGB mini 1800 keyboard
 
