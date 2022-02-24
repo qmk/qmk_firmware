@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Teimor Epstein
+/* Copyright 2021 @ Teimor Epstein
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,15 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "keymap_user.h"
-#include "tap_dance_mac_caps.h"
-#include "tap_dance_win_caps.h"
+/* macOS CapsLock language change */
+#pragma once
 
-// clang-format off
+#include "tap_dance_setup.h"
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [MAC_CAPS_LANGUAGE_CHANGE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, mac_caps_language_finished, mac_caps_language_reset),
-    [WIN_CAPS_LANGUAGE_CHANGE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, win_caps_language_finished, win_caps_language_reset)
-};
-
-// clang-format on
+void mac_caps_language_finished(qk_tap_dance_state_t *state, void *user_data);
+void mac_caps_language_reset(qk_tap_dance_state_t *state, void *user_data);

@@ -15,6 +15,8 @@
  */
 
 /* macOS CapsLock language change */
+#include "tap_dance_mac_caps.h"
+
 static td_tap_t mac_caps_language_tap_state = {.is_press_action = true, .state = TD_NONE};
 
 void mac_caps_language_finished(qk_tap_dance_state_t *state, void *user_data) {

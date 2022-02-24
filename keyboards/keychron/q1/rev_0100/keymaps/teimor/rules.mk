@@ -8,4 +8,7 @@ endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += tap_dance_user.c
+    SRC += tap_dance_setup.c
+    SRC += tap_dance_mac_caps.c
+    SRC += tap_dance_win_caps.c
 endif

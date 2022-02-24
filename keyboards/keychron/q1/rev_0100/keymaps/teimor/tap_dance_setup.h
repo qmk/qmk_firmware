@@ -13,16 +13,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
 
-#include "keymap_user.h"
-#include "tap_dance_mac_caps.h"
-#include "tap_dance_win_caps.h"
+#include QMK_KEYBOARD_H
 
-// clang-format off
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_TAP,
+    TD_DOUBLE_HOLD,
+    TD_DOUBLE_SINGLE_TAP,  // Send two single taps
+    TD_TRIPLE_TAP,
+    TD_TRIPLE_HOLD,
+    TD_TRIPLE_SINGLE_TAP  // Send three single tap
+} td_state_t;
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [MAC_CAPS_LANGUAGE_CHANGE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, mac_caps_language_finished, mac_caps_language_reset),
-    [WIN_CAPS_LANGUAGE_CHANGE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, win_caps_language_finished, win_caps_language_reset)
-};
+typedef struct {
+    bool       is_press_action;
+    td_state_t state;
+} td_tap_t;
 
-// clang-format on
+td_state_t current_dance(qk_tap_dance_state_t *state);
