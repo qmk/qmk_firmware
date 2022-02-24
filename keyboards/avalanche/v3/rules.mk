@@ -3,5 +3,3 @@ BOOTLOADER = caterina
 RGBLIGHT_ENABLE = no
 SPLIT_KEYBOARD = yes
 ENCODER_ENABLE = yes
-
-DEFAULT_FOLDER = avalanche/v3

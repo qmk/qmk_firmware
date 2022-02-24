@@ -10,11 +10,15 @@ An open source ergonomic split keyboard with removable keys to support 40% and 6
 
 Make example for this keyboard (after setting up your build environment):
 
-    make avalanche/v3:default
+    make avalanche/v1:default  # for v1 PCBs
+    make avalanche/v2:default  # for v2 PCBs
+    make avalanche/v3:default  # for v3 PCBs
 
 Flashing example for this keyboard:
 
-    make avalanche/v3:default:flash
+    make avalanche/v1:default:flash  # for v1 PCBs
+    make avalanche/v2:default:flash  # for v2 PCBs
+    make avalanche/v3:default:flash  # for v3 PCBs
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
