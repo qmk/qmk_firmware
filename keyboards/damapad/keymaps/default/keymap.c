@@ -66,8 +66,9 @@ static void render_logo(void) {
     oled_write_raw_P(bolsa_logo, sizeof(bolsa_logo));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_logo();
+    return false;
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
