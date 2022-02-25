@@ -104,7 +104,9 @@ void                       matrix_scan_user(void) {
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
     run_diablo_macro_check();
 #endif  // TAP_DANCE_ENABLE
-
+#ifdef CAPS_WORD_ENABLE
+    caps_word_task();
+#endif
 #if defined(CUSTOM_RGB_MATRIX)
     matrix_scan_rgb_matrix();
 #endif
