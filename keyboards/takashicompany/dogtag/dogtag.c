@@ -33,10 +33,10 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     } else {
         if (clockwise) {
             key.row = 5;
-            key.col = 1;
+            key.col = 0;
         } else {
             key.row = 5;
-            key.col = 0;
+            key.col = 1;
         }
         uint8_t  layer   = layer_switch_get_layer(key);
         uint16_t keycode = keymap_key_to_keycode(layer, key);
