@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "gourdo1.h"
 
+#include "caps_word.h"
 
 #ifdef TD_LSFT_CAPSLOCK_ENABLE
 // Tap once for shift, twice for Caps Lock but only if Win Key in not disabled
@@ -126,9 +127,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     if (!process_record_keymap(keycode, record)) {
         return false;
     }
-    switch (keycode) {
 
-        // Double Zero    
+    if (!process_caps_word(keycode, record)) {
+        return false;
+    }
+    // Your macros ...
+
+	switch (keycode) {
+    // Double Zero    
     case KC_00:
         if (record -> event.pressed) {
             // when keycode KC_00 is pressed
@@ -136,14 +142,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         } else unregister_code16(keycode);
         break;
 
-        // Windows key lock		
+    // Windows key lock		
     case KC_WINLCK:
         if (record -> event.pressed) {
             keymap_config.no_gui = !keymap_config.no_gui; //toggle status
         } else unregister_code16(keycode);
         break;
 
-        // Treat Control+Space as if regular Space
+    // Treat Control+Space as if regular Space
     case KC_SPC: {
         // Initialize a boolean variable that keeps track of the space key status: registered or not?
         static bool spckey_registered;

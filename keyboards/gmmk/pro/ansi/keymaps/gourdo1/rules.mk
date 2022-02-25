@@ -1,3 +1,5 @@
+SRC += caps_word.c
+
 LTO_ENABLE = yes    	       # link time optimization -- achieves a smaller compiled size
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no

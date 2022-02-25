@@ -14,6 +14,7 @@ Basic Shortcuts
 	* Home key on F-key row, Del key next to Backspace
 	* Insert accessible via Shift-Backspace (so shift delete still works in Windows Explorer)
 	* PrtScrn, Scroll Lock, Pause/Break are top right on the keyboard: Fn+F11, Fn+F12, Fn+Home
+	* Caps Word enabled: To capitalize the next word only, press and release both left and right shift keys at the same time. Details: https://getreuer.info/posts/keyboards/caps-word/index.html
 
 Numpad Overlay Layer
 
