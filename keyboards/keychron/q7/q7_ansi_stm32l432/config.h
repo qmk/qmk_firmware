@@ -18,9 +18,12 @@
 
 /* USB Device descriptor parameter */
 #define PRODUCT_ID 0x0170
-#define DEVICE_VER 0x0100
+#define DEVICE_VER 0x0103
 
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 37
 #define DRIVER_2_LED_TOTAL 35
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+
+/* Enable caps-lock LED */
+#define CAPS_LOCK_LED_INDEX 32

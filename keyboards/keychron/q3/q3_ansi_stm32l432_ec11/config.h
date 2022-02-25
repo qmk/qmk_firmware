@@ -17,8 +17,8 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0121
-#define DEVICE_VER      0x0100
+#define PRODUCT_ID 0x0121
+#define DEVICE_VER 0x0103
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
@@ -35,3 +35,6 @@
 
 /* Specifies the number of pulses the encoder registers between each detent */
 #define ENCODER_RESOLUTION 4
+
+/* Enable CapsLcok LED */
+#define CAPS_LOCK_LED_INDEX 50
