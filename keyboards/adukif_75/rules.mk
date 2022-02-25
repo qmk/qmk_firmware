@@ -14,7 +14,7 @@ CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = yes
 
-DEFAULT_FOLDER = mt84
+DEFAULT_FOLDER = adukif_75
 
 LAYOUTS = 75_ansi
 
