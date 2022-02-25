@@ -19,6 +19,7 @@ enum layers {
 #define NUM_BSPC LT(_NUM_NAV,KC_BSPC)
 #define FUN_SPC LT(_FUNCTION,KC_SPC)
 #define CMD_TAB CMD_T(KC_TAB)
+#define CMD_ENT CMD_T(KC_ENT)
 #define GFUN_SPC LT(_GAME_FUN,KC_SPC)
 #define GNUM_SPC LT(_GAME_NUM,KC_SPC)
 #define GOPT_ENT OPT_T(KC_ENT)
@@ -63,13 +64,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  '------'------'------'------'------'            '------'------'------'------'------'
                   .------.------.------.      .------.------.------.
                   | ESC  | TAB  | BSPC |      | SPC  | ENT  | DEL  |
-                  |      | CMD  | LNUM |      | LFUN |      |      |
+                  |      | CMD  | LNUM |      | LFUN | CMD  |      |
                   '------'------'------'      '------'------'------'
 */
-  KC_Q,   KC_W,   KC_F,   KC_P,    KC_B,         KC_J,    KC_L,   KC_U,    KC_Y,   KC_SCLN,
-  HOME_A, HOME_R, HOME_S, HOME_T,  KC_G,         KC_M,    HOME_N, HOME_E,  HOME_I, HOME_O,
-  SFT_Z,  KC_X,   KC_C,   KC_D,    KC_V,         KC_K,    KC_H,   KC_COMM, KC_DOT, SFT_SLSH,
-                  KC_ESC, CMD_TAB, NUM_BSPC,     FUN_SPC, KC_ENT, KC_DEL
+  KC_Q,   KC_W,   KC_F,   KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,
+  HOME_A, HOME_R, HOME_S, HOME_T,  KC_G,         KC_M,    HOME_N,  HOME_E,  HOME_I, HOME_O,
+  SFT_Z,  KC_X,   KC_C,   KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT, SFT_SLSH,
+                  KC_ESC, CMD_TAB, NUM_BSPC,     FUN_SPC, CMD_ENT, KC_DEL
 ),
 
 [_NUM_NAV] = LAYOUT_split_3x5_3(
@@ -228,6 +229,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case NUM_BSPC:
         case FUN_SPC:
+        case CMD_ENT:
         case HOME_J:
         case HOME_K:
         case HOME_L:
