@@ -213,7 +213,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         '-r',
         '-R',
         '-f',
-        'build_keyboard.mk',
+        'builddefs/build_keyboard.mk',
     ])
 
     if bootloader:
