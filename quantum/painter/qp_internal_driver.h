@@ -48,7 +48,7 @@ typedef void (*painter_driver_comms_send_command_func)(painter_device_t device, 
 typedef void (*painter_driver_comms_bulk_command_sequence)(painter_device_t device, const uint8_t *sequence, size_t sequence_len);
 
 struct painter_comms_with_command_vtable_t {
-    struct painter_comms_vtable_t              base;  // must be first, so this object can be cast from the painter_comms_vtable_t* type
+    struct painter_comms_vtable_t              base; // must be first, so this object can be cast from the painter_comms_vtable_t* type
     painter_driver_comms_send_command_func     send_command;
     painter_driver_comms_bulk_command_sequence bulk_command_sequence;
 };

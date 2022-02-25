@@ -168,4 +168,4 @@ qp_file_stream_t qp_make_file_stream(FILE *f) {
     };
     return stream;
 }
-#endif  // QP_STREAM_HAS_FILE_IO
+#endif // QP_STREAM_HAS_FILE_IO

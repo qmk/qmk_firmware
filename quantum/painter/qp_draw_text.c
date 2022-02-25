@@ -25,12 +25,12 @@ typedef struct qff_font_handle_t {
         qp_memory_stream_t mem_stream;
 #ifdef QP_STREAM_HAS_FILE_IO
         qp_file_stream_t file_stream;
-#endif  // QP_STREAM_HAS_FILE_IO
+#endif // QP_STREAM_HAS_FILE_IO
     };
 #if QUANTUM_PAINTER_LOAD_FONTS_TO_RAM
     bool  owns_buffer;
     void *buffer;
-#endif  // QUANTUM_PAINTER_LOAD_FONTS_TO_RAM
+#endif // QUANTUM_PAINTER_LOAD_FONTS_TO_RAM
 } qff_font_handle_t;
 
 static qff_font_handle_t font_descriptors[QUANTUM_PAINTER_NUM_FONTS] = {0};
@@ -96,7 +96,7 @@ painter_font_handle_t qp_load_font_mem(const void *buffer) {
     if (ram_buffer != NULL && !font->owns_buffer) {
         free(ram_buffer);
     }
-#endif  // QUANTUM_PAINTER_LOAD_FONTS_TO_RAM
+#endif // QUANTUM_PAINTER_LOAD_FONTS_TO_RAM
 
     // Read the info (parsing already successful above, no need to check return value)
     qff_read_font_descriptor(&font->stream, &font->base.line_height, &font->has_ascii_table, &font->num_unicode_glyphs, &font->bpp, &font->has_palette, &font->compression_scheme, NULL);
@@ -130,7 +130,7 @@ bool qp_close_font(painter_font_handle_t font) {
         qff_font->buffer      = NULL;
         qff_font->owns_buffer = false;
     }
-#endif  // QUANTUM_PAINTER_LOAD_FONTS_TO_RAM
+#endif // QUANTUM_PAINTER_LOAD_FONTS_TO_RAM
 
     // Free up this font for use elsewhere.
     qff_font->validate_ok = false;
@@ -198,9 +198,9 @@ static inline bool qp_drawtext_prepare_glyph_for_render(qff_font_handle_t *qff_f
     if (code_point >= 0x20 && code_point < 0x7F && qff_font->has_ascii_table) {
         // Do ascii table
         qff_ascii_glyph_v1_t glyph_info;
-        uint32_t             glyph_info_offset = sizeof(qff_font_descriptor_v1_t)           // Skip the font descriptor
-                                     + sizeof(qgf_block_header_v1_t)                        // Skip the ascii table header
-                                     + (code_point - 0x20) * sizeof(qff_ascii_glyph_v1_t);  // Jump direct to the data offset based on the glyph index
+        uint32_t             glyph_info_offset = sizeof(qff_font_descriptor_v1_t)          // Skip the font descriptor
+                                     + sizeof(qgf_block_header_v1_t)                       // Skip the ascii table header
+                                     + (code_point - 0x20) * sizeof(qff_ascii_glyph_v1_t); // Jump direct to the data offset based on the glyph index
         if (qp_stream_setpos(&qff_font->stream, glyph_info_offset) < 0) {
             qp_dprintf("Failed to set stream position while reading ascii glyph info\n");
             return false;
@@ -213,12 +213,12 @@ static inline bool qp_drawtext_prepare_glyph_for_render(qff_font_handle_t *qff_f
 
         uint8_t  glyph_width  = (uint8_t)(glyph_info.value & QFF_GLYPH_WIDTH_MASK);
         uint32_t glyph_offset = ((glyph_info.value & QFF_GLYPH_OFFSET_MASK) >> QFF_GLYPH_WIDTH_BITS);
-        uint32_t data_offset  = sizeof(qff_font_descriptor_v1_t)                                                                                                                    // Skip the font descriptor
-                               + sizeof(qff_ascii_glyph_table_v1_t)                                                                                                                 // Skip the ascii table
-                               + (qff_font->num_unicode_glyphs > 0 ? (sizeof(qff_unicode_glyph_table_v1_t) + (qff_font->num_unicode_glyphs * sizeof(qff_unicode_glyph_v1_t))) : 0)  // Skip the unicode table
-                               + (qff_font->has_palette ? (sizeof(qgf_palette_v1_t) + ((1 << qff_font->bpp) * sizeof(qgf_palette_entry_v1_t))) : 0)                                 // Skip the palette
-                               + sizeof(qgf_block_header_v1_t)                                                                                                                      // Skip the data block header
-                               + glyph_offset;                                                                                                                                      // Jump to the specified glyph offset
+        uint32_t data_offset  = sizeof(qff_font_descriptor_v1_t)                                                                                                                   // Skip the font descriptor
+                               + sizeof(qff_ascii_glyph_table_v1_t)                                                                                                                // Skip the ascii table
+                               + (qff_font->num_unicode_glyphs > 0 ? (sizeof(qff_unicode_glyph_table_v1_t) + (qff_font->num_unicode_glyphs * sizeof(qff_unicode_glyph_v1_t))) : 0) // Skip the unicode table
+                               + (qff_font->has_palette ? (sizeof(qgf_palette_v1_t) + ((1 << qff_font->bpp) * sizeof(qgf_palette_entry_v1_t))) : 0)                                // Skip the palette
+                               + sizeof(qgf_block_header_v1_t)                                                                                                                     // Skip the data block header
+                               + glyph_offset;                                                                                                                                     // Jump to the specified glyph offset
 
         if (qp_stream_setpos(&qff_font->stream, data_offset) < 0) {
             qp_dprintf("Failed to set stream position while preparing ascii glyph data\n");
@@ -229,9 +229,9 @@ static inline bool qp_drawtext_prepare_glyph_for_render(qff_font_handle_t *qff_f
         return true;
     } else {
         // Do unicode table, which may include singular ascii glyphs if full ascii table isn't specified
-        uint32_t glyph_info_offset = sizeof(qff_font_descriptor_v1_t)                                        // Skip the font descriptor
-                                     + (qff_font->has_ascii_table ? sizeof(qff_ascii_glyph_table_v1_t) : 0)  // Skip the ascii table
-                                     + sizeof(qgf_block_header_v1_t);                                        // Skip the unicode block header
+        uint32_t glyph_info_offset = sizeof(qff_font_descriptor_v1_t)                                       // Skip the font descriptor
+                                     + (qff_font->has_ascii_table ? sizeof(qff_ascii_glyph_table_v1_t) : 0) // Skip the ascii table
+                                     + sizeof(qgf_block_header_v1_t);                                       // Skip the unicode block header
 
         if (qp_stream_setpos(&qff_font->stream, glyph_info_offset) < 0) {
             qp_dprintf("Failed to set stream position while preparing glyph data\n");
@@ -248,12 +248,12 @@ static inline bool qp_drawtext_prepare_glyph_for_render(qff_font_handle_t *qff_f
             if (glyph_info.code_point == code_point) {
                 uint8_t  glyph_width  = (uint8_t)(glyph_info.value & QFF_GLYPH_WIDTH_MASK);
                 uint32_t glyph_offset = ((glyph_info.value & QFF_GLYPH_OFFSET_MASK) >> QFF_GLYPH_WIDTH_BITS);
-                uint32_t data_offset  = sizeof(qff_font_descriptor_v1_t)                                                                                                                    // Skip the font descriptor
-                                       + sizeof(qff_ascii_glyph_table_v1_t)                                                                                                                 // Skip the ascii table
-                                       + (qff_font->num_unicode_glyphs > 0 ? (sizeof(qff_unicode_glyph_table_v1_t) + (qff_font->num_unicode_glyphs * sizeof(qff_unicode_glyph_v1_t))) : 0)  // Skip the unicode table
-                                       + (qff_font->has_palette ? (sizeof(qgf_palette_v1_t) + ((1 << qff_font->bpp) * sizeof(qgf_palette_entry_v1_t))) : 0)                                 // Skip the palette
-                                       + sizeof(qgf_block_header_v1_t)                                                                                                                      // Skip the data block header
-                                       + glyph_offset;                                                                                                                                      // Jump to the specified glyph offset
+                uint32_t data_offset  = sizeof(qff_font_descriptor_v1_t)                                                                                                                   // Skip the font descriptor
+                                       + sizeof(qff_ascii_glyph_table_v1_t)                                                                                                                // Skip the ascii table
+                                       + (qff_font->num_unicode_glyphs > 0 ? (sizeof(qff_unicode_glyph_table_v1_t) + (qff_font->num_unicode_glyphs * sizeof(qff_unicode_glyph_v1_t))) : 0) // Skip the unicode table
+                                       + (qff_font->has_palette ? (sizeof(qgf_palette_v1_t) + ((1 << qff_font->bpp) * sizeof(qgf_palette_entry_v1_t))) : 0)                                // Skip the palette
+                                       + sizeof(qgf_block_header_v1_t)                                                                                                                     // Skip the data block header
+                                       + glyph_offset;                                                                                                                                     // Jump to the specified glyph offset
 
                 if (qp_stream_setpos(&qff_font->stream, data_offset) < 0) {
                     qp_dprintf("Failed to set stream position while preparing unicode glyph data\n");
@@ -333,7 +333,7 @@ static inline bool qp_font_code_point_handler_drawglyph(qff_font_handle_t *qff_f
     struct painter_driver_t *               driver = (struct painter_driver_t *)state->device;
 
     // Reset the input state's RLE mode -- the stream should already be correctly positioned by qp_iterate_code_points()
-    state->input_state->rle.mode = MARKER_BYTE;  // ignored if not using RLE
+    state->input_state->rle.mode = MARKER_BYTE; // ignored if not using RLE
 
     // Reset the output state
     state->output_state->pixel_write_pos = 0;

@@ -9,7 +9,7 @@
 
 #ifdef QUANTUM_PAINTER_ILI9163_SPI_ENABLE
 #    include "qp_comms_spi.h"
-#endif  // QUANTUM_PAINTER_ILI9163_SPI_ENABLE
+#endif // QUANTUM_PAINTER_ILI9163_SPI_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Common
@@ -100,7 +100,7 @@ painter_device_t qp_ili9163_make_spi_device(uint16_t panel_width, uint16_t panel
             driver->base.rotation              = QP_ROTATION_0;
             driver->base.offset_x              = 0;
             driver->base.offset_y              = 0;
-            driver->base.native_bits_per_pixel = 16;  // RGB565
+            driver->base.native_bits_per_pixel = 16; // RGB565
 
             // SPI and other pin configuration
             driver->base.comms_config                              = &driver->spi_dc_reset_config;
@@ -116,6 +116,6 @@ painter_device_t qp_ili9163_make_spi_device(uint16_t panel_width, uint16_t panel
     return NULL;
 }
 
-#endif  // QUANTUM_PAINTER_ILI9163_SPI_ENABLE
+#endif // QUANTUM_PAINTER_ILI9163_SPI_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

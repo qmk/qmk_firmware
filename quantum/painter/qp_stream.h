@@ -79,4 +79,4 @@ typedef struct qp_file_stream_t {
 
 qp_file_stream_t qo_make_file_stream(FILE *f);
 
-#endif  // QP_STREAM_HAS_FILE_IO
+#endif // QP_STREAM_HAS_FILE_IO

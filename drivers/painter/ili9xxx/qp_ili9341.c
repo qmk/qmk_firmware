@@ -9,7 +9,7 @@
 
 #ifdef QUANTUM_PAINTER_ILI9341_SPI_ENABLE
 #    include <qp_comms_spi.h>
-#endif  // QUANTUM_PAINTER_ILI9341_SPI_ENABLE
+#endif // QUANTUM_PAINTER_ILI9341_SPI_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Common
@@ -102,7 +102,7 @@ painter_device_t qp_ili9341_make_spi_device(uint16_t panel_width, uint16_t panel
         if (!driver->base.driver_vtable) {
             driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&ili9341_driver_vtable;
             driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
-            driver->base.native_bits_per_pixel = 16;  // RGB565
+            driver->base.native_bits_per_pixel = 16; // RGB565
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
             driver->base.rotation              = QP_ROTATION_0;
@@ -123,6 +123,6 @@ painter_device_t qp_ili9341_make_spi_device(uint16_t panel_width, uint16_t panel
     return NULL;
 }
 
-#endif  // QUANTUM_PAINTER_ILI9341_SPI_ENABLE
+#endif // QUANTUM_PAINTER_ILI9341_SPI_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

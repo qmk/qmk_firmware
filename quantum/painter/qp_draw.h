@@ -69,7 +69,7 @@ struct qp_internal_byte_input_state {
         // RLE-specific
         struct {
             enum qp_internal_rle_mode_t mode;
-            uint8_t                     remain;  // number of bytes remaining in the current mode
+            uint8_t                     remain; // number of bytes remaining in the current mode
         } rle;
     };
 };

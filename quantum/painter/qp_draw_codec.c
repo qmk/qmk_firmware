@@ -30,7 +30,7 @@ bool qp_internal_bpp_capable(uint8_t bits_per_pixel) {
 bool qp_internal_decode_palette(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_pixel_t* palette, qp_internal_pixel_output_callback output_callback, void* output_arg) {
     const uint8_t pixel_bitmask    = (1 << bits_per_pixel) - 1;
     const uint8_t pixels_per_byte  = 8 / bits_per_pixel;
-    uint32_t      remaining_pixels = pixel_count;  // don't try to derive from byte_count, we may not use an entire byte
+    uint32_t      remaining_pixels = pixel_count; // don't try to derive from byte_count, we may not use an entire byte
     while (remaining_pixels > 0) {
         uint8_t byteval = input_callback(input_arg);
         if (byteval < 0) {
@@ -48,11 +48,13 @@ bool qp_internal_decode_palette(painter_device_t device, uint32_t pixel_count, u
     return true;
 }
 
-bool qp_internal_decode_grayscale(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_internal_pixel_output_callback output_callback, void* output_arg) { return qp_internal_decode_recolor(device, pixel_count, bits_per_pixel, input_callback, input_arg, qp_pixel_white, qp_pixel_black, output_callback, output_arg); }
+bool qp_internal_decode_grayscale(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_internal_pixel_output_callback output_callback, void* output_arg) {
+    return qp_internal_decode_recolor(device, pixel_count, bits_per_pixel, input_callback, input_arg, qp_pixel_white, qp_pixel_black, output_callback, output_arg);
+}
 
 bool qp_internal_decode_recolor(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_pixel_t fg_hsv888, qp_pixel_t bg_hsv888, qp_internal_pixel_output_callback output_callback, void* output_arg) {
     struct painter_driver_t* driver = (struct painter_driver_t*)device;
-    int16_t                  steps  = 1 << bits_per_pixel;  // number of items we need to interpolate
+    int16_t                  steps  = 1 << bits_per_pixel; // number of items we need to interpolate
     if (qp_internal_interpolate_palette(fg_hsv888, bg_hsv888, steps)) {
         if (!driver->driver_vtable->palette_convert(device, steps, qp_internal_global_pixel_lookup_table)) {
             return false;
@@ -78,10 +80,10 @@ static inline int16_t qp_drawimage_byte_rle_decoder(void* cb_arg) {
     if (state->rle.mode == MARKER_BYTE) {
         uint8_t c = qp_stream_get(state->src_stream);
         if (c >= 128) {
-            state->rle.mode   = NON_REPEATING_RUN;  // non-repeated run
+            state->rle.mode   = NON_REPEATING_RUN; // non-repeated run
             state->rle.remain = c - 127;
         } else {
-            state->rle.mode   = REPEATING_RUN;  // repeated run
+            state->rle.mode   = REPEATING_RUN; // repeated run
             state->rle.remain = c;
         }
 

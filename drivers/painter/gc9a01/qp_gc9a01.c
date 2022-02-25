@@ -126,7 +126,7 @@ painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_
         if (!driver->base.driver_vtable) {
             driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&gc9a01_driver_vtable;
             driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
-            driver->base.native_bits_per_pixel = 16;  // RGB565
+            driver->base.native_bits_per_pixel = 16; // RGB565
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
             driver->base.rotation              = QP_ROTATION_0;
@@ -147,4 +147,4 @@ painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_
     return NULL;
 }
 
-#endif  // QUANTUM_PAINTER_GC9A01_SPI_ENABLE
+#endif // QUANTUM_PAINTER_GC9A01_SPI_ENABLE

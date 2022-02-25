@@ -130,8 +130,8 @@ const struct painter_comms_with_command_vtable_t spi_comms_with_dc_vtable = {
     .bulk_command_sequence = qp_comms_spi_dc_reset_bulk_command_sequence,
 };
 
-#    endif  // QUANTUM_PAINTER_SPI_DC_RESET_ENABLE
+#    endif // QUANTUM_PAINTER_SPI_DC_RESET_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#endif  // QUANTUM_PAINTER_SPI_ENABLE
+#endif // QUANTUM_PAINTER_SPI_ENABLE

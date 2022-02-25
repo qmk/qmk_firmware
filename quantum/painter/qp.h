@@ -15,13 +15,13 @@
 // more images increases the amount of RAM required.
 #ifndef QUANTUM_PAINTER_NUM_IMAGES
 #    define QUANTUM_PAINTER_NUM_IMAGES 8
-#endif  // QUANTUM_PAINTER_NUM_IMAGES
+#endif // QUANTUM_PAINTER_NUM_IMAGES
 
 // This controls the maximum number of fonts that Quantum Painter can load. Increasing this number in order to load
 // more fonts increases the amount of RAM required.
 #ifndef QUANTUM_PAINTER_NUM_FONTS
 #    define QUANTUM_PAINTER_NUM_FONTS 4
-#endif  // QUANTUM_PAINTER_NUM_FONTS
+#endif // QUANTUM_PAINTER_NUM_FONTS
 
 // This controls whether or not fonts should be cached in RAM. Under normal circumstances, fonts can have quite random
 // access patterns, and due to timing of flash memory or external storage, it can be a significant speedup moving the
@@ -36,7 +36,7 @@
 // in order to play more animations at the same time increases the amount of RAM required.
 #ifndef QUANTUM_PAINTER_CONCURRENT_ANIMATIONS
 #    define QUANTUM_PAINTER_CONCURRENT_ANIMATIONS 4
-#endif  // QUANTUM_PAINTER_CONCURRENT_ANIMATIONS
+#endif // QUANTUM_PAINTER_CONCURRENT_ANIMATIONS
 
 // This controls the maximum size of the pixel data buffer used for single blocks of transmission. Larger buffers means
 // more data is processed at one time, with less frequent transmissions, at the cost of RAM.

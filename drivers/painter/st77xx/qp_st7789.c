@@ -11,7 +11,7 @@
 
 #ifdef QUANTUM_PAINTER_ST7789_SPI_ENABLE
 #    include "qp_comms_spi.h"
-#endif  // QUANTUM_PAINTER_ST7789_SPI_ENABLE
+#endif // QUANTUM_PAINTER_ST7789_SPI_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Common
@@ -43,7 +43,7 @@ static inline void st7789_automatic_viewport_offsets(painter_device_t device, pa
         driver->offset_y = rotation_offsets_240x240[rotation].offset_y;
     }
 }
-#endif  // ST7789_NO_AUTOMATIC_OFFSETS
+#endif // ST7789_NO_AUTOMATIC_OFFSETS
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
@@ -73,7 +73,7 @@ bool qp_st7789_init(painter_device_t device, painter_rotation_t rotation) {
 
 #ifndef ST7789_NO_AUTOMATIC_VIEWPORT_OFFSETS
     st7789_automatic_viewport_offsets(device, rotation);
-#endif  // ST7789_NO_AUTOMATIC_VIEWPORT_OFFSETS
+#endif // ST7789_NO_AUTOMATIC_VIEWPORT_OFFSETS
 
     return true;
 }
@@ -123,7 +123,7 @@ painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_
             driver->base.rotation              = QP_ROTATION_0;
             driver->base.offset_x              = 0;
             driver->base.offset_y              = 0;
-            driver->base.native_bits_per_pixel = 16;  // RGB565
+            driver->base.native_bits_per_pixel = 16; // RGB565
 
             // SPI and other pin configuration
             driver->base.comms_config                              = &driver->spi_dc_reset_config;
@@ -139,6 +139,6 @@ painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_
     return NULL;
 }
 
-#endif  // QUANTUM_PAINTER_ST7789_SPI_ENABLE
+#endif // QUANTUM_PAINTER_ST7789_SPI_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

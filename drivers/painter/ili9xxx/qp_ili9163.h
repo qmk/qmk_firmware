@@ -20,4 +20,4 @@
 #ifdef QUANTUM_PAINTER_ILI9163_SPI_ENABLE
 // Factory method for an ILI9163 SPI device
 painter_device_t qp_ili9163_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-#endif  // QUANTUM_PAINTER_ILI9163_SPI_ENABLE
+#endif // QUANTUM_PAINTER_ILI9163_SPI_ENABLE

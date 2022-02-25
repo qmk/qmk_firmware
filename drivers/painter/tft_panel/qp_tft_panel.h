@@ -6,7 +6,7 @@
 
 #ifdef QUANTUM_PAINTER_SPI_ENABLE
 #    include "qp_comms_spi.h"
-#endif  // QUANTUM_PAINTER_SPI_ENABLE
+#endif // QUANTUM_PAINTER_SPI_ENABLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Common TFT panel implementation using D/C, and RST pins.
@@ -15,7 +15,7 @@ typedef uint16_t (*rgb888_to_native_uint16_t)(uint8_t r, uint8_t g, uint8_t b);
 
 // Driver vtable with extras
 struct tft_panel_dc_reset_painter_driver_vtable_t {
-    struct painter_driver_vtable_t base;  // must be first, so it can be cast to/from the painter_driver_vtable_t* type
+    struct painter_driver_vtable_t base; // must be first, so it can be cast to/from the painter_driver_vtable_t* type
 
     // Conversion function for palette entries
     rgb888_to_native_uint16_t rgb888_to_native16bit;
@@ -38,13 +38,13 @@ struct tft_panel_dc_reset_painter_driver_vtable_t {
 
 // Device definition
 typedef struct tft_panel_dc_reset_painter_device_t {
-    struct painter_driver_t base;  // must be first, so it can be cast to/from the painter_device_t* type
+    struct painter_driver_t base; // must be first, so it can be cast to/from the painter_device_t* type
 
     union {
 #ifdef QUANTUM_PAINTER_SPI_ENABLE
         // SPI-based configurables
         struct qp_comms_spi_dc_reset_config_t spi_dc_reset_config;
-#endif  // QUANTUM_PAINTER_SPI_ENABLE
+#endif // QUANTUM_PAINTER_SPI_ENABLE
 
         // TODO: I2C/parallel etc.
     };

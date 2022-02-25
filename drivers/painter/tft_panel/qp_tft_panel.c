@@ -46,7 +46,7 @@ bool qp_tft_panel_power(painter_device_t device, bool power_on) {
 // Screen clear
 bool qp_tft_panel_clear(painter_device_t device) {
     struct painter_driver_t *driver = (struct painter_driver_t *)device;
-    driver->driver_vtable->init(device, driver->rotation);  // Re-init the LCD
+    driver->driver_vtable->init(device, driver->rotation); // Re-init the LCD
     return true;
 }
 

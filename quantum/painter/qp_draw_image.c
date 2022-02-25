@@ -18,7 +18,7 @@ typedef struct qgf_image_handle_t {
         qp_memory_stream_t mem_stream;
 #ifdef QP_STREAM_HAS_FILE_IO
         qp_file_stream_t file_stream;
-#endif  // QP_STREAM_HAS_FILE_IO
+#endif // QP_STREAM_HAS_FILE_IO
     };
 } qgf_image_handle_t;
 
@@ -85,7 +85,9 @@ bool qp_close_image(painter_image_handle_t image) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_drawimage
 
-bool qp_drawimage(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image) { return qp_drawimage_recolor(device, x, y, image, 0, 0, 255, 0, 0, 0); }
+bool qp_drawimage(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image) {
+    return qp_drawimage_recolor(device, x, y, image, 0, 0, 255, 0, 0, 0);
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_drawimage_recolor
@@ -265,7 +267,9 @@ bool qp_drawimage_recolor(painter_device_t device, uint16_t x, uint16_t y, paint
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_animate
 
-deferred_token qp_animate(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image) { return qp_animate_recolor(device, x, y, image, 0, 0, 255, 0, 0, 0); }
+deferred_token qp_animate(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image) {
+    return qp_animate_recolor(device, x, y, image, 0, 0, 255, 0, 0, 0);
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_animate_recolor
@@ -339,7 +343,7 @@ deferred_token qp_animate_recolor(painter_device_t device, uint16_t x, uint16_t 
     // Draw the first frame
     uint16_t delay_ms;
     if (!qp_render_animation_state(anim_state, &delay_ms)) {
-        anim_state->device = NULL;  // disregard the allocated animation slot
+        anim_state->device = NULL; // disregard the allocated animation slot
         qp_dprintf("qp_animate_recolor: fail (could not render first frame)\n");
         return INVALID_DEFERRED_TOKEN;
     }
@@ -347,7 +351,7 @@ deferred_token qp_animate_recolor(painter_device_t device, uint16_t x, uint16_t 
     // Set up the timer
     anim_state->defer_token = defer_exec_advanced(animation_executors, QUANTUM_PAINTER_CONCURRENT_ANIMATIONS, delay_ms, animation_callback, anim_state);
     if (anim_state->defer_token == INVALID_DEFERRED_TOKEN) {
-        anim_state->device = NULL;  // disregard the allocated animation slot
+        anim_state->device = NULL; // disregard the allocated animation slot
         qp_dprintf("qp_animate_recolor: fail (could not set up animation executor)\n");
         return INVALID_DEFERRED_TOKEN;
     }
