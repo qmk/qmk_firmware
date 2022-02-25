@@ -20,6 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include "tap_dance_macro.h"
 
+/*******************************************************************************
+ * TODO.
+ * 1. add additional symbols to left hand of the symbol layer
+ * 2. consisder one shot shift or bracket on shift
+ * 3. : on double click (maybe not after 1)
+ * 4. ? on double press or hold?
+ * 5. hold layer on double tap?
+ * 6. check one shot layer time outs
+ * 7. sort out oled display
+ * 8. mouse keys
+ *******************************************************************************/
 enum userspace_layers {
     _COLEMAK = 0,
     _NUMPAD = 1,
@@ -86,9 +97,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_PLUS, TD(DC7), TD(DC8), TD(DC9), KC_PERC,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TO(_COLEMAK), KC_LSFT,  KC_EQL,   KC_LT,   KC_GT,  KC_EQL,                      KC_MINS, TD(DC4), TD(DC5), TD(DC6), KC_ASTR,  KC_EQL,
+ TO(_COLEMAK), KC_LSFT,  KC_EQL,   KC_LT,   KC_GT,  KC_EQL,                      KC_MINS, TD(DC4), TD(DC5), TD(DC6), KC_ASTR,  KC_EQL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_EQL, TD(DC1), TD(DC2), TD(DC3), _______, _______,
+      KC_LGUI, KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_EQL, TD(DC1), TD(DC2), TD(DC3), KC_SLSH, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  KC_SPC,     KC_ENT, _______, TD(DC0)
                                       //`--------------------------'  `--------------------------'
@@ -96,11 +107,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYMBOL] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, XXXXXXX, MY_CRGT, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_EXLM, KC_LPRN, KC_RPRN,   MY_AT, KC_NUBS, KC_BSPC,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_EXLM, KC_LPRN, KC_RPRN,   MY_AT, KC_NUBS, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TO(_COLEMAK), XXXXXXX, XXXXXXX,   KC_LT,   KC_GT,  KC_EQL,                      KC_NUHS, KC_LBRC, KC_RBRC, MY_PIPE, MY_TILD,  KC_GRV,
+ TO(_COLEMAK), XXXXXXX, XXXXXXX,   KC_LT,   KC_GT,  KC_EQL,                      KC_NUHS, KC_LBRC, KC_RBRC, MY_PIPE, MY_TILD,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, KC_QUOT, MY_DQUO, MY_CLFT,                      KC_AMPR, KC_LCBR, KC_RCBR,  KC_DLR, KC_CIRC, KC_RSFT,
+      _______, XXXXXXX, XXXXXXX, KC_QUOT, MY_DQUO, XXXXXXX,                      KC_AMPR, KC_LCBR, KC_RCBR,  KC_DLR, KC_CIRC, KC_RSFT,
 
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, KC_SPC,     KC_ENT, _______, _______
@@ -115,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, MY_CLFT,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, KC_SPC,     KC_ENT, _______, _______
+                                          _______, _______,_______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
   )
 };
