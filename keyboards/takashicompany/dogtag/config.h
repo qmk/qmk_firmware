@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODER_RESOLUTION 1
+#define ENCODER_RESOLUTION 4
 #define ENCODERS_PAD_A { D4 }
 #define ENCODERS_PAD_B { C6 }
 
