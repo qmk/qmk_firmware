@@ -21,6 +21,8 @@ enum custom_keycodes {
   CTLESC,
   CTLENT,
   TAPMNBS,
+  RSHL4,
+  SPCAP,
 };
 
 #define ZOOMKEY LALT(LCTL(LGUI(KC_Z)))
@@ -43,11 +45,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , LT1SIX ,  LT2FIVE, KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS,
 		KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_EQL ,  KC_BSLS, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , MONEYQ ,
 		CTLESC , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                    KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
-		KC_LSFT, KC_Z   , MOUSE1 , KC_X   , KC_C   , KC_V   , KC_B   ,  KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_RSFT,
+		KC_LSFT, KC_Z   , MOUSE1 , KC_X   , KC_C   , KC_V   , KC_B   ,  KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, RSHL4  ,
 		CTLDEL , KC_F1  , KC_PPLS, KC_LALT, KC_LGUI,                                      KC_RGUI, KC_RALT, KC_PMNS, KC_LBRC, KC_RBRC,
 		                                             KC_HOME, KC_END ,  KC_LEFT, KC_RGHT,
 		                                                      KC_PGUP,  KC_UP  ,
-		                                    KC_BSPC, BARS   , KC_PGDN,  KC_DOWN, CTLENT , KC_SPC
+		                                    KC_BSPC, BARS   , KC_PGDN,  KC_DOWN, CTLENT , SPCAP
 	),
 	[1] = LAYOUT_ergodox_pretty(
 		_______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , _______,  _______, KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_DEL ,
@@ -82,12 +84,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[4] = LAYOUT_ergodox_pretty(
 		_______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______,
-		_______, _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______,
+		KC_CAPS, _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______,                                      _______, _______, _______, _______, _______,
 		                                             _______, _______,  _______, _______,
 		                                                      _______,  _______,
-		                                    H12    , _______, _______,  _______, _______, _______
+		                                    _______, _______, _______,  _______, _______, _______
 	),
 };
 
@@ -140,7 +142,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 bool xtra_sent = true;
 bool ctl_xtra_sent = true;
 uint16_t lctl_timer, rctl_timer;
-//bool caps = false;
+bool caps = false;
+
+void keyboard_post_init_user(void) {
+	led_set_user(host_keyboard_leds());
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
@@ -187,15 +193,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				ctl_xtra_sent = false;
 				rctl_timer = timer_read();
 				register_code(KC_RCTL);
-				layer_on(4);
+				//layer_on(4);
 			} else {
-				layer_off(4);
+				//layer_off(4);
 				unregister_code(KC_RCTL);
 				if( ! ctl_xtra_sent ){
 					if( timer_elapsed(rctl_timer) < 500 ){
 						send_string("\n");
 					}
 					ctl_xtra_sent = true;
+				}
+			}
+			return false;
+			break;
+		case RSHL4:
+			if( record->event.pressed ){
+				register_code(KC_RSFT);
+				layer_on(4);
+			} else {
+				layer_off(4);
+				unregister_code(KC_RSFT);
+			}
+			return false;
+			break;
+		case SPCAP:
+			if( record->event.pressed ){
+				register_code(KC_SPC);
+			} else {
+				unregister_code(KC_SPC);
+				if( caps ){ // if( host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK) ){
+					add_key(KC_CAPS);
+					send_keyboard_report();
+					del_key(KC_CAPS);
+					send_keyboard_report();
 				}
 			}
 			return false;
@@ -283,10 +313,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void led_set_user(uint8_t usb_led)
 {
 	if( usb_led & (1<<USB_LED_CAPS_LOCK) ){
-		//caps = true;
+		caps = true;
 		ergodox_right_led_3_on();
 	} else {
-		//caps = false;
+		caps = false;
 		ergodox_right_led_3_off();
 	}
 }
@@ -311,8 +341,8 @@ uint32_t layer_state_set_user(uint32_t state) {
         //ergodox_right_led_3_on();
         break;
       case 4:
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
+        //ergodox_right_led_1_on();
+        //ergodox_right_led_2_on();
         break;
       case 5:
         ergodox_right_led_1_on();
