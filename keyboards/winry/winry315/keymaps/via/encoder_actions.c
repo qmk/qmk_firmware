@@ -34,11 +34,13 @@ static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
 static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
 
 static void exec_encoder_action(uint8_t index, bool clockwise, bool pressed) {
+    // clang-format off
     keyevent_t encoder_event = (keyevent_t) {
         .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
         .pressed = pressed,
         .time = (timer_read() | 1)
     };
+    // clang-format on
     action_exec(encoder_event);
 }
 #    endif

@@ -8,10 +8,10 @@
 // Supported orientations of the board.  The enum values must match the layout
 // option values used by VIA.
 enum winry315_orientation {
-    WINRY315_ORIENTATION_TOP,    // Encoders at the top side (default)
-    WINRY315_ORIENTATION_LEFT,   // Encoders at the left side
-    WINRY315_ORIENTATION_RIGHT,  // Encoders at the right side
-    WINRY315_ORIENTATION_BOTTOM  // Encoders at the bottom side
+    WINRY315_ORIENTATION_TOP,   // Encoders at the top side (default)
+    WINRY315_ORIENTATION_LEFT,  // Encoders at the left side
+    WINRY315_ORIENTATION_RIGHT, // Encoders at the right side
+    WINRY315_ORIENTATION_BOTTOM // Encoders at the bottom side
 };
 
 // Set the orientation of the board (changes the RGB Matrix effect behavior to

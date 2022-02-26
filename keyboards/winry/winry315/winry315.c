@@ -76,12 +76,12 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
 #    define X_MM_MIN (-42)
 #    define X_MM_MAX 42
-#    define Y_MM_MIN (-40)  // actually -35, but adjusted to get height = width
-#    define Y_MM_MAX 44     // actually 40, but adjusted to get height = width
+#    define Y_MM_MIN (-40) // actually -35, but adjusted to get height = width
+#    define Y_MM_MAX 44    // actually 40, but adjusted to get height = width
 #    define WIDTH_MM (X_MM_MAX - X_MM_MIN)
 #    define HEIGHT_MM (Y_MM_MAX - Y_MM_MIN)
-#    define WIDTH_UNITS (35 * 2)   // needs to match RGB_MATRIX_CENTER
-#    define HEIGHT_UNITS (35 * 2)  // needs to match RGB_MATRIX_CENTER
+#    define WIDTH_UNITS (35 * 2)  // needs to match RGB_MATRIX_CENTER
+#    define HEIGHT_UNITS (35 * 2) // needs to match RGB_MATRIX_CENTER
 
 // Convert the LED physical coordinates from millimeters with the origin at the
 // PCB center to the form expected by the RGB Matrix code.
@@ -148,15 +148,15 @@ void keyboard_pre_init_kb(void) {
 uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) {
     if (row == 0) {
         switch (column) {
-            case 15:  // center encoder
+            case 15: // center encoder
                 led_i[0] = 3;
                 return 1;
 
-            case 16:  // right encoder
+            case 16: // right encoder
                 led_i[0] = 1;
                 return 1;
 
-            case 17:  // left encoder
+            case 17: // left encoder
                 led_i[0] = 5;
                 return 1;
         }
@@ -169,10 +169,10 @@ uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t
 // VIA supports only 4 discrete values for effect speed; map these to some
 // useful speed values for RGB Matrix.
 enum speed_values {
-    RGBLIGHT_SPEED_0 = UINT8_MAX / 16,  // not 0 to avoid really slow effects
+    RGBLIGHT_SPEED_0 = UINT8_MAX / 16, // not 0 to avoid really slow effects
     RGBLIGHT_SPEED_1 = UINT8_MAX / 4,
-    RGBLIGHT_SPEED_2 = UINT8_MAX / 2,      // matches the default value
-    RGBLIGHT_SPEED_3 = UINT8_MAX / 4 * 3,  // UINT8_MAX is really fast
+    RGBLIGHT_SPEED_2 = UINT8_MAX / 2,     // matches the default value
+    RGBLIGHT_SPEED_3 = UINT8_MAX / 4 * 3, // UINT8_MAX is really fast
 };
 
 static uint8_t speed_from_rgblight(uint8_t rgblight_speed) {
