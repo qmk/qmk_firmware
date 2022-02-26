@@ -15,12 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-/* Tap-hold configurations */
-#define PERMISSIVE_HOLD
-
-/* Combos */
-#define COMBO_COUNT 4
-
 /* Defines names for use in layer keycodes and the keymap */
 enum layer_names {
     _BASE,

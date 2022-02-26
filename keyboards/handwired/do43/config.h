@@ -22,12 +22,17 @@
 #define VENDOR_ID    0xFEED
 #define PRODUCT_ID   0x0000
 #define DEVICE_VER   0x0001
-#define MANUFACTURER Rocco Jiang
 #define PRODUCT      do43
 
 /* Key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
+
+/* Tap-hold configurations */
+#define PERMISSIVE_HOLD
+
+/* Combos */
+#define COMBO_COUNT 4
 
 /*
  * Keyboard Matrix Assignments
