@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define TAPPING_TERM 100
 
 #define ONESHOT_TAP_TOGGLE 2
+#define ONESHOT_TIMEOUT 2000
 
 #ifdef RGBLIGHT_ENABLE
     // enable light change on layer change

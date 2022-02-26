@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * add additional symbols to left hand of the symbol layer
  * : on double click (maybe not after symbol layer)
  * ? on double press or hold?
- * check one shot layer time outs
  * sort out oled display
  * mouse keys
  *
