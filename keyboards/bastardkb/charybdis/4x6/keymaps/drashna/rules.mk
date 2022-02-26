@@ -22,4 +22,3 @@ CONSOLE_ENABLE = yes
 AUTOCORRECTION_ENABLE = yes
 
 DEBOUNCE_TYPE = asym_eager_defer_pk
-USE_FPU = no
