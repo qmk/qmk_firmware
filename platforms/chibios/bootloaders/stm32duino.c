@@ -22,4 +22,6 @@ __attribute__((weak)) void bootloader_jump(void) {
     NVIC_SystemReset();
 }
 
-__attribute__((weak)) void mcu_reset(void) {} // unknown method, ATM
+__attribute__((weak)) void mcu_reset(void) {
+    // unknown method, ATM. Do nothing.
+}
