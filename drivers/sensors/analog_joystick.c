@@ -24,7 +24,7 @@ uint16_t minAxisValue = ANALOG_JOYSTICK_AXIS_MIN;
 uint16_t maxAxisValue = ANALOG_JOYSTICK_AXIS_MAX;
 
 uint8_t maxCursorSpeed = ANALOG_JOYSTICK_SPEED_MAX;
-uint8_t speedRegulator = ANALOG_JOYSTICK_SPEED_REGULATOR;  // Lower Values Create Faster Movement
+uint8_t speedRegulator = ANALOG_JOYSTICK_SPEED_REGULATOR; // Lower Values Create Faster Movement
 
 int16_t xOrigin, yOrigin;
 
