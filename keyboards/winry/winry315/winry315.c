@@ -254,3 +254,9 @@ void winry315_set_orientation(uint8_t orientation) {
     }
 #endif // defined(RGB_MATRIX_ENABLE)
 }
+
+#if defined(VIA_ENABLE)
+void via_set_layout_options_kb(uint32_t value) {
+    winry315_set_orientation(value & 0x03);
+}
+#endif // defined(VIA_ENABLE)
