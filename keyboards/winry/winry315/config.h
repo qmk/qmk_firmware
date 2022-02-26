@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-// USB Device descriptor parameters.
-#define VENDOR_ID 0xF1F1
-#define PRODUCT_ID 0x0315
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Winry
-#define PRODUCT Winry315
-
 // Key matrix size.
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 24
