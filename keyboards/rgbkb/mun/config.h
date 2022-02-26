@@ -17,8 +17,6 @@
 #define MANUFACTURER    RGBKB
 #define PRODUCT         Mün
 
-#define USB_POLLING_INTERVAL_MS 1
-
 /* Matrix Configuration - Rows are doubled up */
 #define MATRIX_ROWS 14
 // Last pins reserved for encoder / touch encoder support
