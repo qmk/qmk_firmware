@@ -43,8 +43,9 @@ enum userspace_layers {
 #define L_MOTION (1 << LMOV)
 
 #define MY_CESC MT(MOD_LCTL, KC_ESC)
+#define MY_CQOT MT(MOD_LCTL, KC_QUOT)
 #define MY_S_SL MT(MOD_LSFT, KC_SLSH)
-#define MY_S_Z  MT(MOD_LSFT, KC_Z)
+#define MY_S_Z  MT(MOD_LSFT, KC_Z)CTRL
 #define MY_TBUI MT(MOD_LGUI, KC_TAB)
 #define MY_CLFT C(KC_LEFT)
 #define MY_CRGT C(KC_RGHT)
@@ -67,17 +68,14 @@ enum tap_dance_codes {
     DC7,
     DC8,
     DC9,
-    // 
-    DC10,
-    DC11,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LCMK] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      MY_TBUI,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y,TD(DC10), KC_BSPC,
+      MY_TBUI,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      MY_CESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                         KC_H,    KC_N,    KC_E,    KC_I,    KC_O,TD(DC11),
+      MY_CESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                         KC_H,    KC_N,    KC_E,    KC_I,    KC_O, MY_CQOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 OSM(MOD_LSFT),  MY_S_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, MY_S_SL, KC_LALT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -90,7 +88,7 @@ OSM(MOD_LSFT),  MY_S_Z,    KC_X,    KC_C,    KC_V,    KC_B,                     
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_PLUS, TD(DC7), TD(DC8), TD(DC9), KC_PERC,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     TO(LCMK), KC_LSFT,  KC_EQL,   KC_LT,   KC_GT,  KC_EQL,                      KC_MINS, TD(DC4), TD(DC5), TD(DC6), KC_ASTR,  KC_EQL,
+     TO(LCMK), KC_LALT, KC_LCTL,   KC_LT,   KC_GT, KC_UNDS,                      KC_MINS, TD(DC4), TD(DC5), TD(DC6), KC_ASTR,  KC_EQL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI, KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_EQL, TD(DC1), TD(DC2), TD(DC3), KC_SLSH, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -193,8 +191,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [DC7] = TD_TAP_HOLD_ACTION(7),
     [DC8] = TD_TAP_HOLD_ACTION(8),
     [DC9] = TD_TAP_HOLD_ACTION(9),
-    [DC10] = TD_TAP_HOLD_ACTION(semicolon),
-    [DC11] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_quote, dance_quote_finished, dance_quote_reset),
 };
 /*******************************************************************************
  * End Tap dance functions
