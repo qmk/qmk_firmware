@@ -45,7 +45,7 @@ enum userspace_layers {
 #define MY_CESC MT(MOD_LCTL, KC_ESC)
 #define MY_CQOT MT(MOD_LCTL, KC_QUOT)
 #define MY_S_SL MT(MOD_LSFT, KC_SLSH)
-#define MY_S_Z  MT(MOD_LSFT, KC_Z)CTRL
+#define MY_S_Z  MT(MOD_LSFT, KC_Z)
 #define MY_TBUI MT(MOD_LGUI, KC_TAB)
 #define MY_CLFT C(KC_LEFT)
 #define MY_CRGT C(KC_RGHT)
