@@ -147,10 +147,3 @@
 
 // Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed.
 #define DEBOUNCE 5
-
-// Disable these deprecated features by default.
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-// Use 1000 Hz polling (the fastest possible for a Full Speed device).
-#define USB_POLLING_INTERVAL_MS 1
