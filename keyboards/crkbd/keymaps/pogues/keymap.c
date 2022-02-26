@@ -100,7 +100,7 @@ OSM(MOD_LSFT),  MY_S_Z,    KC_X,    KC_C,    KC_V,    KC_B,                     
 
   [LSYM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_EXLM, KC_LPRN, KC_RPRN,   MY_AT, KC_NUBS, KC_BSPC,
+      _______, XXXXXXX, KC_QUES, KC_COLN, KC_SCLN, XXXXXXX,                      KC_EXLM, KC_LPRN, KC_RPRN,   MY_AT, KC_NUBS, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      TO(LCMK), XXXXXXX, XXXXXXX,   KC_LT,   KC_GT,  KC_EQL,                      KC_NUHS, KC_LBRC, KC_RBRC, MY_PIPE, MY_TILD,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
