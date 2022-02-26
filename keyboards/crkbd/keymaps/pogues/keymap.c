@@ -22,32 +22,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*******************************************************************************
  * TODO.
- * 1. add additional symbols to left hand of the symbol layer
- * 2. consisder one shot shift or bracket on shift
- * 3. : on double click (maybe not after 1)
- * 4. ? on double press or hold?
- * 5. hold layer on double tap?
- * 6. check one shot layer time outs
- * 7. sort out oled display
- * 8. mouse keys
+ * add additional symbols to left hand of the symbol layer
+ * : on double click (maybe not after symbol layer)
+ * ? on double press or hold?
+ * check one shot layer time outs
+ * sort out oled display
+ * mouse keys
+ *
  *******************************************************************************/
 enum userspace_layers {
-    _COLEMAK = 0,
-    _NUMPAD = 1,
-    _SYMBOL = 2,
-    _MOTION = 3,
+    LCMK = 0,
+    LNUM = 1,
+    LSYM = 2,
+    LMOV = 3,
 };
 
 // the layer mask
-#define L_COLEMAK _COLEMAK
-#define L_NUMPAD (1 << _NUMPAD)
-#define L_SYMBOL (1 << _SYMBOL)
-#define L_MOTION (1 << _MOTION)
-
-enum custom_keycodes {
-    CC_LNUM = SAFE_RANGE,
-    CC_LSYM,
-};
+#define L_COLEMAK LCMK
+#define L_NUMPAD (1 << LNUM)
+#define L_SYMBOL (1 << LSYM)
+#define L_MOTION (1 << LMOV)
 
 #define MY_CESC MT(MOD_LCTL, KC_ESC)
 #define MY_S_SL MT(MOD_LSFT, KC_SLSH)
@@ -76,28 +70,28 @@ enum tap_dance_codes {
     DC9,
     // 
     DC10,
-    DC12,
+    DC11,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_COLEMAK] = LAYOUT_split_3x6_3(
+  [LCMK] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       MY_TBUI,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y,TD(DC10), KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      MY_CESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                         KC_H,    KC_N,    KC_E,    KC_I,    KC_O,TD(DC12),
+      MY_CESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                         KC_H,    KC_N,    KC_E,    KC_I,    KC_O,TD(DC11),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,  MY_S_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, MY_S_SL, KC_LALT,
+OSM(MOD_LSFT),  MY_S_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, MY_S_SL, KC_LALT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                            CC_LSYM, CC_LNUM, LT(_MOTION, KC_SPC),       LT(_MOTION, KC_ENT), KC_BSPC,  KC_LGUI
+                           OSL(LSYM), OSL(LNUM), LT(LMOV, KC_SPC),       LT(LMOV, KC_ENT), KC_BSPC,  KC_LGUI
                                       //`--------------------------'  `--------------------------'
 
   ),
 
-  [_NUMPAD] = LAYOUT_split_3x6_3(
+  [LNUM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_PLUS, TD(DC7), TD(DC8), TD(DC9), KC_PERC,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- TO(_COLEMAK), KC_LSFT,  KC_EQL,   KC_LT,   KC_GT,  KC_EQL,                      KC_MINS, TD(DC4), TD(DC5), TD(DC6), KC_ASTR,  KC_EQL,
+     TO(LCMK), KC_LSFT,  KC_EQL,   KC_LT,   KC_GT,  KC_EQL,                      KC_MINS, TD(DC4), TD(DC5), TD(DC6), KC_ASTR,  KC_EQL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI, KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_EQL, TD(DC1), TD(DC2), TD(DC3), KC_SLSH, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -105,11 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [_SYMBOL] = LAYOUT_split_3x6_3(
+  [LSYM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_EXLM, KC_LPRN, KC_RPRN,   MY_AT, KC_NUBS, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- TO(_COLEMAK), XXXXXXX, XXXXXXX,   KC_LT,   KC_GT,  KC_EQL,                      KC_NUHS, KC_LBRC, KC_RBRC, MY_PIPE, MY_TILD,  KC_GRV,
+     TO(LCMK), XXXXXXX, XXXXXXX,   KC_LT,   KC_GT,  KC_EQL,                      KC_NUHS, KC_LBRC, KC_RBRC, MY_PIPE, MY_TILD,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, XXXXXXX, XXXXXXX, KC_QUOT, MY_DQUO, XXXXXXX,                      KC_AMPR, KC_LCBR, KC_RCBR,  KC_DLR, KC_CIRC, KC_RSFT,
 
@@ -118,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [_MOTION] = LAYOUT_split_3x6_3(
+  [LMOV] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______,  RESET, MY_CRGT, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -201,7 +195,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [DC8] = TD_TAP_HOLD_ACTION(8),
     [DC9] = TD_TAP_HOLD_ACTION(9),
     [DC10] = TD_TAP_HOLD_ACTION(semicolon),
-    [DC12] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_quote, dance_quote_finished, dance_quote_reset),
+    [DC11] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_quote, dance_quote_finished, dance_quote_reset),
 };
 /*******************************************************************************
  * End Tap dance functions
@@ -211,51 +205,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  * user specific functions
  * here we map the numpad and symbol layer functions to be either one shot or hold.
  ******************************************************************************/
-static bool non_layer_key_pressed = false;
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static uint16_t number_layer_timer;
-    static uint16_t symbol_layer_timer;
-
-    if (record->event.pressed) 
-        non_layer_key_pressed = true;  // note if a key is pressed for use in one shot layers.
-
-    switch (keycode){
-        case CC_LNUM:                                    
-            if (record->event.pressed) {
-                number_layer_timer = timer_read();
-                layer_move(_NUMPAD);   // turn off all other layers too
-                non_layer_key_pressed = false;   // we are in the hold/one shot layer
-            } else {
-                layer_off(_NUMPAD);
-                if (non_layer_key_pressed)
-                    break;  // a key was pressed while this was held so we are not a one shot.
-
-                if (timer_elapsed(number_layer_timer) < TAPPING_TERM) {
-                    set_oneshot_layer(_NUMPAD, ONESHOT_START);
-                    clear_oneshot_layer_state(ONESHOT_PRESSED);
-                }
-            }
-            return false;
-        case CC_LSYM:                                    
-            if (record->event.pressed) {
-                symbol_layer_timer = timer_read();
-                layer_move(_SYMBOL);   // turn off all other layers too
-                non_layer_key_pressed = false;   // we are in the hold/one shot layer
-            } else {
-                layer_off(_SYMBOL);
-                if (non_layer_key_pressed)
-                    break;  // a key was pressed while this was held so we are not a one shot.
-
-                if (timer_elapsed(symbol_layer_timer) < TAPPING_TERM) {
-                    set_oneshot_layer(_SYMBOL, ONESHOT_START);
-                    clear_oneshot_layer_state(ONESHOT_PRESSED);
-                }
-            }
-            return false;
-    }
-    return true;
-}
 
 
 /*******************************************************************************
@@ -287,12 +236,24 @@ const rgblight_segment_t PROGMEM layer_motion_lights[] = RGBLIGHT_LAYER_SEGMENTS
     {0, 54, HSV_RED}
 );
 
+const rgblight_segment_t PROGMEM oneshot_shift_lights[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 10, HSV_BLUE},
+    {27, 10, HSV_BLUE}
+);
+
+const rgblight_segment_t PROGMEM oneshot_locked_lights[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 10, HSV_RED},
+    {27, 10, HSV_RED}
+);
+
 // now we need the array of layers
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     layer_default_lights,
     layer_numpad_lights,
     layer_symbols_lights,
-    layer_motion_lights
+    layer_motion_lights,
+    oneshot_shift_lights,
+    oneshot_locked_lights
 );
 
 void keyboard_post_init_user(void) {
@@ -302,14 +263,41 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _COLEMAK));
-    rgblight_set_layer_state(1, layer_state_cmp(state, _NUMPAD));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _SYMBOL));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _MOTION));
+    rgblight_set_layer_state(0, layer_state_cmp(state, LCMK));
+    rgblight_set_layer_state(1, layer_state_cmp(state, LNUM));
+    rgblight_set_layer_state(2, layer_state_cmp(state, LSYM));
+    rgblight_set_layer_state(3, layer_state_cmp(state, LMOV));
     return state;
 }
 /*******************************************************************************
  * END RGB lighting on layer change
+ ******************************************************************************/
+
+/*******************************************************************************
+ * RGB lighting on one shot mod change
+ ******************************************************************************/
+void oneshot_mods_changed_user(uint8_t mods) {
+    if (mods & MOD_MASK_SHIFT) {
+        rgblight_set_layer_state(4, true);
+    }
+    // other mods are MOD_MASK_CTRL  MOD_MASK_ALT MOD_MASK_GUI
+    else {  // (!mods)
+        rgblight_set_layer_state(4, false);
+    }
+}
+
+
+void oneshot_locked_mods_changed_user(uint8_t mods) {
+    if (mods & MOD_MASK_SHIFT) {
+        rgblight_set_layer_state(5, true);
+    }
+    else { // !mods
+        rgblight_set_layer_state(5, false);
+    }
+}
+
+/*******************************************************************************
+ * END RGB lighting on one shot mod change
  ******************************************************************************/
 
 #ifdef OLED_ENABLE
