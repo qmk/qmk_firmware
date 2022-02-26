@@ -100,7 +100,7 @@
                 {"label":"\u2192", "x":17.25, "y":5.5}
             ]
         }
-        "LAYOUT_ansi_tsangan": {
+        "LAYOUT_tkl_ansi_tsangan": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":2, "y":0},
@@ -195,7 +195,7 @@
                 {"label":"\u2192", "x":17.25, "y":5.5}
             ]
         }
-        "LAYOUT_iso_tsangan": {
+        "LAYOUT_tkl_iso_tsangan": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":2, "y":0},

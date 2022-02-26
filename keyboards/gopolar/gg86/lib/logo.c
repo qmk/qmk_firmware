@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# define ANIM_SIZE 525  // number of bytes in array, minimize for adequate firmware size, max is 1024
+#define ANIM_SIZE 525  // number of bytes in array, minimize for adequate firmware size, max is 1024
 
 static void render_logo(void) {
     static const char PROGMEM gopolar[][ANIM_SIZE] = {

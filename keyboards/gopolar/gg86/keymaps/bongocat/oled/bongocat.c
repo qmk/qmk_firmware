@@ -15,18 +15,18 @@
  */
 
 // WPM-responsive animation stuff here
-# define IDLE_FRAMES 5
-# define IDLE_SPEED 10  // below this wpm value your animation will idle
+#define IDLE_FRAMES 5
+#define IDLE_SPEED 10  // below this wpm value your animation will idle
 // #define PREP_FRAMES 1 // uncomment if >1
-# define TAP_FRAMES 2
-# define ANIM_WPM_LOWER 20  // above this wpm value typing animation to trigger
-# define ANIM_FRAME_DURATION_MAX 450 // longest animation duration in ms
-# define ANIM_FRAME_DURATION_MIN 100 // shortest animation duration in ms
-# define IDLE_FRAME_DURATION 300  // how long each frame lasts in ms
-# define ANIM_FRAME_RATIO 2.5 // how aggressively animation speeds up with wpm
+#define TAP_FRAMES 2
+#define ANIM_WPM_LOWER 20  // above this wpm value typing animation to trigger
+#define ANIM_FRAME_DURATION_MAX 450 // longest animation duration in ms
+#define ANIM_FRAME_DURATION_MIN 100 // shortest animation duration in ms
+#define IDLE_FRAME_DURATION 300  // how long each frame lasts in ms
+#define ANIM_FRAME_RATIO 2.5 // how aggressively animation speeds up with wpm
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
-# define ANIM_SIZE 525  // number of bytes in array, minimize for adequate firmware size, max is 1024
-# define MAX(x, y) (((x) > (y)) ? (x) : (y)) // Math.max macro
+#define ANIM_SIZE 525  // number of bytes in array, minimize for adequate firmware size, max is 1024
+#define MAX(x, y) (((x) > (y)) ? (x) : (y)) // Math.max macro
 
 uint32_t curr_anim_duration = 0; // variable animation duration
 uint32_t bongo_timer = 0;
