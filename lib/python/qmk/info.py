@@ -554,7 +554,7 @@ def _matrix_size(info_data):
         # Assumption of split common
         if 'split' in info_data:
             if info_data['split'].get('enabled', False):
-                info_data['matrix_size']['rows'] = info_data['matrix_size']['rows'] * 2
+                info_data['matrix_size']['rows'] *= 2
 
     return info_data
 
