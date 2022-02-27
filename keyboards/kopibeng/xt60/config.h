@@ -39,22 +39,17 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { D6, D7, B4, B5, C6 }
-#define MATRIX_COL_PINS { F1, F4, F5, E6, B0, B1, B2, B3, B7, D0, D1, D2, D3, D5 }
+#define MATRIX_ROW_PINS { F7, F4, D0, B3, B7 }
+#define MATRIX_COL_PINS { C7, F5, F1, F0, C6, B6, B5, B4, D7, D6, D5, D3, D2, D1 }
 
-#define LED_CAPS_LOCK_PIN F0
+#define LED_CAPS_LOCK_PIN D4
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* number of backlight levels */
-#define BACKLIGHT_PIN B6
-// #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 8
-
-#define RGB_DI_PIN D4
+#define RGB_DI_PIN F6
 #ifdef RGB_DI_PIN
-    #define RGBLED_NUM 13
+    #define RGBLED_NUM 14
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
@@ -79,7 +74,6 @@
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
