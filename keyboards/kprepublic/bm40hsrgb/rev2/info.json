@@ -1,7 +1,7 @@
 {
     "keyboard_name": "bm40v2",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "bdtc123",
     "layouts": {
         "LAYOUT_planck_mit": {
             "layout": [

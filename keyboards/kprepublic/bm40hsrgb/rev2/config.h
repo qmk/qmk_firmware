@@ -23,7 +23,6 @@
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    KP Republic
 #define PRODUCT         BM40V2
-#define DESCRIPTION     BM40V2 RGB keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -40,7 +39,7 @@
  *
  */
 #define MATRIX_ROW_PINS { D7, F7, F6, F5 }
-#define MATRIX_COL_PINS { B2, B3, D5, D3,D2, B7, F0, B4, B5, B6, C6, C7, }
+#define MATRIX_COL_PINS { B2, B3, D5, D3, D2, B7, F0, B4, B5, B6, C6, C7 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
