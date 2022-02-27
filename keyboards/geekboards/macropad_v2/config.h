@@ -100,7 +100,6 @@
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define WAIT_FOR_USB
-#define USB_POLLING_INTERVAL_MS 1
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 3
