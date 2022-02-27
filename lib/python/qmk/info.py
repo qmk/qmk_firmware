@@ -49,7 +49,6 @@ def info_json(keyboard):
         'parse_errors': [],
         'parse_warnings': [],
         'maintainer': 'qmk',
-        'manufacturer': 'qmk',
     }
 
     # Populate the list of JSON keymaps
