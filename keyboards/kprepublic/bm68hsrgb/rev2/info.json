@@ -1,9 +1,7 @@
 {
-    "keyboard_name": "bm68v2",
+    "keyboard_name": "bm68hsrgb/rev2",
     "url": "",
-    "maintainer": "kp republic",
-    "width": 16,
-    "height": 5,
+    "maintainer": "bdtc123",
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [
