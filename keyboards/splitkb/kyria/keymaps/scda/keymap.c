@@ -11,10 +11,20 @@ enum layers {
     _KBD_CTRL
 };
 
+enum {
+    DOT_COL,
+    COM_SEM
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [DOT_COL] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_COLN),
+    [COM_SEM] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_SCLN),
+};
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LETTERS] = LAYOUT(
-        HYPA,    KC_X,        KC_DOT,      KC_O,        KC_COMM,     KC_Y,                                                KC_V,   KC_G,        KC_C,        KC_L,        KC_J,        KC_NO,
+        HYPA,    KC_X,        TD(DOT_COL),     KC_O,        TD(COM_SEM),     KC_Y,                                                KC_V,   KC_G,        KC_C,        KC_L,        KC_J,        KC_NO,
         KC_ESC,  CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E), SFT_T(KC_I), KC_U,                                                KC_D,   SFT_T(KC_T), GUI_T(KC_R), ALT_T(KC_N), CTL_T(KC_S), KC_F,
         G(KC_Z), KC_K,        KC_Q,        DE_AE,       DE_UE,       DE_OE,  KC_NO,    KC_NO,           KC_NO,   KC_NO,   KC_B,   KC_P,        KC_W,        KC_M,        KC_Z,        DE_SS,
                                             NUM,        SYM,         KC_TAB, KC_SPACE, KC_ENT,          KC_LSFT, KC_BSPC, KC_DEL, NUM,         SYM),

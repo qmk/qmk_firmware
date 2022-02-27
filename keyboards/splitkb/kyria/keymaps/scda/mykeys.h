@@ -25,5 +25,3 @@
 #define SFT_ENT  SFT_T(KC_ENT)
 #define CMD_BSP  GUI_T(KC_BSPC)
 #define ALT_DEL  ALT_T(KC_DEL)
-
-

@@ -35,9 +35,10 @@
 /*
 the minimum time you have to hold a key to activate the "hold" key
 - used for modifiers and layer taps
+- also used for tap-dancing with multiple keys
 - default 200
 */
-#define TAPPING_TERM 400
+#define TAPPING_TERM 300
 
 /*
 do not activate the modifier when another key is being pressed and released while the tap_key is being held before tapping_term has been reached
