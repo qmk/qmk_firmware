@@ -3,6 +3,7 @@
 *.swp
 *~
 .DS_Store
+._*
 
 # Build artifacts
 .clang_complete
@@ -18,7 +19,6 @@
 
 # QMK-specific
 api_data/v1
-doxygen/
 quantum/version.h
 *.bin
 *.eep
