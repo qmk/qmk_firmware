@@ -1,4 +1,4 @@
-/* Copyright 2022 REPLACE_WITH_YOUR_NAME
+/* Copyright 2022 Momokai
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,13 +14,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#pragma once
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#include "config_common.h"
 
-    [0] = LAYOUT(
-        KC_A,    KC_B,    KC_C,
-        KC_1,    KC_2,    KC_3
-    ),
+/* USB Device descriptor parameter */
+#define VENDOR_ID    0x69F9   // "69" + "Popular Racing Movie 9"  =  Momokai (?)
+#define PRODUCT_ID   0x0006
+#define DEVICE_VER   0x0001
+#define MANUFACTURER Momokai
+#define PRODUCT      Tap Trio
 
-};
+#define MATRIX_ROWS 1
+#define MATRIX_COLS 6
+
+#define MATRIX_ROW_PINS { E0 }
+#define MATRIX_COL_PINS { E6, B2, B7, D1, D2, D3 }
+
+#define DIODE_DIRECTION COL2ROW
+
+
+//TODO: implement RGB Matrix
+#define RGB_DI_PIN F0
+#define RGBLED_NUM 5
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+
