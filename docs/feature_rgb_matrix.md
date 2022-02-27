@@ -361,6 +361,8 @@ Configure the hardware via your `config.h`:
 #define DRIVER_LED_TOTAL 70
 ```
 
+?> There are additional configuration options for ARM controllers that offer increased performance over the default bitbang driver. Please see [WS2812 Driver](ws2812_driver.md) for more information.
+
 ---
 
 ### APA102 :id=apa102
