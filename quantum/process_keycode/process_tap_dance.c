@@ -157,18 +157,12 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 }
 
 void tap_dance_task() {
-    uint16_t               applicable_tapping_term;
     qk_tap_dance_action_t *action;
 
-    if (!active_td) return;
+    if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;
 
     action = &tap_dance_actions[TD_INDEX(active_td)];
-    if (action->custom_tapping_term > 0) {
-        applicable_tapping_term = action->custom_tapping_term;
-    } else {
-        applicable_tapping_term = GET_TAPPING_TERM(active_td, &(keyrecord_t){});
-    }
-    if (!action->state.interrupted && timer_elapsed(last_tap_time) > applicable_tapping_term) {
+    if (!action->state.interrupted) {
         process_tap_dance_action_on_dance_finished(action);
     }
 }
