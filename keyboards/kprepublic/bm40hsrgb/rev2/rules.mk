@@ -20,3 +20,5 @@ AUDIO_ENABLE = no              # Audio output on port C6
 RGB_MATRIX_ENABLE = yes        # Use RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3733
 LAYOUTS = planck_mit
+
+LTO_ENABLE = yes
