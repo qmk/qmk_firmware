@@ -17,7 +17,7 @@
         "rows": ["C6", "D7", "E6", "B4"]
     },
     "processor": "atmega32u4",
-    "url": "",
+    "url": "https://github.com/makenova/omega",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
