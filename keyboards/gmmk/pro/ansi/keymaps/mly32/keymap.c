@@ -47,7 +47,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         tap_code16(clockwise ? KC_VOLU : KC_VOLD);
     }
 
-    return true;
+    return false;
 }
 #endif
 
