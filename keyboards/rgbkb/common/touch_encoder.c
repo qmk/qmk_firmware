@@ -292,7 +292,7 @@ void touch_encoder_calibrate(void) {
     write_register8(QT_CALIBRATE, 0x01);
 }
 
-bool touch_encoder_calibrating(void) {
+bool touch_encoder_is_calibrating(void) {
     return touch_raw[0] & CALIBRATION_BIT;
 }
 
@@ -300,8 +300,8 @@ void touch_encoder_toggle(void) {
     touch_disabled = !touch_disabled;
 }
 
-bool touch_encoder_toggled(void) {
-    return touch_disabled;
+bool touch_encoder_is_on(void) {
+    return !touch_disabled;
 }
 
 void touch_encoder_slave_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {

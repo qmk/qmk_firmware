@@ -218,7 +218,7 @@ void keyboard_pre_init_kb(void) {
 }
 
 void pointing_device_init_kb(void) {
-    pmw3360_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
     // initialize the scroll wheel's optical encoder
     opt_encoder_init();
 }

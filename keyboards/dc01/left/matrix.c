@@ -230,14 +230,6 @@ if (i2c_transaction(SLAVE_I2C_ADDRESS_NUMPAD, 0x1FFFF, 11)) {
     return 1;
 }
 
-bool matrix_is_modified(void)
-{
-#if (DEBOUNCE > 0)
-    if (debouncing) return false;
-#endif
-    return true;
-}
-
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
