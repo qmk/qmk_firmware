@@ -19,12 +19,10 @@
 #pragma once
 
 // clang-format off
-#define PRODUCT Charybdis (4x6) Elite-C
+#define PRODUCT Charybdis (4x6) Elite-C (v1)
 // clang-format on
 
 /* Key matrix configuration. */
-
-// Wiring configuration for each half.
 #define MATRIX_ROW_PINS \
   { F1, B7, C6, D4, B5 }
 #define MATRIX_COL_PINS \
@@ -38,28 +36,11 @@
 /* Handedness. */
 #define MASTER_RIGHT
 
-/* Bootmagic Lite configuration. */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-#define BOOTMAGIC_LITE_ROW_RIGHT 4
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
-
-/* serial.c configuration (for split keyboard) */
+/* serial.c configuration (for split keyboard). */
 #define SOFT_SERIAL_PIN D2
 
-/* Set 0 if debouncing isn't needed. */
-#define DEBOUNCE 5
-
-/* Disable action features. */
-#define NO_ACTION_MACRO     // Disable old-style macro handling.
-#define NO_ACTION_FUNCTION  // Disable old-style function handling.
+/* RGB settings. */
+#define RGB_DI_PIN D3
 
 /* PMW3360 settings. */
 #define PMW3360_CS_PIN B0
-
-// Trackball angle adjustment.
-#define ROTATIONAL_TRANSFORM_ANGLE -25
-
-/* RGB settings. */
-
-#define RGB_DI_PIN D3

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Skeletyl",
-    "url": "https://www.bastardkb.com",
+    "url": "https://bastardkb.com/skeletyl",
+    "manufacturer": "Bastard Keyboards",
     "maintainer": "Quentin Lebastard",
     "layouts": {
         "LAYOUT_split_3x5_3": {

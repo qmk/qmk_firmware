@@ -1,6 +1,7 @@
 {
     "keyboard_name": "TBK Mini",
-    "url": "https://www.bastardkb.com",
+    "url": "https://bastardkb.com/tbk-mini",
+    "manufacturer": "Bastard Keyboards",
     "maintainer": "Quentin Lebastard",
     "layouts": {
         "LAYOUT_split_3x6_3": {
