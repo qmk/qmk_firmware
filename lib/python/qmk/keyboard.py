@@ -169,6 +169,7 @@ def render_layout(layout_data, render_ascii, key_labels=None):
         y = ceil(key.get('y', 0) * 3)
         w = ceil(key.get('w', 1) * 4)
         h = ceil(key.get('h', 1) * 3)
+        is_iso_key = w == 5 and h == 6
 
         if key_labels:
             label = key_labels.pop(0)
@@ -197,6 +198,14 @@ def render_layout(layout_data, render_ascii, key_labels=None):
         for i in range(h - 3):
             textpad[y + i + 2][x:x + w] = mid_line
         textpad[y + h - 1][x:x + w] = bot_line
+
+        if is_iso_key:
+            textpad[y][x - 1] = box_chars['tl']
+            textpad[y][x] = box_chars['h']
+            textpad[y + 1][x - 1] = box_chars['v']
+            textpad[y + 1][x] = ' '
+            textpad[y + 2][x - 1] = box_chars['bl']
+            textpad[y + 2][x] = box_chars['tr']
 
     lines = []
     for line in textpad:
