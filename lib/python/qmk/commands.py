@@ -185,6 +185,10 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
 
         A command to run to compile and flash the C file.
     """
+    # In case the user passes a keymap.json from a keymap directory directly to the CLI.
+    # e.g.: qmk compile - < keyboards/clueboard/california/keymaps/default/keymap.json
+    user_keymap["keymap"] = user_keymap.get("keymap", "default_json")
+
     # Write the keymap.c file
     keyboard_filesafe = user_keymap['keyboard'].replace('/', '_')
     target = f'{keyboard_filesafe}_{user_keymap["keymap"]}'
