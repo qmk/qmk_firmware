@@ -244,7 +244,7 @@ def test_clean():
 
 
 def test_generate_api():
-    result = check_subcommand('generate-api', '--dry-run')
+    result = check_subcommand('generate-api', '--dry-run', '--filter', 'handwired/pytest')
     check_returncode(result)
 
 
