@@ -22,7 +22,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFans
 #define PRODUCT         phaseone
-#define DESCRIPTION     65% Keyboard
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
