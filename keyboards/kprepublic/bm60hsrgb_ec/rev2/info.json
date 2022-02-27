@@ -1,9 +1,7 @@
 {
-    "keyboard_name": "bm60v2_ec",
+    "keyboard_name": "bm60hsrgb_ec",
     "url": "",
     "maintainer": "qmk",
-    "width": 17.75,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

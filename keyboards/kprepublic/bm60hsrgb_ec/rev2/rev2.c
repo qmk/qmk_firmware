@@ -1,3 +1,17 @@
+/* Copyright 2022 bdtc123
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "rev2.h"
 
 #ifdef RGB_MATRIX_ENABLE
@@ -28,7 +42,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, E_9,  D_9,  F_9 },
     { 0, E_10, D_10, F_10 },
     { 0, E_11, D_11, F_11 },
-    { 0, E_12, D_12, F_12 },   
+    { 0, E_12, D_12, F_12 },
     { 0, E_13, D_13, F_13 },
     { 0, E_14, D_14, F_14 },
 
@@ -59,7 +73,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, K_12, J_12, L_12 },
     { 0, K_13, J_13, L_13 },
     { 0, K_14, J_14, L_14 },
-    
+
     { 0, H_16, G_16, I_16 },
     { 0, H_15, G_15, I_15 },
     { 0, H_13, G_13, I_13 },
