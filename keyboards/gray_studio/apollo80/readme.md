@@ -2,10 +2,10 @@
 
 80% / TKL keyboard with a 5.5 degree angle ran by Airpotter. PCB Manufactured by DEMO Studio and Keyboard manufactured by Gray Studio.
 
-Keyboard Maintainer: [Chris Beswick](https://github.com/ChrisBeswick/)  
-Hardware Supported: Stock / Default Apollo80 PCB  
-Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=110033.0)
-Group Buy Location: [Graystudio.club](https://graystudio.club/products/gb-space80-apollo)
+-   Keyboard Maintainer: [Chris Beswick](https://github.com/ChrisBeswick/)
+-   Hardware Supported: Stock / Default Apollo80 PCB
+-   Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=110033.0)
+-   Group Buy Location: [Graystudio.club](https://graystudio.club/products/gb-space80-apollo)
 
 How to build this firmware using QMK MSYS
 

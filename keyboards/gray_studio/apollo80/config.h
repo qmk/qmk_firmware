@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Graystudio
 #define PRODUCT         apollo80
-#define DESCRIPTION     Graystudio apollo80
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -43,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D1, D0, B3, B0, B2, B1 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D4, D6, D2, D3, D5 }
 #define DIODE_DIRECTION COL2ROW
-#define USB_POLLING_INTERVAL_MS 1
 
 #define LED_CAPS_LOCK_PIN E6
 #define LED_PIN_ON_STATE 0
