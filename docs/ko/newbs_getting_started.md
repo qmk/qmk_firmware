@@ -6,12 +6,12 @@
 
 시작하기 전에 필요한 몇 가지 소프트웨어가 있습니다.
 
-* [텍스트 편집기](newbs_learn_more_resources.md#text-editor-resources)
+* [텍스트 편집기](ko/newbs_learn_more_resources.md#text-editor-resources)
   * 플레인 텍스트 파일을 수정하고 저장하는데 필요할 것입니다. 많은 OS에서 탑재되어 있는 기본 편집기는 플레인 텍스트 파일을 저장하지 않으므로, 당신이 선택한 편집기가 저장이 되는지 확인해야 합니다.
 * [Toolbox (선택사항)](https://github.com/qmk/qmk_toolbox)
   * Windows와 macOS를 위한 그래픽 프로그램으로 커스텀 키보드를 프로그래밍하고 디버깅을 할 수 있습니다.
 
-?> Linux/Unix 커맨드 라인에서 작업한 적이 없다면, 배워야 하는 몇 가지 기본 개념과 커맨드가 있습니다. [이 자원들](newbs_learn_more_resources.md#command-line-resources)에서 QMK를 잘 작동할 수 있는 것들을 당신에게 가르쳐 줄 것입니다. 
+?> Linux/Unix 커맨드 라인에서 작업한 적이 없다면, 배워야 하는 몇 가지 기본 개념과 커맨드가 있습니다. [이 자원들](ko/newbs_learn_more_resources.md#command-line-resources)에서 QMK를 잘 작동할 수 있는 것들을 당신에게 가르쳐 줄 것입니다. 
 
 ## 2. 빌드 환경 준비 :id=set-up-your-environment
 
@@ -159,9 +159,9 @@ QMK 설치 후 이 커맨드로 설정하세요:
 
 <!-- tabs:end -->
 
-?> qmk home 폴더는 설정에서 `qmk setup -H <path>`를 사용하여 지정될 수 있고, 이후에는 [cli 구성](cli_configuration.md?id=single-key-example)과 `user.qmk_home` 변수를 사용하여 수정될 수 있습니다. 모든 가능한 옵션은 `qmk setup --help`를 실행하세요.
+?> qmk home 폴더는 설정에서 `qmk setup -H <path>`를 사용하여 지정될 수 있고, 이후에는 [cli 구성](ko/cli_configuration.md?id=single-key-example)과 `user.qmk_home` 변수를 사용하여 수정될 수 있습니다. 모든 가능한 옵션은 `qmk setup --help`를 실행하세요.
 
-?> Github를 어떻게 사용하는지 이미 알고있다면, [다음의 지시사항을 따르는 것을 추천](getting_started_github.md)하며, 여러분의 개인계정으로 포크하여 `qmk setup <github_username>/qmk_firmware` 으로 복제하세요. 만약 이것이 무엇은 의미하는 지 모르겠다면, 이 메시지를 무시해도 됩니다.
+?> Github를 어떻게 사용하는지 이미 알고있다면, [다음의 지시사항을 따르는 것을 추천](ko/getting_started_github.md)하며, 여러분의 개인계정으로 포크하여 `qmk setup <github_username>/qmk_firmware` 으로 복제하세요. 만약 이것이 무엇은 의미하는 지 모르겠다면, 이 메시지를 무시해도 됩니다.
 
 ## 4. 환경 빌드 테스트
 
@@ -185,4 +185,4 @@ Checking file size of clueboard_66_rev3_default.hex                             
 
 # 키맵 빌드하기
 
-이제 자신의 개인 키맵을 만들 준비가 되었습니다! 이를 위해 [첫 펌웨어 빌드하기](newbs_building_firmware.md)로 이동하세요.
+이제 자신의 개인 키맵을 만들 준비가 되었습니다! 이를 위해 [첫 펌웨어 빌드하기](ko/newbs_building_firmware.md)로 이동하세요.
