@@ -1,7 +1,6 @@
 """Generate a keymap.c from a configurator export.
 """
 import json
-from pathlib import Path
 import re
 
 from milc import cli
@@ -44,7 +43,7 @@ def _convert_macros(via_macros):
                 # Remove whitespaces and curly braces from around keycodes
                 keycodes = list(map(lambda s: s.strip(' {}'), keycodes))
                 # Remove the KC prefix
-                keycodes = list(map(lambda s: s.replace('KC_',''), keycodes))
+                keycodes = list(map(lambda s: s.replace('KC_', ''), keycodes))
                 macro_data.append({"action": "tap", "keycodes": keycodes})
             else:
                 # Found text
@@ -77,13 +76,13 @@ def _via_to_keymap(via_backup, keyboard_data, keymap_layout):
     for index, data in enumerate(layout_data):
         sorting_hat.append([index, data['matrix']])
 
-    sorting_hat.sort(key = lambda k: (k[1][0], k[1][1]))
+    sorting_hat.sort(key=lambda k: (k[1][0], k[1][1]))
 
     pos = 0
     for row_num in range(0, keyboard_data['matrix_size']['rows']):
         for col_num in range(0, keyboard_data['matrix_size']['cols']):
             if pos >= len(sorting_hat) or sorting_hat[pos][1][0] != row_num or sorting_hat[pos][1][1] != col_num:
-                    sorting_hat.insert(pos, [None, [row_num, col_num]])
+                sorting_hat.insert(pos, [None, [row_num, col_num]])
             else:
                 sorting_hat.append([None, [row_num, col_num]])
             pos += 1
@@ -105,9 +104,7 @@ def _via_to_keymap(via_backup, keyboard_data, keymap_layout):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('filename', type=Path, arg_only=True, help='VIA Backup JSON file')
-# Until #16261 gets merged
-# @cli.argument('filename', type=qmk.path.FileType('r'), arg_only=True, help='VIA Backup JSON file')
+@cli.argument('filename', type=qmk.path.FileType('r'), arg_only=True, help='VIA Backup JSON file')
 @cli.argument('-kb', '--keyboard', arg_only=True, required=True, help='The keyboard\'s name')
 @cli.argument('-km', '--keymap', arg_only=True, default='via2json', help='The keymap\'s name')
 @cli.argument('-l', '--layout', arg_only=True, help='The keymap\'s layout')
