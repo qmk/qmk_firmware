@@ -44,6 +44,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for shift, twice for Caps Lock
     [TD_LSFT_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [TD_LSFT_CAPS_WIN] = ACTION_TAP_DANCE_FN_ADVANCED(dance_LSFT_each_tap, NULL, dance_LSFT_reset),
+    // Tap once for Escape, twice to reset to base layer
+    [TD_ESC_BASELYR] = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, _BASE),
 };
 #endif // TD_LSFT_CAPSLOCK_ENABLE
 
@@ -133,7 +135,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     }
     // Your macros ...
 
-	switch (keycode) {
+    switch (keycode) {
     // Double Zero    
     case KC_00:
         if (record -> event.pressed) {
@@ -175,9 +177,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
                 return false;
             }
         }
-		}
+        }
         break;
-		
+
     // Treat Shift+Space as if regular Space
     case KC_SHIFTSPC: {
         // Initialize a boolean variable that keeps track of the space key status: registered or not?
@@ -204,9 +206,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
                 return false;
             }
         }
-		}
+        }
         break;
-		
+
     // Add INS as SHIFT-modified BackSpace key
     case KC_BSPC: {
         // Initialize a boolean variable that keeps track of the delete key status: registered or not?
@@ -233,9 +235,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
                 return false;
             }
         }
-		}
+        }
         break;
-		
+
     /* Add INS as SHIFT-modified DEL key
     case KC_DEL: {
         // Initialize a boolean variable that keeps track of the delete key status: registered or not?
@@ -262,7 +264,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
                 return false;
             }
         }
-    	}
+        }
         break;
     */
 

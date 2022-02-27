@@ -4,7 +4,7 @@ This Windows-centric layout is based on Jonavin's GMMK Pro layout with some modi
 
 Features:
 
-Basic Shortcuts
+Basic Features
 
 	* Most default Glorious shortcuts enabled
 	* Fn-Backslash for Bootloader mode
@@ -15,6 +15,7 @@ Basic Shortcuts
 	* Insert accessible via Shift-Backspace (so shift delete still works in Windows Explorer)
 	* PrtScrn, Scroll Lock, Pause/Break are top right on the keyboard: Fn+F11, Fn+F12, Fn+Home
 	* Caps Word enabled: To capitalize the next word only, press and release both left and right shift keys at the same time. Details: https://getreuer.info/posts/keyboards/caps-word/index.html
+	* Double tap ESC any time to revert to base layer
 
 Numpad Overlay Layer
 
