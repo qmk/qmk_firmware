@@ -55,7 +55,6 @@
         }
     },
     "required": [
-        "version",
         "keyboard",
         "layout",
         "layers"
