@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Cutie Club
+Copyright 2022 Cutie Club
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
