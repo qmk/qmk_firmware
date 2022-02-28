@@ -14,6 +14,12 @@ BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
+
+EXTRAFLAGS += -flto
+EXTRAKEY_ENABLE = yes
+LTO_ENABLE = yes
+COMBO_ENABLE=yes
+
 BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control

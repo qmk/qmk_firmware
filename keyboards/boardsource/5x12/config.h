@@ -26,6 +26,13 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+
+
+#define COMBO_TERM 25
+#define PERMISSIVE_HOLD
+// Recommended for heavy chording.
+#define QMK_KEYS_PER_SCAN 4
+
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
  */
