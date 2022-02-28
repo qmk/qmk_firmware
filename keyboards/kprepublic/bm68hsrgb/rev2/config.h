@@ -59,13 +59,8 @@
 #define RGBLIGHT_SAT_STEP   8
 #define RGBLIGHT_VAL_STEP   8
 
-#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
-#define RGB_MATRIX_KEYPRESSES
-#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#define DISABLE_RGB_MATRIX_RAINDROPS
-#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+
+
 #define DRIVER_ADDR_1 0b0110000
 
 #define DRIVER_COUNT 1
@@ -74,6 +69,11 @@
 #define DRIVER_INDICATOR_LED_TOTAL 0
 
 #ifdef RGB_MATRIX_ENABLE
+
+#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
+#define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#define RGB_MATRIX_KEYPRESSES
+
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
