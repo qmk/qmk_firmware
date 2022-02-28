@@ -1,9 +1,23 @@
-#pragma once
+/* Copyright 2022 @toinux
+  *
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+
 
 #include QMK_KEYBOARD_H
 #include "keycodes.h"
 #include "oled.h"
-#include "drivers/oled/oled_driver.h"
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
@@ -56,15 +70,18 @@ void oled_render_led_state(void) {
     oled_advance_page(false);
 }
 
-char keylog_str[5] = {};
+uint8_t last_row = 0;
+uint8_t last_col = 0;
 
 void set_keylog(uint16_t keycode, keyrecord_t *record) {
-  // update keylog
-  snprintf(keylog_str, sizeof(keylog_str), "%dx%d", record->event.key.row, record->event.key.col);
+  last_row = record->event.key.row;
+  last_col = record->event.key.col;
 }
 
 void oled_render_keylog(void) {
-    oled_write(keylog_str, false);
+    oled_write_char(last_row + '0', false);
+    oled_write_char('x', false);
+    oled_write_char(last_col + '0', false);
 }
 
 void oled_render_logo(void) {

@@ -1,6 +1,7 @@
 /*
 Copyright 2019 @foostan
 Copyright 2020 Drashna Jaelre <@drashna>
+Copyright 2022 @toinux
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,16 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 #include "users/toinux/keymap_qwerty_fr.h"
 #include "keycodes.h"
 
 #ifdef OLED_ENABLE
-#include "oled.c"
-#endif
-
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-#include "rgb.c"
+#include "oled.h"
 #endif
 
 // TEMPLATE

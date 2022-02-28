@@ -5,3 +5,5 @@ OLED_ENABLE       = yes
 OLED_DRIVER       = SSD1306
 LTO_ENABLE        = yes
 BOOTLOADER        = atmel-dfu
+
+SRC += ./oled.c ./rgb.c
