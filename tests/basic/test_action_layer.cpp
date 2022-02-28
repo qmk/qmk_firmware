@@ -131,14 +131,12 @@ TEST_F(ActionLayer, MomentaryLayerDoesNothing) {
     set_keymap({layer_key});
 
     /* Press and release MO, nothing should happen. */
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     layer_key.press();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     layer_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -153,8 +151,7 @@ TEST_F(ActionLayer, MomentaryLayerWithKeypress) {
     set_keymap({layer_key, regular_key, KeymapKey{1, 1, 0, KC_B}});
 
     /* Press MO. */
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     layer_key.press();
     run_one_scan_loop();
     EXPECT_TRUE(layer_state_is(1));
@@ -175,8 +172,7 @@ TEST_F(ActionLayer, MomentaryLayerWithKeypress) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release MO */
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     layer_key.release();
     run_one_scan_loop();
     EXPECT_TRUE(layer_state_is(0));
@@ -199,8 +195,7 @@ TEST_F(ActionLayer, ToggleLayerDoesNothing) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release TG. */
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     layer_key.release();
     run_one_scan_loop();
     EXPECT_TRUE(layer_state_is(1));
@@ -223,8 +218,7 @@ TEST_F(ActionLayer, ToggleLayerUpAndDown) {
     EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     toggle_layer_1_on_layer_0.release();
     run_one_scan_loop();
     EXPECT_TRUE(layer_state_is(1));
@@ -237,8 +231,7 @@ TEST_F(ActionLayer, ToggleLayerUpAndDown) {
     EXPECT_TRUE(layer_state_is(0));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     toggle_layer_0_on_layer_1.release();
     run_one_scan_loop();
     EXPECT_TRUE(layer_state_is(0));
@@ -254,14 +247,13 @@ TEST_F(ActionLayer, LayerTapToggleDoesNothing) {
     set_keymap({layer_key});
 
     /* Press and release TT. */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     layer_key.press();
     run_one_scan_loop();
     EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(2);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     layer_key.release();
     run_one_scan_loop();
     EXPECT_TRUE(layer_state_is(0));
@@ -279,7 +271,6 @@ TEST_F(ActionLayer, LayerTapToggleWithKeypress) {
     set_keymap({layer_key, regular_key, KeymapKey{1, 1, 0, KC_B}});
 
     /* Press TT. */
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
     layer_key.press();
     run_one_scan_loop();
@@ -298,8 +289,7 @@ TEST_F(ActionLayer, LayerTapToggleWithKeypress) {
     EXPECT_TRUE(layer_state_is(1));
     testing::Mock::VerifyAndClearExpectations(&driver);
 
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(1);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     layer_key.release();
     run_one_scan_loop();
     EXPECT_TRUE(layer_state_is(0));
@@ -317,8 +307,7 @@ TEST_F(ActionLayer, LayerTapToggleWithToggleWithKeypress) {
     set_keymap({layer_key, regular_key, KeymapKey{1, 1, 0, KC_B}});
 
     /* Tap TT five times . */
-    /* TODO: QMK currently sends an empty report even if nothing needs to be reported to the host! */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(9);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
 
     layer_key.press();
     run_one_scan_loop();
