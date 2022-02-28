@@ -49,7 +49,6 @@ def info_json(keyboard):
         'parse_errors': [],
         'parse_warnings': [],
         'maintainer': 'qmk',
-        'manufacturer': 'qmk',
     }
 
     # Populate the list of JSON keymaps
@@ -550,6 +549,11 @@ def _matrix_size(info_data):
         elif 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             info_data['matrix_size']['cols'] = len(info_data['matrix_pins']['cols'])
             info_data['matrix_size']['rows'] = len(info_data['matrix_pins']['rows'])
+
+        # Assumption of split common
+        if 'split' in info_data:
+            if info_data['split'].get('enabled', False):
+                info_data['matrix_size']['rows'] *= 2
 
     return info_data
 
