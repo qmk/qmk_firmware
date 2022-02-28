@@ -28,4 +28,3 @@
 #define MATRIX_COLS 12
 
 #define DIODE_DIRECTION COL2ROW
-
