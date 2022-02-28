@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "idobao/id75/v2",
+    "keyboard_name": "ID75 v2",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "peepeetee",
     "layouts": {
         "LAYOUT_ortho_5x15": {
             "layout": [
