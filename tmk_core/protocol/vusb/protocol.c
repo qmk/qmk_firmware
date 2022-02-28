@@ -97,7 +97,9 @@ static void vusb_wakeup(void) {
  *
  * FIXME: Needs doc
  */
-static void setup_usb(void) { initForUsbConnectivity(); }
+static void setup_usb(void) {
+    initForUsbConnectivity();
+}
 
 uint16_t sof_timer = 0;
 
