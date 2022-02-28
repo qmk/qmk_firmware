@@ -18,4 +18,4 @@ AUDIO_ENABLE = no          # Audio output
 SPLIT_KEYBOARD = yes       # Split common
 LTO_ENABLE = yes
 
-DEFAULT_FOLDER = splitkb/kyria/rev1
+DEFAULT_FOLDER = splitkb/kyria/rev2
