@@ -1,21 +1,10 @@
-<<<<<<< HEAD
-
-
 # Uthol
 
 ![Uthol](https://i.imgur.com/weFwdhf.jpeg)
-=======
-# Uthol
->>>>>>> e16ce12429b4e7824b54568661fa6f4bb757fb66
 
-![Uthol](https://i.imgur.com/weFwdhf.jpeg)
 A handwired 50% (12x5) ortholinear keyboard made by Uthol
-<<<<<<< HEAD
 
 * Keyboard Maintainer: [Uthol](https://github.com/Uthol)
-=======
-* Keyboard Maintainer: [Uthol](https://github.com/%(Uthol)s)
->>>>>>> e16ce12429b4e7824b54568661fa6f4bb757fb66
 * Hardware Supported: Pro Micro ATMega32u4, Blackpill STM32F4x1 
 * Hardware Availability: [Pro Micro](https://www.sparkfun.com/products/12640), [Blackpill STM32F4x1 ](https://www.aliexpress.com/item/1005001456186625.html)
 
