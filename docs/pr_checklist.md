@@ -83,6 +83,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - `#include "quantum.h"` appears at the top
     - `LAYOUT` macros should use standard definitions if applicable
         - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
+            - the part after `LAYOUT_` must be lowercase
 - keymap `config.h`
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
