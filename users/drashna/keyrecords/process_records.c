@@ -10,7 +10,7 @@
 #    include "autocorrection/autocorrection.h"
 #endif
 #ifdef __AVR__
-#include <avr/wdt.h>
+#    include <avr/wdt.h>
 #endif
 
 uint16_t copy_paste_timer;
@@ -18,9 +18,25 @@ bool     host_driver_disabled = false;
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's record handier if not processed here
 
+/**
+ * @brief Keycode handler for keymaps
+ *
+ * This handles the keycodes at the keymap level, useful for keyboard specific customization
+ */
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
-bool                       process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+/**
+ * @brief Main user keycode handler
+ *
+ * This handles all of the keycodes for the user, including calling feature handlers.
+ *
+ * @param keycode Keycode from matrix
+ * @param record keyrecord_t data structure
+ * @return true Continue processing keycode and send to host
+ * @return false Stop process keycode and do not send to host
+ */
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %b, time: %5u, int: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
@@ -215,15 +231,9 @@ bool                       process_record_user(uint16_t keycode, keyrecord_t *re
             return false;
         case REBOOT:
             if (record->event.pressed) {
-                shutdown_user();
-#ifdef __AVR__
-                wdt_enable(WDTO_250MS);
-#else
-                NVIC_SystemReset();
-#endif
+                software_reset();
             }
             return false;
-
     }
     return true;
 }

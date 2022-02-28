@@ -60,7 +60,6 @@ TEST_F(TappingForceHold, tap_regular_key_while_mod_tap_key_is_held) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Idle for tapping term of mod tap hold key. */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
@@ -101,7 +100,6 @@ TEST_F(TappingForceHold, tap_mod_tap_key_while_mod_tap_key_is_held) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Idle for tapping term of first mod tap hold key. */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));

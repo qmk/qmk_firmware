@@ -12,6 +12,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 BLUETOOTH_ENABLE = yes
-BLUETOOTH_DRIVER = AdafruitBLE
+BLUETOOTH_DRIVER = BluefruitLE
 
 LTO_ENABLE = yes
