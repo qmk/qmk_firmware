@@ -1,12 +1,12 @@
 # novus
 
-![novus](imgur.com image replace me!)
+![novus](https://i.imgur.com/kuCDFb0.png)
 
-*A short description of the keyboard/project*
+Novus 60% Keyboard
 
-* Keyboard Maintainer: [Cutie Club](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Cutie Club](https://github.com/cutie-club)
+* Hardware Supported: Atmega32u4 based pcb for Novus keyboard
+* Hardware Availability: https://mechsandco.com/products/gb-novus60-keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
