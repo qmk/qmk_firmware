@@ -14,9 +14,11 @@ void bootmagic_lite(void) {
     wait_ms(30);
 #endif
     matrix_scan();
+#if defined(BOOTMAGIC_ENABLE)
     if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
         bootloader_jump();
     }
+#endif
 }
 
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}

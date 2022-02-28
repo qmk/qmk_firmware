@@ -56,18 +56,26 @@ void render_keylogger_status(void) {
 void render_default_layer_state(void) {
     oled_write_P(PSTR("Lyout"), false);
     switch (get_highest_layer(default_layer_state)) {
+#if defined(ENABLE_QWERTY)
         case _QWERTY:
             oled_write_P(PSTR(" QRTY"), false);
             break;
+#endif
+#if defined(ENABLE_COLEMAK)
         case _COLEMAK:
             oled_write_P(PSTR(" COLE"), false);
             break;
+#endif
+#if defined(ENABLE_DVORAK)
         case _DVORAK:
             oled_write_P(PSTR(" DVRK"), false);
             break;
+#endif
+#if defined(ENABLE_WORKMAN)
         case _WORKMAN:
             oled_write_P(PSTR(" WRKM"), false);
             break;
+#endif
     }
 }
 
@@ -140,7 +148,7 @@ void render_status_secondary(void) {
 bool oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > 30000) {
         oled_off();
-        return;
+        return false;
     }
 #if !defined(SPLIT_KEYBOARD)
     else {

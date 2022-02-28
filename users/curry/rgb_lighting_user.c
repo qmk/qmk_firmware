@@ -304,15 +304,21 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
             {
                 uint8_t mode = get_highest_layer(state) == _MODS ? RGBLIGHT_MODE_BREATHING : RGBLIGHT_MODE_STATIC_LIGHT;
                 switch (get_highest_layer(default_layer_state)) {
+#if defined(ENABLE_COLEMAK)
                     case _COLEMAK:
                         rgblight_set_hsv_and_mode(HSV_MAGENTA, mode);
                         break;
+#endif
+#if defined(ENABLE_DVORAK)
                     case _DVORAK:
                         rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, mode);
                         break;
+#endif
+#if defined(ENABLE_WORKMAN)
                     case _WORKMAN:
                         rgblight_set_hsv_and_mode(HSV_GOLDENROD, mode);
                         break;
+#endif
                     default:
                         rgblight_set_hsv_and_mode(HSV_CYAN, mode);
                         break;
