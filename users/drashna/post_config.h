@@ -37,7 +37,7 @@
 #    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
 #endif
 
-#ifdef QMK_KEYS_PER_SCAN
+#ifndef QMK_KEYS_PER_SCAN
 #    define QMK_KEYS_PER_SCAN 8
 #endif
 
