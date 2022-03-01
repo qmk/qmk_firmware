@@ -29,7 +29,7 @@
 
 키보드를 플래시할 수 있는 아주 간단한 방법인 [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases)가 있습니다.
 
-하지만, Toolbox가 현재 Windows와 macOS에서만 사용할 수 있습니다. Linux를 사용하고 있다면 (또는 단지 커맨드 라인으로 펌웨어를 플래시 하길 원한다면), [커맨드 라인으로 키보드 플래시](#flash-your-keyboard-from-the-command-line) 절로 넘어가세요.
+하지만, Toolbox가 현재 Windows와 macOS에서만 사용할 수 있습니다. Linux를 사용하고 있다면 (또는 단지 커맨드 라인으로 펌웨어를 플래시 하길 원한다면), [커맨드 라인으로 키보드 플래시](ko/#flash-your-keyboard-from-the-command-line) 절로 넘어가세요.
 
 ### QMK Toolbox으로 파일 로드하기
 
@@ -96,7 +96,7 @@ QMK Toolbox의 `Flash` 버튼을 클릭하세요. 다음을 따르는 유사한 
 
     qmk flash
 
-[빌드 환경 구성](newbs_getting_started.md)절에 따라 키보드/키맵의 이름을 CLI에서 구성하지 않았다면, 또는 여러개의 키보드를 가지고 있다면, 키보드와 키맵의 이름을 특정지을 수 있습니다:
+[빌드 환경 구성](ko/newbs_getting_started.md)절에 따라 키보드/키맵의 이름을 CLI에서 구성하지 않았다면, 또는 여러개의 키보드를 가지고 있다면, 키보드와 키맵의 이름을 특정지을 수 있습니다:
 
     qmk flash -kb <my_keyboard> -km <my_keymap>
 
@@ -106,7 +106,7 @@ QMK Toolbox의 `Flash` 버튼을 클릭하세요. 다음을 따르는 유사한 
 
     WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
 
-이 경우에는, 다시 돌아가서 부트로더를 특정지어야 할 것입니다. [펌웨어 플래시](flashing.md) 가이드에서 자세한 사항을 볼 수 있습니다.
+이 경우에는, 다시 돌아가서 부트로더를 특정지어야 할 것입니다. [펌웨어 플래시](ko/flashing.md) 가이드에서 자세한 사항을 볼 수 있습니다.
 
 ## 이제 테스트 해보세요!
 

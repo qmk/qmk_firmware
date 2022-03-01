@@ -20,11 +20,11 @@ QMK (*Quantum Mechanical Keyboard*)는 컴퓨터 입력 장치 개발과 관련�
 
 ## 스스로 만들어 보세요
 
-QMK는 탐색할 많은 기능과, 파헤쳐볼 많은 참조 문서들이 있습니다. 대부분의 기능은 당신의 [keymap](keymap.md)을 수정하거나, [keycodes](keycodes.md)를 바꾸는데 이용됩니다.
+QMK는 탐색할 많은 기능과, 파헤쳐볼 많은 참조 문서들이 있습니다. 대부분의 기능은 당신의 [keymap](ko/keymap.md)을 수정하거나, [keycodes](ko/keycodes.md)를 바꾸는데 이용됩니다.
 
 ## 도움이 필요한가요?
 
-[support page](support.md)를 방문하여 QMK를 사용하는 데 도움을 받아보세요.
+[support page](ko/support.md)를 방문하여 QMK를 사용하는 데 도움을 받아보세요.
 
 ## 기여하기
 
@@ -34,6 +34,6 @@ QMK 커뮤니티에 공헌할 수 있는 다양한 방법이 있습니다. 가�
     * [olkb 레딧](https://www.reddit.com/r/olkb/)
     * [디스코드 서버](https://discord.gg/Uq7gcHh)
 * 아래에 있는 "Edit This Page"를 클릭해서 문서에 기여해주세요.
-* [당신의 언어로 문서를 번역하세요](translating.md)
+* [당신의 언어로 문서를 번역하세요](ko/translating.md)
 * [버그 리포트](https://github.com/qmk/qmk_firmware/issues/new/choose)
-* [Pull Request 열기](contributing.md)
+* [Pull Request 열기](ko/contributing.md)

@@ -12,22 +12,22 @@ QMK는 [많은 취미 보드](https://qmk.fm/keyboards/)를 지원합니다. 만
 보드를 위한 많은 선택사항이 있습니다.
 
 ?> **이 가이드가 저를 위한 건가요?**<br>
-만약 프로그래밍에 대한 생각이 당신을 두렵게 한다면, 그 대신에 우리의 [온라인 GUI](newbs_building_firmware_configurator.md)를 살펴보길 바랍니다. </div>
+만약 프로그래밍에 대한 생각이 당신을 두렵게 한다면, 그 대신에 우리의 [온라인 GUI](ko/newbs_building_firmware_configurator.md)를 살펴보길 바랍니다. </div>
 
 ## 개요
 
 이 가이드는 소스 코드를 사용하여 키보드 펌웨어를 빌드하려고 하는 모든분에게 적합합니다.
 이미 당신이 프로그래머라면 따라오는 과정이 매우 친숙하고 쉬울 것입니다. 이 가이드에는 3개의 주요 절이 있습니다.
 
-1. [환경 설정](newbs_getting_started.md)
-2. [첫 펌웨어 빌드](newbs_building_firmware.md)
-3. [펌웨어 플래시](newbs_flashing.md)
+1. [환경 설정](ko/newbs_getting_started.md)
+2. [첫 펌웨어 빌드](ko/newbs_building_firmware.md)
+3. [펌웨어 플래시](ko/newbs_flashing.md)
 
 이 가이드에는 이전에 소프트웨어를 전혀 컴파일한 적 없는 분에게 도움이 되도록 맞춰져 있습니다. 그 관점을 바탕으로 선택과 추천을 해드립니다.
 이러한 절차에 대한 다양한 방법이 있으며, 우리는 대안의 대부분을 지원합니다.
-작업을 수행함에 있어 어떠한 의심이라도 든다면 [안내를 위한 질문](getting_started_getting_help.md)을 할 수 있습니다.
+작업을 수행함에 있어 어떠한 의심이라도 든다면 [안내를 위한 질문](ko/getting_started_getting_help.md)을 할 수 있습니다.
 
 ## 추가 자원
 
 이 가이드를 넘어 당신이 QMK를 배우는 동안 도움을 주는 몇가지 자원이 있습니다.
-우리는 이를 [계획서](syllabus.md)(와 [학습 자료](newbs_learn_more_resources.md) 페이지에 모아 두었습니다.
+우리는 이를 [계획서](ko/syllabus.md)(와 [학습 자료](ko/newbs_learn_more_resources.md) 페이지에 모아 두었습니다.
