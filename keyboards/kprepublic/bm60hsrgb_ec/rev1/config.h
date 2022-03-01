@@ -49,7 +49,6 @@
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7 }
 
 #define DIODE_DIRECTION COL2ROW
-#define FORCE_NKRO
 
 #define RGB_DI_PIN E2
 #define DRIVER_LED_TOTAL 69
