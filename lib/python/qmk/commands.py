@@ -1,6 +1,5 @@
 """Helper functions for commands.
 """
-import json
 import os
 import sys
 import shutil
@@ -9,10 +8,11 @@ from subprocess import DEVNULL
 from time import strftime
 
 from milc import cli
+import jsonschema
 
 import qmk.keymap
 from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX
-from qmk.json_schema import json_load
+from qmk.json_schema import json_load, validate
 
 time_fmt = '%Y-%m-%d-%H:%M:%S'
 
@@ -185,6 +185,10 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
 
         A command to run to compile and flash the C file.
     """
+    # In case the user passes a keymap.json from a keymap directory directly to the CLI.
+    # e.g.: qmk compile - < keyboards/clueboard/california/keymaps/default/keymap.json
+    user_keymap["keymap"] = user_keymap.get("keymap", "default_json")
+
     # Write the keymap.c file
     keyboard_filesafe = user_keymap['keyboard'].replace('/', '_')
     target = f'{keyboard_filesafe}_{user_keymap["keymap"]}'
@@ -248,8 +252,15 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
 def parse_configurator_json(configurator_file):
     """Open and parse a configurator json export
     """
-    # FIXME(skullydazed/anyone): Add validation here
-    user_keymap = json.load(configurator_file)
+    user_keymap = json_load(configurator_file)
+    # Validate against the jsonschema
+    try:
+        validate(user_keymap, 'qmk.keymap.v1')
+
+    except jsonschema.ValidationError as e:
+        cli.log.error(f'Invalid JSON keymap: {configurator_file} : {e.message}')
+        exit(1)
+
     orig_keyboard = user_keymap['keyboard']
     aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
 
