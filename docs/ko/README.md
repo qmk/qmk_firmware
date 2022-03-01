@@ -10,10 +10,10 @@ QMK (*Quantum Mechanical Keyboard*)는 컴퓨터 입력 장치 개발과 관련�
 
 <div class="flex-container">
 
-?> **초급 사용자** [QMK Configurator](newbs_building_firmware_configurator.md) <br>
+?> **초급 사용자** [QMK Configurator](ko/newbs_building_firmware_configurator.md) <br>
 사용자 친화적인 그래픽 인터페이스(GUI) 이며, 프로그래밍 지식을 요구하지 않습니다.
 
-?> **고급 사용자** [이 소스 사용](newbs.md) <br> 
+?> **고급 사용자** [이 소스 사용](ko/newbs.md) <br> 
 더 강력하지만, 사용하기 어려운 편입니다.
 
 </div>
