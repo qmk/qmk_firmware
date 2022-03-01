@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1234
-#define PRODUCT_ID      0x5678
-#define DEVICE_VER      0x0000
-#define MANUFACTURER    8o7wer
-#define PRODUCT         30wer
-
 /* key matrix size */
 #define MATRIX_ROWS 3
 #define MATRIX_COLS 13

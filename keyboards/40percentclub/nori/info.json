@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "nori",
+    "keyboard_name": "The nori Keyboard",
+    "manufacturer": "di0ib",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+      "vid": "0x4025",
+      "pid": "0xA0C",
+      "device_version": "4.4.4"
+    },
     "layouts": {
       "LAYOUT_ortho_4x4": {
           "layout": [
