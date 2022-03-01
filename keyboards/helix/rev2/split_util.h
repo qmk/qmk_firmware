@@ -1,5 +1,4 @@
-#ifndef SPLIT_KEYBOARD_UTIL_H
-#define SPLIT_KEYBOARD_UTIL_H
+#pragma once
 
 #include <stdbool.h>
 #include "eeconfig.h"
@@ -16,4 +15,6 @@ bool is_helix_master(void);
 
 void matrix_master_OLED_init (void);
 
-#endif
+// stubs as this is handled by legacy code
+static inline void split_pre_init(void){}
+static inline void split_post_init(void){}

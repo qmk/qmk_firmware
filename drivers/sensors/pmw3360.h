@@ -18,14 +18,14 @@
 
 #pragma once
 
-#include "spi_master.h"
+#include <stdint.h>
 
 #ifndef PMW3360_CPI
 #    define PMW3360_CPI 1600
 #endif
 
 #ifndef PMW3360_CLOCK_SPEED
-#    define PMW3360_CLOCK_SPEED 70000000
+#    define PMW3360_CLOCK_SPEED 2000000
 #endif
 
 #ifndef PMW3360_SPI_LSBFIRST
@@ -44,6 +44,10 @@
 #    endif
 #endif
 
+#ifndef PMW3360_LIFTOFF_DISTANCE
+#    define PMW3360_LIFTOFF_DISTANCE 0x02
+#endif
+
 #ifndef ROTATIONAL_TRANSFORM_ANGLE
 #    define ROTATIONAL_TRANSFORM_ANGLE 0x00
 #endif
@@ -52,31 +56,20 @@
 #    error "No chip select pin defined -- missing PMW3360_CS_PIN"
 #endif
 
-#ifdef CONSOLE_ENABLE
-void print_byte(uint8_t byte);
-#endif
-
 typedef struct {
     int8_t  motion;
-    bool    isMotion;     // True if a motion is detected.
-    bool    isOnSurface;  // True when a chip is on a surface
-    int16_t dx;           // displacement on x directions. Unit: Count. (CPI * Count = Inch value)
+    bool    isMotion;    // True if a motion is detected.
+    bool    isOnSurface; // True when a chip is on a surface
+    int16_t dx;          // displacement on x directions. Unit: Count. (CPI * Count = Inch value)
     int8_t  mdx;
-    int16_t dy;  // displacement on y directions.
+    int16_t dy; // displacement on y directions.
     int8_t  mdy;
-} report_pmw_t;
+} report_pmw3360_t;
 
-bool         spi_start_adv(void);
-void         spi_stop_adv(void);
-spi_status_t spi_write_adv(uint8_t reg_addr, uint8_t data);
-uint8_t      spi_read_adv(uint8_t reg_addr);
-bool         pmw_spi_init(void);
-void         pmw_set_cpi(uint16_t cpi);
-uint16_t     pmw_get_cpi(void);
-void         pmw_upload_firmware(void);
-bool         pmw_check_signature(void);
-report_pmw_t pmw_read_burst(void);
-
-#define degToRad(angleInDegrees) ((angleInDegrees)*M_PI / 180.0)
-#define radToDeg(angleInRadians) ((angleInRadians)*180.0 / M_PI)
-#define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
+bool     pmw3360_init(void);
+void     pmw3360_upload_firmware(void);
+bool     pmw3360_check_signature(void);
+uint16_t pmw3360_get_cpi(void);
+void     pmw3360_set_cpi(uint16_t cpi);
+/* Reads and clears the current delta values on the sensor */
+report_pmw3360_t pmw3360_read_burst(void);

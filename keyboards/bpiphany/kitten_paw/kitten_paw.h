@@ -1,7 +1,8 @@
-#ifndef KITTEN_PAW_H
-#define KITTEN_PAW_H
+#pragma once
 
 #include "quantum.h"
+
+#define XXX KC_NO
 
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguements
@@ -26,41 +27,37 @@
 */
 
 #define LAYOUT( \
-  KJ6,      KI4, KH4, KH2, KH6, KA7, KE6, KD2, KD4, KB4, KB7, KB6, KB0,   KC7, KC5, KA5,                       \
-  KJ4, KJ7, KI7, KH7, KG7, KG4, KF4, KF7, KE7, KD7, KR7, KR4, KE4, KB2,   KL4, KO4, KQ4,   KK1, KL1, KQ1, KQ0, \
-  KJ2, KJ5, KI5, KH5, KG5, KG2, KF2, KF5, KE5, KD5, KR5, KR2, KE2, KB3,   KK4, KO7, KQ7,   KK5, KL5, KQ5, KO5, \
-  KI2, KJ3, KI3, KH3, KG3, KG6, KF6, KF3, KE3, KD3, KR3, KR6,      KB1,                    KK2, KL2, KQ2,      \
-  KN2, KI6, KJ1, KI1, KH1, KG1, KG0, KF0, KF1, KE1, KD1, KR0,      KN3,        KO6,        KK3, KL3, KQ3, KO3, \
-  KA4, KP2, KC6,                KK6,                KC0, KM3, KD0, KA1,   KO0, KK0, KL0,   KL6,      KQ6       \
-) \
-{ \
-    {KC_NO,  KB0,  KC0,  KD0,KC_NO,  KF0,  KG0,KC_NO,KC_NO,KC_NO,  KK0,  KL0,KC_NO,KC_NO,  KO0,KC_NO,  KQ0,  KR0}, \
-    {  KA1,  KB1,KC_NO,  KD1,  KE1,  KF1,  KG1,  KH1,  KI1,  KJ1,  KK1,  KL1,KC_NO,KC_NO,KC_NO,KC_NO,  KQ1,KC_NO}, \
-    {KC_NO,  KB2,KC_NO,  KD2,  KE2,  KF2,  KG2,  KH2,  KI2,  KJ2,  KK2,  KL2,KC_NO,  KN2,KC_NO,  KP2,  KQ2,  KR2}, \
-    {KC_NO,  KB3,KC_NO,  KD3,  KE3,  KF3,  KG3,  KH3,  KI3,  KJ3,  KK3,  KL3,  KM3,  KN3,  KO3,KC_NO,  KQ3,  KR3}, \
-    {  KA4,  KB4,KC_NO,  KD4,  KE4,  KF4,  KG4,  KH4,  KI4,  KJ4,  KK4,  KL4,KC_NO,KC_NO,  KO4,KC_NO,  KQ4,  KR4}, \
-    {  KA5,KC_NO,  KC5,  KD5,  KE5,  KF5,  KG5,  KH5,  KI5,  KJ5,  KK5,  KL5,KC_NO,KC_NO,  KO5,KC_NO,  KQ5,  KR5}, \
-    {KC_NO,  KB6,  KC6,KC_NO,  KE6,  KF6,  KG6,  KH6,  KI6,  KJ6,  KK6,  KL6,KC_NO,KC_NO,  KO6,KC_NO,  KQ6,  KR6}, \
-    {  KA7,  KB7,  KC7,  KD7,  KE7,  KF7,  KG7,  KH7,  KI7,  KJ7,KC_NO,KC_NO,KC_NO,KC_NO,  KO7,KC_NO,  KQ7,  KR7} \
+    KJ6,      KI4, KH4, KH2, KH6, KA7, KE6, KD2, KD4, KB4, KB7, KB6, KB0,   KC7, KC5, KA5, \
+    KJ4, KJ7, KI7, KH7, KG7, KG4, KF4, KF7, KE7, KD7, KR7, KR4, KE4, KB2,   KL4, KO4, KQ4,   KK1, KL1, KQ1, KQ0, \
+    KJ2, KJ5, KI5, KH5, KG5, KG2, KF2, KF5, KE5, KD5, KR5, KR2, KE2, KB3,   KK4, KO7, KQ7,   KK5, KL5, KQ5, KO5, \
+    KI2, KJ3, KI3, KH3, KG3, KG6, KF6, KF3, KE3, KD3, KR3, KR6,      KB1,                    KK2, KL2, KQ2, \
+    KN2, KI6, KJ1, KI1, KH1, KG1, KG0, KF0, KF1, KE1, KD1, KR0,      KN3,        KO6,        KK3, KL3, KQ3, KO3, \
+    KA4, KP2, KC6,                KK6,                KC0, KM3, KD0, KA1,   KO0, KK0, KL0,   KL6,      KQ6 \
+) { \
+    { XXX, KB0, KC0, KD0, XXX, KF0, KG0, XXX, XXX, XXX, KK0, KL0, XXX, XXX, KO0, XXX, KQ0, KR0 }, \
+    { KA1, KB1, XXX, KD1, KE1, KF1, KG1, KH1, KI1, KJ1, KK1, KL1, XXX, XXX, XXX, XXX, KQ1, XXX }, \
+    { XXX, KB2, XXX, KD2, KE2, KF2, KG2, KH2, KI2, KJ2, KK2, KL2, XXX, KN2, XXX, KP2, KQ2, KR2 }, \
+    { XXX, KB3, XXX, KD3, KE3, KF3, KG3, KH3, KI3, KJ3, KK3, KL3, KM3, KN3, KO3, XXX, KQ3, KR3 }, \
+    { KA4, KB4, XXX, KD4, KE4, KF4, KG4, KH4, KI4, KJ4, KK4, KL4, XXX, XXX, KO4, XXX, KQ4, KR4 }, \
+    { KA5, XXX, KC5, KD5, KE5, KF5, KG5, KH5, KI5, KJ5, KK5, KL5, XXX, XXX, KO5, XXX, KQ5, KR5 }, \
+    { XXX, KB6, KC6, XXX, KE6, KF6, KG6, KH6, KI6, KJ6, KK6, KL6, XXX, XXX, KO6, XXX, KQ6, KR6 }, \
+    { KA7, KB7, KC7, KD7, KE7, KF7, KG7, KH7, KI7, KJ7, XXX, XXX, XXX, XXX, KO7, XXX, KQ7, KR7 } \
 }
 
 #define LAYOUT_fullsize_ansi( \
-  KJ6,      KI4, KH4, KH2, KH6, KA7, KE6, KD2, KD4, KB4, KB7, KB6, KB0,   KC7, KC5, KA5,                       \
-  KJ4, KJ7, KI7, KH7, KG7, KG4, KF4, KF7, KE7, KD7, KR7, KR4, KE4, KB2,   KL4, KO4, KQ4,   KK1, KL1, KQ1, KQ0, \
-  KJ2, KJ5, KI5, KH5, KG5, KG2, KF2, KF5, KE5, KD5, KR5, KR2, KE2, KB3,   KK4, KO7, KQ7,   KK5, KL5, KQ5, KO5, \
-  KI2, KJ3, KI3, KH3, KG3, KG6, KF6, KF3, KE3, KD3, KR3, KR6,      KB1,                    KK2, KL2, KQ2,      \
-  KN2,      KJ1, KI1, KH1, KG1, KG0, KF0, KF1, KE1, KD1, KR0,      KN3,        KO6,        KK3, KL3, KQ3, KO3, \
-  KA4, KP2, KC6,                KK6,                KC0, KM3, KD0, KA1,   KO0, KK0, KL0,   KL6,      KQ6       \
-) \
-{ \
-    {KC_NO,  KB0,  KC0,  KD0,KC_NO,  KF0,  KG0,KC_NO,KC_NO,KC_NO,  KK0,  KL0,KC_NO,KC_NO,  KO0,KC_NO,  KQ0,  KR0}, \
-    {  KA1,  KB1,KC_NO,  KD1,  KE1,  KF1,  KG1,  KH1,  KI1,  KJ1,  KK1,  KL1,KC_NO,KC_NO,KC_NO,KC_NO,  KQ1,KC_NO}, \
-    {KC_NO,  KB2,KC_NO,  KD2,  KE2,  KF2,  KG2,  KH2,  KI2,  KJ2,  KK2,  KL2,KC_NO,  KN2,KC_NO,  KP2,  KQ2,  KR2}, \
-    {KC_NO,  KB3,KC_NO,  KD3,  KE3,  KF3,  KG3,  KH3,  KI3,  KJ3,  KK3,  KL3,  KM3,  KN3,  KO3,KC_NO,  KQ3,  KR3}, \
-    {  KA4,  KB4,KC_NO,  KD4,  KE4,  KF4,  KG4,  KH4,  KI4,  KJ4,  KK4,  KL4,KC_NO,KC_NO,  KO4,KC_NO,  KQ4,  KR4}, \
-    {  KA5,KC_NO,  KC5,  KD5,  KE5,  KF5,  KG5,  KH5,  KI5,  KJ5,  KK5,  KL5,KC_NO,KC_NO,  KO5,KC_NO,  KQ5,  KR5}, \
-    {KC_NO,  KB6,  KC6,KC_NO,  KE6,  KF6,  KG6,  KH6,  KC_NO,KJ6,  KK6,  KL6,KC_NO,KC_NO,  KO6,KC_NO,  KQ6,  KR6}, \
-    {  KA7,  KB7,  KC7,  KD7,  KE7,  KF7,  KG7,  KH7,  KI7,  KJ7,KC_NO,KC_NO,KC_NO,KC_NO,  KO7,KC_NO,  KQ7,  KR7} \
+    KJ6,      KI4, KH4, KH2, KH6, KA7, KE6, KD2, KD4, KB4, KB7, KB6, KB0,   KC7, KC5, KA5, \
+    KJ4, KJ7, KI7, KH7, KG7, KG4, KF4, KF7, KE7, KD7, KR7, KR4, KE4, KB2,   KL4, KO4, KQ4,   KK1, KL1, KQ1, KQ0, \
+    KJ2, KJ5, KI5, KH5, KG5, KG2, KF2, KF5, KE5, KD5, KR5, KR2, KE2, KB3,   KK4, KO7, KQ7,   KK5, KL5, KQ5, KO5, \
+    KI2, KJ3, KI3, KH3, KG3, KG6, KF6, KF3, KE3, KD3, KR3, KR6,      KB1,                    KK2, KL2, KQ2, \
+    KN2,      KJ1, KI1, KH1, KG1, KG0, KF0, KF1, KE1, KD1, KR0,      KN3,        KO6,        KK3, KL3, KQ3, KO3, \
+    KA4, KP2, KC6,                KK6,                KC0, KM3, KD0, KA1,   KO0, KK0, KL0,   KL6,      KQ6 \
+) { \
+    { XXX, KB0, KC0, KD0, XXX, KF0, KG0, XXX, XXX, XXX, KK0, KL0, XXX, XXX, KO0, XXX, KQ0, KR0 }, \
+    { KA1, KB1, XXX, KD1, KE1, KF1, KG1, KH1, KI1, KJ1, KK1, KL1, XXX, XXX, XXX, XXX, KQ1, XXX }, \
+    { XXX, KB2, XXX, KD2, KE2, KF2, KG2, KH2, KI2, KJ2, KK2, KL2, XXX, KN2, XXX, KP2, KQ2, KR2 }, \
+    { XXX, KB3, XXX, KD3, KE3, KF3, KG3, KH3, KI3, KJ3, KK3, KL3, KM3, KN3, KO3, XXX, KQ3, KR3 }, \
+    { KA4, KB4, XXX, KD4, KE4, KF4, KG4, KH4, KI4, KJ4, KK4, KL4, XXX, XXX, KO4, XXX, KQ4, KR4 }, \
+    { KA5, XXX, KC5, KD5, KE5, KF5, KG5, KH5, KI5, KJ5, KK5, KL5, XXX, XXX, KO5, XXX, KQ5, KR5 }, \
+    { XXX, KB6, KC6, XXX, KE6, KF6, KG6, KH6, XXX, KJ6, KK6, KL6, XXX, XXX, KO6, XXX, KQ6, KR6 }, \
+    { KA7, KB7, KC7, KD7, KE7, KF7, KG7, KH7, KI7, KJ7, XXX, XXX, XXX, XXX, KO7, XXX, KQ7, KR7 } \
 }
-
-#endif

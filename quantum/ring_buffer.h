@@ -36,9 +36,13 @@ static inline uint8_t rbuf_dequeue(void) {
 }
 static inline bool rbuf_has_data(void) {
     bool has_data;
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { has_data = (rbuf_head != rbuf_tail); }
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        has_data = (rbuf_head != rbuf_tail);
+    }
     return has_data;
 }
 static inline void rbuf_clear(void) {
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { rbuf_head = rbuf_tail = 0; }
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        rbuf_head = rbuf_tail = 0;
+    }
 }

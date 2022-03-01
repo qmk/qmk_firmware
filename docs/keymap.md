@@ -105,7 +105,7 @@ At the top of the file you'll find this:
     #include QMK_KEYBOARD_H
 
     // Helpful defines
-    #define GRAVE_MODS  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+    #define GRAVE_MODS  (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
      *  You can use _______ in place for KC_TRNS (transparent)   *
@@ -136,7 +136,7 @@ After this you'll find a list of LAYOUT() macros. A LAYOUT() is simply a list of
 
 `keymaps[][MATRIX_ROWS][MATRIX_COLS]` in QMK holds the 16 bit action code (sometimes referred as the quantum keycode) in it.  For the keycode representing typical keys, its high byte is 0 and its low byte is the USB HID usage ID for keyboard.
 
-> TMK from which QMK was forked uses `const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]` instead and holds the 8 bit keycode.  Some keycode values are reserved to induce execution of certain action codes via the `fn_actions[]` array.
+> TMK from which QMK was forked uses `const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]` instead and holds the 8 bit keycode.
 
 #### Base Layer
 
@@ -164,7 +164,7 @@ Our function layer is, from a code point of view, no different from the base lay
 
     [_FL] = LAYOUT(
       KC_GRV,  KC_F1,   KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______, KC_DEL,           BL_STEP, \
-      _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,KC_SLCK, KC_PAUS,  _______,  _______,  _______,                   _______, \
+      _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,KC_SCRL, KC_PAUS,  _______,  _______,  _______,                   _______, \
       _______, _______, MO(_CL),_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,                           \
       _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,          KC_PGUP,         \
       _______, _______, _______, _______,        _______,_______,                        _______,  _______,  _______,  MO(_FL), KC_HOME, KC_PGDN, KC_END),
