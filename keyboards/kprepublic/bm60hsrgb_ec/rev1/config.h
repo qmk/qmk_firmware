@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KP Republic
 #define PRODUCT         BM60HSRGB_EC
-#define DESCRIPTION     A 60% hotswap inswitch rgb board
 
 /* key matrix size */
 #define MATRIX_ROWS 5
