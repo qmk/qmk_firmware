@@ -4,7 +4,7 @@ This Windows-centric layout is based on Jonavin's GMMK Pro layout with some modi
 
 Features:
 
-Basic Features
+Basics
 
 	* Most default Glorious shortcuts enabled
 	* Fn-Backslash for Bootloader mode
