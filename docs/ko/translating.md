@@ -50,6 +50,6 @@
 
 ## 번역 미리보기
 
-[문서 미리보기](ko/contributing.md#previewing-the-documentation)에서 문서의 로컬 인스턴스를 설정하는 방법을 볼 수 있습니다 - 상단 우측의 "Translations" 메뉴에서 새로운 언어를 선택해야 할 수 있습니다.
+[문서 미리보기](contributing.md#previewing-the-documentation)에서 문서의 로컬 인스턴스를 설정하는 방법을 볼 수 있습니다 - 상단 우측의 "Translations" 메뉴에서 새로운 언어를 선택해야 할 수 있습니다.
 
 일단 작업이 만족스럽다면, 언제든지 풀 리퀘스트를 여세요!

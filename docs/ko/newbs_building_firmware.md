@@ -46,10 +46,10 @@ QMK를 처음 접하는 대부분의 사람들은 키보드를 1개 가지고 �
 
 이 스텝을 어떻게 완료할지는 전적으로 당신에게 달려 있습니다. 하나의 변화로 버그를 일으키거나, 완전히 모든 걸 재작업해야 합니다. 모든 layer가 더 이상 필요하지 않다면 지울 수도 있으며, 또는 최대 32개의 layer를 추가할 수 있습니다. QMK 안에는 많은 기능들이 있으며, 왼쪽 사이드바의 아래에 있는 "QMK 사용"을 탐색하여 전체 항목을 보면 됩니다. 시작하기 위해 여기 몇 가지 사용하기 쉬운 기능이 있습니다:
 
-* [기본 키코드](ko/keycodes_basic.md)
-* [Quantum 키코드](ko/quantum_keycodes.md)
-* [그레이브/이스케이프](ko/feature_grave_esc.md)
-* [마우스 키](ko/feature_mouse_keys.md)
+* [기본 키코드](/keycodes_basic.md)
+* [Quantum 키코드](/quantum_keycodes.md)
+* [그레이브/이스케이프](/feature_grave_esc.md)
+* [마우스 키](/feature_mouse_keys.md)
 
 ?> 키맵이 작동하는 방식에 대한 느낌을 얻는 동안, 변경사항을 작게 유지하세요. 변경사항이 크면 발생하는 어떤 문제들에 대한 디버깅을 하기에 더 어렵습니다.
 
@@ -75,4 +75,4 @@ Checking file size of planck_rev5_default.hex                                   
 
 ## 펌웨어 플래시
 
-[펌웨어 플래시](ko/newbs_flashing.md)로 이동하여 새로운 펌웨어를 어떻게 키보드에 쓰는 지 배워 보세요.
+[펌웨어 플래시](/newbs_flashing.md)로 이동하여 새로운 펌웨어를 어떻게 키보드에 쓰는 지 배워 보세요.

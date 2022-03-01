@@ -10,4 +10,4 @@ QMK Configurator는 크롬 또는 파이어폭스에서 제일 잘 작동합니�
 
 !> **노트: 다른 도구, 이를테면 키보드 레이아웃 에디터(KLE) 혹은 kbfirmware의 파일들은 QMK Configurator에 적합하지 않을 수 있습니다. 불러오지도, 가져오지도 마세요. QMK Configurator는 다른 도구입니다. **
 
-[QMK Configurator: Step by Step](ko/configurator_step_by_step.md)을 참고해주세요.
+[QMK Configurator: Step by Step](configurator_step_by_step.md)을 참고해주세요.
