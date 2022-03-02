@@ -41,7 +41,7 @@ __attribute__((weak)) void mcu_reset(void) {
     // This just resets the controller.
     *DBGMCU_KEY = DBGMCU_KEY_UNLOCK;
     *DBGMCU_CMD = DBGMCU_CMD_RESET;
-}}
+}
 
 /* Jumping to bootloader is not possible from user code. */
 void enter_bootloader_mode_if_requested(void) {}
