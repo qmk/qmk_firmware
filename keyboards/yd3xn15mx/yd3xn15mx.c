@@ -1,7 +1,7 @@
 // Copyright 2022 Thunderbird2086 (Thunderbird2086)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "YD3xn15mx.h"
+#include "yd3xn15mx.h"
 
 
 #ifdef RGB_MATRIX_ENABLE
@@ -75,14 +75,4 @@ led_config_t g_led_config = { {
     LED_FLAG_UNDERGLOW,                                                         LED_FLAG_UNDERGLOW,
     LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT
 ) };
-
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
 #endif

@@ -5,7 +5,7 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-  _ZOOM_M = 0,
+  _ZOOM_M,
   _ZOOM_W,
   //_MOUSE_,
   _RGB___,

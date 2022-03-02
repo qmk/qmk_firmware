@@ -1,6 +1,6 @@
 # YD3xn15mx
 
-![YD3xn15mx](https://i.imgur.com/RdrcBlb.jpg)
+![YD3xn15mx](https://i.imgur.com/RdrcBlbl.jpg)
 
 * A macro keyboard with 15 keys and 3 encoders
 

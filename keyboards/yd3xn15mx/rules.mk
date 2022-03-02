@@ -20,7 +20,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 
 # RGB Options
 #RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-#RGBLIGHT_ANIMATIONS = yes   # LED animations
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 
@@ -31,4 +30,3 @@ AUDIO_ENABLE = no           # Audio output
 
 # Encoders
 ENCODER_ENABLE = no 		# Enable support for Rotary Encoder
-EXTRA_ENCODERS_ENABLE = no  # Enables 3 encoders
