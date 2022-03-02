@@ -41,13 +41,10 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-/* Much more so than a keyboard, speed matters for a mouse. So we'll go for as high
-   a polling rate as possible. */
-#define USB_POLLING_INTERVAL_MS 1
 #define USB_MAX_POWER_CONSUMPTION 100
 
 #define ADNS5050_SCLK_PIN         B7
 #define ADNS5050_SDIO_PIN         C6
 #define ADNS5050_CS_PIN           B4
 
-#define POINTING_DEVICE_ROTATION_90
+#define POINTING_DEVICE_ROTATION_270
