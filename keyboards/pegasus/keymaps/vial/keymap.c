@@ -19,9 +19,11 @@
 enum layer_names {
     _BASE,
     _LAYER1,
-    _LAYER2
+    _LAYER2,
+    _LAYER3
 
 };
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_default(
@@ -44,28 +46,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, XXXXXXX, KC_RALT, KC_RCTL, KC_DEL,  KC_VOLD,
         _______, XXXXXXX,                            XXXXXXX,                            XXXXXXX,          KC_MPLY
     ),
+    
+    [_LAYER3] = LAYOUT_default(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______,                            _______,                            _______,          _______
+    ),
 };
 
 
-
-/* Encoder Definitions */
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-    }
-    return false;
-}
 
 
 
