@@ -5,9 +5,7 @@
 Pearl R2 is a future-proof premium 40%. This is the second round of it, reworked for 2021. This firmware is for the latest QMK PCB's.
 
 * Keyboard Maintainer: Koobaczech
-* Hardware Supported: Pearl PCB's
-  * rev1 (Blue Bootmapper Client PCB)
-  * rev2 (Red QMK PCB, Blue ZMK PCB)
+* Hardware Supported: Pearl
 * Availability: https://pearlboards.net/products/pearl-40
 
 Make example for this keyboard (after setting up your build environment):

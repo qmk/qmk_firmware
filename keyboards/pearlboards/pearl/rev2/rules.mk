@@ -16,7 +16,7 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = yes          # Audio output
-HAPTIC_ENABLE = yes
-HAPTIC_DRIVER = DRV2605L
+HAPTIC_ENABLE = yes         # Rumble feefback
+HAPTIC_DRIVER = DRV2605L    # Rumble motor
 
-LTO_ENABLE = yes
+LTO_ENABLE = yes            # Link time optimization
