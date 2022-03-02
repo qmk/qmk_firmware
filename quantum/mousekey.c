@@ -209,7 +209,7 @@ static uint8_t wheel_unit(void) {
 
 void mousekey_task(void) {
     // report cursor and scroll movement independently
-    report_mouse_t const tmpmr = mouse_report;
+    report_mouse_t tmpmr = mouse_report;
 
     mouse_report.x = 0;
     mouse_report.y = 0;
@@ -251,7 +251,9 @@ void mousekey_task(void) {
         }
     }
 
-    if (mouse_report.x || mouse_report.y || mouse_report.v || mouse_report.h) mousekey_send();
+    if (has_mouse_report_changed(&mouse_report, &tmpmr)) {
+        mousekey_send();
+    }
     mouse_report = tmpmr;
 }
 
@@ -340,7 +342,7 @@ uint16_t        w_intervals[mkspd_COUNT] = {MK_W_INTERVAL_UNMOD, MK_W_INTERVAL_0
 
 void mousekey_task(void) {
     // report cursor and scroll movement independently
-    report_mouse_t const tmpmr = mouse_report;
+    report_mouse_t tmpmr = mouse_report;
     mouse_report.x             = 0;
     mouse_report.y             = 0;
     mouse_report.v             = 0;
@@ -355,7 +357,9 @@ void mousekey_task(void) {
         mouse_report.h = tmpmr.h;
     }
 
-    if (mouse_report.x || mouse_report.y || mouse_report.v || mouse_report.h) mousekey_send();
+    if (has_mouse_report_changed(&mouse_report, &tmpmr)) {
+        mousekey_send();
+    }
     mouse_report = tmpmr;
 }
 
