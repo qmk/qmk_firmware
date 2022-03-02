@@ -9,11 +9,11 @@ ATMEGA32A MCU.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make pearl:default
+    make pearlr1:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make pearl:default:flash
+    make pearlboards/pearlr2:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 
