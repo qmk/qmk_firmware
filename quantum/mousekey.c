@@ -254,7 +254,7 @@ void mousekey_task(void) {
     if (has_mouse_report_changed(&mouse_report, &tmpmr)) {
         mousekey_send();
     }
-    mouse_report = tmpmr;
+    memcpy(&mouse_report, &tmpmr, sizeof(tmpmr));
 }
 
 void mousekey_on(uint8_t code) {
@@ -360,7 +360,7 @@ void mousekey_task(void) {
     if (has_mouse_report_changed(&mouse_report, &tmpmr)) {
         mousekey_send();
     }
-    mouse_report = tmpmr;
+    memcpy(&mouse_report, &tmpmr, sizeof(tmpmr));
 }
 
 void adjust_speed(void) {
