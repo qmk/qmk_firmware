@@ -1,6 +1,6 @@
 # rev39lp
 
-![rev41lp]
+![Cover](https://imgur.com/nZNHSaW.jpg)
 
 Inspired by the REVIUNG series by Gtips, the rev41lp is 41-key column staggered keyboard designed for use with low-profile pg1350 switches.
 
