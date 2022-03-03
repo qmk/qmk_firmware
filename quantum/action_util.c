@@ -281,8 +281,6 @@ void send_keyboard_report(void) {
         host_keyboard_send(keyboard_report);
     }
 #endif
-
-
 }
 
 /** \brief Get mods
