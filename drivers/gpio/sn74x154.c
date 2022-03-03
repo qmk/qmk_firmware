@@ -33,21 +33,21 @@ void sn74x154_init(void) {
 
 #if defined(SN74X154_E0_PIN)
     setPinOutput(SN74X154_E0_PIN);
-    writePinLow(SN74X154_E0_PIN);
+    writePinHigh(SN74X154_E0_PIN);
 #endif
 
 #if defined(SN74X154_E1_PIN)
     setPinOutput(SN74X154_E1_PIN);
-    writePinLow(SN74X154_E1_PIN);
+    writePinHigh(SN74X154_E1_PIN);
 #endif
 }
 
 void sn74x154_set_enabled(bool enabled) {
 #if defined(SN74X154_E0_PIN)
-    writePin(SN74X154_E0_PIN, enabled);
+    writePin(SN74X154_E0_PIN, !enabled);
 #endif
 #if defined(SN74X154_E1_PIN)
-    writePin(SN74X154_E1_PIN, enabled);
+    writePin(SN74X154_E1_PIN, !enabled);
 #endif
 }
 

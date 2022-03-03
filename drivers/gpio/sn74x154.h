@@ -32,7 +32,7 @@ void sn74x154_init(void);
 /**
  * Set the enabled state.
  *
- * When enabled is true, pulls the E0 and E1 pins high.
+ * When enabled is true, pulls the E0 and E1 pins low.
  *
  * \param enabled The enable state to set.
  */
