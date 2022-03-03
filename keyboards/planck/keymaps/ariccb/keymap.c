@@ -131,8 +131,8 @@ enum planck_keycodes {
 // calculators and math are located around the numpad, and coding symbols are placed in easy to remember spots.
 
 // CAPS has moved to the Fn layer, and a few additional shortcut modifiers like CTRL_ALT_UP and DOWN for adding additional cursors in VSCode.
-// Play/Pause has a prime spot on the base layer, and the Fn version skips to next track
 
+// Play/Pause has a prime spot on the base layer, and the Fn version skips to next track
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (QWERTY)
  *
@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F21), KC_SPC, KC_SPC,   MO(4),    MTLALT_PL, KC_NO,    KC_NO,   KC_NO
  ),
 
- /* MIT Layout (COLEMAK)
+ /* MIT Layout (COLEMAK-DH)
  *
  * ,------------------------------------------------------------------------.
  * |GCA,ESC| q  |  w  |  f  |  d  |  b  |  j  |  l  |  u  |  y  |  ;  | Bsp |
@@ -272,17 +272,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,------------------------------------------------------------------------------.
  * |RGBtog|Ms3 | Ms2 |MsUp | Ms1  |  Hue+|  Hue- | Sat+| Sat- |Brt+ |Brt- | RESET |
  * |------------------------------------------------------------------------------|
- * |RGBMod| MWL | MsL |MDn  |MsR  |GAMING|HANDSDOWN|AU_ON|AU_OFF|MU_ON|MU_OF|DEBUG|
+ * |RGBMod| MWL | MsL |MDn  |MsR  |GAMING|HANDSDOWN|AU_ON|AU_OFF|MU_ON|MU_OF|     |
  * |------------------------------------------------------------------------------|
- * |     |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|MI_ON|MI_OF |     |     |MU_Mod |
+ * |DEBUG|MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|MI_ON|MI_OF |OS_ON|OS_OFF|MU_Mod|
  * |------------------------------------------------------------------------------|
  * |     |     |     |SLEEP|      |              |     |NumLock|    |     |       |
  * `------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
   RGB_TOG, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD,   RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RESET,
-  RGB_MOD, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  DEBUG,
-  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, MU_MOD,
+  RGB_MOD, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  KC_TRNS,
+  DEBUG,   KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   MI_ON,   MI_OFF,  OS_ON,   OS_OFF,  MU_MOD,
   KC_NO,   KC_NO,   KC_NO,   KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_NUM,  KC_TRNS, KC_NO,   KC_NO
 )
 };
@@ -421,8 +421,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // };
 // // **** end of Tap-dance code****
 
-
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_select_word(keycode, record, SELWORD)) { return false; }
   if (!process_caps_word(keycode, record)) { return false; }
@@ -448,7 +446,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_CAPS:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_startup);
+          PLAY_SONG(music_scale);
         #endif
         register_code(KC_CAPS);
       }
@@ -494,6 +492,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_mods(mods);  // Restore mods.
       }
       return false;
+      break;
     case BRACES2:  // Types [], or <>, and puts cursor between braces.
       if (record->event.pressed) {
         clear_mods();  // Temporarily disable mods.
@@ -507,6 +506,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_mods(mods);  // Restore mods.
       }
       return false;
+      break;
     case ARROW:  // Arrow macro, types -> or =>.
       if (record->event.pressed) {
         if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {  // Is shift held?
@@ -519,6 +519,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
+      break;
     case ALT_TAB: // super alt tab macro
       if (record->event.pressed) {
           if (!is_alt_tab_active) {
