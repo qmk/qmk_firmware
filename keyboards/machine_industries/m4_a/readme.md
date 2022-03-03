@@ -2,7 +2,7 @@
 
 ![Rama Works x Machine Industries M4-A](https://images.squarespace-cdn.com/content/v1/563c788ae4b099120ae219e2/1479361502907-WL2VUR210J6RFD84WH2E/image-asset.jpeg?format=1500w)
 
-A tiny 4-key macropad designed by Rama Works.
+A 4-key macropad designed by Rama Works.
 
 * Keyboard Maintainer: [naut](https://github.com/nautxx)
 * Hardware Supported: Rama Works x Machine Industries M4-A PCB
