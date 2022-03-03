@@ -18,6 +18,7 @@
 
 #include <ch.h>
 #include <hal.h>
+#include "wait.h"
 
 #       define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
 extern uint32_t __ram0_end__;
@@ -27,10 +28,7 @@ extern uint32_t __ram0_end__;
 __attribute__((weak)) void bootloader_jump(void) {
     *MAGIC_ADDR = BOOTLOADER_MAGIC;  // set magic flag => reset handler will jump into boot loader
     // Wait for memory to be set before the reset
-    // FIXME: update to wait funcion
-    for(volatile uint32_t i = 0; i < 32; i++){
-        __NOP();
-    }
+    wait_us(1);
     NVIC_SystemReset();
 }
 
