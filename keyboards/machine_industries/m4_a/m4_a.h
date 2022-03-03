@@ -1,4 +1,4 @@
-// Copyright 2022 Jason Barnachea (@nautxx)
+// Copyright 2022 naut
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -14,9 +14,9 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k12    \
+    k00, k01, k11, \
+    k10  \
 ) { \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k12 }  \
+    { k00, k01 }, \
+    { k10, k11 }  \
 }

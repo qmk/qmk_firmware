@@ -1,4 +1,4 @@
-// Copyright 2022 Jason Barnachea (@nautxx)
+// Copyright 2022 naut
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -9,12 +9,12 @@
 #define VENDOR_ID    0xFEED
 #define PRODUCT_ID   0x0000
 #define DEVICE_VER   0x0001
-#define MANUFACTURER nautxx
-#define PRODUCT      m4_a
+#define MANUFACTURER RAMA WORKS
+#define PRODUCT      RAMA WORKS M4-A
 
 /* key matrix size */
 #define MATRIX_ROWS 2
-#define MATRIX_COLS 3
+#define MATRIX_COLS 2
 
 /*
  * Keyboard Matrix Assignments
@@ -26,12 +26,12 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { D0, D5 }
-#define MATRIX_COL_PINS { F1, F0, B0 }
+#define MATRIX_ROW_PINS { C7, C6 }
+#define MATRIX_COL_PINS { F6, F7 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
+#define DIODE_DIRECTION ROW2COL
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
