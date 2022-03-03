@@ -41,13 +41,13 @@
 #define ISSI_REG_PICTUREFRAME 0x01
 
 // Not defined in the datasheet -- See AN for IC
-#define ISSI_REG_GHOST_IMAGE_PREVENTION 0xC2  // Set bit 4 to enable de-ghosting
+#define ISSI_REG_GHOST_IMAGE_PREVENTION 0xC2 // Set bit 4 to enable de-ghosting
 
 #define ISSI_REG_SHUTDOWN 0x0A
 #define ISSI_REG_AUDIOSYNC 0x06
 
 #define ISSI_COMMANDREGISTER 0xFD
-#define ISSI_BANK_FUNCTIONREG 0x0B  // helpfully called 'page nine'
+#define ISSI_BANK_FUNCTIONREG 0x0B // helpfully called 'page nine'
 
 #ifndef ISSI_TIMEOUT
 #    define ISSI_TIMEOUT 100
@@ -136,7 +136,7 @@ void IS31FL3731_init(uint8_t addr) {
 
     // enable software shutdown
     IS31FL3731_write_register(addr, ISSI_REG_SHUTDOWN, 0x00);
-#ifdef ISSI_3731_DEGHOST  // set to enable de-ghosting of the array
+#ifdef ISSI_3731_DEGHOST // set to enable de-ghosting of the array
     IS31FL3731_write_register(addr, ISSI_REG_GHOST_IMAGE_PREVENTION, 0x10);
 #endif
 

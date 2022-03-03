@@ -16,7 +16,7 @@ For split keyboards using soft serial, the computed WPM score will be available 
 | `WPM_ALLOW_COUNT_REGRESSION` | _Not defined_ | If defined allows the WPM to be decreased when hitting Delete or Backspace               |
 | `WPM_UNFILTERED`             | _Not defined_ | If undefined (the default), WPM values will be smoothed to avoid sudden changes in value |
 | `WPM_SAMPLE_SECONDS`         | `5`           | This defines how many seconds of typing to average, when calculating WPM                 |
-| `WPM_SAMPLE_PERIODS`         | `50`          | This defines how many sampling periods to use when calculating WPM                       |
+| `WPM_SAMPLE_PERIODS`         | `25`          | This defines how many sampling periods to use when calculating WPM                       |
 | `WPM_LAUNCH_CONTROL`         | _Not defined_ | If defined, WPM values will be calculated using partial buffers when typing begins       |
 
 'WPM_UNFILTERED' is potentially useful if you're filtering data in some other way (and also because it reduces the code required for the WPM feature), or if reducing measurement latency to a minimum is important for you.

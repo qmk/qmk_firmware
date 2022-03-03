@@ -953,7 +953,7 @@ void oled_driver_render_logo_left(void) {
     render_matrix_scan_rate(2);
 #    endif
     oled_set_cursor(7, 2);
-#    if defined(KEYBOARD_bastardkb_charybdis)
+#    if defined(KEYBOARD_bastardkb_charybdis) || defined(KEYBOARD_handwired_tractyl_manuform)
     render_pointing_dpi_status(charybdis_get_pointer_sniping_enabled() ? charybdis_get_pointer_sniping_dpi() : charybdis_get_pointer_default_dpi(), 1);
 
 // credit and thanks to jaspertandy on discord for these images
