@@ -4,7 +4,7 @@
 
 A tiny 4-key macropad designed by Rama Works.
 
-* Keyboard Maintainer: [Jason Barnachea](https://github.com/nautxx)
+* Keyboard Maintainer: [naut](https://github.com/nautxx)
 * Hardware Supported: Rama Works x Machine Industries M4-A PCB
 * Hardware Availability: [Rama Works Store](https://ramaworks.store/)
 
