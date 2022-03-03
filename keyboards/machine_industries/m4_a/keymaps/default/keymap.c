@@ -1,22 +1,17 @@
-// Copyright 2022 Jason Barnachea (@nautxx)
+// Copyright 2022 naut
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE,
-    _FN
+    _BASE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-        KC_A,    KC_1,    MO(_FN),
-            KC_TAB,   KC_SPC
-    ),
-    [_FN] = LAYOUT(
-        _______, _______,  _______,
-            RESET,    XXXXXXX
+        KC_1,   KC_2,   KC_ENT,
+        KC_0
     )
 };

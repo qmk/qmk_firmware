@@ -1,20 +1,20 @@
-# m4_a
+# Rama Works x Machine Industries M4-A
 
-![m4_a](imgur.com image replace me!)
+![Rama Works x Machine Industries M4-A](https://images.squarespace-cdn.com/content/v1/563c788ae4b099120ae219e2/1479361502907-WL2VUR210J6RFD84WH2E/image-asset.jpeg?format=1500w)
 
-*A short description of the keyboard/project*
+A tiny 4-key macropad designed by Rama Works.
 
 * Keyboard Maintainer: [Jason Barnachea](https://github.com/nautxx)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Rama Works x Machine Industries M4-A PCB
+* Hardware Availability: [Rama Works Store](https://ramaworks.store/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make m4_a:default
+    make machine_industries/m4_a:default
 
 Flashing example for this keyboard:
 
-    make m4_a:default:flash
+    make machine_industries/m4_a:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
