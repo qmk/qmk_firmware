@@ -51,7 +51,7 @@ const uint16_t PROGMEM combo_next_word[] = {KC_D, KC_G, COMBO_END};
 const uint16_t PROGMEM combo_end[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_home[] = {KC_E, KC_R, COMBO_END};
 
-const uint16_t PROGMEM combo_enter[] = {KC_BSPC, KC_DEL, COMBO_END};
+const uint16_t PROGMEM combo_enter[] = {KC_BSPC, KC_INS, COMBO_END};
 
 const uint16_t PROGMEM combo_f1[] = {KC_1, KC_Q, COMBO_END};
 const uint16_t PROGMEM combo_f2[] = {KC_2, KC_W, COMBO_END};

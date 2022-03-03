@@ -82,9 +82,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,          KC_Z,         KC_X,       KC_C,       KC_V,              KC_B,      TT(FKEYS),
   KC_LEFT,         KC_RIGHT,      KC_LWIN,    KC_LALT,    KC_LCTRL,
 
-                                           KC_DEL,    KC_INS,
-                                                      LT(MEDIA,KC_PGUP),
-                          LT(NAV,KC_SPC),  KC_BSPC,   LT(COMBOS,KC_PGDOWN),
+                                           KC_INS,    KC_PGUP,
+                                                      LT(MEDIA,KC_PGDOWN),
+                          LT(NAV,KC_SPC),  KC_BSPC,   LT(COMBOS,KC_DEL),
 
   // -----------------------------------------------------right hand-----------------------------------------------------
   KC_MINS,          KC_6,         KC_7,       KC_8,       KC_9,              KC_0,      KC_RBRC,
