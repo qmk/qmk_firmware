@@ -310,6 +310,7 @@ shouldnt':    -> shouldn't
 theyr':       -> they're
 the're:       -> they're
 whos':        -> who's
+doens't:      -> doesn't
 
 ## Catch skipped spaces between common words.
 :alot:        -> a lot
