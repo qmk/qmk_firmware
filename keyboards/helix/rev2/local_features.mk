@@ -6,7 +6,7 @@
 #
 
 KEYBOARD_LOCAL_FEATURES_MK :=
--include $(strip $(HELIX_TOP_DIR)/pico/override_helix_options.mk) ## File dedicated to maintenance
+-include $(strip $(HELIX_TOP_DIR)/rev2/override_helix_options.mk) ## File dedicated to maintenance
 
 # Parse 'HELIX=xx,yy,zz' option
 ifneq ($(strip $(HELIX)),)
