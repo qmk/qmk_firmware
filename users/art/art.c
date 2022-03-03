@@ -3,7 +3,7 @@
 
 #include "art.h"
 #include "custom_definitions.h"
-#include "secret_definitions.h"
+#include "secr.h"
 #include "funcs/led_funcs.h"
 #include "funcs/string_funcs.h"
 
