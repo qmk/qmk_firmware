@@ -52,9 +52,10 @@ ifneq ($(strip $(SPLIT_KEYBOARD)), yes)
 
   CUSTOM_MATRIX = yes
 
-  SRC += rev2/matrix.c
-  SRC += rev2/split_util.c
-  SRC += rev2/split_scomm.c
+  SRC += rev2/custom/matrix.c
+  SRC += rev2/custom/split_util.c
+  SRC += rev2/custom/split_scomm.c
+  KEYBOARD_PATHS += $(HELIX_TOP_DIR)/rev2/custom
 endif
 
 ########
