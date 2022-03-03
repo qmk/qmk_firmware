@@ -35,6 +35,7 @@
 #     stm32duino   STM32Duino (STM32F103x8)
 #     stm32-dfu    STM32 USB DFU in ROM
 #     apm32-dfu    APM32 USB DFU in ROM
+#     sn32-dfu     SN32 USB DFU in ROM
 # RISC-V:
 #     gd32v-dfu    GD32V USB DFU in ROM
 #
@@ -201,6 +202,11 @@ endif
 ifeq ($(strip $(BOOTLOADER)), md-boot)
     OPT_DEFS += -DBOOTLOADER_MD_BOOT
     BOOTLOADER_TYPE = md_boot
+endif
+
+ifeq ($(strip $(BOOTLOADER)), sn32-dfu)
+    OPT_DEFS += -DBOOTLOADER_SN32_DFU
+    BOOTLOADER_TYPE = sn32_dfu
 endif
 
 ifeq ($(strip $(BOOTLOADER_TYPE)),)
