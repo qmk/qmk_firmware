@@ -62,6 +62,12 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [MK66FX1M0](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k6x-ethernet/kinetis-k66-180-mhz-dual-high-speed-full-speed-usbs-2mb-flash-microcontrollers-mcus-based-on-arm-cortex-m4-core:K66_180)
    * PJRC Teensy 3.6
 
+### Sonix (SN32)
+
+ * [SN32F24x](https://www.sonix.com.tw/article-en-998-21396)
+ * [SN32F24xB](https://www.sonix.com.tw/article-en-4336-30356)
+ * [SN32F26x](https://www.sonix.com.tw/article-en-998-24753)
+
 ## Atmel ATSAM
 
 There is limited support for one of Atmel's ATSAM microcontrollers, that being the [ATSAMD51J18A](https://www.microchip.com/wwwproducts/en/ATSAMD51J18A) used by the [Massdrop keyboards](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop). However, it is not recommended to design a board with this microcontroller as the support is quite specialized to Massdrop hardware.
