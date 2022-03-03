@@ -300,8 +300,6 @@ int main(void) {
     i2c1_init();
 #endif // RGB_MATRIX_ENABLE
 
-    matrix_init();
-
     USB_Hub_init();
 
     DBGC(DC_MAIN_UDC_START_BEGIN);
