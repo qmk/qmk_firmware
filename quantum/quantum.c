@@ -15,7 +15,6 @@
  */
 
 #include "quantum.h"
-#include "magic.h"
 
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
@@ -47,10 +46,6 @@ float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
 #endif
 
-#ifdef AUTO_SHIFT_ENABLE
-#    include "process_auto_shift.h"
-#endif
-
 uint8_t extract_mod_bits(uint16_t code) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:
@@ -61,7 +56,7 @@ uint8_t extract_mod_bits(uint16_t code) {
 
     uint8_t mods_to_send = 0;
 
-    if (code & QK_RMODS_MIN) {  // Right mod flag is set
+    if (code & QK_RMODS_MIN) { // Right mod flag is set
         if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RIGHT_CTRL);
         if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RIGHT_SHIFT);
         if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RIGHT_ALT);
@@ -76,9 +71,11 @@ uint8_t extract_mod_bits(uint16_t code) {
     return mods_to_send;
 }
 
-static void do_code16(uint16_t code, void (*f)(uint8_t)) { f(extract_mod_bits(code)); }
+void do_code16(uint16_t code, void (*f)(uint8_t)) {
+    f(extract_mod_bits(code));
+}
 
-void register_code16(uint16_t code) {
+__attribute__((weak)) void register_code16(uint16_t code) {
     if (IS_MOD(code) || code == KC_NO) {
         do_code16(code, register_mods);
     } else {
@@ -87,7 +84,7 @@ void register_code16(uint16_t code) {
     register_code(code);
 }
 
-void unregister_code16(uint16_t code) {
+__attribute__((weak)) void unregister_code16(uint16_t code) {
     unregister_code(code);
     if (IS_MOD(code) || code == KC_NO) {
         do_code16(code, unregister_mods);
@@ -96,21 +93,31 @@ void unregister_code16(uint16_t code) {
     }
 }
 
-void tap_code16(uint16_t code) {
+__attribute__((weak)) void tap_code16(uint16_t code) {
     register_code16(code);
-#if TAP_CODE_DELAY > 0
-    wait_ms(TAP_CODE_DELAY);
-#endif
+    if (code == KC_CAPS_LOCK) {
+        wait_ms(TAP_HOLD_CAPS_DELAY);
+    } else if (TAP_CODE_DELAY > 0) {
+        wait_ms(TAP_CODE_DELAY);
+    }
     unregister_code16(code);
 }
 
-__attribute__((weak)) bool process_action_kb(keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_action_kb(keyrecord_t *record) {
+    return true;
+}
 
-__attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) { return process_record_user(keycode, record); }
+__attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    return process_record_user(keycode, record);
+}
 
-__attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
 
-__attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t *record) { post_process_record_user(keycode, record); }
+__attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    post_process_record_user(keycode, record);
+}
 
 __attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
 
@@ -126,7 +133,8 @@ void reset_keyboard(void) {
     uint16_t timer_start = timer_read();
     PLAY_SONG(goodbye_song);
     shutdown_user();
-    while (timer_elapsed(timer_start) < 250) wait_ms(1);
+    while (timer_elapsed(timer_start) < 250)
+        wait_ms(1);
     stop_all_notes();
 #else
     shutdown_user();
@@ -181,7 +189,7 @@ bool pre_process_record_quantum(keyrecord_t *record) {
             true)) {
         return false;
     }
-    return true;  // continue processing
+    return true; // continue processing
 }
 
 /* Get keycode, and then call keyboard function */
@@ -263,7 +271,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
 #endif
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+#if defined(UNICODE_COMMON_ENABLE)
             process_unicode_common(keycode, record) &&
 #endif
 #ifdef LEADER_ENABLE
@@ -306,12 +314,12 @@ bool process_record_quantum(keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
 #ifndef NO_RESET
-            case RESET:
+            case QK_BOOTLOADER:
                 reset_keyboard();
                 return false;
 #endif
 #ifndef NO_DEBUG
-            case DEBUG:
+            case QK_DEBUG_TOGGLE:
                 debug_enable ^= 1;
                 if (debug_enable) {
                     print("DEBUG: enabled.\n");
@@ -320,7 +328,7 @@ bool process_record_quantum(keyrecord_t *record) {
                 }
 #endif
                 return false;
-            case EEPROM_RESET:
+            case QK_CLEAR_EEPROM:
                 eeconfig_init();
                 return false;
 #ifdef VELOCIKEY_ENABLE
@@ -370,103 +378,17 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
     return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
 }
 
-void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) { layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3)); }
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+    layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
+}
 
+// TODO: remove legacy api
 void matrix_init_quantum() {
-    magic();
-    led_init_ports();
-#ifdef BACKLIGHT_ENABLE
-    backlight_init_ports();
-#endif
-#ifdef AUDIO_ENABLE
-    audio_init();
-#endif
-#ifdef LED_MATRIX_ENABLE
-    led_matrix_init();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init();
-#endif
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
-    unicode_input_mode_init();
-#endif
-#ifdef HAPTIC_ENABLE
-    haptic_init();
-#endif
-#if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
-    set_output(OUTPUT_AUTO);
-#endif
-
     matrix_init_kb();
 }
-
 void matrix_scan_quantum() {
-#if defined(AUDIO_ENABLE) && defined(AUDIO_INIT_DELAY)
-    // There are some tasks that need to be run a little bit
-    // after keyboard startup, or else they will not work correctly
-    // because of interaction with the USB device state, which
-    // may still be in flux...
-    //
-    // At the moment the only feature that needs this is the
-    // startup song.
-    static bool     delayed_tasks_run  = false;
-    static uint16_t delayed_task_timer = 0;
-    if (!delayed_tasks_run) {
-        if (!delayed_task_timer) {
-            delayed_task_timer = timer_read();
-        } else if (timer_elapsed(delayed_task_timer) > 300) {
-            audio_startup();
-            delayed_tasks_run = true;
-        }
-    }
-#endif
-
-#if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
-    music_task();
-#endif
-
-#ifdef KEY_OVERRIDE_ENABLE
-    key_override_task();
-#endif
-
-#ifdef SEQUENCER_ENABLE
-    sequencer_task();
-#endif
-
-#ifdef TAP_DANCE_ENABLE
-    tap_dance_task();
-#endif
-
-#ifdef COMBO_ENABLE
-    combo_task();
-#endif
-
-#ifdef LED_MATRIX_ENABLE
-    led_matrix_task();
-#endif
-
-#ifdef WPM_ENABLE
-    decay_wpm();
-#endif
-
-#ifdef HAPTIC_ENABLE
-    haptic_task();
-#endif
-
-#ifdef DIP_SWITCH_ENABLE
-    dip_switch_read(false);
-#endif
-
-#ifdef AUTO_SHIFT_ENABLE
-    autoshift_matrix_scan();
-#endif
-
     matrix_scan_kb();
 }
-
-#ifdef HD44780_ENABLED
-#    include "hd44780.h"
-#endif
 
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
@@ -476,18 +398,8 @@ __attribute__((weak)) void startup_user() {}
 
 __attribute__((weak)) void shutdown_user() {}
 
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_power_down_user(void) {}
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
-
 void suspend_power_down_quantum(void) {
+    suspend_power_down_kb();
 #ifndef NO_SUSPEND_POWER_DOWN
 // Turn off backlight
 #    ifdef BACKLIGHT_ENABLE
@@ -502,14 +414,7 @@ void suspend_power_down_quantum(void) {
 #    endif
 
     // Turn off LED indicators
-    uint8_t leds_off = 0;
-#    if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
-    if (is_backlight_enabled()) {
-        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
-        leds_off |= (1 << USB_LED_CAPS_LOCK);
-    }
-#    endif
-    led_set(leds_off);
+    led_suspend();
 
 // Turn off audio
 #    ifdef AUDIO_ENABLE
@@ -541,18 +446,6 @@ void suspend_power_down_quantum(void) {
 #endif
 }
 
-/** \brief run user level code immediately after wakeup
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_wakeup_init_user(void) {}
-
-/** \brief run keyboard level code immediately after wakeup
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
-
 __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
 // Turn on backlight
 #ifdef BACKLIGHT_ENABLE
@@ -560,7 +453,7 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
 #endif
 
     // Restore LED indicators
-    led_set(host_keyboard_leds());
+    led_wakeup();
 
 // Wake up underglow
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)

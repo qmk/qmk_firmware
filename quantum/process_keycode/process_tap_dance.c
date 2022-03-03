@@ -86,7 +86,9 @@ static inline void _process_tap_dance_action_fn(qk_tap_dance_state_t *state, voi
     }
 }
 
-static inline void process_tap_dance_action_on_each_tap(qk_tap_dance_action_t *action) { _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_tap); }
+static inline void process_tap_dance_action_on_each_tap(qk_tap_dance_action_t *action) {
+    _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_tap);
+}
 
 static inline void process_tap_dance_action_on_dance_finished(qk_tap_dance_action_t *action) {
     if (action->state.finished) return;
@@ -173,7 +175,7 @@ void tap_dance_task() {
             tap_user_defined = action->custom_tapping_term;
         } else {
 #ifdef TAPPING_TERM_PER_KEY
-            tap_user_defined = get_tapping_term(action->state.keycode, NULL);
+            tap_user_defined = get_tapping_term(action->state.keycode, &(keyrecord_t){});
 #else
             tap_user_defined = TAPPING_TERM;
 #endif
