@@ -22,9 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*******************************************************************************
  * TODO.
- * add additional symbols to left hand of the symbol layer
- * : on double click (maybe not after symbol layer)
- * ? on double press or hold?
  * sort out oled display
  * mouse keys
  *
@@ -46,6 +43,12 @@ enum userspace_layers {
 #define MY_CQOT MT(MOD_LCTL, KC_QUOT)
 #define MY_S_SL MT(MOD_LSFT, KC_SLSH)
 #define MY_S_Z  MT(MOD_LSFT, KC_Z)
+#define MY_C_X  MT(MOD_LCTL, KC_X)
+#define MY_C_DT MT(MOD_LCTL, KC_DOT)
+#define MY_A_C  MT(MOD_LALT, KC_C)
+#define MY_A_CM MT(MOD_LALT, KC_COMM)
+#define MY_A_Q  MT(MOD_LALT, KC_Q)
+#define MY_A_SC MT(MOD_LALT, KC_SCLN)
 #define MY_TBUI MT(MOD_LGUI, KC_TAB)
 #define MY_CLFT C(KC_LEFT)
 #define MY_CRGT C(KC_RGHT)
@@ -71,28 +74,40 @@ enum tap_dance_codes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    // colemak-dh
   [LCMK] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      MY_TBUI,  MY_A_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, MY_A_SC, KC_BSPC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      MY_CESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, MY_CQOT,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+OSM(MOD_LSFT),  MY_S_Z,  MY_C_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, MY_A_CM, MY_C_DT, MY_S_SL, KC_LALT,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                           OSL(LSYM), OSL(LNUM), LT(LMOV, KC_SPC),       LT(LMOV, KC_ENT), KC_BSPC,  KC_LGUI
+                                      //`--------------------------'  `--------------------------'
+  ),
+  /* colemak 
+   [LCMK] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       MY_TBUI,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       MY_CESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                         KC_H,    KC_N,    KC_E,    KC_I,    KC_O, MY_CQOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-OSM(MOD_LSFT),  MY_S_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, MY_S_SL, KC_LALT,
+OSM(MOD_LSFT),  MY_S_Z,  MY_C_X,  MY_A_C,    KC_V,    KC_B,                         KC_K,    KC_M, MY_A_CM, MY_C_DT, MY_S_SL, KC_LALT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                            OSL(LSYM), OSL(LNUM), LT(LMOV, KC_SPC),       LT(LMOV, KC_ENT), KC_BSPC,  KC_LGUI
                                       //`--------------------------'  `--------------------------'
-
-  ),
+  ),*/
 
   [LNUM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_PLUS, TD(DC7), TD(DC8), TD(DC9), KC_PERC,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     TO(LCMK), KC_LALT, KC_LCTL,   KC_LT,   KC_GT, KC_UNDS,                      KC_MINS, TD(DC4), TD(DC5), TD(DC6), KC_ASTR,  KC_EQL,
+     TO(LCMK),  KC_ESC,  KC_TAB,   KC_LT,   KC_GT, KC_UNDS,                      KC_MINS, TD(DC4), TD(DC5), TD(DC6), KC_ASTR,  KC_EQL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LGUI, KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_EQL, TD(DC1), TD(DC2), TD(DC3), KC_SLSH, _______,
+      KC_LGUI, KC_LSFT, KC_LCTL, KC_LALT, XXXXXXX, XXXXXXX,                       KC_EQL, TD(DC1), TD(DC2), TD(DC3), KC_SLSH, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  KC_SPC,     KC_ENT, _______, TD(DC0)
+                                          _______, _______,  KC_SPC,     KC_ENT,  KC_DEL, TD(DC0)
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -105,19 +120,19 @@ OSM(MOD_LSFT),  MY_S_Z,    KC_X,    KC_C,    KC_V,    KC_B,                     
       _______, XXXXXXX, XXXXXXX, KC_QUOT, MY_DQUO, XXXXXXX,                      KC_AMPR, KC_LCBR, KC_RCBR,  KC_DLR, KC_CIRC, KC_RSFT,
 
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, KC_SPC,     KC_ENT, _______, _______
+                                          _______, _______, KC_SPC,     KC_ENT,  KC_DEL, _______
                                       //`--------------------------'  `--------------------------'
   ),
 
   [LMOV] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______,  RESET, MY_CRGT, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      _______,XXXXXXX, MY_CRGT, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_UNDS, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX,  KC_ESC, KC_UNDS, KC_TAB,                      XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, MY_CLFT,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_TAB, MY_CLFT,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,_______,    _______, _______, _______
+                                          _______, _______,_______,    _______,  KC_DEL, _______
                                       //`--------------------------'  `--------------------------'
   )
 };
