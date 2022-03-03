@@ -1,5 +1,10 @@
 #pragma once
 
+#ifdef SPLIT_KEYBOARD
+#   error This is helix local split_util.h.
+#   error This header file is used only when SPLIT_KEYBOARD=no.
+#endif
+
 #include <stdbool.h>
 #include "eeconfig.h"
 
@@ -14,7 +19,3 @@ void split_keyboard_setup(void);
 bool is_helix_master(void);
 
 void matrix_master_OLED_init (void);
-
-// stubs as this is handled by legacy code
-static inline void split_pre_init(void){}
-static inline void split_post_init(void){}
