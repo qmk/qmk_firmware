@@ -3,7 +3,7 @@
 
 A version of an Alice Keyboard with a full sized backspace and an extra B key. 
 
-* Keyboard Maintainer: Joshua Nguyen
+* Keyboard Maintainer: [Ryan Smith](https://github.com/ryanstevensmith), Joshua Nguyen
 * Hardware Supported: atlas-65 keyboards
 * Hardware Availability: Message Josh
 

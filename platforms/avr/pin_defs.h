@@ -17,7 +17,7 @@
 
 #include <avr/io.h>
 
-#define PORT_SHIFTER 4  // this may be 4 for all AVR chips
+#define PORT_SHIFTER 4 // this may be 4 for all AVR chips
 
 // If you want to add more to this list, reference the PINx definitions in these header
 // files: https://github.com/vancegroup-mirrors/avr-libc/tree/master/avr-libc/include/avr

@@ -42,6 +42,12 @@
 #define ENCODERS_PAD_B \
     { B12, B0 }
 
+/* I2C - required for custom i2c_init */
+#define I2C1_SCL_PIN B6
+#define I2C1_SDA_PIN B7
+#define I2C1_SCL_PAL_MODE 4
+#define I2C1_SDA_PAL_MODE 4
+
 /* Audio */
 #define AUDIO_PIN A8
 #define AUDIO_PWM_PAL_MODE 1
