@@ -19,7 +19,7 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
         return None
 
     info_key = info_dict['info_key']
-    key_type = info_dict.get('value_type', 'str')
+    key_type = info_dict.get('value_type', 'raw')
 
     try:
         rules_value = kb_info_json[info_key]
@@ -32,6 +32,8 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
         return f'{rules_key} ?= {"yes" if rules_value else "no"}'
     elif key_type == 'mapping':
         return '\n'.join([f'{key} ?= {value}' for key, value in rules_value.items()])
+    elif key_type == 'str':
+        return f'{rules_key} ?= "{rules_value}"'
 
     return f'{rules_key} ?= {rules_value}'
 

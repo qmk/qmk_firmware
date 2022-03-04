@@ -82,7 +82,7 @@ def generate_config_items(kb_info_json, config_h_lines):
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
-        key_type = info_dict.get('value_type', 'str')
+        key_type = info_dict.get('value_type', 'raw')
         to_config = info_dict.get('to_config', True)
 
         if not to_config:
@@ -110,6 +110,11 @@ def generate_config_items(kb_info_json, config_h_lines):
                 config_h_lines.append(f'#ifndef {key}')
                 config_h_lines.append(f'#   define {key} {value}')
                 config_h_lines.append(f'#endif // {key}')
+        elif key_type == 'str':
+            config_h_lines.append('')
+            config_h_lines.append(f'#ifndef {config_key}')
+            config_h_lines.append(f'#   define {config_key} "{config_value}"')
+            config_h_lines.append(f'#endif // {config_key}')
         elif key_type == 'bcd_version':
             (major, minor, revision) = config_value.split('.')
             config_h_lines.append('')
@@ -200,7 +205,7 @@ def generate_config_h(cli):
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
         if cli.args.output.exists():
             cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
-        cli.args.output.write_text(config_h)
+        cli.args.output.write_text(config_h, encoding='utf-8')
 
         if not cli.args.quiet:
             cli.log.info('Wrote info_config.h to %s.', cli.args.output)

@@ -411,7 +411,7 @@ def _extract_config_h(info_data):
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
-        key_type = info_dict.get('value_type', 'str')
+        key_type = info_dict.get('value_type', 'raw')
 
         try:
             if config_key in config_c and info_dict.get('to_json', True):
@@ -442,6 +442,9 @@ def _extract_config_h(info_data):
 
                 elif key_type == 'int':
                     dotty_info[info_key] = int(config_c[config_key])
+
+                elif key_type == 'str':
+                    dotty_info[info_key] = config_c[config_key].strip('"')
 
                 elif key_type == 'bcd_version':
                     major = int(config_c[config_key][2:4])
@@ -491,7 +494,7 @@ def _extract_rules_mk(info_data):
 
     for rules_key, info_dict in info_rules_map.items():
         info_key = info_dict['info_key']
-        key_type = info_dict.get('value_type', 'str')
+        key_type = info_dict.get('value_type', 'raw')
 
         try:
             if rules_key in rules and info_dict.get('to_json', True):
@@ -522,6 +525,9 @@ def _extract_rules_mk(info_data):
 
                 elif key_type == 'int':
                     dotty_info[info_key] = int(rules[rules_key])
+
+                elif key_type == 'str':
+                    dotty_info[info_key] = rules[rules_key].strip('"')
 
                 else:
                     dotty_info[info_key] = rules[rules_key]
