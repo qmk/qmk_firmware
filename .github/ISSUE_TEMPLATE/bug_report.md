@@ -18,17 +18,18 @@ assignees: ''
 
 ## System Information
 
- - Keyboard:
-   - Revision (if applicable):
- - Operating system:
- - `qmk doctor` output:
-   ```
-   (Paste output here)
-   ```
- - Any keyboard related software installed?
-   - [ ] AutoHotKey (Windows)
-   - [ ] Karabiner (macOS)
-   - [ ] Other:
+**Keyboard:** 
+**Revision (if applicable):** 
+**Operating system:** 
+**`qmk doctor` output:** 
+```
+(Paste output here)
+```
+
+**Any keyboard related software installed?** 
+ - [ ] AutoHotKey (Windows)
+ - [ ] Karabiner (macOS)
+ - [ ] Other:
 
 ## Additional Context
 
