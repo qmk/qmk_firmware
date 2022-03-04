@@ -6,8 +6,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define VENDOR_ID    0x5241 // "RA"
+#define PRODUCT_ID   0x004A // "4-A"
 #define DEVICE_VER   0x0001
 #define MANUFACTURER RAMA WORKS
 #define PRODUCT      RAMA WORKS M4-A
