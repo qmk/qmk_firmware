@@ -39,7 +39,6 @@ ifeq ($(strip $(MCU)), risc-v)
     STARTUP_MK = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
     PORT_V = $(CHIBIOS_CONTRIB)/os/common/ports/RISCV-ECLIC/compilers/GCC/mk/port.mk
     RULESPATH = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC
-    PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/GD/GD32VF103/platform.mk
 else
     # ARM Support
     CHIBIOS_PORT ?=
@@ -82,9 +81,17 @@ ifeq ("$(PLATFORM_NAME)","")
     PLATFORM_NAME = platform
 endif
 
-PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+# If no MCU port name was specified, use the family instead
+ifeq ("$(MCU_PORT_NAME)","")
+    MCU_PORT_NAME = $(MCU_FAMILY)
+endif
+
+# Work out which platform makefile to use from ChibiOS[-Contrib], if not explicitly specified
 ifeq ("$(wildcard $(PLATFORM_MK))","")
-PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+    PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+    ifeq ("$(wildcard $(PLATFORM_MK))","")
+        PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+    endif
 endif
 
 include $(STARTUP_MK)
@@ -273,6 +280,11 @@ else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs/hal
     USE_CHIBIOS_CONTRIB = yes
 endif
 
+# Add ChibiOS-Contrib sources if we're using it
+ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
+    include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
+endif
+
 #
 # Project, sources and paths
 ##############################################################################
@@ -305,7 +317,6 @@ EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
 
 # Add ChibiOS-Contrib sources if we're using it
 ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
-    include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
     PLATFORM_SRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
     EXTRAINCDIRS += $(PLATFORMINC_CONTRIB) $(HALINC_CONTRIB) $(CHIBIOS_CONTRIB)/os/various
 endif
