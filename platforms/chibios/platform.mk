@@ -86,11 +86,10 @@ ifeq ("$(MCU_PORT_NAME)","")
     MCU_PORT_NAME = $(MCU_FAMILY)
 endif
 
-# Work out which platform makefile to use from ChibiOS[-Contrib], if not explicitly specified
 ifeq ("$(wildcard $(PLATFORM_MK))","")
-    PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+    PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
     ifeq ("$(wildcard $(PLATFORM_MK))","")
-        PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+        PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
     endif
 endif
 
@@ -217,28 +216,9 @@ else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/common/configs/halco
 endif
 
 #
-# Include ChibiOS makefiles.
+# Linker script selection.
 ##############################################################################
 
-CONFDIR = $(HALCONFDIR)
-
-include $(CHIBIOS)/os/hal/hal.mk
-
-ifeq ("$(PLATFORM_NAME)","")
-	PLATFORM_NAME = platform
-endif
-
-include $(BOARD_MK)
-include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
-include $(CHIBIOS)/os/rt/rt.mk
-include $(CHIBIOS)/os/hal/lib/streams/streams.mk
-
-RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
-ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
-RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
-endif
-
-# Define linker script file here
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/ld/$(MCU_LDSCRIPT).ld)","")
@@ -262,32 +242,17 @@ else
 endif
 
 #
-# ChibiOS-Contrib
+# Include ChibiOS makefiles.
 ##############################################################################
 
-# Work out if we're using ChibiOS-Contrib by checking if halconf_community.h exists
-ifneq ("$(wildcard $(KEYBOARD_PATH_5)/halconf_community.h)","")
-    USE_CHIBIOS_CONTRIB = yes
-else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/halconf_community.h)","")
-    USE_CHIBIOS_CONTRIB = yes
-else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/halconf_community.h)","")
-    USE_CHIBIOS_CONTRIB = yes
-else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/halconf_community.h)","")
-    USE_CHIBIOS_CONTRIB = yes
-else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf_community.h)","")
-    USE_CHIBIOS_CONTRIB = yes
-else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs/halconf_community.h)","")
-    USE_CHIBIOS_CONTRIB = yes
-endif
-
-# Add ChibiOS-Contrib sources if we're using it
-ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
-    include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
-endif
-
-#
-# Project, sources and paths
-##############################################################################
+# HAL-OSAL files (optional).
+include $(CHIBIOS)/os/hal/hal.mk
+-include $(CHIBIOS)/os/hal/osal/rt/osal.mk         # ChibiOS <= 19.x
+-include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk     # ChibiOS >= 20.x
+# RTOS files (optional).
+include $(CHIBIOS)/os/rt/rt.mk
+# Other files (optional).
+include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
 PLATFORM_SRC = \
         $(STARTUPSRC) \
@@ -315,11 +280,34 @@ EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
 
-# Add ChibiOS-Contrib sources if we're using it
+#
+# ChibiOS-Contrib
+##############################################################################
+
+# Work out if we're using ChibiOS-Contrib by checking if halconf_community.h exists
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+endif
+
 ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
+    include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
     PLATFORM_SRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
     EXTRAINCDIRS += $(PLATFORMINC_CONTRIB) $(HALINC_CONTRIB) $(CHIBIOS_CONTRIB)/os/various
 endif
+
+#
+# Project, sources and paths
+##############################################################################
 
 ##############################################################################
 # Injected configs
