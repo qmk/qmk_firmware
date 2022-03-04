@@ -1,6 +1,8 @@
-$(info -------------------------)
-$(info override_helix_options.mk)
-$(info -------------------------)
+ifneq ($(strip $(HELIX)),)
+  $(info -------------------------)
+  $(info override_helix_options.mk)
+  $(info -------------------------)
+endif
 
 define HELIX_OVERRIDE_PARSE
       ifeq ($(strip $1),back)

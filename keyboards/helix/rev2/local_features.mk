@@ -6,7 +6,7 @@
 #
 
 KEYBOARD_LOCAL_FEATURES_MK :=
--include $(strip $(HELIX_TOP_DIR)/pico/override_helix_options.mk) ## File dedicated to maintenance
+-include $(strip $(HELIX_TOP_DIR)/rev2/override_helix_options.mk) ## File dedicated to maintenance
 
 # Parse 'HELIX=xx,yy,zz' option
 ifneq ($(strip $(HELIX)),)
@@ -52,9 +52,10 @@ ifneq ($(strip $(SPLIT_KEYBOARD)), yes)
 
   CUSTOM_MATRIX = yes
 
-  SRC += rev2/matrix.c
-  SRC += rev2/split_util.c
-  SRC += rev2/split_scomm.c
+  SRC += rev2/custom/matrix.c
+  SRC += rev2/custom/split_util.c
+  SRC += rev2/custom/split_scomm.c
+  KEYBOARD_PATHS += $(HELIX_TOP_DIR)/rev2/custom
 endif
 
 ########
