@@ -26,8 +26,8 @@
 #    define CKLED2001_PERSISTENCE 0
 #endif
 
-#ifndef PHASE_CHANNEL
-#    define PHASE_CHANNEL MSKPHASE_12CHANNEL
+#ifndef SCAN_PHASE_CHANNEL
+#    define SCAN_PHASE_CHANNEL MSKPHASE_12CHANNEL
 #endif
 
 // Transfer buffer for TWITransmitData()
@@ -95,7 +95,7 @@ bool CKLED2001_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     return true;
 }
 
-void CKLED2001_init(uint8_t addr) {
+__attribute__((weak)) void CKLED2001_init(uint8_t addr) {
     // Select to function page
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, FUNCTION_PAGE);
     // Setting LED driver to shutdown mode
@@ -103,7 +103,7 @@ void CKLED2001_init(uint8_t addr) {
     // Setting internal channel pulldown/pullup
     CKLED2001_write_register(addr, PDU_REG, MSKSET_CA_CB_CHANNEL);
     // Select number of scan phase
-    CKLED2001_write_register(addr, SCAN_PHASE_REG, PHASE_CHANNEL);
+    CKLED2001_write_register(addr, SCAN_PHASE_REG, SCAN_PHASE_CHANNEL);
     // Setting PWM Delay Phase
     CKLED2001_write_register(addr, SLEW_RATE_CONTROL_MODE1_REG, MSKPWM_DELAY_PHASE_ENABLE);
     // Setting Driving/Sinking Channel Slew Rate
@@ -124,30 +124,19 @@ void CKLED2001_init(uint8_t addr) {
 
     // Set CURRENT PAGE (Page 4)
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, CURRENT_TUNE_PAGE);
-    // for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
-    //     CKLED2001_write_register(addr, i, 0xFF);
-    // }
     for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
         switch (i) {
-            case 0:
-            case 1:
-            case 3:
-            case 4:
-            case 6:
-            case 7:
-            case 9:
-            case 10:
-            case 12:
-                CKLED2001_write_register(addr, i, 0xFF);
-                continue;
             case 2:
             case 5:
             case 8:
             case 11:
                 CKLED2001_write_register(addr, i, 0xA0);
-                continue;
+                break;
+            default:
+                CKLED2001_write_register(addr, i, 0xFF);
         }
     }
+
     // Enable LEDs ON/OFF
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_CONTROL_PAGE);
     for (int i = 0; i < LED_CONTROL_ON_OFF_LENGTH; i++) {

@@ -41,7 +41,7 @@
 #define DRIVER_ADDR_2 0b1110100
 
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
-#define PHASE_CHANNEL MSKPHASE_9CHANNEL
+#define SCAN_PHASE_CHANNEL MSKPHASE_9CHANNEL
 
 /* DIP switch */
 #define DIP_SWITCH_MATRIX_GRID  { {4,4} }
@@ -112,9 +112,12 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+// #define RGB_MATRIX_KEYPRESSES
+
 /* Allow VIA to edit lighting */
 #ifdef VIA_ENABLE
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
 
-// #define RGB_MATRIX_KEYPRESSES
+/* Enable receive custom command from host */
+#define RAW_HID_CMD 0xAB

@@ -15,6 +15,9 @@
  */
 
 #include QMK_KEYBOARD_H
+#ifdef RGB_MATRIX_ENABLE
+#    include "test.h"
+#endif
 
 enum layers{
     MAC_BASE,
@@ -35,7 +38,6 @@ enum custom_keycodes {
     KC_FILE_EXPLORER
 };
 
-#define KC_WAVE S(KC_GRV)
 #define KC_MCTL KC_MISSION_CONTROL
 #define KC_LPAD KC_LAUNCHPAD
 #define KC_TASK KC_TASK_VIEW
@@ -83,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
 
     [_FN3] = LAYOUT_iso_73(
-        KC_WAVE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_TRNS,           KC_TRNS, KC_TRNS,
+        S(KC_GRV), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_TRNS,           KC_TRNS, KC_TRNS,
         RGB_TOG, RGB_MOD, RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,                    KC_TRNS, KC_TRNS,
         KC_TRNS, RGB_RMOD,RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,           KC_TRNS, KC_TRNS,
@@ -91,6 +93,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    /* Handle other events like factory reset and led test */
+    process_other_record(keycode, record);
     switch (keycode) {
         case KC_MCTL:
             if (record->event.pressed) {
@@ -131,4 +135,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             return true;  // Process all other keycodes normally
     }
+}
+
+void matrix_scan_user(void) {
+    timer_task_start();
+}
+
+bool dip_switch_update_user(uint8_t index, bool active) {
+    system_switch_state_report(index, active);
+    return true;
 }

@@ -20,4 +20,6 @@
 
 #if   defined(KEYBOARD_keychron_v4_v4_ansi_stm32l432)
 #    include "v4_ansi_stm32l432.h"
+#elif defined(KEYBOARD_keychron_v4_v4_iso_stm32l432)
+#    include "v4_iso_stm32l432.h"
 #endif
