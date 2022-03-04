@@ -1,6 +1,6 @@
 # Doro67 Regular PCB 
 
-65% custom keyboard made by 80ultraman/Alf/Backprop Studios available during the China Group Buy. 
+65% custom keyboard made by 80ultraman/Alf/Backprop Studios available during the China Group Buy. The regular_fixspc version fix the `SPACE` disabled issue in regular version.
 
 This is not the PCB with RGB support. Do not flash RGB firmware for this board. 
 
@@ -14,6 +14,10 @@ Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=97265.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make doro67/regular:default
+    make doro67/regular_fixspc:default
+
+For Via Support:
+
+    make doro67/regular_fixspc:via
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
