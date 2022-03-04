@@ -230,17 +230,6 @@ send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
 
 Example uses include sending Unicode strings when a key is pressed, as described in [Macros](feature_macros.md).
 
-### `send_unicode_hex_string()` (Deprecated)
-
-Similar to `send_unicode_string()`, but the characters are represented by their Unicode code points, written in hexadecimal and separated by spaces. For example, the table flip above would be achieved with:
-
-```c
-send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
-```
-
-An easy way to convert your Unicode string to this format is to use [this site](https://r12a.github.io/app-conversion/) and take the result in the "Hex/UTF-32" section.
-
-
 ## Additional Language Support
 
 In `quantum/keymap_extras`, you'll see various language files — these work the same way as the ones for alternative layouts such as Colemak or BÉPO. When you include one of these language headers, you gain access to keycodes specific to that language / national layout. Such keycodes are defined by a 2-letter country/language code, followed by an underscore and a 4-letter abbreviation of the character to which the key corresponds. For example, including `keymap_french.h` and using `FR_UGRV` in your keymap will output `ù` when typed on a system with a native French AZERTY layout.
