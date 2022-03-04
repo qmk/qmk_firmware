@@ -190,7 +190,7 @@ ifeq ($(strip $(BOOTLOADER)), stm32duino)
     DFU_ARGS = -d 1EAF:0003 -a 2 -R
     DFU_SUFFIX_ARGS = -v 1EAF -p 0003
 endif
-ifeq ($(strip $(BOOTLOADER)), uf2-tinyuf2)
+ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     OPT_DEFS += -DBOOTLOADER_UF2_TINYUF2
     BOOTLOADER_TYPE = tinyuf2
 endif
