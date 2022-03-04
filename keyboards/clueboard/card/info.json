@@ -10,7 +10,7 @@
     "backlight": true,
     "bluetooth": false,
     "bootmagic": false,
-    "command": true,
+    "command": false,
     "console": true,
     "extrakey": true,
     "lto": true,

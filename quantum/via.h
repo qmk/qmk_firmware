@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "eeconfig.h"  // for EECONFIG_SIZE
+#include "eeconfig.h" // for EECONFIG_SIZE
 
 // Keyboard level code can change where VIA stores the magic.
 // The magic is the build date YYMMDD encoded as BCD in 3 bytes,
@@ -59,7 +59,7 @@
 #define VIA_PROTOCOL_VERSION 0x0009
 
 enum via_command_id {
-    id_get_protocol_version                 = 0x01,  // always 0x01
+    id_get_protocol_version                 = 0x01, // always 0x01
     id_get_keyboard_value                   = 0x02,
     id_set_keyboard_value                   = 0x03,
     id_dynamic_keymap_get_keycode           = 0x04,
@@ -82,7 +82,7 @@ enum via_command_id {
 };
 
 enum via_keyboard_value_id {
-    id_uptime              = 0x01,  //
+    id_uptime              = 0x01, //
     id_layout_options      = 0x02,
     id_switch_matrix_state = 0x03
 };

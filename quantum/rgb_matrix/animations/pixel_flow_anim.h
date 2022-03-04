@@ -14,7 +14,9 @@ static bool PIXEL_FLOW(effect_params_t* params) {
         return false;
     }
 
-    inline uint32_t interval(void) { return 3000 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16); }
+    inline uint32_t interval(void) {
+        return 3000 / scale16by8(qadd8(rgb_matrix_config.speed, 16), 16);
+    }
 
     if (params->init) {
         // Clear LEDs and fill the state array
@@ -45,5 +47,5 @@ static bool PIXEL_FLOW(effect_params_t* params) {
     return rgb_matrix_check_finished_leds(led_max);
 }
 
-#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // ENABLE_RGB_MATRIX_PIXEL_FLOW
+#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif     // ENABLE_RGB_MATRIX_PIXEL_FLOW

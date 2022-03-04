@@ -73,7 +73,9 @@ void timer_clear(void) {
     chSysUnlock();
 }
 
-uint16_t timer_read(void) { return (uint16_t)timer_read32(); }
+uint16_t timer_read(void) {
+    return (uint16_t)timer_read32();
+}
 
 uint32_t timer_read32(void) {
     chSysLock();
@@ -90,12 +92,16 @@ uint32_t timer_read32(void) {
         ms_offset += OVERFLOW_ADJUST_MS;
     }
     last_ticks              = ticks;
-    uint32_t ms_offset_copy = ms_offset;  // read while still holding the lock to ensure a consistent value
+    uint32_t ms_offset_copy = ms_offset; // read while still holding the lock to ensure a consistent value
     chSysUnlock();
 
     return (uint32_t)TIME_I2MS(ticks) + ms_offset_copy;
 }
 
-uint16_t timer_elapsed(uint16_t last) { return TIMER_DIFF_16(timer_read(), last); }
+uint16_t timer_elapsed(uint16_t last) {
+    return TIMER_DIFF_16(timer_read(), last);
+}
 
-uint32_t timer_elapsed32(uint32_t last) { return TIMER_DIFF_32(timer_read32(), last); }
+uint32_t timer_elapsed32(uint32_t last) {
+    return TIMER_DIFF_32(timer_read32(), last);
+}

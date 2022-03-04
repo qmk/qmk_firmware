@@ -9,4 +9,6 @@ BOOTLOADER = atmel-dfu
 #
 BACKLIGHT_DRIVER = custom
 
-SRC = ../lfkeyboards/TWIlib.c ../lfkeyboards/issi.c ../lfkeyboards/lighting.c
+# TODO: These boards need to be converted to RGB Matrix
+VPATH += keyboards/lfkeyboards
+SRC = TWIlib.c issi.c lighting.c

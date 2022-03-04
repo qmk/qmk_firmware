@@ -30,7 +30,7 @@
 
 #ifndef FORCED_SYNC_THROTTLE_MS
 #    define FORCED_SYNC_THROTTLE_MS 100
-#endif  // FORCED_SYNC_THROTTLE_MS
+#endif // FORCED_SYNC_THROTTLE_MS
 
 #define sizeof_member(type, member) sizeof(((type *)NULL)->member)
 
@@ -49,7 +49,7 @@
 // Forward-declare the RPC callback handlers
 void slave_rpc_info_callback(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer);
 void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer);
-#endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 
 ////////////////////////////////////////////////////
 // Helpers
@@ -63,7 +63,9 @@ static bool transaction_handler_master(matrix_row_t master_matrix[], matrix_row_
             }
         }
         bool this_okay = true;
-        ATOMIC_BLOCK_FORCEON { this_okay = handler(master_matrix, slave_matrix); };
+        ATOMIC_BLOCK_FORCEON {
+            this_okay = handler(master_matrix, slave_matrix);
+        };
         if (this_okay) return true;
     }
     dprintf("Failed to execute %s\n", prefix);
@@ -75,9 +77,11 @@ static bool transaction_handler_master(matrix_row_t master_matrix[], matrix_row_
         if (!transaction_handler_master(master_matrix, slave_matrix, #prefix, &prefix##_handlers_master)) return false; \
     } while (0)
 
-#define TRANSACTION_HANDLER_SLAVE(prefix)                                               \
-    do {                                                                                \
-        ATOMIC_BLOCK_FORCEON { prefix##_handlers_slave(master_matrix, slave_matrix); }; \
+#define TRANSACTION_HANDLER_SLAVE(prefix)                         \
+    do {                                                          \
+        ATOMIC_BLOCK_FORCEON {                                    \
+            prefix##_handlers_slave(master_matrix, slave_matrix); \
+        };                                                        \
     } while (0)
 
 inline static bool read_if_checksum_mismatch(int8_t trans_id_checksum, int8_t trans_id_retrieve, uint32_t *last_update, void *destination, const void *equiv_shmem, size_t length) {
@@ -116,8 +120,8 @@ inline static bool send_if_data_mismatch(int8_t trans_id, uint32_t *last_update,
 
 static bool slave_matrix_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t     last_update                    = 0;
-    static matrix_row_t last_matrix[(MATRIX_ROWS) / 2] = {0};  // last successfully-read matrix, so we can replicate if there are checksum errors
-    matrix_row_t        temp_matrix[(MATRIX_ROWS) / 2];        // holding area while we test whether or not checksum is correct
+    static matrix_row_t last_matrix[(MATRIX_ROWS) / 2] = {0}; // last successfully-read matrix, so we can replicate if there are checksum errors
+    matrix_row_t        temp_matrix[(MATRIX_ROWS) / 2];       // holding area while we test whether or not checksum is correct
 
     bool okay = read_if_checksum_mismatch(GET_SLAVE_MATRIX_CHECKSUM, GET_SLAVE_MATRIX_DATA, &last_update, temp_matrix, split_shmem->smatrix.matrix, sizeof(split_shmem->smatrix.matrix));
     if (okay) {
@@ -161,13 +165,13 @@ static void master_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_ro
 #    define TRANSACTIONS_MASTER_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(master_matrix)
 #    define TRANSACTIONS_MASTER_MATRIX_REGISTRATIONS [PUT_MASTER_MATRIX] = trans_initiator2target_initializer(mmatrix.matrix),
 
-#else  // SPLIT_TRANSPORT_MIRROR
+#else // SPLIT_TRANSPORT_MIRROR
 
 #    define TRANSACTIONS_MASTER_MATRIX_MASTER()
 #    define TRANSACTIONS_MASTER_MATRIX_SLAVE()
 #    define TRANSACTIONS_MASTER_MATRIX_REGISTRATIONS
 
-#endif  // SPLIT_TRANSPORT_MIRROR
+#endif // SPLIT_TRANSPORT_MIRROR
 
 ////////////////////////////////////////////////////
 // Encoders
@@ -200,13 +204,13 @@ static void encoder_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sl
     [GET_ENCODERS_DATA]     = trans_target2initiator_initializer(encoders.state),
 // clang-format on
 
-#else  // ENCODER_ENABLE
+#else // ENCODER_ENABLE
 
 #    define TRANSACTIONS_ENCODERS_MASTER()
 #    define TRANSACTIONS_ENCODERS_SLAVE()
 #    define TRANSACTIONS_ENCODERS_REGISTRATIONS
 
-#endif  // ENCODER_ENABLE
+#endif // ENCODER_ENABLE
 
 ////////////////////////////////////////////////////
 // Sync timer
@@ -239,13 +243,13 @@ static void sync_timer_handlers_slave(matrix_row_t master_matrix[], matrix_row_t
 #    define TRANSACTIONS_SYNC_TIMER_SLAVE() TRANSACTION_HANDLER_SLAVE(sync_timer)
 #    define TRANSACTIONS_SYNC_TIMER_REGISTRATIONS [PUT_SYNC_TIMER] = trans_initiator2target_initializer(sync_timer),
 
-#else  // DISABLE_SYNC_TIMER
+#else // DISABLE_SYNC_TIMER
 
 #    define TRANSACTIONS_SYNC_TIMER_MASTER()
 #    define TRANSACTIONS_SYNC_TIMER_SLAVE()
 #    define TRANSACTIONS_SYNC_TIMER_REGISTRATIONS
 
-#endif  // DISABLE_SYNC_TIMER
+#endif // DISABLE_SYNC_TIMER
 
 ////////////////////////////////////////////////////
 // Layer state
@@ -276,13 +280,13 @@ static void layer_state_handlers_slave(matrix_row_t master_matrix[], matrix_row_
     [PUT_DEFAULT_LAYER_STATE] = trans_initiator2target_initializer(layers.default_layer_state),
 // clang-format on
 
-#else  // !defined(NO_ACTION_LAYER) && defined(SPLIT_LAYER_STATE_ENABLE)
+#else // !defined(NO_ACTION_LAYER) && defined(SPLIT_LAYER_STATE_ENABLE)
 
 #    define TRANSACTIONS_LAYER_STATE_MASTER()
 #    define TRANSACTIONS_LAYER_STATE_SLAVE()
 #    define TRANSACTIONS_LAYER_STATE_REGISTRATIONS
 
-#endif  // !defined(NO_ACTION_LAYER) && defined(SPLIT_LAYER_STATE_ENABLE)
+#endif // !defined(NO_ACTION_LAYER) && defined(SPLIT_LAYER_STATE_ENABLE)
 
 ////////////////////////////////////////////////////
 // LED state
@@ -304,13 +308,13 @@ static void led_state_handlers_slave(matrix_row_t master_matrix[], matrix_row_t 
 #    define TRANSACTIONS_LED_STATE_SLAVE() TRANSACTION_HANDLER_SLAVE(led_state)
 #    define TRANSACTIONS_LED_STATE_REGISTRATIONS [PUT_LED_STATE] = trans_initiator2target_initializer(led_state),
 
-#else  // SPLIT_LED_STATE_ENABLE
+#else // SPLIT_LED_STATE_ENABLE
 
 #    define TRANSACTIONS_LED_STATE_MASTER()
 #    define TRANSACTIONS_LED_STATE_SLAVE()
 #    define TRANSACTIONS_LED_STATE_REGISTRATIONS
 
-#endif  // SPLIT_LED_STATE_ENABLE
+#endif // SPLIT_LED_STATE_ENABLE
 
 ////////////////////////////////////////////////////
 // Mods
@@ -336,7 +340,7 @@ static bool mods_handlers_master(matrix_row_t master_matrix[], matrix_row_t slav
     if (!mods_need_sync && new_mods.oneshot_mods != split_shmem->mods.oneshot_mods) {
         mods_need_sync = true;
     }
-#    endif  // NO_ACTION_ONESHOT
+#    endif // NO_ACTION_ONESHOT
 
     bool okay = true;
     if (mods_need_sync) {
@@ -361,13 +365,13 @@ static void mods_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave
 #    define TRANSACTIONS_MODS_SLAVE() TRANSACTION_HANDLER_SLAVE(mods)
 #    define TRANSACTIONS_MODS_REGISTRATIONS [PUT_MODS] = trans_initiator2target_initializer(mods),
 
-#else  // SPLIT_MODS_ENABLE
+#else // SPLIT_MODS_ENABLE
 
 #    define TRANSACTIONS_MODS_MASTER()
 #    define TRANSACTIONS_MODS_SLAVE()
 #    define TRANSACTIONS_MODS_REGISTRATIONS
 
-#endif  // SPLIT_MODS_ENABLE
+#endif // SPLIT_MODS_ENABLE
 
 ////////////////////////////////////////////////////
 // Backlight
@@ -380,19 +384,21 @@ static bool backlight_handlers_master(matrix_row_t master_matrix[], matrix_row_t
     return send_if_condition(PUT_BACKLIGHT, &last_update, (level != split_shmem->backlight_level), &level, sizeof(level));
 }
 
-static void backlight_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) { backlight_set(split_shmem->backlight_level); }
+static void backlight_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    backlight_set(split_shmem->backlight_level);
+}
 
 #    define TRANSACTIONS_BACKLIGHT_MASTER() TRANSACTION_HANDLER_MASTER(backlight)
 #    define TRANSACTIONS_BACKLIGHT_SLAVE() TRANSACTION_HANDLER_SLAVE(backlight)
 #    define TRANSACTIONS_BACKLIGHT_REGISTRATIONS [PUT_BACKLIGHT] = trans_initiator2target_initializer(backlight_level),
 
-#else  // BACKLIGHT_ENABLE
+#else // BACKLIGHT_ENABLE
 
 #    define TRANSACTIONS_BACKLIGHT_MASTER()
 #    define TRANSACTIONS_BACKLIGHT_SLAVE()
 #    define TRANSACTIONS_BACKLIGHT_REGISTRATIONS
 
-#endif  // BACKLIGHT_ENABLE
+#endif // BACKLIGHT_ENABLE
 
 ////////////////////////////////////////////////////
 // RGBLIGHT
@@ -423,13 +429,13 @@ static void rgblight_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 #    define TRANSACTIONS_RGBLIGHT_SLAVE() TRANSACTION_HANDLER_SLAVE(rgblight)
 #    define TRANSACTIONS_RGBLIGHT_REGISTRATIONS [PUT_RGBLIGHT] = trans_initiator2target_initializer(rgblight_sync),
 
-#else  // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+#else // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
 
 #    define TRANSACTIONS_RGBLIGHT_MASTER()
 #    define TRANSACTIONS_RGBLIGHT_SLAVE()
 #    define TRANSACTIONS_RGBLIGHT_REGISTRATIONS
 
-#endif  // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+#endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
 
 ////////////////////////////////////////////////////
 // LED Matrix
@@ -453,13 +459,13 @@ static void led_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row_t
 #    define TRANSACTIONS_LED_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(led_matrix)
 #    define TRANSACTIONS_LED_MATRIX_REGISTRATIONS [PUT_LED_MATRIX] = trans_initiator2target_initializer(led_matrix_sync),
 
-#else  // defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+#else // defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
 
 #    define TRANSACTIONS_LED_MATRIX_MASTER()
 #    define TRANSACTIONS_LED_MATRIX_SLAVE()
 #    define TRANSACTIONS_LED_MATRIX_REGISTRATIONS
 
-#endif  // defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+#endif // defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
 
 ////////////////////////////////////////////////////
 // RGB Matrix
@@ -483,13 +489,13 @@ static void rgb_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row_t
 #    define TRANSACTIONS_RGB_MATRIX_SLAVE() TRANSACTION_HANDLER_SLAVE(rgb_matrix)
 #    define TRANSACTIONS_RGB_MATRIX_REGISTRATIONS [PUT_RGB_MATRIX] = trans_initiator2target_initializer(rgb_matrix_sync),
 
-#else  // defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#else // defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
 
 #    define TRANSACTIONS_RGB_MATRIX_MASTER()
 #    define TRANSACTIONS_RGB_MATRIX_SLAVE()
 #    define TRANSACTIONS_RGB_MATRIX_REGISTRATIONS
 
-#endif  // defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#endif // defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
 
 ////////////////////////////////////////////////////
 // WPM
@@ -502,19 +508,21 @@ static bool wpm_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave
     return send_if_condition(PUT_WPM, &last_update, (current_wpm != split_shmem->current_wpm), &current_wpm, sizeof(current_wpm));
 }
 
-static void wpm_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) { set_current_wpm(split_shmem->current_wpm); }
+static void wpm_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    set_current_wpm(split_shmem->current_wpm);
+}
 
 #    define TRANSACTIONS_WPM_MASTER() TRANSACTION_HANDLER_MASTER(wpm)
 #    define TRANSACTIONS_WPM_SLAVE() TRANSACTION_HANDLER_SLAVE(wpm)
 #    define TRANSACTIONS_WPM_REGISTRATIONS [PUT_WPM] = trans_initiator2target_initializer(current_wpm),
 
-#else  // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
+#else // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
 
 #    define TRANSACTIONS_WPM_MASTER()
 #    define TRANSACTIONS_WPM_SLAVE()
 #    define TRANSACTIONS_WPM_REGISTRATIONS
 
-#endif  // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
+#endif // defined(WPM_ENABLE) && defined(SPLIT_WPM_ENABLE)
 
 ////////////////////////////////////////////////////
 // OLED
@@ -539,13 +547,13 @@ static void oled_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave
 #    define TRANSACTIONS_OLED_SLAVE() TRANSACTION_HANDLER_SLAVE(oled)
 #    define TRANSACTIONS_OLED_REGISTRATIONS [PUT_OLED] = trans_initiator2target_initializer(current_oled_state),
 
-#else  // defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
+#else // defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
 
 #    define TRANSACTIONS_OLED_MASTER()
 #    define TRANSACTIONS_OLED_SLAVE()
 #    define TRANSACTIONS_OLED_REGISTRATIONS
 
-#endif  // defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
+#endif // defined(OLED_ENABLE) && defined(SPLIT_OLED_ENABLE)
 
 ////////////////////////////////////////////////////
 // ST7565
@@ -570,13 +578,13 @@ static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 #    define TRANSACTIONS_ST7565_SLAVE() TRANSACTION_HANDLER_SLAVE(st7565)
 #    define TRANSACTIONS_ST7565_REGISTRATIONS [PUT_ST7565] = trans_initiator2target_initializer(current_st7565_state),
 
-#else  // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
+#else // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
 
 #    define TRANSACTIONS_ST7565_MASTER()
 #    define TRANSACTIONS_ST7565_SLAVE()
 #    define TRANSACTIONS_ST7565_REGISTRATIONS
 
-#endif  // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
+#endif // defined(ST7565_ENABLE) && defined(SPLIT_ST7565_ENABLE)
 
 ////////////////////////////////////////////////////
 // POINTING
@@ -631,7 +639,7 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
     }
     last_exec = timer_read32();
 #    endif
-    temp_cpi = !pointing_device_driver.get_cpi ? 0 : pointing_device_driver.get_cpi();  // check for NULL
+    temp_cpi = !pointing_device_driver.get_cpi ? 0 : pointing_device_driver.get_cpi(); // check for NULL
     if (split_shmem->pointing.cpi && memcmp(&split_shmem->pointing.cpi, &temp_cpi, sizeof(temp_cpi)) != 0) {
         if (pointing_device_driver.set_cpi) {
             pointing_device_driver.set_cpi(split_shmem->pointing.cpi);
@@ -648,13 +656,13 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 #    define TRANSACTIONS_POINTING_SLAVE() TRANSACTION_HANDLER_SLAVE(pointing)
 #    define TRANSACTIONS_POINTING_REGISTRATIONS [GET_POINTING_CHECKSUM] = trans_target2initiator_initializer(pointing.checksum), [GET_POINTING_DATA] = trans_target2initiator_initializer(pointing.report), [PUT_POINTING_CPI] = trans_initiator2target_initializer(pointing.cpi),
 
-#else  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+#else // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 #    define TRANSACTIONS_POINTING_MASTER()
 #    define TRANSACTIONS_POINTING_SLAVE()
 #    define TRANSACTIONS_POINTING_REGISTRATIONS
 
-#endif  // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+#endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 ////////////////////////////////////////////////////
 
@@ -664,7 +672,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
 
 #ifdef USE_I2C
     [I2C_EXECUTE_CALLBACK] = trans_initiator2target_initializer(transaction_id),
-#endif  // USE_I2C
+#endif // USE_I2C
 
     // clang-format off
     TRANSACTIONS_SLAVE_MATRIX_REGISTRATIONS
@@ -689,7 +697,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     [PUT_RPC_REQ_DATA]  = trans_initiator2target_initializer(rpc_m2s_buffer),
     [EXECUTE_RPC]       = trans_initiator2target_initializer_cb(rpc_info.transaction_id, slave_rpc_exec_callback),
     [GET_RPC_RESP_DATA] = trans_target2initiator_initializer(rpc_s2m_buffer),
-#endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 };
 
 bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
@@ -800,4 +808,4 @@ void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *i
     }
 }
 
-#endif  // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

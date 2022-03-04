@@ -29,7 +29,7 @@
 #endif
 
 #ifndef BLUEFRUIT_LE_SCK_DIVISOR
-#    define BLUEFRUIT_LE_SCK_DIVISOR 2  // 4MHz SCK/8MHz CPU, calculated for Feather 32U4 BLE
+#    define BLUEFRUIT_LE_SCK_DIVISOR 2 // 4MHz SCK/8MHz CPU, calculated for Feather 32U4 BLE
 #endif
 
 #define SAMPLE_BATTERY
@@ -77,10 +77,10 @@ struct sdep_msg {
 // information here.
 
 enum queue_type {
-    QTKeyReport,  // 1-byte modifier + 6-byte key report
-    QTConsumer,   // 16-bit key code
+    QTKeyReport, // 1-byte modifier + 6-byte key report
+    QTConsumer,  // 16-bit key code
 #ifdef MOUSE_ENABLE
-    QTMouseMove,  // 4-byte mouse report
+    QTMouseMove, // 4-byte mouse report
 #endif
 };
 
@@ -115,8 +115,8 @@ enum sdep_type {
     SdepResponse      = 0x20,
     SdepAlert         = 0x40,
     SdepError         = 0x80,
-    SdepSlaveNotReady = 0xFE,  // Try again later
-    SdepSlaveOverflow = 0xFF,  // You read more data than is available
+    SdepSlaveNotReady = 0xFE, // Try again later
+    SdepSlaveOverflow = 0xFF, // You read more data than is available
 };
 
 enum ble_cmd {
@@ -306,13 +306,15 @@ static bool ble_init(void) {
     wait_ms(10);
     writePinHigh(BLUEFRUIT_LE_RST_PIN);
 
-    wait_ms(1000);  // Give it a second to initialize
+    wait_ms(1000); // Give it a second to initialize
 
     state.initialized = true;
     return state.initialized;
 }
 
-static inline uint8_t min(uint8_t a, uint8_t b) { return a < b ? a : b; }
+static inline uint8_t min(uint8_t a, uint8_t b) {
+    return a < b ? a : b;
+}
 
 static bool read_response(char *resp, uint16_t resplen, bool verbose) {
     char *dest = resp;
@@ -424,7 +426,9 @@ bool at_command_P(const char *cmd, char *resp, uint16_t resplen, bool verbose) {
     return at_command(cmdbuf, resp, resplen, verbose);
 }
 
-bool bluefruit_le_is_connected(void) { return state.is_connected; }
+bool bluefruit_le_is_connected(void) {
+    return state.is_connected;
+}
 
 bool bluefruit_le_enable_keyboard(void) {
     char resbuf[128];
@@ -671,7 +675,9 @@ void bluefruit_le_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan,
 }
 #endif
 
-uint32_t bluefruit_le_read_battery_voltage(void) { return state.vbat; }
+uint32_t bluefruit_le_read_battery_voltage(void) {
+    return state.vbat;
+}
 
 bool bluefruit_le_set_mode_leds(bool on) {
     if (!state.configured) {

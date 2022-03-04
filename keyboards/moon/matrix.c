@@ -158,10 +158,12 @@ static void select_row(uint8_t row) {
 }
 
 static uint16_t read_cols(void) {
-  uint16_t state_1 = pca9555_readPins(IC2, PCA9555_PORT0);
-  uint16_t state_2 = pca9555_readPins(IC2, PCA9555_PORT1);
+  uint8_t state_1 = 0;
+  uint8_t state_2 = 0;
+  pca9555_readPins(IC2, PCA9555_PORT0, &state_1);
+  pca9555_readPins(IC2, PCA9555_PORT1, &state_2);
 
-  uint16_t state = ((state_1 & PORT0_COLS_MASK) << 3) | ((state_2 & PORT1_COLS_MASK));
+  uint16_t state = (((uint16_t)state_1 & PORT0_COLS_MASK) << 3) | (((uint16_t)state_2 & PORT1_COLS_MASK));
 
   // A low pin indicates an active column
   return (~state) & COLS_MASK;
