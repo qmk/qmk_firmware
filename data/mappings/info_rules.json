@@ -3,7 +3,7 @@
 {
     # Format:
     # <rules.mk key>: {"info_key": <info.json key>, ["value_type": <value_type>], ["to_json": <true/false>], ["to_c": <true/false>]}
-    # value_type: one of "array", "array.int", "bool", "int", "list", "hex", "mapping"
+    # value_type: one of "array", "array.int", "bool", "int", "list", "hex", "mapping", "str", "raw"
     # to_json: Default `true`. Set to `false` to exclude this mapping from info.json
     # to_c: Default `true`. Set to `false` to exclude this mapping from rules.mk
     # warn_duplicate: Default `true`. Set to `false` to turn off warning when a value exists in both places
