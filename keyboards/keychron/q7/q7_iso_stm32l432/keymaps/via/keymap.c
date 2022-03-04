@@ -15,9 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#ifdef RGB_MATRIX_ENABLE
-#    include "test.h"
-#endif
+#include "test.h"
 
 enum layers{
     MAC_BASE,
