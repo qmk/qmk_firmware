@@ -33,7 +33,33 @@
         "oneOf": [
             {
                 "type": "string",
-                "enum": ["LAYOUT", "LAYOUT_planck_1x2uC"]
+                "enum": [
+                    "LAYOUT",
+                    "LAYOUT_1x2uC",
+                    "LAYOUT_1x2uL",
+                    "LAYOUT_1x2uR",
+                    "LAYOUT_2x2uC",
+                    "LAYOUT_2x3uC",
+                    "LAYOUT_625uC",
+                    "LAYOUT_ANSI_DEFAULT",
+                    "LAYOUT_JP",
+                    "LAYOUT_ortho_3x12_1x2uC",
+                    "LAYOUT_ortho_4x12_1x2uC",
+                    "LAYOUT_ortho_4x12_1x2uL",
+                    "LAYOUT_ortho_4x12_1x2uR",
+                    "LAYOUT_ortho_5x12_1x2uC",
+                    "LAYOUT_ortho_5x12_2x2uC",
+                    "LAYOUT_ortho_5x14_1x2uC",
+                    "LAYOUT_ortho_5x14_1x2uL",
+                    "LAYOUT_ortho_5x14_1x2uR",
+                    "LAYOUT_planck_1x2uC",
+                    "LAYOUT_planck_1x2uL",
+                    "LAYOUT_planck_1x2uR",
+                    "LAYOUT_preonic_1x2uC",
+                    "LAYOUT_preonic_1x2uL",
+                    "LAYOUT_preonic_1x2uR",
+                    "LAYOUT_reviung34_2uL"
+                ]
             },
             {
                 "type": "string",
