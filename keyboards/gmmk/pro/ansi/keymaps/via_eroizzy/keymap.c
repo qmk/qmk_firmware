@@ -129,10 +129,10 @@ void side_lights_on(int r, int g, int b){
 }
 
 int counter = 0;
-int max = 60;
-int LED_R = 255;
-int LED_G = 255;
-int LED_B = 255;
+const int max = 60;
+const int LED_R = 255;
+const int LED_G = 255;
+const int LED_B = 255;
 
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     counter = counter + 1;
