@@ -1,6 +1,6 @@
 # Morizon
 
-**TODO: Add image of Morizon build when available.**
+![Morizon](https://i.imgur.com/2EEP412.jpg)
 
 A simple 66-key (5x14) ortholinear keyboard, powered by an Arduino Pro Micro. The design is based on the [Horizon keyboard](https://github.com/skarrmann/horizon).
 
