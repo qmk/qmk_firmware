@@ -64,9 +64,17 @@ static uint8_t thatCount;
 
 static uint8_t encoder_value[NUM_ENCODERS] = {0};
 
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { return true; }
+__attribute__((weak)) void encoder_wait_pullup_charge(void) {
+    wait_us(100);
+}
 
-__attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) { return encoder_update_user(index, clockwise); }
+__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
+    return true;
+}
+
+__attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
+    return encoder_update_user(index, clockwise);
+}
 
 void encoder_init(void) {
 #ifdef SPLIT_KEYBOARD
@@ -121,7 +129,9 @@ void encoder_init(void) {
     for (uint8_t i = 0; i < thisCount; i++) {
         setPinInputHigh(encoders_pad_a[i]);
         setPinInputHigh(encoders_pad_b[i]);
-
+    }
+    encoder_wait_pullup_charge();
+    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
         encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
     }
 }
@@ -145,7 +155,7 @@ static bool encoder_update(uint8_t index, uint8_t state) {
         changed = true;
         encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
     }
-    if (encoder_pulses[i] <= -resolution) {  // direction is arbitrary here, but this clockwise
+    if (encoder_pulses[i] <= -resolution) { // direction is arbitrary here, but this clockwise
         encoder_value[index]--;
         changed = true;
         encoder_update_kb(index, ENCODER_CLOCKWISE);
@@ -175,7 +185,13 @@ bool encoder_read(void) {
 #ifdef SPLIT_KEYBOARD
 void last_encoder_activity_trigger(void);
 
+<<<<<<< HEAD
 void encoder_state_raw(uint8_t *slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * thisCount); }
+=======
+void encoder_state_raw(uint8_t* slave_state) {
+    memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * NUMBER_OF_ENCODERS);
+}
+>>>>>>> upstream/develop
 
 void encoder_update_raw(uint8_t *slave_state) {
     bool changed = false;

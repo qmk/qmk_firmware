@@ -16,8 +16,6 @@
 
 #include "process_unicode_common.h"
 #include "eeprom.h"
-#include <ctype.h>
-#include <string.h>
 
 unicode_config_t unicode_config;
 uint8_t          unicode_saved_mods;
@@ -54,7 +52,9 @@ void unicode_input_mode_init(void) {
     dprintf("Unicode input mode init to: %u\n", unicode_config.input_mode);
 }
 
-uint8_t get_unicode_input_mode(void) { return unicode_config.input_mode; }
+uint8_t get_unicode_input_mode(void) {
+    return unicode_config.input_mode;
+}
 
 void set_unicode_input_mode(uint8_t mode) {
     unicode_config.input_mode = mode;
@@ -76,7 +76,9 @@ void cycle_unicode_input_mode(int8_t offset) {
 #endif
 }
 
-void persist_unicode_input_mode(void) { eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode); }
+void persist_unicode_input_mode(void) {
+    eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode);
+}
 
 __attribute__((weak)) void unicode_input_start(void) {
     unicode_saved_caps_lock = host_keyboard_led_state().caps_lock;
@@ -90,8 +92,8 @@ __attribute__((weak)) void unicode_input_start(void) {
         tap_code(KC_CAPS_LOCK);
     }
 
-    unicode_saved_mods = get_mods();  // Save current mods
-    clear_mods();                     // Unregister mods to start from a clean state
+    unicode_saved_mods = get_mods(); // Save current mods
+    clear_mods();                    // Unregister mods to start from a clean state
 
     switch (unicode_config.input_mode) {
         case UC_MAC:
@@ -140,7 +142,7 @@ __attribute__((weak)) void unicode_input_finish(void) {
             break;
     }
 
-    set_mods(unicode_saved_mods);  // Reregister previously set mods
+    set_mods(unicode_saved_mods); // Reregister previously set mods
 }
 
 __attribute__((weak)) void unicode_input_cancel(void) {
@@ -165,7 +167,7 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             break;
     }
 
-    set_mods(unicode_saved_mods);  // Reregister previously set mods
+    set_mods(unicode_saved_mods); // Reregister previously set mods
 }
 
 // clang-format off
@@ -227,51 +229,20 @@ void register_unicode(uint32_t code_point) {
     unicode_input_finish();
 }
 
-// clang-format off
-
-void send_unicode_hex_string(const char *str) {
-    if (!str) {
-        return;
-    }
-
-    while (*str) {
-        // Find the next code point (token) in the string
-        for (; *str == ' '; str++);    // Skip leading spaces
-        size_t n = strcspn(str, " ");  // Length of the current token
-        char code_point[n+1];
-        strncpy(code_point, str, n);   // Copy token into buffer
-        code_point[n] = '\0';          // Make sure it's null-terminated
-
-        // Normalize the code point: make all hex digits lowercase
-        for (char *p = code_point; *p; p++) {
-            *p = tolower((unsigned char)*p);
-        }
-
-        // Send the code point as a Unicode input string
-        unicode_input_start();
-        send_string(code_point);
-        unicode_input_finish();
-
-        str += n;  // Move to the first ' ' (or '\0') after the current token
-    }
-}
-
-// clang-format on
-
 // Borrowed from https://nullprogram.com/blog/2017/10/06/
 static const char *decode_utf8(const char *str, int32_t *code_point) {
     const char *next;
 
-    if (str[0] < 0x80) {  // U+0000-007F
+    if (str[0] < 0x80) { // U+0000-007F
         *code_point = str[0];
         next        = str + 1;
-    } else if ((str[0] & 0xE0) == 0xC0) {  // U+0080-07FF
+    } else if ((str[0] & 0xE0) == 0xC0) { // U+0080-07FF
         *code_point = ((int32_t)(str[0] & 0x1F) << 6) | ((int32_t)(str[1] & 0x3F) << 0);
         next        = str + 2;
-    } else if ((str[0] & 0xF0) == 0xE0) {  // U+0800-FFFF
+    } else if ((str[0] & 0xF0) == 0xE0) { // U+0800-FFFF
         *code_point = ((int32_t)(str[0] & 0x0F) << 12) | ((int32_t)(str[1] & 0x3F) << 6) | ((int32_t)(str[2] & 0x3F) << 0);
         next        = str + 3;
-    } else if ((str[0] & 0xF8) == 0xF0 && (str[0] <= 0xF4)) {  // U+10000-10FFFF
+    } else if ((str[0] & 0xF8) == 0xF0 && (str[0] <= 0xF4)) { // U+10000-10FFFF
         *code_point = ((int32_t)(str[0] & 0x07) << 18) | ((int32_t)(str[1] & 0x3F) << 12) | ((int32_t)(str[2] & 0x3F) << 6) | ((int32_t)(str[3] & 0x3F) << 0);
         next        = str + 4;
     } else {

@@ -52,7 +52,7 @@ uint8_t auto_detect_output(void) {
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-    return OUTPUT_BLUETOOTH;  // should check if BT is connected here
+    return OUTPUT_BLUETOOTH; // should check if BT is connected here
 #endif
 
     return OUTPUT_NONE;

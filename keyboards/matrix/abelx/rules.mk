@@ -25,6 +25,9 @@ ARMV = 7
 
 USE_FPU = yes
 
+# Bootloader selection
+BOOTLOADER = custom
+
 # Build Options
 #   change yes to no to disable
 #

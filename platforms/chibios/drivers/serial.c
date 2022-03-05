@@ -50,14 +50,30 @@
 #    error invalid SELECT_SOFT_SERIAL_SPEED value
 #endif
 
-inline static void serial_delay(void) { wait_us(SERIAL_DELAY); }
-inline static void serial_delay_half(void) { wait_us(SERIAL_DELAY / 2); }
-inline static void serial_delay_blip(void) { wait_us(1); }
-inline static void serial_output(void) { setPinOutput(SOFT_SERIAL_PIN); }
-inline static void serial_input(void) { setPinInputHigh(SOFT_SERIAL_PIN); }
-inline static bool serial_read_pin(void) { return !!readPin(SOFT_SERIAL_PIN); }
-inline static void serial_low(void) { writePinLow(SOFT_SERIAL_PIN); }
-inline static void serial_high(void) { writePinHigh(SOFT_SERIAL_PIN); }
+inline static void serial_delay(void) {
+    wait_us(SERIAL_DELAY);
+}
+inline static void serial_delay_half(void) {
+    wait_us(SERIAL_DELAY / 2);
+}
+inline static void serial_delay_blip(void) {
+    wait_us(1);
+}
+inline static void serial_output(void) {
+    setPinOutput(SOFT_SERIAL_PIN);
+}
+inline static void serial_input(void) {
+    setPinInputHigh(SOFT_SERIAL_PIN);
+}
+inline static bool serial_read_pin(void) {
+    return !!readPin(SOFT_SERIAL_PIN);
+}
+inline static void serial_low(void) {
+    writePinLow(SOFT_SERIAL_PIN);
+}
+inline static void serial_high(void) {
+    writePinHigh(SOFT_SERIAL_PIN);
+}
 
 void interrupt_handler(void *arg);
 
@@ -226,7 +242,7 @@ bool soft_serial_transaction(int sstd_index) {
 
     uint8_t checksum = 0;
     // send data to the slave
-    serial_write_byte(sstd_index);  // first chunk is transaction id
+    serial_write_byte(sstd_index); // first chunk is transaction id
     sync_recv();
 
     for (int i = 0; i < trans->initiator2target_buffer_size; ++i) {
@@ -238,7 +254,7 @@ bool soft_serial_transaction(int sstd_index) {
     sync_recv();
 
     serial_delay();
-    serial_delay();  // read mid pulses
+    serial_delay(); // read mid pulses
 
     // receive data from the slave
     uint8_t checksum_computed = 0;

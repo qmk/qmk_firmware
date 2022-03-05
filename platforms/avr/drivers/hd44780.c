@@ -262,7 +262,7 @@ static uint8_t lcd_waitbusy(void)
     delay(LCD_DELAY_BUSY_FLAG);
 
     /* now read the address counter */
-    return (lcd_read(0));  // return address counter
+    return (lcd_read(0)); // return address counter
 
 } /* lcd_waitbusy */
 
@@ -362,17 +362,23 @@ void lcd_gotoxy(uint8_t x, uint8_t y) {
 
 /*************************************************************************
 *************************************************************************/
-int lcd_getxy(void) { return lcd_waitbusy(); }
+int lcd_getxy(void) {
+    return lcd_waitbusy();
+}
 
 /*************************************************************************
 Clear display and set cursor to home position
 *************************************************************************/
-void lcd_clrscr(void) { lcd_command(1 << LCD_CLR); }
+void lcd_clrscr(void) {
+    lcd_command(1 << LCD_CLR);
+}
 
 /*************************************************************************
 Set cursor to home position
 *************************************************************************/
-void lcd_home(void) { lcd_command(1 << LCD_HOME); }
+void lcd_home(void) {
+    lcd_command(1 << LCD_HOME);
+}
 
 /*************************************************************************
 Display character at current cursor position
@@ -382,7 +388,7 @@ Returns:  none
 void lcd_putc(char c) {
     uint8_t pos;
 
-    pos = lcd_waitbusy();  // read busy-flag and address counter
+    pos = lcd_waitbusy(); // read busy-flag and address counter
     if (c == '\n') {
         lcd_newline(pos);
     } else {
@@ -483,8 +489,8 @@ void lcd_init(uint8_t dispAttr) {
     delay(LCD_DELAY_BOOTUP); /* wait 16ms or more after power-on       */
 
     /* initial write to lcd is 8bit */
-    LCD_DATA1_PORT |= _BV(LCD_DATA1_PIN);  // LCD_FUNCTION>>4;
-    LCD_DATA0_PORT |= _BV(LCD_DATA0_PIN);  // LCD_FUNCTION_8BIT>>4;
+    LCD_DATA1_PORT |= _BV(LCD_DATA1_PIN); // LCD_FUNCTION>>4;
+    LCD_DATA0_PORT |= _BV(LCD_DATA0_PIN); // LCD_FUNCTION_8BIT>>4;
     lcd_e_toggle();
     delay(LCD_DELAY_INIT); /* delay, busy flag can't be checked here */
 
@@ -497,7 +503,7 @@ void lcd_init(uint8_t dispAttr) {
     delay(LCD_DELAY_INIT_REP); /* delay, busy flag can't be checked here */
 
     /* now configure for 4bit mode */
-    LCD_DATA0_PORT &= ~_BV(LCD_DATA0_PIN);  // LCD_FUNCTION_4BIT_1LINE>>4
+    LCD_DATA0_PORT &= ~_BV(LCD_DATA0_PIN); // LCD_FUNCTION_4BIT_1LINE>>4
     lcd_e_toggle();
     delay(LCD_DELAY_INIT_4BIT); /* some displays need this additional delay */
 

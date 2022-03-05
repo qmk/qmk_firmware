@@ -54,7 +54,7 @@ or in keymap directory
 ```
 $ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
 $ qmk compile
-Ψ Compiling keymap with make make gh60/satan:colemak
+Ψ Compiling keymap with make gh60/satan:colemak
 ...
 ```
 
@@ -310,7 +310,7 @@ Any arguments that are not provided will prompt for input. If `-u` is not passed
 **Usage**:
 
 ```
-qmk new-keyboard [-kb KEYBOARD] [-t {avr,ps2avrgb}] -u USERNAME
+qmk new-keyboard [-kb KEYBOARD] [-t {atmega32u4,STM32F303,etc}] [-l {60_ansi,75_iso,etc}] -u USERNAME
 ```
 
 ## `qmk new-keymap`

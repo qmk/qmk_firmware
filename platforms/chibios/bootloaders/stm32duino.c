@@ -18,4 +18,6 @@
 
 #include <ch.h>
 
-__attribute__((weak)) void bootloader_jump(void) { NVIC_SystemReset(); }
+__attribute__((weak)) void bootloader_jump(void) {
+    NVIC_SystemReset();
+}

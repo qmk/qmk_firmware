@@ -204,5 +204,5 @@ ifeq ($(strip $(BOOTLOADER)), md-boot)
 endif
 
 ifeq ($(strip $(BOOTLOADER_TYPE)),)
-    $(error No bootloader specified. Please set an appropriate 'BOOTLOADER' in your keyboard's 'rules.mk' file)
+    $(call CATASTROPHIC_ERROR,Invalid BOOTLOADER,No bootloader specified. Please set an appropriate 'BOOTLOADER' in your keyboard's 'rules.mk' file.)
 endif

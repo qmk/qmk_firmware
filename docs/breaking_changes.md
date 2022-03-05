@@ -8,6 +8,7 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## What has been included in past Breaking Changes?
 
+* [2022 Feb 26](ChangeLog/20220226.md)
 * [2021 Nov 27](ChangeLog/20211127.md)
 * [2021 Aug 28](ChangeLog/20210828.md)
 * [2021 May 29](ChangeLog/20210529.md)
@@ -20,17 +21,17 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for February 26, 2022.
+The next Breaking Change is scheduled for May 28, 2022.
 
 ### Important Dates
 
-* [x] 2021 Nov 27 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* [ ] 2022 Jan 31 - `develop` closed to new PR's.
-* [ ] 2022 Jan 31 - Call for testers.
-* [ ] 2022 Feb 12 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* [ ] 2022 Feb 24 - `master` is locked, no PR's merged.
-* [ ] 2022 Feb 26 - Merge `develop` to `master`.
-* [ ] 2022 Feb 26 - `master` is unlocked. PR's can be merged again.
+* [x] 2022 Feb 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* [ ] 2022 Apr 31 - `develop` closed to new PR's.
+* [ ] 2022 Apr 31 - Call for testers.
+* [ ] 2022 May 14 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* [ ] 2022 May 26 - `master` is locked, no PR's merged.
+* [ ] 2022 May 28 - Merge `develop` to `master`.
+* [ ] 2022 May 28 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
 

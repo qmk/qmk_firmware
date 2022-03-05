@@ -110,18 +110,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 static uint32_t last_input_modification_time = 0;
-uint32_t        last_input_activity_time(void) { return last_input_modification_time; }
-uint32_t        last_input_activity_elapsed(void) { return timer_elapsed32(last_input_modification_time); }
+uint32_t        last_input_activity_time(void) {
+    return last_input_modification_time;
+}
+uint32_t last_input_activity_elapsed(void) {
+    return timer_elapsed32(last_input_modification_time);
+}
 
 static uint32_t last_matrix_modification_time = 0;
-uint32_t        last_matrix_activity_time(void) { return last_matrix_modification_time; }
-uint32_t        last_matrix_activity_elapsed(void) { return timer_elapsed32(last_matrix_modification_time); }
-void            last_matrix_activity_trigger(void) { last_matrix_modification_time = last_input_modification_time = timer_read32(); }
+uint32_t        last_matrix_activity_time(void) {
+    return last_matrix_modification_time;
+}
+uint32_t last_matrix_activity_elapsed(void) {
+    return timer_elapsed32(last_matrix_modification_time);
+}
+void last_matrix_activity_trigger(void) {
+    last_matrix_modification_time = last_input_modification_time = timer_read32();
+}
 
 static uint32_t last_encoder_modification_time = 0;
-uint32_t        last_encoder_activity_time(void) { return last_encoder_modification_time; }
-uint32_t        last_encoder_activity_elapsed(void) { return timer_elapsed32(last_encoder_modification_time); }
-void            last_encoder_activity_trigger(void) { last_encoder_modification_time = last_input_modification_time = timer_read32(); }
+uint32_t        last_encoder_activity_time(void) {
+    return last_encoder_modification_time;
+}
+uint32_t last_encoder_activity_elapsed(void) {
+    return timer_elapsed32(last_encoder_modification_time);
+}
+void last_encoder_activity_trigger(void) {
+    last_encoder_modification_time = last_input_modification_time = timer_read32();
+}
 
 // Only enable this if console is enabled to print to
 #if defined(DEBUG_MATRIX_SCAN_RATE)
@@ -143,7 +159,9 @@ void matrix_scan_perf_task(void) {
     }
 }
 
-uint32_t get_matrix_scan_rate(void) { return last_matrix_scan_count; }
+uint32_t get_matrix_scan_rate(void) {
+    return last_matrix_scan_count;
+}
 #else
 #    define matrix_scan_perf_task()
 #endif
@@ -163,7 +181,7 @@ static matrix_row_t   get_real_keys(uint8_t row, matrix_row_t rowdata) {
 }
 
 static inline bool popcount_more_than_one(matrix_row_t rowdata) {
-    rowdata &= rowdata - 1;  // if there are less than two bits (keys) set, rowdata will become zero
+    rowdata &= rowdata - 1; // if there are less than two bits (keys) set, rowdata will become zero
     return rowdata;
 }
 
@@ -220,7 +238,9 @@ __attribute__((weak)) void keyboard_pre_init_user(void) {}
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) void keyboard_pre_init_kb(void) { keyboard_pre_init_user(); }
+__attribute__((weak)) void keyboard_pre_init_kb(void) {
+    keyboard_pre_init_user();
+}
 
 /** \brief keyboard_post_init_user
  *
@@ -234,7 +254,9 @@ __attribute__((weak)) void keyboard_post_init_user() {}
  * FIXME: needs doc
  */
 
-__attribute__((weak)) void keyboard_post_init_kb(void) { keyboard_post_init_user(); }
+__attribute__((weak)) void keyboard_post_init_kb(void) {
+    keyboard_post_init_user();
+}
 
 /** \brief keyboard_setup
  *
@@ -258,13 +280,17 @@ void keyboard_setup(void) {
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) bool is_keyboard_master(void) { return true; }
+__attribute__((weak)) bool is_keyboard_master(void) {
+    return true;
+}
 
 /** \brief is_keyboard_left
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) bool is_keyboard_left(void) { return true; }
+__attribute__((weak)) bool is_keyboard_left(void) {
+    return true;
+}
 
 #endif
 
@@ -273,7 +299,9 @@ __attribute__((weak)) bool is_keyboard_left(void) { return true; }
  * Override this function if you have a condition where keypresses processing should change:
  *   - splits where the slave side needs to process for rgb/oled functionality
  */
-__attribute__((weak)) bool should_process_keypress(void) { return is_keyboard_master(); }
+__attribute__((weak)) bool should_process_keypress(void) {
+    return is_keyboard_master();
+}
 
 /** \brief housekeeping_task_kb
  *

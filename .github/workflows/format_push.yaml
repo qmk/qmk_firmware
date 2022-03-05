@@ -13,13 +13,13 @@ jobs:
     container: qmkfm/qmk_cli
 
     steps:
-    - name: Install dependencies
-      run: |
-        apt-get update && apt-get install -y dos2unix
-
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
+
+    - name: Install dependencies
+      run: |
+        pip3 install -r requirements-dev.txt
 
     - name: Run qmk formatters
       shell: 'bash {0}'
