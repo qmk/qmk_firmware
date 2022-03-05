@@ -263,6 +263,7 @@ def render_key_isoenter(textpad, x, y, w, h, label, style):
     textpad[y + 4][x:x + w] = mid_line
     textpad[y + 5][x:x + w] = bot_line
 
+
 def render_key_baenter(textpad, x, y, w, h, label, style):
     box_chars = BOX_DRAWING_CHARACTERS[style]
     x = ceil(x * 4)
@@ -277,7 +278,7 @@ def render_key_baenter(textpad, x, y, w, h, label, style):
         label = label[:label_len]
 
     label_blank = ' ' * (label_len-3)  # noqa: yapf insists there be no whitespace around - and *
-    label_border_top = box_chars['h'] * (label_len-3) # noqa
+    label_border_top = box_chars['h'] * (label_len-3)  # noqa
     label_border_bottom = box_chars['h'] * label_len
     label_middle = label + ' '*label_leftover  # noqa
 
