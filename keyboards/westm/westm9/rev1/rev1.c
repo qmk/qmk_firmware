@@ -14,17 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "rev1.h"
 
-#include "quantum.h"
-
-#define LAYOUT_macropad( \
-    k00, k01, k02, \
-    k10, k11, k12, \
-    k20, k21, k22 \
-) \
-{ \
-    { k00, k01, k02 }, \
-    { k10, k11, k12 }, \
-    { k20, k21, k22 }, \
+void board_init(void) {
+    // Need this to reset first LED upon plugging in PCB
+    rgblight_toggle();
+    rgblight_set();
+    SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP; // Some people didn't require this for their STM32F072, so your milage may vary.
 }
