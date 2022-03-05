@@ -82,7 +82,7 @@ void encoder_init(void) {
     thatHand  = NUM_ENCODERS_LEFT - thisHand;
     thisCount = isLeftHand ? NUM_ENCODERS_LEFT : NUM_ENCODERS_RIGHT;
     thatCount = isLeftHand ? NUM_ENCODERS_RIGHT : NUM_ENCODERS_LEFT;
-#else  // SPLIT_KEYBOARD
+#else // SPLIT_KEYBOARD
     thisCount                = NUM_ENCODERS;
 #endif
 
@@ -112,19 +112,19 @@ void encoder_init(void) {
             encoders_pad_b[i] = encoders_pad_b_right[i];
         }
     }
-#endif  // defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
+#endif // defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
 
     // Encoder resolutions is handled purely master-side, so concatenate the two arrays
 #if defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)
 #    if defined(ENCODER_RESOLUTIONS_RIGHT)
     static const uint8_t encoder_resolutions_right[NUM_ENCODERS_RIGHT] = ENCODER_RESOLUTIONS_RIGHT;
-#    else   // defined(ENCODER_RESOLUTIONS_RIGHT)
+#    else  // defined(ENCODER_RESOLUTIONS_RIGHT)
     static const uint8_t encoder_resolutions_right[NUM_ENCODERS_RIGHT] = ENCODER_RESOLUTIONS;
-#    endif  // defined(ENCODER_RESOLUTIONS_RIGHT)
+#    endif // defined(ENCODER_RESOLUTIONS_RIGHT)
     for (uint8_t i = 0; i < NUM_ENCODERS_RIGHT; i++) {
         encoder_resolutions[NUM_ENCODERS_LEFT + i] = encoder_resolutions_right[i];
     }
-#endif  // defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)
+#endif // defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)
 
     for (uint8_t i = 0; i < thisCount; i++) {
         setPinInputHigh(encoders_pad_a[i]);
@@ -185,11 +185,13 @@ bool encoder_read(void) {
 #ifdef SPLIT_KEYBOARD
 void last_encoder_activity_trigger(void);
 
-void encoder_state_raw(uint8_t *slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * thisCount); }
+void encoder_state_raw(uint8_t *slave_state) {
+    memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * thisCount);
+}
 
 void encoder_update_raw(uint8_t *slave_state) {
     bool changed = false;
-    for (uint8_t i = 0; i < thatCount; i++) {  // Note inverted logic -- we want the opposite side
+    for (uint8_t i = 0; i < thatCount; i++) { // Note inverted logic -- we want the opposite side
         const uint8_t index = i + thatHand;
         int8_t        delta = slave_state[i] - encoder_value[index];
         while (delta > 0) {

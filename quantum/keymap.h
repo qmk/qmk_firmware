@@ -61,13 +61,13 @@ extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 #            define NUM_ENCODERS_RIGHT NUM_ENCODERS_LEFT
 #        endif
 #        define NUM_ENCODERS (NUM_ENCODERS_LEFT + NUM_ENCODERS_RIGHT)
-#    else  // SPLIT_KEYBOARD
+#    else // SPLIT_KEYBOARD
 #        define NUM_ENCODERS (sizeof(((pin_t[])ENCODERS_PAD_A)) / sizeof(pin_t))
 #        define NUM_ENCODERS_LEFT NUM_ENCODERS
 #        define NUM_ENCODERS_RIGHT 0
-#    endif  // SPLIT_KEYBOARD
+#    endif // SPLIT_KEYBOARD
 #    define NUM_ENCODERS_MAX_PER_SIDE MAX(NUM_ENCODERS_LEFT, NUM_ENCODERS_RIGHT)
-#else  // defined(ENCODER_ENABLE)
+#else // defined(ENCODER_ENABLE)
 #    define NUM_ENCODERS 0
 #    define NUM_ENCODERS_MAX_PER_SIDE NUM_ENCODERS
-#endif  // defined(ENCODER_ENABLE)
+#endif // defined(ENCODER_ENABLE)

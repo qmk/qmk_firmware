@@ -69,7 +69,7 @@ TEST_F(EncoderSplitTestNoRight, TestInitLeft) {
     EXPECT_EQ(pinIsInputHigh[1], true);
     EXPECT_EQ(pinIsInputHigh[2], true);
     EXPECT_EQ(pinIsInputHigh[3], true);
-    EXPECT_EQ(updates_array_idx, 0);  // no updates received
+    EXPECT_EQ(updates_array_idx, 0); // no updates received
 }
 
 TEST_F(EncoderSplitTestNoRight, TestInitRight) {
@@ -79,7 +79,7 @@ TEST_F(EncoderSplitTestNoRight, TestInitRight) {
     EXPECT_EQ(pinIsInputHigh[1], false);
     EXPECT_EQ(pinIsInputHigh[2], false);
     EXPECT_EQ(pinIsInputHigh[3], false);
-    EXPECT_EQ(updates_array_idx, 0);  // no updates received
+    EXPECT_EQ(updates_array_idx, 0); // no updates received
 }
 
 TEST_F(EncoderSplitTestNoRight, TestOneClockwiseLeft) {
@@ -91,7 +91,7 @@ TEST_F(EncoderSplitTestNoRight, TestOneClockwiseLeft) {
     setAndRead(0, true);
     setAndRead(1, true);
 
-    EXPECT_EQ(updates_array_idx, 1);  // one updates received
+    EXPECT_EQ(updates_array_idx, 1); // one updates received
     EXPECT_EQ(updates[0].index, 0);
     EXPECT_EQ(updates[0].clockwise, true);
 }
@@ -111,8 +111,8 @@ TEST_F(EncoderSplitTestNoRight, TestMultipleEncodersRightReceived) {
     isLeftHand = true;
     encoder_init();
 
-    uint8_t slave_state[32] = {1, 0xFF};  // These values would trigger updates if there were encoders on the other side
+    uint8_t slave_state[32] = {1, 0xFF}; // These values would trigger updates if there were encoders on the other side
     encoder_update_raw(slave_state);
 
-    EXPECT_EQ(updates_array_idx, 0);  // no updates received -- no right-hand encoders
+    EXPECT_EQ(updates_array_idx, 0); // no updates received -- no right-hand encoders
 }

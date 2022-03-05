@@ -73,7 +73,7 @@ TEST_F(EncoderSplitTestLeftEqRight, TestInitLeft) {
     EXPECT_EQ(pinIsInputHigh[5], false);
     EXPECT_EQ(pinIsInputHigh[6], false);
     EXPECT_EQ(pinIsInputHigh[7], false);
-    EXPECT_EQ(updates_array_idx, 0);  // no updates received
+    EXPECT_EQ(updates_array_idx, 0); // no updates received
 }
 
 TEST_F(EncoderSplitTestLeftEqRight, TestInitRight) {
@@ -87,7 +87,7 @@ TEST_F(EncoderSplitTestLeftEqRight, TestInitRight) {
     EXPECT_EQ(pinIsInputHigh[5], true);
     EXPECT_EQ(pinIsInputHigh[6], true);
     EXPECT_EQ(pinIsInputHigh[7], true);
-    EXPECT_EQ(updates_array_idx, 0);  // no updates received
+    EXPECT_EQ(updates_array_idx, 0); // no updates received
 }
 
 TEST_F(EncoderSplitTestLeftEqRight, TestOneClockwiseLeft) {
@@ -99,7 +99,7 @@ TEST_F(EncoderSplitTestLeftEqRight, TestOneClockwiseLeft) {
     setAndRead(0, true);
     setAndRead(1, true);
 
-    EXPECT_EQ(updates_array_idx, 1);  // one update received
+    EXPECT_EQ(updates_array_idx, 1); // one update received
     EXPECT_EQ(updates[0].index, 0);
     EXPECT_EQ(updates[0].clockwise, true);
 }
@@ -124,10 +124,10 @@ TEST_F(EncoderSplitTestLeftEqRight, TestMultipleEncodersRightReceived) {
     isLeftHand = true;
     encoder_init();
 
-    uint8_t slave_state[32] = {1, 0xFF};  // First right encoder is CCW, Second right encoder CW
+    uint8_t slave_state[32] = {1, 0xFF}; // First right encoder is CCW, Second right encoder CW
     encoder_update_raw(slave_state);
 
-    EXPECT_EQ(updates_array_idx, 2);  // two updates received, one for each changed item on the right side
+    EXPECT_EQ(updates_array_idx, 2); // two updates received, one for each changed item on the right side
     EXPECT_EQ(updates[0].index, 2);
     EXPECT_EQ(updates[0].clockwise, false);
     EXPECT_EQ(updates[1].index, 3);
