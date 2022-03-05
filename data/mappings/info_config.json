@@ -17,7 +17,7 @@
     "DEVICE_VER": {"info_key": "usb.device_ver", "value_type": "hex"},
     # TODO: Replace ^^^ with vvv
     #"DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version"},
-    "DESCRIPTION": {"info_key": "keyboard_folder", "to_json": false},
+    "DESCRIPTION": {"info_key": "keyboard_folder", "value_type": "str", "to_json": false},
     "DIODE_DIRECTION": {"info_key": "diode_direction"},
     "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "bool"},
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
