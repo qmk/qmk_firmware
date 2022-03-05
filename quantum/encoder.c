@@ -19,7 +19,6 @@
 #ifdef SPLIT_KEYBOARD
 #    include "split_util.h"
 #endif
-#include "keymap.h"
 
 // for memcpy
 #include <string.h>

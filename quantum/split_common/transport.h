@@ -42,8 +42,6 @@ bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, 
 
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
-#    include "keymap.h"
-#    define NUMBER_OF_ENCODERS (sizeof((pin_t[])ENCODERS_PAD_A) / sizeof(pin_t))
 #endif // ENCODER_ENABLE
 
 #ifdef BACKLIGHT_ENABLE
