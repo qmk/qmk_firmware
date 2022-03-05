@@ -15,3 +15,9 @@
  */
 
 #include "westmergo.h"
+
+void board_init(void) {
+    // Need this to reset first LED upon plugging in PCB
+    rgblight_toggle();
+    rgblight_set();
+}
