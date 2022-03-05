@@ -175,22 +175,20 @@ TEST_F(OneShot, OSLWithAdditionalKeypress) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release OSL key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(2);
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     osl_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Press regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(regular_key.report_code))).Times(2);
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(regular_key.report_code))).Times(1);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
     regular_key.press();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release regular key */
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     regular_key.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);

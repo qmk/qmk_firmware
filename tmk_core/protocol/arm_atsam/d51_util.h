@@ -219,6 +219,6 @@ enum debug_code_list {
 #    define DBGC(n) \
         {}
 
-#endif  // DEBUG_BOOT_TRACING_ENABLE
+#endif // DEBUG_BOOT_TRACING_ENABLE
 
-#endif  //_D51_UTIL_H_
+#endif //_D51_UTIL_H_

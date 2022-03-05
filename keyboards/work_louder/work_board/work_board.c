@@ -100,15 +100,15 @@ led_config_t g_led_config = { {
 } };
 // clang-format on
 
+#    ifdef VIA_ENABLE
+bool via_layout_2u = false;
+
+void via_set_layout_options_kb(uint32_t value) { via_layout_2u = (bool)value; }
+#    endif  // VIA_ENABLE
+
 __attribute__((weak)) void rgb_matrix_indicators_user(void) {
 #    ifdef VIA_ENABLE
-    static bool     layout_2u = false;
-    static uint16_t timer = 0;
-    if (timer_elapsed(timer) > 500) {
-        timer     = timer_read();
-        layout_2u = (bool)via_get_layout_options();
-    }
-    if (layout_2u) {
+    if (via_layout_2u) {
         rgb_matrix_set_color(5, 0, 0, 0);
         rgb_matrix_set_color(7, 0, 0, 0);
     } else {
