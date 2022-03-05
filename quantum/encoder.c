@@ -131,7 +131,7 @@ void encoder_init(void) {
         setPinInputHigh(encoders_pad_b[i]);
     }
     encoder_wait_pullup_charge();
-    for (int i = 0; i < thisCount; i++) {
+    for (uint8_t i = 0; i < thisCount; i++) {
         encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
     }
 }
