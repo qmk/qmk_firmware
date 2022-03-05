@@ -26,7 +26,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER github.com/sowbug
 #define PRODUCT 68-key keyboard
-#define DESCRIPTION A 68-key keyboard based on 68keys.io
 
 // key matrix size
 #define MATRIX_ROWS 5
