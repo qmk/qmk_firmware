@@ -200,6 +200,7 @@ def render_layouts(info_json, render_ascii):
 
     return layouts
 
+
 def render_key_rect(textpad, x, y, w, h, label, style):
     box_chars = BOX_DRAWING_CHARACTERS[style]
     x = ceil(x * 4)
@@ -228,6 +229,7 @@ def render_key_rect(textpad, x, y, w, h, label, style):
         textpad[y + i + 2][x:x + w] = mid_line
     textpad[y + h - 1][x:x + w] = bot_line
 
+
 def render_key_isoenter(textpad, x, y, w, h, label, style):
     box_chars = BOX_DRAWING_CHARACTERS[style]
     x = ceil(x * 4)
@@ -241,9 +243,9 @@ def render_key_isoenter(textpad, x, y, w, h, label, style):
     if len(label) > label_len:
         label = label[:label_len]
 
-    label_blank = ' ' * (label_len - 1)
+    label_blank = ' ' * (label_len-1)
     label_border_top = box_chars['h'] * label_len
-    label_border_bottom = box_chars['h'] * (label_len - 1)
+    label_border_bottom = box_chars['h'] * (label_len-1)
     label_middle = label + ' '*label_leftover  # noqa: yapf insists there be no whitespace around *
 
     top_line = array('u', box_chars['tl'] + label_border_top + box_chars['tr'])
