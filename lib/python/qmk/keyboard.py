@@ -162,14 +162,12 @@ def render_layout(layout_data, render_ascii, key_labels=None):
     """
     textpad = [array('u', ' ' * 200) for x in range(100)]
     style = 'ascii' if render_ascii else 'unicode'
-    box_chars = BOX_DRAWING_CHARACTERS[style]
 
     for key in layout_data:
-        x = ceil(key.get('x', 0) * 4)
-        y = ceil(key.get('y', 0) * 3)
-        w = ceil(key.get('w', 1) * 4)
-        h = ceil(key.get('h', 1) * 3)
-        is_iso_key = w == 5 and h == 6
+        x = key.get('x', 0)
+        y = key.get('y', 0)
+        w = key.get('w', 1)
+        h = key.get('h', 1)
 
         if key_labels:
             label = key_labels.pop(0)
@@ -178,34 +176,10 @@ def render_layout(layout_data, render_ascii, key_labels=None):
         else:
             label = key.get('label', '')
 
-        label_len = w - 2
-        label_leftover = label_len - len(label)
-
-        if len(label) > label_len:
-            label = label[:label_len]
-
-        label_blank = ' ' * label_len
-        label_border = box_chars['h'] * label_len
-        label_middle = label + ' '*label_leftover  # noqa: yapf insists there be no whitespace around *
-
-        top_line = array('u', box_chars['tl'] + label_border + box_chars['tr'])
-        lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
-        mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
-        bot_line = array('u', box_chars['bl'] + label_border + box_chars['br'])
-
-        textpad[y][x:x + w] = top_line
-        textpad[y + 1][x:x + w] = lab_line
-        for i in range(h - 3):
-            textpad[y + i + 2][x:x + w] = mid_line
-        textpad[y + h - 1][x:x + w] = bot_line
-
-        if is_iso_key:
-            textpad[y][x - 1] = box_chars['tl']
-            textpad[y][x] = box_chars['h']
-            textpad[y + 1][x - 1] = box_chars['v']
-            textpad[y + 1][x] = ' '
-            textpad[y + 2][x - 1] = box_chars['bl']
-            textpad[y + 2][x] = box_chars['tr']
+        if x >= 0.25 and w == 1.25 and h == 2:
+            render_key_isoenter(textpad, x, y, w, h, label, style)
+        else:
+            render_key_rect(textpad, x, y, w, h, label, style)
 
     lines = []
     for line in textpad:
@@ -225,3 +199,62 @@ def render_layouts(info_json, render_ascii):
         layouts[layout] = render_layout(layout_data, render_ascii)
 
     return layouts
+
+def render_key_rect(textpad, x, y, w, h, label, style):
+    box_chars = BOX_DRAWING_CHARACTERS[style]
+    x = ceil(x * 4)
+    y = ceil(y * 3)
+    w = ceil(w * 4)
+    h = ceil(h * 3)
+
+    label_len = w - 2
+    label_leftover = label_len - len(label)
+
+    if len(label) > label_len:
+        label = label[:label_len]
+
+    label_blank = ' ' * label_len
+    label_border = box_chars['h'] * label_len
+    label_middle = label + ' '*label_leftover  # noqa: yapf insists there be no whitespace around *
+
+    top_line = array('u', box_chars['tl'] + label_border + box_chars['tr'])
+    lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
+    mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
+    bot_line = array('u', box_chars['bl'] + label_border + box_chars['br'])
+
+    textpad[y][x:x + w] = top_line
+    textpad[y + 1][x:x + w] = lab_line
+    for i in range(h - 3):
+        textpad[y + i + 2][x:x + w] = mid_line
+    textpad[y + h - 1][x:x + w] = bot_line
+
+def render_key_isoenter(textpad, x, y, w, h, label, style):
+    box_chars = BOX_DRAWING_CHARACTERS[style]
+    x = ceil(x * 4)
+    y = ceil(y * 3)
+    w = ceil(w * 4)
+    h = ceil(h * 3)
+
+    label_len = w - 2
+    label_leftover = label_len - len(label) + 1
+
+    if len(label) > label_len:
+        label = label[:label_len]
+
+    label_blank = ' ' * label_len
+    label_border_top = box_chars['h'] * (label_len + 1)
+    label_border = box_chars['h'] * label_len
+    label_middle = label + ' '*label_leftover  # noqa: yapf insists there be no whitespace around *
+
+    top_line = array('u', box_chars['tl'] + label_border_top + box_chars['tr'])
+    lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
+    crn_line = array('u', box_chars['bl'] + box_chars['tr'] + label_blank + box_chars['v'])
+    mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
+    bot_line = array('u', box_chars['bl'] + label_border + box_chars['br'])
+
+    textpad[y][x - 1:x + w + 1] = top_line
+    textpad[y + 1][x - 1:x + w + 1] = lab_line
+    textpad[y + 2][x - 1:x + w + 1] = crn_line
+    textpad[y + 3][x:x + w] = mid_line
+    textpad[y + 4][x:x + w] = mid_line
+    textpad[y + h - 1][x:x + w] = bot_line
