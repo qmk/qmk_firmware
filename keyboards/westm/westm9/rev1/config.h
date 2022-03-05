@@ -16,7 +16,7 @@
 
 #pragma once
 
-#define PRODUCT_ID      0x0001
+#define PRODUCT_ID      0x0003
 #define DEVICE_VER      0x0001
 
 // The pin connected to the data pin of the LEDs
