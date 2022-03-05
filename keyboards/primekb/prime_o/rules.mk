@@ -7,13 +7,8 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-<<<<<<< HEAD
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no       # Mouse keys
-=======
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
->>>>>>> f4e42bde4a9c8671b1263c356615a1762a2790ab
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no        # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
@@ -21,6 +16,3 @@ COMMAND_ENABLE = no        # Commands for debug and configuration
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = yes            # USB Nkey Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
-RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-AUDIO_ENABLE = no           # Audio output
