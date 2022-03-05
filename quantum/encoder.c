@@ -131,7 +131,7 @@ void encoder_init(void) {
         setPinInputHigh(encoders_pad_b[i]);
     }
     encoder_wait_pullup_charge();
-    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
+    for (int i = 0; i < thisCount; i++) {
         encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
     }
 }
@@ -185,13 +185,7 @@ bool encoder_read(void) {
 #ifdef SPLIT_KEYBOARD
 void last_encoder_activity_trigger(void);
 
-<<<<<<< HEAD
 void encoder_state_raw(uint8_t *slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * thisCount); }
-=======
-void encoder_state_raw(uint8_t* slave_state) {
-    memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * NUMBER_OF_ENCODERS);
-}
->>>>>>> upstream/develop
 
 void encoder_update_raw(uint8_t *slave_state) {
     bool changed = false;
