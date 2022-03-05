@@ -235,22 +235,22 @@ def render_key_isoenter(textpad, x, y, w, h, label, style):
     w = ceil(w * 4)
     h = ceil(h * 3)
 
-    label_len = w - 2
-    label_leftover = label_len - len(label) + 1
+    label_len = w - 1
+    label_leftover = label_len - len(label)
 
     if len(label) > label_len:
         label = label[:label_len]
 
-    label_blank = ' ' * label_len
-    label_border_top = box_chars['h'] * (label_len + 1)
-    label_border = box_chars['h'] * label_len
+    label_blank = ' ' * (label_len - 1)
+    label_border_top = box_chars['h'] * label_len
+    label_border_bottom = box_chars['h'] * (label_len - 1)
     label_middle = label + ' '*label_leftover  # noqa: yapf insists there be no whitespace around *
 
     top_line = array('u', box_chars['tl'] + label_border_top + box_chars['tr'])
     lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
     crn_line = array('u', box_chars['bl'] + box_chars['tr'] + label_blank + box_chars['v'])
     mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
-    bot_line = array('u', box_chars['bl'] + label_border + box_chars['br'])
+    bot_line = array('u', box_chars['bl'] + label_border_bottom + box_chars['br'])
 
     textpad[y][x - 1:x + w + 1] = top_line
     textpad[y + 1][x - 1:x + w + 1] = lab_line
