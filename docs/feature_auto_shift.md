@@ -275,6 +275,19 @@ This value (if set) must be greater than one's `TAPPING_TERM`, as the key press
 must be designated as a 'hold' by `process_tapping` before we send the modifier.
 There is no such limitation in regards to `AUTO_SHIFT_TIMEOUT` for normal keys.
 
+Note that, on top of defining `RETRO_SHIFT`, you also have to override the 
+`get_custom_auto_shifted_key` function and add the specific key codes you would
+like to have retro-shifted because they are outside the default auto-shift ranges.
+For example, if you would like all mod tap and layer tap keys to be auto-shifted, 
+you could add the following in your `keymap.c` file:
+
+```c
+bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
+    if (IS_RETRO(keycode)){return true;}
+    return false;
+}
+```
+
 ### Retro Shift and Tap Hold Configurations
 
 Tap Hold Configurations work a little differently when using Retro Shift.
