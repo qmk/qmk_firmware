@@ -54,6 +54,19 @@ If you are using different pinouts for the encoders on each half of a split keyb
 #define ENCODER_RESOLUTIONS_RIGHT { 2, 4 }
 ```
 
+If the `_RIGHT` definitions aren't specified in your `config.h`, then the non-`_RIGHT` versions will be applied to both sides of the split.
+
+Additionally, if one side does not have an encoder, you can specify `{}` for the pins/resolution -- for example, a split keyboard with only a right-side encoder:
+
+```c
+#define ENCODERS_PAD_A { }
+#define ENCODERS_PAD_B { }
+#define ENCODER_RESOLUTIONS { }
+#define ENCODERS_PAD_A_RIGHT { B12 }
+#define ENCODERS_PAD_B_RIGHT { B13 }
+#define ENCODER_RESOLUTIONS_RIGHT { 4 }
+```
+
 ## Callbacks
 
 The callback functions can be inserted into your `<keyboard>.c`:
