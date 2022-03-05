@@ -14,10 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "wm9.h"
+#include "westm9.h"
 
 void board_init(void) {
-    rgblight_toggle(); // Ghetto fix to stray signal on first led upon boot.
-    rgblight_set();
     SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP; // Some people didn't require this for their STM32F072, so your milage may vary.
 }

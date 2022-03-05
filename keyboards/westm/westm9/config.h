@@ -24,7 +24,7 @@
 #define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001 // Revision prototype
 #define MANUFACTURER    WestM
-#define PRODUCT         WM9
+#define PRODUCT         WestM9
 
 /* key matrix size */
 #define MATRIX_ROWS 3
