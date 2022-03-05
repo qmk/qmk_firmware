@@ -254,9 +254,9 @@ def render_key_isoenter(textpad, x, y, w, h, label, style):
     mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
     bot_line = array('u', box_chars['bl'] + label_border_bottom + box_chars['br'])
 
-    textpad[y][x - 1:x + w + 1] = top_line
-    textpad[y + 1][x - 1:x + w + 1] = lab_line
-    textpad[y + 2][x - 1:x + w + 1] = crn_line
+    textpad[y][x - 1:x + w] = top_line
+    textpad[y + 1][x - 1:x + w] = lab_line
+    textpad[y + 2][x - 1:x + w] = crn_line
     textpad[y + 3][x:x + w] = mid_line
     textpad[y + 4][x:x + w] = mid_line
     textpad[y + h - 1][x:x + w] = bot_line
