@@ -31,6 +31,7 @@ safe_commands = [
 subcommands = [
     'qmk.cli.bux',
     'qmk.cli.c2json',
+    'qmk.cli.cd',
     'qmk.cli.cformat',
     'qmk.cli.chibios.confmigrate',
     'qmk.cli.clean',
@@ -46,6 +47,7 @@ subcommands = [
     'qmk.cli.generate.api',
     'qmk.cli.generate.compilation_database',
     'qmk.cli.generate.config_h',
+    'qmk.cli.generate.develop_pr_list',
     'qmk.cli.generate.dfu_header',
     'qmk.cli.generate.docs',
     'qmk.cli.generate.info_json',

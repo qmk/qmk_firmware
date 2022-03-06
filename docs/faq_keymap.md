@@ -19,7 +19,7 @@ There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JI
 Sometimes, for readability's sake, it's useful to define custom names for some keycodes. People often define custom names using `#define`. For example:
 
 ```c
-#define FN_CAPS LT(_FL, KC_CAPSLOCK)
+#define FN_CAPS LT(_FL, KC_CAPS)
 #define ALT_TAB LALT(KC_TAB)
 ```
 
@@ -38,8 +38,8 @@ As a quick fix try holding down `Space`+`Backspace` while you plug in your keybo
 
 The key found on most modern keyboards that is located between `KC_RGUI` and `KC_RCTL` is actually called `KC_APP`. This is because when that key was invented there was already a key named `MENU` in the relevant standards, so MS chose to call that the `APP` key.
 
-## `KC_SYSREQ` Isn't Working
-Use keycode for Print Screen(`KC_PSCREEN` or `KC_PSCR`) instead of `KC_SYSREQ`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
+## `KC_SYSTEM_REQUEST` Isn't Working
+Use keycode for Print Screen (`KC_PRINT_SCREEN`/`KC_PSCR`) instead of `KC_SYSTEM_REQUEST`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
 
 See [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) and
 * https://en.wikipedia.org/wiki/Magic_SysRq_key
@@ -47,7 +47,7 @@ See [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) and
 
 ## Power Keys Aren't Working
 
-Somewhat confusingly, there are two "Power" keycodes in QMK: `KC_POWER` in the Keyboard/Keypad HID usage page, and `KC_SYSTEM_POWER` (or `KC_PWR`) in the Consumer page.
+Somewhat confusingly, there are two "Power" keycodes in QMK: `KC_KB_POWER` in the Keyboard/Keypad HID usage page, and `KC_SYSTEM_POWER` (or `KC_PWR`) in the Consumer page.
 
 The former is only recognized on macOS, while the latter, `KC_SLEP` and `KC_WAKE` are supported by all three major operating systems, so it is recommended to use those instead. Under Windows, these keys take effect immediately, however on macOS they must be held down until a dialog appears.
 
@@ -57,7 +57,7 @@ https://github.com/tmk/tmk_keyboard/issues/67
 
 ## Modifier/Layer Stuck
 Modifier keys or layers can be stuck unless layer switching is configured properly.
-For Modifier keys and layer actions you have to place `KC_TRANS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
+For Modifier keys and layer actions you have to place `KC_TRNS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
 
 * https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
 * https://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
@@ -75,7 +75,7 @@ This feature is for *mechanical lock switch* like [this Alps one](https://deskth
 
 After enabling this feature use keycodes `KC_LCAP`, `KC_LNUM` and `KC_LSCR` in your keymap instead.
 
-Old vintage mechanical keyboards occasionally have lock switches but modern ones don't have. ***You don't need this feature in most case and just use keycodes `KC_CAPS`, `KC_NLCK` and `KC_SLCK`.***
+Old vintage mechanical keyboards occasionally have lock switches but modern ones don't have. ***You don't need this feature in most case and just use keycodes `KC_CAPS`, `KC_NUM` and `KC_SCRL`.***
 
 ## Input Special Characters Other Than ASCII like Cédille 'Ç'
 

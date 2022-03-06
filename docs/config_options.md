@@ -61,6 +61,8 @@ This is a C header file that is one of the first things included, and will persi
   * pins unused by the keyboard for reference
 * `#define MATRIX_HAS_GHOST`
   * define is matrix has ghost (unlikely)
+* `#define MATRIX_UNSELECT_DRIVE_HIGH`
+  * On un-select of matrix pins, rather than setting pins to input-high, sets them to output-high.
 * `#define DIODE_DIRECTION COL2ROW`
   * COL2ROW or ROW2COL - how your matrix is configured. COL2ROW means the black mark on your diode is facing to the rows, and between the switch and the rows.
 * `#define DIRECT_PINS { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
@@ -124,10 +126,6 @@ If you define these options you will disable the associated feature, which can s
   * disable tap dance and other tapping features
 * `#define NO_ACTION_ONESHOT`
   * disable one-shot modifiers
-* `#define NO_ACTION_MACRO`
-  * disable old-style macro handling using `MACRO()`, `action_get_macro()` _(deprecated)_
-* `#define NO_ACTION_FUNCTION`
-  * disable old-style function handling using `fn_actions`, `action_function()` _(deprecated)_
 
 ## Features That Can Be Enabled
 
@@ -206,7 +204,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
 * `#define TAP_HOLD_CAPS_DELAY 80`
-  * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
+  * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPS_LOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
 * `#define KEY_OVERRIDE_REPEAT_DELAY 500`
   * Sets the key repeat interval for [key overrides](feature_key_overrides.md).
 
@@ -383,7 +381,6 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * A list of [layouts](feature_layouts.md) this keyboard supports.
 * `LTO_ENABLE`
   * Enables Link Time Optimization (LTO) when compiling the keyboard.  This makes the process take longer, but it can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).
-However, this will automatically disable the legacy TMK Macros and Functions features, as these break when LTO is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`.  (Note: This does not affect QMK [Macros](feature_macros.md) and [Layers](feature_layers.md).)
 
 ## AVR MCU Options
 * `MCU = atmega32u4`
@@ -404,8 +401,10 @@ However, this will automatically disable the legacy TMK Macros and Functions fea
 
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
+* `MAGIC_ENABLE`
+  * MAGIC actions (BOOTMAGIC without the boot)
 * `BOOTMAGIC_ENABLE`
-  * Virtual DIP switch configuration
+  * Enable Bootmagic Lite
 * `MOUSEKEY_ENABLE`
   * Mouse keys
 * `EXTRAKEY_ENABLE`
@@ -432,8 +431,8 @@ Use these to enable or disable building certain features. The more you have enab
   * MIDI controls
 * `UNICODE_ENABLE`
   * Unicode
-* `BLUETOOTH`
-  * Current options are AdafruitBLE, RN42
+* `BLUETOOTH_ENABLE`
+  * Current options are BluefruitLE, RN42
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 * `CUSTOM_MATRIX`
@@ -444,6 +443,10 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
+* `DEFERRED_EXEC_ENABLE`
+  * Enables deferred executor support -- timed delays before callbacks are invoked. See [deferred execution](custom_quantum_functions.md#deferred-execution) for more information.
+* `DYNAMIC_TAPPING_TERM_ENABLE`
+  * Allows to configure the global tapping term on the fly.
 
 ## USB Endpoint Limitations
 

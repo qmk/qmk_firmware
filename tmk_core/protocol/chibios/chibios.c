@@ -60,10 +60,11 @@ void    send_keyboard(report_keyboard_t *report);
 void    send_mouse(report_mouse_t *report);
 void    send_system(uint16_t data);
 void    send_consumer(uint16_t data);
+void    send_programmable_button(uint32_t data);
 void    send_digitizer(report_digitizer_t *report);
 
 /* host struct */
-host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
+host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
 
 #ifdef VIRTSER_ENABLE
 void virtser_task(void);
@@ -106,7 +107,7 @@ __attribute__((weak)) void early_hardware_init_pre(void) {
 #if EARLY_INIT_PERFORM_BOOTLOADER_JUMP
     void enter_bootloader_mode_if_requested(void);
     enter_bootloader_mode_if_requested();
-#endif  // EARLY_INIT_PERFORM_BOOTLOADER_JUMP
+#endif // EARLY_INIT_PERFORM_BOOTLOADER_JUMP
 }
 
 __attribute__((weak)) void early_hardware_init_post(void) {}
@@ -138,11 +139,11 @@ void protocol_setup(void) {
 
     // TESTING
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
-
-    keyboard_setup();
 }
 
-void protocol_init(void) {
+static host_driver_t *driver = NULL;
+
+void protocol_pre_init(void) {
     /* Init USB */
     usb_event_queue_init();
     init_usb_driver(&USB_DRIVER);
@@ -150,8 +151,6 @@ void protocol_init(void) {
 #ifdef MIDI_ENABLE
     setup_midi();
 #endif
-
-    host_driver_t *driver = NULL;
 
     /* Wait until USB is active */
     while (true) {
@@ -175,19 +174,13 @@ void protocol_init(void) {
     wait_ms(50);
 
     print("USB configured.\n");
-
-    /* init TMK modules */
-    keyboard_init();
-    host_set_driver(driver);
-
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_init();
-#endif
-
-    print("Keyboard start.\n");
 }
 
-void protocol_task(void) {
+void protocol_post_init(void) {
+    host_set_driver(driver);
+}
+
+void protocol_pre_task(void) {
     usb_event_queue_task();
 
 #if !defined(NO_USB_STARTUP_CHECK)
@@ -195,7 +188,7 @@ void protocol_task(void) {
         print("[s]");
         while (USB_DRIVER.state == USB_SUSPENDED) {
             /* Do this in the suspended state */
-            suspend_power_down();  // on AVR this deep sleeps for 15ms
+            suspend_power_down(); // on AVR this deep sleeps for 15ms
             /* Remote wakeup */
             if (suspend_wakeup_condition()) {
                 usbWakeupHost(&USB_DRIVER);
@@ -210,8 +203,9 @@ void protocol_task(void) {
 #    endif /* MOUSEKEY_ENABLE */
     }
 #endif
+}
 
-    keyboard_task();
+void protocol_post_task(void) {
 #ifdef CONSOLE_ENABLE
     console_task();
 #endif

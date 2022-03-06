@@ -5,7 +5,7 @@
     "usb": {
         "vid": "0x1209",
         "pid": "0x69A1",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1",
     },
     "diode_direction": "COL2ROW",
     "layouts": {
