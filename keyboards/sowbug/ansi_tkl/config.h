@@ -26,6 +26,7 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER github.com/sowbug
 #define PRODUCT ANSI TKL
+#define DESCRIPTION A tenkeyless ANSI-layout keyboard
 
 // key matrix size
 #define MATRIX_ROWS 6
