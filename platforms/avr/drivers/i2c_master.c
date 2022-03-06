@@ -25,12 +25,15 @@
 #include "wait.h"
 
 #ifndef F_SCL
-#    define F_SCL 400000UL  // SCL frequency
+#    define F_SCL 400000UL // SCL frequency
 #endif
 
 #ifndef I2C_START_RETRY_COUNT
 #    define I2C_START_RETRY_COUNT 20
-#endif  // I2C_START_RETRY_COUNT
+#endif // I2C_START_RETRY_COUNT
+
+#define I2C_ACTION_READ 0x01
+#define I2C_ACTION_WRITE 0x00
 
 #define TWBR_val (((F_CPU / F_SCL) - 16) / 2)
 
@@ -95,7 +98,7 @@ static i2c_status_t i2c_start_impl(uint8_t address, uint16_t timeout) {
 i2c_status_t i2c_start(uint8_t address, uint16_t timeout) {
     // Retry i2c_start_impl a bunch times in case the remote side has interrupts disabled.
     uint16_t     timeout_timer = timer_read();
-    uint16_t     time_slice    = MAX(1, (timeout == (I2C_TIMEOUT_INFINITE)) ? 5 : (timeout / (I2C_START_RETRY_COUNT)));  // if it's infinite, wait 1ms between attempts, otherwise split up the entire timeout into the number of retries
+    uint16_t     time_slice    = MAX(1, (timeout == (I2C_TIMEOUT_INFINITE)) ? 5 : (timeout / (I2C_START_RETRY_COUNT))); // if it's infinite, wait 1ms between attempts, otherwise split up the entire timeout into the number of retries
     i2c_status_t status;
     do {
         status = i2c_start_impl(address, time_slice);
@@ -154,7 +157,7 @@ int16_t i2c_read_nack(uint16_t timeout) {
 }
 
 i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2c_status_t status = i2c_start(address | I2C_WRITE, timeout);
+    i2c_status_t status = i2c_start(address | I2C_ACTION_WRITE, timeout);
 
     for (uint16_t i = 0; i < length && status >= 0; i++) {
         status = i2c_write(data[i], timeout);
@@ -166,7 +169,7 @@ i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length,
 }
 
 i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout) {
-    i2c_status_t status = i2c_start(address | I2C_READ, timeout);
+    i2c_status_t status = i2c_start(address | I2C_ACTION_READ, timeout);
 
     for (uint16_t i = 0; i < (length - 1) && status >= 0; i++) {
         status = i2c_read_ack(timeout);

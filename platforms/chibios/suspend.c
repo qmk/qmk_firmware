@@ -13,15 +13,6 @@
 #include "led.h"
 #include "wait.h"
 
-/** \brief suspend idle
- *
- * FIXME: needs doc
- */
-void suspend_idle(uint8_t time) {
-    // TODO: this is not used anywhere - what units is 'time' in?
-    wait_ms(time);
-}
-
 /** \brief suspend power down
  *
  * FIXME: needs doc
@@ -33,34 +24,6 @@ void suspend_power_down(void) {
 
     wait_ms(17);
 }
-
-/** \brief suspend wakeup condition
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void matrix_power_up(void) {}
-__attribute__((weak)) void matrix_power_down(void) {}
-bool                       suspend_wakeup_condition(void) {
-    matrix_power_up();
-    matrix_scan();
-    matrix_power_down();
-    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-        if (matrix_get_row(r)) return true;
-    }
-    return false;
-}
-
-/** \brief run user level code immediately after wakeup
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_wakeup_init_user(void) {}
-
-/** \brief run keyboard level code immediately after wakeup
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
 
 /** \brief suspend wakeup condition
  *
