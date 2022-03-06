@@ -1,9 +1,12 @@
 {
     "keyboard_name": "glacier",
     "url": "",
-    "maintainer": "Tim",
+    "maintainer": "Timliuzhaolu",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_tkl_f13_ansi_tsangan"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1.25, "y":0},

@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dichotomy.h"
 #include "pointing_device.h"
 #include "report.h"
-#include "protocol/serial.h"
+#include "uart.h"
 
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
@@ -94,7 +94,7 @@ uint8_t matrix_cols(void) {
 
 void matrix_init(void) {
     matrix_init_quantum();
-    serial_init();
+    uart_init(1000000);
 }
 
 uint8_t matrix_scan(void)
@@ -104,7 +104,7 @@ uint8_t matrix_scan(void)
     uint32_t timeout = 0;
 
     //the s character requests the RF slave to send the matrix
-    SERIAL_UART_DATA = 's';
+    uart_write('s');
 
     //trust the external keystates entirely, erase the last data
     uint8_t uart_data[11] = {0};
@@ -114,14 +114,14 @@ uint8_t matrix_scan(void)
         //wait for the serial data, timeout if it's been too long
         //this only happened in testing with a loose wire, but does no
         //harm to leave it in here
-        while(!SERIAL_UART_RXD_PRESENT){
+        while(!uart_available()){
             timeout++;
             if (timeout > 10000){
 		xprintf("\r\nTime out in keyboard.");
                 break;
             }
         }
-        uart_data[i] = SERIAL_UART_DATA;
+        uart_data[i] = uart_read();
     }
 
     //check for the end packet, the key state bytes use the LSBs, so 0xE0

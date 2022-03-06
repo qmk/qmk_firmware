@@ -172,7 +172,7 @@ The following animations can be enabled:
 
 ### USB
 
-Every USB keyboard needs to have its USB parmaters defined. At a minimum you need to set vid, pid, and device version.
+Every USB keyboard needs to have its USB parameters defined. At a minimum you need to set the Vendor ID, Product ID, and device version.
 
 Example:
 
@@ -181,7 +181,9 @@ Example:
     "usb": {
         "vid": "0xC1ED",
         "pid": "0x23B0",
-        "device_ver": "0x0001"
+        "device_version": "1.0.0"
     }
 }
 ```
+
+The device version is a BCD (binary coded decimal) value, in the format `MMmr`, so the below value would look like `0x0100` in the generated code. This also means the maximum valid values for each part are `99.9.9`, despite it being a hexadecimal value under the hood.

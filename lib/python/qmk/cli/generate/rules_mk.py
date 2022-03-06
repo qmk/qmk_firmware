@@ -29,7 +29,7 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
     if key_type in ['array', 'list']:
         return f'{rules_key} ?= {" ".join(rules_value)}'
     elif key_type == 'bool':
-        return f'{rules_key} ?= {"on" if rules_value else "off"}'
+        return f'{rules_key} ?= {"yes" if rules_value else "no"}'
     elif key_type == 'mapping':
         return '\n'.join([f'{key} ?= {value}' for key, value in rules_value.items()])
 
