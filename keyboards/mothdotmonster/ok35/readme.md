@@ -6,7 +6,7 @@ A 5x14 split ortholinear keyboard.
 
 * Keyboard Maintainer: mothdotmonster
 * Hardware Supported: Pro Micro and compatibles
-* Hardware Availability: TBA
+* Hardware Availability: [shop.moth.monster](https://shop.moth.monster/product/ok35)
 
 Make example for this keyboard (after setting up your build environment):
 
