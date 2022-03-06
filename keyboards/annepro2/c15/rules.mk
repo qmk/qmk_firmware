@@ -33,3 +33,5 @@ RAW_ENABLE = no
 MIDI_ENABLE = no
 VIRTSER_ENABLE = no
 COMBO_ENABLE = no
+BOOTLOADER = custom
+PROGRAM_CMD = annepro2_tools $(BUILD_DIR)/$(TARGET).bin
