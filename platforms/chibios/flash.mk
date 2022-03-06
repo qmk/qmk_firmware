@@ -37,6 +37,15 @@ define EXEC_WB32_DFU_UPDATER
 	wb32-dfu-updater_cli -D $(BUILD_DIR)/$(TARGET).bin
 endef
 
+
+define EXEC_FLASH_ANNEPRO2_C15
+	annepro2_tools $(BUILD_DIR)/$(TARGET).bin
+endef
+
+define EXEC_FLASH_ANNEPRO2_C18
+	annepro2_tools $(BUILD_DIR)/$(TARGET).bin -i=0
+endef
+
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(call EXEC_DFU_UTIL)
 
@@ -100,6 +109,10 @@ else ifeq ($(strip $(MCU_FAMILY)),WB32)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_WB32_DFU_UPDATER)
 else ifeq ($(strip $(MCU_FAMILY)),GD32V)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
+else ifeq ($(strip $(BOARD)),ANNEPRO2_C15)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_FLASH_ANNEPRO2_C15)
+else ifeq ($(strip $(BOARD)),ANNEPRO2_C18)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_FLASH_ANNEPRO2_C18)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif
