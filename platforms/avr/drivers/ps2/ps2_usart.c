@@ -76,7 +76,7 @@ static inline bool    pbuf_has_data(void);
 static inline void    pbuf_clear(void);
 
 void ps2_host_init(void) {
-    idle();  // without this many USART errors occur when cable is disconnected
+    idle(); // without this many USART errors occur when cable is disconnected
     PS2_USART_INIT();
     PS2_USART_RX_INT_ON();
     // POR(150-2000ms) plus BAT(300-500ms) may take 2.5sec([3]p.20)
@@ -91,12 +91,12 @@ uint8_t ps2_host_send(uint8_t data) {
 
     /* terminate a transmission if we have */
     inhibit();
-    _delay_us(100);  // [4]p.13
+    _delay_us(100); // [4]p.13
 
     /* 'Request to Send' and Start bit */
     data_lo();
     clock_hi();
-    WAIT(clock_lo, 10000, 10);  // 10ms [5]p.50
+    WAIT(clock_lo, 10000, 10); // 10ms [5]p.50
 
     /* Data bit[2-9] */
     for (uint8_t i = 0; i < 8; i++) {
@@ -165,7 +165,7 @@ uint8_t ps2_host_recv(void) {
 
 ISR(PS2_USART_RX_VECT) {
     // TODO: request RESEND when error occurs?
-    uint8_t error = PS2_USART_ERROR;  // USART error should be read before data
+    uint8_t error = PS2_USART_ERROR; // USART error should be read before data
     uint8_t data  = PS2_USART_RX_DATA;
     if (!error) {
         pbuf_enqueue(data);

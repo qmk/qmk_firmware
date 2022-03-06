@@ -132,11 +132,11 @@ The main part of this file is the `keymaps[]` definition. This is where you list
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-After this you'll find a list of LAYOUT() macros. A LAYOUT() is simply a list of keys to define a single layer. Typically you'll have one or more "base layers" (such as QWERTY, Dvorak, or Colemak) and then you'll layer on top of that one or more "function" layers. Due to the way layers are processed you can't overlay a "lower" layer on top of a "higher" layer.
+After this you'll find the layer definitions. Typically you'll have one or more "base layers" (such as QWERTY, Dvorak, or Colemak) and then you'll layer on top of that one or more "function" layers. Due to the way layers are processed you can't overlay a "lower" layer on top of a "higher" layer.
 
 `keymaps[][MATRIX_ROWS][MATRIX_COLS]` in QMK holds the 16 bit action code (sometimes referred as the quantum keycode) in it.  For the keycode representing typical keys, its high byte is 0 and its low byte is the USB HID usage ID for keyboard.
 
-> TMK from which QMK was forked uses `const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]` instead and holds the 8 bit keycode.  Some keycode values are reserved to induce execution of certain action codes via the `fn_actions[]` array.
+> TMK from which QMK was forked uses `const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]` instead and holds the 8 bit keycode.
 
 #### Base Layer
 
@@ -153,7 +153,9 @@ Here is an example of the Clueboard's base layer:
 
 Some interesting things to note about this:
 
-* From a C source point of view it's only a single array, but we have embedded whitespace to more easily visualize where each key is on the physical device.
+* The layer is defined using the LAYOUT macro, traditionally defined in the keyboard's `.h` file.
+* The LAYOUT macro takes a single list of keycodes, but we have written it in the C source using embedded whitespace and newlines to visualize where each key is on the physical device.
+* The LAYOUT macro hides and handles the mapping to the hardware's key scan matrix.
 * Plain keyboard scancodes are prefixed with KC_, while "special" keys are not.
 * The upper left key activates custom function 0 (`F(0)`)
 * The "Fn" key is defined with `MO(_FL)`, which moves to the `_FL` layer while that key is being held down.
