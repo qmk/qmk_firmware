@@ -22,8 +22,8 @@
 #define UNUSED_PINS
 
 /* Encoder Assignments */
-#define ENCODERS_PAD_A { D7 }
-#define ENCODERS_PAD_B { E6 }
+#define ENCODERS_PAD_A { B6 }
+#define ENCODERS_PAD_B { B2 }
 #define ENCODER_RESOLUTION 4
 
 /* COL2ROW, ROW2COL */
