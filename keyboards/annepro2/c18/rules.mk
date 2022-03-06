@@ -16,8 +16,6 @@ MCU_STARTUP = ht32f523xx
 
 BOARD = ANNEPRO2_C18
 
-BOOTLOADER=annepro2
-
 # Options
 
 # Keys

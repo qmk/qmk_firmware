@@ -21,6 +21,9 @@
 #include "ap2_led.h"
 #include "protocol.h"
 
+#define RAM_MAGIC_LOCATION 0x20001ffc
+#define IAP_MAGIC_VALUE 0x0000fab2
+
 static const SerialConfig ledUartInitConfig = {
     .speed = 115200,
 };
@@ -40,6 +43,27 @@ static const SerialConfig bleUartConfig = {
 static uint8_t ledMcuWakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02};
 
 ble_capslock_t BLECapsLock = {._dummy = {0}, .caps_lock = false};
+
+void bootloader_jump(void) {
+    // Send msg to shine to boot into IAP
+    annepro2SetIAP();
+
+    // wait for shine to boot into IAP
+    wait_ms(15);
+
+    // Load ble into IAP
+    annepro2_ble_bootload();
+    wait_ms(15);
+
+    // Magic key to set keyboard to IAP
+    // It’s from reversing original boot loader
+    // If value is that it stays in boot loader aka IAP
+    *((uint32_t *)RAM_MAGIC_LOCATION) = IAP_MAGIC_VALUE;
+
+    // Load the main MCU into IAP
+    __disable_irq();
+    NVIC_SystemReset();
+}
 
 void keyboard_pre_init_kb(void) {
     // Start LED UART
