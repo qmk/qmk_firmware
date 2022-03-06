@@ -1,3 +1,7 @@
+# This is the `develop` branch!
+
+See the [Breaking Changes](https://docs.qmk.fm/#/breaking_changes) document for more information.
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
