@@ -287,7 +287,7 @@ void clear_keys_from_report(report_keyboard_t* keyboard_report) {
  * @param[in] old_report report_mouse_t
  * @return bool result
  */
-__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t *new_report, report_mouse_t *old_report) {
+__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report) {
     return memcmp(new_report, old_report, sizeof(report_mouse_t));
 }
 #endif

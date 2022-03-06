@@ -343,10 +343,10 @@ uint16_t        w_intervals[mkspd_COUNT] = {MK_W_INTERVAL_UNMOD, MK_W_INTERVAL_0
 void mousekey_task(void) {
     // report cursor and scroll movement independently
     report_mouse_t tmpmr = mouse_report;
-    mouse_report.x             = 0;
-    mouse_report.y             = 0;
-    mouse_report.v             = 0;
-    mouse_report.h             = 0;
+    mouse_report.x       = 0;
+    mouse_report.y       = 0;
+    mouse_report.v       = 0;
+    mouse_report.h       = 0;
 
     if ((tmpmr.x || tmpmr.y) && timer_elapsed(last_timer_c) > c_intervals[mk_speed]) {
         mouse_report.x = tmpmr.x;
