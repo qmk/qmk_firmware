@@ -52,7 +52,7 @@ def _find_serial_port(vid, pid):
         from serial.tools.list_ports_posix import comports
     for port in comports():
         port, desc, hwid = port
-        if f'{vid:04x}:{pid:04x}' in hwid:
+        if f'{vid:04x}:{pid:04x}' in hwid.casefold():
             return port
     return None
 
