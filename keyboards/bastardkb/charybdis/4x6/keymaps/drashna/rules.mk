@@ -2,8 +2,8 @@
 MCU = STM32F411
 
 # Bootloader selection
-# BOOTLOADER = stm32-dfu
-BOOTLOADER := tinyuf2
+BOOTLOADER = stm32-dfu
+# BOOTLOADER := tinyuf2
 
 LTO_ENABLE := no
 
@@ -14,10 +14,7 @@ MOUSE_SHARED_EP = yes
 EEPROM_DRIVER = spi
 WS2812_DRIVER = pwm
 SERIAL_DRIVER = usart
-AUDIO_DRIVER = pwm_hardware
 
-AUDIO_SUPPORTED = yes
-AUDIO_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 NKRO_ENABLE = yes
 CONSOLE_ENABLE = yes
