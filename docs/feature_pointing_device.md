@@ -276,7 +276,7 @@ The report_mouse_t (here "mouseReport") has the following properties:
 To manually manipulate the mouse reports outside of the `pointing_device_task_*` functions, you can use:
 
 * `pointing_device_get_report()` - Returns the current report_mouse_t that represents the information sent to the host computer
-* `pointing_device_set_report(report_mouse_t mous_report)` - Overrides and saves the report_mouse_t to be sent to the host computer
+* `pointing_device_set_report(report_mouse_t mouse_report)` - Overrides and saves the report_mouse_t to be sent to the host computer
 * `pointing_device_send()` - Sends the mouse report to the host and zeroes out the report. 
 
 When the mouse report is sent, the x, y, v, and h values are set to 0 (this is done in `pointing_device_send()`, which can be overridden to avoid this behavior).  This way, button states persist, but movement will only occur once.  For further customization, both `pointing_device_init` and `pointing_device_task` can be overridden.
