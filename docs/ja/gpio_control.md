@@ -1,8 +1,8 @@
 # GPIO 制御 :id=gpio-control
 
 <!---
-  original document: 0.13.15:docs/internals_gpio_control.md
-  git diff 0.13.15 HEAD -- docs/internals_gpio_control.md | cat
+  original document: 0.13.15:docs/gpio_control.md
+  git diff 0.13.15 HEAD -- docs/gpio_control.md | cat
 -->
 
 QMK には、マイクロコントローラに依存しない GPIO 制御抽象レイヤーがあります。これは異なるプラットフォーム間でピン制御に簡単にアクセスできるようにするためのものです。
