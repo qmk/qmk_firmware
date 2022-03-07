@@ -6,7 +6,7 @@ This is a standard 60% layout PCB. It supports VIA.
 * Hardware Supported: A 60% keyboard with STM32F072CB
 * Hardware Availability: https://protozoa.studio 
 
-![Cassini](https://i.imgur.com/4vYgmRj.png)
+![Cassini](https://i.imgur.com/4vYgmRjh.png)
 
 ## Instructions
 
