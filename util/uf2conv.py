@@ -267,7 +267,7 @@ def load_families():
 def main():
     global appstartaddr, familyid
     def error(msg):
-        print(msg)
+        print(msg, file=sys.stderr)
         sys.exit(1)
     parser = argparse.ArgumentParser(description='Convert to UF2 or flash directly.')
     parser.add_argument('input', metavar='INPUT', type=str, nargs='?',
