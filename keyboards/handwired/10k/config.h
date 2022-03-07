@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    nabos
 #define PRODUCT         10k (1x5)
-#define DESCRIPTION     A simple chord keyboard
 
 /* key matrix size */
 // Rows are doubled-up
