@@ -50,7 +50,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - valid maintainer
     - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
 - `readme.md`
-    - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/avr/readme.md)
+    - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
     - valid hardware availability link (unless handwired) -- private groupbuys are okay, but one-off prototypes will be questioned. If open-source, a link to files should be provided.
     - clear instructions on how to reset the board into bootloader mode
