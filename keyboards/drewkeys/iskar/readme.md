@@ -5,7 +5,7 @@
 *65% PCB for Bitmap studio's Iskar*
 
 * Keyboard Maintainer: [Drewkeys](https://github.com/drewpyun)
-* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Supported: *Made specificaly for Iskar, 65% hotswap supported*
 * Hardware Availability: *https://bitmapstudio.xyz/collections/iskar*
 
 Make example for this keyboard (after setting up your build environment):
