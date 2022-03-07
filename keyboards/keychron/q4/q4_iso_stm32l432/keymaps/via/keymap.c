@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "test.h"
 
 enum layers {
     MAC_BASE,
@@ -93,6 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    process_other_record(keycode, record);
     switch (keycode) {
         case KC_MISSION_CONTROL:
             if (record->event.pressed) {
@@ -134,4 +136,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             return true;  // Process all other keycodes normally
     }
+}
+
+void matrix_scan_user(void) {
+    timer_task_start();
+}
+
+bool dip_switch_update_user(uint8_t index, bool active) {
+    system_switch_state_report(index, active);
+    return true;
 }

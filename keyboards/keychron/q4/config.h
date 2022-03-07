@@ -106,9 +106,12 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+// #define RGB_MATRIX_KEYPRESSES
+
 /* Allow VIA to edit lighting */
 #ifdef VIA_ENABLE
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
 
-// #define RGB_MATRIX_KEYPRESSES
+/* Enable receive custom command from host */
+#define RAW_HID_CMD 0xAB

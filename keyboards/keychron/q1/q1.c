@@ -15,7 +15,6 @@
  */
 
 #include "q1.h"
-#include "test.c"
 
 #ifdef DIP_SWITCH_ENABLE
 
