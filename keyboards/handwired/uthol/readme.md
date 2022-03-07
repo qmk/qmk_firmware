@@ -1,6 +1,6 @@
 # Uthol
 
-![Uthol](https://i.imgur.com/weFwdhf.jpeg)
+![Uthol](https://i.imgur.com/weFwdhfh.jpeg)
 
 A handwired 50% (12x5) ortholinear keyboard made by Uthol
 
