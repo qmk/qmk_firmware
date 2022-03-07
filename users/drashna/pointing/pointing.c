@@ -80,9 +80,9 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
             }
             break;
         case MO(_MOUSE):
-#if defined(KEYBOARD_ploopy) || defined(KEYBOARD_handwired_tractyl_manuform)
+#if defined(KEYBOARD_ploopy)
         case DPI_CONFIG:
-#elif defined(KEYBOARD_bastardkb_charybdis) && !defined(NO_CHARYBDIS_KEYCODES)
+#elif (defined(KEYBOARD_bastardkb_charybdis) || defined(KEYBOARD_handwired_tractyl_manuform)) && !defined(NO_CHARYBDIS_KEYCODES)
         case SAFE_RANGE ... (CHARYBDIS_SAFE_RANGE-1):
 #endif
         case KC_MS_UP ... KC_MS_WH_RIGHT:
@@ -118,7 +118,7 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
 }
 
 layer_state_t layer_state_set_pointing(layer_state_t state) {
-    if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO)) {
+    if (layer_state_cmp(state, _GAMEPAD) || layer_state_cmp(state, _DIABLO) || layer_state_cmp(state, _DIABLOII)) {
         state |= ((layer_state_t)1 << _MOUSE);
     }
     return state;

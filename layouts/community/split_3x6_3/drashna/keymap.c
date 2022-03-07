@@ -123,7 +123,7 @@ uint8_t  current_kaki_frame  = 0;
 uint8_t  current_rtogi_frame = 0;
 // uint8_t current_ltogi_frame = 0;
 // clang-format off
-void render_kitty(void) {
+void render_small_kitty(void) {
     // Images credit j-inc(/James Incandenza) and pixelbenny. Credit to obosob for initial animation approach.
     static const char PROGMEM sleep[SLEEP_FRAMES][ANIM_SIZE] = {{
                                                                     // 'sleep1', 32x32px
@@ -228,7 +228,7 @@ void render_kitty(void) {
 }
 
 void oled_driver_render_logo_right(void) {
-    render_kitty();
+    render_small_kitty();
 
     oled_set_cursor(0, 4);
     render_default_layer_state();

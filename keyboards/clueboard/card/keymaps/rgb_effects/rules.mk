@@ -1,9 +1,4 @@
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
-EXTRAKEY_ENABLE = no        # Audio control and System control(+450)
-CONSOLE_ENABLE = yes        # Console for debug(+400)
-COMMAND_ENABLE = yes        # Commands for debug and configuration
+MOUSEKEY_ENABLE = no
+EXTRAKEY_ENABLE = no
 NKRO_ENABLE = yes
-BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
-AUDIO_ENABLE = no           # Audio output
-RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
+AUDIO_ENABLE = no

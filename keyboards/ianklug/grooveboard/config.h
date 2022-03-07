@@ -154,5 +154,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
 
-#define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 4

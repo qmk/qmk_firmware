@@ -1,6 +1,9 @@
 MCU_FAMILY = NUMICRO
 MCU_SERIES = NUC123
 
+# Bootloader selection
+BOOTLOADER = custom
+
 # linker script to use
 MCU_LDSCRIPT = NUC123xD4xx0
 
