@@ -109,6 +109,7 @@
         },
         "layouts": {
             "type": "object",
+            "propertyNames": {"$ref": "qmk.definitions.v1#/layout_macro"},
             "additionalProperties": {
                 "type": "object",
                 "additionalProperties": false,
