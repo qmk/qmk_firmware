@@ -9,7 +9,9 @@ ifneq ($(findstring MKL26Z64, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = KINETIS
   MCU_SERIES = KL2x
 
@@ -36,7 +38,9 @@ ifneq ($(findstring MK20DX128, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = KINETIS
   MCU_SERIES = K20x
 
@@ -63,7 +67,9 @@ ifneq ($(findstring MK20DX256, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = KINETIS
   MCU_SERIES = K20x
 
@@ -90,7 +96,9 @@ ifneq ($(findstring MK66FX1M0, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = KINETIS
   MCU_SERIES = MK66F18
 
@@ -117,7 +125,9 @@ ifneq ($(findstring STM32F042, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32F0xx
 
@@ -157,7 +167,9 @@ ifneq ($(findstring STM32F072, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32F0xx
 
@@ -192,7 +204,9 @@ ifneq ($(findstring STM32F103, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32F1xx
 
@@ -224,7 +238,9 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32F3xx
 
@@ -259,7 +275,9 @@ ifneq ($(findstring STM32F401, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32F4xx
 
@@ -299,7 +317,9 @@ ifneq ($(findstring STM32F405, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32F4xx
 
@@ -334,7 +354,9 @@ ifneq ($(findstring STM32F407, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32F4xx
 
@@ -369,7 +391,9 @@ ifneq ($(findstring STM32F411, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32F4xx
 
@@ -409,7 +433,9 @@ ifneq ($(findstring STM32F446, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32F4xx
 
@@ -441,7 +467,9 @@ ifneq ($(findstring STM32G431, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32G4xx
 
@@ -476,7 +504,9 @@ ifneq ($(findstring STM32G474, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32G4xx
 
@@ -511,7 +541,9 @@ ifneq (,$(filter $(MCU),STM32L432 STM32L442))
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32L4xx
 
@@ -548,7 +580,9 @@ ifneq (,$(filter $(MCU),STM32L433 STM32L443))
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32L4xx
 
@@ -585,7 +619,9 @@ ifneq (,$(filter $(MCU),STM32L412 STM32L422))
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = STM32
   MCU_SERIES = STM32L4xx
 
@@ -602,7 +638,7 @@ ifneq (,$(filter $(MCU),STM32L412 STM32L422))
   # <keyboard_dir>/boards/, or drivers/boards/
   BOARD ?= GENERIC_STM32_L412XB
 
-  PLATFORM_NAME ?= platform_l432
+  PLATFORM_NAME ?= platform_l412_l422
 
   USE_FPU ?= yes
 
@@ -622,7 +658,9 @@ ifneq ($(findstring WB32F3G71, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
   MCU_FAMILY = WB32
   MCU_SERIES = WB32F3G71xx
 
@@ -657,7 +695,10 @@ ifneq ($(findstring GD32VF103, $(MCU)),)
 
   ## chip/board settings
   # - the next two should match the directories in
-  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_PORT_NAME = GD
   MCU_FAMILY = GD32V
   MCU_SERIES = GD32VF103
 
