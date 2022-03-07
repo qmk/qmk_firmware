@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [Drewkeys](https://github.com/drewpyun)
 * Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: *https://bitmapstudio.xyz/collections/iskar*
 
 Make example for this keyboard (after setting up your build environment):
 
