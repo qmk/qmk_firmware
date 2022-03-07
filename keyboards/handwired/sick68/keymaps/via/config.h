@@ -1,5 +1,5 @@
 /*
-Copyright 2021 takashicompany
+Copyright 2022 @xia0
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,6 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 12
+#define ENCODERS_PAD_A { F0 }
+#define ENCODERS_PAD_B { F1 }
+#define ENCODER_RESOLUTION 4
