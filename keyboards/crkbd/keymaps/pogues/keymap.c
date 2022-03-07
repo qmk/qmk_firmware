@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*******************************************************************************
  * TODO.
+ * where to put delete
  * sort out oled display
  * mouse keys
  *
@@ -39,18 +40,19 @@ enum userspace_layers {
 #define L_SYMBOL (1 << LSYM)
 #define L_MOTION (1 << LMOV)
 
-#define MY_CESC MT(MOD_LCTL, KC_ESC)
+//#define MY_CESC MT(MOD_LCTL, KC_ESC)
 #define MY_GESC MT(MOD_LGUI, KC_ESC)
-#define MY_CQOT MT(MOD_LCTL, KC_QUOT)
-#define MY_S_SL MT(MOD_LSFT, KC_SLSH)
-#define MY_S_Z  MT(MOD_LSFT, KC_Z)
-#define MY_C_X  MT(MOD_LCTL, KC_X)
-#define MY_C_DT MT(MOD_LCTL, KC_DOT)
-#define MY_A_C  MT(MOD_LALT, KC_C)
-#define MY_A_CM MT(MOD_LALT, KC_COMM)
-#define MY_A_Q  MT(MOD_LALT, KC_Q)
-#define MY_A_SC MT(MOD_LALT, KC_SCLN)
-#define MY_TBUI MT(MOD_LGUI, KC_TAB)
+#define MY_AENT MT(MOD_LALT, KC_ENT)
+//#define MY_CQOT MT(MOD_LCTL, KC_QUOT)
+//#define MY_S_SL MT(MOD_LSFT, KC_SLSH)
+//#define MY_S_Z  MT(MOD_LSFT, KC_Z)
+//#define MY_C_X  MT(MOD_LCTL, KC_X)
+//#define MY_C_DT MT(MOD_LCTL, KC_DOT)
+//#define MY_A_C  MT(MOD_LALT, KC_C)
+//#define MY_A_CM MT(MOD_LALT, KC_COMM)
+//#define MY_A_Q  MT(MOD_LALT, KC_Q)
+//#define MY_A_SC MT(MOD_LALT, KC_SCLN)
+//#define MY_TBUI MT(MOD_LGUI, KC_TAB)
 #define MY_CLFT C(KC_LEFT)
 #define MY_CRGT C(KC_RGHT)
 #define MY_KGBP KC_HASH      // just shift-3 
@@ -79,19 +81,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // colemak-dh
   [LCMK] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_NO,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_BSPC, KC_NO,
+      KC_NO,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_BSPC, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_NO,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,      KC_O, KC_NO,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_NO,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H,    KC_COMM, KC_DOT, KC_SLSH, KC_NO,
+      KC_NO,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H,    KC_COMM, KC_DOT, KC_SLSH, KC_DEL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                   MY_GESC, KC_SPC, OSM(MOD_LSFT),       OSM(MOD_LCTL), TO(LSYM),  KC_LALT
+                                   MY_GESC, KC_SPC, OSM(MOD_LSFT),       OSM(MOD_LCTL), TO(LSYM),  MY_AENT
                                       //`--------------------------'  `--------------------------'
   ),
   
   [LSYM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, KC_TAB, KC_QUES, KC_COLN, KC_SCLN, MY_KGBP,                      KC_EXLM, KC_LPRN, KC_RPRN,   MY_AT, KC_BSPC, KC_NO,
+      XXXXXXX, KC_TAB, KC_QUES, KC_COLN, KC_SCLN, MY_KGBP,                      KC_EXLM, KC_LPRN, KC_RPRN,   MY_AT, KC_BSPC, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX,  KC_ESC,  KC_LT,   KC_GT,  KC_UNDS, KC_GRV,                       KC_NUHS, KC_LBRC, KC_RBRC, MY_PIPE,  KC_ENT, KC_NO,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
