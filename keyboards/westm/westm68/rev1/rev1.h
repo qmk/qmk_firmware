@@ -14,9 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-#include_next <mcuconf.h>
-
-#undef STM32_I2C_USE_I2C1
-#define STM32_I2C_USE_I2C1 TRUE
+#include "westm68.h"

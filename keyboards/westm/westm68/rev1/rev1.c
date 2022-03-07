@@ -14,9 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "rev1.h"
 
-#define HAL_USE_I2C TRUE
-
-#include_next <halconf.h>
-
+void board_init(void) {
+    // Need this to reset first LED upon plugging in PCB
+    rgblight_set();
+}
