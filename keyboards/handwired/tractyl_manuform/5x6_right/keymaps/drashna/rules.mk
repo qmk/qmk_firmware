@@ -10,6 +10,7 @@ ENCODER_ENABLE                   = yes
 ENCODER_MAP_ENABLE               = yes
 AUTOCORRECTION_ENABLE            = yes
 CAPS_WORD_ENABLE                 = yes
+DEFERRED_EXEC_ENABLE             = yes
 
 ifeq ($(strip $(KEYBOARD)), handwired/tractyl_manuform/5x6_right/elite_c)
     RGBLIGHT_ENABLE              = no
