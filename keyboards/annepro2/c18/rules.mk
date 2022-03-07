@@ -34,4 +34,4 @@ MIDI_ENABLE = no
 VIRTSER_ENABLE = no
 COMBO_ENABLE = no
 BOOTLOADER = custom
-PROGRAM_CMD = annepro2_tools $(BUILD_DIR)/$(TARGET).bin -i=0
+PROGRAM_CMD = annepro2_tools --boot $(BUILD_DIR)/$(TARGET).bin
