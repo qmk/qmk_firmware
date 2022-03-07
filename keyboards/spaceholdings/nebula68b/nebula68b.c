@@ -17,7 +17,7 @@
 #include "nebula68b.h"
 #include <lib/lib8tion/lib8tion.h>
 
-#ifndef KEYBOARD_nebula68b_hs
+#ifndef KEYBOARD_spaceholdings_nebula68b_hs
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
 led_config_t g_led_config = { {
