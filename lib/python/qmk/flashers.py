@@ -68,7 +68,7 @@ def _flash_atmel_dfu(mcu, file):
     cli.run(['dfu-programmer', mcu, 'reset'], capture_output = False)
 
 
-def _flash_hid_bootloader(details, file):
+def _flash_hid_bootloader(mcu, details, file):
     if details == 'halfkay':
         if shutil.which('teensy-loader-cli'):
             cmd = 'teensy-loader-cli'
@@ -95,15 +95,20 @@ def _flash_isp(programmer, file):
     cli.run(['avrdude', '-p', 'atmega32u4', '-c', programmer, '-U', f'flash:w:{file}:i'], capture_output = False)
 
 
-def flasher(file):
+def flasher(mcu, file):
     bl, details = _find_bootloader()
     if bl == 'atmel-dfu':
         _flash_atmel_dfu(details, file.name)
     elif bl == 'caterina':
         _flash_caterina(details, file.name)
     elif bl == 'hid-bootloader':
-        _flash_hid_bootloader(details, file.name)
+        if mcu:
+            _flash_hid_bootloader(mcu, details, file.name)
+        else:
+            return (True, "Specifying the MCU with '-t' is necessary for HalfKay/HID bootloaders!")
     elif bl == 'stm32' or bl == 'apm32':
         _flash_stm32(details, file.name)
     elif bl == 'usbasploader' or bl == 'usbtinyisp':
         _flash_isp(bl, file.name)
+
+    return (False, None)
