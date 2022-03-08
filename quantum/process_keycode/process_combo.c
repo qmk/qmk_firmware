@@ -88,7 +88,7 @@ static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 
 #define INCREMENT_MOD(i) i = (i + 1) % COMBO_BUFFER_LENGTH
 
-#define COMBO_KEY_POS ((keypos_t){.col = 254, .row = 254})
+#define COMBO_KEY_POS ((keypos_t){.col = KEYLOC_COMBO, .row = KEYLOC_COMBO})
 
 #ifndef EXTRA_SHORT_COMBOS
 /* flags are their own elements in combo_t struct. */
