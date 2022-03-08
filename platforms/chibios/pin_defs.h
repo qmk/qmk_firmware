@@ -60,9 +60,9 @@
 #    ifdef CONVERT_TO_STEMCELL_UART_SWAP
 #        define D3 PAL_LINE(GPIOA, 3)
 #        define D2 PAL_LINE(GPIOA, 2)
-#    ifndef SERIAL_USART_DRIVER
-#        define SERIAL_USART_DRIVER      SD2
-#    endif
+#        ifndef SERIAL_USART_DRIVER
+#            define SERIAL_USART_DRIVER SD2
+#        endif
 #    else
 #        define D3 PAL_LINE(GPIOA, 2)
 #        define D2 PAL_LINE(GPIOA, 3)
@@ -101,9 +101,9 @@
 #    define D5 PAL_LINE(GPIOA, 8)
 #    define B0 PAL_LINE(GPIOA, 9) // unconnected pin
 
-#    define I2C1_SCL_PIN             D0
-#    define I2C1_SDA_PIN             D1
-#    define FEE_PAGE_BASE_ADDRESS    0x08008000
+#    define I2C1_SCL_PIN D0
+#    define I2C1_SDA_PIN D1
+#    define FEE_PAGE_BASE_ADDRESS 0x08008000
 
 #else
 #    define A0 PAL_LINE(GPIOA, 0)
