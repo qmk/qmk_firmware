@@ -3,7 +3,7 @@
     "url": "https://p3dstore.com/products/p3d-glitch-group-buy",
     "maintainer": "matthewdias",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [{
                 "x": 19.1,
                 "y": 0.1
