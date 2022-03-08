@@ -1,6 +1,6 @@
 # Novus
 
-![Novus](https://i.imgur.com/kuCDFb0.png)
+![Novus](https://i.imgur.com/kuCDFb0h.png)
 
 Novus 60% Keyboard
 
