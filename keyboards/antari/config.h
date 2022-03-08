@@ -63,10 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #endif
 
-#define RGBLIGHT_LAYERS
-#define RGBLIGHT_LAYER_BLINK
-#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
