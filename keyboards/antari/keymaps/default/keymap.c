@@ -61,43 +61,5 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-const rgblight_segment_t PROGMEM _first_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {0, RGBLED_NUM, HSV_RED}
-        );
-const rgblight_segment_t PROGMEM _second_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {0, RGBLED_NUM, HSV_GREEN}
-        );
-const rgblight_segment_t PROGMEM _third_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {0, RGBLED_NUM, HSV_BLUE}
-        );
-
-
-const rgblight_segment_t* const PROGMEM _rgb_layers[] =
-RGBLIGHT_LAYERS_LIST(
-        _first_layer,
-        _second_layer,
-        _third_layer
-        );
-
-void keyboard_post_init_user(void) {
-    rgblight_layers = _rgb_layers;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-
-    switch (get_highest_layer(state)) {
-        case 0:
-            rgblight_blink_layer(0, 300);
-            break;
-        case 1:
-            rgblight_blink_layer(1, 300);
-            break;
-        case 2:
-            rgblight_blink_layer(2, 300);
-            break;
-    }
-    return state;
-}
-
 
 //qmk compile -kb antari -km default
