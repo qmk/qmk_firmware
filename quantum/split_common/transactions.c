@@ -180,7 +180,7 @@ static void master_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_ro
 
 static bool encoder_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t last_update = 0;
-    uint8_t         temp_state[NUMBER_OF_ENCODERS];
+    uint8_t         temp_state[NUM_ENCODERS_MAX_PER_SIDE];
 
     bool okay = read_if_checksum_mismatch(GET_ENCODERS_CHECKSUM, GET_ENCODERS_DATA, &last_update, temp_state, split_shmem->encoders.state, sizeof(temp_state));
     if (okay) encoder_update_raw(temp_state);
@@ -188,7 +188,7 @@ static bool encoder_handlers_master(matrix_row_t master_matrix[], matrix_row_t s
 }
 
 static void encoder_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    uint8_t encoder_state[NUMBER_OF_ENCODERS];
+    uint8_t encoder_state[NUM_ENCODERS_MAX_PER_SIDE];
     encoder_state_raw(encoder_state);
     // Always prepare the encoder state for read.
     memcpy(split_shmem->encoders.state, encoder_state, sizeof(encoder_state));

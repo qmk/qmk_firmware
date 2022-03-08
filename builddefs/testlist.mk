@@ -2,6 +2,7 @@ TEST_LIST = $(sort $(patsubst %/test.mk,%, $(shell find $(ROOT_DIR)tests -type f
 FULL_TESTS := $(notdir $(TEST_LIST))
 
 include $(QUANTUM_PATH)/debounce/tests/testlist.mk
+include $(QUANTUM_PATH)/encoder/tests/testlist.mk
 include $(QUANTUM_PATH)/sequencer/tests/testlist.mk
 include $(PLATFORM_PATH)/test/testlist.mk
 
