@@ -5,11 +5,11 @@
 ![Layouts supported](https://i.imgur.com/SB2G7mL.png)
 Note: No split backspace for hotswap vers.
 
-*65% PCB for Bitmap studio's Iskar*
+65% PCB for Bitmap studio's Iskar
 
 * Keyboard Maintainer: [Drewkeys](https://github.com/drewpyun)
-* Hardware Supported: *Made specificaly for Iskar, 65% hotswap supported*
-* Hardware Availability: *https://bitmapstudio.xyz/collections/iskar*
+* Hardware Supported: Made specifically for Iskar, 65% hotswap supported
+* Hardware Availability: https://bitmapstudio.xyz/collections/iskar
 
 Make example for this keyboard (after setting up your build environment):
 
