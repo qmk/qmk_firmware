@@ -1,7 +1,7 @@
 ###MintCollies DZ60
 Custom layout for the DZ60.
 
-![Photo of the keyboard after I built it](photo.png)
+![Photo of the keyboard after I built it](https://imgur.com/a/vjJFGJt)
 
 Parts
 + [DZ60 rev 3.0 soldered PCB](https://kbdfans.com/products/dz60-60-pcb)
