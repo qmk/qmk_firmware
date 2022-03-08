@@ -9,7 +9,7 @@ The four layers:
 
 ## OLED
 -Master: Renders layer state + keylog
--Slave : Renders a popular character from a videogame that varies its animation speed based on the current WPM
+-Slave : Renders an animation of a cat that varies its animation speed based on the current WPM
 
 ## Flashing
 Flash using `qmk compile -kb crkbd -km jpe230` for Pro Micro
