@@ -1,0 +1,11 @@
+###MintCollies DZ60
+Custom layout for the DZ60.
+
+![Photo of the keyboard after I built it](photo.png)
+
+Parts
++ [DZ60 rev 3.0 soldered PCB](https://kbdfans.com/products/dz60-60-pcb)
++ [DZ60 CNC aluminum plate](https://kbdfans.com/products/dz60-cnc-aluminum-plate?variant=39293765025931)
++ [Mystic Jade ALOPOW resin case for Anne Pro 2](https://kbdfans.com/products/alopow-resin-case-for-anne-pro-2?_pos=3&_sid=0f3043940&_ss=r)
++ [Novelkeys X Kalih Cream switch](https://kbdfans.com/products/novelkey-x-kailh-linear-cream-switch)
++ [Krytox 205g0](https://thekey.company/collections/in-stock/products/lubricant)
