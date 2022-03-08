@@ -47,7 +47,7 @@ def _find_bootloader():
                     elif bl == 'stm32' or bl == 'apm32':
                         details = (vid, pid)
                     else:
-                        mcu = None
+                        details = None
                     return (bl, details)
     return (None, None)
 
