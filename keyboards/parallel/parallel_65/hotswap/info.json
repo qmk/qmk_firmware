@@ -1,10 +1,6 @@
 {
     "keyboard_name": "Parallel 65% Hotswap PCB",
     "maintainer": "matthewdias",
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_65_ansi_blocker",
-        "LAYOUT_65_tsangan": "LAYOUT_65_ansi_blocker_tsangan"
-    },
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

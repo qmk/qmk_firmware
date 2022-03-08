@@ -1,12 +1,6 @@
 {
     "keyboard_name": "Parallel 65% PCB",
     "maintainer": "matthewdias",
-    "layout_aliases": {
-        "LAYOUT_65_ansi_split_bs": "LAYOUT_65_ansi_blocker_split_bs",
-        "LAYOUT_65_ansi": "LAYOUT_65_ansi_blocker",
-        "LAYOUT_65_tsangan_split_bs": "LAYOUT_65_ansi_blocker_tsangan_split_bs",
-        "LAYOUT_65_iso": "LAYOUT_65_iso_blocker"
-    },
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
