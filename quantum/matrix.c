@@ -107,7 +107,7 @@ __attribute__((weak)) void matrix_init_pins(void) {
     for (int row = 0; row < ROWS_PER_HAND; row++) {
         for (int col = 0; col < MATRIX_COLS; col++) {
             pin_t pin = direct_pins[row][col];
-            if ((pin != NO_PIN) && (pin != 0)) {
+            if (pin != NO_PIN) {
                 setPinInputHigh(pin);
             }
         }
