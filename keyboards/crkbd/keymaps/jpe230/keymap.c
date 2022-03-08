@@ -324,17 +324,10 @@ bool oled_task_user(void) {
 #endif // OLED_ENABLE
 
 // saRcASm MOde
-bool tog_sarcasm;
-bool uppercase;
-uint8_t prev_upper;
-uint8_t prev_lower;
-
-void keyboard_post_init_kb(void) {
-    tog_sarcasm    = false;
-    uppercase      = false;
-    prev_upper     = 0;
-    prev_lower     = 0;
-}
+bool tog_sarcasm = false;
+bool uppercase = false;
+uint8_t prev_upper = 0;
+uint8_t prev_lower = 0;
 
 bool process_record_sarcasm(uint16_t keycode, keyrecord_t *record) {
     if (keycode == KC_ENTER && record->event.pressed) {
