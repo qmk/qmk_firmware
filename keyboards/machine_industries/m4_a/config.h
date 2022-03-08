@@ -10,7 +10,7 @@
 #define PRODUCT_ID   0x004A // 4-A
 #define DEVICE_VER   0x0001
 #define MANUFACTURER RAMA WORKS
-#define PRODUCT      RAMA WORKS M4-A
+#define PRODUCT      M4-A
 
 /* key matrix size */
 #define MATRIX_ROWS 2
