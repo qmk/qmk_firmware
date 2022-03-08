@@ -5,7 +5,7 @@
 #include "process_caps_word.h"
 
 bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
-    if (keycode == CAPSWRD) {  // Pressing CAPSWRD toggles Caps Word.
+    if (keycode == CAPSWRD) { // Pressing CAPSWRD toggles Caps Word.
         if (record->event.pressed) {
             caps_word_toggle();
         }
@@ -16,7 +16,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
     const uint8_t mods = get_mods() | get_oneshot_mods();
 #else
     const uint8_t mods = get_mods();
-#endif  // NO_ACTION_ONESHOT
+#endif // NO_ACTION_ONESHOT
 
     if (!is_caps_word_on()) {
         // The following optionally turns on Caps Word by holding left and
@@ -26,9 +26,9 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 #ifdef BOTH_SHIFTS_TURNS_ON_CAPS_WORD
         // Holding both left and right shifts turns on Caps Word.
         if ((mods & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
-          caps_word_on();
+            caps_word_on();
         }
-#endif  // BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#endif // BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 #ifdef DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
         // Double tapping left shift turns on Caps Word.
         //
@@ -36,34 +36,36 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
         // wouldn't make sense with mod-tap or Space Cadet shift since
         // double tapping would of course trigger the tapping action.
         if (record->event.pressed) {
-            static bool tapped = false;
-            static uint16_t timer = 0;
+            static bool     tapped = false;
+            static uint16_t timer  = 0;
             if (keycode == KC_LSFT || keycode == OSM(MOD_LSFT)) {
                 if (tapped && !timer_expired(record->event.time, timer)) {
                     // Left shift was double tapped, activate Caps Word.
                     caps_word_on();
                 }
                 tapped = true;
-#ifdef TAPPING_TERM_PER_KEY
+#    ifdef TAPPING_TERM_PER_KEY
                 uint16_t tapping_term = get_tapping_term(keycode, record);
-#else
+#    else
                 uint16_t tapping_term = TAPPING_TERM;
-#endif  // TAPPING_TERM_PER_KEY
+#    endif // TAPPING_TERM_PER_KEY
                 timer = record->event.time + tapping_term;
             } else {
-                tapped = false;  // Reset when any other key is pressed.
+                tapped = false; // Reset when any other key is pressed.
             }
         }
-#       endif  // DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+#endif // DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
         return true;
     }
 
 #if CAPS_WORD_IDLE_TIMEOUT > 0
     caps_word_reset_idle_timer();
-#endif  // CAPS_WORD_IDLE_TIMEOUT > 0
+#endif // CAPS_WORD_IDLE_TIMEOUT > 0
 
     // From here on, we only take action on press events.
-    if (!record->event.pressed) { return true; }
+    if (!record->event.pressed) {
+        return true;
+    }
 
     if (!(mods & ~MOD_MASK_SHIFT)) {
         switch (keycode) {
@@ -86,13 +88,15 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                 keycode &= 0xff;
                 break;
 
-#ifndef NO_ACTION_LAYER
+#    ifndef NO_ACTION_LAYER
             case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-#endif  // NO_ACTION_LAYER
-                if (record->tap.count == 0) { return true; }
+#    endif // NO_ACTION_LAYER
+                if (record->tap.count == 0) {
+                    return true;
+                }
                 keycode &= 0xff;
                 break;
-#endif  // NO_ACTION_TAPPING
+#endif // NO_ACTION_TAPPING
 
 #ifdef SWAP_HANDS_ENABLE
             case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
@@ -101,7 +105,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
                 }
                 keycode &= 0xff;
                 break;
-#endif  // SWAP_HANDS_ENABLE
+#endif // SWAP_HANDS_ENABLE
         }
 
         clear_weak_mods();
@@ -120,7 +124,7 @@ __attribute__((weak)) bool caps_word_press_user(uint16_t keycode) {
         // Keycodes that continue Caps Word, with shift applied.
         case KC_A ... KC_Z:
         case KC_MINS:
-            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
             return true;
 
         // Keycodes that continue Caps Word, without shifting.
@@ -131,7 +135,6 @@ __attribute__((weak)) bool caps_word_press_user(uint16_t keycode) {
             return true;
 
         default:
-            return false;  // Deactivate Caps Word.
+            return false; // Deactivate Caps Word.
     }
 }
-
