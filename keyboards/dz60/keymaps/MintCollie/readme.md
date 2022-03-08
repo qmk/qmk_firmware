@@ -1,7 +1,7 @@
-###MintCollies DZ60
+### MintCollies DZ60
 Custom layout for the DZ60.
 
-![Photo of the keyboard after I built it](https://imgur.com/a/vjJFGJt)
+![Photo of the keyboard after I built it](https://imgur.com/a/0Tnr74g)
 
 Parts
 + [DZ60 rev 3.0 soldered PCB](https://kbdfans.com/products/dz60-60-pcb)
@@ -10,9 +10,10 @@ Parts
 + [Novelkeys X Kalih Cream switch](https://kbdfans.com/products/novelkey-x-kailh-linear-cream-switch)
 + [Krytox 205g0](https://thekey.company/collections/in-stock/products/lubricant)
 
-#####Layout
-######base layer
+##### Layout
+###### base layer
 
+```
 ,----------------------------------------------------------.
 |Es||1 ||2 ||3 ||4 ||5 ||6 ||7 ||8 ||9 ||0 ||- ||= || Bksp |
 |----------------------------------------------------------+
@@ -24,6 +25,7 @@ Parts
 |----------------------------------------------------------+
 |Ctl||Win||Alt||          Space        ||Al||Fn||← ||↓ ||→ |
 `----------------------------------------------------------'
+```
 
-######function layer
+###### function layer
 
