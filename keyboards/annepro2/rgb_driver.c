@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef RGB_MATRIX_ENABLE
+
 #include "rgb_matrix.h"
 #include "ap2_led.h"
 
@@ -21,8 +23,8 @@ uint8_t led_pos[DRIVER_LED_TOTAL];
 
 void init(void) {
     unsigned int i = 0;
-    for (unsigned int y = 0; y < LED_MATRIX_ROWS; y++) {
-        for (unsigned int x = 0; x < LED_MATRIX_COLS; x++) {
+    for (unsigned int y = 0; y < NUM_ROW; y++) {
+        for (unsigned int x = 0; x < NUM_COLUMN; x++) {
             if (g_led_config.matrix_co[y][x] != NO_LED) {
                 led_pos[g_led_config.matrix_co[y][x]] = i;
             }
@@ -34,17 +36,17 @@ void init(void) {
 void flush(void) {}
 
 void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
-    if (r != ledMask[led_pos[index]].p.red   ||
-        g != ledMask[led_pos[index]].p.green ||
-        b != ledMask[led_pos[index]].p.blue)
+    if (r != led_mask[led_pos[index]].p.red   ||
+        g != led_mask[led_pos[index]].p.green ||
+        b != led_mask[led_pos[index]].p.blue)
         {
-            ledMask[led_pos[index]] = (annepro2Led_t){
+            led_mask[led_pos[index]] = (ap2_lef_t){
                 .p.blue  = b,
                 .p.red   = r,
                 .p.green = g,
                 .p.alpha = 0xff,
             };
-            int row = led_pos[index] / LED_MATRIX_COLS;
+            int row = led_pos[index] / NUM_COLUMN;
             rgb_row_changed[row] = 1;
         }
 }
@@ -60,3 +62,5 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color     = set_color,
     .set_color_all = set_color_all,
 };
+
+#endif

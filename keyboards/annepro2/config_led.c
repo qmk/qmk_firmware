@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef RGB_MATRIX_ENABLE
+
 #include "rgb_matrix.h"
 #include "config_led.h"
 
@@ -38,3 +40,4 @@ led_config_t g_led_config = { {
    1,    4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,
    1, 1, 1,          4,          1, 1, 1, 1,
 } };
+#endif

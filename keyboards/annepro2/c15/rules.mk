@@ -27,10 +27,6 @@ MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 KEY_LOCK_ENABLE = no
 
-# Custom RGB matrix handling
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = custom
-
 # Other featues
 BOOTMAGIC_ENABLE = no
 CONSOLE_ENABLE = no
