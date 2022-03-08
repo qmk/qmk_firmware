@@ -144,7 +144,7 @@ ifneq ($(findstring RP2040, $(MCU)),)
 
   # Board: it should exist either in <chibios>/os/hal/boards/,
   # <keyboard_dir>/boards/, or drivers/boards/
-  BOARD ?= GENERIC_RP_RP2040
+  BOARD ?= GENERIC_PROMICRO_RP2040
 
   # Default UF2 Bootloader settings
   UF2_FAMILY ?= RP2040
