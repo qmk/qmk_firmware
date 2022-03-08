@@ -30,7 +30,7 @@ struct update {
     bool   clockwise;
 };
 
-uint8_t uidx = 0;
+uint8_t updates_array_idx = 0;
 update  updates[32];
 
 bool isLeftHand;
@@ -41,8 +41,8 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         printf("ignoring update on right hand (%d,%s)\n", index, clockwise ? "CW" : "CC");
         return true;
     }
-    updates[uidx % 32] = {index, clockwise};
-    uidx++;
+    updates[updates_array_idx % 32] = {index, clockwise};
+    updates_array_idx++;
     return true;
 }
 
@@ -51,10 +51,10 @@ bool setAndRead(pin_t pin, bool val) {
     return encoder_read();
 }
 
-class EncoderTest : public ::testing::Test {
+class EncoderSplitTestLeftGreaterThanRight : public ::testing::Test {
    protected:
     void SetUp() override {
-        uidx = 0;
+        updates_array_idx = 0;
         for (int i = 0; i < 32; i++) {
             pinIsInputHigh[i] = 0;
             pins[i]           = 0;
@@ -62,27 +62,39 @@ class EncoderTest : public ::testing::Test {
     }
 };
 
-TEST_F(EncoderTest, TestInitLeft) {
+TEST_F(EncoderSplitTestLeftGreaterThanRight, TestInitLeft) {
     isLeftHand = true;
     encoder_init();
     EXPECT_EQ(pinIsInputHigh[0], true);
     EXPECT_EQ(pinIsInputHigh[1], true);
-    EXPECT_EQ(pinIsInputHigh[2], false);
-    EXPECT_EQ(pinIsInputHigh[3], false);
-    EXPECT_EQ(uidx, 0);
+    EXPECT_EQ(pinIsInputHigh[2], true);
+    EXPECT_EQ(pinIsInputHigh[3], true);
+    EXPECT_EQ(pinIsInputHigh[4], true);
+    EXPECT_EQ(pinIsInputHigh[5], true);
+    EXPECT_EQ(pinIsInputHigh[6], false);
+    EXPECT_EQ(pinIsInputHigh[7], false);
+    EXPECT_EQ(pinIsInputHigh[8], false);
+    EXPECT_EQ(pinIsInputHigh[9], false);
+    EXPECT_EQ(updates_array_idx, 0); // no updates received
 }
 
-TEST_F(EncoderTest, TestInitRight) {
+TEST_F(EncoderSplitTestLeftGreaterThanRight, TestInitRight) {
     isLeftHand = false;
     encoder_init();
     EXPECT_EQ(pinIsInputHigh[0], false);
     EXPECT_EQ(pinIsInputHigh[1], false);
-    EXPECT_EQ(pinIsInputHigh[2], true);
-    EXPECT_EQ(pinIsInputHigh[3], true);
-    EXPECT_EQ(uidx, 0);
+    EXPECT_EQ(pinIsInputHigh[2], false);
+    EXPECT_EQ(pinIsInputHigh[3], false);
+    EXPECT_EQ(pinIsInputHigh[4], false);
+    EXPECT_EQ(pinIsInputHigh[5], false);
+    EXPECT_EQ(pinIsInputHigh[6], true);
+    EXPECT_EQ(pinIsInputHigh[7], true);
+    EXPECT_EQ(pinIsInputHigh[8], true);
+    EXPECT_EQ(pinIsInputHigh[9], true);
+    EXPECT_EQ(updates_array_idx, 0); // no updates received
 }
 
-TEST_F(EncoderTest, TestOneClockwiseLeft) {
+TEST_F(EncoderSplitTestLeftGreaterThanRight, TestOneClockwiseLeft) {
     isLeftHand = true;
     encoder_init();
     // send 4 pulses. with resolution 4, that's one step and we should get 1 update.
@@ -91,53 +103,37 @@ TEST_F(EncoderTest, TestOneClockwiseLeft) {
     setAndRead(0, true);
     setAndRead(1, true);
 
-    EXPECT_EQ(uidx, 1);
+    EXPECT_EQ(updates_array_idx, 1); // one update received
     EXPECT_EQ(updates[0].index, 0);
     EXPECT_EQ(updates[0].clockwise, true);
 }
 
-TEST_F(EncoderTest, TestOneClockwiseRightSent) {
+TEST_F(EncoderSplitTestLeftGreaterThanRight, TestOneClockwiseRightSent) {
     isLeftHand = false;
     encoder_init();
     // send 4 pulses. with resolution 4, that's one step and we should get 1 update.
-    setAndRead(2, false);
-    setAndRead(3, false);
-    setAndRead(2, true);
-    setAndRead(3, true);
+    setAndRead(6, false);
+    setAndRead(7, false);
+    setAndRead(6, true);
+    setAndRead(7, true);
 
-    uint8_t slave_state[2] = {0};
+    uint8_t slave_state[32] = {0};
     encoder_state_raw(slave_state);
 
-    EXPECT_EQ((int8_t)slave_state[0], -1);
+    EXPECT_EQ(slave_state[0], 0xFF);
+    EXPECT_EQ(slave_state[1], 0);
 }
 
-/* this test will not work after the previous test.
- * this is due to encoder_value[1] already being set to -1 when simulating the right half.
- * When we now receive this update acting as the left half, there is no change.
- * This is hard to mock, as the static values inside encoder.c normally exist twice, once on each half,
- * but here, they only exist once.
- */
-
-// TEST_F(EncoderTest, TestOneClockwiseRightReceived) {
-//     isLeftHand = true;
-//     encoder_init();
-
-//     uint8_t slave_state[2] = {255, 0};
-//     encoder_update_raw(slave_state);
-
-//     EXPECT_EQ(uidx, 1);
-//     EXPECT_EQ(updates[0].index, 1);
-//     EXPECT_EQ(updates[0].clockwise, true);
-// }
-
-TEST_F(EncoderTest, TestOneCounterClockwiseRightReceived) {
+TEST_F(EncoderSplitTestLeftGreaterThanRight, TestMultipleEncodersRightReceived) {
     isLeftHand = true;
     encoder_init();
 
-    uint8_t slave_state[2] = {0, 0};
+    uint8_t slave_state[32] = {1, 0xFF}; // First right encoder is CCW, Second right encoder no change, third right encoder CW
     encoder_update_raw(slave_state);
 
-    EXPECT_EQ(uidx, 1);
-    EXPECT_EQ(updates[0].index, 1);
+    EXPECT_EQ(updates_array_idx, 2); // two updates received, one for each changed item on the right side
+    EXPECT_EQ(updates[0].index, 3);
     EXPECT_EQ(updates[0].clockwise, false);
+    EXPECT_EQ(updates[1].index, 4);
+    EXPECT_EQ(updates[1].clockwise, true);
 }
