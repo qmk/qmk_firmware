@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define XXX KC_NO
 
-#define LAYOUT_all( \
+#define LAYOUT_wkl( \
 	K00, K01, K02, K03, K04, K05, \
 	K10, K11, K12, K13, K14, K15, \
 	K20, K21,      K23,      K25  \
