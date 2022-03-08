@@ -40,6 +40,7 @@ typedef union {
 
 /* Local copy of ledMask, used to override colors on the board */
 extern annepro2Led_t ledMask[KEY_COUNT];
+extern uint8_t rgb_row_changed[NUM_ROW];
 
 /* Handle incoming messages */
 extern void ledCommandCallback(const message_t *msg);
@@ -71,6 +72,12 @@ void annepro2LedBlink(uint8_t row, uint8_t col, annepro2Led_t color, uint8_t cou
 /* Kept for compatibility, but implemented using masks */
 void annepro2LedSetForegroundColor(uint8_t red, uint8_t green, uint8_t blue);
 void annepro2LedResetForegroundColor(void);
+
+/* RGB driver functions */
+void init(void);
+void flush(void);
+void set_color(int index, uint8_t r, uint8_t g, uint8_t b);
+void set_color_all(uint8_t r, uint8_t g, uint8_t b);
 
 typedef struct {
     uint8_t amountOfProfiles;

@@ -44,6 +44,8 @@ static uint8_t ledMcuWakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7
 
 ble_capslock_t BLECapsLock = {._dummy = {0}, .caps_lock = false};
 
+static uint8_t current_rgb_row = 0;
+
 void bootloader_jump(void) {
     // Send msg to shine to boot into IAP
     annepro2SetIAP();
@@ -99,6 +101,8 @@ void keyboard_post_init_kb(void) {
 
     annepro2LedGetStatus();
 
+    annepro2LedEnable();
+
     keyboard_post_init_user();
 }
 
@@ -114,6 +118,14 @@ void matrix_scan_kb() {
         uint8_t byte = sdGet(&SD0);
         protoConsume(&proto, byte);
     }
+
+    /* If there's data ready to be sent to LED MCU - send it. */
+    if(rgb_row_changed[current_rgb_row])
+    {
+        rgb_row_changed[current_rgb_row] = 0;
+        annepro2LedMaskSetRow(current_rgb_row);
+    }
+    current_rgb_row = (current_rgb_row + 1) % LED_MATRIX_ROWS;
 
     matrix_scan_user();
 }
@@ -193,6 +205,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 annepro2LedNextAnimationSpeed();
                 annepro2LedResetForegroundColor();
                 return false;
+
+            case RGB_TOG:
+                if(rgb_matrix_is_enabled()) annepro2LedDisable();
+                else annepro2LedEnable();
+                return true;
 
             default:
                 break;

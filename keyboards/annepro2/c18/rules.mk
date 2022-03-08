@@ -3,7 +3,9 @@ SRC = \
 	matrix.c \
 	annepro2_ble.c \
 	ap2_led.c \
-	protocol.c
+	protocol.c \
+	rgb_driver.c \
+	config_led.c
 
 # MCU
 MCU = cortex-m0plus
@@ -24,6 +26,10 @@ NKRO_ENABLE = no
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 KEY_LOCK_ENABLE = no
+
+# Custom RGB matrix handling
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = custom
 
 # Other featues
 BOOTMAGIC_ENABLE = yes

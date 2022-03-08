@@ -23,6 +23,7 @@
 
 annepro2Led_t       ledMask[KEY_COUNT];
 annepro2LedStatus_t annepro2LedStatus;
+uint8_t rgb_row_changed[NUM_ROW];
 
 void ledCommandCallback(const message_t *msg) {
     switch (msg->command) {
