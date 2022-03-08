@@ -6,7 +6,7 @@
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic": true,
         "extrakey": true,
         "mousekey": true
     },
@@ -26,7 +26,7 @@
     },
     "processor": "atmega32u4",
     "usb": {
-        "device_ver": "0x0001",
+        "device_version": "0.0.1",
         "pid": "0x2320",
         "vid": "0xFEED"
     },

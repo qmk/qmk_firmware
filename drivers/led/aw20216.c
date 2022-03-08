@@ -23,17 +23,17 @@
  */
 #define AWINIC_ID 0b1010 << 4
 
-#define AW_PAGE_FUNCTION 0x00 << 1    // PG0, Function registers
-#define AW_PAGE_PWM 0x01 << 1         // PG1, LED PWM control
-#define AW_PAGE_SCALING 0x02 << 1     // PG2, LED current scaling control
-#define AW_PAGE_PATCHOICE 0x03 << 1   // PG3, Pattern choice?
-#define AW_PAGE_PWMSCALING 0x04 << 1  // PG4, LED PWM + Scaling control?
+#define AW_PAGE_FUNCTION 0x00 << 1   // PG0, Function registers
+#define AW_PAGE_PWM 0x01 << 1        // PG1, LED PWM control
+#define AW_PAGE_SCALING 0x02 << 1    // PG2, LED current scaling control
+#define AW_PAGE_PATCHOICE 0x03 << 1  // PG3, Pattern choice?
+#define AW_PAGE_PWMSCALING 0x04 << 1 // PG4, LED PWM + Scaling control?
 
 #define AW_WRITE 0
 #define AW_READ 1
 
-#define AW_REG_CONFIGURATION 0x00  // PG0
-#define AW_REG_GLOBALCURRENT 0x01  // PG0
+#define AW_REG_CONFIGURATION 0x00 // PG0
+#define AW_REG_GLOBALCURRENT 0x01 // PG0
 
 // Default value of AW_REG_CONFIGURATION
 // D7:D4 = 1011, SWSEL (SW1~SW12 active)
@@ -119,7 +119,8 @@ void AW20216_init(pin_t cs_pin, pin_t en_pin) {
 }
 
 void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    aw_led led = g_aw_leds[index];
+    aw_led led;
+    memcpy_P(&led, (&g_aw_leds[index]), sizeof(led));
 
     g_pwm_buffer[led.driver][led.r]          = red;
     g_pwm_buffer[led.driver][led.g]          = green;

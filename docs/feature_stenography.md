@@ -32,7 +32,7 @@ GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything
 
 Firstly, enable steno in your keymap's Makefile. You may also need disable mousekeys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
 
-```makefile
+```make
 STENO_ENABLE = yes
 MOUSEKEY_ENABLE = no
 ```
@@ -40,8 +40,8 @@ MOUSEKEY_ENABLE = no
 In your keymap create a new layer for Plover. You will need to include `keymap_steno.h`. See `planck/keymaps/steno/keymap.c` for an example. Remember to create a key to switch to the layer as well as a key for exiting the layer. If you would like to switch modes on the fly you can use the keycodes `QK_STENO_BOLT` and `QK_STENO_GEMINI`. If you only want to use one of the protocols you may set it up in your initialization function:
 
 ```c
-void matrix_init_user() {
-  steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
+void eeconfig_init_user() {
+    steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 }
 ```
 
