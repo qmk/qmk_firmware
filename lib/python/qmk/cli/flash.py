@@ -83,7 +83,6 @@ def flash(cli):
                 command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean')
                 cli.run(command, capture_output=False, stdin=DEVNULL)
 
-
         # Build the environment vars
         envs = {}
         for env in cli.args.env:
