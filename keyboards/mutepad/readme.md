@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [JoshwJB](https://github.com/JoshwJB)
 * Hardware Supported: ProMicro
-* Hardware Availability: [MutePad Repo](https://github.com/JoshwJB/MutePad)
+* Hardware Availability: Handwird - see [MutePad Repo](https://github.com/JoshwJB/MutePad)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -24,3 +24,10 @@ Enter the bootloader in 2 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly short the ground and reset on the ProMicro
+
+## Images
+![image](https://user-images.githubusercontent.com/15612025/157335123-a76ce059-86b4-4484-9bb2-0abff8a13cc8.png)
+
+### Wiring
+![image](https://user-images.githubusercontent.com/15612025/157336673-ad348e3d-4314-4703-afe0-a43a6f73b892.png)
+![image](https://user-images.githubusercontent.com/15612025/157335150-8491553f-a7dc-462a-a6af-bc4be223b703.png)
