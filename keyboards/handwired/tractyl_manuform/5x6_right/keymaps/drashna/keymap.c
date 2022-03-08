@@ -131,14 +131,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-#define BASE_ENCODERS { { KC_VOLD, KC_VOLU }, { KC_WH_D, KC_WH_U } }
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_DEFAULT_LAYER_1] = BASE_ENCODERS,
-    [_DEFAULT_LAYER_2] = BASE_ENCODERS,
-    [_DEFAULT_LAYER_3] = BASE_ENCODERS,
-    [_DEFAULT_LAYER_4] = BASE_ENCODERS,
+    [_DEFAULT_LAYER_1] = { { KC_VOLD, KC_VOLU }, { KC_WH_D, KC_WH_U } },
+    [_DEFAULT_LAYER_2] = { { _______, _______ }, { _______, _______ } },
+    [_DEFAULT_LAYER_3] = { { _______, _______ }, { _______, _______ } },
+    [_DEFAULT_LAYER_4] = { { _______, _______ }, { _______, _______ } },
     [_GAMEPAD]         = { { _______, _______ }, { _______, _______ } },
     [_DIABLO]          = { { _______, _______ }, { _______, _______ } },
     [_MOUSE]           = { { _______, _______ }, { KC_WH_D, KC_WH_U } },
