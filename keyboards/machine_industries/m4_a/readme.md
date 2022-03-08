@@ -1,22 +1,20 @@
-# naut's Rama Works M6-A Layout
+# Rama Works x Machine Industries M4-A
 
-Arrows layer
-![naut's M6-A keymap layer 0](https://i.imgur.com/ZiT5iM0.jpg)
+![Rama Works x Machine Industries M4-A](https://images.squarespace-cdn.com/content/v1/563c788ae4b099120ae219e2/1479361502907-WL2VUR210J6RFD84WH2E/image-asset.jpeg?format=1500w)
 
-Media layer
-![naut's M6-A keymap layer 1](https://i.imgur.com/oFoWuDM.jpg)
+A 4-key macropad designed by Rama Works.
 
-Arrows keys on layer 0 when using a keyboard that's 60% or less and Media keys on layer 1 when using a keyboard greater than 65%.
+* Keyboard Maintainer: [naut](https://github.com/nautxx)
+* Hardware Supported: Rama Works x Machine Industries M4-A PCB
+* Hardware Availability: [Rama Works Store](https://ramaworks.store/)
 
-* Keymap Maintainer: [naut](https://github.com/nautxx)
+Make example for this keyboard (after setting up your build environment):
 
-Make example for this keymap (after setting up your build environment):
-
-    make wilba_tech/rama_works_m6_a:naut
+    make machine_industries/m4_a:default
 
 Flashing example for this keyboard:
 
-    make wilba_tech/rama_works_m6_a:naut:flash
+    make machine_industries/m4_a:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
