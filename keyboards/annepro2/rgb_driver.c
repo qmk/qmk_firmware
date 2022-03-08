@@ -40,7 +40,7 @@ void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
         g != led_mask[led_pos[index]].p.green ||
         b != led_mask[led_pos[index]].p.blue)
         {
-            led_mask[led_pos[index]] = (ap2_lef_t){
+            led_mask[led_pos[index]] = (ap2_led_t){
                 .p.blue  = b,
                 .p.red   = r,
                 .p.green = g,

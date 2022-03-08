@@ -21,7 +21,7 @@
 #include "ap2_led.h"
 #include "protocol.h"
 
-ap2_lef_t       led_mask[KEY_COUNT];
+ap2_led_t       led_mask[KEY_COUNT];
 ap2_led_status_t ap2_led_status;
 uint8_t rgb_row_changed[NUM_ROW];
 
@@ -70,14 +70,14 @@ void ap2_led_next_animation_speed() { proto_tx(CMD_LED_NEXT_ANIMATION_SPEED, NUL
 
 void ap2_led_prev_profile() { proto_tx(CMD_LED_PREV_PROFILE, NULL, 0, 3); }
 
-void ap2_led_mask_set_key(uint8_t row, uint8_t col, ap2_lef_t color) {
+void ap2_led_mask_set_key(uint8_t row, uint8_t col, ap2_led_t color) {
     uint8_t payload[] = {row, col, color.p.blue, color.p.green, color.p.red, color.p.alpha};
     proto_tx(CMD_LED_MASK_SET_KEY, payload, sizeof(payload), 1);
 }
 
 /* Push a whole local row to the shine */
 void ap2_led_mask_set_row(uint8_t row) {
-    uint8_t payload[NUM_COLUMN * sizeof(ap2_lef_t) + 1];
+    uint8_t payload[NUM_COLUMN * sizeof(ap2_led_t) + 1];
     payload[0] = row;
     memcpy(payload + 1, &led_mask[ROWCOL2IDX(row, 0)], sizeof(*led_mask) * NUM_COLUMN);
     proto_tx(CMD_LED_MASK_SET_ROW, payload, sizeof(payload), 1);
@@ -89,20 +89,20 @@ void ap2_led_mask_set_all(void) {
 }
 
 /* Set all keys to a given color */
-void ap2_led_mask_set_mono(const ap2_lef_t color) { proto_tx(CMD_LED_MASK_SET_MONO, (uint8_t *)&color, sizeof(color), 1); }
+void ap2_led_mask_set_mono(const ap2_led_t color) { proto_tx(CMD_LED_MASK_SET_MONO, (uint8_t *)&color, sizeof(color), 1); }
 
-void ap2_led_blink(uint8_t row, uint8_t col, ap2_lef_t color, uint8_t count, uint8_t hundredths) {
+void ap2_led_blink(uint8_t row, uint8_t col, ap2_led_t color, uint8_t count, uint8_t hundredths) {
     uint8_t payload[] = {row, col, color.p.blue, color.p.green, color.p.red, color.p.alpha, count, hundredths};
     proto_tx(CMD_LED_KEY_BLINK, payload, sizeof(payload), 1);
 }
 
 void ap2_led_set_foreground_color(uint8_t red, uint8_t green, uint8_t blue) {
-    ap2_lef_t color = {.p.red = red, .p.green = green, .p.blue = blue, .p.alpha = 0xff};
+    ap2_led_t color = {.p.red = red, .p.green = green, .p.blue = blue, .p.alpha = 0xff};
     ap2_led_mask_set_mono(color);
 }
 
 void ap2_led_reset_foreground_color() {
-    ap2_lef_t color = {
+    ap2_led_t color = {
         .p.red   = 0,
         .p.green = 0,
         .p.blue  = 0,

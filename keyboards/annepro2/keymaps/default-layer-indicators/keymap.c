@@ -128,7 +128,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool led_update_user(led_t leds) {
     if (leds.caps_lock) {
         // Set the caps-lock to red
-        const ap2_lef_t color = {.p.red = 0xff, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0xff};
+        const ap2_led_t color = {.p.red = 0xff, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0xff};
 
         ap2_led_mask_set_key(2, 0, color);
         /* NOTE: Instead of colouring the capslock only, you can change the whole
@@ -136,7 +136,7 @@ bool led_update_user(led_t leds) {
     } else {
         // Reset the capslock if there is no layer active
         if (!layer_state_is(FN1) && !layer_state_is(FN2)) {
-            const ap2_lef_t color = {.p.red = 0xff, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0x00};
+            const ap2_led_t color = {.p.red = 0xff, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0x00};
             ap2_led_mask_set_key(2, 0, color);
         }
     }

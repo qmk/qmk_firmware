@@ -142,7 +142,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             ap2_led_forward_keypress(record->event.key.row, record->event.key.col);
         }
 
-        const ap2_lef_t blue = {
+        const ap2_led_t blue = {
             .p.blue  = 0xff,
             .p.red   = 0x00,
             .p.green = 0x00,

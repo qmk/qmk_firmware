@@ -31,7 +31,7 @@ typedef union {
     uint8_t pv[4];
     /* 0xrgb in mem is b g r a */
     uint32_t rgb;
-} ap2_lef_t;
+} ap2_led_t;
 
 #define ROWCOL2IDX(row, col) (NUM_COLUMN * (row) + (col))
 #define NUM_COLUMN 14
@@ -39,7 +39,7 @@ typedef union {
 #define KEY_COUNT 70
 
 /* Local copy of led_mask, used to override colors on the board */
-extern ap2_lef_t led_mask[KEY_COUNT];
+extern ap2_led_t led_mask[KEY_COUNT];
 extern uint8_t rgb_row_changed[NUM_ROW];
 
 /* Handle incoming messages */
@@ -57,17 +57,17 @@ void ap2_led_next_animation_speed(void);
 void ap2_led_forward_keypress(uint8_t row, uint8_t col);
 
 /* Set single key to a given color; alpha controls which is displayed */
-void ap2_led_mask_set_key(uint8_t row, uint8_t col, ap2_lef_t color);
+void ap2_led_mask_set_key(uint8_t row, uint8_t col, ap2_led_t color);
 /* Push a whole local row to the shine */
 void ap2_led_mask_set_row(uint8_t row);
 /* Synchronize all rows */
 void ap2_led_mask_set_all(void);
 
 /* Set all keys to a given color */
-void ap2_led_mask_set_mono(ap2_lef_t color);
+void ap2_led_mask_set_mono(ap2_led_t color);
 
 /* Blink given key `count` times by masking it with a `color`. Blink takes `hundredths` of a second */
-void ap2_led_blink(uint8_t row, uint8_t col, ap2_lef_t color, uint8_t count, uint8_t hundredths);
+void ap2_led_blink(uint8_t row, uint8_t col, ap2_led_t color, uint8_t count, uint8_t hundredths);
 
 /* Kept for compatibility, but implemented using masks */
 void ap2_led_set_foreground_color(uint8_t red, uint8_t green, uint8_t blue);
