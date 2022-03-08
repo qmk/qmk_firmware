@@ -595,6 +595,9 @@ enum quantum_keycodes {
 
     MAGIC_TOGGLE_CONTROL_CAPSLOCK,
 
+    // Caps Word
+    CAPS_WORD,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -956,5 +959,6 @@ enum quantum_keycodes {
 #define PB_32 PROGRAMMABLE_BUTTON_32
 #define PROGRAMMABLE_BUTTON_MIN PROGRAMMABLE_BUTTON_1
 #define PROGRAMMABLE_BUTTON_MAX PROGRAMMABLE_BUTTON_32
+#define CAPSWRD CAPS_WORD
 
 #include "quantum_keycodes_legacy.h"

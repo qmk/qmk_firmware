@@ -1,0 +1,137 @@
+// Copyright 2021-2022 Google LLC
+// SPDX-License-Identifier: Apache-2.0
+// Original source: https://getreuer.info/posts/keyboards/caps-word
+
+#include "process_caps_word.h"
+
+bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
+    if (keycode == CAPSWRD) {  // Pressing CAPSWRD toggles Caps Word.
+        if (record->event.pressed) {
+            caps_word_toggle();
+        }
+        return false;
+    }
+
+#ifndef NO_ACTION_ONESHOT
+    const uint8_t mods = get_mods() | get_oneshot_mods();
+#else
+    const uint8_t mods = get_mods();
+#endif  // NO_ACTION_ONESHOT
+
+    if (!is_caps_word_on()) {
+        // The following optionally turns on Caps Word by holding left and
+        // right shifts or by double tapping left shift. This way Caps Word
+        // may be used without needing a dedicated key and also without
+        // needing combos or tap dance.
+#ifdef BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+        // Holding both left and right shifts turns on Caps Word.
+        if ((mods & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
+          caps_word_on();
+        }
+#endif  // BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#ifdef DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+        // Double tapping left shift turns on Caps Word.
+        //
+        // NOTE: This works with KC_LSFT and one-shot left shift. It
+        // wouldn't make sense with mod-tap or Space Cadet shift since
+        // double tapping would of course trigger the tapping action.
+        if (record->event.pressed) {
+            static bool tapped = false;
+            static uint16_t timer = 0;
+            if (keycode == KC_LSFT || keycode == OSM(MOD_LSFT)) {
+                if (tapped && !timer_expired(record->event.time, timer)) {
+                    // Left shift was double tapped, activate Caps Word.
+                    caps_word_on();
+                }
+                tapped = true;
+#ifdef TAPPING_TERM_PER_KEY
+                uint16_t tapping_term = get_tapping_term(keycode, record);
+#else
+                uint16_t tapping_term = TAPPING_TERM;
+#endif  // TAPPING_TERM_PER_KEY
+                timer = record->event.time + tapping_term;
+            } else {
+                tapped = false;  // Reset when any other key is pressed.
+            }
+        }
+#       endif  // DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+        return true;
+    }
+
+#if CAPS_WORD_IDLE_TIMEOUT > 0
+    caps_word_reset_idle_timer();
+#endif  // CAPS_WORD_IDLE_TIMEOUT > 0
+
+    // From here on, we only take action on press events.
+    if (!record->event.pressed) { return true; }
+
+    if (!(mods & ~MOD_MASK_SHIFT)) {
+        switch (keycode) {
+            // Ignore MO, TO, TG, TT, and OSL layer switch keys.
+            case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+            case QK_TO ... QK_TO_MAX:
+            case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
+            case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+            case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+                return true;
+
+#ifndef NO_ACTION_TAPPING
+            case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+                if (record->tap.count == 0) {
+                    // Deactivate if a mod becomes active through holding
+                    // a mod-tap key.
+                    caps_word_off();
+                    return true;
+                }
+                keycode &= 0xff;
+                break;
+
+#ifndef NO_ACTION_LAYER
+            case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+#endif  // NO_ACTION_LAYER
+                if (record->tap.count == 0) { return true; }
+                keycode &= 0xff;
+                break;
+#endif  // NO_ACTION_TAPPING
+
+#ifdef SWAP_HANDS_ENABLE
+            case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
+                if (keycode > 0x56F0 || record->tap.count == 0) {
+                    return true;
+                }
+                keycode &= 0xff;
+                break;
+#endif  // SWAP_HANDS_ENABLE
+        }
+
+        clear_weak_mods();
+        if (caps_word_press_user(keycode)) {
+            send_keyboard_report();
+            return true;
+        }
+    }
+
+    caps_word_off();
+    return true;
+}
+
+__attribute__((weak)) bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case KC_MINS:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
+
