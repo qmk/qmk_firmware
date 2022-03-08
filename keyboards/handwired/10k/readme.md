@@ -1,9 +1,9 @@
 # 10k
 
-*Simple 10 keys chord keyboard*
+Simple 10 keys chord keyboard
 
 * Keyboard Maintainer: [Nabos](https://github.com/nab-os)
-* Hardware Supported: *Tested with Elite-C V4 and ProMicro*
+* Hardware Supported: Tested with Elite-C V4 and ProMicro
 
 Make example for this keyboard (after setting up your build environment):
 
