@@ -23,4 +23,4 @@ Enter the bootloader in 3 ways:
 
 -   **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 -   **Physical reset button**: Bridge the pads labelled 'RE' underneath the Space Bar.
--   **Keycode in layout**: Press the key mapped to `RESET` if it is available (If set manually. This is not a default feature!)
+-   **Keycode in layout**: Hold MO(1) and press ESC (If you've changed bindings from the default, this may not be the case)
