@@ -130,8 +130,16 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define CK_QUOT RSFT_T(SE_QUOT)
 #define CK_SPC RSFT_T(KC_SPC)
 
-#define CK_NDASH UC(0x2013)
-#define CK_MDASH UC(0x2014)
+// Alt + [-] => – (en-dash)
+const key_override_t mins_ndash_override = ko_make_basic(MOD_MASK_ALT, SE_MINS, UC(0x2013));
+ // Shift + Alt + [-] => — (em-dash)
+const key_override_t mins_mdash_override = ko_make_basic(MOD_MASK_SA, SE_MINS, UC(0x2014));
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &mins_ndash_override,
+    &mins_mdash_override,
+    NULL
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_rev41lp(
@@ -142,16 +150,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_LOWER] = LAYOUT_rev41lp(
- SK_NOT_EQL,  SE_EXLM,    SE_AT,  SE_HASH,   SE_DLR,   SE_PERC,            SE_CIRC,  SE_AMPR,  SE_ASTR,  SE_LPRN,  SE_RPRN,  CK_NDASH,
-     SK_LEQ,  SE_UNDS,  SE_PLUS,  SE_LCBR,  SE_RCBR,   SE_PIPE,            KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,   SE_GRV,   SE_TILD,
-     SK_GEQ,   KC_ESC,  KC_LGUI,  KC_LALT,  KC_CAPS,   SE_DQUO,            KC_HOME,   KC_END,  KC_PGUP,  KC_PGDN,  KC_PSCR,    CK_SPC,
+ SK_NOT_EQL,  SE_EXLM,    SE_AT,  SE_HASH,   SE_DLR,   SE_PERC,            SE_CIRC,  SE_AMPR,  SE_ASTR,  SE_LPRN,  SE_RPRN,  SE_DIAE,
+     SK_LEQ,  SE_UNDS,  SE_PLUS,  SE_LCBR,  SE_RCBR,   SE_PIPE,            KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,   SE_GRV,  SE_TILD,
+     SK_GEQ,   KC_ESC,  KC_LGUI,  KC_LALT,  KC_CAPS,   SE_DQUO,            KC_HOME,   KC_END,  KC_PGUP,  KC_PGDN,  KC_PSCR,   CK_SPC,
                                             _______,   _______,  KC_ENT,   _______,  _______
   ),
 
   [_RAISE] = LAYOUT_rev41lp(
-    _______,     SE_1,     SE_2,     SE_3,     SE_4,      SE_5,               SE_6,   SE_7,   SE_8,    SE_9,    SE_0,  CK_MDASH,
-    _______,  SE_MINS,   SE_EQL,  SE_LBRC,  SE_RBRC,   SE_BSLS,              KC_F1,  KC_F2,  KC_F3,   KC_F4,   KC_F5,     KC_F6,
-    _______,   KC_ESC,  KC_RGUI,  KC_RALT,  KC_CAPS,   KC_QUOT,              KC_F7,  KC_F8,  KC_F9,  KC_F10,  KC_F11,    KC_F12,
+    _______,     SE_1,     SE_2,     SE_3,     SE_4,      SE_5,               SE_6,   SE_7,   SE_8,    SE_9,    SE_0,  SE_GRV,
+    _______,  SE_MINS,   SE_EQL,  SE_LBRC,  SE_RBRC,   SE_BSLS,              KC_F1,  KC_F2,  KC_F3,   KC_F4,   KC_F5,   KC_F6,
+    _______,   KC_ESC,  KC_RGUI,  KC_RALT,  KC_CAPS,   SE_ACUT,              KC_F7,  KC_F8,  KC_F9,  KC_F10,  KC_F11,  KC_F12,
                                             SE_LABK,   SE_RABK,  KC_BSPC,  _______,  _______
   ),
 

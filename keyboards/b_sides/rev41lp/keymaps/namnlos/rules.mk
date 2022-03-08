@@ -11,6 +11,7 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 UNICODE_ENABLE = yes        # Unicode
 TAP_DANCE_ENABLE = yes      # Let's dance
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
+KEY_OVERRIDE_ENABLE = yes   # Enable key overrides
 DEBOUNCE_TYPE = sym_defer_pk
 
 LTO_ENABLE      = yes
