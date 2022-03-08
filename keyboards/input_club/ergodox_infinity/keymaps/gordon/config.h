@@ -25,5 +25,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef  TAPPING_TERM
 #define TAPPING_TERM             200
+#define COMBO_TERM               50 //by default, this term is normally the same as the tapping term. 
 
 #define FORCE_NKRO
+
+#define TAPPING_TERM_PER_KEY
+
+#define COMBO_COUNT 4
+#define EXTRA_LONG_COMBOS
+

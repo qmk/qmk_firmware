@@ -61,6 +61,9 @@
 #define COL_MOUS LT(_MOUSE,KC_SCOLON)
 #define SPAC_SYM LT(_SYMBOLS,KC_SPACE)
 #define SPAC_TXT LT(_TEXTNAV,KC_SPACE)
+#define WINSNAP_INS LT(_TEXTNAV, KC_INSERT)
+#define WINDOW_I LT(_WINDOWS_NAV, KC_I)
+
 
 #define APP_SW_I LT(_APPSWITCH,KC_I)
 #define APP_SW_K LT(_APPSWITCH,KC_K)
@@ -97,7 +100,22 @@ enum {
   DOUBLE_HOLD = 4,
   DOUBLE_SINGLE_TAP = 5, //send two single taps
   TRIPLE_TAP = 6,
-  TRIPLE_HOLD = 7
+  TRIPLE_HOLD = 7,
+
+  QUADRUPLE_TAP = 8,
+  QUADRUPLE_HOLD = 9,
+
+  QUINTUPLE_TAP = 10,
+  QUINTUPLE_HOLD = 11,
+
+  SEXTUPLE_TAP = 12,
+  SEXTUPLE_HOLD = 13,
+
+  SEPTUPLE_TAP = 14,
+  SEPTUPLE_HOLD = 15,
+
+  OCTUPLE_TAP = 16,
+  OCTUPLE_HOLD = 17
 };
 
 //Tap dance enums
@@ -123,7 +141,24 @@ enum
   F2F14,
   F5F15,
   ENDHOME,
-  Q_ESCAPE
+  Q_ESCAPE,
+  F13SNAP,
+  F14SNAP,
+  F15SNAP,
+  F16SNAP,
+  F17SNAP,
+  F18SNAP,
+  F19SNAP,
+  F20SNAP,
+  F21SNAP,
+  F22SNAP,
+  F23SNAP,
+  F24SNAP
+};
+
+enum combo_events {
+  ZC_COPY,
+  XV_PASTE
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -138,6 +173,18 @@ enum
 #define F12_RUN     TD(F12ETAPS)
 #define COMMA_TD    TD(COMMA)
 #define CALC_COM    TD(CALCCOMP)
+#define F13_SNAP   TD(F13SNAP)
+#define F14_SNAP   TD(F14SNAP)
+#define F15_SNAP   TD(F15SNAP)
+#define F16_SNAP   TD(F16SNAP)
+#define F17_SNAP   TD(F17SNAP)
+#define F18_SNAP   TD(F18SNAP)
+#define F19_SNAP   TD(F19SNAP)
+#define F20_SNAP   TD(F20SNAP)
+#define F21_SNAP   TD(F21SNAP)
+#define F22_SNAP   TD(F22SNAP)
+#define F23_SNAP   TD(F23SNAP)
+#define F24_SNAP   TD(F24SNAP)
 #else //just to make things compile
 #define F1_F13      KC_1
 #define F2_F14      KC_1
@@ -149,6 +196,20 @@ enum
 #define F12_RUN     KC_1
 #define COMMA_TD    KC_1
 #define CALC_COM    KC_1
+#define F13_SNAP    KC_1
+#define F14_SNAP    KC_1
+#define F15_SNAP    KC_1
+#define F16_SNAP    KC_1
+#define F17_SNAP    KC_1
+#define F18_SNAP    KC_1
+#define F19_SNAP    KC_1
+#define F20_SNAP    KC_1
+#define F21_SNAP    KC_1
+#define F22_SNAP    KC_1
+#define F23_SNAP    KC_1
+#define F24_SNAP    KC_1
+
+#define
 #endif
 
 enum gordon_layers
@@ -170,7 +231,11 @@ enum gordon_layers
   _QWERTY_KIDS,     // So my kids can do nothing but type. Could also be a `speed typing` layer with no LT or MTs
   _STREET_FIGHTER,  // For Street Fighter 5. Die 1000x Deaths!!!!
   _DIRNAV,          // For navigating to different directories.
-  _TEXT_MACROS      // For text-manipulation macros. Passwords, saved strings, pre-formatting
+  _WINDOWS_NAV,      // For advanced windows snapping
+  _TEXT_MACROS,     // For text-manipulation macros. Passwords, saved strings, pre-formatting,
+  _EXTRA1,
+  _EXTRA2
+
 };
 
 
@@ -193,6 +258,21 @@ void unregister_ctrl_shift (void);
 void register_alt_shift (void);
 void unregister_alt_shift (void);
 
+void register_meh (void);
+void unregister_meh (void);
+
+void register_ctrl_alt (void);
+void unregister_ctrl_alt (void);
+
+void register_meh_f21 (void);
+void unregister_meh_f21 (void);
+
+void register_ctrlshift_f21 (void);
+void unregister_ctrlshift_f21 (void);
+
+void register_ctrlalt_f21 (void);
+void register_ctrlalt_f21 (void);
+
 int cur_dance (qk_tap_dance_state_t *state);
 int hold_cur_dance (qk_tap_dance_state_t *state);
 
@@ -210,6 +290,10 @@ void comma_reset (qk_tap_dance_state_t *state, void *user_data);
 
 void bt_finished (qk_tap_dance_state_t *state, void *user_data);
 void bt_reset (qk_tap_dance_state_t *state, void *user_data);
+
+void f21_finished (qk_tap_dance_state_t *state, void *user_data);
+void f21_reset (qk_tap_dance_state_t *state, void *user_data);
+
 
 enum secret_strings {
   KC_SECRET_1 = SAFE_RANGE,
@@ -237,11 +321,10 @@ enum {
   DBMS_OUT,
   DIE_1000X_RIGHT,
   DIE_1000X_LEFT,
-  ID_MAN_IP
+  ID_MAN_IP, 
+  ALT_TAB,
+  GOHOME
 };
 
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
 
 #endif

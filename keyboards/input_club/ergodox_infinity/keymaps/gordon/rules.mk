@@ -1,2 +1,13 @@
 TAP_DANCE_ENABLE = yes
+COMBO_ENABLE = yes
+LEADER_ENABLE = yes
 
+# two lines below are to re-enable the LED screens
+ST7565_ENABLE = no
+VISUALIZER = yes
+VISUALIZER_ENABLE = yes
+LCD_ENABLE = yes
+LCD_BACKLIGHT_ENABLE = yes
+LCD_DRIVER = st7565
+LCD_WIDTH = 128
+LCD_HEIGHT = 32
