@@ -17,6 +17,7 @@
 #include "nebula68b.h"
 #include <lib/lib8tion/lib8tion.h>
 
+#ifndef KEYBOARD_spaceholdings_nebula68b_hs
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
 led_config_t g_led_config = { {
@@ -39,6 +40,7 @@ led_config_t g_led_config = { {
     1, 1, 2, 1, 2, 4, 2, 1, 1, 1, 2, 1, 1, 1
 } };
 // clang-format on
+#endif
 #endif
 
 #if defined(RGB_MATRIX_ENABLE) && defined(VIA_ENABLE)

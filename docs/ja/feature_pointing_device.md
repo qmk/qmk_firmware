@@ -16,7 +16,7 @@ POINTING_DEVICE_ENABLE = yes
 マウスレポートを操作するために、以下の関数を使うことができます:
 
 * `pointing_device_get_report()` - ホストコンピュータに送信された情報を表す現在の report_mouse_t を返します。
-* `pointing_device_set_report(report_mouse_t newMouseReport)` - ホストコンピュータに送信される report_mouse_t を上書き保存します。
+* `pointing_device_set_report(report_mouse_t mouse_report)` - ホストコンピュータに送信される report_mouse_t を上書き保存します。
 
 report_mouse_t (ここでは "mouseReport") が以下のプロパティを持つことを覚えておいてください:
 
@@ -34,7 +34,7 @@ report_mouse_t (ここでは "mouseReport") が以下のプロパティを持つ
 
 さらに、デフォルトでは、`pointing_device_send()` はレポートが実際に変更された場合のみレポートを送信します。これにより、マウスレポートが継続的に送信されてホストシステムが起動されたままになることを防ぎます。この動作は、独自の `pointing_device_send()` 関数を作成することで変更できます。
 
-また、`has_mouse_report_changed(new, old)` 関数を使って、レポートが変更されたかどうかを確認できます。(訳注：独自の `pointing_device_send()` 関数を作成する場合でも、その中で `has_mouse_report_changed(new, old)` 関数でチェックして、デフォルトの `pointing_device_send()` と類似の無駄なレポートの抑制をして、ホストシステムがスリープ状態に入れる余地を残すようにしておくのが良いでしょう。)
+また、`has_mouse_report_changed(new_report, old_report)` 関数を使って、レポートが変更されたかどうかを確認できます。(訳注：独自の `pointing_device_send()` 関数を作成する場合でも、その中で `has_mouse_report_changed(new_report, old_report)` 関数でチェックして、デフォルトの `pointing_device_send()` と類似の無駄なレポートの抑制をして、ホストシステムがスリープ状態に入れる余地を残すようにしておくのが良いでしょう。)
 
 以下の例では、カスタムキーを使ってマウスをクリックし垂直および水平方向に127単位スクロールし、リリースされた時にそれを全て元に戻します - なぜならこれは完全に便利な機能だからです。いいですか、以下はひとつの例です:
 
