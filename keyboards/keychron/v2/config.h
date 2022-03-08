@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron(https://www.keychron.com)
+/* Copyright 2021 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,18 +19,20 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x3434
 #define MANUFACTURER    Keychron
-#define PRODUCT         Keychron Q5
-
-/* Key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 18
-
-/* Key matrix pins */
-#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
+#define PRODUCT         Keychron V2
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
+
+/* key matrix size */
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
+
+/* key matrix pins */
+#define MATRIX_ROW_PINS \
+    { B4, B3, A15, A14, A13 }
+#define MATRIX_COL_PINS \
+    { C14, C15, A0, A1, A2, A3, A4, A5, A6, A7, B0, B1, A8, A9, H3 }
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -40,11 +42,14 @@
 #define DRIVER_ADDR_1 0b1110111
 #define DRIVER_ADDR_2 0b1110100
 
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {5, 4} }
+/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
+#define PHASE_CHANNEL MSKPHASE_9CHANNEL
 
 /* Disable DIP switch in matrix data */
 #define MATRIX_MASKED
+
+/* DIP switch */
+#define DIP_SWITCH_MATRIX_GRID  { {4,4} }
 
 /* NKRO */
 #define FORCE_NKRO
@@ -54,6 +59,9 @@
 
 /* Set USB polling rate as 1 milliseconds */
 #define USB_POLLING_INTERVAL_MS 1
+
+/* Use 5 dynamic keymap layers */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

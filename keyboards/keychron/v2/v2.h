@@ -18,10 +18,6 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_keychron_q5_q5_ansi_stm32l432)
-#    include "q5_ansi_stm32l432.h"
-#elif defined(KEYBOARD_keychron_q5_q5_ansi_stm32l432_ec11)
-#    include "q5_ansi_stm32l432_ec11.h"
-#elif defined(KEYBOARD_keychron_q5_q5_iso_stm32l432)
-#    include "q5_iso_stm32l432.h"
+#if defined(KEYBOARD_keychron_v2_v2_ansi_stm32l432)
+#    include "v2_ansi_stm32l432.h"
 #endif

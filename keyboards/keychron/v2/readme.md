@@ -1,18 +1,20 @@
-# Keychron Q5
+# Keychron V2
 
-A customizable 100 keys keyboard.
+![Keychron V2]()
+
+A customizable 65% keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
-* Hardware Supported: Keychron Q5
+* Hardware Supported: Keychron V2
 * Hardware Availability: [Keychron](https://www.keychron.com)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q5/q5_ansi_stm32l432:default
+    make keychron/v2/v2_ansi_stm32l432:default
 
-Flashing example for this keyboard:
+Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make keychron/q5/q5_ansi_stm32l432:default:flash
+    make keychron/v2/v2_ansi_stm32l432:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 

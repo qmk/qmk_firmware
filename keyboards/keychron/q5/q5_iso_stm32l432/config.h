@@ -16,12 +16,11 @@
 
 #pragma once
 
-#include "quantum.h"
+/* USB Device descriptor parameter */
+#define PRODUCT_ID      0x0150
+#define DEVICE_VER      0x0100
 
-#if defined(KEYBOARD_keychron_q5_q5_ansi_stm32l432)
-#    include "q5_ansi_stm32l432.h"
-#elif defined(KEYBOARD_keychron_q5_q5_ansi_stm32l432_ec11)
-#    include "q5_ansi_stm32l432_ec11.h"
-#elif defined(KEYBOARD_keychron_q5_q5_iso_stm32l432)
-#    include "q5_iso_stm32l432.h"
-#endif
+/* RGB Matrix Configuration */
+#define DRIVER_1_LED_TOTAL 55
+#define DRIVER_2_LED_TOTAL 45
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)

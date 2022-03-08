@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +16,10 @@
 
 #pragma once
 
-#include "quantum.h"
+#define CH_CFG_ST_FREQUENCY 10000
 
-#if defined(KEYBOARD_keychron_q5_q5_ansi_stm32l432)
-#    include "q5_ansi_stm32l432.h"
-#elif defined(KEYBOARD_keychron_q5_q5_ansi_stm32l432_ec11)
-#    include "q5_ansi_stm32l432_ec11.h"
-#elif defined(KEYBOARD_keychron_q5_q5_iso_stm32l432)
-#    include "q5_iso_stm32l432.h"
-#endif
+#define CH_CFG_OPTIMIZE_SPEED FALSE
+
+#define CH_CFG_USE_CONDVARS_TIMEOUT FALSE
+
+#include_next <chconf.h>

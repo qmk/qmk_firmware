@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +16,7 @@
 
 #pragma once
 
-#include "quantum.h"
+#include_next <mcuconf.h>
 
-#if defined(KEYBOARD_keychron_q5_q5_ansi_stm32l432)
-#    include "q5_ansi_stm32l432.h"
-#elif defined(KEYBOARD_keychron_q5_q5_ansi_stm32l432_ec11)
-#    include "q5_ansi_stm32l432_ec11.h"
-#elif defined(KEYBOARD_keychron_q5_q5_iso_stm32l432)
-#    include "q5_iso_stm32l432.h"
-#endif
+#undef STM32_I2C_USE_I2C1
+#define STM32_I2C_USE_I2C1 TRUE

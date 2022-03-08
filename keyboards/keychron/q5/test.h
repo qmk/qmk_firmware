@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,14 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef _TEST_H_
+#define _TEST_H_
 
 #include "quantum.h"
+#include "raw_hid.h"
 
-#if defined(KEYBOARD_keychron_q5_q5_ansi_stm32l432)
-#    include "q5_ansi_stm32l432.h"
-#elif defined(KEYBOARD_keychron_q5_q5_ansi_stm32l432_ec11)
-#    include "q5_ansi_stm32l432_ec11.h"
-#elif defined(KEYBOARD_keychron_q5_q5_iso_stm32l432)
-#    include "q5_iso_stm32l432.h"
-#endif
+void process_other_record(uint16_t keycode, keyrecord_t *record);
+void timer_task_start(void);
+void system_switch_state_report(uint8_t index, bool active);
+
+#endif /* _TEST_H_ */

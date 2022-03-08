@@ -14,15 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "q5.h"
+#include "v2.h"
 
 const matrix_row_t matrix_mask[] = {
-    0b111111111111111111,
-    0b111111111111111111,
-    0b111111111111111111,
-    0b111111111111111111,
-    0b111111111111111111,
-    0b111111111111101111,
+    0b1111111111111111,
+    0b1111111111111111,
+    0b1111111111111111,
+    0b1111111111111111,
+    0b1111111111101111,
 };
 
 #ifdef DIP_SWITCH_ENABLE
@@ -30,7 +29,7 @@ const matrix_row_t matrix_mask[] = {
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) { return false;}
     if (index == 0) {
-        default_layer_set(1UL << (active ? 2 : 0));
+        default_layer_set(1UL << (active ? 1 : 0));
     }
     return true;
 }
