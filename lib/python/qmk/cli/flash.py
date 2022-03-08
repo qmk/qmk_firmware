@@ -43,7 +43,7 @@ def print_bootloader_help():
 @cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), completer=FilesCompleter('.json'), help='The configurator export JSON to compile.')
 @cli.argument('-b', '--bootloaders', action='store_true', help='List the available bootloaders.')
 @cli.argument('-bl', '--bootloader', default='flash', help='The flash command, corresponding to qmk\'s make options of bootloaders.')
-@cli.argument('-t', '--type', help='The type of MCU. Required for HalfKay/HID boards.')
+@cli.argument('-t', '--type', help='The type of MCU. Required for HalfKay, HID and ISP boards.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")

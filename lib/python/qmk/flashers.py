@@ -6,7 +6,6 @@ import usb.core
 from qmk.constants import BOOTLOADER_VIDS_PIDS
 from milc import cli
 
-
 _PID_TO_MCU = {
     '2fef': 'atmega16u2',
     '2ff0': 'atmega32u2',
@@ -15,6 +14,12 @@ _PID_TO_MCU = {
     '2ff9': 'at90usb64',
     '2ffa': 'at90usb162',
     '2ffb': 'at90usb128'
+}
+
+AVRDUDE_MCU = {
+    'atmega32a': 'm32',
+    'atmega328p': 'm328p',
+    'atmega328': 'm328',
 }
 
 
@@ -90,9 +95,11 @@ def _flash_stm32(details, file):
         cli.run(['dfu-util', '-a', '0', '-d', f'{details[0]}:{details[1]}', '-s', '0x08000000:leave', '-D', file], capture_output = False)
 
 
-def _flash_isp(programmer, file):
+def _flash_isp(mcu, programmer, file):
     programmer = 'usbasp' if programmer == 'usbasploader' else 'usbtiny'
-    cli.run(['avrdude', '-p', 'atmega32u4', '-c', programmer, '-U', f'flash:w:{file}:i'], capture_output = False)
+    # Check if the provide mcu has an avrdude-specific name, otherwise pass on what the user provided
+    mcu = AVRDUDE_MCU.get(mcu, mcu)
+    cli.run(['avrdude', '-p', mcu, '-c', programmer, '-U', f'flash:w:{file}:i'], capture_output=False)
 
 
 def flasher(mcu, file):
@@ -109,6 +116,9 @@ def flasher(mcu, file):
     elif bl == 'stm32' or bl == 'apm32':
         _flash_stm32(details, file.name)
     elif bl == 'usbasploader' or bl == 'usbtinyisp':
-        _flash_isp(bl, file.name)
+        if mcu:
+            _flash_isp(mcu, bl, file.name)
+        else:
+            return (True, "Specifying the MCU with '-t' is necessary for ISP flashing!")
 
     return (False, None)
