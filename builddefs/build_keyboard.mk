@@ -182,6 +182,24 @@ endif
 
 include $(BUILDDEFS_PATH)/converters.mk
 
+ifeq ($(strip $(STMC)), yes)
+  CONVERT_TO_STEMCELL=yes
+endif
+
+ifeq ($(strip $(STMC_US)), yes)
+  CONVERT_TO_STEMCELL_UART_SWAP=yes
+  OPT_DEFS += -DCONVERT_TO_STEMCELL_UART_SWAP
+endif
+
+ifeq ($(strip $(STMC_IS)), yes)
+  CONVERT_TO_STEMCELL_I2C_SWAP=yes
+  OPT_DEFS += -DCONVERT_TO_STEMCELL_I2C_SWAP
+endif
+
+ifeq ($(strip $(CONVERT_TO_STEMCELL)), yes)
+    include platforms/chibios/boards/STEMCELL/convert_to_stemcell.mk
+endif
+
 include $(BUILDDEFS_PATH)/mcu_selection.mk
 
 # Find all the C source files to be compiled in subfolders.
