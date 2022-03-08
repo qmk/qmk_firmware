@@ -146,10 +146,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid( /* QWERTY */
-    FNESC,   KC_Q,     KC_W,     KC_E,    KC_R,          KC_T,   KC_Y,   KC_U,   KC_I,      KC_O,   KC_P,    KC_BSPC,
-    MTTAB,   KC_A,     KC_S,     KC_D,    KC_F,          KC_G,   KC_H,   KC_J,   KC_K,      KC_L,   KC_SCLN, MTRCTLQUO,
-    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_V,          KC_B,   KC_N,   KC_M,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(3, KC_F24), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
+    FNESC,   KC_Q,     KC_W,     KC_E,    KC_R,               KC_T,   KC_Y,   KC_U,   KC_I,      KC_O,   KC_P,    KC_BSPC,
+    MTTAB,   KC_A,     KC_S,     KC_D,    KC_F,               KC_G,   KC_H,   KC_J,   KC_K,      KC_L,   KC_SCLN, MTRCTLQUO,
+    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_V,               KC_B,   KC_N,   KC_M,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F24), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
   ),
 
  /* MIT Layout (HANDSDOWNNEU Modded)
@@ -165,10 +165,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_HANDSDOWN] = LAYOUT_planck_grid( /* HANDS DOWN GOLD */
-    FNESC,   KC_W,     KC_F,     KC_M,    KC_P,          KC_V,   KC_SLSH,  KC_DOT,   KC_Q,      KC_COMMA, KC_SCLN, KC_BSPC,
-    MTTAB,   KC_R,     KC_S,     KC_N,    KC_T,          KC_G,   KC_K,     KC_A,     KC_E,      KC_I,     KC_H,    MTRCTLQUO,
-    KC_LSFT, MTLGUI_X, KC_C,     KC_L,    KC_D,          KC_B,   KC_J,     KC_U,     KC_O,      KC_Y,     KC_Z,    MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(3, KC_F24), KC_SPC, KC_SPC,   MO(4),    MTLALT_PL, KC_NO,    KC_NO,   KC_NO
+    FNESC,   KC_W,     KC_F,     KC_M,    KC_P,               KC_V,   KC_SLSH,  KC_DOT,   KC_Q,      KC_COMMA, KC_SCLN, KC_BSPC,
+    MTTAB,   KC_R,     KC_S,     KC_N,    KC_T,               KC_G,   KC_K,     KC_A,     KC_E,      KC_I,     KC_H,    MTRCTLQUO,
+    KC_LSFT, MTLGUI_X, KC_C,     KC_L,    KC_D,               KC_B,   KC_J,     KC_U,     KC_O,      KC_Y,     KC_Z,    MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F24), KC_SPC, KC_SPC,   MO(4),    MTLALT_PL, KC_NO,    KC_NO,   KC_NO
  ),
 
  /* MIT Layout (COLEMAK-DH)
@@ -184,28 +184,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid( /* COLEMAK */
-    FNESC,   KC_Q,     KC_W,     KC_F,    KC_P,          KC_B,   KC_J,   KC_L,   KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
-    MTTAB,   KC_A,     KC_R,     KC_S,    KC_T,          KC_G,   KC_M,   KC_N,   KC_E,      KC_I,   KC_O,    MTRCTLQUO,
-    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,          KC_V,   KC_K,   KC_H,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(3, KC_F24), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
+    FNESC,   KC_Q,     KC_W,     KC_F,    KC_P,               KC_B,   KC_J,   KC_L,   KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
+    MTTAB,   KC_A,     KC_R,     KC_S,    KC_T,               KC_G,   KC_M,   KC_N,   KC_E,      KC_I,   KC_O,    MTRCTLQUO,
+    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,               KC_V,   KC_K,   KC_H,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F24), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
  ),
 
 /* MIT Layout (RAISE)
  *
  * ,----------------------------------------------------------------------------.
- * |     |     |     |     |      |      |      |  Cut  | Undo| Redo|  =  | Bsp |
+ * |     |     |     |     |      |      |      |  Cut  | Undo| Redo|  :  | Bsp |
  * |----------------------------------------------------------------------------|
  * |     |Menu |     |     |      |      |ARROW |SELWORD|Copy|Paste|WinPst|  "  |
  * |----------------------------------------------------------------------------|
- * |     |Vol+ |Vol- | Mute|      |      |Braces|Braces2|  <  |  >  |  ?  |     |
+ * |     |Vol+ |Vol- | Mute|      |      |Braces|Braces2|  <  |  >  |  ?  |  |  |
  * |----------------------------------------------------------------------------|
  * |     |     |     |     |Adjust|             |       |     |     |     |     |
  * `----------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
   KC_TRNS, KC_TRNS, KC_LABK, KC_RABK, KC_TRNS, KC_TRNS, KC_TRNS, KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC,
-  KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ARROW,   SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_DQUO,
-  KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_TRNS,
+  KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ARROW,   SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_COLN,
+  KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_PIPE,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(7),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_NO,       KC_NO
 ),
 
@@ -337,88 +337,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 		}
 	  return state;
 }
-
-// void dance_media (qk_tap_dance_state_t *state, void *user_data)
-//     if (state->count == 1) {
-//         tap_code(KC_MPLY);
-//     } else if (state->count == 2) {
-//         tap_code (KC_MNXT);
-//     } else if (state->count == 3) {
-//         tap_code(KC_MPRV);
-//     } else {
-//         reset_tap_dance (state);
-//     }
-// }
-
-// qk_tap_dance_action_t tap_dance_actions[] = {
-//  [0] = ACTION_TAP_DANCE_FN (dance_media),
-// };
-
-
-
-// // **** start of Tap-dance code****
-// // Determine the current tap dance state
-// td_state_t cur_dance(qk_tap_dance_state_t *state) {
-//     if (state->interrupted) return TD_SINGLE_HOLD;
-//     if (state->count == 1) {
-//         if (!state->pressed) return TD_SINGLE_TAP;
-//         else return TD_SINGLE_HOLD;
-//     } else if (state->count == 2) return TD_DOUBLE_TAP;
-//     else return TD_UNKNOWN;
-// };
-
-// // Initialize tap structure associated with example tap dance key
-// static td_tap_t usl_tap_state = {
-//     .is_press_action = true,
-//     .state = TD_NONE
-// };
-
-// // Functions that control what our tap dance key does
-// void usl_finished(qk_tap_dance_state_t *state, void *user_data) {
-//     usl_tap_state.state = cur_dance(state);
-//     switch (usl_tap_state.state) {
-//         case TD_SINGLE_TAP:
-//             set_oneshot_mods(MOD_LSFT);
-//             break;
-//         case TD_SINGLE_HOLD:
-//             layer_on(_LOWER);
-//             // update_tri_layer(_LOWER, _RAISE, _ADJUST);
-//             break;
-//         case TD_DOUBLE_TAP:
-//             // Check to see if the layer is already set
-//             if (layer_state_is(_LOWER)) {
-//                 // If already set, then switch it off
-//                 layer_off(_LOWER);
-//                 #ifdef AUDIO_ENABLE
-//                   PLAY_SONG(tone_goodbye);
-//                 #endif
-//             } else {
-//                 // If not already set, then switch the layer on
-//                 layer_on(_LOWER);
-//                 #ifdef AUDIO_ENABLE
-//                   PLAY_SONG(layerswitch_song);
-//                 #endif
-//             }
-//             break;
-//         default:
-//             break;
-//     }
-// };
-
-// void usl_reset(qk_tap_dance_state_t *state, void *user_data) {
-//     // If the key was held down and now is released then switch off the layer
-//     if (usl_tap_state.state == TD_SINGLE_HOLD) {
-//         layer_off(_LOWER);
-//         // update_tri_layer(_LOWER, _RAISE, _ADJUST);
-//     }
-//     usl_tap_state.state = TD_NONE;
-// };
-
-// // Associate our tap dance key with its functionality
-// qk_tap_dance_action_t tap_dance_actions[] = {
-//     [OSSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, usl_finished, usl_reset, 110)
-// };
-// // **** end of Tap-dance code****
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_select_word(keycode, record, SELWORD)) { return false; }
@@ -851,3 +769,85 @@ void caps_word_set_user(bool active) {
     #endif
   }
 };
+
+// void dance_media (qk_tap_dance_state_t *state, void *user_data)
+//     if (state->count == 1) {
+//         tap_code(KC_MPLY);
+//     } else if (state->count == 2) {
+//         tap_code (KC_MNXT);
+//     } else if (state->count == 3) {
+//         tap_code(KC_MPRV);
+//     } else {
+//         reset_tap_dance (state);
+//     }
+// }
+
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//  [0] = ACTION_TAP_DANCE_FN (dance_media),
+// };
+
+
+
+// // **** start of Tap-dance code****
+// // Determine the current tap dance state
+// td_state_t cur_dance(qk_tap_dance_state_t *state) {
+//     if (state->interrupted) return TD_SINGLE_HOLD;
+//     if (state->count == 1) {
+//         if (!state->pressed) return TD_SINGLE_TAP;
+//         else return TD_SINGLE_HOLD;
+//     } else if (state->count == 2) return TD_DOUBLE_TAP;
+//     else return TD_UNKNOWN;
+// };
+
+// // Initialize tap structure associated with example tap dance key
+// static td_tap_t usl_tap_state = {
+//     .is_press_action = true,
+//     .state = TD_NONE
+// };
+
+// // Functions that control what our tap dance key does
+// void usl_finished(qk_tap_dance_state_t *state, void *user_data) {
+//     usl_tap_state.state = cur_dance(state);
+//     switch (usl_tap_state.state) {
+//         case TD_SINGLE_TAP:
+//             set_oneshot_mods(MOD_LSFT);
+//             break;
+//         case TD_SINGLE_HOLD:
+//             layer_on(_LOWER);
+//             // update_tri_layer(_LOWER, _RAISE, _ADJUST);
+//             break;
+//         case TD_DOUBLE_TAP:
+//             // Check to see if the layer is already set
+//             if (layer_state_is(_LOWER)) {
+//                 // If already set, then switch it off
+//                 layer_off(_LOWER);
+//                 #ifdef AUDIO_ENABLE
+//                   PLAY_SONG(tone_goodbye);
+//                 #endif
+//             } else {
+//                 // If not already set, then switch the layer on
+//                 layer_on(_LOWER);
+//                 #ifdef AUDIO_ENABLE
+//                   PLAY_SONG(layerswitch_song);
+//                 #endif
+//             }
+//             break;
+//         default:
+//             break;
+//     }
+// };
+
+// void usl_reset(qk_tap_dance_state_t *state, void *user_data) {
+//     // If the key was held down and now is released then switch off the layer
+//     if (usl_tap_state.state == TD_SINGLE_HOLD) {
+//         layer_off(_LOWER);
+//         // update_tri_layer(_LOWER, _RAISE, _ADJUST);
+//     }
+//     usl_tap_state.state = TD_NONE;
+// };
+
+// // Associate our tap dance key with its functionality
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//     [OSSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, usl_finished, usl_reset, 110)
+// };
+// // **** end of Tap-dance code****
