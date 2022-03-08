@@ -55,7 +55,6 @@
 #define MTRCTLQUO MT(MOD_RCTL, KC_QUOT)
 #define MTTAB MT(MOD_LCTL | MOD_LGUI | MOD_LALT, KC_TAB)
 #define FNESC LT(_FN, KC_ESC)
-#define LOWER_T LT(_LOWER, KC_T)
 #define MTPLAY MT(MOD_RALT, KC_MPLY)
 #define KC_COPY LCTL(KC_C)
 #define KC_CUT LCTL(KC_X)
@@ -147,10 +146,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid( /* QWERTY */
-    FNESC,   KC_Q,     KC_W,     KC_E,    KC_R,               KC_T,   KC_Y,   KC_U,   KC_I,      KC_O,   KC_P,    KC_BSPC,
-    MTTAB,   KC_A,     KC_S,     KC_D,    KC_F,               KC_G,   KC_H,   KC_J,   KC_K,      KC_L,   KC_SCLN, MTRCTLQUO,
-    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_V,               KC_B,   KC_N,   KC_M,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F21), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
+    FNESC,   KC_Q,     KC_W,     KC_E,    KC_R,          KC_T,   KC_Y,   KC_U,   KC_I,      KC_O,   KC_P,    KC_BSPC,
+    MTTAB,   KC_A,     KC_S,     KC_D,    KC_F,          KC_G,   KC_H,   KC_J,   KC_K,      KC_L,   KC_SCLN, MTRCTLQUO,
+    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_V,          KC_B,   KC_N,   KC_M,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(3, KC_F24), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
   ),
 
  /* MIT Layout (HANDSDOWNNEU Modded)
@@ -166,10 +165,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_HANDSDOWN] = LAYOUT_planck_grid( /* HANDS DOWN GOLD */
-    FNESC,   KC_W,     KC_F,     KC_M,    KC_P,               KC_V,   KC_SLSH,  KC_DOT,   KC_Q,      KC_COMMA, KC_SCLN, KC_BSPC,
-    MTTAB,   KC_R,     KC_S,     KC_N,    KC_T,               KC_G,   KC_K,     KC_A,     KC_E,      KC_I,     KC_H,    MTRCTLQUO,
-    KC_LSFT, MTLGUI_X, KC_C,     KC_L,    KC_D,               KC_B,   KC_J,     KC_U,     KC_O,      KC_Y,     KC_Z,    MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F21), KC_SPC, KC_SPC,   MO(4),    MTLALT_PL, KC_NO,    KC_NO,   KC_NO
+    FNESC,   KC_W,     KC_F,     KC_M,    KC_P,          KC_V,   KC_SLSH,  KC_DOT,   KC_Q,      KC_COMMA, KC_SCLN, KC_BSPC,
+    MTTAB,   KC_R,     KC_S,     KC_N,    KC_T,          KC_G,   KC_K,     KC_A,     KC_E,      KC_I,     KC_H,    MTRCTLQUO,
+    KC_LSFT, MTLGUI_X, KC_C,     KC_L,    KC_D,          KC_B,   KC_J,     KC_U,     KC_O,      KC_Y,     KC_Z,    MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(3, KC_F24), KC_SPC, KC_SPC,   MO(4),    MTLALT_PL, KC_NO,    KC_NO,   KC_NO
  ),
 
  /* MIT Layout (COLEMAK-DH)
@@ -185,10 +184,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid( /* COLEMAK */
-    FNESC,   KC_Q,     KC_W,     KC_F,    KC_P,               KC_B,   KC_J,   KC_L,   KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
-    MTTAB,   KC_A,     KC_R,     KC_S,    KC_T,               KC_G,   KC_M,   KC_N,   KC_E,      KC_I,   KC_O,    MTRCTLQUO,
-    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,               KC_V,   KC_K,   KC_H,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
-    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(_LOWER, KC_F21), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
+    FNESC,   KC_Q,     KC_W,     KC_F,    KC_P,          KC_B,   KC_J,   KC_L,   KC_U,      KC_Y,   KC_SCLN, KC_BSPC,
+    MTTAB,   KC_A,     KC_R,     KC_S,    KC_T,          KC_G,   KC_M,   KC_N,   KC_E,      KC_I,   KC_O,    MTRCTLQUO,
+    KC_LSFT, MTLGUI_Z, KC_X,     KC_C,    KC_D,          KC_V,   KC_K,   KC_H,   KC_COMM,   KC_DOT, KC_SLSH, MTRSFTBSLS,
+    KC_NO,   KC_NO,    KC_NO,    MTENTER, LT(3, KC_F24), KC_SPC, KC_SPC, MO(4),  MTLALT_PL, KC_NO,  KC_NO,   KC_NO
  ),
 
 /* MIT Layout (RAISE)
@@ -444,14 +443,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case KC_CAPS:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(music_scale);
-        #endif
-        register_code(KC_CAPS);
+      // if audio i enabled, play song on press.
+      #ifdef AUDIO_ENABLE
+      if(record->event.pressed){
+        PLAY_SONG(music_scale);
       }
-      return false;
-      break;
+      #endif
+      return true;
     case GAMING:
       if (record->event.pressed) {
         layer_off(_RAISE);
@@ -532,10 +530,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case LT(_LOWER, KC_F21):
+    case LT(_LOWER, KC_F24):
         if (record->tap.count > 0) {
           if (record->event.pressed) {
+            //register_code16(KC_LPRN);
             set_oneshot_mods(MOD_LSFT);
+          }
+          else{
+            //unregister_code16(KC_LPRN);
           }
           return false;
       }
@@ -576,12 +578,7 @@ enum combo_events {
   DQUOTE,
   UNDERSCORE,
   TWODQUOTE,
-  SCBIGRAM,
   LOWERTOGGLE,
-  LEFT,
-  RIGHT,
-  UP,
-  DOWN,
   CAPSWORD,
   COMBO_LENGTH
 };
@@ -611,12 +608,7 @@ const uint16_t PROGMEM selectall_combo[]        = {MTLGUI_Z, KC_D, COMBO_END};
 const uint16_t PROGMEM questionmark_combo[]     = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM underscore_combo[]       = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM twodquote_combo[]        = {KC_H, KC_COMMA, COMBO_END};
-const uint16_t PROGMEM scbigram_combo[]         = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM lowertoggle_combo[]      = {LT(_LOWER, KC_F21), MTENTER, COMBO_END};
-const uint16_t PROGMEM left_combo[]             = {KC_N, KC_E, COMBO_END};
-const uint16_t PROGMEM right_combo[]            = {KC_E, KC_I, COMBO_END};
-const uint16_t PROGMEM up_combo[]               = {KC_N, KC_U, COMBO_END};
-const uint16_t PROGMEM down_combo[]             = {KC_H, KC_E, COMBO_END};
 const uint16_t PROGMEM capsword_combo[]         = {KC_LSFT, MTRSFTBSLS, COMBO_END};
 
 
@@ -649,12 +641,7 @@ combo_t key_combos[] = {
   [QUESTIONMARK] = COMBO_ACTION(questionmark_combo),
   [UNDERSCORE] = COMBO_ACTION(underscore_combo),
   [TWODQUOTE] = COMBO_ACTION(twodquote_combo),
-  [SCBIGRAM] = COMBO_ACTION(scbigram_combo),
   [LOWERTOGGLE] = COMBO_ACTION(lowertoggle_combo),
-  [LEFT] = COMBO_ACTION(left_combo),
-  [RIGHT] = COMBO_ACTION(right_combo),
-  [UP] = COMBO_ACTION(up_combo),
-  [DOWN] = COMBO_ACTION(down_combo),
   [CAPSWORD] = COMBO_ACTION(capsword_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
@@ -831,12 +818,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         set_mods(mods);  // Restore mods.
         }
         break;
-    case SCBIGRAM:
-      if (pressed) {
-        tap_code16(KC_S);
-        tap_code16(KC_C);
-      }
-      break;
     case LOWERTOGGLE:
       if (pressed) {
         layer_invert(_LOWER);
@@ -850,26 +831,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
               PLAY_SONG(tone_goodbye);
           #endif
         }
-      }
-      break;
-    case LEFT:
-      if (pressed) {
-          tap_code16(C(KC_LEFT));
-        }
-        break;
-    case RIGHT:
-      if (pressed) {
-          tap_code16(C(KC_RGHT));
-        }
-        break;
-    case UP:
-      if (pressed) {
-        tap_code16(KC_UP);
-      }
-      break;
-    case DOWN:
-      if (pressed) {
-        tap_code16(KC_DOWN);
       }
       break;
     case CAPSWORD:
