@@ -245,7 +245,7 @@ The following configuration options are only available when using `SPLIT_POINTIN
 | `pointing_device_get_report(void)`                         | Returns the current mouse report (as a `mouse_report_t` data structure).                                      | 
 | `pointing_device_set_report(mouse_report)`                 | Sets the mouse report to the assigned `mouse_report_t` data structured passed to the function.                | 
 | `pointing_device_send(void)`                               | Sends the current mouse report to the host system.  Function can be replaced.                                 | 
-| `has_mouse_report_changed(old, new)`                       | Compares the old and new `mouse_report_t` data and returns true only if it has changed.                       |
+| `has_mouse_report_changed(new_report, old_report)`         | Compares the old and new `mouse_report_t` data and returns true only if it has changed.                       |
 | `pointing_device_adjust_by_defines(mouse_report)`          | Applies rotations and invert configurations to a raw mouse report.                                             |
 
 
@@ -276,14 +276,14 @@ The report_mouse_t (here "mouseReport") has the following properties:
 To manually manipulate the mouse reports outside of the `pointing_device_task_*` functions, you can use:
 
 * `pointing_device_get_report()` - Returns the current report_mouse_t that represents the information sent to the host computer
-* `pointing_device_set_report(report_mouse_t newMouseReport)` - Overrides and saves the report_mouse_t to be sent to the host computer
+* `pointing_device_set_report(report_mouse_t mouse_report)` - Overrides and saves the report_mouse_t to be sent to the host computer
 * `pointing_device_send()` - Sends the mouse report to the host and zeroes out the report. 
 
 When the mouse report is sent, the x, y, v, and h values are set to 0 (this is done in `pointing_device_send()`, which can be overridden to avoid this behavior).  This way, button states persist, but movement will only occur once.  For further customization, both `pointing_device_init` and `pointing_device_task` can be overridden.
 
 Additionally, by default, `pointing_device_send()` will only send a report when the report has actually changed.  This prevents it from continuously sending mouse reports, which will keep the host system awake.  This behavior can be changed by creating your own `pointing_device_send()` function.
 
-Also, you use the `has_mouse_report_changed(new, old)` function to check to see if the report has changed.
+Also, you use the `has_mouse_report_changed(new_report, old_report)` function to check to see if the report has changed.
 
 ## Examples
 
