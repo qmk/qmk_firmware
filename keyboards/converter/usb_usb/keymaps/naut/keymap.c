@@ -1,4 +1,7 @@
-// naut's keymap realforce r2 tkl using hasu's usb-usb converter
+// Copyright 2022 naut
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+// naut's realforce r2 tkl layout using hasu's usb-usb converter
 #include QMK_KEYBOARD_H
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
