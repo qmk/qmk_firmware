@@ -27,12 +27,7 @@
 /* enable the nkro when using the VIA. */
 #define FORCE_NKRO
 
-/* fix VIA RGB_light */
-#define VIA_HAS_BROKEN_KEYCODES
-
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-#define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 4
