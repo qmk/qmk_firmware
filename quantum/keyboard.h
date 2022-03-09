@@ -69,13 +69,17 @@ static inline bool IS_RELEASED(keyevent_t event) {
     return !IS_NOEVENT(event) && !event.pressed;
 }
 
+/* Common keyevent object factory */
+#define MAKE_KEYPOS(row_num, col_num) ((keypos_t){.row = (row_num), .col = (col_num)})
+#define MAKE_KEYEVENT(row_num, col_num, press) ((keyevent_t){.key = MAKE_KEYPOS((row_num), (col_num)), .pressed = (press), .time = (timer_read() | 1)})
+
 /* Tick event */
-#define TICK ((keyevent_t){.key = (keypos_t){.row = KEYLOC_TICK, .col = KEYLOC_TICK}, .pressed = false, .time = (timer_read() | 1)})
+#define TICK MAKE_KEYEVENT(KEYLOC_TICK, KEYLOC_TICK, false)
 
 #ifdef ENCODER_MAP_ENABLE
 /* Encoder events */
-#    define ENCODER_CW_EVENT(enc_id, press) ((keyevent_t){.key = (keypos_t){.row = KEYLOC_ENCODER_CW, .col = enc_id}, .pressed = press, .time = (timer_read() | 1)})
-#    define ENCODER_CCW_EVENT(enc_id, press) ((keyevent_t){.key = (keypos_t){.row = KEYLOC_ENCODER_CCW, .col = enc_id}, .pressed = press, .time = (timer_read() | 1)})
+#    define ENCODER_CW_EVENT(enc_id, press) MAKE_KEYEVENT(KEYLOC_ENCODER_CW, (enc_id), (press))
+#    define ENCODER_CCW_EVENT(enc_id, press) MAKE_KEYEVENT(KEYLOC_ENCODER_CCW, (enc_id), (press))
 #endif // ENCODER_MAP_ENABLE
 
 /* it runs once at early stage of startup before keyboard_init. */
