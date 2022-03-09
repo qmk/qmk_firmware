@@ -293,7 +293,7 @@ static void xap_task(void) {
         }
     }
 }
-#endif  // XAP_ENABLE
+#endif // XAP_ENABLE
 
 /*******************************************************************************
  * Console
@@ -561,7 +561,7 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     /* Setup XAP endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((XAP_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, XAP_EPSIZE, 1);
     ConfigSuccess &= Endpoint_ConfigureEndpoint((XAP_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_INTERRUPT, XAP_EPSIZE, 1);
-#endif  // XAP_ENABLE
+#endif // XAP_ENABLE
 
 #ifdef CONSOLE_ENABLE
     /* Setup console endpoint */
@@ -1189,7 +1189,7 @@ void protocol_post_task(void) {
 #endif
 
 #ifdef XAP_ENABLE
-        xap_task();
+    xap_task();
 #endif
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)

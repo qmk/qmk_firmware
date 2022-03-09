@@ -1,7 +1,5 @@
 """This script generates the XAP protocol generated header to be compiled into QMK.
 """
-import pyhash
-
 from qmk.casing import to_snake
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 from qmk.xap.common import latest_xap_defs, route_conditions

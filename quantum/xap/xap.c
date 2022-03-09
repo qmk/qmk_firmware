@@ -22,7 +22,7 @@
 #define QSTR(z) QSTR2(z)
 
 typedef enum xap_route_type_t {
-    XAP_UNUSED = 0,  // "Unused" needs to be zero -- undefined routes (through preprocessor) will be skipped
+    XAP_UNUSED = 0, // "Unused" needs to be zero -- undefined routes (through preprocessor) will be skipped
     XAP_ROUTE,
     XAP_EXECUTE,
     XAP_VALUE,
@@ -113,4 +113,6 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
     xap_respond_failure(token, XAP_RESPONSE_FLAG_FAILED);
 }
 
-void xap_receive(xap_token_t token, const uint8_t *data, size_t length) { xap_execute_route(token, xap_route_table, sizeof(xap_route_table) / sizeof(xap_route_t), data, length); }
+void xap_receive(xap_token_t token, const uint8_t *data, size_t length) {
+    xap_execute_route(token, xap_route_table, sizeof(xap_route_table) / sizeof(xap_route_t), data, length);
+}

@@ -18,7 +18,9 @@
 #include <xap.h>
 #include <info_json_gz.h>
 
-void xap_respond_failure(xap_token_t token, xap_response_flags_t response_flags) { xap_send(token, response_flags, NULL, 0); }
+void xap_respond_failure(xap_token_t token, xap_response_flags_t response_flags) {
+    xap_send(token, response_flags, NULL, 0);
+}
 
 bool xap_respond_data(xap_token_t token, const void *data, size_t length) {
     xap_send(token, XAP_RESPONSE_FLAG_SUCCESS, data, length);
@@ -36,4 +38,6 @@ bool xap_respond_u32(xap_token_t token, uint32_t value) {
     return true;
 }
 
-uint32_t xap_route_qmk_ffffffffffffffff_getter(void) { return 0x12345678; }
+uint32_t xap_route_qmk_ffffffffffffffff_getter(void) {
+    return 0x12345678;
+}
