@@ -26,7 +26,30 @@
 #define constrain_hid(amt) ((amt) < -127 ? -127 : ((amt) > 127 ? 127 : (amt)))
 
 // get_report functions should probably be moved to their respective drivers.
-#if defined(POINTING_DEVICE_DRIVER_adns5050)
+
+#if defined(POINTING_DEVICE_DRIVER_paw3204)
+
+report_mouse_t paw3204_get_report(report_mouse_t mouse_report) {
+    report_paw3204_t data = PAW3204_read();
+    dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
+    if (data.x != 0 || data.y != 0) {
+#    ifdef CONSOLE_ENABLE
+        dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
+#    endif
+
+        mouse_report.x = data.x;
+        mouse_report.y = data.y;
+    }
+
+    return mouse_report;
+}
+const pointing_device_driver_t pointing_device_driver = {
+    .init         = PAW3204_init,
+    .get_report   = paw3204_get_report,
+    .set_cpi      = NULL,
+    .get_cpi      = NULL,
+};
+#elif defined(POINTING_DEVICE_DRIVER_adns5050)
 report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
     report_adns5050_t data = adns5050_read_burst();
 
