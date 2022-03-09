@@ -93,7 +93,7 @@ void sleep_led_init(void) {
     /* Reset LPTMR settings */
     LPTMR0->CSR = 0;
     /* Set the compare value */
-    LPTMR0->CMR = 0;  // trigger on counter value (i.e. every time)
+    LPTMR0->CMR = 0; // trigger on counter value (i.e. every time)
 
 /* Set up clock source and prescaler */
 /* Software PWM
@@ -118,11 +118,11 @@ void sleep_led_init(void) {
 /* === OPTION 2 === */
 #    if 1
     //  nMHz IRC (n=4 on KL25Z, KL26Z and K20x; n=2 or 8 on KL27Z)
-    MCG->C2 |= MCG_C2_IRCS;  // fast (4MHz) internal ref clock
-#        if defined(KL27)    // divide the 8MHz IRC by 2, to have the same MCGIRCLK speed as others
+    MCG->C2 |= MCG_C2_IRCS; // fast (4MHz) internal ref clock
+#        if defined(KL27)   // divide the 8MHz IRC by 2, to have the same MCGIRCLK speed as others
     MCG->MC |= MCG_MC_LIRC_DIV2_DIV2;
-#        endif                  /* KL27 */
-    MCG->C1 |= MCG_C1_IRCLKEN;  // enable internal ref clock
+#        endif                 /* KL27 */
+    MCG->C1 |= MCG_C1_IRCLKEN; // enable internal ref clock
     //  to work in stop mode, also MCG_C1_IREFSTEN
     //  Divide 4MHz by 2^N (N=6) => 62500 irqs/sec =>
     //  => approx F=61, R=256, duration = 4
@@ -140,7 +140,7 @@ void sleep_led_init(void) {
     /* === END OPTIONS === */
 
     /* Interrupt on TCF set (compare flag) */
-    nvicEnableVector(LPTMR0_IRQn, 2);  // vector, priority
+    nvicEnableVector(LPTMR0_IRQn, 2); // vector, priority
     LPTMR0->CSR |= LPTMRx_CSR_TIE;
 }
 
@@ -169,21 +169,33 @@ static void gptTimerCallback(GPTDriver *gptp) {
 static const GPTConfig gptcfg = {1000000, gptTimerCallback, 0, 0};
 
 /* Initialise the timer */
-void sleep_led_init(void) { gptStart(&SLEEP_LED_GPT_DRIVER, &gptcfg); }
+void sleep_led_init(void) {
+    gptStart(&SLEEP_LED_GPT_DRIVER, &gptcfg);
+}
 
-void sleep_led_enable(void) { gptStartContinuous(&SLEEP_LED_GPT_DRIVER, gptcfg.frequency / 0xFFFF); }
+void sleep_led_enable(void) {
+    gptStartContinuous(&SLEEP_LED_GPT_DRIVER, gptcfg.frequency / 0xFFFF);
+}
 
-void sleep_led_disable(void) { gptStopTimer(&SLEEP_LED_GPT_DRIVER); }
+void sleep_led_disable(void) {
+    gptStopTimer(&SLEEP_LED_GPT_DRIVER);
+}
 
-void sleep_led_toggle(void) { (SLEEP_LED_GPT_DRIVER.state == GPT_READY) ? sleep_led_enable() : sleep_led_disable(); }
+void sleep_led_toggle(void) {
+    (SLEEP_LED_GPT_DRIVER.state == GPT_READY) ? sleep_led_enable() : sleep_led_disable();
+}
 
 #else /* platform selection: not on familiar chips */
 
 void sleep_led_init(void) {}
 
-void sleep_led_enable(void) { led_set(1 << USB_LED_CAPS_LOCK); }
+void sleep_led_enable(void) {
+    led_set(1 << USB_LED_CAPS_LOCK);
+}
 
-void sleep_led_disable(void) { led_set(0); }
+void sleep_led_disable(void) {
+    led_set(0);
+}
 
 void sleep_led_toggle(void) {
     // not implemented

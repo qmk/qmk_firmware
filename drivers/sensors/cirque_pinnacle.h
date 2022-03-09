@@ -26,16 +26,16 @@ void            cirque_pinnacle_set_scale(uint16_t scale);
 
 // Coordinate scaling values
 #ifndef CIRQUE_PINNACLE_X_LOWER
-#    define CIRQUE_PINNACLE_X_LOWER 127  // min "reachable" X value
+#    define CIRQUE_PINNACLE_X_LOWER 127 // min "reachable" X value
 #endif
 #ifndef CIRQUE_PINNACLE_X_UPPER
-#    define CIRQUE_PINNACLE_X_UPPER 1919  // max "reachable" X value
+#    define CIRQUE_PINNACLE_X_UPPER 1919 // max "reachable" X value
 #endif
 #ifndef CIRQUE_PINNACLE_Y_LOWER
-#    define CIRQUE_PINNACLE_Y_LOWER 63  // min "reachable" Y value
+#    define CIRQUE_PINNACLE_Y_LOWER 63 // min "reachable" Y value
 #endif
 #ifndef CIRQUE_PINNACLE_Y_UPPER
-#    define CIRQUE_PINNACLE_Y_UPPER 1471  // max "reachable" Y value
+#    define CIRQUE_PINNACLE_Y_UPPER 1471 // max "reachable" Y value
 #endif
 #ifndef CIRQUE_PINNACLE_X_RANGE
 #    define CIRQUE_PINNACLE_X_RANGE (CIRQUE_PINNACLE_X_UPPER - CIRQUE_PINNACLE_X_LOWER)

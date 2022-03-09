@@ -22,9 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID               0x44DD
-#define MANUFACTURER            Drashna
-
-#define USB_POLLING_INTERVAL_MS 1
 
 /* disable debug print */
 // #define NO_DEBUG
@@ -39,4 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC, RPC_ID_POINTER_STATE_SYNC
+#define SPLIT_POINTING_ENABLE
+#define POINTING_DEVICE_TASK_THROTTLE_MS 1
+
+#define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC

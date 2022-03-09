@@ -16,6 +16,5 @@
 
 #pragma once
 
-/* Increase polling rates and scan quantity for improved performance */
-#define USB_POLLING_INTERVAL_MS 1
+/* Increase scan quantity for improved performance */
 #define QMK_KEYS_PER_SCAN 12

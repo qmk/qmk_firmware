@@ -33,10 +33,10 @@ void                       matrix_init_user(void) {
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 void                       keyboard_post_init_user(void) {
-#if defined(RGBLIGHT_ENABLE)
+#if defined(CUSTOM_RGBLIGHT)
     keyboard_post_init_rgb_light();
 #endif
-#if defined(RGB_MATRIX_ENABLE)
+#if defined(CUSTOM_RGB_MATRIX)
     keyboard_post_init_rgb_matrix();
 #endif
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
@@ -104,8 +104,10 @@ void                       matrix_scan_user(void) {
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
     run_diablo_macro_check();
 #endif  // TAP_DANCE_ENABLE
-
-#if defined(RGB_MATRIX_ENABLE)
+#ifdef CAPS_WORD_ENABLE
+    caps_word_task();
+#endif
+#if defined(CUSTOM_RGB_MATRIX)
     matrix_scan_rgb_matrix();
 #endif
     matrix_scan_secret();
@@ -126,12 +128,12 @@ layer_state_t                       layer_state_set_user(layer_state_t state) {
     }
 
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-#if defined(POINTING_DEVICE_ENABLE)
+#if defined(CUSTOM_POINTING_DEVICE)
     state = layer_state_set_pointing(state);
 #endif
-#if defined(RGBLIGHT_ENABLE)
+#if defined(CUSTOM_RGBLIGHT)
     state = layer_state_set_rgb_light(state);
-#endif  // RGBLIGHT_ENABLE
+#endif  // CUSTOM_RGBLIGHT
 #if defined(AUDIO_ENABLE) && !defined(__arm__)
     static bool is_gamepad_on = false;
     if (layer_state_cmp(state, _GAMEPAD) != is_gamepad_on) {
@@ -156,9 +158,9 @@ layer_state_t                       default_layer_state_set_user(layer_state_t s
 
     state = default_layer_state_set_keymap(state);
 #if 0
-#    if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#    if defined(CUSTOM_RGBLIGHT) || defined(RGB_MATRIX_ENABLE)
   state = default_layer_state_set_rgb(state);
-#    endif  // RGBLIGHT_ENABLE
+#    endif
 #endif
     return state;
 }

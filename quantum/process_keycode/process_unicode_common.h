@@ -59,12 +59,12 @@
 #define UC_OSX UC_MAC
 
 enum unicode_input_modes {
-    UC_MAC,    // macOS using Unicode Hex Input
-    UC_LNX,    // Linux using IBus
-    UC_WIN,    // Windows using EnableHexNumpad
-    UC_BSD,    // BSD (not implemented)
-    UC_WINC,   // Windows using WinCompose (https://github.com/samhocevar/wincompose)
-    UC__COUNT  // Number of available input modes (always leave at the end)
+    UC_MAC,   // macOS using Unicode Hex Input
+    UC_LNX,   // Linux using IBus
+    UC_WIN,   // Windows using EnableHexNumpad
+    UC_BSD,   // BSD (not implemented)
+    UC_WINC,  // Windows using WinCompose (https://github.com/samhocevar/wincompose)
+    UC__COUNT // Number of available input modes (always leave at the end)
 };
 
 typedef union {
