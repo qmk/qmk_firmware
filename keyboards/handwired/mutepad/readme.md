@@ -2,19 +2,19 @@
 
 ![MutePad Repo](https://github.com/JoshwJB/MutePad)
 
-*A short description of the keyboard/project*
+*A 3D printed under desk mounted keypad with rotary encoder, for muting applications (discord, zoom etc.) and adjusting volume.*
 
 * Keyboard Maintainer: [JoshwJB](https://github.com/JoshwJB)
 * Hardware Supported: ProMicro
-* Hardware Availability: Handwird - see [MutePad Repo](https://github.com/JoshwJB/MutePad)
+* Hardware Availability: Handwired - see [MutePad Repo](https://github.com/JoshwJB/MutePad)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mutepad:default
+    make handwired/mutepad:default
 
 Flashing example for this keyboard:
 
-    make mutepad:default:flash
+    make handwired/mutepad:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
