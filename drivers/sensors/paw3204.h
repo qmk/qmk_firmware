@@ -25,6 +25,18 @@
 #ifndef PAW3204_DATA
 #    error "No data pin defined -- missing PAW3204_DATA"
 #endif
+#define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
+
+// CPI values
+// clang-format off
+#define CPI400  0x00
+#define CPI500  0x01
+#define CPI600  0x02
+#define CPI800  0x03
+#define CPI1000  0x04
+#define CPI1200  0x05
+#define CPI1600 0x06
+// clang-format on
 
 typedef struct {
     int8_t x;
@@ -45,4 +57,7 @@ void             PAW3204_write_reg(uint8_t reg_addr, uint8_t data);
 // void              PAW3204_set_cpi(uint16_t cpi);
 // uint16_t          PAW3204_get_cpi(void);
 int8_t           convert_twoscomp(uint8_t data);
-uint8_t          read_pid_paw3204(void);
+uint8_t	         read_pid_paw3204(void) ;
+void             PAW3204_set_cpi(uint16_t cpi);
+uint16_t         PAW3204_get_cpi(void);
+

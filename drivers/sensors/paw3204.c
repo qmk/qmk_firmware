@@ -117,6 +117,16 @@ uint8_t PAW3204_read_reg(uint8_t reg_addr) {
     return byte;
 }
 
+void PAW3204_set_cpi(uint16_t cpi) {
+    uint8_t cpival = constrain(cpi, 0x0, 0x6); // limits to 0--119
+    PAW3204_write_reg(REG_SETUP, cpival);
+}
+
+uint16_t PAW3204_get_cpi(void) {
+    uint8_t cpival = PAW3204_read_reg(REG_SETUP);
+    return (uint16_t)(cpival);
+}
+
 uint8_t read_pid_paw3204(void) {
     uint8_t byte = PAW3204_read_reg(REG_PID1);
     return byte;

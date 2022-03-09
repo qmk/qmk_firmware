@@ -183,8 +183,8 @@ report_mouse_t paw3204_get_report(report_mouse_t mouse_report) {
 const pointing_device_driver_t pointing_device_driver = {
     .init       = PAW3204_init,
     .get_report = paw3204_get_report,
-    .set_cpi    = NULL,
-    .get_cpi    = NULL,
+    .set_cpi    = PAW3204_set_cpi,
+    .get_cpi    = PAW3204_get_cpi,
 };
 #elif defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
 report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
