@@ -417,7 +417,6 @@ void render_bootmagic_status(void) {
         oled_write_P(logo[0][0], !is_bootmagic_on);
     }
 #ifndef OLED_DISPLAY_VERBOSE
-    oled_write_P(PSTR(" "), false);
     oled_write_P(logo[1][1], is_bootmagic_on);
     oled_write_P(logo[0][1], !is_bootmagic_on);
 #endif
@@ -860,7 +859,7 @@ void render_status_left(void) {
     render_keylogger_status();
 }
 
-__attribute__((weak)) void oled_render_large_display(void) {}
+__attribute__((weak)) void oled_render_large_display(bool side) {}
 
 __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return rotation; }
 
@@ -896,29 +895,31 @@ bool oled_task_user(void) {
         return false;
     }
 
-#if defined(OLED_DISPLAY_128X128)
-    oled_set_cursor(0, 7);
-    oled_render_large_display();
-#endif
-
 #if defined(OLED_DISPLAY_VERBOSE)
     static const char PROGMEM header_image[] = {
         0, 192, 32, 16, 8, 4, 2, 1, 1, 1, 1, 1, 1, 1, 1, 3, 7, 15, 31, 63, 127, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 127, 63, 31, 15, 7, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 8, 16, 32, 192, 0,
         //         0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  3,  7, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,  7,  3,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0
     };
-    static const char PROGMEM footer_image[] = {0, 3, 4, 8, 16, 32, 64, 128, 128, 128, 128, 128, 128, 128, 192, 224, 240, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 240, 224, 192, 128, 128, 128, 128, 128, 128, 128, 64, 32, 16, 8, 4, 3, 0};
-    oled_set_cursor(0, 0);
-    oled_write_raw_P(header_image, sizeof(header_image));
-    oled_set_cursor(0, 1);
 #endif
 
 #ifndef OLED_DISPLAY_TEST
     if (is_keyboard_left()) {
 #endif
+#if defined(OLED_DISPLAY_128X128)
+        oled_set_cursor(0, 7);
+        oled_render_large_display(true);
+        oled_set_cursor(0, 0);
+        oled_write_raw_P(header_image, sizeof(header_image));
+#endif
         render_status_left();
 #ifndef OLED_DISPLAY_TEST
     } else {
+        oled_write_raw_P(header_image, sizeof(header_image));
         render_status_right();
+#    if defined(OLED_DISPLAY_128X128)
+        oled_set_cursor(0, 7);
+        oled_render_large_display(false);
+#    endif
     }
 #endif
 
@@ -936,6 +937,7 @@ bool oled_task_user(void) {
         oled_write_raw_P(display_border, sizeof(display_border));
     }
 
+    static const char PROGMEM footer_image[] = {0, 3, 4, 8, 16, 32, 64, 128, 128, 128, 128, 128, 128, 128, 192, 224, 240, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 240, 224, 192, 128, 128, 128, 128, 128, 128, 128, 64, 32, 16, 8, 4, 3, 0};
     oled_set_cursor(0, num_of_rows);
     oled_write_raw_P(footer_image, sizeof(footer_image));
 #endif

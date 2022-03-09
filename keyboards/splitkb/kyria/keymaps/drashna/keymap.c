@@ -129,8 +129,8 @@ oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
 #endif
 }
 
-void oled_render_large_display(void) {
-    if (is_keyboard_left()) {
+void oled_render_large_display(bool side) {
+    if (side) {
         render_wpm_graph(54, 64);
     } else {
         static const char PROGMEM kyria_logo[] = {

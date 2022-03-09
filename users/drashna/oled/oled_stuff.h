@@ -37,7 +37,7 @@ void            render_wpm(uint8_t padding);
 void            render_pointing_dpi_status(uint16_t cpi, uint8_t padding);
 void            oled_driver_render_logo_left(void);
 void            oled_driver_render_logo_right(void);
-void            oled_render_large_display(void);
+void            oled_render_large_display(bool side);
 void render_wpm_graph(uint8_t max_lines_graph, uint8_t vertical_offset);
 
 #if defined(OLED_DISPLAY_128X128) || defined(OLED_DISPLAY_128X64)
