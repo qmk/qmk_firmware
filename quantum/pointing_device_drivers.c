@@ -44,10 +44,10 @@ report_mouse_t paw3204_get_report(report_mouse_t mouse_report) {
     return mouse_report;
 }
 const pointing_device_driver_t pointing_device_driver = {
-    .init         = PAW3204_init,
-    .get_report   = paw3204_get_report,
-    .set_cpi      = NULL,
-    .get_cpi      = NULL,
+    .init       = PAW3204_init,
+    .get_report = paw3204_get_report,
+    .set_cpi    = NULL,
+    .get_cpi    = NULL,
 };
 #elif defined(POINTING_DEVICE_DRIVER_adns5050)
 report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
