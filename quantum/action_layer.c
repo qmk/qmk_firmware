@@ -1,16 +1,17 @@
 #include <limits.h>
 #include <stdint.h>
-#include "keyboard.h"
-#include "keymap.h"
-#include "action.h"
-#include "util.h"
-#include "action_layer.h"
 
 #ifdef DEBUG_ACTION
 #    include "debug.h"
 #else
 #    include "nodebug.h"
 #endif
+
+#include "keyboard.h"
+#include "keymap.h"
+#include "action.h"
+#include "util.h"
+#include "action_layer.h"
 
 /** \brief Default Layer State
  */
