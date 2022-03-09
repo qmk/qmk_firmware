@@ -114,30 +114,30 @@ enum layer_names {
 };
 
 // LAYER 0 QWERTY
-#define ROW5_LEFT_BASE KC_ESC     , KC_1      , KC_2      , KC_3      , KC_4       , KC_5
-#define ROW4_LEFT_BASE KC_TAB     , KC_Q      , KC_W      , KC_E      , KC_R       , KC_T
-#define ROW3_LEFT_BASE KC_CAPS    , LT2_A     , LSFT_S    , LT3_D     , LCTL_F     , KC_G
-#define ROW2_LEFT_BASE CTL_ENT    , KC_Z      , KC_X      , KC_C      , KC_V       , KC_B
-#define ROW1_LEFT_BASE                                      LGU_ESC   , ALT_BSP    , LCTL_SP
+#define ROW5_LEFT_BASE KC_ESC  , KC_1  , KC_2   , KC_3  , KC_4   , KC_5
+#define ROW4_LEFT_BASE KC_TAB  , KC_Q  , KC_W   , KC_E  , KC_R   , KC_T
+#define ROW3_LEFT_BASE KC_CAPS , LT2_A , LSFT_S , LT3_D , LCTL_F , KC_G
+#define ROW2_LEFT_BASE CTL_ENT , KC_Z  , KC_X   , KC_C  , KC_V   , KC_B
+#define ROW1_LEFT_BASE                    LGU_ESC   , ALT_BSP    , LCTL_SP
 
-#define ROW5_RIGHT_BASE KC_6      , KC_7      , KC_8   , KC_9   , KC_0   , KC_BSPC
-#define ROW4_RIGHT_BASE KC_Y      , KC_U      , KC_I   , KC_O   , KC_P   , KC_BSPC
-#define ROW3_RIGHT_BASE KC_H      , RCTL_J    , LT5_K  , RSFT_L , KC_SCLN, KC_QUOT
-#define ROW2_RIGHT_BASE KC_N      , KC_M      , KC_COMM, KC_DOT , KC_SLSH, KC_BSLS
-#define ROW1_RIGHT_BASE LT3_ENT   , LT1_DEL   , LT6_GRV
+#define ROW5_RIGHT_BASE                                                 KC_6      , KC_7      , KC_8   , KC_9   , KC_0   , KC_BSPC
+#define ROW4_RIGHT_BASE                                                 KC_Y      , KC_U      , KC_I   , KC_O   , KC_P   , KC_BSPC
+#define ROW3_RIGHT_BASE                                                 KC_H      , RCTL_J    , LT5_K  , RSFT_L , KC_SCLN, KC_QUOT
+#define ROW2_RIGHT_BASE                                                 KC_N      , KC_M      , KC_COMM, KC_DOT , KC_SLSH, KC_BSLS
+#define ROW1_RIGHT_BASE                                                 LT3_ENT   , LT1_DEL   , LT6_GRV
 
 // LAYER 1 SYMOLS-NUMPAD
 #define ROW5_LEFT_SYMB_NUMPAD KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6
 #define ROW4_LEFT_SYMB_NUMPAD KC_ESC , KC_EXLM, KC_EQL , KC_LPRN, KC_RPRN, KC_PIPE
 #define ROW3_LEFT_SYMB_NUMPAD _______, KC_PERC, KC_ASTR, KC_LCBR, KC_RCBR, KC_AMPR
 #define ROW2_LEFT_SYMB_NUMPAD _______, KC_HASH, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD
-#define ROW1_LEFT_SYMB_NUMPAD                            KC_APP , TG(_4_GAM), _______
+#define ROW1_LEFT_SYMB_NUMPAD                     TG(_5_RGB) , TG(_4_GAM), _______
 
-#define ROW5_RIGHT_SYMB_NUMPAD KC_F7  , KC_F8  , KC_F9 , KC_F10 , KC_F11 , KC_F12
-#define ROW4_RIGHT_SYMB_NUMPAD KC_UNDS, KC_7   , KC_8  , KC_9   , KC_PLUS, XXXXXXX
-#define ROW3_RIGHT_SYMB_NUMPAD KC_AT  , KC_4   , KC_5  , KC_6   , KC_MINS, XXXXXXX
-#define ROW2_RIGHT_SYMB_NUMPAD KC_DLR , KC_1   , KC_2  , KC_3   , KC_ASTR, XXXXXXX
-#define ROW1_RIGHT_SYMB_NUMPAD _______, _______, KC_0
+#define ROW5_RIGHT_SYMB_NUMPAD                                                      KC_F7  , KC_F8  , KC_F9 , KC_F10 , KC_F11 , KC_F12
+#define ROW4_RIGHT_SYMB_NUMPAD                                                      KC_UNDS, KC_7   , KC_8  , KC_9   , KC_PLUS, XXXXXXX
+#define ROW3_RIGHT_SYMB_NUMPAD                                                      KC_AT  , KC_4   , KC_5  , KC_6   , KC_MINS, XXXXXXX
+#define ROW2_RIGHT_SYMB_NUMPAD                                                      KC_DLR , KC_1   , KC_2  , KC_3   , KC_ASTR, XXXXXXX
+#define ROW1_RIGHT_SYMB_NUMPAD                                                      _______, _______, KC_0
 
 // LAYER 2 MOUSE-MEDIA
 #define ROW5_LEFT_MOUSE_MEDIA SIX_TRNS
@@ -146,11 +146,11 @@ enum layer_names {
 #define ROW2_LEFT_MOUSE_MEDIA XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #define ROW1_LEFT_MOUSE_MEDIA                            XXXXXXX, KC_BTN3, KC_BTN2
 
-#define ROW5_RIGHT_MOUSE_MEDIA SIX_TRNS
-#define ROW4_RIGHT_MOUSE_MEDIA KC_WH_U, XXXXXXX, KC_MS_U, XXXXXXX, KC_WH_U, _______
-#define ROW3_RIGHT_MOUSE_MEDIA KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, XXXXXXX
-#define ROW2_RIGHT_MOUSE_MEDIA XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX
-#define ROW1_RIGHT_MOUSE_MEDIA KC_BTN1, KC_MPLY, KC_MFFD
+#define ROW5_RIGHT_MOUSE_MEDIA                                                      SIX_TRNS
+#define ROW4_RIGHT_MOUSE_MEDIA                                                      KC_WH_U, XXXXXXX, KC_MS_U, XXXXXXX, KC_WH_U, _______
+#define ROW3_RIGHT_MOUSE_MEDIA                                                      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, XXXXXXX
+#define ROW2_RIGHT_MOUSE_MEDIA                                                      XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX
+#define ROW1_RIGHT_MOUSE_MEDIA                                                      KC_BTN1, KC_MPLY, KC_MFFD
 
 // LAYER 3 NAVIGATION-COPY-PASTA
 #define ROW5_LEFT_NAV_CPY_PASTA SIX_TRNS
@@ -159,24 +159,24 @@ enum layer_names {
 #define ROW2_LEFT_NAV_CPY_PASTA XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #define ROW1_LEFT_NAV_CPY_PASTA                            _______, _______, _______
 
-#define ROW5_RIGHT_NAV_CPY_PASTA SIX_TRNS
-#define ROW4_RIGHT_NAV_CPY_PASTA KC_PGUP, KC_HOME, KC_UP  , KC_END,  XXXXXXX, KC_PSCR
-#define ROW3_RIGHT_NAV_CPY_PASTA KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_APP , XXXXXXX
-#define ROW2_RIGHT_NAV_CPY_PASTA KC_INS , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define ROW1_RIGHT_NAV_CPY_PASTA _______, KC_APP , XXXXXXX
+#define ROW5_RIGHT_NAV_CPY_PASTA                                                      SIX_TRNS
+#define ROW4_RIGHT_NAV_CPY_PASTA                                                      KC_PGUP, KC_HOME, KC_UP  , KC_END,  XXXXXXX, KC_PSCR
+#define ROW3_RIGHT_NAV_CPY_PASTA                                                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_APP , XXXXXXX
+#define ROW2_RIGHT_NAV_CPY_PASTA                                                      KC_INS , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define ROW1_RIGHT_NAV_CPY_PASTA                                                      _______, KC_APP , XXXXXXX
 
 // LAYER 4 GAMING
 #define ROW5_LEFT_GAMING SIX_TRNS
-#define ROW4_LEFT_GAMING KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5
-#define ROW3_LEFT_GAMING LSFT_T(KC_TAB)   , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T
-#define ROW2_LEFT_GAMING KC_LCTL   , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B
-#define ROW1_LEFT_GAMING                            XXXXXXX, KC_LALT, KC_SPC
+#define ROW4_LEFT_GAMING KC_GRV         , KC_1   , KC_2   , KC_3   , KC_4   , KC_5
+#define ROW3_LEFT_GAMING LSFT_T(KC_TAB) , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T
+#define ROW2_LEFT_GAMING KC_LCTL        , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B
+#define ROW1_LEFT_GAMING                                    XXXXXXX, KC_LALT, KC_SPC
 
-#define ROW5_RIGHT_GAMING SIX_TRNS
-#define ROW4_RIGHT_GAMING KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , _______
-#define ROW3_RIGHT_GAMING KC_H   , KC_J   , KC_K   , KC_L   , KC_UP  , _______
-#define ROW2_RIGHT_GAMING KC_N   , KC_M   , KC_COMM, KC_LEFT, KC_DOWN, KC_RGHT
-#define ROW1_RIGHT_GAMING KC_ENT , KC_DEL , TG(_4_GAM)
+#define ROW5_RIGHT_GAMING                                                           SIX_TRNS
+#define ROW4_RIGHT_GAMING                                                           KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , _______
+#define ROW3_RIGHT_GAMING                                                           KC_H   , KC_J   , KC_K   , KC_L   , KC_UP  , _______
+#define ROW2_RIGHT_GAMING                                                           KC_N   , KC_M   , KC_COMM, KC_LEFT, KC_DOWN, KC_RGHT
+#define ROW1_RIGHT_GAMING                                                           KC_ENT , KC_DEL , TG(_4_GAM)
 
 // LAYER 5 RGB
 #define ROW5_LEFT_RGB SIX_TRNS
@@ -185,11 +185,11 @@ enum layer_names {
 #define ROW2_LEFT_RGB XXXXXXX,RGB_RMOD, RGB_SAD, RGB_HUD, RGB_VAD, RGB_SPD
 #define ROW1_LEFT_RGB                            XXXXXXX, XXXXXXX, RGB_LYR
 
-#define ROW5_RIGHT_RGB SIX_TRNS
-#define ROW4_RIGHT_RGB XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______
-#define ROW3_RIGHT_RGB XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
-#define ROW2_RIGHT_RGB XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define ROW1_RIGHT_RGB RGB_TOG, XXXXXXX, XXXXXXX
+#define ROW5_RIGHT_RGB                                                      SIX_TRNS
+#define ROW4_RIGHT_RGB                                                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define ROW3_RIGHT_RGB                                                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define ROW2_RIGHT_RGB                                                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define ROW1_RIGHT_RGB                                                      RGB_TOG, XXXXXXX, TG(_5_RGB)
 
 // LAYER 6 FN
 #define ROW5_LEFT_FN SIX_TRNS
@@ -198,11 +198,11 @@ enum layer_names {
 #define ROW2_LEFT_FN XXXXXXX, XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F12
 #define ROW1_LEFT_FN                            _______, _______, _______
 
-#define ROW5_RIGHT_FN SIX_TRNS
-#define ROW4_RIGHT_FN XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define ROW3_RIGHT_FN XXXXXXX, _______, XXXXXXX, _______, KC_UP  , XXXXXXX
-#define ROW2_RIGHT_FN XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT
-#define ROW1_RIGHT_FN _______, _______, _______
+#define ROW5_RIGHT_FN                                                      SIX_TRNS
+#define ROW4_RIGHT_FN                                                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define ROW3_RIGHT_FN                                                      XXXXXXX, _______, XXXXXXX, _______, KC_UP  , XXXXXXX
+#define ROW2_RIGHT_FN                                                      XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT
+#define ROW1_RIGHT_FN                                                      _______, _______, _______
 
 #ifdef RGBLIGHT_ENABLE
 // RGB LAYER INDICATOR

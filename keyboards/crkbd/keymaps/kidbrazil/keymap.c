@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                LGUI_T(KC_PGUP), KC_TRNS, KC_SPC,         KC_ENT, KC_TRNS, LALT_T(KC_PGDN)
     ),
 
-	  [_SYM] = LAYOUT_split_3x6_3(
+	  [_SYM] = LAYOUT_split_3x6_3(be16_to_cpu
       KC_ESC, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,                                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
       LSFT_T(KC_TAB), RGB_TOG, KC_MPLY, KC_MUTE, KC_VOLU, KC_VOLD,                        KC_MINS, KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE, KC_GRV,
       KC_LCTL, KC_CALC, KC_MYCM, KC_MPRV, KC_MNXT, TG(_GAME),                             KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_TILD,
@@ -182,13 +182,13 @@ bool oled_task_user(void) {
             master_oled_cleared = true;
         }
         render_logo();
-        return;
+        return false;
     }
     // Drashna style timeout for LED and OLED Roughly 8mins
     else if (timer_elapsed32(oled_timer) > 480000) {
         oled_off();
         rgb_matrix_disable_noeeprom();
-        return;
+        return false;
     }
     else {
         oled_on();

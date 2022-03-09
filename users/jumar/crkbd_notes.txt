@@ -89,4 +89,4 @@ RGB_MATRIX_DRIVER   = WS2812
 You may want to consider turning on link time optimization LINK_TIME_OPTIMIZATION_ENABLE = yes to reduce firmware size.
 -------------------------
 
-Idée: Ajoutter kc_ins qq part et tracker son status sur le OLED
+Idée: tracker KC_INS status sur le OLED
