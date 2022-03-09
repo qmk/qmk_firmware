@@ -16,14 +16,9 @@
  */
 #pragma once
 
-// #define HAL_USE_DAC TRUE
 #define PAL_USE_WAIT TRUE
 #define PAL_USE_CALLBACKS TRUE
-
 #define HAL_USE_I2C TRUE
-
 #define HAL_USE_SERIAL TRUE
-
-// #define HAL_USE_PWM TRUE
 
 #include_next <halconf.h>
