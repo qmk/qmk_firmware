@@ -108,9 +108,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 2
 
-#define VIAL_COMBO_ENTRIES 4
-
-#define VIAL_TAP_DANCE_ENTRIES 4
 
 /*
  * Force NKRO
