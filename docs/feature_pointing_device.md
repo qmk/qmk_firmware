@@ -12,30 +12,6 @@ POINTING_DEVICE_ENABLE = yes
 
 There are a number of sensors that are supported by default. Note that only one sensor can be enabled by `POINTING_DEVICE_DRIVER` at a time.  If you need to enable more than one sensor, then you need to implement it manually.
 
-### PAW 3204 Sensor
-
-To use the paw 3204 sensor, add this to your `rules.mk`
-
-```make
-POINTING_DEVICE_DRIVER = paw3204
-```
-
-The paw 3204 sensor uses a serial type protocol for communication, and requires an additional light source. 
-
-| Setting            | Description                                                         |
-|--------------------|---------------------------------------------------------------------|
-|`PAW3204_SCLK` | (Required) The pin connected to the clock pin of the sensor.        |
-|`PAW3204_DATA` | (Required) The pin connected to the data pin of the sensor.         |
-
-Output resolution setting
-bit:
-000 = 400 
-001 = 500
-010 = 600
-011 = 800
-100 = 1000 (Default)
-101 = 1200
-110 = 1600 
 
 ### ADNS 5050 Sensor
 
@@ -138,6 +114,30 @@ This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the 
 |`CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
 
 Default Scaling/CPI is 1024.
+### PAW 3204 Sensor
+
+To use the paw 3204 sensor, add this to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = paw3204
+```
+
+The paw 3204 sensor uses a serial type protocol for communication, and requires an additional light source. 
+
+| Setting            | Description                                                         |
+|--------------------|---------------------------------------------------------------------|
+|`PAW3204_SCLK` | (Required) The pin connected to the clock pin of the sensor.        |
+|`PAW3204_DATA` | (Required) The pin connected to the data pin of the sensor.         |
+
+Output resolution setting
+bit:
+000 = 400 
+001 = 500
+010 = 600
+011 = 800
+100 = 1000 (Default)
+101 = 1200
+110 = 1600 
 
 ### Pimoroni Trackball
 
