@@ -29,11 +29,11 @@ void led_command_callback(const message_t *msg) {
     switch (msg->command) {
         case CMD_LED_STATUS:
             ap2_led_status.amount_of_profiles = msg->payload[0];
-            ap2_led_status.current_profile   = msg->payload[1];
-            ap2_led_status.matrix_enabled    = msg->payload[2];
-            ap2_led_status.is_reactive       = msg->payload[3];
-            ap2_led_status.led_intensity     = msg->payload[4];
-            ap2_led_status.errors           = msg->payload[5];
+            ap2_led_status.current_profile    = msg->payload[1];
+            ap2_led_status.matrix_enabled     = msg->payload[2];
+            ap2_led_status.is_reactive        = msg->payload[3];
+            ap2_led_status.led_intensity      = msg->payload[4];
+            ap2_led_status.errors             = msg->payload[5];
             break;
 
 #ifdef CONSOLE_ENABLE
