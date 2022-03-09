@@ -69,7 +69,7 @@
 #    define DYNAMIC_KEYMAP_ENCODER_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2))
 #endif
 
-// Dynamic macro starts after dynamic encoders
+// Dynamic macro starts after dynamic encoders, but only when using ENCODER_MAP
 #ifdef ENCODER_MAP_ENABLE
 #    ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
 #        define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (DYNAMIC_KEYMAP_ENCODER_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * NUM_ENCODERS * 2 * 2))
