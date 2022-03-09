@@ -26,6 +26,7 @@ NKRO_ENABLE = no
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 KEY_LOCK_ENABLE = no
+LAYOUTS = 60_ansi
 
 # Other featues
 BOOTMAGIC_ENABLE = yes
