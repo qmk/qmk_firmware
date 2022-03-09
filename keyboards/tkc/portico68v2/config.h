@@ -83,8 +83,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_HUE_PENDULUM
 #    define ENABLE_RGB_MATRIX_HUE_WAVE
 #    define ENABLE_RGB_MATRIX_PIXEL_RAIN
-#    define ENABLE_RGB_MATRIX_PIXEL_FLOW
-#    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+//#    define ENABLE_RGB_MATRIX_PIXEL_FLOW
+//#    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 // enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
 #    define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #    define ENABLE_RGB_MATRIX_DIGITAL_RAIN
