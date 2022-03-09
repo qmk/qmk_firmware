@@ -44,7 +44,7 @@ def _find_bootloader():
                             details = 'halfkay'
                         else:
                             details = 'qmk-hid'
-                    elif bl == 'stm32' or bl == 'apm32':
+                    elif bl == 'stm32-dfu' or bl == 'apm32-dfu':
                         details = (vid, pid)
                     else:
                         details = None
@@ -114,13 +114,13 @@ def flasher(mcu, file):
         if mcu:
             _flash_hid_bootloader(mcu, details, file.name)
         else:
-            return (True, "Specifying the MCU with '-t' is necessary for HalfKay/HID bootloaders!")
-    elif bl == 'stm32' or bl == 'apm32':
+            return (True, "Specifying the MCU with '-m' is necessary for HalfKay/HID bootloaders!")
+    elif bl == 'stm32-dfu' or bl == 'apm32-dfu':
         _flash_stm32(details, file.name)
     elif bl == 'usbasploader' or bl == 'usbtinyisp':
         if mcu:
             _flash_isp(mcu, bl, file.name)
         else:
-            return (True, "Specifying the MCU with '-t' is necessary for ISP flashing!")
+            return (True, "Specifying the MCU with '-m' is necessary for ISP flashing!")
 
     return (False, None)

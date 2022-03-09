@@ -31,7 +31,7 @@ def _generate_desired_rules(bootloader_vids_pids):
     for bl in bootloader_vids_pids.keys():
         rules[bl] = set()
         for vid_pid in bootloader_vids_pids[bl]:
-            if bl == 'caterina' or bl == 'massdrop':
+            if bl == 'caterina' or bl == 'md-boot':
                 rules[bl].add(_udev_rule(vid_pid[0], vid_pid[1], 'ENV{ID_MM_DEVICE_IGNORE}="1"'))
             else:
                 rules[bl].add(_udev_rule(vid_pid[0], vid_pid[1]))

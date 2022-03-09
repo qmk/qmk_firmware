@@ -106,7 +106,7 @@ qmk flash -kb <keyboard_name> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var
 
 **Usage for pre-compiled firmwares**:
 
-**Note**: The microcontroller needs to be specified (`-t` argument) for keyboards with the following bootloaders:
+**Note**: The microcontroller needs to be specified (`-m` argument) for keyboards with the following bootloaders:
 * HalfKay
 * QMK HID
 * USBaspLoader
@@ -116,7 +116,7 @@ ISP flashing is also supported with the following flashers and require the micro
 * USBtinyISP
 
 ```
-qmk flash [-t <microcontroller>] <compiledFirmware.[bin|hex]>
+qmk flash [-m <microcontroller>] <compiledFirmware.[bin|hex]>
 ```
 
 **Listing the Bootloaders**
