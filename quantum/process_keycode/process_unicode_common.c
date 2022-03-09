@@ -16,8 +16,6 @@
 
 #include "process_unicode_common.h"
 #include "eeprom.h"
-#include <ctype.h>
-#include <string.h>
 
 unicode_config_t unicode_config;
 uint8_t          unicode_saved_mods;
@@ -230,37 +228,6 @@ void register_unicode(uint32_t code_point) {
     }
     unicode_input_finish();
 }
-
-// clang-format off
-
-void send_unicode_hex_string(const char *str) {
-    if (!str) {
-        return;
-    }
-
-    while (*str) {
-        // Find the next code point (token) in the string
-        for (; *str == ' '; str++);    // Skip leading spaces
-        size_t n = strcspn(str, " ");  // Length of the current token
-        char code_point[n+1];
-        strncpy(code_point, str, n);   // Copy token into buffer
-        code_point[n] = '\0';          // Make sure it's null-terminated
-
-        // Normalize the code point: make all hex digits lowercase
-        for (char *p = code_point; *p; p++) {
-            *p = tolower((unsigned char)*p);
-        }
-
-        // Send the code point as a Unicode input string
-        unicode_input_start();
-        send_string(code_point);
-        unicode_input_finish();
-
-        str += n;  // Move to the first ' ' (or '\0') after the current token
-    }
-}
-
-// clang-format on
 
 // Borrowed from https://nullprogram.com/blog/2017/10/06/
 static const char *decode_utf8(const char *str, int32_t *code_point) {

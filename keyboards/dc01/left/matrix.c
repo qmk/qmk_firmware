@@ -411,7 +411,7 @@ static void unselect_cols(void)
 
 // Complete rows from other modules over i2c
 i2c_status_t i2c_transaction(uint8_t address, uint32_t mask, uint8_t col_offset) {
-    i2c_status_t status = i2c_start(address, 50);
+    i2c_status_t status = i2c_start(address, 5);
     if (status < 0) {
         goto error;
     }
