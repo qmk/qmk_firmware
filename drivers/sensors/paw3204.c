@@ -16,7 +16,7 @@ uint8_t datatogglestate;
 #define REG_IMGTRASH 0x0D
 
 void PAW3204_init(void) {
-    setPinOutput(PAW3204_SCLK);    // setclockpin to outpu
+    setPinOutput(PAW3204_SCLK);    // setclockpin to output
     setPinInputHigh(PAW3204_DATA); // set datapin input high
 
     PAW3204_write_reg(REG_SETUP, 0x86); // reset sensor and set 1600cpi
