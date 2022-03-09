@@ -2,8 +2,6 @@
     "keyboard_name": "h660-s",
     "url": "",
     "maintainer": "Josh Hinnebusch",
-    "width": 17.25,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_66_ansi": {
             "layout": [

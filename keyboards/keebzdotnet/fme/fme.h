@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ___ KC_NO
 
-#define LAYOUT( \
+#define LAYOUT_all( \
     k00, k13, k14, k12, k10,      \
     k11, k04, k02, k03,           \
     k22, k32, k21, k01            \

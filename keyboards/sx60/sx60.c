@@ -1,5 +1,5 @@
 #include "sx60.h"
-#include "i2cmaster.h"
+#include "i2c_master.h"
 
 
 bool i2c_initialized = 0;
@@ -18,21 +18,18 @@ uint8_t init_mcp23018(void) {
 
     /* B Pins are Row, A pins are Columns 
        Set them to output */
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(IODIRA);            if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b11111111);        if (mcp23018_status) goto out;
-    /* Now write to IODIRB */
-    mcp23018_status = i2c_write(0b00000000);        if (mcp23018_status) goto out;
-    i2c_stop();
+    static uint8_t direction[2] = {
+        0b11111111,
+        0b00000000,
+    };
+    static uint8_t pullup[2] = {
+        0b11111111,
+        0b00000000,
+    };
 
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(GPPUA);             if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b11111111);        if (mcp23018_status) goto out;
-    /* Now write to GPPUB */
-    mcp23018_status = i2c_write(0b00000000);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, direction, 2, I2C_TIMEOUT);
+    if (mcp23018_status) return mcp23018_status;
 
-out:
-    i2c_stop();
-
+    mcp23018_status = i2c_writeReg(I2C_ADDR, GPPUA, pullup, 2, I2C_TIMEOUT);
     return mcp23018_status;
 }

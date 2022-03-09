@@ -22,7 +22,6 @@
 #define VENDOR_ID           0x4E50  // "NP"
 #define PRODUCT_ID          0x4A57  // "JW"
 #define DEVICE_VER          0x0001
-#define MANUFACTURER        NoPunIn10Did
 #define PRODUCT             Jabberwocky
 
 /* key matrix size */

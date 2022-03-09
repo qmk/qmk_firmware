@@ -43,7 +43,7 @@ Keycode Entry is accomplished in one of 3 ways:
 
 ## Step 5: Save Your Keymap for Future Changes
 
-When you're satisfied with your keymap or just want to work on it later, press the `Export Keymap` button. It will save your keymap to your computer. You can then load this .json file in the future by pressing the `Import Keymap` button.
+When you're satisfied with your keymap or just want to work on it later, press the `Download this QMK Keymap JSON File` button. It will save your keymap to your computer. You can then load this .json file in the future by pressing the `Upload a QMK Keymap JSON File` button.
 
 !> **CAUTION:** This is not the same type of .json file used for kbfirmware.com or any other tool. If you try to use this for those tools, or the .json from those tools with QMK Configurator, you will encounter problems.
 

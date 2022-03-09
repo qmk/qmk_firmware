@@ -46,7 +46,7 @@ def keymap(keyboard_name):
     """
     keyboard_folder = keyboard(keyboard_name)
 
-    for i in range(MAX_KEYBOARD_SUBFOLDERS):
+    for _ in range(MAX_KEYBOARD_SUBFOLDERS):
         if (keyboard_folder / 'keymaps').exists():
             return (keyboard_folder / 'keymaps').resolve()
 
@@ -70,9 +70,13 @@ def normpath(path):
 
 
 class FileType(argparse.FileType):
+    def __init__(self, encoding='UTF-8'):
+        # Use UTF8 by default for stdin
+        return super().__init__(encoding=encoding)
+
     def __call__(self, string):
         """normalize and check exists
             otherwise magic strings like '-' for stdin resolve to bad paths
         """
         norm = normpath(string)
-        return super().__call__(norm if norm.exists() else string)
+        return norm if norm.exists() else super().__call__(string)

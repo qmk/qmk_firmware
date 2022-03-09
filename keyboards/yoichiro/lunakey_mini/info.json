@@ -2,8 +2,6 @@
     "keyboard_name": "Lunakey Mini",
     "url": "",
     "maintainer": "qmk",
-    "width": 14.75,
-    "height": 5,
     "layouts": {
         "LAYOUT_split_3x6_4": {
             "layout": [

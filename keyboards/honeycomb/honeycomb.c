@@ -7,7 +7,7 @@ void pointing_device_task(void){
     uint32_t timeout = 0;
 
     //the m character requests the RF slave to send the mouse report
-    SERIAL_UART_DATA = 'm';
+    uart_write('m');
 
     //trust the external inputs completely, erase old data
     uint8_t uart_data[5] = {0};
@@ -17,7 +17,7 @@ void pointing_device_task(void){
         //wait for the serial data, timeout if it's been too long
         //this only happened in testing with a loose wire, but does no
         //harm to leave it in here
-        while(!SERIAL_UART_RXD_PRESENT){
+        while(!uart_available()){
             timeout++;
             if (timeout > 10000){
 		xprintf("\r\nTIMED OUT");
@@ -25,7 +25,7 @@ void pointing_device_task(void){
             }
         }
 	xprintf("\r\nGOT DATA for %d",i);
-        uart_data[i] = SERIAL_UART_DATA;
+        uart_data[i] = uart_read();
     }
 
     //check for the end packet, bytes 1-4 are movement and scroll

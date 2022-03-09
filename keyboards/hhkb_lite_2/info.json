@@ -2,8 +2,6 @@
     "keyboard_name": "HHKB Lite 2",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5.75,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -2,8 +2,6 @@
     "keyboard_name": "nt750", 
     "url": "https://github.com/evyd13/nt-series/tree/main/nt-750", 
     "maintainer": "evyd13", 
-    "width": 18.25, 
-    "height": 6.5, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -2,11 +2,8 @@
     "keyboard_name": "THE50", 
     "url": "http://lazydesigners.cn", 
     "maintainer": "qmk", 
-    "width": 15.25, 
-    "height": 4, 
     "layouts": {
         "LAYOUT": {
-            "key_count": 54,
             "layout": [
               {"label":"Esc", "x":0, "y":0},
               {"label":"Q", "x":1, "y":0},

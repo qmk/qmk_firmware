@@ -2,8 +2,6 @@
   "keyboard_name": "KeyPCB/Keeb.io BDN9-BLE",
   "url": "",
   "maintainer": "merlin04",
-  "width": 3,
-  "height": 3,
   "layouts": {
     "LAYOUT": {
       "layout": [

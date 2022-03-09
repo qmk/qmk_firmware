@@ -19,12 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "report.h"
 #include "keycode.h"
 #include "action_layer.h"
-#if defined(__AVR__)
-#    include <util/delay.h>
-#    include <stdio.h>
-#endif
 #include "action.h"
-#include "action_macro.h"
 #include "debug.h"
 #include "quantum.h"
 
@@ -44,7 +39,10 @@ extern keymap_config_t keymap_config;
 action_t action_for_key(uint8_t layer, keypos_t key) {
     // 16bit keycodes - important
     uint16_t keycode = keymap_key_to_keycode(layer, key);
+    return action_for_keycode(keycode);
+};
 
+action_t action_for_keycode(uint16_t keycode) {
     // keycode remapping
     keycode = keycode_config(keycode);
 
@@ -57,7 +55,7 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
 
     switch (keycode) {
         case KC_A ... KC_EXSEL:
-        case KC_LCTRL ... KC_RGUI:
+        case KC_LEFT_CTRL ... KC_RIGHT_GUI:
             action.code = ACTION_KEY(keycode);
             break;
 #ifdef EXTRAKEY_ENABLE
@@ -73,32 +71,14 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
             action.code = ACTION_MOUSEKEY(keycode);
             break;
 #endif
-        case KC_TRNS:
+        case KC_TRANSPARENT:
             action.code = ACTION_TRANSPARENT;
             break;
         case QK_MODS ... QK_MODS_MAX:;
             // Has a modifier
             // Split it up
-            action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF);  // adds modifier to key
+            action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF); // adds modifier to key
             break;
-#ifndef NO_ACTION_FUNCTION
-        case KC_FN0 ... KC_FN31:
-            action.code = keymap_function_id_to_action(FN_INDEX(keycode));
-            break;
-        case QK_FUNCTION ... QK_FUNCTION_MAX:;
-            // Is a shortcut for function action_layer, pull last 12bits
-            // This means we have 4,096 FN macros at our disposal
-            action.code = keymap_function_id_to_action((int)keycode & 0xFFF);
-            break;
-#endif
-#ifndef NO_ACTION_MACRO
-        case QK_MACRO ... QK_MACRO_MAX:
-            if (keycode & 0x800)  // tap macros have upper bit set
-                action.code = ACTION_MACRO_TAP(keycode & 0xFF);
-            else
-                action.code = ACTION_MACRO(keycode & 0xFF);
-            break;
-#endif
 #ifndef NO_ACTION_LAYER
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             action.code = ACTION_LAYER_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
@@ -166,30 +146,8 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
     return action;
 }
 
-__attribute__((weak)) const uint16_t PROGMEM fn_actions[] = {
-
-};
-
-/* Macro */
-__attribute__((weak)) const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) { return MACRO_NONE; }
-
-/* Function */
-__attribute__((weak)) void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {}
-
 // translates key to keycode
 __attribute__((weak)) uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
     // Read entire word (16bits)
     return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
-}
-
-// translates function id to action
-__attribute__((weak)) uint16_t keymap_function_id_to_action(uint16_t function_id) {
-// The compiler sees the empty (weak) fn_actions and generates a warning
-// This function should not be called in that case, so the warning is too strict
-// If this function is called however, the keymap should have overridden fn_actions, and then the compile
-// is comparing against the wrong array
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Warray-bounds"
-    return pgm_read_word(&fn_actions[function_id]);
-#pragma GCC diagnostic pop
 }

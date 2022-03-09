@@ -3,10 +3,15 @@
 enum alt_keycodes {
     L_BRI = SAFE_RANGE, //LED Brightness Increase                                   //Working
     L_BRD,              //LED Brightness Decrease                                   //Working
+    L_EDG_I,            //LED Edge Brightness Increase
+    L_EDG_D,            //LED Edge Brightness Decrease
+    L_EDG_M,            //LED Edge lighting mode
     L_PTN,              //LED Pattern Select Next                                   //Working
     L_PTP,              //LED Pattern Select Previous                               //Working
     L_PSI,              //LED Pattern Speed Increase                                //Working
     L_PSD,              //LED Pattern Speed Decrease                                //Working
+    L_RATIOD,
+    L_RATIOI,
     L_T_MD,             //LED Toggle Mode                                           //Working
     L_T_ONF,            //LED Toggle On / Off                                       //Broken
     L_ON,               //LED On                                                    //Broken
@@ -18,6 +23,7 @@ enum alt_keycodes {
     DBG_MTRX,           //DEBUG Toggle Matrix Prints                                //
     DBG_KBD,            //DEBUG Toggle Keyboard Prints                              //
     DBG_MOU,            //DEBUG Toggle Mouse Prints                                 //
+    DBG_FAC,            //DEBUG Factory light testing (All on white)
     MD_BOOT             //Restart into bootloader after hold timeout                //Working
 };
 
@@ -31,10 +37,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_MUTE, \
-        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   _______, _______, _______, _______, U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_END, \
-        L_T_PTD, L_PTP,   L_BRD,   L_PTN,   _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLU, \
-        _______, L_T_MD,  L_T_ONF, _______, _______, MD_BOOT, NK_TOGG, _______, _______, _______, _______, _______,          KC_PGUP, KC_VOLD, \
-        _______, _______, _______,                            _______,                            _______, _______, KC_HOME, KC_PGDN, KC_END  \
+        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   L_EDG_I, _______, _______, _______, U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_END, \
+        L_T_PTD, L_PTP,   L_BRD,   L_PTN,   L_EDG_D, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLU, \
+        _______, L_T_MD,  L_T_ONF, _______, L_EDG_M, MD_BOOT, NK_TOGG, _______, _______, _______, _______, _______,          KC_PGUP, KC_VOLD, \
+        _______, _______, _______,                            DBG_FAC,                            _______, _______, KC_HOME, KC_PGDN, KC_END  \
     ),
     /*
     [X] = LAYOUT(
@@ -53,6 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
+    static uint8_t scroll_effect = 0;
 
     switch (keycode) {
         case L_BRI:
@@ -67,6 +74,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (LED_GCR_STEP > gcr_desired) gcr_desired = 0;
                 else gcr_desired -= LED_GCR_STEP;
                 if (led_animation_breathing) gcr_breathe = gcr_desired;
+            }
+            return false;
+        case L_EDG_M:
+            if (record->event.pressed) {
+                led_edge_mode++;
+                if (led_edge_mode > LED_EDGE_MODE_MAX) {
+                    led_edge_mode = LED_EDGE_MODE_ALL;
+                }
+            }
+            return false;
+        case L_EDG_I:
+            if (record->event.pressed) {
+                led_edge_brightness += 0.1;
+                if (led_edge_brightness > 1) { led_edge_brightness = 1; }
+            }
+            return false;
+        case L_EDG_D:
+            if (record->event.pressed) {
+                led_edge_brightness -= 0.1;
+                if (led_edge_brightness < 0) { led_edge_brightness = 0; }
+            }
+            return false;
+        case L_RATIOI:
+            if (record->event.pressed) {
+                led_ratio_brightness += 0.2;
+                if (led_ratio_brightness > 2.0) { led_ratio_brightness = 2.0; }
+            }
+            return false;
+        case L_RATIOD:
+            if (record->event.pressed) {
+                led_ratio_brightness -= 0.2;
+                if (led_ratio_brightness < 0.0) { led_ratio_brightness = 0.0; }
             }
             return false;
         case L_PTN:
@@ -128,12 +167,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case L_T_PTD:
             if (record->event.pressed) {
-                led_animation_direction = !led_animation_direction;
+                scroll_effect++;
+                if (scroll_effect == 1) {               //Patterns with scroll move horizontal (Right to left)
+                    led_animation_direction = 1;
+                    led_animation_orientation = 0;
+                    led_animation_circular = 0;
+                } else if (scroll_effect == 2) {        //Patterns with scroll move vertical (Top to bottom)
+                    led_animation_direction = 1;
+                    led_animation_orientation = 1;
+                    led_animation_circular = 0;
+                } else if (scroll_effect == 3) {        //Patterns with scroll move vertical (Bottom to top)
+                    led_animation_direction = 0;
+                    led_animation_orientation = 1;
+                    led_animation_circular = 0;
+                } else if (scroll_effect == 4) {        //Patterns with scroll explode from center
+                    led_animation_direction = 0;
+                    led_animation_orientation = 0;
+                    led_animation_circular = 1;
+                } else if (scroll_effect == 5) {        //Patterns with scroll implode on center
+                    led_animation_direction = 1;
+                    led_animation_orientation = 0;
+                    led_animation_circular = 1;
+                } else {                                //Patterns with scroll move horizontal (Left to right)
+                    scroll_effect = 0;
+                    led_animation_direction = 0;
+                    led_animation_orientation = 0;
+                    led_animation_circular = 0;
+                }
             }
             return false;
         case U_T_AGCR:
             if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
                 TOGGLE_FLAG_AND_PRINT(usb_gcr_auto, "USB GCR auto mode");
+            }
+            return false;
+        case DBG_FAC:
+            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
+                led_lighting_mode = LED_MODE_NORMAL;
+                led_edge_brightness = 1;
+                led_edge_mode = LED_EDGE_MODE_ALL;
+                led_animation_breathing = 0;
+                led_animation_id = 7; //led_programs.c led_setups leds_white index
+                gcr_desired = LED_GCR_MAX;
+                led_enabled = 1;
+                I2C3733_Control_Set(led_enabled);
             }
             return false;
         case DBG_TOG:

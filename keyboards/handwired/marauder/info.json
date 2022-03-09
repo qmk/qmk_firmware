@@ -2,8 +2,6 @@
     "keyboard_name": "Minshara Marauder",
     "url": "https://imgur.com/a/TvsXpq5",
     "maintainer": "BB-66",
-    "width": 19.25,
-    "height": 6.5,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -104,5 +102,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }

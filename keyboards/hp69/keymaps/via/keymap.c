@@ -47,3 +47,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
+
+
+void matrix_scan_user(void) {
+	writePin(A7, layer_state_is(1));
+}
+
+bool led_update_user(led_t led_state) {
+    writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+	return false;
+};

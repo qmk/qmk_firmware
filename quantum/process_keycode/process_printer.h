@@ -18,6 +18,4 @@
 
 #include "quantum.h"
 
-#include "protocol/serial.h"
-
 bool process_printer(uint16_t keycode, keyrecord_t *record);

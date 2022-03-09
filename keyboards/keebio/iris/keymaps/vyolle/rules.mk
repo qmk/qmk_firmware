@@ -4,4 +4,4 @@ STENO_ENABLE = no         # Additional protocols for Stenography(+1700), require
 AUDIO_ENABLE = no           # Audio output on port C6
 MIDI_ENABLE = no            # MIDI controls
 NKRO_ENABLE = yes
-BOOTMAGIC_ENABLE = full
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite

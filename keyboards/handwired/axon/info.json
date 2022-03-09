@@ -2,8 +2,6 @@
     "keyboard_name": "Axon",
     "url": "https://github.com/thatfellarobin/axon",
     "maintainer": "Robin L.",
-    "width": 12,
-    "height": 4,
     "layouts": {
         "LAYOUT_default": {
             "layout": [

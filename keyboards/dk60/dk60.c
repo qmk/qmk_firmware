@@ -34,7 +34,6 @@ void dk60_blink_all_leds(void) {
 }
 
 void matrix_init_kb(void) {
-    led_init_ports();
     dk60_blink_all_leds();
 
     matrix_init_user();

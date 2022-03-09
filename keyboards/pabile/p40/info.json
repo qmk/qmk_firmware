@@ -2,8 +2,6 @@
     "keyboard_name": "Pabile 40", 
     "url": "https://pabileonline.blogspot.com/", 
     "maintainer": "Pabile", 
-    "width": 10.75, 
-    "height": 4, 
     "layouts": {
         "LAYOUT_ortho_4x10": {
             "layout": [

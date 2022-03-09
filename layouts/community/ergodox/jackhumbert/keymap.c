@@ -85,11 +85,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           eeconfig_init();
         }
         break;
-        case 2:
-        if (record->event.pressed) { // For resetting EEPROM
-          api_send_unicode(0x0CA0);
-        }
-        break;
       }
     return MACRO_NONE;
 };

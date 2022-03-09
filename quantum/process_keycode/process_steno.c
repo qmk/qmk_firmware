@@ -65,6 +65,12 @@ static steno_mode_t mode;
 
 static const uint8_t boltmap[64] PROGMEM = {TXB_NUL, TXB_NUM, TXB_NUM, TXB_NUM, TXB_NUM, TXB_NUM, TXB_NUM, TXB_S_L, TXB_S_L, TXB_T_L, TXB_K_L, TXB_P_L, TXB_W_L, TXB_H_L, TXB_R_L, TXB_A_L, TXB_O_L, TXB_STR, TXB_STR, TXB_NUL, TXB_NUL, TXB_NUL, TXB_STR, TXB_STR, TXB_E_R, TXB_U_R, TXB_F_R, TXB_R_R, TXB_P_R, TXB_B_R, TXB_L_R, TXB_G_R, TXB_T_R, TXB_S_R, TXB_D_R, TXB_NUM, TXB_NUM, TXB_NUM, TXB_NUM, TXB_NUM, TXB_NUM, TXB_Z_R};
 
+#ifdef STENO_COMBINEDMAP
+/* Used to look up when pressing the middle row key to combine two consonant or vowel keys */
+static const uint16_t combinedmap_first[] PROGMEM  = {STN_S1, STN_TL, STN_PL, STN_HL, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR, STN_A, STN_E};
+static const uint16_t combinedmap_second[] PROGMEM = {STN_S2, STN_KL, STN_WL, STN_RL, STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR, STN_O, STN_U};
+#endif
+
 static void steno_clear_state(void) {
     memset(state, 0, sizeof(state));
     memset(chord, 0, sizeof(chord));
@@ -96,11 +102,17 @@ void steno_set_mode(steno_mode_t new_mode) {
 /* override to intercept chords right before they get sent.
  * return zero to suppress normal sending behavior.
  */
-__attribute__((weak)) bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) { return true; }
+__attribute__((weak)) bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
+    return true;
+}
 
-__attribute__((weak)) bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[6], int8_t pressed) { return true; }
+__attribute__((weak)) bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[6], int8_t pressed) {
+    return true;
+}
 
-__attribute__((weak)) bool process_steno_user(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_steno_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
 
 static void send_steno_chord(void) {
     if (send_steno_chord_user(mode, chord)) {
@@ -108,11 +120,11 @@ static void send_steno_chord(void) {
             case STENO_MODE_BOLT:
                 send_steno_state(BOLT_STATE_SIZE, false);
 #ifdef VIRTSER_ENABLE
-                virtser_send(0);  // terminating byte
+                virtser_send(0); // terminating byte
 #endif
                 break;
             case STENO_MODE_GEMINI:
-                chord[0] |= 0x80;  // Indicate start of packet
+                chord[0] |= 0x80; // Indicate start of packet
                 send_steno_state(GEMINI_STATE_SIZE, true);
                 break;
         }
@@ -120,9 +132,13 @@ static void send_steno_chord(void) {
     steno_clear_state();
 }
 
-uint8_t *steno_get_state(void) { return &state[0]; }
+uint8_t *steno_get_state(void) {
+    return &state[0];
+}
 
-uint8_t *steno_get_chord(void) { return &chord[0]; }
+uint8_t *steno_get_chord(void) {
+    return &chord[0];
+}
 
 static bool update_state_bolt(uint8_t key, bool press) {
     uint8_t boltcode = pgm_read_byte(boltmap + key);
@@ -167,6 +183,14 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
+#ifdef STENO_COMBINEDMAP
+        case QK_STENO_COMB ... QK_STENO_COMB_MAX: {
+            uint8_t result;
+            result = process_steno(combinedmap_first[keycode - QK_STENO_COMB], record);
+            result &= process_steno(combinedmap_second[keycode - QK_STENO_COMB], record);
+            return result;
+        }
+#endif
         case STN__MIN ... STN__MAX:
             if (!process_steno_user(keycode, record)) {
                 return false;

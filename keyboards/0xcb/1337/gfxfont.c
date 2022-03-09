@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "progmem.h"
-
+// clang-format off
 static const unsigned char font[] PROGMEM = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x3E, 0x5B, 0x4F, 0x5B, 0x3E, 0x00,
@@ -274,3 +274,4 @@ static const unsigned char font[] PROGMEM = {
     0x07, 0x07, 0x0F, 0x0F, 0x1E, 0x3E,
     0x3C, 0x7C, 0x70, 0xC0, 0x80, 0x00,
 };
+// clang-format on

@@ -1,0 +1,71 @@
+{
+    "keyboard_name": "FreebirdNP Pro",
+    "url": "https://keebsforall.com/products/fb-numpad-pro",
+    "maintainer": "e11i0t23",
+    "manufacturer": "KeebsForAll",
+    "layouts": {
+        "LAYOUT_numpad_6x4": {
+            "layout": [
+                {"label":"F1", "x":0, "y":0},
+                {"label":"F2", "x":1, "y":0},
+                {"label":"F3", "x":2, "y":0},
+                {"label":"MUTE", "x":3, "y":0},
+
+                {"label":"Num Lock", "x":0, "y":1},
+                {"label":"/", "x":1, "y":1},
+                {"label":"*", "x":2, "y":1},
+                {"label":"-", "x":3, "y":1},
+
+                {"label":"7", "x":0, "y":2},
+                {"label":"8", "x":1, "y":2},
+                {"label":"9", "x":2, "y":2},
+
+                {"label":"4", "x":0, "y":3},
+                {"label":"5", "x":1, "y":3},
+                {"label":"6", "x":2, "y":3},
+                {"label":"+", "x":3, "y":2, "h":2},
+
+                {"label":"1", "x":0, "y":4},
+                {"label":"2", "x":1, "y":4},
+                {"label":"3", "x":2, "y":4},
+
+                {"label":"0", "x":0, "y":5, "w":2},
+                {"label":".", "x":2, "y":5},
+                {"label":"Enter", "x":3, "y":4, "h":2}
+            ]
+        },
+        "LAYOUT_ortho_6x4": {
+            "layout": [
+                {"label":"F1", "x":0, "y":0},
+                {"label":"F2", "x":1, "y":0},
+                {"label":"F3", "x":2, "y":0},
+                {"label":"MUTE", "x":3, "y":0},
+
+                {"label":"Num Lock", "x":0, "y":1},
+                {"label":"/", "x":1, "y":1},
+                {"label":"*", "x":2, "y":1},
+                {"label":"-", "x":3, "y":1},
+
+                {"label":"7", "x":0, "y":2},
+                {"label":"8", "x":1, "y":2},
+                {"label":"9", "x":2, "y":2},
+                {"label":"+", "x":3, "y":2},
+
+                {"label":"4", "x":0, "y":3},
+                {"label":"5", "x":1, "y":3},
+                {"label":"6", "x":2, "y":3},
+                {"label":"+", "x":3, "y":3},
+
+                {"label":"1", "x":0, "y":4},
+                {"label":"2", "x":1, "y":4},
+                {"label":"3", "x":2, "y":4},
+                {"label":"Enter", "x":3, "y":4},
+
+                {"label":"0", "x":0, "y":5},
+                {"label":"00", "x":1, "y":5},
+                {"label":".", "x":2, "y":5},
+                {"label":"Enter", "x":3, "y":5}
+            ]
+        }
+    }
+}

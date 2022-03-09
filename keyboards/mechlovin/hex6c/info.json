@@ -2,8 +2,6 @@
     "keyboard_name": "hex-6C",
     "url": "",
     "maintainer": "Mechlovin' Studio",
-    "width": 22.5,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

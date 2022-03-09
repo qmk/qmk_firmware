@@ -2,8 +2,6 @@
     "keyboard_name": "physix",
     "url": "",
     "maintainer": "hineybush",
-    "width": 20.25,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

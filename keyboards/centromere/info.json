@@ -2,8 +2,6 @@
     "keyboard_name": "Centromere",
     "url": "",
     "maintainer": "spe2",
-    "width": 14,
-    "height": 4,
     "layouts": {
         "LAYOUT_split_3x6_3": {
             "layout": [

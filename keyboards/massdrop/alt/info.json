@@ -2,8 +2,6 @@
     "keyboard_name": "ALT",
     "url": "https://www.massdrop.com/buy/massdrop-alt-mechanical-keyboard",
     "maintainer": "Massdrop",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [

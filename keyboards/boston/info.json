@@ -2,8 +2,6 @@
     "keyboard_name": "boston",
     "url": "https://github.com/bluepylons/Boston",
     "maintainer": "bluepylons",
-    "width": 20.5,
-    "height": 7.75,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

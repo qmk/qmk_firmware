@@ -3,8 +3,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6FD7
+#define VENDOR_ID       0x4E45  // NE
+#define PRODUCT_ID      0x3630  // 60
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    GON
 #define PRODUCT         NerD 60
@@ -32,3 +32,7 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* ROW and COL for ESC key */
+#define BOOTMAGIC_LITE_ROW 8
+#define BOOTMAGIC_LITE_COLUMN 0

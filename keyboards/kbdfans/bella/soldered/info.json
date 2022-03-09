@@ -2,8 +2,6 @@
     "keyboard_name": "bella_soldered",
     "url": "",
     "maintainer": "kbdfans",
-    "width": 16.25,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

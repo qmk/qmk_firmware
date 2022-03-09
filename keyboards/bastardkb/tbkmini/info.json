@@ -2,8 +2,6 @@
     "keyboard_name": "TBK Mini",
     "url": "https://www.bastardkb.com",
     "maintainer": "Quentin Lebastard",
-    "width": 17,
-    "height": 4,
     "layouts": {
         "LAYOUT_split_3x6_3": {
             "layout": [

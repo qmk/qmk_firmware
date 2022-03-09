@@ -16,6 +16,13 @@
 #include QMK_KEYBOARD_H
 
 
+#define LAYOUT_via( \
+    k00, k01, k02, \
+    k00_a, k00_b \
+) { \
+    { k00, k01,   k02, k00_a, k00_b } \
+}
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */

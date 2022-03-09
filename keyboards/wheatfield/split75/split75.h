@@ -45,7 +45,3 @@
   { K06,    K16,    K26,    K36,    K46,    KC_NO,  KC_NO,  KC_NO,  K86,    K96,    KC_NO,  K116,   K126,   K136 }, \
   { K07,    K17,    K27,    K37,    K47,    KC_NO,  KC_NO,  KC_NO,  K87,    K97,    K107,   K117,   K127,   K137 }  \
 }
-
-#define NUMLOCK_LED_PIN D0
-#define CAPSLOCK_LED_PIN D1
-#define SCROLLLOCK_LED_PIN D6

@@ -2,8 +2,6 @@
   "keyboard_name": "pteron",
   "url": "",
   "maintainer": "FSund",
-  "width": 17,
-  "height": 5.95,
   "layouts": {
     "LAYOUT": {
       "layout": [

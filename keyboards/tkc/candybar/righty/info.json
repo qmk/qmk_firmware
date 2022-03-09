@@ -2,8 +2,6 @@
     "keyboard_name": "TKC Candybar",
     "url": "",
     "maintainer": "terrymathews",
-    "width": 17,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -4,6 +4,11 @@
 
 #include "noah.h"
 
+void bootloader_jump(void) {
+    // This board doesn't use the standard DFU bootloader, and no information is available regarding how to enter bootloader mode. All we can do here is reset.
+    NVIC_SystemReset();
+}
+
 #ifdef RGBLIGHT_ENABLE
 #include <string.h>
 #include "rgblight.h"
@@ -50,11 +55,6 @@ void rgblight_set(void) {
 }
 #endif
 
-void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__((weak))
-void matrix_init_user(void) { }
-
 void matrix_scan_kb(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_task();
@@ -62,11 +62,8 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-__attribute__((weak))
-void matrix_scan_user(void) { }
-
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

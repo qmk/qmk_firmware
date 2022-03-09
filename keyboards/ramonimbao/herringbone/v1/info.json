@@ -2,8 +2,6 @@
     "keyboard_name": "Herringbone",
     "url": "",
     "maintainer": "Ramon Imbao",
-    "width": 16.5,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_ansi": {
             "layout": [

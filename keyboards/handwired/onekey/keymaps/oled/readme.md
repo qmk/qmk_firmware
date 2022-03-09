@@ -11,7 +11,7 @@ Available commands using a single key:
 Available test patterns:
 - QMK logo (clipped to fit on the display).
 - Fill the whole screen with as much unique characters as possible (all 94 printable ASCII characters are used, and if the display has more character positions available, the same characters are printed again, but inverted).
-- “Slow update” test — instead of updating the whole screen at once, draw things piece by piece to uncover display update bugs.  The drawing sequence used by this test:
+- “Slow update” test — instead of updating the whole screen at once, draw things piece by piece to uncover display update bugs.  The drawing sequence used by this test:
   - Fill the whole screen with printable ASCII characters (similar to the previous test, but characters are drawn one by one with 250 ms intervals between them, and inverted characters are not used to avoid obscuring the next phases).
   - Draw a frame along the screen edges, starting from the top left corner and going down along the left edge, then along the bottom, right and top edges, with 50 ms delay after every pixel.
   - Repeat the same sequence again, but with the character sequence shifted by 1 character (so that the updates would be visible).

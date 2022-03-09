@@ -2,8 +2,6 @@
     "keyboard_name": "6x4 number pad layout",
     "url": "",
     "maintainer": "qmk",
-    "width": 4,
-    "height": 6,
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

@@ -15,7 +15,7 @@
  */
 
 #include "indicators.h"
-#include "drivers/issi/is31fl3731-simple.h"
+#include "drivers/led/issi/is31fl3731-simple.h"
 #include "i2c_master.h"
 
 /* Set up IS31FL3731 for use in powering indicator LEDs. Absolutely overkill for this job but it was already in the design.
@@ -54,7 +54,7 @@ void set_fallacy_led(int index, bool state) {
 
 /* define LED matrix
  */
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, C1_1},
     {0, C2_1},
     {0, C3_1},

@@ -18,28 +18,22 @@
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-
-enum custom_layers {
-    _BASE,
-    _FN1,
-    _LOWER,
-    _RAISE,
-};
+#include "jonavin.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_all(
                                                                                                                 KC_MUTE,
     KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    TT(_RAISE),            KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_SLSH, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,           KC_SFTENT,
+    TT(_RAISE),       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    KC_LSFTCAPS, KC_SLSH, KC_Z,  KC_X,  KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,           KC_SFTENT,
     KC_LCTL, KC_LGUI, KC_LALT,          KC_SPC,  LT(_LOWER,KC_SPC),         KC_SPC,           KC_RALT, MO(_FN1),  KC_RCTL ),
 
   [_FN1] = LAYOUT_all(
-                                                                                                                KC_TRNS,
+                                                                                                                ENCFUNC,
     KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
-    KC_CAPS,          KC_F11,  KC_F12,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_SCLN, KC_PAUS, KC_NO,   KC_NO,
-    KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NLCK, KC_P0,   KC_NO,   KC_NO,            KC_SFTENT,
-    KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS ),
+    KC_CAPS,          KC_F11,  KC_F12,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_SLCK, KC_PAUS, KC_NO,   KC_NO,
+    KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NLCK, KC_NO,   KC_NO,   KC_NO,            KC_SFTENT,
+    KC_TRNS, KC_WINLCK, KC_TRNS,        KC_TRNS, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS ),
 
   [_LOWER] = LAYOUT_all(
                                                                                                                 KC_TRNS,
@@ -50,42 +44,120 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_all(
                                                                                                                 KC_TRNS,
-  	KC_TAB,          KC_HOME,  KC_UP,   KC_END,  KC_PGUP, KC_PMNS, KC_PPLS, KC_P7,   KC_P8,   KC_P9,    KC_P0,   KC_TRNS,
+  	KC_TAB,          KC_HOME,  KC_UP,   KC_END,  KC_PGUP, KC_PMNS, KC_PPLS, KC_P7,   KC_P8,   KC_P9,    KC_P0,  KC_TRNS,
   	TT(_RAISE),      KC_LEFT,  KC_DOWN, KC_RIGHT,KC_PGDN, KC_PSLS, KC_TAB,  KC_P4,   KC_P5,   KC_P6,   KC_PDOT, KC_PEQL,
-  	KC_TRNS, KC_TRNS, KC_NO,   KC_DEL,  KC_INS,  KC_NO,   KC_PAST, KC_P0, KC_P1,   KC_P2,   KC_P3,            KC_PENT,
+  	KC_TRNS, KC_TRNS, KC_NO,   KC_DEL,  KC_INS,  KC_NO,   KC_PAST, KC_P0,   KC_P1,   KC_P2,   KC_P3,            KC_PENT,
   	KC_TRNS, KC_TRNS, KC_TRNS,          KC_BSPC, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS )
 };
 
+/*  These are needed whether encoder function is enabled or not when ENCFUNC keycode is pressed.?
+    Defaults never changes if no encoder present to change it
+*/
+typedef struct {
+     char keydesc[6];    // this will be displayed on OLED
+    uint16_t keycode;   // this is the keycode that will be sent when activted
+} keycodedescType;
+
+static const keycodedescType PROGMEM keyselection[] = {
+    // list of key codes that will be scrollled through by encoder and description
+        {"TASK",    KC_TASK},
+        {"INS",     KC_INS},
+        {"DEL",     KC_DEL},
+        {"PrtSc",   KC_PSCR},
+        {"ScrLk",   KC_SCLN},
+        {"Break",   KC_PAUS},
+        {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
+        {"AltF4",   KC_AF4},
+        {"PLAY",    KC_MEDIA_PLAY_PAUSE},
+        {"RESET",   RESET},   // firmware flash mode
+};
+
+#define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
+
+static uint8_t selectedkey_idx = 0;
+static keycodedescType selectedkey_rec;
+
+static void set_selectedkey(uint8_t idx) {
+    // make a copy from PROGMEM
+    memcpy_P (&selectedkey_rec, &keyselection[idx], sizeof selectedkey_rec);
+
+    //selectedkey_rec = keyselection[idx];
+
+}
+
+void keyboard_post_init_keymap(void) {
+  // Call the keyboard post init code.
+    set_selectedkey(selectedkey_idx);
+}
+
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case ENCFUNC:
+        if (record->event.pressed) {
+            selectedkey_rec.keycode == RESET ? reset_keyboard() : tap_code16(selectedkey_rec.keycode); // handle RESET code
+        } else {
+            // when keycode is released
+        }
+        break;
+    }
+    return true;
+};
+
+
+
 #ifdef ENCODER_ENABLE       // Encoder Functionality
-    uint8_t selected_layer = 0;
+    void encoder_action_selectkey(bool clockwise) {
+        if ( clockwise ) {
+            if ( selectedkey_idx  < MAX_KEYSELECTION-1) {
+                selectedkey_idx ++;
+            } else {
+                // do nothing
+            }
+        } else if ( !clockwise ) {
+            if ( selectedkey_idx  > 0){
+                selectedkey_idx --;
+            } else {
+                // do nothing
+            }
+        }
+        set_selectedkey(selectedkey_idx);
+    }
+
     bool encoder_update_user(uint8_t index, bool clockwise) {
-        #ifdef OLED_DRIVER_ENABLE
+        #ifdef OLED_ENABLE
             oled_clear();
             oled_render();
         #endif
+        uint8_t mods_state = get_mods();
         switch (index) {
             case 0:         // This is the only encoder right now, keeping for consistency
-                if ( clockwise ) {
-                    if ( selected_layer  < 3 && keyboard_report->mods & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
-                        selected_layer ++;
-                        layer_move(selected_layer);
+                switch(get_highest_layer(layer_state)){  // special handling per layer
+                case _FN1:  // on Fn layer select what the encoder does when pressed
+                    if (!mods_state) {
+                        encoder_action_selectkey(clockwise);
+                        break;
                     } else {
-                        tap_code(KC_VOLU);                                                   // Otherwise it just changes volume
+                           // continue to default
                     }
-                } else if ( !clockwise ) {
-                    if ( selected_layer  > 0 && keyboard_report->mods & MOD_BIT(KC_LSFT) ){
-                        selected_layer --;
-                        layer_move(selected_layer);
-                    } else {
-                        tap_code(KC_VOLD);
+                default:   // all other layers
+                    if (mods_state & MOD_BIT(KC_LSFT) ) { // If you are holding L shift, encoder changes layers
+                        encoder_action_layerchange(clockwise);
+                    } else if (mods_state & MOD_BIT(KC_LCTL)) {  // if holding Left Ctrl, navigate next/prev word
+                        encoder_action_navword(clockwise);
+                    } else if (mods_state & MOD_BIT(KC_LALT)) {  // if holding Left Alt, change media next/prev track
+                        encoder_action_mediatrack(clockwise);
+                    } else  {
+                        encoder_action_volume(clockwise);   // Otherwise it just changes volume
                     }
+                    break;
                 }
+                break;
         }
         return true;
     }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE   // OLED Functionality
+#ifdef OLED_ENABLE   // OLED Functionality
     oled_rotation_t oled_init_user(oled_rotation_t rotation) {
         return OLED_ROTATION_180;       // flips the display 180 degrees if offhand
     }
@@ -116,9 +188,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         oled_write_P(logo_4, false);
     }
 
-    void oled_task_user(void) {
+    bool oled_task_user(void) {
 
-        if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && selected_layer == 0 && get_highest_layer(layer_state) == 0 ) {
+        if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && get_selected_layer() == 0 && get_highest_layer(layer_state) == 0 ) {
             render_name();
             clear_screen = true;
         } else {
@@ -129,12 +201,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             }
             render_logo();
             oled_set_cursor(8,2);
-            switch(selected_layer){
+            char fn_str[12];
+            switch(get_selected_layer()){
                 case 0:
                     oled_write_P(PSTR("BASE"), false);
                     break;
                 case 1:
-                    oled_write_P(PSTR("FN"), false);
+                    sprintf(fn_str, "FN %5s", selectedkey_rec.keydesc);
+                    oled_write(fn_str, false);
+                    //oled_write_P(PSTR("FN "), false);
                     break;
                 case 2:
                     oled_write_P(PSTR("LOWER"), false);
@@ -145,16 +220,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 default:
                     oled_write_P(PSTR("Layer ?"), false);    // Should never display, here as a catchall
             }
+            oled_write_P(keymap_config.no_gui ? PSTR(" WL") : PSTR("   "), false);
             oled_set_cursor(8,3);
-            if (get_highest_layer(layer_state) == selected_layer) {
-                oled_write_P(PSTR("            "), false);
+            if (get_highest_layer(layer_state) == get_selected_layer()) {
+                oled_write_P(PSTR("             "), false);
             } else {
                 switch (get_highest_layer(layer_state)) {
                     case 0:
                         oled_write_P(PSTR("Temp BASE"), false);
                         break;
                     case 1:
-                        oled_write_P(PSTR("Temp FN"), false);
+                        sprintf(fn_str, "Temp FN %5s", selectedkey_rec.keydesc);
+                        oled_write(fn_str, false);
                         break;
                     case 2:
                         oled_write_P(PSTR("Temp LOWER"), false);
@@ -186,6 +263,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         }
 
+    return false;
     }
 
     void suspend_power_down_user(void) {  // shutdown oled when powered down to prevent OLED from showing Mercutio all the time

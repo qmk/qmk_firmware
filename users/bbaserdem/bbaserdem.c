@@ -87,7 +87,7 @@ void rgblight_saveBase(void) {
     base_sta = false;   // If saving, that means base layer is being left
 }
 
-// Load the base state back 
+// Load the base state back
 void rgblight_loadBase(void) {
     // Don't do anything if not enabled
     if ( !base_sta ) {
@@ -248,7 +248,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-#endif 
+#endif
 
         // If these keys are pressed, load base layer config, and mark saving
 #ifdef RGBLIGHT_ENABLE
@@ -261,7 +261,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RGB_HUI:
         case RGB_HUD:
             if ( !base_sta ) {
-                rgblight_loadBase(); 
+                rgblight_loadBase();
             }
             return true;
             break;
@@ -301,7 +301,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-            
+
         // Layer switches with sound
         case K_GAMES:
             if (record->event.pressed) {
@@ -622,7 +622,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 |*-----LAYER CHANGE-----*|
 \*----------------------*/
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
 
     state = layer_state_set_keymap (state);
 #ifdef RGBLIGHT_ENABLE

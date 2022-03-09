@@ -1,15 +1,19 @@
 #pragma once
 
-#ifdef KEYBOARD_keebio_iris_rev1
+#if defined(KEYBOARD_keebio_iris_rev1)
     #include "rev1.h"
-#elif KEYBOARD_keebio_iris_rev1_led
+#elif defined(KEYBOARD_keebio_iris_rev1_led)
     #include "rev1_led.h"
-#elif KEYBOARD_keebio_iris_rev2
+#elif defined(KEYBOARD_keebio_iris_rev2)
     #include "rev2.h"
-#elif KEYBOARD_keebio_iris_rev3
+#elif defined(KEYBOARD_keebio_iris_rev3)
     #include "rev3.h"
-#elif KEYBOARD_keebio_iris_rev4
+#elif defined(KEYBOARD_keebio_iris_rev4)
     #include "rev4.h"
+#elif defined(KEYBOARD_keebio_iris_rev5)
+    #include "rev5.h"
+#elif defined(KEYBOARD_keebio_iris_rev6)
+    #include "rev6.h"
 #endif
 
 #include "quantum.h"

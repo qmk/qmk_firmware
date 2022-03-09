@@ -53,9 +53,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // I2C config
 #define I2C_DRIVER I2CD1
-#define I2C1_SCL_BANK GPIOB
-#define I2C1_SCL 6
-#define I2C1_SDA 7
+#define I2C1_SCL_PIN B6
+#define I2C1_SDA_PIN B7
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1
 #define I2C1_TIMINGR_PRESC 0x00U
@@ -72,14 +71,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#ifdef QWIIC_MICRO_OLED_ENABLE
+// configure oled driver for the 128x32 oled
+#define OLED_UPDATE_INTERVAL 66 // ~15fps
 
-#undef I2C_ADDRESS_SA0_1
-#define I2C_ADDRESS_SA0_1 0b0111100
-#define LCDWIDTH      128
-#define LCDHEIGHT     32
+// OLED_TIMEOUT is incompatible with the OLED_OFF mode
+#define OLED_TIMEOUT 0
 
-#endif
+// OLED timeout reimplemented in the keyboard-specific code
+#define CUSTOM_OLED_TIMEOUT 60000
 
 // Custom config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.

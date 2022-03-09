@@ -2,8 +2,6 @@
     "keyboard_name": "had60",
     "url": "https://senselessclay.com/",
     "maintainer": "hadi",
-    "width": 15, 
-    "height": 5, 
     "layouts": {
       "LAYOUT_all": {
           "layout": [

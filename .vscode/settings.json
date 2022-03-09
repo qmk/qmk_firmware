@@ -23,9 +23,6 @@
         "editor.trimAutoWhitespace": false,
         "files.trimTrailingWhitespace": false
     },
-<<<<<<< HEAD
     "git.ignoreLimitWarning": true
-=======
     "python.formatting.provider": "yapf"
->>>>>>> upstream/master
 }

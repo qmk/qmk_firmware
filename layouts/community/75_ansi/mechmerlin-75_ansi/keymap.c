@@ -12,20 +12,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                KC_SPC,                                  KC_RALT, MO(_FL),   KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT),
 
 [_FL] = LAYOUT_75_ansi(\
-        RESET,   RGB_M_P,  RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        BL_TOGG, BL_INC,   BL_DEC,  BL_STEP, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI,  RGB_SPI,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        VLK_TOG, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD,  RGB_SPD,  KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_TRNS, KC_TRNS, KC_PGUP, KC_TRNS,
-        KC_TRNS, KC_TRNS,  KC_TRNS,          MO(_CL),            KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END),
+        _______,   RGB_M_P,  RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        BL_TOGG, BL_INC,   BL_DEC,  BL_STEP, _______,  _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI,  RGB_SPI,  _______, _______, _______, _______, _______, _______, _______, _______,
+        VLK_TOG, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD,  RGB_SPD,  _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, KC_PGUP, _______,
+        _______, _______,  _______,          MO(_CL),            _______, _______, _______, KC_HOME, KC_PGDN, KC_END),
 
 [_CL] = LAYOUT_75_ansi(\
-        KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS,  KC_TRNS, EEP_RST, RESET,    KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_TRNS,
-        KC_TRNS, KC_TRNS,  KC_TRNS,          KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
-
+        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______,  _______, EEP_RST, RESET,    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______,  _______, _______, _______,  _______,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______,  _______, _______, KC_VER,  _______,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______,  _______,          _______,            _______, _______, _______, _______, _______, _______),
 };

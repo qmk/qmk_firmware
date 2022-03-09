@@ -32,7 +32,7 @@ GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything
 
 Firstly, enable steno in your keymap's Makefile. You may also need disable mousekeys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
 
-```makefile
+```make
 STENO_ENABLE = yes
 MOUSEKEY_ENABLE = no
 ```
@@ -40,8 +40,8 @@ MOUSEKEY_ENABLE = no
 In your keymap create a new layer for Plover. You will need to include `keymap_steno.h`. See `planck/keymaps/steno/keymap.c` for an example. Remember to create a key to switch to the layer as well as a key for exiting the layer. If you would like to switch modes on the fly you can use the keycodes `QK_STENO_BOLT` and `QK_STENO_GEMINI`. If you only want to use one of the protocols you may set it up in your initialization function:
 
 ```c
-void matrix_init_user() {
-  steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
+void eeconfig_init_user() {
+    steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 }
 ```
 
@@ -128,3 +128,19 @@ As defined in `keymap_steno.h`.
 |`STN_RES1`||(GeminiPR only)|
 |`STN_RES2`||(GeminiPR only)|
 |`STN_PWR`||(GeminiPR only)|
+
+If you do not want to hit two keys with one finger combined keycodes can be used. These are also defined in `keymap_steno.h`, and causes both keys to be reported as pressed or released. To use these keycodes define `STENO_COMBINEDMAP` in your `config.h` file.
+
+|Combined key   | Key1   | Key 2    |
+|---------------|--------|----------|
+|STN_S3         | STN_S1 | STN_S2   |
+|STN_TKL        | STN_TL | STN_KL   |
+|STN_PWL        | STN_PL | STN_WL   |
+|STN_HRL        | STN_HL | STN_RL   |
+|STN_FRR        | STN_FR | STN_RR   |
+|STN_PBR        | STN_PR | STN_BR   |
+|STN_LGR        | STN_LR | STN_GR   |
+|STN_TSR        | STN_TR | STN_SR   |
+|STN_DZR        | STN_DR | STN_ZR   |
+|STN_AO         | STN_A  | STN_O    |
+|STN_EU         | STN_E  | STN_U    |

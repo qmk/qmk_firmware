@@ -1,5 +1,6 @@
 /*
 Copyright 2017 Alex Ong<the.onga@gmail.com>
+Copyright 2021 Simon Arlott
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -23,30 +24,27 @@ When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 #    define DEBOUNCE 5
 #endif
 
-void        debounce_init(uint8_t num_rows) {}
-static bool debouncing = false;
-
 #if DEBOUNCE > 0
-static uint16_t debouncing_time;
-void            debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
+static bool         debouncing = false;
+static fast_timer_t debouncing_time;
+
+void debounce_init(uint8_t num_rows) {}
+
+void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     if (changed) {
         debouncing      = true;
-        debouncing_time = timer_read();
+        debouncing_time = timer_read_fast();
     }
 
-    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
+    if (debouncing && timer_elapsed_fast(debouncing_time) >= DEBOUNCE) {
         for (int i = 0; i < num_rows; i++) {
             cooked[i] = raw[i];
         }
         debouncing = false;
     }
 }
-#else  // no debouncing.
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
-    for (int i = 0; i < num_rows; i++) {
-        cooked[i] = raw[i];
-    }
-}
-#endif
 
-bool debounce_active(void) { return debouncing; }
+void debounce_free(void) {}
+#else // no debouncing.
+#    include "none.c"
+#endif

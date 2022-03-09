@@ -2,11 +2,8 @@
   "keyboard_name": "southpole",
   "url": "",
   "maintainer": "qmk",
-  "width": 20.5,
-  "height": 5,
   "layouts": {
     "LAYOUT": {
-      "key_count": 84,
       "layout": [
         {"label":"Num Lock", "x":0, "y":0},
         {"label":"/", "x":1, "y":0},

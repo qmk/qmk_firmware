@@ -78,7 +78,9 @@ class SequencerTest : public ::testing::Test {
     sequencer_state_t  state_copy;
 };
 
-TEST_F(SequencerTest, TestOffByDefault) { EXPECT_EQ(is_sequencer_on(), false); }
+TEST_F(SequencerTest, TestOffByDefault) {
+    EXPECT_EQ(is_sequencer_on(), false);
+}
 
 TEST_F(SequencerTest, TestOn) {
     sequencer_config.enabled = false;
@@ -386,7 +388,7 @@ void setUpMatrixScanSequencerTest(void) {
 TEST_F(SequencerTest, TestMatrixScanSequencerShouldAttackFirstTrackOfFirstStep) {
     setUpMatrixScanSequencerTest();
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(last_noteon, MI_C);
     EXPECT_EQ(last_noteoff, 0);
 }
@@ -394,7 +396,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldAttackFirstTrackOfFirstStep) 
 TEST_F(SequencerTest, TestMatrixScanSequencerShouldAttackSecondTrackAfterFirstTrackOfFirstStep) {
     setUpMatrixScanSequencerTest();
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(sequencer_internal_state.current_step, 0);
     EXPECT_EQ(sequencer_internal_state.current_track, 1);
     EXPECT_EQ(sequencer_internal_state.phase, SEQUENCER_PHASE_ATTACK);
@@ -409,7 +411,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldNotAttackInactiveTrackFirstSt
     // Wait some time after the first track has been attacked
     advance_time(SEQUENCER_TRACK_THROTTLE);
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(last_noteon, 0);
     EXPECT_EQ(last_noteoff, 0);
 }
@@ -423,7 +425,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldAttackThirdTrackAfterSecondTr
     // Wait some time after the second track has been attacked
     advance_time(2 * SEQUENCER_TRACK_THROTTLE);
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(sequencer_internal_state.current_step, 0);
     EXPECT_EQ(sequencer_internal_state.current_track, 2);
     EXPECT_EQ(sequencer_internal_state.phase, SEQUENCER_PHASE_ATTACK);
@@ -438,7 +440,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldEnterReleasePhaseAfterLastTra
     // Wait until all notes have been attacked
     advance_time((SEQUENCER_TRACKS - 1) * SEQUENCER_TRACK_THROTTLE);
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(last_noteon, 0);
     EXPECT_EQ(last_noteoff, 0);
     EXPECT_EQ(sequencer_internal_state.current_step, 0);
@@ -458,7 +460,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldReleaseBackwards) {
     // + the release timeout
     advance_time(SEQUENCER_PHASE_RELEASE_TIMEOUT);
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(sequencer_internal_state.current_step, 0);
     EXPECT_EQ(sequencer_internal_state.current_track, SEQUENCER_TRACKS - 2);
     EXPECT_EQ(sequencer_internal_state.phase, SEQUENCER_PHASE_RELEASE);
@@ -476,7 +478,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldNotReleaseInactiveTrackFirstS
     // + the release timeout
     advance_time(SEQUENCER_PHASE_RELEASE_TIMEOUT);
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(last_noteon, 0);
     EXPECT_EQ(last_noteoff, 0);
 }
@@ -495,7 +497,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldReleaseFirstTrackFirstStep) {
     // + all the other notes have been released
     advance_time((SEQUENCER_TRACKS - 1) * SEQUENCER_TRACK_THROTTLE);
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(last_noteon, 0);
     EXPECT_EQ(last_noteoff, MI_C);
 }
@@ -514,7 +516,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldEnterPausePhaseAfterRelease) 
     // + all the other notes have been released
     advance_time((SEQUENCER_TRACKS - 1) * SEQUENCER_TRACK_THROTTLE);
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(sequencer_internal_state.current_step, 0);
     EXPECT_EQ(sequencer_internal_state.current_track, 0);
     EXPECT_EQ(sequencer_internal_state.phase, SEQUENCER_PHASE_PAUSE);
@@ -536,7 +538,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldProcessFirstTrackOfSecondStep
     // + the step duration (one 16th at tempo=120 lasts 125ms)
     advance_time(125);
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(sequencer_internal_state.current_step, 1);
     EXPECT_EQ(sequencer_internal_state.current_track, 1);
     EXPECT_EQ(sequencer_internal_state.phase, SEQUENCER_PHASE_ATTACK);
@@ -548,7 +550,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldProcessSecondTrackTooEarly) {
     sequencer_internal_state.current_step  = 2;
     sequencer_internal_state.current_track = 1;
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(last_noteon, 0);
     EXPECT_EQ(last_noteoff, 0);
 }
@@ -562,7 +564,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldProcessSecondTrackOnTime) {
     // Wait until first track has been attacked
     advance_time(SEQUENCER_TRACK_THROTTLE);
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(last_noteon, MI_D);
     EXPECT_EQ(last_noteoff, 0);
 }
@@ -583,7 +585,7 @@ TEST_F(SequencerTest, TestMatrixScanSequencerShouldLoopOnceSequenceIsOver) {
     // + the step duration (one 16th at tempo=120 lasts 125ms)
     advance_time(125);
 
-    matrix_scan_sequencer();
+    sequencer_task();
     EXPECT_EQ(sequencer_internal_state.current_step, 0);
     EXPECT_EQ(sequencer_internal_state.current_track, 1);
     EXPECT_EQ(sequencer_internal_state.phase, SEQUENCER_PHASE_ATTACK);

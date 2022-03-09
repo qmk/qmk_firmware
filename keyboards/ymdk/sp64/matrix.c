@@ -38,6 +38,17 @@ static void matrix_select_row(uint8_t row);
 static uint8_t mcp23018_reset_loop = 0;
 #endif
 
+// user-defined overridable functions
+
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
+
+// helper functions
 void matrix_init(void)
 {
   // all outputs for rows high

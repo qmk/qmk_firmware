@@ -180,7 +180,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_270;
@@ -290,7 +290,7 @@ void render_status(void) {
 #    endif
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > OLED_TIMEOUT) {
         oled_off();
         return;
@@ -310,6 +310,7 @@ void oled_task_user(void) {
             }
         #endif
     }
+    return false;
 }
 #endif
 

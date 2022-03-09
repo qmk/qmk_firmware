@@ -17,7 +17,7 @@
 
 #pragma once
 
-#define OLED_FONT_H "users/drashna/drashna_font.h"
+#define OLED_FONT_H "users/drashna/oled/drashna_font.h"
 #define OLED_UPDATE_INTERVAL 15
 #define OLED_DISABLE_TIMEOUT
 #define OLED_FONT_END 255
@@ -30,3 +30,8 @@
 // #    define OLED_LOGO_CORNE
 // #    define OLED_LOGO_GOTHAM
 #define OLED_LOGO_SCIFI
+
+#define ENCODER_RESOLUTION 2
+
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_TWINKLE+4
+#define RGBLIGHT_DEFAULT_HUE 213

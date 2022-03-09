@@ -2,8 +2,6 @@
     "keyboard_name": "IBM PC XT",
     "url": "",
     "maintainer": "qmk",
-    "width": 21,
-    "height": 5,
     "layouts": {
         "LAYOUT_xt": {
             "layout": [

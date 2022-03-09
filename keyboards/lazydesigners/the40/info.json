@@ -2,8 +2,6 @@
     "keyboard_name": "THE40",
     "url": "http://lazydesigners.cn",
     "maintainer": "LAZYDESIGNERS",
-    "width": 12,
-    "height": 4,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

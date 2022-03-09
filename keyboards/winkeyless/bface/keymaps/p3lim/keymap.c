@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Adrian L Lange <legal@p3lim.net>
+Copyright 2019-2021 Adrian L Lange <legal@p3lim.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 #define LAYOUT_p3lim(\
   K04, K14, K24, K34, K44, K54, K16, KB6, KB7, K17, KA4, KB4, KC4, KE4, \
@@ -37,13 +36,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum my_keycodes {
 	C_ESC0 = SAFE_RANGE, // layer 0 esc
-	C_ESC1               // layer 1 esc
+	C_ESC1,              // layer 1 esc
+	C_NO1,               // æ, requires RCTL to be a compose key in software
+	C_NO2,               // ø, requires RCTL to be a compose key in software
+	C_NO3                // å, requires RCTL to be a compose key in software
 };
 
 // use compiler macros for simpler stuff
-#define C_NO1 RALT(KC_QUOT)
-#define C_NO2 RALT(KC_SCLN)
-#define C_NO3 RALT(KC_LBRC)
 #define C_KVM1 LCA(KC_1)
 #define C_KVM2 LCA(KC_2)
 #define C_KVM3 LCA(KC_3)
@@ -77,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* |-----------------------------------------------------------------------------------------+
 	* |  Caps  | Home| Up  | End | PgUp|     |     |     |     |     |     |     |     |        |
 	* |---------------------------------------------------------------------------------|       |
-	* |         | Left| Down|Right| PgDn|     |     |     |     |     |     |     |     |       |
+	* |         | Left| Down|Right| PgDn|PrtSc|     |     |     |     |     |     |     |       |
 	* |-----------------------------------------------------------------------------------------+
 	* |           | KVM1| KVM2| KVM3| KVM4|     |     |     |     |     |     |           |     |
 	* |-----------------------------------------------------------------------------------------+
@@ -87,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[1] = LAYOUT_p3lim(
 		C_ESC1,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
 		KC_CAPS, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, _______, _______, _______, _______, _______, _______, _______,
-		_______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+		_______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_PSCR, _______, _______, _______, _______, _______, _______, _______, _______,
 		_______, C_KVM1,  C_KVM2,  C_KVM3,  C_KVM4,  _______, _______, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______,                   _______,                            KC_NO,   _______, _______
 	),
@@ -123,32 +122,65 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*/
 };
 
+static bool grave_esc_shifted = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
+	const uint8_t mods = get_mods();
+	uint8_t shifted = mods & MOD_MASK_SHIFT;
+
 	switch(keycode){
 		case C_ESC0: // layer 0
 			if(record->event.pressed){
-				if(get_mods() & MOD_MASK_SHIFT)
-					register_code(KC_GRAVE);
-				else
-					register_code(KC_ESCAPE);
-			} else {
-				if(get_mods() & MOD_MASK_SHIFT)
-					unregister_code(KC_GRAVE);
-				else
-					unregister_code(KC_ESCAPE);
-			}
+				grave_esc_shifted = shifted;
+				register_code(shifted ? KC_GRAVE : KC_ESCAPE);
+			} else
+				unregister_code(grave_esc_shifted ? KC_GRAVE : KC_ESCAPE);
 			return false;
 		case C_ESC1: // layer 1
 			if(record->event.pressed){
-				if(get_mods() & MOD_MASK_SHIFT)
-					register_code(KC_ESCAPE);
-				else
-					register_code(KC_GRAVE);
-			} else {
-				if(get_mods() & MOD_MASK_SHIFT)
-					unregister_code(KC_ESCAPE);
-				else
-					unregister_code(KC_GRAVE);
+				grave_esc_shifted = shifted;
+				register_code(shifted ? KC_ESCAPE : KC_GRAVE);
+			} else
+				unregister_code(grave_esc_shifted ? KC_ESCAPE : KC_GRAVE);
+			return false;
+		case C_NO1: // æ
+			if(record->event.pressed){
+				// we use shift for A and E to make it capitalized, no need to handle it here
+				tap_code(KC_RCTL);
+				tap_code(KC_A);
+				tap_code(KC_E);
+			}
+			return false;
+		case C_NO2: // ø
+			// the "/" symbol can't be shifted, so we have to deal with that
+			if(record->event.pressed){
+				if(shifted){
+					unregister_code(KC_LSFT); // reset the shift state, I always use LSFT personally
+					tap_code(KC_RCTL);
+					tap_code(KC_SLSH);
+					tap_code16(S(KC_O));
+					register_code(KC_LSFT); // enable the shift state again to keep state consistent
+				} else {
+					tap_code(KC_RCTL);
+					tap_code(KC_SLSH);
+					tap_code(KC_O);
+				}
+			}
+			return false;
+		case C_NO3: // å
+			// the "o" symbol can't be shifted, so we have to deal with that
+			if(record->event.pressed){
+				if(shifted){
+					unregister_code(KC_LSFT); // reset the shift state, I always use LSFT personally
+					tap_code(KC_RCTL);
+					tap_code(KC_O);
+					tap_code16(S(KC_A));
+					register_code(KC_LSFT); // enable the shift state again to keep state consistent
+				} else {
+					tap_code(KC_RCTL);
+					tap_code(KC_O);
+					tap_code(KC_A);
+				}
 			}
 			return false;
 	}

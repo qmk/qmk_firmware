@@ -2,8 +2,6 @@
     "keyboard_name": "Botanical Keyboards FM2U",
     "url": "",
     "maintainer": "qmk",
-    "width": 1,
-    "height": 1,
     "layouts": {
         "LAYOUT_1u": {
             "layout": [

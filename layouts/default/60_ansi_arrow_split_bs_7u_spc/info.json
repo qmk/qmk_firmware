@@ -2,10 +2,8 @@
     "keyboard_name": "60% ANSI Arrow Split Backspace & 7U Space Layout",
     "url": "https://mr.sendyyk.com",
     "maintainer": "Sendy YK <mr@sendyyk.com>",
-    "width": 15,
-    "height": 5,
     "layouts": {
-        "LAYOUT_60_ansi_arrow": {
+        "LAYOUT_60_ansi_arrow_split_bs_7u_spc": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},

@@ -3,13 +3,13 @@
 Run commands in the root directory of this repository.
 
 ```
-./bin/qmk compile && sudo dfu-programmer atmega32u4 erase && sudo dfu-programmer atmega32u4 flash ./dztech_dz65rgb_v2_jumper149.hex && sudo dfu-programmer atmega32u4 reset
+qmk compile && sudo dfu-programmer atmega32u4 erase && sudo dfu-programmer atmega32u4 flash ./dztech_dz65rgb_v2_jumper149.hex && sudo dfu-programmer atmega32u4 reset
 ```
 
 ## build
 
 ```
-./bin/qmk compile
+qmk compile
 ```
 
 ## flash

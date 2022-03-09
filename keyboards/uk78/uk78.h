@@ -1,49 +1,47 @@
-#ifndef UK78_H
-#define UK78_H
+#pragma once
 
 #include "quantum.h"
 
 // readability
-#define ____ KC_NO
+#define ___ KC_NO
 
 /* Re: Right Shift
  *
- * Per a conversation I had on reddit with Rozakiin, matrix positions K312,
- * K313 and K314 are never in use all together at the same time.
+ * Per a conversation I had on reddit with Rozakiin, matrix positions k3C,
+ * k3D and k3E are never in use all together at the same time.
  *
- * A 2.75u-sized right Shift uses position K313, rendering K312 and K314
+ * A 2.75u-sized right Shift uses position k3D, rendering k3C and k3E
  * inaccessible.
  *
  * A split right Shift, in either 1.75u/1u or 1u/1.75u (JIS layout) uses
- * positions K312 and K314, rendering K313 inaccessible.
+ * positions k3C and k3E, rendering k3D inaccessible.
  *
  *                                                            - @noroadsleft
  *                                                             July 13, 2018
  */
-
 #define LAYOUT_all( \
-	  K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, K016, K017, K018, \
-	  K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112,       K114, K115, K116, K117, K118, \
-	  K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212,       K214, K215, K216, K217, K218, \
-	  K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312, K313, K314, K315, K316, K317, K318, \
-	  K400, K401, K402,                   K406,                   K410, K411, K412, K413, K414, K415, K416, K417, K418  \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, k0G, k0H, k0I, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C,      k1E, k1F, k1G, k1H, k1I, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C,      k2E, k2F, k2G, k2H, k2I, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F, k3G, k3H, k3I, \
+    k40, k41, k42,                k46,                k4A, k4B, k4C, k4D, k4E, k4F, k4G, k4H, k4I \
 ) { \
-  { K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, K016, K017, K018 }, \
-  { K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, ____, K114, K115, K116, K117, K118 }, \
-  { K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, ____, K214, K215, K216, K217, K218 }, \
-  { K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312, K313, K314, K315, K316, K317, K318 }, \
-  { K400, K401, K402, ____, ____, ____, K406, ____, ____, ____, K410, K411, K412, K413, K414, K415, K416, K417, K418 } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, k0G, k0H, k0I }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, ___, k1E, k1F, k1G, k1H, k1I }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, ___, k2E, k2F, k2G, k2H, k2I }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F, k3G, k3H, k3I }, \
+    { k40, k41, k42, ___, ___, ___, k46, ___, ___, ___, k4A, k4B, k4C, k4D, k4E, k4F, k4G, k4H, k4I } \
 }
 
 /* LAYOUT_ansi
  *
  * This layout uses:
  *
- *   - Split Backspace (K013 and K014)
- *   - ANSI Enter (K214)
- *   - ANSI 2.25u Left Shift (K300)
- *   - Compact right Shift (K312 and K314)
- *   - Two 1.5u modifiers (K410 and K412) between the spacebar and the Left
+ *   - Split Backspace (k0D and k0E)
+ *   - ANSI Enter (k2E)
+ *   - ANSI 2.25u Left Shift (k30)
+ *   - Compact right Shift (k3C and k3E)
+ *   - Two 1.5u modifiers (k4A and k4C) between the spacebar and the Left
  *     arrow key
  * ,---------------------------------------------------------------------------.
  * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0| -_| =+| \||Bsp|Del|P/ |P* |P- |
@@ -58,28 +56,28 @@
  * `---------------------------------------------------------------------------'
  */
 #define LAYOUT_ansi( \
-	  K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014,     K015, K016, K017, K018, \
-	  K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112,       K114,     K115, K116, K117, K118, \
-	  K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211,             K214,     K215, K216, K217, K218, \
-	  K300,       K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312,         K314,   K315, K316, K317, K318, \
-	  K400, K401, K402,                   K406,                     K410,   K412,     K413, K414, K415,   K416, K417, K418  \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E,     k0F, k0G, k0H, k0I, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C,      k1E,     k1F, k1G, k1H, k1I, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2E,               k2F, k2G, k2H, k2I, \
+    k30,      k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C,        k3E,   k3F, k3G, k3H, k3I, \
+    k40, k41, k42,                k46,                 k4A,   k4C,     k4D, k4E, k4F,   k4G, k4H, k4I \
 ) { \
-  { K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, K016, K017, K018 }, \
-  { K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, ____, K114, K115, K116, K117, K118 }, \
-  { K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, ____, ____, K214, K215, K216, K217, K218 }, \
-  { K300, ____, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312, ____, K314, K315, K316, K317, K318 }, \
-  { K400, K401, K402, ____, ____, ____, K406, ____, ____, ____, K410, ____, K412, K413, K414, K415, K416, K417, K418 } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, k0G, k0H, k0I }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, ___, k1E, k1F, k1G, k1H, k1I }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, ___, ___, k2E, k2F, k2G, k2H, k2I }, \
+    { k30, ___, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, ___, k3E, k3F, k3G, k3H, k3I }, \
+    { k40, k41, k42, ___, ___, ___, k46, ___, ___, ___, k4A, ___, k4C, k4D, k4E, k4F, k4G, k4H, k4I } \
 }
 
 /* LAYOUT_iso
  *
  * This layout uses:
  *
- *   - Split Backspace (K013 and K014)
- *   - ISO Enter (K114)
- *   - ISO Left Shift and 1u (K300 and K301)
- *   - Compact right Shift (K312 and K314)
- *   - Two 1.5u modifiers (K410 and K412) between the spacebar and the Left
+ *   - Split Backspace (k0D and k0E)
+ *   - ISO Enter (k1E)
+ *   - ISO Left Shift and 1u (k30 and k31)
+ *   - Compact right Shift (k3C and k3E)
+ *   - Two 1.5u modifiers (k4A and k4C) between the spacebar and the Left
  *     arrow key
  * ,---------------------------------------------------------------------------.
  * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0| -_| =+| \||Bsp|Del|P/ |P* |P- |
@@ -94,17 +92,15 @@
  * `---------------------------------------------------------------------------'
  */
 #define LAYOUT_iso( \
-	  K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014,     K015, K016, K017, K018, \
-	  K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112,       K114,     K115, K116, K117, K118, \
-	  K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212,                 K215, K216, K217, K218, \
-	  K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312,         K314,   K315, K316, K317, K318, \
-	  K400, K401, K402,                   K406,                     K410,   K412,     K413, K414, K415,   K416, K417, K418  \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E,     k0F, k0G, k0H, k0I, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C,      k1E,     k1F, k1G, k1H, k1I, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C,               k2F, k2G, k2H, k2I, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C,        k3E,   k3F, k3G, k3H, k3I, \
+    k40, k41, k42,                k46,                 k4A,   k4C,     k4D, k4E, k4F,   k4G, k4H, k4I \
 ) { \
-  { K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, K016, K017, K018 }, \
-  { K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, ____, K114, K115, K116, K117, K118 }, \
-  { K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, ____, ____, K215, K216, K217, K218 }, \
-  { K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312, ____, K314, K315, K316, K317, K318 }, \
-  { K400, K401, K402, ____, ____, ____, K406, ____, ____, ____, K410, ____, K412, K413, K414, K415, K416, K417, K418 } \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, k0G, k0H, k0I }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, ___, k1E, k1F, k1G, k1H, k1I }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, ___, ___, k2F, k2G, k2H, k2I }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, ___, k3E, k3F, k3G, k3H, k3I }, \
+    { k40, k41, k42, ___, ___, ___, k46, ___, ___, ___, k4A, ___, k4C, k4D, k4E, k4F, k4G, k4H, k4I } \
 }
-
-#endif

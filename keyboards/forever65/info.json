@@ -3,6 +3,7 @@
     "manufacturer": "Nightingale Studios",
     "maintainer": "zvecr",
     "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["A3", "F1", "F0", "C15", "C14", "C13", "B11", "B10", "B2", "B1", "B0", "A7", "A5", "A6", "A4", "B5"],
@@ -11,18 +12,16 @@
     "usb": {
         "vid": "0x4E53",
         "pid": "0x0F65",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1"
     },
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
     },
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -15,15 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "util.h"
-#include "bootloader.h"
-#ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
-#endif
-#ifdef CONSOLE_ENABLE
-  #include <print.h>
-#endif
+
 #include "layer_number.h"
 
 extern keymap_config_t keymap_config;

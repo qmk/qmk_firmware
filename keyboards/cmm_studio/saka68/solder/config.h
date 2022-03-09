@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x534B
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    CMM.Studio
-#define PRODUCT         Saka68
+#define PRODUCT         Saka68 Solder
 
 /* key matrix size */
 #define MATRIX_ROWS 5

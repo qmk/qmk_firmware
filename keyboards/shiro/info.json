@@ -2,11 +2,8 @@
   "keyboard_name": "Shiro",
   "url": "https://github.com/ShinoharaTa/keyboards/blob/master/Shiro/manual/build_guide_ja.md",
   "maintainer": "T.Shinohara",
-  "width": 3,
-  "height": 5,
   "layouts": {
     "LAYOUT": {
-      "key_count": 15,
       "layout": [
         {"x": 0, "y": 0},
         {"x": 1, "y": 0},

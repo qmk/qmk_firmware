@@ -47,3 +47,6 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* Unicode select mode */
+#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX, UC_WINC

@@ -1,9 +1,7 @@
 {
-    "keyboard_name": "40percent.club 4x4",
+    "keyboard_name": "40percent.club 5x5",
     "url": "",
     "maintainer": "qmk",
-    "height": 4,
-    "width": 4,
     "layouts": {
         "LAYOUT_ortho_5x5": {
             "layout": [

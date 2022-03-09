@@ -12,14 +12,8 @@
 #define MATRIX_COLS 3
 
 #ifdef PS2_USE_USART
-    #define PS2_CLOCK_PORT  PORTD
-    #define PS2_CLOCK_PIN   PIND
-    #define PS2_CLOCK_DDR   DDRD
-    #define PS2_CLOCK_BIT   5
-    #define PS2_DATA_PORT   PORTD
-    #define PS2_DATA_PIN    PIND
-    #define PS2_DATA_DDR    DDRD
-    #define PS2_DATA_BIT    2
+#define PS2_CLOCK_PIN   D5
+#define PS2_DATA_PIN    D2
 
     /* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
     /* set DDR of CLOCK as input to be slave */

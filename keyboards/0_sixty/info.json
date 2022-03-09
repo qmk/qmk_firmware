@@ -2,8 +2,6 @@
     "keyboard_name": "0-Sixty",
     "url": "",
     "maintainer": "vinamarora8",
-    "width": 12,
-    "height": 5,
     "layouts": {
 	"LAYOUT_1x2uC": {
             "layout": [

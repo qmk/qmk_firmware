@@ -2,8 +2,6 @@
     "keyboard_name": "Dactyl ProMicro",
     "url": "",
     "maintainer": "qmk",
-    "width": 17,
-    "height": 8,
     "layouts": {
         "LAYOUT_6x6": {
             "layout": [

@@ -2,8 +2,6 @@
     "keyboard_name": "Rhymestone",
     "url": "https://github.com/marksard/Keyboards",
     "maintainer": "marksard",
-    "width": 11,
-    "height": 4,
     "layouts": {
         "LAYOUT_ortho_4x10": {
             "layout": [

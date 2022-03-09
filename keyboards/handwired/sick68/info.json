@@ -2,11 +2,8 @@
     "keyboard_name": "sick68",
     "url": "",
     "maintainer": "umbynos",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi": {
-            "key_count": 68,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},

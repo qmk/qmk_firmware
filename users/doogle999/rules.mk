@@ -2,7 +2,7 @@ SRC += doogle999.c
 
 CFLAGS += -fstrict-aliasing -ftree-vrp
 
-BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no	# Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = no	# Console for debug(+400)

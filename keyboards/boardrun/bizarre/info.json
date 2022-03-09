@@ -2,8 +2,6 @@
     "keyboard_name": "Boardrun Bizarre",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/boardrun/bizarre",
     "maintainer": "QMK Community",
-    "width": 21,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

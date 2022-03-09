@@ -2,8 +2,6 @@
   "keyboard_name": "macropad_v2",
   "url": "https://geekboards.ru/",
   "maintainer": "ruddy17",
-  "width": 4,
-  "height": 2,
   "layouts": {
     "LAYOUT": {
       "layout": [

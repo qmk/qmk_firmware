@@ -143,7 +143,7 @@ void matrix_init(void)
 void init_expander(void) {
     if (! i2c_initialized) {
         i2c_init();
-        wait_us(1000000);
+        wait_ms(1000);
     }
 
     if (! expander_input_pin_mask) {
@@ -280,14 +280,6 @@ uint8_t matrix_scan(void)
 
     matrix_scan_quantum();
     return 1;
-}
-
-bool matrix_is_modified(void) // deprecated and evidently not called.
-{
-#if (DEBOUNCE > 0)
-    if (debouncing) return false;
-#endif
-    return true;
 }
 
 inline

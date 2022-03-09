@@ -57,14 +57,14 @@ This driver needs one Timer per enabled/used DAC channel, to trigger conversion;
 
 Additionally, in the board config, you'll want to make changes to enable the DACs, GPT for Timers 6, 7 and 8:
 
-``` c
+```c
 //halconf.h:
 #define HAL_USE_DAC                 TRUE
 #define HAL_USE_GPT                 TRUE
 #include_next <halconf.h>
 ```
 
-``` c
+```c
 // mcuconf.h:
 #include_next <mcuconf.h>
 #undef STM32_DAC_USE_DAC1_CH1
@@ -93,14 +93,14 @@ only needs one timer (GPTD6, Tim6) to trigger the DAC unit to do a conversion; t
 
 Additionally, in the board config, you'll want to make changes to enable the DACs, GPT for Timer 6:
 
-``` c
+```c
 //halconf.h:
 #define HAL_USE_DAC                 TRUE
 #define HAL_USE_GPT                 TRUE
 #include_next <halconf.h>
 ```
 
-``` c
+```c
 // mcuconf.h:
 #include_next <mcuconf.h>
 #undef STM32_DAC_USE_DAC1_CH1
@@ -153,7 +153,7 @@ This driver uses the ChibiOS-PWM system to produce a square-wave on specific out
 The hardware directly toggles the pin via its alternate function. See your MCU's data-sheet for which pin can be driven by what timer - looking for TIMx_CHy and the corresponding alternate function.
 
 A configuration example for the STM32F103C8 would be:
-``` c
+```c
 //halconf.h:
 #define HAL_USE_PWM                 TRUE
 #define HAL_USE_PAL                 TRUE
@@ -161,7 +161,7 @@ A configuration example for the STM32F103C8 would be:
 #include_next <halconf.h>
 ```
 
-``` c
+```c
 // mcuconf.h:
 #include_next <mcuconf.h>
 #undef STM32_PWM_USE_TIM1
@@ -177,7 +177,7 @@ If we now target pin A8, looking through the data-sheet of the STM32F103C8, for 
 - TIM1_CH4 = PA11
 
 with all this information, the configuration would contain these lines:
-``` c
+```c
 //config.h:
 #define AUDIO_PIN A8
 #define AUDIO_PWM_DRIVER PWMD1

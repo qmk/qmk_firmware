@@ -2,11 +2,8 @@
   "keyboard_name": "108 Key with TrackPoint",
   "url": "",
   "maintainer": "mkem114",
-  "width": 22.5,
-  "height": 7.5,
   "layouts": {
     "LAYOUT": {
-	  "key_count": 111,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
         {"label":"F1", "x":2, "y":0},

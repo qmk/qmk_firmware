@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // place overrides here
 
 // Some defines meant to decrease the firmware size. The firmware is otherwise over the maximum (atmega32u4)
-//# ifndef LINK_TIME_OPTIMIZATION_ENABLE
+//# ifndef LTO_ENABLE
      //Disable old style macro handling: MACRO() & action_get_macro
 //#     define NO_ACTION_MACRO // This saves 320 bytes
       //disable calling of action_function() from the fn_actions array (deprecated)
@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // Attempts to reduce firmware size:
-    //#define LINK_TIME_OPTIMIZATION_ENABLE // Did not decrease firmware size when tested on 26 Jan 2020 
+    //#define LTO_ENABLE // Did not decrease firmware size when tested on 26 Jan 2020 
     //#define NO_DEBUG //disable debugging (already defined)
     //#define NO_PRINT JJdisable printing/debugging using hid_listen (already defined)
     //#define NO_ACTION_LAYER //disable layers (obviously need layers)

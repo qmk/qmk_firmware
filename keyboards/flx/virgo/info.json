@@ -1,9 +1,7 @@
 {
     "keyboard_name": "FLX Virgo",
     "url": "",
-    "maintainer": "qmk",
-    "width": 20.25,
-    "height": 6.25,
+    "maintainer": "mechmerlin",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -101,5 +99,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }

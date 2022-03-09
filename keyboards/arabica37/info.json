@@ -2,8 +2,6 @@
     "keyboard_name": "arabica37 rev. 1",
     "url": "",
     "maintainer": "qmk",
-    "width": 15.25,
-    "height": 5.75,
     "layouts": {
         "LAYOUT": {
             "layout": [

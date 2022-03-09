@@ -2,11 +2,8 @@
     "keyboard_name": "DecadePad",
     "url": "",
     "maintainer": "huajijam",
-    "width": 6,
-    "height": 4,
     "layouts": {
         "LAYOUT_numpad_6x4": {
-            "key_count": 21,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},

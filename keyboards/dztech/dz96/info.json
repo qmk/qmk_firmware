@@ -2,8 +2,6 @@
   "keyboard_name": "DZ96",
   "url": "",
   "maintainer": "kb-elmo",
-  "width": 19,
-  "height": 6,
   "layouts": {
     "LAYOUT_default": {
       "layout": [

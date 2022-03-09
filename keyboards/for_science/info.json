@@ -2,8 +2,6 @@
     "keyboard_name": "For Science",
     "url": "https://github.com/peej/for-science-keyboard",
     "maintainer": "qmk",
-    "width": 11.25,
-    "height": 5,
     "layouts": {
         "LAYOUT_split_4x5_3": {
             "layout": [

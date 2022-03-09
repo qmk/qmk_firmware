@@ -2,8 +2,6 @@
   "keyboard_name": "Dawn", 
   "url": "https://mech.studio/projects/dawn/", 
   "maintainer": "dejaeghered", 
-  "width": 15, 
-  "height": 6, 
   "layouts": {
     "LAYOUT": {
       "layout": [
@@ -35,8 +33,7 @@
         {"label":"0", "x":10, "y":1.25},
         {"label":"-", "x":11, "y":1.25},
         {"label":"=", "x":12, "y":1.25},
-        {"label":"\\", "x":13, "y":1.25},
-        {"label":"Backspace", "x":13, "y":1.25},
+        {"label":"Backspace", "x":13, "y":1.25, "w":2},
         {"label":"Page Up", "x":15, "y":1.25},
 
         {"label":"Tab", "x":0, "y":2.25, "w":1.5},
@@ -54,6 +51,7 @@
         {"label":"]", "x":12.5, "y":2.25},
         {"label":"\\", "x":13.5, "y":2.25, "w":1.5},
         {"label":"Page Down", "x":15, "y":2.25},
+
         {"label":"Caps Lock", "x":0, "y":3.25, "w":1.75},
         {"label":"A", "x":1.75, "y":3.25},
         {"label":"S", "x":2.75, "y":3.25},
@@ -66,11 +64,12 @@
         {"label":"L", "x":9.75, "y":3.25},
         {"label":";", "x":10.75, "y":3.25},
         {"label":"'", "x":11.75, "y":3.25},
-        {"label":"Enter", "x":12.75, "y":3.25, "w":2.25},
+        {"label":"#", "x":12.75, "y":3.25},
+        {"label":"Enter", "x":13.75, "y":3.25, "w":1.25},
         {"label":"End", "x":15, "y":3.25},
 
         {"label":"Left Shift", "x":0, "y":4.25, "w":1.25},
-        {"label":"\\", "x":0, "y":4.25},
+        {"label":"\\", "x":1.25, "y":4.25},
         {"label":"Z", "x":2.25, "y":4.25},
         {"label":"X", "x":3.25, "y":4.25},
         {"label":"C", "x":4.25, "y":4.25},

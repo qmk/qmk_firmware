@@ -2,8 +2,6 @@
     "keyboard_name": "Aegis",
     "url": "",
     "maintainer": "qmk",
-    "width": 19.5,
-    "height": 6.75,
     "layouts": {
         "LAYOUT_aegis": {
             "layout": [

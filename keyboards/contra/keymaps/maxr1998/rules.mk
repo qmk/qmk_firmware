@@ -1,7 +1,7 @@
 RGBLIGHT_ENABLE = yes
 KEY_LOCK_ENABLE = yes
 
-EXTRAFLAGS      += -flto
+LTO_ENABLE      = yes
 UNICODE_ENABLE  = no
 MOUSEKEY_ENABLE = no
 

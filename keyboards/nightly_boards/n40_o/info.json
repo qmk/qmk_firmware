@@ -2,8 +2,6 @@
     "keyboard_name": "[n]40-o",
     "url": "",
     "maintainer": "Neil Brian Ramirez",
-    "width": 15.5,
-    "height": 4,
     "layouts": {
         "LAYOUT_ortho_4x13_encoders": {
             "layout": [

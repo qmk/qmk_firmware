@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "timer.h"
 #include "matrix.h"
+#include "avr/timer_avr.h"
 #include "hhkb_avr.h"
 #include <avr/wdt.h>
 #include "suspend.h"
@@ -160,15 +161,6 @@ uint8_t matrix_scan(void)
     matrix_scan_quantum();
 
     return 1;
-}
-
-bool matrix_is_modified(void)
-{
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix[i] != matrix_prev[i])
-            return true;
-    }
-    return false;
 }
 
 inline

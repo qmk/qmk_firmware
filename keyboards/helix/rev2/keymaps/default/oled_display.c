@@ -36,9 +36,9 @@ enum layer_number {
 };
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#if defined(SSD1306OLED) || defined(OLED_DRIVER_ENABLE)
+#if defined(SSD1306OLED) || defined(OLED_ENABLE)
 
-#    if defined(OLED_DRIVER_ENABLE)
+#    if defined(OLED_ENABLE)
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_0;
@@ -208,7 +208,7 @@ void iota_gfx_task_user(void) {
     matrix_update(&display, &matrix);
 }
 #    else
-void oled_task_user(void) {
+bool oled_task_user(void) {
 
 #        if DEBUG_TO_SCREEN
     if (debug_enable) {
@@ -223,6 +223,7 @@ void oled_task_user(void) {
         render_rgbled_status(false);
         render_layer_status();
     }
+    return false;
 }
 #    endif
 #endif

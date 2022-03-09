@@ -2,8 +2,6 @@
   "keyboard_name": "Redox",
   "url": "",
   "maintainer": "qmk",
-  "width": 18.5,
-  "height": 6.25,
   "layouts": {
     "LAYOUT": {
       "layout": [
@@ -94,4 +92,3 @@
     }
   }
 }
-

@@ -19,35 +19,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, 					 KC_TRNS, 							 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 	KC_TRNS, KC_TRNS, KC_TRNS,			KC_TRNS, 	  KC_TRNS),
 };
 
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}
-
 void led_set_user(uint8_t usb_led) {
-  DDRB |= (1 << 4);
-  DDRD |= (1 << 6) | (1 << 7);
+  setPinOutput(B4);
+  setPinOutput(D6);
+  setPinOutput(D7);
 
   if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-    PORTD |= (1 << 7);
+    writePinHigh(D7);
   } else {
-    PORTD &= ~(1 << 7);
+    writePinLow(D7);
   }
 
   if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-    PORTB |= (1 << 4);
+    writePinHigh(B4);
   } else {
-    PORTB &= ~(1 << 4);
+    writePinLow(B4);
   }
 
   if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-    PORTD |= (1 << 6);
+    writePinHigh(D6);
   } else {
-    PORTD &= ~(1 << 6);
+    writePinLow(D6);
   }
 }

@@ -2,8 +2,6 @@
     "keyboard_name": "Stream Cheap 2x4",
     "url": "https://www.thingiverse.com/thing:4497991",
     "maintainer": "qmk",
-    "width": 4,
-    "height": 2,
     "layouts": {
         "LAYOUT_ortho_2x4": {
             "layout": [
