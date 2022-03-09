@@ -6,7 +6,7 @@
 #include "drashna.h"
 #include "process_unicode_common.h"
 
-uint16_t typing_mode;
+uint16_t typing_mode = KC_NOMODE;
 
 /**
  * @brief Registers the unicode keystrokes based on desired unicode
@@ -245,7 +245,7 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
                 if (typing_mode != keycode) {
                     typing_mode = keycode;
                 } else {
-                    typing_mode = 0;
+                    typing_mode = KC_NOMODE;
                 }
             }
             break;

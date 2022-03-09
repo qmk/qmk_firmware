@@ -2,7 +2,7 @@
 
 Pointing Device is a generic name for a feature intended to be generic: moving the system pointer around.  There are certainly other options for it - like mousekeys - but this aims to be easily modifiable and hardware driven.  You can implement custom keys to control functionality, or you can gather information from other peripherals and insert it directly here - let QMK handle the processing for you.
 
-To enable Pointing Device, uncomment the following line in your rules.mk:
+To enable Pointing Device, add the following line in your rules.mk and specify one of the driver options below.
 
 ```make
 POINTING_DEVICE_ENABLE = yes
@@ -40,13 +40,13 @@ POINTING_DEVICE_DRIVER = adns9800
 
 The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surface tracking. 
 
-| Setting                | Description                                                            | Default       |
-|------------------------|------------------------------------------------------------------------|---------------|
-|`ADNS9800_CLOCK_SPEED`  | (Optional) Sets the clock speed that the sensor runs at.               | `2000000`     |
-|`ADNS9800_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`       |
-|`ADNS9800_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `3`           |
-|`ADNS9800_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_      |
-|`ADNS9800_CS_PIN`       | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
+| Setting                        | Description                                                            | Default       |
+|--------------------------------|------------------------------------------------------------------------|---------------|
+|`ADNS9800_CLOCK_SPEED`          | (Optional) Sets the clock speed that the sensor runs at.               | `2000000`     |
+|`ADNS9800_SPI_LSBFIRST`         | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`       |
+|`ADNS9800_SPI_MODE`             | (Optional) Sets the SPI Mode for the sensor.                           | `3`           |
+|`ADNS9800_SPI_DIVISOR`          | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_      |
+|`ADNS9800_CS_PIN`               | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
 
 
 The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI. 
@@ -69,7 +69,7 @@ The Analog Joystick is an analog (ADC) driven sensor.  There are a variety of jo
 |`ANALOG_JOYSTICK_AXIS_MAX`        | (Optional) Sets the upper range to be considered movement.                 | `1023`        |
 |`ANALOG_JOYSTICK_SPEED_REGULATOR` | (Optional) The divisor used to slow down movement. (lower makes it faster) | `20`          |
 |`ANALOG_JOYSTICK_READ_INTERVAL`   | (Optional) The interval in milliseconds between reads.                     | `10`          |
-|`ANALOG_JOYSTICK_SPEED_MAX`       | (Optional) The maxiumum value used for motion.                             | `2`           |
+|`ANALOG_JOYSTICK_SPEED_MAX`       | (Optional) The maximum value used for motion.                              | `2`           |
 |`ANALOG_JOYSTICK_CLICK_PIN`       | (Optional) The pin wired up to the press switch of the analog stick.       | _not defined_ |
 
 
@@ -127,11 +127,10 @@ The Pimoroni Trackball module is a I2C based breakout board with an RGB enable t
 | Setting                             | Description                                                                        | Default |
 |-------------------------------------|------------------------------------------------------------------------------------|---------|
 |`PIMORONI_TRACKBALL_ADDRESS`         | (Required) Sets the I2C Address for the Pimoroni Trackball.                        | `0x0A`  |
-|`PIMORONI_TRACKBALL_TIMEOUT`         | (Optional) The timeout for i2c communication with the trackpad in milliseconds.    | `100`   |
-|`PIMORONI_TRACKBALL_INTERVAL_MS`     | (Optional) The update/read interval for the sensor in milliseconds.                | `8`     |
+|`PIMORONI_TRACKBALL_TIMEOUT`         | (Optional) The timeout for i2c communication with the trackball in milliseconds.   | `100`   |
 |`PIMORONI_TRACKBALL_SCALE`           | (Optional) The multiplier used to generate reports from the sensor.                | `5`     |
 |`PIMORONI_TRACKBALL_DEBOUNCE_CYCLES` | (Optional) The number of scan cycles used for debouncing on the ball press.        | `20`    |
-|`PIMORONI_TRACKBALL_ERROR_COUNT`     | (Optional) Specifies the number of read/write errors until the sensor is disabled. | `10`  |
+|`PIMORONI_TRACKBALL_ERROR_COUNT`     | (Optional) Specifies the number of read/write errors until the sensor is disabled. | `10`    |
 
 ### PMW 3360 Sensor
 
@@ -145,20 +144,50 @@ The PMW 3360 is an SPI driven optical sensor, that uses a built in IR LED for su
 
 | Setting                     | Description                                                                                | Default       |
 |-----------------------------|--------------------------------------------------------------------------------------------|---------------|
-|`PMW3360_CS_PIN`             | (Required) Sets the Cable Select pin connected to the sensor.                              | _not defined_ |
-|`PMW3360_CLOCK_SPEED`        | (Optional) Sets the clock speed that the sensor runs at.                                   | `2000000`     |
-|`PMW3360_SPI_LSBFIRST`       | (Optional) Sets the Least/Most Significant Byte First setting for SPI.                     | `false`       |
-|`PMW3360_SPI_MODE`           | (Optional) Sets the SPI Mode for the sensor.                                               | `3`           |
-|`PMW3360_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
-|`PMW3360_LIFTOFF_DISTANCE`   | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
-|`ROTATIONAL_TRANSFORM_ANGLE` | (Optional) Allows for the sensor data to be rotated +/- 30 degrees directly in the sensor. | `0`           |
+|`PMW3360_CS_PIN`                 | (Required) Sets the Cable Select pin connected to the sensor.                              | _not defined_ |
+|`PMW3360_CLOCK_SPEED`            | (Optional) Sets the clock speed that the sensor runs at.                                   | `2000000`     |
+|`PMW3360_SPI_LSBFIRST`           | (Optional) Sets the Least/Most Significant Byte First setting for SPI.                     | `false`       |
+|`PMW3360_SPI_MODE`               | (Optional) Sets the SPI Mode for the sensor.                                               | `3`           |
+|`PMW3360_SPI_DIVISOR`            | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
+|`PMW3360_LIFTOFF_DISTANCE`       | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
+|`ROTATIONAL_TRANSFORM_ANGLE`     | (Optional) Allows for the sensor data to be rotated +/- 127 degrees directly in the sensor.| `0`           |
+|`PMW3360_FIRMWARE_UPLOAD_FAST`   | (Optional) Skips the 15us wait between firmware blocks.                                    | _not defined_ |
 
 The CPI range is 100-12000, in increments of 100. Defaults to 1600 CPI.
+
+### PMW 3389 Sensor
+
+To use the PMW 3389 sensor, add this to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = pmw3389
+```
+
+The PMW 3389 is an SPI driven optical sensor, that uses a built in IR LED for surface tracking.
+
+| Setting                         | Description                                                                                | Default       |
+|---------------------------------|--------------------------------------------------------------------------------------------|---------------|
+|`PMW3389_CS_PIN`                 | (Required) Sets the Cable Select pin connected to the sensor.                              | _not defined_ |
+|`PMW3389_CLOCK_SPEED`            | (Optional) Sets the clock speed that the sensor runs at.                                   | `2000000`     |
+|`PMW3389_SPI_LSBFIRST`           | (Optional) Sets the Least/Most Significant Byte First setting for SPI.                     | `false`       |
+|`PMW3389_SPI_MODE`               | (Optional) Sets the SPI Mode for the sensor.                                               | `3`           |
+|`PMW3389_SPI_DIVISOR`            | (Optional) Sets the SPI Divisor used for SPI communication.                                | _varies_      |
+|`PMW3389_LIFTOFF_DISTANCE`       | (Optional) Sets the lift off distance at run time                                          | `0x02`        |
+|`ROTATIONAL_TRANSFORM_ANGLE`     | (Optional) Allows for the sensor data to be rotated +/- 30 degrees directly in the sensor. | `0`           |
+|`PMW3389_FIRMWARE_UPLOAD_FAST`   | (Optional) Skips the 15us wait between firmware blocks.                                    | _not defined_ |
+
+The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
 
 
 ### Custom Driver
 
-If you have a sensor type that isn't supported here, you can manually implement it, by adding these functions (with the correct implementation for your device):
+If you have a sensor type that isn't supported above, a custom option is available by adding the following to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = custom
+```
+
+Using the custom driver will require implementing the following functions:
 
 ```c
 void           pointing_device_driver_init(void) {}
@@ -171,14 +200,35 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 
 ## Common Configuration
 
-| Setting                       | Description                                                           | Default       |
-|-------------------------------|-----------------------------------------------------------------------|---------------|
-|`POINTING_DEVICE_ROTATION_90`  | (Optional) Rotates the X and Y data by  90 degrees.                   | _not defined_ |
-|`POINTING_DEVICE_ROTATION_180` | (Optional) Rotates the X and Y data by 180 degrees.                   | _not defined_ |
-|`POINTING_DEVICE_ROTATION_270` | (Optional) Rotates the X and Y data by 270 degrees.                   | _not defined_ |
-|`POINTING_DEVICE_INVERT_X`     | (Optional) Inverts the X axis report.                                 | _not defined_ |
-|`POINTING_DEVICE_INVERT_Y`     | (Optional) Inverts the Y axis report.                                 | _not defined_ |
-|`POINTING_DEVICE_MOTION_PIN`   | (Optional) If supported, will only read from sensor if pin is active. | _not defined_ |
+| Setting                          | Description                                                           | Default           |
+|----------------------------------|-----------------------------------------------------------------------|-------------------|
+|`POINTING_DEVICE_ROTATION_90`     | (Optional) Rotates the X and Y data by  90 degrees.                   | _not defined_     |
+|`POINTING_DEVICE_ROTATION_180`    | (Optional) Rotates the X and Y data by 180 degrees.                   | _not defined_     |
+|`POINTING_DEVICE_ROTATION_270`    | (Optional) Rotates the X and Y data by 270 degrees.                   | _not defined_     |
+|`POINTING_DEVICE_INVERT_X`        | (Optional) Inverts the X axis report.                                 | _not defined_     |
+|`POINTING_DEVICE_INVERT_Y`        | (Optional) Inverts the Y axis report.                                 | _not defined_     |
+|`POINTING_DEVICE_MOTION_PIN`      | (Optional) If supported, will only read from sensor if pin is active. | _not defined_     |
+|`POINTING_DEVICE_TASK_THROTTLE_MS`      | (Optional) Limits the frequency that the sensor is polled for motion. | _not defined_     |
+
+!> When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
+
+
+## Split Keyboard Configuration
+
+The following configuration options are only available when using `SPLIT_POINTING_ENABLE` see [data sync options](feature_split_keyboard.md?id=data-sync-options). The rotation and invert `*_RIGHT` options are only used with `POINTING_DEVICE_COMBINED`. If using `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` use the common configuration above to configure your pointing device.
+
+| Setting                                | Description                                                           | Default       |
+|----------------------------------------|-----------------------------------------------------------------------|---------------|
+|`POINTING_DEVICE_LEFT`                  | Pointing device on the left side (Required - pick one only)           | _not defined_ |
+|`POINTING_DEVICE_RIGHT`                 | Pointing device on the right side (Required - pick one only)          | _not defined_ |
+|`POINTING_DEVICE_COMBINED`              | Pointing device on both sides (Required - pick one only)              | _not defined_ |
+|`POINTING_DEVICE_ROTATION_90_RIGHT`     | (Optional) Rotates the X and Y data by  90 degrees.                   | _not defined_ |
+|`POINTING_DEVICE_ROTATION_180_RIGHT`    | (Optional) Rotates the X and Y data by 180 degrees.                   | _not defined_ |
+|`POINTING_DEVICE_ROTATION_270_RIGHT`    | (Optional) Rotates the X and Y data by 270 degrees.                   | _not defined_ |
+|`POINTING_DEVICE_INVERT_X_RIGHT`        | (Optional) Inverts the X axis report.                                 | _not defined_ |
+|`POINTING_DEVICE_INVERT_Y_RIGHT`        | (Optional) Inverts the Y axis report.                                 | _not defined_ |
+
+!> If there is a `_RIGHT` configuration option or callback, the [common configuration](feature_pointing_device.md?id=common-configuration) option will work for the left. For correct left/right detection you should setup a [handedness option](feature_split_keyboard?id=setting-handedness), `EE_HANDS` is usually a good option for an existing board that doesn't do handedness by hardware.
 
 
 ## Callbacks and Functions 
@@ -188,14 +238,29 @@ void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 | `pointing_device_init_kb(void)`                            | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                  |
 | `pointing_device_init_user(void)`                          | Callback to allow for user level initialization. Useful for additional hardware sensors.                      |
 | `pointing_device_task_kb(mouse_report)`                    | Callback that sends sensor data, so keyboard code can intercept and modify the data.  Returns a mouse report. |
-| `pointing_device_task_user(mouse_report)`                  | Callback that sends sensor data, so user coe can intercept and modify the data.  Returns a mouse report.      |
+| `pointing_device_task_user(mouse_report)`                  | Callback that sends sensor data, so user code can intercept and modify the data.  Returns a mouse report.     |
 | `pointing_device_handle_buttons(buttons, pressed, button)` | Callback to handle hardware button presses. Returns a `uint8_t`.                                              |
 | `pointing_device_get_cpi(void)`                            | Gets the current CPI/DPI setting from the sensor, if supported.                                               |
 | `pointing_device_set_cpi(uint16_t)`                        | Sets the CPI/DPI, if supported.                                                                               |
 | `pointing_device_get_report(void)`                         | Returns the current mouse report (as a `mouse_report_t` data structure).                                      | 
 | `pointing_device_set_report(mouse_report)`                 | Sets the mouse report to the assigned `mouse_report_t` data structured passed to the function.                | 
 | `pointing_device_send(void)`                               | Sends the current mouse report to the host system.  Function can be replaced.                                 | 
-| `has_mouse_report_changed(old, new)`                       | Compares the old and new `mouse_report_t` data and returns true only if it has changed.                       |
+| `has_mouse_report_changed(new_report, old_report)`         | Compares the old and new `mouse_report_t` data and returns true only if it has changed.                       |
+| `pointing_device_adjust_by_defines(mouse_report)`          | Applies rotations and invert configurations to a raw mouse report.                                             |
+
+
+## Split Keyboard Callbacks and Functions
+
+The combined functions below are only available when using `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED`. The 2 callbacks `pointing_device_task_combined_*` replace the single sided equivalents above. See the [combined pointing devices example](feature_pointing_device.md?id=combined-pointing-devices)
+
+| Function                                                        | Description                                                                                                              |
+|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| `pointing_device_set_shared_report(mouse_report)`               | Sets the shared mouse report to the assigned `mouse_report_t` data structured passed to the function.                    |
+| `pointing_device_set_cpi_on_side(bool, uint16_t)`               | Sets the CPI/DPI of one side, if supported. Passing `true` will set the left and `false` the right`                      |
+| `pointing_device_combine_reports(left_report, right_report)`    | Returns a combined mouse_report of left_report and right_report (as a `mouse_report_t` data structure)                   |
+| `pointing_device_task_combined_kb(left_report, right_report)`   | Callback, so keyboard code can intercept and modify the data. Returns a combined mouse report.                           |
+| `pointing_device_task_combined_user(left_report, right_report)` | Callback, so user code can intercept and modify. Returns a combined mouse report using `pointing_device_combine_reports` |
+| `pointing_device_adjust_by_defines_right(mouse_report)`         | Applies right side rotations and invert configurations to a raw mouse report.                                            |
 
 
 # Manipulating Mouse Reports
@@ -211,14 +276,14 @@ The report_mouse_t (here "mouseReport") has the following properties:
 To manually manipulate the mouse reports outside of the `pointing_device_task_*` functions, you can use:
 
 * `pointing_device_get_report()` - Returns the current report_mouse_t that represents the information sent to the host computer
-* `pointing_device_set_report(report_mouse_t newMouseReport)` - Overrides and saves the report_mouse_t to be sent to the host computer
+* `pointing_device_set_report(report_mouse_t mouse_report)` - Overrides and saves the report_mouse_t to be sent to the host computer
 * `pointing_device_send()` - Sends the mouse report to the host and zeroes out the report. 
 
 When the mouse report is sent, the x, y, v, and h values are set to 0 (this is done in `pointing_device_send()`, which can be overridden to avoid this behavior).  This way, button states persist, but movement will only occur once.  For further customization, both `pointing_device_init` and `pointing_device_task` can be overridden.
 
 Additionally, by default, `pointing_device_send()` will only send a report when the report has actually changed.  This prevents it from continuously sending mouse reports, which will keep the host system awake.  This behavior can be changed by creating your own `pointing_device_send()` function.
 
-Also, you use the `has_mouse_report_changed(new, old)` function to check to see if the report has changed.
+Also, you use the `has_mouse_report_changed(new_report, old_report)` function to check to see if the report has changed.
 
 ## Examples
 
@@ -274,3 +339,62 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ```
 
 This allows you to toggle between scrolling and cursor movement by pressing the DRAG_SCROLL key.  
+
+## Split Examples
+
+The following examples make use the `SPLIT_POINTING_ENABLE` functionality and show how to manipulate the mouse report for a scrolling mode.
+
+### Single Pointing Device
+
+The following example will work with either `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` and enables scrolling mode while on a particular layer.
+
+```c
+
+static bool scrolling_mode = false;
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case _RAISE:  // If we're on the _RAISE layer enable scrolling mode
+            scrolling_mode = true;
+            pointing_device_set_cpi(2000);
+            break;
+        default:
+            if (scrolling_mode) {  // check if we were scrolling before and set disable if so
+                scrolling_mode = false;
+                pointing_device_set_cpi(8000);
+            }
+            break;
+    }
+    return state;
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (scrolling_mode) {
+        mouse_report.h = mouse_report.x;
+        mouse_report.v = mouse_report.y;
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+    return mouse_report;
+}
+```
+
+### Combined Pointing Devices
+
+The following example requires `POINTING_DEVICE_COMBINED` and sets the left side pointing device to scroll only.
+
+```c
+void keyboard_post_init_user(void) {
+    pointing_device_set_cpi_on_side(true, 1000); //Set cpi on left side to a low value for slower scrolling.
+    pointing_device_set_cpi_on_side(false, 8000); //Set cpi on right side to a reasonable value for mousing.
+}
+
+report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
+    left_report.h = left_report.x;
+    left_report.v = left_report.y;
+    left_report.x = 0;
+    left_report.y = 0;
+    return pointing_device_combine_reports(left_report, right_report);
+}
+```
+=======
