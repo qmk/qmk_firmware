@@ -103,11 +103,15 @@ def _flash_hid_bootloader(mcu, details, file):
             cmd = 'teensy-loader-cli'
         elif shutil.which('teensy_loader_cli'):
             cmd = 'teensy_loader_cli'
-    else:
-        cmd = 'hid_bootloader_cli'
 
-    if cmd:
-        cli.run([cmd, f'-mmcu={mcu}', '-w', '-v', file], capture_output=False)
+    # Use 'hid_bootloader_cli' for QMK HID and as a fallback for HalfKay
+    if not cmd:
+        if shutil.which('hid_bootloader_cli'):
+            cmd = 'hid_bootloader_cli'
+        else:
+            return True
+
+    cli.run([cmd, f'-mmcu={mcu}', '-w', '-v', file], capture_output=False)
 
 
 def _flash_stm32(details, file):
@@ -135,7 +139,8 @@ def flasher(mcu, file):
             return (True, "The Caterina bootloader was found but is not writable. Check 'qmk doctor' output for advice.")
     elif bl == 'hid-bootloader':
         if mcu:
-            _flash_hid_bootloader(mcu, details, file.name)
+            if _flash_hid_bootloader(mcu, details, file.name):
+                return (True, "Please make sure 'teensy_loader_cli' or 'hid_bootloader_cli' is available on your system.")
         else:
             return (True, "Specifying the MCU with '-m' is necessary for HalfKay/HID bootloaders!")
     elif bl == 'stm32-dfu' or bl == 'apm32-dfu':
