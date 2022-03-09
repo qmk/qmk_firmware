@@ -3,7 +3,7 @@
     "url": "https://openannepro.github.io/",
     "maintainer": "community",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_60_ansi": {
             "layout": [
                 {
                     "label": "~",

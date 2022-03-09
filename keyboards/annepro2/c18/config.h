@@ -18,6 +18,7 @@
 #pragma once
 
 #include "pin_defs.h"
+#include "config_led.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xfeed
