@@ -27,7 +27,6 @@
 
 // get_report functions should probably be moved to their respective drivers.
 
-
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
 report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
     report_adns5050_t data = adns5050_read_burst();
