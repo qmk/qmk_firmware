@@ -132,7 +132,7 @@ def flasher(mcu, file):
         _flash_atmel_dfu(details, file.name)
     elif bl == 'caterina':
         if _flash_caterina(details, file.name):
-            return (True, "The Caterina bootloader was found but is not writable. Check 'qmk doctor' output for advise.")
+            return (True, "The Caterina bootloader was found but is not writable. Check 'qmk doctor' output for advice.")
     elif bl == 'hid-bootloader':
         if mcu:
             _flash_hid_bootloader(mcu, details, file.name)
