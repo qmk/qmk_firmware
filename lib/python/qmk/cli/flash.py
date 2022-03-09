@@ -69,7 +69,7 @@ def flash(cli):
         # Try to flash binary firmware
         cli.echo('Flashing binary firmware...\nPlease reset your keyboard into bootloader mode now!\nPress Ctrl-C to exit.\n')
         try:
-            err, msg = flasher(cli.args.type, cli.args.filename)
+            err, msg = flasher(cli.args.mcu, cli.args.filename)
             if err:
                 cli.log.error(msg)
                 return False

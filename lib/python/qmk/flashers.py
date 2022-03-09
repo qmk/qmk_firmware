@@ -1,5 +1,6 @@
 import shutil
 import time
+import os
 
 import usb.core
 
@@ -55,18 +56,39 @@ def _find_bootloader():
 def _find_serial_port(vid, pid):
     if 'windows' in cli.platform.lower():
         from serial.tools.list_ports_windows import comports
+        platform = 'windows'
     else:
         from serial.tools.list_ports_posix import comports
-    for port in comports():
-        port, desc, hwid = port
-        if f'{vid:04x}:{pid:04x}' in hwid.casefold():
-            return port
+        platform = 'posix'
+
+    start_time = time.time()
+    # Caterina times out after 8 seconds
+    while time.time() - start_time < 8:
+        for port in comports():
+            port, desc, hwid = port
+            if f'{vid:04x}:{pid:04x}' in hwid.casefold():
+                if platform == 'windows':
+                    time.sleep(1)
+                    return port
+                else:
+                    start_time = time.time()
+                    # Wait until the port becomes writable before returning
+                    while time.time() - start_time < 8:
+                        if os.access(port, os.W_OK):
+                            return port
+                        else:
+                            time.sleep(0.5)
+                return None
     return None
 
 
 def _flash_caterina(details, file):
     port = _find_serial_port(details[0], details[1])
-    cli.run(['avrdude', '-p', 'atmega32u4', '-c', 'avr109', '-U', f'flash:w:{file}:i', '-P', port], capture_output=False)
+    if port:
+        cli.run(['avrdude', '-p', 'atmega32u4', '-c', 'avr109', '-U', f'flash:w:{file}:i', '-P', port], capture_output=False)
+        return False
+    else:
+        return True
 
 
 def _flash_atmel_dfu(mcu, file):
@@ -109,7 +131,8 @@ def flasher(mcu, file):
     if bl == 'atmel-dfu':
         _flash_atmel_dfu(details, file.name)
     elif bl == 'caterina':
-        _flash_caterina(details, file.name)
+        if _flash_caterina(details, file.name):
+            return (True, "The Caterina bootloader was found but is not writable. Check 'qmk doctor' output for advise.")
     elif bl == 'hid-bootloader':
         if mcu:
             _flash_hid_bootloader(mcu, details, file.name)
