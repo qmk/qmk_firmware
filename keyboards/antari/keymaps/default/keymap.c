@@ -15,7 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "encoder.h"
 
 #define PLAY	    KC_MPLY
 #define BKMARK      LCTL(KC_D)
