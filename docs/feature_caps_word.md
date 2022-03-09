@@ -14,9 +14,9 @@ a modern alternative to Caps Lock:
   (`BOTH_SHIFTS_TURNS_ON_CAPS_WORD`) to activate Caps Word by simultaneously
   pressing both shift keys. See below for other options.
 
-* This feature does not use the Caps Lock (`KC_CAPS`) keycode. Caps Word works
-  even if you're remapping Caps Lock at the OS level to Ctrl or something else,
-  as Emacs and Vim users often do.
+* The implementation does not use the Caps Lock (`KC_CAPS`) keycode. Caps Word
+  works even if you're remapping Caps Lock at the OS level to Ctrl or something
+  else, as Emacs and Vim users often do.
 
 
 ## How do I enable Caps Word :id=how-do-i-enable-caps-word
@@ -32,24 +32,46 @@ Next, use one the following methods to activate Caps Word:
 * **Activate by pressing a key**: Use the `CAPS_WORD` keycode (short
   alias `CAPSWRD`) in your keymap.
 
-* **Activate by pressing left shift + right shift**: Add `#define
-  BOTH_SHIFTS_TURNS_ON_CAPS_WORD` to config.h. Then, simultaneously pressing
-  both left and right shifts turns on Caps Word. This method works with the
-  plain `KC_LSFT` and `KC_RSFT` keycodes as well as one-shot shifts and Space
-  Cadet shifts. If your shift keys are mod-taps, hold both shift mod-tap keys
-  until the tapping term, then release them.
+* **Activate by pressing Left Shift + Right Shift**: Add `#define
+  BOTH_SHIFTS_TURNS_ON_CAPS_WORD` to config.h. You may also need to disable or
+  reconfigure Command, details below. Then, simultaneously pressing both left
+  and right shifts turns on Caps Word. This method works with the plain
+  `KC_LSFT` and `KC_RSFT` keycodes as well as one-shot shifts and Space Cadet
+  shifts. If your shift keys are mod-taps, hold both shift mod-tap keys until
+  the tapping term, then release them.
 
-* **Activate by double tapping left shift**: Add `#define
-  DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD` config.h. Then, double tapping left shift
-  turns on Caps Word. This method works with `KC_LSFT` or one-shot left shift
+* **Activate by double tapping Left Shift**: Add `#define
+  DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD` config.h. Then, double tapping Left Shift
+  turns on Caps Word. This method works with `KC_LSFT` or one-shot Left Shift
   `OSM(MOD_LSFT)`. To count as a double tap, the maximum time in milliseconds
   between taps is `TAPPING_TERM`, or if using `TAPPING_TERM_PER_KEY`, the time
-  returned by `get_tapping_term()` for the left shift keycode being tapped.
+  returned by `get_tapping_term()` for the shift keycode being tapped.
 
 * **Custom activation**: You can activate Caps Word from code by calling
   `caps_word_on()`. This may be used to activate Caps Word through [a
   combo](feature_combo.md) or [tap dance](feature_tap_dance.md) or any means
   you like.
+
+### "Caps Word and Command cannot both use Left Shift + Right Shift." :id=command
+
+When using `BOTH_SHIFTS_TURNS_ON_CAPS_WORD`, you might see a compile error 
+**"Caps Word and Command cannot both use Left Shift + Right Shift."**
+
+Many keyboards enable the [Command feature](feature_command.md), which by
+default is also activated using the Left Shift + Right Shift key combination. To
+fix this conflict, you can disable Command by adding in rules.mk: 
+
+```make
+COMMAND_ENABLE = no
+```
+
+Or configure Command to use another key combination like Left Ctrl + Right
+Ctrl by defining `IS_COMMAND()` in config.h:
+
+```c
+// Activate Command with Left Ctrl + Right Ctrl.
+#define IS_COMMAND() (get_mods() == MOD_MASK_CTRL)
+```
 
 
 ## Customizing Caps Word :id=customizing-caps-word

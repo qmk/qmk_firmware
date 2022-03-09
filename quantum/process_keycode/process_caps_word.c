@@ -24,6 +24,13 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
         // may be used without needing a dedicated key and also without
         // needing combos or tap dance.
 #ifdef BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+        // On many keyboards, the Command feature is enabled by default,
+        // which also uses left+right shift. It can be configured to use a
+        // different key combination by defining IS_COMMAND(). So we raise
+        // an error if Command is enabled but IS_COMMAND() is *not* defined.
+#    if defined(COMMAND_ENABLE) && !defined(IS_COMMAND)
+#        error "Caps Word and Command cannot both use Left Shift + Right Shift. Please see: https://docs.qmk.fm/#/feature_caps_word?id=command"
+#    endif // defined(COMMAND_ENABLE) && !defined(IS_COMMAND)
         // Holding both left and right shifts turns on Caps Word.
         if ((mods & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
             caps_word_on();
