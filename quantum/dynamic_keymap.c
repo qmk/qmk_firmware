@@ -21,6 +21,12 @@
 #include "dynamic_keymap.h"
 #include "via.h" // for default VIA_EEPROM_ADDR_END
 
+#ifdef ENCODER_ENABLE
+#    include "encoder.h"
+#else
+#    define NUM_ENCODERS 0
+#endif
+
 #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
 #    define DYNAMIC_KEYMAP_LAYER_COUNT 4
 #endif
@@ -73,10 +79,7 @@
 // The keyboard should override DYNAMIC_KEYMAP_LAYER_COUNT to reduce it,
 // or DYNAMIC_KEYMAP_EEPROM_MAX_ADDR to increase it, *only if* the microcontroller has
 // more than the default.
-#if DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR < 100
-#    pragma message STR(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR) " < 100"
-#    error Dynamic keymaps are configured to use more EEPROM than is available.
-#endif
+_Static_assert((DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) - (DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR) >= 100, "Dynamic keymaps are configured to use more EEPROM than is available.");
 
 // Dynamic macros are stored after the keymaps and use what is available
 // up to and including DYNAMIC_KEYMAP_EEPROM_MAX_ADDR.
