@@ -1,4 +1,4 @@
-default keymap with 
+default keymap with
 RGBLIGHT_ENABLE = no      # Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
@@ -27,7 +27,7 @@ RGB_MATRIX_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
 compilation errors
 
-common/via 
+common/via
 both oled work. standard rgb backlight
 
 common/via with
@@ -62,7 +62,7 @@ OLED_DRIVER_ENABLE  = yes
 LTO_ENABLE          = no
 all good, let's see if it bugs. marche plus après le repas. Sort de veille (LED) puis bug
 
-meme chose avec  #define USE_MATRIX_I2C en plus. let's see. 
+meme chose avec  #define USE_MATRIX_I2C en plus. let's see.
 Bug after some time.
 
 meme chose avec RGB_MATRIX_DRIVER   = WS2812
@@ -75,7 +75,7 @@ common/via
 OLED_DRIVER_ENABLE  = yes
 RGB_MATRIX_ENABLE   = yes
 RGB_MATRIX_DRIVER   = WS2812
-ok au début. plusieurs on off. toujours ok. Bug au bout d'un moment 
+ok au début. plusieurs on off. toujours ok. Bug au bout d'un moment
 putain, on dirait que c'étais juste a cause du trrs mal branché!!!!!!!
 
 common/jumarc avec trrs bien branché
@@ -90,4 +90,3 @@ You may want to consider turning on link time optimization LINK_TIME_OPTIMIZATIO
 -------------------------
 
 Idée: Ajoutter kc_ins qq part et tracker son status sur le OLED
-Pay37e38esIngo63311111111112132sssddddfffffxcvvcsdee

@@ -173,8 +173,8 @@ enum layer_names {
 #define ROW1_LEFT_GAMING                            XXXXXXX, KC_LALT, KC_SPC
 
 #define ROW5_RIGHT_GAMING SIX_TRNS
-#define ROW4_RIGHT_GAMING KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , XXXXXXX
-#define ROW3_RIGHT_GAMING KC_H   , KC_J   , KC_K   , KC_L   , KC_UP  , XXXXXXX
+#define ROW4_RIGHT_GAMING KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , _______
+#define ROW3_RIGHT_GAMING KC_H   , KC_J   , KC_K   , KC_L   , KC_UP  , _______
 #define ROW2_RIGHT_GAMING KC_N   , KC_M   , KC_COMM, KC_LEFT, KC_DOWN, KC_RGHT
 #define ROW1_RIGHT_GAMING KC_ENT , KC_DEL , TG(_4_GAM)
 
