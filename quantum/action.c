@@ -15,6 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <limits.h>
+
+#ifdef DEBUG_ACTION
+#    include "debug.h"
+#else
+#    include "nodebug.h"
+#endif
+
 #include "host.h"
 #include "keycode.h"
 #include "keyboard.h"
@@ -32,12 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
-#endif
-
-#ifdef DEBUG_ACTION
-#    include "debug.h"
-#else
-#    include "nodebug.h"
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE
