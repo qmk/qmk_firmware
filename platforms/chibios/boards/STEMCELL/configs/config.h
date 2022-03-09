@@ -16,11 +16,6 @@
  */
 #pragma once
 
-// Only HSE clock. No LSE clock
-#ifndef STM32_HSECLK
-#    define STM32_HSECLK 8000000U
-#endif  // STM32_HSECLK
-
 #ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
 #    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 #endif
