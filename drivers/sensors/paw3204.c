@@ -124,9 +124,10 @@ void PAW3204_set_cpi(uint16_t cpi) {
 
 uint16_t PAW3204_get_cpi(void) {
     uint8_t cpival = PAW3204_read_reg(REG_SETUP);
-    return (uint16_t)(cpival);
+    return (uint16_t)(cpival + 2) * 200;
 }
 
 uint8_t read_pid_paw3204(void) {
     uint8_t byte = PAW3204_read_reg(REG_PID1);
     return byte;
+}
