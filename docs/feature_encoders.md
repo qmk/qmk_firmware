@@ -67,9 +67,30 @@ Additionally, if one side does not have an encoder, you can specify `{}` for the
 #define ENCODER_RESOLUTIONS_RIGHT { 4 }
 ```
 
+## Encoder map
+
+Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your `rules.mk`:
+
+```make
+ENCODER_MAP_ENABLE = yes
+```
+
+Your `keymap.c` will then need an encoder mapping defined (for four layers and two encoders):
+
+```c
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  },
+    [_RAISE] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
+    [_ADJUST] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),          ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
+};
+#endif
+```
+
 ## Callbacks
 
-The callback functions can be inserted into your `<keyboard>.c`:
+When not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
 
 ```c
 bool encoder_update_kb(uint8_t index, bool clockwise) {

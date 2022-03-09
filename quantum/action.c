@@ -14,9 +14,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include <limits.h>
 #include "host.h"
 #include "keycode.h"
 #include "keyboard.h"
+#include "keymap.h"
 #include "mousekey.h"
 #include "programmable_button.h"
 #include "command.h"
@@ -89,6 +91,7 @@ void action_exec(keyevent_t event) {
     }
 
 #ifdef SWAP_HANDS_ENABLE
+    // Swap hands handles both keys and encoders, if ENCODER_MAP_ENABLE is defined.
     if (!IS_NOEVENT(event)) {
         process_hand_swap(&event);
     }
@@ -136,27 +139,65 @@ void action_exec(keyevent_t event) {
 }
 
 #ifdef SWAP_HANDS_ENABLE
+extern const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS];
+#    ifdef ENCODER_MAP_ENABLE
+extern const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS];
+#    endif // ENCODER_MAP_ENABLE
+
 bool swap_hands = false;
 bool swap_held  = false;
+
+bool should_swap_hands(size_t index, uint8_t *swap_state, bool pressed) {
+    size_t  array_index = index / (CHAR_BIT);
+    size_t  bit_index   = index % (CHAR_BIT);
+    uint8_t bit_val     = 1 << bit_index;
+    bool    do_swap     = pressed ? swap_hands : swap_state[array_index] & bit_val;
+    return do_swap;
+}
+
+void set_swap_hands_state(size_t index, uint8_t *swap_state, bool on) {
+    size_t  array_index = index / (CHAR_BIT);
+    size_t  bit_index   = index % (CHAR_BIT);
+    uint8_t bit_val     = 1 << bit_index;
+    if (on) {
+        swap_state[array_index] |= bit_val;
+    } else {
+        swap_state[array_index] &= ~bit_val;
+    }
+}
 
 /** \brief Process Hand Swap
  *
  * FIXME: Needs documentation.
  */
 void process_hand_swap(keyevent_t *event) {
-    static swap_state_row_t swap_state[MATRIX_ROWS];
-
-    keypos_t         pos     = event->key;
-    swap_state_row_t col_bit = (swap_state_row_t)1 << pos.col;
-    bool             do_swap = event->pressed ? swap_hands : swap_state[pos.row] & (col_bit);
-
-    if (do_swap) {
-        event->key.row = pgm_read_byte(&hand_swap_config[pos.row][pos.col].row);
-        event->key.col = pgm_read_byte(&hand_swap_config[pos.row][pos.col].col);
-        swap_state[pos.row] |= col_bit;
-    } else {
-        swap_state[pos.row] &= ~(col_bit);
+    keypos_t pos = event->key;
+    if (pos.row < MATRIX_ROWS && pos.col < MATRIX_COLS) {
+        static uint8_t matrix_swap_state[((MATRIX_ROWS * MATRIX_COLS) + (CHAR_BIT)-1) / (CHAR_BIT)];
+        size_t         index   = (size_t)(pos.row * MATRIX_COLS) + pos.col;
+        bool           do_swap = should_swap_hands(index, matrix_swap_state, event->pressed);
+        if (do_swap) {
+            event->key.row = pgm_read_byte(&hand_swap_config[pos.row][pos.col].row);
+            event->key.col = pgm_read_byte(&hand_swap_config[pos.row][pos.col].col);
+            set_swap_hands_state(index, matrix_swap_state, true);
+        } else {
+            set_swap_hands_state(index, matrix_swap_state, false);
+        }
     }
+#    ifdef ENCODER_MAP_ENABLE
+    else if (pos.row == KEYLOC_ENCODER_CW || pos.row == KEYLOC_ENCODER_CCW) {
+        static uint8_t encoder_swap_state[((NUM_ENCODERS) + (CHAR_BIT)-1) / (CHAR_BIT)];
+        size_t         index   = pos.col;
+        bool           do_swap = should_swap_hands(index, encoder_swap_state, event->pressed);
+        if (do_swap) {
+            event->key.row = pos.row;
+            event->key.col = pgm_read_byte(&encoder_hand_swap_config[pos.col]);
+            set_swap_hands_state(index, encoder_swap_state, true);
+        } else {
+            set_swap_hands_state(index, encoder_swap_state, false);
+        }
+    }
+#    endif // ENCODER_MAP_ENABLE
 }
 #endif
 
