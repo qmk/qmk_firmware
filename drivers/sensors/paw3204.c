@@ -108,28 +108,11 @@ void PAW3204_write_reg(uint8_t reg_addr, uint8_t data) {
 }
 
 uint8_t PAW3204_read_reg(uint8_t reg_addr) {
-    // adns5050_cs_select();
-    // togglePin(PAW3204_DATA);
-    // wait_us(1);
-
-    // setPinOutput(PAW3204_DATA);
-
     PAW3204_serial_write(reg_addr);
 
-    // We don't need a minimum tSRAD here. That's because a 4ms wait time is
-    // already included in adns5050_serial_write(), so we're good.
-    // See page 10 and 15 of the ADNS spec sheet.
     wait_us(5);
-    // setPinInputHigh(PAW3204_DATA);
+
     uint8_t byte = PAW3204_serial_read();
-
-    // tSRW & tSRR. See page 15 of the ADNS spec sheet.
-    // Technically, this is only necessary if the next operation is an SDIO
-    // read or write. This is not guaranteed to be the case.
-    // Honestly, this wait could probably be removed.
-    // wait_us(1);
-
-    // adns5050_cs_deselect();
 
     return byte;
 }
