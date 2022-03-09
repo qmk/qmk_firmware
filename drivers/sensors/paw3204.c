@@ -1,5 +1,3 @@
-
-
 #include "paw3204.h"
 #include "wait.h"
 #include "debug.h"
@@ -17,21 +15,18 @@ uint8_t datatogglestate;
 #define REG_IMGREC 0x0E
 #define REG_IMGTRASH 0x0D
 
-
-
-void PAW3204_init(void){
-	setPinOutput(PAW3204_SCLK); // setclockpin to outpu
+void PAW3204_init(void) {
+    setPinOutput(PAW3204_SCLK);    // setclockpin to outpu
     setPinInputHigh(PAW3204_DATA); // set datapin input high
 
-    PAW3204_write_reg(REG_SETUP,0x86); // reset sensor and set 1600cpi
-        wait_us(5);
+    PAW3204_write_reg(REG_SETUP, 0x86); // reset sensor and set 1600cpi
+    wait_us(5);
 
-    PAW3204_read_reg(0x00); // read id 
+    PAW3204_read_reg(0x00); // read id
     PAW3204_read_reg(0x01); // read id2
     // PAW3204_write_reg(REG_SETUP,0x06);  // dont reset sensor and set cpi 1600
-    PAW3204_write_reg(REG_IMGTRASH,0x32); //write image trashhold 
+    PAW3204_write_reg(REG_IMGTRASH, 0x32); // write image trashhold
 }
-
 
 uint8_t PAW3204_serial_read(void) {
     setPinInput(PAW3204_DATA);
@@ -50,13 +45,11 @@ uint8_t PAW3204_serial_read(void) {
     return byte;
 }
 
-
-
 void PAW3204_serial_write(uint8_t data) {
-    datatogglestate=readPin(PAW3204_DATA);
-    if (datatogglestate == 1){
+    datatogglestate = readPin(PAW3204_DATA);
+    if (datatogglestate == 1) {
         writePinLow(PAW3204_DATA);
-    }else{
+    } else {
         writePinLow(PAW3204_DATA);
     }
     setPinOutput(PAW3204_DATA);
@@ -71,11 +64,8 @@ void PAW3204_serial_write(uint8_t data) {
         writePinHigh(PAW3204_SCLK);
     }
 
-
     wait_us(4);
-
 }
-
 
 int8_t convert_twoscomp(uint8_t data) {
     if ((data & 0x80) == 0x80)
@@ -84,21 +74,17 @@ int8_t convert_twoscomp(uint8_t data) {
         return data;
 }
 
-
-
-
-report_paw3204_t PAW3204_read( void) {
-	report_paw3204_t data ;
-    uint8_t pid = read_pid_paw3204();
-    uint8_t stat= PAW3204_read_reg(REG_STAT);
-   	if (pid == 0x30 && (stat == 0x84 || stat == 0x86)){
+report_paw3204_t PAW3204_read(void) {
+    report_paw3204_t data;
+    uint8_t          pid  = read_pid_paw3204();
+    uint8_t          stat = PAW3204_read_reg(REG_STAT);
+    if (pid == 0x30 && (stat == 0x84 || stat == 0x86)) {
         data.x = convert_twoscomp(PAW3204_read_reg(REG_X));
         data.y = convert_twoscomp(PAW3204_read_reg(REG_Y));
-	    }
+    }
 
     return data;
-	}
-
+}
 
 void PAW3204_write_reg(uint8_t reg_addr, uint8_t data) {
     PAW3204_serial_write(0b10000000 | reg_addr);
@@ -108,7 +94,7 @@ void PAW3204_write_reg(uint8_t reg_addr, uint8_t data) {
 uint8_t PAW3204_read_reg(uint8_t reg_addr) {
     // adns5050_cs_select();
     // togglePin(PAW3204_DATA);
-        // wait_us(1);
+    // wait_us(1);
 
     // setPinOutput(PAW3204_DATA);
 
@@ -132,8 +118,6 @@ uint8_t PAW3204_read_reg(uint8_t reg_addr) {
     return byte;
 }
 
-
 uint8_t read_pid_paw3204(void) {
- uint8_t byte = PAW3204_read_reg(REG_PID1);
- return byte;
-}
+    uint8_t byte = PAW3204_read_reg(REG_PID1);
+    return byte;
