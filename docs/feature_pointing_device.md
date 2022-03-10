@@ -114,6 +114,7 @@ This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the 
 |`CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Cable Select pin connected to the sensor.          | _not defined_ |
 
 Default Scaling/CPI is 1024.
+
 ### PAW 3204 Sensor
 
 To use the paw 3204 sensor, add this to your `rules.mk`
