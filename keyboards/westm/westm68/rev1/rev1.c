@@ -17,6 +17,6 @@
 #include "rev1.h"
 
 void board_init(void) {
-    // Need this to reset first LED upon plugging in PCB
-    rgblight_set();
+    rgblight_toggle(); // Fixes if LEDs were off in the first place buggy LED turns on
+    rgblight_set(); // Need this to fix buggy first LED upon plugging in PCB
 }
