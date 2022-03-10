@@ -53,11 +53,13 @@ CUSTOM_RGBLIGHT ?= yes
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_RGBLIGHT)), yes)
         SRC += $(USER_PATH)/rgb/rgb_stuff.c
+        OPT_DEFS += -DCUSTOM_RGBLIGHT
         ifeq ($(strip $(RGBLIGHT_NOEEPROM)), yes)
             OPT_DEFS += -DRGBLIGHT_NOEEPROM
         endif
         ifeq ($(strip $(RGBLIGHT_STARTUP_ANIMATION)), yes)
             OPT_DEFS += -DRGBLIGHT_STARTUP_ANIMATION
+            DEFERRED_EXEC_ENABLE = yes
         endif
     endif
 endif
@@ -66,6 +68,7 @@ CUSTOM_RGB_MATRIX ?= yes
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_RGB_MATRIX)), yes)
         SRC += $(USER_PATH)/rgb/rgb_matrix_stuff.c
+        OPT_DEFS += -DCUSTOM_RGB_MATRIX
     endif
 endif
 
@@ -85,7 +88,7 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
         QUANTUM_LIB_SRC += i2c_master.c
     endif
     ifeq ($(strip $(CUSTOM_OLED_DRIVER)), yes)
-        OPT_DEFS += -DCUSTOM_OLED_DRIVER_CODE
+        OPT_DEFS += -DCUSTOM_OLED_DRIVER
         SRC += $(USER_PATH)/oled/oled_stuff.c
     endif
     ifeq ($(strip $(OLED_DISPLAY_TEST)), yes)
@@ -98,6 +101,7 @@ CUSTOM_POINTING_DEVICE ?= yes
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
         SRC += $(USER_PATH)/pointing/pointing.c
+        OPT_DEFS += -DCUSTOM_POINTING_DEVICE
     endif
 endif
 

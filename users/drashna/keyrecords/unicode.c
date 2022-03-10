@@ -6,7 +6,7 @@
 #include "drashna.h"
 #include "process_unicode_common.h"
 
-uint16_t typing_mode;
+uint16_t typing_mode = KC_NOMODE;
 
 /**
  * @brief Registers the unicode keystrokes based on desired unicode
@@ -181,7 +181,6 @@ bool process_record_aussie(uint16_t keycode, keyrecord_t *record) {
 bool process_record_zalgo(uint16_t keycode, keyrecord_t *record) {
     if ((KC_A <= keycode) && (keycode <= KC_0)) {
         if (record->event.pressed) {
-
             tap_code16_nomods(keycode);
 
             int number = (rand() % (8 + 1 - 2)) + 2;
@@ -246,7 +245,7 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
                 if (typing_mode != keycode) {
                     typing_mode = keycode;
                 } else {
-                    typing_mode = 0;
+                    typing_mode = KC_NOMODE;
                 }
             }
             break;
@@ -285,13 +284,11 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record) {
     } else if (typing_mode == KC_ZALGO) {
         return process_record_zalgo(keycode, record);
     }
-    return process_unicode_common(keycode, record);
+    return true;
 }
 
 /**
  * @brief Initialize the default unicode mode on firmware startu
  *
  */
-void matrix_init_unicode(void) {
-    unicode_input_mode_init();
-}
+void matrix_init_unicode(void) { unicode_input_mode_init(); }
