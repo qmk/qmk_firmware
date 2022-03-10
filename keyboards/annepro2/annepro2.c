@@ -24,7 +24,7 @@
 #define RAM_MAGIC_LOCATION 0x20001ffc
 #define IAP_MAGIC_VALUE 0x0000fab2
 
-static const SerialConfig ledUartInitConfig = {
+static const SerialConfig led_uart_init_config = {
     .speed = 115200,
 };
 
@@ -32,21 +32,25 @@ static const SerialConfig ledUartInitConfig = {
 #    define LED_UART_BAUD_RATE 115200
 #endif  // LED_UART_BAUD_RATE
 
-static const SerialConfig ledUartRuntimeConfig = {
+static const SerialConfig led_uart_runtine_config = {
     .speed = LED_UART_BAUD_RATE,
 };
 
-static const SerialConfig bleUartConfig = {
+static const SerialConfig ble_uart_config = {
     .speed = 115200,
 };
 
-static uint8_t ledMcuWakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02};
+static uint8_t led_mcu_wakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02};
 
-ble_capslock_t BLECapsLock = {._dummy = {0}, .caps_lock = false};
+ble_capslock_t ble_capslock = {._dummy = {0}, .caps_lock = false};
+
+#ifdef RGB_MATRIX_ENABLE
+static uint8_t current_rgb_row = 0;
+#endif
 
 void bootloader_jump(void) {
     // Send msg to shine to boot into IAP
-    annepro2SetIAP();
+    ap2_set_IAP();
 
     // wait for shine to boot into IAP
     wait_ms(15);
@@ -67,27 +71,27 @@ void bootloader_jump(void) {
 
 void keyboard_pre_init_kb(void) {
     // Start LED UART
-    sdStart(&SD0, &ledUartInitConfig);
+    sdStart(&SD0, &led_uart_init_config);
     /* Let the LED chip settle a bit before switching the mode.
      * That helped at least one person. */
     wait_ms(15);
-    sdWrite(&SD0, ledMcuWakeup, sizeof(ledMcuWakeup));
+    sdWrite(&SD0, led_mcu_wakeup, sizeof(led_mcu_wakeup));
 
     // wait to receive response from wakeup
     wait_ms(15);
 
-    protoInit(&proto, ledCommandCallback);
+    proto_init(&proto, led_command_callback);
 
     // loop to clear out receive buffer from shine wakeup
     while (!sdGetWouldBlock(&SD0)) sdGet(&SD0);
 
-    sdStart(&SD0, &ledUartRuntimeConfig);
+    sdStart(&SD0, &led_uart_runtine_config);
     keyboard_pre_init_user();
 }
 
 void keyboard_post_init_kb(void) {
     // Start BLE UART
-    sdStart(&SD1, &bleUartConfig);
+    sdStart(&SD1, &ble_uart_config);
     annepro2_ble_startup();
 
     // Give the send uart thread some time to
@@ -97,7 +101,11 @@ void keyboard_post_init_kb(void) {
     // loop to clear out receive buffer from ble wakeup
     while (!sdGetWouldBlock(&SD1)) sdGet(&SD1);
 
-    annepro2LedGetStatus();
+    ap2_led_get_status();
+
+    #ifdef RGB_MATRIX_ENABLE
+    ap2_led_enable();
+    #endif
 
     keyboard_post_init_user();
 }
@@ -106,25 +114,35 @@ void matrix_scan_kb() {
     // if there's stuff on the ble serial buffer
     // read it into the capslock struct
     while (!sdGetWouldBlock(&SD1)) {
-        sdReadTimeout(&SD1, (uint8_t *)&BLECapsLock, sizeof(ble_capslock_t), 10);
+        sdReadTimeout(&SD1, (uint8_t *)&ble_capslock, sizeof(ble_capslock_t), 10);
     }
 
     /* While there's data from LED keyboard sent - read it. */
     while (!sdGetWouldBlock(&SD0)) {
         uint8_t byte = sdGet(&SD0);
-        protoConsume(&proto, byte);
+        proto_consume(&proto, byte);
     }
+
+    #ifdef RGB_MATRIX_ENABLE
+    /* If there's data ready to be sent to LED MCU - send it. */
+    if(rgb_row_changed[current_rgb_row])
+    {
+        rgb_row_changed[current_rgb_row] = 0;
+        ap2_led_mask_set_row(current_rgb_row);
+    }
+    current_rgb_row = (current_rgb_row + 1) % NUM_ROW;
+    #endif
 
     matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        if (annepro2LedStatus.matrixEnabled && annepro2LedStatus.isReactive) {
-            annepro2LedForwardKeypress(record->event.key.row, record->event.key.col);
+        if (ap2_led_status.matrix_enabled && ap2_led_status.is_reactive) {
+            ap2_led_forward_keypress(record->event.key.row, record->event.key.col);
         }
 
-        const annepro2Led_t blue = {
+        const ap2_led_t blue = {
             .p.blue  = 0xff,
             .p.red   = 0x00,
             .p.green = 0x00,
@@ -135,22 +153,22 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case KC_AP2_BT1:
                 annepro2_ble_broadcast(0);
                 /* FIXME: This hardcodes col/row position */
-                annepro2LedBlink(0, 1, blue, 8, 50);
+                ap2_led_blink(0, 1, blue, 8, 50);
                 return false;
 
             case KC_AP2_BT2:
                 annepro2_ble_broadcast(1);
-                annepro2LedBlink(0, 2, blue, 8, 50);
+                ap2_led_blink(0, 2, blue, 8, 50);
                 return false;
 
             case KC_AP2_BT3:
                 annepro2_ble_broadcast(2);
-                annepro2LedBlink(0, 3, blue, 8, 50);
+                ap2_led_blink(0, 3, blue, 8, 50);
                 return false;
 
             case KC_AP2_BT4:
                 annepro2_ble_broadcast(3);
-                annepro2LedBlink(0, 4, blue, 8, 50);
+                ap2_led_blink(0, 4, blue, 8, 50);
                 return false;
 
             case KC_AP2_USB:
@@ -162,37 +180,43 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 return false;
 
             case KC_AP_LED_OFF:
-                annepro2LedDisable();
+                ap2_led_disable();
                 break;
 
             case KC_AP_LED_ON:
-                if (annepro2LedStatus.matrixEnabled) {
-                    annepro2LedNextProfile();
+                if (ap2_led_status.matrix_enabled) {
+                    ap2_led_next_profile();
                 } else {
-                    annepro2LedEnable();
+                    ap2_led_enable();
                 }
-                annepro2LedResetForegroundColor();
+                ap2_led_reset_foreground_color();
                 break;
 
             case KC_AP_LED_NEXT_PROFILE:
-                annepro2LedNextProfile();
-                annepro2LedResetForegroundColor();
+                ap2_led_next_profile();
+                ap2_led_reset_foreground_color();
                 break;
 
             case KC_AP_LED_PREV_PROFILE:
-                annepro2LedPrevProfile();
-                annepro2LedResetForegroundColor();
+                ap2_led_prev_profile();
+                ap2_led_reset_foreground_color();
                 break;
 
             case KC_AP_LED_NEXT_INTENSITY:
-                annepro2LedNextIntensity();
-                annepro2LedResetForegroundColor();
+                ap2_led_next_intensity();
+                ap2_led_reset_foreground_color();
                 return false;
 
             case KC_AP_LED_SPEED:
-                annepro2LedNextAnimationSpeed();
-                annepro2LedResetForegroundColor();
+                ap2_led_next_animation_speed();
+                ap2_led_reset_foreground_color();
                 return false;
+            #ifdef RGB_MATRIX_ENABLE
+            case RGB_TOG:
+                if(rgb_matrix_is_enabled()) ap2_led_disable();
+                else ap2_led_enable();
+                return true;
+            #endif
 
             default:
                 break;

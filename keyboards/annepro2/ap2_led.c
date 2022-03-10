@@ -21,28 +21,29 @@
 #include "ap2_led.h"
 #include "protocol.h"
 
-annepro2Led_t       ledMask[KEY_COUNT];
-annepro2LedStatus_t annepro2LedStatus;
+ap2_led_t       led_mask[KEY_COUNT];
+ap2_led_status_t ap2_led_status;
+uint8_t rgb_row_changed[NUM_ROW];
 
-void ledCommandCallback(const message_t *msg) {
+void led_command_callback(const message_t *msg) {
     switch (msg->command) {
         case CMD_LED_STATUS:
-            annepro2LedStatus.amountOfProfiles = msg->payload[0];
-            annepro2LedStatus.currentProfile   = msg->payload[1];
-            annepro2LedStatus.matrixEnabled    = msg->payload[2];
-            annepro2LedStatus.isReactive       = msg->payload[3];
-            annepro2LedStatus.ledIntensity     = msg->payload[4];
-            annepro2LedStatus.errors           = msg->payload[5];
+            ap2_led_status.amount_of_profiles = msg->payload[0];
+            ap2_led_status.current_profile    = msg->payload[1];
+            ap2_led_status.matrix_enabled     = msg->payload[2];
+            ap2_led_status.is_reactive        = msg->payload[3];
+            ap2_led_status.led_intensity      = msg->payload[4];
+            ap2_led_status.errors             = msg->payload[5];
             break;
 
 #ifdef CONSOLE_ENABLE
         case CMD_LED_DEBUG:
             /* TODO: Don't use printf. */
             printf("LED:");
-            for (int i = 0; i < msg->payloadSize; i++) {
+            for (int i = 0; i < msg->payload_size; i++) {
                 printf("%02x ", msg->payload[i]);
             }
-            for (int i = 0; i < msg->payloadSize; i++) {
+            for (int i = 0; i < msg->payload_size; i++) {
                 printf("%c", msg->payload[i]);
             }
             printf("\n");
@@ -51,63 +52,63 @@ void ledCommandCallback(const message_t *msg) {
     }
 }
 
-void annepro2SetIAP(void) { protoTx(CMD_LED_IAP, NULL, 0, 3); }
+void ap2_set_IAP(void) { proto_tx(CMD_LED_IAP, NULL, 0, 3); }
 
-void annepro2LedDisable(void) { protoTx(CMD_LED_OFF, NULL, 0, 3); }
+void ap2_led_disable(void) { proto_tx(CMD_LED_OFF, NULL, 0, 3); }
 
-void annepro2LedEnable(void) { protoTx(CMD_LED_ON, NULL, 0, 3); }
+void ap2_led_enable(void) { proto_tx(CMD_LED_ON, NULL, 0, 3); }
 
-void annepro2LedSetProfile(uint8_t prof) { protoTx(CMD_LED_SET_PROFILE, &prof, sizeof(prof), 3); }
+void ap2_led_set_profile(uint8_t prof) { proto_tx(CMD_LED_SET_PROFILE, &prof, sizeof(prof), 3); }
 
-void annepro2LedGetStatus() { protoTx(CMD_LED_GET_STATUS, NULL, 0, 3); }
+void ap2_led_get_status() { proto_tx(CMD_LED_GET_STATUS, NULL, 0, 3); }
 
-void annepro2LedNextProfile() { protoTx(CMD_LED_NEXT_PROFILE, NULL, 0, 3); }
+void ap2_led_next_profile() { proto_tx(CMD_LED_NEXT_PROFILE, NULL, 0, 3); }
 
-void annepro2LedNextIntensity() { protoTx(CMD_LED_NEXT_INTENSITY, NULL, 0, 3); }
+void ap2_led_next_intensity() { proto_tx(CMD_LED_NEXT_INTENSITY, NULL, 0, 3); }
 
-void annepro2LedNextAnimationSpeed() { protoTx(CMD_LED_NEXT_ANIMATION_SPEED, NULL, 0, 3); }
+void ap2_led_next_animation_speed() { proto_tx(CMD_LED_NEXT_ANIMATION_SPEED, NULL, 0, 3); }
 
-void annepro2LedPrevProfile() { protoTx(CMD_LED_PREV_PROFILE, NULL, 0, 3); }
+void ap2_led_prev_profile() { proto_tx(CMD_LED_PREV_PROFILE, NULL, 0, 3); }
 
-void annepro2LedMaskSetKey(uint8_t row, uint8_t col, annepro2Led_t color) {
+void ap2_led_mask_set_key(uint8_t row, uint8_t col, ap2_led_t color) {
     uint8_t payload[] = {row, col, color.p.blue, color.p.green, color.p.red, color.p.alpha};
-    protoTx(CMD_LED_MASK_SET_KEY, payload, sizeof(payload), 1);
+    proto_tx(CMD_LED_MASK_SET_KEY, payload, sizeof(payload), 1);
 }
 
 /* Push a whole local row to the shine */
-void annepro2LedMaskSetRow(uint8_t row) {
-    uint8_t payload[NUM_COLUMN * sizeof(annepro2Led_t) + 1];
+void ap2_led_mask_set_row(uint8_t row) {
+    uint8_t payload[NUM_COLUMN * sizeof(ap2_led_t) + 1];
     payload[0] = row;
-    memcpy(payload + 1, &ledMask[ROWCOL2IDX(row, 0)], sizeof(*ledMask) * NUM_COLUMN);
-    protoTx(CMD_LED_MASK_SET_ROW, payload, sizeof(payload), 1);
+    memcpy(payload + 1, &led_mask[ROWCOL2IDX(row, 0)], sizeof(*led_mask) * NUM_COLUMN);
+    proto_tx(CMD_LED_MASK_SET_ROW, payload, sizeof(payload), 1);
 }
 
 /* Synchronize all rows */
-void annepro2LedMaskSetAll(void) {
-    for (int row = 0; row < 5; row++) annepro2LedMaskSetRow(row);
+void ap2_led_mask_set_all(void) {
+    for (int row = 0; row < 5; row++) ap2_led_mask_set_row(row);
 }
 
 /* Set all keys to a given color */
-void annepro2LedMaskSetMono(const annepro2Led_t color) { protoTx(CMD_LED_MASK_SET_MONO, (uint8_t *)&color, sizeof(color), 1); }
+void ap2_led_mask_set_mono(const ap2_led_t color) { proto_tx(CMD_LED_MASK_SET_MONO, (uint8_t *)&color, sizeof(color), 1); }
 
-void annepro2LedBlink(uint8_t row, uint8_t col, annepro2Led_t color, uint8_t count, uint8_t hundredths) {
+void ap2_led_blink(uint8_t row, uint8_t col, ap2_led_t color, uint8_t count, uint8_t hundredths) {
     uint8_t payload[] = {row, col, color.p.blue, color.p.green, color.p.red, color.p.alpha, count, hundredths};
-    protoTx(CMD_LED_KEY_BLINK, payload, sizeof(payload), 1);
+    proto_tx(CMD_LED_KEY_BLINK, payload, sizeof(payload), 1);
 }
 
-void annepro2LedSetForegroundColor(uint8_t red, uint8_t green, uint8_t blue) {
-    annepro2Led_t color = {.p.red = red, .p.green = green, .p.blue = blue, .p.alpha = 0xff};
-    annepro2LedMaskSetMono(color);
+void ap2_led_set_foreground_color(uint8_t red, uint8_t green, uint8_t blue) {
+    ap2_led_t color = {.p.red = red, .p.green = green, .p.blue = blue, .p.alpha = 0xff};
+    ap2_led_mask_set_mono(color);
 }
 
-void annepro2LedResetForegroundColor() {
-    annepro2Led_t color = {
+void ap2_led_reset_foreground_color() {
+    ap2_led_t color = {
         .p.red   = 0,
         .p.green = 0,
         .p.blue  = 0,
         .p.alpha = 0,
     };
-    annepro2LedMaskSetMono(color);
+    ap2_led_mask_set_mono(color);
 }
 
 /*
@@ -128,7 +129,7 @@ void annepro2LedResetForegroundColor() {
  * Following it are 3 bits of row and 4 bits of col.
  * 1 + 3 + 4 = 8 bits - only a single byte is sent for every keypress.
  */
-void annepro2LedForwardKeypress(uint8_t row, uint8_t col) {
+void ap2_led_forward_keypress(uint8_t row, uint8_t col) {
     const uint8_t payload = row << 4 | col;
-    protoTx(CMD_LED_KEY_DOWN, &payload, 1, 1);
+    proto_tx(CMD_LED_KEY_DOWN, &payload, 1, 1);
 }
