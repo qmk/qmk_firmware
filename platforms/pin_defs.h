@@ -18,6 +18,6 @@
 // useful for direct pin mapping
 #define NO_PIN (pin_t)(~0)
 
-#if __has_include_next("_pin_defs.h")
-#    include_next "_pin_defs.h" /* Include the platforms pin defs */
+#if __has_include("_pin_defs.h")
+#    include "_pin_defs.h" /* Include the platforms pin defs */
 #endif
