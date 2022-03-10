@@ -83,9 +83,9 @@ LAYOUT( /* Left */
 
   /* FN Layer 3
    * ,-------------------------------------------------------------------------.
-   * |     | F1  | F2  | F3  |     | RGB |BRT+ |HUE+ |SAT+ |     |PrtSc|Delete |
+   * |     | F1  | F2  | F3  | RGB |RGBMO|BRT+ |HUE+ |SAT+ |     |PrtSc|Delete |
    * |-------------------------------------------------------------------------+
-   * | Esc  | F4  | F5  | F6  |     |RGBMO|BRT- |HUE- |SAT- |     |     |      |
+   * | Esc  | F4  | F5  | F6  |     |RGBP |BRT- |HUE- |SAT- |     |     |      |
    * |-------------------------------------------------------------------------+
    * |       | F7 | F8  | F9  | F10 | F11 | F12 |     |     |MUTE |VOLUP |     |
    * |-------------------------------------------------------------------------+
@@ -94,8 +94,8 @@ LAYOUT( /* Left */
    */
 
 LAYOUT( /* Tab */
-  _______, KC_F1,   KC_F2,   KC_F3,   _______, RGB_TOG, RGB_VAI, RGB_HUI, RGB_SAI, _______, KC_PSCR, KC_DELETE,
-  KC_ESC,  KC_F4,   KC_F5,   KC_F6,   _______, RGB_MOD, RGB_VAD, RGB_HUD, RGB_SAD, _______, _______, _______,
+  _______, KC_F1,   KC_F2,   KC_F3,   RGB_TOG, RGB_MOD, RGB_VAI, RGB_HUI, RGB_SAI, _______, KC_PSCR, KC_DELETE,
+  KC_ESC,  KC_F4,   KC_F5,   KC_F6,   _______, RGB_M_P, RGB_VAD, RGB_HUD, RGB_SAD, _______, _______, _______,
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_MUTE, KC_VOLU, _______,
   RESET,   _______, _______, KC_CAPS, _______,     _______,      _______, KC_MPLY, KC_MPRV, KC_VOLD, KC_MNXT
 ),
