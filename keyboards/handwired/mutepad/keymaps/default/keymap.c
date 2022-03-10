@@ -12,12 +12,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MUTE_GOOGLE_MEET:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCMD("d"));
+                tap_code16(G(KC_D));
             }
             break;
         case MUTE_TEAMS:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL(SS_LSFT("m")));
+                tap_code16(C(S(KC_M)));
             }
             break;
     }

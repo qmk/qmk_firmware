@@ -1,8 +1,8 @@
 # MutePad
 
-![MutePad Repo](https://github.com/JoshwJB/MutePad)
+[MutePad Repo](https://github.com/JoshwJB/MutePad)
 
-*A 3D printed under desk mounted keypad with rotary encoder, for muting applications (discord, zoom etc.) and adjusting volume.*
+A 3D printed under desk mounted keypad with rotary encoder, for muting applications (discord, zoom etc.) and adjusting volume.
 
 * Keyboard Maintainer: [JoshwJB](https://github.com/JoshwJB)
 * Hardware Supported: ProMicro
