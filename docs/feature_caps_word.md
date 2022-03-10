@@ -52,21 +52,22 @@ Next, use one the following methods to activate Caps Word:
   combo](feature_combo.md) or [tap dance](feature_tap_dance.md) or any means
   you like.
 
-### "Caps Word and Command cannot both use Left Shift + Right Shift." :id=command
+### Troubleshooting: Command :id=troubleshooting-command
 
-When using `BOTH_SHIFTS_TURNS_ON_CAPS_WORD`, you might see a compile error 
-**"Caps Word and Command cannot both use Left Shift + Right Shift."**
+When using `BOTH_SHIFTS_TURNS_ON_CAPS_WORD`, you might see a compile message
+**"BOTH_SHIFTS_TURNS_ON_CAPS_WORD and Command should not be enabled at the same
+time, since both use the Left Shift + Right Shift key combination."**
 
 Many keyboards enable the [Command feature](feature_command.md), which by
 default is also activated using the Left Shift + Right Shift key combination. To
-fix this conflict, you can disable Command by adding in rules.mk: 
+fix this conflict, please disable Command by adding in rules.mk: 
 
 ```make
 COMMAND_ENABLE = no
 ```
 
-Or configure Command to use another key combination like Left Ctrl + Right
-Ctrl by defining `IS_COMMAND()` in config.h:
+Or configure Command to use another key combination like Left Ctrl + Right Ctrl
+by defining `IS_COMMAND()` in config.h:
 
 ```c
 // Activate Command with Left Ctrl + Right Ctrl.

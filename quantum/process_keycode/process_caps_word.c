@@ -23,19 +23,26 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
         // right shifts or by double tapping left shift. This way Caps Word
         // may be used without needing a dedicated key and also without
         // needing combos or tap dance.
+
 #ifdef BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-        // On many keyboards, the Command feature is enabled by default,
-        // which also uses left+right shift. It can be configured to use a
-        // different key combination by defining IS_COMMAND(). So we raise
-        // an error if Command is enabled but IS_COMMAND() is *not* defined.
+        // Many keyboards enable the Command feature by default, which also
+        // uses left+right shift. It can be configured to use a different
+        // key combination by defining IS_COMMAND(). We make a non-fatal
+        // warning if Command is enabled but IS_COMMAND() is *not* defined.
 #    if defined(COMMAND_ENABLE) && !defined(IS_COMMAND)
-#        error "Caps Word and Command cannot both use Left Shift + Right Shift. Please see: https://docs.qmk.fm/#/feature_caps_word?id=command"
-#    endif // defined(COMMAND_ENABLE) && !defined(IS_COMMAND)
-        // Holding both left and right shifts turns on Caps Word.
-        if ((mods & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
+#        pragma message "BOTH_SHIFTS_TURNS_ON_CAPS_WORD and Command should not be enabled at the same time, since both use the Left Shift + Right Shift key combination. Please disable Command, or ensure that `IS_COMMAND` is not set to (get_mods() == MOD_MASK_SHIFT)."
+#    else
+        if (mods == MOD_MASK_SHIFT
+#       ifdef COMMAND_ENABLE
+            // Don't activate Caps Word at the same time as Command.
+            && !(IS_COMMAND())
+#       endif // COMMAND_ENABLE
+           ) {
             caps_word_on();
         }
+#    endif // defined(COMMAND_ENABLE) && !defined(IS_COMMAND)
 #endif // BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
 #ifdef DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
         // Double tapping left shift turns on Caps Word.
         //
@@ -62,6 +69,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
             }
         }
 #endif // DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+
         return true;
     }
 
