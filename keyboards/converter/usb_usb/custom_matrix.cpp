@@ -225,18 +225,6 @@ extern "C"
         return row_bits;
     }
 
-    uint8_t matrix_key_count(void) {
-        uint8_t count = 0;
-
-        count += bitpop(local_keyboard_report.mods);
-        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-            if (IS_ANY(local_keyboard_report.keys[i])) {
-                count++;
-            }
-        }
-        return count;
-    }
-
     void matrix_print(void) {
         print("\nr/c 0123456789ABCDEF\n");
         for (uint8_t row = 0; row < matrix_rows(); row++) {
