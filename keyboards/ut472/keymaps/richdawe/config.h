@@ -1,4 +1,5 @@
 /* Copyright 2018 Carlos Filoteo
+ * Copyright 2021-2022 Richard Dawe
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,5 +18,6 @@
 #pragma once
 
 #include "config_common.h"
+#include <stdio.h>
 
 // place overrides here

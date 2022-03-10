@@ -19,8 +19,9 @@
 #define LT1_SPC LT(1, KC_SPC)
 #define LT3_TAB LT(3, KC_TAB)
 
-
-
+enum custom_keycodes {
+  MACRO_RGBI = SAFE_RANGE, /* Output current RGB info */
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -85,7 +86,7 @@ LAYOUT( /* Left */
    * ,-------------------------------------------------------------------------.
    * |     | F1  | F2  | F3  | RGB |RGBMO|BRT+ |HUE+ |SAT+ |     |PrtSc|Delete |
    * |-------------------------------------------------------------------------+
-   * | Esc  | F4  | F5  | F6  |     |RGBP |BRT- |HUE- |SAT- |     |     |      |
+   * | Esc  | F4  | F5  | F6  |RGBI |RGBP |BRT- |HUE- |SAT- |     |     |      |
    * |-------------------------------------------------------------------------+
    * |       | F7 | F8  | F9  | F10 | F11 | F12 |     |     |MUTE |VOLUP |     |
    * |-------------------------------------------------------------------------+
@@ -95,8 +96,28 @@ LAYOUT( /* Left */
 
 LAYOUT( /* Tab */
   _______, KC_F1,   KC_F2,   KC_F3,   RGB_TOG, RGB_MOD, RGB_VAI, RGB_HUI, RGB_SAI, _______, KC_PSCR, KC_DELETE,
-  KC_ESC,  KC_F4,   KC_F5,   KC_F6,   _______, RGB_M_P, RGB_VAD, RGB_HUD, RGB_SAD, _______, _______, _______,
+  KC_ESC,  KC_F4,   KC_F5,   KC_F6, MACRO_RGBI,RGB_M_P, RGB_VAD, RGB_HUD, RGB_SAD, _______, _______, _______,
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_MUTE, KC_VOLU, _______,
   RESET,   _______, _______, KC_CAPS, _______,     _______,      _______, KC_MPLY, KC_MPRV, KC_VOLD, KC_MNXT
 ),
 };
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case MACRO_RGBI: /* Output current RGB info */
+    if (record->event.pressed) {
+      char buf[32];
+      const uint8_t hue = rgblight_get_hue();
+      const uint8_t sat = rgblight_get_sat();
+      const uint8_t val = rgblight_get_val();
+
+      snprintf(buf, sizeof(buf), "H: %u S: %u V: %u", hue, sat, val);
+      send_string(buf);
+    } else {
+      // when keycode QMKBEST is released
+    }
+    break;
+  }
+  return true;
+}
