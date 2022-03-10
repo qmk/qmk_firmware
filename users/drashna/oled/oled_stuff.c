@@ -576,19 +576,10 @@ void render_wpm_graph(uint8_t max_lines_graph, uint8_t vertical_offset) {
             }
         }
 #    endif
-        oled_pan(false);  // then move the entire graph one pixel to the right
-        static const char PROGMEM display_border[3] = {0x0, 0xFF, 0x0};
-        for (uint8_t i = 0; i < 7; i++) {
-            oled_set_cursor(0, i + 8);
-            oled_write_raw_P(display_border, sizeof(display_border));
-            oled_set_cursor(21, i + 8);
-            oled_write_raw_P(display_border, sizeof(display_border));
-        }
-        static const char PROGMEM footer_image[] = {0, 3, 4, 8, 16, 32, 64, 128, 128, 128, 128, 128, 128, 128, 192, 224, 240, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 248, 240, 224, 192, 128, 128, 128, 128, 128, 128, 128, 64, 32, 16, 8, 4, 3, 0};
-        oled_set_cursor(0, 15);
-
-        oled_write_raw_P(footer_image, sizeof(footer_image));
-
+#include <math.h>
+        uint8_t y_start = ceil(vertical_offset / 8);
+        uint8_t y_length = y_start + ceil(max_lines_graph / 8);
+        oled_pan_section(false, y_start, y_length, 3, 125);  // then move the entire graph one pixel to the right
         timer = timer_read();  // refresh the timer for the next iteration
     }
 #endif
@@ -900,21 +891,19 @@ bool oled_task_user(void) {
         0, 192, 32, 16, 8, 4, 2, 1, 1, 1, 1, 1, 1, 1, 1, 3, 7, 15, 31, 63, 127, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 127, 63, 31, 15, 7, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 8, 16, 32, 192, 0,
         //         0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  3,  7, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,  7,  3,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0
     };
+    oled_write_raw_P(header_image, sizeof(header_image));
 #endif
 
 #ifndef OLED_DISPLAY_TEST
     if (is_keyboard_left()) {
 #endif
+        render_status_left();
 #if defined(OLED_DISPLAY_128X128)
         oled_set_cursor(0, 7);
         oled_render_large_display(true);
-        oled_set_cursor(0, 0);
-        oled_write_raw_P(header_image, sizeof(header_image));
 #endif
-        render_status_left();
 #ifndef OLED_DISPLAY_TEST
     } else {
-        oled_write_raw_P(header_image, sizeof(header_image));
         render_status_right();
 #    if defined(OLED_DISPLAY_128X128)
         oled_set_cursor(0, 7);

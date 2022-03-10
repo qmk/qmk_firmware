@@ -195,7 +195,7 @@ oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
 
 void oled_render_large_display(bool side) {
     if (side) {
-        render_wpm_graph(54, 64);
+        render_wpm_graph(56, 64);
     } else {
         oled_advance_page(true);
         oled_advance_page(true);

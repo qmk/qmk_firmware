@@ -40,6 +40,9 @@ void            oled_driver_render_logo_right(void);
 void            oled_render_large_display(bool side);
 void render_wpm_graph(uint8_t max_lines_graph, uint8_t vertical_offset);
 
+void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_start, uint16_t x_end);
+
+
 #if defined(OLED_DISPLAY_128X128) || defined(OLED_DISPLAY_128X64)
 #    define OLED_DISPLAY_VERBOSE
 
