@@ -168,7 +168,6 @@ const pointing_device_driver_t pointing_device_driver = {
 
 report_mouse_t paw3204_get_report(report_mouse_t mouse_report) {
     report_paw3204_t data = PAW3204_read();
-    dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
     if (data.x != 0 || data.y != 0) {
 #    ifdef CONSOLE_ENABLE
         dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
