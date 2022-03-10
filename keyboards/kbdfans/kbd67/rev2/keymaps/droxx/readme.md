@@ -3,7 +3,7 @@
 * An ANSI keymap layout made by Alex for the KBD67 Rev 2
 * This features two layers using basic Fn alternate keys on the second layer as well as lighting control
 
-![KBD67Rev2 Layout](https://imgur.com/a/0v8Jy8V)
+![KBD67Rev2 Layout](https://i.imgur.com/DPSMhIX.png)
 
 # Layer 0 (_DRXXMAIN)
 
