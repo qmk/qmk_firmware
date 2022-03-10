@@ -47,8 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_PIN_ON_STATE 0
 
 #define RGB_DI_PIN E2
-#define RGBLIGHT_LAYERS
-#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 22
     #define RGBLIGHT_HUE_STEP 8
