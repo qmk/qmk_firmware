@@ -73,7 +73,7 @@
                 { "label": "Ctrl", "x": 13.75, "y": 4, "w": 1.25 }
             ]
         },
-        "LAYOUT_ANSI": {
+        "LAYOUT_ansi": {
             "layout": [
                 { "label": "ESC", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },
@@ -138,7 +138,7 @@
                 { "label": "Ctrl", "x": 13.75, "y": 4, "w": 1.25 }
             ]
         },
-        "LAYOUT_SPLIT_SPACE": {
+        "LAYOUT_split_space": {
             "layout": [
                 { "label": "ESC", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },
@@ -207,7 +207,7 @@
                 { "label": "Ctrl", "x": 13.5, "y": 4, "w": 1.5 }
             ]
         },
-        "LAYOUT_TSANGAN_SPLTI_BS": {
+        "LAYOUT_tsangan_split_bs": {
             "layout": [
                 { "label": "ESC", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },
@@ -273,7 +273,7 @@
                 { "label": "Ctrl", "x": 13.5, "y": 4, "w": 1.5 }
             ]
         },
-        "LAYOUT_ISO": {
+        "LAYOUT_iso": {
          "layout": [
                 { "label": "ESC", "x": 0, "y": 0 },
                 { "label": "1", "x": 1, "y": 0 },

@@ -35,7 +35,7 @@
     {K4x0, K4x1, K4x2, ____, K4x4, ____, K4x6, ____, ____, K4x9, K4x10, K4x11, K4x12, K4x13}  \
 }
 
-#define LAYOUT_ANSI( \
+#define LAYOUT_ansi( \
     K0x0, K0x1, K0x2, K0x3, K0x4, K0x5, K0x6, K0x7, K0x8, K0x9, K0x10, K0x11, K0x12, K0x13, \
     K1x0, K1x1, K1x2, K1x3, K1x4, K1x5, K1x6, K1x7, K1x8, K1x9, K1x10, K1x11, K1x12, K2x13, \
     K2x0, K2x1, K2x2, K2x3, K2x4, K2x5, K2x6, K2x7, K2x8, K2x9, K2x10, K2x11, K2x12,        \
@@ -49,7 +49,7 @@
     {K4x0, K4x1, K4x2, ____, ____, ____, K4x6, ____, ____, ____, K4x10, K4x11, K4x12, K4x13}  \
 }
 
-#define LAYOUT_SPLIT_SPACE( \
+#define LAYOUT_split_space( \
     K0x0, K0x1, K0x2, K0x3, K0x4, K0x5, K0x6, K0x7, K0x8, K0x9, K0x10, K0x11, K0x12, K0x13, K1x13,  \
     K1x0, K1x1, K1x2, K1x3, K1x4, K1x5, K1x6, K1x7, K1x8, K1x9, K1x10, K1x11, K1x12, K2x13,         \
     K2x0, K2x1, K2x2, K2x3, K2x4, K2x5, K2x6, K2x7, K2x8, K2x9, K2x10, K2x11, K2x12,                \
@@ -63,7 +63,7 @@
     {K4x0, K4x1, K4x2, ____, K4x4, ____, K4x6, ____, ____, K4x9,  ____, K4x11, K4x12, K4x13}  \
 }
 
-#define LAYOUT_TSANGAN_HHKB( \
+#define LAYOUT_tsangan_split_bs( \
     K0x0, K0x1, K0x2, K0x3, K0x4, K0x5, K0x6, K0x7, K0x8, K0x9, K0x10, K0x11, K0x12, K0x13, K1x13,  \
     K1x0, K1x1, K1x2, K1x3, K1x4, K1x5, K1x6, K1x7, K1x8, K1x9, K1x10, K1x11, K1x12, K2x13,         \
     K2x0, K2x1, K2x2, K2x3, K2x4, K2x5, K2x6, K2x7, K2x8, K2x9, K2x10, K2x11, K2x12,                \
@@ -77,7 +77,7 @@
     {K4x0, K4x1, K4x2, ____, ____, ____, K4x6, ____, ____, ____, K4x10,  ____, K4x12, K4x13}  \
 }
 
-#define LAYOUT_ISO( \
+#define LAYOUT_iso( \
     K0x0, K0x1, K0x2, K0x3, K0x4, K0x5, K0x6, K0x7, K0x8, K0x9, K0x10, K0x11, K0x12, K0x13,         \
     K1x0, K1x1, K1x2, K1x3, K1x4, K1x5, K1x6, K1x7, K1x8, K1x9, K1x10, K1x11, K1x12, K2x12,         \
     K2x0, K2x1, K2x2, K2x3, K2x4, K2x5, K2x6, K2x7, K2x8, K2x9, K2x10, K2x11, K2x13,                \
