@@ -33,15 +33,15 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 #        pragma message "BOTH_SHIFTS_TURNS_ON_CAPS_WORD and Command should not be enabled at the same time, since both use the Left Shift + Right Shift key combination. Please disable Command, or ensure that `IS_COMMAND` is not set to (get_mods() == MOD_MASK_SHIFT)."
 #    else
         if (mods == MOD_MASK_SHIFT
-#       ifdef COMMAND_ENABLE
+#        ifdef COMMAND_ENABLE
             // Don't activate Caps Word at the same time as Command.
             && !(IS_COMMAND())
-#       endif // COMMAND_ENABLE
-           ) {
+#        endif // COMMAND_ENABLE
+        ) {
             caps_word_on();
         }
-#    endif // defined(COMMAND_ENABLE) && !defined(IS_COMMAND)
-#endif // BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#    endif     // defined(COMMAND_ENABLE) && !defined(IS_COMMAND)
+#endif         // BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
 #ifdef DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
         // Double tapping left shift turns on Caps Word.
