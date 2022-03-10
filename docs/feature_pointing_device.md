@@ -12,7 +12,6 @@ POINTING_DEVICE_ENABLE = yes
 
 There are a number of sensors that are supported by default. Note that only one sensor can be enabled by `POINTING_DEVICE_DRIVER` at a time.  If you need to enable more than one sensor, then you need to implement it manually.
 
-
 ### ADNS 5050 Sensor
 
 To use the ADNS 5050 sensor, add this to your `rules.mk`
