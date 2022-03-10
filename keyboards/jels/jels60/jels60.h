@@ -1,4 +1,4 @@
-/*  copyright 2021 Joah Nelson (Jels)
+/*  copyright 2022 Joah Nelson (Jels)
 *
 *   This program is free software: you can redistribute it and/or modify
 *   it under the terms of the GNU General Public License as published by
