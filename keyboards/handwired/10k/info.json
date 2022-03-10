@@ -5,7 +5,7 @@
   "diode_direction": "COL2ROW",
   "matrix_pins": {
     "cols": ["C6", "D7", "E6", "B4", "B5"],
-    "rows": ["B6", "B6"]
+    "rows": ["B6"]
   },
   "features": {
     "audio": false,
@@ -21,7 +21,7 @@
   "usb": {
     "vid": "0x6869",
     "pid": "0x0001",
-    "device_ver": "0x0001"
+    "device_version": "0.0.1"
   },
   "layout_aliases": {
     "LAYOUT": "LAYOUT_split_1x5"
