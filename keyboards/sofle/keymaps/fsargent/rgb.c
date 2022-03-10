@@ -58,5 +58,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
+	transaction_register_rpc(RPC_ID_SYNC_ENUM, slave_encoder_mode_sync);
+
 };
 

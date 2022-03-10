@@ -19,59 +19,20 @@
 
 enum layers { BASE, WIN, GAME, SYM, NAV, WINNAV, SHFT};
 
-
 #include "encoder.c"
 #include "oled.c"
 #include "rgb.c"
 #include "combos.c"
-
-enum custom_keycodes {
-  ALT_TAB = SAFE_RANGE, ENCODER_MODE
-};
-
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	switch(keycode) {
-		case ENCODER_MODE:
-			if (record->event.pressed) {
-				encoder_mode = encoder_mode + 1;
-				if (encoder_mode > PAGES) {
-					encoder_mode = ARROWS;
-				}
-			}
-		break;
-	default:
-		break;
-	}
-	return true;
-}
-
-
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-	// Do not force the mod-tap key press to be handled as a modifier
-	// if any other key was pressed while the mod-tap key is held down.
-		case MT(MOD_LGUI,KC_MINS): return true;
-		case MT(MOD_LCTL,KC_EQL): return true;
-		case MT(MOD_LALT,KC_QUOT): return true;
-	default:
-	// Force the mod-tap key press to be handled as a modifier if any
-	// other key was pressed while the mod-tap key is held down.
-		return false;
-	}
-}
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// Tab size 4
 
 	[BASE] = LAYOUT(
-		KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,							KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		MT(MOD_LGUI,KC_MINS),
-		KC_TAB,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,							KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		MT(MOD_LCTL,KC_EQL),
-	MT(MOD_MEH,KC_ESC),	KC_A,		KC_S,		KC_D,		KC_F,		KC_G,							KC_H,		KC_J,		KC_K,		KC_L,		KC_SCLN,	MT(MOD_LALT,KC_QUOT),
-		KC_LSFT,	KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,		ENCODER_MODE,		TO(WIN),	KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	MT(MOD_LSFT,KC_BSLS),
+		KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,							KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_MINS,
+		KC_TAB,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,							KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		KC_EQL,
+	MT(MOD_MEH,KC_ESC),	KC_A,	KC_S,		KC_D,		KC_F,		KC_G,							KC_H,		KC_J,		KC_K,		KC_L,		KC_SCLN,	KC_QUOT,
+		KC_LSFT,	KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,		TO(WIN),		ENCODER_MODE,	KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	MT(MOD_LSFT,KC_BSLS),
 				MT(MOD_LCTL, KC_LBRC),	MT(MOD_LALT, KC_RBRC),	LT(SYM,KC_DEL), MO(NAV),	CMD_T(KC_BSPC),		KC_SPC,		LT(SYM, KC_ENT),	MT(MOD_RGUI, KC_DEL),	MT(MOD_RALT, KC_MINS), 	MT(MOD_RCTL, KC_EQL)
 	),
 	// [CMK] = LAYOUT(
@@ -82,46 +43,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// 		_______,	_______,	_______,	_______,	_______,					 _______,	_______,	_______,	_______,	_______
 	// ),
 	[WIN] = LAYOUT(
-		_______,_______,_______,_______,_______,_______,					_______,_______,_______,_______,_______,_______,
-		_______,_______,_______,_______,_______,_______,					_______,_______,_______,_______,_______,_______,
-	MT(MOD_LGUI, KC_ESC),_______,_______,_______,_______,_______,					_______,_______,_______,_______,_______,_______,
-		_______,_______,_______,_______,_______,_______,ENCODER_MODE,		TO(GAME),	_______,_______,_______,_______,_______,_______,
-		_______,_______,_______,MO(WINNAV),	CTL_T(KC_BSPC),					_______,_______,_______,_______,_______
+		_______,	_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
+		_______,	_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
+MT(MOD_LGUI, KC_ESC),	_______,_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
+		_______,	_______,	_______,	_______,	_______,	_______,	TO(GAME),		_______,_______,_______,_______,_______,_______,_______,
+		_______,	_______,	_______,	MO(WINNAV),	CTL_T(KC_BSPC),							_______,_______,_______,_______,_______
 	),
 	[GAME] = LAYOUT(
-		KC_GRV,		_______,	_______,	_______,	_______,	_______,				_______,_______,_______,_______,_______,KC_MINS,
-		KC_TAB,		_______,	_______,	_______,	_______,	_______,				_______,_______,_______,_______,_______,KC_EQL,
-		KC_ESC,		_______,	_______,	_______,	_______,	_______,				_______,_______,_______,_______,_______,KC_QUOT,
-		KC_LSFT,	_______,	_______,	_______,	_______,	_______,	ENCODER_MODE,	TO(SHFT),_______,_______,_______,_______,_______,KC_RSFT,
-		KC_LCTL,	KC_LALT,	MO(WINNAV),	KC_LCTL,	KC_BSPC,					_______,_______,_______,_______,_______
+		KC_GRV,		_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
+		KC_TAB,		_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
+		KC_ESC,		_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
+		KC_LSFT,	_______,	_______,	_______,	_______,	_______,	TO(SHFT),		_______,_______,_______,_______,_______,_______,_______,
+		KC_LCTL,	KC_LALT,	MO(WINNAV),	KC_LCTL,	KC_BSPC,								_______,_______,_______,_______,_______
 	),
 	[SHFT] = LAYOUT(
-		KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,							KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		MT(MOD_LGUI,KC_MINS),
-		KC_TAB,		KC_T,		KC_Q,		KC_W,		KC_E,		KC_R,							KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		MT(MOD_LCTL,KC_EQL),
-	MT(MOD_MEH,KC_ESC),	KC_G,		KC_A,		KC_S,		KC_D,		KC_F,							KC_H,		KC_J,		KC_K,		KC_L,		KC_SCLN,	MT(MOD_LALT,KC_QUOT),
-		KC_LSFT,	KC_B,		KC_Z,		KC_X,		KC_C,		KC_V,		ENCODER_MODE,		TO(BASE),	KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	MT(MOD_LSFT,KC_BSLS),
-		MT(MOD_LCTL, KC_LBRC),	MT(MOD_LALT, KC_RBRC),	LT(SYM,KC_DEL), KC_LCTL,	KC_SPC,					KC_BSPC,		LT(SYM, KC_ENT),	_______,_______,_______
+		KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,								KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		MT(MOD_LGUI,KC_MINS),
+		KC_TAB,		KC_T,		KC_Q,		KC_W,		KC_E,		KC_R,								KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		MT(MOD_LCTL,KC_EQL),
+	MT(MOD_MEH,KC_ESC),	KC_G,	KC_A,		KC_S,		KC_D,		KC_F,								KC_H,		KC_J,		KC_K,		KC_L,		KC_SCLN,	MT(MOD_LALT,KC_QUOT),
+		KC_LSFT,	KC_B,		KC_Z,		KC_X,		KC_C,		KC_V,	TO(BASE),		_______,	KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	MT(MOD_LSFT,KC_BSLS),
+		MT(MOD_LCTL, KC_LBRC),	MT(MOD_LALT, KC_RBRC),	LT(SYM,KC_DEL), KC_LCTL,	KC_SPC,				KC_BSPC,	LT(SYM, KC_ENT),	_______,_______,_______
 	),
 	[SYM] = LAYOUT(
 		// C(G(KC_SPC)) is the OS X Emoji Editor
 		C(G(KC_SPC)),	KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,							KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_F11,
-		_______,	KC_EQL,		KC_7,		KC_8,		KC_9,		KC_MINUS,						KC_NO,		KC_NO,		KC_INS,		KC_NO,		KC_PSCR,	KC_F12,
-		_______,	KC_0, 		KC_4,		KC_5,		KC_6,		KC_PLUS,						KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NLCK,
-		_______,	KC_DOT,		KC_1,		KC_2,		KC_3,		KC_ENT,		ENCODER_MODE,		TG(SYM),	KC_NLCK,	KC_SLCK,	KC_NO,		KC_NO,		KC_NO,		KC_SLCK,
-						_______,	KC_0,		KC_NO,		_______,	_______,		_______,	_______,	_______,	_______,	_______
+		_______,		KC_EQL,		KC_7,		KC_8,		KC_9,		KC_MINUS,						KC_NO,		KC_NO,		KC_INS,		KC_NO,		KC_PSCR,	KC_F12,
+		_______,		KC_0, 		KC_4,		KC_5,		KC_6,		KC_PLUS,						KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NLCK,
+		_______,		KC_DOT,		KC_1,		KC_2,		KC_3,		KC_ENT,	_______,		KC_NO,	KC_NLCK,	KC_SLCK,	RGB_RMOD, 	RGB_MOD,	KC_NO,		KC_SLCK,
+		_______,		KC_0,		KC_NO,		_______,	_______,							_______,_______,	_______,	_______,	_______
 	),
 	[NAV]=LAYOUT(
-		C(KC_GRV),	KC_HOME,	KC_PGUP,	KC_PGUP,	KC_PGDN,	KC_END,							KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_MINS,	KC_EQL,		KC_EQL,
-		C(KC_TAB),	S(C(KC_TAB)),	A(KC_BSPC),	KC_UP,		A(KC_DEL),	C(KC_TAB),						KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_WH_R,	KC_RBRC,
-		KC_LCTRL,	A(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	A(KC_RGHT),						KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_SCLN,	KC_LGUI,
-		KC_LSFT,	KC_HOME,	G(KC_LEFT),	KC_ENT,		G(KC_RGHT),	KC_END,		ENCODER_MODE,		TO(GAME),	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_BSLS,	KC_DEL,
-						_______,	KC_PGDN,	_______,	_______,	_______,		KC_BTN1,	KC_BTN2,	_______,	_______,	_______
+		C(KC_GRV),	TO(WIN),	TO(GAME),	TO(SHFT),	KC_NO,		KC_NO,								KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_MINS,	KC_EQL,
+		C(KC_TAB),	S(C(KC_TAB)),	A(KC_BSPC),	KC_UP,	A(KC_DEL),	C(KC_TAB),							KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_WH_R,	KC_RBRC,
+		KC_LCTRL,	A(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	A(KC_RGHT),							KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_SCLN,	KC_LGUI,
+		KC_LSFT,	KC_HOME,	G(KC_LEFT),	KC_ENT,		G(KC_RGHT),	KC_END,		_______,		KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_BSLS,	KC_DEL,
+		_______,	KC_PGDN,	_______,	_______,	_______,								KC_BTN1,KC_BTN2,	_______,	_______,	_______
 	),
 	[WINNAV]=LAYOUT(
-		C(KC_GRV),	KC_HOME,	KC_PGUP,	KC_NO,		KC_PGDN,	KC_END,							KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_MUTE,	KC_EQL,
-		A(KC_TAB), 	S(KC_TAB),	C(KC_BSPC),	KC_UP,		C(KC_DEL),	KC_TAB,							KC_WH_U,	KC_WH_L,	KC_MS_U,	KC_WH_R,	KC_END,		KC_RBRC,
-		KC_LGUI,	C(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	C(KC_RGHT),						KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_NO,		KC_LGUI,
-		KC_LSFT,	KC_HOME,	A(KC_LEFT),	KC_ENT,		A(KC_RGHT),	KC_END,		ENCODER_MODE,		TG(GAME),	KC_WH_D,	KC_NO,		KC_LCBR,	KC_RCBR,	KC_BSLS,	KC_DEL,
-						_______,	_______,	_______,	_______,	_______,		KC_BTN1,	KC_BTN2,	_______,	_______,	_______
+		_______,	_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
+		A(KC_TAB), 	S(KC_TAB),	C(KC_BSPC),	_______,	C(KC_DEL),	KC_TAB,								_______,_______,_______,_______,_______,_______,
+		KC_LGUI,	C(KC_LEFT),	_______,	_______,	_______,	C(KC_RGHT),							_______,_______,_______,_______,_______,_______,
+		_______,	_______,	A(KC_LEFT),	_______,	A(KC_RGHT),	_______,	_______,		_______,_______,_______,_______,_______,_______,_______,
+		_______,	_______,	_______,	_______,	_______,								_______,_______,_______,_______,_______
 	)
 };

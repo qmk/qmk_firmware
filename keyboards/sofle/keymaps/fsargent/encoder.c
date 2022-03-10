@@ -23,7 +23,50 @@
 bool reversed = false;  // ADD this near the begining of keymap.c
 
 uint8_t encoder_mode = 0;
-enum encoder_modes { ARROWS, TASKS, MUSIC, PAGES };
+enum encoder_modes { ARROWS, TASKS, MUSIC, PAGES, WHEEL };
+
+enum custom_keycodes { ALT_TAB = SAFE_RANGE, ENCODER_MODE };
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case ENCODER_MODE:
+            if (record->event.pressed) {
+                encoder_mode = encoder_mode + 1;
+                if (encoder_mode > WHEEL) {
+                    encoder_mode = ARROWS;
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    return true;
+}
+
+//----------------------------------------------------------
+// Sync
+#    include <print.h>
+#    include <string.h>
+#    include <transactions.h>
+
+void slave_encoder_mode_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
+	memcpy(&encoder_mode, initiator2target_buffer, sizeof(encoder_mode)); }
+
+void user_state_sync(void) {
+    if (is_keyboard_master()) {
+        // Send to slave every 500ms
+        static uint32_t last_sync = 0;
+        if (timer_elapsed32(last_sync) > 500) {
+            last_sync = timer_read32();
+            transaction_rpc_send(RPC_ID_SYNC_ENUM, sizeof(encoder_mode), &encoder_mode);
+        }
+    }
+}
+
+void housekeeping_task_user(void) {
+    // Data sync from master to slave
+    user_state_sync();
+}
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (encoder_mode == ARROWS) {  // on Nav layer controls window
@@ -86,9 +129,23 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 tap_code(KC_MNXT);
             }
         }
+    } else if (encoder_mode == WHEEL) {  // on Nav layer controls window
+        if (index == 0) {
+            if (clockwise) {
+                tap_code16(KC_WH_D);
+            } else {
+                tap_code16(KC_WH_U);
+            }
+        } else if (index == 1) {
+            if (clockwise) {
+                tap_code16(KC_WH_R);
+            } else {
+                tap_code16(KC_WH_L);
+            }
+        }
     } else {
         if (index == 0) {
-             if (!clockwise) {
+            if (!clockwise) {
                 tap_code16(KC_PGDOWN);
             } else {
                 tap_code16(KC_PGUP);
