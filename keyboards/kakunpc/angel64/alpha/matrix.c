@@ -119,15 +119,6 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += matrix_bitpop(i);
-    }
-    return count;
-}
-
 static void select_row(uint8_t row)
 {
     setPinOutput(row_pins[row]);

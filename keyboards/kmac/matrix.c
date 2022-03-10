@@ -79,14 +79,6 @@ void matrix_print(void) {
     }
 }
 
-uint8_t matrix_key_count(void) {
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += matrix_bitpop(i);
-    }
-    return count;
-}
-
 /* Columns 0 - 15
  * These columns uses two 74HC237D 3 to 8 bit demultiplexers.
  * col / pin:    PB6  PC6  PC7  PF1  PF0
