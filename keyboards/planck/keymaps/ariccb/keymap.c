@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (RAISE)
  *
  * ,----------------------------------------------------------------------------.
- * |     |     |     |     |      |      |      |  Cut  | Undo| Redo|  :  | Bsp |
+ * |OSSFT|  !  |     |     |      |      |      |  Cut  | Undo| Redo|  :  | Bsp |
  * |----------------------------------------------------------------------------|
  * |     |Menu |     |     |      |      |ARROW |SELWORD|Copy|Paste|WinPst|  "  |
  * |----------------------------------------------------------------------------|
@@ -203,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
-  KC_TRNS, KC_TRNS, KC_LABK, KC_RABK, KC_TRNS, KC_TRNS, KC_TRNS, KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC,
+  KC_TRNS, KC_EXLM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC,
   KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ARROW,   SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_COLN,
   KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_PIPE,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(7),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_NO,       KC_NO
@@ -295,6 +295,11 @@ float music_scale[][2]      = SONG(MUSIC_SCALE_SOUND);
 float tone_goodbye[][2]     = SONG(GOODBYE_SOUND);
 
 #endif
+
+void keyboard_post_init_user(void) {
+  // Make sure one-shot keys are disabled.
+  oneshot_disable();
+}
 
 bool is_alt_tab_active = false;
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -526,7 +531,7 @@ const uint16_t PROGMEM selectall_combo[]        = {MTLGUI_Z, KC_D, COMBO_END};
 const uint16_t PROGMEM questionmark_combo[]     = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM underscore_combo[]       = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM twodquote_combo[]        = {KC_H, KC_COMMA, COMBO_END};
-const uint16_t PROGMEM lowertoggle_combo[]      = {LT(_LOWER, KC_F21), MTENTER, COMBO_END};
+const uint16_t PROGMEM lowertoggle_combo[]      = {LT(_LOWER, KC_F24), MTENTER, COMBO_END};
 const uint16_t PROGMEM capsword_combo[]         = {KC_LSFT, MTRSFTBSLS, COMBO_END};
 
 
