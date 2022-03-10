@@ -1,6 +1,6 @@
 # p01_ultra
 
-![p01_ultra](https://imgur.com/a/LsU7HgT)
+![p01_ultra](https://i.imgur.com/gWOyKT7h.jpeg)
 
 designed by wavtype for protozoa studio.
 
