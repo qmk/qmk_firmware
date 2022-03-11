@@ -15,6 +15,10 @@
  */
 #pragma once
 
+// TODO: including this avoids "error: expected identifier before '(' token" errors
+//       here just to please KINETIS builds...
+#include "platform_deps.h"
+
 // useful for direct pin mapping
 #define NO_PIN (pin_t)(~0)
 
