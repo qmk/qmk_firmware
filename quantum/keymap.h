@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #include "print.h"
 #include "debug.h"
 #include "keycode_config.h"
+#include "gpio.h" // for pin_t
 
 // ChibiOS uses RESET in its FlagStatus enumeration
 // Therefore define it as QK_BOOTLOADER here, to avoid name collision
@@ -49,3 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
 
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
+
+#ifdef ENCODER_MAP_ENABLE
+// Ensure we have a forward declaration for the encoder map
+#    include "encoder.h"
+#endif

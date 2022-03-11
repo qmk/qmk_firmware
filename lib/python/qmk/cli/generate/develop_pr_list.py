@@ -18,7 +18,8 @@ ignored_titles = ["Format code according to conventions"]
 def _is_ignored(title):
     for ignore in ignored_titles:
         if ignore in title:
-            return
+            return True
+    return False
 
 
 def _get_pr_info(cache, gh, pr_num):

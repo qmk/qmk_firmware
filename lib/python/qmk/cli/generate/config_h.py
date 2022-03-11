@@ -21,18 +21,7 @@ def direct_pins(direct_pins, postfix):
         cols = ','.join(map(str, [col or 'NO_PIN' for col in row]))
         rows.append('{' + cols + '}')
 
-    col_count = len(direct_pins[0])
-    row_count = len(direct_pins)
-
     return f"""
-#ifndef MATRIX_COLS{postfix}
-#   define MATRIX_COLS{postfix} {col_count}
-#endif // MATRIX_COLS{postfix}
-
-#ifndef MATRIX_ROWS{postfix}
-#   define MATRIX_ROWS{postfix} {row_count}
-#endif // MATRIX_ROWS{postfix}
-
 #ifndef DIRECT_PINS{postfix}
 #   define DIRECT_PINS{postfix} {{ {", ".join(rows)} }}
 #endif // DIRECT_PINS{postfix}
@@ -42,14 +31,9 @@ def direct_pins(direct_pins, postfix):
 def pin_array(define, pins, postfix):
     """Return the config.h lines that set a pin array.
     """
-    pin_num = len(pins)
     pin_array = ', '.join(map(str, [pin or 'NO_PIN' for pin in pins]))
 
     return f"""
-#ifndef {define}S{postfix}
-#   define {define}S{postfix} {pin_num}
-#endif // {define}S{postfix}
-
 #ifndef {define}_PINS{postfix}
 #   define {define}_PINS{postfix} {{ {pin_array} }}
 #endif // {define}_PINS{postfix}
@@ -73,6 +57,24 @@ def matrix_pins(matrix_pins, postfix=''):
     return '\n'.join(pins)
 
 
+def generate_matrix_size(kb_info_json, config_h_lines):
+    """Add the matrix size to the config.h.
+    """
+    if 'matrix_pins' in kb_info_json:
+        col_count = kb_info_json['matrix_size']['cols']
+        row_count = kb_info_json['matrix_size']['rows']
+
+        config_h_lines.append(f"""
+#ifndef MATRIX_COLS
+#   define MATRIX_COLS {col_count}
+#endif // MATRIX_COLS
+
+#ifndef MATRIX_ROWS
+#   define MATRIX_ROWS {row_count}
+#endif // MATRIX_ROWS
+""")
+
+
 def generate_config_items(kb_info_json, config_h_lines):
     """Iterate through the info_config map to generate basic config values.
     """
@@ -80,7 +82,7 @@ def generate_config_items(kb_info_json, config_h_lines):
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
-        key_type = info_dict.get('value_type', 'str')
+        key_type = info_dict.get('value_type', 'raw')
         to_config = info_dict.get('to_config', True)
 
         if not to_config:
@@ -108,6 +110,11 @@ def generate_config_items(kb_info_json, config_h_lines):
                 config_h_lines.append(f'#ifndef {key}')
                 config_h_lines.append(f'#   define {key} {value}')
                 config_h_lines.append(f'#endif // {key}')
+        elif key_type == 'str':
+            config_h_lines.append('')
+            config_h_lines.append(f'#ifndef {config_key}')
+            config_h_lines.append(f'#   define {config_key} "{config_value}"')
+            config_h_lines.append(f'#endif // {config_key}')
         elif key_type == 'bcd_version':
             (major, minor, revision) = config_value.split('.')
             config_h_lines.append('')
@@ -183,6 +190,8 @@ def generate_config_h(cli):
 
     generate_config_items(kb_info_json, config_h_lines)
 
+    generate_matrix_size(kb_info_json, config_h_lines)
+
     if 'matrix_pins' in kb_info_json:
         config_h_lines.append(matrix_pins(kb_info_json['matrix_pins']))
 
@@ -196,7 +205,7 @@ def generate_config_h(cli):
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
         if cli.args.output.exists():
             cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
-        cli.args.output.write_text(config_h)
+        cli.args.output.write_text(config_h, encoding='utf-8')
 
         if not cli.args.quiet:
             cli.log.info('Wrote info_config.h to %s.', cli.args.output)
