@@ -16,7 +16,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "leeloo.h"
 
 enum layer_names {
     _BASE,
