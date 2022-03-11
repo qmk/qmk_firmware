@@ -25,7 +25,6 @@
 #define DEVICE_VER      0x0013
 #define MANUFACTURER    Clickety Split Ltd
 #define PRODUCT         Leeloo
-#define LEELOO_VERSION  "v1.0"
 
 /* key matrix size */
 // Rows are doubled-up
