@@ -295,8 +295,6 @@ float music_scale[][2]      = SONG(MUSIC_SCALE_SOUND);
 float tone_goodbye[][2]     = SONG(GOODBYE_SOUND);
 float short_tone_on[][2]    = SONG(AUDIO_ON_SOUND);
 float short_tone_off[][2]   = SONG(AUDIO_OFF_SOUND);
-
-
 #endif
 
 bool is_alt_tab_active = false;
