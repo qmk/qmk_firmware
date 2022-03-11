@@ -29,3 +29,7 @@
     #define TAPPING_FORCE_HOLD
     #define TAPPING_TERM 150
 #endif
+
+// If rotary encoders are used, and they require more or less resolution/sensitivity
+// you may try increasing or decreasing the value.
+// #define ENCODER_RESOLUTION 2
