@@ -3,7 +3,6 @@ MCU = atmega32u4
 
 # Bootloader selection
 BOOTLOADER = caterina       # Pro Micro
-#BOOTLOADER = atmel-dfu		# Elite-C
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
