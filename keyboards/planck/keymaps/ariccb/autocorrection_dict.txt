@@ -285,7 +285,6 @@ swithc        -> switch
 swtich        -> switch
 teamplate     -> template
 tempalte      -> template
-:ture         -> true
 retrun        -> return
 retun         -> return
 reutrn        -> return
@@ -310,6 +309,7 @@ shouldnt':    -> shouldn't
 theyr':       -> they're
 the're:       -> they're
 whos':        -> who's
+doens't:      -> doesn't
 doens't:      -> doesn't
 
 ## Catch skipped spaces between common words.
