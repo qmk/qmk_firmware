@@ -37,8 +37,6 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* communication between sides */
-#define USE_SERIAL
-#define SERIAL_USE_MULTI_TRANSACTION
 #define SOFT_SERIAL_PIN D2
 
 /* define tapping term */
