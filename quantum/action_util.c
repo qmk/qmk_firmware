@@ -202,8 +202,9 @@ bool is_oneshot_layer_active(void) {
  * FIXME: needs doc
  */
 void oneshot_set(bool active) {
-    if (keymap_config.oneshot_disable != active) {
-        keymap_config.oneshot_disable = active;
+    const bool disable = !active;
+    if (keymap_config.oneshot_disable != disable) {
+        keymap_config.oneshot_disable = disable;
         eeconfig_update_keymap(keymap_config.raw);
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         dprintf("Oneshot: active: %d\n", active);
@@ -235,7 +236,7 @@ void oneshot_disable(void) {
 }
 
 bool is_oneshot_enabled(void) {
-    return keymap_config.oneshot_disable;
+    return !keymap_config.oneshot_disable;
 }
 
 #endif
