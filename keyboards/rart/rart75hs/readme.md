@@ -20,15 +20,11 @@ Flashing example for this keyboard:
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Bootloader reset**: Hold down the key at (0,13) in the matrix (Backspace) and plug in the keyboard
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* To Enter the bootloader you can short and hold boot pin, short reset pin, release reset and boot pin. 
 
-To Enter the bootloader you can short and hold boot pin, short reset pin, release reset and boot pin. 
+* Bootmagic reset, hold down the key at (0,0) in the matrix (ESC) and plug in the keyboard. 
 
-Bootmagic reset, hold down the key at (0,0) in the matrix (ESC) and plug in the keyboard. 
-
-Bootloader reset on the matrix, hold down key at (0,1) and plug in the keyboard
+* Bootloader reset on the matrix, hold down key at (0,1) and plug in the keyboard
 
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
