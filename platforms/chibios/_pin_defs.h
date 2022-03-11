@@ -15,6 +15,12 @@
  */
 #pragma once
 
+#if defined(MCU_KINETIS)
+// TODO: including this avoids "error: expected identifier before '(' token" errors
+//       here just to please KINETIS builds...
+#    include <hal.h>
+#endif
+
 // Defines mapping for Proton C replacement
 #ifdef CONVERT_TO_PROTON_C
 // Left side (front)
