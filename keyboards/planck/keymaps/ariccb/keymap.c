@@ -269,19 +269,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (ADJUST)
  *
  * ,------------------------------------------------------------------------------.
- * |RGBtog|Ms3 | Ms2 |MsUp | Ms1  |  Hue+|  Hue- | Sat+| Sat- |Brt+ |Brt- | RESET |
+ * |Esc,Fn| Ms3 | Ms2 |MsUp | Ms1  |  Hue+| Hue-  |AU_ON|AU_OFF|     |     |RESET |
  * |------------------------------------------------------------------------------|
- * |RGBMod| MWL | MsL |MDn  |MsR  |GAMING|HANDSDOWN|AU_ON|AU_OFF|MU_ON|MU_OF|     |
+ * |      | MWL | MsL |MDn  | MsR  |GAMING|HANDSDN|MsLft|MsRhgt|MsMid|     |RGBTog|
  * |------------------------------------------------------------------------------|
- * |DEBUG|MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|MI_ON|MI_OF |OS_ON|OS_OFF|MU_Mod|
+ * |DEBUG |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|     |      |     |     |      |
  * |------------------------------------------------------------------------------|
- * |     |     |     |SLEEP|      |              |     |NumLock|    |     |       |
+ * |      |     |     |SLEEP|      |              |     |NumLk |     |     |      |
  * `------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
-  RGB_TOG, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD,   RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RESET,
-  RGB_MOD, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  KC_TRNS,
-  DEBUG,   KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   MI_ON,   MI_OFF,  OS_ON,   OS_OFF,  MU_MOD,
+  FNESC,   KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD,   AU_ON,   AU_OFF,  KC_TRNS, KC_TRNS, RESET,   // RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI,
+  KC_TRNS, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  HANDSDOWN, KC_BTN1, KC_BTN2, KC_BTN3, KC_TRNS, RGB_TOG,
+  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DEBUG,
   KC_NO,   KC_NO,   KC_NO,   KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_NUM,  KC_TRNS, KC_NO,   KC_NO
 )
 };
@@ -293,11 +293,14 @@ float tone_qwerty[][2]      = SONG(QWERTY_SOUND);
 float tone_colemak[][2]     = SONG(COLEMAK_SOUND);
 float music_scale[][2]      = SONG(MUSIC_SCALE_SOUND);
 float tone_goodbye[][2]     = SONG(GOODBYE_SOUND);
+float short_tone_on[][2]    = SONG(AUDIO_ON_SOUND);
+float short_tone_off[][2]   = SONG(AUDIO_OFF_SOUND);
+
 
 #endif
 
 void keyboard_post_init_user(void) {
-  // Make sure one-shot keys are disabled.
+  // Make sure one-shot keys are disabled (make this oneshot_enabled when qmk master gets updated with bug fix PR).
   oneshot_disable();
 }
 
@@ -502,7 +505,9 @@ enum combo_events {
   UNDERSCORE,
   TWODQUOTE,
   LOWERTOGGLE,
+  MOUSETOGGLE,
   CAPSWORD,
+  SLEEP,
   COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead
@@ -532,6 +537,8 @@ const uint16_t PROGMEM questionmark_combo[]     = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM underscore_combo[]       = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM twodquote_combo[]        = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM lowertoggle_combo[]      = {LT(_LOWER, KC_F24), MTENTER, COMBO_END};
+const uint16_t PROGMEM mousetoggle_combo[]      = {KC_U, KC_Y, COMBO_END};
+const uint16_t PROGMEM sleep_combo[]            = {KC_Q, KC_W, KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM capsword_combo[]         = {KC_LSFT, MTRSFTBSLS, COMBO_END};
 
 
@@ -565,6 +572,8 @@ combo_t key_combos[] = {
   [UNDERSCORE] = COMBO_ACTION(underscore_combo),
   [TWODQUOTE] = COMBO_ACTION(twodquote_combo),
   [LOWERTOGGLE] = COMBO_ACTION(lowertoggle_combo),
+  [MOUSETOGGLE] = COMBO_ACTION(mousetoggle_combo),
+  [SLEEP] = COMBO_ACTION(sleep_combo),
   [CAPSWORD] = COMBO_ACTION(capsword_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
@@ -754,6 +763,26 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
               PLAY_SONG(tone_goodbye);
           #endif
         }
+      }
+      break;
+    case MOUSETOGGLE:
+      if (pressed) {
+        layer_invert(_ADJUST);
+        if(IS_LAYER_ON(_ADJUST)){
+          #ifdef AUDIO_ENABLE
+              PLAY_SONG(short_tone_on);
+          #endif
+        }
+        if(IS_LAYER_OFF(_ADJUST)){
+          #ifdef AUDIO_ENABLE
+              PLAY_SONG(short_tone_off);
+          #endif
+        }
+      }
+      break;
+    case SLEEP:
+      if (pressed) {
+        tap_code16(KC_SLEP);
       }
       break;
     case CAPSWORD:
