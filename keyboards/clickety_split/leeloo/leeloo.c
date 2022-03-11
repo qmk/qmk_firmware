@@ -16,3 +16,116 @@
  */
 
 #include "leeloo.h"
+
+#ifdef OLED_ENABLE
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;
+    } else {
+        return rotation;
+    }
+}
+
+static void render_keylock_status(uint8_t led_usb_state) {
+    oled_write_P(PSTR("Lock: "), false);
+    oled_write_P(PSTR("CAPS"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("NUML"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write_P(PSTR(" "), false);
+    oled_write_ln_P(PSTR("SCLK"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+}
+
+static void render_mod_status(uint8_t modifiers) {
+    oled_write_P(PSTR("Mods: "), false);
+    oled_write_P(PSTR("Sft"), (modifiers & MOD_MASK_SHIFT));
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("Ctl"), (modifiers & MOD_MASK_CTRL));
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("Alt"), (modifiers & MOD_MASK_ALT));
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
+}
+
+static void render_secondary_oled(void) {
+    // Version Information
+    oled_write_P(PSTR("Leeloo\n\n"), false);
+    oled_write_P(PSTR("Firmware: "), false);
+    oled_write_P(PSTR(LEELOO_VERSION), false);
+    oled_write_P(PSTR("\n"), false);
+    oled_write_P(PSTR("Clickety Split Ltd."), false);
+}
+
+static static void render_status(void) {
+    // Host Keyboard Layer Status
+    switch (get_highest_layer(default_layer_state)) {
+        case _BASE:
+            oled_write_P(PSTR("QWERTY | "), false);
+            break;
+    }
+
+    // Host Keyboard Layer Status
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("Base   \n"), false);
+            break;
+
+        case _LOWER:
+            oled_write_P(PSTR("Lower   \n"), false);
+            break;
+
+        case _RAISE:
+            oled_write_P(PSTR("Raise   \n"), false);
+            break;
+
+        case _ADJUST:
+            oled_write_P(PSTR("Adjust  \n"), false);
+            break;
+
+        default:
+            oled_write_P(PSTR("Unknown \n"), false);
+    }
+
+    oled_write_P(PSTR("\n"), false);
+    render_keylock_status(host_keyboard_leds());
+    render_mod_status(get_mods() | get_oneshot_mods());
+}
+
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false; 
+    }
+
+    if (is_keyboard_master()) {
+        // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        render_status();
+    } else {
+        // Version Information
+        render_secondary_oled();
+    }
+
+    return false;
+
+}
+#endif // OLED_ENABLE
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) { return false; }
+    if (index == 0) {
+        // Volume control
+        if (clockwise) {
+            tap_code_delay(KC_VOLD, 10);
+        } else {
+            tap_code_delay(KC_VOLU, 10);
+        }
+    } else if (index == 1) {
+        // Page up/Page down
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    }
+    return true;
+}
+#endif
