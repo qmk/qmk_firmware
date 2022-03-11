@@ -50,7 +50,7 @@ static void render_secondary_oled(void) {
     // Version Information
     oled_write_P(PSTR("Leeloo\n\n"), false);
     oled_write_P(PSTR("Firmware: "), false);
-    oled_write_P(PSTR(LEELOO_VERSION), false);
+    oled_write_P(PSTR("v1.0"), false);
     oled_write_P(PSTR("\n"), false);
     oled_write_P(PSTR("Clickety Split Ltd."), false);
 }
