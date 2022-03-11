@@ -4,7 +4,6 @@
 #include "version.h"
 #include "process_keycode/process_tap_dance.h"
 #include "gordon.h"
-#include "ergodox_infinity.h"
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
