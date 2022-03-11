@@ -55,7 +55,7 @@ static void render_secondary_oled(void) {
     oled_write_P(PSTR("Clickety Split Ltd."), false);
 }
 
-static static void render_status(void) {
+static void render_status(void) {
     // Host Keyboard Layer Status
     switch (get_highest_layer(default_layer_state)) {
         case _BASE:
