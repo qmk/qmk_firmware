@@ -30,7 +30,7 @@
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
-#define MIDI_BASIC
+//#define MIDI_BASIC
 /* enable advanced MIDI features:
    - MIDI notes can be added to the keymap
    - Octave shift and transpose
@@ -52,7 +52,9 @@
 
 #define MOUSEKEY_INTERVAL 16        //Time between cursor movements in milliseconds.
                                     //If the refresh rate of your display is 60Hz, you could set it to 16 (1/60). As this raises the cursor speed significantly, you may want to lower MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 8        //Maximum cursor speed at which acceleration stops
-#define MOUSEKEY_TIME_TO_MAX 50     //Time until maximum scroll speed is reached
-#define MOUSEKEY_DELAY 100          //Delay between pressing a movement key and cursor movement
+#define MOUSEKEY_MAX_SPEED 6       //Maximum cursor speed at which acceleration stops
+#define MOUSEKEY_TIME_TO_MAX 60     //Time until maximum scroll speed is reached
+#define MOUSEKEY_DELAY 0            //Delay between pressing a movement key and cursor movement
 #define MOUSEKEY_MOVE_DELTA 8       //Step size
+#define MOUSEKEY_WHEEL_DELAY 0      //Delay between pressing a movement key and wheel scroll movement
+#define MK_KINETIC_SPEED            //Enable kinetic mode, acceleration follows quadratic curve
