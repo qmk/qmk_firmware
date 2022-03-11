@@ -19,6 +19,13 @@
 
 #include "quantum.h"
 
+enum layer_names {
+    _BASE,
+    _LOWER,
+    _RAISE,
+    _ADJUST
+};
+
 #if defined(KEYBOARD_clickety_split_leeloo_rev1)
 #    include "rev1.h"
 #endif
