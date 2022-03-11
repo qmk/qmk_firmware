@@ -17,8 +17,8 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0107
-#define DEVICE_VER      0x0203
+#define PRODUCT_ID 0x0107
+#define DEVICE_VER 0x0204
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -50,15 +50,11 @@
 /* Set USB polling rate as 1 milliseconds */
 #define USB_POLLING_INTERVAL_MS 1
 
-/* We have 2KB EEPROM size on STM32L432 */
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
-
-/* Encoder used pins */
+/* Encoder Configuration */
 #define ENCODERS_PAD_A { A10 }
 #define ENCODERS_PAD_B { A8 }
-
-/* Specifies the number of pulses the encoder registers between each detent */
 #define ENCODER_RESOLUTION 4
+#define ENCODER_DEFAULT_POS 0x3
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 45

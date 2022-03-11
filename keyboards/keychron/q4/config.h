@@ -36,8 +36,8 @@
 #define DEBOUNCE 5
 
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 1
-#define DRIVER_ADDR_1 0b1110111
+// #define DRIVER_COUNT 1
+// #define DRIVER_ADDR_1 0b1110111
 
 /* DIP switch */
 #define DIP_SWITCH_MATRIX_GRID  { {4,4} }

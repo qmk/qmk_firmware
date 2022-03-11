@@ -15,7 +15,6 @@
  */
 
 #include "q9.h"
-#include "test.c"
 
 const matrix_row_t matrix_mask[] = {
     0b0111111111111111,
@@ -27,6 +26,7 @@ const matrix_row_t matrix_mask[] = {
 #ifdef DIP_SWITCH_ENABLE
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
+    uprintf("%d\r\n", active);
     if (!dip_switch_update_user(index, active)) { return false;}
     if (index == 0) {
         default_layer_set(1UL << (active ? 1 : 0));
@@ -50,7 +50,6 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     #define CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
 #endif
 
-__attribute__((weak))
 void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         uint8_t b = rgb_matrix_get_val();

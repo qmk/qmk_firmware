@@ -34,7 +34,7 @@
 #define MATRIX_COL_PINS \
     { C14, C15, A0, A1, A2, A3, A4, A5, A6, A7, B0, B1, A8, A9, H3 }
 
-/* We make pin H3 with a stronger pull resistor than the internal MCU pins */
+/* We use a pin with a stronger pull resistor than the internal MCU pins */
 #define MATRIX_UNSELECT_DRIVE_HIGH
 
 /* Set 0 if debouncing isn't needed */
@@ -62,9 +62,6 @@
 
 /* Set USB polling rate as 1 milliseconds */
 #define USB_POLLING_INTERVAL_MS 1
-
-/* We have 2KB EEPROM size on STM32L432 */
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
 
 /* Use 5 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
@@ -122,3 +119,6 @@
 #ifdef VIA_ENABLE
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
+
+/* Enable receive custom command from host */
+#define RAW_HID_CMD 0xAB

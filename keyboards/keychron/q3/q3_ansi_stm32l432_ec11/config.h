@@ -29,12 +29,11 @@
 #define DRIVER_2_LED_TOTAL 39
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
-/* Encoder used pins */
+/* Encoder Configuration */
 #define ENCODERS_PAD_A { A10 }
 #define ENCODERS_PAD_B { A8 }
-
-/* Specifies the number of pulses the encoder registers between each detent */
 #define ENCODER_RESOLUTION 4
+#define ENCODER_DEFAULT_POS 0x3
 
 /* Enable CapsLcok LED */
 #define CAPS_LOCK_LED_INDEX 50

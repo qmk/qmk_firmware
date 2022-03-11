@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "test.h"
 
 enum layers{
     MAC_BASE,
@@ -35,7 +36,6 @@ enum custom_keycodes {
     KC_FILE_EXPLORER
 };
 
-#define KC_WAVE S(KC_GRV)
 #define KC_MCTL KC_MISSION_CONTROL
 #define KC_LPAD KC_LAUNCHPAD
 #define KC_TASK KC_TASK_VIEW
@@ -79,13 +79,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
 
     [_FN3] = LAYOUT_ansi_52(
-        KC_WAVE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_BSPC,          KC_TRNS,
+        S(KC_GRV), KC_F1, KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_BSPC,          KC_TRNS,
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_TRNS,            KC_TRNS,          KC_TRNS,
         KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,            KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    process_other_record(keycode, record);
     switch (keycode) {
         case KC_MCTL:
             if (record->event.pressed) {
@@ -126,4 +127,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             return true;  // Process all other keycodes normally
     }
+}
+
+void matrix_scan_user(void) {
+    /* Set timers for factory reset and backlight test */
+    timer_task_start();
+}
+
+bool dip_switch_update_user(uint8_t index, bool active) {
+    /* Send default layer state to host */
+    system_switch_state_report(index, active);
+    return true;
 }

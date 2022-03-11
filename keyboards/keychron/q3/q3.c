@@ -15,7 +15,6 @@
  */
 
 #include "q3.h"
-#include "test.c"
 
 // clang-format off
 
@@ -58,7 +57,8 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 #        define CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
 #    endif
 
-__attribute__((weak)) void rgb_matrix_indicators_user(void) {
+__attribute__((weak))
+void rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         uint8_t b = rgb_matrix_get_val();
         if (b < CAPS_LOCK_VAL_STEP) {

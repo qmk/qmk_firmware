@@ -27,7 +27,7 @@
 
 /* Key matrix pins */
 #define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
+#define MATRIX_COL_PINS { A10, A9, A8, B1, B0, A7, A6, A5, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -111,3 +111,5 @@
 
 /* Enable receive custom command from host */
 #define RAW_HID_CMD 0xAB
+
+#define RGB_MATRIX_KEYPRESSES

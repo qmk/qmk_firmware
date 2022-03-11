@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "test.h"
 
 enum layers{
     MAC_BASE,
@@ -35,7 +36,6 @@ enum custom_keycodes {
     KC_FILE_EXPLORER
 };
 
-#define KC_WAVE S(KC_GRV)
 #define KC_MCTL KC_MISSION_CONTROL
 #define KC_LPAD KC_LAUNCHPAD
 #define KC_TASK KC_TASK_VIEW
@@ -55,31 +55,31 @@ static uint8_t mac_keycode[4] = { KC_LOPT, KC_ROPT, KC_LCMD, KC_RCMD };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_all(
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,          KC_VOLD, KC_MUTE, KC_VOLU,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,           KC_VOLD, KC_MUTE, KC_VOLU,
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,            KC_ENT,           KC_HOME,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_SLSH,            KC_RSFT, KC_UP,
         KC_LCTL, KC_LOPTN,KC_LCMMD,                           KC_SPC,                             KC_RCMMD, MO(_FN1), MO(_FN3), KC_LEFT, KC_DOWN, KC_RGHT),
 
     [WIN_BASE] = LAYOUT_all(
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,          KC_VOLD, KC_MUTE, KC_VOLU,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,           KC_VOLD, KC_MUTE, KC_VOLU,
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,            KC_ENT,           KC_HOME,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_SLSH,            KC_RSFT, KC_UP,
         KC_LCTL, KC_LWIN, KC_LALT,                            KC_SPC,                             KC_RALT,  MO(_FN2), MO(_FN3), KC_LEFT, KC_DOWN, KC_RGHT),
 
     [_FN1] = LAYOUT_all(
-        KC_GRV,  KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_TRNS,          RGB_VAD, RGB_TOG, RGB_VAI,
+        KC_GRV,  KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_TRNS,           RGB_VAD, RGB_TOG, RGB_VAI,
         RGB_TOG, RGB_MOD, RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, NK_TOGG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,            KC_TRNS,          KC_TRNS,
         KC_TRNS,          RGB_RMOD,RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,            KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
 
     [_FN2] = LAYOUT_all(
-        KC_GRV,  KC_BRID, KC_BRIU, KC_TASK, KC_FLXP, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_TRNS,          RGB_VAD, RGB_TOG, RGB_VAI,
+        KC_GRV,  KC_BRID, KC_BRIU, KC_TASK, KC_FLXP, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_TRNS,           RGB_VAD, RGB_TOG, RGB_VAI,
         RGB_TOG, RGB_MOD, RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, NK_TOGG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,            KC_TRNS,          KC_TRNS,
         KC_TRNS,          RGB_RMOD,RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,            KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS, RGB_VAD, RGB_VAI,          KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
+        KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
 
     [_FN3] = LAYOUT_all(
-        KC_WAVE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_BSPC,          KC_TRNS, KC_TRNS, KC_TRNS,
+        S(KC_GRV), KC_F1, KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_BSPC,           KC_TRNS, KC_TRNS, KC_TRNS,
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_TRNS,            KC_TRNS,          KC_TRNS,
         KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,            KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS)
@@ -87,8 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
 
-#    define ENCODERS 1
-
+#define ENCODERS 1
 static uint8_t  encoder_state[ENCODERS] = {0};
 static keypos_t encoder_cw[ENCODERS]    = {{8, 3}};
 static keypos_t encoder_ccw[ENCODERS]   = {{7, 3}};
@@ -114,11 +113,24 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 };
 
-void matrix_scan_user(void) { encoder_action_unregister(); }
-
 #endif
 
+void matrix_scan_user(void) {
+    #if defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
+        encoder_action_unregister();
+    #endif
+    /* Set timers for factory reset and backlight test */
+    timer_task_start();
+}
+
+bool dip_switch_update_user(uint8_t index, bool active) {
+    /* Send default layer state to host */
+    system_switch_state_report(index, active);
+    return true;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    process_other_record(keycode, record);
     switch (keycode) {
         case KC_MCTL:
             if (record->event.pressed) {

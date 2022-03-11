@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "test.h"
 
 enum layers{
     MAC_BASE,
@@ -103,9 +104,18 @@ void matrix_scan_user(void) {
             unregister_code(KC_SPACE);
         }
     }
+    /* Set timers for factory reset and backlight test */
+    timer_task_start();
+}
+
+bool dip_switch_update_user(uint8_t index, bool active) {
+    /* Send default layer state to host */
+    system_switch_state_report(index, active);
+    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    process_other_record(keycode, record);
     switch (keycode) {
         case KC_MISSION_CONTROL:
             if (record->event.pressed) {
@@ -135,7 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 register_code(KC_LCMD);
                 register_code(KC_SPACE);
-                prev = timer_read();
+                prev = timer_read() | 1;
                 siri = true;
             } else {
                 // Do something else when release

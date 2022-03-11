@@ -37,33 +37,62 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 
 #endif  // DIP_SWITCH_ENABLE
 
-#if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
+#if defined(RGB_MATRIX_ENABLE) && (defined(CAPS_LOCK_LED_INDEX) || defined(NUM_LOCK_LED_INDEX))
+    #if defined(CAPS_LOCK_LED_INDEX)
+        #define CAPS_LOCK_MAX_BRIGHTNESS 0xFF
+        #ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+            #undef CAPS_LOCK_MAX_BRIGHTNESS
+            #define CAPS_LOCK_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
+        #endif
 
-#define CAPS_LOCK_MAX_BRIGHTNESS 0xFF
-#ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-    #undef CAPS_LOCK_MAX_BRIGHTNESS
-    #define CAPS_LOCK_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#endif
+        #define CAPS_LOCK_VAL_STEP 8
+        #ifdef RGB_MATRIX_VAL_STEP
+            #undef CAPS_LOCK_VAL_STEP
+            #define CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
+        #endif
+    #endif
 
-#define CAPS_LOCK_VAL_STEP 8
-#ifdef RGB_MATRIX_VAL_STEP
-    #undef CAPS_LOCK_VAL_STEP
-    #define CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
-#endif
+    #if defined(NUM_LOCK_LED_INDEX)
+        #define NUM_LOCK_MAX_BRIGHTNESS 0xFF
+        #ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+            #undef NUM_LOCK_MAX_BRIGHTNESS
+            #define NUM_LOCK_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
+        #endif
 
-__attribute__((weak))
-void rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().caps_lock) {
-        uint8_t b = rgb_matrix_get_val();
-        if (b < CAPS_LOCK_VAL_STEP) {
-            b = CAPS_LOCK_VAL_STEP;
-        } else if (b < (CAPS_LOCK_MAX_BRIGHTNESS - CAPS_LOCK_VAL_STEP)) {
-            b += CAPS_LOCK_VAL_STEP;  // one step more than current brightness
-        } else {
-            b = CAPS_LOCK_MAX_BRIGHTNESS;
+        #define NUM_LOCK_VAL_STEP 8
+        #ifdef RGB_MATRIX_VAL_STEP
+            #undef NUM_LOCK_VAL_STEP
+            #define NUM_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
+        #endif
+    #endif
+
+    __attribute__((weak)) void rgb_matrix_indicators_kb(void) {
+        #if defined(CAPS_LOCK_LED_INDEX)
+        if (host_keyboard_led_state().caps_lock) {
+            uint8_t b = rgb_matrix_get_val();
+            if (b < CAPS_LOCK_VAL_STEP) {
+                b = CAPS_LOCK_VAL_STEP;
+            } else if (b < (CAPS_LOCK_MAX_BRIGHTNESS - CAPS_LOCK_VAL_STEP)) {
+                b += CAPS_LOCK_VAL_STEP;  // one step more than current brightness
+            } else {
+                b = CAPS_LOCK_MAX_BRIGHTNESS;
+            }
+            rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, b, b, b);  // white, with the adjusted brightness    }
         }
-        rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, b, b, b);  // white, with the adjusted brightness    }
+        #endif
+        #if defined(NUM_LOCK_LED_INDEX)
+        if (host_keyboard_led_state().num_lock) {
+            uint8_t v = rgb_matrix_get_val();
+            if (v < NUM_LOCK_VAL_STEP) {
+                v = NUM_LOCK_VAL_STEP;
+            } else if (v < (NUM_LOCK_MAX_BRIGHTNESS - NUM_LOCK_VAL_STEP)) {
+                v += NUM_LOCK_VAL_STEP;  // one step more than current brightness
+            } else {
+                v = NUM_LOCK_MAX_BRIGHTNESS;
+            }
+            rgb_matrix_set_color(NUM_LOCK_LED_INDEX, v, v, v);  // white, with the adjusted brightness    }
+        }
+        #endif
     }
-}
 
-#endif  // CAPS_LOCK_LED_INDEX
+#endif  // CAPS_LOCK_LED_INDEX or CAPS_LOCK_LED_INDEX

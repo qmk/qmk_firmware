@@ -16,8 +16,8 @@
 
 #include "test.h"
 
-#define _FN1 2
-#define _FN2 3
+#define MAC_FN 1
+#define WIN_FN 3
 
 static void timer_3000ms_task(void);
 static void timer_250ms_task(void);
@@ -58,8 +58,8 @@ bool report_os_sw_state = false;
 
 void process_other_record(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MO(_FN1):
-        case MO(_FN2):
+        case MO(MAC_FN):
+        case MO(WIN_FN):
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_FN;
             } else {
@@ -268,4 +268,8 @@ void system_switch_state_report(uint8_t index, bool active) {
         uint8_t payload[3] = {FACTORY_TEST_CMD_OS_SWITCH, OS_SWITCH, active};
         factory_test_send(payload, 3);
     }
+}
+
+void restart_usb_driver(USBDriver *usbp) {
+    // Do nothing here.
 }
