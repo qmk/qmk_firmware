@@ -412,7 +412,7 @@ ISR(TIMERx_OVF_vect)
     }
 
     // Set PWM to a brightnessvalue scaled to the configured resolution
-    set_pwm(cie_lightness(rescale_limit_val(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * ICRx / 255))));
+    set_pwm(cie_lightness(rescale_limit_val(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * (ICRx / 255)))));
 }
 
 #endif // BACKLIGHT_BREATHING
