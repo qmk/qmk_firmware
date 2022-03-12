@@ -21,7 +21,7 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xF21E
 #define PRODUCT_ID      0x6E6E
-#define DEVICE_VER      0xE0EF
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    eason
 #define PRODUCT         capsule65
 
@@ -43,7 +43,9 @@
 #define MATRIX_COL_PINS { D5, D2, D3, D4, D6, D7, B4, B5, B6, C6, C7, E2, B3, B1, B0, B2 }
 
 #define DIODE_DIRECTION COL2ROW
+
 #define LED_CAPS_LOCK_PIN F6
+
 #define RGB_DI_PIN F7
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 6
