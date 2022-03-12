@@ -7,7 +7,7 @@ import jsonschema
 from dotty_dict import dotty
 from milc import cli
 
-from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
+from qmk.processors import processor_factory
 from qmk.c_parse import find_layouts
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
@@ -478,15 +478,24 @@ def _extract_rules_mk(info_data):
     rules = rules_mk(info_data['keyboard_folder'])
     info_data['processor'] = rules.get('MCU', info_data.get('processor', 'atmega32u4'))
 
-    if info_data['processor'] in CHIBIOS_PROCESSORS:
-        arm_processor_rules(info_data, rules)
+    cli.log.debug(f"Using processor {info_data['processor']}.")
+    processor = processor_factory.get_matching_processor(info_data['processor'])
 
-    elif info_data['processor'] in LUFA_PROCESSORS + VUSB_PROCESSORS:
-        avr_processor_rules(info_data, rules)
+    if processor is None:
+        cli.log.warning(f"{info_data['keyboard_folder']}: Unsupported processor: {info_data['processor']}.")
 
     else:
-        cli.log.warning("%s: Unknown MCU: %s" % (info_data['keyboard_folder'], info_data['processor']))
-        unknown_processor_rules(info_data, rules)
+        cli.log.debug(f"Building for {processor.category}.")
+
+        if processor.category == "chibios":
+            arm_processor_rules(info_data, rules)
+
+        elif processor.category in ["lufa", "vusb"]:
+            avr_processor_rules(info_data, rules, processor.category)
+
+        else:
+            cli.log.warning(f"{info_data['keyboard_folder']}: Unknown category {processor.category} for processor {info_data['processor']}.")
+            unknown_processor_rules(info_data)
 
     # Pull in data from the json map
     dotty_info = dotty(info_data)
@@ -666,13 +675,17 @@ def arm_processor_rules(info_data, rules):
     return info_data
 
 
-def avr_processor_rules(info_data, rules):
+def avr_processor_rules(info_data, rules, category):
     """Setup the default info for an AVR board.
     """
     info_data['processor_type'] = 'avr'
     info_data['platform'] = rules['ARCH'] if 'ARCH' in rules else 'unknown'
-    info_data['protocol'] = 'V-USB' if rules.get('MCU') in VUSB_PROCESSORS else 'LUFA'
 
+    if category == "vusb":
+        info_data['protocol'] = 'V-USB' 
+    else: 
+        info_data['protocol'] = 'LUFA'
+    
     if 'bootloader' not in info_data:
         info_data['bootloader'] = 'atmel-dfu'
 
@@ -682,7 +695,7 @@ def avr_processor_rules(info_data, rules):
     return info_data
 
 
-def unknown_processor_rules(info_data, rules):
+def unknown_processor_rules(info_data):
     """Setup the default keyboard info for unknown boards.
     """
     info_data['bootloader'] = 'unknown'
