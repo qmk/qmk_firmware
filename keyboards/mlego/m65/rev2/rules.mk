@@ -1,5 +1,6 @@
 # MCU name
-MCU = STM32F103  #GD32F303CCT6 weact
+#GD32F303CCT6 weact
+MCU = STM32F103x8
 
 # Bootloader selection
 BOOTLOADER = stm32duino

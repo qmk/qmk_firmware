@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F411
+MCU = STM32F411xE
 
 # Linker script to use
 # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/

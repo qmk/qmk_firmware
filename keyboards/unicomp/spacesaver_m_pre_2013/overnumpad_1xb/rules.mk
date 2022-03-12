@@ -1,5 +1,6 @@
 # MCU name
-MCU = STM32F446 # STM32F446RET6
+# STM32F446RET6
+MCU = STM32F446xE
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu

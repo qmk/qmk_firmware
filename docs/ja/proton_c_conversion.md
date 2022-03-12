@@ -50,7 +50,7 @@ Proton C には1つのオンボード LED(C13)しかなく、デフォルトで�
 `CTPC = yes` を指定せずに Proton C をネイティブで使用するには、`rules.mk` の `MCU`行を変更する必要があります：
 
 ```
-MCU = STM32F303
+MCU = STM32F303xC
 BOARD = QMK_PROTON_C
 ```
 

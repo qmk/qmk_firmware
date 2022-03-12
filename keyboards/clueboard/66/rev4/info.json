@@ -3,7 +3,7 @@
   "keyboard_name": "Clueboard 66% rev4",
   "maintainer": "skullydazed",
   "debounce": 5,
-  "processor": "STM32F303",
+  "processor": "STM32F303xC",
   "board": "QMK_PROTON_C",
   "bootloader": "stm32-dfu",
   "diode_direction": "COL2ROW",

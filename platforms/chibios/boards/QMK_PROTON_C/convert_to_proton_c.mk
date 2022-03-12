@@ -1,6 +1,6 @@
 # Proton C MCU settings for converting AVR projects
 TARGET := $(TARGET)_proton_c
-MCU := STM32F303
+MCU := STM32F303xC
 BOARD := QMK_PROTON_C
 BOOTLOADER := stm32-dfu
 OPT_DEFS += -DCONVERT_TO_PROTON_C

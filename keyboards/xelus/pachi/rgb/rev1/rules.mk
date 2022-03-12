@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32L422
+MCU = STM32L422xB
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu
