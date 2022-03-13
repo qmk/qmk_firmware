@@ -28,6 +28,8 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
 ### STMicroelectronics (STM32)
 
  * [STM32F0x2](https://www.st.com/en/microcontrollers-microprocessors/stm32f0x2.html)
+ * [STM32L072](https://www.st.com/en/microcontrollers-microprocessors/stm32l0x2.html)
+ * [STM32L073](https://www.st.com/en/microcontrollers-microprocessors/stm32l0x3.html)
  * [STM32F103](https://www.st.com/en/microcontrollers-microprocessors/stm32f103.html)
    * Bluepill (with STM32duino bootloader)
  * [STM32F303](https://www.st.com/en/microcontrollers-microprocessors/stm32f303.html)
