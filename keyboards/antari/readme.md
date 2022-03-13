@@ -6,7 +6,7 @@
 ANTARI is 4x4 macropad supports analog potentiometer, rotary encoders, Oled screen, passive buzzer, 3.5mm TRS socket for sending out serial data like midi output and more. The rotary encoder also outputs midi signal when the keyboard is switched to 'Lightroom' dedicated layer, once you pressed an letter key the knob will output a midi cc signal with different parameter, which allows you use a knob to adjust up to 45 sliders in lightroom with Lightroom keymap, most importantly, the value will not jump or jitter, oppositely it moves relatively and smoothly. The oled screen will show you the last letter key you pressed and every information you need. 
 
 * Keyboard Maintainer: [sandipratama](https://github.com/nendezkombet)
-* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Supported: Antari PCB
 * Hardware Availability: https://github.com/nendezkombet/antari
 
 Make example for this keyboard (after setting up your build environment):
