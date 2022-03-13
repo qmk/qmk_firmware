@@ -502,6 +502,56 @@ ifneq ($(findstring STM32G474, $(MCU)),)
   STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
 endif
 
+ifneq (,$(filter $(MCU),STM32L072 STM32L072x8 STM32L072xB STM32L072xZ STM32L073 STM32L073x8 STM32L073xB STM32L073xZ)) 
+  # This sections adds support for STM32L072xx and STM32L073xx processors, which have different memory configurations:
+  # STM32L072x8 and STM32L073x8: 64 kByte flash,  20 kByte RAM
+  # STM32L072xB and STM32L073xB: 128 kByte flash, 20 kByte RAM
+  # STM32L072xZ and STM32L073xZ: 192 kByte flash, 20 kByte RAM
+  #
+  # Memory layouts on STM32L072xx and STM32L073xx processors are identical.
+
+  # Linker script to use, depending on MCU model
+  # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  ifneq (,$(filter $(MCU),STM32L072x8 STM32L073x8))
+    MCU_LDSCRIPT ?= STM32L073x8
+  else ifneq (,$(filter $(MCU),STM32L072xB STM32L072xB))
+    MCU_LDSCRIPT ?= STM32L073xB
+  else ifneq (,$(filter $(MCU),STM32L072xZ STM32L073xZ))
+    MCU_LDSCRIPT ?= STM32L073xZ
+  else
+    $(error Specify the exact MCU model, not only the base type $(MCU). $(MCU)x8, $(MCU)xB or $(MCU)xZ are valid options and differ in memory size)
+  endif
+
+  # Cortex version
+  MCU = cortex-m0plus
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 6
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32L0xx
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32l0xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_STM32_L073XZ
+
+  USE_FPU ?= no
+
+  # UF2 settings
+  UF2_FAMILY ?= STM32L0
+
+  # Bootloader address for STM32 DFU
+  STM32_BOOTLOADER_ADDRESS ?= 0x1FF00000
+endif
+
 ifneq (,$(filter $(MCU),STM32L432 STM32L442))
   # Cortex version
   MCU = cortex-m4
