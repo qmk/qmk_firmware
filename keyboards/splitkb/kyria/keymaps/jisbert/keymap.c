@@ -268,13 +268,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 tap_code16(C(KC_RGHT));
             }
             break;
-        case _ADJUST:
-            if (clockwise) {
-                tap_code16(KC_VOLU);
-            } else {
-                tap_code16(KC_VOLD);
-            }
-            break;
         default:
             if (clockwise) {
                 tap_code16(S(KC_TAB));
