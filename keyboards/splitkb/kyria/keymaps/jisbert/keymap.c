@@ -21,7 +21,7 @@ enum layers {
     _LOWER,
     _RAISE,
     _ADJUST,
-    _NUMPAD
+    _NUMERIC
 };
 
 enum keycodes {
@@ -44,10 +44,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-        KC_ESC,  ES_Q, ES_W, ES_E,    ES_R,        ES_T,                                                        ES_Y,       ES_U,    ES_I,    ES_O,   ES_P,    ES_CCED,
-        ES_MORD, ES_A, ES_S, ES_D,    ES_F,        ES_G,                                                        ES_H,       ES_J,    ES_K,    ES_L,   ES_NTIL, ES_ACUT,
-        ES_IEXL, ES_Z, ES_X, ES_C,    ES_V,        ES_B,       SFT_T(KC_DEL), KC_LALT, KC_TAB,  SFT_T(KC_CAPS), ES_N,       ES_M,    ES_COMM, ES_DOT, ES_MINS, KC_EMQM,
-                             KC_ATEU, TT(_NUMPAD), MO(_LOWER), KC_BSPC,       KC_LCTL, KC_ENT,  KC_SPC,         MO(_RAISE), KC_LGUI, KC_APP
+        KC_ESC,  ES_Q, ES_W, ES_E,    ES_R,         ES_T,                                                        ES_Y,       ES_U,    ES_I,    ES_O,   ES_P,    ES_CCED,
+        ES_MORD, ES_A, ES_S, ES_D,    ES_F,         ES_G,                                                        ES_H,       ES_J,    ES_K,    ES_L,   ES_NTIL, ES_ACUT,
+        ES_IEXL, ES_Z, ES_X, ES_C,    ES_V,         ES_B,       SFT_T(KC_DEL), KC_LALT, KC_TAB,  SFT_T(KC_CAPS), ES_N,       ES_M,    ES_COMM, ES_DOT, ES_MINS, KC_EMQM,
+                             KC_ATEU, MO(_NUMERIC), MO(_LOWER), KC_BSPC,       KC_LCTL, KC_ENT,  KC_SPC,         MO(_RAISE), KC_LGUI, KC_APP
     ),
 /*
  * Lower Layer: navigation
@@ -108,24 +108,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
  /*
-  * Layer template
+  * Numeric Layer
   *
   * ,-------------------------------------------.                              ,-------------------------------------------.
-  * |        |  F6  |  F1  |  F12 |  F3  |      |                              |  :   |  7   |  8   |  9   |  *   |   /    |
+  * |        |  F1  |  F2  |  F3  |  F4  |   €  |                              | BSPC |  F5  |  F11 |  F12 |      |  BSPC  |
   * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-  * |        |  F11 |  F4  |  F2  |  F5  |      |                              |  .   |  4   |  5   |  6   |  +   |   -    |
+  * |        |   1  |   2  |   3  |   4  |   5  |                              |   6  |   7  |   8  |   9  |   0  |        |
   * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-  * |        |  F7  |  F8  |  F9  | F10  |      |      |      |  |      | BSPC |  0   |  1   |  2   |  3   |  ,   |   €    |
+  * |        |      |      |   +  |   ,  |   *  |      |      |  |      |      |   /  |   .  |   :  |   -  |      |        |
   * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
   *                        |      |      |      |      |      |  |      |      |      |      |      |
   *                        |      |      |      |      |      |  |      |      |      |      |      |
   *                        `----------------------------------'  `----------------------------------'
   */
-     [_NUMPAD] = LAYOUT(
-       _______, KC_F6,  KC_F1, KC_F12,  KC_F3,   XXXXXXX,                                     ES_COLN, ES_7,    ES_8,   ES_9, KC_PAST, KC_PSLS,
-       XXXXXXX, KC_F11, KC_F4, KC_F2,   KC_F5,   XXXXXXX,                                     KC_PDOT, ES_4,    ES_5,   ES_6, KC_PPLS, KC_PMNS,
-       XXXXXXX, KC_F7,  KC_F8, KC_F9,   KC_F10,  XXXXXXX, _______, _______, _______, KC_BSPC, ES_0,    ES_1,    ES_2,   ES_3, KC_COMM, ES_EURO,
-                               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+     [_NUMERIC] = LAYOUT(
+       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   ES_EURO,                                     KC_BSPC, KC_F5,   KC_F11, KC_F12, XXXXXXX, KC_BSPC,
+       XXXXXXX, ES_1,    ES_2,    ES_3,    ES_4,    ES_5,                                        ES_6,    ES_7,    ES_8,   ES_9,   ES_0,    XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_COMM, KC_PAST, _______, _______, _______, _______, ES_0,    ES_1,    ES_2,   ES_3,   KC_COMM, ES_EURO,
+                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
      ),
 // /*
 //  * Layer template
@@ -244,7 +244,7 @@ static void render_status(void) {
         case _ADJUST:
             oled_write_P(PSTR("Config.\n"), false);
             break;
-        case _NUMPAD:
+        case _NUMERIC:
             oled_write_P(PSTR("Tecl. num.\n"), false);
             break;
         default:
