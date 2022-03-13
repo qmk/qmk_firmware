@@ -1,0 +1,17 @@
+{
+    "development_board": {
+        "promicro": {
+            "processor": "atmega32u4",
+            "bootloader": "caterina"
+        },
+        "elite_c": {
+            "processor": "atmega32u4",
+            "bootloader": "atmel-dfu"
+        },
+        "proton_c": {
+            "processor": "STM32F303",
+            "bootloader": "stm32-dfu",
+            "board": "QMK_PROTON_C"
+        }
+    }
+}
