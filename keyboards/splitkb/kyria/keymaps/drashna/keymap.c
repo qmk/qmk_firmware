@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_DEFAULT_LAYER_1] = { { KC_DOWN, KC_UP   }, { KC_VOLD, KC_VOLU } },
+    [_DEFAULT_LAYER_1] = { { KC_VOLD, KC_VOLU }, { KC_WH_D, KC_WH_U } },
     [_DEFAULT_LAYER_2] = { { _______, _______ }, { _______, _______ } },
     [_DEFAULT_LAYER_3] = { { _______, _______ }, { _______, _______ } },
     [_DEFAULT_LAYER_4] = { { _______, _______ }, { _______, _______ } },
