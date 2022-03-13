@@ -1,6 +1,6 @@
 # Jels60
 
-![jels60](https://i.imgur.com/3Ec4YZN.png)
+![jels60](https://i.imgur.com/3Ec4YZNh.png)
 
 A 60% PCB
 
