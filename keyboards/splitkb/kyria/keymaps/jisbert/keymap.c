@@ -122,9 +122,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                        `----------------------------------'  `----------------------------------'
   */
      [_NUMERIC] = LAYOUT(
-       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   ES_EURO,                                     KC_BSPC, KC_F5,   KC_F11, KC_F12, XXXXXXX, KC_BSPC,
-       XXXXXXX, ES_1,    ES_2,    ES_3,    ES_4,    ES_5,                                        ES_6,    ES_7,    ES_8,   ES_9,   ES_0,    XXXXXXX,
-       XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_COMM, KC_PAST, _______, _______, _______, _______, ES_0,    ES_1,    ES_2,   ES_3,   KC_COMM, ES_EURO,
+       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   ES_EURO,                                     KC_BSPC, KC_F5,   KC_F11,  KC_F12,  XXXXXXX, KC_BSPC,
+       XXXXXXX, ES_1,    ES_2,    ES_3,    ES_4,    ES_5,                                        ES_6,    ES_7,    ES_8,    ES_9,    ES_0,    XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_COMM, KC_PAST, _______, _______, _______, _______, KC_PSLS, KC_PDOT, ES_COLN, KC_PMNS, XXXXXXX, XXXXXXX,
                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
      ),
 // /*
