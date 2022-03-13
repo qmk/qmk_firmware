@@ -3,7 +3,6 @@ MCU = atmega16u4
 
 # Bootloader selection
 BOOTLOADER = atmel-dfu
-EXTRAFLAGS        += -flto
 
 # Build Options
 #   change yes to no to disable
