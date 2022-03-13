@@ -46,11 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+       KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, _______, _______, _______, _______, _______,                      _______,   KC_UP, _______, _______, _______, _______,
+      KC_CAPS, _______, _______, _______, _______, _______,                      _______,   KC_UP, _______, RGB_MOD, RGB_HUI, RGB_VAI,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, _______, _______, _______, _______, _______,                      KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______, _______,
+      KC_LSFT, _______, _______, _______, _______, _______,                      KC_LEFT, KC_DOWN,KC_RIGHT, RGB_TOG, RGB_SAI, RGB_SPI,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, _______, _______,   _______,   MO(3), KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
+       KC_ESC, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, _______, _______, _______, _______, _______,                      KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -83,7 +83,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  return rotation;
+#ifdef RGB_MATRIX_ENABLE
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    }
+#endif
+    return rotation;
 }
 
 #define L_BASE 0
@@ -163,6 +168,7 @@ void render_bootmagic_status(bool status) {
     }
 }
 
+#ifndef RGB_MATRIX_ENABLE
 // frame 0, 128x32px
 const char PROGMEM cat_frame_0 [] PROGMEM = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -282,8 +288,18 @@ static uint32_t frame_timer = 0;
 static uint32_t anim_sleep = 0;
 static uint8_t  anim_speed = 120;
 
-void oled_render_logo(void) {
+#endif
 
+void oled_render_logo(void) {
+#ifdef RGB_MATRIX_ENABLE
+    static const char PROGMEM crkbd_logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+        0};
+    oled_write_P(crkbd_logo, false);
+#endif
+#ifndef RGB_MATRIX_ENABLE
     if(get_current_wpm() != 000) {
         oled_on();
         int8_t wpm_speed = (int8_t)(get_current_wpm() / 2);
@@ -309,6 +325,7 @@ void oled_render_logo(void) {
             oled_write_raw_P(cat_frames[current_frame], FRAME_SIZE);
         }
     }
+#endif
 }
 
 bool oled_task_user(void) {
@@ -328,6 +345,9 @@ bool tog_sarcasm = false;
 bool uppercase = false;
 uint8_t prev_upper = 0;
 uint8_t prev_lower = 0;
+uint8_t prev_mode = 0;
+HSV prev_hsv;
+
 
 bool process_record_sarcasm(uint16_t keycode, keyrecord_t *record) {
     if (keycode == KC_ENTER && record->event.pressed) {
@@ -379,10 +399,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 tog_sarcasm = !tog_sarcasm;
 
-                if (tog_sarcasm)
+                if (tog_sarcasm) {
                     dprint("Enabling saRCaSm ModE\n");
-                else
+
+                    #ifdef RGB_MATRIX_ENABLE
+                    prev_hsv = rgb_matrix_get_hsv();
+                    prev_mode = rgb_matrix_get_mode();
+                    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_MULTISPLASH);
+                    rgb_matrix_sethsv_noeeprom(HSV_YELLOW);
+                    #endif
+                }
+                else {
                     dprint("Disabling saRCaSm ModE\n");
+                    #ifdef RGB_MATRIX_ENABLE
+                    rgb_matrix_mode_noeeprom(prev_mode);
+                    rgb_matrix_sethsv_noeeprom(prev_hsv.h, prev_hsv.s, prev_hsv.v);
+                    #endif
+                }
 
                 uppercase = false;
                 prev_upper = 0;
