@@ -184,6 +184,68 @@ def generate_json(keymap, keyboard, layout, layers):
     return new_keymap
 
 
+def _template_macros(keymap_json):
+    macro_txt = [
+        'bool process_record_json(uint16_t keycode, keyrecord_t *record) {',
+        '    if (record->event.pressed) {',
+        '        switch (keycode) {',
+    ]
+
+    for i, macro_array in enumerate(keymap_json['macros']):
+        macro = []
+
+        for macro_fragment in macro_array:
+            if isinstance(macro_fragment, str):
+                macro_fragment = macro_fragment.replace('\\', '\\\\')
+                macro_fragment = macro_fragment.replace('\r\n', r'\n')
+                macro_fragment = macro_fragment.replace('\n', r'\n')
+                macro_fragment = macro_fragment.replace('\r', r'\n')
+                macro_fragment = macro_fragment.replace('\t', r'\t')
+                macro_fragment = macro_fragment.replace('"', r'\"')
+
+                macro.append(f'"{macro_fragment}"')
+
+            elif isinstance(macro_fragment, dict):
+                newstring = []
+
+                if macro_fragment['action'] == 'delay':
+                    newstring.append(f"SS_DELAY({macro_fragment['duration']})")
+
+                elif macro_fragment['action'] == 'beep':
+                    newstring.append(r'"\a"')
+
+                elif macro_fragment['action'] == 'tap' and len(macro_fragment['keycodes']) > 1:
+                    last_keycode = macro_fragment['keycodes'].pop()
+
+                    for keycode in macro_fragment['keycodes']:
+                        newstring.append(f'SS_DOWN(X_{keycode})')
+
+                    newstring.append(f'SS_TAP(X_{last_keycode})')
+
+                    for keycode in reversed(macro_fragment['keycodes']):
+                        newstring.append(f'SS_UP(X_{keycode})')
+
+                else:
+                    for keycode in macro_fragment['keycodes']:
+                        newstring.append(f"SS_{macro_fragment['action'].upper()}(X_{keycode})")
+
+                macro.append(''.join(newstring))
+
+        new_macro = "".join(macro)
+        new_macro = new_macro.replace('""', '')
+        macro_txt.append(f'            case MACRO_{i}:')
+        macro_txt.append(f'                SEND_STRING({new_macro});')
+        macro_txt.append('                return false;')
+
+    macro_txt.append('        }')
+    macro_txt.append('    }')
+    macro_txt.append('\n    return process_record_user(keycode, record);')
+    macro_txt.append('};')
+    macro_txt.append('')
+
+    return macro_txt
+
+
 def generate_c(keymap_json):
     """Returns a `keymap.c`.
 
@@ -215,64 +277,7 @@ def generate_c(keymap_json):
     new_keymap = new_keymap.replace('__KEYMAP_GOES_HERE__', keymap)
 
     if keymap_json.get('macros'):
-        macro_txt = [
-            'bool process_record_json(uint16_t keycode, keyrecord_t *record) {',
-            '    if (record->event.pressed) {',
-            '        switch (keycode) {',
-        ]
-
-        for i, macro_array in enumerate(keymap_json['macros']):
-            macro = []
-
-            for macro_fragment in macro_array:
-                if isinstance(macro_fragment, str):
-                    macro_fragment = macro_fragment.replace('\\', '\\\\')
-                    macro_fragment = macro_fragment.replace('\r\n', r'\n')
-                    macro_fragment = macro_fragment.replace('\n', r'\n')
-                    macro_fragment = macro_fragment.replace('\r', r'\n')
-                    macro_fragment = macro_fragment.replace('\t', r'\t')
-                    macro_fragment = macro_fragment.replace('"', r'\"')
-
-                    macro.append(f'"{macro_fragment}"')
-
-                elif isinstance(macro_fragment, dict):
-                    newstring = []
-
-                    if macro_fragment['action'] == 'delay':
-                        newstring.append(f"SS_DELAY({macro_fragment['duration']})")
-
-                    elif macro_fragment['action'] == 'beep':
-                        newstring.append(r'"\a"')
-
-                    elif macro_fragment['action'] == 'tap' and len(macro_fragment['keycodes']) > 1:
-                        last_keycode = macro_fragment['keycodes'].pop()
-
-                        for keycode in macro_fragment['keycodes']:
-                            newstring.append(f'SS_DOWN(X_{keycode})')
-
-                        newstring.append(f'SS_TAP(X_{last_keycode})')
-
-                        for keycode in reversed(macro_fragment['keycodes']):
-                            newstring.append(f'SS_UP(X_{keycode})')
-
-                    else:
-                        for keycode in macro_fragment['keycodes']:
-                            newstring.append(f"SS_{macro_fragment['action'].upper()}(X_{keycode})")
-
-                    macro.append(''.join(newstring))
-
-            new_macro = "".join(macro)
-            new_macro = new_macro.replace('""', '')
-            macro_txt.append(f'            case MACRO_{i}:')
-            macro_txt.append(f'                SEND_STRING({new_macro});')
-            macro_txt.append('                return false;')
-
-        macro_txt.append('        }')
-        macro_txt.append('    }')
-        macro_txt.append('\n    return process_record_user(keycode, record);')
-        macro_txt.append('};')
-        macro_txt.append('')
-
+        macro_txt = _template_macros(keymap_json)
         new_keymap = '\n'.join((new_keymap, *macro_txt))
 
     if keymap_json.get('host_language'):
