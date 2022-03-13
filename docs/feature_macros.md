@@ -102,6 +102,74 @@ Only basic keycodes (prefixed by `KC_`) are supported. Do not include the `KC_` 
     * Example, single key: `{"action":"up", "keycodes": ["LSFT"]}`
     * Example, multiple keys: `{"action":"up", "keycodes": ["CTRL", "LSFT"]}`
 
+### Combining C macros with JSON keymap macros
+
+It's possible to use both [C macros](#using-macros-in-c-keymaps) and JSON keymap macros at the same time.
+
+Necessary steps:
+
+* Have the C header and source files (e.g.: `macros.h` and `macros.c`) in your keymap directory next to the `keymap.json`. Examples:
+
+  * `macros.h`
+
+  ```c
+  #pragma once
+  #include QMK_KEYBOARD_H
+  
+  enum custom_keycodes {
+      QMKBEST = SAFE_RANGE,
+  };
+  ```
+
+  * `macros.c`
+
+  ```c
+  #include "macros.h"
+  
+  bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+      switch (keycode) {
+      case QMKBEST:
+          if (record->event.pressed) {
+              // when keycode QMKBEST is pressed
+              SEND_STRING("QMK is the best thing ever!");
+          } else {
+              // when keycode QMKBEST is released
+          }
+          break;
+      }
+      return true;
+  };
+  ```
+* Add the source file to `SRC` in the keymap's `rules.mk` file.
+```make
+SRC += macros.c
+```
+
+* Include the header in `keymap.json` with `"includes": ["header1.h", "headers2.h", ..., "headerN.h"],`:
+```json
+{
+    "keyboard": "handwired/pytest/basic",
+    "keymap": "default_json",
+    "layout": "LAYOUT_ortho_1x1",
+    "includes": ["macros.h"],
+    "layers": [
+        ["MACRO_0"],
+        ["QMKBEST"]
+    ],
+    "macros": [
+        [
+            "Hello, World!",
+            {"action":"tap", "keycodes":["ENTER"]}
+       ]
+    ],
+    "author": "qmk",
+    "notes": "This file is a keymap.json file for handwired/pytest/basic",
+    "version": 1
+}
+```
+
+**Note**: Check the `keyboards/handwired/pytest/macro/keymaps/default` keymap for this example.
+
 ## Using Macros in C Keymaps
 
 ### `SEND_STRING()` & `process_record_user`

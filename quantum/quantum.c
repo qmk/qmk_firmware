@@ -108,6 +108,10 @@ __attribute__((weak)) bool process_action_kb(keyrecord_t *record) {
 }
 
 __attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    return process_record_json(keycode, record);
+}
+
+__attribute__((weak)) bool process_record_json(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
@@ -116,6 +120,10 @@ __attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *re
 }
 
 __attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    post_process_record_user(keycode, record);
+}
+
+__attribute__((weak)) void post_process_record_json(uint16_t keycode, keyrecord_t *record) {
     post_process_record_user(keycode, record);
 }
 

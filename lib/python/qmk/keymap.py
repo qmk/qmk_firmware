@@ -17,7 +17,9 @@ from qmk.errors import CppError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
-__INCLUDES__
+__LANG_INCLUDES__
+__MISC_INCLUDES__
+
 
 /* THIS FILE WAS GENERATED!
  *
@@ -214,7 +216,7 @@ def generate_c(keymap_json):
 
     if keymap_json.get('macros'):
         macro_txt = [
-            'bool process_record_user(uint16_t keycode, keyrecord_t *record) {',
+            'bool process_record_json(uint16_t keycode, keyrecord_t *record) {',
             '    if (record->event.pressed) {',
             '        switch (keycode) {',
         ]
@@ -267,16 +269,24 @@ def generate_c(keymap_json):
 
         macro_txt.append('        }')
         macro_txt.append('    }')
-        macro_txt.append('\n    return true;')
+        macro_txt.append('\n    return process_record_user(keycode, record);')
         macro_txt.append('};')
         macro_txt.append('')
 
         new_keymap = '\n'.join((new_keymap, *macro_txt))
 
     if keymap_json.get('host_language'):
-        new_keymap = new_keymap.replace('__INCLUDES__', f'#include "keymap_{keymap_json["host_language"]}.h"\n#include "sendstring_{keymap_json["host_language"]}.h"\n')
+        new_keymap = new_keymap.replace('__LANG_INCLUDES__\n', f'#include "keymap_{keymap_json["host_language"]}.h"\n#include "sendstring_{keymap_json["host_language"]}.h"\n')
     else:
-        new_keymap = new_keymap.replace('__INCLUDES__', '')
+        new_keymap = new_keymap.replace('__LANG_INCLUDES__\n', '')
+
+    if keymap_json.get('includes'):
+        includes = ''
+        for include in keymap_json.get('includes'):
+            includes += f'#include "{include}"\n' if include.endswith('.h') else f'#include "{include}.h"\n'
+        new_keymap = new_keymap.replace('__MISC_INCLUDES__\n', includes)
+    else:
+        new_keymap = new_keymap.replace('__MISC_INCLUDES__\n', '')
 
     return new_keymap
 
