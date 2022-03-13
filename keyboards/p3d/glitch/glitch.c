@@ -56,3 +56,4 @@ bool oled_task_kb(void) {
 
     return false;
 }
+#endif
