@@ -20,6 +20,14 @@
 
 #include "send_string.h"
 
+#if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
+#    include "audio.h"
+#    ifndef BELL_SOUND
+#        define BELL_SOUND TERMINAL_SOUND
+#    endif
+float bell_song[][2] = SONG(BELL_SOUND);
+#endif
+
 // clang-format off
 
 /* Bit-Packed look-up table to convert an ASCII character to whether
@@ -134,9 +142,13 @@ __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
 // Note: we bit-pack in "reverse" order to optimize loading
 #define PGM_LOADBIT(mem, pos) ((pgm_read_byte(&((mem)[(pos) / 8])) >> ((pos) % 8)) & 0x01)
 
-void send_string(const char *str) { send_string_with_delay(str, 0); }
+void send_string(const char *str) {
+    send_string_with_delay(str, 0);
+}
 
-void send_string_P(const char *str) { send_string_with_delay_P(str, 0); }
+void send_string_P(const char *str) {
+    send_string_with_delay_P(str, 0);
+}
 
 void send_string_with_delay(const char *str, uint8_t interval) {
     while (1) {
@@ -165,7 +177,8 @@ void send_string_with_delay(const char *str, uint8_t interval) {
                     ms += keycode - '0';
                     keycode = *(++str);
                 }
-                while (ms--) wait_ms(1);
+                while (ms--)
+                    wait_ms(1);
             }
         } else {
             send_char(ascii_code);
@@ -174,7 +187,8 @@ void send_string_with_delay(const char *str, uint8_t interval) {
         // interval
         {
             uint8_t ms = interval;
-            while (ms--) wait_ms(1);
+            while (ms--)
+                wait_ms(1);
         }
     }
 }
@@ -206,7 +220,8 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
                     ms += keycode - '0';
                     keycode = pgm_read_byte(++str);
                 }
-                while (ms--) wait_ms(1);
+                while (ms--)
+                    wait_ms(1);
             }
         } else {
             send_char(ascii_code);
@@ -215,14 +230,15 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
         // interval
         {
             uint8_t ms = interval;
-            while (ms--) wait_ms(1);
+            while (ms--)
+                wait_ms(1);
         }
     }
 }
 
 void send_char(char ascii_code) {
 #if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
-    if (ascii_code == '\a') {  // BEL
+    if (ascii_code == '\a') { // BEL
         PLAY_SONG(bell_song);
         return;
     }

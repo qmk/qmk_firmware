@@ -2,8 +2,6 @@
     "keyboard_name": "Oddball",
     "url": "https://atulloh.github.io/oddball",
     "maintainer": "Alexander Tulloh",
-    "width": 14,
-    "height": 4.75,
     "layouts": {
         "LAYOUT": {
             "layout": [

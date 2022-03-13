@@ -2,8 +2,6 @@
     "keyboard_name": "Edda",
     "url": "https://mekanisk.com",
     "maintainer": "qmk",
-    "width": 19.75,
-    "height": 5.25,
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

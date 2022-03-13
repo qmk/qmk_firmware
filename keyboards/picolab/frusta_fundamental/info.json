@@ -2,8 +2,6 @@
     "keyboard_name": "frusta_fundamental",
     "url": "https://picolab.hk",
     "maintainer": "PicoLab",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

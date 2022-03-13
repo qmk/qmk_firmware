@@ -2,8 +2,6 @@
     "keyboard_name": "2x5keypad",
     "url": "",
     "maintainer": "jmcameron",
-    "width": 5,
-    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

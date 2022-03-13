@@ -10,7 +10,7 @@ from subprocess import DEVNULL
 from milc import cli
 
 from qmk.constants import QMK_FIRMWARE
-from qmk.commands import _find_make
+from qmk.commands import _find_make, get_make_parallel_args
 import qmk.keyboard
 import qmk.keymap
 
@@ -28,10 +28,11 @@ def _is_split(keyboard_name):
     return True if 'SPLIT_KEYBOARD' in rules_mk and rules_mk['SPLIT_KEYBOARD'].lower() == 'yes' else False
 
 
-@cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs to run.")
+@cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.argument('-f', '--filter', arg_only=True, action='append', default=[], help="Filter the list of keyboards based on the supplied value in rules.mk. Supported format is 'SPLIT_KEYBOARD=yes'. May be passed multiple times.")
 @cli.argument('-km', '--keymap', type=str, default='default', help="The keymap name to build. Default is 'default'.")
+@cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.subcommand('Compile QMK Firmware for all keyboards.', hidden=False if cli.config.user.developer else True)
 def multibuild(cli):
     """Compile QMK Firmware against all keyboards.
@@ -68,7 +69,7 @@ def multibuild(cli):
 all: {keyboard_safe}_binary
 {keyboard_safe}_binary:
 	@rm -f "{QMK_FIRMWARE}/.build/failed.log.{keyboard_safe}" || true
-	+@$(MAKE) -C "{QMK_FIRMWARE}" -f "{QMK_FIRMWARE}/build_keyboard.mk" KEYBOARD="{keyboard_name}" KEYMAP="{cli.args.keymap}" REQUIRE_PLATFORM_KEY= COLOR=true SILENT=false \\
+	+@$(MAKE) -C "{QMK_FIRMWARE}" -f "{QMK_FIRMWARE}/builddefs/build_keyboard.mk" KEYBOARD="{keyboard_name}" KEYMAP="{cli.args.keymap}" REQUIRE_PLATFORM_KEY= COLOR=true SILENT=false {' '.join(cli.args.env)} \\
 		>>"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}" 2>&1 \\
 		|| cp "{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}" "{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}"
 	@{{ grep '\[ERRORS\]' "{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}" >/dev/null 2>&1 && printf "Build %-64s \e[1;31m[ERRORS]\e[0m\\n" "{keyboard_name}:{cli.args.keymap}" ; }} \\
@@ -80,7 +81,7 @@ all: {keyboard_safe}_binary
                 )
                 # yapf: enable
 
-    cli.run([make_cmd, '-j', str(cli.args.parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
+    cli.run([make_cmd, *get_make_parallel_args(cli.args.parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
 
     # Check for failures
     failures = [f for f in builddir.glob(f'failed.log.{os.getpid()}.*')]
