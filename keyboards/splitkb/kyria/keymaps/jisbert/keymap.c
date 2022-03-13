@@ -91,20 +91,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Function keys, RGB
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      | HUD  | HUI  | MOD  |                              |      | Mute | Vol- | Vol+ |      |        |
+ * |        |      | VAI  | SAI  | HUI  | MOD  |                              |      | Next | Vol+ |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      | SAD  | SAI  | TOG  |                              |      | Prev | Play | Next |      |        |
+ * |        |      | VAD  | SAD  | HUD  | TOG  |                              |      | Play | Mute |      |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      | VAD  | VAI  | RMOD |      |      |  |      |      |      |      |      |      |      |        |
+ * |        |      |      |      |      | RMOD |      |      |  |      |      |      | Prev | Vol- |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      _______, XXXXXXX, XXXXXXX, RGB_HUD, RGB_HUI, RGB_M_B,                                     XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX,
-      XXXXXXX, XXXXXXX, XXXXXXX, RGB_SAD, RGB_SAI, RGB_TOG,                                     XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
-      XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAD, RGB_VAI, RGB_M_P, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      _______, XXXXXXX, RGB_VAI, RGB_SAI, RGB_HUI, RGB_M_B,                                     XXXXXXX, KC_MNXT, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, RGB_VAD, RGB_SAD, RGB_HUD, RGB_TOG,                                     XXXXXXX, KC_MPLY, KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_M_P, _______, _______, _______, _______, XXXXXXX, KC_MPRV, KC_VOLD, XXXXXXX, XXXXXXX, XXXXXXX,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
  /*
