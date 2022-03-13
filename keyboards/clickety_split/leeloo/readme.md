@@ -4,9 +4,9 @@
 
 Leeloo is a 4x6x5m ortholinear split keyboard kit made and sold by Clickety Split Ltd.
 
-Keyboard Maintainer: [Clickety Split](https://github.com/ClicketySplit)
-Hardware Supported: Leeloo PCB rev1, Pro Micro, Elite-C
-Hardware Availability: [clicketysplit.ca](https://clicketysplit.ca/pages/leeloo)
+* Keyboard Maintainer: [Clickety Split](https://github.com/ClicketySplit)
+* Hardware Supported: Leeloo PCB rev1, Pro Micro, Elite-C
+* Hardware Availability: [clicketysplit.ca](https://clicketysplit.ca/pages/leeloo)
 
 Make example, after setting up build environment:
 
