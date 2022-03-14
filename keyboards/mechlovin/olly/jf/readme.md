@@ -21,4 +21,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 **Reset Key:** 3 ways to put the Olly JF into bootloader:
 By keycode: Tap RESET keycode.
 By Bootloader: hold ESC key while plugging in (jump to bootloader)
-By Bootmagic: hold Insert key while pluging in (jump to bootloader and resset EEPROM)
+By Bootmagic: hold Insert key while pluging in (jump to bootloader and reset EEPROM)
