@@ -270,6 +270,7 @@ void system_switch_state_report(uint8_t index, bool active) {
     }
 }
 
+/* To solve the problem that keyboard can not wakeup the host */
 void restart_usb_driver(USBDriver *usbp) {
     // Do nothing here.
 }

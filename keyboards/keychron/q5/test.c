@@ -16,6 +16,9 @@
 
 #include "test.h"
 
+#define MAC_FN 1
+#define WIN_FN 3
+
 static void timer_3000ms_task(void);
 static void timer_250ms_task(void);
 static void factory_test_send(uint8_t *payload, uint8_t length);
@@ -267,7 +270,7 @@ void system_switch_state_report(uint8_t index, bool active) {
     }
 }
 
-/* To solve the problem that the keyboard lights doesn't sleep when USB is suspend */
+/* To solve the problem that keyboard can not wakeup the host */
 void restart_usb_driver(USBDriver *usbp) {
     // Do nothing here.
 }
