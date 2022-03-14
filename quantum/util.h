@@ -24,3 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // convert to string
 #define STR(s) XSTR(s)
 #define XSTR(s) #s
+
+#if !defined(MIN)
+#    define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#endif
+
+#if !defined(MAX)
+#    define MAX(x, y) (((x) > (y)) ? (x) : (y))
+#endif

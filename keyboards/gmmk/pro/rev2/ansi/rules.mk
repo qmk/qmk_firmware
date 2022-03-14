@@ -21,5 +21,5 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = AW20216
 FLASH_DRIVER = spi          # Enable SPI flash
 EEPROM_DRIVER = custom      # Enable SPI flash memory
-SRC +=  ../src/eeprom_flash.c \
-        ../src/wb32_spi_master.c
+SRC += src/eeprom_flash.c \
+       src/wb32_spi_master.c
