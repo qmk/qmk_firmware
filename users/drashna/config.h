@@ -300,3 +300,5 @@
 #define ENABLE_COMPILE_KEYCODE
 
 #define AUTOCORRECT_DATA_H "users/drashna/keyrecords/autocorrection/autocorrection_data.h"
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
