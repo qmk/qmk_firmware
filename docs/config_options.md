@@ -120,10 +120,6 @@ If you define these options you will disable the associated feature, which can s
   * disable debugging
 * `#define NO_PRINT`
   * disable printing/debugging using hid_listen
-* `#define NO_RESET`
-  * disable `RESET` keycode
-* `#define NO_COMPILE_KEYCODE`
-  * disable the `QK_MAKE` keycode
 * `#define NO_ACTION_LAYER`
   * disable layers
 * `#define NO_ACTION_TAPPING`
@@ -135,6 +131,8 @@ If you define these options you will disable the associated feature, which can s
 
 If you define these options you will enable the associated feature, which may increase your code size.
 
+* `#define ENABLE_COMPILE_KEYCODE`
+  * Enables the `QK_MAKE` keycode
 * `#define FORCE_NKRO`
   * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define STRICT_LAYER_RELEASE`
