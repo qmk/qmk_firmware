@@ -69,7 +69,7 @@ void keyboard_post_init_user(void) {
     //rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == _ENCODER) { /* First encoder */
         if (clockwise) {
             pastaIndex++;
@@ -82,4 +82,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         rgblight_sethsv_noeeprom((255/PASTA_COUNT)*pastaIndex, 255, 255);
         rgblight_mode_noeeprom(1);
     }
+	    return false;
+
 }

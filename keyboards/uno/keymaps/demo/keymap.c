@@ -105,8 +105,8 @@ void keyboard_post_init_user(void) {
     rgblight_mode(1);
     // Uncomment to enable rainbow mode when plugged in.
     // Otherwise, the LED will be revealed after a few keypresses.
-    //rgblight_sethsv_noeeprom(255, 255, 255);
-    //rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
+    rgblight_sethsv_noeeprom(255, 255, 255);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

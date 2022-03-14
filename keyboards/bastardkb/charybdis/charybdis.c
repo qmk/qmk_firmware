@@ -89,7 +89,7 @@ void trigger_sniper(void){
         pmw_set_cpi(sniper_array[keyboard_config.sniper_config]);
         } else {
         pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
-    } 
+    }
 }
 
 // on layer change, no matter where the change was initiated
@@ -132,7 +132,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 pmw_set_cpi(dpi_array[keyboard_config.dpi_config]);
             }
         break;
-        
+
         case SNIPING:
             is_sniper_on ^= 1;
             trigger_sniper();
@@ -178,7 +178,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 void keyboard_pre_init_kb(void) {
     scroll_inertia.x = 0;
     scroll_inertia.y = 0;
-    
+
     keyboard_pre_init_user();
 }
 
@@ -190,8 +190,8 @@ void pointing_device_init(void) {
 void pointing_device_task(void) {
     report_mouse_t mouse_report = pointing_device_get_report();
     process_mouse(&mouse_report);
-    
-    if (is_drag_scroll) { 
+
+    if (is_drag_scroll) {
 #ifdef CHARYBDIS_DRAGSCROLL_INVERT_X
         scroll_inertia.x -= mouse_report.x;
 #else
@@ -205,12 +205,12 @@ void pointing_device_task(void) {
 #endif
         // we only want to trigger scrolling once in 12 scrolls, for slower scroll
         if(scroll_inertia.y > CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y || scroll_inertia.y < -CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y){
-            mouse_report.v = constrain(scroll_inertia.y / CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y * 2, 
+            mouse_report.v = constrain(scroll_inertia.y / CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y * 2,
                                 -CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y/2, CHARYBDIS_TRACKBALL_SPEED_DIVIDER_Y/2);
             scroll_inertia.y = 0;
         }
         if(scroll_inertia.x > CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X || scroll_inertia.x < -CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X){
-            mouse_report.h = constrain(scroll_inertia.x / CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X * 2, 
+            mouse_report.h = constrain(scroll_inertia.x / CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X * 2,
                                 -CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X/2, CHARYBDIS_TRACKBALL_SPEED_DIVIDER_X/2);
             scroll_inertia.x = 0;
         }

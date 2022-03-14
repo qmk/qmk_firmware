@@ -9,7 +9,7 @@ BOOTLOADER = atmel-dfu
 #
 BOOTMAGIC_ENABLE = no     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
-EXTRAKEY_ENABLE = yes       # Audio control and System control
+EXTRAKEY_ENABLE = no       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
@@ -28,3 +28,6 @@ SPLIT_KEYBOARD = yes
 
 SRC += drivers/sensors/pmw3360.c
 QUANTUM_LIB_SRC += spi_master.c
+COMBO_ENABLE=yes
+GRAVE_ESC_ENABLE = no
+LTO_ENABLE = yes
