@@ -1,7 +1,7 @@
 // Copyright 2022 takashicompany (@takashicompany)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "rev2.h"
+#include "minizone.h"
 
 #ifdef OLED_ENABLE
 
