@@ -15,6 +15,7 @@
  */
 
 #include "serial_usart.h"
+#include "synchronization_util.h"
 
 #if defined(SERIAL_USART_CONFIG)
 static SerialConfig serial_config = SERIAL_USART_CONFIG;
@@ -173,6 +174,7 @@ static THD_FUNCTION(SlaveThread, arg) {
              * Parts of failed transactions or spurious bytes could still be in it. */
             usart_clear();
         }
+        split_shared_memory_unlock();
     }
 }
 
@@ -200,6 +202,7 @@ static inline bool react_to_transactions(void) {
         return false;
     }
 
+    split_shared_memory_lock();
     split_transaction_desc_t* trans = &split_transaction_table[sstd_index];
 
     /* Send back the handshake which is XORed as a simple checksum,
@@ -254,7 +257,12 @@ bool soft_serial_transaction(int index) {
     /* Clear the receive queue, to start with a clean slate.
      * Parts of failed transactions or spurious bytes could still be in it. */
     usart_clear();
-    return initiate_transaction((uint8_t)index);
+
+    split_shared_memory_lock();
+    bool result = initiate_transaction((uint8_t)index);
+    split_shared_memory_unlock();
+
+    return result;
 }
 
 /**

@@ -265,7 +265,8 @@ PLATFORM_SRC = \
         $(STREAMSSRC) \
         $(CHIBIOS)/os/various/syscalls.c \
         $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c \
-        $(PLATFORM_COMMON_DIR)/wait.c
+        $(PLATFORM_COMMON_DIR)/wait.c \
+        $(PLATFORM_COMMON_DIR)/synchronization_util.c
 
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
@@ -419,6 +420,9 @@ LDFLAGS  += $(SHARED_LDFLAGS) $(SHARED_LDSYMBOLS) $(TOOLCHAIN_LDFLAGS) $(TOOLCHA
 
 # Tell QMK that we are hosting it on ChibiOS.
 OPT_DEFS += -DPROTOCOL_CHIBIOS
+
+# ChibiOS supports synchronization primitives like a Mutex
+OPT_DEFS += -DPLATFORM_SUPPORTS_SYNCHRONIZATION
 
 # Workaround to stop ChibiOS from complaining about new GCC -- it's been fixed for 7/8/9 already
 OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1

@@ -23,8 +23,9 @@
 #include "quantum.h"
 #include "transactions.h"
 #include "transport.h"
-#include "split_util.h"
 #include "transaction_id_define.h"
+#include "split_util.h"
+#include "synchronization_util.h"
 
 #define SYNC_TIMER_OFFSET 2
 
@@ -63,9 +64,7 @@ static bool transaction_handler_master(matrix_row_t master_matrix[], matrix_row_
             }
         }
         bool this_okay = true;
-        ATOMIC_BLOCK_FORCEON {
-            this_okay = handler(master_matrix, slave_matrix);
-        };
+        this_okay      = handler(master_matrix, slave_matrix);
         if (this_okay) return true;
     }
     dprintf("Failed to execute %s\n", prefix);
@@ -77,11 +76,11 @@ static bool transaction_handler_master(matrix_row_t master_matrix[], matrix_row_
         if (!transaction_handler_master(master_matrix, slave_matrix, #prefix, &prefix##_handlers_master)) return false; \
     } while (0)
 
-#define TRANSACTION_HANDLER_SLAVE(prefix)                         \
-    do {                                                          \
-        ATOMIC_BLOCK_FORCEON {                                    \
-            prefix##_handlers_slave(master_matrix, slave_matrix); \
-        };                                                        \
+#define TRANSACTION_HANDLER_SLAVE(prefix)                     \
+    do {                                                      \
+        split_shared_memory_lock();                           \
+        prefix##_handlers_slave(master_matrix, slave_matrix); \
+        split_shared_memory_unlock();                         \
     } while (0)
 
 inline static bool read_if_checksum_mismatch(int8_t trans_id_checksum, int8_t trans_id_retrieve, uint32_t *last_update, void *destination, const void *equiv_shmem, size_t length) {
