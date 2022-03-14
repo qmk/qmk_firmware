@@ -155,7 +155,7 @@ void clear_oneshot_swaphands(void) {
  * FIXME: needs doc
  */
 void set_oneshot_layer(uint8_t layer, uint8_t state) {
-    if (!keymap_config.oneshot_disable) {
+    if (keymap_config.oneshot_enable) {
         oneshot_layer_data = layer << 3 | state;
         layer_on(layer);
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
@@ -184,7 +184,7 @@ void reset_oneshot_layer(void) {
 void clear_oneshot_layer_state(oneshot_fullfillment_t state) {
     uint8_t start_state = oneshot_layer_data;
     oneshot_layer_data &= ~state;
-    if ((!get_oneshot_layer_state() && start_state != oneshot_layer_data) && !keymap_config.oneshot_disable) {
+    if ((!get_oneshot_layer_state() && start_state != oneshot_layer_data) && keymap_config.oneshot_enable) {
         layer_off(get_oneshot_layer());
         reset_oneshot_layer();
     }
@@ -202,9 +202,8 @@ bool is_oneshot_layer_active(void) {
  * FIXME: needs doc
  */
 void oneshot_set(bool active) {
-    const bool disable = !active;
-    if (keymap_config.oneshot_disable != disable) {
-        keymap_config.oneshot_disable = disable;
+    if (keymap_config.oneshot_enable != active) {
+        keymap_config.oneshot_enable = active;
         eeconfig_update_keymap(keymap_config.raw);
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         dprintf("Oneshot: active: %d\n", active);
@@ -216,7 +215,7 @@ void oneshot_set(bool active) {
  * FIXME: needs doc
  */
 void oneshot_toggle(void) {
-    oneshot_set(!keymap_config.oneshot_disable);
+    oneshot_set(!keymap_config.oneshot_enable);
 }
 
 /** \brief enable oneshot
@@ -236,7 +235,7 @@ void oneshot_disable(void) {
 }
 
 bool is_oneshot_enabled(void) {
-    return !keymap_config.oneshot_disable;
+    return keymap_config.oneshot_enable;
 }
 
 #endif
@@ -414,7 +413,7 @@ void del_oneshot_mods(uint8_t mods) {
  * FIXME: needs doc
  */
 void set_oneshot_mods(uint8_t mods) {
-    if (!keymap_config.oneshot_disable) {
+    if (keymap_config.oneshot_enable) {
         if (oneshot_mods != mods) {
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
             oneshot_time = timer_read();
