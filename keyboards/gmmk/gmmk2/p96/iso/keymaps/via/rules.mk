@@ -1,3 +1,2 @@
 VIA_ENABLE = yes
-
-
+KEYBOARD_SHARED_EP = yes
