@@ -40,6 +40,18 @@ endef
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(call EXEC_DFU_UTIL)
 
+define EXEC_UF2_UTIL_DEPLOY
+	if ! $(UF2CONV) --deploy $(BUILD_DIR)/$(TARGET).uf2 2>/dev/null; then \
+		printf "$(MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY)" ;\
+		sleep $(BOOTLOADER_RETRY_TIME) ;\
+		while ! $(UF2CONV) --deploy $(BUILD_DIR)/$(TARGET).uf2  2>/dev/null; do \
+			printf "." ;\
+			sleep $(BOOTLOADER_RETRY_TIME) ;\
+		done ;\
+		printf "\n" ;\
+	fi
+endef
+
 # TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
 #       within the emulated eeprom via dfu-util or another tool
 ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-left))
@@ -90,6 +102,8 @@ ifneq ($(strip $(PROGRAM_CMD)),)
 	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
 else ifeq ($(strip $(BOOTLOADER)),kiibohd)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
+else ifeq ($(strip $(BOOTLOADER)),tinyuf2)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_UF2_UTIL_DEPLOY)
 else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_TEENSY)
 else ifeq ($(strip $(MCU_FAMILY)),MIMXRT1062)

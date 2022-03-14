@@ -23,7 +23,6 @@
 #define VENDOR_ID       0xD60D
 #define MANUFACTURER    Hoksi Technology
 
-#define USB_POLLING_INTERVAL_MS 1
 #define WAIT_US_TIMER           GPTD3
 
 /* key matrix size (rows in specific keyboard variant) */
@@ -41,7 +40,6 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-// #define USB_POLLING_INTERVAL_MS 1
 
 /* Bootmagic Lite key configuration */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
