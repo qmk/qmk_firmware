@@ -9,7 +9,7 @@ jobs:
   feature_branch_update:
     runs-on: ubuntu-latest
 
-    # if: github.repository == 'qmk/qmk_firmware'
+    if: github.repository == 'qmk/qmk_firmware'
 
     strategy:
       matrix:
