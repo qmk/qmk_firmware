@@ -21,6 +21,7 @@ The function layer
 * Keys Q and E are used to change the underglow style of the keyboard.
 * Keys W and S modify the brightness of the underglow.
 * Keys A and D change the speed of the LED RGB animation.
+
 ~~When Fn is held on layer 0, the arrow keys become a control surface for the LED baclighting~~
 ~~The up arrow is used to cycle backlight modes, down arrow for toggling the backlight on or off,~~
 ~~and the right and left for increasing and decreasing the brightness respectively.~~[^note]
