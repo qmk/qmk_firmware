@@ -20,6 +20,9 @@
 #include "quantum.h"
 #include "raw_hid.h"
 
+#define MAC_FN 1
+#define WIN_FN 3
+
 void process_other_record(uint16_t keycode, keyrecord_t *record);
 void timer_task_start(void);
 void system_switch_state_report(uint8_t index, bool active);
