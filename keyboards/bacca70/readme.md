@@ -1,6 +1,6 @@
 # Bacca70
 
-![Bacca70](https://imgur.com/TQMALjw.png)
+![Bacca70](https://imgur.com/TQMALjwh.png)
 
 The Bacca70 is a winkeyless (WKL) 60% layout that includes a F-row. It's classy, hefty and it was designed by Chewwy (of MechsOnDeck) and BlindAssassin.
 
