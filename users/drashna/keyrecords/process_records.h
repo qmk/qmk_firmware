@@ -21,7 +21,6 @@ enum userspace_custom_keycodes {
     KC_DVORAK,                                // Sets default layer to DVORAK
     LAST_DEFAULT_LAYER_KEYCODE = KC_DVORAK,   // Sets default layer to WORKMAN
     KC_DIABLO_CLEAR,                          // Clears all Diablo Timers
-    KC_MAKE,                                  // Run keyboard's customized make command
     KC_RGB_T,                                 // Toggles RGB Layer Indication mode
     RGB_IDL,                                  // RGB Idling animations
     KC_SECRET_1,                              // test1
@@ -66,6 +65,7 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
 #define TG_DBLO   TG(_DIABLO)
 #define OS_LWR    OSL(_LOWER)
 #define OS_RSE    OSL(_RAISE)
+#define KC_MAKE   QK_MAKE
 
 #define KC_SEC1   KC_SECRET_1
 #define KC_SEC2   KC_SECRET_2

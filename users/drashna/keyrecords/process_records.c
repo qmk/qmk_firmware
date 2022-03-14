@@ -87,33 +87,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
-            if (!record->event.pressed) {
-#ifndef MAKE_BOOTLOADER
-                uint8_t temp_mod = mod_config(get_mods());
-                uint8_t temp_osm = mod_config(get_oneshot_mods());
-                clear_mods();
-                clear_oneshot_mods();
-#endif
-                send_string_with_delay_P(PSTR("qmk"), TAP_CODE_DELAY);
-#ifndef MAKE_BOOTLOADER
-                if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
-#endif
-                {
-                    send_string_with_delay_P(PSTR(" flash "), TAP_CODE_DELAY);
-#ifndef MAKE_BOOTLOADER
-                } else {
-                    send_string_with_delay_P(PSTR(" compile "), TAP_CODE_DELAY);
-#endif
-                }
-                send_string_with_delay_P(PSTR("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP), TAP_CODE_DELAY);
-#ifdef CONVERT_TO_PROTON_C
-                send_string_with_delay_P(PSTR(" -e CTPC=yes"), TAP_CODE_DELAY);
-#endif
-                send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
-            }
-            break;
-
         case VRSN:  // Prints firmware version
             if (record->event.pressed) {
                 send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);

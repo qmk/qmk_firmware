@@ -294,3 +294,5 @@
 #    undef OLED_UPDATE_INTERVAL
 #    define OLED_UPDATE_INTERVAL 50
 #endif
+
+#define ENABLE_COMPILE_KEYCODE
