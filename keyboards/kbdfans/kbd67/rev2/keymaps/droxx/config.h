@@ -23,18 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef PRODUCT
 
 #define VENDOR_ID       0xAF88
-#define PRODUCT_ID      0x6067
-#define DEVICE_VER      0x0002
 #define MANUFACTURER    Droxx-FurFuzz
 #define PRODUCT         Carbon v2 4rk
 
 /* force N key rollover even on startup regardless of EEPROM setting */
 #define FORCE_NKRO
-
-/* USB polling rate */
-#define USB_POLLING_INTERVAL_MS 1
-
-/* turn off RGB when computer sleeps. already on config */
-#ifdef RGB_DI_PIN
-#define RGBLIGHT_SLEEP
-#endif
