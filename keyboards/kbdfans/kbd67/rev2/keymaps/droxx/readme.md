@@ -1,4 +1,4 @@
-## 'DRXX' ANSI style keymap for the KBD67 REV 2 PCB
+## Droxx's ANSI style keymap for the KBD67 REV 2 PCB
 
 * An ANSI keymap layout made by Alex for the KBD67 Rev 2
 * This keymap features two layers using basic Fn alternate keys on the second layer as well as lighting control
