@@ -1,18 +1,18 @@
-## 'DRXX' ANSI style keymap for the KBD67 REV 2 PCB
+# 'DRXX' ANSI style keymap for the KBD67 REV 2 PCB
 
 * An ANSI keymap layout made by Alex for the KBD67 Rev 2
 * This features two layers using basic Fn alternate keys on the second layer as well as lighting control
 
 ![KBD67Rev2 Layout](https://i.imgur.com/DPSMhIX.png)
 
-# Layer 0 (_DRXXMAIN)
+## Layer 0 (_DRXXMAIN)
 
 The base QWERTY layer
 
 * Basic qwerty key layout with nothing other than an Fn key
 * Fn on the bottom row activates layer 1
 
-# Layer 1 (_DRXXFN)
+## Layer 1 (_DRXXFN)
 
 The function layer
 
