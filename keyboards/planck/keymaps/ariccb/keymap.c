@@ -51,8 +51,9 @@
 #define MTLALT_NXT MT(MOD_LALT, KC_MNXT)
 #define MTENTER MT(MOD_LCTL, KC_ENT)
 #define MTRSFTBSLS MT(MOD_RSFT, KC_BSLS)
-#define MTRSFTBSLS MT(MOD_RSFT, KC_BSLS)
+#define MTRSFTPIPE MT(MOD_RSFT, KC_PIPE)
 #define MTRCTLQUO MT(MOD_RCTL, KC_QUOT)
+#define MTRCTLDQUO MT(MOD_RCTL, KC_DQUO)
 #define MTTAB MT(MOD_LCTL | MOD_LGUI | MOD_LALT, KC_TAB)
 #define FNESC LT(_FN, KC_ESC)
 #define MTPLAY MT(MOD_RALT, KC_MPLY)
@@ -193,19 +194,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (RAISE)
  *
  * ,----------------------------------------------------------------------------.
- * |OSSFT|  !  |     |     |      |      |      |  Cut  | Undo| Redo|  :  | Bsp |
+ * |     |  !  |     |     |      |      |      |  Cut  | Undo| Redo|  :  | Bsp |
  * |----------------------------------------------------------------------------|
- * |     |Menu |     |     |      |      |ARROW |SELWORD|Copy|Paste|WinPst|  "  |
+ * |     |Menu |     |     |      |      |ARROW |SELWORD|Copy|Paste|WinPst|Ctl,"|
  * |----------------------------------------------------------------------------|
- * |     |Vol+ |Vol- | Mute|      |      |Braces|Braces2|  <  |  >  |  ?  |  |  |
+ * |     |Vol+ |Vol- | Mute|      |      |Braces|Braces2|  <  |  >  |  ?  |Sft,||
  * |----------------------------------------------------------------------------|
  * |     |     |     |     |Adjust|             |       |     |     |     |     |
  * `----------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid( /* RAISE */
   KC_TRNS, KC_EXLM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_CUT,  KC_UNDO, KC_REDO,  KC_EQL,      KC_BSPC,
-  KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ARROW,   SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, KC_COLN,
-  KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     KC_PIPE,
+  KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ARROW,   SELWORD, KC_COPY, KC_PASTE, KC_WINPASTE, MTRCTLDQUO,
+  KC_TRNS, KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS, BRACES,  BRACES2, KC_LABK, KC_RABK,  KC_QUES,     MTRSFTPIPE,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(7),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_NO,       KC_NO
 ),
 
