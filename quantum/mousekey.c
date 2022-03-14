@@ -16,6 +16,7 @@
  */
 
 #include <stdint.h>
+#include <string.h>
 #include "keycode.h"
 #include "host.h"
 #include "timer.h"
