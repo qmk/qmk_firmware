@@ -1,7 +1,7 @@
 ## 'DRXX' ANSI style keymap for the KBD67 REV 2 PCB
 
 * An ANSI keymap layout made by Alex for the KBD67 Rev 2
-* This features two layers using basic Fn alternate keys on the second layer as well as lighting control
+* This keymap features two layers using basic Fn alternate keys on the second layer as well as lighting control
 
 ![KBD67Rev2 Layout](https://i.imgur.com/DPSMhIX.png)
 
@@ -17,16 +17,13 @@ The base QWERTY layer
 The function layer
 
 * Backspace will trigger KC_DEL until I find the KC_HOME key less useful.
-
-* Pressing the Fn and T key with toggle the underglow feature on and off.
+* Pressing the Fn and T key with toggle the keyboard underglow feature on and off.
 * Keys Q and E are used to change the underglow style of the keyboard.
 * Keys W and S modify the brightness of the underglow.
 * Keys A and D change the speed of the LED RGB animation.
-
-* THESE BACKLIGHT CONTROLS ARE REMOVED FROM THE KEYMAP
-* / When Fn is held on layer 0, the arrow keys become a control surface for the LED baclighting
-* / The up arrow is used to cycle backlight modes, down arrow for toggling the backlight on or off,
-* / and the right and left for increasing and decreasing the brightness respectively.
-* / (I don't have in switch LEDs installed though?)
-
+~~When Fn is held on layer 0, the arrow keys become a control surface for the LED baclighting~~
+~~The up arrow is used to cycle backlight modes, down arrow for toggling the backlight on or off,~~
+~~and the right and left for increasing and decreasing the brightness respectively.~~[^note]
 * X is used to disable the GUI key and C is used to enable the GUI key.
+
+[^note]: I don't have in-switch LEDs installed?
