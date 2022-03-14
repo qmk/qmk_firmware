@@ -1,4 +1,4 @@
-// KBD67 Rev 2 ANSI Layout - Droxx
+// KBD67 Rev 2 ANSI Layout
 
 /* Copyright 2022 Alex K
  *
@@ -25,10 +25,10 @@
 #include QMK_KEYBOARD_H
 // #include "droxx.h"
 
-// make functions easier to change
+// make keycodes easier to change for the future
 #define DRXX        KC_TRNS
 
-// enumerate each layer for the keymap
+// enumerate custom layer names for the keymap
 enum keymap_layers {
     _DRXXMAIN = 0,
     _DRXXFN
