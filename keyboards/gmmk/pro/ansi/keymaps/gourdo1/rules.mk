@@ -3,7 +3,7 @@ SRC += caps_word.c
 LTO_ENABLE = yes    	       # link time optimization -- achieves a smaller compiled size
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
-MOUSEKEY_ENABLE = no
+MOUSEKEY_ENABLE = yes
 
 VIA_ENABLE = no
 TAP_DANCE_ENABLE = yes

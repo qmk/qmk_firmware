@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum custom_user_layers {
     _BASE,
     _FN1,
-    _LOWER,
-    _RAISE,
+    _NUMPADMOUSE,
+    _MOUSEKEY,
 };
 
 // KEYCODES
@@ -57,8 +57,8 @@ enum custom_user_keycodes {
 #define CT_HOME RCTL(KC_HOME)
 #define CT_END RCTL(KC_END)
 #define KC_SFTUP RSFT_T(KC_UP) // Shift when held, Up arrow when tapped
-#define KC_RAISESPC LT(_RAISE, KC_SPC) // _RAISE layer mod when held, space when tapped
-#define KC_LOWERSPC LT(_LOWER, KC_SPC) // _LOWER layer mod when held, space when tapped
+#define KC_RAISESPC LT(_MOUSEKEY, KC_SPC) // _MOUSEKEY layer mod when held, space when tapped
+#define KC_LOWERSPC LT(_NUMPADMOUSE, KC_SPC) // _NUMPAD-MOUSE layer mod when held, space when tapped
 #define KC_SHIFTSPC LSFT(KC_SPC)
 
 #ifdef TD_LSFT_CAPSLOCK_ENABLE

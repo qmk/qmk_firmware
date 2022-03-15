@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_YELLOW2 0xFF, 0xB0, 0x00      // fix: green was FF, now B0
 #define RGB_OFF RGB_BLACK
 
-// Added by gourdo1 for _RAISE layer RGB testing
+// Added by gourdo1 for RGB testing
 //                Red   Green Blue          Expected  GMMK Pro result
 #define RGB_TEST1 0xFF, 0x00, 0x00   // Q - red       good!
 #define RGB_TEST2 0x0F, 0xFF, 0x00   // W - green     good!

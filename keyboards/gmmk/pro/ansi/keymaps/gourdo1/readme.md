@@ -4,7 +4,7 @@ This Windows-centric layout is based on Jonavin's GMMK Pro layout with some modi
 
 Features:
 
-Basics
+Core Functionality
 
 	* Most default Glorious shortcuts enabled
 	* Fn-Backslash for Bootloader mode
@@ -14,17 +14,20 @@ Basics
 	* Home key on F-key row, Del key next to Backspace
 	* Insert accessible via Shift-Backspace (so shift delete still works in Windows Explorer)
 	* PrtScrn, Scroll Lock, Pause/Break are top right on the keyboard: Fn+F11, Fn+F12, Fn+Home
-	* Caps Word enabled: To capitalize the next word only, press and release both left and right shift keys at the same time. Details: https://getreuer.info/posts/keyboards/caps-word/index.html
+	* Caps Word enabled: To capitalize the next word only, press and release both left and right shift keys at the same time.
+        Details: https://getreuer.info/posts/keyboards/caps-word/index.html
 	* Double tap ESC any time to revert to base layer
 
-Numpad Overlay Layer
+Numpad + Mouse Keys Layer  (Capslock key)
 
-	* Re-worked/simplified overlay numpad upon Capslock key hold (temp) or double press (locked) with RGB highlighting
-	* Numpad layer (capslock key) disables much of keyboard, except X, C, V for cut, copy, paste, WASD become cursor keys and all number
-        keys become numpad versions (so Alt character codes work regardless of which number keys you use)
-	* Numpad turns both right arrow and End keys into Numpad-Enter for convenience.
+	* Overlay numpad + mouse keys are accessed through Capslock key hold (temp) or double press (locked) with RGB highlighting
+	* Mouse Keys allow you to use the mouse without taking your hand off the keyboard.
+	* Numpad layer disables much of keyboard, except X/C/V for cut/copy/paste, WASD for cursor, Q/E for PgUp/PgDn, cursor keys
+        become mouse keys and all number keys become numpad versions (so Alt char codes work regardless of which set you use)
 	* Fn & N keys light up orange if system numlock is off (inverted status), indicating numpad keys will not deliver expected output
         (FN + N to toggle)
+	* Mouse Keys can also be accessed as a standalone layer by Left Shift-turning the Encoder until the cursor keys light up green
+	* Mouse controls are: Cursor keys = move mouse; RShift = button1, End = button2, RCtrl = button3, PgUp/PgDn = Scroll wheel
 
 Encoder Functionality
 
@@ -37,7 +40,7 @@ Encoder Functionality
 	* holding Right Ctrl changes RGB hue/color
 	* holding Left Alt changes media prev/next track
 
-RGB
+Global RGB Controls
 
 	* RGB backlight lighting effect: FN + up/down
 	* RGB backlight effect speed: FN + left/right
@@ -53,7 +56,7 @@ Link to latest firmware binary: https://github.com/gourdo1/media/raw/main/gmmk_p
 
 Link to cheatsheet: https://github.com/gourdo1/media/raw/main/GMMK_Pro_Cheatsheet.pdf
 
-	
+
 rules.mk Options
 ================
 
