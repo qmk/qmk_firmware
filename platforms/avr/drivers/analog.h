@@ -17,7 +17,7 @@
 #pragma once
 
 #include <stdint.h>
-#include "quantum.h"
+#include "gpio.h"
 
 #ifdef __cplusplus
 extern "C" {
