@@ -6,6 +6,7 @@ import shutil
 from pathlib import Path
 from subprocess import DEVNULL
 from time import strftime
+from itertools import islice
 
 from milc import cli
 import jsonschema
@@ -360,3 +361,25 @@ def in_virtualenv():
     """
     active_prefix = getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
     return active_prefix != sys.prefix
+
+
+def get_chunks(it, size):
+    """Break down a collection into smaller parts
+    """
+    it = iter(it)
+    return iter(lambda: tuple(islice(it, size)), ())
+
+
+def dump_lines(output_file, lines):
+    """Handle dumping to stdout or file
+    Creates parent folders if required
+    """
+    generated = '\n'.join(lines)
+    if output_file:
+        if output_file.name == '-':
+            print(generated)
+        else:
+            output_file.parent.mkdir(parents=True, exist_ok=True)
+            if output_file.exists():
+                output_file.replace(output_file.parent / (output_file.name + '.bak'))
+            output_file.write_text(generated)

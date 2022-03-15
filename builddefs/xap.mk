@@ -4,11 +4,7 @@
 # XAP embedded info.json
 $(KEYMAP_OUTPUT)/src/info_json_gz.h: $(INFO_JSON_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
-	mkdir -p $(KEYMAP_OUTPUT)/src
-	$(eval CMD=$(QMK_BIN) info -f json -kb $(KEYBOARD) -km $(KEYMAP) | gzip -c9 > $(KEYMAP_OUTPUT)/src/info.json.gz \
-		&& cd $(KEYMAP_OUTPUT)/src >/dev/null 2>&1 \
-		&& xxd -i info.json.gz info_json_gz.h \
-		&& cd - >/dev/null 2>&1)
+	$(eval CMD=$(QMK_BIN) xap-generate-info-h -o "$(KEYMAP_OUTPUT)/src/info_json_gz.h" -kb $(KEYBOARD) -km $(KEYMAP))
 	@$(BUILD_CMD)
 
 XAP_FILES := $(shell ls -1 data/xap/* | sort | xargs echo)
