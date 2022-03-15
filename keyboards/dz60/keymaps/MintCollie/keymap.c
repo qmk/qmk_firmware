@@ -9,6 +9,27 @@
 #define L1 1
 //#define L2 2
 
+enum custom_keycodes {
+	QMKBEST = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	switch (keycode) {
+		case QMKBEST:
+			if (record->event.pressed) {
+				// when keycode QMKBEST is pressed
+				SEND_STRING("QMK is the best thing ever!");
+			} else {
+				// when keycode QMKBEST is released
+				register_code(KC_ENT);
+				unregister_code(KC_ENT);
+			}
+			break;
+	}
+	return true;
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Base layer - ANSI QWERTY
@@ -21,9 +42,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Utility layer - RGB and multimedia control
 [L1] = LAYOUT_all(
-	____, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, XXXX, KC_DEL,
+	KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, XXXX, KC_DEL,
 	____, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, ____, ____, ____, ____, RESET,
 	____, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, ____, ____, ____,
 	____, XXXX, ____, ____, ____, BL_DEC, BL_TOGG, BL_INC, BL_STEP, ____, ____, ____, ____, ____, ____,
-	____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____),
+	____, ____, ____, ____, ____, ____, ____, ____, QMKBEST, ____, ____),
 };
+

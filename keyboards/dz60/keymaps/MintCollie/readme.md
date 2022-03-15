@@ -35,7 +35,7 @@ Second row is for RGB underglow features as well as the reset key at the end.
 Third row controls the RGB color preset combinations. 
 ```
 ,----------------------------------------------------------.
-|  ||f1||f2||f3||f4||f5||f6||f7||f8||f9||f10||f11||f12||Del|
+| ~||f1||f2||f3||f4||f5||f6||f7||f8||f9||f10||f11||f12||Del|
 |----------------------------------------------------------+
 | ||TOG||MOD||HUI||HUD||SAI||SAD||VAI||VAD|| || || || ||Rst|
 |----------------------------------------------------------+
