@@ -23,7 +23,7 @@ And to trigger the bootloader, you hold this key down when plugging the keyboard
 
 ## Split Keyboards
 
-When [handedness](feature_split_keyboard.md#setting-handedness) is predetermined via options like `SPLIT_HAND_PIN` or `EE_HANDS`, you might need to configure a different key between halves. To identify the correct key for the right halve, examine the split key matrix defined in the `<keyboard>.h` file, e.g.:
+When [handedness](feature_split_keyboard.md#setting-handedness) is predetermined via options like `SPLIT_HAND_PIN` or `EE_HANDS`, you might need to configure a different key between halves. To identify the correct key for the right half, examine the split key matrix defined in the `<keyboard>.h` file, e.g.:
 
 ```c
 #define LAYOUT_split_3x5_2( \
@@ -44,7 +44,7 @@ When [handedness](feature_split_keyboard.md#setting-handedness) is predetermined
     }
 ```
 
-If you pick the top right key for the right halve, it is `R05` on the top layout. Within the key matrix below, `R05` is located on row 4 columnn 4. To use that key as the right halve's Bootmagic Lite trigger, add these entries to your `config.h` file:
+If you pick the top right key for the right half, it is `R05` on the top layout. Within the key matrix below, `R05` is located on row 4 columnn 4. To use that key as the right half's Bootmagic Lite trigger, add these entries to your `config.h` file:
 
 ```c
 #define BOOTMAGIC_LITE_ROW_RIGHT 4
