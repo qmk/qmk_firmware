@@ -33,4 +33,4 @@
 #define LED_PINS 5
 #define LED_PINS_HW {B5, B6, B7, B3, B2}
 
-#define DEBOUNCE 5
+#define DEBOUNCE 10
