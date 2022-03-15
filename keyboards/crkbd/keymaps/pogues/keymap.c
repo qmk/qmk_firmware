@@ -22,46 +22,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*******************************************************************************
  * TODO.
- * where to put delete
+ * look at the mods on the lower row - are any used?
  * sort out oled display
- * mouse keys
+ * look at lag on keyboard..
+ * consider a function key layer... ?
  *
  *******************************************************************************/
 enum userspace_layers {
     LCMK = 0,
-    LSYM = 1,
-    LNUM = 2,
-    LMOV = 3,
+    LRAISE = 1,
+    LLOWER = 2,
+    LMOUSE = 3,
 };
 
 // the layer mask
 #define L_COLEMAK LCMK
-#define L_NUMPAD (1 << LNUM)
-#define L_SYMBOL (1 << LSYM)
-#define L_MOTION (1 << LMOV)
+#define LMASK_RAISE (1 << LRAISE)
+#define LMASK_LOWER (1 << LLOWER)
+#define LMASK_MOUSE (1 << LMOUSE)
 
-//#define MY_CESC MT(MOD_LCTL, KC_ESC)
-#define MY_GESC MT(MOD_LGUI, KC_ESC)
-#define MY_AENT MT(MOD_LALT, KC_ENT)
-//#define MY_CQOT MT(MOD_LCTL, KC_QUOT)
-//#define MY_S_SL MT(MOD_LSFT, KC_SLSH)
-//#define MY_S_Z  MT(MOD_LSFT, KC_Z)
-//#define MY_C_X  MT(MOD_LCTL, KC_X)
+#define MY_CESC MT(MOD_LCTL, KC_ESC)
+#define MY_CENT MT(MOD_LCTL, KC_ENT)
+#define MY_S_SL MT(MOD_LSFT, KC_SLSH)
+#define MY_S_Z  MT(MOD_LSFT, KC_Z)
+#define MY_C_X  MT(MOD_LCTL, KC_X)
 //#define MY_C_DT MT(MOD_LCTL, KC_DOT)
 //#define MY_A_C  MT(MOD_LALT, KC_C)
 //#define MY_A_CM MT(MOD_LALT, KC_COMM)
 //#define MY_A_Q  MT(MOD_LALT, KC_Q)
 //#define MY_A_SC MT(MOD_LALT, KC_SCLN)
-//#define MY_TBUI MT(MOD_LGUI, KC_TAB)
+#define MY_TBUI MT(MOD_LGUI, KC_TAB)
 #define MY_CLFT C(KC_LEFT)
 #define MY_CRGT C(KC_RGHT)
-#define MY_KGBP KC_HASH      // just shift-3 
+//#define MY_GESC MT(MOD_LGUI, KC_ESC)
+//#define MY_AENT MT(MOD_LALT, KC_ENT)
+#define MY_UNDO C(KC_U)
+#define MY_REDO C(KC_Y)
+#define MY_COPY C(KC_C)
+#define MY_PSTE C(KC_V)
 
 // rename some keys here to allow for the difference in keymap between US and GB
 #define MY_PIPE LSFT(KC_NUBS)
 #define MY_TILD KC_PIPE
 #define MY_AT KC_DQUO
 #define MY_DQUO LSFT(KC_2)
+#define MY_GBP KC_HASH      // just shift-3
 
 enum tap_dance_codes {
     // 0-9 are number on tap and function key on hold
@@ -79,55 +84,63 @@ enum tap_dance_codes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // colemak-dh
-  [LCMK] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_NO,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_BSPC, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_NO,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,      KC_O, KC_NO,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_NO,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H,    KC_COMM, KC_DOT, KC_SLSH, KC_DEL,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                   MY_GESC, KC_SPC, OSM(MOD_LSFT),       OSM(MOD_LCTL), TO(LSYM),  MY_AENT
-                                      //`--------------------------'  `--------------------------'
-  ),
-  
-  [LSYM] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, KC_TAB, KC_QUES, KC_COLN, KC_SCLN, MY_KGBP,                      KC_EXLM, KC_LPRN, KC_RPRN,   MY_AT, KC_BSPC, KC_DEL,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,  KC_ESC,  KC_LT,   KC_GT,  KC_UNDS, KC_GRV,                       KC_NUHS, KC_LBRC, KC_RBRC, MY_PIPE,  KC_ENT, KC_NO,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_NUBS, MY_TILD, KC_QUOT, MY_DQUO, KC_CIRC,                     KC_AMPR, KC_LCBR, KC_RCBR,  KC_DLR, TO(LMOV), KC_NO,
+    [LCMK] = LAYOUT_split_3x6_3(
+        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+            MY_TBUI,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_DEL,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            MY_CESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, MY_CENT,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      OSM(MOD_LSFT),  MY_S_Z,  MY_C_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, MY_S_SL, KC_LALT,
+        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                              KC_LGUI, TO(LRAISE), KC_SPC,     KC_BSPC, TO(LLOWER), KC_ENT
+                                            //`--------------------------'  `--------------------------'
+    ),/*
+    [LCMK] = LAYOUT_split_3x6_3(
+        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+             KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_DEL,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+             KC_ESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O,  KC_ENT,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            KC_LGUI,  MY_S_Z,  MY_C_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, MY_S_SL, KC_LALT,
+        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                              KC_LSFT, TO(LRAISE), KC_SPC,     KC_BSPC, TO(LLOWER), KC_LCTL
+                                            //`--------------------------'  `--------------------------'
+    ),*/
+    [LRAISE] = LAYOUT_split_3x6_3(
+        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+            _______,   MY_AT, KC_COLN, KC_LPRN, KC_RPRN, MY_PIPE,                      KC_PLUS, TD(DC7), TD(DC8), TD(DC9), KC_PERC, _______,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            _______, MY_DQUO, KC_QUOT, KC_LBRC, KC_RBRC, KC_UNDS,                      KC_MINS, TD(DC4), TD(DC5), TD(DC6), KC_ASTR, _______,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            _______,   KC_LT,   KC_GT, KC_LCBR, KC_RCBR,  KC_DLR,                      KC_EQL, TD(DC1), TD(DC2), TD(DC3), KC_SLSH, _______,
+        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                              _______, TO(LCMK), _______,     _______,  TO(LLOWER), TD(DC0)
+                                            //`--------------------------'  `--------------------------'
+    ),
 
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         _______, TO(LCMK), _______,     _______,  TO(LNUM), _______
-                                      //`--------------------------'  `--------------------------'
-  ),
+    [LLOWER] = LAYOUT_split_3x6_3(
+        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+           _______,TO(LMOUSE),MY_CRGT, KC_COLN, KC_SCLN, MY_CLFT,                      MY_COPY, MY_PSTE, MY_UNDO, MY_REDO, XXXXXXX, _______,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            _______,   MY_AT, KC_EXLM, KC_NUHS, MY_TILD, KC_CIRC,                      XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            _______,  MY_GBP,  KC_GRV, KC_NUBS, KC_AMPR, XXXXXXX,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, _______,
+        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                               _______, TO(LCMK), _______,     _______,  TO(LRAISE), _______
+                                            //`--------------------------'  `--------------------------'
+    ),
 
-
-  [LNUM] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX,  KC_TAB, XXXXXXX, XXXXXXX, KC_PERC, XXXXXXX,                      KC_PLUS, TD(DC7), TD(DC8), TD(DC9), KC_BSPC,  KC_NO,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,  KC_ESC,   KC_LT,   KC_GT, KC_ASTR, KC_UNDS,                      KC_MINS, TD(DC4), TD(DC5), TD(DC6),  KC_ENT,  KC_NO,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLSH, XXXXXXX,                      TD(DC0), TD(DC1), TD(DC2), TD(DC3), KC_EQL, KC_NO,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, TO(LCMK), _______,    _______, TO(LMOV), _______
-                                      //`--------------------------'  `--------------------------'
-  ),
-
-  [LMOV] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX,XXXXXXX, MY_CRGT, KC_MS_UP, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NO,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT, XXXXXXX,               XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_NO,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX,KC_MS_BTN2,KC_MS_BTN1,KC_TAB, MY_CLFT,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, KC_NO,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, TO(LCMK),_______,    _______,  TO(LSYM), _______
-                                      //`--------------------------'  `--------------------------'
-  )
+    [LMOUSE] = LAYOUT_split_3x6_3(
+        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+            _______,XXXXXXX, XXXXXXX, KC_MS_UP, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            _______, XXXXXXX,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT, XXXXXXX,           XXXXXXX,KC_MS_LEFT,KC_MS_DOWN,KC_MS_UP,KC_MS_RIGHT, _______,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            _______, XXXXXXX,KC_MS_BTN2,KC_MS_BTN1,XXXXXXX, XXXXXXX,                 XXXXXXX,KC_MS_BTN1,KC_MS_BTN2,KC_MS_BTN3,XXXXXXX, _______,
+        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                                _______, TO(LCMK),_______,    _______,  TO(LLOWER), _______
+                                            //`--------------------------'  `--------------------------'
+    )
 };
 
 
@@ -145,47 +158,6 @@ TD_TAP_HOLD_FUNCTIONS(7, KC_7, KC_F7)
 TD_TAP_HOLD_FUNCTIONS(8, KC_8, KC_F8)
 TD_TAP_HOLD_FUNCTIONS(9, KC_9, KC_F9)
 TD_TAP_HOLD_FUNCTIONS(semicolon, KC_SCLN, KC_COLN)  // TODO do we want this? perhaps double tap?
-
-// single and double quotes '/" - a bit different here as double quote is on double tap
-// as we want control on hold.
-static td_tap_t dance_state_quote = {
-    .is_press_action = true,
-    .step = 0
-};
-
-void on_dance_quote(qk_tap_dance_state_t *state, void *user_data) {
-    on_tap_hold_dance(state, user_data, KC_QUOT);
-}
-
-void dance_quote_finished(qk_tap_dance_state_t *state, void *user_data) {
-    dance_state_quote.step = current_dance_step(state);
-    switch (dance_state_quote.step) {
-        case SINGLE_TAP: 
-            tap_code16(KC_QUOT);
-            break;
-        case SINGLE_HOLD: 
-            register_code16(KC_RCTL);
-            break;
-        case DOUBLE_TAP:
-        case DOUBLE_SINGLE_TAP:
-            tap_code16(MY_DQUO);
-            break;
-    }
-}
-
-void dance_quote_reset(qk_tap_dance_state_t *state, void *user_data) {
-    wait_ms(10);
-    switch (dance_state_quote.step) {
-        case SINGLE_HOLD:
-            unregister_code16(KC_RCTL);
-            break;
-    }
-    dance_state_quote.step = 0;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// end of simple tap/hold
-////////////////////////////////////////////////////////////////////////////////
 
 // list the actions and map to handlers
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -240,8 +212,8 @@ const rgblight_segment_t PROGMEM layer_motion_lights[] = RGBLIGHT_LAYER_SEGMENTS
 );
 
 const rgblight_segment_t PROGMEM oneshot_shift_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 10, HSV_BLUE},
-    {27, 10, HSV_BLUE}
+    {0, 10, HSV_GREEN},
+    {27, 10, HSV_GREEN}
 );
 
 const rgblight_segment_t PROGMEM oneshot_shift_locked_lights[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -279,9 +251,9 @@ void keyboard_post_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, LCMK));
-    rgblight_set_layer_state(1, layer_state_cmp(state, LNUM));
-    rgblight_set_layer_state(2, layer_state_cmp(state, LSYM));
-    rgblight_set_layer_state(3, layer_state_cmp(state, LMOV));
+    rgblight_set_layer_state(1, layer_state_cmp(state, LRAISE));
+    rgblight_set_layer_state(2, layer_state_cmp(state, LLOWER));
+    rgblight_set_layer_state(3, layer_state_cmp(state, LMOUSE));
     return state;
 }
 /*******************************************************************************
@@ -299,7 +271,7 @@ void oneshot_mods_changed_user(uint8_t mods) {
         rgblight_set_layer_state(6, true);
     }
 
-    // other mods are MOD_MASK_CTRL  MOD_MASK_ALT MOD_MASK_GUI
+    // other mods are MOD_MASK_ALT MOD_MASK_GUI
     else {  // (!mods)
         rgblight_set_layer_state(4, false);
         rgblight_set_layer_state(6, false);
@@ -339,16 +311,16 @@ void oled_render_layer_state(void) {
         case L_COLEMAK:
             oled_write_ln_P(PSTR("Default"), false);
             break;
-        case L_NUMPAD:
+        case LMASK_RAISE:
             oled_write_ln_P(PSTR("NUM PAD"), false);
             break;
-        case L_SYMBOL:
+        case LMASK_LOWER:
             oled_write_ln_P(PSTR("SYMBOLS"), false);
             break;
-        case L_MOTION:
-        case L_MOTION|L_NUMPAD:
-        case L_MOTION|L_SYMBOL:
-        case L_MOTION|L_NUMPAD|L_SYMBOL:
+        case LMASK_MOUSE:
+        case LMASK_MOUSE|LMASK_RAISE:
+        case LMASK_MOUSE|LMASK_LOWER:
+        case LMASK_MOUSE|LMASK_RAISE|LMASK_LOWER:
             oled_write_ln_P(PSTR("Adjust"), false);
             break;
     }
@@ -416,7 +388,7 @@ void oled_render_layer_numpad(void) {
 static void oled_render_layer_numpad(void) {
     static const char PROGMEM raw_logo[] = {
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,254,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+        0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
     };
     oled_write_raw_P(raw_logo, sizeof(raw_logo));
