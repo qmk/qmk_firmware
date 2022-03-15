@@ -6,7 +6,7 @@ A 65% ergonomic acrylic keyboard emphasizing customizability.
 
 * Keyboard Maintainer: [PaperCraneKeyboards](https://github.com/PaperCraneKeyboards)
 * Hardware Supported: Gerald65 PCB
-* Hardware Availability: papercranekeyboards.com
+* Hardware Availability: [Paper Crane Keyboards](https://papercranekeyboards.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
