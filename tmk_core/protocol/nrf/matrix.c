@@ -36,10 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "i2c.h"
 #include "spi.h"
 #include "bmp_matrix.h"
+#include "bmp_debounce.h"
 
 #include <stdbool.h>
 
-static uint8_t       debouncing = 0;
 extern const uint8_t MAINTASK_INTERVAL;
 
 /* matrix state(1:on, 0:off) */
@@ -88,6 +88,8 @@ __attribute__((weak)) const bmp_matrix_func_t *get_matrix_func_user(void) {
 void matrix_init(void) {
     // initialize row and col
 
+    bmp_debounce_init();
+
     matrix_func = get_matrix_func_user();
 
     if (matrix_func == NULL) {
@@ -132,44 +134,19 @@ void matrix_init(void) {
 }
 
 __attribute__((weak)) uint8_t matrix_scan_impl(matrix_row_t *_matrix) {
-    const bmp_api_config_t *config = BMPAPI->app.get_config();
+    const bmp_api_config_t *config     = BMPAPI->app.get_config();
+    const uint8_t           device_row = matrix_func->get_device_row();
+    const uint8_t           device_col = matrix_func->get_device_col();
     uint8_t                 matrix_offset =
-        config->matrix.is_left_hand
-            ? 0
-            : config->matrix.rows - matrix_func->get_device_row();
-    volatile int matrix_changed = 0;
+        config->matrix.is_left_hand ? 0 : config->matrix.rows - device_row;
+    int matrix_changed = 0;
 
-    if (matrix_func->scan(matrix_debouncing)) {
-        debouncing = config->matrix.debounce;
-    }
-
+    uint32_t raw_changed = matrix_func->scan(matrix_debouncing);
     bmp_api_key_event_t key_state[16];
-    matrix_changed = 0;
-    if (debouncing) {
-        if (--debouncing) {
-            //            wait_ms(1);
-        } else {
-            for (uint8_t i = 0; i < matrix_func->get_device_row(); i++) {
-                if (matrix_dummy[i + matrix_offset] !=
-                    matrix_debouncing[i + matrix_offset]) {
-                    for (uint8_t j = 0; j < matrix_func->get_device_col();
-                         j++) {
-                        if ((matrix_dummy[i + matrix_offset] ^
-                             matrix_debouncing[i + matrix_offset]) &
-                            (1 << j)) {
-                            key_state[matrix_changed].row = i;
-                            key_state[matrix_changed].col = j;
-                            key_state[matrix_changed].state =
-                                (matrix_debouncing[i + matrix_offset] >> j) & 1;
-                            matrix_changed++;
-                        }
-                    }
-                }
-                matrix_dummy[i + matrix_offset] =
-                    matrix_debouncing[i + matrix_offset];
-            }
-        }
-    }
+    matrix_changed = bmp_debounce(
+        matrix_debouncing + matrix_offset, matrix_dummy + matrix_offset,
+        device_row, device_col,
+        config->matrix.debounce * MAINTASK_INTERVAL, raw_changed, key_state);
 
     for (int i = 0; i < matrix_changed; i++) {
         BMPAPI->app.push_keystate_change(&key_state[i]);
@@ -177,7 +154,7 @@ __attribute__((weak)) uint8_t matrix_scan_impl(matrix_row_t *_matrix) {
 
     if (debug_config.keyboard && matrix_changed > 0) {
         dprintf("device rows:\n");
-        for (uint8_t idx = 0; idx < matrix_func->get_device_row(); idx++) {
+        for (uint8_t idx = 0; idx < device_row; idx++) {
             if (config->matrix.cols <= 8) {
                 dprintf("\tdr%02d:0x%02x\n", idx,
                         matrix_debouncing[idx + matrix_offset]);
@@ -206,10 +183,10 @@ __attribute__((weak)) uint8_t matrix_scan_impl(matrix_row_t *_matrix) {
 
     if (debug_config.keyboard && pop_cnt > 0) {
         dprintf("matrix rows:\n");
-        for (uint8_t idx = 0; idx < config->matrix.rows; idx++) {
-            if (config->matrix.cols <= 8) {
+        for (uint8_t idx = 0; idx < device_row; idx++) {
+            if (device_col <= 8) {
                 dprintf("\tr%02d:0x%02x\n", idx, _matrix[idx]);
-            } else if (config->matrix.cols <= 16) {
+            } else if (device_col <= 16) {
                 dprintf("\tr%02d:0x%04x\n", idx, _matrix[idx]);
             } else {
                 dprintf("\tr%02d:0x%08x\n", idx, _matrix[idx]);
