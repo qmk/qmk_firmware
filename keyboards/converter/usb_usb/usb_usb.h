@@ -19,6 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+#if defined(KEYBOARD_converter_usb_usb_ble)
+#    include "ble.h"
+#elif defined(KEYBOARD_converter_usb_usb_hasu)
+#    include "hasu.h"
+#elif defined(KEYBOARD_converter_usb_usb_pro_micro)
+#    include "pro_micro.h"
+#endif
+
 #define XXX KC_NO
 
 #define ______ KC_TRNS

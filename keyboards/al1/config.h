@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT      AL1
 
 /* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 20
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 16
 
 #define LED_NUM_LOCK_PIN D0
 #define LED_CAPS_LOCK_PIN B7
