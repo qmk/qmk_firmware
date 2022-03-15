@@ -47,10 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 #define RGB_DI_PIN D5
 #ifdef RGB_DI_PIN
 #    define RGBLIGHT_EFFECT_BREATHING
