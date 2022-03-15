@@ -7,7 +7,9 @@ static HSV BAND_PINWHEEL_SAT_math(HSV hsv, int16_t dx, int16_t dy, uint8_t time)
     return hsv;
 }
 
-bool BAND_PINWHEEL_SAT(effect_params_t* params) { return effect_runner_dx_dy(params, &BAND_PINWHEEL_SAT_math); }
+bool BAND_PINWHEEL_SAT(effect_params_t* params) {
+    return effect_runner_dx_dy(params, &BAND_PINWHEEL_SAT_math);
+}
 
-#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif     // ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT

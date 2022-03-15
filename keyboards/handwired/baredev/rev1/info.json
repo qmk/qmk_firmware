@@ -42,7 +42,7 @@
         ]
     },
     "usb": {
-        "vid": "0xFEED",
+        "vid": "0x1209",
         "pid": "0x4126",
         "device_ver": "0x0001",
         "polling_interval": 1,

@@ -78,17 +78,17 @@ UDC_DESC_STORAGE usb_dev_desc_t udc_device_desc = {.bLength         = sizeof(usb
 #ifdef USB_DEVICE_MANUFACTURE_NAME
                                                    .iManufacturer = 1,
 #else
-                                                   .iManufacturer = 0,  // No manufacture string
+                                                   .iManufacturer = 0, // No manufacture string
 #endif
 #ifdef USB_DEVICE_PRODUCT_NAME
                                                    .iProduct = 2,
 #else
-                                                   .iProduct      = 0,  // No product string
+                                                   .iProduct      = 0, // No product string
 #endif
 #if (defined USB_DEVICE_SERIAL_NAME || defined USB_DEVICE_GET_SERIAL_NAME_POINTER)
                                                    .iSerialNumber = 3,
 #else
-                                                   .iSerialNumber = 0,  // No serial string
+                                                   .iSerialNumber = 0, // No serial string
 #endif
                                                    .bNumConfigurations = 1};
 

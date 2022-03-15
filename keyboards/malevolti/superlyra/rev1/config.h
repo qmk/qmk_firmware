@@ -39,6 +39,3 @@
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
