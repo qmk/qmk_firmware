@@ -1,5 +1,4 @@
-#ifndef ERGODOX_ERGODONE_CONFIG_H
-#define ERGODOX_ERGODONE_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -74,8 +73,5 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-//#define DEBUG_MATRIX_SCAN_RATE
 
-#endif
+//#define DEBUG_MATRIX_SCAN_RATE

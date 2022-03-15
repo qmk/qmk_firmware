@@ -5,6 +5,8 @@
 #   See TOP/keyboards/helix/rules.mk for a list of options that can be set.
 #   See TOP/docs/config_options.md for more information.
 #
+SPLIT_KEYBOARD = yes
+
 LTO_ENABLE = no  # if firmware size over limit, try this option
 
 # Helix Spacific Build Options
@@ -23,7 +25,3 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
     SRC += oled_display.c
 endif
 SRC += led_test_init.c
-
-# convert Helix-specific options (that represent combinations of standard options)
-#   into QMK standard options.
-include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))

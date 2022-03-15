@@ -16,7 +16,11 @@ def json_load(json_file):
     Note: file must be a Path object.
     """
     try:
-        return hjson.load(json_file.open(encoding='utf-8'))
+        # Get the IO Stream for Path objects
+        # Not necessary if the data is provided via stdin
+        if isinstance(json_file, Path):
+            json_file = json_file.open(encoding='utf-8')
+        return hjson.load(json_file)
 
     except (json.decoder.JSONDecodeError, hjson.HjsonDecodeError) as e:
         cli.log.error('Invalid JSON encountered attempting to load {fg_cyan}%s{fg_reset}:\n\t{fg_red}%s', json_file, e)
@@ -62,7 +66,7 @@ def create_validator(schema):
     """Creates a validator for the given schema id.
     """
     schema_store = compile_schema_store()
-    resolver = jsonschema.RefResolver.from_schema(schema_store['qmk.keyboard.v1'], store=schema_store)
+    resolver = jsonschema.RefResolver.from_schema(schema_store[schema], store=schema_store)
 
     return jsonschema.Draft7Validator(schema_store[schema], resolver=resolver).validate
 

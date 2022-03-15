@@ -123,8 +123,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define PS2_MOUSE_INIT_DELAY 2000
 #define BATTERY_POLL         30000
@@ -224,27 +222,15 @@ enum led_sequence {
 
 /* PS/2 mouse */
 #ifdef PS2_USE_BUSYWAIT
-#    define PS2_CLOCK_PORT PORTD
-#    define PS2_CLOCK_PIN  PIND
-#    define PS2_CLOCK_DDR  DDRD
-#    define PS2_CLOCK_BIT  3
-#    define PS2_DATA_PORT  PORTD
-#    define PS2_DATA_PIN   PIND
-#    define PS2_DATA_DDR   DDRD
-#    define PS2_DATA_BIT   2
+#    define PS2_CLOCK_PIN  D3
+#    define PS2_DATA_PIN   D2
 #endif
 
 /* PS/2 mouse interrupt version */
 #ifdef PS2_USE_INT
 /* uses INT1 for clock line(ATMega32U4) */
-#    define PS2_CLOCK_PORT PORTD
-#    define PS2_CLOCK_PIN  PIND
-#    define PS2_CLOCK_DDR  DDRD
-#    define PS2_CLOCK_BIT  3
-#    define PS2_DATA_PORT  PORTD
-#    define PS2_DATA_PIN   PIND
-#    define PS2_DATA_DDR   DDRD
-#    define PS2_DATA_BIT   2
+#    define PS2_CLOCK_PIN  D3
+#    define PS2_DATA_PIN   D2
 
 #    define PS2_INT_INIT()                          \
         do {                                        \
@@ -264,14 +250,8 @@ enum led_sequence {
 /* PS/2 mouse USART version */
 #ifdef PS2_USE_USART
 /* XCK for clock line and RXD for data line */
-#    define PS2_CLOCK_PORT PORTD
-#    define PS2_CLOCK_PIN  PIND
-#    define PS2_CLOCK_DDR  DDRD
-#    define PS2_CLOCK_BIT  5
-#    define PS2_DATA_PORT  PORTD
-#    define PS2_DATA_PIN   PIND
-#    define PS2_DATA_DDR   DDRD
-#    define PS2_DATA_BIT   2
+#define PS2_CLOCK_PIN   D5
+#define PS2_DATA_PIN    D2
 
 /* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
 /* set DDR of CLOCK as input to be slave */

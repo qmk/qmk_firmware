@@ -9,7 +9,7 @@ bool SOLID(effect_params_t* params) {
         LED_MATRIX_TEST_LED_FLAGS();
         led_matrix_set_value(i, val);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_matrix_check_finished_leds(led_max);
 }
 
-#endif  // LED_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif // LED_MATRIX_CUSTOM_EFFECT_IMPLS

@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "3-Key-Ecosystem 2key2: 2x1 macro-keyboard",
+    "keyboard_name": "2key2",
+    "manufacturer": "3-Key-Ecosystem",
     "url": "https://github.com/softplus/3keyecosystem/tree/main/2key2",
     "maintainer": "softplus",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0x3304",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

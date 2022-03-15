@@ -49,6 +49,14 @@
 #    error SOLENOID_PIN not defined
 #endif
 
+#ifdef SOLENOID_PIN_ACTIVE_LOW
+#    define SOLENOID_PIN_WRITE_ACTIVE() writePinLow(SOLENOID_PIN)
+#    define SOLENOID_PIN_WRITE_INACTIVE() writePinHigh(SOLENOID_PIN)
+#else
+#    define SOLENOID_PIN_WRITE_ACTIVE() writePinHigh(SOLENOID_PIN)
+#    define SOLENOID_PIN_WRITE_INACTIVE() writePinLow(SOLENOID_PIN)
+#endif
+
 void solenoid_buzz_on(void);
 void solenoid_buzz_off(void);
 void solenoid_set_buzz(int buzz);

@@ -117,11 +117,12 @@ static void render_status(void) {
     oled_write_ln_P(PSTR(" Layer\n"), false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status();
         render_status_bar();
     } else {
         render_kyria_logo();
     }
+    return false;
 }
