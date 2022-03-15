@@ -72,11 +72,11 @@ MT(MOD_LGUI, KC_ESC),	_______,_______,	_______,	_______,	_______,							_______,
 		_______,		KC_0,		KC_NO,		_______,	_______,							_______,_______,	_______,	_______,	_______
 	),
 	[NAV]=LAYOUT(
-		C(KC_GRV),	TO(WIN),	TO(GAME),	TO(SHFT),	KC_NO,		KC_NO,								KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_MINS,	KC_EQL,
+		C(KC_GRV),	TO(WIN),		TO(GAME),	TO(SHFT),	KC_NO,		KC_NO,							KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_MINS,	KC_EQL,
 		C(KC_TAB),	S(C(KC_TAB)),	A(KC_BSPC),	KC_UP,  	A(KC_DEL),	C(KC_TAB),						KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_WH_R,	KC_RBRC,
-		KC_LCTRL,	A(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	A(KC_RGHT),							KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_SCLN,	KC_LGUI,
-		KC_LSFT,	KC_HOME,	G(KC_LEFT),	KC_ENT,		G(KC_RGHT),	KC_END,		_______,		KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_BSLS,	KC_DEL,
-		_______,	KC_PGDN,	_______,	_______,	_______,								KC_BTN1,KC_BTN2,	_______,	_______,	_______
+		KC_LCTRL,	A(KC_LEFT),		KC_LEFT,	KC_DOWN,	KC_RGHT,	A(KC_RGHT),						KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_SCLN,	KC_LGUI,
+		KC_LSFT,	KC_HOME,		G(KC_LEFT),	KC_ENT,		G(KC_RGHT),	KC_END,		_______,	KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_BSLS,	KC_DEL,
+		_______,	KC_PGDN,		_______,	_______,	_______,							KC_BTN1,KC_BTN2,	_______,	_______,	_______
 	),
 	[WINNAV]=LAYOUT(
 		C(KC_GRV),	TO(WIN),	TO(GAME),	TO(SHFT),	KC_NO,		KC_NO,								KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_MINS,	KC_EQL,

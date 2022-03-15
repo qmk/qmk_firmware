@@ -16,35 +16,33 @@
 
 #include QMK_KEYBOARD_H
 
-enum uno_keycode
-{
-  UNO = SAFE_RANGE
-};
+enum uno_keycode { UNO = SAFE_RANGE };
 
 enum encoder_names {
-	_ENCODER,
+    _ENCODER,
 };
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-      [0] = LAYOUT(
-            UNO
-          )
-};
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT(UNO)};
+
+bool emojiOpen = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	switch (keycode) {
-		case UNO:
-			if (record->event.pressed) {
-				SEND_STRING("npm install");
-				tap_code(KC_ENTER);
-				SEND_STRING("trueworkcli list");
-				tap_code(KC_ENTER);
-				SEND_STRING("trueworkcli create --method instant --purpose employment -f Felix -l Sargent --ssn 111-11-1111 -c Truework --type employment");
-				tap_code(KC_ENTER);
-				SEND_STRING("trueworkcli get AAAAAAAAKbIAB7o_hUgk-LKakTTZuFFrmdWGdhinpuVhdb2SOKEcP4TiQ");
-			}
-			break;
-			return false;
+    switch (keycode) {
+        case UNO:
+            if (record->event.pressed) {
+                switch (emojiOpen) {
+                    case false:
+                        tap_code16(C(G(KC_SPC)));
+                        emojiOpen = true;
+                        break;
+                    case true:
+                        tap_code(KC_ENTER);
+                        emojiOpen = false;
+                        break;
+                }
+            }
+            break;
+            return false;
     }
     return true;
 }
@@ -58,12 +56,11 @@ void keyboard_post_init_user(void) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == _ENCODER) { /* First encoder */
         if (clockwise) {
-            tap_code(KC_A);
+            tap_code(KC_LEFT);
         } else {
-            tap_code(KC_B);
+            tap_code(KC_RIGHT);
         }
-		return false;
+        return false;
     }
-	return true;
+    return true;
 }
-

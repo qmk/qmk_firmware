@@ -16,35 +16,35 @@
 
 #include QMK_KEYBOARD_H
 
-enum uno_keycode
-{
-  UNO = SAFE_RANGE
-};
+enum uno_keycode { UNO = SAFE_RANGE };
 
 enum encoder_names {
-	_ENCODER,
+    _ENCODER,
 };
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-      [0] = LAYOUT(
-            UNO
-          )
-};
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT(UNO)};
+
+bool sleep = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	switch (keycode) {
-		case UNO:
-			if (record->event.pressed) {
-				SEND_STRING("npm install");
-				tap_code(KC_ENTER);
-				SEND_STRING("trueworkcli list");
-				tap_code(KC_ENTER);
-				SEND_STRING("trueworkcli create --method instant --purpose employment -f Felix -l Sargent --ssn 111-11-1111 -c Truework --type employment");
-				tap_code(KC_ENTER);
-				SEND_STRING("trueworkcli get AAAAAAAAKbIAB7o_hUgk-LKakTTZuFFrmdWGdhinpuVhdb2SOKEcP4TiQ");
-			}
-			break;
-			return false;
+    switch (keycode) {
+        case UNO:
+            if (record->event.pressed) {
+                switch (sleep) {
+                    case false:
+                        tap_code16(KC_F5);
+                        sleep = true;
+    					rgblight_mode(RGBLIGHT_MODE_BREATHING);
+                        break;
+                    case true:
+						tap_code16(C(G(KC_Q)));
+                        sleep = false;
+						rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
+                        break;
+                }
+            }
+            break;
+            return false;
     }
     return true;
 }
@@ -54,16 +54,3 @@ void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(255, 255, 255);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
 }
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == _ENCODER) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_A);
-        } else {
-            tap_code(KC_B);
-        }
-		return false;
-    }
-	return true;
-}
-

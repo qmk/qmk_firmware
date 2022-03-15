@@ -54,21 +54,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 uint16_t timeElapsed = timer_elapsed(pressTimer);
                 switch (presetCounter) {
                     case 0:
-                        SEND_STRING(SS_LCMD("n"));
+                        SEND_STRING("npm install");
+						tap_code(KC_ENTER);
                     break;
                     case 1:
-                        SEND_STRING("Hello!");
+                        SEND_STRING("trueworkcli list");
+						tap_code(KC_ENTER);
                     break;
                     case 2:
-                        SEND_STRING("\n\nI am uno!");
+                        SEND_STRING("trueworkcli create --purpose employment -f Felix -l Sargent --ssn 111-11-1111 --company Truework --type employment");
+						tap_code(KC_ENTER);
                     break;
                     case 3:
-                        SEND_STRING("\n\nI can do all sorts of useless things!");
+                        SEND_STRING("trueworkcli get AAAAAAAALKcAB7ZCy14SYlrtax3QTyeLHOT_GYbBFrSXGURD-Q4bpAgK");
+						tap_code(KC_ENTER);
                     break;
                     case 4:
-                        SEND_STRING("\n\nAnd I have a built-in RGB LED!\n\n\n");
-                        rgblight_sethsv_noeeprom(255, 255, 255);
-                        rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
                     break;
                     default:
                         if (timeElapsed < CUSTOM_LONGPRESS) {

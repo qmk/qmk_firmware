@@ -21,10 +21,10 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xACC8
 #define DEVICE_VER      0x0002
-#define MANUFACTURER    Broekhuijsen
-#define PRODUCT         Uno rev2
+#define MANUFACTURER    Sleepy
+#define PRODUCT         Uno rev2 Sleepy
 
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_ANIMATIONS
 
 /* ENCODER */
 #define ENCODERS_PAD_A { B2 }
