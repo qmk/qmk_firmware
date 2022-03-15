@@ -18,6 +18,8 @@ bmp_error_t webnus_write_callback(const uint8_t* dat, uint32_t len);
 
 void update_config_files();
 
+int save_config();
+
 int load_eeprom_emulation_file();
 int save_eeprom_emulation_file();
 

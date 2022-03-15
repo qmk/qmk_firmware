@@ -26,6 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bmp_via.h"
 
 bool       via_keymap_update_flag = false;
+bool       via_macro_update_flag   = false;
+bool       via_exkc_update_flag   = false;
 extern int bootloader_jump_counter;
 
 static bool     via_layout_update_flag = false;
@@ -44,6 +46,11 @@ static inline uint16_t dynamic_keymap_get_keycode(uint8_t layer, uint8_t row,
 static inline void dynamic_keymap_set_keycode(uint8_t layer, uint8_t row,
                                               uint8_t col, uint16_t keycode) {
     bmp_api_keypos_t keypos = {.col = col, .row = row};
+    if (dynamic_keymap_get_keycode(layer, row, col) == keycode) {
+        // no update
+        return;
+    }
+
     if (BMPAPI->app.set_keycode_to_keymap(layer, &keypos, keycode) == BMP_OK) {
         via_keymap_update_flag = true;
     } else {
@@ -139,6 +146,79 @@ __attribute__((weak)) void dynamic_keymap_reset(void) {}
 __attribute__((weak)) void raw_hid_receive_kb(const uint8_t *data,
                                               uint8_t        length) {}
 
+extern bmp_ex_keycode_t bmp_ex_keycodes[BMP_EX_KC_LEN];
+extern uint32_t bmp_ex_keycode_num;
+static bmp_api_config_t s_bmp_config;
+
+static void set_via_bmp_item(uint8_t *data, uint8_t length) {
+    const uint8_t item_idx  = data[2];
+    uint8_t      *item_data = &data[3];
+
+    switch (item_idx) {
+        case item_extend_keycode:
+            if (item_data[0] < BMP_EX_KC_LEN) {
+                if (memcmp(&bmp_ex_keycodes[item_data[0]], &item_data[1],
+                           sizeof(bmp_ex_keycode_t)) == 0) {
+                    break;
+                }
+                memcpy(&bmp_ex_keycodes[item_data[0]], &item_data[1],
+                       sizeof(bmp_ex_keycode_t));
+                via_exkc_update_flag = true;
+                if (bmp_ex_keycode_num < item_data[0]) {
+                    bmp_ex_keycode_num = item_data[0];
+                }
+            }
+            break;
+        case item_config_buffer: {
+            uint16_t offset = (item_data[0] | ((uint16_t)item_data[1] << 8));
+            if (offset < sizeof(bmp_api_config_t)) {
+                uint8_t *config = (uint8_t *)&s_bmp_config;
+                uint8_t  len    = 32 - 5;
+                if (sizeof(s_bmp_config) - offset < len) {
+                    len = sizeof(s_bmp_config) - offset;
+                }
+                memcpy(&config[offset], &item_data[2], len);
+            } else {
+                BMPAPI->app.set_config(&s_bmp_config);
+                save_config();
+            }
+        } break;
+        case item_remove_files: {
+            BMPAPI->app.delete_file(item_data[0]);
+        } break;
+    }
+}
+
+static void get_via_bmp_item(uint8_t *data, uint8_t length) {
+    const uint8_t item_idx  = data[2];
+    uint8_t      *item_data = &data[3];
+
+    switch (item_idx) {
+        case item_protocol_version:
+            item_data[0] = BMP_VIA_PROTOCOL_VER;
+            break;
+        case item_extend_keycode_count:
+            item_data[0] = BMP_EX_KC_LEN;
+            break;
+        case item_extend_keycode:
+            if (item_data[0] < BMP_EX_KC_LEN) {
+                memcpy(&item_data[1], &bmp_ex_keycodes[item_data[0]],
+                       sizeof(bmp_ex_keycode_t));
+            }
+            break;
+        case item_config_len: {
+            uint16_t len = sizeof(bmp_api_config_t);
+            item_data[0] = len & 0xff;
+            item_data[1] = len >> 8;
+        } break;
+        case item_config_buffer: {
+            uint16_t offset = (item_data[0] | ((uint16_t)(item_data[1]) << 8));
+            const uint8_t *config = (uint8_t *)BMPAPI->app.get_config();
+            memcpy(&item_data[2], &config[offset], 32 - 5);
+        } break;
+    }
+}
+
 void raw_hid_receive_bmp(uint8_t *data, uint8_t length) {
     const uint8_t *command_id   = &data[0];
     const uint8_t *command_data = &data[1];
@@ -152,14 +232,36 @@ void raw_hid_receive_bmp(uint8_t *data, uint8_t length) {
                                 (const uint8_t *)(&via_layout_code));
                         }
 
-                        if (save_keymap() == 0) {
-                            data[2] = 0;
-                        } else {
-                            data[2] = 0xFF;
+                        if (via_keymap_update_flag) {
+                            if (BMPAPI->app.save_file(KEYMAP_RECORD) == 0) {
+                                data[2] = 0;
+                            } else {
+                                data[2] = 0xFF;
+                            }
+                            via_keymap_update_flag = false;
                         }
 
-                        bmp_macro_save_file();
+                        if (via_exkc_update_flag) {
+                            save_ex_keycode_file();
+                            via_exkc_update_flag = false;
+                        }
+
+                        if (via_macro_update_flag) {
+                            bmp_macro_save_file();
+                            via_macro_update_flag = false;
+                        }
                     }
+                    break;
+                case id_bmp_item:
+                    set_via_bmp_item(data, length);
+                    break;
+            }
+        } break;
+
+        case id_get_keyboard_value: {
+            switch (command_data[0]) {
+                case id_bmp_item:
+                    get_via_bmp_item(data, length);
                     break;
             }
         } break;
@@ -330,10 +432,12 @@ void bmp_via_receive_cb(uint8_t *data, uint8_t length,
             xprintf("<via>dynamic_macro_set_buffer, offset:%d, size:%d\n", offset, size);
 
             bmp_macro_set_buffer(offset, size, &command_data[3]);
+            via_macro_update_flag = true;
 
             if (size == 1 && offset + size == BMP_MACRO_FILE_LEN &&
                 command_data[3] == 0) {
                 bmp_macro_save_file();
+                via_macro_update_flag = false;
             }
 
             break;
