@@ -1,6 +1,6 @@
 # Paper Crane Keyboards Gerald65
 
-![gerald65](https://imgur.com/a/G2VuJoD)
+![gerald65](https://i.imgur.com/Qh9cLeEh.jpeg)
 
 A 65% ergonomic acrylic keyboard emphasizing customizability.
 
