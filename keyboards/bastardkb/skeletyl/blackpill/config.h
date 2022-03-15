@@ -24,6 +24,8 @@
 // clang-format on
 
 /* Key matrix configuration. */
+
+// Wiring configuration for each half.
 #define MATRIX_ROW_PINS \
   { A2, B8, A8, B9 }
 #define MATRIX_COL_PINS \
@@ -38,17 +40,12 @@
 #define WS2812_PWM_CHANNEL 2
 #define WS2812_PWM_PAL_MODE 1
 #define WS2812_EXTERNAL_PULLUP
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM7
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM1
 #define WS2812_DMA_CHANNEL 3
-#define WS2812_PWM_TARGET_PERIOD 80000
+#define WS2812_PWM_TARGET_PERIOD 800000
 
 /* Serial configuration for split keyboard. */
 #define SERIAL_USART_TX_PIN A9
-//#define SERIAL_USART_DRIVER SD1
-//#define SERIAL_USART_TX_PAL_MODE 7
-//#define SERIAL_USART_RX_PAL_MODE 7
-//#define SERIAL_USART_TIMEOUT 100
-//#define SERIAL_USART_SPEED 921600
 
 /* CRC. */
 #define CRC8_USE_TABLE
@@ -57,27 +54,11 @@
 /* SPI config for EEPROM. */
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5
-//#define SPI_SCK_PAL_MODE 5
+#define SPI_SCK_PAL_MODE 5
 #define SPI_MOSI_PIN A7
-//#define SPI_MOSI_PAL_MODE 5
+#define SPI_MOSI_PAL_MODE 5
 #define SPI_MISO_PIN A6
-//#define SPI_MISO_PAL_MODE 5
-
-/* Wait API. */
-// #define USB_POLLING_INTERVAL_MS 1
-//#define WAIT_US_TIMER GPTD3
+#define SPI_MISO_PAL_MODE 5
 
 /* EEPROM config. */
-
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
-//#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 64
-// #define EXTERNAL_EEPROM_BYTE_COUNT           8196
-// #define EXTERNAL_EEPROM_PAGE_SIZE            32
-// #define EXTERNAL_EEPROM_ADDRESS_SIZE         2
-// #define DEBUG_EEPROM_OUTPUT
-
-#ifdef EEPROM_SPI
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8195
-#else
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4097
-#endif

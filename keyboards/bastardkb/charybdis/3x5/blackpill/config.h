@@ -34,13 +34,7 @@
 /* Handedness. */
 #define SPLIT_HAND_PIN A3  // High -> left, Low -> right.
 
-/* PMW3360 settings. */
-#define PMW3360_CS_PIN B14
-#define PMW3360_CS_MODE 3
-#define PMW3360_CS_DIVISOR 64
-
 /* RGB settings. */
-
 #define RGB_DI_PIN A1
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 2
@@ -53,6 +47,10 @@
 /* Serial configuration for split keyboard. */
 #define SERIAL_USART_TX_PIN A9
 
+/* CRC. */
+#define CRC8_USE_TABLE
+#define CRC8_OPTIMIZE_SPEED
+
 /* SPI config for EEPROM and pmw3360 sensor. */
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5
@@ -63,16 +61,9 @@
 #define SPI_MISO_PAL_MODE 5
 
 /* EEPROM config. */
-
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
-#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 64
-// #define EXTERNAL_EEPROM_BYTE_COUNT           8196
-// #define EXTERNAL_EEPROM_PAGE_SIZE            32
-// #define EXTERNAL_EEPROM_ADDRESS_SIZE         2
-// #define DEBUG_EEPROM_OUTPUT
 
-#ifdef EEPROM_SPI
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8195
-#else
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4097
-#endif
+/* PMW3360 settings. */
+#define PMW3360_CS_PIN B14
+#define PMW3360_CS_MODE 3
+#define PMW3360_CS_DIVISOR 64
