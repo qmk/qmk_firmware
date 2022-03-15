@@ -1,5 +1,5 @@
 /*
-Copyright 2021 mechlovin
+Copyright 2021 Mechlovin'
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,7 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "rev1.h"
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 2
+void keyboard_pre_init_user(void) {
+  // Call the keyboard pre init code.
 
+  // Set our LED pins as output
+  setPinOutput(D7);
+}
