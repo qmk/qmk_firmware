@@ -27,9 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VERBOSE
 
 #define FORCE_NKRO
-#define NO_ACTION_FUNCTION
 #define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
 #define IGNORE_MOD_TAP_INTERRUPT
 
 /* USB Device descriptor parameter */
