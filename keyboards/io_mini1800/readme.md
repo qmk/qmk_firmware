@@ -16,4 +16,9 @@ Flashing example for this keyboard:
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-To reset the board, you will want to short the pad labeled RESET on the back (near the MCU).
+## Bootloader
+
+To reset the board into bootloader, do one of the following:
+
+* **Hardware reset**: short the pad labeled RESET on the back, near the microcontroller
+* **Bootmagic reset**: hold down the top left key (usually programmed as Escape) while plugging in the keyboard (also resets persistent storage)
