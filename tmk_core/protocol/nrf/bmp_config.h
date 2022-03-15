@@ -30,6 +30,8 @@ int save_keymap();
 int load_ex_keycode_file();
 int save_ex_keycode_file();
 
+void convert_exkc_combo();
+
 int load_encoder_config_file();
 
 typedef enum {

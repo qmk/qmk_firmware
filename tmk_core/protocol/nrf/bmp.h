@@ -40,3 +40,7 @@ extern int reset_counter;
 void bmp_enter_sleep();
 void bmp_before_sleep();
 
+
+void tap_code_ex(uint16_t kc, keyevent_t keyevent);
+void register_code_ex(uint16_t kc, keyevent_t keyevent);
+void unregister_code_ex(uint16_t kc, keyevent_t keyevent);

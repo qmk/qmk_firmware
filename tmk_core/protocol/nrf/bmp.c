@@ -627,6 +627,52 @@ void select_usb(void) {
     usb_enabled = true;
 }
 
+extern bool stop_reentrant_process_exkc;
+static void process_record_ex(uint16_t kc, keyrecord_t *record) {
+    action_t action = action_for_keycode(kc);
+    dprint("ACTION: ");
+    debug_action(action);
+    dprint(" layer_state: ");
+    layer_debug();
+    dprint(" default_layer_state: ");
+    default_layer_debug();
+    dprintln();
+
+    if (!process_record_quantum_keycode(kc, record)) {
+        return;
+    }
+    process_action(record, action);
+}
+
+void tap_code_ex(uint16_t kc, keyevent_t keyevent) {
+    keyrecord_t record;
+    stop_reentrant_process_exkc = true;
+    record.event                = keyevent;
+    record.event.pressed        = true;
+    process_record_ex(kc, &record);
+    record.event.pressed = false;
+    process_record_ex(kc, &record);
+    stop_reentrant_process_exkc = false;
+}
+
+void register_code_ex(uint16_t kc, keyevent_t keyevent) {
+    keyrecord_t record;
+    stop_reentrant_process_exkc = true;
+    record.event                = keyevent;
+    record.event.pressed        = true;
+    process_record_ex(kc, &record);
+    stop_reentrant_process_exkc = false;
+}
+
+void unregister_code_ex(uint16_t kc, keyevent_t keyevent) {
+    keyrecord_t record;
+    stop_reentrant_process_exkc = true;
+    record.event                = keyevent;
+    record.event.pressed        = false;
+    process_record_ex(kc, &record);
+    stop_reentrant_process_exkc = false;
+}
+
 extern bool via_keymap_update_flag;
 
 bool process_record_user_bmp(uint16_t keycode, keyrecord_t* record) {

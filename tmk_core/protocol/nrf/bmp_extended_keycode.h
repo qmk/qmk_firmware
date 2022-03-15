@@ -13,6 +13,7 @@ typedef enum {
     TLT,
     TDD,
     TDH,
+    CMB,
     EXKC_TYPE_END,
 } exkc_type_t;
 
@@ -39,6 +40,17 @@ static inline uint16_t tdd_get_kc2(bmp_ex_keycode_t const * const exkc) { return
 
 static inline uint16_t tdh_get_kc1(bmp_ex_keycode_t const * const exkc) { return exkc->byte[1] | (((uint16_t)exkc->byte[2]) << 8); }
 static inline uint16_t tdh_get_kc2(bmp_ex_keycode_t const * const exkc) { return exkc->byte[3] | (((uint16_t)exkc->byte[4]) << 8); }
+
+#define CMB(qkc1, qkc2, qkc3)                                                  \
+    (bmp_ex_keycode_t) {                                                       \
+        .byte[0] = CMB, .byte[1] = qkc1 & 0xFF, .byte[2] = (qkc1 >> 8) & 0xFF, \
+        .byte[3] = qkc2 & 0xFF, .byte[4] = qkc3 & 0xFF,                        \
+        .byte[5] = (qkc3 >> 8) & 0xFF                                          \
+    }
+
+static inline uint16_t cmb_get_kc1(bmp_ex_keycode_t const * const exkc) { return exkc->byte[1] | (((uint16_t)exkc->byte[2]) << 8); }
+static inline uint16_t cmb_get_kc2(bmp_ex_keycode_t const * const exkc) { return exkc->byte[3]; }
+static inline uint16_t cmb_get_kc3(bmp_ex_keycode_t const * const exkc) { return exkc->byte[4] | (((uint16_t)exkc->byte[5]) << 8); }
 
 #define EX(x) x
 

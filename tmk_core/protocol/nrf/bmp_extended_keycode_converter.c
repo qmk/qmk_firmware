@@ -13,20 +13,25 @@ static const char* prefix_str[] = {
     PREFIX_PAIR(TLT),
     PREFIX_PAIR(TDD),
     PREFIX_PAIR(TDH),
+    PREFIX_PAIR(CMB),
 };
 
 #define ARRAY_LEN(x) sizeof(x) / sizeof(x[0])
 static exkc_type_t get_exkc_type(bmp_ex_keycode_t const* const ek);
 static int         ekc_lte_to_str(bmp_ex_keycode_t const* const ek, char* str, uint16_t len, KEYMAP_LOCALE locale, bool use_ascii);
 static int         ekc_tlt_to_str(bmp_ex_keycode_t const* const ek, char* str, uint16_t len, KEYMAP_LOCALE locale, bool use_ascii);
-static int         ekc_tdd_to_str(bmp_ex_keycode_t const* const ek, char* str, uint16_t len, KEYMAP_LOCALE locale, bool use_ascii);
-static int         ekc_tdh_to_str(bmp_ex_keycode_t const* const ek, char* str, uint16_t len, KEYMAP_LOCALE locale, bool use_ascii);
+static int         ekc_2key_combination_to_str(const char*                   prefix,
+                                               bmp_ex_keycode_t const* const ek,
+                                               char* str, uint16_t len,
+                                               KEYMAP_LOCALE locale, bool use_ascii);
+static int         ekc_combo_to_str(bmp_ex_keycode_t const* const ek, char* str,
+                                    uint16_t len, KEYMAP_LOCALE locale, bool use_ascii);
 
 static exkc_type_t get_str_exkc_type(const char* str, uint16_t len);
 static int         str2ekc_lte(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t len, KEYMAP_LOCALE locale);
 static int         str2ekc_tlt(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t len, KEYMAP_LOCALE locale);
-static int         str2ekc_tdd(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t len, KEYMAP_LOCALE locale);
-static int         str2ekc_tdh(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t len, KEYMAP_LOCALE locale);
+static int         str2ekc_2key_combination(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t len, KEYMAP_LOCALE locale);
+static int         str2ekc_combo(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t len, KEYMAP_LOCALE locale);
 
 uint8_t bmp_ex_keycode2str_locale(bmp_ex_keycode_t const* const ek, char* str, uint16_t len, KEYMAP_LOCALE locale, bool use_ascii) {
     exkc_type_t ek_type     = get_exkc_type(ek);
@@ -40,10 +45,13 @@ uint8_t bmp_ex_keycode2str_locale(bmp_ex_keycode_t const* const ek, char* str, u
             written_len = ekc_tlt_to_str(ek, str, len, locale, use_ascii);
             break;
         case TDD:
-            written_len = ekc_tdd_to_str(ek, str, len, locale, use_ascii);
+            written_len = ekc_2key_combination_to_str("EX(TDD(", ek, str, len, locale, use_ascii);
             break;
         case TDH:
-            written_len = ekc_tdh_to_str(ek, str, len, locale, use_ascii);
+            written_len = ekc_2key_combination_to_str("EX(TDH(", ek, str, len, locale, use_ascii);
+            break;
+        case CMB:
+            written_len = ekc_combo_to_str(ek, str, len, locale, use_ascii);
             break;
         default:
             break;
@@ -73,10 +81,16 @@ uint8_t str2bmp_ex_keycode_locale(bmp_ex_keycode_t* ek_res, const char* str, uin
             str2ekc_tlt(ek_res, str, len, locale);
             break;
         case TDD:
-            str2ekc_tdd(ek_res, str, len, locale);
+            str2ekc_2key_combination(ek_res, str, len, locale);
+            ek_res->byte[0] = TDD;
             break;
         case TDH:
-            str2ekc_tdh(ek_res, str, len, locale);
+            str2ekc_2key_combination(ek_res, str, len, locale);
+            ek_res->byte[0] = TDH;
+            break;
+        case CMB:
+            str2ekc_combo(ek_res, str, len, locale);
+            ek_res->byte[0] = CMB;
             break;
         default:
             ek_res->byte[0] = NO_EXKC;
@@ -114,11 +128,14 @@ static int ekc_tlt_to_str(bmp_ex_keycode_t const* const ek, char* str, uint16_t 
     return write_offset;
 }
 
-static int ekc_tdd_to_str(bmp_ex_keycode_t const* const ek, char* str, uint16_t len, KEYMAP_LOCALE locale, bool use_ascii) {
-    uint16_t qkc1 = ((uint16_t)ek->byte[2] << 8) | ek->byte[1];
-    uint16_t qkc2 = ((uint16_t)ek->byte[4] << 8) | ek->byte[3];
+static int ekc_combo_to_str(bmp_ex_keycode_t const* const ek, char* str,
+                            uint16_t len, KEYMAP_LOCALE locale,
+                            bool use_ascii) {
+    uint16_t qkc1 = cmb_get_kc1(ek);
+    uint16_t qkc2 = cmb_get_kc2(ek);
+    uint16_t qkc3 = cmb_get_kc3(ek);
 
-    uint32_t write_offset = snprintf(str, len, "EX(TDD(");
+    uint32_t write_offset = snprintf(str, len, "EX(CMB(");
 
     write_offset += quantum_keycode2str_locale(qkc1, str + write_offset, len - write_offset, locale, false); // always use no_ascii mode
 
@@ -126,16 +143,23 @@ static int ekc_tdd_to_str(bmp_ex_keycode_t const* const ek, char* str, uint16_t 
 
     write_offset += quantum_keycode2str_locale(qkc2, str + write_offset, len - write_offset, locale, false); // always use no_ascii mode
 
+    write_offset += snprintf(str + write_offset, len - write_offset, ",");
+
+    write_offset += quantum_keycode2str_locale(qkc3, str + write_offset, len - write_offset, locale, false); // always use no_ascii mode
+
     write_offset += snprintf(str + write_offset, len - write_offset, "))");
 
     return write_offset;
 }
 
-static int ekc_tdh_to_str(bmp_ex_keycode_t const* const ek, char* str, uint16_t len, KEYMAP_LOCALE locale, bool use_ascii) {
+static int ekc_2key_combination_to_str(const char*                   prefix,
+                                       bmp_ex_keycode_t const* const ek,
+                                       char* str, uint16_t len,
+                                       KEYMAP_LOCALE locale, bool use_ascii) {
     uint16_t qkc1 = ((uint16_t)ek->byte[2] << 8) | ek->byte[1];
     uint16_t qkc2 = ((uint16_t)ek->byte[4] << 8) | ek->byte[3];
 
-    uint32_t write_offset = snprintf(str, len, "EX(TDH(");
+    uint32_t write_offset = snprintf(str, len, prefix);
 
     write_offset += quantum_keycode2str_locale(qkc1, str + write_offset, len - write_offset, locale, false); // always use no_ascii mode
 
@@ -223,7 +247,7 @@ static int str2ekc_tlt(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t
     return 0;
 }
 
-static int str2ekc_tdd(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t len, KEYMAP_LOCALE locale) {
+static int str2ekc_2key_combination(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t len, KEYMAP_LOCALE locale) {
     const char* kc_str[2];
     uint16_t    kc_str_len[2];
 
@@ -235,14 +259,15 @@ static int str2ekc_tdd(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t
     skip_space(&kc_str[1], &len);
     uint16_t kc2 = get_qkc_from_str(kc_str[1], kc_str_len[1], locale);
 
+    // fill exkc type in caller
     *ek_res = TDD(kc1, kc2);
 
     return 0;
 }
 
-static int str2ekc_tdh(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t len, KEYMAP_LOCALE locale) {
-    const char* kc_str[2];
-    uint16_t    kc_str_len[2];
+static int str2ekc_combo(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t len, KEYMAP_LOCALE locale) {
+    const char* kc_str[3];
+    uint16_t    kc_str_len[3];
 
     get_element_array(str, len, kc_str, kc_str_len, 2);
 
@@ -252,7 +277,11 @@ static int str2ekc_tdh(bmp_ex_keycode_t* const ek_res, const char* str, uint16_t
     skip_space(&kc_str[1], &len);
     uint16_t kc2 = get_qkc_from_str(kc_str[1], kc_str_len[1], locale);
 
-    *ek_res = TDH(kc1, kc2);
+    skip_space(&kc_str[2], &len);
+    uint16_t kc3 = get_qkc_from_str(kc_str[2], kc_str_len[2], locale);
+
+    // fill exkc type in caller
+    *ek_res = CMB(kc1, kc2, kc3);
 
     return 0;
 }

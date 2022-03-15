@@ -1,6 +1,7 @@
 
 #include <stdint.h>
 
+#include "bmp.h"
 #include "bmp_process_extended_keycode.h"
 #include "bmp_custom_keycode.h"
 #include "bmp_extended_keycode.h"
@@ -89,17 +90,20 @@ static const exkc_event_func_t tdd_event_func       = {tdd_onPress, tdd_onHold, 
 static const exkc_event_func_t tdh_event_func       = {tdh_onPress, tdh_onHold, tdh_onTap, tdh_onReleaseTap, tdh_onReleaseHold};
 
 static void state_transition_common(uint16_t exkc_idx);
-bool bmp_process_extended_keycode(uint16_t *const p_keycode, keyrecord_t *const record);
+bool bmp_process_extended_keycode(uint16_t keycode, keyrecord_t *const record);
 
 static int pending_exkc_num = 0;
 static bool pending_normal_kc_flag;
 static bool process_normal_kc_flag;
+bool        stop_reentrant_process_exkc = false;
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     dprintf("Process KC:%d\n", keycode);
-    bool cont = bmp_process_extended_keycode(&keycode, record);
-    if (!cont) {
-        return false;
+    if (stop_reentrant_process_exkc == false) {
+        bool cont = bmp_process_extended_keycode(keycode, record);
+        if (!cont) {
+            return false;
+        }
     }
     return process_record_user(keycode, record);
 }
@@ -178,8 +182,7 @@ void bmp_action_exec_impl(keyevent_t event) {
      return false;
  }
 
-bool bmp_process_extended_keycode(uint16_t *const p_keycode, keyrecord_t *const record) {
-    uint16_t keycode = *p_keycode;
+bool bmp_process_extended_keycode(uint16_t keycode, keyrecord_t *const record) {
     static bool skip_next_call = false;
     bool continue_process = true;
 
@@ -200,7 +203,7 @@ bool bmp_process_extended_keycode(uint16_t *const p_keycode, keyrecord_t *const 
     }
 
     if (pending_normal_kc_flag) {
-        if ( EXKC_START >= *p_keycode || *p_keycode >= EXKC_END) {
+        if (keycode < EXKC_START || keycode > EXKC_END) {
             // queueing keyevent
             continue_process = send_pending_buffer(&record->event) ? false : true;
         }
@@ -253,13 +256,17 @@ bool bmp_process_extended_keycode(uint16_t *const p_keycode, keyrecord_t *const 
 
 static void preprocess_exkc_common(keyevent_t const *const keyevent) {
     for (int idx = 0; idx < bmp_ex_keycode_num; idx++) {
-        if (exkc_status[idx].state != EXKC_STATE_NONE && keyevent->pressed && !KEYEQ(exkc_status[idx].keyevent.key, keyevent->key)) {
+        const uint16_t keycode = get_event_keycode(*keyevent, false);
+        if (exkc_status[idx].state == EXKC_STATE_NONE ||
+            idx + EXKC_START == keycode) {
+            continue;
+        }
+
+        if (keyevent->pressed) {
             dprintf("[EXKC]idx:%d:INTERRUPTED(PRESS)\n", idx);
             exkc_status[idx].event = EXKC_PRESS_INTERRUPT;
-        } else if (exkc_status[idx].state != EXKC_STATE_NONE
-            && !keyevent->pressed
-            && !KEYEQ(((keypos_t){.row = 255, .col =255}), keyevent->key)
-            && !KEYEQ(exkc_status[idx].keyevent.key, keyevent->key)) {
+        } else if (!KEYEQ(((keypos_t){.row = 255, .col = 255}),
+                          keyevent->key)) {
             dprintf("[EXKC]idx:%d:INTERRUPTED(RELEASE)\n", idx);
             exkc_status[idx].event = EXKC_RELEASE_INTERRUPT;
         } else {
@@ -278,7 +285,7 @@ static void exkc_get_event(uint16_t input_keycode, uint16_t exkc_idx, keyevent_t
     }
 
     if (input_keycode == keycode) {
-        if ((!p_status->last_keystate) && keyevent->pressed) {
+        if (keyevent->pressed) {
             p_status->event    = EXKC_PRESSED;
             p_status->keyevent = *keyevent;
             dprintf("[EXKC]idx:%d:PRESSED\n", exkc_idx);
@@ -330,6 +337,9 @@ static exkc_event_func_t const *get_event_func(uint16_t exkc_idx) {
             break;
         case TDH:
             return &tdh_event_func;
+            break;
+        case CMB:
+            return &event_func_undefined;
             break;
         default:
             return &event_func_undefined;
@@ -391,13 +401,17 @@ static void state_transition_common(uint16_t exkc_idx) {
                 }
             }
             else if (event == EXKC_RELEASED_IN_TAPPING_TERM) {
-                p_status->state = EXKC_STATE_TAPPED;
+                p_status->state           = EXKC_STATE_INACTIVE;
                 p_status->last_event_time = timer_read();
                 pending_exkc_num--;
                 p_status->tapping_count++;
                 dprintf("[EXKC]idx:%d:PENDING->TAPPED:%d\n", exkc_idx, p_status->tapping_count);
                 if (p_event_func->onTap != NULL) {
                     p_event_func->onTap(p_exkc, p_status);
+                }
+                dprintf("[EXKC]idx:%d:TAPPED->INACTIVE:%d\n", exkc_idx, p_status->tapping_count);
+                if (p_event_func->onReleaseTap != NULL) {
+                    p_event_func->onReleaseTap(p_exkc, p_status);
                 }
             }
 
@@ -443,41 +457,6 @@ static void state_transition_common(uint16_t exkc_idx) {
     }
 }
 
-static inline void tap_code_ex(uint16_t kc, exkc_status_t const *const status) {
-    if (kc < QK_MODS_MAX) {
-        tap_code16(kc);
-    } else if (kc >= SAFE_RANGE) {
-        keyrecord_t record;
-        record.event         = status->keyevent;
-        record.event.pressed = true;
-        process_record_user(kc, &record);
-        record.event.pressed = false;
-        process_record_user(kc, &record);
-    }
-}
-
-static inline void register_code_ex(uint16_t kc, exkc_status_t const *const status) {
-    if (kc < QK_MODS_MAX) {
-        register_code16(kc);
-    } else if (kc >= SAFE_RANGE) {
-        keyrecord_t record;
-        record.event         = status->keyevent;
-        record.event.pressed = true;
-        process_record_user(kc, &record);
-    }
-}
-
-static inline void unregister_code_ex(uint16_t kc, exkc_status_t const *const status) {
-    if (kc < QK_MODS_MAX) {
-        unregister_code16(kc);
-    } else if (kc >= SAFE_RANGE) {
-        keyrecord_t record;
-        record.event         = status->keyevent;
-        record.event.pressed = false;
-        process_record_user(kc, &record);
-    }
-}
-
 static void lte_onPress(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
     return;
     // uint8_t layer = lte_get_layer(&exkc);
@@ -492,14 +471,14 @@ static void lte_onHold(bmp_ex_keycode_t const *const exkc, exkc_status_t const *
         layer_on(layer);
         clear_keyboard_but_mods();  // To avoid stuck keys
     } else {
-        register_code_ex(keycode, status);
+        register_code_ex(keycode, status->keyevent);
     }
 }
 
 static void lte_onTap(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
     // uint8_t layer = lte_get_layer(exkc);
     uint16_t keycode = lte_get_tapcode(exkc);
-    tap_code_ex(keycode, status);
+    tap_code_ex(keycode, status->keyevent);
 }
 
 static void lte_onReleaseTap(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
@@ -514,7 +493,7 @@ static void lte_onReleaseHold(bmp_ex_keycode_t const *const exkc, exkc_status_t 
         layer_off(layer);
         clear_keyboard_but_mods();  // To avoid stuck keys
     } else {
-        unregister_code_ex(keycode, status);
+        unregister_code_ex(keycode, status->keyevent);
     }
 }
 
@@ -527,13 +506,13 @@ static void tlt_onHold(bmp_ex_keycode_t const *const exkc, exkc_status_t const *
         update_tri_layer(tlt_get_layer1(exkc), tlt_get_layer2(exkc), tlt_get_layer3(exkc));
         clear_keyboard_but_mods();  // To avoid stuck keys
     } else {
-        register_code_ex(keycode, status);
+        register_code_ex(keycode, status->keyevent);
     }
 }
 
 static void tlt_onTap(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
     uint16_t keycode = tlt_get_tapcode(exkc);
-    tap_code_ex(keycode, status);
+    tap_code_ex(keycode, status->keyevent);
 }
 
 static void tlt_onReleaseTap(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
@@ -547,7 +526,7 @@ static void tlt_onReleaseHold(bmp_ex_keycode_t const *const exkc, exkc_status_t 
         update_tri_layer(tlt_get_layer1(exkc), tlt_get_layer2(exkc), tlt_get_layer3(exkc));
         clear_keyboard_but_mods();  // To avoid stuck keys
     } else {
-        unregister_code_ex(keycode, status);
+        unregister_code_ex(keycode, status->keyevent);
     }
 }
 
@@ -566,7 +545,7 @@ static void tdd_onHold(bmp_ex_keycode_t const *const exkc, exkc_status_t const *
         kc = tdd_get_kc2(exkc);
     }
 
-    register_code_ex(kc, status);
+    register_code_ex(kc, status->keyevent);
 }
 
 static void tdd_onTap(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
@@ -575,7 +554,7 @@ static void tdd_onTap(bmp_ex_keycode_t const *const exkc, exkc_status_t const *c
 
     if (tap == 0) {
         kc = tdd_get_kc2(exkc);
-        tap_code_ex(kc, status);
+        tap_code_ex(kc, status->keyevent);
     }
     return;
 }
@@ -586,7 +565,7 @@ static void tdd_onReleaseTap(bmp_ex_keycode_t const *const exkc, exkc_status_t c
 
     if (tap == 1) {
         kc = tdd_get_kc1(exkc);
-        tap_code_ex(kc, status);
+        tap_code_ex(kc, status->keyevent);
     }
 }
 
@@ -601,7 +580,7 @@ static void tdd_onReleaseHold(bmp_ex_keycode_t const *const exkc, exkc_status_t 
         kc = tdd_get_kc2(exkc);
     }
 
-    unregister_code_ex(kc, status);
+    unregister_code_ex(kc, status->keyevent);
 }
 
 static void tdh_onPress(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
@@ -611,13 +590,13 @@ static void tdh_onPress(bmp_ex_keycode_t const *const exkc, exkc_status_t const 
 static void tdh_onHold(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
     uint16_t kc = KC_NO;
     kc = tdh_get_kc2(exkc);
-    register_code_ex(kc, status);
+    register_code_ex(kc, status->keyevent);
 }
 
 static void tdh_onTap(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
     uint16_t kc = KC_NO;
     kc = tdh_get_kc1(exkc);
-    tap_code_ex(kc, status);
+    tap_code_ex(kc, status->keyevent);
     return;
 }
 
@@ -627,5 +606,5 @@ static void tdh_onReleaseTap(bmp_ex_keycode_t const *const exkc, exkc_status_t c
 static void tdh_onReleaseHold(bmp_ex_keycode_t const *const exkc, exkc_status_t const *const status) {
     uint16_t kc = KC_NO;
     kc = tdh_get_kc2(exkc);
-    unregister_code_ex(kc, status);
+    unregister_code_ex(kc, status->keyevent);
 }

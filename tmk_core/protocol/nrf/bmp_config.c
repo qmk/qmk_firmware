@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bmp_macro.h"
 #include "bmp_macro_parser.h"
 
+#include "process_combo.h"
+
 #ifndef TAPPING_TERM
 #    define TAPPING_TERM 200
 #endif
@@ -35,6 +37,10 @@ static char                 macro_string[1024];
 
 bmp_ex_keycode_t bmp_ex_keycodes[BMP_EX_KC_LEN];
 uint32_t         bmp_ex_keycode_num;
+
+extern combo_t  key_combos[COMBO_COUNT];
+extern uint16_t COMBO_LEN;
+uint16_t        combo_members[COMBO_COUNT][3];
 
 const bmp_encoder_config_t *get_bmp_encoder_config() {
     return &bmp_encoder_config;
@@ -548,6 +554,28 @@ int load_tapping_term_file() {
 
 int save_tapping_term_file() { return BMPAPI->app.save_file(QMK_RECORD); }
 
+void convert_exkc_combo() {
+    uint8_t combo_count = 0;
+    for (int idx = 0; idx < bmp_ex_keycode_num; idx++) {
+        if (get_exkc_type(&bmp_ex_keycodes[idx]) != CMB) {
+            continue;
+        }
+        combo_members[combo_count][0] = cmb_get_kc1(&bmp_ex_keycodes[idx]);
+        combo_members[combo_count][1] = cmb_get_kc2(&bmp_ex_keycodes[idx]);
+
+        key_combos[combo_count].keys    = &combo_members[combo_count][0];
+        key_combos[combo_count].keycode = cmb_get_kc3(&bmp_ex_keycodes[idx]);
+
+        combo_count++;
+
+        if (combo_count >= COMBO_COUNT) {
+            break;
+        }
+    }
+
+    COMBO_LEN = combo_count;
+}
+
 int load_ex_keycode_file() {
     bmp_ex_keycode_t *p_ex_keycode;
     uint32_t          ex_keycode_len;
@@ -569,12 +597,16 @@ int load_ex_keycode_file() {
         }
     }
 
+    convert_exkc_combo();
+
     return 0;
 }
 
 int save_ex_keycode_file() {
     bmp_ex_keycode_t *p_ex_keycode;
     uint32_t          ex_keycode_len;
+
+    convert_exkc_combo();
 
     BMPAPI->app.get_file(BMP_EX_KEYCODE_RECORD, (uint8_t **)&p_ex_keycode,
                          &ex_keycode_len);
