@@ -16,18 +16,15 @@
 
 #pragma once
 
-#define PRODUCT_ID      0x0101
+#include "quantum.h"
 
-// The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN A8
-#define RGBLED_NUM 16
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
+#define LAYOUT_macropad( \
+    K00, K01, K02, \
+    K10, K11, K12, \
+    K20, K21, K22 \
+) \
+{ \
+    { K00, K01, K02 }, \
+    { K10, K11, K12 }, \
+    { K20, K21, K22 }, \
+}

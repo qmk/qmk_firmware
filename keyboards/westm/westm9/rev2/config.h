@@ -16,11 +16,11 @@
 
 #pragma once
 
-#define PRODUCT_ID      0x0101
+#define PRODUCT_ID      0x0302
 
 // The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN A8
-#define RGBLED_NUM 16
+#define RGB_DI_PIN F1
+#define RGBLED_NUM 14
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -31,3 +31,26 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
+
+/* Default Oled init */
+#define OLED_DISPLAY_128X64
+#define OLED_BRIGHTNESS 255
+
+/* I2C for Oled */
+#define I2C_DRIVER I2CD1
+#define I2C1_SCL_PIN B6
+#define I2C1_SDA_PIN B7
+#define I2C1_SCL_PAL_MODE 1
+#define I2C1_SDA_PAL_MODE 1
+
+/* Required for SH1106 Oled Driver */
+#define OLED_IC OLED_IC_SH1106
+#define OLED_COLUMN_OFFSET 2 // SH1106 screen is a little off to the left
+
+#define I2C1_TIMINGR_PRESC 0x00U
+#define I2C1_TIMINGR_SCLDEL 0x03U
+#define I2C1_TIMINGR_SDADEL 0x01U
+#define I2C1_TIMINGR_SCLH 0x03U
+#define I2C1_TIMINGR_SCLL 0x09U
+
+#define OLED_UPDATE_INTERVAL 66
