@@ -23,8 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void bmp_encoder_init(bmp_encoder_config_t const* const config);
 void bmp_encoder_read(bmp_encoder_config_t const* const config, uint32_t key_event_cnt);
 
-void encoder_update_kb(int8_t index, bool clockwise);
-void encoder_update_user(int8_t index, bool clockwise);
+bool encoder_update_kb(int8_t index, bool clockwise);
+bool encoder_update_user(int8_t index, bool clockwise);
 void encoder_key_interrupt_kb(int8_t index);
 void encoder_key_interrupt_user(int8_t index);
 void encoder_no_move_kb(int8_t index);

@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 
 #include "action_layer.h"
+#include "bmp.h"
 #include "bmp_encoder_actions.h"
 #include "bmp_config.h"
 
@@ -36,6 +37,19 @@ static encoder_status_t
 static uint16_t get_action(int8_t index, bool clockwise) {
     uint32_t                    layer          = biton32(layer_state);
     const bmp_encoder_config_t* encoder_config = get_bmp_encoder_config();
+
+    if (encoder_config->encoder[index].action[0][0] == KC_TRNS) {
+        uint8_t position =
+            encoder_config->encoder[index].action[1][clockwise ? 1 : 0];
+        if (position > 0) {
+            position--;
+        }
+        const bmp_api_config_t* config = BMPAPI->app.get_config();
+        const uint8_t           row    = position / config->matrix.cols;
+        const uint8_t           col    = position % config->matrix.cols;
+        return keymap_key_to_keycode(layer, (keypos_t){.row = row, .col = col});
+    }
+
     if (layer > sizeof(encoder_config->encoder->action) /
                     sizeof(encoder_config->encoder->action[0])) {
         layer = 0;
@@ -46,6 +60,10 @@ static uint16_t get_action(int8_t index, bool clockwise) {
 }
 
 void encoder_update_bmp(int8_t index, bool clockwise) {
+    if (!encoder_update_kb(index, clockwise)) {
+        return;
+    }
+
     uint16_t action = get_action(index, clockwise);
 
     if (action != current_status[index].action) {
@@ -60,19 +78,16 @@ void encoder_update_bmp(int8_t index, bool clockwise) {
     dprintf("<encoder>idx:%2d, act:%3d, rot:%c\n", index, action,
             clockwise ? 'R' : 'L');
 
-    if (action < SAFE_RANGE) {
-        if (action <= QK_MODS_MAX) {
-            uint8_t kc                 = action & 0xFF;
-            current_status[index].mods = (action & 0x1F00) >> 8;
+    if (action <= QK_MODS_MAX) {
+        uint8_t kc                 = action & 0xFF;
+        current_status[index].mods = (action & 0x1F00) >> 8;
 
-            register_mods(current_status[index].mods);
-            tap_code16(kc);
-        }
-        else {
-            tap_code16(action);
-        }
+        register_mods(current_status[index].mods);
+        tap_code16(kc);
     } else {
-        encoder_update_kb(index, clockwise);
+        keyevent_t event = {.key  = {.col = 255, .row = 255},
+                            .time = (timer_read() | 1)};
+        tap_code_ex(action, event);
     }
 }
 

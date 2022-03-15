@@ -18,30 +18,40 @@ const bmp_matrix_func_t matrix_func_col2row = {init_col2row, get_device_row, get
 //
 //// col2row matrix
 //
-static void unselect_rows(void)
-{
-  const bmp_api_config_t *config = BMPAPI->app.get_config();
+static void unselect_rows(void) {
+    const bmp_api_config_t *config = BMPAPI->app.get_config();
 
-  for(int i=0; i<config->matrix.device_rows; i++) {
-    BMPAPI->gpio.set_pin(config->matrix.row_pins[i]);
-  }
+    for (int i = 0; i < config->matrix.device_rows; i++) {
+        const uint8_t pin = config->matrix.row_pins[i];
+        if (pin != 0) {
+            BMPAPI->gpio.set_pin(pin);
+        }
+    }
 }
 
-static void select_row(uint8_t row)
-{
-  BMPAPI->gpio.clear_pin(BMPAPI->app.get_config()->matrix.row_pins[row]);
+static void select_row(uint8_t row) {
+    const uint8_t pin = BMPAPI->app.get_config()->matrix.row_pins[row];
+    if (pin != 0) {
+        BMPAPI->gpio.clear_pin(pin);
+    }
 }
 
 static void init_col2row() {
     const bmp_api_config_t *config = BMPAPI->app.get_config();
 
-    for(int i=0; i < config->matrix.device_rows; i++) {
-        setPinOd(config->matrix.row_pins[i]);
-        writePinHigh(config->matrix.row_pins[i]);
+    for (int i = 0; i < config->matrix.device_rows; i++) {
+        const uint8_t pin = config->matrix.row_pins[i];
+        if (pin != 0) {
+            setPinOd(pin);
+            writePinHigh(pin);
+        }
     }
 
-    for(int i=0; i < config->matrix.device_cols; i++) {
-        setPinInputHigh(config->matrix.col_pins[i]);
+    for (int i = 0; i < config->matrix.device_cols; i++) {
+        const uint8_t pin = config->matrix.col_pins[i];
+        if (pin != 0) {
+           setPinInputHigh(pin);
+        }
     }
 }
 
@@ -52,7 +62,9 @@ static matrix_row_t read_col_pins(void)
   matrix_row_t row = 0;
   for (int i=0; i < config->matrix.device_cols; i++) {
     pin_num = config->matrix.col_pins[i];
-    row |= (BMPAPI->gpio.read_pin(pin_num) ? 0 : 1) << i;
+    if (pin_num != 0) {
+      row |= (BMPAPI->gpio.read_pin(pin_num) ? 0 : 1) << i;
+    }
   }
   return row;
 }
@@ -89,15 +101,21 @@ static uint32_t scan_col2row(matrix_row_t *matrix_raw)
 static void select_col(uint8_t col)
 {
   const bmp_api_config_t *config = BMPAPI->app.get_config();
-  BMPAPI->gpio.clear_pin(config->matrix.col_pins[col]);
+  const uint8_t pin = config->matrix.col_pins[col];
+  if (pin != 0) {
+      BMPAPI->gpio.clear_pin(pin);
+  }
 }
 
 static void unselect_cols(void)
 {
-  const bmp_api_config_t *config = BMPAPI->app.get_config();
-  for(int i=0; i < config->matrix.device_cols; i++) {
-    BMPAPI->gpio.set_pin(config->matrix.col_pins[i]);
-  }
+    const bmp_api_config_t *config = BMPAPI->app.get_config();
+    for (int i = 0; i < config->matrix.device_cols; i++) {
+        const uint8_t pin = config->matrix.col_pins[i];
+        if (pin != 0) {
+            BMPAPI->gpio.set_pin(pin);
+        }
+    }
 }
 
 static matrix_col_t read_row_pins(void)
@@ -105,8 +123,11 @@ static matrix_col_t read_row_pins(void)
   const bmp_api_config_t *config = BMPAPI->app.get_config();
   matrix_col_t col = 0;
 
-  for (int i=0; i < config->matrix.device_rows; i++) {
-    col |= ((BMPAPI->gpio.read_pin(config->matrix.row_pins[i]) ? 0 : 1) << i);
+  for (int i = 0; i < config->matrix.device_rows; i++) {
+      const uint8_t pin = config->matrix.row_pins[i];
+      if (pin != 0) {
+          col |= ((BMPAPI->gpio.read_pin(pin) ? 0 : 1) << i);
+      }
   }
   return col;
 }
@@ -122,13 +143,19 @@ static matrix_col_t read_col(uint8_t col)
 static void init_row2col() {
     const bmp_api_config_t *config = BMPAPI->app.get_config();
 
-    for(int i=0; i < config->matrix.device_rows; i++) {
-        setPinInputHigh(config->matrix.row_pins[i]);
+    for (int i = 0; i < config->matrix.device_rows; i++) {
+        const uint8_t pin = config->matrix.row_pins[i];
+        if (pin != 0) {
+            setPinInputHigh(pin);
+        }
     }
 
-    for(int i=0; i < config->matrix.device_cols; i++) {
-        setPinOd(config->matrix.col_pins[i]);
-        writePinHigh(config->matrix.col_pins[i]);
+    for (int i = 0; i < config->matrix.device_cols; i++) {
+        const uint8_t pin = config->matrix.col_pins[i];
+        if (pin != 0) {
+            setPinOd(pin);
+            writePinHigh(pin);
+        }
     }
 }
 

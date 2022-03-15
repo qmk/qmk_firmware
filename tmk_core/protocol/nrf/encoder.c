@@ -39,10 +39,12 @@ static pin_t   encoders_pad_b[NUMBER_OF_ENCODERS];
 static int32_t encoder_value[NUMBER_OF_ENCODERS] = {0};
 static int     encoder_cnt                       = 0;
 
-__attribute__((weak)) void encoder_update_user(int8_t index, bool clockwise) {}
+__attribute__((weak)) bool encoder_update_user(int8_t index, bool clockwise) {
+    return true;
+}
 
-__attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) {
-    encoder_update_user(index, clockwise);
+__attribute__((weak)) bool encoder_update_kb(int8_t index, bool clockwise) {
+    return encoder_update_user(index, clockwise);
 }
 
 __attribute__((weak)) void encoder_key_interrupt_user(int8_t index) {}

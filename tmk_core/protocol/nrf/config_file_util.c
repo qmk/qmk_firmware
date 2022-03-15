@@ -813,6 +813,8 @@ void encoder_config_to_json(bmp_encoder_config_t const* const encoder_config,
         len -= written;
         str += written;
 
+        bool use_any = encoder->action[0][0]==KC_TRNS;
+
         for (int action_idx = 0;
              action_idx < sizeof(encoder->action) / sizeof(encoder->action[0]);
              action_idx++) {
@@ -820,8 +822,14 @@ void encoder_config_to_json(bmp_encoder_config_t const* const encoder_config,
             len -= written;
             str += written;
 
-            written = quantum_keycode2str_locale(encoder->action[action_idx][0],
-                                                 str, len, LOCALE_US, false);
+            if (use_any) {
+                written = snprintf(str, len, "ANY(%d)",
+                                   encoder->action[action_idx][0]);
+            } else {
+                written = quantum_keycode2str_locale(
+                    encoder->action[action_idx][0], str, len, LOCALE_US, false);
+            }
+
             len -= written;
             str += written;
 
@@ -829,8 +837,13 @@ void encoder_config_to_json(bmp_encoder_config_t const* const encoder_config,
             len -= written;
             str += written;
 
-            written = quantum_keycode2str_locale(encoder->action[action_idx][1],
-                                                 str, len, LOCALE_US, false);
+            if (use_any) {
+                written = snprintf(str, len, "ANY(%d)",
+                                   encoder->action[action_idx][1]);
+            } else {
+                written = quantum_keycode2str_locale(
+                    encoder->action[action_idx][1], str, len, LOCALE_US, false);
+            }
             len -= written;
             str += written;
 
