@@ -46,10 +46,8 @@ const rgblight_segment_t PROGMEM ll_sl[] = RGBLIGHT_LAYER_SEGMENTS(
 
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(ll_none, ll_cl, ll_sl);
 
-void keyboard_post_init_kb(void) {
+void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
-
-    keyboard_post_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
@@ -60,5 +58,7 @@ bool led_update_kb(led_t led_state) {
     if (lock_bits < 3) {
         rgblight_set_layer_state(lock_bits, true);
     }
+
+    return false;
 }
 #endif
