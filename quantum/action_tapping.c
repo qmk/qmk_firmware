@@ -1,16 +1,17 @@
 #include <stdint.h>
 #include <stdbool.h>
-#include "action.h"
-#include "action_layer.h"
-#include "action_tapping.h"
-#include "keycode.h"
-#include "timer.h"
 
 #ifdef DEBUG_ACTION
 #    include "debug.h"
 #else
 #    include "nodebug.h"
 #endif
+
+#include "action.h"
+#include "action_layer.h"
+#include "action_tapping.h"
+#include "keycode.h"
+#include "timer.h"
 
 #ifndef NO_ACTION_TAPPING
 

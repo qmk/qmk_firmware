@@ -71,17 +71,6 @@ static report_mouse_t local_mouse_report = {};
 extern const pointing_device_driver_t pointing_device_driver;
 
 /**
- * @brief Compares 2 mouse reports for difference and returns result
- *
- * @param[in] new_report report_mouse_t
- * @param[in] old_report report_mouse_t
- * @return bool result
- */
-__attribute__((weak)) bool has_mouse_report_changed(report_mouse_t new_report, report_mouse_t old_report) {
-    return memcmp(&new_report, &old_report, sizeof(new_report));
-}
-
-/**
  * @brief Keyboard level code pointing device initialisation
  *
  */
@@ -165,7 +154,7 @@ __attribute__((weak)) void pointing_device_send(void) {
     static report_mouse_t old_report = {};
 
     // If you need to do other things, like debugging, this is the place to do it.
-    if (has_mouse_report_changed(local_mouse_report, old_report)) {
+    if (has_mouse_report_changed(&local_mouse_report, &old_report)) {
         host_mouse_send(&local_mouse_report);
     }
     // send it and 0 it out except for buttons, so those stay until they are explicity over-ridden using update_pointing_device

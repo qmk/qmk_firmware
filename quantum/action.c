@@ -15,6 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <limits.h>
+
+#ifdef DEBUG_ACTION
+#    include "debug.h"
+#else
+#    include "nodebug.h"
+#endif
+
 #include "host.h"
 #include "keycode.h"
 #include "keyboard.h"
@@ -32,12 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
-#endif
-
-#ifdef DEBUG_ACTION
-#    include "debug.h"
-#else
-#    include "nodebug.h"
 #endif
 
 #ifdef POINTING_DEVICE_ENABLE
@@ -100,7 +101,7 @@ void action_exec(keyevent_t event) {
     keyrecord_t record = {.event = event};
 
 #ifndef NO_ACTION_ONESHOT
-    if (!keymap_config.oneshot_disable) {
+    if (keymap_config.oneshot_enable) {
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
         if (has_oneshot_layer_timed_out()) {
             clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
@@ -257,7 +258,7 @@ void process_record(keyrecord_t *record) {
 
     if (!process_record_quantum(record)) {
 #ifndef NO_ACTION_ONESHOT
-        if (is_oneshot_layer_active() && record->event.pressed && !keymap_config.oneshot_disable) {
+        if (is_oneshot_layer_active() && record->event.pressed && keymap_config.oneshot_enable) {
             clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         }
 #endif
@@ -322,7 +323,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #    ifdef SWAP_HANDS_ENABLE
         && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)
 #    endif
-        && !keymap_config.oneshot_disable) {
+        && keymap_config.oneshot_enable) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         do_release_oneshot = !is_oneshot_layer_active();
     }
@@ -366,7 +367,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #    ifndef NO_ACTION_ONESHOT
                 case MODS_ONESHOT:
                     // Oneshot modifier
-                    if (keymap_config.oneshot_disable) {
+                    if (!keymap_config.oneshot_enable) {
                         if (event.pressed) {
                             if (mods) {
                                 if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
@@ -612,7 +613,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #        ifndef NO_ACTION_ONESHOT
                 case OP_ONESHOT:
                     // Oneshot modifier
-                    if (keymap_config.oneshot_disable) {
+                    if (!keymap_config.oneshot_enable) {
                         if (event.pressed) {
                             layer_on(action.layer_tap.val);
                         } else {

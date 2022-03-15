@@ -489,7 +489,7 @@ bool matrix_scan_task(void) {
     // we can get here with some keys processed now.
     if (!keys_processed)
 #endif
-        action_exec(TICK);
+        action_exec(TICK_EVENT);
 
 MATRIX_LOOP_END:
 
