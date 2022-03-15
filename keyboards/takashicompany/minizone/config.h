@@ -10,7 +10,7 @@
 #define PRODUCT_ID   0x0021
 #define DEVICE_VER   0x0001
 #define MANUFACTURER takashicompany
-#define PRODUCT      miniZONE
+#define PRODUCT      miniZone
 
 /* key matrix size */
 #define MATRIX_ROWS 6
