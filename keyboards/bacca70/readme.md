@@ -8,7 +8,15 @@ The Bacca70 is a winkeyless (WKL) 60% layout that includes a F-row. It's classy,
 * Hardware Supported: Bacca70 PCB and the ortholinear variant the DeBaccaBean PCB
 * Hardware Availability: [3DKeebs](https://3dkeebs.com/)
 
-Make example for this keyboard (after setting up your build environment):
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the top left key (Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB. The button is next to the MCU.
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available. For the default keymap it is on the right alt key on the second layer.
+
+## Make example for this keyboard (after setting up your build environment):
 
     make bacca70:default
 
