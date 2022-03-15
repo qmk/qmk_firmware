@@ -50,7 +50,7 @@ void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
 }
 
-bool led_update_kb(led_t led_state) {
+bool led_update_user(led_t led_state) {
     uint8_t lock_bits = led_state.scroll_lock << 1 | led_state.caps_lock;
     for (uint8_t i=0; i<3; i++) {
         rgblight_set_layer_state(i, false);
