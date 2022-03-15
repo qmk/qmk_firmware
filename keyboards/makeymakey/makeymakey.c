@@ -16,7 +16,10 @@
 
 #include "makeymakey.h"
 
-pin_t pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+static pin_t pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+static pin_t led_pins[LED_PINS] = LED_PINS_HW;
+static bool led_state[MATRIX_COLS] = {0};
+static uint8_t led_cycle_counter = 0;
 
 void keyboard_post_init_kb(void) {
     for(uint8_t row = 0; row < MATRIX_ROWS; row++)
@@ -28,4 +31,96 @@ void keyboard_post_init_kb(void) {
     }
 
     keyboard_post_init_user();
+}
+
+void cycle_leds(void) {
+    for(uint8_t i = 0; i < 3; i++) {
+        setPinInput(led_pins[i]);
+        writePinLow(led_pins[i]);
+    }
+
+    led_cycle_counter++;
+    led_cycle_counter %= 6;
+
+    switch (led_cycle_counter) {
+        case 0:
+            if (led_state[0]) { // Up Arrow
+                setPinInput(led_pins[0]);
+                writePinLow(led_pins[0]);
+                setPinOutput(led_pins[1]);
+                writePinHigh(led_pins[1]);
+                setPinOutput(led_pins[2]);
+                writePinLow(led_pins[2]);
+            }
+            break;
+        case 1:
+            if (led_state[1]) { // Down Arrow
+                setPinOutput(led_pins[0]);
+                writePinHigh(led_pins[0]);
+                setPinOutput(led_pins[1]);
+                writePinLow(led_pins[1]);
+                setPinInput(led_pins[2]);
+                writePinLow(led_pins[2]);
+            }
+            break;
+        case 2:
+            if (led_state[2]) { // Left Arrow
+                setPinOutput(led_pins[0]);
+                writePinLow(led_pins[0]);
+                setPinOutput(led_pins[1]);
+                writePinHigh(led_pins[1]);
+                setPinInput(led_pins[2]);
+                writePinLow(led_pins[2]);
+            }
+            break;
+        case 3:
+            if (led_state[3]) { // Right Arrow
+                setPinInput(led_pins[0]);
+                writePinLow(led_pins[0]);
+                setPinOutput(led_pins[1]);
+                writePinLow(led_pins[1]);
+                setPinOutput(led_pins[2]);
+                writePinHigh(led_pins[2]);
+            }
+            break;
+        case 4:
+            if (led_state[4]) { // Space
+                setPinOutput(led_pins[0]);
+                writePinLow(led_pins[0]);
+                setPinInput(led_pins[1]);
+                writePinLow(led_pins[1]);
+                setPinOutput(led_pins[2]);
+                writePinHigh(led_pins[2]);
+              }
+            break;
+         case 5:
+            if (led_state[5]) { // Right Click
+                setPinOutput(led_pins[0]);
+                writePinHigh(led_pins[0]);
+                setPinInput(led_pins[1]);
+                writePinLow(led_pins[1]);
+                setPinOutput(led_pins[2]);
+                writePinLow(led_pins[2]);
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+void matrix_scan_kb() {
+    cycle_leds();
+    matrix_scan_user();
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+
+    uint8_t row = record->event.key.row;
+    uint8_t col = record->event.key.col;
+
+    if(row == 0 && col >= 0 && col < MATRIX_COLS) {
+        led_state[col] = record->event.pressed;
+    }
+
+    return process_record_user(keycode, record);
 }
