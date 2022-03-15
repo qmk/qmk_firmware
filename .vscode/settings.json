@@ -27,4 +27,12 @@
     "[json]": {
 	    "editor.formatOnSave": false
     }
+    ,
+    "C_Cpp.files.exclude": {
+        "**/.vscode": true,
+        "**/.clangd": true,
+        "**/.cache": true,
+        "**/.git": true,
+        "**/.build": true,
+    }
 }
