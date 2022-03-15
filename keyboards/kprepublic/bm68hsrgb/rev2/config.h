@@ -38,9 +38,7 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+
 #define RGBLIGHT_LIMIT_VAL 150
 #define RGBLED_NUM          6
 #define RGB_DI_PIN          E2
