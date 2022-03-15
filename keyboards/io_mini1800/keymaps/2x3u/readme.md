@@ -1,1 +1,1 @@
-# The default keymap for io_mini1800
+# The default Split Spacebar keymap for io_mini1800
