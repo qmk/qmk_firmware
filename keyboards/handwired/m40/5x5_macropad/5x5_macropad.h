@@ -1,4 +1,4 @@
-// Copyright 2022 Tomek (@m40)
+// Copyright 2022 Tomek (@m40-dev)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
