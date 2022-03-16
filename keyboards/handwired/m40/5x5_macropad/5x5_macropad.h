@@ -13,7 +13,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT( \
+#define LAYOUT_ortho_5x5( \
 	K000, K001, K002, K003, K004, \
 	K100, K101, K102, K103, K104, \
 	K200, K201, K202, K203, K204, \
