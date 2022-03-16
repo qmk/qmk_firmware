@@ -60,14 +60,12 @@
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
-/* Set the maxium brightness as 190 in order to limit the current to 450mA */
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 190
+/* Set the maxium brightness to limit the current to 450mA */
+// #define RGB_MATRIX_MAXIMUM_BRIGHTNESS (24 * 8)  // 8 = RGB_MATRIX_VAL_STEP
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 
 /* Set USB polling rate as 1 milliseconds */
 #define USB_POLLING_INTERVAL_MS 1
-
-/* We have 2KB EEPROM size on STM32L432 */
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -118,7 +116,12 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+// #define RGB_MATRIX_KEYPRESSES
+
 /* Allow VIA to edit lighting */
 #ifdef VIA_ENABLE
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
+
+/* Enable receive custom command from host */
+#define RAW_HID_CMD 0xAB

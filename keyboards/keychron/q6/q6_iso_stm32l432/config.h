@@ -17,13 +17,16 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID 0x0310
-#define DEVICE_VER 0x0104
+#define PRODUCT_ID 0x0162
+#define DEVICE_VER 0x0100
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 45
-#define DRIVER_2_LED_TOTAL 37
+#define DRIVER_1_LED_TOTAL 60
+#define DRIVER_2_LED_TOTAL 49
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
-/* Enable caps-lock LED */
-#define CAPS_LOCK_LED_INDEX 45
+/* Enable caps-lock LED*/
+#define CAPS_LOCK_LED_INDEX 60
+
+/* Enable NUM_LOCK_LED_INDEX */
+// #define NUM_LOCK_LED_INDEX 37

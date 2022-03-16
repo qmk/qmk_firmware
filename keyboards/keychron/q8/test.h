@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,16 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef _TEST_H_
+#define _TEST_H_
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID 0x0310
-#define DEVICE_VER 0x0104
+#include "quantum.h"
+#include "raw_hid.h"
 
-/* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 45
-#define DRIVER_2_LED_TOTAL 37
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+void process_other_record(uint16_t keycode, keyrecord_t *record);
+void timer_task_start(void);
+void system_switch_state_report(uint8_t index, bool active);
 
-/* Enable caps-lock LED */
-#define CAPS_LOCK_LED_INDEX 45
+#endif /* _TEST_H_ */

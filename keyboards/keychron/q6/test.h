@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,21 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef _TEST_H_
+#define _TEST_H_
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0163
-#define DEVICE_VER      0x0101
+#include "quantum.h"
+#include "raw_hid.h"
 
-/* Key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 20
+void process_other_record(uint16_t keycode, keyrecord_t *record);
+void timer_task_start(void);
+void system_switch_state_report(uint8_t index, bool active);
 
-/* Key matrix pins */
-#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, A2, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, C14 }
-
-/* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 60
-#define DRIVER_2_LED_TOTAL 48
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#endif /* _TEST_H_ */

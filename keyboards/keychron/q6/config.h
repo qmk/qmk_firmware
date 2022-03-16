@@ -21,6 +21,14 @@
 #define MANUFACTURER    Keychron
 #define PRODUCT         Keychron Q6
 
+/* Key matrix size */
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 20
+
+/* Key matrix pins */
+#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
+#define MATRIX_COL_PINS { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, A2, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, C14 }
+
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
@@ -99,7 +107,12 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+// #define RGB_MATRIX_KEYPRESSES
+
 /* Allow VIA to edit lighting */
 #ifdef VIA_ENABLE
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
+
+/* Enable receive custom command from host */
+#define RAW_HID_CMD 0xAB

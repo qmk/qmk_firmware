@@ -17,19 +17,16 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0160
-#define DEVICE_VER      0x0101
-
-/* Key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 19
-
-/* Key matrix pins */
-#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, A2, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
+#define PRODUCT_ID 0x0160
+#define DEVICE_VER 0x0100
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 56
+#define DRIVER_1_LED_TOTAL 60
 #define DRIVER_2_LED_TOTAL 48
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
+/* Enable caps-lock LED*/
+#define CAPS_LOCK_LED_INDEX 61
+
+/* Enable NUM_LOCK_LED_INDEX */
+// #define NUM_LOCK_LED_INDEX 37

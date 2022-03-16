@@ -124,6 +124,20 @@ __attribute__((weak)) void CKLED2001_init(uint8_t addr) {
 
     // Set CURRENT PAGE (Page 4)
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, CURRENT_TUNE_PAGE);
+#if defined(LOW_CURRENT_MODE)
+    for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
+        switch (i) {
+            case 2:
+            case 5:
+            case 8:
+            case 11:
+                CKLED2001_write_register(addr, i, 0x88);
+                break;
+            default:
+                CKLED2001_write_register(addr, i, 0xA8);
+        }
+    }
+#else
     for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
         switch (i) {
             case 2:
@@ -136,7 +150,7 @@ __attribute__((weak)) void CKLED2001_init(uint8_t addr) {
                 CKLED2001_write_register(addr, i, 0xFF);
         }
     }
-
+#endif
     // Enable LEDs ON/OFF
     CKLED2001_write_register(addr, CONFIGURE_CMD_PAGE, LED_CONTROL_PAGE);
     for (int i = 0; i < LED_CONTROL_ON_OFF_LENGTH; i++) {

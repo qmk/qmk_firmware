@@ -36,8 +36,8 @@
 #define DEBOUNCE 5
 
 /* RGB Matrix Driver Configuration */
-// #define DRIVER_COUNT 1
-// #define DRIVER_ADDR_1 0b1110111
+#define DRIVER_COUNT 1
+#define DRIVER_ADDR_1 0b1110100
 
 /* DIP switch */
 #define DIP_SWITCH_MATRIX_GRID  { {4,4} }
@@ -115,3 +115,8 @@
 
 /* Enable receive custom command from host */
 #define RAW_HID_CMD 0xAB
+
+/* Q4 uses single led controller chip, so define the LOW_CURRENT_MODE
+ * (effective in ckled2001.c) to set the current page individually and
+ * decrease the current to prevent the exorbitant temperature of chip. */
+#define LOW_CURRENT_MODE
