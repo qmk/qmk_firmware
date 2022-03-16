@@ -32,7 +32,7 @@
               K1C, K1D, K1E, K1F, K1G, K1H, K1I, K1J, K1K, K1L,                    K1P, K1Q, K1R, K1S, \
                                                                                    K2P, K2Q, K2R, K2S, \
     K2A, K2B, K2C, K2D, K2E, K2F, K2G, K2H, K2I, K2J, K2K, K2L, K2M, K2N, K1N,     K3P, K3Q, K3R, K3S, \
-	K3A, K3B, K3C, K3D, K3E, K3F, K3G, K3H, K3I, K3J, K3K, K3L, K3M, K3N,          K4P, K4Q, K4R, K4S, \
+    K3A, K3B, K3C, K3D, K3E, K3F, K3G, K3H, K3I, K3J, K3K, K3L, K3M, K3N,          K4P, K4Q, K4R, K4S, \
     K4A, K4B, K4C, K4D, K4E, K4F, K4G, K4H, K4I, K4J, K4K, K4L,      K4N,             K5Q, K5R, K5S,   \
     K5A, K5B, K5C, K5D, K5E, K5F, K5G, K5H, K5I, K5J, K5K, K5L, K5M, K4M, K5N,        K6Q, K6R, K6S,   \
     K6A, K6B, K6C,      K6E, K6F,      K6H, K6I, K6J, K6K,           K6L, K6M, K6N,      K5P, K6P      \

@@ -17,5 +17,6 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-CUSTOM_MATRIX = yes
-SRC += matrix.c
+CUSTOM_MATRIX = lite
+VPATH += drivers/gpio
+SRC += matrix.c sn74x138.c
