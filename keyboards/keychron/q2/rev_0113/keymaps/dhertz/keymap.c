@@ -1,3 +1,6 @@
+// Copyright 2022 Dan Hertz (@dhertz)
+// SPDX-License-Identifier: GPL-3.0
+
 #include QMK_KEYBOARD_H
 #include "dhertz.h"
 
@@ -20,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_Q,  KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_DEL,
       SRCH_CTL,   KC_A,  KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT, KC_HOME,
       KC_LSFT, HSH_TLD, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP,
-      NC_CTL, KC_LALT, CMD_TAB_CMD, LYR_SPC, CMD_GRV_CMD, KC_RALT,CMD_SFT_L, KC_LEFT, KC_DOWN, KC_RIGHT
+      NC_CTL, KC_LALT, CMD_TAB_CMD, LYR_SPC, CMD_GRV_CMD, KC_RALT, CMD_SFT_ALT_A, KC_LEFT, KC_DOWN, KC_RIGHT
       ),
     /* Layer 1: Special
      * ,---------------------------------------------------------------.
@@ -72,9 +75,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code(KC_TAB);
         } else {
-            register_code(KC_LSFT);
-            tap_code(KC_TAB);
-            unregister_code(KC_LSFT);
+            tap_code16(S(KC_TAB));
         }
     }
     return false;
@@ -84,7 +85,7 @@ void rgb_matrix_indicators_kb(void) {
     switch(get_highest_layer(layer_state|default_layer_state)) {
         case 1:
             rgb_matrix_set_color_all(RGB_BLACK);
-            rgb_matrix_set_color(13, 25, 25, 112);
+            rgb_matrix_set_color_all(25, 25, 112);
             break;
         default:
             rgb_matrix_set_color_all(RGB_BLACK);
