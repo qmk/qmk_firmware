@@ -1,6 +1,6 @@
 # YDKB Grape
 
-![YDKB Grape](https://i.imgur.com/TZjgC9y.jpg)
+![YDKB Grape](https://i.imgur.com/TZjgC9yh.jpg)
 
 The YDKB Grape is a Cherry G80-11800/11900 replacement PCB utilizing the ATmega32U4 microcontroller.
 
