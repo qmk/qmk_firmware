@@ -66,7 +66,7 @@ def _append_routing_table_declaration(lines, container, container_id, route_stac
             for constant in container['return_constant']:
                 lines.append(f'    {constant},')
 
-            lines.append('}};')
+            lines.append('};')
 
         elif container['return_type'] == 'string':
             constant = container['return_constant']
@@ -87,10 +87,10 @@ def _append_routing_table_declaration(lines, container, container_id, route_stac
 
 def _append_routing_table_entry_flags(lines, container, container_id, route_stack):
     is_secure = 1 if ('secure' in container and container['secure'] is True) else 0
-    lines.append('        .flags = {{')
+    lines.append('        .flags = {')
     lines.append(f'            .type = {_get_route_type(container)},')
     lines.append(f'            .is_secure = {is_secure},')
-    lines.append('        }},')
+    lines.append('        },')
 
 
 def _append_routing_table_entry_route(lines, container, container_id, route_stack):
@@ -145,7 +145,7 @@ def _append_routing_table_entry(lines, container, container_id, route_stack):
         if container['return_type'] == 'u32':
             _append_routing_table_entry_u32getter(lines, container, container_id, route_stack)
 
-    lines.append('    }},')
+    lines.append('    },')
 
     if condition:
         lines.append(f'#endif  // {condition}')
