@@ -65,6 +65,7 @@
     * [Command](feature_command.md)
     * [Dynamic Macros](feature_dynamic_macros.md)
     * [Grave Escape](feature_grave_esc.md)
+    * [Backspace Pipe](feature_backspace_pipe.md)
     * [Leader Key](feature_leader_key.md)
     * [Mod-Tap](mod_tap.md)
     * [Macros](feature_macros.md)

@@ -605,6 +605,8 @@ enum quantum_keycodes {
 
     CAPS_WORD,
 
+    QK_BACKSPACE_PIPE,
+
     // Start of custom keycode range for keyboards and keymaps - always leave at the end
     SAFE_RANGE
 };
@@ -717,6 +719,7 @@ enum quantum_keycodes {
 #define G(kc) LGUI(kc)
 
 #define QK_GESC QK_GRAVE_ESCAPE
+#define QK_BSPIPE QK_BACKSPACE_PIPE
 
 #define QK_BOOT QK_BOOTLOADER
 #define DB_TOGG QK_DEBUG_TOGGLE

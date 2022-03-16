@@ -319,6 +319,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef GRAVE_ESC_ENABLE
             process_grave_esc(keycode, record) &&
 #endif
+#ifdef BACKSPACE_PIPE_ENABLE
+            process_backspace_pipe(keycode, record) &&
+#endif
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_rgb(keycode, record) &&
 #endif

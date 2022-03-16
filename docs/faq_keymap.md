@@ -132,6 +132,10 @@ https://github.com/tekezo/Karabiner/issues/403
 
 See the [Grave Escape](feature_grave_esc.md) feature.
 
+## Backspace and <code>&bsol;</code> on a Single Key
+
+See the [Backspace Pipe](feature_backspace_pipe.md) feature.
+
 ## Eject on Mac OSX
 
 `KC_EJCT` keycode works on OSX. https://github.com/tmk/tmk_keyboard/issues/250

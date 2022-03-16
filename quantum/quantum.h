@@ -167,6 +167,10 @@ extern layer_state_t layer_state;
 #    include "process_grave_esc.h"
 #endif
 
+#ifdef BACKSPACE_PIPE_ENABLE
+#    include "process_backspace_pipe.h"
+#endif
+
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "process_rgb.h"
 #endif

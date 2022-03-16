@@ -49,6 +49,7 @@ How to complete this step is entirely up to you. Make the one change that's been
 * [Basic Keycodes](keycodes_basic.md)
 * [Quantum Keycodes](quantum_keycodes.md)
 * [Grave/Escape](feature_grave_esc.md)
+* [Backspace/Pipe](feature_backspace_pipe.md)
 * [Mouse keys](feature_mouse_keys.md)
 
 ?> While you get a feel for how keymaps work, keep each change small. Bigger changes make it harder to debug any problems that arise.

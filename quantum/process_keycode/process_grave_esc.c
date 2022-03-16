@@ -15,21 +15,21 @@
  */
 #include "process_grave_esc.h"
 
-/* true if the last press of QK_GRAVE_ESCAPE was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
+/* true if the last press of QK_GRAVE_ESCAPE was modded (i.e. GUI or SHIFT were pressed), false otherwise.
  * Used to ensure that the correct keycode is released if the key is released.
  */
-static bool grave_esc_was_shifted = false;
+static bool grave_esc_was_modded = false;
 
 bool process_grave_esc(uint16_t keycode, keyrecord_t *record) {
     if (keycode == QK_GRAVE_ESCAPE) {
-        const uint8_t mods    = get_mods();
-        uint8_t       shifted = mods & MOD_MASK_SG;
+        const uint8_t mods   = get_mods();
+        uint8_t       modded = mods & MOD_MASK_SG;
 
 #ifdef GRAVE_ESC_ALT_OVERRIDE
         // if ALT is pressed, ESC is always sent
         // this is handy for the cmd+opt+esc shortcut on macOS, among other things.
         if (mods & MOD_MASK_ALT) {
-            shifted = 0;
+            modded = 0;
         }
 #endif
 
@@ -37,29 +37,29 @@ bool process_grave_esc(uint16_t keycode, keyrecord_t *record) {
         // if CTRL is pressed, ESC is always sent
         // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
         if (mods & MOD_MASK_CTRL) {
-            shifted = 0;
+            modded = 0;
         }
 #endif
 
 #ifdef GRAVE_ESC_GUI_OVERRIDE
         // if GUI is pressed, ESC is always sent
         if (mods & MOD_MASK_GUI) {
-            shifted = 0;
+            modded = 0;
         }
 #endif
 
 #ifdef GRAVE_ESC_SHIFT_OVERRIDE
         // if SHIFT is pressed, ESC is always sent
         if (mods & MOD_MASK_SHIFT) {
-            shifted = 0;
+            modded = 0;
         }
 #endif
 
         if (record->event.pressed) {
-            grave_esc_was_shifted = shifted;
-            add_key(shifted ? KC_GRAVE : KC_ESCAPE);
+            grave_esc_was_modded = modded;
+            add_key(modded ? KC_GRAVE : KC_ESCAPE);
         } else {
-            del_key(grave_esc_was_shifted ? KC_GRAVE : KC_ESCAPE);
+            del_key(grave_esc_was_modded ? KC_GRAVE : KC_ESCAPE);
         }
 
         send_keyboard_report();
