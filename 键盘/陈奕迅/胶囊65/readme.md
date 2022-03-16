@@ -1,4 +1,4 @@
-# capsule65
+# capsule65 keyboards/eason/capsule65/readme.md
 
 A customizable 65% keyboard.
 
