@@ -1,5 +1,4 @@
-# capsule65 keyboards/eason/capsule65/readme.md
-
+# capsule65 
 A customizable 65% keyboard.
 
 * Keyboard Maintainer: [eason](https://github.com/EasonQian1)
