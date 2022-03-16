@@ -30,6 +30,8 @@ BOX_DRAWING_CHARACTERS = {
     },
 }
 
+KEY_WIDTH = 4
+
 base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
 
 
@@ -205,9 +207,9 @@ def render_layouts(info_json, render_ascii):
 
 def render_key_rect(textpad, x, y, w, h, label, style):
     box_chars = BOX_DRAWING_CHARACTERS[style]
-    x = ceil(x * 4)
+    x = ceil(x * KEY_WIDTH)
     y = ceil(y * 3)
-    w = ceil(w * 4)
+    w = ceil(w * KEY_WIDTH)
     h = ceil(h * 3)
 
     label_len = w - 2
@@ -229,9 +231,9 @@ def render_key_rect(textpad, x, y, w, h, label, style):
 
 def render_key_isoenter(textpad, x, y, w, h, label, style):
     box_chars = BOX_DRAWING_CHARACTERS[style]
-    x = ceil(x * 4)
+    x = ceil(x * KEY_WIDTH)
     y = ceil(y * 3)
-    w = ceil(w * 4)
+    w = ceil(w * KEY_WIDTH)
     h = ceil(h * 3)
 
     label_len = w - 1
@@ -256,9 +258,9 @@ def render_key_isoenter(textpad, x, y, w, h, label, style):
 
 def render_key_baenter(textpad, x, y, w, h, label, style):
     box_chars = BOX_DRAWING_CHARACTERS[style]
-    x = ceil(x * 4)
+    x = ceil(x * KEY_WIDTH)
     y = ceil(y * 3)
-    w = ceil(w * 4)
+    w = ceil(w * KEY_WIDTH)
     h = ceil(h * 3)
 
     label_len = w - 2
