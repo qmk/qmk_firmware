@@ -5,7 +5,7 @@ CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 MOUSEKEY_ENABLE = yes
 
-VIA_ENABLE = no
+VIA_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 BOOTMAGIC_ENABLE = yes         # Enable Bootmagic Lite
 

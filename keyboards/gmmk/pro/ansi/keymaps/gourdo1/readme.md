@@ -6,6 +6,7 @@ Features:
 
 Core Functionality
 
+	* VIA support enabled
 	* Most default Glorious shortcuts enabled
 	* Fn-Backslash for Bootloader mode
 	* Capslock toggled by double tap of Left Shift key or FN + Capslock (RGB highlighted)
