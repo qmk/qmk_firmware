@@ -172,7 +172,7 @@ void render_slave_oled(void) {
 }
 
 // {OLED Task} -----------------------------------------------//
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // First time out switches to logo as first indication of iddle.
     if (timer_elapsed32(oled_timer) > 100000 && timer_elapsed32(oled_timer) < 479999) {
         // Render logo on both halves before full timeout
@@ -209,5 +209,6 @@ void oled_task_user(void) {
                 }
         }
     }
+    return false;
 }
 #endif

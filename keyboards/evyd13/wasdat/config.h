@@ -41,21 +41,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
 */
 #define MATRIX_ROW_PINS { D6, D4, F6, F7, F4, F5, F0, F1 }
-#define MATRIX_COL_PINS { }
+#define MATRIX_COL_PINS { C7, B6, C6, B4, B5, D7, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, D3, B7, B3 } // Columns 6-12 controlled by demux
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
+#define SN74X138_ADDRESS_PINS { D2, D1, D0 }
 
 // For QMK DFU
 #define QMK_ESC_OUTPUT D6
 #define QMK_ESC_INPUT D7
 #define QMK_LED B0
-
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-//#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
 
 #define LED_NUM_LOCK_PIN B2
 #define LED_CAPS_LOCK_PIN B0
@@ -148,8 +142,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0

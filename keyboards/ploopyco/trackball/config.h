@@ -41,12 +41,7 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
-/* Much more so than a keyboard, speed matters for a mouse. So we'll go for as high
-   a polling rate as possible. */
-#define USB_POLLING_INTERVAL_MS 1
 #define USB_MAX_POWER_CONSUMPTION 100
 
 /* Bootmagic Lite key configuration */
@@ -60,3 +55,4 @@
 
 /* PMW3360 Settings */
 #define PMW3360_CS_PIN             B0
+#define POINTING_DEVICE_INVERT_Y

@@ -1,0 +1,15 @@
+{
+    "keyboard": "handwired/pytest/basic",
+    "keymap": "default_json",
+    "layout": "LAYOUT_ortho_1x1",
+    "layers": [["MACRO_0"]],
+    "macros": [
+        [
+            "Hello, World!",
+            {"action":"tap", "keycodes":["ENTER"]}
+	]
+    ],
+    "author": "qmk",
+    "notes": "This file is a keymap.json file for handwired/pytest/basic",
+    "version": 1
+}

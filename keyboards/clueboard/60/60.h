@@ -13,9 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef CLUEBOARD60_H
-#define CLUEBOARD60_H
+
+#pragma once
 
 #include "quantum.h"
-
-#endif

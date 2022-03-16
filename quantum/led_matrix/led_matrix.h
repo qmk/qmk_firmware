@@ -2,6 +2,7 @@
  * Copyright 2017 Jack Humbert
  * Copyright 2018 Yiancar
  * Copyright 2019 Clueboard
+ * Copyright 2021 Leo Deng
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,10 +24,14 @@
 #include <stdbool.h>
 #include "led_matrix_types.h"
 #include "quantum.h"
-#include "led_matrix_legacy_enables.h"
 
 #ifdef IS31FL3731
 #    include "is31fl3731-simple.h"
+#elif defined(IS31FLCOMMON)
+#    include "is31flcommon.h"
+#endif
+#ifdef IS31FL3733
+#    include "is31fl3733-simple.h"
 #endif
 
 #ifndef LED_MATRIX_LED_FLUSH_LIMIT
@@ -38,14 +43,33 @@
 #endif
 
 #if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
-#    define LED_MATRIX_USE_LIMITS(min, max)                        \
-        uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter; \
-        uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;          \
-        if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+#    if defined(LED_MATRIX_SPLIT)
+#        define LED_MATRIX_USE_LIMITS(min, max)                                                   \
+            uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter;                            \
+            uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;                                     \
+            if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;                                   \
+            uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;                                     \
+            if (is_keyboard_left() && (max > k_led_matrix_split[0])) max = k_led_matrix_split[0]; \
+            if (!(is_keyboard_left()) && (min < k_led_matrix_split[0])) min = k_led_matrix_split[0];
+#    else
+#        define LED_MATRIX_USE_LIMITS(min, max)                        \
+            uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter; \
+            uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;          \
+            if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+#    endif
 #else
-#    define LED_MATRIX_USE_LIMITS(min, max) \
-        uint8_t min = 0;                    \
-        uint8_t max = DRIVER_LED_TOTAL;
+#    if defined(LED_MATRIX_SPLIT)
+#        define LED_MATRIX_USE_LIMITS(min, max)                                                   \
+            uint8_t       min                   = 0;                                              \
+            uint8_t       max                   = DRIVER_LED_TOTAL;                               \
+            const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;                               \
+            if (is_keyboard_left() && (max > k_led_matrix_split[0])) max = k_led_matrix_split[0]; \
+            if (!(is_keyboard_left()) && (min < k_led_matrix_split[0])) min = k_led_matrix_split[0];
+#    else
+#        define LED_MATRIX_USE_LIMITS(min, max) \
+            uint8_t min = 0;                    \
+            uint8_t max = DRIVER_LED_TOTAL;
+#    endif
 #endif
 
 #define LED_MATRIX_TEST_LED_FLAGS() \
@@ -146,6 +170,18 @@ typedef struct {
     /* Flush any buffered changes to the hardware. */
     void (*flush)(void);
 } led_matrix_driver_t;
+
+static inline bool led_matrix_check_finished_leds(uint8_t led_idx) {
+#if defined(LED_MATRIX_SPLIT)
+    if (is_keyboard_left()) {
+        uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
+        return led_idx < k_led_matrix_split[0];
+    } else
+        return led_idx < DRIVER_LED_TOTAL;
+#else
+    return led_idx < DRIVER_LED_TOTAL;
+#endif
+}
 
 extern const led_matrix_driver_t led_matrix_driver;
 

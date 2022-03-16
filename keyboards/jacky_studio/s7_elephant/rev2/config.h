@@ -25,10 +25,6 @@
 #define MANUFACTURER    Jacky
 #define PRODUCT         Jacky S7 Elephant Rev 2
 
-/* Don't remove this without also removing LTO_ENABLE=yes in rules.mk */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16

@@ -23,6 +23,20 @@ define EXEC_DFU_UTIL
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 endef
 
+
+define EXEC_WB32_DFU_UPDATER
+	if ! wb32-dfu-updater_cli -l | grep -q "Found DFU"; then \
+		printf "$(MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY)" ;\
+		sleep $(BOOTLOADER_RETRY_TIME) ;\
+		while ! wb32-dfu-updater_cli -l | grep -q "Found DFU"; do \
+			printf "." ;\
+			sleep $(BOOTLOADER_RETRY_TIME) ;\
+		done ;\
+		printf "\n" ;\
+	fi
+	wb32-dfu-updater_cli -D $(BUILD_DIR)/$(TARGET).bin
+endef
+
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(call EXEC_DFU_UTIL)
 
@@ -81,6 +95,10 @@ else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 else ifeq ($(strip $(MCU_FAMILY)),MIMXRT1062)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_TEENSY)
 else ifeq ($(strip $(MCU_FAMILY)),STM32)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
+else ifeq ($(strip $(MCU_FAMILY)),WB32)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_WB32_DFU_UPDATER)
+else ifeq ($(strip $(MCU_FAMILY)),GD32V)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"

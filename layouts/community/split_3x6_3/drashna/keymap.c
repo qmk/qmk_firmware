@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, KC_RESET,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EEP_RST,
     KEYLOCK, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, RGB_IDL,
-                                     HPT_TOG, KC_NUKE, _______,        _______, TG_MODS, HPT_FBK
+                                     REBOOT, KC_NUKE, _______,        _______, TG_MODS, AUTO_CTN
   )
 };
 // clang-format on
@@ -123,7 +123,7 @@ uint8_t  current_kaki_frame  = 0;
 uint8_t  current_rtogi_frame = 0;
 // uint8_t current_ltogi_frame = 0;
 // clang-format off
-void render_kitty(void) {
+void render_small_kitty(void) {
     // Images credit j-inc(/James Incandenza) and pixelbenny. Credit to obosob for initial animation approach.
     static const char PROGMEM sleep[SLEEP_FRAMES][ANIM_SIZE] = {{
                                                                     // 'sleep1', 32x32px
@@ -228,7 +228,7 @@ void render_kitty(void) {
 }
 
 void oled_driver_render_logo_right(void) {
-    render_kitty();
+    render_small_kitty();
 
     oled_set_cursor(0, 4);
     render_default_layer_state();
@@ -265,7 +265,7 @@ void check_default_layer(uint8_t mode, uint8_t type, uint8_t led_min, uint8_t le
     }
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
@@ -291,5 +291,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
         check_default_layer(0, LED_FLAG_MODIFIER, led_min, led_max);
     }
+    return false;
 }
 #endif
