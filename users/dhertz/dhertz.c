@@ -67,7 +67,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_LGUI("L"));
                 break;
             case CMD_SFT_ALT_A:
-                SEND_STRING(SS_LGUI(SS_LSFT(SS_LALT("A"))));
+                SEND_STRING(SS_LGUI(SS_LALT("A")));
                 break;
             case ISO_COUNTRY_CODE:
                 SEND_STRING("country_iso_alpha2_code");
