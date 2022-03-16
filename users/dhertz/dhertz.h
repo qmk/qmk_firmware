@@ -18,6 +18,7 @@ enum custom_keycodes {
     ISO_COUNTRY_CODE,
     CMD_TAB_CMD,
     CMD_GRV_CMD,
+    CMD_SFT_A,
     CMD_SFT_ALT_A,
     NEW_SAFE_RANGE,
 };
