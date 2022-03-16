@@ -4,7 +4,6 @@ BOOTLOADER = atmel-dfu
 
 CUSTOM_MATRIX    = yes
 MOUSEKEY_ENABLE  = yes  # Mouse keys
-COMBO_ENABLE     = yes
 EXTRAKEY_ENABLE  = yes
 CONSOLE_ENABLE   = no
 NKRO_ENABLE = yes           # Enable N-Key Rollover
