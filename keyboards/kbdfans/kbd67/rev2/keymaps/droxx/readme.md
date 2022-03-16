@@ -17,7 +17,7 @@ The base QWERTY layer
 The function layer
 
 * Backspace will trigger KC_DEL until I find the KC_HOME key less useful.
-* Pressing the Fn and T key with toggle the keyboard underglow feature on and off.
+* Pressing T will toggle the keyboard underglow feature on and off.
 * Keys Q and E are used to change the underglow style of the keyboard.
 * Keys W and S modify the brightness of the underglow.
 * Keys A and D change the speed of the LED RGB animation.
