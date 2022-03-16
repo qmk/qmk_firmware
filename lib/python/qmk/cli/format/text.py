@@ -1,6 +1,5 @@
 """Ensure text files have the proper line endings.
 """
-from itertools import islice
 from subprocess import DEVNULL
 
 from milc import cli

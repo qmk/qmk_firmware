@@ -27,7 +27,7 @@ def xap_generate_docs(cli):
         with open(output_doc, "w", encoding='utf-8') as out_file:
             out_file.write(output)
 
-    output_doc = QMK_FIRMWARE / "docs" / f"xap_protocol.md"
+    output_doc = QMK_FIRMWARE / "docs" / "xap_protocol.md"
     with open(output_doc, "w", encoding='utf-8') as out_file:
         out_file.write('''\
 # XAP Protocol Reference
