@@ -1,4 +1,4 @@
-# m40
+# 5x5_macropad
 
 ![m40](https://i.imgur.com/bWXH3FVl.jpeg)
 
