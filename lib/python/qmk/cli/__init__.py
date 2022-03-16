@@ -58,6 +58,7 @@ subcommands = [
     'qmk.cli.generate.rules_mk',
     'qmk.cli.generate.version_h',
     'qmk.cli.hello',
+    'qmk.cli.import',
     'qmk.cli.info',
     'qmk.cli.json2c',
     'qmk.cli.lint',
