@@ -5,16 +5,13 @@ import sys
 import shutil
 from pathlib import Path
 from subprocess import DEVNULL
-from time import strftime
 
 from milc import cli
 import jsonschema
 
 import qmk.keymap
-from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX, GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
+from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX
 from qmk.json_schema import json_load, validate
-
-time_fmt = '%Y-%m-%d-%H:%M:%S'
 
 
 def _find_make():
@@ -134,35 +131,6 @@ def get_make_parallel_args(parallel=1):
         parallel_args.append('--output-sync=target')
 
     return parallel_args
-
-
-def create_version_h(skip_git=False, skip_all=False):
-    """Generate version.h contents
-    """
-    if skip_all:
-        current_time = "1970-01-01-00:00:00"
-    else:
-        current_time = strftime(time_fmt)
-
-    if skip_git:
-        git_version = "NA"
-        chibios_version = "NA"
-        chibios_contrib_version = "NA"
-    else:
-        git_version = get_git_version(current_time)
-        chibios_version = get_git_version(current_time, "chibios", "os")
-        chibios_contrib_version = get_git_version(current_time, "chibios-contrib", "os")
-
-    version_h_lines = GPL2_HEADER_C_LIKE + GENERATED_HEADER_C_LIKE
-    version_h_lines += f"""#pragma once
-
-#define QMK_VERSION "{git_version}"
-#define QMK_BUILDDATE "{current_time}"
-#define CHIBIOS_VERSION "{chibios_version}"
-#define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"
-"""
-
-    return version_h_lines
 
 
 def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_vars):
