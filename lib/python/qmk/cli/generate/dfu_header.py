@@ -7,6 +7,7 @@ from qmk.decorators import automagic_keyboard
 from qmk.info import info_json
 from qmk.path import is_keyboard, normpath
 from qmk.keyboard import keyboard_completer
+from qmk.commands import dump_lines
 
 
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
@@ -45,16 +46,4 @@ def generate_dfu_header(cli):
         keyboard_h_lines.append(f'#define QMK_SPEAKER {kb_info_json["qmk_lufa_bootloader.speaker"]}')
 
     # Show the results
-    keyboard_h = '\n'.join(keyboard_h_lines)
-
-    if cli.args.output:
-        cli.args.output.parent.mkdir(parents=True, exist_ok=True)
-        if cli.args.output.exists():
-            cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
-        cli.args.output.write_text(keyboard_h)
-
-        if not cli.args.quiet:
-            cli.log.info('Wrote Keyboard.h to %s.', cli.args.output)
-
-    else:
-        print(keyboard_h)
+    dump_lines(cli.args.output, keyboard_h_lines, cli.args.quiet)

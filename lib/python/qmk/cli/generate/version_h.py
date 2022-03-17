@@ -3,6 +3,7 @@
 from milc import cli
 
 from qmk.commands import create_version_h
+from qmk.commands import dump_lines
 from qmk.path import normpath
 
 
@@ -19,13 +20,5 @@ def generate_version_h(cli):
 
     version_h = create_version_h(cli.args.skip_git, cli.args.skip_all)
 
-    if cli.args.output:
-        cli.args.output.parent.mkdir(parents=True, exist_ok=True)
-        if cli.args.output.exists():
-            cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
-        cli.args.output.write_text(version_h)
-
-        if not cli.args.quiet:
-            cli.log.info('Wrote version.h to %s.', cli.args.output)
-    else:
-        print(version_h)
+    # Show the results
+    dump_lines(cli.args.output, version_h.split('\n'), cli.args.quiet)

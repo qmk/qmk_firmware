@@ -11,7 +11,7 @@ from milc import cli
 import jsonschema
 
 import qmk.keymap
-from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX
+from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX, GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 from qmk.json_schema import json_load, validate
 
 time_fmt = '%Y-%m-%d-%H:%M:%S'
@@ -153,10 +153,8 @@ def create_version_h(skip_git=False, skip_all=False):
         chibios_version = get_git_version(current_time, "chibios", "os")
         chibios_contrib_version = get_git_version(current_time, "chibios-contrib", "os")
 
-    version_h_lines = f"""/* This file was automatically generated. Do not edit or copy.
- */
-
-#pragma once
+    version_h_lines = GPL2_HEADER_C_LIKE + GENERATED_HEADER_C_LIKE
+    version_h_lines += f"""#pragma once
 
 #define QMK_VERSION "{git_version}"
 #define QMK_BUILDDATE "{current_time}"
@@ -200,9 +198,6 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
 
     keymap_dir.mkdir(exist_ok=True, parents=True)
     keymap_c.write_text(c_text)
-
-    version_h = Path('quantum/version.h')
-    version_h.write_text(create_version_h())
 
     # Return a command that can be run to make the keymap and flash if given
     verbose = 'true' if cli.config.general.verbose else 'false'
@@ -357,3 +352,20 @@ def in_virtualenv():
     """
     active_prefix = getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
     return active_prefix != sys.prefix
+
+
+def dump_lines(output_file, lines, quiet=True):
+    """Handle dumping to stdout or file
+    Creates parent folders if required
+    """
+    generated = '\n'.join(lines) + '\n'
+    if output_file and output_file.name != '-':
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        if output_file.exists():
+            output_file.replace(output_file.parent / (output_file.name + '.bak'))
+        output_file.write_text(generated)
+
+        if not quiet:
+            cli.log.info(f'Wrote {output_file.name} to {output_file}.')
+    else:
+        print(generated)
