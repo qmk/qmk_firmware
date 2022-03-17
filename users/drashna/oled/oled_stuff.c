@@ -438,7 +438,7 @@ void render_bootmagic_status(void) {
     }
 #endif
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_ONESHOT), !is_oneshot_enabled());
+    oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_ONESHOT), is_oneshot_enabled());
 #ifdef SWAP_HANDS_ENABLE
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_SWAP), swap_hands);
