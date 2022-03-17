@@ -369,7 +369,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #    endif
                 clear_mods();
 
-                send_string_with_delay_P(PSTR("qmk"), TAP_CODE_DELAY);
+                SEND_STRING_DELAY("qmk", TAP_CODE_DELAY);
                 if (temp_mod & MOD_MASK_SHIFT) { // if shift is held, flash rather than compile
                     SEND_STRING_DELAY(" flash ", TAP_CODE_DELAY);
                 } else {
