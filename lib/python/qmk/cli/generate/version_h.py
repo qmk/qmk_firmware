@@ -41,7 +41,6 @@ def generate_version_h(cli):
     version_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once']
 
     version_h_lines.append(f"""
-#pragma message("here")
 #define QMK_VERSION "{git_version}"
 #define QMK_BUILDDATE "{current_time}"
 #define CHIBIOS_VERSION "{chibios_version}"
