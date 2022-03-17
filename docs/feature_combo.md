@@ -2,6 +2,8 @@
 
 The Combo feature is a chording type solution for adding custom actions. It lets you hit multiple keys at once and produce a different effect. For instance, hitting `A` and `S` within the combo term would hit `ESC` instead, or have it perform even more complex tasks.
 
+Please see [Key Overrides](https://docs.qmk.fm/#/feature_key_overrides?id=difference-to-combos) for multiple keys modifiers like shift.  
+
 To enable this feature, you need to add `COMBO_ENABLE = yes` to your `rules.mk`.
 
 Additionally, in your `config.h`, you'll need to specify the number of combos that you'll be using, by adding `#define COMBO_COUNT 1` (replacing 1 with the number that you're using). It is also possible to not define this and instead set the variable `COMBO_LEN` yourself. There's a trick where we don't need to think about this variable at all. More on this later.
