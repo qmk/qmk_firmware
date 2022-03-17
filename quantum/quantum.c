@@ -358,6 +358,26 @@ bool process_record_quantum(keyrecord_t *record) {
                 oneshot_disable();
                 break;
 #endif
+#ifdef ENABLE_COMPILE_KEYCODE
+            case QK_MAKE: // Compiles the firmware, and adds the flash command based on keyboard bootloader
+            {
+#    ifdef NO_ACTION_ONESHOT
+                const uint8_t temp_mod = mod_config(get_mods());
+#    else
+                const uint8_t temp_mod = mod_config(get_mods() | get_oneshot_mods());
+                clear_oneshot_mods();
+#    endif
+                clear_mods();
+
+                SEND_STRING_DELAY("qmk", TAP_CODE_DELAY);
+                if (temp_mod & MOD_MASK_SHIFT) { // if shift is held, flash rather than compile
+                    SEND_STRING_DELAY(" flash ", TAP_CODE_DELAY);
+                } else {
+                    SEND_STRING_DELAY(" compile ", TAP_CODE_DELAY);
+                }
+                SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP SS_TAP(X_ENTER), TAP_CODE_DELAY);
+            }
+#endif
         }
     }
 
