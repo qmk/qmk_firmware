@@ -1,5 +1,6 @@
 # capsule65
 A customizable 65% keyboard.
+Support left shift, backspace split
 
 * Keyboard Maintainer: [eason](https://github.com/EasonQian1)
 * Hardware Supported: capsule65
