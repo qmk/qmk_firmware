@@ -58,10 +58,6 @@
 
 #define TAPPING_TERM 500
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 // RGB Stuff
 #define RGB_DI_PIN B0
 #define RGBLED_NUM 39
