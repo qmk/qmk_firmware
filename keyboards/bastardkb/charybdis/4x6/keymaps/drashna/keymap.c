@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _________________LOWER_L3__________________,    _________________LOWER_R3__________________, _______,
                                    _______, _______, _______,    _______, _______,
                                            _______, _______,      _______
-  ),
+    ),
 
     [_RAISE] = LAYOUT_charybdis_4x6_wrapper(
         KC_F12,  _________________FUNC_LEFT_________________,    _________________FUNC_RIGHT________________, KC_F11,
@@ -109,8 +109,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _________________RAISE_L3__________________,    _________________RAISE_R3__________________, _______,
                                    _______, _______, _______,    _______, _______,
                                            _______, _______,      _______
-  )
+    ),
 
+    [_ADJUST] = LAYOUT_charybdis_4x6_wrapper(
+        KC_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_NOMODE, KC_NOMODE,KC_BLOCKS,KC_REGIONAL,_______,_______, KC_RST,
+        VRSN,    _________________ADJUST_L1_________________,    _________________ADJUST_R1_________________, EEP_RST,
+        KEYLOCK, _________________ADJUST_L2_________________,    _________________ADJUST_R2_________________, TG_MODS,
+        UC_MOD,  _________________ADJUST_L3_________________,    _________________ADJUST_R3_________________, KC_MPLY,
+                                   REBOOT,  UTO_CTN, _______,    KC_NUKE, _______,
+                                           _______, _______,      _______
+    )
 };
 // clang-format on
 
