@@ -37,9 +37,9 @@
 // #    define WPM_LAUNCH_CONTROL
 // #    define WPM_ALLOW_COUNT_REGRESSOIN
 // #    define WPM_UNFILTERED
-#    define WPM_SAMPLE_SECONDS      6
+#    define WPM_SAMPLE_SECONDS      10
 #    define WPM_SAMPLE_PERIODS      50
-#    define WPM_ESTIMATED_WORD_SIZE 6
+#    define WPM_ESTIMATED_WORD_SIZE 5
 #endif
 
 #ifdef AUDIO_ENABLE
