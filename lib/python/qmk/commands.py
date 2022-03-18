@@ -4,6 +4,8 @@ import os
 import sys
 import shutil
 from pathlib import Path
+from time import strftime
+from itertools import islice
 from subprocess import DEVNULL
 
 from milc import cli
@@ -96,7 +98,7 @@ def get_git_version(current_time=None, repo_dir='.', check_dir='.'):
     git_describe_cmd = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
 
     if current_time is None:
-        current_time = strftime(time_fmt)
+        current_time = strftime('%Y-%m-%d-%H:%M:%S')
 
     if repo_dir != '.':
         repo_dir = Path('lib') / repo_dir
