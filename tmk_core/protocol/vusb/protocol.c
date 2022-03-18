@@ -39,6 +39,10 @@ void console_task(void);
 void raw_hid_task(void);
 #endif
 
+#ifdef XAP_ENABLE
+void xap_task(void);
+#endif
+
 /* This is from main.c of USBaspLoader */
 static void initForUsbConnectivity(void) {
     uint8_t i = 0;
@@ -158,8 +162,16 @@ void protocol_task(void) {
 #ifdef RAW_ENABLE
         usbPoll();
 
-        if (usbConfiguration && usbInterruptIsReady3()) {
+        if (usbConfiguration && usbInterruptIsReady4()) {
             raw_hid_task();
+        }
+#endif
+
+#ifdef XAP_ENABLE
+        usbPoll();
+
+        if (usbConfiguration && usbInterruptIsReady4()) {
+            xap_task();
         }
 #endif
 

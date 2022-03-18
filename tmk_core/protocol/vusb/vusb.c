@@ -35,6 +35,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "raw_hid.h"
 #endif
 
+#ifdef XAP_ENABLE
+#    include "xap.h"
+#    include <string.h>
+#endif
+
 #if defined(CONSOLE_ENABLE)
 #    define RBUF_SIZE 128
 #    include "ring_buffer.h"
@@ -58,6 +63,10 @@ enum usb_interfaces {
 // If Raw HID is enabled, let it be always 1.
 #ifdef RAW_ENABLE
     RAW_INTERFACE = NEXT_INTERFACE,
+#endif
+
+#ifdef XAP_ENABLE
+    XAP_INTERFACE = NEXT_INTERFACE,
 #endif
 
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
@@ -137,7 +146,7 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
     }
 
     uint8_t *temp = data;
-    for (uint8_t i = 0; i < 4; i++) {
+    for (uint8_t i = 0; i < (RAW_BUFFER_SIZE / RAW_EPSIZE); i++) {
         while (!usbInterruptIsReady4()) {
             usbPoll();
         }
@@ -160,6 +169,68 @@ void raw_hid_task(void) {
     if (raw_output_received_bytes == RAW_BUFFER_SIZE) {
         raw_hid_receive(raw_output_buffer, RAW_BUFFER_SIZE);
         raw_output_received_bytes = 0;
+    }
+}
+#endif
+
+/*------------------------------------------------------------------*
+ * XAP
+ *------------------------------------------------------------------*/
+#ifdef XAP_ENABLE
+#    define XAP_BUFFER_SIZE 64
+#    define XAP_EPSIZE 8
+
+static uint8_t xap_output_buffer[XAP_BUFFER_SIZE];
+static uint8_t xap_output_received_bytes = 0;
+
+extern void xap_receive(xap_token_t token, const uint8_t *data, size_t length);
+
+void xap_send_base(uint8_t *data, uint8_t length) {
+    if (length != XAP_BUFFER_SIZE) {
+        return;
+    }
+
+    uint8_t *temp = data;
+    for (uint8_t i = 0; i < (XAP_BUFFER_SIZE / XAP_EPSIZE); i++) {
+        while (!usbInterruptIsReady4()) {
+            usbPoll();
+        }
+        usbSetInterrupt4(temp, 8);
+        temp += 8;
+    }
+    while (!usbInterruptIsReady4()) {
+        usbPoll();
+    }
+    usbSetInterrupt4(0, 0);
+}
+
+void xap_send(xap_token_t token, uint8_t response_flags, const void *data, size_t length) {
+    uint8_t rdata[XAP_BUFFER_SIZE] = {0};
+    *(xap_token_t *)&rdata[0] = token;
+    if (length > (XAP_BUFFER_SIZE - 4)) response_flags &= ~(XAP_RESPONSE_FLAG_SUCCESS);
+    rdata[2] = response_flags;
+    if (response_flags & (XAP_RESPONSE_FLAG_SUCCESS)) {
+        rdata[3] = (uint8_t)length;
+        if (data != NULL) {
+            memcpy(&rdata[4], data, length);
+        }
+    }
+    xap_send_base(rdata, sizeof(rdata));
+}
+
+void xap_receive_base(const void *data) {
+    const uint8_t *u8data = (const uint8_t *)data;
+    xap_token_t    token  = *(xap_token_t *)&u8data[0];
+    uint8_t        length = u8data[2];
+    if (length <= (XAP_BUFFER_SIZE - 3)) {
+        xap_receive(token, &u8data[3], length);
+    }
+}
+
+void xap_task(void) {
+    if (xap_output_received_bytes == XAP_BUFFER_SIZE) {
+        xap_receive_base(xap_output_buffer);
+        xap_output_received_bytes = 0;
     }
 }
 #endif
@@ -402,6 +473,24 @@ void usbFunctionWriteOut(uchar *data, uchar len) {
         raw_output_received_bytes += len;
     }
 #endif
+#ifdef XAP_ENABLE
+    // Data from host must be divided every 8bytes
+    if (len != 8) {
+        dprint("XAP: invalid length\n");
+        xap_output_received_bytes = 0;
+        return;
+    }
+
+    if (xap_output_received_bytes + len > XAP_BUFFER_SIZE) {
+        dprint("XAP: buffer full\n");
+        xap_output_received_bytes = 0;
+    } else {
+        for (uint8_t i = 0; i < 8; i++) {
+            xap_output_buffer[xap_output_received_bytes + i] = data[i];
+        }
+        xap_output_received_bytes += len;
+    }
+#endif
 }
 
 /*------------------------------------------------------------------*
@@ -624,6 +713,29 @@ const PROGMEM uchar raw_hid_report[] = {
 };
 #endif
 
+#ifdef XAP_ENABLE
+const PROGMEM uchar xap_report[] = {
+    0x06, 0x51, 0xFF, // Usage Page (Vendor Defined)
+    0x09, 0x58,       // Usage (Vendor Defined)
+    0xA1, 0x01,       // Collection (Application)
+    // Data to host
+    0x09, 0x62,            //   Usage (Vendor Defined)
+    0x15, 0x00,            //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,      //   Logical Maximum (255)
+    0x95, XAP_BUFFER_SIZE, //   Report Count
+    0x75, 0x08,            //   Report Size (8)
+    0x81, 0x02,            //   Input (Data, Variable, Absolute)
+    // Data from host
+    0x09, 0x63,            //   Usage (Vendor Defined)
+    0x15, 0x00,            //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,      //   Logical Maximum (255)
+    0x95, XAP_BUFFER_SIZE, //   Report Count
+    0x75, 0x08,            //   Report Size (8)
+    0x91, 0x02,            //   Output (Data, Variable, Absolute)
+    0xC0                   // End Collection
+};
+#endif
+
 #if defined(CONSOLE_ENABLE)
 const PROGMEM uchar console_hid_report[] = {
     0x06, 0x31, 0xFF, // Usage Page (Vendor Defined - PJRC Teensy compatible)
@@ -823,6 +935,56 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
     },
 #    endif
 
+#    if defined(XAP_ENABLE)
+    /*
+     * XAP
+     */
+    .xapInterface = {
+        .header = {
+            .bLength         = sizeof(usbInterfaceDescriptor_t),
+            .bDescriptorType = USBDESCR_INTERFACE
+        },
+        .bInterfaceNumber    = XAP_INTERFACE,
+        .bAlternateSetting   = 0x00,
+        .bNumEndpoints       = 2,
+        .bInterfaceClass     = 0x03,
+        .bInterfaceSubClass  = 0x00,
+        .bInterfaceProtocol  = 0x00,
+        .iInterface          = 0x00
+    },
+    .xapHID = {
+        .header = {
+            .bLength         = sizeof(usbHIDDescriptor_t),
+            .bDescriptorType = USBDESCR_HID
+        },
+        .bcdHID              = 0x0101,
+        .bCountryCode        = 0x00,
+        .bNumDescriptors     = 1,
+        .bDescriptorType     = USBDESCR_HID_REPORT,
+        .wDescriptorLength   = sizeof(xap_report)
+    },
+    .xapINEndpoint = {
+        .header = {
+            .bLength         = sizeof(usbEndpointDescriptor_t),
+            .bDescriptorType = USBDESCR_ENDPOINT
+        },
+        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP4_NUMBER),
+        .bmAttributes        = 0x03,
+        .wMaxPacketSize      = XAP_EPSIZE,
+        .bInterval           = USB_POLLING_INTERVAL_MS
+    },
+    .xapOUTEndpoint = {
+        .header = {
+            .bLength         = sizeof(usbEndpointDescriptor_t),
+            .bDescriptorType = USBDESCR_ENDPOINT
+        },
+        .bEndpointAddress    = (USBRQ_DIR_HOST_TO_DEVICE | USB_CFG_EP4_NUMBER),
+        .bmAttributes        = 0x03,
+        .wMaxPacketSize      = XAP_EPSIZE,
+        .bInterval           = USB_POLLING_INTERVAL_MS
+    },
+#    endif
+
 #    ifdef SHARED_EP_ENABLE
     /*
      * Shared
@@ -975,6 +1137,13 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     break;
 #endif
 
+#if defined(XAP_ENABLE)
+                case XAP_INTERFACE:
+                    usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.xapHID;
+                    len       = sizeof(usbHIDDescriptor_t);
+                    break;
+#endif
+
 #ifdef SHARED_EP_ENABLE
                 case SHARED_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.sharedHID;
@@ -1004,6 +1173,13 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                 case RAW_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)raw_hid_report;
                     len       = sizeof(raw_hid_report);
+                    break;
+#endif
+
+#if defined(XAP_ENABLE)
+                case XAP_INTERFACE:
+                    usbMsgPtr = (usbMsgPtr_t)xap_report;
+                    len       = sizeof(xap_report);
                     break;
 #endif
 

@@ -104,6 +104,13 @@ typedef struct usbConfigurationDescriptor {
     usbEndpointDescriptor_t  rawOUTEndpoint;
 #endif
 
+#if defined(XAP_ENABLE)
+    usbInterfaceDescriptor_t xapInterface;
+    usbHIDDescriptor_t       xapHID;
+    usbEndpointDescriptor_t  xapINEndpoint;
+    usbEndpointDescriptor_t  xapOUTEndpoint;
+#endif
+
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     usbInterfaceDescriptor_t sharedInterface;
     usbHIDDescriptor_t       sharedHID;
