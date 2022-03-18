@@ -291,8 +291,10 @@
 #    ifndef OLED_BRIGHTNESS
 #        define OLED_BRIGHTNESS 50
 #    endif
-#    undef OLED_UPDATE_INTERVAL
-#    define OLED_UPDATE_INTERVAL 50
+#    if !defined(STM32F4XX)
+#        undef OLED_UPDATE_INTERVAL
+#        define OLED_UPDATE_INTERVAL 75
+#    endif
 #endif
 
 #define ENABLE_COMPILE_KEYCODE
