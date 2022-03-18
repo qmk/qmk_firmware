@@ -140,7 +140,8 @@ static void render_status(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_status();
+    return false;
 }
 #endif

@@ -78,7 +78,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // (     )        *        +        ,        -        .        /
     SK_ADIA, SK_NCAR, SK_AMPR, SK_PLUS, SK_COMM, SK_MINS, SK_DOT,  SK_UACU,
     // 0     1        2        3        4        5        6        7
-    SK_EACU, SK_PLUS, SK_LACU, SK_SCAR, SK_CCAR, SK_TACU, SK_ZCAR, SK_YACU,
+    SK_EACU, SK_PLUS, SK_LCAR, SK_SCAR, SK_CCAR, SK_TCAR, SK_ZCAR, SK_YACU,
     // 8     9        :        ;        <        =        >        ?
     SK_AACU, SK_IACU, SK_DOT,  SK_SCLN, SK_AMPR, SK_EQL,  SK_Y,    SK_COMM,
     // @     A        B        C        D        E        F        G

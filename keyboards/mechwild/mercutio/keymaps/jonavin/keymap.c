@@ -188,7 +188,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         oled_write_P(logo_4, false);
     }
 
-    void oled_task_user(void) {
+    bool oled_task_user(void) {
 
         if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && get_selected_layer() == 0 && get_highest_layer(layer_state) == 0 ) {
             render_name();
@@ -263,6 +263,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
         }
 
+    return false;
     }
 
     void suspend_power_down_user(void) {  // shutdown oled when powered down to prevent OLED from showing Mercutio all the time

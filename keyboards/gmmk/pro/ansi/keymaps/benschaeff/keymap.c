@@ -20,7 +20,7 @@ enum userspace_layers {
 };
 
 //custom keycodes
-#define MODS_ALT_MASK (MOD_BIT(KC_LALT)) // Make ALT layer for encoder use 
+#define MODS_ALT_MASK (MOD_BIT(KC_LALT)) // Make ALT layer for encoder use
 #define MODS_CTRL_MASK (MOD_BIT(KC_LCTL)) // Make CTRL layer for encoder use
 #define SWAP_L SGUI(KC_LEFT) // Swap application to left display
 #define SWAP_R SGUI(KC_RGHT) // Swap application to right display

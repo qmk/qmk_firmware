@@ -60,7 +60,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    0
-
-#define AdafruitBleResetPin D4
-#define AdafruitBleCSPin B4
-#define AdafruitBleIRQPin E6

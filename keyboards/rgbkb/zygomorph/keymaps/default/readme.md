@@ -84,12 +84,12 @@ see `qmk_firmware/keyboards/zygomorph/rev1/keymaps/default/rules.mk`
 
 # Variables you can set for Zygomorph
 
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes        # Console for debug(+400)
 COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no
 RGBLIGHT_ENABLE = yes       # Enable global lighting effects. Do not enable with RGB Matrix
 RGBLIGHT_ANIMATIONS = yes   # LED animations
 RGB_MATRIX_ENABLE = no      # Enable per-key coordinate based RGB effects. Do not enable with RGBlight (+8500)
