@@ -11,7 +11,7 @@ ifneq ($(CONVERT_TO),)
     # glob to search each platfrorm and/or check for valid converter
     CONVERTER := $(wildcard $(PLATFORM_PATH)/*/converters/$(PIN_COMPATIBLE)_to_$(CONVERT_TO)/)
     ifeq ($(CONVERTER),)
-        $(call CATASTROPHIC_ERROR,Converting to '$(CONVERT_TO)' not possible!)
+        $(call CATASTROPHIC_ERROR,Converting from '$(PIN_COMPATIBLE)' to '$(CONVERT_TO)' not possible!)
     endif
 
     TARGET := $(TARGET)_$(CONVERT_TO)
