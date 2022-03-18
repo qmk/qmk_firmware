@@ -3,7 +3,7 @@
 import re
 from fnvhash import fnv1a_32
 
-from qmk.commands import get_git_version
+from qmk.git import git_get_version
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 from qmk.xap.common import latest_xap_defs, route_conditions
 
@@ -105,7 +105,7 @@ def generate_header(output_file, keyboard):
     prog = re.compile(r'^(\d+)\.(\d+)\.(\d+)')
     b = prog.match(xap_defs['version'])
     lines.append(f'#define XAP_BCD_VERSION 0x{int(b.group(1)):02d}{int(b.group(2)):02d}{int(b.group(3)):04d}ul')
-    b = prog.match(get_git_version())
+    b = prog.match(git_get_version() or "")
     lines.append(f'#define QMK_BCD_VERSION 0x{int(b.group(1)):02d}{int(b.group(2)):02d}{int(b.group(3)):04d}ul')
     keyboard_id = fnv1a_32(bytes(keyboard, 'utf-8'))
     lines.append(f'#define XAP_KEYBOARD_IDENTIFIER 0x{keyboard_id:08X}ul')
