@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
 
 enum layer_names {
     _BASE, // default layer
