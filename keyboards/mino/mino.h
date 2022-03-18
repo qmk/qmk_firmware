@@ -18,4 +18,6 @@
 
 #include "quantum.h"
 
-#include "hotswap.h"
+#ifdef KEYBOARD_mino_hotswap
+#    include "hotswap.h"
+#endif

@@ -51,7 +51,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef OLED_ENABLE
-char wpm_str[10];
 #define FRAMES 5
 #define ANIMATION_SIZE 512
 #define TAP_SPEED 30
