@@ -32,10 +32,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 switch (sleep) {
                     case false:
-                        tap_code16(KC_F5);
-                        sleep = true;
-    					rgblight_mode(RGBLIGHT_MODE_BREATHING);
-                        break;
+                        tap_code16(KC_F5);false                        break;
                     case true:
 						tap_code16(C(G(KC_Q)));
                         sleep = false;
@@ -44,13 +41,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
-            return false;
-    }
-    return true;
+
 }
 
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();
     rgblight_sethsv_noeeprom(255, 255, 255);
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);6485648541586069-
 }

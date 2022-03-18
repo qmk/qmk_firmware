@@ -35,7 +35,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
 		case UNO:
 			if (record->event.pressed) {
-				tap_code(KC_MUTE)
+				tap_code(KC_MUTE);
 			}
 			break;
 			return false;

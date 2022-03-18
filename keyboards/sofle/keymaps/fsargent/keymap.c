@@ -66,23 +66,23 @@ MT(MOD_LGUI, KC_ESC),	_______,_______,	_______,	_______,	_______,							_______,
 	[SYM] = LAYOUT(
 		// C(G(KC_SPC)) is the OS X Emoji Editor
 		C(G(KC_SPC)),	KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,							KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_F11,
-		_______,		KC_EQL,		KC_7,		KC_8,		KC_9,		KC_MINUS,						KC_NO,		KC_NO,		KC_LBRC,	KC_RBRC,	KC_NO,		KC_F12,
-		_______,		KC_0, 		KC_4,		KC_5,		KC_6,		KC_PLUS,						KC_NO,		KC_NO,		KC_LCBR,	KC_RCBR,	KC_NO,		KC_NLCK,
+		_______,		KC_EQL,		KC_7,		KC_8,		KC_9,		KC_MINUS,						KC_NO,		KC_LPRN,	KC_LBRC,	KC_RBRC,	KC_RPRN,	KC_F12,
+		_______,		KC_0, 		KC_4,		KC_5,		KC_6,		KC_PLUS,						KC_NO,		KC_LT,		KC_LCBR,	KC_RCBR,	KC_GT,		KC_NLCK,
 		_______,		KC_DOT,		KC_1,		KC_2,		KC_3,		KC_ENT,	_______,		KC_NO,	KC_NLCK,	KC_SLCK,	KC_LT,	 	KC_GT,		KC_NO,		KC_SLCK,
 		_______,		KC_0,		KC_NO,		_______,	_______,							_______,_______,	_______,	_______,	_______
 	),
 	[NAV]=LAYOUT(
-		C(KC_GRV),	TO(WIN),		TO(GAME),	TO(SHFT),	KC_NO,		KC_NO,							KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_MINS,	KC_EQL,
-		C(KC_TAB),	S(C(KC_TAB)),	A(KC_BSPC),	KC_UP,  	A(KC_DEL),	C(KC_TAB),						KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_WH_R,	KC_RBRC,
-		KC_LCTRL,	A(KC_LEFT),		KC_LEFT,	KC_DOWN,	KC_RGHT,	A(KC_RGHT),						KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_SCLN,	KC_LGUI,
-		KC_LSFT,	KC_HOME,		G(KC_LEFT),	KC_ENT,		G(KC_RGHT),	KC_END,		_______,	KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_BSLS,	KC_DEL,
-		_______,	KC_PGDN,		_______,	_______,	_______,							KC_BTN1,KC_BTN2,	_______,	_______,	_______
+		C(KC_GRV),	KC_NO,		G(KC_UP),	KC_PGUP,	A(KC_UP),	KC_NO,							KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_LPRN,	KC_RPRN,
+		C(KC_TAB),	A(KC_BSPC),	A(KC_LEFT),	KC_UP,		A(KC_RGHT),	A(KC_DEL),						KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_LBRC,	KC_RBRC,
+		KC_LCTRL,	G(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	G(KC_RGHT),						KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_LCBR,	KC_RCBR,
+		KC_LSFT,	KC_HOME,	G(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,		_______,	KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_LT,		KC_GT,
+		_______,	_______,	_______,	_______,	_______,							KC_BTN1,KC_BTN2,	_______,	_______,	_______
 	),
 	[WINNAV]=LAYOUT(
-		C(KC_GRV),	TO(WIN),	TO(GAME),	TO(SHFT),	KC_NO,		KC_NO,								KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_MINS,	KC_EQL,
-		A(KC_TAB), 	S(KC_TAB),	C(KC_BSPC),	KC_UP,		C(KC_DEL),	KC_TAB,								KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_WH_R,	KC_RBRC,
-		KC_LGUI,	C(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	C(KC_RGHT),							KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_SCLN,	KC_LGUI,
-		KC_LSFT,	KC_HOME,	A(KC_LEFT),	KC_ENT,		A(KC_RGHT),	KC_END,	_______,					KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_BSLS,	KC_DEL,
+		C(KC_GRV),	TO(WIN),	TO(GAME),	TO(SHFT),	KC_NO,		KC_NO,								KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_LPRN,	KC_RPRN,
+		A(KC_TAB), 	S(KC_TAB),	C(KC_BSPC),	KC_UP,		C(KC_DEL),	KC_TAB,								KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_LBRC,	KC_RBRC,
+		KC_LGUI,	C(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	C(KC_RGHT),							KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_LCBR,	KC_RCBR,
+		KC_LSFT,	KC_HOME,	A(KC_LEFT),	KC_ENT,		A(KC_RGHT),	KC_END,	_______,			KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_LT,		KC_GT,
 		_______,	_______,	_______,	_______,	_______,								KC_BTN1,KC_BTN2,	_______,	_______,	_______
 	)
 };

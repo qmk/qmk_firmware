@@ -25,7 +25,7 @@ bool reversed = false;  // ADD this near the begining of keymap.c
 uint8_t encoder_mode = 0;
 enum encoder_modes { ARROWS, TASKS, MUSIC, PAGES, WHEEL };
 
-enum custom_keycodes { ALT_TAB = SAFE_RANGE, ENCODER_MODE };
+enum custom_keycodes { ALT_TAB = SAFE_RANGE, ENCODER_MODE, SELECT_COPY };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
