@@ -2,8 +2,6 @@
     "keyboard_name": "Mino",
     "url": "https://qmk.fm/keyboards/",
     "maintainer": "ShandonCodes",
-    "width": 12,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

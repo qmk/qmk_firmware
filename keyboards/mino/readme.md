@@ -1,12 +1,20 @@
 # mino
 
-![Mino](https://i.imgur.com/f5kHu8Q.jpg)
+![Mino](https://i.imgur.com/f5kHu8Qh.jpg)
 
 A 47 key board with a retro twist.
 
 * Keyboard Maintainer: [ShandonCodes](https://github.com/ShandonCodes)
 * Hardware Supported: Mino PCB
 * Hardware Availability: Groupbuy
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available. For the default keymap it is the middle spacebar on the second layer.
 
 Make example for this keyboard (after setting up your build environment):
 
