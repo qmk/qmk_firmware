@@ -7,7 +7,7 @@
     "usb": {
         "vid": "0xF35B",
         "pid": "0xFAB5",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1"
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
