@@ -6,7 +6,7 @@ from milc import cli
 
 from qmk.path import normpath
 from qmk.commands import dump_lines
-from qmk.commands import get_git_version
+from qmk.git import git_get_version
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 TIME_FMT = '%Y-%m-%d-%H:%M:%S'
@@ -33,9 +33,9 @@ def generate_version_h(cli):
         chibios_version = "NA"
         chibios_contrib_version = "NA"
     else:
-        git_version = get_git_version(current_time)
-        chibios_version = get_git_version(current_time, "chibios", "os")
-        chibios_contrib_version = get_git_version(current_time, "chibios-contrib", "os")
+        git_version = git_get_version() or current_time
+        chibios_version = git_get_version("chibios", "os") or current_time
+        chibios_contrib_version = git_get_version("chibios-contrib", "os") or current_time
 
     # Build the version.h file.
     version_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once']
