@@ -36,8 +36,10 @@ ifeq ($(strip $(KEYBOARD)), jacky_studio/bear_65)
 endif
 ifeq ($(strip $(KEYBOARD)), mechlovin/adelais/rgb_led/rev2)
   SRC += rgb_layers.c
+  SRC += rgb_timeout.c
 endif
 ifeq ($(strip $(KEYBOARD)), mechlovin/adelais/standard_led/arm/rev4/stm32f303)
+  OPT_DEFS += -DHAS_INDICATORS
   SRC += rgb_timeout.c
-  SRC += layer_rgb.c
+  SRC += indicator_layers_sneakbox.c
 endif
