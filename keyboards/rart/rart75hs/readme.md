@@ -1,6 +1,6 @@
 # [RART 75 Hotswap](https://github.com/alabahuy/RART/tree/master/RART75)
 
-![RART 75](https://imgur.com/FVWlm8U)
+![RART 75](https://i.imgur.com/FVWlm8Uh.jpeg)
 
 75% pcb with encoder, based on IMKG (Indonesia Mechanical Keyboard Group)
 
