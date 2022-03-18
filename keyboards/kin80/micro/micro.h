@@ -16,5 +16,5 @@
 
 #pragma once
 
-#include "../kinesis80.h"
+#include "kin80.h"
 
