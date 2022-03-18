@@ -3,6 +3,7 @@
 import os
 import sys
 import shutil
+from itertools import islice
 from pathlib import Path
 
 from milc import cli
