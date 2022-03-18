@@ -649,7 +649,9 @@ void tap_code_ex(uint16_t kc, keyevent_t keyevent) {
     stop_reentrant_process_exkc = true;
     record.event                = keyevent;
     record.event.pressed        = true;
+    record.tap.count            = 1;
     process_record_ex(kc, &record);
+    record.event.time    = (record.event.time + 1) | 1;
     record.event.pressed = false;
     process_record_ex(kc, &record);
     stop_reentrant_process_exkc = false;
