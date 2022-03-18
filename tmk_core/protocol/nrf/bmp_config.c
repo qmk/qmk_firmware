@@ -165,6 +165,11 @@ int parse_qmk_config(void) {
     return 0;
 }
 
+void set_tapping_term_config(bmp_qmk_config_t *qmk_config) {
+    bmp_qmk_config = *qmk_config;
+}
+const bmp_qmk_config_t *get_tapping_term_config(void) { return &bmp_qmk_config; }
+
 int save_qmk_config(void) {
     int res = save_tapping_term_file();
     if (res == 0) {
@@ -174,6 +179,10 @@ int save_qmk_config(void) {
     }
 
     return res;
+}
+
+void set_encoder_config(bmp_encoder_config_t const *encoder_config) {
+    memcpy(&bmp_encoder_config, &encoder_config, sizeof(bmp_encoder_config));
 }
 
 int parse_encoder_config(void) {

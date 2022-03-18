@@ -12,10 +12,10 @@ enum via_bmp_item_id {
     item_extend_keycode,
     item_config_len,
     item_config_buffer,
-    item_encoder_len,
-    item_encoder_buffer,
     item_tapping_term_len,
     item_tapping_term_buffer,
+    item_encoder_len,
+    item_encoder_buffer,
     item_remove_files,
 };
 

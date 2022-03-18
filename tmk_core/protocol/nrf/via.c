@@ -146,9 +146,20 @@ __attribute__((weak)) void dynamic_keymap_reset(void) {}
 __attribute__((weak)) void raw_hid_receive_kb(const uint8_t *data,
                                               uint8_t        length) {}
 
-extern bmp_ex_keycode_t bmp_ex_keycodes[BMP_EX_KC_LEN];
-extern uint32_t bmp_ex_keycode_num;
-static bmp_api_config_t s_bmp_config;
+extern bmp_ex_keycode_t     bmp_ex_keycodes[BMP_EX_KC_LEN];
+extern uint32_t             bmp_ex_keycode_num;
+static bmp_api_config_t     s_bmp_config;
+static bmp_qmk_config_t     s_tapping_term_config;
+static bmp_encoder_config_t s_encoder_config;
+
+static void fill_config_buffer(uint8_t *dest, uint8_t const *item_data,
+                        uint32_t offset, uint32_t size) {
+    uint8_t len = 32 - 5;
+    if (size - offset < len) {
+        len = size - offset;
+    }
+    memcpy(&dest[offset], &item_data[2], len);
+}
 
 static void set_via_bmp_item(uint8_t *data, uint8_t length) {
     const uint8_t item_idx  = data[2];
@@ -171,16 +182,34 @@ static void set_via_bmp_item(uint8_t *data, uint8_t length) {
             break;
         case item_config_buffer: {
             uint16_t offset = (item_data[0] | ((uint16_t)item_data[1] << 8));
-            if (offset < sizeof(bmp_api_config_t)) {
+            if (offset < sizeof(s_bmp_config)) {
                 uint8_t *config = (uint8_t *)&s_bmp_config;
-                uint8_t  len    = 32 - 5;
-                if (sizeof(s_bmp_config) - offset < len) {
-                    len = sizeof(s_bmp_config) - offset;
-                }
-                memcpy(&config[offset], &item_data[2], len);
+                fill_config_buffer(config, item_data, offset, sizeof(s_bmp_config));
             } else {
                 BMPAPI->app.set_config(&s_bmp_config);
                 save_config();
+            }
+        } break;
+        case item_tapping_term_buffer: {
+            uint16_t offset = (item_data[0] | ((uint16_t)item_data[1] << 8));
+            if (offset < sizeof(s_tapping_term_config)) {
+                uint8_t *config = (uint8_t *)&s_tapping_term_config;
+                fill_config_buffer(config, item_data, offset,
+                            sizeof(s_tapping_term_config));
+            } else {
+                set_tapping_term_config(&s_tapping_term_config);
+                save_tapping_term_file();
+            }
+        }
+        case item_encoder_buffer: {
+            uint16_t offset = (item_data[0] | ((uint16_t)item_data[1] << 8));
+            if (offset < sizeof(s_encoder_config)) {
+                uint8_t *config = (uint8_t *)&s_encoder_config;
+                fill_config_buffer(config, item_data, offset,
+                            sizeof(s_encoder_config));
+            } else {
+                set_encoder_config(&s_encoder_config);
+                save_encoder_config();
             }
         } break;
         case item_remove_files: {
@@ -214,6 +243,26 @@ static void get_via_bmp_item(uint8_t *data, uint8_t length) {
         case item_config_buffer: {
             uint16_t offset = (item_data[0] | ((uint16_t)(item_data[1]) << 8));
             const uint8_t *config = (uint8_t *)BMPAPI->app.get_config();
+            memcpy(&item_data[2], &config[offset], 32 - 5);
+        } break;
+        case item_tapping_term_len: {
+            uint16_t len = sizeof(s_tapping_term_config);
+            item_data[0] = len & 0xff;
+            item_data[1] = len >> 8;
+        } break;
+        case item_tapping_term_buffer: {
+            uint16_t offset = (item_data[0] | ((uint16_t)(item_data[1]) << 8));
+            const uint8_t *config = (uint8_t *)get_tapping_term_config();
+            memcpy(&item_data[2], &config[offset], 32 - 5);
+        } break;
+        case item_encoder_len: {
+            uint16_t len = sizeof(s_encoder_config);
+            item_data[0] = len & 0xff;
+            item_data[1] = len >> 8;
+        } break;
+        case item_encoder_buffer: {
+            uint16_t offset = (item_data[0] | ((uint16_t)(item_data[1]) << 8));
+            const uint8_t *config = (uint8_t *)get_bmp_encoder_config();
             memcpy(&item_data[2], &config[offset], 32 - 5);
         } break;
     }
