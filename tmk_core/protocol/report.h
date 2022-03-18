@@ -32,8 +32,7 @@ enum hid_report_ids {
     REPORT_ID_PROGRAMMABLE_BUTTON,
     REPORT_ID_NKRO,
     REPORT_ID_JOYSTICK,
-    REPORT_ID_DIGITIZER,
-    REPORT_ID_XAP
+    REPORT_ID_DIGITIZER
 };
 
 /* Mouse buttons */

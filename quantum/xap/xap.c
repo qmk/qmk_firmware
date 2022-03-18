@@ -16,7 +16,6 @@
 
 #include <quantum.h>
 #include <xap.h>
-#include <usb_descriptor.h>
 
 #define QSTR2(z) #z
 #define QSTR(z) QSTR2(z)
