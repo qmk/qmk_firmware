@@ -18,10 +18,6 @@
 
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
-
 #define OLED_UPDATE_INTERVAL 66
 
 #define BACKLIGHT_PIN B5
