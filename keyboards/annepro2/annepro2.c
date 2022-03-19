@@ -192,6 +192,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 ap2_led_reset_foreground_color();
                 break;
 
+            case KC_AP_LED_TOG:
+                if (ap2_led_status.matrix_enabled) {
+                    ap2_led_disable();
+                } else {
+                    ap2_led_enable();
+                    ap2_led_reset_foreground_color();
+                }
+                break;
+
             case KC_AP_LED_NEXT_PROFILE:
                 ap2_led_next_profile();
                 ap2_led_reset_foreground_color();
