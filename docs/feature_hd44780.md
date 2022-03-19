@@ -23,15 +23,15 @@ HD44780_ENABLE = yes
 
 Add the following to your `config.h`:
 
-|Define                 |Default       |Description                                                                |
-|-----------------------|--------------|---------------------------------------------------------------------------|
-|`HD44780_DATA_PINS`    |*Not defined* |(Required) An array of four GPIO pins connected to the display's D4-D7 pins|
-|`HD44780_RS_PIN`       |*Not defined* |(Required) The GPIO connected to the display's RS pin                      |
-|`HD44780_RW_PIN`       |*Not defined* |(Required) The GPIO connected to the display's RW pin                      |
-|`HD44780_E_PIN`        |*Not defined* |(Required) The GPIO connected to the display's E pin                       |
-|`HD44780_DISPLAY_COLS` |`16`          |The number of visible characters on a single line of the display           |
-|`HD44780_DISPLAY_LINES`|`2`           |The number of visible lines on the display                                 |
-|`HD44780_WRAP_LINES`   |*Not defined* |If defined, input characters will wrap to the next line                    |
+|Define                 |Default       |Description                                                                                          |
+|-----------------------|--------------|-----------------------------------------------------------------------------------------------------|
+|`HD44780_DATA_PINS`    |*Not defined* |(Required) An array of four GPIO pins connected to the display's D4-D7 pins, eg. `{ B1, B3, B2, B6 }`|
+|`HD44780_RS_PIN`       |*Not defined* |(Required) The GPIO connected to the display's RS pin                                                |
+|`HD44780_RW_PIN`       |*Not defined* |(Required) The GPIO connected to the display's RW pin                                                |
+|`HD44780_E_PIN`        |*Not defined* |(Required) The GPIO connected to the display's E pin                                                 |
+|`HD44780_DISPLAY_COLS` |`16`          |The number of visible characters on a single line of the display                                     |
+|`HD44780_DISPLAY_LINES`|`2`           |The number of visible lines on the display                                                           |
+|`HD44780_WRAP_LINES`   |*Not defined* |If defined, input characters will wrap to the next line                                              |
 
 ## Examples
 
