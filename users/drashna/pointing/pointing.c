@@ -29,7 +29,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (x != 0 && y != 0) {
         mouse_timer = timer_read();
 #ifdef OLED_ENABLE
-        oled_timer = timer_read32();
+        oled_timer_reset();
 #endif
         if (timer_elapsed(mouse_debounce_timer) > TAP_CHECK) {
             if (enable_acceleration) {

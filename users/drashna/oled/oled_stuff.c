@@ -100,12 +100,15 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
  */
 bool process_record_user_oled(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        oled_timer = timer_read32();
+        oled_timer_reset();
         add_keylog(keycode, record);
     }
     return true;
 }
 
+void oled_timer_reset(void) {
+    oled_timer = timer_read32();
+}
 /**
  * @brief Renders keylogger buffer to oled
  *
