@@ -175,8 +175,8 @@ static void set_via_bmp_item(uint8_t *data, uint8_t length) {
                 memcpy(&bmp_ex_keycodes[item_data[0]], &item_data[1],
                        sizeof(bmp_ex_keycode_t));
                 via_exkc_update_flag = true;
-                if (bmp_ex_keycode_num < item_data[0]) {
-                    bmp_ex_keycode_num = item_data[0];
+                if (bmp_ex_keycode_num < item_data[0] + 1) {
+                    bmp_ex_keycode_num = item_data[0] + 1;
                 }
             }
             break;
