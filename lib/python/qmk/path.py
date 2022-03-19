@@ -70,9 +70,9 @@ def normpath(path):
 
 
 class FileType(argparse.FileType):
-    def __init__(self, encoding='UTF-8'):
+    def __init__(self, mode='r', encoding='UTF-8'):
         # Use UTF8 by default for stdin
-        return super().__init__(encoding=encoding)
+        return super().__init__(mode=mode, encoding=encoding)
 
     def __call__(self, string):
         """normalize and check exists
