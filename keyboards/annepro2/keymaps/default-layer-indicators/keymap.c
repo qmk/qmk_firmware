@@ -83,7 +83,7 @@ enum anne_pro_layers {
   /*
   * Layer FN2
   * ,-----------------------------------------------------------------------------------------.
-  * |  ~  | BT1 | BT2 | BT3 | BT4 |  F5 |  F6 |  F7 |LEDOF|LEDON| F10 | F11 | F12 |    Bksp   |
+  * |  ~  | BT1 | BT2 | BT3 | BT4 |  F5 |  F6 |  F7 |  F8 |LEDTG|LEDI+|LEDPV|LEDNX|    Bksp   |
   * |-----------------------------------------------------------------------------------------+
   * | Tab    |  q  | UP  |  e  |  r  |  t  |  y  |  u  |  i  |  o  | PS | HOME | END |   \    |
   * |-----------------------------------------------------------------------------------------+
@@ -96,7 +96,7 @@ enum anne_pro_layers {
   *
   */
  [FN2] = LAYOUT_60_ansi( /* FN2 */
-    _______, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, _______, _______, _______, KC_AP_LED_OFF, KC_AP_LED_ON, _______, _______, _______, _______,
+    _______, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, _______, _______, _______, _______, KC_AP_LED_TOG, KC_AP_LED_NEXT_INTENSITY, KC_AP_LED_PREV_PROFILE, KC_AP_LED_NEXT_PROFILE, _______,
     MO(FN2), _______,    KC_UP,      _______,    _______,    _______, _______, _______, _______, _______, KC_PSCR, KC_HOME, KC_END,  _______,
     _______, KC_LEFT,    KC_DOWN,    KC_RGHT,    _______,    _______, _______, _______, _______, _______, KC_PGUP, KC_PGDN, _______,
     _______,             _______,    _______,    _______,    _______, _______, _______, _______, _______, KC_INS,  KC_DEL,  _______,
@@ -104,6 +104,11 @@ enum anne_pro_layers {
  ),
 };
 // clang-format on
+
+void keyboard_post_init_user(void) {
+    ap2_led_enable();
+    ap2_led_set_profile(7);
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {

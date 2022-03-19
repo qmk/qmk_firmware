@@ -29,7 +29,7 @@
     "usb": {
         "vid": "0x424B",
         "pid": "0xD87A",
-        "device_ver": "0x0001"
+        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT": {
