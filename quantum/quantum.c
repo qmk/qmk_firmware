@@ -289,6 +289,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef TERMINAL_ENABLE
             process_terminal(keycode, record) &&
 #endif
+#ifdef CAPS_WORD_ENABLE
+            process_caps_word(keycode, record) &&
+#endif
 #ifdef SPACE_CADET_ENABLE
             process_space_cadet(keycode, record) &&
 #endif
@@ -306,9 +309,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
             process_programmable_button(keycode, record) &&
-#endif
-#ifdef CAPS_WORD_ENABLE
-            process_caps_word(keycode, record) &&
 #endif
             true)) {
         return false;
