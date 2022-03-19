@@ -44,9 +44,9 @@
 #define STM32_PLS                           STM32_PLS_LEV0
 #define STM32_HSI16_ENABLED                 TRUE
 #define STM32_HSI16_DIVIDER_ENABLED         FALSE
-#define STM32_LSI_ENABLED                   FALSE
+#define STM32_LSI_ENABLED                   TRUE
 #define STM32_HSE_ENABLED                   FALSE
-#define STM32_LSE_ENABLED                   TRUE
+#define STM32_LSE_ENABLED                   FALSE
 #define STM32_ADC_CLOCK_ENABLED             TRUE
 #define STM32_USB_CLOCK_ENABLED             TRUE
 #define STM32_MSIRANGE                      STM32_MSIRANGE_2M
@@ -70,7 +70,7 @@
 #define STM32_I2C3SEL                       STM32_I2C3SEL_APB
 #define STM32_LPTIM1SEL                     STM32_LPTIM1SEL_APB
 #define STM32_HSI48SEL                      STM32_HSI48SEL_HSI48
-#define STM32_RTCSEL                        STM32_RTCSEL_LSE
+#define STM32_RTCSEL                        STM32_RTCSEL_LSI
 #define STM32_RTCPRE                        STM32_RTCPRE_DIV2
 
 /*

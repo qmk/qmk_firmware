@@ -2,22 +2,22 @@
     "manufacturer": "elagil",
     "keyboard_name": "lechuza",
     "maintainer": "elagil",
-    "diode_direction": "COL2ROW",
+    "diode_direction": "ROW2COL",
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic_lite": false,
         "command": false,
-        "console": false,
+        "console": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["B0", "A7", "A6", "A5", "A3", "A3", "B1", "A14", "B5", "B4", "B3", "A15"],
+        "cols": ["B0", "A7", "A6", "A5", "A3", "A1", "A0", "B6", "B5", "B4", "B3", "A15"],
         "rows": ["A4", "B7", "C14", "A2", "C15"]
     },
     "matrix_rows": 5,
     "matrix_cols": 12,
-    "processor": "STM32L072x8",
+    "processor": "STM32L072xZ",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
