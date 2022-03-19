@@ -4,7 +4,7 @@
 
 This is very simple 5x5 macropad for general use. It does not come with any particular layout, it is assumed that layouts will be built on the qmk configurator site. Row and column pins start on the edge of Arduino, if smaller board is required, you can simply connect only first x row/column pairs to the board and get the size of the board you need.
 
-* Keyboard Maintainer: [Tomek](https://github.com/m40-dev, discord: m40#4792)
+* Keyboard Maintainer: [Tomek](https://github.com/m40-dev) (discord: m40#4792)
 * Hardware Supported: 3D Printed, handwired, using Arduino Pro-Micro (Atmega32U4) for controller
 * Hardware Availability: https://www.thingiverse.com/thing:5239739
 
