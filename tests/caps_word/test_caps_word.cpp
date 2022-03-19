@@ -26,7 +26,7 @@ using ::testing::InSequence;
 using ::testing::TestParamInfo;
 
 class CapsWord : public TestFixture {
- public:
+   public:
     void SetUp() override {
         caps_word_off();
     }
@@ -40,7 +40,7 @@ class CapsWord : public TestFixture {
     }
 
     // Taps in order each key in `keys`.
-    template<typename... Ts>
+    template <typename... Ts>
     void TapKeys(Ts... keys) {
         for (KeymapKey key : {keys...}) {
             TapKey(key);
@@ -76,7 +76,7 @@ TEST_F(CapsWord, OnOffToggleFuns) {
 TEST_F(CapsWord, DefaultCapsWordPressUserFun) {
     // Spot check some keycodes that continue Caps Word, with shift applied.
     for (uint16_t keycode : {KC_A, KC_B, KC_Z, KC_MINS}) {
-        SCOPED_TRACE("keycode: "+ testing::PrintToString(keycode));
+        SCOPED_TRACE("keycode: " + testing::PrintToString(keycode));
         clear_weak_mods();
         EXPECT_TRUE(caps_word_press_user(keycode));
         EXPECT_EQ(get_weak_mods(), MOD_BIT(KC_LSFT));
@@ -84,7 +84,7 @@ TEST_F(CapsWord, DefaultCapsWordPressUserFun) {
 
     // Some keycodes that continue Caps Word, without shifting.
     for (uint16_t keycode : {KC_1, KC_9, KC_0, KC_BSPC, KC_DEL}) {
-        SCOPED_TRACE("keycode: "+ testing::PrintToString(keycode));
+        SCOPED_TRACE("keycode: " + testing::PrintToString(keycode));
         clear_weak_mods();
         EXPECT_TRUE(caps_word_press_user(keycode));
         EXPECT_EQ(get_weak_mods(), 0);
@@ -92,7 +92,7 @@ TEST_F(CapsWord, DefaultCapsWordPressUserFun) {
 
     // Some keycodes that turn off Caps Word.
     for (uint16_t keycode : {KC_SPC, KC_DOT, KC_COMM, KC_TAB, KC_ESC, KC_ENT}) {
-        SCOPED_TRACE("keycode: "+ testing::PrintToString(keycode));
+        SCOPED_TRACE("keycode: " + testing::PrintToString(keycode));
         EXPECT_FALSE(caps_word_press_user(keycode));
     }
 }
@@ -100,13 +100,13 @@ TEST_F(CapsWord, DefaultCapsWordPressUserFun) {
 // Tests that `CAPSWRD` key toggles Caps Word.
 TEST_F(CapsWord, CapswrdKey) {
     TestDriver driver;
-    KeymapKey key_capswrd(0, 0, 0, CAPSWRD);
+    KeymapKey  key_capswrd(0, 0, 0, CAPSWRD);
     set_keymap({key_capswrd});
 
     // No keyboard reports should be sent.
     EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
 
-    TapKey(key_capswrd);  // Tap the CAPSWRD key.
+    TapKey(key_capswrd); // Tap the CAPSWRD key.
     EXPECT_EQ(is_caps_word_on(), true);
 
     TapKey(key_capswrd); // Tap the CAPSWRD key again.
@@ -118,14 +118,17 @@ TEST_F(CapsWord, CapswrdKey) {
 // Tests that being idle for CAPS_WORD_IDLE_TIMEOUT turns off Caps Word.
 TEST_F(CapsWord, IdleTimeout) {
     TestDriver driver;
-    KeymapKey key_a(0, 0, 0, KC_A);
+    KeymapKey  key_a(0, 0, 0, KC_A);
     set_keymap({key_a});
 
     // Allow any number of reports with no keys or only KC_LSFT.
+    // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
                 KeyboardReport(),
                 KeyboardReport(KC_LSFT))))
         .Times(AnyNumber());
+    // clang-format on
+
     // Expect "Shift+A".
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
 
@@ -142,8 +145,7 @@ TEST_F(CapsWord, IdleTimeout) {
     EXPECT_EQ(is_caps_word_on(), false);
     EXPECT_EQ(get_mods() | get_weak_mods(), 0);
 
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()))
-        .Times(AnyNumber());
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(AnyNumber());
     // Expect unshifted "A".
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
     TapKey(key_a);
@@ -154,15 +156,18 @@ TEST_F(CapsWord, IdleTimeout) {
 // Tests that typing "A, 4, A, 4" produces "Shift+A, 4, Shift+A, 4".
 TEST_F(CapsWord, ShiftsLettersButNotDigits) {
     TestDriver driver;
-    KeymapKey key_a(0, 0, 0, KC_A);
-    KeymapKey key_4(0, 1, 0, KC_4);
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_4(0, 1, 0, KC_4);
     set_keymap({key_a, key_4});
 
     // Allow any number of reports with no keys or only KC_LSFT.
+    // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
                 KeyboardReport(),
                 KeyboardReport(KC_LSFT))))
         .Times(AnyNumber());
+    // clang-format on
+
     { // Expect: "Shift+A, 4, Shift+A, 4".
         InSequence s;
         EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
@@ -181,16 +186,19 @@ TEST_F(CapsWord, ShiftsLettersButNotDigits) {
 // Tests that typing "A, Space, A" produces "Shift+A, Space, A".
 TEST_F(CapsWord, SpaceTurnsOffCapsWord) {
     TestDriver driver;
-    KeymapKey key_a(0, 0, 0, KC_A);
-    KeymapKey key_spc(0, 1, 0, KC_SPC);
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_spc(0, 1, 0, KC_SPC);
     set_keymap({key_a, key_spc});
 
     // Allow any number of reports with no keys or only KC_LSFT.
+    // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
                 KeyboardReport(),
                 KeyboardReport(KC_LSFT))))
         .Times(AnyNumber());
-    {  // Expect: "Shift+A, Space, A".
+    // clang-format on
+
+    { // Expect: "Shift+A, Space, A".
         InSequence seq;
         EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_A)));
         EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_SPC)));
@@ -206,37 +214,36 @@ TEST_F(CapsWord, SpaceTurnsOffCapsWord) {
 
 struct CapsWordBothShiftsParams {
     std::string name;
-    uint16_t left_shift_keycode;
-    uint16_t right_shift_keycode;
+    uint16_t    left_shift_keycode;
+    uint16_t    right_shift_keycode;
 
-    static const std::string& GetName(
-        const TestParamInfo<CapsWordBothShiftsParams>& info) {
+    static const std::string& GetName(const TestParamInfo<CapsWordBothShiftsParams>& info) {
         return info.param.name;
     }
 };
 
 // Tests the BOTH_SHIFTS_TURNS_ON_CAPS_WORD method to turn on Caps Word.
-class CapsWordBothShifts
-    : public ::testing::WithParamInterface<CapsWordBothShiftsParams>,
-      public CapsWord {};
+class CapsWordBothShifts : public ::testing::WithParamInterface<CapsWordBothShiftsParams>, public CapsWord {};
 
 // Pressing shifts as "Left down, Right down, Left up, Right up".
 TEST_P(CapsWordBothShifts, PressLRLR) {
     TestDriver driver;
-    KeymapKey left_shift(0, 0, 0, GetParam().left_shift_keycode);
-    KeymapKey right_shift(0, 1, 0, GetParam().right_shift_keycode);
+    KeymapKey  left_shift(0, 0, 0, GetParam().left_shift_keycode);
+    KeymapKey  right_shift(0, 1, 0, GetParam().right_shift_keycode);
     set_keymap({left_shift, right_shift});
 
+    // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
                 KeyboardReport(),
                 KeyboardReport(KC_LSFT),
                 KeyboardReport(KC_RSFT),
                 KeyboardReport(KC_LSFT, KC_RSFT))))
         .Times(AnyNumber());
+    // clang-format on
 
     EXPECT_EQ(is_caps_word_on(), false);
 
-    left_shift.press();  // Press both shifts.
+    left_shift.press(); // Press both shifts.
     run_one_scan_loop();
     right_shift.press();
 
@@ -246,7 +253,7 @@ TEST_P(CapsWordBothShifts, PressLRLR) {
     }
 
     run_one_scan_loop();
-    left_shift.release();  // Release both.
+    left_shift.release(); // Release both.
     run_one_scan_loop();
     right_shift.release();
     run_one_scan_loop();
@@ -259,20 +266,22 @@ TEST_P(CapsWordBothShifts, PressLRLR) {
 // Pressing shifts as "Left down, Right down, Right up, Left up".
 TEST_P(CapsWordBothShifts, PressLRRL) {
     TestDriver driver;
-    KeymapKey left_shift(0, 0, 0, GetParam().left_shift_keycode);
-    KeymapKey right_shift(0, 1, 0, GetParam().right_shift_keycode);
+    KeymapKey  left_shift(0, 0, 0, GetParam().left_shift_keycode);
+    KeymapKey  right_shift(0, 1, 0, GetParam().right_shift_keycode);
     set_keymap({left_shift, right_shift});
 
+    // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
                 KeyboardReport(),
                 KeyboardReport(KC_LSFT),
                 KeyboardReport(KC_RSFT),
                 KeyboardReport(KC_LSFT, KC_RSFT))))
         .Times(AnyNumber());
+    // clang-format on
 
     EXPECT_EQ(is_caps_word_on(), false);
 
-    left_shift.press();  // Press both shifts.
+    left_shift.press(); // Press both shifts.
     run_one_scan_loop();
     right_shift.press();
 
@@ -281,7 +290,7 @@ TEST_P(CapsWordBothShifts, PressLRRL) {
     }
     run_one_scan_loop();
 
-    right_shift.release();  // Release both.
+    right_shift.release(); // Release both.
     run_one_scan_loop();
     left_shift.release();
     run_one_scan_loop();
@@ -291,6 +300,7 @@ TEST_P(CapsWordBothShifts, PressLRRL) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
+// clang-format off
 INSTANTIATE_TEST_CASE_P(
     ShiftPairs,
     CapsWordBothShifts,
@@ -306,33 +316,32 @@ INSTANTIATE_TEST_CASE_P(
         ),
     CapsWordBothShiftsParams::GetName
     );
+// clang-format on
 
 struct CapsWordDoubleTapShiftParams {
     std::string name;
-    uint16_t left_shift_keycode;
+    uint16_t    left_shift_keycode;
 
-    static const std::string& GetName(
-        const TestParamInfo<CapsWordDoubleTapShiftParams>& info) {
+    static const std::string& GetName(const TestParamInfo<CapsWordDoubleTapShiftParams>& info) {
         return info.param.name;
     }
 };
 
 // Tests the DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD method to turn on Caps Word.
-class CapsWordDoubleTapShift
-    : public ::testing::WithParamInterface<CapsWordDoubleTapShiftParams>,
-      public CapsWord {};
-
+class CapsWordDoubleTapShift : public ::testing::WithParamInterface<CapsWordDoubleTapShiftParams>, public CapsWord {};
 
 // Tests that double tapping activates Caps Word.
 TEST_P(CapsWordDoubleTapShift, Activation) {
     TestDriver driver;
-    KeymapKey left_shift(0, 0, 0, GetParam().left_shift_keycode);
+    KeymapKey  left_shift(0, 0, 0, GetParam().left_shift_keycode);
     set_keymap({left_shift});
 
+    // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
                 KeyboardReport(),
                 KeyboardReport(KC_LSFT))))
         .Times(AnyNumber());
+    // clang-format on
 
     EXPECT_EQ(is_caps_word_on(), false);
 
@@ -349,15 +358,17 @@ TEST_P(CapsWordDoubleTapShift, Activation) {
 // Double tap doesn't count if another key is pressed between the taps.
 TEST_P(CapsWordDoubleTapShift, Interrupted) {
     TestDriver driver;
-    KeymapKey left_shift(0, 0, 0, GetParam().left_shift_keycode);
-    KeymapKey key_a(0, 1, 0, KC_A);
+    KeymapKey  left_shift(0, 0, 0, GetParam().left_shift_keycode);
+    KeymapKey  key_a(0, 1, 0, KC_A);
     set_keymap({left_shift, key_a});
 
+    // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
                 KeyboardReport(),
                 KeyboardReport(KC_LSFT),
                 KeyboardReport(KC_LSFT, KC_A))))
         .Times(AnyNumber());
+    // clang-format on
 
     left_shift.press();
     run_one_scan_loop();
@@ -370,7 +381,7 @@ TEST_P(CapsWordDoubleTapShift, Interrupted) {
     idle_for(TAPPING_TERM - 10);
     TapKey(left_shift);
 
-    EXPECT_EQ(is_caps_word_on(), false);  // Caps Word is still off.
+    EXPECT_EQ(is_caps_word_on(), false); // Caps Word is still off.
     clear_oneshot_mods();
 
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -379,24 +390,27 @@ TEST_P(CapsWordDoubleTapShift, Interrupted) {
 // Double tap doesn't count if taps are more than tapping term apart.
 TEST_P(CapsWordDoubleTapShift, SlowTaps) {
     TestDriver driver;
-    KeymapKey left_shift(0, 0, 0, GetParam().left_shift_keycode);
+    KeymapKey  left_shift(0, 0, 0, GetParam().left_shift_keycode);
     set_keymap({left_shift});
 
+    // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
                 KeyboardReport(),
                 KeyboardReport(KC_LSFT))))
         .Times(AnyNumber());
+    // clang-format on
 
     TapKey(left_shift);
     idle_for(TAPPING_TERM + 1);
     TapKey(left_shift);
 
-    EXPECT_EQ(is_caps_word_on(), false);  // Caps Word is still off.
+    EXPECT_EQ(is_caps_word_on(), false); // Caps Word is still off.
     clear_oneshot_mods();
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
+// clang-format off
 INSTANTIATE_TEST_CASE_P(
     Shifts,
     CapsWordDoubleTapShift,
@@ -406,4 +420,4 @@ INSTANTIATE_TEST_CASE_P(
         ),
     CapsWordDoubleTapShiftParams::GetName
     );
-
+// clang-format on
