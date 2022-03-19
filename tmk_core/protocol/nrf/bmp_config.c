@@ -38,6 +38,11 @@ static char                 macro_string[1024];
 bmp_ex_keycode_t bmp_ex_keycodes[BMP_EX_KC_LEN];
 uint32_t         bmp_ex_keycode_num;
 
+#ifndef COMBO_COUNT
+#    define COMBO_COUNT 0
+uint16_t COMBO_LEN;
+#endif
+
 extern combo_t  key_combos[COMBO_COUNT];
 extern uint16_t COMBO_LEN;
 uint16_t        combo_members[COMBO_COUNT][3];
@@ -566,6 +571,10 @@ int save_tapping_term_file() { return BMPAPI->app.save_file(QMK_RECORD); }
 void convert_exkc_combo() {
     uint8_t combo_count = 0;
     for (int idx = 0; idx < bmp_ex_keycode_num; idx++) {
+        if (combo_count >= COMBO_COUNT) {
+            break;
+        }
+
         if (get_exkc_type(&bmp_ex_keycodes[idx]) != CMB) {
             continue;
         }
@@ -576,10 +585,6 @@ void convert_exkc_combo() {
         key_combos[combo_count].keycode = cmb_get_kc3(&bmp_ex_keycodes[idx]);
 
         combo_count++;
-
-        if (combo_count >= COMBO_COUNT) {
-            break;
-        }
     }
 
     COMBO_LEN = combo_count;

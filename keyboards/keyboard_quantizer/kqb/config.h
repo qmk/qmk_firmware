@@ -10,6 +10,7 @@
 #define BMP_FORCE_SAFE_MODE false
 #define DISABLE_MSC 1
 
+#define COMBO_COUNT 32
 
 /* key matrix size */
 #define MATRIX_ROWS_DEFAULT 24

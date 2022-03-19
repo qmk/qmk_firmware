@@ -6,4 +6,5 @@ MCU_LDSCRIPT = nrf52840_kqb
 MCU = cortex-m4
 
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+COMBO_ENABLE = yes
 
