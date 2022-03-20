@@ -147,7 +147,7 @@ enum custom_keycodes {
 #define VS_BUILD LCTL(LSFT(KC_B))
 #define VS_COMMANDS MEH(KC_F4)
 #define VS_CMT_BLOCK LSFT(LALT(KC_A))
-#define VS_CMT_LINE LCTL(KC_SLSH)
+#define VS_CMT_LINE MEH(KC_F18)
 #define VS_DEL_LINE LCTL(LSFT(KC_K))
 #define VS_COPYLINEDOWN LSFT(LALT(KC_DOWN))
 // visual studio bookmark commands
@@ -168,6 +168,7 @@ enum custom_keycodes {
 #define VS_TERMINAL_DETACH MEH(KC_F15)
 #define VS_TERMINAL_RENAME MEH(KC_F16)
 #define VS_JUMPY MEH(KC_F17)
+#define VS_FIND MEH(KC_F19)
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -410,7 +411,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,      KC_TRNS,          KC_TRNS,       KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
        VS_CMT_LINE,  VS_COPYLINEDOWN,  VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
                      VS_CLOSETAB,      VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
-       VS_CMT_BLOCK, KC_TRNS,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
+       VS_CMT_BLOCK, VS_FIND,          VS_BM_PREV,    VS_BM_NEXT,       VS_GROUP_1,          VS_GROUP_2,      VS_BM_TOGGLE,
                                        // bottom row
                                        VS_COMMANDS,   VS_BM_LIST,       VS_BM_LISTALL,       VS_CLOSEPANEL,   VS_BM_CLEARALL,
        // thumb cluster
