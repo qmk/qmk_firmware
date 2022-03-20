@@ -25,16 +25,18 @@
 #endif
 
 sequencer_config_t sequencer_config = {
-    false,     // enabled
-    {false},   // steps
-    {0},       // track notes
-    60,        // tempo
-    SQ_RES_4,  // resolution
+    false,    // enabled
+    {false},  // steps
+    {0},      // track notes
+    60,       // tempo
+    SQ_RES_4, // resolution
 };
 
 sequencer_state_t sequencer_internal_state = {0, 0, 0, 0, SEQUENCER_PHASE_ATTACK};
 
-bool is_sequencer_on(void) { return sequencer_config.enabled; }
+bool is_sequencer_on(void) {
+    return sequencer_config.enabled;
+}
 
 void sequencer_on(void) {
     dprintln("sequencer on");
@@ -65,7 +67,9 @@ void sequencer_set_track_notes(const uint16_t track_notes[SEQUENCER_TRACKS]) {
     }
 }
 
-bool is_sequencer_track_active(uint8_t track) { return (sequencer_internal_state.active_tracks >> track) & true; }
+bool is_sequencer_track_active(uint8_t track) {
+    return (sequencer_internal_state.active_tracks >> track) & true;
+}
 
 void sequencer_set_track_activation(uint8_t track, bool value) {
     if (value) {
@@ -76,7 +80,9 @@ void sequencer_set_track_activation(uint8_t track, bool value) {
     dprintf("sequencer: track %d is %s\n", track, value ? "active" : "inactive");
 }
 
-void sequencer_toggle_track_activation(uint8_t track) { sequencer_set_track_activation(track, !is_sequencer_track_active(track)); }
+void sequencer_toggle_track_activation(uint8_t track) {
+    sequencer_set_track_activation(track, !is_sequencer_track_active(track));
+}
 
 void sequencer_toggle_single_active_track(uint8_t track) {
     if (is_sequencer_track_active(track)) {
@@ -86,9 +92,13 @@ void sequencer_toggle_single_active_track(uint8_t track) {
     }
 }
 
-bool is_sequencer_step_on(uint8_t step) { return step < SEQUENCER_STEPS && (sequencer_config.steps[step] & sequencer_internal_state.active_tracks) > 0; }
+bool is_sequencer_step_on(uint8_t step) {
+    return step < SEQUENCER_STEPS && (sequencer_config.steps[step] & sequencer_internal_state.active_tracks) > 0;
+}
 
-bool is_sequencer_step_on_for_track(uint8_t step, uint8_t track) { return step < SEQUENCER_STEPS && (sequencer_config.steps[step] >> track) & true; }
+bool is_sequencer_step_on_for_track(uint8_t step, uint8_t track) {
+    return step < SEQUENCER_STEPS && (sequencer_config.steps[step] >> track) & true;
+}
 
 void sequencer_set_step(uint8_t step, bool value) {
     if (step < SEQUENCER_STEPS) {
@@ -122,7 +132,9 @@ void sequencer_set_all_steps(bool value) {
     dprintf("sequencer: all steps are %s\n", value ? "on" : "off");
 }
 
-uint8_t sequencer_get_tempo(void) { return sequencer_config.tempo; }
+uint8_t sequencer_get_tempo(void) {
+    return sequencer_config.tempo;
+}
 
 void sequencer_set_tempo(uint8_t tempo) {
     if (tempo > 0) {
@@ -142,9 +154,13 @@ void sequencer_increase_tempo(void) {
     }
 }
 
-void sequencer_decrease_tempo(void) { sequencer_set_tempo(sequencer_config.tempo - 1); }
+void sequencer_decrease_tempo(void) {
+    sequencer_set_tempo(sequencer_config.tempo - 1);
+}
 
-sequencer_resolution_t sequencer_get_resolution(void) { return sequencer_config.resolution; }
+sequencer_resolution_t sequencer_get_resolution(void) {
+    return sequencer_config.resolution;
+}
 
 void sequencer_set_resolution(sequencer_resolution_t resolution) {
     if (resolution >= 0 && resolution < SEQUENCER_RESOLUTIONS) {
@@ -155,11 +171,17 @@ void sequencer_set_resolution(sequencer_resolution_t resolution) {
     }
 }
 
-void sequencer_increase_resolution(void) { sequencer_set_resolution(sequencer_config.resolution + 1); }
+void sequencer_increase_resolution(void) {
+    sequencer_set_resolution(sequencer_config.resolution + 1);
+}
 
-void sequencer_decrease_resolution(void) { sequencer_set_resolution(sequencer_config.resolution - 1); }
+void sequencer_decrease_resolution(void) {
+    sequencer_set_resolution(sequencer_config.resolution - 1);
+}
 
-uint8_t sequencer_get_current_step(void) { return sequencer_internal_state.current_step; }
+uint8_t sequencer_get_current_step(void) {
+    return sequencer_internal_state.current_step;
+}
 
 void sequencer_phase_attack(void) {
     dprintf("sequencer: step %d\n", sequencer_internal_state.current_step);
@@ -229,9 +251,13 @@ void sequencer_task(void) {
     }
 }
 
-uint16_t sequencer_get_beat_duration(void) { return get_beat_duration(sequencer_config.tempo); }
+uint16_t sequencer_get_beat_duration(void) {
+    return get_beat_duration(sequencer_config.tempo);
+}
 
-uint16_t sequencer_get_step_duration(void) { return get_step_duration(sequencer_config.tempo, sequencer_config.resolution); }
+uint16_t sequencer_get_step_duration(void) {
+    return get_step_duration(sequencer_config.tempo, sequencer_config.resolution);
+}
 
 uint16_t get_beat_duration(uint8_t tempo) {
     // Don’t crash in the unlikely case where the given tempo is 0
