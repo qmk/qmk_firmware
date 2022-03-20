@@ -3,9 +3,9 @@
 ## Compile
 
 ```shell
-make kyria:muppetjones:avrdude-split-left
+make splitkb/kyria/rev1:muppetjones:avrdude-split-left
 ```
 
 ```shell
-make kyria:muppetjones:avrdude-split-right
+make splitkb/kyria/rev1:muppetjones:avrdude-split-right
 ```
