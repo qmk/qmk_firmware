@@ -252,7 +252,7 @@ bool encoder_update_standard(uint8_t index, bool clockwise) {
 
 #ifdef RGBLIGHT_ENABLE
 void set_layer_hsv(layer_state_t state, HSV* layer_color) {
-    int32_t h = layer_color->h, s = layer_color->s, v = layer_color->v;
+    uint16_t h = layer_color->h, s = layer_color->s, v = layer_color->v;
     switch (get_highest_layer(state)) {
         case _RAISE:
             h += 3 * RGBLIGHT_HUE_STEP;
