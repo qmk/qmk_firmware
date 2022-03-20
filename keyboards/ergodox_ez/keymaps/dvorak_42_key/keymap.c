@@ -161,6 +161,12 @@ enum custom_keycodes {
 #define VS_FOCUS_EDITOR MEH(KC_F8)
 #define VS_FOCUS_TERMINAL MEH(KC_F9)
 #define VS_TOGGLE_TERMINAL MEH(KC_F10)
+#define VS_CLEAR_TERMINAL MEH(KC_F11)
+#define VS_TERMINAL_PREV MEH(KC_F12)
+#define VS_TERMINAL_NEXT MEH(KC_F13)
+#define VS_TERMINAL_NEW MEH(KC_F14)
+#define VS_TERMINAL_DETACH MEH(KC_F15)
+#define VS_TERMINAL_RENAME MEH(KC_F16)
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -426,10 +432,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS,
-                VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR, KC_TRNS, KC_TRNS, VS_BACK,
-       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS,         KC_TRNS,            KC_TRNS,
+       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS,         KC_TRNS,            KC_TRNS,
+                VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,   KC_TRNS,         KC_TRNS,            VS_BACK,
+       KC_TRNS, VS_CLEAR_TERMINAL,   VS_TERMINAL_PREV,  VS_TERMINAL_NEXT,  VS_TERMINAL_NEW, VS_TERMINAL_DETACH, VS_TERMINAL_RENAME,
                                        // bottom row
                                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        // thumb cluster
