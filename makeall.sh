@@ -1,4 +1,5 @@
 make -j mechlovin/adelais/standard_led/arm/rev4/apm32f103:chrisgve
+make -j mechlovin/adelais/standard_led/arm/rev4/stm32f303:chrisgve_hhkb
 make -j mechlovin/adelais/standard_led/arm/rev4/apm32f103:chrisgve_hhkb
 make -j kbdfans/odin/soldered:chrisgve
 make -j preonic/rev3:chrisgve_2x2u
