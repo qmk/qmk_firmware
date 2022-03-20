@@ -1,10 +1,10 @@
-# pegasus
+# Pegasus
 
-![pegasus](imgur.com image replace me!)
+![pegasus](https://i.imgur.com/6MKJN7w.jpg)
 
-A short description of the keyboard/project
+Pegasus is a 40% keyboard with a 12.75u "WKL" layout with 0.75u blockers. 
 
-* Keyboard Maintainer: [melonbred](https://github.com/yourusername)
+* Keyboard Maintainer: [melonbred](https://github.com/melonbred)
 * Hardware Supported: The PCBs, controllers supported
 * Hardware Availability: Links to where you can find this hardware
 
