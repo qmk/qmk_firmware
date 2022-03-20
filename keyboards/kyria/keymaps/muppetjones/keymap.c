@@ -58,10 +58,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
 [_CLMK_DH] = LAYOUT_wrapper(
-    CAPSWRD, __COLEMAK_MOD_DH_L1________________________,                                     __COLEMAK_MOD_DH_R1________________________, KC_BSLS,
+    CAPSWRD, __COLEMAK_MOD_DH_L1________________________,                                     __COLEMAK_MOD_DH_R1_W_QUOT_________________, KC_BSLS,
     HY_ESC,  __COLEMAK_MOD_DH_L2_W_GACS_________________,                                     __COLEMAK_MOD_DH_R2_W_SCAG_________________, KC_QUOT,
     TD_LAYR, __COLEMAK_MOD_DH_L3________________________, KC_LSFT, KC_LEAD, KC_DEL,  KC_TAB,  __COLEMAK_MOD_DH_R3________________________, KC_SFTENT,
-                               KC_MUTE, KC_DEL,  HY_ESC,  LOW_SPC, RAI_ENT, KC_BSPC, NAV_SPC, HY_ESC,  RAI_TAB, KC_RALT
+                               KC_MUTE, KC_DEL,  HY_ESC,  LOW_BSP, RAI_ENT, KC_BSPC, NAV_SPC, HY_ESC,  RAI_TAB, KC_RALT
 ),
 [_QWERTY] = LAYOUT_wrapper(
     _______, __QWERTY_L1________________________________,                                     __QWERTY_R1________________________________, _______,
@@ -91,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_LOWER] = LAYOUT_wrapper(
       _______, __SYMBOLS_L1_______________________________,                                     __NUMPAD_R1________________________________, _______,
-      _______, __SYMBOLS_L2_______________________________,                                     __NUMPAD_R2________________________________, KC_PLUS,
-      _______, __SYMBOLS_L3_______________________________, _______, _______, _______, _______, __NUMPAD_R3________________________________, _______,
-                                 __BLANK____________________________________, _______, _______, KC_0,    KC_DOT,  _______
+      _______, __SYMBOLS_L2_______________________________,                                     __NUMPAD_R2________________________________, KC_COMM,
+      _______, __SYMBOLS_L3_______________________________, _______, _______, _______, _______, __NUMPAD_R3________________________________, KC_DOT,
+                                 __BLANK____________________________________, _______, KC_SPC,  KC_0,    KC_DOT,  _______
     ),
 /*
  * Raise Layer: Symbols
@@ -116,9 +116,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                              _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     // ),
     [_RAISE] = LAYOUT_wrapper(
-      _______, XXXXXXX, XXXXXXX, KC_GRV,  KC_GRV,  KC_BSLS,                                     XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, KC_ASTR, _______,
-      _______, XXXXXXX, XXXXXXX, KC_UNDS, KC_MINS, KC_TILD,                                     KC_UNDS, KC_MINS, KC_LBRC, KC_RBRC, KC_PERC, _______,
-      _______, XXXXXXX, XXXXXXX, KC_PLUS, KC_EQL,  KC_GRV,  _______, _______, _______, _______, KC_PLUS, KC_EQL,  KC_LCBR, KC_RCBR, XXXXXXX, _______,
+      _______, XXXXXXX, XXXXXXX, KC_GRV,  KC_GRV,  KC_BSLS,                                     __SYMBOLS_R1_______________________________, _______,
+      _______, XXXXXXX, XXXXXXX, KC_UNDS, KC_MINS, KC_TILD,                                     __SYMBOLS_R2_______________________________, _______,
+      _______, XXXXXXX, XXXXXXX, KC_PLUS, KC_EQL,  KC_GRV,  _______, _______, _______, _______, __SYMBOLS_R3_______________________________, _______,
                                  __BLANK____________________________________, __BLANK____________________________________
     ),
 /*
@@ -136,16 +136,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NAV] = LAYOUT_wrapper(
-      _______, __SYMBOLS_L1_______________________________,                                     __NAV_R1___________________________________, KC_SLCK,
-      _______, __SYMBOLS_L2_______________________________,                                     __NAV_R2___________________________________, KC_CAPS,
-      _______, __SYMBOLS_L3_______________________________, _______, _______, _______, _______, __NAV_R3___________________________________, _______,
+      _______, __VIM_L1___________________________________,                                     __NAV_R1___________________________________, KC_SLCK,
+      _______, __BLANK_W_GACS_____________________________,                                     __NAV_R2___________________________________, KC_CAPS,
+      _______, __BLANK____________________________________, _______, _______, _______, _______, __NAV_R3___________________________________, _______,
                                  __BLANK____________________________________, __BLANK____________________________________
     ),
     /*
      * Adjust Layer: Function keys, RGB
      *
      * ,-------------------------------------------.                              ,-------------------------------------------.
-     * | RESET  |      |      |      |      |      |                              |      | F1   |  F2  | F3   | F4   |        |
+     * | RESET  |RESET |DEBUG |      |      |      |                              |      | F1   |  F2  | F3   | F4   |        |
      * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
      * |        | TOG  | SAI  | HUI  | VAI  | MOD  |                              |      | F5   |  F6  | F7   | F8   |        |
      * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
@@ -156,9 +156,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                        `----------------------------------'  `----------------------------------'
      */
     [_ADJUST] = LAYOUT_wrapper(
-        RESET,   _______, _______, _______, _______, _______,                                     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,
-        _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,
-        _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______, _______, _______, _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
+        RESET,   __ADJUST_L1________________________________,                                     __MEDIA_R1_________________________________, _______,
+        _______, __ADJUST_L2________________________________,                                     __MEDIA_R2_________________________________, _______,
+        _______, __ADJUST_L3________________________________, _______, _______, _______, _______, __MEDIA_R3_________________________________, _______,
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     )
     // /*
@@ -255,16 +255,16 @@ void set_layer_hsv(layer_state_t state, HSV* layer_color) {
     int32_t h = layer_color->h, s = layer_color->s, v = layer_color->v;
     switch (get_highest_layer(state)) {
         case _RAISE:
-            h += 2 * RGBLIGHT_HUE_STEP;
+            h += 3 * RGBLIGHT_HUE_STEP;
             break;
         case _LOWER:
-            h += -2 * RGBLIGHT_HUE_STEP;
+            h += -3 * RGBLIGHT_HUE_STEP;
             break;
         case _NAV:
-            h += 1 * RGBLIGHT_HUE_STEP;
+            h += 2 * RGBLIGHT_HUE_STEP;
             break;
         case _MOUSE:
-            h += -7 * RGBLIGHT_HUE_STEP;
+            h += -8 * RGBLIGHT_HUE_STEP;
             break;
         default:
             break;
