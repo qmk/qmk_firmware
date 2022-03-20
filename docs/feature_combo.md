@@ -328,6 +328,36 @@ If you, for example, use multiple base layers for different key layouts, one for
 
 With `#define COMBO_ONLY_FROM_LAYER _LAYER_A` the combos' keys are always checked from layer `_LAYER_A` even though the active layer would be `_LAYER_B`.
 
+### Combo reference layers by layer.
+
+If not using `COMBO_ONLY_FROM_LAYER` it is possible to specify a
+combo reference layer for any layer using the `combo_ref_from_layer` hook. 
+This function receives the default reference layer if set, or the current
+layer otherwise. A default layer can be set with
+`#define COMBO_REF_DEFAULT _MY_COMBO_REF_LAYER`
+
+If not set, the default selection will be the current layer.
+
+The following `combo_ref_from_layer` function 
+will give a reference layer of _QWERTY for the _DVORAK layer and
+will give the _NAV layer as a reference to it's self. All other layers
+will have the default for their combo reference layer. If the default
+is not set, all other layers will reference themselves.
+
+    ```c
+    #define COMBO_REF_DEFAULT _MY_COMBO_REF_LAYER
+    ...
+
+    uint16_t combo_ref_from_layer(uint16_t layer){
+    switch (biton32(layer_state)){
+      case _dvorak: return _qwerty;
+      case _nav: return _nav;
+      default: return layer;
+      }
+    }
+
+    ```
+
 ## User callbacks
 
 In addition to the keycodes, there are a few functions that you can use to set the status, or check it:
@@ -350,6 +380,11 @@ First, you need to add `VPATH += keyboards/gboards` to your `rules.mk`. Next, in
 Then, write your combos in `combos.def` file in the following manner:
 
 ```c
+// Alternate reference layers by layer
+//               Layer     Reference layer
+COMBO_REF_LAYER(_DVORAK, _QWERTY)  // reference the qwerty layer for dvorak.
+COMBO_REF_LAYER(_NAV, _NAV) // explicit reference to self instead of the default.
+
 //   name     result    chord keys
 COMB(AB_ESC,   KC_ESC,   KC_A, KC_B)
 COMB(JK_TAB,   KC_TAB,   KC_J, KC_K)

@@ -1,4 +1,7 @@
 // Keymap helpers
+// define reference layers per layer.
+#define REF_LAYER(LAYER, REF_LAYER)             \
+  case LAYER: return REF_LAYER;
 
 #define K_ENUM(name, key, ...) name,
 #define K_DATA(name, key, ...) const uint16_t PROGMEM cmb_##name[] = {__VA_ARGS__, COMBO_END};
@@ -66,10 +69,30 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     }
 
     // Allow user overrides per keymap
-#if __has_include("inject.h") 
+#if __has_include("inject.h")
 # include "inject.h"
 #endif
 }
 #undef COMB
 #undef SUBS
 #undef TOGG
+
+// Allow reference layers per layer.
+#define COMB BLANK
+#define SUBS BLANK
+#define TOGG BLANK
+
+#undef COMBO_REF_LAYER
+#define COMBO_REF_LAYER REF_LAYER
+
+uint16_t combo_ref_from_layer(uint16_t layer){
+  switch (biton32(layer_state)){
+#include "combos.def"
+
+#ifdef COMBO_REF_DEFAULT
+  default: return COMBO_REF_DEFAULT;
+#else
+  default: return layer;
+#endif
+  }
+}
