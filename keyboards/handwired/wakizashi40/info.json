@@ -24,9 +24,9 @@
     "rows": ["D3", "D2", "D1", "D0"]
   },
   "usb": {
-    "device_ver": "0x0001",
+    "vid": "0x6662",
     "pid": "0x7740",
-    "vid": "0x6662"
+    "device_version": "0.0.1"
   },
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"

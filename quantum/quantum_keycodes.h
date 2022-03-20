@@ -595,6 +595,8 @@ enum quantum_keycodes {
 
     MAGIC_TOGGLE_CONTROL_CAPSLOCK,
 
+    QK_MAKE,
+
     // Caps Word
     CAPS_WORD,
 
