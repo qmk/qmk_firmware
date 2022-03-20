@@ -16,7 +16,5 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-UNICODE_ENABLE = yes        # Unicode
-IOS_DEVICE_ENABLE = no      # connect to IOS Device
 
 LAYOUTS = ortho_4x10
