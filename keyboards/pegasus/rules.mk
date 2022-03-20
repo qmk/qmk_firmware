@@ -1,6 +1,9 @@
 # MCU name
 MCU = atmega32u4
 
+# Bootloader selection
+BOOTLOADER = atmel-dfu
+
 # Build Options
 #   comment out to disable the options.
 #
@@ -17,7 +20,3 @@ BACKLIGHT_ENABLE = no
 RGBLIGHT_ENABLE = no
 WS2812_DRIVER = no
 ENCODER_ENABLE = yes
-
-
-
-
