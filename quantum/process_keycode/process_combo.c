@@ -30,8 +30,8 @@ extern uint16_t COMBO_LEN;
 __attribute__((weak)) void process_combo_event(uint16_t combo_index, bool pressed) {}
 
 #ifndef COMBO_ONLY_FROM_LAYER
-__attribute__((weak)) uint16_t combo_ref_from_layer(uint16_t layer){
-  return layer;
+__attribute__((weak)) uint16_t combo_ref_from_layer(uint16_t layer) {
+    return layer;
 }
 #endif
 
@@ -533,8 +533,8 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
 
 bool process_combo(uint16_t keycode, keyrecord_t *record) {
     uint16_t layer;
-    bool is_combo_key          = false;
-    bool no_combo_keys_pressed = true;
+    bool     is_combo_key          = false;
+    bool     no_combo_keys_pressed = true;
 
     if (keycode == CMB_ON && record->event.pressed) {
         combo_enable();
@@ -556,12 +556,12 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     keycode = keymap_key_to_keycode(COMBO_ONLY_FROM_LAYER, record->event.key);
 #else
 
-#ifdef COMBO_REF_DEFAULT
+#    ifdef COMBO_REF_DEFAULT
     layer = combo_ref_from_layer(COMBO_REF_DEFAULT);
-#else
+#    else
     layer = combo_ref_from_layer(biton32(layer_state));
-#endif
-    if(layer != biton32(layer_state)){
+#    endif
+    if (layer != biton32(layer_state)) {
         keycode = keymap_key_to_keycode(layer, record->event.key);
     }
 #endif
