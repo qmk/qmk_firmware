@@ -16,7 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "muppetjones.h"
 #include "rgblight.h"
-#include <stdio.h>
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
