@@ -4,7 +4,7 @@
     "maintainer": "diepala",
     "bootloader": "stm32-dfu",
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
