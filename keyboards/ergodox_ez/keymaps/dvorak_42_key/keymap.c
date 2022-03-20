@@ -144,7 +144,7 @@ enum custom_keycodes {
 #define VS_GROUP_2 LCTL(KC_2)
 #define VS_TERMINAL LCTL(KC_GRAVE)
 #define VS_BUILD LCTL(LSFT(KC_B))
-#define VS_COMMANDS LCTL(LSFT(KC_P))
+#define VS_COMMANDS MEH(KC_F4)
 #define VS_CMT_BLOCK LSFT(LALT(KC_A))
 #define VS_CMT_LINE LCTL(KC_SLSH)
 #define VS_DEL_LINE LCTL(LSFT(KC_K))
