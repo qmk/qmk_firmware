@@ -72,7 +72,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, B_10,    A_10,    C_10},
     {0, B_11,    A_11,    C_11},
     {0, B_12,    A_12,    C_12}
-}
+};
 
 led_config_t g_led_config = { {
   { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
