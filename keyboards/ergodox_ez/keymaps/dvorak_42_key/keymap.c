@@ -157,6 +157,10 @@ enum custom_keycodes {
 #define VS_BM_NEXT LCTL(LALT(KC_N))
 #define VS_BM_TOGGLE LCTL(LALT(KC_K))
 #define VS_BM_CLEARALL LCTL(LALT(KC_C))
+// visual studio code navigation shortcuts
+#define VS_FOCUS_EDITOR MEH(KC_F8)
+#define VS_FOCUS_TERMINAL MEH(KC_F9)
+#define VS_TOGGLE_TERMINAL MEH(KC_F10)
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -422,12 +426,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, VS_BACK,
-       KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS,
+                VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR, KC_TRNS, KC_TRNS, VS_BACK,
+       KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS,
                                        // bottom row
-                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
