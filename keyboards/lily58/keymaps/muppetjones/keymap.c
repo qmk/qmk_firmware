@@ -206,7 +206,7 @@ const char *read_layer_state_user(void) {
     return layer_state_str;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         // If you want to change the display of OLED, you need to change here
         oled_write_ln(read_layer_state_user(), false);
@@ -215,7 +215,8 @@ void oled_task_user(void) {
     } else {
         render_bongo_cat();
         oled_set_cursor(0, 6);
-        oled_write(wpm_state(), false);
+        oled_write_P(WPM:  " false);
+        oled_write(get_u8_str(get_current_wpm(), ' '), false);
     }
 }
 #endif  // OLED_DRIVER_ENABLE

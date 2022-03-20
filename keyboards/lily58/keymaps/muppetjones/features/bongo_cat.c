@@ -9,7 +9,7 @@ Source:
 
 #include QMK_KEYBOARD_H
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 #    define IDLE_FRAMES 5
 #    define IDLE_SPEED 30  // below this wpm value your animation will idle
@@ -28,7 +28,6 @@ uint32_t anim_sleep         = 0;
 uint8_t  current_idle_frame = 0;
 // uint8_t current_prep_frame = 0; // uncomment if PREP_FRAMES >1
 uint8_t current_tap_frame = 0;
-char    wpm_str[12];
 
 /* Animation */
 
@@ -91,15 +90,6 @@ static const char PROGMEM ANIM_TAP[TAP_FRAMES][ANIM_SIZE] = {
 
 /* Functions */
 
-const char *wpm_state(void) {
-    uint8_t n = get_current_wpm();
-    // index:            01234567
-    char *wpm_counter = "WPM:    ";
-    wpm_counter[7]    = '0' + n % 10;
-    wpm_counter[6]    = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
-    wpm_counter[5]    = n / 10 ? '0' + n / 10 : ' ';
-    return wpm_counter;
-}
 
 void animation_phase(uint8_t wpm) {
     // NOTE: Optimized the conditional. We don't need to recheck each.

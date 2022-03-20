@@ -1,4 +1,4 @@
-OLED_DRIVER_ENABLE= yes     # OLED display
+OLED_ENABLE= yes     # OLED display
 WPM_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
