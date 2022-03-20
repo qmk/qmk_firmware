@@ -557,12 +557,12 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #else
 
 #    ifdef COMBO_REF_DEFAULT
-    layer = combo_ref_from_layer(COMBO_REF_DEFAULT);
+    layer         = combo_ref_from_layer(COMBO_REF_DEFAULT);
 #    else
-    layer = combo_ref_from_layer(biton32(layer_state));
+    layer         = combo_ref_from_layer(biton32(layer_state));
 #    endif
     if (layer != biton32(layer_state)) {
-        keycode = keymap_key_to_keycode(layer, record->event.key);
+      keycode = keymap_key_to_keycode(layer, record->event.key);
     }
 #endif
 
