@@ -511,7 +511,7 @@ enum internal_special_keycodes {
     KC_MEDIA_FAST_FORWARD,
     KC_MEDIA_REWIND,
     KC_BRIGHTNESS_UP,
-    KC_BRIGHTNESS_DOWN
+    KC_BRIGHTNESS_DOWN,
 
 // ----------------------------------------
 // APPLE FN KEY
