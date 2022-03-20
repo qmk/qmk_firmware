@@ -20,7 +20,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_bepo.h"
 
-extern uint8_t is_master;
 
 enum layers {
     _BEPO,
