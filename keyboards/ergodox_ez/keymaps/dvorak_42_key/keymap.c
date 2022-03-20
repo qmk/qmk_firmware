@@ -79,9 +79,9 @@ enum custom_keycodes {
 
   SCREEN_READREG_1,
   SCREEN_READREG_2,
-  SCREEN_READREG_3, 
+  SCREEN_READREG_3,
   SCREEN_PASTEREG_1,
-  SCREEN_PASTEREG_2, 
+  SCREEN_PASTEREG_2,
   SCREEN_PASTEREG_3,
 
   // Windows 10 macros,
@@ -207,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MO(ANDROID_STUDIO),
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
       OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MO(VSCODE),
-      MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
+      MEH(KC_0),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
 
       // left thumb cluster
                 WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT,
@@ -215,14 +215,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MO(COMBINED),MO(KEYNAV),  OSM(MOD_LALT),
 
       // right hand
-      KC_F7,     KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, MEH(KC_9),
-      MEH(KC_7), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
+      KC_F7,     KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, MEH(KC_7),
+      MEH(KC_1), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
                  KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   RCTL(KC_BSPC),
-      MEH(KC_8), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   MEH(KC_F3),
-      KC_BSPC,   RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT),MEH(KC_F4),
+      MEH(KC_2), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   MEH(KC_8),
+      KC_BSPC,   RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT),MEH(KC_9),
 
       // right thumb cluster
-      MEH(KC_F5),MEH(KC_F6),MEH(KC_F7),MEH(KC_F8),KC_ENTER,KC_SPACE
+      MEH(KC_3), MEH(KC_4), MEH(KC_5), MEH(KC_6),KC_ENTER,KC_SPACE
 
   ),
 
@@ -659,7 +659,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
             SEND_STRING("paste 1\n");
-            break;        
+            break;
         case SCREEN_PASTEREG_2:
             tap_code16(C(KC_A));
             tap_code16(S(KC_SCOLON));
