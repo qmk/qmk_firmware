@@ -167,6 +167,7 @@ enum custom_keycodes {
 #define VS_TERMINAL_NEW MEH(KC_F14)
 #define VS_TERMINAL_DETACH MEH(KC_F15)
 #define VS_TERMINAL_RENAME MEH(KC_F16)
+#define VS_JUMPY MEH(KC_F17)
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -434,7 +435,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // right hand
        KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS,         KC_TRNS,            KC_TRNS,
        KC_TRNS, KC_TRNS,             KC_TRNS,           KC_TRNS,           KC_TRNS,         KC_TRNS,            KC_TRNS,
-                VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,   KC_TRNS,         KC_TRNS,            VS_BACK,
+                VS_TOGGLE_TERMINAL,  VS_FOCUS_TERMINAL, VS_FOCUS_EDITOR,   VS_JUMPY,        KC_TRNS,            VS_BACK,
        KC_TRNS, VS_CLEAR_TERMINAL,   VS_TERMINAL_PREV,  VS_TERMINAL_NEXT,  VS_TERMINAL_NEW, VS_TERMINAL_DETACH, VS_TERMINAL_RENAME,
                                        // bottom row
                                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
