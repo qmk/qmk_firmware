@@ -2,6 +2,7 @@ OLED_ENABLE= yes     # OLED display
 WPM_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
+EXTRAKEY_ENABLE = yes
 
 # If you want to change the display of OLED, you need to change here
 # SRC +=  ./lib/rgb_state_reader.c
