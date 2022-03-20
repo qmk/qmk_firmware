@@ -1,0 +1,15 @@
+// Layer/none, encoder index 0/1, CW_KC, CCW_KC, Qualifying mod or none
+// LAYER_NONE and MOD_NONE for a single use.
+// LEFT and RIGHT for index. - not sure about more than 2.
+
+// default encoders, all layers no mods.
+ENCODER_ACTION(LAYER_NONE, RIGHT,  KC_PGDN, KC_PGUP, MOD_NONE)
+ENCODER_ACTION(LAYER_NONE, LEFT,  KC_DOWN, KC_UP, MOD_NONE)
+ENCODER_ACTION(LAYER_NONE, LEFT,  KC_PGDN, KC_PGUP, MOD_LSFT)
+
+// Symbol layer encoders.
+ENCODER_ACTION(_SYMB, LEFT, KC_LEFT, KC_RIGHT, MOD_NONE)
+
+// Nav layer encoders.
+ENCODER_ACTION(_NAV, RIGHT, KC_TAB, S(KC_TAB), MOD_NONE)
+ENCODER_ACTION(_NAV, RIGHT, KC_VOLU, KC_VOLD, MOD_NONE)
