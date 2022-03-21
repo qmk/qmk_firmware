@@ -18,6 +18,7 @@
 #include "drashna.h"
 #ifdef UNICODE_COMMON_ENABLE
 #    include "process_unicode_common.h"
+#    include "keyrecords/unicode.h"
 #endif
 #    ifdef AUDIO_CLICKY
 #        include "process_clicky.h"

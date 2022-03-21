@@ -187,7 +187,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef OLED_ENABLE
-extern uint16_t typing_mode;
+#    include "keyrecords/unicode.h"
 
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
@@ -213,25 +213,25 @@ void oled_render_large_display(bool side) {
         oled_set_cursor(1, 14);
         oled_write_ln_P(PSTR("Unicode:"), false);
         switch (typing_mode) {
-            case KC_WIDE:
+            case UCTM_WIDE:
                 oled_write_P(PSTR("        Wide"), false);
                 break;
-            case KC_SCRIPT:
+            case UCTM_SCRIPT:
                 oled_write_P(PSTR("      Script"), false);
                 break;
-            case KC_BLOCKS:
+            case UCTM_BLOCKS:
                 oled_write_P(PSTR("      Blocks"), false);
                 break;
-            case KC_REGIONAL:
+            case UCTM_REGIONAL:
                 oled_write_P(PSTR("    Regional"), false);
                 break;
-            case KC_AUSSIE:
+            case UCTM_AUSSIE:
                 oled_write_P(PSTR("      Aussie"), false);
                 break;
-            case KC_ZALGO:
+            case UCTM_ZALGO:
                 oled_write_P(PSTR("       Zalgo"), false);
                 break;
-            case KC_NOMODE:
+            case UCTM_NO_MODE:
                 oled_write_P(PSTR("      Normal"), false);
                 break;
             default:
