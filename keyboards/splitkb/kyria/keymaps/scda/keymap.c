@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LETTERS] = LAYOUT(
         HYPA,    KC_X,        TD(DOT_COL),     KC_O,        TD(COM_SEM),     KC_Y,                                                KC_V,   KC_G,        KC_C,        KC_L,        KC_J,        KC_NO,
         KC_ESC,  CTL_T(KC_H), ALT_T(KC_A), GUI_T(KC_E), SFT_T(KC_I), KC_U,                                                KC_D,   SFT_T(KC_T), GUI_T(KC_R), ALT_T(KC_N), CTL_T(KC_S), KC_F,
-        G(KC_Z), KC_K,        KC_Q,        DE_AE,       DE_UE,       DE_OE,  KC_NO,    KC_NO,           KC_NO,   KC_NO,   KC_B,   KC_P,        KC_W,        KC_M,        KC_Z,        DE_SS,
+        G(KC_Z), KC_K,        KC_Q,        DE_AE,       DE_UE,       DE_OE,  KC_NO,    KC_NO,           KC_NO,   KC_NO,   KC_P,   KC_B,        KC_W,        KC_M,        KC_Z,        DE_SS,
                                             NUM,        SYM,         KC_TAB, KC_SPACE, KC_ENT,          KC_LSFT, KC_BSPC, KC_DEL, NUM,         SYM),
     [_HYPER] = LAYOUT(
         XOY,   HYPR(KC_X), HYPR(KC_DOT), HYPR(KC_O),  HYPR(KC_COMM), HYPR(KC_Y),                                      HYPR(KC_V), HYPR(KC_G), HYPR(KC_C), HYPR(KC_L), HYPR(KC_J), HYPR(KC_NO),
