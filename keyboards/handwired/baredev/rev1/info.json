@@ -44,7 +44,7 @@
     "usb": {
         "vid": "0x1209",
         "pid": "0x4126",
-        "device_ver": "0x0001",
+        "device_version": "0.0.1",
         "polling_interval": 1,
         "shared_endpoint": {
             "keyboard": true
