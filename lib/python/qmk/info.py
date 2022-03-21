@@ -278,7 +278,8 @@ def _extract_split_transport(info_data, config_c):
         if 'transport' not in info_data['split']:
             info_data['split']['transport'] = {}
 
-        info_data['split']['transport']['protocol'] = 'serial'
+        if 'protocol' not in info_data['split']['transport']:
+            info_data['split']['transport']['protocol'] = 'serial'
 
 
 def _extract_split_right_pins(info_data, config_c):
