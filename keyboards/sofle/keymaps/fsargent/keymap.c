@@ -51,10 +51,10 @@ MT(MOD_LGUI, KC_ESC),	_______,_______,	_______,	_______,	_______,							_______,
 	),
 	[GAME] = LAYOUT(
 		KC_GRV,		_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
-		KC_TAB,		_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
-		KC_ESC,		_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
+		KC_TAB,		_______,	_______,	_______,	_______,	_______,							_______,A(KC_LEFT),	KC_UP,		A(KC_RGHT),	_______,_______,
+		KC_ESC,		_______,	_______,	_______,	_______,	_______,							_______,KC_LEFT,	KC_DOWN,	KC_RGHT,	_______,_______,
 		KC_LSFT,	_______,	_______,	_______,	_______,	_______,	TO(SHFT),		_______,_______,_______,_______,_______,_______,_______,
-		KC_LCTL,	KC_LALT,	MO(WINNAV),	KC_LCTL,	KC_BSPC,								_______,_______,_______,_______,_______
+		MO(WINNAV),	KC_LALT,	MO(SYM),	KC_LCTL,	KC_SPC,								KC_BSPC,	LT(SYM, KC_ENT),_______,_______,_______
 	),
 	[SHFT] = LAYOUT(
 		KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,								KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		MT(MOD_LGUI,KC_MINS),
@@ -79,10 +79,10 @@ MT(MOD_LGUI, KC_ESC),	_______,_______,	_______,	_______,	_______,							_______,
 		_______,	_______,	_______,	_______,	_______,							KC_BTN1,KC_BTN2,	_______,	_______,	_______
 	),
 	[WINNAV]=LAYOUT(
-		C(KC_GRV),	TO(WIN),	TO(GAME),	TO(SHFT),	KC_NO,		KC_NO,								KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_LPRN,	KC_RPRN,
-		A(KC_TAB), 	S(KC_TAB),	C(KC_BSPC),	KC_UP,		C(KC_DEL),	KC_TAB,								KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_LBRC,	KC_RBRC,
-		KC_LGUI,	C(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	C(KC_RGHT),							KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_LCBR,	KC_RCBR,
-		KC_LSFT,	KC_HOME,	A(KC_LEFT),	KC_ENT,		A(KC_RGHT),	KC_END,	_______,			KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_LT,		KC_GT,
+		C(KC_GRV),	TO(WIN),	C(KC_UP),	KC_PGUP,	A(KC_UP),		KC_NO,								KC_NO,		KC_MPRV,	KC_MPLY,	KC_MNXT,	KC_LPRN,	KC_RPRN,
+		A(KC_TAB),	C(KC_BSPC),	C(KC_LEFT),	KC_UP,		C(KC_RGHT),	C(KC_DEL),							KC_WH_L,	KC_WH_U,	KC_MS_U,	KC_WH_R,	KC_LBRC,	KC_RBRC,
+		KC_LGUI,	KC_HOME,	KC_LEFT,	KC_DOWN,	KC_RGHT,	KC_END								KC_BTN3,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_LCBR,	KC_RCBR,
+		KC_LSFT,	KC_HOME,	C(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,	_______,			KC_NO,	KC_WH_D,	KC_WH_D,	KC_LCBR,	KC_RCBR,	KC_LT,		KC_GT,
 		_______,	_______,	_______,	_______,	_______,								KC_BTN1,KC_BTN2,	_______,	_______,	_______
 	)
 };
