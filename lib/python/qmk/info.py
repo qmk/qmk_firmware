@@ -8,10 +8,11 @@ from dotty_dict import dotty
 from milc import cli
 
 from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
-from qmk.c_parse import find_layouts
+from qmk.c_parse import find_layouts, parse_config_h_file
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
-from qmk.keymap import list_keymaps
+from qmk.keymap import list_keymaps, locate_keymap
+from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
 
@@ -68,8 +69,8 @@ def info_json(keyboard):
 
     # Merge in the data from info.json, config.h, and rules.mk
     info_data = merge_info_jsons(keyboard, info_data)
-    info_data = _extract_rules_mk(info_data)
-    info_data = _extract_config_h(info_data)
+    info_data = _extract_rules_mk(info_data, rules_mk(str(keyboard)))
+    info_data = _extract_config_h(info_data, config_h(str(keyboard)))
 
     # Ensure that we have matrix row and column counts
     info_data = _matrix_size(info_data)
@@ -400,11 +401,9 @@ def _extract_device_version(info_data):
             info_data['usb']['device_version'] = f'{major}.{minor}.{revision}'
 
 
-def _extract_config_h(info_data):
+def _extract_config_h(info_data, config_c):
     """Pull some keyboard information from existing config.h files
     """
-    config_c = config_h(info_data['keyboard_folder'])
-
     # Pull in data from the json map
     dotty_info = dotty(info_data)
     info_config_map = json_load(Path('data/mappings/info_config.json'))
@@ -472,10 +471,9 @@ def _extract_config_h(info_data):
     return info_data
 
 
-def _extract_rules_mk(info_data):
+def _extract_rules_mk(info_data, rules):
     """Pull some keyboard information from existing rules.mk files
     """
-    rules = rules_mk(info_data['keyboard_folder'])
     info_data['processor'] = rules.get('MCU', info_data.get('processor', 'atmega32u4'))
 
     if info_data['processor'] in CHIBIOS_PROCESSORS:
@@ -766,3 +764,36 @@ def find_info_json(keyboard):
 
     # Return a list of the info.json files that actually exist
     return [info_json for info_json in info_jsons if info_json.exists()]
+
+
+def keymap_json_config(keyboard, keymap):
+    """Extract keymap level config
+    """
+    keymap_folder = locate_keymap(keyboard, keymap).parent
+
+    km_info_json = parse_configurator_json(keymap_folder / 'keymap.json')
+    return km_info_json.get('config', {})
+
+
+def keymap_json(keyboard, keymap):
+    """Generate the info.json data for a specific keymap.
+    """
+    keymap_folder = locate_keymap(keyboard, keymap).parent
+
+    # Files to scan
+    keymap_config = keymap_folder / 'config.h'
+    keymap_rules = keymap_folder / 'rules.mk'
+    keymap_file = keymap_folder / 'keymap.json'
+
+    # Build the info.json file
+    kb_info_json = info_json(keyboard)
+
+    # Merge in the data from keymap.json
+    km_info_json = keymap_json_config(keyboard, keymap) if keymap_file.exists() else {}
+    deep_update(kb_info_json, km_info_json)
+
+    # Merge in the data from config.h, and rules.mk
+    _extract_rules_mk(kb_info_json, parse_rules_mk_file(keymap_rules))
+    _extract_config_h(kb_info_json, parse_config_h_file(keymap_config))
+
+    return kb_info_json
