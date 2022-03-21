@@ -161,7 +161,7 @@ def info(cli):
         print_parsed_rules_mk(cli.config.info.keyboard)
         return False
 
-    # default keymap stored in config file should be ignored 
+    # default keymap stored in config file should be ignored
     if cli.config_source.info.keymap == 'config_file':
         cli.config_source.info.keymap = None
 
