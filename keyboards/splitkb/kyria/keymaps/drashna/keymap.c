@@ -167,3 +167,12 @@ void matrix_scan_keymap(void) {
     rgblight_set_layer_state(3, mods & MOD_MASK_GUI);
 }
 #endif
+
+
+#ifdef KEYBOARD_splitkb_kyria_rev1_proton_c
+void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
+    for (int32_t i = 0; i < 40; i++) {
+        __asm__ volatile("nop" ::: "memory");
+    }
+}
+#endif
