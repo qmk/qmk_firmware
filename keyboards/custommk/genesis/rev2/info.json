@@ -2,8 +2,6 @@
     "keyboard_name": "Genesis Rev2", 
     "url": "https://www.customMK.com", 
     "maintainer": "customMK", 
-    "width": 4, 
-    "height": 6, 
     "layouts": {
         "LAYOUT_ortho_5x4": {
             "layout": [{"label":"MO(1)", "x":0, "y":0},

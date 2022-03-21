@@ -16,4 +16,4 @@
 
 #pragma once
 
-// place overrides here
+#define LAYER_STATE_8BIT

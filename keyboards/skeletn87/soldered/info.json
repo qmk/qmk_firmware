@@ -2,8 +2,6 @@
     "keyboard_name": "skeletn87", 
     "url": "", 
     "maintainer": "kb-elmo<mail@elmo.space>", 
-    "width": 18.25, 
-    "height": 6.25, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

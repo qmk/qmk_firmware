@@ -26,19 +26,19 @@
  * represents the switch matrix.
  */
 #define LAYOUT_numpad_6x4_southpaw( \
-				k00, k01, k02, k03, \
-				k10, k11, k12, k13, \
-					k21, k22, k23, \
-				k20, k31, k32, k33, \
-					k41, k42, k43, \
-				k40, k51,   k53  \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+         k21, k22, k23, \
+    k20, k31, k32, k33, \
+         k41, k42, k43, \
+    k40, k51,   k53     \
 ) \
 { \
-	{ k00,   k01, k02,   k03 },     \
-	{ k10,   k11, k12,   k13 },     \
-	{ k20,   k21, k22,   k23 },     \
-	{ KC_NO, k31, k32,   k33 },     \
-	{ k40,   k41, k42,   k43 },     \
-	{ KC_NO, k51, KC_NO, k53 }      \
+    { k00,   k01, k02,   k03 }, \
+    { k10,   k11, k12,   k13 }, \
+    { k20,   k21, k22,   k23 }, \
+    { KC_NO, k31, k32,   k33 }, \
+    { k40,   k41, k42,   k43 }, \
+    { KC_NO, k51, KC_NO, k53 }  \
 }
 

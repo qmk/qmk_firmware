@@ -1,10 +1,7 @@
 {
     "keyboard_name": "dumbpad/v0x_right",
-    "keyboard_folder": "dumbpad/v0x_right",
     "url": "https://www.github.com/imchipwood/dumbpad",
     "maintainer": "imchipwood",
-    "width": 5,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

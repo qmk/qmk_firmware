@@ -13,6 +13,7 @@
   * [Troubleshooting QMK](faq_misc.md)
   * [Debugging QMK](faq_debug.md)
   * [Keymap FAQ](faq_keymap.md)
+  * [Squeezing Space from AVR](squeezing_avr.md)
   * [Glossary](reference_glossary.md)
 
 * Configurator
@@ -51,9 +52,6 @@
       * [Your Fork](newbs_git_using_your_master_branch.md)
       * [Merge Conflicts](newbs_git_resolving_merge_conflicts.md)
       * [Fixing Your Branch](newbs_git_resynchronize_a_branch.md)
-    * Keyboard Building
-      * [Hand Wiring Guide](hand_wire.md)
-      * [ISP Flashing Guide](isp_flashing_guide.md)
 
   * Simple Keycodes
     * [Full List](keycodes.md)
@@ -61,6 +59,7 @@
     * [Language-Specific Keycodes](reference_keymap_extras.md)
     * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
+    * [Magic Keycodes](keycodes_magic.md)
 
   * Advanced Keycodes
     * [Command](feature_command.md)
@@ -70,6 +69,7 @@
     * [Mod-Tap](mod_tap.md)
     * [Macros](feature_macros.md)
     * [Mouse Keys](feature_mouse_keys.md)
+    * [Programmable Button](feature_programmable_button.md)
     * [Space Cadet Shift](feature_space_cadet.md)
     * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
@@ -78,6 +78,7 @@
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
     * [Key Lock](feature_key_lock.md)
+    * [Key Overrides](feature_key_overrides.md)
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
@@ -94,6 +95,7 @@
   * Hardware Features
     * Displays
       * [HD44780 LCD Controller](feature_hd44780.md)
+      * [ST7565 LCD Driver](feature_st7565.md)
       * [OLED Driver](feature_oled_driver.md)
     * Lighting
       * [Backlight](feature_backlight.md)
@@ -102,8 +104,9 @@
       * [RGB Matrix](feature_rgb_matrix.md)
     * [Audio](feature_audio.md)
     * [Bluetooth](feature_bluetooth.md)
-    * [Bootmagic](feature_bootmagic.md)
+    * [Bootmagic Lite](feature_bootmagic.md)
     * [Custom Matrix](custom_matrix.md)
+    * [Digitizer](feature_digitizer.md)
     * [DIP Switch](feature_dip_switch.md)
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)
@@ -117,17 +120,22 @@
     * [Thermal Printer](feature_thermal_printer.md)
     * [Velocikey](feature_velocikey.md)
 
+  * Keyboard Building
+    * [Easy Maker for One Offs](easy_maker.md)
+    * [Porting Keyboards](porting_your_keyboard_to_qmk.md)
+    * [Hand Wiring Guide](hand_wire.md)
+    * [ISP Flashing Guide](isp_flashing_guide.md)
+
 * Developing QMK
   * [PR Checklist](pr_checklist.md)
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20210529.md "QMK v0.13.0 - 2021 May 29")
+    * [Most Recent ChangeLog](ChangeLog/20220226.md "QMK v0.16.0 - 2022 Feb 26")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development
     * [ARM Debugging Guide](arm_debugging.md)
-    * [AVR Processors](hardware_avr.md)
     * [Coding Conventions](coding_conventions_c.md)
     * [Compatible Microcontrollers](compatible_microcontrollers.md)
     * [Drivers](hardware_drivers.md)

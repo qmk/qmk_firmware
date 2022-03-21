@@ -92,7 +92,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 /* oled stuff :) */
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 uint16_t startup_timer = 0;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -175,7 +175,7 @@ static void render_layer(void) {
     oled_write_P(logo[3][2], false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     static bool finished_timer = false;
     if (!finished_timer && (timer_elapsed(startup_timer) < 3000)) {
         render_logo();
@@ -186,6 +186,7 @@ void oled_task_user(void) {
         }
         render_layer();
     }
+    return false;
 }
 #endif
 

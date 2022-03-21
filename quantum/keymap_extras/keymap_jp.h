@@ -137,12 +137,3 @@
 #define JP_RABK S(JP_DOT)  // >
 #define JP_QUES S(JP_SLSH) // ?
 #define JP_UNDS S(JP_BSLS) // _
-
-// DEPRECATED
-#define JP_ZHTG JP_ZKHK
-#define JP_DQT  JP_DQUO
-#define JP_LT   JP_LABK
-#define JP_GT   JP_RABK
-
-#define JP_MEISU KC_LANG2 // Eisū (英数) on macOS
-#define JP_MKANA KC_LANG1 // Kana (かな) on macOS

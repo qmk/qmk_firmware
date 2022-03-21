@@ -1,6 +1,6 @@
 # LED Indicators
 
-?>  Currently, this feature is not supported for split keyboards
+?> LED indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LED_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
 
 QMK provides methods to read 5 of the LEDs defined in the HID spec:
 

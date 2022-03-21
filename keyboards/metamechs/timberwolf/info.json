@@ -2,8 +2,6 @@
     "keyboard_name": "Timber Wolf",
     "url": "https://geekhack.org/index.php?topic=102520.0",
     "maintainer": "Croktopus",
-    "width": 18.75,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

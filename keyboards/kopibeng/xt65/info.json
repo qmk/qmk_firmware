@@ -2,8 +2,6 @@
     "keyboard_name": "kopibeng XT65",
     "url": "",
     "maintainer": "kopibeng",
-    "width": 16,
-    "height": 5,
     "layout_aliases": {
         "LAYOUT_65_7u_split_bs": "LAYOUT_65_ansi_blocker_tsangan_split_bs",
         "LAYOUT_all": "LAYOUT_65_ansi_blocker_split_bs",

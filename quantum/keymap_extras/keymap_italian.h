@@ -163,22 +163,3 @@
 // Row 2
 #define IT_LCBR S(ALGR(IT_EGRV)) // {
 #define IT_RCBR S(ALGR(IT_PLUS)) // }
-
-// DEPRECATED
-#define IT_BKSL IT_BSLS
-#define IT_APOS IT_QUOT
-#define IT_IACC IT_IGRV
-#define IT_EACC IT_EGRV
-#define IT_OACC IT_OGRV
-#define IT_AACC IT_AGRV
-#define IT_UACC IT_UGRV
-#define IT_LESS IT_LABK
-#define IT_DQOT IT_DQUO
-#define IT_STRL IT_PND
-#define IT_QST  IT_QUES
-#define IT_CRC  IT_CIRC
-#define IT_MORE IT_RABK
-#define IT_SHRP IT_HASH
-
-#define IT_X_PLUS X_RBRACKET
-#define IT_ACUT

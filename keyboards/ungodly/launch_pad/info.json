@@ -2,8 +2,6 @@
   "keyboard_name": "Launch Pad",
   "url": "https://ungodly.design/products/launch-pad",
   "maintainer": "Ungodly Design",
-  "width": 4,
-  "height": 5,
   "layouts": {
     "LAYOUT_ortho_5x4": {
         "layout": [

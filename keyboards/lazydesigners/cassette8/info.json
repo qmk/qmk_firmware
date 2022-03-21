@@ -2,8 +2,6 @@
     "keyboard_name": "Cassette8",
     "url": "http://lazydesigners.cn",
     "maintainer": "Jacky@LAZYDESIGNERS",
-    "width": 4,
-    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

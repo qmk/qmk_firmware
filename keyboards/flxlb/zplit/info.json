@@ -2,8 +2,6 @@
     "keyboard_name": "zplit",
     "url": "https://github.com/cccywj/qmk_firmware",
     "maintainer": "flxlb",
-    "width": 13,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -2,8 +2,6 @@
     "keyboard_name": "cKeys Handwire 101",
     "url": "https://ckeys.org/slides/handwire/",
     "maintainer": "brandenbyers",
-    "width": 4,
-    "height": 4,
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x4"
     },

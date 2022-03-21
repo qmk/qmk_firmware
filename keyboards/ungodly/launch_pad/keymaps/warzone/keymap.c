@@ -126,7 +126,7 @@ void matrix_scan_user(void) {
 }
 
 // 0.91" OLED, 128x32 resolution
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }
@@ -249,7 +249,7 @@ static void render_light_logo(void) {
   oled_write_raw_P(light_logo, sizeof(light_logo));
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   switch (get_highest_layer(layer_state)) {
     case 0:
       render_rocket_logo();
@@ -265,5 +265,6 @@ void oled_task_user(void) {
       oled_write_ln_P(PSTR(" UND"), false);
       break;
     }
+    return false;
 }
 #endif

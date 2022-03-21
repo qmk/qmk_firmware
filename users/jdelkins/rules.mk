@@ -12,4 +12,4 @@ users/jdelkins/secrets.h: users/jdelkins/secrets.h.gpg
 	gpg -d $< >$@
 endif
 
-BOOTMAGIC_ENABLE = no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite

@@ -2,8 +2,6 @@
     "keyboard_name": "Vaneela",
     "url": "http://www.keyboard-layout-editor.com/#/gists/be89ff3a761a44280296994d459bd0a9",
     "maintainer": "qmk",
-    "width": 12.5,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

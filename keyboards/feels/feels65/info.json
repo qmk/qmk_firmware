@@ -2,8 +2,6 @@
     "keyboard_name": "Feels65",
     "url": "https://github.com/swiftrax",
     "maintainer": "Swiftrax",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

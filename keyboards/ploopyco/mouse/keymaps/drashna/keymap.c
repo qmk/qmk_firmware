@@ -29,6 +29,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void eeconkfig_init_user(void) {
     rgblight_enable();
+#ifdef RGBLIGHT_EFFECT_TWINKLE
     rgblight_mode(RGBLIGHT_MODE_TWINKLE+5);
+#else
+    rgblight_mode(RGBLIGHT_MODE_BREATHING+5);
+#endif
     rgblight_sethsv(HSV_MAGENTA);
 }

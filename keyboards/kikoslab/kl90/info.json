@@ -2,8 +2,6 @@
     "keyboard_name": "KL-90", 
     "url": "www.kikoslab.com", 
     "maintainer": "swiftrax", 
-    "width": 18, 
-    "height": 6.75, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

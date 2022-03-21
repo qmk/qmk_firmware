@@ -151,16 +151,3 @@
 // Row 4
 #define DE_PIPE ALGR(DE_LABK) // |
 #define DE_MICR ALGR(DE_M)    // µ
-
-// DEPRECATED
-#define DE_UE   DE_UDIA
-#define DE_OE   DE_ODIA
-#define DE_AE   DE_ADIA
-#define DE_LESS DE_LABK
-#define DE_RING DE_DEG
-#define DE_DQOT DE_DQUO
-#define DE_PARA DE_SECT
-#define DE_QST  DE_QUES
-#define DE_MORE DE_RABK
-#define DE_SQ2  DE_SUP2
-#define DE_SQ3  DE_SUP3

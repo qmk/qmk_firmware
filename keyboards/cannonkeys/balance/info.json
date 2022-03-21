@@ -2,8 +2,6 @@
     "keyboard_name": "Balance",
     "url": "https://cannonkeys.com",
     "maintainer": "awkannan",
-    "width": 20.5,
-    "height": 5.5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -2,11 +2,8 @@
     "keyboard_name": "Wonderland",
     "url": "",
     "maintainer": "evyd13",
-    "width": 18.25,
-    "height": 5,
     "layouts": {
         "LAYOUT_alice_split_bs": {
-            "key_count": 66,
             "layout": [
                 {"label":"k10", "x":0, "y":0},
                 {"label":"k00", "x":1.25, "y":0},
