@@ -1,6 +1,6 @@
 # MCU name
 # Actually F070, but close enough
-MCU = STM32F072
+MCU = STM32F072xB
 BOARD = DURGOD_STM32_F070
 
 # Bootloader selection

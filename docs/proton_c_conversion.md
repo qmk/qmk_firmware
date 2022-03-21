@@ -43,7 +43,7 @@ These are defaults based on what has been implemented for ARM boards.
 To use the Proton C natively, without having to specify `CTPC=yes`, you need to change the `MCU` line in `rules.mk`:
 
 ```
-MCU = STM32F303
+MCU = STM32F303xC
 BOARD = QMK_PROTON_C
 ```
 

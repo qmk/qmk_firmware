@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 # MCU name
-MCU = STM32F411
+MCU = STM32F411xE
 
 # Bootloader selection
 BOOTLOADER = tinyuf2

@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F103
+MCU = STM32F103x8
 
 # GENERIC STM32F103C8T6 board - mass storage bootloader
 MCU_LDSCRIPT = wm1_f103

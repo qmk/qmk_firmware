@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F405
+MCU = STM32F405xG
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu

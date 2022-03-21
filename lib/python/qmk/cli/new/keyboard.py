@@ -15,23 +15,23 @@ from qmk.json_schema import load_jsonschema
 from qmk.path import keyboard
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import deep_update
-from qmk.constants import MCU2BOOTLOADER
+from qmk.processors import processor_factory
 
 COMMUNITY = Path('layouts/default/')
 TEMPLATE = Path('data/templates/keyboard/')
 
 # defaults
 schema = dotty(load_jsonschema('keyboard'))
-mcu_types = sorted(schema["properties.processor.enum"], key=str.casefold)
 available_layouts = sorted([x.name for x in COMMUNITY.iterdir() if x.is_dir()])
 
 
-def mcu_type(mcu):
+def mcu_type(processor_name):
     """Callable for argparse validation.
     """
-    if mcu not in mcu_types:
-        raise ValueError
-    return mcu
+    if processor_factory.get_matching_processor(processor_name) is None:
+        raise ValueError(f"Unsupported processor {processor_name}.")
+
+    return processor_name
 
 
 def layout_type(layout):
@@ -57,10 +57,15 @@ def validate_keyboard_name(name):
     return bool(regex.match(name))
 
 
-def select_default_bootloader(mcu):
-    """Provide sane defaults for bootloader
-    """
-    return MCU2BOOTLOADER.get(mcu, "custom")
+def select_default_bootloader(processor_name: str):
+    """Provide sane defaults for the bootloader."""
+    processor = processor_factory.get_matching_processor(processor_name)
+
+    if processor is None:
+        return "custom"
+
+    else:
+        return processor.bootloader
 
 
 def replace_placeholders(src, dest, tokens):
@@ -175,10 +180,7 @@ For more infomation, see:
 https://docs.qmk.fm/#/compatible_microcontrollers
 
 MCU? """
-    # remove any options strictly used for compatibility
-    filtered_mcu = [x for x in mcu_types if not any(xs in x for xs in ['cortex', 'unknown'])]
-
-    return choice(prompt, filtered_mcu, default=filtered_mcu.index("atmega32u4"))
+    return choice(prompt, processor_factory.processor_names, default=processor_factory.processor_names.index("atmega32u4"))
 
 
 @cli.argument('-kb', '--keyboard', help='Specify the name for the new keyboard directory', arg_only=True, type=keyboard_name)

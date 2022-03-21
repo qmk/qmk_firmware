@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F042
+MCU = STM32F042x6
 BOARD = ST_NUCLEO32_F042K6
 
 # Bootloader selection

@@ -2,7 +2,7 @@
     "keyboard_name": "forever65",
     "manufacturer": "Nightingale Studios",
     "maintainer": "zvecr",
-    "processor": "STM32F072",
+    "processor": "STM32F072xB",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
