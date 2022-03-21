@@ -12,6 +12,7 @@ from qmk.c_parse import find_layouts, parse_config_h_file
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
 from qmk.keymap import list_keymaps, locate_keymap
+from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
 
@@ -769,14 +770,13 @@ def find_info_json(keyboard):
     return [info_json for info_json in info_jsons if info_json.exists()]
 
 
-def parse_keymap_json_file(file):
-    """load a valid keymap.json
+def keymap_json_config(keyboard, keymap):
+    """Extract keymap level config
     """
-    if not file.exists():
-        return {}
-    km_info_json = json_load(file)
-    validate(km_info_json, 'qmk.keymap.v1')
-    return km_info_json
+    keymap_folder = locate_keymap(keyboard, keymap).parent
+
+    km_info_json = parse_configurator_json(keymap_folder / 'keymap.json')
+    return km_info_json.get('config', {})
 
 
 def keymap_json(keyboard, keymap):
@@ -793,7 +793,7 @@ def keymap_json(keyboard, keymap):
     kb_info_json = info_json(keyboard)
 
     # Merge in the data from keymap.json
-    km_info_json = parse_keymap_json_file(keymap_file).get('config', {})
+    km_info_json = keymap_json_config(keyboard, keymap) if keymap_file.exists() else {}
     deep_update(kb_info_json, km_info_json)
 
     # Merge in the data from config.h, and rules.mk
