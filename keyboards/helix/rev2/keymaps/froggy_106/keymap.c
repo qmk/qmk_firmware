@@ -5,8 +5,6 @@
   #include "ssd1306.h"
 #endif
 
-extern uint8_t is_master;
-
 #define LAYOUT_half( \
     L00, L01, L02, L03, L04, L05,       \
     L10, L11, L12, L13, L14, L15,       \
@@ -336,7 +334,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef RGBLIGHT_ENABLE
     col = record->event.key.col;
     row = record->event.key.row;
-    if (record->event.pressed && ((row < 5 && is_master) || (row >= 5 && !is_master))) {
+    if (record->event.pressed && ((row < 5 && is_keyboard_master()) || (row >= 5 && !is_keyboard_master()))) {
       int end = keybuf_end;
       keybufs[end].col = col;
       keybufs[end].row = row % 5;
@@ -826,13 +824,138 @@ void iota_gfx_task_user(void) {
 #endif
 
   matrix_clear(&matrix);
-  if(is_master){
+  if (is_keyboard_master()) {
     render_status(&matrix);
   }
   matrix_update(&display, &matrix);
 }
 
+#endif // end of SSD1306OLED
+
+//OLED update loop
+#ifdef OLED_ENABLE
+
+// Render to OLED
+void render_status(void) {
+
+  // froggy logo
+  static char logo[4][17]=
+  {
+    {0x68,0x69,0x6a,0x6b,0x6c,0x6d,0x6e,0x6f,0x70,0x71,0x72,0x73,0x74,0},
+    {0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,0},
+    {0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,0},
+    {0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0},
+  };
+
+  static char modectl[4][2][4]=
+  {
+    {
+      {0x65,0x66,0x67,0}, //WIN
+      {0x85,0x86,0x87,0}, //WIN
+    },
+    {
+      {0xa5,0xa6,0xa7,0}, //US(101)
+      {0xc5,0xc6,0xc7,0}, //US(101)
+    },
+    {
+      {0xbd,0xbe,0xbf,0}, //MAC
+      {0xdd,0xde,0xdf,0}, //MAC
+    },
+    {
+      {0xba,0xbb,0xbc,0}, //JP(106)
+      {0xda,0xdb,0xdc,0}, //JP(106)
+    },
+  };
+
+  static char indctr[8][2][4]=
+  {
+    // white icon
+    {
+      {0x60,0x61,0x62,0}, //NUM
+      {0x63,0x64,0}       //FUNC
+    },
+    {
+      {0x80,0x81,0x82,0}, //NUM
+      {0x83,0x84,0}       //FUNC
+    },
+    {
+      {0xa0,0xa1,0xa2,0}, //CAPS
+      {0xa3,0xa4,0}       //SCLK
+    },
+    {
+      {0xc0,0xc1,0xc2,0}, //CAPS
+      {0xc3,0xc4,0}       //SCLK
+    },
+    // Black icon
+    {
+      {0x75,0x76,0x77,0}, //NUM
+      {0x78,0x79,0}       //FUNC
+    },
+    {
+      {0x95,0x96,0x97,0}, //NUM
+      {0x98,0x99,0}       //FUNC
+    },
+    {
+      {0xb5,0xb6,0xb7,0}, //CAPS
+      {0xb8,0xb9,0}       //SCLK
+    },
+    {
+     {0xd5,0xd6,0xd7,0}, //CAPS
+     {0xd8,0xd9,0}       //SCLK
+    },
+  };
+
+  int rown = 0;
+  int rowf = 0;
+  int rowa = 0;
+  int rows = 0;
+  int rowm = 0;
+  int rowj = 1;
+
+  //Set Indicator icon
+  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { rown = 4; }
+  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { rowa = 4; }
+  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { rows = 4; }
+  if (IS_LAYER_ON(_FUNC)) { rowf = 4; }
+
+  //Set Mode icon
+  if (IS_MODE_MAC()) { rowm = 2; }
+  if (IS_MODE_106()) { rowj = 3; }
+
+  oled_write(indctr[rown]  [0], false);
+  oled_write(indctr[rowf]  [1], false);
+  oled_write(modectl[rowm] [0], false);
+  oled_write(logo[0],           false);
+  oled_write(indctr[rown+1][0], false);
+  oled_write(indctr[rowf+1][1], false);
+  oled_write(modectl[rowm] [1], false);
+  oled_write(logo[1],           false);
+  oled_write(indctr[rowa+2][0], false);
+  oled_write(indctr[rows+2][1], false);
+  oled_write(modectl[rowj] [0], false);
+  oled_write(logo[2],           false);
+  oled_write(indctr[rowa+3][0], false);
+  oled_write(indctr[rows+3][1], false);
+  oled_write(modectl[rowj] [1], false);
+  oled_write(logo[3],           false);
+
+}
+
+bool oled_task_user(void) {
+
+#if DEBUG_TO_SCREEN
+  if (debug_enable) {
+    return;
+  }
 #endif
+
+  if (is_keyboard_master()) {
+    render_status();
+  }
+  return false;
+}
+
+#endif // end of OLED_ENABLE
 
 // Local Variables:
 // mode: c++
