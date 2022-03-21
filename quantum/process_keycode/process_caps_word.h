@@ -35,4 +35,3 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record);
  * @return false    Stop Caps Word
  */
 bool caps_word_press_user(uint16_t keycode);
-
