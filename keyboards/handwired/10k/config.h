@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define PRODUCT         10k (1x5)
-
 /* Enables This makes it easier for fast typists to use dual-function keys */
 #define PERMISSIVE_HOLD
 

@@ -1,6 +1,7 @@
 {
   "keyboard_name": "10k",
   "maintainer": "Nabos",
+  "manufacturer": "Nabos",
   "debounce": 5,
   "diode_direction": "COL2ROW",
   "matrix_pins": {
