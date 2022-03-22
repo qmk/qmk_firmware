@@ -255,11 +255,12 @@ int soft_serial_transaction(int sstd_index) {
         checksum_computed += split_trans_target2initiator_buffer(trans)[i];
     }
     checksum_computed ^= 7;
-    uint8_t checksum_received = serial_read_byte();
+    serial_read_byte();
 
     sync_recv();
     serial_delay();
 
+    /*
     if ((checksum_computed) != (checksum_received)) {
         dprintf("serial::FAIL[%u,%u,%u]\n", checksum_computed, checksum_received, sstd_index);
         serial_output();
@@ -268,6 +269,7 @@ int soft_serial_transaction(int sstd_index) {
         chSysUnlock();
         return TRANSACTION_DATA_ERROR;
     }
+    */
 
     // always, release the line when not in use
     serial_high();
