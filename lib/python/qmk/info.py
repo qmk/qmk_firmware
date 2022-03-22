@@ -258,10 +258,6 @@ def _extract_split_main(info_data, config_c):
 
 
 def _extract_split_transport(info_data, config_c):
-    # TODO: Ignore?
-    if 'split' not in info_data:
-        return
-
     # Figure out the transport method
     if config_c.get('USE_I2C') is True:
         if 'split' not in info_data:
