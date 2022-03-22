@@ -54,7 +54,7 @@ or in keymap directory
 ```
 $ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
 $ qmk compile
-Ψ Compiling keymap with make make gh60/satan:colemak
+Ψ Compiling keymap with make gh60/satan:colemak
 ...
 ```
 

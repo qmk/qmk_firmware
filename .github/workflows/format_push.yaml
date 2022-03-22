@@ -16,6 +16,7 @@ jobs:
     - name: Install dependencies
       run: |
         apt-get update && apt-get install -y dos2unix
+        pip3 install -r requirements-dev.txt
 
     - uses: actions/checkout@v2
       with:
