@@ -271,14 +271,16 @@ def _extract_split_transport(info_data, config_c):
 
         info_data['split']['transport']['protocol'] = 'i2c'
 
-    elif 'protocol' not in info_data.get('split', {}).get('transport', {}):
+    # Ignore transport defaults if "SPLIT_KEYBOARD" is unset
+    elif 'enabled' in info_data.get('split', {}):
         if 'split' not in info_data:
             info_data['split'] = {}
 
         if 'transport' not in info_data['split']:
             info_data['split']['transport'] = {}
 
-        info_data['split']['transport']['protocol'] = 'serial'
+        if 'protocol' not in info_data['split']['transport']:
+            info_data['split']['transport']['protocol'] = 'serial'
 
 
 def _extract_split_right_pins(info_data, config_c):
