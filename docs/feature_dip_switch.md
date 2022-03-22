@@ -107,3 +107,14 @@ One side of the DIP switch should be wired directly to the pin on the MCU, and t
 ### Connect each switch in the DIP switch to an unused intersections in the key matrix.
 
 As with the keyswitch, a diode and DIP switch connect the ROW line to the COL line.
+
+### Dip switches connected to +V instead of ground
+
+When hardware requires dip switches to be tied to +V instead of ground, you can define a array of pin inversions
+
+```c
+// This example would invert only the second of three dip switches
+#define DIP_SWITCH_INVERT { 0, 1, 0 }
+// For split keyboards, you can also define DIP_SWITCH_INVERT_RIGHT
+#define DIP_SWITCH_INVERT_RIGHT { 0, 1, 0 }
+```
