@@ -17,7 +17,7 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID 0x0142
+#define PRODUCT_ID 0x0442
 #define DEVICE_VER 0x0100
 
 /* RGB Matrix Configuration */

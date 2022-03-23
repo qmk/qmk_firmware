@@ -125,9 +125,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 void matrix_scan_user(void) {
-    #if defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
-        encoder_action_unregister();
-    #endif
+#if defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
+    encoder_action_unregister();
+#endif
     /* Set timers for factory reset and backlight test */
     timer_task_start();
 }

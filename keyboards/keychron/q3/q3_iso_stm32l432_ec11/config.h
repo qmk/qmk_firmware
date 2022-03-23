@@ -18,7 +18,7 @@
 
 /* USB Device descriptor parameter */
 #define PRODUCT_ID 0x0123
-#define DEVICE_VER 0x0100
+#define DEVICE_VER 0x0101
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }

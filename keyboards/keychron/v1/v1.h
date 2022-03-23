@@ -22,4 +22,8 @@
 #    include "v1_ansi_stm32l432.h"
 #elif defined(KEYBOARD_keychron_v1_v1_ansi_stm32l432_ec11)
 #    include "v1_ansi_stm32l432_ec11.h"
+#elif defined(KEYBOARD_keychron_v1_v1_iso_stm32l432)
+#    include "v1_iso_stm32l432.h"
+#elif defined(KEYBOARD_keychron_v1_v1_iso_stm32l432_ec11)
+#    include "v1_iso_stm32l432_ec11.h"
 #endif

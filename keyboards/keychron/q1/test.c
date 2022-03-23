@@ -237,7 +237,7 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
             case FACTORY_TEST_CMD_OS_SWITCH:
                 report_os_sw_state = data[2];
                 if (report_os_sw_state) {
-                    dip_switch_read(true);
+                    // dip_switch_read(true);
                 }
                 break;
             case FACTORY_TEST_CMD_JUMP_TO_BL:
@@ -270,6 +270,7 @@ void system_switch_state_report(uint8_t index, bool active) {
     }
 }
 
+/* To solve the problem that keyboard can not wakeup the host */
 void restart_usb_driver(USBDriver *usbp) {
     // Do nothing here.
 }

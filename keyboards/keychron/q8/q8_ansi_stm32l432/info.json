@@ -3,7 +3,7 @@
     "url": "https://github.com/Keychron",
     "maintainer": "lalalademaxiya1",
     "layouts": {
-        "LAYOUT_ansi_70": {
+        "LAYOUT_ansi_69": {
             "layout": [
                 {"label":"Esc", "x":0.75, "y":0.25},
                 {"label":"1!", "x":1.75, "y":0.25},

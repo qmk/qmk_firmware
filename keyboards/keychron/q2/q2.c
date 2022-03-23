@@ -17,11 +17,11 @@
 #include "q2.h"
 
 const matrix_row_t matrix_mask[] = {
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111111111,
-    0b1111111111101111,
+    0b0111111111111111,
+    0b0111111111111111,
+    0b0111111111111111,
+    0b0111111111111111,
+    0b0111111111101111,
 };
 
 #ifdef DIP_SWITCH_ENABLE
@@ -50,8 +50,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     #define CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
 #endif
 
-__attribute__((weak))
-void rgb_matrix_indicators_user(void) {
+void rgb_matrix_indicators_kb(void) {
     if (host_keyboard_led_state().caps_lock) {
         uint8_t b = rgb_matrix_get_val();
         if (b < CAPS_LOCK_VAL_STEP) {

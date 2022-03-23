@@ -78,7 +78,7 @@ void process_other_record(uint16_t keycode, keyrecord_t *record) {
                 timer_3000ms_buffer = 0;
             }
             break;
-        case RGB_RMOD:
+        case KC_Z:
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_Z;
                 if (key_press_status == KEY_PRESS_FACTORY_RESET) {
@@ -104,7 +104,7 @@ void process_other_record(uint16_t keycode, keyrecord_t *record) {
                 timer_3000ms_buffer = 0;
             }
             break;
-        case KC_HOME:
+        case KC_PGDN:
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_HOME;
                 if (led_test_mode) {

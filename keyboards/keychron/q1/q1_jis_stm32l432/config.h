@@ -17,8 +17,8 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID      0x010a
-#define DEVICE_VER      0x0201
+#define PRODUCT_ID 0x010a
+#define DEVICE_VER 0x0202
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -45,7 +45,7 @@
 #define PHASE_CHANNEL MSKPHASE_9CHANNEL
 
 /* Set the maxium brightness as 192 in order to limit the current to 450mA */
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (24*8)
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (28*8)
 
 /* We have 2KB EEPROM size on STM32L432 */
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047

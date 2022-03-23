@@ -17,8 +17,8 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0109
-#define DEVICE_VER      0x0202
+#define PRODUCT_ID 0x0109
+#define DEVICE_VER 0x0203
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -45,14 +45,16 @@
 #define PHASE_CHANNEL MSKPHASE_9CHANNEL
 
 /* Set the maxium brightness as 192 in order to limit the current to 450mA */
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (24*8)
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (28*8)
 
-/* Encoder used pins */
+/* We have 2KB EEPROM size on STM32L432 */
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
+
+/* Encoder Configuration */
 #define ENCODERS_PAD_A { A10 }
 #define ENCODERS_PAD_B { A8 }
-
-/* Specifies the number of pulses the encoder registers between each detent */
 #define ENCODER_RESOLUTION 4
+#define ENCODER_DEFAULT_POS 0x3
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 44

@@ -144,7 +144,7 @@ led_config_t g_led_config = {
         // RGB LED Index to Flag
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    1, 1, 1,
         1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1,
-        1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1,
+        1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1,
         9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,
         1,    4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,    1,
         1, 1, 1,          4,          1, 1, 1, 1, 1, 1, 1,
@@ -159,9 +159,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) {
         if (clockwise) {
-            tap_code_delay(KC_VOLU, TAP_CODE_DELAY);
+            tap_code(KC_VOLU);
         } else {
-            tap_code_delay(KC_VOLD, TAP_CODE_DELAY);
+            tap_code(KC_VOLD);
         }
     }
     return true;

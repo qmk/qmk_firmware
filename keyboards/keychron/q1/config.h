@@ -36,7 +36,7 @@
 /* Disable RGB lighting when PC is in suspend */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
-/* Set USB polling rate as 1000Hz */
+/* Set the USB polling interval to 1 milliseconds */
 #define USB_POLLING_INTERVAL_MS 1
 
 // RGB Matrix Animation modes. Explicitly enabled
@@ -87,12 +87,12 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+// #define RGB_MATRIX_KEYPRESSES
 
 /* Allow VIA to edit lighting */
 #ifdef VIA_ENABLE
 #define VIA_QMK_RGBLIGHT_ENABLE
 #endif
 
-// #define RGB_MATRIX_KEYPRESSES
-// #define BOOTMAGIC_LITE_ROW 5
-// #define BOOTMAGIC_LITE_COLUMN 5
+/* Enable receive custom command from host */
+#define RAW_HID_CMD 0xAB

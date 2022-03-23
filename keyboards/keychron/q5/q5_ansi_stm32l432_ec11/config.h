@@ -17,18 +17,22 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID      0x0151
-#define DEVICE_VER      0x0100
+#define PRODUCT_ID 0x0151
+#define DEVICE_VER 0x0101
 
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 55
 #define DRIVER_2_LED_TOTAL 45
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
-/* Encoder used pins */
+/* Encoder Configuration */
 #define ENCODERS_PAD_A { C14 }
 #define ENCODERS_PAD_B { A2 }
-
-/* Specifies the number of pulses the encoder registers between each detent */
 #define ENCODER_RESOLUTION 4
+#define ENCODER_DEFAULT_POS 0x3
 
+/* Enable caps-lock LED */
+#define CAPS_LOCK_LED_INDEX 52
+
+/* Enable num-lock LED */
+// #define NUM_LOCK_LED_INDEX 31

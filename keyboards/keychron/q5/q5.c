@@ -66,8 +66,8 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
         #endif
     #endif
 
-    __attribute__((weak)) void rgb_matrix_indicators_kb(void) {
-        #if defined(CAPS_LOCK_LED_INDEX)
+    void rgb_matrix_indicators_kb(void) {
+    #if defined(CAPS_LOCK_LED_INDEX)
         if (host_keyboard_led_state().caps_lock) {
             uint8_t b = rgb_matrix_get_val();
             if (b < CAPS_LOCK_VAL_STEP) {
@@ -79,8 +79,8 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
             }
             rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, b, b, b);  // white, with the adjusted brightness    }
         }
-        #endif
-        #if defined(NUM_LOCK_LED_INDEX)
+    #endif
+    #if defined(NUM_LOCK_LED_INDEX)
         if (host_keyboard_led_state().num_lock) {
             uint8_t v = rgb_matrix_get_val();
             if (v < NUM_LOCK_VAL_STEP) {
@@ -92,7 +92,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
             }
             rgb_matrix_set_color(NUM_LOCK_LED_INDEX, v, v, v);  // white, with the adjusted brightness    }
         }
-        #endif
+    #endif
     }
 
 #endif  // CAPS_LOCK_LED_INDEX or CAPS_LOCK_LED_INDEX

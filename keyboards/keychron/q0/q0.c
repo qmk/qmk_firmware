@@ -15,4 +15,34 @@
  */
 
 #include "q0.h"
-#include "test.c"
+
+#if defined(RGB_MATRIX_ENABLE) && defined(NUM_LOCK_LED_INDEX)
+    #if defined(NUM_LOCK_LED_INDEX)
+        #define NUM_LOCK_MAX_BRIGHTNESS 0xFF
+        #ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+            #undef NUM_LOCK_MAX_BRIGHTNESS
+            #define NUM_LOCK_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
+        #endif
+
+        #define NUM_LOCK_VAL_STEP 8
+        #ifdef RGB_MATRIX_VAL_STEP
+            #undef NUM_LOCK_VAL_STEP
+            #define NUM_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
+        #endif
+    #endif
+
+    void rgb_matrix_indicators_kb(void) {
+        if (host_keyboard_led_state().num_lock) {
+            uint8_t v = rgb_matrix_get_val();
+            if (v < NUM_LOCK_VAL_STEP) {
+                v = NUM_LOCK_VAL_STEP;
+            } else if (v < (NUM_LOCK_MAX_BRIGHTNESS - NUM_LOCK_VAL_STEP)) {
+                v += NUM_LOCK_VAL_STEP;  // one step more than current brightness
+            } else {
+                v = NUM_LOCK_MAX_BRIGHTNESS;
+            }
+            rgb_matrix_set_color(NUM_LOCK_LED_INDEX, v, v, v);  // white, with the adjusted brightness    }
+        }
+    }
+
+#endif  // CAPS_LOCK_LED_INDEX

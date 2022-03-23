@@ -167,12 +167,27 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) {
         if (clockwise) {
-            tap_code(KC_VOLU);
+            tap_code_delay(KC_VOLU, TAP_CODE_DELAY);
         } else {
-            tap_code(KC_VOLD);
+            tap_code_delay(KC_VOLD, TAP_CODE_DELAY);
         }
     }
     return true;
+}
+
+void encoder0_pad_cb(void *param) {
+    (void)param;
+
+    insert_encoder_state(0);
+}
+
+void keyboard_post_init_kb(void) {
+    pin_t encoders_pad_a[] = ENCODERS_PAD_A;
+    pin_t encoders_pad_b[] = ENCODERS_PAD_B;
+    palEnableLineEvent(encoders_pad_a[0], PAL_EVENT_MODE_BOTH_EDGES);
+    palEnableLineEvent(encoders_pad_b[0], PAL_EVENT_MODE_BOTH_EDGES);
+    palSetLineCallback(encoders_pad_a[0], encoder0_pad_cb, NULL);
+    palSetLineCallback(encoders_pad_b[0], encoder0_pad_cb, NULL);
 }
 
 #endif
