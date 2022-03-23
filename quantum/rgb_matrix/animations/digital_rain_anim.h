@@ -13,10 +13,10 @@ bool DIGITAL_RAIN(effect_params_t* params) {
     const uint8_t pure_green_intensity = (((uint16_t) rgb_matrix_config.hsv.v)*3)>>2;
     const uint8_t max_brightness_boost = (((uint16_t) rgb_matrix_config.hsv.v)*3)>>2;
     const uint8_t max_intensity        = rgb_matrix_config.hsv.v;
-	const uint8_t decay_ticks = 0xff / max_intensity;
+    const uint8_t decay_ticks = 0xff / max_intensity;
 
     static uint8_t drop = 0;
-	static uint8_t decay = 0;
+    static uint8_t decay = 0;
 
     if (params->init) {
         rgb_matrix_set_color_all(0, 0, 0);
@@ -24,7 +24,7 @@ bool DIGITAL_RAIN(effect_params_t* params) {
         drop = 0;
     }
 
-	decay++;
+    decay++;
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
             if (row == 0 && drop == 0 && rand() < RAND_MAX / RGB_DIGITAL_RAIN_DROPS) {
@@ -33,9 +33,9 @@ bool DIGITAL_RAIN(effect_params_t* params) {
                 g_rgb_frame_buffer[row][col] = max_intensity;
             } else if (g_rgb_frame_buffer[row][col] > 0 && g_rgb_frame_buffer[row][col] < max_intensity) {
                 // neither fully bright nor dark, decay it
-				if(decay == decay_ticks){
-					g_rgb_frame_buffer[row][col]--;
-				}
+                if(decay == decay_ticks){
+                    g_rgb_frame_buffer[row][col]--;
+                }
             }
             // set the pixel colour
             uint8_t led[LED_HITS_TO_REMEMBER];
@@ -53,9 +53,9 @@ bool DIGITAL_RAIN(effect_params_t* params) {
             }
         }
     }
-	if(decay == decay_ticks){
-		decay = 0;
-	}
+    if(decay == decay_ticks){
+        decay = 0;
+    }
 
     if (++drop > drop_ticks) {
         // reset drop timer
