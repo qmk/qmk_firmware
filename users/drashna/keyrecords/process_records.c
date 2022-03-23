@@ -121,13 +121,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
                 eeconfig_update_user(userspace_config.raw);
                 if (userspace_config.rgb_layer_change) {
-#    if defined(CUSTOM_RGBLIGHT) && defined(CUSTOM_RGB_MATRIX)
+#    if defined(CUSTOM_RGB_MATRIX)
+                    rgb_matrix_set_flags(LED_FLAG_UNDERGLOW | LED_FLAG_KEYLIGHT | LED_FLAG_INDICATOR);
+#        if defined(CUSTOM_RGBLIGHT)
                     rgblight_enable_noeeprom();
+#        endif
 #    endif
-                    layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
-#    if defined(CUSTOM_RGBLIGHT) && defined(CUSTOM_RGB_MATRIX)
+                    layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
+#    if defined(CUSTOM_RGB_MATRIX)
                 } else {
+                    rgb_matrix_set_flags(LED_FLAG_ALL);
+#        if defined(CUSTOM_RGBLIGHT)
                     rgblight_disable_noeeprom();
+#        endif
 #    endif
                 }
             }
