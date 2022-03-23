@@ -8,15 +8,13 @@ BOOTLOADER = atmel-dfu
 #   comment out to disable the options.
 #
 
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = no	# Console for debug
-COMMAND_ENABLE = no    # Commands for debug and configuration
-SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	    # USB Nkey Rollover
-CUSTOM_MATRIX = no # Custom matrix file
+BOOTMAGIC_ENABLE = yes  # Enable Bootmagic Lite
+MOUSEKEY_ENABLE = no    # Mouse keys
+EXTRAKEY_ENABLE = yes   # Audio control and System control
+CONSOLE_ENABLE = no     # Console for debug
+COMMAND_ENABLE = no     # Commands for debug and configuration
+SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend
+NKRO_ENABLE = yes       # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no
 RGBLIGHT_ENABLE = no
-WS2812_DRIVER = no
 ENCODER_ENABLE = yes
