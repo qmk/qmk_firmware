@@ -18,3 +18,4 @@ RGBLIGHT_ENABLE = no            # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes         # Enable keyboard RGB matrix
 RGB_MATRIX_DRIVER = IS31FL3737  # Select RGB matrix driver
 AUDIO_ENABLE = no               # Audio output
+LTO_ENABLE = yes                # Enables Link Time Optimization
