@@ -1,4 +1,4 @@
-/* Copyright 2020 Gondolindrim
+/* Copyright 2019 Álvaro "Gondolindrim" Volpato
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,13 +13,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#include "shark_beta.h"
-
-void board_init_keymap(void);
-
-void board_init(void) {
-	setPinInput(B6);
-	setPinInput(B7);
-	board_init_keymap();
-}
+#include "alpha.h"
