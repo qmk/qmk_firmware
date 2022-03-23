@@ -1,5 +1,5 @@
 /*
-Copyright 2020 DmNosachev
+Copyright 2022 DmNosachev
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,3 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LSPO_KEYS KC_LSFT, KC_TRNS, KC_LBRC
 #define RSPC_KEYS KC_RSFT, KC_TRNS, KC_RBRC
+
+#define ENCODERS_PAD_A { A10 }
+#define ENCODERS_PAD_B { A9 }

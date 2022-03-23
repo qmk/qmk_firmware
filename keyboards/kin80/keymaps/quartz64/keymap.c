@@ -33,13 +33,13 @@ enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
   VRSN,
-  RGB_SLD,
   COMP_FR_QUOTES,		// Compose: french quotes
   COMP_NBSP_EM_DASH,	// Compose: nbsp followed by em dash
   COMP_NBSP,			// Compose: nbsp
-  PWD1,					// Windows password
-  PWD2,					// Stand root password
-  PWD3,					// KP password
+  PWD1,
+  PWD2,
+  PWD3,
+  PWD4,
   EMAIL1				// Gmail address
 };
 
@@ -56,9 +56,9 @@ enum custom_keycodes {
 * |`~/Ctrl |   A  |   S  |   D  |   F  |   G  |                           |   H  |   J  |   K  |   L  |  ;:  | '"/NM  |
 * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
 * | Shift  |Z/Ctrl|   X  |   C  |   V  |   B  |                           |   N  |   M  |  ,.  |  .>  |  /?  | Shift  |
-* `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
-*          |  MC  |C+Shft|   [  |   ]  |                                         | Left | Down |  Up  | Right|
-*          `---------------------------'                                         `---------------------------'
+* `-+------+------+------+------+------+------|                           |------+------+------+------+------+------+-'
+*   | Play |  MC  |C+Shft|   [  |   ]  |      |                           |      | Left | Down |  Up  | Right|      |
+*   `-----------------------------------------'                           `-----------------------------------------'
 *                                        ,-------------.         ,-------------.
 *                                        |  NM  |Enter |         | Gui  | Ctrl |
 *                                 ,------|------|------|         |------+------+------.
@@ -69,16 +69,16 @@ enum custom_keycodes {
 */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_BASE] = LAYOUT(
-    KC_ESC,           KC_F2,  KC_F3,  KC_F4,  KC_F5,   KC_F6,     KC_F7,  KC_F8,  KC_F9,   KC_F10, KC_PSCR, KC_RALT,
-    LALT_T(KC_EQL),   KC_1,   KC_2,   KC_3,   KC_4,    KC_5,      KC_6,   KC_7,   KC_8,    KC_9,   KC_0,    KC_MINS,
-    KC_TAB,           KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,      KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_BSLS,
-    LCTL_T(KC_GRV),   KC_A,   KC_S,   KC_D,   KC_F,    KC_G,      KC_H,   KC_J,   KC_K,    KC_L,   KC_SCLN, LT(_NM, KC_QUOT),
-    KC_LSPO,    LCTL_T(KC_Z), KC_X,   KC_C,   KC_V,    KC_B,      KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_RSPC,
-                      MO(_MC), LCTL(KC_LSFT), KC_LBRC, KC_RBRC,   KC_LEFT,KC_DOWN, KC_UP,  KC_RGHT,
-			                              MO(_NM),  KC_ENTER,                  KC_RGUI,KC_RCTRL,
-                                              KC_HOME,                   KC_PGUP,
-                             KC_SPC, KC_BSPC, KC_END,                    KC_PGDN,KC_DEL, KC_ENTER
+[_BASE] = LAYOUT_all(
+    KC_ESC,           KC_F2,  KC_F3,         KC_F4,   KC_F5,   KC_F6,     KC_F7,  KC_F8,  KC_F9,   KC_F10, KC_PSCR, KC_RALT,
+    LALT_T(KC_EQL),   KC_1,   KC_2,          KC_3,    KC_4,    KC_5,      KC_6,   KC_7,   KC_8,    KC_9,   KC_0,    KC_MINS,
+    KC_TAB,           KC_Q,   KC_W,          KC_E,    KC_R,    KC_T,      KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_BSLS,
+    LCTL_T(KC_GRV),   KC_A,   KC_S,          KC_D,    KC_F,    KC_G,      KC_H,   KC_J,   KC_K,    KC_L,   KC_SCLN, LT(_NM, KC_QUOT),
+    KC_LSPO,    LCTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,      KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_RSPC,
+    KC_MPLY,         MO(_MC), LCTL(KC_LSFT), KC_LBRC, KC_RBRC, KC_NO,     KC_NO,  KC_LEFT,KC_DOWN, KC_UP,  KC_RGHT,KC_NO,
+			                                        MO(_NM),  KC_ENTER,            KC_RGUI,KC_RCTRL,
+                                                        KC_HOME,             KC_PGUP,
+                                       KC_SPC, KC_BSPC, KC_END,              KC_PGDN,KC_DEL, KC_ENTER
     ),
 /*
 *
@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |        |      |  ML  |  MDn |  MR  |      |                           |      |  4   |  5   |  6   |  +   |  L1    |
 * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
 * |        |      |      |      |      |      |                           |  .   |  1   |  2   |  3   |Enter |        |
-* `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
-*          |      |      |      |      |                                         |      |      |      |      |
-*          `---------------------------'                                         `---------------------------'
+* `-+------+------+------+------+------+------|                           |------+------+------+------+------+------+-'
+*   |      |      |      |      |      |      |                           |      |      |      |      |      |      |
+*   `-----------------------------------------'                           `-----------------------------------------'
 *                                        ,-------------.         ,-------------.
 *                                        |      |      |         |      |      |
 *                                 ,------|------|------|         |------+------+------.
@@ -104,13 +104,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                 |      |      |MWhDn |         |      |      |      |
 *                                 `--------------------'         `--------------------'
 */
-[_NM] = LAYOUT(
+[_NM] = LAYOUT_all(
     KC_F1,   AU_ON,   AU_OFF,  _______, _______, _______,   CK_TOGG, CK_UP,   CK_DOWN, CK_RST,  KC_F11,  KC_F12,
     _______, _______, _______, _______, _______, _______,   KC_SLCK, KC_NLCK, KC_PEQL, KC_PSLS, KC_PAST, _______,
     _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_INS,    KC_CAPS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______,
     _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,   _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______,
     _______, _______, _______, _______, _______, _______,   KC_PDOT, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
-             _______, _______, _______, _______,                     _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______,
 			                                  _______, _______,   _______, _______,
                                                  KC_WH_U,   _______,
                                _______, _______, KC_WH_D,   _______, _______, KC_P0
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *
 *
 * ,--------------------------------------------                           --------------------------------------------.
-* |        |      |      |      |      |      |                           |email |unic  |      |      |      |        |
+* |        |      |      |      |      |      |                           |email |      | PWD4 | PWD3 | PWD2 |  PWD1  |
 * |--------+------+------+------+------+------+                           +------+------+------+------+------+--------|
 * |        |      |      |      |      |      |                           |      |      |      |      |      |   MC2  |
 * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
@@ -128,9 +128,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
 * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
 * |        |      |      |      |      |      |                           |      |      |  MC1 |      |      |        |
-* `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
-*          |      |      |      |      |                                         |      |      |      |      |
-*          `---------------------------'                                         `---------------------------'
+* `-+------+------+------+------+------+------|                           |------+------+------+------+------+------+-'
+*   |      |      |      |      |      |      |                           |      |      |      |      |      |      |
+*   `-----------------------------------------'                           `-----------------------------------------'
 *                                        ,-------------.         ,-------------.
 *                                        |      |      |         |      |      |
 *                                 ,------|------|------|         |------+------+------.
@@ -139,13 +139,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                 |      |      |      |         |      |      |      |
 *                                 `--------------------'         `--------------------'
 */
-[_MC] = LAYOUT(
-    VRSN,    _______, _______, _______, _______, _______,   EMAIL1,  _______, _______, PWD3,    PWD2,    PWD1,
+[_MC] = LAYOUT_all(
+    VRSN,    _______, _______, _______, _______, _______,   EMAIL1,  _______, PWD4,    PWD3,    PWD2,    PWD1,
     _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, MC2,
     _______, _______, _______, _______, RESET,   _______,   _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,   _______, _______, MC1,     _______, _______, _______,
-             _______, _______, _______, _______,                     _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______,
 			                                  _______, _______,   _______, _______,
                                                  _______,   _______,
                                MC3,     _______, _______,   _______, _______, _______
@@ -202,6 +202,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+      
+    case PWD4:
+      if (record->event.pressed) {
+        SEND_STRING("EraserHead1976"SS_TAP(X_ENTER));
+      }
+      return false;
+      break;  
 	  
 	  case EMAIL1:
       if (record->event.pressed) {
@@ -211,6 +218,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    }
+    return false;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
