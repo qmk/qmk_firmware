@@ -16,7 +16,10 @@
 
 #include "shark_beta.h"
 
+void board_init_keymap(void);
+
 void board_init(void) {
-    setPinInput(B6);
-    setPinInput(B7);
+	setPinInput(B6);
+	setPinInput(B7);
+	board_init_keymap();
 }
