@@ -76,16 +76,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
        &dn_key_override,
        NULL // Null terminate the array of overrides!
 };
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
-    }
-    return true;
-}
-#endif // ENCODER_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
 

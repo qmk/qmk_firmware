@@ -46,15 +46,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
-    }
-    return true;
-}
-
 void rgb_matrix_indicators_user(void) {
     if (IS_LAYER_ON(_TRAN)) {
         rgb_matrix_set_color_all(_TRAN_COLOR_RGB);

@@ -50,17 +50,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
           _______, _______, _______,                            RESET,                              KC_RGUI, _______, _______, _______, _______, _______
       ),
-
-
 };
-
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (clockwise) {
-    tap_code(KC_VOLU);
-  }
-  else {
-    tap_code(KC_VOLD);
-  }
-  return true;
-}

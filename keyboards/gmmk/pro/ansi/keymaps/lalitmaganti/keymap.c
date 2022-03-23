@@ -59,16 +59,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-      tap_code_delay(KC_VOLU, 10);
-    } else {
-      tap_code_delay(KC_VOLD, 10);
-    }
-    return false;
-}
-
-
 #ifdef RGB_MATRIX_ENABLE
 
 static void set_rgb_side_leds(void);
