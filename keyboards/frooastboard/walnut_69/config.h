@@ -19,8 +19,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define MANUFACTURER    frooastside
-#define PRODUCT         Frooastboard Walnut
+#define MANUFACTURER frooastside
+#define PRODUCT Frooastboard Walnut
 
 /* key matrix size */
 #define MATRIX_ROWS 9

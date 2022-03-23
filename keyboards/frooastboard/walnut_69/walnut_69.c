@@ -16,7 +16,8 @@
 
 #include "walnut_69.h"
 
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
+
 const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -74,165 +75,24 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, B_12,    A_12,    C_12}
 };
 
-led_config_t g_led_config = { {
-  { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-  { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-  { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-  { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-  { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-  { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-  { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-  { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-  { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED }
-}, {
-  {
-    0,
-    62
-  }, {
-    0,
-    50
-  }, {
-    0,
-    38
-  }, {
-    0,
-    26
-  }, {
-    0,
-    14
-  }, {
-    0,
-    2
-  }, {
-    0,
-    2
-  }, {
-    12,
-    2
-  }, {
-    24,
-    2
-  }, {
-    36,
-    2
-  }, {
-    48,
-    2
-  }, {
-    60,
-    2
-  }, {
-    72,
-    2
-  }, {
-    84,
-    2
-  }, {
-    96,
-    2
-  }, {
-    108,
-    2
-  }, {
-    120,
-    2
-  }, {
-    132,
-    2
-  }, {
-    144,
-    2
-  }, {
-    156,
-    2
-  }, {
-    168,
-    2
-  }, {
-    180,
-    2
-  }, {
-    192,
-    2
-  }, {
-    204,
-    2
-  }, {
-    204,
-    2
-  }, {
-    204,
-    14
-  }, {
-    204,
-    26
-  }, {
-    204,
-    38
-  }, {
-    204,
-    50
-  }, {
-    204,
-    62
-  }, {
-    204,
-    62
-  }, {
-    192,
-    62
-  }, {
-    180,
-    62
-  }, {
-    168,
-    62
-  }, {
-    156,
-    62
-  }, {
-    144,
-    62
-  }, {
-    132,
-    62
-  }, {
-    120,
-    62
-  }, {
-    108,
-    62
-  }, {
-    96,
-    62
-  }, {
-    84,
-    62
-  }, {
-    72,
-    62
-  }, {
-    60,
-    62
-  }, {
-    48,
-    62
-  }, {
-    36,
-    62
-  }, {
-    24,
-    62
-  }, {
-    12,
-    62
-  },
-  {
-    0,
-    62
-  }
-}, {
-  2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
-} };
+led_config_t g_led_config = {{
+        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
+        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
+        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
+        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
+        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
+        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
+        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
+        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
+        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED }
+    }, {
+        {0, 62}, {0, 50}, {0, 38}, {0, 26}, {0, 14}, {0, 2},
+        {0, 2}, {12, 2}, {24, 2}, {36, 2}, {48, 2}, {60, 2}, {72, 2}, {84, 2}, {96, 2}, {108, 2}, {120, 2}, {132, 2}, {144, 2}, {156, 2}, {168, 2}, {180, 2}, {192, 2}, {204, 2},
+        {204, 2}, {204, 14}, {204, 26}, {204, 38}, {204, 50}, {204, 62},
+        {204, 62}, {192, 62}, {180, 62}, {168, 62}, {156, 62}, {144, 62}, {132, 62}, {120, 62}, {108, 62}, {96, 62}, {84, 62}, {72, 62}, {60, 62}, {48, 62}, {36, 62}, {24, 62}, {12, 62}, {0, 62}
+    }, {
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
+    }
+};
 
-#endif// defined(RGB_MATRIX_ENABLE)
+#endif // defined(RGB_MATRIX_ENABLE)

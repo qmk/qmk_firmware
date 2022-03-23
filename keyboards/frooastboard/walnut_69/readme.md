@@ -2,9 +2,9 @@
 
 ![Frooastboard Walnut]()
 
-* Keyboard Maintainer: [Frooastside](https://github.com/frooastside)
-* Hardware Supported: Frooastboard Walnut
-* Hardware Availability: https://github.com/Frooastside/Frooastboard
+-   Keyboard Maintainer: [Frooastside](https://github.com/frooastside)
+-   Hardware Supported: Frooastboard Walnut
+-   Hardware Availability: https://github.com/Frooastside/Frooastboard
 
 **Reset Key:** Hold down the key located at `K00`, commonly programmed as ESCAPE while plugging in the keyboard.
 
