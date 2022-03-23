@@ -58,6 +58,7 @@ void set_indicator_colors(uint8_t color[3]){
 }
 
 // Board init: RGB indicator is set to startup_color
+#define BOARD_INIT_KEYMAP
 void board_init_keymap(void){
 	set_indicator_colors(startup_color);
 };

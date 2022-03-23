@@ -16,10 +16,10 @@
 
 #include "beta.h"
 
-void board_init_keymap(void);
-
 void board_init(void) {
 	setPinInput(B6);
 	setPinInput(B7);
+#ifdef BOARD_INIT_KEYMAP
 	board_init_keymap();
+#endif
 }
