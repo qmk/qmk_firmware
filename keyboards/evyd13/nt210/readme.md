@@ -1,6 +1,6 @@
 # nt210
 
-![nt120 PCB](https://i.imgur.com/DZAfoOl.jpg)
+![nt120 PCB](https://i.imgur.com/DZAfoOlh.jpg)
 
 A custom PCB for the Leopold FC210TP.
 
