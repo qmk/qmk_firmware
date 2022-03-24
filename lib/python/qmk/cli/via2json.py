@@ -120,10 +120,6 @@ def via2json(cli):
         cli.log.error(f"Couldn't find LAYOUT macro for keyboard {cli.args.keyboard}. Please specify it with the '-l' argument.")
         exit(1)
 
-    # Environment processing
-    if cli.args.output and cli.args.output.name == '-':
-        cli.args.output = None
-
     # Load the VIA backup json
     with cli.args.filename.open('r') as fd:
         via_backup = json.load(fd)
