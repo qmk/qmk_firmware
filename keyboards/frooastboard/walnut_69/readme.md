@@ -1,7 +1,5 @@
 # Frooastboard Walnut
 
-![Frooastboard Walnut]()
-
 -   Keyboard Maintainer: [Frooastside](https://github.com/frooastside)
 -   Hardware Supported: Frooastboard Walnut
 -   Hardware Availability: https://github.com/Frooastside/Frooastboard
