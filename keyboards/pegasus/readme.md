@@ -1,6 +1,6 @@
 # Pegasus
 
-![pegasus](https://i.imgur.com/6MKJN7w.jpg)
+![pegasus](https://i.imgur.com/6MKJN7wh.jpg)
 
 Pegasus is a 40% keyboard with a 12.75u "WKL" layout with 0.75u blockers. 
 
