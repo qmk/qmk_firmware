@@ -1,6 +1,6 @@
 # miniZone
 
-![miniZone](https://github.com/takashicompany/minizone/blob/master/images/qmk.jpg?raw=true)
+![miniZone](https://dl.dropboxusercontent.com/s/gde0yqfwkb4zun8/qmk.jpg)
 
 miniZone is a compact keyboard designed to be carried with a tablet device like iPad mini.  
 Its width is the same as that of the iPad mini, so it can be placed in a case together.  
