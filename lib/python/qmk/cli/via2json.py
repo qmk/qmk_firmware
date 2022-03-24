@@ -105,7 +105,7 @@ def _via_to_keymap(via_backup, keyboard_data, keymap_layout):
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('filename', type=qmk.path.FileType('r'), arg_only=True, help='VIA Backup JSON file')
-@cli.argument('-kb', '--keyboard', arg_only=True, required=True, help='The keyboard\'s name')
+@cli.argument('-kb', '--keyboard', type=qmk.keyboard.keyboard_folder, completer=qmk.keyboard.keyboard_completer, arg_only=True, required=True, help='The keyboard\'s name')
 @cli.argument('-km', '--keymap', arg_only=True, default='via2json', help='The keymap\'s name')
 @cli.argument('-l', '--layout', arg_only=True, help='The keymap\'s layout')
 @cli.subcommand('Convert a VIA backup json to keymap.json format.')
@@ -114,11 +114,6 @@ def via2json(cli):
 
     This command uses the `qmk.keymap` module to generate a keymap.json from a VIA backup json. The generated keymap is written to stdout, or to a file if -o is provided.
     """
-    # Error checking
-    if not qmk.path.is_keyboard(cli.args.keyboard):
-        cli.log.error(f'Keyboard {cli.args.keyboard} does not exist!')
-        exit(1)
-
     # Find appropriate layout macro
     keymap_layout = cli.args.layout if cli.args.layout else _find_via_layout_macro(cli.args.keyboard)
     if not keymap_layout:
