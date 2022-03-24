@@ -15,18 +15,3 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "rev_a.h"
-
-#define LED_PIN C4
-
-void matrix_init_kb(void) {
-    setPinOutput(LED_PIN);
-    matrix_init_user();
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(LED_PIN, !led_state.caps_lock);
-    }
-    return res;
-}
