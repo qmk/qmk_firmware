@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -215,15 +215,16 @@ bool oled_task_user(void) {
     } else {
         render_bongo_cat();
         oled_set_cursor(0, 6);
-        oled_write_P(WPM:  " false);
+        oled_write_P(PSTR("WPM:  "), false);
         oled_write(get_u8_str(get_current_wpm(), ' '), false);
     }
+    return false;
 }
 #endif  // OLED_DRIVER_ENABLE
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
         set_keylog(keycode, record);
 #endif
         // set_timelog();

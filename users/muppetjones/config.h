@@ -39,11 +39,6 @@
 
 #endif
 
-// Reduce firmware size
-// 	https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
-// also requires EXTRAFLAGS in config.h
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define COMBO_COUNT 3
 #define COMBO_TERM 40
