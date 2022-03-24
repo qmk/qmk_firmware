@@ -230,13 +230,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case _MC:
-        writePinLow(LED4_PIN);
-        break;
-    default: //  for any other layers, or the default layer
-        writePinHigh(LED4_PIN);
-        break;
-    }
+    writePin(LED4_PIN, layer_state_cmp(state, _MC));
   return state;
 }
