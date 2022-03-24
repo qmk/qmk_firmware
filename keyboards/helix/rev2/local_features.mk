@@ -88,44 +88,17 @@ ifeq ($(strip $(LED_ANIMATIONS)), yes)
 endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
-    ifeq ($(strip $(OLED_SELECT)),core)
-        OLED_ENABLE = yes
-        OLED_DRIVER = SSD1306
-        ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
-           OPT_DEFS += -DOLED_FONT_H=\<helixfont.h\>
-        else
-           OPT_DEFS += -DOLED_FONT_H=\"common/glcdfont.c\"
-        endif
+    OLED_DRIVER = SSD1306
+    ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
+       OPT_DEFS += -DOLED_FONT_H=\<helixfont.h\>
     else
-
-        # In the very near future, all keymaps will be compatible with QMK standard oled_driver and this block will be removed.
-        ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-            $(info Helix/rev2: The following combinations are not supported.)
-            $(info - SPLIT_KEYBOARD = $(SPLIT_KEYBOARD)) # yes
-            $(info - OLED_ENABLE    = $(OLED_ENABLE))    # yes
-            $(info - OLED_SELECT    = $(OLED_SELECT))    # local
-            $(info Force : OLED_ENABLE = no)
-            $(info .)
-            OLED_ENABLE = no
-        endif
-        ifeq ($(strip $(OLED_ENABLE)), yes)
-            OLED_ENABLE = no # disable OLED in TOP/common_features.mk
-            OLED_LOCAL_ENABLE = yes
-            SRC += local_drivers/i2c.c
-            SRC += local_drivers/ssd1306.c
-            KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
-            OPT_DEFS += -DOLED_LOCAL_ENABLE
-            ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
-                OPT_DEFS += -DLOCAL_GLCDFONT
-            endif
-        endif
+       OPT_DEFS += -DOLED_FONT_H=\"common/glcdfont.c\"
     endif
 endif
 
 ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
   $(info Helix Spacific Build Options)
   $(info -  OLED_ENABLE          = $(OLED_ENABLE))
-  $(info -  OLED_SELECT          = $(OLED_SELECT))
   $(info -  LED_BACK_ENABLE      = $(LED_BACK_ENABLE))
   $(info -  LED_UNDERGLOW_ENABLE = $(LED_UNDERGLOW_ENABLE))
   $(info -  LED_ANIMATIONS       = $(LED_ANIMATIONS))
