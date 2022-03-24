@@ -123,9 +123,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * 21.03.28: Completely revamped to contain 10-key numpad and symbols.
  */
 [_LOWER] = LAYOUT_planck_wrapper(
-    KC_TILD, KC_GRV,  KC_LPRN, KC_RPRN, KC_TILD, _______, _______, __NUMPAD_R1________________________________,
-    KC_LGUI, KC_LALT, HR_LBRC, HR_RBRC, KC_GRV,  _______, _______, __NUMPAD_R2________________________________,
-    XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, KC_LSFT, _______, _______, __NUMPAD_R3________________________________,
+    __SYMBOLS_L1_______________________________, _______, _______, __NUMPAD_R1________________________________,
+    __SYMBOLS_L2_______________________________, _______, _______, __NUMPAD_R2________________________________,
+    __SYMBOLS_L3_______________________________, _______, _______, __NUMPAD_R3________________________________,
     _______, _______, _______, _______, _______, _______, _______, __NUMPAD_R4________________________________
 ),
 

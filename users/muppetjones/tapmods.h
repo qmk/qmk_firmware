@@ -33,9 +33,12 @@
 #define RAISE MO(_RAISE)
 #define NAV MO(_NAV)
 
+#define ADJ_DEL LT(_ADJUST, KC_DEL)
 #define LOW_ENT LT(_LOWER, KC_ENT)
 #define LOW_SPC LT(_LOWER, KC_SPC)
+#define LOW_BSP LT(_LOWER, KC_BSPC)
 #define NAV_SPC LT(_NAV, KC_SPC)
+#define RAI_BSP LT(_RAISE, KC_BSPC)
 #define RAI_ENT LT(_RAISE, KC_ENT)
 #define RAI_SPC LT(_RAISE, KC_SPC)
 #define RAI_TAB LT(_RAISE, KC_TAB)

@@ -46,10 +46,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_CLMK_DH] = LAYOUT_wrapper(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_CAPS,                   __BLANK____________________________________, KC_BSPC,
-    KC_CAPS, __COLEMAK_MOD_DH_L1________________________,                   __COLEMAK_MOD_DH_R1________________________, KC_BSLS,
+    KC_CAPS, __COLEMAK_MOD_DH_L1________________________,                   __COLEMAK_MOD_DH_R1_W_QUOT_________________, KC_BSPC,
     HY_ESC,  __COLEMAK_MOD_DH_L2_W_GACS_________________,                   __COLEMAK_MOD_DH_R2_W_SCAG_________________, KC_QUOT,
     TD_LAYR, __COLEMAK_MOD_DH_L3_W_SFTV_________________, KC_CAPS, KC_TAB,  __COLEMAK_MOD_DH_R3________________________, KC_SFTENT,
-                                KC_DEL,  HY_ESC, LOW_SPC, RAI_ENT, HY_BSPC, NAV_SPC, HY_ESC, KC_BSPC
+                                XXXXXXX, XXXXXXX, HY_ESC, LOW_ENT, NAV_SPC, HY_BSPC, XXXXXXX, XXXXXXX
 ),
 
 /* QWERTY
@@ -97,10 +97,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT_wrapper(
     _______, __BLANK____________________________________,                   __BLANK____________________________________, _______,
-    _______, __BLANK____________________________________,                   __NUMPAD_R1________________________________, _______,
-    _______, __BLANK_W_GACS_____________________________,                   __NUMPAD_R2________________________________, KC_PLUS,
-    _______, __BLANK____________________________________, _______, _______, __NUMPAD_R3________________________________, _______,
-                               __BLANK____________________________________, KC_0,    KC_DOT,  _______
+    _______, __SYMBOLS_L1_______________________________,                   __NUMPAD_R1________________________________, _______,
+    _______, __SYMBOLS_L2_______________________________,                   __NUMPAD_R2________________________________, KC_COMM,
+    _______, __SYMBOLS_L3_______________________________, _______, _______, __NUMPAD_R3________________________________, KC_DOT,
+                               _______, _______, _______, _______, KC_SPC,  KC_0,    KC_DOT,  _______
 ),
 /* RAISE
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_NAV] = LAYOUT_wrapper(
     _______, __BLANK____________________________________,                   __BLANK____________________________________, _______,
-    _______, __BLANK____________________________________,                   __NAV_R1___________________________________, _______,
+    _______, __VIM_L1___________________________________,                   __NAV_R1___________________________________, _______,
     _______, __BLANK_W_GACS_____________________________,                   __NAV_R2___________________________________, _______,
     _______, __BLANK____________________________________, _______, _______, __NAV_R3___________________________________, _______,
                                _______, _______, _______, _______, _______, _______, _______, _______
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -206,7 +206,7 @@ const char *read_layer_state_user(void) {
     return layer_state_str;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         // If you want to change the display of OLED, you need to change here
         oled_write_ln(read_layer_state_user(), false);
@@ -215,14 +215,16 @@ void oled_task_user(void) {
     } else {
         render_bongo_cat();
         oled_set_cursor(0, 6);
-        oled_write(wpm_state(), false);
+        oled_write_P(PSTR("WPM:  "), false);
+        oled_write(get_u8_str(get_current_wpm(), ' '), false);
     }
+    return false;
 }
 #endif  // OLED_DRIVER_ENABLE
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
         set_keylog(keycode, record);
 #endif
         // set_timelog();

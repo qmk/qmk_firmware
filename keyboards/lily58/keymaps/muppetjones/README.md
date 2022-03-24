@@ -5,9 +5,9 @@ qmk compile -kb lily58/rev1 -km muppetjones
 ```
 
 ```
-make lily58/rev1:muppetjones:avrdude-split-left
+qmk flash -kb lily58/rev1 -km muppetjones -bl avrdude-split-left
 ```
 
 ```
-make lily58/rev1:muppetjones:avrdude-split-left
+qmk flash -kb lily58/rev1 -km muppetjones -bl avrdude-split-right
 ```

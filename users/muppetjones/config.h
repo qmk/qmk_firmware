@@ -29,7 +29,7 @@
 #ifdef TAP_DANCE_ENABLE
 // Change "hold" time (default is 200 ms)
 // -- used for tap dance and other tap mods
-#    define TAPPING_TERM 200
+#    define TAPPING_TERM 175
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #    define IGNORE_MOD_TAP_INTERRUPT
@@ -39,10 +39,6 @@
 
 #endif
 
-// Reduce firmware size
-// 	https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
-// also requires EXTRAFLAGS in config.h
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define COMBO_COUNT 3
+#define COMBO_TERM 40
