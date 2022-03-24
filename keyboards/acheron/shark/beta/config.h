@@ -62,3 +62,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODERS_PAD_A { C14 }
 #define ENCODERS_PAD_B { C15 }
+
+// Use this define if you want to use a non-standard encoder callback. This will inhibit the action of encoder_update_kb and replace it with the encoder_update_user defined in the keymap
+//#define USER_ENCODER
