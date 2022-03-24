@@ -8,6 +8,7 @@ Core Functionality
 
 	* VIA support enabled
 	* Most default Glorious shortcuts enabled
+	* N-key Rollover (NKRO) enabled 
 	* Fn-Backslash for Bootloader mode
 	* Capslock toggled by double tap of Left Shift key or FN + Capslock (RGB highlighted)
 	* Gaming mode (FN + Win-key) locks out Win-key as well as double-tap Shift Capslock; Also RGB highlights WSAD and nearby gaming
