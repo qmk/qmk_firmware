@@ -64,6 +64,35 @@
 // Extensions, turn them on and off.
 #define USERSPACE_H "ericgebhart.h"
 
+// Layout definitions, which language, thumb cluster, mod layer.
+// Columns in and out.
+
+// the default. set it, use it, set it back.
+// US_INT // EN, BEPO, US_INT
+#define LANG_IS US_INT
+#define DEFAULT_LANG US_INT
+#define DEFAULT_LANG_NAME " us-intl"
+
+// Enable a second locale, for another set of layers.
+// This will add bepo versions of all layers chosen.
+// #define SECOND_LOCALE BEPO
+// #define SECOND_LOCALE_NAME " fr-bepo"
+
+// Choose a mod layer. Can be changed per layer.
+// TRNS, ALT, HRM_GACS, HRM_SCAG, HRM_GASC
+#define MODS_ARE ALT
+#define DEFAULT_MODS MODS_ARE
+
+// Choose a thumb cluster. undef and redef as needed.
+// MODs, LAYERS, MOD_LAYERS,
+// WI, WIa, TRNS, TEST
+#define THUMBS_ARE DEFAULT
+
+// layout io, matrix size.
+// a reasonable default for most keyboards.
+// give a 3x10 and get a 3x12
+#define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
+
 // OLED STUFF.
 #define OLED_CUSTOM_ENABLE // custom oled here.
 //#define OLED_LOGO_ENABLE // turn on/off the logo.
@@ -73,7 +102,7 @@
 
 // Combos
 #define COMBO_REF_LAYER_ENABLE
-#define COMBO_REF_LAYER_TWO_ENABLE
+// #define COMBO_REF_LAYER_TWO_ENABLE
 // works if you know the number of your layer.
 // otherwise set and use them later.
 // #define COMBO_ONLY_FROM_LAYER 2
@@ -87,7 +116,7 @@
 //#define CONSOLE_KEY_LOGGER_ENABLE  // turn on keylogging for heat maps.
 
 #define ALT_LOCAL_ENABLE // alternate key combinations, with mods as needed.
-//#define ACCENTED_KEYS_ENABLE // direct access to altgr keys.
+#define ACCENTED_KEYS_ENABLE // direct access to altgr keys.
 
 #define SMART_LOCK_ENABLE // smart lock layers and mods.
 //#define MOD_LOCK_ENABLE  // smart lock mods, similar/overlapping with Smart lock.
@@ -117,16 +146,14 @@
 //#define APT_LAYER_ENABLE
 //#define RSTHD_LAYER_ENABLE
 //#define MTGAP_LAYER_ENABLE
-#define HD_NEU_LAYER_ENABLE
+#define HD_NEU_NARROW_LAYER_ENABLE
 //#define HD_REF_LAYER_ENABLE
+// these are all 3x12.
+#define HD_NEU_LAYER_ENABLE
+//#define BEPO_LAYER_ENABLE
+#define OPTIMOT_LAYER_ENABLE
+#define BEAKL19bis_LAYER_ENABLE
 
-// Enable bepo specific layers.
-// This will add bepo versions of all layers chosen.
-#define BEPO_ENABLE
-// So far, these are all 3x12.
-//#define BEPO_LAYER_ENABLE  // Bepo only works on bepo.
-//#define OPTIMOT_LAYER_ENABLE
-//#define BEAKL19bis_LAYER_ENABLE
 
 // enable transient function layers.
 #define SYMBOL_LAYER_ENABLE
@@ -148,25 +175,6 @@
 //#define ACCENTED_MORTE_LAYER_ENABLE
 
 
-// Layout definitions, which language, thumb cluster, mod layer.
-// Columns in and out.
-
-// Choose a thumb cluster. undef and redef as needed.
-// MODs, LAYERS, MOD_LAYERS,
-// WI, WIa, TRNS, TEST
-#define THUMBS_ARE DEFAULT
-
-// the default. set it, use it, set it back.
-#define LANG_IS EN // BEPO  -
-
-// Choose a mod layer. Can be changed per layer.
-// TRNS, ALT, HRM_GACS, HRM_SCAG, HRM_GASC
-#define MODS_ARE ALT
-#define DEFAULT_MODS MODS_ARE
-
-// a reasonable default for most keyboards.
-// give a 3x10 and get a 3x12
-#define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
 
 // Functional layer choices.
 /* configure the function layers. */
@@ -177,11 +185,11 @@
 
 /* nav */
 //#define NAV_FULL  // monolithic, two sided nav with mouse and arrows.
-//#define NAV_FULL_LOCK_MODS // Replace left mouse buttons with lockmods.
+#define NAV_FULL_LOCK_MODS // Replace left mouse buttons with lockmods.
 
 // Just the non mouse bits, with lock mods, n-shot mods on the left.
 // if mousekeys enabled, adds a mouse layer accessible via smart lock.
-#define NAV_NO_MOUSE
+// #define NAV_NO_MOUSE
 
 
 /* keypads */

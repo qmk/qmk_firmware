@@ -15,7 +15,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// transient layers.
+// transient layers which are language agnostic.
 
 #ifdef LAYERS_LAYER_ENABLE
 _LAYERS, // keep this here at the end of base layers.
@@ -28,30 +28,6 @@ _LAYERS, // keep this here at the end of base layers.
   _NAV,   // transient layers
 #ifdef MOUSEKEY_ENABLE
   _NAVm,
-#endif
-#endif
-
-#ifdef SYMBOL_LAYER_ENABLE
-  _SYMB,
-  _SYMB_EN = _SYMB,
-#ifdef BEPO_ENABLE
-  _SYMB_BP,
-#endif
-#endif
-
-#ifdef KEYPAD_LAYER_ENABLE
-  _KEYPAD,
-  _KEYPAD_EN = _KEYPAD,   // the en's will be the norm at some point.
-#ifdef BEPO_ENABLE
-  _KEYPAD_BP,
-#endif
-#endif
-
-#ifdef TOPROWS_LAYER_ENABLE
-  _TOPROWS,
-  _TOPROWS_EN = _TOPROWS,
-#ifdef BEPO_ENABLE
-  _TOPROWS_BP,
 #endif
 #endif
 
@@ -69,20 +45,12 @@ _LAYERS, // keep this here at the end of base layers.
 #define MO_ADJUST ___
 #endif
 
-#ifdef BEPO_ENABLE
-#ifdef ACCENTED_LAYER_ENABLE
-  _ACCENTED_BP,
-#endif
-#ifdef MORTE_LAYER_ENABLE
-  _MORTE_BP,
-#endif
-#ifdef ACCENTED_MORTE_LAYER_ENABLE
-  _ACCENTED_MORTE_BP,
-#endif
-#endif
 
 #ifdef COMBO_REF_LAYER_ENABLE
   _COMBO_REF,
+// set the combo reference layer if we have one.
+#undef COMBO_REF_DEFAULT
+#define COMBO_REF_DEFAULT _COMBO_REF
 #endif
 #ifdef COMBO_REF_LAYER_TWO_ENABLE
   _COMBO_REF2,

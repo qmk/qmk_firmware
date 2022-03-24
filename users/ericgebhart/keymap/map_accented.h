@@ -15,14 +15,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 // Accented character and dead key layers.
-#ifdef BEPO_ENABLE
 #ifdef ACCENTED_LAYER_ENABLE
-T_LAYER(_ACCENTED_BP, ___ACCENTED_BP___),
+    T_LAYER(LANG(_ACCENTED), ___ACCENTED___),
 #endif
 #ifdef MORTE_LAYER_ENABLE
-  T_LAYER(_MORTE_BP, ___MORTE_BP___),
+    T_LAYER(LANG(_MORTE), ___MORTE___),
 #endif
 #ifdef ACCENTED_MORTE_LAYER_ENABLE
-  T_LAYER(_ACCENTED_MORTE_BP, ___ACCENTED_MORTE_BP___),
-#endif
+    T_LAYER(LANG(_ACCENTED_MORTE), ___ACCENTED_MORTE___),
 #endif

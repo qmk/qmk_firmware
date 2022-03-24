@@ -75,10 +75,10 @@
 // Edge columns. N rows by 6 columns per side.
 // Outside pinky keys are 'yes'
 // Should be undef/def'd by the keyboard's keymap if no.
-#define EDGE_COLS yes
+//#define EDGE_COLS yes
 
 // BEPO or EN. Used in map.h
-#define LANG_IS EN
+//#define LANG_IS EN
 
 
 // EDGES

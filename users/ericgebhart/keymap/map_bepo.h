@@ -20,15 +20,15 @@
 #define BASE_COLS_IN_OUT 6 // 5, 5_6, 6
 
 #ifdef BEPO_LAYER_ENABLE
-B_LAYERt6(_BEPO, ___12_SYMBOLS_BEPO___, ___BEPO_3x12___),
+    B_LAYERt6(LANG_N(_BEPO), ___12_SYMBOLS_BEPO___, ___BEPO_3x12___),
 #endif
 
 #ifdef OPTIMOT_LAYER_ENABLE
-  B_LAYERt6(_OPTIMOT, ___12_SYMBOLS_BEPO___, ___OPTIMOT_3x12___),
+    B_LAYERt6(LANG_N(_OPTIMOT), ___12_SYMBOLS_BEPO___, ___OPTIMOT_3x12___),
 #endif
 
 #ifdef BEAKL19bis_LAYER_ENABLE
-  B_LAYERt6(_BEAKL19bis, ___12_SYMBOLS_BEPO___, ___BEAKL19bis_3x12___),
+    B_LAYERt6(LANG_N(_BEAKL19bis), ___12_SYMBOLS_BEPO___, ___BEAKL19bis_3x12___),
 #endif
 
 // end of 3x12 base layers.

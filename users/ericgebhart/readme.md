@@ -1,16 +1,45 @@
 Overview
 ========
 
-Warning: Dvorakin kinesian touch typist, that uses en-us and and bepo-fr 
-locales on my computer.  40+ years of vi, 30 years of vi in Emacs. Linux, 
-and Xmonad. No pointing device.  Developer. C, etc., Clojure, elisp, Python, shells, 
-Haskell, Scheme, ... 
+An easily configurable keymap for keymap exploration. It is Language
+agnostic, has Multiple layouts (20+ base layers), multiple mods or
+not, home row mods or not, a variety of thumb layouts, mouse/no mouse,
+smart lock layers and mods, N-Shot mods like callum's, swapper. Combos,
+tap_hold, accented keys, alternate shifted keys, automatic custom
+keys, key overrides. Minimal or no C-code. Language, mods, layouts
+and extensions are encapsulated, so that they do not interact in the
+configuration which makes it much easier to modify and grow. Mods and
+combos are by key location.
 
-That just means that Gui, Esc, :/? and . are all easy access.
+All can be turned on or off in the config. 
+supports en-us and fr-bepo Support for other languages is easily added.
 
+Layouts are human readable, all extensions are defined with def files.
+If an 128x64 oled is available, a map of the current layer is shown if enabled.
+
+I'm an Xmonad, emacs in vi emulation programmer, that 
+just means that _Gui, Esc, :/?!% and ._ are all easy access and I like my
+arrow and mouse keys in a 4 column row.
 
 I have also become minimalist in my keyboard choices. I don't use
 number rows, not even on my kinesis, dactyl, or ergodox_ez, which have them. 
+Although my maps do reasonably support these bigger keyboards as that is where
+it all started for me and I do still use them. My preference for keyboards 
+is more in line with the Kyria and Corne. I still use 6 columns, but have been
+looking to use only 5.
+
+Note: Combos at QMK master do not currently support multiple reference layers which this
+configuration uses. Combos still work as always, but do not support all the features
+found here. To get fully functioning multi-reference combos, see my *ericgebhart_dev*
+branch and pull request below.
+
+A more current version of my QMK user can probably be found here in
+the _ericgebhart_ branch [of my QMK repo ](https://github.com/EricGebhart/qmk_firmware/tree/ericgebhart/users/ericgebhart)
+
+The version with the PR and look through to my _ericgebhart_ branch can be found here in
+my [dev repo.](https://github.com/EricGebhart/qmk_firmware/tree/ericgebhart_dev/users/ericgebhart)
+which includes my [pull request for fully functioning multi-reference combos which
+can found here.](https://github.com/qmk/qmk_firmware/pull/16699)
 
 Things which effect the thinking.
   * No mouse. 
@@ -57,7 +86,7 @@ Features:
   Layout shape and keyboard choices.
 
    In all cases these keyboards are defined in a matrix which is
-   a set of rows. Maybe like so, or not.
+   a set of rows. Maybe like so, or less. Kinesis has one more row.
                                                        
    -------------------------|------------------------ */
    | Left0 | Numbers L | mid|dle0 | numbers R | Right0 |
@@ -403,17 +432,6 @@ the current locale setting, which the keyboard tracks.
 
 The first and last defines are all done with the magic of defines in 
 ericgebhart.h where the layers enum is defined.
-
-The locales are defined like this in _locales.h_
-
-```c
-const uint16_t locale_layers[][2] = {
-  [LOCALE_EN_US] =      {FIRST_EN_LAYER, LAST_EN_LAYER},
-#ifdef BEPO_ENABLE
-  [LOCALE_BEPO_FR] =    {FIRST_BEPO_LAYER, LAST_BEPO_LAYER},
-#endif
-};
-```
 
 This could potentially hold multiple locales, The map turns on off the layers 
 and their enums if they are not enabled so that the layer array does not 
@@ -762,6 +780,7 @@ extensions.h.
 
 To copy all the extensions, just get the extensions and defs folders, get the
 process_records.c file, and adapt your custom keycodes to custom_keys.def.
+And copy the pertinant parts of config.h.
 At last define _USERSPACE_H such that all the extensions can find your stuff.
 This might be overkill, perhaps just including keycodes.h will work most of
 the time.
@@ -794,6 +813,8 @@ The Custom keys are in __custom_keys.def__.
 
 __keycodes.h__ is an extension of sorts. It is the custom keys enumeration.
 The __custom_keys.def__ has a few random keycodes in it.
+
+All other keys are automatically generated from the def files.
 
 For the extensions that have key definitions those keys are enumerated
 automatically. The keys are defined in the def files so there is no need
@@ -953,13 +974,18 @@ KOLNO(name, mods, key, replacement, layer, neg_mods, options)
 Combos/Chords
 ----------------------------
 
-I followed the simple example at the end of the doc that uses the 
-combos.def file to define the combos. 
+The combos here use multiple reference layers which is a pending
+feature in the dev branch of QMK. The combos here will still work
+to an extent if *COMBO_ONLY_FROM_LAYER* is set to the correct layer number.
 
-My version has been extended
-to define a hook function for combos to determine the reference layer
-for the current layer.  This allows for multiple reference layers
-to be used depending on the situation.
+[See my pull request to enhance combos here](https://github.com/qmk/qmk_firmware/pull/16699)
+
+This pull request defines a hook function for combos to determine the
+reference layer for the current layer.  This allows for multiple reference
+layers to be used depending on the situation.
+
+For fully functional combos with multiple reference layers see
+my [dev repo here](https://github.com/EricGebhart/qmk_firmware/tree/ericgebhart_dev/users/ericgebhart)
 
 Reference layers will be created and used according to the following
 defines. 
@@ -1018,7 +1044,7 @@ Tap-Hold
 
 Tap hold currently has *tap_taplong* and *open_openclose* functions.
 These are in *tap_hold.c*, *tap_hold.h* and *tap_hold.defs*.
-Both use **TAPPING_TERM** as the hold duration.
+Both use **TAP_HOLD_TERM** as the hold duration.
 
 Tap_taplong sends one keycode on tap, and another after a hold of tapping term.
 Open_openclose, sends one keycode on tap, hold sends that, plus the second, 

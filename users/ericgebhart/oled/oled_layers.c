@@ -72,13 +72,13 @@ void oled_render_default_layer_state(void) {
 #endif
       // these only exist as Non _bp, non _en.
 #ifdef OPTIMOT_LAYER_ENABLE
-      WRITE_STR_CASE(_OPTIMOT, "Optimot")
+      WRITE_STR_LAYER(_OPTIMOT, "Optimot")
 #endif
 #ifdef BEAKL19bis_LAYER_ENABLE
-      WRITE_STR_CASE(_BEAKL19bis, "Beakl19bis")
+      WRITE_STR_LAYER(_BEAKL19bis, "Beakl19bis")
 #endif
 #ifdef BEPO_LAYER_ENABLE  // Bepo only works on bepo.
-      WRITE_STR_CASE(_BEPO, "Bepo")
+      WRITE_STR_LAYER(_BEPO, "Bepo")
 #endif
       }
 }
@@ -102,13 +102,13 @@ void oled_render_layer_state(void) {
 
 // single case, BP or no suffix.
 #ifdef ACCENTED_MORTE_LAYER_ENABLE
-    WRITE_STR_CASE(_ACCENTED_MORTE_BP, "Accented Morte");
+    WRITE_STR_LAYER(_ACCENTED_MORTE, "Accented Morte");
 #endif
 #ifdef ACCENTED_LAYER_ENABLE
-    WRITE_STR_CASE(_ACCENTED_BP, "Accented");
+    WRITE_STR_LAYER(_ACCENTED, "Accented");
 #endif
 #ifdef MORTE_LAYER_ENABLE
-    WRITE_STR_CASE(_MORTE_BP, "Morte");
+    WRITE_STR_LAYER(_MORTE, "Morte");
 #endif
 
 

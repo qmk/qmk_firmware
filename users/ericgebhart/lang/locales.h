@@ -25,8 +25,8 @@
 
 const uint16_t locale_layers[][2] = {
   [LOCALE_EN_US] =      {FIRST_EN_LAYER, LAST_EN_LAYER},
-#ifdef BEPO_ENABLE
-  [LOCALE_BEPO_FR] =    {FIRST_BEPO_LAYER, LAST_BEPO_LAYER},
+#ifdef SECOND_LOCALE
+  [LOCALE_NAME] =    {FIRST_LOC_LAYER, LAST_LOC_LAYER},
 #endif
 };
 

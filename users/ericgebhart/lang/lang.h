@@ -61,6 +61,7 @@
 #define COMBO2KC CB2
 #define BEPOKC BP
 #define ENKC KC
+#define US_INTKC US
 
 // Give the right symbol suffix by LANG_IS
 #define LANG_SFX CAT(CAT(LANG_IS, _), SFX)
@@ -68,16 +69,18 @@
 #define COMBO2_SFX _CB2
 #define BEPO_SFX _BP
 #define EN_SFX _EN
+#define US_INT_SFX _EN
 
 // Give the right map chunk suffix by LANG_IS
 #define LANG_MAPSFX CAT(CAT(LANG_IS, _), MAPSFX)
 #define BEPO_MAPSFX _BP___
 #define EN_MAPSFX _EN___
+#define US_INT_MAPSFX _EN___
 
 // These use the mapping above to get their job done.
 
 // In order to create keycode names to match lang.
-// A  --> BP_A or KC_A
+// A  --> BP_A or KC_A,US_A
 #define LANG_KC(NAME) CAT(LANG_PFX, NAME)
 
 // _SYMB -> _SYMB_EN
@@ -90,7 +93,7 @@
 
 
 // for the oled layer map switch
-#ifdef BEPO_ENABLE
+#ifdef SECOND_LOCALE
 #define LCASE(NAME)                          \
   case CAT2(NAME, _EN):                      \
   case CAT2(NAME, _BP):

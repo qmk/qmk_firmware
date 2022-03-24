@@ -69,18 +69,16 @@ void oled_render_layer_map(void) {
         SHOW_MAP(_HD_REF)
 #endif
 
-// BEPO only base layers.
-// single case, no LANG suffix
 #ifdef BEPO_LAYER_ENABLE
-        SHOW_MAP_S(_BEPO)
+        SHOW_MAP(_BEPO)
 #endif
 
 #ifdef OPTIMOT_LAYER_ENABLE
-        SHOW_MAP_S(_OPTIMOT)
+        SHOW_MAP(_OPTIMOT)
 #endif
 
 #ifdef BEAKL19bis_LAYER_ENABLE
-        SHOW_MAP_S(_BEAKL19bis)
+        SHOW_MAP(_BEAKL19bis)
 #endif
 
         }
@@ -160,24 +158,22 @@ void oled_render_layer_map(void) {
 #endif // end keypad.
 
       // extra layers for bepo only
-#ifdef BEPO_ENABLE
 #ifdef MORTE_LAYER_ENABLE
-    case _MORTE_BP:
+    case _MORTE:
       CARTE_MORTE
       break;
 #endif
 
 #ifdef ACCENTED_MORTE_LAYER_ENABLE
-    case _ACCENTED_MORTE_BP:
+    case _ACCENTED_MORTE:
       CARTE_ACCENTED_MORTE
         break;
 #endif
 
 #ifdef ACCENTED_LAYER_ENABLE
-    case _ACCENTED_BP:
+    case _ACCENTED:
       CARTE_ACCENTED
         break;
-#endif
 #endif
 
     }

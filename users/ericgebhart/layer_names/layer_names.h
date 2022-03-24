@@ -25,21 +25,36 @@
 // Get the enums for the layers.
 enum userspace_layers {
 
-// get all the usual base layers for default lang.
 #include "base_names.h"
 
-// do it again for bepo
-// + bepo specific ones.
-#include "bepo_names.h"
+  // get them again if we have another locale.
+#ifdef SECOND_LOCALE
+#undef LANG_IS
+#define LANG_IS SECOND_LOCALE
 
-// all the functional layers.
-#include "trans_names.h"
+#include "base_names.h"
+
+#undef LANG_IS
+#define LANG_IS DEFAULT_LANG
+#endif
+
+#include "func_names.h"
+
+  // get them again if we have another locale.
+#ifdef SECOND_LOCALE
+#undef LANG_IS
+#define LANG_IS SECOND_LOCALE
+
+#include "func_names.h"
+
+#undef LANG_IS
+#define LANG_IS DEFAULT_LANG
+#endif
+
+#include "util_names.h"
 
 };
 
-// set the combo reference layer if we have one.
-#undef COMBO_REF_DEFAULT
-#define COMBO_REF_DEFAULT _COMBO_REF
 
 // find the beginning and end of each locale.
 #include "locale_layers.h"

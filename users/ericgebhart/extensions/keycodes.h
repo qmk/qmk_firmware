@@ -20,11 +20,13 @@
 #include "process_keycode/process_tap_dance.h"
 #include "eeconfig.h"
 #include "keymap_bepo.h"
+//#include "keymap_us_international.h"
+#include "keymap_us_international_linux.h"
 #include "lang.h"
 
 //#define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
 
-#define DEFAULT_LANG EN  // EN, BEPO
+// #define DEFAULT_LANG EN // US_INT // EN, BEPO, US_INT, EURkey
 
 #define KEY_NAME(NAME, ...) NAME,
 #define BLANK(...)
@@ -135,6 +137,9 @@ enum userspace_custom_keycodes {
 #define BP_LT BP_LABK
 #define BP_GT BP_RABK
 #define BP_TAB KC_TAB
+#define US_GT US_RABK
+#define US_LT US_LABK
+#define US_TAB KC_TAB
 
 #define BP_F1 KC_F1
 #define BP_F2 KC_F2
@@ -150,12 +155,42 @@ enum userspace_custom_keycodes {
 #define BP_F12 KC_F12
 #define BP_TRNS KC_TRNS
 
+#define US_F1 KC_F1
+#define US_F2 KC_F2
+#define US_F3 KC_F3
+#define US_F4 KC_F4
+#define US_F5 KC_F5
+#define US_F6 KC_F6
+#define US_F7 KC_F7
+#define US_F8 KC_F8
+#define US_F9 KC_F9
+#define US_F10 KC_F10
+#define US_F11 KC_F11
+#define US_F12 KC_F12
+#define US_TRNS KC_TRNS
+
 #ifdef KEYPAD_LAYER_ENABLE
 #define TT_KEYPAD TT(LANG_N(_KEYPAD))
 #define MO_KEYPAD MO(LANG_N(_KEYPAD))
 #else
 #define TT_KEYPAD ___
 #define MO_KEYPAD ___
+#endif
+
+#ifdef SYMB_LAYER_ENABLE
+#define TT_SYMB TT(LANG_N(_SYMB))
+#define MO_SYMB MO(LANG_N(_SYMB))
+#else
+#define TT_SYMB ___
+#define MO_SYMB ___
+#endif
+
+#ifdef TOPROWS_LAYER_ENABLE
+#define TT_TOPROWS TT(LANG_N(_TOPROWS))
+#define MO_TOPROWS MO(LANG_N(_TOPROWS))
+#else
+#define TT_TOPROWS ___
+#define MO_SYMB ___
 #endif
 
 #ifdef RGB_LAYER_ENABLE

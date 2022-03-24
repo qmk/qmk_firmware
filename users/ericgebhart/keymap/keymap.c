@@ -16,10 +16,6 @@
 */
 
 /* This is my keymap. Enable the layers you want in config.h. */
-/* The default is to give some  */
-/* qwerty layers, BEPO_ENABLE to turn on the bepo layers if they exist. */
-/* Dvorak and beakl exist for bepo. */
-/* There are base layer choices, and function layer choices. */
 
 #include QMK_KEYBOARD_H
 #include "ericgebhart.h"
@@ -58,11 +54,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "map_norm.h"
 #include "map_beakl.h"
 #include "map_alt.h"
+#include "map_hd.h"
+#include "map_bepo.h"
 
-  // Bepo base layers.
-#ifdef BEPO_ENABLE
+  // create a set of layers for a second locale.
+#ifdef SECOND_LOCALE
 #undef LANG_IS
-#define LANG_IS BEPO
+#define LANG_IS SECOND_LOCALE
 
   // changes alt target for us, because both en-qwerty and fr-bepo
   // need a beakl alt target.
@@ -89,9 +87,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // SYMBOL LAYER
 #include "map_symbols.h"
 
-#ifdef BEPO_ENABLE
+#ifdef SECOND_LOCALE
 #undef LANG_IS
-#define LANG_IS BEPO
+#define LANG_IS SECOND_LOCALE
 
 #include "map_symbols.h"
 
@@ -103,9 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // KEYPAD LAYER
 #include "map_keypads.h"
 
-#ifdef BEPO_ENABLE
+#ifdef SECOND_LOCALE
 #undef LANG_IS
-#define LANG_IS BEPO
+#define LANG_IS SECOND_LOCALE
 
 #include "map_keypads.h"
 
@@ -117,9 +115,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // TOPROWS LAYER
 #include "map_toprows.h"
 
-#ifdef BEPO_ENABLE
+#ifdef SECOND_LOCALE
 #undef LANG_IS
-#define LANG_IS BEPO
+#define LANG_IS SECOND_LOCALE
 
 #include "map_toprows.h"
 

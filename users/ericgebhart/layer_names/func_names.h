@@ -14,24 +14,24 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifdef BEPO_ENABLE
-#undef LANG_IS
-#define LANG_IS BEPO
 
-#include "base_names.h"
-
-#undef LANG_IS
-#define LANG_IS DEFAULT_LANG
-
-
-// ignores lang...
-#ifdef BEPO_LAYER_ENABLE  // Bepo only works on bepo.
-_BEPO,
+#ifdef ACCENTED_LAYER_ENABLE
+  LANG_N(_ACCENTED),
 #endif
-#ifdef OPTIMOT_LAYER_ENABLE  // only works on bepo.
-  _OPTIMOT,
+#ifdef MORTE_LAYER_ENABLE
+  LANG_N(_MORTE),
 #endif
-#ifdef BEAKL19bis_LAYER_ENABLE  // only works on bepo.
-  _BEAKL19bis,
+#ifdef ACCENTED_MORTE_LAYER_ENABLE
+  LANG_N(_ACCENTED_MORTE),
 #endif
+
+// functional layers that would be different by language
+#ifdef SYMBOL_LAYER_ENABLE
+  LANG_N(_SYMB),
+#endif
+#ifdef KEYPAD_LAYER_ENABLE
+  LANG_N(_KEYPAD),
+#endif
+#ifdef TOPROWS_LAYER_ENABLE
+  LANG_N(_TOPROWS),
 #endif

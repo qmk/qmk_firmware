@@ -65,3 +65,12 @@
 #ifdef HD_REF_LAYER_ENABLE
       LANG_N(_HD_REF),
 #endif
+#ifdef BEPO_LAYER_ENABLE  // Bepo only works on bepo.
+      LANG_N(_BEPO),
+#endif
+#ifdef OPTIMOT_LAYER_ENABLE  // only works on bepo.
+      LANG_N(_OPTIMOT),
+#endif
+#ifdef BEAKL19bis_LAYER_ENABLE  // only works on bepo.
+      LANG_N(_BEAKL19bis),
+#endif

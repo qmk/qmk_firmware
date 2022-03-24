@@ -85,9 +85,12 @@
 #define ___BASE_LAYERS___ ___, KC_SET_BASE, KC_NEXT_BASE_LAYER, KC_NEXT_LOCALE, ___
 
 // transient layers.
-#define ___5_LAYERS_T___     ___, MO(_NAV),  MO(_SYMB),     MO_KEYPAD,    MO(_TOPROWS)
-#ifdef BEPO_ENABLE
-#define ___5_LAYERS_T_BP___  ___, MO(_NAV),  MO(_SYMB_BP),  MO_KEYPAD,    MO(_TOPROWS_BP)
+#define ___5_LAYERS_T___     ___, MO(_NAV),  MO_SYMB,  MO_KEYPAD,  MO_TOPROWS
+#ifdef SECOND_LOCALE
+#define LANG_IS SECOND_LOCALE
+#define ___5_LAYERS_T_BP___  ___, MO(_NAV),  MO_SYMB,  MO_KEYPAD,  MO_TOPROWS
+#undef LANG_IS
+#define LANG_IS DEFAULT_LANG
 #else
 #define ___5_LAYERS_T_BP___  ___, MO(_NAV),  ___3___
 #endif
