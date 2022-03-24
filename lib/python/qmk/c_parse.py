@@ -153,7 +153,7 @@ def _parse_layout_macro(layout_macro):
     return macro_name, layout, matrix
 
 
-def _parse_matrix_locations(matrix, file, macro_name, empty_spaces=False):
+def _parse_matrix_locations(matrix, file, macro_name):
     """Parse raw matrix data into a dictionary keyed by the LAYOUT identifier.
     """
     matrix_locations = {}
@@ -165,7 +165,7 @@ def _parse_matrix_locations(matrix, file, macro_name, empty_spaces=False):
 
         row = row.replace('{', '').replace('}', '')
         for col_num, identifier in enumerate(row.split(',')):
-            if identifier != 'KC_NO' or empty_spaces:
+            if identifier != 'KC_NO':
                 matrix_locations[identifier] = [row_num, col_num]
 
     return matrix_locations
