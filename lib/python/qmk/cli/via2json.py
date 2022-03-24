@@ -9,7 +9,7 @@ import qmk.keyboard
 import qmk.path
 from qmk.info import info_json
 from qmk.json_encoders import KeymapJSONEncoder
-from qmk.commands import parse_configurator_json
+from qmk.commands import parse_configurator_json, dump_lines
 from qmk.keymap import generate_json, list_keymaps, locate_keymap, parse_keymap_c
 
 
@@ -150,14 +150,5 @@ def via2json(cli):
     # Generate the keymap.json
     keymap_json = generate_json(cli.args.keymap, cli.args.keyboard, keymap_layout, keymap_data, macro_data)
 
-    if cli.args.output:
-        cli.args.output.parent.mkdir(parents=True, exist_ok=True)
-        if cli.args.output.exists():
-            cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
-        cli.args.output.write_text(json.dumps(keymap_json, cls=KeymapJSONEncoder))
-
-        if not cli.args.quiet:
-            cli.log.info('Wrote keymap to %s.', cli.args.output)
-
-    else:
-        print(json.dumps(keymap_json))
+    keymap_lines = [json.dumps(keymap_json, cls=KeymapJSONEncoder)]
+    dump_lines(cli.args.output, keymap_lines, cli.args.quiet)
