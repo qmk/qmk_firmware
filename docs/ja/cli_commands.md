@@ -275,14 +275,14 @@ $ qmk kle2json -f kle.txt -f
 Ψ Wrote out to info.json
 ```
 
-## `qmk format-py`
+## `qmk format-python`
 
 このコマンドは `qmk_firmware` 内の python コードを整形します。
 
 **使用法**:
 
 ```
-qmk format-py
+qmk format-python
 ```
 
 ## `qmk pytest`

@@ -25,4 +25,4 @@ bool effect_runner_reactive(effect_params_t* params, reactive_f effect_func) {
     return led_matrix_check_finished_leds(led_max);
 }
 
-#endif  // LED_MATRIX_KEYREACTIVE_ENABLED
+#endif // LED_MATRIX_KEYREACTIVE_ENABLED
