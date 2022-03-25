@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "xs60.h"
+#include "hotswap.h"
 
 // tested and working
 void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }

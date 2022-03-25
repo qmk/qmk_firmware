@@ -1,13 +1,13 @@
-# XS60
+# XS60HS
 
-XS60 ANSI, normal + tsangan bottom row.
+XS60HS - ANSI, tsangan bottom row.
 
 * Keyboard Maintainer: [Xelus22](https://github.com/Xelus22)
 * Hardware Supported: Group buys
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xelus/xs60:default
+    make xelus/xs60/hotswap:default
 
 Reset your keyboard in 3 ways:
 * Software reset on Fn + Backspace
