@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SETTINGS_LAYER] = LAYOUT_all(
         RESET, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,            BASE_LAYER_CHANGE,
-        XXXXXXX,     XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPLY, KC_MPRV, KC_MNXT, XXXXXXX,     KC_HOME,
+        XXXXXXX,     RGB_TOG, RGB_MOD,  RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, XXXXXXX, KC_MPLY, KC_MPRV, KC_MNXT, XXXXXXX,     KC_HOME,
         XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,            KC_END,
         XXXXXXX,           XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,   XXXXXXX,   XXXXXXX,                      XXXXXXX,                              XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,    XXXXXXX
@@ -65,6 +65,10 @@ void keyboard_post_init_user(void) {
     //debug_keyboard=true;
     //debug_mouse=true;
 #   endif
+    // Call the post init code.
+    rgblight_enable_noeeprom();
+    rgblight_sethsv_noeeprom(HSV_MAGENTA);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -128,6 +132,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void matrix_scan_user(void) {
+#   ifdef RGBLIGHT_ENABLE
+    // Set GRAVE key to red when _NON_FUNC_LAYER is active
+    if (get_highest_layer(default_layer_state) == _NON_FUNC_LAYER) {
+        rgblight_sethsv_noeeprom(HSV_RED);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    }
+#   endif
+}
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(_FUNC_LAYER, KC_SPC):
@@ -141,5 +155,29 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         default:
             return TAPPING_TERM;
     }
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+#   ifdef RGBLIGHT_ENABLE
+    switch (get_highest_layer(state)) {
+        case _NON_FUNC_LAYER:
+            rgblight_sethsv_noeeprom(HSV_RED);
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            break;
+        case _FUNC_LAYER:
+            rgblight_sethsv_noeeprom(HSV_PURPLE);
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            break;
+        case _SETTINGS_LAYER:
+            rgblight_sethsv_noeeprom(HSV_WHITE);
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            break;
+        case _DEFAULT_LAYER:
+            rgblight_sethsv_noeeprom(HSV_MAGENTA);
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
+            break;
+    }
+#   endif
+    return state;
 }
 

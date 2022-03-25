@@ -23,6 +23,14 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define RGB_DI_PIN D3
+#ifdef RGB_DI_PIN
+    #define RGBLED_NUM 6
+
+    #define RGBLIGHT_HUE_STEP 15
+    #define RGBLIGHT_SAT_STEP 15
+    #define RGBLIGHT_VAL_STEP 15
+    #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+    #define RGBLIGHT_ANIMATIONS
+#endif
 
