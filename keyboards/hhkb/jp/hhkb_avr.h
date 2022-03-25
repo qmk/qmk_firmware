@@ -1,4 +1,5 @@
-#pragma once
+#ifndef HHKB_AVR_H
+#define HHKB_AVR_H
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -161,4 +162,6 @@ static inline void KEY_SELECT(uint8_t ROW, uint8_t COL)
     DDRC  &= ~0x0F;                     \
     PORTC &= ~0x0F;                     \
 } while (0)
+#endif
+
 #endif

@@ -3,7 +3,7 @@
 #include <avr/pgmspace.h>
 #include <avr/eeprom.h>
 #include "keycode.h"
-#include "serial.h"
+#include "tmk_core/protocol/serial.h"
 #include "host.h"
 #include "action.h"
 #include "action_util.h"

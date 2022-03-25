@@ -6,7 +6,7 @@
 #include "sendchar.h"
 #include "rn42.h"
 #include "rn42_task.h"
-#include "serial.h"
+#include "tmk_core/protocol/serial.h"
 #include "keyboard.h"
 #include "keycode.h"
 #include "action.h"
