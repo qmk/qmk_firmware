@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       OSM(MOD_LSFT),  MY_S_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, MY_S_SL, KC_LALT,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KC_LGUI, TO(LRAISE), KC_SPC,     KC_BSPC, TO(LLOWER), KC_ENT
+                                             KC_LGUI, TO(LRAISE), KC_SPC,     KC_BSPC, TO(LLOWER), KC_ENT
                                             //`--------------------------'  `--------------------------'
     ),
     [LRAISE] = LAYOUT_split_3x6_3(
@@ -100,9 +100,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             _______, RESET,   XXXXXXX,  KC_MS_UP,    XXXXXXX, XXXXXXX,            KC_MS_BTN3,   KC_F7,   KC_F8,   KC_F9, XXXXXXX, _______,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            _______, XXXXXXX,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT, XXXXXXX,            KC_MS_BTN1,   KC_F4,   KC_F5,   KC_F6, XXXXXXX, _______,
+            _______, XXXXXXX,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT, KC_WH_U,            KC_MS_BTN1,   KC_F4,   KC_F5,   KC_F6, XXXXXXX, _______,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            _______, XXXXXXX,KC_MS_BTN3,KC_MS_BTN2, KC_MS_BTN1, XXXXXXX,            KC_MS_BTN2,   KC_F1,   KC_F2,   KC_F3, XXXXXXX, _______,
+            _______, XXXXXXX,KC_MS_BTN3,KC_MS_BTN2, KC_MS_BTN1, KC_WH_D,            KC_MS_BTN2,   KC_F1,   KC_F2,   KC_F3, XXXXXXX, _______,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                                 _______, TO(LCMK),_______,    _______,  TO(LRAISE), KC_F10
                                             //`--------------------------'  `--------------------------'
