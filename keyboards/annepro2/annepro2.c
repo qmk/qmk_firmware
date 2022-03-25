@@ -264,11 +264,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 						rgb_matrix_decrease_speed();
 						return false;
 					} else {
-						if(rgb_matrix_is_enabled()) {
-							ap2_led_disable(); 
-						} else {
-							ap2_led_enable();
-						}
+						rgb_matrix_toggle();
 						return true;
 					}
 				}
@@ -276,11 +272,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 
             case KC_AP_RGB_MOD:
 				if (record->event.pressed) {
-					if (get_mods() & MOD_MASK_SHIFT) {
-						rgb_matrix_increase_speed();
-						return false;
-					} else if (get_mods() & MOD_MASK_CTRL) {
-						rgb_matrix_decrease_speed();
+					if (get_mods() & MOD_MASK_CTRL) {
+						rgb_matrix_step_reverse();
 						return false;
 					} else {
 						rgb_matrix_step();	
