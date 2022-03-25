@@ -226,6 +226,63 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 else ap2_led_enable();
                 return true;
             #endif
+            
+            case KC_AP_RGB_VAI:
+				if (record->event.pressed) {
+					if (get_mods() & MOD_MASK_SHIFT) {
+						tap_code16(RGB_HUI);
+						return false;
+					} else if (get_mods() & MOD_MASK_CTRL) {
+						tap_code16(RGB_HUD);
+						return false;
+					} else {
+						tap_code16(RGB_VAI);
+					}
+				}
+                return true;
+                
+            case KC_AP_RGB_VAD:
+				if (record->event.pressed) {
+					if (get_mods() & MOD_MASK_SHIFT) {
+						tap_code16(RGB_SAI);
+						return false;
+					} else if (get_mods() & MOD_MASK_CTRL) {
+						tap_code16(RGB_SAD);
+						return false;
+					} else {
+						tap_code16(RGB_VAD);
+					}
+				}
+                return true;
+                
+            case KC_AP_RGB_TOG:
+				if (record->event.pressed) {
+					if (get_mods() & MOD_MASK_SHIFT) {
+						tap_code16(RGB_SAI);
+						return false;
+					} else if (get_mods() & MOD_MASK_CTRL) {
+						tap_code16(RGB_SAD);
+						return false;
+					} else {
+						tap_code16(RGB_TOG);
+						return true;
+					}
+				}
+                return true;
+                
+            case KC_AP_RGB_MOD:
+				if (record->event.pressed) {
+					if (get_mods() & MOD_MASK_SHIFT) {
+						tap_code16(RGB_SPI);
+						return false;
+					} else if (get_mods() & MOD_MASK_CTRL) {
+						tap_code16(RGB_SPD);
+						return false;
+					} else {
+						tap_code16(RGB_MOD);
+					}
+				}
+                return true;
 
             default:
                 break;
