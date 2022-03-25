@@ -212,6 +212,62 @@
                 "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
         },
+        "led_matrix": {
+            "type": "object",
+            "properties": {
+                "driver": {"type": "string"},
+                "layout": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "matrix": {
+                                "type": "array",
+                                "minItems": 2,
+                                "maxItems": 2,
+                                "items": {
+                                    "type": "number",
+                                    "min": 0,
+                                    "multipleOf": 1
+                                }
+                            },
+                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "flags": {"$ref": "qmk.definitions.v1#/unsigned_decimal"}
+                        }
+                    }
+                }
+            }
+        },
+        "rgb_matrix": {
+            "type": "object",
+            "properties": {
+                "driver": {"type": "string"},
+                "layout": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "matrix": {
+                                "type": "array",
+                                "minItems": 2,
+                                "maxItems": 2,
+                                "items": {
+                                    "type": "number",
+                                    "min": 0,
+                                    "multipleOf": 1
+                                }
+                            },
+                            "x": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "y": {"$ref": "qmk.definitions.v1#/key_unit"},
+                            "flags": {"$ref": "qmk.definitions.v1#/unsigned_decimal"}
+                        }
+                    }
+                }
+            }
+        },
         "rgblight": {
             "type": "object",
             "additionalProperties": false,
