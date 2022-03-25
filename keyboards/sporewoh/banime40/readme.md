@@ -1,6 +1,6 @@
 # banime40 
 
-<img src="https://i.imgur.com/sHQyMfE.jpeg" width="500">
+![](https://i.imgur.com/sHQyMfEh.jpeg)
 
 A hotswap gasket mount 4x10 that can support multiple layouts.
 
