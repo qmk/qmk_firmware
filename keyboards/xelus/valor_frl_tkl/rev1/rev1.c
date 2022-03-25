@@ -14,13 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+// Nothing to see here, move along... ;-)
 
-#include "quantum.h"
+#include "rev1.h"
 
-#if defined(KEYBOARD_xelus_valor_frl_tkl_rev1)
-    #include "rev1.h"
-#elif defined(KEYBOARD_xelus_valor_frl_tkl_rev2)
-    #include "rev2.h"
-#endif
-
+void board_init(void) {
+  SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
+  SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);
+}

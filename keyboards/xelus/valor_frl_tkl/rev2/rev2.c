@@ -1,4 +1,4 @@
-/* Copyright 2020 Harrison Chan (Xelus)
+/* Copyright 2022 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,13 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+// Nothing to see here, move along... ;-)
 
-#include "quantum.h"
-
-#if defined(KEYBOARD_xelus_valor_frl_tkl_rev1)
-    #include "rev1.h"
-#elif defined(KEYBOARD_xelus_valor_frl_tkl_rev2)
-    #include "rev2.h"
-#endif
-
+#include "rev2.h"

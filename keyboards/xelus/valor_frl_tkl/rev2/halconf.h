@@ -1,4 +1,4 @@
-/* Copyright 2020 Harrison Chan (Xelus)
+/* Copyright 2022 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,11 +16,7 @@
 
 #pragma once
 
-#include "quantum.h"
+#define HAL_USE_I2C TRUE
 
-#if defined(KEYBOARD_xelus_valor_frl_tkl_rev1)
-    #include "rev1.h"
-#elif defined(KEYBOARD_xelus_valor_frl_tkl_rev2)
-    #include "rev2.h"
-#endif
+#include_next <halconf.h>
 
