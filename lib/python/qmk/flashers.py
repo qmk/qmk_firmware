@@ -38,6 +38,7 @@ def _check_dfu_programmer_version():
     else:
         return False
 
+
 def _find_bootloader():
     # To avoid running forever in the background, only look for bootloaders for 10min
     start_time = time.time()
