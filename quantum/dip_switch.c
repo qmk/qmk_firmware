@@ -34,21 +34,20 @@
 
 #ifdef DIP_SWITCH_PINS
 #    define NUMBER_OF_DIP_SWITCHES (sizeof(dip_switch_pad) / sizeof(pin_t))
-#    ifndef DIP_SWITCH_INVERT
-#       define DIP_SWITCH_INVERT {0}
-#    endif
 static pin_t dip_switch_pad[] = DIP_SWITCH_PINS;
+#    if defined(DIP_SWITCH_INVERT) || (defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_INVERT_RIGHT))
+#        ifndef DIP_SWITCH_INVERT
+#            define DIP_SWITCH_INVERT \
+                { 0 }
+#        endif
 static uint8_t dip_switch_invert[NUMBER_OF_DIP_SWITCHES] = DIP_SWITCH_INVERT;
-
-#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
-#       ifndef DIP_SWITCH_INVERT_RIGHT
-#           define DIP_SWITCH_INVERT_RIGHT DIP_SWITCH_INVERT
-#       endif
-static pin_t dip_switch_pad_right[] = DIP_SWITCH_PINS_RIGHT;
-static uint8_t dip_switch_invert_right[NUMBER_OF_DIP_SWITCHES] = DIP_SWITCH_INVERT_RIGHT;
 #    endif
-#   ifdef DIP_SWITCH_INVERT_RIGHT
-#   endif
+#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
+static pin_t dip_switch_pad_right[] = DIP_SWITCH_PINS_RIGHT;
+#        ifdef DIP_SWITCH_INVERT_RIGHT
+static uint8_t dip_switch_invert_right[NUMBER_OF_DIP_SWITCHES] = DIP_SWITCH_INVERT_RIGHT;
+#        endif
+#    endif
 #endif
 
 #ifdef DIP_SWITCH_MATRIX_GRID
@@ -82,22 +81,25 @@ __attribute__((weak)) bool dip_switch_update_mask_kb(uint32_t state) {
     return dip_switch_update_mask_user(state);
 }
 
-void dip_switch_init(void) {
+__attribute__((weak)) void dip_switch_init(void) {
 #ifdef DIP_SWITCH_PINS
-#   ifdef SPLIT_KEYBOARD
+#    ifdef SPLIT_KEYBOARD
     if (!isLeftHand) {
         for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
             dip_switch_pad[i] = dip_switch_pad_right[i];
-#           if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_INVERT_RIGHT)
-                dip_switch_invert[i] = dip_switch_invert_right[i];
-#           endif
+#        if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_INVERT_RIGHT)
+            dip_switch_invert[i] = dip_switch_invert_right[i];
+#        endif
         }
     }
-#   endif
+#    endif
     for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
+#    ifdef DIP_SWITCH_INVERT
         if (dip_switch_invert[i]) {
             setPinInputLow(dip_switch_pad[i]);
-        } else {
+        } else
+#    endif
+        {
             setPinInputHigh(dip_switch_pad[i]);
         }
     }
@@ -128,9 +130,12 @@ void dip_switch_read(bool forced) {
 
     for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
 #ifdef DIP_SWITCH_PINS
+#    ifdef DIP_SWITCH_INVERT
         if (dip_switch_invert[i]) {
             dip_switch_state[i] = readPin(dip_switch_pad[i]);
-        } else {
+        } else
+#    endif
+        {
             dip_switch_state[i] = !readPin(dip_switch_pad[i]);
         }
 #endif
