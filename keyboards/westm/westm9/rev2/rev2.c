@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev1.h"
+#include "rev2.h"
 
 void board_init(void) {
     SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP; // DMA re-map, you may not need this depending on your 
