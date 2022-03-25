@@ -882,39 +882,12 @@ static void send_system(uint16_t data) {
 static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
 #    ifdef BLUETOOTH_ENABLE
-<<<<<<< HEAD
-    uint8_t where = where_to_send();
-
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
-=======
     if (where_to_send() == OUTPUT_BLUETOOTH) {
-<<<<<<< HEAD
->>>>>>> 0.12.52~1
-#        ifdef MODULE_ADAFRUIT_BLE
-        adafruit_ble_send_consumer_key(data);
-#        elif MODULE_RN42
-        static uint16_t last_data = 0;
-        if (data == last_data) return;
-        last_data       = data;
-        uint16_t bitmap = CONSUMER2RN42(data);
-        serial_send(0xFD);
-        serial_send(0x03);
-        serial_send(0x03);
-        serial_send(bitmap & 0xFF);
-        serial_send((bitmap >> 8) & 0xFF);
-=======
 #        ifdef BLUETOOTH_BLUEFRUIT_LE
         bluefruit_le_send_consumer_key(data);
 #        elif BLUETOOTH_RN42
         rn42_send_consumer(data);
->>>>>>> qmk/master
 #        endif
-<<<<<<< HEAD
-    }
-
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
-=======
->>>>>>> 0.12.52~1
         return;
     }
 #    endif
@@ -922,6 +895,7 @@ static void send_consumer(uint16_t data) {
     send_extra(REPORT_ID_CONSUMER, data);
 #endif
 }
+
 
 static void send_programmable_button(uint32_t data) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
@@ -941,11 +915,7 @@ static void send_programmable_button(uint32_t data) {
  * FIXME: Needs doc
  */
 int8_t sendchar(uint8_t c) {
-<<<<<<< HEAD
-    // Not wait once timeouted.
-=======
     // Do not wait if the previous write has timed_out.
->>>>>>> 0.12.52~1
     // Because sendchar() is called so many times, waiting each call causes big lag.
     // The `timed_out` state is an approximation of the ideal `is_listener_disconnected?` state.
     static bool timed_out = false;

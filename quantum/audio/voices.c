@@ -36,10 +36,6 @@ void set_voice(voice_type v) {
     voice = v;
 }
 
-<<<<<<< HEAD
-void voice_iterate() { voice = (voice + 1) % number_of_voices; }
-void voice_deiterate() { voice = (voice - 1 + number_of_voices) % number_of_voices; }
-=======
 void voice_iterate() {
     voice = (voice + 1) % number_of_voices;
 }
@@ -47,7 +43,6 @@ void voice_iterate() {
 void voice_deiterate() {
     voice = (voice - 1 + number_of_voices) % number_of_voices;
 }
->>>>>>> qmk/master
 
 #ifdef AUDIO_VOICES
 float mod(float a, int b) {

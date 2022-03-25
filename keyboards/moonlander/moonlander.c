@@ -85,11 +85,6 @@ void moonlander_led_task(void) {
         layer_state_set_kb(layer_state);
     }
 #endif
-#if !defined(MOONLANDER_USER_LEDS)
-    else {
-        layer_state_set_kb(layer_state);
-    }
-#endif
 }
 
 static THD_WORKING_AREA(waLEDThread, 128);

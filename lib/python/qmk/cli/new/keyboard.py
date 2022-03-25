@@ -17,7 +17,7 @@ from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import deep_update
 from qmk.constants import MCU2BOOTLOADER
 
-COMMUNITY = Path('layouts/default/')
+COMMUNITY = Path('layouts/community/')
 TEMPLATE = Path('data/templates/keyboard/')
 
 # defaults
