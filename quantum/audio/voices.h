@@ -41,7 +41,7 @@ typedef enum {
 // duty_third_down,
 // duty_fifth_third_down,
 #endif
-    number_of_voices  // important that this is last
+    number_of_voices // important that this is last
 } voice_type;
 
 void set_voice(voice_type v);

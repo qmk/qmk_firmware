@@ -109,6 +109,10 @@ extern layer_state_t layer_state;
 #    include "process_unicodemap.h"
 #endif
 
+#ifdef UNICODE_COMMON_ENABLE
+#    include "process_unicode_common.h"
+#endif
+
 #ifdef KEY_OVERRIDE_ENABLE
 #    include "process_key_override.h"
 #endif
@@ -254,11 +258,6 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
-
-void led_set_user(uint8_t usb_led);
-void led_set_kb(uint8_t usb_led);
-bool led_update_user(led_t led_state);
-bool led_update_kb(led_t led_state);
 
 bool webusb_receive_kb(uint8_t *data, uint8_t length);
 bool webusb_receive_user(uint8_t *data, uint8_t length);
