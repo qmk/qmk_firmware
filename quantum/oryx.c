@@ -206,6 +206,10 @@ bool process_record_oryx(uint16_t keycode, keyrecord_t *record) {
         event[4] = WEBUSB_STOP_BIT;
         webusb_send(event, sizeof(event));
     }
+    if (keycode == WEBUSB_PAIR && record->event.pressed) {
+         webusb_state.pairing ^= true;
+        return true;
+    }
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
     switch (keycode) {
