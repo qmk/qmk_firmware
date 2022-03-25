@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { B4, E6, D7, C6, D4, D0, F7, F6, F5, F4, F1, F0 }
 #define UNUSED_PINS { C7 }
 
+#define LED_PIN_ON_STATE 0
 #define NUM_LOCK_LED_PIN D2
 #define SCROLL_LOCK_LED_PIN D3
 #define CAPS_LOCK_LED_PIN B0
