@@ -230,13 +230,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case KC_AP_RGB_VAI:
 				if (record->event.pressed) {
 					if (get_mods() & MOD_MASK_SHIFT) {
-						tap_code16(RGB_HUI);
+						rgb_matrix_increase_hue();
 						return false;
 					} else if (get_mods() & MOD_MASK_CTRL) {
-						tap_code16(RGB_HUD);
+						rgb_matrix_decrease_hue();
 						return false;
 					} else {
-						tap_code16(RGB_VAI);
+						rgb_matrix_increase_val();
 					}
 				}
                 return true;
@@ -244,13 +244,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case KC_AP_RGB_VAD:
 				if (record->event.pressed) {
 					if (get_mods() & MOD_MASK_SHIFT) {
-						tap_code16(RGB_SAI);
+						rgb_matrix_increase_sat();
 						return false;
 					} else if (get_mods() & MOD_MASK_CTRL) {
-						tap_code16(RGB_SAD);
+						rgb_matrix_decrease_sat();
 						return false;
 					} else {
-						tap_code16(RGB_VAD);
+						rgb_matrix_decrease_val();
 					}
 				}
                 return true;
@@ -258,13 +258,17 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case KC_AP_RGB_TOG:
 				if (record->event.pressed) {
 					if (get_mods() & MOD_MASK_SHIFT) {
-						tap_code16(RGB_SAI);
+						rgb_matrix_increase_speed();
 						return false;
 					} else if (get_mods() & MOD_MASK_CTRL) {
-						tap_code16(RGB_SAD);
+						rgb_matrix_decrease_speed();
 						return false;
 					} else {
-						tap_code16(RGB_TOG);
+						if(rgb_matrix_is_enabled()) {
+							ap2_led_disable(); 
+						} else {
+							ap2_led_enable();
+						}
 						return true;
 					}
 				}
@@ -273,13 +277,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case KC_AP_RGB_MOD:
 				if (record->event.pressed) {
 					if (get_mods() & MOD_MASK_SHIFT) {
-						tap_code16(RGB_SPI);
+						rgb_matrix_increase_speed();
 						return false;
 					} else if (get_mods() & MOD_MASK_CTRL) {
-						tap_code16(RGB_SPD);
+						rgb_matrix_decrease_speed();
 						return false;
 					} else {
-						tap_code16(RGB_MOD);
+						rgb_matrix_step();	
 					}
 				}
                 return true;
