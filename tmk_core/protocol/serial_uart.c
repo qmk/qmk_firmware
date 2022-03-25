@@ -44,8 +44,8 @@ POSSIBILITY OF SUCH DAMAGE.
 #    define SERIAL_UART_BAUD 9600
 #endif
 
-#define SERIAL_UART_UBRR (F_CPU / (16UL * SERIAL_UART_BAUD) - 1)
-#define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
+// #define SERIAL_UART_UBRR (F_CPU / (16UL * SERIAL_UART_BAUD) - 1)
+// #define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
 #define SERIAL_UART_RXD_VECT USART1_RX_vect
 
 #ifndef SERIAL_UART_INIT_CUSTOM
@@ -81,7 +81,7 @@ void serial_init(void) {
     do {
         // Set baud rate
         UBRR1L = SERIAL_UART_UBRR;
-        UBRR1L = SERIAL_UART_UBRR >> 8;
+        // UBRR1L = SERIAL_UART_UBRR >> 8;
         SERIAL_UART_INIT_CUSTOM;
     } while (0);
 }
