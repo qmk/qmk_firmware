@@ -6,7 +6,7 @@ Kin80 is a set of replacement PCBs and switch mounting plates for [Kinesis Conto
 
 * Keyboard Maintainer: [Dmitriy Nosachev](mailto:quartz64@gmail.com)
 * Hardware Supported: Kin80 PCB
-* Hardware Availability: [Open Source (CC-BY-SA](https://github.com/DmNosachev/kinesis80)
+* Hardware Availability: [Open Source (CC-BY-SA](https://github.com/DmNosachev/kin80)
 
 There are 4 versions of the controller PCB, which correspond to the subfolder names:
 
