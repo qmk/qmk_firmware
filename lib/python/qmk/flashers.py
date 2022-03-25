@@ -26,6 +26,18 @@ AVRDUDE_MCU = {
 # yapf: enable
 
 
+# TODO: Make this more generic, so cli/doctor/check.py and flashers.py can share the code
+def _check_dfu_programmer_version():
+    # Return True if version is higher than 0.7.0: supports '--force'
+    check = cli.run(['dfu-programmer', '--version'], combined_output=True, timeout=5)
+    first_line = check.stdout.split('\n')[0]
+    version_number = first_line.split()[1]
+    maj, min_, bug = version_number.split('.')
+    if int(maj) >= 0 and int(min_) >= 7:
+        return True
+    else:
+        return False
+
 def _find_bootloader():
     # To avoid running forever in the background, only look for bootloaders for 10min
     start_time = time.time()
@@ -92,8 +104,9 @@ def _flash_caterina(details, file):
 
 
 def _flash_atmel_dfu(mcu, file):
-    cli.run(['dfu-programmer', mcu, 'erase', '--force'], capture_output=False)
-    cli.run(['dfu-programmer', mcu, 'flash', '--force', file], capture_output=False)
+    force = '--force' if _check_dfu_programmer_version() else ''
+    cli.run(['dfu-programmer', mcu, 'erase', force], capture_output=False)
+    cli.run(['dfu-programmer', mcu, 'flash', force, file], capture_output=False)
     cli.run(['dfu-programmer', mcu, 'reset'], capture_output=False)
 
 
@@ -132,6 +145,8 @@ def _flash_isp(mcu, programmer, file):
 
 def flasher(mcu, file):
     bl, details = _find_bootloader()
+    # Add a small sleep to avoid race conditions
+    time.sleep(1)
     if bl == 'atmel-dfu':
         _flash_atmel_dfu(details, file.name)
     elif bl == 'caterina':
