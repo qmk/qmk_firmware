@@ -30,10 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RIGHT_HALF
 
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 /* RGB underglow */
 #define RGBLED_NUM 12
 #define RGBLIGHT_HUE_STEP 8

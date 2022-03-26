@@ -51,14 +51,14 @@ void IS31FL3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t
 
 void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
 
-#define PUR_0R 0x00    // No PUR resistor
-#define PUR_05KR 0x01  // 0.5k Ohm resistor
-#define PUR_1KR 0x02   // 1.0k Ohm resistor
-#define PUR_2KR 0x03   // 2.0k Ohm resistor
-#define PUR_4KR 0x04   // 4.0k Ohm resistor
-#define PUR_8KR 0x05   // 8.0k Ohm resistor
-#define PUR_16KR 0x06  // 16k Ohm resistor
-#define PUR_32KR 0x07  // 32k Ohm resistor
+#define PUR_0R 0x00   // No PUR resistor
+#define PUR_05KR 0x01 // 0.5k Ohm resistor
+#define PUR_1KR 0x02  // 1.0k Ohm resistor
+#define PUR_2KR 0x03  // 2.0k Ohm resistor
+#define PUR_4KR 0x04  // 4.0k Ohm resistor
+#define PUR_8KR 0x05  // 8.0k Ohm resistor
+#define PUR_16KR 0x06 // 16k Ohm resistor
+#define PUR_32KR 0x07 // 32k Ohm resistor
 
 #define CS1_SW1 0x00
 #define CS2_SW1 0x01
