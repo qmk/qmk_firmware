@@ -12,26 +12,7 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 ## Punctuation
 
-|Key                 |Aliases  |Description               |
-|--------------------|---------|--------------------------|
-|`KC_ENTER`          |`KC_ENT` |Return (Enter)            |
-|`KC_ESCAPE`         |`KC_ESC` |Escape                    |
-|`KC_BACKSPACE`      |`KC_BSPC`|Delete (Backspace)        |
-|`KC_TAB`            |         |Tab                       |
-|`KC_SPACE`          |`KC_SPC` |Spacebar                  |
-|`KC_MINUS`          |`KC_MINS`|`-` and `_`               |
-|`KC_EQUAL`          |`KC_EQL` |`=` and `+`               |
-|`KC_LEFT_BRACKET`   |`KC_LBRC`|`[` and `{`               |
-|`KC_RIGHT_BRACKET`  |`KC_RBRC`|`]` and `}`               |
-|`KC_BACKSLASH`      |`KC_BSLS`|`\` and `\|`              |
-|`KC_NONUS_HASH`     |`KC_NUHS`|Non-US `#` and `~`        |
-|`KC_SEMICOLON`      |`KC_SCLN`|`;` and `:`               |
-|`KC_QUOTE`          |`KC_QUOT`|`'` and `"`               |
-|`KC_GRAVE`          |`KC_GRV` |<code>&#96;</code> and `~`|
-|`KC_COMMA`          |`KC_COMM`|`,` and `<`               |
-|`KC_DOT`            |         |`.` and `>`               |
-|`KC_SLASH`          |`KC_SLSH`|`/` and `?`               |
-|`KC_NONUS_BACKSLASH`|`KC_NUBS`|Non-US `\` and `\|`       |
+[keycodes_punctuation.md](./keycodes_punctuation.md ':include')
 
 ## Lock Keys
 

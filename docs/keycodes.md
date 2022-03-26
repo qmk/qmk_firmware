@@ -16,27 +16,15 @@ See also: [Basic Keycodes](keycodes_basic.md)
 
 [keycodes_f_keys.md](./keycodes_f_keys.md ':include')
 
+
+### Punctuation
+
+[keycodes_punctuation.md](./keycodes_punctuation.md ':include')
+
 |Key                     |Aliases                        |Description                            |Windows      |macOS        |Linux<sup>1</sup>|
 |------------------------|-------------------------------|---------------------------------------|-------------|-------------|-----------------|
 |`KC_NO`                 |`XXXXXXX`                      |Ignore this key (NOOP)                 |*N/A*        |*N/A*        |*N/A*            |
 |`KC_TRANSPARENT`        |`KC_TRNS`, `_______`           |Use the next lowest non-transparent key|*N/A*        |*N/A*        |*N/A*            |
-|`KC_ENTER`              |`KC_ENT`                       |Return (Enter)                         |✔            |✔            |✔                |
-|`KC_ESCAPE`             |`KC_ESC`                       |Escape                                 |✔            |✔            |✔                |
-|`KC_BACKSPACE`          |`KC_BSPC`                      |Delete (Backspace)                     |✔            |✔            |✔                |
-|`KC_TAB`                |                               |Tab                                    |✔            |✔            |✔                |
-|`KC_SPACE`              |`KC_SPC`                       |Spacebar                               |✔            |✔            |✔                |
-|`KC_MINUS`              |`KC_MINS`                      |`-` and `_`                            |✔            |✔            |✔                |
-|`KC_EQUAL`              |`KC_EQL`                       |`=` and `+`                            |✔            |✔            |✔                |
-|`KC_LEFT_BRACKET`       |`KC_LBRC`                      |`[` and `{`                            |✔            |✔            |✔                |
-|`KC_RIGHT_BRACKET`      |`KC_RBRC`                      |`]` and `}`                            |✔            |✔            |✔                |
-|`KC_BACKSLASH`          |`KC_BSLS`                      |`\` and `\|`                           |✔            |✔            |✔                |
-|`KC_NONUS_HASH`         |`KC_NUHS`                      |Non-US `#` and `~`                     |✔            |✔            |✔                |
-|`KC_SEMICOLON`          |`KC_SCLN`                      |`;` and `:`                            |✔            |✔            |✔                |
-|`KC_QUOTE`              |`KC_QUOT`                      |`'` and `"`                            |✔            |✔            |✔                |
-|`KC_GRAVE`              |`KC_GRV`                       |<code>&#96;</code> and `~`             |✔            |✔            |✔                |
-|`KC_COMMA`              |`KC_COMM`                      |`,` and `<`                            |✔            |✔            |✔                |
-|`KC_DOT`                |                               |`.` and `>`                            |✔            |✔            |✔                |
-|`KC_SLASH`              |`KC_SLSH`                      |`/` and `?`                            |✔            |✔            |✔                |
 |`KC_CAPS_LOCK`          |`KC_CAPS`                      |Caps Lock                              |✔            |✔            |✔                |
 |`KC_PRINT_SCREEN`       |`KC_PSCR`                      |Print Screen                           |✔            |✔<sup>2</sup>|✔                |
 |`KC_SCROLL_LOCK`        |`KC_SCRL`, `KC_BRMD`           |Scroll Lock, Brightness Down (macOS)   |✔            |✔<sup>2</sup>|✔                |
@@ -68,7 +56,6 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_KP_9`               |`KC_P9`                        |Keypad `9` and Page Up                 |✔            |✔            |✔                |
 |`KC_KP_0`               |`KC_P0`                        |Keypad `0` and Insert                  |✔            |✔            |✔                |
 |`KC_KP_DOT`             |`KC_PDOT`                      |Keypad `.` and Delete                  |✔            |✔            |✔                |
-|`KC_NONUS_BACKSLASH`    |`KC_NUBS`                      |Non-US `\` and `\|`                    |✔            |✔            |✔                |
 |`KC_APPLICATION`        |`KC_APP`                       |Application (Windows Context Menu Key) |✔            |             |✔                |
 |`KC_KB_POWER`           |                               |System Power                           |             |✔<sup>3</sup>|✔                |
 |`KC_KP_EQUAL`           |`KC_PEQL`                      |Keypad `=`                             |✔            |✔            |✔                |
