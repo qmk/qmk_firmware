@@ -7,7 +7,7 @@
 #include "qp_draw.h"
 #include "qgf.h"
 
-_Static_assert((QP_PIXDATA_BUFFER_SIZE > 0) && (QP_PIXDATA_BUFFER_SIZE % 16) == 0, "QP_PIXDATA_BUFFER_SIZE needs to be a non-zero multiple of 16");
+_Static_assert((QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE > 0) && (QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE % 16) == 0, "QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE needs to be a non-zero multiple of 16");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Global variables
@@ -20,7 +20,7 @@ _Static_assert((QP_PIXDATA_BUFFER_SIZE > 0) && (QP_PIXDATA_BUFFER_SIZE % 16) == 
 //
 
 // Buffer used for transmitting native pixel data to the downstream device.
-uint8_t qp_internal_global_pixdata_buffer[QP_PIXDATA_BUFFER_SIZE];
+uint8_t qp_internal_global_pixdata_buffer[QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE];
 
 // Static buffer to contain a generated color palette
 static bool       generated_palette = false;
@@ -38,7 +38,7 @@ qp_pixel_t qp_internal_global_pixel_lookup_table[16];
 
 uint32_t qp_internal_num_pixels_in_buffer(painter_device_t device) {
     struct painter_driver_t *driver = (struct painter_driver_t *)device;
-    return ((QP_PIXDATA_BUFFER_SIZE * 8) / driver->native_bits_per_pixel);
+    return ((QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE * 8) / driver->native_bits_per_pixel);
 }
 
 // qp_setpixel internal implementation, but accepts a buffer with pre-converted native pixel. Only the first pixel is used.

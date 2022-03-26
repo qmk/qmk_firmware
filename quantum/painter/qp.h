@@ -24,10 +24,9 @@
 #endif // QUANTUM_PAINTER_NUM_FONTS
 
 // This controls whether or not fonts should be cached in RAM. Under normal circumstances, fonts can have quite random
-// access patterns, and due to timing of flash memory or external storage, it can be a significant speedup moving the
+// access patterns, and due to timing of flash memory or external storage, it may be a significant speedup moving the
 // font into RAM before use. Defaults to "off", but if it's enabled it will fallback to reading from the original
 // location if corresponding RAM could not be allocated (such as being too large).
-// Final note: don't bother setting this to TRUE for AVR. Fonts fit in the available RAM.
 #ifndef QUANTUM_PAINTER_LOAD_FONTS_TO_RAM
 #    define QUANTUM_PAINTER_LOAD_FONTS_TO_RAM FALSE
 #endif
@@ -40,12 +39,12 @@
 
 // This controls the maximum size of the pixel data buffer used for single blocks of transmission. Larger buffers means
 // more data is processed at one time, with less frequent transmissions, at the cost of RAM.
-#ifndef QP_PIXDATA_BUFFER_SIZE
-#    define QP_PIXDATA_BUFFER_SIZE 32
+#ifndef QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE
+#    define QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE 32
 #endif
 
-// This controls whether 256-color palettes are supported -- basically unusable on AVR due to the associated RAM
-// requirements on the internal buffer sizes.
+// This controls whether 256-color palettes are supported. This has relatively hefty requirements on RAM -- at least 1kB
+// extra is required just to store the palette information.
 #ifndef QUANTUM_PAINTER_SUPPORTS_256_PALETTE
 #    define QUANTUM_PAINTER_SUPPORTS_256_PALETTE FALSE
 #endif

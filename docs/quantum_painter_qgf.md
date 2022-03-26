@@ -1,6 +1,6 @@
 # QMK Graphics Format :id=qmk-graphics-format
 
-QMK uses a graphics format _("Quantum Graphics Format" - QGF)_ specifically for resource-constrained systems. Emphasis is on low memory decoding, due to catering for AVR and its minimal RAM sizes.
+QMK uses a graphics format _("Quantum Graphics Format" - QGF)_ specifically for resource-constrained systems.
 
 This format is capable of encoding 1-, 2-, 4-, and 8-bit-per-pixel greyscale- and palette-based images. It also includes RLE for pixel data for some basic compression.
 

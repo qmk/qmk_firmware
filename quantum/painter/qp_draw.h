@@ -10,7 +10,7 @@
 // Quantum Painter utility functions
 
 // Global variable used for native pixel data streaming.
-extern uint8_t qp_internal_global_pixdata_buffer[QP_PIXDATA_BUFFER_SIZE];
+extern uint8_t qp_internal_global_pixdata_buffer[QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE];
 
 // Check if the supplied bpp is capable of being rendered
 bool qp_internal_bpp_capable(uint8_t bits_per_pixel);
