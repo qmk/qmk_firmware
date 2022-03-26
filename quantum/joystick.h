@@ -1,8 +1,7 @@
 #pragma once
 
-#include "quantum.h"
-
 #include <stdint.h>
+#include "gpio.h"
 
 #ifndef JOYSTICK_BUTTON_COUNT
 #    define JOYSTICK_BUTTON_COUNT 8
