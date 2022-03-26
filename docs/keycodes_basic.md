@@ -16,14 +16,7 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 ## Lock Keys
 
-|Key                     |Aliases             |Description                         |
-|------------------------|--------------------|------------------------------------|
-|`KC_CAPS_LOCK`          |`KC_CAPS`           |Caps Lock                           |
-|`KC_SCROLL_LOCK`        |`KC_SCRL`, `KC_BRMD`|Scroll Lock, Brightness Down (macOS)|
-|`KC_NUM_LOCK`           |`KC_NUM`            |Keypad Num Lock and Clear           |
-|`KC_LOCKING_CAPS_LOCK`  |`KC_LCAP`           |Locking Caps Lock                   |
-|`KC_LOCKING_NUM_LOCK`   |`KC_LNUM`           |Locking Num Lock                    |
-|`KC_LOCKING_SCROLL_LOCK`|`KC_LSCR`           |Locking Scroll Lock                 |
+[keycodes_lock_keys.md](./keycodes_lock_keys.md ':include')
 
 ## Modifiers
 

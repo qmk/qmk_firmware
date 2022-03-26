@@ -16,18 +16,20 @@ See also: [Basic Keycodes](keycodes_basic.md)
 
 [keycodes_f_keys.md](./keycodes_f_keys.md ':include')
 
-
 ### Punctuation
 
 [keycodes_punctuation.md](./keycodes_punctuation.md ':include')
+
+### Lock Keys
+
+[keycodes_lock_keys.md](./keycodes_lock_keys.md ':include')
+
 
 |Key                     |Aliases                        |Description                            |Windows      |macOS        |Linux<sup>1</sup>|
 |------------------------|-------------------------------|---------------------------------------|-------------|-------------|-----------------|
 |`KC_NO`                 |`XXXXXXX`                      |Ignore this key (NOOP)                 |*N/A*        |*N/A*        |*N/A*            |
 |`KC_TRANSPARENT`        |`KC_TRNS`, `_______`           |Use the next lowest non-transparent key|*N/A*        |*N/A*        |*N/A*            |
-|`KC_CAPS_LOCK`          |`KC_CAPS`                      |Caps Lock                              |✔            |✔            |✔                |
 |`KC_PRINT_SCREEN`       |`KC_PSCR`                      |Print Screen                           |✔            |✔<sup>2</sup>|✔                |
-|`KC_SCROLL_LOCK`        |`KC_SCRL`, `KC_BRMD`           |Scroll Lock, Brightness Down (macOS)   |✔            |✔<sup>2</sup>|✔                |
 |`KC_PAUSE`              |`KC_PAUS`, `KC_BRK`, `KC_BRMU` |Pause, Brightness Up (macOS)           |✔            |✔<sup>2</sup>|✔                |
 |`KC_INSERT`             |`KC_INS`                       |Insert                                 |✔            |             |✔                |
 |`KC_HOME`               |                               |Home                                   |✔            |✔            |✔                |
@@ -39,7 +41,6 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_LEFT`               |                               |Left Arrow                             |✔            |✔            |✔                |
 |`KC_DOWN`               |                               |Down Arrow                             |✔            |✔            |✔                |
 |`KC_UP`                 |                               |Up Arrow                               |✔            |✔            |✔                |
-|`KC_NUM_LOCK`           |`KC_NUM`                       |Keypad Num Lock and Clear              |✔            |✔            |✔                |
 |`KC_KP_SLASH`           |`KC_PSLS`                      |Keypad `/`                             |✔            |✔            |✔                |
 |`KC_KP_ASTERISK`        |`KC_PAST`                      |Keypad `*`                             |✔            |✔            |✔                |
 |`KC_KP_MINUS`           |`KC_PMNS`                      |Keypad `-`                             |✔            |✔            |✔                |
@@ -73,9 +74,6 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_KB_MUTE`            |                               |Mute                                   |             |✔            |✔                |
 |`KC_KB_VOLUME_UP`       |                               |Volume Up                              |             |✔            |✔                |
 |`KC_KB_VOLUME_DOWN`     |                               |Volume Down                            |             |✔            |✔                |
-|`KC_LOCKING_CAPS_LOCK`  |`KC_LCAP`                      |Locking Caps Lock                      |✔            |✔            |                 |
-|`KC_LOCKING_NUM_LOCK`   |`KC_LNUM`                      |Locking Num Lock                       |✔            |✔            |                 |
-|`KC_LOCKING_SCROLL_LOCK`|`KC_LSCR`                      |Locking Scroll Lock                    |✔            |✔            |                 |
 |`KC_KP_COMMA`           |`KC_PCMM`                      |Keypad `,`                             |             |             |✔                |
 |`KC_KP_EQUAL_AS400`     |                               |Keypad `=` on AS/400 keyboards         |             |             |                 |
 |`KC_INTERNATIONAL_1`    |`KC_INT1`                      |International 1                        |✔            |             |✔                |
