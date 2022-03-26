@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_TAB, NG_Q, NG_W, NG_E, NG_R, NG_T, NG_Y, NG_U, NG_I, NG_O, NG_P,KC_LBRC,KC_RBRC,
           MO(_LCTL), NG_A, NG_S, NG_D, NG_F, NG_G, NG_H, NG_J, NG_K, NG_L,NG_SCLN,KC_QUOT,KC_BSLS,KC_ENT,
           KC_LSFT, NG_Z, NG_X, NG_C, NG_V, NG_B, NG_N, NG_M,NG_COMM,NG_DOT,NG_SLSH,KC_RO,KC_UP,KC_RSFT,
-          MO(_FUNC),KC_GRV,KC_LALT,KC_LGUI,NG_SHFTL,NG_SHFTR,KC_KANA2,KC_RGUI,KC_RALT,MO(1),KC_LEFT,KC_DOWN,KC_RGHT
+          MO(_FUNC),KC_GRV,KC_LALT,KC_LGUI,NG_SHFTL,NG_SHFTR,KC_EISU,KC_RGUI,KC_RALT,MO(1),KC_LEFT,KC_DOWN,KC_RGHT
     ),
     // NICOLA親指シフト
 
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_BSPC,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         _______, _______, _______, _______, _______, _______,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, _______, _______, _______,
-        MO(_FUNC), _______, _______, _______, KC_TRNS,KC_SPC, KC_EISU, _______, _______, _______, KC_DEL, _______, _______
+        MO(_FUNC), _______, _______, _______, KC_TRNS,KC_SPC, KC_KANA2, _______, _______, _______, KC_DEL, _______, _______
     )
 };
 
@@ -136,10 +136,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if ((get_mods() & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)){
             unregister_code(KC_LCTL);
-            nicola_off();
+            nicola_on();
         }else{
         // NICOLA親指シフト
-        nicola_on();
+        nicola_off();
         // NICOLA親指シフト
         }
       }
