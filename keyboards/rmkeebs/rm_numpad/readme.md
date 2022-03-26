@@ -1,9 +1,6 @@
 # rm_numpad
 
-<!---
-TODO: update image when final product is ready for sale.
--->
-![rm_numpad](https://i.imgur.com/1hqUHIn.jpg)
+![rm_numpad](https://www.rmkeebs.com/wp-content/uploads/2022/02/20220225_1953022-1024x879.jpg)
 
 A simple numpad with the addition of a few features:
 * A few additional buttons.  The default keymap has these set to "Pause", "Previous Track", and "Next Track"
