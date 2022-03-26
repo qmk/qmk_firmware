@@ -4,44 +4,7 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 ## Letters and Numbers
 
-|Key   |Description|
-|------|-----------|
-|`KC_A`|`a` and `A`|
-|`KC_B`|`b` and `B`|
-|`KC_C`|`c` and `C`|
-|`KC_D`|`d` and `D`|
-|`KC_E`|`e` and `E`|
-|`KC_F`|`f` and `F`|
-|`KC_G`|`g` and `G`|
-|`KC_H`|`h` and `H`|
-|`KC_I`|`i` and `I`|
-|`KC_J`|`j` and `J`|
-|`KC_K`|`k` and `K`|
-|`KC_L`|`l` and `L`|
-|`KC_M`|`m` and `M`|
-|`KC_N`|`n` and `N`|
-|`KC_O`|`o` and `O`|
-|`KC_P`|`p` and `P`|
-|`KC_Q`|`q` and `Q`|
-|`KC_R`|`r` and `R`|
-|`KC_S`|`s` and `S`|
-|`KC_T`|`t` and `T`|
-|`KC_U`|`u` and `U`|
-|`KC_V`|`v` and `V`|
-|`KC_W`|`w` and `W`|
-|`KC_X`|`x` and `X`|
-|`KC_Y`|`y` and `Y`|
-|`KC_Z`|`z` and `Z`|
-|`KC_1`|`1` and `!`|
-|`KC_2`|`2` and `@`|
-|`KC_3`|`3` and `#`|
-|`KC_4`|`4` and `$`|
-|`KC_5`|`5` and `%`|
-|`KC_6`|`6` and `^`|
-|`KC_7`|`7` and `&`|
-|`KC_8`|`8` and `*`|
-|`KC_9`|`9` and `(`|
-|`KC_0`|`0` and `)`|
+[keycodes_letters_and_numbers.md](./keycodes_letters_and_numbers.md ':include')
 
 ## F Keys
 
