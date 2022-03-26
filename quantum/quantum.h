@@ -200,6 +200,10 @@ extern layer_state_t layer_state;
 #    include "dynamic_keymap.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
 #ifdef VIA_ENABLE
 #    include "via.h"
 #endif
