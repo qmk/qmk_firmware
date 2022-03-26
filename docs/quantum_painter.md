@@ -13,7 +13,7 @@ QUANTUM_PAINTER_DRIVERS = ......
 
 You will also likely need to select an appropriate driver in `rules.mk`, which is listed below.
 
-!> Quantum Painter is not currently integrated with system-level operations such as disabling displays after a configurable timeout, or when the keyboard goes into suspend. Users will need to handle this manually a the current time.
+!> Quantum Painter is not currently integrated with system-level operations such as disabling displays after a configurable timeout, or when the keyboard goes into suspend. Users will need to handle this manually at the current time.
 
 The QMK CLI can be used to convert from normal images such as PNG files or animated GIFs, as well as fonts from TTF files.
 
@@ -42,7 +42,130 @@ Drivers have their own set of configurable options, and are described in their r
 
 ## Quantum Painter CLI Commands :id=quantum-painter-cli
 
-!! TBD !!
+### `qmk painter-convert-graphics`
+
+This command converts images to a format usable by QMK, i.e. the QGF File Format.
+
+**Usage**:
+
+```
+usage: qmk painter-convert-graphics [-h] [-d] [-r] -f FORMAT [-o OUTPUT] -i INPUT [-v]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d, --no-deltas       Disables the use of delta frames when encoding animations.
+  -r, --no-rle          Disables the use of RLE when encoding images.
+  -f FORMAT, --format FORMAT
+                        Output format, valid types: pal256, pal16, pal4, pal2, mono256, mono16, mono4, mono2
+  -o OUTPUT, --output OUTPUT
+                        Specify output directory. Defaults to same directory as input.
+  -i INPUT, --input INPUT
+                        Specify input graphic file.
+  -v, --verbose         Turns on verbose output.
+```
+
+The `INPUT` argument can be any image file loadable by Python's Pillow module. Common formats include PNG, or Animated GIF.
+
+The `OUTPUT` argument needs to be a directory, and will default to the same directory as the input argument.
+
+The `FORMAT` argument can be any of the following:
+
+| Format    | Meaning                                                               |
+|-----------|-----------------------------------------------------------------------|
+| `pal256`  | 256-color palette (requires `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`)   |
+| `pal16`   | 16-color palette                                                      |
+| `pal4`    | 4-color palette                                                       |
+| `pal2`    | 2-color palette                                                       |
+| `mono256` | 256-shade grayscale (requires `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`) |
+| `mono16`  | 16-shade grayscale                                                    |
+| `mono4`   | 4-shade grayscale                                                     |
+| `mono2`   | 2-shade grayscale                                                     |
+
+**Examples**:
+
+```
+$ cd /home/qmk/qmk_firmware/keyboards/my_keeb
+$ qmk painter-convert-graphics -f mono16 -i my_image.gif -o ./generated/
+Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/my_image.qgf.h...
+Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/my_image.qgf.c...
+```
+
+### `qmk painter-make-font-image`
+
+This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format.
+
+**Usage**:
+
+```
+usage: qmk painter-make-font-image [-h] [-a] [-u UNICODE_GLYPHS] [-n] [-s SIZE] -o OUTPUT -f FONT
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -a, --no-aa           Disable anti-aliasing on fonts.
+  -u UNICODE_GLYPHS, --unicode-glyphs UNICODE_GLYPHS
+                        Also generate the specified unicode glyphs.
+  -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the glyphs specified.
+  -s SIZE, --size SIZE  Specify font size. Default 12.
+  -o OUTPUT, --output OUTPUT
+                        Specify output image path.
+  -f FONT, --font FONT  Specify input font file.
+```
+
+The `FONT` argument is generally a TrueType Font file (TTF).
+
+The `OUTPUT` argument is the output image to generate, generally something like `my_font.png`.
+
+The `UNICODE_GLYPHS` argument allows for specifying extra unicode glyphs to generate, and accepts a string.
+
+**Examples**:
+
+```
+$ qmk painter-make-font-image --font NotoSans-ExtraCondensedBold.ttf --size 11 -o noto11.png --unicode-glyphs "ĄȽɂɻɣɈʣ"
+```
+
+### `qmk painter-convert-font-image`
+
+This command converts an intermediate font image to the QFF File Format.
+
+This command expects an image that conforms to the following format:
+
+* Top-left pixel (at `0,0`) is the "delimiter" color:
+    * Each glyph in the font starts when a pixel of this color is found on the first row
+    * The first row is discarded when converting to the QFF format
+* The number of delimited glyphs must match the supplied arguments to the command:
+    * The full ASCII set `0x20..0x7E` (if `--no-ascii` was not specified)
+    * The corresponding number of unicode glyphs if any were specified with `--unicode-glyphs`
+* The order of the glyphs matches the ASCII set, if any, followed by the Unicode glyph set, if any.
+
+**Usage**:
+
+```
+usage: qmk painter-convert-font-image [-h] [-r] -f FORMAT [-u UNICODE_GLYPHS] [-n] [-o OUTPUT] [-i INPUT]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -r, --no-rle          Disable the use of RLE to minimise converted image size.
+  -f FORMAT, --format FORMAT
+                        Output format, valid types: pal256, pal16, pal4, pal2, mono256, mono16, mono4, mono2
+  -u UNICODE_GLYPHS, --unicode-glyphs UNICODE_GLYPHS
+                        Also generate the specified unicode glyphs.
+  -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the glyphs specified.
+  -o OUTPUT, --output OUTPUT
+                        Specify output directory. Defaults to same directory as input.
+  -i INPUT, --input INPUT
+                        Specify input graphic file.
+```
+
+The same arguments for `--no-ascii` and `--unicode-glyphs` need to be specified, as per `qmk painter-make-font-image`.
+
+**Examples**:
+
+```
+$ cd /home/qmk/qmk_firmware/keyboards/my_keeb
+$ qmk painter-convert-font-image --input noto11.png -f mono4 --unicode-glyphs "ĄȽɂɻɣɈʣ"
+Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/noto11.qff.h...
+Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/noto11.qff.c...
+```
 
 ## Quantum Painter Drawing API :id=quantum-painter-api
 
@@ -77,6 +200,14 @@ bool qp_init(painter_device_t device, painter_rotation_t rotation);
 
 The `qp_init` function is used to initialise a display device after it has been created. This accepts a rotation parameter (`QP_ROTATION_0`, `QP_ROTATION_90`, `QP_ROTATION_180`, `QP_ROTATION_270`), which makes sure that the orientation of what's drawn on the display is correct.
 
+```c
+static painter_device_t display;
+void keyboard_post_init_kb(void) {
+    display = qp_make_.......;         // Create the display
+    qp_init(display, QP_ROTATION_0);   // Initialise the display
+}
+```
+
 #### Display Power :id=quantum-painter-api-power
 
 ```c
@@ -86,6 +217,27 @@ bool qp_power(painter_device_t device, bool power_on);
 The `qp_power` function instructs the display whether or not the display panel should be on or off.
 
 !> If there is a separate backlight controlled through the normal QMK backlight API, this is not controlled by the `qp_power` function and needs to be manually handled elsewhere.
+
+```c
+static uint8_t last_backlight = 255;
+void suspend_power_down_user(void) {
+    if (last_backlight == 255) {
+        last_backlight = get_backlight_level();
+    }
+    backlight_set(0);
+    rgb_matrix_set_suspend_state(true);
+    qp_power(display, false);
+}
+
+void suspend_wakeup_init_user(void) {
+    qp_power(display, true);
+    rgb_matrix_set_suspend_state(false);
+    if (last_backlight != 255) {
+        backlight_set(last_backlight);
+    }
+    last_backlight = 255;
+}
+```
 
 #### Display Clear :id=quantum-painter-api-clear
 
@@ -105,6 +257,18 @@ The `qp_flush` function ensures that all drawing operations are "pushed" to the 
 
 !> Some display panels may seem to work even without a call to `qp_flush` -- this may be because the driver cannot queue drawing operations and needs to display them immediately when invoked. In general, calling `qp_flush` at the end is still considered "best practice".
 
+```c
+void housekeeping_task_user(void) {
+    static uint32_t last_draw = 0;
+    if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
+        last_draw = timer_read32();
+        // Draw a rect based off the current RGB color
+        qp_rect(display, 0, 7, 0, 239, rgb_matrix_get_hue(), 255, 255);
+        qp_flush(display);
+    }
+}
+```
+
 ### Drawing Primitives :id=quantum-painter-api-primitives
 
 #### Set Pixel :id=quantum-painter-api-setpixel
@@ -117,6 +281,20 @@ The `qp_setpixel` can be used to set a specific pixel on the screen to the suppl
 
 ?> Using `qp_setpixel` for large amounts of drawing operations is inefficient and should be avoided unless they cannot be achieved with other drawing APIs.
 
+```c
+void housekeeping_task_user(void) {
+    static uint32_t last_draw = 0;
+    if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
+        last_draw = timer_read32();
+        // Draw a 240px high vertical rainbow line on X=0:
+        for (int i = 0; i < 239; ++i) {
+            qp_setpixel(display, 0, i, i, 255, 255);
+        }
+        qp_flush(display);
+    }
+}
+```
+
 #### Draw Line :id=quantum-painter-api-line
 
 ```c
@@ -124,6 +302,20 @@ bool qp_line(painter_device_t device, uint16_t x0, uint16_t y0, uint16_t x1, uin
 ```
 
 The `qp_line` can be used to draw lines on the screen with the supplied color.
+
+```c
+void housekeeping_task_user(void) {
+    static uint32_t last_draw = 0;
+    if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
+        last_draw = timer_read32();
+        // Draw 8px-wide rainbow down the left side of the display
+        for (int i = 0; i < 239; ++i) {
+            qp_line(display, 0, i, 7, i, i, 255, 255);
+        }
+        qp_flush(display);
+    }
+}
+```
 
 #### Draw Rect :id=quantum-painter-api-rect
 
@@ -133,6 +325,20 @@ bool qp_rect(painter_device_t device, uint16_t left, uint16_t top, uint16_t righ
 
 The `qp_rect` can be used to draw rectangles on the screen with the supplied color, with or without a background fill. If not filled, any pixels inside the rectangle will be left as-is.
 
+```c
+void housekeeping_task_user(void) {
+    static uint32_t last_draw = 0;
+    if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
+        last_draw = timer_read32();
+        // Draw 8px-wide rainbow filled rectangles down the left side of the display
+        for (int i = 0; i < 239; i+=8) {
+            qp_rect(display, 0, i, 7, i+7, i, 255, 255, true);
+        }
+        qp_flush(display);
+    }
+}
+```
+
 #### Draw Circle :id=quantum-painter-api-circle
 
 ```c
@@ -141,6 +347,20 @@ bool qp_circle(painter_device_t device, uint16_t x, uint16_t y, uint16_t radius,
 
 The `qp_circle` can be used to draw circles on the screen with the supplied color, with or without a background fill. If not filled, any pixels inside the circle will be left as-is.
 
+```c
+void housekeeping_task_user(void) {
+    static uint32_t last_draw = 0;
+    if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
+        last_draw = timer_read32();
+        // Draw r=4 filled circles down the left side of the display
+        for (int i = 0; i < 239; i+=8) {
+            qp_circle(display, 4, 4+i, 4, i, 255, 255, true);
+        }
+        qp_flush(display);
+    }
+}
+```
+
 #### Draw Ellipse :id=quantum-painter-api-ellipse
 
 ```c
@@ -148,6 +368,20 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
 ```
 
 The `qp_ellipse` can be used to draw ellipses on the screen with the supplied color, with or without a background fill. If not filled, any pixels inside the ellipses will be left as-is.
+
+```c
+void housekeeping_task_user(void) {
+    static uint32_t last_draw = 0;
+    if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
+        last_draw = timer_read32();
+        // Draw 16x8 filled ellipses down the left side of the display
+        for (int i = 0; i < 239; i+=8) {
+            qp_ellipse(display, 8, 4+i, 16, 8, i, 255, 255, true);
+        }
+        qp_flush(display);
+    }
+}
+```
 
 ### Image Functions :id=quantum-painter-api-images
 
@@ -167,12 +401,11 @@ See the [CLI Commands](quantum_painter.md?id=quantum-painter-cli) for instructio
 
 Image information is available through accessing the handle:
 
-```c
-// Draw an image on the bottom-right of the 240x320 display
-painter_device_t display = .......;
-painter_image_handle_t image = qp_load_image_mem(gfx_my_image);
-qp_drawimage(display, (239 - image->width), (319 - image->height), image); // also `image->frame_count` for animations
-```
+| Property    | Accessor             |
+|-------------|----------------------|
+| Width       | `image->width`       |
+| Height      | `image->height`      |
+| Frame Count | `image->frame_count` |
 
 #### Unload Image :id=quantum-painter-api-close-image
 
@@ -191,6 +424,17 @@ bool qp_drawimage_recolor(painter_device_t device, uint16_t x, uint16_t y, paint
 
 The `qp_drawimage` and `qp_drawimage_recolor` functions draw the supplied image to the screen at the supplied location, with the latter function allowing for monochrome-based images to be recolored.
 
+```c
+// Draw an image on the bottom-right of the 240x320 display on initialisation
+static painter_image_handle_t my_image;
+void keyboard_post_init_kb(void) {
+    my_image = qp_load_image_mem(gfx_my_image);
+    if (my_image != NULL) {
+        qp_drawimage(display, (239 - my_image->width), (319 - my_image->height), my_image);
+    }
+}
+```
+
 #### Animate Image :id=quantum-painter-api-animate-image
 
 ```c
@@ -204,6 +448,18 @@ Once an image has been set to animate, it will loop indefinitely until stopped, 
 
 Both functions return a `deferred_token`, which can then be used to stop the animation, using `qp_stop_animation` below.
 
+```c
+// Animate an image on the bottom-right of the 240x320 display on initialisation
+static painter_image_handle_t my_image;
+static deferred_token my_anim;
+void keyboard_post_init_kb(void) {
+    my_image = qp_load_image_mem(gfx_my_image);
+    if (my_image != NULL) {
+        my_anim = qp_animate(display, (239 - my_image->width), (319 - my_image->height), my_image);
+    }
+}
+```
+
 #### Stop Animation :id=quantum-painter-api-stop-animation
 
 ```c
@@ -211,6 +467,13 @@ void qp_stop_animation(deferred_token anim_token);
 ```
 
 The `qp_stop_animation` function stops the previously-started animation.
+```c
+void housekeeping_task_user(void) {
+    if (some_random_stop_reason) {
+        qp_stop_animation(my_anim);
+    }
+}
+```
 
 ### Font Functions :id=quantum-painter-api-fonts
 
@@ -230,14 +493,9 @@ See the [CLI Commands](quantum_painter.md?id=quantum-painter-cli) for instructio
 
 Font information is available through accessing the handle:
 
-```c
-// Draw text on the bottom-right of the 240x320 display
-painter_device_t display = .......;
-painter_font_handle_t font = qp_load_font_mem(font_opensans);
-const char *text = "blah";
-int16_t width = qp_textwidth(font, text);
-qp_drawtext(display, (239 - width), (319 - font->line_height), font, text);
-```
+| Property    | Accessor             |
+|-------------|----------------------|
+| Line Height | `image->line_height` |
 
 #### Unload Font :id=quantum-painter-api-close-font
 
@@ -263,6 +521,19 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
 ```
 
 The `qp_drawtext` and `qp_drawtext_recolor` functions draw the supplied string to the screen at the given location using the font supplied, with the latter function allowing for monochrome-based fonts to be recolored.
+
+```c
+// Draw a text message on the bottom-right of the 240x320 display on initialisation
+static painter_font_handle_t my_font;
+void keyboard_post_init_kb(void) {
+    my_font = qp_load_font_mem(font_opensans);
+    if (my_font != NULL) {
+        static const char *text = "Hello from QMK!";
+        int16_t width = qp_textwidth(my_font, text);
+        qp_drawtext(display, (239 - width), (319 - my_font->line_height), my_font, text);
+    }
+}
+```
 
 ### Advanced Functions :id=quantum-painter-api-advanced
 
