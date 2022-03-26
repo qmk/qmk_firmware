@@ -25,25 +25,6 @@ __attribute__((weak)) void joystick_task(void) {
     }
 }
 
-void joystick_flush(void) {
-    if ((joystick_status.status & JS_UPDATED) > 0) {
-        send_joystick_packet(&joystick_status);
-        joystick_status.status &= ~JS_UPDATED;
-    }
-}
-
-void register_joystick_button(uint8_t button) {
-    joystick_status.buttons[button / 8] |= 1 << (button % 8);
-    joystick_status.status |= JS_UPDATED;
-    joystick_flush();
-}
-
-void unregister_joystick_button(uint8_t button) {
-    joystick_status.buttons[button / 8] &= ~(1 << (button % 8));
-    joystick_status.status |= JS_UPDATED;
-    joystick_flush();
-}
-
 uint16_t savePinState(pin_t pin) {
 #ifdef __AVR__
     uint8_t pinNumber = pin & 0xF;
