@@ -12,15 +12,7 @@ Firstly, in your keymap, do one of the following:
 
 ## Keycodes
 
-|Keycode    |Description                                |
-|-----------|-------------------------------------------|
-|`KC_LSPO`  |Left Shift when held, `(` when tapped      |
-|`KC_RSPC`  |Right Shift when held, `)` when tapped     |
-|`KC_LCPO`  |Left Control when held, `(` when tapped    |
-|`KC_RCPC`  |Right Control when held, `)` when tapped   |
-|`KC_LAPO`  |Left Alt when held, `(` when tapped        |
-|`KC_RAPC`  |Right Alt when held, `)` when tapped       |
-|`KC_SFTENT`|Right Shift when held, Enter when tapped   |
+[keycodes_space_cadet.md](./keycodes_space_cadet.md ':include')
 
 ## Caveats
 
