@@ -32,23 +32,14 @@ See also: [Basic Keycodes](keycodes_basic.md)
 
 [keycodes_international.md](./keycodes_international.md ':include')
 
+### Commands
+
+[keycodes_commands.md](./keycodes_commands.md ':include')
 
 |Key                     |Aliases                        |Description                            |Windows      |macOS        |Linux<sup>1</sup>|
 |------------------------|-------------------------------|---------------------------------------|-------------|-------------|-----------------|
 |`KC_NO`                 |`XXXXXXX`                      |Ignore this key (NOOP)                 |*N/A*        |*N/A*        |*N/A*            |
 |`KC_TRANSPARENT`        |`KC_TRNS`, `_______`           |Use the next lowest non-transparent key|*N/A*        |*N/A*        |*N/A*            |
-|`KC_PRINT_SCREEN`       |`KC_PSCR`                      |Print Screen                           |✔            |✔<sup>2</sup>|✔                |
-|`KC_PAUSE`              |`KC_PAUS`, `KC_BRK`, `KC_BRMU` |Pause, Brightness Up (macOS)           |✔            |✔<sup>2</sup>|✔                |
-|`KC_INSERT`             |`KC_INS`                       |Insert                                 |✔            |             |✔                |
-|`KC_HOME`               |                               |Home                                   |✔            |✔            |✔                |
-|`KC_PAGE_UP`            |`KC_PGUP`                      |Page Up                                |✔            |✔            |✔                |
-|`KC_DELETE`             |`KC_DEL`                       |Forward Delete                         |✔            |✔            |✔                |
-|`KC_END`                |                               |End                                    |✔            |✔            |✔                |
-|`KC_PAGE_DOWN`          |`KC_PGDN`                      |Page Down                              |✔            |✔            |✔                |
-|`KC_RIGHT`              |`KC_RGHT`                      |Right Arrow                            |✔            |✔            |✔                |
-|`KC_LEFT`               |                               |Left Arrow                             |✔            |✔            |✔                |
-|`KC_DOWN`               |                               |Down Arrow                             |✔            |✔            |✔                |
-|`KC_UP`                 |                               |Up Arrow                               |✔            |✔            |✔                |
 |`KC_KP_SLASH`           |`KC_PSLS`                      |Keypad `/`                             |✔            |✔            |✔                |
 |`KC_KP_ASTERISK`        |`KC_PAST`                      |Keypad `*`                             |✔            |✔            |✔                |
 |`KC_KP_MINUS`           |`KC_PMNS`                      |Keypad `-`                             |✔            |✔            |✔                |
@@ -65,37 +56,9 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_KP_9`               |`KC_P9`                        |Keypad `9` and Page Up                 |✔            |✔            |✔                |
 |`KC_KP_0`               |`KC_P0`                        |Keypad `0` and Insert                  |✔            |✔            |✔                |
 |`KC_KP_DOT`             |`KC_PDOT`                      |Keypad `.` and Delete                  |✔            |✔            |✔                |
-|`KC_APPLICATION`        |`KC_APP`                       |Application (Windows Context Menu Key) |✔            |             |✔                |
-|`KC_KB_POWER`           |                               |System Power                           |             |✔<sup>3</sup>|✔                |
-|`KC_KP_EQUAL`           |`KC_PEQL`                      |Keypad `=`                             |✔            |✔            |✔                |
-|`KC_EXECUTE`            |`KC_EXEC`                      |Execute                                |             |             |✔                |
-|`KC_HELP`               |                               |Help                                   |             |             |✔                |
-|`KC_MENU`               |                               |Menu                                   |             |             |✔                |
-|`KC_SELECT`             |`KC_SLCT`                      |Select                                 |             |             |✔                |
-|`KC_STOP`               |                               |Stop                                   |             |             |✔                |
-|`KC_AGAIN`              |`KC_AGIN`                      |Again                                  |             |             |✔                |
-|`KC_UNDO`               |                               |Undo                                   |             |             |✔                |
-|`KC_CUT`                |                               |Cut                                    |             |             |✔                |
-|`KC_COPY`               |                               |Copy                                   |             |             |✔                |
-|`KC_PASTE`              |`KC_PSTE`                      |Paste                                  |             |             |✔                |
-|`KC_FIND`               |                               |Find                                   |             |             |✔                |
-|`KC_KB_MUTE`            |                               |Mute                                   |             |✔            |✔                |
-|`KC_KB_VOLUME_UP`       |                               |Volume Up                              |             |✔            |✔                |
-|`KC_KB_VOLUME_DOWN`     |                               |Volume Down                            |             |✔            |✔                |
 |`KC_KP_COMMA`           |`KC_PCMM`                      |Keypad `,`                             |             |             |✔                |
+|`KC_KP_EQUAL`           |`KC_PEQL`                      |Keypad `=`                             |✔            |✔            |✔                |
 |`KC_KP_EQUAL_AS400`     |                               |Keypad `=` on AS/400 keyboards         |             |             |                 |
-|`KC_ALTERNATE_ERASE`    |`KC_ERAS`                      |Alternate Erase                        |             |             |                 |
-|`KC_SYSTEM_REQUEST`     |`KC_SYRQ`                      |SysReq/Attention                       |             |             |                 |
-|`KC_CANCEL`             |`KC_CNCL`                      |Cancel                                 |             |             |                 |
-|`KC_CLEAR`              |`KC_CLR`                       |Clear                                  |             |             |✔                |
-|`KC_PRIOR`              |`KC_PRIR`                      |Prior                                  |             |             |                 |
-|`KC_RETURN`             |`KC_RETN`                      |Return                                 |             |             |                 |
-|`KC_SEPARATOR`          |`KC_SEPR`                      |Separator                              |             |             |                 |
-|`KC_OUT`                |                               |Out                                    |             |             |                 |
-|`KC_OPER`               |                               |Oper                                   |             |             |                 |
-|`KC_CLEAR_AGAIN`        |`KC_CLAG`                      |Clear/Again                            |             |             |                 |
-|`KC_CRSEL`              |`KC_CRSL`                      |CrSel/Props                            |             |             |                 |
-|`KC_EXSEL`              |`KC_EXSL`                      |ExSel                                  |             |             |                 |
 |`KC_LEFT_CTRL`          |`KC_LCTL`                      |Left Control                           |✔            |✔            |✔                |
 |`KC_LEFT_SHIFT`         |`KC_LSFT`                      |Left Shift                             |✔            |✔            |✔                |
 |`KC_LEFT_ALT`           |`KC_LALT`, `KC_LOPT`           |Left Alt (Option)                      |✔            |✔            |✔                |
