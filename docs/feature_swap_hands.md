@@ -19,15 +19,6 @@ Note that the array indices are reversed same as the matrix and the values are o
 
 ## Swap Keycodes
 
-|Key        |Description                                                              |
-|-----------|-------------------------------------------------------------------------|
-|`SH_T(key)`|Sends `key` with a tap; momentary swap when held.                        |
-|`SH_ON`    |Turns on swapping and leaves it on.                                      |
-|`SH_OFF`   |Turn off swapping and leaves it off. Good for returning to a known state.|
-|`SH_MON`   |Swaps hands when pressed, returns to normal when released (momentary).   |
-|`SH_MOFF`  |Momentarily turns off swap.                                              |
-|`SH_TG`    |Toggles swap on and off with every key press.                            |
-|`SH_TT`    |Momentary swap when held, toggles with repeated taps (see below).        |
-|`SH_OS`    |One shot swap hands: toggles while pressed or until next key press.      |
+[keycodes_swap_hands.md](./keycodes_swap_hands.md ':include')
 
 `SH_TT` swap-hands tap-toggle key is similar to [layer tap-toggle](feature_layers.md?id=switching-and-toggling-layers). Tapping repeatedly (5 taps by default) will toggle swap-hands on or off, like `SH_TG`. Tap-toggle count can be changed by defining a value for `TAPPING_TOGGLE`.
