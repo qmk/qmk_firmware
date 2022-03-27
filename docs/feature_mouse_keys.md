@@ -14,31 +14,11 @@ To enable mouse keys, add the following line to your keymap’s `rules.mk`:
 MOUSEKEY_ENABLE = yes
 ```
 
-### Mapping mouse actions
+### Mouse Action Keycodes
 
 In your keymap you can use the following keycodes to map key presses to mouse actions:
 
-|Key             |Aliases  |Description      |
-|----------------|---------|-----------------|
-|`KC_MS_UP`      |`KC_MS_U`|Move cursor up   |
-|`KC_MS_DOWN`    |`KC_MS_D`|Move cursor down |
-|`KC_MS_LEFT`    |`KC_MS_L`|Move cursor left |
-|`KC_MS_RIGHT`   |`KC_MS_R`|Move cursor right|
-|`KC_MS_BTN1`    |`KC_BTN1`|Press button 1   |
-|`KC_MS_BTN2`    |`KC_BTN2`|Press button 2   |
-|`KC_MS_BTN3`    |`KC_BTN3`|Press button 3   |
-|`KC_MS_BTN4`    |`KC_BTN4`|Press button 4   |
-|`KC_MS_BTN5`    |`KC_BTN5`|Press button 5   |
-|`KC_MS_BTN6`    |`KC_BTN6`|Press button 6   |
-|`KC_MS_BTN7`    |`KC_BTN7`|Press button 7   |
-|`KC_MS_BTN8`    |`KC_BTN8`|Press button 8   |
-|`KC_MS_WH_UP`   |`KC_WH_U`|Move wheel up    |
-|`KC_MS_WH_DOWN` |`KC_WH_D`|Move wheel down  |
-|`KC_MS_WH_LEFT` |`KC_WH_L`|Move wheel left  |
-|`KC_MS_WH_RIGHT`|`KC_WH_R`|Move wheel right |
-|`KC_MS_ACCEL0`  |`KC_ACL0`|Set speed to 0   |
-|`KC_MS_ACCEL1`  |`KC_ACL1`|Set speed to 1   |
-|`KC_MS_ACCEL2`  |`KC_ACL2`|Set speed to 2   |
+[keycodes_mouse.md](./keycodes_mouse.md ':include')
 
 ## Configuring mouse keys
 
