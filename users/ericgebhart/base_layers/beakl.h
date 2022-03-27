@@ -89,6 +89,34 @@
            _H, _A,    _E,    _I, _K, _G,    _S, _R, _T, _P,             \
            _Z, _QUOT, _SLSH, _Y, _X, _B,    _C, _L, _F, _V)
 
+//BEAKL 19bis - original.
+// the é and è were simply added for analysis not real use.
+// even so, this layout scores well for french, better than
+// bepo and mtgap
+/*  qyouz  wdnck   */
+/* -hiea,  gtrsp; */
+/* èj'é.x  vmlfb   */
+
+// A 3x12
+//BEAKL 19bis mod z.
+// French optimised with some english.
+// This version rearranges things a little based on fequency.
+// Since it needs 3x12, I filled in the corners and removed ;.
+// Leaving y where it is. the o and the e might cause sfbs.
+// Put é on a different finger from e.
+// swap z, e's, add à, ^, and ê, swap ; for -.
+// it might be beneficial to swap w and à, as à is much more frequent than w
+#define CARTE_BEAKL19bis                        \
+  carte_de_map(" àqyoué  wdnck^ ",              \
+               " ;hiea,  gtrsp- ",              \
+               " zj'è.x  vmlfbê  ")
+
+#define ___BEAKL19bis_3x12___                                           \
+  LANG_MAP6(                                                            \
+            _AGRV, _Q, _Y,    _O,    _U,   _EACU,   _W, _D, _N, _C, _K, _DCIR, \
+            _SCLN, _H, _I,    _E,    _A,   _COMM,   _G, _T, _R, _S, _P, _MINS, \
+            _Z,    _J, _QUOT, _EGRV, _DOT, _X,      _V, _M, _L, _F, _B, _ECIR)
+
 
 // Beakl Wi.   This is the most current beakl this size. 18/01/2022.
 // Nothing on the 6th outer columns but layer toggle buttons. All 6.

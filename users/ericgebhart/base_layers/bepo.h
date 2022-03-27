@@ -46,34 +46,6 @@
 /* Q	0.1962%	(1) */
 
 
-//BEAKL 19bis - original.
-// the é and è were simply added for analysis not real use.
-// even so, this layout scores well for french, better than
-// bepo and mtgap
-/*  qyouz  wdnck   */
-/* -hiea,  gtrsp; */
-/* èj'é.x  vmlfb   */
-
-// A 3x12
-//BEAKL 19bis mod z.
-// French optimised with some english.
-// This version rearranges things a little based on fequency.
-// Since it needs 3x12, I filled in the corners and removed ;.
-// Leaving y where it is. the o and the e might cause sfbs.
-
-// swap z, e's, add à, ^, and ê, swap ; for -.
-// it might be beneficial to swap w and à, as à is much more frequent than w
-#define CARTE_BEAKL19bis                        \
-  carte_de_map(" àqyoué  wdnck^ ",             \
-               " ;hiea,  gtrsp- ",             \
-               " zj'è.x  vmlfbê  ")
-
-#define ___BEAKL19bis_3x12___                                           \
-  LANG_MAP6(                                                            \
-            _AGRV, _Q, _Y,    _O,    _U,   _EACU,   _W, _D, _N, _C, _K, _DCIR, \
-            _SCLN, _H, _I,    _E,    _A,   _COMM,   _G, _T, _R, _S, _P, _MINS, \
-            _Z,    _J, _QUOT, _EGRV, _DOT, _X,      _V, _M, _L, _F, _B, _ECIR)
-
 // OPtimot by @Pyjam.
 /*  àjoéb fdl’qxz */
 /*  aieu, ptsrn^ç */
@@ -121,6 +93,13 @@
   LANG_MAP6(_CCED, _B,    _EACU, _P, _O,   _EGRV,    _DCIR, _V, _D, _L, _J, _Z, \
             _TAB,  _A,    _U,    _I, _E,   _COMM,    _C,    _T, _S, _R, _N, _M, \
             _ECIR, _AGRV, _Y,    _X, _DOT, _K,       _QUOT, _Q, _G, _H, _F, _W)
+
+// dont like this one much.
+/* #define ___GODOX_3x12___                                                \ */
+/*   LANG_MAP6(___, _AGRV, _B, _EACU, _dot, _mins,    _DCIR, _V, _L,  _M, _X, _CCED, \ */
+/*             ___,  _O,   _U, _I,    _A,   _J,       _G,    _T, _S,  _N, _R, _F, \ */
+/*             ___, _Q,    _Y, _EGRV, _P,   _K,       _W,    _D, _UP, _H, _C, _Z) */
+/* // E goes on left thumb. */
 
 
 // probably best to have e and é on different fingers.

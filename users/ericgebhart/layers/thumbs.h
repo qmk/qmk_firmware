@@ -60,7 +60,11 @@
   ALT_DEL, CTL_BSPC, GUI_ESC,  ALT_ENT, CTL_SPC, XC_XM_PORD
 
 #define ___6_ERGO_THUMBS_mod_layers___                          \
-  ALT_DEL, BSPC_SYMB, GUI_ESC,  CTL_ENT, SPC_TOPR, OS_LSFT
+  ALT_DEL, BSPC_SYMB, GUI_ESC,  CTL_ENT, SPC_TOPR, KC_RALT
+
+/* esc/media, space/nav, tab/mouse | ent/sym, bspc/num, del/fun */
+/* #define ___6_ERGO_THUMBS_miryoku___                             \ */
+/*   esc_media, space_navnm, tab_navm,  ENT_SYM, BSPC_TOPR, del_fun */
 
 // Give the right symbol suffix by the value of THUMBS_ARE
 // Basically we choose the right cluster here, so the layout

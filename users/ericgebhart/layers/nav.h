@@ -149,9 +149,9 @@
                " ldur 2  cwq tdubt")
 
 #define CARTE_NAVA                              \
-  carte_de_map(" gacs  ctn 12345",             \
-               " ldur  ccv ldur",              \
-               " ldur  cwq tdubt")
+  carte_de_map(" gacs 0  ctn 12345",             \
+               " ldur 1  ccv ldur",              \
+               " ldur 2  cwq tdubt")
 
 #define CARTE_NAVnm                             \
   carte_de_map(" gacsc2 ctn cscag ",            \

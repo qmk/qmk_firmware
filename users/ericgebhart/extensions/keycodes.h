@@ -39,8 +39,11 @@ enum userspace_custom_keycodes {
 #ifdef ALT_LOCAL_ENABLE
 #undef MK_KEY
 #define MK_KEY KEY_NAME
+#undef MK_SKEY
+#define MK_SKEY KEY_NAME
 #include "altlocal_keys.def"
 #undef MK_KEY
+#undef MK_SKEY
 #endif
   ALT_LOCAL_KEYS_END,
 
@@ -127,12 +130,16 @@ enum userspace_custom_keycodes {
 
 #define FIRST_LAYER (BEGINNING_OF_BASE_LAYERS + 1)
 
+#define TL_DQUO TLKC(_DQUO)
 #define TL_QUOT TLKC(_QUOT)
 #define TL_COMM TLKC(_COMM)
 #define TL_DOT  TLKC(_DOT)
 #define TL_SCLN TLKC(_SCLN)
 #define TL_SLSH TLKC(_SLSH)
 #define TL_EXLM TLKC(_EXLM)
+#define TL_MINS TLKC(_MINS)
+#define TL_LPRN TLKC(_LPRN)
+#define TL_LCBR TLKC(_LCBR)
 
 #define BP_LT BP_LABK
 #define BP_GT BP_RABK
@@ -140,6 +147,10 @@ enum userspace_custom_keycodes {
 #define US_GT US_RABK
 #define US_LT US_LABK
 #define US_TAB KC_TAB
+#undef US_TILD
+#define US_TILD KC_TILD
+#undef US_CIRC
+#define US_CIRC KC_CIRC
 
 #define BP_F1 KC_F1
 #define BP_F2 KC_F2

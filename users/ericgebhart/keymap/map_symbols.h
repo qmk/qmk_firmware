@@ -15,22 +15,27 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifdef SYMBOL_LAYER_ENABLE
-#ifdef SYMBOL_BEAKL_EXT_VI
-  T_LAYER(LANG_N(_SYMB), ___SYMB_BEAKLB_3x10___),
+#ifdef SYMBOL_BEAKL_C
+    T_LAYER(LANG_N(_SYMB), ___SYMB_BEAKLC_3x10___),
 #else
 
-#ifdef SYMBOL_BEAKL_EXT
-    T_LAYER(LANG_N(_SYMB ), ___SYMB_BEAKLA_3x10___),
-#else
+#    ifdef SYMBOL_BEAKL_EXT_VI
+      T_LAYER(LANG_N(_SYMB), ___SYMB_BEAKLB_3x10___),
+#    else
 
-#ifdef SYMBOL_BEAKL_WI
-    T_LAYER(LANG_N(_SYMB), ___SYMB_BEAKLWI_3x10___),
-#else
+#      ifdef SYMBOL_BEAKL_EXT
+      T_LAYER(LANG_N(_SYMB ), ___SYMB_BEAKLA_3x10___),
+#      else
 
-  // basic beakl, the default if nothing chosen.
-    T_LAYER(LANG_N(_SYMB), ___SYMB_BEAKL_3x10___),
+#         ifdef SYMBOL_BEAKL_WI
+      T_LAYER(LANG_N(_SYMB), ___SYMB_BEAKLWI_3x10___),
+#         else
+
+    // basic beakl, the default if nothing chosen.
+           T_LAYER(LANG_N(_SYMB), ___SYMB_BEAKL_3x10___),
 
 #endif //beakl wi
 #endif //beakl ext
 #endif //beakl ext vi
+#endif //beaklc
 #endif

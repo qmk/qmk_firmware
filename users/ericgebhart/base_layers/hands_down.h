@@ -15,24 +15,28 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-// Doesn't fit in 3x10
-#define CARTE_HD_NEU_ORIG                       \
-  carte_de_map( "   wfmpv  /.q\"'z",            \
-                "   rsntb  ,aeih",              \
-                "   xcldg  -uoyk")
 
-#define ___HD_NEU_ORIG___                                               \
-  LANG_MAP(_W, _F, _M, _P, _V , TL_SLSH, TL_DOT, _Q, _DQUOT, _QUOT, _Z, \
-           _R, _S, _N, _T, _B , TL_COMM, _A,     _E, _I,     _H,    _J, \
-           _X, _C, _L, _D, _G , _MINS,   _U,     _O, _Y,     _K)
+// https://sites.google.com/alanreiser.com/handsdown/home
+
+// The only 3x12 layout. The rest are 3x10.
+#define CARTE_HD_NEU                            \
+  carte_de_map( "  Nwfmpv  /.q\"'z",            \
+                "  Trsntb  ,aeihj",             \
+                "  Axcldg  -uoykK")
+
+#define ___HD_NEU___                                                    \
+  LANG_MAP(_SML_NAV,   _W, _F, _M, _P, _V , TL_SLSH, TL_DOT, _Q, TL_DQUO, TL_QUOT, _Z, \
+           _TAB,       _R, _S, _N, _T, _B , TL_COMM, _A,     _E, _I,      _H,    _J, \
+           _OS_ACCENT, _X, _C, _L, _D, _G , TL_MINS, _U,     _O, _Y,      _K, _SML_KEYPAD)
+
 
 // modified to fit 3x10.
-#define CARTE_HD_NEU                            \
+#define CARTE_HD_NEU_NARROW                     \
   carte_de_map("   xcldb  zuoyq",               \
                "   rsntg  ,aeih",               \
                "   wfmpv  ;./jk")
 
-#define ___HD_NEU___                                                    \
+#define ___HD_NEU_NARROW___                                             \
   LANG_MAP(_X, _C, _L, _D, _B,   _Z,      _U,     _O,      _Y, _Q,      \
            _R, _S, _N, _T, _G,   TL_COMM, _A,     _E,      _I, _H,      \
            _W, _F, _M, _P, _V,   TL_SCLN, TL_DOT, TL_SLSH, _J, _K)
@@ -47,3 +51,83 @@
   LANG_MAP(_Q, _C, _H, _P, _V,   _K, _Y, _O,      _J,       TL_SLSH,    \
            _R, _S, _N, _T, _G,   _W, _U, _E,      _I,       _A,         \
            _X, _M, _L, _D, _B,   _Z, _F, TL_QUOT, TL_COMM,  TL_DOT )
+
+
+// All of these have a consonant or vowel on the thumb keys.
+
+/* alt shift keys. "? '!               */
+/* alt shifts   ;: .& /\* '? "! ,| -+  */
+/* (< {[                               */
+/* dash has thumbs of ,; and .:        */
+/* COMBOS - z = jg, z=vg, q=uk, q=mp.  */
+
+#define CARTE_HD_GOLD                                           \
+  carte_de_map("  jgmpv  ;./\"' ",                              \
+               "  rsndb  ,aeih ",                               \
+               "  xflcw  -uoyk  t")
+
+#define ___HD_GOLD___                                                   \
+  LANG_MAP(_j, _g, _m, _p, _v,  TL_SCLN, TL_DOT, TL_SLSH, TL_DQUO, TL_QUOT, \
+           _r, _s, _n, _d, _b , TL_COMM, _a, _e, _i, _h,                \
+           _x, _f, _l, _c, _w , TL_MINS, _u, _o, _y, _k)
+/* t, ␣   */
+
+/* jz pq alt shifts   ;: .& /\* '? "! ,| -+ */
+
+#define CARTE_HD_PLATINUM                       \
+  carte_de_map( "jghpv   ;./'\"",               \
+                "rsntb   ,aeci",                \
+                "xfmdk   -uowy  l")
+/* l   ␣   */
+
+#define ___HD_PLATINUM___                                               \
+  LANG_MAP(_j, _g, _h, _p, _v,  TL_SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
+           _r, _s, _n, _t, _b,  TL_COMM, _a, _e, _c, _i,                \
+           _x, _f, _m, _d, _k,  TL_MINS, _u, _o, _w, _y)
+
+#define CARTE_HD_SILVER                         \
+  carte_de_map("jfmpv   ;./'\"",                \
+               "rshtb   ,aeci",                 \
+               "xgldk   -uowy  n")
+/* n   ␣   */
+
+#define ___HD_SILVER___                                 \
+  LANG_MAP(_j, _f, _m, _p, _v,  TL_SCLN, TL_DOT, TL_SLSH, _TL_QUOT, TL_DQUO, \
+           _r, _s, _h, _t, _b,  TL_COMM, _a, _e, _c, _i,                \
+           _x, _g, _l, _d, _k,  TL_MINS, _u, _o, _w, _y)
+
+#define CARTE_HD_BRONZE                         \
+  carte_de_map("jgmpv   ;./'\"",                \
+               "rsntb   ,aeci",                 \
+               "xfldk   -uowy  h")
+/* h   ␣   */
+
+#define ___HD_BRONZE___                                 \
+  LANG_MAP(_j, _g , _m, _p, _v , TL_SCLN, TL_DOT, TL_SLSH , TL_QUOT, TL_DQUO, \
+           _r, _s, _n, _t, _b , TL_COMM, _a, _e, _c, _i,                \
+           _x, _f, _l, _d, _k , TL_MINS, _u, _o, _w, _y)
+
+#define CARTE_HD_ELAN                          \
+  carte_de_map("vghpk   /({'\"",               \
+               "rsntf   jaeci",                \
+               "xmldb   -uowy")
+/* ,; .:  ␣  ⏎ */
+
+/* vz g  h  p  kq  /\* (< {[ '! "? */
+/* TL_COMM; TL_DOT:  _␣  ⏎ */
+#define ___HD_ELAN___                                                   \
+  LANG_MAP(_v, _g, _h, _p, _k,   TL_SLSH, TL_LPRN, TL_LBRC, TL_QUOT, TL_DQUO, \
+           _r, _s, _n, _t, _f,   _j, _a, _e, _c, _i,                    \
+           _x, _m, _l, _d, _b,   TL_MINS, _u, _o, _w, _y)
+
+
+#define CARTE_HD_DASH                          \
+    carte_de_map("jgmpv   ;.'\"/",             \
+                 "rsntb   ,haoi",              \
+                 "xcldw   -fuky  e")
+    /*   e   ␣   */
+
+#define ___HD_DASH___                                                   \
+  LANG_MAP(_j, _g, _m, _p, _v , TL_SCLN, TL_DOT, TL_QUOT, TL_DQUOT, TL_SLSH, \
+           _r, _s, _n, _t, _b , TL_COMM, _h, _a, _o, _i,                \
+           _x, _c, _l, _d, _w , TL_MINS, _f, _u, _k, _y)

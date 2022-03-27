@@ -44,9 +44,11 @@ bool process_alt_local_key(uint16_t keycode, keyrecord_t* record);
 #define GR(x) (x-SAFE_RANGE)
 // indexs for the keycode translation table.
 
-#undef MK_KEY
 #define MK_KEY(KCNAME, KC1, MOD1, KC2, MOD2)    \
   [GR(KCNAME)] = {{KC1, MOD1}, {KC2, MOD2}},
+
+#define MK_SKEY(KCNAME, KC1, KC2)   \
+  [GR(KCNAME)] = {{KC1, MOD_NONE}, {KC2, MOD_NONE}},
 
 #define UNSHIFTED_KEY(key)  key_translations[gr(key)][0][0]
 #define UNSHIFTED_MODS(key) key_translations[gr(key)][0][1]

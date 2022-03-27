@@ -19,20 +19,25 @@
 #define CATKC(a, ...) CONCATENATEKC(a, __VA_ARGS__)
 #define LKC(NAME) CATKC(LANG_PFX, NAME)
 
-#define ALT_TARGET_IS NONE // NONE, DV = dvorak, BK=Beakl, BK2=Beakl27, BKW=Beaklwi.
+// NONE, DV = dvorak, BK=Beakl, BK2=Beakl27, BKW=Beaklwi.
 // Give the right keycode prefix by Alt target _IS
+#define ALT_TARGET_IS NONE
 #define TARGET_PFX CATKC(ALT_TARGET_IS, KC)
 #define NONEKC
 #define DVKC _DV
 #define BKKC _BK
 #define BKWKC _BKW
 #define BK2KC _BK2
+#define HDKC _HD
+#define HD_ELANKC _HD_E
+#define HD_DASHKC _HD_D
 
 #define CONCATENATETKC(a, ...) a ## __VA_ARGS__
 #define CATTKC(a, ...) CONCATENATETKC(a, __VA_ARGS__)
 
 // depending on the value of ALT_TARGET_IS and LANG_IS.
-// TLKC(_COMM) -> KC_BK_COMM, KC_DV_COMM, KC_BK2_COMM, BP_BK_COMM, ...
+// TL_COMM -> TLKC(_COMM)
+// TLKC(_COMM) -> _BK_COMM, _DV_COMM, _BK2_COMM, _BK_COMM, _HD_COMM...
 #define TLKC(NAME) CATTKC(TARGET_PFX, NAME)
 
 #define LANG_ROW(K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A)      \

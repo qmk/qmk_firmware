@@ -63,6 +63,12 @@
 /*      - \(")# !{:}/ ;                                           */
 /*        @=*+; %&^~|                                             */
 /*                                                                */
+/* C:                                                             */
+/*                                                                */
+/*        `<$>' ?[_-]                                             */
+/*      - \("#) !{:/} ;                                           */
+/*        @=*+; %&^~|                                             */
+/*                                                                */
 /*                                                                */
 /* Both ; and ' could have found their dvorak positions. Analysis showed */
 /* that only caused pinky overuse. Rotating the symbols around Put better */
@@ -99,12 +105,14 @@
 /******************************************************************/
 
 // Left
-#define ___SB_L1___         _OCLTGT, _DLR,    _GT
-#define ___SB_L2___ _BSLS,  _OCPRN,  _OCDQUO, _RPRN,  _HASH
-#define ___SB_L3___         _COLN,   _ASTR,   _PLUS
+#define ___SB_L1___          _OCLTGT, _DLR,    _GT
+#define ___SB_L2___  _BSLS,  _OCPRN,  _OCDQUO, _RPRN,  _HASH
+#define ___SB_L2c___ _BSLS,  _OCPRN,  _OCDQUO, _HASH, _RPRN
+#define ___SB_L3___          _COLN,   _ASTR,   _PLUS
 
 // Right
 #define ___SB_R1___          _OCBRC,   _UNDS,  _RBRC
+#define ___SB_R1c___         _OCBRC,   _UNDS,  _MINS
 #define ___SB_R2___  _PERC,  _OCCBR,   _EQL,   _RCBR,  _PIPE
 #define ___SB_R3___          _AMPR,    _CIRC,  _TILD
 
@@ -113,6 +121,7 @@
 
 #define ___SB_R2a___ _PERC,  _OCCBR,   _EXLM,  _RCBR,  _PIPE
 #define ___SB_R2b___ _EXLM,  _OCCBR,   _COLN,  _RCBR,  _SLSH
+#define ___SB_R2c___ _EXLM,  _OCCBR,   _COLN,  _SLSH,  _RCBR
 
 // ---------------------------
 // ---------------------------
@@ -148,6 +157,20 @@
 #define ___SYMB_BEAKLB_3x10___                                          \
   CHUNK_LANG_MAP(_OCGRV, ___SB_L1___,  _OCQUOT,   _QUES,  ___SB_R1___, _MINS, \
                  ___SB_L2___,                     ___SB_R2b___,         \
+                 _AT,    ___SB_L3b___, _SCLN,     _PERC, ___SB_R3___, _PIPE)
+
+// ---------------------------
+// C: Extended & Vi, move closing braces to pinky, seldom used.
+// because of tap hold - open_openclose feature.
+// Also emacs which mostly closes them.
+#define CARTE_SYMB_BEAKLC                       \
+  carte_de_map("   `<$>'  ?[_-]",               \
+               "  -\\(\"#)  !{:/};",            \
+               "   @=*+;  %&^~|")
+
+#define ___SYMB_BEAKLC_3x10___                                          \
+  CHUNK_LANG_MAP(_OCGRV, ___SB_L1___,  _OCQUOT,   _QUES,  ___SB_R1c___, _MINS, \
+                 ___SB_L2c___,                     ___SB_R2c___,        \
                  _AT,    ___SB_L3b___, _SCLN,     _PERC, ___SB_R3___, _PIPE)
 
 // ---------------------------

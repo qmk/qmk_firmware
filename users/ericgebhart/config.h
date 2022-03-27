@@ -87,6 +87,7 @@
 // MODs, LAYERS, MOD_LAYERS,
 // WI, WIa, TRNS, TEST
 #define THUMBS_ARE DEFAULT
+#define THUMB_LETTER KC_SPC
 
 // layout io, matrix size.
 // a reasonable default for most keyboards.
@@ -134,10 +135,14 @@
 //#define AZERTY_LAYER_ENABLE
 //#define COLEMAK_LAYER_ENABLE
 //#define COLEMAK_DH_LAYER_ENABLE
+
+// BEAKL
 //#define BEAKL15_LAYER_ENABLE
 //#define BEAKL19_LAYER_ENABLE
 #define BEAKL27_LAYER_ENABLE
 //#define BEAKLWI_LAYER_ENABLE
+
+// alternate layouts
 //#define CARPLAX_LAYER_ENABLE
 //#define WORKMAN_LAYER_ENABLE
 //#define NORMAN_LAYER_ENABLE
@@ -146,10 +151,21 @@
 //#define APT_LAYER_ENABLE
 //#define RSTHD_LAYER_ENABLE
 //#define MTGAP_LAYER_ENABLE
+
+// Hands down
 #define HD_NEU_NARROW_LAYER_ENABLE
 //#define HD_REF_LAYER_ENABLE
+//#define HD_DASH_LAYER_ENABLE
+//#define HD_ELAN_LAYER_ENABLE
+//#define HD_BRONZE_LAYER_ENABLE
+//#define HD_SILVER_LAYER_ENABLE
+//#define HD_PLATINUM_LAYER_ENABLE
+//#define HD_GOLD_LAYER_ENABLE
+
 // these are all 3x12.
-#define HD_NEU_LAYER_ENABLE
+//#define HD_NEU_LAYER_ENABLE
+
+// all have accent characters on base layer.
 //#define BEPO_LAYER_ENABLE
 #define OPTIMOT_LAYER_ENABLE
 #define BEAKL19bis_LAYER_ENABLE
@@ -164,7 +180,6 @@
 //#define ADJUST_LAYER_ENABLE
 //#define RGB_LAYER_ENABLE
 
-// These are bepo only.
 // Extra character layers.
 // Bepo has dead keys (altgr) and accented keycodes
 // A layer of accented keys
@@ -173,8 +188,6 @@
 // #define MORTE_LAYER_ENABLE
 // A layer of the most popular accented keys and dead keys
 //#define ACCENTED_MORTE_LAYER_ENABLE
-
-
 
 // Functional layer choices.
 /* configure the function layers. */
@@ -205,10 +218,11 @@
 
 
 /* symbols */
-//#define SYMBOL_BEAKL       // original - the default if nothing else.
-//#define SYMBOL_BEAKL_EXT   // extended.
-#define SYMBOL_BEAKL_EXT_VI  // extended with vi keybinding in mind.
-//#define SYMBOL_BEAKL_WI    // original wi
+//#define SYMBOL_BEAKL         // original - the default if nothing else.
+//#define SYMBOL_BEAKL_EXT     // extended for non beakl base layers.
+//#define SYMBOL_BEAKL_EXT_VI  // extended with vi keybinding in mind.
+#define SYMBOL_BEAKL_C         // more alterations by frequency
+//#define SYMBOL_BEAKL_WI      // original wi
 
 
 /* toprows. */

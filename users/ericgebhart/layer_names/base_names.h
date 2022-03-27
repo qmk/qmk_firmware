@@ -59,7 +59,7 @@
 #ifdef MTGAP_LAYER_ENABLE
       LANG_N(_MTGAP),
 #endif
-#ifdef HD_NEU_LAYER_ENABLE
+#ifdef HD_NEU_NARROW_LAYER_ENABLE
       LANG_N(_HD_NEU),
 #endif
 #ifdef HD_REF_LAYER_ENABLE
