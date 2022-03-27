@@ -10,6 +10,7 @@ from qmk.comment_remover import comment_remover
 default_key_entry = {'x': -1, 'y': 0, 'w': 1}
 single_comment_regex = re.compile(r'\s+/[/*].*$')
 multi_comment_regex = re.compile(r'/\*(.|\n)*?\*/', re.MULTILINE)
+layout_macro_define_regex = re.compile(r'^#\s*define')
 
 
 def strip_line_comment(string):
@@ -51,7 +52,7 @@ def find_layouts(file):
     file_contents = file_contents.replace('\\\n', '')
 
     for line in file_contents.split('\n'):
-        if line.startswith('#define') and '(' in line and 'LAYOUT' in line:
+        if layout_macro_define_regex.match(line.lstrip()) and '(' in line and 'LAYOUT' in line:
             # We've found a LAYOUT macro
             macro_name, layout, matrix = _parse_layout_macro(line.strip())
 
