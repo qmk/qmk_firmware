@@ -15,6 +15,7 @@ def _gen_led_config(info_data):
     cols = info_data['matrix_size']['cols']
     rows = info_data['matrix_size']['rows']
 
+    led_config = None
     if 'layout' in info_data.get('rgb_matrix', {}):
         led_config = info_data['rgb_matrix']['layout']
     elif 'layout' in info_data.get('led_matrix', {}):
