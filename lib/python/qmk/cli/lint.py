@@ -118,7 +118,8 @@ def lint(cli):
 
         # Check if all non-data driven macros exist in <keyboard.h>
         for layout, data in keyboard_info['layouts'].items():
-            if not data['c_macro'] and not all('matrix' in key_data.keys() for key_data in data['layout']):
+            # Matrix data should be a list with exactly two integers: [0, 1]
+            if not data['c_macro'] and not all('matrix' in key_data.keys() or len(key_data) == 2 or all(isinstance(n, int) for n in key_data) for key_data in data['layout']):
                 cli.log.error(f'"{layout}" has no "matrix" definition in either "info.json" or "{kb}.h"!')
                 ok = False
 
