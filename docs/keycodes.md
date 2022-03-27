@@ -143,25 +143,13 @@ See also: [Dynamic Tapping Term](tap_hold#dynamic-tapping-term)
 
 See also: [RGB Lighting](feature_rgblight.md)
 
-[keycodes_rgb_lighging.md](./keycodes_rgb_lighging.md ':include')
+[keycodes_rgb_lighting.md](./keycodes_rgb_lighting.md ':include')
 
 ## RGB Matrix Lighting :id=rgb-matrix-lighting
 
 See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
 
-|Key                |Aliases   |Description                                                                           |
-|-------------------|----------|--------------------------------------------------------------------------------------|
-|`RGB_TOG`          |          |Toggle RGB lighting on or off                                                         |
-|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held                             |
-|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held                  |
-|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                                         |
-|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                                         |
-|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
-|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
-|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
-|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
-|`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
-|`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
+[keycodes_rgb_lighting.md](./keycodes_rgb_lighting.md ':include')
 
 ## Thermal Printer :id=thermal-printer
 
