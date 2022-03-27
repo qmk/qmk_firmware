@@ -116,6 +116,12 @@ def lint(cli):
             if not keymap_check(kb, cli.config.lint.keymap):
                 ok = False
 
+        # Check if all non-data driven macros exist in <keyboard.h>
+        for layout, data in keyboard_info['layouts'].items():
+            if not data['c_macro'] and not all('matrix' in key_data.keys() for key_data in data['layout']):
+                cli.log.error(f'"{layout}" has no "matrix" definition in either "info.json" or "{kb}.h"!')
+                ok = False
+
         # Report status
         if not ok:
             failed.append(kb)
