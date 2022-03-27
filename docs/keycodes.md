@@ -24,6 +24,10 @@ See also: [Basic Keycodes](keycodes_basic.md)
 
 [keycodes_lock_keys.md](./keycodes_lock_keys.md ':include')
 
+### Basic Modifiers
+
+[keycodes_basic_modifiers.md](./keycodes_basic_modifiers.md ':include')
+
 ### International Keys
 
 [keycodes_international.md](./keycodes_international.md ':include')
@@ -449,11 +453,11 @@ See also: [Mouse Keys](feature_mouse_keys.md)
 |`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
 |`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
 
-## Modifiers :id=modifiers
+## Advanced Modifiers :id=modifiers
 
 See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
 
-[keycodes_modifiers.md](./keycodes_modifiers.md ':include')
+[keycodes_advanced_modifiers.md](./keycodes_advanced_modifiers.md ':include')
 
 ## Mod-Tap Keys :id=mod-tap-keys
 
