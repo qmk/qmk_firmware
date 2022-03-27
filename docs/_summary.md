@@ -59,7 +59,7 @@
     * [Language-Specific Keycodes](reference_keymap_extras.md)
     * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
-    * [Magic Keycodes](keycodes_magic.md)
+    * [Magic Keycodes](features_magic_keycodes.md)
 
   * Advanced Keycodes
     * [Command](feature_command.md)
