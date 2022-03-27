@@ -62,6 +62,10 @@
 #define ___6_ERGO_THUMBS_mod_layers___                          \
   ALT_DEL, BSPC_SYMB, GUI_ESC,  CTL_ENT, SPC_TOPR, KC_RALT
 
+/* HD dash has thumbs of ,; and .:        */
+/* #define ___6_ERGO_THUMBS_hd_dash___                             \ */
+TL_COMM, TL_DOT_SYMB, GUI_ESC, ALT_ENT, SPC_TOPR, enter ,
+
 /* esc/media, space/nav, tab/mouse | ent/sym, bspc/num, del/fun */
 /* #define ___6_ERGO_THUMBS_miryoku___                             \ */
 /*   esc_media, space_navnm, tab_navm,  ENT_SYM, BSPC_TOPR, del_fun */

@@ -169,7 +169,7 @@
                "   @=*+;  %&^~|")
 
 #define ___SYMB_BEAKLC_3x10___                                          \
-  CHUNK_LANG_MAP(_OCGRV, ___SB_L1___,  _OCQUOT,   _QUES,  ___SB_R1c___, _MINS, \
+  CHUNK_LANG_MAP(_OCGRV, ___SB_L1___,  _OCQUOT,   _QUES,  ___SB_R1c___, _RBRC, \
                  ___SB_L2c___,                     ___SB_R2c___,        \
                  _AT,    ___SB_L3b___, _SCLN,     _PERC, ___SB_R3___, _PIPE)
 

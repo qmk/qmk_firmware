@@ -55,10 +55,11 @@
 
 // All of these have a consonant or vowel on the thumb keys.
 
-/* alt shift keys. "? '!               */
-/* alt shifts   ;: .& /\* '? "! ,| -+  */
-/* (< {[                               */
+/* alt shift keys "? '!  dash and elan */
+/* (< {[  - elan                       */
 /* dash has thumbs of ,; and .:        */
+/* dash and the rest get these too.    */
+/* alt shifts   ;: .& /\* '? "! ,| -+  */
 /* COMBOS - z = jg, z=vg, q=uk, q=mp.  */
 
 #define CARTE_HD_GOLD                                           \
