@@ -155,10 +155,7 @@ See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
 
 See also: [Thermal Printer](feature_thermal_printer.md)
 
-|Key        |Description                             |
-|-----------|----------------------------------------|
-|`PRINT_ON` |Start printing everything the user types|
-|`PRINT_OFF`|Stop printing everything the user types |
+[keycodes_thermal_printer.md](./keycodes_thermal_printer.md ':include')
 
 ## US ANSI Shifted Symbols :id=us-ansi-shifted-symbols
 
