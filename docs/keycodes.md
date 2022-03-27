@@ -89,9 +89,7 @@ See also: [Grave Escape](feature_grave_esc.md)
 
 See also: [Key Lock](feature_key_lock.md)
 
-|Key      |Description                                                   |
-|---------|--------------------------------------------------------------|
-|`KC_LOCK`|Hold down the next key pressed, until the key is pressed again|
+[keycodes_key_lock.md](./keycodes_key_lock.md ':include')
 
 ## Layer Switching :id=layer-switching
 

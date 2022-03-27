@@ -8,11 +8,9 @@ Let's say you need to type in ALL CAPS for a few sentences. Hit `KC_LOCK`, and t
 
 First, enable Key Lock by setting `KEY_LOCK_ENABLE = yes` in your `rules.mk`. Then pick a key in your keymap and assign it the keycode `KC_LOCK`.
 
-## Keycodes
+## Keycode
 
-|Keycode  |Description                                                   |
-|---------|--------------------------------------------------------------|
-|`KC_LOCK`|Hold down the next key pressed, until the key is pressed again|
+[keycodes_key_lock.md](./keycodes_key_lock.md ':include')
 
 ## Caveats
 
