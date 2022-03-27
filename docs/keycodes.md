@@ -364,9 +364,9 @@ See also: [Mouse Keys](feature_mouse_keys.md)
 |`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
 |`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
 
-## Advanced Modifiers :id=modifiers
+## Advanced Modifiers :id=advanced-modifiers
 
-See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
+See also: [Advanced Modifier Keys](feature_advanced_keycodes.md#advanced-modifier-keys)
 
 [keycodes_advanced_modifiers.md](./keycodes_advanced_modifiers.md ':include')
 

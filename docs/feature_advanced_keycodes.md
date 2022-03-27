@@ -1,8 +1,8 @@
-# Modifier Keys :id=modifier-keys
+# Advanced Modifier Keys :id=advanced-modifier-keys
 
 These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 
-[keycodes_modifiers.md](./keycodes_modifiers.md ':include')
+[keycodes_advanced_modifiers.md](./keycodes_advanced_modifiers.md ':include')
 
 You can also chain them, for example `LCTL(LALT(KC_DEL))` or `C(A(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
 
