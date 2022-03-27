@@ -44,6 +44,17 @@ Just a copy of the Impstyle keymap. Feel free to adjust it.
 #### Impstyle
 A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and the Left ist the master.
 
+### [Keymaps 5x6_5](/keyboards/handwired/dactyl_manuform/5x6_5/keymaps/)
+
+Similar layout to 5x6 but with only 5 thumb keys per side instead of 6.
+
+#### Default
+QWERTY layout with 7 Layers.
+
+#### Via
+Similar to Default but adds support for the [Via](https://www.caniusevia.com/) keymap configurator. Reduces the number of layers to 4 to comply with Via defaults, and remaps
+some keys to accomodate that constraint.
+
 ### [Keymaps 5x7 aka almost Ergodox](/keyboards/handwired/dactyl_manuform/5x7/keymaps/)
 #### Default
 Keymap of Loligagger from geekhack.
