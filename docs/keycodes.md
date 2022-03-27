@@ -36,6 +36,10 @@ See also: [Basic Keycodes](keycodes_basic.md)
 
 [keycodes_commands.md](./keycodes_commands.md ':include')
 
+### Media Keys
+
+[keycodes_media.md](./keycodes_media.md ':include')
+
 |Key                     |Aliases                        |Description                            |Windows      |macOS        |Linux<sup>1</sup>|
 |------------------------|-------------------------------|---------------------------------------|-------------|-------------|-----------------|
 |`KC_NO`                 |`XXXXXXX`                      |Ignore this key (NOOP)                 |*N/A*        |*N/A*        |*N/A*            |
@@ -67,32 +71,6 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_RIGHT_SHIFT`        |`KC_RSFT`                      |Right Shift                            |✔            |✔            |✔                |
 |`KC_RIGHT_ALT`          |`KC_RALT`, `KC_ROPT`, `KC_ALGR`|Right Alt (Option/AltGr)               |✔            |✔            |✔                |
 |`KC_RIGHT_GUI`          |`KC_RGUI`, `KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)   |✔            |✔            |✔                |
-|`KC_SYSTEM_POWER`       |`KC_PWR`                       |System Power Down                      |✔            |✔<sup>3</sup>|✔                |
-|`KC_SYSTEM_SLEEP`       |`KC_SLEP`                      |System Sleep                           |✔            |✔<sup>3</sup>|✔                |
-|`KC_SYSTEM_WAKE`        |`KC_WAKE`                      |System Wake                            |             |✔<sup>3</sup>|✔                |
-|`KC_AUDIO_MUTE`         |`KC_MUTE`                      |Mute                                   |✔            |✔            |✔                |
-|`KC_AUDIO_VOL_UP`       |`KC_VOLU`                      |Volume Up                              |✔            |✔<sup>4</sup>|✔                |
-|`KC_AUDIO_VOL_DOWN`     |`KC_VOLD`                      |Volume Down                            |✔            |✔<sup>4</sup>|✔                |
-|`KC_MEDIA_NEXT_TRACK`   |`KC_MNXT`                      |Next Track                             |✔            |✔<sup>5</sup>|✔                |
-|`KC_MEDIA_PREV_TRACK`   |`KC_MPRV`                      |Previous Track                         |✔            |✔<sup>5</sup>|✔                |
-|`KC_MEDIA_STOP`         |`KC_MSTP`                      |Stop Track                             |✔            |             |✔                |
-|`KC_MEDIA_PLAY_PAUSE`   |`KC_MPLY`                      |Play/Pause Track                       |✔            |✔            |✔                |
-|`KC_MEDIA_SELECT`       |`KC_MSEL`                      |Launch Media Player                    |✔            |             |✔                |
-|`KC_MEDIA_EJECT`        |`KC_EJCT`                      |Eject                                  |             |✔            |✔                |
-|`KC_MAIL`               |                               |Launch Mail                            |✔            |             |✔                |
-|`KC_CALCULATOR`         |`KC_CALC`                      |Launch Calculator                      |✔            |             |✔                |
-|`KC_MY_COMPUTER`        |`KC_MYCM`                      |Launch My Computer                     |✔            |             |✔                |
-|`KC_WWW_SEARCH`         |`KC_WSCH`                      |Browser Search                         |✔            |             |✔                |
-|`KC_WWW_HOME`           |`KC_WHOM`                      |Browser Home                           |✔            |             |✔                |
-|`KC_WWW_BACK`           |`KC_WBAK`                      |Browser Back                           |✔            |             |✔                |
-|`KC_WWW_FORWARD`        |`KC_WFWD`                      |Browser Forward                        |✔            |             |✔                |
-|`KC_WWW_STOP`           |`KC_WSTP`                      |Browser Stop                           |✔            |             |✔                |
-|`KC_WWW_REFRESH`        |`KC_WREF`                      |Browser Refresh                        |✔            |             |✔                |
-|`KC_WWW_FAVORITES`      |`KC_WFAV`                      |Browser Favorites                      |✔            |             |✔                |
-|`KC_MEDIA_FAST_FORWARD` |`KC_MFFD`                      |Next Track                             |✔            |✔<sup>5</sup>|✔                |
-|`KC_MEDIA_REWIND`       |`KC_MRWD`                      |Previous Track                         |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
-|`KC_BRIGHTNESS_UP`      |`KC_BRIU`                      |Brightness Up                          |✔            |✔            |✔                |
-|`KC_BRIGHTNESS_DOWN`    |`KC_BRID`                      |Brightness Down                        |✔            |✔            |✔                |
 
 <sup>1. The Linux kernel HID driver recognizes [nearly all keycodes](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c), but the default bindings depend on the DE/WM.</sup><br/>
 <sup>2. Treated as F13-F15.</sup><br/>
