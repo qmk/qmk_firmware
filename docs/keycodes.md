@@ -83,9 +83,7 @@ See also: [Dynamic Macros](feature_dynamic_macros.md)
 
 See also: [Grave Escape](feature_grave_esc.md)
 
-|Key              |Aliases  |Description                                                       |
-|-----------------|---------|------------------------------------------------------------------|
-|`QK_GRAVE_ESCAPE`|`QK_GESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
+[keycodes_grave_escape.md](./keycodes_grave_escape.md ':include')
 
 ## Key Lock :id=key-lock
 
