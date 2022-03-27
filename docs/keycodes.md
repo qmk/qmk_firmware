@@ -65,25 +65,13 @@ See also: [Audio](feature_audio.md)
 
 See also: [Backlighting](feature_backlight.md)
 
-|Key      |Description                               |
-|---------|------------------------------------------|
-|`BL_TOGG`|Turn the backlight on or off              |
-|`BL_STEP`|Cycle through backlight levels            |
-|`BL_ON`  |Set the backlight to max brightness       |
-|`BL_OFF` |Turn the backlight off                    |
-|`BL_INC` |Increase the backlight level              |
-|`BL_DEC` |Decrease the backlight level              |
-|`BL_BRTG`|Toggle backlight breathing                |
+[keycodes_backlight.md](./keycodes_backlight.md ':include')
 
 ## Bluetooth :id=bluetooth
 
 See also: [Bluetooth](feature_bluetooth.md)
 
-|Key       |Description                                   |
-|----------|----------------------------------------------|
-|`OUT_AUTO`|Automatically switch between USB and Bluetooth|
-|`OUT_USB` |USB only                                      |
-|`OUT_BT`  |Bluetooth only                                |
+[keycodes_bluetooth.md](./keycodes_bluetooth.md ':include')
 
 ## Dynamic Macros :id=dynamic-macros
 
