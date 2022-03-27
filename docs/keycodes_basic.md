@@ -33,26 +33,7 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 ## International
 
-|Key                 |Aliases  |Description          |
-|--------------------|---------|---------------------|
-|`KC_INTERNATIONAL_1`|`KC_INT1`|JIS `\` and `_`      |
-|`KC_INTERNATIONAL_2`|`KC_INT2`|JIS Katakana/Hiragana|
-|`KC_INTERNATIONAL_3`|`KC_INT3`|JIS `¥` and `\|`     |
-|`KC_INTERNATIONAL_4`|`KC_INT4`|JIS Henkan           |
-|`KC_INTERNATIONAL_5`|`KC_INT5`|JIS Muhenkan         |
-|`KC_INTERNATIONAL_6`|`KC_INT6`|JIS Numpad `,`       |
-|`KC_INTERNATIONAL_7`|`KC_INT7`|International 7      |
-|`KC_INTERNATIONAL_8`|`KC_INT8`|International 8      |
-|`KC_INTERNATIONAL_9`|`KC_INT9`|International 9      |
-|`KC_LANGUAGE_1`     |`KC_LNG1`|Hangul/English       |
-|`KC_LANGUAGE_2`     |`KC_LNG2`|Hanja                |
-|`KC_LANGUAGE_3`     |`KC_LNG3`|JIS Katakana         |
-|`KC_LANGUAGE_4`     |`KC_LNG4`|JIS Hiragana         |
-|`KC_LANGUAGE_5`     |`KC_LNG5`|JIS Zenkaku/Hankaku  |
-|`KC_LANGUAGE_6`     |`KC_LNG6`|Language 6           |
-|`KC_LANGUAGE_7`     |`KC_LNG7`|Language 7           |
-|`KC_LANGUAGE_8`     |`KC_LNG8`|Language 8           |
-|`KC_LANGUAGE_9`     |`KC_LNG9`|Language 9           |
+[keycodes_international.md](./keycodes_international.md ':include')
 
 ## Commands
 

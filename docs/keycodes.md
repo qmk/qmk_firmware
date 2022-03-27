@@ -24,6 +24,10 @@ See also: [Basic Keycodes](keycodes_basic.md)
 
 [keycodes_lock_keys.md](./keycodes_lock_keys.md ':include')
 
+### International Keys
+
+[keycodes_international.md](./keycodes_international.md ':include')
+
 
 |Key                     |Aliases                        |Description                            |Windows      |macOS        |Linux<sup>1</sup>|
 |------------------------|-------------------------------|---------------------------------------|-------------|-------------|-----------------|
@@ -76,24 +80,6 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_KB_VOLUME_DOWN`     |                               |Volume Down                            |             |✔            |✔                |
 |`KC_KP_COMMA`           |`KC_PCMM`                      |Keypad `,`                             |             |             |✔                |
 |`KC_KP_EQUAL_AS400`     |                               |Keypad `=` on AS/400 keyboards         |             |             |                 |
-|`KC_INTERNATIONAL_1`    |`KC_INT1`                      |International 1                        |✔            |             |✔                |
-|`KC_INTERNATIONAL_2`    |`KC_INT2`                      |International 2                        |✔            |             |✔                |
-|`KC_INTERNATIONAL_3`    |`KC_INT3`                      |International 3                        |✔            |             |✔                |
-|`KC_INTERNATIONAL_4`    |`KC_INT4`                      |International 4                        |✔            |             |✔                |
-|`KC_INTERNATIONAL_5`    |`KC_INT5`                      |International 5                        |✔            |             |✔                |
-|`KC_INTERNATIONAL_6`    |`KC_INT6`                      |International 6                        |             |             |✔                |
-|`KC_INTERNATIONAL_7`    |`KC_INT7`                      |International 7                        |             |             |                 |
-|`KC_INTERNATIONAL_8`    |`KC_INT8`                      |International 8                        |             |             |                 |
-|`KC_INTERNATIONAL_9`    |`KC_INT9`                      |International 9                        |             |             |                 |
-|`KC_LANGUAGE_1`         |`KC_LNG1`                      |Language 1                             |             |             |✔                |
-|`KC_LANGUAGE_2`         |`KC_LNG2`                      |Language 2                             |             |             |✔                |
-|`KC_LANGUAGE_3`         |`KC_LNG3`                      |Language 3                             |             |             |✔                |
-|`KC_LANGUAGE_4`         |`KC_LNG4`                      |Language 4                             |             |             |✔                |
-|`KC_LANGUAGE_5`         |`KC_LNG5`                      |Language 5                             |             |             |✔                |
-|`KC_LANGUAGE_6`         |`KC_LNG6`                      |Language 6                             |             |             |                 |
-|`KC_LANGUAGE_7`         |`KC_LNG7`                      |Language 7                             |             |             |                 |
-|`KC_LANGUAGE_8`         |`KC_LNG8`                      |Language 8                             |             |             |                 |
-|`KC_LANGUAGE_9`         |`KC_LNG9`                      |Language 9                             |             |             |                 |
 |`KC_ALTERNATE_ERASE`    |`KC_ERAS`                      |Alternate Erase                        |             |             |                 |
 |`KC_SYSTEM_REQUEST`     |`KC_SYRQ`                      |SysReq/Attention                       |             |             |                 |
 |`KC_CANCEL`             |`KC_CNCL`                      |Cancel                                 |             |             |                 |
