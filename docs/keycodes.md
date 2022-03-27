@@ -40,44 +40,14 @@ See also: [Basic Keycodes](keycodes_basic.md)
 
 [keycodes_media.md](./keycodes_media.md ':include')
 
-|Key                     |Aliases                        |Description                            |Windows      |macOS        |Linux<sup>1</sup>|
-|------------------------|-------------------------------|---------------------------------------|-------------|-------------|-----------------|
-|`KC_NO`                 |`XXXXXXX`                      |Ignore this key (NOOP)                 |*N/A*        |*N/A*        |*N/A*            |
-|`KC_TRANSPARENT`        |`KC_TRNS`, `_______`           |Use the next lowest non-transparent key|*N/A*        |*N/A*        |*N/A*            |
-|`KC_KP_SLASH`           |`KC_PSLS`                      |Keypad `/`                             |✔            |✔            |✔                |
-|`KC_KP_ASTERISK`        |`KC_PAST`                      |Keypad `*`                             |✔            |✔            |✔                |
-|`KC_KP_MINUS`           |`KC_PMNS`                      |Keypad `-`                             |✔            |✔            |✔                |
-|`KC_KP_PLUS`            |`KC_PPLS`                      |Keypad `+`                             |✔            |✔            |✔                |
-|`KC_KP_ENTER`           |`KC_PENT`                      |Keypad Enter                           |✔            |✔            |✔                |
-|`KC_KP_1`               |`KC_P1`                        |Keypad `1` and End                     |✔            |✔            |✔                |
-|`KC_KP_2`               |`KC_P2`                        |Keypad `2` and Down Arrow              |✔            |✔            |✔                |
-|`KC_KP_3`               |`KC_P3`                        |Keypad `3` and Page Down               |✔            |✔            |✔                |
-|`KC_KP_4`               |`KC_P4`                        |Keypad `4` and Left Arrow              |✔            |✔            |✔                |
-|`KC_KP_5`               |`KC_P5`                        |Keypad `5`                             |✔            |✔            |✔                |
-|`KC_KP_6`               |`KC_P6`                        |Keypad `6` and Right Arrow             |✔            |✔            |✔                |
-|`KC_KP_7`               |`KC_P7`                        |Keypad `7` and Home                    |✔            |✔            |✔                |
-|`KC_KP_8`               |`KC_P8`                        |Keypad `8` and Up Arrow                |✔            |✔            |✔                |
-|`KC_KP_9`               |`KC_P9`                        |Keypad `9` and Page Up                 |✔            |✔            |✔                |
-|`KC_KP_0`               |`KC_P0`                        |Keypad `0` and Insert                  |✔            |✔            |✔                |
-|`KC_KP_DOT`             |`KC_PDOT`                      |Keypad `.` and Delete                  |✔            |✔            |✔                |
-|`KC_KP_COMMA`           |`KC_PCMM`                      |Keypad `,`                             |             |             |✔                |
-|`KC_KP_EQUAL`           |`KC_PEQL`                      |Keypad `=`                             |✔            |✔            |✔                |
-|`KC_KP_EQUAL_AS400`     |                               |Keypad `=` on AS/400 keyboards         |             |             |                 |
-|`KC_LEFT_CTRL`          |`KC_LCTL`                      |Left Control                           |✔            |✔            |✔                |
-|`KC_LEFT_SHIFT`         |`KC_LSFT`                      |Left Shift                             |✔            |✔            |✔                |
-|`KC_LEFT_ALT`           |`KC_LALT`, `KC_LOPT`           |Left Alt (Option)                      |✔            |✔            |✔                |
-|`KC_LEFT_GUI`           |`KC_LGUI`, `KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key)    |✔            |✔            |✔                |
-|`KC_RIGHT_CTRL`         |`KC_RCTL`                      |Right Control                          |✔            |✔            |✔                |
-|`KC_RIGHT_SHIFT`        |`KC_RSFT`                      |Right Shift                            |✔            |✔            |✔                |
-|`KC_RIGHT_ALT`          |`KC_RALT`, `KC_ROPT`, `KC_ALGR`|Right Alt (Option/AltGr)               |✔            |✔            |✔                |
-|`KC_RIGHT_GUI`          |`KC_RGUI`, `KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)   |✔            |✔            |✔                |
+### Number Pad
 
-<sup>1. The Linux kernel HID driver recognizes [nearly all keycodes](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c), but the default bindings depend on the DE/WM.</sup><br/>
-<sup>2. Treated as F13-F15.</sup><br/>
-<sup>3. Must be held for about three seconds, and will display a prompt instead.</sup><br/>
-<sup>4. Holding Shift+Option allows for finer control of volume level.</sup><br/>
-<sup>5. Skips the entire track in iTunes when tapped, seeks within the current track when held.</sup><br/>
-<sup>6. WMP does not recognize the Rewind key, but both alter playback speed in VLC.</sup>
+[keycodes_number_pad.md](./keycodes_number_pad.md ':include')
+
+### Special Keys
+
+[keycodes_special.md](./keycodes_special.md ':include')
+
 
 ## Quantum Keycodes :id=quantum-keycodes
 
