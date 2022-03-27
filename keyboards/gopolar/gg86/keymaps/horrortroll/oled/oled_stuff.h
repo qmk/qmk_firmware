@@ -15,7 +15,7 @@
  */
 
 // OLED animation
-#include "lib/wave.c"
+#include "lib/wave.h"
 
 #ifdef OLED_ENABLE
     static void render_layer_info(void) {

@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 // OLED animation
-#include "oled/bongocat.c"
+#include "oled/bongocat.h"
 
 #include <string.h>
 #include <math.h>

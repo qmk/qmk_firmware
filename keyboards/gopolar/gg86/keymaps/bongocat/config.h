@@ -19,8 +19,6 @@
 /* Additional thing to reduce compiled size */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 2
 #define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */

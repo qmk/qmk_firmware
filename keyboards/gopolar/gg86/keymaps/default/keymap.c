@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 // OLED animation
-#include "lib/wave.c"
+#include "lib/wave.h"
 
 #include <string.h>
 #include <math.h>

@@ -17,7 +17,7 @@
 #include "gg86.h"
 
 // OLED animation
-#include "lib/logo.c"
+#include "lib/logo.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
