@@ -1,8 +1,8 @@
 # Keycodes Overview
 
-When defining a [keymap](keymap.md) each key needs a valid key definition. This page documents the symbols that correspond to keycodes that are available to you in QMK.
+When defining a [keymap](keymap.md) each key needs a valid key definition. This page documents the symbols for each keycode that is available in QMK.
 
-This is a reference only. Each group of keys links to the page documenting their functionality in more detail.
+This page is for reference only. Each group of keys on this page links to another page that documents their functionality in more detail.
 
 ## Basic Keycodes :id=basic-keycodes
 
@@ -47,7 +47,6 @@ See also: [Basic Keycodes](keycodes_basic.md)
 ### Special Keys
 
 [keycodes_special.md](./keycodes_special.md ':include')
-
 
 ## Quantum Keycodes :id=quantum-keycodes
 
