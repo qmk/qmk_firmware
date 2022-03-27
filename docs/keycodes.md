@@ -101,9 +101,7 @@ See also: [Layer Switching](feature_layers.md#switching-and-toggling-layers)
 
 See also: [Leader Key](feature_leader_key.md)
 
-|Key      |Description             |
-|---------|------------------------|
-|`KC_LEAD`|Begins a leader sequence|
+[keycodes_leader.md](./keycodes_leader.md ':include')
 
 ## Magic Keycodes :id=magic-keycodes
 
