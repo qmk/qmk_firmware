@@ -20,9 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MEDIA_KEY_DELAY 10
 #define ALT_TAB_DELAY 1000
 
+// Persistent encoder modes: the current encoder mode is written into EEPROM memory, and retrieved at the keyboard initialization. This means the current encoder mode is persistent even if the keyboard is reset or turned off
+#define PERSISTENT_ENCODER_MODES
+
 #define ENCODER_MODE_CHANGE_DELAY 500
 
-// Defining encoder click keycode
+// Defining special keycodes
 enum keyboard_keycodes {
         ECLICK = SAFE_RANGE, // Encoder click
 	ALTTABF , // ALT-TAB forward
@@ -33,7 +36,7 @@ enum keyboard_keycodes {
 	NEW_SAFE_RANGE
 };
 
-// Creates sample keyevents and keyrecords to be used in the processing of the custom keycodes
+// Creates sample keyevents and keyrecords to be used in the processing of the custom keycodes. Their time should be resampled everytime they are used; their cols and rows are set to be "impossible", that is, outside the normal key matrix bounds.
 const keyevent_t sample_pressed_keyevent = {
 	.key = (keypos_t){.row = 5, .col = 13},
 	.pressed = true,
@@ -96,9 +99,19 @@ encoder_mode_t encoder_modes[] = {
 // This counter is used to track what encoder mode is being used at a certain time
 int encoder_mode_count = 0;
 
-void set_indicator_colors(uint8_t color[3]){
-	rgblight_setrgb(color[0], color[1], color[2]);
-}
+
+#ifdef PERSISTENT_ENCODER_MODES
+typedef union {
+	uint32_t raw;
+	struct {
+	int user_encoder_mode_count;
+};
+} user_config_t;
+
+user_config_t user_config;
+#endif
+
+void set_indicator_colors(uint8_t color[3]) rgblight_setrgb(color[0], color[1], color[2]);
 
 // Board init: RGB indicator is set to startup_color
 void keyboard_pre_init_user(void){
@@ -106,7 +119,13 @@ void keyboard_pre_init_user(void){
 };
 
 void keyboard_post_init_user(void){
-	set_indicator_colors(encoder_modes[0].indicator_color);
+#ifdef PERSISTENT_ENCODER_MODES
+	user_config.raw = eeconfig_read_user();
+	encoder_mode_count = user_config.user_encoder_mode_count ;
+#else
+	encoder_mode_count = 0;
+#endif
+	set_indicator_colors(encoder_modes[ encoder_mode_count ].indicator_color);
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -151,6 +170,10 @@ void cycle_encoder_mode(bool forward){
 	if (encoder_mode_count == -1) encoder_mode_count = NUM_ENCODER_MODES - 1;
 	// Shifts encoder mode backward
 	encoder_mode_count = encoder_mode_count % NUM_ENCODER_MODES ; // This makes sure encoder_mode_count keeps cycling between 0,1,...,NUM_ENCODER_MODES and doesnt eventually overflow
+#ifdef PERSISTENT_ENCODER_MODES
+	user_config.user_encoder_mode_count = encoder_mode_count ;
+	eeconfig_update_user(user_config.raw);
+#endif
 	set_indicator_colors( encoder_modes[ encoder_mode_count ].indicator_color ); // Set indicator color to the corresponding defined color
 }
 
