@@ -26,6 +26,8 @@ def _get_c_type(xap_type):
 def _get_route_type(container):
     if 'routes' in container:
         return 'XAP_ROUTE'
+    elif 'return_execute' in container:
+        return 'XAP_EXECUTE'
     elif 'return_constant' in container:
         if container['return_type'] == 'u32':
             return 'XAP_VALUE'
@@ -46,6 +48,11 @@ def _append_routing_table_declaration(lines, container, container_id, route_stac
 
     if 'routes' in container:
         pass
+
+    elif 'return_execute' in container:
+        execute = container['return_execute']
+        lines.append('')
+        lines.append(f'bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_len);')
 
     elif 'return_constant' in container:
 
@@ -99,6 +106,11 @@ def _append_routing_table_entry_route(lines, container, container_id, route_stac
     lines.append(f'        .child_routes_len = sizeof({route_name}_table)/sizeof(xap_route_t),')
 
 
+def _append_routing_table_entry_execute(lines, container, container_id, route_stack):
+    value = container['return_execute']
+    lines.append(f'        .handler = xap_respond_{value},')
+
+
 def _append_routing_table_entry_u32value(lines, container, container_id, route_stack):
     value = container['return_constant']
     lines.append(f'        .u32value = {value},')
@@ -134,6 +146,8 @@ def _append_routing_table_entry(lines, container, container_id, route_stack):
     _append_routing_table_entry_flags(lines, container, container_id, route_stack)
     if 'routes' in container:
         _append_routing_table_entry_route(lines, container, container_id, route_stack)
+    elif 'return_execute' in container:
+        _append_routing_table_entry_execute(lines, container, container_id, route_stack)
     elif 'return_constant' in container:
         if container['return_type'] == 'u32':
             _append_routing_table_entry_u32value(lines, container, container_id, route_stack)

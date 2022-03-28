@@ -218,6 +218,24 @@
                     return_type: string
                     return_constant: QSTR(PRODUCT)
                 }
+                0x05: {
+                    type: command
+                    name: info.json length
+                    define: INFO_LEN_QUERY
+                    description: Retrieves the length of info.json
+                    return_type: u32
+                    return_constant: info_json_gz_len
+                }
+                0x06: {
+                    type: command
+                    name: info.json
+                    define: INFO_QUERY
+                    description: Retrieves a chunk of info.json
+                    request_type: u16
+                    request_purpose: offset
+                    return_type: u8[32]
+                    return_execute: info_json_gz
+                }
             }
         },
 

@@ -14,6 +14,7 @@ def generate_info(output_file, keyboard, keymap):
     km_info_json = keymap_json(keyboard, keymap)
 
     # TODO: Munge to XAP requirements
+    del km_info_json['config_h_features']
 
     # Minify
     str_data = json.dumps(km_info_json, separators=(',', ':'))
@@ -32,9 +33,9 @@ def generate_info(output_file, keyboard, keymap):
     lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '']
 
     # Gen output file
-    lines.append('unsigned char info_json_gz[] = {')
+    lines.append('static const unsigned char info_json_gz[] PROGMEM = {')
     lines.append(data)
     lines.append('};')
-    lines.append(f'unsigned int info_json_gz_len = {data_len};')
+    lines.append(f'static const unsigned int info_json_gz_len = {data_len};')
 
     dump_lines(output_file, lines)

@@ -17,6 +17,16 @@
 #include <quantum.h>
 #include <xap.h>
 
+#include "info_json_gz.h"
+void get_info_json_chunk(uint8_t *data, size_t offset) {
+    uint8_t len = 32;
+    if (offset + len > info_json_gz_len) {
+        len = info_json_gz_len - offset;
+    }
+
+    memcpy_P(data, &info_json_gz[offset], len);
+}
+
 #define QSTR2(z) #z
 #define QSTR(z) QSTR2(z)
 
