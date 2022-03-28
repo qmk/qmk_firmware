@@ -1,6 +1,6 @@
 # Kin80
 
-![Kin80 controller](https://i.imgur.com/Im19DdH.jpg)
+![Kin80 controller](https://i.imgur.com/Im19DdHh.jpg)
 
 Kin80 is a set of replacement PCBs and switch mounting plates for [Kinesis Contoured keyboards](https://deskthority.net/wiki/Kinesis_Contoured).
 
