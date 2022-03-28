@@ -8,7 +8,7 @@ NGKEYS nicola_keys;
 // NICOLA親指シフト
 
 enum keymap_layers {
-  _QWERTY,
+  _QWERTY = 0,
 // NICOLA親指シフト
   _NICOLA, // NICOLA親指シフト入力レイヤー
 // NICOLA親指シフト
@@ -30,32 +30,8 @@ enum custom_keycodes {
 #define KC_XXXXX KC_NO
 #define _____ KC_TRNS
 #define XXXXX KC_NO
-#define KC_RST   RESET
-#define KC_LRST  RGBRST
-#define KC_LTOG  RGB_TOG
-#define KC_LHUI  RGB_HUI
-#define KC_LHUD  RGB_HUD
-#define KC_LSAI  RGB_SAI
-#define KC_LSAD  RGB_SAD
-#define KC_LVAI  RGB_VAI
-#define KC_LVAD  RGB_VAD
-#define KC_LMOD  RGB_MOD
-#define KC_CTLTB CTL_T(KC_TAB)
-#define KC_GUITB GUI_T(KC_TAB)
-#define KC_RESET RESET
-#define KC_ABLS LALT(KC_BSLS)
-#define KC_CMDENT  CMD_T(KC_ENT)
-#define KC_SFTSPC  LSFT_T(KC_SPC)
-#define KC_CTLSPC  CTL_T(KC_SPC)
-#define KC_ALTSPC  ALT_T(KC_SPC)
-#define KC_CTLBS   CTL_T(KC_BSPC)
-#define KC_CTLENT  CTL_T(KC_ENT)
 
-#define KC_C(A) C(KC_##A)
-#define KC_S(A) S(KC_##A)
-#define KC_G(A) G(KC_##A)
-
-#define KC_MOUSE TG(_MOUSE)
+#define KC_MOUSE TO(_MOUSE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_JP(
@@ -75,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // NICOLA親指シフト
 
-
+    // TO DO : add KC_BRID, KC_BRIU. out of rn42 module data range?
     [_FUNC] = LAYOUT_JP(
         KC_POWER, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
         KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP, _______,
@@ -89,13 +65,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,_______,_______, _______,_______,
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______,_______,
-        _______,_______,_______,_______,_______,KC_BTN1,KC_EISU,KC_MOUSE,_______,_______,_______,_______,_______
+        MO(_FUNC),_______,_______,_______,_______,KC_BTN1,KC_EISU,KC_MOUSE,_______,_______,_______,_______,_______
   ),
 
     [_LCTL] = LAYOUT_JP(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,KC_BSPACE,_______,_______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,KC_KANA2,_______,_______,_______,_______,_______,_______
     )
@@ -137,6 +113,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case KC_EISU:
       if (record->event.pressed) {
+        layer_off(_MOUSE);
         // NICOLA親指シフト
         nicola_off();
         // NICOLA親指シフト
@@ -147,11 +124,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if ((get_mods() & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)){
             unregister_code(KC_LCTL);
+            layer_off(_MOUSE);
             nicola_on();
         }else{
-        // NICOLA親指シフト
-        nicola_off();
-        // NICOLA親指シフト
+            layer_off(_MOUSE);
+            // NICOLA親指シフト
+            nicola_off();
+            // NICOLA親指シフト
         }
       }
       return false;
