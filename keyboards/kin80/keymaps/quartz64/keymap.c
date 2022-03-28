@@ -29,7 +29,6 @@ enum layer_names {
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
   VRSN,
   COMP_FR_QUOTES,		// Compose: french quotes
   COMP_NBSP_EM_DASH,	// Compose: nbsp followed by em dash
