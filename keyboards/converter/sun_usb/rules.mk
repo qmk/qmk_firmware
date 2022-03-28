@@ -20,5 +20,6 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 CUSTOM_MATRIX = yes
 
 SRC += matrix.c led.c
+QUANTUM_LIB_SRC += uart.c
 
 DEFAULT_FOLDER = converter/sun_usb/type5

@@ -291,4 +291,6 @@
 #    ifndef OLED_BRIGHTNESS
 #        define OLED_BRIGHTNESS 50
 #    endif
+#    undef OLED_UPDATE_INTERVAL
+#    define OLED_UPDATE_INTERVAL 100
 #endif

@@ -42,7 +42,7 @@
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_0)
 #elif WS2812_SPI_DIVISOR == 8
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1)
-#elif WS2812_SPI_DIVISOR == 16  // same as default
+#elif WS2812_SPI_DIVISOR == 16 // same as default
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0)
 #elif WS2812_SPI_DIVISOR == 32
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2)
@@ -53,14 +53,14 @@
 #elif WS2812_SPI_DIVISOR == 256
 #    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)
 #else
-#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0)  // default
+#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0) // default
 #endif
 
 // Use SPI circular buffer
 #ifdef WS2812_SPI_USE_CIRCULAR_BUFFER
-#    define WS2812_SPI_BUFFER_MODE 1  // circular buffer
+#    define WS2812_SPI_BUFFER_MODE 1 // circular buffer
 #else
-#    define WS2812_SPI_BUFFER_MODE 0  // normal buffer
+#    define WS2812_SPI_BUFFER_MODE 0 // normal buffer
 #endif
 
 #if defined(USE_GPIOV1)
@@ -104,20 +104,30 @@ static void set_led_color_rgb(LED_TYPE color, int pos) {
     uint8_t* tx_start = &txbuf[PREAMBLE_SIZE];
 
 #if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.g, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.r, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.g, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.r, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);
 #elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.r, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.g, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.r, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.g, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.b, j);
 #elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.b, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.g, j);
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.r, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + j] = get_protocol_eq(color.b, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE + j] = get_protocol_eq(color.g, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 2 + j] = get_protocol_eq(color.r, j);
 #endif
 #ifdef RGBW
-    for (int j = 0; j < 4; j++) tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 4 + j] = get_protocol_eq(color.w, j);
+    for (int j = 0; j < 4; j++)
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 4 + j] = get_protocol_eq(color.w, j);
 #endif
 }
 
@@ -126,7 +136,7 @@ void ws2812_init(void) {
 
 #ifdef WS2812_SPI_SCK_PIN
     palSetLineMode(WS2812_SPI_SCK_PIN, WS2812_SCK_OUTPUT_MODE);
-#endif  // WS2812_SPI_SCK_PIN
+#endif // WS2812_SPI_SCK_PIN
 
     // TODO: more dynamic baudrate
     static const SPIConfig spicfg = {WS2812_SPI_BUFFER_MODE, NULL, PAL_PORT(RGB_DI_PIN), PAL_PAD(RGB_DI_PIN), WS2812_SPI_DIVISOR_CR1_BR_X};
