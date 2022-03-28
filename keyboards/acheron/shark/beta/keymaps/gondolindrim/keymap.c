@@ -219,8 +219,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	}
 }
 
-//sample_pressed_key_keyrecord->event.pressed = true;
-void housekeeping_task_user(void) { // The very important timer.
+void housekeeping_task_user(void) {
 	if (is_alt_tab_active) {
 		if (is_lalt_pressed) alt_tab_timer = timer_read32();
 		else if (timer_elapsed32(alt_tab_timer) > ALT_TAB_DELAY) {
