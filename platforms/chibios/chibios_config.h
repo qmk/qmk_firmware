@@ -24,6 +24,8 @@
 
 #    define USE_GPIOV1
 #    define PAL_OUTPUT_TYPE_OPENDRAIN _Static_assert(0, "RP2040 has no Open Drain GPIO configuration, setting this is not possible");
+
+#    define usb_lld_endpoint_fields
 #endif
 
 // STM32 compatibility
