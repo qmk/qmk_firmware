@@ -3,6 +3,7 @@
 import re
 from fnvhash import fnv1a_32
 
+from qmk.commands import dump_lines
 from qmk.git import git_get_version
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 from qmk.xap.common import latest_xap_defs, route_conditions
@@ -119,18 +120,5 @@ def generate_header(output_file, keyboard):
     _append_route_capabilities(lines, xap_defs)
     lines.append('')
 
-    # Generate the full output
-    xap_generated_inl = '\n'.join(lines)
+    dump_lines(output_file, lines)
 
-    # Clean up newlines
-    while "\n\n\n" in xap_generated_inl:
-        xap_generated_inl = xap_generated_inl.replace("\n\n\n", "\n\n")
-
-    if output_file:
-        if output_file.name == '-':
-            print(xap_generated_inl)
-        else:
-            output_file.parent.mkdir(parents=True, exist_ok=True)
-            if output_file.exists():
-                output_file.replace(output_file.parent / (output_file.name + '.bak'))
-            output_file.write_text(xap_generated_inl)

@@ -1,6 +1,7 @@
 """This script generates the XAP protocol generated header to be compiled into QMK.
 """
 from qmk.casing import to_snake
+from qmk.commands import dump_lines
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 from qmk.xap.common import latest_xap_defs, route_conditions
 
@@ -217,18 +218,4 @@ def generate_inline(output_file):
     # Add all the generated code
     _append_routing_tables(lines, xap_defs)
 
-    # Generate the full output
-    xap_generated_inl = '\n'.join(lines)
-
-    # Clean up newlines
-    while "\n\n\n" in xap_generated_inl:
-        xap_generated_inl = xap_generated_inl.replace("\n\n\n", "\n\n")
-
-    if output_file:
-        if output_file.name == '-':
-            print(xap_generated_inl)
-        else:
-            output_file.parent.mkdir(parents=True, exist_ok=True)
-            if output_file.exists():
-                output_file.replace(output_file.parent / (output_file.name + '.bak'))
-            output_file.write_text(xap_generated_inl)
+    dump_lines(output_file, lines)
