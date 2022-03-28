@@ -29,3 +29,16 @@ void keyboard_pre_init_user() {
     PloopyNumlockScroll = true;
     PloopyNumlockScrollVDir = -1;
 }
+
+uint8_t reset_state = 0;
+
+void keyboard_post_init_user(void) {
+    reset_state = host_keyboard_led_state().caps_lock; 
+}
+
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock != reset_state) {
+        reset_keyboard();
+    }
+    return true;
+}

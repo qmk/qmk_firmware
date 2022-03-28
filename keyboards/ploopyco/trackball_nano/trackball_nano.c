@@ -36,14 +36,10 @@
 #endif
 
 #ifndef PLOOPY_DPI_OPTIONS
-#    define PLOOPY_DPI_OPTIONS { CPI375, CPI750, CPI1375 }
+#    define PLOOPY_DPI_OPTIONS {300,1000,2000,3000}
 #    ifndef PLOOPY_DPI_DEFAULT
-#        define PLOOPY_DPI_DEFAULT 2
+#        define PLOOPY_DPI_DEFAULT 3
 #    endif
-#endif
-
-#ifndef PLOOPY_DPI_DEFAULT
-#    define PLOOPY_DPI_DEFAULT 1
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { };
@@ -51,6 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { };
 // Transformation constants for delta-X and delta-Y
 const static float ADNS_X_TRANSFORM = -1.0;
 const static float ADNS_Y_TRANSFORM = 1.0;
+
+#define SCROLL_X_THRESHOLD 60
+#define SCROLL_Y_THRESHOLD 30
 
 keyboard_config_t keyboard_config;
 uint16_t dpi_array[] = PLOOPY_DPI_OPTIONS;
@@ -75,15 +74,32 @@ uint16_t lastMidClick = 0;  // Stops scrollwheel from being read if it was press
 uint8_t OptLowPin = OPT_ENC1;
 bool debug_encoder = false;
 
+int16_t delta_x = 0;
+int16_t delta_y = 0;
+
 __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
     if (DoScroll) {
-        // Scroll is very sensitive if you use the default values.
-        // We can't divide it by anything to reduce the sensitivity, cause that would zero out small input values.
-        // Instead we simply want either a 0, 1, or -1 depending on the input value's sign.
-        x = (x > 0 ? 1 : (x < 0 ? -1 : 0));
-        y = PloopyNumlockScrollVDir * (y > 0 ? 1 : (y < 0 ? -1 : 0));
-        mouse_report->v = x;
-        mouse_report->v = y;
+		delta_x += x;
+		delta_y += y;
+
+		if (delta_x > SCROLL_X_THRESHOLD) {
+			mouse_report->h = 1;
+			mouse_report->v = 0;
+			delta_x = 0;
+		} else if (delta_x < -SCROLL_X_THRESHOLD) {
+			mouse_report->h = -1;
+			mouse_report->v = 0;
+			delta_x = 0;
+		}
+		else if (delta_y > SCROLL_Y_THRESHOLD) {
+			mouse_report->v = -1;
+			mouse_report->h = 0;
+			delta_y = 0;
+		} else if (delta_y < -SCROLL_Y_THRESHOLD) {
+			mouse_report->v = 1;
+			mouse_report->h = 0;
+			delta_y = 0;
+		}
         return;
     }
 
