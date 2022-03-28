@@ -17,9 +17,6 @@
 #include "blackpill103.h"
 
 void matrix_init_kb(void) {
-  /* Disable JTAG (PB3, PA15) */
-  //AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
-  
   /* LED pins setup */
   setPinOutput(LED4_PIN);
     writePinLow(LED4_PIN);
