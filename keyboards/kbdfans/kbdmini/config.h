@@ -91,7 +91,3 @@
 #define DRIVER_COUNT 1
 #define DRIVER_LED_TOTAL 52
 #endif
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
