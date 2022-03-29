@@ -311,6 +311,18 @@ The language keycodes can be found
 
 Architecture
 -----------------
+The idea here is that most things don't change, and the things that do are
+easy to understand and change. The defs directory is where all the extras are,
+tap_hold, alternate shift keys, combos, keycodes, smart lock, one shot mods,etc.
+
+Things that are likely to be changed when adapting a layout to personal preferences
+are *layers/thumbs.h* and *mod_layers/*.  The function layers are all in the
+layers folder and should be easy to understand. Once added, it is only necessary to
+add the appropriate defines in _config.h_
+
+Adding new layers requires changes in layer_names, *oled/oled_layers.h* and *oled/oled_cartes.h* and the appropriate *keymap/ .h* file.
+
+Adding a new keyboard is done in keyboards and should be fairly obvious.
 ```
 .
 ├── base_layers
@@ -397,9 +409,10 @@ Architecture
 │   └── locales.h
 ├── layer_names
 │   ├── base_names.h
-│   ├── bepo_names.h
+│   ├── func_names.h
+│   ├── layer_names
 │   ├── layer_names.h
-│   └── trans_names.h
+│   └── util_names.h
 ├── layers
 │   ├── edge_keys.h
 │   ├── keypads.h
@@ -413,6 +426,7 @@ Architecture
 ├── mod_layers
 │   ├── alt_mods.h
 │   ├── hrm_gacs.h
+│   ├── hrm_gacs_miryoku.h
 │   ├── hrm_gasc.h
 │   ├── hrm_sacg.h
 │   ├── mod_layer.h
@@ -429,10 +443,14 @@ Architecture
 
 Locales
 -------------------
-There are currently two locales.  LANG_IS defines the one in use.
+There are currently three locales.  LANG_IS defines the one in use.
 The map changes this value as it goes, to get the maps that are asked for.
+I have recently renamed some variables, such that it seems that only 2 locales
+are possible. It seems more than two might be too many. And keeping at 2 is
+a little easier.
 
  * EN - en-us, **KC_** keycodes.
+ * US-INT - us-international variant, **US_** keycodes.
  * BEPO - bepo-fr, **BP_** keycodes.
 
 Switching LANG_IS before adding a new map will cause that map to 
@@ -532,6 +550,21 @@ Adding Slovak support to the LANG_N macro looks like this.
 Thumb clusters can be chosen by layer with the value of **THUMBS_ARE**.
 This is currently manipulated for beakl wi in map.h.
 The newer Hands down variants also have need of this.
+To change the thumb cluster for hands down, maltron or rsthd,
+set the value for the thumbs in _config.h_.
+
+These layouts use a special thumb cluster variant which will use the value
+of __THUMB_LETTER__ to place a letter on one of the thumb keys.
+
+It is reasonably easy to add a new thumb cluster and use it. Add it to
+thumbs.h, add to the list of macros for it's suffix, and turn it on in config.h
+
+Additionally a thumb cluster can be set for the various function layers as
+well. The transparent thumbs can be used, or something else. The nav and 
+mouse layers have the mouse buttons if mouse keys are enabled.
+
+It is also possible to use a Miryoku thumb cluster and layers if desired.
+Or mix the other layers in as desired.
 
 At the core of the thumb clusters are a set of six keys which
 can be changed to a one of a set of keys, with settings in the config. 
@@ -555,10 +588,17 @@ others.
 Base Layers
 -----------------
 I like to experiment with layouts. So I have a few. 
-They can be turned on and offical in config.h.
+They can be turned on in config.h.
+
+To switch base layers there is a combo to raise the layers layer.
+Hold both pinkies on their lower row keys to get the layer.
+Tap the home row left middle finger to change layers.
+Tap the ring finger to set it to eeprom.
+
+The left index finger will cycle through locales if you have them.
+
 Here are some or most of them..
 
-For any language, _en-us_ or _bepo-fr_.
  * Dvorak
  * Beakl 15
  * Beakl 19
@@ -569,14 +609,23 @@ For any language, _en-us_ or _bepo-fr_.
  * Colemak_DH
  * Workman
  * Norman
- * Carplax
+ * Carpalx
  * Eucalyn
  * Hands Down Neu
+ * Hands Down Gold
+ * Hands Down Platinum
+ * Hands Down Silver
+ * Hands Down Bronze
+ * Hands Down Elan
+ * Hands Down Dash
  * Hands Down Ref
+ * Maltron
  * Apt
  * Mtgap
-
-On _bepo-fr_, Mostly because en-us doesn't have all the keys.
+ * Rsthd
+ 
+ These need an OS keymap which can provide Latin Accents.
+ US-intl or bepo work well.
  * Bepo
  * Optimot
  * Beakl19bis

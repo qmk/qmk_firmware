@@ -57,13 +57,13 @@ void send_keycode(uint16_t kc){
   unregister_mods((MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)));
   if(is_shifted){
     register_mods(SHIFTED_MODS(kc));
-    register_code(SHIFTED_KEY(kc));
-    unregister_code(SHIFTED_KEY(kc));
+    register_code16(SHIFTED_KEY(kc));
+    unregister_code16(SHIFTED_KEY(kc));
     unregister_mods(SHIFTED_MODS(kc));
   } else{
     register_mods(UNSHIFTED_MODS(kc));
-    register_code(UNSHIFTED_KEY(kc));
-    unregister_code(UNSHIFTED_KEY(kc));
+    register_code16(UNSHIFTED_KEY(kc));
+    unregister_code16(UNSHIFTED_KEY(kc));
     unregister_mods(UNSHIFTED_MODS(kc));
   }
   clear_mods();

@@ -71,7 +71,7 @@
 
 // RIGHT.
 #define ROW1R_5_alt(K01, K02, K03, K04, K05)                            \
-  K01, K02, K03, K04, LT(_LAYERS, K05)                                  \
+  K01, K02, K03, K04, K05                                               \
     // take and put an extra column in front. Mod K01 how you want it.
 #define ROW1R_6_alt(K01, K02, K03, K04, K05, K06)       \
   ROW1R_5_alt(K01, K02, K03, K04, K05), K06

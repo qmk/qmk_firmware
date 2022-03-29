@@ -147,11 +147,16 @@ enum userspace_custom_keycodes {
 #define US_GT US_RABK
 #define US_LT US_LABK
 #define US_TAB KC_TAB
+// redefine us_tild so we actually get a tild.
 #undef US_TILD
 #define US_TILD KC_TILD
+// redefine us_circ so we actually get a circ.
 #undef US_CIRC
 #define US_CIRC KC_CIRC
 #define US_EQUAL KC_EQUAL
+// redefine us_quote so we actually get a quote.
+#undef US_QUOT
+#define US_QUOT KC_QUOT
 
 #define US_PRINT_SCREEN KC_PRINT_SCREEN
 #define US_SCROLL_LOCK KC_SCROLL_LOCK
@@ -285,6 +290,7 @@ enum userspace_custom_keycodes {
 #define BSPC_ALT MT(MOD_LALT, KC_BSPC)
 
 // layer toggles
+#define LAYER_OSL   OSL(_LAYERS)
 #define SYM_OSL     OSL(LN_SYMB)
 #define SYM_TG      TG(LN_SYMB)
 #define SYM_MO      MO(LN_SYMB)

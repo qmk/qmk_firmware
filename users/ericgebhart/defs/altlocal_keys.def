@@ -94,8 +94,9 @@
   MK_KEY(KC_HD_SLSH, KC_SLSH, MOD_NONE, KC_8,     MOD_LSFT) // /*
 
   // for us international
+  // I have no idea why the US_QUOT does not work here.
   MK_KEY(US_HD_DQUO, US_QUOT, MOD_LSFT, US_1,     MOD_LSFT)
-  MK_KEY(US_HD_QUOT, US_QUOT, MOD_NONE, US_SLSH,  MOD_LSFT)
+  MK_KEY(US_HD_QUOT, US_QUOT, MOD_NONE, KC_SLSH,  MOD_LSFT)
 
   MK_KEY(US_HD_DOT,  US_DOT,  MOD_NONE, US_7,     MOD_LSFT)
   MK_KEY(US_HD_COMM, US_COMM, MOD_NONE, US_BSLS,  MOD_LSFT)
