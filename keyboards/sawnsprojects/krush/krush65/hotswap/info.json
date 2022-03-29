@@ -77,7 +77,7 @@
                 { "label": "", "x": 15, "y": 4 }
             ]
         },
-        "LAYOUT_VIA": {
+        "LAYOUT_via_rotary": {
             "layout": [
                 { "label": "", "x": 14.75, "y": 0, "w": 0.75, "h": 0.75 },
                 { "label": "", "x": 15.5, "y": 0, "w": 0.75, "h": 0.75 },
