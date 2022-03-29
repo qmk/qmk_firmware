@@ -68,9 +68,9 @@
                "  xflcw  -uoyk  t")
 
 #define ___HD_GOLD___                                                   \
-  LANG_MAP(_j, _g, _m, _p, _v,  TL_SCLN, TL_DOT, TL_SLSH, TL_DQUO, TL_QUOT, \
-           _r, _s, _n, _d, _b , TL_COMM, _a, _e, _i, _h,                \
-           _x, _f, _l, _c, _w , TL_MINS, _u, _o, _y, _k)
+  LANG_MAP(_J, _G, _M, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_DQUO, TL_QUOT, \
+           _R, _S, _N, _D, _B , TL_COMM, _A, _E, _I, _H,                \
+           _X, _F, _L, _C, _W , TL_MINS, _U, _O, _Y, _K)
 /* t, ␣   */
 
 /* jz pq alt shifts   ;: .& /\* '? "! ,| -+ */
@@ -82,9 +82,9 @@
 /* l   ␣   */
 
 #define ___HD_PLATINUM___                                               \
-  LANG_MAP(_j, _g, _h, _p, _v,  TL_SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
-           _r, _s, _n, _t, _b,  TL_COMM, _a, _e, _c, _i,                \
-           _x, _f, _m, _d, _k,  TL_MINS, _u, _o, _w, _y)
+  LANG_MAP(_J, _G, _H, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
+           _R, _S, _N, _T, _B,  TL_COMM, _A, _E, _C, _I,                \
+           _X, _F, _M, _D, _K,  TL_MINS, _U, _O, _W, _Y)
 
 #define CARTE_HD_SILVER                         \
   carte_de_map("jfmpv   ;./'\"",                \
@@ -93,9 +93,9 @@
 /* n   ␣   */
 
 #define ___HD_SILVER___                                 \
-  LANG_MAP(_j, _f, _m, _p, _v,  TL_SCLN, TL_DOT, TL_SLSH, _TL_QUOT, TL_DQUO, \
-           _r, _s, _h, _t, _b,  TL_COMM, _a, _e, _c, _i,                \
-           _x, _g, _l, _d, _k,  TL_MINS, _u, _o, _w, _y)
+  LANG_MAP(_J, _F, _M, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, _TL_QUOT, TL_DQUO, \
+           _R, _S, _H, _T, _B,  TL_COMM, _A, _E, _C, _I,                \
+           _X, _G, _L, _D, _K,  TL_MINS, _U, _O, _W, _Y)
 
 #define CARTE_HD_BRONZE                         \
   carte_de_map("jgmpv   ;./'\"",                \
@@ -104,9 +104,9 @@
 /* h   ␣   */
 
 #define ___HD_BRONZE___                                 \
-  LANG_MAP(_j, _g , _m, _p, _v , TL_SCLN, TL_DOT, TL_SLSH , TL_QUOT, TL_DQUO, \
-           _r, _s, _n, _t, _b , TL_COMM, _a, _e, _c, _i,                \
-           _x, _f, _l, _d, _k , TL_MINS, _u, _o, _w, _y)
+  LANG_MAP(_J, _G , _M, _P, _V , TL_SCLN, TL_DOT, TL_SLSH , TL_QUOT, TL_DQUO, \
+           _R, _S, _N, _T, _B , TL_COMM, _A, _E, _C, _I,                \
+           _X, _F, _L, _D, _K , TL_MINS, _U, _O, _W, _Y)
 
 #define CARTE_HD_ELAN                          \
   carte_de_map("vghpk   /({'\"",               \
@@ -117,9 +117,9 @@
 /* vz g  h  p  kq  /\* (< {[ '! "? */
 /* TL_COMM; TL_DOT:  _␣  ⏎ */
 #define ___HD_ELAN___                                                   \
-  LANG_MAP(_v, _g, _h, _p, _k,   TL_SLSH, TL_LPRN, TL_LBRC, TL_QUOT, TL_DQUO, \
-           _r, _s, _n, _t, _f,   _j, _a, _e, _c, _i,                    \
-           _x, _m, _l, _d, _b,   TL_MINS, _u, _o, _w, _y)
+  LANG_MAP(_V, _G, _H, _P, _K,   TL_SLSH, TL_LPRN, TL_LBRC, TL_QUOT, TL_DQUO, \
+           _R, _S, _N, _T, _F,   _J, _A, _E, _C, _I,                    \
+           _X, _M, _L, _D, _B,   TL_MINS, _U, _O, _W, _Y)
 
 
 #define CARTE_HD_DASH                          \
@@ -129,6 +129,6 @@
     /*   e   ␣   */
 
 #define ___HD_DASH___                                                   \
-  LANG_MAP(_j, _g, _m, _p, _v , TL_SCLN, TL_DOT, TL_QUOT, TL_DQUOT, TL_SLSH, \
-           _r, _s, _n, _t, _b , TL_COMM, _h, _a, _o, _i,                \
-           _x, _c, _l, _d, _w , TL_MINS, _f, _u, _k, _y)
+  LANG_MAP(_J, _G, _M, _P, _V , TL_SCLN, TL_DOT, TL_QUOT, TL_DQUOT, TL_SLSH, \
+           _R, _S, _N, _T, _B , TL_COMM, _H, _A, _O, _I,                \
+           _X, _C, _L, _D, _W , TL_MINS, _F, _U, _K, _Y)

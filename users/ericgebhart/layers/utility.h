@@ -20,8 +20,22 @@
 #define ___PRV_PLAY_NXT_STOP___ KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP
 #define ___VDN_MUTE_VUP___ KC_VOLD, KC_MUTE, KC_VOLU
 
+#define ___PRV_VDN_VUP_NXT___ KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
+#define ___STOP_PLAY_MUTE___ KC_MSTP, KC_MPLY, KC_MUTE
+
 #define ___MUTE_PRV_PLAY_NXT_STOP___  KC_MUTE,  KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP
 #define ___MUTE_PLAY_STOP___  KC_MUTE,  KC_MPLY,  KC_MSTP
+
+#define CARTE_MEDIA                      \
+  carte_de_map(" ",                      \
+               "  < vdn vup >",          \
+               "  stp play mute")
+
+// miryoku, to be used with stop play mute on thumbs. - MEDIA thumbs.
+#define ___MEDIA_3x10___                        \
+  ___5___, ___5___,                             \
+    ___5___, ___, ___PRV_VDN_VUP_NXT___,        \
+    ___5___, ___5___
 
 
 /********************************************************************************/

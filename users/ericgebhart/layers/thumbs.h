@@ -41,10 +41,8 @@
 #define ___6_ERGO_THUMBS_WIa___                                 \
   BSPC_NAV, I_SYMB, ESC_TOPR, ENT_NAV, SPC_TOPR, TAB_NUM
 
-// The default. Still changing, not happy with it yet.
 #define ___6_ERGO_THUMBS_layers___                              \
   TT(_NAV), BSPC_SYMB, ESC_TOPR, ENT_NAV, SPC_TOPR, OS_LSFT
-// The default. Still changing, not happy with it yet.
 
 #define ___6_ERGO_THUMBS_COMBO___ CB_TH1, CB_TH2, CB_TH3, CB_TH4, CB_TH5, CB_TH6
 #define ___6_ERGO_THUMBS_COMBO2___ CB2_TH1, CB2_TH2, CB2_TH3, CB2_TH4, CB2_TH5, CB2_TH6
@@ -62,23 +60,39 @@
 #define ___6_ERGO_THUMBS_mod_layers___                          \
   ALT_DEL, BSPC_SYMB, GUI_ESC,  CTL_ENT, SPC_TOPR, KC_RALT
 
-/* HD dash has thumbs of ,; and .:        */
-/* #define ___6_ERGO_THUMBS_hd_dash___                             \ */
-TL_COMM, TL_DOT_SYMB, GUI_ESC, ALT_ENT, SPC_TOPR, enter ,
+// for keymaps that need a letter on the thumb.
+#define ___6_ERGO_THUMBS_left_letter___                         \
+  BSPC_ALT, TH_LTR_SYM, GUI_ESC,  CTL_ENT, SPC_TOPR, ACCENTS_RALT
 
-/* esc/media, space/nav, tab/mouse | ent/sym, bspc/num, del/fun */
-/* #define ___6_ERGO_THUMBS_miryoku___                             \ */
-/*   esc_media, space_navnm, tab_navm,  ENT_SYM, BSPC_TOPR, del_fun */
+// an attempt at an approximation of the HD thumbs as they are on the site.
+// really should be expected to be a starting point that doesnt strand you.
+#define ___6_ERGO_THUMBS_hd___                                          \
+  BSPC_ALT, TH_LTR_SYM, GUI_ESC, ALT_ENT, SPC_TOPR, ACCENTS_CTL
+/* HD dash has thumbs of ,; and .:        */
+#define ___6_ERGO_THUMBS_hd_dash___                             \
+  TL_COMM, TL_DOT_SYMB, GUI_ESC, ALT_ENT, SPC_TOPR, BSPC_NUM
+
+#define ___6_ERGO_THUMBS_media___ ___3___, ___STOP_PLAY_MUTE___
+#define ___6_ERGO_THUMBS_mouse___ ___3___, ___3MOUSE_BTNS_R___
+#define ___6_ERGO_THUMBS_keypad___ \
+  LANG_KC(_DOT), LANG_KC(_0), LANG_KC(_MINS), ___3___
+#define ___6_ERGO_THUMBS_symb___                                \
+  LANG_KC(_OCPRN), LANG_KC(_RPRN), LANG_KC(_UNDS), ___3___
+
+// miryoku thumbs, either its toprows or keypad for numbers.
+#define ___6_ERGO_THUMBS_miryoku_tr___                          \
+  ESC_MEDIA, SPACE_NAV, TAB_NAVM,  ENT_SYM, BSPC_TOPR, DEL_FUN
+#define ___6_ERGO_THUMBS_miryoku___                             \
+  ESC_MEDIA, SPACE_NAV, TAB_NAVM,  ENT_SYM, BSPC_NUM, DEL_FUN
 
 // Give the right symbol suffix by the value of THUMBS_ARE
 // Basically we choose the right cluster here, so the layout
 // level doesn't know or care.
 //
 // ___foo  --> ___foo_WI___, or ___foo_WIa___, or ___foo_def___.
-// THUMBS_ARE = WI, or WIa, or DEFAULT, TEST, TRNS, MOD_LAYERS.
+// THUMBS_ARE = WI, or WIa, or DEFAULT, TEST, TRNS, MOD_LAYERS, etc.
+// the value of THUMB_LETTER is the key used when needed.
 #define THUMB_EXT CAT(THUMBS_ARE, _EXT)
-#define COMBO_EXT _COMBO___
-#define COMBO2_EXT _COMBO2___
 #define WI_EXT _WI___
 #define WIa_EXT _WIa___
 #define DEFAULT_EXT _mod_layers___  //change this to change the default.
@@ -87,6 +101,18 @@ TL_COMM, TL_DOT_SYMB, GUI_ESC, ALT_ENT, SPC_TOPR, enter ,
 #define MODS_EXT _mods___
 #define LAYERS_EXT _layers___
 #define MODS_LAYERS_EXT _mod_layers___
+#define MIRYOKU_EXT _miryoku___
+#define MIRYOKU_TR_EXT _miryoku_tr___
+#define TH_LTR_EXT _left_letter___ // takes a letter for the left thumb.
+#define HD_DASH_EXT _hd_dash___
+#define HD_EXT _hd___  // takes a letter for the left thumb.
+// for the function layers
+#define COMBO_EXT _COMBO___
+#define COMBO2_EXT _COMBO2___
+#define MEDIA_THUMBS_EXT _media___
+#define MOUSE_THUMBS_EXT _mouse___
+#define KEYPAD_THUMBS_EXT _keypad___
+#define SYMB_THUMBS_EXT _symb___
 
 #define ___6_ERGO_THUMBS___ CAT2(___6_ERGO_THUMBS, THUMB_EXT)
 /* #define ___6_ERGO_THUMBS___ ___6_ERGO_THUMBS_def___ */

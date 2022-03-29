@@ -33,6 +33,7 @@
 #include "alt_mods.h"
 #include "hrm_sacg.h"
 #include "hrm_gacs.h"
+#include "hrm_gacs_miryoku.h"
 #include "hrm_gasc.h"
 #include "trns_mods.h"
 
@@ -58,12 +59,13 @@
 #define CATR3(a, ...) CONCATENATER3(a, __VA_ARGS__)
 
 // mod layer name construction. add new layer extensions here.
-// TRNS, ALT, HRM_GACS, HRM_SCAG, HRM_GASC
+// TRNS, ALT, HRM_GACS, HRM_SCAG, HRM_GASC, MIRYOKU_HRM_GASC
 #define MOD_EXT CATR3(MODS_ARE, _MOD)
 #define TRNS_MOD _trns
 #define HRM_SCAG_MOD _hrm_scag
 #define HRM_GACS_MOD _hrm_gacs
 #define HRM_GASC_MOD _hrm_gasc
+#define MIRYOKU_HRM_GASC_MOD miryoku_hrm_gasc
 #define ALT_MOD _alt
 
 // MOD_COL_NAME(ROW0L) -- > ROW0L_5, ROW0L_6, ROW0L_5_6

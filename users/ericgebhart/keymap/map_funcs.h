@@ -16,37 +16,63 @@
 */
 // navigation.  Mouse keys, arrows, home,end, etc.
 #ifdef NAV_LAYER_ENABLE
-#ifdef MOUSEKEY_ENABLE
-#ifdef NAV_FULL_LOCK_MODS
+#  ifdef MOUSEKEY_ENABLE
+#      undef THUMBS_ARE
+#      define THUMBS_ARE MOUSE_LAYER_THUMBS
+
+#    ifdef NAV_FULL_LOCK_MODS
 T_LAYER(_NAV, ___NAVA_3x10___),
-#endif
-#ifdef NAV_FULL
+#    endif
+
+#    ifdef NAV_FULL
   T_LAYER(_NAV, ___NAV_3x10___),
-#endif
-#ifdef NAV_NO_MOUSE
+#    endif
+
+#    ifdef NAV_NO_MOUSE
   T_LAYER(_NAV, ___NAVnm_3x10___),
   T_LAYER(_NAVm, ___NAVm_3x10___),
-#endif
+#    endif
 
 // give a default
-#if !defined(NAV_FULL) &&                \
-  !defined(NAV_NO_MOUSE) &&              \
-  !defined(NAV_FULL_LOCK_MODS)           \
+#    if !defined(NAV_FULL) &&           \
+        !defined(NAV_NO_MOUSE) &&       \
+        !defined(NAV_FULL_LOCK_MODS)    \
 
-  T_LAYER(_NAV, ___NAVnm_3x10___),
+  T_LAYER(_NAV, ___NAVA_3x10___),
+#    endif
+
+#    ifdef MOUSE_LAYER_ENABLE
   T_LAYER(_NAVm, ___NAVm_3x10___),
-#endif
+#    endif
 
+#    undef THUMBS_ARE
+#    define THUMBS_ARE DEFAULT_THUMBS
 
-#else // no mouse enable.
+#  else // no mouse enable.
   T_LAYER(_NAV, ___NAVnm_3x10___),
-#endif // mousekey end.
+#  endif // mousekey end.
 #endif //nav end.
 
-// A layer for layers. to set the default, etc.
-#ifdef LAYERS_LAYER_ENABLE
-  T_LAYER(_LAYERS, ___LAYERS_3x10___),
+#ifdef MEDIA_LAYER_ENABLE
+#undef THUMBS_ARE
+#define THUMBS_ARE MEDIA_LAYER_THUMBS
+  T_LAYER(_MEDIA, ___MEDIA_3x10___),
+#undef THUMBS_ARE
+#define THUMBS_ARE DEFAULT_THUMBS
 #endif
+
+#ifdef FUN_LAYER_ENABLE
+
+#ifdef FUNCPAD_MIRYOKU_ENABLE
+  T_LAYER(_FUN, ___FUN_3x10___),
+#else
+  T_LAYER(_FUN, ___FUN_MIRYOKU_3x10___),
+#endif
+
+#endif
+
+// A layer for layers. to set the default, etc.
+  T_LAYER(_LAYERS, ___LAYERS_3x10___),
 
 // control the RGB if there are any.
 #ifdef RGB_LAYER_ENABLE

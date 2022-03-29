@@ -27,6 +27,9 @@ enum userspace_layers {
 
 #include "base_names.h"
 
+  _LAYERS,  // always on. indicates the end of the first set of base layers.
+#define MO_LAYERS MO(_LAYERS)
+
   // get them again if we have another locale.
 #ifdef SECOND_LOCALE
 #undef LANG_IS

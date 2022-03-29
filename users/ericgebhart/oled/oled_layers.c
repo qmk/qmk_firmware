@@ -56,10 +56,32 @@ void oled_render_default_layer_state(void) {
       WRITE_STR_LAYER(_EUCALYN, "Eucalyn")
 #endif
 #ifdef CARPLAX_LAYER_ENABLE
-      WRITE_STR_LAYER(_CARPLAX, "Carplax")
+      WRITE_STR_LAYER(_CARPLAX, "Carpalx")
 #endif
+
 #ifdef HD_NEU_LAYER_ENABLE
       WRITE_STR_LAYER(_HD_NEU, "HD neu")
+#endif
+#ifdef HD_NEU_NARROW_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_NEU_NARROW, "HD neu N")
+#endif
+#ifdef HD_GOLD_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_GOLD, "HD gold")
+#endif
+#ifdef HD_SILVER_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_SILVER, "HD silver")
+#endif
+#ifdef HD_PLATINUM_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_PLATINUM, "HD platinum")
+#endif
+#ifdef HD_BRONZE_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_BRONZE, "HD bronze")
+#endif
+#ifdef HD_ELAN_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_ELAN, "HD elan")
+#endif
+#ifdef HD_DASH_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_DASH, "HD dash")
 #endif
 #ifdef HD_REF_LAYER_ENABLE
       WRITE_STR_LAYER(_HD_REF, "HD ref")
@@ -117,9 +139,15 @@ void oled_render_layer_state(void) {
     WRITE_STR_CASE(_NAV, "Navigation");
     WRITE_STR_CASE(_NAVm, "Mouse");
 #endif
-#ifdef LAYERS_LAYER_ENABLE
-    WRITE_STR_CASE(_LAYERS, "Layers");
+#ifdef MEDIA_LAYER_ENABLE
+    WRITE_STR_CASE(_MEDIA, "Media");
 #endif
+#ifdef FUNC_LAYER_ENABLE
+    WRITE_STR_CASE(_FUN, "Func");
+#endif
+
+    WRITE_STR_CASE(_LAYERS, "Layers");
+
 #ifdef RGB_LAYER_ENABLE
     WRITE_STR_CASE(_RGB, "RGB");
 #endif
@@ -129,6 +157,8 @@ void oled_render_layer_state(void) {
 #ifdef COMBO_REF_LAYER_ENABLE
     WRITE_STR_CASE(_COMBO_REF, "COMBO Ref");
 #endif
+  default:
+    oled_write_P(PSTR("dont know"), false);            \
 
   }
 }

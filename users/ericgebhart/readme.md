@@ -33,9 +33,14 @@ configuration uses. Combos still work as always, but do not support all the feat
 found here. To get fully functioning multi-reference combos, see my *ericgebhart_dev*
 branch and pull request below.
 
+Actually, at the moment, the fix is in my ericgebhart branch, since I accidently
+pushed it.  I'll remedy that soon.
+
 A more current version of my QMK user can probably be found here in
 the _ericgebhart_ branch [of my QMK repo ](https://github.com/EricGebhart/qmk_firmware/tree/ericgebhart/users/ericgebhart)
 
+**happening soon**
+The unrealized plan is to have my dev branch here. 
 The version with the PR and look through to my _ericgebhart_ branch can be found here in
 my [dev repo.](https://github.com/EricGebhart/qmk_firmware/tree/ericgebhart_dev/users/ericgebhart)
 which includes my [pull request for fully functioning multi-reference combos which
@@ -60,19 +65,35 @@ Things which effect the thinking.
 
 
 Features:
+  * Consistent and easy code patterns.
   * Def files for most things.
   * Everything is chosen or turned on and off in config.h
   * Lots of macros to make it easy to redefine things without a refactor.
   * Multiple thumb clusters to choose from.
   * Thumb clusters and mods can be changed on a map by map basis.
+    * layers
+    * mods
+    * layers and mods
+    * miryoku
+    * hands down approximation
+  * Easily define thumb clusters with an alpha letter.
+  * Easily define thumb clusters for non-base layer.
   * Multiple base layers to choose from.
-  * Mouse keys - can be turned off.
+  * Several variations of function layers to choose from
+  * Miryoku layers if desired
+  * Navigation layer
+    * Mouse or not
+    * monolithic - nav + mouse, or split
+    * nav and mouse layers
+    * smart lock, one shots, if desired
   * A selection of symbol, keypads, and other layers.
+  * Regular and Beakl keypad and number rows
   * Multi language support, (locales in the code). - currently two.
   * Multiple mod layers to choose from. Easy to add more.
-    * home row mods
+    * home row mods - a selection 
     * no mods
     * alt mods 
+    * miryoku mods
   * N-shot mods
   * One-shot mods
   * smart lock mods 

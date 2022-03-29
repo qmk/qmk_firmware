@@ -173,6 +173,17 @@
                  ___SB_L2c___,                     ___SB_R2c___,        \
                  _AT,    ___SB_L3b___, _SCLN,     _PERC, ___SB_R3___, _PIPE)
 
+// wants ( and ) on the left thumb.
+#define CARTE_SYMB_MIRYOKU                                  \
+  carte_de_map("  {&.(} ",                                  \
+               "  :$%^+ ",                                  \
+               "  ~!@#| ")
+
+#define ___SYMB_MIRYOKU_3x10___                         \
+  CHUNK_LANG_MAP(OCCBR, _AMPR, _DOT, OCPRN, _CBR,       \
+                 _COLN, _DLR, _PERC, _CIRC, _PLUS,      \
+                 _TILD, _EXLM, _AT, _HASH, _PIPE)
+
 // ---------------------------
 // WI: the Beakl Wi definition.
 #define ___SYMB_BKL_WI_L1___ ___,   _DOT,  _ASTR, _AMPR, _PLUS

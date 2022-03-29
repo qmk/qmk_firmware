@@ -47,6 +47,14 @@
 #define LAST_LOC_LAYER LANG_N(_COLEMAK)
 #endif
 
+#ifdef COLEMAK_DH_LAYER_ENABLE
+#ifndef FIRST_LOC_LAYER
+#define FIRST_LOC_LAYER LANG_N(_COLEMAK_DH)
+#endif
+#undef LAST_LOC_LAYER
+#define LAST_LOC_LAYER LANG_N(_COLEMAK_DH)
+#endif
+
 #ifdef BEAKL15_LAYER_ENABLE
 #ifndef FIRST_LOC_LAYER
 #define FIRST_LOC_LAYER LANG_N(_BEAKL15)
@@ -119,6 +127,14 @@
 #define LAST_LOC_LAYER LANG_N(_CARPLAX)
 #endif
 
+#ifdef APT_LAYER_ENABLE
+#ifndef FIRST_LOC_LAYER
+#define FIRST_LOC_LAYER LANG_N(_APT)
+#endif
+#undef LAST_LOC_LAYER
+#define LAST_LOC_LAYER LANG_N(_APT)
+#endif
+
 #ifdef MTGAP_LAYER_ENABLE
 #ifndef FIRST_LOC_LAYER
 #define FIRST_LOC_LAYER LANG_N(_MTGAP)
@@ -135,6 +151,62 @@
 #define LAST_LOC_LAYER LANG_N(_HD_NEU)
 #endif
 
+#ifdef HD_NEU_NARROW_LAYER_ENABLE
+#ifndef FIRST_LOC_LAYER
+#define FIRST_LOC_LAYER LANG_N(_HD_NEU_NARROW)
+#endif
+#undef LAST_LOC_LAYER
+#define LAST_LOC_LAYER LANG_N(_HD_NEU_NARROW)
+#endif
+
+#ifdef HD_GOLD_LAYER_ENABLE
+#ifndef FIRST_LOC_LAYER
+#define FIRST_LOC_LAYER LANG_N(_HD_GOLD)
+#endif
+#undef LAST_LOC_LAYER
+#define LAST_LOC_LAYER LANG_N(_HD_GOLD)
+#endif
+
+#ifdef HD_PLATINUM_LAYER_ENABLE
+#ifndef FIRST_LOC_LAYER
+#define FIRST_LOC_LAYER LANG_N(_HD_PLATINUM)
+#endif
+#undef LAST_LOC_LAYER
+#define LAST_LOC_LAYER LANG_N(_HD_PLATINUM)
+#endif
+
+#ifdef HD_SILVER_LAYER_ENABLE
+#ifndef FIRST_LOC_LAYER
+#define FIRST_LOC_LAYER LANG_N(_HD_SILVER)
+#endif
+#undef LAST_LOC_LAYER
+#define LAST_LOC_LAYER LANG_N(_HD_SILVER)
+#endif
+
+#ifdef HD_BRONZE_LAYER_ENABLE
+#ifndef FIRST_LOC_LAYER
+#define FIRST_LOC_LAYER LANG_N(_HD_BRONZE)
+#endif
+#undef LAST_LOC_LAYER
+#define LAST_LOC_LAYER LANG_N(_HD_BRONZE)
+#endif
+
+#ifdef HD_ELAN_LAYER_ENABLE
+#ifndef FIRST_LOC_LAYER
+#define FIRST_LOC_LAYER LANG_N(_HD_ELAN)
+#endif
+#undef LAST_LOC_LAYER
+#define LAST_LOC_LAYER LANG_N(_HD_ELAN)
+#endif
+
+#ifdef HD_DASH_LAYER_ENABLE
+#ifndef FIRST_LOC_LAYER
+#define FIRST_LOC_LAYER LANG_N(_HD_DASH)
+#endif
+#undef LAST_LOC_LAYER
+#define LAST_LOC_LAYER LANG_N(_HD_DASH)
+#endif
+
 #ifdef HD_REF_LAYER_ENABLE
 #ifndef FIRST_LOC_LAYER
 #define FIRST_LOC_LAYER LANG_N(_HD_REF)
@@ -143,15 +215,7 @@
 #define LAST_LOC_LAYER LANG_N(_HD_REF)
 #endif
 
-#ifdef APT_LAYER_ENABLE
-#ifndef FIRST_LOC_LAYER
-#define FIRST_LOC_LAYER LANG_N(_APT)
-#endif
-#undef LAST_LOC_LAYER
-#define LAST_LOC_LAYER LANG_N(_APT)
-#endif
-
-#ifdef LOC_LAYER_ENABLE
+#ifdef BEPO_LAYER_ENABLE
 #ifndef FIRST_LOC_LAYER
 #define FIRST_LOC_LAYER LANG_N(_BEPO)
 #endif
@@ -180,7 +244,7 @@
 
 #endif // second locale enabled.
 
-// find the last en-qwerty layer. --- Assumes the layers layer is on.
+// find the last en-qwerty base layer. --- Assumes the layers layer is on.
 #ifdef SECOND_LOCALE
 #define LAST_EN_LAYER (FIRST_LOC_LAYER - 1)
 #else

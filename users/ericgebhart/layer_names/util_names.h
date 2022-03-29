@@ -17,18 +17,20 @@
 
 // transient layers which are language agnostic.
 
-#ifdef LAYERS_LAYER_ENABLE
-_LAYERS, // keep this here at the end of base layers.
-#define MO_LAYERS MO(_LAYERS)
-#else
-#define MO_LAYERS ___
-#endif
 
 #ifdef NAV_LAYER_ENABLE
-  _NAV,   // transient layers
+  _NAV,
 #ifdef MOUSEKEY_ENABLE
   _NAVm,
 #endif
+#endif
+
+#ifdef MEDIA_LAYER_ENABLE
+  _MEDIA,
+#endif
+
+#ifdef FUNC_LAYER_ENABLE
+    _FUN,
 #endif
 
 #ifdef RGB_LAYER_ENABLE

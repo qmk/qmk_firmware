@@ -59,8 +59,29 @@
 #ifdef MTGAP_LAYER_ENABLE
       LANG_N(_MTGAP),
 #endif
+#ifdef HD_NEU_LAYER_ENABLE
+        LANG_N(_HD_NEU),
+#endif
 #ifdef HD_NEU_NARROW_LAYER_ENABLE
-      LANG_N(_HD_NEU),
+        LANG_N(_HD_NEU_NARROW),
+#endif
+#ifdef HD_GOLD_LAYER_ENABLE
+        LANG_N(_HD_GOLD),
+#endif
+#ifdef HD_PLATINUM_LAYER_ENABLE
+        LANG_N(_HD_PLATINUM),
+#endif
+#ifdef HD_SILVER_LAYER_ENABLE
+        LANG_N(_HD_SILVER),
+#endif
+#ifdef HD_BRONZE_LAYER_ENABLE
+        LANG_N(_HD_BRONZE),
+#endif
+#ifdef HD_ELAN_LAYER_ENABLE
+        LANG_N(_HD_ELAN),
+#endif
+#ifdef HD_DASH_LAYER_ENABLE
+        LANG_N(_HD_DASH),
 #endif
 #ifdef HD_REF_LAYER_ENABLE
       LANG_N(_HD_REF),

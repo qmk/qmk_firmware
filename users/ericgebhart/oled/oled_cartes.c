@@ -61,8 +61,36 @@ void oled_render_layer_map(void) {
         SHOW_MAP(_MTGAP)
 #endif
 
-#ifdef HD_NEW_LAYER_ENABLE
+#ifdef HD_NEU_LAYER_ENABLE
         SHOW_MAP(_HD_NEU)
+#endif
+
+#ifdef HD_NEU_NARROW_LAYER_ENABLE
+        SHOW_MAP(_HD_NEU_NARROW)
+#endif
+
+#ifdef HD_GOLD_LAYER_ENABLE
+        SHOW_MAP(_HD_GOLD)
+#endif
+
+#ifdef HD_PLATINUM_LAYER_ENABLE
+        SHOW_MAP(_HD_PLATINUM)
+#endif
+
+#ifdef HD_SILVER_LAYER_ENABLE
+        SHOW_MAP(_HD_SILVER)
+#endif
+
+#ifdef HD_BRONZE_LAYER_ENABLE
+        SHOW_MAP(_HD_BRONZE)
+#endif
+
+#ifdef HD_ELAN_LAYER_ENABLE
+        SHOW_MAP(_HD_ELAN)
+#endif
+
+#ifdef HD_DASH_LAYER_ENABLE
+        SHOW_MAP(_HD_DASH)
 #endif
 
 #ifdef HD_REF_LAYER_ENABLE
@@ -113,20 +141,48 @@ void oled_render_layer_map(void) {
 #ifdef NAV_NO_MOUSE
         CARTE_NAVnm
 #endif
+#ifdef NAV_MIRYOKU
+        CARTE_NAV_miryoku
+#endif
     break;
 
-#ifdef MOUSEKEY_ENABLE
-      SHOW_MAP_S(_NAVm)
+#ifdef MOUSE_LAYER_ENABLE
+    case _NAVm:
+#  ifdef NAV_MOUSE_MIRYOKU
+        CARTE_NAVm_miryoku
+#  else
+      CARTE_NAVm
+#  endif
+      break;
 #endif
 
-      SHOW_MAP_S(_LAYERS)
+        SHOW_MAP_S(_MEDIA)
+        SHOW_MAP_S(_LAYERS)
 
-      LCASE(_SYMB)
-      CARTE_SYMB_BEAKLB
-      break;
+          LCASE(_SYMB)
+#ifdef SYMBOL_BEAKL
+          CARTE_SYMB_BEAKL
+#endif
+#ifdef SYMBOL_BEAKL_EXT
+          CARTE_SYMB_BEAKLA
+#endif
+#ifdef SYMBOL_BEAKL_EXT_VI
+          CARTE_SYMB_BEAKLB
+#endif
+#ifdef SYMBOL_BEAKL_C
+          CARTE_SYMB_BEAKLC
+#endif
+#ifdef SYMBOL_MIRYOKU
+          CARTE_SYMB_MIRYOKU
+#endif
+#ifdef SYMBOL_BEAKL_WI
+          CARTE_SYMB_BEAKL_WI
+#endif
+
+          break;
 
 #ifdef KEYAD_LAYER_ENABLE
-      LCASE(_KEYPAD)
+        LCASE(_KEYPAD)
 #ifdef KEYPAD_BEAKL
 #ifdef KEYPAD_BEAKL_WI
       CARTE_KP_BKL_WI
@@ -136,6 +192,9 @@ void oled_render_layer_map(void) {
 #endif
 #if !defined(KEYPAD_MODS) && !defined(KEYPAD_BEAKL_WI)
         CARTE_KP_BKL_FUNC
+#endif
+#ifdef KEYPAD_MIRYOKU
+        CARTE_KP_MIRYOKU
 #endif
 
 #else // not beakl.

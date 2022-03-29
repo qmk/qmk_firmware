@@ -152,6 +152,13 @@ enum userspace_custom_keycodes {
 #undef US_CIRC
 #define US_CIRC KC_CIRC
 
+#define US_PRINT_SCREEN KC_PRINT_SCREEN
+#define US_SCROLL_LOCK KC_SCROLL_LOCK
+#define US_PAUSE KC_PAUSE
+#define BP_PRINT_SCREEN KC_PRINT_SCREEN
+#define BP_SCROLL_LOCK KC_SCROLL_LOCK
+#define BP_PAUSE KC_PAUSE
+
 #define BP_F1 KC_F1
 #define BP_F2 KC_F2
 #define BP_F3 KC_F3
@@ -234,35 +241,47 @@ enum userspace_custom_keycodes {
 #define GUI_ESC     GUI_T(KC_ESC)       // Gui or escape
 #define ALGR_SYMB   ALGR_T(TG(LANG_N(_SYMB))) // Alt gre or toggle symbol layer
 
+/* miryoku */
+/*   esc_media, space_navnm, tab_navm,  ENT_SYM, BSPC_TOPR, del_fun */
+/* hands down */
+/* TL_COMM, TL_DOT_SYMB, GUI_ESC, ALT_ENT, SPC_TOPR, BSPC */
+
 // Lots of LT options.  My thumb keys.
 #define LN_ACCENTS LANG_N(_ACCENTS)
 #define LN_TOPROWS LANG_N(_TOPROWS)
 #define LN_SYMB LANG_N(_SYMB)
 #define LN_KEYPAD LANG_N(_KEYPAD)
 
+#define ACCENTS_RALT MT(MOD_RALT, OSL_ACCENTS)
+#define ACCENTS_CTL MT(MOD_LCTL, OSL_ACCENTS)
+#define TH_LTR_SYM LT(LN_SYMB, THUMB_LETTER)
+#define ENT_SYM LT(LN_SYMB, KC_ENT)
 #define ENT_NAV LT(_NAV, KC_ENT)
 #define ENT_TOPR LT(LN_TOPROWS, KC_ENT)
 
 #define ESC_TOPR LT(LN_TOPROWS, KC_ESC)
 #define ESC_SYMB LT(LN_SYMB, KC_ESC)
 #define ESC_NUM LT(LN_KEYPAD, KC_ESC)
+#define ESC_MEDIA LT(_MEDIA, KC_ESC)
 
+#define DEL_FUN LT(_FUN, KC_DEL)
+#define TAB_NAVM LT(_NAVm, KC_TAB)
 #define TAB_NUM LT(LN_KEYPAD, KC_TAB)
 #define I_SYMB LT(LN_SYMB, KC_I)
 
-#define SPC_NAV LT(_NAV, KC_SPC)
+#define SPC_NAVnm LT(_NAVnm, KC_SPC)
+#define SPC_NAV  LT(_NAV, KC_SPC)
 #define SPC_SYMB LT(LN_SYMB, KC_SPC)
 #define SPC_TOPR LT(LN_TOPROWS, KC_SPC)
 #define SPC_LAYR LT(_LAYERS, KC_SPC)
 #define SPC_ADJ LT(_ADJUST, KC_SPC)
+#define SPC_NUM LT(LN_KEYPAD, KC_SPC)
 
 #define BSPC_NAV LT(_NAV, KC_BSPC)
 #define BSPC_SYMB LT(LN_SYMB, KC_BSPC)
 #define BSPC_TOPR LT(LN_TOPROWS, KC_BSPC)
-
-#define SPC_NUM LT(LN_KEYPAD, KC_SPC)
-
 #define BSPC_NUM LT(LN_KEYPAD, KC_BSPC)
+#define BSPC_ALT MT(MOD_LALT, KC_BSPC)
 
 // layer toggles
 #define SYM_OSL     OSL(LN_SYMB)
@@ -310,36 +329,36 @@ enum userspace_custom_keycodes {
 
 ////  TAP DANCE
 
-  typedef struct {
-    bool is_press_action;
-    int state;
-  } tdtap;
+typedef struct {
+  bool is_press_action;
+  int state;
+} tdtap;
 
 enum {
-      SINGLE_TAP = 1,
-      SINGLE_HOLD = 2,
-      DOUBLE_TAP = 3,
-      DOUBLE_HOLD = 4,
-      DOUBLE_SINGLE_TAP = 5, //send two single taps
-      TRIPLE_TAP = 6,
-      TRIPLE_HOLD = 7
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+  DOUBLE_TAP = 3,
+  DOUBLE_HOLD = 4,
+  DOUBLE_SINGLE_TAP = 5, //send two single taps
+  TRIPLE_TAP = 6,
+  TRIPLE_HOLD = 7
 };
 
 //Tap Dance Declarations
 enum {
-      TD_ESC_CAPS = 0,
-      TD_TAB_BKTAB = 1,
-      TD_MDIA_SYMB = 2,
-      TD_HOME_END = 3,
-      TD_XMONAD_ESC = 4,
-      TD_DEF_LAYER_SW = 5,
-      TD_DEF_OS_LAYER_SW = 6,
-      TD_MOUSE_BTNS = 7,
-      TD_DVORAK_BEPO = 8,
-      TD_UP_HOME = 9,
-      TD_DOWN_END = 10,
-      TD_RIGHT_TAB = 11,
-      TD_LEFT_BACKTAB = 12
+  TD_ESC_CAPS = 0,
+  TD_TAB_BKTAB = 1,
+  TD_MDIA_SYMB = 2,
+  TD_HOME_END = 3,
+  TD_XMONAD_ESC = 4,
+  TD_DEF_LAYER_SW = 5,
+  TD_DEF_OS_LAYER_SW = 6,
+  TD_MOUSE_BTNS = 7,
+  TD_DVORAK_BEPO = 8,
+  TD_UP_HOME = 9,
+  TD_DOWN_END = 10,
+  TD_RIGHT_TAB = 11,
+  TD_LEFT_BACKTAB = 12
 };
 
 

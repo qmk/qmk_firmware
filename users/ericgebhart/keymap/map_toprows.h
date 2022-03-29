@@ -16,22 +16,30 @@
 */
 // Top Rows  commonly called Raise
 #ifdef TOPROWS_LAYER_ENABLE
-#ifdef TOPROWS_BKL_NUMS
 
-#ifdef TOPROWS_BKL_19_NUMS
-T_LAYER(LANG_N(_TOPROWS), ___TOPROWS_BKL19_3x10___),
+#  undef THUMBS_ARE
+#  define THUMBS_ARE TOPROWS_LAYER_THUMBS
 
-#else // Beakl 15 numbers.
+#  ifdef TOPROWS_BKL_15_NUMS
+T_LAYER(LANG_N(_TOPROWS), ___TOPROWS_3x10___),
+#  endif
 
-#ifdef TOPROWS_MOD
+#  ifdef TOPROWS_BKL_19_NUMS
+  T_LAYER(LANG_N(_TOPROWS), ___TOPROWS_BKL19_3x10___),
+#  endif
+
+#  ifdef TOPROWS_MOD
   T_LAYER(LANG_N(_TOPROWS), ___TOPROWS_MOD_3x10___),
-#else
-  T_LAYER(LANG_N(_TOPROWS), ___TOPROWS_3x10___),
-#endif
-#endif
+#  endif
 
-#else // Not beakl numbers.
+// Not beakl numbers. Give a basic en-qwerty toprows layer.
+#if !defined(TOPROWS_BKL_15_NUMS) &&            \
+  !defined(TOPROWS_BKL_19_NUMS) &&              \
+  !defined(TOPROWS_MOD)
 
   T_LAYER(LANG_N(_TOPROWS), ___RAISE_3x10___),
 #endif
+
+#  undef THUMBS_ARE
+#  define THUMBS_ARE DEFAULT_THUMBS
 #endif // toprows.

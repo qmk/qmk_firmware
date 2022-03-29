@@ -47,6 +47,7 @@
 //  really BTN 1, 2, 3, 8, 9 - according to xev.
 #define ___MOUSE_BTNS_R___    KC_BTN1,  KC_BTN3,  KC_BTN2,  KC_BTN4,  KC_BTN5
 #define ___4MOUSE_BTNS_R___   KC_BTN1,  KC_BTN3,  KC_BTN2,  KC_BTN4
+#define ___3MOUSE_BTNS_R___   KC_BTN1,  KC_BTN3,  KC_BTN2
 //  really BTN 9, 8, 3, 2, 1 - according to xev
 #define ___4MOUSE_BTNS_L___   KC_BTN4,  KC_BTN2,  KC_BTN3,  KC_BTN1
 #define ___MOUSE_BTNS_L___    KC_BTN5,  KC_BTN4,  KC_BTN2,  KC_BTN3,  KC_BTN1
@@ -58,6 +59,8 @@
 #define ___HOME_PGDN_PGUP_END___  KC_HOME,  KC_PGDN, KC_PGUP, KC_END
 #define ___TAB_PGDN_PGUP_BKTAB___ KC_TAB,  KC_PGDN, KC_PGUP, KC_BKTAB
 // home and end are combos.  tab/pgdn = home, bktab/pgup = end.
+
+#define ___REDO_CUT_COPY_PASTE_UNDO___ S_REDO, S_CUT, S_COPY, S_PASTE, S_UNDO
 
 #ifdef MOUSEKEY_ENABLE
 #define ___NAV_La_1___ ___SML_MODS_L___, KC_ACL0
@@ -164,10 +167,33 @@
                " ldur 1  ccv ldur",                \
                " ldur 2  cwq tdubt")
 
+#define CARTE_NAV_miryoku                       \
+  carte_de_map("  rdo  ccp undo",               \
+               "  Caps ldur",                   \
+               "  Ins  HDUE")
+
+#define CARTE_NAVm_miryoku                      \
+  carte_de_map("  rdo ccp undo",               \
+               "      ldur",                   \
+               "      ldur")
+
+
 #ifdef MOUSEKEY_ENABLE
 #define ___NAVm_3x10___ ___10_NAVm_1___, ___10_NAVm_2___, ___10_NAVm_3___
 #endif
+
 #define ___NAVnm_3x10___ ___10_NAVnm_1___, ___10_NAVnm_2___, ___10_NAVnm_3___
 #define ___NAVA_3x10___ ___10_NAV_1a___, ___10_NAV_2___, ___10_NAV_3___
 #define ___NAV_3x10___ ___10_NAV_1___, ___10_NAV_2___, ___10_NAV_3___
 #define ___NAV_3x12___ ___12_NAV_1___, ___12_NAV_2___, ___12_NAV_3___
+#define ___NAV_miryoku___ \
+  ___5___, ___redo_cut_copy_paste_undo___,                              \
+    ___5___, KC_CAPS, ___VI_ARROWS___,                                  \
+    ___5___, KC_INSERT, ___HOME_PGDN_PGUP_END___
+
+#ifdef MOUSEKEY_ENABLE
+#define ___NAVm_miryoku___                                              \
+  ___5___, ___redo_cut_copy_paste_undo___,                              \
+    ___5___, ___, ___MOUSE_LDUR___,                                     \
+    ___5___, ___, ___MWHEEL_LDUR___,
+#endif

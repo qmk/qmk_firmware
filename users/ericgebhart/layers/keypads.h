@@ -77,6 +77,10 @@
 #define ___KEYPAD_2___ _DOT, _4,  _5,    _6,     _PAST
 #define ___KEYPAD_3___ _0,   _1,  _2,    _3,     _PMNS
 
+#define ___KEYPAD_miryoku_1___ _LBRC, _7,  _8,  _9,  _RBRC, ___5___
+#define ___KEYPAD_miryoku_2___ _SCLN, _4,  _5,  _6,  _EQUAL, ___5___
+#define ___KEYPAD_miryoku_3___ _GRV,  _1,  _2,  _3,  _BSLS, ___5___
+
 // 4 Row keypads
 #define ___5KEYPAD_1___ _X_, ___KEYPAD_1___
 #define ___5KEYPAD_2___ _X_, ___KEYPAD_2___
@@ -94,6 +98,10 @@
 #define ___4_FUNCPAD_1___   _F9, _F10, _F11, _F12
 #define ___4_FUNCPAD_2___   _F5, _F6,  _F7,  _F8
 #define ___4_FUNCPAD_3___   _F1, _F2,  _F3,  _F4
+
+#define ___FUNCPAD_miryoku_1___   KC_F12, KC_F7, KC_F8, KC_F9, KC_PRINT_SCREEN
+#define ___FUNCPAD_miryoku_2___   KC_F11, KC_F4, KC_F5, KC_F6, KC_SCROLL_LOCK
+#define ___FUNCPAD_miryoku_3___   KC_F10, KC_F1, KC_F2, KC_F3, KC_PAUSE
 
 // For the left or right side.
 #define ___5x4_FUNCPAD_T___   _TRNS, _F10,  _F11,  _F12, _TRNS
@@ -182,7 +190,7 @@
 // funcpad, regular keypad on right.
 #define ___MODS_KP_3x10___                                    \
   CHUNK_LANG_MAP(___SML_MODS_L___, ___, ___5KEYPAD_1___,        \
-                 ___OS_MODS_L,          ___5KEYPAD_2___,        \
+                 ___OS_MODS_L___,       ___5KEYPAD_2___,     \
                  ___5___,               ___5KEYPAD_3___)
 
 #define CARTE_KP_MODS                           \
@@ -194,3 +202,34 @@
   CHUNK_LANG_MAP(___5KEYPAD_1___,  ___, ___SML_MODS_R___,       \
                  ___5KEYPAD_2___,  ___OS_MODS_L___,        \
                  ___5KEYPAD_3___,  ___, ___4___)
+
+#define CARTE_FUN                           \
+  carte_de_map("  F9-F12  SMods",                \
+               "  F5-F8   OSMods",               \
+               "  F1-F4   ")
+
+#define ___FUN_3x10___                                                  \
+  CHUNK_LANG_MAP(___4_FUNCPAD_1___, ___,  ___, ___SML_MODS_R___,        \
+                 ___4_FUNCPAD_2___, ___,  ___OS_MODS_R___,              \
+                 ___4_FUNCPAD_3___, ___,  ___5___)
+
+#define CARTE_FUN_MIRYOKU                       \
+  carte_de_map("F12 F7-F9 prt  SMods",          \
+               "F11 F4-F6 scr  OSMods",         \
+               "F10 F1-F3 pse  ")
+
+#define ___FP_MIRYOKU_3x10___                                           \
+  ___FUNCPAD_miryoku_1___,  ___, ___SML_MODS_R___,       \
+    ___FUNCPAD_miryoku_2___,  ___OS_MODS_R___,           \
+    ___FUNCPAD_miryoku_3___,  ___5___
+
+// wants . and 0 on left thumb.
+#define CARTE_KP_MIRYOKU      \
+  carte_de_map(" [789]",      \
+               " ;456=",      \
+               " `123\\")
+
+#define ___KP_MIRYOKU_3x10___                                     \
+  ___KEYPAD_miryoku_1___,                          \
+    ___KEYPAD_miryoku_2___,                        \
+    ___KEYPAD_miryoku_3___

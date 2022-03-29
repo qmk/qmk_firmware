@@ -79,15 +79,20 @@
 // #define SECOND_LOCALE_NAME " fr-bepo"
 
 // Choose a mod layer. Can be changed per layer.
-// TRNS, ALT, HRM_GACS, HRM_SCAG, HRM_GASC
+// TRNS, ALT, HRM_GACS, HRM_SCAG, HRM_GASC, MIRYOKU_HRM_GASC
 #define MODS_ARE ALT
 #define DEFAULT_MODS MODS_ARE
 
 // Choose a thumb cluster. undef and redef as needed.
-// MODs, LAYERS, MOD_LAYERS,
-// WI, WIa, TRNS, TEST
+// WI WIa DEFAULT TEST TRNS MODS LAYERS MODS_LAYERS
+// MIRYOKU MIRYOKU_TR HD, TH_LTR, HD_DASH
 #define THUMBS_ARE DEFAULT
-#define THUMB_LETTER KC_SPC
+#define DEFAULT_THUMBS DEFAULT
+
+// for the base layers which need a thumb cluster which takes a letter.
+#define HANDS_DOWN_LTR_THUMBS_ARE TH_LTR
+#define MALTRON_LTR_THUMBS_ARE TH_LTR
+#define RSTHD_LTR_THUMBS_ARE TH_LTR
 
 // layout io, matrix size.
 // a reasonable default for most keyboards.
@@ -160,12 +165,12 @@
 //#define HD_BRONZE_LAYER_ENABLE
 //#define HD_SILVER_LAYER_ENABLE
 //#define HD_PLATINUM_LAYER_ENABLE
-//#define HD_GOLD_LAYER_ENABLE
+#define HD_GOLD_LAYER_ENABLE
 
 // these are all 3x12.
 //#define HD_NEU_LAYER_ENABLE
 
-// all have accent characters on base layer.
+// additionally all these have accent characters on base layer.
 //#define BEPO_LAYER_ENABLE
 #define OPTIMOT_LAYER_ENABLE
 #define BEAKL19bis_LAYER_ENABLE
@@ -174,11 +179,23 @@
 // enable transient function layers.
 #define SYMBOL_LAYER_ENABLE
 #define NAV_LAYER_ENABLE
+// #define MOUSE_LAYER_ENABLE
 #define TOPROWS_LAYER_ENABLE
-#define LAYERS_LAYER_ENABLE
+// #define LAYERS_LAYER_ENABLE - defunct. always on.
 #define KEYPAD_LAYER_ENABLE
 //#define ADJUST_LAYER_ENABLE
 //#define RGB_LAYER_ENABLE
+#define MEDIA_LAYER_ENABLE
+#define FUNC_LAYER_ENABLE
+
+
+// define alternate thumb definitions for the transient layers.
+#define MEDIA_LAYER_THUMBS MEDIA_THUMBS
+#define MOUSE_LAYER_THUMBS MOUSE_THUMBS
+#define NAV_LAYER_THUMBS MOUSE_THUMBS
+#define KEYPAD_LAYER_THUMBS KEYPAD_THUMBS
+#define SYMB_LAYER_THUMBS SYMB_THUMBS
+#define TOPROWS_LAYER_THUMBS DEFAULT
 
 // Extra character layers.
 // Bepo has dead keys (altgr) and accented keycodes
@@ -203,18 +220,26 @@
 // Just the non mouse bits, with lock mods, n-shot mods on the left.
 // if mousekeys enabled, adds a mouse layer accessible via smart lock.
 // #define NAV_NO_MOUSE
+// #define NAV_MIRYOKU
+// #define NAV_MOUSE_MIRYOKU
 
 
 /* keypads */
+// beakl keypads are usual, if not chosen, regular keypads will be used.
+// left side is the default.
+// Beakl, except for WI, is only on the left side.
+// Miryoku is on the left also.
+
 //#define KEYPAD_RIGHT
-#define KEYPAD_BEAKL         // beakl doesn't have a rightside, swap hands?
-
-// not working until there are mod keys per lang...
-//#define KEYPAD_MODS   //  give mods on the other side instead of funcs.
-
-//#define KEYPAD_BEAKL_WI   // right side with hexpad on left.
+#define KEYPAD_BEAKL        // beakl doesn't have a rightside, swap hands?
+//#define KEYPAD_MODS      //  give mods on the other side instead of funcs.
+//#define KEYPAD_BEAKL_WI  //  right side with hexpad on left.
+//#define KEYPAD_MIRYOKU   //  use the miryoku keypad
 // the default if nothing chosen,
-// is a functionpad on the left and keypad on the right.
+// is a functionpad on the left and normal keypad on the right.
+
+// funcpad from miryoku
+#define FUNCPAD_MIRYOKU
 
 
 /* symbols */
@@ -222,14 +247,17 @@
 //#define SYMBOL_BEAKL_EXT     // extended for non beakl base layers.
 //#define SYMBOL_BEAKL_EXT_VI  // extended with vi keybinding in mind.
 #define SYMBOL_BEAKL_C         // more alterations by frequency
+// #define SYMBOL_MIRYOKU      // minimalist symbols after miryoku
 //#define SYMBOL_BEAKL_WI      // original wi
 
 
 /* toprows. */
-#define TOPROWS_BKL_NUMS  // center row with Beakl15 order. 40123 76598.
-#define TOPROWS_MOD  // beakl 15 nums, oneshot and smart lock mods. no Fkeys.
-//#define TOPROWS_BKL_19_NUMS // Beakl 19 order: 32104  76598
-// the default, if not defined, is a standard qwerty set of rows.
+// The default, if not defined, is a standard qwerty set of rows.
 // symbols, numbers, function keys. Numbers on the home row.
+
+// #define TOPROWS_BKL_15_NUMS  // center row with Beakl15 order. 40123 76598.
+// #define TOPROWS_BKL_19_NUMS // Beakl 19 order: 32104  76598
+#define TOPROWS_MOD  // beakl 15 nums, oneshot and smart lock mods. no Fkeys.
+
 
 #endif

@@ -40,7 +40,6 @@
 #define B_LAYERt6(LNAME, NUMS, LAYOUT) BASE_LAYERt6(LNAME, LAYOUT)
 #endif
 
-#define DEFAULT_THUMBS THUMBS_ARE
 // Find alt local key definitions.
 // DV for dvorak/qwerty maps on bepo.
 // BK, BKW for beakl maps on en-qwerty and bepo.
