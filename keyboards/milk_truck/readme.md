@@ -1,6 +1,6 @@
 # Milk Truck
 
-![Milk Truck](https://imgur.com/NUmiTDS.jpg)
+![Milk Truck](https://imgur.com/NUmiTDSh.jpg)
 
 A dairy-filled, left-handed, numpad-having, extended-minivan, forty-percent keyboard.
 
