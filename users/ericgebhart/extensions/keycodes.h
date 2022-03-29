@@ -151,6 +151,7 @@ enum userspace_custom_keycodes {
 #define US_TILD KC_TILD
 #undef US_CIRC
 #define US_CIRC KC_CIRC
+#define US_EQUAL KC_EQUAL
 
 #define US_PRINT_SCREEN KC_PRINT_SCREEN
 #define US_SCROLL_LOCK KC_SCROLL_LOCK
