@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 
 // 1 minute
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    define OLED_TIMEOUT 60000
 #endif
 
