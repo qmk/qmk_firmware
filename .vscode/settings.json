@@ -9,6 +9,7 @@
         "**/*.bin": true
     },
     "files.associations": {
+        "*.lnlog": "log",
         "*.h": "c",
         "*.c": "c",
         "*.inc": "c",
@@ -17,11 +18,21 @@
         "xstddef": "c",
         "type_traits": "c",
         "utility": "c",
-        "ranges": "c"
+        "ranges": "c",
+        "array": "c",
+        "stack": "c",
+        "vector": "c",
+        "xstring": "c",
+        "xutility": "c"
     },
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
         "files.trimTrailingWhitespace": false
     },
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "cmake.configureOnOpen": true,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "C_Cpp.dimInactiveRegions": false
+
 }

@@ -1,7 +1,17 @@
-
-# Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
-#
-RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
+CONSOLE_ENABLE = no         # Console for debug
+COMMAND_ENABLE = no         # Commands for debug and configuration
+UNICODE_ENABLE   = no  # Unicode
+SWAP_HANDS_ENABLE= no  # Allow swapping hands of keyboard
+MIDI_ENABLE = no            # MIDI controls
+AUDIO_ENABLE = no           # Audio output on port C6
+MOUSEKEY_ENABLE = no
+RGBLIGHT_ENABLE = no
+RGB_MATRIX_ENABLE =  WS2812
 OLED_DRIVER_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+LEADER_ENABLE = yes
+RAW_ENABLE = yes
+# If you want to change the display of OLED, you need to change here
+SRC +=  logo_reader.c \
+		layer.c
+EXTRAFLAGS += -flto
