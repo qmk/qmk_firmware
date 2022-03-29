@@ -144,7 +144,7 @@ void render_feature_status(void) {
 // Keylogger
 #define KEYLOGGER_LENGTH 5
 static uint16_t oled_timer                       = 0;
-static bool is_key_processed                     = true;
+static bool     is_key_processed                 = true;
 static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
 // clang-format off
 static const char PROGMEM code_to_name[0xFF] = {
