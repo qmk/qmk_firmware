@@ -15,20 +15,19 @@
 #define DF_GAME DF(GAMING)
 
 enum LAYERS {
-  GAMING, // Simpler control scheme for games (e.g. space is just space)
+  GAMING, // Simpler control scheme for games (e.g. space is just space).
   CODING, // All the bells and whistles for coding.
-  FN, // Function keys (e.g. screen brightness, media keys)
-  MS, // Mouse buttons and movements.
-  KBD, // Controls for the keyboard itself (e.g. brightness, colours)
+  FN,     // Function keys (e.g. screen brightness, media keys).
+  CTRL,   // Controls for the keyboard (e.g. brightness, colours) and mouse (buttons and movement).
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [GAMING] = LAYOUT_all(
       KC_ESC,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,  KC_EQL, KC_BSPC, XXXXXXX,
       KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
-      MO(MS),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,  KC_ENT,
+      MO(FN),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,  KC_ENT,
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT, DF_CODE,
-      KC_LCTL, KC_LGUI, KC_LALT,                             KC_SPC,                            KC_RALT, MO(KBD), KC_RCTL
+      KC_LCTL, KC_LGUI, KC_LALT,                             KC_SPC,                            KC_RALT, MO(CTRL), KC_RCTL
   ),
   [CODING] = LAYOUT_all(
       KC_GESC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -44,19 +43,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______,                            _______,                            _______, _______, _______
   ),
-  [MS] = LAYOUT_all(
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  [CTRL] = LAYOUT_all(
+      _______,  EF_DEC,  EF_INC,  H1_DEC,  H1_INC,  H2_DEC,  H2_INC, _______, _______, _______, _______,  BR_DEC,  BR_INC, _______, XXXXXXX,
+      _______, _______, _______,  S1_DEC,  S1_INC,  S2_DEC,  S2_INC, _______, _______, _______, _______,  ES_DEC,  ES_INC, _______,
       _______, _______, _______, _______, _______, _______, MS_LEFT, MS_DOWN,   MS_UP, MS_RGHT, _______, _______, _______,
       _______, MS_W_DN, MS_W_UP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       MS_BTN1, MS_BTN3, MS_BTN2,                            _______,                            _______, _______, _______
-  ),
-  [KBD] = LAYOUT_all(
-      _______,  EF_DEC,  EF_INC,  H1_DEC,  H1_INC,  H2_DEC,  H2_INC, _______, _______, _______, _______,  BR_DEC,  BR_INC, _______, XXXXXXX,
-      _______, _______, _______,  S1_DEC,  S1_INC,  S2_DEC,  S2_INC, _______, _______, _______, _______,  ES_DEC,  ES_INC, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-      _______, _______, _______,                            _______,                            _______, _______, _______
   ),
 };
 
