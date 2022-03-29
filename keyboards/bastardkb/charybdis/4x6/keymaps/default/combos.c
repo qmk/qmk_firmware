@@ -124,8 +124,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
         case RST:
             if (pressed) {
-                reset_keyboard();
-            }
+				tap_code16(MAGIC_SWAP_LCTL_LGUI);
+				}
             break;
         case TGSYM:
             if (pressed) {
