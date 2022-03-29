@@ -3,6 +3,7 @@
 import json
 import random
 import gzip
+from platform import platform
 
 from milc import cli
 
@@ -42,6 +43,78 @@ def print_dotted_output(kb_info_json, prefix=''):
             cli.echo('    {fg_blue}%s{fg_reset}: %s', new_prefix, kb_info_json[key])
 
 
+def _xap_transaction(device, sub, route, ret_len, *args):
+    # gen token
+    tok = random.getrandbits(16)
+    token = tok.to_bytes(2, byteorder='big')
+
+    # send with padding
+    # TODO: this code is total garbage
+    args_data = []
+    args_len = 2
+    if len(args) == 1:
+        args_len += 2
+        args_data = args[0].to_bytes(2, byteorder='big')
+
+    padding = b"\x00" * (64 - 3 - args_len)
+    if args_data:
+        padding = args_data + padding
+    buffer = token + args_len.to_bytes(1, byteorder='big') + sub.to_bytes(1, byteorder='big') + route.to_bytes(1, byteorder='big') + padding
+    
+    # prepend 0 on windows because reasons...
+    if 'windows' in platform().lower():
+        buffer = b"\x00" + buffer
+
+    device.write(buffer)
+
+    # get resp
+    array_alpha = device.read(4 + ret_len, 100)
+
+    # validate tok sent == resp
+    if str(token) != str(array_alpha[:2]):
+        return None
+    return array_alpha[4:]
+
+
+def _query_device_version(device):
+    ver_data = _xap_transaction(device, 0x00, 0x00, 4)
+    if not ver_data:
+        return {'xap': 'UNKNOWN'}
+
+    # to u32 to BCD string
+    a = (ver_data[3] << 24) + (ver_data[2] << 16) + (ver_data[1] << 8) + (ver_data[0])
+    ver = f'{a>>24}.{a>>16 & 0xFF}.{a & 0xFFFF}'
+
+    return {'xap': ver}
+
+
+def _query_device_info_len(device):
+    len_data = _xap_transaction(device, 0x01, 0x05, 4)
+    if not len_data:
+        return 0
+
+    # to u32
+    return (len_data[3] << 24) + (len_data[2] << 16) + (len_data[1] << 8) + (len_data[0])
+
+
+def _query_device_info_chunk(device, offset):
+    return _xap_transaction(device, 0x01, 0x06, 32, offset)
+
+
+def _query_device_info(device):
+    datalen = _query_device_info_len(device)
+    if not datalen:
+        return {}
+
+    data = []
+    offset = 0
+    while offset < datalen:
+        data += _query_device_info_chunk(device, offset)
+        offset += 32
+    str_data = gzip.decompress(bytearray(data[:datalen]))
+    return json.loads(str_data)
+
+
 def _list_devices():
     """Dump out available devices
     """
@@ -51,85 +124,12 @@ def _list_devices():
         device = hid.Device(path=dev['path'])
 
         data = _query_device_version(device)
-        cli.log.info("  %04x:%04x %s %s [API:%s]", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'], data['ver'])
+        cli.log.info("  %04x:%04x %s %s [API:%s]", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'], data['xap'])
 
         if cli.config.general.verbose:
-            # TODO: better formatting like "lsusb -v"
-            datalen = _query_device_info_len(device)
-
-            data = []
-            offset = 0
-            while offset < datalen:
-                data += _query_device_info(device, offset)
-                offset += 32
-            str_data = gzip.decompress(bytearray(data[:datalen]))
-            print_dotted_output(json.loads(str_data))
-
-
-def _query_device_version(device):
-    # gen token
-    tok = random.getrandbits(16)
-    temp = tok.to_bytes(2, byteorder='big')
-
-    # send with padding
-    padding = b"\x00" * 59
-    device.write(temp + b'\x02\x00\x00' + padding)
-
-    # get resp
-    array_alpha = device.read(8, 100)
-    # hex_string = " ".join("%02x" % b for b in array_alpha)
-
-    # validate tok sent == resp
-    ver = "UNKNOWN"
-    if str(temp) == str(array_alpha[:2]):
-        # to BCD string
-        a = (array_alpha[7] << 24) + (array_alpha[6] << 16) + (array_alpha[5] << 8) + (array_alpha[4])
-        ver = f'{a>>24}.{a>>16 & 0xFF}.{a & 0xFFFF}'
-
-    return {'ver': ver}
-
-
-def _query_device_info_len(device):
-    # gen token
-    tok = random.getrandbits(16)
-    temp = tok.to_bytes(2, byteorder='big')
-
-    # send with padding
-    padding = b"\x00" * 59
-    device.write(temp + b'\x02\x01\x05' + padding)
-
-    # get resp
-    array_alpha = device.read(8, 100)
-    # hex_string = " ".join("%02x" % b for b in array_alpha)
-
-    # validate tok sent == resp
-    datalen = "UNKNOWN"
-    if str(temp) == str(array_alpha[:2]):
-        # to BCD string
-        a = (array_alpha[7] << 24) + (array_alpha[6] << 16) + (array_alpha[5] << 8) + (array_alpha[4])
-        datalen = f'{a & 0xFFFF}'
-
-    return int(datalen)
-
-
-def _query_device_info(device, offset):
-    # gen token
-    tok = random.getrandbits(16)
-    temp = tok.to_bytes(2, byteorder='big')
-
-    # send with padding
-    padding = b"\x00" * 57
-    device.write(temp + b'\x04\x01\x06' + (offset).to_bytes(2, byteorder='big') + padding)
-
-    # get resp
-    array_alpha = device.read(4 + 32, 100)
-
-    # hex_string = " ".join("%02x" % b for b in array_alpha)
-
-    # validate tok sent == resp
-    if str(temp) == str(array_alpha[:2]):
-        return array_alpha[4:]
-    return None
+            # TODO: better formatting like "lsusb -v"?
+            data = _query_device_info(device)
+            print_dotted_output(data)
 
 
 @cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>.')
