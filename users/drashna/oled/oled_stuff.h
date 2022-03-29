@@ -27,7 +27,7 @@ void            oled_timer_reset(void);
 void            render_keylogger_status(void);
 void            render_default_layer_state(void);
 void            render_layer_state(void);
-void            render_keylock_status(uint8_t led_usb_state);
+void            render_keylock_status(led_t led_usb_state);
 void            render_matrix_scan_rate(uint8_t padding);
 void            render_mod_status(uint8_t modifiers);
 void            render_bootmagic_status(void);

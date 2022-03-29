@@ -326,7 +326,7 @@ void render_layer_state(void) {
  *
  * @param led_usb_state Current keyboard led state
  */
-void render_keylock_status(uint8_t led_usb_state) {
+void render_keylock_status(led_t led_usb_state) {
 #if defined(OLED_DISPLAY_VERBOSE)
     oled_set_cursor(1, 6);
 #endif
@@ -334,12 +334,12 @@ void render_keylock_status(uint8_t led_usb_state) {
 #if !defined(OLED_DISPLAY_VERBOSE)
     oled_write_P(PSTR(" "), false);
 #endif
-    oled_write_P(PSTR(OLED_RENDER_LOCK_NUML), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write_P(PSTR(OLED_RENDER_LOCK_NUML), led_usb_state.num_lock);
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_LOCK_CAPS), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+    oled_write_P(PSTR(OLED_RENDER_LOCK_CAPS), led_usb_state.caps_lock);
 #if defined(OLED_DISPLAY_VERBOSE)
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_LOCK_SCLK), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+    oled_write_P(PSTR(OLED_RENDER_LOCK_SCLK), led_usb_state.scroll_lock);
 #endif
 }
 
@@ -841,7 +841,7 @@ void render_status_right(void) {
 #if !defined(OLED_DISPLAY_VERBOSE) && defined(WPM_ENABLE) && !defined(CONVERT_TO_PROTON_C)
     render_wpm(2);
 #endif
-    render_keylock_status(host_keyboard_leds());
+    render_keylock_status(host_keyboard_led_state());
 }
 
 void render_status_left(void) {
