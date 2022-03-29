@@ -998,7 +998,8 @@ static void send_radial_dial(report_radial_dial_t *report) {
     Endpoint_SelectEndpoint(RADIAL_DIAL_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    while (timeout-- && !Endpoint_IsReadWriteAllowed())
+        _delay_us(40);
     if (!Endpoint_IsReadWriteAllowed()) return;
 
     /* Write Mouse Report Data */

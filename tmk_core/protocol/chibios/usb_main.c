@@ -117,7 +117,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
     static USBDescriptor desc;
     uint16_t             wValue = ((uint16_t)dtype << 8) | dindex;
     desc.ud_string              = NULL;
-    desc.ud_size                = get_usb_descriptor(wValue, wIndex, (const void **const) & desc.ud_string);
+    desc.ud_size                = get_usb_descriptor(wValue, wIndex, (const void **const)&desc.ud_string);
     if (desc.ud_string == NULL)
         return NULL;
     else
@@ -1081,7 +1081,9 @@ void send_radial_dial(report_radial_dial_t *report) {
 }
 
 #else  /* RADIAL_DIAL_ENABLE */
-void send_radial_dial(report_radial_dial_t *report) { (void)report; }
+void send_radial_dial(report_radial_dial_t *report) {
+    (void)report;
+}
 #endif /* RADIAL_DIAL_ENABLE */
 
 /* ---------------------------------------------------------
