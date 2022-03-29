@@ -65,6 +65,3 @@
 #define I2C1_TIMINGR_SDADEL 1U
 #define I2C1_TIMINGR_SCLH   3U
 #define I2C1_TIMINGR_SCLL   9U
-
-/* Set the OLED timeout to 30 s to prevent burn-in */
-#define OLED_TIMEOUT 30000
