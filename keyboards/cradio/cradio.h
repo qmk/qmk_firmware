@@ -48,3 +48,5 @@
         { R16, R17, ___, ___, ___ }  \
     }
 
+#define LAYOUT LAYOUT_split_3x5_2
+

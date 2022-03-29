@@ -344,7 +344,7 @@ ifeq ($(strip $(MCU)), risc-v)
             ifneq ($(shell which riscv64-unknown-elf-gcc 2>/dev/null),)
                 TOOLCHAIN = riscv64-unknown-elf-
             else
-                $(error "No RISC-V toolchain found. Can't find riscv32-unknown-elf-gcc or riscv64-unknown-elf-gcc found in your systems PATH variable. Please install a valid toolchain and make it accessible!")
+                $(call CATASTROPHIC_ERROR,Missing toolchain,No RISC-V toolchain found. Can't find riscv32-unknown-elf-gcc or riscv64-unknown-elf-gcc found in your systems PATH variable. Please install a valid toolchain and make it accessible!)
             endif
         endif
     endif

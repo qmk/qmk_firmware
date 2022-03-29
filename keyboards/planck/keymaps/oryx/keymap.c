@@ -91,7 +91,7 @@ void set_layer_color(int layer) {
 }
 
 void rgb_matrix_indicators_user(void) {
-    if (g_suspend_state || keyboard_config.disable_layer_led) {
+    if (keyboard_config.disable_layer_led) {
         return;
     }
     switch (biton32(layer_state)) {
