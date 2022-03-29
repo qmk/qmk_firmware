@@ -20,7 +20,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "adns5050.h"
 #include "analog.h"
 #include "opt_encoder.h"
 #include "pointing_device.h"

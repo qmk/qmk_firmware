@@ -17,8 +17,6 @@
 
 extern backlight_config_t backlight_config;
 
-#define KC_ KC_TRNS
-
 #define KC_RST RESET
 #define KC_BL_S BL_STEP
 #define KC_RTOG RGB_TOG

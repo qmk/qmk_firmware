@@ -14,25 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* if the kb.h file exists (because we're running from qmkbuilder) include it */
-#ifdef __has_include
-#if __has_include("kb.h")
-#include "kb.h"
-#endif
-#endif
-
 #include "quantum.h"
 #include "matrix.h"
 #include <avr/sfr_defs.h>
-
-#ifndef cbi
-#define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
-#endif
-
-#ifndef sbi
-#define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
-#endif
-
 
 typedef struct RGB_Color {
     uint16_t red;
@@ -48,19 +32,6 @@ typedef struct Layer_Info {
 
 extern const uint32_t layer_count;
 extern const Layer_Info layer_info[];
-
-enum action_functions {
-    LFK_CLEAR = 0,          // Resets all layers
-    LFK_ESC_TILDE,          // esc+lshift = ~
-    LFK_SET_DEFAULT_LAYER,  // changes and saves current base layer to eeprom
-    LFK_CLICK_TOGGLE,       // Adjusts click duration
-    LFK_CLICK_FREQ_HIGHER,  // Adjusts click frequency
-    LFK_CLICK_FREQ_LOWER,   // Adjusts click frequency
-    LFK_CLICK_TIME_LONGER,  // Adjusts click duration
-    LFK_CLICK_TIME_SHORTER, // Adjusts click duration
-    LFK_DEBUG_SETTINGS,     // prints LED and click settings to HID
-    LFK_LED_TEST            // cycles through switch and RGB LEDs
-};
 
 #define CLICK_HZ 500
 #define CLICK_MS 2

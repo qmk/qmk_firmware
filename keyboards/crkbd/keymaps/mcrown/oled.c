@@ -113,7 +113,7 @@ inline static char get_ascii(int16_t keycode){
 oled_rotation_t oled_init_user(oled_rotation_t rotation){
     oled_rotation_t oled_rot=OLED_ROTATION_180;
 
-    if(true==is_master){
+    if(true==is_keyboard_master()){
 #ifdef OLED_VERTICAL
         oled_rot=OLED_ROTATION_270;
 #else
@@ -308,12 +308,12 @@ static void render_logo(void){
  *  @param void.
  *  @return void.
  */
-void oled_task_user(void){
+bool oled_task_user(void){
     if (timer_elapsed32(standby_oled_timer) > 15000){
         oled_off();
     }else{
         oled_on();
-        if(true==is_master){
+        if(true==is_keyboard_master()){
             render_status();
         }else{
             render_logo();
@@ -321,6 +321,7 @@ void oled_task_user(void){
             oled_scroll_left();
         }
     }
+    return false;
 }
 
 /** @brief process the current key and add it to the keylog string.

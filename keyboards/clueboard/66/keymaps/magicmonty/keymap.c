@@ -40,8 +40,9 @@
 // CTRL when held, ESC when tapped
 #define CTL_ESC CTL_T(KC_ESC)
 
-// Reset RGB mode to layer signalling
-#define RGB_RST F(0)
+enum custom_keycodes {
+    RGB_RST = SAFE_RANGE
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: Base Layer (Default Layer) */
@@ -103,21 +104,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 };
 
-/* This is a list of user defined functions. F(N) corresponds to item N
-   of this list.
- */
-const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_FUNCTION(0),  // Calls action_function()
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch (id) {
-    case 0:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(206, 255, 255);
-      }
-  }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RGB_RST:
+            if (record->event.pressed) {
+                rgblight_mode(1);
+                rgblight_sethsv(206, 255, 255);
+            }
+            return false;
+    }
+    return true;
 }
 
 enum layer_id {

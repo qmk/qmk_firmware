@@ -40,11 +40,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-
-void matrix_init_user(void) {
-
-}
-
 void matrix_scan_user(void) {
   // escape LED on layer 1
   if (IS_LAYER_ON(1)) {
@@ -52,8 +47,4 @@ void matrix_scan_user(void) {
   } else {
     writePinHigh(B0);
   }
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

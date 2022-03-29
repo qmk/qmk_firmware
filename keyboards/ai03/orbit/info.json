@@ -2,8 +2,6 @@
     "keyboard_name": "orbit", 
     "url": "https://github.com/ai03-2725/Orbit", 
     "maintainer": "ai03", 
-    "width": 16, 
-    "height": 6, 
     "layouts": {
         "LAYOUT": {
             "layout": [

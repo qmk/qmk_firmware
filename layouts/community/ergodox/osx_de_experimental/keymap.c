@@ -35,7 +35,7 @@
 
 #define TGH_NUM 2
 
-#define M_DE_OSX_PLUS_CTRLALT 3
+#define M_DE_PLUS_CTRLALT 3
 
 #define SM_KISS 4
 
@@ -57,7 +57,7 @@
 
 #define SM_SAD 13
 
-#define M_DE_OSX_CIRC_CTRLCMD 14
+#define M_DE_CIRC_CTRLCMD 14
 
 #define M_MEH_SH_ACUT 15
 
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                                                                                                                                                                                                                                                                                                                                      
 *                                           /-------------------//-------------------//-------------------//-------------------//-------------------/                                                                                       /-------------------//-------------------//-------------------//-------------------//-------------------/  
 *                                           | <                  | LongPress / Type   | LongPress / Type   | Shift+Ctrl         | Type               |                                                                                      | #                  | ACUT               | CMD+Shift          | ALT+Shift          | +                  | 
-*                                           | SYMB               | DE_OSX_CIRC_CTRLCMD| DE_OSX_PLUS_CTRAlt |                    | Toggle SMLY        |                                                                                      | Meh                | Hyper              |                    |                    | SYMB               | 
+*                                           | SYMB               | DE_CIRC_CTRLCMD    | DE_PLUS_CTRAlt     |                    | Toggle SMLY        |                                                                                      | Meh                | Hyper              |                    |                    | SYMB               | 
 *                                           \-------------------\\-------------------\\-------------------\\-------------------\/-------------------//-------------------/   /-------------------//-------------------/                     \-------------------\\-------------------\\-------------------\\-------------------\\-------------------\  
 *                                                                                                                               | HOME               | END                |  | LEFT               | RIGHT              |                                                                                                                               
 *                                                                                                                               |                    |                    |  |                    |                    |                                                                                                                               
@@ -99,20 +99,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 **/
 [BASE]=LAYOUT_ergodox(
 //left half
-    KC_ESC, DE_OSX_1, DE_OSX_2, DE_OSX_3, DE_OSX_4, DE_OSX_5, M(TGH_NUM), 
-    KC_TAB, DE_OSX_Q, DE_OSX_W, DE_OSX_E, DE_OSX_R, DE_OSX_T, KC_LGUI, 
-    KC_LALT, DE_OSX_A, DE_OSX_S, DE_OSX_D, DE_OSX_F, DE_OSX_G, 
-    KC_LSFT, CTL_T(DE_OSX_Y), DE_OSX_X, DE_OSX_C, DE_OSX_V, DE_OSX_B, KC_LALT, 
-                  LT(SYMB,DE_OSX_LESS), M(M_DE_OSX_CIRC_CTRLCMD), M(M_DE_OSX_PLUS_CTRLALT), LSFT(KC_LCTRL), M(SMLY_TOG_QUOT), 
+    KC_ESC, DE_1, DE_2, DE_3, DE_4, DE_5, M(TGH_NUM), 
+    KC_TAB, DE_Q, DE_W, DE_E, DE_R, DE_T, KC_LGUI, 
+    KC_LALT, DE_A, DE_S, DE_D, DE_F, DE_G, 
+    KC_LSFT, CTL_T(DE_Y), DE_X, DE_C, DE_V, DE_B, KC_LALT, 
+                  LT(SYMB,DE_LABK), M(M_DE_CIRC_CTRLCMD), M(M_DE_PLUS_CTRLALT), LSFT(KC_LCTRL), M(SMLY_TOG_QUOT), 
                                               KC_HOME, KC_END, 
                                                      KC_PGUP, 
                                        KC_BSPC, KC_DEL, KC_PGDN, 
     //right half
-    M(TOG_HLD_MDIA), DE_OSX_6, DE_OSX_7, DE_OSX_8, DE_OSX_9, DE_OSX_0, DE_OSX_SS, 
-    KC_RGUI, DE_OSX_Z, DE_OSX_U, DE_OSX_I, DE_OSX_O, DE_OSX_P, DE_OSX_UE, 
-           DE_OSX_H, DE_OSX_J, DE_OSX_K, DE_OSX_L, DE_OSX_OE, ALT_T(DE_OSX_AE), 
-    KC_RALT, DE_OSX_N, DE_OSX_M, DE_OSX_COMM, DE_OSX_DOT, CTL_T(DE_OSX_MINS), KC_RSFT, 
-                         MEH_T(DE_OSX_HASH), ALL_T(DE_OSX_ACUT), LGUI(KC_LSFT), LALT(KC_LSFT), LT(SYMB,DE_OSX_PLUS), 
+    M(TOG_HLD_MDIA), DE_6, DE_7, DE_8, DE_9, DE_0, DE_SS, 
+    KC_RGUI, DE_Z, DE_U, DE_I, DE_O, DE_P, DE_UDIA, 
+           DE_H, DE_J, DE_K, DE_L, DE_ODIA, ALT_T(DE_ADIA), 
+    KC_RALT, DE_N, DE_M, DE_COMM, DE_DOT, CTL_T(DE_MINS), KC_RSFT, 
+                         MEH_T(DE_HASH), ALL_T(DE_ACUT), LGUI(KC_LSFT), LALT(KC_LSFT), LT(SYMB,DE_PLUS), 
     KC_LEFT, KC_RIGHT, 
     KC_UP, 
     KC_DOWN, KC_ENT, KC_SPC),
@@ -152,19 +152,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB]=LAYOUT_ergodox(
 //left half
     KC_APPLICATION, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F5, 
-    KC_TRNS, DE_OSX_LESS, DE_OSX_MORE, DE_OSX_EXLM, DE_OSX_QST, KC_TRNS, KC_TRNS, 
-    KC_TRNS, DE_OSX_HASH, DE_OSX_DLR, DE_OSX_BSLS, DE_OSX_SLSH, KC_DOT, 
-    KC_TRNS, KC_TRNS, DE_OSX_LESS, DE_OSX_PERC, DE_OSX_PIPE, DE_OSX_TILD, KC_TRNS, 
+    KC_TRNS, DE_LABK, DE_RABK, DE_EXLM, DE_QST, KC_TRNS, KC_TRNS, 
+    KC_TRNS, DE_HASH, DE_DLR, DE_BSLS, DE_SLSH, KC_DOT, 
+    KC_TRNS, KC_TRNS, DE_LABK, DE_PERC, DE_PIPE, DE_TILD, KC_TRNS, 
                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
                                               KC_TRNS, KC_TRNS, 
                                                      KC_TRNS, 
                                        KC_TRNS, KC_DEL, KC_TRNS, 
     //right half
     KC_F6, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, 
-    KC_TRNS, DE_OSX_BSLS, DE_OSX_LBRC, DE_OSX_RBRC, DE_OSX_LESS, DE_OSX_MORE, DE_OSX_EXLM, 
-           DE_OSX_SLSH, DE_OSX_LPRN, DE_OSX_RPRN, DE_OSX_LCBR, DE_OSX_RCBR, DE_OSX_HASH, 
-    KC_TRNS, DE_OSX_PIPE, DE_OSX_TILD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-                         DE_OSX_QUOT, DE_OSX_DQOT, KC_TRNS, M(M_TOGGLE_5), KC_TRNS, 
+    KC_TRNS, DE_BSLS, DE_LBRC, DE_RBRC, DE_LABK, DE_RABK, DE_EXLM, 
+           DE_SLSH, DE_LPRN, DE_RPRN, DE_LCBR, DE_RCBR, DE_HASH, 
+    KC_TRNS, DE_PIPE, DE_TILD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+                         DE_QUOT, DE_DQUO, KC_TRNS, M(M_TOGGLE_5), KC_TRNS, 
     KC_F13, KC_F12, 
     KC_F14, 
     KC_F15, KC_TRNS, KC_TRNS),
@@ -317,10 +317,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_TRNS, KC_TRNS, KC_TRNS, 
     //right half
     KC_TRNS, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, 
-    KC_TRNS, DE_OSX_SLSH, KC_7, KC_8, KC_9, DE_OSX_ASTR, KC_F12, 
-           DE_OSX_SLSH, KC_4, KC_5, KC_6, DE_OSX_PLUS, DE_OSX_MINS, 
-    KC_TRNS, DE_OSX_PERC, KC_1, KC_2, KC_3, KC_TRNS, KC_TRNS, 
-                         KC_0, KC_DOT, KC_COMM, DE_OSX_EQL, KC_TRNS, 
+    KC_TRNS, DE_SLSH, KC_7, KC_8, KC_9, DE_ASTR, KC_F12, 
+           DE_SLSH, KC_4, KC_5, KC_6, DE_PLUS, DE_MINS, 
+    KC_TRNS, DE_PERC, KC_1, KC_2, KC_3, KC_TRNS, KC_TRNS, 
+                         KC_0, KC_DOT, KC_COMM, DE_EQL, KC_TRNS, 
     KC_TRNS, KC_TRNS, 
     KC_TRNS, 
     KC_TRNS, KC_TRNS, KC_TRNS),
@@ -394,7 +394,7 @@ if (record->event.pressed) {
 			if (timer_elapsed(start) >150) {
 				return MACRO_NONE;
 			} else {
-				return MACRO(DOWN(KC_LSFT),TYPE(DE_OSX_HASH),UP(KC_LSFT),END);
+				return MACRO(DOWN(KC_LSFT),TYPE(DE_HASH),UP(KC_LSFT),END);
 			}
 		}
 
@@ -422,8 +422,8 @@ if (record->event.pressed){
 return MACRO_NONE;
 
 break;
-case M_DE_OSX_PLUS_CTRLALT:
-//Macro: M_DE_OSX_PLUS_CTRLALT//-----------------------
+case M_DE_PLUS_CTRLALT:
+//Macro: M_DE_PLUS_CTRLALT//-----------------------
 if (record->event.pressed) {
 			start = timer_read();
 			return MACRO(DOWN(KC_LCTRL),DOWN(KC_LALT),END);
@@ -516,8 +516,8 @@ if (record->event.pressed) {
 		}
 
 break;
-case M_DE_OSX_CIRC_CTRLCMD:
-//Macro: M_DE_OSX_CIRC_CTRLCMD//-----------------------
+case M_DE_CIRC_CTRLCMD:
+//Macro: M_DE_CIRC_CTRLCMD//-----------------------
 if (record->event.pressed) {
 			start = timer_read();
 			return MACRO(DOWN(KC_LCTRL),DOWN(KC_LGUI),END);
@@ -539,7 +539,7 @@ if (record->event.pressed) {
 			if (timer_elapsed(start) >150) {
 				return MACRO(U(LCTRL),U(LSFT),U(LALT),END);
 			} else {
-				return MACRO(UP(KC_LCTRL),UP(KC_LALT),TYPE(DE_OSX_ACUT),UP(KC_LSFT),END);
+				return MACRO(UP(KC_LCTRL),UP(KC_LALT),TYPE(DE_ACUT),UP(KC_LSFT),END);
 			}
 		}
 

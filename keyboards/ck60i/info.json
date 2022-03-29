@@ -2,8 +2,6 @@
     "keyboard_name": "CK60i",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

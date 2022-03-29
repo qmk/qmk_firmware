@@ -2,8 +2,6 @@
     "keyboard_name": "frankie_macropad",
     "url": "https://github.com/eric-wood/macro-pad",
     "maintainer": "eric-wood",
-    "width": 3,
-    "height": 2,
     "layouts": {
         "LAYOUT": {
             "layout": [

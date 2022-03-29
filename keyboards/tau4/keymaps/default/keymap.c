@@ -101,7 +101,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -109,10 +109,11 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_status(void) {
     oled_write_P(PSTR("Tau.4 v1.0\n\n"), false);
@@ -139,7 +140,8 @@ static void render_status(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_status();
+    return false;
 }
 #endif

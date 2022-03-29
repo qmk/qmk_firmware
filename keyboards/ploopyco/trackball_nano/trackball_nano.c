@@ -18,6 +18,7 @@
  */
 
 #include "trackball_nano.h"
+#include "wait.h"
 
 #ifndef OPT_DEBOUNCE
 #    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
@@ -36,23 +37,26 @@
 #endif
 
 #ifndef PLOOPY_DPI_OPTIONS
-#    define PLOOPY_DPI_OPTIONS {300,1000,2000,3000}
+#    define PLOOPY_DPI_OPTIONS \
+        { 375, 750, 1375 }
 #    ifndef PLOOPY_DPI_DEFAULT
 #        define PLOOPY_DPI_DEFAULT 3
 #    endif
 #endif
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { };
+#ifndef PLOOPY_DPI_DEFAULT
+#    define PLOOPY_DPI_DEFAULT 2
+#endif
 
 // Transformation constants for delta-X and delta-Y
-const static float ADNS_X_TRANSFORM = -1.0;
-const static float ADNS_Y_TRANSFORM = 1.0;
+const static float ADNS5050_X_TRANSFORM = -1.0;
+const static float ADNS5050_Y_TRANSFORM = 1.0;
 
 #define SCROLL_X_THRESHOLD 60
 #define SCROLL_Y_THRESHOLD 30
 
 keyboard_config_t keyboard_config;
-uint16_t dpi_array[] = PLOOPY_DPI_OPTIONS;
+uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
 
 // TODO: Implement libinput profiles
@@ -116,7 +120,7 @@ __attribute__((weak)) void process_mouse_user(report_mouse_t* mouse_report, int1
 }
 
 __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
-    report_adns_t data = adns_read_burst();
+    report_adns5050_t data = adns5050_read_burst();
 
     // Note: using scroll_lock here didn't work when I tested it.
     // But using num_lock does work, so we use that instead.
@@ -130,8 +134,8 @@ __attribute__((weak)) void process_mouse(report_mouse_t* mouse_report) {
         // x and y are swapped
         // the sensor is rotated
         // by 90 degrees
-        float xt = (float) data.dy * ADNS_X_TRANSFORM;
-        float yt = (float) data.dx * ADNS_Y_TRANSFORM;
+        float xt = (float) data.dy * ADNS5050_X_TRANSFORM;
+        float yt = (float) data.dx * ADNS5050_Y_TRANSFORM;
 
         int16_t xti = (int16_t)xt;
         int16_t yti = (int16_t)yt;
@@ -155,7 +159,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (keycode == DPI_CONFIG && record->event.pressed) {
         keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
         eeconfig_update_kb(keyboard_config.raw);
-        adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
+        adns5050_set_cpi(dpi_array[keyboard_config.dpi_config]);
     }
 
 /* If Mousekeys is disabled, then use handle the mouse button
@@ -183,7 +187,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 void keyboard_pre_init_kb(void) {
     // debug_enable = true;
     // debug_matrix = true;
-    debug_mouse = true;
+    // debug_mouse = true;
     // debug_encoder = true;
 
     setPinInput(OPT_ENC1);
@@ -205,9 +209,12 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-void pointing_device_init(void) {
-    adns_init();
-    opt_encoder_init();
+void pointing_device_init_kb(void) {
+    // set the DPI.
+    pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
+    adns5050_set_cpi(dpi_array[keyboard_config.dpi_config]);
+
+    adns5050_init();
 }
 
 void pointing_device_task(void) {
@@ -234,7 +241,5 @@ void matrix_init_kb(void) {
 }
 
 void keyboard_post_init_kb(void) {
-    adns_set_cpi(dpi_array[keyboard_config.dpi_config]);
-
     keyboard_post_init_user();
 }

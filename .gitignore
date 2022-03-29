@@ -1,35 +1,32 @@
-.history/
-.dep
-*.o
-*.bin
-*.eep
+# Junk files
+*.bak
+*.swp
+*~
+.DS_Store
+._*
+
+# Build artifacts
+.clang_complete
+.build/
 *.elf
-*.hex
-*.qmk
-!util/bootloader.hex
-!quantum/tools/eeprom_reset.hex
 *.log
 *.lss
 *.lst
 *.map
+*.o
+*.stackdump
 *.sym
-*.swp
-tags
-*~
+
+# QMK-specific
 api_data/v1
-build/
-.build/
-*.bak
-.vagrant/
 quantum/version.h
-.idea/
-CMakeLists.txt
-cmake-build-debug
-.clang_complete
-doxygen/
-.DS_Store
-/util/wsl_downloaded
-/util/win_downloaded
+*.bin
+*.eep
+*.hex
+*.qmk
+*.uf2
+
+# Old-style QMK Makefiles
 /keyboards/*/Makefile
 /keyboards/*/*/Makefile
 /keyboards/*/*/*/Makefile
@@ -42,40 +39,55 @@ doxygen/
 /keyboards/*/*/*/*/*/keymaps/Makefile
 
 # Eclipse/PyCharm/Other IDE Settings
-.cproject
-.project
-.settings/
-.idea
 *.iml
 .browse.VC.db*
-*.stackdump
+.cproject
+.idea
+.idea/
+.project
+.settings/
+.vagrant/
+
+# ?
+.dep
+.history/
+build/
+cmake-build-debug
+CMakeLists.txt
+
 # Let these ones be user specific, since we have so many different configurations
 *.code-workspace
-.vscode/c_cpp_properties.json
-.vscode/launch.json
-.vscode/tasks.json
-.vscode/last.sql
-.vscode/temp.sql
-.vscode/ipch/
 .stfolder
 .tags
+.vscode/c_cpp_properties.json
+.vscode/ipch/
+.vscode/last.sql
+.vscode/launch.json
+.vscode/tasks.json
+.vscode/temp.sql
+tags
 
-# ignore image files
-*.png
+# Ignore image files
 *.gif
 *.jpg
+*.png
 
-# things travis sees
-secrets.tar
-id_rsa_*
+# Things Travis sees
 /.vs
+id_rsa_*
+secrets.tar
 
-# python things
+# Python things
 __pycache__
 .python-version
 
-# prerequisites for updating ChibiOS
+# Prerequisites for updating ChibiOS
 /util/fmpp*
 
 # Allow to exist but don't include it in the repo
 user_song_list.h
+
+# clangd
+compile_commands.json
+.clangd/
+.cache/

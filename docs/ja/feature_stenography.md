@@ -1,8 +1,8 @@
 # QMK での速記 :id=stenography-in-qmk
 
 <!---
-  original document: 0.10.33:docs/feature_stenography.md
-  git diff 0.10.33 HEAD -- docs/feature_stenography.md | cat
+  original document: 0.13.15:docs/feature_stenography.md
+  git diff 0.13.15 HEAD -- docs/feature_stenography.md | cat
 -->
 
 [速記](https://en.wikipedia.org/wiki/Stenotype)は裁判所のレポート、字幕および耳が不自由な人のためのリアルタイムの文字起こしで最もよく使われる記述方法です。速記では単語はスペル、音声およびショートカット(短い)ストロークが混在する音節ごとに音節化されます。プロの速記者は、標準的なタイピングで通常見られる負担を掛けずに、はるかに少ないエラー(99.9%より高い精度)で、200-300 WPM に到達できます。
@@ -45,8 +45,8 @@ MOUSEKEY_ENABLE = no
 キーマップで Plover 用の新しいレイヤーを作成します。`keymap_steno.h` をインクルードする必要があります。例については `planck/keymaps/steno/keymap.c` を見てください。レイヤーに切り替えるためのキーとレイヤーから抜けるためのキーを作成することを忘れないでください。その場でモードを切り替えたい場合は、キーコード `QK_STENO_BOLT` および `QK_STENO_GEMINI` を使うことができます。プロトコルのうちの1つのみを使う場合は、初期化関数の中でそれをセットアップすることができます:
 
 ```c
-void matrix_init_user() {
-  steno_set_mode(STENO_MODE_GEMINI); // あるいは STENO_MODE_BOLT
+void eeconfig_init_user() {
+    steno_set_mode(STENO_MODE_GEMINI); // あるいは STENO_MODE_BOLT
 }
 ```
 

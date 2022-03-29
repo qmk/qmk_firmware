@@ -25,6 +25,10 @@
 #include <string.h>
 #include "layer_number.h"
 
+char *sprints(char *buf, char *src);
+char *sprintd(char *buf, char *leadstr, int data);
+char *sprint2d(char *buf, char *leadstr, int data);
+
 extern int current_default_layer;
 
 void init_helix_oled(void) {
@@ -35,9 +39,9 @@ void init_helix_oled(void) {
 }
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#if defined(SSD1306OLED) || defined(OLED_DRIVER_ENABLE)
+#if defined(SSD1306OLED) || defined(OLED_ENABLE)
 
-#    if defined(OLED_DRIVER_ENABLE)
+#    if defined(OLED_ENABLE)
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_0;
@@ -76,20 +80,35 @@ static void render_logo(void) {
         0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
         0};
     oled_write_P(helix_logo, false);
-#    ifdef RGBLIGHT_ENABLE
     char buf[30];
+    char *bufp;
+#    ifdef RGBLIGHT_ENABLE
     if (RGBLIGHT_MODES > 1 && rgblight_is_enabled()) {
-        snprintf(buf, sizeof(buf), " LED %2d: %d,%d,%d ",
-                 rgblight_get_mode(),
-                 rgblight_get_hue()/RGBLIGHT_HUE_STEP,
-                 rgblight_get_sat()/RGBLIGHT_SAT_STEP,
-                 rgblight_get_val()/RGBLIGHT_VAL_STEP);
+        bufp = sprint2d(buf, " LED ", rgblight_get_mode());
+#        ifdef DEBUG_MATRIX_SCAN_RATE
+        bufp = sprintd(bufp, "  scan:", get_matrix_scan_rate());
+#        else
+        bufp = sprintd(bufp, ": ", rgblight_get_hue()/RGBLIGHT_HUE_STEP);
+        bufp = sprintd(bufp, ",", rgblight_get_sat()/RGBLIGHT_SAT_STEP);
+        bufp = sprintd(bufp, ",", rgblight_get_val()/RGBLIGHT_VAL_STEP);
+        bufp = sprints(bufp, " ");
+#        endif
         oled_write(buf, false);
 #        ifndef SSD1306OLED
     } else {
+#        ifdef DEBUG_MATRIX_SCAN_RATE
+        bufp = sprintd(buf, "  scan:", get_matrix_scan_rate());
+        oled_write(buf, false);
+#        endif
         oled_write_P( PSTR("\n"), false);
 #        endif
     }
+#    else
+#        ifdef DEBUG_MATRIX_SCAN_RATE
+    bufp = sprintd(buf, " scan:", get_matrix_scan_rate());
+    bufp = sprints(bufp, " ");
+    oled_write(buf, false);
+#        endif
 #    endif
 }
 
@@ -142,6 +161,11 @@ void render_status(void) {
     int name_num;
     uint32_t lstate;
     oled_write_P(layer_names[current_default_layer], false);
+#    ifdef DEBUG_MATRIX_SCAN_RATE
+    char buf[16];
+    sprintd(buf, " scan:", get_matrix_scan_rate());
+    oled_write(buf, false);
+#    endif
     oled_write_P(PSTR("\n"), false);
     for (lstate = layer_state, name_num = 0;
          lstate && name_num < sizeof(layer_names)/sizeof(char *);
@@ -152,14 +176,13 @@ void render_status(void) {
             }
         }
     }
+    oled_write_P(PSTR("\n"), false);
 
     // Host Keyboard LED Status
-    char led[40];
-    snprintf(led, sizeof(led), "\n%s  %s  %s",
-             (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-             (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-    oled_write(led, false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUMLOCK  ") : PSTR("         "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPS  ") : PSTR("      "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCLK  ") : PSTR("      "), false);
 }
 
 #    ifdef SSD1306OLED
@@ -191,7 +214,7 @@ void iota_gfx_task_user(void) {
     matrix_update(&display, &matrix);
 }
 #    else
-void oled_task_user(void) {
+bool oled_task_user(void) {
 
 #        if DEBUG_TO_SCREEN
     if (debug_enable) {
@@ -204,6 +227,7 @@ void oled_task_user(void) {
     }else{
         render_logo();
     }
+    return false;
 }
 #    endif
 

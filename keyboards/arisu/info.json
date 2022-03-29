@@ -2,8 +2,6 @@
     "keyboard_name": "Arisu",
     "url": "https://github.com/FateNozomi/arisu-pcb",
     "maintainer": "FateNozomi",
-    "width": 18.3,
-    "height": 5.25,
     "layouts": {
         "LAYOUT": {
             "layout": [

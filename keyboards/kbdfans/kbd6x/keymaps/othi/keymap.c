@@ -29,15 +29,15 @@
 void eeconfig_init_user(void) {
   set_unicode_input_mode(UC_LNX);
 }
-#define DE_AE     UC(0x00E4)
-#define DE_SS     UC(0x00DF)
-#define DE_OE     UC(0x00F6)
-#define DE_UE     UC(0x00FC)
-#define DE_AE_CAP UC(0x00C4)
-#define DE_OE_CAP UC(0x00D6)
-#define DE_UE_CAP UC(0x00DC)
+#define DE_ADIA     UC(0x00E4)
+#define DE_SS       UC(0x00DF)
+#define DE_ODIA     UC(0x00F6)
+#define DE_UDIA     UC(0x00FC)
+#define DE_ADIA_CAP UC(0x00C4)
+#define DE_ODIA_CAP UC(0x00D6)
+#define DE_UDIA_CAP UC(0x00DC)
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     switch (biton32(state)) {
     case NM_MODE:
         rgblight_setrgb (0x00,  0x66, 0x00);
@@ -174,15 +174,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
   [ACCENT] = LAYOUT(
       _______,       KC_F1,  KC_F2, KC_F3,    KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,  KC_F12,  _______, _______,
-      _______,         RGB_TOG,    RGB_MODE_PLAIN,  _______,    _______,    _______,    _______,    _______,    DE_UE,    _______,    _______,     _______, _______, _______,
-      _______,            DE_AE,    UC_Z,    DE_SS,      _______,    _______,    _______,   _______,   _______,     _______,    DE_OE,  _______, _______,
+      _______,         RGB_TOG,    RGB_MODE_PLAIN,  _______,    _______,    _______,    _______,    _______,    DE_UDIA,    _______,    _______,     _______, _______, _______,
+      _______,            DE_ADIA,    UC_Z,    DE_SS,      _______,    _______,    _______,   _______,   _______,     _______,    DE_ODIA,  _______, _______,
       OSL(ACCENT_CAP),     _______,  _______, _______,      _______,    _______,    _______,    _______,    _______,    _______,        _______, _______, TO(CL),
       _______,             _______,         _______,            _______,         _______, _______,  _______
       ),
   [ACCENT_CAP] = LAYOUT(
       _______,   _______,  _______, _______,    _______,          _______,     _______,     _______,     _______,     _______,     _______,    _______,  _______,  _______, _______,
-      _______,      _______,    _______,  _______,    _______,    _______,    _______,    _______,    DE_UE_CAP,    _______,    _______,     _______, _______, _______,
-      _______,        DE_AE_CAP,    _______,    DE_SS,      _______,    _______,    _______,   _______,   _______,     _______,    DE_OE_CAP,  _______, TO(CL),
+      _______,      _______,    _______,  _______,    _______,    _______,    _______,    _______,    DE_UDIA_CAP,    _______,    _______,     _______, _______, _______,
+      _______,        DE_ADIA_CAP,    _______,    DE_SS,      _______,    _______,    _______,   _______,   _______,     _______,    DE_ODIA_CAP,  _______, TO(CL),
       _______, 	       _______, _______,      _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, _______, _______,
       _______,   _______,         _______,         _______,         _______,   _______,      _______
       ),

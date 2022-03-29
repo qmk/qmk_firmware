@@ -70,14 +70,17 @@ void matrix_scan_user(void) {
     }
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         encoder_cw.pressed = true;
         encoder_cw.time = (timer_read() | 1);
         action_exec(encoder_cw);
+        wait_ms(20);
     } else {
         encoder_ccw.pressed = true;
         encoder_ccw.time = (timer_read() | 1);
         action_exec(encoder_ccw);
+        wait_ms(20);
     }
+    return true;
 }

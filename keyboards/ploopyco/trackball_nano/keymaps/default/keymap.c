@@ -20,4 +20,11 @@
 
 // safe range starts at `PLOOPY_SAFE_RANGE` instead.
 
-// placeholder file so it will compile
+void keyboard_pre_init_user() {
+    PloopyAcceleration = false;
+    PloopyNumlockScroll = false;
+    PloopyNumlockScrollVDir = -1;
+}
+
+// Dummy
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};

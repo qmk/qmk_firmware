@@ -58,7 +58,7 @@ const uint16_t PROGMEM encoders[][2] = {
     { KC_VOLU, KC_VOLD }
 };
 
-void encoder_update_user(uint8_t index, bool clockwise)
+bool encoder_update_user(uint8_t index, bool clockwise)
 {
     if (!is_keyboard_master())
         return;
@@ -69,4 +69,5 @@ void encoder_update_user(uint8_t index, bool clockwise)
     else
 #endif // RGB_OLED_MENU
         tap_code16(pgm_read_word(&encoders[index][clockwise]));
+    return true;
 }

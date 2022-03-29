@@ -2,8 +2,6 @@
     "keyboard_name": "Draytronics SCARLET",
     "url": "https://www.draytronics.co.uk/scarlet",
     "maintainer": "ghostseven",
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [

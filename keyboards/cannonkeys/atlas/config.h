@@ -50,6 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 22
 #define WS2812_SPI_MOSI_PAL_MODE 0
+#define WS2812_SPI_SCK_PAL_MODE 0
+#define WS2812_SPI_SCK_PIN B13
 
 /*
  * Feature disable options
@@ -66,5 +68,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

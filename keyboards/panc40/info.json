@@ -2,11 +2,8 @@
     "keyboard_name": "Panc40",
     "url": "",
     "maintainer": "qmk",
-    "width": 12,
-    "height": 4,
     "layouts": {
         "LAYOUT_all": {
-            "key_count": 45,
             "layout": [
                 {"label":"K00", "x":0, "y":0},
                 {"label":"K01", "x":1, "y":0},
@@ -56,7 +53,6 @@
             ]
         },
         "LAYOUT_minorca": {
-            "key_count": 42,
             "layout": [
                 {"label":"K00", "x":0, "y":0},
                 {"label":"K01", "x":1, "y":0},
@@ -103,7 +99,6 @@
             ]
         },
         "LAYOUT_sebright": {
-            "key_count": 41,
             "layout": [
                 {"label":"K00", "x":0, "y":0},
                 {"label":"K01", "x":1, "y":0},
