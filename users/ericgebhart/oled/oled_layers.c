@@ -157,8 +157,6 @@ void oled_render_layer_state(void) {
 #ifdef COMBO_REF_LAYER_ENABLE
     WRITE_STR_CASE(_COMBO_REF, "COMBO Ref");
 #endif
-  default:
-    oled_write_P(PSTR("dont know"), false);            \
 
   }
 }
