@@ -268,9 +268,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 					} else {
 						if (led_enabled) {
 							ap2_led_disable();
+							rgb_matrix_disable();
 							led_enabled = 0;
 						} else {
 							ap2_led_enable();
+							rgb_matrix_enable();
 							led_enabled = 1;
 						}
 						return true;
