@@ -38,7 +38,12 @@ def print_dotted_output(kb_info_json, prefix=''):
         elif isinstance(kb_info_json[key], dict):
             print_dotted_output(kb_info_json[key], new_prefix)
         elif isinstance(kb_info_json[key], list):
-            cli.echo('    {fg_blue}%s{fg_reset}: %s', new_prefix, ', '.join(map(str, sorted(kb_info_json[key]))))
+            data = kb_info_json[key]
+            if len(data) and isinstance(data[0], dict):
+                for index, item in enumerate(data, start=0):
+                    cli.echo('    {fg_blue}%s.%s{fg_reset}: %s', new_prefix, index, str(item))
+            else:
+                cli.echo('    {fg_blue}%s{fg_reset}: %s', new_prefix, ', '.join(sorted(map(str, data))))
         else:
             cli.echo('    {fg_blue}%s{fg_reset}: %s', new_prefix, kb_info_json[key])
 
