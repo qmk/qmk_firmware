@@ -42,6 +42,8 @@ static const SerialConfig ble_uart_config = {
 
 static uint8_t led_mcu_wakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02};
 
+static uint8_t led_enabled = 1;
+
 ble_capslock_t ble_capslock = {._dummy = {0}, .caps_lock = false};
 
 #ifdef RGB_MATRIX_ENABLE
@@ -264,7 +266,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 						rgb_matrix_decrease_speed();
 						return false;
 					} else {
-						rgb_matrix_toggle();
+						if (led_enabled) {
+							ap2_led_disable();
+							led_enabled = 0;
+						} else {
+							ap2_led_enable();
+							led_enabled = 1;
+						}
 						return true;
 					}
 				}
