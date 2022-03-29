@@ -4,7 +4,7 @@
     "maintainer": "Mai The San",
     "layouts": {
         "LAYOUT_all": {
-            "layout_all": [
+            "layout": [
                 { "label": "", "x": 0, "y": 0 },
                 { "label": "", "x": 1, "y": 0 },
                 { "label": "", "x": 2, "y": 0 },
@@ -78,7 +78,7 @@
             ]
         },
         "LAYOUT_VIA": {
-            "layout_all": [
+            "layout": [
                 { "label": "", "x": 14.75, "y": 0, "w": 0.75, "h": 0.75 },
                 { "label": "", "x": 15.5, "y": 0, "w": 0.75, "h": 0.75 },
                 { "label": "", "x": 0, "y": 0.75 },
