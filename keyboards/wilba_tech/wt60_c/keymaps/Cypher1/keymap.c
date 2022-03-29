@@ -11,8 +11,7 @@
 #define MS_DOWN KC_MS_DOWN
 #define MS_LEFT KC_MS_LEFT
 #define MS_RGHT KC_MS_RIGHT
-#define DF_CODE DF(CODING)
-#define DF_GAME DF(GAMING)
+#define TG_GAME TG(GAMING)
 
 enum LAYERS {
   CODING, // All the bells and whistles for coding.
@@ -26,14 +25,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,  KC_EQL, KC_BSPC, XXXXXXX,
       KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
       MO(FN),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,  KC_ENT,
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT, DF_GAME,
+      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT, TG_GAME,
       KC_LCTL, KC_LGUI, KC_LALT,                         SPC_FN(FN),                            KC_RALT, MO(CTRL), KC_RCTL
   ),
   [GAMING] = LAYOUT_all(
        KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DF_CODE,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TG_GAME,
       _______, _______, _______,                             KC_SPC,                            _______, _______, _______
   ),
   [FN] = LAYOUT_all(
