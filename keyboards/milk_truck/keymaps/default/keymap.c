@@ -19,6 +19,7 @@ enum layers{
   _BASE,
   _NUM_SYM,
   _FKEY_RGB,
+  _NAV,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
