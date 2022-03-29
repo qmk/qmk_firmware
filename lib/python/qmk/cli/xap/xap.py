@@ -56,11 +56,12 @@ def _xap_transaction(device, sub, route, ret_len, *args):
         args_len += 2
         args_data = args[0].to_bytes(2, byteorder='big')
 
-    padding = b"\x00" * (64 - 3 - args_len)
+    padding_len = 64 - 3 - args_len
+    padding = b"\x00" * padding_len
     if args_data:
         padding = args_data + padding
     buffer = token + args_len.to_bytes(1, byteorder='big') + sub.to_bytes(1, byteorder='big') + route.to_bytes(1, byteorder='big') + padding
-    
+
     # prepend 0 on windows because reasons...
     if 'windows' in platform().lower():
         buffer = b"\x00" + buffer

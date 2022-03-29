@@ -121,4 +121,3 @@ def generate_header(output_file, keyboard):
     lines.append('')
 
     dump_lines(output_file, lines)
-
