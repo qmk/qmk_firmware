@@ -6,9 +6,12 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x4344 //CD for Charue Design
-#define PRODUCT_ID   0x5335 //S2 for Sunsetter R2
-#define DEVICE_VER   0x0001 //Base version
+// 0x4344 = CD for Charue Design
+#define VENDOR_ID    0x4344
+// 0x5335 = S2 for Sunsetter R2
+#define PRODUCT_ID   0x5335
+// 0x0001 = 1 for Base version
+#define DEVICE_VER   0x0001
 #define MANUFACTURER Charue Design
 #define PRODUCT      Sunsetter R2
 
@@ -31,7 +34,10 @@
 #define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
 #    define RGBLED_NUM 10
-#    define RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_RGB_TEST
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
