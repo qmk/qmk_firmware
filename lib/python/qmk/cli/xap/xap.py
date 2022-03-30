@@ -51,7 +51,7 @@ def print_dotted_output(kb_info_json, prefix=''):
 def _xap_transaction(device, sub, route, ret_len, *args):
     # gen token
     tok = random.getrandbits(16)
-    token = tok.to_bytes(2, byteorder='big')
+    token = tok.to_bytes(2, byteorder='little')
 
     # send with padding
     # TODO: this code is total garbage
@@ -59,13 +59,13 @@ def _xap_transaction(device, sub, route, ret_len, *args):
     args_len = 2
     if len(args) == 1:
         args_len += 2
-        args_data = args[0].to_bytes(2, byteorder='big')
+        args_data = args[0].to_bytes(2, byteorder='little')
 
     padding_len = 64 - 3 - args_len
     padding = b"\x00" * padding_len
     if args_data:
         padding = args_data + padding
-    buffer = token + args_len.to_bytes(1, byteorder='big') + sub.to_bytes(1, byteorder='big') + route.to_bytes(1, byteorder='big') + padding
+    buffer = token + args_len.to_bytes(1, byteorder='little') + sub.to_bytes(1, byteorder='little') + route.to_bytes(1, byteorder='little') + padding
 
     # prepend 0 on windows because reasons...
     if 'windows' in platform().lower():

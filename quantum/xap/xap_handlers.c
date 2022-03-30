@@ -40,18 +40,3 @@ bool xap_respond_u32(xap_token_t token, uint32_t value) {
 uint32_t xap_route_qmk_ffffffffffffffff_getter(void) {
     return 0x12345678;
 }
-
-bool xap_respond_info_json_gz(xap_token_t token, const uint8_t *data, size_t data_len) {
-    if (data_len != 2) {
-        xap_respond_failure(token, 0);
-        return false;
-    }
-
-    uint8_t  blob[32] = {0};
-    uint16_t offset   = ((uint16_t)data[0]) << 8 | data[1];
-
-    void get_info_json_chunk(uint8_t * data, size_t offset);
-    get_info_json_chunk(blob, offset);
-
-    return xap_respond_data(token, blob, 32);
-}

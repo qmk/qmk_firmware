@@ -18,13 +18,13 @@
 #include <xap.h>
 
 #include "info_json_gz.h"
-void get_info_json_chunk(uint8_t *data, size_t offset) {
-    uint8_t len = 32;
-    if (offset + len > info_json_gz_len) {
-        len = info_json_gz_len - offset;
+bool get_info_json_chunk(uint16_t offset, uint8_t *data, uint8_t data_len) {
+    if (offset + data_len > info_json_gz_len) {
+        data_len = info_json_gz_len - offset;
     }
 
-    memcpy_P(data, &info_json_gz[offset], len);
+    memcpy_P(data, &info_json_gz[offset], data_len);
+    return true;
 }
 
 #define QSTR2(z) #z

@@ -24,6 +24,20 @@ def _get_c_type(xap_type):
     return 'unknown'
 
 
+def _get_c_size(xap_type):
+    if xap_type == 'u8':
+        return 1
+    elif xap_type == 'u16':
+        return 2
+    elif xap_type == 'u32':
+        return 4
+    elif xap_type == 'u64':
+        return 8
+    elif xap_type == 'u8[32]':
+        return 32
+    return -1
+
+
 def _get_route_type(container):
     if 'routes' in container:
         return 'XAP_ROUTE'
@@ -52,8 +66,26 @@ def _append_routing_table_declaration(lines, container, container_id, route_stac
 
     elif 'return_execute' in container:
         execute = container['return_execute']
-        lines.append('')
-        lines.append(f'bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_len);')
+        request_type = container['request_type']
+        return_type = container['return_type']
+        lines.append(f'''
+bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_len) {{
+    if (data_len != sizeof({_get_c_type(request_type)})) {{
+        xap_respond_failure(token, 0);
+        return false;
+    }}
+
+    uint8_t ret[{_get_c_size(return_type)}] = {{0}};
+    {_get_c_type(request_type)} *argp   = ({_get_c_type(request_type)} *)&data[0];
+
+    bool {execute}({_get_c_type(request_type)} arg, uint8_t *ret, uint8_t ret_len);
+    if(!{execute}(*argp, ret, sizeof(ret))) {{
+        xap_respond_failure(token, 0);
+        return false;
+    }}
+
+    return xap_respond_data(token, ret, sizeof(ret));
+}}''')
 
     elif 'return_constant' in container:
 

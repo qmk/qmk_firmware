@@ -234,7 +234,7 @@
                     request_type: u16
                     request_purpose: offset
                     return_type: u8[32]
-                    return_execute: info_json_gz
+                    return_execute: get_info_json_chunk
                 }
             }
         },
