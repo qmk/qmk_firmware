@@ -34,7 +34,7 @@
 #        endif
 #    elif defined(STM32F401xC) || defined(STM32F401xE) || defined(STM32F405xG) || defined(STM32F411xE)
 #        ifndef FEE_PAGE_SIZE
-#            define FEE_PAGE_SIZE 0x4000 // Page size = 16KByte
+#            define FEE_PAGE_SIZE 0x4000// Page size = 16KByte
 #        endif
 #        ifndef FEE_PAGE_COUNT
 #            define FEE_PAGE_COUNT 1 // How many pages are used
