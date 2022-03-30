@@ -1,6 +1,6 @@
 # Command
 
-Command, formerly known as Magic, is a way to change your keyboard's behavior without having to flash or unplug it to use [Bootmagic Lite](feature_bootmagic.md). There is a lot of overlap between this functionality and the [Magic Keycodes](features_magic_keycodes.md). Wherever possible we encourage you to use that feature instead of Command.
+Command, formerly known as Magic, is a way to change your keyboard's behavior without having to flash or unplug it to use [Bootmagic Lite](feature_bootmagic.md). There is a lot of overlap between this functionality and the [Magic Keycodes](feature_magic_keycodes.md). Wherever possible we encourage you to use that feature instead of Command.
 
 On some keyboards Command is disabled by default. If this is the case, it must be explicitly enabled in your `rules.mk`:
 

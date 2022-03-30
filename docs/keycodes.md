@@ -104,7 +104,7 @@ See also: [Leader Key](feature_leader_key.md)
 
 ## Magic Keycodes :id=magic-keycodes
 
-See also: [Magic Keycodes](features_magic_keycodes.md)
+See also: [Magic Keycodes](feature_magic_keycodes.md)
 
 [keycodes/keycodes_magic.md](keycodes/keycodes_magic.md ':include')
 
