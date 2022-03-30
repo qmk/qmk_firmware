@@ -68,7 +68,8 @@ def _append_routing_table_declaration(lines, container, container_id, route_stac
         execute = container['return_execute']
         request_type = container['request_type']
         return_type = container['return_type']
-        lines.append(f'''
+        lines.append(
+            f'''
 bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_len) {{
     if (data_len != sizeof({_get_c_type(request_type)})) {{
         xap_respond_failure(token, 0);
@@ -85,7 +86,8 @@ bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_l
     }}
 
     return xap_respond_data(token, ret, sizeof(ret));
-}}''')
+}}'''
+        )
 
     elif 'return_constant' in container:
 
