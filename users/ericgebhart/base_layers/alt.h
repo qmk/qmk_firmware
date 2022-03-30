@@ -64,6 +64,18 @@
            "_R, _S, _T, _H, _K,    _J, _N, _E, _A, _I, TL_SCLN ",       \
            "_X, _C, _M, _P, _V,    _Z, TL_COMM, TL_DOT, TL_QUOT, TL_SLSH")
 
+
+#define CARTE_CTGAP                             \
+  carte_de_map("  vplcf  kuoyj",                \
+               "  rntsd  'aeih",                \
+               "  zbmgw  x,.;q")
+
+#define ___CTGAP___                                                     \
+    LANG_MAP(_V, _P, _L, _C, _F,   _K,      _U,      _O,     _Y,      _J, \
+             _R, _N, _T, _S, _D,   TL_QUOT, _A,      _E,     _I,      _H, \
+             _Z, _B, _M, _G, _W,   _X,      TL_COMM, TL_DOT, TL_SCLN, _Q)
+
+
 // RSTHD
 /* j c y f k | z l , u q = */
 /* r s t h d | m n a i o - */

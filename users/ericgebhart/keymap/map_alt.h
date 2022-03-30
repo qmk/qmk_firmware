@@ -33,7 +33,11 @@
 #endif
 
 #ifdef MTGAP_LAYER_ENABLE
-  B_LAYER(LANG_N(_MTGAP), ___10_NUMBERS___, ___MTGAP___),
+    B_LAYER(LANG_N(_MTGAP), ___10_NUMBERS___, ___MTGAP___),
+#endif
+
+#ifdef CTGAP_LAYER_ENABLE
+    B_LAYER(LANG_N(_CTGAP), ___10_NUMBERS___, ___CTGAP___),
 #endif
 
 #ifdef APT_LAYER_ENABLE

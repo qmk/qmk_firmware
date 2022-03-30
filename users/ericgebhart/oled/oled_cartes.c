@@ -61,6 +61,10 @@ void oled_render_layer_map(void) {
         SHOW_MAP(_MTGAP)
 #endif
 
+#ifdef CTGAP_LAYER_ENABLE
+        SHOW_MAP(_CTGAP)
+#endif
+
 #ifdef HD_NEU_LAYER_ENABLE
         SHOW_MAP(_HD_NEU)
 #endif

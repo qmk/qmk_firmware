@@ -60,34 +60,37 @@ void oled_render_default_layer_state(void) {
 #endif
 
 #ifdef HD_NEU_LAYER_ENABLE
-      WRITE_STR_LAYER(_HD_NEU, "HD neu")
+      WRITE_STR_LAYER(_HD_NEU, "HD Neu")
 #endif
 #ifdef HD_NEU_NARROW_LAYER_ENABLE
-      WRITE_STR_LAYER(_HD_NEU_NARROW, "HD neu N")
+      WRITE_STR_LAYER(_HD_NEU_NARROW, "HD Neu N")
 #endif
 #ifdef HD_GOLD_LAYER_ENABLE
-      WRITE_STR_LAYER(_HD_GOLD, "HD gold")
+      WRITE_STR_LAYER(_HD_GOLD, "HD Gold")
 #endif
 #ifdef HD_SILVER_LAYER_ENABLE
-      WRITE_STR_LAYER(_HD_SILVER, "HD silver")
+      WRITE_STR_LAYER(_HD_SILVER, "HD Silver")
 #endif
 #ifdef HD_PLATINUM_LAYER_ENABLE
-      WRITE_STR_LAYER(_HD_PLATINUM, "HD platinum")
+      WRITE_STR_LAYER(_HD_PLATINUM, "HD Platinum")
 #endif
 #ifdef HD_BRONZE_LAYER_ENABLE
-      WRITE_STR_LAYER(_HD_BRONZE, "HD bronze")
+      WRITE_STR_LAYER(_HD_BRONZE, "HD Bronze")
 #endif
 #ifdef HD_ELAN_LAYER_ENABLE
-      WRITE_STR_LAYER(_HD_ELAN, "HD elan")
+      WRITE_STR_LAYER(_HD_ELAN, "HD Elan")
 #endif
 #ifdef HD_DASH_LAYER_ENABLE
-      WRITE_STR_LAYER(_HD_DASH, "HD dash")
+      WRITE_STR_LAYER(_HD_DASH, "HD Dash")
 #endif
 #ifdef HD_REF_LAYER_ENABLE
-      WRITE_STR_LAYER(_HD_REF, "HD ref")
+      WRITE_STR_LAYER(_HD_REF, "HD Ref")
 #endif
 #ifdef MTGAP_LAYER_ENABLE
       WRITE_STR_LAYER(_MTGAP, "Mtgap")
+#endif
+#ifdef CTGAP_LAYER_ENABLE
+      WRITE_STR_LAYER(_CTGAP, "Ctgap")
 #endif
 #ifdef APT_LAYER_ENABLE
       WRITE_STR_LAYER(_APT, "Apt")

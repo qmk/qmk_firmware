@@ -57,7 +57,10 @@
       LANG_N(_APT),
 #endif
 #ifdef MTGAP_LAYER_ENABLE
-      LANG_N(_MTGAP),
+        LANG_N(_MTGAP),
+#endif
+#ifdef CTGAP_LAYER_ENABLE
+        LANG_N(_CTGAP),
 #endif
 #ifdef HD_NEU_LAYER_ENABLE
         LANG_N(_HD_NEU),
