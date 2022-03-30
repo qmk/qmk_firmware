@@ -1,6 +1,6 @@
 {
     "keyboard_name": "IBM Model M 101 ANSI/102 ISO", 
-    "url": "https://github.com/iw0rm3r/qmk_firmware/tree/modelm101_teensy2/keyboards/converter/modelm101_teensy2", 
+    "url": "https://github.com/wangfuco/qmk_firmware/tree/modelm101_teensy2/keyboards/converter/modelm101_teensy2", 
     "maintainer": "wangfuco", 
     "layouts": {
         "LAYOUT": {
