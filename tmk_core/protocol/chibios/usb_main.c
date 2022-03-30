@@ -113,7 +113,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
     static USBDescriptor desc;
     uint16_t             wValue = ((uint16_t)dtype << 8) | dindex;
     desc.ud_string              = NULL;
-    desc.ud_size                = get_usb_descriptor(wValue, wIndex, (const void **const)&desc.ud_string);
+    desc.ud_size                = get_usb_descriptor(wValue, wIndex, (const void **const) & desc.ud_string);
     if (desc.ud_string == NULL)
         return NULL;
     else
@@ -1155,7 +1155,7 @@ void xap_send(xap_token_t token, uint8_t response_flags, const void *data, size_
 }
 
 void xap_receive_base(const void *data) {
-    const uint8_t        *u8data = (const uint8_t *)data;
+    const uint8_t *       u8data = (const uint8_t *)data;
     xap_request_header_t *header = (xap_request_header_t *)&u8data[0];
     if (header->length <= (XAP_EPSIZE - sizeof(xap_request_header_t))) {
         xap_receive(header->token, &u8data[sizeof(xap_request_header_t)], header->length);

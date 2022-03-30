@@ -261,7 +261,7 @@ void xap_send(xap_token_t token, uint8_t response_flags, const void *data, size_
 }
 
 void xap_receive_base(const void *data) {
-    const uint8_t        *u8data = (const uint8_t *)data;
+    const uint8_t *       u8data = (const uint8_t *)data;
     xap_request_header_t *header = (xap_request_header_t *)&u8data[0];
     if (header->length <= (XAP_EPSIZE - sizeof(xap_request_header_t))) {
         xap_receive(header->token, &u8data[sizeof(xap_request_header_t)], header->length);
