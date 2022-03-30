@@ -1,6 +1,7 @@
 # lpadmini
 
-![lpadmini](https://github.com/bululau/lpad/blob/main/mini/IMG_0785.jpeg)
+![lpadmini](https://github.com/bululau/lpad/blob/main/mini/IMG_1273.jpeg)
+![lpadmini](https://github.com/bululau/lpad/blob/main/mini/IMG_1274.jpeg)
 
 lpad mini
 
