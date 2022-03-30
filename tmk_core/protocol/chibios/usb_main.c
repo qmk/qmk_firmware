@@ -113,7 +113,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
     static USBDescriptor desc;
     uint16_t             wValue = ((uint16_t)dtype << 8) | dindex;
     desc.ud_string              = NULL;
-    desc.ud_size                = get_usb_descriptor(wValue, wIndex, (const void **const) & desc.ud_string);
+    desc.ud_size                = get_usb_descriptor(wValue, wIndex, (const void **const)&desc.ud_string);
     if (desc.ud_string == NULL)
         return NULL;
     else
@@ -1138,25 +1138,27 @@ void xap_send_base(uint8_t *data, uint8_t length) {
 }
 
 void xap_send(xap_token_t token, uint8_t response_flags, const void *data, size_t length) {
-    uint8_t rdata[XAP_EPSIZE] = {0};
-    *(xap_token_t *)&rdata[0] = token;
-    if (length > (XAP_EPSIZE - 4)) response_flags &= ~(XAP_RESPONSE_FLAG_SUCCESS);
-    rdata[2] = response_flags;
+    uint8_t                rdata[XAP_EPSIZE] = {0};
+    xap_response_header_t *header            = (xap_response_header_t *)&rdata[0];
+    header->token                            = token;
+
+    if (length > (XAP_EPSIZE - sizeof(xap_response_header_t))) response_flags &= ~(XAP_RESPONSE_FLAG_SUCCESS);
+    header->flags = response_flags;
+
     if (response_flags & (XAP_RESPONSE_FLAG_SUCCESS)) {
-        rdata[3] = (uint8_t)length;
+        header->length = (uint8_t)length;
         if (data != NULL) {
-            memcpy(&rdata[4], data, length);
+            memcpy(&rdata[sizeof(xap_response_header_t)], data, length);
         }
     }
     xap_send_base(rdata, sizeof(rdata));
 }
 
 void xap_receive_base(const void *data) {
-    const uint8_t *u8data = (const uint8_t *)data;
-    xap_token_t    token  = *(xap_token_t *)&u8data[0];
-    uint8_t        length = u8data[2];
-    if (length <= (XAP_EPSIZE - 3)) {
-        xap_receive(token, &u8data[3], length);
+    const uint8_t        *u8data = (const uint8_t *)data;
+    xap_request_header_t *header = (xap_request_header_t *)&u8data[0];
+    if (header->length <= (XAP_EPSIZE - sizeof(xap_request_header_t))) {
+        xap_receive(header->token, &u8data[sizeof(xap_request_header_t)], header->length);
     }
 }
 

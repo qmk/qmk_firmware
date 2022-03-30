@@ -41,4 +41,16 @@ bool xap_respond_data_P(xap_token_t token, const void *data, size_t length);
 
 void xap_send(xap_token_t token, xap_response_flags_t response_flags, const void *data, size_t length);
 
+// TODO: gen from xap defs?
+typedef struct {
+    xap_token_t token;
+    uint8_t     length;
+} xap_request_header_t;
+
+typedef struct {
+    xap_token_t          token;
+    xap_response_flags_t flags;
+    uint8_t              length;
+} xap_response_header_t;
+
 #include <xap_generated.h>
