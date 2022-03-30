@@ -14,9 +14,13 @@
 #define MATRIX_ROWS 8
 #define MATRIX_COL_PINS \
     { B1, B10, B4, B3, B8 }
+#define MATRIX_COL_PINS_RIGHT \
+    { B1, B10, B3, B4, B5 }
 
 #define MATRIX_ROW_PINS \
     { A2, B5, B9, A8 }
+#define MATRIX_ROW_PINS_RIGHT \
+    { A2, B8, A8, B9 }
 
 #define DIODE_DIRECTION ROW2COL
 // #define DEBUG_MATRIX_SCAN_RATE
@@ -56,10 +60,10 @@
 
 /* SPI DRIVER 
 */
-#define SPI_DRIVER SPID1
-#define SPI_SCK_PIN A5
-#define SPI_MOSI_PIN B7
-#define SPI_MISO_PIN A6
+//#define SPI_DRIVER SPID1
+//#define SPI_SCK_PIN A5
+//&#define SPI_MOSI_PIN B7
+//#define SPI_MISO_PIN A6
 /* EEPROM DRIVER */
 //#define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
 
