@@ -171,7 +171,8 @@ void interrupt_handler(void *arg) {
         checksum_computed += split_trans_initiator2target_buffer(trans)[i];
     }
     checksum_computed ^= 7;
-    uint8_t checksum_received = serial_read_byte();
+
+    serial_read_byte();
     sync_send();
 
     // wait for the sync to finish sending
