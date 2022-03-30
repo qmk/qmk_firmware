@@ -9,10 +9,10 @@ Configuration is build for the Atmel ATmega32U4 controller, which you can easily
 Pins of the Teensy board you should use by default:
 ```  
 Columns: 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16  
-Pins:    C7 C6 C5 C4 C3 C2 C1 C0 E1 E0 D7 D6 D5 D4 D3 D2  
+Pins:    F0 F1 F4 F5 F6 F7 B6 B5 B4 D7 D6 B0 B1 B2 B3 B7  
 --------------------------------------------------------  
 Rows: 1  2  3  4  5  6  7  8  
-Pins: F7 F6 F5 F4 F3 F2 F1 F0  
+Pins: D0 D1 D2 D3 C6 C7 D5 D4  
 --------------------------------------------------------  
 Status LEDs: CapsLock +5V ScrollLock NumLock  
 Pins:        E6       5V  -         -  
