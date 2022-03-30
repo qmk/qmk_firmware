@@ -23,7 +23,7 @@ PROGRAMMABLE_BUTTON_ENABLE = yes
 
 In your keymap you can use the following keycodes to map key presses to Programmable Buttons:
 
-[keycodes_programmable_buttons.md](./keycodes_programmable_buttons.md ':include')
+[keycodes/keycodes_programmable_buttons.md](keycodes/keycodes_programmable_buttons.md ':include')
 
 ### API
 

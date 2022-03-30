@@ -163,7 +163,7 @@ Note that the values are separated by commas. The board will remember the last u
 
 You can switch the input mode at any time by using the following keycodes. Adding these to your keymap allows you to quickly switch to a specific input mode, including modes not listed in `UNICODE_SELECTED_MODES`.
 
-[keycodes_unicode_support.md](./keycodes_unicode_support.md ':include')
+[keycodes/keycodes_unicode_support.md](keycodes/keycodes_unicode_support.md ':include')
 
 You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`).
 

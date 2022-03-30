@@ -8,4 +8,4 @@ On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are
 
 ## QMK Keycodes :id=qmk-keycodes
 
-[keycodes_quantum_keycodes.md](./keycodes_quantum_keycodes.md ':include')
+[keycodes/keycodes_quantum_keycodes.md](keycodes/keycodes_quantum_keycodes.md ':include')

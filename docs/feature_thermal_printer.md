@@ -4,4 +4,4 @@
 
 ## Thermal Printer Keycodes
 
-[keycodes_thermal_printer.md](./keycodes_thermal_printer.md ':include')
+[keycodes/keycodes_thermal_printer.md](keycodes/keycodes_thermal_printer.md ':include')

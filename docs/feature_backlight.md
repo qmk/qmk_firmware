@@ -16,7 +16,7 @@ BACKLIGHT_ENABLE = yes
 
 Once enabled, the following keycodes below can be used to change the backlight level.
 
-[keycodes_backlight.md](./keycodes_backlight.md ':include')
+[keycodes/keycodes_backlight.md](keycodes/keycodes_backlight.md ':include')
 
 ## Functions :id=functions
 

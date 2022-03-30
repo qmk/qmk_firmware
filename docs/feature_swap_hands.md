@@ -19,6 +19,6 @@ Note that the array indices are reversed same as the matrix and the values are o
 
 ## Swap Keycodes
 
-[keycodes_swap_hands.md](./keycodes_swap_hands.md ':include')
+[keycodes/keycodes_swap_hands.md](keycodes/keycodes_swap_hands.md ':include')
 
 `SH_TT` swap-hands tap-toggle key is similar to [layer tap-toggle](feature_layers.md?id=switching-and-toggling-layers). Tapping repeatedly (5 taps by default) will toggle swap-hands on or off, like `SH_TG`. Tap-toggle count can be changed by defining a value for `TAPPING_TOGGLE`.

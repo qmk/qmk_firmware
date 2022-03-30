@@ -506,7 +506,7 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 All RGB keycodes are currently shared with the RGBLIGHT system:
 
-[keycodes_rgb_lighting.md](./keycodes_rgb_lighting.md ':include')
+[keycodes/keycodes_rgb_lighting.md](keycodes/keycodes_rgb_lighting.md ':include')
 
 * `RGB_MODE_*` keycodes will generally work, but not all of the modes are currently mapped to the correct effects for the RGB Matrix system.
 

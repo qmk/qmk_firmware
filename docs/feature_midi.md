@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ### Keycodes
 
-[keycodes_midi.md](./keycodes_midi.md ':include')
+[keycodes/keycodes_midi.md](keycodes/keycodes_midi.md ':include')
 
 ### Configuration
 

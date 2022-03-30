@@ -12,7 +12,7 @@ If Mary presses `QK_GESC` on her keyboard, the OS will see an KC_ESC character. 
 
 ## Keycode
 
-[keycodes_grave_escape.md](./keycodes_grave_escape.md ':include')
+[keycodes/keycodes_grave_escape.md](keycodes/keycodes_grave_escape.md ':include')
 
 ### Caveats
 

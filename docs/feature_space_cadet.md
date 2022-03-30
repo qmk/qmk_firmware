@@ -12,7 +12,7 @@ Firstly, in your keymap, do one of the following:
 
 ## Keycodes
 
-[keycodes_space_cadet.md](./keycodes_space_cadet.md ':include')
+[keycodes/keycodes_space_cadet.md](keycodes/keycodes_space_cadet.md ':include')
 
 ## Caveats
 

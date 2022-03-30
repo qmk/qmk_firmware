@@ -12,4 +12,4 @@ To fix this, open Remote Desktop Connection, click on "Show Options", open the "
 
 ## Keycodes
 
-[keycodes_us_ansi_shifted_symbols.md](./keycodes_us_ansi_shifted_symbols.md ':include')
+[keycodes/keycodes_us_ansi_shifted_symbols.md](keycodes/keycodes_us_ansi_shifted_symbols.md ':include')

@@ -6,7 +6,7 @@ You can store one or two macros and they may have a combined total of 128 keypre
 
 To enable them, first include `DYNAMIC_MACRO_ENABLE = yes` in your `rules.mk`. Then, add the following keys to your keymap:
 
-[keycodes_dynamic_macros.md](./keycodes_dynamic_macros.md ':include')
+[keycodes/keycodes_dynamic_macros.md](keycodes/keycodes_dynamic_macros.md ':include')
 
 That should be everything necessary. 
 

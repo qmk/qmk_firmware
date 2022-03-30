@@ -39,4 +39,4 @@ BLUETOOTH_DRIVER = BluefruitLE # or RN42
 
 This is used when multiple keyboard outputs can be selected. Currently this only allows for switching between USB and Bluetooth on keyboards that support both.
 
-[keycodes_bluetooth.md](./keycodes_bluetooth.md ':include')
+[keycodes/keycodes_bluetooth.md](keycodes/keycodes_bluetooth.md ':include')

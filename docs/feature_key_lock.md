@@ -10,7 +10,7 @@ First, enable Key Lock by setting `KEY_LOCK_ENABLE = yes` in your `rules.mk`. Th
 
 ## Keycode
 
-[keycodes_key_lock.md](./keycodes_key_lock.md ':include')
+[keycodes/keycodes_key_lock.md](keycodes/keycodes_key_lock.md ':include')
 
 ## Caveats
 

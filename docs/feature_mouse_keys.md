@@ -18,7 +18,7 @@ MOUSEKEY_ENABLE = yes
 
 In your keymap you can use the following keycodes to map key presses to mouse actions:
 
-[keycodes_mouse.md](./keycodes_mouse.md ':include')
+[keycodes/keycodes_mouse.md](keycodes/keycodes_mouse.md ':include')
 
 ## Configuring mouse keys
 

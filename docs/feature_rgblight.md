@@ -56,7 +56,7 @@ Changing the **Value** sets the overall brightness.<br>
 
 ## Keycodes
 
-[keycodes_rgb_lighging.md](./keycodes_rgb_lighging.md ':include')
+[keycodes/keycodes_rgb_lighging.md](keycodes/keycodes_rgb_lighging.md ':include')
 
 ?> `RGB_*` keycodes cannot be used with functions like `tap_code16(RGB_HUI)` as they're not USB HID keycodes. If you wish to replicate similar behaviour in custom code within your firmware (e.g. inside `encoder_update_user()` or `process_record_user()`), the equivalent [RGB functions](#functions) should be used instead.
 

@@ -27,7 +27,7 @@ This key would activate Left Control and Left Shift when held, and send Escape w
 
 For convenience, QMK includes some Mod-Tap shortcuts to make common combinations more compact in your keymap:
 
-[keycodes_mod_tap.md](./keycodes_mod_tap.md ':include')
+[keycodes/keycodes_mod_tap.md](keycodes/keycodes_mod_tap.md ':include')
 
 ## Caveats
 
