@@ -216,25 +216,17 @@ void oled_render_layer_map(void) {
         break;
 #endif // end keypad.
 
-      // extra layers for bepo only
 #ifdef MORTE_LAYER_ENABLE
-    case _MORTE:
-      CARTE_MORTE
-      break;
+         SHOW_MAP(_MORTE)
 #endif
 
 #ifdef ACCENTED_MORTE_LAYER_ENABLE
-    case _ACCENTED_MORTE:
-      CARTE_ACCENTED_MORTE
-        break;
+         SHOW_MAP(_ACCENTED_MORTE)
 #endif
 
 #ifdef ACCENTED_LAYER_ENABLE
-    case _ACCENTED:
-      CARTE_ACCENTED
-        break;
+         SHOW_MAP(_CARTE_ACCENTED)
 #endif
-
-    }
+          }
   }
 }

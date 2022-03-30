@@ -70,7 +70,7 @@
   BSPC_ALT, TH_LTR_SYM, GUI_ESC, ALT_ENT, SPC_TOPR, ACCENTS_CTL
 /* HD dash has thumbs of ,; and .:        */
 #define ___6_ERGO_THUMBS_hd_dash___                             \
-  TL_COMM, TL_DOT_SYMB, GUI_ESC, ALT_ENT, SPC_TOPR, BSPC_NUM
+  LANG_KC(TL_COMM), TL_DOT_SYMB, GUI_ESC, ALT_ENT, SPC_TOPR, BSPC_NUM
 
 #define ___6_ERGO_THUMBS_media___ ___3___, ___STOP_PLAY_MUTE___
 #define ___6_ERGO_THUMBS_mouse___ ___3___, ___3MOUSE_BTNS_R___

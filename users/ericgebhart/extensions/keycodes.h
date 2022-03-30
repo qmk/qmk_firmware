@@ -140,6 +140,8 @@ enum userspace_custom_keycodes {
 #define TL_MINS TLKC(_MINS)
 #define TL_LPRN TLKC(_LPRN)
 #define TL_LCBR TLKC(_LCBR)
+#define TL_DOT_SYMB LT(LN_SYMB, LANG_KC(TL_DOT))
+
 
 #define BP_LT BP_LABK
 #define BP_GT BP_RABK

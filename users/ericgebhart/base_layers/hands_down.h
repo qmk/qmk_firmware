@@ -118,7 +118,7 @@
 /* vz g  h  p  kq  /\* (< {[ '! "? */
 /* TL_COMM; TL_DOT:  _␣  ⏎ */
 #define ___HD_ELAN___                                                   \
-  LANG_MAP(_V, _G, _H, _P, _K,   TL_SLSH, TL_LPRN, TL_LBRC, TL_QUOT, TL_DQUO, \
+  LANG_MAP(_V, _G, _H, _P, _K,   TL_SLSH, TL_LPRN, TL_LCBR, TL_QUOT, TL_DQUO, \
            _R, _S, _N, _T, _F,   _J, _A, _E, _C, _I,                    \
            _X, _M, _L, _D, _B,   TL_MINS, _U, _O, _W, _Y)
 
@@ -130,6 +130,6 @@
     /*   e   ␣   */
 
 #define ___HD_DASH___                                                   \
-  LANG_MAP(_J, _G, _M, _P, _V , _SCLN, TL_DOT, TL_QUOT, TL_DQUOT, TL_SLSH, \
+  LANG_MAP(_J, _G, _M, _P, _V , _SCLN, TL_DOT, TL_QUOT, TL_DQUO, TL_SLSH, \
            _R, _S, _N, _T, _B , TL_COMM, _H, _A, _O, _I,                \
            _X, _C, _L, _D, _W , TL_MINS, _F, _U, _K, _Y)

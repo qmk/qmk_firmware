@@ -548,16 +548,22 @@ Adding Slovak support to the LANG_N macro looks like this.
 ### Thumb clusters.
 
 Thumb clusters can be chosen by layer with the value of **THUMBS_ARE**.
-This is currently manipulated for beakl wi in map.h.
-The newer Hands down variants also have need of this.
-To change the thumb cluster for hands down, maltron or rsthd,
-set the value for the thumbs in _config.h_.
+
+At the core of the thumb clusters are a set of six keys which
+can be changed to a one of a set of keys, with settings in the config. 
+Supporting a 4 key thumb cluster would just need a similar set.
+
+The newer Hands down variants also have need of thumb clusters which
+can take a letter.  A default can be given in config.h.
+Each keymap layer entry can give it's letter to change the thumb cluster.
+This is needed for hands down, maltron, rsthd, and beakl wi.
 
 These layouts use a special thumb cluster variant which will use the value
-of __THUMB_LETTER__ to place a letter on one of the thumb keys.
+of *THUMB_LETTER* to place a letter on one of the thumb keys.
 
 It is reasonably easy to add a new thumb cluster and use it. Add it to
-thumbs.h, add to the list of macros for it's suffix, and turn it on in config.h
+thumbs.h, add to the list of macros for it's suffix, and turn it on 
+by setting it to *THUMBS_ARE* in config.h
 
 Additionally a thumb cluster can be set for the various function layers as
 well. The transparent thumbs can be used, or something else. The nav and 
@@ -565,9 +571,6 @@ mouse layers have the mouse buttons if mouse keys are enabled.
 
 It is also possible to use a Miryoku thumb cluster and layers if desired.
 Or mix the other layers in as desired.
-
-At the core of the thumb clusters are a set of six keys which
-can be changed to a one of a set of keys, with settings in the config. 
 
 The language of thumb clusters is managed at the lowest level.
 These keys are mostly not language specific.
@@ -579,10 +582,6 @@ _SYMB becomes *_SYMB_EN* or *_SYMB_BP*. Depending on the value of *LANG_IS*
 
     `#define SPC_SYMB LT(LANG_N(_SYMB), KC_SPC)`
 
-Additional thumb clusters are _test_ and _trans_.  The transparent thumb
-cluster can be used for transient layers, in layouts.h, such that a different
-thumb cluster could be substituted, for some transient function layers and not
-others. 
 
 
 Base Layers
@@ -593,11 +592,11 @@ They can be turned on in config.h.
 To switch base layers there is a combo to raise the layers layer.
 Hold both pinkies on their lower row keys to get the layer.
 Tap the home row left middle finger to change layers.
-Tap the ring finger to set it to eeprom.
+Tap the ring finger to set it to eeprom if you want it to stick.
 
 The left index finger will cycle through locales if you have them.
 
-Here are some or most of them..
+Here are some or most of the base layers..
 
  * Dvorak
  * Beakl 15
@@ -636,37 +635,34 @@ Keymaps
 I only have one. It's in keymap/keymap.c.  
 My config.h has all the current usable settings.
 Turn on the layers by enabling and choosing them in config.h. 
-Most keyboards don't need a keymap.c. If they fail to build for it
-being missing it just needs an empty one. This was needed for the kyria,
-splitkb/kyria/keymaps/ericgebhart. There is an empty keymap.c for this
-reason. I don't know why the kyria is different.
+Most keyboards don't need a keymap.c. 
 
-There are corresponding Bepo layers, as needed, which will arrive if Bepo is enabled.
-This essentially doubles the number of keymaps.  Nav, layers, RGB, and Adjust are
-not duplicated as there is no current need.
+There are corresponding Bepo layers, as needed, which will arrive if *SECOND_LOCALE* is
+set to _BEPO_.
+This essentially doubles the number of keymaps.  
+Nav, mouse, media, layers, RGB, and Adjust are not duplicated as there is no 
+current need.
 
 ## Mods, home row and otherwise.
 With all these layers it was a real pain to apply mods consistently and 
 easily with the old wrapper code. So I changed the way I use keymap macro 
 wrappers and added in my own mod layer. The only thing it has is the mods 
 to apply. No more editing keymaps to apply mods.  I do it once, and it 
-works everywhere I want.
+works everywhere I want by location.
 
 Multiple versions are possible. Just copy the trns_mod_layer.h to a new
-name and modify it with a new extension name. Then add it's include to mod_layer.h, 
-to be used when the config says.
+name and modify it with a new extension name, (replace '_trns'). Then add it's include to mod_layer.h, to be used when the config says.
 
 The defines for *MODS_ARE* and *DEFAULT_MODS* determine which mods are applied
-to a given keymap layer. The combo reference layers use this to change
-to transparent mods so that the reference is clean keycodes.
+to a given keymap layer. 
 
 Keyboard matrix Layouts
 -----------
 There are currently more than 1 layout per keyboard, mostly for clarity and the
 anticipation of modified transient layers. This is where the keymap of the
-keyboard meets all the edge, middle and thumb keys, and makes it easy to give 
-just a 3x10 definition for most layers regardless of which keyboard it is 
-going to.
+keyboard meets the mods and all the edge, middle and thumb keys, and makes 
+it easy to give just a 3x10 definition for most layers regardless of which 
+keyboard it is going to.
 
 To use an existing layout for a different keyboard, simply make an entry
 in *keyboards.h* to assign the proper layouts that fit that keyboard.
@@ -682,7 +678,7 @@ outer pinky column as needed.
 The transient layout is transparent without mods so far.
 
 Some layouts take an extra number row.
-Layouts can be any shape, but so far, all of these take a 3x10 or 4x10, 
+Layouts can be any shape, all of these take a 3x10, 3x12, 4x10 or 4x12, 
 and make it fit the keyboard.
 
 The layouts defined in _layouts.h_ take a list of keys. and give them
@@ -695,16 +691,12 @@ There are layouts for Corne, ergodox, kinesis, dactyl, viterbi, xd75, rebound.
 The layouts take a 3x10 matrix, and sometimes an additional row for numbers. 
 If a keyboard layout takes a number row, that should be enabled in config.h.
 
-Mostly, I want my controls to stay the same. These are the keys on the
-outside or middle of the 3x10 layer matrix. Although the number row might change
-from layer to layer if the keyboard has them.
-
-The Layouts wrap the ROWS macros which are the mod layer. 
+The Layouts wrap the ROW_MOD macros which are the mod layer. 
 
 Currently, 3 layouts are needed per keyboard. 
  * A Base layout, for default/base layers, 
  * A transient layout for the function layers.
- * A version which takes 3x12 for bepo base layers.
+ * A version which takes 3x12 for the larger bepo base layers.
 
 The base layouts can take 3 or 4 rows by 10 columns as desired.
 They add in the mods, and any pieces of matrix outside of
@@ -725,6 +717,8 @@ There is also a split layer, with arrows etc on the right, and smart mods
 and N-shots on the other. A left side mouse layer is accessible from
 the first nav layer.  There are various choices at this point. It is
 best to look at the config.h for clues. All are similar to the map below.
+
+The miryoku nav and mouse layers are somewhat but not terribly different.
 
 
 #### Navigation layer with optional 4th/bottom Row....
@@ -757,7 +751,7 @@ This layer is not affected by differences between bepo-fr and en-us.
 
 The symbol layer is based on the Beakl15 symbol layer. It was very similar to a symbol
 layer that I had before beakl, but this felt better, and has been through a few 
-iterations at this point. Vi keybindings like :/?! a lot. The = is not that important to
+iterations at this point. Vi likes using :/?! a lot. The = is not that important to
 me, as the : for the vi ex: command. The ! is very satisfying in this location.
 
 
@@ -775,8 +769,8 @@ This might be a little vi centric, with the : in the middle. ymmv.
 There are a few choices, this is one.
 
 ```
-        `<$>'  ?[_]- 
-      - \(")#  !{:}/ ;
+        `<$>'  ?[_-] 
+      - \(")#  !{:/} ;
         @=*+;  %&^~|
 ```
 
@@ -789,6 +783,7 @@ Everything can remain familiar. I use this one with a beakl number row.
 The default, if no choices are made, aside from enabling toprows, will  
 have a normal qwerty number row, as in the second map.
 I do not use F keys, The latest addition has _smart_ and _nshot mods_ in the third row.
+There is a miryoku thumb cluster which uses this layer instead of a keypad.
 
     ```
     !@#$%   ^&*()
@@ -807,8 +802,8 @@ I do not use F keys, The latest addition has _smart_ and _nshot mods_ in the thi
 
 There are several variations of keypads and function key pads in various sizes,
 and left and right. 
-Currently I am using a Beakl Keypad on the left hand and 3x4 function pad on the right.
 There are also versions with smart and nshot mods instead of F-keys.
+There are monolithic, left and right, and also half keyboard left mostly...
 The keypad can be chosen in config.h.
 
 ```
@@ -833,7 +828,7 @@ Process_records.c
 This is where the keycodes are processed...
 It tends to be where cruft gathers. Mostly I try to keep it empty
 and do all my processing with the extensions.  The file, _extensions.h_ 
-takes care of inserting them in process_records.
+takes care of inserting them in process_records with it's macro.
 
 
 Extensions
@@ -841,12 +836,11 @@ Extensions
 Extensions are all in the extensions directory and have a single 
 entry point via extensions.h which provides a macro to place in **process_record_user**. 
 
-Keycodes defined in extensions are automatically added to the custom keys enumeration
-so there is no need to defined them manually.
+Keycodes defined in extensions with def files are automatically added to the 
+custom keys enumeration so there is no need to define them manually.
 
-The idea is that if the code works, it needn't be touched to change or extend
-it's functionality. A new extension can be added with a process record entry in
-extensions.h. 
+A new extension can be added with a process record entry in
+extensions.h. Just follow the same code pattern.
 
 To copy all the extensions, just get the extensions and defs folders, get the
 process_records.c file, and adapt your custom keycodes to custom_keys.def.
@@ -869,7 +863,7 @@ in the C code. Custom keys are also defined there.
 Because many of them use custom keycodes in their definitions, it is necessary
 to include your userspace .h such that keycodes and layer codes can be found.
 To simplify this, simply add a define to config.h to point at your .h or wherever
-your custom codes can be found.
+your custom codes can be found. 
 
 In my case;
 ```c
@@ -896,7 +890,7 @@ It will complain as usual if there are duplicates.
 Accent keys
 -----------------
 This is a way to create keycodes which access keys
-which are normally only accessible with an Altgr/Ralt and dead key.
+which are normally only accessible with an Altgr/Ralt and a dead key.
 
 Each definition takes a keycode, the key to modify, and the dead key
 to apply to it.
@@ -936,65 +930,22 @@ and the top row number keys. Where the unshifted and shifted keys
 are not the same character as the keyboard local on the OS.
 
 
-#### To steal this code...
 
-Steal everything named **altlocal_keys.?** in extensions/ and defs/
+It has turned out that most of these keys have a destination language,
+and a target language/layout. 
+The target is to emulate something on some language. QMK uses keycode prefixes,
+so this works pretty well and the names stay consistent with all the others,
+but with a middle name.
 
-Add the .c to the SRC in rules.mk.
-    `SRC += altlocal_keys.c`
-
-Add the include, change it to get your stuff instead of mine. 
-
-  `#include "altlocal_keys.h"`
-
-Then add this function call to your process_record_user().  
-
-  `if (!process_alt_local_key(keycode, record)) { return false; }`
-
-The beginning and ending of the alt local keys should be indicated in the
-custom keycodes enum.
-This is used by process record function uses these START and END values to to 
-constrain it's keycode processing range. 
-
-Wrap the begin and end of the custom alternate keycodes in the enum like this;
-
-This can be seen in my *keycodes.h* extension.
-
-``` 
-enum userspace_custom_keycodes {
-  ALT_LOCAL_KEYS_START = SAFE_RANGE,  
-  BP_DV_1,
-  BP_DV_2,
-
-  ...
-  
-  // BEAKL on Qwerty..
-  KC_BK_DOT,
-  KC_BK_COMM,
-  KC_BK_QUOT,
-  // End of beakl on qwerty
-  BP_BK_DOT,
-  BP_BK_COMM,
-  BP_BK_QUOT,
-  // End of beakl on Bepo
-
-  ALT_LOCAL_KEYS_END = BP_BK_QUOT,
-
-  ...
-
-  };
-```
-
-Then define some keys in _altlocal_keys.def_.
 
 The pattern is Language prefix, target language prefix, name.
-The target prefix is made up. BK -> beakl, DV -> dvorak, which
-is what works for all en-us maps. 
+The target prefix is made up. BK -> beakl, DV -> dvorak, HD -> hands down, etc.
 
 The naming pattern is only important in that it works with all of the Lang
 macros elsewhere in this userspace. A macro is provided on a per key 
-basis, which can be used at the base layer definition, such that *TL_COMM*, 
-becomes BP_BK_COMM, or KC_BK_COMM, or whatever it needs to be based on 
+basis, which can be used at the base layer definition, such that *TL_COMM*; 
+target-language-comma, becomes BP_BK_COMM, or KC_BK_COMM, or whatever it 
+needs to be based on 
 current language and target layout.
 
 Here is a def entry to create the 1/! keycode for dvorak in the Bepo-fr locale
@@ -1053,9 +1004,6 @@ to an extent if *COMBO_ONLY_FROM_LAYER* is set to the correct layer number.
 This pull request defines a hook function for combos to determine the
 reference layer for the current layer.  This allows for multiple reference
 layers to be used depending on the situation.
-
-For fully functional combos with multiple reference layers see
-my [dev repo here](https://github.com/EricGebhart/qmk_firmware/tree/ericgebhart_dev/users/ericgebhart)
 
 Reference layers will be created and used according to the following
 defines. 
@@ -1124,23 +1072,6 @@ The file _tap_hold.defs_ contains all the definitions. Like combos,
 these entries are processed with a function call from **process_user_record**
 `process_tap_hold_user(keycode, record);`
 
-#### Stealing/Adapting for use
-
-Copy __tap_hold.?__.
-
-Include tap_hold.h with your process_user_record code. 
-Fix it to find your custom keys.
-  `#include "tap_hold.h"`
-
-Add the __process_tap_hold_user__ function to process_record(),
-  `process_tap_hold_user(keycode, record);`
-  
-Add the .c to the SRC in rules.mk.
-  `SRC += tap_hold.c`
-
-
-Add your new custom keycodes to your enum.
-
 Define your keys in *tap_hold.defs*.
 
 Here is Ctrl-C, Ctrl-V, as tap and long tap.
@@ -1164,10 +1095,6 @@ single key or creating a combo.
 Holding both pinkies on home row for double tapping term, is effectively 
 right-shift and left-shift, invokes caps-word. The next word will be capitalized. 
 It continues until it shouldn't.
-
-**smart lock is a derivation of @possumvibes smart layers which were spawned
-from @callum's one shot mods. mod lock, n-shot mods and swapper also came
-to me by way of @possumvibes. I simply modified them to use def files.**
 
 Smart lock
 ----------------
@@ -1193,13 +1120,13 @@ SMLM(SMLM_LSFT, MOD_LSFT,
   ___TAB_PGDN_PGUP_BKTAB___,
   ___SML_MODS_L___)
 
-SMLL(SML_NAV, _NAV, ___NAVnm_3x10___)
+SMLL(SML_NAV, _NAV, ___NAVA_3x10___)
 
 ```
 
 Mod lock
 ----------------
-Mod lock is also originally from @possumvibes, it has ignore keys as well,
+Mod lock is originally from @possumvibes, it has ignore keys as well,
 but these keys apply to all locks defined. which gives a slightly smaller 
 memory footprint than smart locks. The mods, are keycodes, rather than mod codes.
 
@@ -1274,12 +1201,12 @@ IGNORE_KEY( SPC_NAV)
 
 Swapper
 ----------------
-and again. I think we can thank @possumvibes and @callum. I added the defs
-code so they are easy to define. This is a way to alternate between 2 keycodes 
-for a key by sending another keycode. An example is tab or backtab on one key, 
-which reverses when you press a second key. It also allows for mods to be 
-applied. The following defines SW_WIN, which sends left alt-tab and 
-shift- left alt- tab, when reversed by SW_REV.
+I added the defs code so they are easy to define. This is a way to
+alternate between 2 keycodes for a key by sending another keycode. An
+example is tab or backtab on one key, which reverses when you press a
+second key. It also allows for mods to be applied. The following defines
+SW_WIN, which sends left alt-tab and shift- left alt- tab, when reversed
+by SW_REV.
 
 ```
 SWAPPER_KEY(SW_WIN, SW_REV, KC_TAB, S(KC_TAB), KC_LALT)
@@ -1295,6 +1222,9 @@ to define and use. It can switch the encoder functions based on layers and mods.
 Give it a layer name and/or mods to match on, and the clockwise and counter 
 clockwise keycodes to send.
 
+I used LEFT and RIGHT, but really it's just 0-N, but I happen to have one
+on the left and one on the right. If you have one, use 0 or LEFT.
+
 The code scans the entries for layers matches first, checking for a match for
 mods. If an encoder entry is not found it then scans for entries with
 layer set to LAYER_NONE.
@@ -1302,7 +1232,7 @@ layer set to LAYER_NONE.
 ```
 // Layer/none, encoder index 0/1, CW_KC, CCW_KC, Qualifying mod or none
 // LAYER_NONE and MOD_NONE for a single use.
-// LEFT and RIGHT for index. - not sure about more than 2.
+// LEFT and RIGHT for index. they go on from there, 2, 3, etc
 // if one encoder, LEFT/0, is the first one, on the master side.
 
 // default encoders, all layers no mods.
@@ -1319,7 +1249,7 @@ unicode
 ----------------
 This is just the basic unicode example everyone seems to have. It's been adapted
 to use defs, so there is no need to modify process record user.
-Add your unicode keys like so.
+Add your keys to send unicode strings like so.
 
 ```
  UC_STR(UC_DISA, "ಠ_ಠ")
@@ -1348,6 +1278,6 @@ on.
 
 Tap Dance
 --------------------
-I have a lot of tap dance, It's turned off. It's big. tap-hold works pretty well most of the time, instead.
+I had a lot of tap dance, It's turned off. It's big. tap-hold works pretty well most of the time, instead.
 My favorites were tab-backtab,  home-end.
 

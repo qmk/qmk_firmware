@@ -142,7 +142,7 @@
 //#define COLEMAK_DH_LAYER_ENABLE
 
 // BEAKL
-//#define BEAKL15_LAYER_ENABLE
+#define BEAKL15_LAYER_ENABLE
 //#define BEAKL19_LAYER_ENABLE
 #define BEAKL27_LAYER_ENABLE
 //#define BEAKLWI_LAYER_ENABLE
@@ -165,15 +165,15 @@
 //#define HD_BRONZE_LAYER_ENABLE
 //#define HD_SILVER_LAYER_ENABLE
 //#define HD_PLATINUM_LAYER_ENABLE
-#define HD_GOLD_LAYER_ENABLE
+//#define HD_GOLD_LAYER_ENABLE
 
 // these are all 3x12.
 //#define HD_NEU_LAYER_ENABLE
 
 // additionally all these have accent characters on base layer.
-//#define BEPO_LAYER_ENABLE
+#define BEPO_LAYER_ENABLE
 #define OPTIMOT_LAYER_ENABLE
-#define BEAKL19bis_LAYER_ENABLE
+// #define BEAKL19bis_LAYER_ENABLE
 
 
 // enable transient function layers.
@@ -204,7 +204,7 @@
 // A layer of dead keys
 // #define MORTE_LAYER_ENABLE
 // A layer of the most popular accented keys and dead keys
-//#define ACCENTED_MORTE_LAYER_ENABLE
+#define ACCENTED_MORTE_LAYER_ENABLE
 
 // Functional layer choices.
 /* configure the function layers. */
