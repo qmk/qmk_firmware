@@ -1,6 +1,6 @@
 # E80-1800
 
-![E80_1800_sample_image](https://i.imgur.com/yzCfVSt.png)
+![E80_1800_sample_image](https://i.imgur.com/yzCfVSth.png)
 
 A replacement PCB for the Cherry G80-1800 keyboard. Supports ISO and ANSI, 6u offcenter or 7u bottom row, stepped and regular caps lock. Optional i2c header for OLED. Type-C on the PCB (requires some case modifications). The PCB is open source and can be found in my [Github repo](https://github.com/ebastler/E80-1800).
 
