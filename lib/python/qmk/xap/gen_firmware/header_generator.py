@@ -9,6 +9,24 @@ from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 from qmk.xap.common import latest_xap_defs, route_conditions
 
 
+def _get_c_type(xap_type):
+    if xap_type == 'bool':
+        return 'bool'
+    elif xap_type == 'u8':
+        return 'uint8_t'
+    elif xap_type == 'u16':
+        return 'uint16_t'
+    elif xap_type == 'u32':
+        return 'uint32_t'
+    elif xap_type == 'u64':
+        return 'uint64_t'
+    elif xap_type == 'struct':
+        return 'struct'
+    elif xap_type == 'string':
+        return 'const char *'
+    return 'unknown'
+
+
 def _append_route_defines(lines, container, container_id=None, route_stack=None):
     """Handles building the list of the XAP routes, combining parent and child names together, as well as the route number.
     """
@@ -105,25 +123,29 @@ def _append_types(lines, container):
 
     # Add special
     lines.append(f'#define {prefix}_FAILED 0x00')
+    lines.append('')
 
-    # TODO: define this in xap_*.hjson
-    lines.append(
-        '''
-typedef uint8_t  xap_identifier_t;
-typedef uint8_t  xap_response_flags_t;
-typedef uint16_t xap_token_t;
+    additional_types = {}
+    types = container.get('types', {})
+    for key, value in types.items():
+        data_type = _get_c_type(value['type'])
+        additional_types[key] = f'xap_{key}_t'
 
-typedef struct {
-    xap_token_t token;
-    uint8_t     length;
-} xap_request_header_t;
+    for key, value in types.items():
+        data_type = _get_c_type(value['type'])
+        if data_type == 'struct':
+            members = value['struct_members']
 
-typedef struct {
-    xap_token_t          token;
-    xap_response_flags_t flags;
-    uint8_t              length;
-} xap_response_header_t;'''
-    )
+            lines.append(f'typedef {data_type} {{')
+            for member in members:
+                member_name = member["name"]
+                member_type = _get_c_type(member["type"])
+                if member_type == 'unknown':
+                    member_type = additional_types[member["type"]]
+                lines.append(f'  {member_type} {member_name};')
+            lines.append(f'}} xap_{key}_t;')
+        else:
+            lines.append(f'typedef {data_type} xap_{key}_t;')
 
 
 def generate_header(output_file, keyboard):

@@ -101,10 +101,6 @@
             '''
             A high-level area of functionality within XAP.
             '''
-        ID:
-            '''
-            A single octet / 8-bit byte.
-            '''
         Route:
             '''
             A sequence of _IDs_ describing the route to invoke a _handler_.
@@ -113,22 +109,70 @@
             '''
             A piece of code that is executed when a specific _route_ is received.
             '''
-        Token:
-            '''
-            A `u16` associated with a specific request as well as its corresponding response.
-            '''
         Response:
             '''
             The data sent back to the host during execution of a _handler_.
-            '''
-        "Response Flags":
-            '''
-            An `u8` containing the status of the request.
             '''
         Payload:
             '''
             Any received data appended to the _route_, which gets delivered to the _handler_ when received.
             '''
+    }
+
+    types: {
+        identifier: {
+            name: ID
+            description: Subsystem/Route ID
+            type: u8
+        }
+
+        response_flags: {
+            name: Response Flags
+            description: Contains the status of the request
+            type: u8
+        }
+
+        token: {
+            name: Token
+            description: ID associated with a specific request as well as its corresponding response
+            type: u16
+        }
+
+        request_header: {
+            name: Request Header
+            description: asdf
+            type: struct
+            struct_members: [
+                {
+                    type: token
+                    name: token
+                },
+                {
+                    type: u8
+                    name: length
+                }
+            ]
+        }
+
+        response_header: {
+            name: Response Header
+            description: asdf
+            type: struct
+            struct_members: [
+                {
+                    type: token
+                    name: token
+                },
+                {
+                    type: response_flags
+                    name: flags
+                },
+                {
+                    type: u8
+                    name: length
+                }
+            ]
+        }
     }
 
     response_flags: {
