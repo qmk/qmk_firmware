@@ -629,7 +629,91 @@ Here are some or most of the base layers..
  * Optimot
  * Beakl19bis
 
- 
+### Adding a new base layer, or any layer 
+
+Adding a new base layer is easy. They all live in *base_layers/*. A base layer
+entry looks like this. There is an empty template in *base_layers.h* which collects
+all the other maps. The name of the carte  de map, should be **CARTE** followed by
+the layer name that will be used. Layer names are usually an underscore followed by
+the name.  For dvorak, that is *_DVORAK*, which because of the language layer ultimately
+and magically becomes *_DVORAK_EN*, *_DVORAK_US*, *_DVORAK_BP* as needed. 
+
+```
+#define CARTE_DVORAK                            \
+  carte_de_map(" ',.py fgcrl ",                 \
+               " aoeui dhtns ",                 \
+               " ;qjkx bmwvz ")
+
+#define ___DVORAK___                                                    \
+  LANG_MAP(TL_QUOT,  TL_COMM, TL_DOT, _P,  _Y,   _F, _G, _C, _R, _L,               \
+           _A,       _O,      _E,     _U,  _I,   _D, _H, _T, _N, _S,    \
+           TL_SCLN,  _Q,      _J,     _K,  _X,   _B, _M, _W, _V, _Z)
+```
+
+#### TL_ keycodes 
+
+Use TL_ keycodes for any punctuation, this allows for targeting
+of these keys by language and by target layout as needed.
+for instance *TL_COMM* -> TLKC(_COMM). The *Target-Language-comma*, 
+becomes BP_BK_COMM, or KC_DV_COMM, US_HD_COMM, or whatever it
+needs to be based on current language and target layout. If your layer has special
+puncuation needs, 
+
+  * Add key entries to *altlocal_keys.def* 
+  * Edit to *lang/lang_map.h* to add the new *TARGET_PFX* entry.
+  * Set the appropriate value to *ALT_TARGET_IS* in the layer's keymap entry.
+
+#### Integration
+
+Integrating the new map into the rest of the framework is just a simple entry
+in a few places. 
+  * *layer_names* needs to know about the new name so we can use it, 
+  * The oled needs to know about it so it can display it.
+  * The config needs to know about it so we can turn it on.
+
+Follow these steps. Everything is very simple, and just one to 3 lines. 
+Just follow the same patterns as all the rest. 
+
+  * Add the layer definition and map of the definition in *base_layers/<appropiate>.h*.
+  * Add the layer name to *layer_names/base_names.h*
+  * Add the layer name to *keymap/<appropiate>.h*
+  * Add the layer entry to *oled/oled_layers.c*
+  * Add the layer map entry to *oled/oled_cartes.c*
+  * Add the define for the layer enable to *config.h*
+
+Adding a new functional layer follows the same patterns, although their
+keymap and oled entries may be more complex, since it is usually trying
+to pick one from a set of choices.
+
+### Adding a new thumb cluster configuration
+
+Adding a new thumb keys definition is done in *layers/thumbs.h*.
+The keys that change are just 6 and they all have the name of *___6_ERGO_THUMBS_...*.
+
+  * Define a new thumb definition with a nice suffix like all the rest.
+  * Add an entry to the *THUMB_EXT* list with the nice new suffix.
+  * Set the appropriate *THUMBS_ARE* defines in config.h to it's 
+  new thumb extension name.
+  
+### Adding a new mod layer
+
+This is also easy. Mod layers live in the mod_layers folder. Each file
+there is a separate mod layer, which is tracked in *mod_layers.h*
+To create a new one, copy one of the others to a new name.  Transparent
+The file, *trns_mods.h* is the transparent mods layer and by definition has
+no modifiers applied, providing a clean slate. 
+
+The steps are these:
+  * Make a new copy of an existing mod layer.
+  * Edit the new file and change the names to your new name.
+      * ie. *_trns* changes to *_my_new_mods*
+  * Add the mods you want. MT's and LT's, tap holds, etc. 
+  * Edit  *mod_layers/mod_layer.h*
+    * Add the include for the new mods file*
+    * Add the *MOD_EXT* entry for the new name
+  * Define *MODS_ARE* in _config.h_ to use the new name.
+
+
 Keymaps
 -----------
 I only have one. It's in keymap/keymap.c.  
@@ -706,6 +790,12 @@ and thumb clusters.
 The transient function layer layout can be KC_TRNS all around the perimeter,
 or not, they tend to take 3x10 but don't have to.
 
+Functional layers
+--------------------
+There are quite a few of these to choose from. The easiest way to see
+them all is to go look at them in _layers/_. They are logically divided
+into files, and their cartes/maps are easy to look at. There are 
+minimalist Miryoku versions as needed.
 
 ## Navigation Layer
 I do not use a mouse. I use Xmonad as my window manager, and I have
@@ -713,15 +803,19 @@ practically no use for one.  They are necessary however. So I have
 a Navigation layer which is all mouse, arrows, home, end, tab, page
 up, down,  5 mouse buttons and so on. 
 
+There are a growing number of choices, left and right sided mouse layers
+right side arrows etc, and some monolithic nav layers like the one shown
+below.
+
 There is also a split layer, with arrows etc on the right, and smart mods
 and N-shots on the other. A left side mouse layer is accessible from
 the first nav layer.  There are various choices at this point. It is
-best to look at the config.h for clues. All are similar to the map below.
+best to look at the config.h for clues. 
 
 The miryoku nav and mouse layers are somewhat but not terribly different.
 
 
-#### Navigation layer with optional 4th/bottom Row....
+#### One of the Navigation layers.
                                                        
 ```
 M = Mouse
@@ -744,8 +838,6 @@ TAB  MLeft  MDown  MUp  MRight  MAC1  |  CCCV  Left   Down   UP   Right TAB
      
 ```
                                                                             
-This layer is not affected by differences between bepo-fr and en-us.
-
 
 ## Symbol Layer
 
@@ -753,7 +845,6 @@ The symbol layer is based on the Beakl15 symbol layer. It was very similar to a 
 layer that I had before beakl, but this felt better, and has been through a few 
 iterations at this point. Vi likes using :/?! a lot. The = is not that important to
 me, as the : for the vi ex: command. The ! is very satisfying in this location.
-
 
 The beakl symbol layer is intuitive and fairly easy to remember. There are 3 versions.
 The original, an extended, and an extended and enhanced for vi.
@@ -764,6 +855,7 @@ to better places.
 I prefer a modified beakl15 symbol layer. here it is, left and right.
 This layer has some extra characters so it works with non-beakl base layouts.
 The beakl wi symbol layer is not an improvement on this IMO.
+Miryoku symbols layer is only left sided, and minimalist as well.
 This might be a little vi centric, with the : in the middle. ymmv.
 
 There are a few choices, this is one.
@@ -782,6 +874,7 @@ I think, truly this is the layer that makes tiny keyboards accessible in the beg
 Everything can remain familiar. I use this one with a beakl number row.
 The default, if no choices are made, aside from enabling toprows, will  
 have a normal qwerty number row, as in the second map.
+
 I do not use F keys, The latest addition has _smart_ and _nshot mods_ in the third row.
 There is a miryoku thumb cluster which uses this layer instead of a keypad.
 
@@ -798,7 +891,7 @@ There is a miryoku thumb cluster which uses this layer instead of a keypad.
     F1   ---  F10
     ```
 
-## Keypad Layer
+## Keypad and Funcpad Layers
 
 There are several variations of keypads and function key pads in various sizes,
 and left and right. 
@@ -811,6 +904,9 @@ The keypad can be chosen in config.h.
    7.104  F5-8
    /698,  F1-4
 ```
+## Media Layer
+
+A simple Miryoku, media layer, controls on the right.
 
 OLED
 --------------------
@@ -835,35 +931,36 @@ Extensions
 ---------------------
 Extensions are all in the extensions directory and have a single 
 entry point via extensions.h which provides a macro to place in **process_record_user**. 
-
-Keycodes defined in extensions with def files are automatically added to the 
-custom keys enumeration so there is no need to define them manually.
+The intention is that they are easy to copy and use as is without digging around
+in the C code. Custom keys are also defined there. Any keycodes defined by
+an extension are automatically added to the custom keys enumeration so there is no need to define them manually.
 
 A new extension can be added with a process record entry in
-extensions.h. Just follow the same code pattern.
+extensions.h. Just follow the same code pattern. If an extension defines keycodes, 
+add it's entry in *keycodes.h* so that they are automatically added to the enum. 
+Keycodes.h is also where all the miscellaneous short cut key defines are done. 
 
-To copy all the extensions, just get the extensions and defs folders, get the
-process_records.c file, and adapt your custom keycodes to custom_keys.def.
-And copy the pertinant parts of config.h.
-At last define _USERSPACE_H such that all the extensions can find your stuff.
-This might be overkill, perhaps just including keycodes.h will work most of
-the time.
+To copy all the extensions, 
+  * Copy the extensions and defs folders, 
+  * Copy process_records.c file or adapt yours.
+  * Adapt your custom keycodes to custom_keys.def.
+  * Copy the pertinant parts of config.h so that everything can be enabled.
+  * Define _USERSPACE_H such that all the extensions can find your stuff.
 
-Alternately, Include extensions.h in your process_record_user,then add this 
+To adapt to your own process_record_user do this;
+Include extensions.h in your process_record_user,then add this 
 above the switch.
 ```
 PROCESS_EXTENSIONS
 ```
+This will cause process records to use whatever extensions are turned on.
 
 Many extensions have a _.def_ file in _/defs_ for any data that is needed.
 
-The intention is that they are easy to copy and use as is without digging around
-in the C code. Custom keys are also defined there. 
-
-Because many of them use custom keycodes in their definitions, it is necessary
-to include your userspace .h such that keycodes and layer codes can be found.
-To simplify this, simply add a define to config.h to point at your .h or wherever
-your custom codes can be found. 
+Because many of them use custom keycodes or layers in their definitions, 
+it is necessary to include your userspace .h such that keycodes and layer
+codes can be found. To simplify this, simply add a define to config.h
+to point at your .h or wherever your custom codes can be found.
 
 In my case;
 ```c
@@ -878,7 +975,7 @@ The Custom keys are in __custom_keys.def__.
 __keycodes.h__ is an extension of sorts. It is the custom keys enumeration.
 The __custom_keys.def__ has a few random keycodes in it.
 
-All other keys are automatically generated from the def files.
+All other keys are automatically generated from the other def files.
 
 For the extensions that have key definitions those keys are enumerated
 automatically. The keys are defined in the def files so there is no need
@@ -929,14 +1026,11 @@ This feature is usually only needed for punctuation keys
 and the top row number keys. Where the unshifted and shifted keys
 are not the same character as the keyboard local on the OS.
 
-
-
 It has turned out that most of these keys have a destination language,
 and a target language/layout. 
 The target is to emulate something on some language. QMK uses keycode prefixes,
 so this works pretty well and the names stay consistent with all the others,
 but with a middle name.
-
 
 The pattern is Language prefix, target language prefix, name.
 The target prefix is made up. BK -> beakl, DV -> dvorak, HD -> hands down, etc.
