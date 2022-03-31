@@ -252,6 +252,7 @@ bool oled_task_user(void) {
         if (is_key_processed && (timer_elapsed(oled_timer) < OLED_KEY_TIMEOUT)) {
             render_status_main();
         } else {
+            is_key_processed = false;
             oled_off();
         }
     } else {
