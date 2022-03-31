@@ -20,12 +20,14 @@ This list defines the terms used across the entire set of XAP protocol documenta
 | Name | Definition |
 | -- | -- |
 | _Handler_ | A piece of code that is executed when a specific _route_ is received. |
-| _ID_ | A single octet / 8-bit byte. |
 | _Payload_ | Any received data appended to the _route_, which gets delivered to the _handler_ when received. |
 | _Response_ | The data sent back to the host during execution of a _handler_. |
-| _Response Flags_ | An `u8` containing the status of the request. |
 | _Route_ | A sequence of _IDs_ describing the route to invoke a _handler_. |
 | _Subsystem_ | A high-level area of functionality within XAP. |
+| _ID_ | A single octet / 8-bit byte, representing Subsystem or Route index. |
+| _Request Header_ | Packet format for inbound data. Takes the format:<br>`token` - token<br>`u8` - length |
+| _Response Flags_ | An `u8` containing the status of the request. |
+| _Response Header_ | Packet format for inbound data. Takes the format:<br>`token` - token<br>`response_flags` - flags<br>`u8` - length |
 | _Token_ | A `u16` associated with a specific request as well as its corresponding response. |
 
 ## Requests and Responses

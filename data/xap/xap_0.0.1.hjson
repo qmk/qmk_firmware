@@ -122,25 +122,25 @@
     types: {
         identifier: {
             name: ID
-            description: Subsystem/Route ID
+            description: A single octet / 8-bit byte, representing Subsystem or Route index.
             type: u8
         }
 
         response_flags: {
             name: Response Flags
-            description: Contains the status of the request
+            description: An `u8` containing the status of the request.
             type: u8
         }
 
         token: {
             name: Token
-            description: ID associated with a specific request as well as its corresponding response
+            description: A `u16` associated with a specific request as well as its corresponding response.
             type: u16
         }
 
         request_header: {
             name: Request Header
-            description: asdf
+            description: Packet format for inbound data.
             type: struct
             struct_members: [
                 {
@@ -156,7 +156,7 @@
 
         response_header: {
             name: Response Header
-            description: asdf
+            description: Packet format for inbound data.
             type: struct
             struct_members: [
                 {

@@ -23,15 +23,17 @@ This list defines the terms used across the entire set of XAP protocol documenta
 | -- | -- |
 | _Capability_ | A way to determine if certain functionality is enabled in the firmware. Any _subsystem_ that provides build-time restriction of functionality must provide a _route_ for a _capabilities query_. |
 | _Handler_ | A piece of code that is executed when a specific _route_ is received. |
-| _ID_ | A single octet / 8-bit byte. |
 | _Payload_ | Any received data appended to the _route_, which gets delivered to the _handler_ when received. |
 | _Response_ | The data sent back to the host during execution of a _handler_. |
-| _Response Flags_ | An `u8` containing the status of the request. |
 | _Route_ | A sequence of _IDs_ describing the route to invoke a _handler_. |
 | _Secure Route_ | A _route_ which has potentially destructive consequences, necessitating prior approval by the user before executing. |
 | _Subsystem_ | A high-level area of functionality within XAP. |
-| _Token_ | A `u16` associated with a specific request as well as its corresponding response. |
 | _Unlock sequence_ | A physical sequence initiated by the user to enable execution of  _secure routes_. |
+| _ID_ | A single octet / 8-bit byte, representing Subsystem or Route index. |
+| _Request Header_ | Packet format for inbound data. Takes the format:<br>`token` - token<br>`u8` - length |
+| _Response Flags_ | An `u8` containing the status of the request. |
+| _Response Header_ | Packet format for inbound data. Takes the format:<br>`token` - token<br>`response_flags` - flags<br>`u8` - length |
+| _Token_ | A `u16` associated with a specific request as well as its corresponding response. |
 
 ## Requests and Responses
 
