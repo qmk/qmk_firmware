@@ -169,6 +169,12 @@ void draw_rect_filled_soft(uint8_t x, uint8_t y, uint8_t width, uint8_t height, 
     }
 }
 
+void draw_rect_filled(uint8_t x, uint8_t y, uint8_t width, uint8_t height, bool on) {
+    for (int i = x; i < x + width; i++) {
+        draw_line_v(i, y, height, on);
+    }
+}
+
 void draw_text_rectangle(uint8_t x, uint8_t y, uint8_t width, char* str, bool filled) {
     if (filled) {
         draw_rect_filled_soft(x, y, width, 11, true);
@@ -190,12 +196,11 @@ void draw_keyboard_layer(void){
     write_chars_at_pixel_xy(LAYER_DISPLAY_X+3+36, LAYER_DISPLAY_Y+2, "3", get_highest_layer(layer_state) == 3);
 
     draw_line_h(0, 14, 128, true);
-
 }
 
 
 
-uint8_t splash[] = { \
+static const uint8_t splash[] = { \
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x00, 0x00, \
@@ -228,6 +233,11 @@ uint8_t splash[] = { \
     0x40, 0x40, 0x43, 0x43, 0x43, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x43, 0x43, 0x40, 0x40, \
     0x40, 0x40, 0x43, 0x43, 0x43, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x41, 0x43, 0x43, 0x43, 0x40, \
     0x40, 0x40, 0x60, 0x30, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+
+uint32_t splash_timeout_timer = 0;
+bool redrawn_splash = false;
+
 
 #ifdef BONGOCAT
 
@@ -307,7 +317,7 @@ uint8_t bongo_line_y[] = {0, 8, 16, 24};
 uint8_t bongo_line_len[] = {5, 7, 8, 6};
 
 
-uint8_t bongo_line_data[8][26] = {
+static const uint8_t bongo_line_data[8][26] = {
     { //idle1
     60, 52, 19, 30, 35, \
     22, 47, 51, 60, 9, 0, 17, \
@@ -356,6 +366,7 @@ uint32_t idle_timeout_timer = 0;
 uint32_t anim_timer = 0;
 uint8_t current_idle_frame = 0;
 uint8_t current_tap_frame = 6;
+uint8_t last_bongo_frame = 12;
 
 void write_bongochar_at_pixel_xy(uint8_t x, uint8_t y, const char data, bool invert) {
     uint8_t i, j, temp;
@@ -453,7 +464,6 @@ void draw_bongo_table(void) {
 
 
 void draw_bongocat_frame(int framenumber) {
-    static uint8_t last_bongo_frame = 12;
     //only redraw if the animation frame has changed
     if (framenumber != last_bongo_frame) {
         last_bongo_frame = framenumber;
@@ -552,7 +562,7 @@ void draw_media_arrow(uint8_t x, uint8_t y, bool fwd) {
 }
 
 void draw_enc_mode(void){
-    draw_rect_filled_soft(ENC_DISPLAY_X, ENC_DISPLAY_Y, 128, 11, false);
+    draw_rect_filled(ENC_DISPLAY_X, ENC_DISPLAY_Y, 128, 11, false);
     write_chars_at_pixel_xy(enc_mode_str_startpos[enc_mode], ENC_DISPLAY_Y + 2, enc_mode_str[enc_mode], false);
     if (enc_mode == ENC_MEDIA) {
         draw_media_arrow(enc_mode_str_startpos[enc_mode] - 16, ENC_DISPLAY_Y + 2, false);
@@ -573,7 +583,7 @@ void matrix_init_kb(void) {
     prev_capslock = 255;
     prev_numlock = 255;
     prev_encodermode = 255;
-    current_enc_mode = 1;
+    current_enc_mode = 255;
     oled_on();
     matrix_init_user();
 }
@@ -607,6 +617,7 @@ void handle_encoder_switch_process_record(keyrecord_t *record) {
             }
         }
     }
+
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -660,9 +671,18 @@ void matrix_scan_kb(void) {
     uint8_t current_layer = get_highest_layer(layer_state);
     
     if (enc_mode == ENC_SPLASH) {
+
         if (current_enc_mode != 0) {
             current_enc_mode = 0;
-            draw_splash();
+            //Wait to draw splash, drawing it immediately does not work
+            splash_timeout_timer = timer_read32();
+            redrawn_splash = false;
+        }
+        else if (redrawn_splash == false) {
+            if (timer_elapsed32(splash_timeout_timer) >= 200) {
+                redrawn_splash = true;
+                draw_splash();
+            }
         }
     }
 #ifdef BONGOCAT
@@ -670,13 +690,13 @@ void matrix_scan_kb(void) {
         if (current_enc_mode != 2) {
             current_enc_mode = 2;
             blank_oled();
+            last_bongo_frame = 12; //force a redraw
             draw_bongo_table();
         }
         draw_bongocat();
     }
 #endif //BONGOCAT
-    else  {
-        
+    else  {        
         if (current_enc_mode != 1) {
             current_enc_mode = 1;
             blank_oled();
