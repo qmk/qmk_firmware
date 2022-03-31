@@ -1,7 +1,13 @@
 {
-    "keyboard_name": "4pack", 
-    "url": "", 
-    "maintainer": "qmk", 
+    "keyboard_name": "4pack",
+    "manufacturer": "40percentclub",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4025",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}]
