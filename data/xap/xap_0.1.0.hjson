@@ -240,7 +240,7 @@
                     define: INFO_LEN_QUERY
                     description: Retrieves the length of info.json
                     return_type: u32
-                    return_constant: info_json_gz_len
+                    return_constant: INFO_JSON_GZ_LEN
                 }
                 0x06: {
                     type: command

@@ -36,6 +36,6 @@ def generate_info(output_file, keyboard, keymap):
     lines.append('static const unsigned char info_json_gz[] PROGMEM = {')
     lines.append(data)
     lines.append('};')
-    lines.append(f'static const unsigned int info_json_gz_len = {data_len};')
+    lines.append(f'#define INFO_JSON_GZ_LEN {data_len}')
 
     dump_lines(output_file, lines)
