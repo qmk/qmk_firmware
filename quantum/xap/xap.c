@@ -107,8 +107,12 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
                 break;
 
             case XAP_GETTER:
-                xap_respond_u32(token, (route.u32getter)());
-                return;
+                if (route.u32getter != NULL) {
+                    const uint32_t ret = (route.u32getter)();
+                    xap_respond_data(token, &ret, sizeof(ret));
+                    return;
+                }
+                break;
 
             case XAP_VALUE:
                 xap_respond_data(token, route.const_data, route.const_data_len);
