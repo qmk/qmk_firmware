@@ -132,7 +132,7 @@
     }
 
     response_flags: {
-        define_prefix: XAP_RESP
+        define_prefix: XAP_RESPONSE_FLAG
         bits: {
             0: {
                 name: Success

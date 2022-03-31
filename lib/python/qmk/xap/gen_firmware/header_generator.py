@@ -94,6 +94,38 @@ def _append_route_capabilities(lines, container, container_id=None, route_stack=
     route_stack.pop()
 
 
+def _append_types(lines, container):
+    """Handles creating the various constants, types, defines, etc.
+    """
+    response_flags = container.get('response_flags', {})
+    prefix = response_flags['define_prefix']
+    for key, value in response_flags['bits'].items():
+        define = value.get('define')
+        lines.append(f'#define {prefix}_{define} (1ul << ({key}))')
+
+    # Add special
+    lines.append(f'#define {prefix}_FAILED 0x00')
+
+    # TODO: define this in xap_*.hjson
+    lines.append(
+        '''
+typedef uint8_t  xap_identifier_t;
+typedef uint8_t  xap_response_flags_t;
+typedef uint16_t xap_token_t;
+
+typedef struct {
+    xap_token_t token;
+    uint8_t     length;
+} xap_request_header_t;
+
+typedef struct {
+    xap_token_t          token;
+    xap_response_flags_t flags;
+    uint8_t              length;
+} xap_response_header_t;'''
+    )
+
+
 def generate_header(output_file, keyboard):
     """Generates the XAP protocol header file, generated during normal build.
     """
@@ -110,6 +142,10 @@ def generate_header(output_file, keyboard):
     lines.append(f'#define QMK_BCD_VERSION 0x{int(b.group(1)):02d}{int(b.group(2)):02d}{int(b.group(3)):04d}ul')
     keyboard_id = fnv1a_32(bytes(keyboard, 'utf-8'))
     lines.append(f'#define XAP_KEYBOARD_IDENTIFIER 0x{keyboard_id:08X}ul')
+    lines.append('')
+
+    # Types
+    _append_types(lines, xap_defs)
     lines.append('')
 
     # Append the route and command defines

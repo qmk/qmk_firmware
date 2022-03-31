@@ -19,9 +19,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-typedef uint8_t  xap_identifier_t;
-typedef uint8_t  xap_response_flags_t;
-typedef uint16_t xap_token_t;
+#include <xap_generated.h>
 
 #ifndef XAP_SUBSYSTEM_VERSION_KB
 #    define XAP_SUBSYSTEM_VERSION_KB 0
@@ -31,27 +29,9 @@ typedef uint16_t xap_token_t;
 #    define XAP_SUBSYSTEM_VERSION_USER 0
 #endif
 
-#define XAP_RESPONSE_FLAG_FAILED 0
-#define XAP_RESPONSE_FLAG_SUCCESS (1 << 0)
-#define XAP_RESPONSE_FLAG_SECURE_FAILURE (1 << 1)
-
 void xap_respond_failure(xap_token_t token, xap_response_flags_t response_flags);
 bool xap_respond_u32(xap_token_t token, uint32_t value);
 bool xap_respond_data(xap_token_t token, const void *data, size_t length);
 bool xap_respond_data_P(xap_token_t token, const void *data, size_t length);
 
 void xap_send(xap_token_t token, xap_response_flags_t response_flags, const void *data, size_t length);
-
-// TODO: gen from xap defs?
-typedef struct {
-    xap_token_t token;
-    uint8_t     length;
-} xap_request_header_t;
-
-typedef struct {
-    xap_token_t          token;
-    xap_response_flags_t flags;
-    uint8_t              length;
-} xap_response_header_t;
-
-#include <xap_generated.h>
