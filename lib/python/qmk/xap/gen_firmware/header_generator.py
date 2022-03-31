@@ -126,7 +126,7 @@ def _append_types(lines, container):
     lines.append('')
 
     additional_types = {}
-    types = container.get('types', {})
+    types = container.get('type_definitions', {})
     for key, value in types.items():
         data_type = _get_c_type(value['type'])
         additional_types[key] = f'xap_{key}_t'

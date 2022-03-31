@@ -119,7 +119,7 @@
             '''
     }
 
-    types: {
+    type_definitions: {
         identifier: {
             name: ID
             description: A single octet / 8-bit byte, representing Subsystem or Route index.
