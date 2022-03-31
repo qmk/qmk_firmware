@@ -26,16 +26,16 @@ def _get_c_type(xap_type):
 
 def _get_c_size(xap_type):
     if xap_type == 'u8':
-        return 1
+        return 'sizeof(uint8_t)'
     elif xap_type == 'u16':
-        return 2
+        return 'sizeof(uint16_t)'
     elif xap_type == 'u32':
-        return 4
+        return 'sizeof(uint32_t)'
     elif xap_type == 'u64':
         return 8
     elif xap_type == 'u8[32]':
         return 32
-    return -1
+    return 0
 
 
 def _get_route_type(container):
@@ -69,17 +69,30 @@ def _append_routing_table_declaration(lines, container, container_id, route_stac
 
     elif 'return_execute' in container:
         execute = container['return_execute']
-        request_type = container['request_type']
+        request_type = container.get('request_type', None)
         return_type = container['return_type']
         lines.append(
             f'''
 bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_len) {{
-    if (data_len != sizeof({_get_c_type(request_type)})) {{
+    if (data_len != {_get_c_size(request_type)}) {{
         xap_respond_failure(token, 0);
         return false;
     }}
 
     uint8_t ret[{_get_c_size(return_type)}] = {{0}};
+'''
+        )
+        if not request_type:
+            lines.append(f'''
+    bool {execute}(uint8_t *ret, uint8_t ret_len);
+    if(!{execute}(ret, sizeof(ret))) {{
+        xap_respond_failure(token, 0);
+        return false;
+    }}
+''')
+        else:
+            lines.append(
+                f'''
     {_get_c_type(request_type)} *argp   = ({_get_c_type(request_type)} *)&data[0];
 
     bool {execute}({_get_c_type(request_type)} arg, uint8_t *ret, uint8_t ret_len);
@@ -87,10 +100,11 @@ bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_l
         xap_respond_failure(token, 0);
         return false;
     }}
-
+'''
+            )
+        lines.append('''
     return xap_respond_data(token, ret, sizeof(ret));
-}}'''
-        )
+}''')
 
     # elif 'return_value' in container:
     #     value = container['return_value']

@@ -139,6 +139,7 @@ def _list_devices():
             # TODO: better formatting like "lsusb -v"?
             data = _query_device_info(device)
             print_dotted_output(data)
+            # _xap_transaction(device, 0x01, 0x07, 1)
 
 
 @cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>.')

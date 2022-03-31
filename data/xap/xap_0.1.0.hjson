@@ -252,6 +252,24 @@
                     return_type: u8[32]
                     return_execute: get_info_json_chunk
                 }
+                0x07: {
+                    type: command
+                    name: Jump to bootloader
+                    define: BOOTLOADER_JUMP
+                    secure: true
+                    enable_if_preprocessor: defined(BOOTLOADER_JUMP_SUPPORTED)
+                    description:
+                        '''
+                        Jump to bootloader
+
+                        May not be present – if QMK capabilities query returns “true”, then jump to bootloader is supported
+
+                        * 0 means secure routes are disabled, and should be considered as a failure
+                        * 1 means successful, board will jump to bootloader
+                        '''
+                    return_type: u8
+                    return_execute: request_bootloader_jump
+                }
             }
         },
 
