@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "features/capsword.h"
+#include "features/caps_word.h"
 
 enum layers {
     _QWERTY = 0,
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * - Left thumb CTRL and SHIFT are one shot
  * - Enter is moved to ; location and ; is moved to Sym layer
  * - ESC can be accessed by NAV and G
- * - BKSP is accessed by NAV and SPACE
+ * - BKSP is accessed by NAV and Enter
  * - Tab is accessed by holding NAV layer
  * 
  * ,-------------------------------------------.                              ,-------------------------------------------.
@@ -118,19 +118,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |      |      |      |      |      |                              | Home | PgUp | PgDn | End  |PrtScr|        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  GUI |  Alt | Ctrl | Shift| Esc  |                              |   ←  |  ↓   |   ↑  |   →  |      |        |
+ * |        |  GUI |  Alt | Ctrl | Shift| Esc  |                              |   ←  |  ↓   |   ↑  |   →  | Bksp |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      | Cut  | Copy | Paste|      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      | Bksp |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [NAV] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     KC_HOME, KC_PGUP, KC_PGDN,  KC_END, KC_PSCR, _______,
-      _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,  KC_ESC,                                     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______, _______,
+      _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,  KC_ESC,                                     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_BSPC, _______,
       _______, _______, C(KC_X), C(KC_C), C(KC_V), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, _______, _______, _______, KC_BSPC, _______, _______, _______
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
 /*
@@ -176,10 +176,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 enum combo_events {
-    CAPS_COMBO
+    CAPS_COMBO,
     // Other combos...
     COMBO_LENGTH
 };
+uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM caps_combo[] = {KC_F, KC_J, COMBO_END};
 
@@ -206,6 +207,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
   return true;
 }
+
 bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
     // Keycodes that continue Caps Word, with shift applied.
@@ -233,7 +235,8 @@ void matrix_scan_user(void) {
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
-bool oled_task_user(void) {
+
+void oled_task_user(void) {
     if (is_keyboard_master()) {
         // QMK Logo and version information
         // clang-format off
@@ -267,7 +270,7 @@ bool oled_task_user(void) {
         oled_write_P(led_usb_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
         oled_write_P(led_usb_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
         oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
-        oled_write_P(caps_word_get() ? PSTR("CAPSWORD ") : PSTR("       "), false);
+        oled_write_P(caps_word_get() ? PSTR("CAPS") : PSTR("       "), false);
     } else {
         // clang-format off
         static const char PROGMEM kyria_logo[] = {
@@ -283,27 +286,26 @@ bool oled_task_user(void) {
         // clang-format on
         oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
     }
-    return false;
 }
 #endif
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    // Volume control
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
+    if (index == 0) {
+        // Volume control
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    } else if (index == 1) {
+        // Page up/Page down
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
     }
-}
-else if (index == 1) {
-    // Page up/Page down
-    if (clockwise) {
-        tap_code(KC_PGDN);
-    } else {
-        tap_code(KC_PGUP);
-    }
-}
-return false;
+    return false;
 }
 #endif
