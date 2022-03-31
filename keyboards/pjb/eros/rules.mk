@@ -16,4 +16,3 @@ BACKLIGHT_ENABLE = no     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Enable audio output
 WS2812_DRIVER = i2c
-VIA_ENABLE = yes
