@@ -102,8 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [SYM] = LAYOUT(
      _______ ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                       KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , _______,
-     _______ , KC_GRV , KC_LPRN, KC_PRPN, KC_QUOT, KC_EQL ,                                     KC_BSLS, KC_MINS, KC_LBRC, KC_RBRC, KC_SCLN, _______,
-     _______ , KC_TILD, KC_LABK, KC_RABK, KC_DQUP, KC_PLUS, _______, _______, _______, _______, KC_PIPE, KC_UNDS, KC_LCBR, KC_RCBR, KC_COLN, _______,
+     _______ , KC_GRV , KC_LPRN, KC_RPRN, KC_QUOT, KC_EQL ,                                     KC_BSLS, KC_MINS, KC_LBRC, KC_RBRC, KC_SCLN, _______,
+     _______ , KC_TILD, KC_LABK, KC_RABK, KC_DQUO, KC_PLUS, _______, _______, _______, _______, KC_PIPE, KC_UNDS, KC_LCBR, KC_RCBR, KC_COLN, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -177,7 +177,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 enum combo_events {
     CAPS_COMBO
-};nst uint16_t PROGMEM caps_combo[] = {KC_F, KC_J, COMBO_END};
+    // Other combos...
+    COMBO_LENGTH
+};
+
+const uint16_t PROGMEM caps_combo[] = {KC_F, KC_J, COMBO_END};
 
 combo_t key_combos[] = {
   [CAPS_COMBO] = COMBO_ACTION(caps_combo),
@@ -286,9 +290,6 @@ bool oled_task_user(void) {
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     // Volume control
-    oled_write_P(led_usb_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
-    oled_write_P(led_usb_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
-    oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
     if (clockwise) {
         tap_code(KC_VOLU);
     } else {
