@@ -20,7 +20,8 @@
 enum layer_names {
     _BASE,
     _FN,
-    _MEDIA
+    _MEDIA,
+    _FN2
 };
 
 /* Defines the keycodes used by our macros in process_record_user */
