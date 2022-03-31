@@ -22,6 +22,7 @@
                 {"label":"_", "x":14.5, "y":0},
                 {"label":"+", "x":15.5, "y":0},
                 {"label":"Backspace", "x":16.5, "y":0, "w":2},
+                {"label":"Del", "x":17.5, "y":0},
                 {"label":"Page Up", "x":19, "y":0},
                 {"label":"Insert", "x":0, "y":1},
                 {"label":"Tab", "x":1.5, "y":1, "w":1.5},
