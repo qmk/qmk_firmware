@@ -1,7 +1,7 @@
 {
   "keyboard_name": "PJB eros", 
   "url": "https://github.com/602studios", 
-  "maintainer": "qmk", 
+  "maintainer": "PJB", 
   "width": 18.25, 
   "height": 6.5, 
   "layouts": {
