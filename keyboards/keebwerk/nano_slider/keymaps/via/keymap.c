@@ -44,6 +44,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TO(_BASE),
         KC_VOLD, KC_VOLU, KC_F24,
         KC_MRWD, KC_MFFD, KC_F23, KC_MPLY
+    ),
+    [_FN2] = LAYOUT(
+        _______,
+        _______, _______, _______,
+        _______, _______, _______, _______
     )
 };
 
