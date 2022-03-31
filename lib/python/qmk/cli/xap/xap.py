@@ -82,7 +82,7 @@ def _xap_transaction(device, sub, route, ret_len, *args):
     return array_alpha[4:]
 
 
-def _query_device_version(device):
+def _query_device(device):
     ver_data = _xap_transaction(device, 0x00, 0x00, 4)
     if not ver_data:
         return {'xap': 'UNKNOWN'}
@@ -91,7 +91,10 @@ def _query_device_version(device):
     a = (ver_data[3] << 24) + (ver_data[2] << 16) + (ver_data[1] << 8) + (ver_data[0])
     ver = f'{a>>24}.{a>>16 & 0xFF}.{a & 0xFFFF}'
 
-    return {'xap': ver}
+    secure = int.from_bytes(_xap_transaction(device, 0x00, 0x03, 1), 'little')
+    secure = 'unlocked' if secure == 2 else 'LOCKED'
+
+    return {'xap': ver, 'secure': secure}
 
 
 def _query_device_info_len(device):
@@ -129,8 +132,8 @@ def _list_devices():
     for dev in devices:
         device = hid.Device(path=dev['path'])
 
-        data = _query_device_version(device)
-        cli.log.info("  %04x:%04x %s %s [API:%s]", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'], data['xap'])
+        data = _query_device(device)
+        cli.log.info("  %04x:%04x %s %s [API:%s] %s", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'], data['xap'], data['secure'])
 
         if cli.config.general.verbose:
             # TODO: better formatting like "lsusb -v"?

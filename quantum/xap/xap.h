@@ -33,6 +33,7 @@ typedef uint16_t xap_token_t;
 
 #define XAP_RESPONSE_FLAG_FAILED 0
 #define XAP_RESPONSE_FLAG_SUCCESS (1 << 0)
+#define XAP_RESPONSE_FLAG_SECURE_FAILURE (1 << 1)
 
 void xap_respond_failure(xap_token_t token, xap_response_flags_t response_flags);
 bool xap_respond_u32(xap_token_t token, uint32_t value);

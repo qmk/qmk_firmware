@@ -43,9 +43,12 @@ def _get_route_type(container):
         return 'XAP_ROUTE'
     elif 'return_execute' in container:
         return 'XAP_EXECUTE'
+    elif 'return_value' in container:
+        if container['return_type'] == 'u8':
+            return 'XAP_VALUE'
     elif 'return_constant' in container:
         if container['return_type'] == 'u32':
-            return 'XAP_VALUE'
+            return 'XAP_CONST_MEM'
         elif container['return_type'] == 'struct':
             return 'XAP_CONST_MEM'
         elif container['return_type'] == 'string':
@@ -89,10 +92,18 @@ bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_l
 }}'''
         )
 
+    # elif 'return_value' in container:
+    #     value = container['return_value']
+    #     return_type = container['return_type']
+    #     lines.append('')
+    #     lines.append(f'{_get_c_type(return_type)} {value} = 0;')
+
     elif 'return_constant' in container:
 
         if container['return_type'] == 'u32':
-            pass
+            constant = container['return_constant']
+            lines.append('')
+            lines.append(f'static const uint32_t {route_name}_data PROGMEM = {constant};')
 
         elif container['return_type'] == 'struct':
             lines.append('')
@@ -146,9 +157,10 @@ def _append_routing_table_entry_execute(lines, container, container_id, route_st
     lines.append(f'        .handler = xap_respond_{value},')
 
 
-def _append_routing_table_entry_u32value(lines, container, container_id, route_stack):
-    value = container['return_constant']
-    lines.append(f'        .u32value = {value},')
+def _append_routing_table_entry_value(lines, container, container_id, route_stack):
+    value = container['return_value']
+    lines.append(f'        .const_data = &{value},')
+    lines.append(f'        .const_data_len = sizeof({value}),')
 
 
 def _append_routing_table_entry_u32getter(lines, container, container_id, route_stack):
@@ -183,9 +195,11 @@ def _append_routing_table_entry(lines, container, container_id, route_stack):
         _append_routing_table_entry_route(lines, container, container_id, route_stack)
     elif 'return_execute' in container:
         _append_routing_table_entry_execute(lines, container, container_id, route_stack)
+    elif 'return_value' in container:
+        _append_routing_table_entry_value(lines, container, container_id, route_stack)
     elif 'return_constant' in container:
         if container['return_type'] == 'u32':
-            _append_routing_table_entry_u32value(lines, container, container_id, route_stack)
+            _append_routing_table_entry_const_data(lines, container, container_id, route_stack)
         elif container['return_type'] == 'struct':
             _append_routing_table_entry_const_data(lines, container, container_id, route_stack)
         elif container['return_type'] == 'string':

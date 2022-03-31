@@ -127,6 +127,22 @@
                     return_purpose: capabilities
                     return_constant: XAP_ROUTE_CAPABILITIES
                 }
+                0x03: {
+                    type: command
+                    name: Secure Status
+                    define: SECURE_STATUS
+                    description:
+                        '''
+                        Query secure route status
+
+                        * 0 means secure routes are disabled
+                        * 1 means unlock sequence initiated but incomplete
+                        * 2 means secure routes are allowed
+                        * any other value should be interpreted as disabled
+                        '''
+                    return_type: u8
+                    return_value: secure_status
+                }
             }
         },
 

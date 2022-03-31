@@ -27,6 +27,8 @@ bool get_info_json_chunk(uint16_t offset, uint8_t *data, uint8_t data_len) {
     return true;
 }
 
+uint8_t secure_status = 2;
+
 #define QSTR2(z) #z
 #define QSTR(z) QSTR2(z)
 
@@ -63,15 +65,12 @@ struct __attribute__((packed)) xap_route_t {
         // XAP_EXECUTE
         bool (*handler)(xap_token_t token, const uint8_t *data, size_t data_len);
 
-        // XAP_VALUE
-        uint32_t u32value;
-
         // XAP_GETTER
         uint32_t (*u32getter)(void);
 
-        // XAP_CONST_MEM
+        // XAP_VALUE / XAP_CONST_MEM
         struct {
-            const void *  const_data;
+            const void   *const_data;
             const uint8_t const_data_len;
         };
     };
@@ -86,6 +85,12 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
     if (id < max_routes) {
         xap_route_t route;
         memcpy_P(&route, &routes[id], sizeof(xap_route_t));
+
+        if (route.flags.is_secure && secure_status != 2) {
+            xap_respond_failure(token, XAP_RESPONSE_FLAG_SECURE_FAILURE);
+            return;
+        }
+
         switch (route.flags.type) {
             case XAP_ROUTE:
                 if (route.child_routes != NULL && route.child_routes_len > 0 && data_len > 0) {
@@ -101,12 +106,12 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
                 }
                 break;
 
-            case XAP_VALUE:
-                xap_respond_u32(token, route.u32value);
-                return;
-
             case XAP_GETTER:
                 xap_respond_u32(token, (route.u32getter)());
+                return;
+
+            case XAP_VALUE:
+                xap_respond_data(token, route.const_data, route.const_data_len);
                 return;
 
             case XAP_CONST_MEM:
