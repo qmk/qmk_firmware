@@ -29,9 +29,11 @@
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define TAPPING_FORCE_HOLD
 // Configure the global tapping term (default: 200ms)
-#define TAPPING_TERM 175
+#define TAPPING_TERM 135
 #define TAPPING_TOGGLE 2
 #define ENCODER_DIRECTION_FLIP
+
+#define CAPS_WORD_IDLE_TIMEOUT 5000  // Turn off Caps Word after 5 seconds.
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 // #define SPLIT_USB_DETECT
