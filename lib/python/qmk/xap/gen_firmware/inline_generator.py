@@ -47,7 +47,11 @@ def _get_route_type(container):
         if container['return_type'] == 'u8':
             return 'XAP_VALUE'
     elif 'return_constant' in container:
-        if container['return_type'] == 'u32':
+        if container['return_type'] == 'u8':
+            return 'XAP_CONST_MEM'
+        elif container['return_type'] == 'u16':
+            return 'XAP_CONST_MEM'
+        elif container['return_type'] == 'u32':
             return 'XAP_CONST_MEM'
         elif container['return_type'] == 'struct':
             return 'XAP_CONST_MEM'
@@ -69,42 +73,7 @@ def _append_routing_table_declaration(lines, container, container_id, route_stac
 
     elif 'return_execute' in container:
         execute = container['return_execute']
-        request_type = container.get('request_type', None)
-        return_type = container['return_type']
-        lines.append(
-            f'''
-bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_len) {{
-    if (data_len != {_get_c_size(request_type)}) {{
-        xap_respond_failure(token, 0);
-        return false;
-    }}
-
-    uint8_t ret[{_get_c_size(return_type)}] = {{0}};
-'''
-        )
-        if not request_type:
-            lines.append(f'''
-    bool {execute}(uint8_t *ret, uint8_t ret_len);
-    if(!{execute}(ret, sizeof(ret))) {{
-        xap_respond_failure(token, 0);
-        return false;
-    }}
-''')
-        else:
-            lines.append(
-                f'''
-    {_get_c_type(request_type)} *argp   = ({_get_c_type(request_type)} *)&data[0];
-
-    bool {execute}({_get_c_type(request_type)} arg, uint8_t *ret, uint8_t ret_len);
-    if(!{execute}(*argp, ret, sizeof(ret))) {{
-        xap_respond_failure(token, 0);
-        return false;
-    }}
-'''
-            )
-        lines.append('''
-    return xap_respond_data(token, ret, sizeof(ret));
-}''')
+        lines.append(f'bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_len);')
 
     # elif 'return_value' in container:
     #     value = container['return_value']
@@ -114,21 +83,24 @@ bool xap_respond_{execute}(xap_token_t token, const uint8_t *data, size_t data_l
 
     elif 'return_constant' in container:
 
-        if container['return_type'] == 'u32':
+        if container['return_type'] == 'u8':
+            constant = container['return_constant']
+            lines.append('')
+            lines.append(f'static const uint8_t {route_name}_data PROGMEM = {constant};')
+
+        elif container['return_type'] == 'u16':
+            constant = container['return_constant']
+            lines.append('')
+            lines.append(f'static const uint16_t {route_name}_data PROGMEM = {constant};')
+
+        elif container['return_type'] == 'u32':
             constant = container['return_constant']
             lines.append('')
             lines.append(f'static const uint32_t {route_name}_data PROGMEM = {constant};')
 
         elif container['return_type'] == 'struct':
             lines.append('')
-            lines.append(f'static const struct {route_name}_t {{')
-
-            for member in container['return_struct_members']:
-                member_type = _get_c_type(member['type'])
-                member_name = to_snake(member['name'])
-                lines.append(f'    const {member_type} {member_name};')
-
-            lines.append(f'}} {route_name}_data PROGMEM = {{')
+            lines.append(f'static const {route_name}_t {route_name}_data PROGMEM = {{')
 
             for constant in container['return_constant']:
                 lines.append(f'    {constant},')
@@ -212,7 +184,11 @@ def _append_routing_table_entry(lines, container, container_id, route_stack):
     elif 'return_value' in container:
         _append_routing_table_entry_value(lines, container, container_id, route_stack)
     elif 'return_constant' in container:
-        if container['return_type'] == 'u32':
+        if container['return_type'] == 'u8':
+            _append_routing_table_entry_const_data(lines, container, container_id, route_stack)
+        elif container['return_type'] == 'u16':
+            _append_routing_table_entry_const_data(lines, container, container_id, route_stack)
+        elif container['return_type'] == 'u32':
             _append_routing_table_entry_const_data(lines, container, container_id, route_stack)
         elif container['return_type'] == 'struct':
             _append_routing_table_entry_const_data(lines, container, container_id, route_stack)

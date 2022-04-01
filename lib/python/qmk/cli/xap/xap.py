@@ -58,8 +58,12 @@ def _xap_transaction(device, sub, route, ret_len, *args):
     args_data = []
     args_len = 2
     if len(args) == 1:
-        args_len += 2
-        args_data = args[0].to_bytes(2, byteorder='little')
+        if isinstance(args[0], (bytes, bytearray)):
+            args_len += len(args[0])
+            args_data = args[0]
+        else:
+            args_len += 2
+            args_data = args[0].to_bytes(2, byteorder='little')
 
     padding_len = 64 - 3 - args_len
     padding = b"\x00" * padding_len
@@ -156,4 +160,23 @@ def xap(cli):
     if cli.args.list:
         return _list_devices()
 
-    cli.log.warn("TODO: Device specific stuff")
+    # Connect to first available device
+    dev = _search()[0]
+    device = hid.Device(path=dev['path'])
+    cli.log.info("Connected to:%04x:%04x %s %s", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
+
+    # get layer count
+    layers = _xap_transaction(device, 0x04, 0x01, 1)
+    layers = int.from_bytes(layers, "little")
+    print(f'layers:{layers}')
+
+    # get keycode [layer:0, row:0, col:0]
+    keycode = _xap_transaction(device, 0x04, 0x02, 2, b"\x00\x00\x00")
+    keycode = int.from_bytes(keycode, "little")
+    keycode_map = {
+        0x29: 'KC_ESCAPE'
+    }
+    print('keycode:' + keycode_map.get(keycode, 'unknown'))
+
+    # Reboot
+    # _xap_transaction(device, 0x01, 0x07, 1)

@@ -24,6 +24,64 @@
                     return_purpose: capabilities
                     return_constant: XAP_ROUTE_DYNAMIC_KEYMAP_CAPABILITIES
                 }
+                0x01: {
+                    type: command
+                    name: Get Layer Count
+                    define: GET_LAYER_COUNT
+                    description: TODO
+                    return_type: u8
+                    return_constant: DYNAMIC_KEYMAP_LAYER_COUNT
+                }
+                0x02: {
+                    type: command
+                    name: Get Keycode
+                    define: GET_KEYMAP_KEYCODE
+                    description: TODO
+                    request_type: struct
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: Layer
+                        },
+                        {
+                            type: u8
+                            name: Row
+                        },
+                        {
+                            type: u8
+                            name: Column
+                        }
+                    ]
+                    return_type: u16
+                    return_execute: dynamic_keymap_get_keycode
+                }
+                0x03: {
+                    type: command
+                    name: Set Keycode
+                    define: SET_KEYMAP_KEYCODE
+                    description: TODO
+                    request_type: struct
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: Layer
+                        },
+                        {
+                            type: u8
+                            name: Row
+                        },
+                        {
+                            type: u8
+                            name: Column
+                        },
+                        {
+                            type: u16
+                            name: Keycode
+                        }
+                    ]
+                    return_type: u8
+                    return_execute: dynamic_keymap_set_keycode
+                }
             }
         }
 

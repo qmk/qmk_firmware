@@ -3,6 +3,7 @@
 import re
 from fnvhash import fnv1a_32
 
+from qmk.casing import to_snake
 from qmk.commands import dump_lines
 from qmk.git import git_get_version
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
@@ -112,7 +113,58 @@ def _append_route_capabilities(lines, container, container_id=None, route_stack=
     route_stack.pop()
 
 
-def _append_types(lines, container):
+def _append_route_types(lines, container, container_id=None, route_stack=None):
+    """Handles creating 
+    """
+    if route_stack is None:
+        route_stack = [container]
+    else:
+        route_stack.append(container)
+
+    route_name = to_snake('_'.join([r['define'] for r in route_stack]))
+
+    # Inbound
+    if 'request_struct_members' in container:
+        request_struct_members = container['request_struct_members']
+        lines.append(f'typedef struct {{')
+        for member in request_struct_members:
+            member_type = _get_c_type(member['type'])
+            member_name = to_snake(member['name'])
+            lines.append(f'    {member_type} {member_name};')
+        lines.append(f'}} {route_name}_arg_t;')
+
+    elif 'request_type' in container:
+        request_type = container['request_type']
+        lines.append(f'typedef {_get_c_type(request_type)} {route_name}_arg_t;')
+
+    # Outbound
+    qualifier = 'const' if 'return_constant' in container else ''
+    if 'return_struct_members' in container:
+        return_struct_members = container['return_struct_members']
+        lines.append(f'typedef struct {{')
+        for member in return_struct_members:
+            member_type = _get_c_type(member['type'])
+            member_name = f'{qualifier} {to_snake(member["name"])}'
+            lines.append(f'    {member_type} {member_name};')
+        lines.append(f'}} {route_name}_t;')
+
+    elif 'return_type' in container:
+        return_type = container['return_type']
+        if return_type == 'u8[32]':
+            lines.append(f'typedef struct {{ uint8_t x[32]; }} {route_name}_t;')
+        else:
+            lines.append(f'typedef {_get_c_type(return_type)} {route_name}_t;')
+
+    # Recurse
+    if 'routes' in container:
+        for route_id in container['routes']:
+            route = container['routes'][route_id]
+            _append_route_types(lines, route, route_id, route_stack)
+
+    route_stack.pop()
+
+
+def _append_internal_types(lines, container):
     """Handles creating the various constants, types, defines, etc.
     """
     response_flags = container.get('response_flags', {})
@@ -167,7 +219,9 @@ def generate_header(output_file, keyboard):
     lines.append('')
 
     # Types
-    _append_types(lines, xap_defs)
+    _append_internal_types(lines, xap_defs)
+    lines.append('')
+    _append_route_types(lines, xap_defs)
     lines.append('')
 
     # Append the route and command defines

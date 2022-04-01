@@ -29,21 +29,6 @@ bool get_info_json_chunk(uint16_t offset, uint8_t *data, uint8_t data_len) {
 
 uint8_t secure_status = 2;
 
-// TODO: how to set this if "custom" is just an empty stub
-#ifndef BOOTLOADER_JUMP_SUPPORTED
-#    define BOOTLOADER_JUMP_SUPPORTED
-#endif
-
-#ifdef BOOTLOADER_JUMP_SUPPORTED
-bool request_bootloader_jump(uint8_t *data, uint8_t data_len) {
-    data[0] = secure_status == 2;
-
-    // TODO: post to deferred queue so this request can return?
-    reset_keyboard();
-    return true;
-}
-#endif
-
 #define QSTR2(z) #z
 #define QSTR(z) QSTR2(z)
 
