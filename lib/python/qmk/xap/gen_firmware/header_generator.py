@@ -114,7 +114,7 @@ def _append_route_capabilities(lines, container, container_id=None, route_stack=
 
 
 def _append_route_types(lines, container, container_id=None, route_stack=None):
-    """Handles creating 
+    """Handles creating typedefs used by routes
     """
     if route_stack is None:
         route_stack = [container]
@@ -126,7 +126,7 @@ def _append_route_types(lines, container, container_id=None, route_stack=None):
     # Inbound
     if 'request_struct_members' in container:
         request_struct_members = container['request_struct_members']
-        lines.append(f'typedef struct {{')
+        lines.append('typedef struct {')
         for member in request_struct_members:
             member_type = _get_c_type(member['type'])
             member_name = to_snake(member['name'])
@@ -141,7 +141,7 @@ def _append_route_types(lines, container, container_id=None, route_stack=None):
     qualifier = 'const' if 'return_constant' in container else ''
     if 'return_struct_members' in container:
         return_struct_members = container['return_struct_members']
-        lines.append(f'typedef struct {{')
+        lines.append('typedef struct {')
         for member in return_struct_members:
             member_type = _get_c_type(member['type'])
             member_name = f'{qualifier} {to_snake(member["name"])}'

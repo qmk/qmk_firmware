@@ -174,6 +174,9 @@ def xap(cli):
     keycode = _xap_transaction(device, 0x04, 0x02, 2, b"\x00\x00\x00")
     keycode = int.from_bytes(keycode, "little")
     keycode_map = {
+        # TODO: this should be data driven...
+        0x04: 'KC_A',
+        0x05: 'KC_B',
         0x29: 'KC_ESCAPE'
     }
     print('keycode:' + keycode_map.get(keycode, 'unknown'))
