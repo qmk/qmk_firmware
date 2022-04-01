@@ -20,18 +20,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#define USE_MATRIX_I2C
-
 /* Select hand configuration */
 
 #define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
-// #define OLED_DRIVER
-#define OLED_TIMEOUT 10000
 
 #define USE_SERIAL_PD2
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
+
+// Use the lily version to get the Lily58 logo instead of the qmk logo
+#define OLED_FONT_H "lib/glcdfont_lily.c"
+#define OLED_TIMEOUT 15000
+
+// redefine the output for space cadet to use it for copy and paste
+#define LCPO_KEYS KC_LCTL, KC_LGUI, KC_C
+#define LAPO_KEYS KC_LCTL, KC_LGUI, KC_V
