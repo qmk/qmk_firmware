@@ -65,6 +65,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
         tap_code16(first);
         // uncomment below if it doesn't work to fix the missing caps when adaptive keys are pressed while SHIFT is held
         // clear_mods();
+        set_mods(prior_saved_mods);
         tap_code16(second);
       }
     }
