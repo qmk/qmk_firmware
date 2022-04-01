@@ -19,26 +19,18 @@
 #define MAC_FN 1
 #define WIN_FN 3
 
-static void timer_3000ms_task(void);
-static void timer_250ms_task(void);
-static void factory_test_send(uint8_t *payload, uint8_t length);
-
-#define KEY_PRESS_FN    (0x1<<0)
-#define KEY_PRESS_J     (0x1<<1)
-#define KEY_PRESS_Z     (0x1<<2)
-#define KEY_PRESS_RIGHT (0x1<<3)
-#define KEY_PRESS_HOME  (0x1<<4)
-#define KEY_PRESS_FACTORY_RESET (KEY_PRESS_FN | KEY_PRESS_J | KEY_PRESS_Z)
-#define KEY_PRESS_LED_TEST (KEY_PRESS_FN | KEY_PRESS_RIGHT | KEY_PRESS_HOME)
+enum {
+    WHITE,
+    RED,
+    GREEN,
+    BLUE
+}led_color_status;
 
 enum {
-    LED_TEST_MODE_OFF,
-    LED_TEST_MODE_WHITE,
-    LED_TEST_MODE_RED,
-    LED_TEST_MODE_GREEN,
-    LED_TEST_MODE_BLUE,
-    LED_TEST_MODE_MAX
-}led_test_mode;
+    NONE,
+    TEST_OR_CLEAR,
+    LED_BLINK
+}test_clear_blink;
 
 enum {
     FACTORY_TEST_CMD_BACKLIGHT = 0x01,
@@ -50,13 +42,29 @@ enum {
     OS_SWITCH = 0x01,
 };
 
-uint16_t key_press_status = 0;
-uint32_t timer_3000ms_buffer = 0;
-uint32_t timer_250ms_buffer = 0;
-uint8_t factory_reset_count = 0;
-bool report_os_sw_state = false;
+static uint16_t current_time        = 0;
+static uint16_t passed_time         = 0;
+static bool     entry_led_test_flag = false;
+static uint8_t  led_state           = 0;
+static uint32_t led_blink_buffer    = 0;
+static uint8_t  led_blink_count     = 0;
+uint16_t        key_press_status    = 0;
+bool            report_os_sw_state  = false;
 
-void process_other_record(uint16_t keycode, keyrecord_t *record) {
+#define KEY_PRESS_FN (0x1 << 0)
+#define KEY_PRESS_J (0x1 << 1)
+#define KEY_PRESS_Z (0x1 << 2)
+#define KEY_PRESS_RIGHT (0x1 << 3)
+#define KEY_PRESS_HOME (0x1 << 4)
+#define KEY_PRESS_FACTORY_RESET (KEY_PRESS_FN | KEY_PRESS_J | KEY_PRESS_Z)
+#define KEY_PRESS_LED_TEST (KEY_PRESS_FN | KEY_PRESS_RIGHT | KEY_PRESS_HOME)
+
+HSV hsv;
+
+static void led_test(uint8_t color);
+static void  clear_eeprom(void);
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MO(MAC_FN):
         case MO(WIN_FN):
@@ -64,160 +72,144 @@ void process_other_record(uint16_t keycode, keyrecord_t *record) {
                 key_press_status |= KEY_PRESS_FN;
             } else {
                 key_press_status &= ~KEY_PRESS_FN;
-                timer_3000ms_buffer = 0;
             }
-            break;
+            return true;  // Process all other keycodes normally
         case KC_J:
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_J;
                 if (key_press_status == KEY_PRESS_FACTORY_RESET) {
-                    timer_3000ms_buffer = sync_timer_read32() | 1;
+                    current_time = timer_read();
+                    test_clear_blink = TEST_OR_CLEAR;
                 }
             } else {
                 key_press_status &= ~KEY_PRESS_J;
-                timer_3000ms_buffer = 0;
             }
-            break;
+            return true;  // Process all other keycodes normally
         case KC_Z:
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_Z;
                 if (key_press_status == KEY_PRESS_FACTORY_RESET) {
-                    timer_3000ms_buffer = sync_timer_read32() | 1;
+                    current_time     = timer_read();
+                    test_clear_blink = TEST_OR_CLEAR;
                 }
             } else {
                 key_press_status &= ~KEY_PRESS_Z;
-                timer_3000ms_buffer = 0;
             }
-            break;
+            return true;  // Process all other keycodes normally
         case KC_RGHT:
             if (record->event.pressed) {
-                key_press_status |= KEY_PRESS_RIGHT;
-                if (led_test_mode) {
-                    if (++led_test_mode >= LED_TEST_MODE_MAX) {
-                        led_test_mode = LED_TEST_MODE_WHITE;
+                    key_press_status |= KEY_PRESS_RIGHT;
+                    if (key_press_status == KEY_PRESS_LED_TEST) {
+                        led_state        = rgb_matrix_get_mode();
+                        hsv              = rgb_matrix_get_hsv();
+                        test_clear_blink = TEST_OR_CLEAR;
+                        current_time     = timer_read();
                     }
-                } else if (key_press_status == KEY_PRESS_LED_TEST) {
-                    timer_3000ms_buffer = sync_timer_read32() | 1;
-                }
+                    if (entry_led_test_flag) {
+                        led_color_status += 1;
+                        if (led_color_status > 3) {
+                            led_color_status = WHITE;
+                        }
+                        led_test(led_color_status);
+                    }
             } else {
                 key_press_status &= ~KEY_PRESS_RIGHT;
-                timer_3000ms_buffer = 0;
             }
-            break;
+            return true;  // Process all other keycodes normally
         case KC_HOME:
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_HOME;
-                if (led_test_mode) {
-                    led_test_mode = LED_TEST_MODE_OFF;
-                } else if (key_press_status == KEY_PRESS_LED_TEST) {
-                    timer_3000ms_buffer = sync_timer_read32() | 1;
+                if (key_press_status == KEY_PRESS_LED_TEST) {
+                    led_state        = rgb_matrix_get_mode();
+                    hsv              = rgb_matrix_get_hsv();
+                    test_clear_blink = TEST_OR_CLEAR;
+                    current_time     = timer_read();
+                }
+                if (entry_led_test_flag) {
+                    entry_led_test_flag = false;
+                    led_color_status    = 0;
+                    rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
+                    rgb_matrix_mode_noeeprom(led_state);
                 }
             } else {
                 key_press_status &= ~KEY_PRESS_HOME;
-                timer_3000ms_buffer = 0;
             }
+            return true;  // Process all other keycodes normally
+        default:
+            return process_record_user(keycode, record);
+    }
+}
+
+void matrix_scan_kb(void) {
+    switch (test_clear_blink) {
+        case TEST_OR_CLEAR:
+            passed_time = timer_elapsed(current_time);
+            if (passed_time >= 3000) {
+                test_clear_blink = NONE;
+                if (key_press_status == KEY_PRESS_LED_TEST) {
+                    led_test(led_color_status);
+                } else if (key_press_status == KEY_PRESS_FACTORY_RESET) {
+                    clear_eeprom();
+                }
+            }
+            break;
+        case LED_BLINK:
+            if ((timer_elapsed(led_blink_buffer)) >= 300) {
+                led_blink_buffer = timer_read();
+                if (led_blink_count++ % 2 == 0) {
+                    rgb_matrix_sethsv_noeeprom(HSV_RED);
+                } else {
+                    rgb_matrix_sethsv_noeeprom(HSV_OFF);
+                }
+                if (led_blink_count >= 7) {
+                    led_blink_count     = 0;
+                    test_clear_blink    = NONE;
+                    entry_led_test_flag = false;
+                    led_color_status    = 0;
+                    rgb_matrix_init();
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    matrix_scan_user();
+}
+
+static void led_test(uint8_t color) {
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    entry_led_test_flag = true;
+
+    switch (color) {
+        case WHITE:
+            rgb_matrix_sethsv_noeeprom(HSV_WHITE);
+            break;
+        case RED:
+            rgb_matrix_sethsv_noeeprom(HSV_RED);
+            break;
+        case GREEN:
+            rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+            break;
+        case BLUE:
+            rgb_matrix_sethsv_noeeprom(HSV_BLUE);
             break;
     }
 }
 
-void timer_task_start(void) {
-    if (timer_3000ms_buffer) {
-        timer_3000ms_task();
-    } else if (timer_250ms_buffer) {
-        timer_250ms_task();
-    }
-}
-
-static void timer_3000ms_task(void) {
-    if (sync_timer_elapsed32(timer_3000ms_buffer) > 3000) {
-        timer_3000ms_buffer = 0;
-        if (key_press_status == KEY_PRESS_FACTORY_RESET) {
-            timer_250ms_buffer = sync_timer_read32() | 1;
-            factory_reset_count++;
-            layer_state_t default_layer_tmp = default_layer_state;
-            eeconfig_init();
-            default_layer_set(default_layer_tmp);
-#ifdef LED_MATRIX_ENABLE
-            if (!led_matrix_is_enabled()) led_matrix_enable();
-            led_matrix_init();
-#endif
+static void clear_eeprom(void) {
+    layer_state_t default_layer_temp = default_layer_state;
+    eeconfig_init();
+    default_layer_set(default_layer_temp);
 #ifdef RGB_MATRIX_ENABLE
-            if (!rgb_matrix_is_enabled()) {
-                rgb_matrix_enable();
-            }
-            rgb_matrix_init();
+    rgb_matrix_enable_noeeprom();
 #endif
-        } else if (key_press_status == KEY_PRESS_LED_TEST) {
-            led_test_mode = LED_TEST_MODE_WHITE;
-#ifdef RGB_MATRIX_ENABLE
-            if (!rgb_matrix_is_enabled()) {
-                rgb_matrix_enable();
-            }
-#endif
-        }
-        key_press_status = 0;
-    }
+    led_blink_buffer  = timer_read();
+    test_clear_blink = LED_BLINK;
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    rgb_matrix_sethsv_noeeprom(HSV_OFF);
 }
 
-static void timer_250ms_task(void) {
-    if (timer_250ms_buffer && sync_timer_elapsed32(timer_250ms_buffer) > 250) {
-        if (factory_reset_count++ > 6) {
-            timer_250ms_buffer = 0;
-            factory_reset_count = 0;
-        } else {
-            timer_250ms_buffer = sync_timer_read32() | 1;
-        }
-    }
-}
-
-#if LED_MATRIX_ENABLE
-
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (factory_reset_count) {
-        for (uint8_t i = led_min; i <= led_max; i++) {
-            led_matrix_set_value(i, factory_reset_count % 2 ? 0 : UINT8_MAX);
-        }
-    }
-}
-
-#endif
-
-#if RGB_MATRIX_ENABLE
-
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (factory_reset_count) {
-        for (uint8_t i = led_min; i <= led_max; i++) {
-            rgb_matrix_set_color(i, factory_reset_count % 2 ? 0 : RGB_RED);
-        }
-    } else if (led_test_mode) {
-        switch (led_test_mode) {
-            case LED_TEST_MODE_WHITE:
-                for (uint8_t i = led_min; i <= led_max; i++) {
-                    rgb_matrix_set_color(i, RGB_WHITE);
-                }
-                break;
-            case LED_TEST_MODE_RED:
-                for (uint8_t i = led_min; i <= led_max; i++) {
-                    rgb_matrix_set_color(i, RGB_RED);
-                }
-                break;
-            case LED_TEST_MODE_GREEN:
-                for (uint8_t i = led_min; i <= led_max; i++) {
-                    rgb_matrix_set_color(i, RGB_GREEN);
-                }
-                break;
-            case LED_TEST_MODE_BLUE:
-                for (uint8_t i = led_min; i <= led_max; i++) {
-                    rgb_matrix_set_color(i, RGB_BLUE);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-#endif
+#ifdef RAW_ENABLE
 
 void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
     if ( data[0] == 0xAB ) {
@@ -231,8 +223,10 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
         }
         switch (data[1]) {
             case FACTORY_TEST_CMD_BACKLIGHT:
-                led_test_mode = data[2];
-                timer_3000ms_buffer = 0;
+                if (data[2]) {
+                    led_color_status = data[2] - 1;
+                    led_test(led_color_status);
+                }
                 break;
             case FACTORY_TEST_CMD_OS_SWITCH:
                 report_os_sw_state = data[2];
@@ -270,7 +264,16 @@ void system_switch_state_report(uint8_t index, bool active) {
     }
 }
 
-/* To solve the problem that keyboard can not wakeup the host */
-void restart_usb_driver(USBDriver *usbp) {
-    // Do nothing here.
-}
+#endif
+
+#if defined(KEYBOARD_keychron_q1_q1_ansi_atmega32u4)
+#elif defined(KEYBOARD_keychron_q1_q1_ansi_atmega32u4_ec11)
+#elif defined(KEYBOARD_keychron_q1_q1_iso_atmega32u4)
+#elif defined(KEYBOARD_keychron_q1_q1_iso_atmega32u4_ec11)
+    //There is nothing to do
+#else
+    /* To solve the problem that keyboard can not wakeup the host */
+    void restart_usb_driver(USBDriver *usbp) {
+        // Do nothing here.
+    }
+#endif

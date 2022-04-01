@@ -86,17 +86,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS)
 };
 
-void matrix_scan_user(void) {
-    timer_task_start();
-}
-
 bool dip_switch_update_user(uint8_t index, bool active) {
     system_switch_state_report(index, active);
     return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    process_other_record(keycode, record);
     switch (keycode) {
         case KC_MISSION_CONTROL:
             if (record->event.pressed) {

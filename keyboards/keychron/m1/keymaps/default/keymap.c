@@ -17,7 +17,13 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(/* Base */
-        KC_BTN1, KC_BTN2, KC_BTN3, DPI_CONFIG, RGB_CONFIG, KC_BTN4, KC_BTN5, KC_BTN4, KC_BTN5, \
-        _______, _______, _______, _______, _______ )
+[0] = LAYOUT(/* Base */
+    KC_BTN1, KC_BTN2, KC_BTN3, DPI_CONFIG, RGB_CONFIG, KC_BTN4, KC_BTN5, KC_BTN4, RGB_TOG),
 };
+
+void matrix_scan_user(void) {
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}

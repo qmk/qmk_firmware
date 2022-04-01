@@ -28,10 +28,7 @@
 #define MATRIX_COLS 14
 
 /* Key matrix pins */
-#define DIRECT_PINS                               \
-    {                                             \
-        { A1, A2, A3, B0, B1, A13, A14, B3, A15, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN } \
-    }
+#define DIRECT_PINS { { A1, A2, A3, B0, B1, A13, A14, B3, A15, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN } }
 
 // These pins are not broken out, and cannot be used normally.
 // They are set as output and pulled down, by default
@@ -61,8 +58,8 @@
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_1_LED_TOTAL 14
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
-#define PHASE_CHANNEL MSKPHASE_9CHANNEL
-#define LOW_CURRENT_MODE_MOUSE
+#define PHASE_CHANNEL MSKPHASE_6CHANNEL
+// #define LOW_CURRENT_MODE_MOUSE
 
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
@@ -72,6 +69,7 @@
 #define ENCODERS_PAD_B { C15 }
 #define ENCODER_RESOLUTION 2
 // #define ENCODER_DEFAULT_POS 0x3
+// #define TAP_CODE_DELAY 10
 
 /* PMW3389 Settings */
 #define PMW3360_FIRMWARE_H "pmw3389_firmware.h"
@@ -134,6 +132,7 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+// #define RGB_MATRIX_KEYPRESSES
 
 /* Allow VIA to edit lighting */
 #ifdef VIA_ENABLE

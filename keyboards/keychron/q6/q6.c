@@ -68,7 +68,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
         #endif
     #endif
 
-    __attribute__((weak)) void rgb_matrix_indicators_kb(void) {
+    void rgb_matrix_indicators_kb(void) {
         #if defined(CAPS_LOCK_LED_INDEX)
         if (host_keyboard_led_state().caps_lock) {
             uint8_t b = rgb_matrix_get_val();

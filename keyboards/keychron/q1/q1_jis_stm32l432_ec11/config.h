@@ -45,7 +45,7 @@
 #define PHASE_CHANNEL MSKPHASE_9CHANNEL
 
 /* Set the maxium brightness as 192 in order to limit the current to 450mA */
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (28*8)
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS (28 * 8)  // 8 = RGB_MATRIX_VAL_STEP
 
 /* Encoder Configuration */
 #define ENCODERS_PAD_A { A10 }

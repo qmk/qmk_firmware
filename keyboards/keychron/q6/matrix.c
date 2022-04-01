@@ -33,6 +33,10 @@ static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif  // MATRIX_COL_PINS
 
+#ifndef PIN_IN_COL
+#    define PIN_IN_COL MATRIX_COLS
+#endif
+
 /* matrix state(1:on, 0:off) */
 extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
@@ -67,10 +71,8 @@ static void delay_nTime(uint8_t time) {
     while(time--);
 }
 
-static void SendTo595(uint8_t byteData) {
-    uint8_t i = 0;
-
-    for (; i < 8; i++) {
+static void SendTo595(uint16_t byteData) {
+    for (uint8_t i = 0; i < NO_PIN_NUM; i++) {
         if (byteData & 0x1) {
             setPinOutput_writeHigh(DS);
         } else {
@@ -94,7 +96,7 @@ static bool select_col(uint8_t col) {
         setPinOutput_writeLow(pin);
         return true;
     } else {
-        SendTo595(~(0x1<<(19 - col -1)));
+        SendTo595(~(0x1<<(PIN_IN_COL - col - 1)));
         return true;
     }
     return false;
@@ -106,7 +108,7 @@ static void unselect_col(uint8_t col) {
     if (pin != NO_PIN) {
         setPinInputHigh_atomic(pin);
     } else {
-        SendTo595(0xFF);
+        SendTo595(CLEAR_VAL);
     }
 }
 

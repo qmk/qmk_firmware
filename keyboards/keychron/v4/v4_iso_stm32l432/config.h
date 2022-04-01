@@ -25,4 +25,4 @@
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 
 /* Enable CapsLcok LED*/
-#define CAPS_LOCK_LED_INDEX 28
+#define CAPS_LOCK_LED_INDEX 27

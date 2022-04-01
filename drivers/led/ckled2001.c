@@ -137,6 +137,10 @@ __attribute__((weak)) void CKLED2001_init(uint8_t addr) {
                 CKLED2001_write_register(addr, i, 0xA8);
         }
     }
+#elif defined(LOW_CURRENT_MODE_MOUSE)
+    for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
+        CKLED2001_write_register(addr, i, 0x80);
+    }
 #else
     for (int i = 0; i < LED_CURRENT_TUNE_LENGTH; i++) {
         switch (i) {

@@ -20,29 +20,20 @@
 
 #define XXX KC_NO
 
+enum custom_keycodes {
+    DPI_CONFIG = SAFE_RANGE,
+    RGB_CONFIG
+};
+
+#define LAYOUT( \
+    BL, BR, BM, BDPI, BRGB, BF, BB, BRR, BLL \
+) { \
+    { BL, BR, BM, BDPI, BRGB, BF, BB, BRR, BLL }, \
+}
+
 typedef union {
     uint32_t raw;
     struct {
         uint8_t dpi_config;
     };
 } keyboard_config_t;
-
-extern keyboard_config_t keyboard_config;
-extern uint16_t dpi_array[];
-
-enum custom_keycodes {
-#ifdef VIA_ENABLE
-    DPI_CONFIG = USER00,
-#else
-    DPI_CONFIG = SAFE_RANGE,
-#endif
-    RGB_CONFIG
-};
-
-#define LAYOUT( \
-    BL, BR, BM, BDPI, BRGB, BF, BB, BRR, BLL,      \
-    K1, K2, K3, K4, K5                             \
-) { \
-    { BL, BR, BM, BDPI, BRGB, BF, BB, BRR, BLL,    \
-      K1, K2, K3, K4, K5 }, \
-}
