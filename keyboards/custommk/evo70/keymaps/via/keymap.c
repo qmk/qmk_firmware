@@ -48,7 +48,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
 static bool custom_encoder_mode = false;
 
 void set_custom_encoder_mode_user(bool custom_mode) {

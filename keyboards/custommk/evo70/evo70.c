@@ -45,12 +45,13 @@ uint8_t enc_mode = 0;
 #define ENC_MEDIA 2
 #define ENC_CUSTOM 3
 #define ENC_BL_BRIGHT 4
-#define ENC_RGB_BRIGHT 5
-#define ENC_RGB_MODE 6
-#define ENC_RGB_COLOR 7
-#define ENC_SCROLL 8
+#define ENC_BL_BREATH 5
+#define ENC_RGB_BRIGHT 6
+#define ENC_RGB_MODE 7
+#define ENC_RGB_COLOR 8
+#define ENC_SCROLL 9
 #ifdef BONGOCAT
-#define ENC_BONGO 9
+#define ENC_BONGO 10
 #endif //bongocat
 
 extern matrix_row_t matrix[MATRIX_ROWS];
@@ -62,6 +63,7 @@ char* enc_mode_str[] = {
     "Media Control", \
     "Custom", \
     "Backlight Brightness", \
+    "Backlight Breathing", \
     "Underglow Brightness", \
     "Underglow Mode", \
     "Underglow Color", \
@@ -73,6 +75,7 @@ char* enc_mode_str[] = {
     "Media Control", \
     "Custom", \
     "Backlight Brightness", \
+    "Backlight Breathing", \
     "Underglow Brightness", \
     "Underglow Mode", \
     "Underglow Color", \
@@ -80,19 +83,14 @@ char* enc_mode_str[] = {
 #endif //bongocat
 };
 
-uint8_t enc_mode_str_startpos[] = {0, 49, 28, 49, 7, 7, 25, 22, 31, 0};
-
 #ifdef BONGOCAT
-uint8_t num_enc_modes = 10;
-uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, 0, 0, 0, 0, 0, KC_WH_D };
-uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, 0, 0, 0, 0, 0, KC_WH_U };
+uint8_t num_enc_modes = 11;
 #else
-uint8_t num_enc_modes = 9;
-uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, 0, 0, 0, 0, 0, KC_WH_D };
-uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, 0, 0, 0, 0, 0, KC_WH_U };
+uint8_t num_enc_modes = 10;
 #endif //bongocat
-
-
+uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, 0, 0, 0, 0, 0, 0, KC_WH_D, KC_VOLU };
+uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, 0, 0, 0, 0, 0, 0, KC_WH_U, KC_VOLD };
+uint8_t enc_mode_str_startpos[] = {0, 49, 28, 49, 7, 10, 7, 25, 22, 31, 0};
 
 uint8_t prev_layer = 255;
 uint8_t prev_capslock = 255;
@@ -199,8 +197,7 @@ void draw_keyboard_layer(void){
 }
 
 
-
-static const uint8_t splash[] = { \
+static const uint8_t splash[] PROGMEM = { \
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x00, 0x00, \
@@ -233,7 +230,6 @@ static const uint8_t splash[] = { \
     0x40, 0x40, 0x43, 0x43, 0x43, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x43, 0x43, 0x40, 0x40, \
     0x40, 0x40, 0x43, 0x43, 0x43, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x41, 0x43, 0x43, 0x43, 0x40, \
     0x40, 0x40, 0x60, 0x30, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-
 
 uint32_t splash_timeout_timer = 0;
 bool redrawn_splash = false;
@@ -316,8 +312,7 @@ uint8_t bongo_line_x[] = {51, 49, 48, 57};
 uint8_t bongo_line_y[] = {0, 8, 16, 24};
 uint8_t bongo_line_len[] = {5, 7, 8, 6};
 
-
-static const uint8_t bongo_line_data[8][26] = {
+const uint8_t bongo_line_data[8][26] PROGMEM = {
     { //idle1
     60, 52, 19, 30, 35, \
     22, 47, 51, 60, 9, 0, 17, \
@@ -368,12 +363,10 @@ uint8_t current_idle_frame = 0;
 uint8_t current_tap_frame = 6;
 uint8_t last_bongo_frame = 12;
 
-void write_bongochar_at_pixel_xy(uint8_t x, uint8_t y, const char data, bool invert) {
+void write_bongochar_at_pixel_xy(uint8_t x, uint8_t y, uint8_t data, bool invert) {
     uint8_t i, j, temp;
-    uint8_t cast_data = (uint8_t)data;
-    const uint8_t *glyph = &bongofont[cast_data * 6]; // 6 = font width
-    temp = pgm_read_byte(glyph);
     for (i = 0; i < 6 ; i++) { // 6 = font width
+        temp = pgm_read_byte(&bongofont[data * 6]+i);
         for (j = 0; j < 8; j++) {  // 8 = font height
             if (temp & 0x01) {
                 oled_write_pixel(x + i, y + j, !invert);
@@ -382,7 +375,6 @@ void write_bongochar_at_pixel_xy(uint8_t x, uint8_t y, const char data, bool inv
             }
             temp >>= 1;
         }
-        temp = pgm_read_byte(++glyph);
     }
 }
 
@@ -470,7 +462,7 @@ void draw_bongocat_frame(int framenumber) {
         uint8_t i, j, current_bongochar = 0;
         for (i = 0; i < 4; i++) {
             for (j = 0; j < bongo_line_len[i]; j++) {
-                write_bongochar_at_pixel_xy(bongo_line_x[i] + j*6, bongo_line_y[i], bongo_line_data[framenumber][current_bongochar], false);
+                write_bongochar_at_pixel_xy(bongo_line_x[i] + j*6, bongo_line_y[i], pgm_read_byte(&bongo_line_data[framenumber][current_bongochar]), false);
                 current_bongochar++;
             }
         }
@@ -478,8 +470,25 @@ void draw_bongocat_frame(int framenumber) {
     
 }
 
+bool is_new_tap(void) {
+    static matrix_row_t old_matrix[] = { 0, 0, 0, 0, 0, 0 };
+    bool tapped = false;
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        if (matrix[i] ^ old_matrix[i]) { //there was a change in the matrix
+            if (matrix[i] > old_matrix[i]) { // more 1's detected, there was a new tap
+                tapped = true;
+            }
+            old_matrix[i] = matrix[i];
+        }
+    }
+    return tapped;
+}
+
 void draw_bongocat(void) {
     static bool already_tapped = false;
+    if (is_new_tap()) {
+        already_tapped = false;
+    };
     eval_anim_state();
     switch (anim_state) {
         case sleep:
@@ -522,19 +531,19 @@ void draw_splash(void) {
     uint8_t i, j, k, temp;
     uint16_t count;
     count = 0;
-    temp = splash[count];
+    temp = pgm_read_byte(&splash[count]);
     for (i = 0; i < 4 ; i++) {
         for (j = 0; j < 128; j++) {
             for (k = 0; k < 8; k++) {
                 if (temp & 0x01) {
-                     oled_write_pixel(j, (i * 8) + k, true);
+                    oled_write_pixel(j, (i * 8) + k, true);
                 } else {
                     oled_write_pixel(j, (i * 8) + k, false);
                 }
                 temp >>= 1;
                 
             }
-            temp = splash[++count];
+            temp = pgm_read_byte(&splash[++count]);
         }
     }
 }
@@ -627,6 +636,27 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
+#ifdef ADVANCED_BREATHING_TECHNIQUES
+uint16_t my_breathing_period = 0;
+void backlight_breath_change(bool increase) { //increase period or decrease period
+    uint8_t modulus = 0;
+    if (increase) {
+        my_breathing_period++;
+    }
+    else {
+        my_breathing_period--;
+    }
+    modulus = my_breathing_period % 255;
+    if (modulus == 0) {
+        breathing_disable();
+    }
+    else {
+        breathing_period_set(modulus);
+        breathing_enable();
+    }
+}
+#endif //ADVANCED_BREATHING_TECHNIQUES
+
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) return false;
     if (enc_mode == ENC_RGB_MODE) {
@@ -647,6 +677,12 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         } else {
             backlight_decrease();
         }
+    } else if (enc_mode == ENC_BL_BREATH) {
+        #ifdef ADVANCED_BREATHING_TECHNIQUES
+            backlight_breath_change(clockwise);
+        #else
+            breathing_toggle();
+        #endif //ADVANCED_BREATHING_TECHNIQUES
     } else if (enc_mode == ENC_RGB_COLOR) {
         if (clockwise) {
             rgblight_increase_hue();
