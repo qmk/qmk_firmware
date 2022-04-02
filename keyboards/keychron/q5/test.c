@@ -16,6 +16,8 @@
 
 #include "test.h"
 
+#include "matrix.h"
+extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 #define MAC_FN 1
 #define WIN_FN 3
 
@@ -137,8 +139,9 @@ static void timer_3000ms_task(void) {
             layer_state_t default_layer_tmp = default_layer_state;
             eeconfig_init();
             default_layer_set(default_layer_tmp);
+            led_test_mode = LED_TEST_MODE_OFF;
 #ifdef LED_MATRIX_ENABLE
-            if (!led_matrix_is_enabled()) led_matrix_enable();
+                if (!led_matrix_is_enabled()) led_matrix_enable();
             led_matrix_init();
 #endif
 #ifdef RGB_MATRIX_ENABLE
@@ -236,16 +239,16 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
                 break;
             case FACTORY_TEST_CMD_OS_SWITCH:
                 report_os_sw_state = data[2];
-                if (report_os_sw_state) {
-                    // dip_switch_read(true);
-                }
+                // if (report_os_sw_state) {
+                //     dip_switch_read(true);
+                // }
                 break;
             case FACTORY_TEST_CMD_JUMP_TO_BL:
                 if (memcmp(&data[2], "JumpToBootloader", strlen("JumpToBootloader")) == 0)
                     bootloader_jump();
                 break;
         }
-   }
+    }
 }
 
 static void factory_test_send(uint8_t *payload, uint8_t length) {

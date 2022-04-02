@@ -87,7 +87,7 @@ void dip_switch_read(bool forced) {
 #ifdef DIP_SWITCH_MATRIX_GRID
     bool read_raw = false;
 
-    if (scan_count < 500) {
+    if (scan_count < 100) {
         scan_count++;
         if (scan_count == 10) {
             read_raw = true;

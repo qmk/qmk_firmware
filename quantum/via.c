@@ -376,7 +376,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #ifdef RAW_HID_CMD
         case RAW_HID_CMD: {
             raw_hid_receive_kb(data, length);
-            break;
+            return;
         }
 #endif
         default: {
