@@ -103,7 +103,7 @@
 // OLED STUFF.
 #define OLED_CUSTOM_ENABLE // custom oled here.
 //#define OLED_LOGO_ENABLE // turn on/off the logo.
-//#define KEYLOGGER_ENABLE // 1500 bytes, track and print keypress info to oled.
+#define KEYLOGGER_ENABLE // 1500 bytes, track and print keypress info to oled.
 
 // EXTENSIONS
 

@@ -119,7 +119,7 @@ void oled_render_layer_state(void) {
   uint16_t layer = get_highest_layer(layer_state);
   char layer_str[8];
   snprintf(layer_str, sizeof(layer_str), "%u ",layer);
-  oled_write_P(PSTR("Layer: "), false);
+  oled_write_P(PSTR(""), false);
   if (layer > 0)
     oled_write(layer_str , false);
 

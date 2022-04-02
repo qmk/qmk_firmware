@@ -93,16 +93,16 @@
 #define LEFT2_EN KC_TAB
 //#define LEFT3_EN KC_BSLASH
 //#define LEFT3_EN SML_NAV
-#define LEFT3_EN OSL(_ACCENTS_MORTE_EN)
+#define LEFT3_EN TT(_ACCENTS_MORTE_EN)
 
 #define LEFT0_BP BP_GRV
  //#define LEFT1_BP BP_GRV
 #define LEFT1_BP SML_NAV
 #define LEFT2_BP KC_TAB
  //#define LEFT3_BP BP_BSLS
-#define LEFT3_BP OSL(_ACCENTS_MORTE_BP)
+#define LEFT3_BP TT(_ACCENTS_MORTE_BP)
 
- /* #define RIGHT0_EN KC_EQL */
+/* #define RIGHT0_EN KC_EQL */
 #define RIGHT0_EN SML_NAV
 /* #define RIGHT1_EN KC_SLASH */
 #define RIGHT1_EN SML_NAV
