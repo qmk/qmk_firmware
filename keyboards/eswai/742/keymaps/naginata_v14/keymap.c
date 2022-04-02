@@ -19,6 +19,7 @@
 // 薙刀式
 #include "naginata.h"
 NGKEYS naginata_keys;
+#define NAGINATA_TIMEOUT 15000
 // 薙刀式
 
 // Defines names for use in layer keycodes and the keymap
@@ -40,7 +41,8 @@ enum custom_keycodes {
     EISUON
 };
 
-// uint32_t oled_sleep_timer;
+uint32_t oled_sleep_timer;
+uint32_t naginata_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // [_BASE] = LAYOUT(
@@ -97,7 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
+  oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
+  naginata_timer = timer_read32() + NAGINATA_TIMEOUT;
 
   switch (keycode) {
     case EISUON:
@@ -141,7 +144,8 @@ void matrix_init_user(void) {
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // 薙刀式
 
-  // oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
+  oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
+  naginata_timer = timer_read32() + NAGINATA_TIMEOUT;
 }
 
 #ifdef OLED_ENABLE
@@ -211,13 +215,22 @@ static void render_eisu(void) {
 }
 
 bool oled_task_user(void) {
+    if (timer_expired32(timer_read32(), naginata_timer)) {
+      if (naginata_state()) {
+        naginata_off();
+      }
+    }
+
     // なぜか明示的にOLEDのスリープ処理が必要
-    // if (timer_expired32(timer_read32(), oled_sleep_timer)) {
-    //   oled_off();
-    //   return false;;
-    // } else {
-    //   oled_on();
-    // }
+    if (timer_expired32(timer_read32(), oled_sleep_timer)) {
+      if (is_oled_on()) {
+        oled_off();
+      }
+      return false;;
+    } else {
+      if (!is_oled_on())
+        oled_on();
+    }
 
     if (is_keyboard_master()) {
       if (naginata_state()) {

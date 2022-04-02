@@ -9,7 +9,7 @@ ETANDA
 shifted = <<ESHIFTED
  ふ|む|り |ぬ|+{←}|+{→}|さ       |よ|え|ゆ|`|{{}|
  せ|め|に |ま|ち   |や   |の       |も|わ|つ|*|{}}|
- ほ|ひ|を |、|み   |お   |。{Enter}|ん|ら|れ|_|
+ ほ|ひ|を |、|み   |お   |。{Enter}|ね|ふ|れ|_|
 ESHIFTED
 
 mode1l = <<MEND
@@ -120,13 +120,15 @@ end
 
 puts "  // 清音"
 kana.each_with_index do |k, i|
-  j = tanda.index(k)
-  if j && j >= 0
-    puts teigi(eiji[j], r_kana[i], k)
+  tanda.each_with_index do |t, j|
+    if k == t
+      puts teigi(eiji[j], r_kana[i], k)
+    end
   end
-  j = shifted.index(k)
-  if j && j >= 0
-    puts teigi(eiji[j], r_kana[i], k, "B_SHFT|")
+  shifted.each_with_index do |t, j|
+    if k == t
+      puts teigi(eiji[j], r_kana[i], k, "B_SHFT|")
+    end
   end
 end
 
@@ -401,7 +403,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode1l[i]
-    puts "missing #{mode1l[i]}"
+    puts "missing #{mode1l[i]}" if mode1l[i].size > 0
     next
   end
   m =  mode1l[i]
@@ -411,7 +413,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode1r[i]
-    puts "missing #{mode1r[i]}"
+    puts "missing #{mode1r[i]}" if mode1r[i].size > 0
     next
   end
   m =  mode1r[i]
@@ -421,7 +423,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode2l[i]
-    puts "missing #{mode2l[i]}"
+    puts "missing #{mode2l[i]}" if mode2l[i].size > 0
     next
   end
   m =  mode2l[i]
@@ -431,7 +433,7 @@ end
 
 qwerty.each_with_index do |k, i|
   unless $henshu.key? mode2r[i]
-    puts "missing #{mode2r[i]}"
+    puts "missing #{mode2r[i]}" if mode2r[i].size > 0
     next
   end
   m =  mode2r[i]
