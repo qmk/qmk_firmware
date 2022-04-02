@@ -16,6 +16,7 @@
 // For full documentation, see
 // https://getreuer.info/posts/keyboards/caps-word
 
+#ifdef CAPS_WORD_ENABLE
 #include "caps_word.h"
 #include USERSPACE_H
 
@@ -81,3 +82,4 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
   shifted = false;
   return true;
 }
+#endif

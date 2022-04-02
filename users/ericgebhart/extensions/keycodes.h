@@ -23,6 +23,7 @@
 //#include "keymap_us_international.h"
 #include "keymap_us_international_linux.h"
 #include "lang.h"
+#include "ericgebhart.h"
 
 //#define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
 
@@ -140,7 +141,10 @@ enum userspace_custom_keycodes {
 #define TL_MINS TLKC(_MINS)
 #define TL_LPRN TLKC(_LPRN)
 #define TL_LCBR TLKC(_LCBR)
+#ifdef SYMBOL_LAYER_ENABLE
 #define TL_DOT_SYMB LT(LN_SYMB, LANG_KC(TL_DOT))
+#endif
+
 
 
 #define BP_LT BP_LABK
@@ -203,7 +207,7 @@ enum userspace_custom_keycodes {
 #define MO_KEYPAD ___
 #endif
 
-#ifdef SYMB_LAYER_ENABLE
+#ifdef SYMBOL_LAYER_ENABLE
 #define TT_SYMB TT(LANG_N(_SYMB))
 #define MO_SYMB MO(LANG_N(_SYMB))
 #else
@@ -216,7 +220,7 @@ enum userspace_custom_keycodes {
 #define MO_TOPROWS MO(LANG_N(_TOPROWS))
 #else
 #define TT_TOPROWS ___
-#define MO_SYMB ___
+#define MO_TOPROWS ___
 #endif
 
 #ifdef RGB_LAYER_ENABLE
@@ -231,10 +235,25 @@ enum userspace_custom_keycodes {
 #define MO_ADJUST ___
 #endif
 
+#ifdef ACCENTS_MORTE_LAYER_ENABLE
+//#define LN_ACCENTS_MORTE LANG_N(_ACCENTS_MORTE)
+#define OSL_ACCENTS_MORTE OSL(LANG_N(_ACCENTS_MORTE))
+#else
+#define OSL_ACCENTS_MORTE ___
+#endif
+
 #ifdef ACCENTS_LAYER_ENABLE
-#define OSL_ACCENTS OSL(LANG_N(_ACCENTS))
+#define LN_ACCENTS LANG_N(_ACCENTS)
+#define OSL_ACCENTS OSL(LN_ACCENTS)
 #else
 #define OSL_ACCENTS ___
+#endif
+
+#ifdef MORTE_LAYER_ENABLE
+#define LN_MORTE LANG_N(_MORTE)
+#define OSL_MORTE OSL(LN_MORTE)
+#else
+#define OSL_MORTE ___
 #endif
 
 #define CTLGUI_T(kc) MT(MOD_LGUI | MOD_LCTL, kc)
@@ -255,14 +274,23 @@ enum userspace_custom_keycodes {
 /* TL_COMM, TL_DOT_SYMB, GUI_ESC, ALT_ENT, SPC_TOPR, BSPC */
 
 // Lots of LT options.  My thumb keys.
-#define LN_ACCENTS LANG_N(_ACCENTS)
+#ifdef TOPROWS_LAYER_ENABLE
 #define LN_TOPROWS LANG_N(_TOPROWS)
-#define LN_SYMB LANG_N(_SYMB)
+#else
+#define LN_TOPROWS KC_NO
+#endif
+
+#ifdef SYMBOL_LAYER_ENABLE
+#  define LN_SYMB LANG_N(_SYMB)
+#  define TH_LTR_SYM LT(LN_SYMB, THUMB_LETTER)
+#else
+#  define TH_LTR_SYM THUMB_LETTER
+#endif
+
 #define LN_KEYPAD LANG_N(_KEYPAD)
 
 #define ACCENTS_RALT MT(MOD_RALT, OSL_ACCENTS)
 #define ACCENTS_CTL MT(MOD_LCTL, OSL_ACCENTS)
-#define TH_LTR_SYM LT(LN_SYMB, THUMB_LETTER)
 #define ENT_SYM LT(LN_SYMB, KC_ENT)
 #define ENT_NAV LT(_NAV, KC_ENT)
 #define ENT_TOPR LT(LN_TOPROWS, KC_ENT)
@@ -286,7 +314,11 @@ enum userspace_custom_keycodes {
 #define SPC_NUM LT(LN_KEYPAD, KC_SPC)
 
 #define BSPC_NAV LT(_NAV, KC_BSPC)
+#ifdef SYMBOL_LAYER_ENABLE
 #define BSPC_SYMB LT(LN_SYMB, KC_BSPC)
+#else
+#define BSPC_SYMB KC_BSPC
+#endif
 #define BSPC_TOPR LT(LN_TOPROWS, KC_BSPC)
 #define BSPC_NUM LT(LN_KEYPAD, KC_BSPC)
 #define BSPC_ALT MT(MOD_LALT, KC_BSPC)

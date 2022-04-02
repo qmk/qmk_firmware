@@ -92,24 +92,23 @@
 #define LEFT1_EN SML_NAV
 #define LEFT2_EN KC_TAB
 //#define LEFT3_EN KC_BSLASH
-//#define LEFT3_EN SML_NAV
-#define LEFT3_EN SMLM_LSFT
-//#define LEFT3 KC_COLN
+#define LEFT3_EN SML_NAV
+//#define LEFT3_EN OSL(_ACCENTS_MORTE_EN)
 
 #define LEFT0_BP BP_GRV
-//#define LEFT1_BP BP_GRV
+ //#define LEFT1_BP BP_GRV
 #define LEFT1_BP SML_NAV
 #define LEFT2_BP KC_TAB
-//#define LEFT3_BP BP_BSLS
-#define LEFT3_BP SMLM_LSFT
+#define LEFT3_BP BP_BSLS
+//#define LEFT3_BP OSL(_ACCENTS_MORTE_BP)
 
 /* #define RIGHT0_EN KC_EQL */
 #define RIGHT0_EN SML_NAV
 /* #define RIGHT1_EN KC_SLASH */
 #define RIGHT1_EN SML_NAV
 #define RIGHT2_EN KC_MINS
-/* #define RIGHT3_EN KC_SCLN */
-#define RIGHT3_EN SML_KEYPAD
+#define RIGHT3_EN KC_SCLN
+//#define RIGHT3_EN SML_KEYPAD
 
 #define RIGHT0_BP BP_EQL
 /* #define RIGHT1_BP BP_SLSH */

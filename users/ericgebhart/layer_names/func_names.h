@@ -14,20 +14,19 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-// This is how we reference the end of the first locale
-// should never turn it off...
 
-#ifdef ACCENTED_LAYER_ENABLE
-LANG_N(_ACCENTED),
+// functional layers that would be different by language
+
+#ifdef ACCENTS_LAYER_ENABLE
+LANG_N(_ACCENTS),
 #endif
 #ifdef MORTE_LAYER_ENABLE
   LANG_N(_MORTE),
 #endif
-#ifdef ACCENTED_MORTE_LAYER_ENABLE
-  LANG_N(_ACCENTED_MORTE),
+#ifdef ACCENTS_MORTE_LAYER_ENABLE
+    LANG_N(_ACCENTS_MORTE),
 #endif
 
-// functional layers that would be different by language
 #ifdef SYMBOL_LAYER_ENABLE
   LANG_N(_SYMB),
 #endif

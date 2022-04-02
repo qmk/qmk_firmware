@@ -65,6 +65,7 @@
 
 // Give the right symbol suffix by LANG_IS
 #define LANG_SFX CAT(CAT(LANG_IS, _), SFX)
+#define LOCALE_LAYERS_SFX _LL // for counting the base layers.
 #define COMBO_SFX _CB
 #define COMBO2_SFX _CB2
 #define BEPO_SFX _BP

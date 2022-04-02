@@ -108,7 +108,7 @@
                " àôèéî  ûçñß^",                 \
                " âöíúí       ")
 
-#define ___ACCENTED_BP___                                               \
+#define ___ACCENTED___                                               \
   LANG_MAP(_AE,   _OE,   _ECIR, _UGRV, _IGRV,   _IQUE, _IIAE, _UIAE, _OIAE, _EIAE, \
            _AGRV, _OCIR, _EGRV, _EACU, _ICIR,   _UCIR, _CCED, _NTIL, _SS,   _DCIR, \
            _AACU, _ODIA, _IACU, _UACU, _IACU,   _SPC,  _SPC,  _SPC , _SPC,  _SPC)
@@ -121,7 +121,7 @@
                "/`^´  ¸¨~¤",                    \
                " ,ˇ.  ˛µ¯")
 
-#define ___MORTE_BP___                                                  \
+#define ___MORTE___                                                  \
   LANG_MAP(_,     _DACU, _BREV, _HOKA, _,   _, _HORN, _DOTA, _RNGA, _,  \
            _DSLS, _DGRV, _DCIR, _ACUT, _,   _, _CEDL, _DIAE, _DTIL, _CURR, \
            _,     _DCMM, _CARN, _DOTB, _,   _, _OGON, _DGRK, _MACR, _)
@@ -134,7 +134,7 @@
                " àôèéî  ¸çñß~",                 \
                " âö,úí   ¨ˇ°   ")
 
-#define ___ACCENTED_MORTE_BP___                                         \
+#define ___ACCENTED_MORTE___                                         \
   LANG_MAP(_AE,   _OE,    _ECIR,  _UGRV,  _IGRV,    _IQUE, _DGRV, _DCIR, _ACUT, _EIAE, \
            _AGRV, _OCIR,  _EGRV,  _EACU,  _ICIR,    _CEDL, _CCED, _NTIL, _SS,   _DTIL, \
            _AACU, _OIAE,  _DCMM,  _UACU,  _IACU,    _OGON, _DIAE, _CARN, _RNGA, _HORN)

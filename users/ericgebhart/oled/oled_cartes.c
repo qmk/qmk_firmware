@@ -14,6 +14,8 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#ifdef OLED_CUSTOM_ENABLE
+
 #include "ericgebhart.h"
 
 void oled_render_layer_map(void) {
@@ -118,21 +120,23 @@ void oled_render_layer_map(void) {
   } else {
 
     switch (lyr) {
+#ifdef TOPROWS_LAYER_ENABLE
       LCASE(_TOPROWS)
-#ifdef TOPROWS_BKL_NUMS
-#ifdef TOPROWS_MOD
+#  ifdef TOPROWS_BKL_NUMS
+#    ifdef TOPROWS_MOD
         CARTE_TOPROWS_MOD
-#else
-#ifdef TOPROWS_BKL_19_NUMS
+#    else
+#      ifdef TOPROWS_BKL_19_NUMS
         CARTE_TOPROWS_BKL19
-#else
+#      else
         CARTE_TOPROWS
-#endif
-#endif
-#else // not beakl nums.
+#      endif
+#    endif
+#  else // not beakl nums.
         CARTE_RAISE
-#endif
+#  endif
         break;
+#endif
 
 
     case _NAV:
@@ -160,33 +164,36 @@ void oled_render_layer_map(void) {
       break;
 #endif
 
-        SHOW_MAP_S(_MEDIA)
-        SHOW_MAP_S(_LAYERS)
+#ifdef MEDIA_LAYER_ENABLE
+          SHOW_MAP_S(_MEDIA)
+#endif
+          SHOW_MAP_S(_LAYERS)
 
-          LCASE(_SYMB)
-#ifdef SYMBOL_BEAKL
-          CARTE_SYMB_BEAKL
+#ifdef SYMBOL_LAYER_ENABLE
+            LCASE(_SYMB)
+#  ifdef SYMBOL_BEAKL
+            CARTE_SYMB_BEAKL
+#  endif
+#  ifdef SYMBOL_BEAKL_EXT
+            CARTE_SYMB_BEAKLA
+#  endif
+#  ifdef SYMBOL_BEAKL_EXT_VI
+            CARTE_SYMB_BEAKLB
+#  endif
+#  ifdef SYMBOL_BEAKL_C
+            CARTE_SYMB_BEAKLC
+#  endif
+#  ifdef SYMBOL_MIRYOKU
+            CARTE_SYMB_MIRYOKU
+#  endif
+#  ifdef SYMBOL_BEAKL_WI
+            CARTE_SYMB_BEAKL_WI
+#  endif
+            break;
 #endif
-#ifdef SYMBOL_BEAKL_EXT
-          CARTE_SYMB_BEAKLA
-#endif
-#ifdef SYMBOL_BEAKL_EXT_VI
-          CARTE_SYMB_BEAKLB
-#endif
-#ifdef SYMBOL_BEAKL_C
-          CARTE_SYMB_BEAKLC
-#endif
-#ifdef SYMBOL_MIRYOKU
-          CARTE_SYMB_MIRYOKU
-#endif
-#ifdef SYMBOL_BEAKL_WI
-          CARTE_SYMB_BEAKL_WI
-#endif
-
-          break;
 
 #ifdef KEYAD_LAYER_ENABLE
-        LCASE(_KEYPAD)
+          LCASE(_KEYPAD)
 #ifdef KEYPAD_BEAKL
 #ifdef KEYPAD_BEAKL_WI
       CARTE_KP_BKL_WI
@@ -224,13 +231,14 @@ void oled_render_layer_map(void) {
          SHOW_MAP(_MORTE)
 #endif
 
-#ifdef ACCENTED_MORTE_LAYER_ENABLE
-         SHOW_MAP(_ACCENTED_MORTE)
+#ifdef ACCENTS_MORTE_LAYER_ENABLE
+         SHOW_MAP(_ACCENTS_MORTE)
 #endif
 
-#ifdef ACCENTED_LAYER_ENABLE
-         SHOW_MAP(_CARTE_ACCENTED)
+#ifdef ACCENTS_LAYER_ENABLE
+         SHOW_MAP(_CARTE_ACCENTS)
 #endif
           }
   }
 }
+#endif

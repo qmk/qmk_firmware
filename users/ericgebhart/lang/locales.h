@@ -23,14 +23,17 @@
 // remember there's limitations on layers.
 // Our locales. so it's easy to switch between them.
 
+
+const uint16_t base_layer_count = BASE_NAME_COUNT - 1;
+
 const uint16_t locale_layers[][2] = {
-  [LOCALE_EN_US] =      {FIRST_EN_LAYER, LAST_EN_LAYER},
+  [LOCALE_DEFAULT] =      {0, base_layer_count},
 #ifdef SECOND_LOCALE
-  [LOCALE_NAME] =    {FIRST_LOC_LAYER, LAST_LOC_LAYER},
+  [LOCALE_TWO] =    {BASE_NAME_COUNT, BASE_NAME_COUNT + base_layer_count},
 #endif
 };
 
-uint32_t current_locale = LOCALE_EN_US;
+uint32_t current_locale = LOCALE_DEFAULT;
 #define LOCALE_LAYER_RANGE locale_layers[current_locale]
 
 bool process_locales(uint16_t keycode, keyrecord_t *record);

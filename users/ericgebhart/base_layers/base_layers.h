@@ -48,3 +48,5 @@
 #include "carplax.h"
 // The symbol, number function rows for all the above.
 #include "toprows.h"
+// some layers with accents and dead keys.
+#include "accents.h"

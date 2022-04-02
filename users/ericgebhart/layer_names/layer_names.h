@@ -22,13 +22,23 @@
 #    include "oled_stuff.h"
 #endif
 
+#define MO_LAYERS MO(_LAYERS)
+
+#undef LANG_IS
+#define LANG_IS LOCALE_LAYERS
+
+enum base_layer_names{
+#include "base_names.h"
+  BASE_NAME_COUNT
+};
+#undef LANG_IS
+#define LANG_IS DEFAULT_LANG
+
+
 // Get the enums for the layers.
 enum userspace_layers {
 
 #include "base_names.h"
-
-  _LAYERS,  // always on. indicates the end of the first set of base layers.
-#define MO_LAYERS MO(_LAYERS)
 
   // get them again if we have another locale.
 #ifdef SECOND_LOCALE
@@ -40,6 +50,8 @@ enum userspace_layers {
 #undef LANG_IS
 #define LANG_IS DEFAULT_LANG
 #endif
+
+  _LAYERS,
 
 #include "func_names.h"
 

@@ -25,9 +25,9 @@ extern uint32_t current_locale;
 void oled_render_locale(void) {
   // oled_write_P(PSTR("Layout: "), false);
   switch (current_locale) {
-    WRITE_STR_CASE(LOCALE_EN_US, DEFAULT_LANG_NAME)
+    WRITE_STR_CASE(LOCALE_DEFAULT, DEFAULT_LANG_NAME)
 #ifdef SECOND_LOCALE
-      WRITE_STR_CASE(LOCALE_NAME, SECOND_LOCALE_NAME)
+      WRITE_STR_CASE(LOCALE_TWO, SECOND_LOCALE_NAME)
 #endif
     }
 }

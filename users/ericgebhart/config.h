@@ -75,8 +75,9 @@
 
 // Enable a second locale, for another set of layers.
 // This will add bepo versions of all layers chosen.
-// #define SECOND_LOCALE BEPO
-// #define SECOND_LOCALE_NAME " fr-bepo"
+#define SECOND_LOCALE BEPO
+#define SECOND_LOCALE_NAME " fr-bepo"
+
 
 // Choose a mod layer. Can be changed per layer.
 // TRNS, ALT, HRM_GACS, HRM_SCAG, HRM_GASC, MIRYOKU_HRM_GASC
@@ -142,7 +143,7 @@
 //#define COLEMAK_DH_LAYER_ENABLE
 
 // BEAKL
-#define BEAKL15_LAYER_ENABLE
+// #define BEAKL15_LAYER_ENABLE
 //#define BEAKL19_LAYER_ENABLE
 #define BEAKL27_LAYER_ENABLE
 //#define BEAKLWI_LAYER_ENABLE
@@ -172,13 +173,13 @@
 //#define HD_NEU_LAYER_ENABLE
 
 // additionally all these have accent characters on base layer.
-#define BEPO_LAYER_ENABLE
-#define OPTIMOT_LAYER_ENABLE
+//#define BEPO_LAYER_ENABLE
+//#define OPTIMOT_LAYER_ENABLE
 // #define BEAKL19bis_LAYER_ENABLE
 
 
 // enable transient function layers.
-#define SYMBOL_LAYER_ENABLE
+//#define SYMBOL_LAYER_ENABLE
 #define NAV_LAYER_ENABLE
 // #define MOUSE_LAYER_ENABLE
 #define TOPROWS_LAYER_ENABLE
@@ -186,8 +187,8 @@
 #define KEYPAD_LAYER_ENABLE
 //#define ADJUST_LAYER_ENABLE
 //#define RGB_LAYER_ENABLE
-#define MEDIA_LAYER_ENABLE
-#define FUNC_LAYER_ENABLE
+//#define MEDIA_LAYER_ENABLE
+//#define FUNC_LAYER_ENABLE
 
 
 // define alternate thumb definitions for the transient layers.
@@ -201,11 +202,11 @@
 // Extra character layers.
 // Bepo has dead keys (altgr) and accented keycodes
 // A layer of accented keys
-// #define ACCENTED_LAYER_ENABLE
+// #define ACCENTS_LAYER_ENABLE
 // A layer of dead keys
 // #define MORTE_LAYER_ENABLE
 // A layer of the most popular accented keys and dead keys
-#define ACCENTED_MORTE_LAYER_ENABLE
+#define ACCENTS_MORTE_LAYER_ENABLE
 
 // Functional layer choices.
 /* configure the function layers. */

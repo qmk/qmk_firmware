@@ -15,12 +15,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 // Accented character and dead key layers.
-#ifdef ACCENTED_LAYER_ENABLE
-    T_LAYER(LANG(_ACCENTED), ___ACCENTED___),
+#ifdef ACCENTS_LAYER_ENABLE
+  T_LAYER(LANG_N(_ACCENTS), ___ACCENTS___),
 #endif
 #ifdef MORTE_LAYER_ENABLE
-    T_LAYER(LANG(_MORTE), ___MORTE___),
+  T_LAYER(LANG_N(_MORTE), ___MORTE___),
 #endif
-#ifdef ACCENTED_MORTE_LAYER_ENABLE
-    T_LAYER(LANG(_ACCENTED_MORTE), ___ACCENTED_MORTE___),
+#ifdef ACCENTS_MORTE_LAYER_ENABLE
+  T_LAYER(LANG_N(_ACCENTS_MORTE), ___ACCENTS_MORTE___),
 #endif

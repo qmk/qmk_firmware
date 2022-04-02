@@ -101,6 +101,7 @@
 // transient layers.
 #define ___5_LAYERS_T___     ___, MO(_NAV),  MO_SYMB,  MO_KEYPAD,  MO_TOPROWS
 #ifdef SECOND_LOCALE
+#undef LANG_IS
 #define LANG_IS SECOND_LOCALE
 #define ___5_LAYERS_T_BP___  ___, MO(_NAV),  MO_SYMB,  MO_KEYPAD,  MO_TOPROWS
 #undef LANG_IS

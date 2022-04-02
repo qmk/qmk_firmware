@@ -15,10 +15,17 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "ericgebhart.h"
+#include <stdio.h>
+
+#ifdef OLED_CUSTOM_ENABLE
 
 void oled_render_default_layer_state(void) {
   //oled_write_P(PSTR("Layout: "), false);
-  switch (get_highest_layer(default_layer_state)) {
+  uint16_t layer = get_highest_layer(default_layer_state);
+  char layer_str[8];
+  snprintf(layer_str, sizeof(layer_str), "%u ",layer);
+  oled_write(layer_str , false);
+  switch (layer) {
 #ifdef DVORAK_LAYER_ENABLE
     WRITE_STR_LAYER(_DVORAK, "Dvorak")
 #endif
@@ -109,57 +116,62 @@ void oled_render_default_layer_state(void) {
 }
 
 void oled_render_layer_state(void) {
+  uint16_t layer = get_highest_layer(layer_state);
+  char layer_str[8];
+  snprintf(layer_str, sizeof(layer_str), "%u ",layer);
   oled_write_P(PSTR("Layer: "), false);
-  switch (get_highest_layer(layer_state)) {
+  oled_write(layer_str , false);
 
+  switch (layer) {
     // language variant layers.
 #ifdef TOPROWS_LAYER_ENABLE
     WRITE_STR_LAYER(_TOPROWS, "TopRows");
 #endif
 
 #ifdef SYMBOL_LAYER_ENABLE
-    WRITE_STR_LAYER(_SYMB, "Symbols");
+      WRITE_STR_LAYER(_SYMB, "Symbols");
 #endif
 
 #ifdef KEYPAD_LAYER_ENABLE
-    WRITE_STR_LAYER(_KEYPAD, "Keypad");
+      WRITE_STR_LAYER(_KEYPAD, "Keypad");
 #endif
 
-// single case, BP or no suffix.
-#ifdef ACCENTED_MORTE_LAYER_ENABLE
-    WRITE_STR_LAYER(_ACCENTED_MORTE, "Accented Morte");
+      // single case, BP or no suffix.
+#ifdef ACCENTS_MORTE_LAYER_ENABLE
+      WRITE_STR_LAYER(_ACCENTS_MORTE, "Accents Morte");
 #endif
-#ifdef ACCENTED_LAYER_ENABLE
-    WRITE_STR_LAYER(_ACCENTED, "Accented");
+#ifdef ACCENTS_LAYER_ENABLE
+      WRITE_STR_LAYER(_ACCENTS, "Accents");
 #endif
 #ifdef MORTE_LAYER_ENABLE
-    WRITE_STR_LAYER(_MORTE, "Morte");
+      WRITE_STR_LAYER(_MORTE, "Morte");
 #endif
 
 
-    // language agnostic layers.
+      // language agnostic layers.
 #ifdef NAV_LAYER_ENABLE
-    WRITE_STR_CASE(_NAV, "Navigation");
-    WRITE_STR_CASE(_NAVm, "Mouse");
+      WRITE_STR_CASE(_NAV, "Navigation");
+      WRITE_STR_CASE(_NAVm, "Mouse");
 #endif
 #ifdef MEDIA_LAYER_ENABLE
-    WRITE_STR_CASE(_MEDIA, "Media");
+      WRITE_STR_CASE(_MEDIA, "Media");
 #endif
 #ifdef FUNC_LAYER_ENABLE
-    WRITE_STR_CASE(_FUN, "Func");
+      WRITE_STR_CASE(_FUN, "Func");
 #endif
 
-    WRITE_STR_CASE(_LAYERS, "Layers");
+      WRITE_STR_CASE(_LAYERS, "Layers");
 
 #ifdef RGB_LAYER_ENABLE
-    WRITE_STR_CASE(_RGB, "RGB");
+      WRITE_STR_CASE(_RGB, "RGB");
 #endif
 #ifdef ADJUST_LAYER_ENABLE
-    WRITE_STR_CASE(_ADJUST, "Adjust");
+      WRITE_STR_CASE(_ADJUST, "Adjust");
 #endif
 #ifdef COMBO_REF_LAYER_ENABLE
-    WRITE_STR_CASE(_COMBO_REF, "COMBO Ref");
+      WRITE_STR_CASE(_COMBO_REF, "COMBO Ref");
 #endif
 
-  }
+    }
 }
+#endif

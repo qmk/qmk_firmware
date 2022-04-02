@@ -16,8 +16,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifdef OLED_CUSTOM_ENABLE
+
 #include "quantum.h"
-#include "oled_driver.h"
+//#include "oled_driver.h"
 
 void oled_render_mod_lock_status(void);
 void oled_driver_render_logo(void);
@@ -54,4 +56,6 @@ void oled_render_layer_state(void);
 #define SHOW_MAP_S(LAYER)                       \
   case LAYER:                                   \
   CAT(CARTE, LAYER)                             \
-    break;
+  break;
+
+#endif

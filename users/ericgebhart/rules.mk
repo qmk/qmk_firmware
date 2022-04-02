@@ -50,7 +50,7 @@ SWAP_HANDS_ENABLE= no # Allow swapping hands of keyboard
 KEY_LOCK_ENABLE  = no # Enable the KC_LOCK key
 TAP_DANCE_ENABLE = no # Enable the tap dance feature.
 KEY_OVERRIDE_ENABLE = no
-CONSOLE_ENABLE   =   # Console for debug or keylogging.
+CONSOLE_ENABLE   = no  # Console for debug or keylogging.
 
 
 BOOTMAGIC_ENABLE = no  # Enable Bootmagic Lite
