@@ -287,6 +287,8 @@ enum userspace_custom_keycodes {
 #  define TH_LTR_SYM THUMB_LETTER
 #endif
 
+#define TH_LTR_NAV LT(_NAV, THUMB_LETTER)
+
 #define LN_KEYPAD LANG_N(_KEYPAD)
 
 #define ACCENTS_RALT MT(MOD_RALT, OSL_ACCENTS)
@@ -305,6 +307,7 @@ enum userspace_custom_keycodes {
 #define TAB_NUM LT(LN_KEYPAD, KC_TAB)
 #define I_SYMB LT(LN_SYMB, KC_I)
 
+#define SPC_NAVm LT(_NAVm, KC_SPC)
 #define SPC_NAVnm LT(_NAVnm, KC_SPC)
 #define SPC_NAV  LT(_NAV, KC_SPC)
 #define SPC_SYMB LT(LN_SYMB, KC_SPC)

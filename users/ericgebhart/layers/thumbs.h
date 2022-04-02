@@ -84,6 +84,11 @@
   ESC_MEDIA, SPACE_NAV, TAB_NAVM,  ENT_SYM, BSPC_TOPR, DEL_FUN
 #define ___6_ERGO_THUMBS_miryoku___                             \
   ESC_MEDIA, SPACE_NAV, TAB_NAVM,  ENT_SYM, BSPC_NUM, DEL_FUN
+// lose the tab key, put the space there to make room for a letter.
+#define ___6_ERGO_THUMBS_miryoku_ltr___                         \
+  ESC_MEDIA, TH_LTR_NAV, SPC_NAVm,  ENT_SYM, BSPC_NUM, DEL_FUN
+#define ___6_ERGO_THUMBS_miryoku_tr_ltr___                      \
+  ESC_MEDIA, TH_LTR_NAV, SPC_NAVm,  ENT_SYM, BSPC_TOPR, DEL_FUN
 
 // Give the right symbol suffix by the value of THUMBS_ARE
 // Basically we choose the right cluster here, so the layout
@@ -103,6 +108,8 @@
 #define MODS_LAYERS_EXT _mod_layers___
 #define MIRYOKU_EXT _miryoku___
 #define MIRYOKU_TR_EXT _miryoku_tr___
+#define MIRYOKU_LTR_EXT _miryoku_ltr___  // miryoku versions with a letter
+#define MIRYOKU_TR_LTR_EXT _miryoku_tr_ltr___
 #define TH_LTR_EXT _left_letter___ // takes a letter for the left thumb.
 #define HD_DASH_EXT _hd_dash___
 #define HD_EXT _hd___  // takes a letter for the left thumb.
