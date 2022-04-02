@@ -1,0 +1,10 @@
+COMBO_ENABLE = yes
+OLED_DRIVER_ENABLE = yes
+WPM_ENABLE = yes
+ENCODER_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+
+BOOTMAGIC_ENABLE = no
+RGB_MATRIX_ENABLE = no
+
+SRC += features/caps_word.c
