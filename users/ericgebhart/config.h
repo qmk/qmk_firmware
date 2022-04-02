@@ -71,13 +71,12 @@
 // US_INT // EN, BEPO, US_INT
 #define LANG_IS US_INT
 #define DEFAULT_LANG US_INT
-#define DEFAULT_LANG_NAME " us-intl"
+#define DEFAULT_LANG_NAME " us"
 
 // Enable a second locale, for another set of layers.
 // This will add bepo versions of all layers chosen.
 #define SECOND_LOCALE BEPO
-#define SECOND_LOCALE_NAME " fr-bepo"
-
+#define SECOND_LOCALE_NAME " bepo"
 
 // Choose a mod layer. Can be changed per layer.
 // TRNS, ALT, HRM_GACS, HRM_SCAG, HRM_GASC, MIRYOKU_HRM_GASC
@@ -180,7 +179,7 @@
 
 
 // enable transient function layers.
-//#define SYMBOL_LAYER_ENABLE
+#define SYMBOL_LAYER_ENABLE
 #define NAV_LAYER_ENABLE
 // #define MOUSE_LAYER_ENABLE
 #define TOPROWS_LAYER_ENABLE

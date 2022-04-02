@@ -120,7 +120,8 @@ void oled_render_layer_state(void) {
   char layer_str[8];
   snprintf(layer_str, sizeof(layer_str), "%u ",layer);
   oled_write_P(PSTR("Layer: "), false);
-  oled_write(layer_str , false);
+  if (layer > 0)
+    oled_write(layer_str , false);
 
   switch (layer) {
     // language variant layers.
@@ -129,49 +130,49 @@ void oled_render_layer_state(void) {
 #endif
 
 #ifdef SYMBOL_LAYER_ENABLE
-      WRITE_STR_LAYER(_SYMB, "Symbols");
+    WRITE_STR_LAYER(_SYMB, "Symbols");
 #endif
 
 #ifdef KEYPAD_LAYER_ENABLE
-      WRITE_STR_LAYER(_KEYPAD, "Keypad");
+    WRITE_STR_LAYER(_KEYPAD, "Keypad");
 #endif
 
-      // single case, BP or no suffix.
+    // single case, BP or no suffix.
 #ifdef ACCENTS_MORTE_LAYER_ENABLE
-      WRITE_STR_LAYER(_ACCENTS_MORTE, "Accents Morte");
+    WRITE_STR_LAYER(_ACCENTS_MORTE, "Accents Morte");
 #endif
 #ifdef ACCENTS_LAYER_ENABLE
-      WRITE_STR_LAYER(_ACCENTS, "Accents");
+    WRITE_STR_LAYER(_ACCENTS, "Accents");
 #endif
 #ifdef MORTE_LAYER_ENABLE
-      WRITE_STR_LAYER(_MORTE, "Morte");
+    WRITE_STR_LAYER(_MORTE, "Morte");
 #endif
 
 
-      // language agnostic layers.
+    // language agnostic layers.
 #ifdef NAV_LAYER_ENABLE
-      WRITE_STR_CASE(_NAV, "Navigation");
-      WRITE_STR_CASE(_NAVm, "Mouse");
+    WRITE_STR_CASE(_NAV, "Navigation");
+    WRITE_STR_CASE(_NAVm, "Mouse");
 #endif
 #ifdef MEDIA_LAYER_ENABLE
-      WRITE_STR_CASE(_MEDIA, "Media");
+    WRITE_STR_CASE(_MEDIA, "Media");
 #endif
 #ifdef FUNC_LAYER_ENABLE
-      WRITE_STR_CASE(_FUN, "Func");
+    WRITE_STR_CASE(_FUN, "Func");
 #endif
 
-      WRITE_STR_CASE(_LAYERS, "Layers");
+    WRITE_STR_CASE(_LAYERS, "Layers");
 
 #ifdef RGB_LAYER_ENABLE
-      WRITE_STR_CASE(_RGB, "RGB");
+    WRITE_STR_CASE(_RGB, "RGB");
 #endif
 #ifdef ADJUST_LAYER_ENABLE
-      WRITE_STR_CASE(_ADJUST, "Adjust");
+    WRITE_STR_CASE(_ADJUST, "Adjust");
 #endif
 #ifdef COMBO_REF_LAYER_ENABLE
-      WRITE_STR_CASE(_COMBO_REF, "COMBO Ref");
+    WRITE_STR_CASE(_COMBO_REF, "COMBO Ref");
 #endif
 
-    }
+  }
 }
 #endif
