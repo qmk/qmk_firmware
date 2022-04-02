@@ -45,7 +45,7 @@
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
 #include "eeprom.h"
-#include "version.h"  // for QMK_BUILDDATE used in EEPROM magic
+#include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 #include "via_ensure_keycode.h"
 
 // Forward declare some helpers.
@@ -62,7 +62,7 @@ void via_qmk_rgblight_get_value(uint8_t *data);
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
 // EEPROM is invalid and use/save defaults.
 bool via_eeprom_is_valid(void) {
-    char *  p      = QMK_BUILDDATE;  // e.g. "2019-11-05-11:29:54"
+    char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
     uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
     uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
     uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
@@ -73,7 +73,7 @@ bool via_eeprom_is_valid(void) {
 // Sets VIA/keyboard level usage of EEPROM to valid/invalid
 // Keyboard level code (eg. via_init_kb()) should not call this
 void via_eeprom_set_valid(bool valid) {
-    char *  p      = QMK_BUILDDATE;  // e.g. "2019-11-05-11:29:54"
+    char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
     uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
     uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
     uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
@@ -96,6 +96,7 @@ void via_init(void) {
     // Let keyboard level test EEPROM valid state,
     // but not set it valid, it is done here.
     via_init_kb();
+    via_set_layout_options_kb(via_get_layout_options());
 
     // If the EEPROM has the magic, the data is good.
     // OK to load from EEPROM.
@@ -131,7 +132,10 @@ uint32_t via_get_layout_options(void) {
     return value;
 }
 
+__attribute__((weak)) void via_set_layout_options_kb(uint32_t value) {}
+
 void via_set_layout_options(uint32_t value) {
+    via_set_layout_options_kb(value);
     // Start at the least significant byte
     void *target = (void *)(VIA_EEPROM_LAYOUT_OPTIONS_ADDR + VIA_EEPROM_LAYOUT_OPTIONS_SIZE - 1);
     for (uint8_t i = 0; i < VIA_EEPROM_LAYOUT_OPTIONS_SIZE; i++) {
@@ -343,13 +347,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         }
         case id_dynamic_keymap_macro_get_buffer: {
             uint16_t offset = (command_data[0] << 8) | command_data[1];
-            uint16_t size   = command_data[2];  // size <= 28
+            uint16_t size   = command_data[2]; // size <= 28
             dynamic_keymap_macro_get_buffer(offset, size, &command_data[3]);
             break;
         }
         case id_dynamic_keymap_macro_set_buffer: {
             uint16_t offset = (command_data[0] << 8) | command_data[1];
-            uint16_t size   = command_data[2];  // size <= 28
+            uint16_t size   = command_data[2]; // size <= 28
             dynamic_keymap_macro_set_buffer(offset, size, &command_data[3]);
             break;
         }
@@ -363,13 +367,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         }
         case id_dynamic_keymap_get_buffer: {
             uint16_t offset = (command_data[0] << 8) | command_data[1];
-            uint16_t size   = command_data[2];  // size <= 28
+            uint16_t size   = command_data[2]; // size <= 28
             dynamic_keymap_get_buffer(offset, size, &command_data[3]);
             break;
         }
         case id_dynamic_keymap_set_buffer: {
             uint16_t offset = (command_data[0] << 8) | command_data[1];
-            uint16_t size   = command_data[2];  // size <= 28
+            uint16_t size   = command_data[2]; // size <= 28
             dynamic_keymap_set_buffer(offset, size, &command_data[3]);
             break;
         }
@@ -434,7 +438,7 @@ void via_qmk_backlight_set_value(uint8_t *data) {
     }
 }
 
-#endif  // #if defined(VIA_QMK_BACKLIGHT_ENABLE)
+#endif // #if defined(VIA_QMK_BACKLIGHT_ENABLE)
 
 #if defined(VIA_QMK_RGBLIGHT_ENABLE)
 
@@ -490,4 +494,4 @@ void via_qmk_rgblight_set_value(uint8_t *data) {
     }
 }
 
-#endif  // #if defined(VIA_QMK_RGBLIGHT_ENABLE)
+#endif // #if defined(VIA_QMK_RGBLIGHT_ENABLE)

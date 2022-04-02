@@ -60,10 +60,6 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
-/* Disable action features. */
-#define NO_ACTION_MACRO     // Disable old-style macro handling.
-#define NO_ACTION_FUNCTION  // Disable old-style function handling.
-
 /* PMW3360 settings. */
 #define PMW3360_CS_PIN B0
 

@@ -50,15 +50,15 @@
 #endif
 
 #if !defined(USART_CR1_M0)
-#    define USART_CR1_M0 USART_CR1_M  // some platforms (f1xx) dont have this so
+#    define USART_CR1_M0 USART_CR1_M // some platforms (f1xx) dont have this so
 #endif
 
 #if !defined(SERIAL_USART_CR1)
-#    define SERIAL_USART_CR1 (USART_CR1_PCE | USART_CR1_PS | USART_CR1_M0)  // parity enable, odd parity, 9 bit length
+#    define SERIAL_USART_CR1 (USART_CR1_PCE | USART_CR1_PS | USART_CR1_M0) // parity enable, odd parity, 9 bit length
 #endif
 
 #if !defined(SERIAL_USART_CR2)
-#    define SERIAL_USART_CR2 (USART_CR2_STOP_1)  // 2 stop bits
+#    define SERIAL_USART_CR2 (USART_CR2_STOP_1) // 2 stop bits
 #endif
 
 #if !defined(SERIAL_USART_CR3)

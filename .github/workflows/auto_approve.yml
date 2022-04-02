@@ -1,0 +1,16 @@
+name: Automatic Approve
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  automatic_approve:
+    runs-on: ubuntu-latest
+
+    steps:
+        uses: mheap/automatic-approve-action@v1
+        with:
+          token: ${{ secrets.QMK_BOT_TOKEN }}
+          workflows: "format.yml,lint.yml,unit_test.yml"
+          dangerous_files: "lib/python/,Makefile,paths.mk,builddefs/"
