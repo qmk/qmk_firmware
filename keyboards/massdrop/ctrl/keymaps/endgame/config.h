@@ -41,10 +41,14 @@
 // #define TAP_CODE_DELAY 100          // Sets the delay between register_code and unregister_code, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
 // #define TAP_HOLD_CAPS_DELAY 80      // Sets the delay for Tap Hold keys (LT, MT) when using KC_CAPSLOCK keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
 
+// #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+#define RGB_MATRIX_STARTUP_VAL 100 // Sets the default brightness value, if none has been set
+#define RGB_MATRIX_STARTUP_SPD 80 // Sets the default animation speed, if none has been set
+
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES         // reacts to keypresses
 // #define RGB_MATRIX_KEYRELEASES        // reacts to keyreleases (instead of keypresses)
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_ALPHAS_MODS // Sets the default mode, if none has been set
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_GRADIENT_LEFT_RIGHT // Sets the default mode, if none has been set
 // #define RGBLIGHT_HUE_STEP 12        // Units to step when in/decreasing hue
 // #define RGBLIGHT_SAT_STEP 25        // Units to step when in/decreasing saturation
 // #define RGBLIGHT_VAL_STEP 12        // Units to step when in/decreasing value (brightness)
@@ -78,8 +82,8 @@
 // #undef ENABLE_RGB_MATRIX_SOLID_COLOR                   // Static single hue, no speed support
 // #undef ENABLE_RGB_MATRIX_ALPHAS_MODS                   // Static dual hue, speed is hue for secondary hue
 // #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN              // Static gradient top to bottom, speed controls how much gradient changes
-#undef ENABLE_RGB_MATRIX_BREATHING               // Single hue brightness cycling animation
 #undef ENABLE_RGB_MATRIX_BAND_SAT                // Single hue band fading saturation scrolling left to right
+#undef ENABLE_RGB_MATRIX_BREATHING               // Single hue brightness cycling animation
 #undef ENABLE_RGB_MATRIX_BAND_VAL                // Single hue band fading brightness scrolling left to right
 #undef ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT       // Single hue 3 blade spinning pinwheel fades saturation
 #undef ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL       // Single hue 3 blade spinning pinwheel fades brightness

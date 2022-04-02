@@ -1,0 +1,11 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  qmk:
+    image: "qmkfm/base_container"
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/qmk_firmware
+    # entrypoint: /bin/bash
+    command: [bash]
+    
