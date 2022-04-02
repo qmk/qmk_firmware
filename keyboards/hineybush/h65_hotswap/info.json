@@ -2,8 +2,11 @@
     "keyboard_name": "h65 hotswap",
     "url": "",
     "maintainer": "hineybush",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
