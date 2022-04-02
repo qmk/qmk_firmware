@@ -203,3 +203,23 @@
   CHUNK_LANG_MAP(___SYMB_BKL_WI_L1___, ___SYMB_BKL_WI_R1___,    \
                  ___SYMB_BKL_WI_L2___, ___SYMB_BKL_WI_R2___,    \
                  ___SYMB_BKL_WI_L3___, ___SYMB_BKL_WI_R3___)
+
+// ---------------------------
+// Neo symbol layer
+#define ___SYMB_NEO_L1___ ___,  _DQUOT, _UNDS, _LBRC, _RBRC, _CIRC
+#define ___SYMB_NEO_L2___ ___,  _SLSH, _MINS, _LCBR, _RCBR, _ASTR
+#define ___SYMB_NEO_L3___ ___,  _HASH, _DLR,   _PIPE, _TILD, _GRV
+
+#define ___SYMB_NEO_R1___ _EXLM, _LT,    _GT,    _EQL,  _AMPR
+#define ___SYMB_NEO_R2___ _QUES, _OCPRN, _RPRN , _QUOT, _COLN
+#define ___SYMB_NEO_R3___ _PLUS, _PERC,  _BSLS,  _AT,   ___
+
+#define CARTE_SYMB_NEO                          \
+  carte_de_map("\"_[]^  !<>=&",                 \
+               "/-{}*  ?()':",                  \
+               "#$|~`  +%\@")
+
+#define ___SYMB_NEO_3x10___                                     \
+  CHUNK_LANG_MAP(___SYMB_NEO_L1___, ___SYMB_NEO_R1___,          \
+                 ___SYMB_NEO_L2___, ___SYMB_NEO_R2___,          \
+                 ___SYMB_NEO_L3___, ___SYMB_NEO_R3___)

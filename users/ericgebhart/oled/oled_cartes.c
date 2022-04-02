@@ -189,6 +189,9 @@ void oled_render_layer_map(void) {
 #  ifdef SYMBOL_BEAKL_WI
             CARTE_SYMB_BEAKL_WI
 #  endif
+#  ifdef SYMBOL_BEAKL_WI
+            CARTE_SYMB_NEO
+#  endif
             break;
 #endif
 

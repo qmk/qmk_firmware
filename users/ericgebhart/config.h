@@ -245,10 +245,12 @@
 
 
 /* symbols */
+// pick one of these or get the default.
 //#define SYMBOL_BEAKL         // original - the default if nothing else.
 //#define SYMBOL_BEAKL_EXT     // extended for non beakl base layers.
 //#define SYMBOL_BEAKL_EXT_VI  // extended with vi keybinding in mind.
 #define SYMBOL_BEAKL_C         // more alterations by frequency
+// #define SYMBOL_NEO             // The symbol layer from the Neo layout.
 // #define SYMBOL_MIRYOKU      // minimalist symbols after miryoku
 //#define SYMBOL_BEAKL_WI      // original wi
 
