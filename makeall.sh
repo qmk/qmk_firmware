@@ -1,3 +1,4 @@
+make -j emery65:chrisgve
 make -j mechlovin/adelais/standard_led/arm/rev4/apm32f103:chrisgve
 make -j mechlovin/adelais/standard_led/arm/rev4/stm32f303:chrisgve_hhkb
 make -j mechlovin/adelais/standard_led/arm/rev4/apm32f103:chrisgve_hhkb
