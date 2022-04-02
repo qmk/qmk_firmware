@@ -1,4 +1,4 @@
-# Ladduro keymap for Keychron Q2 (ANSI rev_0110) v1
+# Ladduro keymap for Keychron Q2 (ANSI rev_0110) v1.01
 
 This keymap ports Q1 logic (by gtg465x) for RGB caps lock indicator and layer RBG assigned key.
 
@@ -23,3 +23,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ### 14/03/2021 - 1.
 
 - Initial release
+
+### 02/04/2021 - 1.01
+
+- Remove via enable from rules.mk as it breaks the layout for some reason
