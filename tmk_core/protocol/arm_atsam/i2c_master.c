@@ -297,6 +297,9 @@ uint8_t I2C3733_Init_Drivers(void) {
     if (gcr_actual > LED_GCR_MAX) gcr_actual = LED_GCR_MAX;
     gcr_desired = gcr_actual;
 
+    void issi3733_prepare_arrays(void);
+    issi3733_prepare_arrays();
+
     // Set up master device
     i2c_led_send_CRWL(0);
     i2c_led_select_page(0, 3);

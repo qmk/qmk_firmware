@@ -206,6 +206,12 @@ void gcr_compute(void) {
 }
 
 void issi3733_prepare_arrays(void) {
+    static bool s_init = false;
+    if (s_init) {
+        return;
+    }
+    s_init = true;
+
     memset(issidrv, 0, sizeof(issi3733_driver_t) * ISSI3733_DRIVER_COUNT);
 
     int     i;

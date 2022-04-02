@@ -156,6 +156,18 @@ def test_json2c_stdin():
     assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
 
 
+def test_json2c_wrong_json():
+    result = check_subcommand('json2c', 'keyboards/handwired/pytest/info.json')
+    check_returncode(result, [1])
+    assert 'Invalid JSON keymap' in result.stdout
+
+
+def test_json2c_no_json():
+    result = check_subcommand('json2c', 'keyboards/handwired/pytest/pytest.h')
+    check_returncode(result, [1])
+    assert 'Invalid JSON encountered' in result.stdout
+
+
 def test_info():
     result = check_subcommand('info', '-kb', 'handwired/pytest/basic')
     check_returncode(result)

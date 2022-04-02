@@ -70,9 +70,15 @@ def normpath(path):
 
 
 class FileType(argparse.FileType):
+    def __init__(self, *args, **kwargs):
+        # Use UTF8 by default for stdin
+        if 'encoding' not in kwargs:
+            kwargs['encoding'] = 'UTF-8'
+        return super().__init__(*args, **kwargs)
+
     def __call__(self, string):
         """normalize and check exists
             otherwise magic strings like '-' for stdin resolve to bad paths
         """
         norm = normpath(string)
-        return super().__call__(norm if norm.exists() else string)
+        return norm if norm.exists() else super().__call__(string)

@@ -49,7 +49,6 @@ def info_json(keyboard):
         'parse_errors': [],
         'parse_warnings': [],
         'maintainer': 'qmk',
-        'manufacturer': 'qmk',
     }
 
     # Populate the list of JSON keymaps
@@ -551,6 +550,11 @@ def _matrix_size(info_data):
             info_data['matrix_size']['cols'] = len(info_data['matrix_pins']['cols'])
             info_data['matrix_size']['rows'] = len(info_data['matrix_pins']['rows'])
 
+        # Assumption of split common
+        if 'split' in info_data:
+            if info_data['split'].get('enabled', False):
+                info_data['matrix_size']['rows'] *= 2
+
     return info_data
 
 
@@ -749,9 +753,9 @@ def find_info_json(keyboard):
 
     # Add in parent folders for least specific
     for _ in range(5):
-        info_jsons.append(keyboard_parent / 'info.json')
-        if keyboard_parent.parent == base_path:
+        if keyboard_parent == base_path:
             break
+        info_jsons.append(keyboard_parent / 'info.json')
         keyboard_parent = keyboard_parent.parent
 
     # Return a list of the info.json files that actually exist

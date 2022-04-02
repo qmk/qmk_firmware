@@ -38,9 +38,6 @@
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 #define FORCE_NKRO
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #define LED_CAPS_LOCK_PIN C6
 #define LED_PIN_ON_STATE 1

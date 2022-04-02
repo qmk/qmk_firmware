@@ -17,8 +17,6 @@
 #define MANUFACTURER    RGBKB
 #define PRODUCT         Sol 3
 
-#define USB_POLLING_INTERVAL_MS 1
-
 /* Matrix Configuration - Rows are doubled up */
 #define MATRIX_ROWS 12
 // Last pins reserved for encoder / touch encoder support
