@@ -54,6 +54,8 @@ enum custom_keycodes {
   #define WEB_B RGUI(KC_LBRC)
   #define WEB_F RGUI(KC_RBRC)
 
+
+
 /* Shortcuts */
   #define SCREEN_CAP LSFT(LGUI(KC_4))
   #define SCRN_BRIT KC_F15
@@ -87,46 +89,46 @@ enum custom_keycodes {
   #define MUTE KC_AUDIO_MUTE
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT(
-    KC_Q   , KC_W  , KC_E       , KC_R  , KC_T ,  MUTE , KC_Y , KC_U  , KC_I      , KC_O   , KC_P      ,
-    KC_CA  , KC_AS , KC_GD      , KC_SF , KC_G ,         KC_H , KC_SJ , KC_GK     , KC_AL  , KC_CSCLN  ,
-    NAV_Z  , KC_X  , KC_C       , KC_V  , KC_B ,         KC_N , KC_M  , KC_COMM   , KC_DOT , SYM_SLSH ,
-                     CAPS_MOUSE ,    SYM_ENT   ,           NAV_SPACE  , MISC_DASH
+  [_BASE] = LAYOUT_charybdis_3x5(
+    KC_Q   , KC_W  , KC_E   , KC_R   ,                KC_T     , KC_Y     , KC_U  , KC_I   , KC_O   , KC_P     ,
+    KC_CA  , KC_AS , KC_GD  , KC_SF  ,                KC_G     , KC_H     , KC_SJ , KC_GK  , KC_AL  , KC_CSCLN ,
+    NAV_Z  , KC_X  , KC_C   , KC_V   ,                KC_B     , KC_N     , KC_M  , KC_COMM, KC_DOT , SYM_SLSH ,
+                     SYM_ENT, _______, CAPS_MOUSE,    MISC_DASH, NAV_SPACE
   ),
 
-  [_MISC] = LAYOUT(
-    _______ , _______ , DESKTOP , _______ , DEBUG   , _______ , _______ , _______ , _______ , _______ , SARCASM ,
+  [_MISC] = LAYOUT_charybdis_3x5(
+    _______ , _______ , DESKTOP , _______ , DEBUG   , _______ , _______ , _______ , _______ , SARCASM ,
     _______ , DESK_L  , MISSION , DESK_R  , _______ ,           _______ , VOL_D   , VOL_U   , MUTE    , _______ ,
     _______ , _______ , _______ , _______ , RESET   ,           _______ , _______ , _______ , _______ , _______ ,
-                        _______ ,      _______      ,                _______      , _______
+                        _______ ,      _______      , _______ ,                _______      , _______
   ),
 
-  [_MOUSE] = LAYOUT(
-    MS_BACK  , MS_FORE  , _______ , KC_ACL2 ,  _______ , _______ , _______    , AM_1       , AM_2     , _______     , _______ ,
+  [_MOUSE] = LAYOUT_charybdis_3x5(
+    MS_BACK  , MS_FORE  , _______ , KC_ACL2 ,  _______ , _______    , AM_1       , AM_2     , _______     , _______ ,
     TAB_BACK , TAB_FORE , _______ , KC_ACL1 ,  _______ ,           KC_MS_LEFT , KC_MS_DOWN , KC_MS_UP , KC_MS_RIGHT , _______ ,
     _______  , _______  , _______ , KC_ACL0 ,  _______ ,           KC_LGUI    , KC_LSFT    , _______  , _______     , _______ ,
-                          _______ ,      KC_ACL2       ,                   L_CLICK         , R_CLICK
+                          _______ ,      KC_ACL2       , _______ ,                   L_CLICK         , R_CLICK
   ),
 
-  [_NAV] = LAYOUT(
-    _______ , KC_F6   , ALT_U   , _______ , _______ , _______ , GUI_L , KC_HOME , KC_END     , GUI_R , _______ ,
+  [_NAV] = LAYOUT_charybdis_3x5(
+    _______ , KC_F6   , ALT_U   , _______ , _______ , GUI_L , KC_HOME , KC_END     , GUI_R , _______ ,
     _______ , WEB_B   , ALT_D   , WEB_F   , _______ ,           LEFT  , KC_DOWN , KC_UP      , RIGHT , _______ ,
     _______ , _______ , _______ , _______ , _______ ,           ALT_L , _______ , _______    , ALT_R , _______ ,
-                        _______ ,     _______       ,               _______     , SCREEN_CAP
+                        _______ ,     _______       , _______ ,               _______     , SCREEN_CAP
   ),
 
-  [_SYMBOLS] = LAYOUT(
-    KC_RCBR , KC_RBRC , R_PAREN , KC_GRAVE , _______ , _______ , _______ , KC_7 , KC_8   , KC_9 , KC_EQL  ,
+  [_SYMBOLS] = LAYOUT_charybdis_3x5(
+    KC_RCBR , KC_RBRC , R_PAREN , KC_GRAVE , _______ , _______ , KC_7 , KC_8   , KC_9 , KC_EQL  ,
     KC_LCBR , KC_LBRC , L_PAREN , KC_TILDE , _______ ,           _______ , KC_4 , KC_5   , KC_6 , KC_COLN ,
     KC_LSFT , CUT     , COPY    , PASTE    , _______ ,           KC_RSFT , KC_1 , KC_2   , KC_3 , KC_BSLS ,
-                        _______ ,       _______      ,                 KC_0     , KC_DOT
+                        _______ ,       _______      , _______ ,                 KC_DOT     , KC_0
   ),
 
-  /* [_TEMPLATE] = LAYOUT( */
-    /* _______ , _______ , _______ , _______ ,  _______ , _______ , _______ , _______ , _______ , _______ , _______ , */
+  /* [_TEMPLATE] = LAYOUT_charybdis_3x5( */
+    /* _______ , _______ , _______ , _______ ,  _______ , _______ , _______ , _______ , _______ , _______ , */
   /*   _______ , _______ , _______ , _______ ,  _______ ,           _______ , _______ , _______ , _______ , _______ , */
   /*   _______ , _______ , _______ , _______ ,  _______ ,           _______ , _______ , _______ , _______ , _______ , */
-  /*                       _______ ,      _______       ,                _______      , _______ */
+  /*                       _______ ,      _______       , _______ ,                _______      , _______ */
   /* ), */
 };
 
