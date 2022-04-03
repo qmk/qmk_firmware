@@ -49,40 +49,40 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS18_SW9, CS16_SW9, CS17_SW9 }, //PAUS   15
 //Second row
     {0, CS12_SW9, CS11_SW9, CS10_SW9 }, //GRAVE  16
-    {0, CS12_SW8, CS11_SW9, CS10_SW9 }, //1      17
-    {0, CS12_SW7, CS11_SW9, CS10_SW9 }, //2      18
-    {0, CS12_SW6, CS11_SW9, CS10_SW9 }, //3      19
-    {0, CS12_SW5, CS11_SW9, CS10_SW9 }, //4      20
-    {0, CS12_SW4, CS11_SW9, CS10_SW9 }, //5      21
-    {0, CS12_SW3, CS11_SW9, CS10_SW9 }, //6      22
-    {0, CS12_SW2, CS11_SW9, CS10_SW9 }, //7      23
-    {0, CS12_SW1, CS11_SW9, CS10_SW9 }, //8      24
-    {0, CS3_SW9 , CS1_SW9 , CS2_SW9  }, //9      25
-    {0, CS3_SW8 , CS1_SW8 , CS2_SW8  }, //0      26
-    {0, CS3_SW7 , CS1_SW7 , CS2_SW7  }, //MINUS  27
-    {0, CS3_SW5 , CS1_SW5 , CS2_SW5  }, //PLUS   28
-    {0, CS3_SW4 , CS1_SW4 , CS2_SW4  }, //BKSP   29
-    {0, CS3_SW3 , CS1_SW3 , CS2_SW3  }, //INS    30
-    {0, CS3_SW2 , CS1_SW2 , CS2_SW2  }, //HOME   31
-    {0, CS3_SW1 , CS1_SW1 , CS2_SW1  }, //PGUP   32
+    {0, CS12_SW8, CS11_SW8, CS10_SW8 }, //1      17
+    {0, CS12_SW7, CS11_SW7, CS10_SW7 }, //2      18
+    {0, CS12_SW6, CS11_SW6, CS10_SW6 }, //3      19
+    {0, CS12_SW5, CS11_SW5, CS10_SW5 }, //4      20
+    {0, CS12_SW4, CS11_SW4, CS10_SW4 }, //5      21
+    {0, CS12_SW3, CS11_SW3, CS10_SW3 }, //6      22
+    {0, CS12_SW2, CS11_SW2, CS10_SW2 }, //7      23
+    {0, CS12_SW1, CS11_SW1, CS10_SW1 }, //8      24
+    {0, CS15_SW1, CS13_SW1, CS14_SW1 }, //9      25
+    {0, CS15_SW2, CS13_SW2, CS14_SW2 }, //0      26
+    {0, CS15_SW3, CS13_SW3, CS14_SW3 }, //MINUS  27
+    {0, CS15_SW4, CS13_SW4, CS14_SW4 }, //PLUS   28
+    {0, CS15_SW5, CS13_SW5, CS14_SW5 }, //BKSP   29
+    {0, CS13_SW7, CS15_SW7, CS14_SW7 }, //INS    30
+    {0, CS15_SW8, CS13_SW8, CS14_SW8 }, //HOME   31
+    {0, CS15_SW9, CS13_SW9, CS14_SW9 }, //PGUP   32
 //Third row
     {0, CS4_SW9 , CS6_SW9 , CS5_SW9  }, //TAB    33
-    {0, CS4_SW8 , CS6_SW9 , CS5_SW9  }, //Q      34
-    {0, CS4_SW7 , CS6_SW9 , CS5_SW9  }, //W      35
-    {0, CS4_SW6 , CS6_SW9 , CS5_SW9  }, //E      36
-    {0, CS4_SW5 , CS6_SW9 , CS5_SW9  }, //R      37
-    {0, CS4_SW4 , CS6_SW9 , CS5_SW9  }, //T      38
-    {0, CS4_SW3 , CS6_SW9 , CS5_SW9  }, //Y      39
-    {0, CS4_SW2 , CS6_SW9 , CS5_SW9  }, //U      40
-    {0, CS4_SW1 , CS6_SW9 , CS5_SW9  }, //I      41
-    {0, CS3_SW2 , CS2_SW2 , CS1_SW2  }, //O      42
-    {0, CS3_SW3 , CS2_SW3 , CS1_SW3  }, //P      43
-    {0, CS3_SW4 , CS2_SW4 , CS1_SW4  }, //LBRKT  44
-    {0, CS3_SW5 , CS2_SW5 , CS1_SW5  }, //RBRKT  45
-    {0, CS3_SW6 , CS2_SW6 , CS1_SW6  }, //BSLS   46
-    {0, CS3_SW7 , CS2_SW7 , CS1_SW7  }, //DEL    47
-    {0, CS3_SW8 , CS2_SW8 , CS1_SW8  }, //END    48
-    {0, CS3_SW9 , CS2_SW9 , CS1_SW9  }, //PGDN   49
+    {0, CS4_SW8 , CS6_SW8 , CS5_SW8  }, //Q      34
+    {0, CS4_SW7 , CS6_SW7 , CS5_SW7  }, //W      35
+    {0, CS4_SW6 , CS6_SW6 , CS5_SW6  }, //E      36
+    {0, CS4_SW5 , CS6_SW5 , CS5_SW5  }, //R      37
+    {0, CS4_SW4 , CS6_SW4 , CS5_SW4  }, //T      38
+    {0, CS4_SW3 , CS6_SW3 , CS5_SW3  }, //Y      39
+    {0, CS4_SW2 , CS6_SW2 , CS5_SW2  }, //U      40
+    {0, CS4_SW1 , CS6_SW1 , CS5_SW1  }, //I      41
+    {0, CS3_SW2 , CS1_SW2 , CS2_SW2  }, //O      42
+    {0, CS3_SW3 , CS1_SW3 , CS2_SW3  }, //P      43
+    {0, CS3_SW4 , CS1_SW4 , CS2_SW4  }, //LBRKT  44
+    {0, CS3_SW5 , CS1_SW5 , CS2_SW5  }, //RBRKT  45
+    {0, CS3_SW6 , CS1_SW6 , CS2_SW6  }, //BSLS   46
+    {0, CS3_SW7 , CS1_SW7 , CS2_SW7  }, //DEL    47
+    {0, CS3_SW8 , CS1_SW8 , CS2_SW8  }, //END    48
+    {0, CS3_SW9 , CS1_SW9 , CS2_SW9  }, //PGDN   49
 //Fourth row
     {0, CS33_SW9, CS32_SW9, CS31_SW9  }, //CAPS  50
     {0, CS33_SW8, CS32_SW8, CS31_SW8  }, //A     51
@@ -136,7 +136,7 @@ led_config_t g_led_config = { {
     { 76       , 77         , 78         , NO_LED     , NO_LED     , NO_LED     , 79         , NO_LED     , NO_LED     , 80         , 81         , 82         , 83         , 84         , 85         , 86        }
 },{
     {   0,   0}, {  15,   0}, {  30,   0}, {  45,   0}, {  60,   0}, {  75,   0}, {  90,   0}, { 105,   0}, { 120,   0}, { 135,   0}, { 150,   0}, { 165,   0}, { 180,   0}, { 210,   0}, { 210,   0}, { 225,   0},
-    {   0,  45}, {  15,  45}, {  30,  45}, {  45,  45}, {  60,  45}, {  75,  45}, {  90,  45}, { 105,  45}, { 120,  45}, { 135,  45}, { 150,  45}, { 165,  45}, { 180,  45}, { 195,  45}, { 210,  45}, { 215,  45},
+    {   0,  45}, {  15,  45}, {  30,  45}, {  45,  45}, {  60,  45}, {  75,  45}, {  90,  45}, { 105,  45}, { 120,  45}, { 135,  45}, { 150,  45}, { 165,  45}, { 180,  45}, { 210,  45}, { 210,  45}, { 215,  45},
     {   0,  90}, {  15,  90}, {  30,  90}, {  45,  90}, {  60,  90}, {  75,  90}, {  90,  90}, { 105,  90}, { 120,  90}, { 135,  90}, { 150,  90}, { 165,  90}, { 180,  90}, { 195,  90}, { 210,  90}, { 215,  90},
     {   0, 135}, {  15, 135}, {  30, 135}, {  45, 135}, {  60, 135}, {  75, 135}, {  90, 135}, { 105, 135}, { 120, 135}, { 135, 135}, { 150, 135}, { 165, 135}, { 180, 135},
     {   0, 180},              {  30, 180}, {  45, 180}, {  60, 180}, {  75, 180}, {  90, 180}, { 105, 180}, { 120, 180}, { 135, 180}, { 150, 180}, { 165, 180}, { 180, 180}, { 210, 180}, { 225,  45}, { 225,   0},
