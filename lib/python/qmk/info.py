@@ -69,6 +69,7 @@ def info_json(keyboard):
 
     # Merge in the data from info.json, config.h, and rules.mk
     info_data = merge_info_jsons(keyboard, info_data)
+    info_data = _process_defaults(info_data)
     info_data = _extract_rules_mk(info_data, rules_mk(str(keyboard)))
     info_data = _extract_config_h(info_data, config_h(str(keyboard)))
 
@@ -470,6 +471,18 @@ def _extract_config_h(info_data, config_c):
     _extract_split_right_pins(info_data, config_c)
     _extract_device_version(info_data)
 
+    return info_data
+
+
+def _process_defaults(info_data):
+    """Process any additional defaults based on currently discovered information
+    """
+    defaults_map = json_load(Path('data/mappings/defaults.json'))
+    for default_type in defaults_map.keys():
+        thing_map = defaults_map[default_type]
+        if default_type in info_data:
+            for key, value in thing_map.get(info_data[default_type], {}).items():
+                info_data[key] = value
     return info_data
 
 
