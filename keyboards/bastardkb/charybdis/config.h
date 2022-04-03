@@ -33,3 +33,6 @@
 
 /** \brief Invert X axis on mouse reports. */
 #define POINTING_DEVICE_INVERT_X
+
+/** Improve trackball firmware upload speed at boot. */
+#define PMW3360_FIRMWARE_UPLOAD_FAST
