@@ -114,13 +114,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // TOPROWS LAYER
 #include "map_toprows.h"
 
+#include "map_accented.h"
+
 #ifdef SECOND_LOCALE
 #undef LANG_IS
 #define LANG_IS SECOND_LOCALE
 
 #include "map_toprows.h"
 
-  // layers for accented and dead keys, english doesn't have them.
 #include "map_accented.h"
 
 #undef LANG_IS

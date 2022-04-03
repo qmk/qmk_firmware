@@ -16,33 +16,4 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-static inline void tap_accented_letter(uint16_t letter, uint16_t dead_key);
 bool process_accent_keys(uint16_t keycode, keyrecord_t* record);
-
-static inline void tap_accented_letter(uint16_t letter, uint16_t dead_key) {
-  uint8_t mod_state = get_mods();
-    uint8_t oneshot_mod_state = get_oneshot_mods();
-    del_mods(MOD_MASK_SHIFT);
-    del_oneshot_mods(MOD_MASK_SHIFT);
-    tap_code16(dead_key);
-    set_mods(mod_state);
-    set_oneshot_mods(oneshot_mod_state);
-    tap_code(letter);
-}
-
-#undef ACCENTED
-#define ACCENTED(KC, K1, DEAD_KEY)              \
-  case KC:                                      \
-  if (record->event.pressed) {                  \
-    tap_accented_letter(K1, DEAD_KEY);          \
-  }                                             \
-  return false;
-
-bool process_accent_keys(uint16_t keycode, keyrecord_t* record) {
-#ifdef ACCENTED_KEYS_ENABLE
-  switch(keycode){
-#include "accented_keys.def"
-  }
-#endif
-  return true;
-}

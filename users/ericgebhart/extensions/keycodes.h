@@ -146,13 +146,14 @@ enum userspace_custom_keycodes {
 #endif
 
 
-
 #define BP_LT BP_LABK
 #define BP_GT BP_RABK
 #define BP_TAB KC_TAB
 #define US_GT US_RABK
 #define US_LT US_LABK
 #define US_TAB KC_TAB
+#define US_DCMM KC_COMM // us doesn't have this dead key.
+
 // redefine us_tild so we actually get a tild.
 #undef US_TILD
 #define US_TILD KC_TILD
