@@ -2,6 +2,17 @@
 #include "features/caps_word.h"
 #include <stdio.h>
 
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
+#include "secrets.h"
+#else
+// `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
+// And I'm not familiar enough to know which is better or why...
+static const char * const secrets[] = {
+  "test1",
+  "test2"
+};
+#endif
+ 
 enum layers{
   _BASE,
   _MOUSE,
@@ -17,7 +28,8 @@ enum userspace_keycodes {
 #else
   SARCASM = SAFE_RANGE,
 #endif // !NO_CHARYBDIS_KEYCODES
-  /* MY_SECOND_KEYCODE, */
+  KC_SECRET_1,
+  KC_SECRET_2
 };
 
 /* Homerow mod tap */
@@ -108,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MISC] = LAYOUT_charybdis_3x5(
   // ╭-──------──────────────────────────────────────────╮ ╭-─-------──────────────────────────────────────────╮
-       _______ , _______ , DESKTOP , _______ , DEBUG   ,     _______ , _______ , _______ , _______ , SARCASM ,
+       _______ , _______ , DESKTOP , _______ , DEBUG   ,     KC_SECRET_1 , KC_SECRET_2 , _______ , _______ , SARCASM ,
   // ├-------────────────────────────────────────────────┤ ├--------───────────────────────────────────────────┤
        _______ , DESK_L  , MISSION , DESK_R  , _______ ,     _______ , VOL_D   , VOL_U   , MUTE    , _______ ,
   // ├-------────────────────────────────────────────────┤ ├--------───────────────────────────────────────────┤
@@ -333,6 +345,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
+    case KC_SECRET_1 ... KC_SECRET_2: // Secrets!  Externally defined strings, not stored in repo
+      if (!record->event.pressed) {
+        send_string_with_delay(secrets[keycode - KC_SECRET_1], MACRO_TIMER);
+      }
+      break;
 
     default:
       return true;
