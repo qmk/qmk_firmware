@@ -475,7 +475,7 @@ def _extract_config_h(info_data, config_c):
 
 
 def _process_defaults(info_data):
-    """Proccess any additional defaults based on currently discovered infomation
+    """Process any additional defaults based on currently discovered information
     """
     defaults_map = json_load(Path('data/mappings/defaults.json'))
     for default_type in defaults_map.keys():
