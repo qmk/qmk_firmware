@@ -8,6 +8,8 @@ jobs:
   automatic_approve:
     runs-on: ubuntu-latest
 
+    if: github.repository == 'qmk/qmk_firmware'
+
     steps:
     - uses: mheap/automatic-approve-action@v1
       with:
