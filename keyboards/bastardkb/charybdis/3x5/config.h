@@ -37,9 +37,9 @@
 #define ROTATIONAL_TRANSFORM_ANGLE -25
 
 /* RGB settings. */
-#define RGBLED_NUM 35
+#define RGBLED_NUM 36
 #define RGBLED_SPLIT \
-    { 18, 17 }
+    { 18, 18 }
 
 /* RGB matrix support. */
 #ifdef RGB_MATRIX_ENABLE
