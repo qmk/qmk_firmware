@@ -265,7 +265,7 @@
                 {"label":"\u2192", "x":19, "y":4}
             ]
         },
-        "LAYOUT_iso_tsangan_split_bs_rshift_7u": {
+        "LAYOUT_iso_tsangan_split_bs_rshift": {
             "layout": [
                 {"label":"F1", "x":0, "y":0},
                 {"label":"Esc", "x":1.5, "y":0},
