@@ -278,7 +278,7 @@ Matrix size + thumbs.
        Left and right mods on left and right.
      * Transparent - the default if not chosen.
      * Alt - Non home row mod variant.
-     * miryoku HRMS sacg plus right alt/altgr on thir row.
+     * miryoku HRMS sacg plus right alt/altgr on third row.
 
  * Alternate language/locale support
    * Happens at the lowest level
