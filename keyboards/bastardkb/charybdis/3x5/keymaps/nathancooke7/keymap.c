@@ -12,7 +12,7 @@ static const char * const secrets[] = {
   "test2"
 };
 #endif
- 
+
 enum layers{
   _BASE,
   _MOUSE,
@@ -71,8 +71,6 @@ enum userspace_keycodes {
   #define WEB_B RGUI(KC_LBRC)
   #define WEB_F RGUI(KC_RBRC)
 
-
-
 /* Shortcuts */
   #define SCREEN_CAP LSFT(LGUI(KC_4))
   #define SCRN_BRIT KC_F15
@@ -89,6 +87,11 @@ enum userspace_keycodes {
 /* Amethyst */
   #define AM_1 KC_F4
   #define AM_2 KC_F2
+  #define AM_RITE LALT(LCTL(LSFT(KC_2)))
+  #define AM_LEFT LALT(LCTL(LSFT(KC_1)))
+  #define AM_CYCLE LSFT(LALT(LCTL(KC_SPC)))
+  #define AM_CW LSFT(LALT(KC_J))
+  #define AM_CCW LSFT(LALT(KC_K))
 
 /* MOUSE */
   #define L_CLICK KC_MS_BTN1
@@ -105,29 +108,24 @@ enum userspace_keycodes {
   #define VOL_U KC_AUDIO_VOL_UP
   #define MUTE KC_AUDIO_MUTE
 
+/* Google Meet */
+  #define MUTE_MIC LGUI(KC_D)
+  #define MUTE_CAM LGUI(KC_E)
+  #define RAZ_HAND LCTL(LGUI(KC_H))
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_charybdis_3x5(
-  // ╭──-------───────────────────────────────────────────╮ ╭─--------────────────────────────────────────────────╮
-       KC_Q   , KC_W   , KC_E    , KC_R    , KC_T       ,    KC_Y      , KC_U      , KC_I   , KC_O   , KC_P     ,
-  // ├-------─────────────────────────────────────────────┤ ├--------─────────────────────────────────────────────┤
-       KC_CA  , KC_AS  , KC_GD   , KC_SF   , KC_G       ,    KC_H      , KC_SJ     , KC_GK  , KC_AL  , KC_CSCLN ,
-  // ├-------─────────────────────────────────────────────┤ ├--------─────────────────────────────────────────────┤
-       NAV_Z  , KC_X   , KC_C    , KC_V    , KC_B       ,    KC_N      , KC_M      , KC_COMM, KC_DOT , SYM_SLSH ,
-  // ╰-------─────────────────────────────────────────────┤ ├--------─────────────────────────────────────────────╯
-                         SYM_ENT , _______ , CAPS_MOUSE ,    MISC_DASH , NAV_SPACE
-  //                   ╰-─------──────────────────────────╯ ╰----──────────────────╯
+       KC_Q   , KC_W   , KC_E    , KC_R    , KC_T       ,                    KC_Y      , KC_U      , KC_I   , KC_O   , KC_P     ,
+       KC_CA  , KC_AS  , KC_GD   , KC_SF   , KC_G       ,                    KC_H      , KC_SJ     , KC_GK  , KC_AL  , KC_CSCLN ,
+       NAV_Z  , KC_X   , KC_C    , KC_V    , KC_B       ,                    KC_N      , KC_M      , KC_COMM, KC_DOT , SYM_SLSH ,
+                         SYM_ENT , _______ , CAPS_MOUSE ,                              MISC_DASH , NAV_SPACE
   ),
 
   [_MISC] = LAYOUT_charybdis_3x5(
-  // ╭-──------──────────────────────────────────────────╮ ╭-─-------──────────────────────────────────────────╮
-       _______ , _______ , DESKTOP , _______ , DEBUG   ,     KC_SECRET_1 , KC_SECRET_2 , _______ , _______ , SARCASM ,
-  // ├-------────────────────────────────────────────────┤ ├--------───────────────────────────────────────────┤
-       _______ , DESK_L  , MISSION , DESK_R  , _______ ,     _______ , VOL_D   , VOL_U   , MUTE    , _______ ,
-  // ├-------────────────────────────────────────────────┤ ├--------───────────────────────────────────────────┤
-       _______ , _______ , _______ , _______ , RESET   ,     _______ , _______ , _______ , _______ , _______ ,
-  // ╰-------────────────────────────────────────────────┤ ├------─────────────────────────────────────────────╯
-                           _______ , _______ , _______ ,     _______ , _______
-  //                     ╰-------─────────────────────────╯ ╰-───-──────────────╯
+       _______  , _______ , DESKTOP , _______ , _______ ,                    KC_SECRET_1 , KC_SECRET_2 , _______ , _______ , SARCASM ,
+       AM_LEFT  , DESK_L  , MISSION , DESK_R  , AM_RITE ,                    AM_CYCLE    , AM_1        , AM_2    , AM_CCW  , _______ ,
+       KC_LCTRL , _______ , _______ , _______ , _______ ,                    _______     , _______     , _______ , _______ , _______ ,
+                           _______ , _______ , RESET    ,                    _______     , _______
   ),
 
   [_MOUSE] = LAYOUT_charybdis_3x5(
