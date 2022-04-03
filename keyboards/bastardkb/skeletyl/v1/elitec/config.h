@@ -18,33 +18,17 @@
 
 #pragma once
 
-#include "config_common.h"
-
 /* Key matrix configuration. */
-#define MATRIX_ROWS 10 // Rows are doubled-up.
-#define MATRIX_COLS 6
+#define MATRIX_ROW_PINS \
+    { B5, F7, F6, B6 }
+#define MATRIX_COL_PINS \
+    { E6, C6, B1, B3, B2 }
 
-#define DIODE_DIRECTION ROW2COL
+/* Handedness. */
+#define MASTER_RIGHT
 
-/* Disable action features. */
-#define NO_ACTION_MACRO    // Disable old-style macro handling.
-#define NO_ACTION_FUNCTION // Disable old-style function handling.
-
-/* Set 0 if debouncing isn't needed. */
-#define DEBOUNCE 5
+/* serial.c configuration (for split keyboard). */
+#define SOFT_SERIAL_PIN D0
 
 /* RGB settings. */
-#define RGBLED_NUM 58
-#define RGBLED_SPLIT \
-    { 29, 29 }
-
-/* RGB matrix support. */
-#ifdef RGB_MATRIX_ENABLE
-#    define SPLIT_TRANSPORT_MIRROR
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-#    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
-#    define RGB_MATRIX_KEYPRESSES
-#endif
+#define RGB_DI_PIN D2

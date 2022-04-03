@@ -1,7 +1,8 @@
 {
-    "keyboard_name": "TBK Mini",
-    "url": "https://www.bastardkb.com",
-    "maintainer": "Quentin Lebastard",
+    "url": "https://bastardkb.com/tbk-mini",
+    "usb": {
+        "pid": "0x1828",
+    },
     "layouts": {
         "LAYOUT_split_3x6_3": {
             "layout": [
