@@ -23,13 +23,23 @@ Check out the [keyboard build guides](https://docs.bastardkb.com) for the Charyb
 The `default` keymap is inspired from the original [Dactyl Manuform](../../handwired/dactyl_manuform) layout.
 
 ```shell
-qmk compile -kb bastardkb/charybdis/4x6 -km default
+qmk compile -kb bastardkb/charybdis/4x6/1.x/elitec -km default
+```
+or for Elite-c v2 shield
+
+```shell
+qmk compile -kb bastardkb/charybdis/4x6/2.x/elitec -km default
 ```
 
 Check out the `via` layout if you're looking for VIA support:
 
 ```shell
-qmk compile -kb bastardkb/charybdis/4x6 -km via
+qmk compile -kb bastardkb/charybdis/4x6/1.x/elitec -km via
+```
+or for Elite-c v2 shield
+
+```shell
+qmk compile -kb bastardkb/charybdis/4x6/2.x/elitec -km via
 ```
 
 ### Charybdis (3x5)
@@ -37,13 +47,24 @@ qmk compile -kb bastardkb/charybdis/4x6 -km via
 The `default` keymap is inspired from the original [Dactyl Manuform](../../handwired/dactyl_manuform) layout.
 
 ```shell
-qmk compile -kb bastardkb/charybdis/3x5 -km default
+qmk compile -kb bastardkb/charybdis/3x5/1.x/elitec -km default
+```
+or for Elite-c v2 shield
+
+```shell
+qmk compile -kb bastardkb/charybdis/3x5/2.x/elitec -km default
 ```
 
 Check out the `via` layout if you're looking for VIA support:
 
 ```shell
-qmk compile -kb bastardkb/charybdis/3x5 -km via
+qmk compile -kb bastardkb/charybdis/3x5/1.x/elitec -km via
+```
+
+or for Elite-c v2 shield
+
+```shell
+qmk compile -kb bastardkb/charybdis/3x5/2.x/elitec -km via
 ```
 
 ## Customizing the firmware
