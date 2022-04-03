@@ -349,7 +349,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (!record->event.pressed) {
         send_string_with_delay(secrets[keycode - KC_SECRET_1], MACRO_TIMER);
       }
-      break;
+      return false;
 
     default:
       return true;
