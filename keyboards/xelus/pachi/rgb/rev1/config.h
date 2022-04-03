@@ -21,7 +21,7 @@
 #define PRODUCT_ID      0x5052 // "PR"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
-#define PRODUCT         Xelus Pachi RGB
+#define PRODUCT         Xelus Pachi RGB Rev 1
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -98,7 +98,7 @@
 #define ENABLE_RGB_MATRIX_HUE_BREATHING
 #define ENABLE_RGB_MATRIX_HUE_PENDULUM
 #define ENABLE_RGB_MATRIX_HUE_WAVE
-#define ENABLE_RGB_MATRIX_FRACTAL
+#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #define ENABLE_RGB_MATRIX_PIXEL_RAIN
 
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP

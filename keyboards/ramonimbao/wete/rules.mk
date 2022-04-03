@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = ramonimbao/wete/rev2
+DEFAULT_FOLDER = ramonimbao/wete/v2
