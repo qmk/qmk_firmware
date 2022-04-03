@@ -1,20 +1,16 @@
 """Helper functions for commands.
 """
-import json
 import os
 import sys
 import shutil
 from pathlib import Path
-from subprocess import DEVNULL
-from time import strftime
 
 from milc import cli
+import jsonschema
 
 import qmk.keymap
-from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX
-from qmk.json_schema import json_load
-
-time_fmt = '%Y-%m-%d-%H:%M:%S'
+from qmk.constants import KEYBOARD_OUTPUT_PREFIX
+from qmk.json_schema import json_load, validate
 
 
 def _find_make():
@@ -28,13 +24,16 @@ def _find_make():
     return make_cmd
 
 
-def create_make_target(target, parallel=1, **env_vars):
+def create_make_target(target, dry_run=False, parallel=1, **env_vars):
     """Create a make command
 
     Args:
 
         target
             Usually a make rule, such as 'clean' or 'all'.
+
+        dry_run
+            make -n -- don't actually build
 
         parallel
             The number of make jobs to run in parallel
@@ -52,10 +51,10 @@ def create_make_target(target, parallel=1, **env_vars):
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
 
-    return [make_cmd, *get_make_parallel_args(parallel), *env, target]
+    return [make_cmd, *(['-n'] if dry_run else []), *get_make_parallel_args(parallel), *env, target]
 
 
-def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
+def create_make_command(keyboard, keymap, target=None, dry_run=False, parallel=1, **env_vars):
     """Create a make compile command
 
     Args:
@@ -68,6 +67,9 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
 
         target
             Usually a bootloader.
+
+        dry_run
+            make -n -- don't actually build
 
         parallel
             The number of make jobs to run in parallel
@@ -84,32 +86,7 @@ def create_make_command(keyboard, keymap, target=None, parallel=1, **env_vars):
     if target:
         make_args.append(target)
 
-    return create_make_target(':'.join(make_args), parallel, **env_vars)
-
-
-def get_git_version(current_time, repo_dir='.', check_dir='.'):
-    """Returns the current git version for a repo, or the current time.
-    """
-    git_describe_cmd = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
-
-    if repo_dir != '.':
-        repo_dir = Path('lib') / repo_dir
-
-    if check_dir != '.':
-        check_dir = repo_dir / check_dir
-
-    if Path(check_dir).exists():
-        git_describe = cli.run(git_describe_cmd, stdin=DEVNULL, cwd=repo_dir)
-
-        if git_describe.returncode == 0:
-            return git_describe.stdout.strip()
-
-        else:
-            cli.log.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
-            print(git_describe.stderr)
-            return current_time
-
-    return current_time
+    return create_make_target(':'.join(make_args), dry_run=dry_run, parallel=parallel, **env_vars)
 
 
 def get_make_parallel_args(parallel=1):
@@ -130,37 +107,6 @@ def get_make_parallel_args(parallel=1):
     return parallel_args
 
 
-def create_version_h(skip_git=False, skip_all=False):
-    """Generate version.h contents
-    """
-    if skip_all:
-        current_time = "1970-01-01-00:00:00"
-    else:
-        current_time = strftime(time_fmt)
-
-    if skip_git:
-        git_version = "NA"
-        chibios_version = "NA"
-        chibios_contrib_version = "NA"
-    else:
-        git_version = get_git_version(current_time)
-        chibios_version = get_git_version(current_time, "chibios", "os")
-        chibios_contrib_version = get_git_version(current_time, "chibios-contrib", "os")
-
-    version_h_lines = f"""/* This file was automatically generated. Do not edit or copy.
- */
-
-#pragma once
-
-#define QMK_VERSION "{git_version}"
-#define QMK_BUILDDATE "{current_time}"
-#define CHIBIOS_VERSION "{chibios_version}"
-#define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"
-"""
-
-    return version_h_lines
-
-
 def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_vars):
     """Convert a configurator export JSON file into a C file and then compile it.
 
@@ -179,20 +125,21 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
 
         A command to run to compile and flash the C file.
     """
+    # In case the user passes a keymap.json from a keymap directory directly to the CLI.
+    # e.g.: qmk compile - < keyboards/clueboard/california/keymaps/default/keymap.json
+    user_keymap["keymap"] = user_keymap.get("keymap", "default_json")
+
     # Write the keymap.c file
     keyboard_filesafe = user_keymap['keyboard'].replace('/', '_')
     target = f'{keyboard_filesafe}_{user_keymap["keymap"]}'
     keyboard_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keyboard_filesafe}')
     keymap_output = Path(f'{keyboard_output}_{user_keymap["keymap"]}')
-    c_text = qmk.keymap.generate_c(user_keymap['keyboard'], user_keymap['layout'], user_keymap['layers'])
+    c_text = qmk.keymap.generate_c(user_keymap)
     keymap_dir = keymap_output / 'src'
     keymap_c = keymap_dir / 'keymap.c'
 
     keymap_dir.mkdir(exist_ok=True, parents=True)
     keymap_c.write_text(c_text)
-
-    version_h = Path('quantum/version.h')
-    version_h.write_text(create_version_h())
 
     # Return a command that can be run to make the keymap and flash if given
     verbose = 'true' if cli.config.general.verbose else 'false'
@@ -207,7 +154,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         '-r',
         '-R',
         '-f',
-        'build_keyboard.mk',
+        'builddefs/build_keyboard.mk',
     ])
 
     if bootloader:
@@ -233,7 +180,7 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
         f'VERBOSE={verbose}',
         f'COLOR={color}',
         'SILENT=false',
-        f'QMK_BIN={"bin/qmk" if "DEPRECATED_BIN_QMK" in os.environ else "qmk"}',
+        'QMK_BIN="qmk"',
     ])
 
     return make_command
@@ -242,8 +189,15 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
 def parse_configurator_json(configurator_file):
     """Open and parse a configurator json export
     """
-    # FIXME(skullydazed/anyone): Add validation here
-    user_keymap = json.load(configurator_file)
+    user_keymap = json_load(configurator_file)
+    # Validate against the jsonschema
+    try:
+        validate(user_keymap, 'qmk.keymap.v1')
+
+    except jsonschema.ValidationError as e:
+        cli.log.error(f'Invalid JSON keymap: {configurator_file} : {e.message}')
+        exit(1)
+
     orig_keyboard = user_keymap['keyboard']
     aliases = json_load(Path('data/mappings/keyboard_aliases.json'))
 
@@ -257,78 +211,26 @@ def parse_configurator_json(configurator_file):
     return user_keymap
 
 
-def git_get_username():
-    """Retrieves user's username from Git config, if set.
-    """
-    git_username = cli.run(['git', 'config', '--get', 'user.name'])
-
-    if git_username.returncode == 0 and git_username.stdout:
-        return git_username.stdout.strip()
-
-
-def git_check_repo():
-    """Checks that the .git directory exists inside QMK_HOME.
-
-    This is a decent enough indicator that the qmk_firmware directory is a
-    proper Git repository, rather than a .zip download from GitHub.
-    """
-    dot_git_dir = QMK_FIRMWARE / '.git'
-
-    return dot_git_dir.is_dir()
-
-
-def git_get_branch():
-    """Returns the current branch for a repo, or None.
-    """
-    git_branch = cli.run(['git', 'branch', '--show-current'])
-    if not git_branch.returncode != 0 or not git_branch.stdout:
-        # Workaround for Git pre-2.22
-        git_branch = cli.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
-
-    if git_branch.returncode == 0:
-        return git_branch.stdout.strip()
-
-
-def git_is_dirty():
-    """Returns 1 if repo is dirty, or 0 if clean
-    """
-    git_diff_staged_cmd = ['git', 'diff', '--quiet']
-    git_diff_unstaged_cmd = [*git_diff_staged_cmd, '--cached']
-
-    unstaged = cli.run(git_diff_staged_cmd)
-    staged = cli.run(git_diff_unstaged_cmd)
-
-    return unstaged.returncode != 0 or staged.returncode != 0
-
-
-def git_get_remotes():
-    """Returns the current remotes for a repo.
-    """
-    remotes = {}
-
-    git_remote_show_cmd = ['git', 'remote', 'show']
-    git_remote_get_cmd = ['git', 'remote', 'get-url']
-
-    git_remote_show = cli.run(git_remote_show_cmd)
-    if git_remote_show.returncode == 0:
-        for name in git_remote_show.stdout.splitlines():
-            git_remote_name = cli.run([*git_remote_get_cmd, name])
-            remotes[name.strip()] = {"url": git_remote_name.stdout.strip()}
-
-    return remotes
-
-
-def git_check_deviation(active_branch):
-    """Return True if branch has custom commits
-    """
-    cli.run(['git', 'fetch', 'upstream', active_branch])
-    deviations = cli.run(['git', '--no-pager', 'log', f'upstream/{active_branch}...{active_branch}'])
-    return bool(deviations.returncode)
-
-
 def in_virtualenv():
     """Check if running inside a virtualenv.
     Based on https://stackoverflow.com/a/1883251
     """
     active_prefix = getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
     return active_prefix != sys.prefix
+
+
+def dump_lines(output_file, lines, quiet=True):
+    """Handle dumping to stdout or file
+    Creates parent folders if required
+    """
+    generated = '\n'.join(lines) + '\n'
+    if output_file and output_file.name != '-':
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        if output_file.exists():
+            output_file.replace(output_file.parent / (output_file.name + '.bak'))
+        output_file.write_text(generated)
+
+        if not quiet:
+            cli.log.info(f'Wrote {output_file.name} to {output_file}.')
+    else:
+        print(generated)

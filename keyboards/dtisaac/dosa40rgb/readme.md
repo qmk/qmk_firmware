@@ -5,7 +5,7 @@
 A 40 percent keyboard dosa40rgb Bluetooth Low Energy
 
 * Keyboard Maintainer: [DTIsaac](https://github.com/daotakisaac)
-* Hardware Supported: ATmega32U4 + AdafruitBLE SPI
+* Hardware Supported: ATmega32U4 + Bluefruit LE SPI
 
 Make example for this keyboard (after setting up your build environment):
 

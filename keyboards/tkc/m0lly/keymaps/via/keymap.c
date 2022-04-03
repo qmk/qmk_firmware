@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef OLED_ENABLE
-void oled_task_user(void) {
+bool oled_task_user(void) {
     oled_write_P(PSTR("M0lly\n"),false);
 
     // Layer Status
@@ -115,5 +115,7 @@ void oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+
+    return false;
 }
 #endif

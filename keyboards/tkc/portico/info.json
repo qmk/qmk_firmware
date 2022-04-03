@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "TerryMathews",
     "layout_aliases": {
-        "LAYOUT_all": "LAYOUT_65_ansi_blocker",
+        "LAYOUT_all": "LAYOUT_65_ansi_blocker"
     },
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
