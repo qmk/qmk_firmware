@@ -26,7 +26,7 @@
 
 // #define EE_HANDS
 
-#define SOFT_SERIAL_PIN B6  // D0 or D1, D2, D3, E6
+#define SOFT_SERIAL_PIN B14  // D0 or D1, D2, D3, E6
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
                                    //  0: about 189kbps (Experimental only)
                                    //  1: about 137kbps (default)
