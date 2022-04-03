@@ -19,6 +19,7 @@
     "MCU": {"info_key": "processor", "warn_duplicate": false},
     "MOUSEKEY_ENABLE": {"info_key": "mouse_key.enabled", "value_type": "bool"},
     "NO_USB_STARTUP_CHECK": {"info_key": "usb.no_startup_check", "value_type": "bool"},
+    "PIN_COMPATIBLE": {"info_key": "pin_compatible"},
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},
     "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "to_c": false},
     "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"}
