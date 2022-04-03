@@ -1,9 +1,9 @@
 /*
- * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
+ * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
  * Copyright 2021 Charly Delay <charly@codesink.dev> (@0xcharly)
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU General Publicw License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
  *
@@ -16,20 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "blackpill.h"
 
-#include "config_common.h"
-
-/* Pointing device configuration. */
-
-// Enable use of pointing device on slave split.
-#define SPLIT_POINTING_ENABLE
-
-// Pointing device is on the right split.
-#define POINTING_DEVICE_RIGHT
-
-// Limits the frequency that the sensor is polled for motion.
-#define POINTING_DEVICE_TASK_THROTTLE_MS 1
-
-/** Improve trackball firmware upload speed at boot. */
-#define PMW3360_FIRMWARE_UPLOAD_FAST
+void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
+    for (int32_t i = 0; i < 40; i++) {
+        __asm__ volatile("nop" ::: "memory");
+    }
+}
