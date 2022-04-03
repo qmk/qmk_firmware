@@ -2,8 +2,11 @@
     "keyboard_name": "foundation",
     "url": "",
     "maintainer": "wavtype",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ansi_split_bs"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ansi_split_bs": {
             "layout": [
                 {"label":"F1", "x":0, "y":0},
                 {"label":"Esc", "x":1.5, "y":0},
