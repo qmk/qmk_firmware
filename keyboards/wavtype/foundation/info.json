@@ -5,7 +5,8 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ansi_split_bs",
         "LAYOUT_tkl_ansi_7u": "LAYOUT_ansi_tsangan_split_bs",
-        "LAYOUT_tkl_iso": "LAYOUT_iso_split_bs_rshift"
+        "LAYOUT_tkl_iso": "LAYOUT_iso_split_bs_rshift",
+        "LAYOUT_tkl_iso_7u": "LAYOUT_iso_tsangan_split_bs_rshift"
     },
     "layouts": {
         "LAYOUT_ansi_split_bs": {
@@ -264,7 +265,7 @@
                 {"label":"\u2192", "x":19, "y":4}
             ]
         },
-        "LAYOUT_tkl_iso_7u": {
+        "LAYOUT_iso_tsangan_split_bs_rshift_7u": {
             "layout": [
                 {"label":"F1", "x":0, "y":0},
                 {"label":"Esc", "x":1.5, "y":0},
