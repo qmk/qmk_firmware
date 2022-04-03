@@ -172,13 +172,7 @@ generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
 
 endif
 
-ifeq ($(strip $(CTPC)), yes)
-    CONVERT_TO_PROTON_C=yes
-endif
-
-ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
-    include platforms/chibios/boards/QMK_PROTON_C/convert_to_proton_c.mk
-endif
+include $(BUILDDEFS_PATH)/converters.mk
 
 include $(BUILDDEFS_PATH)/mcu_selection.mk
 
