@@ -69,7 +69,7 @@
                "  xflcw  -uoyk  t")
 
 #define ___HD_GOLD___                                                   \
-  LANG_MAP(_J, _G, _M, _P, _V,  _SCLN, TL_DOT, TL_SLSH, TL_DQUO, TL_QUOT, \
+  LANG_MAP(_J, _G, _M, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_DQUO, TL_QUOT, \
            _R, _S, _N, _D, _B , TL_COMM, _A, _E, _I, _H,                \
            _X, _F, _L, _C, _W , TL_MINS, _U, _O, _Y, _K)
 /* t, ␣ */
@@ -83,7 +83,7 @@
 /* l   ␣   */
 
 #define ___HD_PLATINUM___                                               \
-  LANG_MAP(_J, _G, _H, _P, _V,  _SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
+  LANG_MAP(_J, _G, _H, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
            _R, _S, _N, _T, _B,  TL_COMM, _A, _E, _C, _I,                \
            _X, _F, _M, _D, _K,  TL_MINS, _U, _O, _W, _Y)
 
@@ -94,7 +94,7 @@
 /* n   ␣   */
 
 #define ___HD_SILVER___                                 \
-  LANG_MAP(_J, _F, _M, _P, _V,  _SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
+  LANG_MAP(_J, _F, _M, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
            _R, _S, _H, _T, _B,  TL_COMM, _A, _E, _C, _I,                \
            _X, _G, _L, _D, _K,  TL_MINS, _U, _O, _W, _Y)
 
@@ -105,7 +105,7 @@
 /* h   ␣   */
 
 #define ___HD_BRONZE___                                 \
-  LANG_MAP(_J, _G , _M, _P, _V , _SCLN, TL_DOT, TL_SLSH , TL_QUOT, TL_DQUO, \
+  LANG_MAP(_J, _G , _M, _P, _V , TL_SCLN, TL_DOT, TL_SLSH , TL_QUOT, TL_DQUO, \
            _R, _S, _N, _T, _B , TL_COMM, _A, _E, _C, _I,                \
            _X, _F, _L, _D, _K , TL_MINS, _U, _O, _W, _Y)
 
@@ -130,6 +130,6 @@
     /*   e   ␣   */
 
 #define ___HD_DASH___                                                   \
-  LANG_MAP(_J, _G, _M, _P, _V , _SCLN, TL_DOT, TL_QUOT, TL_DQUO, TL_SLSH, \
+  LANG_MAP(_J, _G, _M, _P, _V , TL_SCLN, TL_DOT, TL_QUOT, TL_DQUO, TL_SLSH, \
            _R, _S, _N, _T, _B , TL_COMM, _H, _A, _O, _I,                \
            _X, _C, _L, _D, _W , TL_MINS, _F, _U, _K, _Y)

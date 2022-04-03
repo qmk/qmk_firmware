@@ -145,7 +145,7 @@
 // BEAKL
 // #define BEAKL15_LAYER_ENABLE
 //#define BEAKL19_LAYER_ENABLE
-#define BEAKL27_LAYER_ENABLE
+//#define BEAKL27_LAYER_ENABLE
 //#define BEAKLWI_LAYER_ENABLE
 
 // alternate layouts
@@ -160,16 +160,17 @@
 //#define CTGAP_LAYER_ENABLE
 
 // Hands down
-#define HD_NEU_NARROW_LAYER_ENABLE
+//#define HD_NEU_NARROW_LAYER_ENABLE
 //#define HD_REF_LAYER_ENABLE
 //#define HD_DASH_LAYER_ENABLE
 //#define HD_ELAN_LAYER_ENABLE
 //#define HD_BRONZE_LAYER_ENABLE
 //#define HD_SILVER_LAYER_ENABLE
 //#define HD_PLATINUM_LAYER_ENABLE
-//#define HD_GOLD_LAYER_ENABLE
+#define HD_GOLD_LAYER_ENABLE
 
-// these are all 3x12.
+// 3x12 sized base layers
+//--------------------------
 //#define HD_NEU_LAYER_ENABLE
 
 // additionally all these have accent characters on base layer.
