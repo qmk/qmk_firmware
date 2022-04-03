@@ -180,32 +180,10 @@ void charybdis_set_pointer_dragscroll_enabled(bool enable) {
     maybe_update_pointing_device_cpi(&g_charybdis_config);
 }
 
-#    ifndef CONSTRAIN_HID
-#        define CONSTRAIN_HID(value) ((value) < XY_REPORT_MIN ? XY_REPORT_MIN : ((value) > XY_REPORT_MAX ? XY_REPORT_MAX : (value)))
-#    endif // !CONSTRAIN_HID
-
-/**
- * \brief Add optional acceleration effect.
- *
- * If `CHARYBDIS_ENABLE_POINTER_ACCELERATION` is defined, add a simple and naive
- * acceleration effect to the provided value.  Return the value unchanged
- * otherwise.
- */
-#    ifndef DISPLACEMENT_WITH_ACCELERATION
-#        ifdef CHARYBDIS_POINTER_ACCELERATION_ENABLE
-#            define DISPLACEMENT_WITH_ACCELERATION(d) (CONSTRAIN_HID(d > 0 ? d * d / CHARYBDIS_POINTER_ACCELERATION_FACTOR + d : -d * d / CHARYBDIS_POINTER_ACCELERATION_FACTOR + d))
-#        else // !CHARYBDIS_POINTER_ACCELERATION_ENABLE
-#            define DISPLACEMENT_WITH_ACCELERATION(d) (d)
-#        endif // CHARYBDIS_POINTER_ACCELERATION_ENABLE
-#    endif     // !DISPLACEMENT_WITH_ACCELERATION
-
 /**
  * \brief Augment the pointing device behavior.
  *
- * Implement the Charybdis-specific features for pointing devices:
- *   - Drag-scroll
- *   - Sniping
- *   - Acceleration
+ * Implement drag-scroll.
  */
 static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
     static int16_t scroll_buffer_x = 0;
@@ -231,9 +209,6 @@ static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
             mouse_report->v = scroll_buffer_y > 0 ? 1 : -1;
             scroll_buffer_y = 0;
         }
-    } else if (!g_charybdis_config.is_sniping_enabled) {
-        mouse_report->x = DISPLACEMENT_WITH_ACCELERATION(mouse_report->x);
-        mouse_report->y = DISPLACEMENT_WITH_ACCELERATION(mouse_report->y);
     }
 }
 

@@ -114,20 +114,6 @@ This behavior can be further customized with the following defines:
 #define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 100
 ```
 
-### Acceleration
-
-By default, the pointer's movements are linear. To enable acceleration, add the following define:
-
-```c
-#define CHARYBDIS_POINTER_ACCELERATION_ENABLE
-```
-
-The acceleration factor can be further tune _via_ the `CHARYBDIS_POINTER_ACCELERATION_FACTOR`:
-
-```c
-#define CHARYBDIS_POINTER_ACCELERATION_FACTOR 24
-```
-
 ### Custom keycodes
 
 The Charybdis firmware defines a number of keycodes to leverage its features, namely:
