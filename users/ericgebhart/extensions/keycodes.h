@@ -317,6 +317,7 @@ enum userspace_custom_keycodes {
 #define SPC_ADJ LT(_ADJUST, KC_SPC)
 #define SPC_NUM LT(LN_KEYPAD, KC_SPC)
 
+#define BSPC_NAVm LT(_NAVm, KC_BSPC)
 #define BSPC_NAV LT(_NAV, KC_BSPC)
 #ifdef SYMBOL_LAYER_ENABLE
 #define BSPC_SYMB LT(LN_SYMB, KC_BSPC)

@@ -84,11 +84,12 @@
   ESC_MEDIA, SPACE_NAV, TAB_NAVM,  ENT_SYM, BSPC_TOPR, DEL_FUN
 #define ___6_ERGO_THUMBS_miryoku___                             \
   ESC_MEDIA, SPACE_NAV, TAB_NAVM,  ENT_SYM, BSPC_NUM, DEL_FUN
-// lose the tab key, put the space there to make room for a letter.
+// lose the tab key, put a letter where space was.
+// move space to the right side, put backspace where tab was.
 #define ___6_ERGO_THUMBS_miryoku_ltr___                         \
-  ESC_MEDIA, TH_LTR_NAV, SPC_NAVm,  ENT_SYM, BSPC_NUM, DEL_FUN
+  ESC_MEDIA, TH_LTR_NAV, BSPC_NAVm,  ENT_SYM, SPC_NUM, DEL_FUN
 #define ___6_ERGO_THUMBS_miryoku_tr_ltr___                      \
-  ESC_MEDIA, TH_LTR_NAV, SPC_NAVm,  ENT_SYM, BSPC_TOPR, DEL_FUN
+  ESC_MEDIA, TH_LTR_NAV, BSPC_NAVm,  ENT_SYM, SPC_TOPR, DEL_FUN
 
 // Give the right symbol suffix by the value of THUMBS_ARE
 // Basically we choose the right cluster here, so the layout

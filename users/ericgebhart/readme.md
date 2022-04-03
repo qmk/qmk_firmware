@@ -260,6 +260,12 @@ Matrix size + thumbs.
      * beakl wi - official.
      * test  - to play with.
      * trans - transparent, could be used in the transient layout to allow alternates.
+     * miryoku with keypad
+     * miryoku with toprows
+     * mods_layers with left thumb letter
+     * hands down approximation with left thumb letter
+     * miryoku with keypad, letter on left, space on right. - no tab.
+     * miryoku with toprows, letter on left, space on right. - no tab.
      
  * Mod Layers
    * Completely independent of any layer or base layer definition.
@@ -268,9 +274,11 @@ Matrix size + thumbs.
    * Based on position in the matrix.
    * Chosen in config.
    * Multiple choices.
-     * Home Row Mods.
+     * Home Row Mods. sacg, gacs, gasc
+       Left and right mods on left and right.
      * Transparent - the default if not chosen.
      * Alt - Non home row mod variant.
+     * miryoku HRMS sacg plus right alt/altgr on thir row.
 
  * Alternate language/locale support
    * Happens at the lowest level
@@ -549,6 +557,8 @@ Adding Slovak support to the LANG_N macro looks like this.
 
 Thumb clusters can be chosen by layer with the value of **THUMBS_ARE**.
 
+The easiest way to see them is to look in *layers/thumbs.h*.
+
 At the core of the thumb clusters are a set of six keys which
 can be changed to a one of a set of keys, with settings in the config. 
 Supporting a 4 key thumb cluster would just need a similar set.
@@ -569,8 +579,8 @@ Additionally a thumb cluster can be set for the various function layers as
 well. The transparent thumbs can be used, or something else. The nav and 
 mouse layers have the mouse buttons if mouse keys are enabled.
 
-It is also possible to use a Miryoku thumb cluster and layers if desired.
-Or mix the other layers in as desired.
+It is also possible to use a Miryoku thumb cluster and layers 
+or mix the other layers in as desired.
 
 The language of thumb clusters is managed at the lowest level.
 These keys are mostly not language specific.
@@ -621,10 +631,11 @@ Here are some or most of the base layers..
  * Maltron
  * Apt
  * Mtgap
+ * Ctgap
  * Rsthd
  
  These need an OS keymap which can provide Latin Accents.
- US-intl or bepo work well.
+ US-intl works reasonably, fr-bepo works better.
  * Bepo
  * Optimot
  * Beakl19bis
