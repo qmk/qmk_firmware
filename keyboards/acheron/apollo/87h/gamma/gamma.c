@@ -62,7 +62,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS15_SW3, CS13_SW3, CS14_SW3 }, //MINUS  27
     {0, CS15_SW4, CS13_SW4, CS14_SW4 }, //PLUS   28
     {0, CS15_SW5, CS13_SW5, CS14_SW5 }, //BKSP   29
-    {0, CS13_SW7, CS15_SW7, CS14_SW7 }, //INS    30
+    {0, CS15_SW7, CS13_SW7, CS14_SW7 }, //INS    30
     {0, CS15_SW8, CS13_SW8, CS14_SW8 }, //HOME   31
     {0, CS15_SW9, CS13_SW9, CS14_SW9 }, //PGUP   32
 //Third row
