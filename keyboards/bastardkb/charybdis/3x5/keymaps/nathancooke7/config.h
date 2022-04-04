@@ -20,3 +20,8 @@
 #define ENCODER_RESOLUTIONS { 4 }
 #endif
 
+/* conserve space on MCU */
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+#define NO_ACTION_ONESHOT
+#define NO_MUSIC_MODE
