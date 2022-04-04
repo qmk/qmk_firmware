@@ -43,7 +43,7 @@ enum userspace_keycodes {
 
 /* Layer Tap */
   #define BACK_WORDS LT(_WORDS, KC_BACKSPACE)
-  #define MISC_DASH LT(_MISC, KC_MINUS)
+  #define MISC_DEL LT(_MISC, KC_DELETE)
   #define NAV_SPACE LT(_NAV, KC_SPC)
   #define NAV_Z LT(_NAV, KC_Z)
   #define SYM_ENT LT(_SYMBOLS, KC_ENT)
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q   , KC_W   , KC_E    , KC_R    , KC_T       ,                    KC_Y      , KC_U      , KC_I      , KC_O   , KC_P     ,
     KC_CA  , KC_AS  , KC_GD   , KC_SF   , KC_G       ,                    KC_H      , KC_SJ     , KC_GK     , KC_AL  , KC_CSCLN ,
     NAV_Z  , KC_X   , KC_C    , KC_V    , KC_B       ,                    KC_N      , KC_M      , KC_COMM   , KC_DOT , SYM_SLSH ,
-                      SYM_ENT , KC_NO   , BACK_WORDS ,                                MISC_DASH , NAV_SPACE
+                      SYM_ENT , KC_NO   , BACK_WORDS ,                                MISC_DEL , NAV_SPACE
   ),
 
   [_MISC] = LAYOUT_charybdis_3x5(
