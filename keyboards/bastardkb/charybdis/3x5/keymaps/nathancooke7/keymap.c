@@ -1,12 +1,11 @@
 #include QMK_KEYBOARD_H
 #include "features/caps_word.h"
+#include "features/pointing.h"
 #include <stdio.h>
 
-#if (__has_include("secrets.h") && !defined(NO_SECRETS))
-#include "secrets.h"
+#if (__has_include("features/secrets.h") && !defined(NO_SECRETS))
+#include "features/secrets.h"
 #else
-// `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
-// And I'm not familiar enough to know which is better or why...
 static const char * const secrets[] = {
   "test1",
   "test2"
@@ -18,8 +17,7 @@ enum layers{
   _MOUSE,
   _MISC,
   _NAV,
-  _SYMBOLS,
-  _TRACK,
+  _SYMBOLS
 };
 
 enum userspace_keycodes {
@@ -118,42 +116,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q   , KC_W   , KC_E    , KC_R    , KC_T       ,                    KC_Y      , KC_U      , KC_I   , KC_O   , KC_P     ,
     KC_CA  , KC_AS  , KC_GD   , KC_SF   , KC_G       ,                    KC_H      , KC_SJ     , KC_GK  , KC_AL  , KC_CSCLN ,
     NAV_Z  , KC_X   , KC_C    , KC_V    , KC_B       ,                    KC_N      , KC_M      , KC_COMM, KC_DOT , SYM_SLSH ,
-                      SYM_ENT , _______ , CAPS_MOUSE ,                              MISC_DASH , NAV_SPACE
+                      SYM_ENT , KC_NO   , CAPS_MOUSE ,                              MISC_DASH , NAV_SPACE
   ),
 
   [_MISC] = LAYOUT_charybdis_3x5(
     _______  , _______ , DESKTOP , _______ , _______ ,                    KC_SECRET_1 , KC_SECRET_2 , _______ , _______  , SARCASM  ,
     AM_LEFT  , DESK_L  , MISSION , DESK_R  , AM_RITE ,                    AM_CYCLE    , AM_1        , AM_2    , AM_CCW   , _______  ,
     KC_LCTRL , _______ , _______ , _______ , _______ ,                    _______     , MS_BACK     , MS_FORE , TAB_BACK , TAB_FORE ,
-                         _______ , _______ , RESET   ,                    _______     , _______
+                         _______ , KC_NO   , RESET   ,                    _______     , _______
   ),
 
   [_NAV] = LAYOUT_charybdis_3x5(
     _______ , KC_F6   , ALT_U   , _______ , _______ ,                     GUI_L      , KC_HOME , KC_END     , GUI_R , _______ ,
     _______ , WEB_B   , ALT_D   , WEB_F   , _______ ,                     LEFT       , KC_DOWN , KC_UP      , RIGHT , _______ ,
     _______ , _______ , _______ , _______ , _______ ,                     ALT_L      , _______ , _______    , ALT_R , _______ ,
-                        _______ , _______ , _______ ,                     SCREEN_CAP , _______
+                        _______ , KC_NO   , _______ ,                     SCREEN_CAP , _______
   ),
 
   [_SYMBOLS] = LAYOUT_charybdis_3x5(
     KC_RCBR , KC_RBRC , R_PAREN , KC_GRAVE , _______ ,                    _______ , KC_7 , KC_8   , KC_9 , KC_EQL  ,
     KC_LCBR , KC_LBRC , L_PAREN , KC_TILDE , _______ ,                    _______ , KC_4 , KC_5   , KC_6 , KC_COLN ,
     KC_LSFT , CUT     , COPY    , PASTE    , _______ ,                    KC_RSFT , KC_1 , KC_2   , KC_3 , KC_BSLS ,
-                        _______ ,  _______ , _______ ,                    KC_DOT  , KC_0
+                        _______ , KC_NO    , _______ ,                    KC_DOT  , KC_0
   ),
 
-  [_TRACK] = LAYOUT_charybdis_3x5(
+  [_MOUSE] = LAYOUT_charybdis_3x5(
     _______ , _______ , _______ , _______ , _______ ,                     _______ , _______ , _______ , _______ , _______ ,
     _______ , _______ , _______ , _______ , _______ ,                     _______ , _______ , _______ , _______ , _______ ,
     _______ , SNIPING , _______ , DRGSCRL , _______ ,                     _______ , AM_1    , AM_2    , _______ , _______ ,
-                        L_CLICK , _______ , R_CLICK ,                     _______ , _______
+                        L_CLICK , KC_NO   , R_CLICK ,                     _______ , _______
   ),
 
   /* [_TEMPLATE] = LAYOUT_charybdis_3x5( */
   /*   _______ , _______ , _______ , _______ , _______ ,                    _______ , _______ , _______ , _______ , _______ , */
   /*   _______ , _______ , _______ , _______ , _______ ,                    _______ , _______ , _______ , _______ , _______ , */
   /*   _______ , _______ , _______ , _______ , _______ ,                    _______ , _______ , _______ , _______ , _______ , */
-  /*                       _______ , _______ , _______ ,                    _______ , _______ */
+  /*                       _______ , KC_NO   , _______ ,                    _______ , _______ */
   /* ), */
 };
 
@@ -285,6 +283,116 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 }
 #endif
 
+#ifdef MOUSEKEY_ENABLE
+static uint16_t mouse_timer           = 0;
+static uint16_t mouse_debounce_timer  = 0;
+static uint8_t  mouse_keycode_tracker = 0;
+bool            tap_toggling = false, enable_acceleration = false;
+
+#ifdef TAPPING_TERM_PER_KEY
+#    define TAP_CHECK get_tapping_term(KC_BTN1, NULL)
+#else
+#    ifndef TAPPING_TERM
+#        define TAPPING_TERM 200
+#    endif
+#    define TAP_CHECK TAPPING_TERM
+#endif
+
+__attribute__((weak)) report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report) {
+    return mouse_report;
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    int8_t x = mouse_report.x, y = mouse_report.y;
+    mouse_report.x = 0;
+    mouse_report.y = 0;
+
+    if (x != 0 && y != 0) {
+        mouse_timer = timer_read();
+#ifdef OLED_ENABLE
+        oled_timer = timer_read32();
+#endif
+        if (timer_elapsed(mouse_debounce_timer) > TAP_CHECK) {
+            if (enable_acceleration) {
+                x = (x > 0 ? x * x / 16 + x : -x * x / 16 + x);
+                y = (y > 0 ? y * y / 16 + y : -y * y / 16 + y);
+            }
+            mouse_report.x = x;
+            mouse_report.y = y;
+            if (!layer_state_is(_MOUSE)) {
+                layer_on(_MOUSE);
+            }
+        }
+    } else if (timer_elapsed(mouse_timer) > 650 && layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
+        layer_off(_MOUSE);
+    } else if (tap_toggling) {
+        if (!layer_state_is(_MOUSE)) {
+            layer_on(_MOUSE);
+        }
+    }
+
+    return pointing_device_task_keymap(mouse_report);
+}
+
+bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case TT(_MOUSE):
+            if (record->event.pressed) {
+                mouse_keycode_tracker++;
+            } else {
+#if TAPPING_TOGGLE != 0
+                if (record->tap.count == TAPPING_TOGGLE) {
+                    tap_toggling ^= 1;
+#    if TAPPING_TOGGLE == 1
+                    if (!tap_toggling) mouse_keycode_tracker -= record->tap.count + 1;
+#    else
+                    if (!tap_toggling) mouse_keycode_tracker -= record->tap.count;
+#    endif
+                } else {
+                    mouse_keycode_tracker--;
+                }
+#endif
+            }
+            mouse_timer = timer_read();
+            break;
+        case TG(_MOUSE):
+            if (record->event.pressed) {
+                tap_toggling ^= 1;
+            }
+            break;
+        case MO(_MOUSE):
+#if defined(KEYBOARD_ploopy)
+        case DPI_CONFIG:
+#elif (defined(KEYBOARD_bastardkb_charybdis) || defined(KEYBOARD_handwired_tractyl_manuform)) && !defined(NO_CHARYBDIS_KEYCODES)
+        case SAFE_RANGE ... (CHARYBDIS_SAFE_RANGE-1):
+#endif
+        case KC_MS_UP ... KC_MS_WH_RIGHT:
+            record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
+            mouse_timer = timer_read();
+            break;
+        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
+            break;
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            if (record->event.pressed || !record->tap.count) {
+                break;
+            }
+        default:
+            if (IS_NOEVENT(record->event)) break;
+            if ((keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) && (((keycode >> 0x8) & 0xF) == _MOUSE)) {
+                record->event.pressed ? mouse_keycode_tracker++ : mouse_keycode_tracker--;
+                mouse_timer = timer_read();
+                break;
+            }
+            if (layer_state_is(_MOUSE) && !mouse_keycode_tracker && !tap_toggling) {
+                layer_off(_MOUSE);
+            }
+            mouse_keycode_tracker = 0;
+            mouse_debounce_timer  = timer_read();
+            break;
+    }
+    return true;
+}
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_caps_word(keycode, record)) { return false; }
