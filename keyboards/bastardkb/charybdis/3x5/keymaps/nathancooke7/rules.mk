@@ -1,9 +1,9 @@
-LTO_ENABLE = yes
-
 ENCODER_ENABLE = no
 COMBO_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 
+# save space on MCU by disabling unused features
+LTO_ENABLE = yes
 BOOTMAGIC_ENABLE = no
 RGB_MATRIX_ENABLE = no
 RGB_MATRIX_SUPPORTED = no

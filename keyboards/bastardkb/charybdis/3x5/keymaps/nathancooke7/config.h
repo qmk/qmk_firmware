@@ -15,8 +15,8 @@
 #ifdef ENCODER_ENABLE
 /* Free pins { B7 D5 C7 } */
 /* SPI pins { B1 B2 B3 F1 } */
-#define ENCODERS_PAD_A { F1 }
-#define ENCODERS_PAD_B { B1 }
+#define ENCODERS_PAD_A { B1 }
+#define ENCODERS_PAD_B { B2 }
 #define ENCODER_RESOLUTIONS { 4 }
 #endif
 
