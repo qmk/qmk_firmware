@@ -92,5 +92,7 @@ compile_commands.json
 .clangd/
 .cache/
 
+# Nathan custom files
 secrets.c
 secrets.h
+symlink_*
