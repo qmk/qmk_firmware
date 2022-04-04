@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Swiftrax <swiftrax@gmail.com>
+Copyright 2022 Swiftrax <swiftrax@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,18 +21,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xE984
+#define PRODUCT_ID      0xE79A 
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Swiftrax
-#define PRODUCT         Equator
+#define PRODUCT         DigiCarpice
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 14
+#define MATRIX_COLS 15
 
 // ROWS: Top to bottom, COLS: Left to right
 
-#define MATRIX_ROW_PINS { B2, B3, C7, B4, B5 }
-#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, D7, D6, D4, D5, D3, D2, D1, D0 }
+#define MATRIX_ROW_PINS { F0, D5, D7, D6, D4 }
+#define MATRIX_COL_PINS { F1, F4, F5, F6, F7, C7, D3, D2, D1, D0, B7, B3, B2, B1, B0 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
