@@ -27,11 +27,6 @@
 #define MATRIX_COL_PINS \
   { F5, B6, D7, E6, B4 }
 
-#ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A {  }
-#define ENCODERS_PAD_B {  }
-#endif
-
 /* Handedness. */
 #define MASTER_RIGHT
 

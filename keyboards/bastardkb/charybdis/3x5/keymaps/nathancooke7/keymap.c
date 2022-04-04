@@ -17,7 +17,8 @@ enum layers{
   _MOUSE,
   _MISC,
   _NAV,
-  _SYMBOLS
+  _SYMBOLS,
+  _WORDS
 };
 
 enum userspace_keycodes {
@@ -41,7 +42,7 @@ enum userspace_keycodes {
   #define KC_CSCLN RCTL_T(KC_SCLN)
 
 /* Layer Tap */
-  #define CAPS_MOUSE LT(_MOUSE, KC_CAPSLOCK)
+  #define BACK_WORDS LT(_WORDS, KC_BACKSPACE)
   #define MISC_DASH LT(_MISC, KC_MINUS)
   #define NAV_SPACE LT(_NAV, KC_SPC)
   #define NAV_Z LT(_NAV, KC_Z)
@@ -113,17 +114,24 @@ enum userspace_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_charybdis_3x5(
-    KC_Q   , KC_W   , KC_E    , KC_R    , KC_T       ,                    KC_Y      , KC_U      , KC_I   , KC_O   , KC_P     ,
-    KC_CA  , KC_AS  , KC_GD   , KC_SF   , KC_G       ,                    KC_H      , KC_SJ     , KC_GK  , KC_AL  , KC_CSCLN ,
-    NAV_Z  , KC_X   , KC_C    , KC_V    , KC_B       ,                    KC_N      , KC_M      , KC_COMM, KC_DOT , SYM_SLSH ,
-                      SYM_ENT , KC_NO   , CAPS_MOUSE ,                              MISC_DASH , NAV_SPACE
+    KC_Q   , KC_W   , KC_E    , KC_R    , KC_T       ,                    KC_Y      , KC_U      , KC_I      , KC_O   , KC_P     ,
+    KC_CA  , KC_AS  , KC_GD   , KC_SF   , KC_G       ,                    KC_H      , KC_SJ     , KC_GK     , KC_AL  , KC_CSCLN ,
+    NAV_Z  , KC_X   , KC_C    , KC_V    , KC_B       ,                    KC_N      , KC_M      , KC_COMM   , KC_DOT , SYM_SLSH ,
+                      SYM_ENT , KC_NO   , BACK_WORDS ,                                MISC_DASH , NAV_SPACE
   ),
 
   [_MISC] = LAYOUT_charybdis_3x5(
-    _______  , _______ , DESKTOP , _______ , _______ ,                    KC_SECRET_1 , KC_SECRET_2 , _______ , _______  , SARCASM  ,
-    AM_LEFT  , DESK_L  , MISSION , DESK_R  , AM_RITE ,                    AM_CYCLE    , AM_1        , AM_2    , AM_CCW   , _______  ,
-    KC_LCTRL , _______ , _______ , _______ , _______ ,                    _______     , MS_BACK     , MS_FORE , TAB_BACK , TAB_FORE ,
-                         _______ , KC_NO   , RESET   ,                    _______     , _______
+    _______  , _______ , DESKTOP , _______ , _______ ,                    _______  , _______  , _______ , _______  , RESET    ,
+    AM_LEFT  , DESK_L  , MISSION , DESK_R  , AM_RITE ,                    AM_CYCLE , AM_1     , AM_2    , AM_CCW   , _______  ,
+    KC_LCTRL , _______ , _______ , _______ , _______ ,                    _______  , MS_BACK  , MS_FORE , TAB_BACK , TAB_FORE ,
+                         _______ , KC_NO   , _______ ,                    _______  , _______
+  ),
+
+  [_MOUSE] = LAYOUT_charybdis_3x5(
+    _______ , _______ , _______ , _______ , _______ ,                     _______ , _______ , _______ , _______ , _______ ,
+    _______ , _______ , _______ , _______ , _______ ,                     _______ , _______ , _______ , _______ , _______ ,
+    _______ , SNIPING , _______ , DRGSCRL , _______ ,                     _______ , _______ , _______ , _______ , _______ ,
+                        L_CLICK , KC_NO   , R_CLICK ,                     _______ , _______
   ),
 
   [_NAV] = LAYOUT_charybdis_3x5(
@@ -140,11 +148,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         _______ , KC_NO    , _______ ,                    KC_DOT  , KC_0
   ),
 
-  [_MOUSE] = LAYOUT_charybdis_3x5(
-    _______ , _______ , _______ , _______ , _______ ,                     _______ , _______ , _______ , _______ , _______ ,
-    _______ , _______ , _______ , _______ , _______ ,                     _______ , _______ , _______ , _______ , _______ ,
-    _______ , SNIPING , _______ , DRGSCRL , _______ ,                     _______ , AM_1    , AM_2    , _______ , _______ ,
-                        L_CLICK , KC_NO   , R_CLICK ,                     _______ , _______
+  [_WORDS] = LAYOUT_charybdis_3x5(
+    KC_SECRET_1 , KC_SECRET_2 , _______ , _______ , _______ ,                    _______ , _______ , _______ , _______ , SARCASM ,
+    _______     , _______     , _______ , CAPS    , _______ ,                    _______ , _______ , _______ , _______ , _______ ,
+    _______     , _______     , _______ , _______ , _______ ,                    _______ , _______ , _______ , _______ , _______ ,
+                                _______ , KC_NO   , _______ ,                    _______ , _______
   ),
 
   /* [_TEMPLATE] = LAYOUT_charybdis_3x5( */
