@@ -20,5 +20,3 @@ FN_1 Layer
 FN_2 layer
 ![image](https://user-images.githubusercontent.com/1927259/148683306-364bc59c-b41b-4092-b93b-d7b4fc58567b.png)
 
-
-
