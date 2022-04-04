@@ -28,8 +28,8 @@
   { F5, B6, D7, E6, B4 }
 
 #ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A { }
-#define ENCODERS_PAD_B { }
+#define ENCODERS_PAD_A { A5 }
+#define ENCODERS_PAD_B { A6 }
 #endif
 
 /* Handedness. */
