@@ -16,3 +16,6 @@ NKRO_ENABLE = yes            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
+
+
+LAYOUTS = 65_ansi
