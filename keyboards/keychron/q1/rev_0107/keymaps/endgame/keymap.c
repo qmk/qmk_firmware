@@ -36,6 +36,10 @@ enum custom_keycodes {
     MD_BOOT,
     COPY_ALL
 };
+enum tapdance_keycodes {
+    TD_CTRL_TERM,       // Tap dance key to open terminal on LCTRL double press
+    TD_END,
+};
 
 #define KC_MCTL KC_MISSION_CONTROL
 #define KC_LPAD KC_LAUNCHPAD
@@ -73,6 +77,9 @@ key_combination_t key_comb_list[2] = {
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_CTRL_TERM] = ACTION_TAP_DANCE_DOUBLE(KC_LCTRL, LCA(KC_T)),
+    [TD_END] = ACTION_TAP_DANCE_DOUBLE(KC_HOME, KC_END),
+
 };
 
 static uint8_t mac_keycode[4] = { KC_LOPT, KC_ROPT, KC_LCMD, KC_RCMD };
@@ -98,16 +105,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_DEL,             KC_VOLD, KC_MUTE, KC_VOLU,
         KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,   KC_EQL,   KC_BSPC,            KC_PGUP,
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,   KC_RBRC,  KC_BSLS,            KC_PGDN,
-        KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,             KC_ENT,             KC_HOME,
+        KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,             KC_ENT,             TD(TD_END),
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,             KC_RSFT,  KC_UP,
-        KC_LCTL,  KC_LGUI,  KC_LALT,                                KC_SPC,                                 KC_RALT, TT(WIN_FN), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
+        TD(TD_CTRL_TERM),  KC_LGUI,  KC_LALT,                                KC_SPC,                                 KC_RALT, TT(WIN_FN), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [WIN_FN] = LAYOUT_all(
         MD_BOOT,  KC_BRID,  KC_BRIU,  KC_TASK,  KC_FLXP,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,   KC_VOLU,  _______,            RGB_VAD, RGB_TOG, RGB_VAI,
-        _______, _______ , _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,            _______,
+        _______, _______ , _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,             KC_PSCR,
         RGB_TOG,  RGB_SPD,  RGB_VAI,  RGB_SPI,  RGB_SAI,  RGB_SPI,  NK_TOGG,  _______,  _______,  _______,  _______,  _______,   _______,  _______,            _______,
         _______,  RGB_RMOD, RGB_VAD,  RGB_MOD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _______,  _______,  _______,             _______,            KC_END,
-        _______,            _______,  _______,  _______,  _______,  _______,  NK_TOGG,  KC_VOLD,  KC_VOLU,  _______,  _______,             _______,  _______,
+        _______,            _______,  _______, COPY_ALL,  _______,  _______,  NK_TOGG,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,             _______,  _______,
         _______,  _______,  _______,                                _______,                                KC_APP,TG(WIN_FN),   _______,  _______,  _______,  _______),
     [NUM_LY] = LAYOUT_all(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,            KC_VOLD, KC_MUTE, KC_VOLU,
