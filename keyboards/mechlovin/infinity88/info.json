@@ -99,7 +99,7 @@
                 {"label":"K5G (B5,D6)", "x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_tkl_ansi_f13": {
+        "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"label":"K00 (B0,B6)", "x":0, "y":0},
                 {"label":"K01 (B0,F4)", "x":1.25, "y":0},
@@ -196,7 +196,7 @@
                 {"label":"K5G (B5,D6)", "x":17.25, "y":5.25}
             ]
         },
-        "LAYOUT_tkl_iso_f13": {
+        "LAYOUT_tkl_f13_iso": {
             "layout": [
                 {"label":"K00 (B0,B6)", "x":0, "y":0},
                 {"label":"K01 (B0,F4)", "x":1.25, "y":0},

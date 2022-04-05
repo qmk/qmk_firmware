@@ -1,124 +1,212 @@
 Overview
 ========
 
-This is my personal userspace.  Most of my code exists here. I only have one keymap, and that
-is for an ergodox_ez.  There are a lot of layers, 7 of them are default layers. I primarily use 
-dvorak and Bepo. I've been using emacs in vi mode for over 23 years. I also us Xmonad as my 
-window manager, additionally I've been using a Kinesis advantage keyboard in dvorak for over 20
-years.  All of those things tend to color the layouts I have. 
+Warning: dvorak touch typist, that uses qwerty and bepo locales on my
+computer.  40+ years of vi, 30 years of vi in Emacs.
 
-The Bepo layer needs some love.  It is true to the layout at Bepo.fr, but I find it a little
-cumbersome, and I miss some of my favorite keys.
+Recent years I have gone minimal, I don't use most of the keys on my ergodox,
+or original edition dactyl. These maps work great on large and small keyboards,
+my preference seems to be 40% split ergo keyboards like the corne.
 
-There are 2 dvorak layers, one for a qwerty OS keyboard, and one for a Bepo OS keyboard. 
-There is a symbol/keypad layer for bepo and qwerty. And of course there is a mouse/media layer.  
-There are 2 Xmonad layers one for qwerty and one for Bepo. Layer selection happens automatically 
-based on your current default layer.  I use 2 tap dance keys for layer selection.
+I think that what is special here is the layouts. I don't worry too
+much about leds, or RGB, although I do like oled.  But really its mod_layer.h,
+all the simple layer chunks and definitions, and the ability to apply that
+to any keyboard with minimal effort. The other thing is the example it
+provides for defining keymaps based on different OS locales. I use both
+dvorak on Qwerty, and bepo/dvorak on bepo.  That means I must change my
+locale on my OS to match my keyboard which can do qwerty or bepo locales.
 
-There are also Qwerty, Colemak, Workman and Norman layers for qwerty.
+It is possible, as I do, to send a keycode invoking xmonad, to execute my
+qwerty - bepo switch on my computer. 
 
+Besides using dvorak, another thing that colors my keyboard code is that I 
+have used the kinesis
+advantage for for more than 2 decades. I have used the ergodox ez for several years 
+as well, so the evolution of my keymaps starts there with space, enter, backspace 
+and delete keys on the thumbs.
 
-Keyboard Layout Templates
--------------------------
+Layouts
+-----------
+This evolved from the old layout...wrapper code. Calling everything a wrapper seems
+silly. So I took a step back. 
 
-I borrowed the idea for the keyboard defines and some of the definitions from @drashna. 
-I think it is an awesome idea, It makes consistency between layout definitions so much easier.
-@drashna had this to say about it.
+Also, with all these layers it was a real pain to apply mods consistently and 
+easily. So I changed the way I use keymap macro wrappers and added in my own
+mod layer. The only thing it has is the mods to apply. No more editing keymaps
+to apply mods.  I do it once, and it works everywhere I want.
 
+All layouts, almost, boil down to a 3x5 x 2 matrix. Bepo is 3x6. Mostly, I want 
+my controls to stay the same. As we have been conditioned, these are the keys on 
+the edges, or middle. Not that they can't change but I don't usually change them
+much, except the side edges, - the extra pinky columns.
+the F keys, the columns to the left and right and the row on the bottom. 
+Thumb keys if you have them. Even the number row is practically the same.
 
-This borrows from @jola5's "Not quite neo" code.  This allows me to maintain blocks of keymaps in the userspace, so that I can modify the userspace, and this is reflected in all of the keyboards that use it, at once. 
+With that in mind, reducing my layouts to 3x10 or 12 matrices would be great.
+At the same time extracting my mods so they are easy to apply to any matrix.
+So that's what is here. 
 
-This makes adding tap/hold mods, or other special keycodes or functions to all keyboards super easy, as it's done to all of them at once. 
+At the bottom is the LAYOUT, needed by the keeb you have. Then I have my Layouts
+to feed it with my ROWS macros which are my MOD layer. At the end of it all,
+I give a 3x10 or 12 to a layout and I have a complete keyboard definition.
+Creating a new keyboard map is super simple.
 
-The caveat here is that the keymap needs a processor/wrapper, as it doesn't like the substitutions.  However, this is as simple as just pushing it through a define. For instance: 
+  * mod_layer.h is the place for home row mods or any other mods.
+  * layouts.h is where I define a new matrix using the ROW macros when I need one. 
+  * core_keys.h - where I define my custom keys. Ya know, the big enum.
+  * altlocal_keys.c - Alternate key/shift keys for emulation on other locales.
+  * core_keysets.h - Base layers; qwerty, dvorak, beakl, colemak, norman, carplax...
+  * edge_keys.h - defines the edges and bottom/thumb keys of a keyboard.
+  * layers.h - defines actual layers for navigation, symbols, keypad, layers, top rows, etc.
 
-`#define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)`
+Process_records.c
+--------------------
+This is where the keycodes are processed...
 
-Once that's been done and you've switched the keymaps to use the "wrapper", it will read the substitution blocks just fine. 
+Custom keys
+-------------------
+I have a lot of custom keys because of bepo. It is somewhat confusing this interaction
+between a keyboard and the software that receives it.
 
-Credit goes to @jola5 for first implementing this awesome idea.
+A lot of my pain is invoked by my desire to have dvorak on bepo. Which works just fine,
+although an english/cyrillic situation may not work so well. Currently I have
+dvorak and beakl on bepo in addition to bepo it's self. 
 
+Alternate keycodes for emulating a layout on another locale/language.
+-----------------------------
+Because of wanting dvorak and beakl on bepo there was the necessity to create keys
+from keycodes which were not combined. For this I have a special function that
+takes a keycode and gives a proper shifted character for it. It is only a 2 keycode
+definition, but it does the basic non-shifted and shifted characters as you define them.
 
-Custom Keycodes
----------------
+Combos/Chords
+----------------------------
+This is recently new to me. I'm using them on my thumb keys which are all LT's.
+the combos allow for layer locking for the Nav layer, and a oneshot for symbols 
+among other things.
 
-Keycodes are defined in the ericgebhart.h file and need to be included in the keymap.c files, so that they can be used there.  The keymap.c file has very little in it, the most important thing to see there are the keys that are at the ends of each row, ie. the 1st and last key on each row is defined there.
-Everything else is in ericgebhart.h.
+I followed the simple example at the end of the doc than uses the 
+combos.def file to define the combos.
 
-Layer Indication
-----------------
+Tap-mods
+-------------------------------------
+I had been using MT on my thumbs for GUI,CTRL,ALT on hold along with 
+Escape, Enter, space and backspace, my thumb keys. I then added shift to my home row pinky key.
+I had layer shifts to symbols, numbers, navigation all on the home row of both hands.
+It worked nicely but choppy I think, switching hands for the holder of the layer is
+a little like having no caps lock. It was a lot of work adding them to all my maps.
+This is what prompted my mod_layer.  So much easier. No maps to modify.
 
-The ergodox_ez only has 3 leds, layer indication is pretty lame.
-Currently the first led lights up if the default layer is not qwerty.  The symbol and media layers get
-the other 2 leds,  and all the leds light up if you are on the "layers" layer.
-I hope I can figure out how to make it better, but I just don't see a way with 3 leds and 11 layers.
+Then I moved to all home row mods with layers on my thumb keys.
 
+This does allow for more rolls, and I have found chord/rolls simply from having my
+xmonad controls be GUI-some-home-row-key-or-close. When Gui is your index finger,
+everything gets easier. 
 
-BEPO vs Qwerty Layers
+Somewhere along the way I got a corne, and everything had to be small. and I realized
+that everything really was small. My layers are blending back, with LTs near the
+home row, and all the thumbs. On my dactyl I currently have 8 thumb keys per thumb, 
+I don't know what to do with them all. Remembering a time I thought that would be 
+awesome.
+
+### tap_taplong and open_openclose
+In process_records.c I have a nice couple of functions,
+tap_taplong(), and open_openclose() for my non MT/LT functionality.
+
+  * I have home row mods for Shift, Ctrl, Alt, and Gui on both hands.
+  * I have a number of LT mods to raise layers nearby. Nav, toprows, symbol, keypad
+ are on both hands on the first and third rows around home row.
+  * Xmonad tap_taplong to pull up desktops or terminals with tap or hold.
+  * C-c/C-v, C-t/C-n, C-w/C-q are all on my Navigation layer as custom keys with tap_taplong.
+  * My thumbs are Enter/space and Esc/backspace which are also Navigation and toprows and symbol layers.  They used to be GUI,CTRL,ALT,SFT. but all that's on the home row now.
+  * All of the paired characters on my symbol layer have a hold which closes them, and moves the cursor back between.
+
+### caps word
+Holding both pinkies on home row for double tapping term, is effectively 
+right-shift and left-shift, invokes caps-word. The next word will be capitalized. 
+It continues until it shouldn't.
+
+BEPO vs Qwerty Locale/language/Layers
 ---------------------
+Essentially they are different keycode sets. So anything that needs them, causes a layer.
+So there are two symbol layers, two toprows layers, two keypad layers. 
+One for Qwerty and one for bepo. The Navigation layer is not affected.
 
-There are 7 base layers. Dvorak, qwerty, Colemak, Workman, and Norman work on a Qwerty software layer on the OS.  Dvorak_on_bepo and Bepo both work on a Bepo software layer on the os.
-Dvorak on qwerty is the default.  There is a function in ericgebhart.c which will allow the keyboard
-to persist it's default layer through power down. It is currently commented out.
+I only have bepo, dvorak and beakl on bepo.  There are a bunch for Qwerty.
+I have a ton of basic layers. I'm most interested in beakl at the moment, but I've used Dvorak for more than 20 years. There is also qwerty, colemak, norman, carplax, etc.
 
-I don't actually use Qwerty, but it seemed like I should have it,
-@drashna had it along with Colemak, Workman and Norman so I added them
-to my existing dvorak and bepo definitions.
+The navigation/mouse layer is not affected by bepo/qwerty, but symbols and numbers are. 
+There are bepo versions of everything that needs it.
 
-There are two tap dance functions that allow switching the default layers
-and the overlay layers.
+Navigation Layer
+-----------------------
+I do not use a mouse. I use Xmonad as my window manager, and I have
+practically no use for one.  They are necessary however. So I have
+a Navigation layer which is all mouse, arrows, home, end, tab, page
+up, down,  5 mouse buttons and so on. 
+This layer is not affected by bepo/qwerty, but symbols and numbers are. 
+There are bepo versions of everything that needs it.
 
-The default layers switch according to the current OS keyboard of the current Default layer.
-Shifting the key, causes the selection to use the other OS keyboard selections. ie,
-if you are on qwerty, you get dvorak, qwerty, colemak, workman and norman. If you shift it you get 
-dvorak on bepo and bepo.  If you are not on qwerty the unshifted taps get dvorak and bepo on bepo.
+Arrow combos work just fine, in emacs I use SFT(arrows) to move between windows.
+To do this; shift is my left pinky home, Nav is right thumb Enter, and one of the four
+home keys of my left hand are the arrows. Home row mods allow this to work well.
 
-The other tap dance for layers is for the symbol, mouse and layers layers.  The layers layer is just a
-safety layer, knowing I can get to if I screw something up...
+I don't use the arrows on the dactyl and kinesis, even though they are there.
+
+Symbol Layer
+-------------------
+The symbol layer is based on the Beakl15 symbol layer.
+The beakl symbol layer is intuitive and fairly easy to remember. There are 3 versions.
+The original, an extended called A, and an extended and enhanced for vi, called B.
+The primary purpose of the extension was to provide keys which might not be available
+elsewhere on the default layer. B, takes this further and moves :/? to better places.
+
+TopRows Layer
+--------------------
+I think, truly this is the layer that makes tiny keyboards accessible in the beginning.
+This is basically the number row, the shifted number row and the function key row.
+I have them so it is numbers on the home row, shifted keys above and functions below.
+There are multiple choices, I currently use the beakl number row, with everything 
+else as you would expect. 
+
+Keypad Layer
+--------------
+There are several variations of keypads and function key pads in various sizes. 
+Currently I am using a Beakl Keypad on the left hand and 3x4 funcpad on the right.
+
+OLED
+--------------------
+It shows the basic stuff I could find in most places. The 
+default layer, the current layer, the mods, the locks, the last key pressed, and
+a map of the current layer as simply as possible. I'm sure there is more that could
+be done. @Drashna has some fancy stuff. If the display is big enough, there is even 
+a display of the current layer's keymap.  
 
 XMonad
 ---------------------
+I use xmonad. Gui is my hot key for that.  With home row mods I have home
+row chords which give me access to my desktops, my scratchpads/terminals,
+custom key KC_XM_PORD, among others. It sometimes feels that I am playing
+an instrument when I invoke xmonad to do something.
 
-Additionally there is an advanced tap dance called XMONAD_ESC. One tap is Escape, tap and hold is
-LGUI with the proper XMONAD layer, it is essentially dvorak, for the
-given OS layer.  2 taps is Shift lgui with xmonad, and 2 taps and hold
-is Control LGUI with Xmonad.  This allows for the finger patterns for
-Xmonad to remain the same regarless of the keyboard in use.  The hold
-versions allow for secondary menu selection in Xmonad, the 2 tap function
-must be for a key that is in the top level keymap of Xmonad.  This is how
-many people use xmonad so it's not a real problem.  There are plenty of
-keys combinations to choose from with these choices. The function can
-be expanded to 3 taps and 3 tap and hold, and on and on....
+I had an xmonad layer at one time, it was basically dvorak, I would invoke it
+with a GUI mod, so that even on bepo, or colemak, my xmonad commands remain the same.
 
-I have a few other special keys,  for momentary symbols or shift on the home row of each hand.
+I'm going to need to revisit that, as things are, all the commands move when I change
+to a different default layer from dvorak.
 
-Also, after using a kinesis for many years I'm very accustomed to the
-space, enter, backspace and delete keys on the thumbs.  I've added control
-and alt as a secondary function. These are also the Control and Alt keys
-if held down.
+Combo's can alleviate some of this pain. More to play with.
+
 
 Tap Dance
 --------------------
-
-Additionally there are other tap dance functions,  tab-backtab,  home-end as well as I few I'm not actually using.
-
-Building  and flashing
------------------------
-
-```make ergodox_z:ericgebhart```   will compile the code.
-
-I use the teensy-loader cli  so that's all I know. There is a script here called flash_ergodox
-
-Use it like this, 
-
-```flash-ergodox <path to your hex file>```
-
-then use a paperclip to push the reset button on your keyboard.
+I have a lot of tap dance, It's turned off. It's big. tap-hold works pretty well most of the time, instead.
+My favorites were tab-backtab,  home-end.
 
 Switching the OS keyboard
 -------------------------
-
 This varies from system to system.  I use Arch Linux, so I use ```setxkbmap```.
 I've included a helper script which makes it easy to switch between EN and FR Bepo,
-called switch-kbd.
+called switch-kbd. In xmonad I invoke this with a keystroke. so, same deal. just map
+the keystroke to a key.
 
