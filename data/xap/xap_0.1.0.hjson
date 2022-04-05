@@ -78,6 +78,28 @@
             '''
     }
 
+    type_definitions: {
+        broadcast_header: {
+            name: Broadcast Header
+            description: Packet format for broadcast messages.
+            type: struct
+            struct_members: [
+                {
+                    type: token
+                    name: token
+                },
+                {
+                    type: u8
+                    name: type
+                },
+                {
+                    type: u8
+                    name: length
+                }
+            ]
+        }
+    }
+
     broadcast_messages: {
         define_prefix: XAP_BROADCAST
         messages: {
@@ -96,6 +118,15 @@
                     | **Purpose** | Token | Token | Broadcast Type | Length | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload | Payload |
                     | **Value** | `0xFF` | `0xFF` | `0x00` | `0x0A`(10) | `0x48`(H) | `0x65`(e) | `0x6C`(l) | `0x6C`(l) | `0x6F`(o) | `0x20`(&nbsp;) | `0x51`(Q) | `0x4D`(M) | `0x4B`(K) | `0x21`(!) |
                     '''
+            }
+            0x01: {
+                name: Secure Status
+                define: SECURE_STATUS
+                description:
+                    '''
+                    Secure status has changed.
+                    '''
+                return_type: u8
             }
         }
     }

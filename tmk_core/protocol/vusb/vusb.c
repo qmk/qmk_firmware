@@ -204,7 +204,7 @@ void xap_send_base(uint8_t *data, uint8_t length) {
     usbSetInterrupt4(0, 0);
 }
 
-void xap_send(xap_token_t token, uint8_t response_flags, const void *data, size_t length) {
+void xap_send(xap_token_t token, xap_response_flags_t response_flags, const void *data, size_t length) {
     uint8_t                rdata[XAP_BUFFER_SIZE] = {0};
     xap_response_header_t *header                 = (xap_response_header_t *)&rdata[0];
     header->token                                 = token;
@@ -217,6 +217,21 @@ void xap_send(xap_token_t token, uint8_t response_flags, const void *data, size_
         if (data != NULL) {
             memcpy(&rdata[sizeof(xap_response_header_t)], data, length);
         }
+    }
+    xap_send_base(rdata, sizeof(rdata));
+}
+
+void xap_broadcast(uint8_t type, const void *data, size_t length) {
+    uint8_t                rdata[XAP_BUFFER_SIZE] = {0};
+    xap_broadcast_header_t *header           = (xap_broadcast_header_t *)&rdata[0];
+    header->token                            = XAP_BROADCAST_TOKEN;
+    header->type                             = type;
+
+    if (length > (XAP_BUFFER_SIZE - sizeof(xap_broadcast_header_t))) return;
+
+    header->length = (uint8_t)length;
+    if (data != NULL) {
+        memcpy(&rdata[sizeof(xap_broadcast_header_t)], data, length);
     }
     xap_send_base(rdata, sizeof(rdata));
 }

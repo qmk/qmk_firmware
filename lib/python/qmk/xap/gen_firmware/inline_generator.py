@@ -245,6 +245,22 @@ def _append_routing_tables(lines, container, container_id=None, route_stack=None
     route_stack.pop()
 
 
+def _append_broadcast_messages(lines, container):
+    """TODO:
+    """
+    broadcast_messages = container.get('broadcast_messages', {})
+    broadcast_prefix = broadcast_messages['define_prefix']
+    for key, value in broadcast_messages['messages'].items():
+        define = value.get('define')
+        name = to_snake(f'{broadcast_prefix}_{define}')
+
+        if 'return_type' in value:
+            ret_type = _get_c_type(value['return_type'])
+            lines.append(f'void {name}({ret_type} value) {{ xap_broadcast({key}, &value, sizeof(value)); }}')
+        else:
+            lines.append(f'void {name}(const void *data, size_t length){{ xap_broadcast({key}, data, length); }}')
+
+
 def generate_inline(output_file):
     """Generates the XAP protocol header file, generated during normal build.
     """
@@ -254,6 +270,7 @@ def generate_inline(output_file):
     lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '']
 
     # Add all the generated code
+    _append_broadcast_messages(lines, xap_defs)
     _append_routing_tables(lines, xap_defs)
 
     dump_lines(output_file, lines)

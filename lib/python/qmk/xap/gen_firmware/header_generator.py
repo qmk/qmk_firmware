@@ -177,6 +177,16 @@ def _append_internal_types(lines, container):
     lines.append(f'#define {prefix}_FAILED 0x00')
     lines.append('')
 
+    broadcast_messages = container.get('broadcast_messages', {})
+    broadcast_prefix = broadcast_messages['define_prefix']
+    for key, value in broadcast_messages['messages'].items():
+        define = value.get('define')
+        lines.append(f'#define {broadcast_prefix}_{define} {key}')
+
+    # Add special
+    lines.append(f'#define {broadcast_prefix}_TOKEN 0xFFFF')
+    lines.append('')
+
     additional_types = {}
     types = container.get('type_definitions', {})
     for key, value in types.items():
