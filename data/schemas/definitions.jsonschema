@@ -71,6 +71,22 @@
         "type": "number",
         "min": 0.25
     },
+    "keyboard": {
+        "oneOf": [
+            {
+                "type": "string",
+                "enum": [
+                    "converter/numeric_keypad_IIe",
+                    "emptystring/NQG",
+                    "maple_computing/christmas_tree/V2017"
+                ]
+            },
+            {
+                "type": "string",
+                "pattern": "^[0-9a-z][0-9a-z_/]*$"
+            }
+        ]
+    },
     "mcu_pin_array": {
         "type": "array",
         "items": {"$ref": "#/mcu_pin"}
