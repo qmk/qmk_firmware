@@ -1,6 +1,6 @@
 # Frooastboard Walnut
 
-![frooastboard/walnut](https://i.imgur.com/4erTDZq.jpg)
+![frooastboard/walnut](https://i.imgur.com/4erTDZqh.jpg)
 
 This is the Frooastboard Walnut keyboard. It is made of walnut wood, has 48 underglow LEDs and a solid aluminum base plate. It uses a USB Type-C connector and will likely be available for sale soon.
 
