@@ -326,14 +326,15 @@ void nicola_mode(uint16_t keycode, keyrecord_t *record) {
 
   // modifierが押されたらレイヤーをオフ
   switch (keycode) {
-    //case KC_LCTRL:
-    case KC_LSHIFT:
+    case KC_LCTRL:
+    case KC_LSFT:
     case KC_LALT:
     case KC_LGUI:
-    case KC_RCTRL:
-    case KC_RSHIFT:
+    case KC_RCTL:
+    case KC_RSFT:
     case KC_RALT:
     case KC_RGUI:
+    case KC_MOUSE:
       if (record->event.pressed) {
         n_modifier++;
         layer_off(nicola_layer);
