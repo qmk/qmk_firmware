@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 16
 #define MATRIX_COLS 8
 
+#define TAPPING_FORCE_HOLD
 #define TAPPING_TERM    200
 
 /* number of backlight levels */
