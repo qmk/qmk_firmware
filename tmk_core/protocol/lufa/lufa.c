@@ -261,10 +261,10 @@ void xap_send(xap_token_t token, xap_response_flags_t response_flags, const void
 }
 
 void xap_broadcast(uint8_t type, const void *data, size_t length) {
-    uint8_t                rdata[XAP_EPSIZE] = {0};
-    xap_broadcast_header_t *header           = (xap_broadcast_header_t *)&rdata[0];
-    header->token                            = XAP_BROADCAST_TOKEN;
-    header->type                             = type;
+    uint8_t                 rdata[XAP_EPSIZE] = {0};
+    xap_broadcast_header_t *header            = (xap_broadcast_header_t *)&rdata[0];
+    header->token                             = XAP_BROADCAST_TOKEN;
+    header->type                              = type;
 
     if (length > (XAP_EPSIZE - sizeof(xap_broadcast_header_t))) return;
 
