@@ -78,12 +78,12 @@ GAMING LAYER
 
  ADJUST LAYER
  * ,------------------------------------------------------------------------------.
- * |RGBtog|Ms3 | Ms2 |MsUp | Ms1  |  Hue+|  Hue- | Sat+| Sat- |Brt+ |Brt- | RESET |
+ * |Esc,Fn| Ms3 | Ms2 |MsUp | Ms1  |  Hue+| Hue-  |AU_ON|AU_OFF|     |     |RESET |
  * |------------------------------------------------------------------------------|
- * |RGBMod| MWL | MsL |MDn  |MsR  |GAMING|HANDSDOWN|AU_ON|AU_OFF|MU_ON|MU_OF|DEBUG|
+ * |      | MWL | MsL |MDn  | MsR  |GAMING|HANDSDN|MsLft|MsRhgt|MsMid|     |RGBTog|
  * |------------------------------------------------------------------------------|
- * |     |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|MI_ON|MI_OF |     |     |MU_Mod |
+ * |      |MWLft|MWUp |NWDn |NWRght|QWERTY|COLEMAK|     |      |     |     |DEBUG |
  * |------------------------------------------------------------------------------|
- * |     |     |     |SLEEP|      |              |     |NumLock|    |     |       |
+ * |      |     |     |     |      |              |     |NumLk |     |     |      |
  * `------------------------------------------------------------------------------'
  ```
