@@ -1,6 +1,6 @@
 # modelm101_teensy2
 
-![IBM Model M 101 ANSI/102 ISO](https://i.imgur.com/DAE3W7g.jpg)
+![IBM Model M 101 ANSI/102 ISO](https://user-images.githubusercontent.com/46733695/161862805-c891735b-e2e8-418a-ad82-d71c00570eab.jpg)
 
 This is based on the modelm101 keyboard by iw0rm3r. The difference is that Teensy 2.0 board (produced by PJRC) is used instead of the Teensy 2.0++ due to the availability issues. Only CapsLock LED is supported since Teensy 2.0 only has 25 digital I/0 pins.
 
