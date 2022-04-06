@@ -1,17 +1,19 @@
-#define IGNORE_MOD_TAP_INTERRUPT
-#define TAPPING_TERM_PER_KEY
-#define TAPPING_TERM 220
+#pragma once
+#include "nathancooke7.h"
 
-#define COMBO_TERM 30
+enum userspace_custom_keycodes {
+#ifndef NO_CHARYBDIS_KEYCODES
+  SARCASM = CHARYBDIS_SAFE_RANGE,
+#else
+  SARCASM = SAFE_RANGE,
+#endif // !NO_CHARYBDIS_KEYCODES
+  KC_SECRET_1,
+  KC_SECRET_2
+};
 
-#define MACRO_TIMER 20
-
-/* conserve space on MCU */
-#undef LOCKING_SUPPORT_ENABLE
-#undef LOCKING_RESYNC_ENABLE
-#define NO_ACTION_ONESHOT
-#define NO_MUSIC_MODE
-
+bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+void post_process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
 /* Homerow mod tap */
   #define KC_CA LCTL_T(KC_A)
@@ -93,3 +95,4 @@
   #define MUTE_MIC LGUI(KC_D)
   #define MUTE_CAM LGUI(KC_E)
   #define RAZ_HAND LCTL(LGUI(KC_H))
+

@@ -1,8 +1,14 @@
-COMBO_ENABLE = yes
-ENCODER_ENABLE = no
-MOUSEKEY_ENABLE = yes
+SRC += nathancooke7.c
+SRC += features/secrets.c
+SRC += features/combos.c
 
-SRC += features/caps_word.c
+ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
+	SRC += features/pointing.c
+	MOUSEKEY_ENABLE = yes
+endif
+
+COMBO_ENABLE = yes
+CAPS_WORD_ENABLE = yes
 
 # save space on MCU by disabling unused features
 LTO_ENABLE = yes
@@ -19,3 +25,4 @@ RGB_MATRIX_SUPPORTED = no
 RGB_LIGHT_SUPPORTED = no
 SPACE_CADET_ENABLE = no
 WPM_ENABLE = no
+# end save space
