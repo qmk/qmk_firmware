@@ -250,5 +250,8 @@ void dynamic_keymap_macro_send(uint8_t id) {
             }
         }
         send_string(data);
+#ifdef VIA_MACRO_DELAY
+        wait_ms(VIA_MACRO_DELAY);
+#endif
     }
 }
