@@ -2,8 +2,11 @@
     "keyboard_name": "qk65",
     "url": "",
     "maintainer": "qwertykeys",
+    "layout_aliases": {
+        "LAYOUT_hotswap": "LAYOUT_65_ansi_blocker"
+    },
     "layouts": {
-        "LAYOUT_hotswap": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
