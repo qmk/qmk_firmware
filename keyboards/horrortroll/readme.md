@@ -11,7 +11,7 @@ In here, you can find:
   | Keyboard name  | MCU           | Layout        | Hotswap | LED          | OLED | Other |
   | -------------- | ------------- | ------------- | ------- | ------------ | ---- | ----- |
   | Handwired K552 | STM32F103RCT6 | 87 Keys (TKL) | Yes     | RGB Lighting | Yes  | No    |
-  | Paws 60        | Atmega32U4    | 68 Keys (65%) | Yes     | RGB Matrix   | No   | No    |
+  | Paws 60        | Atmega32U4    | 68 Keys (65%) | Yes     | No           | No   | No    |
   |                |               |               |         |              |      |       |
 </details>
 
