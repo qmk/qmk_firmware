@@ -18,7 +18,11 @@
 
 /* USB Device descriptor parameter */
 #define PRODUCT_ID 0x0140
-#define DEVICE_VER 0x0103
+#define DEVICE_VER 0x0104
+
+/* RGB Matrix Driver Configuration */
+#define DRIVER_COUNT 1
+#define DRIVER_ADDR_1 0b1110100
 
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 61
@@ -26,3 +30,7 @@
 
 /* Enable CapsLcok LED*/
 #define CAPS_LOCK_LED_INDEX 28
+
+/* Q4 uses single led controller chip, so define the LOW_CURRENT_MODE
+ * (effective in ckled2001.c) to set the current page individually. */
+#define LOW_CURRENT_MODE
