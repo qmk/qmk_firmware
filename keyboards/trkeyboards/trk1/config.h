@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x0001  // TRK1
 #define DEVICE_VER   0x0001  // v1.0
 #define MANUFACTURER Tvrd Rad Keyboards
-#define PRODUCT      TRK1
+#define PRODUCT      Tvrd Rad Keyboards TRK1
 
 /* Key matrix */
 #define MATRIX_ROWS 5
