@@ -8,18 +8,6 @@
 
 #define MACRO_TIMER 20
 
-#define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
-#define CHARYBDIS_MINIMUM_SNIPING_DPI 400
-#define CHARYBDIS_DRAGSCROLL_REVERSE_Y
-
-#ifdef ENCODER_ENABLE
-/* Free pins { B7 D5 C7 } */
-/* SPI pins { B1 B2 B3 F1 } */
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { B2 }
-#define ENCODER_RESOLUTIONS { 4 }
-#endif
-
 /* conserve space on MCU */
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
