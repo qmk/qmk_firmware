@@ -28,8 +28,9 @@
 // Pointing device is on the right split.
 #define POINTING_DEVICE_RIGHT
 
+#define POINTING_DEVICE_INVERT_X
 // Limits the frequency that the sensor is polled for motion.
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1
 
 /** Improve trackball firmware upload speed at boot. */
-#define PMW3360_FIRMWARE_UPLOAD_FAST
+/* #define PMW3360_FIRMWARE_UPLOAD_FAST */
