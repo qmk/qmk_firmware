@@ -50,14 +50,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-    case KC_SECRET_1 ... KC_SECRET_2: // Secrets!  Externally defined strings, not stored in repo
-      if (!record->event.pressed) {
-        send_string_with_delay(secrets[keycode - KC_SECRET_1], MACRO_TIMER);
-      }
-      return false;
-
-    default:
-      return true;
   }
 }
     return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
