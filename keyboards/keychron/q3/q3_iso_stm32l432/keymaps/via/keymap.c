@@ -104,8 +104,6 @@ void matrix_scan_user(void) {
             unregister_code(KC_SPACE);
         }
     }
-    /* Set timers for factory reset and backlight test */
-    timer_task_start();
 }
 
 bool dip_switch_update_user(uint8_t index, bool active) {
@@ -115,7 +113,6 @@ bool dip_switch_update_user(uint8_t index, bool active) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    process_other_record(keycode, record);
     switch (keycode) {
         case KC_MISSION_CONTROL:
             if (record->event.pressed) {
