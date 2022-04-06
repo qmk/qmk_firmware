@@ -8,11 +8,11 @@ A customizable 87 keys keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q3/q3_ansi_stm32l432:default
+    make keychron/q3/rev_0120:default
 
 Flashing example for this keyboard:
 
-    make keychron/q3/q3_ansi_stm32l432:default:flash
+    make keychron/q3/rev_0120:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 
