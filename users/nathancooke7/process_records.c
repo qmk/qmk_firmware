@@ -29,14 +29,6 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static bool tAuNtTeXt = false;
 
-    if (!(process_record_keymap(keycode, record) && process_record_secrets(keycode, record)
-#if defined(CUSTOM_POINTING_DEVICE)
-          && process_record_pointing(keycode, record)
-#endif
-          && true)) {
-      return false;
-    }
-
   if (tAuNtTeXt) {
     if (record->event.pressed) {
       if (keycode != KC_SPC) {
@@ -58,7 +50,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
   }
-    return true;
+  return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
 }
 
 __attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
