@@ -93,4 +93,3 @@ compile_commands.json
 .cache/
 
 secrets.h
-secrets.c
