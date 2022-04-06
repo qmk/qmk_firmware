@@ -380,3 +380,17 @@ void housekeeping_task_kb(void) {
 }
 #    endif // CHARYBDIS_CONFIG_SYNC
 #endif     // POINTING_DEVICE_ENABLE
+
+#ifdef __arm__
+void keyboard_pre_init_kb(void) {
+    setPinInputHigh(A0);
+    keyboard_pre_init_user();
+}
+
+void matrix_scan_kb(void) {
+    if (!readPin(A0)) {
+        reset_keyboard();
+    }
+    matrix_scan_user();
+}
+#endif // __arm__
