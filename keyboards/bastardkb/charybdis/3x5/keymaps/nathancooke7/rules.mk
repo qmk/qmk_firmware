@@ -1,0 +1,21 @@
+COMBO_ENABLE = yes
+ENCODER_ENABLE = no
+MOUSEKEY_ENABLE = yes
+
+SRC += features/caps_word.c
+
+# save space on MCU by disabling unused features
+LTO_ENABLE = yes
+
+BOOTMAGIC_ENABLE = no
+COMMAND_ENABLE = no
+CONSOLE_ENABLE = no
+GRAVE_ESC_ENABLE = no
+MAGIC_ENABLE = no
+MUSIC_ENABLE = no
+OLED_DRIVER_ENABLE = no
+RGB_MATRIX_ENABLE = no
+RGB_MATRIX_SUPPORTED = no
+RGB_LIGHT_SUPPORTED = no
+SPACE_CADET_ENABLE = no
+WPM_ENABLE = no
