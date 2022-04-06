@@ -8,7 +8,8 @@ enum userspace_custom_keycodes {
   SARCASM = SAFE_RANGE,
 #endif // !NO_CHARYBDIS_KEYCODES
   KC_SECRET_1,
-  KC_SECRET_2
+  KC_SECRET_2,
+  V_DRAG
 };
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
