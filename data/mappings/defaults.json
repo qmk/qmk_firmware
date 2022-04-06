@@ -15,6 +15,21 @@
             "bootloader": "stm32-dfu",
             "board": "QMK_PROTON_C",
             "pin_compatible": "promicro"
+        },
+        "bluepill": {
+            "processor": "STM32F103",
+            "bootloader": "stm32duino",
+            "board": "STM32_F103_STM32DUINO"
+        },
+        "blackpill_f401": {
+            "processor": "STM32F401",
+            "bootloader": "stm32-dfu",
+            "board": "BLACKPILL_STM32_F401"
+        },
+        "blackpill_f411": {
+            "processor": "STM32F411",
+            "bootloader": "stm32-dfu",
+            "board": "BLACKPILL_STM32_F411"
         }
     }
 }
