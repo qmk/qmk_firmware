@@ -30,14 +30,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_SYMBOLS] = LAYOUT_charybdis_3x5(
-    KC_RCBR , KC_RBRC , R_PAREN , KC_GRAVE , _______ ,                    _______ , KC_7 , KC_8   , KC_9 , KC_EQL  ,
-    KC_LCBR , KC_LBRC , L_PAREN , KC_TILDE , _______ ,                    _______ , KC_4 , KC_5   , KC_6 , KC_COLN ,
-    KC_LSFT , CUT     , COPY    , PASTE    , _______ ,                    KC_RSFT , KC_1 , KC_2   , KC_3 , KC_BSLS ,
-                        _______ , KC_NO    , _______ ,                    KC_DOT  , KC_0
+    _______ , _______ , _______  , _______  , _______ ,                    _______ , KC_7 , KC_8   , KC_9 , KC_EQL  ,
+    _______ , _______ , KC_GRAVE , KC_TILDE , _______ ,                    _______ , KC_4 , KC_5   , KC_6 , KC_COLN ,
+    _______ , CUT     , COPY     , PASTE    , _______ ,                    KC_RSFT , KC_1 , KC_2   , KC_3 , KC_BSLS ,
+                        _______  , KC_NO    , _______ ,                    KC_DOT  , KC_0
   ),
 
   [_WORDS] = LAYOUT_charybdis_3x5(
-    KC_SECRET_1 , KC_SECRET_2 , KC_C , _______ , _______ ,                    _______ , _______ , _______ , _______ , SARCASM ,
+    KC_SECRET_1 , KC_SECRET_2 , _______ , _______ , _______ ,                    _______ , _______ , _______ , _______ , SARCASM ,
     _______     , _______     , _______ , CAPS    , _______ ,                    _______ , _______ , _______ , _______ , _______ ,
     _______     , _______     , _______ , _______ , _______ ,                    _______ , _______ , _______ , _______ , _______ ,
                                 _______ , KC_NO   , _______ ,                    _______ , _______
