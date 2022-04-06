@@ -1,6 +1,7 @@
 SRC += nathancooke7.c
-SRC += features/secrets.c
+# SRC += features/secrets.c
 SRC += features/combos.c
+SRC += process_records.c
 
 ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
 	SRC += features/pointing.c
