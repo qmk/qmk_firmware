@@ -55,7 +55,7 @@
 #define DIP_SWITCH_MATRIX_GRID  { {4,4} }
 
 /* NKRO */
-// #define FORCE_NKRO
+#define FORCE_NKRO
 
 /* Turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
