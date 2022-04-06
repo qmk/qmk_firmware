@@ -95,4 +95,3 @@ void post_process_record_keymap(uint16_t keycode, keyrecord_t *record);
   #define MUTE_MIC LGUI(KC_D)
   #define MUTE_CAM LGUI(KC_E)
   #define RAZ_HAND LCTL(LGUI(KC_H))
-

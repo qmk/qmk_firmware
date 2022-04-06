@@ -14,7 +14,6 @@
  */
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
-__attribute__((weak)) void process_combo_event(uint16_t combo_index, bool pressed) { return; }
 
 /**
  * @brief Main user keycode handler
@@ -29,6 +28,14 @@ __attribute__((weak)) void process_combo_event(uint16_t combo_index, bool presse
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static bool tAuNtTeXt = false;
+
+    if (!(process_record_keymap(keycode, record) && process_record_secrets(keycode, record)
+#if defined(CUSTOM_POINTING_DEVICE)
+          && process_record_pointing(keycode, record)
+#endif
+          && true)) {
+      return false;
+    }
 
   if (tAuNtTeXt) {
     if (record->event.pressed) {
@@ -52,7 +59,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
 }
-    return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
+    return true;
 }
 
 __attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
