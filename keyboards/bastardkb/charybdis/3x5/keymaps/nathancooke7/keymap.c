@@ -9,8 +9,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_MISC] = LAYOUT_charybdis_3x5(
-    _______  , _______ , DESKTOP  , _______ , _______  ,                 _______  , _______  , _______ , _______  , RESET    ,
-    AM_LEFT  , DESK_L  , MISSION  , DESK_R  , AM_RITE  ,                 AM_CYCLE , AM_1     , AM_2    , AM_CCW   , _______  ,
+    _______  , _______ , DESKTOP  , _______ , _______  ,                 AM_CYCLE , _______  , _______ , _______  , RESET    ,
+    AM_LEFT  , DESK_L  , MISSION  , DESK_R  , AM_RITE  ,                 _______  , AM_1     , AM_2    , AM_CCW   , _______  ,
     KC_LCTRL , _______ , _______  , _______ , _______  ,                 _______  , MS_BACK  , MS_FORE , TAB_BACK , TAB_FORE ,
                          MUTE_MIC , KC_NO   , MUTE_CAM ,                 _______  , RAZ_HAND
   ),
