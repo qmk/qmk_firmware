@@ -133,35 +133,76 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     if (!process_caps_word(keycode, record)) {
         return false;
     }
-    // Your macros ...
 
+    // Your macros ...
     switch (keycode) {
 
-    // DotCom domain shortcuts
+    // DotCom domain macros
+    case DOTCOM:
+        if (record -> event.pressed) {
+            SEND_STRING(".com");
+        } else {
+            // when keycode is released
+        }
+        break;
+    case YAHOO:
+        if (record -> event.pressed) {
+            SEND_STRING("yahoo.com");
+        } else {
+            // when keycode is released
+        }
+        break;
+    case OUTLOOK:
+        if (record -> event.pressed) {
+            SEND_STRING("outlook.com");
+        } else {
+            // when keycode is released
+        }
+        break;
+    case GMAIL:
+        if (record -> event.pressed) {
+            SEND_STRING("gmail.com");
+        } else {
+            // when keycode is released
+        }
+        break;
+    case HOTMAIL:
+        if (record -> event.pressed) {
+            SEND_STRING("hotmail.com");
+        } else {
+            // when keycode is released
+        }
+        break;
+		
+/*
     case YAHOO:
         if (record -> event.pressed) SEND_STRING("yahoo.com");
         else unregister_code16(keycode);
         break;
-
     case OUTLOOK:
         if (record -> event.pressed) SEND_STRING("outlook.com");
         else unregister_code16(keycode);
         break;
-
     case GMAIL:
         if (record -> event.pressed) SEND_STRING("gmail.com");
         else unregister_code16(keycode);
         break;
-
     case HOTMAIL:
         if (record -> event.pressed) {
             SEND_STRING("hotmail.com");
         } else unregister_code16(keycode);
         break;
-
     case DOTCOM:
         if (record -> event.pressed) SEND_STRING(".com");
         else unregister_code16(keycode);
+        break;
+*/
+
+    // Windows key lock		
+    case KC_WINLCK:
+        if (record -> event.pressed) {
+            keymap_config.no_gui = !keymap_config.no_gui; //toggle status
+        } else unregister_code16(keycode);
         break;
 
     // Double Zero    
@@ -169,13 +210,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         if (record -> event.pressed) {
             // when keycode KC_00 is pressed
             SEND_STRING("00");
-        } else unregister_code16(keycode);
-        break;
-
-    // Windows key lock		
-    case KC_WINLCK:
-        if (record -> event.pressed) {
-            keymap_config.no_gui = !keymap_config.no_gui; //toggle status
         } else unregister_code16(keycode);
         break;
 
