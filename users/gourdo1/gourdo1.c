@@ -136,6 +136,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     // Your macros ...
 
     switch (keycode) {
+
+    // DotCom domain shortcuts
+    case DOTCOM:
+        if (record -> event.pressed) SEND_STRING(".com");
+        else unregister_code16(keycode);
+        break;
+
+    case OUTLOOK:
+        if (record -> event.pressed) SEND_STRING("outlook.com");
+        else unregister_code16(keycode);
+        break;
+
+    case GMAIL:
+        if (record -> event.pressed) SEND_STRING("gmail.com");
+        else unregister_code16(keycode);
+        break;
+
+    case HOTMAIL:
+        if (record -> event.pressed) SEND_STRING("hotmail.com");
+        else unregister_code16(keycode);
+        break;
+
+    case YAHOO:
+        if (record -> event.pressed) SEND_STRING("yahoo.com");
+        else unregister_code16(keycode);
+        break;
+
     // Double Zero    
     case KC_00:
         if (record -> event.pressed) {

@@ -8,14 +8,15 @@ This Windows-centric layout is based on [Jonavin's](https://github.com/qmk/qmk_f
 
 * [VIA](https://www.caniusevia.com/) support enabled
 * Most [default Glorious shortcuts](https://cdn.shopify.com/s/files/1/0549/2681/files/GMMK_Pro_User_Guide.pdf) enabled
-* [N-key Rollover](https://en.wikipedia.org/wiki/Rollover_(keyboard)#n-key_rollover) (NKRO) enabled 
-* Fn-Backslash for [Bootloader mode](https://github.com/qmk/qmk_firmware/blob/master/docs/newbs_flashing.md)
-* Capslock toggled by double tap of Left Shift key or FN + Capslock (RGB green highlighted)
+* [N-key Rollover](https://en.wikipedia.org/wiki/Rollover_(keyboard)#n-key_rollover) (NKRO) enabled
 * Gaming mode (FN + Win-key) locks out Win-key as well as double-tap Shift Capslock; Also RGB highlights WSAD and nearby gaming related keys
+* [Caps Word](https://getreuer.info/posts/keyboards/caps-word/index.html) enabled: To capitalize the next word only, press and release both left and right shift keys at the same time.
+* Domain shortcuts: FN+.=".com", FN+O="outlook.com", FN+Y="yahoo.com", FN+H="hotmail.com", FN+G="gmail.com",
+* Capslock toggled by double tap of Left Shift key or FN + Capslock (RGB green highlighted)
+* Fn-Backslash for [Bootloader mode](https://github.com/qmk/qmk_firmware/blob/master/docs/newbs_flashing.md)
 * Home key on F-key row, Del key next to Backspace
 * Insert accessible via Shift-Backspace (so shift delete still works in Windows Explorer)
 * PrtScrn, Scroll Lock, Pause/Break are top right on the keyboard: Fn+F11, Fn+F12, Fn+Home
-* [Caps Word](https://getreuer.info/posts/keyboards/caps-word/index.html) enabled: To capitalize the next word only, press and release both left and right shift keys at the same time.
 * Double tap ESC any time to revert to base layer
 
 ### Numpad + Mouse Keys (Capslock key)
@@ -45,7 +46,7 @@ This Windows-centric layout is based on [Jonavin's](https://github.com/qmk/qmk_f
 * RGB backlight hue cycle: FN + A/D
 * RGB backlight brightness: FN + W/S
 * RGB backlight night mode toggle: FN + Z (indicators still work)
-* RGB backlight timeout: FN + Encoder or "," and "." (default 15 minutes)
+* RGB backlight timeout: FN + Encoder or "-" and "=" (default 15 minutes)
     * indicators in FN layer using RGB in F-key and number rows to show the current timeout in minutes
 * RGB indicators on left side LEDs: Capslock (green), Scroll Lock (red), and Num Lock not set (orange) 
 * FN + Z to turn off RGB backlighting; press again to toggle

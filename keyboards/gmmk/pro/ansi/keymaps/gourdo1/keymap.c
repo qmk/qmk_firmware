@@ -52,12 +52,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(_FN1),KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
+    /* FN1 Layout
+     *
+     * ,-------------------------------------------------------------------------------------------------------------.
+     * | Esc  ||MyCmp |WbHom | Calc |MdSel ||MdPrv |MdNxt |MdPly |MdStp ||VolDn |VolUp |PrScr |ScrLk ||Pause || ____ |
+     * |=============================================================================================================|
+     * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ |RGBTOD|RGBTOI| ________ ||RGBTOG|
+     * |------+------+------+------+------+------+------+------+------+------+------+------+------+----------++------|
+     * |  ______ |RGBSAD|RGBVAI|RGBSAI| ____ | ____ |YAHOO | ____ | ____ |OUTLK |Pause | ____ | ____ | Reset || Home |
+     * |---------+------+------+------+------+------+------+------+------+------+------+------+------+-------++------|
+     * |  Capslock  |RGBHUD|RGBVAD|RGBHUI| ____|GMAIL |HTMAIL| ____ | ____ | ____ | ____ | ____ | __________ || End  |
+     * |------------+------+------+------+-----+------+------+------+------+------+------+------|----+========+------|
+     * |  __________  |RGBNIT| ____ | ____ | ____ | ____ |NumLk | ____ |DOTCOM| ____ | ____ | ______ ||RGBMOD|| ____ |
+     * |--------------+------+------+------+------+------+------+------+------+------+------+--+=====++------++======|
+     * |  ____  | WinKyLk |  ____  |               _____                  | ____ | ____ | ____ ||RGBSPD|RGBRMD|RGBSPI|
+     * `------------------------------------------------------------------------------------------------------------'
+     */
+
     [_FN1] = LAYOUT(
         _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_VOLD, KC_VOLU, KC_PSCR, KC_SLCK, KC_PAUS,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_TOG,
-        _______, RGB_SAD, RGB_VAI, RGB_SAI, _______, _______, _______, KC_PSCR, KC_SLCK, _______, KC_PAUS, _______, _______, RESET,            KC_HOME,
-        KC_CAPS, RGB_HUD, RGB_VAD, RGB_HUI, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          KC_END,
-        _______,          RGB_NITE,_______, _______, _______, _______, KC_NLCK, _______, RGB_TOD, RGB_TOI, _______,          _______, RGB_MOD, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOD, RGB_TOI, _______,          RGB_TOG,
+        _______, RGB_SAD, RGB_VAI, RGB_SAI, _______, _______,  YAHOO , _______, _______, OUTLOOK, KC_PAUS, _______, _______, RESET,            KC_HOME,
+        KC_CAPS, RGB_HUD, RGB_VAD, RGB_HUI, _______,  GMAIL , HOTMAIL, _______, _______, _______, _______, _______,          _______,          KC_END,
+        _______,          RGB_NITE,_______, _______, _______, _______, KC_NLCK, _______, DOTCOM , _______, _______,          _______, RGB_MOD, _______,
         _______, KC_WINLCK, _______,                          _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
 
@@ -244,6 +261,8 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(LED_R6, RGB_RED);
         rgb_matrix_set_color(LED_R7, RGB_RED);
         rgb_matrix_set_color(LED_R8, RGB_RED);
+        rgb_matrix_set_color(LED_MINS, RGB_OFFBLUE);
+        rgb_matrix_set_color(LED_EQL, RGB_OFFBLUE);
 
         // Add RGB Timeout Indicator -- shows 0 to 139 using F row and num row; larger numbers using 16bit code
         uint16_t timeout_threshold = get_timeout_threshold();
