@@ -14,33 +14,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "modelm101_teensy2.h"
-
-void keyboard_pre_init_kb(void) {
-  /* Setting status LEDs pins to output and +5V (off) */
-  setPinOutput(E6);
-  // setPinOutput(B5);
-  // setPinOutput(B6);
-  writePinHigh(E6);
-  // writePinHigh(B5);
-  // writePinHigh(B6);
-}
-
-void led_set_kb(uint8_t usb_led) {
-  // if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-  //   writePinLow(B4);
-  // } else {
-  //   writePinHigh(B4);
-  // }
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    writePinLow(E6);
-  } else {
-    writePinHigh(E6);
-  }
-  // if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-  //   writePinLow(B5);
-  // } else {
-  //   writePinHigh(B5);
-  // }
-
-  led_set_user(usb_led);
-}
