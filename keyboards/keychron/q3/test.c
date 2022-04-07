@@ -18,6 +18,9 @@
 
 #define MAC_FN 1
 #define WIN_FN 3
+#ifndef RAW_EPSIZE
+#    define RAW_EPSIZE 32
+#endif
 
 static void timer_3s_task(void);
 static void timer_300ms_task(void);
