@@ -86,7 +86,7 @@ static void render_status(void) {
     }
 
     oled_write_P(PSTR("\n"), false);
-    render_keylock_status(host_keyboard_leds());
+    render_keylock_status(host_keyboard_led_state());
     render_mod_status(get_mods() | get_oneshot_mods());
 }
 
