@@ -78,9 +78,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
         } else if (index == 1) {
             if (clockwise) {
-                tap_code16(KC_RIGHT);
-            } else {
                 tap_code16(KC_LEFT);
+            } else {
+                tap_code16(KC_RIGHT);
             }
         }
     } else if (encoder_mode == TASKS) {  // on Nav layer controls window

@@ -80,12 +80,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 break;
             case SEL_LINE:
                 if (pressed) {
-                    SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_TAP(X_C) SS_UP(X_LGUI));
+                    SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LGUI));
                 }
                 break;
             case SEL_WORD:
                 if (pressed) {
-                    SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LALT) SS_DOWN(X_LGUI) SS_TAP(X_C) SS_UP(X_LGUI));
+                    SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LALT));
                 }
         }
     }
@@ -116,6 +116,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                     layer_invert(3);
                 }
                 break;
+			case SEL_LINE:
+                if (pressed) {
+                    SEND_STRING( SS_TAP(X_HOME) SS_DOWN(X_LSFT) SS_TAP(X_END) SS_UP(X_LSFT));
+                }
+                break;
+            case SEL_WORD:
+                if (pressed) {
+                    SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LCTL));
+                }
         }
     }
     switch (combo_index) {

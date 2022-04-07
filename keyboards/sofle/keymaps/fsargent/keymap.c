@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,							KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_MINS,
 		KC_TAB,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,							KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		KC_EQL,
 MT(MOD_MEH,KC_ESC),	KC_A,		KC_S,		KC_D,		KC_F,		KC_G,							KC_H,		KC_J,		KC_K,		KC_L,		KC_SCLN,	KC_QUOT,
-		KC_LSFT,	KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,		TO(WIN),	ENCODER_MODE,		KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	MT(MOD_LSFT,KC_BSLS),
+		KC_LSFT,	KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,	ENCODER_MODE,	TO(WIN),	KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	MT(MOD_LSFT,KC_BSLS),
 		MT(MOD_LCTL, KC_LBRC),	MT(MOD_LALT, KC_RBRC),	LT(SYM,KC_DEL), MO(NAV),	CMD_T(KC_BSPC),		KC_SPC,		LT(SYM, KC_ENT),	MT(MOD_RGUI, KC_DEL),	MT(MOD_RALT, KC_MINS), 	MT(MOD_RCTL, KC_EQL)
 	),
 	// [CMK] = LAYOUT(
@@ -46,21 +46,21 @@ MT(MOD_MEH,KC_ESC),	KC_A,		KC_S,		KC_D,		KC_F,		KC_G,							KC_H,		KC_J,		KC_K,	
 		_______,	_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
 		_______,	_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
 MT(MOD_LGUI, KC_ESC),	_______,	_______,	_______,	_______,	_______,						_______,_______,_______,_______,_______,_______,
-		_______,	_______,	_______,	_______,	_______,	_______,	TO(GAME),		_______,_______,_______,_______,_______,_______,_______,
+		_______,	_______,	_______,	_______,	_______,	_______,	_______,	TO(GAME),	_______,_______,_______,_______,_______,_______,
 		_______,	_______,	_______,	MO(WINNAV),	CTL_T(KC_BSPC),							_______,_______,_______,_______,_______
 	),
 	[GAME] = LAYOUT(
 		KC_GRV,		_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
 		KC_TAB,		_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
 		KC_ESC,		_______,	_______,	_______,	_______,	_______,							_______,_______,_______,_______,_______,_______,
-		KC_LSFT,	_______,	_______,	_______,	_______,	_______,	TO(SHFT),		_______,_______,_______,_______,_______,_______,_______,
+		KC_LSFT,	_______,	_______,	_______,	_______,	_______,	_______,	TO(SHFT),	_______,_______,_______,_______,_______,_______,
 		MO(WINNAV),	KC_LALT,	MO(SYM),	KC_LCTL,	KC_SPC,									KC_BSPC,LT(SYM, KC_ENT),_______,_______,_______
 	),
 	[SHFT] = LAYOUT(
 		KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,								KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		MT(MOD_LGUI,KC_MINS),
 		KC_TAB,		KC_T,		KC_Q,		KC_W,		KC_E,		KC_R,								KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		MT(MOD_LCTL,KC_EQL),
 MT(MOD_MEH,KC_ESC),	KC_G,		KC_A,		KC_S,		KC_D,		KC_F,								KC_H,		KC_J,		KC_K,		KC_L,		KC_SCLN,	MT(MOD_LALT,KC_QUOT),
-		KC_LSFT,	KC_B,		KC_Z,		KC_X,		KC_C,		KC_V,	TO(BASE),		_______,	KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	MT(MOD_LSFT,KC_BSLS),
+		KC_LSFT,	KC_B,		KC_Z,		KC_X,		KC_C,		KC_V,	_______,		TO(BASE),	KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	MT(MOD_LSFT,KC_BSLS),
 		MT(MOD_LCTL, KC_LBRC),	MT(MOD_LALT, KC_RBRC),	LT(SYM,KC_DEL), KC_LCTL,	KC_SPC,				KC_BSPC,	LT(SYM, KC_ENT),	_______,_______,_______
 	),
 	[SYM] = LAYOUT(

@@ -121,9 +121,11 @@ void render_mod_status(void) {
 // enum encoder_modes { ARROWS, TASKS, MUSIC, PAGES };
 void render_encoder_status(void) {
     // oled_write_P(PSTR("KNOB\n"), false);
+	// \x18 Up Arrow   \x19 Down Arrow
+	// \x1B Left Arrow \x1A Right Arrow
     if (encoder_mode == ARROWS) {  // Arrows
         if (!is_keyboard_master()) {
-            oled_write_ln_P(PSTR("\x19\x18"), false);
+            oled_write_ln_P(PSTR("\x18\x19"), false);
         } else {
             oled_write_ln_P(PSTR("\x1B\x1A"), false);
         }
@@ -137,17 +139,17 @@ void render_encoder_status(void) {
     } else if (encoder_mode == MUSIC) {  // Music
 
         if (!is_keyboard_master()) {
-			oled_write_P(PSTR("Track"), false);
+        	oled_write_ln_P(PSTR("Vol"), false);
             // oled_write_P(PSTR(" \x0E\x0E\x0E "), false);
         } else {
-        	oled_write_ln_P(PSTR("Vol"), false);
+			oled_write_P(PSTR("Track"), false);
             // oled_write_P(PSTR("\x1B \x0E \x1A"), false);
         }
     } else if (encoder_mode == PAGES) {  // Pages
         if (!is_keyboard_master()) {
             oled_write_ln_P(PSTR("Pg\x18\x19"), false);
         } else {
-            oled_write_ln_P(PSTR("Pg\x1A\x1B"), false);
+            oled_write_ln_P(PSTR("Pg\x1B\x1A"), false);
         }
     } else if (encoder_mode == WHEEL) {  // Pages
         if (!is_keyboard_master()) {
