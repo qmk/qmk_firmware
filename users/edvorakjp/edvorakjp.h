@@ -67,7 +67,7 @@ enum tap_dance_code {
 // base
 void     matrix_init_user(void);
 void     matrix_init_keymap(void);
-uint32_t layer_state_set_user(uint32_t state);
+layer_state_t layer_state_set_user(layer_state_t state);
 uint32_t layer_state_set_keymap(uint32_t state);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
 bool     process_record_keymap(uint16_t keycode, keyrecord_t *record);

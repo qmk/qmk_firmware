@@ -2,10 +2,8 @@
     "keyboard_name": "Rouge87",
     "url": "",
     "maintainer": "Mechlovin' Studio",
-    "width": 18.25,
-    "height": 6.25,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"K00", "x":0, "y":0},
                 {"label":"K01", "x":2, "y":0},

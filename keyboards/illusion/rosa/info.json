@@ -2,10 +2,8 @@
     "keyboard_name": "Rosa", 
     "url": "", 
     "maintainer": "illusion", 
-    "width": 15, 
-    "height": 5, 
     "layouts": {
-        "LAYOUT_60_ansi": {
+        "LAYOUT_60_ansi_tsangan": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0}, 
@@ -73,7 +71,7 @@
                 {"label":"Ctrl", "x":13.5, "y":4, "w":1.5}
             ]
         },
-        "LAYOUT_60_ansi_split_rshift": {
+        "LAYOUT_60_ansi_tsangan_split_rshift": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"1", "x":1, "y":0},
@@ -141,7 +139,7 @@
                 {"label":"Win", "x":12.5, "y":4}, 
                 {"label":"Ctrl", "x":13.5, "y":4, "w":1.5}]
         },
-        "LAYOUT_60_ansi_split_bs_rshift": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0}, 
                 {"label":"1", "x":1, "y":0}, 

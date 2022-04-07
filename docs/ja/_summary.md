@@ -3,7 +3,6 @@
   * [セットアップ](ja/newbs_getting_started.md)
   * [初めてのファームウェアの構築](ja/newbs_building_firmware.md)
   * [ファームウェアのフラッシュ](ja/newbs_flashing.md)
-  * [テストとデバッグ](ja/newbs_testing_debugging.md)
   * [手助けを得る/サポート](ja/support.md)
   * [他のリソース](ja/newbs_learn_more_resources.md)
   * [シラバス](ja/syllabus.md)
@@ -11,7 +10,8 @@
 * FAQ
   * [一般的な FAQ](ja/faq_general.md)
   * [QMK のビルド/コンパイル](ja/faq_build.md)
-  * [QMK のデバッグ/トラブルシューティング](ja/faq_debug.md)
+  * [QMK のデバッグ](ja/faq_debug.md)
+  * [QMK のトラブルシューティング](ja/faq_misc.md)
   * [キーマップ FAQ](ja/faq_keymap.md)
   * [用語](ja/reference_glossary.md)
 
@@ -23,11 +23,13 @@
     * [概要](ja/api_overview.md)
     * [API ドキュメント](ja/api_docs.md)
     * [キーボードサポート](ja/reference_configurator_support.md)
+    * [デフォルトキーマップの追加](ja/configurator_default_keymaps.md)
 
 * CLI
     * [概要](ja/cli.md)
     * [設定](ja/cli_configuration.md)
     * [コマンド](ja/cli_commands.md)
+    * [Tab 補完](ja/cli_tab_complete.md)
 
 * QMK を使う
   * ガイド
@@ -41,8 +43,8 @@
       * [書き込み](ja/flashing.md)
       * [ATmega32A の書き込み (ps2avrgb)](ja/flashing_bootloadhid.md)
     * IDE
-      * [Eclipse で QMK を使用](ja/other_eclipse.md)
-      * [VSCode で QMK を使用](ja/other_vscode.md)
+      * [QMK での Eclipse の使用](ja/other_eclipse.md)
+      * [QMK での VSCode の使用](ja/other_vscode.md)
     * Git のベストプラクティス
       * [入門](ja/newbs_git_best_practices.md)
       * [フォーク](ja/newbs_git_using_your_master_branch.md)
@@ -79,6 +81,7 @@
     * [ワンショットキー](ja/one_shot_keys.md)
     * [ポインティング デバイス](ja/feature_pointing_device.md)
     * [ロー HID](ja/feature_rawhid.md)
+    * [シーケンサー](ja/feature_sequencer.md)
     * [スワップハンド](ja/feature_swap_hands.md)
     * [タップダンス](ja/feature_tap_dance.md)
     * [タップホールド設定](ja/tap_hold.md)
@@ -103,6 +106,7 @@
     * [DIP スイッチ](ja/feature_dip_switch.md)
     * [エンコーダ](ja/feature_encoders.md)
     * [触覚フィードバック](ja/feature_haptic_feedback.md)
+    * [ジョイスティック](ja/feature_joystick.md)
     * [LED インジケータ](ja/feature_led_indicators.md)
     * [Proton C 変換](ja/proton_c_conversion.md)
     * [PS/2 マウス](ja/feature_ps2_mouse.md)
@@ -116,11 +120,8 @@
   * 互換性を破る変更/Breaking changes
     * [概要](ja/breaking_changes.md)
     * [プルリクエストにフラグが付けられた](ja/breaking_changes_instructions.md)
-    * 履歴
-      * [2020年8月29日](ja/ChangeLog/20200829.md)
-      * [2020年5月30日](ja/ChangeLog/20200530.md)
-      * [2020年2月29日](ja/ChangeLog/20200229.md)
-      * [2019年8月30日](ja/ChangeLog/20190830.md)
+    * [最近の変更履歴](ChangeLog/20210227.md "QMK v0.12.0 - 2021 Feb 27")
+    * [過去の互換性を破る変更](ja/breaking_changes_history.md)
 
   * C 開発
     * [ARM デバッグ ガイド](ja/arm_debugging.md)
@@ -129,11 +130,13 @@
     * [互換性のあるマイクロコントローラ](ja/compatible_microcontrollers.md)
     * [ドライバ](ja/hardware_drivers.md)
       * [ADC ドライバ](ja/adc_driver.md)
+      * [オーディオドライバ](ja/audio_driver.md)
       * [I2C ドライバ](ja/i2c_driver.md)
       * [SPI ドライバ](ja/spi_driver.md)
       * [WS2812 ドライバ](ja/ws2812_driver.md)
       * [EEPROM ドライバ](ja/eeprom_driver.md)
       * [シリアル ドライバ](ja/serial_driver.md)
+      * [UART ドライバ](ja/uart_driver.md)
     * [GPIO 制御](ja/internals_gpio_control.md)
     * [キーボード ガイドライン](ja/hardware_keyboard_guidelines.md)
 

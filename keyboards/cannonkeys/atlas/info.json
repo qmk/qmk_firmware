@@ -2,8 +2,6 @@
     "keyboard_name": "Atlas",
     "url": "https://cannonkeys.com",
     "maintainer": "awkannan",
-    "width": 12,
-    "height": 5,
     "layouts": {
       "LAYOUT_ortho_5x12": {
         "layout": [

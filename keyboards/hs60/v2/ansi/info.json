@@ -2,11 +2,8 @@
   "keyboard_name": "HS60v2",
   "maintainer": "yiancar",
   "url": "",
-  "width": 15,
-  "height": 5,
   "layouts": {
     "LAYOUT_60_ansi": {
-      "key_count": 61,
       "layout": [
         {
           "label": "~",

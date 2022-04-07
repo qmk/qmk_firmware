@@ -2,8 +2,6 @@
     "keyboard_name": "KBDMini", 
     "url": "",
     "maintainer": "KBDFans",
-    "width": 13,
-    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [

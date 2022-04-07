@@ -2,8 +2,6 @@
     "keyboard_name": "Handwired DataHand",
     "url": "",
     "maintainer": "qmk",
-    "width": 23,
-    "height": 7.75,
     "layouts": {
         "LAYOUT": {
             "layout": [

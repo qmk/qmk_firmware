@@ -2,8 +2,6 @@
     "keyboard_name": "BIOI G60",
     "url": "https://scottywei.github.io/bioi-g60ble/",
     "maintainer": "scottywei",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

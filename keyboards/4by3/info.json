@@ -1,12 +1,15 @@
 {
     "keyboard_name": "4by3",
+    "manufacturer": "Elias Sjögreen",
     "url": "https://github.com/eliassjogreen/4by3",
     "maintainer": "eliassjogreen",
-    "width": 4,
-    "height": 3,
+    "usb": {
+        "vid": "0xEEEE",
+        "pid": "0x2019",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_horizontal": {
-            "key_count": 12,
             "layout": [
                 { "x": 0, "y": 0 }, { "x": 1, "y": 0 }, { "x": 2, "y": 0 }, { "x": 3, "y": 0 },
                 { "x": 0, "y": 1 }, { "x": 1, "y": 1 }, { "x": 2, "y": 1 }, { "x": 3, "y": 1 },
@@ -14,7 +17,6 @@
             ]
         },
         "LAYOUT_vertical_right": {
-            "key_count": 12,
             "layout": [
                 { "x": 0, "y": 0 }, { "x": 1, "y": 0 }, { "x": 2, "y": 0 },
                 { "x": 0, "y": 1 }, { "x": 1, "y": 1 }, { "x": 2, "y": 1 },
@@ -23,7 +25,6 @@
             ]
         },
         "LAYOUT_vertical_left": {
-            "key_count": 12,
             "layout": [
                 { "x": 0, "y": 0 }, { "x": 1, "y": 0 }, { "x": 2, "y": 0 },
                 { "x": 0, "y": 1 }, { "x": 1, "y": 1 }, { "x": 2, "y": 1 },

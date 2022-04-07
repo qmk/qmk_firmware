@@ -2,8 +2,6 @@
     "keyboard_name": "KVT",
     "url": "",
     "maintainer": "qmk",
-    "width": 22.5,
-    "height": 6,
     "layouts": {
         "LAYOUT_default": {
             "layout": [

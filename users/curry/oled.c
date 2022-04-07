@@ -137,7 +137,7 @@ void render_status_secondary(void) {
     render_keylogger_status();
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > 30000) {
         oled_off();
         return;
@@ -152,6 +152,7 @@ void oled_task_user(void) {
     } else {
         render_status_secondary();
     }
+    return false;
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {

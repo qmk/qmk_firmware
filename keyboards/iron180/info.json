@@ -2,8 +2,6 @@
     "keyboard_name": "Iron180",
     "url": "",
     "maintainer": "Gondolindrim",
-    "width": 18.25,
-    "height": 6.25,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

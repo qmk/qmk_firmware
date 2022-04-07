@@ -2,8 +2,6 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 2x1800 2019",
   "maintainer": "skullydazed",
-  "height": 8,
-  "width": 24,
   "debounce": 5,
   "processor": "at90usb1286",
   "bootloader": "halfkay",
@@ -26,7 +24,7 @@
     "rows": ["C0", "C1", "C2", "C3", "C7", "F7", "B1", "F2", "F3", "F4", "F5", "F6", "C6"]
   },
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x23A0",
     "vid": "0xC1ED"
   },
@@ -35,7 +33,6 @@
   },
   "layouts": {
     "LAYOUT_1u_ansi": {
-      "key_count": 131,
       "layout": [
         { "matrix": [12, 3], "w": 1, "x": 3, "y": 0 },
         { "matrix": [12, 4], "w": 1, "x": 4, "y": 0 },
@@ -171,7 +168,6 @@
       ]
     },
     "LAYOUT_1u_iso": {
-      "key_count": 131,
       "layout": [
         { "matrix": [12, 3], "w": 1, "x": 3, "y": 0 },
         { "matrix": [12, 4], "w": 1, "x": 4, "y": 0 },
@@ -307,7 +303,6 @@
       ]
     },
     "LAYOUT_2u_ansi": {
-      "key_count": 130,
       "layout": [
         { "matrix": [12, 3], "w": 1, "x": 3, "y": 0 },
         { "matrix": [12, 4], "w": 1, "x": 4, "y": 0 },
@@ -442,7 +437,6 @@
       ]
     },
     "LAYOUT_2u_iso": {
-      "key_count": 130,
       "layout": [
         { "matrix": [12, 3], "w": 1, "x": 3, "y": 0 },
         { "matrix": [12, 4], "w": 1, "x": 4, "y": 0 },
@@ -577,7 +571,6 @@
       ]
     },
     "LAYOUT_4u_ansi": {
-      "key_count": 128,
       "layout": [
         { "matrix": [12, 3], "w": 1, "x": 3, "y": 0 },
         { "matrix": [12, 4], "w": 1, "x": 4, "y": 0 },
@@ -710,7 +703,6 @@
       ]
     },
     "LAYOUT_4u_iso": {
-      "key_count": 128,
       "layout": [
         { "matrix": [12, 3], "w": 1, "x": 3, "y": 0 },
         { "matrix": [12, 4], "w": 1, "x": 4, "y": 0 },
@@ -843,7 +835,6 @@
       ]
     },
     "LAYOUT_7u_ansi": {
-      "key_count": 125,
       "layout": [
         { "matrix": [12, 3], "w": 1, "x": 3, "y": 0 },
         { "matrix": [12, 4], "w": 1, "x": 4, "y": 0 },
@@ -973,7 +964,6 @@
       ]
     },
     "LAYOUT_7u_iso": {
-      "key_count": 125,
       "layout": [
         { "matrix": [12, 3], "w": 1, "x": 3, "y": 0 },
         { "matrix": [12, 4], "w": 1, "x": 4, "y": 0 },
@@ -1103,7 +1093,6 @@
       ]
     },
     "LAYOUT_all": {
-      "key_count": 132,
       "layout": [
         { "matrix": [12, 3], "w": 1, "x": 3, "y": 0 },
         { "matrix": [12, 4], "w": 1, "x": 4, "y": 0 },
