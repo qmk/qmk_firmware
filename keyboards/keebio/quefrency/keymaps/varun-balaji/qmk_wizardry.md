@@ -6,8 +6,10 @@
 [x] i3wm mod key is super which is a lil hard to use rn, mod-tap left space to super
 [x] mouse keys and navigation
 [x] better places for "-", "=", "[", "]", "\"
-[x] double tap shift for caps lock
 [x] media keys
+[x] double tap shift for caps lock
+
+[ ] double tap esc/ctrl/caps for caps lock? might not be the best
 
 [ ] one shot shift
 
@@ -15,12 +17,13 @@
 
 [ ] layer locking with tap dance?
 
-[ ] alt tab with w instead of tab
+[ ] alt tab with w instead of tab or override v to be tab with home row mods gacs
 
 [ ] home row mods: 
-    - press and release before tapping term is tap
-    - press and release after tapping term is tap
-    - press after tapping term along with another keypress is hold+key
+    - press and release before tapping term ends is tap
+    - press and release after tapping term ends is tap
+    - press after tapping term ends along with another keypress is hold+key
+    - tap and then hold triggers the tap key repeated
 
 [ ] shift modtapped with a thumb key? maybe space or backspace
 
