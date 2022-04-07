@@ -138,8 +138,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
     switch (keycode) {
 
     // DotCom domain shortcuts
-    case DOTCOM:
-        if (record -> event.pressed) SEND_STRING(".com");
+    case YAHOO:
+        if (record -> event.pressed) SEND_STRING("yahoo.com");
         else unregister_code16(keycode);
         break;
 
@@ -154,12 +154,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
         break;
 
     case HOTMAIL:
-        if (record -> event.pressed) SEND_STRING("hotmail.com");
-        else unregister_code16(keycode);
+        if (record -> event.pressed) {
+            SEND_STRING("hotmail.com");
+        } else unregister_code16(keycode);
         break;
 
-    case YAHOO:
-        if (record -> event.pressed) SEND_STRING("yahoo.com");
+    case DOTCOM:
+        if (record -> event.pressed) SEND_STRING(".com");
         else unregister_code16(keycode);
         break;
 
