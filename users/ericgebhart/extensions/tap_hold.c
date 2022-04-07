@@ -56,6 +56,22 @@ inline void tap_taplong(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
   }
 }
 
+// Send custom keycode on hold for mod tap
+// from https://github.com/filterpaper/qmk_userspace/blob/main/filterpaper.c
+bool tap_hold_tap(uint16_t hold_keycode, keyrecord_t *record) {
+  if (!record->tap.count && record->event.pressed) {
+    tap_code16(hold_keycode);
+    return false;
+  }
+  return true;
+}
+
+void triple_tap(uint16_t keycode) {
+  tap_code16(keycode);
+  tap_code16(keycode);
+  tap_code16(keycode);
+}
+
 /* for (){}[]""''<>``. tap for open. Hold for open and close, ending inbetween. */
 /* Assumes a one character length.                                              */
 inline void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
@@ -90,11 +106,29 @@ inline void open_openclose_not_dead(uint16_t kc1, uint16_t kc2, keyrecord_t *rec
   }
 }
 
+bool open_openclose_tap(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+  if (record->event.pressed) {
+    if (record->tap.count) {
+      tap_code16(kc1);
+    } else {
+      tap_code16(kc1);
+      tap_code16(kc2);
+      tap_code(KC_LEFT);
+    }
+  }
+  return false;
+}
+
 // macros for use in tap_hold.defs.
 #define TP_TPL(KCKEY, KC01, KC02)               \
   case KCKEY:                                   \
   tap_taplong(KC01, KC02, record);              \
-  break;                                        \
+  break;
+
+#define TP_HOLD_TP(KCKEY, KC01, KC02)           \
+  case KCKEY:                                   \
+  tap_hold_tap(KC02, record);             \
+  break;
 
 #define OPEN_OCL(KCKEY, KC01, KC02)             \
   case KCKEY:                                   \
@@ -104,6 +138,11 @@ inline void open_openclose_not_dead(uint16_t kc1, uint16_t kc2, keyrecord_t *rec
 #define OPEN_OCL_ND(KCKEY, KC01, KC02)          \
   case KCKEY:                                   \
   open_openclose_not_dead(KC01, KC02, record);  \
+  break;
+
+#define OPEN_OCL_TAP(KCKEY, KC01, KC02)         \
+  case KCKEY:                                   \
+  open_openclose_tap(KC01, KC02, record);       \
   break;
 
 void process_tap_hold_user(uint16_t keycode, keyrecord_t *record) {
