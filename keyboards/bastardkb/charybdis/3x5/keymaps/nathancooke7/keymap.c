@@ -51,10 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* ), */
 };
 
-#ifdef CUSTOM_POINTING_DEVICE_ENABLE
 layer_state_t layer_state_set_user(layer_state_t state) {
   const layer_state_t current_layer = get_highest_layer(state);
   charybdis_set_pointer_dragscroll_enabled(current_layer == _DRAGSCRL);
   return state;
 }
-#endif
