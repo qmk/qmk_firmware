@@ -1070,6 +1070,27 @@ In *altlocal_keys.def*.
   MK_KEY(KC_BK_QUOT, KC_QUOT, MOD_NONE,   KC_GRV, MOD_NONE)
 ```
 
+Alternate shifts
+---------------------
+The alt shift extension is very simple, it uses a usual keycode, it does
+not define custom keys. It allows for an existing key like dot or semi-colon 
+to have a different letter on its shifted value. 
+
+There are currently three types of shift mods.
+  * Give a different character than usual on shift.
+  * Give two of the usual character instead of one.
+  * Give three of the usual character instead of one.
+
+They are all defined in *defs/alt_shift.def*.
+Here are some silly examples.
+
+```
+ALT_SHIFT(US_EXLM, US_PERC)
+SHIFT_FOR_2(US_AT)
+SHIFT_FOR_3(US_DLR)
+```
+
+
 Key Overrides
 -------------------
 These are the standard QMK key overrides. For un/shifted pair keys *altlocal_keys* is
@@ -1172,6 +1193,13 @@ Both use **TAP_HOLD_TERM** as the hold duration.
 Tap_taplong sends one keycode on tap, and another after a hold of tapping term.
 Open_openclose, sends one keycode on tap, hold sends that, plus the second, 
 followed by a back arrow.
+
+Additionally, open_openclose will send a triple of the keycode when tapped with
+the shift modifier on.
+
+There as also a __not dead__ version of open_openclose that accomodates using
+dead keys like quote so that the functionalty behaves as if the key were not
+a dead key, giving a quote, a pair of quotes or a triple of quotes.
 
 The file _tap_hold.defs_ contains all the definitions. Like combos,
 these entries are processed with a function call from **process_user_record**
