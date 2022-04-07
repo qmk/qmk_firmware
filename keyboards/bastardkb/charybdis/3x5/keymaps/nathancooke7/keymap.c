@@ -4,7 +4,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_charybdis_3x5(
     KC_Q   , KC_W  , KC_E    , KC_R    , KC_T       ,                    KC_Y      , KC_U      , KC_I      , KC_O   , KC_P     ,
     KC_CA  , KC_AS , KC_GD   , KC_SF   , KC_G       ,                    KC_H      , KC_SJ     , KC_GK     , KC_AL  , KC_CSCLN ,
-    NAV_Z  , MOU_X , KC_C    , DRAG_V  , KC_B       ,                    KC_N      , KC_M      , KC_COMM   , KC_DOT , SYM_SLSH ,
+    NAV_Z  , KC_X  , KC_C    , DRAG_V  , MOU_B      ,                    KC_N      , KC_M      , KC_COMM   , KC_DOT , SYM_SLSH ,
                      SYM_ENT , KC_NO   , WORDS_BACK ,                    MISC_DEL , NAV_SPACE
   ),
 
@@ -15,18 +15,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          MUTE_MIC , KC_NO   , MUTE_CAM ,                 _______  , RAZ_HAND
   ),
 
-  [_MOUSE_MAN] = LAYOUT_charybdis_3x5(
-    _______ , _______ , _______ , _______ , _______ ,                    _______ , _______ , _______ , _______ , _______ ,
-    _______ , _______ , _______ , _______ , _______ ,                    _______ , _______ , _______ , _______ , _______ ,
-    _______ , _______ , SNIPING , DRGSCRL , _______ ,                    _______ , _______ , _______ , _______ , _______ ,
-                        _______ , KC_NO   , L_CLICK ,                    R_CLICK , _______
-  ),
-
   [_MOUSE] = LAYOUT_charybdis_3x5(
     _______ , _______ , _______ , _______ , _______ ,                    _______ , _______ , _______ , _______ , _______ ,
     _______ , _______ , _______ , _______ , _______ ,                    _______ , _______ , _______ , _______ , _______ ,
     _______ , _______ , SNIPING , DRGSCRL , _______ ,                    _______ , _______ , _______ , _______ , _______ ,
-                        _______ , KC_NO   , L_CLICK ,                    R_CLICK , _______
+                        L_CLICK , KC_NO   , R_CLICK ,                    _______ , _______
   ),
 
   [_NAV] = LAYOUT_charybdis_3x5(
@@ -58,11 +51,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* ), */
 };
 
-#ifdef POINTING_DEVICE_ENABLE
-/** Called on layer change. */
+#ifdef CUSTOM_POINTING_DEVICE_ENABLE
 layer_state_t layer_state_set_user(layer_state_t state) {
   const layer_state_t current_layer = get_highest_layer(state);
   charybdis_set_pointer_dragscroll_enabled(current_layer == _DRAGSCRL);
   return state;
 }
-#endif  // POINTING_DEVICE_ENABLE
+#endif

@@ -30,7 +30,7 @@
 #define NAV_Z LT(_NAV, KC_Z)
 #define SYM_ENT LT(_SYMBOLS, KC_ENT)
 #define SYM_SLSH LT(_SYMBOLS, KC_SLSH)
-#define MOU_X LT(_MOUSE_MAN, KC_X)
+#define MOU_B LT(_MOUSE, KC_B)
 #define WORDS_BACK LT(_WORDS, KC_BACKSPACE)
 
 /* Abbreviations */

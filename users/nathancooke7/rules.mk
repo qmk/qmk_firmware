@@ -5,9 +5,9 @@ SRC += process_records.c
 
 ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
 	SRC += features/pointing.c
-	MOUSEKEY_ENABLE = yes
 endif
 
+MOUSEKEY_ENABLE = yes
 COMBO_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 
