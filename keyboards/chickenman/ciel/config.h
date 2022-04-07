@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Koichi Katano
+Copyright 2020 Koichi Katano, 2022 Ramon Imbao
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x3A0E
-#define PRODUCT_ID   0xABDC
+#define VENDOR_ID    0xC41C
+#define PRODUCT_ID   0x0001
 #define DEVICE_VER   0x0001
-#define MANUFACTURER kkatano
-#define PRODUCT      Bakeneko 60
+#define MANUFACTURER ChickenMan
+#define PRODUCT      Ciel
 
 /* key matrix size */
 #define MATRIX_ROWS 5
