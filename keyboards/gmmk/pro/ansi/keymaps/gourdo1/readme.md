@@ -8,7 +8,7 @@ This Windows-centric layout is based on [Jonavin's](https://github.com/qmk/qmk_f
 
 * [VIA](https://www.caniusevia.com/) support enabled
 * Most [default Glorious shortcuts](https://cdn.shopify.com/s/files/1/0549/2681/files/GMMK_Pro_User_Guide.pdf) enabled
-* [N-key Rollover](https://en.wikipedia.org/wiki/Rollover_(keyboard)#n-key_rollover) (NKRO) enabled
+* [N-key Rollover](https://en.wikipedia.org/wiki/Rollover_\(keyboard\)#n-key_rollover) (NKRO) enabled
 * Gaming mode (FN + Win-key) locks out Win-key as well as double-tap Shift Capslock; Also RGB highlights WSAD and nearby gaming related keys
 * [Caps Word](https://getreuer.info/posts/keyboards/caps-word/index.html) enabled: To capitalize the next word only, press and release both left and right shift keys at the same time.
 * Domain shortcuts: FN+.=".com", FN+O="outlook.com", FN+Y="yahoo.com", FN+H="hotmail.com", FN+G="gmail.com",
