@@ -31,6 +31,7 @@
 #include "key_overrides.h"
 #include "console_key_logger.h"
 void process_not_dead(uint16_t keycode, keyrecord_t *record);
+bool process_alt_shift_user(uint16_t keycode, keyrecord_t *record);
 
 // call this from the top of process records before the switch.
 #define PROCESS_EXTENSIONS                                      \
@@ -65,6 +66,9 @@ static bool process_extensions(uint16_t keycode, keyrecord_t *record){
 #endif
 #ifdef NOT_DEAD_ENABLE
   process_not_dead(keycode, record);
+#endif
+#ifdef ALT_SHIFT_ENABLE
+  if(!process_alt_shift_user(keycode, record)) {return false;}
 #endif
 #if defined( CONSOLE_ENABLE) && defined(CONSOLE_KEY_LOGGER_ENABLE)
   process_console_key_logger(keycode, record);

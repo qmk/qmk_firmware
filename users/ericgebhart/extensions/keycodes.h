@@ -62,9 +62,15 @@ enum userspace_custom_keycodes {
 #define OPEN_OCL KEY_NAME
 #undef OPEN_OCL_ND
 #define OPEN_OCL_ND KEY_NAME
+#undef OPEN_OCL_TAP
+#define OPEN_OCL_TAP KEY_NAME
+#undef TP_HOLD_TP
+#define TP_HOLD_TP KEY_NAME
 #include "tap_hold.def"
 #undef OPEN_OCL
 #undef OPEN_OCL_ND
+#undef OPEN_OCL_TAP
+#undef TP_HOLD_TP
 #undef TP_TPL
 #endif
 

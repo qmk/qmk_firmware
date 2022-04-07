@@ -134,6 +134,7 @@
 #define TAP_HOLD_ENABLE // tap for one thing, hold for tapping term to get another.
 //#define SWAPPER_ENABLE // enable swapper keys.
 #define NOT_DEAD_ENABLE // make undead versions (US_DQUO_ND) of dead keys.
+//#define ALT_SHIFT_ENABLE // alternate shift behaviors for existing keys.
 
 
 // Turn on the layers
