@@ -60,8 +60,11 @@ enum userspace_custom_keycodes {
 #define TP_TPL KEY_NAME
 #undef OPEN_OCL
 #define OPEN_OCL KEY_NAME
+#undef OPEN_OCL_ND
+#define OPEN_OCL_ND KEY_NAME
 #include "tap_hold.def"
 #undef OPEN_OCL
+#undef OPEN_OCL_ND
 #undef TP_TPL
 #endif
 
@@ -123,6 +126,13 @@ enum userspace_custom_keycodes {
 #define SWAPPER_KEY KEY_NAME
 #include "swapper.def"
 #undef SWAPPER_KEY
+#endif
+
+#ifdef NOT_DEAD_ENABLE
+#undef NOT_DEAD
+#define NOT_DEAD KEY_NAME
+#include "not_dead.def"
+#undef NOT_DEAD
 #endif
 
 #include "custom_keys.def"

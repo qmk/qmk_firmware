@@ -106,15 +106,15 @@
 
 // Left
 #define ___SB_L1___          _OCLTGT, _DLR,    _GT
-#define ___SB_L2___  _BSLS,  _OCPRN,  _OCDQUO, _RPRN,  _HASH
+#define ___SB_L2___  _BSLS,  _OCPRN,  _OCDQUO, _RPRN, _HASH
 #define ___SB_L2c___ _BSLS,  _OCPRN,  _OCDQUO, _HASH, _RPRN
 #define ___SB_L3___          _COLN,   _ASTR,   _PLUS
 
 // Right
-#define ___SB_R1___          _OCBRC,   _UNDS,  _RBRC
-#define ___SB_R1c___         _OCBRC,   _UNDS,  _MINS
-#define ___SB_R2___  _PERC,  _OCCBR,   _EQL,   _RCBR,  _PIPE
-#define ___SB_R3___          _AMPR,    _CIRC,  _TILD
+#define ___SB_R1___          _OCBRC,   _UNDS,     _RBRC
+#define ___SB_R1c___         _OCBRC,   _UNDS,     _MINS
+#define ___SB_R2___  _PERC,  _OCCBR,   _EQL,      _RCBR,  _PIPE
+#define ___SB_R3___          _AMPR,    _CIRC_ND,  _TILD
 
 // a and b... left and right.
 #define ___SB_L3b___          _EQL,    _ASTR,   _PLUS
@@ -180,9 +180,9 @@
                "  ~!@#| ")
 
 #define ___SYMB_MIRYOKU_3x10___                         \
-  CHUNK_LANG_MAP(OCCBR, _AMPR, _DOT, OCPRN, _CBR,       \
-                 _COLN, _DLR, _PERC, _CIRC, _PLUS,      \
-                 _TILD, _EXLM, _AT, _HASH, _PIPE)
+  CHUNK_LANG_MAP(OCCBR, _AMPR, _DOT, OCPRN,    _CBR, \
+                 _COLN, _DLR, _PERC, _CIRC_ND, _PLUS,   \
+                 _TILD, _EXLM, _AT, _HASH,     _PIPE)
 
 // ---------------------------
 // WI: the Beakl Wi definition.
@@ -190,9 +190,9 @@
 #define ___SYMB_BKL_WI_L2___ ___,   _QUES, _EXLM, _SLSH, _PIPE
 #define ___SYMB_BKL_WI_L3___ ___,   _LT,   _GT,   _PERC, _AT
 
-#define ___SYMB_BKL_WI_R1___ _ASTR, _LBRC, _CIRC, _RBRC, ___
-#define ___SYMB_BKL_WI_R2___ _QUES, _LPRN, _DLR , _RPRN, ___
-#define ___SYMB_BKL_WI_R3___ _PIPE, _LCBR, _HASH, _RCBR, ___
+#define ___SYMB_BKL_WI_R1___ _ASTR, _OCLBRC, _CIRC_ND, _RBRC, ___
+#define ___SYMB_BKL_WI_R2___ _QUES, _OCLPRN, _DLR ,    _RPRN, ___
+#define ___SYMB_BKL_WI_R3___ _PIPE, _OCLCBR, _HASH,    _RCBR, ___
 
 #define CARTE_SYMB_BEAKLWI                      \
   carte_de_map(" .*&+  *[^] ",                  \
@@ -206,9 +206,9 @@
 
 // ---------------------------
 // Neo symbol layer
-#define ___SYMB_NEO_L1___ ___,  _DQUOT, _UNDS, _LBRC, _RBRC, _CIRC
-#define ___SYMB_NEO_L2___ ___,  _SLSH, _MINS, _LCBR, _RCBR, _ASTR
-#define ___SYMB_NEO_L3___ ___,  _HASH, _DLR,   _PIPE, _TILD, _GRV
+#define ___SYMB_NEO_L1___ ___,  _OCDQUOT, _UNDS,  _OCLBRC, _RBRC, _CIRC_ND
+#define ___SYMB_NEO_L2___ ___,  _SLSH,  _MINS,  _OCLCBR, _RCBR, _ASTR
+#define ___SYMB_NEO_L3___ ___,  _HASH,  _DLR,   _PIPE, _TILD, _OCGRV
 
 #define ___SYMB_NEO_R1___ _EXLM, _LT,    _GT,    _EQL,  _AMPR
 #define ___SYMB_NEO_R2___ _QUES, _OCPRN, _RPRN , _QUOT, _COLN

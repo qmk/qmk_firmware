@@ -72,17 +72,38 @@ inline void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
   }
 }
 
+// open and open close for dead keys.
+inline void open_openclose_not_dead(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+  if (record->event.pressed) {
+    tap_taplong_timer = timer_read();
+  }else{
+    if (timer_elapsed(tap_taplong_timer) > TAP_HOLD_TERM) {
+      tap_code16(kc1);
+      tap_code16(KC_SPACE);
+      tap_code16(kc2);
+      tap_code16(KC_SPACE);
+      tap_code16(KC_LEFT);
+    } else {
+      tap_code16(kc1);
+      tap_code16(KC_SPACE);
+    }
+  }
+}
+
 // macros for use in tap_hold.defs.
-#undef TP_TPL
 #define TP_TPL(KCKEY, KC01, KC02)               \
   case KCKEY:                                   \
   tap_taplong(KC01, KC02, record);              \
   break;                                        \
 
-#undef OPEN_OCL
 #define OPEN_OCL(KCKEY, KC01, KC02)             \
   case KCKEY:                                   \
   open_openclose(KC01, KC02, record);           \
+  break;
+
+#define OPEN_OCL_ND(KCKEY, KC01, KC02)          \
+  case KCKEY:                                   \
+  open_openclose_not_dead(KC01, KC02, record);  \
   break;
 
 void process_tap_hold_user(uint16_t keycode, keyrecord_t *record) {
