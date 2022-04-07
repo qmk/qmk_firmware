@@ -9,8 +9,6 @@ enum combo_events {
   COMBO_DASH,
   COMBO_DBL_QUOT,
   COMBO_DEL,
-  COMBO_DRAG,
-  COMBO_DRAG_MM,
   COMBO_ESC,
   COMBO_L_CURLY_BRACE,
   COMBO_L_PAREN,
@@ -35,10 +33,8 @@ const uint16_t PROGMEM combo_bspc[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM combo_dash[] = {KC_DOT, SYM_SLSH, COMBO_END};
 const uint16_t PROGMEM combo_del[] = {KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM combo_dub_quot[] = {KC_AL, KC_GK, COMBO_END};
-const uint16_t PROGMEM combo_dragscroll[] = {KC_C, V_DRAG, COMBO_END};
-const uint16_t PROGMEM combo_dragscroll_mouse_mode[] = {SNIPING, DRGSCRL, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_CA, KC_AS, COMBO_END};
-const uint16_t PROGMEM combo_l_curly[] = {V_DRAG, KC_B, COMBO_END};
+const uint16_t PROGMEM combo_l_curly[] = {DRAG_V, KC_B, COMBO_END};
 const uint16_t PROGMEM combo_l_paren[] = {KC_G, KC_SF, COMBO_END};
 const uint16_t PROGMEM combo_l_sqr_brack[] = {KC_R, KC_T, COMBO_END};
 const uint16_t PROGMEM combo_numbak[] = {KC_EQL, KC_9, COMBO_END};
@@ -59,8 +55,6 @@ combo_t key_combos[] = {
   [COMBO_DASH] = COMBO(combo_dash, KC_MINUS),
   [COMBO_DBL_QUOT] = COMBO(combo_dub_quot, KC_DOUBLE_QUOTE),
   [COMBO_DEL] = COMBO(combo_del,KC_DEL),
-  [COMBO_DRAG] = COMBO(combo_dragscroll, DRAGSCROLL_MODE_TOGGLE),
-  [COMBO_DRAG_MM] = COMBO(combo_dragscroll_mouse_mode, DRAGSCROLL_MODE_TOGGLE),
   [COMBO_ESC] = COMBO(combo_esc,KC_ESC),
   [COMBO_L_CURLY_BRACE] = COMBO(combo_l_curly, KC_LCBR),
   [COMBO_L_PAREN] = COMBO(combo_l_paren, KC_LEFT_PAREN),

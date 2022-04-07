@@ -28,7 +28,6 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static bool tAuNtTeXt = false;
-  static uint16_t my_combo_timer;
 
   if (tAuNtTeXt) {
     if (record->event.pressed) {
@@ -47,19 +46,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         else if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
           tap_code(KC_CAPS);
-        }
-      }
-      return false;
-    case V_DRAG:
-      if(record->event.pressed) {
-        my_combo_timer = timer_read();
-        register_code(DRAGSCROLL_MODE); // Change the key to be held here
-        /* register_code(KC_LCTL); // Change the key to be held here */
-      } else {
-        unregister_code(DRAGSCROLL_MODE); // Change the key that was held here, too!
-        /* unregister_code(KC_LCTL); // Change the key that was held here, too! */
-        if (timer_elapsed(my_combo_timer) < TAPPING_TERM) {
-          SEND_STRING("v"); // Change the character(s) to be sent on tap here
         }
       }
       return false;

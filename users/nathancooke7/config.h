@@ -24,13 +24,14 @@
 #define KC_CSCLN RCTL_T(KC_SCLN)
 
 /* Layer Tap */
-#define BACK_WORDS LT(_WORDS, KC_BACKSPACE)
+#define DRAG_V LT(_DRAGSCRL, KC_V)
 #define MISC_DEL LT(_MISC, KC_DELETE)
 #define NAV_SPACE LT(_NAV, KC_SPC)
 #define NAV_Z LT(_NAV, KC_Z)
 #define SYM_ENT LT(_SYMBOLS, KC_ENT)
 #define SYM_SLSH LT(_SYMBOLS, KC_SLSH)
-#define MOU_X LT(_MOUSE, KC_X)
+#define MOU_X LT(_MOUSE_MAN, KC_X)
+#define WORDS_BACK LT(_WORDS, KC_BACKSPACE)
 
 /* Abbreviations */
 #define CAPS KC_CAPSLOCK

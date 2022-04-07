@@ -7,7 +7,9 @@
 
 enum userspace_layers{
   _BASE,
+  _DRAGSCRL,
   _MOUSE,
+  _MOUSE_MAN,
   _MISC,
   _NAV,
   _SYMBOLS,
