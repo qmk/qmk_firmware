@@ -23,7 +23,6 @@ TP_TPL(KC_XM_PORD, LGUI(KC_E), LGUI(KC_T))
 TP_TPL(BP_XM_PORD, LGUI(BP_E), LGUI(BP_T))
 TP_TPL(US_XM_PORD, LGUI(US_E), LGUI(US_T))
 
-
 // Open on tap and Open with close and back arrow on hold.
 // (){}[]""''``<>
 OPEN_OCL(KC_OCPRN, KC_LPRN, KC_RPRN)
