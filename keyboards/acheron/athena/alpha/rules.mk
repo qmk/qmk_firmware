@@ -1,7 +1,8 @@
-MCU = STM32F401
+MCU = STM32F411
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu
+LTO_ENABLE = no
 
 # Build Options
 #   change yes to no to disable

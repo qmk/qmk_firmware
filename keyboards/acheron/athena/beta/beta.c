@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "athena_beta.h"
+#include "beta.h"
 
 
 void board_init(void) {
