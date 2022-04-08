@@ -1,5 +1,5 @@
 /*
-Copyright 2022 Álvaro "Gondolindrim" Volpato <alvaro.volpato@usp.br>
+ Copyright 2020 Álvaro "Gondolindrim" Volpato <alvaro.volpato@usp.br>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,11 +15,4 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "beta.h"
-
-void board_init(void) {
-    setPinInput(B6);
-    setPinInput(B7);
-}
-
-#define LED_PIN_ON_STATE 1
+#include "nazare160.h"

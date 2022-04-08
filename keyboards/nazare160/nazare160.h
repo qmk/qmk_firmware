@@ -18,8 +18,8 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_nazare60_alpha)
+#if defined(KEYBOARD_nazare160_alpha)
   #include "alpha.h"
-#elif defined(KEYBOARD_nazare60_beta)
+#elif defined(KEYBOARD_nazare160_beta)
   #include "beta.h"
 #endif

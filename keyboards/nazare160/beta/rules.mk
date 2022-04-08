@@ -18,8 +18,9 @@ NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 BACKLIGHT_DRIVER = pwm
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+WS2812_DRIVER = pwm
 AUDIO_ENABLE = no           # Audio output
-LTO_ENABLE = yes
+LTO_ENABLE = no
 
 EEPROM_DRIVER = i2c
 
