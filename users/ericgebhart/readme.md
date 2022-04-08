@@ -1229,7 +1229,7 @@ Tap_taplong sends one keycode on tap, and another after a hold of tapping term.
 Open_openclose, sends one keycode on tap, hold sends that, plus the second, 
 followed by a back arrow.
 
-Additionally, open_openclose will send a triple of the keycode when tapped with
+Additionally, open_openclose will send a triple of the open keycode when tapped with
 the shift modifier on.
 
 There as also a __not dead__ version of open_openclose that accomodates using

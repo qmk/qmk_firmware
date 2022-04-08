@@ -174,7 +174,8 @@ enum userspace_custom_keycodes {
 #define US_TAB KC_TAB
 #define US_DCMM KC_COMM // us doesn't have this dead key.
 
-// redefine us_tild so we actually get a tild.
+// this is odd, there is interplay between this and
+// the not-dead extension. - and tap-hold not-dead.
 #undef US_TILD
 #define US_TILD KC_TILD
 // redefine us_circ so we actually get a circ.
