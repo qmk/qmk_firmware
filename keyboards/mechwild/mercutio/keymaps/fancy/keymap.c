@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         oled_write_P(logo_4, false);
     }
 
-    void oled_task_user(void) {
+    bool oled_task_user(void) {
 
         if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && selected_layer == 0 && get_highest_layer(layer_state) == 0 ) {
             render_name();
@@ -164,5 +164,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             oled_write_P(led_state.num_lock ? PSTR("NLCK ") : PSTR("     "), false);
             oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("     "), false);
         }
+    return false;
     }
 #endif

@@ -85,8 +85,8 @@
 #define KR_DOT  KC_DOT  // .
 #define KR_SLSH KC_SLSH // /
 // Row 5
-#define KR_HANJ KC_LANG2 // Hanja (한자)
-#define KR_HAEN KC_LANG1 // Han ↔ Yeong (한 ↔ 영)
+#define KR_HANJ KC_LNG2 // Hanja (한자)
+#define KR_HAEN KC_LNG1 // Han ↔ Yeong (한 ↔ 영)
 
 /* Shifted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐

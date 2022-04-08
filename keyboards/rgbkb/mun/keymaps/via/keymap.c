@@ -226,11 +226,11 @@ static void render_leds(void)
 static void render_touch(void)
 {
     // Host Touch LED Status
-    oled_write_P(!touch_encoder_toggled() ? PSTR("TOUCH")  : PSTR("     "), false);
-    oled_write_P(touch_encoder_calibrating() ? PSTR("CLBRT")  : PSTR("     "), false);
+    oled_write_P(touch_encoder_is_on() ? PSTR("TOUCH")  : PSTR("     "), false);
+    oled_write_P(touch_encoder_is_calibrating() ? PSTR("CLBRT")  : PSTR("     "), false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_left()) {
         render_icon();
         oled_write_P(PSTR("     "), false);
@@ -245,6 +245,7 @@ void oled_task_user(void) {
         oled_write_P(PSTR("     "), false);
         render_rgb_menu();
     }
+    return false;
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {

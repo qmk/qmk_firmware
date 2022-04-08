@@ -18,7 +18,7 @@
 #include "ansi.h"
 
 #ifdef RGB_MATRIX_ENABLE
-led_config_t __flash g_led_config = {{
+led_config_t PROGMEM g_led_config = {{
     { 4,      NO_LED, NO_LED, 95,     65,     79, 5,      28 },
     { 8,      2,      9,      0,      10,     75, 1,      7  },
     { 14,     3,      15,     NO_LED, 16,     86, 6,      13 },

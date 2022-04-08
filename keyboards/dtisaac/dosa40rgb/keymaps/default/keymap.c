@@ -67,3 +67,8 @@ void rgb_matrix_indicators_user(void)
 		rgb_matrix_set_color(22, 200, 0, 200);
 	}
 }
+
+void keyboard_pre_init_user(void) {
+    setPinOutput(B5);
+    writePinLow(B5);
+}

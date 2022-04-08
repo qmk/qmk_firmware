@@ -5,6 +5,7 @@
   "debounce": 5,
   "processor": "STM32F303",
   "board": "QMK_PROTON_C",
+  "bootloader": "stm32-dfu",
   "diode_direction": "COL2ROW",
   "features": {
     "audio": true,
@@ -35,13 +36,12 @@
     "saturation_steps": 17
   },
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x2390",
     "vid": "0xC1ED"
   },
   "community_layouts": ["66_ansi", "66_iso"],
   "layout_aliases": {
-    "KEYMAP": "LAYOUT_all",
     "LAYOUT": "LAYOUT_all"
   },
   "layouts": {
