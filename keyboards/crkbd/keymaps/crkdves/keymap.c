@@ -159,22 +159,6 @@ LSFT_T(ES_LABK), ES_MINS,    ES_Q,    ES_J,    ES_K,    ES_X,                   
     )
 };
 
-int RGB_current_mode;
-
-// Setting ADJUST layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t layer4) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2) && IS_LAYER_ON(layer3)) {
-    layer_on(layer4);
-  } else {
-    layer_off(layer4);
-  }
-}
-
-void matrix_init_user(void) {
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
-}
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
