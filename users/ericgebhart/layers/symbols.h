@@ -114,7 +114,7 @@
 #define ___SB_R1___          _OCBRC,   _UNDS,     _RBRC
 #define ___SB_R1c___         _OCBRC,   _UNDS,     _MINS
 #define ___SB_R2___  _PERC,  _OCCBR,   _EQL,      _RCBR,  _PIPE
-#define ___SB_R3___          _AMPR,    _CIRC_ND,  _TILD
+#define ___SB_R3___          _AMPR,    _CIRC_ND,  _TILD_ND
 
 // a and b... left and right.
 #define ___SB_L3b___          _EQL,    _ASTR,   _PLUS
@@ -182,7 +182,7 @@
 #define ___SYMB_MIRYOKU_3x10___                         \
   CHUNK_LANG_MAP(OCCBR, _AMPR, _DOT, OCPRN,    _CBR, \
                  _COLN, _DLR, _PERC, _CIRC_ND, _PLUS,   \
-                 _TILD, _EXLM, _AT, _HASH,     _PIPE)
+                 _TILD_ND, _EXLM, _AT, _HASH,     _PIPE)
 
 // ---------------------------
 // WI: the Beakl Wi definition.
@@ -208,7 +208,7 @@
 // Neo symbol layer
 #define ___SYMB_NEO_L1___ ___,  _OCDQUOT, _UNDS,  _OCLBRC, _RBRC, _CIRC_ND
 #define ___SYMB_NEO_L2___ ___,  _SLSH,  _MINS,  _OCLCBR, _RCBR, _ASTR
-#define ___SYMB_NEO_L3___ ___,  _HASH,  _DLR,   _PIPE, _TILD, _OCGRV
+#define ___SYMB_NEO_L3___ ___,  _HASH,  _DLR,   _PIPE, _TILD_ND, _OCGRV
 
 #define ___SYMB_NEO_R1___ _EXLM, _LT,    _GT,    _EQL,  _AMPR
 #define ___SYMB_NEO_R2___ _QUES, _OCPRN, _RPRN , _QUOT, _COLN
