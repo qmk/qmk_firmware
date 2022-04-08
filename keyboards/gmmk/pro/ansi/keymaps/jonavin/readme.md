@@ -12,6 +12,7 @@
     - holding Left shift, change layers
     - holding right shift, Navigate page up/down
     - holding Left Ctrl, navigate prev/next word
+    - holding Right Ctrl, changes RGB hue/colour
     - holding Left Alt, change media prev/next track
     - default is change volume
     
@@ -42,6 +43,9 @@ TD_LSFT_CAPSLOCK_ENABLE = yes
 
 IDLE_TIMEOUT_ENABLE = yes
     - Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
+
+INVERT_NUMLOCK_INDICATOR
+    - inverts the Num lock indicator, LED is on when num lokc is off
 
 COLEMAK_LAYER_ENABLE = yes
     - Enabled optional 5th layer for COLEMAK layout

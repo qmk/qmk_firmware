@@ -202,7 +202,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return isLeftHand ? OLED_ROTATION_180 : OLED_ROTATION_0;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if (is_keyboard_master()) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -232,5 +232,6 @@ void oled_task_user(void) {
   } else {
     oled_write(read_logo(), false);
   }
+    return false;
 }
 #endif

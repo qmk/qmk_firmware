@@ -17,7 +17,7 @@
 #include "rgb_rev1.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS34_SW1,   CS35_SW1,   CS36_SW1}, //D92-K00-0
     {0, CS37_SW1,   CS38_SW1,   CS39_SW1}, //D94-K01-1
     {0, CS31_SW1,   CS32_SW1,   CS33_SW1}, //D96-K02-2

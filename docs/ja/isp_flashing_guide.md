@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.9.46:docs/isp_flashing_guide.md
-  git diff 0.9.46 HEAD -- docs/isp_flashing_guide.md | cat
+  original document: 0.13.29:docs/isp_flashing_guide.md
+  git diff 0.13.29 HEAD -- docs/isp_flashing_guide.md | cat
 -->
 
 ISP 書き込み(ICSP 書き込みと呼ぶ場合もあります)とは、マイクロコントローラーを直接プログラミングするプロセスです。
@@ -52,6 +52,7 @@ QMK の ISP 書き込みの主な用途は、AVRベースのコントローラ�
 
 * [SparkFun PocketAVR](https://www.sparkfun.com/products/9825) - (USB Tiny)
 * [USBtinyISP AVR Programmer Kit](https://www.adafruit.com/product/46) - (USB Tiny)
+* [USBasp](https://www.fischl.de/usbasp/) - (usbasp)
 * [Teensy 2.0](https://www.pjrc.com/store/teensy.html) - (avrisp)
 * [Pro Micro](https://www.sparkfun.com/products/12640)  - (avrisp)
 * [Bus Pirate](https://www.adafruit.com/product/237) - (buspirate)
@@ -77,8 +78,8 @@ Teensy と Pro Micro のコントローラを ISP プログラマとして使用
 
 QMK ツールボックスは、このほとんど（すべて）に使用することができます。
 
-ただし、Teensy 2.0 ボードを使っている場合は、[Teensy Loader](https:/www.pjrc.comteensyloader.html) を使えば、Teensy 2.0 ボードに書き込むことができます。
-あるいは、`avrdude` (`qmk_install.sh` の一部としてインストールされています) や、[AVRDUDESS](https:/blog.zakkemble.netavrdudess-a-gui-for-avrdude)(Windows 用) を使って、Pro Micro に書き込んだり、ISP を書き込んだりすることができます。
+ただし、Teensy 2.0 ボードを使っている場合は、[Teensy Loader](https://www.pjrc.com/teensy/loader.html) を使えば、Teensy 2.0 ボードに書き込むことができます。
+あるいは、`avrdude` (`qmk_install.sh` の一部としてインストールされています) や、[AVRDUDESS](https://blog.zakkemble.net/avrdudess-a-gui-for-avrdude/) (Windows 用) を使って、Pro Micro に書き込んだり、ISP を書き込んだりすることができます。
 
 ## 配線
 
@@ -92,6 +93,15 @@ QMK ツールボックスは、このほとんど（すべて）に使用する�
     PocketAVR MISO <-> Keyboard B3 (MISO)
     PocketAVR VCC  <-> Keyboard VCC
     PocketAVR GND  <-> Keyboard GND
+
+### USBasp
+
+    USBasp RST  <-> Keyboard RESET
+    USBasp SCLK <-> Keyboard B1 (SCLK)
+    USBasp MOSI <-> Keyboard B2 (MOSI)
+    USBasp MISO <-> Keyboard B3 (MISO)
+    USBasp VCC  <-> Keyboard VCC
+    USBasp GND  <-> Keyboard GND
 
 ### Teensy 2.0
 
@@ -180,7 +190,7 @@ QMK DFU ブートローダは `atmega32u4` コントローラ (AVR ベースの 
 
 ### QMK Toolbox
 
-1. 'AVRISP device connected' または `USB Tiny device connected` が黄色で表示されます。
+1. `AVRISP device connected` または `USB Tiny device connected` が黄色で表示されます。
 2. `Open` ダイアログで正しいブートローダー/プロダクションの .hex ファイルを選択します（パスにスペースを含めることはできません）
 3. 書きこもうとしているキーボード（ISP プログラマではなく）のための正しい `Microcontroller` オプションが選択されていることを確認してください。
 4. `Flash` を押します
@@ -277,7 +287,7 @@ High ヒューズは 0xD9 か 0x99 のどちらかになります。
     avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m
 
 
-別のコントローラーを使用している場合や、別の設定を希望する場合は、この[AVR ヒューズ計算機](https://www.engbedded.com/fusecalc)を使用して、より適切な値を見つけることができます。
+別のコントローラーを使用している場合や、別の設定を希望する場合は、この[AVR ヒューズ計算機](https://www.engbedded.com/fusecalc/)を使用して、より適切な値を見つけることができます。
 
 ## ヘルプ
 

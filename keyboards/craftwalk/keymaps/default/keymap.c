@@ -22,15 +22,15 @@ enum layer_names {
     _ADJUST
 };
 
-#define KC_NUM MO(_NUM)
-#define KC_ADJ MO(_ADJUST)
+#define MO_NUM MO(_NUM)
+#define MO_ADJ MO(_ADJUST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
                  KC_Q,    KC_W,    KC_E,
         KC_LCTL, KC_A,    KC_S,    KC_D,
-        KC_LSFT, KC_ADJ,  KC_WH_U, KC_WH_D, KC_F,    KC_NUM,  KC_SPC
+        KC_LSFT, MO_ADJ,  KC_WH_U, KC_WH_D, KC_F,    MO_NUM,  KC_SPC
     ),
     /* Number */
     [_NUM] = LAYOUT(
