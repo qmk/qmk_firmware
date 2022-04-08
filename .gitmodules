@@ -15,3 +15,6 @@
 [submodule "lib/printf"]
 	path = lib/printf
 	url = https://github.com/qmk/printf
+[submodule "lib/lufa"]
+	path = lib/lufa
+	url = https://github.com/qmk/lufa

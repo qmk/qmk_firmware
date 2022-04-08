@@ -46,7 +46,7 @@ enum custom_keycodes {
   GIT_KEY, DDASH, RM,
   TAG, REMOTE, UPSTREAM, INIT, ORIGIN, REVERT,
   PUSH, STATUS, DEVELOP, GLOBAL, LOG, COMMIT,
-  REBASE, MAIN, CHECKOUT, ADD,
+  REBASE, CLONE, MAIN, CHECKOUT, ADD,
   BRANCH, PULL, MERGE, STASH, FETCH, CLONE
 };
 
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       GIT_KEY, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DDASH,   _______, _______, RM,
       TAG    , _______, _______, _______, REMOTE,  _______, _______, UPSTREAM,INIT,    ORIGIN,  _______, _______, _______, REVERT,
       PUSH   , _______, STATUS,  DEVELOP, _______, GLOBAL , _______, _______, _______, LOG    , _______, _______, COMMIT,
-      REBASE , _______, _______, _______, _______, _______, _______, _______, MAIN,    _______, _______, _______, CHECKOUT, CHECKOUT, ADD,
+      REBASE , _______, _______, CLONE,   _______, _______, _______, _______, MAIN,    _______, _______, _______, CHECKOUT, CHECKOUT, ADD,
       BRANCH , PULL   , MERGE  ,                   SPC, SPC, SPC,    STASH,   STASH,             FETCH,  FETCH  , CLONE
       ),
 
