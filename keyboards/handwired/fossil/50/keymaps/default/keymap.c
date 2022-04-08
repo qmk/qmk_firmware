@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * +------+------+------+------+-------------+                             +-------------+------+------+------+------+
      *               | LEFT |  UP  |                                                         | DOWN |RIGHT |
      *               +-------------+--------------------+               +----------------------------------+
-     *                             | CTL  | SPC  |LOWER |               |RAISE | ENT  | CTL  |
+     *                             | BSPC |RAISE | CTL  |               | CTL  |LOWER | BSPC |
      *                             +--------------------+               +--------------------+
      *                                           +-------------+ +-------------+
      *                                           | OPT  | CMD  | | CMD  | OPT  |
@@ -45,13 +45,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         SFT_MHEN,KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,               KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_HENK,
                           KC_LEFT, KC_UP,                                                  KC_DOWN, KC_RIGHT,
-                                            KC_SPC,RAISE, KC_LCPO, KC_RCPC,LOWER,KC_ENT,
+                                            KC_BSPC,RAISE, KC_LCPO, KC_RCPC,LOWER,KC_BSPC,
                                             KC_LOPT, KC_LCMD,            KC_RCMD, KC_ROPT
     ),
 
     /* LOWER
      * +-----------------------------------------+                             +-----------------------------------------+
-     * | ESC  |   !  |   @  |   #  |   $  |   %  |                             | BTN1 | BTN1 | BTN1 | BTN2 |   -  | DEL  |
+     * | ESC  |   !  |   @  |   #  |   $  |   %  |                             | BTN1 | BTN1 | BTN1 | BTN2 |   -  | BSPC |
      * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
      * | CAPS |   ^  |   &  |   *  |   (  |   )  |                             |MLEFT |MDOWN | MUP  |MRIGHT|   +  |  '   |
      * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
@@ -59,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * +------+------+------+------+-------------+                             +-------------+------+------+------+------+
      *               | BTN1 | BTN2 |                                                         | BTN1 | BTN2 |
      *               +-------------+--------------------+               +----------------------------------+
-     *                             | CTL  | SPC  |LOWER |               |RAISE | ENT  | CTL  |
+     *                             |  ENT |RAISE | CTL  |               |VOlUP |LOWER | BSPC |
      *                             +--------------------+               +--------------------+
      *                                           +-------------+ +-------------+
-     *                                           |RESET | CMD  | | CMD  | OPT  |
+     *                                           |RESET | CMD  | |VOLDN | OPT  |
      *                                           +-------------+ +-------------+
      */
     [_LOWER] = LAYOUT(
@@ -83,14 +83,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * +------+------+------+------+-------------+                             +-------------+------+------+------+------+
      *               | LEFT |  UP  |                                                         | DOWN |RIGHT |
      *               +-------------+--------------------+               +----------------------------------+
-     *                             | CTL  | SPC  |LOWER |               |RAISE | ENT  | CTL  |
+     *                             | BSPC |RAISE | BRMU |               | CTL  |LOWER | SPC  |
      *                             +--------------------+               +--------------------+
      *                                           +-------------+ +-------------+
-     *                                           | OPT  | CMD  | | CMD  | OPT  |
+     *                                           | BTN1 | BRMD | | CMD  | OPT  |
      *                                           +-------------+ +-------------+
      */
     [_RAISE] = LAYOUT(
-        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
         _______, KC_GRV,  KC_AT,   KC_HASH, KC_DLR,  KC_PERC,             KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
         _______, KC_EXLM, KC_QUES, KC_TILD, KC_LPRN, KC_LBRC,             KC_RBRC, KC_RPRN, _______, _______, KC_EQL,  _______,
                           _______, _______,                                                 _______, _______,
