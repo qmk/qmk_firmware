@@ -31,6 +31,7 @@
 #define SYM_ENT LT(_SYMBOLS, KC_ENT)
 #define SYM_SLSH LT(_SYMBOLS, KC_SLSH)
 #define MOU_B LT(_MOUSE, KC_B)
+#define MOU_N LT(_MOUSE, KC_N)
 #define WORDS_BACK LT(_WORDS, KC_BACKSPACE)
 
 /* Abbreviations */
