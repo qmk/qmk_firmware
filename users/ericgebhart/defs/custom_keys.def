@@ -1,6 +1,6 @@
 // custom key codes.
   EPRM,
-  VRSN,
+  //VRSN,
   CAPS_WORD_ON,
 
   // LAYERStuff.

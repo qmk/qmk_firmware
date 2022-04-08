@@ -75,6 +75,16 @@ enum userspace_custom_keycodes {
 #undef UC_STR
 #endif
 
+#ifdef SEND_STRING_ENABLE
+#undef SEND_STR
+#define SEND_STR KEY_NAME
+#undef SEND_STR_DELAY
+#define SEND_STR_DELAY KEY_NAME
+#include "send_string.def"
+#undef SEND_STR
+#undef SEND_STR_DELAY
+#endif
+
 #ifdef SMART_LOCK_ENABLE
 #undef SMLM
 #define SMLM KEY_NAME

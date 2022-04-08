@@ -32,6 +32,7 @@
 #include "console_key_logger.h"
 void process_not_dead(uint16_t keycode, keyrecord_t *record);
 bool process_alt_shift_user(uint16_t keycode, keyrecord_t *record);
+void process_send_strs(uint16_t keycode, keyrecord_t *record);
 
 // call this from the top of process records before the switch.
 #define PROCESS_EXTENSIONS                                      \
@@ -61,8 +62,11 @@ static bool process_extensions(uint16_t keycode, keyrecord_t *record){
 #ifdef NSHOT_ENABLE
   if(!process_nshot_state(keycode, record)) {return false;}
 #endif
-#ifdef UNICODE_ENABLE
+#ifdef SEND_UNICODE_ENABLE
   process_unicode_strs(keycode, record);
+#endif
+#ifdef SEND_STRING_ENABLE
+  process_send_strs(keycode, record);
 #endif
 #ifdef NOT_DEAD_ENABLE
   process_not_dead(keycode, record);

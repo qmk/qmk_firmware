@@ -15,20 +15,26 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include USERSPACE_H
-#include "process_unicode_common.h"
+#include "version.h"
 
-#undef UC_STR
-#define UC_STR(KEYC, STRING)                    \
+#define SEND_STR(KEYC, STRING)                  \
   case KEYC:                                    \
   if (record->event.pressed) {                  \
-    send_unicode_string(STRING);                \
+    SEND_STRING(STRING);                        \
   }                                             \
   break;
 
-void process_unicode_strs(uint16_t keycode, keyrecord_t *record){
-#if defined(UNICODE_ENABLE) && defined(SEND_UNICODE_ENABLE)
+#define SEND_STR_DELAY(KEYC, STRING)                    \
+  case KEYC:                                            \
+  if (record->event.pressed) {                          \
+    SEND_STRING_DELAY(STRING, TAP_CODE_DELAY);     \
+  }                                                \
+  break;
+
+void process_send_strs(uint16_t keycode, keyrecord_t *record){
+#ifdef SEND_STRING_ENABLE
   switch (keycode) {
-#include "unicode.def"
-      }
+#include "send_string.def"
+  }
 #endif
 }

@@ -54,6 +54,7 @@
 #define TAP_HOLD_TERM    200
 #define COMBO_MUST_HOLD_MODS
 #define COMBO_HOLD_TERM 150
+#define TAP_CODE_DELAY 5  // for send string with delay
 
 
 /* Control switches for my keymaps. */
@@ -135,6 +136,8 @@
 //#define SWAPPER_ENABLE // enable swapper keys.
 #define NOT_DEAD_ENABLE // make undead versions (US_DQUO_ND) of dead keys.
 //#define ALT_SHIFT_ENABLE // alternate shift behaviors for existing keys.
+#define SEND_STRING_ENABLE // Turn on send string keys
+//#define SEND_UNICODE_ENABLE // Unicode must be enabled for this to work.
 
 
 // Turn on the layers

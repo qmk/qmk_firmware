@@ -89,7 +89,7 @@
 // Add more languages by adding more definitions.
 #define LEFT0_EN KC_GRV
 //#define LEFT1_EN KC_GRV
-#define LEFT1_EN SML_NAV
+#define LEFT1_EN VRSN
 #define LEFT2_EN KC_TAB
 //#define LEFT3_EN KC_BSLASH
 //#define LEFT3_EN SML_NAV
