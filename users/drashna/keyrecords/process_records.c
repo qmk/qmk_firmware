@@ -41,21 +41,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef KEYLOGGER_ENABLE
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %b, time: %5u, int: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif  // KEYLOGGER_ENABLE
-#ifdef OLED_ENABLE
+#if defined(OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
     process_record_user_oled(keycode, record);
 #endif  // OLED
 
     if (!(process_record_keymap(keycode, record) && process_record_secrets(keycode, record)
-#ifdef RGB_MATRIX_ENABLE
+#ifdef CUSTOM_RGB_MATRIX
           && process_record_user_rgb_matrix(keycode, record)
 #endif
-#ifdef RGBLIGHT_ENABLE
+#ifdef CUSTOM_RGBLIGHT
           && process_record_user_rgb_light(keycode, record)
 #endif
 #ifdef CUSTOM_UNICODE_ENABLE
           && process_record_unicode(keycode, record)
 #endif
-#if defined(POINTING_DEVICE_ENABLE)
+#if defined(CUSTOM_POINTING_DEVICE)
           && process_record_pointing(keycode, record)
 #endif
 #ifdef CAPS_WORD_ENABLE
@@ -142,26 +142,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if defined(CUSTOM_RGBLIGHT) || defined(CUSTOM_RGB_MATRIX)
             if (record->event.pressed) {
                 userspace_config.rgb_layer_change ^= 1;
                 dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
                 eeconfig_update_user(userspace_config.raw);
                 if (userspace_config.rgb_layer_change) {
-#    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+#    if defined(CUSTOM_RGBLIGHT) && defined(CUSTOM_RGB_MATRIX)
                     rgblight_enable_noeeprom();
 #    endif
                     layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
-#    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+#    if defined(CUSTOM_RGBLIGHT) && defined(CUSTOM_RGB_MATRIX)
                 } else {
                     rgblight_disable_noeeprom();
 #    endif
                 }
             }
-#endif  // RGBLIGHT_ENABLE
+#endif  // CUSTOM_RGBLIGHT
             break;
 
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if defined(CUSTOM_RGBLIGHT) || defined(CUSTOM_RGB_MATRIX)
         case RGB_TOG:
             // Split keyboards need to trigger on key-up for edge-case issue
 #    ifndef SPLIT_KEYBOARD
@@ -169,10 +169,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #    else
             if (!record->event.pressed) {
 #    endif
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#    if defined(CUSTOM_RGBLIGHT) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                 rgblight_toggle();
 #    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#    if defined(CUSTOM_RGB_MATRIX) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                 rgb_matrix_toggle();
 #    endif
             }
@@ -181,7 +181,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
             if (record->event.pressed) {
                 bool is_eeprom_updated;
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#    if defined(CUSTOM_RGBLIGHT) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                 // This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
                 if (userspace_config.rgb_layer_change) {
                     userspace_config.rgb_layer_change = false;
@@ -189,7 +189,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     is_eeprom_updated = true;
                 }
 #    endif
-#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+#    if defined(CUSTOM_RGB_MATRIX) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
                 if (userspace_config.rgb_matrix_idle_anim) {
                     userspace_config.rgb_matrix_idle_anim = false;
                     dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
