@@ -1250,8 +1250,14 @@ TP_TPL(KC_CCCV, LCTL(KC_C), LCTL(KC_V))
 For tap open, hold for open and close then a back arrow.
 Here is __(__ or __()__ with tap and long tap.
 
-`OPEN_OCL(KC_OCPRN, KC_LPRN, KC_RPRN)`
+```
+OPEN_OCL(KC_OCPRN, KC_LPRN, KC_RPRN)
 
+OPEN_OCL(KC_OCQUOT, KC_QUOT, KC_QUOT)
+// non dead version of quote.
+OPEN_OCL_ND(BP_OCQUOT, BP_QUOT, BP_QUOT)
+OPEN_OCL_ND(US_OCQUOT, US_QUOT, US_QUOT)
+```
 
 Caps Word
 -------------
