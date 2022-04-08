@@ -194,6 +194,8 @@ Matrix size + thumbs.
 
     * accented_keys.def - direct access to altgr keys
     * altlocal_keys.def - alternate un/shifted pairs.
+    * alt_shift.def - alternate shifting behaviors for existing keycodes.
+    * not_dead.def - definitions for non-dead dead keys.
     * caps_word - no def file.
     * combos.def - 
     * custom_keys.def  - list of custom keys.
@@ -207,6 +209,7 @@ Matrix size + thumbs.
       * eg. toggle between tab, backtab on a key, with a reverse key.
     * tap_hold.def - Define key for tap and hold for tapping term for qqc autre.
     * unicode.def - keycodes to send unicode strings.
+    * send_string.def - keycodes to send strings.
 
 
  * Layers 
@@ -334,6 +337,7 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 ```
 .
 ├── base_layers
+│   ├── accents.h
 │   ├── alt.h
 │   ├── base_layers.h
 │   ├── beakl.h
@@ -347,13 +351,16 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 ├── defs
 │   ├── accented_keys.def
 │   ├── altlocal_keys.def
+│   ├── alt_shift.def
 │   ├── combos.def
 │   ├── custom_keys.def
 │   ├── encoders.def
 │   ├── key_overrides.def
 │   ├── mod_lock.def
+│   ├── not_dead.def
 │   ├── nshot.def
 │   ├── oneshot.def
+│   ├── send_string.def
 │   ├── smart_lock.def
 │   ├── swapper.def
 │   ├── tap_hold.def
@@ -365,6 +372,7 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 │   ├── accented_keys.h
 │   ├── altlocal_keys.c
 │   ├── altlocal_keys.h
+│   ├── alt_shift.c
 │   ├── caps_word.c
 │   ├── caps_word.h
 │   ├── console_key_logger.c
@@ -377,6 +385,7 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 │   ├── key_overrides.h
 │   ├── mod_lock.c
 │   ├── mod_lock.h
+│   ├── not_dead.c
 │   ├── nshot_mod.c
 │   ├── nshot_mod.h
 │   ├── oneshot.c
@@ -384,6 +393,7 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 │   ├── process_locales.h
 │   ├── process_nshot.h
 │   ├── process_smart_lock.h
+│   ├── send_string.c
 │   ├── smart_lock.c
 │   ├── smart_lock.h
 │   ├── swapper.c
@@ -418,7 +428,6 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 ├── layer_names
 │   ├── base_names.h
 │   ├── func_names.h
-│   ├── layer_names
 │   ├── layer_names.h
 │   └── util_names.h
 ├── layers
@@ -447,6 +456,8 @@ Adding a new keyboard is done in keyboards and should be fairly obvious.
 ├── process_records.c
 ├── readme.md
 └── rules.mk
+
+10 directories, 110 files
 ```
 
 Locales
@@ -994,6 +1005,12 @@ to add them to the enumeration manually.
 
 It will complain as usual if there are duplicates.
 
+Mostly, __keycodes.h__ is key defines to make shortcuts, since the enumeration
+is done almost completely automatically. When adding a new extension
+which defines keycodes, that extension will also need an entry in 
+keycodes.h in order to automatically define the new key enumerations
+it´s def file creates.
+
 
 Accent keys
 -----------------
@@ -1068,6 +1085,24 @@ In *altlocal_keys.def*.
   MK_KEY(KC_BK_DOT,  KC_DOT, MOD_NONE,    KC_2, MOD_LSFT)
   MK_KEY(KC_BK_COMM, KC_COMMA, MOD_NONE,  KC_1, MOD_LSFT)
   MK_KEY(KC_BK_QUOT, KC_QUOT, MOD_NONE,   KC_GRV, MOD_NONE)
+```
+
+Not Dead keys
+--------------------
+As a writer dead keys give me access to accented letters in other languages,
+As a programmer they are a pain, especially for a vi user. This problem is
+limited to a few characters; "'`^ and ~. This extension helps to fix these
+characters and make them accessible as non-dead keys. It does this by adding
+a space afterward. The space is eaten by the OS keyboard driver and the letter
+emerges as needed. Here are some non dead keys for US-Intl.
+In use, I put these on the symbol layer, and let all the others remain dead.
+
+```
+NOT_DEAD(US_DQUO_ND, US_DQUO)
+NOT_DEAD(US_GRV_ND,  US_GRV)
+NOT_DEAD(US_QUOT_ND, US_QUOT)
+NOT_DEAD(US_CIRC_ND, US_CIRC)
+NOT_DEAD(US_TILD_ND, US_TILD)
 ```
 
 Alternate shifts
@@ -1378,14 +1413,23 @@ ENCODER_ACTION(_SYMB, LEFT, KC_LEFT, KC_RIGHT, MOD_NONE)
 ```
 
 
-unicode
+Unicode
 ----------------
-This is just the basic unicode example everyone seems to have. It's been adapted
-to use defs, so there is no need to modify process record user.
+This is just the basic unicode example everyone seems to have.
 Add your keys to send unicode strings like so.
 
 ```
  UC_STR(UC_DISA, "ಠ_ಠ")
+```
+
+Send_string
+--------------
+This is just basic send string functionality using *SEND_STRING* and 
+*SEND_STRING_DELAY*. Each entry defines a key to send a string.
+
+```
+SEND_STR(MYKEY, "this is a test")
+SEND_STR_DELAY(VRSN, QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE)
 ```
 
 Console key logging - for heat maps.
