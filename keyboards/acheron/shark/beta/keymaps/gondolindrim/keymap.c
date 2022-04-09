@@ -111,7 +111,9 @@ typedef union {
 user_config_t user_config;
 #endif
 
-void set_indicator_colors(uint8_t color[3]) rgblight_setrgb(color[0], color[1], color[2]);
+void set_indicator_colors(uint8_t color[3]){
+    rgblight_setrgb(color[0], color[1], color[2]);
+}
 
 // Board init: RGB indicator is set to startup_color
 void keyboard_pre_init_user(void){
