@@ -247,13 +247,13 @@ __attribute__((weak)) void pointing_device_task(void) {
         static uint8_t old_buttons = 0;
     local_mouse_report.buttons = old_buttons;
     if (pointing_device_initialized) {
-        local_mouse_report         = pointing_device_driver.get_report(local_mouse_report);
+        local_mouse_report = pointing_device_driver.get_report(local_mouse_report);
     }
-    old_buttons                = local_mouse_report.buttons;
+    old_buttons = local_mouse_report.buttons;
 #    elif defined(POINTING_DEVICE_LEFT) || defined(POINTING_DEVICE_RIGHT)
-    if (pointing_device_initialized) {
-        local_mouse_report = POINTING_DEVICE_THIS_SIDE ? pointing_device_driver.get_report(local_mouse_report) : shared_mouse_report;
-    }
+        if (pointing_device_initialized) {
+            local_mouse_report = POINTING_DEVICE_THIS_SIDE ? pointing_device_driver.get_report(local_mouse_report) : shared_mouse_report;
+        }
 #    else
 #        error "You need to define the side(s) the pointing device is on. POINTING_DEVICE_COMBINED / POINTING_DEVICE_LEFT / POINTING_DEVICE_RIGHT"
 #    endif
