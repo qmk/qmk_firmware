@@ -91,3 +91,4 @@ user_song_list.h
 compile_commands.json
 .clangd/
 .cache/
+keyboards/primekb/meridian_rgb/.vscode/c_cpp_properties.json
