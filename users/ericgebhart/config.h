@@ -86,7 +86,10 @@
 
 // Choose a thumb cluster.
 // WI, WIa, DEFAULT, TEST, TRNS, MODS, LAYERS, MODS_LAYERS,
-// MIRYOKU, MIRYOKU_TR, HD, TH_LTR, HD_DASH,
+// MIRYOKU, MIRYOKU_TR,
+// The following use THUMB_LETTER to place a letter on the Thumbs.
+// for use with the hands down metals, maltron, and rsthd.
+// HD, HDA, HD_SIMPLE, TH_LTR, HD_DASH,
 // MIRYOKU_TR_LTR, MIRYOKU_LTR
 #define THUMBS_ARE DEFAULT
 #define DEFAULT_THUMBS DEFAULT

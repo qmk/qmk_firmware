@@ -66,10 +66,14 @@
 
 // an attempt at an approximation of the HD thumbs as they are on the site.
 // really should be expected to be a starting point that doesnt strand you.
-#define ___6_ERGO_THUMBS_hd___                                          \
+#define ___6_ERGO_THUMBS_hd___                                  \
   BSPC_ALT, TH_LTR_SYM, GUI_ESC, ALT_ENT, SPC_TOPR, ACCENTS_CTL
+#define ___6_ERGO_THUMBS_hd_a___                                        \
+  OS_LSHIFT, TH_LTR_SYM, GUI_ESC, BSPC_ALT, SPC_TOPR, ACCENTS_CTL
+#define ___6_ERGO_THUMBS_hd_simple___                   \
+  MO_SYMB, THUMB_LETTER, KC_ENT, KC_BSPC, KC_SPC, MO_TOPROWS
 /* HD dash has thumbs of ,; and .:        */
-#define ___6_ERGO_THUMBS_hd_dash___                             \
+#define ___6_ERGO_THUMBS_hd_dash___                                     \
   LANG_KC(TL_COMM), TL_DOT_SYMB, GUI_ESC, ALT_ENT, SPC_TOPR, BSPC_NUM
 
 #define ___6_ERGO_THUMBS_media___ ___3___, ___STOP_PLAY_MUTE___
@@ -114,6 +118,8 @@
 #define TH_LTR_EXT _left_letter___ // takes a letter for the left thumb.
 #define HD_DASH_EXT _hd_dash___
 #define HD_EXT _hd___  // takes a letter for the left thumb.
+#define HDA_EXT _hd_a___  // relocate backspace
+#define HD_SIMPLE_EXT _hd_simple___  // no LTs or MT´s.
 // for the function layers
 #define COMBO_EXT _COMBO___
 #define COMBO2_EXT _COMBO2___
