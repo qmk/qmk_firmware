@@ -9,14 +9,14 @@
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
 
-#define DIRECT_PINS {{B12, B13, B15, B1, B0}, \
+#define DIRECT_PINS {{B0, B1, B15, B13, B12}, \
+                     {A7, A6, B3, A5, A15}, \
+                     {A4, B4, B5, A2, B6}, \
+                     {B7, B8, B9, NO_PIN, NO_PIN}}
+#define DIRECT_PINS_RIGHT {{B12, B13, B15, B1, B0}, \
                      {A15, A5, B3, A6, A7}, \
                      {A4, A2, B5, B4, B6}, \
                      {B9, B8, B7, NO_PIN, NO_PIN}}
-#define DIRECT_PINS_RIGHT {{B0, B1, B15, B13, B12}, \
-                     {A7, A6, B3, A5, A15}, \
-                     {B6, B4, B5, A2, A4}, \
-                     {B7, B8, B9, NO_PIN, NO_PIN}}
 
 
 // Full duplex WORKS...
