@@ -39,7 +39,7 @@
 
 // 5 into 6, derivitive of the first two.
 #define ROW0L_5_6_hrm_gasc(K01, K02, K03, K04, K05)     \
-  ROW0L_6_hrm_gasc(LANG_N(LEFT1), K01, K02, K03, K04, K05)
+  ROW0L_6_hrm_gasc(LEFT_0, K01, K02, K03, K04, K05)
 
 // RIGHT.
 #define ROW0R_5_hrm_gasc(K01, K02, K03, K04, K05)       \
@@ -50,7 +50,7 @@
 
 // 5 into 6, derivitive of the first two.
 #define ROW0R_5_6_hrm_gasc(K01, K02, K03, K04, K05)     \
-  ROW0R_6_hrm_gasc(K01, K02, K03, K04, K05, LANG_N(RIGHT0))
+  ROW0R_6_hrm_gasc(K01, K02, K03, K04, K05, RIGHT_0)
 
 
 // ROW1
@@ -63,7 +63,7 @@
 
 // 5 into 6, derivitive of the first two.
 #define ROW1L_5_6_hrm_gasc(K01, K02, K03, K04, K05)     \
-  ROW1L_6_hrm_gasc(LANG_N(LEFT1), K01, K02, K03, K04, K05)
+  ROW1L_6_hrm_gasc(LEFT_1, K01, K02, K03, K04, K05)
 
 // RIGHT.
 #define ROW1R_5_hrm_gasc(K01, K02, K03, K04, K05)                       \
@@ -74,7 +74,7 @@
 
 // 5 into 6, derivitive of the first two.
 #define ROW1R_5_6_hrm_gasc(K01, K02, K03, K04, K05)     \
-  ROW1R_6_hrm_gasc(K01, K02, K03, K04, K05, LANG_N(RIGHT1))
+  ROW1R_6_hrm_gasc(K01, K02, K03, K04, K05, RIGHT_1)
 
 
 
@@ -92,7 +92,7 @@
 
 // 5 into 6, derivitive of the first two.
 #define ROW2L_5_6_hrm_gasc(K01, K02, K03, K04, K05)     \
-  ROW2L_6_hrm_gasc(LANG_N(LEFT2), K01, K02, K03, K04, K05)
+  ROW2L_6_hrm_gasc(LEFT_2, K01, K02, K03, K04, K05)
 
 // RIGHT.
 #define ROW2R_5_hrm_gasc(K01, K02, K03, K04, K05)                       \
@@ -103,7 +103,7 @@
 
 // 5 into 6, derivitive of the first two.
 #define ROW2R_5_6_hrm_gasc(K01, K02, K03, K04, K05)     \
-  ROW2R_6_hrm_gasc(K01, K02, K03, K04, K05, LANG_N(RIGHT2))
+  ROW2R_6_hrm_gasc(K01, K02, K03, K04, K05, RIGHT_2)
 
 
 // ROW 3
@@ -116,7 +116,7 @@
 
 // 5 into 6, derivitive of the first two.
 #define ROW3L_5_6_hrm_gasc(K01, K02, K03, K04, K05)     \
-  ROW3L_6_hrm_gasc(LANG_N(LEFT3),  K01, K02, K03, K04, K05)
+  ROW3L_6_hrm_gasc(LEFT_3,  K01, K02, K03, K04, K05)
 
 // RIGHT.
 #define ROW3R_5_hrm_gasc(K01, K02, K03, K04, K05)       \
@@ -127,4 +127,4 @@
 
 // 5 into 6, derivitive of the first two.
 #define ROW3R_5_6_hrm_gasc(K01, K02, K03, K04, K05)     \
-  ROW3R_6_hrm_gasc(K01, K02, K03, K04, K05, LANG_N(RIGHT3))
+  ROW3R_6_hrm_gasc(K01, K02, K03, K04, K05, RIGHT_3)

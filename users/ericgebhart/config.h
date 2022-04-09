@@ -91,6 +91,11 @@
 #define THUMBS_ARE DEFAULT
 #define DEFAULT_THUMBS DEFAULT
 
+// pick the edge key set. normie, no kc, smart locks or test.
+// NORM, NOKC, SML, TEST
+#define EDGE_KEY_SET_IS SML
+#define DEFAULT_EDGE_SET SML
+
 // for the base layers which need a thumb cluster which takes a letter.
 #define HANDS_DOWN_LTR_THUMBS_ARE TH_LTR
 #define MALTRON_LTR_THUMBS_ARE TH_LTR

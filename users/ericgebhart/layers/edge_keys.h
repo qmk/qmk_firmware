@@ -81,62 +81,145 @@
 //#define LANG_IS EN
 
 
+#define CONCATENATEE(a, ...) a ## __VA_ARGS__
+#define CATE(a, ...) CONCATENATEE(a, __VA_ARGS__)
 // EDGES
 // outside pinky keys row 0-3.
 // Qwerty and Bepo, - Applies
 // to foreign layouts on bepo. dvorak_bp, beakl_bp.
 // Use by Wrapping the root like so. LANG_N(LEFT0)
 // Add more languages by adding more definitions.
-#define LEFT0_EN KC_GRV
-//#define LEFT1_EN KC_GRV
-#define LEFT1_EN SML_NAV
-#define LEFT2_EN KC_TAB
-//#define LEFT3_EN KC_BSLASH
-//#define LEFT3_EN SML_NAV
-#define LEFT3_EN TT(_ACCENTS_MORTE_EN)
+#define EDGE_KEY(KNAME) CATE(LANG_N(KNAME), EDGE_KEY_SFX)
+#define LEFT_0 EDGE_KEY(LEFT0)
+#define LEFT_1 EDGE_KEY(LEFT1)
+#define LEFT_2 EDGE_KEY(LEFT2)
+#define LEFT_3 EDGE_KEY(LEFT3)
+#define RIGHT_0 EDGE_KEY(RIGHT0)
+#define RIGHT_1 EDGE_KEY(RIGHT1)
+#define RIGHT_2 EDGE_KEY(RIGHT2)
+#define RIGHT_3 EDGE_KEY(RIGHT3)
 
-#define LEFT0_BP BP_GRV
- //#define LEFT1_BP BP_GRV
-#define LEFT1_BP SML_NAV
-#define LEFT2_BP KC_TAB
- //#define LEFT3_BP BP_BSLS
-#define LEFT3_BP TT(_ACCENTS_MORTE_BP)
 
-/* #define RIGHT0_EN KC_EQL */
-#define RIGHT0_EN SML_NAV
-/* #define RIGHT1_EN KC_SLASH */
-#define RIGHT1_EN SML_NAV
-#define RIGHT2_EN KC_MINS
-// #define RIGHT3_EN KC_SCLN
-#define RIGHT3_EN SML_KEYPAD
+#define EDGE_KEY_SFX CATE(CATE(EDGE_KEY_SET_IS, _), SFX)
+#define SML_SFX _sml
+#define NOKC_SFX _nokc
+#define NORM_SFX _norm
+#define TEST_SFX _test
+#define REF1_SFX _ref1
+#define REF2_SFX _ref2
 
-#define RIGHT0_BP BP_EQL
-/* #define RIGHT1_BP BP_SLSH */
-#define RIGHT1_BP SML_NAV
-#define RIGHT2_BP BP_DV_MINS
-/* #define RIGHT3_BP BP_SCLN */
-#define RIGHT3_BP TG(_COMBO_REF)
+// Edge key sets
+// a mostly normalish set of edge keys.
+#define LEFT0_EN_norm KC_GRV
+#define LEFT1_EN_norm KC_GRV
+#define LEFT2_EN_norm KC_TAB
+#define LEFT3_EN_norm KC_BSLS
+
+#define RIGHT0_EN_norm KC_EQL
+#define RIGHT1_EN_norm KC_EQL
+#define RIGHT2_EN_norm KC_MINS
+#define RIGHT3_EN_norm KC_SLSH
+
+// smart lock edges mostly
+#define LEFT0_EN_sml SML_NAV
+#define LEFT1_EN_sml SML_NAV
+#define LEFT2_EN_sml KC_TAB
+#define LEFT3_EN_sml TT(_ACCENTS_MORTE_EN)
+
+#define RIGHT0_EN_sml SML_KEYPAD
+#define RIGHT1_EN_sml SML_KEYPAD
+#define RIGHT2_EN_sml KC_MINS
+#define RIGHT3_EN_sml TT(_LAYERS)
+
+// empty no kc edges
+#define LEFT0_EN_nokc KC_NO
+#define LEFT1_EN_nokc KC_NO
+#define LEFT2_EN_nokc KC_NO
+#define LEFT3_EN_nokc KC_NO
+
+#define RIGHT0_EN_nokc KC_NO
+#define RIGHT1_EN_nokc KC_NO
+#define RIGHT2_EN_nokc KC_NO
+#define RIGHT3_EN_nokc KC_NO
+
+//test edge keys
+#define LEFT0_EN_test KC_NO
+#define LEFT1_EN_test KC_NO
+#define LEFT2_EN_test KC_NO
+#define LEFT3_EN_test KC_NO
+
+#define RIGHT0_EN_test KC_NO
+#define RIGHT1_EN_test KC_NO
+#define RIGHT2_EN_test KC_NO
+#define RIGHT3_EN_test KC_NO
+
+// bepo
+// mostly normal expected things
+#define LEFT0_BP_norm BP_GRV
+#define LEFT1_BP_norm BP_GRV
+#define LEFT2_BP_norm BP_TAB
+#define LEFT3_BP_norm BP_BSLS
+
+#define RIGHT0_BP_norm BP_EQL
+#define RIGHT1_BP_norm BP_EQL
+#define RIGHT2_BP_norm BP_DV_MINS
+#define RIGHT3_BP_norm BP_SLSH
+
+// smart locks mostly, tab, mins
+#define LEFT0_BP_sml SML_NAV
+#define LEFT1_BP_sml SML_NAV
+#define LEFT2_BP_sml KC_TAB
+#define LEFT3_BP_sml TT(_ACCENTS_MORTE_BP)
+
+#define RIGHT0_BP_sml SML_KEYPAD_BP
+#define RIGHT1_BP_sml SML_KEYPAD_BP
+#define RIGHT2_BP_sml BP_MINS
+#define RIGHT3_BP_sml TT(_LAYERS)
+
+// empty nokc edges
+#define LEFT0_BP_nokc KC_NO
+#define LEFT1_BP_nokc KC_NO
+#define LEFT2_BP_nokc KC_NO
+#define LEFT3_BP_nokc KC_NO
+
+#define RIGHT0_BP_nokc KC_NO
+#define RIGHT1_BP_nokc KC_NO
+#define RIGHT2_BP_nokc KC_NO
+#define RIGHT3_BP_nokc KC_NO
+
+// test edges
+#define LEFT0_BP_test KC_NO
+#define LEFT1_BP_test KC_NO
+#define LEFT2_BP_test KC_NO
+#define LEFT3_BP_test KC_NO
+
+#define RIGHT0_BP_test KC_NO
+#define RIGHT1_BP_test KC_NO
+#define RIGHT2_BP_test KC_NO
+#define RIGHT3_BP_test KC_NO
+
 
 // Edges for the combo reference layers.
-#define LEFT0_CB L0_CB
-#define LEFT1_CB L1_CB
-#define LEFT2_CB L2_CB
-#define LEFT3_CB L3_CB
+#define LEFT0_CB_ref1 L0_CB
+#define LEFT1_CB_ref1 L1_CB
+#define LEFT2_CB_ref1 L2_CB
+#define LEFT3_CB_ref1 L3_CB
 
-#define RIGHT0_CB R0_CB
-#define RIGHT1_CB R1_CB
-#define RIGHT2_CB R2_CB
-#define RIGHT3_CB R3_CB
+#define RIGHT0_CB_ref1 R0_CB
+#define RIGHT1_CB_ref1 R1_CB
+#define RIGHT2_CB_ref1 R2_CB
+#define RIGHT3_CB_ref1 R3_CB
 
-#define LEFT0_CB2 L0_CB2
-#define LEFT1_CB2 L1_CB2
-#define LEFT2_CB2 L2_CB2
-#define LEFT3_CB2 L3_CB2
+#define LEFT0_CB_ref2 L0_CB2
+#define LEFT1_CB_ref2 L1_CB2
+#define LEFT2_CB_ref2 L2_CB2
+#define LEFT3_CB_ref2 L3_CB2
 
-#define RIGHT0_CB2 R0_CB2
-#define RIGHT1_CB2 R1_CB2
-#define RIGHT2_CB2 R2_CB2
-#define RIGHT3_CB2 R3_CB2
+#define RIGHT0_CB_ref2 R0_CB2
+#define RIGHT1_CB_ref2 R1_CB2
+#define RIGHT2_CB_ref2 R2_CB2
+#define RIGHT3_CB_ref2 R3_CB2
+
 /******************************************************************/
 /* Middle Keysets for various keyboards                           */
 // MIDDLES
@@ -165,10 +248,8 @@
 #define ___2_MIDDLE_3___ ___MIDDLE_L3___,    ___MIDDLE_R3___
 
 /********************************************************************/
-/* THUMBS  */
-/* Define the thumb clusters for all the keyboards.                 */
+/* BOTTOMS, sorta like THUMBS                                       */
 /********************************************************************/
-
 // for xd75 or other layouts with a center column.
 // #define ___5_MIDDLE_THUMBS___ CTL_BSPC,    ALT_DEL,     XMONAD_ESC,  ALT_ENT,   CTL_SPC
 #define ___5_MIDDLE_THUMBS___ ALT_DEL, BSPC_TOPR, ESC_SYMB, ENT_NAV, SPC_TOPR
@@ -192,14 +273,11 @@
 #define ___4_MIDDLE_4b___   TAB_BKTAB,       HOME_END,    KC_PGDN, KC_PGUP
 
 /********************************************************************/
-/**  The bottom row and thumbs as needed.                          **/
+/*  The bottom row and thumbs as needed.                            */
 /********************************************************************/
 // Only the 14 and 15 wide bottom rows have bepo versions.
 // all others are handled through macros.
 
-
-// I do not use those pinky keys. I had useful things there but there
-// are better more useful ways than those pinkys.
 #define ___5_BOTTOM_LEFT___  ___X2___,  KC_INS,  KC_LEFT, KC_RIGHT
 #define ___5_BOTTOM_RIGHT___ KC_UP,  KC_DOWN,  KC_BSLASH, ___X2___
 
