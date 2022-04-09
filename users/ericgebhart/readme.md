@@ -126,7 +126,10 @@ For automatic edge columns set EDGE_COLS.
 Outside pinky keys are 'yes'.  This is on by default.
 N rows by 6 columns per side.
 Should be undef/def'd by the keyboard's keymap if no.
-#define EDGE_COLS yes.
+#define EDGE_COLS yes. this is all taken care of for supported keyboards.
+
+Thumbs and Edge keys are grouped into sets so that different sets can be chosen in
+the config. 
 
 All layer macros take 3x10 or 3x12 as needed. Edge cols are
 added as needed, and middle keys fill up the gap.
@@ -603,6 +606,16 @@ _SYMB becomes *_SYMB_EN* or *_SYMB_BP*. Depending on the value of *LANG_IS*
 
     `#define SPC_SYMB LT(LANG_N(_SYMB), KC_SPC)`
 
+
+Edge key sets
+----------------
+Edge keys, or the 6th, and outer pinky column are often not specified
+in base keymaps and are not strictly necessary. There are a few sets
+to choose from here. A NOKC set with no keys, NORM which is sorta normal
+with grave, equal, tab, -, and \/. There is also a smart lock set
+which gives access to smart lock layers tab and -. Last there is 
+test, so its easy to try new things. Edge keys are defined in
+*layers/edge_keys.h*.
 
 
 Base Layers
