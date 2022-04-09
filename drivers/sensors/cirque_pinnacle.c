@@ -198,7 +198,7 @@ void cirque_pinnacle_cursor_smoothing(bool enable) {
 }
 
 /*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
-void cirque_pinnacle_init(void) {
+bool cirque_pinnacle_init(void) {
 #if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
     spi_init();
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c)
@@ -233,6 +233,8 @@ void cirque_pinnacle_init(void) {
     cirque_pinnacle_calibrate();
 
     cirque_pinnacle_enable_feed(true);
+
+    return touchpad_init;
 }
 
 pinnacle_data_t cirque_pinnacle_read_data(void) {

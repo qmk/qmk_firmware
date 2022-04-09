@@ -31,6 +31,8 @@
 #define PIMORONI_TRACKBALL_REG_DOWN    0x07
 // clang-format on
 
+bool pimoroni_trackball_initialized = true;
+
 static uint16_t precision = 128;
 
 uint16_t pimoroni_trackball_get_cpi(void) {
@@ -56,8 +58,11 @@ void pimoroni_trackball_set_cpi(uint16_t cpi) {
 
 void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     uint8_t                              data[4] = {r, g, b, w};
-    __attribute__((unused)) i2c_status_t status  = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
+   i2c_status_t status  = i2c_writeReg(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
 
+    if (status != I2C_STATUS_SUCCESS) {
+        pimoroni_trackball_initialized = false;
+    }
 #ifdef CONSOLE_ENABLE
     if (debug_mouse) dprintf("Trackball RGBW i2c_status_t: %d\n", status);
 #endif
@@ -78,9 +83,10 @@ i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data) {
     return status;
 }
 
-__attribute__((weak)) void pimoroni_trackball_device_init(void) {
+__attribute__((weak)) bool pimoroni_trackball_device_init(void) {
     i2c_init();
     pimoroni_trackball_set_rgbw(0x00, 0x00, 0x00, 0x00);
+    return pimoroni_trackball_initialized;
 }
 
 int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {

@@ -57,7 +57,7 @@ void           pointing_device_driver_set_cpi(uint16_t cpi);
 #endif
 
 typedef struct {
-    void (*init)(void);
+    bool (*init)(void);
     report_mouse_t (*get_report)(report_mouse_t mouse_report);
     void (*set_cpi)(uint16_t);
     uint16_t (*get_cpi)(void);

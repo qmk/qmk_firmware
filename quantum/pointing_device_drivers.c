@@ -27,6 +27,11 @@
 
 // get_report functions should probably be moved to their respective drivers.
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
+static bool init(void) {
+    adns5050_init();
+    return true;
+}
+
 report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
     report_adns5050_t data = adns5050_read_burst();
 
@@ -44,7 +49,7 @@ report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init         = adns5050_init,
+    .init         = init,
     .get_report   = adns5050_get_report,
     .set_cpi      = adns5050_set_cpi,
     .get_cpi      = adns5050_get_cpi,
@@ -52,6 +57,10 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
+static bool init(void) {
+    adns9800_init();
+    return true;
+}
 
 report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
     report_adns9800_t sensor_report = adns9800_get_report();
@@ -64,7 +73,7 @@ report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = adns9800_init,
+    .init       = init,
     .get_report = adns9800_get_report_driver,
     .set_cpi    = adns9800_set_cpi,
     .get_cpi    = adns9800_get_cpi
@@ -72,6 +81,11 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 
 #elif defined(POINTING_DEVICE_DRIVER_analog_joystick)
+static bool init(void) {
+    analog_joystick_init();
+    return true;
+}
+
 report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
     report_analog_joystick_t data = analog_joystick_read();
 
@@ -89,7 +103,7 @@ report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
 
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init       = analog_joystick_init,
+    .init       = init,
     .get_report = analog_joystick_get_report,
     .set_cpi    = NULL,
     .get_cpi    = NULL
@@ -258,8 +272,8 @@ const pointing_device_driver_t pointing_device_driver = {
 // clang-format on
 
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360) || defined(POINTING_DEVICE_DRIVER_pmw3389)
-static void pmw33xx_init_wrapper(void) {
-    pmw33xx_init(0);
+static bool pmw33xx_init_wrapper(void) {
+    return pmw33xx_init(0);
 }
 
 static void pmw33xx_set_cpi_wrapper(uint16_t cpi) {
@@ -301,9 +315,8 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_cpi    = pmw33xx_get_cpi_wrapper
 };
 // clang-format on
-
 #else
-__attribute__((weak)) void           pointing_device_driver_init(void) {}
+__attribute__((weak)) bool           pointing_device_driver_init(void) {}
 __attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     return mouse_report;
 }

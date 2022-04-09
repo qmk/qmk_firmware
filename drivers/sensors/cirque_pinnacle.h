@@ -6,6 +6,15 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// Convenient way to store and access measurements
+typedef struct {
+    uint16_t xValue;
+    uint16_t yValue;
+    uint16_t zValue;
+    uint8_t  buttonFlags;
+    bool     touchDown;
+} pinnacle_data_t;
+
 #ifndef CIRQUE_PINNACLE_TIMEOUT
 #    define CIRQUE_PINNACLE_TIMEOUT 20 // I2C timeout in milliseconds
 #endif
@@ -93,7 +102,7 @@ typedef struct {
 #endif
 } pinnacle_data_t;
 
-void            cirque_pinnacle_init(void);
+bool            cirque_pinnacle_init(void);
 void            cirque_pinnacle_calibrate(void);
 void            cirque_pinnacle_cursor_smoothing(bool enable);
 pinnacle_data_t cirque_pinnacle_read_data(void);
