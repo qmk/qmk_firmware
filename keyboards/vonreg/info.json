@@ -5,7 +5,7 @@
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic_lite": false,
         "command": false,
         "console": false,
         "extrakey": true,
