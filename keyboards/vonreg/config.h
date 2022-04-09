@@ -11,12 +11,12 @@
 
 #define DIRECT_PINS {{B12, B13, B15, B1, B0}, \
                      {A15, A5, B3, A6, A7}, \
-                     {C13, A2, B5, B4, A8}, \
-                     {B9, B8, C14, NO_PIN, NO_PIN}}
+                     {A4, A2, B5, B4, B6}, \
+                     {B9, B8, B7, NO_PIN, NO_PIN}}
 #define DIRECT_PINS_RIGHT {{B0, B1, B15, B13, B12}, \
                      {A7, A6, B3, A5, A15}, \
-                     {A8, B4, B5, A2, C13}, \
-                     {C14, B8, B9, NO_PIN, NO_PIN}}
+                     {B6, B4, B5, A2, A4}, \
+                     {B7, B8, B9, NO_PIN, NO_PIN}}
 
 
 // Full duplex WORKS...
@@ -24,7 +24,7 @@
 //#define SERIAL_USART_TX_PIN B6     // USART TX pin
 //#define SERIAL_USART_RX_PIN B7     // USART RX pin
 
-// #define EE_HANDS
+#define EE_HANDS
 
 #define SOFT_SERIAL_PIN B14  // D0 or D1, D2, D3, E6
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
