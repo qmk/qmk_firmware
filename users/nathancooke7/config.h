@@ -25,13 +25,14 @@
 
 /* Layer Tap */
 #define DRAG_V LT(_DRAGSCRL, KC_V)
+#define DRAG_M LT(_DRAGSCRL, KC_M)
 #define MISC_DEL LT(_MISC, KC_DELETE)
 #define NAV_SPACE LT(_NAV, KC_SPC)
 #define NAV_Z LT(_NAV, KC_Z)
 #define SYM_ENT LT(_SYMBOLS, KC_ENT)
 #define SYM_SLSH LT(_SYMBOLS, KC_SLSH)
-#define MOU_B LT(_MOUSE, KC_B)
-#define MOU_N LT(_MOUSE, KC_N)
+#define MOU_G LT(_MOUSE, KC_G)
+#define MOU_H LT(_MOUSE, KC_H)
 #define WORDS_BACK LT(_WORDS, KC_BACKSPACE)
 
 /* Abbreviations */
