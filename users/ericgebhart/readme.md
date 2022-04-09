@@ -69,6 +69,7 @@ Features:
   * Def files for most things.
   * Everything is chosen or turned on and off in config.h
   * Lots of macros to make it easy to redefine things without a refactor.
+  * Multiple edge/outer pinky column sets.
   * Multiple thumb clusters to choose from.
   * Thumb clusters and mods can be changed on a map by map basis.
     * layers
@@ -99,7 +100,6 @@ Features:
   * smart lock mods 
   * smart lock layers.
   * Display a map of the current layer on the oled.
-  * Lots of C Macros to make things easier. 
   * Adding a new layer is painless.
   * Adding or changing most things, is not difficult.
   * keymap.c is not required by the keyboard/keymap.
@@ -133,7 +133,7 @@ the config.
 
 All layer macros take 3x10 or 3x12 as needed. Edge cols are
 added as needed, and middle keys fill up the gap.
-Thumb keys are added as needed. 
+Thumb keys are added as asked.
 
 keyboard shapes: 
 Matrix size + 5th row + thumbs.
@@ -257,6 +257,8 @@ Matrix size + thumbs.
    * The number row addition can be turned on and off as needed by the layout.
    * Layouts can hard code the number row, negating the need for giving one.
      
+ * Multiple edge key sets
+ 
  * Multiple Thumb clusters - see config or thumbs.h for up to date choices.
    * Support for multiple definitions. 
      * mods
@@ -284,41 +286,13 @@ Matrix size + thumbs.
        Left and right mods on left and right.
      * Transparent - the default if not chosen.
      * Alt - Non home row mod variant.
-     * miryoku HRMS sacg plus right alt/altgr on third row.
+     * miryoku HRMS is sacg plus right alt/altgr on third row.
 
  * Alternate language/locale support
    * Happens at the lowest level
    * All maps work with any of the [keymap extras.](https://docs.qmk.fm/#/reference_keymap_extras)
    * Language support is simple to add with just a new, very simple macro.
    
-   
-## Note: locales, and accent characters.
-It is possible to use en-international to get a decent selection of 
-accent characters. But en-international does not have dead keys, so it's impossible to
-get any character that is not listed. 
-
-Unicode can also work, but requires a few hoops to jump through in setting up
-the OS to take unicode for it's input method. 
-
-It is for these reasons, that I just use Bepo-fr to get the characters I need.
-French is my primary second language and it has all the characters I need for 
-the languages that I might type, so far. 
-
-I have dvorak and beakl layouts on bepo, so there really is no need for me to switch
-out of bepo-fr on my computer to type english with dvorak.
-
-This works well for any language which uses the latin alphabet. So everything
-you would expect, plus the western slavic languages and probably a few others.
-
-The only caveat, is *alt_local_keys* do not repeat, as they can be multiple
-mods, keycodes, possibly combined with altgr/ralt leader keys.
-This is not usually problem as it is generally limited to punctuation keys.
-
-If you want qwerty with a cyrillic, or non latin alphabet locale, you are out 
-of luck with this trick. It still works, but you will need
-both locales, and you will need to switch your computer and your keyboard 
-between them.
-
 The language keycodes can be found 
 [here.](https://github.com/qmk/qmk_firmware/tree/master/quantum/keymap_extras)
 
