@@ -37,9 +37,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LCTL] = LAYOUT_JP(
         _______,_______,_______,_______,_______,_______,_______  ,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,   LC_Q,   LC_W,   LC_E,   LC_R,   LC_T,    LC_Y ,   LC_U,   LC_I,   LC_O,   LC_P,_______,_______,
-        _______,   LC_A,   LC_S,   LC_D,   LC_F,   LC_G,KC_BSPACE,   LC_J,   LC_K,  LC_L,_______,_______,_______,_______,
-        _______,   LC_Z,   LC_X,   LC_C,   LC_V,   LC_B,   LC_N  ,KC_ENT ,_______,_______,_______,_______,_______,_______,
-        _______,_______,   LCOP,   LCFN,_______,_______,KC_KANA2,_______ ,_______,_______,_______,_______,_______
+        _______,   LC_A,   LC_S,   LC_D,   LC_F,   LC_G,  KC_LEFT,KC_DOWN,  KC_UP,KC_RGHT,_______,_______,_______,_______,
+        _______,   LC_Z,   LC_X,   LC_C,   LC_V,   LC_B,    LC_N , KC_ENT,_______,_______,_______,_______,_______,_______,
+        _______,_______,   LCOP,   LCFN,_______,_______, KC_KANA2,_______,_______,_______,_______,_______,_______
     ),
 //  // mouse IJKL
 //     [_MOUSE] = LAYOUT_JP(
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MOUSE] = LAYOUT_JP(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,KC_WH_L,KC_WH_D,KC_WH_U,KC_WH_R,  XXXXX,  XXXXX,  XXXXX,
-        _______,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,KC_BTN1,  XXXXX,  XXXXX,  XXXXX,
+        _______,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,KC_BTN1,  XXXXX,  XXXXX,_______,
         _______,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,KC_BTN2,KC_BTN1,   XXXXX,  XXXXX,  XXXXX, XXXXX,  _______,  XXXXX,
         MO(_FUNC),XXXXX,  XXXXX,  XXXXX,  XXXXX,KC_BTN1,KC_EISU,KC_MOUSE, XXXXX,  XXXXX, _______,KC_DOWN, _______
   ),
