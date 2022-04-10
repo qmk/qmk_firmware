@@ -185,9 +185,14 @@ def xap_broadcast_listen(device):
         cli.log.info("Stopping...")
 
 
+def xap_unlock(device):
+    _xap_transaction(device, 0x00, 0x04)
+
+
 @cli.argument('-d', '--device', help='device to select - uses format <pid>:<vid>.')
 @cli.argument('-i', '--index', default=0, help='device index to select.')
 @cli.argument('-l', '--list', arg_only=True, action='store_true', help='List available devices.')
+@cli.argument('action', nargs='?', arg_only=True)
 @cli.subcommand('Acquire debugging information from usb XAP devices.', hidden=False if cli.config.user.developer else True)
 def xap(cli):
     """Acquire debugging information from XAP devices
@@ -210,4 +215,12 @@ def xap(cli):
     cli.log.info("Connected to:%04x:%04x %s %s", dev['vendor_id'], dev['product_id'], dev['manufacturer_string'], dev['product_string'])
 
     # xap_doit(device)
-    xap_broadcast_listen(device)
+    if cli.args.action == 'unlock':
+        xap_unlock(device)
+        cli.log.info("Done")
+
+    elif cli.args.action == 'listen':
+        xap_broadcast_listen(device)
+
+    elif not cli.args.action:
+        xap_broadcast_listen(device)

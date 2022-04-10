@@ -1,0 +1,66 @@
+// Copyright 2022 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "secure.h"
+#include "timer.h"
+
+#ifndef SECURE_UNLOCK_TIMEOUT
+#    define SECURE_UNLOCK_TIMEOUT 5000
+#endif
+
+#ifndef SECURE_IDLE_TIMEOUT
+#    define SECURE_IDLE_TIMEOUT 60000
+#endif
+
+secure_status_t secure_status = SECURE_LOCKED;
+static uint32_t unlock_time   = 0;
+static uint32_t idle_time     = 0;
+
+secure_status_t secure_get_status(void) {
+    return secure_status;
+}
+
+bool secure_is_unlocking(void) {
+    return secure_status == SECURE_PENDING;
+}
+
+void secure_lock(void) {
+    secure_status = SECURE_LOCKED;
+}
+
+void secure_unlock(void) {
+    secure_status = SECURE_UNLOCKED;
+    idle_time     = timer_read32();
+}
+
+void secure_request_unlock(void) {
+    if (secure_status == SECURE_LOCKED) {
+        secure_status = SECURE_PENDING;
+        unlock_time   = timer_read32();
+    }
+}
+
+void secure_keypress_event(uint8_t row, uint8_t col) {
+    // TODO: check keypress is actually part of unlock sequence
+    secure_unlock();
+}
+
+void secure_task(void) {
+#if SECURE_UNLOCK_TIMEOUT != 0
+    // handle unlock timeout
+    if (secure_status == SECURE_PENDING) {
+        if (timer_elapsed32(unlock_time) >= SECURE_UNLOCK_TIMEOUT) {
+            secure_lock();
+        }
+    }
+#endif
+
+#if SECURE_IDLE_TIMEOUT != 0
+    // handle idle timeout
+    if (secure_status == SECURE_UNLOCKED) {
+        if (timer_elapsed32(idle_time) >= SECURE_IDLE_TIMEOUT) {
+            secure_lock();
+        }
+    }
+#endif
+}

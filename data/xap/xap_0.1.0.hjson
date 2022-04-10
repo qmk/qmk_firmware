@@ -172,7 +172,21 @@
                         * any other value should be interpreted as disabled
                         '''
                     return_type: u8
-                    return_value: secure_status
+                    return_execute: secure_status
+                }
+                0x04: {
+                    type: command
+                    name: Secure Unlock
+                    define: SECURE_UNLOCK
+                    description: Initiate secure route unlock sequence
+                    return_execute: secure_unlock
+                }
+                0x05: {
+                    type: command
+                    name: Secure Lock
+                    define: SECURE_LOCK
+                    description: Disable secure routes
+                    return_execute: secure_lock
                 }
             }
         },

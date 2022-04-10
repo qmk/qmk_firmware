@@ -16,6 +16,7 @@
 
 #include <quantum.h>
 #include <xap.h>
+#include "secure.h"
 
 void xap_respond_success(xap_token_t token) {
     xap_send(token, XAP_RESPONSE_FLAG_SUCCESS, NULL, 0);
@@ -57,6 +58,21 @@ bool xap_respond_get_info_json_chunk(xap_token_t token, const void *data, size_t
     get_info_json_chunk(offset, (uint8_t *)&ret, sizeof(ret));
 
     return xap_respond_data(token, &ret, sizeof(ret));
+}
+
+bool xap_respond_secure_status(xap_token_t token, const void *data, size_t length) {
+    uint8_t ret = secure_get_status();
+    return xap_respond_data(token, &ret, sizeof(ret));
+}
+
+bool xap_respond_secure_unlock(xap_token_t token, const void *data, size_t length) {
+    secure_request_unlock();
+    return xap_respond_data(token, NULL, 0);
+}
+
+bool xap_respond_secure_lock(xap_token_t token, const void *data, size_t length) {
+    secure_lock();
+    return xap_respond_data(token, NULL, 0);
 }
 
 // TODO: how to set this if "custom" is just an empty stub

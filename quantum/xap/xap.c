@@ -16,6 +16,7 @@
 
 #include <quantum.h>
 #include <xap.h>
+#include "secure.h"
 
 #include "info_json_gz.h"
 bool get_info_json_chunk(uint16_t offset, uint8_t *data, uint8_t data_len) {
@@ -26,8 +27,6 @@ bool get_info_json_chunk(uint16_t offset, uint8_t *data, uint8_t data_len) {
     memcpy_P(data, &info_json_gz[offset], data_len);
     return true;
 }
-
-uint8_t secure_status = 2;
 
 #define QSTR2(z) #z
 #define QSTR(z) QSTR2(z)
@@ -86,10 +85,17 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
         xap_route_t route;
         memcpy_P(&route, &routes[id], sizeof(xap_route_t));
 
-        if (route.flags.is_secure && secure_status != 2) {
+        if (route.flags.is_secure && secure_get_status() != SECURE_UNLOCKED) {
             xap_respond_failure(token, XAP_RESPONSE_FLAG_SECURE_FAILURE);
             return;
         }
+
+        // TODO: All other subsystems are disabled during unlock.
+        //       how to flag status route as still allowed?
+        // if (!route.flags.is_secure && secure_get_status() == SECURE_PENDING) {
+        //     xap_respond_failure(token, XAP_RESPONSE_FLAG_UNLOCK_IN_PROGRESS);
+        //     return;
+        // }
 
         switch (route.flags.type) {
             case XAP_ROUTE:
@@ -133,4 +139,14 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
 
 void xap_receive(xap_token_t token, const uint8_t *data, size_t length) {
     xap_execute_route(token, xap_route_table, sizeof(xap_route_table) / sizeof(xap_route_t), data, length);
+}
+
+void xap_event_task(void) {
+    static secure_status_t last_status = -1;
+
+    secure_status_t status = secure_get_status();
+    if (last_status != status) {
+        last_status = status;
+        xap_broadcast_secure_status(status);
+    }
 }
