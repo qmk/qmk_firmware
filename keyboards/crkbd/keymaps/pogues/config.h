@@ -30,21 +30,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // for the following options look at https://precondition.github.io/home-row-mods
 
-// use tapping term to decide when to apply the modifier rather than the next keypress. 
+// use tapping term to decide when to apply the modifier rather than the next keypress.
 // This stops rolling [D(a), D(b), U(a), U(b)] from triggering the modified version
 //#define IGNORE_MOD_TAP_INTERRUPT
 
-// the following removes auto repeat on keys, but allows a key to be tapped then immediately 
+// the following removes auto repeat on keys, but allows a key to be tapped then immediately
 // held to activate the modifier.  (without this tap and hold would autorepeat)
 //#define TAPPING_FORCE_HOLD
 
 // permissive hold means D(a), D(b), U(b), U(a) will always emit the modified version of b,
 // without this if the above is within tapping tarm you get ab instead.
-//#define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD
 //#define TAPPING_TERM 100
 
 #define ONESHOT_TAP_TOGGLE 2
 #define ONESHOT_TIMEOUT 2000
+
+// Turn off Caps Word after 5 seconds.
+//#define CAPS_WORD_IDLE_TIMEOUT 5000
+
+// set the leader key timeout
+#define LEADER_TIMEOUT 300
+// leader timeout is for the whole sequence by default.  to have it per key set:
+// #define LEADER_PER_KEY_TIMING
 
 #ifdef RGBLIGHT_ENABLE
     // enable light change on layer change

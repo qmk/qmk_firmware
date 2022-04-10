@@ -18,40 +18,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
+#include "features/caps_word.h"
 
 /*******************************************************************************
  * TODO.
- * look at the mods on the lower row - are any used?
  * sort out oled display
- * look at lag on keyboard..
- * consider a function key layer... ?
- *
+ * fix the colours for the motion, function, symbol and mouse + leader
  *******************************************************************************/
+
 enum userspace_layers {
     LCMK = 0,
-    LRAISE = 1,
-    LLOWER = 2,
-    LMOUSE = 3,
+    LNUM = 1,
+    LMOV = 2,
+    LSYM = 3,
+    LFUN = 4,
+    LMSE = 5,
 };
 
 // the layer mask
 #define L_COLEMAK LCMK
-#define LMASK_RAISE (1 << LRAISE)
-#define LMASK_LOWER (1 << LLOWER)
-#define LMASK_MOUSE (1 << LMOUSE)
+#define LMASK_NUM (1 << LNUM)
+#define LMASK_MOV (1 << LMOV)
+#define LMASK_SYM (1 << LSYM)
+#define LMASK_FUN (1 << LFUN)
+#define LMASK_MSE (1 << LMSE)
 
 #define MY_CESC MT(MOD_LCTL, KC_ESC)
 #define MY_CENT MT(MOD_LCTL, KC_ENT)
 #define MY_S_SL MT(MOD_LSFT, KC_SLSH)
 #define MY_S_Z  MT(MOD_LSFT, KC_Z)
-#define MY_C_X  MT(MOD_LCTL, KC_X)
-#define MY_TBUI MT(MOD_LGUI, KC_TAB)
-#define MY_CLFT C(KC_LEFT)
-#define MY_CRGT C(KC_RGHT)
-#define MY_UNDO C(KC_U)
+#define MY_UNDO C(KC_Z)
 #define MY_REDO C(KC_Y)
 #define MY_COPY C(KC_C)
 #define MY_PSTE C(KC_V)
+#define MY_CUT  C(KC_X)
 
 // rename some keys here to allow for the difference in keymap between US and GB
 #define MY_PIPE LSFT(KC_NUBS)
@@ -65,110 +65,253 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // colemak-dh
     [LCMK] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            MY_TBUI,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_DEL,
+             KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_UNDS,  KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             MY_CESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, MY_CENT,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      OSM(MOD_LSFT),  MY_S_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, MY_S_SL, KC_LALT,
+            KC_LEAD,  MY_S_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, MY_S_SL, KC_LEAD,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                             KC_LGUI, TO(LRAISE), KC_SPC,     KC_BSPC, TO(LLOWER), KC_ENT
+                            //KC_LGUI, LT(LMOV, KC_TAB), LT(LNUM, KC_SPC),    LT(LSYM, KC_BSPC), LT(LFUN, KC_ENT), KC_LALT
+            MT(MOD_LGUI, KC_ESC), LT(LMOV, KC_TAB), LT(LNUM, KC_SPC),            LT(LSYM, KC_BSPC), LT(LFUN, KC_ENT), MT(MOD_LALT, KC_DEL)
                                             //`--------------------------'  `--------------------------'
     ),
-    [LRAISE] = LAYOUT_split_3x6_3(
+    [LNUM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            _______,   MY_AT, KC_COLN, KC_LPRN, KC_RPRN, MY_PIPE,                      KC_PLUS, KC_7, KC_8, KC_9, KC_PERC, _______,
+            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_PLUS,    KC_7,    KC_8,    KC_9, KC_PERC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            _______, MY_DQUO, KC_QUOT, KC_LBRC, KC_RBRC, KC_UNDS,                      KC_MINS, KC_4, KC_5, KC_6, KC_ASTR, _______,
+            _______, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_COMM,                      KC_MINS,    KC_4,    KC_5,    KC_6, KC_ASTR, _______,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            _______,   KC_LT,   KC_GT, KC_LCBR, KC_RCBR,  KC_DLR,                      KC_EQL, KC_1, KC_2, KC_3, KC_SLSH, _______,
+            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_DOT, XXXXXXX,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, TO(LCMK), _______,     _______,  TO(LLOWER), KC_0
+                                              XXXXXXX, XXXXXXX,  _______,     KC_BSPC,  KC_0, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
-    [LLOWER] = LAYOUT_split_3x6_3(
+    [LMOV] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-           _______,   MY_GBP, MY_CRGT, KC_COLN, KC_SCLN, MY_CLFT,                      MY_COPY, MY_PSTE, MY_UNDO, MY_REDO, XXXXXXX, _______,
+            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       MY_CUT, MY_COPY, MY_PSTE, MY_REDO, MY_UNDO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            _______,   MY_AT, KC_EXLM, KC_NUHS, MY_TILD, KC_CIRC,                      XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______,
+            _______, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            _______,TO(LMOUSE),KC_GRV, KC_NUBS, KC_AMPR, XXXXXXX,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, _______,
+            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               _______, TO(LCMK), _______,     _______,  TO(LMOUSE), _______
+                                              XXXXXXX, _______,  XXXXXXX,     KC_BSPC,  KC_ENT, XXXXXXX
                                             //`--------------------------'  `--------------------------'
     ),
-    [LMOUSE] = LAYOUT_split_3x6_3(
+    [LSYM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            _______, RESET,   XXXXXXX,  KC_MS_UP,    XXXXXXX, XXXXXXX,            KC_MS_BTN3,   KC_F7,   KC_F8,   KC_F9, XXXXXXX, _______,
+            XXXXXXX, KC_SCLN, KC_COLN, KC_LPRN, KC_RPRN, MY_PIPE,                      KC_PLUS, KC_COLN, KC_SCLN, KC_QUES,  MY_GBP, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            _______, XXXXXXX,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT, KC_WH_U,            KC_MS_BTN1,   KC_F4,   KC_F5,   KC_F6, XXXXXXX, _______,
+            _______, MY_DQUO, KC_QUOT, KC_LBRC, KC_RBRC, KC_UNDS,                      KC_MINS, KC_NUHS,   MY_AT, KC_EXLM, KC_AMPR, _______,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            _______, XXXXXXX,KC_MS_BTN3,KC_MS_BTN2, KC_MS_BTN1, KC_WH_D,            KC_MS_BTN2,   KC_F1,   KC_F2,   KC_F3, XXXXXXX, _______,
+            XXXXXXX,   KC_LT,   KC_GT, KC_LCBR, KC_RCBR,  KC_DLR,                       KC_EQL, MY_TILD, KC_CIRC,  KC_GRV, KC_NUBS, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                _______, TO(LCMK),_______,    _______,  TO(LRAISE), KC_F10
+                                              _______, KC_TAB,  KC_SPC,     _______,  XXXXXXX, XXXXXXX
+                                            //`--------------------------'  `--------------------------'
+    ),
+    [LFUN] = LAYOUT_split_3x6_3(
+        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+            XXXXXXX, XXXXXXX,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            _______,TO(LMSE),   KC_F4,   KC_F5,   KC_F6,  KC_F11,                      XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            XXXXXXX, XXXXXXX,   KC_F1,   KC_F2,   KC_F3,  KC_F12,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                               XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  _______, XXXXXXX
+                                            //`--------------------------'  `--------------------------'
+    ),
+    [LMSE] = LAYOUT_split_3x6_3(
+        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+            XXXXXXX, RESET,   XXXXXXX,  KC_MS_UP,    XXXXXXX, XXXXXXX,             KC_MS_BTN3,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            XXXXXXX, XXXXXXX,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT, KC_WH_U,            KC_MS_BTN1, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,
+        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+            XXXXXXX, XXXXXXX,KC_MS_BTN3,KC_MS_BTN2, KC_MS_BTN1, KC_WH_D,            KC_MS_BTN2,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,
+        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                                _______, TO(LCMK),_______,    _______,  TO(LCMK), XXXXXXX
                                             //`--------------------------'  `--------------------------'
     )
 };
 
 
 /*******************************************************************************
+ * caps word
+ *******************************************************************************/
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    if (!process_caps_word(keycode, record)) {
+        return false;
+    }
+
+    return true;
+}
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to the next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+        case KC_DOT:
+        case KC_MINS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
+
+
+void caps_word_set_user(bool active) {
+    if (active) {
+        // TODO set LED
+        // Do something when Caps Word activates.
+    } else {
+        // Do something when Caps Word deactivates.
+    }
+}
+
+/*******************************************************************************
+ * leader key
+ *******************************************************************************/
+LEADER_EXTERNS();
+
+void matrix_scan_user(void) {
+#if CAPS_WORD_IDLE_TIMEOUT > 0
+     caps_word_task();
+#endif
+
+    LEADER_DICTIONARY() {
+        leading = false;
+        leader_end();
+
+        SEQ_ONE_KEY(KC_C) {
+            // toggle capsword
+            caps_word_set(!caps_word_get());
+        }
+        SEQ_ONE_KEY(KC_O) {
+            register_code(KC_LCTL);
+            register_code(KC_LSFT);
+            tap_code(KC_O);
+            unregister_code(KC_LSFT);
+            unregister_code(KC_LCTL);
+        }
+        SEQ_ONE_KEY(KC_R) {
+            tap_code(KC_F9);
+        }
+        SEQ_TWO_KEYS(KC_R, KC_R) {
+            register_code(KC_LCTL);
+            tap_code(KC_F10);
+            unregister_code(KC_LCTL);
+        }
+        SEQ_ONE_KEY(KC_T) {
+            register_code(KC_LCTL);
+            register_code(KC_LSFT);
+            tap_code(KC_F10);
+            unregister_code(KC_LSFT);
+            unregister_code(KC_LCTL);
+        }
+    }
+}
+
+/*******************************************************************************
  * RGB lighting on layer change
+ * following are the LED numbers
+ * |------|------|------|------|------|------|            |------|------|------|------|------|
+ * |  25  |  24  |  19  |  18  |  11  |  10  |            |      |      |      |      |      |
+ * |------|------|------|------|------|------|            |------|------|------|------|------|
+ * |  26  |  23  |  20  |  17  |  12  |  9   |            |      |      |      |      |      |
+ * |------|------|------|------|------|------|            |------|------|------|------|------|
+ * |  27  |  22  |  21  |  16  |  13  |  8   |            |      |      |      |      |      |
+ * |------|------|------|------|------|------|            |------|------|------|------|------|
+ *                      |  15  |  14  |  7   |            |      |      |
+ *                      |------|------|------|            |------|------|
+ *
+ * reverse
+ *      |------|------|------|
+ *      |   1  |   2  |   3  |
+ *      |------|------|------|
+ *      |   4  |   5  |   6  |
+ *      |------|------|------|
+ *
  ******************************************************************************/
+
 const rgblight_segment_t PROGMEM layer_default_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 27, HSV_OFF},
-    {27, 54, HSV_OFF}
+    {0, 54, HSV_OFF}
 );
 
 const rgblight_segment_t PROGMEM layer_numpad_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 10, HSV_YELLOW},
-    {10, 5, HSV_BLUE},
-    {15, 3, HSV_GREEN},
-    {18, 3, HSV_ORANGE},
-    {21, 3, HSV_RED},
-    {27, 10, HSV_YELLOW},
-    {37, 5, HSV_BLUE},
-    {42, 3, HSV_GREEN},
-    {45, 3, HSV_ORANGE},
-    {48, 3, HSV_RED}
+    {0, 8, HSV_OFF},
+    {8, 1, HSV_YELLOW},   // comma
+    {9, 2, HSV_OFF},
+    {11, 1, HSV_BLUE},    // gui
+    {12, 1, HSV_YELLOW},  // dot
+    {13, 3, HSV_OFF},
+    {16, 1, HSV_GREEN},   // alt
+    {17, 2, HSV_OFF},
+    {19, 1, HSV_ORANGE},  // ctrl
+    {20, 2, HSV_OFF},
+    {22, 1, HSV_RED},     // shift
+    {23, 4, HSV_OFF},
+    // right hand side
+    {27, 7, HSV_OFF},
+    {34, 7, HSV_ORANGE},
+    {41, 1, HSV_OFF},
+    {42, 12, HSV_ORANGE}
 );
 
 const rgblight_segment_t PROGMEM layer_symbols_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 54, HSV_BLUE}
+    {0, 6, HSV_OFF},
+    {6, 19, HSV_GREEN},
+    {25, 1, HSV_OFF},
+    {26, 1, HSV_GREEN},
+    {27, 7, HSV_OFF},
+    {34, 7, HSV_GREEN},
+    {41, 2, HSV_OFF},
+    {43, 9, HSV_GREEN},
+    {52, 1, HSV_OFF},
+    {53, 1, HSV_GREEN},
+    {54, 1, HSV_OFF}
 );
 
 const rgblight_segment_t PROGMEM layer_motion_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 54, HSV_RED}
+    {0, 11, HSV_OFF},
+    {11, 1, HSV_BLUE},    // gui
+    {12, 4, HSV_OFF},
+    {16, 1, HSV_GREEN},   // alt
+    {17, 2, HSV_OFF},
+    {19, 1, HSV_ORANGE},  // ctrl
+    {20, 2, HSV_OFF},
+    {22, 1, HSV_RED},     // shift
+    {23, 4, HSV_OFF},
+    // right hand side
+    {27, 7, HSV_OFF},
+    {34, 7, HSV_BLUE},
+    {41, 1, HSV_OFF},
+    {42, 12, HSV_BLUE}
 );
 
-const rgblight_segment_t PROGMEM oneshot_shift_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 10, HSV_GREEN},
-    {27, 10, HSV_GREEN}
+const rgblight_segment_t PROGMEM layer_functions_lights[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 54, HSV_PURPLE}
 );
 
-const rgblight_segment_t PROGMEM oneshot_shift_locked_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 10, HSV_RED},
-    {27, 10, HSV_RED}
-);
-
-const rgblight_segment_t PROGMEM oneshot_ctrl_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 10, HSV_ORANGE},
-    {27, 10, HSV_ORANGE}
-);
-
-const rgblight_segment_t PROGMEM oneshot_ctrl_locked_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 10, HSV_GREEN},
-    {27, 10, HSV_GREEN}
+const rgblight_segment_t PROGMEM layer_mouse_lights[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 10, HSV_CYAN},
+    {27, 10, HSV_CYAN}
 );
 
 // now we need the array of layers
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     layer_default_lights,
     layer_numpad_lights,
-    layer_symbols_lights,
     layer_motion_lights,
-    oneshot_shift_lights,
-    oneshot_shift_locked_lights,
-    oneshot_ctrl_lights,
-    oneshot_ctrl_locked_lights
+    layer_symbols_lights,
+    layer_functions_lights,
+    layer_mouse_lights
 );
 
 void keyboard_post_init_user(void) {
@@ -179,50 +322,17 @@ void keyboard_post_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, LCMK));
-    rgblight_set_layer_state(1, layer_state_cmp(state, LRAISE));
-    rgblight_set_layer_state(2, layer_state_cmp(state, LLOWER));
-    rgblight_set_layer_state(3, layer_state_cmp(state, LMOUSE));
+    rgblight_set_layer_state(1, layer_state_cmp(state, LNUM));
+    rgblight_set_layer_state(2, layer_state_cmp(state, LMOV));
+    rgblight_set_layer_state(3, layer_state_cmp(state, LSYM));
+    rgblight_set_layer_state(4, layer_state_cmp(state, LFUN));
+    rgblight_set_layer_state(5, layer_state_cmp(state, LMSE));
     return state;
 }
 /*******************************************************************************
  * END RGB lighting on layer change
  ******************************************************************************/
 
-/*******************************************************************************
- * RGB lighting on one shot mod change
- ******************************************************************************/
-void oneshot_mods_changed_user(uint8_t mods) {
-    if (mods & MOD_MASK_SHIFT) {
-        rgblight_set_layer_state(4, true);
-    }
-    else if (mods & MOD_MASK_CTRL) {
-        rgblight_set_layer_state(6, true);
-    }
-
-    // other mods are MOD_MASK_ALT MOD_MASK_GUI
-    else {  // (!mods)
-        rgblight_set_layer_state(4, false);
-        rgblight_set_layer_state(6, false);
-    }
-}
-
-
-void oneshot_locked_mods_changed_user(uint8_t mods) {
-    if (mods & MOD_MASK_SHIFT) {
-        rgblight_set_layer_state(5, true);
-    }
-    else if (mods & MOD_MASK_CTRL) {
-        rgblight_set_layer_state(7, true);
-    }
-    else { // !mods
-        rgblight_set_layer_state(5, false);
-        rgblight_set_layer_state(7, false);
-    }
-}
-
-/*******************************************************************************
- * END RGB lighting on one shot mod change
- ******************************************************************************/
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
