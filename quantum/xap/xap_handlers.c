@@ -16,7 +16,13 @@
 
 #include <quantum.h>
 #include <xap.h>
+
 #include "secure.h"
+#ifndef SECURE_ENABLE
+#    define secure_get_status() SECURE_UNLOCKED
+#    define secure_request_unlock()
+#    define secure_lock()
+#endif
 
 void xap_respond_success(xap_token_t token) {
     xap_send(token, XAP_RESPONSE_FLAG_SUCCESS, NULL, 0);

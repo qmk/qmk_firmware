@@ -69,7 +69,7 @@ struct __attribute__((packed)) xap_route_t {
 
         // XAP_VALUE / XAP_CONST_MEM
         struct {
-            const void *  const_data;
+            const void   *const_data;
             const uint8_t const_data_len;
         };
     };
@@ -85,6 +85,7 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
         xap_route_t route;
         memcpy_P(&route, &routes[id], sizeof(xap_route_t));
 
+#ifdef SECURE_ENABLE
         if (route.flags.is_secure && secure_get_status() != SECURE_UNLOCKED) {
             xap_respond_failure(token, XAP_RESPONSE_FLAG_SECURE_FAILURE);
             return;
@@ -96,6 +97,7 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
         //     xap_respond_failure(token, XAP_RESPONSE_FLAG_UNLOCK_IN_PROGRESS);
         //     return;
         // }
+#endif
 
         switch (route.flags.type) {
             case XAP_ROUTE:
@@ -142,6 +144,7 @@ void xap_receive(xap_token_t token, const uint8_t *data, size_t length) {
 }
 
 void xap_event_task(void) {
+#ifdef SECURE_ENABLE
     static secure_status_t last_status = -1;
 
     secure_status_t status = secure_get_status();
@@ -149,4 +152,5 @@ void xap_event_task(void) {
         last_status = status;
         xap_broadcast_secure_status(status);
     }
+#endif
 }
