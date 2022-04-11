@@ -28,6 +28,20 @@ enum custom_user_layers {
     _MOUSEKEY,
 };
 
+#define KC_CAD LALT(LCTL(KC_DEL))
+#define KC_AF4 LALT(KC_F4)
+#define KC_TASK LCTL(LSFT(KC_ESC))
+#define CT_PGUP RCTL(KC_PGUP)
+#define CT_PGDN RCTL(KC_PGDN)
+#define CT_HOME RCTL(KC_HOME)
+#define CT_END RCTL(KC_END)
+#define KC_SFTUP RSFT_T(KC_UP) // Shift when held, Up arrow when tapped
+#define KC_RAISESPC LT(_MOUSEKEY, KC_SPC) // _MOUSEKEY layer mod when held, space when tapped
+#define KC_LOWERSPC LT(_NUMPADMOUSE, KC_SPC) // _NUMPAD-MOUSE layer mod when held, space when tapped
+#define KC_SHIFTSPC LSFT(KC_SPC)
+#define SWAP_L SGUI(KC_LEFT) // Swap application to left display
+#define SWAP_R SGUI(KC_RGHT) // Swap application to right display
+
 // KEYCODES
 enum custom_user_keycodes {
     KC_00 = SAFE_RANGE,
@@ -55,18 +69,6 @@ enum custom_user_keycodes {
         NEW_SAFE_RANGE // new safe range for keymap level custom keycodes
 };
 
-#define KC_CAD LALT(LCTL(KC_DEL))
-#define KC_AF4 LALT(KC_F4)
-#define KC_TASK LCTL(LSFT(KC_ESC))
-#define CT_PGUP RCTL(KC_PGUP)
-#define CT_PGDN RCTL(KC_PGDN)
-#define CT_HOME RCTL(KC_HOME)
-#define CT_END RCTL(KC_END)
-#define KC_SFTUP RSFT_T(KC_UP) // Shift when held, Up arrow when tapped
-#define KC_RAISESPC LT(_MOUSEKEY, KC_SPC) // _MOUSEKEY layer mod when held, space when tapped
-#define KC_LOWERSPC LT(_NUMPADMOUSE, KC_SPC) // _NUMPAD-MOUSE layer mod when held, space when tapped
-#define KC_SHIFTSPC LSFT(KC_SPC)
-
 #ifdef TD_LSFT_CAPSLOCK_ENABLE
 // Tap Dance Definitions
 enum custom_tapdance {
@@ -74,7 +76,6 @@ enum custom_tapdance {
     TD_LSFT_CAPS_WIN,
     TD_ESC_BASELYR
 };
-
 #define KC_LSFTCAPS TD(TD_LSFT_CAPSLOCK)
 #define KC_LSFTCAPSWIN TD(TD_LSFT_CAPS_WIN)
 #define KC_ESCLYR TD(TD_ESC_BASELYR)
