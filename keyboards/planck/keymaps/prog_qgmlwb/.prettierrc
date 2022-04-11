@@ -1,0 +1,18 @@
+{
+    "printWidth": 120,
+    "tabWidth": 4,
+    "overrides": [
+        {
+            "files": "*.json",
+            "options": {
+                "printWidth": 50
+            }
+        },
+        {
+            "files": "layers.json",
+            "options": {
+                "printWidth": 1000
+            }
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+[
+    [
+        { "c":"#929292", "t":"#363636", "a":7 },
+            "",
+        { "c":"#007c00", "t":"#000000" },
+            "Reset", "Debug", "RGB Toggle", "RGB Mode+", "Hue+", "Hue-", "Sat+", "Sat-", "Bright+", "Bright-", "Del"
+    ],
+    [
+        { "c":"#929292" },
+            "",
+        { "f":6 },
+            "",
+        { "c":"#007c00", "f":3 },
+            "Mus Cycle", "Aud on", "Aud off", "Ag Norm", "Ag Swap",
+        { "c":"#3c3c3c", "t":"#ffffff" },
+            "Dvor-ak", "Cole-mac", "Qwe-rty", "Qgml-En", "Qgml-No"
+    ],
+    [
+        { "c":"#929292", "t":"#ffffff" },
+            "",
+        { "c":"#007c00", "t":"#000000" },
+            "Voice-", "Voice+", "Mus on", "Mus off", "MIDI on", "MIDI off", "Term on", "Term off",
+        { "c":"#929292", "f":6 },
+            "", "",
+        { "c":"#3c3c3c", "t":"#ffffff", "f":3 },
+            "Plover"
+    ],
+    [
+        { "c":"#929292", "t":"#ffffff" },
+            "", "", "", "",
+        { "t":"#000000" },
+            "",
+        { "w":2 },
+            "", "", "", "", "", ""
+    ]
+]
