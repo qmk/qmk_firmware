@@ -3,6 +3,7 @@
 *.swp
 *~
 .DS_Store
+._*
 
 # Build artifacts
 .clang_complete

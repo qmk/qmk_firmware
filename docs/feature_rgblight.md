@@ -22,6 +22,8 @@ On keyboards with onboard RGB LEDs, it is usually enabled by default. If it is n
 RGBLIGHT_ENABLE = yes
 ```
 
+?> There are additional configuration options for ARM controllers that offer increased performance over the default WS2812 bitbang driver. Please see [WS2812 Driver](ws2812_driver.md) for more information.
+
 For APA102 LEDs, add the following to your `rules.mk`:
 
 ```make
