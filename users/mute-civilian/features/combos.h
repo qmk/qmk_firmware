@@ -3,9 +3,9 @@
 
 enum combo_events {
   COMBO_ALFRED,
-  COMBO_ALFRED_MM,
   COMBO_AMPERSAND,
   /* COMBO_BSPC, */
+  /* COMBO_BSPC_NUM, */
   COMBO_CLICK_L,
   COMBO_CLICK_R,
   COMBO_DASH,
@@ -15,7 +15,6 @@ enum combo_events {
   COMBO_L_CURLY_BRACE,
   COMBO_L_PAREN,
   COMBO_L_SQR_BRACK,
-  COMBO_NUMBAK,
   COMBO_QUOT,
   COMBO_R_CURLY_BRACE,
   COMBO_R_PAREN,
@@ -31,6 +30,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 const uint16_t PROGMEM combo_alfred[]      = {  NAV_SPACE,  SYM_ENT,     COMBO_END};
 const uint16_t PROGMEM combo_ampersand[]   = {  KC_I,       KC_U,        COMBO_END};
 /* const uint16_t PROGMEM combo_bspc[]         = {  KC_O,       KC_P,        COMBO_END}; */
+/* const uint16_t PROGMEM combo_bspc_num[]    = {  KC_EQL,     KC_9,        COMBO_END}; */
 const uint16_t PROGMEM combo_click_left[]  = {  SYM_ENT,    WORDS_BACK,  COMBO_END};
 const uint16_t PROGMEM combo_click_right[] = {  MISC_DEL,   NAV_SPACE,   COMBO_END};
 const uint16_t PROGMEM combo_dash[]        = {  KC_DOT,     SYM_SLSH,    COMBO_END};
@@ -40,7 +40,6 @@ const uint16_t PROGMEM combo_esc[]         = {  KC_CA,      KC_AS,       COMBO_E
 const uint16_t PROGMEM combo_l_curly[]     = {  DRAG_V,     KC_B,        COMBO_END};
 const uint16_t PROGMEM combo_l_paren[]     = {  MOU_G,      KC_SF,       COMBO_END};
 const uint16_t PROGMEM combo_l_sqr_brack[] = {  KC_R,       KC_T,        COMBO_END};
-const uint16_t PROGMEM combo_numbak[]      = {  KC_EQL,     KC_9,        COMBO_END};
 const uint16_t PROGMEM combo_quot[]        = {  KC_AL,      KC_CSCLN,    COMBO_END};
 const uint16_t PROGMEM combo_r_curly[]     = {  KC_N,       DRAG_M,      COMBO_END};
 const uint16_t PROGMEM combo_r_paren[]     = {  MOU_H,      KC_SJ,       COMBO_END};
@@ -56,6 +55,7 @@ combo_t key_combos[] = {
   [COMBO_ALFRED]         = COMBO(  combo_alfred,       LGUI(KC_SPC)),
   [COMBO_AMPERSAND]      = COMBO(  combo_ampersand,    KC_AMPERSAND),
   /* [COMBO_BSPC]           = COMBO(  combo_bspc,         KC_BSPC), */
+  /* [COMBO_BSPC_NUM        = COMBO(  combo_bspc_num,     KC_BSPC), */
   [COMBO_CLICK_L]        = COMBO(  combo_click_left,   L_CLICK),
   [COMBO_CLICK_R]        = COMBO(  combo_click_right,  R_CLICK),
   [COMBO_DASH]           = COMBO(  combo_dash,         KC_MINUS),
@@ -65,7 +65,6 @@ combo_t key_combos[] = {
   [COMBO_L_CURLY_BRACE]  = COMBO(  combo_l_curly,      KC_LCBR),
   [COMBO_L_PAREN]        = COMBO(  combo_l_paren,      KC_LEFT_PAREN),
   [COMBO_L_SQR_BRACK]    = COMBO(  combo_l_sqr_brack,  KC_LBRC),
-  [COMBO_NUMBAK]         = COMBO(  combo_numbak,       KC_BSPC),
   [COMBO_QUOT]           = COMBO(  combo_quot,         KC_QUOT),
   [COMBO_R_CURLY_BRACE]  = COMBO(  combo_r_curly,      KC_RCBR),
   [COMBO_R_PAREN]        = COMBO(  combo_r_paren,      KC_RIGHT_PAREN),
