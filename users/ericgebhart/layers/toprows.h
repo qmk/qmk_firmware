@@ -32,7 +32,8 @@
 // set it how you like it, if you like it.
 
 
-#define ___MODS_ROW___ ___OS_MODS_L___, ___, ___SML_MODS_R___
+//#define ___MODS_ROW___ ___OS_MODS_L___, ___, ___SML_MODS_R___
+#define ___MODS_ROW___ ___SML_MODS_L___, ___, ___OS_MODS_R___
 /********************************************************************************/
 /* TOPROWS Layer chunk                                                          */
 /********************************************************************************/
@@ -51,7 +52,7 @@
 #define CARTE_TOPROWS_MOD                       \
   carte_de_map("   !@#$%  ^&*()",               \
                "   40123  76598",               \
-               "  OSMods  SLMods")
+               "  SLMods  OSMods")
 
 #define ___TOPROWS_MOD_3x10___                  \
   ___10_SYMBOLS___,                             \

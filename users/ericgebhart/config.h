@@ -81,12 +81,12 @@
 
 // Choose a mod layer. Can be changed per layer.
 // TRNS, ALT, HRM_GACS, HRM_SCAG, HRM_GASC, MIRYOKU_HRM_GASC
-#define MODS_ARE ALT
+#define MODS_ARE TRNS
 #define DEFAULT_MODS MODS_ARE
 
 // Choose a thumb cluster.
 // WI, WIa, DEFAULT, TEST, TRNS, MODS, LAYERS, MODS_LAYERS,
-// MIRYOKU, MIRYOKU_TR,
+// MIRYOKU, MIRYOKU_TR, MODS_LAYERS_NAV,
 // The following use THUMB_LETTER to place a letter on the Thumbs.
 // for use with the hands down metals, maltron, and rsthd.
 // HD, HDA, HD_SIMPLE, TH_LTR, HD_DASH,
@@ -208,7 +208,7 @@
 // define alternate thumb definitions for the transient layers.
 #define MEDIA_LAYER_THUMBS MEDIA_THUMBS
 #define MOUSE_LAYER_THUMBS MOUSE_THUMBS
-#define NAV_LAYER_THUMBS MOUSE_THUMBS
+#define NAV_LAYER_THUMBS TRNS_THUMBS
 #define KEYPAD_LAYER_THUMBS KEYPAD_THUMBS
 #define SYMB_LAYER_THUMBS SYMB_THUMBS
 #define TOPROWS_LAYER_THUMBS DEFAULT

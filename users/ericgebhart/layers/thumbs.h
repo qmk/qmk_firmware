@@ -42,7 +42,7 @@
   BSPC_NAV, I_SYMB, ESC_TOPR, ENT_NAV, SPC_TOPR, TAB_NUM
 
 #define ___6_ERGO_THUMBS_layers___                              \
-  TT(_NAV), BSPC_SYMB, ESC_TOPR, ENT_NAV, SPC_TOPR, OS_LSFT
+  SML_NAV, BSPC_SYMB, ESC_TOPR, ENT_NAV, SPC_TOPR, ACCCENTS_RALT
 
 #define ___6_ERGO_THUMBS_COMBO___ CB_TH1, CB_TH2, CB_TH3, CB_TH4, CB_TH5, CB_TH6
 #define ___6_ERGO_THUMBS_COMBO2___ CB2_TH1, CB2_TH2, CB2_TH3, CB2_TH4, CB2_TH5, CB2_TH6
@@ -58,23 +58,26 @@
   ALT_DEL, CTL_BSPC, GUI_ESC,  ALT_ENT, CTL_SPC, XC_XM_PORD
 
 #define ___6_ERGO_THUMBS_mod_layers___                          \
-  ALT_DEL, BSPC_SYMB, GUI_ESC,  CTL_ENT, SPC_TOPR, KC_RALT
+  ALT_DEL, BSPC_SYMB, GUI_ESC,  CTL_ENT, SPC_TOPR, ACCENTS_RALT
+
+#define ___6_ERGO_THUMBS_mod_layers_nav___                      \
+  SML_NAV, BSPC_SYMB, GUI_ESC,  ENT_NAV, SPC_TOPR, ACCENTS_RALT
 
 // for keymaps that need a letter on the thumb.
-#define ___6_ERGO_THUMBS_left_letter___                         \
-  BSPC_ALT, TH_LTR_SYM, GUI_ESC,  CTL_ENT, SPC_TOPR, ACCENTS_RALT
+#define ___6_ERGO_THUMBS_left_letter___                                 \
+  BSPC_ALT, TH_LTR_SYM, GUI_ESC,  ENT_NAV, SPC_TOPR, ACCENTS_RALT
 
 // an attempt at an approximation of the HD thumbs as they are on the site.
 // really should be expected to be a starting point that doesnt strand you.
 #define ___6_ERGO_THUMBS_hd___                                  \
-  BSPC_ALT, TH_LTR_SYM, GUI_ESC, ALT_ENT, SPC_TOPR, ACCENTS_CTL
+  BSPC_ALT, TH_LTR_SYM, GUI_ESC, ENT_NAV, SPC_TOPR, ACCENTS_CTL
 #define ___6_ERGO_THUMBS_hd_a___                                        \
   OS_LSHIFT, TH_LTR_SYM, GUI_ESC, BSPC_ALT, SPC_TOPR, ACCENTS_CTL
 #define ___6_ERGO_THUMBS_hd_simple___                   \
   MO_SYMB, THUMB_LETTER, KC_ENT, KC_BSPC, KC_SPC, MO_TOPROWS
 /* HD dash has thumbs of ,; and .:        */
 #define ___6_ERGO_THUMBS_hd_dash___                                     \
-  LANG_KC(TL_COMM), TL_DOT_SYMB, GUI_ESC, ALT_ENT, SPC_TOPR, BSPC_NUM
+  LANG_KC(TL_COMM), TL_DOT_SYMB, GUI_ESC, ENT_NAV, SPC_TOPR, BSPC_NUM
 
 #define ___6_ERGO_THUMBS_media___ ___3___, ___STOP_PLAY_MUTE___
 #define ___6_ERGO_THUMBS_mouse___ ___3___, ___3MOUSE_BTNS_R___
@@ -105,12 +108,13 @@
 #define THUMB_EXT CAT(THUMBS_ARE, _EXT)
 #define WI_EXT _WI___
 #define WIa_EXT _WIa___
-#define DEFAULT_EXT _mod_layers___  //change this to change the default.
+#define DEFAULT_EXT _mod_layers_nav___  //change this to change the default.
 #define TEST_EXT _tst___
 #define TRNS_EXT _trns___
 #define MODS_EXT _mods___
 #define LAYERS_EXT _layers___
 #define MODS_LAYERS_EXT _mod_layers___
+#define MODS_LAYERS_NAV_EXT _mod_layers_nav___
 #define MIRYOKU_EXT _miryoku___
 #define MIRYOKU_TR_EXT _miryoku_tr___
 #define MIRYOKU_LTR_EXT _miryoku_ltr___  // miryoku versions with a letter

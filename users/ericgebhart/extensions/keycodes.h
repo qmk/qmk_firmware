@@ -232,9 +232,11 @@ enum userspace_custom_keycodes {
 #ifdef SYMBOL_LAYER_ENABLE
 #define TT_SYMB TT(LANG_N(_SYMB))
 #define MO_SYMB MO(LANG_N(_SYMB))
+#define OSL_SYMB OSL(LANG_N(_SYMB))
 #else
 #define TT_SYMB ___
 #define MO_SYMB ___
+#define OSL_SYMB ___
 #endif
 
 #ifdef TOPROWS_LAYER_ENABLE
