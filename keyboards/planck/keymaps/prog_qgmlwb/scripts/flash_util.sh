@@ -34,7 +34,6 @@ parse_args() {
             shift 1
             ;;
         -C | --no-compile)
-            echo NO COMPILE
             do_compile=false
             shift 1
             ;;
