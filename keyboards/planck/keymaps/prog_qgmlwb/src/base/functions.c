@@ -10,6 +10,3 @@ inline int get_language() {
     }
     return -1;
 }
-
-// Placeholder function for dead key fix
-void tap_dead_key(uint16_t keycode) { tap_code16(keycode); }

@@ -3,11 +3,12 @@
 #include "keymap_extras/keymap_norwegian.h"
 #include "../base.h"
 
+// WRONG: |, ^, ", ~, `
 // Norwegian layout fix
-#undef NO_QUOT
-#define NO_QUOT KC_BSLS  // '
-#undef NO_TILD
-#define NO_TILD RALT(KC_RBRC)  // ~
+// #undef NO_QUOT
+// #define NO_QUOT KC_BSLS  // '
+// #undef NO_TILD
+// #define NO_TILD RALT(KC_RBRC)  // ~
 
 // Better norwegian defines
 #undef NO_LESS
@@ -22,7 +23,7 @@
 #define NO_AA KC_LBRC // Å
 
 // Shift layout fix
-#undef NO_SQUOT
-#define NO_SQUOT KC_AT  // "
-#undef NO_SBSLS
-#define NO_SBSLS KC_GRAVE  // |
+// #undef NO_SQUOT
+// #define NO_SQUOT KC_AT  // "
+// #undef NO_SBSLS
+// #define NO_SBSLS KC_GRAVE  // |

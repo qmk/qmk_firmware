@@ -1,12 +1,17 @@
 #include "static.h"
 
-const uint16_t DEAD_KEY_CODES [] = { NO_TILD, NO_CIRC, NO_GRV };
-
 // Replace key records with macros
 bool handle_dead_keys(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-    case NO_TILD_M ... NO_GRV_M:
-        tap_dead_key(DEAD_KEY_CODES[keycode]);
+    case TEST_0:
+        // tap_code16(KC_0);
+        break;
+    case TEST_1:
+        // tap_code16(KC_1);
+        break;
+    case TEST_2:
+        // tap_code16(KC_2);
+        break;
     }
     return true;
 };

@@ -11,7 +11,6 @@
 #include "hardware/left_space.h"
 #include "hardware/swap_gui_alt.h"
 
-#include "macros/static.h"
-#include "macros/dynamic.h"
+#include "macros/macros.h"
 
 extern const uint16_t PROGMEM keymaps [][MATRIX_ROWS][MATRIX_COLS];

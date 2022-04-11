@@ -10,8 +10,8 @@ typedef struct shift_code {
 // Array of shift codes to convert
 const shift_code_t SHIFT_CODES [] = {
     // NO
-    {.lang = QGMLW_NO, .pre = NO_QUOT, .post = NO_SQUOT},
-    {.lang = QGMLW_NO, .pre = NO_BSLS, .post = NO_SBSLS},
+    {.lang = QGMLW_NO, .pre = NO_QUOT, .post = NO_DQUO},
+    {.lang = QGMLW_NO, .pre = NO_BSLS, .post = NO_PIPE},
     // US
     {.lang = QGMLW_US, .pre = KC_COMM, .post = KC_SCLN},
     {.lang = QGMLW_US, .pre = KC_DOT, .post = KC_COLN},

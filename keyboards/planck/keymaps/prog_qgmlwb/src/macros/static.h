@@ -2,6 +2,6 @@
 
 #include "../base.h"
 
-enum dead_keys { NO_TILD_M = 0, NO_CIRC_M, NO_GRV_M };
+enum static_codes { TEST_0 = SAFE_RANGE, TEST_1, TEST_2 };
 
 bool process_static(uint16_t keycode, keyrecord_t* record);
