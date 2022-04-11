@@ -21,13 +21,13 @@ bool led_update_kb(led_t led_state) {
     if (CAPS_LOCK_ENABLE && res) {
         if(led_state.caps_lock) {
             #ifdef CAPS_LOCK_COLOR
-                rgblight_sethsv_at(CAPS_LOCK_COLOR, 1);
+                rgblight_sethsv_at(CAPS_LOCK_COLOR, 0);
             #else
-                rgblight_sethsv_at(rgblight_get_hue(),rgblight_get_sat(),rgblight_get_val(), 1);
+                rgblight_sethsv_at(rgblight_get_hue(),rgblight_get_sat(),rgblight_get_val(), 0);
             #endif
         }
         else{
-            rgblight_sethsv_at(HSV_OFF, 1);
+            rgblight_sethsv_at(HSV_OFF, 0);
         }
     }
     return res;
