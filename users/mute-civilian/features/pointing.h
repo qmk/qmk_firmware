@@ -1,7 +1,7 @@
 // Copyright 2021 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "nathancooke7.h"
+#include "mutecivilian.h"
 
 report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report);
 void           matrix_scan_pointing(void);

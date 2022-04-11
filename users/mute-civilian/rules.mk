@@ -1,4 +1,4 @@
-SRC += nathancooke7.c
+SRC += mutecivilian.c
 SRC += features/secrets.c
 SRC += features/combos.c
 SRC += process_records.c

@@ -1,5 +1,5 @@
 #pragma once
-#include "nathancooke7.h"
+#include "mutecivilian.h"
 
 enum combo_events {
   COMBO_ALFRED,

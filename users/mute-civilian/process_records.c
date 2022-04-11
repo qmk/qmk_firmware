@@ -1,7 +1,7 @@
 // Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "nathancooke7.h"
+#include "mutecivilian.h"
 #include "version.h"
 
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
