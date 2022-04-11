@@ -1,7 +1,11 @@
 Overview
 ========
 
-An easily configurable keymap for keymap exploration. It is Language
+An easily configurable keymap for keymap exploration. It is for
+primarily for minimalist,
+ortho split keyboards but does support some rectangles.
+
+It is Language
 agnostic, has Multiple layouts (20+ base layers), multiple mods or
 not, home row mods or not, a variety of thumb layouts, mouse/no mouse,
 smart lock layers and mods, N-Shot mods like callum's, swapper. Combos,
@@ -10,6 +14,48 @@ keys, key overrides. Minimal or no C-code. Language, mods, layouts
 and extensions are encapsulated, so that they do not interact in the
 configuration which makes it much easier to modify and grow. Mods and
 combos are by key location.
+
+Quick start
+-------------
+
+Everything is encapsulated here. Base layers, functional layers, mods,
+or no mods, even the language. This means that anything can change 
+independently and easily.
+
+If you don't mind dvorak, beakl or hands down, you can probably 
+just use what is configured. Or just change it to a base layer
+of your choice.
+
+Edit _config.h_,
+  * Set the lang_is, probably to EN.
+    * US international and BEPO are also supported out of the box.
+  * Uncomment the base layers you wish to have.
+    * comment the ones you don't.
+    * keep the number below 5 if you enable a second locale.
+  * Set the thumb clusters
+  * Choose a mod layer
+  * Choose an edge key set if you need one.
+  * Choose the layer flavors that you want.
+  * For Miryoku, choose everything miryoku or mix it up.
+  
+  ** do not turn off extensions until you know them **
+  It will likely cause a stream of errors for the keycodes that
+  go missing when something is turned off. 
+  
+  There are interactions between your choices.
+  Edge keys, thumbs, combos, other extensions, 
+  may use the extensions that are enabled.
+  
+### Look here to see the parts
+  * Base layers are in *base_layers/*
+  * Edge keys are in *layers/edge_keys.h*
+  * Thumbs can be reviewed in *layers/thumbs.h*
+  * Mods are in *mod_layers/*
+  * All other layers are also in *layers/*
+
+
+The long version
+-----------------
 
 All can be turned on or off in the config. 
 supports en-us and fr-bepo Support for other languages is easily added.
@@ -65,46 +111,50 @@ Things which effect the thinking.
 
 
 Features:
-  * Consistent and easy code patterns.
   * Def files for most things.
+  * Custom key codes are mostly defined automatically.
   * Everything is chosen or turned on and off in config.h
   * Lots of macros to make it easy to redefine things without a refactor.
   * Multiple edge/outer pinky column sets.
   * Multiple thumb clusters to choose from.
   * Thumb clusters and mods can be changed on a map by map basis.
-    * layers
-    * mods
-    * layers and mods
-    * miryoku
-    * hands down approximation
   * Easily define thumb clusters with an alpha letter.
   * Easily define thumb clusters for non-base layer.
   * Multiple base layers to choose from.
   * Several variations of function layers to choose from
-  * Miryoku layers if desired
-  * Navigation layer
-    * Mouse or not
-    * monolithic - nav + mouse, or split
-    * nav and mouse layers
-    * smart lock, one shots, if desired
+  * Miryoku layers, thumbs and mods if desired
+  * Navigation and mouse layers
   * A selection of symbol, keypads, and other layers.
   * Regular and Beakl keypad and number rows
-  * Multi language support, (locales in the code). - currently two.
+  * Multi language support, (locales in the code).
   * Multiple mod layers to choose from. Easy to add more.
     * home row mods - a selection 
     * no mods
     * alt mods 
     * miryoku mods
-  * N-shot mods
-  * One-shot mods
-  * smart lock mods 
-  * smart lock layers.
+  * Extensions are easily defined in def files.
+    * N-shot mods
+    * One-shot mods
+    * swapper
+    * Smart lock mods 
+    * Smart lock layers.
+    * Accent keys
+    * Alternate shift keys
+    * Alternate local keys
+    * key overrides
+    * Tap hold
+    * Not dead keys
+    * Send unicode
+    * Send string
+    * Encoders
   * Display a map of the current layer on the oled.
   * Adding a new layer is painless.
   * Adding or changing most things, is not difficult.
-  * keymap.c is not required by the keyboard/keymap.
   * Console key logging for [heatmap analysis.](https://precondition.github.io/qmk-heatmap)
-  Layout shape and keyboard choices.
+  
+  
+Layout shape and keyboard choices.
+-------------------------------------
 
    In all cases these keyboards are defined in a matrix which is
    a set of rows. Maybe like so, or less. Kinesis has one more row.
@@ -131,7 +181,7 @@ Should be undef/def'd by the keyboard's keymap if no.
 Thumbs and Edge keys are grouped into sets so that different sets can be chosen in
 the config. 
 
-All layer macros take 3x10 or 3x12 as needed. Edge cols are
+All layer macros take 3x10 or 3x12 as needed. Edge columns are
 added as needed, and middle keys fill up the gap.
 Thumb keys are added as asked.
 
@@ -157,6 +207,8 @@ Matrix size + thumbs.
  * splitkb/kyria
    3x6 + 7 or 3x5 + 7
  
+The parts of a keymap
+---------------------
 
   * keymap
     * defined in _keymap/keymap.c_. 
@@ -165,29 +217,29 @@ Matrix size + thumbs.
     * Uses a language setting to create all maps.
     * Creates the same maps in multiple languages.
     * More than one language simultaneously on one keyboard.
-    * Currently provides us-en (KC_), and fr-bepo (BP_).
-    * US-EN is the default, configurable in config.h.
+    * Currently provides these languag settings and keycodes. 
+      * US - US-intl (US_)
+      * EN - US-en (KC_), 
+      * BEPO - fr-bepo (BP_).
     * Choosing dvorak, and enabling bepo, will produce two base layers
-    to choose from on the keyboard. Dvorak on us-en and fr-bepo.
+    to choose from on the keyboard. Dvorak on US and BEPO.
    
  * Base layers
    * Simple and compact definitions.
-   * The keymap is completely configurable in config.h.
    * Base layers are pure.
    * Mods are defined separately.
    * OLED Maps for 128x64 sized oleds.
    * Language agnostic.
    * Core layer chunks are 3x10.
-     * Except for the bepo base layers which are 3x12
-   * More than 18 base layers to choose from.
+     * Except for few exceptions which are 3x12
+   * More than 25 base layers to choose from.
    
    **Caution: Choosing too many base layers will result in toprows or keypad layer LT's 
    to stop working. If bepo is enabled, all base layers are doubled so it's
    easy to hit the 16 layer limit for LT.**
-   Perhaps I should add more granular selection.
 
  * Locales
-    * Locales, and layer sets for a locale.
+    * Locales, defines a set of layers for a locale.
     * Layer definitions are language agnostic. - see lang.h.
 
  * Extensions - Defs.
@@ -224,6 +276,7 @@ Matrix size + thumbs.
     * Multiple choices of an easy to use _top rows_ layer similar 
       to `raise` and `lower`. 
     * A fully complete symbol layer, Used for coding and writing.
+    * Accented letters and dead key layers.
     * Keypads and function pads.
     * Beakl keypads and symbol layers.
     * Control layers.
@@ -238,11 +291,10 @@ Matrix size + thumbs.
    * Last key, matrix location and value.
    * Mods and locks
    * Map of the current layer. (Oled 128x64)
-   * keylogger
+   * key logger
 
  * Keyboards
-    * #include "map.h" is all that is needed in keymaps/*/keymap.c
-    * Local definition of layout macros.
+    * nothing is needed in keymaps/*/keymap.c
     * Layouts - keyboard matrix adaptation.
         * Adaptive. Usually taking 3x10 maps and filling the edges and thumbs.
         * 4x10 or whatever is possible. 
@@ -251,7 +303,7 @@ Matrix size + thumbs.
             * 5 columns in, 6 out. 
             * 6 columns in, 6 out. 
    * per keyboard shape.
-   * There are two layouts per keyboard.
+   * There are layouts per keyboard.
      * Base layout with mods and thumbs and edges added.
      * Transient layout which can be KC_TRANS, in those same places.
    * The number row addition can be turned on and off as needed by the layout.
@@ -264,6 +316,7 @@ Matrix size + thumbs.
      * mods
      * layers
      * mods_layers
+     * mods_layers_nav
      * beakl wi
      * beakl wi - official.
      * test  - to play with.
@@ -452,10 +505,8 @@ a little easier.
 Switching LANG_IS before adding a new map will cause that map to 
 use LANG keycodes and keymap chunks when building the map.
 
-Enabling BEPO, will cause bepo versions of the chosen layers to
-be added to the keymap.  The Bepo base layer only exists for Bepo.
-
-This is all incorporated into _map.h_.
+Enabling a second locale to bepo, will cause bepo versions of the chosen layers to
+be added to the keymap.
 
 ### defining a locale.
 
@@ -634,6 +685,7 @@ Here are some or most of the base layers..
  
  These need an OS keymap which can provide Latin Accents.
  US-intl works reasonably, fr-bepo works better.
+ These are also all 3x12.
  * Bepo
  * Optimot
  * Beakl19bis
@@ -708,7 +760,6 @@ The keys that change are just 6 and they all have the name of *___6_ERGO_THUMBS_
 
 This is also easy. Mod layers live in the mod_layers folder. Each file
 there is a separate mod layer, which is tracked in *mod_layers.h*
-To create a new one, copy one of the others to a new name.  Transparent
 The file, *trns_mods.h* is the transparent mods layer and by definition has
 no modifiers applied, providing a clean slate. 
 
@@ -751,8 +802,7 @@ to a given keymap layer.
 
 Keyboard matrix Layouts
 -----------
-There are currently more than 1 layout per keyboard, mostly for clarity and the
-anticipation of modified transient layers. This is where the keymap of the
+This is where the keymap of the
 keyboard meets the mods and all the edge, middle and thumb keys, and makes 
 it easy to give just a 3x10 definition for most layers regardless of which 
 keyboard it is going to.
@@ -761,14 +811,12 @@ To use an existing layout for a different keyboard, simply make an entry
 in *keyboards.h* to assign the proper layouts that fit that keyboard.
 So a planck could use the 4x12 layout out of the box. In the keyboards 
 keymap there is only a need for config.h or rules.mk if something needs
-changing. There is no need for keymap.c there unless the build complains, 
-in which case an empty keymap.c will do.
+changing. For the keyboard an empty keymap.c will do.
 
-The base layout fills in the edges and thumbs, anything outside of the 3x10.
+The base layout can be anything really.
+The base layer sets the thumbs and anything outside of the 3x10.
 The mod layer is wrapped in the base layout and adds the mods, and a 6th 
 outer pinky column as needed.
-
-The transient layout is transparent without mods so far.
 
 Some layouts take an extra number row.
 Layouts can be any shape, all of these take a 3x10, 3x12, 4x10 or 4x12, 
@@ -781,11 +829,6 @@ to the keyboard's layout.  The Corne (crkbd), uses a layout called
   
 There are layouts for Corne, ergodox, kinesis, dactyl, viterbi, xd75, rebound.
 
-The layouts take a 3x10 matrix, and sometimes an additional row for numbers. 
-If a keyboard layout takes a number row, that should be enabled in config.h.
-
-The Layouts wrap the ROW_MOD macros which are the mod layer. 
-
 Currently, 3 layouts are needed per keyboard. 
  * A Base layout, for default/base layers, 
  * A transient layout for the function layers.
@@ -796,8 +839,6 @@ They add in the mods, and any pieces of matrix outside of
 the 3x10 center, function, numbers, lower rows, outside pinky keys,
 and thumb clusters. 
 
-The transient function layer layout can be KC_TRNS all around the perimeter,
-or not, they tend to take 3x10 but don't have to.
 
 Functional layers
 --------------------
@@ -855,6 +896,9 @@ layer that I had before beakl, but this felt better, and has been through a few
 iterations at this point. Vi likes using :/?! a lot. The = is not that important to
 me, as the : for the vi ex: command. The ! is very satisfying in this location.
 
+For US-intl and Bepo which have dead keys, the symbol layer uses the *not_dead* extension
+to give _'`"^~_ which are not dead.
+
 The beakl symbol layer is intuitive and fairly easy to remember. There are 3 versions.
 The original, an extended, and an extended and enhanced for vi.
 The primary purpose of the extension was to provide keys which might not be available
@@ -871,7 +915,7 @@ There are a few choices, this is one.
 
 ```
         `<$>'  ?[_-] 
-      - \(")#  !{:/} ;
+      - \("#)  !{:/} ;
         @=*+;  %&^~|
 ```
 
@@ -906,6 +950,7 @@ There are several variations of keypads and function key pads in various sizes,
 and left and right. 
 There are also versions with smart and nshot mods instead of F-keys.
 There are monolithic, left and right, and also half keyboard left mostly...
+A miryoku version also exists.
 The keypad can be chosen in config.h.
 
 ```
@@ -946,7 +991,7 @@ an extension are automatically added to the custom keys enumeration so there is 
 
 A new extension can be added with a process record entry in
 extensions.h. Just follow the same code pattern. If an extension defines keycodes, 
-add it's entry in *keycodes.h* so that they are automatically added to the enum. 
+add it's include entry in *keycodes.h* so that they are automatically added to the enum. 
 Keycodes.h is also where all the miscellaneous short cut key defines are done. 
 
 To copy all the extensions, 
@@ -1144,7 +1189,7 @@ Combos/Chords
 ----------------------------
 
 The combos here use multiple reference layers which is a pending
-feature in the dev branch of QMK. The combos here will still work
+pull request in the dev branch of QMK. The combos here will still work
 to an extent if *COMBO_ONLY_FROM_LAYER* is set to the correct layer number.
 
 [See my pull request to enhance combos here](https://github.com/qmk/qmk_firmware/pull/16699)
@@ -1342,7 +1387,6 @@ This code came by way of @jurgen-kluft, I encapsulated the code and made
 the user functions definable with a .def file. This is similar to N-shots. 
 This one keeps track of the last key consumed which helps it's decision making. 
 It also has cancel and ignore keys like N-shots.
-A double tap on a mod key will lock it.
 
 Essentially the same as n-shots, but with less elegant C code. Choose one or
 the other. 
@@ -1386,7 +1430,7 @@ clockwise keycodes to send.
 I used LEFT and RIGHT, but really it's just 0-N, but I happen to have one
 on the left and one on the right. If you have one, use 0 or LEFT.
 
-The code scans the entries for layers matches first, checking for a match for
+The code scans the entries for matches on layer first, checking for a match for
 mods. If an encoder entry is not found it then scans for entries with
 layer set to LAYER_NONE.
 
