@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |=============================================================================================================|
      * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ |RGBTOD|RGBTOI| ________ ||RGBTOG|
      * |------+------+------+------+------+------+------+------+------+------+------+------+------+----------++------|
-     * |  ______ |RGBSAD|RGBVAI|RGBSAI| ____ | ____ |YAHOO | ____ | ____ |OUTLK |Pause | ____ | ____ | Reset || Home |
+     * |  ______ |RGBSAD|RGBVAI|RGBSAI| NKRO | ____ |YAHOO | ____ | ____ |OUTLK |Pause | ____ | ____ | Reset || Home |
      * |---------+------+------+------+------+------+------+------+------+------+------+------+------+-------++------|
      * |  Capslock  |RGBHUD|RGBVAD|RGBHUI| ____|GMAIL |HTMAIL| ____ | ____ | ____ | ____ | ____ | __________ || End  |
      * |------------+------+------+------+-----+------+------+------+------+------+------+------|----+========+------|
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN1] = LAYOUT(
         _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_VOLD, KC_VOLU, KC_PSCR, KC_SLCK, KC_PAUS,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOD, RGB_TOI, _______,          RGB_TOG,
-        _______, RGB_SAD, RGB_VAI, RGB_SAI, _______, _______,   YAHOO, _______, _______, OUTLOOK, KC_PAUS, _______, _______, RESET,            KC_HOME,
+        _______, RGB_SAD, RGB_VAI, RGB_SAI, NK_TOGG, _______,   YAHOO, _______, _______, OUTLOOK, KC_PAUS, _______, _______, RESET,            KC_HOME,
         KC_CAPS, RGB_HUD, RGB_VAD, RGB_HUI, _______,   GMAIL, HOTMAIL, _______, _______, _______, _______, _______,          _______,          KC_END,
         _______,          RGB_NITE,_______, _______, _______, _______, KC_NLCK, _______, _______,  DOTCOM, _______,          _______, RGB_MOD, _______,
         _______, KC_WINLCK, _______,                          _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
