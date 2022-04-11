@@ -171,6 +171,29 @@ def _extract_pins(pins):
     return [_pin_name(pin) for pin in pins.split(',')]
 
 
+def _parse_2d_array(raw):
+    """Return a 2d array of ints
+    """
+    out_array = []
+
+    while raw[-1] != '}':
+        raw = raw[:-1]
+
+    for row in raw.split('},{'):
+        if row.startswith('{'):
+            row = row[1:]
+
+        if row.endswith('}'):
+            row = row[:-1]
+
+        out_array.append([])
+
+        for val in row.split(','):
+            out_array[-1].append(int(val))
+
+    return out_array
+
+
 def _extract_direct_matrix(direct_pins):
     """
     """
@@ -208,6 +231,21 @@ def _extract_audio(info_data, config_c):
 
     if audio_pins:
         info_data['audio'] = {'pins': audio_pins}
+
+
+def _extract_secure_unlock(info_data, config_c):
+    """Populate data about the secure unlock sequence
+    """
+    unlock = config_c.get('SECURE_UNLOCK_SEQUENCE', '').replace(' ', '')[1:-1]
+    if unlock:
+        unlock_array = _parse_2d_array(unlock)
+        if 'secure' not in info_data:
+            info_data['secure'] = {}
+
+        if 'unlock_sequence' in info_data['secure']:
+            _log_warning(info_data, 'Secure unlock sequence is specified in both config.h (SECURE_UNLOCK_SEQUENCE) and info.json (secure.unlock_sequence) (Value: %s), the config.h value wins.' % info_data['secure']['unlock_sequence'])
+
+        info_data['secure']['unlock_sequence'] = unlock_array
 
 
 def _extract_split_main(info_data, config_c):
@@ -469,6 +507,7 @@ def _extract_config_h(info_data, config_c):
     # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
     _extract_audio(info_data, config_c)
+    _extract_secure_unlock(info_data, config_c)
     _extract_split_main(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)

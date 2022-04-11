@@ -12,6 +12,13 @@
 #    define SECURE_IDLE_TIMEOUT 60000
 #endif
 
+#ifndef SECURE_UNLOCK_SEQUENCE
+#    define SECURE_UNLOCK_SEQUENCE \
+        {                          \
+            { 0, 0 }               \
+        }
+#endif
+
 secure_status_t secure_status = SECURE_LOCKED;
 static uint32_t unlock_time   = 0;
 static uint32_t idle_time     = 0;
@@ -41,8 +48,15 @@ void secure_request_unlock(void) {
 }
 
 void secure_keypress_event(uint8_t row, uint8_t col) {
+    static const uint8_t sequence[][2] = SECURE_UNLOCK_SEQUENCE;
+
     // TODO: check keypress is actually part of unlock sequence
-    secure_unlock();
+    uint8_t offset = 0;
+    if ((sequence[offset][0] == row) && (sequence[offset][1] == col)) {
+        secure_unlock();
+    } else {
+        secure_lock();
+    }
 }
 
 void secure_task(void) {
