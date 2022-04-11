@@ -2,7 +2,7 @@
     "keyboard_name": "la_nc",
     "url": "https://github.com/subrezon/la_nc",
     "layouts": {
-        "LAYOUT_all_1u": {
+        "LAYOUT": {
             "layout": [
                 { "label": "Q",     "matrix": [0, 0], "x":  0, "y": 0},
                 { "label": "W",     "matrix": [0, 1], "x":  1, "y": 0},
