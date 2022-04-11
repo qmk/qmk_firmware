@@ -1,19 +1,56 @@
 #!/bin/bash
 
-# Go to root of
-pushd .
-cd ../../../../
+do_init_qmk=false
+do_compile=true
+flash_cli=false
 
-# Set default keyboard
-# qmk config user.keyboard=planck/rev5
+keyboard="planck/rev5"
+keymap="prog_qgmlwb"
+bootloader="dfu"
+out="build/out.hex"
 
-# Set default keymap
-# qmk config user.keymap=prog_qgmlwb
+main() {
+    repo="$(
+        cd ../../../..
+        pwd
+    )"
 
-# Compile
-qmk compile
+    $do_init_qmk && init_qmk
+    compile
+    flash
+}
 
-# Flash
-sudo make planck/rev5:prog_qgmlwb:dfu
+init_qmk() {
+    cd $repo
 
-popd
+    # Set default keyboard
+    qmk config user.keyboard=$keyboard
+    # Set default keymap
+    qmk config user.keymap=$keymap
+
+    # Initialize libraries
+    qmk setup
+
+    cd - /dev/null
+}
+
+compile() {
+    qmk compile
+}
+
+flash() {
+    if $flash_cli; then
+        sudo make $keyboard:$keymap:$bootloader
+    else
+        keyboard_build="$(tr '/' '_' <<<"$keyboard")"
+        build="$repo/.build/${keyboard_build}_$keymap.hex"
+        cp $build build/out.hex
+        out="$(echo "$(pwd)/build/out.hex")"
+        echo -e "\n\e[1mOpen file in qmk toolbox:\e[m\n$out"
+    fi
+}
+
+pushd . >/dev/null
+cd $(dirname ${BASH_SOURCE[0]})
+main $@
+popd >/dev/null
