@@ -35,6 +35,7 @@
 #include "hrm_gacs.h"
 #include "hrm_gacs_miryoku.h"
 #include "hrm_gasc.h"
+#include "hrs_nav.h"
 #include "trns_mods.h"
 
 // redefined by the map as needed.
@@ -67,6 +68,7 @@
 #define HRM_GASC_MOD _hrm_gasc
 #define MIRYOKU_HRM_GASC_MOD miryoku_hrm_gasc
 #define ALT_MOD _alt
+#define HRS_NAV_MOD _hrs_nav
 
 // MOD_COL_NAME(ROW0L) -- > ROW0L_5, ROW0L_6, ROW0L_5_6
 #define MOD_COL_NAME(NAME) CATR2(CATR(NAME, _), BASE_COLS_IN_OUT)

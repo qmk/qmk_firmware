@@ -80,8 +80,8 @@
 /* #define SECOND_LOCALE_NAME " bepo" */
 
 // Choose a mod layer. Can be changed per layer.
-// TRNS, ALT, HRM_GACS, HRM_SCAG, HRM_GASC, MIRYOKU_HRM_GASC
-#define MODS_ARE TRNS
+// TRNS, ALT, HRS_NAV HRM_GACS, HRM_SCAG, HRM_GASC, MIRYOKU_HRM_GASC
+#define MODS_ARE HRS_NAV
 #define DEFAULT_MODS MODS_ARE
 
 // Choose a thumb cluster.
