@@ -47,6 +47,12 @@ void secure_request_unlock(void) {
     }
 }
 
+void secure_activity_event(void) {
+    if (secure_status == SECURE_UNLOCKED) {
+        idle_time = timer_read32();
+    }
+}
+
 void secure_keypress_event(uint8_t row, uint8_t col) {
     static const uint8_t sequence[][2] = SECURE_UNLOCK_SEQUENCE;
 

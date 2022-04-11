@@ -97,6 +97,9 @@ void xap_execute_route(xap_token_t token, const xap_route_t *routes, size_t max_
         //     xap_respond_failure(token, XAP_RESPONSE_FLAG_UNLOCK_IN_PROGRESS);
         //     return;
         // }
+
+        // TODO: XAP messages extend timeout?
+        secure_activity_event();
 #endif
 
         switch (route.flags.type) {

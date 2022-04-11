@@ -22,6 +22,8 @@ void secure_unlock(void);
 
 void secure_request_unlock(void);
 
+void secure_activity_event(void);
+
 void secure_keypress_event(uint8_t row, uint8_t col);
 
 void secure_task(void);
