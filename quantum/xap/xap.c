@@ -69,7 +69,7 @@ struct __attribute__((packed)) xap_route_t {
 
         // XAP_VALUE / XAP_CONST_MEM
         struct {
-            const void   *const_data;
+            const void *  const_data;
             const uint8_t const_data_len;
         };
     };
