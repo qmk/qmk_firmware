@@ -134,9 +134,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * | Esc     | !       | @       | #       | $       | %       |---------.          ,---------| ^       | &       | Num Lk  | *       | /       | -       |
    * |---------+---------+---------+---------+---------+---------| {[      |          | }]      |---------+---------+---------+---------+---------+---------|
-   * | Tab     |         |         |         |         | RGB_HUI |---------|          |---------|         | &7      | *8      | (9      | +       | TRNS    |
-   * |---------+---------+---------+---------+---------+---------| RGB_TOG |          | +=      |---------+---------+---------+---------+---------+---------|
-   * | ~`      |         |         |         |         | RGB_HUD |---------|          |---------|         | $4      | %5      | ^6      | .       | =+      |
+   * | Tab     |         |         |         |         |         |---------|          |---------|         | &7      | *8      | (9      | +       | TRNS    |
+   * |---------+---------+---------+---------+---------+---------| TO(5)   |          | +=      |---------+---------+---------+---------+---------+---------|
+   * | ~`      |         |         |         |         |         |---------|          |---------|         | $4      | %5      | ^6      | .       | =+      |
    * |---------+---------+---------+---------+---------+---------| Meh()   |          | |\      |---------+---------+---------+---------+---------|---------|
    * | LShift  |         |         |         |         |         |---------'          `---------|         | !1      | @2      | #3      | =       | RShift  |
    * |---------+---------+---------+-----------------------------'                              `-----------------------------+---------+---------+---------|
@@ -150,8 +150,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */     
 	[4] = LAYOUT_4key_2u_inner(
       KC_ESC,  KC_EXLM,   KC_AT,    KC_HASH,   KC_DLR,   KC_PERC, KC_LBRC,             KC_RBRC,  KC_CIRC,  KC_AMPR,  KC_NLCK,  KC_PAST,  KC_PSLS,  KC_PMNS, 
-      KC_TAB,  KC_NO,     KC_NO,    KC_NO,     KC_NO,    RGB_HUI, RGB_TOG,               KC_EQL,   KC_NO,    KC_7,     KC_8,     KC_9,     KC_PPLS,  KC_TRNS, 
-      KC_GRV,  KC_NO,     KC_NO,    KC_NO,     KC_NO,    RGB_HUD, MEH(KC_NO),          KC_BSLS,  KC_NO,    KC_4,     KC_5,     KC_6,     KC_PCMM,  KC_QUOT,
+      KC_TAB,  KC_NO,     KC_NO,    KC_NO,     KC_NO,    KC_NO,   TO(5),               KC_EQL,   KC_NO,    KC_7,     KC_8,     KC_9,     KC_PPLS,  KC_TRNS, 
+      KC_GRV,  KC_NO,     KC_NO,    KC_NO,     KC_NO,    KC_NO,   MEH(KC_NO),          KC_BSLS,  KC_NO,    KC_4,     KC_5,     KC_6,     KC_PCMM,  KC_QUOT,
       KC_LSFT, KC_NO,     KC_NO,    KC_NO,     KC_NO,    KC_NO,   C_S_T(KC_NO),        KC_NO,    KC_P0,    KC_1,     KC_2,     KC_3,     KC_PEQL,  KC_RSFT, 
       KC_LCTL, KC_F13,    KC_NO,    KC_LALT,   KC_SPC,   KC_DEL,  KC_F14,              MO(2),    KC_ENT,   KC_BSPC,  KC_PDOT,  KC_INS,   KC_NO,    TO(0)
       ),
@@ -160,10 +160,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    /* Keymap: SYMBOL Layer
    * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * | Esc     | !       | @       | #       | $       | %       |---------.          ,---------|         |         |         |         |         |         |
+   * |---------+---------+---------+---------+---------+---------| {[      |          |         |---------+---------+---------+---------+---------+---------|
+   * |         | ^       | &       | *       | (       | -       |---------|          |---------| Hue-    | Bright- | Bright+ | Hue+    |         | TRNS    |
    * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------+---------|
-   * |         | ^       | &       | *       | (       | -       |---------|          |---------|         |         |         |         |         | TRNS    |
-   * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------+---------|
-   * |         | :       | <       | {       | "       | ~       |---------|          |---------|         |         |         |         |         |         |
+   * |         | :       | <       | {       | "       | ~       |---------|          |---------|<RGB_MODE| RGB_TOG |RGB_PLAIN|RGB_MODE>|         |         |
    * |---------+---------+---------+---------+---------+---------|         |          |         |---------+---------+---------+---------+---------|---------|
    * |         | .       | +       | =       | /       | \       |---------'          `---------|         |         |         |         |         |         |
    * |---------+---------+---------+-----------------------------'                              `-----------------------------+---------+---------+---------|
@@ -175,7 +175,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                                         |         |         |         |          |         |         |         |
    *                                         `-----------------------------'          `-----------------------------'
    */ 
-  [5] = LAYOUT_4key_2u_inner(KC_ESC, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_LBRC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_UNDS, KC_PMNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_COLN, KC_LT, KC_LCBR, KC_DQUO, KC_TILD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PDOT, KC_PLUS, KC_EQL, KC_PSLS, KC_BSLS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(0))
+  [5] = LAYOUT_4key_2u_inner(
+      KC_ESC,   KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_LBRC,             KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
+      KC_NO,    KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_UNDS,  KC_PMNS,             KC_NO,    RGB_HUD,  RGB_VAD,  RGB_VAI,  RGB_HUI,  KC_NO,    KC_TRNS, 
+      KC_NO,    KC_COLN,  KC_LT,    KC_LCBR,  KC_DQUO,  KC_TILD,  KC_NO,               KC_NO,    RGB_RMOD, RGB_TOG,  RGB_M_P,  RGB_MOD,  KC_NO,    KC_NO, 
+      KC_NO,    KC_PDOT,  KC_PLUS,  KC_EQL,   KC_PSLS,  KC_BSLS,  KC_NO,               KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, 
+      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,               KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    TO(0))
 };
 
 // ***** LEADER ***** //
