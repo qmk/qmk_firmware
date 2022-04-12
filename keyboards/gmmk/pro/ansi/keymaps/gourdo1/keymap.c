@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [_FN1] = LAYOUT(
-        _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_VOLD, KC_VOLU, KC_PSCR, KC_SLCK, KC_PAUS,          _______,
+        EE_CLR, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_VOLD, KC_VOLU, KC_PSCR, KC_SLCK, KC_PAUS,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOD, RGB_TOI, _______,          RGB_TOG,
         _______, RGB_SAD, RGB_VAI, RGB_SAI, NK_TOGG, _______,   YAHOO, _______, _______, OUTLOOK, KC_PAUS,  SWAP_L,  SWAP_R, RESET,            KC_HOME,
         KC_CAPS, RGB_HUD, RGB_VAD, RGB_HUI, _______,   GMAIL, HOTMAIL, _______, _______, _______, _______, _______,          _______,          KC_END,

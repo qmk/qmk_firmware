@@ -13,12 +13,14 @@ This Windows-centric layout is based on [Jonavin's](https://github.com/qmk/qmk_f
 * [N-key Rollover](https://en.wikipedia.org/wiki/Rollover_\(keyboard\)#n-key_rollover) (NKRO) -- toggled with FN+R
 * Gaming mode (FN + Win-key) locks out Win-key as well as double-tap Shift Capslock; Also RGB highlights WSAD and nearby gaming related keys
 * [Caps Word](https://getreuer.info/posts/keyboards/caps-word/index.html) enabled: To capitalize the next word only, press and release both left and right shift keys at the same time. (added Feb 25, 2022)
+* Multi-monitor app moving shortcuts: FN + [,] (square brackets) to move current app window to next monitor (added Apr 11, 2022)
 * Domain shortcuts: FN+.=".com", FN+O="outlook.com", FN+Y="yahoo.com", FN+H="hotmail.com", FN+G="gmail.com". (added Apr 7, 2022)
 * Capslock toggled by double tap of Left Shift key or FN + Capslock (RGB green highlighted)
 * Fn-Backslash for [Bootloader mode](https://github.com/qmk/qmk_firmware/blob/master/docs/newbs_flashing.md)
 * Home key on F13, Del key right of Backspace
 * Insert accessible via Shift-Backspace (so shift delete still works in Windows Explorer)
 * PrtScrn, Scroll Lock, Pause/Break are top right on the keyboard: Fn+F11, Fn+F12, Fn+F13
+* [Colemak](https://colemak.com/) key layout support (Layer accessible via Left Shift + turn Encoder clockwise until side LEDs light up purple)
 * Double tap ESC any time to revert to base layer (added Feb 26, 2022)
 
 ### Numpad + Mouse Keys (Capslock key)
@@ -55,6 +57,12 @@ This Windows-centric layout is based on [Jonavin's](https://github.com/qmk/qmk_f
 * RGB indicators on left side LEDs: Capslock (green), Scroll Lock (red), and Num Lock not set (orange) 
 * FN + Z to turn off RGB backlighting; press again to toggle
 
+### Advanced Controls
+
+* FN + \ to get to bootloader mode
+* FN + [ESC] to clear EEPROM (then unplug and re-plug) (added Apr 11, 2022)
+* FN + R to toggle N-key Rollover (added Apr 11, 2022)
+
 Link to latest firmware binary: https://github.com/gourdo1/media/raw/main/gmmk_pro_ansi_gourdo1.bin
 
 Link to cheatsheet: https://github.com/gourdo1/media/raw/main/GMMK_Pro_Cheatsheet.pdf
@@ -62,17 +70,17 @@ Link to cheatsheet: https://github.com/gourdo1/media/raw/main/GMMK_Pro_Cheatshee
 
 ## rules.mk Options
 
-STARTUP_NUMLOCK_ON = yes     		 - turns on NUMLOCK by default
+STARTUP_NUMLOCK_ON = yes             - turns on NUMLOCK by default
 
 ENCODER_DEFAULTACTIONS_ENABLE = yes  - Enabled default encoder functions
 
-TD_LSFT_CAPSLOCK_ENABLE = yes    	 - This will enable double tap on Left Shift to toggle CAPSLOCK when using KC_LSFTCAPS
+TD_LSFT_CAPSLOCK_ENABLE = yes        - This will enable double tap on Left Shift to toggle CAPSLOCK when using KC_LSFTCAPS
 
-IDLE_TIMEOUT_ENABLE = yes   		 - Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
+IDLE_TIMEOUT_ENABLE = yes            - Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
 
-INVERT_NUMLOCK_INDICATOR   			 - inverts the Numlock indicator, LED is on when numlock is off -- numlock interferes with numpad keys, so should generally be off when numpad layer is active.
+INVERT_NUMLOCK_INDICATOR             - inverts the Numlock indicator, LED is on when numlock is off -- numlock interferes with numpad keys, so should generally be off when numpad layer is active.
 
-COLEMAK_LAYER_ENABLE = yes   		 - Enabled optional 5th layer for COLEMAK layout. Use Shift and encoder to enter 5th layer.
+COLEMAK_LAYER_ENABLE = yes           - Enable optional 5th layer for COLEMAK layout. Use Shift + encoder to enter 5th layer.
 
 
 ## Layer Diagrams
