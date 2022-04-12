@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*******************************************************************************
  * TODO.
  * sort out oled display
- * fix the colours for the motion, function, symbol and mouse + leader
+ * do i need colours for the leader key (only a fraction of a second...)
  *******************************************************************************/
 
 enum userspace_layers {
@@ -69,9 +69,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             MY_CESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, MY_CENT,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            KC_LEAD,  MY_S_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, MY_S_SL, KC_LEAD,
+            KC_LEAD,  MY_S_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_LSFT, KC_LEAD,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                            //KC_LGUI, LT(LMOV, KC_TAB), LT(LNUM, KC_SPC),    LT(LSYM, KC_BSPC), LT(LFUN, KC_ENT), KC_LALT
             MT(MOD_LGUI, KC_ESC), LT(LMOV, KC_TAB), LT(LNUM, KC_SPC),            LT(LSYM, KC_BSPC), LT(LFUN, KC_ENT), MT(MOD_LALT, KC_DEL)
                                             //`--------------------------'  `--------------------------'
     ),
@@ -158,6 +157,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_UNDS:
         case KC_DOT:
         case KC_MINS:
+        case MY_PIPE:
             return true;
 
         default:
@@ -167,12 +167,7 @@ bool caps_word_press_user(uint16_t keycode) {
 
 
 void caps_word_set_user(bool active) {
-    if (active) {
-        // TODO set LED
-        // Do something when Caps Word activates.
-    } else {
-        // Do something when Caps Word deactivates.
-    }
+    rgblight_set_layer_state(7, active);
 }
 
 /*******************************************************************************
@@ -205,7 +200,7 @@ void matrix_scan_user(void) {
         }
         SEQ_TWO_KEYS(KC_R, KC_R) {
             register_code(KC_LCTL);
-            tap_code(KC_F10);
+            tap_code(KC_F9);
             unregister_code(KC_LCTL);
         }
         SEQ_ONE_KEY(KC_T) {
@@ -215,9 +210,13 @@ void matrix_scan_user(void) {
             unregister_code(KC_LSFT);
             unregister_code(KC_LCTL);
         }
+        //  all copy  /  all cut ?
     }
 }
 
+// with the below you can create a global is_leader and test it in the rgb code to signal leader
+// void leader_start(void) {is_leader = true;}
+// void leader_end(void) {is_leader = false;}
 /*******************************************************************************
  * RGB lighting on layer change
  * following are the LED numbers
@@ -238,95 +237,66 @@ void matrix_scan_user(void) {
  *      |   4  |   5  |   6  |
  *      |------|------|------|
  *
+ * to set colours on the modifier keys use the below.  RHS is 38, 43, 46, 49 for the numbers
+    //{11, 1, HSV_BLUE},    // gui
+    //{16, 1, HSV_GREEN},   // alt
+    //{19, 1, HSV_ORANGE},  // ctrl
+    //{22, 1, HSV_RED},     // shift
  ******************************************************************************/
 
-const rgblight_segment_t PROGMEM layer_default_lights[] = RGBLIGHT_LAYER_SEGMENTS(
+#define THUMB_KEYS(colour) RGBLIGHT_LAYER_SEGMENTS( \
+    { 6, 1, HSV_ ##colour}, \
+    {13, 2, HSV_ ##colour}, \
+    {33, 1, HSV_ ##colour}, \
+    {40, 2, HSV_ ##colour} \
+);
+const rgblight_segment_t PROGMEM layer_default_lights[] = THUMB_KEYS(OFF)
+
+const rgblight_segment_t PROGMEM layer_numpad_lights[] = THUMB_KEYS(ORANGE)
+
+const rgblight_segment_t PROGMEM layer_symbols_lights[] = THUMB_KEYS(GREEN)
+
+const rgblight_segment_t PROGMEM layer_motion_lights[] = THUMB_KEYS(BLUE)
+
+const rgblight_segment_t PROGMEM layer_functions_lights[] = THUMB_KEYS(PURPLE)
+
+const rgblight_segment_t PROGMEM layer_mouse_lights[] = THUMB_KEYS(MAGENTA)
+
+const rgblight_segment_t PROGMEM caps_word_lights[] = RGBLIGHT_LAYER_SEGMENTS(
+    {7, 3, HSV_RED},
+    {34, 3, HSV_RED}
+);
+
+const rgblight_segment_t PROGMEM layer_no_lights[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 54, HSV_OFF}
-);
-
-const rgblight_segment_t PROGMEM layer_numpad_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 8, HSV_OFF},
-    {8, 1, HSV_YELLOW},   // comma
-    {9, 2, HSV_OFF},
-    {11, 1, HSV_BLUE},    // gui
-    {12, 1, HSV_YELLOW},  // dot
-    {13, 3, HSV_OFF},
-    {16, 1, HSV_GREEN},   // alt
-    {17, 2, HSV_OFF},
-    {19, 1, HSV_ORANGE},  // ctrl
-    {20, 2, HSV_OFF},
-    {22, 1, HSV_RED},     // shift
-    {23, 4, HSV_OFF},
-    // right hand side
-    {27, 7, HSV_OFF},
-    {34, 7, HSV_ORANGE},
-    {41, 1, HSV_OFF},
-    {42, 12, HSV_ORANGE}
-);
-
-const rgblight_segment_t PROGMEM layer_symbols_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 6, HSV_OFF},
-    {6, 19, HSV_GREEN},
-    {25, 1, HSV_OFF},
-    {26, 1, HSV_GREEN},
-    {27, 7, HSV_OFF},
-    {34, 7, HSV_GREEN},
-    {41, 2, HSV_OFF},
-    {43, 9, HSV_GREEN},
-    {52, 1, HSV_OFF},
-    {53, 1, HSV_GREEN},
-    {54, 1, HSV_OFF}
-);
-
-const rgblight_segment_t PROGMEM layer_motion_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 11, HSV_OFF},
-    {11, 1, HSV_BLUE},    // gui
-    {12, 4, HSV_OFF},
-    {16, 1, HSV_GREEN},   // alt
-    {17, 2, HSV_OFF},
-    {19, 1, HSV_ORANGE},  // ctrl
-    {20, 2, HSV_OFF},
-    {22, 1, HSV_RED},     // shift
-    {23, 4, HSV_OFF},
-    // right hand side
-    {27, 7, HSV_OFF},
-    {34, 7, HSV_BLUE},
-    {41, 1, HSV_OFF},
-    {42, 12, HSV_BLUE}
-);
-
-const rgblight_segment_t PROGMEM layer_functions_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 54, HSV_PURPLE}
-);
-
-const rgblight_segment_t PROGMEM layer_mouse_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 10, HSV_CYAN},
-    {27, 10, HSV_CYAN}
 );
 
 // now we need the array of layers
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    layer_no_lights,
     layer_default_lights,
     layer_numpad_lights,
     layer_motion_lights,
     layer_symbols_lights,
     layer_functions_lights,
-    layer_mouse_lights
+    layer_mouse_lights,
+    caps_word_lights
 );
 
 void keyboard_post_init_user(void) {
     //enable the LED layers
     rgblight_layers = my_rgb_layers;
-    rgblight_mode(10);
+    //rgblight_mode(10);
+    rgblight_set_layer_state(0, true);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, LCMK));
-    rgblight_set_layer_state(1, layer_state_cmp(state, LNUM));
-    rgblight_set_layer_state(2, layer_state_cmp(state, LMOV));
-    rgblight_set_layer_state(3, layer_state_cmp(state, LSYM));
-    rgblight_set_layer_state(4, layer_state_cmp(state, LFUN));
-    rgblight_set_layer_state(5, layer_state_cmp(state, LMSE));
+    rgblight_set_layer_state(1, layer_state_cmp(state, LCMK));
+    rgblight_set_layer_state(2, layer_state_cmp(state, LNUM));
+    rgblight_set_layer_state(3, layer_state_cmp(state, LMOV));
+    rgblight_set_layer_state(4, layer_state_cmp(state, LSYM));
+    rgblight_set_layer_state(5, layer_state_cmp(state, LFUN));
+    rgblight_set_layer_state(6, layer_state_cmp(state, LMSE));
     return state;
 }
 /*******************************************************************************
@@ -342,7 +312,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
-
+#if 0
 void render_bootmagic_status(bool status) {
     /* Show Ctrl-Gui Swap options */
     static const char PROGMEM logo[][2][3] = {
@@ -357,7 +327,7 @@ void render_bootmagic_status(bool status) {
         oled_write_ln_P(logo[1][1], false);
     }
 }
-
+#endif
 /*
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);

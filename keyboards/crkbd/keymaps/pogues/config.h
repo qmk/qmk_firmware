@@ -25,8 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 
 #define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
 
 // for the following options look at https://precondition.github.io/home-row-mods
 
@@ -36,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // the following removes auto repeat on keys, but allows a key to be tapped then immediately
 // held to activate the modifier.  (without this tap and hold would autorepeat)
-//#define TAPPING_FORCE_HOLD
+#define TAPPING_FORCE_HOLD
 
 // permissive hold means D(a), D(b), U(b), U(a) will always emit the modified version of b,
 // without this if the above is within tapping tarm you get ab instead.
@@ -50,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define CAPS_WORD_IDLE_TIMEOUT 5000
 
 // set the leader key timeout
-#define LEADER_TIMEOUT 300
+#define LEADER_TIMEOUT 400
 // leader timeout is for the whole sequence by default.  to have it per key set:
 // #define LEADER_PER_KEY_TIMING
 
