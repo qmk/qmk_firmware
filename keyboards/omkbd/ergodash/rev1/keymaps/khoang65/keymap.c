@@ -200,7 +200,7 @@ void ldr_send_quotesingle_cursor_wrap(void) {
 
 /* "▌" */
 void ldr_send_quotedouble_cursor_wrap(void) {
-    SEND_STRING("""" SS_TAP(X_LEFT));
+    SEND_STRING("\"\"" SS_TAP(X_LEFT));
 }
 
 LEADER_EXTERNS(); // Keep this line above matrix_scan_user
