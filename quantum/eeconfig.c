@@ -81,6 +81,10 @@ void eeconfig_init_quantum(void) {
     // properly re-initialized.
     via_eeprom_set_valid(false);
     eeconfig_init_via();
+#elif defined(XAP_ENABLE)
+    // TODO: define XAP reset behaviour
+    void dynamic_keymap_reset(void);
+    dynamic_keymap_reset();
 #endif
 
     eeconfig_init_kb();
