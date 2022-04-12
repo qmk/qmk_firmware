@@ -134,9 +134,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------------------------.                              ,-----------------------------------------------------------.
    * | Esc     | !       | @       | #       | $       | %       |---------.          ,---------| ^       | &       | Num Lk  | *       | /       | -       |
    * |---------+---------+---------+---------+---------+---------| {[      |          | }]      |---------+---------+---------+---------+---------+---------|
-   * | Tab     |         |         |         |         |         |---------|          |---------|         | &7      | *8      | (9      | +       | TRNS    |
-   * |---------+---------+---------+---------+---------+---------|         |          | +=      |---------+---------+---------+---------+---------+---------|
-   * | ~`      |         |         |         |         |         |---------|          |---------|         | $4      | %5      | ^6      | .       | =+      |
+   * | Tab     |         |         |         |         | RGB_HUI |---------|          |---------|         | &7      | *8      | (9      | +       | TRNS    |
+   * |---------+---------+---------+---------+---------+---------| RGB_TOG |          | +=      |---------+---------+---------+---------+---------+---------|
+   * | ~`      |         |         |         |         | RGB_HUD |---------|          |---------|         | $4      | %5      | ^6      | .       | =+      |
    * |---------+---------+---------+---------+---------+---------| Meh()   |          | |\      |---------+---------+---------+---------+---------|---------|
    * | LShift  |         |         |         |         |         |---------'          `---------|         | !1      | @2      | #3      | =       | RShift  |
    * |---------+---------+---------+-----------------------------'                              `-----------------------------+---------+---------+---------|
@@ -150,8 +150,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */     
 	[4] = LAYOUT_4key_2u_inner(
       KC_ESC,  KC_EXLM,   KC_AT,    KC_HASH,   KC_DLR,   KC_PERC, KC_LBRC,             KC_RBRC,  KC_CIRC,  KC_AMPR,  KC_NLCK,  KC_PAST,  KC_PSLS,  KC_PMNS, 
-      KC_TAB,  KC_NO,     KC_NO,    KC_NO,     KC_NO,    KC_NO,   KC_NO,               KC_EQL,   KC_NO,    KC_7,     KC_8,     KC_9,     KC_PPLS,  KC_TRNS, 
-      KC_GRV,  KC_NO,     KC_NO,    KC_NO,     KC_NO,    KC_NO,   MEH(KC_NO),          KC_BSLS,  KC_NO,    KC_4,     KC_5,     KC_6,     KC_PCMM,  KC_QUOT,
+      KC_TAB,  KC_NO,     KC_NO,    KC_NO,     KC_NO,    RGB_HUI, RGB_TOG,               KC_EQL,   KC_NO,    KC_7,     KC_8,     KC_9,     KC_PPLS,  KC_TRNS, 
+      KC_GRV,  KC_NO,     KC_NO,    KC_NO,     KC_NO,    RGB_HUD, MEH(KC_NO),          KC_BSLS,  KC_NO,    KC_4,     KC_5,     KC_6,     KC_PCMM,  KC_QUOT,
       KC_LSFT, KC_NO,     KC_NO,    KC_NO,     KC_NO,    KC_NO,   C_S_T(KC_NO),        KC_NO,    KC_P0,    KC_1,     KC_2,     KC_3,     KC_PEQL,  KC_RSFT, 
       KC_LCTL, KC_F13,    KC_NO,    KC_LALT,   KC_SPC,   KC_DEL,  KC_F14,              MO(2),    KC_ENT,   KC_BSPC,  KC_PDOT,  KC_INS,   KC_NO,    TO(0)
       ),
