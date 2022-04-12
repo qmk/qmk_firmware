@@ -6,4 +6,6 @@
 #include <stdbool.h>
 #include "action.h"
 
+bool preprocess_secure(uint16_t keycode, keyrecord_t *record);
+
 bool process_secure(uint16_t keycode, keyrecord_t *record);
