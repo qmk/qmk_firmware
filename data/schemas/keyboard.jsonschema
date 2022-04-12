@@ -244,6 +244,30 @@
                 }
             }
         },
+        "secure": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "unlock_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "idle_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "unlock_sequence": {
+                    "type": "array",
+                    "minLength": 1,
+                    "maxLength": 5,
+                    "items": {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": {
+                            "type": "number",
+                            "min": 0,
+                            "multipleOf": 1
+                        }
+                    }
+                }
+            }
+        },
         "split": {
             "type": "object",
             "additionalProperties": false,
