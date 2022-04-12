@@ -15,7 +15,9 @@
 #ifndef SECURE_UNLOCK_SEQUENCE
 #    define SECURE_UNLOCK_SEQUENCE \
         {                          \
-            { 0, 0 }               \
+            {0, 0}, {              \
+                0, 1               \
+            }                      \
         }
 #endif
 
@@ -51,12 +53,17 @@ void secure_activity_event(void) {
 
 void secure_keypress_event(uint8_t row, uint8_t col) {
     static const uint8_t sequence[][2] = SECURE_UNLOCK_SEQUENCE;
+    static const uint8_t sequence_len  = sizeof(sequence) / sizeof(sequence[0]);
 
-    // TODO: check keypress is actually part of unlock sequence
-    uint8_t offset = 0;
+    static uint8_t offset = 0;
     if ((sequence[offset][0] == row) && (sequence[offset][1] == col)) {
-        secure_unlock();
+        offset++;
+        if (offset == sequence_len) {
+            offset = 0;
+            secure_unlock();
+        }
     } else {
+        offset = 0;
         secure_lock();
     }
 }
