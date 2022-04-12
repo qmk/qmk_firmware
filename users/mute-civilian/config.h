@@ -68,6 +68,7 @@
 #define DESK_R      RCTL(KC_RIGHT)
 #define DESKTOP     KC_F11
 #define MISSION     RCTL(KC_UP)
+
 /* Amethyst */
 #define AM_1       KC_F4
 #define AM_2       KC_F2
@@ -96,3 +97,7 @@
 #define MUTE_MIC   LGUI(KC_D)
 #define MUTE_CAM   LGUI(KC_E)
 #define RAZ_HAND   LCTL(LGUI(KC_H))
+
+/* Slack */
+#define TOG_RSBR   LGUI(KC_DOT)
+#define THREADS    LSFT(LGUI(KC_T))

@@ -23,10 +23,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_charybdis_3x5(
-    _______ , KC_F6   , ALT_U   , _______ , _______ ,                    GUI_L      , KC_HOME , KC_END     , GUI_R , _______ ,
-    _______ , WEB_B   , ALT_D   , WEB_F   , _______ ,                    LEFT       , KC_DOWN , KC_UP      , RIGHT , _______ ,
-    _______ , _______ , _______ , _______ , _______ ,                    ALT_L      , _______ , _______    , ALT_R , _______ ,
-                        _______ , KC_NO   , _______ ,                    SCREEN_CAP , _______
+    _______ , KC_F6   , ALT_U   , _______ , _______  ,                    GUI_L      , KC_HOME , KC_END     , GUI_R , _______ ,
+    _______ , WEB_B   , ALT_D   , WEB_F   , _______  ,                    LEFT       , KC_DOWN , KC_UP      , RIGHT , _______ ,
+    _______ , _______ , _______ , _______ , _______  ,                    ALT_L      , _______ , _______    , ALT_R , _______ ,
+                        THREADS , KC_NO   , TOG_RSBR ,                    SCREEN_CAP , _______
   ),
 
   [_SYMBOLS] = LAYOUT_charybdis_3x5(
