@@ -9,6 +9,10 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Helpers
 
+// Mark certain types that there should be no padding bytes between members.
+#define QP_PACKED __attribute__((packed))
+
+// Min/max defines
 #define QP_MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 #define QP_MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 

@@ -30,7 +30,7 @@ typedef struct __attribute__((packed)) qff_font_descriptor_v1_t {
     uint8_t               line_height;         // glyph height in pixels
     bool                  has_ascii_table;     // whether the font has an ascii table of glyphs (0x20...0x7E)
     uint16_t              num_unicode_glyphs;  // the number of glyphs in the unicode table -- no table specified if zero
-    qp_image_format_t     format;              // Frame format, see qp.h.
+    qp_image_format_t     format : 8;          // Frame format, see qp.h.
     uint8_t               flags;               // frame flags, see below.
     uint8_t               compression_scheme;  // compression scheme, see below.
     uint8_t               transparency_index;  // palette index used for transparent pixels (not yet implemented)

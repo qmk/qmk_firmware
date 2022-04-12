@@ -37,6 +37,7 @@ Hardware supported:
 | `QUANTUM_PAINTER_LOAD_FONTS_TO_RAM`     | `FALSE` | Whether or not fonts should be loaded to RAM. Relevant for fonts stored in off-chip persistent storage, such as external flash.             |
 | `QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE`   | `32`    | The limit of the amount of pixel data that can be transmitted in one transaction to the display. Higher values require more RAM on the MCU. |
 | `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`  | `FALSE` | If 256-color palettes are supported. Requires significantly more RAM on the MCU.                                                            |
+| `QUANTUM_PAINTER_DEBUG`                 | _unset_ | Prints out significant amounts of debugging information to CONSOLE output. Significant performance degradation, use only for debugging.     |
 
 Drivers have their own set of configurable options, and are described in their respective sections.
 

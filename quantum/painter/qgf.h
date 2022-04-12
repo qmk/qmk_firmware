@@ -64,12 +64,12 @@ _Static_assert(sizeof(qgf_frame_offsets_v1_t) == sizeof(qgf_block_header_v1_t), 
 #define QGF_FRAME_DESCRIPTOR_TYPEID 0x02
 
 typedef struct QP_PACKED qgf_frame_v1_t {
-    qgf_block_header_v1_t header;             // = { .type_id = 0x02, .neg_type_id = (~0x02), .length = 6 }
-    qp_image_format_t     format;             // Frame format, see qp.h.
-    uint8_t               flags;              // Frame flags, see below.
-    painter_compression_t compression_scheme; // Compression scheme, see qp.h.
-    uint8_t               transparency_index; // palette index used for transparent pixels (not yet implemented)
-    uint16_t              delay;              // frame delay time for animations (in units of milliseconds)
+    qgf_block_header_v1_t header;                 // = { .type_id = 0x02, .neg_type_id = (~0x02), .length = 6 }
+    qp_image_format_t     format : 8;             // Frame format, see qp.h.
+    uint8_t               flags;                  // Frame flags, see below.
+    painter_compression_t compression_scheme : 8; // Compression scheme, see qp.h.
+    uint8_t               transparency_index;     // palette index used for transparent pixels (not yet implemented)
+    uint16_t              delay;                  // frame delay time for animations (in units of milliseconds)
 } qgf_frame_v1_t;
 
 _Static_assert(sizeof(qgf_frame_v1_t) == (sizeof(qgf_block_header_v1_t) + 6), "qgf_frame_v1_t must be 11 bytes in v1 of QGF");
