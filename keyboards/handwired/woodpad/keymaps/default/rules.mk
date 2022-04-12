@@ -1,0 +1,2 @@
+CONSOLE_ENABLE = no
+NKRO_ENABLE = yes

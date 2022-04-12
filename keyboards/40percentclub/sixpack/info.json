@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Six Pack",
+    "manufacturer": "di0ib",
+    "url": "https://www.40percent.club/2017/05/six-pack-11.html",
+    "maintainer": "qmk",
+    "usb": {
+      "vid": "0x4025",
+      "pid": "0x5350",
+      "device_version": "10.0.1"
+    },
+    "layouts": {
+        "LAYOUT_ortho_2x3": {
+          "layout": [
+                {"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0},
+                {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}
+          ]
+        }
+    }
+}

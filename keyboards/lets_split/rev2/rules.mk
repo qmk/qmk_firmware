@@ -1,5 +1,2 @@
-BACKLIGHT_ENABLE = no
-
-ifndef QUANTUM_DIR
-	include ../../../Makefile
-endif
+# Disable unsupported hardware
+AUDIO_SUPPORTED = no

@@ -1,0 +1,1 @@
+QWIIC_ENABLE = no

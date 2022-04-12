@@ -1,13 +1,11 @@
-#ifndef LETS_SPLIT_H
-#define LETS_SPLIT_H
-
-#ifdef SUBPROJECT_rev1
-    #include "rev1.h"
-#endif
-#ifdef SUBPROJECT_rev2
-    #include "rev2.h"
-#endif
+#pragma once
 
 #include "quantum.h"
 
+#ifdef KEYBOARD_lets_split_rev1
+    #include "rev1.h"
+#elif KEYBOARD_lets_split_rev2
+    #include "rev2.h"
+#elif KEYBOARD_lets_split_sockets
+    #include "sockets.h"
 #endif

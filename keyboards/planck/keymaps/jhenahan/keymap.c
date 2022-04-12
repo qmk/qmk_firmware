@@ -1,12 +1,5 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
 
-#include "planck.h"
-#include "action_layer.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -33,10 +26,6 @@ enum planck_keycodes {
   TOG_PLV
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
@@ -51,12 +40,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | RAlt | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_WORKMAN] = {
-  {KC_TAB,              KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC},
-  {MT(MOD_LCTL,KC_ESC), KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT},
-  {KC_LSFT,             KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    DEAD,    KC_DOT,  KC_SLSH, KC_ENT},
-  {KC_LCTL,             KC_RALT, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
-},
+[_WORKMAN] = LAYOUT_planck_grid(
+  KC_TAB,              KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC,
+  MT(MOD_LCTL,KC_ESC), KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT,
+  KC_LSFT,             KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    DEAD,    KC_DOT,  KC_SLSH, KC_ENT,
+  KC_LCTL,             KC_RALT, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
 
 /* Workman Dead Layer
  * ,-----------------------------------------------------------------------------------.
@@ -69,12 +58,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |   <  |   ~  |   `  |      ,      |   #  |   ^  |   >  |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_DEAD] = {
-  {XXXXXXX,  KC_PERC, KC_AMPR, KC_QUES, KC_PLUS, KC_AT,   KC_DLR,  KC_UNDS, KC_LBRC, KC_RBRC,  KC_EXLM, XXXXXXX},
-  {XXXXXXX,  KC_SLSH, KC_LPRN, KC_EQL,  KC_0,    KC_LCBR, KC_RCBR, KC_1,    KC_ASTR, KC_RPRN,  KC_MINS, XXXXXXX},
-  {XXXXXXX,  KC_6,    KC_7,    KC_8,    KC_9,    KC_PIPE, KC_BSLS, KC_2,    KC_3,    KC_4,     KC_5,    XXXXXXX},
-  {XXXXXXX,  XXXXXXX, KC_LT,   KC_TILD, KC_GRV,  KC_COMM, KC_COMM, KC_HASH, KC_CIRC, KC_GT,    XXXXXXX, XXXXXXX}
-},
+[_DEAD] = LAYOUT_planck_grid(
+  XXXXXXX,  KC_PERC, KC_AMPR, KC_QUES, KC_PLUS, KC_AT,   KC_DLR,  KC_UNDS, KC_LBRC, KC_RBRC,  KC_EXLM, XXXXXXX,
+  XXXXXXX,  KC_SLSH, KC_LPRN, KC_EQL,  KC_0,    KC_LCBR, KC_RCBR, KC_1,    KC_ASTR, KC_RPRN,  KC_MINS, XXXXXXX,
+  XXXXXXX,  KC_6,    KC_7,    KC_8,    KC_9,    KC_PIPE, KC_BSLS, KC_2,    KC_3,    KC_4,     KC_5,    XXXXXXX,
+  XXXXXXX,  XXXXXXX, KC_LT,   KC_TILD, KC_GRV,  KC_COMM, KC_COMM, KC_HASH, KC_CIRC, KC_GT,    XXXXXXX, XXXXXXX
+),
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
@@ -87,12 +76,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | RAlt | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_QWERTY] = {
-  {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {KC_LCTL, KC_RALT, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
-},
+[_QWERTY] = LAYOUT_planck_grid(
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
+  KC_LCTL, KC_RALT, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -105,12 +94,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      | Prev | Next | Vol- | Play |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC},
-  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS), _______, KC_VOLU, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_MPRV,    KC_MNXT, KC_VOLD, KC_MPLY}
-},
+[_LOWER] = LAYOUT_planck_grid(
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC,
+  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE,
+  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS), _______, KC_VOLU, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_MPRV,    KC_MNXT, KC_VOLD, KC_MPLY
+),
 
 /* Raise - KWM Interaction
  * ,-----------------------------------------------------------------------------------.
@@ -123,12 +112,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_RAISE] = {
-  {LCAG(KC_Q), XXXXXXX,    LCAG(KC_S),       LCAG(KC_W),   LCAG(KC_D), LCAG(KC_F),        LCTL(S(KC_X)),    LCTL(S(KC_H)),    LCTL(S(KC_J)),     LCTL(S(KC_K)),    LCTL(S(KC_L)),    XXXXXXX},
-  {XXXXXXX,    LCAG(KC_M), LGUI(LCTL(KC_R)), LCAG(KC_DOT), LCAG(KC_T), LGUI(LCTL(KC_A)),  LCTL(LALT(KC_M)), LCTL(LALT(KC_H)), LCTL(LALT(KC_J)),  LCTL(LALT(KC_K)), LCTL(LALT(KC_L)), XXXXXXX},
-  {_______,    LCAG(KC_H), LCAG(KC_J),       LCAG(KC_K),   LCAG(KC_L), LGUI(LCTL(KC_S)),  LGUI(LCTL(KC_D)), LGUI(LALT(KC_H)), LGUI(LALT(KC_J)),  LGUI(LALT(KC_K)), LGUI(LALT(KC_L)), _______},
-  {_______,    _______,    _______,          _______,      _______,    _______,           _______,          _______,          _______,           _______,          _______,          _______}
-},
+[_RAISE] = LAYOUT_planck_grid(
+  LCAG(KC_Q), XXXXXXX,    LCAG(KC_S),       LCAG(KC_W),   LCAG(KC_D), LCAG(KC_F),        LCTL(S(KC_X)),    LCTL(S(KC_H)),    LCTL(S(KC_J)),     LCTL(S(KC_K)),    LCTL(S(KC_L)),    XXXXXXX,
+  XXXXXXX,    LCAG(KC_M), LGUI(LCTL(KC_R)), LCAG(KC_DOT), LCAG(KC_T), LGUI(LCTL(KC_A)),  LCTL(LALT(KC_M)), LCTL(LALT(KC_H)), LCTL(LALT(KC_J)),  LCTL(LALT(KC_K)), LCTL(LALT(KC_L)), XXXXXXX,
+  _______,    LCAG(KC_H), LCAG(KC_J),       LCAG(KC_K),   LCAG(KC_L), LGUI(LCTL(KC_S)),  LGUI(LCTL(KC_D)), LGUI(LALT(KC_H)), LGUI(LALT(KC_J)),  LGUI(LALT(KC_K)), LGUI(LALT(KC_L)), _______,
+  _______,    _______,    _______,          _______,      _______,    _______,           _______,          _______,          _______,           _______,          _______,          _______
+),
 
 /* Plover layer (http://opensteno.org)
  * ,-----------------------------------------------------------------------------------.
@@ -142,12 +131,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 
-[_PLOVER] = {
-  {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
-  {XXXXXXX, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC},
-  {TOG_PLV, KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT},
-  {EXT_PLV, XXXXXXX, XXXXXXX, KC_M,    KC_C,    XXXXXXX, XXXXXXX, KC_L,    KC_COMM, XXXXXXX, XXXXXXX, XXXXXXX}
-},
+[_PLOVER] = LAYOUT_planck_grid(
+  KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   ,
+  XXXXXXX, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC,
+  TOG_PLV, KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT,
+  EXT_PLV, XXXXXXX, XXXXXXX, KC_M,    KC_C,    XXXXXXX, XXXXXXX, KC_L,    KC_COMM, XXXXXXX, XXXXXXX, XXXXXXX
+),
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
@@ -160,12 +149,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = {
-  {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  WORKMAN, PLOVER,  _______, _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-}
+[_ADJUST] = LAYOUT_planck_grid(
+  _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  WORKMAN, PLOVER,  _______, _______,
+  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+)
 
 
 };
@@ -183,7 +172,7 @@ float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -193,9 +182,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case WORKMAN:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_workman, false, 0);
+          PLAY_SONG(tone_workman);
         #endif
-        persistant_default_layer_set(1UL<<_WORKMAN);
+        persistent_default_layer_set(1UL<<_WORKMAN);
       }
       return false;
       break;
@@ -210,9 +199,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+          PLAY_SONG(tone_qwerty);
         #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
+        persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
@@ -240,7 +229,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           stop_all_notes();
-          PLAY_NOTE_ARRAY(tone_plover, false, 0);
+          PLAY_SONG(tone_plover);
         #endif
         layer_off(_RAISE);
         layer_off(_LOWER);
@@ -258,7 +247,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case EXT_PLV:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
+          PLAY_SONG(tone_plover_gb);
         #endif
         layer_off(_PLOVER);
       }
@@ -291,12 +280,12 @@ void matrix_init_user(void) {
 void startup_user()
 {
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
@@ -308,7 +297,7 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_SONG(music_scale);
 }
 
 #endif

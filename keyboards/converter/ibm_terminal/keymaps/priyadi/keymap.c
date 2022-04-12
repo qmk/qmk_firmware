@@ -15,17 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "keycode.h"
-#include "print.h"
-#include "debug.h"
-#include "util.h"
-#include "ibm_terminal.h"
-#include "action_layer.h"
-
-// Fillers to make layering clearer
-
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+#include QMK_KEYBOARD_H
 
 enum layers {
   QWE, // qwerty
@@ -159,7 +149,7 @@ const uint32_t PROGMEM unicode_map[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* qwerty */
-    [QWE] = KEYMAP(
+    [QWE] = LAYOUT(
                                    KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_PSCR, KC_SLCK, KC_PAUS,
                                    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
 
@@ -171,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* colemak */
-    [COL] = KEYMAP(
+    [COL] = LAYOUT(
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 
@@ -183,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* workman */
-    [WOR] = KEYMAP(
+    [WOR] = LAYOUT(
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 
@@ -195,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* dvorak */
-    [DVO] = KEYMAP(
+    [DVO] = LAYOUT(
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 
@@ -207,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* system */
-    [SYS] = KEYMAP(
+    [SYS] = LAYOUT(
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 
@@ -219,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* mouse keys */
-    [MOU] = KEYMAP(
+    [MOU] = LAYOUT(
                                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
@@ -231,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* emoji */
-    [EMO] = KEYMAP(
+    [EMO] = LAYOUT(
                                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
@@ -243,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-    [XXX] = KEYMAP(
+    [XXX] = LAYOUT(
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 
@@ -256,7 +246,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -266,25 +256,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* layout switcher */
     case LAY_QWE:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<QWE);
+        persistent_default_layer_set(1UL<<QWE);
       }
       return false;
       break;
     case LAY_COL:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<COL);
+        persistent_default_layer_set(1UL<<COL);
       }
       return false;
       break;
     case LAY_WOR:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<WOR);
+        persistent_default_layer_set(1UL<<WOR);
       }
       return false;
       break;
     case LAY_DVO:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<DVO);
+        persistent_default_layer_set(1UL<<DVO);
       }
       return false;
       break;
