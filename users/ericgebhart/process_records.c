@@ -25,7 +25,7 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-#ifdef KEYLOGGER_ENABLE
+#ifdef OLED_CUSTOM_ENABLE
   process_record_user_oled(keycode, record);
 #endif
 

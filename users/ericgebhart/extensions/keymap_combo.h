@@ -83,9 +83,30 @@ combo_t key_combos[] = {
 #define SUBS A_ACTI
 #define TOGG A_TOGG
 void process_combo_event(uint16_t combo_index, bool pressed) {
-    switch (combo_index) {
-#include "combos.def"
+
+#if defined( CONSOLE_ENABLE) && defined(CONSOLE_KEY_LOGGER_ENABLE)
+  if (pressed) {
+    combo_t *combo = &key_combos[combo_index];
+    uint8_t idx = 0;
+    uint16_t combo_keycode;
+    while ((combo_keycode = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
+      uprintf("0x%04X,NA,NA,%u,%u,0x%02X,0x%02X,0\n",
+              combo_keycode,
+              /* <missing row information> */
+              /* <missing column information> */
+              get_highest_layer(layer_state),
+              pressed,
+              get_mods(),
+              get_oneshot_mods()
+              );
+      idx++;
     }
+  }
+#endif
+
+  switch (combo_index) {
+#include "combos.def"
+}
 
     // Allow user overrides per keymap
 #if __has_include("inject.h")
